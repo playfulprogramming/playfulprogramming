@@ -1,13 +1,13 @@
 ---
 {
-    title: "Preface",
-    description: "Learning web development is a vital skill in a software engineer's toolbox. Let's talk about why you should learn it and what this book will cover.",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 1,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Preface",
+  description: "Learning web development is a vital skill in a software engineer's toolbox. Let's talk about why you should learn it and what this book will cover.",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 1,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
 
@@ -33,7 +33,7 @@ Learning web development is a vital skill in software engineering. Even if you d
 
 What's more, there's an absolutely gargantuan job market. To quote [the U.S. Bureau of Labor Statistics](https://www.bls.gov/ooh/computer-and-information-technology/home.htm):
 
-> Employment in computer and information technology occupations is  projected to grow 13 percent from 2020 to 2030, faster than the average for all occupations. These occupations are projected to add about 667,600 new jobs. 
+> Employment in computer and information technology occupations is projected to grow 13 percent from 2020 to 2030, faster than the average for all occupations. These occupations are projected to add about 667,600 new jobs.
 >
 > [...]
 >
@@ -81,7 +81,7 @@ This isn't to say that the only reliance you have that these tools won't disappe
 
 React is built by Meta and powers all of its major applications. Moreover, the core team has started to accept external contributions in the form of feedback on the framework's development via ["working groups" consisting of subject matter experts](https://github.com/reactwg). In recent years, even [groups like Vercel have hired React core members to work on the project from outside of Meta](https://twitter.com/sebmarkbage/status/1470761453091237892).
 
-However, when most mention "React," they tend to talk about the React ecosystem at large. See, the core maintainers of React itself tend to remain focused on a small subsection of tooling. Instead, they rely on external groups, like [Remix](https://reactrouter.com/) and [Vercel](https://nextjs.org/), to provide libraries that are often integral to application development.   
+However, when most mention "React," they tend to talk about the React ecosystem at large. See, the core maintainers of React itself tend to remain focused on a small subsection of tooling. Instead, they rely on external groups, like [Remix](https://reactrouter.com/) and [Vercel](https://nextjs.org/), to provide libraries that are often integral to application development.
 
 On the other hand, Angular is fully funded and supported by Google. They build a substantial portion of their major websites on top of the framework and, as a result, have a vested interest in continuing and upkeeping development. Continuing the differences from React, the Angular core team maintains a slew of helper libraries that provide everything from an [HTTP call layer](https://angular.io/guide/http) to [form validation](https://angular.io/guide/forms-overview).
 
@@ -93,7 +93,7 @@ Like Angular, the Vue core team consists of groups that work on a broad set of t
 
 While there's the obvious answer of "it broadens the types of work you're able to do," there are more reasons than that to learn more than one framework at a time.
 
-In particular, each framework comes with its own restrictions, rules, and best practices. These rules and restrictions can help you understand a different way of coding that often transfers to the other frameworks. 
+In particular, each framework comes with its own restrictions, rules, and best practices. These rules and restrictions can help you understand a different way of coding that often transfers to the other frameworks.
 
 For example, Angular focuses on object-oriented programming while the React ecosystem favors functional programming. While it's not immediately important what each of these means, they allow you to do many of the same things in different ways and have different pros and cons.
 
@@ -102,7 +102,6 @@ Because of this, once you have a higher mastery skill with each, you can pick an
 Beyond this, it's important to remember that these three frameworks are not the only choices on the table in web development. Svelte is an alternative that's been gaining tremendous traction, for example. While it differs even more from the three options we're learning, Svelte still shares many of the foundations of React, Angular, and Vue.
 
 This knowledge transfer doesn't stop at JavaScript or web development, either. The more you learn about any aspect of programming can be used to utilize the same procedures in other languages or types of programming. Many of the APIs I've used in web development was also valuable when doing engineering work with native languages.
-
 
 ### Will these tools stick around?
 
@@ -120,7 +119,6 @@ Additionally, from a cultural standpoint, many developers are also tired of swit
 
 Just because a tool is new doesn't mean that it's inherently better; even better perceived tools may not be selected for various reasons.
 
-
 # What will we be learning?
 
 As mentioned earlier, we will be learning React, Angular, and Vue from an introductory place, all the way to understanding the inner workings of these frameworks.
@@ -137,7 +135,7 @@ In fact, I will do my best to link out to anything that's expected to be known o
 
 ## What aren't we learning?
 
-Before taking a look at some specifics of what we'll be learning, **let's talk about what we won't be spending dedicated time learning in this series**: 
+Before taking a look at some specifics of what we'll be learning, **let's talk about what we won't be spending dedicated time learning in this series**:
 
 - Standalone JavaScript APIs
 - CSS
@@ -147,7 +145,7 @@ Before taking a look at some specifics of what we'll be learning, **let's talk a
 
 All of these are broad concepts in their own right and have a plethora of content capable of hosting their own books. After all, resources without a properly defined scope run into challenges of surface-level explanations, jarring transitions, and even delayed publications.
 
-> Remember, knowledge is like a web - these topics intersect in messy and complex ways! It's okay to take your time to learn these or even limit your learning scope to remain focused on a specific subset of knowledge. Nobody knows each and all of these perfectly, and that's okay! 
+> Remember, knowledge is like a web - these topics intersect in messy and complex ways! It's okay to take your time to learn these or even limit your learning scope to remain focused on a specific subset of knowledge. Nobody knows each and all of these perfectly, and that's okay!
 
 Once again, however, if any of these topics become relevant in the book, we'll link out to resources that will help you explore more and broaden your knowledge base.
 
@@ -179,6 +177,7 @@ With the understanding of what we won't be looking at out of the way, **let's ta
 - [What "dependency injection" is](https://crutchcorn-book.vercel.app/posts/dependency-injection) <!-- Dependency injection -->
 - How to share component logic between components <!-- Shared component logic -->
 - [What a "directive" is](https://crutchcorn-book.vercel.app/posts/directives) <!-- Directives -->
+
   - How to associate sharable code logic with DOM nodes
 
 - How to control where parts of your app show up <!-- Portals -->
@@ -235,7 +234,7 @@ When Angular was first released it launched with [the concept of NgModules](http
 
 While these modules worked, they were mostly dissimilar from alternatives in other related frameworks like React and Vue. Further, a common complaint against them is that they were overly complicated with minimal yeild.
 
-[Starting with an experimental release in Angular 14](https://github.com/angular/angular/discussions/45554) (and [being marked as stable in Angular 15](https://blog.angular.io/angular-v15-is-now-available-df7be7f2f4c8)), Angular introduced the "standalone components" API. This was a more similar method of importing similar UI elements into one-another and is what our book will be using. 
+[Starting with an experimental release in Angular 14](https://github.com/angular/angular/discussions/45554) (and [being marked as stable in Angular 15](https://blog.angular.io/angular-v15-is-now-available-df7be7f2f4c8)), Angular introduced the "standalone components" API. This was a more similar method of importing similar UI elements into one-another and is what our book will be using.
 
 > Keep in mind that if you're working with an older Angular codebase, it's likely to still be using modules.
 
@@ -244,13 +243,13 @@ While these modules worked, they were mostly dissimilar from alternatives in oth
 HTML supports self-closing tags on some elements that don't contain children:
 
 ```html
-<input/>
+<input />
 ```
 
 Similarly, Angular 15.1 introduced a method for using self-closing tags with components selectors:
 
 ```html
-<component/>
+<component />
 <!-- vs. <component></component> -->
 ```
 
@@ -276,13 +275,13 @@ Vue has two different ways of writing code: The "Options" API and the "Compositi
 
 While the "Options" API has been around for longer and is more similar to Angular's classes, **this book will be using Vue's "Composition API"**. This is for a few reasons:
 
-1) The Composition API is newer and seemingly favored over the Options API for new applications.
-2) The Composition API shares a bit of DNA with React's Hooks, which makes explaining some of the cross-framework concepts easier.
-3) The Composition API is relatively trivial to learn once you have a strong grasp of the Options API.
-4) Their documentation does a good job at providing code samples in both Options API and Composition API - allowing you to learn both even easier.
-5) [Evan You, the project's creator and lead maintainer, told me to.](https://twitter.com/youyuxi/status/1545281276856262656?s=20&t=ZBooorTRi6dYR1h_VVbu1A) 😝
+1. The Composition API is newer and seemingly favored over the Options API for new applications.
+2. The Composition API shares a bit of DNA with React's Hooks, which makes explaining some of the cross-framework concepts easier.
+3. The Composition API is relatively trivial to learn once you have a strong grasp of the Options API.
+4. Their documentation does a good job at providing code samples in both Options API and Composition API - allowing you to learn both even easier.
+5. [Evan You, the project's creator and lead maintainer, told me to.](https://twitter.com/youyuxi/status/1545281276856262656?s=20&t=ZBooorTRi6dYR1h_VVbu1A) 😝
 
-Similarly, this book will not cover [Vue's other upcoming compiler-based syntax choice, the upcoming `$ref` sugar](https://github.com/vuejs/rfcs/discussions/369). However, a the "Internals" book in this book series will walk you through all of these different APIs, why they exist, and how they build on-top of one-another. 
+Similarly, this book will not cover [Vue's other upcoming compiler-based syntax choice, the upcoming `$ref` sugar](https://github.com/vuejs/rfcs/discussions/369). However, a the "Internals" book in this book series will walk you through all of these different APIs, why they exist, and how they build on-top of one-another.
 
 #### We're using SFCs
 
@@ -293,7 +292,5 @@ Vue is a highly flexible framework and, as a result, allows you to define compon
 While the "Internals" book (the third in the series) will introduce the other methods and how they work under-the-hood, SFCs are commonly used as the de-facto method of creating Vue components for most applications.
 
 <!-- tabs:end -->
-
-
 
 Without further ado, let's get started.

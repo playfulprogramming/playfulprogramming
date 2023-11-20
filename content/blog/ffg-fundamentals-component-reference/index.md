@@ -1,17 +1,17 @@
 ---
 {
-    title: "Component Reference",
-    description: "While you usually want to pass data to child components, sometimes you need to access arbitrary data from the child without needing to explicitly pass the data.",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 9,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Component Reference",
+  description: "While you usually want to pass data to child components, sometimes you need to access arbitrary data from the child without needing to explicitly pass the data.",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 9,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
 
-In our previous chapter, we build context menu functionality into our `App` component. This functionality allowed us to right-click on an element and get a list of actions we could take. 
+In our previous chapter, we build context menu functionality into our `App` component. This functionality allowed us to right-click on an element and get a list of actions we could take.
 
 ![// TODO: Add alt](../ffg-fundamentals-element-reference/context-close.png)
 
@@ -25,71 +25,71 @@ Let's fix this by moving our context menu code into it's own component. This way
 
 ```jsx {0-12}
 const ContextMenu = ({ isOpen, x, y, onClose }) => {
-  const [contextMenu, setContextMenu] = useState();
+	const [contextMenu, setContextMenu] = useState();
 
-  useEffect(() => {
-    if (!contextMenu) return;
-    const closeIfOutsideOfContext = (e) => {
-      const isClickInside = contextMenu.contains(e.target);
-      if (isClickInside) return;
-      onClose(false);
-    };
-    document.addEventListener('click', closeIfOutsideOfContext);
-    return () => document.removeEventListener('click', closeIfOutsideOfContext);
-  }, [contextMenu]);
+	useEffect(() => {
+		if (!contextMenu) return;
+		const closeIfOutsideOfContext = (e) => {
+			const isClickInside = contextMenu.contains(e.target);
+			if (isClickInside) return;
+			onClose(false);
+		};
+		document.addEventListener("click", closeIfOutsideOfContext);
+		return () => document.removeEventListener("click", closeIfOutsideOfContext);
+	}, [contextMenu]);
 
-  if (!isOpen) return null;
+	if (!isOpen) return null;
 
-  return (
-    <div
-      ref={(el) => setContextMenu(el)}
-      tabIndex={0}
-      style={{
-        position: 'fixed',
-        top: y,
-        left: x,
-        background: 'white',
-        border: '1px solid black',
-        borderRadius: 16,
-        padding: '1rem',
-      }}
-    >
-      <button onClick={() => onClose()}>X</button>
-      This is a context menu
-    </div>
-  );
+	return (
+		<div
+			ref={(el) => setContextMenu(el)}
+			tabIndex={0}
+			style={{
+				position: "fixed",
+				top: y,
+				left: x,
+				background: "white",
+				border: "1px solid black",
+				borderRadius: 16,
+				padding: "1rem",
+			}}
+		>
+			<button onClick={() => onClose()}>X</button>
+			This is a context menu
+		</div>
+	);
 };
 
 export default function App() {
-  const [mouseBounds, setMouseBounds] = useState({
-    x: 0,
-    y: 0,
-  });
+	const [mouseBounds, setMouseBounds] = useState({
+		x: 0,
+		y: 0,
+	});
 
-  const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
-  function onContextMenu(e) {
-    e.preventDefault();
-    setIsOpen(true);
-    setMouseBounds({
-      x: e.clientX,
-      y: e.clientY,
-    });
-  }
+	function onContextMenu(e) {
+		e.preventDefault();
+		setIsOpen(true);
+		setMouseBounds({
+			x: e.clientX,
+			y: e.clientY,
+		});
+	}
 
-  return (
-    <>
-      <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
-        <div onContextMenu={onContextMenu}>Right click on me!</div>
-      </div>
-      <ContextMenu
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        x={mouseBounds.x}
-        y={mouseBounds.y}
-      />
-    </>
-  );
+	return (
+		<>
+			<div style={{ marginTop: "5rem", marginLeft: "5rem" }}>
+				<div onContextMenu={onContextMenu}>Right click on me!</div>
+			</div>
+			<ContextMenu
+				isOpen={isOpen}
+				onClose={() => setIsOpen(false)}
+				x={mouseBounds.x}
+				y={mouseBounds.y}
+			/>
+		</>
+	);
 }
 ```
 
@@ -97,93 +97,97 @@ export default function App() {
 
 ```typescript {0-43}
 @Component({
-  selector: 'context-menu',
-  standalone: true,
-  imports: [NgIf],
-  template: `
-    <div
-      *ngIf="isOpen"
-      tabIndex="0"
-      #contextMenu
-      [style]="'
+	selector: "context-menu",
+	standalone: true,
+	imports: [NgIf],
+	template: `
+		<div
+			*ngIf="isOpen"
+			tabIndex="0"
+			#contextMenu
+			[style]="
+				'
         position: fixed;
-        top: ' + y + 'px;
-        left: ' + x + 'px;
+        top: ' +
+				y +
+				'px;
+        left: ' +
+				x +
+				'px;
         background: white;
         border: 1px solid black;
         border-radius: 16px;
         padding: 1rem;
-      '"
-    >
-      <button (click)="close.emit()">X</button>
-      This is a context menu
-    </div>
-  `,
+      '
+			"
+		>
+			<button (click)="close.emit()">X</button>
+			This is a context menu
+		</div>
+	`,
 })
 class ContextMenuComponent implements AfterViewInit, OnDestroy {
-  @ViewChildren('contextMenu') contextMenu: QueryList<ElementRef<HTMLElement>>;
+	@ViewChildren("contextMenu") contextMenu: QueryList<ElementRef<HTMLElement>>;
 
-  @Input() isOpen: boolean;
-  @Input() x: number;
-  @Input() y: number;
+	@Input() isOpen: boolean;
+	@Input() x: number;
+	@Input() y: number;
 
-  @Output() close = new EventEmitter();
+	@Output() close = new EventEmitter();
 
-  closeIfOutsideOfContext = (e: MouseEvent) => {
-    const contextMenuEl = this.contextMenu?.first?.nativeElement;
-    if (!contextMenuEl) return;
-    const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
-    if (isClickInside) return;
-    this.close.emit();
-  };
+	closeIfOutsideOfContext = (e: MouseEvent) => {
+		const contextMenuEl = this.contextMenu?.first?.nativeElement;
+		if (!contextMenuEl) return;
+		const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
+		if (isClickInside) return;
+		this.close.emit();
+	};
 
-  ngAfterViewInit() {
-    document.addEventListener('click', this.closeIfOutsideOfContext);
-  }
+	ngAfterViewInit() {
+		document.addEventListener("click", this.closeIfOutsideOfContext);
+	}
 
-  ngOnDestroy() {
-    document.removeEventListener('click', this.closeIfOutsideOfContext);
-  }
+	ngOnDestroy() {
+		document.removeEventListener("click", this.closeIfOutsideOfContext);
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NgIf, ContextMenuComponent],
-  template: `
-    <div style="margin-top: 5rem; margin-left: 5rem">
-      <div #contextOrigin (contextmenu)="open($event)">
-        Right click on me!
-      </div>
-    </div>
-    <context-menu
-      (close)="close()"
-      [isOpen]="isOpen"
-      [x]="mouseBounds.x"
-      [y]="mouseBounds.y"
-    />
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [NgIf, ContextMenuComponent],
+	template: `
+		<div style="margin-top: 5rem; margin-left: 5rem">
+			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
+		</div>
+		<context-menu
+			(close)="close()"
+			[isOpen]="isOpen"
+			[x]="mouseBounds.x"
+			[y]="mouseBounds.y"
+		/>
+	`,
 })
 class AppComponent {
-  isOpen = false;
+	isOpen = false;
 
-  mouseBounds = {
-    x: 0,
-    y: 0,
-  };
+	mouseBounds = {
+		x: 0,
+		y: 0,
+	};
 
-  close() {
-    this.isOpen = false;
-  }
+	close() {
+		this.isOpen = false;
+	}
 
-  open(e: MouseEvent) {
-    e.preventDefault();
-    this.isOpen = true;
-    this.mouseBounds = {
-      x: e.clientX,
-      y: e.clientY,
-    };
-  }
+	open(e: MouseEvent) {
+		e.preventDefault();
+		this.isOpen = true;
+		this.mouseBounds = {
+			x: e.clientX,
+			y: e.clientY,
+		};
+	}
 }
 ```
 
@@ -192,37 +196,37 @@ class AppComponent {
 ```vue
 <!-- ContextMenu.vue -->
 <script setup>
-  import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from "vue";
 
-  const props = defineProps(['isOpen', 'x', 'y'])
+const props = defineProps(["isOpen", "x", "y"]);
 
-  const emit = defineEmits(['close'])
+const emit = defineEmits(["close"]);
 
-  const contextMenuRef = ref(null)
+const contextMenuRef = ref(null);
 
-  function closeIfOutside(e) {
-    const contextMenuEl = contextMenuRef.value
-    if (!contextMenuEl) return
-    const isClickInside = contextMenuEl.contains(e.target)
-    if (isClickInside) return
-    emit('close')
-  }
+function closeIfOutside(e) {
+	const contextMenuEl = contextMenuRef.value;
+	if (!contextMenuEl) return;
+	const isClickInside = contextMenuEl.contains(e.target);
+	if (isClickInside) return;
+	emit("close");
+}
 
-  onMounted(() => {
-    document.addEventListener('click', closeIfOutside)
-  })
+onMounted(() => {
+	document.addEventListener("click", closeIfOutside);
+});
 
-  onUnmounted(() => {
-    document.removeEventListener('click', closeIfOutside)
-  })
+onUnmounted(() => {
+	document.removeEventListener("click", closeIfOutside);
+});
 </script>
 
 <template>
-  <div
-    v-if="props.isOpen"
-    ref="contextMenuRef"
-    tabIndex="0"
-    :style="`
+	<div
+		v-if="props.isOpen"
+		ref="contextMenuRef"
+		tabIndex="0"
+		:style="`
       position: fixed;
       top: ${props.y}px;
       left: ${props.x}px;
@@ -231,45 +235,50 @@ class AppComponent {
       border-radius: 16px;
       padding: 1rem;
     `"
-  >
-    <button @click="emit('close')">X</button>
-    This is a context menu
-  </div>
+	>
+		<button @click="emit('close')">X</button>
+		This is a context menu
+	</div>
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { ref, onMounted, onUnmounted } from 'vue'
-  import ContextMenu from './ContextMenu.vue'
+import { ref, onMounted, onUnmounted } from "vue";
+import ContextMenu from "./ContextMenu.vue";
 
-  const isOpen = ref(false)
+const isOpen = ref(false);
 
-  const mouseBounds = ref({
-    x: 0,
-    y: 0,
-  })
+const mouseBounds = ref({
+	x: 0,
+	y: 0,
+});
 
-  const close = () => {
-    isOpen.value = false
-  }
+const close = () => {
+	isOpen.value = false;
+};
 
-  const open = (e) => {
-    e.preventDefault()
-    isOpen.value = true
-    mouseBounds.value = {
-      x: e.clientX,
-      y: e.clientY,
-    }
-  }
+const open = (e) => {
+	e.preventDefault();
+	isOpen.value = true;
+	mouseBounds.value = {
+		x: e.clientX,
+		y: e.clientY,
+	};
+};
 </script>
 
 <template>
-  <div style="margin-top: 5rem; margin-left: 5rem">
-    <div @contextmenu="open($event)">Right click on me!</div>
-  </div>
-  <ContextMenu :isOpen="isOpen" :x="mouseBounds.x" :y="mouseBounds.y" @close="close()" />
+	<div style="margin-top: 5rem; margin-left: 5rem">
+		<div @contextmenu="open($event)">Right click on me!</div>
+	</div>
+	<ContextMenu
+		:isOpen="isOpen"
+		:x="mouseBounds.x"
+		:y="mouseBounds.y"
+		@close="close()"
+	/>
 </template>
 ```
 
@@ -283,7 +292,7 @@ Why was it removed and how can we add it back?
 
 **The reason we removed the context menu's focus management is to keep the control of the context menu in the parent.**
 
-While we could have kept the `.focus()`  logic in the component using [a component side effect handler](/posts/ffg-fundamentals-side-effects), this muddies the water a bit. Ideally in a framework, **you want your parent to be in charge of the child component's behavior**. 
+While we could have kept the `.focus()` logic in the component using [a component side effect handler](/posts/ffg-fundamentals-side-effects), this muddies the water a bit. Ideally in a framework, **you want your parent to be in charge of the child component's behavior**.
 
 This allows you to re-use your context menu component in more places, should you theoretically ever want to use the component without forcing a focus change.
 
@@ -293,8 +302,8 @@ To do this, let's move the `.focus` method out of our component. Moving from thi
 /* This is valid JS, but is only psuedocode of what each framework is doing */
 // Child component
 function onComponentRender() {
-    document.addEventListener('click', closeIfOutsideOfContext);
-    contextMenu.focus();
+	document.addEventListener("click", closeIfOutsideOfContext);
+	contextMenu.focus();
 }
 
 // Parent component
@@ -310,14 +319,14 @@ To this:
 /* This is valid JS, but is only psuedocode of what each framework is doing */
 // Child component
 function onComponentRender() {
-    document.addEventListener('click', closeIfOutsideOfContext);
+	document.addEventListener("click", closeIfOutsideOfContext);
 }
 
 // Parent component
 function openContextMenu(e) {
 	e.preventDefault();
 	setOpen(true);
-    contextMenu.focus();
+	contextMenu.focus();
 }
 ```
 
@@ -345,18 +354,18 @@ See, in React, `ref` is a special property. This means that in order to be used 
 As a result, the following code does not work:
 
 ```jsx
-const Component = ({ref, style}) => {
-	return <div ref={ref} style={style}/>
-}
+const Component = ({ ref, style }) => {
+	return <div ref={ref} style={style} />;
+};
 
 const App = () => {
 	return (
-      <Component
-        ref={el => console.log(el)}
-        style={{height: 100, width: 100, backgroundColor: 'red'}}
-      />
-    )
-}
+		<Component
+			ref={(el) => console.log(el)}
+			style={{ height: 100, width: 100, backgroundColor: "red" }}
+		/>
+	);
+};
 ```
 
 Doing this will result in our `ref` callback not being called as expected, alongside two error messages explaining why:
@@ -367,40 +376,40 @@ Doing this will result in our `ref` callback not being called as expected, along
 
 To solve this, we have two options:
 
-1) Rename our `ref` property to another name, like `divRef`:
+1. Rename our `ref` property to another name, like `divRef`:
 
 ```jsx
-const Component = ({divRef, style}) => {
-	return <div ref={divRef} style={style}/>
-}
+const Component = ({ divRef, style }) => {
+	return <div ref={divRef} style={style} />;
+};
 
 const App = () => {
 	return (
-        <Component
-            divRef={el => console.log(el)}
-            style={{height: 100, width: 100, backgroundColor: 'red'}}
-        />
-    );
-}
+		<Component
+			divRef={(el) => console.log(el)}
+			style={{ height: 100, width: 100, backgroundColor: "red" }}
+		/>
+	);
+};
 ```
 
 2. Use the `forwardRef` API, as suggested by the error message originally printed.
 
 ```jsx
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
 const Component = forwardRef((props, ref) => {
-	return <div ref={ref} style={props.style}/>
+	return <div ref={ref} style={props.style} />;
 });
 
 const App = () => {
 	return (
-        <Component
-            ref={el => console.log(el)}
-            style={{height: 100, width: 100, backgroundColor: 'red'}}
-        />
-    );
-}
+		<Component
+			ref={(el) => console.log(el)}
+			style={{ height: 100, width: 100, backgroundColor: "red" }}
+		/>
+	);
+};
 ```
 
 As we can see, `forwardRef` accepts slightly modified component function. While the first argument might look familiar as our place to access properties, our special property `ref` is passed as a second argument.
@@ -416,28 +425,24 @@ Luckily, `useImperativeHandle` does just that!
 While `forwardRef` enables us to pass a `ref` to a child component, `useImperativeHandle` allows us to fully customize this `ref` to our heart's content.
 
 ```jsx
-import { forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, useImperativeHandle } from "react";
 
 const Component = forwardRef((props, ref) => {
-  useImperativeHandle(ref, () => {
-    // Anything returned here will be assigned to the forwarded `ref`
-    return {
-      pi: 3.14,
-      sayHi() {
-        console.log('Hello, world');
-      },
-    };
-  });
+	useImperativeHandle(ref, () => {
+		// Anything returned here will be assigned to the forwarded `ref`
+		return {
+			pi: 3.14,
+			sayHi() {
+				console.log("Hello, world");
+			},
+		};
+	});
 
-  return <div />;
+	return <div />;
 });
 
 const App = () => {
-  return (
-    <Component
-      ref={(el) => console.log(el)}
-    />
-  );
+	return <Component ref={(el) => console.log(el)} />;
 };
 ```
 
@@ -475,31 +480,31 @@ Just as we can use `ViewChild` to access an underlying DOM node, we can do the s
 // TODO: Check this code
 @Component({
 	selector: "child-comp",
-    standalone: true,
-	template: `<div></div>`
+	standalone: true,
+	template: `<div></div>`,
 })
 class ChildComponent {
-  pi = 3.14;
-  sayHi() {
-    console.log('Hello, world');
-  }
+	pi = 3.14;
+	sayHi() {
+		console.log("Hello, world");
+	}
 }
 
 @Component({
 	selector: "parent-comp",
-    standalone: true,
-    template: `<child-comp #childVar></child-comp>`
+	standalone: true,
+	template: `<child-comp #childVar></child-comp>`,
 })
 class ParentComponent implements AfterViewInit {
-  @ViewChild("childVar") childComp: ChildComponent;
-  
-  ngAfterViewInit() {
-    console.log(this.childComp);
-  }
+	@ViewChild("childVar") childComp: ChildComponent;
+
+	ngAfterViewInit() {
+		console.log(this.childComp);
+	}
 }
 ```
 
- Doing this, we'll see the console output:
+Doing this, we'll see the console output:
 
 ```javascript
 Object { pi: 3.14 }
@@ -516,16 +521,16 @@ This means that, as a result, we can also call the `sayHi` method:
 ```typescript
 @Component({
 	selector: "parent-comp",
-    standalone: true,
-    imports: [ChildComponent],
-	template: `<child-comp #childVar></child-comp>`
+	standalone: true,
+	imports: [ChildComponent],
+	template: `<child-comp #childVar></child-comp>`,
 })
 class ParentComponent implements AfterViewInit {
-  @ViewChild("childVar") childComp: ChildComponent;
-  
-  ngAfterViewInit() {
-    this.childComp.sayHi();
-  }
+	@ViewChild("childVar") childComp: ChildComponent;
+
+	ngAfterViewInit() {
+		this.childComp.sayHi();
+	}
 }
 ```
 
@@ -534,7 +539,6 @@ And it will output:
 ```
 Hello, world
 ```
-
 
 ## Vue
 
@@ -550,10 +554,10 @@ const Child = {
 	},
 	methods: {
 		sayHi() {
-			console.log('Hello, world');
+			console.log("Hello, world");
 		},
-	}
-}
+	},
+};
 
 const Parent = {
 	template: `<child-comp ref="childComp"></child-comp>`,
@@ -561,9 +565,9 @@ const Parent = {
 		console.log(this.$refs.childComp);
 	},
 	components: {
-		Child
-	}
-}
+		Child,
+	},
+};
 ```
 
 If we look at our console output, we might see something unexpected:
@@ -574,49 +578,49 @@ Proxy { <target>: {…}, <handler>: {…} }
 
 This is because Vue uses Proxies under-the-hood to power component state. Rest assured, however; this `Proxy` is still our component instance.
 
-### Exposing Component Variables to References 
+### Exposing Component Variables to References
 
 We're not able to do much with this component instance currently. If we change out `Parent` component to `console.log` the `pi` value from `Child`:
 
 ```vue
 <!-- Parent.vue -->
 <script setup>
-  import {ref, onMounted} from "vue";
-  import Child from './Child.vue';
+import { ref, onMounted } from "vue";
+import Child from "./Child.vue";
 
-  const childComp = ref();
+const childComp = ref();
 
-  onMounted(() => {
-    console.log(childComp.value.pi);
-  })
+onMounted(() => {
+	console.log(childComp.value.pi);
+});
 </script>
 
 <template>
-  <Child ref="childComp"/>
+	<Child ref="childComp" />
 </template>
 ```
 
- We'll see that `childComp.value.pi` is `undefined` currently. This is because, by default, Vue's `setup script` does not "expose" internal variables to component refences externally.
+We'll see that `childComp.value.pi` is `undefined` currently. This is because, by default, Vue's `setup script` does not "expose" internal variables to component refences externally.
 
 To fix this, we can use Vue's `defineExpose` global API to allow parent components to access a child component's variables and methods:
 
 ```vue
 <!-- Child.vue -->
 <script setup>
-  const pi = 3.14;
+const pi = 3.14;
 
-  function sayHi() {
-    console.log('Hello, world');
-  }
+function sayHi() {
+	console.log("Hello, world");
+}
 
-  defineExpose({
-    pi,
-    sayHi
-  })
+defineExpose({
+	pi,
+	sayHi,
+});
 </script>
 
 <template>
-  <div></div>
+	<div></div>
 </template>
 ```
 
@@ -625,25 +629,23 @@ Because we now have access to the component instance, we can access data and cal
 ```vue
 <!-- Parent.vue -->
 <script setup>
-  import {ref, onMounted} from "vue";
-  import Child from './Child.vue';
+import { ref, onMounted } from "vue";
+import Child from "./Child.vue";
 
-  const childComp = ref();
+const childComp = ref();
 
-  onMounted(() => {
-    console.log(childComp.value.pi);
-    childComp.value.sayHi();
-  })
+onMounted(() => {
+	console.log(childComp.value.pi);
+	childComp.value.sayHi();
+});
 </script>
 
 <template>
-  <Child ref="childComp"/>
+	<Child ref="childComp" />
 </template>
 ```
 
 <!-- tabs:end -->
-
-
 
 # Using component reference to focus our context menu
 
@@ -667,88 +669,88 @@ Now that we sufficiently understand what component references look like in each 
 
 ```jsx
 const ContextMenu = forwardRef(({ isOpen, x, y, onClose }, ref) => {
-  const [contextMenu, setContextMenu] = useState();
+	const [contextMenu, setContextMenu] = useState();
 
-  useImperativeHandle(ref, () => ({
-    focus: () => contextMenu && contextMenu.focus(),
-  }));
+	useImperativeHandle(ref, () => ({
+		focus: () => contextMenu && contextMenu.focus(),
+	}));
 
-  useEffect(() => {
-    if (!contextMenu) return;
-    const closeIfOutsideOfContext = (e) => {
-      const isClickInside = contextMenu.contains(e.target);
-      if (isClickInside) return;
-      onClose(false);
-    };
-    document.addEventListener('click', closeIfOutsideOfContext);
-    return () => document.removeEventListener('click', closeIfOutsideOfContext);
-  }, [contextMenu]);
+	useEffect(() => {
+		if (!contextMenu) return;
+		const closeIfOutsideOfContext = (e) => {
+			const isClickInside = contextMenu.contains(e.target);
+			if (isClickInside) return;
+			onClose(false);
+		};
+		document.addEventListener("click", closeIfOutsideOfContext);
+		return () => document.removeEventListener("click", closeIfOutsideOfContext);
+	}, [contextMenu]);
 
-  if (!isOpen) return null;
+	if (!isOpen) return null;
 
-  return (
-    <div
-      ref={(el) => setContextMenu(el)}
-      tabIndex={0}
-      style={{
-        position: 'fixed',
-        top: y,
-        left: x,
-        background: 'white',
-        border: '1px solid black',
-        borderRadius: 16,
-        padding: '1rem',
-      }}
-    >
-      <button onClick={() => onClose()}>X</button>
-      This is a context menu
-    </div>
-  );
+	return (
+		<div
+			ref={(el) => setContextMenu(el)}
+			tabIndex={0}
+			style={{
+				position: "fixed",
+				top: y,
+				left: x,
+				background: "white",
+				border: "1px solid black",
+				borderRadius: 16,
+				padding: "1rem",
+			}}
+		>
+			<button onClick={() => onClose()}>X</button>
+			This is a context menu
+		</div>
+	);
 });
 
 export default function App() {
-  const [mouseBounds, setMouseBounds] = useState({
-    x: 0,
-    y: 0,
-  });
+	const [mouseBounds, setMouseBounds] = useState({
+		x: 0,
+		y: 0,
+	});
 
-  const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
-  function onContextMenu(e) {
-    e.preventDefault();
-    setIsOpen(true);
-    setMouseBounds({
-      x: e.clientX,
-      y: e.clientY,
-    });
-  }
+	function onContextMenu(e) {
+		e.preventDefault();
+		setIsOpen(true);
+		setMouseBounds({
+			x: e.clientX,
+			y: e.clientY,
+		});
+	}
 
-  const contextMenuRef = useRef();
+	const contextMenuRef = useRef();
 
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        if (contextMenuRef.current) {
-          contextMenuRef.current.focus();
-        }
-      }, 0);
-    }
-  }, [isOpen, mouseBounds]);
+	useEffect(() => {
+		if (isOpen) {
+			setTimeout(() => {
+				if (contextMenuRef.current) {
+					contextMenuRef.current.focus();
+				}
+			}, 0);
+		}
+	}, [isOpen, mouseBounds]);
 
-  return (
-    <>
-      <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
-        <div onContextMenu={onContextMenu}>Right click on me!</div>
-      </div>
-      <ContextMenu
-        ref={contextMenuRef}
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        x={mouseBounds.x}
-        y={mouseBounds.y}
-      />
-    </>
-  );
+	return (
+		<>
+			<div style={{ marginTop: "5rem", marginLeft: "5rem" }}>
+				<div onContextMenu={onContextMenu}>Right click on me!</div>
+			</div>
+			<ContextMenu
+				ref={contextMenuRef}
+				isOpen={isOpen}
+				onClose={() => setIsOpen(false)}
+				x={mouseBounds.x}
+				y={mouseBounds.y}
+			/>
+		</>
+	);
 }
 ```
 
@@ -756,103 +758,107 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'context-menu',
-  standalone: true,
-  imports: [NgIf],
-  template: `
-    <div
-      *ngIf="isOpen"
-      tabIndex="0"
-      #contextMenu
-      [style]="'
+	selector: "context-menu",
+	standalone: true,
+	imports: [NgIf],
+	template: `
+		<div
+			*ngIf="isOpen"
+			tabIndex="0"
+			#contextMenu
+			[style]="
+				'
         position: fixed;
-        top: ' + y + 'px;
-        left: ' + x + 'px;
+        top: ' +
+				y +
+				'px;
+        left: ' +
+				x +
+				'px;
         background: white;
         border: 1px solid black;
         border-radius: 16px;
         padding: 1rem;
-      '"
-    >
-      <button (click)="close.emit()">X</button>
-      This is a context menu
-    </div>
-  `,
+      '
+			"
+		>
+			<button (click)="close.emit()">X</button>
+			This is a context menu
+		</div>
+	`,
 })
 class ContextMenuComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('contextMenu') contextMenu: ElementRef<HTMLElement>;
+	@ViewChild("contextMenu") contextMenu: ElementRef<HTMLElement>;
 
-  @Input() isOpen: boolean;
-  @Input() x: number;
-  @Input() y: number;
+	@Input() isOpen: boolean;
+	@Input() x: number;
+	@Input() y: number;
 
-  @Output() close = new EventEmitter();
+	@Output() close = new EventEmitter();
 
-  focus() {
-    this.contextMenu?.nativeElement?.focus();
-  }
+	focus() {
+		this.contextMenu?.nativeElement?.focus();
+	}
 
-  closeIfOutsideOfContext = (e: MouseEvent) => {
-    const contextMenuEl = this.contextMenu?.nativeElement;
-    if (!contextMenuEl) return;
-    const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
-    if (isClickInside) return;
-    this.close.emit();
-  };
+	closeIfOutsideOfContext = (e: MouseEvent) => {
+		const contextMenuEl = this.contextMenu?.nativeElement;
+		if (!contextMenuEl) return;
+		const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
+		if (isClickInside) return;
+		this.close.emit();
+	};
 
-  ngAfterViewInit() {
-    document.addEventListener('click', this.closeIfOutsideOfContext);
-  }
+	ngAfterViewInit() {
+		document.addEventListener("click", this.closeIfOutsideOfContext);
+	}
 
-  ngOnDestroy() {
-    document.removeEventListener('click', this.closeIfOutsideOfContext);
-  }
+	ngOnDestroy() {
+		document.removeEventListener("click", this.closeIfOutsideOfContext);
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NgIf, ContextMenuComponent],
-  template: `
-    <div style="margin-top: 5rem; margin-left: 5rem">
-      <div #contextOrigin (contextmenu)="open($event)">
-        Right click on me!
-      </div>
-    </div>
-    <context-menu
-      #contextMenu
-      (close)="close()"
-      [isOpen]="isOpen"
-      [x]="mouseBounds.x"
-      [y]="mouseBounds.y"
-    />
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [NgIf, ContextMenuComponent],
+	template: `
+		<div style="margin-top: 5rem; margin-left: 5rem">
+			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
+		</div>
+		<context-menu
+			#contextMenu
+			(close)="close()"
+			[isOpen]="isOpen"
+			[x]="mouseBounds.x"
+			[y]="mouseBounds.y"
+		/>
+	`,
 })
 class AppComponent {
-  @ViewChild('contextMenu') contextMenu: ContextMenuComponent;
+	@ViewChild("contextMenu") contextMenu: ContextMenuComponent;
 
-  isOpen = false;
+	isOpen = false;
 
-  mouseBounds = {
-    x: 0,
-    y: 0,
-  };
+	mouseBounds = {
+		x: 0,
+		y: 0,
+	};
 
-  close() {
-    this.isOpen = false;
-  }
+	close() {
+		this.isOpen = false;
+	}
 
-  open(e: MouseEvent) {
-    e.preventDefault();
-    this.isOpen = true;
-    this.mouseBounds = {
-      x: e.clientX,
-      y: e.clientY,
-    };
-    setTimeout(() => {
-      this.contextMenu.focus();
-    }, 0);
-  }
+	open(e: MouseEvent) {
+		e.preventDefault();
+		this.isOpen = true;
+		this.mouseBounds = {
+			x: e.clientX,
+			y: e.clientY,
+		};
+		setTimeout(() => {
+			this.contextMenu.focus();
+		}, 0);
+	}
 }
 ```
 
@@ -861,45 +867,45 @@ class AppComponent {
 ```vue
 <!-- ContextMenu.vue -->
 <script setup>
-  import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from "vue";
 
-  const props = defineProps(['isOpen', 'x', 'y'])
+const props = defineProps(["isOpen", "x", "y"]);
 
-  const emit = defineEmits(['close'])
+const emit = defineEmits(["close"]);
 
-  const contextMenuRef = ref(null)
+const contextMenuRef = ref(null);
 
-  function closeIfOutside(e) {
-    const contextMenuEl = contextMenuRef.value
-    if (!contextMenuEl) return
-    const isClickInside = contextMenuEl.contains(e.target)
-    if (isClickInside) return
-    emit('close')
-  }
+function closeIfOutside(e) {
+	const contextMenuEl = contextMenuRef.value;
+	if (!contextMenuEl) return;
+	const isClickInside = contextMenuEl.contains(e.target);
+	if (isClickInside) return;
+	emit("close");
+}
 
-  onMounted(() => {
-    document.addEventListener('click', closeIfOutside)
-  })
+onMounted(() => {
+	document.addEventListener("click", closeIfOutside);
+});
 
-  onUnmounted(() => {
-    document.removeEventListener('click', closeIfOutside)
-  })
+onUnmounted(() => {
+	document.removeEventListener("click", closeIfOutside);
+});
 
-  function focusMenu() {
-    contextMenuRef.value.focus()
-  }
+function focusMenu() {
+	contextMenuRef.value.focus();
+}
 
-  defineExpose({
-    focusMenu,
-  })
+defineExpose({
+	focusMenu,
+});
 </script>
 
 <template>
-  <div
-    v-if="props.isOpen"
-    ref="contextMenuRef"
-    tabIndex="0"
-    :style="`
+	<div
+		v-if="props.isOpen"
+		ref="contextMenuRef"
+		tabIndex="0"
+		:style="`
       position: fixed;
       top: ${props.y}px;
       left: ${props.x}px;
@@ -908,57 +914,60 @@ class AppComponent {
       border-radius: 16px;
       padding: 1rem;
     `"
-  >
-    <button @click="emit('close')">X</button>
-    This is a context menu
-  </div>
+	>
+		<button @click="emit('close')">X</button>
+		This is a context menu
+	</div>
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { ref, onMounted, onUnmounted } from 'vue'
-  import ContextMenu from './ContextMenu.vue'
+import { ref, onMounted, onUnmounted } from "vue";
+import ContextMenu from "./ContextMenu.vue";
 
-  const isOpen = ref(false)
+const isOpen = ref(false);
 
-  const mouseBounds = ref({
-    x: 0,
-    y: 0,
-  })
+const mouseBounds = ref({
+	x: 0,
+	y: 0,
+});
 
-  const contextMenu = ref()
+const contextMenu = ref();
 
-  const close = () => {
-    isOpen.value = false
-  }
+const close = () => {
+	isOpen.value = false;
+};
 
-  const open = (e) => {
-    e.preventDefault()
-    isOpen.value = true
-    mouseBounds.value = {
-      x: e.clientX,
-      y: e.clientY,
-    }
-    setTimeout(() => {
-      contextMenu.value.focusMenu()
-    }, 0)
-  }
+const open = (e) => {
+	e.preventDefault();
+	isOpen.value = true;
+	mouseBounds.value = {
+		x: e.clientX,
+		y: e.clientY,
+	};
+	setTimeout(() => {
+		contextMenu.value.focusMenu();
+	}, 0);
+};
 </script>
 
 <template>
-  <div style="margin-top: 5rem; margin-left: 5rem">
-    <div @contextmenu="open($event)">Right click on me!</div>
-  </div>
-  <ContextMenu ref="contextMenu" :isOpen="isOpen" :x="mouseBounds.x" :y="mouseBounds.y" @close="close()" />
+	<div style="margin-top: 5rem; margin-left: 5rem">
+		<div @contextmenu="open($event)">Right click on me!</div>
+	</div>
+	<ContextMenu
+		ref="contextMenu"
+		:isOpen="isOpen"
+		:x="mouseBounds.x"
+		:y="mouseBounds.y"
+		@close="close()"
+	/>
 </template>
 ```
 
 <!-- tabs:end -->
-
-
-
 
 # Challenge
 
@@ -972,9 +981,9 @@ To add an extra special interaction with this sidebar, **let's make it so that w
 
 To do this, we'll:
 
-1) Setup our `App` component to handle a left and main column.
-2) Make a sidebar that can collapse and expand to grow and shrink the main column.
-3) Automatically expand or collapse the sidebar as the browser grows and shrinks.
+1. Setup our `App` component to handle a left and main column.
+2. Make a sidebar that can collapse and expand to grow and shrink the main column.
+3. Automatically expand or collapse the sidebar as the browser grows and shrinks.
 
 Let's dive in.
 
@@ -991,114 +1000,117 @@ To do that might look something like this:
 ### React
 
 ```jsx
-export const Layout = ({sidebar, sidebarWidth, children}) => {
-    return (
-        <div style={{display: 'flex', flexWrap: 'nowrap', minHeight: '100vh'}}>
-            <div
-                style={{
-                    width: `${sidebarWidth}px`,
-                    height: '100vh',
-                    overflowY: 'scroll',
-                    borderRight: '2px solid #bfbfbf',
-                }}
-            >
-                {sidebar}
-            </div>
-            <div style={{width: '1px', flexGrow: 1}}>
-                {children}
-            </div>
-        </div>
-    );
+export const Layout = ({ sidebar, sidebarWidth, children }) => {
+	return (
+		<div style={{ display: "flex", flexWrap: "nowrap", minHeight: "100vh" }}>
+			<div
+				style={{
+					width: `${sidebarWidth}px`,
+					height: "100vh",
+					overflowY: "scroll",
+					borderRight: "2px solid #bfbfbf",
+				}}
+			>
+				{sidebar}
+			</div>
+			<div style={{ width: "1px", flexGrow: 1 }}>{children}</div>
+		</div>
+	);
 };
 
 export const App = () => {
-    return (
-        <Layout sidebar={<p>Sidebar</p>} sidebarWidth={150}>
-            <p style={{padding: '1rem'}}>Hi there!</p>
-        </Layout>
-    )
-}
+	return (
+		<Layout sidebar={<p>Sidebar</p>} sidebarWidth={150}>
+			<p style={{ padding: "1rem" }}>Hi there!</p>
+		</Layout>
+	);
+};
 ```
 
 ### Angular
 
 ```typescript
 @Component({
-    selector: 'app-layout',
-    standalone: true,
-    template: `
-        <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
-        <div [style]="' 
-          width: ' + sidebarWidth + 'px;
+	selector: "app-layout",
+	standalone: true,
+	template: `
+		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
+			<div
+				[style]="
+					' 
+          width: ' +
+					sidebarWidth +
+					'px;
           height: 100vh;
           overflow-y: scroll;
           border-right: 2px solid #bfbfbf;
-        '">
-                <ng-content select="[sidebar]"/>
-            </div>
-            <div style="width: 1px; flex-grow: 1">
-                <ng-content/>
-            </div>
-        </div>
-    `
+        '
+				"
+			>
+				<ng-content select="[sidebar]" />
+			</div>
+			<div style="width: 1px; flex-grow: 1">
+				<ng-content />
+			</div>
+		</div>
+	`,
 })
 export class LayoutComponent {
-    @Input() sidebarWidth!: number;
+	@Input() sidebarWidth!: number;
 }
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    imports: [LayoutComponent],
-    template: `
-        <app-layout [sidebarWidth]="150">
-            <p sidebar>Sidebar</p>
-            <p style="padding: 1rem">Hi there!</p>
-        </app-layout>   
-    `
+	selector: "app-root",
+	standalone: true,
+	imports: [LayoutComponent],
+	template: `
+		<app-layout [sidebarWidth]="150">
+			<p sidebar>Sidebar</p>
+			<p style="padding: 1rem">Hi there!</p>
+		</app-layout>
+	`,
 })
-export class AppComponent {
-}
+export class AppComponent {}
 ```
-
-
 
 ### Vue
 
 ```vue
 <!-- Layout.vue -->
 <script setup>
-  const props = defineProps(["sidebarWidth"]);
+const props = defineProps(["sidebarWidth"]);
 </script>
 
 <template>
-    <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
-        <div :style="`
+	<div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
+		<div
+			:style="`
           width: ${props.sidebarWidth}px;
           height: 100vh;
           overflow-y: scroll;
           border-right: 2px solid #bfbfbf;
-        `">
-            <slot name="sidebar"/>
-        </div>
-        <div style="width: 1px; flex-grow: 1">
-            <slot/>
-        </div>
-    </div>
+        `"
+		>
+			<slot name="sidebar" />
+		</div>
+		<div style="width: 1px; flex-grow: 1">
+			<slot />
+		</div>
+	</div>
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import Layout from "./Layout.vue";
+import Layout from "./Layout.vue";
 </script>
 
 <template>
-    <Layout :sidebarWidth="150">
-        <template #sidebar><p>Sidebar</p></template>
-        <p style="padding: 1rem">Hi there!</p>
-    </Layout>
+	<Layout :sidebarWidth="150">
+		<template #sidebar><p>Sidebar</p></template>
+		<p style="padding: 1rem">Hi there!</p>
+	</Layout>
 </template>
 ```
 
@@ -1119,124 +1131,124 @@ We'll also setup constants to support different widths of this sidebar area if i
 ### React
 
 ```jsx
-export const Sidebar = ({toggle}) => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+export const Sidebar = ({ toggle }) => {
+	const [isCollapsed, setIsCollapsed] = useState(false);
 
-    const setAndToggle = (v) => {
-        setIsCollapsed(v);
-        toggle(v);
-    };
-    const toggleCollapsed = () => {
-        setAndToggle(!isCollapsed);
-    };
+	const setAndToggle = (v) => {
+		setIsCollapsed(v);
+		toggle(v);
+	};
+	const toggleCollapsed = () => {
+		setAndToggle(!isCollapsed);
+	};
 
-    if (isCollapsed) {
-        return <button onClick={toggleCollapsed}>Toggle</button>;
-    }
+	if (isCollapsed) {
+		return <button onClick={toggleCollapsed}>Toggle</button>;
+	}
 
-    return (
-        <div>
-            <button onClick={toggleCollapsed}>Toggle</button>
-            <ul style={{padding: '1rem'}}>
-                <li>List item 1</li>
-                <li>List item 2</li>
-                <li>List item 3</li>
-                <li>List item 4</li>
-                <li>List item 5</li>
-                <li>List item 6</li>
-            </ul>
-        </div>
-    );
+	return (
+		<div>
+			<button onClick={toggleCollapsed}>Toggle</button>
+			<ul style={{ padding: "1rem" }}>
+				<li>List item 1</li>
+				<li>List item 2</li>
+				<li>List item 3</li>
+				<li>List item 4</li>
+				<li>List item 5</li>
+				<li>List item 6</li>
+			</ul>
+		</div>
+	);
 };
 
 const collapsedWidth = 100;
 const expandedWidth = 150;
 
 export const App = () => {
-    const [width, setWidth] = useState(expandedWidth);
+	const [width, setWidth] = useState(expandedWidth);
 
-    return (
-        <Layout
-            sidebarWidth={width}
-            sidebar={<Sidebar
-            toggle={(isCollapsed) => {
-                if (isCollapsed) {
-                    setWidth(collapsedWidth);
-                    return;
-                }
-                setWidth(expandedWidth);
-            }}
-        />
-        }>
-            <p style={{padding: '1rem'}}>Hi there!</p>
-        </Layout>
-    )
-}
+	return (
+		<Layout
+			sidebarWidth={width}
+			sidebar={
+				<Sidebar
+					toggle={(isCollapsed) => {
+						if (isCollapsed) {
+							setWidth(collapsedWidth);
+							return;
+						}
+						setWidth(expandedWidth);
+					}}
+				/>
+			}
+		>
+			<p style={{ padding: "1rem" }}>Hi there!</p>
+		</Layout>
+	);
+};
 ```
 
 ### Angular
 
 ```typescript
 @Component({
-    selector: "app-sidebar",
-    standalone: true,
-    imports: [NgIf],
-    template: `
-        <button *ngIf="isCollapsed" (click)="toggleCollapsed()">Toggle</button>
-        <div *ngIf="!isCollapsed">
-            <button (click)="toggleCollapsed()">Toggle</button>
-            <ul style="padding: 1rem">
-                <li>List item 1</li>
-                <li>List item 2</li>
-                <li>List item 3</li>
-                <li>List item 4</li>
-                <li>List item 5</li>
-                <li>List item 6</li>
-            </ul>
-        </div>
-    `
+	selector: "app-sidebar",
+	standalone: true,
+	imports: [NgIf],
+	template: `
+		<button *ngIf="isCollapsed" (click)="toggleCollapsed()">Toggle</button>
+		<div *ngIf="!isCollapsed">
+			<button (click)="toggleCollapsed()">Toggle</button>
+			<ul style="padding: 1rem">
+				<li>List item 1</li>
+				<li>List item 2</li>
+				<li>List item 3</li>
+				<li>List item 4</li>
+				<li>List item 5</li>
+				<li>List item 6</li>
+			</ul>
+		</div>
+	`,
 })
 export class SidebarComponent {
-    @Output() toggle = new EventEmitter<boolean>();
+	@Output() toggle = new EventEmitter<boolean>();
 
-    isCollapsed = false;
+	isCollapsed = false;
 
-    setAndToggle(v: boolean) {
-        this.isCollapsed = v;
-        this.toggle.emit(v);
-    };
+	setAndToggle(v: boolean) {
+		this.isCollapsed = v;
+		this.toggle.emit(v);
+	}
 
-    toggleCollapsed() {
-        this.setAndToggle(!this.isCollapsed);
-    };
+	toggleCollapsed() {
+		this.setAndToggle(!this.isCollapsed);
+	}
 }
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    imports: [LayoutComponent, SidebarComponent],
-    template: `
-        <app-layout [sidebarWidth]="width">
-            <app-sidebar sidebar
-                     (toggle)="onToggle($event)"
-            />
-            <p style="padding: 1rem">Hi there!</p>
-        </app-layout>
-    `
+	selector: "app-root",
+	standalone: true,
+	imports: [LayoutComponent, SidebarComponent],
+	template: `
+		<app-layout [sidebarWidth]="width">
+			<app-sidebar sidebar (toggle)="onToggle($event)" />
+			<p style="padding: 1rem">Hi there!</p>
+		</app-layout>
+	`,
 })
 export class AppComponent {
-    collapsedWidth = 100;
-    expandedWidth = 150;
+	collapsedWidth = 100;
+	expandedWidth = 150;
 
-    width = this.expandedWidth;
+	width = this.expandedWidth;
 
-    onToggle(isCollapsed: boolean) {
-        if (isCollapsed) {
-            this.width = this.collapsedWidth;
-            return;
-        }
-        this.width = this.expandedWidth;
-    }
+	onToggle(isCollapsed: boolean) {
+		if (isCollapsed) {
+			this.width = this.collapsedWidth;
+			return;
+		}
+		this.width = this.expandedWidth;
+	}
 }
 ```
 
@@ -1245,69 +1257,66 @@ export class AppComponent {
 ```vue
 <!-- Sidebar.vue -->
 <script setup>
-  import {ref} from "vue";
+import { ref } from "vue";
 
-  const emit = defineEmits(["toggle"]);
+const emit = defineEmits(["toggle"]);
 
-  const isCollapsed = ref(false);
+const isCollapsed = ref(false);
 
-  function setAndToggle(v) {
-    isCollapsed.value = v;
-    emit("toggle", v);
-  };
+function setAndToggle(v) {
+	isCollapsed.value = v;
+	emit("toggle", v);
+}
 
-  function toggleCollapsed() {
-    setAndToggle(!isCollapsed.value);
-  };
+function toggleCollapsed() {
+	setAndToggle(!isCollapsed.value);
+}
 </script>
 
 <template>
-  <button v-if="isCollapsed" @click="toggleCollapsed()">Toggle</button>
-  <div v-if="!isCollapsed">
-    <button @click="toggleCollapsed()">Toggle</button>
-    <ul style="padding: 1rem">
-      <li>List item 1</li>
-      <li>List item 2</li>
-      <li>List item 3</li>
-      <li>List item 4</li>
-      <li>List item 5</li>
-      <li>List item 6</li>
-    </ul>
-  </div>
+	<button v-if="isCollapsed" @click="toggleCollapsed()">Toggle</button>
+	<div v-if="!isCollapsed">
+		<button @click="toggleCollapsed()">Toggle</button>
+		<ul style="padding: 1rem">
+			<li>List item 1</li>
+			<li>List item 2</li>
+			<li>List item 3</li>
+			<li>List item 4</li>
+			<li>List item 5</li>
+			<li>List item 6</li>
+		</ul>
+	</div>
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import Layout from "./Layout.vue";
-  import Sidebar from "./Sidebar.vue";
-  import {ref} from "vue";
+import Layout from "./Layout.vue";
+import Sidebar from "./Sidebar.vue";
+import { ref } from "vue";
 
-  const collapsedWidth = 100;
-  const expandedWidth = 150;
+const collapsedWidth = 100;
+const expandedWidth = 150;
 
-  const width = ref(expandedWidth);
+const width = ref(expandedWidth);
 
-  function onToggle(isCollapsed) {
-    if (isCollapsed) {
-      width.value = collapsedWidth;
-      return;
-    }
-    width.value = expandedWidth;
-  }
+function onToggle(isCollapsed) {
+	if (isCollapsed) {
+		width.value = collapsedWidth;
+		return;
+	}
+	width.value = expandedWidth;
+}
 </script>
 
 <template>
-  <Layout :sidebarWidth="width">
-    <template #sidebar>
-      <Sidebar
-             @toggle="onToggle($event)"
-      />
-    </template>
-    <p style="padding: 1rem">Hi there!</p>
-  </Layout>
-
+	<Layout :sidebarWidth="width">
+		<template #sidebar>
+			<Sidebar @toggle="onToggle($event)" />
+		</template>
+		<p style="padding: 1rem">Hi there!</p>
+	</Layout>
 </template>
 ```
 
@@ -1317,24 +1326,24 @@ export class AppComponent {
 
 Finally, let's auto-collapse the sidebar on screens smaller than 600px wide.
 
-We can do this using [a side effect handler](/posts/ffg-fundamentals-side-effects) to add a listener for screen resizes. 
+We can do this using [a side effect handler](/posts/ffg-fundamentals-side-effects) to add a listener for screen resizes.
 
 Then, we'll use framework-specific code similar to the following pseudo-code to expand or collapse the sidebar based on the screen size:
 
 ```javascript
 const onResize = () => {
-    if (window.innerWidth < widthToCollapseAt) {
-        sidebarRef.collapse();
-    } else if (sidebar.isCollapsed) {
-        sidebarRef.expand();
-    }
+	if (window.innerWidth < widthToCollapseAt) {
+		sidebarRef.collapse();
+	} else if (sidebar.isCollapsed) {
+		sidebarRef.expand();
+	}
 };
 
-window.addEventListener('resize', onResize);
+window.addEventListener("resize", onResize);
 
 // Later
 
-window.removeEventListener('resize', onResize);
+window.removeEventListener("resize", onResize);
 ```
 
 Let's implement it:
@@ -1344,50 +1353,49 @@ Let's implement it:
 ### React
 
 ```tsx
+export const Sidebar = forwardRef(({ toggle }, ref) => {
+	const [isCollapsed, setIsCollapsed] = useState(false);
 
-export const Sidebar = forwardRef(({toggle}, ref) => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+	const setAndToggle = (v) => {
+		setIsCollapsed(v);
+		toggle(v);
+	};
 
-    const setAndToggle = (v) => {
-        setIsCollapsed(v);
-        toggle(v);
-    };
+	useImperativeHandle(
+		ref,
+		() => ({
+			collapse: () => {
+				setAndToggle(true);
+			},
+			expand: () => {
+				setAndToggle(false);
+			},
+			isCollapsed: isCollapsed,
+		}),
+		[isCollapsed, setAndToggle],
+	);
 
-    useImperativeHandle(
-        ref,
-        () => ({
-            collapse: () => {
-                setAndToggle(true);
-            },
-            expand: () => {
-                setAndToggle(false);
-            },
-            isCollapsed: isCollapsed,
-        }),
-        [isCollapsed, setAndToggle]
-    );
+	const toggleCollapsed = () => {
+		setAndToggle(!isCollapsed);
+	};
 
-    const toggleCollapsed = () => {
-        setAndToggle(!isCollapsed);
-    };
+	if (isCollapsed) {
+		return <button onClick={toggleCollapsed}>Toggle</button>;
+	}
 
-    if (isCollapsed) {
-        return <button onClick={toggleCollapsed}>Toggle</button>;
-    }
-
-    return (
-        <div>
-            <button onClick={toggleCollapsed}>Toggle</button>
-            <ul style={{padding: '1rem'}}>
-                <li>List item 1</li>
-                <li>List item 2</li>
-                <li>List item 3</li>
-                <li>List item 4</li>
-                <li>List item 5</li>
-                <li>List item 6</li>
-            </ul>
-        </div>
-    );
+	return (
+		<div>
+			<button onClick={toggleCollapsed}>Toggle</button>
+			<ul style={{ padding: "1rem" }}>
+				<li>List item 1</li>
+				<li>List item 2</li>
+				<li>List item 3</li>
+				<li>List item 4</li>
+				<li>List item 5</li>
+				<li>List item 6</li>
+			</ul>
+		</div>
+	);
 });
 
 const collapsedWidth = 100;
@@ -1395,40 +1403,43 @@ const expandedWidth = 150;
 const widthToCollapseAt = 600;
 
 export const App = () => {
-    const [width, setWidth] = useState(expandedWidth);
+	const [width, setWidth] = useState(expandedWidth);
 
-    const sidebarRef = useRef();
+	const sidebarRef = useRef();
 
-    useEffect(() => {
-        const onResize = () => {
-            if (window.innerWidth < widthToCollapseAt) {
-                sidebarRef.current.collapse();
-            } else if (sidebarRef.current.isCollapsed) {
-                sidebarRef.current.expand();
-            }
-        };
+	useEffect(() => {
+		const onResize = () => {
+			if (window.innerWidth < widthToCollapseAt) {
+				sidebarRef.current.collapse();
+			} else if (sidebarRef.current.isCollapsed) {
+				sidebarRef.current.expand();
+			}
+		};
 
-        window.addEventListener('resize', onResize);
+		window.addEventListener("resize", onResize);
 
-        return () => window.removeEventListener('resize', onResize);
-    }, [sidebarRef]);
+		return () => window.removeEventListener("resize", onResize);
+	}, [sidebarRef]);
 
-    return (
-        <Layout sidebarWidth={width} sidebar={
-            <Sidebar
-                ref={sidebarRef}
-                toggle={(isCollapsed) => {
-                    if (isCollapsed) {
-                        setWidth(collapsedWidth);
-                        return;
-                    }
-                    setWidth(expandedWidth);
-                }}
-            />
-        }>
-            <p style={{padding: '1rem'}}>Hi there!</p>
-        </Layout>
-    );
+	return (
+		<Layout
+			sidebarWidth={width}
+			sidebar={
+				<Sidebar
+					ref={sidebarRef}
+					toggle={(isCollapsed) => {
+						if (isCollapsed) {
+							setWidth(collapsedWidth);
+							return;
+						}
+						setWidth(expandedWidth);
+					}}
+				/>
+			}
+		>
+			<p style={{ padding: "1rem" }}>Hi there!</p>
+		</Layout>
+	);
 };
 ```
 
@@ -1436,94 +1447,90 @@ export const App = () => {
 
 ```typescript
 @Component({
-  selector: "app-sidebar",
-  standalone: true,
-  imports: [NgIf],
-  template: `
-      <button *ngIf="isCollapsed" (click)="toggleCollapsed()">Toggle</button>
-      <div *ngIf="!isCollapsed">
-          <button (click)="toggleCollapsed()">Toggle</button>
-          <ul style="padding: 1rem">
-              <li>List item 1</li>
-              <li>List item 2</li>
-              <li>List item 3</li>
-              <li>List item 4</li>
-              <li>List item 5</li>
-              <li>List item 6</li>
-          </ul>
-      </div>
-  `
+	selector: "app-sidebar",
+	standalone: true,
+	imports: [NgIf],
+	template: `
+		<button *ngIf="isCollapsed" (click)="toggleCollapsed()">Toggle</button>
+		<div *ngIf="!isCollapsed">
+			<button (click)="toggleCollapsed()">Toggle</button>
+			<ul style="padding: 1rem">
+				<li>List item 1</li>
+				<li>List item 2</li>
+				<li>List item 3</li>
+				<li>List item 4</li>
+				<li>List item 5</li>
+				<li>List item 6</li>
+			</ul>
+		</div>
+	`,
 })
 export class SidebarComponent {
-  @Output() toggle = new EventEmitter<boolean>();
+	@Output() toggle = new EventEmitter<boolean>();
 
-  isCollapsed = false;
+	isCollapsed = false;
 
-  setAndToggle(v: boolean) {
-      this.isCollapsed = v;
-      this.toggle.emit(v);
-  };
+	setAndToggle(v: boolean) {
+		this.isCollapsed = v;
+		this.toggle.emit(v);
+	}
 
-  collapse() {
-      this.setAndToggle(true);
-  }
+	collapse() {
+		this.setAndToggle(true);
+	}
 
-  expand() {
-      this.setAndToggle(false);
-  }
+	expand() {
+		this.setAndToggle(false);
+	}
 
-  toggleCollapsed() {
-      this.setAndToggle(!this.isCollapsed);
-  };
+	toggleCollapsed() {
+		this.setAndToggle(!this.isCollapsed);
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [LayoutComponent, SidebarComponent],
-  template: `
-      <app-layout [sidebarWidth]="width">
-          <app-sidebar
-                  #sidebar
-                  sidebar
-                  (toggle)="onToggle($event)"
-          />
-          <p style="padding: 1rem">Hi there!</p>
-      </app-layout>
-  `
+	selector: "app-root",
+	standalone: true,
+	imports: [LayoutComponent, SidebarComponent],
+	template: `
+		<app-layout [sidebarWidth]="width">
+			<app-sidebar #sidebar sidebar (toggle)="onToggle($event)" />
+			<p style="padding: 1rem">Hi there!</p>
+		</app-layout>
+	`,
 })
 export class AppComponent implements OnInit, OnDestroy {
-  @ViewChild('sidebar', {static: true}) sidebar!: SidebarComponent;
+	@ViewChild("sidebar", { static: true }) sidebar!: SidebarComponent;
 
-  collapsedWidth = 100;
-  expandedWidth = 150;
-  widthToCollapseAt = 600;
+	collapsedWidth = 100;
+	expandedWidth = 150;
+	widthToCollapseAt = 600;
 
-  width = this.expandedWidth;
+	width = this.expandedWidth;
 
-  onToggle(isCollapsed: boolean) {
-      if (isCollapsed) {
-          this.width = this.collapsedWidth;
-          return;
-      }
-      this.width = this.expandedWidth;
-  }
+	onToggle(isCollapsed: boolean) {
+		if (isCollapsed) {
+			this.width = this.collapsedWidth;
+			return;
+		}
+		this.width = this.expandedWidth;
+	}
 
-  onResize = () => {
-      if (window.innerWidth < this.widthToCollapseAt) {
-          this.sidebar.collapse();
-      } else if (this.sidebar.isCollapsed) {
-          this.sidebar.expand();
-      }
-  };
+	onResize = () => {
+		if (window.innerWidth < this.widthToCollapseAt) {
+			this.sidebar.collapse();
+		} else if (this.sidebar.isCollapsed) {
+			this.sidebar.expand();
+		}
+	};
 
-  ngOnInit() {
-      window.addEventListener('resize', this.onResize);
-  }
+	ngOnInit() {
+		window.addEventListener("resize", this.onResize);
+	}
 
-  ngOnDestroy() {
-      window.removeEventListener('resize', this.onResize);
-  }
+	ngOnDestroy() {
+		window.removeEventListener("resize", this.onResize);
+	}
 }
 ```
 
@@ -1531,99 +1538,99 @@ export class AppComponent implements OnInit, OnDestroy {
 
 ```vue
 <script setup>
-  import {ref} from "vue";
+import { ref } from "vue";
 
-  const emits = defineEmits(['toggle']);
+const emits = defineEmits(["toggle"]);
 
-  const isCollapsed = ref(false);
+const isCollapsed = ref(false);
 
-  const setAndToggle = (v) => {
-    isCollapsed.value = v;
-    emits('toggle', v);
-  };
+const setAndToggle = (v) => {
+	isCollapsed.value = v;
+	emits("toggle", v);
+};
 
-  const collapse = () => {
-    setAndToggle(true);
-  }
+const collapse = () => {
+	setAndToggle(true);
+};
 
-  const expand = () => {
-    setAndToggle(false);
-  }
+const expand = () => {
+	setAndToggle(false);
+};
 
-  const toggleCollapsed = () => {
-    setAndToggle(!isCollapsed.value);
-  };
+const toggleCollapsed = () => {
+	setAndToggle(!isCollapsed.value);
+};
 
-  defineExpose({
-    expand,
-    collapse,
-    isCollapsed
-  })
+defineExpose({
+	expand,
+	collapse,
+	isCollapsed,
+});
 </script>
 
 <template>
-    <button v-if="isCollapsed" @click="toggleCollapsed()">Toggle</button>
-    <div v-if="!isCollapsed">
-        <button @click="toggleCollapsed()">Toggle</button>
-        <ul style="padding: 1rem">
-            <li>List item 1</li>
-            <li>List item 2</li>
-            <li>List item 3</li>
-            <li>List item 4</li>
-            <li>List item 5</li>
-            <li>List item 6</li>
-        </ul>
-    </div>
+	<button v-if="isCollapsed" @click="toggleCollapsed()">Toggle</button>
+	<div v-if="!isCollapsed">
+		<button @click="toggleCollapsed()">Toggle</button>
+		<ul style="padding: 1rem">
+			<li>List item 1</li>
+			<li>List item 2</li>
+			<li>List item 3</li>
+			<li>List item 4</li>
+			<li>List item 5</li>
+			<li>List item 6</li>
+		</ul>
+	</div>
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import {onMounted, onUnmounted, ref} from "vue";
-  import Layout from "./Layout.vue";
-  import Sidebar from "./Sidebar.vue";
+import { onMounted, onUnmounted, ref } from "vue";
+import Layout from "./Layout.vue";
+import Sidebar from "./Sidebar.vue";
 
-  const collapsedWidth = 100;
-  const expandedWidth = 150;
-  const widthToCollapseAt = 600
+const collapsedWidth = 100;
+const expandedWidth = 150;
+const widthToCollapseAt = 600;
 
-  const sidebar = ref()
+const sidebar = ref();
 
-  const width = ref(expandedWidth);
+const width = ref(expandedWidth);
 
-  const onToggle = (isCollapsed) => {
-    if (isCollapsed) {
-      width.value = collapsedWidth;
-      return;
-    }
-    width.value = expandedWidth;
-  }
+const onToggle = (isCollapsed) => {
+	if (isCollapsed) {
+		width.value = collapsedWidth;
+		return;
+	}
+	width.value = expandedWidth;
+};
 
-  const onResize = () => {
-    if (window.innerWidth < widthToCollapseAt) {
-      sidebar.value.collapse()
-    } else if (sidebar.value.isCollapsed) {
-      sidebar.value.expand()
-    }
-  }
+const onResize = () => {
+	if (window.innerWidth < widthToCollapseAt) {
+		sidebar.value.collapse();
+	} else if (sidebar.value.isCollapsed) {
+		sidebar.value.expand();
+	}
+};
 
-  onMounted(() => {
-    window.addEventListener('resize', onResize)
-  })
+onMounted(() => {
+	window.addEventListener("resize", onResize);
+});
 
-  onUnmounted(() => {
-    window.removeEventListener('resize', onResize)
-  })
+onUnmounted(() => {
+	window.removeEventListener("resize", onResize);
+});
 </script>
 
 <template>
-    <Layout :sidebarWidth="width">
-        <template #sidebar>
-            <Sidebar ref="sidebar" @toggle="onToggle($event)"/>
-        </template>
-        <p style="padding: 1rem">Hi there!</p>
-    </Layout>
+	<Layout :sidebarWidth="width">
+		<template #sidebar>
+			<Sidebar ref="sidebar" @toggle="onToggle($event)" />
+		</template>
+		<p style="padding: 1rem">Hi there!</p>
+	</Layout>
 </template>
 ```
 

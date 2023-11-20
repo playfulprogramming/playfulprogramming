@@ -1,27 +1,27 @@
 ---
 {
-    title: "Passing Children",
-    description: "Just like HTML nodes have parents and children, so too do framework components. Let's learn how React, Angular, and Vue allow you to pass children to your components.",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 7,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Passing Children",
+  description: "Just like HTML nodes have parents and children, so too do framework components. Let's learn how React, Angular, and Vue allow you to pass children to your components.",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 7,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
 
-[As mentioned previously](// TODO), in the DOM your HTML elements have a relationship to one another. 
+[As mentioned previously](// TODO), in the DOM your HTML elements have a relationship to one another.
 
 For example, the following:
 
 ```html
 <div>
-    <ul>
-        <li>One</li>
-        <li>Two</li>
-        <li>Three</li>
-    </ul>
+	<ul>
+		<li>One</li>
+		<li>Two</li>
+		<li>Three</li>
+	</ul>
 </div>
 ```
 
@@ -42,30 +42,34 @@ This is how the DOM constructs nodes as parents and children. Notice how the `<l
 />
 ```
 
- While the above looks strange and counter-intuitive, let's look at how we define the same list if each element is a dedicated component using the methods we've created thus far:
+While the above looks strange and counter-intuitive, let's look at how we define the same list if each element is a dedicated component using the methods we've created thus far:
 
 <!-- tabs:start -->
 
 # React
 
 ```jsx
-const ListItem = ({name}) => {
-    return <li>{name}</li>
-}
+const ListItem = ({ name }) => {
+	return <li>{name}</li>;
+};
 
 const List = () => {
-    return <ul>
-    	<ListItem name="One"/>
-    	<ListItem name="Two"/>
-    	<ListItem name="Three"/>
-    </ul>
-}
+	return (
+		<ul>
+			<ListItem name="One" />
+			<ListItem name="Two" />
+			<ListItem name="Three" />
+		</ul>
+	);
+};
 
 const Container = () => {
-	return <div>
-		<List/>
-	</div>
-}
+	return (
+		<div>
+			<List />
+		</div>
+	);
+};
 ```
 
 # Angular
@@ -82,12 +86,11 @@ This is fairly similar to that strange fake nested HTML syntax. The alternative 
 
 ```jsx
 <Component>
-	<OtherComponent/>
+	<OtherComponent />
 </Component>
 ```
 
 This mismatch occurs because, if we look at how our components are defined, we're building out our previous components **deeply** rather than **broadly**.
-
 
 ![// TODO: DO](./depth_first.png)
 
@@ -106,51 +109,70 @@ For example, say you want the `button` to have "pressed" effect whenever you cli
 ### React
 
 ```jsx
-const ToggleButton = ({text}) => {
+const ToggleButton = ({ text }) => {
 	const [pressed, setPressed] = useState(false);
 	return (
-		<button onClick={() => setPressed(!pressed)} style={{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}} type="button" aria-pressed={pressed}>
+		<button
+			onClick={() => setPressed(!pressed)}
+			style={{
+				backgroundColor: pressed ? "black" : "white",
+				color: pressed ? "white" : "black",
+			}}
+			type="button"
+			aria-pressed={pressed}
+		>
 			{text}
 		</button>
-    )
-}
+	);
+};
 
 const ToggleButtonList = () => {
-    return <>
-		<ToggleButton text="Hello world!"/>
-		<ToggleButton text="Hello other friends!"/>
-	</>
-}
+	return (
+		<>
+			<ToggleButton text="Hello world!" />
+			<ToggleButton text="Hello other friends!" />
+		</>
+	);
+};
 ```
 
 ### Angular
 
 ```typescript
 @Component({
-  selector: 'toggle-button',
-  standalone: true,
-  template: `
-    <button (click)="togglePressed()" [style]="pressed ? 'background-color: black; color: white;' : 'background-color: white;color: black'" type="button" [attr.aria-pressed]="pressed">
-      {{text}}
-    </button>
-    `,
+	selector: "toggle-button",
+	standalone: true,
+	template: `
+		<button
+			(click)="togglePressed()"
+			[style]="
+				pressed
+					? 'background-color: black; color: white;'
+					: 'background-color: white;color: black'
+			"
+			type="button"
+			[attr.aria-pressed]="pressed"
+		>
+			{{ text }}
+		</button>
+	`,
 })
 export class ToggleButtonComponent {
-  @Input() text: string;
-  pressed = false;
-  togglePressed() {
-    this.pressed = !this.pressed;
-  }
+	@Input() text: string;
+	pressed = false;
+	togglePressed() {
+		this.pressed = !this.pressed;
+	}
 }
 
 @Component({
-  selector: 'toggle-button-list',
-  standalone: true,
-  imports: [ToggleButtonComponent],
-  template: `
-    <toggle-button text="Hello world!"></toggle-button>
-    <toggle-button text="Hello other friends!"></toggle-button>
-  `,
+	selector: "toggle-button-list",
+	standalone: true,
+	imports: [ToggleButtonComponent],
+	template: `
+		<toggle-button text="Hello world!"></toggle-button>
+		<toggle-button text="Hello other friends!"></toggle-button>
+	`,
 })
 export class ToggleButtonListComponent {}
 ```
@@ -160,38 +182,42 @@ export class ToggleButtonListComponent {}
 ```vue
 <!-- ToggleButton.vue -->
 <script setup>
-  import { ref } from 'vue'
+import { ref } from "vue";
 
-  const pressed = ref(false)
+const pressed = ref(false);
 
-  const props = defineProps(['text'])
+const props = defineProps(["text"]);
 
-  function togglePressed() {
-    pressed.value = !pressed.value
-  }
+function togglePressed() {
+	pressed.value = !pressed.value;
+}
 </script>
 
 <template>
-  <button
-    @click="togglePressed()"
-    :style="pressed ? 'background-color: black; color: white' : 'background-color: white; color: black'"
-    type="button"
-    :aria-pressed="pressed"
-  >
-    {{ props.text || 'Test' }}
-  </button>
+	<button
+		@click="togglePressed()"
+		:style="
+			pressed
+				? 'background-color: black; color: white'
+				: 'background-color: white; color: black'
+		"
+		type="button"
+		:aria-pressed="pressed"
+	>
+		{{ props.text || "Test" }}
+	</button>
 </template>
 ```
 
 ```vue
 <!-- ToggleButtonList.vue -->
 <script setup>
-  import ToggleButton from './ToggleButton.vue';
+import ToggleButton from "./ToggleButton.vue";
 </script>
 
 <template>
-  <ToggleButton text="Hello world!"></ToggleButton>
-  <ToggleButton text="Hello other friends!"></ToggleButton>
+	<ToggleButton text="Hello world!"></ToggleButton>
+	<ToggleButton text="Hello other friends!"></ToggleButton>
 </template>
 ```
 
@@ -211,23 +237,35 @@ In React, JSX that's passed as a child to a component can be accessed through a 
 
 ```jsx
 // "children" is a preserved property name by React. It reflects passed child nodes
-const ToggleButton = ({children}) => {
+const ToggleButton = ({ children }) => {
 	const [pressed, setPressed] = useState(false);
 	return (
-		<button onClick={() => setPressed(!pressed)} style={{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}} type="button" aria-pressed={pressed}>
-            {/* We then utilize this special property name as any */}
-            {/* other JSX variable to display its contents */}
+		<button
+			onClick={() => setPressed(!pressed)}
+			style={{
+				backgroundColor: pressed ? "black" : "white",
+				color: pressed ? "white" : "black",
+			}}
+			type="button"
+			aria-pressed={pressed}
+		>
+			{/* We then utilize this special property name as any */}
+			{/* other JSX variable to display its contents */}
 			{children}
 		</button>
-    )
-}
+	);
+};
 
 const ToggleButtonList = () => {
-    return <>
-	    <ToggleButton>Hello <span style={{fontWeight: 'bold'}}>world</span>!</ToggleButton>
-	    <ToggleButton>Hello other friends!</ToggleButton>
-	</>
-}
+	return (
+		<>
+			<ToggleButton>
+				Hello <span style={{ fontWeight: "bold" }}>world</span>!
+			</ToggleButton>
+			<ToggleButton>Hello other friends!</ToggleButton>
+		</>
+	);
+};
 ```
 
 ### Angular
@@ -236,29 +274,40 @@ Angular has a special tag called `ng-content` that acts as a pass-through for al
 
 ```typescript
 @Component({
-  selector: 'toggle-button',
-  standalone: true,
-  template: `
-    <button (click)="togglePressed()" [style]="pressed ? 'background-color: black; color: white;' : 'background-color: white;color: black'" type="button" [attr.aria-pressed]="pressed">
-    <ng-content/>
-    </button>
-    `,
+	selector: "toggle-button",
+	standalone: true,
+	template: `
+		<button
+			(click)="togglePressed()"
+			[style]="
+				pressed
+					? 'background-color: black; color: white;'
+					: 'background-color: white;color: black'
+			"
+			type="button"
+			[attr.aria-pressed]="pressed"
+		>
+			<ng-content />
+		</button>
+	`,
 })
 export class ToggleButtonComponent {
-  pressed = false;
-  togglePressed() {
-    this.pressed = !this.pressed;
-  }
+	pressed = false;
+	togglePressed() {
+		this.pressed = !this.pressed;
+	}
 }
 
 @Component({
-  selector: 'toggle-button-list',
-  standalone: true,
-  imports: [ToggleButtonComponent],
-  template: `
-    <toggle-button>Hello <span style="font-weight: bold;">world</span>!</toggle-button>
-    <toggle-button>Hello other friends!</toggle-button>
-  `,
+	selector: "toggle-button-list",
+	standalone: true,
+	imports: [ToggleButtonComponent],
+	template: `
+		<toggle-button
+			>Hello <span style="font-weight: bold;">world</span>!</toggle-button
+		>
+		<toggle-button>Hello other friends!</toggle-button>
+	`,
 })
 export class ToggleButtonListComponent {}
 ```
@@ -267,39 +316,47 @@ Because `ng-content` is built-in to [Angular's compiler](// TODO: Link to Angula
 
 ### Vue
 
-When in Vue-land, the `slot` tag is utilized in order to pass children through to a component's template. 
+When in Vue-land, the `slot` tag is utilized in order to pass children through to a component's template.
 
 ```vue
 <!-- ToggleButton.vue -->
 <script setup>
-  import {ref} from 'vue';
+import { ref } from "vue";
 
-  const pressed = ref(false);
+const pressed = ref(false);
 
-  function togglePressed() {
-    pressed.value = !pressed.value;
-  }
+function togglePressed() {
+	pressed.value = !pressed.value;
+}
 </script>
 
 <template>
-  <button @click="togglePressed()"
-          :style="pressed ? 'background-color: black; color: white' : 'background-color: white; color: black'"
-		  type="button"
-          :aria-pressed="pressed">
-    <slot></slot>
-  </button>
+	<button
+		@click="togglePressed()"
+		:style="
+			pressed
+				? 'background-color: black; color: white'
+				: 'background-color: white; color: black'
+		"
+		type="button"
+		:aria-pressed="pressed"
+	>
+		<slot></slot>
+	</button>
 </template>
 ```
 
 ```vue
 <!-- ToggleButtonList.vue -->
 <script setup>
-  import ToggleButton from './ToggleButton.vue';
+import ToggleButton from "./ToggleButton.vue";
 </script>
 
 <template>
-  <ToggleButton>Hello <span style="font-weight: bold">world</span>!</ToggleButton>
-  <ToggleButton>Hello other friends!</ToggleButton>
+	<ToggleButton
+		>Hello <span style="font-weight: bold">world</span>!</ToggleButton
+	>
+	<ToggleButton>Hello other friends!</ToggleButton>
 </template>
 ```
 
@@ -319,15 +376,26 @@ However, because these templates have the full power of the frameworks at their 
 
 ```jsx
 function ToggleButtonList() {
-    const friends = ["Kevin,", "Evelyn,", "and James"];
-    return <>
-	    <ToggleButton>Hello {friends.map(friend => <span>{friend} </span>)}!</ToggleButton>
-	    <ToggleButton>Hello other friends<RainbowExclamationMark/></ToggleButton>
-	</>
+	const friends = ["Kevin,", "Evelyn,", "and James"];
+	return (
+		<>
+			<ToggleButton>
+				Hello{" "}
+				{friends.map((friend) => (
+					<span>{friend} </span>
+				))}
+				!
+			</ToggleButton>
+			<ToggleButton>
+				Hello other friends
+				<RainbowExclamationMark />
+			</ToggleButton>
+		</>
+	);
 }
 
 function RainbowExclamationMark() {
-  const rainbowGradient = `
+	const rainbowGradient = `
     linear-gradient(
       180deg,
       #fe0000 16.66%,
@@ -343,122 +411,126 @@ function RainbowExclamationMark() {
     )
   `;
 
-  return (
-    <span
-      style={{
-        fontSize: '3rem',
-        background: rainbowGradient,
-        backgroundSize: '100%',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        MozBackgroundClip: 'text',
-      }}
-    >
-      !
-    </span>
-  );
-};
+	return (
+		<span
+			style={{
+				fontSize: "3rem",
+				background: rainbowGradient,
+				backgroundSize: "100%",
+				WebkitBackgroundClip: "text",
+				WebkitTextFillColor: "transparent",
+				MozBackgroundClip: "text",
+			}}
+		>
+			!
+		</span>
+	);
+}
 ```
 
 ### Angular
 
 ```typescript
 @Component({
-  selector: 'toggle-button-list',
-  standalone: true,
-  imports: [ToggleButtonComponent, RainbowExclamationMarkComponent],
-  template: `
-    <toggle-button>Hello <span *ngFor="let friend of friends">{{friend}} </span>!</toggle-button>
-    <toggle-button>Hello other friends<rainbow-exclamation-mark/></toggle-button>
-  `,
+	selector: "toggle-button-list",
+	standalone: true,
+	imports: [ToggleButtonComponent, RainbowExclamationMarkComponent],
+	template: `
+		<toggle-button
+			>Hello
+			<span *ngFor="let friend of friends">{{ friend }} </span>!</toggle-button
+		>
+		<toggle-button
+			>Hello other friends<rainbow-exclamation-mark
+		/></toggle-button>
+	`,
 })
 export class ToggleButtonListComponent {
-  friends = ['Kevin,', 'Evelyn,', 'and James'];
+	friends = ["Kevin,", "Evelyn,", "and James"];
 }
 
 @Component({
-  selector: 'rainbow-exclamation-mark',
-  standalone: true,
-  template: `
-  <span>!</span>
-    `,
-  // These styles will only apply to this component
-  styles: [
-    `
-  span {
-    font-size: 3rem;
-    background: linear-gradient(
-      180deg,
-      #fe0000 16.66%,
-      #fd8c00 16.66%,
-      33.32%,
-      #ffe500 33.32%,
-      49.98%,
-      #119f0b 49.98%,
-      66.64%,
-      #0644b3 66.64%,
-      83.3%,
-      #c22edc 83.3%
-    );
-    background-size: 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-background-clip: text;
-  }
-  `,
-  ],
+	selector: "rainbow-exclamation-mark",
+	standalone: true,
+	template: ` <span>!</span> `,
+	// These styles will only apply to this component
+	styles: [
+		`
+			span {
+				font-size: 3rem;
+				background: linear-gradient(
+					180deg,
+					#fe0000 16.66%,
+					#fd8c00 16.66%,
+					33.32%,
+					#ffe500 33.32%,
+					49.98%,
+					#119f0b 49.98%,
+					66.64%,
+					#0644b3 66.64%,
+					83.3%,
+					#c22edc 83.3%
+				);
+				background-size: 100%;
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				-moz-background-clip: text;
+			}
+		`,
+	],
 })
 export class RainbowExclamationMarkComponent {}
 ```
 
 ### Vue
 
-
 ```vue
 <!-- ToggleButtonList.vue -->
 <script setup>
-  import ToggleButton from './ToggleButton.vue';
-  import RainbowExclamationMark from './RainbowExclamationMark.vue';
+import ToggleButton from "./ToggleButton.vue";
+import RainbowExclamationMark from "./RainbowExclamationMark.vue";
 
-  const friends = ['Kevin,', 'Evelyn,', 'and James']
+const friends = ["Kevin,", "Evelyn,", "and James"];
 </script>
 
 <template>
-  <ToggleButton>Hello <span v-for="friend of friends">{{ friend }} </span>!</ToggleButton>
-  <ToggleButton>Hello other friends
-    <RainbowExclamationMark/>
-  </ToggleButton>
+	<ToggleButton
+		>Hello <span v-for="friend of friends">{{ friend }} </span>!</ToggleButton
+	>
+	<ToggleButton
+		>Hello other friends
+		<RainbowExclamationMark />
+	</ToggleButton>
 </template>
 ```
-
 
 ```vue
 <!-- RainbowExclamationMark.vue -->
 <template>
-  <span>!</span>
+	<span>!</span>
 </template>
 
 <!-- "scoped" means the styles only apply to this component -->
 <style scoped>
 span {
-  font-size: 3rem;
-  background: linear-gradient(
-    180deg,
-    #fe0000 16.66%,
-    #fd8c00 16.66%,
-    33.32%,
-    #ffe500 33.32%,
-    49.98%,
-    #119f0b 49.98%,
-    66.64%,
-    #0644b3 66.64%,
-    83.3%,
-    #c22edc 83.3%
-  );
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-background-clip: text;
+	font-size: 3rem;
+	background: linear-gradient(
+		180deg,
+		#fe0000 16.66%,
+		#fd8c00 16.66%,
+		33.32%,
+		#ffe500 33.32%,
+		49.98%,
+		#119f0b 49.98%,
+		66.64%,
+		#0644b3 66.64%,
+		83.3%,
+		#c22edc 83.3%
+	);
+	background-size: 100%;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-moz-background-clip: text;
 }
 </style>
 ```
@@ -475,7 +547,6 @@ While passing one set of elements is useful in its own right, many components re
 
 For example, take this dropdown component:
 
-
 <details>
 <summary>Let's build this dropdown component</summary>
 These tend to be useful for FAQ pages, hidden contents, and more!
@@ -486,7 +557,10 @@ This dropdown component has two potential places where passing elements would be
 ```html
 <Dropdown>
 	<DropdownHeader>Let's build this dropdown component</DropdownHeader>
-	<DropdownBody>These tend to be useful for FAQ pages, hidden contents, and more!</DropdownBody>
+	<DropdownBody
+		>These tend to be useful for FAQ pages, hidden contents, and
+		more!</DropdownBody
+	>
 </Dropdown>
 ```
 
@@ -512,33 +586,33 @@ Because of this behavior, in order to pass more than one JSX value to a componen
 
 ```jsx
 const Dropdown = ({ children, header, expanded, toggle }) => {
-  return (
-    <>
-      <button
-        onClick={toggle}
-        aria-expanded={expanded}
-        aria-controls="dropdown-contents"
-      >
-        {expanded ? '🡇' : '🡆'} {header}
-      </button>
-      <div id="dropdown-contents" role="region" hidden={!expanded}>
-        {children}
-      </div>
-    </>
-  );
+	return (
+		<>
+			<button
+				onClick={toggle}
+				aria-expanded={expanded}
+				aria-controls="dropdown-contents"
+			>
+				{expanded ? "🡇" : "🡆"} {header}
+			</button>
+			<div id="dropdown-contents" role="region" hidden={!expanded}>
+				{children}
+			</div>
+		</>
+	);
 };
 
 export default function App() {
-  const [expanded, setExpanded] = useState(false);
-  return (
-    <Dropdown
-      expanded={expanded}
-      toggle={() => setExpanded(!expanded)}
-      header={<>Let's build this dropdown component</>}
-    >
-      These tend to be useful for FAQ pages, hidden contents, and more!
-    </Dropdown>
-  );
+	const [expanded, setExpanded] = useState(false);
+	return (
+		<Dropdown
+			expanded={expanded}
+			toggle={() => setExpanded(!expanded)}
+			header={<>Let's build this dropdown component</>}
+		>
+			These tend to be useful for FAQ pages, hidden contents, and more!
+		</Dropdown>
+	);
 }
 ```
 
@@ -548,35 +622,39 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'dropdown-comp',
-  standalone: true,
-  template: `
-  <button (click)="toggle.emit()" :aria-expanded="expanded" aria-controls="dropdown-contents">
-    {{ expanded ? '🡇' : '🡆' }} <ng-content select="[header]"/>
-  </button>
-  <div id="dropdown-contents" role="region" [hidden]="!expanded">
-  <ng-content/>
-  </div>
-    `,
+	selector: "dropdown-comp",
+	standalone: true,
+	template: `
+		<button
+			(click)="toggle.emit()"
+			:aria-expanded="expanded"
+			aria-controls="dropdown-contents"
+		>
+			{{ expanded ? "🡇" : "🡆" }} <ng-content select="[header]" />
+		</button>
+		<div id="dropdown-contents" role="region" [hidden]="!expanded">
+			<ng-content />
+		</div>
+	`,
 })
 export class DropdownComponent {
-  @Input() expanded: boolean;
-  @Output() toggle = new EventEmitter();
+	@Input() expanded: boolean;
+	@Output() toggle = new EventEmitter();
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [DropdownComponent],
-  template: `
-  <dropdown-comp [expanded]="expanded" (toggle)="expanded = !expanded">
-    <ng-container header>Let's build this dropdown component</ng-container>
-    These tend to be useful for FAQ pages, hidden contents, and more!
-  </dropdown-comp>
-    `,
+	selector: "app-root",
+	standalone: true,
+	imports: [DropdownComponent],
+	template: `
+		<dropdown-comp [expanded]="expanded" (toggle)="expanded = !expanded">
+			<ng-container header>Let's build this dropdown component</ng-container>
+			These tend to be useful for FAQ pages, hidden contents, and more!
+		</dropdown-comp>
+	`,
 })
 class AppComponent {
-  expanded = false;
+	expanded = false;
 }
 ```
 
@@ -589,35 +667,39 @@ Similar to how Angular's `ng-content[select]` query works, Vue allows you to pas
 ```vue
 <!-- Dropdown.vue -->
 <script setup>
-  const props = defineProps(['expanded'])
+const props = defineProps(["expanded"]);
 
-  const emit = defineEmits(['toggle'])
+const emit = defineEmits(["toggle"]);
 </script>
 
 <template>
-  <button @click="emit('toggle')" :aria-expanded="expanded" aria-controls="dropdown-contents">
-    {{ props.expanded ? '🡇' : '🡆' }} <slot name="header" />
-  </button>
-  <div id="dropdown-contents" role="region" :hidden="!props.expanded">
-    <slot />
-  </div>
+	<button
+		@click="emit('toggle')"
+		:aria-expanded="expanded"
+		aria-controls="dropdown-contents"
+	>
+		{{ props.expanded ? "🡇" : "🡆" }} <slot name="header" />
+	</button>
+	<div id="dropdown-contents" role="region" :hidden="!props.expanded">
+		<slot />
+	</div>
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { ref } from 'vue'
-  import Dropdown from './Dropdown.vue'
+import { ref } from "vue";
+import Dropdown from "./Dropdown.vue";
 
-  const expanded = ref(false)
+const expanded = ref(false);
 </script>
 
 <template>
-  <Dropdown :expanded="expanded" @toggle="expanded = !expanded">
-    <template v-slot:header>Let's build this dropdown component</template>
-    These tend to be useful for FAQ pages, hidden contents, and more!
-  </Dropdown>
+	<Dropdown :expanded="expanded" @toggle="expanded = !expanded">
+		<template v-slot:header>Let's build this dropdown component</template>
+		These tend to be useful for FAQ pages, hidden contents, and more!
+	</Dropdown>
 </template>
 ```
 
@@ -628,23 +710,21 @@ Here, we can see that `slot` is querying for a `header` template slot. This quer
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { ref } from 'vue'
-  import Dropdown from './Dropdown.vue'
+import { ref } from "vue";
+import Dropdown from "./Dropdown.vue";
 
-  const expanded = ref(false)
+const expanded = ref(false);
 </script>
 
 <template>
-  <Dropdown :expanded="expanded" @toggle="expanded = !expanded">
-    <template #header>Let's build this dropdown component</template>
-    These tend to be useful for FAQ pages, hidden contents, and more!
-  </Dropdown>
+	<Dropdown :expanded="expanded" @toggle="expanded = !expanded">
+		<template #header>Let's build this dropdown component</template>
+		These tend to be useful for FAQ pages, hidden contents, and more!
+	</Dropdown>
 </template>
 ```
 
 <!-- tabs:end -->
-
-
 
 # Using Passed Children to Build a Table
 
@@ -681,68 +761,77 @@ Let's refactor our file list to use this DOM layout:
 
 ```jsx
 const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
-  return (
-    <tr
-      onClick={onSelected}
-      aria-selected={isSelected}
-      style={
-        isSelected
-          ? { backgroundColor: 'blue', color: 'white' }
-          : { backgroundColor: 'white', color: 'blue' }
-      }
-    >
-      <td><a href={href}>{fileName}</a></td>
-      {isFolder && <td><FileDate inputDate={new Date()} /></td>}
-    </tr>
-  );
+	return (
+		<tr
+			onClick={onSelected}
+			aria-selected={isSelected}
+			style={
+				isSelected
+					? { backgroundColor: "blue", color: "white" }
+					: { backgroundColor: "white", color: "blue" }
+			}
+		>
+			<td>
+				<a href={href}>{fileName}</a>
+			</td>
+			{isFolder && (
+				<td>
+					<FileDate inputDate={new Date()} />
+				</td>
+			)}
+		</tr>
+	);
 };
 
 const filesArray = [
-    {
-      fileName: 'File one',
-      href: '/file/file_one',
-      isFolder: false,
-    },
-    {
-      fileName: 'File two',
-      href: '/file/file_two',
-      isFolder: false,
-    },
-    {
-      fileName: 'File three',
-      href: '/file/file_three',
-      isFolder: false,
-    },
-  ];
+	{
+		fileName: "File one",
+		href: "/file/file_one",
+		isFolder: false,
+	},
+	{
+		fileName: "File two",
+		href: "/file/file_two",
+		isFolder: false,
+	},
+	{
+		fileName: "File three",
+		href: "/file/file_three",
+		isFolder: false,
+	},
+];
 
 // This was previously called "FileList"
 const FileTableBody = () => {
-  return (<tbody>
-  {
-    filesArray.map(file => {
-      return <>
-        {
-            !file.isFolder &&
-            <File
-              fileName={file.fileName}
-         	  href={file.href}
-         	  isSelected={false}
-         	  isFolder={file.isFolder}
-              onSelected={() => {}}
-            />
-        }
-      </>
-    })
-  }
-</tbody>)
-}
+	return (
+		<tbody>
+			{filesArray.map((file) => {
+				return (
+					<>
+						{!file.isFolder && (
+							<File
+								fileName={file.fileName}
+								href={file.href}
+								isSelected={false}
+								isFolder={file.isFolder}
+								onSelected={() => {}}
+							/>
+						)}
+					</>
+				);
+			})}
+		</tbody>
+	);
+};
 
 // This is a new component
 const FileTable = () => {
-  return (
-  	<table><FileTableBody/></table>
-  )
-}
+	return (
+		<table>
+			<FileTableBody />
+		</table>
+	);
+};
 ```
 
 > Please note that we've temporarily disabled `isSelected` logic for the sake of code sample brevity
@@ -751,78 +840,83 @@ const FileTable = () => {
 
 ```typescript
 @Component({
-  selector: 'file-item',
-  standalone: true,
-  imports: [NgIf, FileDateComponent],
-  template: `
-  <tr
-  (click)="selected.emit()"  [attr.aria-selected]="isSelected"
-  [style]="
-    isSelected
-      ? { backgroundColor: 'blue', color: 'white' }
-      : { backgroundColor: 'white', color: 'blue' }
-  "
->
-  <td><a [href]="href">{{fileName}}</a></td>
-  <td *ngIf="isFolder"><file-date inputDate={new Date()}/></td>
-</tr>
-  `,
+	selector: "file-item",
+	standalone: true,
+	imports: [NgIf, FileDateComponent],
+	template: `
+		<tr
+			(click)="selected.emit()"
+			[attr.aria-selected]="isSelected"
+			[style]="
+				isSelected
+					? { backgroundColor: 'blue', color: 'white' }
+					: { backgroundColor: 'white', color: 'blue' }
+			"
+		>
+			<td>
+				<a [href]="href">{{ fileName }}</a>
+			</td>
+			<td *ngIf="isFolder"><file-date inputDate="{new" Date()} /></td>
+		</tr>
+	`,
 })
 class FileComponent {
-  @Input() fileName: string;
-  @Input() href: string;
-  @Input() isSelected: boolean;
-  @Input() isFolder: boolean;
-  @Output() selected = new EventEmitter();
+	@Input() fileName: string;
+	@Input() href: string;
+	@Input() isSelected: boolean;
+	@Input() isFolder: boolean;
+	@Output() selected = new EventEmitter();
 }
 
 // This was previously called "FileList"
 @Component({
-  selector: 'file-table-body',
-  standalone: true,
-  imports: [NgFor, NgIf, FileComponent],
-  template: `
-    <tbody>
-      <ng-container *ngFor="let file of filesArray">
-        <file
-         *ngIf="!file.isFolder"
-         [fileName]="file.fileName"
-         [href]="file.href"
-         [isSelected]="false"
-         [isFolder]="file.isFolder"
-         />
-      </ng-container>
-    </tbody>
-  `,
+	selector: "file-table-body",
+	standalone: true,
+	imports: [NgFor, NgIf, FileComponent],
+	template: `
+		<tbody>
+			<ng-container *ngFor="let file of filesArray">
+				<file
+					*ngIf="!file.isFolder"
+					[fileName]="file.fileName"
+					[href]="file.href"
+					[isSelected]="false"
+					[isFolder]="file.isFolder"
+				/>
+			</ng-container>
+		</tbody>
+	`,
 })
 class FileTableBodyComponent {
-  filesArray = [
-    {
-      fileName: 'File one',
-      href: '/file/file_one',
-      isFolder: false,
-    },
-    {
-      fileName: 'File two',
-      href: '/file/file_two',
-      isFolder: false,
-    },
-    {
-      fileName: 'File three',
-      href: '/file/file_three',
-      isFolder: false,
-    },
-  ];
+	filesArray = [
+		{
+			fileName: "File one",
+			href: "/file/file_one",
+			isFolder: false,
+		},
+		{
+			fileName: "File two",
+			href: "/file/file_two",
+			isFolder: false,
+		},
+		{
+			fileName: "File three",
+			href: "/file/file_three",
+			isFolder: false,
+		},
+	];
 }
 
 // This is a new component
 @Component({
-  selector: 'file-table',
-  standalone: true,
-  imports: [FileTableBodyComponent],
-  template: `
-    <table><file-table-body/></table>
-  `,
+	selector: "file-table",
+	standalone: true,
+	imports: [FileTableBodyComponent],
+	template: `
+		<table>
+			<file-table-body />
+		</table>
+	`,
 })
 class FileTableComponent {}
 ```
@@ -834,25 +928,27 @@ class FileTableComponent {}
 ```vue
 <!-- File.vue -->
 <script setup>
-  import FileDate from './FileDate.vue';
+import FileDate from "./FileDate.vue";
 
-  const props = defineProps(['fileName', 'href', 'isSelected', 'isFolder']);
-  const emit = defineEmits(['selected']);
+const props = defineProps(["fileName", "href", "isSelected", "isFolder"]);
+const emit = defineEmits(["selected"]);
 </script>
 
 <template>
-  <tr
-      @click="emit('selected')"
-      :aria-selected="props.isSelected"
-      :style="
-      props.isSelected
-        ? { backgroundColor: 'blue', color: 'white' }
-        : { backgroundColor: 'white', color: 'blue' }
-    "
-  >
-    <td><a :href="props.href">{{props.fileName}}</a></td>
-    <td v-if="props.isFolder"><FileDate :inputDate="new Date()"></FileDate></td>
-  </tr>
+	<tr
+		@click="emit('selected')"
+		:aria-selected="props.isSelected"
+		:style="
+			props.isSelected
+				? { backgroundColor: 'blue', color: 'white' }
+				: { backgroundColor: 'white', color: 'blue' }
+		"
+	>
+		<td>
+			<a :href="props.href">{{ props.fileName }}</a>
+		</td>
+		<td v-if="props.isFolder"><FileDate :inputDate="new Date()"></FileDate></td>
+	</tr>
 </template>
 ```
 
@@ -860,50 +956,52 @@ class FileTableComponent {}
 <!-- FileTableBody -->
 <!-- This was previously called "FileList" -->
 <script setup>
-  import File from './File.vue';
+import File from "./File.vue";
 
-  const filesArray = [
-    {
-      fileName: 'File one',
-      href: '/file/file_one',
-      isFolder: false,
-    },
-    {
-      fileName: 'File two',
-      href: '/file/file_two',
-      isFolder: false,
-    },
-    {
-      fileName: 'File three',
-      href: '/file/file_three',
-      isFolder: false,
-    },
-  ]
+const filesArray = [
+	{
+		fileName: "File one",
+		href: "/file/file_one",
+		isFolder: false,
+	},
+	{
+		fileName: "File two",
+		href: "/file/file_two",
+		isFolder: false,
+	},
+	{
+		fileName: "File three",
+		href: "/file/file_three",
+		isFolder: false,
+	},
+];
 </script>
 
 <template>
-  <tbody>
-    <template v-for="file in filesArray">
-      <File
-          v-if="!file.isFolder"
-          :fileName="file.fileName"
-          :href="file.href"
-          :isFolder="file.isFolder"
-          :isSelected="false"
-      />
-    </template>
-  </tbody>
+	<tbody>
+		<template v-for="file in filesArray">
+			<File
+				v-if="!file.isFolder"
+				:fileName="file.fileName"
+				:href="file.href"
+				:isFolder="file.isFolder"
+				:isSelected="false"
+			/>
+		</template>
+	</tbody>
 </template>
 ```
 
 ```vue
 <!-- FileTable -->
 <script setup>
-  import FileTableBody from './FileTableBody.vue';
+import FileTableBody from "./FileTableBody.vue";
 </script>
 
 <template>
-  <table><FileTableBody/></table>
+	<table>
+		<FileTableBody />
+	</table>
 </template>
 ```
 
@@ -915,7 +1013,7 @@ class FileTableComponent {}
 <!-- https://w3c.github.io/aria-practices/examples/grid/advancedDataGrid.html -->
 <!-- That said, it seems like the best overall pattern here is that the row selection should have `aria-selected` (not `aria-pressed`) with the information present -->
 
---------------
+---
 
 Now that we have an explicit `FileTable` component, let's see if we're able to style it a bit more with a replacement `FileTableContainer` component, which utilizes passing children to style the underlying `table` element.
 
@@ -923,41 +1021,45 @@ Now that we have an explicit `FileTable` component, let's see if we're able to s
 
 ## React
 
-````jsx
-const FileTableContainer = ({children}) => {
-  return <table style={{color: '#3366FF', border: '2px solid #F5F8FF'}}>
-		{children}
-	</table>
-}
+```jsx
+const FileTableContainer = ({ children }) => {
+	return (
+		<table style={{ color: "#3366FF", border: "2px solid #F5F8FF" }}>
+			{children}
+		</table>
+	);
+};
 
 const FileTable = () => {
-  return (
-  	<FileTableContainer><FileList/></FileTableContainer>
-  )
-}
-````
+	return (
+		<FileTableContainer>
+			<FileList />
+		</FileTableContainer>
+	);
+};
+```
 
 ## Angular
 
 ```typescript
 @Component({
-  selector: 'file-table-container',
-  standalone: true,
-  template: `
-  <table [style]="{color: '#3366FF', border: '2px solid #F5F8FF'}">
-    <ng-content></ng-content>
-  </table>
-  `,
+	selector: "file-table-container",
+	standalone: true,
+	template: `
+		<table [style]="{ color: '#3366FF', border: '2px solid #F5F8FF' }">
+			<ng-content></ng-content>
+		</table>
+	`,
 })
 class FileTableContainerComponent {}
 
 @Component({
-  selector: 'file-table',
-  standalone: true,
-  imports: [FileTableContainerComponent],
-  template: `
-    <file-table-container><file-table-body/></file-table-container>
-  `,
+	selector: "file-table",
+	standalone: true,
+	imports: [FileTableContainerComponent],
+	template: `
+		<file-table-container><file-table-body /></file-table-container>
+	`,
 })
 class FileTableComponent {}
 ```
@@ -967,21 +1069,21 @@ class FileTableComponent {}
 ```vue
 <!-- FileTableContainer -->
 <template>
-  <table :style="{color: '#3366FF', border: '2px solid #F5F8FF'}">
-    <slot></slot>
-  </table>
+	<table :style="{ color: '#3366FF', border: '2px solid #F5F8FF' }">
+		<slot></slot>
+	</table>
 </template>
 ```
 
 ```vue
 <!-- FileTable -->
 <script setup>
-  import FileTableContainer from './FileTableContainer.vue';
-  import FileTableBody from './FileTableBody.vue';
+import FileTableContainer from "./FileTableContainer.vue";
+import FileTableBody from "./FileTableBody.vue";
 </script>
 
 <template>
-  <FileTableContainer><FileTableBody/></FileTableContainer>
+	<FileTableContainer><FileTableBody /></FileTableContainer>
 </template>
 ```
 
@@ -993,8 +1095,8 @@ Let's make this chapters' challenge a continuation on the table that we just bui
 
 ```jsx
 <table>
-   <FileHeader/>
-   <FileList/>
+	<FileHeader />
+	<FileList />
 </table>
 ```
 
@@ -1003,90 +1105,97 @@ Let's make this chapters' challenge a continuation on the table that we just bui
 ## React
 
 ```jsx
-const FileTableContainer = ({children, header}) => {
-  return <table style={{color: '#3366FF', border: '2px solid #F5F8FF'}}>
-        <thead>{header}</thead>
-		{children}
-	</table>
-}
+const FileTableContainer = ({ children, header }) => {
+	return (
+		<table style={{ color: "#3366FF", border: "2px solid #F5F8FF" }}>
+			<thead>{header}</thead>
+			{children}
+		</table>
+	);
+};
 
 const FileTable = () => {
-  const headerEl = <tr>
-            <th>Name</th>
-        	<th>Date</th>
-        </tr>
-    
-    return (
-  	<FileTableContainer header={headerEl}>
-      <FileTableBody/>
-    </FileTableContainer>
-  )
-}
+	const headerEl = (
+		<tr>
+			<th>Name</th>
+			<th>Date</th>
+		</tr>
+	);
+
+	return (
+		<FileTableContainer header={headerEl}>
+			<FileTableBody />
+		</FileTableContainer>
+	);
+};
 ```
 
 ## Angular
 
-````typescript
+```typescript
 @Component({
-  selector: 'file-table-container',
-  standalone: true,
-  template: `
-  <table [style]="{color: '#3366FF', border: '2px solid #F5F8FF'}">
-    <thead><ng-content select="[header]"></ng-content></thead>
-    <ng-content></ng-content>
-  </table>
-  `,
+	selector: "file-table-container",
+	standalone: true,
+	template: `
+		<table [style]="{ color: '#3366FF', border: '2px solid #F5F8FF' }">
+			<thead>
+				<ng-content select="[header]"></ng-content>
+			</thead>
+			<ng-content></ng-content>
+		</table>
+	`,
 })
 class FileTableContainerComponent {}
 
 @Component({
-  selector: 'file-table',
-  standalone: true,
-  imports: [FileTableContainerComponent, FileTableBodyComponent],
-  template: `
-    <file-table-container>
-        <tr header>
-          <th>Name</th>
-          <th>Date</th>
-        </tr>
-        <file-table-body/>
-    </file-table-container>
-  `,
+	selector: "file-table",
+	standalone: true,
+	imports: [FileTableContainerComponent, FileTableBodyComponent],
+	template: `
+		<file-table-container>
+			<tr header>
+				<th>Name</th>
+				<th>Date</th>
+			</tr>
+			<file-table-body />
+		</file-table-container>
+	`,
 })
 class FileTableComponent {}
-````
+```
 
 ## Vue
 
 ```vue
 <!-- FileTableContainer -->
 <template>
-  <table :style="{color: '#3366FF', border: '2px solid #F5F8FF'}">
-    <thead><slot name="header"></slot></thead>
-    <slot></slot>
-  </table>
+	<table :style="{ color: '#3366FF', border: '2px solid #F5F8FF' }">
+		<thead>
+			<slot name="header"></slot>
+		</thead>
+		<slot></slot>
+	</table>
 </template>
 ```
 
-````vue
+```vue
 <!-- FileTable -->
 <script setup>
-  import FileTableContainer from './FileTableContainer.vue';
-  import FileTableBody from './FileTableBody.vue';
+import FileTableContainer from "./FileTableContainer.vue";
+import FileTableBody from "./FileTableBody.vue";
 </script>
 
 <template>
-  <FileTableContainer>
-    <template #header>
-      <tr>
-        <th>Name</th>
-        <th>Date</th>
-      </tr>
-    </template>
-    <FileTableBody/>
-  </FileTableContainer>
+	<FileTableContainer>
+		<template #header>
+			<tr>
+				<th>Name</th>
+				<th>Date</th>
+			</tr>
+		</template>
+		<FileTableBody />
+	</FileTableContainer>
 </template>
-````
+```
 
 <!-- tabs:end -->
-

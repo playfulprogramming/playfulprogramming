@@ -1,13 +1,13 @@
 ---
 {
-    title: "Accessing Children",
-    description: "Oftentimes, when passing children to a component, you want a way to programmatically access that passed data. Let's learn how to do that in React, Angular, and Vue.",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 15,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Accessing Children",
+  description: "Oftentimes, when passing children to a component, you want a way to programmatically access that passed data. Let's learn how to do that in React, Angular, and Vue.",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 15,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
 
@@ -15,8 +15,8 @@ In [our "Passing Children" chapter](/posts/ffg-fundamentals-passing-children), w
 
 ```jsx
 <FileTableContainer>
-	<FileTableHeader/>
-	<FileTableBody/>
+	<FileTableHeader />
+	<FileTableBody />
 </FileTableContainer>
 ```
 
@@ -43,21 +43,21 @@ Let's count how many elements and components are being passed to our component:
 
 React has a built-in helper called `Children` that will help you access data passed as a child to a component. Using this `Children` helper, we can utilize the `toArray` method to create an array from `children` that we can then do anything we might otherwise do with a typical array.
 
-This comes in handy when trying to access the `length` count. 
+This comes in handy when trying to access the `length` count.
 
 ```jsx
-import {Children} from 'react';
+import { Children } from "react";
 
-const ParentList = ({children}) => {
-  const childArr = Children.toArray(children);
-  console.log(childArr); // This is an array of ReactNode - more on that in the next sentence
-  return <>
-        <p>There are {childArr.length} number of items in this array</p>
-        <ul>
-            {children}
-        </ul>
-    </>
-}
+const ParentList = ({ children }) => {
+	const childArr = Children.toArray(children);
+	console.log(childArr); // This is an array of ReactNode - more on that in the next sentence
+	return (
+		<>
+			<p>There are {childArr.length} number of items in this array</p>
+			<ul>{children}</ul>
+		</>
+	);
+};
 
 const App = () => {
 	return (
@@ -66,8 +66,8 @@ const App = () => {
 			<li>Item 2</li>
 			<li>Item 3</li>
 		</ParentList>
-	)
-}
+	);
+};
 ```
 
 Here, `childArr` is an array of type `ReactNode`. A `ReactNode` is created by React's `createElement` method.
@@ -77,30 +77,28 @@ Here, `childArr` is an array of type `ReactNode`. A `ReactNode` is created by Re
 > This means that the following JSX:
 >
 > ```jsx
-> const el = <div/>
+> const el = <div />;
 > ```
 >
 > Becomes the following code after compilation:
 >
 > ```javascript
-> const el = createElement('div');
+> const el = createElement("div");
 > ```
 
 There also exists a `Children.count` method that we could use as an alternative if we wanted.
 
 ```jsx
-const ParentList = ({children}) => {
-  const childrenLength = Children.count(children);
-  return <>
-        <p>There are {childrenLength} number of items in this array</p>
-        <ul>
-            {children}
-        </ul>
-	</>
-}
+const ParentList = ({ children }) => {
+	const childrenLength = Children.count(children);
+	return (
+		<>
+			<p>There are {childrenLength} number of items in this array</p>
+			<ul>{children}</ul>
+		</>
+	);
+};
 ```
-
-
 
 ## Angular
 
@@ -116,38 +114,36 @@ In our previous example, we used them to conditionally render content using `ngI
 
 ```typescript
 import {
-  NgModule,
-  Component,
-  AfterContentInit,
-  ContentChild,
-  ElementRef,
-} from '@angular/core';
+	NgModule,
+	Component,
+	AfterContentInit,
+	ContentChild,
+	ElementRef,
+} from "@angular/core";
 
 @Component({
-  selector: 'parent-list',
-  standalone: true,
-  template: `
-    <ng-content></ng-content>
-  `,
+	selector: "parent-list",
+	standalone: true,
+	template: ` <ng-content></ng-content> `,
 })
 class ParentListComponent implements AfterContentInit {
-  @ContentChild('childItem') child: ElementRef<HTMLElement>;
+	@ContentChild("childItem") child: ElementRef<HTMLElement>;
 
-  // This cannot be replaced with an `OnInit`, otherwise `children` is empty.
-  ngAfterContentInit() {
-    console.log(this.child.nativeElement); // This is an HTMLElement
-  }
+	// This cannot be replaced with an `OnInit`, otherwise `children` is empty.
+	ngAfterContentInit() {
+		console.log(this.child.nativeElement); // This is an HTMLElement
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ParentListComponent],
-  template: `
-  <parent-list>
-    <p #childItem>Hello, world!</p>
-  </parent-list>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [ParentListComponent],
+	template: `
+		<parent-list>
+			<p #childItem>Hello, world!</p>
+		</parent-list>
+	`,
 })
 class AppComponent {}
 ```
@@ -162,7 +158,7 @@ Here, we're querying for the template tag `childItem` within the project content
 
 If you were looking at the last code sample and wondered:
 
-> "What is `ngAfterContentInit` and why are we using it in place of `ngOnInit`?" 
+> "What is `ngAfterContentInit` and why are we using it in place of `ngOnInit`?"
 
 Then you're asking the right questions!
 
@@ -170,18 +166,16 @@ See, if we replace our usage of `ngAfterContentInit` with a `ngOnInit`, then we 
 
 ```typescript
 @Component({
-  selector: 'parent-list',
-  standalone: true,
-  template: `
-    <ng-content></ng-content>
-  `,
+	selector: "parent-list",
+	standalone: true,
+	template: ` <ng-content></ng-content> `,
 })
 class ParentListComponent implements OnInit {
-  @ContentChild('childItem') child: ElementRef<HTMLElement>;
+	@ContentChild("childItem") child: ElementRef<HTMLElement>;
 
-  ngOnInit() {
-    console.log(this.child); // This is `undefined`
-  }
+	ngOnInit() {
+		console.log(this.child); // This is `undefined`
+	}
 }
 ```
 
@@ -200,47 +194,47 @@ This is where [`ContentChildren`](https://angular.io/api/core/ContentChildren) c
 
 ```typescript
 import {
-  NgModule,
-  Component,
-  AfterContentInit,
-  ContentChildren,
-  QueryList,
-} from '@angular/core';
+	NgModule,
+	Component,
+	AfterContentInit,
+	ContentChildren,
+	QueryList,
+} from "@angular/core";
 
 @Component({
-  selector: 'parent-list',
-  standalone: true,
-  template: `
-    <p>There are {{children.length}} number of items in this array</p>
-    <ul>
-      <ng-content></ng-content>
-    </ul>
-  `,
+	selector: "parent-list",
+	standalone: true,
+	template: `
+		<p>There are {{ children.length }} number of items in this array</p>
+		<ul>
+			<ng-content></ng-content>
+		</ul>
+	`,
 })
 class ParentListComponent implements AfterContentInit {
-  @ContentChildren('listItem') children: QueryList<HTMLElement>;
+	@ContentChildren("listItem") children: QueryList<HTMLElement>;
 
-  ngAfterContentInit() {
-    console.log(this.children);
-  }
+	ngAfterContentInit() {
+		console.log(this.children);
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ParentListComponent],
-  template: `
-  <parent-list>
-    <li #listItem>Item 1</li>
-    <li #listItem>Item 2</li>
-    <li #listItem>Item 3</li>
-  </parent-list>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [ParentListComponent],
+	template: `
+		<parent-list>
+			<li #listItem>Item 1</li>
+			<li #listItem>Item 2</li>
+			<li #listItem>Item 3</li>
+		</parent-list>
+	`,
 })
 class AppComponent {}
 ```
 
-`ContentChildren` returns an array-like [`QueryList`](https://angular.io/api/core/QueryList) generic type. You can then access the properties of `children` inside of the template itself, like what we're doing with `children.length`. 
+`ContentChildren` returns an array-like [`QueryList`](https://angular.io/api/core/QueryList) generic type. You can then access the properties of `children` inside of the template itself, like what we're doing with `children.length`.
 
 ## Vue
 
@@ -255,8 +249,6 @@ Unlike React and Angular, Vue's APIs don't allow us to easily count a child's li
 <!-- Editor's note, $slots.default doesn't work with `v-for` -->
 
 <!-- tabs:end -->
-
-
 
 # Rendering Children in a Loop
 
@@ -286,32 +278,30 @@ To render the following HTML:
 
 ```jsx
 const ParentList = ({ children }) => {
-  const childArr = Children.toArray(children);
-  console.log(childArr); // This is an array of ReactNode - more on that in the next sentence
-  return (
-    <>
-      <p>There are {childArr.length} number of items in this array</p>
-      <ul>
-        {children.map((child) => {
-          return <li>{child}</li>;
-        })}
-      </ul>
-    </>
-  );
+	const childArr = Children.toArray(children);
+	console.log(childArr); // This is an array of ReactNode - more on that in the next sentence
+	return (
+		<>
+			<p>There are {childArr.length} number of items in this array</p>
+			<ul>
+				{children.map((child) => {
+					return <li>{child}</li>;
+				})}
+			</ul>
+		</>
+	);
 };
 
 export const App = () => {
-  return (
-    <ParentList>
-      <span style={{ color: 'red' }}>Red</span>
-      <span style={{ color: 'green' }}>Green</span>
-      <span style={{ color: 'blue' }}>Blue</span>
-    </ParentList>
-  );
+	return (
+		<ParentList>
+			<span style={{ color: "red" }}>Red</span>
+			<span style={{ color: "green" }}>Green</span>
+			<span style={{ color: "blue" }}>Blue</span>
+		</ParentList>
+	);
 };
 ```
-
-
 
 ## Angular
 
@@ -321,44 +311,42 @@ Instead, let's change our elements to `ng-template`s and render them in an `ngFo
 
 ```typescript
 @Component({
-  selector: 'parent-list',
-  standalone: true,
-  imports: [NgFor, NgTemplateOutlet],
-  template: `
-    <p>There are {{children.length}} number of items in this array</p>
-    <ul>
-        <li *ngFor="let child of children">
-          <ng-template [ngTemplateOutlet]="child"/>
-        </li>
-    </ul>
-  `,
+	selector: "parent-list",
+	standalone: true,
+	imports: [NgFor, NgTemplateOutlet],
+	template: `
+		<p>There are {{ children.length }} number of items in this array</p>
+		<ul>
+			<li *ngFor="let child of children">
+				<ng-template [ngTemplateOutlet]="child" />
+			</li>
+		</ul>
+	`,
 })
 class ParentListComponent {
-  @ContentChildren('listItem') children: QueryList<TemplateRef<any>>;
+	@ContentChildren("listItem") children: QueryList<TemplateRef<any>>;
 }
 
 @Component({
-  standalone: true,
-  imports: [ParentListComponent],
-  selector: 'app-root',
-  template: `
-  <parent-list>
-    <ng-template #listItem>
-      <span style="color: red">Red</span>
-    </ng-template>
-    <ng-template #listItem>
-      <span style="color: green">Green</span>
-    </ng-template>
-    <ng-template #listItem>
-      <span style="color: blue">Blue</span>
-    </ng-template>
-  </parent-list>
-  `,
+	standalone: true,
+	imports: [ParentListComponent],
+	selector: "app-root",
+	template: `
+		<parent-list>
+			<ng-template #listItem>
+				<span style="color: red">Red</span>
+			</ng-template>
+			<ng-template #listItem>
+				<span style="color: green">Green</span>
+			</ng-template>
+			<ng-template #listItem>
+				<span style="color: blue">Blue</span>
+			</ng-template>
+		</parent-list>
+	`,
 })
 class AppComponent {}
 ```
-
-
 
 ## Vue
 
@@ -366,51 +354,53 @@ Just as before, Vue's APIs have a limitation when accessing direct children. Let
 
 <!-- tabs:end -->
 
-
-
 ## Adding Children Dynamically
 
-Now that we have a list of items being transformed by our component, let's add the functionality to add another item to the list: 
+Now that we have a list of items being transformed by our component, let's add the functionality to add another item to the list:
 
 <!-- tabs:start -->
 
 ### React
 
 ```jsx
-import {Children, useState} from 'react';
+import { Children, useState } from "react";
 
-const ParentList = ({children}) => {
-  const childArr = Children.toArray(children);
-  console.log(childArr);
-  return <>
-    <p>There are {childArr.length} number of items in this array</p>
-    <ul>
-		{children.map((child) => {
-          return <li>{child}</li>;
-        })}
-	</ul>
-    </>
-}
+const ParentList = ({ children }) => {
+	const childArr = Children.toArray(children);
+	console.log(childArr);
+	return (
+		<>
+			<p>There are {childArr.length} number of items in this array</p>
+			<ul>
+				{children.map((child) => {
+					return <li>{child}</li>;
+				})}
+			</ul>
+		</>
+	);
+};
 
 const App = () => {
-    const [list, setList] = useState([1, 42, 13])
-    
-    const addOne = () => {
-        // `Math` is built into the browser 
-        const randomNum = Math.floor(Math.random() * 100)
-        setList([...list, randomNum]);
-    }
+	const [list, setList] = useState([1, 42, 13]);
+
+	const addOne = () => {
+		// `Math` is built into the browser
+		const randomNum = Math.floor(Math.random() * 100);
+		setList([...list, randomNum]);
+	};
 	return (
-        <>
-		<ParentList>
-			{list.map((item, i) => 
-                      <span key={i}>{i} {item}</span>
-            )}
-		</ParentList>
-        <button onClick={addOne}>Add</button>
-        </>
-	)
-}
+		<>
+			<ParentList>
+				{list.map((item, i) => (
+					<span key={i}>
+						{i} {item}
+					</span>
+				))}
+			</ParentList>
+			<button onClick={addOne}>Add</button>
+		</>
+	);
+};
 ```
 
 ### Angular
@@ -419,42 +409,42 @@ const App = () => {
 
 ```typescript
 @Component({
-  selector: 'parent-list',
-  standalone: true,
-  imports: [NgFor, NgTemplateOutlet],
-  template: `
-    <p>There are {{children.length}} number of items in this array</p>
-    <ul>
-        <li *ngFor="let child of children">
-          <ng-template [ngTemplateOutlet]="child"/>
-        </li>
-    </ul>
-  `,
+	selector: "parent-list",
+	standalone: true,
+	imports: [NgFor, NgTemplateOutlet],
+	template: `
+		<p>There are {{ children.length }} number of items in this array</p>
+		<ul>
+			<li *ngFor="let child of children">
+				<ng-template [ngTemplateOutlet]="child" />
+			</li>
+		</ul>
+	`,
 })
 class ParentListComponent {
-  @ContentChildren('listItem') children: QueryList<TemplateRef<any>>;
+	@ContentChildren("listItem") children: QueryList<TemplateRef<any>>;
 }
 
 @Component({
-  standalone: true,
-  imports: [ParentListComponent, NgFor],
-  selector: 'app-root',
-  template: `
-  <parent-list>
-    <ng-template *ngFor="let item of list; let i = index" #listItem>
-      <span>{{i}} {{item}}</span>
-    </ng-template>
-  </parent-list>
-  <button (click)="addOne()">Add</button>
-  `,
+	standalone: true,
+	imports: [ParentListComponent, NgFor],
+	selector: "app-root",
+	template: `
+		<parent-list>
+			<ng-template *ngFor="let item of list; let i = index" #listItem>
+				<span>{{ i }} {{ item }}</span>
+			</ng-template>
+		</parent-list>
+		<button (click)="addOne()">Add</button>
+	`,
 })
 class AppComponent {
-  list = [1, 42, 13];
+	list = [1, 42, 13];
 
-  addOne() {
-    const randomNum = Math.floor(Math.random() * 100);
-    this.list.push(randomNum);
-  }
+	addOne() {
+		const randomNum = Math.floor(Math.random() * 100);
+		this.list.push(randomNum);
+	}
 }
 ```
 
@@ -464,7 +454,7 @@ It's worth noting that when you run `addOne` (by pressing the "Add" button), it 
 ngAfterContentInit() {
   console.log(this.children);
 
-  // `subscribe` comes from the `changes` RxJS observable 
+  // `subscribe` comes from the `changes` RxJS observable
   this.children.changes.subscribe((childElements) =>
      console.log(childElements)
   );
@@ -504,12 +494,12 @@ By now we should be familiar with the `children` property in React. Now get read
 
 ```jsx
 const AddTwo = ({ children }) => {
-  return 2 + children;
+	return 2 + children;
 };
 
 // This will display "7"
 export const App = () => {
-  return <AddTwo children={5}/>;
+	return <AddTwo children={5} />;
 };
 ```
 
@@ -519,11 +509,11 @@ Yup - as it turns out, you can pass any JavaScript value to React's `children` p
 
 ```jsx
 const AddTwo = ({ children }) => {
-  return 2 + children;
+	return 2 + children;
 };
 
 export const App = () => {
-  return <AddTwo>{5}</AddTwo>;
+	return <AddTwo>{5}</AddTwo>;
 };
 ```
 
@@ -531,13 +521,13 @@ Knowing this, what happens if we pass a function as `children`?:
 
 ```jsx
 const AddTwo = ({ children }) => {
-  return 2 + children();
+	return 2 + children();
 };
 
 // This will display "7"
 export const App = () => {
-  return <AddTwo>{() => 5}</AddTwo>;
-  // OR <AddTwo children={() => 5} />
+	return <AddTwo>{() => 5}</AddTwo>;
+	// OR <AddTwo children={() => 5} />
 };
 ```
 
@@ -547,11 +537,11 @@ Now, let's combine this knowledge with the ability to use JSX wherever a value m
 
 ```jsx
 const ShowMessage = ({ children }) => {
-  return children();
+	return children();
 };
 
 export const App = () => {
-  return <ShowMessage>{() => <p>Hello, world!</p>}</ShowMessage>;
+	return <ShowMessage>{() => <p>Hello, world!</p>}</ShowMessage>;
 };
 ```
 
@@ -559,11 +549,11 @@ Finally, we can combine this with the ability to pass values to a function:
 
 ```jsx
 const ShowMessage = ({ children }) => {
-  return children("Hello, world!");
+	return children("Hello, world!");
 };
 
 export const App = () => {
-  return <ShowMessage>{(message) => <p>{message}</p>}</ShowMessage>;
+	return <ShowMessage>{(message) => <p>{message}</p>}</ShowMessage>;
 };
 ```
 
@@ -573,45 +563,45 @@ Now that we've seen the capabilities of a child function, let's use it to render
 
 ```jsx
 const ParentList = ({ children, list }) => {
-  return (
-    <>
-      <ul>
-        {list.map((item, i) => {
-          return (
-            <Fragment key={item}>
-              {children({
-                backgroundColor: i % 2 ? 'grey' : '',
-                item,
-                i,
-              })}
-            </Fragment>
-          );
-        })}
-      </ul>
-    </>
-  );
+	return (
+		<>
+			<ul>
+				{list.map((item, i) => {
+					return (
+						<Fragment key={item}>
+							{children({
+								backgroundColor: i % 2 ? "grey" : "",
+								item,
+								i,
+							})}
+						</Fragment>
+					);
+				})}
+			</ul>
+		</>
+	);
 };
 
 export const App = () => {
-  const [list, setList] = useState([1, 42, 13]);
+	const [list, setList] = useState([1, 42, 13]);
 
-  const addOne = () => {
-    const randomNum = Math.floor(Math.random() * 100);
-    setList([...list, randomNum]);
-  };
+	const addOne = () => {
+		const randomNum = Math.floor(Math.random() * 100);
+		setList([...list, randomNum]);
+	};
 
-  return (
-    <>
-      <ParentList list={list}>
-        {({ backgroundColor, i, item }) => (
-          <li style={{ backgroundColor: backgroundColor }}>
-            {i} {item}
-          </li>
-        )}
-      </ParentList>
-      <button onClick={addOne}>Add</button>
-    </>
-  );
+	return (
+		<>
+			<ParentList list={list}>
+				{({ backgroundColor, i, item }) => (
+					<li style={{ backgroundColor: backgroundColor }}>
+						{i} {item}
+					</li>
+				)}
+			</ParentList>
+			<button onClick={addOne}>Add</button>
+		</>
+	);
 };
 ```
 
@@ -619,41 +609,49 @@ export const App = () => {
 
 ```typescript
 @Component({
-  selector: 'parent-list',
-  standalone: true,
-  template: `
-    <p>There are {{children.length}} number of items in this array</p>
-    <ul>
-      <ng-template *ngFor="let template of children; let i = index" [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{backgroundColor: i % 2 ? 'grey' : ''}"></ng-template>
-    </ul>
-  `,
+	selector: "parent-list",
+	standalone: true,
+	template: `
+		<p>There are {{ children.length }} number of items in this array</p>
+		<ul>
+			<ng-template
+				*ngFor="let template of children; let i = index"
+				[ngTemplateOutlet]="template"
+				[ngTemplateOutletContext]="{ backgroundColor: i % 2 ? 'grey' : '' }"
+			></ng-template>
+		</ul>
+	`,
 })
 class ParentListComponent {
-  @ContentChildren('listItem', { read: TemplateRef }) children: QueryList<
-    TemplateRef<any>
-  >;
+	@ContentChildren("listItem", { read: TemplateRef }) children: QueryList<
+		TemplateRef<any>
+	>;
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ParentListComponent],
-  template: `
-  <parent-list>
-    <ng-template #listItem *ngFor="let item of list; let i = index" let-backgroundColor="backgroundColor">
-      <li [style]="{backgroundColor}">{{i}} {{item}}</li>
-    </ng-template>
-  </parent-list>
-  <button (click)="addOne()">Add</button>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [ParentListComponent],
+	template: `
+		<parent-list>
+			<ng-template
+				#listItem
+				*ngFor="let item of list; let i = index"
+				let-backgroundColor="backgroundColor"
+			>
+				<li [style]="{ backgroundColor }">{{ i }} {{ item }}</li>
+			</ng-template>
+		</parent-list>
+		<button (click)="addOne()">Add</button>
+	`,
 })
 class AppComponent {
-  list = [1, 42, 13];
+	list = [1, 42, 13];
 
-  addOne() {
-    const randomNum = Math.floor(Math.random() * 100);
-    this.list.push(randomNum);
-  }
+	addOne() {
+		const randomNum = Math.floor(Math.random() * 100);
+		this.list.push(randomNum);
+	}
 }
 ```
 
@@ -666,31 +664,31 @@ Let's start by using code that explicitly passes the list of items to a `ParentL
 ```vue
 <!-- ParentList -->
 <script setup>
-  import {defineProps} from 'vue';
+import { defineProps } from "vue";
 
-  const props = defineProps(['list'])
+const props = defineProps(["list"]);
 </script>
 
 <template>
-  <p>There are {{props.list.length}} number of items in this array</p>
-  <ul>
-    <slot></slot>
-  </ul>
+	<p>There are {{ props.list.length }} number of items in this array</p>
+	<ul>
+		<slot></slot>
+	</ul>
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import ParentList from './ParentList.vue'
+import ParentList from "./ParentList.vue";
 
-  const list = [1, 2, 3];
+const list = [1, 2, 3];
 </script>
 
 <template>
-  <ParentList :list="list">
-    <li v-for="i in list">Item {{ i }}</li>
-  </ParentList>
+	<ParentList :list="list">
+		<li v-for="i in list">Item {{ i }}</li>
+	</ParentList>
 </template>
 ```
 
@@ -701,40 +699,40 @@ Luckily, we can utilize `slot` to pass data to a `template` via a `v-slot` attri
 ```vue
 <!-- ParentList -->
 <script setup>
-  const props = defineProps(['list'])
+const props = defineProps(["list"]);
 </script>
 
 <template>
-  <p>There are {{props.list.length}} number of items in this array</p>
-  <ul id="parentList">
-    <slot v-for="(item, i) in props.list" :item="item" :i="i"></slot>
-  </ul>
+	<p>There are {{ props.list.length }} number of items in this array</p>
+	<ul id="parentList">
+		<slot v-for="(item, i) in props.list" :item="item" :i="i"></slot>
+	</ul>
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import {ref} from "vue";
-  import ParentList from './ParentList.vue'
+import { ref } from "vue";
+import ParentList from "./ParentList.vue";
 
-  const list = ref([1, 2, 3]);
+const list = ref([1, 2, 3]);
 
-  function addOne() {
-    const randomNum = Math.floor(Math.random() * 100);
-    list.value.push(randomNum);
-  }
+function addOne() {
+	const randomNum = Math.floor(Math.random() * 100);
+	list.value.push(randomNum);
+}
 </script>
 
 <template>
-  <ParentList :list="list">
-    <!-- Think of this as "template is recieving an object
+	<ParentList :list="list">
+		<!-- Think of this as "template is recieving an object
 		 we'll call props" from "ParentList" -->
-    <template v-slot="props">
-      <li>{{ props.i }} {{ props.item }}</li>
-    </template>
-  </ParentList>
-  <button @click="addOne()">Add</button>
+		<template v-slot="props">
+			<li>{{ props.i }} {{ props.item }}</li>
+		</template>
+	</ParentList>
+	<button @click="addOne()">Add</button>
 </template>
 ```
 
@@ -750,8 +748,6 @@ This `v-slot` is similar to how you might pass properties to a component, but in
 
 <!-- tabs:end -->
 
-
-
 # Challenge
 
 // TODO: Write
@@ -761,61 +757,61 @@ This `v-slot` is similar to how you might pass properties to a component, but in
 ## React
 
 ```jsx
-import * as React from 'react';
+import * as React from "react";
 
 const Table = ({ data, header, children }) => {
-  const headerContents = header({ length: data.length });
+	const headerContents = header({ length: data.length });
 
-  const body = data.map((value, rowI) => children({ value, rowI }));
+	const body = data.map((value, rowI) => children({ value, rowI }));
 
-  return (
-    <table>
-      <thead>{headerContents}</thead>
-      <tbody>{body}</tbody>
-    </table>
-  );
+	return (
+		<table>
+			<thead>{headerContents}</thead>
+			<tbody>{body}</tbody>
+		</table>
+	);
 };
 
 const data = [
-  {
-    name: 'Corbin',
-    age: 24,
-  },
-  {
-    name: 'Joely',
-    age: 28,
-  },
-  {
-    name: 'Frank',
-    age: 33,
-  },
+	{
+		name: "Corbin",
+		age: 24,
+	},
+	{
+		name: "Joely",
+		age: 28,
+	},
+	{
+		name: "Frank",
+		age: 33,
+	},
 ];
 
 export default function App() {
-  return (
-    <Table
-      data={data}
-      header={({ length }) => (
-        <tr>
-          <th>{length} items</th>
-        </tr>
-      )}
-    >
-      {({ rowI, value }) => (
-        <tr>
-          <td
-            style={
-              rowI % 2
-                ? { background: 'lightgrey' }
-                : { background: 'lightblue' }
-            }
-          >
-            {value.name}
-          </td>
-        </tr>
-      )}
-    </Table>
-  );
+	return (
+		<Table
+			data={data}
+			header={({ length }) => (
+				<tr>
+					<th>{length} items</th>
+				</tr>
+			)}
+		>
+			{({ rowI, value }) => (
+				<tr>
+					<td
+						style={
+							rowI % 2
+								? { background: "lightgrey" }
+								: { background: "lightblue" }
+						}
+					>
+						{value.name}
+					</td>
+				</tr>
+			)}
+		</Table>
+	);
 }
 ```
 
@@ -823,121 +819,141 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'table-comp',
-  standalone: true,
-  imports: [NgFor, NgTemplateOutlet],
-  template: `
-    <table>
-    <thead>
-    <ng-template [ngTemplateOutlet]="header" [ngTemplateOutletContext]="{length: data.length}"/>
-    </thead>
+	selector: "table-comp",
+	standalone: true,
+	imports: [NgFor, NgTemplateOutlet],
+	template: `
+		<table>
+			<thead>
+				<ng-template
+					[ngTemplateOutlet]="header"
+					[ngTemplateOutletContext]="{ length: data.length }"
+				/>
+			</thead>
 
-    <tbody>
-      <ng-template *ngFor="let item of data; let index = index" [ngTemplateOutlet]="body" [ngTemplateOutletContext]="{rowI: index, value: item}"/>
-    </tbody>
-    </table>
-  `,
+			<tbody>
+				<ng-template
+					*ngFor="let item of data; let index = index"
+					[ngTemplateOutlet]="body"
+					[ngTemplateOutletContext]="{ rowI: index, value: item }"
+				/>
+			</tbody>
+		</table>
+	`,
 })
 export class TableComponent {
-  @ContentChild('header', { read: TemplateRef }) header: TemplateRef<any>;
-  @ContentChild('body', { read: TemplateRef }) body: TemplateRef<any>;
+	@ContentChild("header", { read: TemplateRef }) header: TemplateRef<any>;
+	@ContentChild("body", { read: TemplateRef }) body: TemplateRef<any>;
 
-  @Input() data: any[];
+	@Input() data: any[];
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [TableComponent],
-  template: `
-    <table-comp [data]="data">
-      <ng-template #header let-length="length">
-        <tr>
-          <th>{{ length }} items</th>
-        </tr>
-      </ng-template>
-      <ng-template #body let-rowI="rowI" let-value="value">
-        <tr>
-          <td [style]="rowI % 2 ? 'background: lightgrey' : 'background: lightblue'">{{ value.name }}</td>
-        </tr>
-      </ng-template>
-    </table-comp>
-    `,
+	selector: "app-root",
+	standalone: true,
+	imports: [TableComponent],
+	template: `
+		<table-comp [data]="data">
+			<ng-template #header let-length="length">
+				<tr>
+					<th>{{ length }} items</th>
+				</tr>
+			</ng-template>
+			<ng-template #body let-rowI="rowI" let-value="value">
+				<tr>
+					<td
+						[style]="
+							rowI % 2 ? 'background: lightgrey' : 'background: lightblue'
+						"
+					>
+						{{ value.name }}
+					</td>
+				</tr>
+			</ng-template>
+		</table-comp>
+	`,
 })
 class AppComponent {
-  data = [
-    {
-      name: 'Corbin',
-      age: 24,
-    },
-    {
-      name: 'Joely',
-      age: 28,
-    },
-    {
-      name: 'Frank',
-      age: 33,
-    },
-  ];
+	data = [
+		{
+			name: "Corbin",
+			age: 24,
+		},
+		{
+			name: "Joely",
+			age: 28,
+		},
+		{
+			name: "Frank",
+			age: 33,
+		},
+	];
 }
 ```
-
 
 ## Vue
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import Table from './Table.vue'
+import Table from "./Table.vue";
 
-  const data = [
-    {
-      name: 'Corbin',
-      age: 24,
-    },
-    {
-      name: 'Joely',
-      age: 28,
-    },
-    {
-      name: 'Frank',
-      age: 33,
-    },
-  ]
+const data = [
+	{
+		name: "Corbin",
+		age: 24,
+	},
+	{
+		name: "Joely",
+		age: 28,
+	},
+	{
+		name: "Frank",
+		age: 33,
+	},
+];
 </script>
 
 <template>
-  <Table :data="data">
-    <template #header="{ length }">
-      <tr>
-        <th>{{ length }} items</th>
-      </tr>
-    </template>
-    <template v-slot="{ rowI, value }">
-      <tr>
-        <td :style="rowI % 2 ? 'background: lightgrey' : 'background: lightblue'">{{ value.name }}</td>
-      </tr>
-    </template>
-  </Table>
+	<Table :data="data">
+		<template #header="{ length }">
+			<tr>
+				<th>{{ length }} items</th>
+			</tr>
+		</template>
+		<template v-slot="{ rowI, value }">
+			<tr>
+				<td
+					:style="rowI % 2 ? 'background: lightgrey' : 'background: lightblue'"
+				>
+					{{ value.name }}
+				</td>
+			</tr>
+		</template>
+	</Table>
 </template>
 ```
 
 ```vue
 <script setup>
-  const props = defineProps(['data'])
+const props = defineProps(["data"]);
 </script>
 
 <template>
-  <table>
-    <thead>
-      <slot name="header" :length="props.data.length"></slot>
-    </thead>
-    <tbody>
-      <slot v-for="(item, i) in props.data" :key="i" :rowI="i" :value="props.data[i]" />
-    </tbody>
-  </table>
+	<table>
+		<thead>
+			<slot name="header" :length="props.data.length"></slot>
+		</thead>
+		<tbody>
+			<slot
+				v-for="(item, i) in props.data"
+				:key="i"
+				:rowI="i"
+				:value="props.data[i]"
+			/>
+		</tbody>
+	</table>
 </template>
 ```
 
 <!-- tabs:end -->
-

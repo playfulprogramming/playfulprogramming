@@ -1,13 +1,13 @@
 ---
 {
-    title: "Dependency Injection",
-    description: "Passing around props sucks. They're trivial get out of sync and easy to forget to pass. What if there was a better way to pass data between different parts of your app?",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 11,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Dependency Injection",
+  description: "Passing around props sucks. They're trivial get out of sync and easy to forget to pass. What if there was a better way to pass data between different parts of your app?",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 11,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
 
@@ -23,25 +23,25 @@ Here, we have a list of files, the user's profile picture in the corner of the s
 
 ```javascript
 const APP_DATA = {
-    currentUser: {
-    	name: "Corbin Crutchley",
-        profilePictureURL: "https://avatars.githubusercontent.com/u/9100169"
-    },
+	currentUser: {
+		name: "Corbin Crutchley",
+		profilePictureURL: "https://avatars.githubusercontent.com/u/9100169",
+	},
 	collection: [
 		{
-            name: "Movies",
-            type: "folder",
+			name: "Movies",
+			type: "folder",
 			ownerName: null,
-            size: 386547056640
+			size: 386547056640,
 		},
 		{
-            name: "Concepts",
-            type: "folder",
+			name: "Concepts",
+			type: "folder",
 			ownerName: "Kevin Aguillar",
-            size: 0
-		}
-	]
-}
+			size: 0,
+		},
+	],
+};
 ```
 
 > This data has been shortened to keep focus on the topic at hand.
@@ -58,53 +58,62 @@ Let's use some pseudo-code and mock out what those components might look like wi
 // This is not real code, but demonstrates how we might structure our data passing
 // Don't worry about syntax, but do focus on how data is being passed between components
 const App = {
-    data: APP_DATA,
-    template: <div>
-    	<Header currentUser="data.currentUser"/>
-        <Files files="data.collection" currentUser="data.currentUser"/>
-     </div>
-}
+	data: APP_DATA,
+	template: (
+		<div>
+			<Header currentUser="data.currentUser" />
+			<Files files="data.collection" currentUser="data.currentUser" />
+		</div>
+	),
+};
 
 const Header = {
-    props: ['currentUser'],
-    template: <div>
-    	<Icon/>
-        <SearchBar/>
-        <ProfilePicture currentUser="props.currentUser"/>
-    </div>
-}
-
+	props: ["currentUser"],
+	template: (
+		<div>
+			<Icon />
+			<SearchBar />
+			<ProfilePicture currentUser="props.currentUser" />
+		</div>
+	),
+};
 
 const ProfilePicture = {
-    props: ['currentUser'],
-    template: <img src="props.currentUser.profilePictureURL"/>
-}
+	props: ["currentUser"],
+	template: <img src="props.currentUser.profilePictureURL" />,
+};
 
 const Files = {
-    props: ['currentUser', 'files'],
-    template: <FileTable>
-    	{props.files.map(file => <FileItem file="file" currentUser="props.currentUser"/>)}
-    </FileTable>
-}
+	props: ["currentUser", "files"],
+	template: (
+		<FileTable>
+			{props.files.map((file) => (
+				<FileItem file="file" currentUser="props.currentUser" />
+			))}
+		</FileTable>
+	),
+};
 
 const FileItem = {
-    props: ['currentUser', 'file'],
-    template: <tr>
-    	<FileName file="props.file"/>
-    	<LastModified file="props.file"/>
-    	<FileOwner file="props.file" currentUser="props.currentUser"/>
-    	<FileType file="props.file"/>
-    	<FileSize file="props.file"/>
-    </tr>
-}
+	props: ["currentUser", "file"],
+	template: (
+		<tr>
+			<FileName file="props.file" />
+			<LastModified file="props.file" />
+			<FileOwner file="props.file" currentUser="props.currentUser" />
+			<FileType file="props.file" />
+			<FileSize file="props.file" />
+		</tr>
+	),
+};
 
 const FileOwner = {
-    props: ['currentUser', 'file'],
-    data: {
-        userNameToShow: props.file.ownerName || props.currentUser.name
-    },
-    template: <td>{{userNameToShow}}</td>
-}
+	props: ["currentUser", "file"],
+	data: {
+		userNameToShow: props.file.ownerName || props.currentUser.name,
+	},
+	template: <td>{{ userNameToShow }}</td>,
+};
 
 render(App);
 ```
@@ -146,73 +155,70 @@ React, Angular, and Vue all have methods for injecting data implicitly into chil
 In the React world, all dependency injection is powered by a `createContext` method, which you then `Provide` to your child components. Within those child components you then consume the provided data with a `useContext` hook.
 
 ```jsx
-import {createContext, useContext} from 'react';
+import { createContext, useContext } from "react";
 
 // We start by creating a context name
 const HelloMessageContext = createContext();
 
 function Parent() {
-  return (
-	// Then create a provider for this context
-    <HelloMessageContext.Provider value={'Hello, world!'}>
-      <Child />
-    </HelloMessageContext.Provider>
-  );
-};
+	return (
+		// Then create a provider for this context
+		<HelloMessageContext.Provider value={"Hello, world!"}>
+			<Child />
+		</HelloMessageContext.Provider>
+	);
+}
 
 function Child() {
-  // Later, we use `useContext` to consume the value from dependency injection
-  const helloMessage = useContext(HelloMessageContext);
-  return <p>{helloMessage}</p>;
-};
+	// Later, we use `useContext` to consume the value from dependency injection
+	const helloMessage = useContext(HelloMessageContext);
+	return <p>{helloMessage}</p>;
+}
 ```
 
 ## Angular
 
 While React and Vue both have minimal APIs to handle dependency injection, Angular's dependency injection API is simultaneously more complex and powerful.
 
-In Angular, it all starts with an `InjectionToken` of some kind. We'll start by importing Angular `InjectionToken` API, and creating a new token that we can use later. 
+In Angular, it all starts with an `InjectionToken` of some kind. We'll start by importing Angular `InjectionToken` API, and creating a new token that we can use later.
 
 ```typescript
-import { InjectionToken} from '@angular/core';
+import { InjectionToken } from "@angular/core";
 
-const WELCOME_MESSAGE_TOKEN = new InjectionToken<string>('WELCOME_MESSAGE');
+const WELCOME_MESSAGE_TOKEN = new InjectionToken<string>("WELCOME_MESSAGE");
 ```
 
 We'll then use this token to create a `provider` that we pass to a component's `providers` list:
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ChildComponent],
-  template: `<child-comp/>`,
-  providers: [
-    {provide: WELCOME_MESSAGE_TOKEN, useValue: 'Hello, world!' },
-  ]
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	template: `<child-comp />`,
+	providers: [{ provide: WELCOME_MESSAGE_TOKEN, useValue: "Hello, world!" }],
 })
-export class AppComponent {
-}
+export class AppComponent {}
 ```
 
 This API uses `useValue` to provide the value associated with the token we pass.
 
-Finally, we use an `inject` function in our component class to tell Angular "We want this value in our component".  
+Finally, we use an `inject` function in our component class to tell Angular "We want this value in our component".
 
 ```typescript
-import { inject } from '@angular/core';
+import { inject } from "@angular/core";
 
 @Component({
-  selector: 'child-comp',
-  standalone: true,
-  template: `<p>{{welcomeMsg}}</p>`
+	selector: "child-comp",
+	standalone: true,
+	template: `<p>{{ welcomeMsg }}</p>`,
 })
 export class ChildComponent {
-  welcomeMsg: string = inject(WELCOME_MESSAGE_TOKEN);
+	welcomeMsg: string = inject(WELCOME_MESSAGE_TOKEN);
 
-  ngOnInit() {
-    console.log(this.welcomeMsg);
-  }
+	ngOnInit() {
+		console.log(this.welcomeMsg);
+	}
 }
 ```
 
@@ -226,33 +232,33 @@ export class ChildComponent {
 
 Vue's dependency injection API only has two parts to it:
 
-1) A `provide` method, used to provide values from the parent component.
-2) An `inject` method, used to get the provided values in the child component.
+1. A `provide` method, used to provide values from the parent component.
+2. An `inject` method, used to get the provided values in the child component.
 
 ```vue
 <!-- Parent.vue -->
 <script setup>
-  import { provide } from 'vue'
-  import Child from './Child.vue'
+import { provide } from "vue";
+import Child from "./Child.vue";
 
-  provide('WELCOME_MESSAGE', 'Hello, world!')
+provide("WELCOME_MESSAGE", "Hello, world!");
 </script>
 
 <template>
-  <Child />
+	<Child />
 </template>
 ```
 
 ```vue
 <!-- Child.vue -->
 <script setup>
-  import { inject } from 'vue'
+import { inject } from "vue";
 
-  const welcomeMsg = inject('WELCOME_MESSAGE')
+const welcomeMsg = inject("WELCOME_MESSAGE");
 </script>
 
 <template>
-  <p>{{ welcomeMsg }}</p>
+	<p>{{ welcomeMsg }}</p>
 </template>
 ```
 
@@ -268,52 +274,54 @@ While this is convenient for passing simple values to multiple parts of the app,
 
 As we mentioned before, all of React's dependency injection logic uses `createContext`, `Provider`, and `useContext`. As such, to provide an object is a minimal change from before, done by changing the `value` we pass to our provider:
 
-````jsx
+```jsx
 const HelloMessageContext = createContext();
 
 const Child = () => {
-  const helloMessage = useContext(HelloMessageContext);
-  return <p>{helloMessage.message}</p>;
+	const helloMessage = useContext(HelloMessageContext);
+	return <p>{helloMessage.message}</p>;
 };
 
 const Parent = () => {
-  const helloMessageObject = { message: 'Hello, world!' };
+	const helloMessageObject = { message: "Hello, world!" };
 
-  return (
-    <HelloMessageContext.Provider value={helloMessageObject}>
-      <Child />
-    </HelloMessageContext.Provider>
-  );
+	return (
+		<HelloMessageContext.Provider value={helloMessageObject}>
+			<Child />
+		</HelloMessageContext.Provider>
+	);
 };
-````
+```
 
 ## Angular
 
- Because Angular's `useValue` accepts any arbitrary value, we can pass it an object to move away from a string injection:
+Because Angular's `useValue` accepts any arbitrary value, we can pass it an object to move away from a string injection:
 
 ```typescript
-import { InjectionToken, Component, Inject } from '@angular/core';
+import { InjectionToken, Component, Inject } from "@angular/core";
 
-const WELCOME_MESSAGE_TOKEN = new InjectionToken<{nessage: string}>({message: 'INITIAL_VALUE'});
+const WELCOME_MESSAGE_TOKEN = new InjectionToken<{ nessage: string }>({
+	message: "INITIAL_VALUE",
+});
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ChildComponent],
-  template: `<child-comp/>`,
-  providers: [
-    { provide: WELCOME_MESSAGE_TOKEN, useValue: { message: 'Hello, world!' } },
-  ],
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	template: `<child-comp />`,
+	providers: [
+		{ provide: WELCOME_MESSAGE_TOKEN, useValue: { message: "Hello, world!" } },
+	],
 })
 export class AppComponent {}
 
 @Component({
-  selector: 'child-comp',
-  standalone: true,
-  template: `<p>{{welcomeMsg.message}}</p>`,
+	selector: "child-comp",
+	standalone: true,
+	template: `<p>{{ welcomeMsg.message }}</p>`,
 })
 export class ChildComponent {
-  welcomeMsg: { message: string } = inject(WELCOME_MESSAGE_TOKEN);
+	welcomeMsg: { message: string } = inject(WELCOME_MESSAGE_TOKEN);
 }
 ```
 
@@ -322,16 +330,16 @@ While this functions, it's not very clean. In particular, some of the headaches 
 - Duplicative TypeScript typings between `inject` usage and `useValue` providing
   - Mismatches can cause `undefined` bugs intentionally
 
-Luckily for us, Angular provides a better solution for this problem than `useValue` and `InjectionToken`. 
+Luckily for us, Angular provides a better solution for this problem than `useValue` and `InjectionToken`.
 
 Instead, let's create a class that we mark with an `@Injectable` decorator:
 
 ```typescript
-import { Injectable, Component, OnInit } from '@angular/core';
+import { Injectable, Component, OnInit } from "@angular/core";
 
 @Injectable()
 class InjectedValue {
-  message = "Hello, world";
+	message = "Hello, world";
 }
 ```
 
@@ -339,30 +347,29 @@ Here, we're telling Angular to treat our `InjectedValue` class as a `InjectionTo
 
 ```typescript
 @Component({
-  selector: "app-root",
-  standalone: true,
-  imports: [ChildComponent],
-  providers: [InjectedValue],
-  template: `<child-comp/>`
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	providers: [InjectedValue],
+	template: `<child-comp />`,
 })
-class ParentComponent {
-}
+class ParentComponent {}
 ```
 
 Now that our `InjectedValue` is a known type, we can remove our explicit type declaration to our consuming `inject` function in `ChildComponent`
 
 ```typescript
 @Component({
-  selector: "child-comp",
-  standalone: true,
-  template: `<div>{{injectedValue.message}}</div>`
+	selector: "child-comp",
+	standalone: true,
+	template: `<div>{{ injectedValue.message }}</div>`,
 })
 class ChildComponent implements OnInit {
-  injectedValue = inject(InjectedValue);
+	injectedValue = inject(InjectedValue);
 
-  ngOnInit() {
-    console.log(this.injectedValue);
-  }
+	ngOnInit() {
+		console.log(this.injectedValue);
+	}
 }
 ```
 
@@ -375,28 +382,28 @@ Just like React, Vue's simple dependency injection API means that we only need t
 ```vue
 <!-- Parent.vue -->
 <script setup>
-  import { provide } from 'vue'
-  import Child from './Child.vue'
+import { provide } from "vue";
+import Child from "./Child.vue";
 
-  const welcomeObj = { message: 'Hello, world!' }
-  provide('WELCOME_MESSAGE', welcomeObj)
+const welcomeObj = { message: "Hello, world!" };
+provide("WELCOME_MESSAGE", welcomeObj);
 </script>
 
 <template>
-  <Child />
+	<Child />
 </template>
 ```
 
 ```vue
 <!-- Child.vue -->
 <script setup>
-  import { inject } from 'vue'
+import { inject } from "vue";
 
-  const welcomeMsgObj = inject('WELCOME_MESSAGE')
+const welcomeMsgObj = inject("WELCOME_MESSAGE");
 </script>
 
 <template>
-  <p>{{ welcomeMsgObj.message }}</p>
+	<p>{{ welcomeMsgObj.message }}</p>
 </template>
 ```
 
@@ -418,20 +425,20 @@ Because our `Provider` is able to pass down values of any kind, we can combine t
 const HelloMessageContext = createContext();
 
 const Child = () => {
-  const helloMessage = useContext(HelloMessageContext);
-  return <p>{helloMessage}</p>;
+	const helloMessage = useContext(HelloMessageContext);
+	return <p>{helloMessage}</p>;
 };
 
 const Parent = () => {
-  const [message, setMessage] = useState('Initial value');
-  return (
-    <HelloMessageContext.Provider value={message}>
-      <Child />
-      <button onClick={() => setMessage('Updated value')}>
-        Update the message
-      </button>
-    </HelloMessageContext.Provider>
-  );
+	const [message, setMessage] = useState("Initial value");
+	return (
+		<HelloMessageContext.Provider value={message}>
+			<Child />
+			<button onClick={() => setMessage("Updated value")}>
+				Update the message
+			</button>
+		</HelloMessageContext.Provider>
+	);
 };
 ```
 
@@ -441,78 +448,78 @@ When we update the `message` value, it will trigger a re-render on the `Child` c
 
 Because we've marked our `InjectedValue` class as an `Injectable`, we can have the parent component request access in the `constructor` in order to mutate the class instance.
 
-````typescript
+```typescript
 @Injectable()
 class InjectedValue {
-  message = 'Initial value';
+	message = "Initial value";
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ChildComponent],
-  providers: [InjectedValue],
-  template: `
-    <child-comp/>
-    <button (click)="updateMessage()">Update the message</button>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	providers: [InjectedValue],
+	template: `
+		<child-comp />
+		<button (click)="updateMessage()">Update the message</button>
+	`,
 })
 class ParentComponent {
-  // We can access the `injectedValue` from the same component we provide it from
-  injectedValue = inject(InjectedValue);
+	// We can access the `injectedValue` from the same component we provide it from
+	injectedValue = inject(InjectedValue);
 
-  updateMessage() {
-    this.injectedValue.message = 'Updated value';
-  }
+	updateMessage() {
+		this.injectedValue.message = "Updated value";
+	}
 }
 
 @Component({
-  selector: 'child-comp',
-  standalone: true,
-  template: `<p>{{injectedValue.message}}</p>`,
+	selector: "child-comp",
+	standalone: true,
+	template: `<p>{{ injectedValue.message }}</p>`,
 })
 class ChildComponent {
-  injectedValue = inject(InjectedValue);
+	injectedValue = inject(InjectedValue);
 }
-````
+```
 
 ## Vue
 
-Vue's minimal API surface allows us to compose `ref` and `provide` usage in order to provide values that we can change after injection. 
+Vue's minimal API surface allows us to compose `ref` and `provide` usage in order to provide values that we can change after injection.
 
 ```vue
 <!-- Parent.vue -->
 <script setup>
-  import { provide, ref } from 'vue'
-  import Child from './Child.vue'
+import { provide, ref } from "vue";
+import Child from "./Child.vue";
 
-  const welcomeMessage = ref('Initial value')
-  provide('WELCOME_MESSAGE', welcomeMessage)
+const welcomeMessage = ref("Initial value");
+provide("WELCOME_MESSAGE", welcomeMessage);
 
-  function updateMessage() {
-    welcomeMessage.value = 'Updated value'
-  }
+function updateMessage() {
+	welcomeMessage.value = "Updated value";
+}
 </script>
 
 <template>
-  <Child />
-  <button @click="updateMessage()">Update the message</button>
+	<Child />
+	<button @click="updateMessage()">Update the message</button>
 </template>
 ```
 
 ```vue
 <!-- Child.vue -->
 <script setup>
-  import { inject } from 'vue'
+import { inject } from "vue";
 
-  // Worth mentioning, `welcomeMessage` is now _not_ a string, but rather a `ref`
-  // If you needed to use `welcomeMessage` inside of `<script setup>`, you'd
-  // need to use `.value`
-  const welcomeMessage = inject('WELCOME_MESSAGE')
+// Worth mentioning, `welcomeMessage` is now _not_ a string, but rather a `ref`
+// If you needed to use `welcomeMessage` inside of `<script setup>`, you'd
+// need to use `.value`
+const welcomeMessage = inject("WELCOME_MESSAGE");
 </script>
 
 <template>
-  <p>{{ welcomeMessage }}</p>
+	<p>{{ welcomeMessage }}</p>
 </template>
 ```
 
@@ -535,31 +542,30 @@ Previously we utilized the ability to use `useState` in our `Provider` in order 
 This works because React's `useContext` enables us to pass data of _any_ kind, functions included. This means that we can pass both the getter and setter function of `useState`, like so:
 
 ```jsx
-
 const HelloMessageContext = createContext();
 
 function Parent() {
-  const [message, setMessage] = useState('Initial value');
-  // We can pass both the setter and getter
-  const providedValue = { message, setMessage };
-  return (
-    <HelloMessageContext.Provider value={providedValue}>
-      <Child />
-    </HelloMessageContext.Provider>
-  );
+	const [message, setMessage] = useState("Initial value");
+	// We can pass both the setter and getter
+	const providedValue = { message, setMessage };
+	return (
+		<HelloMessageContext.Provider value={providedValue}>
+			<Child />
+		</HelloMessageContext.Provider>
+	);
 }
 
 function Child() {
-  // And later, access them both as if they were local to the component
-  const { message, setMessage } = useContext(HelloMessageContext);
-  return (
-    <>
-      <p>{message}</p>
-      <button onClick={() => setMessage('Updated value')}>
-        Update the message
-      </button>
-    </>
-  );
+	// And later, access them both as if they were local to the component
+	const { message, setMessage } = useContext(HelloMessageContext);
+	return (
+		<>
+			<p>{message}</p>
+			<button onClick={() => setMessage("Updated value")}>
+				Update the message
+			</button>
+		</>
+	);
 }
 ```
 
@@ -573,32 +579,32 @@ We could pass each individual function through the `Provider`:
 
 ```jsx
 function App() {
-  const [count, setCount] = useState(0);
-  
-  const increment = () => {
-    setCount(count + 1);
-  }
+	const [count, setCount] = useState(0);
 
-  const decrement = () => {
-    setCount(count - 1);
-  }
-  
-  const set = (val) => {
-    setCount(val);
-  }
+	const increment = () => {
+		setCount(count + 1);
+	};
 
-  const providedValue = { count, increment, decrement, set };
-  return (
-    <CounterContext.Provider value={providedValue}>
-      <Child />
-    </CounterContext.Provider>
-  );
+	const decrement = () => {
+		setCount(count - 1);
+	};
+
+	const set = (val) => {
+		setCount(val);
+	};
+
+	const providedValue = { count, increment, decrement, set };
+	return (
+		<CounterContext.Provider value={providedValue}>
+			<Child />
+		</CounterContext.Provider>
+	);
 }
 ```
 
 But doing so creates a substantial amount of noise: each function has a dedicated variable and needs to be passed independently for the `useContext` to work as intended.
 
-------------
+---
 
 This is where `useReducer` might come into play. Let's take a step back for a moment, and remove the `useContext` method.
 
@@ -610,17 +616,17 @@ Let's take a look at the most basic version of a `reducer` that only can count u
 const initialState = { count: 0 };
 
 function reducer(state, action) {
-  return {count: state.count + 1}
+	return { count: state.count + 1 };
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  return (
-    <>
-      <p>{state.count}</p>
-      <button onClick={() => dispatch()}>Add one</button>
-    </>
-  );
+	const [state, dispatch] = useReducer(reducer, initialState);
+	return (
+		<>
+			<p>{state.count}</p>
+			<button onClick={() => dispatch()}>Add one</button>
+		</>
+	);
 }
 ```
 
@@ -628,33 +634,33 @@ Here, whenever `dispatch` is called, it will run the `reducer` with no arguments
 
 However, this isn't particularly useful and seems like more boilerplate than needed for what's effectively a simple `useState`. To make `useReducer` more worthwhile, we need to add more actions.
 
- For example, we'll have an `increment` and `decrement` action that will respectively add one and remove one from the `state`.
+For example, we'll have an `increment` and `decrement` action that will respectively add one and remove one from the `state`.
 
 ```jsx
 const initialState = { count: 0 };
 
 function reducer(state, action) {
-  switch (action.type) {
-    case 'increment':
-      return { count: state.count + 1 };
-    case 'decrement':
-      return { count: state.count - 1 };
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case "increment":
+			return { count: state.count + 1 };
+		case "decrement":
+			return { count: state.count - 1 };
+		default:
+			return state;
+	}
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  return (
-    <>
-      <p>{state.count}</p>
-      <button onClick={() => dispatch({ type: 'increment' })}>Add one</button>
-      <button onClick={() => dispatch({ type: 'decrement' })}>
-        Remove one
-      </button>
-    </>
-  );
+	const [state, dispatch] = useReducer(reducer, initialState);
+	return (
+		<>
+			<p>{state.count}</p>
+			<button onClick={() => dispatch({ type: "increment" })}>Add one</button>
+			<button onClick={() => dispatch({ type: "decrement" })}>
+				Remove one
+			</button>
+		</>
+	);
 }
 ```
 
@@ -666,40 +672,40 @@ But that's not all we can do with a reducer! We can also pass in what's often ca
 const initialState = { count: 0 };
 
 function reducer(state, action) {
-  switch (action.type) {
-    case 'increment':
-      return { count: state.count + 1 };
-    case 'decrement':
-      return { count: state.count - 1 };
-    case 'set':
-      return { count: action.payload };
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case "increment":
+			return { count: state.count + 1 };
+		case "decrement":
+			return { count: state.count - 1 };
+		case "set":
+			return { count: action.payload };
+		default:
+			return state;
+	}
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  return (
-    <>
-      <p>{state.count}</p>
-      <button onClick={() => dispatch({ type: 'increment' })}>Add one</button>
-      <button onClick={() => dispatch({ type: 'decrement' })}>
-        Remove one
-      </button>
-      <button onClick={() => dispatch({ type: 'set', payload: 0 })}>
-        Set to zero
-      </button>
-    </>
-  );
+	const [state, dispatch] = useReducer(reducer, initialState);
+	return (
+		<>
+			<p>{state.count}</p>
+			<button onClick={() => dispatch({ type: "increment" })}>Add one</button>
+			<button onClick={() => dispatch({ type: "decrement" })}>
+				Remove one
+			</button>
+			<button onClick={() => dispatch({ type: "set", payload: 0 })}>
+				Set to zero
+			</button>
+		</>
+	);
 }
 ```
 
-> It's worth mentioning that [the reducer pattern is not unique to React](https://dev.to/reedbarger/what-is-a-reducer-in-javascript-a-complete-introduction-with-examples-ip1). That said, React is unique in that it has a built-in method to build reducers, unlike many other frameworks. 
+> It's worth mentioning that [the reducer pattern is not unique to React](https://dev.to/reedbarger/what-is-a-reducer-in-javascript-a-complete-introduction-with-examples-ip1). That said, React is unique in that it has a built-in method to build reducers, unlike many other frameworks.
 
 #### Reducer patterns within Contexts
 
-Just like we were able to pass the `setValue` function from `useState`, we can pass both `state` and `dispatch` using our `context`'s `Provide` and utilize `useContext` to inject those values into our child components. 
+Just like we were able to pass the `setValue` function from `useState`, we can pass both `state` and `dispatch` using our `context`'s `Provide` and utilize `useContext` to inject those values into our child components.
 
 ```jsx
 const CounterContext = createContext();
@@ -707,42 +713,42 @@ const CounterContext = createContext();
 const initialState = { count: 0 };
 
 function reducer(state, action) {
-  switch (action.type) {
-    case 'increment':
-      return { count: state.count + 1 };
-    case 'decrement':
-      return { count: state.count - 1 };
-    case 'set':
-      return { count: action.payload };
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case "increment":
+			return { count: state.count + 1 };
+		case "decrement":
+			return { count: state.count - 1 };
+		case "set":
+			return { count: action.payload };
+		default:
+			return state;
+	}
 }
 
 function Parent() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const providedValue = { state, dispatch };
-  return (
-    <CounterContext.Provider value={providedValue}>
-      <Child />
-    </CounterContext.Provider>
-  );
+	const [state, dispatch] = useReducer(reducer, initialState);
+	const providedValue = { state, dispatch };
+	return (
+		<CounterContext.Provider value={providedValue}>
+			<Child />
+		</CounterContext.Provider>
+	);
 }
 
 function Child() {
-  const { state, dispatch } = useContext(CounterContext);
-  return (
-    <>
-      <p>{state.count}</p>
-      <button onClick={() => dispatch({ type: 'increment' })}>Add one</button>
-      <button onClick={() => dispatch({ type: 'decrement' })}>
-        Remove one
-      </button>
-      <button onClick={() => dispatch({ type: 'set', payload: 0 })}>
-        Set to zero
-      </button>
-    </>
-  );
+	const { state, dispatch } = useContext(CounterContext);
+	return (
+		<>
+			<p>{state.count}</p>
+			<button onClick={() => dispatch({ type: "increment" })}>Add one</button>
+			<button onClick={() => dispatch({ type: "decrement" })}>
+				Remove one
+			</button>
+			<button onClick={() => dispatch({ type: "set", payload: 0 })}>
+				Set to zero
+			</button>
+		</>
+	);
 }
 ```
 
@@ -753,38 +759,38 @@ Because we're able to inject a full class instance into a child component, we ca
 ```typescript
 @Injectable()
 class InjectedValue {
-  message = 'Hello, world';
-  // `this` is referring to the `InjectedValue` instance
-  changeMessage(val: string) {
-    this.message = val;
-  }
+	message = "Hello, world";
+	// `this` is referring to the `InjectedValue` instance
+	changeMessage(val: string) {
+		this.message = val;
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ChildComponent],
-  providers: [InjectedValue],
-  template: `<child-comp/>`,
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	providers: [InjectedValue],
+	template: `<child-comp />`,
 })
 class ParentComponent {}
 
 @Component({
-  selector: 'child-comp',
-  standalone: true,
-  template: `
-  <div>{{injectedValue.message}}</div>
-  <button (click)="changeMessage()">Change message</button>
-  `,
+	selector: "child-comp",
+	standalone: true,
+	template: `
+		<div>{{ injectedValue.message }}</div>
+		<button (click)="changeMessage()">Change message</button>
+	`,
 })
 class ChildComponent {
-  injectedValue = inject(InjectedValue);
+	injectedValue = inject(InjectedValue);
 
-  changeMessage() {
-    // This will update the value of the class, and 
-    // re-render the component to reflect the new value
-    this.injectedValue.changeMessage('TESTING');
-  }
+	changeMessage() {
+		// This will update the value of the class, and
+		// re-render the component to reflect the new value
+		this.injectedValue.changeMessage("TESTING");
+	}
 }
 ```
 
@@ -795,33 +801,33 @@ In our previous example, we used `provide` to inject a `ref` into the child comp
 ```vue
 <!-- Parent.vue -->
 <script setup>
-  import { provide, ref } from 'vue'
-  import Child from './Child.vue'
+import { provide, ref } from "vue";
+import Child from "./Child.vue";
 
-  const welcomeMessage = ref('Initial value')
-  provide('WELCOME_MESSAGE', welcomeMessage)
+const welcomeMessage = ref("Initial value");
+provide("WELCOME_MESSAGE", welcomeMessage);
 </script>
 
 <template>
-  <Child />
+	<Child />
 </template>
 ```
 
 ```vue
 <!-- Child.vue -->
 <script setup>
-  import { inject } from 'vue'
+import { inject } from "vue";
 
-  const welcomeMessage = inject('WELCOME_MESSAGE')
+const welcomeMessage = inject("WELCOME_MESSAGE");
 
-  function updateMessage() {
-    welcomeMessage.value = 'Updated value'
-  }
+function updateMessage() {
+	welcomeMessage.value = "Updated value";
+}
 </script>
 
 <template>
-  <p>{{ welcomeMessage }}</p>
-  <button @click="updateMessage()">Update the message</button>
+	<p>{{ welcomeMessage }}</p>
+	<button @click="updateMessage()">Update the message</button>
 </template>
 ```
 
@@ -842,28 +848,24 @@ Luckily, React, Angular, and Vue are all able to withstand an empty value provid
 In React, handling optionally injected values doesn't require a new API. We can still use the `useContext` hook in the child component, even if there is no provider.
 
 ```jsx
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react";
 
 const HelloMessageContext = createContext();
 
 function Parent() {
-  // Notice no provider was set
-  return (
-    <Child />
-  );
+	// Notice no provider was set
+	return <Child />;
 }
 
 function Child() {
-  // `messageData` is `undefined` if nothing is injected 
-  const messageData = useContext(HelloMessageContext);
+	// `messageData` is `undefined` if nothing is injected
+	const messageData = useContext(HelloMessageContext);
 
-  // If no value is passed, we can simply
-  // not render anything in this component
-  if (!messageData) return null;
+	// If no value is passed, we can simply
+	// not render anything in this component
+	if (!messageData) return null;
 
-  return (
-    <p>{messageData}</p>
-  );
+	return <p>{messageData}</p>;
 }
 
 export default Parent;
@@ -873,31 +875,30 @@ When this is done, `useContext` is `undefined` if no value is injected for a par
 
 ## Angular
 
-In Angular, we provide values to be injected using the `providers` array on a component. 
+In Angular, we provide values to be injected using the `providers` array on a component.
 
 ```typescript
 @Injectable()
 class InjectedValue {
-  message = 'Initial value';
+	message = "Initial value";
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ChildComponent],
-  providers: [InjectedValue],
-  template: `<child-comp/>`,
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	providers: [InjectedValue],
+	template: `<child-comp />`,
 })
-class ParentComponent {
-}
+class ParentComponent {}
 
 @Component({
-  selector: 'child-comp',
-  standalone: true,
-  template: `<p>{{injectedValue.message}}</p>`,
+	selector: "child-comp",
+	standalone: true,
+	template: `<p>{{ injectedValue.message }}</p>`,
 })
 class ChildComponent {
-  injectedValue = inject(InjectedValue);
+	injectedValue = inject(InjectedValue);
 }
 ```
 
@@ -905,54 +906,52 @@ However, if we remove the `providers` from `ParentComponent`, in order to test o
 
 ```typescript
 @Component({
-  selector: "app-root",
-  standalone: true,
-  imports: [ChildComponent],
-  template: `<child-comp/>`
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	template: `<child-comp />`,
 })
-class ParentComponent {
-}
+class ParentComponent {}
 ```
 
 We get the following error:
 
 > ```
-> ERROR NullInjectorError: R3InjectorError(AppModule)[InjectedValue -> InjectedValue -> InjectedValue]: 
+> ERROR NullInjectorError: R3InjectorError(AppModule)[InjectedValue -> InjectedValue -> InjectedValue]:
 >   NullInjectorError: No provider for InjectedValue!
 > ```
 
-This is because our `inject` function inside of `ChildComponent` is marked as a required dependency by default, hence the error. 
+This is because our `inject` function inside of `ChildComponent` is marked as a required dependency by default, hence the error.
 
 Fortunately there's a way to tell Angular to mark that dependency as "optional" by passing a second argument to the `inject` function:
 
 ```typescript
 @Injectable()
 class InjectedValue {
-  message = "Hello, world";
+	message = "Hello, world";
 }
 
 @Component({
-  selector: "app-root",
-  standalone: true,
-  imports: [ChildComponent],
-  template: `<child-comp/>`
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	template: `<child-comp />`,
 })
-class ParentComponent {
-}
+class ParentComponent {}
 
 @Component({
-  selector: "child-comp",
-  standalone: true,
-  imports: [NgIf],
-  template: `<div *ngIf="injectedValue">{{injectedValue.message}}</div>`
+	selector: "child-comp",
+	standalone: true,
+	imports: [NgIf],
+	template: `<div *ngIf="injectedValue">{{ injectedValue.message }}</div>`,
 })
 class ChildComponent implements OnInit {
-  injectedValue = inject(InjectedValue, {optional: true});
+	injectedValue = inject(InjectedValue, { optional: true });
 
-  ngOnInit() {
-    // undefined
-    console.log(this.injectedValue);
-  }
+	ngOnInit() {
+		// undefined
+		console.log(this.injectedValue);
+	}
 }
 ```
 
@@ -962,30 +961,30 @@ Now, we get no error when `injectedValue` is not provided. Instead, we get a val
 
 Much like React's dependency injection system, when using Vue's `inject` without a parent `provide`, the `inject` defaults its value to `undefined`.
 
-``` vue
+```vue
 <!-- Parent.vue -->
 <script setup>
-import Child from './Child.vue'
+import Child from "./Child.vue";
 </script>
 
 <template>
-  <Child />
+	<Child />
 </template>
 ```
 
 ```vue
 <!-- Child.vue -->
 <script setup>
-  import { inject } from 'vue'
+import { inject } from "vue";
 
-  const welcomeMessage = inject('WELCOME_MESSAGE')
+const welcomeMessage = inject("WELCOME_MESSAGE");
 
-  // undefined
-  console.log(welcomeMessage)
+// undefined
+console.log(welcomeMessage);
 </script>
 
 <template>
-  <p v-if="welcomeMessage">{{ welcomeMessage }}</p>
+	<p v-if="welcomeMessage">{{ welcomeMessage }}</p>
 </template>
 ```
 
@@ -996,9 +995,6 @@ import Child from './Child.vue'
 > This is normal and expected - keep calm and code on.
 
 <!-- tabs:end -->
-
-
-
 
 ## Default Values for Optional Values
 
@@ -1014,13 +1010,11 @@ Because of React's minimalistic dependency injection API, providing a default va
 
 ```jsx
 function Child() {
-  const injectedMessageData = useContext(HelloMessageContext);
+	const injectedMessageData = useContext(HelloMessageContext);
 
-  const messageData = injectedMessageData || "Hello, world!";
+	const messageData = injectedMessageData || "Hello, world!";
 
-  return (
-    <p>{messageData}</p>
-  );
+	return <p>{messageData}</p>;
 }
 ```
 
@@ -1035,27 +1029,25 @@ As such, we can use [JavaScript's built-in "OR" operator (`||`)](https://develop
 ```typescript
 @Injectable()
 class InjectedValue {
-  message = 'Initial value';
+	message = "Initial value";
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ChildComponent],
-  providers: [InjectedValue],
-  template: `
-    <child-comp/>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	providers: [InjectedValue],
+	template: ` <child-comp /> `,
 })
 class ParentComponent {}
 
 @Component({
-  selector: 'child-comp',
-  standalone: true,
-  template: `<p>{{injectedValue.message}}</p>`,
+	selector: "child-comp",
+	standalone: true,
+	template: `<p>{{ injectedValue.message }}</p>`,
 })
 class ChildComponent {
-  injectedValue = inject(InjectedValue) || { message: 'Default Value' };
+	injectedValue = inject(InjectedValue) || { message: "Default Value" };
 }
 ```
 
@@ -1066,22 +1058,20 @@ Vue is the only framework of the three that supports a built-in way to provide a
 ```vue
 <!-- Child.vue -->
 <script setup>
-  import { inject } from 'vue'
+import { inject } from "vue";
 
-  const welcomeMessage = inject('WELCOME_MESSAGE', 'Default value')
+const welcomeMessage = inject("WELCOME_MESSAGE", "Default value");
 
-  // "Default value"
-  console.log(welcomeMessage)
+// "Default value"
+console.log(welcomeMessage);
 </script>
 
 <template>
-  <p>{{ welcomeMessage }}</p>
+	<p>{{ welcomeMessage }}</p>
 </template>
 ```
 
 <!-- tabs:end -->
-
-
 
 # Application Wide Providers
 
@@ -1091,48 +1081,48 @@ In our example codebase, we structured an application where `userData` is utiliz
 
 ## React
 
-To provide values at the root of a React application, we can reuse our `Provider` knowledge and use a `Provider`  at the top-level `App` component.
+To provide values at the root of a React application, we can reuse our `Provider` knowledge and use a `Provider` at the top-level `App` component.
 
 ```jsx
 function App() {
-  const [message, setMessage] = useState('Initial value');
-  const providedValue = { message, setMessage };
-  return (
-    <HelloMessageContext.Provider value={providedValue}>
-      <Child />
-    </HelloMessageContext.Provider>
-  );
+	const [message, setMessage] = useState("Initial value");
+	const providedValue = { message, setMessage };
+	return (
+		<HelloMessageContext.Provider value={providedValue}>
+			<Child />
+		</HelloMessageContext.Provider>
+	);
 }
 ```
 
 ### Consolidate Providers and Your Logic
 
-When working with providers that needs state of some kind, you may want to keep your `useState` and `<Context.Provider>` code in the same place. 
+When working with providers that needs state of some kind, you may want to keep your `useState` and `<Context.Provider>` code in the same place.
 
 To centralize these APIs, we can utilize the concept of componentization. Start by moving your provider and logic into a new component, then allow the user to pass child components to the new `HelloMessageProvider` component:
 
 ```jsx
 // This can be named anything! It's a component like any other
-const HelloMessageProvider = ({children}) => {
-  const [message, setMessage] = useState('Initial value');
-  const providedValue = { message, setMessage };
-  return (
-    <HelloMessageContext.Provider value={providedValue}>
-     {children}
-    </HelloMessageContext.Provider>
-  )
-}
+const HelloMessageProvider = ({ children }) => {
+	const [message, setMessage] = useState("Initial value");
+	const providedValue = { message, setMessage };
+	return (
+		<HelloMessageContext.Provider value={providedValue}>
+			{children}
+		</HelloMessageContext.Provider>
+	);
+};
 
 function App() {
-  return (
-    <HelloMessageProvider>
-      <Child />
-    </HelloMessageProvider>
-  );
+	return (
+		<HelloMessageProvider>
+			<Child />
+		</HelloMessageProvider>
+	);
 }
 ```
 
-These children of `HelloMessageProvider` are then passed the `HelloMessageContext` through React's dependency injection system. 
+These children of `HelloMessageProvider` are then passed the `HelloMessageContext` through React's dependency injection system.
 
 ### Provider Christmas Trees are Okay!
 
@@ -1140,32 +1130,33 @@ When you have a large enough application, you may end up having an `App` compone
 
 ```jsx
 const App = () => {
-  const {isDarkMode, paperTheme, updateLocalDarkMode, localDarkMode} =
-    useLocalDarkMode();
+	const { isDarkMode, paperTheme, updateLocalDarkMode, localDarkMode } =
+		useLocalDarkMode();
 
-  return (
-    <NavigationContainer theme={isDarkMode ? darkNavTheme : lightNavTheme}>
-      <PaperProvider theme={paperTheme}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={'transparent'}
-        />
-        <SetDarkModeContext.Provider
-          value={{
-            setDarkMode: updateLocalDarkMode,
-            localDarkMode,
-          }}>
-          <ColorSchemeProvider mode={isDarkMode ? 'dark' : 'light'}>
-            <ErrorBoundary FallbackComponent={CustomFallback}>
-              <Provider store={store}>
-                <AppContents />
-              </Provider>
-            </ErrorBoundary>
-          </ColorSchemeProvider>
-        </SetDarkModeContext.Provider>
-      </PaperProvider>
-    </NavigationContainer>
-  );
+	return (
+		<NavigationContainer theme={isDarkMode ? darkNavTheme : lightNavTheme}>
+			<PaperProvider theme={paperTheme}>
+				<StatusBar
+					barStyle={isDarkMode ? "light-content" : "dark-content"}
+					backgroundColor={"transparent"}
+				/>
+				<SetDarkModeContext.Provider
+					value={{
+						setDarkMode: updateLocalDarkMode,
+						localDarkMode,
+					}}
+				>
+					<ColorSchemeProvider mode={isDarkMode ? "dark" : "light"}>
+						<ErrorBoundary FallbackComponent={CustomFallback}>
+							<Provider store={store}>
+								<AppContents />
+							</Provider>
+						</ErrorBoundary>
+					</ColorSchemeProvider>
+				</SetDarkModeContext.Provider>
+			</PaperProvider>
+		</NavigationContainer>
+	);
 };
 ```
 
@@ -1177,40 +1168,41 @@ Despite looking ugly, this code is okay! If you _really_ want to break things up
 
 ```jsx
 const StyleProvider = ({ children }) => {
-    return (
-        <PaperProvider theme={paperTheme}>
-            <StatusBar
-                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-                backgroundColor={'transparent'}
-            />
-            <SetDarkModeContext.Provider
-                value={{
-                    setDarkMode: updateLocalDarkMode,
-                    localDarkMode,
-                }}>
-                <ColorSchemeProvider mode={isDarkMode ? 'dark' : 'light'}>
-                    {children}
-                </ColorSchemeProvider>
-            </SetDarkModeContext.Provider>
-        </PaperProvider>
-    )
-}
+	return (
+		<PaperProvider theme={paperTheme}>
+			<StatusBar
+				barStyle={isDarkMode ? "light-content" : "dark-content"}
+				backgroundColor={"transparent"}
+			/>
+			<SetDarkModeContext.Provider
+				value={{
+					setDarkMode: updateLocalDarkMode,
+					localDarkMode,
+				}}
+			>
+				<ColorSchemeProvider mode={isDarkMode ? "dark" : "light"}>
+					{children}
+				</ColorSchemeProvider>
+			</SetDarkModeContext.Provider>
+		</PaperProvider>
+	);
+};
 
 const App = () => {
-    const { isDarkMode, paperTheme, updateLocalDarkMode, localDarkMode } =
-        useLocalDarkMode();
+	const { isDarkMode, paperTheme, updateLocalDarkMode, localDarkMode } =
+		useLocalDarkMode();
 
-    return (
-        <NavigationContainer theme={isDarkMode ? darkNavTheme : lightNavTheme}>
-            <ErrorBoundary FallbackComponent={CustomFallback}>
-                <Provider store={store}>
-                  <StyleProvider>
-                    <AppContents />
-                  </StyleProvider>
-                </Provider>
-            </ErrorBoundary>
-        </NavigationContainer>
-    );
+	return (
+		<NavigationContainer theme={isDarkMode ? darkNavTheme : lightNavTheme}>
+			<ErrorBoundary FallbackComponent={CustomFallback}>
+				<Provider store={store}>
+					<StyleProvider>
+						<AppContents />
+					</StyleProvider>
+				</Provider>
+			</ErrorBoundary>
+		</NavigationContainer>
+	);
 };
 ```
 
@@ -1220,43 +1212,41 @@ const App = () => {
 
 While other frameworks require you to explicitly provide your dependency injected values at the root of your application, Angular does not.
 
-Remember earlier when we utilized `@Injectable`  to mark a class as an injectable class instance? Well, this decorator has a trick up its sleave: [the `providedIn` property](https://angular.io/guide/providers#providedin-and-ngmodules).
+Remember earlier when we utilized `@Injectable` to mark a class as an injectable class instance? Well, this decorator has a trick up its sleave: [the `providedIn` property](https://angular.io/guide/providers#providedin-and-ngmodules).
 
 When you pass `{providedIn: 'root'}` to the `@Injectable` decorator, you no longer have to explicitly place the class inside of a `providers` array; instead, Angular will simply provide this class to the root of your application.
 
-
 ```typescript
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: "root" })
 class InjectedValue {
-  message = "Hello, world";
+	message = "Hello, world";
 }
 
 @Component({
-  selector: "child-comp",
-  standalone: true,
-  template: `<div></div>`
+	selector: "child-comp",
+	standalone: true,
+	template: `<div></div>`,
 })
 class ChildComponent implements OnInit {
-  injectedValue = inject(InjectedValue);
+	injectedValue = inject(InjectedValue);
 
-  ngOnInit() {
-    // This will include the `message` property, alongside 
-    // any other methods and properties on the class instance
-    console.log(this.injectedValue);
-  }
+	ngOnInit() {
+		// This will include the `message` property, alongside
+		// any other methods and properties on the class instance
+		console.log(this.injectedValue);
+	}
 }
 
 @Component({
-  selector: "app-root",
-  standalone: true,
-  imports: [ChildComponent],
-  template: `<child-comp/>`
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	template: `<child-comp />`,
 })
-class ParentComponent {
-}
+class ParentComponent {}
 ```
 
-In Angular, these globally provided values are called "Services". They're often used to break up and move application logic out of components in order to be more widely re-used. 
+In Angular, these globally provided values are called "Services". They're often used to break up and move application logic out of components in order to be more widely re-used.
 
 ## Vue
 
@@ -1265,15 +1255,15 @@ Providing a value at your application's root in Vue is similar to providing a va
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { provide, ref } from 'vue'
-  import Child from './Child.vue'
+import { provide, ref } from "vue";
+import Child from "./Child.vue";
 
-  const welcomeMessage = ref('Hello, world!')
-  provide('WELCOME_MESSAGE', welcomeMessage)
+const welcomeMessage = ref("Hello, world!");
+provide("WELCOME_MESSAGE", welcomeMessage);
 </script>
 
 <template>
-  <Child />
+	<Child />
 </template>
 ```
 
@@ -1292,8 +1282,8 @@ Generally, it's suggested to keep your data providers as close to the intended c
 			<Files>
 				<FileTable>
 					<FileItem>
-						<FileOwner/>
-						<FileType/>
+						<FileOwner />
+						<FileType />
 					</FileItem>
 				</FileTable>
 			</Files>
@@ -1304,8 +1294,8 @@ Generally, it's suggested to keep your data providers as close to the intended c
 
 You have two choices to `provide` the data:
 
-1) At the root of your component structure (`App`)
-2) At the closest source of location (`FileTable`)
+1. At the root of your component structure (`App`)
+2. At the closest source of location (`FileTable`)
 
 Between these two options, you should _generally_ opt to utilize #2, which would place your data injection closer to the components that need said data.
 
@@ -1315,7 +1305,7 @@ While this isn't always possible, the justification for doing so is that any cha
 
 While some frameworks like Vue handle this gracefully and only re-render the components that actually use the injected values, React and Angular differ.
 
-Let's assume that we go with an application-wide provider. In React and Angular, **when we change the value of the provider, the framework must search through the entire component tree to find the components that need to re-render**. 
+Let's assume that we go with an application-wide provider. In React and Angular, **when we change the value of the provider, the framework must search through the entire component tree to find the components that need to re-render**.
 
 **React even re-renders all of the child components of `App` when using `useContext`** to provide changing data.
 
@@ -1333,7 +1323,7 @@ For these instances, these larger apps can replace dependency injection values m
 
 ![// TODO: Write alt](./multiple_providers.svg)
 
-While it's rare, this ability is an incredibly powerful feature you can leverage in your applications. 
+While it's rare, this ability is an incredibly powerful feature you can leverage in your applications.
 
 A child component will have it's dependency injection resolved from the closest parent. This means that if you have two providers, but one is closer, it will read from the closer parent.
 
@@ -1341,11 +1331,11 @@ This means that if we have the following structure:
 
 ```jsx
 <App>
-    <Child>
-        <GrandChild>
-            <GreatGrandChild/>
-        </GrandChild>
-    </Child>
+	<Child>
+		<GrandChild>
+			<GreatGrandChild />
+		</GrandChild>
+	</Child>
 </App>
 ```
 
@@ -1356,33 +1346,33 @@ And both `App` and `GrandChild` inject values into the same named context, then 
 ## React
 
 ```jsx
-const NameContext = createContext('');
+const NameContext = createContext("");
 
 export default function App() {
-  return (
-    <NameContext.Provider value="Corbin">
-      <Child />
-    </NameContext.Provider>
-  );
+	return (
+		<NameContext.Provider value="Corbin">
+			<Child />
+		</NameContext.Provider>
+	);
 }
 
 function Child() {
-  return <GrandChild />;
+	return <GrandChild />;
 }
 
 // Notice the new provider here, it will suppliment the `App` injected value
 // for all child components of `GrandChild`
 function GrandChild() {
-  return (
-    <NameContext.Provider value="Kevin">
-      <GreatGrandChild />
-    </NameContext.Provider>
-  );
+	return (
+		<NameContext.Provider value="Kevin">
+			<GreatGrandChild />
+		</NameContext.Provider>
+	);
 }
 
 function GreatGrandChild() {
-  const name = useContext(NameContext);
-  return <p>Name: {name}</p>;
+	const name = useContext(NameContext);
+	return <p>Name: {name}</p>;
 }
 ```
 
@@ -1391,44 +1381,44 @@ function GreatGrandChild() {
 ```typescript
 @Injectable()
 class NameValue {
-  name = '';
+	name = "";
 }
 
 @Component({
-  selector: 'great-grand-child',
-  standalone: true,
-  imports: [],
-  template: `<p>{{nameValue.name}}</p>`,
+	selector: "great-grand-child",
+	standalone: true,
+	imports: [],
+	template: `<p>{{ nameValue.name }}</p>`,
 })
 class GreatGrandChildComponent {
-  nameValue = inject(NameValue);
+	nameValue = inject(NameValue);
 }
 
 @Component({
-  selector: 'grand-child',
-  standalone: true,
-  // Notice the new provider here, it will suppliment the `App` injected value
-  // for all child components of `grand-child`
-  providers: [{ provide: NameValue, useValue: { name: 'Kevin' } }],
-  imports: [GreatGrandChildComponent],
-  template: `<great-grand-child/>`,
+	selector: "grand-child",
+	standalone: true,
+	// Notice the new provider here, it will suppliment the `App` injected value
+	// for all child components of `grand-child`
+	providers: [{ provide: NameValue, useValue: { name: "Kevin" } }],
+	imports: [GreatGrandChildComponent],
+	template: `<great-grand-child />`,
 })
 class GrandChildComponent {}
 
 @Component({
-  selector: 'child-comp',
-  standalone: true,
-  imports: [GrandChildComponent],
-  template: `<grand-child/>`,
+	selector: "child-comp",
+	standalone: true,
+	imports: [GrandChildComponent],
+	template: `<grand-child />`,
 })
 class ChildComponent {}
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  providers: [{ provide: NameValue, useValue: { name: 'Corbin' } }],
-  imports: [ChildComponent],
-  template: `<child-comp/>`,
+	selector: "app-root",
+	standalone: true,
+	providers: [{ provide: NameValue, useValue: { name: "Corbin" } }],
+	imports: [ChildComponent],
+	template: `<child-comp />`,
 })
 class AppComponent {}
 ```
@@ -1438,54 +1428,54 @@ class AppComponent {}
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { provide } from 'vue'
-  import Child from './Child.vue'
+import { provide } from "vue";
+import Child from "./Child.vue";
 
-  provide('NAME', 'Corbin')
+provide("NAME", "Corbin");
 </script>
 
 <template>
-  <Child />
+	<Child />
 </template>
 ```
 
 ```vue
 <!-- Child.vue -->
 <script setup>
-  import GrandChild from './GrandChild.vue'
+import GrandChild from "./GrandChild.vue";
 </script>
 
 <template>
-  <GrandChild />
+	<GrandChild />
 </template>
 ```
 
 ```vue
 <!-- GrandChild.vue -->
 <script setup>
-  import { provide } from 'vue'
-  import GreatGrandChild from './GreatGrandChild.vue'
+import { provide } from "vue";
+import GreatGrandChild from "./GreatGrandChild.vue";
 
-  // Notice the new provider here, it will suppliment the `App` injected value
-  // for all child components of `GrandChild`
-  provide('NAME', 'Kevin')
+// Notice the new provider here, it will suppliment the `App` injected value
+// for all child components of `GrandChild`
+provide("NAME", "Kevin");
 </script>
 
 <template>
-  <GreatGrandChild />
+	<GreatGrandChild />
 </template>
 ```
 
 ```vue
 <!-- GreatGrandChild.vue -->
 <script setup>
-  import { inject } from 'vue'
+import { inject } from "vue";
 
-  const name = inject('NAME')
+const name = inject("NAME");
 </script>
 
 <template>
-  <p>Name: {{ name }}</p>
+	<p>Name: {{ name }}</p>
 </template>
 ```
 
@@ -1493,7 +1483,7 @@ class AppComponent {}
 
 Earlier, we talked about how dependency injection is like a buffet of data; components act like customers grabbing food from an all-you-can-eat buffet of data.
 
-Let's continue that analogy: 
+Let's continue that analogy:
 
 Assume you're at a buffet with three tables of food. These tables, in order of proximity to yourself, are:
 
@@ -1548,8 +1538,8 @@ function GrandChild() {
 }
 
 function GreatGrandChild() {
-  // Despite the `AgeContext` being closer, this is 
-  // specifically looking for the `NameContext` and will 
+  // Despite the `AgeContext` being closer, this is
+  // specifically looking for the `NameContext` and will
   // go further up in the tree to find that data from `App`
   const name = useContext(NameContext);
   return <p>Name: {name}</p>;
@@ -1561,50 +1551,50 @@ function GreatGrandChild() {
 ```typescript
 @Injectable()
 class NameValue {
-  name = '';
+	name = "";
 }
 
 @Injectable()
 class AgeValue {
-  age = 0;
+	age = 0;
 }
 
 @Component({
-  selector: 'great-grand-child',
-  standalone: true,
-  imports: [],
-  template: `<p>{{nameValue.name}}</p>`,
+	selector: "great-grand-child",
+	standalone: true,
+	imports: [],
+	template: `<p>{{ nameValue.name }}</p>`,
 })
 class GreatGrandChildComponent {
-  // Despite the `AgeValue` being closer, this is 
-  // specifically looking for the `NameValue` and will 
-  // go further up in the tree to find that data from `app-root`
-  nameValue = inject(NameValue);
+	// Despite the `AgeValue` being closer, this is
+	// specifically looking for the `NameValue` and will
+	// go further up in the tree to find that data from `app-root`
+	nameValue = inject(NameValue);
 }
 
 @Component({
-  selector: 'grand-child',
-  standalone: true,
-  providers: [{ provide: AgeValue, useValue: { age: 24 } }],
-  imports: [GreatGrandChildComponent],
-  template: `<great-grand-child/>`,
+	selector: "grand-child",
+	standalone: true,
+	providers: [{ provide: AgeValue, useValue: { age: 24 } }],
+	imports: [GreatGrandChildComponent],
+	template: `<great-grand-child />`,
 })
 class GrandChildComponent {}
 
 @Component({
-  selector: 'child-comp',
-  standalone: true,
-  imports: [GrandChildComponent],
-  template: `<grand-child/>`,
+	selector: "child-comp",
+	standalone: true,
+	imports: [GrandChildComponent],
+	template: `<grand-child />`,
 })
 class ChildComponent {}
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  providers: [{ provide: NameValue, useValue: { name: 'Corbin' } }],
-  imports: [ChildComponent],
-  template: `<child-comp/>`,
+	selector: "app-root",
+	standalone: true,
+	providers: [{ provide: NameValue, useValue: { name: "Corbin" } }],
+	imports: [ChildComponent],
+	template: `<child-comp />`,
 })
 class AppComponent {}
 ```
@@ -1614,55 +1604,55 @@ class AppComponent {}
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { provide } from 'vue'
-  import Child from './Child.vue'
+import { provide } from "vue";
+import Child from "./Child.vue";
 
-  provide('NAME', 'Corbin')
+provide("NAME", "Corbin");
 </script>
 
 <template>
-  <Child />
+	<Child />
 </template>
 ```
 
 ```vue
 <!-- Child.vue -->
 <script setup>
-  import GrandChild from './GrandChild.vue'
+import GrandChild from "./GrandChild.vue";
 </script>
 
 <template>
-  <GrandChild />
+	<GrandChild />
 </template>
 ```
 
 ```vue
 <!-- GrandChild.vue -->
 <script setup>
-  import { provide } from 'vue'
-  import GreatGrandChild from './GreatGrandChild.vue'
+import { provide } from "vue";
+import GreatGrandChild from "./GreatGrandChild.vue";
 
-  provide('AGE', 24)
+provide("AGE", 24);
 </script>
 
 <template>
-  <GreatGrandChild />
+	<GreatGrandChild />
 </template>
 ```
 
 ```vue
 <!-- GreatGrandChild.vue -->
 <script setup>
-  import { inject } from 'vue'
+import { inject } from "vue";
 
-  // Despite the `AGE` being closer, this is 
-  // specifically looking for the `NAME` and will 
-  // go further up in the tree to find that data from `App`
-  const name = inject('NAME')
+// Despite the `AGE` being closer, this is
+// specifically looking for the `NAME` and will
+// go further up in the tree to find that data from `App`
+const name = inject("NAME");
 </script>
 
 <template>
-  <p>Name: {{ name }}</p>
+	<p>Name: {{ name }}</p>
 </template>
 ```
 
@@ -1679,43 +1669,43 @@ The idea of a data's "shape" is that two pieces of data share enough related dat
 For example, if you have the following object:
 
 ```javascript
-const obj1 = {a: 1, b: 2};
+const obj1 = { a: 1, b: 2 };
 ```
 
 It would be considered to have the same "shape" as this other object:
 
 ```javascript
-const obj2 = {a: 2, b: 3};
+const obj2 = { a: 2, b: 3 };
 ```
 
 Even if the two objects contain slightly different values. The "shape" of an object is defined by:
 
-1) The names of properties
-2) The types of data being stored in each properties
-3) The number of properties
+1. The names of properties
+2. The types of data being stored in each properties
+3. The number of properties
 
 While the above have the same shapes, here's some examples that don't:
 
 ```javascript
-const obj1 = {a: 1, b: 2};
-const obj2 = {c: 1, d: 2};
+const obj1 = { a: 1, b: 2 };
+const obj2 = { c: 1, d: 2 };
 
 isSameShape(obj1, obj2); // false
 ```
 
 ```javascript
-const obj1 = {a: 1, b: 2};
-const obj2 = {a: "1", b: 2};
+const obj1 = { a: 1, b: 2 };
+const obj2 = { a: "1", b: 2 };
 
 isSameShape(obj1, obj2); // false
 ```
 
 ```javascript
-const obj1 = {a: 1, b: 2};
-const obj2 = {a: 1, b: 2, c: 3};
+const obj1 = { a: 1, b: 2 };
+const obj2 = { a: 1, b: 2, c: 3 };
 
-isSameShape(obj1, obj2, 'exact'); // false
-isSameShape(obj1, obj2, 'similar'); // true
+isSameShape(obj1, obj2, "exact"); // false
+isSameShape(obj1, obj2, "similar"); // true
 ```
 
 While #1 and #2 are strict requirements, the number of properties can shift a bit and still be considered of a similar "shape", even if it's not an exact match.
@@ -1736,32 +1726,32 @@ This concept of "retaining shape" between dependency injection providers is crit
 export const UserContext = createContext({});
 
 export default function App() {
-  const user = { name: 'Corbin Crutchley' };
-  return (
-    <UserContext.Provider value={user}>
-      <Child />
-    </UserContext.Provider>
-  );
+	const user = { name: "Corbin Crutchley" };
+	return (
+		<UserContext.Provider value={user}>
+			<Child />
+		</UserContext.Provider>
+	);
 }
 
 function Child() {
-  return <GrandChild />;
+	return <GrandChild />;
 }
 
 function GrandChild() {
-  const otherUser = { firstName: 'Corbin', lastName: 'Crutchley' };
-  return (
-    <UserContext.Provider value={otherUser}>
-      <GreatGrandChild />
-    </UserContext.Provider>
-  );
+	const otherUser = { firstName: "Corbin", lastName: "Crutchley" };
+	return (
+		<UserContext.Provider value={otherUser}>
+			<GreatGrandChild />
+		</UserContext.Provider>
+	);
 }
 
 function GreatGrandChild() {
-  const user = useContext(UserContext);
-  // Nothing will display, because we switched the user 
-  // type halfway through the component tree
-  return <p>Name: {user.name}</p>;
+	const user = useContext(UserContext);
+	// Nothing will display, because we switched the user
+	// type halfway through the component tree
+	return <p>Name: {user.name}</p>;
 }
 ```
 
@@ -1778,14 +1768,14 @@ function GreatGrandChild() {
 If we were to read through the `App` component and the `GreatGrandChild` component, we wouldn't expect to see any problems. But if we look at the final render, we'll see the following markup:
 
 ```html
-<p>Name: </p>
+<p>Name:</p>
 ```
 
 This bug was introduced because we switched the _shape_ of the object midway through the component tree.
 
 > This consistency in shape doesn't just help prevent errors, either. Keeping a similar shape throughout multiple function calls is how you're able to implicitly improve your app's performance through an internal browser optimization called ["Monomorphic inline caching"](https://marcradziwill.com/blog/mastering-javascript-high-performance/#ic).
 >
-> The above link is intended to help 
+> The above link is intended to help
 
 ## Variance in Injected Data
 
@@ -1801,61 +1791,61 @@ For example, while methods of an injected object should accept the same props an
 
 ```jsx
 const GreeterContext = createContext({
-  greeting: '',
-  changeGreeting: (newGreeting) => {},
+	greeting: "",
+	changeGreeting: (newGreeting) => {},
 });
 
 export default function App() {
-  const [greeting, setGreeting] = useState('');
-  const value = { greeting, changeGreeting: setGreeting };
-  return (
-    <GreeterContext.Provider value={value}>
-      <Child />
-    </GreeterContext.Provider>
-  );
+	const [greeting, setGreeting] = useState("");
+	const value = { greeting, changeGreeting: setGreeting };
+	return (
+		<GreeterContext.Provider value={value}>
+			<Child />
+		</GreeterContext.Provider>
+	);
 }
 
 function Child() {
-  return <GrandChild />;
+	return <GrandChild />;
 }
 
 function GrandChild() {
-  const [greeting, setGreeting] = useState('✨ Welcome 💯');
+	const [greeting, setGreeting] = useState("✨ Welcome 💯");
 
-  // New ✨ sparkly ✨ functionality adds some fun! 💯
-  const changeGreeting = (newVal) => {
-    if (!newVal.includes('✨')) {
-      newVal += '✨';
-    }
-    if (!newVal.includes('💯')) {
-      newVal += '💯';
-    }
+	// New ✨ sparkly ✨ functionality adds some fun! 💯
+	const changeGreeting = (newVal) => {
+		if (!newVal.includes("✨")) {
+			newVal += "✨";
+		}
+		if (!newVal.includes("💯")) {
+			newVal += "💯";
+		}
 
-    setGreeting(newVal);
-  };
+		setGreeting(newVal);
+	};
 
-  const value = { greeting, changeGreeting };
-  return (
-    <GreeterContext.Provider value={value}>
-      <GreatGrandChild />
-    </GreeterContext.Provider>
-  );
+	const value = { greeting, changeGreeting };
+	return (
+		<GreeterContext.Provider value={value}>
+			<GreatGrandChild />
+		</GreeterContext.Provider>
+	);
 }
 
 function GreatGrandChild() {
-  const { greeting, changeGreeting } = useContext(GreeterContext);
-  return (
-    <div>
-      <p>{greeting}, user!</p>
-      <label>
-        <div>Set a new greeting</div>
-        <input
-          value={greeting}
-          onChange={(e) => changeGreeting(e.target.value)}
-        />
-      </label>
-    </div>
-  );
+	const { greeting, changeGreeting } = useContext(GreeterContext);
+	return (
+		<div>
+			<p>{greeting}, user!</p>
+			<label>
+				<div>Set a new greeting</div>
+				<input
+					value={greeting}
+					onChange={(e) => changeGreeting(e.target.value)}
+				/>
+			</label>
+		</div>
+	);
 }
 ```
 
@@ -1873,16 +1863,9 @@ Here, we see two variants of the same `Greeter` injected value. One is a more se
 
 You can think of this like variance within a geometrical shape's color. If you have two triangles, but one is red and one is blue, you can still recognize the triangles as the same shape.
 
-
-
 ![// TODO: Add alt](./different_color_shapes.svg)
 
-
-
 While the first set of shapes and the second set of the shapes are not the _same_, they are still the same _shape_.
-
-
-
 
 # Challenge
 
@@ -1913,21 +1896,17 @@ Let's use dependency injection to provide a different list of actions based on w
 
 This will consist of multiple steps:
 
-1) Creating an app layout that includes an empty sidebar and file page to fill in later
+1. Creating an app layout that includes an empty sidebar and file page to fill in later
 
-2) Creating a file list in the file page and directory list in the sidebar
+2. Creating a file list in the file page and directory list in the sidebar
 
-3) Add a context menu to the list items with a static list of actions
+3. Add a context menu to the list items with a static list of actions
 
-4) Update the context menu to grab data from a dependency injection node
+4. Update the context menu to grab data from a dependency injection node
 
-5) Make the list of actions function as-expected
-
+5. Make the list of actions function as-expected
 
 Strap in - this is going to be a long challenge. By the end of it we'll have a functioning application shell with a real-world example of dependency injection.
-
-
-
 
 ## 1. Creating an initial app layout
 
@@ -1940,72 +1919,70 @@ Strap in - this is going to be a long challenge. By the end of it we'll have a f
 ```jsx
 // App.jsx
 export default function App() {
-  return (
-    <Layout sidebar={<Sidebar />}>
-      <FileList />
-    </Layout>
-  );
+	return (
+		<Layout sidebar={<Sidebar />}>
+			<FileList />
+		</Layout>
+	);
 }
 ```
 
 ```jsx
 // Layout.jsx
 export const Layout = ({ sidebar, children }) => {
-  return (
-    <div style={{ display: 'flex', flexWrap: 'nowrap', minHeight: '100vh' }}>
-      <div
-        style={{
-          width: 150,
-          backgroundColor: 'lightgray',
-          borderRight: '1px solid grey',
-        }}
-      >
-        {sidebar}
-      </div>
-      <div style={{ width: 1, flexGrow: 1 }}>{children}</div>
-    </div>
-  );
+	return (
+		<div style={{ display: "flex", flexWrap: "nowrap", minHeight: "100vh" }}>
+			<div
+				style={{
+					width: 150,
+					backgroundColor: "lightgray",
+					borderRight: "1px solid grey",
+				}}
+			>
+				{sidebar}
+			</div>
+			<div style={{ width: 1, flexGrow: 1 }}>{children}</div>
+		</div>
+	);
 };
 ```
 
 ```jsx
 // Sidebar.jsx
 export const Sidebar = () => {
-  return (
-    <div style={{ padding: '1rem' }}>
-      <h1 style={{ fontSize: '1.25rem' }}>Directories</h1>
-    </div>
-  );
+	return (
+		<div style={{ padding: "1rem" }}>
+			<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
+		</div>
+	);
 };
 ```
 
 ```jsx
 // FileList.jsx
 export const FileList = () => {
-  return (
-    <div style={{ padding: '1rem' }}>
-      <h1>Files</h1>
-    </div>
-  );
+	return (
+		<div style={{ padding: "1rem" }}>
+			<h1>Files</h1>
+		</div>
+	);
 };
 ```
-
-
 
 ### Angular
 
 ```typescript
 // app.component.ts
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [LayoutComponent, SidebarComponent, FileListComponent],
-  template: `
-    <app-layout>
-      <app-sidebar sidebar/>
-      <file-list/>
-    </app-layout>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [LayoutComponent, SidebarComponent, FileListComponent],
+	template: `
+		<app-layout>
+			<app-sidebar sidebar />
+			<file-list />
+		</app-layout>
+	`,
 })
 export class AppComponent {}
 ```
@@ -2013,39 +1990,38 @@ export class AppComponent {}
 ```typescript
 // layout.component.ts
 @Component({
-  selector: 'app-layout',
-  standalone: true,
-  template: `
-    <div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
-      <div
-          style="
+	selector: "app-layout",
+	standalone: true,
+	template: `
+		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
+			<div
+				style="
               width: 150px;
               background-color: lightgray;
               border-right: 1px solid grey;
             "
-      >
-        <ng-content select="sidebar"/>
-      </div>
-      <div style="width: 1px; flex-grow: 1">
-        <ng-content/>
-      </div>
-    </div>
-  `,
+			>
+				<ng-content select="sidebar" />
+			</div>
+			<div style="width: 1px; flex-grow: 1">
+				<ng-content />
+			</div>
+		</div>
+	`,
 })
 export class LayoutComponent {}
 ```
 
-
 ```typescript
 // file-list.component.ts
 @Component({
-  selector: 'file-list',
-  standalone: true,
-  template: `
-      <div style="padding: 1rem">
-          <h1>Files</h1>
-      </div>
-  `,
+	selector: "file-list",
+	standalone: true,
+	template: `
+		<div style="padding: 1rem">
+			<h1>Files</h1>
+		</div>
+	`,
 })
 export class FileListComponent {}
 ```
@@ -2053,35 +2029,34 @@ export class FileListComponent {}
 ```typescript
 // sidebar.component.ts
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  template: `
-      <div style="padding: 1rem">
-          <h1 style="font-size: 1.25rem">Directories</h1>
-      </div>
-  `,
+	selector: "app-sidebar",
+	standalone: true,
+	template: `
+		<div style="padding: 1rem">
+			<h1 style="font-size: 1.25rem">Directories</h1>
+		</div>
+	`,
 })
 export class SidebarComponent {}
 ```
-
 
 ### Vue
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import Layout from './Layout.vue';
-  import Sidebar from './Sidebar.vue';
-  import FileList from './FileList.vue';
+import Layout from "./Layout.vue";
+import Sidebar from "./Sidebar.vue";
+import FileList from "./FileList.vue";
 </script>
 
 <template>
-  <Layout>
-    <template #sidebar>
-      <Sidebar />
-    </template>
-    <FileList />
-  </Layout>
+	<Layout>
+		<template #sidebar>
+			<Sidebar />
+		</template>
+		<FileList />
+	</Layout>
 </template>
 ```
 
@@ -2090,20 +2065,20 @@ export class SidebarComponent {}
 <script setup></script>
 
 <template>
-  <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
-    <div
-      style="
+	<div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
+		<div
+			style="
         width: 150px;
         background-color: lightgray;
         border-right: 1px solid grey;
       "
-    >
-      <slot name="sidebar" />
-    </div>
-    <div style="width: 1px; flex-grow: 1">
-      <slot />
-    </div>
-  </div>
+		>
+			<slot name="sidebar" />
+		</div>
+		<div style="width: 1px; flex-grow: 1">
+			<slot />
+		</div>
+	</div>
 </template>
 ```
 
@@ -2112,9 +2087,9 @@ export class SidebarComponent {}
 <script setup></script>
 
 <template>
-  <div style="padding: 1rem">
-    <h1 style="font-size: 1.25rem">Directories</h1>
-  </div>
+	<div style="padding: 1rem">
+		<h1 style="font-size: 1.25rem">Directories</h1>
+	</div>
 </template>
 ```
 
@@ -2123,15 +2098,13 @@ export class SidebarComponent {}
 <script setup></script>
 
 <template>
-  <div style="padding: 1rem">
-    <h1>Files</h1>
-  </div>
+	<div style="padding: 1rem">
+		<h1>Files</h1>
+	</div>
 </template>
 ```
 
 <!-- tabs:end -->
-
-
 
 ## 2. Add file and directory list
 
@@ -2144,11 +2117,11 @@ export class SidebarComponent {}
 ```jsx
 // File.jsx
 export const File = ({ name }) => {
-  return (
-    <button style={{ display: 'block', width: '100%', marginBottom: '1rem' }}>
-      {name}
-    </button>
-  );
+	return (
+		<button style={{ display: "block", width: "100%", marginBottom: "1rem" }}>
+			{name}
+		</button>
+	);
 };
 ```
 
@@ -2156,154 +2129,151 @@ Then, we can this component into our `Sidebar` and `FileList` components to disp
 
 ```jsx
 // Sidebar.jsx
-import { File } from './File';
+import { File } from "./File";
 
 const directories = [
-  {
-    name: 'Movies',
-    id: 1,
-  },
-  {
-    name: 'Documents',
-    id: 2,
-  },
-  {
-    name: 'Etc',
-    id: 3,
-  },
+	{
+		name: "Movies",
+		id: 1,
+	},
+	{
+		name: "Documents",
+		id: 2,
+	},
+	{
+		name: "Etc",
+		id: 3,
+	},
 ];
 
 export const Sidebar = () => {
-  return (
-    <div style={{ padding: '1rem' }}>
-      <h1 style={{ fontSize: '1.25rem' }}>Directories</h1>
-      {directories.map((directory) => {
-        return <File key={directory.id} name={directory.name} />;
-      })}
-    </div>
-  );
+	return (
+		<div style={{ padding: "1rem" }}>
+			<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
+			{directories.map((directory) => {
+				return <File key={directory.id} name={directory.name} />;
+			})}
+		</div>
+	);
 };
 ```
 
 ```jsx
 // FileList.jsx
-import { File } from './File';
+import { File } from "./File";
 
 const files = [
-  {
-    name: 'Testing.wav',
-    id: 1,
-  },
-  {
-    name: 'Secrets.txt',
-    id: 2,
-  },
-  {
-    name: 'Other.md',
-    id: 3,
-  },
+	{
+		name: "Testing.wav",
+		id: 1,
+	},
+	{
+		name: "Secrets.txt",
+		id: 2,
+	},
+	{
+		name: "Other.md",
+		id: 3,
+	},
 ];
 
 export const FileList = () => {
-  return (
-    <div style={{ padding: '1rem' }}>
-      <h1>Files</h1>
-      {files.map((file) => {
-        return <File key={file.id} name={file.name} />;
-      })}
-    </div>
-  );
+	return (
+		<div style={{ padding: "1rem" }}>
+			<h1>Files</h1>
+			{files.map((file) => {
+				return <File key={file.id} name={file.name} />;
+			})}
+		</div>
+	);
 };
 ```
-
-
 
 ### Angular
 
 ```typescript
 @Component({
-  selector: 'file-item',
-  standalone: true,
-  template: `
-      <button style="display: block; width: 100%; margin-bottom: 1rem">
-          {{ name }}
-      </button>
-`,
+	selector: "file-item",
+	standalone: true,
+	template: `
+		<button style="display: block; width: 100%; margin-bottom: 1rem">
+			{{ name }}
+		</button>
+	`,
 })
 export class FileComponent {
-  @Input() name!: string;
+	@Input() name!: string;
 }
 ```
 
 ```typescript
 @Component({
-  selector: 'file-list',
-  standalone: true,
-  imports: [FileComponent, NgFor],
-  template: `
-      <div style="padding: 1rem">
-          <h1>Files</h1>
-          <file-item *ngFor="let file of files" [name]="file.name" />
-      </div>
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent, NgFor],
+	template: `
+		<div style="padding: 1rem">
+			<h1>Files</h1>
+			<file-item *ngFor="let file of files" [name]="file.name" />
+		</div>
+	`,
 })
 export class FileListComponent {
-  files = [
-    {
-      name: 'Testing.wav',
-      id: 1,
-    },
-    {
-      name: 'Secrets.txt',
-      id: 2,
-    },
-    {
-      name: 'Other.md',
-      id: 3,
-    },
-  ];
+	files = [
+		{
+			name: "Testing.wav",
+			id: 1,
+		},
+		{
+			name: "Secrets.txt",
+			id: 2,
+		},
+		{
+			name: "Other.md",
+			id: 3,
+		},
+	];
 }
 ```
 
 ```typescript
 @Component({
-  selector: 'sidebar',
-  standalone: true,
-  imports: [FileComponent, NgFor],
-  template: `
-      <div style="padding: 1rem">
-          <h1 style="font-size: 1.25rem">Directories</h1>
-          <file-item *ngFor="let directory of directories" [name]="directory.name" />
-      </div>
-  `,
+	selector: "sidebar",
+	standalone: true,
+	imports: [FileComponent, NgFor],
+	template: `
+		<div style="padding: 1rem">
+			<h1 style="font-size: 1.25rem">Directories</h1>
+			<file-item
+				*ngFor="let directory of directories"
+				[name]="directory.name"
+			/>
+		</div>
+	`,
 })
 export class SidebarComponent {
-  directories = [
-    {
-      name: 'Movies',
-      id: 1,
-    },
-    {
-      name: 'Documents',
-      id: 2,
-    },
-    {
-      name: 'Etc',
-      id: 3,
-    },
-  ];
+	directories = [
+		{
+			name: "Movies",
+			id: 1,
+		},
+		{
+			name: "Documents",
+			id: 2,
+		},
+		{
+			name: "Etc",
+			id: 3,
+		},
+	];
 }
-````
-
-
+```
 
 ### Vue
 
 // TODO: ...
 
 <!-- tabs:end -->
-
-
 
 ## 3. Add context menu with static actions
 
@@ -2322,154 +2292,154 @@ Next, we'll add in a context menu. We'll start by [taking our context menu from 
 
 ```jsx
 // File.jsx
-import { useState, useRef, useEffect } from 'react';
-import { ContextMenu } from './ContextMenu';
+import { useState, useRef, useEffect } from "react";
+import { ContextMenu } from "./ContextMenu";
 
 export const File = ({ name, id }) => {
-  const [mouseBounds, setMouseBounds] = useState({
-    x: 0,
-    y: 0,
-  });
-  const [isOpen, setIsOpen] = useState(false);
-  function onContextMenu(e) {
-    e.preventDefault();
-    setIsOpen(true);
-    setMouseBounds({
-      x: e.clientX,
-      y: e.clientY,
-    });
-  }
+	const [mouseBounds, setMouseBounds] = useState({
+		x: 0,
+		y: 0,
+	});
+	const [isOpen, setIsOpen] = useState(false);
+	function onContextMenu(e) {
+		e.preventDefault();
+		setIsOpen(true);
+		setMouseBounds({
+			x: e.clientX,
+			y: e.clientY,
+		});
+	}
 
-  const contextMenuRef = useRef();
+	const contextMenuRef = useRef();
 
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        if (contextMenuRef.current) {
-          contextMenuRef.current.focus();
-        }
-      }, 0);
-    }
-  }, [isOpen, mouseBounds]);
+	useEffect(() => {
+		if (isOpen) {
+			setTimeout(() => {
+				if (contextMenuRef.current) {
+					contextMenuRef.current.focus();
+				}
+			}, 0);
+		}
+	}, [isOpen, mouseBounds]);
 
-  return (
-    <React.Fragment>
-      <button
-        onContextMenu={onContextMenu}
-        style={{ display: 'block', width: '100%', marginBottom: '1rem' }}
-      >
-        {name}
-      </button>
-      <ContextMenu
-        data={id}
-        ref={contextMenuRef}
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        x={mouseBounds.x}
-        y={mouseBounds.y}
-      />
-    </React.Fragment>
-  );
+	return (
+		<React.Fragment>
+			<button
+				onContextMenu={onContextMenu}
+				style={{ display: "block", width: "100%", marginBottom: "1rem" }}
+			>
+				{name}
+			</button>
+			<ContextMenu
+				data={id}
+				ref={contextMenuRef}
+				isOpen={isOpen}
+				onClose={() => setIsOpen(false)}
+				x={mouseBounds.x}
+				y={mouseBounds.y}
+			/>
+		</React.Fragment>
+	);
 };
 ```
 
 ```jsx
 // ContextMenu.jsx
 import {
-  forwardRef,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useState,
-  useMemo,
-} from 'react';
-import { ContextMenuContext } from './ContextMenuContext';
+	forwardRef,
+	useContext,
+	useEffect,
+	useImperativeHandle,
+	useState,
+	useMemo,
+} from "react";
+import { ContextMenuContext } from "./ContextMenuContext";
 
 export const ContextMenu = forwardRef(
-  ({ isOpen, x, y, onClose, data }, ref) => {
-    const context = useContext(ContextMenuContext);
+	({ isOpen, x, y, onClose, data }, ref) => {
+		const context = useContext(ContextMenuContext);
 
-    const [contextMenu, setContextMenu] = useState();
+		const [contextMenu, setContextMenu] = useState();
 
-    useImperativeHandle(ref, () => ({
-      focus: () => contextMenu && contextMenu.focus(),
-    }));
+		useImperativeHandle(ref, () => ({
+			focus: () => contextMenu && contextMenu.focus(),
+		}));
 
-    useEffect(() => {
-      if (!contextMenu) return;
-      const closeIfOutsideOfContext = (e) => {
-        const isClickInside = contextMenu.contains(e.target);
-        if (isClickInside) return;
-        onClose(false);
-      };
-      document.addEventListener('click', closeIfOutsideOfContext);
-      return () =>
-        document.removeEventListener('click', closeIfOutsideOfContext);
-    }, [contextMenu, onClose]);
+		useEffect(() => {
+			if (!contextMenu) return;
+			const closeIfOutsideOfContext = (e) => {
+				const isClickInside = contextMenu.contains(e.target);
+				if (isClickInside) return;
+				onClose(false);
+			};
+			document.addEventListener("click", closeIfOutsideOfContext);
+			return () =>
+				document.removeEventListener("click", closeIfOutsideOfContext);
+		}, [contextMenu, onClose]);
 
-    useEffect(() => {
-      const closeIfContextMenu = () => {
-        if (!isOpen) return;
-        onClose(false);
-      };
-      // Inside a timeout to make sure the initial context menu does not close the menu
-      setTimeout(() => {
-        document.addEventListener('contextmenu', closeIfContextMenu);
-      }, 0);
-      return () => {
-        document.removeEventListener('contextmenu', closeIfContextMenu);
-      };
-    }, [isOpen, onClose]);
+		useEffect(() => {
+			const closeIfContextMenu = () => {
+				if (!isOpen) return;
+				onClose(false);
+			};
+			// Inside a timeout to make sure the initial context menu does not close the menu
+			setTimeout(() => {
+				document.addEventListener("contextmenu", closeIfContextMenu);
+			}, 0);
+			return () => {
+				document.removeEventListener("contextmenu", closeIfContextMenu);
+			};
+		}, [isOpen, onClose]);
 
-    const actions = useMemo(() => {
-      return [
-        {
-          label: 'Copy',
-          fn: (data) => alert(`Copied ${data}`),
-        },
-        {
-          label: 'Delete',
-          fn: (data) => alert(`Deleted ${data}`),
-        },
-      ];
-    });
+		const actions = useMemo(() => {
+			return [
+				{
+					label: "Copy",
+					fn: (data) => alert(`Copied ${data}`),
+				},
+				{
+					label: "Delete",
+					fn: (data) => alert(`Deleted ${data}`),
+				},
+			];
+		});
 
-    if (!isOpen || !context) {
-      return null;
-    }
+		if (!isOpen || !context) {
+			return null;
+		}
 
-    return (
-      <div
-        ref={(el) => setContextMenu(el)}
-        tabIndex={0}
-        style={{
-          position: 'fixed',
-          top: y,
-          left: x,
-          background: 'white',
-          border: '1px solid black',
-          borderRadius: 16,
-          padding: '1rem',
-        }}
-      >
-        <button onClick={() => onClose()}>X</button>
-        <ul>
-          {actions.map((action) => (
-            <li>
-              <button
-                onClick={() => {
-                  action.fn(data);
-                  onClose(false);
-                }}
-              >
-                {action.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
+		return (
+			<div
+				ref={(el) => setContextMenu(el)}
+				tabIndex={0}
+				style={{
+					position: "fixed",
+					top: y,
+					left: x,
+					background: "white",
+					border: "1px solid black",
+					borderRadius: 16,
+					padding: "1rem",
+				}}
+			>
+				<button onClick={() => onClose()}>X</button>
+				<ul>
+					{actions.map((action) => (
+						<li>
+							<button
+								onClick={() => {
+									action.fn(data);
+									onClose(false);
+								}}
+							>
+								{action.label}
+							</button>
+						</li>
+					))}
+				</ul>
+			</div>
+		);
+	},
 );
 ```
 
@@ -2477,29 +2447,29 @@ Finally, we need to make sure to pass the `file.id` to `<File id={file.id}/>` co
 
 ```jsx
 export const FileList = () => {
-  return (
-    <div style={{ padding: '1rem' }}>
-      <h1>Files</h1>
-      {files.map((file) => {
-        return <File key={file.id} name={file.name} id={file.id} />;
-      })}
-    </div>
-  );
+	return (
+		<div style={{ padding: "1rem" }}>
+			<h1>Files</h1>
+			{files.map((file) => {
+				return <File key={file.id} name={file.name} id={file.id} />;
+			})}
+		</div>
+	);
 };
 ```
 
 ```jsx
 export const Sidebar = () => {
-  return (
-    <div style={{ padding: '1rem' }}>
-      <h1 style={{ fontSize: '1.25rem' }}>Directories</h1>
-      {directories.map((directory) => {
-        return (
-          <File key={directory.id} name={directory.name} id={directory.id} />
-        );
-      })}
-    </div>
-  );
+	return (
+		<div style={{ padding: "1rem" }}>
+			<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
+			{directories.map((directory) => {
+				return (
+					<File key={directory.id} name={directory.name} id={directory.id} />
+				);
+			})}
+		</div>
+	);
 };
 ```
 
@@ -2508,154 +2478,154 @@ export const Sidebar = () => {
 // TODO: ...
 
 ```typescript
-
 @Component({
-  selector: 'file-item',
-  standalone: true,
-  imports: [ContextMenuComponent],
-  template: `
-      <button
-              (contextmenu)="onContextMenu($event)"
-              style="display: block; width: 100%; margin-bottom: 1rem"
-      >
-          {{ name }}
-      </button>
-      <context-menu
-              #contextMenu
-              [data]="id"
-              [isOpen]="isOpen"
-              (close)="setIsOpen(false)"
-              [x]="mouseBounds.x"
-              [y]="mouseBounds.y"
-      />
-`,
+	selector: "file-item",
+	standalone: true,
+	imports: [ContextMenuComponent],
+	template: `
+		<button
+			(contextmenu)="onContextMenu($event)"
+			style="display: block; width: 100%; margin-bottom: 1rem"
+		>
+			{{ name }}
+		</button>
+		<context-menu
+			#contextMenu
+			[data]="id"
+			[isOpen]="isOpen"
+			(close)="setIsOpen(false)"
+			[x]="mouseBounds.x"
+			[y]="mouseBounds.y"
+		/>
+	`,
 })
 export class FileComponent {
-  @ViewChild('contextMenu', { static: true })
-  contextMenu!: ContextMenuComponent;
-  @Input() name!: string;
-  @Input() id!: number;
+	@ViewChild("contextMenu", { static: true })
+	contextMenu!: ContextMenuComponent;
+	@Input() name!: string;
+	@Input() id!: number;
 
-  mouseBounds = {
-    x: 0,
-    y: 0,
-  };
+	mouseBounds = {
+		x: 0,
+		y: 0,
+	};
 
-  isOpen = false;
+	isOpen = false;
 
-  setIsOpen = (v: boolean) => (this.isOpen = v);
+	setIsOpen = (v: boolean) => (this.isOpen = v);
 
-  onContextMenu(e: MouseEvent) {
-    e.preventDefault();
-    this.isOpen = true;
-    this.mouseBounds = {
-      x: e.clientX,
-      y: e.clientY,
-    };
-    setTimeout(() => {
-      this.contextMenu.focusMenu();
-    }, 0);
-  }
+	onContextMenu(e: MouseEvent) {
+		e.preventDefault();
+		this.isOpen = true;
+		this.mouseBounds = {
+			x: e.clientX,
+			y: e.clientY,
+		};
+		setTimeout(() => {
+			this.contextMenu.focusMenu();
+		}, 0);
+	}
 }
 ```
 
 ```typescript
 @Component({
-  selector: 'context-menu',
-  standalone: true,
-  imports: [NgIf, NgFor],
-  template: `
-      <div
-              *ngIf="isOpen && actions"
-              #contextMenu
-              tabIndex="0"
-              [style]="'
+	selector: "context-menu",
+	standalone: true,
+	imports: [NgIf, NgFor],
+	template: `
+		<div
+			*ngIf="isOpen && actions"
+			#contextMenu
+			tabIndex="0"
+			[style]="
+				'
         position: fixed;
-        top: ' + y + 'px;
-        left: ' + x + 'px;
+        top: ' +
+				y +
+				'px;
+        left: ' +
+				x +
+				'px;
         background: white;
         border: 1px solid black;
         border-radius: 16px;
         padding: 1rem;
-      '"
-      >
-          <button (click)="close.emit(false)">X</button>
-          <ul>
-              <li *ngFor="let action of actions">
-                  <button
-                          (click)="
-                      action.fn(data);
-                      close.emit(false);
-                  "
-                  >
-                      {{ action.label }}
-                  </button>
-              </li>
-          </ul>
-      </div>
-  `,
+      '
+			"
+		>
+			<button (click)="close.emit(false)">X</button>
+			<ul>
+				<li *ngFor="let action of actions">
+					<button (click)="action.fn(data); close.emit(false)">
+						{{ action.label }}
+					</button>
+				</li>
+			</ul>
+		</div>
+	`,
 })
 export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
-  @ViewChild('contextMenu', { static: false }) contextMenuRef!: ElementRef;
-  @Input() isOpen!: boolean;
-  @Input() x!: number;
-  @Input() y!: number;
-  @Input() data!: any;
+	@ViewChild("contextMenu", { static: false }) contextMenuRef!: ElementRef;
+	@Input() isOpen!: boolean;
+	@Input() x!: number;
+	@Input() y!: number;
+	@Input() data!: any;
 
-  @Output() close = new EventEmitter<boolean>();
+	@Output() close = new EventEmitter<boolean>();
 
-  actions = [
-    {
-      label: 'Copy',
-      fn: (data: string) => alert(`Copied ${data}`),
-    },
-    {
-      label: 'Delete',
-      fn: (data: string) => alert(`Deleted ${data}`),
-    },
-  ];
+	actions = [
+		{
+			label: "Copy",
+			fn: (data: string) => alert(`Copied ${data}`),
+		},
+		{
+			label: "Delete",
+			fn: (data: string) => alert(`Deleted ${data}`),
+		},
+	];
 
-  closeIfOutside = (e: MouseEvent) => {
-    const contextMenuEl = this.contextMenuRef?.nativeElement;
-    if (!contextMenuEl) return;
-    const isClickInside = contextMenuEl.contains(e.target);
-    if (isClickInside) return;
-    this.close.emit(false);
-  };
+	closeIfOutside = (e: MouseEvent) => {
+		const contextMenuEl = this.contextMenuRef?.nativeElement;
+		if (!contextMenuEl) return;
+		const isClickInside = contextMenuEl.contains(e.target);
+		if (isClickInside) return;
+		this.close.emit(false);
+	};
 
-  closeIfContextMenu = () => {
-    if (!this.isOpen) return;
-    this.close.emit(false);
-  };
+	closeIfContextMenu = () => {
+		if (!this.isOpen) return;
+		this.close.emit(false);
+	};
 
-  previousListener: null | (() => void) = null;
+	previousListener: null | (() => void) = null;
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['isOpen'].previousValue !== changes['isOpen'].currentValue) {
-      if (this.previousListener) {
-        this.previousListener();
-      }
-      // Inside a timeout to make sure the initial context menu does not close the menu
-      setTimeout(() => {
-        document.addEventListener('contextmenu', this.closeIfContextMenu);
-      }, 0);
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes["isOpen"].previousValue !== changes["isOpen"].currentValue) {
+			if (this.previousListener) {
+				this.previousListener();
+			}
+			// Inside a timeout to make sure the initial context menu does not close the menu
+			setTimeout(() => {
+				document.addEventListener("contextmenu", this.closeIfContextMenu);
+			}, 0);
 
-      this.previousListener = () =>
-        document.removeEventListener('contextmenu', this.closeIfContextMenu);
-    }
-  }
+			this.previousListener = () =>
+				document.removeEventListener("contextmenu", this.closeIfContextMenu);
+		}
+	}
 
-  ngOnInit() {
-    document.addEventListener('click', this.closeIfOutside);
-  }
+	ngOnInit() {
+		document.addEventListener("click", this.closeIfOutside);
+	}
 
-  ngOnDestroy() {
-    document.removeEventListener('click', this.closeIfOutside);
-  }
+	ngOnDestroy() {
+		document.removeEventListener("click", this.closeIfOutside);
+	}
 
-  focusMenu() {
-    this.contextMenuRef.nativeElement.focus();
-  }
+	focusMenu() {
+		this.contextMenuRef.nativeElement.focus();
+	}
 }
 ```
 
@@ -2663,35 +2633,39 @@ Finally, we need to make sure to pass the `file.id` to `<file-item id={file.id}/
 
 ```typescript
 @Component({
-  selector: 'file-list',
-  standalone: true,
-  imports: [FileComponent, NgFor],
-  template: `
-      <div style="padding: 1rem">
-          <h1>Files</h1>
-          <file-item *ngFor="let file of files" [name]="file.name" [id]="file.id" />
-      </div>
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent, NgFor],
+	template: `
+		<div style="padding: 1rem">
+			<h1>Files</h1>
+			<file-item *ngFor="let file of files" [name]="file.name" [id]="file.id" />
+		</div>
+	`,
 })
 export class FileListComponent {
-    // ...
+	// ...
 }
 ```
 
 ```typescript
 @Component({
-  selector: 'sidebar',
-  standalone: true,
-  imports: [FileComponent, NgFor],
-  template: `
-      <div style="padding: 1rem">
-          <h1 style="font-size: 1.25rem">Directories</h1>
-          <file-item *ngFor="let directory of directories" [name]="directory.name" [id]="directory.id" />
-      </div>
-  `,
+	selector: "sidebar",
+	standalone: true,
+	imports: [FileComponent, NgFor],
+	template: `
+		<div style="padding: 1rem">
+			<h1 style="font-size: 1.25rem">Directories</h1>
+			<file-item
+				*ngFor="let directory of directories"
+				[name]="directory.name"
+				[id]="directory.id"
+			/>
+		</div>
+	`,
 })
 export class SidebarComponent {
-    // ...
+	// ...
 }
 ```
 
@@ -2700,8 +2674,6 @@ export class SidebarComponent {
 // TODO: ...
 
 <!-- tabs:end -->
-
-
 
 ## 4. Adding dependency injection to context menu
 
@@ -2711,103 +2683,99 @@ export class SidebarComponent {
 
 ### React
 
-
 ```jsx
 // ContextMenuContext.js
-import { createContext } from 'react';
+import { createContext } from "react";
 
 export const ContextMenuContext = createContext({
-  actions: [],
+	actions: [],
 });
 ```
 
 Then we can use this context in our `ContextMenu` component:
 
 ```jsx
-
 export const ContextMenu = forwardRef(
-  ({ isOpen, x, y, onClose, data }, ref) => {
-    const context = useContext(ContextMenuContext);
+	({ isOpen, x, y, onClose, data }, ref) => {
+		const context = useContext(ContextMenuContext);
 
-	// ...
+		// ...
 
-    const actions = useMemo(() => {
-      if (!context) return [];
-      return context.actions;
-    }, [context]);
+		const actions = useMemo(() => {
+			if (!context) return [];
+			return context.actions;
+		}, [context]);
 
-    // ....
-  }
+		// ....
+	},
 );
 ```
 
 Finally, we need to make sure to setup our `ContextMenuContext` provider in each of our landmarks:
 
 ```jsx
-import { File } from './File';
-import { ContextMenuContext } from './ContextMenuContext';
+import { File } from "./File";
+import { ContextMenuContext } from "./ContextMenuContext";
 
 // ...
 
 export const Sidebar = () => {
-  return (
-    <ContextMenuContext.Provider
-      value={{
-        actions: [
-          {
-            label: 'Copy directory name',
-            fn: (data) => alert(`You copied ${data}`),
-          },
-        ],
-      }}
-    >
-      <div style={{ padding: '1rem' }}>
-        <h1 style={{ fontSize: '1.25rem' }}>Directories</h1>
-        {directories.map((directory) => {
-          return (
-            <File key={directory.id} name={directory.name} id={directory.id} />
-          );
-        })}
-      </div>
-    </ContextMenuContext.Provider>
-  );
+	return (
+		<ContextMenuContext.Provider
+			value={{
+				actions: [
+					{
+						label: "Copy directory name",
+						fn: (data) => alert(`You copied ${data}`),
+					},
+				],
+			}}
+		>
+			<div style={{ padding: "1rem" }}>
+				<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
+				{directories.map((directory) => {
+					return (
+						<File key={directory.id} name={directory.name} id={directory.id} />
+					);
+				})}
+			</div>
+		</ContextMenuContext.Provider>
+	);
 };
 ```
 
 ```jsx
-import { ContextMenuContext } from './ContextMenuContext';
-import { File } from './File';
+import { ContextMenuContext } from "./ContextMenuContext";
+import { File } from "./File";
 
 // ...
 
 export const FileList = () => {
-  return (
-    <ContextMenuContext.Provider
-      value={{
-        actions: [
-          {
-            label: 'Rename',
-            fn: (data) => alert(`You renamed ${data}`),
-          },
-          {
-            label: 'Delete',
-            fn: (data) => alert(`You deleted ${data}`),
-          },
-        ],
-      }}
-    >
-      <div style={{ padding: '1rem' }}>
-        <h1>Files</h1>
-        {files.map((file) => {
-          return <File key={file.id} name={file.name} id={file.id} />;
-        })}
-      </div>
-    </ContextMenuContext.Provider>
-  );
+	return (
+		<ContextMenuContext.Provider
+			value={{
+				actions: [
+					{
+						label: "Rename",
+						fn: (data) => alert(`You renamed ${data}`),
+					},
+					{
+						label: "Delete",
+						fn: (data) => alert(`You deleted ${data}`),
+					},
+				],
+			}}
+		>
+			<div style={{ padding: "1rem" }}>
+				<h1>Files</h1>
+				{files.map((file) => {
+					return <File key={file.id} name={file.name} id={file.id} />;
+				})}
+			</div>
+		</ContextMenuContext.Provider>
+	);
 };
 ```
-
-
 
 ### Angular
 
@@ -2818,8 +2786,6 @@ export const FileList = () => {
 // TODO: ...
 
 <!-- tabs:end -->
-
-
 
 ## 5. Adding functionality to context menu
 
@@ -2832,55 +2798,57 @@ export const FileList = () => {
 ```jsx
 // Sidebar.tsx
 const directories = [
-  {
-    name: 'Movies',
-    id: 1,
-  },
-  {
-    name: 'Documents',
-    id: 2,
-  },
-  {
-    name: 'Etc',
-    id: 3,
-  },
+	{
+		name: "Movies",
+		id: 1,
+	},
+	{
+		name: "Documents",
+		id: 2,
+	},
+	{
+		name: "Etc",
+		id: 3,
+	},
 ];
 
 const getDirectoryById = (id) => {
-  return directories.find((dir) => dir.id === id);
+	return directories.find((dir) => dir.id === id);
 };
 
 const onCopy = (id) => {
-  const dir = getDirectoryById(id);
-  // Some browsers still do not support this
-  if (navigator?.clipboard?.writeText) {
-    navigator.clipboard.writeText(dir.name);
-    alert('Name is copied');
-  } else {
-    alert('Unable to copy directory name due to browser incompatibility');
-  }
+	const dir = getDirectoryById(id);
+	// Some browsers still do not support this
+	if (navigator?.clipboard?.writeText) {
+		navigator.clipboard.writeText(dir.name);
+		alert("Name is copied");
+	} else {
+		alert("Unable to copy directory name due to browser incompatibility");
+	}
 };
 
 export const Sidebar = () => {
-  return (
-    <ContextMenuContext.Provider
-      value={{
-        actions: [
-          {
-            label: 'Copy directory name',
-            fn: onCopy,
-          },
-        ],
-      }}
-    >
-      <div style={{ padding: '1rem' }}>
-        <h1 style={{ fontSize: '1.25rem' }}>Directories</h1>
-        {directories.map((directory) => {
-          return <File key={directory.id} name={directory.name} id={directory.id} />;
-        })}
-      </div>
-    </ContextMenuContext.Provider>
-  );
+	return (
+		<ContextMenuContext.Provider
+			value={{
+				actions: [
+					{
+						label: "Copy directory name",
+						fn: onCopy,
+					},
+				],
+			}}
+		>
+			<div style={{ padding: "1rem" }}>
+				<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
+				{directories.map((directory) => {
+					return (
+						<File key={directory.id} name={directory.name} id={directory.id} />
+					);
+				})}
+			</div>
+		</ContextMenuContext.Provider>
+	);
 };
 ```
 
@@ -2890,74 +2858,74 @@ With this, we can even change our FileList to be interactive:
 
 ```jsx
 export const FileList = () => {
-  const [files, setFiles] = useState([
-    {
-      name: 'Testing.wav',
-      id: 1,
-    },
-    {
-      name: 'Secrets.txt',
-      id: 2,
-    },
-    {
-      name: 'Other.md',
-      id: 3,
-    },
-  ]);
+	const [files, setFiles] = useState([
+		{
+			name: "Testing.wav",
+			id: 1,
+		},
+		{
+			name: "Secrets.txt",
+			id: 2,
+		},
+		{
+			name: "Other.md",
+			id: 3,
+		},
+	]);
 
-  const getFileIndexById = (id) => {
-    return files.findIndex((file) => file.id === id);
-  };
+	const getFileIndexById = (id) => {
+		return files.findIndex((file) => file.id === id);
+	};
 
-  const onRename = (id) => {
-    const fileIndex = getFileIndexById(id);
-    const file = files[fileIndex];
-    const newName = prompt(
-      `What do you want to rename the file ${file.name} to?`
-    );
-    if (!newName) return;
-    setFiles((v) => {
-      const newV = [...v];
-      newV[fileIndex] = {
-        ...file,
-        name: newName,
-      };
-      return newV;
-    });
-  };
+	const onRename = (id) => {
+		const fileIndex = getFileIndexById(id);
+		const file = files[fileIndex];
+		const newName = prompt(
+			`What do you want to rename the file ${file.name} to?`,
+		);
+		if (!newName) return;
+		setFiles((v) => {
+			const newV = [...v];
+			newV[fileIndex] = {
+				...file,
+				name: newName,
+			};
+			return newV;
+		});
+	};
 
-  const onDelete = (id) => {
-    const fileIndex = getFileIndexById(id);
-    setFiles((v) => {
-      const newV = [...v];
-      newV.splice(fileIndex, 1);
-      return newV;
-    });
-  };
+	const onDelete = (id) => {
+		const fileIndex = getFileIndexById(id);
+		setFiles((v) => {
+			const newV = [...v];
+			newV.splice(fileIndex, 1);
+			return newV;
+		});
+	};
 
-  return (
-    <ContextMenuContext.Provider
-      value={{
-        actions: [
-          {
-            label: 'Rename',
-            fn: onRename,
-          },
-          {
-            label: 'Delete',
-            fn: onDelete,
-          },
-        ],
-      }}
-    >
-      <div style={{ padding: '1rem' }}>
-        <h1>Files</h1>
-        {files.map((file) => {
-          return <File key={file.id} name={file.name} id={file.id} />;
-        })}
-      </div>
-    </ContextMenuContext.Provider>
-  );
+	return (
+		<ContextMenuContext.Provider
+			value={{
+				actions: [
+					{
+						label: "Rename",
+						fn: onRename,
+					},
+					{
+						label: "Delete",
+						fn: onDelete,
+					},
+				],
+			}}
+		>
+			<div style={{ padding: "1rem" }}>
+				<h1>Files</h1>
+				{files.map((file) => {
+					return <File key={file.id} name={file.name} id={file.id} />;
+				})}
+			</div>
+		</ContextMenuContext.Provider>
+	);
 };
 ```
 
@@ -2973,38 +2941,25 @@ export const FileList = () => {
 
 <!-- tabs:end -->
 
+---
 
+---
 
-----------------------------
+---
 
+---
 
-----------------------------
-
-
-----------------------------
-
-
-----------------------------
-
-
-----------------------------
+---
 
 # Delete Everything Below This Line
 
-----------------------------
+---
 
+---
 
-----------------------------
+---
 
-
-----------------------------
-
-
-----------------------------
-
-
-
-
+---
 
 ## All together now
 
@@ -3019,495 +2974,506 @@ export const FileList = () => {
 ```jsx
 // App.jsx
 export default function App() {
-  return (
-    <Layout sidebar={<Sidebar />}>
-      <FileList />
-    </Layout>
-  );
+	return (
+		<Layout sidebar={<Sidebar />}>
+			<FileList />
+		</Layout>
+	);
 }
 ```
 
 ```jsx
 // Layout.jsx
 export const Layout = ({ sidebar, children }) => {
-  return (
-    <div style={{ display: 'flex', flexWrap: 'nowrap', minHeight: '100vh' }}>
-      <div
-        style={{
-          width: 150,
-          backgroundColor: 'lightgray',
-          borderRight: '1px solid grey',
-        }}
-      >
-        {sidebar}
-      </div>
-      <div style={{ width: 1, flexGrow: 1 }}>{children}</div>
-    </div>
-  );
+	return (
+		<div style={{ display: "flex", flexWrap: "nowrap", minHeight: "100vh" }}>
+			<div
+				style={{
+					width: 150,
+					backgroundColor: "lightgray",
+					borderRight: "1px solid grey",
+				}}
+			>
+				{sidebar}
+			</div>
+			<div style={{ width: 1, flexGrow: 1 }}>{children}</div>
+		</div>
+	);
 };
 ```
 
 ```jsx
 // Sidebar.tsx
 const directories = [
-  {
-    name: 'Movies',
-    id: 1,
-  },
-  {
-    name: 'Documents',
-    id: 2,
-  },
-  {
-    name: 'Etc',
-    id: 3,
-  },
+	{
+		name: "Movies",
+		id: 1,
+	},
+	{
+		name: "Documents",
+		id: 2,
+	},
+	{
+		name: "Etc",
+		id: 3,
+	},
 ];
 
 const getDirectoryById = (id) => {
-  return directories.find((dir) => dir.id === id);
+	return directories.find((dir) => dir.id === id);
 };
 
 const onCopy = (id) => {
-  const dir = getDirectoryById(id);
-  // Some browsers still do not support this
-  if (navigator?.clipboard?.writeText) {
-    navigator.clipboard.writeText(dir.name);
-    alert('Name is copied');
-  } else {
-    alert('Unable to copy directory name due to browser incompatibility');
-  }
+	const dir = getDirectoryById(id);
+	// Some browsers still do not support this
+	if (navigator?.clipboard?.writeText) {
+		navigator.clipboard.writeText(dir.name);
+		alert("Name is copied");
+	} else {
+		alert("Unable to copy directory name due to browser incompatibility");
+	}
 };
 
 export const Sidebar = () => {
-  return (
-    <ContextMenuContext.Provider
-      value={{
-        actions: [
-          {
-            label: 'Copy directory name',
-            fn: onCopy,
-          },
-        ],
-      }}
-    >
-      <div style={{ padding: '1rem' }}>
-        <h1 style={{ fontSize: '1.25rem' }}>Directories</h1>
-        {directories.map((directory) => {
-          return <File key={directory.id} name={directory.name} id={directory.id} />;
-        })}
-      </div>
-    </ContextMenuContext.Provider>
-  );
+	return (
+		<ContextMenuContext.Provider
+			value={{
+				actions: [
+					{
+						label: "Copy directory name",
+						fn: onCopy,
+					},
+				],
+			}}
+		>
+			<div style={{ padding: "1rem" }}>
+				<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
+				{directories.map((directory) => {
+					return (
+						<File key={directory.id} name={directory.name} id={directory.id} />
+					);
+				})}
+			</div>
+		</ContextMenuContext.Provider>
+	);
 };
 ```
-
-
 
 ### Angular
 
 ```typescript
 // App.component.ts
-import { Component } from '@angular/core';
-import {LayoutComponent} from "./layout.component";
-import {SidebarComponent} from "./sidebar.component";
-import {FileListComponent} from "./file-list.component";
+import { Component } from "@angular/core";
+import { LayoutComponent } from "./layout.component";
+import { SidebarComponent } from "./sidebar.component";
+import { FileListComponent } from "./file-list.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [LayoutComponent, SidebarComponent, FileListComponent],
-  template: `
-    <app-layout>
-      <app-sidebar sidebar/>
-      <file-list/>
-    </app-layout>
-  `
+	selector: "app-root",
+	standalone: true,
+	imports: [LayoutComponent, SidebarComponent, FileListComponent],
+	template: `
+		<app-layout>
+			<app-sidebar sidebar />
+			<file-list />
+		</app-layout>
+	`,
 })
-export class AppComponent {
-}
+export class AppComponent {}
 ```
 
 ```typescript
 // layout.component.ts
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-layout',
-  standalone: true,
-  template: `
-    <div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
-      <div
-          style="
+	selector: "app-layout",
+	standalone: true,
+	template: `
+		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
+			<div
+				style="
               width: 150px;
               background-color: lightgray;
               border-right: 1px solid grey;
             "
-      >
-        <ng-content select="sidebar"/>
-      </div>
-      <div style="width: 1px; flex-grow: 1">
-        <ng-content/>
-      </div>
-    </div>
-  `
+			>
+				<ng-content select="sidebar" />
+			</div>
+			<div style="width: 1px; flex-grow: 1">
+				<ng-content />
+			</div>
+		</div>
+	`,
 })
-export class LayoutComponent {
-}
+export class LayoutComponent {}
 ```
 
 ```typescript
 // sidebar.component.ts
-import {Component, inject, Injectable} from '@angular/core';
-import {ActionTypes} from "./context";
-import {NgFor} from "@angular/common";
-import {FileComponent} from "./file.component";
+import { Component, inject, Injectable } from "@angular/core";
+import { ActionTypes } from "./context";
+import { NgFor } from "@angular/common";
+import { FileComponent } from "./file.component";
 
 @Injectable()
 class SidebarDirectories {
-    actions = [] as InstanceType<typeof ActionTypes>['actions'];
+	actions = [] as InstanceType<typeof ActionTypes>["actions"];
 }
 
 function injectAndAssignActions(actions: any[]) {
-    const sidebarDirectories = inject(ActionTypes);
-    sidebarDirectories.actions = actions;
-    return sidebarDirectories;
+	const sidebarDirectories = inject(ActionTypes);
+	sidebarDirectories.actions = actions;
+	return sidebarDirectories;
 }
 
 @Component({
-    selector: 'app-sidebar',
-    standalone: true,
-    imports: [NgFor, FileComponent],
-    providers: [{
-        provide: ActionTypes, useClass: SidebarDirectories
-    }],
-    template: `
-        <div style="padding: 1rem">
-            <h1 style="font-size: 1.25rem">Directories</h1>
-            <file-item *ngFor="let directory of directories" [name]="directory.name" [id]="directory.id"/>
-        </div>
-    `
+	selector: "app-sidebar",
+	standalone: true,
+	imports: [NgFor, FileComponent],
+	providers: [
+		{
+			provide: ActionTypes,
+			useClass: SidebarDirectories,
+		},
+	],
+	template: `
+		<div style="padding: 1rem">
+			<h1 style="font-size: 1.25rem">Directories</h1>
+			<file-item
+				*ngFor="let directory of directories"
+				[name]="directory.name"
+				[id]="directory.id"
+			/>
+		</div>
+	`,
 })
 export class SidebarComponent {
-    directories = [
-        {
-            name: 'Movies',
-            id: 1,
-        },
-        {
-            name: 'Documents',
-            id: 2,
-        },
-        {
-            name: 'Etc',
-            id: 3,
-        },
-    ];
+	directories = [
+		{
+			name: "Movies",
+			id: 1,
+		},
+		{
+			name: "Documents",
+			id: 2,
+		},
+		{
+			name: "Etc",
+			id: 3,
+		},
+	];
 
-    getDirectoryById = (id: number) => {
-        return this.directories.find((dir) => dir.id === id);
-    };
+	getDirectoryById = (id: number) => {
+		return this.directories.find((dir) => dir.id === id);
+	};
 
-    onCopy = (id: number) => {
-        const dir = this.getDirectoryById(id)!;
-        // Some browsers still do not support this
-        if (navigator?.clipboard?.writeText) {
-            navigator.clipboard.writeText(dir.name);
-            alert('Name is copied');
-        } else {
-            alert('Unable to copy directory name due to browser incompatibility');
-        }
-    };
+	onCopy = (id: number) => {
+		const dir = this.getDirectoryById(id)!;
+		// Some browsers still do not support this
+		if (navigator?.clipboard?.writeText) {
+			navigator.clipboard.writeText(dir.name);
+			alert("Name is copied");
+		} else {
+			alert("Unable to copy directory name due to browser incompatibility");
+		}
+	};
 
-    sidebarDirectories = injectAndAssignActions([
-        {
-            label: "Copy directory name",
-            fn: this.onCopy
-        }
-    ])
+	sidebarDirectories = injectAndAssignActions([
+		{
+			label: "Copy directory name",
+			fn: this.onCopy,
+		},
+	]);
 }
 ```
 
 ```typescript
 // file-list.component.ts
-import {Component, inject, Injectable} from '@angular/core';
-import {ActionTypes} from "./context";
-import {NgFor} from "@angular/common";
-import {FileComponent} from "./file.component";
+import { Component, inject, Injectable } from "@angular/core";
+import { ActionTypes } from "./context";
+import { NgFor } from "@angular/common";
+import { FileComponent } from "./file.component";
 
 @Injectable()
 class FileListActions {
-    actions = [] as InstanceType<typeof ActionTypes>['actions'];
+	actions = [] as InstanceType<typeof ActionTypes>["actions"];
 }
 
 function injectAndAssignActions(actions: any[]) {
-    const sidebarDirectories = inject(ActionTypes);
-    sidebarDirectories.actions = actions;
-    return sidebarDirectories;
+	const sidebarDirectories = inject(ActionTypes);
+	sidebarDirectories.actions = actions;
+	return sidebarDirectories;
 }
 
 @Component({
-    selector: 'file-list',
-    standalone: true,
-    imports: [NgFor, FileComponent],
-    providers: [{
-        provide: ActionTypes, useClass: FileListActions
-    }],
-    template: `
-        <div style="padding: 1rem">
-            <h1>Files</h1>
-            <file-item *ngFor="let file of files" [name]="file.name" [id]="file.id"/>
-        </div>
-    `
+	selector: "file-list",
+	standalone: true,
+	imports: [NgFor, FileComponent],
+	providers: [
+		{
+			provide: ActionTypes,
+			useClass: FileListActions,
+		},
+	],
+	template: `
+		<div style="padding: 1rem">
+			<h1>Files</h1>
+			<file-item *ngFor="let file of files" [name]="file.name" [id]="file.id" />
+		</div>
+	`,
 })
 export class FileListComponent {
-     files = [
-        {
-            name: 'Testing.wav',
-            id: 1,
-        },
-        {
-            name: 'Secrets.txt',
-            id: 2,
-        },
-        {
-            name: 'Other.md',
-            id: 3,
-        },
-    ];
+	files = [
+		{
+			name: "Testing.wav",
+			id: 1,
+		},
+		{
+			name: "Secrets.txt",
+			id: 2,
+		},
+		{
+			name: "Other.md",
+			id: 3,
+		},
+	];
 
-    getFileIndexById = (id: number) => {
-        return this.files.findIndex((file) => file.id === id);
-    };
+	getFileIndexById = (id: number) => {
+		return this.files.findIndex((file) => file.id === id);
+	};
 
-    onRename = (id: number) => {
-        const fileIndex = this.getFileIndexById(id)!;
-        const file = this.files[fileIndex];
-        const newName = prompt(
-            `What do you want to rename the file ${file.name} to?`
-        );
-        if (!newName) return;
-        this.files[fileIndex] = {
-            ...file,
-            name: newName,
-        };
-    };
+	onRename = (id: number) => {
+		const fileIndex = this.getFileIndexById(id)!;
+		const file = this.files[fileIndex];
+		const newName = prompt(
+			`What do you want to rename the file ${file.name} to?`,
+		);
+		if (!newName) return;
+		this.files[fileIndex] = {
+			...file,
+			name: newName,
+		};
+	};
 
-    onDelete = (id: number) => {
-        const fileIndex = this.getFileIndexById(id);
-        this.files.splice(fileIndex, 1);
-    };
+	onDelete = (id: number) => {
+		const fileIndex = this.getFileIndexById(id);
+		this.files.splice(fileIndex, 1);
+	};
 
-    fileListActions = injectAndAssignActions([
-        {
-            label: 'Rename',
-            fn: this.onRename,
-        },
-        {
-            label: 'Delete',
-            fn: this.onDelete,
-        },
-    ])
+	fileListActions = injectAndAssignActions([
+		{
+			label: "Rename",
+			fn: this.onRename,
+		},
+		{
+			label: "Delete",
+			fn: this.onDelete,
+		},
+	]);
 }
 ```
 
 ```typescript
 // context.ts
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 
 @Injectable()
 export class ActionTypes {
-    actions = [] as Array<{label: string, fn: (id: number) => void}>;
+	actions = [] as Array<{ label: string; fn: (id: number) => void }>;
 }
 ```
 
-````typescript
+```typescript
 // file.component.ts
-import {Component, Input, ViewChild} from '@angular/core';
-import {LayoutComponent} from "./layout.component";
-import {ContextMenuComponent} from "./context-menu.component";
+import { Component, Input, ViewChild } from "@angular/core";
+import { LayoutComponent } from "./layout.component";
+import { ContextMenuComponent } from "./context-menu.component";
 
 @Component({
-    selector: 'file-item',
-    standalone: true,
-    imports: [ContextMenuComponent],
-    template: `
-        <button
-                (contextmenu)="onContextMenu($event)"
-                style="display: block; width: 100%; margin-bottom: 1rem"
-        >
-            {{ name }}
-        </button>
-        <context-menu
-                #contextMenu
-                [data]="id"
-                [isOpen]="isOpen"
-                (close)="setIsOpen(false)"
-                [x]="mouseBounds.x"
-                [y]="mouseBounds.y"
-        />
-  `
+	selector: "file-item",
+	standalone: true,
+	imports: [ContextMenuComponent],
+	template: `
+		<button
+			(contextmenu)="onContextMenu($event)"
+			style="display: block; width: 100%; margin-bottom: 1rem"
+		>
+			{{ name }}
+		</button>
+		<context-menu
+			#contextMenu
+			[data]="id"
+			[isOpen]="isOpen"
+			(close)="setIsOpen(false)"
+			[x]="mouseBounds.x"
+			[y]="mouseBounds.y"
+		/>
+	`,
 })
 export class FileComponent {
-    @ViewChild('contextMenu', {static: true}) contextMenu!: ContextMenuComponent;
-    @Input() name!: string;
-    @Input() id!: number;
+	@ViewChild("contextMenu", { static: true })
+	contextMenu!: ContextMenuComponent;
+	@Input() name!: string;
+	@Input() id!: number;
 
-    mouseBounds = {
-        x: 0,
-        y: 0,
-    };
+	mouseBounds = {
+		x: 0,
+		y: 0,
+	};
 
-    isOpen = false;
+	isOpen = false;
 
-    setIsOpen = (v: boolean) => this.isOpen = v;
+	setIsOpen = (v: boolean) => (this.isOpen = v);
 
-    onContextMenu(e: MouseEvent) {
-        e.preventDefault();
-        this.isOpen = true;
-        this.mouseBounds = {
-            x: e.clientX,
-            y: e.clientY,
-        };
-        setTimeout(() => {
-            this.contextMenu.focusMenu()
-        }, 0)
-    }
+	onContextMenu(e: MouseEvent) {
+		e.preventDefault();
+		this.isOpen = true;
+		this.mouseBounds = {
+			x: e.clientX,
+			y: e.clientY,
+		};
+		setTimeout(() => {
+			this.contextMenu.focusMenu();
+		}, 0);
+	}
 }
-````
+```
 
 ```typescript
 // context-menu.component.ts
 import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    inject,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output, SimpleChange, SimpleChanges,
-    ViewChild
-} from '@angular/core';
-import {LayoutComponent} from "./layout.component";
-import {NgFor, NgIf} from "@angular/common";
-import {ActionTypes} from "./context";
+	Component,
+	ElementRef,
+	EventEmitter,
+	inject,
+	Input,
+	OnChanges,
+	OnDestroy,
+	OnInit,
+	Output,
+	SimpleChange,
+	SimpleChanges,
+	ViewChild,
+} from "@angular/core";
+import { LayoutComponent } from "./layout.component";
+import { NgFor, NgIf } from "@angular/common";
+import { ActionTypes } from "./context";
 
 function injectAndGetActions() {
-    const context = inject(ActionTypes);
-    if (!context) return [];
-    return context.actions;
+	const context = inject(ActionTypes);
+	if (!context) return [];
+	return context.actions;
 }
 
 @Component({
-    selector: 'context-menu',
-    standalone: true,
-    imports: [NgIf, NgFor],
-    template: `
-        <div
-                *ngIf="isOpen && actions"
-                #contextMenu
-                tabIndex="0"
-                [style]="'
+	selector: "context-menu",
+	standalone: true,
+	imports: [NgIf, NgFor],
+	template: `
+		<div
+			*ngIf="isOpen && actions"
+			#contextMenu
+			tabIndex="0"
+			[style]="
+				'
           position: fixed;
-          top: ' + y + 'px;
-          left: ' + x + 'px;
+          top: ' +
+				y +
+				'px;
+          left: ' +
+				x +
+				'px;
           background: white;
           border: 1px solid black;
           border-radius: 16px;
           padding: 1rem;
-        '"
-        >
-            <button (click)="close.emit(false)">X</button>
-            <ul>
-                <li *ngFor="let action of actions">
-                    <button
-                            (click)="
-                        action.fn(data);
-                        close.emit(false);
-                    "
-                    >
-                        {{ action.label }}
-                    </button>
-                </li>
-            </ul>
-        </div>
-    `
+        '
+			"
+		>
+			<button (click)="close.emit(false)">X</button>
+			<ul>
+				<li *ngFor="let action of actions">
+					<button (click)="action.fn(data); close.emit(false)">
+						{{ action.label }}
+					</button>
+				</li>
+			</ul>
+		</div>
+	`,
 })
 export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
-    @ViewChild("contextMenu", {static: false}) contextMenuRef!: ElementRef;
-    @Input() isOpen!: boolean;
-    @Input() x!: number;
-    @Input() y!: number;
-    @Input() data!: any;
+	@ViewChild("contextMenu", { static: false }) contextMenuRef!: ElementRef;
+	@Input() isOpen!: boolean;
+	@Input() x!: number;
+	@Input() y!: number;
+	@Input() data!: any;
 
-    @Output() close = new EventEmitter<boolean>();
+	@Output() close = new EventEmitter<boolean>();
 
-    actions = injectAndGetActions();
+	actions = injectAndGetActions();
 
-    closeIfOutside = (e: MouseEvent) => {
-        const contextMenuEl = this.contextMenuRef?.nativeElement
-        if (!contextMenuEl) return
-        const isClickInside = contextMenuEl.contains(e.target)
-        if (isClickInside) return
-        this.close.emit(false);
-    }
+	closeIfOutside = (e: MouseEvent) => {
+		const contextMenuEl = this.contextMenuRef?.nativeElement;
+		if (!contextMenuEl) return;
+		const isClickInside = contextMenuEl.contains(e.target);
+		if (isClickInside) return;
+		this.close.emit(false);
+	};
 
-    closeIfContextMenu = () => {
-        if (!this.isOpen) return;
-        this.close.emit(false);
-    };
+	closeIfContextMenu = () => {
+		if (!this.isOpen) return;
+		this.close.emit(false);
+	};
 
-    previousListener: null | (() => void) = null;
+	previousListener: null | (() => void) = null;
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes["isOpen"].previousValue !== changes["isOpen"].currentValue) {
-            if (this.previousListener) {
-                this.previousListener();
-            }
-            // Inside a timeout to make sure the initial context menu does not close the menu
-            setTimeout(() => {
-                document.addEventListener('contextmenu', this.closeIfContextMenu);
-            }, 0);
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes["isOpen"].previousValue !== changes["isOpen"].currentValue) {
+			if (this.previousListener) {
+				this.previousListener();
+			}
+			// Inside a timeout to make sure the initial context menu does not close the menu
+			setTimeout(() => {
+				document.addEventListener("contextmenu", this.closeIfContextMenu);
+			}, 0);
 
-            this.previousListener = () => document.removeEventListener('contextmenu', this.closeIfContextMenu);
-        }
-    }
+			this.previousListener = () =>
+				document.removeEventListener("contextmenu", this.closeIfContextMenu);
+		}
+	}
 
-    ngOnInit() {
-        document.addEventListener('click', this.closeIfOutside)
-    }
+	ngOnInit() {
+		document.addEventListener("click", this.closeIfOutside);
+	}
 
-    ngOnDestroy() {
-        document.removeEventListener('click', this.closeIfOutside)
-    }
+	ngOnDestroy() {
+		document.removeEventListener("click", this.closeIfOutside);
+	}
 
-    focusMenu() {
-        this.contextMenuRef.nativeElement.focus()
-    }
+	focusMenu() {
+		this.contextMenuRef.nativeElement.focus();
+	}
 }
 ```
 
-
-
-### Vue 
+### Vue
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import Layout from './Layout.vue';
-  import Sidebar from './Sidebar.vue';
-  import FileList from './FileList.vue';
+import Layout from "./Layout.vue";
+import Sidebar from "./Sidebar.vue";
+import FileList from "./FileList.vue";
 </script>
 
 <template>
-    <Layout>
-        <template #sidebar>
-            <Sidebar/>
-        </template>
-        <FileList/>
-    </Layout>
+	<Layout>
+		<template #sidebar>
+			<Sidebar />
+		</template>
+		<FileList />
+	</Layout>
 </template>
 ```
 
@@ -3516,255 +3482,270 @@ export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 <script setup></script>
 
 <template>
-    <div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
-        <div
-            style="
+	<div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
+		<div
+			style="
               width: 150px;
               background-color: lightgray;
               border-right: 1px solid grey;
             "
-        >
-            <slot name="sidebar"/>
-        </div>
-        <div style="width: 1px; flex-grow: 1">
-            <slot/>
-        </div>
-    </div>
+		>
+			<slot name="sidebar" />
+		</div>
+		<div style="width: 1px; flex-grow: 1">
+			<slot />
+		</div>
+	</div>
 </template>
 ```
 
 ```vue
 <!-- Sidebar.vue -->
 <script setup>
-  import {provide} from "vue";
-  import File from './File.vue';
+import { provide } from "vue";
+import File from "./File.vue";
 
-  const directories = [
-    {
-      name: 'Movies',
-      id: 1,
-    },
-    {
-      name: 'Documents',
-      id: 2,
-    },
-    {
-      name: 'Etc',
-      id: 3,
-    },
-  ];
+const directories = [
+	{
+		name: "Movies",
+		id: 1,
+	},
+	{
+		name: "Documents",
+		id: 2,
+	},
+	{
+		name: "Etc",
+		id: 3,
+	},
+];
 
-  const getDirectoryById = (id) => {
-    return directories.find((dir) => dir.id === id);
-  };
+const getDirectoryById = (id) => {
+	return directories.find((dir) => dir.id === id);
+};
 
-  const onCopy = (id) => {
-    const dir = getDirectoryById(id);
-    // Some browsers still do not support this
-    if (navigator?.clipboard?.writeText) {
-      navigator.clipboard.writeText(dir.name);
-      alert('Name is copied');
-    } else {
-      alert('Unable to copy directory name due to browser incompatibility');
-    }
-  };
+const onCopy = (id) => {
+	const dir = getDirectoryById(id);
+	// Some browsers still do not support this
+	if (navigator?.clipboard?.writeText) {
+		navigator.clipboard.writeText(dir.name);
+		alert("Name is copied");
+	} else {
+		alert("Unable to copy directory name due to browser incompatibility");
+	}
+};
 
-  provide("ContextMenu", {
-    actions: [
-      {
-        label: 'Copy directory name',
-        fn: onCopy,
-      },
-    ],
-  })
+provide("ContextMenu", {
+	actions: [
+		{
+			label: "Copy directory name",
+			fn: onCopy,
+		},
+	],
+});
 </script>
 
 <template>
-    <div style="padding: 1rem">
-        <h1 style="font-size: 1.25rem">Directories</h1>
-        <File v-for="directory of directories" :key="directory.id" :name="directory.name" :id="directory.id"/>
-    </div>
+	<div style="padding: 1rem">
+		<h1 style="font-size: 1.25rem">Directories</h1>
+		<File
+			v-for="directory of directories"
+			:key="directory.id"
+			:name="directory.name"
+			:id="directory.id"
+		/>
+	</div>
 </template>
 ```
 
 ```vue
 <!-- FileList.vue -->
 <script setup>
-  import {provide, ref} from "vue";
-  import File from './File.vue';
+import { provide, ref } from "vue";
+import File from "./File.vue";
 
-  const files = ref([
-    {
-      name: 'Testing.wav',
-      id: 1,
-    },
-    {
-      name: 'Secrets.txt',
-      id: 2,
-    },
-    {
-      name: 'Other.md',
-      id: 3,
-    },
-  ]);
+const files = ref([
+	{
+		name: "Testing.wav",
+		id: 1,
+	},
+	{
+		name: "Secrets.txt",
+		id: 2,
+	},
+	{
+		name: "Other.md",
+		id: 3,
+	},
+]);
 
-  const getFileIndexById = (id) => {
-    return files.value.findIndex((file) => file.id === id);
-  };
+const getFileIndexById = (id) => {
+	return files.value.findIndex((file) => file.id === id);
+};
 
-  const onRename = (id) => {
-    const fileIndex = getFileIndexById(id);
-    const file = files.value[fileIndex];
-    const newName = prompt(
-            `What do you want to rename the file ${file.name} to?`
-    );
-    if (!newName) return;
-    files.value[fileIndex] = {
-      ...file,
-      name: newName,
-    };
-  };
+const onRename = (id) => {
+	const fileIndex = getFileIndexById(id);
+	const file = files.value[fileIndex];
+	const newName = prompt(
+		`What do you want to rename the file ${file.name} to?`,
+	);
+	if (!newName) return;
+	files.value[fileIndex] = {
+		...file,
+		name: newName,
+	};
+};
 
-  const onDelete = (id) => {
-    const fileIndex = getFileIndexById(id);
-    files.value.splice(fileIndex, 1);
-  };
+const onDelete = (id) => {
+	const fileIndex = getFileIndexById(id);
+	files.value.splice(fileIndex, 1);
+};
 
-  provide("ContextMenu", {
-    actions: [
-      {
-        label: 'Rename',
-        fn: onRename,
-      },
-      {
-        label: 'Delete',
-        fn: onDelete,
-      },
-    ],
-  })
+provide("ContextMenu", {
+	actions: [
+		{
+			label: "Rename",
+			fn: onRename,
+		},
+		{
+			label: "Delete",
+			fn: onDelete,
+		},
+	],
+});
 </script>
 
 <template>
-    <div style="padding: 1rem">
-        <h1>Files</h1>
-        <File v-for="file of files" :key="file.id" :name="file.name" :id="file.id"/>
-    </div>
+	<div style="padding: 1rem">
+		<h1>Files</h1>
+		<File
+			v-for="file of files"
+			:key="file.id"
+			:name="file.name"
+			:id="file.id"
+		/>
+	</div>
 </template>
 ```
 
 ```vue
 <!-- File.vue -->
 <script setup>
-  import {ref} from "vue";
-  import ContextMenu from './ContextMenu.vue';
+import { ref } from "vue";
+import ContextMenu from "./ContextMenu.vue";
 
-  const props = defineProps(['name', 'id'])
+const props = defineProps(["name", "id"]);
 
-  const mouseBounds = ref({
-    x: 0,
-    y: 0,
-  });
-  const isOpen = ref(false);
+const mouseBounds = ref({
+	x: 0,
+	y: 0,
+});
+const isOpen = ref(false);
 
-  const setIsOpen = (v) => isOpen.value = v;
+const setIsOpen = (v) => (isOpen.value = v);
 
-  const contextMenu = ref();
+const contextMenu = ref();
 
-  function onContextMenu(e) {
-    e.preventDefault();
-    isOpen.value = true;
-    mouseBounds.value = {
-      x: e.clientX,
-      y: e.clientY,
-    };
-    setTimeout(() => {
-      contextMenu.value.focusMenu()
-    }, 0)
-  }
+function onContextMenu(e) {
+	e.preventDefault();
+	isOpen.value = true;
+	mouseBounds.value = {
+		x: e.clientX,
+		y: e.clientY,
+	};
+	setTimeout(() => {
+		contextMenu.value.focusMenu();
+	}, 0);
+}
 </script>
 
 <template>
-    <button
-            @contextmenu="onContextMenu($event)"
-            style="display: block; width: 100%; margin-bottom: 1rem"
-    >
-        {{ props.name }}
-    </button>
-    <ContextMenu
-            :data="props.id"
-            ref="contextMenu"
-            :isOpen="isOpen"
-            @close="setIsOpen(false)"
-            :x="mouseBounds.x"
-            :y="mouseBounds.y"
-    />
+	<button
+		@contextmenu="onContextMenu($event)"
+		style="display: block; width: 100%; margin-bottom: 1rem"
+	>
+		{{ props.name }}
+	</button>
+	<ContextMenu
+		:data="props.id"
+		ref="contextMenu"
+		:isOpen="isOpen"
+		@close="setIsOpen(false)"
+		:x="mouseBounds.x"
+		:y="mouseBounds.y"
+	/>
 </template>
 ```
 
 ```vue
 <!-- ContextMenu.vue -->
 <script setup>
-  import {ref, onMounted, onUnmounted, inject, computed, watch} from 'vue'
+import { ref, onMounted, onUnmounted, inject, computed, watch } from "vue";
 
-  const props = defineProps(['isOpen', 'x', 'y', 'data'])
+const props = defineProps(["isOpen", "x", "y", "data"]);
 
-  const emit = defineEmits(['close'])
+const emit = defineEmits(["close"]);
 
-  const context = inject("ContextMenu")
+const context = inject("ContextMenu");
 
-  const actions = computed(() => {
-    if (!context) return [];
-    return context.actions;
-  });
+const actions = computed(() => {
+	if (!context) return [];
+	return context.actions;
+});
 
-  const contextMenuRef = ref(null)
+const contextMenuRef = ref(null);
 
-  function closeIfOutside(e) {
-    const contextMenuEl = contextMenuRef.value
-    if (!contextMenuEl) return
-    const isClickInside = contextMenuEl.contains(e.target)
-    if (isClickInside) return
-    emit('close')
-  }
+function closeIfOutside(e) {
+	const contextMenuEl = contextMenuRef.value;
+	if (!contextMenuEl) return;
+	const isClickInside = contextMenuEl.contains(e.target);
+	if (isClickInside) return;
+	emit("close");
+}
 
-  const closeIfContextMenu = () => {
-    if (!props.isOpen) return;
-    emit("close");
-  };
+const closeIfContextMenu = () => {
+	if (!props.isOpen) return;
+	emit("close");
+};
 
-  // This must live in a watch, as `onMounted` will run whether the `isOpen` boolean is set or not
-  watch(() => props.isOpen, (_, __, onCleanup) => {
-    // Inside a timeout to make sure the initial context menu does not close the menu
-    setTimeout(() => {
-      document.addEventListener('contextmenu', closeIfContextMenu);
-    }, 0);
+// This must live in a watch, as `onMounted` will run whether the `isOpen` boolean is set or not
+watch(
+	() => props.isOpen,
+	(_, __, onCleanup) => {
+		// Inside a timeout to make sure the initial context menu does not close the menu
+		setTimeout(() => {
+			document.addEventListener("contextmenu", closeIfContextMenu);
+		}, 0);
 
-    onCleanup(() => document.removeEventListener('contextmenu', closeIfContextMenu));
-  })
+		onCleanup(() =>
+			document.removeEventListener("contextmenu", closeIfContextMenu),
+		);
+	},
+);
 
-  onMounted(() => {
-    document.addEventListener('click', closeIfOutside)
-  })
+onMounted(() => {
+	document.addEventListener("click", closeIfOutside);
+});
 
-  onUnmounted(() => {
-    document.removeEventListener('click', closeIfOutside)
-  })
+onUnmounted(() => {
+	document.removeEventListener("click", closeIfOutside);
+});
 
-  function focusMenu() {
-    contextMenuRef.value.focus()
-  }
+function focusMenu() {
+	contextMenuRef.value.focus();
+}
 
-  defineExpose({
-    focusMenu,
-  })
+defineExpose({
+	focusMenu,
+});
 </script>
 
 <template>
-    <div
-            v-if="props.isOpen && context"
-            ref="contextMenuRef"
-            tabIndex="0"
-            :style="`
+	<div
+		v-if="props.isOpen && context"
+		ref="contextMenuRef"
+		tabIndex="0"
+		:style="`
           position: fixed;
           top: ${props.y}px;
           left: ${props.x}px;
@@ -3773,39 +3754,35 @@ export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
           border-radius: 16px;
           padding: 1rem;
         `"
-    >
-        <button @click="emit('close')">X</button>
-        <ul>
-            <li v-for="action of actions">
-                <button
-                        @click="
-                        action.fn(data);
-                        emit('close', false);
-                    "
-                >
-                    {{ action.label }}
-                </button>
-            </li>
-        </ul>
-    </div>
+	>
+		<button @click="emit('close')">X</button>
+		<ul>
+			<li v-for="action of actions">
+				<button
+					@click="
+						action.fn(data);
+						emit('close', false);
+					"
+				>
+					{{ action.label }}
+				</button>
+			</li>
+		</ul>
+	</div>
 </template>
 ```
 
 <!-- tabs:end -->
 
-
-
-----
-
-----
+---
 
 ---
 
-
+---
 
 <!-- Editor's note: We're explicitly not going to teach the following features of Angular's DI, unless I can be convinced otherwise: -->
 
-<!-- `@Inject` decorator, as a future version of Angular will break them due to ECMA compatible --> 
+<!-- `@Inject` decorator, as a future version of Angular will break them due to ECMA compatible -->
 
 <!-- `@Self` and `@SkipSelf` - too complex, not features in other frameworks -->
 
@@ -3814,4 +3791,3 @@ export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 <!-- `factory(() => {})` - this is getting too in the weeds of OOP paradigms IMO -->
 
 <!-- `'platform'` and `'any'` in `provideIn` - Too niche and nuanced for THIS book. Maybe in Internals -->
-

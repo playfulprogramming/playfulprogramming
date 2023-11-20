@@ -1,13 +1,13 @@
 ---
 {
-    title: "Dynamic HTML",
-    description: "One of the primary advantages of using a framework is the ability to quickly generate dynamic HTML from JavaScript logic. Let's walk through some examples.",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 3,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Dynamic HTML",
+  description: "One of the primary advantages of using a framework is the ability to quickly generate dynamic HTML from JavaScript logic. Let's walk through some examples.",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 3,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
 
@@ -21,19 +21,19 @@ Where we last left off, we manually input a list of files, which included file n
 
 ```jsx
 const File = ({ href, fileName, isSelected, onSelected }) => {
-  return (
-    <button
-      onClick={onSelected}
-      style={
-        isSelected
-          ? { backgroundColor: 'blue', color: 'white' }
-          : { backgroundColor: 'white', color: 'blue' }
-      }
-    >
-      <a href={href}>{fileName}</a>
-      <FileDate inputDate={new Date()} />
-    </button>
-  );
+	return (
+		<button
+			onClick={onSelected}
+			style={
+				isSelected
+					? { backgroundColor: "blue", color: "white" }
+					: { backgroundColor: "white", color: "blue" }
+			}
+		>
+			<a href={href}>{fileName}</a>
+			<FileDate inputDate={new Date()} />
+		</button>
+	);
 };
 ```
 
@@ -41,30 +41,30 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 
 ```typescript
 @Component({
-  selector: 'file-item',
-  standalone: true,
-  imports: [FileDateComponent],
-  template: `
-    <button
-      (click)="selected.emit()"
-      [style]="
-        isSelected
-          ? 'background-color: blue; color: white'
-          : 'background-color: white; color: blue'
-      "
-    >
-      <a [href]="href">
-        {{ fileName }}
-        <file-date [inputDate]="inputDate"/>
-      </a>
-    </button>
-  `,
+	selector: "file-item",
+	standalone: true,
+	imports: [FileDateComponent],
+	template: `
+		<button
+			(click)="selected.emit()"
+			[style]="
+				isSelected
+					? 'background-color: blue; color: white'
+					: 'background-color: white; color: blue'
+			"
+		>
+			<a [href]="href">
+				{{ fileName }}
+				<file-date [inputDate]="inputDate" />
+			</a>
+		</button>
+	`,
 })
 export class FileComponent {
-  @Input() fileName: string;
-  @Input() href: string;
-  @Input() isSelected: boolean;
-  @Output() selected = new EventEmitter();
+	@Input() fileName: string;
+	@Input() href: string;
+	@Input() isSelected: boolean;
+	@Output() selected = new EventEmitter();
 }
 ```
 
@@ -72,24 +72,25 @@ export class FileComponent {
 
 ```vue
 <script setup>
-  const props = defineProps(['isSelected', 'fileName', 'href'])
+const props = defineProps(["isSelected", "fileName", "href"]);
 
-  defineEmits(['selected'])
+defineEmits(["selected"]);
 </script>
 
 <template>
-  <button
-    v-on:click="$emit('selected')"
-    :style="isSelected ?
-      'background-color: blue; color: white' :
-      'background-color: white; color: blue'
-    "
-  >
-    <a :href="href">
-      {{ fileName }}
-      <file-date [inputDate]="inputDate"></file-date>
-    </a>
-  </button>
+	<button
+		v-on:click="$emit('selected')"
+		:style="
+			isSelected
+				? 'background-color: blue; color: white'
+				: 'background-color: white; color: blue'
+		"
+	>
+		<a :href="href">
+			{{ fileName }}
+			<file-date [inputDate]="inputDate"></file-date>
+		</a>
+	</button>
 </template>
 ```
 
@@ -108,7 +109,7 @@ One way we can hide the `date` from displaying the user is by reusing an HTML at
 ```html
 <div hidden="true">
 	<!-- This won't display to the user -->
-    <FileDate/>
+	<FileDate />
 </div>
 ```
 
@@ -128,25 +129,23 @@ Let's see what that looks like in usage:
 
 ```jsx {2}
 const ConditionalRender = ({ bool }) => {
-  return (
-    <div>{bool && <p>Text here</p>}</div>
-  );
+	return <div>{bool && <p>Text here</p>}</div>;
 };
 ```
 
 Here, we're using React's `{}` JavaScript binding to add in an [`AND` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND). This works by utilizing Boolean logic of ["short-circuiting"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation). This means that if we have:
 
 ```javascript
-const val = true || {}
+const val = true || {};
 ```
 
 `val` will be set to `{}`, while if we have:
 
 ```javascript
-const val = false || {}
+const val = false || {};
 ```
 
-`val` will be set to `false`. 
+`val` will be set to `false`.
 
 React then uses this return value to render the value when the condition inside of the curly braces is **not** `undefined` or `null`.
 
@@ -176,17 +175,17 @@ But the following examples **will not** render their contained values:
 ### Angular
 
 ```typescript {2}
-import { Component, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { Component, Input } from "@angular/core";
+import { NgIf } from "@angular/common";
 
 @Component({
-  selector: 'conditional-render',
-  standalone: true,
-  imports: [NgIf],
-  template: `<div><p *ngIf="bool">Text here</p></div>`,
+	selector: "conditional-render",
+	standalone: true,
+	imports: [NgIf],
+	template: `<div><p *ngIf="bool">Text here</p></div>`,
 })
 export class ConditionalRenderComponent {
-  @Input() bool: boolean;
+	@Input() bool: boolean;
 }
 ```
 
@@ -196,7 +195,7 @@ Here, we're using a special property called `ngIf` on our `p` tag to stop render
 
 To use `ngIf`, we need to import `NgIf` from `@angular/common` and pass it to the `imports` array for the component.
 
->  If you forget to import and add the `NgIf` to your component's `imports` array, you might get an error something like:
+> If you forget to import and add the `NgIf` to your component's `imports` array, you might get an error something like:
 >
 > ```
 > The `*ngIf` directive was used in the template, but neither the `NgIf` directive nor the `CommonModule` was imported. Please make sure that either the `NgIf` directive or the `CommonModule` is included in the `@Component.imports` array of this component.
@@ -206,11 +205,11 @@ To use `ngIf`, we need to import `NgIf` from `@angular/common` and pass it to th
 
 ```vue
 <script setup>
-  const props = defineProps(['bool'])
+const props = defineProps(["bool"]);
 </script>
 
 <template>
-  <div><p v-if="bool">Text here</p></div>
+	<div><p v-if="bool">Text here</p></div>
 </template>
 ```
 
@@ -254,19 +253,19 @@ Let's add an input to our `File` component called `isFolder` and prevent the dat
 
 ```jsx {11}
 const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
-  return (
-    <button
-      onClick={onSelected}
-      style={
-        isSelected
-          ? { backgroundColor: 'blue', color: 'white' }
-          : { backgroundColor: 'white', color: 'blue' }
-      }
-    >
-      <a href={href}>{fileName}</a>
-      {isFolder && <FileDate inputDate={new Date()} />}
-    </button>
-  );
+	return (
+		<button
+			onClick={onSelected}
+			style={
+				isSelected
+					? { backgroundColor: "blue", color: "white" }
+					: { backgroundColor: "white", color: "blue" }
+			}
+		>
+			<a href={href}>{fileName}</a>
+			{isFolder && <FileDate inputDate={new Date()} />}
+		</button>
+	);
 };
 ```
 
@@ -274,31 +273,31 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 
 ```typescript {13}
 @Component({
-  selector: 'file-item',
-  standalone: true,
-  imports: [NgIf],
-  template: `
-    <button
-      (click)="selected.emit()"
-      [style]="
-        isSelected
-          ? 'background-color: blue; color: white'
-          : 'background-color: white; color: blue'
-      "
-    >
-      <a [href]="href">
-        {{ fileName }}
-        <file-date *ngIf="isFolder" [inputDate]="inputDate"></file-date>
-      </a>
-    </button>
-  `,
+	selector: "file-item",
+	standalone: true,
+	imports: [NgIf],
+	template: `
+		<button
+			(click)="selected.emit()"
+			[style]="
+				isSelected
+					? 'background-color: blue; color: white'
+					: 'background-color: white; color: blue'
+			"
+		>
+			<a [href]="href">
+				{{ fileName }}
+				<file-date *ngIf="isFolder" [inputDate]="inputDate"></file-date>
+			</a>
+		</button>
+	`,
 })
 export class FileComponent {
-  @Input() fileName: string;
-  @Input() href: string;
-  @Input() isSelected: boolean;
-  @Input() isFolder: boolean;
-  @Output() selected = new EventEmitter();
+	@Input() fileName: string;
+	@Input() href: string;
+	@Input() isSelected: boolean;
+	@Input() isFolder: boolean;
+	@Output() selected = new EventEmitter();
 }
 ```
 
@@ -306,26 +305,27 @@ export class FileComponent {
 
 ```vue
 <script setup>
-  import { defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits } from "vue";
 
-  const props = defineProps(['isSelected', 'isFolder', 'fileName', 'href'])
+const props = defineProps(["isSelected", "isFolder", "fileName", "href"]);
 
-  const emit = defineEmits(['selected'])
+const emit = defineEmits(["selected"]);
 </script>
 
 <template>
-  <button
-    v-on:click="emit('selected')"
-    :style="isSelected ?
-      'background-color: blue; color: white' :
-      'background-color: white; color: blue'
-    "
-  >
-    <a :href="href">
-      {{ fileName }}
-      <file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
-    </a>
-  </button>
+	<button
+		v-on:click="emit('selected')"
+		:style="
+			isSelected
+				? 'background-color: blue; color: white'
+				: 'background-color: white; color: blue'
+		"
+	>
+		<a :href="href">
+			{{ fileName }}
+			<file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
+		</a>
+	</button>
 </template>
 ```
 
@@ -342,8 +342,12 @@ Let's use conditional rendering to show the type of item displayed based on the 
 ## React
 
 ```jsx
-{isFolder && <span>Type: Folder</span>}
-{!isFolder && <span>Type: File</span>}
+{
+	isFolder && <span>Type: Folder</span>;
+}
+{
+	!isFolder && <span>Type: File</span>;
+}
 ```
 
 ## Angular
@@ -366,8 +370,8 @@ While working on this, it might become clear that we're effectively reconstructi
 
 ```javascript
 // This is psuedocode for the above using JavaScript as the syntax
-if (isFolder) return "Type: Folder"
-else return "Type: File"
+if (isFolder) return "Type: Folder";
+else return "Type: File";
 ```
 
 Like the JavaScript environment these frameworks run in, they also implement a similar `else`-style API for this exact purpose.
@@ -382,20 +386,18 @@ For example, we can use [a JavaScript ternary](https://developer.mozilla.org/en-
 
 ```javascript
 // Will show "Folder" if `isFolder` is true, otherwise show "File"
-const displayType = isFolder ? "Folder" : "File"; 
+const displayType = isFolder ? "Folder" : "File";
 ```
 
- We can combine this information with JSX's ability to treat a tag as a value you can assign to memory to create a `if...else`-style render in React:
+We can combine this information with JSX's ability to treat a tag as a value you can assign to memory to create a `if...else`-style render in React:
 
 ```jsx
 {
-  isFolder ?
-    <span>Type: Folder</span> :
-    <span>Type: File</span>
+	isFolder ? <span>Type: Folder</span> : <span>Type: File</span>;
 }
 ```
 
- Here, if `isFolder` is `true`, the following will be rendered:
+Here, if `isFolder` is `true`, the following will be rendered:
 
 ```html
 <span>Type: Folder</span>
@@ -414,7 +416,7 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 <ng-template #fileDisplay><span>Type: File</span></ng-template>
 ```
 
-Undoubtably you're looking at this snippet of code and wondering what `ng-template` is doing here. 
+Undoubtably you're looking at this snippet of code and wondering what `ng-template` is doing here.
 
 ### Explaining `ng-template` {#ng-template}
 
@@ -423,15 +425,13 @@ See, an `ng-template` allows you to store multiple tags as children without rend
 Take the following code:
 
 ```html
-<ng-template>
-	Hello, <strong>world</strong>!
-</ng-template>
+<ng-template> Hello, <strong>world</strong>! </ng-template>
 ```
 
 This will convert to the following HTML:
 
 ```html
- 
+
 ```
 
 > Wait, but there's nothing there...
@@ -440,11 +440,11 @@ Correct! By default, an `ng-template` will not render anything at all.
 
 > So then what's the point?
 
-The point, my dear reader, is that you can assign a in-template variable to `ng-template` and use it elsewhere. These in-template variables are called "template tags" and are created by assigning an octothorpe (`#`) prefixed attribute to the `ng-template`.  
+The point, my dear reader, is that you can assign a in-template variable to `ng-template` and use it elsewhere. These in-template variables are called "template tags" and are created by assigning an octothorpe (`#`) prefixed attribute to the `ng-template`.
 
 ```html
 <ng-template #tag>
-   This template is now assigned to the "tag" template variable. 
+	This template is now assigned to the "tag" template variable.
 </ng-template>
 ```
 
@@ -462,13 +462,12 @@ Here, we're passing the `trueTag` to the `else` value of `ngIf`, which will rend
 ## Vue
 
 ```html
-<span v-if="isFolder">Type: Folder</span>
-<span v-else>Type: File</span>
+<span v-if="isFolder">Type: Folder</span> <span v-else>Type: File</span>
 ```
 
 Here, Vue's `if...else` syntax looks fairly similar to the JavaScript pseudo-syntax we displayed above.
 
-> It's worth noting that a `v-else` tag **must** immediately follow a `v-if` tag; otherwise, it won't work. 
+> It's worth noting that a `v-else` tag **must** immediately follow a `v-if` tag; otherwise, it won't work.
 
 <!-- tabs:end -->
 
@@ -485,9 +484,15 @@ While we could move back to a simple `if` statement for each condition:
 ### React
 
 ```jsx
-{isFolder && <span>Type: Folder</span>}
-{!isFolder && isImage && <span>Type: Image</span>}
-{!isFolder && !isImage && <span>Type: File</span>}
+{
+	isFolder && <span>Type: Folder</span>;
+}
+{
+	!isFolder && isImage && <span>Type: Image</span>;
+}
+{
+	!isFolder && !isImage && <span>Type: File</span>;
+}
 ```
 
 ### Angular
@@ -520,16 +525,16 @@ By doing so, we can represent the following JavaScript pseudo-syntax:
 
 ```js
 function getType() {
-    // JavaScript 
-    if (isFolder) {
-        return "Folder";
-    } else {
-        if (isImage) {
-            return "Image"
-        } else {
-            return "File"
-        }
-    }
+	// JavaScript
+	if (isFolder) {
+		return "Folder";
+	} else {
+		if (isImage) {
+			return "Image";
+		} else {
+			return "File";
+		}
+	}
 }
 ```
 
@@ -537,11 +542,13 @@ As the following React JSX
 
 ```jsx
 {
-  isFolder ?
-    <span>Type: Folder</span> :
-    isImage ?
-      <span>Type: Image</span> :
-      <span>Type: File</span>
+	isFolder ? (
+		<span>Type: Folder</span>
+	) : isImage ? (
+		<span>Type: Image</span>
+	) : (
+		<span>Type: File</span>
+	);
 }
 ```
 
@@ -553,9 +560,9 @@ Instead, Angular has a mechanism for utilizing [`switch/case` statements](https:
 
 ```html
 <ng-container [ngSwitch]="'folder'">
-  <span *ngSwitchCase="'folder'">Type: Folder</span>
-  <span *ngSwitchCase="'image'">Type: Image</span>
-  <span *ngSwitchDefault>Type: File</span>
+	<span *ngSwitchCase="'folder'">Type: Folder</span>
+	<span *ngSwitchCase="'image'">Type: Image</span>
+	<span *ngSwitchDefault>Type: File</span>
 </ng-container>
 ```
 
@@ -569,12 +576,11 @@ Because the `[ngSwitch]` value of `'folder'` matched the `ngSwitchCase` value of
 
 Using this tool, we can simply set the `ngSwitch` value to `true` and add a conditional into the `ngSwitchCase`.
 
-
 ```html
 <ng-container [ngSwitch]="true">
-  <span *ngSwitchCase="isFolder">Type: Folder</span>
-  <span *ngSwitchCase="isImage">Type: Image</span>
-  <span *ngSwitchDefault>Type: File</span>
+	<span *ngSwitchCase="isFolder">Type: Folder</span>
+	<span *ngSwitchCase="isImage">Type: Image</span>
+	<span *ngSwitchDefault>Type: File</span>
 </ng-container>
 ```
 
@@ -584,9 +590,9 @@ Just as Vue's `v-if/v-else` attributes match JavaScript's `if...else` syntax, we
 
 ```js
 function getType() {
-    if (isFolder) return "Folder";
-    else if (isImage) return "Image";
-    else return "File";
+	if (isFolder) return "Folder";
+	else if (isImage) return "Image";
+	else return "File";
 }
 ```
 
@@ -612,41 +618,47 @@ While we've primarily focused on our `File` component in this chapter, let's tak
 
 ```jsx
 const FileList = () => {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+	const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  const onSelected = (idx) => {
-    if (selectedIndex === idx) {
-      setSelectedIndex(-1);
-      return;
-    }
-    setSelectedIndex(idx);
-  };
+	const onSelected = (idx) => {
+		if (selectedIndex === idx) {
+			setSelectedIndex(-1);
+			return;
+		}
+		setSelectedIndex(idx);
+	};
 
-  return (
-    <ul>
-      <li><File
-        isSelected={selectedIndex === 0}
-        onSelected={() => onSelected(0)}
-        fileName="File one"
-        href="/file/file_one"
-        isFolder={false}
-      /></li>
-      <li><File
-        isSelected={selectedIndex === 1}
-        onSelected={() => onSelected(1)}
-        fileName="File two"
-        href="/file/file_two"
-        isFolder={false}
-      /></li>
-      <li><File
-        isSelected={selectedIndex === 2}
-        onSelected={() => onSelected(2)}
-        fileName="File three"
-        href="/file/file_three"
-        isFolder={false}
-      /></li>
-    </ul>
-  );
+	return (
+		<ul>
+			<li>
+				<File
+					isSelected={selectedIndex === 0}
+					onSelected={() => onSelected(0)}
+					fileName="File one"
+					href="/file/file_one"
+					isFolder={false}
+				/>
+			</li>
+			<li>
+				<File
+					isSelected={selectedIndex === 1}
+					onSelected={() => onSelected(1)}
+					fileName="File two"
+					href="/file/file_two"
+					isFolder={false}
+				/>
+			</li>
+			<li>
+				<File
+					isSelected={selectedIndex === 2}
+					onSelected={() => onSelected(2)}
+					fileName="File three"
+					href="/file/file_three"
+					isFolder={false}
+				/>
+			</li>
+		</ul>
+	);
 };
 ```
 
@@ -654,45 +666,51 @@ const FileList = () => {
 
 ```typescript
 @Component({
-  selector: 'file-list',
-  standalone: true,
-  imports: [FileComponent],
-  template: `
-    <ul>
-      <li><file
-        (selected)="onSelected(0)"
-        [isSelected]="selectedIndex === 0"
-        fileName="File one" 
-        href="/file/file_one"
-        [isFolder]="false"
-      /></li>
-      <li><file
-        (selected)="onSelected(1)"
-        [isSelected]="selectedIndex === 1"
-        fileName="File two" 
-        href="/file/file_two"
-        [isFolder]="false"
-      /></li>
-      <li><file
-        (selected)="onSelected(2)"
-        [isSelected]="selectedIndex === 2"
-        fileName="File three" 
-        href="/file/file_three"
-        [isFolder]="false"
-      /></li>
-    </ul>
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent],
+	template: `
+		<ul>
+			<li>
+				<file
+					(selected)="onSelected(0)"
+					[isSelected]="selectedIndex === 0"
+					fileName="File one"
+					href="/file/file_one"
+					[isFolder]="false"
+				/>
+			</li>
+			<li>
+				<file
+					(selected)="onSelected(1)"
+					[isSelected]="selectedIndex === 1"
+					fileName="File two"
+					href="/file/file_two"
+					[isFolder]="false"
+				/>
+			</li>
+			<li>
+				<file
+					(selected)="onSelected(2)"
+					[isSelected]="selectedIndex === 2"
+					fileName="File three"
+					href="/file/file_three"
+					[isFolder]="false"
+				/>
+			</li>
+		</ul>
+	`,
 })
 export class FileListComponent {
-  selectedIndex = -1;
+	selectedIndex = -1;
 
-  onSelected(idx) {
-    if (this.selectedIndex === idx) {
-      this.selectedIndex = -1;
-      return;
-    }
-    this.selectedIndex = idx;
-  }
+	onSelected(idx) {
+		if (this.selectedIndex === idx) {
+			this.selectedIndex = -1;
+			return;
+		}
+		this.selectedIndex = idx;
+	}
 }
 ```
 
@@ -700,44 +718,50 @@ export class FileListComponent {
 
 ```vue
 <script setup>
-  import { ref } from 'vue'
-  import File from './File.vue'
+import { ref } from "vue";
+import File from "./File.vue";
 
-  const selectedIndex = ref(-1)
+const selectedIndex = ref(-1);
 
-  function onSelected(idx) {
-    if (selectedIndex.value === idx) {
-      selectedIndex.value = -1
-      return
-    }
-    selectedIndex.value = idx
-  }
+function onSelected(idx) {
+	if (selectedIndex.value === idx) {
+		selectedIndex.value = -1;
+		return;
+	}
+	selectedIndex.value = idx;
+}
 </script>
 
 <template>
-  <ul>
-    <li><File
-      @selected="onSelected(0)"
-      :isSelected="selectedIndex === 0"
-      fileName="File one"
-      href="/file/file_one"
-      :isFolder="false"
-    /></li>
-    <li><File
-      @selected="onSelected(1)"
-      :isSelected="selectedIndex === 1"
-      fileName="File two"
-      href="/file/file_two"
-      :isFolder="false"
-    /></li>
-    <li><File
-      @selected="onSelected(2)"
-      :isSelected="selectedIndex === 2"
-      fileName="File three"
-      href="/file/file_three"
-      :isFolder="false"
-    /></li>
-  </ul>
+	<ul>
+		<li>
+			<File
+				@selected="onSelected(0)"
+				:isSelected="selectedIndex === 0"
+				fileName="File one"
+				href="/file/file_one"
+				:isFolder="false"
+			/>
+		</li>
+		<li>
+			<File
+				@selected="onSelected(1)"
+				:isSelected="selectedIndex === 1"
+				fileName="File two"
+				href="/file/file_two"
+				:isFolder="false"
+			/>
+		</li>
+		<li>
+			<File
+				@selected="onSelected(2)"
+				:isSelected="selectedIndex === 2"
+				fileName="File three"
+				href="/file/file_three"
+				:isFolder="false"
+			/>
+		</li>
+	</ul>
 </template>
 ```
 
@@ -805,55 +829,57 @@ We can then use the second argument inside of the `map` to gain access to the in
 
 ## Angular
 
-Just as how the previous `*ngIf` structural directive is used to conditionally render items, Angular uses a different structural directive to render a list of items: `*ngFor`. 
+Just as how the previous `*ngIf` structural directive is used to conditionally render items, Angular uses a different structural directive to render a list of items: `*ngFor`.
 
 ```typescript {4-11,26-42}
-import {NgFor} from '@angular/common';
+import { NgFor } from "@angular/common";
 
 @Component({
-  selector: 'file-list',
-  standalone: true,
-  imports: [FileComponent, NgFor],
-  template: `
-    <ul>
-      <li *ngFor="let file of filesArray; let i = index"><file
-        (selected)="onSelected(i)"
-        [isSelected]="selectedIndex === i"
-        [fileName]="file.fileName" 
-        [href]="file.href"
-        [isFolder]="file.isFolder"
-      /></li>
-    </ul>
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent, NgFor],
+	template: `
+		<ul>
+			<li *ngFor="let file of filesArray; let i = index">
+				<file
+					(selected)="onSelected(i)"
+					[isSelected]="selectedIndex === i"
+					[fileName]="file.fileName"
+					[href]="file.href"
+					[isFolder]="file.isFolder"
+				/>
+			</li>
+		</ul>
+	`,
 })
 export class FileListComponent {
-  selectedIndex = -1;
+	selectedIndex = -1;
 
-  onSelected(idx) {
-    if (this.selectedIndex === idx) {
-      this.selectedIndex = -1;
-      return;
-    }
-    this.selectedIndex = idx;
-  }
-    
-  filesArray = [
-    {
-        fileName: "File one",
-        href: "/file/file_one",
-        isFolder: false
-    },
-    {
-        fileName: "File two",
-        href: "/file/file_two",
-        isFolder: false
-    },
-    {
-        fileName: "File three",
-        href: "/file/file_three",
-        isFolder: false
-    }
-  ]
+	onSelected(idx) {
+		if (this.selectedIndex === idx) {
+			this.selectedIndex = -1;
+			return;
+		}
+		this.selectedIndex = idx;
+	}
+
+	filesArray = [
+		{
+			fileName: "File one",
+			href: "/file/file_one",
+			isFolder: false,
+		},
+		{
+			fileName: "File two",
+			href: "/file/file_two",
+			isFolder: false,
+		},
+		{
+			fileName: "File three",
+			href: "/file/file_three",
+			isFolder: false,
+		},
+	];
 }
 ```
 
@@ -871,49 +897,51 @@ Vue provides a `v-for` global attribute that does for lists what `v-if` does for
 
 ```vue
 <script setup>
-  import { ref } from 'vue'
-  import File from './File.vue'
+import { ref } from "vue";
+import File from "./File.vue";
 
-  const filesArray = [
-    {
-      fileName: 'File one',
-      href: '/file/file_one',
-      isFolder: false,
-    },
-    {
-      fileName: 'File two',
-      href: '/file/file_two',
-      isFolder: false,
-    },
-    {
-      fileName: 'File three',
-      href: '/file/file_three',
-      isFolder: false,
-    },
-  ]
+const filesArray = [
+	{
+		fileName: "File one",
+		href: "/file/file_one",
+		isFolder: false,
+	},
+	{
+		fileName: "File two",
+		href: "/file/file_two",
+		isFolder: false,
+	},
+	{
+		fileName: "File three",
+		href: "/file/file_three",
+		isFolder: false,
+	},
+];
 
-  const selectedIndex = ref(-1)
+const selectedIndex = ref(-1);
 
-  function onSelected(idx) {
-    if (selectedIndex.value === idx) {
-      selectedIndex.value = -1
-      return
-    }
-    selectedIndex.value = idx
-  }
+function onSelected(idx) {
+	if (selectedIndex.value === idx) {
+		selectedIndex.value = -1;
+		return;
+	}
+	selectedIndex.value = idx;
+}
 </script>
 
 <template>
-  <ul>
-    <!-- This will throw a warning, more on that soon -->
-    <li v-for="(file, i) in filesArray"><File
-      @selected="onSelected(i)"
-      :isSelected="selectedIndex === i"
-      :fileName="file.fileName"
-      :href="file.href"
-      :isFolder="file.isFolder"
-    /></li>
-  </ul>
+	<ul>
+		<!-- This will throw a warning, more on that soon -->
+		<li v-for="(file, i) in filesArray">
+			<File
+				@selected="onSelected(i)"
+				:isSelected="selectedIndex === i"
+				:fileName="file.fileName"
+				:href="file.href"
+				:isFolder="file.isFolder"
+			/>
+		</li>
+	</ul>
 </template>
 ```
 
@@ -949,38 +977,38 @@ Say you have the following:
 
 ```jsx
 const WordList = () => {
-  const [words, setWords] = useState([]);
+	const [words, setWords] = useState([]);
 
-  const addWord = () => {
-    const newWord = getRandomWord();
-    // Remove ability for duplicate words
-    if (words.includes(newWord)) return;
-    setWords([...words, newWord]);
-  };
+	const addWord = () => {
+		const newWord = getRandomWord();
+		// Remove ability for duplicate words
+		if (words.includes(newWord)) return;
+		setWords([...words, newWord]);
+	};
 
-  return (
-    <div>
-      <button onClick={addWord}>Add word</button>
-      <ul>
-        {words.map((word) => {
-          return <li>{word.word}</li>;
-        })}
-      </ul>
-    </div>
-  );
+	return (
+		<div>
+			<button onClick={addWord}>Add word</button>
+			<ul>
+				{words.map((word) => {
+					return <li>{word.word}</li>;
+				})}
+			</ul>
+		</div>
+	);
 };
 
 const wordDatabase = [
-  { word: 'who', id: 1 },
-  { word: 'what', id: 2 },
-  { word: 'when', id: 3 },
-  { word: 'where', id: 4 },
-  { word: 'why', id: 5 },
-  { word: 'how', id: 6 },
+	{ word: "who", id: 1 },
+	{ word: "what", id: 2 },
+	{ word: "when", id: 3 },
+	{ word: "where", id: 4 },
+	{ word: "why", id: 5 },
+	{ word: "how", id: 6 },
 ];
 
 function getRandomWord() {
-  return wordDatabase[Math.floor(Math.random() * wordDatabase.length)];
+	return wordDatabase[Math.floor(Math.random() * wordDatabase.length)];
 }
 ```
 
@@ -988,40 +1016,40 @@ function getRandomWord() {
 
 ```typescript
 @Component({
-  selector: 'word-list',
-  standalone: true,
-  imports: [NgFor],
-  template: `
-  <div>
-      <button (click)="addWord()">Add word</button>
-      <ul>
-        <li *ngFor="let word of words">{{word.word}}</li>
-      </ul>
-    </div>
-  `,
+	selector: "word-list",
+	standalone: true,
+	imports: [NgFor],
+	template: `
+		<div>
+			<button (click)="addWord()">Add word</button>
+			<ul>
+				<li *ngFor="let word of words">{{ word.word }}</li>
+			</ul>
+		</div>
+	`,
 })
 export class WordListComponent {
-  words: Array<{ word: string; id: number }> = [];
+	words: Array<{ word: string; id: number }> = [];
 
-  addWord() {
-    const newWord = getRandomWord();
-    // Remove ability for duplicate words
-    if (this.words.includes(newWord)) return;
-    this.words = [...this.words, newWord];
-  }
+	addWord() {
+		const newWord = getRandomWord();
+		// Remove ability for duplicate words
+		if (this.words.includes(newWord)) return;
+		this.words = [...this.words, newWord];
+	}
 }
 
 const wordDatabase = [
-  { word: 'who', id: 1 },
-  { word: 'what', id: 2 },
-  { word: 'when', id: 3 },
-  { word: 'where', id: 4 },
-  { word: 'why', id: 5 },
-  { word: 'how', id: 6 },
+	{ word: "who", id: 1 },
+	{ word: "what", id: 2 },
+	{ word: "when", id: 3 },
+	{ word: "where", id: 4 },
+	{ word: "why", id: 5 },
+	{ word: "how", id: 6 },
 ];
 
 function getRandomWord() {
-  return wordDatabase[Math.floor(Math.random() * wordDatabase.length)];
+	return wordDatabase[Math.floor(Math.random() * wordDatabase.length)];
 }
 ```
 
@@ -1030,44 +1058,44 @@ function getRandomWord() {
 ```vue
 <!-- WordList.vue -->
 <script setup>
-  import { ref } from 'vue'
+import { ref } from "vue";
 
-  const wordDatabase = [
-    { word: 'who', id: 1 },
-    { word: 'what', id: 2 },
-    { word: 'when', id: 3 },
-    { word: 'where', id: 4 },
-    { word: 'why', id: 5 },
-    { word: 'how', id: 6 },
-  ]
+const wordDatabase = [
+	{ word: "who", id: 1 },
+	{ word: "what", id: 2 },
+	{ word: "when", id: 3 },
+	{ word: "where", id: 4 },
+	{ word: "why", id: 5 },
+	{ word: "how", id: 6 },
+];
 
-  function getRandomWord() {
-    return wordDatabase[Math.floor(Math.random() * wordDatabase.length)]
-  }
+function getRandomWord() {
+	return wordDatabase[Math.floor(Math.random() * wordDatabase.length)];
+}
 
-  const words = ref([])
+const words = ref([]);
 
-  function addWord() {
-    const newWord = getRandomWord()
-    // Remove ability for duplicate words
-    if (words.value.includes(newWord)) return
-    words.value.push(newWord)
-  }
+function addWord() {
+	const newWord = getRandomWord();
+	// Remove ability for duplicate words
+	if (words.value.includes(newWord)) return;
+	words.value.push(newWord);
+}
 </script>
 
 <template>
-  <div>
-    <button @click="addWord()">Add word</button>
-    <ul>
-      <li v-for="word in words">{{ word.word }}</li>
-    </ul>
-  </div>
+	<div>
+		<button @click="addWord()">Add word</button>
+		<ul>
+			<li v-for="word in words">{{ word.word }}</li>
+		</ul>
+	</div>
 </template>
 ```
 
 <!-- tabs:end -->
 
-Without using some kind of `key` prop, your list will be destroyed and recreated every time you run `addWord`. 
+Without using some kind of `key` prop, your list will be destroyed and recreated every time you run `addWord`.
 
 This is because the framework **isn't able to detect which item in your array has changed** and as a result marks all DOM elements as "outdated". **These "outdated" elements are then destroyed by the framework only to be immediately reconstructed** in order to ensure the most up-to-date information is displayed to the user.
 
@@ -1085,12 +1113,12 @@ Let's see how we can do this in each framework.
 
 ```jsx {4}
 <div>
-  <button onClick={addWord}>Add word</button>
-  <ul>
-    {words.map((word) => {
-      return <li key={word.id}>{word.word}</li>;
-    })}
-  </ul>
+	<button onClick={addWord}>Add word</button>
+	<ul>
+		{words.map((word) => {
+			return <li key={word.id}>{word.word}</li>;
+		})}
+	</ul>
 </div>
 ```
 
@@ -1102,26 +1130,28 @@ While Angular doesn't have quite the same API for `key` as React and Vue, Angula
 
 ```typescript {8,16-18}
 @Component({
-  selector: 'word-list',
-  standalone: true,
-  imports: [NgFor],
-  template: `
-    <div>
-      <button (click)="addWord()">Add word</button>
-      <ul>
-        <li *ngFor="let word of words; trackBy: wordTrackBy">{{word.word}}</li>
-      </ul>
-    </div>
-  `,
+	selector: "word-list",
+	standalone: true,
+	imports: [NgFor],
+	template: `
+		<div>
+			<button (click)="addWord()">Add word</button>
+			<ul>
+				<li *ngFor="let word of words; trackBy: wordTrackBy">
+					{{ word.word }}
+				</li>
+			</ul>
+		</div>
+	`,
 })
 export class WordListComponent {
-  words: Array<{ word: string; id: number }> = [];
+	words: Array<{ word: string; id: number }> = [];
 
-  wordTrackBy(index, word) {
-    return word.id;
-  }
+	wordTrackBy(index, word) {
+		return word.id;
+	}
 
-  // ...
+	// ...
 }
 ```
 
@@ -1144,12 +1174,12 @@ While this works in some cases, for the most part, it's suggested to provide you
 ```vue
 <!-- WordList.vue -->
 <template>
-  <div>
-    <button @click="addWord()">Add word</button>
-    <ul>
-      <li v-for="word in words" :key="word.id">{{ word.word }}</li>
-    </ul>
-  </div>
+	<div>
+		<button @click="addWord()">Add word</button>
+		<ul>
+			<li v-for="word in words" :key="word.id">{{ word.word }}</li>
+		</ul>
+	</div>
 </template>
 
 <!-- ... -->
@@ -1162,8 +1192,6 @@ Here, we're using the `key` property to tell Vue which `li` is related to which 
 Now when we re-render the list, the framework is able to know exactly which items have and have not changed.
 
 As such, it will only re-render the new items, leaving the old and unchanged DOM elements alone.
-
-
 
 ## Keys As Render Hints
 
@@ -1181,23 +1209,23 @@ To do this, we can assign a `key` property to the `input` and change the value o
 
 ```jsx {6}
 function KeyExample() {
-  const [num, setNum] = useState(0);
+	const [num, setNum] = useState(0);
 
-  const increase = () => setNum(num + 1);
+	const increase = () => setNum(num + 1);
 
-  return (
-    <div>
-      <input key={num} />
-      <button onClick={increase}>Increase</button>
-      <p>{num}</p>
-    </div>
-  );
+	return (
+		<div>
+			<input key={num} />
+			<button onClick={increase}>Increase</button>
+			<p>{num}</p>
+		</div>
+	);
 }
 ```
 
 ### Angular
 
-Because Angular does not have the concept of a `key`, it is unable to follow the same behavior as Vue and React in this instance. Therefore, this section is more useful in understanding the underlying DOM diffing logic as opposed to functional coding advice for Angular in particular. 
+Because Angular does not have the concept of a `key`, it is unable to follow the same behavior as Vue and React in this instance. Therefore, this section is more useful in understanding the underlying DOM diffing logic as opposed to functional coding advice for Angular in particular.
 
 This isn't necessarily a bad thing, however. We'll touch on this more in a bit, but using `key` in this way is often an anti-pattern.
 
@@ -1206,19 +1234,19 @@ This isn't necessarily a bad thing, however. We'll touch on this more in a bit, 
 ```vue
 <!-- KeyExample.vue -->
 <script setup>
-  import { ref } from 'vue'
+import { ref } from "vue";
 
-  const num = ref(0);
+const num = ref(0);
 
-  function increase() {
-    this.num.value++;
-  }
+function increase() {
+	this.num.value++;
+}
 </script>
 
 <template>
-    <input :key="num" />
-    <button @click="increase()">Increase</button>
-    <p>{{ num }}</p>
+	<input :key="num" />
+	<button @click="increase()">Increase</button>
+	<p>{{ num }}</p>
 </template>
 ```
 
@@ -1226,7 +1254,7 @@ This isn't necessarily a bad thing, however. We'll touch on this more in a bit, 
 
 This refresh works because we are not persisting the [`input`'s `value`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement), and therefore when `key` is updated, and a new `input` is rendered in its place, the in-memory DOM value is reset and not bound again.
 
-This reset is what's causing the `input` to blank out after a button press. 
+This reset is what's causing the `input` to blank out after a button press.
 
 > This idea of an element's "reference" to a framework's understanding of an element can be a bit confusing.
 >
@@ -1291,58 +1319,58 @@ const FileList = () => {
 
 ```typescript {4-10,25-38}
 @Component({
-  selector: 'file-list',
-  standalone: true,
-  imports: [FileComponent, NgFor],
-  template: `
-    <ul>
-      <li *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
-          <file
-            (selected)="onSelected(i)"
-            [isSelected]="selectedIndex === i"
-            [fileName]="file.fileName" 
-            [href]="file.href"
-            [isFolder]="file.isFolder"
-          />
-      </li>
-    </ul>
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent, NgFor],
+	template: `
+		<ul>
+			<li *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
+				<file
+					(selected)="onSelected(i)"
+					[isSelected]="selectedIndex === i"
+					[fileName]="file.fileName"
+					[href]="file.href"
+					[isFolder]="file.isFolder"
+				/>
+			</li>
+		</ul>
+	`,
 })
 export class FileListComponent {
-  selectedIndex = -1;
+	selectedIndex = -1;
 
-  fileTrackBy(index, file) {
-    return file.id;
-  }
-    
-  onSelected(idx) {
-    if (this.selectedIndex === idx) {
-      this.selectedIndex = -1;
-      return;
-    }
-    this.selectedIndex = idx;
-  }
-    
-  filesArray = [
-    {
-        fileName: "File one",
-        href: "/file/file_one",
-        isFolder: false,
-        id: 1
-    },
-    {
-        fileName: "File two",
-        href: "/file/file_two",
-        isFolder: false,
-        id: 2
-    },
-    {
-        fileName: "File three",
-        href: "/file/file_three",
-        isFolder: false,
-        id: 3
-    }
-  ]
+	fileTrackBy(index, file) {
+		return file.id;
+	}
+
+	onSelected(idx) {
+		if (this.selectedIndex === idx) {
+			this.selectedIndex = -1;
+			return;
+		}
+		this.selectedIndex = idx;
+	}
+
+	filesArray = [
+		{
+			fileName: "File one",
+			href: "/file/file_one",
+			isFolder: false,
+			id: 1,
+		},
+		{
+			fileName: "File two",
+			href: "/file/file_two",
+			isFolder: false,
+			id: 2,
+		},
+		{
+			fileName: "File three",
+			href: "/file/file_three",
+			isFolder: false,
+			id: 3,
+		},
+	];
 }
 ```
 
@@ -1351,63 +1379,61 @@ export class FileListComponent {
 ```vue
 <!-- FileList.vue -->
 <script setup>
-  import { ref } from 'vue'
-  import File from './File.vue'
+import { ref } from "vue";
+import File from "./File.vue";
 
-  const filesArray = [
-    {
-      fileName: 'File one',
-      href: '/file/file_one',
-      isFolder: false,
-      id: 1,
-    },
-    {
-      fileName: 'File two',
-      href: '/file/file_two',
-      isFolder: false,
-      id: 2,
-    },
-    {
-      fileName: 'File three',
-      href: '/file/file_three',
-      isFolder: false,
-      id: 3,
-    },
-  ]
+const filesArray = [
+	{
+		fileName: "File one",
+		href: "/file/file_one",
+		isFolder: false,
+		id: 1,
+	},
+	{
+		fileName: "File two",
+		href: "/file/file_two",
+		isFolder: false,
+		id: 2,
+	},
+	{
+		fileName: "File three",
+		href: "/file/file_three",
+		isFolder: false,
+		id: 3,
+	},
+];
 
-  const selectedIndex = ref(-1)
+const selectedIndex = ref(-1);
 
-  function onSelected(idx) {
-    if (selectedIndex.value === idx) {
-      selectedIndex.value = -1
-      return
-    }
-    selectedIndex.value = idx
-  }
+function onSelected(idx) {
+	if (selectedIndex.value === idx) {
+		selectedIndex.value = -1;
+		return;
+	}
+	selectedIndex.value = idx;
+}
 </script>
 
 <template>
-  <ul>
-    <li v-for="(file, i) in filesArray" :key="file.id">
-        <File
-          @selected="onSelected(i)"
-          :isSelected="selectedIndex === i"
-          :fileName="file.fileName"
-          :href="file.href"
-          :isFolder="file.isFolder"
-        />
-    </li>
-  </ul>
+	<ul>
+		<li v-for="(file, i) in filesArray" :key="file.id">
+			<File
+				@selected="onSelected(i)"
+				:isSelected="selectedIndex === i"
+				:fileName="file.fileName"
+				:href="file.href"
+				:isFolder="file.isFolder"
+			/>
+		</li>
+	</ul>
 </template>
 ```
 
 <!-- tabs:end -->
 
-
-
 # Using It All Together
 
-Let's use our newfound knowledge of conditional and list rendering and combine them together in our application. 
+Let's use our newfound knowledge of conditional and list rendering and combine them together in our application.
 
 Say that our users want to filter our `FileList` to only display files and not folders. We can enable this functionality by adding in a conditional statement inside of our template loop!
 
@@ -1417,32 +1443,32 @@ Say that our users want to filter our `FileList` to only display files and not f
 
 ```jsx {11}
 const FileList = () => {
-  // ...
+	// ...
 
-  const [onlyShowFiles, setOnlyShowFiles] = useState(false);
-  const toggleOnlyShow = () => setOnlyShowFiles(!onlyShowFiles);
+	const [onlyShowFiles, setOnlyShowFiles] = useState(false);
+	const toggleOnlyShow = () => setOnlyShowFiles(!onlyShowFiles);
 
-  return (
-    <div>
-      <button onClick={toggleOnlyShow}>Only show files</button>
-      <ul>
-        {filesArray.map((file, i) => (
-          <li>
-            {(!onlyShowFiles || !file.isFolder) &&
-              <File
-                key={file.id}
-                isSelected={selectedIndex === i}
-                onSelected={() => onSelected(i)}
-                fileName={file.fileName}
-                href={file.href}
-                isFolder={file.isFolder}
-              />
-            }
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+	return (
+		<div>
+			<button onClick={toggleOnlyShow}>Only show files</button>
+			<ul>
+				{filesArray.map((file, i) => (
+					<li>
+						{(!onlyShowFiles || !file.isFolder) && (
+							<File
+								key={file.id}
+								isSelected={selectedIndex === i}
+								onSelected={() => onSelected(i)}
+								fileName={file.fileName}
+								href={file.href}
+								isFolder={file.isFolder}
+							/>
+						)}
+					</li>
+				))}
+			</ul>
+		</div>
+	);
 };
 ```
 
@@ -1450,35 +1476,37 @@ const FileList = () => {
 
 ```typescript
 @Component({
-  selector: 'file-list',
-  standalone: true,
-  imports: [FileComponent, NgFor],
-  template: `
-    <div>
-      <button (click)="toggleOnlyShow()">Only show files</button>
-      <ul>
-        <li *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
-            <file
-              *ngIf="onlyShowFiles ? !file.isFolder : true"
-              (selected)="onSelected(i)"
-              [isSelected]="selectedIndex === i"
-              [fileName]="file.fileName" 
-              [href]="file.href"
-              [isFolder]="file.isFolder"
-            />
-        </li>
-      </ul>
-    </div>
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent, NgFor],
+	template: `
+		<div>
+			<button (click)="toggleOnlyShow()">Only show files</button>
+			<ul>
+				<li
+					*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
+				>
+					<file
+						*ngIf="onlyShowFiles ? !file.isFolder : true"
+						(selected)="onSelected(i)"
+						[isSelected]="selectedIndex === i"
+						[fileName]="file.fileName"
+						[href]="file.href"
+						[isFolder]="file.isFolder"
+					/>
+				</li>
+			</ul>
+		</div>
+	`,
 })
 export class FileListComponent {
-  // ...
+	// ...
 
-  onlyShowFiles = false;
-  
-  toggleOnlyShow() {
-      this.onlyShowFiles = !onlyShowFiles;
-  }
+	onlyShowFiles = false;
+
+	toggleOnlyShow() {
+		this.onlyShowFiles = !onlyShowFiles;
+	}
 }
 ```
 
@@ -1487,37 +1515,37 @@ export class FileListComponent {
 ```vue
 <!-- FileList.vue -->
 <script setup>
-  import { ref } from 'vue'
+import { ref } from 'vue'
 
-  // ...
+// ...
 
-  const onlyShowFiles = ref(false);
+const onlyShowFiles = ref(false);
 
-  // ...
+// ...
 
-  toggleOnlyShow() {
-    onlyShowFiles.value = !onlyShowFiles.value;
-  }
+toggleOnlyShow() {
+  onlyShowFiles.value = !onlyShowFiles.value;
+}
 
-  // ...
+// ...
 </script>
 
 <template>
-  <div>
-    <button (click)="toggleOnlyShow()">Only show files</button>
-    <ul>
-      <li v-for="(file, i) in filesArray" :key="file.id">
-        <File
-          v-if="onlyShowFiles ? !file.isFolder : true"
-          @selected="onSelected(i)"
-          :isSelected="selectedIndex === i"
-          :fileName="file.fileName"
-          :href="file.href"
-          :isFolder="file.isFolder"
-        />
-      </li>
-    </ul>
-  </div>
+	<div>
+		<button (click)="toggleOnlyShow()">Only show files</button>
+		<ul>
+			<li v-for="(file, i) in filesArray" :key="file.id">
+				<File
+					v-if="onlyShowFiles ? !file.isFolder : true"
+					@selected="onSelected(i)"
+					:isSelected="selectedIndex === i"
+					:fileName="file.fileName"
+					:href="file.href"
+					:isFolder="file.isFolder"
+				/>
+			</li>
+		</ul>
+	</div>
 </template>
 ```
 
@@ -1539,59 +1567,59 @@ We did this by hardcoding each of our `ExpandableDropdown` components as individ
 
 ```jsx
 const ExpandableDropdown = ({ name, expanded, onToggle }) => {
-  return (
-    <div>
-      <button onClick={onToggle}>
-        {expanded ? 'V ' : '> '}
-        {name}
-      </button>
-      <div hidden={!expanded}>More information here</div>
-    </div>
-  );
+	return (
+		<div>
+			<button onClick={onToggle}>
+				{expanded ? "V " : "> "}
+				{name}
+			</button>
+			<div hidden={!expanded}>More information here</div>
+		</div>
+	);
 };
 
 const Sidebar = () => {
-  const [moviesExpanded, setMoviesExpanded] = useState(false);
-  const [picturesExpanded, setPicturesExpanded] = useState(false);
-  const [conceptsExpanded, setConceptsExpanded] = useState(false);
-  const [articlesExpanded, setArticlesExpanded] = useState(false);
-  const [redesignExpanded, setRedesignExpanded] = useState(false);
-  const [invoicesExpanded, setInvoicesExpanded] = useState(false);
-  return (
-    <div>
-      <h1>My Files</h1>
-      <ExpandableDropdown
-        name="Movies"
-        expanded={moviesExpanded}
-        onToggle={() => setMoviesExpanded(!moviesExpanded)}
-      />
-      <ExpandableDropdown
-        name="Pictures"
-        expanded={picturesExpanded}
-        onToggle={() => setPicturesExpanded(!picturesExpanded)}
-      />
-      <ExpandableDropdown
-        name="Concepts"
-        expanded={conceptsExpanded}
-        onToggle={() => setConceptsExpanded(!conceptsExpanded)}
-      />
-      <ExpandableDropdown
-        name="Articles I'll Never Finish"
-        expanded={articlesExpanded}
-        onToggle={() => setArticlesExpanded(!articlesExpanded)}
-      />
-      <ExpandableDropdown
-        name="Website Redesigns v5"
-        expanded={redesignExpanded}
-        onToggle={() => setRedesignExpanded(!redesignExpanded)}
-      />
-      <ExpandableDropdown
-        name="Invoices"
-        expanded={invoicesExpanded}
-        onToggle={() => setInvoicesExpanded(!invoicesExpanded)}
-      />
-    </div>
-  );
+	const [moviesExpanded, setMoviesExpanded] = useState(false);
+	const [picturesExpanded, setPicturesExpanded] = useState(false);
+	const [conceptsExpanded, setConceptsExpanded] = useState(false);
+	const [articlesExpanded, setArticlesExpanded] = useState(false);
+	const [redesignExpanded, setRedesignExpanded] = useState(false);
+	const [invoicesExpanded, setInvoicesExpanded] = useState(false);
+	return (
+		<div>
+			<h1>My Files</h1>
+			<ExpandableDropdown
+				name="Movies"
+				expanded={moviesExpanded}
+				onToggle={() => setMoviesExpanded(!moviesExpanded)}
+			/>
+			<ExpandableDropdown
+				name="Pictures"
+				expanded={picturesExpanded}
+				onToggle={() => setPicturesExpanded(!picturesExpanded)}
+			/>
+			<ExpandableDropdown
+				name="Concepts"
+				expanded={conceptsExpanded}
+				onToggle={() => setConceptsExpanded(!conceptsExpanded)}
+			/>
+			<ExpandableDropdown
+				name="Articles I'll Never Finish"
+				expanded={articlesExpanded}
+				onToggle={() => setArticlesExpanded(!articlesExpanded)}
+			/>
+			<ExpandableDropdown
+				name="Website Redesigns v5"
+				expanded={redesignExpanded}
+				onToggle={() => setRedesignExpanded(!redesignExpanded)}
+			/>
+			<ExpandableDropdown
+				name="Invoices"
+				expanded={invoicesExpanded}
+				onToggle={() => setInvoicesExpanded(!invoicesExpanded)}
+			/>
+		</div>
+	);
 };
 ```
 
@@ -1599,70 +1627,68 @@ const Sidebar = () => {
 
 ```typescript
 @Component({
-  selector: 'expandable-dropdown',
-  standalone: true,
-  template: `
-    <div>
-      <button (click)="toggle.emit()">
-        {{expanded ? "V" : ">" }}
-        {{name}}
-      </button>
-      <div [hidden]="!expanded">
-         More information here
-      </div>
-    </div>
-  `,
+	selector: "expandable-dropdown",
+	standalone: true,
+	template: `
+		<div>
+			<button (click)="toggle.emit()">
+				{{ expanded ? "V" : ">" }}
+				{{ name }}
+			</button>
+			<div [hidden]="!expanded">More information here</div>
+		</div>
+	`,
 })
 export class ExpandableDropdownComponent {
-  @Input() name: string;
-  @Input() expanded: boolean;
-  @Output() toggle = new EventEmitter();
+	@Input() name: string;
+	@Input() expanded: boolean;
+	@Output() toggle = new EventEmitter();
 }
 
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  imports: [ExpandableDropdownComponent],
-  template: `
-    <expandable-dropdown 
-      name="Movies" 
-      [expanded]="moviesExpanded" 
-      (toggle)="moviesExpanded = !moviesExpanded"
-    />
-    <expandable-dropdown 
-      name="Pictures" 
-      [expanded]="picturesExpanded" 
-      (toggle)="picturesExpanded = !picturesExpanded"
-    />
-    <expandable-dropdown 
-      name="Concepts" 
-      [expanded]="conceptsExpanded" 
-      (toggle)="conceptsExpanded = !conceptsExpanded"
-    />
-    <expandable-dropdown 
-      name="Articles I'll Never Finish" 
-      [expanded]="articlesExpanded" 
-      (toggle)="articlesExpanded = !articlesExpanded"
-    />
-    <expandable-dropdown 
-      name="Website Redesigns v5" 
-      [expanded]="redesignExpanded" 
-      (toggle)="redesignExpanded = !redesignExpanded"
-    />
-    <expandable-dropdown 
-      name="Invoices" 
-      [expanded]="invoicesExpanded" 
-      (toggle)="invoicesExpanded = !invoicesExpanded"
-    />
-  `,
+	selector: "app-sidebar",
+	standalone: true,
+	imports: [ExpandableDropdownComponent],
+	template: `
+		<expandable-dropdown
+			name="Movies"
+			[expanded]="moviesExpanded"
+			(toggle)="moviesExpanded = !moviesExpanded"
+		/>
+		<expandable-dropdown
+			name="Pictures"
+			[expanded]="picturesExpanded"
+			(toggle)="picturesExpanded = !picturesExpanded"
+		/>
+		<expandable-dropdown
+			name="Concepts"
+			[expanded]="conceptsExpanded"
+			(toggle)="conceptsExpanded = !conceptsExpanded"
+		/>
+		<expandable-dropdown
+			name="Articles I'll Never Finish"
+			[expanded]="articlesExpanded"
+			(toggle)="articlesExpanded = !articlesExpanded"
+		/>
+		<expandable-dropdown
+			name="Website Redesigns v5"
+			[expanded]="redesignExpanded"
+			(toggle)="redesignExpanded = !redesignExpanded"
+		/>
+		<expandable-dropdown
+			name="Invoices"
+			[expanded]="invoicesExpanded"
+			(toggle)="invoicesExpanded = !invoicesExpanded"
+		/>
+	`,
 })
 export class SidebarComponent {
-  moviesExpanded = false;
-  picturesExpanded = false;
-  conceptsExpanded = false;
-  articlesExpanded = false;
-  redesignExpanded = false;
-  invoicesExpanded = false;
+	moviesExpanded = false;
+	picturesExpanded = false;
+	conceptsExpanded = false;
+	articlesExpanded = false;
+	redesignExpanded = false;
+	invoicesExpanded = false;
 }
 ```
 
@@ -1671,63 +1697,67 @@ export class SidebarComponent {
 ```vue
 <!-- ExpandableDropdown.vue -->
 <script setup>
-  const props = defineProps(['name', 'expanded'])
-  const emit = defineEmits(['toggle'])
+const props = defineProps(["name", "expanded"]);
+const emit = defineEmits(["toggle"]);
 </script>
 
 <template>
-  <div>
-    <button @click="emit('toggle')">
-      {{ expanded ? 'V' : '>' }}
-      {{ name }}
-    </button>
-    <div :hidden="!expanded">More information here</div>
-  </div>
+	<div>
+		<button @click="emit('toggle')">
+			{{ expanded ? "V" : ">" }}
+			{{ name }}
+		</button>
+		<div :hidden="!expanded">More information here</div>
+	</div>
 </template>
 ```
 
 ```vue
 <!-- Sidebar.vue -->
 <script setup>
-  import { ref } from 'vue'
-  import ExpandableDropdown from './ExpandableDropdown.vue'
+import { ref } from "vue";
+import ExpandableDropdown from "./ExpandableDropdown.vue";
 
-  const moviesExpanded = ref(false)
-  const picturesExpanded = ref(false)
-  const conceptsExpanded = ref(false)
-  const articlesExpanded = ref(false)
-  const redesignExpanded = ref(false)
-  const invoicesExpanded = ref(false)
+const moviesExpanded = ref(false);
+const picturesExpanded = ref(false);
+const conceptsExpanded = ref(false);
+const articlesExpanded = ref(false);
+const redesignExpanded = ref(false);
+const invoicesExpanded = ref(false);
 </script>
 
 <template>
-  <h1>My Files</h1>
-  <ExpandableDropdown name="Movies" 
-    :expanded="moviesExpanded" 
-    @toggle="moviesExpanded = !moviesExpanded" 
-  />
-  <ExpandableDropdown name="Pictures" 
-    :expanded="picturesExpanded" 
-    @toggle="picturesExpanded = !picturesExpanded" 
-  />
-  <ExpandableDropdown name="Concepts" 
-    :expanded="conceptsExpanded" 
-    @toggle="conceptsExpanded = !conceptsExpanded" 
-  />
-  <ExpandableDropdown
-    name="Articles I'll Never Finish"
-    :expanded="articlesExpanded"
-    @toggle="articlesExpanded = !articlesExpanded"
-  />
-  <ExpandableDropdown
-    name="Website Redesigns v5"
-    :expanded="redesignExpanded"
-    @toggle="redesignExpanded = !redesignExpanded"
-  />
-  <ExpandableDropdown name="Invoices" 
-    :expanded="invoicesExpanded" 
-    @toggle="invoicesExpanded = !invoicesExpanded" 
-  />
+	<h1>My Files</h1>
+	<ExpandableDropdown
+		name="Movies"
+		:expanded="moviesExpanded"
+		@toggle="moviesExpanded = !moviesExpanded"
+	/>
+	<ExpandableDropdown
+		name="Pictures"
+		:expanded="picturesExpanded"
+		@toggle="picturesExpanded = !picturesExpanded"
+	/>
+	<ExpandableDropdown
+		name="Concepts"
+		:expanded="conceptsExpanded"
+		@toggle="conceptsExpanded = !conceptsExpanded"
+	/>
+	<ExpandableDropdown
+		name="Articles I'll Never Finish"
+		:expanded="articlesExpanded"
+		@toggle="articlesExpanded = !articlesExpanded"
+	/>
+	<ExpandableDropdown
+		name="Website Redesigns v5"
+		:expanded="redesignExpanded"
+		@toggle="redesignExpanded = !redesignExpanded"
+	/>
+	<ExpandableDropdown
+		name="Invoices"
+		:expanded="invoicesExpanded"
+		@toggle="invoicesExpanded = !invoicesExpanded"
+	/>
 </template>
 ```
 
@@ -1755,58 +1785,58 @@ Let's start by creating an array of strings that we can use to render each dropd
 
 ```jsx
 const categories = [
-  'Movies',
-  'Pictures',
-  'Concepts',
-  "Articles I'll Never Finish",
-  'Website Redesigns v5',
-  'Invoices',
+	"Movies",
+	"Pictures",
+	"Concepts",
+	"Articles I'll Never Finish",
+	"Website Redesigns v5",
+	"Invoices",
 ];
 
 const Sidebar = () => {
-  const onToggle = () => {};
+	const onToggle = () => {};
 
-  return (
-    <div>
-      <h1>My Files</h1>
-      {categories.map((cat) => (
-        <ExpandableDropdown
-          key={cat}
-          name={cat}
-          expanded={false}
-          onToggle={() => onToggle()}
-        />
-      ))}
-    </div>
-  );
+	return (
+		<div>
+			<h1>My Files</h1>
+			{categories.map((cat) => (
+				<ExpandableDropdown
+					key={cat}
+					name={cat}
+					expanded={false}
+					onToggle={() => onToggle()}
+				/>
+			))}
+		</div>
+	);
 };
 ```
 
-###  Angular
+### Angular
 
 ```typescript
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  imports: [ExpandableDropdownComponent, NgFor],
-  template: `
-    <expandable-dropdown
-      *ngFor="let cat of categories"
-      [name]="cat"
-      [expanded]="false"
-      (toggle)="onToggle()"
-    />
-  `,
+	selector: "app-sidebar",
+	standalone: true,
+	imports: [ExpandableDropdownComponent, NgFor],
+	template: `
+		<expandable-dropdown
+			*ngFor="let cat of categories"
+			[name]="cat"
+			[expanded]="false"
+			(toggle)="onToggle()"
+		/>
+	`,
 })
 export class SidebarComponent {
 	categories = [
-        'Movies',
-        'Pictures',
-        'Concepts',
-        "Articles I'll Never Finish",
-        'Website Redesigns v5',
-        'Invoices',
-    ];
+		"Movies",
+		"Pictures",
+		"Concepts",
+		"Articles I'll Never Finish",
+		"Website Redesigns v5",
+		"Invoices",
+	];
 
 	onToggle() {}
 }
@@ -1817,16 +1847,29 @@ export class SidebarComponent {
 ```vue
 <!-- Sidebar.vue -->
 <script setup>
-  import ExpandableDropdown from './ExpandableDropdown.vue'
+import ExpandableDropdown from "./ExpandableDropdown.vue";
 
-  const categories = ['Movies', 'Pictures', 'Concepts', "Articles I'll Never Finish", 'Website Redesigns v5', 'Invoices']
+const categories = [
+	"Movies",
+	"Pictures",
+	"Concepts",
+	"Articles I'll Never Finish",
+	"Website Redesigns v5",
+	"Invoices",
+];
 
-  const onToggle = () => {}
+const onToggle = () => {};
 </script>
 
 <template>
-  <h1>My Files</h1>
-  <ExpandableDropdown v-for="cat of categories" :key="cat" :name="cat" :expanded="false" @toggle="onToggle()" />
+	<h1>My Files</h1>
+	<ExpandableDropdown
+		v-for="cat of categories"
+		:key="cat"
+		:name="cat"
+		:expanded="false"
+		@toggle="onToggle()"
+	/>
 </template>
 ```
 
@@ -1838,26 +1881,26 @@ To do this, we'll use an object map that uses the name of the category as the ke
 
 ```js
 ({
-    // This is expanded
-    "Articles I'll Never Finish": true,
-    // These are not
-    "Concepts": false,
-    "Invoices": false,
-    "Movies": false,
-    "Pictures": false,
-    "Website Redesigns v5": false,
-})
+	// This is expanded
+	"Articles I'll Never Finish": true,
+	// These are not
+	Concepts: false,
+	Invoices: false,
+	Movies: false,
+	Pictures: false,
+	"Website Redesigns v5": false,
+});
 ```
 
 To create this object map, we can create a function called `objFromCategories` that takes our string array and constructs the above from above:
 
 ```javascript
 function objFromCategories(categories) {
-  let obj = {};
-  for (let cat of categories) {
-    obj[cat] = false;
-  }
-  return obj;
+	let obj = {};
+	for (let cat of categories) {
+		obj[cat] = false;
+	}
+	return obj;
 }
 ```
 
@@ -1869,44 +1912,44 @@ Let's see this in use:
 
 ```jsx
 const categories = [
-  'Movies',
-  'Pictures',
-  'Concepts',
-  "Articles I'll Never Finish",
-  'Website Redesigns v5',
-  'Invoices',
+	"Movies",
+	"Pictures",
+	"Concepts",
+	"Articles I'll Never Finish",
+	"Website Redesigns v5",
+	"Invoices",
 ];
 
 const Sidebar = () => {
-  const [expandedMap, setExpandedMap] = useState(objFromCategories(categories));
+	const [expandedMap, setExpandedMap] = useState(objFromCategories(categories));
 
-  const onToggle = (cat) => {
-    const newExpandedMap = { ...expandedMap };
-    newExpandedMap[cat] = !newExpandedMap[cat];
-    setExpandedMap(newExpandedMap);
-  };
+	const onToggle = (cat) => {
+		const newExpandedMap = { ...expandedMap };
+		newExpandedMap[cat] = !newExpandedMap[cat];
+		setExpandedMap(newExpandedMap);
+	};
 
-  return (
-    <div>
-      <h1>My Files</h1>
-      {categories.map((cat) => (
-        <ExpandableDropdown
-          key={cat}
-          name={cat}
-          expanded={expandedMap[cat]}
-          onToggle={() => onToggle(cat)}
-        />
-      ))}
-    </div>
-  );
+	return (
+		<div>
+			<h1>My Files</h1>
+			{categories.map((cat) => (
+				<ExpandableDropdown
+					key={cat}
+					name={cat}
+					expanded={expandedMap[cat]}
+					onToggle={() => onToggle(cat)}
+				/>
+			))}
+		</div>
+	);
 };
 
 function objFromCategories(categories) {
-  let obj = {};
-  for (let cat of categories) {
-    obj[cat] = false;
-  }
-  return obj;
+	let obj = {};
+	for (let cat of categories) {
+		obj[cat] = false;
+	}
+	return obj;
 }
 ```
 
@@ -1914,41 +1957,41 @@ function objFromCategories(categories) {
 
 ```typescript
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  imports: [ExpandableDropdownComponent, NgFor],
-  template: `
-    <expandable-dropdown
-      *ngFor="let cat of categories"
-      [name]="cat"
-      [expanded]="expandedMap[cat]"
-      (toggle)="onToggle(cat)"
-    />
-  `,
+	selector: "app-sidebar",
+	standalone: true,
+	imports: [ExpandableDropdownComponent, NgFor],
+	template: `
+		<expandable-dropdown
+			*ngFor="let cat of categories"
+			[name]="cat"
+			[expanded]="expandedMap[cat]"
+			(toggle)="onToggle(cat)"
+		/>
+	`,
 })
 export class SidebarComponent {
-  categories = [
-    'Movies',
-    'Pictures',
-    'Concepts',
-    "Articles I'll Never Finish",
-    'Website Redesigns v5',
-    'Invoices',
-  ];
+	categories = [
+		"Movies",
+		"Pictures",
+		"Concepts",
+		"Articles I'll Never Finish",
+		"Website Redesigns v5",
+		"Invoices",
+	];
 
-  expandedMap = objFromCategories(this.categories);
+	expandedMap = objFromCategories(this.categories);
 
-  onToggle(cat) {
-    this.expandedMap[cat] = !this.expandedMap[cat];
-  }
+	onToggle(cat) {
+		this.expandedMap[cat] = !this.expandedMap[cat];
+	}
 }
 
 function objFromCategories(categories) {
-  let obj = {};
-  for (let cat of categories) {
-    obj[cat] = false;
-  }
-  return obj;
+	let obj = {};
+	for (let cat of categories) {
+		obj[cat] = false;
+	}
+	return obj;
 }
 ```
 
@@ -1957,41 +2000,46 @@ function objFromCategories(categories) {
 ```vue
 <!-- Sidebar.vue -->
 <script setup>
-  import { ref } from 'vue'
-  import ExpandableDropdown from './ExpandableDropdown.vue'
+import { ref } from "vue";
+import ExpandableDropdown from "./ExpandableDropdown.vue";
 
-  const categories = ['Movies', 'Pictures', 'Concepts', "Articles I'll Never Finish", 'Website Redesigns v5', 'Invoices']
+const categories = [
+	"Movies",
+	"Pictures",
+	"Concepts",
+	"Articles I'll Never Finish",
+	"Website Redesigns v5",
+	"Invoices",
+];
 
-  const expandedMap = ref(objFromCategories(categories))
+const expandedMap = ref(objFromCategories(categories));
 
-  const onToggle = (cat) => {
-    expandedMap.value[cat] = !expandedMap.value[cat]
-  }
+const onToggle = (cat) => {
+	expandedMap.value[cat] = !expandedMap.value[cat];
+};
 
-  function objFromCategories(categories) {
-    let obj = {}
-    for (let cat of categories) {
-      obj[cat] = false
-    }
-    return obj
-  }
+function objFromCategories(categories) {
+	let obj = {};
+	for (let cat of categories) {
+		obj[cat] = false;
+	}
+	return obj;
+}
 </script>
 
 <template>
-  <h1>My Files</h1>
-  <ExpandableDropdown
-    v-for="cat of categories"
-    :key="cat"
-    :name="cat"
-    :expanded="expandedMap[cat]"
-    @toggle="onToggle(cat)"
-  />
+	<h1>My Files</h1>
+	<ExpandableDropdown
+		v-for="cat of categories"
+		:key="cat"
+		:name="cat"
+		:expanded="expandedMap[cat]"
+		@toggle="onToggle(cat)"
+	/>
 </template>
 ```
 
 <!-- tabs:end -->
-
-
 
 ## Conditionally rendering hidden content
 
@@ -2003,15 +2051,15 @@ Now that we've migrated our dropdowns to use a list instead of hardcoding each c
 
 ```jsx
 const ExpandableDropdown = ({ name, expanded, onToggle }) => {
-  return (
-    <div>
-      <button onClick={onToggle}>
-        {expanded ? 'V ' : '> '}
-        {name}
-      </button>
-      {expanded && <div>More information here</div>}
-    </div>
-  );
+	return (
+		<div>
+			<button onClick={onToggle}>
+				{expanded ? "V " : "> "}
+				{name}
+			</button>
+			{expanded && <div>More information here</div>}
+		</div>
+	);
 };
 ```
 
@@ -2019,25 +2067,23 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 
 ```typescript
 @Component({
-  selector: 'expandable-dropdown',
-  standalone: true,
-  imports: [NgIf],
-  template: `
-    <div>
-      <button (click)="toggle.emit()">
-        {{expanded ? "V" : ">" }}
-        {{name}}
-      </button>
-      <div *ngIf="expanded">
-         More information here
-      </div>
-    </div>
-  `,
+	selector: "expandable-dropdown",
+	standalone: true,
+	imports: [NgIf],
+	template: `
+		<div>
+			<button (click)="toggle.emit()">
+				{{ expanded ? "V" : ">" }}
+				{{ name }}
+			</button>
+			<div *ngIf="expanded">More information here</div>
+		</div>
+	`,
 })
 export class ExpandableDropdownComponent {
-  @Input() name: string;
-  @Input() expanded: boolean;
-  @Output() toggle = new EventEmitter();
+	@Input() name: string;
+	@Input() expanded: boolean;
+	@Output() toggle = new EventEmitter();
 }
 ```
 
@@ -2046,20 +2092,19 @@ export class ExpandableDropdownComponent {
 ```vue
 <!-- ExpandableDropdown.vue -->
 <script setup>
-  const props = defineProps(['name', 'expanded'])
-  const emit = defineEmits(['toggle'])
+const props = defineProps(["name", "expanded"]);
+const emit = defineEmits(["toggle"]);
 </script>
 
 <template>
-  <div>
-    <button @click="emit('toggle')">
-      {{ expanded ? 'V' : '>' }}
-      {{ name }}
-    </button>
-    <div v-if="expanded">More information here</div>
-  </div>
+	<div>
+		<button @click="emit('toggle')">
+			{{ expanded ? "V" : ">" }}
+			{{ name }}
+		</button>
+		<div v-if="expanded">More information here</div>
+	</div>
 </template>
 ```
 
 <!-- tabs:end -->
-

@@ -1,13 +1,13 @@
 ---
 {
-    title: "Directives",
-    description: "If components are a way to share JS logic between mutliple, composible DOM nodes; directives are a way to assign logic to any single DOM node.",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 14,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Directives",
+  description: "If components are a way to share JS logic between mutliple, composible DOM nodes; directives are a way to assign logic to any single DOM node.",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 14,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
 
@@ -19,7 +19,7 @@ For example, we may want to have logic that's associated with a given DOM node w
 
 # What is a directive
 
-In our ["Introduction to Components" chapter](/posts/ffg-fundamentals-intro-to-components), we talked about how a component is a collection of structure, styling, and logic that's associated with one or more HTML nodes. 
+In our ["Introduction to Components" chapter](/posts/ffg-fundamentals-intro-to-components), we talked about how a component is a collection of structure, styling, and logic that's associated with one or more HTML nodes.
 
 A directive, on the other hand, is a collection of JavaScript logic that you can apply to a single DOM element.
 
@@ -29,13 +29,11 @@ As a result, some frameworks, like Angular, take this comparison literally and u
 
 Here's what a basic directive looks like in each of the three frameworks:
 
-
-
 <!-- tabs:start -->
 
 ## React
 
-React as a framework doesn't _quite_ have the concept of directives built-in. 
+React as a framework doesn't _quite_ have the concept of directives built-in.
 
 Luckily, this doesn't mean that we as React developers need to be left behind. Because a React component is effectively just a JavaScript function, we can use the base concept of a directive to create shared logic for DOM nodes.
 
@@ -43,42 +41,40 @@ Remember from our ["Element Reference" chapter that you can use a function assoc
 
 ```jsx
 const useLogElement = () => {
-  const ref = (el) => console.log(el);
-  return { ref };
+	const ref = (el) => console.log(el);
+	return { ref };
 };
 
 const App = () => {
-  const { ref } = useLogElement();
-  return <p ref={ref}>Hello, world</p>;
+	const { ref } = useLogElement();
+	return <p ref={ref}>Hello, world</p>;
 };
 ```
 
-> While we'll continue to cover alternative APIs that can do much of the same as directives in other frameworks, it might be beneficial to broaden your horizons and take a glance at what a "true" directive looks like in other frameworks. 
+> While we'll continue to cover alternative APIs that can do much of the same as directives in other frameworks, it might be beneficial to broaden your horizons and take a glance at what a "true" directive looks like in other frameworks.
 
 ## Angular
 
 You setup a directive in Angular very similarly to how you might construct a component: using the `@Directive` decorator.
 
 ```typescript
-import { Component, ElementRef, Directive } from '@angular/core';
+import { Component, ElementRef, Directive } from "@angular/core";
 
 @Directive({
-  selector: '[sayHi]',
-  standalone: true,
+	selector: "[sayHi]",
+	standalone: true,
 })
 class LogElementDirective {
-  constructor() {
-    console.log("Hello, world!");
-  }
+	constructor() {
+		console.log("Hello, world!");
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [LogElementDirective],
-  template: `
-    <p sayHi>Hello, world</p>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [LogElementDirective],
+	template: ` <p sayHi>Hello, world</p> `,
 })
 class AppComponent {}
 ```
@@ -91,12 +87,12 @@ Instead, it's oftentimes more useful to get a reference to the element that the 
 
 ```typescript
 @Directive({
-  selector: '[logElement]',
-  standalone: true,
+	selector: "[logElement]",
+	standalone: true,
 })
 class LogElementDirective {
-  // el.nativeElement is a reference to the HTMLParagraphElement
-  el = inject(ElementRef<any>);
+	// el.nativeElement is a reference to the HTMLParagraphElement
+	el = inject(ElementRef<any>);
 }
 ```
 
@@ -106,18 +102,18 @@ To fix this, we can extract our `inject` into a function that we can call from w
 
 ```typescript
 function findAndLogTheElement() {
-  const el = inject(ElementRef<any>);
-  // HTMLParagraphElement
-  console.log(el.nativeElement);
-  return el;
+	const el = inject(ElementRef<any>);
+	// HTMLParagraphElement
+	console.log(el.nativeElement);
+	return el;
 }
 
 @Directive({
-  selector: '[sayHi]',
-  standalone: true,
+	selector: "[sayHi]",
+	standalone: true,
 })
 class LogElementDirective {
-  el = findAndLogTheElement();
+	el = findAndLogTheElement();
 }
 ```
 
@@ -131,12 +127,12 @@ Inside of this object, we'll add a key for `created` and assign it a function in
 <!-- App.vue -->
 <script setup>
 const vSayHi = {
-  created: () => console.log('Hello, world!'),
-}
+	created: () => console.log("Hello, world!"),
+};
 </script>
 
 <template>
-  <p v-say-hi>Hello, world</p>
+	<p v-say-hi>Hello, world</p>
 </template>
 ```
 
@@ -150,7 +146,6 @@ You'll notice that these directives' logic are applied to elements through some 
 
 Now that we've seen what a directive looks like, let's apply it to some real-world examples.
 
-
 # Basic Directives
 
 Now that we have a reference to the underlying DOM node, we can utilize that to do various things with the element.
@@ -163,15 +158,15 @@ For example, let's say that we wanted to change the color of a button using noth
 
 ```jsx
 const useStyleBackground = () => {
-  const ref = (el) => {
-    el.style.background = 'red';
-  };
-  return { ref };
+	const ref = (el) => {
+		el.style.background = "red";
+	};
+	return { ref };
 };
 
 const App = () => {
-  const { ref } = useStyleBackground();
-  return <button ref={ref}>Hello, world</button>;
+	const { ref } = useStyleBackground();
+	return <button ref={ref}>Hello, world</button>;
 };
 ```
 
@@ -179,26 +174,24 @@ const App = () => {
 
 ```typescript
 function injectElAndStyle() {
-  const el = inject(ElementRef<any>);
-  el.nativeElement.style.background = 'red';
-  return el;
+	const el = inject(ElementRef<any>);
+	el.nativeElement.style.background = "red";
+	return el;
 }
 
 @Directive({
-  selector: '[styleBackground]',
-  standalone: true,
+	selector: "[styleBackground]",
+	standalone: true,
 })
 class StyleBackgroundDirective {
-  el = injectElAndStyle();
+	el = injectElAndStyle();
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [StyleBackgroundDirective],
-  template: `
-    <button styleBackground>Hello, world</button>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [StyleBackgroundDirective],
+	template: ` <button styleBackground>Hello, world</button> `,
 })
 class AppComponent {}
 ```
@@ -213,20 +206,20 @@ The first argument that's passed to `created` is an DOM node reference that we c
 <!-- App.vue -->
 <script setup>
 const vStyleBackground = {
-  created: (el) => {
-    el.style.background = 'red'
-  },
-}
+	created: (el) => {
+		el.style.background = "red";
+	},
+};
 </script>
 
 <template>
-  <button v-style-background>Hello, world</button>
+	<button v-style-background>Hello, world</button>
 </template>
 ```
 
 <!-- tabs:end -->
 
->While this is a good demonstration of how you can use an element reference within a directive, styling an element is generally suggested to be done within a CSS file itself, unless you have good reason otherwise.
+> While this is a good demonstration of how you can use an element reference within a directive, styling an element is generally suggested to be done within a CSS file itself, unless you have good reason otherwise.
 >
 > This is because styling an element through JavaScript can cause issues with [server-side rendering](/posts/what-is-ssr-and-ssg#ssr), and can also cause [layout thrashing](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing) if done incorrectly.
 
@@ -248,22 +241,22 @@ As we already know, we can use built-in React hooks into our custom hooks, which
 
 ```jsx
 const useFocusElement = () => {
-  const [el, setEl] = useState();
+	const [el, setEl] = useState();
 
-  useEffect(() => {
-    if (!el) return;
-    el.focus();
-  }, [el])
+	useEffect(() => {
+		if (!el) return;
+		el.focus();
+	}, [el]);
 
-  const ref = (localEl) => {
-    setEl(localEl);
-  };
-  return { ref };
+	const ref = (localEl) => {
+		setEl(localEl);
+	};
+	return { ref };
 };
 
 const App = () => {
-  const { ref } = useFocusElement();
-  return <button ref={ref}>Hello, world</button>;
+	const { ref } = useFocusElement();
+	return <button ref={ref}>Hello, world</button>;
 };
 ```
 
@@ -275,51 +268,48 @@ Angular uses the same `implements` implementation for classes to use lifecycle m
 
 ```typescript
 @Directive({
-  selector: '[focusElement]',
-  standalone: true,
+	selector: "[focusElement]",
+	standalone: true,
 })
 class StyleBackgroundDirective implements OnInit {
-  el = inject(ElementRef<any>);
+	el = inject(ElementRef<any>);
 
-  ngOnInit() {
-    this.el.nativeElement.focus();
-  }
+	ngOnInit() {
+		this.el.nativeElement.focus();
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [StyleBackgroundDirective],
-  template: `
-    <button focusElement>Hello, world</button>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [StyleBackgroundDirective],
+	template: ` <button focusElement>Hello, world</button> `,
 })
 class AppComponent {}
 ```
 
 ## Vue
 
-Just as you can use the `created` property on a directive object, you can change this property's name to match any of [Vue's component lifecycle method names](https://vuejs.org/guide/essentials/lifecycle.html). 
+Just as you can use the `created` property on a directive object, you can change this property's name to match any of [Vue's component lifecycle method names](https://vuejs.org/guide/essentials/lifecycle.html).
 
 ```vue
 <!-- App.vue -->
 <script setup>
 const vFocusElement = {
-  mounted: (el) => {
-    el.focus()
-  },
-}
+	mounted: (el) => {
+		el.focus();
+	},
+};
 </script>
 
 <template>
-  <button v-focus-element>Hello, world</button>
+	<button v-focus-element>Hello, world</button>
 </template>
 ```
 
 For example, if we wanted to add a cleanup to this directive, we could change `mounted` to be `unmounted` instead.
 
 <!-- tabs:end -->
-
 
 # Passing Data to Directives
 
@@ -337,21 +327,21 @@ Because a React Hook is a function at heart, we're able to pass values as we wou
 
 ```jsx
 const useStyleBackground = (color) => {
-  const ref = (el) => {
-    el.style.background = color;
-  };
-  return { ref };
+	const ref = (el) => {
+		el.style.background = color;
+	};
+	return { ref };
 };
 
 const App = () => {
-  const { ref } = useStyleBackground('#FFAEAE');
-  return <button ref={ref}>Hello, world</button>;
+	const { ref } = useStyleBackground("#FFAEAE");
+	return <button ref={ref}>Hello, world</button>;
 };
 ```
 
 ## Angular
 
-In order to pass a value to an Angular directive, we can use the `@Input` directive, the same as a component. 
+In order to pass a value to an Angular directive, we can use the `@Input` directive, the same as a component.
 
 However, one way that a directive's inputs differ from a component's is that you need to prepend the `selector` value as the `Input` variable name, like so:
 
@@ -359,33 +349,31 @@ However, one way that a directive's inputs differ from a component's is that you
 
 ```typescript
 @Directive({
-  selector: '[styleBackground]',
-  standalone: true,
+	selector: "[styleBackground]",
+	standalone: true,
 })
 class StyleBackgroundDirective implements OnInit {
-  @Input() styleBackground: string;
+	@Input() styleBackground: string;
 
-  el = inject(ElementRef<any>);
+	el = inject(ElementRef<any>);
 
-  ngOnInit() {
-    this.el.nativeElement.style.background = this.styleBackground;
-  }
+	ngOnInit() {
+		this.el.nativeElement.style.background = this.styleBackground;
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [StyleBackgroundDirective],
-  template: `
-    <button styleBackground="red">Hello, world</button>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [StyleBackgroundDirective],
+	template: ` <button styleBackground="red">Hello, world</button> `,
 })
 class AppComponent {}
 ```
 
 ## Vue
 
-While Vue's directives are not simply functions, as they're objects that contain functions, they are able to access the value bound to the directive through a function argument on each property. 
+While Vue's directives are not simply functions, as they're objects that contain functions, they are able to access the value bound to the directive through a function argument on each property.
 
 While the first argument of each lifecycle's key is an element reference (`el`) , the second argument will always be the value that's assigned to the directive.
 
@@ -393,14 +381,14 @@ While the first argument of each lifecycle's key is an element reference (`el`) 
 <!-- App.vue -->
 <script setup>
 const vStyleBackground = {
-  mounted: (el, binding) => {
-    el.style.background = binding.value
-  },
-}
+	mounted: (el, binding) => {
+		el.style.background = binding.value;
+	},
+};
 </script>
 
 <template>
-  <button v-style-background="'red'">Hello, world</button>
+	<button v-style-background="'red'">Hello, world</button>
 </template>
 ```
 
@@ -416,11 +404,11 @@ To demonstrate this, let's create a `Color` class that includes the following pr
 
 ```javascript
 class Color {
-    constructor(r, g, b) {
-        this.r = r;
-        this.g = g;
-        this.b = b;
-    }
+	constructor(r, g, b) {
+		this.r = r;
+		this.g = g;
+		this.b = b;
+	}
 }
 ```
 
@@ -432,25 +420,25 @@ Then, we can render out this color inside of our background styling directive:
 
 ```jsx
 class Color {
-  constructor(r, g, b) {
-    this.r = r;
-    this.g = g;
-    this.b = b;
-  }
+	constructor(r, g, b) {
+		this.r = r;
+		this.g = g;
+		this.b = b;
+	}
 }
 
 const colorInstance = new Color(255, 174, 174);
 
 const useStyleBackground = (color) => {
-  const ref = (el) => {
-    el.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
-  };
-  return { ref };
+	const ref = (el) => {
+		el.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
+	};
+	return { ref };
 };
 
 const App = () => {
-  const { ref } = useStyleBackground(colorInstance);
-  return <button ref={ref}>Hello, world</button>;
+	const { ref } = useStyleBackground(colorInstance);
+	return <button ref={ref}>Hello, world</button>;
 };
 ```
 
@@ -458,43 +446,41 @@ const App = () => {
 
 ```typescript
 class Color {
-  r: number;
-  g: number;
-  b: number;
+	r: number;
+	g: number;
+	b: number;
 
-  constructor(r, g, b) {
-    this.r = r;
-    this.g = g;
-    this.b = b;
-  }
+	constructor(r, g, b) {
+		this.r = r;
+		this.g = g;
+		this.b = b;
+	}
 }
 
 @Directive({
-  selector: '[styleBackground]',
-  standalone: true,
+	selector: "[styleBackground]",
+	standalone: true,
 })
 class StyleBackgroundDirective implements OnInit {
-  @Input() styleBackground: Color;
+	@Input() styleBackground: Color;
 
-  el = inject(ElementRef<any>);
+	el = inject(ElementRef<any>);
 
-  ngOnInit() {
-    const color = this.styleBackground;
-    this.el.nativeElement.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
-  }
+	ngOnInit() {
+		const color = this.styleBackground;
+		this.el.nativeElement.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
+	}
 }
 
 @Component({
-  selector: 'app-root',
+	selector: "app-root",
 
-  standalone: true,
-  imports: [StyleBackgroundDirective],
-  template: `
-    <button [styleBackground]="color">Hello, world</button>
-  `,
+	standalone: true,
+	imports: [StyleBackgroundDirective],
+	template: ` <button [styleBackground]="color">Hello, world</button> `,
 })
 class AppComponent {
-  color = new Color(255, 174, 174);
+	color = new Color(255, 174, 174);
 }
 ```
 
@@ -504,25 +490,25 @@ class AppComponent {
 <!-- App.vue -->
 <script setup>
 class Color {
-  constructor(r, g, b) {
-    this.r = r
-    this.g = g
-    this.b = b
-  }
+	constructor(r, g, b) {
+		this.r = r;
+		this.g = g;
+		this.b = b;
+	}
 }
 
-const colorInstance = new Color(255, 174, 174)
+const colorInstance = new Color(255, 174, 174);
 
 const vStyleBackground = {
-  mounted: (el, binding) => {
-    const color = binding.value
-    el.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`
-  },
-}
+	mounted: (el, binding) => {
+		const color = binding.value;
+		el.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
+	},
+};
 </script>
 
 <template>
-  <button v-style-background="colorInstance">Hello, world</button>
+	<button v-style-background="colorInstance">Hello, world</button>
 </template>
 ```
 
@@ -532,7 +518,7 @@ Now we can customize the color using incremental updates to the RGB values of a 
 
 ## Passing Multiple Values
 
-While a class instance of `Color` may be useful in production apps, for smaller projects it might be nicer to manually pass the  `r`, `g`, and `b` values directly to a directive, without needing a class.
+While a class instance of `Color` may be useful in production apps, for smaller projects it might be nicer to manually pass the `r`, `g`, and `b` values directly to a directive, without needing a class.
 
 Just like we're able to pass mutliple values to a component, we can do the same within a directive. Let's see how it's done for each of the three frameworks:
 
@@ -544,15 +530,15 @@ Once again, the fact that a custom hook is still just a normal function provides
 
 ```jsx
 const useStyleBackground = (r, g, b) => {
-  const ref = (el) => {
-    el.style.background = `rgb(${r}, ${g}, ${b})`;
-  };
-  return { ref };
+	const ref = (el) => {
+		el.style.background = `rgb(${r}, ${g}, ${b})`;
+	};
+	return { ref };
 };
 
 const App = () => {
-  const { ref } = useStyleBackground(255, 174, 174);
-  return <button ref={ref}>Hello, world</button>;
+	const { ref } = useStyleBackground(255, 174, 174);
+	return <button ref={ref}>Hello, world</button>;
 };
 ```
 
@@ -564,34 +550,34 @@ In reality, you can name an input anything you'd like, but then need to have an 
 
 ```typescript
 @Directive({
-  selector: '[styleBackground]',
-  standalone: true,
+	selector: "[styleBackground]",
+	standalone: true,
 })
 class StyleBackgroundDirective implements OnInit {
-  @Input() r: number;
-  @Input() g: number;
-  @Input() b: number;
+	@Input() r: number;
+	@Input() g: number;
+	@Input() b: number;
 
-  el = inject(ElementRef<any>);
+	el = inject(ElementRef<any>);
 
-  ngOnInit() {
-    this.el.nativeElement.style.background = `rgb(${this.r}, ${this.g}, ${this.b})`;
-  }
+	ngOnInit() {
+		this.el.nativeElement.style.background = `rgb(${this.r}, ${this.g}, ${this.b})`;
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [StyleBackgroundDirective],
-  template: `
-    <button styleBackground [r]="255" [g]="174" [b]="174">Hello, world</button>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [StyleBackgroundDirective],
+	template: `
+		<button styleBackground [r]="255" [g]="174" [b]="174">Hello, world</button>
+	`,
 })
 class AppComponent {}
 ```
 
-> If you forget to include the attribute with the same selector (in this case,  `styleBackground`), you'll get the following error:
-> 
+> If you forget to include the attribute with the same selector (in this case, `styleBackground`), you'll get the following error:
+>
 > ```
 > Can't bind to 'r' since it isn't a known property of 'button'.
 > ```
@@ -606,25 +592,19 @@ However, you can get around this limitation by passing an argument to the direct
 <!-- App.vue -->
 <script setup>
 const vStyleBackground = {
-  mounted: (el, binding) => {
-    const color = binding.value
-    el.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`
-  },
-}
+	mounted: (el, binding) => {
+		const color = binding.value;
+		el.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
+	},
+};
 </script>
 
 <template>
-  <button v-style-background="{ r: 255, g: 174, b: 174 }">Hello, world</button>
+	<button v-style-background="{ r: 255, g: 174, b: 174 }">Hello, world</button>
 </template>
 ```
 
 <!-- tabs:end -->
-
-
-
-
-
-
 
 # Conditionally Rendered UI Via Directives
 
@@ -656,8 +636,8 @@ While the separation of your users into "groups" (or "buckets") is typically don
 
 ```javascript
 const flags = {
-  addToCartButton: true,
-  purchaseThisItemButton: false
+	addToCartButton: true,
+	purchaseThisItemButton: false,
 };
 ```
 
@@ -683,40 +663,40 @@ Let's store a bit of UI into a JSX variable and pass it to a custom React Hook t
 
 ```jsx
 const flags = {
-  addToCartButton: true,
-  purchaseThisItemButton: false
+	addToCartButton: true,
+	purchaseThisItemButton: false,
 };
 
 const useFeatureFlag = ({
-  flag,
-  enabledComponent,
-  disabledComponent = null,
+	flag,
+	enabledComponent,
+	disabledComponent = null,
 }) => {
-  if (flags[flag]) {
-    return { comp: enabledComponent };
-  }
-  return {
-    comp: disabledComponent,
-  };
+	if (flags[flag]) {
+		return { comp: enabledComponent };
+	}
+	return {
+		comp: disabledComponent,
+	};
 };
 
 export default function App() {
-  const { comp: addToCartComp } = useFeatureFlag({
-    flag: 'addToCartButton',
-    enabledComponent: <button>Add to cart</button>,
-  });
-  
-  const { comp: purchaseComp } = useFeatureFlag({
-    flag: 'purchaseThisItemButton',
-    enabledComponent: <button>Purchase this item</button>,
-  });
-    
-  return (
-    <div>
-      {addToCartComp}
-      {purchaseComp}
-  	</div>
-  );
+	const { comp: addToCartComp } = useFeatureFlag({
+		flag: "addToCartButton",
+		enabledComponent: <button>Add to cart</button>,
+	});
+
+	const { comp: purchaseComp } = useFeatureFlag({
+		flag: "purchaseThisItemButton",
+		enabledComponent: <button>Purchase this item</button>,
+	});
+
+	return (
+		<div>
+			{addToCartComp}
+			{purchaseComp}
+		</div>
+	);
 }
 ```
 
@@ -735,37 +715,38 @@ To pass data to an `ng-template`, you need to provide a "context" object for wha
 For example, let's say that we want to pass a "name" to a template. We can provide an object that looks like:
 
 ```javascript
-{name: 'Corbin'}
+{
+	name: "Corbin";
+}
 ```
 
 And then render this data inside of a template using:
 
 ```html
 <ng-template let-name="name">
-  <p>{{name}}</p>
+	<p>{{name}}</p>
 </ng-template>
 ```
 
-Here, we're saying that we want to bind the context key `name` to a `name` template variable. This template variable is then accessible to any HTML nodes under 
+Here, we're saying that we want to bind the context key `name` to a `name` template variable. This template variable is then accessible to any HTML nodes under
 the `ng-template`.
 
 However, because `ng-template` doesn't render anything on its own, we'll need to supply a parent to render the `ng-template`'s contents into. We do this using the `ngTemplateOutlet` directive:
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NgTemplateOutlet],
-  template: `
-    <ng-template #templ let-name="name">
-      <p>{{name}}</p>
-    </ng-template>
-    <div
-      [ngTemplateOutlet]="templ"
-      [ngTemplateOutletContext]="{name: 'Corbin'}"
-    >
-    </div>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [NgTemplateOutlet],
+	template: `
+		<ng-template #templ let-name="name">
+			<p>{{ name }}</p>
+		</ng-template>
+		<div
+			[ngTemplateOutlet]="templ"
+			[ngTemplateOutletContext]="{ name: 'Corbin' }"
+		></div>
+	`,
 })
 class AppComponent {}
 ```
@@ -774,11 +755,11 @@ We can even choose to use [an `ng-container`](/posts/ffg-fundamentals-transparen
 
 ```html
 <ng-template #templ let-name="name">
-  <p>{{name}}</p>
+	<p>{{name}}</p>
 </ng-template>
 <ng-container
-  [ngTemplateOutlet]="templ"
-  [ngTemplateOutletContext]="{name: 'Corbin'}"
+	[ngTemplateOutlet]="templ"
+	[ngTemplateOutletContext]="{name: 'Corbin'}"
 >
 </ng-container>
 ```
@@ -789,7 +770,7 @@ Previously, we used a syntax like:
 
 ```html
 <ng-template let-name="name">
-  <p>{{name}}</p>
+	<p>{{name}}</p>
 </ng-template>
 ```
 
@@ -799,23 +780,22 @@ To solve this, we can pass a "default" key called `$implicit` and bind it like s
 
 ```html
 <ng-template let-name>
-  <p>{{name}}</p>
+	<p>{{name}}</p>
 </ng-template>
 ```
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NgTemplateOutlet],
-  template: `
-    <ng-template #templ let-name>{{name}}</ng-template>
-    <div
-      [ngTemplateOutlet]="templ"
-      [ngTemplateOutletContext]="{$implicit: 'Corbin'}"
-    >
-    </div>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [NgTemplateOutlet],
+	template: `
+		<ng-template #templ let-name>{{ name }}</ng-template>
+		<div
+			[ngTemplateOutlet]="templ"
+			[ngTemplateOutletContext]="{ $implicit: 'Corbin' }"
+		></div>
+	`,
 })
 class AppComponent {}
 ```
@@ -826,21 +806,19 @@ While we've been using `inject` in directives to gain access to the directive's 
 
 ```typescript
 @Directive({
-  selector: '[beOnTemplate]',
-  standalone: true,
+	selector: "[beOnTemplate]",
+	standalone: true,
 })
 class TemplateDirective {
-  constructor() {
-    console.log('I am alive!');
-  }
+	constructor() {
+		console.log("I am alive!");
+	}
 }
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [TemplateDirective],
-  template: `
-    <ng-template beOnTemplate><p>Hello, world</p></ng-template>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [TemplateDirective],
+	template: ` <ng-template beOnTemplate><p>Hello, world</p></ng-template> `,
 })
 class AppComponent {}
 ```
@@ -853,25 +831,23 @@ Well, there's a hint if we try to access the underlying HTML element using `Elem
 
 ```typescript
 @Directive({
-  selector: '[beOnTemplate]',
-  standalone: true,
+	selector: "[beOnTemplate]",
+	standalone: true,
 })
 class TemplateDirective implements OnInit {
-  @Input() background: string;
-  el = inject(ElementRef<any>);
-  ngOnInit() {
-    // This will log a "Comment"
-    console.log(this.el.nativeElement);
-  }
+	@Input() background: string;
+	el = inject(ElementRef<any>);
+	ngOnInit() {
+		// This will log a "Comment"
+		console.log(this.el.nativeElement);
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [TemplateDirective],
-  template: `
-    <ng-template beOnTemplate><p>Hello, world</p></ng-template>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [TemplateDirective],
+	template: ` <ng-template beOnTemplate><p>Hello, world</p></ng-template> `,
 })
 class AppComponent {}
 ```
@@ -892,26 +868,26 @@ Here, we'll use dependency injection to get access to an `ng-template`'s `Templa
 
 ```typescript
 @Directive({
-  selector: '[item]',
-  standalone: true,
+	selector: "[item]",
+	standalone: true,
 })
 class ItemDirective {
-  constructor(private template: TemplateRef<any>) {
-    console.log(this.template);
-  }
+	constructor(private template: TemplateRef<any>) {
+		console.log(this.template);
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ItemDirective],
-  template: `
-    <div>
-      <ng-template item>
-        <p>Hello, world!</p>
-      </ng-template>
-    </div>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [ItemDirective],
+	template: `
+		<div>
+			<ng-template item>
+				<p>Hello, world!</p>
+			</ng-template>
+		</div>
+	`,
 })
 class AppComponent {}
 ```
@@ -945,52 +921,66 @@ To do this, Angular utilizes a compiler to create intelligent "template function
 This means that:
 
 ```typescript
-import {Component} from '@angular/core';
+import { Component } from "@angular/core";
 @Component({
-  selector: 'app-cmp',
-  template: '<span>Your name is {{name}}</span>',
+	selector: "app-cmp",
+	template: "<span>Your name is {{name}}</span>",
 })
 export class AppCmp {
-  name = 'Alex';
+	name = "Alex";
 }
 ```
 
 Might compile to something like:
 
 ```typescript
-import { Component } from '@angular/core';                                      
+import { Component } from "@angular/core";
 import * as i0 from "@angular/core";
 export class AppCmp {
-    constructor() {
-        this.name = 'Alex';
-    }
-}                                                                               
-AppCmp.ɵfac = function AppCmp_Factory(t) { return new (t || AppCmp)(); };
+	constructor() {
+		this.name = "Alex";
+	}
+}
+AppCmp.ɵfac = function AppCmp_Factory(t) {
+	return new (t || AppCmp)();
+};
 AppCmp.ɵcmp = i0.ɵɵdefineComponent({
-  type: AppCmp,
-  selectors: [["app-cmp"]],
-  decls: 2,
-  vars: 1,
-  template: function AppCmp_Template(rf, ctx) {
-    if (rf & 1) {
-      i0.ɵɵelementStart(0, "span");
-      i0.ɵɵtext(1);
-      i0.ɵɵelementEnd();
-    }
-    if (rf & 2) {
-      i0.ɵɵadvance(1);
-      i0.ɵɵtextInterpolate1("Your name is ", ctx.name, "");
-    }
-  },
-  encapsulation: 2
-});                                                   
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(AppCmp, [{
-        type: Component,
-        args: [{
-                selector: 'app-cmp',
-                template: '<span>Your name is {{name}}</span>',
-            }]
-    }], null, null); })();
+	type: AppCmp,
+	selectors: [["app-cmp"]],
+	decls: 2,
+	vars: 1,
+	template: function AppCmp_Template(rf, ctx) {
+		if (rf & 1) {
+			i0.ɵɵelementStart(0, "span");
+			i0.ɵɵtext(1);
+			i0.ɵɵelementEnd();
+		}
+		if (rf & 2) {
+			i0.ɵɵadvance(1);
+			i0.ɵɵtextInterpolate1("Your name is ", ctx.name, "");
+		}
+	},
+	encapsulation: 2,
+});
+(function () {
+	(typeof ngDevMode === "undefined" || ngDevMode) &&
+		i0.ɵsetClassMetadata(
+			AppCmp,
+			[
+				{
+					type: Component,
+					args: [
+						{
+							selector: "app-cmp",
+							template: "<span>Your name is {{name}}</span>",
+						},
+					],
+				},
+			],
+			null,
+			null,
+		);
+})();
 ```
 
 > This code sample is taken from [the "How the Angular Compiler Works" article written by the Angular team](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549).
@@ -1003,30 +993,30 @@ This means that this code:
 
 ```typescript
 @Component({
-  selector: 'list-comp',
-  standalone: true,
-  template: `
-    <ul>
-      <li>Say hi</li>
-      <li>It's polite</li>
-    </ul>
-  `,
+	selector: "list-comp",
+	standalone: true,
+	template: `
+		<ul>
+			<li>Say hi</li>
+			<li>It's polite</li>
+		</ul>
+	`,
 })
 class ListComp {}
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ListComp],
-  template: `
-    <div>
-      <p>Hello, world!</p>
-    </div>
-    <div>
-      <p>Hello, humans!</p>
-    </div>
-    <list-comp/>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [ListComp],
+	template: `
+		<div>
+			<p>Hello, world!</p>
+		</div>
+		<div>
+			<p>Hello, humans!</p>
+		</div>
+		<list-comp />
+	`,
 })
 class AppComponent {}
 ```
@@ -1043,32 +1033,32 @@ Similarly, as a template is handled by an `EmbeddedView` in Angular's compiler, 
 
 ```typescript
 function injectAndRenderTemplate() {
-  const templToRender = inject(TemplateRef<any>);
-  const parentViewRef = inject(ViewContainerRef);
+	const templToRender = inject(TemplateRef<any>);
+	const parentViewRef = inject(ViewContainerRef);
 
-  parentViewRef.createEmbeddedView(templToRender);
-  return templToRender;
+	parentViewRef.createEmbeddedView(templToRender);
+	return templToRender;
 }
 
 @Directive({
-  selector: '[passBackground]',
-  standalone: true,
+	selector: "[passBackground]",
+	standalone: true,
 })
 class PassBackgroundDirective {
-  template = injectAndRenderTemplate();
+	template = injectAndRenderTemplate();
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [PassBackgroundDirective],
-  template: `
-    <div>
-      <ng-template passBackground>
-        <p>Hello, world!</p>
-      </ng-template>
-    </div>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [PassBackgroundDirective],
+	template: `
+		<div>
+			<ng-template passBackground>
+				<p>Hello, world!</p>
+			</ng-template>
+		</div>
+	`,
 })
 class AppComponent {}
 ```
@@ -1081,34 +1071,34 @@ Just as we could pass data to a template inside of a component using `ngTemplate
 
 ```typescript
 function injectAndRenderTemplate() {
-  const templToRender = inject(TemplateRef<any>);
-  const parentViewRef = inject(ViewContainerRef);
+	const templToRender = inject(TemplateRef<any>);
+	const parentViewRef = inject(ViewContainerRef);
 
-  parentViewRef.createEmbeddedView(templToRender, {
-      backgroundColor: 'grey',
-  });
-  return templToRender;
+	parentViewRef.createEmbeddedView(templToRender, {
+		backgroundColor: "grey",
+	});
+	return templToRender;
 }
 
 @Directive({
-  selector: '[passBackground]',
-  standalone: true,
+	selector: "[passBackground]",
+	standalone: true,
 })
 class PassBackgroundDirective {
-  template = injectAndRenderTemplate();
+	template = injectAndRenderTemplate();
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [PassBackgroundDirective],
-  template: `
-    <div>
-      <ng-template passBackground let-backgroundColor="backgroundColor">
-        <p [style]="{backgroundColor}">Hello, world!</p>
-      </ng-template>
-    </div>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [PassBackgroundDirective],
+	template: `
+		<div>
+			<ng-template passBackground let-backgroundColor="backgroundColor">
+				<p [style]="{ backgroundColor }">Hello, world!</p>
+			</ng-template>
+		</div>
+	`,
 })
 class AppComponent {}
 ```
@@ -1125,9 +1115,9 @@ This:
 
 ```html
 <div>
-  <ng-template someDirective>
-    <p>Hi</p>
-  </ng-template>
+	<ng-template someDirective>
+		<p>Hi</p>
+	</ng-template>
 </div>
 ```
 
@@ -1135,7 +1125,7 @@ Is functionally the same as this:
 
 ```html
 <div *someDirective>
-  <p>Hi</p>
+	<p>Hi</p>
 </div>
 ```
 
@@ -1143,14 +1133,14 @@ Knowing this, we can take our previous code and convert it to a structural direc
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [PassBackgroundDirective],
-  template: `
-    <div *passBackground let-backgroundColor="backgroundColor">
-        <p [style]="{backgroundColor}">Hello, world!</p>
-    </div>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [PassBackgroundDirective],
+	template: `
+		<div *passBackground let-backgroundColor="backgroundColor">
+			<p [style]="{ backgroundColor }">Hello, world!</p>
+		</div>
+	`,
 })
 class AppComponent {}
 ```
@@ -1161,47 +1151,50 @@ class AppComponent {}
 
 Now that we have our foundation written out, we can finally build a simple `featureFlag` directive that renders nothing if a `flag` is false, but renders the contents if a flag is `true`:
 
-````typescript
+```typescript
 const flags = {
-  addToCartButton: true,
-  purchaseThisItemButton: false
+	addToCartButton: true,
+	purchaseThisItemButton: false,
 };
 
 @Directive({
-  selector: '[featureFlag]',
-  standalone: true,
+	selector: "[featureFlag]",
+	standalone: true,
 })
 class FeatureFlagDirective implements OnChanges {
-  @Input() featureFlag: string;
+	@Input() featureFlag: string;
 
-  
-  templToRender = inject(TemplateRef<any>);
-  parentViewRef = inject(ViewContainerRef);
+	templToRender = inject(TemplateRef<any>);
+	parentViewRef = inject(ViewContainerRef);
 
-  embeddedView: EmbeddedViewRef<any> | null = null;
+	embeddedView: EmbeddedViewRef<any> | null = null;
 
-  ngOnChanges() {
-    if (flags[this.featureFlag]) {
-      this.embeddedView = this.parentViewRef.createEmbeddedView(this.templToRender);
-    } else if (this.embeddedView) {
-      this.embeddedView.destroy();
-    }
-  }
+	ngOnChanges() {
+		if (flags[this.featureFlag]) {
+			this.embeddedView = this.parentViewRef.createEmbeddedView(
+				this.templToRender,
+			);
+		} else if (this.embeddedView) {
+			this.embeddedView.destroy();
+		}
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [FeatureFlagDirective],
-  template: `
-    <div>
-	    <button *featureFlag="'addToCartButton'">Add to cart</button>
-    	<button *featureFlag="'purchaseThisItemButton'">Purchase this item</button>
-    </div>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [FeatureFlagDirective],
+	template: `
+		<div>
+			<button *featureFlag="'addToCartButton'">Add to cart</button>
+			<button *featureFlag="'purchaseThisItemButton'">
+				Purchase this item
+			</button>
+		</div>
+	`,
 })
 class AppComponent {}
-````
+```
 
 ## Vue
 
@@ -1217,31 +1210,31 @@ Instead, it's suggested to use a component to conditionally render parts of the 
 <!-- FeatureFlag.vue -->
 <script setup>
 const flags = {
-  addToCartButton: true,
-  purchaseThisItemButton: false,
-}
+	addToCartButton: true,
+	purchaseThisItemButton: false,
+};
 
-const props = defineProps(['name'])
+const props = defineProps(["name"]);
 </script>
 
 <template>
-  <slot v-if="flags[props.name]"></slot>
+	<slot v-if="flags[props.name]"></slot>
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-import FeatureFlag from './FeatureFlag.vue'
+import FeatureFlag from "./FeatureFlag.vue";
 </script>
 
 <template>
-  <FeatureFlag name="addToCartButton">
-    <button>Add to cart</button>
-  </FeatureFlag>
-  <FeatureFlag name="purchaseThisItemButton">
-    <button>Purchase this item</button>
-  </FeatureFlag>
+	<FeatureFlag name="addToCartButton">
+		<button>Add to cart</button>
+	</FeatureFlag>
+	<FeatureFlag name="purchaseThisItemButton">
+		<button>Purchase this item</button>
+	</FeatureFlag>
 </template>
 ```
 
@@ -1260,7 +1253,7 @@ That said, this method is fairly extensible as you can even use this `FeatureFla
 
 # Challenge
 
-Let's expand [our tooltip functionality from the code challenge before](/posts/ffg-fundamentals-portals#Challenge) 
+Let's expand [our tooltip functionality from the code challenge before](/posts/ffg-fundamentals-portals#Challenge)
 
 <!-- tabs:start -->
 
@@ -1268,57 +1261,57 @@ Let's expand [our tooltip functionality from the code challenge before](/posts/f
 
 ```jsx
 const useTooltip = ({ tooltipContents, innerContents }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const targetRef = useRef();
-  const tooltipRef = useRef();
+	const [isVisible, setIsVisible] = useState(false);
+	const targetRef = useRef();
+	const tooltipRef = useRef();
 
-  const showTooltip = () => {
-    setIsVisible(true);
-  };
+	const showTooltip = () => {
+		setIsVisible(true);
+	};
 
-  const hideTooltip = () => {
-    setIsVisible(false);
-  };
+	const hideTooltip = () => {
+		setIsVisible(false);
+	};
 
-  useEffect(() => {
-    const targetRect = targetRef.current.getBoundingClientRect();
+	useEffect(() => {
+		const targetRect = targetRef.current.getBoundingClientRect();
 
-    if (!tooltipRef.current) return;
-    tooltipRef.current.style.left = `${targetRect.left}px`;
-    tooltipRef.current.style.top = `${targetRect.bottom}px`;
-  }, [isVisible]);
+		if (!tooltipRef.current) return;
+		tooltipRef.current.style.left = `${targetRect.left}px`;
+		tooltipRef.current.style.top = `${targetRect.bottom}px`;
+	}, [isVisible]);
 
-  return (
-    <div>
-      <div
-        ref={targetRef}
-        onMouseEnter={showTooltip}
-        onMouseLeave={hideTooltip}
-      >
-        {innerContents}
-      </div>
-      {isVisible &&
-        ReactDOM.createPortal(
-          <div ref={tooltipRef} className="tooltip">
-            {tooltipContents}
-          </div>,
-          document.body
-        )}
-    </div>
-  );
+	return (
+		<div>
+			<div
+				ref={targetRef}
+				onMouseEnter={showTooltip}
+				onMouseLeave={hideTooltip}
+			>
+				{innerContents}
+			</div>
+			{isVisible &&
+				ReactDOM.createPortal(
+					<div ref={tooltipRef} className="tooltip">
+						{tooltipContents}
+					</div>,
+					document.body,
+				)}
+		</div>
+	);
 };
 
 const App = () => {
-  const tooltip = useTooltip({
-    innerContents: <button>Hover me</button>,
-    tooltipContents: 'This is a tooltip',
-  });
+	const tooltip = useTooltip({
+		innerContents: <button>Hover me</button>,
+		tooltipContents: "This is a tooltip",
+	});
 
-  return (
-    <div>
-      {tooltip}
-      <style
-        children={`
+	return (
+		<div>
+			{tooltip}
+			<style
+				children={`
            .tooltip {
             position: absolute;
             background-color: #333;
@@ -1328,9 +1321,9 @@ const App = () => {
             z-index: 1000;
           }
       `}
-      />
-    </div>
-  );
+			/>
+		</div>
+	);
 };
 ```
 

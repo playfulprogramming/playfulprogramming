@@ -1,13 +1,13 @@
 ---
 {
-    title: "Shared Component Logic",
-    description: "Components provide a great way to share layout, styling, and logic between multiple parts of your app. But what about times you only need to share logic in React, Angular, and Vue?",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 13,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Shared Component Logic",
+  description: "Components provide a great way to share layout, styling, and logic between multiple parts of your app. But what about times you only need to share logic in React, Angular, and Vue?",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 13,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
 
@@ -23,7 +23,6 @@ Sometimes, while building components, you may find yourself needing to share log
 >
 > **IE**: Two instances of the same component having their own data.
 
-
 For example, let's say that you have some component code that detects the current window size. While this might seem like a simple problem at first, it requires you to:
 
 - Get the initial window size and share that data with the component
@@ -35,8 +34,8 @@ The method how this logic is shared between components differs from framework to
 | Framework | Method Of Logic Sharing |
 | --------- | ----------------------- |
 | React     | Custom Hooks            |
-| Angular     | Services            |
-| Vue     | Compositions            |
+| Angular   | Services                |
+| Vue       | Compositions            |
 
 We'll spend the chapter talking about how to do all of this and see how we can apply these methods to production code.
 
@@ -56,90 +55,93 @@ In a normal React component, we'd store data using `useState` or `useReducer` ho
 
 ```jsx
 const useWindowSize = () => {
-  const [height, setHeight] = useState(window.innerHeight);
-  const [width, setWidth] = useState(window.innerWidth);
+	const [height, setHeight] = useState(window.innerHeight);
+	const [width, setWidth] = useState(window.innerWidth);
 
-  return {height, width};
-}
+	return { height, width };
+};
 ```
 
 We can then use this `useWindowSize` custom hook just as we would any other hook:
 
 ```jsx
 const App = () => {
-  const {height, width} = useWindowSize();
+	const { height, width } = useWindowSize();
 
-  return <p>The window is {height}px high and {width}px wide</p>
-}
+	return (
+		<p>
+			The window is {height}px high and {width}px wide
+		</p>
+	);
+};
 ```
 
 <!-- Editor's note: We should probably move these much earlier in the book -->
 
 ### Rules of Custom Hooks
 
-While creating a custom hook like `useWindowSize` is undoubtably useful, there are some limitations around all custom hooks. 
+While creating a custom hook like `useWindowSize` is undoubtably useful, there are some limitations around all custom hooks.
 
 Namely, any custom hook hook must:
 
 - Have a variable name that starts with `use`
 - Be called from within another hook or component (no normal function)
 - Not be called conditionally inside of a component
-- Not be called inside of a loop 
+- Not be called inside of a loop
 
-This means that **the following custom hooks are not allowed**: 
+This means that **the following custom hooks are not allowed**:
 
 ```jsx
 // ❌ Not allowed, the function name must start with `use`
 const getWindowSize = () => {
-  const [height, setHeight] = useState(window.innerHeight);
-  const [width, setWidth] = useState(window.innerWidth);
+	const [height, setHeight] = useState(window.innerHeight);
+	const [width, setWidth] = useState(window.innerWidth);
 
-  return {height, width};
-}
+	return { height, width };
+};
 ```
 
 ```jsx
 const useWindowSize = () => {
-  const [height, setHeight] = useState(window.innerHeight);
-  const [width, setWidth] = useState(window.innerWidth);
+	const [height, setHeight] = useState(window.innerHeight);
+	const [width, setWidth] = useState(window.innerWidth);
 
-  return {height, width};
-}
+	return { height, width };
+};
 
 // ❌ Not allowed, you must use a hook _inside_ a component or another hook
-const {height, width} = useWindowSize();
+const { height, width } = useWindowSize();
 
 const Component = () => {
-  return <p>Height is: {height}</p>
-}
+	return <p>Height is: {height}</p>;
+};
 ```
 
 ```jsx
 const useWindowSize = () => {
-  const [height, setHeight] = useState(window.innerHeight);
-  const [width, setWidth] = useState(window.innerWidth);
+	const [height, setHeight] = useState(window.innerHeight);
+	const [width, setWidth] = useState(window.innerWidth);
 
-  return {height, width};
-}
+	return { height, width };
+};
 
 function getWindowSize() {
-  // ❌ Not allowed, you cannot use a hook inside of a non-hook function
-  const {height, width} = useWindowSize();
-  return {height, width};
+	// ❌ Not allowed, you cannot use a hook inside of a non-hook function
+	const { height, width } = useWindowSize();
+	return { height, width };
 }
 ```
 
 ```jsx
 const useWindowSize = () => {
-    // ❌ Not allowed, you cannot `return` before using a hook
-    if (bool) return {height: 0, width: 0}
-    const [height, setHeight] = useState(window.innerHeight);
-    const [width, setWidth] = useState(window.innerWidth);
-  
-    return {height, width};
-}
-```
+	// ❌ Not allowed, you cannot `return` before using a hook
+	if (bool) return { height: 0, width: 0 };
+	const [height, setHeight] = useState(window.innerHeight);
+	const [width, setWidth] = useState(window.innerWidth);
 
+	return { height, width };
+};
+```
 
 ## Angular
 
@@ -150,20 +152,23 @@ Just as we covered [in the dependency injection chapter](/posts/ffg-fundamentals
 ```typescript
 @Injectable()
 class WindowSize {
-  height = window.innerHeight;
-  width = window.innerWidth;
+	height = window.innerHeight;
+	width = window.innerWidth;
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  template: `
-    <p>The window is {{windowSize.height}}px high and {{windowSize.width}}px wide</p>
-  `,
-  providers: [WindowSize],
+	selector: "app-root",
+	standalone: true,
+	template: `
+		<p>
+			The window is {{ windowSize.height }}px high and {{ windowSize.width }}px
+			wide
+		</p>
+	`,
+	providers: [WindowSize],
 })
 class AppComponent {
-  windowSize = inject(WindowSize);
+	windowSize = inject(WindowSize);
 }
 ```
 
@@ -173,13 +178,13 @@ Because Vue's `ref` and `reactive` data reactivity systems work anywhere, we can
 
 ```javascript
 // use-window-size.js
-import { ref } from 'vue'
+import { ref } from "vue";
 
 export const useWindowSize = () => {
-  const height = ref(window.innerHeight)
-  const width = ref(window.innerWidth)
-  return { height, width }
-}
+	const height = ref(window.innerHeight);
+	const width = ref(window.innerWidth);
+	return { height, width };
+};
 ```
 
 This custom function is often called a "composition", since we're using Vue's Composition API inside of it. We can then use this composition inside of our setup `script`, like so:
@@ -187,13 +192,13 @@ This custom function is often called a "composition", since we're using Vue's Co
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { useWindowSize } from './use-window-size'
+import { useWindowSize } from "./use-window-size";
 
-  const { height, width } = useWindowSize()
+const { height, width } = useWindowSize();
 </script>
 
 <template>
-  <p>The window is {{ height }}px high and {{ width }}px wide</p>
+	<p>The window is {{ height }}px high and {{ width }}px wide</p>
 </template>
 ```
 
@@ -202,8 +207,6 @@ This custom function is often called a "composition", since we're using Vue's Co
 > We still use the `use` composition prefix to keep things readible. While this is subjective, it's the naming convention the ecosystem seems to favor for compositions like this.
 
 <!-- tabs:end -->
-
-
 
 # Sharing Lifecycle Methods
 
@@ -231,23 +234,23 @@ Let's utilize [the window listener side effect we built in our "Side Effects" ch
 
 ```jsx
 const useWindowSize = () => {
-  const [height, setHeight] = useState(window.innerHeight);
-  const [width, setWidth] = useState(window.innerWidth);
+	const [height, setHeight] = useState(window.innerHeight);
+	const [width, setWidth] = useState(window.innerWidth);
 
-  useEffect(() => {
-    function onResize() {
-      setHeight(window.innerHeight);
-      setWidth(window.innerWidth);
-    }
+	useEffect(() => {
+		function onResize() {
+			setHeight(window.innerHeight);
+			setWidth(window.innerWidth);
+		}
 
-    window.addEventListener('resize', onResize);
+		window.addEventListener("resize", onResize);
 
-    // Don't forget to cleanup the listener
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
+		// Don't forget to cleanup the listener
+		return () => window.removeEventListener("resize", onResize);
+	}, []);
 
-  return {height, width};
-}
+	return { height, width };
+};
 ```
 
 ... That's it!
@@ -256,9 +259,13 @@ There's nothing more we need to do inside of our `useWindowSize` consuming compo
 
 ```jsx
 const App = () => {
-  const {height, width} = useWindowSize();
-  return <p>The window is {height}px high and {width}px wide</p>
-}
+	const { height, width } = useWindowSize();
+	return (
+		<p>
+			The window is {height}px high and {width}px wide
+		</p>
+	);
+};
 ```
 
 > Notice that we've changed exactly zero lines of code from our previous example of this component! ✨ Magic ✨
@@ -276,34 +283,37 @@ Instead, we can use a per-component injectable that uses its own `constructor` a
 ```typescript
 @Injectable()
 class WindowSize implements OnDestroy {
-  height = 0;
-  width = 0;
+	height = 0;
+	width = 0;
 
-  constructor() {
-    this.height = window.innerHeight;
-    this.width = window.innerWidth;
-    // In a component, we might add this in an `OnInit`, but `Injectable` classes only have `OnDestroy`
-    window.addEventListener('resize', this.onResize);
-  }
-  onResize = () => {
-    this.height = window.innerHeight;
-    this.width = window.innerWidth;
-  };
-  ngOnDestroy() {
-    window.removeEventListener('resize', this.onResize);
-  }
+	constructor() {
+		this.height = window.innerHeight;
+		this.width = window.innerWidth;
+		// In a component, we might add this in an `OnInit`, but `Injectable` classes only have `OnDestroy`
+		window.addEventListener("resize", this.onResize);
+	}
+	onResize = () => {
+		this.height = window.innerHeight;
+		this.width = window.innerWidth;
+	};
+	ngOnDestroy() {
+		window.removeEventListener("resize", this.onResize);
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  template: `
-    <p>The window is {{windowSize.height}}px high and {{windowSize.width}}px wide</p>
-  `,
-  providers: [WindowSize],
+	selector: "app-root",
+	standalone: true,
+	template: `
+		<p>
+			The window is {{ windowSize.height }}px high and {{ windowSize.width }}px
+			wide
+		</p>
+	`,
+	providers: [WindowSize],
 })
 class AppComponent {
-  windowSize = inject(WindowSize);
+	windowSize = inject(WindowSize);
 }
 ```
 
@@ -317,46 +327,45 @@ Sharing side effect handling within custom compositions is just as straightforwa
 
 ```javascript
 // use-window-size.js
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from "vue";
 
 export const useWindowSize = () => {
-  const height = ref(window.innerHeight)
-  const width = ref(window.innerWidth)
+	const height = ref(window.innerHeight);
+	const width = ref(window.innerWidth);
 
-  function onResize() {
-    height.value = window.innerHeight
-    width.value = window.innerWidth
-  }
+	function onResize() {
+		height.value = window.innerHeight;
+		width.value = window.innerWidth;
+	}
 
-  onMounted(() => {
-    window.addEventListener('resize', onResize)
-  })
+	onMounted(() => {
+		window.addEventListener("resize", onResize);
+	});
 
-  onUnmounted(() => {
-    window.removeEventListener('resize', onResize)
-  })
+	onUnmounted(() => {
+		window.removeEventListener("resize", onResize);
+	});
 
-  return { height, width }
-}
+	return { height, width };
+};
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { useWindowSize } from './use-window-size'
+import { useWindowSize } from "./use-window-size";
 
-  const { height, width } = useWindowSize()
+const { height, width } = useWindowSize();
 </script>
 
 <template>
-  <p>The window is {{ height }}px high and {{ width }}px wide</p>
+	<p>The window is {{ height }}px high and {{ width }}px wide</p>
 </template>
 ```
 
 > We could have also utilized the `watch` or `watchEffect` composition methods, but chose not to for this example.
 
 <!-- tabs:end -->
-
 
 # Composing Custom Logic
 
@@ -370,16 +379,16 @@ If we were using plain-ole functions, it might look something like this:
 
 ```javascript
 function getWindowSize() {
-  return {
-    height: window.innerHeight,
-    width: window.innerWidth
-  }
+	return {
+		height: window.innerHeight,
+		width: window.innerWidth,
+	};
 }
 
 function isMobile() {
-  const {height, width} = getWindowSize();
-  if (width <= 480) return true;
-  else return false;
+	const { height, width } = getWindowSize();
+	if (width <= 480) return true;
+	else return false;
 }
 ```
 
@@ -400,11 +409,11 @@ This is true for custom hooks as well, meaning that we can do the following code
 
 ```jsx
 const useMobileCheck = () => {
-  const {height, width} = useWindowSize();
+	const { height, width } = useWindowSize();
 
-  if (width <= 480) return {isMobile: true}
-  else return {isMobile: false}
-}
+	if (width <= 480) return { isMobile: true };
+	else return { isMobile: false };
+};
 ```
 
 Without modifying the `useWindowSize` component.
@@ -413,10 +422,10 @@ To consume our new `useMobileCheck` component is just as straightforward as it w
 
 ```jsx
 const Component = () => {
-  const {isMobile} = useMobileCheck();
+	const { isMobile } = useMobileCheck();
 
-  return <p>Is this a mobile device? {isMobile ? "Yes" : "No"}</p>
-}
+	return <p>Is this a mobile device? {isMobile ? "Yes" : "No"}</p>;
+};
 ```
 
 > Remember, custom hooks are still hooks!
@@ -433,50 +442,50 @@ Just as we can use dependency injection to provide an instance of our `WindowSiz
 
 First, though, we need to provide a way to add behavior to our `onResize` class:
 
-````typescript
+```typescript
 @Injectable()
 class WindowSize implements OnDestroy {
-  height = 0;
-  width = 0;
+	height = 0;
+	width = 0;
 
-  // We'll overwrite this behavior in another service
-  _listener: () => void | undefined;
+	// We'll overwrite this behavior in another service
+	_listener: () => void | undefined;
 
-  constructor() {
-    this.onResize();
-    window.addEventListener('resize', this.onResize);
-  }
+	constructor() {
+		this.onResize();
+		window.addEventListener("resize", this.onResize);
+	}
 
-  onResize = () => {
-    this.height = window.innerHeight;
-    this.width = window.innerWidth;
-    // We will call this "listener" function if it's present
-    if (this._listener) {
-      this._listener();
-    }
-  };
+	onResize = () => {
+		this.height = window.innerHeight;
+		this.width = window.innerWidth;
+		// We will call this "listener" function if it's present
+		if (this._listener) {
+			this._listener();
+		}
+	};
 
-  ngOnDestroy() {
-    window.removeEventListener('resize', this.onResize);
-  }
+	ngOnDestroy() {
+		window.removeEventListener("resize", this.onResize);
+	}
 }
-````
+```
 
 Now that we have this ability to tap into the `resize` event handler, let's write our own `IsMobile` class:
 
 ```typescript
 @Injectable()
 class IsMobile {
-  isMobile = false;
+	isMobile = false;
 
-  // We cannot use the `inject` function here, because we need to overwrite our `constructor` behavior
-  // and it's an either-or decision to use `constructor` or the `inject` function
-  constructor(private windowSize: WindowSize) {
-    windowSize._listener = () => {
-      if (windowSize.width <= 480) this.isMobile = true;
-      else this.isMobile = false;
-    };
-  }
+	// We cannot use the `inject` function here, because we need to overwrite our `constructor` behavior
+	// and it's an either-or decision to use `constructor` or the `inject` function
+	constructor(private windowSize: WindowSize) {
+		windowSize._listener = () => {
+			if (windowSize.width <= 480) this.isMobile = true;
+			else this.isMobile = false;
+		};
+	}
 }
 ```
 
@@ -484,15 +493,13 @@ This allows us to have a `isMobile` field that we can access from our `AppCompon
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  template: `
-    <p>Is mobile? {{isMobile.isMobile}}</p>
-  `,
-  providers: [WindowSize, IsMobile],
+	selector: "app-root",
+	standalone: true,
+	template: ` <p>Is mobile? {{ isMobile.isMobile }}</p> `,
+	providers: [WindowSize, IsMobile],
 })
 class AppComponent {
-  isMobile = inject(IsMobile);
+	isMobile = inject(IsMobile);
 }
 ```
 
@@ -507,44 +514,42 @@ NullInjectorError: No provider for WindowSize!
 
 ## Vue
 
-Composing custom composables (say that 10 times fast) is a straightforward task, thanks to custom composables acting like normal functions. 
+Composing custom composables (say that 10 times fast) is a straightforward task, thanks to custom composables acting like normal functions.
 
 ```javascript
 // use-mobile-check.js
-import { computed } from 'vue'
-import { useWindowSize } from './use-window-size.js'
+import { computed } from "vue";
+import { useWindowSize } from "./use-window-size.js";
 
 export const useMobileCheck = () => {
-  const { height, width } = useWindowSize()
-  const isMobile = computed(() => {
-    if (width.value <= 480) return true
-    else return false
-  })
+	const { height, width } = useWindowSize();
+	const isMobile = computed(() => {
+		if (width.value <= 480) return true;
+		else return false;
+	});
 
-  return { isMobile }
-}
+	return { isMobile };
+};
 ```
 
 > Notice that we aren't showing the source code for `useWindowSize` again, that's because we haven't changed it!
 
 Then, to use this new composable in our components we use it just like we did our previous composables:
 
-````vue
+```vue
 <!-- App.vue -->
 <script setup>
-  import { useMobileCheck } from './use-mobile-check'
+import { useMobileCheck } from "./use-mobile-check";
 
-  const { isMobile } = useMobileCheck()
+const { isMobile } = useMobileCheck();
 </script>
 
 <template>
-  <p>Is this a mobile device? {{ isMobile ? 'Yes' : 'No' }}</p>
+	<p>Is this a mobile device? {{ isMobile ? "Yes" : "No" }}</p>
 </template>
-````
+```
 
 <!-- tabs:end -->
-
-
 
 # Challenge
 
@@ -559,102 +564,102 @@ Take code from `component-reference` and refactor to use custom hooks/services/e
 // TODO: This is missing the `resize` listener for the bounds
 
 ```jsx
-import React from 'react';
+import React from "react";
 
 const useOutsideClick = ({ ref, onClose }) => {
-  useEffect(() => {
-    const closeIfOutsideOfContext = (e) => {
-      const isClickInside = ref.current.contains(e.target);
-      if (isClickInside) return;
-      onClose();
-    };
-    document.addEventListener('click', closeIfOutsideOfContext);
-    return () => document.removeEventListener('click', closeIfOutsideOfContext);
-  }, [onClose]);
+	useEffect(() => {
+		const closeIfOutsideOfContext = (e) => {
+			const isClickInside = ref.current.contains(e.target);
+			if (isClickInside) return;
+			onClose();
+		};
+		document.addEventListener("click", closeIfOutsideOfContext);
+		return () => document.removeEventListener("click", closeIfOutsideOfContext);
+	}, [onClose]);
 };
 
 const ContextMenu = forwardRef(({ x, y, onClose }, ref) => {
-  const divRef = useRef();
+	const divRef = useRef();
 
-  useImperativeHandle(ref, () => ({
-    focus: () => divRef.current && divRef.current.focus(),
-  }));
+	useImperativeHandle(ref, () => ({
+		focus: () => divRef.current && divRef.current.focus(),
+	}));
 
-  useOutsideClick({ ref: divRef, onClose });
+	useOutsideClick({ ref: divRef, onClose });
 
-  return (
-    <div
-      ref={divRef}
-      style={{
-        position: 'fixed',
-        top: y + 20,
-        left: x + 20,
-        background: 'white',
-        border: '1px solid black',
-        borderRadius: 16,
-        padding: '1rem',
-      }}
-    >
-      <button onClick={() => onClose()}>X</button>
-      This is a context menu
-    </div>
-  );
+	return (
+		<div
+			ref={divRef}
+			style={{
+				position: "fixed",
+				top: y + 20,
+				left: x + 20,
+				background: "white",
+				border: "1px solid black",
+				borderRadius: 16,
+				padding: "1rem",
+			}}
+		>
+			<button onClick={() => onClose()}>X</button>
+			This is a context menu
+		</div>
+	);
 });
 
 const useBounds = () => {
-  const [bounds, setBounds] = useState({
-    height: 0,
-    width: 0,
-    x: 0,
-    y: 0,
-  });
+	const [bounds, setBounds] = useState({
+		height: 0,
+		width: 0,
+		x: 0,
+		y: 0,
+	});
 
-  const ref = useCallback((el) => {
-    if (!el) return;
-    const localBounds = el.getBoundingClientRect();
-    setBounds(localBounds);
-  }, []);
+	const ref = useCallback((el) => {
+		if (!el) return;
+		const localBounds = el.getBoundingClientRect();
+		setBounds(localBounds);
+	}, []);
 
-  return { ref, bounds };
+	return { ref, bounds };
 };
 
 export default function App() {
-  const { ref, bounds } = useBounds();
+	const { ref, bounds } = useBounds();
 
-  // An addEventListener is easier to tackle when inside of the conditional render
-  // Add that as an exploration for `useImperativeHandle`
-  const [isOpen, setIsOpen] = useState(false);
+	// An addEventListener is easier to tackle when inside of the conditional render
+	// Add that as an exploration for `useImperativeHandle`
+	const [isOpen, setIsOpen] = useState(false);
 
-  function onContextMenu(e) {
-    e.preventDefault();
-    setIsOpen(true);
-  }
+	function onContextMenu(e) {
+		e.preventDefault();
+		setIsOpen(true);
+	}
 
-  const contextMenuRef = useRef();
+	const contextMenuRef = useRef();
 
-  useEffect(() => {
-    if (isOpen && contextMenuRef.current) {
-      contextMenuRef.current.focus();
-    }
-  }, [isOpen]);
+	useEffect(() => {
+		if (isOpen && contextMenuRef.current) {
+			contextMenuRef.current.focus();
+		}
+	}, [isOpen]);
 
-  return (
-    <Fragment>
-      <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
-        <div ref={ref} onContextMenu={onContextMenu}>
-          Right click on me!
-        </div>
-      </div>
-      {isOpen && (
-        <ContextMenu
-          x={bounds.x}
-          y={bounds.y}
-          ref={contextMenuRef}
-          onClose={() => setIsOpen(false)}
-        />
-      )}
-    </Fragment>
-  );
+	return (
+		<Fragment>
+			<div style={{ marginTop: "5rem", marginLeft: "5rem" }}>
+				<div ref={ref} onContextMenu={onContextMenu}>
+					Right click on me!
+				</div>
+			</div>
+			{isOpen && (
+				<ContextMenu
+					x={bounds.x}
+					y={bounds.y}
+					ref={contextMenuRef}
+					onClose={() => setIsOpen(false)}
+				/>
+			)}
+		</Fragment>
+	);
 }
 ```
 
@@ -669,153 +674,155 @@ While we were able to use the `constructor` to set up our event listeners in pre
 ```typescript
 @Injectable()
 class CloseIfOutSideContext implements OnDestroy {
-  getCloseIfOutsideFunction = (
-    contextMenu: ElementRef<HTMLElement>,
-    close: EventEmitter<any>
-  ) => {
-    return (e: MouseEvent) => {
-      const contextMenuEl = contextMenu?.nativeElement;
-      if (!contextMenuEl) return;
-      const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
-      if (isClickInside) return;
-      close.emit();
-    };
-  };
+	getCloseIfOutsideFunction = (
+		contextMenu: ElementRef<HTMLElement>,
+		close: EventEmitter<any>,
+	) => {
+		return (e: MouseEvent) => {
+			const contextMenuEl = contextMenu?.nativeElement;
+			if (!contextMenuEl) return;
+			const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
+			if (isClickInside) return;
+			close.emit();
+		};
+	};
 
-  setup(contextMenu: ElementRef<HTMLElement>, close: EventEmitter<any>) {
-    this.closeIfOutsideOfContext = this.getCloseIfOutsideFunction(
-      contextMenu,
-      close
-    );
-    document.addEventListener('click', this.closeIfOutsideOfContext);
-  }
+	setup(contextMenu: ElementRef<HTMLElement>, close: EventEmitter<any>) {
+		this.closeIfOutsideOfContext = this.getCloseIfOutsideFunction(
+			contextMenu,
+			close,
+		);
+		document.addEventListener("click", this.closeIfOutsideOfContext);
+	}
 
-  ngOnDestroy() {
-    document.removeEventListener('click', this.closeIfOutsideOfContext);
-    this.closeIfOutsideOfContext = () => {};
-  }
+	ngOnDestroy() {
+		document.removeEventListener("click", this.closeIfOutsideOfContext);
+		this.closeIfOutsideOfContext = () => {};
+	}
 
-  closeIfOutsideOfContext: (e: MouseEvent) => void = () => {};
+	closeIfOutsideOfContext: (e: MouseEvent) => void = () => {};
 }
 
 @Component({
-  selector: 'context-menu',
-  standalone: true,
-  template: `
-  <div
-    #contextMenu
-    tabIndex="0"
-    [style]="{
-      position: 'fixed',
-      top: y + 20,
-      left: x + 20,
-      background: 'white',
-      border: '1px solid black',
-      borderRadius: 16,
-      padding: '1rem'
-    }"
-  >
-    <button (click)="close.emit()">X</button>
-    This is a context menu
-  </div>
-  `,
-  providers: [CloseIfOutSideContext],
+	selector: "context-menu",
+	standalone: true,
+	template: `
+		<div
+			#contextMenu
+			tabIndex="0"
+			[style]="{
+				position: 'fixed',
+				top: y + 20,
+				left: x + 20,
+				background: 'white',
+				border: '1px solid black',
+				borderRadius: 16,
+				padding: '1rem'
+			}"
+		>
+			<button (click)="close.emit()">X</button>
+			This is a context menu
+		</div>
+	`,
+	providers: [CloseIfOutSideContext],
 })
 export class ContextMenuComponent implements AfterViewInit {
-  @ViewChild('contextMenu') contextMenu!: ElementRef<HTMLElement>;
+	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;
 
-  @Input() x: number = 0;
-  @Input() y: number = 0;
-  @Output() close = new EventEmitter();
+	@Input() x: number = 0;
+	@Input() y: number = 0;
+	@Output() close = new EventEmitter();
 
-  constructor(private closeIfOutsideContext: CloseIfOutSideContext) {}
+	constructor(private closeIfOutsideContext: CloseIfOutSideContext) {}
 
-  focus() {
-    this.contextMenu.nativeElement.focus();
-  }
+	focus() {
+		this.contextMenu.nativeElement.focus();
+	}
 
-  ngAfterViewInit() {
-    this.closeIfOutsideContext.setup(this.contextMenu, this.close);
-  }
+	ngAfterViewInit() {
+		this.closeIfOutsideContext.setup(this.contextMenu, this.close);
+	}
 }
 
 @Injectable()
 class BoundsContext {
-  bounds = {
-    height: 0,
-    width: 0,
-    x: 0,
-    y: 0,
-  };
+	bounds = {
+		height: 0,
+		width: 0,
+		x: 0,
+		y: 0,
+	};
 
-  contextOrigin: ElementRef | undefined;
+	contextOrigin: ElementRef | undefined;
 
-  resizeListener = () => {
-    if (!this.contextOrigin) return;
-    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
-  };
+	resizeListener = () => {
+		if (!this.contextOrigin) return;
+		this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
+	};
 
-  setup(contextOrigin: ElementRef) {
-    this.bounds = contextOrigin.nativeElement.getBoundingClientRect();
-    this.contextOrigin = contextOrigin;
+	setup(contextOrigin: ElementRef) {
+		this.bounds = contextOrigin.nativeElement.getBoundingClientRect();
+		this.contextOrigin = contextOrigin;
 
-    window.addEventListener('resize', this.resizeListener);
-  }
+		window.addEventListener("resize", this.resizeListener);
+	}
 
-  cleanup() {
-    window.removeEventListener('resize', this.resizeListener);
-    this.contextOrigin = undefined;
-  }
+	cleanup() {
+		window.removeEventListener("resize", this.resizeListener);
+		this.contextOrigin = undefined;
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NgIf, ContextMenuComponent],
-  template: `
-  <div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
-    <div #contextOrigin (contextmenu)="open($event)">
-      Right click on me!
-    </div>
-  </div>
-  <context-menu #contextMenu *ngIf="isOpen" [x]="boundsContext.bounds.x" [y]="boundsContext.bounds.y" (close)="close()"></context-menu>
-  `,
-  providers: [BoundsContext],
+	selector: "app-root",
+	standalone: true,
+	imports: [NgIf, ContextMenuComponent],
+	template: `
+		<div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
+			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
+		</div>
+		<context-menu
+			#contextMenu
+			*ngIf="isOpen"
+			[x]="boundsContext.bounds.x"
+			[y]="boundsContext.bounds.y"
+			(close)="close()"
+		></context-menu>
+	`,
+	providers: [BoundsContext],
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('contextOrigin') contextOrigin!: ElementRef<HTMLElement>;
-  @ViewChildren('contextMenu') contextMenu!: QueryList<ContextMenuComponent>;
+	@ViewChild("contextOrigin") contextOrigin!: ElementRef<HTMLElement>;
+	@ViewChildren("contextMenu") contextMenu!: QueryList<ContextMenuComponent>;
 
-  isOpen = false;
+	isOpen = false;
 
-  constructor(public boundsContext: BoundsContext) {}
+	constructor(public boundsContext: BoundsContext) {}
 
-  ngAfterViewInit() {
-    this.boundsContext.setup(this.contextOrigin);
+	ngAfterViewInit() {
+		this.boundsContext.setup(this.contextOrigin);
 
-    this.contextMenu.changes.forEach(() => {
-      const isLoaded = this?.contextMenu?.first;
-      if (!isLoaded) return;
-      this.contextMenu.first.focus();
-    });
-  }
+		this.contextMenu.changes.forEach(() => {
+			const isLoaded = this?.contextMenu?.first;
+			if (!isLoaded) return;
+			this.contextMenu.first.focus();
+		});
+	}
 
-  ngOnDestroy() {
-    this.boundsContext.cleanup();
-  }
+	ngOnDestroy() {
+		this.boundsContext.cleanup();
+	}
 
-  close() {
-    this.isOpen = false;
-  }
+	close() {
+		this.isOpen = false;
+	}
 
-  open(e: UIEvent) {
-    e.preventDefault();
-    this.isOpen = true;
-  }
+	open(e: UIEvent) {
+		e.preventDefault();
+		this.isOpen = true;
+	}
 }
 ```
-
-
 
 ## Vue
 
@@ -823,147 +830,138 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 ```javascript
 // use-outside-click.js
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted } from "vue";
 
 export const useOutsideClick = ({ ref, onClose }) => {
-  const closeIfOutsideOfContext = (e) => {
-    const isClickInside = ref.value.contains(e.target)
-    if (isClickInside) return
-    onClose()
-  }
+	const closeIfOutsideOfContext = (e) => {
+		const isClickInside = ref.value.contains(e.target);
+		if (isClickInside) return;
+		onClose();
+	};
 
-  onMounted(() => {
-    document.addEventListener('click', closeIfOutsideOfContext)
-  })
+	onMounted(() => {
+		document.addEventListener("click", closeIfOutsideOfContext);
+	});
 
-  onUnmounted(() => {
-    document.removeEventListener('click', closeIfOutsideOfContext)
-  })
-}
+	onUnmounted(() => {
+		document.removeEventListener("click", closeIfOutsideOfContext);
+	});
+};
 ```
 
-
-
 Then
-
-
 
 ```vue
 <!-- ContextMenu.vue -->
 <script setup>
-  import { onMounted, onUnmounted, ref } from 'vue'
-  import { useOutsideClick } from './use-outside-click'
+import { onMounted, onUnmounted, ref } from "vue";
+import { useOutsideClick } from "./use-outside-click";
 
-  const props = defineProps(['x', 'y'])
-  const emit = defineEmits(['close'])
-  const contextMenuRef = ref(null)
+const props = defineProps(["x", "y"]);
+const emit = defineEmits(["close"]);
+const contextMenuRef = ref(null);
 
-  useOutsideClick({ ref: contextMenuRef, onClose: () => emit('close') })
+useOutsideClick({ ref: contextMenuRef, onClose: () => emit("close") });
 
-  function focusMenu() {
-    contextMenuRef.value.focus()
-  }
-  defineExpose({
-    focusMenu,
-  })
+function focusMenu() {
+	contextMenuRef.value.focus();
+}
+defineExpose({
+	focusMenu,
+});
 </script>
 
 <template>
-  <div
-    tabIndex="0"
-    ref="contextMenuRef"
-    :style="{
-      position: 'fixed',
-      top: props.y + 20,
-      left: props.x + 20,
-      background: 'white',
-      border: '1px solid black',
-      borderRadius: 16,
-      padding: '1rem',
-    }"
-  >
-    <button @click="$emit('close')">X</button>
-    This is a context menu
-  </div>
+	<div
+		tabIndex="0"
+		ref="contextMenuRef"
+		:style="{
+			position: 'fixed',
+			top: props.y + 20,
+			left: props.x + 20,
+			background: 'white',
+			border: '1px solid black',
+			borderRadius: 16,
+			padding: '1rem',
+		}"
+	>
+		<button @click="$emit('close')">X</button>
+		This is a context menu
+	</div>
 </template>
 ```
-
-
 
 Also
 
 ```javascript
 // use-bounds.js
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from "vue";
 
 export const useBounds = () => {
-  const elRef = ref()
+	const elRef = ref();
 
-  const bounds = ref({
-    height: 0,
-    width: 0,
-    x: 0,
-    y: 0,
-  })
+	const bounds = ref({
+		height: 0,
+		width: 0,
+		x: 0,
+		y: 0,
+	});
 
-  function resizeListener() {
-    if (!elRef.value) return
-    bounds.value = elRef.value.getBoundingClientRect()
-  }
-  onMounted(() => {
-    resizeListener()
-    window.addEventListener('resize', resizeListener)
-  })
-  onUnmounted(() => {
-    window.removeEventListener('resize', resizeListener)
-  })
+	function resizeListener() {
+		if (!elRef.value) return;
+		bounds.value = elRef.value.getBoundingClientRect();
+	}
+	onMounted(() => {
+		resizeListener();
+		window.addEventListener("resize", resizeListener);
+	});
+	onUnmounted(() => {
+		window.removeEventListener("resize", resizeListener);
+	});
 
-  return { bounds, ref: elRef }
-}
+	return { bounds, ref: elRef };
+};
 ```
 
-
-
 Which allows
-
-
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { onMounted, onUnmounted, ref } from 'vue'
-  import ContextMenu from './ContextMenu.vue'
-  import { useBounds } from './use-bounds'
-  const isOpen = ref(false)
+import { onMounted, onUnmounted, ref } from "vue";
+import ContextMenu from "./ContextMenu.vue";
+import { useBounds } from "./use-bounds";
+const isOpen = ref(false);
 
-  const { ref: contextOrigin, bounds } = useBounds()
-  const contextMenu = ref()
+const { ref: contextOrigin, bounds } = useBounds();
+const contextMenu = ref();
 
-  function close() {
-    isOpen.value = false
-  }
-  function open(e) {
-    e.preventDefault()
-    isOpen.value = true
-    setTimeout(() => {
-      contextMenu.value.focusMenu()
-    }, 0)
-  }
+function close() {
+	isOpen.value = false;
+}
+function open(e) {
+	e.preventDefault();
+	isOpen.value = true;
+	setTimeout(() => {
+		contextMenu.value.focusMenu();
+	}, 0);
+}
 </script>
 
 <template>
-  <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
-    <div ref="contextOrigin" @contextmenu="open($event)">Right click on me!</div>
-  </div>
-  <ContextMenu ref="contextMenu" v-if="isOpen" :x="bounds.x" :y="bounds.y" @close="close()" />
+	<div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
+		<div ref="contextOrigin" @contextmenu="open($event)">
+			Right click on me!
+		</div>
+	</div>
+	<ContextMenu
+		ref="contextMenu"
+		v-if="isOpen"
+		:x="bounds.x"
+		:y="bounds.y"
+		@close="close()"
+	/>
 </template>
 ```
 
-
-
-
-
-
-
 <!-- tabs:end -->
-

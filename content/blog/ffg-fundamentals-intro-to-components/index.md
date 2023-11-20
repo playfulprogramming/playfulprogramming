@@ -1,13 +1,13 @@
 ---
 {
-    title: "Introduction to Components",
-    description: "Components are the core building block in which all applications written with React, Angular, and Vue are built. Let's explore what they are and how to build them.",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 2,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Introduction to Components",
+  description: "Components are the core building block in which all applications written with React, Angular, and Vue are built. Let's explore what they are and how to build them.",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 2,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
 
@@ -61,10 +61,9 @@ For each step of the process, we can think of it like we're adding in a new prog
 - JavaScript adds the logic of the application on top of the structure.
 - CSS is utilized to make all of it look nice and to potentially add some more minor UX improvements.
 
-
 The way I typically think about these 3 pieces of tech is:
 
-HTML is like building blueprints. It allows you to see the overarching pictures of what the end result will look like. They define the walls, doors, and flow of a home. 
+HTML is like building blueprints. It allows you to see the overarching pictures of what the end result will look like. They define the walls, doors, and flow of a home.
 
 JavaScript is like the electrical, plumbing, and appliances of the house. They allow you to interact with the building in a meaningful way.
 
@@ -84,22 +83,22 @@ While the code for this section might look something like this:
 
 ```html
 <section>
-  <button id="addButton"><span class="icon">plus</span></button>
-  <!-- ... -->
+	<button id="addButton"><span class="icon">plus</span></button>
+	<!-- ... -->
 </section>
 <ul>
-  <li>
-    <a href="/file/file_one">File one<span>12/03/21</span></a>
-  </li>
-  <!-- ... -->
-  <ul>
-    <script>
-      var addButton = document.querySelector("#addButton");
-      addButton.addEventListener("click", () => {
-        // ...
-      });
-    </script>
-  </ul>
+	<li>
+		<a href="/file/file_one">File one<span>12/03/21</span></a>
+	</li>
+	<!-- ... -->
+	<ul>
+		<script>
+			var addButton = document.querySelector("#addButton");
+			addButton.addEventListener("click", () => {
+				// ...
+			});
+		</script>
+	</ul>
 </ul>
 ```
 
@@ -107,10 +106,10 @@ We might have a mental model to break down each section into smaller ones. If we
 
 ```html
 <files-buttons>
-  <add-button/>
+	<add-button />
 </files-buttons>
 <files-list>
-  <file name="File one"/>
+	<file name="File one" />
 </files-list>
 ```
 
@@ -124,9 +123,13 @@ Let's look at what `<file>` might look like in each framework:
 
 ```jsx
 const File = () => {
-  return (
-    <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
-  );
+	return (
+		<div>
+			<a href="/file/file_one">
+				File one<span>12/03/21</span>
+			</a>
+		</div>
+	);
 };
 ```
 
@@ -138,16 +141,21 @@ While JSX looks closer to HTML than standard JS, it is not supported in the lang
 
 For example, the above would be turned into:
 
- ```javascript
+```javascript
 var spanTag = React.createElement("span", null, "12/03/21");
-var aTag = React.createElement("a", {
-  href: "/file/file_one"
-}, "File one", spanTag);
+var aTag = React.createElement(
+	"a",
+	{
+		href: "/file/file_one",
+	},
+	"File one",
+	spanTag,
+);
 React.createElement("div", null, aTag);
- ```
-> 
+```
+
 > While the above seems intimidating, it's worth mentioning that you'll likely never need to fall back on using `createElement` in an actual production application. Instead, this demonstrates why you need Babel in React applications.
->   
+>
 > You also likely do not need to set up Babel yourself from scratch. Most tools that integrate with React handles it out-of-the-box for you invisibly.
 
 ## Angular
@@ -156,11 +164,13 @@ React.createElement("div", null, aTag);
 import { Component } from "@angular/core";
 
 @Component({
-  selector: "file-item",
-  standalone: true,
-  template: `
-    <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
-  `,
+	selector: "file-item",
+	standalone: true,
+	template: `
+		<div>
+			<a href="/file/file_one">File one<span>12/03/21</span></a>
+		</div>
+	`,
 })
 export class FileComponent {}
 ```
@@ -182,7 +192,9 @@ This decorator has a few properties passed to it. Going from the bottom-up:
 ```vue
 <!-- File.vue -->
 <template>
-	<div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
+	<div>
+		<a href="/file/file_one">File one<span>12/03/21</span></a>
+	</div>
 </template>
 ```
 
@@ -213,9 +225,9 @@ Traditionally, when you build out a website with just HTML, you'd define an `ind
 ```html
 <!-- index.html -->
 <html>
-  <body>
-    <!-- Your HTML here -->
-  </body>
+	<body>
+		<!-- Your HTML here -->
+	</body>
 </html>
 ```
 
@@ -228,23 +240,22 @@ Similarly, all apps built with React, Angular, and Vue start with an `index.html
 ```html
 <!-- index.html -->
 <html>
-  <body>
-    <div id="root"></div>
-  </body>
+	<body>
+		<div id="root"></div>
+	</body>
 </html>
 ```
-
 
 ## Angular
 
 ```html
 <!-- index.html -->
 <html>
-  <body>
-    <!-- This should match the `selector` of the -->
-    <!-- component you want here -->
-    <file-item></file-item>
-  </body>
+	<body>
+		<!-- This should match the `selector` of the -->
+		<!-- component you want here -->
+		<file-item></file-item>
+	</body>
 </html>
 ```
 
@@ -253,15 +264,13 @@ Similarly, all apps built with React, Angular, and Vue start with an `index.html
 ```html
 <!-- index.html -->
 <html>
-  <body>
-    <div id="root"></div>
-  </body>
+	<body>
+		<div id="root"></div>
+	</body>
 </html>
 ```
 
 <!-- tabs:end -->
-
-
 
 Then, in JavaScript, you "render" a component into an element that acts as the "root" injection site for your framework to build your UI around.
 
@@ -269,31 +278,38 @@ Then, in JavaScript, you "render" a component into an element that acts as the "
 
 ## React
 
-
-```jsx {0,6}
-import { createRoot } from 'react-dom/client';
+```jsx {0,12}
+import { createRoot } from "react-dom/client";
 
 const File = () => {
-  return <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
-}
+	return (
+		<div>
+			<a href="/file/file_one">
+				File one<span>12/03/21</span>
+			</a>
+		</div>
+	);
+};
 
-createRoot(document.getElementById('root')).render(<File />);
+createRoot(document.getElementById("root")).render(<File />);
 ```
 
 <iframe data-frame-title="React Rendering - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-rendering-1?template=node&embed=1&file=src%2Fmain.jsx&terminal=dev"></iframe>
 
 ## Angular
 
-```typescript {1,12}
-import { Component } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
+```typescript {1,14}
+import { Component } from "@angular/core";
+import { bootstrapApplication } from "@angular/platform-browser";
 
 @Component({
-  selector: 'file-item',
-  standalone: true,
-  template: `
-    <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
-  `,
+	selector: "file-item",
+	standalone: true,
+	template: `
+		<div>
+			<a href="/file/file_one">File one<span>12/03/21</span></a>
+		</div>
+	`,
 })
 export class FileComponent {}
 
@@ -309,7 +325,9 @@ Because Vue's components all live within dedicated `.vue` SFCs, we have to use t
 ```vue
 <!-- File.vue -->
 <template>
-	<div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
+	<div>
+		<a href="/file/file_one">File one<span>12/03/21</span></a>
+	</div>
 </template>
 ```
 
@@ -317,8 +335,8 @@ Then can import this into our main JavaScript file:
 
 ```javascript {1,4}
 // main.js
-import { createApp } from 'vue';
-import File from './File.vue';
+import { createApp } from "vue";
+import File from "./File.vue";
 
 createApp(File).mount("#root");
 ```
@@ -339,17 +357,25 @@ While our `File` component currently contains HTML elements, components may also
 
 ## React
 
-```jsx {6-11}
+```jsx {10-18}
 const File = () => {
-  return (
-    <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
-  );
+	return (
+		<div>
+			<a href="/file/file_one">
+				File one<span>12/03/21</span>
+			</a>
+		</div>
+	);
 };
 
 const FileList = () => {
-  return (
-    <ul><li><File /></li></ul>
-  );
+	return (
+		<ul>
+			<li>
+				<File />
+			</li>
+		</ul>
+	);
 };
 ```
 
@@ -357,23 +383,27 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {9-17}
+```typescript {11-21}
 @Component({
-  selector: 'file-item',
-  standalone: true,
-  template: `
-    <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
-  `,
+	selector: "file-item",
+	standalone: true,
+	template: `
+		<div>
+			<a href="/file/file_one">File one<span>12/03/21</span></a>
+		</div>
+	`,
 })
 export class FileComponent {}
 
 @Component({
-  selector: 'file-list',
-  standalone: true,
-  imports: [FileComponent],
-  template: `
-    <ul><li><file-item/></li></ul>
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent],
+	template: `
+		<ul>
+			<li><file-item /></li>
+		</ul>
+	`,
 })
 export class FileListComponent {}
 ```
@@ -384,14 +414,14 @@ Notice how we've told our `FileListComponent` to `import` `FileComponent` by pas
 
 ## Vue
 
-As we mentioned earlier, you can only have one component in a `.vue` SFC. Here, we have our existing `File` component: 
+As we mentioned earlier, you can only have one component in a `.vue` SFC. Here, we have our existing `File` component:
 
 ```vue
 <!-- File.vue -->
 <template>
-  <div>
-    <a href="/file/file_one">File one<span>12/03/21</span></a>
-  </div>
+	<div>
+		<a href="/file/file_one">File one<span>12/03/21</span></a>
+	</div>
 </template>
 ```
 
@@ -400,13 +430,13 @@ Which we can `import` into another component to use it there:
 ```vue
 <!-- FileList.vue -->
 <script setup>
-   import File from './File.vue';
+import File from "./File.vue";
 </script>
 
 <template>
-  <ul>
-    <li><File/></li>
-  </ul>
+	<ul>
+		<li><File /></li>
+	</ul>
 </template>
 ```
 
@@ -416,14 +446,11 @@ The reason we're able to `import` a component and use it right away is because a
 
 > Notice that our `script` tag has a `setup` attribute! Without it, our code won't work the right way!
 
-
 We need to import all of the components we'll be using in our parent component! Otherwise, Vue will throw an error:
 
 > Failed to resolve component: file
 
 <!-- tabs:end -->
-
-
 
 Looking through our `File` component, we'll notice that we're rendering multiple elements inside a single component. Funnily enough, this has the fun side effect that we can also render multiple components inside a parent component.
 
@@ -433,13 +460,19 @@ Looking through our `File` component, we'll notice that we're rendering multiple
 
 ```jsx
 const FileList = () => {
-  return (
-    <ul>
-      <li><File /></li>
-      <li><File /></li>
-      <li><File /></li>
-    </ul>
-  );
+	return (
+		<ul>
+			<li>
+				<File />
+			</li>
+			<li>
+				<File />
+			</li>
+			<li>
+				<File />
+			</li>
+		</ul>
+	);
 };
 ```
 
@@ -449,16 +482,16 @@ const FileList = () => {
 
 ```typescript
 @Component({
-  selector: "file-list",
-  standalone: true,
-  imports: [FileComponent],
-  template: `
-    <ul>
-      <li><file-item/></li>
-      <li><file-item/></li>
-      <li><file-item/></li>
-    </ul>
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent],
+	template: `
+		<ul>
+			<li><file-item /></li>
+			<li><file-item /></li>
+			<li><file-item /></li>
+		</ul>
+	`,
 })
 export class FileListComponent {}
 ```
@@ -470,15 +503,15 @@ export class FileListComponent {}
 ```vue
 <!-- FileList.vue -->
 <script setup>
-   import File from './File.vue';
+import File from "./File.vue";
 </script>
 
 <template>
-  <ul>
-    <li><File/></li>
-    <li><File/></li>
-    <li><File/></li>
-  </ul>
+	<ul>
+		<li><File /></li>
+		<li><File /></li>
+		<li><File /></li>
+	</ul>
 </template>
 ```
 
@@ -502,23 +535,36 @@ We can extend this hierarchical relationship to have "grandchildren" and beyond 
 
 ## React
 
-```jsx {0-2,4-6,11}
+```jsx {0-2,4-14,19}
 const FileDate = () => {
-  return <span>12/03/21</span>;
+	return <span>12/03/21</span>;
 };
 
 const File = () => {
-  return <div><a href="/file/file_one">File one<FileDate/></a></div>;
+	return (
+		<div>
+			<a href="/file/file_one">
+				File one
+				<FileDate />
+			</a>
+		</div>
+	);
 };
 
 const FileList = () => {
-  return (
-    <ul>
-      <li><File /></li>
-      <li><File /></li>
-      <li><File /></li>
-    </ul>
-  );
+	return (
+		<ul>
+			<li>
+				<File />
+			</li>
+			<li>
+				<File />
+			</li>
+			<li>
+				<File />
+			</li>
+		</ul>
+	);
 };
 ```
 
@@ -528,35 +574,35 @@ const FileList = () => {
 
 ```typescript {0-5,10,13,22,25}
 @Component({
-  selector: 'file-date',
-  standalone: true,
-  template: `<span>12/03/21</span>`,
+	selector: "file-date",
+	standalone: true,
+	template: `<span>12/03/21</span>`,
 })
 export class FileDateComponent {}
 
 @Component({
-  selector: 'file-item',
-  standalone: true,
-  imports: [FileDateComponent],
-  template: `
-    <div>
-      <a href="/file/file_one">File one<file-date/></a>
-    </div>
-  `,
+	selector: "file-item",
+	standalone: true,
+	imports: [FileDateComponent],
+	template: `
+		<div>
+			<a href="/file/file_one">File one<file-date /></a>
+		</div>
+	`,
 })
 export class FileComponent {}
 
 @Component({
-  selector: 'file-list',
-  standalone: true,
-  imports: [FileComponent],
-  template: `
-    <ul>
-      <li><file-item/></li>
-      <li><file-item/></li>
-      <li><file-item/></li>
-    </ul>
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent],
+	template: `
+		<ul>
+			<li><file-item /></li>
+			<li><file-item /></li>
+			<li><file-item /></li>
+		</ul>
+	`,
 })
 export class FileListComponent {}
 ```
@@ -568,34 +614,35 @@ export class FileListComponent {}
 ```vue
 <!-- FileDate.vue -->
 <template>
-  <span>12/03/21</span>
+	<span>12/03/21</span>
 </template>
 ```
 
 ```vue
 <!-- File.vue -->
 <script setup>
-   import FileDate from './FileDate.vue';
+import FileDate from "./FileDate.vue";
 </script>
 
 <template>
-  <div><a href="/file/file_one">File one<FileDate/></a></div>
+	<div>
+		<a href="/file/file_one">File one<FileDate /></a>
+	</div>
 </template>
 ```
-
 
 ```vue
 <!-- FileList.vue -->
 <script setup>
-   import File from './File.vue';
+import File from "./File.vue";
 </script>
 
 <template>
-  <ul>
-    <li><File/></li>
-    <li><File/></li>
-    <li><File/></li>
-  </ul>
+	<ul>
+		<li><File /></li>
+		<li><File /></li>
+		<li><File /></li>
+	</ul>
 </template>
 ```
 
@@ -615,33 +662,38 @@ Components can handle all three!
 
 Let's take a look at how we can declare logic in a component by making `file-date` show the current date instead of a static date.
 
-We'll start by adding a simple function to display the current date in a human-readable form.
+We'll start by adding a variable that contains the current date in a human-readable string of `MM/DD/YY`.
 
 <!-- tabs:start -->
 
 ## React
 
-```jsx {4}
-import {useState} from 'react';
+```jsx
+import { useState } from "react";
 
 const FileDate = () => {
-  const dateStr = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`;
-  return <span>12/03/21</span>
-}
+	const dateStr = `${
+		new Date().getMonth() + 1
+	}/${new Date().getDate()}/${new Date().getFullYear()}`;
+
+	return <span>12/03/21</span>;
+};
 ```
 
 <iframe data-frame-title="React Inline Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-inline-logic-5?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
-```typescript {5}
+```typescript
 @Component({
-  selector: 'file-date',
-  standalone: true,
-  template: `<span>12/03/21</span>`
+	selector: "file-date",
+	standalone: true,
+	template: `<span>12/03/21</span>`,
 })
 export class FileDateComponent {
-  dateStr = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`;
+	dateStr = `${
+		new Date().getMonth() + 1
+	}/${new Date().getDate()}/${new Date().getFullYear()}`;
 }
 ```
 
@@ -652,11 +704,13 @@ export class FileDateComponent {
 ```vue
 <!-- FileDate.vue -->
 <script setup>
-   const dateStr = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
+const dateStr = `${
+	new Date().getMonth() + 1
+}/${new Date().getDate()}/${new Date().getFullYear()}`;
 </script>
 
 <template>
-  <span>12/03/21</span>
+	<span>12/03/21</span>
 </template>
 ```
 
@@ -664,16 +718,18 @@ export class FileDateComponent {
 
 <!-- tabs:end -->
 
-While this logic works, it's a bit verbose (and slow, due to recreating the `Date` object thrice) - let's break it out into a method, contained within the component.
+> We're not using this new `dateStr` variable yet. This is intentional; we'll use it here shortly.
+
+While this logic to set this variable works, it's a bit verbose (and slow, due to recreating the `Date` object thrice) - let's break it out into a method, contained within the component.
 
 ```javascript
 function formatDate() {
-  const today = new Date();
-  // Month starts at 0, annoyingly
-  const monthNum = today.getMonth() + 1;
-  const dateNum = today.getDate();
-  const yearNum = today.getFullYear();
-  return monthNum + "/" + dateNum + "/" + yearNum;
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const monthNum = today.getMonth() + 1;
+	const dateNum = today.getDate();
+	const yearNum = today.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
 }
 ```
 
@@ -683,17 +739,17 @@ function formatDate() {
 
 ```jsx {0-7, 10}
 function formatDate() {
-  const today = new Date();
-  // Month starts at 0, annoyingly
-  const monthNum = today.getMonth() + 1;
-  const dateNum = today.getDate();
-  const yearNum = today.getFullYear();
-  return monthNum + "/" + dateNum + "/" + yearNum;
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const monthNum = today.getMonth() + 1;
+	const dateNum = today.getDate();
+	const yearNum = today.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
 }
 
 const FileDate = () => {
-  const dateStr = formatDate();
-  return <span>12/03/21</span>;
+	const dateStr = formatDate();
+	return <span>12/03/21</span>;
 };
 ```
 
@@ -705,21 +761,21 @@ const FileDate = () => {
 
 ```typescript {6,8-15}
 @Component({
-  selector: "file-date",
-  standalone: true,
-  template: `<span>12/03/21</span>`,
+	selector: "file-date",
+	standalone: true,
+	template: `<span>12/03/21</span>`,
 })
 export class FileDateComponent {
-  dateStr = this.formatDate();
+	dateStr = this.formatDate();
 
-  formatDate() {
-    const today = new Date();
-    // Month starts at 0, annoyingly
-    const monthNum = today.getMonth() + 1;
-    const dateNum = today.getDate();
-    const yearNum = today.getFullYear();
-    return monthNum + "/" + dateNum + "/" + yearNum;
-  }
+	formatDate() {
+		const today = new Date();
+		// Month starts at 0, annoyingly
+		const monthNum = today.getMonth() + 1;
+		const dateNum = today.getDate();
+		const yearNum = today.getFullYear();
+		return monthNum + "/" + dateNum + "/" + yearNum;
+	}
 }
 ```
 
@@ -730,27 +786,26 @@ export class FileDateComponent {
 ```vue {2-9,11}
 <!-- FileDate.vue -->
 <script setup>
-   function formatDate() {
-      const today = new Date();
-      // Month starts at 0, annoyingly
-      const monthNum = today.getMonth() + 1;
-      const dateNum = today.getDate();
-      const yearNum = today.getFullYear();
-      return monthNum + "/" + dateNum + "/" + yearNum;
-   }
+function formatDate() {
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const monthNum = today.getMonth() + 1;
+	const dateNum = today.getDate();
+	const yearNum = today.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
+}
 
-   const dateStr = formatDate();
+const dateStr = formatDate();
 </script>
 
 <template>
-  <span>12/03/21</span>
+	<span>12/03/21</span>
 </template>
 ```
 
 <iframe data-frame-title="Vue Extracted Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-extracted-logic-6?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
 
 <!-- tabs:end -->
-
 
 # Intro to Side Effects {#side-effects}
 
@@ -761,26 +816,26 @@ Let's verify that our `formatDate` method is outputting the correct value by tel
 ### React
 
 ```jsx {0,14-16}
-import {useEffect} from 'react';
+import { useEffect } from "react";
 
 function formatDate() {
-  const today = new Date();
-  // Month starts at 0, annoyingly
-  const month = today.getMonth() + 1;
-  const date = today.getDate();
-  const year = today.getFullYear();
-  return month + "/" + date + "/" + year;
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const month = today.getMonth() + 1;
+	const date = today.getDate();
+	const year = today.getFullYear();
+	return month + "/" + date + "/" + year;
 }
 
-const FileDate = () => {  
-  const dateStr = formatDate();
+const FileDate = () => {
+	const dateStr = formatDate();
 
-  useEffect(() => {
-    console.log(dateStr)
-  }, []);
- 
-  return <span>12/03/21</span>
-}
+	useEffect(() => {
+		console.log(dateStr);
+	}, []);
+
+	return <span>12/03/21</span>;
+};
 ```
 
 <iframe data-frame-title="React Side Effect Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-side-effect-intro-7?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
@@ -791,25 +846,25 @@ const FileDate = () => {
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: "file-date",
-  standalone: true,
-  template: `<span>12/03/21</span>`,
+	selector: "file-date",
+	standalone: true,
+	template: `<span>12/03/21</span>`,
 })
 export class FileDateComponent implements OnInit {
-  dateStr = this.formatDate();
+	dateStr = this.formatDate();
 
-  ngOnInit() {
-    console.log(this.dateStr);
-  }
+	ngOnInit() {
+		console.log(this.dateStr);
+	}
 
-  formatDate() {
-    const today = new Date();
-    // Month starts at 0, annoyingly
-    const monthNum = today.getMonth() + 1;
-    const dateNum = today.getDate();
-    const yearNum = today.getFullYear();
-    return monthNum + "/" + dateNum + "/" + yearNum;
-  }
+	formatDate() {
+		const today = new Date();
+		// Month starts at 0, annoyingly
+		const monthNum = today.getMonth() + 1;
+		const dateNum = today.getDate();
+		const yearNum = today.getFullYear();
+		return monthNum + "/" + dateNum + "/" + yearNum;
+	}
 }
 ```
 
@@ -820,26 +875,26 @@ export class FileDateComponent implements OnInit {
 ```vue {2,15-17}
 <!-- FileDate.vue -->
 <script setup>
-   import {onMounted} from 'vue';
+import { onMounted } from "vue";
 
-   function formatDate() {
-      const today = new Date();
-      // Month starts at 0, annoyingly
-      const monthNum = today.getMonth() + 1;
-      const dateNum = today.getDate();
-      const yearNum = today.getFullYear();
-      return monthNum + "/" + dateNum + "/" + yearNum;
-   }
+function formatDate() {
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const monthNum = today.getMonth() + 1;
+	const dateNum = today.getDate();
+	const yearNum = today.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
+}
 
-   const dateStr = formatDate();
+const dateStr = formatDate();
 
-   onMounted(() => {
-      console.log(dateStr);
-   })
+onMounted(() => {
+	console.log(dateStr);
+});
 </script>
 
 <template>
-  <span>12/03/21</span>
+	<span>12/03/21</span>
 </template>
 ```
 
@@ -873,19 +928,19 @@ While displaying the value in the console works well for debugging, it's not of 
 
 ```jsx {12}
 function formatDate() {
-  const today = new Date();
-  // Month starts at 0, annoyingly
-  const monthNum = today.getMonth() + 1;
-  const dateNum = today.getDate();
-  const yearNum = today.getFullYear();
-  return monthNum + "/" + dateNum + "/" + yearNum;
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const monthNum = today.getMonth() + 1;
+	const dateNum = today.getDate();
+	const yearNum = today.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
 }
 
-const FileDate = () => {  
-  const dateStr = formatDate();
-  
-  return <span>{dateStr}</span>
-}
+const FileDate = () => {
+	const dateStr = formatDate();
+
+	return <span>{dateStr}</span>;
+};
 ```
 
 <iframe data-frame-title="React Display - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-display-8?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
@@ -894,49 +949,49 @@ const FileDate = () => {
 
 ```typescript {3}
 @Component({
-  selector: "file-date",
-  standalone: true,
-  template: `<span>{{ dateStr }}</span>`,
+	selector: "file-date",
+	standalone: true,
+	template: `<span>{{ dateStr }}</span>`,
 })
 export class FileDateComponent {
-  dateStr = this.formatDate();
+	dateStr = this.formatDate();
 
-  formatDate() {
-    const today = new Date();
-    // Month starts at 0, annoyingly
-    const monthNum = today.getMonth() + 1;
-    const dateNum = today.getDate();
-    const yearNum = today.getFullYear();
-    return monthNum + "/" + dateNum + "/" + yearNum;
-  }
+	formatDate() {
+		const today = new Date();
+		// Month starts at 0, annoyingly
+		const monthNum = today.getMonth() + 1;
+		const dateNum = today.getDate();
+		const yearNum = today.getFullYear();
+		return monthNum + "/" + dateNum + "/" + yearNum;
+	}
 }
 ```
 
 <iframe data-frame-title="Angular Display - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-display-8?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-Every class property inside of the component instance is usable inside of the `@Component`'s `template`. 
+Every class property inside of the component instance is usable inside of the `@Component`'s `template`.
 
 ### Vue
 
 ```vue {17}
 <!-- FileDate.vue -->
 <script setup>
-   import {onMounted} from 'vue';
+import { onMounted } from "vue";
 
-   function formatDate() {
-      const today = new Date();
-      // Month starts at 0, annoyingly
-      const monthNum = today.getMonth() + 1;
-      const dateNum = today.getDate();
-      const yearNum = today.getFullYear();
-      return monthNum + "/" + dateNum + "/" + yearNum;
-   }
+function formatDate() {
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const monthNum = today.getMonth() + 1;
+	const dateNum = today.getDate();
+	const yearNum = today.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
+}
 
-   const dateStr = formatDate();
+const dateStr = formatDate();
 </script>
 
 <template>
-  <span>{{dateStr}}</span>
+	<span>{{ dateStr }}</span>
 </template>
 ```
 
@@ -945,7 +1000,6 @@ Every class property inside of the component instance is usable inside of the `@
 Here, we're utilizing the fact that every variable inside of `<script setup>` is automatically exposed to our `<template>` code.
 
 <!-- tabs:end -->
-
 
 Here, we're using each framework's method of injecting the state into a component. For React, we'll use the `{}` syntax to interpolate JavaScript into the template, while Vue and Angular both rely on `{{}}` syntax.
 
@@ -958,14 +1012,14 @@ Let's think about what that code might look like:
 ```javascript
 // This is non-framework-specific psuedocode
 setTimeout(() => {
-    // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
-    const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
-    const tomorrowDate = formatDate(tomorrow);
-    dateStr = tomorrowDate;
-    // This is not a real method in any of these frameworks
-    // But the idea of re-rendering after data has changed IS
-    // an integral part of these frameworks. They just do it differently
-    rerender();
+	// 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+	const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
+	const tomorrowDate = formatDate(tomorrow);
+	dateStr = tomorrowDate;
+	// This is not a real method in any of these frameworks
+	// But the idea of re-rendering after data has changed IS
+	// an integral part of these frameworks. They just do it differently
+	rerender();
 }, 5000);
 ```
 
@@ -975,34 +1029,34 @@ Let's see what that looks like in practice for each framework:
 
 ### React
 
-In the pseudocode sample we wrote before, we update the value of `dateStr` and then re-render the containing component to update a value on-screen using two lines of code. 
+In the pseudocode sample we wrote before, we update the value of `dateStr` and then re-render the containing component to update a value on-screen using two lines of code.
 
-In React, we use a single line of code to do both, and have a special `useState` method to tell React what data needs changing. 
+In React, we use a single line of code to do both, and have a special `useState` method to tell React what data needs changing.
 
 ```jsx {13-20}
 import { useState, useEffect } from "react";
 
 function formatDate(inputDate) {
-  // Month starts at 0, annoyingly
-  const month = inputDate.getMonth() + 1;
-  const date = inputDate.getDate();
-  const year = inputDate.getFullYear();
-  return month + "/" + date + "/" + year;
+	// Month starts at 0, annoyingly
+	const month = inputDate.getMonth() + 1;
+	const date = inputDate.getDate();
+	const year = inputDate.getFullYear();
+	return month + "/" + date + "/" + year;
 }
 
 const FileDate = () => {
-  const [dateStr, setDateStr] = useState(formatDate(new Date()));
+	const [dateStr, setDateStr] = useState(formatDate(new Date()));
 
-  useEffect(() => {
-    setTimeout(() => {
-      // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
-      const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
-      const tomorrowDate = formatDate(tomorrow);
-      setDateStr(tomorrowDate);
-    }, 5000);
-  }, []);
+	useEffect(() => {
+		setTimeout(() => {
+			// 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+			const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
+			const tomorrowDate = formatDate(tomorrow);
+			setDateStr(tomorrowDate);
+		}, 5000);
+	}, []);
 
-  return <span>{dateStr}</span>;
+	return <span>{dateStr}</span>;
 };
 ```
 
@@ -1013,14 +1067,18 @@ const FileDate = () => {
 We're then using [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to convert the returned array into two variables. Another way to write this code is:
 
 ```jsx
-const dateArr = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
+const dateArr = useState(
+	`${
+		new Date().getMonth() + 1
+	}/${new Date().getDate()}/${new Date().getFullYear()}`,
+);
 const dateStr = dateArr[0];
 const setDateStr = dateArr[1];
 ```
 
 > `useState` is what's known as a ["React Hook"](https://reactjs.org/docs/hooks-intro.html). Hooks are React's method of "hooking" functionality into React's framework code. They allow you to do a myriad of functionalities in React components.
 >
-> Hooks can be identified as a function that starts with the word "`use`". Some other Hooks we'll touch on in the future will include [`useEffect`](#lifecycles), [`useMemo`](/posts/ffg-fundamentals-derived-values), and others. 
+> Hooks can be identified as a function that starts with the word "`use`". Some other Hooks we'll touch on in the future will include [`useEffect`](#lifecycles), [`useMemo`](/posts/ffg-fundamentals-derived-values), and others.
 
 Here, we're using `setDateStr` to tell React that it should re-render, which will update the value of `dateStr`. This differs from Angular and Vue, where you don't have to explicitly tell the framework when to re-render.
 
@@ -1036,28 +1094,28 @@ All it takes in Angular to trigger a re-render is to update a variable's value:
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: "file-date",
-  standalone: true,
-  template: `<span>{{ dateStr }}</span>`,
+	selector: "file-date",
+	standalone: true,
+	template: `<span>{{ dateStr }}</span>`,
 })
 export class FileDateComponent implements OnInit {
-  dateStr = this.formatDate(new Date());
+	dateStr = this.formatDate(new Date());
 
-  ngOnInit() {
-    setTimeout(() => {
-      // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
-      const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
-      this.dateStr = this.formatDate(tomorrow);
-    }, 5000);
-  }
+	ngOnInit() {
+		setTimeout(() => {
+			// 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+			const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
+			this.dateStr = this.formatDate(tomorrow);
+		}, 5000);
+	}
 
-  formatDate(inputDate: Date) {
-    // Month starts at 0, annoyingly
-    const monthNum = inputDate.getMonth() + 1;
-    const dateNum = inputDate.getDate();
-    const yearNum = inputDate.getFullYear();
-    return monthNum + "/" + dateNum + "/" + yearNum;
-  }
+	formatDate(inputDate: Date) {
+		// Month starts at 0, annoyingly
+		const monthNum = inputDate.getMonth() + 1;
+		const dateNum = inputDate.getDate();
+		const yearNum = inputDate.getFullYear();
+		return monthNum + "/" + dateNum + "/" + yearNum;
+	}
 }
 ```
 
@@ -1070,29 +1128,29 @@ Similar to how React has `useState` in order to set data in a component, Vue int
 ```vue {14-20}
 <!-- FileDate.vue -->
 <script setup>
-   import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 
-   function formatDate(inputDate) {
-      // Month starts at 0, annoyingly
-      const monthNum = inputDate.getMonth() + 1
-      const dateNum = inputDate.getDate()
-      const yearNum = inputDate.getFullYear()
-      return monthNum + '/' + dateNum + '/' + yearNum
-   }
+function formatDate(inputDate) {
+	// Month starts at 0, annoyingly
+	const monthNum = inputDate.getMonth() + 1;
+	const dateNum = inputDate.getDate();
+	const yearNum = inputDate.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
+}
 
-   const dateStr = ref(formatDate(new Date()))
+const dateStr = ref(formatDate(new Date()));
 
-   onMounted(() => {
-      setTimeout(() => {
-         // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
-         const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000)
-         dateStr.value = formatDate(tomorrow)
-      }, 5000)
-   })
+onMounted(() => {
+	setTimeout(() => {
+		// 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+		const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
+		dateStr.value = formatDate(tomorrow);
+	}, 5000);
+});
 </script>
 
 <template>
-  <span>{{ dateStr }}</span>
+	<span>{{ dateStr }}</span>
 </template>
 ```
 
@@ -1104,19 +1162,17 @@ Similar to how React has `useState` in order to set data in a component, Vue int
 
 If you sit on these screens for a while, you'll see that they update automatically!
 
-**This idea of a data update triggering other code is called "reactivity"**, and is a central part of all of these frameworks. 
+**This idea of a data update triggering other code is called "reactivity"**, and is a central part of all of these frameworks.
 
-While the frameworks detect reactive changes under the hood differently, they all handle updating the DOM for you. This allows you to focus on the logic that's intended to update what's on-screen as opposed to the code that updates the DOM itself. 
+While the frameworks detect reactive changes under the hood differently, they all handle updating the DOM for you. This allows you to focus on the logic that's intended to update what's on-screen as opposed to the code that updates the DOM itself.
 
 This is important because in order to update the DOM in an efficient way requires significant heavy lifting. In fact, **two of these frameworks (React and Vue) store an entire copy of the DOM in memory in order to keep that updating as lightweight as possible**. In the third book of this book series, titled "Internals", we'll learn how this works under-the-hood and how to build our work version of this DOM mirroring.
-
-
 
 # Attribute Binding
 
 Text isn't the only thing that frameworks are capable of live-updating, however!
 
-Just like each framework has a way to have state rendered into text on-screen, it can also update HTML attributes for an element. 
+Just like each framework has a way to have state rendered into text on-screen, it can also update HTML attributes for an element.
 
 Currently, our `date` component doesn't read out [particularly kindly to screen-readers](https://unicorn-utterances.com/posts/intro-to-web-accessability) since it would only read out as numbers. Let's change that by adding in an `aria-label`of a human-readable date to our `date` component.
 
@@ -1125,52 +1181,48 @@ Currently, our `date` component doesn't read out [particularly kindly to screen-
 ### React
 
 ```jsx {5}
-const FileDate = () => {  
-  const [dateStr, setDateStr] = useState(formatDate(new Date()));
+const FileDate = () => {
+	const [dateStr, setDateStr] = useState(formatDate(new Date()));
 
-  // ...
-  
-  return <span aria-label="January 10th, 2023">{dateStr}</span>
-}
+	// ...
+
+	return <span aria-label="January 10th, 2023">{dateStr}</span>;
+};
 ```
 
 ### Angular
 
-```typescript {6}
-import {Component, OnInit} from '@angular/core';
+```typescript {5}
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'file-date',
-  standalone: true,
-  template: `
-    <span aria-label="January 10th, 2023">{{dateStr}}</span>
-  `
+	selector: "file-date",
+	standalone: true,
+	template: ` <span aria-label="January 10th, 2023">{{ dateStr }}</span> `,
 })
 export class FileDateComponent implements OnInit {
 	dateStr = this.formatDate(new Date());
 
-  // ...
+	// ...
 }
 ```
 
 ### Vue
 
-```vue {9}
+```vue {8}
 <!-- FileDate.vue -->
 <script setup>
-   // ...
+// ...
 
-   const dateStr = ref(formatDate(new Date()))
-
+const dateStr = ref(formatDate(new Date()));
 </script>
 
 <template>
-  <span aria-label="January 10th, 2023">{{dateStr}}</span>
+	<span aria-label="January 10th, 2023">{{ dateStr }}</span>
 </template>
 ```
 
 <!-- tabs:end -->
-
 
 Now, [when we use a screen reader](https://unicorn-utterances.com/posts/intro-to-web-accessability), it'll read out "January 10th" instead of "One dash ten".
 
@@ -1182,38 +1234,51 @@ Let's correct that by adding in a `formatReadableDate` method and reflect that i
 
 ### React
 
-```jsx {12,16}
-import {useState, useEffect} from 'react';
+```jsx {25,29}
+import { useState, useEffect } from "react";
 
 function formatReadableDate(inputDate) {
-  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const monthStr = months[inputDate.getMonth()];
-  const dateSuffixStr = dateSuffix(inputDate.getDate());
-  const yearNum = inputDate.getFullYear();
-  return monthStr + " " + dateSuffixStr + "," + yearNum;
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+	const monthStr = months[inputDate.getMonth()];
+	const dateSuffixStr = dateSuffix(inputDate.getDate());
+	const yearNum = inputDate.getFullYear();
+	return monthStr + " " + dateSuffixStr + "," + yearNum;
 }
 
-const FileDate = () => {  
-  const [dateStr, setDateStr] = useState(formatDate(new Date()));
-  const [labelText, setLabelText] = useState(formatReadableDate(new Date()));
-  
-  // ...
-  
-  return <span aria-label={labelText}>{dateStr}</span>
-}
+const FileDate = () => {
+	const [dateStr, setDateStr] = useState(formatDate(new Date()));
+	const [labelText, setLabelText] = useState(formatReadableDate(new Date()));
+
+	// ...
+
+	return <span aria-label={labelText}>{dateStr}</span>;
+};
 
 function dateSuffix(dayNumber) {
-  const lastDigit = dayNumber % 10;
-  if (lastDigit == 1 && dayNumber != 11) {
-    return dayNumber + "st";
-  }
-  if (lastDigit == 2 && dayNumber != 12) {
-    return dayNumber + "nd";
-  }
-  if (lastDigit == 3 && dayNumber != 13) {
-    return dayNumber + "rd";
-  }
-  return dayNumber + "th";
+	const lastDigit = dayNumber % 10;
+	if (lastDigit == 1 && dayNumber != 11) {
+		return dayNumber + "st";
+	}
+	if (lastDigit == 2 && dayNumber != 12) {
+		return dayNumber + "nd";
+	}
+	if (lastDigit == 3 && dayNumber != 13) {
+		return dayNumber + "rd";
+	}
+	return dayNumber + "th";
 }
 ```
 
@@ -1223,43 +1288,54 @@ function dateSuffix(dayNumber) {
 
 ### Angular
 
-```typescript {6,11}
-import {Component, OnInit} from '@angular/core';
+```typescript {5,9}
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'file-date',
-  standalone: true,
-  template: `
-    <span [attr.aria-label]="labelText">{{dateStr}}</span>
-  `
+	selector: "file-date",
+	standalone: true,
+	template: ` <span [attr.aria-label]="labelText">{{ dateStr }}</span> `,
 })
 export class FileDateComponent implements OnInit {
 	dateStr = this.formatDate(new Date());
 	labelText = this.formatReadableDate(new Date());
 
-  // ...
-    
-  dateSuffix(dayNumber: number) {
-    const lastDigit = dayNumber % 10;
-    if (lastDigit == 1 && dayNumber != 11) {
-      return dayNumber + "st";
-    }
-    if (lastDigit == 2 && dayNumber != 12) {
-      return dayNumber + "nd";
-    }
-    if (lastDigit == 3 && dayNumber != 13) {
-      return dayNumber + "rd";
-    }
-    return dayNumber + "th";
-  }
-  
-  formatReadableDate(inputDate: Date) {
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const monthStr = months[inputDate.getMonth()];
-    const dateSuffixStr = this.dateSuffix(inputDate.getDate());
-    const yearNum = inputDate.getFullYear();
-    return monthStr + " " + dateSuffixStr + "," + yearNum;
-  }
+	// ...
+
+	dateSuffix(dayNumber: number) {
+		const lastDigit = dayNumber % 10;
+		if (lastDigit == 1 && dayNumber != 11) {
+			return dayNumber + "st";
+		}
+		if (lastDigit == 2 && dayNumber != 12) {
+			return dayNumber + "nd";
+		}
+		if (lastDigit == 3 && dayNumber != 13) {
+			return dayNumber + "rd";
+		}
+		return dayNumber + "th";
+	}
+
+	formatReadableDate(inputDate: Date) {
+		const months = [
+			"January",
+			"February",
+			"March",
+			"April",
+			"May",
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"November",
+			"December",
+		];
+		const monthStr = months[inputDate.getMonth()];
+		const dateSuffixStr = this.dateSuffix(inputDate.getDate());
+		const yearNum = inputDate.getFullYear();
+		return monthStr + " " + dateSuffixStr + "," + yearNum;
+	}
 }
 ```
 
@@ -1271,41 +1347,54 @@ export class FileDateComponent implements OnInit {
 
 ### Vue
 
-```vue
+```vue {40,46}
 <!-- FileDate.vue -->
 <script setup>
-   // ...
+// ...
 
-   function formatReadableDate(inputDate) {
-      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      const monthStr = months[inputDate.getMonth()];
-      const dateSuffixStr = dateSuffix(inputDate.getDate());
-      const yearNum = inputDate.getFullYear();
-      return monthStr + " " + dateSuffixStr + "," + yearNum;
-   }
+function formatReadableDate(inputDate) {
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+	const monthStr = months[inputDate.getMonth()];
+	const dateSuffixStr = dateSuffix(inputDate.getDate());
+	const yearNum = inputDate.getFullYear();
+	return monthStr + " " + dateSuffixStr + "," + yearNum;
+}
 
-   function dateSuffix(dayNumber) {
-      const lastDigit = dayNumber % 10;
-      if (lastDigit == 1 && dayNumber != 11) {
-         return dayNumber + "st";
-      }
-      if (lastDigit == 2 && dayNumber != 12) {
-         return dayNumber + "nd";
-      }
-      if (lastDigit == 3 && dayNumber != 13) {
-         return dayNumber + "rd";
-      }
-      return dayNumber + "th";
-   }
+function dateSuffix(dayNumber) {
+	const lastDigit = dayNumber % 10;
+	if (lastDigit == 1 && dayNumber != 11) {
+		return dayNumber + "st";
+	}
+	if (lastDigit == 2 && dayNumber != 12) {
+		return dayNumber + "nd";
+	}
+	if (lastDigit == 3 && dayNumber != 13) {
+		return dayNumber + "rd";
+	}
+	return dayNumber + "th";
+}
 
-   const dateStr = ref(formatDate(new Date()))
-   const labelText = ref(formatReadableDate(new Date()))
+const dateStr = ref(formatDate(new Date()));
+const labelText = ref(formatReadableDate(new Date()));
 
-   // ...
+// ...
 </script>
 
 <template>
-  <span v-bind:aria-label="labelText">{{dateStr}}</span>
+	<span v-bind:aria-label="labelText">{{ dateStr }}</span>
 </template>
 ```
 
@@ -1339,25 +1428,38 @@ Our file list is starting to look good! That said, a file list containing the sa
 
 Luckily for us, components accept arguments just like functions! These arguments are most often called "inputs" or "properties" (shortened to "props") in the component world.
 
-Let's have the file name be an input to our `File` component: 
+Let's have the file name be an input to our `File` component:
 
 <!-- tabs:start -->
 
 ## React
 
-```jsx {0-2,7}
+```jsx {0-9,15}
 const File = (props) => {
-  return <div><a href="/file/file_one">{props.fileName}<FileDate/></a></div>;
+	return (
+		<div>
+			<a href="/file/file_one">
+				{props.fileName}
+				<FileDate />
+			</a>
+		</div>
+	);
 };
 
 const FileList = () => {
-  return (
-    <ul>
-      <li><File fileName={"File one"} /></li>
-      <li><File fileName={"File two"} /></li>
-      <li><File fileName={"File three"} /></li>
-    </ul>
-  );
+	return (
+		<ul>
+			<li>
+				<File fileName={"File one"} />
+			</li>
+			<li>
+				<File fileName={"File two"} />
+			</li>
+			<li>
+				<File fileName={"File three"} />
+			</li>
+		</ul>
+	);
 };
 ```
 
@@ -1367,46 +1469,55 @@ const FileList = () => {
 >
 > ```jsx
 > const File = ({ fileName }) => {
->   return <div><a href="/file/file_one">{fileName}<FileDate/></a></div>;
-> }
+> 	return (
+> 		<div>
+> 			<a href="/file/file_one">
+> 				{fileName}
+> 				<FileDate />
+> 			</a>
+> 		</div>
+> 	);
+> };
 > ```
 >
 > Since this is extremely common in production React applications, we'll be using this style going forward.
 >
 > Similarly, while `{}` is required to bind a variable to an input or attribute in React, since we're only passing a string here, we could alternatively write:
 >
->  ```jsx
->  <File fileName="File one"/>
->  ```
+> ```jsx
+> <File fileName="File one" />
+> ```
 
 ## Angular
 
-```typescript {0,11,20}
-import {Input, Component} from '@angular/core';
+```typescript {0,13,22}
+import { Input, Component } from "@angular/core";
 
 @Component({
-  selector: "file-item",
-  standalone: true,
-  imports: [FileDateComponent],
-  template: `
-    <div><a href="/file/file_one">{{ fileName }}<file-date/></a></div>
-  `,
+	selector: "file-item",
+	standalone: true,
+	imports: [FileDateComponent],
+	template: `
+		<div>
+			<a href="/file/file_one">{{ fileName }}<file-date /></a>
+		</div>
+	`,
 })
 export class FileComponent {
-  @Input() fileName!: string;
+	@Input() fileName!: string;
 }
 
 @Component({
-  selector: "file-list",
-  standalone: true,
-  imports: [FileComponent],
-  template: `
-    <ul>
-      <li><file-item [fileName]="'File one'"/></li>
-      <li><file-item [fileName]="'File two'"/></li>
-      <li><file-item [fileName]="'File three'"/></li>
-    </ul>
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent],
+	template: `
+		<ul>
+			<li><file-item [fileName]="'File one'" /></li>
+			<li><file-item [fileName]="'File two'" /></li>
+			<li><file-item [fileName]="'File three'" /></li>
+		</ul>
+	`,
 })
 export class FileListComponent {}
 ```
@@ -1422,30 +1533,30 @@ export class FileListComponent {}
 ```vue {4,9}
 <!-- File.vue -->
 <script setup>
-   import FileDate from './FileDate.vue';
+import FileDate from "./FileDate.vue";
 
-   const props = defineProps(['fileName'])
+const props = defineProps(["fileName"]);
 </script>
 
 <template>
-  <div>
-    <a href="/file/file_one">{{ props.fileName }}<FileDate/></a>
-  </div>
+	<div>
+		<a href="/file/file_one">{{ props.fileName }}<FileDate /></a>
+	</div>
 </template>
 ```
 
 ```vue {7}
 <!-- FileList.vue -->
 <script setup>
-   import File from './File.vue'
+import File from "./File.vue";
 </script>
 
 <template>
-  <ul>
-    <li><File :fileName="'File one'" /></li>
-    <li><File :fileName="'File two'" /></li>
-    <li><File :fileName="'File three'" /></li>
-  </ul>
+	<ul>
+		<li><File :fileName="'File one'" /></li>
+		<li><File :fileName="'File two'" /></li>
+		<li><File :fileName="'File three'" /></li>
+	</ul>
 </template>
 ```
 
@@ -1454,11 +1565,11 @@ export class FileListComponent {}
 > We don't need to import `defineProps`, instead, Vue uses some compiler magic in order to provide it as a globally accessible method.
 >
 > Here, we need to declare each property using `defineProps` on our component; otherwise, the input value won't be available to the rest of the component.
-> 
+>
 > Also, when we talked about attribute binding, we mentioned `:` is shorthand for `v-bind:`. The same applies here too. You could alternatively write:
 >
 > ```html
-> <File v-bind:fileName="'File three'"/>
+> <File v-bind:fileName="'File three'" />
 > ```
 
 <!-- tabs:end -->
@@ -1477,19 +1588,32 @@ Like functions, components can accept as many properties as you'd like to pass. 
 
 ### React
 
-```jsx {0-2,7}
+```jsx {0-9,15}
 const File = ({ fileName, href }) => {
-  return <div><a href={href}>{fileName}<FileDate/></a></div>;
+	return (
+		<div>
+			<a href={href}>
+				{fileName}
+				<FileDate />
+			</a>
+		</div>
+	);
 };
 
 const FileList = () => {
-  return (
-    <ul>
-      <li><File fileName="File one" href="/file/file_one" /></li>
-      <li><File fileName="File two" href="/file/file_two" /></li>
-      <li><File fileName="File three" href="/file/file_three" /></li>
-    </ul>
-  );
+	return (
+		<ul>
+			<li>
+				<File fileName="File one" href="/file/file_one" />
+			</li>
+			<li>
+				<File fileName="File two" href="/file/file_two" />
+			</li>
+			<li>
+				<File fileName="File three" href="/file/file_three" />
+			</li>
+		</ul>
+	);
 };
 ```
 
@@ -1497,31 +1621,35 @@ const FileList = () => {
 
 ### Angular
 
-```typescript {9-10,19}
+```typescript {11-12,21}
 @Component({
-  selector: "file-item",
-  standalone: true,
-  imports: [FileDateComponent],
-  template: `
-    <div><a [attr.href]="href">{{ fileName }}<file-date/></a></div>
-  `,
+	selector: "file-item",
+	standalone: true,
+	imports: [FileDateComponent],
+	template: `
+		<div>
+			<a [attr.href]="href">{{ fileName }}<file-date /></a>
+		</div>
+	`,
 })
 export class FileComponent {
-  @Input() fileName!: string;
-  @Input() href!: string;
+	@Input() fileName!: string;
+	@Input() href!: string;
 }
 
 @Component({
-  selector: "file-list",
-  standalone: true,
-  imports: [FileComponent],
-  template: `
-    <ul>
-      <li><file-item [fileName]="'File one'" [href]="'/file/file_one'"/></li>
-      <li><file-item [fileName]="'File two'" [href]="'/file/file_two'"/></li>
-      <li><file-item [fileName]="'File three'" [href]="'/file/file_three'"/></li>
-    </ul>
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent],
+	template: `
+		<ul>
+			<li><file-item [fileName]="'File one'" [href]="'/file/file_one'" /></li>
+			<li><file-item [fileName]="'File two'" [href]="'/file/file_two'" /></li>
+			<li>
+				<file-item [fileName]="'File three'" [href]="'/file/file_three'" />
+			</li>
+		</ul>
+	`,
 })
 export class FileListComponent {}
 ```
@@ -1533,30 +1661,30 @@ export class FileListComponent {}
 ```vue {4}
 <!-- File.vue -->
 <script setup>
-   import FileDate from './FileDate.vue';
+import FileDate from "./FileDate.vue";
 
-   const props = defineProps(['fileName', 'href'])
+const props = defineProps(["fileName", "href"]);
 </script>
 
 <template>
-  <div>
-    <a :href="props.href">{{ props.fileName }}<FileDate/></a>
-  </div>
+	<div>
+		<a :href="props.href">{{ props.fileName }}<FileDate /></a>
+	</div>
 </template>
 ```
 
 ```vue {7}
 <!-- FileList.vue -->
 <script setup>
-   import File from './File.vue'
+import File from "./File.vue";
 </script>
 
 <template>
-  <ul>
-    <li><File :fileName="'File one'" :href="'/file/file_one'"/></li>
-    <li><File :fileName="'File two'" :href="'/file/file_two'"/></li>
-    <li><File :fileName="'File three'" :href="'/file/file_three'"/></li>
-  </ul>
+	<ul>
+		<li><File :fileName="'File one'" :href="'/file/file_one'" /></li>
+		<li><File :fileName="'File two'" :href="'/file/file_two'" /></li>
+		<li><File :fileName="'File three'" :href="'/file/file_three'" /></li>
+	</ul>
 </template>
 ```
 
@@ -1578,23 +1706,23 @@ To showcase this, let's add the ability to pass a `Date` class instance to our `
 
 ```jsx {1-2,14}
 const FileDate = ({ inputDate }) => {
-  const [dateStr, setDateStr] = useState(formatDate(inputDate));
-  const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
+	const [dateStr, setDateStr] = useState(formatDate(inputDate));
+	const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
 
-  // ...
+	// ...
 
-  return <span aria-label={labelText}>{dateStr}</span>;
+	return <span aria-label={labelText}>{dateStr}</span>;
 };
 
 const File = ({ href, fileName }) => {
-  return (
-    <div>
-      <a href={href}>
-        {fileName}
-        <FileDate inputDate={new Date()} />
-      </a>
-    </div>
-  );
+	return (
+		<div>
+			<a href={href}>
+				{fileName}
+				<FileDate inputDate={new Date()} />
+			</a>
+		</div>
+	);
 };
 ```
 
@@ -1606,45 +1734,45 @@ const File = ({ href, fileName }) => {
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: "file-date",
-  standalone: true,
-  template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
+	selector: "file-date",
+	standalone: true,
+	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
 export class FileDateComponent {
-  @Input() inputDate!: Date;
-  
-   /**
-    * You cannot access `Input` data from the root (constructor)
-    * of the class
-    */
-   dateStr = '';
-   labelText = '';
+	@Input() inputDate!: Date;
 
-   ngOnInit() {
-      this.dateStr = this.formatDate(this.inputDate);
-      this.labelText = this.formatReadableDate(this.inputDate);
-   }
+	/**
+	 * You cannot access `Input` data from the root (constructor)
+	 * of the class
+	 */
+	dateStr = "";
+	labelText = "";
 
-   // ...
+	ngOnInit() {
+		this.dateStr = this.formatDate(this.inputDate);
+		this.labelText = this.formatReadableDate(this.inputDate);
+	}
+
+	// ...
 }
 
 @Component({
-  selector: "file-item",
-  standalone: true,
-  imports: [FileDateComponent],
-  template: `
-    <div>
-      <a [attr.href]="href">
-        {{ fileName }}
-        <file-date [inputDate]="inputDate"/>
-      </a>
-    </div>
-  `,
+	selector: "file-item",
+	standalone: true,
+	imports: [FileDateComponent],
+	template: `
+		<div>
+			<a [attr.href]="href">
+				{{ fileName }}
+				<file-date [inputDate]="inputDate" />
+			</a>
+		</div>
+	`,
 })
 export class FileComponent {
-  inputDate = new Date();
+	inputDate = new Date();
 
-  // ...
+	// ...
 }
 ```
 
@@ -1661,37 +1789,38 @@ This is because Angular doesn't allow you to access `@Input` values in the root 
 ```vue {4}
 <!-- FileDate.vue -->
 <script setup>
-  // ...
+// ...
 
-  const props = defineProps(['inputDate'])
+const props = defineProps(["inputDate"]);
 
-  const dateStr = ref(formatDate(props.inputDate))
-  const labelText = ref(formatDate(props.inputDate))
+const dateStr = ref(formatDate(props.inputDate));
+const labelText = ref(formatDate(props.inputDate));
 
-  // ...
+// ...
 </script>
 
 <template>
-  <span :aria-label="labelText">{{ dateStr }}</span>
+	<span :aria-label="labelText">{{ dateStr }}</span>
 </template>
 ```
 
 ```vue {6,12}
 <!-- File.vue -->
 <script setup>
-   import FileDate from './FileDate.vue'
+import FileDate from "./FileDate.vue";
 
-   const props = defineProps(['fileName', 'href']);
+const props = defineProps(["fileName", "href"]);
 
-   const inputDate = new Date();
+const inputDate = new Date();
 </script>
 
 <template>
-  <div>
-    <a :href="props.href">{{ props.fileName }}
-      <FileDate :inputDate="inputDate"/>
-    </a>
-  </div>
+	<div>
+		<a :href="props.href"
+			>{{ props.fileName }}
+			<FileDate :inputDate="inputDate" />
+		</a>
+	</div>
 </template>
 ```
 
@@ -1699,7 +1828,7 @@ This is because Angular doesn't allow you to access `@Input` values in the root 
 
 <!-- tabs:end -->
 
-> Once again, I have to add a minor asterisk next to this code sample. Right now, if you update the `inputDate` value after the initial render, it will not show the new date string in `FileDate`. This is because we're setting the value of `dateStr` and `labelText` only once and not updating the values. 
+> Once again, I have to add a minor asterisk next to this code sample. Right now, if you update the `inputDate` value after the initial render, it will not show the new date string in `FileDate`. This is because we're setting the value of `dateStr` and `labelText` only once and not updating the values.
 >
 > Each framework has a way of live-updating this value for us, as we might usually expect, by [utilizing a derived value](/posts/ffg-fundamentals-derived-values), but we'll touch on that in a future section.
 
@@ -1716,33 +1845,33 @@ For example, here's some code that **will not work as expected**:
 ### React
 
 ```jsx
-const GenericList = ({inputArray}) => {
-    // This is NOT allowed and will break things
-    inputArray.push("some value");
+const GenericList = ({ inputArray }) => {
+	// This is NOT allowed and will break things
+	inputArray.push("some value");
 
-    // ...
-}
+	// ...
+};
 ```
 
 ### Angular
 
 ```typescript
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'generic-list',
-  standalone: true,
-  // ...
+	selector: "generic-list",
+	standalone: true,
+	// ...
 })
 export class GenericListComponent implements OnInit {
 	@Input() inputArray: string[];
-    
-    ngOnInit() {
-        // This is NOT allowed and will break things
-        this.inputArray.push("some value")
-    }
-    
-    // ...
+
+	ngOnInit() {
+		// This is NOT allowed and will break things
+		this.inputArray.push("some value");
+	}
+
+	// ...
 }
 ```
 
@@ -1753,12 +1882,12 @@ export class GenericListComponent implements OnInit {
 ```vue
 <!-- GenericList.vue -->
 <script setup>
-import {onMounted} from 'vue';
+import { onMounted } from "vue";
 
-const props = defineProps(['inputArray']);
+const props = defineProps(["inputArray"]);
 
 onMounted(() => {
-    // This is NOT allowed and will break things
+	// This is NOT allowed and will break things
 	props.inputArray.push("some value");
 });
 </script>
@@ -1767,11 +1896,10 @@ onMounted(() => {
 
 <!-- tabs:end -->
 
-
 You're not intended to mutate properties because it breaks two key concepts of application architecture with components:
 
-1) [What it means to be a "pure" function](/posts/ffg-fundamentals-side-effects#Side-Effects)
-2) [Unidirectionality of component flow](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow)
+1. [What it means to be a "pure" function](/posts/ffg-fundamentals-side-effects#Side-Effects)
+2. [Unidirectionality of component flow](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow)
 
 # Event Binding
 
@@ -1793,25 +1921,25 @@ While we're at it, let's migrate our `File` component to use a `button` instead 
 
 ```jsx {1,4,9-14}
 const File = ({ fileName }) => {
-  const [isSelected, setSelected] = useState(false);
+	const [isSelected, setSelected] = useState(false);
 
-  const selectFile = () => {
-    setSelected(!isSelected);
-  };
+	const selectFile = () => {
+		setSelected(!isSelected);
+	};
 
-  return (
-    <button
-      onClick={selectFile}
-      style={
-        isSelected
-          ? { backgroundColor: "blue", color: "white" }
-          : { backgroundColor: "white", color: "blue" }
-      }
-    >
-     {fileName}
-     <FileDate inputDate={new Date()} />
-    </button>
-  );
+	return (
+		<button
+			onClick={selectFile}
+			style={
+				isSelected
+					? { backgroundColor: "blue", color: "white" }
+					: { backgroundColor: "white", color: "blue" }
+			}
+		>
+			{fileName}
+			<FileDate inputDate={new Date()} />
+		</button>
+	);
 };
 ```
 
@@ -1819,17 +1947,17 @@ const File = ({ fileName }) => {
 
 There are three major things of note in this code sample:
 
-1) The `style` property differs from what you might see in a typical HTML code sample. 
+1. The `style` property differs from what you might see in a typical HTML code sample.
 
    EG: `"background-color: blue; color: white;"` becomes `{backgroundColor: 'blue', color: 'white'}`.
 
    This is required to embed CSS directly inside of JSX's `style` property. If you move this code out to a dedicated CSS file and use classes, you can use the more traditional syntax.
 
-2) We're using the second value of the `useState` returned array.
+2. We're using the second value of the `useState` returned array.
 
    The second value of the array returned by `useState` is utilized to update the value assigned to the first variable. So, when `setSelected` is called, it will then update the value of `isSelected` and the component is re-rendered.
 
-3. We prefix the event name we're listening for with `on` and capitalizing the first letter of the event name.
+3) We prefix the event name we're listening for with `on` and capitalizing the first letter of the event name.
 
    EG: `click` becomes `onClick`.
 
@@ -1837,31 +1965,31 @@ There are three major things of note in this code sample:
 
 ```typescript {6-11,19-23}
 @Component({
-   selector: 'file-item',
-   standalone: true,
-   imports: [FileDateComponent],
-   template: `
-    <button
-      (click)="selectFile()"
-      [style]="
-        isSelected
-          ? 'background-color: blue; color: white'
-          : 'background-color: white; color: blue'
-      "
-    >
-      {{ fileName }}
-      <file-date [inputDate]="inputDate"/>
-    </button>
-  `,
+	selector: "file-item",
+	standalone: true,
+	imports: [FileDateComponent],
+	template: `
+		<button
+			(click)="selectFile()"
+			[style]="
+				isSelected
+					? 'background-color: blue; color: white'
+					: 'background-color: white; color: blue'
+			"
+		>
+			{{ fileName }}
+			<file-date [inputDate]="inputDate" />
+		</button>
+	`,
 })
 export class FileComponent {
-   isSelected = false;
-   selectFile() {
-      this.isSelected = !this.isSelected;
-   }
+	isSelected = false;
+	selectFile() {
+		this.isSelected = !this.isSelected;
+	}
 
-   inputDate = new Date();
-   @Input() fileName!: string;
+	inputDate = new Date();
+	@Input() fileName!: string;
 }
 ```
 
@@ -1871,31 +1999,31 @@ Instead of the `[]` symbols to do input binding, we're using the `()` symbols to
 
 ### Vue
 
-```vue
+```vue {6-9,14-19}
 <!-- File.vue -->
 <script setup>
-   import { ref } from 'vue';
-   const props = defineProps(['fileName']);
+import { ref } from "vue";
+const props = defineProps(["fileName"]);
 
-   const isSelected = ref(false);
-   const inputDate = new Date();
-   function selectFile() {
-      isSelected.value = !isSelected.value;
-   }
+const inputDate = new Date();
+const isSelected = ref(false);
+function selectFile() {
+	isSelected.value = !isSelected.value;
+}
 </script>
 
 <template>
-   <button
-    v-on:click="selectFile()"
-    :style="
-      isSelected
-        ? 'background-color: blue; color: white'
-        : 'background-color: white; color: blue'
-    "
-   >
-      {{ props.fileName }}
-      <FileDate :inputDate="inputDate" />
-   </button>
+	<button
+		v-on:click="selectFile()"
+		:style="
+			isSelected
+				? 'background-color: blue; color: white'
+				: 'background-color: white; color: blue'
+		"
+	>
+		{{ props.fileName }}
+		<FileDate :inputDate="inputDate" />
+	</button>
 </template>
 ```
 
@@ -1908,13 +2036,13 @@ There's also a shorthand syntax, just like there is one for attribute bindings. 
 This means:
 
 ```html
-<button v-on:click="selectFile()">
+<button v-on:click="selectFile()"></button>
 ```
 
 Can be rewritten into:
 
 ```html
-<button @click="selectFile()">
+<button @click="selectFile()"></button>
 ```
 
 <!-- tabs:end -->
@@ -1939,58 +2067,64 @@ React expects you to pass in a function as opposed to emitting an event and list
 
 This differs slightly from Vue and Angular but has the same fundamental idea of "sending data to a parent component".
 
-```jsx {2,5,19-27,31-36}
-import { useState } from 'react';
+```jsx {2,5,19-27,32-37}
+import { useState } from "react";
 
 const File = ({ href, fileName, isSelected, onSelected }) => {
-  return (
-    <button
-      onClick={onSelected}
-      style={
-        isSelected
-          ? { backgroundColor: 'blue', color: 'white' }
-          : { backgroundColor: 'white', color: 'blue' }
-      }
-    >
-      <a href={href}>{fileName}</a>
-      {/* ... */}
-    </button>
-  );
+	return (
+		<button
+			onClick={onSelected}
+			style={
+				isSelected
+					? { backgroundColor: "blue", color: "white" }
+					: { backgroundColor: "white", color: "blue" }
+			}
+		>
+			<a href={href}>{fileName}</a>
+			{/* ... */}
+		</button>
+	);
 };
 
 const FileList = () => {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+	const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  const onSelected = (idx) => {
-    if (selectedIndex === idx) {
-      setSelectedIndex(-1);
-      return;
-    }
-    setSelectedIndex(idx);
-  };
+	const onSelected = (idx) => {
+		if (selectedIndex === idx) {
+			setSelectedIndex(-1);
+			return;
+		}
+		setSelectedIndex(idx);
+	};
 
-  return (
-    <ul>
-      <li><File
-        isSelected={selectedIndex === 0}
-        onSelected={() => onSelected(0)}
-        fileName="File one"
-        href="/file/file_one"
-      /></li>
-      <li><File
-        isSelected={selectedIndex === 1}
-        onSelected={() => onSelected(1)}
-        fileName="File two"
-        href="/file/file_two"
-      /></li>
-      <li><File
-        isSelected={selectedIndex === 2}
-        onSelected={() => onSelected(2)}
-        fileName="File three"
-        href="/file/file_three"
-      /></li>
-    </ul>
-  );
+	return (
+		<ul>
+			<li>
+				<File
+					isSelected={selectedIndex === 0}
+					onSelected={() => onSelected(0)}
+					fileName="File one"
+					href="/file/file_one"
+				/>
+			</li>
+			<li>
+				<File
+					isSelected={selectedIndex === 1}
+					onSelected={() => onSelected(1)}
+					fileName="File two"
+					href="/file/file_two"
+				/>
+			</li>
+			<li>
+				<File
+					isSelected={selectedIndex === 2}
+					onSelected={() => onSelected(2)}
+					fileName="File three"
+					href="/file/file_three"
+				/>
+			</li>
+		</ul>
+	);
 };
 ```
 
@@ -1998,77 +2132,78 @@ const FileList = () => {
 
 Angular provides us a simple `@Output` decorator that enables us to `emit()` events from a child component up to the parent. This is fairly similar to how we pass _in_ data using an `@Input` decorator.
 
-```typescript {11,27-28,35-40,57-65}
-import {
-  Component,
-  Input,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+```typescript {8,25,36,62,64-70}
+import { Component, Input, EventEmitter, Output } from "@angular/core";
 
 @Component({
-  selector: 'file-item',
-  standalone: true,
-  imports: [FileDateComponent],
-  template: `
-    <button
-      (click)="selected.emit()"
-      [style]="
-        isSelected
-          ? 'background-color: blue; color: white'
-          : 'background-color: white; color: blue'
-      "
-    >
-      <a [href]="href">
-        {{ fileName }}
-      </a>
-    </button>
-  `,
+	selector: "file-item",
+	standalone: true,
+	imports: [FileDateComponent],
+	template: `
+		<button
+			(click)="selected.emit()"
+			[style]="
+				isSelected
+					? 'background-color: blue; color: white'
+					: 'background-color: white; color: blue'
+			"
+		>
+			<a [href]="href">
+				{{ fileName }}
+			</a>
+		</button>
+	`,
 })
 export class FileComponent {
-  @Input() fileName: string;
-  @Input() href: string;
-  @Input() isSelected: boolean;
-  @Output() selected = new EventEmitter();
+	@Input() fileName: string;
+	@Input() href: string;
+	@Input() isSelected: boolean;
+	@Output() selected = new EventEmitter();
 }
 
 @Component({
-  selector: 'file-list',
-  standalone: true,
-  imports: [FileComponent],
-  template: `
-    <ul>
-      <li><file-item
-        (selected)="onSelected(0)"
-        [isSelected]="selectedIndex === 0"
-        fileName="File one" 
-        href="/file/file_one"
-      /></li>
-      <li><file-item
-        (selected)="onSelected(1)"
-        [isSelected]="selectedIndex === 1"
-        fileName="File two" 
-        href="/file/file_two"
-      /></li>
-      <li><file-item
-        (selected)="onSelected(2)"
-        [isSelected]="selectedIndex === 2"
-        fileName="File three" 
-        href="/file/file_three"
-      /></li>
-    </ul>
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent],
+	template: `
+		<ul>
+			<li>
+				<file-item
+					(selected)="onSelected(0)"
+					[isSelected]="selectedIndex === 0"
+					fileName="File one"
+					href="/file/file_one"
+				/>
+			</li>
+			<li>
+				<file-item
+					(selected)="onSelected(1)"
+					[isSelected]="selectedIndex === 1"
+					fileName="File two"
+					href="/file/file_two"
+				/>
+			</li>
+			<li>
+				<file-item
+					(selected)="onSelected(2)"
+					[isSelected]="selectedIndex === 2"
+					fileName="File three"
+					href="/file/file_three"
+				/>
+			</li>
+		</ul>
+	`,
 })
 export class FileListComponent {
-  selectedIndex = -1;
+	selectedIndex = -1;
 
-  onSelected(idx) {
-    if (this.selectedIndex === idx) {
-      this.selectedIndex = -1;
-      return;
-    }
-    this.selectedIndex = idx;
-  }
+	onSelected(idx) {
+		if (this.selectedIndex === idx) {
+			this.selectedIndex = -1;
+			return;
+		}
+		this.selectedIndex = idx;
+	}
 }
 ```
 
@@ -2076,69 +2211,76 @@ export class FileListComponent {
 
 Vue introduces the idea of an emitted event using the `defineEmits` global function:
 
-```vue
+```vue {4,9}
 <!-- File.vue -->
 <script setup>
-   const props = defineProps(['isSelected', 'fileName', 'href']);
+const props = defineProps(["isSelected", "fileName", "href"]);
 
-   const emit = defineEmits(['selected']);
+const emit = defineEmits(["selected"]);
 </script>
 
 <template>
-  <button
-    v-on:click="emit('selected')"
-    :style="isSelected ?
-      'background-color: blue; color: white' :
-      'background-color: white; color: blue'
-    "
-  >
-    <a :href="href">
-      {{ fileName }}
-    </a>
-  </button>
+	<button
+		v-on:click="emit('selected')"
+		:style="
+			isSelected
+				? 'background-color: blue; color: white'
+				: 'background-color: white; color: blue'
+		"
+	>
+		<a :href="href">
+			{{ fileName }}
+		</a>
+	</button>
 </template>
 ```
 
->  The `defineEmits` function does not need to be imported from `vue`, since Vue's compiler handles that for us.
+> The `defineEmits` function does not need to be imported from `vue`, since Vue's compiler handles that for us.
 
-```vue
+```vue {5,7-13,20}
 <!-- FileList.vue -->
 <script setup>
-   import {ref} from 'vue';
-   import File from './File.vue';
+import { ref } from "vue";
+import File from "./File.vue";
 
-   const selectedIndex = ref(-1);
+const selectedIndex = ref(-1);
 
-   function onSelected(idx) {
-      if (selectedIndex.value === idx) {
-         selectedIndex.value = -1;
-         return;
-      }
-      selectedIndex.value = idx;
-   }
+function onSelected(idx) {
+	if (selectedIndex.value === idx) {
+		selectedIndex.value = -1;
+		return;
+	}
+	selectedIndex.value = idx;
+}
 </script>
 
 <template>
-  <ul>
-      <li><File 
-        @selected="onSelected(0)" 
-        :isSelected="selectedIndex === 0" 
-        fileName="File one" 
-        href="/file/file_one"
-      /></li>
-      <li><File 
-        @selected="onSelected(1)" 
-        :isSelected="selectedIndex === 1" 
-        fileName="File two" 
-        href="/file/file_two"
-      /></li>
-      <li><File 
-        @selected="onSelected(2)" 
-        :isSelected="selectedIndex === 2" 
-        fileName="File three" 
-        href="/file/file_three"
-      /></li>
-    </ul>
+	<ul>
+		<li>
+			<File
+				@selected="onSelected(0)"
+				:isSelected="selectedIndex === 0"
+				fileName="File one"
+				href="/file/file_one"
+			/>
+		</li>
+		<li>
+			<File
+				@selected="onSelected(1)"
+				:isSelected="selectedIndex === 1"
+				fileName="File two"
+				href="/file/file_two"
+			/>
+		</li>
+		<li>
+			<File
+				@selected="onSelected(2)"
+				:isSelected="selectedIndex === 2"
+				fileName="File three"
+				href="/file/file_three"
+			/>
+		</li>
+	</ul>
 </template>
 ```
 
@@ -2179,20 +2321,20 @@ Let's kick off this process by creating our `index.html` and a basic component t
 ```html
 <!-- index.html -->
 <html>
-  <body>
-    <div id="root"></div>
-  </body>
+	<body>
+		<div id="root"></div>
+	</body>
 </html>
 ```
 
 ```jsx
-import { createRoot } from 'react-dom';
+import { createRoot } from "react-dom";
 
 const Sidebar = () => {
-  return <p>Hello, world!</p>
-}
+	return <p>Hello, world!</p>;
+};
 
-createRoot(document.getElementById('root')).render(<Sidebar />);
+createRoot(document.getElementById("root")).render(<Sidebar />);
 ```
 
 ### Angular
@@ -2200,21 +2342,19 @@ createRoot(document.getElementById('root')).render(<Sidebar />);
 ```html
 <!-- index.html -->
 <html>
-  <body>
-    <app-sidebar></app-sidebar>
-  </body>
+	<body>
+		<app-sidebar></app-sidebar>
+	</body>
 </html>
 ```
 
 ```typescript
-import { Component } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
+import { Component } from "@angular/core";
+import { bootstrapApplication } from "@angular/platform-browser";
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  template: `
-    <p>Hello, world!</p>
-  `,
+	selector: "app-sidebar",
+	standalone: true,
+	template: ` <p>Hello, world!</p> `,
 })
 export class SidebarComponent {}
 bootstrapApplication(SidebarComponent);
@@ -2225,16 +2365,16 @@ bootstrapApplication(SidebarComponent);
 ```html
 <!-- index.html -->
 <html>
-  <body>
-    <div id="root"></div>
-  </body>
+	<body>
+		<div id="root"></div>
+	</body>
 </html>
 ```
 
 ```js
 // main.js
-import { createApp } from 'vue';
-import Sidebar from './Sidebar.vue';
+import { createApp } from "vue";
+import Sidebar from "./Sidebar.vue";
 
 createApp(Sidebar).mount("#root");
 ```
@@ -2242,15 +2382,13 @@ createApp(Sidebar).mount("#root");
 ```vue
 <!-- Sidebar.vue -->
 <template>
-  <p>Hello, world!</p>
+	<p>Hello, world!</p>
 </template>
 ```
 
 <!-- tabs:end -->
 
-Now that we have an initial testbed for our component, let's add a list of buttons with the  names of the sidebar list items:
-
-
+Now that we have an initial testbed for our component, let's add a list of buttons with the names of the sidebar list items:
 
 <!-- tabs:start -->
 
@@ -2258,15 +2396,29 @@ Now that we have an initial testbed for our component, let's add a list of butto
 
 ```jsx
 const Sidebar = () => {
-  return <div>
-    <h1>My Files</h1>
-    <div><button>Movies</button></div>
-    <div><button>Pictures</button></div>
-    <div><button>Concepts</button></div>
-    <div><button>Articles I'll Never Finish</button></div>
-    <div><button>Website Redesigns v5</button></div>
-    <div><button>Invoices</button></div>
-  </div>;
+	return (
+		<div>
+			<h1>My Files</h1>
+			<div>
+				<button>Movies</button>
+			</div>
+			<div>
+				<button>Pictures</button>
+			</div>
+			<div>
+				<button>Concepts</button>
+			</div>
+			<div>
+				<button>Articles I'll Never Finish</button>
+			</div>
+			<div>
+				<button>Website Redesigns v5</button>
+			</div>
+			<div>
+				<button>Invoices</button>
+			</div>
+		</div>
+	);
 };
 ```
 
@@ -2274,34 +2426,33 @@ const Sidebar = () => {
 
 ```typescript
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  template: `
-    <h1>My Files</h1>
-    <div><button>Movies</button></div>
-    <div><button>Pictures</button></div>
-    <div><button>Concepts</button></div>
-    <div><button>Articles I'll Never Finish</button></div>
-    <div><button>Website Redesigns v5</button></div>
-    <div><button>Invoices</button></div>
-  `,
+	selector: "app-sidebar",
+	standalone: true,
+	template: `
+		<h1>My Files</h1>
+		<div><button>Movies</button></div>
+		<div><button>Pictures</button></div>
+		<div><button>Concepts</button></div>
+		<div><button>Articles I'll Never Finish</button></div>
+		<div><button>Website Redesigns v5</button></div>
+		<div><button>Invoices</button></div>
+	`,
 })
 export class SidebarComponent {}
 ```
-
 
 ### Vue
 
 ```vue
 <!-- Sidebar.vue -->
 <template>
-  <h1>My Files</h1>
-  <div><button>Movies</button></div>
-  <div><button>Pictures</button></div>
-  <div><button>Concepts</button></div>
-  <div><button>Articles I'll Never Finish</button></div>
-  <div><button>Website Redesigns v5</button></div>
-  <div><button>Invoices</button></div>
+	<h1>My Files</h1>
+	<div><button>Movies</button></div>
+	<div><button>Pictures</button></div>
+	<div><button>Concepts</button></div>
+	<div><button>Articles I'll Never Finish</button></div>
+	<div><button>Website Redesigns v5</button></div>
+	<div><button>Invoices</button></div>
 </template>
 ```
 
@@ -2320,25 +2471,25 @@ Start by extracting the `div` and `button` to their own component which we'll ca
 
 ```jsx
 const ExpandableDropdown = ({ name }) => {
-  return (
-    <div>
-      <button>{name}</button>
-    </div>
-  );
+	return (
+		<div>
+			<button>{name}</button>
+		</div>
+	);
 };
 
 const Sidebar = () => {
-  return (
-    <div>
-      <h1>My Files</h1>
-      <ExpandableDropdown name="Movies" />
-      <ExpandableDropdown name="Pictures" />
-      <ExpandableDropdown name="Concepts" />
-      <ExpandableDropdown name="Articles I'll Never Finish" />
-      <ExpandableDropdown name="Website Redesigns v5" />
-      <ExpandableDropdown name="Invoices" />
-    </div>
-  );
+	return (
+		<div>
+			<h1>My Files</h1>
+			<ExpandableDropdown name="Movies" />
+			<ExpandableDropdown name="Pictures" />
+			<ExpandableDropdown name="Concepts" />
+			<ExpandableDropdown name="Articles I'll Never Finish" />
+			<ExpandableDropdown name="Website Redesigns v5" />
+			<ExpandableDropdown name="Invoices" />
+		</div>
+	);
 };
 ```
 
@@ -2346,45 +2497,33 @@ const Sidebar = () => {
 
 ```typescript
 @Component({
-  selector: 'expandable-dropdown',
-  standalone: true,
-  template: `
-    <div>
-      <button>
-        {{name}}
-      </button>
-    </div>
-  `,
+	selector: "expandable-dropdown",
+	standalone: true,
+	template: `
+		<div>
+			<button>
+				{{ name }}
+			</button>
+		</div>
+	`,
 })
 export class ExpandableDropdownComponent {
-  @Input() name: string;
+	@Input() name: string;
 }
 
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  imports: [ExpandableDropdownComponent],
-  template: `
-    <h1>My Files</h1>
-    <expandable-dropdown 
-      name="Movies" 
-    />
-    <expandable-dropdown 
-      name="Pictures" 
-    />
-    <expandable-dropdown 
-      name="Concepts" 
-    />
-    <expandable-dropdown 
-      name="Articles I'll Never Finish" 
-    />
-    <expandable-dropdown 
-      name="Website Redesigns v5" 
-    />
-    <expandable-dropdown 
-      name="Invoices" 
-    />
-  `,
+	selector: "app-sidebar",
+	standalone: true,
+	imports: [ExpandableDropdownComponent],
+	template: `
+		<h1>My Files</h1>
+		<expandable-dropdown name="Movies" />
+		<expandable-dropdown name="Pictures" />
+		<expandable-dropdown name="Concepts" />
+		<expandable-dropdown name="Articles I'll Never Finish" />
+		<expandable-dropdown name="Website Redesigns v5" />
+		<expandable-dropdown name="Invoices" />
+	`,
 })
 export class SidebarComponent {}
 ```
@@ -2394,32 +2533,32 @@ export class SidebarComponent {}
 ```vue
 <!-- Sidebar.vue -->
 <script setup>
-   import ExpandableDropdown from './ExpandableDropdown.vue'
+import ExpandableDropdown from "./ExpandableDropdown.vue";
 </script>
 
 <template>
-  <h1>My Files</h1>
-  <ExpandableDropdown name="Movies" />
-  <ExpandableDropdown name="Pictures" />
-  <ExpandableDropdown name="Concepts" />
-  <ExpandableDropdown name="Articles I'll Never Finish" />
-  <ExpandableDropdown name="Website Redesigns v5" />
-  <ExpandableDropdown name="Invoices" />
+	<h1>My Files</h1>
+	<ExpandableDropdown name="Movies" />
+	<ExpandableDropdown name="Pictures" />
+	<ExpandableDropdown name="Concepts" />
+	<ExpandableDropdown name="Articles I'll Never Finish" />
+	<ExpandableDropdown name="Website Redesigns v5" />
+	<ExpandableDropdown name="Invoices" />
 </template>
 ```
 
 ```vue
 <!-- ExpandableDropdown.vue -->
 <script setup>
-   const props = defineProps(['name'])
+const props = defineProps(["name"]);
 </script>
 
 <template>
-  <div>
-    <button>
-      {{ props.name }}
-    </button>
-  </div>
+	<div>
+		<button>
+			{{ props.name }}
+		</button>
+	</div>
 </template>
 ```
 
@@ -2443,118 +2582,92 @@ To start, we'll:
 
 ```jsx
 const ExpandableDropdown = ({ name, expanded }) => {
-  return (
-    <div>
-      <button>{name}</button>
-      <div>{expanded ? 'Expanded' : 'Collapsed'}</div>
-    </div>
-  );
+	return (
+		<div>
+			<button>{name}</button>
+			<div>{expanded ? "Expanded" : "Collapsed"}</div>
+		</div>
+	);
 };
 
 const Sidebar = () => {
-  // Just to show that the value is displaying properly
-  const [moviesExpanded, setMoviesExpanded] = useState(true);
-  const [picturesExpanded, setPicturesExpanded] = useState(false);
-  const [conceptsExpanded, setConceptsExpanded] = useState(false);
-  const [articlesExpanded, setArticlesExpanded] = useState(false);
-  const [redesignExpanded, setRedesignExpanded] = useState(false);
-  const [invoicesExpanded, setInvoicesExpanded] = useState(false);
+	// Just to show that the value is displaying properly
+	const [moviesExpanded, setMoviesExpanded] = useState(true);
+	const [picturesExpanded, setPicturesExpanded] = useState(false);
+	const [conceptsExpanded, setConceptsExpanded] = useState(false);
+	const [articlesExpanded, setArticlesExpanded] = useState(false);
+	const [redesignExpanded, setRedesignExpanded] = useState(false);
+	const [invoicesExpanded, setInvoicesExpanded] = useState(false);
 
-  return (
-    <div>
-      <h1>My Files</h1>
-      <ExpandableDropdown 
-        name="Movies" 
-        expanded={moviesExpanded} 
-      />
-      <ExpandableDropdown 
-        name="Pictures"
-        expanded={picturesExpanded} 
-       />
-      <ExpandableDropdown 
-        name="Concepts" 
-        expanded={conceptsExpanded} 
-      />
-      <ExpandableDropdown
-        name="Articles I'll Never Finish"
-        expanded={articlesExpanded}
-      />
-      <ExpandableDropdown
-        name="Website Redesigns v5"
-        expanded={redesignExpanded}
-      />
-      <ExpandableDropdown 
-        name="Invoices" 
-        expanded={invoicesExpanded} 
-      />
-    </div>
-  );
+	return (
+		<div>
+			<h1>My Files</h1>
+			<ExpandableDropdown name="Movies" expanded={moviesExpanded} />
+			<ExpandableDropdown name="Pictures" expanded={picturesExpanded} />
+			<ExpandableDropdown name="Concepts" expanded={conceptsExpanded} />
+			<ExpandableDropdown
+				name="Articles I'll Never Finish"
+				expanded={articlesExpanded}
+			/>
+			<ExpandableDropdown
+				name="Website Redesigns v5"
+				expanded={redesignExpanded}
+			/>
+			<ExpandableDropdown name="Invoices" expanded={invoicesExpanded} />
+		</div>
+	);
 };
 ```
-
-
 
 ### Angular
 
 ```typescript
 @Component({
-  selector: 'expandable-dropdown',
-  standalone: true,
-  template: `
-    <div>
-      <button>
-        {{name}}
-      </button>
-      <div>
-        {{expanded ? "Expanded" : "Collapsed" }}
-      </div>
-    </div>
-  `,
+	selector: "expandable-dropdown",
+	standalone: true,
+	template: `
+		<div>
+			<button>
+				{{ name }}
+			</button>
+			<div>
+				{{ expanded ? "Expanded" : "Collapsed" }}
+			</div>
+		</div>
+	`,
 })
 export class ExpandableDropdownComponent {
-  @Input() name: string;
-  @Input() expanded: boolean;
+	@Input() name: string;
+	@Input() expanded: boolean;
 }
 
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  imports: [ExpandableDropdownComponent],
-  template: `
-    <expandable-dropdown 
-      name="Movies" 
-      [expanded]="moviesExpanded" 
-    />
-    <expandable-dropdown 
-      name="Pictures" 
-      [expanded]="picturesExpanded" 
-    />
-    <expandable-dropdown 
-      name="Concepts" 
-      [expanded]="conceptsExpanded" 
-    />
-    <expandable-dropdown 
-      name="Articles I'll Never Finish" 
-      [expanded]="articlesExpanded" 
-    />
-    <expandable-dropdown 
-      name="Website Redesigns v5" 
-      [expanded]="redesignExpanded" 
-    />
-    <expandable-dropdown 
-      name="Invoices" 
-      [expanded]="invoicesExpanded" 
-    />
-  `,
+	selector: "app-sidebar",
+	standalone: true,
+	imports: [ExpandableDropdownComponent],
+	template: `
+		<expandable-dropdown name="Movies" [expanded]="moviesExpanded" />
+		<expandable-dropdown name="Pictures" [expanded]="picturesExpanded" />
+		<expandable-dropdown name="Concepts" [expanded]="conceptsExpanded" />
+		<expandable-dropdown
+			name="Articles I'll Never Finish"
+			[expanded]="articlesExpanded"
+		/>
+		<expandable-dropdown
+			name="Website Redesigns v5"
+			[expanded]="redesignExpanded"
+		/>
+		<expandable-dropdown name="Invoices" [expanded]="invoicesExpanded" />
+	`,
 })
 export class SidebarComponent {
-  // Just to show that the value is displaying properly
-  moviesExpanded = true;
-  picturesExpanded = false;
-  conceptsExpanded = false;
-  articlesExpanded = false;
-  redesignExpanded = false;
-  invoicesExpanded = false;
+	// Just to show that the value is displaying properly
+	moviesExpanded = true;
+	picturesExpanded = false;
+	conceptsExpanded = false;
+	articlesExpanded = false;
+	redesignExpanded = false;
+	invoicesExpanded = false;
 }
 ```
 
@@ -2563,62 +2676,50 @@ export class SidebarComponent {
 ```vue
 <!-- Sidebar.vue -->
 <script setup>
-   import { ref } from 'vue'
-   import ExpandableDropdown from './ExpandableDropdown.vue'
+import { ref } from "vue";
+import ExpandableDropdown from "./ExpandableDropdown.vue";
 
-   // Just to show that the value is displaying properly
-   const moviesExpanded = ref(true)
-   const picturesExpanded = ref(false)
-   const conceptsExpanded = ref(false)
-   const articlesExpanded = ref(false)
-   const redesignExpanded = ref(false)
-   const invoicesExpanded = ref(false)
+// Just to show that the value is displaying properly
+const moviesExpanded = ref(true);
+const picturesExpanded = ref(false);
+const conceptsExpanded = ref(false);
+const articlesExpanded = ref(false);
+const redesignExpanded = ref(false);
+const invoicesExpanded = ref(false);
 </script>
 
 <template>
-  <h1>My Files</h1>
-  <ExpandableDropdown
-    name="Movies" 
-    :expanded="moviesExpanded"
-  />
-  <ExpandableDropdown
-    name="Pictures" 
-    :expanded="picturesExpanded"
-  />
-  <ExpandableDropdown
-    name="Concepts" 
-    :expanded="conceptsExpanded"
-  />
-  <ExpandableDropdown
-    name="Articles I'll Never Finish" 
-    :expanded="articlesExpanded"
-  />
-  <ExpandableDropdown
-    name="Website Redesigns v5" 
-    :expanded="redesignExpanded"
-  />
-  <ExpandableDropdown
-    name="Invoices" 
-    :expanded="invoicesExpanded"
-  />
+	<h1>My Files</h1>
+	<ExpandableDropdown name="Movies" :expanded="moviesExpanded" />
+	<ExpandableDropdown name="Pictures" :expanded="picturesExpanded" />
+	<ExpandableDropdown name="Concepts" :expanded="conceptsExpanded" />
+	<ExpandableDropdown
+		name="Articles I'll Never Finish"
+		:expanded="articlesExpanded"
+	/>
+	<ExpandableDropdown
+		name="Website Redesigns v5"
+		:expanded="redesignExpanded"
+	/>
+	<ExpandableDropdown name="Invoices" :expanded="invoicesExpanded" />
 </template>
 ```
 
 ```vue
 <!-- ExpandableDropdown.vue -->
 <script setup>
-   const props = defineProps(['name', 'expanded'])
+const props = defineProps(["name", "expanded"]);
 </script>
 
 <template>
-  <div>
-    <button>
-      {{ props.name }}
-    </button>
-    <div>
-      {{ props.expanded ? 'Expanded' : 'Collapsed' }}
-    </div>
-  </div>
+	<div>
+		<button>
+			{{ props.name }}
+		</button>
+		<div>
+			{{ props.expanded ? "Expanded" : "Collapsed" }}
+		</div>
+	</div>
 </template>
 ```
 
@@ -2634,58 +2735,58 @@ Let's now add an output to allow our component to toggle the `expanded` input.
 
 ```jsx
 const ExpandableDropdown = ({ name, expanded, onToggle }) => {
-  return (
-    <div>
-      <button onClick={onToggle}>{name}</button>
-      <div>{expanded ? 'Expanded' : 'Collapsed'}</div>
-    </div>
-  );
+	return (
+		<div>
+			<button onClick={onToggle}>{name}</button>
+			<div>{expanded ? "Expanded" : "Collapsed"}</div>
+		</div>
+	);
 };
 
 const Sidebar = () => {
-  // Just to show that the value is displaying properly
-  const [moviesExpanded, setMoviesExpanded] = useState(true);
-  const [picturesExpanded, setPicturesExpanded] = useState(false);
-  const [conceptsExpanded, setConceptsExpanded] = useState(false);
-  const [articlesExpanded, setArticlesExpanded] = useState(false);
-  const [redesignExpanded, setRedesignExpanded] = useState(false);
-  const [invoicesExpanded, setInvoicesExpanded] = useState(false);
+	// Just to show that the value is displaying properly
+	const [moviesExpanded, setMoviesExpanded] = useState(true);
+	const [picturesExpanded, setPicturesExpanded] = useState(false);
+	const [conceptsExpanded, setConceptsExpanded] = useState(false);
+	const [articlesExpanded, setArticlesExpanded] = useState(false);
+	const [redesignExpanded, setRedesignExpanded] = useState(false);
+	const [invoicesExpanded, setInvoicesExpanded] = useState(false);
 
-  return (
-    <div>
-      <h1>My Files</h1>
-      <ExpandableDropdown
-        name="Movies"
-        expanded={moviesExpanded}
-        onToggle={() => setMoviesExpanded(!moviesExpanded)}
-      />
-      <ExpandableDropdown
-        name="Pictures"
-        expanded={picturesExpanded}
-        onToggle={() => setPicturesExpanded(!picturesExpanded)}
-      />
-      <ExpandableDropdown
-        name="Concepts"
-        expanded={conceptsExpanded}
-        onToggle={() => setConceptsExpanded(!conceptsExpanded)}
-      />
-      <ExpandableDropdown
-        name="Articles I'll Never Finish"
-        expanded={articlesExpanded}
-        onToggle={() => setArticlesExpanded(!articlesExpanded)}
-      />
-      <ExpandableDropdown
-        name="Website Redesigns v5"
-        expanded={redesignExpanded}
-        onToggle={() => setRedesignExpanded(!redesignExpanded)}
-      />
-      <ExpandableDropdown
-        name="Invoices"
-        expanded={invoicesExpanded}
-        onToggle={() => setInvoicesExpanded(!invoicesExpanded)}
-      />
-    </div>
-  );
+	return (
+		<div>
+			<h1>My Files</h1>
+			<ExpandableDropdown
+				name="Movies"
+				expanded={moviesExpanded}
+				onToggle={() => setMoviesExpanded(!moviesExpanded)}
+			/>
+			<ExpandableDropdown
+				name="Pictures"
+				expanded={picturesExpanded}
+				onToggle={() => setPicturesExpanded(!picturesExpanded)}
+			/>
+			<ExpandableDropdown
+				name="Concepts"
+				expanded={conceptsExpanded}
+				onToggle={() => setConceptsExpanded(!conceptsExpanded)}
+			/>
+			<ExpandableDropdown
+				name="Articles I'll Never Finish"
+				expanded={articlesExpanded}
+				onToggle={() => setArticlesExpanded(!articlesExpanded)}
+			/>
+			<ExpandableDropdown
+				name="Website Redesigns v5"
+				expanded={redesignExpanded}
+				onToggle={() => setRedesignExpanded(!redesignExpanded)}
+			/>
+			<ExpandableDropdown
+				name="Invoices"
+				expanded={invoicesExpanded}
+				onToggle={() => setInvoicesExpanded(!invoicesExpanded)}
+			/>
+		</div>
+	);
 };
 ```
 
@@ -2693,69 +2794,69 @@ const Sidebar = () => {
 
 ```typescript
 @Component({
-  selector: 'expandable-dropdown',
-  standalone: true,
-  template: `
-    <div>
-      <button (click)="toggle.emit()">
-        {{name}}
-      </button>
-      <div>
-        {{expanded ? "Expanded" : "Collapsed" }}
-      </div>
-    </div>
-  `,
+	selector: "expandable-dropdown",
+	standalone: true,
+	template: `
+		<div>
+			<button (click)="toggle.emit()">
+				{{ name }}
+			</button>
+			<div>
+				{{ expanded ? "Expanded" : "Collapsed" }}
+			</div>
+		</div>
+	`,
 })
 export class ExpandableDropdownComponent {
-  @Input() name: string;
-  @Input() expanded: boolean;
-  @Output() toggle = new EventEmitter();
+	@Input() name: string;
+	@Input() expanded: boolean;
+	@Output() toggle = new EventEmitter();
 }
 
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  imports: [ExpandableDropdownComponent],
-  template: `
-    <expandable-dropdown 
-      name="Movies" 
-      [expanded]="moviesExpanded" 
-      (toggle)="moviesExpanded = !moviesExpanded"
-    />
-    <expandable-dropdown 
-      name="Pictures" 
-      [expanded]="picturesExpanded" 
-      (toggle)="picturesExpanded = !picturesExpanded"
-    />
-    <expandable-dropdown 
-      name="Concepts" 
-      [expanded]="conceptsExpanded" 
-      (toggle)="conceptsExpanded = !conceptsExpanded"
-    />
-    <expandable-dropdown 
-      name="Articles I'll Never Finish" 
-      [expanded]="articlesExpanded" 
-      (toggle)="articlesExpanded = !articlesExpanded"
-    />
-    <expandable-dropdown 
-      name="Website Redesigns v5" 
-      [expanded]="redesignExpanded" 
-      (toggle)="redesignExpanded = !redesignExpanded"
-    />
-    <expandable-dropdown 
-      name="Invoices" 
-      [expanded]="invoicesExpanded" 
-      (toggle)="invoicesExpanded = !invoicesExpanded"
-    />
-  `,
+	selector: "app-sidebar",
+	standalone: true,
+	imports: [ExpandableDropdownComponent],
+	template: `
+		<expandable-dropdown
+			name="Movies"
+			[expanded]="moviesExpanded"
+			(toggle)="moviesExpanded = !moviesExpanded"
+		/>
+		<expandable-dropdown
+			name="Pictures"
+			[expanded]="picturesExpanded"
+			(toggle)="picturesExpanded = !picturesExpanded"
+		/>
+		<expandable-dropdown
+			name="Concepts"
+			[expanded]="conceptsExpanded"
+			(toggle)="conceptsExpanded = !conceptsExpanded"
+		/>
+		<expandable-dropdown
+			name="Articles I'll Never Finish"
+			[expanded]="articlesExpanded"
+			(toggle)="articlesExpanded = !articlesExpanded"
+		/>
+		<expandable-dropdown
+			name="Website Redesigns v5"
+			[expanded]="redesignExpanded"
+			(toggle)="redesignExpanded = !redesignExpanded"
+		/>
+		<expandable-dropdown
+			name="Invoices"
+			[expanded]="invoicesExpanded"
+			(toggle)="invoicesExpanded = !invoicesExpanded"
+		/>
+	`,
 })
 export class SidebarComponent {
-  moviesExpanded = false;
-  picturesExpanded = false;
-  conceptsExpanded = false;
-  articlesExpanded = false;
-  redesignExpanded = false;
-  invoicesExpanded = false;
+	moviesExpanded = false;
+	picturesExpanded = false;
+	conceptsExpanded = false;
+	articlesExpanded = false;
+	redesignExpanded = false;
+	invoicesExpanded = false;
 }
 ```
 
@@ -2764,65 +2865,69 @@ export class SidebarComponent {
 ```vue
 <!-- Sidebar.vue -->
 <script setup>
-   import { ref } from 'vue'
-   import ExpandableDropdown from './ExpandableDropdown.vue'
+import { ref } from "vue";
+import ExpandableDropdown from "./ExpandableDropdown.vue";
 
-   // Just to show that the value is displaying properly
-   const moviesExpanded = ref(true)
-   const picturesExpanded = ref(false)
-   const conceptsExpanded = ref(false)
-   const articlesExpanded = ref(false)
-   const redesignExpanded = ref(false)
-   const invoicesExpanded = ref(false)
+// Just to show that the value is displaying properly
+const moviesExpanded = ref(true);
+const picturesExpanded = ref(false);
+const conceptsExpanded = ref(false);
+const articlesExpanded = ref(false);
+const redesignExpanded = ref(false);
+const invoicesExpanded = ref(false);
 </script>
 
 <template>
-  <h1>My Files</h1>
-  <ExpandableDropdown name="Movies" 
-    :expanded="moviesExpanded" 
-    @toggle="moviesExpanded = !moviesExpanded" 
-  />
-  <ExpandableDropdown name="Pictures" 
-    :expanded="picturesExpanded" 
-    @toggle="picturesExpanded = !picturesExpanded" 
-  />
-  <ExpandableDropdown name="Concepts" 
-    :expanded="conceptsExpanded" 
-    @toggle="conceptsExpanded = !conceptsExpanded" 
-  />
-  <ExpandableDropdown
-    name="Articles I'll Never Finish"
-    :expanded="articlesExpanded"
-    @toggle="articlesExpanded = !articlesExpanded"
-  />
-  <ExpandableDropdown
-    name="Website Redesigns v5"
-    :expanded="redesignExpanded"
-    @toggle="redesignExpanded = !redesignExpanded"
-  />
-  <ExpandableDropdown name="Invoices" 
-    :expanded="invoicesExpanded" 
-    @toggle="invoicesExpanded = !invoicesExpanded" 
-  />
+	<h1>My Files</h1>
+	<ExpandableDropdown
+		name="Movies"
+		:expanded="moviesExpanded"
+		@toggle="moviesExpanded = !moviesExpanded"
+	/>
+	<ExpandableDropdown
+		name="Pictures"
+		:expanded="picturesExpanded"
+		@toggle="picturesExpanded = !picturesExpanded"
+	/>
+	<ExpandableDropdown
+		name="Concepts"
+		:expanded="conceptsExpanded"
+		@toggle="conceptsExpanded = !conceptsExpanded"
+	/>
+	<ExpandableDropdown
+		name="Articles I'll Never Finish"
+		:expanded="articlesExpanded"
+		@toggle="articlesExpanded = !articlesExpanded"
+	/>
+	<ExpandableDropdown
+		name="Website Redesigns v5"
+		:expanded="redesignExpanded"
+		@toggle="redesignExpanded = !redesignExpanded"
+	/>
+	<ExpandableDropdown
+		name="Invoices"
+		:expanded="invoicesExpanded"
+		@toggle="invoicesExpanded = !invoicesExpanded"
+	/>
 </template>
 ```
 
 ```vue
 <!-- ExpandableDropdown.vue -->
 <script setup>
-   const props = defineProps(['name', 'expanded'])
-   const emit = defineEmits(['toggle'])
+const props = defineProps(["name", "expanded"]);
+const emit = defineEmits(["toggle"]);
 </script>
 
 <template>
-  <div>
-    <button @click="emit('toggle')">
-      {{ props.name }}
-    </button>
-    <div>
-      {{ props.expanded ? 'Expanded' : 'Collapsed' }}
-    </div>
-  </div>
+	<div>
+		<button @click="emit('toggle')">
+			{{ props.name }}
+		</button>
+		<div>
+			{{ props.expanded ? "Expanded" : "Collapsed" }}
+		</div>
+	</div>
 </template>
 ```
 
@@ -2836,15 +2941,15 @@ Finally, we can update our `ExpandableDropdown` component to hide and show the c
 
 ```jsx
 const ExpandableDropdown = ({ name, expanded, onToggle }) => {
-  return (
-    <div>
-      <button onClick={onToggle}>
-        {expanded ? 'V ' : '> '}
-        {name}
-      </button>
-      <div hidden={!expanded}>More information here</div>
-    </div>
-  );
+	return (
+		<div>
+			<button onClick={onToggle}>
+				{expanded ? "V " : "> "}
+				{name}
+			</button>
+			<div hidden={!expanded}>More information here</div>
+		</div>
+	);
 };
 ```
 
@@ -2852,24 +2957,22 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 
 ```typescript
 @Component({
-  selector: 'expandable-dropdown',
-  standalone: true,
-  template: `
-    <div>
-      <button (click)="toggle.emit()">
-        {{expanded ? "V" : ">" }}
-        {{name}}
-      </button>
-      <div [hidden]="!expanded">
-         More information here
-      </div>
-    </div>
-  `,
+	selector: "expandable-dropdown",
+	standalone: true,
+	template: `
+		<div>
+			<button (click)="toggle.emit()">
+				{{ expanded ? "V" : ">" }}
+				{{ name }}
+			</button>
+			<div [hidden]="!expanded">More information here</div>
+		</div>
+	`,
 })
 export class ExpandableDropdownComponent {
-  @Input() name: string;
-  @Input() expanded: boolean;
-  @Output() toggle = new EventEmitter();
+	@Input() name: string;
+	@Input() expanded: boolean;
+	@Output() toggle = new EventEmitter();
 }
 ```
 
@@ -2878,18 +2981,18 @@ export class ExpandableDropdownComponent {
 ```vue
 <!-- ExpandableDropdown.vue -->
 <script setup>
-   const props = defineProps(['name', 'expanded'])
-   const emit = defineEmits(['toggle'])
+const props = defineProps(["name", "expanded"]);
+const emit = defineEmits(["toggle"]);
 </script>
 
 <template>
-  <div>
-    <button @click="emit('toggle')">
-      {{ expanded ? 'V' : '>' }}
-      {{ name }}
-    </button>
-    <div :hidden="!expanded">More information here</div>
-  </div>
+	<div>
+		<button @click="emit('toggle')">
+			{{ expanded ? "V" : ">" }}
+			{{ name }}
+		</button>
+		<div :hidden="!expanded">More information here</div>
+	</div>
 </template>
 ```
 

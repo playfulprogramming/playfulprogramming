@@ -1,13 +1,13 @@
 ---
 {
-    title: "Portals",
-    description: "When building an app in React, Angular, or Vue, you'll often find that overlapping components can become a real problem. Rendering order can be confusing; let's fix that with portals.",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 12,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Portals",
+  description: "When building an app in React, Angular, or Vue, you'll often find that overlapping components can become a real problem. Rendering order can be confusing; let's fix that with portals.",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 12,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
 
@@ -16,8 +16,6 @@ You ever start up your favorite application, click an action button, then **boom
 For example, you might click the "delete" button and are then greeted by a "Are you sure you'd like to delete the file?" pop up?
 
 ![A popup that says "Are you sure you want to delete that file?" with a "Confirm" and "Cancel" button](./confirm_delete_modal.svg)
-
-
 
 These are called "modals" and, [despite the decry of many developers](https://modalzmodalzmodalz.com), they're widely utilized as a method to grab a user's attention in applications of all kinds.
 
@@ -39,22 +37,21 @@ Let's build the "Delete file" modal we saw in our framework of choice:
 
 ```jsx
 export const Modal = () => {
-  return (
-    <div>
-      <div class="modal-container">
-        <h1 class="title">Are you sure you want to delete that file?</h1>
-        <p class="body-text">
-          Deleting this file is a permanent action. You’re unable to recover
-          this file at a later date. Are you sure you want to delete this
-          file?
-        </p>
-        <div class="buttons-container">
-          <button class="cancel">Cancel</button>
-          <button class="confirm">Confirm</button>
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div>
+			<div class="modal-container">
+				<h1 class="title">Are you sure you want to delete that file?</h1>
+				<p class="body-text">
+					Deleting this file is a permanent action. You’re unable to recover
+					this file at a later date. Are you sure you want to delete this file?
+				</p>
+				<div class="buttons-container">
+					<button class="cancel">Cancel</button>
+					<button class="confirm">Confirm</button>
+				</div>
+			</div>
+		</div>
+	);
 };
 ```
 
@@ -62,23 +59,23 @@ export const Modal = () => {
 
 ```typescript
 @Component({
-  selector: 'delete-modal',
-  standalone: true,
-  template: `
-  <div>
-    <div class="modal-container">
-      <h1 class="title">Are you sure you want to delete that file?</h1>
-      <p class="body-text">
-        Deleting this file is a permanent action. You’re unable to recover this
-        file at a later date. Are you sure you want to delete this file?
-      </p>
-      <div class="buttons-container">
-        <button class="cancel">Cancel</button>
-        <button class="confirm">Confirm</button>
-      </div>
-    </div>
-  </div>
-  `,
+	selector: "delete-modal",
+	standalone: true,
+	template: `
+		<div>
+			<div class="modal-container">
+				<h1 class="title">Are you sure you want to delete that file?</h1>
+				<p class="body-text">
+					Deleting this file is a permanent action. You’re unable to recover
+					this file at a later date. Are you sure you want to delete this file?
+				</p>
+				<div class="buttons-container">
+					<button class="cancel">Cancel</button>
+					<button class="confirm">Confirm</button>
+				</div>
+			</div>
+		</div>
+	`,
 })
 class ModalComponent {}
 ```
@@ -90,19 +87,19 @@ class ModalComponent {}
 
 <!-- Modal.vue -->
 <template>
-  <div>
-    <div class="modal-container">
-      <h1 class="title">Are you sure you want to delete that file?</h1>
-      <p class="body-text">
-        Deleting this file is a permanent action. You’re unable to recover this file at a later date. Are you sure you
-        want to delete this file?
-      </p>
-      <div class="buttons-container">
-        <button class="cancel">Cancel</button>
-        <button class="confirm">Confirm</button>
-      </div>
-    </div>
-  </div>
+	<div>
+		<div class="modal-container">
+			<h1 class="title">Are you sure you want to delete that file?</h1>
+			<p class="body-text">
+				Deleting this file is a permanent action. You’re unable to recover this
+				file at a later date. Are you sure you want to delete this file?
+			</p>
+			<div class="buttons-container">
+				<button class="cancel">Cancel</button>
+				<button class="confirm">Confirm</button>
+			</div>
+		</div>
+	</div>
 </template>
 ```
 
@@ -131,57 +128,58 @@ CSS for the modal
 }
 
 .title {
-  margin: 0;
-  padding: 0px 24px 16px;
-  font-size: 24px;
-  font-weight: 400;
+margin: 0;
+padding: 0px 24px 16px;
+font-size: 24px;
+font-weight: 400;
 }
 
 .body-text {
-  margin: 0;
-  padding: 0px 24px 24px;
-  font-size: 14px;
+margin: 0;
+padding: 0px 24px 24px;
+font-size: 14px;
 }
 
 .buttons-container {
-  display: flex;
-  justify-content: end;
-  padding: 16px;
-  gap: 8px;
+display: flex;
+justify-content: end;
+padding: 16px;
+gap: 8px;
 }
 
 .buttons-container button {
-  margin: 4px 0;
-  padding: 10px 24px;
-  border-radius: 1000px;
-  border: none;
+margin: 4px 0;
+padding: 10px 24px;
+border-radius: 1000px;
+border: none;
 }
 
 .cancel {
-  background: #b8eaff;
+background: #b8eaff;
 }
 
 .cancel:hover {
-  filter: brightness(0.8);
+filter: brightness(0.8);
 }
 
 .cancel:active {
-  filter: brightness(0.6);
+filter: brightness(0.6);
 }
 
 .confirm {
-  background: #2e6578;
-  color: white;
+background: #2e6578;
+color: white;
 }
 
 .confirm:hover {
-  filter: brightness(1.4);
+filter: brightness(1.4);
 }
 
 .confirm:active {
-  filter: brightness(1.8);
+filter: brightness(1.8);
 }
-```
+
+````
 </details>
 
 
@@ -213,75 +211,73 @@ export const App = () => {
     </div>
   );
 };
-```
+````
 
 ```jsx
 export const Header = () => {
-  return (
-    <>
-      <div class="header-container">
-        <span class="icon-container">
-          <FolderIcon />
-        </span>
-        <span class="header-title">Main folder</span>
-        <span class="auto"></span>
-        <button class="icon-btn">
-          <DeleteIcon />
-        </button>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<div class="header-container">
+				<span class="icon-container">
+					<FolderIcon />
+				</span>
+				<span class="header-title">Main folder</span>
+				<span class="auto"></span>
+				<button class="icon-btn">
+					<DeleteIcon />
+				</button>
+			</div>
+		</>
+	);
 };
 ```
 
 ```jsx
 export const Body = () => {
-  return (
-      <ul class="list-container">
-        {Array.from({ length: 10 }, (_, i) => (
-          <li class="list-item">
-            <FolderIcon />
-            <span>File number #{i + 1}</span>
-          </li>
-        ))}
-      </ul>
-  );
+	return (
+		<ul class="list-container">
+			{Array.from({ length: 10 }, (_, i) => (
+				<li class="list-item">
+					<FolderIcon />
+					<span>File number #{i + 1}</span>
+				</li>
+			))}
+		</ul>
+	);
 };
 ```
 
 ```jsx
 export const Footer = () => {
-  return (
-    <div class="footer-container">Copyright 2022</div>
-  );
+	return <div class="footer-container">Copyright 2022</div>;
 };
 ```
 
 ```jsx
 export const DeleteIcon = () => {
-  return (
-    <svg viewBox="0 0 20 21">
-      <path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
-      <path d="M12.5 16L13 8H11V16H12.5Z" fill="currentColor" />
-      <path
-        d="M8 0C7.56957 0 7.18743 0.27543 7.05132 0.683772L6.27924 3H1C0.447715 3 0 3.44772 0 4C0 4.55228 0.447715 5 1 5H2.56055L3.38474 18.1871C3.48356 19.7682 4.79471 21 6.3789 21H13.6211C15.2053 21 16.5164 19.7682 16.6153 18.1871L17.4395 5H19C19.5523 5 20 4.55228 20 4C20 3.44772 19.5523 3 19 3H13.7208L12.9487 0.683772C12.8126 0.27543 12.4304 0 12 0H8ZM12.9767 5C12.9921 5.00036 13.0076 5.00036 13.0231 5H15.4355L14.6192 18.0624C14.5862 18.5894 14.1492 19 13.6211 19H6.3789C5.85084 19 5.41379 18.5894 5.38085 18.0624L4.56445 5H6.97694C6.99244 5.00036 7.00792 5.00036 7.02334 5H12.9767ZM11.6126 3H8.38743L8.72076 2H11.2792L11.6126 3Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
+	return (
+		<svg viewBox="0 0 20 21">
+			<path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
+			<path d="M12.5 16L13 8H11V16H12.5Z" fill="currentColor" />
+			<path
+				d="M8 0C7.56957 0 7.18743 0.27543 7.05132 0.683772L6.27924 3H1C0.447715 3 0 3.44772 0 4C0 4.55228 0.447715 5 1 5H2.56055L3.38474 18.1871C3.48356 19.7682 4.79471 21 6.3789 21H13.6211C15.2053 21 16.5164 19.7682 16.6153 18.1871L17.4395 5H19C19.5523 5 20 4.55228 20 4C20 3.44772 19.5523 3 19 3H13.7208L12.9487 0.683772C12.8126 0.27543 12.4304 0 12 0H8ZM12.9767 5C12.9921 5.00036 13.0076 5.00036 13.0231 5H15.4355L14.6192 18.0624C14.5862 18.5894 14.1492 19 13.6211 19H6.3789C5.85084 19 5.41379 18.5894 5.38085 18.0624L4.56445 5H6.97694C6.99244 5.00036 7.00792 5.00036 7.02334 5H12.9767ZM11.6126 3H8.38743L8.72076 2H11.2792L11.6126 3Z"
+				fill="currentColor"
+			/>
+		</svg>
+	);
 };
 ```
 
 ```jsx
 export const FolderIcon = () => {
-  return (
-    <svg viewBox="0 0 20 16">
-      <path
-        d="M20 14C20 15.1046 19.1046 16 18 16H2C0.895431 16 0 15.1046 0 14V2C0 0.895431 0.89543 0 2 0H11C11.7403 0 12.3866 0.402199 12.7324 1H18C19.1046 1 20 1.89543 20 3V14ZM11 4V2H2V14H18V6H13C11.8954 6 11 5.10457 11 4ZM13 3V4H18V3H13Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
+	return (
+		<svg viewBox="0 0 20 16">
+			<path
+				d="M20 14C20 15.1046 19.1046 16 18 16H2C0.895431 16 0 15.1046 0 14V2C0 0.895431 0.89543 0 2 0H11C11.7403 0 12.3866 0.402199 12.7324 1H18C19.1046 1 20 1.89543 20 3V14ZM11 4V2H2V14H18V6H13C11.8954 6 11 5.10457 11 4ZM13 3V4H18V3H13Z"
+				fill="currentColor"
+			/>
+		</svg>
+	);
 };
 ```
 
@@ -289,102 +285,99 @@ export const FolderIcon = () => {
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [HeaderComponent, BodyComponent, FooterComponent],
-  template: `
-    <div>
-      <header-comp/>
-      <body-comp/>
-      <footer-comp/>
-    </div>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [HeaderComponent, BodyComponent, FooterComponent],
+	template: `
+		<div>
+			<header-comp />
+			<body-comp />
+			<footer-comp />
+		</div>
+	`,
 })
 export class AppComponent {}
 ```
 
 ```typescript
 @Component({
-  selector: 'header-comp',
-  standalone: true,
-  imports: [FolderIconComponent, DeleteIconComponent],
-  template: `
-  <div class="header-container">
-    <span class="icon-container">
-      <folder-icon/>
-    </span>
-    <span class="header-title">Main folder</span>
-    <span class="auto"></span>
-    <button class="icon-btn">
-      <delete-icon/>
-    </button>
-  </div>
-`,
+	selector: "header-comp",
+	standalone: true,
+	imports: [FolderIconComponent, DeleteIconComponent],
+	template: `
+		<div class="header-container">
+			<span class="icon-container">
+				<folder-icon />
+			</span>
+			<span class="header-title">Main folder</span>
+			<span class="auto"></span>
+			<button class="icon-btn">
+				<delete-icon />
+			</button>
+		</div>
+	`,
 })
-export class HeaderComponent {
-}
+export class HeaderComponent {}
 ```
 
 ```typescript
 @Component({
-  selector: 'body-comp',
-  standalone: true,
-  imports: [FolderIconComponent],
-  template: `
-  <ul class="list-container">
-    <li class="list-item" *ngFor="let fileIdx of files">
-      <folder-icon/>
-      <span>File number {{fileIdx + 1}}</span>
-    </li>
-  </ul>
-  `,
+	selector: "body-comp",
+	standalone: true,
+	imports: [FolderIconComponent],
+	template: `
+		<ul class="list-container">
+			<li class="list-item" *ngFor="let fileIdx of files">
+				<folder-icon />
+				<span>File number {{ fileIdx + 1 }}</span>
+			</li>
+		</ul>
+	`,
 })
 export class BodyComponent {
-  files = Array.from({ length: 10 }, (_, i) => i);
+	files = Array.from({ length: 10 }, (_, i) => i);
 }
 ```
 
 ```typescript
 @Component({
-  selector: 'footer-comp',
-  standalone: true,
-  template: `
-  <div class="footer-container">Copyright 2022</div>
-  `,
+	selector: "footer-comp",
+	standalone: true,
+	template: ` <div class="footer-container">Copyright 2022</div> `,
 })
 export class FooterComponent {}
 ```
 
 ```typescript
 @Component({
-  selector: 'folder-icon',
-  standalone: true,
-  template: `
-  <svg viewBox="0 0 20 16">
-    <path
-      d="M20 14C20 15.1046 19.1046 16 18 16H2C0.895431 16 0 15.1046 0 14V2C0 0.895431 0.89543 0 2 0H11C11.7403 0 12.3866 0.402199 12.7324 1H18C19.1046 1 20 1.89543 20 3V14ZM11 4V2H2V14H18V6H13C11.8954 6 11 5.10457 11 4ZM13 3V4H18V3H13Z"
-      fill="currentColor"
-    />
-  </svg>
-  `,
+	selector: "folder-icon",
+	standalone: true,
+	template: `
+		<svg viewBox="0 0 20 16">
+			<path
+				d="M20 14C20 15.1046 19.1046 16 18 16H2C0.895431 16 0 15.1046 0 14V2C0 0.895431 0.89543 0 2 0H11C11.7403 0 12.3866 0.402199 12.7324 1H18C19.1046 1 20 1.89543 20 3V14ZM11 4V2H2V14H18V6H13C11.8954 6 11 5.10457 11 4ZM13 3V4H18V3H13Z"
+				fill="currentColor"
+			/>
+		</svg>
+	`,
 })
 class FolderIconComponent {}
 ```
 
 ```typescript
 @Component({
-  selector: 'delete-icon',
-  standalone: true,
-  template: `
-  <svg viewBox="0 0 20 21">
-    <path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
-    <path d="M12.5 16L13 8H11V16H12.5Z" fill="currentColor" />
-    <path
-      d="M8 0C7.56957 0 7.18743 0.27543 7.05132 0.683772L6.27924 3H1C0.447715 3 0 3.44772 0 4C0 4.55228 0.447715 5 1 5H2.56055L3.38474 18.1871C3.48356 19.7682 4.79471 21 6.3789 21H13.6211C15.2053 21 16.5164 19.7682 16.6153 18.1871L17.4395 5H19C19.5523 5 20 4.55228 20 4C20 3.44772 19.5523 3 19 3H13.7208L12.9487 0.683772C12.8126 0.27543 12.4304 0 12 0H8ZM12.9767 5C12.9921 5.00036 13.0076 5.00036 13.0231 5H15.4355L14.6192 18.0624C14.5862 18.5894 14.1492 19 13.6211 19H6.3789C5.85084 19 5.41379 18.5894 5.38085 18.0624L4.56445 5H6.97694C6.99244 5.00036 7.00792 5.00036 7.02334 5H12.9767ZM11.6126 3H8.38743L8.72076 2H11.2792L11.6126 3Z"
-      fill="currentColor"
-    />
-  </svg>
-  `,
+	selector: "delete-icon",
+	standalone: true,
+	template: `
+		<svg viewBox="0 0 20 21">
+			<path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
+			<path d="M12.5 16L13 8H11V16H12.5Z" fill="currentColor" />
+			<path
+				d="M8 0C7.56957 0 7.18743 0.27543 7.05132 0.683772L6.27924 3H1C0.447715 3 0 3.44772 0 4C0 4.55228 0.447715 5 1 5H2.56055L3.38474 18.1871C3.48356 19.7682 4.79471 21 6.3789 21H13.6211C15.2053 21 16.5164 19.7682 16.6153 18.1871L17.4395 5H19C19.5523 5 20 4.55228 20 4C20 3.44772 19.5523 3 19 3H13.7208L12.9487 0.683772C12.8126 0.27543 12.4304 0 12 0H8ZM12.9767 5C12.9921 5.00036 13.0076 5.00036 13.0231 5H15.4355L14.6192 18.0624C14.5862 18.5894 14.1492 19 13.6211 19H6.3789C5.85084 19 5.41379 18.5894 5.38085 18.0624L4.56445 5H6.97694C6.99244 5.00036 7.00792 5.00036 7.02334 5H12.9767ZM11.6126 3H8.38743L8.72076 2H11.2792L11.6126 3Z"
+				fill="currentColor"
+			/>
+		</svg>
+	`,
 })
 class DeleteIconComponent {}
 ```
@@ -394,89 +387,89 @@ class DeleteIconComponent {}
 ```vue
 <!-- App.vue -->
 <script setup>
-import Header from './Header.vue'
-import Body from './Body.vue'
-import Footer from './Footer.vue'
+import Header from "./Header.vue";
+import Body from "./Body.vue";
+import Footer from "./Footer.vue";
 </script>
 
 <template>
-  <div>
-    <Header />
-    <Body />
-    <Footer />
-  </div>
+	<div>
+		<Header />
+		<Body />
+		<Footer />
+	</div>
 </template>
 ```
 
 ```vue
 <!-- Header.vue -->
 <script setup>
-import FolderIcon from './FolderIcon.vue'
-import DeleteIcon from './DeleteIcon.vue'
+import FolderIcon from "./FolderIcon.vue";
+import DeleteIcon from "./DeleteIcon.vue";
 </script>
 
 <template>
-  <div class="header-container">
-    <span class="icon-container">
-      <FolderIcon />
-    </span>
-    <span class="header-title">Main folder</span>
-    <span class="auto"></span>
-    <button class="icon-btn">
-      <DeleteIcon />
-    </button>
-  </div>
+	<div class="header-container">
+		<span class="icon-container">
+			<FolderIcon />
+		</span>
+		<span class="header-title">Main folder</span>
+		<span class="auto"></span>
+		<button class="icon-btn">
+			<DeleteIcon />
+		</button>
+	</div>
 </template>
 ```
 
 ```vue
 <!-- Body.vue -->
 <script setup>
-import FolderIcon from './FolderIcon.vue'
+import FolderIcon from "./FolderIcon.vue";
 
-const files = Array.from({ length: 10 }, (_, i) => i)
+const files = Array.from({ length: 10 }, (_, i) => i);
 </script>
 
 <template>
-  <ul class="list-container">
-    <li class="list-item" v-for="fileIdx of files">
-      <FolderIcon />
-      <span>File number {{ fileIdx + 1 }}</span>
-    </li>
-  </ul>
+	<ul class="list-container">
+		<li class="list-item" v-for="fileIdx of files">
+			<FolderIcon />
+			<span>File number {{ fileIdx + 1 }}</span>
+		</li>
+	</ul>
 </template>
 ```
 
 ```vue
 <!-- Footer.vue -->
 <template>
-  <div class="footer-container">Copyright 2022</div>
+	<div class="footer-container">Copyright 2022</div>
 </template>
 ```
 
 ```vue
 <!-- DeleteIcon.vue -->
 <template>
-  <svg viewBox="0 0 20 21">
-    <path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
-    <path d="M12.5 16L13 8H11V16H12.5Z" fill="currentColor" />
-    <path
-      d="M8 0C7.56957 0 7.18743 0.27543 7.05132 0.683772L6.27924 3H1C0.447715 3 0 3.44772 0 4C0 4.55228 0.447715 5 1 5H2.56055L3.38474 18.1871C3.48356 19.7682 4.79471 21 6.3789 21H13.6211C15.2053 21 16.5164 19.7682 16.6153 18.1871L17.4395 5H19C19.5523 5 20 4.55228 20 4C20 3.44772 19.5523 3 19 3H13.7208L12.9487 0.683772C12.8126 0.27543 12.4304 0 12 0H8ZM12.9767 5C12.9921 5.00036 13.0076 5.00036 13.0231 5H15.4355L14.6192 18.0624C14.5862 18.5894 14.1492 19 13.6211 19H6.3789C5.85084 19 5.41379 18.5894 5.38085 18.0624L4.56445 5H6.97694C6.99244 5.00036 7.00792 5.00036 7.02334 5H12.9767ZM11.6126 3H8.38743L8.72076 2H11.2792L11.6126 3Z"
-      fill="currentColor"
-    />
-  </svg>
+	<svg viewBox="0 0 20 21">
+		<path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
+		<path d="M12.5 16L13 8H11V16H12.5Z" fill="currentColor" />
+		<path
+			d="M8 0C7.56957 0 7.18743 0.27543 7.05132 0.683772L6.27924 3H1C0.447715 3 0 3.44772 0 4C0 4.55228 0.447715 5 1 5H2.56055L3.38474 18.1871C3.48356 19.7682 4.79471 21 6.3789 21H13.6211C15.2053 21 16.5164 19.7682 16.6153 18.1871L17.4395 5H19C19.5523 5 20 4.55228 20 4C20 3.44772 19.5523 3 19 3H13.7208L12.9487 0.683772C12.8126 0.27543 12.4304 0 12 0H8ZM12.9767 5C12.9921 5.00036 13.0076 5.00036 13.0231 5H15.4355L14.6192 18.0624C14.5862 18.5894 14.1492 19 13.6211 19H6.3789C5.85084 19 5.41379 18.5894 5.38085 18.0624L4.56445 5H6.97694C6.99244 5.00036 7.00792 5.00036 7.02334 5H12.9767ZM11.6126 3H8.38743L8.72076 2H11.2792L11.6126 3Z"
+			fill="currentColor"
+		/>
+	</svg>
 </template>
 ```
 
 ```vue
 <!-- FolderIcon.vue -->
 <template>
-  <svg viewBox="0 0 20 16">
-    <path
-      d="M20 14C20 15.1046 19.1046 16 18 16H2C0.895431 16 0 15.1046 0 14V2C0 0.895431 0.89543 0 2 0H11C11.7403 0 12.3866 0.402199 12.7324 1H18C19.1046 1 20 1.89543 20 3V14ZM11 4V2H2V14H18V6H13C11.8954 6 11 5.10457 11 4ZM13 3V4H18V3H13Z"
-      fill="currentColor"
-    />
-  </svg>
+	<svg viewBox="0 0 20 16">
+		<path
+			d="M20 14C20 15.1046 19.1046 16 18 16H2C0.895431 16 0 15.1046 0 14V2C0 0.895431 0.89543 0 2 0H11C11.7403 0 12.3866 0.402199 12.7324 1H18C19.1046 1 20 1.89543 20 3V14ZM11 4V2H2V14H18V6H13C11.8954 6 11 5.10457 11 4ZM13 3V4H18V3H13Z"
+			fill="currentColor"
+		/>
+	</svg>
 </template>
 ```
 
@@ -486,7 +479,6 @@ const files = Array.from({ length: 10 }, (_, i) => i)
 
 <details>
 <summary>CSS for the Rest of the App</summary>
-
 
 <br/>
 
@@ -589,73 +581,69 @@ body {
 
 </details>
 
-
-
 Awesome! This is looking good. Now, let's add in the ability to open our dialog from our `Header` component.
 
 To do this, we'll:
 
 - Add our `Modal` component into our `Header` component
-- Add some state to conditionally render `Modal`  depending on if the user has clicked on the delete icon
+- Add some state to conditionally render `Modal` depending on if the user has clicked on the delete icon
 
 <!-- tabs:start -->
 
 ## React
 
 ```jsx
-import React, { useState } from 'react';
-import { DeleteIcon, FolderIcon } from './Icons';
-import { Modal } from './Modal';
+import React, { useState } from "react";
+import { DeleteIcon, FolderIcon } from "./Icons";
+import { Modal } from "./Modal";
 
 export const Header = () => {
-  const [showModal, setShowModal] = useState(false);
-  return (
-    <>
-      <div class="header-container">
-        {showModal && <Modal />}
-        <span class="icon-container">
-          <FolderIcon />
-        </span>
-        <span class="header-title">Main folder</span>
-        <span class="auto"></span>
-        <button class="icon-btn" onClick={() => setShowModal(true)}>
-          <DeleteIcon />
-        </button>
-      </div>
-    </>
-  );
+	const [showModal, setShowModal] = useState(false);
+	return (
+		<>
+			<div class="header-container">
+				{showModal && <Modal />}
+				<span class="icon-container">
+					<FolderIcon />
+				</span>
+				<span class="header-title">Main folder</span>
+				<span class="auto"></span>
+				<button class="icon-btn" onClick={() => setShowModal(true)}>
+					<DeleteIcon />
+				</button>
+			</div>
+		</>
+	);
 };
 ```
-
-
 
 ## Angular
 
 ```typescript
 @Component({
-  selector: 'header-comp',
-  standalone: true,
-  imports: [ModalComponent, FolderIconComponent, DeleteIconComponent],
-  template: `
-  <div class="header-container">
-    <delete-modal *ngIf="shouldShowModal"/>
-    <span class="icon-container">
-      <folder-icon/>
-    </span>
-    <span class="header-title">Main folder</span>
-    <span class="auto"></span>
-    <button class="icon-btn" (click)="showModal()">
-      <delete-icon/>
-    </button>
-  </div>
-`,
+	selector: "header-comp",
+	standalone: true,
+	imports: [ModalComponent, FolderIconComponent, DeleteIconComponent],
+	template: `
+		<div class="header-container">
+			<delete-modal *ngIf="shouldShowModal" />
+			<span class="icon-container">
+				<folder-icon />
+			</span>
+			<span class="header-title">Main folder</span>
+			<span class="auto"></span>
+			<button class="icon-btn" (click)="showModal()">
+				<delete-icon />
+			</button>
+		</div>
+	`,
 })
 export class HeaderComponent {
-  shouldShowModal = false;
+	shouldShowModal = false;
 
-  showModal() {
-    this.shouldShowModal = true;
-  }
+	showModal() {
+		this.shouldShowModal = true;
+	}
 }
 ```
 
@@ -664,29 +652,29 @@ export class HeaderComponent {
 ```vue
 <!-- Header.vue -->
 <script setup>
-import FolderIcon from './FolderIcon.vue'
-import DeleteIcon from './DeleteIcon.vue'
-import Modal from './Modal.vue'
-import { ref } from 'vue'
-const shouldShowModal = ref(false)
+import FolderIcon from "./FolderIcon.vue";
+import DeleteIcon from "./DeleteIcon.vue";
+import Modal from "./Modal.vue";
+import { ref } from "vue";
+const shouldShowModal = ref(false);
 
 function showModal() {
-  shouldShowModal.value = true
+	shouldShowModal.value = true;
 }
 </script>
 
 <template>
-  <div class="header-container">
-    <Modal v-if="shouldShowModal" />
-    <span class="icon-container">
-      <FolderIcon />
-    </span>
-    <span class="header-title">Main folder</span>
-    <span class="auto"></span>
-    <button class="icon-btn" @click="showModal()">
-      <DeleteIcon />
-    </button>
-  </div>
+	<div class="header-container">
+		<Modal v-if="shouldShowModal" />
+		<span class="icon-container">
+			<FolderIcon />
+		</span>
+		<span class="header-title">Main folder</span>
+		<span class="auto"></span>
+		<button class="icon-btn" @click="showModal()">
+			<DeleteIcon />
+		</button>
+	</div>
 </template>
 
 <!-- ... -->
@@ -698,16 +686,11 @@ But wait... Now when we render the app and open our dialog it looks like it's _u
 
 ![// TODO: Add alt](./website_modal_under_footer_example.png)
 
-
-
 Why is that? After all, `Modal` has a `z-index` of `99`, while `Footer` only has a `z-index` of `2`!
-
 
 While the long answer of "why is the modal rendering under the footer in this example" includes a mention of [stacking contexts](https://unicorn-utterances.com/posts/css-stacking-context), the short answer is ["A higher `z-index` number doesn't always guarantee that your element is always on the top."](https://unicorn-utterances.com/posts/css-stacking-context)
 
 > While both of those links lead to the same place, I worry that this might still be too subtle of a hint to [**go read the article I wrote that explains exactly why this `z-index` behavior occurs.**](https://unicorn-utterances.com/posts/css-stacking-context)
-
-
 
 To solve this, we'll reach for the JavaScript API built into React, Angular, and Vue that we mentioned at the start of this chapter: Portals.
 
@@ -717,29 +700,17 @@ The basic idea behind a JavaScript Portal builds on top of [the concepts of comp
 
 Imagine you have a set of components that represent the small app we just built:
 
-
-
 ![// TODO: Add alt](./mini_app_chart.svg)
-
-
 
 In this component layout, the `Modal` was showing under the `Footer` component. The reason this was happening is because the `Modal` is trapped under a ["CSS Stacking Context"](https://unicorn-utterances.com/posts/css-stacking-context).
 
-Let's simplify the chart and see what I mean; 
-
-
-
-
+Let's simplify the chart and see what I mean;
 
 ![// TODO: Write alt](./simplified_app_chart.svg)
 
 Here, we can see that despite `Modal` being assigned a `z-index` of `99`, it's trapped under the `Header`, which is a `z-index` of `1`. The `Modal` cannot escape this encapsulated `z-index` painting order, and as a result, `Footer` shows up on top.
 
-Ideally, to solve this problem, we'd want to move `Modal` to be in our HTML after the `Footer`, like so: 
-
-
-
-
+Ideally, to solve this problem, we'd want to move `Modal` to be in our HTML after the `Footer`, like so:
 
 ![// TODO: Write alt](./how_to_flatten_css_stacking_contexts.svg)
 
@@ -751,8 +722,6 @@ This is to say that your framework components will be laid out like the tree on 
 
 Let's take a look at how we can build these portals ourselves.
 
-
-
 # Using Local Portals
 
 While it's not the most useful example of using a portal, let's see how we can use a portal to teleport part of a UI to another part of the same component:
@@ -763,31 +732,31 @@ While it's not the most useful example of using a portal, let's see how we can u
 
 While most of React's APIs can be imported directly from `react`, the ability to create portals actually comes from the `react-dom` package.
 
-Once imported, we can use `ReactDOM.createPortal` to render JSX into an HTML element. 
+Once imported, we can use `ReactDOM.createPortal` to render JSX into an HTML element.
 
 ```jsx
-import React, { useMemo, useState } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useMemo, useState } from "react";
+import ReactDOM from "react-dom";
 
 export default function App() {
-  const [portalRef, setPortalRef] = useState(null);
+	const [portalRef, setPortalRef] = useState(null);
 
-  const portal = useMemo(() => {
-    if (!portalRef) return null;
-    return ReactDOM.createPortal(<div>Hello world!</div>, portalRef);
-  }, [portalRef]);
+	const portal = useMemo(() => {
+		if (!portalRef) return null;
+		return ReactDOM.createPortal(<div>Hello world!</div>, portalRef);
+	}, [portalRef]);
 
-  return (
-    <>
-      <div
-        ref={(el) => setPortalRef(el)}
-        style={{ height: '100px', width: '100px', border: '2px solid black' }}
-      >
-        <div />
-      </div>
-      {portal}
-    </>
-  );
+	return (
+		<>
+			<div
+				ref={(el) => setPortalRef(el)}
+				style={{ height: "100px", width: "100px", border: "2px solid black" }}
+			>
+				<div />
+			</div>
+			{portal}
+		</>
+	);
 }
 ```
 
@@ -806,38 +775,38 @@ npm i @angular/cdk
 From here, we can import components and utilities directly from the CDK.
 
 ```typescript
-import { PortalModule, DomPortal } from '@angular/cdk/portal';
+import { PortalModule, DomPortal } from "@angular/cdk/portal";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [PortalModule],
-  template: `
-  <div style="height: 100px; width: 100px; border: 2px solid black;">
-    <ng-template [cdkPortalOutlet]="domPortal"/>
-  </div>
-  <div #portalContent>Hello world!</div>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [PortalModule],
+	template: `
+		<div style="height: 100px; width: 100px; border: 2px solid black;">
+			<ng-template [cdkPortalOutlet]="domPortal" />
+		</div>
+		<div #portalContent>Hello world!</div>
+	`,
 })
 class AppComponent implements AfterViewInit {
-  @ViewChild('portalContent') portalContent: ElementRef<HTMLElement>;
+	@ViewChild("portalContent") portalContent: ElementRef<HTMLElement>;
 
-  domPortal: DomPortal<any>;
+	domPortal: DomPortal<any>;
 
-  ngAfterViewInit() {
-    // This is to avoid an:
-    // "Expression has changed after it was checked"
-    // error when trying to set domPortal
-    setTimeout(() => {
-      this.domPortal = new DomPortal(this.portalContent);
-    }, 0);
-  }
+	ngAfterViewInit() {
+		// This is to avoid an:
+		// "Expression has changed after it was checked"
+		// error when trying to set domPortal
+		setTimeout(() => {
+			this.domPortal = new DomPortal(this.portalContent);
+		}, 0);
+	}
 }
 ```
 
 You'll notice that we're creating a variable called `domPortal` that we assign an instance of `DomPortal` into. This `DomPortal` instance allows us to take a captured reference to some HTML (in this case, a `div` with `Hello world!`), and project it elsewhere.
 
-This `domPortal` is then assigned to a `[cdkPortalOutlet]` input. This input is automatically created on all `ng-template`s  when `PortalModule` is imported.
+This `domPortal` is then assigned to a `[cdkPortalOutlet]` input. This input is automatically created on all `ng-template`s when `PortalModule` is imported.
 
 > If you forget to import `PortalModule`, you'll see an error like so:
 >
@@ -847,14 +816,12 @@ This `domPortal` is then assigned to a `[cdkPortalOutlet]` input. This input is 
 
 This `cdkPortalOutlet` is where the captured HTML is then projected into.
 
-> Our code here uses a `setTimeout` to avoid an error of "Expression has changed after it was checked". 
+> Our code here uses a `setTimeout` to avoid an error of "Expression has changed after it was checked".
 >
 > The reason for this occuring is quite complex (and out of scope), but you can read about it more with the following resources:
 >
 > - [Official Angular video explaining "Expression has changed"](https://angular.io/errors/NG0100)
->
 > - [Everything you need to know about the `ExpressionChangedAfterItHasBeenCheckedError` error](https://indepth.dev/posts/1001/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error)
->
 > - [Angular Debugging "Expression has changed after it was checked": Simple Explanation (and Fix)](https://blog.angular-university.io/angular-debugging/)
 
 ### Rendering `ng-template`
@@ -864,36 +831,36 @@ Because we're using a `div` to act as the parent element of the portal's content
 As such, we may want to use an `ng-template`, which does not render to the DOM in the first place:
 
 ```typescript
-import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
+import { PortalModule, TemplatePortal } from "@angular/cdk/portal";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [PortalModule],
-  template: `
-  <div style="height: 100px; width: 100px; border: 2px solid black;">
-    <ng-template [cdkPortalOutlet]="domPortal"/>
-  </div>
-  <ng-template #portalContent>Hello, this is a template portal</ng-template>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [PortalModule],
+	template: `
+		<div style="height: 100px; width: 100px; border: 2px solid black;">
+			<ng-template [cdkPortalOutlet]="domPortal" />
+		</div>
+		<ng-template #portalContent>Hello, this is a template portal</ng-template>
+	`,
 })
 class AppComponent implements AfterViewInit {
-  @ViewChild('portalContent') portalContent: TemplateRef<unknown>;
+	@ViewChild("portalContent") portalContent: TemplateRef<unknown>;
 
-  viewContainerRef = inject(ViewContainerRef);
-  domPortal: TemplatePortal<any>;
+	viewContainerRef = inject(ViewContainerRef);
+	domPortal: TemplatePortal<any>;
 
-  ngAfterViewInit() {
-    // This is to avoid an:
-    // "Expression has changed after it was checked"
-    // error when trying to set domPortal
-    setTimeout(() => {
-      this.domPortal = new TemplatePortal(
-        this.portalContent,
-        this.viewContainerRef
-      );
-    }, 0);
-  }
+	ngAfterViewInit() {
+		// This is to avoid an:
+		// "Expression has changed after it was checked"
+		// error when trying to set domPortal
+		setTimeout(() => {
+			this.domPortal = new TemplatePortal(
+				this.portalContent,
+				this.viewContainerRef,
+			);
+		}, 0);
+	}
 }
 ```
 
@@ -904,18 +871,18 @@ Vue may have the most minimal portal API of them all; You use the built-in `Tele
 ```vue
 <!-- App.vue -->
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const portalContainerEl = ref(null)
+const portalContainerEl = ref(null);
 </script>
 
 <template>
-  <div style="height: 100px; width: 100px; border: 2px solid black">
-    <div ref="portalContainerEl"></div>
-  </div>
-  <div v-if="portalContainerEl">
-    <Teleport :to="portalContainerEl">Hello, world!</Teleport>
-  </div>
+	<div style="height: 100px; width: 100px; border: 2px solid black">
+		<div ref="portalContainerEl"></div>
+	</div>
+	<div v-if="portalContainerEl">
+		<Teleport :to="portalContainerEl">Hello, world!</Teleport>
+	</div>
 </template>
 ```
 
@@ -948,31 +915,31 @@ If we remember [our dependency injection chapter, React uses a `context` to prov
 We can pair this with our `createPortal` API to keep track of where we want to provide a portal:
 
 ```jsx
-import { useState, createContext, useContext } from 'react';
-import ReactDOM from 'react-dom';
+import { useState, createContext, useContext } from "react";
+import ReactDOM from "react-dom";
 
 const PortalContext = createContext();
 
 function ChildComponent() {
-  const portalRef = useContext(PortalContext);
-  if (!portalRef) return null;
-  return ReactDOM.createPortal(<div>Hello, world!</div>, portalRef);
+	const portalRef = useContext(PortalContext);
+	if (!portalRef) return null;
+	return ReactDOM.createPortal(<div>Hello, world!</div>, portalRef);
 }
 
 export default function App() {
-  const [portalRef, setPortalRef] = useState(null);
+	const [portalRef, setPortalRef] = useState(null);
 
-  return (
-    <PortalContext.Provider value={portalRef}>
-      <div
-        ref={(el) => setPortalRef(el)}
-        style={{ height: '100px', width: '100px', border: '2px solid black' }}
-      >
-        <div />
-      </div>
-      <ChildComponent />
-    </PortalContext.Provider>
-  );
+	return (
+		<PortalContext.Provider value={portalRef}>
+			<div
+				ref={(el) => setPortalRef(el)}
+				style={{ height: "100px", width: "100px", border: "2px solid black" }}
+			>
+				<div />
+			</div>
+			<ChildComponent />
+		</PortalContext.Provider>
+	);
 }
 ```
 
@@ -981,60 +948,61 @@ export default function App() {
 In Angular, we can use a basic service to share our instance of a `Portal` between multiple components, parent and child alike.
 
 ```typescript
-import { Portal, PortalModule, TemplatePortal } from '@angular/cdk/portal';
+import { Portal, PortalModule, TemplatePortal } from "@angular/cdk/portal";
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: "root",
 })
 class PortalService {
-  portal: Portal<any> | null = null;
+	portal: Portal<any> | null = null;
 }
 
 @Component({
-  selector: 'modal-comp',
-  standalone: true,
-  template: `
-  <ng-template #portalContent>Test</ng-template>
-  `,
+	selector: "modal-comp",
+	standalone: true,
+	template: ` <ng-template #portalContent>Test</ng-template> `,
 })
 class ModalComponent implements OnDestroy {
-  @ViewChild('portalContent') portalContent: TemplateRef<unknown>;
+	@ViewChild("portalContent") portalContent: TemplateRef<unknown>;
 
-  viewContainerRef = inject(ViewContainerRef);
-  domPortal: TemplatePortal<any>;
+	viewContainerRef = inject(ViewContainerRef);
+	domPortal: TemplatePortal<any>;
 
-  portalService = inject(PortalService);
+	portalService = inject(PortalService);
 
-  ngAfterViewInit() {
-    // This is to avoid an:
-    // "Expression has changed after it was checked"
-    // error when trying to set domPortal
-    setTimeout(() => {
-      this.portalService.portal = new TemplatePortal(
-        this.portalContent,
-        this.viewContainerRef
-      );
-    });
-  }
+	ngAfterViewInit() {
+		// This is to avoid an:
+		// "Expression has changed after it was checked"
+		// error when trying to set domPortal
+		setTimeout(() => {
+			this.portalService.portal = new TemplatePortal(
+				this.portalContent,
+				this.viewContainerRef,
+			);
+		});
+	}
 
-  ngOnDestroy() {
-    this.portalService = null;
-  }
+	ngOnDestroy() {
+		this.portalService = null;
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [PortalModule, ModalComponent, NgIf],
-  template: `
-  <div style="height: 100px; width: 100px; border: 2px solid black;" *ngIf="portalService.portal">
-    <ng-template [cdkPortalOutlet]="portalService.portal"/>
-  </div>
-  <modal-comp/>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [PortalModule, ModalComponent, NgIf],
+	template: `
+		<div
+			style="height: 100px; width: 100px; border: 2px solid black;"
+			*ngIf="portalService.portal"
+		>
+			<ng-template [cdkPortalOutlet]="portalService.portal" />
+		</div>
+		<modal-comp />
+	`,
 })
 class AppComponent {
-  portalService = inject(PortalService);
+	portalService = inject(PortalService);
 }
 ```
 
@@ -1049,33 +1017,33 @@ Once again Vue's straightforward API approach is visible through the pairing of 
 ```vue
 <!-- App.vue -->
 <script setup>
-import { ref, provide } from 'vue'
-import Child from './Child.vue'
+import { ref, provide } from "vue";
+import Child from "./Child.vue";
 
-const portalContainerEl = ref(null)
-provide('portalContainerEl', portalContainerEl)
+const portalContainerEl = ref(null);
+provide("portalContainerEl", portalContainerEl);
 </script>
 
 <template>
-  <div style="height: 100px; width: 100px; border: 2px solid black">
-    <div ref="portalContainerEl"></div>
-  </div>
-  <Child />
+	<div style="height: 100px; width: 100px; border: 2px solid black">
+		<div ref="portalContainerEl"></div>
+	</div>
+	<Child />
 </template>
 ```
 
 ```vue
 <!-- Child.vue -->
 <script setup>
-import { inject } from 'vue'
+import { inject } from "vue";
 
-const portalContainerEl = inject('portalContainerEl')
+const portalContainerEl = inject("portalContainerEl");
 </script>
 
 <template>
-  <div v-if="portalContainerEl">
-    <Teleport :to="portalContainerEl">Hello, world!</Teleport>
-  </div>
+	<div v-if="portalContainerEl">
+		<Teleport :to="portalContainerEl">Hello, world!</Teleport>
+	</div>
 </template>
 ```
 
@@ -1112,8 +1080,8 @@ It handles everything else for you! It will add a button to the end of your `<bo
 
 ```html
 <body>
-<div id="app"><!-- Your React app here --></div>
-<div id="unicorn-chat-contents"><!-- UnicornChat UI here --></div>
+	<div id="app"><!-- Your React app here --></div>
+	<div id="unicorn-chat-contents"><!-- UnicornChat UI here --></div>
 </body>
 ```
 
@@ -1124,7 +1092,6 @@ When QA goes to test your app, they come back with a brand new bug you've never 
 ![// TODO: Write alt](./file_app_chat_above_delete_dialog.png)
 
 This is because the contents of your React app are rendered before the UnicornChat UI, since the UnicornChat code is in a `div` that's after your React's container `div`.
-
 
 How can we solve this? By placing our portal's contents in the `body` itself after the UnicornChat UI.
 
@@ -1137,18 +1104,18 @@ Using the second argument of `createPortal`, we can pass a reference to the HTML
 We'll then wrap that `querySelector` into a `useMemo` so that we know not to re-fetch that reference again after it is grabbed once.
 
 ```jsx
-import React, { useMemo } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useMemo } from "react";
+import ReactDOM from "react-dom";
 
 function ChildComponent() {
-  const bodyEl = useMemo(() => {
-    return document.querySelector('body');
-  }, []);
-  return ReactDOM.createPortal(<div>Hello, world!</div>, bodyEl);
+	const bodyEl = useMemo(() => {
+		return document.querySelector("body");
+	}, []);
+	return ReactDOM.createPortal(<div>Hello, world!</div>, bodyEl);
 }
 
 export default function App() {
-  return <ChildComponent />;
+	return <ChildComponent />;
 }
 ```
 
@@ -1159,53 +1126,49 @@ To use a portal that attaches directly to `body` in Angular, we need to switch f
 We can reuse our existing global service to create one of these `DomPortalOutlet`s and attach and detach in our `modal` component, like so:
 
 ```typescript
-import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
+import { TemplatePortal, DomPortalOutlet } from "@angular/cdk/portal";
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: "root",
 })
 class PortalService {
-  outlet = new DomPortalOutlet(document.querySelector('body'));
+	outlet = new DomPortalOutlet(document.querySelector("body"));
 }
 
 @Component({
-  selector: 'modal-comp',
-  standalone: true,
-  template: `
-    <ng-template #portalContent>Test</ng-template>
-  `,
+	selector: "modal-comp",
+	standalone: true,
+	template: ` <ng-template #portalContent>Test</ng-template> `,
 })
 class ModalComponent implements OnDestroy {
-  @ViewChild('portalContent') portalContent: TemplateRef<unknown>;
+	@ViewChild("portalContent") portalContent: TemplateRef<unknown>;
 
-  viewContainerRef = inject(ViewContainerRef);
-  domPortal: TemplatePortal<any>;
+	viewContainerRef = inject(ViewContainerRef);
+	domPortal: TemplatePortal<any>;
 
-  portalService = inject(PortalService);
+	portalService = inject(PortalService);
 
-  ngAfterViewInit() {
-    // This is to avoid an:
-    // "Expression has changed after it was checked"
-    // error when trying to set domPortal
-    setTimeout(() => {
-      this.portalService.outlet.attach(
-        new TemplatePortal(this.portalContent, this.viewContainerRef)
-      );
-    });
-  }
+	ngAfterViewInit() {
+		// This is to avoid an:
+		// "Expression has changed after it was checked"
+		// error when trying to set domPortal
+		setTimeout(() => {
+			this.portalService.outlet.attach(
+				new TemplatePortal(this.portalContent, this.viewContainerRef),
+			);
+		});
+	}
 
-  ngOnDestroy() {
-    this.portalService.outlet.detach();
-  }
+	ngOnDestroy() {
+		this.portalService.outlet.detach();
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ModalComponent],
-  template: `
-  	<modal-comp/>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [ModalComponent],
+	template: ` <modal-comp /> `,
 })
 class AppComponent {}
 ```
@@ -1221,23 +1184,22 @@ This means that we can pass `"body"` to our `Teleport` component and have it ren
 <script setup></script>
 
 <template>
-  <Teleport to="body">Hello, world!</Teleport>
+	<Teleport to="body">Hello, world!</Teleport>
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-import Child from './Child.vue'
+import Child from "./Child.vue";
 </script>
-    
+
 <template>
-  <Child />
+	<Child />
 </template>
 ```
 
 <!-- tabs:end -->
-
 
 Now when you test the issue again, you find your modal is above the UnicornChat UI.
 
@@ -1255,56 +1217,56 @@ Tooltip
 
 ```jsx
 const Tooltip = ({ text, children }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const targetRef = useRef();
-  const tooltipRef = useRef();
+	const [isVisible, setIsVisible] = useState(false);
+	const targetRef = useRef();
+	const tooltipRef = useRef();
 
-  const showTooltip = () => {
-    setIsVisible(true);
-  };
+	const showTooltip = () => {
+		setIsVisible(true);
+	};
 
-  const hideTooltip = () => {
-    setIsVisible(false);
-  };
+	const hideTooltip = () => {
+		setIsVisible(false);
+	};
 
-  useEffect(() => {
-    const targetRect = targetRef.current.getBoundingClientRect();
+	useEffect(() => {
+		const targetRect = targetRef.current.getBoundingClientRect();
 
-    if (!tooltipRef.current) return;
-    tooltipRef.current.style.left = `${targetRect.left}px`;
-    tooltipRef.current.style.top = `${targetRect.bottom}px`;
-  }, [isVisible]);
+		if (!tooltipRef.current) return;
+		tooltipRef.current.style.left = `${targetRect.left}px`;
+		tooltipRef.current.style.top = `${targetRect.bottom}px`;
+	}, [isVisible]);
 
-  return (
-    <div>
-      <div
-        ref={targetRef}
-        onMouseEnter={showTooltip}
-        onMouseLeave={hideTooltip}
-      >
-        {children}
-      </div>
-      {isVisible &&
-        ReactDOM.createPortal(
-          <div ref={tooltipRef} className="tooltip">
-            {text}
-          </div>,
-          document.body
-        )}
-    </div>
-  );
+	return (
+		<div>
+			<div
+				ref={targetRef}
+				onMouseEnter={showTooltip}
+				onMouseLeave={hideTooltip}
+			>
+				{children}
+			</div>
+			{isVisible &&
+				ReactDOM.createPortal(
+					<div ref={tooltipRef} className="tooltip">
+						{text}
+					</div>,
+					document.body,
+				)}
+		</div>
+	);
 };
 
 export default Tooltip;
 
 const App = () => {
-  return (
-    <div>
-      <Tooltip text="This is a tooltip">
-        <button>Hover me</button>
-      </Tooltip>
-      <style
-        children={`
+	return (
+		<div>
+			<Tooltip text="This is a tooltip">
+				<button>Hover me</button>
+			</Tooltip>
+			<style
+				children={`
            .tooltip {
             position: absolute;
             background-color: #333;
@@ -1314,13 +1276,11 @@ const App = () => {
             z-index: 1000;
           }
       `}
-      />
-    </div>
-  );
+			/>
+		</div>
+	);
 };
 ```
-
-
 
 ### Angular
 
@@ -1328,7 +1288,6 @@ const App = () => {
 
 ### Vue
 
-// TODO: Port  code
+// TODO: Port code
 
 <!-- tabs:end -->
-

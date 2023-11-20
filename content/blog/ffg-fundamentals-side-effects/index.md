@@ -1,13 +1,13 @@
 ---
 {
-    title: "Side Effects",
-    description: "",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 4,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Side Effects",
+  description: "",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 4,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
 
@@ -44,8 +44,8 @@ For example, say we have the following code:
 ```javascript
 function pureFn() {
 	let data = 0;
-    data++;
-    return data;
+	data++;
+	return data;
 }
 ```
 
@@ -93,9 +93,9 @@ Notice how our `addToShoppingCart` method isn't returning anything; instead, it'
 window.shoppingCartItems = 0;
 
 function addToShoppingCart() {
-    // Nothing is happening here.
-    // No side effects? Yay.
-    // No functionality? Boo.
+	// Nothing is happening here.
+	// No side effects? Yay.
+	// No functionality? Boo.
 }
 
 addToShoppingCart();
@@ -160,7 +160,7 @@ Take the following for example:
 const Comp = () => {
 	const sayHi = () => alert("Hi!");
 	return <button onClick={sayHi}>Say hello</button>;
-}
+};
 ```
 
 ## Angular
@@ -169,9 +169,7 @@ const Comp = () => {
 @Component({
 	selector: "comp-comp",
 	standalone: true,
-	template: `
-		<button (click)="sayHi()">Say hello</button>
-	`
+	template: ` <button (click)="sayHi()">Say hello</button> `,
 })
 class CompComponent {
 	sayHi() {
@@ -185,17 +183,17 @@ class CompComponent {
 ```vue
 <!-- Comp.vue -->
 <script setup>
-  const sayHi = () => alert("Hi!");
+const sayHi = () => alert("Hi!");
 </script>
 
 <template>
-  <button @click="sayHi()">Say hello</button>
+	<button @click="sayHi()">Say hello</button>
 </template>
 ```
 
 <!-- tabs:end -->
 
-This component handles a `click` event (which is a user input, a side effect) and outputs an `alert` to the user in return (an output, another side effect). 
+This component handles a `click` event (which is a user input, a side effect) and outputs an `alert` to the user in return (an output, another side effect).
 
 See? Events are commonly hidden from the user when using one of these frameworks.
 
@@ -228,51 +226,48 @@ Say we have the following code:
 
 ```jsx
 const Child = () => {
-    return <p>I am the child</p>
-}
+	return <p>I am the child</p>;
+};
 
 const Parent = () => {
-  const [showChild, setShowChild] = useState(true);
-  
-  return <div>
-  	<button onClick={() => setShowChild(!showChild)}>
-  		Toggle Child
-  	</button>
-    {showChild && <Child/>}
-  </div>
-}
+	const [showChild, setShowChild] = useState(true);
+
+	return (
+		<div>
+			<button onClick={() => setShowChild(!showChild)}>Toggle Child</button>
+			{showChild && <Child />}
+		</div>
+	);
+};
 ```
 
 ## Angular
 
 ```typescript
 @Component({
-  selector: 'parent-comp',
-  standalone: true,
-  imports: [ChildComponent],
-  template: `
-  <div>
-  	<button (click)="setShowChild()">
-  		Toggle Child
-  	</button>
-    <child-comp *ngIf="showChild"/>
-  </div>
-  `,
+	selector: "parent-comp",
+	standalone: true,
+	imports: [ChildComponent],
+	template: `
+		<div>
+			<button (click)="setShowChild()">Toggle Child</button>
+			<child-comp *ngIf="showChild" />
+		</div>
+	`,
 })
 export class ParentComponent {
-  showChild = true;
-  setShowChild() {
-    this.showChild = !this.showChild;
-  }
+	showChild = true;
+	setShowChild() {
+		this.showChild = !this.showChild;
+	}
 }
 
 @Component({
-  selector: 'child-comp',
-  standalone: true,
-  template: '<p>I am the child</p>',
+	selector: "child-comp",
+	standalone: true,
+	template: "<p>I am the child</p>",
 })
-export class ChildComponent {
-}
+export class ChildComponent {}
 ```
 
 ## Vue
@@ -280,34 +275,32 @@ export class ChildComponent {
 ```vue
 <!-- Child.vue -->
 <template>
-  <p>I am the child</p>
+	<p>I am the child</p>
 </template>
 ```
 
 ```vue
 <!-- Parent.vue -->
 <script setup>
-  import { ref } from 'vue'
-  import Child from './Child.vue'
+import { ref } from "vue";
+import Child from "./Child.vue";
 
-  const showChild = ref(false)
+const showChild = ref(false);
 
-  function setShowChild() {
-    showChild.value = !showChild.value
-  }
+function setShowChild() {
+	showChild.value = !showChild.value;
+}
 </script>
 
 <template>
-  <div>
-    <button @click="setShowChild()">Toggle Child</button>
-    <Child v-if="showChild"/>
-  </div>
+	<div>
+		<button @click="setShowChild()">Toggle Child</button>
+		<Child v-if="showChild" />
+	</div>
 </template>
 ```
 
 <!-- tabs:end -->
-
-
 
 Here, `Child` is being added and removed from the DOM every time `setShowChild` is clicked. Let's say we wanted to add a way to call a `console.log` every time `Child` is shown on screen.
 
@@ -323,18 +316,18 @@ While we _could_ add this log inside of `setShowChild`, it's more likely to brea
 
 All side effects within React components are handled by two Hooks: `useEffect` and `useLayoutEffect`. Let's start by looking at `useEffect`:
 
-```jsx {1-3}
-import {useEffect} from 'react';
+```jsx
+import { useEffect } from "react";
 
 const Child = () => {
-    // Pass a function that React will run for you
+	// Pass a function that React will run for you
 	useEffect(() => {
-        console.log("I am rendering");
-       // Pass an array of items to track changes of
-    }, []);
+		console.log("I am rendering");
+		// Pass an array of items to track changes of
+	}, []);
 
-    return <p>I am the child</p>
-}
+	return <p>I am the child</p>;
+};
 ```
 
 Here, we're completing the task of "run `console.log` when `Child` is rendered for the first time" by allowing React to run the `console.log` side effect inside of `useEffect`. The empty array hints to React that we'd only like this function to run once: when the component initially renders.
@@ -347,18 +340,18 @@ We mentioned earlier that there is another hook used to handle side effects: `us
 
 In order to execute code during an initial render of a component, Angular uses a method called `ngOnInit`. This function is specially named so that Angular can call it on your behalf during the the "rendered" lifecycle event:
 
-```typescript {4-8}
-import {Component, OnInit} from "@angular/core";
+```typescript
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'child-comp',
-  standalone: true,
-  template: '<p>I am the child</p>',
+	selector: "child-comp",
+	standalone: true,
+	template: "<p>I am the child</p>",
 })
 export class ChildComponent implements OnInit {
-  ngOnInit() {
-    console.log('I am rendering');
-  }
+	ngOnInit() {
+		console.log("I am rendering");
+	}
 }
 ```
 
@@ -377,19 +370,19 @@ Let's start by taking a look at Vue's lifecycle method of handling a side effect
 ```vue
 <!-- Child.vue -->
 <script setup>
-  import { onMounted } from 'vue'
+import { onMounted } from "vue";
 
-  onMounted(() => {
-    console.log('I am rendering')
-  })
+onMounted(() => {
+	console.log("I am rendering");
+});
 </script>
 
 <template>
-  <p>I am the child</p>
+	<p>I am the child</p>
 </template>
 ```
 
-Here, we're importing the `onMounted` lifecycle handler from the `vue` import. Vue's lifecycle methods all start with an `on` prefix when used inside of a `<script setup>` component. 
+Here, we're importing the `onMounted` lifecycle handler from the `vue` import. Vue's lifecycle methods all start with an `on` prefix when used inside of a `<script setup>` component.
 
 ### Vue's `watchEffect` Hook
 
@@ -398,15 +391,18 @@ Just as React has a non-lifecycle method of running side effect, so too does Vue
 ```vue
 <!-- Child.vue -->
 <script setup>
-  import { watchEffect } from 'vue'
+import { watchEffect } from "vue";
 
-  watchEffect(() => {
-    console.log('I am rendering')
-  }, { immediate: true })
+watchEffect(
+	() => {
+		console.log("I am rendering");
+	},
+	{ immediate: true },
+);
 </script>
 
 <template>
-  <p>I am the child</p>
+	<p>I am the child</p>
 </template>
 ```
 
@@ -422,8 +418,6 @@ As mentioned before, the framework itself calls these methods on your behalf whe
 
 Try clicking the toggle button repeatedly, and you'll see that the `console.log` occurs every time the `Child` component renders again.
 
-
-
 # Using Side Effects in Production {#prod-side-effects}
 
 On top of providing a global variable which we can mutate to store values, both [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window#methods) and [`document`](https://developer.mozilla.org/en-US/docs/Web/API/Document#methods) expose a number of APIs that can be useful in an application.
@@ -436,32 +430,34 @@ Let's say that inside of our component we'd like to display the window size:
 
 ```jsx
 const Parent = () => {
-  const [height, setHeight] = useState(window.innerHeight);
-  const [width, setWidth] = useState(window.innerWidth);
-    
-  return <div>
-  	<p>Height: {height}</p>
-  	<p>Width: {width}</p>
-  </div>
-}
+	const [height, setHeight] = useState(window.innerHeight);
+	const [width, setWidth] = useState(window.innerWidth);
+
+	return (
+		<div>
+			<p>Height: {height}</p>
+			<p>Width: {width}</p>
+		</div>
+	);
+};
 ```
 
 ## Angular
 
 ```typescript
 @Component({
-  selector: 'window-size',
-  standalone: true,
-  template: `
-  <div>
-  	<p>Height: {{height}}</p>
-  	<p>Width: {{width}}</p>
-  </div>
-  `,
+	selector: "window-size",
+	standalone: true,
+	template: `
+		<div>
+			<p>Height: {{ height }}</p>
+			<p>Width: {{ width }}</p>
+		</div>
+	`,
 })
 export class WindowSizeComponent {
-  height = window.innerHeight;
-  width = window.innerWidth;
+	height = window.innerHeight;
+	width = window.innerWidth;
 }
 ```
 
@@ -470,15 +466,15 @@ export class WindowSizeComponent {
 ```vue
 <!-- WindowSize.vue -->
 <script setup>
-  const height = window.innerHeight
-  const width = window.innerWidth
+const height = window.innerHeight;
+const width = window.innerWidth;
 </script>
 
 <template>
-  <div>
-    <p>Height: {{ height }}</p>
-    <p>Width: {{ width }}</p>
-  </div>
+	<div>
+		<p>Height: {{ height }}</p>
+		<p>Width: {{ width }}</p>
+	</div>
 </template>
 ```
 
@@ -494,83 +490,85 @@ Let's solve this by using [`window.addEventListener`](https://developer.mozilla.
 
 ## React
 
-```jsx {4-10}
+```jsx {4-12}
 const WindowSize = () => {
-  const [height, setHeight] = useState(window.innerHeight);
-  const [width, setWidth] = useState(window.innerWidth);
-    
-  useEffect(() => {
-      function resizeHandler() {
-          setHeight(window.innerHeight);
-          setWidth(window.innerWidth);
-      }
-      
-      // This code will cause a memory leak, more on that soon
-      window.addEventListener('resize', resizeHandler);
-  }, []);
-    
-  return <div>
-  	<p>Height: {height}</p>
-  	<p>Width: {width}</p>
-  </div>
-}
+	const [height, setHeight] = useState(window.innerHeight);
+	const [width, setWidth] = useState(window.innerWidth);
+
+	useEffect(() => {
+		function resizeHandler() {
+			setHeight(window.innerHeight);
+			setWidth(window.innerWidth);
+		}
+
+		// This code will cause a memory leak, more on that soon
+		window.addEventListener("resize", resizeHandler);
+	}, []);
+
+	return (
+		<div>
+			<p>Height: {height}</p>
+			<p>Width: {width}</p>
+		</div>
+	);
+};
 ```
 
 ## Angular
 
-```typescript {13-20}
+```typescript {13-22}
 @Component({
-  selector: 'window-size',
-  standalone: true,
-  template: `
-  <div>
-  	<p>Height: {{height}}</p>
-  	<p>Width: {{width}}</p>
-  </div>
-  `,
+	selector: "window-size",
+	standalone: true,
+	template: `
+		<div>
+			<p>Height: {{ height }}</p>
+			<p>Width: {{ width }}</p>
+		</div>
+	`,
 })
 export class WindowSizeComponent implements OnInit {
-  height = window.innerHeight;
-  width = window.innerWidth;
+	height = window.innerHeight;
+	width = window.innerWidth;
 
-  resizeHandler() {
-    this.height = window.innerHeight;
-    this.width = window.innerWidth;
-  }
-    
-  ngOnInit() {
-    // This code will cause a memory leak, more on that soon
-    window.addEventListener('resize', this.resizeHandler);
-  }
+	resizeHandler() {
+		this.height = window.innerHeight;
+		this.width = window.innerWidth;
+	}
+
+	ngOnInit() {
+		// This code will cause a memory leak, more on that soon
+		window.addEventListener("resize", this.resizeHandler);
+	}
 }
 ```
 
 ## Vue
 
-```vue
+```vue {7-15}
 <!-- WindowSize.vue -->
 <script setup>
-  import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 
-  const height = ref(window.innerHeight)
-  const width = ref(window.innerWidth)
+const height = ref(window.innerHeight);
+const width = ref(window.innerWidth);
 
-  function resizeHandler() {
-    height.value = window.innerHeight
-    width.value = window.innerWidth
-  }
+function resizeHandler() {
+	height.value = window.innerHeight;
+	width.value = window.innerWidth;
+}
 
-  onMounted(() => {
-    // This code will cause a memory leak, more on that soon
-    window.addEventListener('resize', resizeHandler)
-  })
+onMounted(() => {
+	// This code will cause a memory leak, more on that soon
+	window.addEventListener("resize", resizeHandler);
+});
 </script>
 
 <template>
-  <div>
-    <p>Height: {{ height }}</p>
-    <p>Width: {{ width }}</p>
-  </div>
+	<div>
+		<p>Height: {{ height }}</p>
+		<p>Width: {{ width }}</p>
+	</div>
 </template>
 ```
 
@@ -590,44 +588,46 @@ What if we changed our code above to listen for the `resize` event that way to s
 
 ```jsx
 const WindowSize = () => {
-  const [height, setHeight] = useState(window.innerHeight);
-  const [width, setWidth] = useState(window.innerWidth);
-  
-  function resizeHandler() {
-    setHeight(window.innerHeight);
-    setWidth(window.innerWidth);
-  }
+	const [height, setHeight] = useState(window.innerHeight);
+	const [width, setWidth] = useState(window.innerWidth);
 
-  // This code doesn't work, we'll explain why soon
-  return <div onResize={resizeHandler}>
-  	<p>Height: {height}</p>
-  	<p>Width: {width}</p>
-  </div>
-}
+	function resizeHandler() {
+		setHeight(window.innerHeight);
+		setWidth(window.innerWidth);
+	}
+
+	// This code doesn't work, we'll explain why soon
+	return (
+		<div onResize={resizeHandler}>
+			<p>Height: {height}</p>
+			<p>Width: {width}</p>
+		</div>
+	);
+};
 ```
 
 ### Angular
 
-```typescript {13-20}
+```typescript
 @Component({
-  selector: 'window-size',
-  standalone: true,
-  template: `
-  <!-- This code doesn't work, we'll explain why soon -->
-  <div (resize)="resizeHandler()">
-  	<p>Height: {{height}}</p>
-  	<p>Width: {{width}}</p>
-  </div>
-  `,
+	selector: "window-size",
+	standalone: true,
+	template: `
+		<!-- This code doesn't work, we'll explain why soon -->
+		<div (resize)="resizeHandler()">
+			<p>Height: {{ height }}</p>
+			<p>Width: {{ width }}</p>
+		</div>
+	`,
 })
 export class WindowSizeComponent implements OnInit {
-  height = window.innerHeight;
-  width = window.innerWidth;
+	height = window.innerHeight;
+	width = window.innerWidth;
 
-  resizeHandler() {
-    this.height = window.innerHeight;
-    this.width = window.innerWidth;
-  }
+	resizeHandler() {
+		this.height = window.innerHeight;
+		this.width = window.innerWidth;
+	}
 }
 ```
 
@@ -636,23 +636,23 @@ export class WindowSizeComponent implements OnInit {
 ```vue
 <!-- WindowSize.vue -->
 <script setup>
-  import { ref } from 'vue'
+import { ref } from "vue";
 
-  const height = ref(window.innerHeight)
-  const width = ref(window.innerWidth)
+const height = ref(window.innerHeight);
+const width = ref(window.innerWidth);
 
-  function resizeHandler() {
-    height.value = window.innerHeight
-    width.value = window.innerWidth
-  }
+function resizeHandler() {
+	height.value = window.innerHeight;
+	width.value = window.innerWidth;
+}
 </script>
 
 <template>
-  <!-- This code doesn't work, we'll explain why soon -->
-  <div @resize="resizeHandler()">
-    <p>Height: {{ height }}</p>
-    <p>Width: {{ width }}</p>
-  </div>
+	<!-- This code doesn't work, we'll explain why soon -->
+	<div @resize="resizeHandler()">
+		<p>Height: {{ height }}</p>
+		<p>Width: {{ width }}</p>
+	</div>
 </template>
 ```
 
@@ -662,7 +662,7 @@ If we run this code, it will render as-expected with the initial screen size, bu
 
 You see, by default, events will always "bubble" upwards in the DOM tree from their emitted position. So, if we click on a `div`, the `click` event will start from the `div` and bubble all the way up to the `html` tag.
 
-![A click event bubbling to the top of the document](./event_bubbling.png) 
+![A click event bubbling to the top of the document](./event_bubbling.png)
 
 We can demonstrate this inside of our frameworks.
 
@@ -672,7 +672,9 @@ We can demonstrate this inside of our frameworks.
 
 ```jsx
 <div onClick={() => logMessage()}>
-  <p><span>Click me</span> or even me!</p>
+	<p>
+		<span>Click me</span> or even me!
+	</p>
 </div>
 ```
 
@@ -680,7 +682,7 @@ We can demonstrate this inside of our frameworks.
 
 ```html
 <div (click)="logMessage()">
-  <p><span>Click me</span> or even me!</p>
+	<p><span>Click me</span> or even me!</p>
 </div>
 ```
 
@@ -688,7 +690,7 @@ We can demonstrate this inside of our frameworks.
 
 ```html
 <div @click="logMessage()">
-  <p><span>Click me</span> or even me!</p>
+	<p><span>Click me</span> or even me!</p>
 </div>
 ```
 
@@ -723,7 +725,7 @@ Given your particular TV's lack of rewind functionality, you'd be stuck where yo
 
 However, if you had paused the show, you would have been able to un-pause once you'd turned off the microwave and see what the big reveal was.
 
------
+---
 
 > Surely, this analogy doesn't have much to do with frontend development, does it?
 
@@ -737,73 +739,72 @@ See, think of the TV as being a component in your app with a side effect. Let's 
 
 ```jsx
 const Clock = () => {
-  const [time, setTime] = useState(formatDate(new Date()));
+	const [time, setTime] = useState(formatDate(new Date()));
 
-  useEffect(() => {
-    setInterval(() => {
-      console.log("I am updating the time");
-      setTime(formatDate(new Date()));
-    }, 1000);
-  }, []);
+	useEffect(() => {
+		setInterval(() => {
+			console.log("I am updating the time");
+			setTime(formatDate(new Date()));
+		}, 1000);
+	}, []);
 
-  return <p role="timer">Time is: {time}</p>;
+	return <p role="timer">Time is: {time}</p>;
 };
 
 function formatDate(date) {
-  return (
-    prefixZero(date.getHours()) +
-    ':' +
-    prefixZero(date.getMinutes()) +
-    ':' +
-    prefixZero(date.getSeconds())
-  );
+	return (
+		prefixZero(date.getHours()) +
+		":" +
+		prefixZero(date.getMinutes()) +
+		":" +
+		prefixZero(date.getSeconds())
+	);
 }
 
 function prefixZero(number) {
-  if (number < 10) {
-    return '0' + number.toString();
-  }
+	if (number < 10) {
+		return "0" + number.toString();
+	}
 
-  return number.toString();
+	return number.toString();
 }
 ```
+
 ## Angular
 
 ```typescript
 @Component({
-  selector: 'clock-comp',
-  standalone: true,
-  template: `
-   <p role="timer">Time is: {{time}}</p>
-  `,
+	selector: "clock-comp",
+	standalone: true,
+	template: ` <p role="timer">Time is: {{ time }}</p> `,
 })
 export class ClockComponent implements OnInit {
-  time = formatDate(new Date());
+	time = formatDate(new Date());
 
-  ngOnInit() {
-    setInterval(() => {
-      console.log('I am updating the time');
-      this.time = formatDate(new Date());
-    }, 1000);
-  }
+	ngOnInit() {
+		setInterval(() => {
+			console.log("I am updating the time");
+			this.time = formatDate(new Date());
+		}, 1000);
+	}
 }
 
 function formatDate(date) {
-  return (
-    prefixZero(date.getHours()) +
-    ':' +
-    prefixZero(date.getMinutes()) +
-    ':' +
-    prefixZero(date.getSeconds())
-  );
+	return (
+		prefixZero(date.getHours()) +
+		":" +
+		prefixZero(date.getMinutes()) +
+		":" +
+		prefixZero(date.getSeconds())
+	);
 }
 
 function prefixZero(number) {
-  if (number < 10) {
-    return '0' + number.toString();
-  }
+	if (number < 10) {
+		return "0" + number.toString();
+	}
 
-  return number.toString();
+	return number.toString();
 }
 ```
 
@@ -812,32 +813,38 @@ function prefixZero(number) {
 ```vue
 <!-- Clock.vue -->
 <script setup>
-  import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 
-  const time = ref(formatDate(new Date()))
+const time = ref(formatDate(new Date()));
 
-  onMounted(() => {
-    setInterval(() => {
-      console.log('I am updating the time')
-      time.value = formatDate(new Date())
-    }, 1000)
-  })
+onMounted(() => {
+	setInterval(() => {
+		console.log("I am updating the time");
+		time.value = formatDate(new Date());
+	}, 1000);
+});
 
-  function formatDate(date) {
-    return prefixZero(date.getHours()) + ':' + prefixZero(date.getMinutes()) + ':' + prefixZero(date.getSeconds())
-  }
+function formatDate(date) {
+	return (
+		prefixZero(date.getHours()) +
+		":" +
+		prefixZero(date.getMinutes()) +
+		":" +
+		prefixZero(date.getSeconds())
+	);
+}
 
-  function prefixZero(number) {
-    if (number < 10) {
-      return '0' + number.toString()
-    }
+function prefixZero(number) {
+	if (number < 10) {
+		return "0" + number.toString();
+	}
 
-    return number.toString()
-  }
+	return number.toString();
+}
 </script>
 
 <template>
-  <p role="timer">Time is: {{ time }}</p>
+	<p role="timer">Time is: {{ time }}</p>
 </template>
 ```
 
@@ -856,17 +863,16 @@ Let's now render this `Clock` component inside of a conditional block:
 
 ## React
 
-
 ```jsx
 export default function App() {
-  const [showClock, setShowClock] = useState(true);
+	const [showClock, setShowClock] = useState(true);
 
-  return (
-    <div>
-      <button onClick={() => setShowClock(!showClock)}>Toggle clock</button>
-      {showClock && <Clock />}
-    </div>
-  );
+	return (
+		<div>
+			<button onClick={() => setShowClock(!showClock)}>Toggle clock</button>
+			{showClock && <Clock />}
+		</div>
+	);
 }
 ```
 
@@ -874,22 +880,22 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NgIf, ClockComponent],
-  template: `
-    <div>
-      <button (click)="setShowClock(!showClock)">Toggle clock</button>
-      <clock-comp *ngIf="showClock"/>
-    </div>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [NgIf, ClockComponent],
+	template: `
+		<div>
+			<button (click)="setShowClock(!showClock)">Toggle clock</button>
+			<clock-comp *ngIf="showClock" />
+		</div>
+	`,
 })
 export class AppComponent {
-  showClock = true;
+	showClock = true;
 
-  setShowClock(val) {
-    this.showClock = val;
-  }
+	setShowClock(val) {
+		this.showClock = val;
+	}
 }
 ```
 
@@ -898,32 +904,31 @@ export class AppComponent {
 ```vue
 <!-- App.vue -->
 <script setup>
-  import Clock from './Clock.vue'
-  import { ref } from 'vue'
+import Clock from "./Clock.vue";
+import { ref } from "vue";
 
-  const showClock = ref(true)
+const showClock = ref(true);
 
-  function setShowClock(val) {
-    showClock.value = val
-  }
+function setShowClock(val) {
+	showClock.value = val;
+}
 </script>
 
 <template>
-  <div>
-    <button @click="setShowClock(!showClock)">Toggle clock</button>
-    <Clock v-if="showClock" />
-  </div>
+	<div>
+		<button @click="setShowClock(!showClock)">Toggle clock</button>
+		<Clock v-if="showClock" />
+	</div>
 </template>
 ```
 
 <!-- tabs:end -->
 
-In `App`, we're defaulting `showClock` to `true`. This means that our `Clock` component will render on `App`'s first render. 
+In `App`, we're defaulting `showClock` to `true`. This means that our `Clock` component will render on `App`'s first render.
 
 We can visually see that our clock is updating every second, but the really interesting part to us is the `console.log`. If we open up our browser's developer tools, we can see that it's logging every time it's updating on screen as well.
 
 However, let's toggle the `Clock` component a couple of times by clicking the button.
-
 
 <video src="./lifecycle_timer.mp4" title="A browser showing developer tools and clock component rendering. On first render, the console.log occurs once per visual clock update, but on subsequent renders of the Clock component, the console.log runs too frequently"></video>
 
@@ -952,55 +957,55 @@ Let's build that functionality now, but reduce the "minutes" to "seconds" for ea
 
 ```jsx
 function AlarmScreen({ snooze, disable }) {
-  useEffect(() => {
-    setTimeout(() => {
-      // Automatically snooze the alarm
-      // after 10 seconds of inactivity
-      // In production this would be 10 minutes
-      snooze();
-    }, 10 * 1000);
-  }, []);
+	useEffect(() => {
+		setTimeout(() => {
+			// Automatically snooze the alarm
+			// after 10 seconds of inactivity
+			// In production this would be 10 minutes
+			snooze();
+		}, 10 * 1000);
+	}, []);
 
-  return (
-    <div>
-      <p>Time to wake up!</p>
-      <button onClick={snooze}>Snooze for 5 seconds</button>
-      <button onClick={disable}>Turn off alarm</button>
-    </div>
-  );
+	return (
+		<div>
+			<p>Time to wake up!</p>
+			<button onClick={snooze}>Snooze for 5 seconds</button>
+			<button onClick={disable}>Turn off alarm</button>
+		</div>
+	);
 }
 
 function App() {
-  const [secondsLeft, setSecondsLeft] = useState(5);
-  const [timerEnabled, setTimerEnabled] = useState(true);
+	const [secondsLeft, setSecondsLeft] = useState(5);
+	const [timerEnabled, setTimerEnabled] = useState(true);
 
-  useEffect(() => {
-    setInterval(() => {
-      setSecondsLeft((v) => {
-        if (v === 0) return v;
-        return v - 1;
-      });
-    }, 1000);
-  }, []);
+	useEffect(() => {
+		setInterval(() => {
+			setSecondsLeft((v) => {
+				if (v === 0) return v;
+				return v - 1;
+			});
+		}, 1000);
+	}, []);
 
-  const snooze = () => {
-    // In production this would add 5 minutes, not 5 seconds
-    setSecondsLeft((v) => v + 5);
-  };
+	const snooze = () => {
+		// In production this would add 5 minutes, not 5 seconds
+		setSecondsLeft((v) => v + 5);
+	};
 
-  const disable = () => {
-    setTimerEnabled(false);
-  };
+	const disable = () => {
+		setTimerEnabled(false);
+	};
 
-  if (!timerEnabled) {
-    return <p>There is no timer</p>;
-  }
-    
-  if (secondsLeft === 0) {
-    return <AlarmScreen snooze={snooze} disable={disable} />;
-  }
+	if (!timerEnabled) {
+		return <p>There is no timer</p>;
+	}
 
-  return <p>{secondsLeft} seconds left in timer</p>;
+	if (secondsLeft === 0) {
+		return <AlarmScreen snooze={snooze} disable={disable} />;
+	}
+
+	return <p>{secondsLeft} seconds left in timer</p>;
 }
 ```
 
@@ -1008,63 +1013,66 @@ function App() {
 
 ```typescript
 @Component({
-  selector: 'alarm-screen',
-  standalone: true,
-  template: `
-  <div>
-    <p>Time to wake up!</p>
-    <button (click)="snooze.emit()">Snooze for 5 seconds</button>
-    <button (click)="disable.emit()">Turn off alarm</button>
-  </div>
-  `,
+	selector: "alarm-screen",
+	standalone: true,
+	template: `
+		<div>
+			<p>Time to wake up!</p>
+			<button (click)="snooze.emit()">Snooze for 5 seconds</button>
+			<button (click)="disable.emit()">Turn off alarm</button>
+		</div>
+	`,
 })
 export class AlarmScreenComponent implements OnInit {
-  @Output() snooze = new EventEmitter();
-  @Output() disable = new EventEmitter();
+	@Output() snooze = new EventEmitter();
+	@Output() disable = new EventEmitter();
 
-  ngOnInit() {
-    setTimeout(() => {
-      // Automatically snooze the alarm
-      // after 10 seconds of inactivity
-      // In production this would be 10 minutes
-      this.snooze.emit();
-    }, 10 * 1000);
-  }
+	ngOnInit() {
+		setTimeout(() => {
+			// Automatically snooze the alarm
+			// after 10 seconds of inactivity
+			// In production this would be 10 minutes
+			this.snooze.emit();
+		}, 10 * 1000);
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NgIf, AlarmScreenComponent],
-  template: `
-    <p *ngIf="!timerEnabled; else timerDisplay">There is no timer</p>
-    <ng-template #timerDisplay>
-      <alarm-screen *ngIf="secondsLeft === 0; else secondsDisplay" (snooze)="snooze()" (disable)="disable()" />
-    </ng-template>
-    <ng-template #secondsDisplay>
-      <p>{{ secondsLeft }} seconds left in timer</p>
-    </ng-template>
-
-    `,
+	selector: "app-root",
+	standalone: true,
+	imports: [NgIf, AlarmScreenComponent],
+	template: `
+		<p *ngIf="!timerEnabled; else timerDisplay">There is no timer</p>
+		<ng-template #timerDisplay>
+			<alarm-screen
+				*ngIf="secondsLeft === 0; else secondsDisplay"
+				(snooze)="snooze()"
+				(disable)="disable()"
+			/>
+		</ng-template>
+		<ng-template #secondsDisplay>
+			<p>{{ secondsLeft }} seconds left in timer</p>
+		</ng-template>
+	`,
 })
 export class AppComponent implements OnInit {
-  secondsLeft = 5;
-  timerEnabled = true;
+	secondsLeft = 5;
+	timerEnabled = true;
 
-  ngOnInit() {
-    setInterval(() => {
-      if (this.secondsLeft === 0) return;
-      this.secondsLeft = this.secondsLeft - 1;
-    }, 1000);
-  }
+	ngOnInit() {
+		setInterval(() => {
+			if (this.secondsLeft === 0) return;
+			this.secondsLeft = this.secondsLeft - 1;
+		}, 1000);
+	}
 
-  snooze() {
-    this.secondsLeft = this.secondsLeft + 5;
-  }
+	snooze() {
+		this.secondsLeft = this.secondsLeft + 5;
+	}
 
-  disable() {
-    this.timerEnabled = false;
-  }
+	disable() {
+		this.timerEnabled = false;
+	}
 }
 ```
 
@@ -1073,58 +1081,62 @@ export class AppComponent implements OnInit {
 ```vue
 <!-- AlarmScreen.vue -->
 <script setup>
-  import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 
-  const emit = defineEmits(['snooze', 'disable'])
+const emit = defineEmits(["snooze", "disable"]);
 
-  onMounted(() => {
-    setTimeout(() => {
-      // Automatically snooze the alarm
-      // after 10 seconds of inactivity
-      // In production this would be 10 minutes
-      emit('snooze')
-    }, 10 * 1000)
-  })
+onMounted(() => {
+	setTimeout(() => {
+		// Automatically snooze the alarm
+		// after 10 seconds of inactivity
+		// In production this would be 10 minutes
+		emit("snooze");
+	}, 10 * 1000);
+});
 </script>
 
 <template>
-  <div>
-    <p>Time to wake up!</p>
-    <button @click="emit('snooze')">Snooze for 5 seconds</button>
-    <button @click="emit('disable')">Turn off alarm</button>
-  </div>
+	<div>
+		<p>Time to wake up!</p>
+		<button @click="emit('snooze')">Snooze for 5 seconds</button>
+		<button @click="emit('disable')">Turn off alarm</button>
+	</div>
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import AlarmScreen from './AlarmScreen.vue'
-  import { ref, onMounted } from 'vue'
+import AlarmScreen from "./AlarmScreen.vue";
+import { ref, onMounted } from "vue";
 
-  const secondsLeft = ref(5)
-  const timerEnabled = ref(true)
+const secondsLeft = ref(5);
+const timerEnabled = ref(true);
 
-  onMounted(() => {
-    setInterval(() => {
-      if (secondsLeft.value === 0) return
-      secondsLeft.value = secondsLeft.value - 1
-    }, 1000)
-  })
+onMounted(() => {
+	setInterval(() => {
+		if (secondsLeft.value === 0) return;
+		secondsLeft.value = secondsLeft.value - 1;
+	}, 1000);
+});
 
-  const snooze = () => {
-    secondsLeft.value = secondsLeft.value + 5
-  }
+const snooze = () => {
+	secondsLeft.value = secondsLeft.value + 5;
+};
 
-  const disable = () => {
-    timerEnabled.value = false
-  }
+const disable = () => {
+	timerEnabled.value = false;
+};
 </script>
 
 <template>
-  <p v-if="!timerEnabled">There is no timer</p>
-  <AlarmScreen v-else-if="secondsLeft === 0" @snooze="snooze()" @disable="disable()" />
-  <p v-else>{{ secondsLeft }} seconds left in timer</p>
+	<p v-if="!timerEnabled">There is no timer</p>
+	<AlarmScreen
+		v-else-if="secondsLeft === 0"
+		@snooze="snooze()"
+		@disable="disable()"
+	/>
+	<p v-else>{{ secondsLeft }} seconds left in timer</p>
 </template>
 ```
 
@@ -1145,7 +1157,7 @@ This occurs because we never tell the `AlarmScreen`'s `setTimeout` to stop runni
 ```javascript
 // AlarmScreen component
 setTimeout(() => {
-  snooze();
+	snooze();
 }, 10 * 1000);
 ```
 
@@ -1161,7 +1173,7 @@ Let's cleanup these lifecycle methods using a lifecycle method that runs during 
 
 ```javascript
 const timeout = setTimeout(() => {
-  // ...
+	// ...
 }, 1000);
 
 // This stops a timeout from running if unran.
@@ -1173,7 +1185,7 @@ Similarly, when using `setInterval`, there's a `clearInterval` method we can use
 
 ```javascript
 const interval = setInterval(() => {
-  // ...
+	// ...
 }, 1000);
 
 // This stops an interval from running
@@ -1184,16 +1196,16 @@ clearInterval(interval);
 
 ### React
 
-To run a cleanup function on React's `useEffect`, return a function inside of the `useEffect`. 
+To run a cleanup function on React's `useEffect`, return a function inside of the `useEffect`.
 
 ```jsx
 const Comp = () => {
-    useEffect(() => {
-    	return () => {
-          console.log("I am cleaning up");
-        }
-    }, []);
-}
+	useEffect(() => {
+		return () => {
+			console.log("I am cleaning up");
+		};
+	}, []);
+};
 ```
 
 This returned function will be ran whenever:
@@ -1208,35 +1220,35 @@ Let's apply this returned function to our code sample previously:
 
 ```jsx
 function AlarmScreen({ snooze, disable }) {
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      // Automatically snooze the alarm
-      // after 10 seconds of inactivity
-      // In production this would be 10 minutes
-      snooze();
-    }, 10 * 1000);
-      
-    return () => clearTimeout(timeout);
-  }, []);
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			// Automatically snooze the alarm
+			// after 10 seconds of inactivity
+			// In production this would be 10 minutes
+			snooze();
+		}, 10 * 1000);
 
-  // ...
+		return () => clearTimeout(timeout);
+	}, []);
+
+	// ...
 }
 
 function App() {
-  // ...
-    
-  useEffect(() => {
-    const timeout = setInterval(() => {
-      setSecondsLeft((v) => {
-        if (v === 0) return v;
-        return v - 1;
-      });
-    }, 1000);
-      
-    return () => clearInterval(timeout);
-  }, []);
+	// ...
 
-  // ...
+	useEffect(() => {
+		const timeout = setInterval(() => {
+			setSecondsLeft((v) => {
+				if (v === 0) return v;
+				return v - 1;
+			});
+		}, 1000);
+
+		return () => clearInterval(timeout);
+	}, []);
+
+	// ...
 }
 ```
 
@@ -1251,54 +1263,60 @@ When we add a mounted lifecycle to Angular, we:
 To add an unmounted lifecycle method to an Angular component, we do the same steps as above, but with `OnDestroy` instead:
 
 ```typescript
-import {Component, EventEmitter, OnInit, Output, OnDestroy} from "@angular/core";
+import {
+	Component,
+	EventEmitter,
+	OnInit,
+	Output,
+	OnDestroy,
+} from "@angular/core";
 
 @Component({
-  selector: 'alarm-screen',
-  standalone: true,
-  // ...
+	selector: "alarm-screen",
+	standalone: true,
+	// ...
 })
 export class AlarmScreenComponent implements OnInit, OnDestroy {
-  // ...
+	// ...
 
-  timeout: number | undefined = undefined;
-    
-  ngOnInit() {
-    this.timeout = setTimeout(() => {
-      if (this.secondsLeft === 0) return;
-      this.secondsLeft = this.secondsLeft - 1;
-    }, 1000);
-  }
+	timeout: number | undefined = undefined;
 
-  ngOnDestroy() {
-    clearTimeout(this.timeout);
-  }
-    
-  // ...
+	ngOnInit() {
+		this.timeout = setTimeout(() => {
+			if (this.secondsLeft === 0) return;
+			this.secondsLeft = this.secondsLeft - 1;
+		}, 1000);
+	}
+
+	ngOnDestroy() {
+		clearTimeout(this.timeout);
+	}
+
+	// ...
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  // ...
+	selector: "app-root",
+	standalone: true,
+	// ...
 })
 export class AppComponent implements OnInit, OnDestroy {
-  // ...
-    
-  interval: number | undefined = undefined;
-    
-  ngOnInit() {
-    this.interval = setInterval(() => {
-      if (this.secondsLeft === 0) return;
-      this.secondsLeft = this.secondsLeft - 1;
-    }, 1000);
-  }
+	// ...
 
-  ngOnDestroy() {
-    clearInterval(this.interval);
-  }
+	interval: number | undefined = undefined;
 
-  // ...
+	ngOnInit() {
+		this.interval = setInterval(() => {
+			if (this.secondsLeft === 0) return;
+			this.secondsLeft = this.secondsLeft - 1;
+		}, 1000);
+	}
+
+	ngOnDestroy() {
+		clearInterval(this.interval);
+	}
+
+	// ...
 }
 ```
 
@@ -1309,25 +1327,25 @@ Similar to how we import `onMounted` we can import `onUnmounted` in Vue to run t
 ```vue
 <!-- AlarmScreen.vue -->
 <script setup>
-  import { ref, onMounted, unUnmounted } from 'vue'
+import { ref, onMounted, unUnmounted } from "vue";
 
-  const emit = defineEmits(['snooze', 'disable'])
+const emit = defineEmits(["snooze", "disable"]);
 
-  // We don't need to wrap this in `ref`, since it won't be used in `template`
-  let timeout;
+// We don't need to wrap this in `ref`, since it won't be used in `template`
+let timeout;
 
-  onMounted(() => {
-    timeout = setTimeout(() => {
-      // Automatically snooze the alarm
-      // after 10 seconds of inactivity
-      // In production this would be 10 minutes
-      emit('snooze')
-    }, 10 * 1000)
-  })
+onMounted(() => {
+	timeout = setTimeout(() => {
+		// Automatically snooze the alarm
+		// after 10 seconds of inactivity
+		// In production this would be 10 minutes
+		emit("snooze");
+	}, 10 * 1000);
+});
 
-  unUnmounted(() => {
-    clearTimeout(timeout);
-  });
+unUnmounted(() => {
+	clearTimeout(timeout);
+});
 </script>
 
 <template>
@@ -1338,24 +1356,24 @@ Similar to how we import `onMounted` we can import `onUnmounted` in Vue to run t
 ```vue
 <!-- App.vue -->
 <script setup>
-  import AlarmScreen from './AlarmScreen.vue'
-  import { ref, onMounted, onUnmounted } from 'vue'
+import AlarmScreen from "./AlarmScreen.vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
-  // We don't need to wrap this in `ref`, since it won't be used in `template`
-  let interval;
+// We don't need to wrap this in `ref`, since it won't be used in `template`
+let interval;
 
-  onMounted(() => {
-    interval = setInterval(() => {
-      if (secondsLeft.value === 0) return
-      secondsLeft.value = secondsLeft.value - 1
-    }, 1000)
-  })
+onMounted(() => {
+	interval = setInterval(() => {
+		if (secondsLeft.value === 0) return;
+		secondsLeft.value = secondsLeft.value - 1;
+	}, 1000);
+});
 
-  unUnmounted(() => {
-    clearInterval(interval);
-  });
+unUnmounted(() => {
+	clearInterval(interval);
+});
 
-  // ...
+// ...
 </script>
 
 <template>
@@ -1365,22 +1383,25 @@ Similar to how we import `onMounted` we can import `onUnmounted` in Vue to run t
 
 #### Vue's `watchEffect` cleanup
 
-As mentioned previously, Vue has two methods of handling side effects; Lifecycle methods and `watchEffect`. Luckily, `watchEffect` also has the ability to cleanup side effects that were created before. 
+As mentioned previously, Vue has two methods of handling side effects; Lifecycle methods and `watchEffect`. Luckily, `watchEffect` also has the ability to cleanup side effects that were created before.
 
 To cleanup effect, `watchEffect` provides an argument to the inner `watchEffect` function, which we'll name `onCleanup`. This property is, in itself, a function which we call with the cleanup logic:
 
 ```javascript
 // onCleanup is a property passed to the inner `watchEffect` function
-watchEffect((onCleanup) => {
-  const interval = setInterval(() => {
-    console.log("Hello!")
-  }, 1000)
+watchEffect(
+	(onCleanup) => {
+		const interval = setInterval(() => {
+			console.log("Hello!");
+		}, 1000);
 
-  // We then call `onCleanup` with the expected cleaning behavior
-  onCleanup(() => {
-    clearInterval(interval)
-  })
-}, {immediate: true})
+		// We then call `onCleanup` with the expected cleaning behavior
+		onCleanup(() => {
+			clearInterval(interval);
+		});
+	},
+	{ immediate: true },
+);
 ```
 
 Let's rewrite the previous code samples to use `watchEffect`:
@@ -1388,70 +1409,75 @@ Let's rewrite the previous code samples to use `watchEffect`:
 ```vue
 <!-- App.vue -->
 <script setup>
-  import AlarmScreen from './AlarmScreen.vue'
-  import { ref, watchEffect } from 'vue'
+import AlarmScreen from "./AlarmScreen.vue";
+import { ref, watchEffect } from "vue";
 
-  const secondsLeft = ref(5)
-  const timerEnabled = ref(true)
+const secondsLeft = ref(5);
+const timerEnabled = ref(true);
 
-  watchEffect((onCleanup) => {
-    const interval = setInterval(() => {
-      if (secondsLeft.value === 0) return
-      secondsLeft.value = secondsLeft.value - 1
-    }, 1000)
+watchEffect(
+	(onCleanup) => {
+		const interval = setInterval(() => {
+			if (secondsLeft.value === 0) return;
+			secondsLeft.value = secondsLeft.value - 1;
+		}, 1000);
 
-    onCleanup(() => {
-      clearInterval(interval)
-    })
-  }, {immediate: true})
+		onCleanup(() => {
+			clearInterval(interval);
+		});
+	},
+	{ immediate: true },
+);
 
-  const snooze = () => {
-    secondsLeft.value = secondsLeft.value + 5
-  }
+const snooze = () => {
+	secondsLeft.value = secondsLeft.value + 5;
+};
 
-  const disable = () => {
-    timerEnabled.value = false
-  }
+const disable = () => {
+	timerEnabled.value = false;
+};
 </script>
 
 <template>
-  <p v-if="!timerEnabled">There is no timer</p>
-  <AlarmScreen v-else-if="secondsLeft === 0" @snooze="snooze()" @disable="disable()" />
-  <p v-else>{{ secondsLeft }} seconds left in timer</p>
+	<p v-if="!timerEnabled">There is no timer</p>
+	<AlarmScreen
+		v-else-if="secondsLeft === 0"
+		@snooze="snooze()"
+		@disable="disable()"
+	/>
+	<p v-else>{{ secondsLeft }} seconds left in timer</p>
 </template>
 ```
 
 ```vue
 <!-- AlarmScreen.vue -->
 <script setup>
-  import { ref, watchEffect } from 'vue'
+import { ref, watchEffect } from "vue";
 
-  const emit = defineEmits(['snooze', 'disable'])
+const emit = defineEmits(["snooze", "disable"]);
 
-  watchEffect((onCleanup) => {
-    const timeout = setTimeout(() => {
-      // Automatically snooze the alarm
-      // after 10 seconds of inactivity
-      // In production this would be 10 minutes
-      emit('snooze')
-    }, 10 * 1000)
+watchEffect((onCleanup) => {
+	const timeout = setTimeout(() => {
+		// Automatically snooze the alarm
+		// after 10 seconds of inactivity
+		// In production this would be 10 minutes
+		emit("snooze");
+	}, 10 * 1000);
 
-    onCleanup(() => clearTimeout(timeout))
-  })
+	onCleanup(() => clearTimeout(timeout));
+});
 </script>
 
 <template>
-  <div>
-    <p>Time to wake up!</p>
-    <button @click="emit('snooze')">Snooze for 5 seconds</button>
-    <button @click="emit('disable')">Turn off alarm</button>
-  </div>
+	<div>
+		<p>Time to wake up!</p>
+		<button @click="emit('snooze')">Snooze for 5 seconds</button>
+		<button @click="emit('disable')">Turn off alarm</button>
+	</div>
 </template>
 ```
 
 <!-- tabs:end -->
-
-
 
 ## Cleaning up event listeners
 
@@ -1460,9 +1486,9 @@ Let's rewrite the previous code samples to use `watchEffect`:
 To clean up an event listener, we must remove its reference from the `window` object via `removeEventListener`:
 
 ```javascript
-const fn = () => console.log('a');
-window.addEventListener('resize', fn);
-window.removeEventListener('resize', fn);
+const fn = () => console.log("a");
+window.addEventListener("resize", fn);
+window.removeEventListener("resize", fn);
 ```
 
 > Something to keep in mind with `removeEventListener` is that it needs to be the same function passed as the second argument to remove it from the listener.
@@ -1470,18 +1496,17 @@ window.removeEventListener('resize', fn);
 > This means that inline arrow functions like this:
 >
 > ```javascript
-> window.addEventListener('resize', () => console.log('a'));
-> window.removeEventListener('resize', () => console.log('a'));
+> window.addEventListener("resize", () => console.log("a"));
+> window.removeEventListener("resize", () => console.log("a"));
 > ```
 >
 > Won't work, but the following will:
 >
 > ```javascript
-> const fn = () => console.log('a');
-> window.addEventListener('resize', fn);
-> window.removeEventListener('resize', fn);
+> const fn = () => console.log("a");
+> window.addEventListener("resize", fn);
+> window.removeEventListener("resize", fn);
 > ```
->
 
 Let's fix our `WindowSize` component from before by cleaning up the event listener side effect using the knowledge we have now.
 
@@ -1491,56 +1516,58 @@ Let's fix our `WindowSize` component from before by cleaning up the event listen
 
 ```jsx
 const WindowSize = () => {
-  const [height, setHeight] = useState(window.innerHeight);
-  const [width, setWidth] = useState(window.innerWidth);
-    
-  useEffect(() => {
-      function resizeHandler() {
-          setHeight(window.innerHeight);
-          setWidth(window.innerWidth);
-      }
-      window.addEventListener('resize', resizeHandler);
-      
-      return () => window.removeEventListener('resize', resizeHandler);
-  }, []);
-    
-  return <div>
-  	<p>Height: {height}</p>
-  	<p>Width: {width}</p>
-  </div>
-}
+	const [height, setHeight] = useState(window.innerHeight);
+	const [width, setWidth] = useState(window.innerWidth);
+
+	useEffect(() => {
+		function resizeHandler() {
+			setHeight(window.innerHeight);
+			setWidth(window.innerWidth);
+		}
+		window.addEventListener("resize", resizeHandler);
+
+		return () => window.removeEventListener("resize", resizeHandler);
+	}, []);
+
+	return (
+		<div>
+			<p>Height: {height}</p>
+			<p>Width: {width}</p>
+		</div>
+	);
+};
 ```
 
 ### Angular
 
 ```typescript
 @Component({
-  selector: 'window-size',
-  standalone: true,
-  template: `
-  <div>
-  	<p>Height: {{height}}</p>
-  	<p>Width: {{width}}</p>
-  </div>
-  `,
+	selector: "window-size",
+	standalone: true,
+	template: `
+		<div>
+			<p>Height: {{ height }}</p>
+			<p>Width: {{ width }}</p>
+		</div>
+	`,
 })
 export class WindowSizeComponent implements OnInit, OnDestroy {
-  height = window.innerHeight;
-  width = window.innerWidth;
+	height = window.innerHeight;
+	width = window.innerWidth;
 
-  // This must be an arrow function, see below for more
-  resizeHandler = () => {
-    this.height = window.innerHeight;
-    this.width = window.innerWidth;
-  }
-    
-  ngOnInit() {
-    window.addEventListener('resize', this.resizeHandler);
-  }
-    
-  ngOnDestroy() {
-    window.removeEventListener('resize', this.resizeHandler);
-  }
+	// This must be an arrow function, see below for more
+	resizeHandler = () => {
+		this.height = window.innerHeight;
+		this.width = window.innerWidth;
+	};
+
+	ngOnInit() {
+		window.addEventListener("resize", this.resizeHandler);
+	}
+
+	ngOnDestroy() {
+		window.removeEventListener("resize", this.resizeHandler);
+	}
 }
 ```
 
@@ -1555,30 +1582,30 @@ Using lifecycles, this would be:
 ```vue
 <!-- WindowSize.vue -->
 <script setup>
-  import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from "vue";
 
-  const height = ref(window.innerHeight)
-  const width = ref(window.innerWidth)
+const height = ref(window.innerHeight);
+const width = ref(window.innerWidth);
 
-  function resizeHandler() {
-    height.value = window.innerHeight
-    width.value = window.innerWidth
-  }
+function resizeHandler() {
+	height.value = window.innerHeight;
+	width.value = window.innerWidth;
+}
 
-  onMounted(() => {
-    window.addEventListener('resize', resizeHandler)
-  })
+onMounted(() => {
+	window.addEventListener("resize", resizeHandler);
+});
 
-  onUnmounted(() => {
-    window.removeEventListener('resize', resizeHandler)
-  })
+onUnmounted(() => {
+	window.removeEventListener("resize", resizeHandler);
+});
 </script>
 
 <template>
-  <div>
-    <p>Height: {{ height }}</p>
-    <p>Width: {{ width }}</p>
-  </div>
+	<div>
+		<p>Height: {{ height }}</p>
+		<p>Width: {{ width }}</p>
+	</div>
 </template>
 ```
 
@@ -1587,27 +1614,30 @@ Or, using `watchEffect`, this is:
 ```vue
 <!-- WindowSize.vue -->
 <script setup>
-  import { ref, watchEffect } from 'vue'
+import { ref, watchEffect } from "vue";
 
-  const height = ref(window.innerHeight)
-  const width = ref(window.innerWidth)
+const height = ref(window.innerHeight);
+const width = ref(window.innerWidth);
 
-  function resizeHandler() {
-    height.value = window.innerHeight
-    width.value = window.innerWidth
-  }
+function resizeHandler() {
+	height.value = window.innerHeight;
+	width.value = window.innerWidth;
+}
 
-  watchEffect(onCleanup => {
-    window.addEventListener('resize', resizeHandler)
-    onCleanup(() => window.removeEventListener('resize', resizeHandler));
-  }, {immediate: true});
+watchEffect(
+	(onCleanup) => {
+		window.addEventListener("resize", resizeHandler);
+		onCleanup(() => window.removeEventListener("resize", resizeHandler));
+	},
+	{ immediate: true },
+);
 </script>
 
 <template>
-  <div>
-    <p>Height: {{ height }}</p>
-    <p>Width: {{ width }}</p>
-  </div>
+	<div>
+		<p>Height: {{ height }}</p>
+		<p>Width: {{ width }}</p>
+	</div>
 </template>
 ```
 
@@ -1616,8 +1646,6 @@ Or, using `watchEffect`, this is:
 ## Ensuring lifecycle cleanup
 
 Some frameworks have taken extra steps to ensure your lifecycle methods always clean up side effects.
-
-
 
 <!-- tabs:start -->
 
@@ -1628,17 +1656,17 @@ When React 16.3 came out, [it introduced a new component called `StrictMode`](ht
 `StrictMode` was developed to help warn developers of potential problems that lie dormant in their applications. It's commonly enabled in most production codebases and is used at the root of the app like so:
 
 ```jsx
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
 
 ReactDOM.render(
-  <App />,
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root'),
-)
+	<App />,
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>,
+	document.getElementById("root"),
+);
 ```
 
 Specifically, `StrictMode` helps find issues with:
@@ -1665,11 +1693,6 @@ Vue does not have any special behaviors with `OnInit` to force component cleanup
 
 <!-- tabs:end -->
 
-
-
-
-
-
 # Re-renders
 
 While rendering and un-rendering are primary actions in a component's lifecycle, they're not the _only_ lifecycle methods on the table.
@@ -1695,21 +1718,21 @@ Up until this point, we've only ever passed an empty array to `useEffect`:
 ```jsx
 useEffect(() => {
 	doSomething();
-// This doesn't have to be an empty array
+	// This doesn't have to be an empty array
 }, []);
 ```
 
 This empty array _hints_ to React to "only run this side effect once: when the component is first rendered".
 
->React may choose in specific instances, such as `StrictMode`, to ignore this hint. Because of this, `useEffect`'s array should be treated as a performance optimization for React, not a steadfast rule.
+> React may choose in specific instances, such as `StrictMode`, to ignore this hint. Because of this, `useEffect`'s array should be treated as a performance optimization for React, not a steadfast rule.
 
 Let's take a look at the inverse of this "never run this function again" React hint:
 
 ```jsx
 useEffect(() => {
 	doSomething();
-// Notice no array
-})
+	// Notice no array
+});
 ```
 
 Here, we're _not passing an array_ to `useEffect` which tells the framework that it can (and should) run the side effect on **every** single render, regardless of if said render has updated the DOM or not.
@@ -1722,16 +1745,14 @@ Given this, the following code will _re-render but not paint_ when the user clic
 
 ```jsx
 const ReRenderListener = () => {
-  const [_, updateState] = useState(0);
+	const [_, updateState] = useState(0);
 
-  useEffect(() => {
-      console.log("Component has re-rendered")
-  }); // Notice the lack of an array
-    
-  return (
-  	<button onClick={() => updateState(v => v + 1)}>Re-render</button>
-  )
-}
+	useEffect(() => {
+		console.log("Component has re-rendered");
+	}); // Notice the lack of an array
+
+	return <button onClick={() => updateState((v) => v + 1)}>Re-render</button>;
+};
 ```
 
 Because the `button` triggers a re-render, `useEffect` will run, even if there is not a paint.
@@ -1753,17 +1774,17 @@ To answer "why" is a much longer topic, [which I've written about in a dedicated
 ```vue
 <!-- ReRenderListener.vue -->
 <script setup>
-  import { onUpdated } from 'vue'
+import { onUpdated } from "vue";
 
-  const props = defineProps(['val'])
+const props = defineProps(["val"]);
 
-  onUpdated(() => {
-    console.log('Component was painted')
-  })
+onUpdated(() => {
+	console.log("Component was painted");
+});
 </script>
 
 <template>
-  <div>{{ val }}</div>
+	<div>{{ val }}</div>
 </template>
 ```
 
@@ -1786,7 +1807,7 @@ For example, let's say we wanted to update the browser tab's title when we selec
 ```jsx
 const App = () => {
 	const [title, setTitle] = useState("Movies");
-	
+
 	return <div>
       <button onClick={() => setTitle('Movies')}">Movies</button>
       <button onClick={() => setTitle('Music')}">Music</button>
@@ -1799,16 +1820,16 @@ const App = () => {
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  template: `
-  <button (click)="title = 'Movies'">Movies</button>
-  <button (click)="title = 'Music'">Music</button>
-  <button (click)="title = 'Documents'">Documents</button>
-  `,
+	selector: "app-root",
+	standalone: true,
+	template: `
+		<button (click)="title = 'Movies'">Movies</button>
+		<button (click)="title = 'Music'">Music</button>
+		<button (click)="title = 'Documents'">Documents</button>
+	`,
 })
 export class AppComponent {
-  title = 'Movies';
+	title = "Movies";
 }
 ```
 
@@ -1817,15 +1838,15 @@ export class AppComponent {
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { ref, watchEffect } from 'vue'
+import { ref, watchEffect } from "vue";
 
-  const title = ref('Movies')
+const title = ref("Movies");
 </script>
 
 <template>
-  <button @click="title = 'Movies'">Movies</button>
-  <button @click="title = 'Music'">Music</button>
-  <button @click="title = 'Documents'">Documents</button>
+	<button @click="title = 'Movies'">Movies</button>
+	<button @click="title = 'Music'">Music</button>
+	<button @click="title = 'Documents'">Documents</button>
 </template>
 ```
 
@@ -1846,10 +1867,10 @@ These are two ends of an extreme; the middle-ground comes in the form of passing
 ```jsx
 const App = () => {
 	const [title, setTitle] = useState("Movies");
-	
+
 	useEffect(() => {
         document.title = title.value;
-        
+
         // Ask React to only run this `useEffect` if `title` has changed
     }, [title])
 
@@ -1867,7 +1888,7 @@ By doing this, we're _hinting_ to React that this side effect should only ever r
 
 When using a component's variables within `useEffect`, **it's absolutely imperative that we include all of the utilized variables within the `useEffect` array**.
 
-This is because any variables left outside of `useEffect` will likely result in "stale" data. 
+This is because any variables left outside of `useEffect` will likely result in "stale" data.
 
 "Stale" data is any data that is out-of-date from the "true"/intended value. This occurs when you pass data to a function inside of [a "closure"](https://whatthefuck.is/closure) and do not update the value later.
 
@@ -1875,22 +1896,20 @@ Take the following code sample:
 
 ```jsx
 function App() {
-  const [count, setCount] = useState(0);
+	const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    setInterval(() => {
-      console.log("Count is: " + count);
-    }, 1000);
-  }, []);
+	useEffect(() => {
+		setInterval(() => {
+			console.log("Count is: " + count);
+		}, 1000);
+	}, []);
 
-  return (
-    <div>
-      {count}
-      <button onClick={() => setCount(count + 1) }>
-        Add
-      </button>
-    </div>
-  );
+	return (
+		<div>
+			{count}
+			<button onClick={() => setCount(count + 1)}>Add</button>
+		</div>
+	);
 }
 ```
 
@@ -1899,7 +1918,7 @@ Here, we're telling React to `console.log` the `count` value every second inside
 However, because we're not passing `count` to the `useEffect` array, the `console.log` will never show any value other than:
 
 ```js
-"Count is: 0"
+"Count is: 0";
 ```
 
 This is because our `useEffect` has a "stale" value of `count` and React is never telling the function to update with the new `count` value.
@@ -1908,12 +1927,11 @@ To solve this, we can add `count` to the `useEffect` array:
 
 ```js
 useEffect(() => {
-    setInterval(() => {
-    	console.log("Count is: " + count);
-    }, 1000);
+	setInterval(() => {
+		console.log("Count is: " + count);
+	}, 1000);
 }, [count]);
 ```
-
 
 ### Persist data without re-rendering using `useRef`
 
@@ -1922,14 +1940,14 @@ Let's go back to our `document.title` example. Say that instead of updating the 
 ```jsx
 const App = () => {
 	const [title, setTitle] = useState("Movies");
-	
+
 	function updateTitle(val) {
 		setTimeout(() => {
 	        setTitle(val);
 	        document.title = title.value;
 		}, 5000);
 	}
-	
+
 	return <div>
       <button onClick={() => updateTitle('Movies')}">Movies</button>
       <button onClick={() => updateTitle('Music')}">Music</button>
@@ -1946,17 +1964,17 @@ While we could solve this problem using a `useState`:
 const App = () => {
 	const [title, setTitle] = useState("Movies");
 
-    const [timeoutExpire, setTimeoutExpire] = useState(null); 
-    
+    const [timeoutExpire, setTimeoutExpire] = useState(null);
+
 	function updateTitle(val) {
 		const timeout = setTimeout(() => {
 	        setTitle(val);
 	        document.title = title.value;
 		}, 5000);
-        
+
         setTimeoutExpire(timeout);
 	}
-    
+
     useEffect(() => {
         return () => clearTimeout(timeoutExpire);
     }, [timeoutExpire]);
@@ -1979,15 +1997,15 @@ import {useState, useRef, useEffect} from "react";
 const App = () => {
 	const [title, setTitle] = useState("Movies");
 
-    const timeoutExpire = useRef(null); 
-    
+    const timeoutExpire = useRef(null);
+
 	function updateTitle(val) {
 		timeoutExpire.current = setTimeout(() => {
 	        setTitle(val);
 	        document.title = title.value;
 		}, 5000);
    	}
-    
+
     useEffect(() => {
         return () => clearTimeout(timeoutExpire.current);
     }, [timeoutExpire]);
@@ -2002,8 +2020,8 @@ const App = () => {
 
 `useRef` allows you to persist data across renders, similar to `useState`. There are two major differences from `useState`:
 
-1) You access data from a ref using `.current`
-2) It does not trigger a re-render when updating values (more on that soon)
+1. You access data from a ref using `.current`
+2. It does not trigger a re-render when updating values (more on that soon)
 
 This makes `useRef` perfect for things like `setTimeout` and `setInterval` returned values; they need to be persisted in order to cleanup properly, but do not need to display to the user so we can avoid re-rendering.
 
@@ -2016,7 +2034,7 @@ Because `useRef` doesn't trigger a re-render, our `useEffect` will never re-run;
 Take the following JavaScript:
 
 ```javascript
-const obj1 = {updated: false};
+const obj1 = { updated: false };
 
 const obj2 = obj1;
 
@@ -2026,7 +2044,7 @@ console.log("Is object 2 updated?", obj2.updated); // true
 console.log("Is object 1 and 2 the same?", obj1 === obj2); // true
 ```
 
-This code snippet demonstrates how you can mutate a variable's value without changing its underlying memory location. 
+This code snippet demonstrates how you can mutate a variable's value without changing its underlying memory location.
 
 > [I've written about this underlying concept in JavaScript; if the above is unfamiliar to you, I'd suggest reading through it](https://unicorn-utterances.com/posts/object-mutation).
 
@@ -2034,33 +2052,33 @@ The `useRef` hook is implemented under-the-hood similar to the following:
 
 ```jsx
 const useRef = (initialValue) => {
-	const [value, _] = useState({current: initialValue});
-	
+	const [value, _] = useState({ current: initialValue });
+
 	return value;
-}
+};
 ```
 
-Because the updates to `useRef` do not trigger the second argument of `useState`, it _mutates_ the underlying object rather than _referentially changes_ the object, which would trigger a re-render.  
+Because the updates to `useRef` do not trigger the second argument of `useState`, it _mutates_ the underlying object rather than _referentially changes_ the object, which would trigger a re-render.
 
 Now, let's see how this fundamental change impacts our usage of `useRef`. Take the following code sample:
 
 ```jsx
-import {useRef, useEffect} from 'react';
+import { useRef, useEffect } from "react";
 
 const Comp = () => {
-  const ref = useRef();
-    
-    useEffect(() => {
-        ref.current = Date.now();
-    });
-    
-    return <p>The current timestamp is: {ref.current}</p>
-}
+	const ref = useRef();
+
+	useEffect(() => {
+		ref.current = Date.now();
+	});
+
+	return <p>The current timestamp is: {ref.current}</p>;
+};
 ```
 
 Why doesn't this show a timestamp?
 
-This is because when you change `ref` it never causes a re-render, which then never re-draws the `p` . 
+This is because when you change `ref` it never causes a re-render, which then never re-draws the `p` .
 
 Here, `useRef` is set to `undefined` and only updates _after_ the initial render in the `useEffect`, which does not cause a re-render.
 
@@ -2068,22 +2086,26 @@ To solve for this, we must set a `useState` to trigger a re-render.
 
 ```jsx
 const Comp = () => {
-  // Set initial value for first render
-  const ref = useRef(Date.now());
+	// Set initial value for first render
+	const ref = useRef(Date.now());
 
-  // We're not using the `_` value, just the `set` method in order to force a re-render 
-  const [_, setForceRenderNum] = useState(0);
+	// We're not using the `_` value, just the `set` method in order to force a re-render
+	const [_, setForceRenderNum] = useState(0);
 
-  useEffect(() => {
-      ref.current = Date.now();
-  });
+	useEffect(() => {
+		ref.current = Date.now();
+	});
 
-  return <>
-    // First render won't have `ref.current` set
-    <p>The current timestamp is: {ref.current}</p>
-    <button onClick={() => setForceRenderNum(v => v + 1)}>Check timestamp</button>
-  </>
-}
+	return (
+		<>
+			// First render won't have `ref.current` set
+			<p>The current timestamp is: {ref.current}</p>
+			<button onClick={() => setForceRenderNum((v) => v + 1)}>
+				Check timestamp
+			</button>
+		</>
+	);
+};
 ```
 
 Here, the timestamp display will never update until you press the `button`. Even then, however, `useEffect` will run _after_ the render, meaning that the displayed timestamp will be from the _previous_ occurrence of the `button` press.
@@ -2098,21 +2120,21 @@ Instead, we'll have to use a `setTitle` function that calls the variable mutatio
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  template: `
-  <button (click)="setTitles('Movies')">Movies</button>
-  <button (click)="setTitles('Music')">Music</button>
-  <button (click)="setTitles('Documents')">Documents</button>
-  `,
+	selector: "app-root",
+	standalone: true,
+	template: `
+		<button (click)="setTitles('Movies')">Movies</button>
+		<button (click)="setTitles('Music')">Music</button>
+		<button (click)="setTitles('Documents')">Documents</button>
+	`,
 })
 export class AppComponent {
-  setTitles(val: string) {
-    document.title = val;
-    return val;
-  }
+	setTitles(val: string) {
+		document.title = val;
+		return val;
+	}
 
-  title = this.setTitles('Movies');
+	title = this.setTitles("Movies");
 }
 ```
 
@@ -2125,23 +2147,23 @@ Instead, `watchEffect` does something pretty magical: It re-runs the inner funct
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { ref, watchEffect } from 'vue'
+import { ref, watchEffect } from "vue";
 
-  const title = ref('Movies')
+const title = ref("Movies");
 
-  // watchEffect will re-run whenever `title.value` is updated
-  watchEffect(
-          () => {
-            document.title = title.value
-          },
-          { immediate: true }
-  )
+// watchEffect will re-run whenever `title.value` is updated
+watchEffect(
+	() => {
+		document.title = title.value;
+	},
+	{ immediate: true },
+);
 </script>
 
 <template>
-  <button @click="title = 'Movies'">Movies</button>
-  <button @click="title = 'Music'">Music</button>
-  <button @click="title = 'Documents'">Documents</button>
+	<button @click="title = 'Movies'">Movies</button>
+	<button @click="title = 'Music'">Music</button>
+	<button @click="title = 'Documents'">Documents</button>
 </template>
 ```
 
@@ -2152,36 +2174,37 @@ The short answer is "Vue's `ref` code contains a bit of logic inside of it to re
 This means that if we have the following code:
 
 ```javascript
-const title = ref('Movies')
-const count = ref(0)
+const title = ref("Movies");
+const count = ref(0);
 
 // watchEffect will re-run whenever `title.value` or `count.value` is updated
 watchEffect(
-  () => {
-    console.log(count.value);
-    document.title = "Title is " + title.value + " and count is " + count.value;
-  },
-  { immediate: true }
-)
+	() => {
+		console.log(count.value);
+		document.title = "Title is " + title.value + " and count is " + count.value;
+	},
+	{ immediate: true },
+);
 ```
 
 The `watchEffect` will run whenever `title` or `count` are updated. However, if we do the following:
 
 ```javascript
-const title = ref('Movies')
-const count = ref(0)
+const title = ref("Movies");
+const count = ref(0);
 
 // watchEffect will re-run only when `count.value` is updated
 watchEffect(
-  () => {
-    console.log(count.value);
-    // This is an async operation, inner `ref` usage won't be tracked
-    setTimeout(() => {
-        document.title = "Title is " + title.value + " and count is " + count.value;
-    }, 0);
-  },
-  { immediate: true }
-)
+	() => {
+		console.log(count.value);
+		// This is an async operation, inner `ref` usage won't be tracked
+		setTimeout(() => {
+			document.title =
+				"Title is " + title.value + " and count is " + count.value;
+		}, 0);
+	},
+	{ immediate: true },
+);
 ```
 
 It will only track changes to `count`, as the `title.value` usage is inside of an async operation.=
@@ -2190,9 +2213,9 @@ This is also why `watchEffect` has an `immediate: true` option which you can pas
 
 ```javascript
 watchEffect(() => {
-    // This will run only after `count.value` has been updated once
+	// This will run only after `count.value` has been updated once
 	console.log(count.value);
-})
+});
 ```
 
 ### Manually track changes with `watch`
@@ -2202,37 +2225,38 @@ watchEffect(() => {
 While `watchEffect` seemingly magically detects what variables to listen to, `watch` requires you to be explicit about what properties to listen for changes on:
 
 ```javascript
-import AlarmScreen from './AlarmScreen.vue'
-import { ref, watch } from 'vue'
+import AlarmScreen from "./AlarmScreen.vue";
+import { ref, watch } from "vue";
 
-const title = ref('Movies')
+const title = ref("Movies");
 
 watch(
-  // Only listen for changes to `title`, despite what's in the function body
-  title,
-  () => {
-    document.title = title.value
-  },
-  { immediate: true }
-)
+	// Only listen for changes to `title`, despite what's in the function body
+	title,
+	() => {
+		document.title = title.value;
+	},
+	{ immediate: true },
+);
 ```
 
 To watch multiple items, we can pass an array of reactive variables:
 
 ```javascript
-const title = ref('Movies')
-const count = ref(0)
+const title = ref("Movies");
+const count = ref(0);
 
-// This will run when `title` and `count` are updated, despite async usage 
+// This will run when `title` and `count` are updated, despite async usage
 watch(
-  [title, count],
-  () => {
-    setTimeout(() => {
-        document.title = "Title is " + title.value + " and count is " + count.value;
-    }, 0);
-  },
-  { immediate: true }
-)
+	[title, count],
+	() => {
+		setTimeout(() => {
+			document.title =
+				"Title is " + title.value + " and count is " + count.value;
+		}, 0);
+	},
+	{ immediate: true },
+);
 ```
 
 Similarly, `watch` supports both of the following carried over from `watchEffect`:
@@ -2241,25 +2265,20 @@ Similarly, `watch` supports both of the following carried over from `watchEffect
 2. Passing an `onCleanup` method to cleanup watched side effects
 
 ```javascript
-const title = ref('Movies')
-const count = ref(0)
+const title = ref("Movies");
+const count = ref(0);
 
-// This will run when `title` and `count` are updated, despite async usage 
-watch(
-  [title, count],
-  (currentValue, previousValue, onCleanup) => {
-    const timeout = setTimeout(() => {
-        document.title = "Title is " + title.value + " and count is " + count.value;
-    }, 1000);
-    
-    onCleanup(() => clearTimeout(timeout));
-  }
-)
+// This will run when `title` and `count` are updated, despite async usage
+watch([title, count], (currentValue, previousValue, onCleanup) => {
+	const timeout = setTimeout(() => {
+		document.title = "Title is " + title.value + " and count is " + count.value;
+	}, 1000);
+
+	onCleanup(() => clearTimeout(timeout));
+});
 ```
 
 <!-- tabs:end -->
-
-
 
 # Rendering, Committing, Painting
 
@@ -2308,65 +2327,65 @@ For example, let's say you want to measure the size of an HTML element and displ
 Let's use `useLayoutEffect` to calculate the bounding box of an element in order to position another element:
 
 ```jsx
-import { useState, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from "react";
 
 export default function App() {
-  const [num, setNum] = useState(10);
+	const [num, setNum] = useState(10);
 
-  const [bounding, setBounding] = useState({
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    height: 0,
-  });
+	const [bounding, setBounding] = useState({
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: 0,
+		height: 0,
+	});
 
-  // This runs before the DOM paints
-  useLayoutEffect(() => {
-    // This should be using a `ref`. More on that in a future chapter
-    const el = document.querySelector('#number');
-    const b = el?.getBoundingClientRect();
-    if (
-      bounding.top === b.top &&
-      bounding.bottom === b.bottom &&
-      bounding.left === b.left &&
-      bounding.right === b.right &&
-      bounding.height === b.height
-    ) {
-      // Prevent infinite re-renders
-      return;
-    }
-    console.log(b);
-    setBounding(b);
-  });
+	// This runs before the DOM paints
+	useLayoutEffect(() => {
+		// This should be using a `ref`. More on that in a future chapter
+		const el = document.querySelector("#number");
+		const b = el?.getBoundingClientRect();
+		if (
+			bounding.top === b.top &&
+			bounding.bottom === b.bottom &&
+			bounding.left === b.left &&
+			bounding.right === b.right &&
+			bounding.height === b.height
+		) {
+			// Prevent infinite re-renders
+			return;
+		}
+		console.log(b);
+		setBounding(b);
+	});
 
-  return (
-    <div>
-      <input
-        type="number"
-        value={num}
-        onChange={(e) => setNum(e.target.valueAsNumber || '0')}
-      />
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <h1 id="number" style={{ display: 'inline-block' }}>
-          {num}
-        </h1>
-      </div>
-      <h1
-        style={{
-          position: 'absolute',
-          left: bounding.left,
-          top: bounding.top + bounding.height,
-        }}
-      >
-        ^
-      </h1>
-    </div>
-  );
+	return (
+		<div>
+			<input
+				type="number"
+				value={num}
+				onChange={(e) => setNum(e.target.valueAsNumber || "0")}
+			/>
+			<div style={{ display: "flex", justifyContent: "flex-end" }}>
+				<h1 id="number" style={{ display: "inline-block" }}>
+					{num}
+				</h1>
+			</div>
+			<h1
+				style={{
+					position: "absolute",
+					left: bounding.left,
+					top: bounding.top + bounding.height,
+				}}
+			>
+				^
+			</h1>
+		</div>
+	);
 }
 ```
 
-While the initial value is set to `10` with an arrow pointing to the `1`, if we  change this value to `1000`, it will move the arrow to underneath the `1`, without flashing an instance of the arrow not facing the `1`:
+While the initial value is set to `10` with an arrow pointing to the `1`, if we change this value to `1000`, it will move the arrow to underneath the `1`, without flashing an instance of the arrow not facing the `1`:
 
 ![An uptick symbol facing the 1 in a number of 1000 painted in the DOM](./dom_measure_uselayout_effect.png)
 
@@ -2385,24 +2404,26 @@ However, what if we wanted to localize our side effects to an element on-screen 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import { ref, watch } from 'vue'
+import { ref, watch } from "vue";
 
-  const title = ref('Movies')
+const title = ref("Movies");
 
-  watch(title, () => {
-            const el = document.querySelector('#title-paragraph')
+watch(
+	title,
+	() => {
+		const el = document.querySelector("#title-paragraph");
 
-            console.log(el?.innerText)
-          },
-          { immediate: true }
-  )
+		console.log(el?.innerText);
+	},
+	{ immediate: true },
+);
 </script>
 
 <template>
-  <button @click="title = 'Movies'">Movies</button>
-  <button @click="title = 'Music'">Music</button>
-  <button @click="title = 'Documents'">Documents</button>
-  <p id="title-paragraph">{{ title }}</p>
+	<button @click="title = 'Movies'">Movies</button>
+	<button @click="title = 'Music'">Music</button>
+	<button @click="title = 'Documents'">Documents</button>
+	<p id="title-paragraph">{{ title }}</p>
 </template>
 ```
 
@@ -2412,22 +2433,22 @@ Here, when we click any of the buttons to trigger a `title` change you may notic
 
 There's another hint that things aren't working as-expected either; on the first immediate run of `watch`
 
-> Why is this happening? 
+> Why is this happening?
 
 See, by default both `watch` and `watchEffect` run _before_ the DOM's contents have been committed from Vue's VDOM.
 
-To change this behavior, we can add `{flush: 'post'}` to either `watch` or `watchEffect` to run the watcher's function _after_ the DOM commit phase. 
+To change this behavior, we can add `{flush: 'post'}` to either `watch` or `watchEffect` to run the watcher's function _after_ the DOM commit phase.
 
 ```javascript
 watch(
-  title,
-  () => {
-    const el = document.querySelector('#title-paragraph')
+	title,
+	() => {
+		const el = document.querySelector("#title-paragraph");
 
-    console.log(el?.innerText)
-  },
-  { immediate: true, flush: 'post' }
-)
+		console.log(el?.innerText);
+	},
+	{ immediate: true, flush: "post" },
+);
 ```
 
 Now when we click on an item, it will print out the current version of `title` for the element's `innerText`.
@@ -2456,23 +2477,15 @@ Let's take a look visually at how each framework calls the relevant lifecycle me
 
 Because Vue has two different APIs, I made two charts for them.
 
-
-
 ### Vue Lifecycle Methods
 
 ![// TODO: Write](./vue_lifecycles.png)
-
-
 
 ### Vue Watchers
 
 ![// TODO: Write](./vue_watchers.png)
 
-
-
 <!-- tabs:end -->
-
-
 
 # Challenge
 
@@ -2498,39 +2511,39 @@ Let's start by building out the theme toggle using our respective frameworks.
 
 ```jsx
 function DarkModeToggle() {
-  const [explicitTheme, setExplicitTheme] = React.useState('inherit');
+	const [explicitTheme, setExplicitTheme] = React.useState("inherit");
 
-  return (
-    <div style={{ display: 'flex', gap: '1rem' }}>
-      <label style={{ display: 'inline-flex', flexDirection: 'column' }}>
-        <div>Light</div>
-        <input
-          name="theme"
-          type="radio"
-          checked={explicitTheme === 'light'}
-          onChange={() => setExplicitTheme('light')}
-        />
-      </label>
-      <label style={{ display: 'inline-flex', flexDirection: 'column' }}>
-        <div>Inherit</div>
-        <input
-          name="theme"
-          type="radio"
-          checked={explicitTheme === 'inherit'}
-          onChange={() => setExplicitTheme('inherit')}
-        />
-      </label>
-      <label style={{ display: 'inline-flex', flexDirection: 'column' }}>
-        <div>Dark</div>
-        <input
-          name="theme"
-          type="radio"
-          checked={explicitTheme === 'dark'}
-          onChange={() => setExplicitTheme('dark')}
-        />
-      </label>
-    </div>
-  );
+	return (
+		<div style={{ display: "flex", gap: "1rem" }}>
+			<label style={{ display: "inline-flex", flexDirection: "column" }}>
+				<div>Light</div>
+				<input
+					name="theme"
+					type="radio"
+					checked={explicitTheme === "light"}
+					onChange={() => setExplicitTheme("light")}
+				/>
+			</label>
+			<label style={{ display: "inline-flex", flexDirection: "column" }}>
+				<div>Inherit</div>
+				<input
+					name="theme"
+					type="radio"
+					checked={explicitTheme === "inherit"}
+					onChange={() => setExplicitTheme("inherit")}
+				/>
+			</label>
+			<label style={{ display: "inline-flex", flexDirection: "column" }}>
+				<div>Dark</div>
+				<input
+					name="theme"
+					type="radio"
+					checked={explicitTheme === "dark"}
+					onChange={() => setExplicitTheme("dark")}
+				/>
+			</label>
+		</div>
+	);
 }
 ```
 
@@ -2538,46 +2551,46 @@ function DarkModeToggle() {
 
 ```typescript
 @Component({
-  selector: 'dark-mode-toggle',
-  standalone: true,
-  template: `
-  <div style="display: flex; gap: 1rem">
-  <label style="display: inline-flex; flex-direction: column">
-    <div>Light</div>
-    <input
-      name="theme"
-      type="radio"
-      [checked]="explicitTheme === 'light'"
-      (change)="setExplicitTheme('light')"
-    />
-  </label>
-  <label style="display: inline-flex; flex-direction: column">
-    <div>Inherit</div>
-    <input
-      name="theme"
-      type="radio"
-      [checked]="explicitTheme === 'inherit'"
-      (change)="setExplicitTheme('inherit')"
-    />
-  </label>
-  <label style="display: inline-flex; flex-direction: column">
-    <div>Dark</div>
-    <input
-      name="theme"
-      type="radio"
-      [checked]="explicitTheme === 'dark'"
-      (change)="setExplicitTheme('dark')"
-    />
-  </label>
-</div>
-  `,
+	selector: "dark-mode-toggle",
+	standalone: true,
+	template: `
+		<div style="display: flex; gap: 1rem">
+			<label style="display: inline-flex; flex-direction: column">
+				<div>Light</div>
+				<input
+					name="theme"
+					type="radio"
+					[checked]="explicitTheme === 'light'"
+					(change)="setExplicitTheme('light')"
+				/>
+			</label>
+			<label style="display: inline-flex; flex-direction: column">
+				<div>Inherit</div>
+				<input
+					name="theme"
+					type="radio"
+					[checked]="explicitTheme === 'inherit'"
+					(change)="setExplicitTheme('inherit')"
+				/>
+			</label>
+			<label style="display: inline-flex; flex-direction: column">
+				<div>Dark</div>
+				<input
+					name="theme"
+					type="radio"
+					[checked]="explicitTheme === 'dark'"
+					(change)="setExplicitTheme('dark')"
+				/>
+			</label>
+		</div>
+	`,
 })
 class DarkModeToggleComponent {
-  explicitTheme = 'inherit';
+	explicitTheme = "inherit";
 
-  setExplicitTheme(val) {
-    this.explicitTheme = val;
-  }
+	setExplicitTheme(val) {
+		this.explicitTheme = val;
+	}
 }
 ```
 
@@ -2586,26 +2599,41 @@ class DarkModeToggleComponent {
 ```vue
 <!-- DarkModeToggle.vue -->
 <script setup>
-  import { ref } from 'vue'
+import { ref } from "vue";
 
-  const explicitTheme = ref('inherit')
+const explicitTheme = ref("inherit");
 </script>
 
 <template>
-  <div style="display: flex; gap: 1rem">
-    <label style="display: inline-flex; flex-direction: column">
-      <div>Light</div>
-      <input name="theme" type="radio" :checked="explicitTheme === 'light'" @change="explicitTheme = 'light'" />
-    </label>
-    <label style="display: inline-flex; flex-direction: column">
-      <div>Inherit</div>
-      <input name="theme" type="radio" :checked="explicitTheme === 'inherit'" @change="explicitTheme = 'inherit'" />
-    </label>
-    <label style="display: inline-flex; flex-direction: column">
-      <div>Dark</div>
-      <input name="theme" type="radio" :checked="explicitTheme === 'dark'" @change="explicitTheme = 'dark'" />
-    </label>
-  </div>
+	<div style="display: flex; gap: 1rem">
+		<label style="display: inline-flex; flex-direction: column">
+			<div>Light</div>
+			<input
+				name="theme"
+				type="radio"
+				:checked="explicitTheme === 'light'"
+				@change="explicitTheme = 'light'"
+			/>
+		</label>
+		<label style="display: inline-flex; flex-direction: column">
+			<div>Inherit</div>
+			<input
+				name="theme"
+				type="radio"
+				:checked="explicitTheme === 'inherit'"
+				@change="explicitTheme = 'inherit'"
+			/>
+		</label>
+		<label style="display: inline-flex; flex-direction: column">
+			<div>Dark</div>
+			<input
+				name="theme"
+				type="radio"
+				:checked="explicitTheme === 'dark'"
+				@change="explicitTheme = 'dark'"
+			/>
+		</label>
+	</div>
 </template>
 ```
 
@@ -2619,22 +2647,22 @@ Now that we have this theme toggle, let's make the `dark` mode work by using som
 
 ```jsx
 function DarkModeToggle() {
-  const [explicitTheme, setExplicitTheme] = React.useState('inherit');
+	const [explicitTheme, setExplicitTheme] = React.useState("inherit");
 
-  React.useEffect(() => {
-    document.documentElement.className = explicitTheme;
-  }, [explicitTheme]);
+	React.useEffect(() => {
+		document.documentElement.className = explicitTheme;
+	}, [explicitTheme]);
 
-  // ...
+	// ...
 }
 
 function App() {
-  return (
-    <div>
-      <DarkModeToggle />
-      <p style={{ color: 'var(--primary)' }}>This text is blue</p>
-      <style
-        children={`
+	return (
+		<div>
+			<DarkModeToggle />
+			<p style={{ color: "var(--primary)" }}>This text is blue</p>
+			<style
+				children={`
         :root {
           --primary: #1A42E5;
         }
@@ -2645,57 +2673,57 @@ function App() {
           --primary: #6694FF;
         }
       `}
-      />
-    </div>
-  );
+			/>
+		</div>
+	);
 }
 ```
 
 ## Angular
 
 ```typescript
-import { Component, ViewEncapsulation } from '@angular/core';
-
+import { Component, ViewEncapsulation } from "@angular/core";
 
 @Component({
-  selector: 'dark-mode-toggle',
-  standalone: true,
-  // ...
+	selector: "dark-mode-toggle",
+	standalone: true,
+	// ...
 })
 class DarkModeToggleComponent {
-  explicitTheme = 'inherit';
+	explicitTheme = "inherit";
 
-  setExplicitTheme(val) {
-    this.explicitTheme = val;
+	setExplicitTheme(val) {
+		this.explicitTheme = val;
 
-    document.documentElement.className = val;
-  }
+		document.documentElement.className = val;
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [DarkModeToggleComponent],
-  // This allows our CSS to be global, rather than limited to the component
-  encapsulation: ViewEncapsulation.None,
-  styles: [
-    `
-   :root {
-      --primary: #1A42E5;
-    }
-    
-    .dark {
-      background: #121926;
-      color: #D6E4FF;
-      --primary: #6694FF;
-    }`,
-  ],
-  template: `
-  <div>
-    <dark-mode-toggle/>
-    <p style="color: var(--primary)">This text is blue</p>
-  </div>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [DarkModeToggleComponent],
+	// This allows our CSS to be global, rather than limited to the component
+	encapsulation: ViewEncapsulation.None,
+	styles: [
+		`
+			:root {
+				--primary: #1a42e5;
+			}
+
+			.dark {
+				background: #121926;
+				color: #d6e4ff;
+				--primary: #6694ff;
+			}
+		`,
+	],
+	template: `
+		<div>
+			<dark-mode-toggle />
+			<p style="color: var(--primary)">This text is blue</p>
+		</div>
+	`,
 })
 class AppComponent {}
 ```
@@ -2705,13 +2733,13 @@ class AppComponent {}
 ```vue
 <!-- DarkModeToggle.vue -->
 <script setup>
-  import { ref, watch } from 'vue'
+import { ref, watch } from "vue";
 
-  const explicitTheme = ref('inherit')
+const explicitTheme = ref("inherit");
 
-  watch(explicitTheme, () => {
-    document.documentElement.className = explicitTheme.value
-  })
+watch(explicitTheme, () => {
+	document.documentElement.className = explicitTheme.value;
+});
 </script>
 
 <template>
@@ -2722,47 +2750,49 @@ class AppComponent {}
 ```vue
 <!-- App.vue -->
 <script setup>
-  import DarkModeToggle from './DarkModeToggle.vue'
+import DarkModeToggle from "./DarkModeToggle.vue";
 </script>
 
 <template>
-  <div>
-    <DarkModeToggle />
-    <p style="color: var(--primary)">This text is blue</p>
-  </div>
+	<div>
+		<DarkModeToggle />
+		<p style="color: var(--primary)">This text is blue</p>
+	</div>
 </template>
 
 <style>
 :root {
-  --primary: #1a42e5;
+	--primary: #1a42e5;
 }
 
 .dark {
-  background: #121926;
-  color: #d6e4ff;
-  --primary: #6694ff;
+	background: #121926;
+	color: #d6e4ff;
+	--primary: #6694ff;
 }
 </style>
 ```
 
 <!-- tabs:end -->
 
-Now, we can use the `matchMedia` API to add a check if the user's OS has changed its theme or not. 
+Now, we can use the `matchMedia` API to add a check if the user's OS has changed its theme or not.
 
 See, we can detect the user's preferred color theme by doing the following in JavaScript:
 
 ```javascript
 // If true, the user prefers dark mode
-window.matchMedia('(prefers-color-scheme: dark)').matches;
+window.matchMedia("(prefers-color-scheme: dark)").matches;
 ```
 
 We can even add a listener for when the user changes this preference real-time by doing the following:
 
 ```javascript
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-  // If true, the user prefers dark mode
-  e.matches;
-});
+window
+	.matchMedia("(prefers-color-scheme: dark)")
+	.addEventListener("change", (e) => {
+		// If true, the user prefers dark mode
+		e.matches;
+	});
 ```
 
 Now that we know the JavaScript API, let's integrate it with our application:
@@ -2772,33 +2802,31 @@ Now that we know the JavaScript API, let's integrate it with our application:
 ## React
 
 ```javascript
-const isOSDark = window.matchMedia('(prefers-color-scheme: dark)');
+const isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
 function DarkModeToggle() {
-  const [explicitTheme, setExplicitTheme] = useState('inherit');
-  const [osTheme, setOSTheme] = useState(
-    isOSDark.matches ? 'dark' : 'light'
-  );
+	const [explicitTheme, setExplicitTheme] = useState("inherit");
+	const [osTheme, setOSTheme] = useState(isOSDark.matches ? "dark" : "light");
 
-  useEffect(() => {
-    if (explicitTheme === 'implicit') {
-      document.documentElement.className = osTheme;
-      return;
-    }
-    document.documentElement.className = explicitTheme;
-  }, [explicitTheme, osTheme]);
+	useEffect(() => {
+		if (explicitTheme === "implicit") {
+			document.documentElement.className = osTheme;
+			return;
+		}
+		document.documentElement.className = explicitTheme;
+	}, [explicitTheme, osTheme]);
 
-  useEffect(() => {
-    const changeOSTheme = () => {
-      setOSTheme(isOSDark.matches ? 'dark' : 'light');
-    };
-    isOSDark.addEventListener('change', changeOSTheme);
-    return () => {
-      isOSDark.removeEventListener('change', changeOSTheme);
-    };
-  }, []);
+	useEffect(() => {
+		const changeOSTheme = () => {
+			setOSTheme(isOSDark.matches ? "dark" : "light");
+		};
+		isOSDark.addEventListener("change", changeOSTheme);
+		return () => {
+			isOSDark.removeEventListener("change", changeOSTheme);
+		};
+	}, []);
 
-  // ...
+	// ...
 }
 ```
 
@@ -2806,40 +2834,40 @@ function DarkModeToggle() {
 
 ```typescript
 @Component({
-  selector: 'dark-mode-toggle',
-  standalone: true,
-  // ...
+	selector: "dark-mode-toggle",
+	standalone: true,
+	// ...
 })
 class DarkModeToggleComponent implements OnInit, OnDestroy {
-  explicitTheme = 'inherit';
+	explicitTheme = "inherit";
 
-  isOSDark = window.matchMedia('(prefers-color-scheme: dark)');
+	isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-  osTheme = this.isOSDark.matches ? 'dark' : 'light';
+	osTheme = this.isOSDark.matches ? "dark" : "light";
 
-  // Remember, this has to be an arrow function, not a method
-  changeOSTheme = () => {
-    this.setExplicitTheme(this.isOSDark.matches ? 'dark' : 'light');
-  };
+	// Remember, this has to be an arrow function, not a method
+	changeOSTheme = () => {
+		this.setExplicitTheme(this.isOSDark.matches ? "dark" : "light");
+	};
 
-  ngOnInit() {
-    this.isOSDark.addEventListener('change', this.changeOSTheme);
-  }
+	ngOnInit() {
+		this.isOSDark.addEventListener("change", this.changeOSTheme);
+	}
 
-  ngOnDestroy() {
-    this.isOSDark.removeEventListener('change', this.changeOSTheme);
-  }
+	ngOnDestroy() {
+		this.isOSDark.removeEventListener("change", this.changeOSTheme);
+	}
 
-  setExplicitTheme(val) {
-    this.explicitTheme = val;
+	setExplicitTheme(val) {
+		this.explicitTheme = val;
 
-    if (val === 'implicit') {
-      document.documentElement.className = val;
-      return;
-    }
+		if (val === "implicit") {
+			document.documentElement.className = val;
+			return;
+		}
 
-    document.documentElement.className = val;
-  }
+		document.documentElement.className = val;
+	}
 }
 ```
 
@@ -2848,36 +2876,36 @@ class DarkModeToggleComponent implements OnInit, OnDestroy {
 ```vue
 <!-- DarkModeToggle.vue -->
 <script setup>
-  import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from "vue";
 
-  const explicitTheme = ref('inherit')
+const explicitTheme = ref("inherit");
 
-  watch(explicitTheme, () => {
-    if (explicitTheme.value === 'implicit') {
-      document.documentElement.className = explicitTheme.value
-      return
-    }
+watch(explicitTheme, () => {
+	if (explicitTheme.value === "implicit") {
+		document.documentElement.className = explicitTheme.value;
+		return;
+	}
 
-    document.documentElement.className = explicitTheme.value
-  });
+	document.documentElement.className = explicitTheme.value;
+});
 
-  const isOSDark = window.matchMedia('(prefers-color-scheme: dark)')
+const isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-  const changeOSTheme = () => {
-    explicitTheme.value = isOSDark.matches ? 'dark' : 'light'
-  }
+const changeOSTheme = () => {
+	explicitTheme.value = isOSDark.matches ? "dark" : "light";
+};
 
-  onMounted(() => {
-    isOSDark.addEventListener('change', changeOSTheme)
-  })
+onMounted(() => {
+	isOSDark.addEventListener("change", changeOSTheme);
+});
 
-  onUnmounted(() => {
-    isOSDark.removeEventListener('change', changeOSTheme)
-  })
+onUnmounted(() => {
+	isOSDark.removeEventListener("change", changeOSTheme);
+});
 </script>
 
 <template>
-  <!-- ... -->
+	<!-- ... -->
 </template>
 ```
 
@@ -2899,80 +2927,78 @@ Let's integrate this in our `DarkModeToggle` component:
 
 ## React
 
-```jsx {3-5,11-13}
-const isOSDark = window.matchMedia('(prefers-color-scheme: dark)');
+```jsx {3-5,9-11}
+const isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
 function DarkModeToggle() {
-  const [explicitTheme, setExplicitTheme] = useState(
-    localStorage.getItem('theme') || 'inherit'
-  );
+	const [explicitTheme, setExplicitTheme] = useState(
+		localStorage.getItem("theme") || "inherit",
+	);
 
-  const [osTheme, setOSTheme] = useState(
-    isOSDark.matches ? 'dark' : 'light'
-  );
+	const [osTheme, setOSTheme] = useState(isOSDark.matches ? "dark" : "light");
 
-  useEffect(() => {
-    localStorage.setItem('theme', explicitTheme);
-  }, [explicitTheme]);
+	useEffect(() => {
+		localStorage.setItem("theme", explicitTheme);
+	}, [explicitTheme]);
 
-  useEffect(() => {
-    if (explicitTheme === 'implicit') {
-      document.documentElement.className = osTheme;
-      return;
-    }
-    document.documentElement.className = explicitTheme;
-  }, [explicitTheme, osTheme]);
+	useEffect(() => {
+		if (explicitTheme === "implicit") {
+			document.documentElement.className = osTheme;
+			return;
+		}
+		document.documentElement.className = explicitTheme;
+	}, [explicitTheme, osTheme]);
 
-  useEffect(() => {
-    const changeOSTheme = () => {
-      setOSTheme(isOSDark.matches ? 'dark' : 'light');
-    };
-    isOSDark.addEventListener('change', changeOSTheme);
-    return () => {
-      isOSDark.removeEventListener('change', changeOSTheme);
-    };
-  }, []);
+	useEffect(() => {
+		const changeOSTheme = () => {
+			setOSTheme(isOSDark.matches ? "dark" : "light");
+		};
+		isOSDark.addEventListener("change", changeOSTheme);
+		return () => {
+			isOSDark.removeEventListener("change", changeOSTheme);
+		};
+	}, []);
 
-  return (
-    <div style={{ display: 'flex', gap: '1rem' }}>
-      <label style={{ display: 'inline-flex', flexDirection: 'column' }}>
-        <div>Light</div>
-        <input
-          name="theme"
-          type="radio"
-          checked={explicitTheme === 'light'}
-          onChange={() => setExplicitTheme('light')}
-        />
-      </label>
-      <label style={{ display: 'inline-flex', flexDirection: 'column' }}>
-        <div>Inherit</div>
-        <input
-          name="theme"
-          type="radio"
-          checked={explicitTheme === 'inherit'}
-          onChange={() => setExplicitTheme('inherit')}
-        />
-      </label>
-      <label style={{ display: 'inline-flex', flexDirection: 'column' }}>
-        <div>Dark</div>
-        <input
-          name="theme"
-          type="radio"
-          checked={explicitTheme === 'dark'}
-          onChange={() => setExplicitTheme('dark')}
-        />
-      </label>
-    </div>
-  );
+	return (
+		<div style={{ display: "flex", gap: "1rem" }}>
+			<label style={{ display: "inline-flex", flexDirection: "column" }}>
+				<div>Light</div>
+				<input
+					name="theme"
+					type="radio"
+					checked={explicitTheme === "light"}
+					onChange={() => setExplicitTheme("light")}
+				/>
+			</label>
+			<label style={{ display: "inline-flex", flexDirection: "column" }}>
+				<div>Inherit</div>
+				<input
+					name="theme"
+					type="radio"
+					checked={explicitTheme === "inherit"}
+					onChange={() => setExplicitTheme("inherit")}
+				/>
+			</label>
+			<label style={{ display: "inline-flex", flexDirection: "column" }}>
+				<div>Dark</div>
+				<input
+					name="theme"
+					type="radio"
+					checked={explicitTheme === "dark"}
+					onChange={() => setExplicitTheme("dark")}
+				/>
+			</label>
+		</div>
+	);
 }
 
 function App() {
-  return (
-    <div>
-      <DarkModeToggle />
-      <p style={{ color: 'var(--primary)' }}>This text is blue</p>
-      <style
-        children={`
+	return (
+		<div>
+			<DarkModeToggle />
+			<p style={{ color: "var(--primary)" }}>This text is blue</p>
+			<style
+				children={`
         :root {
           --primary: #1A42E5;
         }
@@ -2983,9 +3009,9 @@ function App() {
           --primary: #6694FF;
         }
       `}
-      />
-    </div>
-  );
+			/>
+		</div>
+	);
 }
 ```
 
@@ -2993,183 +3019,197 @@ function App() {
 
 ```typescript {36,58}
 @Component({
-  selector: 'dark-mode-toggle',
-  standalone: true,
-  template: `
-  <div style="display: flex; gap: 1rem">
-  <label style="display: inline-flex; flex-direction: column">
-    <div>Light</div>
-    <input
-      name="theme"
-      type="radio"
-      [checked]="explicitTheme === 'light'"
-      (change)="setExplicitTheme('light')"
-    />
-  </label>
-  <label style="display: inline-flex; flex-direction: column">
-    <div>Inherit</div>
-    <input
-      name="theme"
-      type="radio"
-      [checked]="explicitTheme === 'inherit'"
-      (change)="setExplicitTheme('inherit')"
-    />
-  </label>
-  <label style="display: inline-flex; flex-direction: column">
-    <div>Dark</div>
-    <input
-      name="theme"
-      type="radio"
-      [checked]="explicitTheme === 'dark'"
-      (change)="setExplicitTheme('dark')"
-    />
-  </label>
-</div>
-  `,
+	selector: "dark-mode-toggle",
+	standalone: true,
+	template: `
+		<div style="display: flex; gap: 1rem">
+			<label style="display: inline-flex; flex-direction: column">
+				<div>Light</div>
+				<input
+					name="theme"
+					type="radio"
+					[checked]="explicitTheme === 'light'"
+					(change)="setExplicitTheme('light')"
+				/>
+			</label>
+			<label style="display: inline-flex; flex-direction: column">
+				<div>Inherit</div>
+				<input
+					name="theme"
+					type="radio"
+					[checked]="explicitTheme === 'inherit'"
+					(change)="setExplicitTheme('inherit')"
+				/>
+			</label>
+			<label style="display: inline-flex; flex-direction: column">
+				<div>Dark</div>
+				<input
+					name="theme"
+					type="radio"
+					[checked]="explicitTheme === 'dark'"
+					(change)="setExplicitTheme('dark')"
+				/>
+			</label>
+		</div>
+	`,
 })
 class DarkModeToggleComponent implements OnInit, OnDestroy {
-  explicitTheme = localStorage.getItem('theme') || 'inherit';
+	explicitTheme = localStorage.getItem("theme") || "inherit";
 
-  isOSDark = window.matchMedia('(prefers-color-scheme: dark)');
+	isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-  osTheme = this.isOSDark.matches ? 'dark' : 'light';
+	osTheme = this.isOSDark.matches ? "dark" : "light";
 
-  // Remember, this has to be an arrow function, not a method
-  changeOSTheme = () => {
-    this.setExplicitTheme(this.isOSDark.matches ? 'dark' : 'light');
-  };
+	// Remember, this has to be an arrow function, not a method
+	changeOSTheme = () => {
+		this.setExplicitTheme(this.isOSDark.matches ? "dark" : "light");
+	};
 
-  ngOnInit() {
-    this.isOSDark.addEventListener('change', this.changeOSTheme);
-  }
+	ngOnInit() {
+		this.isOSDark.addEventListener("change", this.changeOSTheme);
+	}
 
-  ngOnDestroy() {
-    this.isOSDark.removeEventListener('change', this.changeOSTheme);
-  }
+	ngOnDestroy() {
+		this.isOSDark.removeEventListener("change", this.changeOSTheme);
+	}
 
-  setExplicitTheme(val) {
-    this.explicitTheme = val;
+	setExplicitTheme(val) {
+		this.explicitTheme = val;
 
-    localStorage.setItem('theme', val);
+		localStorage.setItem("theme", val);
 
-    if (val === 'implicit') {
-      document.documentElement.className = val;
-      return;
-    }
+		if (val === "implicit") {
+			document.documentElement.className = val;
+			return;
+		}
 
-    document.documentElement.className = val;
-  }
+		document.documentElement.className = val;
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [DarkModeToggleComponent],
-  // This allows our CSS to be global
-  encapsulation: ViewEncapsulation.None,
-  styles: [
-    `
-   :root {
-      --primary: #1A42E5;
-    }
-    
-    .dark {
-      background: #121926;
-      color: #D6E4FF;
-      --primary: #6694FF;
-    }`,
-  ],
-  template: `
-  <div>
-    <dark-mode-toggle/>
-    <p style="color: var(--primary)">This text is blue</p>
-  </div>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [DarkModeToggleComponent],
+	// This allows our CSS to be global
+	encapsulation: ViewEncapsulation.None,
+	styles: [
+		`
+			:root {
+				--primary: #1a42e5;
+			}
+
+			.dark {
+				background: #121926;
+				color: #d6e4ff;
+				--primary: #6694ff;
+			}
+		`,
+	],
+	template: `
+		<div>
+			<dark-mode-toggle />
+			<p style="color: var(--primary)">This text is blue</p>
+		</div>
+	`,
 })
 class AppComponent {}
 ```
-
 
 ## Vue
 
 ```vue {4,6-8}
 <!-- DarkModeToggle.vue -->
 <script setup>
-  import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from "vue";
 
-  const explicitTheme = ref(localStorage.getItem('theme') || 'inherit')
+const explicitTheme = ref(localStorage.getItem("theme") || "inherit");
 
-  watch(explicitTheme, () => {
-    localStorage.setItem('theme', explicitTheme)
-  })
+watch(explicitTheme, () => {
+	localStorage.setItem("theme", explicitTheme);
+});
 
-  watch(explicitTheme, () => {
-    if (explicitTheme.value === 'implicit') {
-      document.documentElement.className = explicitTheme.value
-      return
-    }
+watch(explicitTheme, () => {
+	if (explicitTheme.value === "implicit") {
+		document.documentElement.className = explicitTheme.value;
+		return;
+	}
 
-    document.documentElement.className = explicitTheme.value
-  })
+	document.documentElement.className = explicitTheme.value;
+});
 
-  const isOSDark = window.matchMedia('(prefers-color-scheme: dark)')
+const isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-  const changeOSTheme = () => {
-    explicitTheme.value = isOSDark.matches ? 'dark' : 'light'
-  }
+const changeOSTheme = () => {
+	explicitTheme.value = isOSDark.matches ? "dark" : "light";
+};
 
-  onMounted(() => {
-    isOSDark.addEventListener('change', changeOSTheme)
-  })
+onMounted(() => {
+	isOSDark.addEventListener("change", changeOSTheme);
+});
 
-  onUnmounted(() => {
-    isOSDark.removeEventListener('change', changeOSTheme)
-  })
+onUnmounted(() => {
+	isOSDark.removeEventListener("change", changeOSTheme);
+});
 </script>
 
 <template>
-  <div style="display: flex; gap: 1rem">
-    <label style="display: inline-flex; flex-direction: column">
-      <div>Light</div>
-      <input name="theme" type="radio" :checked="explicitTheme === 'light'" @change="explicitTheme = 'light'" />
-    </label>
-    <label style="display: inline-flex; flex-direction: column">
-      <div>Inherit</div>
-      <input name="theme" type="radio" :checked="explicitTheme === 'inherit'" @change="explicitTheme = 'inherit'" />
-    </label>
-    <label style="display: inline-flex; flex-direction: column">
-      <div>Dark</div>
-      <input name="theme" type="radio" :checked="explicitTheme === 'dark'" @change="explicitTheme = 'dark'" />
-    </label>
-  </div>
+	<div style="display: flex; gap: 1rem">
+		<label style="display: inline-flex; flex-direction: column">
+			<div>Light</div>
+			<input
+				name="theme"
+				type="radio"
+				:checked="explicitTheme === 'light'"
+				@change="explicitTheme = 'light'"
+			/>
+		</label>
+		<label style="display: inline-flex; flex-direction: column">
+			<div>Inherit</div>
+			<input
+				name="theme"
+				type="radio"
+				:checked="explicitTheme === 'inherit'"
+				@change="explicitTheme = 'inherit'"
+			/>
+		</label>
+		<label style="display: inline-flex; flex-direction: column">
+			<div>Dark</div>
+			<input
+				name="theme"
+				type="radio"
+				:checked="explicitTheme === 'dark'"
+				@change="explicitTheme = 'dark'"
+			/>
+		</label>
+	</div>
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import DarkModeToggle from './DarkModeToggle.vue'
+import DarkModeToggle from "./DarkModeToggle.vue";
 </script>
 
 <template>
-  <div>
-    <DarkModeToggle />
-    <p style="color: var(--primary)">This text is blue</p>
-  </div>
+	<div>
+		<DarkModeToggle />
+		<p style="color: var(--primary)">This text is blue</p>
+	</div>
 </template>
 
 <style>
 :root {
-  --primary: #1a42e5;
+	--primary: #1a42e5;
 }
 
 .dark {
-  background: #121926;
-  color: #d6e4ff;
-  --primary: #6694ff;
+	background: #121926;
+	color: #d6e4ff;
+	--primary: #6694ff;
 }
 </style>
 ```
 
 <!-- tabs:end -->
-

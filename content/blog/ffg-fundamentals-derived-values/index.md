@@ -1,13 +1,13 @@
 ---
 {
-    title: "Derived Values",
-    description: "Often in application development, you'll want to base one variable's value off of another. There are a few ways of doing this - some easier than others.",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 5,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Derived Values",
+  description: "Often in application development, you'll want to base one variable's value off of another. There are a few ways of doing this - some easier than others.",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 5,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
 
@@ -19,12 +19,12 @@ We've touched on before how to pass values to a component as properties earlier 
 
 ```jsx
 const FileDate = ({ inputDate }) => {
-  const [dateStr, setDateStr] = useState(formatDate(inputDate));
-  const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
+	const [dateStr, setDateStr] = useState(formatDate(inputDate));
+	const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
 
-  // ...
+	// ...
 
-  return <span ariaLabel={labelText}>{dateStr}</span>;
+	return <span ariaLabel={labelText}>{dateStr}</span>;
 };
 ```
 
@@ -34,17 +34,17 @@ const FileDate = ({ inputDate }) => {
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: "file-date",
-  standalone: true,
-  template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
+	selector: "file-date",
+	standalone: true,
+	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
 export class FileDateComponent implements OnInit {
-  @Input() inputDate: Date;
+	@Input() inputDate: Date;
 
-  dateStr = this.formatDate(this.inputDate);
-  labelText = this.formatReadableDate(this.inputDate);
+	dateStr = this.formatDate(this.inputDate);
+	labelText = this.formatReadableDate(this.inputDate);
 
-  // ...
+	// ...
 }
 ```
 
@@ -53,18 +53,18 @@ export class FileDateComponent implements OnInit {
 ```vue
 <!-- FileDate.vue -->
 <script setup>
-  // ...
+// ...
 
-  const props = defineProps(['inputDate'])
+const props = defineProps(["inputDate"]);
 
-  const dateStr = ref(formatDate(props.inputDate))
-  const labelText = ref(formatReadableDate(props.inputDate))
+const dateStr = ref(formatDate(props.inputDate));
+const labelText = ref(formatReadableDate(props.inputDate));
 
-  // ...
+// ...
 </script>
 
 <template>
-  <span :aria-label="labelText">{{dateStr}}</span>
+	<span :aria-label="labelText">{{ dateStr }}</span>
 </template>
 ```
 
@@ -80,50 +80,56 @@ Because of this, if we pass in an updated `inputDate` to the `FileDate` componen
 
 ```jsx
 const File = () => {
-    const [inputDate, setInputDate] = useState(new Date());
+	const [inputDate, setInputDate] = useState(new Date());
 
-    useEffect(() => {
-        // Check if it's a new day every 10 minutes
-        const timeout = setTimeout(() => {
-            const newDate = new Date();
-            if (inputDate.getDate() === newDate.getDate()) return;
-            setInputDate(newDate);
-        }, 10 * 60 * 1000);
-        
-        return () => clearTimeout(timeout);
-    }, [inputDate]);
+	useEffect(() => {
+		// Check if it's a new day every 10 minutes
+		const timeout = setTimeout(
+			() => {
+				const newDate = new Date();
+				if (inputDate.getDate() === newDate.getDate()) return;
+				setInputDate(newDate);
+			},
+			10 * 60 * 1000,
+		);
 
-    // This may not show the most up-to-date `formatDate` or `formatReadableDate`
-    return <FileDate inputDate={inputDate}/>
-}
+		return () => clearTimeout(timeout);
+	}, [inputDate]);
+
+	// This may not show the most up-to-date `formatDate` or `formatReadableDate`
+	return <FileDate inputDate={inputDate} />;
+};
 ```
 
 # Angular
 
 ```typescript
 @Component({
-  selector: "file-item",
-  standalone: true,
-  imports: [FileDateComponent],
-  // This may not show the most up-to-date `formatDate` or `formatReadableDate`
-  template: `<file-date [inputDate]="inputDate"></file-date>`,
+	selector: "file-item",
+	standalone: true,
+	imports: [FileDateComponent],
+	// This may not show the most up-to-date `formatDate` or `formatReadableDate`
+	template: `<file-date [inputDate]="inputDate"></file-date>`,
 })
 export class FileComponent implements OnInit, OnDestroy {
-    inputDate = new Date();
+	inputDate = new Date();
 	interval: number = null;
 
-    ngOnInit() {
-        // Check if it's a new day every 10 minutes
-        this.interval = setInterval(() => {
-            const newDate = new Date();
-            if (this.inputDate.getDate() === newDate.getDate()) return;
-            this.inputDate = newDate;
-        }, 10 * 60 * 1000) as any;
-    }
-    
-    ngOnDestroy() {
-		  clearInterval(this.interval as any);        
-    }
+	ngOnInit() {
+		// Check if it's a new day every 10 minutes
+		this.interval = setInterval(
+			() => {
+				const newDate = new Date();
+				if (this.inputDate.getDate() === newDate.getDate()) return;
+				this.inputDate = newDate;
+			},
+			10 * 60 * 1000,
+		) as any;
+	}
+
+	ngOnDestroy() {
+		clearInterval(this.interval as any);
+	}
 }
 ```
 
@@ -132,29 +138,32 @@ export class FileComponent implements OnInit, OnDestroy {
 ```vue
 <!-- File.vue -->
 <script setup>
-  import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from "vue";
 
-  const inputDate = ref(new Date())
-  const interval = ref(null)
+const inputDate = ref(new Date());
+const interval = ref(null);
 
-  onMounted(() => {
-    interval.value = setInterval(() => {
-      const newDate = new Date()
-      if (inputDate.value.getDate() === newDate.getDate()) return
-      inputDate.value = newDate
-    }, 10 * 60 * 1000)
-  })
+onMounted(() => {
+	interval.value = setInterval(
+		() => {
+			const newDate = new Date();
+			if (inputDate.value.getDate() === newDate.getDate()) return;
+			inputDate.value = newDate;
+		},
+		10 * 60 * 1000,
+	);
+});
 
-  onUnmounted(() => {
-    clearInterval(interval.value)
-  })
+onUnmounted(() => {
+	clearInterval(interval.value);
+});
 </script>
 
 <template>
-  <!-- ... -->
-  <!-- This may not show the most up-to-date `formatDate` or `formatReadableDate` -->
-  <file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
-  <!-- ... -->
+	<!-- ... -->
+	<!-- This may not show the most up-to-date `formatDate` or `formatReadableDate` -->
+	<file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
+	<!-- ... -->
 </template>
 ```
 
@@ -176,18 +185,18 @@ Luckily, we can use [our existing knowledge of side effects](/posts/ffg-fundamen
 
 ```jsx {4-8}
 const FileDate = ({ inputDate }) => {
-  const [dateStr, setDateStr] = useState(formatDate(inputDate));
-  const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
+	const [dateStr, setDateStr] = useState(formatDate(inputDate));
+	const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
 
-  useEffect(() => {
-      setDateStr(formatDate(inputDate));
-      setLabelText(formatReadableDate(inputDate));
-  // Every time `inputDate` changes, it'll trigger a render and therefore call the `useEffect`
-  }, [inputDate])
-    
-  // ...
+	useEffect(() => {
+		setDateStr(formatDate(inputDate));
+		setLabelText(formatReadableDate(inputDate));
+		// Every time `inputDate` changes, it'll trigger a render and therefore call the `useEffect`
+	}, [inputDate]);
 
-  return <span ariaLabel={labelText}>{dateStr}</span>;
+	// ...
+
+	return <span ariaLabel={labelText}>{dateStr}</span>;
 };
 ```
 
@@ -201,28 +210,28 @@ We can use this new lifecycle method to update the value of a component's state 
 import { Component, OnChanges, SimpleChanges } from "@angular/core";
 
 @Component({
-  selector: "file-date",
-  standalone: true,
-  template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
+	selector: "file-date",
+	standalone: true,
+	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
 export class FileDateComponent implements OnChanges {
-  @Input() inputDate: Date;
+	@Input() inputDate: Date;
 
-  dateStr = this.formatDate(this.inputDate);
-  labelText = this.formatReadableDate(this.inputDate);
+	dateStr = this.formatDate(this.inputDate);
+	labelText = this.formatReadableDate(this.inputDate);
 
-  ngOnChanges(changes: SimpleChanges) {
-    /**
-     * ngOnChanges runs for EVERY prop change. As such, we can
-     * restrict the recalculation to only when `inputDate` changes
-     */
-    if (changes.inputDate) {
-      this.dateStr = this.formatDate(this.inputDate);
-      this.labelText = this.formatReadableDate(this.inputDate);      
-    }
-  }
-    
-  // ...
+	ngOnChanges(changes: SimpleChanges) {
+		/**
+		 * ngOnChanges runs for EVERY prop change. As such, we can
+		 * restrict the recalculation to only when `inputDate` changes
+		 */
+		if (changes.inputDate) {
+			this.dateStr = this.formatDate(this.inputDate);
+			this.labelText = this.formatReadableDate(this.inputDate);
+		}
+	}
+
+	// ...
 }
 ```
 
@@ -231,25 +240,28 @@ export class FileDateComponent implements OnChanges {
 ```vue
 <!-- FileDate.vue -->
 <script setup>
-  import {ref, watch} from 'vue';
+import { ref, watch } from "vue";
 
-  // ...
+// ...
 
-  const props = defineProps(['inputDate'])
+const props = defineProps(["inputDate"]);
 
-  const dateStr = ref(formatDate(props.inputDate))
-  const labelText = ref(formatReadableDate(props.inputDate))
+const dateStr = ref(formatDate(props.inputDate));
+const labelText = ref(formatReadableDate(props.inputDate));
 
-  watch(() => props.inputDate, (newDate, oldDate) => {
-    dateStr.value = formatDate(newDate),
-        labelText.value = formatReadableDate(newDate)
-  })
+watch(
+	() => props.inputDate,
+	(newDate, oldDate) => {
+		(dateStr.value = formatDate(newDate)),
+			(labelText.value = formatReadableDate(newDate));
+	},
+);
 
-  // ...
+// ...
 </script>
 
 <template>
-  <span :aria-label="labelText">{{ dateStr }}</span>
+	<span :aria-label="labelText">{{ dateStr }}</span>
 </template>
 ```
 
@@ -267,12 +279,12 @@ Luckily for us, there's an easy solution for this problem called "computed value
 
 Our previous method of deriving a value from a property follows two steps:
 
-1) Set an initial value
-2) Update and recompute the value when its base changes
+1. Set an initial value
+2. Update and recompute the value when its base changes
 
 However, what if we could instead simplify this idea to a single step:
 
-1) Run a function over a value, and live update as it changes.
+1. Run a function over a value, and live update as it changes.
 
 This may remind you of a similar pattern we've used already for [live updated text](/posts/ffg-fundamentals-intro-to-components#Live-Updating) and [attribute binding](/posts/intro-to-components#Attribute-Binding).
 
@@ -283,15 +295,15 @@ Luckily for us, all three frameworks have a way of doing just this!
 ## React
 
 ```jsx {4-8}
-import {useMemo} from "react";
+import { useMemo } from "react";
 
 const FileDate = ({ inputDate }) => {
-  const dateStr = useMemo(() => formatDate(inputDate), [inputDate]);
-  const labelText = useMemo(() => formatReadableDate(inputDate), [inputDate]);
+	const dateStr = useMemo(() => formatDate(inputDate), [inputDate]);
+	const labelText = useMemo(() => formatReadableDate(inputDate), [inputDate]);
 
-  // ...
+	// ...
 
-  return <span ariaLabel={labelText}>{dateStr}</span>;
+	return <span ariaLabel={labelText}>{dateStr}</span>;
 };
 ```
 
@@ -302,19 +314,19 @@ Like `useEffect`, this array's values' changes are only tracked when the compone
 Instead, if you want to recalculate the logic in every render, you'd simply remove the `useMemo` entirely. So, for simple computations, you can take this code:
 
 ```jsx
-const AddComp = ({baseNum, addNum}) => {
+const AddComp = ({ baseNum, addNum }) => {
 	const val = useMemo(() => baseNum + addNum, [baseNum, addNum]);
 	return <p>{val}</p>;
-}
+};
 ```
 
 And refactor it to look like this:
 
 ```jsx
-const AddComp = ({baseNum, addNum}) => {
+const AddComp = ({ baseNum, addNum }) => {
 	const val = baseNum + addNum;
 	return <p>{val}</p>;
-}
+};
 ```
 
 > While it's technically possible to use this trick to never use `useMemo`, your application's performance will suffer drastically. That said, it's a bit of a science to know when and where to use `useMemo`. [We'll touch on this more in our third book titled "Internals".](https://framework.guide)
@@ -324,20 +336,20 @@ const AddComp = ({baseNum, addNum}) => {
 To solve the derived value problem without recomputing the values manually, Angular introduces the concept of a "pipe" into the mix of things. The idea is that a pipe runs over an input (or series of inputs) just like React's `useMemo`.
 
 ```typescript
-import { NgModule, Component, Input, Pipe, PipeTransform } from '@angular/core';
+import { NgModule, Component, Input, Pipe, PipeTransform } from "@angular/core";
 
-@Pipe({ name: 'formatDate', standalone: true })
+@Pipe({ name: "formatDate", standalone: true })
 export class FormatDatePipe implements PipeTransform {
-  transform(value: Date): string {
-    return formatDate(value);
-  }
+	transform(value: Date): string {
+		return formatDate(value);
+	}
 }
 
-@Pipe({ name: 'formatReadableDate', standalone: true })
+@Pipe({ name: "formatReadableDate", standalone: true })
 export class FormatReadableDatePipe implements PipeTransform {
-  transform(value: Date): string {
-    return formatReadableDate(value);
-  }
+	transform(value: Date): string {
+		return formatReadableDate(value);
+	}
 }
 ```
 
@@ -345,16 +357,17 @@ You may then use these pipes in your components directly inside of the template.
 
 ```typescript
 @Component({
-  selector: 'file-date',
-  standalone: true,
-  imports: [FormatReadableDatePipe, FormatDatePipe],
-  template: `<span [attr.aria-label]="inputDate | formatReadableDate">{{ inputDate | formatDate }}</span>`,
+	selector: "file-date",
+	standalone: true,
+	imports: [FormatReadableDatePipe, FormatDatePipe],
+	template: `<span [attr.aria-label]="inputDate | formatReadableDate">{{
+		inputDate | formatDate
+	}}</span>`,
 })
 export class FileDateComponent {
-  @Input() inputDate: Date;
+	@Input() inputDate: Date;
 }
 ```
-
 
 ### Multiple Input Pipes
 
@@ -363,16 +376,16 @@ You may notice the similarities between pipes and functions. After all, pipes ar
 Let's add a second input to see if the `formatDate` pipe should return a readable date or not.
 
 ```typescript
-import { NgModule, Component, Input, Pipe, PipeTransform } from '@angular/core';
+import { NgModule, Component, Input, Pipe, PipeTransform } from "@angular/core";
 
-@Pipe({ name: 'formatDate', standalone: true })
+@Pipe({ name: "formatDate", standalone: true })
 export class FormatDatePipe implements PipeTransform {
-  // `dateFormat` is an optional argument. If left empty, will simply `formatDate`
-  transform(value: Date, dateFormat?: string): string {
-    // Stands for "Long format month, day of month, year"
-  	if (dateFormat === 'MMMM d, Y') return formatReadableDate(value);
-    return formatDate(value);
-  }
+	// `dateFormat` is an optional argument. If left empty, will simply `formatDate`
+	transform(value: Date, dateFormat?: string): string {
+		// Stands for "Long format month, day of month, year"
+		if (dateFormat === "MMMM d, Y") return formatReadableDate(value);
+		return formatDate(value);
+	}
 }
 ```
 
@@ -380,13 +393,16 @@ Then, we can use it in our template while passing a second argument:
 
 ```typescript
 @Component({
-  selector: 'file-date',
-  standalone: true,
-  imports: [FormatDatePipe],
-  template: `<span [attr.aria-label]="inputDate | formatReadableDate:'MMMM d, Y'">{{ inputDate | formatDate }}</span>`,
+	selector: "file-date",
+	standalone: true,
+	imports: [FormatDatePipe],
+	template: `<span
+		[attr.aria-label]="inputDate | formatReadableDate: 'MMMM d, Y'"
+		>{{ inputDate | formatDate }}</span
+	>`,
 })
 export class FileDateComponent {
-  @Input() inputDate: Date;
+	@Input() inputDate: Date;
 }
 ```
 
@@ -397,16 +413,18 @@ Luckily, Angular's all-in-one methodology means that there's a slew of pipes tha
 To use the built-in pipes, we need to import them from `CommonModule` into the component. In this case, the pipe we're looking to use is called [`DatePipe`](https://angular.io/api/common/DatePipe). This provided date pipe is, expectedly, called `date` when used in the template and can be used like so:
 
 ```typescript
-import { DatePipe } from '@angular/common';
+import { DatePipe } from "@angular/common";
 
 @Component({
-  selector: 'file-date',
-  standalone: true,
-  imports: [DatePipe],
-  template: `<span [attr.aria-label]="inputDate | date:'MMMM d, Y'">{{ inputDate | date }}</span>`,
+	selector: "file-date",
+	standalone: true,
+	imports: [DatePipe],
+	template: `<span [attr.aria-label]="inputDate | date: 'MMMM d, Y'">{{
+		inputDate | date
+	}}</span>`,
 })
 export class FileDateComponent {
-  @Input() inputDate: Date;
+	@Input() inputDate: Date;
 }
 ```
 
@@ -415,20 +433,20 @@ export class FileDateComponent {
 ```vue
 <!-- FileDate.vue -->
 <script setup>
-  import { computed } from 'vue'
+import { computed } from "vue";
 
-  // ...
+// ...
 
-  const props = defineProps(['inputDate'])
+const props = defineProps(["inputDate"]);
 
-  const dateStr = computed(() => formatDate(props.inputDate));
-  const labelText = computed(() => formatReadableDate(props.inputDate));
+const dateStr = computed(() => formatDate(props.inputDate));
+const labelText = computed(() => formatReadableDate(props.inputDate));
 
-  // ...
+// ...
 </script>
 
 <template>
-  <span :aria-label="labelText">{{ dateStr }}</span>
+	<span :aria-label="labelText">{{ dateStr }}</span>
 </template>
 ```
 
@@ -452,47 +470,49 @@ Let's say that we have a piece of state called `number` in our component and wan
 
 ```jsx
 const CountAndDoubleComp = () => {
-  const [number, setNumber] = useState(0);
-  const doubleNum = useMemo(() => number * 2, [number]);
+	const [number, setNumber] = useState(0);
+	const doubleNum = useMemo(() => number * 2, [number]);
 
-  return <div>
-    <p>{number}</p>
-    <p>{doubleNum}</p>
-    <button onClick={() => setNumber(number + 2)}>Add one</button>
-  </div>;
+	return (
+		<div>
+			<p>{number}</p>
+			<p>{doubleNum}</p>
+			<button onClick={() => setNumber(number + 2)}>Add one</button>
+		</div>
+	);
 };
 ```
 
 ## Angular
 
 ```typescript
-@Pipe({ name: 'doubleNum', standalone: true })
+@Pipe({ name: "doubleNum", standalone: true })
 export class DoubleNumPipe implements PipeTransform {
-  transform(value: number): number {
-    return value * 2;
-  }
+	transform(value: number): number {
+		return value * 2;
+	}
 }
 ```
 
 ```typescript
 @Component({
-  selector: 'file-date',
-  standalone: true,
-  imports: [DoubleNumPipe],
-  template: `
-  <div>
-    <p>{{number}}</p>
-    <p>{{number | doubleNum}}</p>
-    <button (click)="addOne()">Add one</button>
-  </div>
-  `,
+	selector: "file-date",
+	standalone: true,
+	imports: [DoubleNumPipe],
+	template: `
+		<div>
+			<p>{{ number }}</p>
+			<p>{{ number | doubleNum }}</p>
+			<button (click)="addOne()">Add one</button>
+		</div>
+	`,
 })
 export class CountAndDoubleComponent {
-  number = 0;
-  
-  addOne() {
-    this.number++;
-  }
+	number = 0;
+
+	addOne() {
+		this.number++;
+	}
 }
 ```
 
@@ -501,23 +521,23 @@ export class CountAndDoubleComponent {
 ```vue
 <!-- CountAndDouble.vue -->
 <script setup>
-  import { ref, computed } from 'vue'
+import { ref, computed } from "vue";
 
-  const number = ref(0)
+const number = ref(0);
 
-  function addOne() {
-    number.value++
-  }
+function addOne() {
+	number.value++;
+}
 
-  const doubleNum = computed(() => number.value * 2)
+const doubleNum = computed(() => number.value * 2);
 </script>
 
 <template>
-  <div>
-    <p>{{ number }}</p>
-    <p>{{ doubleNum }}</p>
-    <button @click="addOne()">Add one</button>
-  </div>
+	<div>
+		<p>{{ number }}</p>
+		<p>{{ doubleNum }}</p>
+		<button @click="addOne()">Add one</button>
+	</div>
 </template>
 ```
 
@@ -539,15 +559,15 @@ const megabyte = kilobyte * 1024;
 const gigabyte = megabyte * 1024;
 
 function formatBytes(bytes) {
-  if (bytes < kilobyte) {
-    return `${bytes} B`;
-  } else if (bytes < megabyte) {
-    return `${Math.floor(bytes / kilobyte)} KB`;
-  } else if (bytes < gigabyte) {
-    return `${Math.floor(bytes / megabyte)} MB`;
-  } else {
-    return `${Math.floor(bytes / gigabyte)} GB`;
-  }
+	if (bytes < kilobyte) {
+		return `${bytes} B`;
+	} else if (bytes < megabyte) {
+		return `${Math.floor(bytes / kilobyte)} KB`;
+	} else if (bytes < gigabyte) {
+		return `${Math.floor(bytes / megabyte)} MB`;
+	} else {
+		return `${Math.floor(bytes / gigabyte)} GB`;
+	}
 }
 ```
 
@@ -561,8 +581,8 @@ With this JavaScript, we can use a derived value to display the relevant display
 
 ```jsx
 function DisplaySize({ bytes }) {
-  const humanReadibleSize = React.useMemo(() => formatBytes(bytes), [bytes]);
-  return <p>{humanReadibleSize}</p>;
+	const humanReadibleSize = React.useMemo(() => formatBytes(bytes), [bytes]);
+	return <p>{humanReadibleSize}</p>;
 }
 
 const kilobyte = 1024;
@@ -570,50 +590,48 @@ const megabyte = kilobyte * 1024;
 const gigabyte = megabyte * 1024;
 
 function formatBytes(bytes) {
-  if (bytes < kilobyte) {
-    return `${bytes} B`;
-  } else if (bytes < megabyte) {
-    return `${Math.floor(bytes / kilobyte)} KB`;
-  } else if (bytes < gigabyte) {
-    return `${Math.floor(bytes / megabyte)} MB`;
-  } else {
-    return `${Math.floor(bytes / gigabyte)} GB`;
-  }
+	if (bytes < kilobyte) {
+		return `${bytes} B`;
+	} else if (bytes < megabyte) {
+		return `${Math.floor(bytes / kilobyte)} KB`;
+	} else if (bytes < gigabyte) {
+		return `${Math.floor(bytes / megabyte)} MB`;
+	} else {
+		return `${Math.floor(bytes / gigabyte)} GB`;
+	}
 }
 ```
 
 ## Angular
 
 ```typescript
-@Pipe({ name: 'formatBytes', standalone: true })
+@Pipe({ name: "formatBytes", standalone: true })
 export class FormatBytesPipe implements PipeTransform {
-  kilobyte = 1024;
-  megabyte = this.kilobyte * 1024;
-  gigabyte = this.megabyte * 1024;
+	kilobyte = 1024;
+	megabyte = this.kilobyte * 1024;
+	gigabyte = this.megabyte * 1024;
 
-  transform(bytes: number): string {
-    if (bytes < this.kilobyte) {
-      return `${bytes} B`;
-    } else if (bytes < this.megabyte) {
-      return `${Math.floor(bytes / this.kilobyte)} KB`;
-    } else if (bytes < this.gigabyte) {
-      return `${Math.floor(bytes / this.megabyte)} MB`;
-    } else {
-      return `${Math.floor(bytes / this.gigabyte)} GB`;
-    }
-  }
+	transform(bytes: number): string {
+		if (bytes < this.kilobyte) {
+			return `${bytes} B`;
+		} else if (bytes < this.megabyte) {
+			return `${Math.floor(bytes / this.kilobyte)} KB`;
+		} else if (bytes < this.gigabyte) {
+			return `${Math.floor(bytes / this.megabyte)} MB`;
+		} else {
+			return `${Math.floor(bytes / this.gigabyte)} GB`;
+		}
+	}
 }
 
 @Component({
-  selector: 'display-size',
-  standalone: true,
-  imports: [FormatBytesPipe],
-  template: `
-	  <p>{{bytes | formatBytes}}</p>
-	`,
+	selector: "display-size",
+	standalone: true,
+	imports: [FormatBytesPipe],
+	template: ` <p>{{ bytes | formatBytes }}</p> `,
 })
 class DisplaySizeComponent {
-  @Input() bytes: number;
+	@Input() bytes: number;
 }
 ```
 
@@ -622,30 +640,30 @@ class DisplaySizeComponent {
 ```vue
 <!-- DisplaySize.vue -->
 <script setup>
-  import { computed } from 'vue'
+import { computed } from "vue";
 
-  const props = defineProps(['bytes'])
-  const humanReadibleSize = computed(() => formatBytes(props.bytes))
+const props = defineProps(["bytes"]);
+const humanReadibleSize = computed(() => formatBytes(props.bytes));
 
-  const kilobyte = 1024
-  const megabyte = kilobyte * 1024
-  const gigabyte = megabyte * 1024
+const kilobyte = 1024;
+const megabyte = kilobyte * 1024;
+const gigabyte = megabyte * 1024;
 
-  function formatBytes(bytes) {
-    if (bytes < kilobyte) {
-      return `${bytes} B`
-    } else if (bytes < megabyte) {
-      return `${Math.floor(bytes / kilobyte)} KB`
-    } else if (bytes < gigabyte) {
-      return `${Math.floor(bytes / megabyte)} MB`
-    } else {
-      return `${Math.floor(bytes / gigabyte)} GB`
-    }
-  }
+function formatBytes(bytes) {
+	if (bytes < kilobyte) {
+		return `${bytes} B`;
+	} else if (bytes < megabyte) {
+		return `${Math.floor(bytes / kilobyte)} KB`;
+	} else if (bytes < gigabyte) {
+		return `${Math.floor(bytes / megabyte)} MB`;
+	} else {
+		return `${Math.floor(bytes / gigabyte)} GB`;
+	}
+}
 </script>
 
 <template>
-  <p>{{ humanReadibleSize }}</p>
+	<p>{{ humanReadibleSize }}</p>
 </template>
 ```
 

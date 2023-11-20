@@ -1,16 +1,15 @@
 ---
 {
-    title: "Error Handling",
-    description: "Bug are a constant in development. How can we make error handling lead to a nicer user experience when they occur in React, Angular, and Vue?",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 10,
-    collection: "The Framework Field Guide - Fundamentals"
+  title: "Error Handling",
+  description: "Bug are a constant in development. How can we make error handling lead to a nicer user experience when they occur in React, Angular, and Vue?",
+  published: "2023-01-01T22:12:03.284Z",
+  authors: ["crutchcorn"],
+  tags: ["webdev"],
+  attached: [],
+  order: 10,
+  collection: "The Framework Field Guide - Fundamentals",
 }
 ---
-
 
 Despite our best efforts, bugs will find their way into our applications. Unfortunately, we can't simply ignore them or else the user experience suffers greatly.
 
@@ -22,51 +21,51 @@ Take the following code:
 
 ```jsx
 export const App = () => {
-  const items = [
-    { id: 1, name: 'Take out the trash', priority: 1 },
-    { id: 2, name: 'Cook dinner', priority: 1 },
-    { id: 3, name: 'Play video games', priority: 2 },
-  ];
+	const items = [
+		{ id: 1, name: "Take out the trash", priority: 1 },
+		{ id: 2, name: "Cook dinner", priority: 1 },
+		{ id: 3, name: "Play video games", priority: 2 },
+	];
 
-  const priorityItems = items.filter((item) => item.item.priority === 1);
+	const priorityItems = items.filter((item) => item.item.priority === 1);
 
-  return (
-    <>
-      <h1>To-do items</h1>
-      <ul>
-        {priorityItems.map((item) => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
-    </>
-  );
+	return (
+		<>
+			<h1>To-do items</h1>
+			<ul>
+				{priorityItems.map((item) => (
+					<li key={item.id}>{item.name}</li>
+				))}
+			</ul>
+		</>
+	);
 };
 ```
 
 # Angular
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NgFor],
-  template: `
-    <h1>To-do items</h1>
-    <ul>
-      <li *ngFor="let item of priorityItems">{{ item.name }}</li>
-    </ul>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [NgFor],
+	template: `
+		<h1>To-do items</h1>
+		<ul>
+			<li *ngFor="let item of priorityItems">{{ item.name }}</li>
+		</ul>
+	`,
 })
 export class AppComponent {
-  items = [
-    { id: 1, name: 'Take out the trash', priority: 1 },
-    { id: 2, name: 'Cook dinner', priority: 1 },
-    { id: 3, name: 'Play video games', priority: 2 },
-  ];
+	items = [
+		{ id: 1, name: "Take out the trash", priority: 1 },
+		{ id: 2, name: "Cook dinner", priority: 1 },
+		{ id: 3, name: "Play video games", priority: 2 },
+	];
 
-  priorityItems = this.items.filter((item: any) => item.item.priority === 1);
+	priorityItems = this.items.filter((item: any) => item.item.priority === 1);
 }
 ```
 
@@ -76,19 +75,19 @@ export class AppComponent {
 <!-- App.vue -->
 <script setup>
 const items = [
-  { id: 1, name: 'Take out the trash', priority: 1 },
-  { id: 2, name: 'Cook dinner', priority: 1 },
-  { id: 3, name: 'Play video games', priority: 2 },
-]
+	{ id: 1, name: "Take out the trash", priority: 1 },
+	{ id: 2, name: "Cook dinner", priority: 1 },
+	{ id: 3, name: "Play video games", priority: 2 },
+];
 
-const priorityItems = items.filter((item) => item.item.priority === 1)
+const priorityItems = items.filter((item) => item.item.priority === 1);
 </script>
 
 <template>
-  <h1>To-do items</h1>
-  <ul>
-    <li v-for="item of priorityItems" :key="item.id">{{ item.name }}</li>
-  </ul>
+	<h1>To-do items</h1>
+	<ul>
+		<li v-for="item of priorityItems" :key="item.id">{{ item.name }}</li>
+	</ul>
 </template>
 ```
 
@@ -106,14 +105,13 @@ The reason those items aren't showing on-screen is because an error is being thr
 
 Luckily, this error is a fairly easy fix, but even if we do; bugs will inevitably be introduced into our apps. A white screen is a pretty sub-par experience for our end users - they likely won't even understand what happened that lead them to this broken page.
 
-
 While I doubt we'll ever convince our users that an error is a _good_ thing, how can we make this user experience _better_, at least?
 
 Before we do that, however, let's explore _why_ throwing an error causes the rendering of a page to fail.
 
 # Throwing errors causes blank screens?!
 
-As shown before, when an error is thrown during a component's [render step](/posts/ffg-fundamentals-side-effects) it will fail to render any of  the contents from the component's template. This means that the following will throw an error and prevent rendering from occurring:
+As shown before, when an error is thrown during a component's [render step](/posts/ffg-fundamentals-side-effects) it will fail to render any of the contents from the component's template. This means that the following will throw an error and prevent rendering from occurring:
 
 <!-- tabs:start -->
 
@@ -121,27 +119,25 @@ As shown before, when an error is thrown during a component's [render step](/pos
 
 ```jsx
 const ErrorThrowingComponent = () => {
-    // This WILL be caught by `componentDidCatch`
-    throw new Error("Error");
-    
-    return <p>Hello, world!</p>
-}
+	// This WILL be caught by `componentDidCatch`
+	throw new Error("Error");
+
+	return <p>Hello, world!</p>;
+};
 ```
 
 ## Angular
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  template: `
-    <p>Hello, world!</p>
-  `,
+	selector: "app-root",
+	standalone: true,
+	template: ` <p>Hello, world!</p> `,
 })
 export class AppComponent {
-  constructor() {
-    throw new Error('Error');
-  }
+	constructor() {
+		throw new Error("Error");
+	}
 }
 ```
 
@@ -150,11 +146,11 @@ export class AppComponent {
 ```vue
 <!-- App.vue -->
 <script setup>
-throw new Error('Error');
+throw new Error("Error");
 </script>
 
 <template>
-  <p>Hello, world!</p>
+	<p>Hello, world!</p>
 </template>
 ```
 
@@ -168,29 +164,27 @@ However, if we change our code to throw an error during an event handler, the co
 
 ```jsx
 const EventErrorThrowingComponent = () => {
-    const onClick = () => {
-        // This will NOT be caught by `componentDidCatch`
-        throw new Error("Error");
-    }
-    
-    return <button onClick={onClick}>Click me</button>
-}
+	const onClick = () => {
+		// This will NOT be caught by `componentDidCatch`
+		throw new Error("Error");
+	};
+
+	return <button onClick={onClick}>Click me</button>;
+};
 ```
 
 ## Angular
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  template: `
-    <button (click)="onClick()">Click me</button>
-  `,
+	selector: "app-root",
+	standalone: true,
+	template: ` <button (click)="onClick()">Click me</button> `,
 })
 export class AppComponent {
-  onClick() {
-    throw new Error('Error');
-  }
+	onClick() {
+		throw new Error("Error");
+	}
 }
 ```
 
@@ -200,12 +194,12 @@ export class AppComponent {
 <!-- App.vue -->
 <script setup>
 const onClick = () => {
-  throw new Error('Error');
+	throw new Error("Error");
 };
 </script>
 
 <template>
-  <button @click="onClick()">Click me</button>
+	<button @click="onClick()">Click me</button>
 </template>
 ```
 
@@ -215,20 +209,20 @@ This behavior may seem strange until you consider how JavaScript's `throw` claus
 
 ```javascript
 function getRandomNumber() {
-    throw new Error("There was an error");
-    // Anything below the "throw" clause will not run
-    console.log("Generating a random number");
-    // This means that values returned after a thrown error are not utilized
-    return Math.floor(Math.random() * 10);
+	throw new Error("There was an error");
+	// Anything below the "throw" clause will not run
+	console.log("Generating a random number");
+	// This means that values returned after a thrown error are not utilized
+	return Math.floor(Math.random() * 10);
 }
 
 try {
-    const val = getRandomNumber();
-    // This will never execute because the `throw` bypasses it
-    console.log("I got the random number of:", val);
+	const val = getRandomNumber();
+	// This will never execute because the `throw` bypasses it
+	console.log("I got the random number of:", val);
 } catch (e) {
-    // This will always run instead
-    console.log("There was an error:", e);
+	// This will always run instead
+	console.log("There was an error:", e);
 }
 ```
 
@@ -236,7 +230,7 @@ Moreover, these errors exceed past [their scope](https://developer.mozilla.org/e
 
 > What does that mean in English?
 
-In practical terms, this means that a thrown error will exceed the bounds of the function you called it in, and make its way further  up the list of functions you called to get to the thrown error.
+In practical terms, this means that a thrown error will exceed the bounds of the function you called it in, and make its way further up the list of functions you called to get to the thrown error.
 
 ```javascript
 function getBaseNumber() {
@@ -286,8 +280,6 @@ function main() {
 
 ![TODO: Write alt](./error_bubbling.png)
 
-
-
 Because of these two properties of errors, React, Angular, and Vue are unable to "recover" (continue rendering after an error has occurred) from an error thrown during a render cycle.
 
 ## Errors Thrown in Event Handlers
@@ -299,10 +291,10 @@ Conversely, due to the nature of event handlers, these frameworks don't _need_ t
 <button id="btn">Click me</button>
 
 <script>
-   const el = document.getElementById("btn");
-   el.addEventListener('click', () => {
-       throw new Error("There was an error")
-   })
+	const el = document.getElementById("btn");
+	el.addEventListener("click", () => {
+		throw new Error("There was an error");
+	});
 </script>
 ```
 
@@ -310,13 +302,13 @@ When you click on the `<button>` here, it will throw an error but this error wil
 
 ```javascript
 try {
-    const el = document.getElementById("btn");
-    el.addEventListener('click', () => {
-       throw new Error("There was an error")
-    })
+	const el = document.getElementById("btn");
+	el.addEventListener("click", () => {
+		throw new Error("There was an error");
+	});
 } catch (e) {
-    // This will not ever run with this code
-    alert("There was an error in the event listener");
+	// This will not ever run with this code
+	alert("There was an error in the event listener");
 }
 ```
 
@@ -324,12 +316,12 @@ So to catch an error in an event handler, React, Angular, or Vue would have to a
 
 ```javascript
 const el = document.getElementById("btn");
-el.addEventListener('click', () => {
-   throw new Error("There was an error")
-})
+el.addEventListener("click", () => {
+	throw new Error("There was an error");
+});
 
 window.addEventListener("error", (e) => {
-	alert("There was an error in the event listener")
+	alert("There was an error in the event listener");
 });
 ```
 
@@ -356,27 +348,27 @@ While some other frameworks catch errors inside of async APIs (like React's `use
 
 ```jsx
 const App = () => {
-  // This will prevent rendering
-  const val = useState(() => {
-    throw new Error('Error in state initialization function');
-  });
+	// This will prevent rendering
+	const val = useState(() => {
+		throw new Error("Error in state initialization function");
+	});
 
-  // This will also prevent rendering
-  const val = useMemo(() => {
-    throw new Error('Error in memo');
-  });
-  
-  // Will this prevent rendering? You bet!
-  useEffect(() => {
-    throw new Error('Error in useEffect');
-  });
-    
-  // Oh, and this will too.
-  useLayoutEffect(() => {
-    throw new Error('Error in useEffect');
-  });
-    
-  return <p>Hello, world!</p>;
+	// This will also prevent rendering
+	const val = useMemo(() => {
+		throw new Error("Error in memo");
+	});
+
+	// Will this prevent rendering? You bet!
+	useEffect(() => {
+		throw new Error("Error in useEffect");
+	});
+
+	// Oh, and this will too.
+	useLayoutEffect(() => {
+		throw new Error("Error in useEffect");
+	});
+
+	return <p>Hello, world!</p>;
 };
 ```
 
@@ -386,17 +378,15 @@ Despite errors thrown in a component's constructor preventing rendering:
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  template: `
-    <p>Hello, world!</p>
-  `,
+	selector: "app-root",
+	standalone: true,
+	template: ` <p>Hello, world!</p> `,
 })
 export class AppComponent {
-  // This will prevent rendering
-  constructor() {
-    throw new Error('Error in constructor');
-  }
+	// This will prevent rendering
+	constructor() {
+		throw new Error("Error in constructor");
+	}
 }
 ```
 
@@ -404,17 +394,15 @@ Errors thrown in any of Angular's other lifecycle methods will not prevent a com
 
 ```typescript
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  template: `
-  <p>Hello, world!</p>
-`,
+	selector: "app-root",
+	standalone: true,
+	template: ` <p>Hello, world!</p> `,
 })
 export class AppComponent implements OnInit {
-  // Will not prevent `Hello, world!` from showing
-  ngOnInit() {
-	throw new Error('Error in constructor');
-  }
+	// Will not prevent `Hello, world!` from showing
+	ngOnInit() {
+		throw new Error("Error in constructor");
+	}
 }
 ```
 
@@ -422,19 +410,19 @@ export class AppComponent implements OnInit {
 
 While some of Vue's APIs, like `watchEffect` or `computed` will prevent rendering when an error occurs:
 
-``` vue
+```vue
 <!-- App.vue -->
 <script setup>
-import { watchEffect, computed } from 'vue';
+import { watchEffect, computed } from "vue";
 
 // This will prevent rendering
 watchEffect(() => {
-  throw new Error('New error in effect');
+	throw new Error("New error in effect");
 });
 
 // This will also prevent rendering
 const result = computed(() => {
-  throw new Error('New error in computed');
+	throw new Error("New error in computed");
 });
 
 // "computed" is lazy, meaning that it will not throw the error
@@ -443,7 +431,7 @@ console.log(result.value);
 </script>
 
 <template>
-  <p>Hello, world!</p>
+	<p>Hello, world!</p>
 </template>
 ```
 
@@ -452,16 +440,16 @@ Other APIs, like the `onMounted` lifecycle method, will not prevent rendering wh
 ```vue
 <!-- App.vue -->
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted } from "vue";
 
 onMounted(() => {
-  // Will not prevent `Hello, world!` from showing
-  throw new Error('New error');
+	// Will not prevent `Hello, world!` from showing
+	throw new Error("New error");
 });
 </script>
 
 <template>
-  <p>Hello, world!</p>
+	<p>Hello, world!</p>
 </template>
 ```
 
@@ -483,7 +471,7 @@ Sure, this seems obvious, but consider this: If an error occurs on the user's ma
 
 This is where the concept of "logging" comes into play. The general idea behind logging is that you can capture a collection of errors and information about the events that led up to the errors, and provide a way to export this data so that your user can send it to you to debug.
 
-While this logging often involves submitting data to a server, let's keep things local to the user's machine for now. 
+While this logging often involves submitting data to a server, let's keep things local to the user's machine for now.
 
 <!-- tabs:start -->
 
@@ -498,49 +486,51 @@ Here's a simple React component in both functional and class based APIs:
 ```jsx
 // Functional component
 const Counter = (props) => {
-    // Setting up state
-    const [count, setCount] = useState(0);
-    
-    // Function to update state
-    const addOne = () => setCount(count + 1);
-    
-    // Rendered UI via JSX
-    return <div>
-        <p>You have pushed the button {count} times</p>
-    	<button onClick={addOne}>Add one</button>
-        {/* Using props to project children */}
-        {props.children}
-    </div>
-}
+	// Setting up state
+	const [count, setCount] = useState(0);
+
+	// Function to update state
+	const addOne = () => setCount(count + 1);
+
+	// Rendered UI via JSX
+	return (
+		<div>
+			<p>You have pushed the button {count} times</p>
+			<button onClick={addOne}>Add one</button>
+			{/* Using props to project children */}
+			{props.children}
+		</div>
+	);
+};
 ```
 
 ```jsx
 // Class component
-import {Component} from 'react';
+import { Component } from "react";
 
 class Counter extends Component {
-    // Setting up state
-    state = {count: 0};
+	// Setting up state
+	state = { count: 0 };
 
-    // Function to update state
-    addOne() {
-        // Notice we use an object and `setState` to update state
-        this.setState({count: this.state.count + 1});
-    }
-    
-    // Rendered UI via JSX
-    render() {
-        <div>
-            <p>You have pushed the button {this.state.count} times</p>
-            <button onClick={this.addOne}>Add one</button>
-            {/* Using props to project children */}
-            {this.props.children}
-        </div>
-    }
+	// Function to update state
+	addOne() {
+		// Notice we use an object and `setState` to update state
+		this.setState({ count: this.state.count + 1 });
+	}
+
+	// Rendered UI via JSX
+	render() {
+		<div>
+			<p>You have pushed the button {this.state.count} times</p>
+			<button onClick={this.addOne}>Add one</button>
+			{/* Using props to project children */}
+			{this.props.children}
+		</div>;
+	}
 }
 ```
 
-Both of these components work exactly the same, with no functional differences between them. This is because almost every API that was available to class components made its way over to functional components through React Hooks. 
+Both of these components work exactly the same, with no functional differences between them. This is because almost every API that was available to class components made its way over to functional components through React Hooks.
 
 _**Almost** every API made the migration to Hooks._
 
@@ -555,17 +545,17 @@ Just like any other class component, we start with an `extends` clause to tell R
 From there, we add in a special `componentDidCatch` method, like so:
 
 ```jsx
-import {Component} from 'react';
+import { Component } from "react";
 
 class ErrorBoundary extends Component {
-  componentDidCatch(error, errorInfo) {
-    	// Do something with the error
-      console.log(error, errorInfo);  
-  }
-  
-  render() {
-    return this.props.children; 
-  }
+	componentDidCatch(error, errorInfo) {
+		// Do something with the error
+		console.log(error, errorInfo);
+	}
+
+	render() {
+		return this.props.children;
+	}
 }
 ```
 
@@ -575,15 +565,17 @@ Luckily for us, we can mix-and-match class components and functional components.
 
 ```jsx
 const ErrorThrowingComponent = () => {
-    // This is an example of an error being thrown
-    throw new Error("Error");
-}
+	// This is an example of an error being thrown
+	throw new Error("Error");
+};
 
 const App = () => {
-    return <ErrorBoundary>
-    	<ErrorThrowingComponent/>
-    </ErrorBoundary>
-}
+	return (
+		<ErrorBoundary>
+			<ErrorThrowingComponent />
+		</ErrorBoundary>
+	);
+};
 ```
 
 Now, while our screen will still be white when the error is thrown, it will hit our `componentDidCatch` handler as we would expect.
@@ -596,16 +588,16 @@ However, in order to provide the custom error handler service, you **must** prov
 
 ```typescript
 class MyErrorHandler implements ErrorHandler {
-  handleError(error) {
-    // Do something with the error
-    console.log(error);
-  }
+	handleError(error) {
+		// Do something with the error
+		console.log(error);
+	}
 }
 
 // ...
 
 bootstrapApplication(AppComponent, {
-  providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
+	providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
 });
 ```
 
@@ -615,29 +607,24 @@ Now that we've set up our `ErrorHandler` instance, we can test that it works usi
 
 ```typescript
 @Component({
-  selector: 'child-comp',
-  standalone: true,
-  template: `
-    <p>Testing</p>
-  `,
+	selector: "child-comp",
+	standalone: true,
+	template: ` <p>Testing</p> `,
 })
 class ChildComponent implements OnInit {
-  ngOnInit() {
-    // This is an example of an error being thrown
-    throw new Error('Test');
-  }
+	ngOnInit() {
+		// This is an example of an error being thrown
+		throw new Error("Test");
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ChildComponent],
-  template: `
-    <child-comp/>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	template: ` <child-comp /> `,
 })
-class AppComponent {
-}
+class AppComponent {}
 ```
 
 ## Vue
@@ -647,18 +634,18 @@ Vue enables us to track errors in an application with a simple `onErrorCaptured`
 ```vue
 <!-- App.vue -->
 <script setup>
-import { onErrorCaptured } from 'vue'
+import { onErrorCaptured } from "vue";
 
-import Child from './Child.vue'
+import Child from "./Child.vue";
 
 onErrorCaptured((err, instance, info) => {
-  // Do something with the error
-  console.log(err, instance, info)
-})
+	// Do something with the error
+	console.log(err, instance, info);
+});
 </script>
 
 <template>
-  <Child />
+	<Child />
 </template>
 ```
 
@@ -667,11 +654,11 @@ Now when we throw an error inside of a child component, like so:
 ```vue
 <!-- Child.vue -->
 <script setup>
-throw new Error('Test')
+throw new Error("Test");
 </script>
 
 <template>
-  <p>Hello, world!</p>
+	<p>Hello, world!</p>
 </template>
 ```
 
@@ -710,39 +697,37 @@ In order to avoid an error blanking out your Vue application, simply return `fal
 ```vue
 <!-- App.vue -->
 <script setup>
-import { onErrorCaptured } from 'vue'
+import { onErrorCaptured } from "vue";
 
-import Child from './Child.vue'
+import Child from "./Child.vue";
 
 onErrorCaptured((err, instance, info) => {
-  console.log(err, instance, info);
-  return false;
-})
+	console.log(err, instance, info);
+	return false;
+});
 </script>
 
 <template>
-  <Child />
+	<Child />
 </template>
 ```
 
 This allows components like this:
+
 ```vue
 <!-- Child.vue -->
 <script setup>
-throw new Error('Test')
+throw new Error("Test");
 </script>
 
 <template>
-  <p>Hello, world!</p>
+	<p>Hello, world!</p>
 </template>
 ```
 
 To still render their contents, while logging the error.
 
 <!-- tabs:end -->
-
-
-
 
 # Fallback UI
 
@@ -758,62 +743,60 @@ Because our `ErrorBoundary` component renders the children that's passed in, we 
 
 ```jsx
 class ErrorBoundary extends Component {
-  state = { hasError: false };
+	state = { hasError: false };
 
-  static getDerivedStateFromError(error) { 
-      return { hasError: true };  
-  }
-  
-  componentDidCatch(error, errorInfo) {
-      console.log(error, errorInfo);  
-  }
-  
-  render() {
-    if (this.state.hasError) {
-    	return <h1>Something went wrong.</h1>;    
-    }
-    return this.props.children; 
-  }
+	static getDerivedStateFromError(error) {
+		return { hasError: true };
+	}
+
+	componentDidCatch(error, errorInfo) {
+		console.log(error, errorInfo);
+	}
+
+	render() {
+		if (this.state.hasError) {
+			return <h1>Something went wrong.</h1>;
+		}
+		return this.props.children;
+	}
 }
 ```
-
-
 
 ## Angular
 
 Because a custom error handler is implemented using an Angular service, we can use our `inject` function to gain access to the error handler.
 
-From there, it's as simple as storing a Boolean when an error _is_ thrown and using that Boolean to render out a fallback UI when `true`. 
+From there, it's as simple as storing a Boolean when an error _is_ thrown and using that Boolean to render out a fallback UI when `true`.
 
 ```typescript
 import {
-  Component,
-  NgModule,
-  inject,
-  ErrorHandler,
-  OnInit,
-} from '@angular/core';
+	Component,
+	NgModule,
+	inject,
+	ErrorHandler,
+	OnInit,
+} from "@angular/core";
 
 class MyErrorHandler implements ErrorHandler {
-  hadError = false;
+	hadError = false;
 
-  handleError(error) {
-    console.log(error);
-    this.hadError = true;
-  }
+	handleError(error) {
+		console.log(error);
+		this.hadError = true;
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NgIf, ChildComponent],
-  template: `
-    <p *ngIf="errorHandler.hadError">There was an error</p>
-    <child-comp *ngIf="!errorHandler.hadError"/>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [NgIf, ChildComponent],
+	template: `
+		<p *ngIf="errorHandler.hadError">There was an error</p>
+		<child-comp *ngIf="!errorHandler.hadError" />
+	`,
 })
 class AppComponent {
-  errorHandler = inject(ErrorHandler) as MyErrorHandler;
+	errorHandler = inject(ErrorHandler) as MyErrorHandler;
 }
 
 // Provide the error handler
@@ -832,29 +815,26 @@ If it hasn't render our main app, otherwise render our fallback UI.
 ```vue
 <!-- App.vue -->
 <script setup>
-import { onErrorCaptured, ref } from 'vue'
+import { onErrorCaptured, ref } from "vue";
 
-import Child from './Child.vue'
+import Child from "./Child.vue";
 
-const hadError = ref(false)
+const hadError = ref(false);
 
 onErrorCaptured((err, instance, info) => {
-  console.log(err, instance, info)
-  hadError.value = true;
-  return false
-})
+	console.log(err, instance, info);
+	hadError.value = true;
+	return false;
+});
 </script>
 
 <template>
-  <p v-if="hadError">An error occured</p>
-  <Child v-if="!hadError" />
+	<p v-if="hadError">An error occured</p>
+	<Child v-if="!hadError" />
 </template>
 ```
 
 <!-- tabs:end -->
-
-
-
 
 ## Displaying the Error
 
@@ -866,30 +846,28 @@ Let's display to our users the error that's thrown by the component.
 
 ### React
 
-While we previously used `getDerivedStateFromError` to set a Boolean in our `state` object, we can instead use the first argument of the static handler to assign the object to an [`Error` value](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error). 
+While we previously used `getDerivedStateFromError` to set a Boolean in our `state` object, we can instead use the first argument of the static handler to assign the object to an [`Error` value](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error).
 
 ```jsx
 class ErrorBoundary extends Component {
-  state = { error: null };
+	state = { error: null };
 
-  static getDerivedStateFromError(error) {
-      return { error: error };  
-  }
-  
-  componentDidCatch(error, errorInfo) {
-      console.log(error, errorInfo);  
-  }
-  
-  render() {
-    if (this.state.error) {
-    	return <h1>{this.state.error}</h1>;    
-    }
-    return this.props.children; 
-  }
+	static getDerivedStateFromError(error) {
+		return { error: error };
+	}
+
+	componentDidCatch(error, errorInfo) {
+		console.log(error, errorInfo);
+	}
+
+	render() {
+		if (this.state.error) {
+			return <h1>{this.state.error}</h1>;
+		}
+		return this.props.children;
+	}
 }
 ```
-
-
 
 ### Angular
 
@@ -897,33 +875,33 @@ Rather than storing a Boolean when an error occurs, we can store [the error valu
 
 ```typescript
 import {
-  Component,
-  NgModule,
-  inject,
-  ErrorHandler,
-  OnInit,
-} from '@angular/core';
+	Component,
+	NgModule,
+	inject,
+	ErrorHandler,
+	OnInit,
+} from "@angular/core";
 
 class MyErrorHandler implements ErrorHandler {
-  error = null;
+	error = null;
 
-  handleError(error) {
-    console.log(error);
-    this.error = error;
-  }
+	handleError(error) {
+		console.log(error);
+		this.error = error;
+	}
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NgIf, ChildComponent],
-  template: `
-    <p *ngIf="errorHandler.error">{{errorHandler.error}}</p>
-    <child-comp *ngIf="!errorHandler.error"/>
-  `,
+	selector: "app-root",
+	standalone: true,
+	imports: [NgIf, ChildComponent],
+	template: `
+		<p *ngIf="errorHandler.error">{{ errorHandler.error }}</p>
+		<child-comp *ngIf="!errorHandler.error" />
+	`,
 })
 class AppComponent {
-  errorHandler = inject(ErrorHandler) as MyErrorHandler;
+	errorHandler = inject(ErrorHandler) as MyErrorHandler;
 }
 
 // ...
@@ -936,22 +914,22 @@ Using our `ref` to keep track of the error, we can then display the error's cont
 ```vue
 <!-- App.vue -->
 <script setup>
-import { onErrorCaptured, ref } from 'vue'
+import { onErrorCaptured, ref } from "vue";
 
-import Child from './Child.vue'
+import Child from "./Child.vue";
 
-const error = ref(null)
+const error = ref(null);
 
 onErrorCaptured((err, instance, info) => {
-  console.log(err, instance, info)
-  error.value = err
-  return false
-})
+	console.log(err, instance, info);
+	error.value = err;
+	return false;
+});
 </script>
 
 <template>
-  <p v-if="error">{{ error.message }}</p>
-  <Child v-if="!error" />
+	<p v-if="error">{{ error.message }}</p>
+	<Child v-if="!error" />
 </template>
 ```
 
@@ -975,85 +953,82 @@ Let's say that we were building out [our previous code challenge](/posts/ffg-fun
 
 ```jsx
 export const Sidebar = forwardRef(({ toggle }, ref) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const setAndToggle = (v) => {
-    setIsCollapsed(v);
-    toggle(v);
-  };
+	const [isCollapsed, setIsCollapsed] = useState(false);
+	const setAndToggle = (v) => {
+		setIsCollapsed(v);
+		toggle(v);
+	};
 
-  // ...
+	// ...
 
-  const toggleCollapsed = () => {
-    setAndToggle(isCollapsed);
-  };
+	const toggleCollapsed = () => {
+		setAndToggle(isCollapsed);
+	};
 
-  /**
-   * `collapsed` doesn't exist!
-   * It's supposed to be `isCollapsed`! 😱
-   */
-  if (collapsed) {
-    return <button onClick={toggleCollapsed}>Toggle</button>;
-  }
+	/**
+	 * `collapsed` doesn't exist!
+	 * It's supposed to be `isCollapsed`! 😱
+	 */
+	if (collapsed) {
+		return <button onClick={toggleCollapsed}>Toggle</button>;
+	}
 
-  return (
-    <div>
-      <button onClick={toggleCollapsed}>Toggle</button>
-      <ul style={{ padding: '1rem' }}>
-        <li>List item 1</li>
-        <li>List item 2</li>
-        <li>List item 3</li>
-      </ul>
-    </div>
-  );
+	return (
+		<div>
+			<button onClick={toggleCollapsed}>Toggle</button>
+			<ul style={{ padding: "1rem" }}>
+				<li>List item 1</li>
+				<li>List item 2</li>
+				<li>List item 3</li>
+			</ul>
+		</div>
+	);
 });
 ```
 
-------------
+---
 
-Upon rendering the sidebar, we're greeted with  [a JavaScript `ReferenceError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_defined):
+Upon rendering the sidebar, we're greeted with [a JavaScript `ReferenceError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_defined):
 
 ```javascript
 collapsed is not defined
 ```
 
-
-
 ## Angular
 
 ```typescript
-
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  imports: [NgIf],
-  template: `
-     <!-- "isCollapsed" is a boolean! -->
-     <!-- It's supposed to be "toggleCollapsed"! 😱 -->
-  	  <button *ngIf="isCollapsed" (click)="isCollapsed()">Toggle</button>
-      <div *ngIf="!isCollapsed">
-          <button (click)="isCollapsed()">Toggle</button>
-          <ul style="padding: 1rem">
-              <li>List item 1</li>
-              <li>List item 2</li>
-              <li>List item 3</li>
-          </ul>
-      </div>
-  `,
+	selector: "app-sidebar",
+	standalone: true,
+	imports: [NgIf],
+	template: `
+		<!-- "isCollapsed" is a boolean! -->
+		<!-- It's supposed to be "toggleCollapsed"! 😱 -->
+		<button *ngIf="isCollapsed" (click)="isCollapsed()">Toggle</button>
+		<div *ngIf="!isCollapsed">
+			<button (click)="isCollapsed()">Toggle</button>
+			<ul style="padding: 1rem">
+				<li>List item 1</li>
+				<li>List item 2</li>
+				<li>List item 3</li>
+			</ul>
+		</div>
+	`,
 })
 export class SidebarComponent {
-  @Output() toggle = new EventEmitter<boolean>();
+	@Output() toggle = new EventEmitter<boolean>();
 
-  // Notice the type cast to `any`
-  isCollapsed: any = false;
+	// Notice the type cast to `any`
+	isCollapsed: any = false;
 
-  setAndToggle(v: boolean) {
-    this.isCollapsed = v;
-    this.toggle.emit(v);
-  }
+	setAndToggle(v: boolean) {
+		this.isCollapsed = v;
+		this.toggle.emit(v);
+	}
 
-  toggleCollapsed() {
-    this.setAndToggle(!this.isCollapsed);
-  }
+	toggleCollapsed() {
+		this.setAndToggle(!this.isCollapsed);
+	}
 }
 ```
 
@@ -1064,7 +1039,7 @@ export class SidebarComponent {
 > Type 'Boolean' has no call signatures.
 > ```
 
-------
+---
 
 Upon clicking the sidebar toggle, we're greeted with [a JavaScript `TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_function):
 
@@ -1077,32 +1052,32 @@ Error: ctx_r4.isCollapsed is not a function
 ```vue
 <!-- Sidebar.vue -->
 <script setup>
-  import { ref } from 'vue';
-  const emits = defineEmits(['toggle']);
-  const isCollapsed = ref(false);
-  const setAndToggle = (v) => {
-    isCollapsed.value = v;
-    emits('toggle', v);
-  };
-  const toggleCollapsed = () => {
-    setAndToggle(!isCollapsed.value);
-  };
+import { ref } from "vue";
+const emits = defineEmits(["toggle"]);
+const isCollapsed = ref(false);
+const setAndToggle = (v) => {
+	isCollapsed.value = v;
+	emits("toggle", v);
+};
+const toggleCollapsed = () => {
+	setAndToggle(!isCollapsed.value);
+};
 </script>
 
 <template>
-  <button v-if="isCollapsed" @click="collapsed()">Toggle</button>
-  <div v-if="!isCollapsed">
-    <button @click="collapsed()">Toggle</button>
-    <ul style="padding: 1rem">
-      <li>List item 1</li>
-      <li>List item 2</li>
-      <li>List item 3</li>
-    </ul>
-  </div>
+	<button v-if="isCollapsed" @click="collapsed()">Toggle</button>
+	<div v-if="!isCollapsed">
+		<button @click="collapsed()">Toggle</button>
+		<ul style="padding: 1rem">
+			<li>List item 1</li>
+			<li>List item 2</li>
+			<li>List item 3</li>
+		</ul>
+	</div>
 </template>
 ```
 
------------
+---
 
 Upon clicking the sidebar toggle, we're greeted with [a JavaScript `TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_function):
 
@@ -1129,7 +1104,10 @@ We can do this by showing the user [a `mailto:` link](https://developer.mozilla.
 This `mailto:` link might look like the following HTML
 
 ```html
-<a href="mailto:dev@example.com&subject=Bug%20Found&body=There%20was%20an%20error">Email Us</a>
+<a
+	href="mailto:dev@example.com&subject=Bug%20Found&body=There%20was%20an%20error"
+	>Email Us</a
+>
 ```
 
 Where `subject` and `body` are encoded using `encodeURIComponent` like so:
@@ -1142,7 +1120,7 @@ const errorMessage = `
 There was some error that occured. It's unclear why that happened.
 `;
 
-const header = "Bug Found"
+const header = "Bug Found";
 
 const encodedErr = encodeURIComponent(errorMessage);
 
@@ -1151,7 +1129,7 @@ const encodedHeader = encodeURIComponent(header);
 const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedErr}`;
 
 // HREF can be bound via each frameworks' attribute binding syntax
-const html = `<a href="${href}">Email Us</a>`
+const html = `<a href="${href}">Email Us</a>`;
 ```
 
 <!-- TODO: Include screenshot -->
@@ -1172,36 +1150,32 @@ We'll also make sure that this error handler is application-wide to ensure that 
 
 ```jsx
 class ErrorBoundary extends Component {
-  state = { error: null };
+	state = { error: null };
 
-  static getDerivedStateFromError(error) {
-    return { error: error };
-  }
+	static getDerivedStateFromError(error) {
+		return { error: error };
+	}
 
-  render() {
-    const err = this.state.error;
-    if (err) {
-      return (
-        <div>
-          <h1>There was an error</h1>
-          <pre>
-            <code>{err.message}</code>
-          </pre>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
+	render() {
+		const err = this.state.error;
+		if (err) {
+			return (
+				<div>
+					<h1>There was an error</h1>
+					<pre>
+						<code>{err.message}</code>
+					</pre>
+				</div>
+			);
+		}
+		return this.props.children;
+	}
 }
 
 export default function App() {
-  // ...
+	// ...
 
-  return (
-    <ErrorBoundary>
-      {/* The rest of the app */}
-    </ErrorBoundary>
-  );
+	return <ErrorBoundary>{/* The rest of the app */}</ErrorBoundary>;
 }
 ```
 
@@ -1209,75 +1183,74 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'error-catcher',
-  standalone: true,
-  imports: [NgIf],
-  template: `
-  <div *ngIf="errorHandler.error">
-    <h1>There was an error</h1>
-    <pre>
+	selector: "error-catcher",
+	standalone: true,
+	imports: [NgIf],
+	template: `
+		<div *ngIf="errorHandler.error">
+			<h1>There was an error</h1>
+			<pre>
       <code>{{errorHandler.error.message}}</code>
     </pre>
-  </div>
-  <ng-content *ngIf="!errorHandler.error"></ng-content>
-  `,
+		</div>
+		<ng-content *ngIf="!errorHandler.error"></ng-content>
+	`,
 })
 class ErrorCatcher {
-  errorHandler = inject(ErrorHandler) as MyErrorHandler;
+	errorHandler = inject(ErrorHandler) as MyErrorHandler;
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  // ...
-  template: `
-    <error-catcher>
-      <!-- The rest of the app -->
-    </error-catcher>
-  `,
+	selector: "app-root",
+	standalone: true,
+	// ...
+	template: `
+		<error-catcher>
+			<!-- The rest of the app -->
+		</error-catcher>
+	`,
 })
 class AppComponent {}
 ```
-
 
 ### Vue
 
 ```vue
 <!-- ErrorCatcher.vue -->
 <script setup>
-import { onErrorCaptured, ref } from 'vue';
+import { onErrorCaptured, ref } from "vue";
 
 const error = ref(null);
 
 onErrorCaptured((err, instance, info) => {
-  error.value = err;
-  return false;
+	error.value = err;
+	return false;
 });
 </script>
 
 <template>
-  <div v-if="error">
-    <h1>There was an error</h1>
-    <pre>
+	<div v-if="error">
+		<h1>There was an error</h1>
+		<pre>
       <code>{{error.message}}</code>
     </pre>
-  </div>
-  <slot v-if="!error" />
+	</div>
+	<slot v-if="!error" />
 </template>
 ```
 
 ```vue
 <!-- App.vue -->
 <script setup>
-  import ErrorCatcher from './ErrorCatcher.vue';
+import ErrorCatcher from "./ErrorCatcher.vue";
 
-  // ...
+// ...
 </script>
 
 <template>
-  <ErrorCatcher>
-	<!-- The rest of the app -->
-  </ErrorCatcher>
+	<ErrorCatcher>
+		<!-- The rest of the app -->
+	</ErrorCatcher>
 </template>
 ```
 
@@ -1285,7 +1258,7 @@ onErrorCaptured((err, instance, info) => {
 
 ## Showing a Nicer Error Message
 
-Now that we have a method of showing the error to the user when it occurs, let's make sure that we can report the bug back to the development team. We'll do this by displaying all the information a user would need to report a bug, alongside an auto-filled `mailto:` link so that emailing the developer is a single-button press away. 
+Now that we have a method of showing the error to the user when it occurs, let's make sure that we can report the bug back to the development team. We'll do this by displaying all the information a user would need to report a bug, alongside an auto-filled `mailto:` link so that emailing the developer is a single-button press away.
 
 <!-- tabs:start -->
 
@@ -1293,18 +1266,18 @@ Now that we have a method of showing the error to the user when it occurs, let's
 
 ```jsx
 class ErrorBoundary extends Component {
-  state = { error: null };
+	state = { error: null };
 
-  static getDerivedStateFromError(error) {
-    return { error: error };
-  }
+	static getDerivedStateFromError(error) {
+		return { error: error };
+	}
 
-  render() {
-    const err = this.state.error;
-    if (err) {
-      const mailTo = 'dev@example.com';
-      const header = 'Bug Found';
-      const message = `
+	render() {
+		const err = this.state.error;
+		if (err) {
+			const mailTo = "dev@example.com";
+			const header = "Bug Found";
+			const message = `
       There was a bug found of type: "${err.name}".
 
       The message was: "${err.message}".
@@ -1316,46 +1289,46 @@ class ErrorBoundary extends Component {
       """
       `.trim();
 
-      const encodedMsg = encodeURIComponent(message);
+			const encodedMsg = encodeURIComponent(message);
 
-      const encodedHeader = encodeURIComponent(header);
+			const encodedHeader = encodeURIComponent(header);
 
-      const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedMsg}`;
+			const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedMsg}`;
 
-      return (
-        <div>
-          <h1>{err.name}</h1>
-          <pre>
-            <code>{err.message}</code>
-          </pre>
-          <a href={href}>Email us to report the bug</a>
-          <br />
-          <br />
-          <details>
-            <summary>Error stack</summary>
-            <pre>
-              <code>{err.stack}</code>
-            </pre>
-          </details>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
+			return (
+				<div>
+					<h1>{err.name}</h1>
+					<pre>
+						<code>{err.message}</code>
+					</pre>
+					<a href={href}>Email us to report the bug</a>
+					<br />
+					<br />
+					<details>
+						<summary>Error stack</summary>
+						<pre>
+							<code>{err.stack}</code>
+						</pre>
+					</details>
+				</div>
+			);
+		}
+		return this.props.children;
+	}
 }
 ```
 
 ### Angular
 
 ```typescript
-@Pipe({ name: 'errorHref', standalone: true })
+@Pipe({ name: "errorHref", standalone: true })
 export class ErrorHrefPipe implements PipeTransform {
-  transform(err: Error | null): string {
-    console.log({ err });
-    if (!err) return '';
-    const mailTo = 'dev@example.com';
-    const header = 'Bug Found';
-    const message = `
+	transform(err: Error | null): string {
+		console.log({ err });
+		if (!err) return "";
+		const mailTo = "dev@example.com";
+		const header = "Bug Found";
+		const message = `
     There was a bug found of type: "${err.name}".
 
     The message was: "${err.message}".
@@ -1367,41 +1340,41 @@ export class ErrorHrefPipe implements PipeTransform {
     """
     `.trim();
 
-    const encodedMsg = encodeURIComponent(message);
+		const encodedMsg = encodeURIComponent(message);
 
-    const encodedHeader = encodeURIComponent(header);
+		const encodedHeader = encodeURIComponent(header);
 
-    const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedMsg}`;
+		const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedMsg}`;
 
-    return href;
-  }
+		return href;
+	}
 }
 
 @Component({
-  selector: 'error-catcher',
-  standalone: true,
-  imports: [NgIf, ErrorHrefPipe],
-  template: `
-  <div *ngIf="errorHandler.error">
-    <h1>{{ errorHandler.error.name }}</h1>
-    <pre>
+	selector: "error-catcher",
+	standalone: true,
+	imports: [NgIf, ErrorHrefPipe],
+	template: `
+		<div *ngIf="errorHandler.error">
+			<h1>{{ errorHandler.error.name }}</h1>
+			<pre>
       <code>{{errorHandler.error.message}}</code>
     </pre>
-    <a [href]="errorHandler.error | errorHref">Email us to report the bug</a>
-    <br />
-    <br />
-    <details>
-      <summary>Error stack</summary>
-      <pre>
+			<a [href]="errorHandler.error | errorHref">Email us to report the bug</a>
+			<br />
+			<br />
+			<details>
+				<summary>Error stack</summary>
+				<pre>
         <code>{{errorHandler.error.stack}}</code>
       </pre>
-    </details>
-  </div>
-  <ng-content *ngIf="!errorHandler.error"></ng-content>
-  `,
+			</details>
+		</div>
+		<ng-content *ngIf="!errorHandler.error"></ng-content>
+	`,
 })
 class ErrorCatcher {
-  errorHandler = inject(ErrorHandler) as MyErrorHandler;
+	errorHandler = inject(ErrorHandler) as MyErrorHandler;
 }
 ```
 
@@ -1409,16 +1382,16 @@ class ErrorCatcher {
 
 ```vue
 <script setup>
-import { onErrorCaptured, ref, computed } from 'vue';
+import { onErrorCaptured, ref, computed } from "vue";
 
 const error = ref(null);
 
-const mailTo = 'dev@example.com';
-const header = 'Bug Found';
+const mailTo = "dev@example.com";
+const header = "Bug Found";
 const message = computed(() =>
-  !error.value
-    ? ''
-    : `
+	!error.value
+		? ""
+		: `
       There was a bug found of type: "${error.value.name}".
 
       The message was: "${error.value.message}".
@@ -1428,7 +1401,7 @@ const message = computed(() =>
       """
       ${error.value.stack}
       """
-      `.trim()
+      `.trim(),
 );
 
 const encodedMsg = computed(() => encodeURIComponent(message.value));
@@ -1436,34 +1409,33 @@ const encodedMsg = computed(() => encodeURIComponent(message.value));
 const encodedHeader = encodeURIComponent(header);
 
 const href = computed(
-  () => `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedMsg.value}`
+	() => `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedMsg.value}`,
 );
 
 onErrorCaptured((err, instance, info) => {
-  error.value = err;
-  return false;
+	error.value = err;
+	return false;
 });
 </script>
 
 <template>
-  <div v-if="error">
-    <h1>{{ error.name }}</h1>
-    <pre>
+	<div v-if="error">
+		<h1>{{ error.name }}</h1>
+		<pre>
       <code>{{error.message}}</code>
     </pre>
-    <a :href="href">Email us to report the bug</a>
-    <br />
-    <br />
-    <details>
-      <summary>Error stack</summary>
-      <pre>
+		<a :href="href">Email us to report the bug</a>
+		<br />
+		<br />
+		<details>
+			<summary>Error stack</summary>
+			<pre>
         <code>{{error.stack}}</code>
       </pre>
-    </details>
-  </div>
-  <slot v-if="!error" />
+		</details>
+	</div>
+	<slot v-if="!error" />
 </template>
 ```
 
 <!-- tabs:end -->
-
