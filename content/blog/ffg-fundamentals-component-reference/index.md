@@ -191,6 +191,32 @@ class AppComponent {
 
 ```vue
 <!-- ContextMenu.vue -->
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue'
+
+  const props = defineProps(['isOpen', 'x', 'y'])
+
+  const emit = defineEmits(['close'])
+
+  const contextMenuRef = ref(null)
+
+  function closeIfOutside(e) {
+    const contextMenuEl = contextMenuRef.value
+    if (!contextMenuEl) return
+    const isClickInside = contextMenuEl.contains(e.target)
+    if (isClickInside) return
+    emit('close')
+  }
+
+  onMounted(() => {
+    document.addEventListener('click', closeIfOutside)
+  })
+
+  onUnmounted(() => {
+    document.removeEventListener('click', closeIfOutside)
+  })
+</script>
+
 <template>
   <div
     v-if="props.isOpen"
@@ -210,67 +236,41 @@ class AppComponent {
     This is a context menu
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-
-const props = defineProps(['isOpen', 'x', 'y'])
-
-const emit = defineEmits(['close'])
-
-const contextMenuRef = ref(null)
-
-function closeIfOutside(e) {
-  const contextMenuEl = contextMenuRef.value
-  if (!contextMenuEl) return
-  const isClickInside = contextMenuEl.contains(e.target)
-  if (isClickInside) return
-  emit('close')
-}
-
-onMounted(() => {
-  document.addEventListener('click', closeIfOutside)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', closeIfOutside)
-})
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue'
+  import ContextMenu from './ContextMenu.vue'
+
+  const isOpen = ref(false)
+
+  const mouseBounds = ref({
+    x: 0,
+    y: 0,
+  })
+
+  const close = () => {
+    isOpen.value = false
+  }
+
+  const open = (e) => {
+    e.preventDefault()
+    isOpen.value = true
+    mouseBounds.value = {
+      x: e.clientX,
+      y: e.clientY,
+    }
+  }
+</script>
+
 <template>
   <div style="margin-top: 5rem; margin-left: 5rem">
     <div @contextmenu="open($event)">Right click on me!</div>
   </div>
   <ContextMenu :isOpen="isOpen" :x="mouseBounds.x" :y="mouseBounds.y" @close="close()" />
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import ContextMenu from './ContextMenu.vue'
-
-const isOpen = ref(false)
-
-const mouseBounds = ref({
-  x: 0,
-  y: 0,
-})
-
-const close = () => {
-  isOpen.value = false
-}
-
-const open = (e) => {
-  e.preventDefault()
-  isOpen.value = true
-  mouseBounds.value = {
-    x: e.clientX,
-    y: e.clientY,
-  }
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -580,20 +580,20 @@ We're not able to do much with this component instance currently. If we change o
 
 ```vue
 <!-- Parent.vue -->
+<script setup>
+  import {ref, onMounted} from "vue";
+  import Child from './Child.vue';
+
+  const childComp = ref();
+
+  onMounted(() => {
+    console.log(childComp.value.pi);
+  })
+</script>
+
 <template>
   <Child ref="childComp"/>
 </template>
-
-<script setup>
-import {ref, onMounted} from "vue";
-import Child from './Child.vue';
-
-const childComp = ref();
-
-onMounted(() => {
-  console.log(childComp.value.pi);
-})
-</script>
 ```
 
  We'll see that `childComp.value.pi` is `undefined` currently. This is because, by default, Vue's `setup script` does not "expose" internal variables to component refences externally.
@@ -602,43 +602,43 @@ To fix this, we can use Vue's `defineExpose` global API to allow parent componen
 
 ```vue
 <!-- Child.vue -->
+<script setup>
+  const pi = 3.14;
+
+  function sayHi() {
+    console.log('Hello, world');
+  }
+
+  defineExpose({
+    pi,
+    sayHi
+  })
+</script>
+
 <template>
   <div></div>
 </template>
-
-<script setup>
-const pi = 3.14;
-
-function sayHi() {
-  console.log('Hello, world');
-}
-
-defineExpose({
-  pi,
-  sayHi
-})
-</script>
 ```
 
 Because we now have access to the component instance, we can access data and call methods similar to how we're able to access data and call a methods from an element reference.
 
 ```vue
 <!-- Parent.vue -->
+<script setup>
+  import {ref, onMounted} from "vue";
+  import Child from './Child.vue';
+
+  const childComp = ref();
+
+  onMounted(() => {
+    console.log(childComp.value.pi);
+    childComp.value.sayHi();
+  })
+</script>
+
 <template>
   <Child ref="childComp"/>
 </template>
-
-<script setup>
-import {ref, onMounted} from "vue";
-import Child from './Child.vue';
-
-const childComp = ref();
-
-onMounted(() => {
-  console.log(childComp.value.pi);
-  childComp.value.sayHi();
-})
-</script>
 ```
 
 <!-- tabs:end -->
@@ -860,6 +860,40 @@ class AppComponent {
 
 ```vue
 <!-- ContextMenu.vue -->
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue'
+
+  const props = defineProps(['isOpen', 'x', 'y'])
+
+  const emit = defineEmits(['close'])
+
+  const contextMenuRef = ref(null)
+
+  function closeIfOutside(e) {
+    const contextMenuEl = contextMenuRef.value
+    if (!contextMenuEl) return
+    const isClickInside = contextMenuEl.contains(e.target)
+    if (isClickInside) return
+    emit('close')
+  }
+
+  onMounted(() => {
+    document.addEventListener('click', closeIfOutside)
+  })
+
+  onUnmounted(() => {
+    document.removeEventListener('click', closeIfOutside)
+  })
+
+  function focusMenu() {
+    contextMenuRef.value.focus()
+  }
+
+  defineExpose({
+    focusMenu,
+  })
+</script>
+
 <template>
   <div
     v-if="props.isOpen"
@@ -879,80 +913,46 @@ class AppComponent {
     This is a context menu
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-
-const props = defineProps(['isOpen', 'x', 'y'])
-
-const emit = defineEmits(['close'])
-
-const contextMenuRef = ref(null)
-
-function closeIfOutside(e) {
-  const contextMenuEl = contextMenuRef.value
-  if (!contextMenuEl) return
-  const isClickInside = contextMenuEl.contains(e.target)
-  if (isClickInside) return
-  emit('close')
-}
-
-onMounted(() => {
-  document.addEventListener('click', closeIfOutside)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', closeIfOutside)
-})
-
-function focusMenu() {
-  contextMenuRef.value.focus()
-}
-
-defineExpose({
-  focusMenu,
-})
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue'
+  import ContextMenu from './ContextMenu.vue'
+
+  const isOpen = ref(false)
+
+  const mouseBounds = ref({
+    x: 0,
+    y: 0,
+  })
+
+  const contextMenu = ref()
+
+  const close = () => {
+    isOpen.value = false
+  }
+
+  const open = (e) => {
+    e.preventDefault()
+    isOpen.value = true
+    mouseBounds.value = {
+      x: e.clientX,
+      y: e.clientY,
+    }
+    setTimeout(() => {
+      contextMenu.value.focusMenu()
+    }, 0)
+  }
+</script>
+
 <template>
   <div style="margin-top: 5rem; margin-left: 5rem">
     <div @contextmenu="open($event)">Right click on me!</div>
   </div>
   <ContextMenu ref="contextMenu" :isOpen="isOpen" :x="mouseBounds.x" :y="mouseBounds.y" @close="close()" />
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import ContextMenu from './ContextMenu.vue'
-
-const isOpen = ref(false)
-
-const mouseBounds = ref({
-  x: 0,
-  y: 0,
-})
-
-const contextMenu = ref()
-
-const close = () => {
-  isOpen.value = false
-}
-
-const open = (e) => {
-  e.preventDefault()
-  isOpen.value = true
-  mouseBounds.value = {
-    x: e.clientX,
-    y: e.clientY,
-  }
-  setTimeout(() => {
-    contextMenu.value.focusMenu()
-  }, 0)
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1067,6 +1067,10 @@ export class AppComponent {
 
 ```vue
 <!-- Layout.vue -->
+<script setup>
+  const props = defineProps(["sidebarWidth"]);
+</script>
+
 <template>
     <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
         <div :style="`
@@ -1082,24 +1086,20 @@ export class AppComponent {
         </div>
     </div>
 </template>
-
-<script setup>
-const props = defineProps(["sidebarWidth"]);
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import Layout from "./Layout.vue";
+</script>
+
 <template>
     <Layout :sidebarWidth="150">
         <template #sidebar><p>Sidebar</p></template>
         <p style="padding: 1rem">Hi there!</p>
     </Layout>
 </template>
-
-<script setup>
-  import Layout from "./Layout.vue";
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1244,6 +1244,23 @@ export class AppComponent {
 
 ```vue
 <!-- Sidebar.vue -->
+<script setup>
+  import {ref} from "vue";
+
+  const emit = defineEmits(["toggle"]);
+
+  const isCollapsed = ref(false);
+
+  function setAndToggle(v) {
+    isCollapsed.value = v;
+    emit("toggle", v);
+  };
+
+  function toggleCollapsed() {
+    setAndToggle(!isCollapsed.value);
+  };
+</script>
+
 <template>
   <button v-if="isCollapsed" @click="toggleCollapsed()">Toggle</button>
   <div v-if="!isCollapsed">
@@ -1258,27 +1275,29 @@ export class AppComponent {
     </ul>
   </div>
 </template>
-
-<script setup>
-import {ref} from "vue";
-
-const emit = defineEmits(["toggle"]);
-
-const isCollapsed = ref(false);
-
-function setAndToggle(v) {
-  isCollapsed.value = v;
-  emit("toggle", v);
-};
-
-function toggleCollapsed() {
-  setAndToggle(!isCollapsed.value);
-};
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import Layout from "./Layout.vue";
+  import Sidebar from "./Sidebar.vue";
+  import {ref} from "vue";
+
+  const collapsedWidth = 100;
+  const expandedWidth = 150;
+
+  const width = ref(expandedWidth);
+
+  function onToggle(isCollapsed) {
+    if (isCollapsed) {
+      width.value = collapsedWidth;
+      return;
+    }
+    width.value = expandedWidth;
+  }
+</script>
+
 <template>
   <Layout :sidebarWidth="width">
     <template #sidebar>
@@ -1290,25 +1309,6 @@ function toggleCollapsed() {
   </Layout>
 
 </template>
-
-<script setup>
-import Layout from "./Layout.vue";
-import Sidebar from "./Sidebar.vue";
-import {ref} from "vue";
-
-const collapsedWidth = 100;
-const expandedWidth = 150;
-
-const width = ref(expandedWidth);
-
-function onToggle(isCollapsed) {
-  if (isCollapsed) {
-    width.value = collapsedWidth;
-    return;
-  }
-  width.value = expandedWidth;
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1579,17 +1579,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
 ```vue
 <!-- App.vue -->
-<template>
-    <Layout :sidebarWidth="width">
-        <template #sidebar>
-            <Sidebar ref="sidebar" @toggle="onToggle($event)"/>
-        </template>
-        <p style="padding: 1rem">Hi there!</p>
-    </Layout>
-</template>
-
 <script setup>
-import {onMounted, onUnmounted, ref} from "vue";
+  import {onMounted, onUnmounted, ref} from "vue";
   import Layout from "./Layout.vue";
   import Sidebar from "./Sidebar.vue";
 
@@ -1602,29 +1593,38 @@ import {onMounted, onUnmounted, ref} from "vue";
   const width = ref(expandedWidth);
 
   const onToggle = (isCollapsed) => {
-      if (isCollapsed) {
-          width.value = collapsedWidth;
-          return;
-      }
-      width.value = expandedWidth;
+    if (isCollapsed) {
+      width.value = collapsedWidth;
+      return;
+    }
+    width.value = expandedWidth;
   }
 
   const onResize = () => {
-      if (window.innerWidth < widthToCollapseAt) {
-          sidebar.value.collapse()
-      } else if (sidebar.value.isCollapsed) {
-          sidebar.value.expand()
-      }
+    if (window.innerWidth < widthToCollapseAt) {
+      sidebar.value.collapse()
+    } else if (sidebar.value.isCollapsed) {
+      sidebar.value.expand()
+    }
   }
 
   onMounted(() => {
-      window.addEventListener('resize', onResize)
+    window.addEventListener('resize', onResize)
   })
 
   onUnmounted(() => {
-      window.removeEventListener('resize', onResize)
+    window.removeEventListener('resize', onResize)
   })
 </script>
+
+<template>
+    <Layout :sidebarWidth="width">
+        <template #sidebar>
+            <Sidebar ref="sidebar" @toggle="onToggle($event)"/>
+        </template>
+        <p style="padding: 1rem">Hi there!</p>
+    </Layout>
+</template>
 ```
 
 <!-- tabs:end -->

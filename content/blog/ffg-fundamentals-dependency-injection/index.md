@@ -231,29 +231,29 @@ Vue's dependency injection API only has two parts to it:
 
 ```vue
 <!-- Parent.vue -->
+<script setup>
+  import { provide } from 'vue'
+  import Child from './Child.vue'
+
+  provide('WELCOME_MESSAGE', 'Hello, world!')
+</script>
+
 <template>
   <Child />
 </template>
-
-<script setup>
-import { provide } from 'vue'
-import Child from './Child.vue'
-
-provide('WELCOME_MESSAGE', 'Hello, world!')
-</script>
 ```
 
 ```vue
 <!-- Child.vue -->
+<script setup>
+  import { inject } from 'vue'
+
+  const welcomeMsg = inject('WELCOME_MESSAGE')
+</script>
+
 <template>
   <p>{{ welcomeMsg }}</p>
 </template>
-
-<script setup>
-import { inject } from 'vue'
-
-const welcomeMsg = inject('WELCOME_MESSAGE')
-</script>
 ```
 
 <!-- tabs:end -->
@@ -374,30 +374,30 @@ Just like React, Vue's simple dependency injection API means that we only need t
 
 ```vue
 <!-- Parent.vue -->
+<script setup>
+  import { provide } from 'vue'
+  import Child from './Child.vue'
+
+  const welcomeObj = { message: 'Hello, world!' }
+  provide('WELCOME_MESSAGE', welcomeObj)
+</script>
+
 <template>
   <Child />
 </template>
-
-<script setup>
-import { provide } from 'vue'
-import Child from './Child.vue'
-
-const welcomeObj = { message: 'Hello, world!' }
-provide('WELCOME_MESSAGE', welcomeObj)
-</script>
 ```
 
 ```vue
 <!-- Child.vue -->
+<script setup>
+  import { inject } from 'vue'
+
+  const welcomeMsgObj = inject('WELCOME_MESSAGE')
+</script>
+
 <template>
   <p>{{ welcomeMsgObj.message }}</p>
 </template>
-
-<script setup>
-import { inject } from 'vue'
-
-const welcomeMsgObj = inject('WELCOME_MESSAGE')
-</script>
 ```
 
 <!-- tabs:end -->
@@ -482,38 +482,38 @@ Vue's minimal API surface allows us to compose `ref` and `provide` usage in orde
 
 ```vue
 <!-- Parent.vue -->
+<script setup>
+  import { provide, ref } from 'vue'
+  import Child from './Child.vue'
+
+  const welcomeMessage = ref('Initial value')
+  provide('WELCOME_MESSAGE', welcomeMessage)
+
+  function updateMessage() {
+    welcomeMessage.value = 'Updated value'
+  }
+</script>
+
 <template>
   <Child />
   <button @click="updateMessage()">Update the message</button>
 </template>
-
-<script setup>
-import { provide, ref } from 'vue'
-import Child from './Child.vue'
-
-const welcomeMessage = ref('Initial value')
-provide('WELCOME_MESSAGE', welcomeMessage)
-
-function updateMessage() {
-  welcomeMessage.value = 'Updated value'
-}
-</script>
 ```
 
 ```vue
 <!-- Child.vue -->
+<script setup>
+  import { inject } from 'vue'
+
+  // Worth mentioning, `welcomeMessage` is now _not_ a string, but rather a `ref`
+  // If you needed to use `welcomeMessage` inside of `<script setup>`, you'd
+  // need to use `.value`
+  const welcomeMessage = inject('WELCOME_MESSAGE')
+</script>
+
 <template>
   <p>{{ welcomeMessage }}</p>
 </template>
-
-<script setup>
-import { inject } from 'vue'
-
-// Worth mentioning, `welcomeMessage` is now _not_ a string, but rather a `ref`
-// If you needed to use `welcomeMessage` inside of `<script setup>`, you'd
-// need to use `.value`
-const welcomeMessage = inject('WELCOME_MESSAGE')
-</script>
 ```
 
 <!-- tabs:end -->
@@ -794,35 +794,35 @@ In our previous example, we used `provide` to inject a `ref` into the child comp
 
 ```vue
 <!-- Parent.vue -->
+<script setup>
+  import { provide, ref } from 'vue'
+  import Child from './Child.vue'
+
+  const welcomeMessage = ref('Initial value')
+  provide('WELCOME_MESSAGE', welcomeMessage)
+</script>
+
 <template>
   <Child />
 </template>
-
-<script setup>
-import { provide, ref } from 'vue'
-import Child from './Child.vue'
-
-const welcomeMessage = ref('Initial value')
-provide('WELCOME_MESSAGE', welcomeMessage)
-</script>
 ```
 
 ```vue
 <!-- Child.vue -->
+<script setup>
+  import { inject } from 'vue'
+
+  const welcomeMessage = inject('WELCOME_MESSAGE')
+
+  function updateMessage() {
+    welcomeMessage.value = 'Updated value'
+  }
+</script>
+
 <template>
   <p>{{ welcomeMessage }}</p>
   <button @click="updateMessage()">Update the message</button>
 </template>
-
-<script setup>
-import { inject } from 'vue'
-
-const welcomeMessage = inject('WELCOME_MESSAGE')
-
-function updateMessage() {
-  welcomeMessage.value = 'Updated value'
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -964,29 +964,29 @@ Much like React's dependency injection system, when using Vue's `inject` without
 
 ``` vue
 <!-- Parent.vue -->
-<template>
-  <Child />
-</template>
-
 <script setup>
 import Child from './Child.vue'
 </script>
+
+<template>
+  <Child />
+</template>
 ```
 
 ```vue
 <!-- Child.vue -->
+<script setup>
+  import { inject } from 'vue'
+
+  const welcomeMessage = inject('WELCOME_MESSAGE')
+
+  // undefined
+  console.log(welcomeMessage)
+</script>
+
 <template>
   <p v-if="welcomeMessage">{{ welcomeMessage }}</p>
 </template>
-
-<script setup>
-import { inject } from 'vue'
-
-const welcomeMessage = inject('WELCOME_MESSAGE')
-
-// undefined
-console.log(welcomeMessage)
-</script>
 ```
 
 > You may see a warning like this in your `console` if you do this:
@@ -1065,18 +1065,18 @@ Vue is the only framework of the three that supports a built-in way to provide a
 
 ```vue
 <!-- Child.vue -->
+<script setup>
+  import { inject } from 'vue'
+
+  const welcomeMessage = inject('WELCOME_MESSAGE', 'Default value')
+
+  // "Default value"
+  console.log(welcomeMessage)
+</script>
+
 <template>
   <p>{{ welcomeMessage }}</p>
 </template>
-
-<script setup>
-import { inject } from 'vue'
-
-const welcomeMessage = inject('WELCOME_MESSAGE', 'Default value')
-
-// "Default value"
-console.log(welcomeMessage)
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1264,17 +1264,17 @@ Providing a value at your application's root in Vue is similar to providing a va
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { provide, ref } from 'vue'
+  import Child from './Child.vue'
+
+  const welcomeMessage = ref('Hello, world!')
+  provide('WELCOME_MESSAGE', welcomeMessage)
+</script>
+
 <template>
   <Child />
 </template>
-
-<script setup>
-import { provide, ref } from 'vue'
-import Child from './Child.vue'
-
-const welcomeMessage = ref('Hello, world!')
-provide('WELCOME_MESSAGE', welcomeMessage)
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1437,56 +1437,56 @@ class AppComponent {}
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { provide } from 'vue'
+  import Child from './Child.vue'
+
+  provide('NAME', 'Corbin')
+</script>
+
 <template>
   <Child />
 </template>
-
-<script setup>
-import { provide } from 'vue'
-import Child from './Child.vue'
-
-provide('NAME', 'Corbin')
-</script>
 ```
 
 ```vue
 <!-- Child.vue -->
+<script setup>
+  import GrandChild from './GrandChild.vue'
+</script>
+
 <template>
   <GrandChild />
 </template>
-
-<script setup>
-import GrandChild from './GrandChild.vue'
-</script>
 ```
 
 ```vue
 <!-- GrandChild.vue -->
+<script setup>
+  import { provide } from 'vue'
+  import GreatGrandChild from './GreatGrandChild.vue'
+
+  // Notice the new provider here, it will suppliment the `App` injected value
+  // for all child components of `GrandChild`
+  provide('NAME', 'Kevin')
+</script>
+
 <template>
   <GreatGrandChild />
 </template>
-
-<script setup>
-import { provide } from 'vue'
-import GreatGrandChild from './GreatGrandChild.vue'
-
-// Notice the new provider here, it will suppliment the `App` injected value
-// for all child components of `GrandChild`
-provide('NAME', 'Kevin')
-</script>
 ```
 
 ```vue
 <!-- GreatGrandChild.vue -->
+<script setup>
+  import { inject } from 'vue'
+
+  const name = inject('NAME')
+</script>
+
 <template>
   <p>Name: {{ name }}</p>
 </template>
-
-<script setup>
-import { inject } from 'vue'
-
-const name = inject('NAME')
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1613,57 +1613,57 @@ class AppComponent {}
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { provide } from 'vue'
+  import Child from './Child.vue'
+
+  provide('NAME', 'Corbin')
+</script>
+
 <template>
   <Child />
 </template>
-
-<script setup>
-import { provide } from 'vue'
-import Child from './Child.vue'
-
-provide('NAME', 'Corbin')
-</script>
 ```
 
 ```vue
 <!-- Child.vue -->
+<script setup>
+  import GrandChild from './GrandChild.vue'
+</script>
+
 <template>
   <GrandChild />
 </template>
-
-<script setup>
-import GrandChild from './GrandChild.vue'
-</script>
 ```
 
 ```vue
 <!-- GrandChild.vue -->
+<script setup>
+  import { provide } from 'vue'
+  import GreatGrandChild from './GreatGrandChild.vue'
+
+  provide('AGE', 24)
+</script>
+
 <template>
   <GreatGrandChild />
 </template>
-
-<script setup>
-import { provide } from 'vue'
-import GreatGrandChild from './GreatGrandChild.vue'
-
-provide('AGE', 24)
-</script>
 ```
 
 ```vue
 <!-- GreatGrandChild.vue -->
+<script setup>
+  import { inject } from 'vue'
+
+  // Despite the `AGE` being closer, this is 
+  // specifically looking for the `NAME` and will 
+  // go further up in the tree to find that data from `App`
+  const name = inject('NAME')
+</script>
+
 <template>
   <p>Name: {{ name }}</p>
 </template>
-
-<script setup>
-import { inject } from 'vue'
-
-// Despite the `AGE` being closer, this is 
-// specifically looking for the `NAME` and will 
-// go further up in the tree to find that data from `App`
-const name = inject('NAME')
-</script>
 ```
 
 <!-- tabs:end -->
@@ -2069,6 +2069,12 @@ export class SidebarComponent {}
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import Layout from './Layout.vue';
+  import Sidebar from './Sidebar.vue';
+  import FileList from './FileList.vue';
+</script>
+
 <template>
   <Layout>
     <template #sidebar>
@@ -2077,16 +2083,12 @@ export class SidebarComponent {}
     <FileList />
   </Layout>
 </template>
-
-<script setup>
-import Layout from './Layout.vue';
-import Sidebar from './Sidebar.vue';
-import FileList from './FileList.vue';
-</script>
 ```
 
 ```vue
 <!-- Layout.vue -->
+<script setup></script>
+
 <template>
   <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
     <div
@@ -2103,30 +2105,28 @@ import FileList from './FileList.vue';
     </div>
   </div>
 </template>
-
-<script setup></script>
 ```
 
 ```vue
 <!-- Sidebar.vue -->
+<script setup></script>
+
 <template>
   <div style="padding: 1rem">
     <h1 style="font-size: 1.25rem">Directories</h1>
   </div>
 </template>
-
-<script setup></script>
 ```
 
 ```vue
 <!-- FileList.vue -->
+<script setup></script>
+
 <template>
   <div style="padding: 1rem">
     <h1>Files</h1>
   </div>
 </template>
-
-<script setup></script>
 ```
 
 <!-- tabs:end -->
@@ -3495,6 +3495,12 @@ export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import Layout from './Layout.vue';
+  import Sidebar from './Sidebar.vue';
+  import FileList from './FileList.vue';
+</script>
+
 <template>
     <Layout>
         <template #sidebar>
@@ -3503,16 +3509,12 @@ export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
         <FileList/>
     </Layout>
 </template>
-
-<script setup>
-import Layout from './Layout.vue';
-import Sidebar from './Sidebar.vue';
-import FileList from './FileList.vue';
-</script>
 ```
 
 ```vue
 <!-- Layout.vue -->
+<script setup></script>
+
 <template>
     <div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
         <div
@@ -3529,132 +3531,158 @@ import FileList from './FileList.vue';
         </div>
     </div>
 </template>
-
-<script setup>
-</script>
 ```
 
 ```vue
 <!-- Sidebar.vue -->
+<script setup>
+  import {provide} from "vue";
+  import File from './File.vue';
+
+  const directories = [
+    {
+      name: 'Movies',
+      id: 1,
+    },
+    {
+      name: 'Documents',
+      id: 2,
+    },
+    {
+      name: 'Etc',
+      id: 3,
+    },
+  ];
+
+  const getDirectoryById = (id) => {
+    return directories.find((dir) => dir.id === id);
+  };
+
+  const onCopy = (id) => {
+    const dir = getDirectoryById(id);
+    // Some browsers still do not support this
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(dir.name);
+      alert('Name is copied');
+    } else {
+      alert('Unable to copy directory name due to browser incompatibility');
+    }
+  };
+
+  provide("ContextMenu", {
+    actions: [
+      {
+        label: 'Copy directory name',
+        fn: onCopy,
+      },
+    ],
+  })
+</script>
+
 <template>
     <div style="padding: 1rem">
         <h1 style="font-size: 1.25rem">Directories</h1>
         <File v-for="directory of directories" :key="directory.id" :name="directory.name" :id="directory.id"/>
     </div>
 </template>
-
-<script setup>
-import {provide} from "vue";
-import File from './File.vue';
-
-const directories = [
-    {
-        name: 'Movies',
-        id: 1,
-    },
-    {
-        name: 'Documents',
-        id: 2,
-    },
-    {
-        name: 'Etc',
-        id: 3,
-    },
-];
-
-const getDirectoryById = (id) => {
-    return directories.find((dir) => dir.id === id);
-};
-
-const onCopy = (id) => {
-    const dir = getDirectoryById(id);
-    // Some browsers still do not support this
-    if (navigator?.clipboard?.writeText) {
-        navigator.clipboard.writeText(dir.name);
-        alert('Name is copied');
-    } else {
-        alert('Unable to copy directory name due to browser incompatibility');
-    }
-};
-
-provide("ContextMenu", {
-    actions: [
-        {
-            label: 'Copy directory name',
-            fn: onCopy,
-        },
-    ],
-})
-</script>
 ```
 
 ```vue
 <!-- FileList.vue -->
+<script setup>
+  import {provide, ref} from "vue";
+  import File from './File.vue';
+
+  const files = ref([
+    {
+      name: 'Testing.wav',
+      id: 1,
+    },
+    {
+      name: 'Secrets.txt',
+      id: 2,
+    },
+    {
+      name: 'Other.md',
+      id: 3,
+    },
+  ]);
+
+  const getFileIndexById = (id) => {
+    return files.value.findIndex((file) => file.id === id);
+  };
+
+  const onRename = (id) => {
+    const fileIndex = getFileIndexById(id);
+    const file = files.value[fileIndex];
+    const newName = prompt(
+            `What do you want to rename the file ${file.name} to?`
+    );
+    if (!newName) return;
+    files.value[fileIndex] = {
+      ...file,
+      name: newName,
+    };
+  };
+
+  const onDelete = (id) => {
+    const fileIndex = getFileIndexById(id);
+    files.value.splice(fileIndex, 1);
+  };
+
+  provide("ContextMenu", {
+    actions: [
+      {
+        label: 'Rename',
+        fn: onRename,
+      },
+      {
+        label: 'Delete',
+        fn: onDelete,
+      },
+    ],
+  })
+</script>
+
 <template>
     <div style="padding: 1rem">
         <h1>Files</h1>
         <File v-for="file of files" :key="file.id" :name="file.name" :id="file.id"/>
     </div>
 </template>
-
-<script setup>
-import {provide, ref} from "vue";
-import File from './File.vue';
-
-const files = ref([
-    {
-        name: 'Testing.wav',
-        id: 1,
-    },
-    {
-        name: 'Secrets.txt',
-        id: 2,
-    },
-    {
-        name: 'Other.md',
-        id: 3,
-    },
-]);
-
-const getFileIndexById = (id) => {
-    return files.value.findIndex((file) => file.id === id);
-};
-
-const onRename = (id) => {
-    const fileIndex = getFileIndexById(id);
-    const file = files.value[fileIndex];
-    const newName = prompt(
-        `What do you want to rename the file ${file.name} to?`
-    );
-    if (!newName) return;
-    files.value[fileIndex] = {
-        ...file,
-        name: newName,
-    };
-};
-
-const onDelete = (id) => {
-    const fileIndex = getFileIndexById(id);
-    files.value.splice(fileIndex, 1);
-};
-
-provide("ContextMenu", {
-    actions: [
-        {
-            label: 'Rename',
-            fn: onRename,
-        },
-        {
-            label: 'Delete',
-            fn: onDelete,
-        },
-    ],
-})
-</script>
 ```
 
 ```vue
 <!-- File.vue -->
+<script setup>
+  import {ref} from "vue";
+  import ContextMenu from './ContextMenu.vue';
+
+  const props = defineProps(['name', 'id'])
+
+  const mouseBounds = ref({
+    x: 0,
+    y: 0,
+  });
+  const isOpen = ref(false);
+
+  const setIsOpen = (v) => isOpen.value = v;
+
+  const contextMenu = ref();
+
+  function onContextMenu(e) {
+    e.preventDefault();
+    isOpen.value = true;
+    mouseBounds.value = {
+      x: e.clientX,
+      y: e.clientY,
+    };
+    setTimeout(() => {
+      contextMenu.value.focusMenu()
+    }, 0)
+  }
+</script>
+
 <template>
     <button
             @contextmenu="onContextMenu($event)"
@@ -3671,39 +3699,66 @@ provide("ContextMenu", {
             :y="mouseBounds.y"
     />
 </template>
-
-<script setup>
-import {ref} from "vue";
-import ContextMenu from './ContextMenu.vue';
-
-const props = defineProps(['name', 'id'])
-
-const mouseBounds = ref({
-    x: 0,
-    y: 0,
-});
-const isOpen = ref(false);
-
-const setIsOpen = (v) => isOpen.value = v;
-
-const contextMenu = ref();
-
-function onContextMenu(e) {
-    e.preventDefault();
-    isOpen.value = true;
-    mouseBounds.value = {
-        x: e.clientX,
-        y: e.clientY,
-    };
-    setTimeout(() => {
-        contextMenu.value.focusMenu()
-    }, 0)
-}
-</script>
 ```
 
 ```vue
 <!-- ContextMenu.vue -->
+<script setup>
+  import {ref, onMounted, onUnmounted, inject, computed, watch} from 'vue'
+
+  const props = defineProps(['isOpen', 'x', 'y', 'data'])
+
+  const emit = defineEmits(['close'])
+
+  const context = inject("ContextMenu")
+
+  const actions = computed(() => {
+    if (!context) return [];
+    return context.actions;
+  });
+
+  const contextMenuRef = ref(null)
+
+  function closeIfOutside(e) {
+    const contextMenuEl = contextMenuRef.value
+    if (!contextMenuEl) return
+    const isClickInside = contextMenuEl.contains(e.target)
+    if (isClickInside) return
+    emit('close')
+  }
+
+  const closeIfContextMenu = () => {
+    if (!props.isOpen) return;
+    emit("close");
+  };
+
+  // This must live in a watch, as `onMounted` will run whether the `isOpen` boolean is set or not
+  watch(() => props.isOpen, (_, __, onCleanup) => {
+    // Inside a timeout to make sure the initial context menu does not close the menu
+    setTimeout(() => {
+      document.addEventListener('contextmenu', closeIfContextMenu);
+    }, 0);
+
+    onCleanup(() => document.removeEventListener('contextmenu', closeIfContextMenu));
+  })
+
+  onMounted(() => {
+    document.addEventListener('click', closeIfOutside)
+  })
+
+  onUnmounted(() => {
+    document.removeEventListener('click', closeIfOutside)
+  })
+
+  function focusMenu() {
+    contextMenuRef.value.focus()
+  }
+
+  defineExpose({
+    focusMenu,
+  })
+</script>
+
 <template>
     <div
             v-if="props.isOpen && context"
@@ -3734,62 +3789,6 @@ function onContextMenu(e) {
         </ul>
     </div>
 </template>
-
-<script setup>
-import {ref, onMounted, onUnmounted, inject, computed, watch} from 'vue'
-
-const props = defineProps(['isOpen', 'x', 'y', 'data'])
-
-const emit = defineEmits(['close'])
-
-const context = inject("ContextMenu")
-
-const actions = computed(() => {
-    if (!context) return [];
-    return context.actions;
-});
-
-const contextMenuRef = ref(null)
-
-function closeIfOutside(e) {
-    const contextMenuEl = contextMenuRef.value
-    if (!contextMenuEl) return
-    const isClickInside = contextMenuEl.contains(e.target)
-    if (isClickInside) return
-    emit('close')
-}
-
-const closeIfContextMenu = () => {
-    if (!props.isOpen) return;
-    emit("close");
-};
-
-// This must live in a watch, as `onMounted` will run whether the `isOpen` boolean is set or not
-watch(() => props.isOpen, (_, __, onCleanup) => {
-    // Inside a timeout to make sure the initial context menu does not close the menu
-    setTimeout(() => {
-        document.addEventListener('contextmenu', closeIfContextMenu);
-    }, 0);
-
-    onCleanup(() => document.removeEventListener('contextmenu', closeIfContextMenu));
-})
-
-onMounted(() => {
-    document.addEventListener('click', closeIfOutside)
-})
-
-onUnmounted(() => {
-    document.removeEventListener('click', closeIfOutside)
-})
-
-function focusMenu() {
-    contextMenuRef.value.focus()
-}
-
-defineExpose({
-    focusMenu,
-})
-</script>
 ```
 
 <!-- tabs:end -->

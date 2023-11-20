@@ -665,33 +665,33 @@ Let's start by using code that explicitly passes the list of items to a `ParentL
 
 ```vue
 <!-- ParentList -->
+<script setup>
+  import {defineProps} from 'vue';
+
+  const props = defineProps(['list'])
+</script>
+
 <template>
   <p>There are {{props.list.length}} number of items in this array</p>
   <ul>
     <slot></slot>
   </ul>
 </template>
-
-<script setup>
-import {defineProps} from 'vue';
-
-const props = defineProps(['list'])
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import ParentList from './ParentList.vue'
+
+  const list = [1, 2, 3];
+</script>
+
 <template>
   <ParentList :list="list">
     <li v-for="i in list">Item {{ i }}</li>
   </ParentList>
 </template>
-
-<script setup>
-import ParentList from './ParentList.vue'
-
-const list = [1, 2, 3];
-</script>
 ```
 
 While this works, it's obnoxious that we have to reference `list` in more than one component template at a time. Currently, we're using `list` in both our `App` template as well as our `ParentList` template.
@@ -700,20 +700,32 @@ Luckily, we can utilize `slot` to pass data to a `template` via a `v-slot` attri
 
 ```vue
 <!-- ParentList -->
+<script setup>
+  const props = defineProps(['list'])
+</script>
+
 <template>
   <p>There are {{props.list.length}} number of items in this array</p>
   <ul id="parentList">
     <slot v-for="(item, i) in props.list" :item="item" :i="i"></slot>
   </ul>
 </template>
-
-<script setup>
-const props = defineProps(['list'])
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import {ref} from "vue";
+  import ParentList from './ParentList.vue'
+
+  const list = ref([1, 2, 3]);
+
+  function addOne() {
+    const randomNum = Math.floor(Math.random() * 100);
+    list.value.push(randomNum);
+  }
+</script>
+
 <template>
   <ParentList :list="list">
     <!-- Think of this as "template is recieving an object
@@ -724,19 +736,6 @@ const props = defineProps(['list'])
   </ParentList>
   <button @click="addOne()">Add</button>
 </template>
-
-<script setup>
-import {ref} from "vue";
-import ParentList from './ParentList.vue'
-
-const list = ref([1, 2, 3]);
-
-function addOne() {
-  const randomNum = Math.floor(Math.random() * 100);
-  list.value.push(randomNum);
-}
-</script>
-
 ```
 
 This `v-slot` is similar to how you might pass properties to a component, but instead we're passing data directly to a `template` to be rendered by `v-slot`.
@@ -888,6 +887,25 @@ class AppComponent {
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import Table from './Table.vue'
+
+  const data = [
+    {
+      name: 'Corbin',
+      age: 24,
+    },
+    {
+      name: 'Joely',
+      age: 28,
+    },
+    {
+      name: 'Frank',
+      age: 33,
+    },
+  ]
+</script>
+
 <template>
   <Table :data="data">
     <template #header="{ length }">
@@ -902,28 +920,13 @@ class AppComponent {
     </template>
   </Table>
 </template>
-
-<script setup>
-import Table from './Table.vue'
-
-const data = [
-  {
-    name: 'Corbin',
-    age: 24,
-  },
-  {
-    name: 'Joely',
-    age: 28,
-  },
-  {
-    name: 'Frank',
-    age: 33,
-  },
-]
-</script>
 ```
 
 ```vue
+<script setup>
+  const props = defineProps(['data'])
+</script>
+
 <template>
   <table>
     <thead>
@@ -934,10 +937,6 @@ const data = [
     </tbody>
   </table>
 </template>
-
-<script setup>
-const props = defineProps(['data'])
-</script>
 ```
 
 <!-- tabs:end -->
