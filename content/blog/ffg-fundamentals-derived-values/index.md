@@ -52,20 +52,20 @@ export class FileDateComponent implements OnInit {
 
 ```vue
 <!-- FileDate.vue -->
+<script setup>
+  // ...
+
+  const props = defineProps(['inputDate'])
+
+  const dateStr = ref(formatDate(props.inputDate))
+  const labelText = ref(formatReadableDate(props.inputDate))
+
+  // ...
+</script>
+
 <template>
   <span :aria-label="labelText">{{dateStr}}</span>
 </template>
-
-<script setup>
-// ...
-
-const props = defineProps(['inputDate'])
-
-const dateStr = ref(formatDate(props.inputDate))
-const labelText = ref(formatReadableDate(props.inputDate))
-
-// ...
-</script>
 ```
 
 <!-- tabs:end -->
@@ -131,31 +131,31 @@ export class FileComponent implements OnInit, OnDestroy {
 
 ```vue
 <!-- File.vue -->
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue'
+
+  const inputDate = ref(new Date())
+  const interval = ref(null)
+
+  onMounted(() => {
+    interval.value = setInterval(() => {
+      const newDate = new Date()
+      if (inputDate.value.getDate() === newDate.getDate()) return
+      inputDate.value = newDate
+    }, 10 * 60 * 1000)
+  })
+
+  onUnmounted(() => {
+    clearInterval(interval.value)
+  })
+</script>
+
 <template>
   <!-- ... -->
   <!-- This may not show the most up-to-date `formatDate` or `formatReadableDate` -->
   <file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
   <!-- ... -->
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-
-const inputDate = ref(new Date())
-const interval = ref(null)
-
-onMounted(() => {
-  interval.value = setInterval(() => {
-    const newDate = new Date()
-    if (inputDate.value.getDate() === newDate.getDate()) return
-    inputDate.value = newDate
-  }, 10 * 60 * 1000)
-})
-
-onUnmounted(() => {
-  clearInterval(interval.value)
-})
-</script>
 ```
 
 <!-- tabs:end -->
@@ -230,27 +230,27 @@ export class FileDateComponent implements OnChanges {
 
 ```vue
 <!-- FileDate.vue -->
+<script setup>
+  import {ref, watch} from 'vue';
+
+  // ...
+
+  const props = defineProps(['inputDate'])
+
+  const dateStr = ref(formatDate(props.inputDate))
+  const labelText = ref(formatReadableDate(props.inputDate))
+
+  watch(() => props.inputDate, (newDate, oldDate) => {
+    dateStr.value = formatDate(newDate),
+        labelText.value = formatReadableDate(newDate)
+  })
+
+  // ...
+</script>
+
 <template>
   <span :aria-label="labelText">{{ dateStr }}</span>
 </template>
-
-<script setup>
-import {ref, watch} from 'vue';
-
-// ...
-
-const props = defineProps(['inputDate'])
-
-const dateStr = ref(formatDate(props.inputDate))
-const labelText = ref(formatReadableDate(props.inputDate))
-
-watch(() => props.inputDate, (newDate, oldDate) => {
-      dateStr.value = formatDate(newDate),
-      labelText.value = formatReadableDate(newDate)     
-})
-
-// ...
-</script>
 ```
 
 Vue's `watch` logic allows you to track a given property or state value changes based on its key.
@@ -414,22 +414,22 @@ export class FileDateComponent {
 
 ```vue
 <!-- FileDate.vue -->
+<script setup>
+  import { computed } from 'vue'
+
+  // ...
+
+  const props = defineProps(['inputDate'])
+
+  const dateStr = computed(() => formatDate(props.inputDate));
+  const labelText = computed(() => formatReadableDate(props.inputDate));
+
+  // ...
+</script>
+
 <template>
   <span :aria-label="labelText">{{ dateStr }}</span>
 </template>
-
-<script setup>
-import { computed } from 'vue'
-
-// ...
-
-const props = defineProps(['inputDate'])
-
-const dateStr = computed(() => formatDate(props.inputDate));
-const labelText = computed(() => formatReadableDate(props.inputDate));
-
-// ...
-</script>
 ```
 
 Instead of using `ref` to construct a set of variables, then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
@@ -500,6 +500,18 @@ export class CountAndDoubleComponent {
 
 ```vue
 <!-- CountAndDouble.vue -->
+<script setup>
+  import { ref, computed } from 'vue'
+
+  const number = ref(0)
+
+  function addOne() {
+    number.value++
+  }
+
+  const doubleNum = computed(() => number.value * 2)
+</script>
+
 <template>
   <div>
     <p>{{ number }}</p>
@@ -507,18 +519,6 @@ export class CountAndDoubleComponent {
     <button @click="addOne()">Add one</button>
   </div>
 </template>
-
-<script setup>
-import { ref, computed } from 'vue'
-
-const number = ref(0)
-
-function addOne() {
-  number.value++
-}
-
-const doubleNum = computed(() => number.value * 2)
-</script>
 ```
 
 <!-- tabs:end -->
@@ -621,32 +621,32 @@ class DisplaySizeComponent {
 
 ```vue
 <!-- DisplaySize.vue -->
+<script setup>
+  import { computed } from 'vue'
+
+  const props = defineProps(['bytes'])
+  const humanReadibleSize = computed(() => formatBytes(props.bytes))
+
+  const kilobyte = 1024
+  const megabyte = kilobyte * 1024
+  const gigabyte = megabyte * 1024
+
+  function formatBytes(bytes) {
+    if (bytes < kilobyte) {
+      return `${bytes} B`
+    } else if (bytes < megabyte) {
+      return `${Math.floor(bytes / kilobyte)} KB`
+    } else if (bytes < gigabyte) {
+      return `${Math.floor(bytes / megabyte)} MB`
+    } else {
+      return `${Math.floor(bytes / gigabyte)} GB`
+    }
+  }
+</script>
+
 <template>
   <p>{{ humanReadibleSize }}</p>
 </template>
-
-<script setup>
-import { computed } from 'vue'
-
-const props = defineProps(['bytes'])
-const humanReadibleSize = computed(() => formatBytes(props.bytes))
-
-const kilobyte = 1024
-const megabyte = kilobyte * 1024
-const gigabyte = megabyte * 1024
-
-function formatBytes(bytes) {
-  if (bytes < kilobyte) {
-    return `${bytes} B`
-  } else if (bytes < megabyte) {
-    return `${Math.floor(bytes / kilobyte)} KB`
-  } else if (bytes < gigabyte) {
-    return `${Math.floor(bytes / megabyte)} MB`
-  } else {
-    return `${Math.floor(bytes / gigabyte)} GB`
-  }
-}
-</script>
 ```
 
 <!-- tabs:end -->

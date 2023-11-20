@@ -71,6 +71,12 @@ export class FileComponent {
 ### Vue
 
 ```vue
+<script setup>
+  const props = defineProps(['isSelected', 'fileName', 'href'])
+
+  defineEmits(['selected'])
+</script>
+
 <template>
   <button
     v-on:click="$emit('selected')"
@@ -85,12 +91,6 @@ export class FileComponent {
     </a>
   </button>
 </template>
-
-<script setup>
-const props = defineProps(['isSelected', 'fileName', 'href'])
-
-defineEmits(['selected'])
-</script>
 ```
 
 <!-- tabs:end -->
@@ -205,13 +205,13 @@ To use `ngIf`, we need to import `NgIf` from `@angular/common` and pass it to th
 ### Vue
 
 ```vue
+<script setup>
+  const props = defineProps(['bool'])
+</script>
+
 <template>
   <div><p v-if="bool">Text here</p></div>
 </template>
-
-<script setup>
-const props = defineProps(['bool'])
-</script>
 ```
 
 Unlike Angular, where you need to import the ability to conditionally render an element, Vue treats `v-if` as a global attribute that can be added to any element or component.
@@ -305,6 +305,14 @@ export class FileComponent {
 ### Vue
 
 ```vue
+<script setup>
+  import { defineProps, defineEmits } from 'vue'
+
+  const props = defineProps(['isSelected', 'isFolder', 'fileName', 'href'])
+
+  const emit = defineEmits(['selected'])
+</script>
+
 <template>
   <button
     v-on:click="emit('selected')"
@@ -319,14 +327,6 @@ export class FileComponent {
     </a>
   </button>
 </template>
-
-<script setup>
-import { defineProps, defineEmits } from 'vue'
-
-const props = defineProps(['isSelected', 'isFolder', 'fileName', 'href'])
-
-const emit = defineEmits(['selected'])
-</script>
 ```
 
 <!-- tabs:end -->
@@ -695,6 +695,21 @@ export class FileListComponent {
 ## Vue
 
 ```vue
+<script setup>
+  import { ref } from 'vue'
+  import File from './File.vue'
+
+  const selectedIndex = ref(-1)
+
+  function onSelected(idx) {
+    if (selectedIndex.value === idx) {
+      selectedIndex.value = -1
+      return
+    }
+    selectedIndex.value = idx
+  }
+</script>
+
 <template>
   <ul>
     <li><File
@@ -720,21 +735,6 @@ export class FileListComponent {
     /></li>
   </ul>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import File from './File.vue'
-
-const selectedIndex = ref(-1)
-
-function onSelected(idx) {
-  if (selectedIndex.value === idx) {
-    selectedIndex.value = -1
-    return
-  }
-  selectedIndex.value = idx
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -866,6 +866,39 @@ The `*ngFor` directive was used in the template, but neither the `NgFor` directi
 Vue provides a `v-for` global attribute that does for lists what `v-if` does for conditionally rendering:
 
 ```vue
+<script setup>
+  import { ref } from 'vue'
+  import File from './File.vue'
+
+  const filesArray = [
+    {
+      fileName: 'File one',
+      href: '/file/file_one',
+      isFolder: false,
+    },
+    {
+      fileName: 'File two',
+      href: '/file/file_two',
+      isFolder: false,
+    },
+    {
+      fileName: 'File three',
+      href: '/file/file_three',
+      isFolder: false,
+    },
+  ]
+
+  const selectedIndex = ref(-1)
+
+  function onSelected(idx) {
+    if (selectedIndex.value === idx) {
+      selectedIndex.value = -1
+      return
+    }
+    selectedIndex.value = idx
+  }
+</script>
+
 <template>
   <ul>
     <!-- This will throw a warning, more on that soon -->
@@ -878,39 +911,6 @@ Vue provides a `v-for` global attribute that does for lists what `v-if` does for
     /></li>
   </ul>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import File from './File.vue'
-
-const filesArray = [
-  {
-    fileName: 'File one',
-    href: '/file/file_one',
-    isFolder: false,
-  },
-  {
-    fileName: 'File two',
-    href: '/file/file_two',
-    isFolder: false,
-  },
-  {
-    fileName: 'File three',
-    href: '/file/file_three',
-    isFolder: false,
-  },
-]
-
-const selectedIndex = ref(-1)
-
-function onSelected(idx) {
-  if (selectedIndex.value === idx) {
-    selectedIndex.value = -1
-    return
-  }
-  selectedIndex.value = idx
-}
-</script>
 ```
 
 Inside of our `v-for`, we're accessing both the value of the item (`file`) and the index of the looped item (`i`).
@@ -1025,6 +1025,32 @@ function getRandomWord() {
 
 ```vue
 <!-- WordList.vue -->
+<script setup>
+  import { ref } from 'vue'
+
+  const wordDatabase = [
+    { word: 'who', id: 1 },
+    { word: 'what', id: 2 },
+    { word: 'when', id: 3 },
+    { word: 'where', id: 4 },
+    { word: 'why', id: 5 },
+    { word: 'how', id: 6 },
+  ]
+
+  function getRandomWord() {
+    return wordDatabase[Math.floor(Math.random() * wordDatabase.length)]
+  }
+
+  const words = ref([])
+
+  function addWord() {
+    const newWord = getRandomWord()
+    // Remove ability for duplicate words
+    if (words.value.includes(newWord)) return
+    words.value.push(newWord)
+  }
+</script>
+
 <template>
   <div>
     <button @click="addWord()">Add word</button>
@@ -1033,32 +1059,6 @@ function getRandomWord() {
     </ul>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-const wordDatabase = [
-  { word: 'who', id: 1 },
-  { word: 'what', id: 2 },
-  { word: 'when', id: 3 },
-  { word: 'where', id: 4 },
-  { word: 'why', id: 5 },
-  { word: 'how', id: 6 },
-]
-
-function getRandomWord() {
-  return wordDatabase[Math.floor(Math.random() * wordDatabase.length)]
-}
-
-const words = ref([])
-
-function addWord() {
-  const newWord = getRandomWord()
-  // Remove ability for duplicate words
-  if (words.value.includes(newWord)) return
-  words.value.push(newWord)
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1201,21 +1201,21 @@ This isn't necessarily a bad thing, however. We'll touch on this more in a bit, 
 
 ```vue
 <!-- KeyExample.vue -->
+<script setup>
+  import { ref } from 'vue'
+
+  const num = ref(0);
+
+  function increase() {
+    this.num.value++;
+  }
+</script>
+
 <template>
     <input :key="num" />
     <button @click="increase()">Increase</button>
     <p>{{ num }}</p>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-const num = ref(0);
-
-function increase() {
-  this.num.value++;
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1346,6 +1346,42 @@ export class FileListComponent {
 
 ```vue
 <!-- FileList.vue -->
+<script setup>
+  import { ref } from 'vue'
+  import File from './File.vue'
+
+  const filesArray = [
+    {
+      fileName: 'File one',
+      href: '/file/file_one',
+      isFolder: false,
+      id: 1,
+    },
+    {
+      fileName: 'File two',
+      href: '/file/file_two',
+      isFolder: false,
+      id: 2,
+    },
+    {
+      fileName: 'File three',
+      href: '/file/file_three',
+      isFolder: false,
+      id: 3,
+    },
+  ]
+
+  const selectedIndex = ref(-1)
+
+  function onSelected(idx) {
+    if (selectedIndex.value === idx) {
+      selectedIndex.value = -1
+      return
+    }
+    selectedIndex.value = idx
+  }
+</script>
+
 <template>
   <ul>
     <li v-for="(file, i) in filesArray" :key="file.id">
@@ -1359,42 +1395,6 @@ export class FileListComponent {
     </li>
   </ul>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import File from './File.vue'
-
-const filesArray = [
-  {
-    fileName: 'File one',
-    href: '/file/file_one',
-    isFolder: false,
-    id: 1,
-  },
-  {
-    fileName: 'File two',
-    href: '/file/file_two',
-    isFolder: false,
-    id: 2,
-  },
-  {
-    fileName: 'File three',
-    href: '/file/file_three',
-    isFolder: false,
-    id: 3,
-  },
-]
-
-const selectedIndex = ref(-1)
-
-function onSelected(idx) {
-  if (selectedIndex.value === idx) {
-    selectedIndex.value = -1
-    return
-  }
-  selectedIndex.value = idx
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1482,6 +1482,22 @@ export class FileListComponent {
 
 ```vue
 <!-- FileList.vue -->
+<script setup>
+  import { ref } from 'vue'
+
+  // ...
+
+  const onlyShowFiles = ref(false);
+
+  // ...
+
+  toggleOnlyShow() {
+    onlyShowFiles.value = !onlyShowFiles.value;
+  }
+
+  // ...
+</script>
+
 <template>
   <div>
     <button (click)="toggleOnlyShow()">Only show files</button>
@@ -1499,22 +1515,6 @@ export class FileListComponent {
     </ul>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-// ...
-
-const onlyShowFiles = ref(false);
-
-// ...
-
-toggleOnlyShow() {
-  onlyShowFiles.value = !onlyShowFiles.value;
-}
-
-// ...
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1666,6 +1666,11 @@ export class SidebarComponent {
 
 ```vue
 <!-- ExpandableDropdown.vue -->
+<script setup>
+  const props = defineProps(['name', 'expanded'])
+  const emit = defineEmits(['toggle'])
+</script>
+
 <template>
   <div>
     <button @click="emit('toggle')">
@@ -1675,14 +1680,22 @@ export class SidebarComponent {
     <div :hidden="!expanded">More information here</div>
   </div>
 </template>
-<script setup>
-const props = defineProps(['name', 'expanded'])
-const emit = defineEmits(['toggle'])
-</script>
 ```
 
 ```vue
 <!-- Sidebar.vue -->
+<script setup>
+  import { ref } from 'vue'
+  import ExpandableDropdown from './ExpandableDropdown.vue'
+
+  const moviesExpanded = ref(false)
+  const picturesExpanded = ref(false)
+  const conceptsExpanded = ref(false)
+  const articlesExpanded = ref(false)
+  const redesignExpanded = ref(false)
+  const invoicesExpanded = ref(false)
+</script>
+
 <template>
   <h1>My Files</h1>
   <ExpandableDropdown name="Movies" 
@@ -1712,17 +1725,6 @@ const emit = defineEmits(['toggle'])
     @toggle="invoicesExpanded = !invoicesExpanded" 
   />
 </template>
-<script setup>
-import { ref } from 'vue'
-import ExpandableDropdown from './ExpandableDropdown.vue'
-
-const moviesExpanded = ref(false)
-const picturesExpanded = ref(false)
-const conceptsExpanded = ref(false)
-const articlesExpanded = ref(false)
-const redesignExpanded = ref(false)
-const invoicesExpanded = ref(false)
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1810,17 +1812,18 @@ export class SidebarComponent {
 
 ```vue
 <!-- Sidebar.vue -->
+<script setup>
+  import ExpandableDropdown from './ExpandableDropdown.vue'
+
+  const categories = ['Movies', 'Pictures', 'Concepts', "Articles I'll Never Finish", 'Website Redesigns v5', 'Invoices']
+
+  const onToggle = () => {}
+</script>
+
 <template>
   <h1>My Files</h1>
   <ExpandableDropdown v-for="cat of categories" :key="cat" :name="cat" :expanded="false" @toggle="onToggle()" />
 </template>
-<script setup>
-import ExpandableDropdown from './ExpandableDropdown.vue'
-
-const categories = ['Movies', 'Pictures', 'Concepts', "Articles I'll Never Finish", 'Website Redesigns v5', 'Invoices']
-
-const onToggle = () => {}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1949,6 +1952,27 @@ function objFromCategories(categories) {
 
 ```vue
 <!-- Sidebar.vue -->
+<script setup>
+  import { ref } from 'vue'
+  import ExpandableDropdown from './ExpandableDropdown.vue'
+
+  const categories = ['Movies', 'Pictures', 'Concepts', "Articles I'll Never Finish", 'Website Redesigns v5', 'Invoices']
+
+  const expandedMap = ref(objFromCategories(categories))
+
+  const onToggle = (cat) => {
+    expandedMap.value[cat] = !expandedMap.value[cat]
+  }
+
+  function objFromCategories(categories) {
+    let obj = {}
+    for (let cat of categories) {
+      obj[cat] = false
+    }
+    return obj
+  }
+</script>
+
 <template>
   <h1>My Files</h1>
   <ExpandableDropdown
@@ -1959,26 +1983,6 @@ function objFromCategories(categories) {
     @toggle="onToggle(cat)"
   />
 </template>
-<script setup>
-import { ref } from 'vue'
-import ExpandableDropdown from './ExpandableDropdown.vue'
-
-const categories = ['Movies', 'Pictures', 'Concepts', "Articles I'll Never Finish", 'Website Redesigns v5', 'Invoices']
-
-const expandedMap = ref(objFromCategories(categories))
-
-const onToggle = (cat) => {
-  expandedMap.value[cat] = !expandedMap.value[cat]
-}
-
-function objFromCategories(categories) {
-  let obj = {}
-  for (let cat of categories) {
-    obj[cat] = false
-  }
-  return obj
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -2037,6 +2041,11 @@ export class ExpandableDropdownComponent {
 
 ```vue
 <!-- ExpandableDropdown.vue -->
+<script setup>
+  const props = defineProps(['name', 'expanded'])
+  const emit = defineEmits(['toggle'])
+</script>
+
 <template>
   <div>
     <button @click="emit('toggle')">
@@ -2046,10 +2055,6 @@ export class ExpandableDropdownComponent {
     <div v-if="expanded">More information here</div>
   </div>
 </template>
-<script setup>
-const props = defineProps(['name', 'expanded'])
-const emit = defineEmits(['toggle'])
-</script>
 ```
 
 <!-- tabs:end -->
