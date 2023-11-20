@@ -1530,6 +1530,37 @@ export class AppComponent implements OnInit, OnDestroy {
 ### Vue
 
 ```vue
+<script setup>
+  import {ref} from "vue";
+
+  const emits = defineEmits(['toggle']);
+
+  const isCollapsed = ref(false);
+
+  const setAndToggle = (v) => {
+    isCollapsed.value = v;
+    emits('toggle', v);
+  };
+
+  const collapse = () => {
+    setAndToggle(true);
+  }
+
+  const expand = () => {
+    setAndToggle(false);
+  }
+
+  const toggleCollapsed = () => {
+    setAndToggle(!isCollapsed.value);
+  };
+
+  defineExpose({
+    expand,
+    collapse,
+    isCollapsed
+  })
+</script>
+
 <template>
     <button v-if="isCollapsed" @click="toggleCollapsed()">Toggle</button>
     <div v-if="!isCollapsed">
@@ -1544,37 +1575,6 @@ export class AppComponent implements OnInit, OnDestroy {
         </ul>
     </div>
 </template>
-
-<script setup>
-    import {ref} from "vue";
-
-    const emits = defineEmits(['toggle']);
-
-    const isCollapsed = ref(false);
-
-    const setAndToggle = (v) => {
-        isCollapsed.value = v;
-        emits('toggle', v);
-    };
-
-    const collapse = () => {
-        setAndToggle(true);
-    }
-
-    const expand = () => {
-        setAndToggle(false);
-    }
-
-    const toggleCollapsed = () => {
-        setAndToggle(!isCollapsed.value);
-    };
-
-    defineExpose({
-        expand,
-        collapse,
-        isCollapsed
-    })
-</script>
 ```
 
 ```vue

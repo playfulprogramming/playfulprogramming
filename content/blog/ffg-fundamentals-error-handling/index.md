@@ -1076,6 +1076,19 @@ Error: ctx_r4.isCollapsed is not a function
 
 ```vue
 <!-- Sidebar.vue -->
+<script setup>
+  import { ref } from 'vue';
+  const emits = defineEmits(['toggle']);
+  const isCollapsed = ref(false);
+  const setAndToggle = (v) => {
+    isCollapsed.value = v;
+    emits('toggle', v);
+  };
+  const toggleCollapsed = () => {
+    setAndToggle(!isCollapsed.value);
+  };
+</script>
+
 <template>
   <button v-if="isCollapsed" @click="collapsed()">Toggle</button>
   <div v-if="!isCollapsed">
@@ -1087,18 +1100,6 @@ Error: ctx_r4.isCollapsed is not a function
     </ul>
   </div>
 </template>
-<script setup>
-import { ref } from 'vue';
-const emits = defineEmits(['toggle']);
-const isCollapsed = ref(false);
-const setAndToggle = (v) => {
-  isCollapsed.value = v;
-  emits('toggle', v);
-};
-const toggleCollapsed = () => {
-  setAndToggle(!isCollapsed.value);
-};
-</script>
 ```
 
 -----------
@@ -1267,16 +1268,17 @@ onErrorCaptured((err, instance, info) => {
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import ErrorCatcher from './ErrorCatcher.vue';
+
+  // ...
+</script>
+
 <template>
   <ErrorCatcher>
 	<!-- The rest of the app -->
   </ErrorCatcher>
 </template>
-<script setup>
-import ErrorCatcher from './ErrorCatcher.vue';
-
-// ...
-</script>
 ```
 
 <!-- tabs:end -->
