@@ -1,7 +1,4 @@
 <!-- FileDate.vue -->
-<template>
-  <span :aria-label="labelText">{{ dateStr }}</span>
-</template>
 <script setup>
 import { ref, onMounted } from 'vue';
 
@@ -52,3 +49,7 @@ const props = defineProps(['inputDate']);
 const dateStr = ref(formatDate(props.inputDate));
 const labelText = ref(formatDate(props.inputDate));
 </script>
+
+<template>
+  <span :aria-label="labelText">{{ dateStr }}</span>
+</template>

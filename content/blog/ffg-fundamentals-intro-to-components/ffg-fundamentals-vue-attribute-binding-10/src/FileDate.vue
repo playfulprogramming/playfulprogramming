@@ -1,8 +1,4 @@
 <!-- FileDate.vue -->
-<template>
-  <span v-bind:aria-label="labelText">{{ dateStr }}</span>
-</template>
-
 <script setup>
 import { ref, onMounted } from 'vue';
 
@@ -61,3 +57,7 @@ onMounted(() => {
   }, 5000);
 });
 </script>
+
+<template>
+  <span v-bind:aria-label="labelText">{{ dateStr }}</span>
+</template>

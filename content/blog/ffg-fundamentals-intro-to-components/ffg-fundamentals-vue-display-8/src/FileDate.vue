@@ -1,8 +1,4 @@
 <!-- FileDate.vue -->
-<template>
-  <span>{{ dateStr }}</span>
-</template>
-
 <script setup>
 import { onMounted } from 'vue';
 
@@ -17,3 +13,7 @@ function formatDate() {
 
 const dateStr = formatDate();
 </script>
+
+<template>
+  <span>{{ dateStr }}</span>
+</template>

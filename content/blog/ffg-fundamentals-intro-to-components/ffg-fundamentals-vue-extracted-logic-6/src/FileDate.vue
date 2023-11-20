@@ -1,8 +1,4 @@
 <!-- FileDate.vue -->
-<template>
-  <span>12/03/21</span>
-</template>
-
 <script setup>
 function formatDate() {
   const today = new Date();
@@ -15,3 +11,7 @@ function formatDate() {
 
 const dateStr = formatDate();
 </script>
+
+<template>
+  <span>12/03/21</span>
+</template>

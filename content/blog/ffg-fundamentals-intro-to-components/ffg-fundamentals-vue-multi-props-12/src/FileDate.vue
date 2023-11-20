@@ -1,8 +1,4 @@
 <!-- FileDate.vue -->
-<template>
-  <span v-bind:aria-label="labelText">{{ dateStr }}</span>
-</template>
-
 <script setup>
 import { ref, onMounted } from 'vue';
 
@@ -52,3 +48,7 @@ function dateSuffix(dayNumber) {
 const dateStr = ref(formatDate(new Date()));
 const labelText = ref(formatReadableDate(new Date()));
 </script>
+
+<template>
+  <span v-bind:aria-label="labelText">{{ dateStr }}</span>
+</template>

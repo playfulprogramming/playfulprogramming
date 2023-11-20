@@ -1,8 +1,4 @@
 <!-- FileDate.vue -->
-<template>
-  <span>12/03/21</span>
-</template>
-
 <script setup>
 import { onMounted } from 'vue';
 
@@ -21,3 +17,7 @@ onMounted(() => {
   console.log(dateStr);
 });
 </script>
+
+<template>
+  <span>12/03/21</span>
+</template>

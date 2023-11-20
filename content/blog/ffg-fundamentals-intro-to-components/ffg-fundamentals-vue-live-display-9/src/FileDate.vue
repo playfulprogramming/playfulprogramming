@@ -1,8 +1,4 @@
 <!-- FileDate.vue -->
-<template>
-  <span>{{ dateStr }}</span>
-</template>
-
 <script setup>
 import { ref, onMounted } from 'vue';
 
@@ -24,3 +20,7 @@ onMounted(() => {
   }, 5000);
 });
 </script>
+
+<template>
+  <span>{{ dateStr }}</span>
+</template>
