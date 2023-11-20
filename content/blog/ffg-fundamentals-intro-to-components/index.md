@@ -280,7 +280,7 @@ const File = () => {
 createRoot(document.getElementById('root')).render(<File />);
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-rendering-1?embed=1&file=src%2Fmain.jsx&terminal=dev"></iframe>
+<iframe data-frame-title="React Rendering - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-rendering-1?template=node&embed=1&file=src%2Fmain.jsx&terminal=dev"></iframe>
 
 ## Angular
 
@@ -300,7 +300,7 @@ export class FileComponent {}
 bootstrapApplication(FileComponent);
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-rendering-1?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Rendering - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-rendering-1?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -323,7 +323,7 @@ import File from './File.vue';
 createApp(File).mount("#root");
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-rendering-1?embed=1&file=src%2Fmain.js"></iframe>
+<iframe data-frame-title="Vue Rendering - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-rendering-1?template=node&embed=1&file=src%2Fmain.js"></iframe>
 
 <!-- tabs:end -->
 
@@ -353,7 +353,7 @@ const FileList = () => {
 };
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-parent-child-2?embed=1&file=src%2Fmain.jsx&terminal=dev"></iframe>
+<iframe data-frame-title="React Parent/Child - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-parent-child-2?template=node&embed=1&file=src%2Fmain.jsx&terminal=dev"></iframe>
 
 ## Angular
 
@@ -378,7 +378,7 @@ export class FileComponent {}
 export class FileListComponent {}
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-parent-child-2?embed=1&file=src%2Fmain.ts,src%2Findex.html"></iframe>
+<iframe data-frame-title="Angular Parent/Child - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-parent-child-2?template=node&embed=1&file=src%2Fmain.ts,src%2Findex.html"></iframe>
 
 Notice how we've told our `FileListComponent` to `import` `FileComponent` by passing it the the `imports` array.
 
@@ -410,7 +410,7 @@ import File from './File.vue';
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-parent-child-2?embed=1&file=src%2FFileList.vue&terminal=dev"></iframe>
+<iframe data-frame-title="Vue Parent/Child - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-parent-child-2?template=node&embed=1&file=src%2FFileList.vue&terminal=dev"></iframe>
 
 The reason we're able to `import` a component and use it right away is because any variable that we expose inside of `<script setup>` is automatically available in the `<template>` portion of our SFC.
 
@@ -443,7 +443,7 @@ const FileList = () => {
 };
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-component-reuse-3?embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Component Reuse - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-component-reuse-3?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -463,7 +463,7 @@ const FileList = () => {
 export class FileListComponent {}
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-component-reuse-3?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Component Reuse - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-component-reuse-3?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -482,7 +482,7 @@ import File from './File.vue';
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-component-reuse-3?embed=1&file=src%2FFileList.vue"></iframe>
+<iframe data-frame-title="Vue Component Reuse - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-component-reuse-3?template=node&embed=1&file=src%2FFileList.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -522,7 +522,7 @@ const FileList = () => {
 };
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-component-hierarchy-4?embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Component Hierarchy - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-component-hierarchy-4?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -561,7 +561,7 @@ export class FileComponent {}
 export class FileListComponent {}
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-component-hierarchy-4?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Component Hierarchy - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-component-hierarchy-4?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -599,7 +599,7 @@ import File from './File.vue';
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-component-hierarchy-4?embed=1&file=src%2FFileList.vue,src%2FFile.vue,src%2FFileDate.vue"></iframe>
+<iframe data-frame-title="Vue Component Hierarchy - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-component-hierarchy-4?template=node&embed=1&file=src%2FFileList.vue,src%2FFile.vue,src%2FFileDate.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -630,7 +630,7 @@ const FileDate = () => {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-inline-logic-5?embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Inline Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-inline-logic-5?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -645,7 +645,7 @@ export class FileDateComponent {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-inline-logic-5?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Inline Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-inline-logic-5?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -660,7 +660,7 @@ const dateStr = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-inline-logic-5?embed=1&file=src%2FFileDate.vue"></iframe>
+<iframe data-frame-title="Vue Inline Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-inline-logic-5?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -697,7 +697,7 @@ const FileDate = () => {
 };
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-extracted-logic-6?embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Extracted Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-extracted-logic-6?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 > Because React can easily access functions outside of the component declaration, we decided to move it outside of the component scope. This allows us to avoid redeclaring this function in every render, which the other frameworks don't do, thanks to different philosophies.
 
@@ -723,7 +723,7 @@ export class FileDateComponent {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-extracted-logic-6?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Extracted Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-extracted-logic-6?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -747,7 +747,7 @@ const dateStr = formatDate();
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-extracted-logic-6?embed=1&file=src%2FFileDate.vue"></iframe>
+<iframe data-frame-title="Vue Extracted Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-extracted-logic-6?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -783,7 +783,7 @@ const FileDate = () => {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-side-effect-intro-7?embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Side Effect Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-side-effect-intro-7?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -813,7 +813,7 @@ export class FileDateComponent implements OnInit {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-side-effect-intro-7?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Side Effect Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-side-effect-intro-7?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -843,7 +843,7 @@ onMounted(() => {
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-side-effect-intro-7?embed=1&file=src%2FFileDate.vue"></iframe>
+<iframe data-frame-title="Vue Side Effect Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-side-effect-intro-7?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -888,7 +888,7 @@ const FileDate = () => {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-display-8?embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Display - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-display-8?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -912,7 +912,7 @@ export class FileDateComponent {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-display-8?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Display - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-display-8?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Every class property inside of the component instance is usable inside of the `@Component`'s `template`. 
 
@@ -940,7 +940,7 @@ const dateStr = formatDate();
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-display-8?embed=1&file=src%2FFileDate.vue"></iframe>
+<iframe data-frame-title="Vue Display - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-display-8?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
 
 Here, we're utilizing the fact that every variable inside of `<script setup>` is automatically exposed to our `<template>` code.
 
@@ -1006,7 +1006,7 @@ const FileDate = () => {
 };
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-live-display-9?embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Live Display - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-live-display-9?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 `useState` is what React uses to store data that the developer wants to persist between renders. Its first argument (that we're passing a string into) is used to set the initial value.
 
@@ -1061,7 +1061,7 @@ export class FileDateComponent implements OnInit {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-live-display-9?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Live Display - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-live-display-9?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -1096,7 +1096,7 @@ onMounted(() => {
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-live-display-9?embed=1&file=src%2FFileDate.vue"></iframe>
+<iframe data-frame-title="Vue Live Display - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-live-display-9?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
 
 > Notice how we're using `.value` to update the value inside of `<script>` but don't use `.value` inside of `<template>`. This isn't a mistake - it's just how Vue's `ref` works!
 
@@ -1217,7 +1217,7 @@ function dateSuffix(dayNumber) {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-attribute-binding-10?embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Attribute Binding - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-attribute-binding-10?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 > Notice the `{}` used after the `=` to assign the attribute value. This is pretty similar to the syntax to interpolate text into the DOM!
 
@@ -1263,7 +1263,7 @@ export class FileDateComponent implements OnInit {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-attribute-binding-10?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Attribute Binding - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-attribute-binding-10?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 > Unlike the `{{}}` that you'd use to bind text to the DOM, you use `[]` to bind attributes in Angular.
 >
@@ -1309,7 +1309,7 @@ const labelText = ref(formatReadableDate(new Date()))
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-attribute-binding-10?embed=1&file=src%2FFileDate.vue"></iframe>
+<iframe data-frame-title="Vue Attribute Binding - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-attribute-binding-10?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
 
 > In Vue, `v-bind` has a shorter syntax that does the same thing. If you ax the `v-bind` and leave the `:`, it works the same way.
 >
@@ -1361,7 +1361,7 @@ const FileList = () => {
 };
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-props-11?embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-props-11?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 > React uses an object to contain all properties that we want to pass to a component. We can use [parameter destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to get the properties without having to use `props` before the name of the parameter we really want, like so:
 >
@@ -1411,7 +1411,7 @@ export class FileComponent {
 export class FileListComponent {}
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-props-11?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-props-11?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 > See? Told you we'd cover what `[]` would be used for. It's the same binding syntax as with attributes!
 >
@@ -1449,7 +1449,7 @@ import File from './File.vue'
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-props-11?embed=1&file=src%2FFile.vue"></iframe>
+<iframe data-frame-title="Vue Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-props-11?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 > We don't need to import `defineProps`, instead, Vue uses some compiler magic in order to provide it as a globally accessible method.
 >
@@ -1493,7 +1493,7 @@ const FileList = () => {
 };
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-multi-props-12?embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Multi Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-multi-props-12?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -1526,7 +1526,7 @@ export class FileComponent {
 export class FileListComponent {}
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-multi-props-12?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Multi Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-multi-props-12?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -1560,7 +1560,7 @@ import File from './File.vue'
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-multi-props-12?embed=1&file=src%2FFile.vue"></iframe>
+<iframe data-frame-title="Vue Multi Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-multi-props-12?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1598,7 +1598,7 @@ const File = ({ href, fileName }) => {
 };
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-object-props-13?embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Object Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-object-props-13?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -1648,7 +1648,7 @@ export class FileComponent {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-object-props-13?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Object Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-object-props-13?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 You'll notice that we had to move the logic to set the `dateStr` and `labelText` values to the `ngOnInit` method.
 This is because Angular doesn't allow you to access `@Input` values in the root (AKA the "constructor") of a component's class.
@@ -1695,7 +1695,7 @@ const inputDate = new Date();
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-object-props-13?embed=1&file=src%2FFile.vue"></iframe>
+<iframe data-frame-title="Vue Object Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-object-props-13?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1815,7 +1815,7 @@ const File = ({ fileName }) => {
 };
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-event-binding-14?embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Event Binding - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-event-binding-14?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 There are three major things of note in this code sample:
 
@@ -1865,7 +1865,7 @@ export class FileComponent {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-event-binding-14?embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Event Binding - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-event-binding-14?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Instead of the `[]` symbols to do input binding, we're using the `()` symbols to bind to any built-in browser name.
 
@@ -1898,7 +1898,7 @@ function selectFile() {
 </script>
 ```
 
-<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-event-binding-14?embed=1&file=src%2FFile.vue"></iframe>
+<iframe data-frame-title="Vue Event Binding - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-event-binding-14?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 We can use `v-on` bind prefix to bind a method to any event. This supports any built-in browser event name.
 
