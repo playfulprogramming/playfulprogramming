@@ -186,16 +186,15 @@ This custom function is often called a "composition", since we're using Vue's Co
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { useWindowSize } from './use-window-size'
+
+  const { height, width } = useWindowSize()
+</script>
+
 <template>
   <p>The window is {{ height }}px high and {{ width }}px wide</p>
 </template>
-
-<script setup>
-import { useWindowSize } from './use-window-size'
-
-const { height, width } = useWindowSize()
-</script>
-
 ```
 
 > While React requires you to name your custom hooks "useX", you don't have to do the same with custom compositions. We could have easily called this code `createWindowSize` and have it work just as well.
@@ -343,15 +342,15 @@ export const useWindowSize = () => {
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { useWindowSize } from './use-window-size'
+
+  const { height, width } = useWindowSize()
+</script>
+
 <template>
   <p>The window is {{ height }}px high and {{ width }}px wide</p>
 </template>
-
-<script setup>
-import { useWindowSize } from './use-window-size'
-
-const { height, width } = useWindowSize()
-</script>
 ```
 
 > We could have also utilized the `watch` or `watchEffect` composition methods, but chose not to for this example.
@@ -532,15 +531,15 @@ Then, to use this new composable in our components we use it just like we did ou
 
 ````vue
 <!-- App.vue -->
+<script setup>
+  import { useMobileCheck } from './use-mobile-check'
+
+  const { isMobile } = useMobileCheck()
+</script>
+
 <template>
   <p>Is this a mobile device? {{ isMobile ? 'Yes' : 'No' }}</p>
 </template>
-
-<script setup>
-import { useMobileCheck } from './use-mobile-check'
-
-const { isMobile } = useMobileCheck()
-</script>
 ````
 
 <!-- tabs:end -->
@@ -851,6 +850,24 @@ Then
 
 ```vue
 <!-- ContextMenu.vue -->
+<script setup>
+  import { onMounted, onUnmounted, ref } from 'vue'
+  import { useOutsideClick } from './use-outside-click'
+
+  const props = defineProps(['x', 'y'])
+  const emit = defineEmits(['close'])
+  const contextMenuRef = ref(null)
+
+  useOutsideClick({ ref: contextMenuRef, onClose: () => emit('close') })
+
+  function focusMenu() {
+    contextMenuRef.value.focus()
+  }
+  defineExpose({
+    focusMenu,
+  })
+</script>
+
 <template>
   <div
     tabIndex="0"
@@ -869,23 +886,6 @@ Then
     This is a context menu
   </div>
 </template>
-<script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
-import { useOutsideClick } from './use-outside-click'
-
-const props = defineProps(['x', 'y'])
-const emit = defineEmits(['close'])
-const contextMenuRef = ref(null)
-
-useOutsideClick({ ref: contextMenuRef, onClose: () => emit('close') })
-
-function focusMenu() {
-  contextMenuRef.value.focus()
-}
-defineExpose({
-  focusMenu,
-})
-</script>
 ```
 
 
@@ -930,32 +930,33 @@ Which allows
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { onMounted, onUnmounted, ref } from 'vue'
+  import ContextMenu from './ContextMenu.vue'
+  import { useBounds } from './use-bounds'
+  const isOpen = ref(false)
+
+  const { ref: contextOrigin, bounds } = useBounds()
+  const contextMenu = ref()
+
+  function close() {
+    isOpen.value = false
+  }
+  function open(e) {
+    e.preventDefault()
+    isOpen.value = true
+    setTimeout(() => {
+      contextMenu.value.focusMenu()
+    }, 0)
+  }
+</script>
+
 <template>
   <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
     <div ref="contextOrigin" @contextmenu="open($event)">Right click on me!</div>
   </div>
   <ContextMenu ref="contextMenu" v-if="isOpen" :x="bounds.x" :y="bounds.y" @close="close()" />
 </template>
-<script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
-import ContextMenu from './ContextMenu.vue'
-import { useBounds } from './use-bounds'
-const isOpen = ref(false)
-
-const { ref: contextOrigin, bounds } = useBounds()
-const contextMenu = ref()
-
-function close() {
-  isOpen.value = false
-}
-function open(e) {
-  e.preventDefault()
-  isOpen.value = true
-  setTimeout(() => {
-    contextMenu.value.focusMenu()
-  }, 0)
-}
-</script>
 ```
 
 

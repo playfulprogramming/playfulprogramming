@@ -184,13 +184,13 @@ class CompComponent {
 
 ```vue
 <!-- Comp.vue -->
+<script setup>
+  const sayHi = () => alert("Hi!");
+</script>
+
 <template>
   <button @click="sayHi()">Say hello</button>
 </template>
-
-<script setup>
-const sayHi = () => alert("Hi!");
-</script>
 ```
 
 <!-- tabs:end -->
@@ -286,23 +286,23 @@ export class ChildComponent {
 
 ```vue
 <!-- Parent.vue -->
+<script setup>
+  import { ref } from 'vue'
+  import Child from './Child.vue'
+
+  const showChild = ref(false)
+
+  function setShowChild() {
+    showChild.value = !showChild.value
+  }
+</script>
+
 <template>
   <div>
     <button @click="setShowChild()">Toggle Child</button>
     <Child v-if="showChild"/>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import Child from './Child.vue'
-
-const showChild = ref(false)
-
-function setShowChild() {
-  showChild.value = !showChild.value
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -376,17 +376,17 @@ Let's start by taking a look at Vue's lifecycle method of handling a side effect
 
 ```vue
 <!-- Child.vue -->
+<script setup>
+  import { onMounted } from 'vue'
+
+  onMounted(() => {
+    console.log('I am rendering')
+  })
+</script>
+
 <template>
   <p>I am the child</p>
 </template>
-
-<script setup>
-import { onMounted } from 'vue'
-
-onMounted(() => {
-  console.log('I am rendering')
-})
-</script>
 ```
 
 Here, we're importing the `onMounted` lifecycle handler from the `vue` import. Vue's lifecycle methods all start with an `on` prefix when used inside of a `<script setup>` component. 
@@ -397,17 +397,17 @@ Just as React has a non-lifecycle method of running side effect, so too does Vue
 
 ```vue
 <!-- Child.vue -->
+<script setup>
+  import { watchEffect } from 'vue'
+
+  watchEffect(() => {
+    console.log('I am rendering')
+  }, { immediate: true })
+</script>
+
 <template>
   <p>I am the child</p>
 </template>
-
-<script setup>
-import { watchEffect } from 'vue'
-
-watchEffect(() => {
-  console.log('I am rendering')
-}, { immediate: true })
-</script>
 ```
 
 Here, we're using `watchEffect` to run `console.log` as soon as the `Child` component renders.
@@ -469,17 +469,17 @@ export class WindowSizeComponent {
 
 ```vue
 <!-- WindowSize.vue -->
+<script setup>
+  const height = window.innerHeight
+  const width = window.innerWidth
+</script>
+
 <template>
   <div>
     <p>Height: {{ height }}</p>
     <p>Width: {{ width }}</p>
   </div>
 </template>
-
-<script setup>
-const height = window.innerHeight
-const width = window.innerWidth
-</script>
 ```
 
 <!-- tabs:end -->
@@ -549,29 +549,29 @@ export class WindowSizeComponent implements OnInit {
 
 ```vue
 <!-- WindowSize.vue -->
+<script setup>
+  import { ref, onMounted } from 'vue'
+
+  const height = ref(window.innerHeight)
+  const width = ref(window.innerWidth)
+
+  function resizeHandler() {
+    height.value = window.innerHeight
+    width.value = window.innerWidth
+  }
+
+  onMounted(() => {
+    // This code will cause a memory leak, more on that soon
+    window.addEventListener('resize', resizeHandler)
+  })
+</script>
+
 <template>
   <div>
     <p>Height: {{ height }}</p>
     <p>Width: {{ width }}</p>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-
-const height = ref(window.innerHeight)
-const width = ref(window.innerWidth)
-
-function resizeHandler() {
-  height.value = window.innerHeight
-  width.value = window.innerWidth
-}
-
-onMounted(() => {
-  // This code will cause a memory leak, more on that soon
-  window.addEventListener('resize', resizeHandler)
-})
-</script>
 ```
 
 <!-- tabs:end -->
@@ -635,6 +635,18 @@ export class WindowSizeComponent implements OnInit {
 
 ```vue
 <!-- WindowSize.vue -->
+<script setup>
+  import { ref } from 'vue'
+
+  const height = ref(window.innerHeight)
+  const width = ref(window.innerWidth)
+
+  function resizeHandler() {
+    height.value = window.innerHeight
+    width.value = window.innerWidth
+  }
+</script>
+
 <template>
   <!-- This code doesn't work, we'll explain why soon -->
   <div @resize="resizeHandler()">
@@ -642,18 +654,6 @@ export class WindowSizeComponent implements OnInit {
     <p>Width: {{ width }}</p>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-const height = ref(window.innerHeight)
-const width = ref(window.innerWidth)
-
-function resizeHandler() {
-  height.value = window.innerHeight
-  width.value = window.innerWidth
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -811,34 +811,34 @@ function prefixZero(number) {
 
 ```vue
 <!-- Clock.vue -->
+<script setup>
+  import { ref, onMounted } from 'vue'
+
+  const time = ref(formatDate(new Date()))
+
+  onMounted(() => {
+    setInterval(() => {
+      console.log('I am updating the time')
+      time.value = formatDate(new Date())
+    }, 1000)
+  })
+
+  function formatDate(date) {
+    return prefixZero(date.getHours()) + ':' + prefixZero(date.getMinutes()) + ':' + prefixZero(date.getSeconds())
+  }
+
+  function prefixZero(number) {
+    if (number < 10) {
+      return '0' + number.toString()
+    }
+
+    return number.toString()
+  }
+</script>
+
 <template>
   <p role="timer">Time is: {{ time }}</p>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-
-const time = ref(formatDate(new Date()))
-
-onMounted(() => {
-  setInterval(() => {
-    console.log('I am updating the time')
-    time.value = formatDate(new Date())
-  }, 1000)
-})
-
-function formatDate(date) {
-  return prefixZero(date.getHours()) + ':' + prefixZero(date.getMinutes()) + ':' + prefixZero(date.getSeconds())
-}
-
-function prefixZero(number) {
-  if (number < 10) {
-    return '0' + number.toString()
-  }
-
-  return number.toString()
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -897,23 +897,23 @@ export class AppComponent {
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import Clock from './Clock.vue'
+  import { ref } from 'vue'
+
+  const showClock = ref(true)
+
+  function setShowClock(val) {
+    showClock.value = val
+  }
+</script>
+
 <template>
   <div>
     <button @click="setShowClock(!showClock)">Toggle clock</button>
     <Clock v-if="showClock" />
   </div>
 </template>
-
-<script setup>
-import Clock from './Clock.vue'
-import { ref } from 'vue'
-
-const showClock = ref(true)
-
-function setShowClock(val) {
-  showClock.value = val
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1072,6 +1072,21 @@ export class AppComponent implements OnInit {
 
 ```vue
 <!-- AlarmScreen.vue -->
+<script setup>
+  import { ref, onMounted } from 'vue'
+
+  const emit = defineEmits(['snooze', 'disable'])
+
+  onMounted(() => {
+    setTimeout(() => {
+      // Automatically snooze the alarm
+      // after 10 seconds of inactivity
+      // In production this would be 10 minutes
+      emit('snooze')
+    }, 10 * 1000)
+  })
+</script>
+
 <template>
   <div>
     <p>Time to wake up!</p>
@@ -1079,53 +1094,38 @@ export class AppComponent implements OnInit {
     <button @click="emit('disable')">Turn off alarm</button>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-
-const emit = defineEmits(['snooze', 'disable'])
-
-onMounted(() => {
-  setTimeout(() => {
-    // Automatically snooze the alarm
-    // after 10 seconds of inactivity
-    // In production this would be 10 minutes
-    emit('snooze')
-  }, 10 * 1000)
-})
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import AlarmScreen from './AlarmScreen.vue'
+  import { ref, onMounted } from 'vue'
+
+  const secondsLeft = ref(5)
+  const timerEnabled = ref(true)
+
+  onMounted(() => {
+    setInterval(() => {
+      if (secondsLeft.value === 0) return
+      secondsLeft.value = secondsLeft.value - 1
+    }, 1000)
+  })
+
+  const snooze = () => {
+    secondsLeft.value = secondsLeft.value + 5
+  }
+
+  const disable = () => {
+    timerEnabled.value = false
+  }
+</script>
+
 <template>
   <p v-if="!timerEnabled">There is no timer</p>
   <AlarmScreen v-else-if="secondsLeft === 0" @snooze="snooze()" @disable="disable()" />
   <p v-else>{{ secondsLeft }} seconds left in timer</p>
 </template>
-
-<script setup>
-import AlarmScreen from './AlarmScreen.vue'
-import { ref, onMounted } from 'vue'
-
-const secondsLeft = ref(5)
-const timerEnabled = ref(true)
-
-onMounted(() => {
-  setInterval(() => {
-    if (secondsLeft.value === 0) return
-    secondsLeft.value = secondsLeft.value - 1
-  }, 1000)
-})
-
-const snooze = () => {
-  secondsLeft.value = secondsLeft.value + 5
-}
-
-const disable = () => {
-  timerEnabled.value = false
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1308,59 +1308,59 @@ Similar to how we import `onMounted` we can import `onUnmounted` in Vue to run t
 
 ```vue
 <!-- AlarmScreen.vue -->
+<script setup>
+  import { ref, onMounted, unUnmounted } from 'vue'
+
+  const emit = defineEmits(['snooze', 'disable'])
+
+  // We don't need to wrap this in `ref`, since it won't be used in `template`
+  let timeout;
+
+  onMounted(() => {
+    timeout = setTimeout(() => {
+      // Automatically snooze the alarm
+      // after 10 seconds of inactivity
+      // In production this would be 10 minutes
+      emit('snooze')
+    }, 10 * 1000)
+  })
+
+  unUnmounted(() => {
+    clearTimeout(timeout);
+  });
+</script>
+
 <template>
 	<!-- ... -->
 </template>
-
-<script setup>
-import { ref, onMounted, unUnmounted } from 'vue'
-
-const emit = defineEmits(['snooze', 'disable'])
-
-// We don't need to wrap this in `ref`, since it won't be used in `template`
-let timeout;
-
-onMounted(() => {
-  timeout = setTimeout(() => {
-    // Automatically snooze the alarm
-    // after 10 seconds of inactivity
-    // In production this would be 10 minutes
-    emit('snooze')
-  }, 10 * 1000)
-})
-    
-unUnmounted(() => {
-    clearTimeout(timeout);
-});
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import AlarmScreen from './AlarmScreen.vue'
+  import { ref, onMounted, onUnmounted } from 'vue'
+
+  // We don't need to wrap this in `ref`, since it won't be used in `template`
+  let interval;
+
+  onMounted(() => {
+    interval = setInterval(() => {
+      if (secondsLeft.value === 0) return
+      secondsLeft.value = secondsLeft.value - 1
+    }, 1000)
+  })
+
+  unUnmounted(() => {
+    clearInterval(interval);
+  });
+
+  // ...
+</script>
+
 <template>
 	<!-- ... -->
 </template>
-
-<script setup>
-import AlarmScreen from './AlarmScreen.vue'
-import { ref, onMounted, onUnmounted } from 'vue'
-
-// We don't need to wrap this in `ref`, since it won't be used in `template`
-let interval;
-
-onMounted(() => {
-  interval = setInterval(() => {
-    if (secondsLeft.value === 0) return
-    secondsLeft.value = secondsLeft.value - 1
-  }, 1000)
-})
-
-unUnmounted(() => {
-    clearInterval(interval);
-});
-
-// ...
-</script>
 ```
 
 #### Vue's `watchEffect` cleanup
@@ -1387,42 +1387,59 @@ Let's rewrite the previous code samples to use `watchEffect`:
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import AlarmScreen from './AlarmScreen.vue'
+  import { ref, watchEffect } from 'vue'
+
+  const secondsLeft = ref(5)
+  const timerEnabled = ref(true)
+
+  watchEffect((onCleanup) => {
+    const interval = setInterval(() => {
+      if (secondsLeft.value === 0) return
+      secondsLeft.value = secondsLeft.value - 1
+    }, 1000)
+
+    onCleanup(() => {
+      clearInterval(interval)
+    })
+  }, {immediate: true})
+
+  const snooze = () => {
+    secondsLeft.value = secondsLeft.value + 5
+  }
+
+  const disable = () => {
+    timerEnabled.value = false
+  }
+</script>
+
 <template>
   <p v-if="!timerEnabled">There is no timer</p>
   <AlarmScreen v-else-if="secondsLeft === 0" @snooze="snooze()" @disable="disable()" />
   <p v-else>{{ secondsLeft }} seconds left in timer</p>
 </template>
-
-<script setup>
-import AlarmScreen from './AlarmScreen.vue'
-import { ref, watchEffect } from 'vue'
-
-const secondsLeft = ref(5)
-const timerEnabled = ref(true)
-
-watchEffect((onCleanup) => {
-  const interval = setInterval(() => {
-    if (secondsLeft.value === 0) return
-    secondsLeft.value = secondsLeft.value - 1
-  }, 1000)
-
-  onCleanup(() => {
-    clearInterval(interval)
-  })
-}, {immediate: true})
-
-const snooze = () => {
-  secondsLeft.value = secondsLeft.value + 5
-}
-
-const disable = () => {
-  timerEnabled.value = false
-}
-</script>
 ```
 
 ```vue
 <!-- AlarmScreen.vue -->
+<script setup>
+  import { ref, watchEffect } from 'vue'
+
+  const emit = defineEmits(['snooze', 'disable'])
+
+  watchEffect((onCleanup) => {
+    const timeout = setTimeout(() => {
+      // Automatically snooze the alarm
+      // after 10 seconds of inactivity
+      // In production this would be 10 minutes
+      emit('snooze')
+    }, 10 * 1000)
+
+    onCleanup(() => clearTimeout(timeout))
+  })
+</script>
+
 <template>
   <div>
     <p>Time to wake up!</p>
@@ -1430,23 +1447,6 @@ const disable = () => {
     <button @click="emit('disable')">Turn off alarm</button>
   </div>
 </template>
-
-<script setup>
-import { ref, watchEffect } from 'vue'
-
-const emit = defineEmits(['snooze', 'disable'])
-
-watchEffect((onCleanup) => {
-  const timeout = setTimeout(() => {
-    // Automatically snooze the alarm
-    // after 10 seconds of inactivity
-    // In production this would be 10 minutes
-    emit('snooze')
-  }, 10 * 1000)
-
-  onCleanup(() => clearTimeout(timeout))
-})
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1554,61 +1554,61 @@ Using lifecycles, this would be:
 
 ```vue
 <!-- WindowSize.vue -->
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue'
+
+  const height = ref(window.innerHeight)
+  const width = ref(window.innerWidth)
+
+  function resizeHandler() {
+    height.value = window.innerHeight
+    width.value = window.innerWidth
+  }
+
+  onMounted(() => {
+    window.addEventListener('resize', resizeHandler)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', resizeHandler)
+  })
+</script>
+
 <template>
   <div>
     <p>Height: {{ height }}</p>
     <p>Width: {{ width }}</p>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-
-const height = ref(window.innerHeight)
-const width = ref(window.innerWidth)
-
-function resizeHandler() {
-  height.value = window.innerHeight
-  width.value = window.innerWidth
-}
-
-onMounted(() => {
-  window.addEventListener('resize', resizeHandler)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', resizeHandler)
-})
-</script>
 ```
 
 Or, using `watchEffect`, this is:
 
 ```vue
 <!-- WindowSize.vue -->
+<script setup>
+  import { ref, watchEffect } from 'vue'
+
+  const height = ref(window.innerHeight)
+  const width = ref(window.innerWidth)
+
+  function resizeHandler() {
+    height.value = window.innerHeight
+    width.value = window.innerWidth
+  }
+
+  watchEffect(onCleanup => {
+    window.addEventListener('resize', resizeHandler)
+    onCleanup(() => window.removeEventListener('resize', resizeHandler));
+  }, {immediate: true});
+</script>
+
 <template>
   <div>
     <p>Height: {{ height }}</p>
     <p>Width: {{ width }}</p>
   </div>
 </template>
-
-<script setup>
-import { ref, watchEffect } from 'vue'
-
-const height = ref(window.innerHeight)
-const width = ref(window.innerWidth)
-
-function resizeHandler() {
-  height.value = window.innerHeight
-  width.value = window.innerWidth
-}
-
-watchEffect(onCleanup => {
-  window.addEventListener('resize', resizeHandler)
-  onCleanup(() => window.removeEventListener('resize', resizeHandler));
-}, {immediate: true});
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1752,19 +1752,19 @@ To answer "why" is a much longer topic, [which I've written about in a dedicated
 
 ```vue
 <!-- ReRenderListener.vue -->
+<script setup>
+  import { onUpdated } from 'vue'
+
+  const props = defineProps(['val'])
+
+  onUpdated(() => {
+    console.log('Component was painted')
+  })
+</script>
+
 <template>
   <div>{{ val }}</div>
 </template>
-
-<script setup>
-import { onUpdated } from 'vue'
-
-const props = defineProps(['val'])
-
-onUpdated(() => {
-  console.log('Component was painted')
-})
-</script>
 ```
 
 Every time the `ReRenderListener` component updates the DOM with new changes, the `onUpdated` method will run.
@@ -1816,17 +1816,17 @@ export class AppComponent {
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref, watchEffect } from 'vue'
+
+  const title = ref('Movies')
+</script>
+
 <template>
   <button @click="title = 'Movies'">Movies</button>
   <button @click="title = 'Music'">Music</button>
   <button @click="title = 'Documents'">Documents</button>
 </template>
-
-<script setup>
-import { ref, watchEffect } from 'vue'
-
-const title = ref('Movies')
-</script>
 ```
 
 <!-- tabs:end -->
@@ -2124,25 +2124,25 @@ Instead, `watchEffect` does something pretty magical: It re-runs the inner funct
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref, watchEffect } from 'vue'
+
+  const title = ref('Movies')
+
+  // watchEffect will re-run whenever `title.value` is updated
+  watchEffect(
+          () => {
+            document.title = title.value
+          },
+          { immediate: true }
+  )
+</script>
+
 <template>
   <button @click="title = 'Movies'">Movies</button>
   <button @click="title = 'Music'">Music</button>
   <button @click="title = 'Documents'">Documents</button>
 </template>
-
-<script setup>
-import { ref, watchEffect } from 'vue'
-
-const title = ref('Movies')
-
-// watchEffect will re-run whenever `title.value` is updated
-watchEffect(
-  () => {
-    document.title = title.value
-  },
-  { immediate: true }
-)
-</script>
 ```
 
 How does `watchEffect` know what refs to watch? The long answer dives deep into Vue's source code and is a challenge to introduce at this stage.
@@ -2384,26 +2384,26 @@ However, what if we wanted to localize our side effects to an element on-screen 
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref, watch } from 'vue'
+
+  const title = ref('Movies')
+
+  watch(title, () => {
+            const el = document.querySelector('#title-paragraph')
+
+            console.log(el?.innerText)
+          },
+          { immediate: true }
+  )
+</script>
+
 <template>
   <button @click="title = 'Movies'">Movies</button>
   <button @click="title = 'Music'">Music</button>
   <button @click="title = 'Documents'">Documents</button>
   <p id="title-paragraph">{{ title }}</p>
 </template>
-
-<script setup>
-import { ref, watch } from 'vue'
-
-const title = ref('Movies')
-
-watch(title, () => {
-  const el = document.querySelector('#title-paragraph')
-
-  console.log(el?.innerText)
-}, 
-{ immediate: true }
-)
-</script>
 ```
 
 Here, when we click any of the buttons to trigger a `title` change you may notice that it shows the _previous_ value of the element's `innerText`. For example, when we press "Music", it shows the `innerText` of `Movies`, which was the previous value of `title`.
@@ -2585,6 +2585,12 @@ class DarkModeToggleComponent {
 
 ```vue
 <!-- DarkModeToggle.vue -->
+<script setup>
+  import { ref } from 'vue'
+
+  const explicitTheme = ref('inherit')
+</script>
+
 <template>
   <div style="display: flex; gap: 1rem">
     <label style="display: inline-flex; flex-direction: column">
@@ -2601,12 +2607,6 @@ class DarkModeToggleComponent {
     </label>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-const explicitTheme = ref('inherit')
-</script>
 ```
 
 <!-- tabs:end -->
@@ -2704,33 +2704,33 @@ class AppComponent {}
 
 ```vue
 <!-- DarkModeToggle.vue -->
+<script setup>
+  import { ref, watch } from 'vue'
+
+  const explicitTheme = ref('inherit')
+
+  watch(explicitTheme, () => {
+    document.documentElement.className = explicitTheme.value
+  })
+</script>
+
 <template>
 	<!-- ... -->
 </template>
-
-<script setup>
-import { ref, watch } from 'vue'
-
-const explicitTheme = ref('inherit')
-
-watch(explicitTheme, () => {
-  document.documentElement.className = explicitTheme.value
-})
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import DarkModeToggle from './DarkModeToggle.vue'
+</script>
+
 <template>
   <div>
     <DarkModeToggle />
     <p style="color: var(--primary)">This text is blue</p>
   </div>
 </template>
-
-<script setup>
-import DarkModeToggle from './DarkModeToggle.vue'
-</script>
 
 <style>
 :root {
@@ -2847,38 +2847,38 @@ class DarkModeToggleComponent implements OnInit, OnDestroy {
 
 ```vue
 <!-- DarkModeToggle.vue -->
+<script setup>
+  import { ref, watch, onMounted, onUnmounted } from 'vue'
+
+  const explicitTheme = ref('inherit')
+
+  watch(explicitTheme, () => {
+    if (explicitTheme.value === 'implicit') {
+      document.documentElement.className = explicitTheme.value
+      return
+    }
+
+    document.documentElement.className = explicitTheme.value
+  });
+
+  const isOSDark = window.matchMedia('(prefers-color-scheme: dark)')
+
+  const changeOSTheme = () => {
+    explicitTheme.value = isOSDark.matches ? 'dark' : 'light'
+  }
+
+  onMounted(() => {
+    isOSDark.addEventListener('change', changeOSTheme)
+  })
+
+  onUnmounted(() => {
+    isOSDark.removeEventListener('change', changeOSTheme)
+  })
+</script>
+
 <template>
   <!-- ... -->
 </template>
-
-<script setup>
-import { ref, watch, onMounted, onUnmounted } from 'vue'
-
-const explicitTheme = ref('inherit')
-
-watch(explicitTheme, () => {
-  if (explicitTheme.value === 'implicit') {
-    document.documentElement.className = explicitTheme.value
-    return
-  }
-
-  document.documentElement.className = explicitTheme.value
-});
-
-const isOSDark = window.matchMedia('(prefers-color-scheme: dark)')
-
-const changeOSTheme = () => {
-  explicitTheme.value = isOSDark.matches ? 'dark' : 'light'
-}
-
-onMounted(() => {
-  isOSDark.addEventListener('change', changeOSTheme)
-})
-
-onUnmounted(() => {
-  isOSDark.removeEventListener('change', changeOSTheme)
-})
-</script>
 ```
 
 <!-- tabs:end -->
@@ -3092,8 +3092,41 @@ class AppComponent {}
 
 ## Vue
 
-```vue {21,23-25}
+```vue {4,6-8}
 <!-- DarkModeToggle.vue -->
+<script setup>
+  import { ref, watch, onMounted, onUnmounted } from 'vue'
+
+  const explicitTheme = ref(localStorage.getItem('theme') || 'inherit')
+
+  watch(explicitTheme, () => {
+    localStorage.setItem('theme', explicitTheme)
+  })
+
+  watch(explicitTheme, () => {
+    if (explicitTheme.value === 'implicit') {
+      document.documentElement.className = explicitTheme.value
+      return
+    }
+
+    document.documentElement.className = explicitTheme.value
+  })
+
+  const isOSDark = window.matchMedia('(prefers-color-scheme: dark)')
+
+  const changeOSTheme = () => {
+    explicitTheme.value = isOSDark.matches ? 'dark' : 'light'
+  }
+
+  onMounted(() => {
+    isOSDark.addEventListener('change', changeOSTheme)
+  })
+
+  onUnmounted(() => {
+    isOSDark.removeEventListener('change', changeOSTheme)
+  })
+</script>
+
 <template>
   <div style="display: flex; gap: 1rem">
     <label style="display: inline-flex; flex-direction: column">
@@ -3110,53 +3143,20 @@ class AppComponent {}
     </label>
   </div>
 </template>
-
-<script setup>
-import { ref, watch, onMounted, onUnmounted } from 'vue'
-
-const explicitTheme = ref(localStorage.getItem('theme') || 'inherit')
-
-watch(explicitTheme, () => {
-  localStorage.setItem('theme', explicitTheme)
-})
-
-watch(explicitTheme, () => {
-  if (explicitTheme.value === 'implicit') {
-    document.documentElement.className = explicitTheme.value
-    return
-  }
-
-  document.documentElement.className = explicitTheme.value
-})
-
-const isOSDark = window.matchMedia('(prefers-color-scheme: dark)')
-
-const changeOSTheme = () => {
-  explicitTheme.value = isOSDark.matches ? 'dark' : 'light'
-}
-
-onMounted(() => {
-  isOSDark.addEventListener('change', changeOSTheme)
-})
-
-onUnmounted(() => {
-  isOSDark.removeEventListener('change', changeOSTheme)
-})
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import DarkModeToggle from './DarkModeToggle.vue'
+</script>
+
 <template>
   <div>
     <DarkModeToggle />
     <p style="color: var(--primary)">This text is blue</p>
   </div>
 </template>
-
-<script setup>
-import DarkModeToggle from './DarkModeToggle.vue'
-</script>
 
 <style>
 :root {

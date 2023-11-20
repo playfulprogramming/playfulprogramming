@@ -124,6 +124,12 @@ export class FileListComponent {
 
 ```vue
 <!-- File.vue -->
+<script setup>
+  const props = defineProps(['isSelected', 'isFolder', 'fileName', 'href'])
+
+  defineEmits(['selected'])
+</script>
+
 <template>
   <button
     v-on:click="$emit('selected')"
@@ -138,17 +144,14 @@ export class FileListComponent {
     </a>
   </button>
 </template>
-
-<script setup>
-const props = defineProps(['isSelected', 'isFolder', 'fileName', 'href'])
-
-defineEmits(['selected'])
-</script>
-
 ```
 
 ```vue
 <!-- FileList.vue -->
+<script setup>
+  // ...
+</script>
+
 <template>
   <!-- ... -->
   <ul>
@@ -165,11 +168,6 @@ defineEmits(['selected'])
   </ul>
   <!-- ... -->
 </template>
-
-<script setup>
-// ...
-</script>
-
 ```
 
 <!-- tabs:end -->
@@ -536,6 +534,10 @@ class AppComponent {
 
 ```vue
 <!-- FileActionButtons.vue -->
+<script setup>
+  const emit = defineEmits(['delete', 'copy', 'favorite'])
+</script>
+
 <template>
   <div>
     <button @click="emit('delete')">Delete</button>
@@ -543,27 +545,23 @@ class AppComponent {
     <button @click="emit('favorite')">Favorite</button>
   </div>
 </template>
-
-<script setup>
-const emit = defineEmits(['delete', 'copy', 'favorite'])
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import FileActionButtons from './FileActionButtons.vue'
+
+  const props = defineProps(['fileSelected'])
+  const emit = defineEmits(['delete', 'copy', 'favorite', 'settings'])
+</script>
+
 <template>
   <div style="display: flex; gap: 1rem">
     <FileActionButtons v-if="props.fileSelected" @delete="emit('delete')" @copy="emit('copy')" @favorite="emit('favorite')" />
     <button @click="emit('settings')">Settings</button>
   </div>
 </template>
-
-<script setup>
-import FileActionButtons from './FileActionButtons.vue'
-
-const props = defineProps(['fileSelected'])
-const emit = defineEmits(['delete', 'copy', 'favorite', 'settings'])
-</script>
 ```
 
 <!-- tabs:end -->

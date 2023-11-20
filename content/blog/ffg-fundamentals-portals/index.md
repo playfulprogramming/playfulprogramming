@@ -86,6 +86,8 @@ class ModalComponent {}
 ## Vue
 
 ```vue
+<script setup></script>
+
 <!-- Modal.vue -->
 <template>
   <div>
@@ -102,8 +104,6 @@ class ModalComponent {}
     </div>
   </div>
 </template>
-
-<script setup></script>
 ```
 
 <!-- tabs:end -->
@@ -414,6 +414,7 @@ import Footer from './Footer.vue'
 import FolderIcon from './FolderIcon.vue'
 import DeleteIcon from './DeleteIcon.vue'
 </script>
+
 <template>
   <div class="header-container">
     <span class="icon-container">
@@ -662,7 +663,6 @@ export class HeaderComponent {
 
 ```vue
 <!-- Header.vue -->
-
 <script setup>
 import FolderIcon from './FolderIcon.vue'
 import DeleteIcon from './DeleteIcon.vue'
@@ -674,6 +674,7 @@ function showModal() {
   shouldShowModal.value = true
 }
 </script>
+
 <template>
   <div class="header-container">
     <Modal v-if="shouldShowModal" />

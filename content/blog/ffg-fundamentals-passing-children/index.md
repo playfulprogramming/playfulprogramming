@@ -159,6 +159,18 @@ export class ToggleButtonListComponent {}
 
 ```vue
 <!-- ToggleButton.vue -->
+<script setup>
+  import { ref } from 'vue'
+
+  const pressed = ref(false)
+
+  const props = defineProps(['text'])
+
+  function togglePressed() {
+    pressed.value = !pressed.value
+  }
+</script>
+
 <template>
   <button
     @click="togglePressed()"
@@ -169,30 +181,18 @@ export class ToggleButtonListComponent {}
     {{ props.text || 'Test' }}
   </button>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-const pressed = ref(false)
-
-const props = defineProps(['text'])
-
-function togglePressed() {
-  pressed.value = !pressed.value
-}
-</script>
 ```
 
 ```vue
 <!-- ToggleButtonList.vue -->
+<script setup>
+  import ToggleButton from './ToggleButton.vue';
+</script>
+
 <template>
   <ToggleButton text="Hello world!"></ToggleButton>
   <ToggleButton text="Hello other friends!"></ToggleButton>
 </template>
-
-<script setup>
-import ToggleButton from './ToggleButton.vue';
-</script>
 ```
 
 <!-- tabs:end -->
@@ -271,6 +271,16 @@ When in Vue-land, the `slot` tag is utilized in order to pass children through t
 
 ```vue
 <!-- ToggleButton.vue -->
+<script setup>
+  import {ref} from 'vue';
+
+  const pressed = ref(false);
+
+  function togglePressed() {
+    pressed.value = !pressed.value;
+  }
+</script>
+
 <template>
   <button @click="togglePressed()"
           :style="pressed ? 'background-color: black; color: white' : 'background-color: white; color: black'"
@@ -279,28 +289,18 @@ When in Vue-land, the `slot` tag is utilized in order to pass children through t
     <slot></slot>
   </button>
 </template>
-
-<script setup>
-import {ref} from 'vue';
-
-const pressed = ref(false);
-
-function togglePressed() {
-  pressed.value = !pressed.value;
-}
-</script>
 ```
 
 ```vue
 <!-- ToggleButtonList.vue -->
+<script setup>
+  import ToggleButton from './ToggleButton.vue';
+</script>
+
 <template>
   <ToggleButton>Hello <span style="font-weight: bold">world</span>!</ToggleButton>
   <ToggleButton>Hello other friends!</ToggleButton>
 </template>
-
-<script setup>
-import ToggleButton from './ToggleButton.vue';
-</script>
 ```
 
 Because `slot` is a built-in component to Vue, we do not need to import it from the `vue` package.
@@ -416,19 +416,19 @@ export class RainbowExclamationMarkComponent {}
 
 ```vue
 <!-- ToggleButtonList.vue -->
+<script setup>
+  import ToggleButton from './ToggleButton.vue';
+  import RainbowExclamationMark from './RainbowExclamationMark.vue';
+
+  const friends = ['Kevin,', 'Evelyn,', 'and James']
+</script>
+
 <template>
   <ToggleButton>Hello <span v-for="friend of friends">{{ friend }} </span>!</ToggleButton>
   <ToggleButton>Hello other friends
     <RainbowExclamationMark/>
   </ToggleButton>
 </template>
-
-<script setup>
-import ToggleButton from './ToggleButton.vue';
-import RainbowExclamationMark from './RainbowExclamationMark.vue';
-
-const friends = ['Kevin,', 'Evelyn,', 'and James']
-</script>
 ```
 
 
@@ -588,6 +588,12 @@ Similar to how Angular's `ng-content[select]` query works, Vue allows you to pas
 
 ```vue
 <!-- Dropdown.vue -->
+<script setup>
+  const props = defineProps(['expanded'])
+
+  const emit = defineEmits(['toggle'])
+</script>
+
 <template>
   <button @click="emit('toggle')" :aria-expanded="expanded" aria-controls="dropdown-contents">
     {{ props.expanded ? '🡇' : '🡆' }} <slot name="header" />
@@ -596,29 +602,23 @@ Similar to how Angular's `ng-content[select]` query works, Vue allows you to pas
     <slot />
   </div>
 </template>
-
-<script setup>
-const props = defineProps(['expanded'])
-
-const emit = defineEmits(['toggle'])
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref } from 'vue'
+  import Dropdown from './Dropdown.vue'
+
+  const expanded = ref(false)
+</script>
+
 <template>
   <Dropdown :expanded="expanded" @toggle="expanded = !expanded">
     <template v-slot:header>Let's build this dropdown component</template>
     These tend to be useful for FAQ pages, hidden contents, and more!
   </Dropdown>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import Dropdown from './Dropdown.vue'
-
-const expanded = ref(false)
-</script>
 ```
 
 Here, we can see that `slot` is querying for a `header` template slot. This query is then satisfied by `App`'s template for the heading `template` element.
@@ -627,19 +627,19 @@ Here, we can see that `slot` is querying for a `header` template slot. This quer
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref } from 'vue'
+  import Dropdown from './Dropdown.vue'
+
+  const expanded = ref(false)
+</script>
+
 <template>
   <Dropdown :expanded="expanded" @toggle="expanded = !expanded">
     <template #header>Let's build this dropdown component</template>
     These tend to be useful for FAQ pages, hidden contents, and more!
   </Dropdown>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import Dropdown from './Dropdown.vue'
-
-const expanded = ref(false)
-</script>
 ```
 
 <!-- tabs:end -->
@@ -833,6 +833,13 @@ class FileTableComponent {}
 
 ```vue
 <!-- File.vue -->
+<script setup>
+  import FileDate from './FileDate.vue';
+
+  const props = defineProps(['fileName', 'href', 'isSelected', 'isFolder']);
+  const emit = defineEmits(['selected']);
+</script>
+
 <template>
   <tr
       @click="emit('selected')"
@@ -847,18 +854,33 @@ class FileTableComponent {}
     <td v-if="props.isFolder"><FileDate :inputDate="new Date()"></FileDate></td>
   </tr>
 </template>
-
-<script setup>
-import FileDate from './FileDate.vue';
-
-const props = defineProps(['fileName', 'href', 'isSelected', 'isFolder']);
-const emit = defineEmits(['selected']);
-</script>
 ```
 
 ```vue
 <!-- FileTableBody -->
 <!-- This was previously called "FileList" -->
+<script setup>
+  import File from './File.vue';
+
+  const filesArray = [
+    {
+      fileName: 'File one',
+      href: '/file/file_one',
+      isFolder: false,
+    },
+    {
+      fileName: 'File two',
+      href: '/file/file_two',
+      isFolder: false,
+    },
+    {
+      fileName: 'File three',
+      href: '/file/file_three',
+      isFolder: false,
+    },
+  ]
+</script>
+
 <template>
   <tbody>
     <template v-for="file in filesArray">
@@ -872,39 +894,17 @@ const emit = defineEmits(['selected']);
     </template>
   </tbody>
 </template>
-
-<script setup>
-import File from './File.vue';
-
-const filesArray = [
-  {
-    fileName: 'File one',
-    href: '/file/file_one',
-    isFolder: false,
-  },
-  {
-    fileName: 'File two',
-    href: '/file/file_two',
-    isFolder: false,
-  },
-  {
-    fileName: 'File three',
-    href: '/file/file_three',
-    isFolder: false,
-  },
-]
-</script>
 ```
 
 ```vue
 <!-- FileTable -->
+<script setup>
+  import FileTableBody from './FileTableBody.vue';
+</script>
+
 <template>
   <table><FileTableBody/></table>
 </template>
-
-<script setup>
-import FileTableBody from './FileTableBody.vue';
-</script>
 ```
 
 > Please note that we've temporarily disabled `isSelected` logic for the sake of code sample brevity
@@ -975,14 +975,14 @@ class FileTableComponent {}
 
 ```vue
 <!-- FileTable -->
+<script setup>
+  import FileTableContainer from './FileTableContainer.vue';
+  import FileTableBody from './FileTableBody.vue';
+</script>
+
 <template>
   <FileTableContainer><FileTableBody/></FileTableContainer>
 </template>
-
-<script setup>
-import FileTableContainer from './FileTableContainer.vue';
-import FileTableBody from './FileTableBody.vue';
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1070,6 +1070,11 @@ class FileTableComponent {}
 
 ````vue
 <!-- FileTable -->
+<script setup>
+  import FileTableContainer from './FileTableContainer.vue';
+  import FileTableBody from './FileTableBody.vue';
+</script>
+
 <template>
   <FileTableContainer>
     <template #header>
@@ -1081,11 +1086,6 @@ class FileTableComponent {}
     <FileTableBody/>
   </FileTableContainer>
 </template>
-
-<script setup>
-import FileTableContainer from './FileTableContainer.vue';
-import FileTableBody from './FileTableBody.vue';
-</script>
 ````
 
 <!-- tabs:end -->
