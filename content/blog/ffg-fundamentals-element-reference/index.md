@@ -157,6 +157,31 @@ class AppComponent {
 <!--  - Closing upon external click                     -->
 <!--                                                    -->
 <!--  Read on to learn how to add these                 -->
+<script setup>
+  import { ref } from 'vue'
+
+  const isOpen = ref(false)
+
+  const mouseBounds = ref({
+    x: 0,
+    y: 0,
+  })
+
+  const close = () => {
+    isOpen.value = false
+  }
+
+  const open = (e) => {
+    e.preventDefault()
+    isOpen.value = true
+    mouseBounds.value = {
+      // Mouse position on click
+      x: e.clientX,
+      y: e.clientY,
+    }
+  }
+</script>
+
 <template>
   <div style="margin-top: 5rem; margin-left: 5rem">
     <div @contextmenu="open($event)">Right click on me!</div>
@@ -177,31 +202,6 @@ class AppComponent {
     This is a context menu
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-const isOpen = ref(false)
-
-const mouseBounds = ref({
-  x: 0,
-  y: 0,
-})
-
-const close = () => {
-  isOpen.value = false
-}
-
-const open = (e) => {
-  e.preventDefault()
-  isOpen.value = true
-  mouseBounds.value = {
-    // Mouse position on click
-    x: e.clientX,
-    y: e.clientY,
-  }
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -588,15 +588,15 @@ Vue's ability to store reactive data using `ref` enables a super simplistic API 
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import {ref} from "vue";
+
+  const el = ref();
+</script>
+
 <template>
   <p ref="el"></p>
 </template>
-
-<script setup>
-import {ref} from "vue";
-
-const el = ref();
-</script>
 ```
 
 Here, `el.value` points to an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) of the `p` tag within `template`.
@@ -605,15 +605,15 @@ Vue also allows you to pass a function to `ref` in order to run a function when 
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  function logEl(el) {
+    console.log(el);
+  }
+</script>
+
 <template>
   <p :ref="logEl"></p>
 </template>
-
-<script setup>
-function logEl(el) {
-  console.log(el);
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -730,6 +730,30 @@ Vue has a handy feature that [enables you to create an array of referenced eleme
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import {ref} from 'vue';
+
+  const items = ref([]);
+
+  function scrollToTop() {
+    items.value[0].scrollIntoView();
+  }
+
+  function scrollToBottom() {
+    items.value[this.$refs.items.length - 1].scrollIntoView();
+  }
+
+  const chapters = [
+    "The new slides for the design keynote look wonderful!",
+    "Some great new colours are planned to debut with Material Next!",
+    "Hey everyone! Please take a look at the resources I’ve attached.",
+    "So on Friday we were thinking about going through that park you’ve recommended.",
+    "We will discuss our upcoming Pixel 6 strategy in the following week.",
+    "On Thursday we drew some great new ideas for our talk.",
+    "So the design teams got together and decided everything should be made of sand."
+  ];
+</script>
+
 <template>
   <div>
     <button @click="scrollToTop()">Scroll to top</button>
@@ -741,30 +765,6 @@ Vue has a handy feature that [enables you to create an array of referenced eleme
     <button @click="scrollToBottom()">Scroll to bottom</button>
   </div>
 </template>
-
-<script setup>
-import {ref} from 'vue';
-
-const items = ref([]);
-
-function scrollToTop() {
-  items.value[0].scrollIntoView();
-}
-
-function scrollToBottom() {
-  items.value[this.$refs.items.length - 1].scrollIntoView();
-}
-
-const chapters = [
-    "The new slides for the design keynote look wonderful!",
-    "Some great new colours are planned to debut with Material Next!",
-    "Hey everyone! Please take a look at the resources I’ve attached.",
-    "So on Friday we were thinking about going through that park you’ve recommended.",
-    "We will discuss our upcoming Pixel 6 strategy in the following week.",
-    "On Thursday we drew some great new ideas for our talk.",
-    "So the design teams got together and decided everything should be made of sand."
-];
-</script>
 ```
 
 <!-- tabs:end -->
@@ -984,6 +984,54 @@ We'll also use a callback ref in order to run a function every time the context 
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue'
+
+  const isOpen = ref(false)
+
+  const mouseBounds = ref({
+    x: 0,
+    y: 0,
+  })
+
+  const contextMenuRef = ref(null)
+
+  function closeIfOutside(e) {
+    const contextMenuEl = contextMenuRef.value
+    if (!contextMenuEl) return
+    const isClickInside = contextMenuEl.contains(e.target)
+    if (isClickInside) return
+    isOpen.value = false
+  }
+
+  onMounted(() => {
+    document.addEventListener('click', closeIfOutside)
+  })
+
+  onUnmounted(() => {
+    document.removeEventListener('click', closeIfOutside)
+  })
+
+  const close = () => {
+    isOpen.value = false
+  }
+
+  const open = (e) => {
+    e.preventDefault()
+    isOpen.value = true
+    mouseBounds.value = {
+      x: e.clientX,
+      y: e.clientY,
+    }
+  }
+
+  function focusOnOpen(el) {
+    contextMenuRef.value = el
+    if (!el) return
+    el.focus()
+  }
+</script>
+
 <template>
   <div style="margin-top: 5rem; margin-left: 5rem">
     <div @contextmenu="open($event)">Right click on me!</div>
@@ -1006,54 +1054,6 @@ We'll also use a callback ref in order to run a function every time the context 
     This is a context menu
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-
-const isOpen = ref(false)
-
-const mouseBounds = ref({
-  x: 0,
-  y: 0,
-})
-
-const contextMenuRef = ref(null)
-
-function closeIfOutside(e) {
-  const contextMenuEl = contextMenuRef.value
-  if (!contextMenuEl) return
-  const isClickInside = contextMenuEl.contains(e.target)
-  if (isClickInside) return
-  isOpen.value = false
-}
-
-onMounted(() => {
-  document.addEventListener('click', closeIfOutside)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', closeIfOutside)
-})
-
-const close = () => {
-  isOpen.value = false
-}
-
-const open = (e) => {
-  e.preventDefault()
-  isOpen.value = true
-  mouseBounds.value = {
-    x: e.clientX,
-    y: e.clientY,
-  }
-}
-
-function focusOnOpen(el) {
-  contextMenuRef.value = el
-  if (!el) return
-  el.focus()
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1175,36 +1175,36 @@ class AppComponent implements OnDestroy {
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue'
+
+  const buttonRef = ref()
+
+  const mouseOverTimeout = ref(null)
+
+  const tooltipMeta = ref({
+    show: false,
+  })
+
+  const onMouseOver = () => {
+    mouseOverTimeout.value = setTimeout(() => {
+      tooltipMeta.value = {
+        show: true,
+      }
+    }, 1000)
+  }
+
+  onUnmounted(() => {
+    clearTimeout(mouseOverTimeout.current)
+  })
+</script>
+
 <template>
   <div style="padding: 10rem">
     <button ref="buttonRef" @mouseover="onMouseOver()">Send</button>
     <div v-if="tooltipMeta.show">This will send an email to the recipients</div>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-
-const buttonRef = ref()
-
-const mouseOverTimeout = ref(null)
-
-const tooltipMeta = ref({
-  show: false,
-})
-
-const onMouseOver = () => {
-  mouseOverTimeout.value = setTimeout(() => {
-    tooltipMeta.value = {
-      show: true,
-    }
-  }, 1000)
-}
-
-onUnmounted(() => {
-  clearTimeout(mouseOverTimeout.current)
-})
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1321,43 +1321,43 @@ class AppComponent implements OnDestroy {
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue'
+
+  const buttonRef = ref()
+
+  const mouseOverTimeout = ref(null)
+
+  const tooltipMeta = ref({
+    show: false,
+  })
+
+  const onMouseOver = () => {
+    mouseOverTimeout.value = setTimeout(() => {
+      tooltipMeta.value = {
+        show: true,
+      }
+    }, 1000)
+  }
+
+  const onMouseLeave = () => {
+    tooltipMeta.value = {
+      show: false,
+    }
+    clearTimeout(mouseOverTimeout.current)
+  }
+
+  onUnmounted(() => {
+    clearTimeout(mouseOverTimeout.current)
+  })
+</script>
+
 <template>
   <div style="padding: 10rem">
     <button ref="buttonRef" @mouseover="onMouseOver()" @mouseleave="onMouseLeave()">Send</button>
     <div v-if="tooltipMeta.show">This will send an email to the recipients</div>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-
-const buttonRef = ref()
-
-const mouseOverTimeout = ref(null)
-
-const tooltipMeta = ref({
-  show: false,
-})
-
-const onMouseOver = () => {
-  mouseOverTimeout.value = setTimeout(() => {
-    tooltipMeta.value = {
-      show: true,
-    }
-  }, 1000)
-}
-
-const onMouseLeave = () => {
-  tooltipMeta.value = {
-    show: false,
-  }
-  clearTimeout(mouseOverTimeout.current)
-}
-
-onUnmounted(() => {
-  clearTimeout(mouseOverTimeout.current)
-})
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1517,6 +1517,51 @@ class AppComponent implements OnDestroy {
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue'
+
+  const buttonRef = ref()
+
+  const mouseOverTimeout = ref(null)
+
+  const tooltipMeta = ref({
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    show: false,
+  })
+
+  const onMouseOver = () => {
+    mouseOverTimeout.value = setTimeout(() => {
+      const bounding = buttonRef.value.getBoundingClientRect()
+      tooltipMeta.value = {
+        x: bounding.x,
+        y: bounding.y,
+        height: bounding.height,
+        width: bounding.width,
+        show: true,
+      }
+    }, 1000)
+  }
+
+  const onMouseLeave = () => {
+    tooltipMeta.value = {
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      show: false,
+    }
+    clearTimeout(mouseOverTimeout.current)
+  }
+
+  // Just in case
+  onUnmounted(() => {
+    clearTimeout(mouseOverTimeout.current)
+  })
+</script>
+
 <template>
   <div style="padding: 10rem">
     <div
@@ -1531,51 +1576,6 @@ class AppComponent implements OnDestroy {
     <button ref="buttonRef" @mouseover="onMouseOver()" @mouseleave="onMouseLeave()">Send</button>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-
-const buttonRef = ref()
-
-const mouseOverTimeout = ref(null)
-
-const tooltipMeta = ref({
-  x: 0,
-  y: 0,
-  height: 0,
-  width: 0,
-  show: false,
-})
-
-const onMouseOver = () => {
-  mouseOverTimeout.value = setTimeout(() => {
-    const bounding = buttonRef.value.getBoundingClientRect()
-    tooltipMeta.value = {
-      x: bounding.x,
-      y: bounding.y,
-      height: bounding.height,
-      width: bounding.width,
-      show: true,
-    }
-  }, 1000)
-}
-
-const onMouseLeave = () => {
-  tooltipMeta.value = {
-    x: 0,
-    y: 0,
-    height: 0,
-    width: 0,
-    show: false,
-  }
-  clearTimeout(mouseOverTimeout.current)
-}
-
-// Just in case
-onUnmounted(() => {
-  clearTimeout(mouseOverTimeout.current)
-})
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1790,6 +1790,50 @@ class AppComponent implements OnDestroy {
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue'
+
+  const buttonRef = ref()
+
+  const mouseOverTimeout = ref(null)
+
+  const tooltipMeta = ref({
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    show: false,
+  })
+
+  const onMouseOver = () => {
+    mouseOverTimeout.value = setTimeout(() => {
+      const bounding = buttonRef.value.getBoundingClientRect()
+      tooltipMeta.value = {
+        x: bounding.x,
+        y: bounding.y,
+        height: bounding.height,
+        width: bounding.width,
+        show: true,
+      }
+    }, 1000)
+  }
+
+  const onMouseLeave = () => {
+    tooltipMeta.value = {
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      show: false,
+    }
+    clearTimeout(mouseOverTimeout.current)
+  }
+
+  onUnmounted(() => {
+    clearTimeout(mouseOverTimeout.current)
+  })
+</script>
+
 <template>
   <div style="padding: 10rem">
     <div
@@ -1815,50 +1859,6 @@ class AppComponent implements OnDestroy {
     <button ref="buttonRef" @mouseover="onMouseOver()" @mouseleave="onMouseLeave()">Send</button>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-
-const buttonRef = ref()
-
-const mouseOverTimeout = ref(null)
-
-const tooltipMeta = ref({
-  x: 0,
-  y: 0,
-  height: 0,
-  width: 0,
-  show: false,
-})
-
-const onMouseOver = () => {
-  mouseOverTimeout.value = setTimeout(() => {
-    const bounding = buttonRef.value.getBoundingClientRect()
-    tooltipMeta.value = {
-      x: bounding.x,
-      y: bounding.y,
-      height: bounding.height,
-      width: bounding.width,
-      show: true,
-    }
-  }, 1000)
-}
-
-const onMouseLeave = () => {
-  tooltipMeta.value = {
-    x: 0,
-    y: 0,
-    height: 0,
-    width: 0,
-    show: false,
-  }
-  clearTimeout(mouseOverTimeout.current)
-}
-
-onUnmounted(() => {
-  clearTimeout(mouseOverTimeout.current)
-})
-</script>
 ```
 
 <!-- tabs:end -->
@@ -2092,6 +2092,50 @@ class AppComponent implements OnDestroy {
 
 ```vue
 <!-- App.vue -->
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue'
+
+  const buttonRef = ref()
+
+  const mouseOverTimeout = ref(null)
+
+  const tooltipMeta = ref({
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    show: false,
+  })
+
+  const onMouseOver = () => {
+    mouseOverTimeout.value = setTimeout(() => {
+      const bounding = buttonRef.value.getBoundingClientRect()
+      tooltipMeta.value = {
+        x: bounding.x,
+        y: bounding.y,
+        height: bounding.height,
+        width: bounding.width,
+        show: true,
+      }
+    }, 1000)
+  }
+
+  const onMouseLeave = () => {
+    tooltipMeta.value = {
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      show: false,
+    }
+    clearTimeout(mouseOverTimeout.current)
+  }
+
+  onUnmounted(() => {
+    clearTimeout(mouseOverTimeout.current)
+  })
+</script>
+
 <template>
   <div style="padding: 10rem">
     <div
@@ -2133,50 +2177,6 @@ class AppComponent implements OnDestroy {
     <button ref="buttonRef" @mouseover="onMouseOver()" @mouseleave="onMouseLeave()">Send</button>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-
-const buttonRef = ref()
-
-const mouseOverTimeout = ref(null)
-
-const tooltipMeta = ref({
-  x: 0,
-  y: 0,
-  height: 0,
-  width: 0,
-  show: false,
-})
-
-const onMouseOver = () => {
-  mouseOverTimeout.value = setTimeout(() => {
-    const bounding = buttonRef.value.getBoundingClientRect()
-    tooltipMeta.value = {
-      x: bounding.x,
-      y: bounding.y,
-      height: bounding.height,
-      width: bounding.width,
-      show: true,
-    }
-  }, 1000)
-}
-
-const onMouseLeave = () => {
-  tooltipMeta.value = {
-    x: 0,
-    y: 0,
-    height: 0,
-    width: 0,
-    show: false,
-  }
-  clearTimeout(mouseOverTimeout.current)
-}
-
-onUnmounted(() => {
-  clearTimeout(mouseOverTimeout.current)
-})
-</script>
 ```
 
 <!-- tabs:end -->
