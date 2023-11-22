@@ -1,5 +1,5 @@
 {
-  "name": "angular-attribute-binding-10",
+  "name": "@ffg-fundamentals/angular-attribute-binding-10",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

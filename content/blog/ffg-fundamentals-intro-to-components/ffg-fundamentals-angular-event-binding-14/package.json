@@ -1,5 +1,5 @@
 {
-  "name": "angular-event-binding-14",
+  "name": "@ffg-fundamentals/angular-event-binding-14",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

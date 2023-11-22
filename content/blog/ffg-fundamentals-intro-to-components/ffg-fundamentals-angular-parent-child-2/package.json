@@ -1,5 +1,5 @@
 {
-  "name": "angular-parent-child-2",
+  "name": "@ffg-fundamentals/angular-parent-child-2",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
