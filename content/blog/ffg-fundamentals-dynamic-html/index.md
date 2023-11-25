@@ -1268,6 +1268,8 @@ Let's see how we can do this in each framework.
 
 Here, we're using the `key` property to tell React which `li` is related to which `word` via the `word`'s unique `id` field.
 
+<iframe data-frame-title="React Keyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-keyed-demo-22?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Angular
 
 While Angular doesn't have quite the same API for `key` as React and Vue, Angular instead uses a [`trackBy` method](https://angular.io/api/core/TrackByFunction) to figure out which item is which.
@@ -1291,13 +1293,15 @@ While Angular doesn't have quite the same API for `key` as React and Vue, Angula
 export class WordListComponent {
 	words: Array<{ word: string; id: number }> = [];
 
-	wordTrackBy(index, word) {
+	wordTrackBy(index: number, word: Word) {
 		return word.id;
 	}
 
 	// ...
 }
 ```
+
+<iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain."></iframe>
 
 Another difference to the other frameworks is that while React and Vue have no default `key` behavior, Angular has a default `trackBy` function if one is not provided. If no `trackBy` is provided, the default will simply do strict equality (`===`) between the old item in the array and the new to check if the item is the same.
 
@@ -1330,6 +1334,8 @@ While this works in some cases, for the most part, it's suggested to provide you
 ```
 
 Here, we're using the `key` property to tell Vue which `li` is related to which `word` via the `word`'s unique `id` field.
+
+<iframe data-frame-title="Vue Keyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-keyed-demo-22?template=node&embed=1&file=src%2FWordList.vue"></iframe>
 
 <!-- tabs:end -->
 
