@@ -279,20 +279,35 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 					: { backgroundColor: "white", color: "blue" }
 			}
 		>
-			<a href={href}>{fileName}</a>
-			{isFolder && <FileDate inputDate={new Date()} />}
+			{fileName}
+			{!isFolder && <FileDate inputDate={new Date()} />}
 		</button>
+	);
+};
+
+const FileList = () => {
+	return (
+		<ul>
+			<li>
+				<File fileName="File one" href="/file/file_one" />
+			</li>
+			<li>
+				<File fileName="Folder one" href="/file/folder_one/" isFolder={true} />
+			</li>
+		</ul>
 	);
 };
 ```
 
+<iframe data-frame-title="React Conditional Date - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-conditional-date-18?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Angular
 
-```typescript {13}
+```typescript {14,40}
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [NgIf],
+	imports: [NgIf, FileDateComponent],
 	template: `
 		<button
 			(click)="selected.emit()"
@@ -302,27 +317,51 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 					: 'background-color: white; color: blue'
 			"
 		>
-			<a [href]="href">
-				{{ fileName }}
-				<file-date *ngIf="isFolder" [inputDate]="inputDate"></file-date>
-			</a>
+			{{ fileName }}
+			<file-date *ngIf="!isFolder" [inputDate]="inputDate"></file-date>
 		</button>
 	`,
 })
 export class FileComponent {
-	@Input() fileName: string;
-	@Input() href: string;
-	@Input() isSelected: boolean;
-	@Input() isFolder: boolean;
+	@Input() fileName!: string;
+	@Input() href!: string;
+	@Input() isSelected!: boolean;
+	@Input() isFolder!: boolean;
 	@Output() selected = new EventEmitter();
+	inputDate = new Date();
 }
+
+@Component({
+	selector: "file-list",
+	standalone: true,
+	imports: [FileComponent],
+	template: `
+		<ul>
+			<li>
+				<file-item fileName="File one" href="/file/file_one" />
+			</li>
+			<li>
+				<file-item
+					fileName="Folder one"
+					href="/file/folder_one/"
+					[isFolder]="true"
+				/>
+			</li>
+		</ul>
+	`,
+})
+export class FileListComponent {}
 ```
+
+<iframe data-frame-title="Angular Conditional Date - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-conditional-date-18?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
-```vue
+```vue {20}
+<!-- File.vue -->
 <script setup>
-import { defineProps, defineEmits } from "vue";
+import FileDate from "./FileDate.vue";
+const inputDate = new Date();
 
 const props = defineProps(["isSelected", "isFolder", "fileName", "href"]);
 
@@ -338,13 +377,31 @@ const emit = defineEmits(["selected"]);
 				: 'background-color: white; color: blue'
 		"
 	>
-		<a :href="href">
-			{{ fileName }}
-			<file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
-		</a>
+		{{ fileName }}
+		<FileDate v-if="!isFolder" :inputDate="inputDate" />
 	</button>
 </template>
 ```
+
+```vue {11}
+<!-- FileList.vue -->
+<script setup>
+import File from "./File.vue";
+</script>
+
+<template>
+	<ul>
+		<li>
+			<File fileName="File one" href="/file/file_one" />
+		</li>
+		<li>
+			<File fileName="Folder one" href="/file/folder_one/" :isFolder="true" />
+		</li>
+	</ul>
+</template>
+```
+
+<iframe data-frame-title="Vue Conditional Date - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-conditional-date-18?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 <!-- tabs:end -->
 
