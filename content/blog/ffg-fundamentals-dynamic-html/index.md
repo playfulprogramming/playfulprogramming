@@ -1076,12 +1076,24 @@ const WordList = () => {
 		setWords([...words, newWord]);
 	};
 
+	const removeFirst = () => {
+		const newWords = [...words];
+		newWords.shift();
+		setWords(newWords);
+	};
+
 	return (
 		<div>
 			<button onClick={addWord}>Add word</button>
+			<button onClick={removeFirst}>Remove first word</button>
 			<ul>
 				{words.map((word) => {
-					return <li>{word.word}</li>;
+					return (
+						<li>
+							{word.word}
+							<input type="text" />
+						</li>
+					);
 				})}
 			</ul>
 		</div>
@@ -1102,6 +1114,8 @@ function getRandomWord() {
 }
 ```
 
+<iframe data-frame-title="React Unkeyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Angular
 
 ```typescript
@@ -1112,20 +1126,37 @@ function getRandomWord() {
 	template: `
 		<div>
 			<button (click)="addWord()">Add word</button>
+			<button (click)="removeFirst()">Remove first word</button>
 			<ul>
-				<li *ngFor="let word of words">{{ word.word }}</li>
+				<li *ngFor="let word of words">
+					{{ word.word }}
+					<input type="text" />
+				</li>
 			</ul>
 		</div>
 	`,
 })
 export class WordListComponent {
-	words: Array<{ word: string; id: number }> = [];
+	words: Word[] = [];
 
 	addWord() {
 		const newWord = getRandomWord();
 		// Remove ability for duplicate words
 		if (this.words.includes(newWord)) return;
 		this.words = [...this.words, newWord];
+	}
+
+	removeFirst() {
+		const newWords: Word[] = [];
+		for (let i = 0; i < this.words.length; i++) {
+			if (i === 0) continue;
+			// We could just push `this.words[i]` without making a new object
+			// But when we do so the bug I'm hoping to showcase isn't visible.
+			// Further, this is commonplace to make a new object in a list to
+			// avoid accidental mutations
+			newWords.push({ ...this.words[i] });
+		}
+		this.words = newWords;
 	}
 }
 
@@ -1141,7 +1172,14 @@ const wordDatabase = [
 function getRandomWord() {
 	return wordDatabase[Math.floor(Math.random() * wordDatabase.length)];
 }
+
+interface Word {
+	word: string;
+	id: number;
+}
 ```
+
+<iframe data-frame-title="Angular Unkeyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain."></iframe>
 
 ### Vue
 
@@ -1171,23 +1209,39 @@ function addWord() {
 	if (words.value.includes(newWord)) return;
 	words.value.push(newWord);
 }
+
+function removeFirst() {
+	words.value.shift();
+}
 </script>
 
 <template>
 	<div>
 		<button @click="addWord()">Add word</button>
+		<button @click="removeFirst()">Remove first word</button>
 		<ul>
-			<li v-for="word in words">{{ word.word }}</li>
+			<li v-for="word in words">
+				{{ word.word }}
+				<input type="text" />
+			</li>
 		</ul>
 	</div>
 </template>
 ```
 
+<iframe data-frame-title="Vue Unkeyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-unkeyed-demo-21?template=node&embed=1&file=src%2FWordList.vue"></iframe>
+
 <!-- tabs:end -->
 
 Without using some kind of `key` prop, your list will be destroyed and recreated every time you run `addWord`.
 
-This is because the framework **isn't able to detect which item in your array has changed** and as a result marks all DOM elements as "outdated". **These "outdated" elements are then destroyed by the framework only to be immediately reconstructed** in order to ensure the most up-to-date information is displayed to the user.
+This can be demonstrated by typing some text into the `input` and pressing the `"Remove first word"` button. When you do so, the typed text behaves in a strange way.
+
+In Angular, the input text simply disappears. In React and Vue, however, the text moves to the line of the word below the one you originally typed inside.
+
+Both of these behaviors are quite peculiar - we've seemingly not modified the `li` that contains the `input` in question, why are its contents moving or being removed entirely?
+
+The reason the input text changes is that the framework **isn't able to detect which item in your array has changed** and as a result marks all DOM elements as "outdated". **These "outdated" elements are then destroyed by the framework only to be immediately reconstructed** in order to ensure the most up-to-date information is displayed to the user.
 
 ![When a render occurs each item in the array that doesn't have a key also gets re-rendered](./render_without_keys.png)
 
