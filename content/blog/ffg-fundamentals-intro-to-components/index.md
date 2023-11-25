@@ -2212,7 +2212,7 @@ export class FileListComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="Angular Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 

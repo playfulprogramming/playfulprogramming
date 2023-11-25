@@ -72,7 +72,7 @@ export class FileComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="Angular Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -202,7 +202,7 @@ export class ConditionalRenderComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Conditional Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-conditional-render-17?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="Angular Conditional Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-conditional-render-17?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Here, we're using a special property called `ngIf` on our `p` tag to stop rendering the element if `bool` is `false`. This property is prefixed with an asterisk (`*`) to interact with Angular's compiler in special ways.
 
@@ -416,26 +416,28 @@ Let's use conditional rendering to show the type of item displayed based on the 
 ## React
 
 ```jsx
-{
-	isFolder && <span>Type: Folder</span>;
-}
-{
-	!isFolder && <span>Type: File</span>;
-}
+<div>
+	{isFolder && <span>Type: Folder</span>}
+	{!isFolder && <span>Type: File</span>}
+</div>
 ```
 
 ## Angular
 
 ```html
-<span *ngIf="isFolder">Type: Folder</span>
-<span *ngIf="!isFolder">Type: File</span>
+<div>
+	<span *ngIf="isFolder">Type: Folder</span>
+	<span *ngIf="!isFolder">Type: File</span>
+</div>
 ```
 
 ## Vue
 
 ```html
-<span v-if="isFolder">Type: Folder</span>
-<span v-if="!isFolder">Type: File</span>
+<div>
+	<span v-if="isFolder">Type: Folder</span>
+	<span v-if="!isFolder">Type: File</span>
+</div>
 ```
 
 <!-- tabs:end -->
@@ -466,21 +468,21 @@ const displayType = isFolder ? "Folder" : "File";
 We can combine this information with JSX's ability to treat a tag as a value you can assign to memory to create a `if...else`-style render in React:
 
 ```jsx
-{
-	isFolder ? <span>Type: Folder</span> : <span>Type: File</span>;
-}
+<div>{isFolder ? <span>Type: Folder</span> : <span>Type: File</span>}</div>
 ```
+
+<iframe data-frame-title="React Conditional Branches - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-conditional-branches-19?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Here, if `isFolder` is `true`, the following will be rendered:
 
 ```html
-<span>Type: Folder</span>
+<div><span>Type: Folder</span></div>
 ```
 
 Otherwise, if `isFolder` is `false`, this will be rendered:
 
 ```html
-<span>Type: File</span>
+<div><span>Type: File</span></div>
 ```
 
 ## Angular
@@ -489,6 +491,8 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 <span *ngIf="isFolder; else fileDisplay">Type: Folder</span>
 <ng-template #fileDisplay><span>Type: File</span></ng-template>
 ```
+
+<iframe data-frame-title="Angular Conditional Branches - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-conditional-branches-19?template=node&embed=1&file=src%2Fmain."></iframe>
 
 Undoubtably you're looking at this snippet of code and wondering what `ng-template` is doing here.
 
@@ -536,12 +540,17 @@ Here, we're passing the `trueTag` to the `else` value of `ngIf`, which will rend
 ## Vue
 
 ```html
-<span v-if="isFolder">Type: Folder</span> <span v-else>Type: File</span>
+<div>
+	<span v-if="isFolder">Type: Folder</span>
+	<span v-else>Type: File</span>
+</div>
 ```
 
 Here, Vue's `if...else` syntax looks fairly similar to the JavaScript pseudo-syntax we displayed above.
 
 > It's worth noting that a `v-else` tag **must** immediately follow a `v-if` tag; otherwise, it won't work.
+
+<iframe data-frame-title="Vue Conditional Branches - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-conditional-branches-19?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -558,15 +567,11 @@ While we could move back to a simple `if` statement for each condition:
 ### React
 
 ```jsx
-{
-	isFolder && <span>Type: Folder</span>;
-}
-{
-	!isFolder && isImage && <span>Type: Image</span>;
-}
-{
-	!isFolder && !isImage && <span>Type: File</span>;
-}
+<div>
+	{isFolder && <span>Type: Folder</span>}
+	{!isFolder && isImage && <span>Type: Image</span>}
+	{!isFolder && !isImage && <span>Type: File</span>}
+</div>
 ```
 
 ### Angular
@@ -615,15 +620,15 @@ function getType() {
 As the following React JSX
 
 ```jsx
-{
-	isFolder ? (
+<div>
+	{isFolder ? (
 		<span>Type: Folder</span>
 	) : isImage ? (
 		<span>Type: Image</span>
 	) : (
 		<span>Type: File</span>
-	);
-}
+	)}
+</div>
 ```
 
 ### Angular
