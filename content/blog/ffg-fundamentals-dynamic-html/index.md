@@ -689,7 +689,7 @@ Once again, the `v-else-if` and `v-else` tags must follow one another to work as
 
 # Rendering Lists
 
-While we've primarily focused on our `File` component in this chapter, let's take another look at our `FileList` component.
+While we've primarily focused on improvements to our `File` component in this chapter, let's take another look at our original `FileList` component.
 
 <!-- tabs:start -->
 
@@ -858,59 +858,65 @@ Let's fix that by replacing the copy-pasted components with a loop and an array.
 
 React uses [JavaScript's built-in `Array.map` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) to loop through each item and map them to some React component.
 
-```jsx {0-16,31-37}
+```jsx {0-16,33-43}
 const filesArray = [
-    {
-        fileName: "File one",
-        href: "/file/file_one",
-        isFolder: false
-    },
-    {
-        fileName: "File two",
-        href: "/file/file_two",
-        isFolder: false
-    },
-    {
-        fileName: "File three",
-        href: "/file/file_three",
-        isFolder: false
-    }
-]
+	{
+		fileName: "File one",
+		href: "/file/file_one",
+		isFolder: false,
+	},
+	{
+		fileName: "File two",
+		href: "/file/file_two",
+		isFolder: false,
+	},
+	{
+		fileName: "File three",
+		href: "/file/file_three",
+		isFolder: false,
+	},
+];
 
 const FileList = () => {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+	const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  const onSelected = (idx) => {
-    if (selectedIndex === idx) {
-      setSelectedIndex(-1);
-      return;
-    }
-    setSelectedIndex(idx);
-  };
+	const onSelected = (idx) => {
+		if (selectedIndex === idx) {
+			setSelectedIndex(-1);
+			return;
+		}
+		setSelectedIndex(idx);
+	};
 
-  // This code sample is missing something and will throw a warning in development mode.
-  // We'll explain more about this later.
-  return (
-    <ul>
-      {filesArray.map((file, i) => <li><File
-        isSelected={selectedIndex === i}
-        onSelected={() => onSelected(i)}
-        fileName={file.fileName}
-        href={file.href}
-        isFolder={file.isFolder}
-      /></li>}
-    </ul>
-  );
+	// This code sample is missing something and will throw a warning in development mode.
+	// We'll explain more about this later.
+	return (
+		<ul>
+			{filesArray.map((file, i) => (
+				<li>
+					<File
+						isSelected={selectedIndex === i}
+						onSelected={() => onSelected(i)}
+						fileName={file.fileName}
+						href={file.href}
+						isFolder={file.isFolder}
+					/>
+				</li>
+			))}
+		</ul>
+	);
 };
 ```
 
 We can then use the second argument inside of the `map` to gain access to the index of the looped item.
 
+<iframe data-frame-title="React Rendering Lists - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-rendering-lists-20?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 Just as how the previous `*ngIf` structural directive is used to conditionally render items, Angular uses a different structural directive to render a list of items: `*ngFor`.
 
-```typescript {4-11,26-42}
+```typescript {0,5,8-16,31-47}
 import { NgFor } from "@angular/common";
 
 @Component({
@@ -920,7 +926,7 @@ import { NgFor } from "@angular/common";
 	template: `
 		<ul>
 			<li *ngFor="let file of filesArray; let i = index">
-				<file
+				<file-item
 					(selected)="onSelected(i)"
 					[isSelected]="selectedIndex === i"
 					[fileName]="file.fileName"
@@ -934,7 +940,7 @@ import { NgFor } from "@angular/common";
 export class FileListComponent {
 	selectedIndex = -1;
 
-	onSelected(idx) {
+	onSelected(idx: number) {
 		if (this.selectedIndex === idx) {
 			this.selectedIndex = -1;
 			return;
@@ -962,6 +968,8 @@ export class FileListComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Rendering Lists - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-rendering-lists-20?template=node&embed=1&file=src%2Fmain."></iframe>
+
 Inside our `ngFor`, `index` may not seem like it is being defined; however, Angular declares it whenever you attempt to utilize `ngFor` under the hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
 
 Just like `NgIf` must be imported, we need to import `NgFor` into our component's `imports` array, least we be greeted with the following error:
@@ -974,7 +982,8 @@ The `*ngFor` directive was used in the template, but neither the `NgFor` directi
 
 Vue provides a `v-for` global attribute that does for lists what `v-if` does for conditionally rendering:
 
-```vue
+```vue {5-21,37-45}
+<!-- FileList.vue -->
 <script setup>
 import { ref } from "vue";
 import File from "./File.vue";
@@ -1025,6 +1034,8 @@ function onSelected(idx) {
 ```
 
 Inside of our `v-for`, we're accessing both the value of the item (`file`) and the index of the looped item (`i`).
+
+<iframe data-frame-title="Vue Rendering Lists - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-rendering-lists-20?template=node&embed=1&file=src%2FFileList.vue"></iframe>
 
 <!-- tabs:end -->
 
