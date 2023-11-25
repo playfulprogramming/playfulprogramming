@@ -2212,7 +2212,7 @@ export class FileListComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-output-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="Angular Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Vue
 
@@ -2292,7 +2292,7 @@ function onSelected(idx) {
 </template>
 ```
 
-<iframe data-frame-title="Vue Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-output-15?template=node&embed=1&file=src%2FFile.vue"></iframe>
+<iframe data-frame-title="Vue Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-outputs-15?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -2518,7 +2518,7 @@ const Sidebar = () => {
 	`,
 })
 export class ExpandableDropdownComponent {
-	@Input() name: string;
+	@Input() name!: string;
 }
 
 @Component({
@@ -2647,8 +2647,8 @@ const Sidebar = () => {
 	`,
 })
 export class ExpandableDropdownComponent {
-	@Input() name: string;
-	@Input() expanded: boolean;
+	@Input() name!: string;
+	@Input() expanded!: boolean;
 }
 
 @Component({
@@ -2818,8 +2818,8 @@ const Sidebar = () => {
 	`,
 })
 export class ExpandableDropdownComponent {
-	@Input() name: string;
-	@Input() expanded: boolean;
+	@Input() name!: string;
+	@Input() expanded!: boolean;
 	@Output() toggle = new EventEmitter();
 }
 
@@ -2861,7 +2861,7 @@ export class ExpandableDropdownComponent {
 	`,
 })
 export class SidebarComponent {
-	moviesExpanded = false;
+	moviesExpanded = true;
 	picturesExpanded = false;
 	conceptsExpanded = false;
 	articlesExpanded = false;
@@ -2963,6 +2963,14 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 };
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Intro Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-intro-challenge-16?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
+
 ### Angular
 
 ```typescript
@@ -2980,11 +2988,19 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 	`,
 })
 export class ExpandableDropdownComponent {
-	@Input() name: string;
-	@Input() expanded: boolean;
+	@Input() name!: string;
+	@Input() expanded!: boolean;
 	@Output() toggle = new EventEmitter();
 }
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular Intro Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-intro-challenge-16?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
 
 ### Vue
 
@@ -3005,5 +3021,13 @@ const emit = defineEmits(["toggle"]);
 	</div>
 </template>
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Intro Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-intro-challenge-16?template=node&embed=1&file=src%2Fmain.js"></iframe>
+
+</details>
 
 <!-- tabs:end -->
