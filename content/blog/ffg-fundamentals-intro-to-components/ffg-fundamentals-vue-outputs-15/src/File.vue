@@ -1,25 +1,24 @@
 <!-- File.vue -->
 <script setup>
-import { ref } from "vue";
-const props = defineProps(["fileName"]);
-
-const isSelected = ref(false);
+import FileDate from "./FileDate.vue";
 const inputDate = new Date();
-function selectFile() {
-	isSelected.value = !isSelected.value;
-}
+
+// `href` is temporarily unused
+const props = defineProps(["isSelected", "fileName", "href"]);
+
+const emit = defineEmits(["selected"]);
 </script>
 
 <template>
 	<button
-		v-on:click="selectFile()"
+		v-on:click="emit('selected')"
 		:style="
 			isSelected
 				? 'background-color: blue; color: white'
 				: 'background-color: white; color: blue'
 		"
 	>
-		{{ props.fileName }}
+		{{ fileName }}
 		<FileDate :inputDate="inputDate" />
 	</button>
 </template>

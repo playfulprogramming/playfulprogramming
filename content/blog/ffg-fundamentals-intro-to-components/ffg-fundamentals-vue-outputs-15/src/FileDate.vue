@@ -1,6 +1,6 @@
 <!-- FileDate.vue -->
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 
 function formatDate(inputDate) {
 	// Month starts at 0, annoyingly
