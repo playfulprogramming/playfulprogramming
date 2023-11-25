@@ -2067,10 +2067,11 @@ React expects you to pass in a function as opposed to emitting an event and list
 
 This differs slightly from Vue and Angular but has the same fundamental idea of "sending data to a parent component".
 
-```jsx {2,5,19-27,32-37}
+```jsx {2,6,20-28,33-38}
 import { useState } from "react";
 
 const File = ({ href, fileName, isSelected, onSelected }) => {
+	//  `href` is temporarily unused
 	return (
 		<button
 			onClick={onSelected}
@@ -2080,7 +2081,7 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 					: { backgroundColor: "white", color: "blue" }
 			}
 		>
-			<a href={href}>{fileName}</a>
+			{fileName}
 			{/* ... */}
 		</button>
 	);
@@ -2128,11 +2129,13 @@ const FileList = () => {
 };
 ```
 
+<iframe data-frame-title="React Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Angular
 
 Angular provides us a simple `@Output` decorator that enables us to `emit()` events from a child component up to the parent. This is fairly similar to how we pass _in_ data using an `@Input` decorator.
 
-```typescript {8,25,36,62,64-70}
+```typescript {8,25,37-42,64,66-72}
 import { Component, Input, EventEmitter, Output } from "@angular/core";
 
 @Component({
@@ -2148,17 +2151,19 @@ import { Component, Input, EventEmitter, Output } from "@angular/core";
 					: 'background-color: white; color: blue'
 			"
 		>
-			<a [href]="href">
-				{{ fileName }}
-			</a>
+			{{ fileName }}
+			<!-- ... -->
 		</button>
 	`,
 })
 export class FileComponent {
-	@Input() fileName: string;
-	@Input() href: string;
-	@Input() isSelected: boolean;
+	@Input() fileName!: string;
+	// `href` is temporarily unused
+	@Input() href!: string;
+	@Input() isSelected!: boolean;
 	@Output() selected = new EventEmitter();
+
+	// ...
 }
 
 @Component({
@@ -2197,7 +2202,7 @@ export class FileComponent {
 export class FileListComponent {
 	selectedIndex = -1;
 
-	onSelected(idx) {
+	onSelected(idx: number) {
 		if (this.selectedIndex === idx) {
 			this.selectedIndex = -1;
 			return;
@@ -2207,13 +2212,17 @@ export class FileListComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-output-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Vue
 
 Vue introduces the idea of an emitted event using the `defineEmits` global function:
 
-```vue {4,9}
+```vue {6,11}
 <!-- File.vue -->
 <script setup>
+// ...
+// `href` is temporarily unused
 const props = defineProps(["isSelected", "fileName", "href"]);
 
 const emit = defineEmits(["selected"]);
@@ -2228,9 +2237,8 @@ const emit = defineEmits(["selected"]);
 				: 'background-color: white; color: blue'
 		"
 	>
-		<a :href="href">
-			{{ fileName }}
-		</a>
+		{{ fileName }}
+		<!-- ... -->
 	</button>
 </template>
 ```
@@ -2283,6 +2291,8 @@ function onSelected(idx) {
 	</ul>
 </template>
 ```
+
+<iframe data-frame-title="Vue Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-output-15?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 <!-- tabs:end -->
 
