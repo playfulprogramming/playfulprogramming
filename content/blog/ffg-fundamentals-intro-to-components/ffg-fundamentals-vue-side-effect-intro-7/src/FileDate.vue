@@ -1,23 +1,23 @@
 <!-- FileDate.vue -->
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted } from "vue";
 
 function formatDate() {
-  const today = new Date();
-  // Month starts at 0, annoyingly
-  const monthNum = today.getMonth() + 1;
-  const dateNum = today.getDate();
-  const yearNum = today.getFullYear();
-  return monthNum + '/' + dateNum + '/' + yearNum;
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const monthNum = today.getMonth() + 1;
+	const dateNum = today.getDate();
+	const yearNum = today.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
 }
 
 const dateStr = formatDate();
 
 onMounted(() => {
-  console.log(dateStr);
+	console.log(dateStr);
 });
 </script>
 
 <template>
-  <span>12/03/21</span>
+	<span>12/03/21</span>
 </template>

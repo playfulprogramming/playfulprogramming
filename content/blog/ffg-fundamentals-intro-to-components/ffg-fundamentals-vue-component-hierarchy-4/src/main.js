@@ -1,5 +1,5 @@
 // main.js
-import { createApp } from 'vue';
-import FileList from './FileList.vue';
+import { createApp } from "vue";
+import FileList from "./FileList.vue";
 
-createApp(FileList).mount('#root');
+createApp(FileList).mount("#root");

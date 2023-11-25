@@ -1,17 +1,17 @@
-import { createRoot } from 'react-dom/client';
+import { createRoot } from "react-dom/client";
 
 function formatDate() {
-  const today = new Date();
-  // Month starts at 0, annoyingly
-  const monthNum = today.getMonth() + 1;
-  const dateNum = today.getDate();
-  const yearNum = today.getFullYear();
-  return monthNum + '/' + dateNum + '/' + yearNum;
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const monthNum = today.getMonth() + 1;
+	const dateNum = today.getDate();
+	const yearNum = today.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
 }
 const FileDate = () => {
-  const dateStr = formatDate();
+	const dateStr = formatDate();
 
-  return <span>{dateStr}</span>;
+	return <span>{dateStr}</span>;
 };
 
-createRoot(document.getElementById('root')).render(<FileDate />);
+createRoot(document.getElementById("root")).render(<FileDate />);

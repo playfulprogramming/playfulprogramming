@@ -1,10 +1,10 @@
 <!-- FileList.vue -->
 <script setup>
-import File from './File.vue';
+import File from "./File.vue";
 </script>
 
 <template>
-  <ul>
-    <li><File /></li>
-  </ul>
+	<ul>
+		<li><File /></li>
+	</ul>
 </template>

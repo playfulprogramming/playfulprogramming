@@ -1,5 +1,5 @@
 // main.js
-import { createApp } from 'vue';
-import FileDate from './FileDate.vue';
+import { createApp } from "vue";
+import FileDate from "./FileDate.vue";
 
-createApp(FileDate).mount('#root');
+createApp(FileDate).mount("#root");
