@@ -21,6 +21,7 @@ Where we last left off, we manually input a list of files, which included file n
 
 ```jsx
 const File = ({ href, fileName, isSelected, onSelected }) => {
+	// `href` is temporarily unused
 	return (
 		<button
 			onClick={onSelected}
@@ -30,12 +31,14 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 					: { backgroundColor: "white", color: "blue" }
 			}
 		>
-			<a href={href}>{fileName}</a>
+			{fileName}
 			<FileDate inputDate={new Date()} />
 		</button>
 	);
 };
 ```
+
+<iframe data-frame-title="React Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -43,7 +46,7 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [FileDateComponent],
+	imports: [FileDateComponent, FileDateComponent],
 	template: `
 		<button
 			(click)="selected.emit()"
@@ -53,46 +56,54 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 					: 'background-color: white; color: blue'
 			"
 		>
-			<a [href]="href">
-				{{ fileName }}
-				<file-date [inputDate]="inputDate" />
-			</a>
+			{{ fileName }}
+			<file-date [inputDate]="inputDate" />
 		</button>
 	`,
 })
 export class FileComponent {
-	@Input() fileName: string;
-	@Input() href: string;
-	@Input() isSelected: boolean;
+	@Input() fileName!: string;
+	// `href` is temporarily unused
+	@Input() href!: string;
+	@Input() isSelected!: boolean;
 	@Output() selected = new EventEmitter();
+
+	inputDate = new Date();
 }
 ```
+
+<iframe data-frame-title="Angular Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Vue
 
 ```vue
+<!-- File.vue -->
 <script setup>
+import FileDate from "./FileDate.vue";
+const inputDate = new Date();
+
+// `href` is temporarily unused
 const props = defineProps(["isSelected", "fileName", "href"]);
 
-defineEmits(["selected"]);
+const emit = defineEmits(["selected"]);
 </script>
 
 <template>
 	<button
-		v-on:click="$emit('selected')"
+		v-on:click="emit('selected')"
 		:style="
 			isSelected
 				? 'background-color: blue; color: white'
 				: 'background-color: white; color: blue'
 		"
 	>
-		<a :href="href">
-			{{ fileName }}
-			<file-date [inputDate]="inputDate"></file-date>
-		</a>
+		{{ fileName }}
+		<FileDate :inputDate="inputDate" />
 	</button>
 </template>
 ```
+
+<iframe data-frame-title="Vue Outputs - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-outputs-15?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -127,11 +138,13 @@ Let's see what that looks like in usage:
 
 ### React
 
-```jsx {2}
+```jsx {1}
 const ConditionalRender = ({ bool }) => {
 	return <div>{bool && <p>Text here</p>}</div>;
 };
 ```
+
+<iframe data-frame-title="React Conditional Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-conditional-render-17?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Here, we're using React's `{}` JavaScript binding to add in an [`AND` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND). This works by utilizing Boolean logic of ["short-circuiting"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation). This means that if we have:
 
@@ -174,7 +187,7 @@ But the following examples **will not** render their contained values:
 
 ### Angular
 
-```typescript {2}
+```typescript {1,6-7}
 import { Component, Input } from "@angular/core";
 import { NgIf } from "@angular/common";
 
@@ -185,9 +198,11 @@ import { NgIf } from "@angular/common";
 	template: `<div><p *ngIf="bool">Text here</p></div>`,
 })
 export class ConditionalRenderComponent {
-	@Input() bool: boolean;
+	@Input() bool!: boolean;
 }
 ```
+
+<iframe data-frame-title="Angular Conditional Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-conditional-render-17?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Here, we're using a special property called `ngIf` on our `p` tag to stop rendering the element if `bool` is `false`. This property is prefixed with an asterisk (`*`) to interact with Angular's compiler in special ways.
 
@@ -203,7 +218,7 @@ To use `ngIf`, we need to import `NgIf` from `@angular/common` and pass it to th
 
 ### Vue
 
-```vue
+```vue {1,5}
 <script setup>
 const props = defineProps(["bool"]);
 </script>
@@ -212,6 +227,8 @@ const props = defineProps(["bool"]);
 	<div><p v-if="bool">Text here</p></div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Conditional Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-conditional-render-17?template=node&embed=1&file=src%2FConditionalRender.vue"></iframe>
 
 Unlike Angular, where you need to import the ability to conditionally render an element, Vue treats `v-if` as a global attribute that can be added to any element or component.
 
