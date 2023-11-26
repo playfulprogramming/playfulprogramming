@@ -1807,8 +1807,8 @@ const Sidebar = () => {
 	`,
 })
 export class ExpandableDropdownComponent {
-	@Input() name: string;
-	@Input() expanded: boolean;
+	@Input() name!: string;
+	@Input() expanded!: boolean;
 	@Output() toggle = new EventEmitter();
 }
 
@@ -1817,36 +1817,39 @@ export class ExpandableDropdownComponent {
 	standalone: true,
 	imports: [ExpandableDropdownComponent],
 	template: `
-		<expandable-dropdown
-			name="Movies"
-			[expanded]="moviesExpanded"
-			(toggle)="moviesExpanded = !moviesExpanded"
-		/>
-		<expandable-dropdown
-			name="Pictures"
-			[expanded]="picturesExpanded"
-			(toggle)="picturesExpanded = !picturesExpanded"
-		/>
-		<expandable-dropdown
-			name="Concepts"
-			[expanded]="conceptsExpanded"
-			(toggle)="conceptsExpanded = !conceptsExpanded"
-		/>
-		<expandable-dropdown
-			name="Articles I'll Never Finish"
-			[expanded]="articlesExpanded"
-			(toggle)="articlesExpanded = !articlesExpanded"
-		/>
-		<expandable-dropdown
-			name="Website Redesigns v5"
-			[expanded]="redesignExpanded"
-			(toggle)="redesignExpanded = !redesignExpanded"
-		/>
-		<expandable-dropdown
-			name="Invoices"
-			[expanded]="invoicesExpanded"
-			(toggle)="invoicesExpanded = !invoicesExpanded"
-		/>
+		<div>
+			<h1>My Files</h1>
+			<expandable-dropdown
+				name="Movies"
+				[expanded]="moviesExpanded"
+				(toggle)="moviesExpanded = !moviesExpanded"
+			/>
+			<expandable-dropdown
+				name="Pictures"
+				[expanded]="picturesExpanded"
+				(toggle)="picturesExpanded = !picturesExpanded"
+			/>
+			<expandable-dropdown
+				name="Concepts"
+				[expanded]="conceptsExpanded"
+				(toggle)="conceptsExpanded = !conceptsExpanded"
+			/>
+			<expandable-dropdown
+				name="Articles I'll Never Finish"
+				[expanded]="articlesExpanded"
+				(toggle)="articlesExpanded = !articlesExpanded"
+			/>
+			<expandable-dropdown
+				name="Website Redesigns v5"
+				[expanded]="redesignExpanded"
+				(toggle)="redesignExpanded = !redesignExpanded"
+			/>
+			<expandable-dropdown
+				name="Invoices"
+				[expanded]="invoicesExpanded"
+				(toggle)="invoicesExpanded = !invoicesExpanded"
+			/>
+		</div>
 	`,
 })
 export class SidebarComponent {
@@ -1894,37 +1897,39 @@ const invoicesExpanded = ref(false);
 </script>
 
 <template>
-	<h1>My Files</h1>
-	<ExpandableDropdown
-		name="Movies"
-		:expanded="moviesExpanded"
-		@toggle="moviesExpanded = !moviesExpanded"
-	/>
-	<ExpandableDropdown
-		name="Pictures"
-		:expanded="picturesExpanded"
-		@toggle="picturesExpanded = !picturesExpanded"
-	/>
-	<ExpandableDropdown
-		name="Concepts"
-		:expanded="conceptsExpanded"
-		@toggle="conceptsExpanded = !conceptsExpanded"
-	/>
-	<ExpandableDropdown
-		name="Articles I'll Never Finish"
-		:expanded="articlesExpanded"
-		@toggle="articlesExpanded = !articlesExpanded"
-	/>
-	<ExpandableDropdown
-		name="Website Redesigns v5"
-		:expanded="redesignExpanded"
-		@toggle="redesignExpanded = !redesignExpanded"
-	/>
-	<ExpandableDropdown
-		name="Invoices"
-		:expanded="invoicesExpanded"
-		@toggle="invoicesExpanded = !invoicesExpanded"
-	/>
+	<div>
+		<h1>My Files</h1>
+		<ExpandableDropdown
+			name="Movies"
+			:expanded="moviesExpanded"
+			@toggle="moviesExpanded = !moviesExpanded"
+		/>
+		<ExpandableDropdown
+			name="Pictures"
+			:expanded="picturesExpanded"
+			@toggle="picturesExpanded = !picturesExpanded"
+		/>
+		<ExpandableDropdown
+			name="Concepts"
+			:expanded="conceptsExpanded"
+			@toggle="conceptsExpanded = !conceptsExpanded"
+		/>
+		<ExpandableDropdown
+			name="Articles I'll Never Finish"
+			:expanded="articlesExpanded"
+			@toggle="articlesExpanded = !articlesExpanded"
+		/>
+		<ExpandableDropdown
+			name="Website Redesigns v5"
+			:expanded="redesignExpanded"
+			@toggle="redesignExpanded = !redesignExpanded"
+		/>
+		<ExpandableDropdown
+			name="Invoices"
+			:expanded="invoicesExpanded"
+			@toggle="invoicesExpanded = !invoicesExpanded"
+		/>
+	</div>
 </template>
 ```
 
@@ -1987,12 +1992,15 @@ const Sidebar = () => {
 	standalone: true,
 	imports: [ExpandableDropdownComponent, NgFor],
 	template: `
-		<expandable-dropdown
-			*ngFor="let cat of categories"
-			[name]="cat"
-			[expanded]="false"
-			(toggle)="onToggle()"
-		/>
+		<div>
+			<h1>My Files</h1>
+			<expandable-dropdown
+				*ngFor="let cat of categories"
+				[name]="cat"
+				[expanded]="false"
+				(toggle)="onToggle()"
+			/>
+		</div>
 	`,
 })
 export class SidebarComponent {
@@ -2029,14 +2037,16 @@ const onToggle = () => {};
 </script>
 
 <template>
-	<h1>My Files</h1>
-	<ExpandableDropdown
-		v-for="cat of categories"
-		:key="cat"
-		:name="cat"
-		:expanded="false"
-		@toggle="onToggle()"
-	/>
+	<div>
+		<h1>My Files</h1>
+		<ExpandableDropdown
+			v-for="cat of categories"
+			:key="cat"
+			:name="cat"
+			:expanded="false"
+			@toggle="onToggle()"
+		/>
+	</div>
 </template>
 ```
 
@@ -2128,12 +2138,15 @@ function objFromCategories(categories) {
 	standalone: true,
 	imports: [ExpandableDropdownComponent, NgFor],
 	template: `
-		<expandable-dropdown
-			*ngFor="let cat of categories"
-			[name]="cat"
-			[expanded]="expandedMap[cat]"
-			(toggle)="onToggle(cat)"
-		/>
+		<div>
+			<h1>My Files</h1>
+			<expandable-dropdown
+				*ngFor="let cat of categories"
+				[name]="cat"
+				[expanded]="expandedMap[cat]"
+				(toggle)="onToggle(cat)"
+			/>
+		</div>
 	`,
 })
 export class SidebarComponent {
@@ -2148,14 +2161,14 @@ export class SidebarComponent {
 
 	expandedMap = objFromCategories(this.categories);
 
-	onToggle(cat) {
+	onToggle(cat: string) {
 		this.expandedMap[cat] = !this.expandedMap[cat];
 	}
 }
 
-function objFromCategories(categories) {
-	let obj = {};
-	for (let cat of categories) {
+function objFromCategories(categories: string[]) {
+	const obj: Record<string, boolean> = {};
+	for (const cat of categories) {
 		obj[cat] = false;
 	}
 	return obj;
@@ -2230,6 +2243,14 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 };
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Dynamic Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-dynamic-challenge-25?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
+
 ### Angular
 
 ```typescript
@@ -2248,11 +2269,19 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 	`,
 })
 export class ExpandableDropdownComponent {
-	@Input() name: string;
-	@Input() expanded: boolean;
+	@Input() name!: string;
+	@Input() expanded!: boolean;
 	@Output() toggle = new EventEmitter();
 }
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular Dynamic Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-dynamic-challenge-25?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
 
 ### Vue
 
@@ -2273,5 +2302,13 @@ const emit = defineEmits(["toggle"]);
 	</div>
 </template>
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Dynamic Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-dynamic-challenge-25?template=node&embed=1&file=src%2Fmain.js"></iframe>
+
+</details>
 
 <!-- tabs:end -->

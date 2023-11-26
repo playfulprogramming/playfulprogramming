@@ -2439,13 +2439,15 @@ const Sidebar = () => {
 	selector: "app-sidebar",
 	standalone: true,
 	template: `
-		<h1>My Files</h1>
-		<div><button>Movies</button></div>
-		<div><button>Pictures</button></div>
-		<div><button>Concepts</button></div>
-		<div><button>Articles I'll Never Finish</button></div>
-		<div><button>Website Redesigns v5</button></div>
-		<div><button>Invoices</button></div>
+		<div>
+			<h1>My Files</h1>
+			<div><button>Movies</button></div>
+			<div><button>Pictures</button></div>
+			<div><button>Concepts</button></div>
+			<div><button>Articles I'll Never Finish</button></div>
+			<div><button>Website Redesigns v5</button></div>
+			<div><button>Invoices</button></div>
+		</div>
 	`,
 })
 export class SidebarComponent {}
@@ -2456,13 +2458,15 @@ export class SidebarComponent {}
 ```vue
 <!-- Sidebar.vue -->
 <template>
-	<h1>My Files</h1>
-	<div><button>Movies</button></div>
-	<div><button>Pictures</button></div>
-	<div><button>Concepts</button></div>
-	<div><button>Articles I'll Never Finish</button></div>
-	<div><button>Website Redesigns v5</button></div>
-	<div><button>Invoices</button></div>
+	<div>
+		<h1>My Files</h1>
+		<div><button>Movies</button></div>
+		<div><button>Pictures</button></div>
+		<div><button>Concepts</button></div>
+		<div><button>Articles I'll Never Finish</button></div>
+		<div><button>Website Redesigns v5</button></div>
+		<div><button>Invoices</button></div>
+	</div>
 </template>
 ```
 
@@ -2526,13 +2530,15 @@ export class ExpandableDropdownComponent {
 	standalone: true,
 	imports: [ExpandableDropdownComponent],
 	template: `
-		<h1>My Files</h1>
-		<expandable-dropdown name="Movies" />
-		<expandable-dropdown name="Pictures" />
-		<expandable-dropdown name="Concepts" />
-		<expandable-dropdown name="Articles I'll Never Finish" />
-		<expandable-dropdown name="Website Redesigns v5" />
-		<expandable-dropdown name="Invoices" />
+		<div>
+			<h1>My Files</h1>
+			<expandable-dropdown name="Movies" />
+			<expandable-dropdown name="Pictures" />
+			<expandable-dropdown name="Concepts" />
+			<expandable-dropdown name="Articles I'll Never Finish" />
+			<expandable-dropdown name="Website Redesigns v5" />
+			<expandable-dropdown name="Invoices" />
+		</div>
 	`,
 })
 export class SidebarComponent {}
@@ -2547,13 +2553,15 @@ import ExpandableDropdown from "./ExpandableDropdown.vue";
 </script>
 
 <template>
-	<h1>My Files</h1>
-	<ExpandableDropdown name="Movies" />
-	<ExpandableDropdown name="Pictures" />
-	<ExpandableDropdown name="Concepts" />
-	<ExpandableDropdown name="Articles I'll Never Finish" />
-	<ExpandableDropdown name="Website Redesigns v5" />
-	<ExpandableDropdown name="Invoices" />
+	<div>
+		<h1>My Files</h1>
+		<ExpandableDropdown name="Movies" />
+		<ExpandableDropdown name="Pictures" />
+		<ExpandableDropdown name="Concepts" />
+		<ExpandableDropdown name="Articles I'll Never Finish" />
+		<ExpandableDropdown name="Website Redesigns v5" />
+		<ExpandableDropdown name="Invoices" />
+	</div>
 </template>
 ```
 
@@ -2656,18 +2664,21 @@ export class ExpandableDropdownComponent {
 	standalone: true,
 	imports: [ExpandableDropdownComponent],
 	template: `
-		<expandable-dropdown name="Movies" [expanded]="moviesExpanded" />
-		<expandable-dropdown name="Pictures" [expanded]="picturesExpanded" />
-		<expandable-dropdown name="Concepts" [expanded]="conceptsExpanded" />
-		<expandable-dropdown
-			name="Articles I'll Never Finish"
-			[expanded]="articlesExpanded"
-		/>
-		<expandable-dropdown
-			name="Website Redesigns v5"
-			[expanded]="redesignExpanded"
-		/>
-		<expandable-dropdown name="Invoices" [expanded]="invoicesExpanded" />
+		<div>
+			<h1>My Files</h1>
+			<expandable-dropdown name="Movies" [expanded]="moviesExpanded" />
+			<expandable-dropdown name="Pictures" [expanded]="picturesExpanded" />
+			<expandable-dropdown name="Concepts" [expanded]="conceptsExpanded" />
+			<expandable-dropdown
+				name="Articles I'll Never Finish"
+				[expanded]="articlesExpanded"
+			/>
+			<expandable-dropdown
+				name="Website Redesigns v5"
+				[expanded]="redesignExpanded"
+			/>
+			<expandable-dropdown name="Invoices" [expanded]="invoicesExpanded" />
+		</div>
 	`,
 })
 export class SidebarComponent {
@@ -2699,19 +2710,21 @@ const invoicesExpanded = ref(false);
 </script>
 
 <template>
-	<h1>My Files</h1>
-	<ExpandableDropdown name="Movies" :expanded="moviesExpanded" />
-	<ExpandableDropdown name="Pictures" :expanded="picturesExpanded" />
-	<ExpandableDropdown name="Concepts" :expanded="conceptsExpanded" />
-	<ExpandableDropdown
-		name="Articles I'll Never Finish"
-		:expanded="articlesExpanded"
-	/>
-	<ExpandableDropdown
-		name="Website Redesigns v5"
-		:expanded="redesignExpanded"
-	/>
-	<ExpandableDropdown name="Invoices" :expanded="invoicesExpanded" />
+	<div>
+		<h1>My Files</h1>
+		<ExpandableDropdown name="Movies" :expanded="moviesExpanded" />
+		<ExpandableDropdown name="Pictures" :expanded="picturesExpanded" />
+		<ExpandableDropdown name="Concepts" :expanded="conceptsExpanded" />
+		<ExpandableDropdown
+			name="Articles I'll Never Finish"
+			:expanded="articlesExpanded"
+		/>
+		<ExpandableDropdown
+			name="Website Redesigns v5"
+			:expanded="redesignExpanded"
+		/>
+		<ExpandableDropdown name="Invoices" :expanded="invoicesExpanded" />
+	</div>
 </template>
 ```
 
@@ -2828,36 +2841,39 @@ export class ExpandableDropdownComponent {
 	standalone: true,
 	imports: [ExpandableDropdownComponent],
 	template: `
-		<expandable-dropdown
-			name="Movies"
-			[expanded]="moviesExpanded"
-			(toggle)="moviesExpanded = !moviesExpanded"
-		/>
-		<expandable-dropdown
-			name="Pictures"
-			[expanded]="picturesExpanded"
-			(toggle)="picturesExpanded = !picturesExpanded"
-		/>
-		<expandable-dropdown
-			name="Concepts"
-			[expanded]="conceptsExpanded"
-			(toggle)="conceptsExpanded = !conceptsExpanded"
-		/>
-		<expandable-dropdown
-			name="Articles I'll Never Finish"
-			[expanded]="articlesExpanded"
-			(toggle)="articlesExpanded = !articlesExpanded"
-		/>
-		<expandable-dropdown
-			name="Website Redesigns v5"
-			[expanded]="redesignExpanded"
-			(toggle)="redesignExpanded = !redesignExpanded"
-		/>
-		<expandable-dropdown
-			name="Invoices"
-			[expanded]="invoicesExpanded"
-			(toggle)="invoicesExpanded = !invoicesExpanded"
-		/>
+		<div>
+			<h1>My Files</h1>
+			<expandable-dropdown
+				name="Movies"
+				[expanded]="moviesExpanded"
+				(toggle)="moviesExpanded = !moviesExpanded"
+			/>
+			<expandable-dropdown
+				name="Pictures"
+				[expanded]="picturesExpanded"
+				(toggle)="picturesExpanded = !picturesExpanded"
+			/>
+			<expandable-dropdown
+				name="Concepts"
+				[expanded]="conceptsExpanded"
+				(toggle)="conceptsExpanded = !conceptsExpanded"
+			/>
+			<expandable-dropdown
+				name="Articles I'll Never Finish"
+				[expanded]="articlesExpanded"
+				(toggle)="articlesExpanded = !articlesExpanded"
+			/>
+			<expandable-dropdown
+				name="Website Redesigns v5"
+				[expanded]="redesignExpanded"
+				(toggle)="redesignExpanded = !redesignExpanded"
+			/>
+			<expandable-dropdown
+				name="Invoices"
+				[expanded]="invoicesExpanded"
+				(toggle)="invoicesExpanded = !invoicesExpanded"
+			/>
+		</div>
 	`,
 })
 export class SidebarComponent {
@@ -2888,37 +2904,39 @@ const invoicesExpanded = ref(false);
 </script>
 
 <template>
-	<h1>My Files</h1>
-	<ExpandableDropdown
-		name="Movies"
-		:expanded="moviesExpanded"
-		@toggle="moviesExpanded = !moviesExpanded"
-	/>
-	<ExpandableDropdown
-		name="Pictures"
-		:expanded="picturesExpanded"
-		@toggle="picturesExpanded = !picturesExpanded"
-	/>
-	<ExpandableDropdown
-		name="Concepts"
-		:expanded="conceptsExpanded"
-		@toggle="conceptsExpanded = !conceptsExpanded"
-	/>
-	<ExpandableDropdown
-		name="Articles I'll Never Finish"
-		:expanded="articlesExpanded"
-		@toggle="articlesExpanded = !articlesExpanded"
-	/>
-	<ExpandableDropdown
-		name="Website Redesigns v5"
-		:expanded="redesignExpanded"
-		@toggle="redesignExpanded = !redesignExpanded"
-	/>
-	<ExpandableDropdown
-		name="Invoices"
-		:expanded="invoicesExpanded"
-		@toggle="invoicesExpanded = !invoicesExpanded"
-	/>
+	<div>
+		<h1>My Files</h1>
+		<ExpandableDropdown
+			name="Movies"
+			:expanded="moviesExpanded"
+			@toggle="moviesExpanded = !moviesExpanded"
+		/>
+		<ExpandableDropdown
+			name="Pictures"
+			:expanded="picturesExpanded"
+			@toggle="picturesExpanded = !picturesExpanded"
+		/>
+		<ExpandableDropdown
+			name="Concepts"
+			:expanded="conceptsExpanded"
+			@toggle="conceptsExpanded = !conceptsExpanded"
+		/>
+		<ExpandableDropdown
+			name="Articles I'll Never Finish"
+			:expanded="articlesExpanded"
+			@toggle="articlesExpanded = !articlesExpanded"
+		/>
+		<ExpandableDropdown
+			name="Website Redesigns v5"
+			:expanded="redesignExpanded"
+			@toggle="redesignExpanded = !redesignExpanded"
+		/>
+		<ExpandableDropdown
+			name="Invoices"
+			:expanded="invoicesExpanded"
+			@toggle="invoicesExpanded = !invoicesExpanded"
+		/>
+	</div>
 </template>
 ```
 
