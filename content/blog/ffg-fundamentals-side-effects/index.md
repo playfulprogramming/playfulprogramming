@@ -241,13 +241,22 @@ const Parent = () => {
 };
 ```
 
+<iframe data-frame-title="React Initial Render Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-initial-render-demo-26?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 ```typescript
 @Component({
+	selector: "child-comp",
+	standalone: true,
+	template: "<p>I am the child</p>",
+})
+export class ChildComponent {}
+
+@Component({
 	selector: "parent-comp",
 	standalone: true,
-	imports: [ChildComponent],
+	imports: [ChildComponent, NgIf],
 	template: `
 		<div>
 			<button (click)="setShowChild()">Toggle Child</button>
@@ -261,14 +270,9 @@ export class ParentComponent {
 		this.showChild = !this.showChild;
 	}
 }
-
-@Component({
-	selector: "child-comp",
-	standalone: true,
-	template: "<p>I am the child</p>",
-})
-export class ChildComponent {}
 ```
+
+<iframe data-frame-title="Angular Initial Render Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-initial-render-demo-26?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -285,7 +289,7 @@ export class ChildComponent {}
 import { ref } from "vue";
 import Child from "./Child.vue";
 
-const showChild = ref(false);
+const showChild = ref(true);
 
 function setShowChild() {
 	showChild.value = !showChild.value;
@@ -299,6 +303,8 @@ function setShowChild() {
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Initial Render Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-initial-render-demo-26?template=node&embed=1&file=src%2Fmain.js"></iframe>
 
 <!-- tabs:end -->
 
