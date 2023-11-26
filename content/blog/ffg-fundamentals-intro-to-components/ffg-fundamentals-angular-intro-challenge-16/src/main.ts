@@ -27,36 +27,39 @@ export class ExpandableDropdownComponent {
 	standalone: true,
 	imports: [ExpandableDropdownComponent],
 	template: `
-		<expandable-dropdown
-			name="Movies"
-			[expanded]="moviesExpanded"
-			(toggle)="moviesExpanded = !moviesExpanded"
-		/>
-		<expandable-dropdown
-			name="Pictures"
-			[expanded]="picturesExpanded"
-			(toggle)="picturesExpanded = !picturesExpanded"
-		/>
-		<expandable-dropdown
-			name="Concepts"
-			[expanded]="conceptsExpanded"
-			(toggle)="conceptsExpanded = !conceptsExpanded"
-		/>
-		<expandable-dropdown
-			name="Articles I'll Never Finish"
-			[expanded]="articlesExpanded"
-			(toggle)="articlesExpanded = !articlesExpanded"
-		/>
-		<expandable-dropdown
-			name="Website Redesigns v5"
-			[expanded]="redesignExpanded"
-			(toggle)="redesignExpanded = !redesignExpanded"
-		/>
-		<expandable-dropdown
-			name="Invoices"
-			[expanded]="invoicesExpanded"
-			(toggle)="invoicesExpanded = !invoicesExpanded"
-		/>
+		<div>
+			<h1>My Files</h1>
+			<expandable-dropdown
+				name="Movies"
+				[expanded]="moviesExpanded"
+				(toggle)="moviesExpanded = !moviesExpanded"
+			/>
+			<expandable-dropdown
+				name="Pictures"
+				[expanded]="picturesExpanded"
+				(toggle)="picturesExpanded = !picturesExpanded"
+			/>
+			<expandable-dropdown
+				name="Concepts"
+				[expanded]="conceptsExpanded"
+				(toggle)="conceptsExpanded = !conceptsExpanded"
+			/>
+			<expandable-dropdown
+				name="Articles I'll Never Finish"
+				[expanded]="articlesExpanded"
+				(toggle)="articlesExpanded = !articlesExpanded"
+			/>
+			<expandable-dropdown
+				name="Website Redesigns v5"
+				[expanded]="redesignExpanded"
+				(toggle)="redesignExpanded = !redesignExpanded"
+			/>
+			<expandable-dropdown
+				name="Invoices"
+				[expanded]="invoicesExpanded"
+				(toggle)="invoicesExpanded = !invoicesExpanded"
+			/>
+		</div>
 	`,
 })
 export class SidebarComponent {

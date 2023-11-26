@@ -13,35 +13,37 @@ const invoicesExpanded = ref(false);
 </script>
 
 <template>
-	<h1>My Files</h1>
-	<ExpandableDropdown
-		name="Movies"
-		:expanded="moviesExpanded"
-		@toggle="moviesExpanded = !moviesExpanded"
-	/>
-	<ExpandableDropdown
-		name="Pictures"
-		:expanded="picturesExpanded"
-		@toggle="picturesExpanded = !picturesExpanded"
-	/>
-	<ExpandableDropdown
-		name="Concepts"
-		:expanded="conceptsExpanded"
-		@toggle="conceptsExpanded = !conceptsExpanded"
-	/>
-	<ExpandableDropdown
-		name="Articles I'll Never Finish"
-		:expanded="articlesExpanded"
-		@toggle="articlesExpanded = !articlesExpanded"
-	/>
-	<ExpandableDropdown
-		name="Website Redesigns v5"
-		:expanded="redesignExpanded"
-		@toggle="redesignExpanded = !redesignExpanded"
-	/>
-	<ExpandableDropdown
-		name="Invoices"
-		:expanded="invoicesExpanded"
-		@toggle="invoicesExpanded = !invoicesExpanded"
-	/>
+	<div>
+		<h1>My Files</h1>
+		<ExpandableDropdown
+			name="Movies"
+			:expanded="moviesExpanded"
+			@toggle="moviesExpanded = !moviesExpanded"
+		/>
+		<ExpandableDropdown
+			name="Pictures"
+			:expanded="picturesExpanded"
+			@toggle="picturesExpanded = !picturesExpanded"
+		/>
+		<ExpandableDropdown
+			name="Concepts"
+			:expanded="conceptsExpanded"
+			@toggle="conceptsExpanded = !conceptsExpanded"
+		/>
+		<ExpandableDropdown
+			name="Articles I'll Never Finish"
+			:expanded="articlesExpanded"
+			@toggle="articlesExpanded = !articlesExpanded"
+		/>
+		<ExpandableDropdown
+			name="Website Redesigns v5"
+			:expanded="redesignExpanded"
+			@toggle="redesignExpanded = !redesignExpanded"
+		/>
+		<ExpandableDropdown
+			name="Invoices"
+			:expanded="invoicesExpanded"
+			@toggle="invoicesExpanded = !invoicesExpanded"
+		/>
+	</div>
 </template>
