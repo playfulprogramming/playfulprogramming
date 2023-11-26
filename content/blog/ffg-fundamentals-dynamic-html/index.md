@@ -1291,7 +1291,7 @@ While Angular doesn't have quite the same API for `key` as React and Vue, Angula
 	`,
 })
 export class WordListComponent {
-	words: Array<{ word: string; id: number }> = [];
+	words: Word[] = [];
 
 	wordTrackBy(index: number, word: Word) {
 		return word.id;
@@ -1307,11 +1307,11 @@ Another difference to the other frameworks is that while React and Vue have no d
 
 This function might look something like the following:
 
-```jsx
-defaultTrackBy(index, item) {
-    // Angular checks to see if `item === item` between
-    //  renders for each list item in `ngFor`
-    return item;
+```js
+function defaultTrackBy(index, item) {
+	// Angular checks to see if `item === item` between
+	//  renders for each list item in `ngFor`
+	return item;
 }
 ```
 
@@ -1422,56 +1422,60 @@ Since we now understand the stability and performance benefits of providing a ke
 
 ## React
 
-```jsx {0-13,28-33}
+```jsx {5,35}
 const filesArray = [
-    {
-        fileName: "File one",
-        href: "/file/file_one",
-        isFolder: false,
-        id: 1
-    },
-    {
-        fileName: "File two",
-        href: "/file/file_two",
-        isFolder: false,
-        id: 2
-    },
-    {
-        fileName: "File three",
-        href: "/file/file_three",
-        isFolder: false,
-        id: 3
-    }
-]
+	{
+		fileName: "File one",
+		href: "/file/file_one",
+		isFolder: false,
+		id: 1,
+	},
+	{
+		fileName: "File two",
+		href: "/file/file_two",
+		isFolder: false,
+		id: 2,
+	},
+	{
+		fileName: "File three",
+		href: "/file/file_three",
+		isFolder: false,
+		id: 3,
+	},
+];
 
 const FileList = () => {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+	const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  const onSelected = (idx) => {
-    if (selectedIndex === idx) {
-      setSelectedIndex(-1);
-      return;
-    }
-    setSelectedIndex(idx);
-  };
+	const onSelected = (idx) => {
+		if (selectedIndex === idx) {
+			setSelectedIndex(-1);
+			return;
+		}
+		setSelectedIndex(idx);
+	};
 
-  return (
-    <ul>
-      {filesArray.map((file, i) => <li key={file.id}><File
-        isSelected={selectedIndex === i}
-        onSelected={() => onSelected(i)}
-        fileName={file.fileName}
-        href={file.href}
-        isFolder={file.isFolder}
-      /></li>}
-    </ul>
-  );
+	return (
+		<ul>
+			{filesArray.map((file, i) => (
+				<li key={file.id}>
+					<File
+						isSelected={selectedIndex === i}
+						onSelected={() => onSelected(i)}
+						fileName={file.fileName}
+						href={file.href}
+						isFolder={file.isFolder}
+					/>
+				</li>
+			))}
+		</ul>
+	);
 };
 ```
 
 ## Angular
 
-```typescript {4-10,25-38}
+```typescript {6,21-23,38}
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -1493,7 +1497,7 @@ const FileList = () => {
 export class FileListComponent {
 	selectedIndex = -1;
 
-	fileTrackBy(index, file) {
+	fileTrackBy(index: number, file: File) {
 		return file.id;
 	}
 
@@ -1505,7 +1509,7 @@ export class FileListComponent {
 		this.selectedIndex = idx;
 	}
 
-	filesArray = [
+	filesArray: File[] = [
 		{
 			fileName: "File one",
 			href: "/file/file_one",
@@ -1526,11 +1530,18 @@ export class FileListComponent {
 		},
 	];
 }
+
+interface File {
+	fileName: string;
+	href: string;
+	isFolder: boolean;
+	id: number;
+}
 ```
 
 ## Vue
 
-```vue
+```vue {10,39}
 <!-- FileList.vue -->
 <script setup>
 import { ref } from "vue";
@@ -1595,7 +1606,7 @@ Say that our users want to filter our `FileList` to only display files and not f
 
 ## React
 
-```jsx {11}
+```jsx {3-4,8,12}
 const FileList = () => {
 	// ...
 
@@ -1626,13 +1637,15 @@ const FileList = () => {
 };
 ```
 
+<iframe data-frame-title="React Using It Together - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-using-it-together-24?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
-```typescript
+```typescript {3,6,9,12,27,29-31}
 @Component({
 	selector: "file-list",
 	standalone: true,
-	imports: [FileComponent, NgFor],
+	imports: [FileComponent, NgFor, NgIf],
 	template: `
 		<div>
 			<button (click)="toggleOnlyShow()">Only show files</button>
@@ -1640,7 +1653,7 @@ const FileList = () => {
 				<li
 					*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
 				>
-					<file
+					<file-item
 						*ngIf="onlyShowFiles ? !file.isFolder : true"
 						(selected)="onSelected(i)"
 						[isSelected]="selectedIndex === i"
@@ -1659,34 +1672,32 @@ export class FileListComponent {
 	onlyShowFiles = false;
 
 	toggleOnlyShow() {
-		this.onlyShowFiles = !onlyShowFiles;
+		this.onlyShowFiles = !this.onlyShowFiles;
 	}
 }
 ```
 
+<iframe data-frame-title="Angular Using It Together - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-using-it-together-24?template=node&embed=1&file=src%2Fmain."></iframe>
+
 ## Vue
 
-```vue
+```vue {6,8-10,15,17,19}
 <!-- FileList.vue -->
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
 // ...
 
 const onlyShowFiles = ref(false);
 
-// ...
-
-toggleOnlyShow() {
-  onlyShowFiles.value = !onlyShowFiles.value;
+function toggleOnlyShow() {
+	onlyShowFiles.value = !onlyShowFiles.value;
 }
-
-// ...
 </script>
 
 <template>
 	<div>
-		<button (click)="toggleOnlyShow()">Only show files</button>
+		<button @click="toggleOnlyShow()">Only show files</button>
 		<ul>
 			<li v-for="(file, i) in filesArray" :key="file.id">
 				<File
@@ -1702,6 +1713,8 @@ toggleOnlyShow() {
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Using It Together - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-using-it-together-24?template=node&embed=1&file=src%2FFileList.vue"></iframe>
 
 <!-- tabs:end -->
 
