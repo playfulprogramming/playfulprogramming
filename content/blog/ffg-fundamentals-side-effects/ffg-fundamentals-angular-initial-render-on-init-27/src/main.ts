@@ -1,7 +1,7 @@
 import "zone.js/dist/zone";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NgIf } from "@angular/common";
 
 @Component({
@@ -9,7 +9,11 @@ import { NgIf } from "@angular/common";
 	standalone: true,
 	template: "<p>I am the child</p>",
 })
-export class ChildComponent {}
+export class ChildComponent implements OnInit {
+	ngOnInit() {
+		console.log("I am rendering");
+	}
+}
 
 @Component({
 	selector: "parent-comp",
