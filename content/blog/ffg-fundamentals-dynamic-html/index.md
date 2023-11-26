@@ -1357,7 +1357,7 @@ To do this, we can assign a `key` property to the `input` and change the value o
 
 ### React
 
-```jsx {6}
+```jsx {7}
 function KeyExample() {
 	const [num, setNum] = useState(0);
 
@@ -1373,6 +1373,8 @@ function KeyExample() {
 }
 ```
 
+<iframe data-frame-title="React Key Render Hint - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-key-render-hint-23?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Angular
 
 Because Angular does not have the concept of a `key`, it is unable to follow the same behavior as Vue and React in this instance. Therefore, this section is more useful in understanding the underlying DOM diffing logic as opposed to functional coding advice for Angular in particular.
@@ -1381,7 +1383,7 @@ This isn't necessarily a bad thing, however. We'll touch on this more in a bit, 
 
 ### Vue
 
-```vue
+```vue {12}
 <!-- KeyExample.vue -->
 <script setup>
 import { ref } from "vue";
@@ -1389,7 +1391,7 @@ import { ref } from "vue";
 const num = ref(0);
 
 function increase() {
-	this.num.value++;
+	num.value++;
 }
 </script>
 
@@ -1399,6 +1401,8 @@ function increase() {
 	<p>{{ num }}</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Key Render Hint - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-key-render-hint-23?template=node&embed=1&file=src%2FKeyExample.vue"></iframe>
 
 <!-- tabs:end -->
 
