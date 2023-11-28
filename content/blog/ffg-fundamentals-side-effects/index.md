@@ -318,8 +318,6 @@ While we _could_ add this log inside of `setShowChild`, it's more likely to brea
 
 ## React
 
-> React has two flavors of components: "class components", which has lifecycle methods, and "functional components", which use a different method of side effect handling. While we _could_ walk through class components, the React team has officially suggested all new applications to be developed with functional components. For this reason, we'll focus on them.
-
 All side effects within React components are handled by two Hooks: `useEffect` and `useLayoutEffect`. Let's start by looking at `useEffect`:
 
 ```jsx
@@ -399,12 +397,9 @@ Just as React has a non-lifecycle method of running side effect, so too does Vue
 <script setup>
 import { watchEffect } from "vue";
 
-watchEffect(
-	() => {
-		console.log("I am rendering");
-	},
-	{ immediate: true },
-);
+watchEffect(() => {
+	console.log("I am rendering");
+});
 </script>
 
 <template>
@@ -413,8 +408,6 @@ watchEffect(
 ```
 
 Here, we're using `watchEffect` to run `console.log` as soon as the `Child` component renders.
-
-This only occurs because we're passing `{immediate: true}` as the options for the `watchEffect`; this is not the default behavior of `watchEffect`.
 
 Instead, `watchEffect` is commonly expected to be used alongside reactive values (like `ref` variables). We'll touch on how this works later on in the chapter.
 
@@ -1395,19 +1388,16 @@ To cleanup effect, `watchEffect` provides an argument to the inner `watchEffect`
 
 ```javascript
 // onCleanup is a property passed to the inner `watchEffect` function
-watchEffect(
-	(onCleanup) => {
-		const interval = setInterval(() => {
-			console.log("Hello!");
-		}, 1000);
+watchEffect((onCleanup) => {
+	const interval = setInterval(() => {
+		console.log("Hello!");
+	}, 1000);
 
-		// We then call `onCleanup` with the expected cleaning behavior
-		onCleanup(() => {
-			clearInterval(interval);
-		});
-	},
-	{ immediate: true },
-);
+	// We then call `onCleanup` with the expected cleaning behavior
+	onCleanup(() => {
+		clearInterval(interval);
+	});
+});
 ```
 
 Let's rewrite the previous code samples to use `watchEffect`:
@@ -1421,19 +1411,16 @@ import { ref, watchEffect } from "vue";
 const secondsLeft = ref(5);
 const timerEnabled = ref(true);
 
-watchEffect(
-	(onCleanup) => {
-		const interval = setInterval(() => {
-			if (secondsLeft.value === 0) return;
-			secondsLeft.value = secondsLeft.value - 1;
-		}, 1000);
+watchEffect((onCleanup) => {
+	const interval = setInterval(() => {
+		if (secondsLeft.value === 0) return;
+		secondsLeft.value = secondsLeft.value - 1;
+	}, 1000);
 
-		onCleanup(() => {
-			clearInterval(interval);
-		});
-	},
-	{ immediate: true },
-);
+	onCleanup(() => {
+		clearInterval(interval);
+	});
+});
 
 const snooze = () => {
 	secondsLeft.value = secondsLeft.value + 5;
@@ -1630,13 +1617,10 @@ function resizeHandler() {
 	width.value = window.innerWidth;
 }
 
-watchEffect(
-	(onCleanup) => {
-		window.addEventListener("resize", resizeHandler);
-		onCleanup(() => window.removeEventListener("resize", resizeHandler));
-	},
-	{ immediate: true },
-);
+watchEffect((onCleanup) => {
+	window.addEventListener("resize", resizeHandler);
+	onCleanup(() => window.removeEventListener("resize", resizeHandler));
+});
 </script>
 
 <template>
@@ -2158,12 +2142,9 @@ import { ref, watchEffect } from "vue";
 const title = ref("Movies");
 
 // watchEffect will re-run whenever `title.value` is updated
-watchEffect(
-	() => {
-		document.title = title.value;
-	},
-	{ immediate: true },
-);
+watchEffect(() => {
+	document.title = title.value;
+});
 </script>
 
 <template>
@@ -2184,13 +2165,10 @@ const title = ref("Movies");
 const count = ref(0);
 
 // watchEffect will re-run whenever `title.value` or `count.value` is updated
-watchEffect(
-	() => {
-		console.log(count.value);
-		document.title = "Title is " + title.value + " and count is " + count.value;
-	},
-	{ immediate: true },
-);
+watchEffect(() => {
+	console.log(count.value);
+	document.title = "Title is " + title.value + " and count is " + count.value;
+});
 ```
 
 The `watchEffect` will run whenever `title` or `count` are updated. However, if we do the following:
@@ -2200,29 +2178,16 @@ const title = ref("Movies");
 const count = ref(0);
 
 // watchEffect will re-run only when `count.value` is updated
-watchEffect(
-	() => {
-		console.log(count.value);
-		// This is an async operation, inner `ref` usage won't be tracked
-		setTimeout(() => {
-			document.title =
-				"Title is " + title.value + " and count is " + count.value;
-		}, 0);
-	},
-	{ immediate: true },
-);
-```
-
-It will only track changes to `count`, as the `title.value` usage is inside of an async operation.=
-
-This is also why `watchEffect` has an `immediate: true` option which you can pass; it's not the intended default. Instead, it's more common to only run `watchEffect` on the first update of a tracked `ref`:
-
-```javascript
 watchEffect(() => {
-	// This will run only after `count.value` has been updated once
 	console.log(count.value);
+	// This is an async operation, inner `ref` usage won't be tracked
+	setTimeout(() => {
+		document.title = "Title is " + title.value + " and count is " + count.value;
+	}, 0);
 });
 ```
+
+It will only track changes to `count`, as the `title.value` usage is inside of an async operation.
 
 ### Manually track changes with `watch`
 
@@ -2245,6 +2210,22 @@ watch(
 	{ immediate: true },
 );
 ```
+
+> You may notice that we're passing `{immediate: true}` as the options for the `watch`; what is that doing?
+>
+> Well, by default `watch` only runs _after_ the first render. This means that the initial state of `title` would otherwise not trigger the `document.title` update.
+>
+> For example:
+>
+> ```javascript
+> watch(title, () => {
+> 	document.title = title.value;
+> });
+> ```
+>
+> Would still run the inner function when `title` has changed, but only after the initial render.
+
+### `watch` multiple items
 
 To watch multiple items, we can pass an array of reactive variables:
 
