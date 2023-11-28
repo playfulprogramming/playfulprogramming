@@ -1798,12 +1798,14 @@ For example, let's say we wanted to update the browser tab's title when we selec
 const App = () => {
 	const [title, setTitle] = useState("Movies");
 
-	return <div>
-      <button onClick={() => setTitle('Movies')}">Movies</button>
-      <button onClick={() => setTitle('Music')}">Music</button>
-      <button onClick={() => setTitle('Documents')}">Documents</button>
-	</div>
-}
+	return (
+		<div>
+			<button onClick={() => setTitle("Movies")}>Movies</button>
+			<button onClick={() => setTitle("Music")}>Music</button>
+			<button onClick={() => setTitle("Documents")}>Documents</button>
+		</div>
+	);
+};
 ```
 
 ## Angular
@@ -1859,17 +1861,19 @@ const App = () => {
 	const [title, setTitle] = useState("Movies");
 
 	useEffect(() => {
-        document.title = title.value;
+		document.title = title.value;
 
-        // Ask React to only run this `useEffect` if `title` has changed
-    }, [title])
+		// Ask React to only run this `useEffect` if `title` has changed
+	}, [title]);
 
-	return <div>
-      <button onClick={() => setTitle('Movies')}">Movies</button>
-      <button onClick={() => setTitle('Music')}">Music</button>
-      <button onClick={() => setTitle('Documents')}">Documents</button>
-	</div>
-}
+	return (
+		<div>
+			<button onClick={() => setTitle("Movies")}>Movies</button>
+			<button onClick={() => setTitle("Music")}>Music</button>
+			<button onClick={() => setTitle("Documents")}>Documents</button>
+		</div>
+	);
+};
 ```
 
 By doing this, we're _hinting_ to React that this side effect should only ever run when the `test` variable's _reference_ has changed during a render.
@@ -1933,17 +1937,19 @@ const App = () => {
 
 	function updateTitle(val) {
 		setTimeout(() => {
-	        setTitle(val);
-	        document.title = title.value;
+			setTitle(val);
+			document.title = title.value;
 		}, 5000);
 	}
 
-	return <div>
-      <button onClick={() => updateTitle('Movies')}">Movies</button>
-      <button onClick={() => updateTitle('Music')}">Music</button>
-      <button onClick={() => updateTitle('Documents')}">Documents</button>
-	</div>
-}
+	return (
+		<div>
+			<button onClick={() => updateTitle("Movies")}>Movies</button>
+			<button onClick={() => updateTitle("Music")}>Music</button>
+			<button onClick={() => updateTitle("Documents")}>Documents</button>
+		</div>
+	);
+};
 ```
 
 If we click one of these buttons, and un-render the `App` component, our `setTimeout` will still execute because we've never told this component to cancel the timeout.
@@ -1954,27 +1960,29 @@ While we could solve this problem using a `useState`:
 const App = () => {
 	const [title, setTitle] = useState("Movies");
 
-    const [timeoutExpire, setTimeoutExpire] = useState(null);
+	const [timeoutExpire, setTimeoutExpire] = useState(null);
 
 	function updateTitle(val) {
 		const timeout = setTimeout(() => {
-	        setTitle(val);
-	        document.title = title.value;
+			setTitle(val);
+			document.title = title.value;
 		}, 5000);
 
-        setTimeoutExpire(timeout);
+		setTimeoutExpire(timeout);
 	}
 
-    useEffect(() => {
-        return () => clearTimeout(timeoutExpire);
-    }, [timeoutExpire]);
+	useEffect(() => {
+		return () => clearTimeout(timeoutExpire);
+	}, [timeoutExpire]);
 
-	return <div>
-      <button onClick={() => updateTitle('Movies')}">Movies</button>
-      <button onClick={() => updateTitle('Music')}">Music</button>
-      <button onClick={() => updateTitle('Documents')}">Documents</button>
-	</div>
-}
+	return (
+		<div>
+			<button onClick={() => updateTitle("Movies")}>Movies</button>
+			<button onClick={() => updateTitle("Music")}>Music</button>
+			<button onClick={() => updateTitle("Documents")}>Documents</button>
+		</div>
+	);
+};
 ```
 
 This will trigger a re-render of `App` when we run `updateTitle`. This re-render will not display any new changes, since our `timeoutExpire` property is not used in the DOM, but may be computationally expensive depending on the size of your `App` component.
@@ -1982,30 +1990,32 @@ This will trigger a re-render of `App` when we run `updateTitle`. This re-render
 To sidestep this, we can use an `useRef` hook to store our `setTimeout` return without triggering a re-render:
 
 ```jsx
-import {useState, useRef, useEffect} from "react";
+import { useState, useRef, useEffect } from "react";
 
 const App = () => {
 	const [title, setTitle] = useState("Movies");
 
-    const timeoutExpire = useRef(null);
+	const timeoutExpire = useRef(null);
 
 	function updateTitle(val) {
 		timeoutExpire.current = setTimeout(() => {
-	        setTitle(val);
-	        document.title = title.value;
+			setTitle(val);
+			document.title = title.value;
 		}, 5000);
-   	}
+	}
 
-    useEffect(() => {
-        return () => clearTimeout(timeoutExpire.current);
-    }, [timeoutExpire]);
+	useEffect(() => {
+		return () => clearTimeout(timeoutExpire.current);
+	}, [timeoutExpire]);
 
-	return <div>
-      <button onClick={() => updateTitle('Movies')}">Movies</button>
-      <button onClick={() => updateTitle('Music')}">Music</button>
-      <button onClick={() => updateTitle('Documents')}">Documents</button>
-	</div>
-}
+	return (
+		<div>
+			<button onClick={() => updateTitle("Movies")}>Movies</button>
+			<button onClick={() => updateTitle("Music")}>Music</button>
+			<button onClick={() => updateTitle("Documents")}>Documents</button>
+		</div>
+	);
+};
 ```
 
 `useRef` allows you to persist data across renders, similar to `useState`. There are two major differences from `useState`:

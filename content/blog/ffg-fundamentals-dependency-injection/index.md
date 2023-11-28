@@ -1514,35 +1514,35 @@ Likewise, if you have a data provider that is hosting entirely unrelated data fr
 ### React
 
 ```jsx
-const NameContext = createContext('');
+const NameContext = createContext("");
 const AgeContext = createContext(0);
 
 export default function App() {
-  return (
-    <NameContext.Provider value="Corbin">
-      <Child />
-    </NameContext.Provider>
-  );
+	return (
+		<NameContext.Provider value="Corbin">
+			<Child />
+		</NameContext.Provider>
+	);
 }
 
 function Child() {
-  return <GrandChild />;
+	return <GrandChild />;
 }
 
 function GrandChild() {
-  return (
-    <AgeContext.Provider value={24}>
-      <GreatGrandChild />
-    </NameContext.Provider>
-  );
+	return (
+		<AgeContext.Provider value={24}>
+			<GreatGrandChild />
+		</AgeContext.Provider>
+	);
 }
 
 function GreatGrandChild() {
-  // Despite the `AgeContext` being closer, this is
-  // specifically looking for the `NameContext` and will
-  // go further up in the tree to find that data from `App`
-  const name = useContext(NameContext);
-  return <p>Name: {name}</p>;
+	// Despite the `AgeContext` being closer, this is
+	// specifically looking for the `NameContext` and will
+	// go further up in the tree to find that data from `App`
+	const name = useContext(NameContext);
+	return <p>Name: {name}</p>;
 }
 ```
 

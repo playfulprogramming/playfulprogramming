@@ -234,47 +234,47 @@ In practical terms, this means that a thrown error will exceed the bounds of the
 
 ```javascript
 function getBaseNumber() {
-    // Error occurs here, throws it upwards
+	// Error occurs here, throws it upwards
 	throw new Error("There was an error");
 	return 10;
 }
 
 function getRandomNumber() {
-    // Error occurs here, throws it upwards
-    return Math.floor(Math.random() * getBaseNumber());
+	// Error occurs here, throws it upwards
+	return Math.floor(Math.random() * getBaseNumber());
 }
 
 function getRandomTodoItem() {
-    const items = [
-        "Go to the gym",
-        "Play video games",
-        "Work on book",
-        "Program"
-    ]
+	const items = [
+		"Go to the gym",
+		"Play video games",
+		"Work on book",
+		"Program",
+	];
 
-    // Error occurs here, throws it upwards
-    const randNum = getRandomNumber();
+	// Error occurs here, throws it upwards
+	const randNum = getRandomNumber();
 
-    return items[randNum % items.length];
+	return items[randNum % items.length];
 }
 
 function getDaySchedule() {
-    let schedule = [];
-    for (let i = 0; i<3; i++) {
+	let schedule = [];
+	for (let i = 0; i < 3; i++) {
 		schedule.push(
-            // First execution will throw this error upwards
-            getRandomTodoItem();
-        )
-    }
+			// First execution will throw this error upwards
+			getRandomTodoItem(),
+		);
+	}
 }
 
 function main() {
-    try {
-    	getDaySchedule();
-    } catch (e) {
-        // Only now will the error be stopped
-        console.log("An error occured:", e);
-    }
+	try {
+		getDaySchedule();
+	} catch (e) {
+		// Only now will the error be stopped
+		console.log("An error occured:", e);
+	}
 }
 ```
 
@@ -349,12 +349,12 @@ While some other frameworks catch errors inside of async APIs (like React's `use
 ```jsx
 const App = () => {
 	// This will prevent rendering
-	const val = useState(() => {
+	const stateVal = useState(() => {
 		throw new Error("Error in state initialization function");
 	});
 
 	// This will also prevent rendering
-	const val = useMemo(() => {
+	const memoVal = useMemo(() => {
 		throw new Error("Error in memo");
 	});
 

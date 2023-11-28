@@ -451,13 +451,13 @@ class AppComponent {
 It's worth noting that when you run `addOne` (by pressing the "Add" button), it will not re-run `ngAfterContentInit`'s `console.log`. To do this, we need to access the `changes` "Observable" and listen for changes:
 
 ```typescript
-ngAfterContentInit() {
-  console.log(this.children);
+function ngAfterContentInit() {
+	console.log(this.children);
 
-  // `subscribe` comes from the `changes` RxJS observable
-  this.children.changes.subscribe((childElements) =>
-     console.log(childElements)
-  );
+	// `subscribe` comes from the `changes` RxJS observable
+	this.children.changes.subscribe((childElements) =>
+		console.log(childElements),
+	);
 }
 ```
 

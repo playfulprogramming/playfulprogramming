@@ -449,22 +449,20 @@ const App = () => {
 Here, we can assign properties, functions, or any other JavaScript values into the forwarded `ref`. If we look at the output of our `ref` callback from `App` it shows up the object that we assigned using `useImperativeHandle`:
 
 ```javascript
-{ pi: 3.14, sayHi: sayHi() }
+({ pi: 3.14, sayHi: sayHi() });
 ```
 
 That `sayHi` function still works, too! If we change `App` to the following:
 
 ```jsx
 const App = () => {
-  const compRef = useRef();
-  return (
-	<>
-		<button onClick={() => compRef.sayHi()}>
-        <Component
-          ref={compRef}
-        />
-    </>
-  );
+	const compRef = useRef();
+	return (
+		<>
+			<button onClick={() => compRef.sayHi()}>Say hi</button>
+			<Component ref={compRef} />
+		</>
+	);
 };
 ```
 
@@ -507,7 +505,7 @@ class ParentComponent implements AfterViewInit {
 Doing this, we'll see the console output:
 
 ```javascript
-Object { pi: 3.14 }
+/* Object */ ({ pi: 3.14 });
 ```
 
 But how do we know that this is properly the `ChildComponent` instance? Simple! We'll `console.log` `childComp.constructor` and we'll see:
@@ -573,7 +571,14 @@ const Parent = {
 If we look at our console output, we might see something unexpected:
 
 ```javascript
-Proxy { <target>: {…}, <handler>: {…} }
+/* Proxy */ ({
+	"<target>": {
+		/*…*/
+	},
+	"<handler>": {
+		/*…*/
+	},
+});
 ```
 
 This is because Vue uses Proxies under-the-hood to power component state. Rest assured, however; this `Proxy` is still our component instance.

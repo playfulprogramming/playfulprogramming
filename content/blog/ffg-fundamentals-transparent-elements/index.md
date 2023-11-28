@@ -66,56 +66,56 @@ const FileList = () => {
 
 ```typescript
 @Component({
-  selector: 'file-item',
-  standalone: true,
-  imports: [FileDateComponent],
-  template: `
-    <button
-      (click)="selected.emit()"
-      [style]="
-        isSelected
-          ? 'background-color: blue; color: white'
-          : 'background-color: white; color: blue'
-      "
-    >
-      <a [href]="href">
-        {{ fileName }}
-        <file-date *ngIf="isFolder" [inputDate]="inputDate"></file-date>
-      </a>
-    </button>
-  `,
+	selector: "file-item",
+	standalone: true,
+	imports: [FileDateComponent],
+	template: `
+		<button
+			(click)="selected.emit()"
+			[style]="
+				isSelected
+					? 'background-color: blue; color: white'
+					: 'background-color: white; color: blue'
+			"
+		>
+			<a [href]="href">
+				{{ fileName }}
+				<file-date *ngIf="isFolder" [inputDate]="inputDate"></file-date>
+			</a>
+		</button>
+	`,
 })
 export class FileComponent {
-  @Input() fileName: string;
-  @Input() href: string;
-  @Input() isSelected: boolean;
-  @Input() isFolder: boolean;
-  @Output() selected = new EventEmitter();
+	@Input() fileName: string;
+	@Input() href: string;
+	@Input() isSelected: boolean;
+	@Input() isFolder: boolean;
+	@Output() selected = new EventEmitter();
 }
 
 @Component({
-  selector: 'file-list',
-  standalone: true,
-  imports: [NgFor, NgIf, FileComponent]
-  template: `
-    <!-- ... -->
-    <ul>
-      <li *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
-        <file
-          *ngIf="onlyShowFiles ? !file.isFolder : true"
-          (selected)="onSelected(i)"
-          [isSelected]="selectedIndex === i"
-          [fileName]="file.fileName"
-          [href]="file.href"
-          [isFolder]="file.isFolder"
-        ></file>
-      </li>
-    </ul>
-    <!-- ... -->
-  `,
+	selector: "file-list",
+	standalone: true,
+	imports: [NgFor, NgIf, FileComponent],
+	template: `
+		<!-- ... -->
+		<ul>
+			<li *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
+				<file
+					*ngIf="onlyShowFiles ? !file.isFolder : true"
+					(selected)="onSelected(i)"
+					[isSelected]="selectedIndex === i"
+					[fileName]="file.fileName"
+					[href]="file.href"
+					[isFolder]="file.isFolder"
+				></file>
+			</li>
+		</ul>
+		<!-- ... -->
+	`,
 })
 export class FileListComponent {
-  // ...
+	// ...
 }
 ```
 
