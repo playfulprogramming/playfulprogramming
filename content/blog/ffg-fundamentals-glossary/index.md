@@ -76,7 +76,7 @@
 | Dynamic HTML                    |                                                                                        |
 | Boolean "short-circuiting"      |                                                                                        |
 | Logical AND Statement           | `&&`                                                                                   |
-| Logical OR Statement            | `                                                                                      |     | `   |
+| Logical OR Statement            | `                                                                                     |     |`   |
 | `Array.map`                     |                                                                                        |
 | `key` Prop                      |                                                                                        |
 | Partial DOM Application         |                                                                                        |

@@ -113,7 +113,7 @@ CSS for the modal
 </summary>
 
 <br/>
-    
+
 ```
 .modal-container {
   position: fixed;
@@ -179,27 +179,17 @@ filter: brightness(1.4);
 filter: brightness(1.8);
 }
 
-````
+```
+
 </details>
-
-
-
-
-
-
-
-
 
 Now that we have that modal, let's build out a small version of our folder app we've been building in this book. This version of the app should showcase the modal, the header, and a copyright footer:
 
 ![// TODO: Add alt](website_modal_example.png)
 
-
-
 <!-- tabs:start -->
 
 ## React
-
 
 ```jsx
 export const App = () => {
@@ -211,7 +201,7 @@ export const App = () => {
     </div>
   );
 };
-````
+```
 
 ```jsx
 export const Header = () => {

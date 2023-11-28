@@ -146,6 +146,7 @@ Component events a framework might listen for include:
 - A component rendering for the first time
 
 - [A component being removed from the screen as part of a conditional render](/posts/ffg-fundamentals-dynamic-html)
+
 - A component's data or passed properties changing
 
 The first of these component events are commonly fully transparent to most developers: User input bindings.
@@ -204,6 +205,7 @@ Let's look back at the four most common types of component side effect origin po
 - A component rendering for the first time
 
 - A component being removed from the screen as part of a conditional render
+
 - A component's data or passed properties changing
 
 While the first one was easy enough to tackle, the last three component events are often trickier to solve from a developer experience standpoint.

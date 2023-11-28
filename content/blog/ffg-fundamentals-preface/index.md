@@ -35,7 +35,7 @@ What's more, there's an absolutely gargantuan job market. To quote [the U.S. Bur
 
 > Employment in computer and information technology occupations is projected to grow 13 percent from 2020 to 2030, faster than the average for all occupations. These occupations are projected to add about 667,600 new jobs.
 >
-> [...]
+> \[...]
 >
 > **The median annual wage for computer and information technology occupations was $91,250 in May 2020**.
 
@@ -53,7 +53,7 @@ For example, React accounts for 12 million downloads a week from NPM alone and p
 
 Likewise, while smaller, Angular is alive and well today (unlike its eerily similarly named yet distinct predecessor "AngularJS"). Angular gains over 2 million downloads a week from NPM and powers sites such as Microsoft's [Xbox website](https://www.madewithangular.com/sites/xbox), [Office Web Home](https://www.madewithangular.com/sites/microsoft-office-home) site, Google's [Voice website](https://www.madewithangular.com/sites/google-voice), [Messages site](https://www.madewithangular.com/sites/google-messages), [Firebase's dashboard](https://www.madewithangular.com/sites/google-firebase), and many, many, many more.
 
-Finally, Vue has gained rapid growth in the last few years. From [gaining 50 million downloads in 2019 to over 125 million in 2022 on NPM](https://npm-stat.com/charts.html?package=vue&from=2019-01-01&to=2021-12-31), it's seen staggering success in the ecosystem. What's more, Vue sees uniquely high levels of adoption in China. Among the adopters of Vue in China are [Alibaba, a major shopping site](https://madewithvuejs.com/alibaba), and [Bilibili, a video-sharing platform](https://madewithvuejs.com/bilibili).
+Finally, Vue has gained rapid growth in the last few years. From [gaining 50 million downloads in 2019 to over 125 million in 2022 on NPM](https://npm-stat.com/charts.html?package=vue\&from=2019-01-01\&to=2021-12-31), it's seen staggering success in the ecosystem. What's more, Vue sees uniquely high levels of adoption in China. Among the adopters of Vue in China are [Alibaba, a major shopping site](https://madewithvuejs.com/alibaba), and [Bilibili, a video-sharing platform](https://madewithvuejs.com/bilibili).
 
 ### Ecosystem Tools
 
@@ -160,29 +160,43 @@ With the understanding of what we won't be looking at out of the way, **let's ta
   - How to keep the DOM and JavaScript state in sync
   - How to bind DOM events to JavaScript functions
   - How to pass values from one part of the UI to another
+
 - [How to update the DOM](https://crutchcorn-book.vercel.app/posts/dynamic-html) <!-- Dynamic HTML -->
   - How to conditionally show data on screen
   - How to render lists on-screen
+
 - [What a lifecycle method is](https://crutchcorn-book.vercel.app/posts/lifecycle-methods) <!-- Lifecycle methods -->
   - What a "side effect" is
+
 - [How to base the value of one variable off of another](https://crutchcorn-book.vercel.app/posts/derived-values) <!-- Derived values -->
+
 - [How to handle segments of HTML as a group](https://crutchcorn-book.vercel.app/posts/partial-dom-application) <!-- Partial DOM Application -->
+
 - [How to build relationships between components](https://crutchcorn-book.vercel.app/posts/content-projection) <!-- Content projection -->
   - How to pass children to components
+
 - [How to access a component's children programmatically](https://crutchcorn-book.vercel.app/posts/content-reference) <!-- Content reference -->
+
 - [How to access underlying DOM nodes programmatically](https://crutchcorn-book.vercel.app/posts/element-reference) <!-- Element reference -->
+
 - [How to access a component instance programmatically](https://crutchcorn-book.vercel.app/posts/component-reference) <!-- Component reference -->
   - How to pass data from a component up to its parent
   - How to create complex event handling logic
+
 - [What "dependency injection" is](https://crutchcorn-book.vercel.app/posts/dependency-injection) <!-- Dependency injection -->
+
 - How to share component logic between components <!-- Shared component logic -->
+
 - [What a "directive" is](https://crutchcorn-book.vercel.app/posts/directives) <!-- Directives -->
 
   - How to associate sharable code logic with DOM nodes
 
 - How to control where parts of your app show up <!-- Portals -->
+
 - How to handle errors in your apps <!-- Error handling -->
+
 - How to make your app accessible to everyone, including assistive technologies <!-- A11Y -->
+
 - How to structure your application <!-- Fundamentals/structure -->
   - What a "pure" function is
   - What "unidirectionality" is
@@ -279,7 +293,7 @@ While the "Options" API has been around for longer and is more similar to Angula
 2. The Composition API shares a bit of DNA with React's Hooks, which makes explaining some of the cross-framework concepts easier.
 3. The Composition API is relatively trivial to learn once you have a strong grasp of the Options API.
 4. Their documentation does a good job at providing code samples in both Options API and Composition API - allowing you to learn both even easier.
-5. [Evan You, the project's creator and lead maintainer, told me to.](https://twitter.com/youyuxi/status/1545281276856262656?s=20&t=ZBooorTRi6dYR1h_VVbu1A) 😝
+5. [Evan You, the project's creator and lead maintainer, told me to.](https://twitter.com/youyuxi/status/1545281276856262656?s=20\&t=ZBooorTRi6dYR1h_VVbu1A) 😝
 
 Similarly, this book will not cover [Vue's other upcoming compiler-based syntax choice, the upcoming `$ref` sugar](https://github.com/vuejs/rfcs/discussions/369). However, a the "Internals" book in this book series will walk you through all of these different APIs, why they exist, and how they build on-top of one-another.
 

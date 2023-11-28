@@ -11,7 +11,7 @@
 }
 ---
 
-[As mentioned previously](// TODO), in the DOM your HTML elements have a relationship to one another.
+[As mentioned previously](https://TODO), in the DOM your HTML elements have a relationship to one another.
 
 For example, the following:
 
@@ -312,7 +312,7 @@ export class ToggleButtonComponent {
 export class ToggleButtonListComponent {}
 ```
 
-Because `ng-content` is built-in to [Angular's compiler](// TODO: Link to Angular internals section), we do not need to import anything into a module to use the feature.
+Because `ng-content` is built-in to [Angular's compiler](https://TODO), we do not need to import anything into a module to use the feature.
 
 ### Vue
 
@@ -1010,7 +1010,9 @@ import FileTableBody from "./FileTableBody.vue";
 <!-- tabs:end -->
 
 <!-- Author's note: It's not clear what the best A11Y pattern is here. The best guide for this seems to be an incomplete WCAG guide -->
+
 <!-- https://w3c.github.io/aria-practices/examples/grid/advancedDataGrid.html -->
+
 <!-- That said, it seems like the best overall pattern here is that the row selection should have `aria-selected` (not `aria-pressed`) with the information present -->
 
 ---

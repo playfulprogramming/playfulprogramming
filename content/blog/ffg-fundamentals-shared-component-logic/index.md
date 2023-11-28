@@ -226,7 +226,7 @@ This can be a bit vague to discuss without code, so let's dive in.
 
 While our last code sample was able to expose the browser window's height and width, it didn't respond to window resizing. This means that if you resized the browser window, the value of `height` and `width` would no longer be accurate.
 
-Let's utilize [the window listener side effect we built in our "Side Effects" chapter](// TODO: LINK ME) in order to add an event handler to listen for window resizing.
+Let's utilize [the window listener side effect we built in our "Side Effects" chapter](https://TODO) in order to add an event handler to listen for window resizing.
 
 <!-- tabs:start -->
 

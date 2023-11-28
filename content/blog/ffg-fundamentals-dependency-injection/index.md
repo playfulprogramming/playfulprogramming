@@ -1876,6 +1876,7 @@ Earlier, in our [element reference](/posts/ffg-fundamentals-element-reference) a
 This component has all the key features we need to act as a custom context menu:
 
 - Opens on right-click
+
 - Closes when user clicks outside of it
 
 - Focusing when open

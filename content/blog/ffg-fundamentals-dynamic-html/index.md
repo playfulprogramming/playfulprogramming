@@ -509,7 +509,6 @@ Take the following code:
 This will convert to the following HTML:
 
 ```html
-
 ```
 
 > Wait, but there's nothing there...
