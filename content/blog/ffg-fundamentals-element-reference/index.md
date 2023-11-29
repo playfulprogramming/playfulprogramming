@@ -304,7 +304,7 @@ const CountButton = () => {
 
 You'll notice in this example that within our `useEffect`, we're utilizing a function to update `setCount`. This is because otherwise, we will run into a ["Stale Closure"](/posts/ffg-fundamentals-side-effects#Stale-Values), which means that our `count` value will never update past `1`.
 
-### Why aren't we using `useRef`?
+### Why Aren't We Using `useRef`?
 
 [If you think back to an earlier chapter in the book, "Side Effects", you may remember our usage of a hook called "`useRef`"](/posts/ffg-fundamentals-side-effects#Persist-data-without-re-rendering-using-useRef). Sensibly, based on the name, it's very commonly used with an element's `ref` property. In fact, it's so commonly used to store an element's reference that it even has a shorthand:
 
@@ -468,7 +468,7 @@ To solve this, we can do one of two things:
 1. Tell Angular that our code doesn't contain any dynamic HTML (IE: No `*ngIf`, `*ngFor`, or `<ng-template>`s)
 2. Use a different lifecycle method that occurs after `ngOnInit`.
 
-### Using `{static: true}` to use `ViewChild` immediately
+### Using `{static: true}` to Use `ViewChild` Immediately
 
 To tell Angular that there is no dynamic HTML and it should immediately query for the elements, you can use the `{static: true}` property on `ViewChild`:
 
@@ -514,7 +514,7 @@ class RenderParagraphComponent implements OnInit {
 
 To solve this, we'll have to use a different lifecycle method than `ngOnInit`.
 
-### Using `ngAfterViewInit` to use a deferred `ViewChild`
+### Using `ngAfterViewInit` to Use a Deferred `ViewChild`
 
 While the values a dynamic HTML may not be defined in `ngOnInit`, there is a different lifecycle method to be called when Angular has fully initialized all of the child values of your dynamic HTML: `ngAftrerViewInit`.
 
@@ -541,7 +541,7 @@ class RenderParagraphComponent implements AfterViewInit {
 }
 ```
 
-### Adding an Event Listener using `@ViewChild`
+### Adding an Event Listener Using `@ViewChild`
 
 Now that we know how to use `ViewChild`, we can add a `addEventListener` and `removeEventListener` to manually bind a `button`'s `click` event:
 
@@ -613,7 +613,7 @@ function logEl(el) {
 
 <!-- tabs:end -->
 
-# How to keep an array of element references
+# How to Keep an Array of Element References
 
 Let's say that we're building an email application and want to provide the user a button that scrolls them to the top of their messages quickly.
 
@@ -758,7 +758,7 @@ const chapters = [
 
 <!-- tabs:end -->
 
-# Real world usage
+# Real World Usage
 
 Now that we know how to access an underlying HTML element in our given framework, let's go back to our previous context menu example from the start of the chapter.
 
@@ -1061,7 +1061,7 @@ To do this, we'll need to consider a few things:
 4. Make sure the tooltip is horizontally centered
 5. Adding any necessary polish
 
-## Step 1: Track when the user has hovered an element
+## Step 1: Track When the User Has Hovered an Element
 
 In order to track when an element is being hovered, we can use [the `mouseover` HTML event](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseover_event).
 
@@ -1185,7 +1185,7 @@ onUnmounted(() => {
 
 <!-- tabs:end -->
 
-## Step 2: Remove the element when the user stops hovering
+## Step 2: Remove the Element When the User Stops Hovering
 
 Now that we have our tooltip showing up when we'd expect, let's remove it when we stop hovering on the button element.
 
@@ -1344,7 +1344,7 @@ onUnmounted(() => {
 
 <!-- tabs:end -->
 
-## Step 3: Placing the tooltip above the button
+## Step 3: Placing the Tooltip above the Button
 
 To place the tooltip above the button, we'll measure the button's position, height, and width using an element reference and [the `HTMLElement`'s method of `getBoundingClientRect`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect).
 
@@ -1570,7 +1570,7 @@ onUnmounted(() => {
 
 <!-- tabs:end -->
 
-## Step 4: Centering the tooltip horizontally
+## Step 4: Centering the Tooltip Horizontally
 
 To center a `position: fixed` element is a challenge and a half. While there's half a dozen ways we could go about this, we're going to opt for a solution that involves:
 
@@ -1865,7 +1865,7 @@ onUnmounted(() => {
 
 <!-- tabs:end -->
 
-## Step 5: Adding polish
+## Step 5: Adding Polish
 
 Our tooltip works now! But, being honest, it's a bit plain looking without much styling.
 

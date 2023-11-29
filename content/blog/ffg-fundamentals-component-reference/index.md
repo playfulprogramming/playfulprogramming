@@ -652,7 +652,7 @@ onMounted(() => {
 
 <!-- tabs:end -->
 
-# Using component reference to focus our context menu
+# Using Component Reference to Focus Our Context Menu
 
 Now that we sufficiently understand what component references look like in each framework, let's add it into our `App` component to re-enable focusing our `ContextMenu` component when it opens.
 
@@ -1121,7 +1121,7 @@ import Layout from "./Layout.vue";
 
 <!-- tabs:end -->
 
-## Step 2: Make a collapsible sidebar
+## Step 2: Make a Collapsible Sidebar
 
 Now that we have a rough sidebar, we'll make it so that the user can manually collapse the sidebar.
 
@@ -1327,7 +1327,7 @@ function onToggle(isCollapsed) {
 
 <!-- tabs:end -->
 
-## Step 3: Auto-collapse sidebar on small screens
+## Step 3: Auto-Collapse Sidebar on Small Screens
 
 Finally, let's auto-collapse the sidebar on screens smaller than 600px wide.
 

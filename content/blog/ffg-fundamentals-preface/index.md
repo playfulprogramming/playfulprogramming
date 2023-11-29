@@ -27,7 +27,7 @@ By the end of this series, you should be able to confidently navigate any codeba
 
 But I'm getting ahead of myself; first, let's answer some fundamental questions.
 
-# Why should I learn web development today?
+# Why Should I Learn Web Development Today?
 
 Learning web development is a vital skill in software engineering. Even if you don't end up working on web tech yourself, the likelihood of a project eventually utilizing web tech is exceptionally high. Knowing and understanding the limitations of a web's frontend can make communicating with those teams simpler, make structuring effective backend APIs easier, and allows you to transfer that knowledge to other UI development.
 
@@ -41,11 +41,11 @@ What's more, there's an absolutely gargantuan job market. To quote [the U.S. Bur
 
 While this number may be specific to the U.S., and other countries and markets may have different rates, programming tends to be a good bet for a sustainable long-term career.
 
-## Why should I learn these tools?
+## Why Should I Learn These Tools?
 
 While web development is broadly helpful to learn as a skill for work in engineering, these frameworks, in particular, are a considerable boon to learn.
 
-### Ecosystem size
+### Ecosystem Size
 
 For starters, these tools are massively adopted. [React, Angular, and Vue account for 9% of the web in 2021](https://almanac.httparchive.org/en/2021/javascript#libraries-usage) and are consistently growing. While that might not sound like much, remember that [there are over 1.9 billion websites as of 2022](https://www.internetlivestats.com/total-number-of-websites/); Even 1% accounts for nearly 10 million sites.
 
@@ -75,7 +75,7 @@ These tools include [ElectronJS](https://www.electronjs.org/) and [Tauri](https:
 
 While this book in particular will not touch on most of the ecosystem, the second book in our trilogy will be titled "Ecosystem" and teach you how to integrate the foundation of knowledge this book introduces to build out more complex applications with these community tools.
 
-## Who's building what?
+## Who's Building What?
 
 This isn't to say that the only reliance you have that these tools won't disappear is that they're popular; each of these frameworks has at least one prominent backer behind them.
 
@@ -89,7 +89,7 @@ Vue is often seen as the odd one out when talking about funding. Vue's developme
 
 Like Angular, the Vue core team consists of groups that work on a broad set of tooling. Everything from [the official routing library](https://router.vuejs.org/) to its two different global store libraries ([Vuex](https://vuex.vuejs.org/) and [Pinia](https://pinia.vuejs.org/)) and beyond are considered part of Vue's core.
 
-### Why learn all three frameworks?
+### Why Learn All Three Frameworks?
 
 While there's the obvious answer of "it broadens the types of work you're able to do," there are more reasons than that to learn more than one framework at a time.
 
@@ -103,7 +103,7 @@ Beyond this, it's important to remember that these three frameworks are not the 
 
 This knowledge transfer doesn't stop at JavaScript or web development, either. The more you learn about any aspect of programming can be used to utilize the same procedures in other languages or types of programming. Many of the APIs I've used in web development was also valuable when doing engineering work with native languages.
 
-### Will these tools stick around?
+### Will These Tools Stick around?
 
 Honestly? Who's to say. The ecosystem has its fluctuations; many developers definitely seem to feel some level of burnout from, say, the React ecosystem after so long within it.
 
@@ -119,7 +119,7 @@ Additionally, from a cultural standpoint, many developers are also tired of swit
 
 Just because a tool is new doesn't mean that it's inherently better; even better perceived tools may not be selected for various reasons.
 
-# What will we be learning?
+# What Will We Be Learning?
 
 As mentioned earlier, we will be learning React, Angular, and Vue from an introductory place, all the way to understanding the inner workings of these frameworks.
 
@@ -133,7 +133,7 @@ In fact, I will do my best to link out to anything that's expected to be known o
 - ["WebDev 101: How to use NPM and Yarn" - An explanation of what "Node" is, what "NPM" is, and how to use them.](https://unicorn-utterances.com/posts/how-to-use-npm)
 - ["Understanding The DOM: How Browsers Show Content On-Screen" - An explanation of what the "DOM" is and how it pertains to HTML.](https://unicorn-utterances.com/posts/understanding-the-dom)
 
-## What aren't we learning?
+## What Aren't We Learning?
 
 Before taking a look at some specifics of what we'll be learning, **let's talk about what we won't be spending dedicated time learning in this series**:
 
@@ -149,7 +149,7 @@ All of these are broad concepts in their own right and have a plethora of conten
 
 Once again, however, if any of these topics become relevant in the book, we'll link out to resources that will help you explore more and broaden your knowledge base.
 
-## Content outline
+## Content Outline
 
 With the understanding of what we won't be looking at out of the way, **let's talk about what we _will_ be learning about**:
 
@@ -212,7 +212,7 @@ We will also have easy-to-reference resources in case you're already a pro with 
 - A glossary of various terms relevant to these frameworks
 - A lookup table with equivalent APIs between these frameworks
 
-## A note on framework specifics
+## A Note on Framework Specifics
 
 As a final note, before I send you into the rest of the book/course, I want to touch on a few points about these frameworks:
 
@@ -222,7 +222,7 @@ As a final note, before I send you into the rest of the book/course, I want to t
 
 Here's a few nuances we should keep in mind about this book's teachings of React:
 
-#### We're using React Hooks
+#### We're Using React Hooks
 
 React has two different ways of writing code: Using classes and "Hooks".
 
@@ -236,11 +236,11 @@ That all said, the core concepts outlined in this book/course apply to both of t
 
 Here's a few nuances we should keep in mind about this book's teachings of Angular:
 
-#### Angular is not AngularJS
+#### Angular Is Not AngularJS
 
 Despite the similarities in their names, these two are entirely distinct entities. More specifically, [AngularJS was originally released in 2010](https://unicorn-utterances.com/posts/web-components-101-history#2010-The-Early-Days-of-MVC-in-JS) and was followed up by the initial release of Angular in 2016. **Despite this shared lineage, the core concepts shifted drastically between these two releases.** For all intents and purposes, you will not know AngularJS at the end of this book: You will know Angular.
 
-#### We're using Standalone Components
+#### We're Using Standalone Components
 
 Angular has two ways of defining component imports: modules and standalone components. **We'll be using Standalone components**.
 
@@ -252,7 +252,7 @@ While these modules worked, they were mostly dissimilar from alternatives in oth
 
 > Keep in mind that if you're working with an older Angular codebase, it's likely to still be using modules.
 
-#### We're using Self-Closing Tags
+#### We're Using Self-Closing Tags
 
 HTML supports self-closing tags on some elements that don't contain children:
 
@@ -271,7 +271,7 @@ Similarly, Angular 15.1 introduced a method for using self-closing tags with com
 
 > This will not work with versions of Angular older than 15.1, so be aware of this when working in older codebases.
 
-#### We won't be learning "Signals"
+#### We Won't Be Learning "Signals"
 
 [Early in 2023, the Angular team announced that they will be introducing a new method of programming in Angular called "Signals"](https://angular.io/guide/signals). To pull back the curtains a bit, this book began life in January of 2022, and the by the time the book had launched, Signals were not yet introduced as a stable API within the Angular ecosystem.
 
@@ -283,7 +283,7 @@ However, in the future I will revise this book to be geared towards Angular Sign
 
 Here's a few nuances we should keep in mind about this book's teachings of Vue:
 
-#### We're using the Composition API
+#### We're Using the Composition API
 
 Vue has two different ways of writing code: The "Options" API and the "Composition" API.
 
@@ -297,7 +297,7 @@ While the "Options" API has been around for longer and is more similar to Angula
 
 Similarly, this book will not cover [Vue's other upcoming compiler-based syntax choice, the upcoming `$ref` sugar](https://github.com/vuejs/rfcs/discussions/369). However, a the "Internals" book in this book series will walk you through all of these different APIs, why they exist, and how they build on-top of one-another.
 
-#### We're using SFCs
+#### We're Using SFCs
 
 Vue is a highly flexible framework and, as a result, allows you to define components with various methods; each with their own set of pros and cons.
 

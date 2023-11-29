@@ -17,7 +17,7 @@ This is helpful for sharing logic between components, but isn't the whole story 
 
 For example, we may want to have logic that's associated with a given DOM node without having to create an entire component specifically for that purpose. This exact problem is what a **Directive** aims to solve.
 
-# What is a directive
+# What Is a Directive
 
 In our ["Introduction to Components" chapter](/posts/ffg-fundamentals-intro-to-components), we talked about how a component is a collection of structure, styling, and logic that's associated with one or more HTML nodes.
 
@@ -606,7 +606,7 @@ const vStyleBackground = {
 
 <!-- tabs:end -->
 
-# Conditionally Rendered UI Via Directives
+# Conditionally Rendered UI via Directives
 
 The examples we've used to build out basic directives have previously all mutated elements that don't change their visibility; these elements are always rendered on screen and don't change that behavior programatically.
 
@@ -708,7 +708,7 @@ While we previously have used `ng-template` as a shorthand for "Don't render thi
 
 For starters, did you know that you can pass data to an `ng-template`?
 
-### Passing data to `ng-template` using `ngTemplateOutletContext`
+### Passing Data to `ng-template` Using `ngTemplateOutletContext`
 
 To pass data to an `ng-template`, you need to provide a "context" object for what should be passed.
 
@@ -800,7 +800,7 @@ To solve this, we can pass a "default" key called `$implicit` and bind it like s
 class AppComponent {}
 ```
 
-### Seeing a Template Render A Comment
+### Seeing a Template Render a Comment
 
 While we've been using `inject` in directives to gain access to the directive's underlying HTML element, what happens if we bind a directive to an `ng-template`?
 
@@ -906,7 +906,7 @@ TemplateRef {_declarationLView: Array[34], _declarationTContainer: {…}, elemen
 
 To render this `TemplateRef`, we'll use a `ViewContainerRef`.
 
-### Explaining Angular's DOM Structure
+### Explaining Angular's Dom Structure
 
 A `ViewContainerRef` is a reference to the nearest `ViewContainer`
 
@@ -1025,7 +1025,7 @@ Might be seen by Angular as such:
 
 ![// TODO: Write alt](./angular_dom.svg)
 
-### Using ViewContainer to Render a Template
+### Using Viewcontainer to Render a Template
 
 This isn't just theoretically helpful to learn, though, we're able to tell Angular that we want to gain access to the underlying `ViewContainer` via a [`ViewContainerRef`](https://angular.io/api/core/ViewContainerRef).
 
@@ -1065,7 +1065,7 @@ class AppComponent {}
 
 Now we should be able to see the `p` tag rendering!
 
-### Pass data to rendered templates inside of Directives
+### Pass Data to Rendered Templates inside of Directives
 
 Just as we could pass data to a template inside of a component using `ngTemplateOutletContext`, we can do the same using a second argument of `createEmbeddedView`:
 
@@ -1103,7 +1103,7 @@ class PassBackgroundDirective {
 class AppComponent {}
 ```
 
-### Use Structural Directives To Make Work Easier
+### Use Structural Directives to Make Work Easier
 
 In our previous section, we use an `ng-template` in combination with a `div` to render out our app with the correct DOM structure.
 
@@ -1147,7 +1147,7 @@ class AppComponent {}
 
 > Structural directives are immensely powerful! [I wrote a 10k word long blog post all about them here.](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives)
 
-### Build the Feature Flag Behavior using Structural Templates
+### Build the Feature Flag Behavior Using Structural Templates
 
 Now that we have our foundation written out, we can finally build a simple `featureFlag` directive that renders nothing if a `flag` is false, but renders the contents if a flag is `true`:
 

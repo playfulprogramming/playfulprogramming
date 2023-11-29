@@ -33,7 +33,7 @@ This raises more questions than it answers:
 
 Let's answer these questions one-by-one, starting with:
 
-# What is a side effect?
+# What Is a Side Effect?
 
 A side effect is when a piece of code changes or relies on state outside its local environment. When a piece of code does not contain a side effect, it is considered "pure".
 
@@ -135,7 +135,7 @@ Further, because an application's inputs and outputs (combined often called "`I/
 - Printing something to a printer
 - Logging a value to `console`
 
-# How do frameworks handle side effects?
+# How Do Frameworks Handle Side Effects?
 
 As mentioned previously, side effects are mission critical for the kinds of applications that React, Angular, and Vue are all purpose-built for. To make side-effect handling easier, each framework has its own method of running code on behalf of the developer when specific events occur in the component.
 
@@ -216,7 +216,7 @@ On the other hand, **some frameworks choose to implement side effect handling wi
 
 To explore what these side effect handlers can do, let's look at an example of a handler that runs during a component's initial render.
 
-# Initial render side effects
+# Initial Render Side Effects
 
 When we introduced components, we touched on the [concept of "rendering"](/posts/ffg-fundamentals-intro-to-components#Rendering-the-app). This occurs when a component is drawn on-screen, either when the user loads a page for the first time or when shown or hidden using a [conditional render](/posts/ffg-fundamentals-dynamic-html#Conditional-Branches).
 
@@ -703,7 +703,7 @@ This is why we don't we simply utilize event binding for the `resize` event: It'
 
 [You can learn more about event bubbling, how it works, and how to overwrite it in specific instances from Mozilla Developer Network.](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling_and_capture)
 
-# Cleaning up side effects
+# Cleaning up Side Effects
 
 Let's put down the code for a moment and talk about side effects with an analogy.
 
@@ -1382,7 +1382,7 @@ unUnmounted(() => {
 </template>
 ```
 
-#### Vue's `watchEffect` cleanup
+#### Vue's `watchEffect` Cleanup
 
 As mentioned previously, Vue has two methods of handling side effects; Lifecycle methods and `watchEffect`. Luckily, `watchEffect` also has the ability to cleanup side effects that were created before.
 
@@ -1474,7 +1474,7 @@ watchEffect((onCleanup) => {
 
 <!-- tabs:end -->
 
-## Cleaning up event listeners
+## Cleaning up Event Listeners
 
 [We had a code sample earlier in the chapter that relied on `addEventListener` to get the window size](#prod-side-effects). This code sample, you may have guessed, had a memory leak in it because we never cleaned up this event listener.
 
@@ -1635,7 +1635,7 @@ watchEffect((onCleanup) => {
 
 <!-- tabs:end -->
 
-## Ensuring lifecycle cleanup
+## Ensuring Lifecycle Cleanup
 
 Some frameworks have taken extra steps to ensure your lifecycle methods always clean up side effects.
 
@@ -1685,7 +1685,7 @@ Vue does not have any special behaviors with `OnInit` to force component cleanup
 
 <!-- tabs:end -->
 
-# Re-renders
+# Re-Renders
 
 While rendering and un-rendering are primary actions in a component's lifecycle, they're not the _only_ lifecycle methods on the table.
 
@@ -1784,7 +1784,7 @@ Every time the `ReRenderListener` component updates the DOM with new changes, th
 
 <!-- tabs:end -->
 
-# In-component property side effects
+# In-Component Property Side Effects
 
 Up to this point, we've looked at component-wide events such as "rendering the component" and "unrendering the component".
 
@@ -1929,7 +1929,7 @@ useEffect(() => {
 }, [count]);
 ```
 
-### Persist data without re-rendering using `useRef`
+### Persist Data without Re-Rendering Using `useRef`
 
 Let's go back to our `document.title` example. Say that instead of updating the `title` and `document.title` right away, we want to delay the updating of both using a `setTimeout`:
 
@@ -2027,7 +2027,7 @@ const App = () => {
 
 This makes `useRef` perfect for things like `setTimeout` and `setInterval` returned values; they need to be persisted in order to cleanup properly, but do not need to display to the user so we can avoid re-rendering.
 
-### `useRef`s don't trigger `useEffect`s
+### `useRef`s Don't Trigger `useEffect`s
 
 Because `useRef` doesn't trigger a re-render, our `useEffect` will never re-run; **`useEffect` doesn't listen to the passed array values, but rather checks _the reference_ of the array's value**.
 
@@ -2201,7 +2201,7 @@ watchEffect(() => {
 
 It will only track changes to `count`, as the `title.value` usage is inside of an async operation.
 
-### Manually track changes with `watch`
+### Manually Track Changes with `watch`
 
 `watchEffect` is a bit magic, aye? Maybe it's a bit too much for your needs, maybe you need to be more specific about what you do and do not track. This is where Vue's `watch` function comes into play.
 
@@ -2237,7 +2237,7 @@ watch(
 >
 > Would still run the inner function when `title` has changed, but only after the initial render.
 
-### `watch` multiple items
+### `watch` Multiple Items
 
 To watch multiple items, we can pass an array of reactive variables:
 

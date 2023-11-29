@@ -21,7 +21,7 @@ First, let's explain why frameworks like Angular, React, or Vue differs from oth
 
 It all comes down to a single core concept at the heart of each: **Componentization**.
 
-# What's an app, anyway?
+# What's an App, Anyway?
 
 Before we dive into the technical aspects, let's think about what an app consists of at a high level.
 
@@ -69,7 +69,7 @@ JavaScript is like the electrical, plumbing, and appliances of the house. They a
 
 CSS is like the paint and other decors that goes into a home. They're what makes the house feel lived in and inviting. Of course, this decor doesn't do much without the rest of the home but rest assured, without it, it's a miserable experience.
 
-# Parts of the app
+# Parts of the App
 
 Now that we've introduced what an app looks like let's go back for a moment. Remember how I said each app is made of parts? Let's explode the app's mockup into smaller pieces and look at them more in-depth.
 
@@ -214,7 +214,7 @@ We can see that each framework has its own syntax to display these components, b
 
 Now that we've defined our components there's a question to be asked: how do you _use_ these components in HTML?
 
-# Rendering the app
+# Rendering the App
 
 While these components might look like simple HTML, they're capable of much more advanced usage. Because of this, each framework actually uses JavaScript under the hood to "draw" these components on-screen.
 
@@ -349,7 +349,7 @@ Once a component is rendered, you can do a lot more with it!
 
 For example, just like [nodes in the DOM]() have relationships, so too can components.
 
-# Children, siblings, and more, oh my!
+# Children, Siblings, and More, Oh My!
 
 While our `File` component currently contains HTML elements, components may also contain other components!
 
@@ -2320,7 +2320,7 @@ To do this, let's:
 6. Use an output to toggle the `expanded` input
 7. Make our `expanded` property functional
 
-## Creating our First Components
+## Creating Our First Components
 
 Let's kick off this process by creating our `index.html` and a basic component to render:
 
@@ -2584,7 +2584,7 @@ const props = defineProps(["name"]);
 
 We should now see a list of buttons with a name associated with each!
 
-## Making our Components Functional
+## Making Our Components Functional
 
 Now that we've created the initial structure of our components, let's work on making them functional.
 

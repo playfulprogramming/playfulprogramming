@@ -173,7 +173,7 @@ While the above `File` component updates `inputDate` correctly, our `FileDate` c
 
 How can we fix this?
 
-# Method 1: Prop listening
+# Method 1: Prop Listening
 
 The first - and arguably easiest to mentally model - method to solve this disparity between prop value and display value is to simply listen for when a property's value has been updated and re-calculate the display value.
 
@@ -275,7 +275,7 @@ While this method works, it tends to introduce duplicate developmental logic. Fo
 
 Luckily for us, there's an easy solution for this problem called "computed values".
 
-# Method 2: Computed values
+# Method 2: Computed Values
 
 Our previous method of deriving a value from a property follows two steps:
 
@@ -406,7 +406,7 @@ export class FileDateComponent {
 }
 ```
 
-### Built-in Pipes
+### Built-In Pipes
 
 Luckily, Angular's all-in-one methodology means that there's a slew of pipes that the Angular team has written for us. One such pipe is actually a date formatting pipe. We can remove our own implementation in favor of one built right into Angular!
 

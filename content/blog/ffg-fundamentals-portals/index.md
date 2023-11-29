@@ -684,7 +684,7 @@ While the long answer of "why is the modal rendering under the footer in this ex
 
 To solve this, we'll reach for the JavaScript API built into React, Angular, and Vue that we mentioned at the start of this chapter: Portals.
 
-# What is a JavaScript Portal?
+# What Is a JavaScript Portal?
 
 The basic idea behind a JavaScript Portal builds on top of [the concepts of components we introduced in our first chapter](/posts/ffg-fundamentals-intro-to-components).
 

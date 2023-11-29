@@ -366,7 +366,7 @@ Because `slot` is a built-in component to Vue, we do not need to import it from 
 
 Here, we can see that we're able to pass a `span` and other elements directly as _children_ to our `ToggleButton` component.
 
-## Using other Framework Features with Component Children
+## Using Other Framework Features with Component Children
 
 However, because these templates have the full power of the frameworks at their disposal, these _children_ have super-powers! Let's add in a `for` loop into our children template to say hello to all of our friends:
 

@@ -250,7 +250,7 @@ This is possible because React, Angular, and Vue control what is rendered to the
 
 Knowing this, let's add conditional rendering to our application.
 
-## Conditional Rendering our Date
+## Conditional Rendering Our Date
 
 Right now, we have a list of files to present to the user. However, if we look back at our mockups, we'll notice that we wanted to list folders alongside files.
 
@@ -1342,7 +1342,7 @@ Now when we re-render the list, the framework is able to know exactly which item
 
 As such, it will only re-render the new items, leaving the old and unchanged DOM elements alone.
 
-## Keys As Render Hints
+## Keys as Render Hints
 
 As we mentioned earlier, the `key` property is used by the framework to figure out which element is which. Change this `key` property for a given element, and it will be destroyed and recreated as if it were a fresh node.
 
@@ -1413,7 +1413,7 @@ This reset is what's causing the `input` to blank out after a button press.
 >
 > [In a future chapter, we'll learn more about how each framework handles these references under the hood.](/posts/ffg-fundamentals-element-reference)
 
-# Putting it to Production
+# Putting It to Production
 
 Since we now understand the stability and performance benefits of providing a key to our lists, let's add them to our `FileList` components.
 
@@ -1942,7 +1942,7 @@ Let's use what we learned in this chapter to improve both of these challenges. I
 2. Use a object map to keep track of each dropdown's `expanded` property
 3. Migrate the usage of the `hidden` attribute to conditionally render instead
 
-## Migrating hardcoded elements to a list
+## Migrating Hardcoded Elements to a List
 
 Let's start by creating an array of strings that we can use to render each dropdown with.
 
@@ -2220,7 +2220,7 @@ function objFromCategories(categories) {
 
 <!-- tabs:end -->
 
-## Conditionally rendering hidden content
+## Conditionally Rendering Hidden Content
 
 Now that we've migrated our dropdowns to use a list instead of hardcoding each component instance, let's migrate our dropdown's collapsed content to conditionally render instead of using the `hidden` HTML attribute.
 

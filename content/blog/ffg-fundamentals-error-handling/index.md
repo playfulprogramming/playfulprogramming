@@ -109,7 +109,7 @@ While I doubt we'll ever convince our users that an error is a _good_ thing, how
 
 Before we do that, however, let's explore _why_ throwing an error causes the rendering of a page to fail.
 
-# Throwing errors causes blank screens?!
+# Throwing Errors Causes Blank Screens?!
 
 As shown before, when an error is thrown during a component's [render step](/posts/ffg-fundamentals-side-effects) it will fail to render any of the contents from the component's template. This means that the following will throw an error and prevent rendering from occurring:
 
@@ -336,7 +336,7 @@ This doesn't seem worth the tradeoffs when we're able to add our own `try/catch`
 
 After all, a partially broken application is better than a fully broken one!
 
-### Errors thrown in other APIs
+### Errors Thrown in Other APIs
 
 This property of an error being thrown in an error handler not preventing a render transfers to other aspects of these frameworks as well:
 
@@ -536,7 +536,7 @@ _**Almost** every API made the migration to Hooks._
 
 One of the few exceptions to that rule is the ability to catch and track errors that are thrown within a React application.
 
-### Use class components to build an error boundary
+### Use Class Components to Build an Error Boundary
 
 Now that we understand what a class component is, and why it's required to use one for error handling, let's build one ourselves!
 

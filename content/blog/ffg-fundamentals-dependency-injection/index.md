@@ -409,7 +409,7 @@ const welcomeMsgObj = inject("WELCOME_MESSAGE");
 
 <!-- tabs:end -->
 
-# Changing Values After Injection
+# Changing Values after Injection
 
 While providing values from a parent node down to a child component is useful on its own, it's made even more powerful by the inclusion of data manipulation.
 
@@ -569,7 +569,7 @@ function Child() {
 }
 ```
 
-#### Using a reducer pattern
+#### Using a Reducer Pattern
 
 Despite `useState` and `useContext` making a powerful combination for data passing and updating in dependency injection, it's far from a perfect solution when dealing with large data sets.
 
@@ -703,7 +703,7 @@ function App() {
 
 > It's worth mentioning that [the reducer pattern is not unique to React](https://dev.to/reedbarger/what-is-a-reducer-in-javascript-a-complete-introduction-with-examples-ip1). That said, React is unique in that it has a built-in method to build reducers, unlike many other frameworks.
 
-#### Reducer patterns within Contexts
+#### Reducer Patterns within Contexts
 
 Just like we were able to pass the `setValue` function from `useState`, we can pass both `state` and `dispatch` using our `context`'s `Provide` and utilize `useContext` to inject those values into our child components.
 
@@ -1124,7 +1124,7 @@ function App() {
 
 These children of `HelloMessageProvider` are then passed the `HelloMessageContext` through React's dependency injection system.
 
-### Provider Christmas Trees are Okay!
+### Provider Christmas Trees Are Okay!
 
 When you have a large enough application, you may end up having an `App` component that looks like this:
 
@@ -1271,7 +1271,7 @@ provide("WELCOME_MESSAGE", welcomeMessage);
 
 These globally provided values are also called "singletons". When using a singleton, it's important to remember that data is shared between every component. If we have three components that all use one provided value, and mutate said value, it will update all of the consuming components.
 
-## Application Wide Providers _can_ Cause Performance Problems
+## Application Wide Providers _Can_ Cause Performance Problems
 
 Generally, it's suggested to keep your data providers as close to the intended component as possible. For example, if you have the following component structure:
 
@@ -1497,7 +1497,7 @@ If you're hungry for chicken, you're not likely to walk farther to get the same 
 
 This is similar to how a component will try to find the closest source of data for a requested data type in the component tree.
 
-# Finding specific injected values
+# Finding Specific Injected Values
 
 Just because we can have multiple providers throughout an application doesn't mean that there's not an order to how your component grabs specifically requested data.
 
@@ -1662,7 +1662,7 @@ This specificity-seeking behavior of your dependency injection consumer is helpf
 
 > What's my data's "shape"?
 
-# The importance of Consistency in provided data
+# The Importance of Consistency in Provided Data
 
 The idea of a data's "shape" is that two pieces of data share enough related data to be considered "similar" in "shape".
 
@@ -1909,7 +1909,7 @@ This will consist of multiple steps:
 
 Strap in - this is going to be a long challenge. By the end of it we'll have a functioning application shell with a real-world example of dependency injection.
 
-## 1. Creating an initial app layout
+## 1. Creating an Initial App Layout
 
 // TODO: ...
 
@@ -2107,7 +2107,7 @@ import FileList from "./FileList.vue";
 
 <!-- tabs:end -->
 
-## 2. Add file and directory list
+## 2. Add File and Directory List
 
 // TODO: ...
 
@@ -2276,7 +2276,7 @@ export class SidebarComponent {
 
 <!-- tabs:end -->
 
-## 3. Add context menu with static actions
+## 3. Add Context Menu with Static Actions
 
 // TODO: ...
 
@@ -2676,7 +2676,7 @@ export class SidebarComponent {
 
 <!-- tabs:end -->
 
-## 4. Adding dependency injection to context menu
+## 4. Adding Dependency Injection to Context Menu
 
 // TODO: ...
 
@@ -2788,7 +2788,7 @@ export const FileList = () => {
 
 <!-- tabs:end -->
 
-## 5. Adding functionality to context menu
+## 5. Adding Functionality to Context Menu
 
 // TODO: ...
 
@@ -2952,7 +2952,7 @@ export const FileList = () => {
 
 ---
 
-# Delete Everything Below This Line
+# Delete Everything below This Line
 
 ---
 
@@ -2962,7 +2962,7 @@ export const FileList = () => {
 
 ---
 
-## All together now
+## All Together Now
 
 // TODO: Write
 
