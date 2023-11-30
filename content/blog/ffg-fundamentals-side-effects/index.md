@@ -529,6 +529,8 @@ const WindowSize = () => {
 };
 ```
 
+<iframe data-frame-title="React Leaking Window Size - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-leaking-window-size-29?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 ```typescript {13-22}
@@ -546,10 +548,10 @@ export class WindowSizeComponent implements OnInit {
 	height = window.innerHeight;
 	width = window.innerWidth;
 
-	resizeHandler() {
+	resizeHandler = () => {
 		this.height = window.innerHeight;
 		this.width = window.innerWidth;
-	}
+	};
 
 	ngOnInit() {
 		// This code will cause a memory leak, more on that soon
@@ -557,6 +559,12 @@ export class WindowSizeComponent implements OnInit {
 	}
 }
 ```
+
+> You may notice that we're using an arrow function for `resizeHandler`. This arrow function helps us bind `this` in `resizeHandler` back to the `WindowSizeComponent` instance.
+>
+> If this sentence feels unfamiliar, no worries; [I wrote an article explaining what this means](https://unicorn-utterances.com/posts/javascript-bind-usage).
+
+<iframe data-frame-title="Angular Leaking Window Size - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-leaking-window-size-29?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -586,6 +594,8 @@ onMounted(() => {
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Leaking Window Size - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-leaking-window-size-29?template=node&embed=1&file=src%2FWindowSize.vue"></iframe>
 
 <!-- tabs:end -->
 
