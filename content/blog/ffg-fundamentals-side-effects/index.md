@@ -336,6 +336,8 @@ const Child = () => {
 };
 ```
 
+<iframe data-frame-title="React Initial Render useEffect - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-initial-render-useeffect-27?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 Here, we're completing the task of "run `console.log` when `Child` is rendered for the first time" by allowing React to run the `console.log` side effect inside of `useEffect`. The empty array hints to React that we'd only like this function to run once: when the component initially renders.
 
 > The empty array passed to `useEffect` has a fair bit of nuance to it, which we'll learn about later.
@@ -360,6 +362,8 @@ export class ChildComponent implements OnInit {
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Initial Render onInit - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-initial-render-on-init-27?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 All of Angular's lifecycle methods are prepended with `ng` and add `implements` to your component class.
 
@@ -388,6 +392,8 @@ onMounted(() => {
 </template>
 ```
 
+<iframe data-frame-title="Vue Initial Render onMount - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-initial-render-on-mount-27?template=node&embed=1&file=src%2FChild.vue"></iframe>
+
 Here, we're importing the `onMounted` lifecycle handler from the `vue` import. Vue's lifecycle methods all start with an `on` prefix when used inside of a `<script setup>` component.
 
 ### Vue's `watchEffect` Hook
@@ -408,6 +414,8 @@ watchEffect(() => {
 	<p>I am the child</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Initial Render watchEffect - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-initial-render-watch-effect-27?template=node&embed=1&file=src%2FChild.vue"></iframe>
 
 Here, we're using `watchEffect` to run `console.log` as soon as the `Child` component renders.
 
@@ -430,7 +438,7 @@ Let's say that inside of our component we'd like to display the window size:
 ## React
 
 ```jsx
-const Parent = () => {
+const WindowSize = () => {
 	const [height, setHeight] = useState(window.innerHeight);
 	const [width, setWidth] = useState(window.innerWidth);
 
@@ -442,6 +450,8 @@ const Parent = () => {
 	);
 };
 ```
+
+<iframe data-frame-title="React Broken Window Size - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-broken-window-size-28?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -462,6 +472,8 @@ export class WindowSizeComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Broken Window Size - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-broken-window-size-28?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
 ```vue
@@ -478,6 +490,8 @@ const width = window.innerWidth;
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Broken Window Size - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-window-size-28?template=node&embed=1&file=src%2FWindowSize.vue"></iframe>
 
 <!-- tabs:end -->
 
