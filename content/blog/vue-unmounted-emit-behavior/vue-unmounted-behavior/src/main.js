@@ -1,5 +1,5 @@
 // main.js
 import { createApp } from "vue";
-import Sidebar from "./Sidebar.vue";
+import App from "./App.vue";
 
-createApp(Sidebar).mount("#root");
+createApp(App).mount("#root");
