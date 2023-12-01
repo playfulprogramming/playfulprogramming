@@ -833,7 +833,7 @@ class ClockComponent implements OnInit {
 	}
 }
 
-function formatDate(date) {
+function formatDate(date: Date) {
 	return (
 		prefixZero(date.getHours()) +
 		":" +
@@ -843,7 +843,7 @@ function formatDate(date) {
 	);
 }
 
-function prefixZero(number) {
+function prefixZero(number: number) {
 	if (number < 10) {
 		return "0" + number.toString();
 	}
@@ -920,6 +920,8 @@ function App() {
 }
 ```
 
+<iframe data-frame-title="React Broken Clock - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-broken-clock-32?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 ```typescript
@@ -937,11 +939,13 @@ function App() {
 class AppComponent {
 	showClock = true;
 
-	setShowClock(val) {
+	setShowClock(val: boolean) {
 		this.showClock = val;
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Broken Clock - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-broken-clock-32?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -965,6 +969,8 @@ function setShowClock(val) {
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Broken Clock - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-clock-32?template=node&embed=1&file=src%2FClock.vue"></iframe>
 
 <!-- tabs:end -->
 
