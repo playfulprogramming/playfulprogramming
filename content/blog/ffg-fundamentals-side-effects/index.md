@@ -1011,7 +1011,7 @@ function AlarmScreen({ snooze, disable }) {
 		setTimeout(() => {
 			// Automatically snooze the alarm
 			// after 10 seconds of inactivity
-			// In production this would be 10 minutes
+			// In production, this would be 10 minutes
 			snooze();
 		}, 10 * 1000);
 	}, []);
@@ -1039,7 +1039,7 @@ function App() {
 	}, []);
 
 	const snooze = () => {
-		// In production this would add 5 minutes, not 5 seconds
+		// In production, this would add 5 minutes, not 5 seconds
 		setSecondsLeft((v) => v + 5);
 	};
 
@@ -1058,6 +1058,8 @@ function App() {
 	return <p>{secondsLeft} seconds left in timer</p>;
 }
 ```
+
+<iframe data-frame-title="React Broken Alarm - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-broken-alarm-33?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -1117,6 +1119,7 @@ class AppComponent implements OnInit {
 	}
 
 	snooze() {
+		// In production, this would add 5 minutes, not 5 seconds
 		this.secondsLeft = this.secondsLeft + 5;
 	}
 
@@ -1126,21 +1129,23 @@ class AppComponent implements OnInit {
 }
 ```
 
+<iframe data-frame-title="Angular Broken Alarm - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-broken-alarm-33?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ### Vue
 
 ```vue
 <!-- AlarmScreen.vue -->
 <script setup>
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 
-const emit = defineEmits(["snooze", "disable"]);
+const props = defineProps(["snooze", "disable"]);
 
 onMounted(() => {
 	setTimeout(() => {
 		// Automatically snooze the alarm
 		// after 10 seconds of inactivity
-		// In production this would be 10 minutes
-		emit("snooze");
+		// In production, this would be 10 minutes
+		props.snooze();
 	}, 10 * 1000);
 });
 </script>
@@ -1148,8 +1153,8 @@ onMounted(() => {
 <template>
 	<div>
 		<p>Time to wake up!</p>
-		<button @click="emit('snooze')">Snooze for 5 seconds</button>
-		<button @click="emit('disable')">Turn off alarm</button>
+		<button @click="props.snooze()">Snooze for 5 seconds</button>
+		<button @click="props.disable()">Turn off alarm</button>
 	</div>
 </template>
 ```
@@ -1171,6 +1176,7 @@ onMounted(() => {
 });
 
 const snooze = () => {
+	// In production, this would add 5 minutes, not 5 seconds
 	secondsLeft.value = secondsLeft.value + 5;
 };
 
@@ -1183,12 +1189,25 @@ const disable = () => {
 	<p v-if="!timerEnabled">There is no timer</p>
 	<AlarmScreen
 		v-else-if="secondsLeft === 0"
-		@snooze="snooze()"
-		@disable="disable()"
+		:snooze="snooze"
+		:disable="disable"
 	/>
 	<p v-else>{{ secondsLeft }} seconds left in timer</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Broken Alarm - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-alarm-33?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
+> You'll notice that we're not using events for our Vue code sample and have instead opted to pass a function.
+> This is because, while the other frameworks will continue to listen for events from an unmounted component, Vue does
+> not.
+> 
+> This doesn't mean that Vue solves this issue for us, however. While passing a function is less common than using an output
+> in Vue, it's not the only way to do things. Moreover, while using Vue's output to handle `snooze` and `disable` functionality
+> solves the issue from the user's standpoint, it doesn't solve the memory leak that you're creating by not cleaning up your
+> `setTimeout`.
+> 
+> To understand this a bit better, [I wrote an article about this exact topic.](TODO://WriteIt)
 
 <!-- tabs:end -->
 
@@ -1274,7 +1293,7 @@ function AlarmScreen({ snooze, disable }) {
 		const timeout = setTimeout(() => {
 			// Automatically snooze the alarm
 			// after 10 seconds of inactivity
-			// In production this would be 10 minutes
+			// In production, this would be 10 minutes
 			snooze();
 		}, 10 * 1000);
 
@@ -1388,7 +1407,7 @@ onMounted(() => {
 	timeout = setTimeout(() => {
 		// Automatically snooze the alarm
 		// after 10 seconds of inactivity
-		// In production this would be 10 minutes
+		// In production, this would be 10 minutes
 		emit("snooze");
 	}, 10 * 1000);
 });
@@ -1504,7 +1523,7 @@ watchEffect((onCleanup) => {
 	const timeout = setTimeout(() => {
 		// Automatically snooze the alarm
 		// after 10 seconds of inactivity
-		// In production this would be 10 minutes
+		// In production, this would be 10 minutes
 		emit("snooze");
 	}, 10 * 1000);
 
