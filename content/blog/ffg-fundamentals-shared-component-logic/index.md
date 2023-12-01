@@ -623,7 +623,7 @@ const useBounds = () => {
 	return { ref, bounds };
 };
 
-export default function App() {
+function App() {
 	const { ref, bounds } = useBounds();
 
 	// An addEventListener is easier to tackle when inside of the conditional render

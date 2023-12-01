@@ -867,8 +867,6 @@ function Child() {
 
 	return <p>{messageData}</p>;
 }
-
-export default Parent;
 ```
 
 When this is done, `useContext` is `undefined` if no value is injected for a particular named context.
@@ -1348,7 +1346,7 @@ And both `App` and `GrandChild` inject values into the same named context, then 
 ```jsx
 const NameContext = createContext("");
 
-export default function App() {
+function App() {
 	return (
 		<NameContext.Provider value="Corbin">
 			<Child />
@@ -1517,7 +1515,7 @@ Likewise, if you have a data provider that is hosting entirely unrelated data fr
 const NameContext = createContext("");
 const AgeContext = createContext(0);
 
-export default function App() {
+function App() {
 	return (
 		<NameContext.Provider value="Corbin">
 			<Child />
@@ -1725,7 +1723,7 @@ This concept of "retaining shape" between dependency injection providers is crit
 ```jsx
 export const UserContext = createContext({});
 
-export default function App() {
+function App() {
 	const user = { name: "Corbin Crutchley" };
 	return (
 		<UserContext.Provider value={user}>
@@ -1795,7 +1793,7 @@ const GreeterContext = createContext({
 	changeGreeting: (newGreeting) => {},
 });
 
-export default function App() {
+function App() {
 	const [greeting, setGreeting] = useState("");
 	const value = { greeting, changeGreeting: setGreeting };
 	return (
@@ -1919,7 +1917,7 @@ Strap in - this is going to be a long challenge. By the end of it we'll have a f
 
 ```jsx
 // App.jsx
-export default function App() {
+function App() {
 	return (
 		<Layout sidebar={<Sidebar />}>
 			<FileList />
@@ -2974,7 +2972,7 @@ export const FileList = () => {
 
 ```jsx
 // App.jsx
-export default function App() {
+function App() {
 	return (
 		<Layout sidebar={<Sidebar />}>
 			<FileList />

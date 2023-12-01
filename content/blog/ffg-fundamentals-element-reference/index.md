@@ -36,7 +36,7 @@ We're able to build some of this functionality with the APIs we've covered thus 
  *
  * Read on to learn how to add these
  */
-export default function App() {
+function App() {
 	const [mouseBounds, setMouseBounds] = useState({
 		x: 0,
 		y: 0,
@@ -642,7 +642,7 @@ const messages = [
 	"So the design teams got together and decided everything should be made of sand.",
 ];
 
-export default function App() {
+function App() {
 	const chaptersRef = useRef([]);
 
 	const scrollToTop = () => {
@@ -812,7 +812,7 @@ Let's add a `ref` usage that stores our `contextMenu` inside of a `useState`.
 Then, when we change the value of `contextMenu`, we can `.focus` the element and use the `addEventListener` code from above:
 
 ```jsx
-export default function App() {
+function App() {
 	const [mouseBounds, setMouseBounds] = useState({
 		x: 0,
 		y: 0,
@@ -1074,7 +1074,7 @@ To make sure the user has been hovering for at least 1 second, we can add a `set
 ### React
 
 ```jsx
-export default function App() {
+function App() {
 	const buttonRef = useRef();
 
 	const mouseOverTimeout = useRef();
@@ -1196,7 +1196,7 @@ To do this, we'll utilize [the `mouseleave` HTML event](https://developer.mozill
 ### React
 
 ```jsx
-export default function App() {
+function App() {
 	const buttonRef = useRef();
 
 	const mouseOverTimeout = useRef();
@@ -1355,7 +1355,7 @@ We'll then use this positional data, alongside [the CSS `position: fixed`](https
 ### React
 
 ```jsx
-export default function App() {
+function App() {
 	const buttonRef = useRef();
 
 	const mouseOverTimeout = useRef();
@@ -1614,7 +1614,7 @@ Let's implement this within our frameworks:
 ### React
 
 ```jsx
-export default function App() {
+function App() {
 	const buttonRef = useRef();
 
 	const mouseOverTimeout = useRef();
@@ -1894,7 +1894,7 @@ Let's build it!
 ### React
 
 ```jsx
-export default function App() {
+function App() {
 	const buttonRef = useRef();
 
 	const mouseOverTimeout = useRef();

@@ -60,7 +60,7 @@ const ContextMenu = ({ isOpen, x, y, onClose }) => {
 	);
 };
 
-export default function App() {
+function App() {
 	const [mouseBounds, setMouseBounds] = useState({
 		x: 0,
 		y: 0,
@@ -713,7 +713,7 @@ const ContextMenu = forwardRef(({ isOpen, x, y, onClose }, ref) => {
 	);
 });
 
-export default function App() {
+function App() {
 	const [mouseBounds, setMouseBounds] = useState({
 		x: 0,
 		y: 0,

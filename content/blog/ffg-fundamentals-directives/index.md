@@ -680,7 +680,7 @@ const useFeatureFlag = ({
 	};
 };
 
-export default function App() {
+function App() {
 	const { comp: addToCartComp } = useFeatureFlag({
 		flag: "addToCartButton",
 		enabledComponent: <button>Add to cart</button>,

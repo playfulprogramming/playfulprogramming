@@ -1172,7 +1172,7 @@ class ErrorBoundary extends Component {
 	}
 }
 
-export default function App() {
+function App() {
 	// ...
 
 	return <ErrorBoundary>{/* The rest of the app */}</ErrorBoundary>;

@@ -728,7 +728,7 @@ Once imported, we can use `ReactDOM.createPortal` to render JSX into an HTML ele
 import React, { useMemo, useState } from "react";
 import ReactDOM from "react-dom";
 
-export default function App() {
+function App() {
 	const [portalRef, setPortalRef] = useState(null);
 
 	const portal = useMemo(() => {
@@ -916,7 +916,7 @@ function ChildComponent() {
 	return ReactDOM.createPortal(<div>Hello, world!</div>, portalRef);
 }
 
-export default function App() {
+function App() {
 	const [portalRef, setPortalRef] = useState(null);
 
 	return (
@@ -1104,7 +1104,7 @@ function ChildComponent() {
 	return ReactDOM.createPortal(<div>Hello, world!</div>, bodyEl);
 }
 
-export default function App() {
+function App() {
 	return <ChildComponent />;
 }
 ```
@@ -1246,8 +1246,6 @@ const Tooltip = ({ text, children }) => {
 		</div>
 	);
 };
-
-export default Tooltip;
 
 const App = () => {
 	return (

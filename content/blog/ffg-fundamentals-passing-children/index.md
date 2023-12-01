@@ -602,7 +602,7 @@ const Dropdown = ({ children, header, expanded, toggle }) => {
 	);
 };
 
-export default function App() {
+function App() {
 	const [expanded, setExpanded] = useState(false);
 	return (
 		<Dropdown

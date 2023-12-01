@@ -908,7 +908,7 @@ Let's now render this `Clock` component inside of a conditional block:
 ## React
 
 ```jsx
-export default function App() {
+function App() {
 	const [showClock, setShowClock] = useState(true);
 
 	return (
@@ -2371,7 +2371,7 @@ Let's use `useLayoutEffect` to calculate the bounding box of an element in order
 ```jsx
 import { useState, useLayoutEffect } from "react";
 
-export default function App() {
+function App() {
 	const [num, setNum] = useState(10);
 
 	const [bounding, setBounding] = useState({

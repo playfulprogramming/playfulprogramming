@@ -787,7 +787,7 @@ const data = [
 	},
 ];
 
-export default function App() {
+function App() {
 	return (
 		<Table
 			data={data}
