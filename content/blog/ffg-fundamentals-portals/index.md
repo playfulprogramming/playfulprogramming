@@ -36,7 +36,7 @@ Let's build the "Delete file" modal we saw in our framework of choice:
 ## React
 
 ```jsx
-export const Modal = () => {
+const Modal = () => {
 	return (
 		<div>
 			<div class="modal-container">
@@ -192,7 +192,7 @@ Now that we have that modal, let's build out a small version of our folder app w
 ## React
 
 ```jsx
-export const App = () => {
+const App = () => {
   return (
     <div>
       <Header />
@@ -204,7 +204,7 @@ export const App = () => {
 ```
 
 ```jsx
-export const Header = () => {
+const Header = () => {
 	return (
 		<>
 			<div class="header-container">
@@ -223,7 +223,7 @@ export const Header = () => {
 ```
 
 ```jsx
-export const Body = () => {
+const Body = () => {
 	return (
 		<ul class="list-container">
 			{Array.from({ length: 10 }, (_, i) => (
@@ -238,13 +238,13 @@ export const Body = () => {
 ```
 
 ```jsx
-export const Footer = () => {
+const Footer = () => {
 	return <div class="footer-container">Copyright 2022</div>;
 };
 ```
 
 ```jsx
-export const DeleteIcon = () => {
+const DeleteIcon = () => {
 	return (
 		<svg viewBox="0 0 20 21">
 			<path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
@@ -259,7 +259,7 @@ export const DeleteIcon = () => {
 ```
 
 ```jsx
-export const FolderIcon = () => {
+const FolderIcon = () => {
 	return (
 		<svg viewBox="0 0 20 16">
 			<path
@@ -286,7 +286,7 @@ export const FolderIcon = () => {
 		</div>
 	`,
 })
-export class AppComponent {}
+class AppComponent {}
 ```
 
 ```typescript
@@ -307,7 +307,7 @@ export class AppComponent {}
 		</div>
 	`,
 })
-export class HeaderComponent {}
+class HeaderComponent {}
 ```
 
 ```typescript
@@ -324,7 +324,7 @@ export class HeaderComponent {}
 		</ul>
 	`,
 })
-export class BodyComponent {
+class BodyComponent {
 	files = Array.from({ length: 10 }, (_, i) => i);
 }
 ```
@@ -335,7 +335,7 @@ export class BodyComponent {
 	standalone: true,
 	template: ` <div class="footer-container">Copyright 2022</div> `,
 })
-export class FooterComponent {}
+class FooterComponent {}
 ```
 
 ```typescript
@@ -587,7 +587,7 @@ import React, { useState } from "react";
 import { DeleteIcon, FolderIcon } from "./Icons";
 import { Modal } from "./Modal";
 
-export const Header = () => {
+const Header = () => {
 	const [showModal, setShowModal] = useState(false);
 	return (
 		<>
@@ -628,7 +628,7 @@ export const Header = () => {
 		</div>
 	`,
 })
-export class HeaderComponent {
+class HeaderComponent {
 	shouldShowModal = false;
 
 	showModal() {

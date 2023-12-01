@@ -157,7 +157,7 @@ const ToggleButtonList = () => {
 		</button>
 	`,
 })
-export class ToggleButtonComponent {
+class ToggleButtonComponent {
 	@Input() text: string;
 	pressed = false;
 	togglePressed() {
@@ -174,7 +174,7 @@ export class ToggleButtonComponent {
 		<toggle-button text="Hello other friends!"></toggle-button>
 	`,
 })
-export class ToggleButtonListComponent {}
+class ToggleButtonListComponent {}
 ```
 
 ### Vue
@@ -291,7 +291,7 @@ Angular has a special tag called `ng-content` that acts as a pass-through for al
 		</button>
 	`,
 })
-export class ToggleButtonComponent {
+class ToggleButtonComponent {
 	pressed = false;
 	togglePressed() {
 		this.pressed = !this.pressed;
@@ -309,7 +309,7 @@ export class ToggleButtonComponent {
 		<toggle-button>Hello other friends!</toggle-button>
 	`,
 })
-export class ToggleButtonListComponent {}
+class ToggleButtonListComponent {}
 ```
 
 Because `ng-content` is built-in to [Angular's compiler](https://TODO), we do not need to import anything into a module to use the feature.
@@ -445,7 +445,7 @@ function RainbowExclamationMark() {
 		/></toggle-button>
 	`,
 })
-export class ToggleButtonListComponent {
+class ToggleButtonListComponent {
 	friends = ["Kevin,", "Evelyn,", "and James"];
 }
 
@@ -479,7 +479,7 @@ export class ToggleButtonListComponent {
 		`,
 	],
 })
-export class RainbowExclamationMarkComponent {}
+class RainbowExclamationMarkComponent {}
 ```
 
 ### Vue
@@ -637,7 +637,7 @@ function App() {
 		</div>
 	`,
 })
-export class DropdownComponent {
+class DropdownComponent {
 	@Input() expanded: boolean;
 	@Output() toggle = new EventEmitter();
 }

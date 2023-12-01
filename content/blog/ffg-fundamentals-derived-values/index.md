@@ -38,7 +38,7 @@ import { Component, OnInit } from "@angular/core";
 	standalone: true,
 	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
-export class FileDateComponent implements OnInit {
+class FileDateComponent implements OnInit {
 	@Input() inputDate: Date;
 
 	dateStr = this.formatDate(this.inputDate);
@@ -111,7 +111,7 @@ const File = () => {
 	// This may not show the most up-to-date `formatDate` or `formatReadableDate`
 	template: `<file-date [inputDate]="inputDate"></file-date>`,
 })
-export class FileComponent implements OnInit, OnDestroy {
+class FileComponent implements OnInit, OnDestroy {
 	inputDate = new Date();
 	interval: number = null;
 
@@ -214,7 +214,7 @@ import { Component, OnChanges, SimpleChanges } from "@angular/core";
 	standalone: true,
 	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
-export class FileDateComponent implements OnChanges {
+class FileDateComponent implements OnChanges {
 	@Input() inputDate: Date;
 
 	dateStr = this.formatDate(this.inputDate);
@@ -339,14 +339,14 @@ To solve the derived value problem without recomputing the values manually, Angu
 import { NgModule, Component, Input, Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({ name: "formatDate", standalone: true })
-export class FormatDatePipe implements PipeTransform {
+class FormatDatePipe implements PipeTransform {
 	transform(value: Date): string {
 		return formatDate(value);
 	}
 }
 
 @Pipe({ name: "formatReadableDate", standalone: true })
-export class FormatReadableDatePipe implements PipeTransform {
+class FormatReadableDatePipe implements PipeTransform {
 	transform(value: Date): string {
 		return formatReadableDate(value);
 	}
@@ -364,7 +364,7 @@ You may then use these pipes in your components directly inside of the template.
 		inputDate | formatDate
 	}}</span>`,
 })
-export class FileDateComponent {
+class FileDateComponent {
 	@Input() inputDate: Date;
 }
 ```
@@ -379,7 +379,7 @@ Let's add a second input to see if the `formatDate` pipe should return a readabl
 import { NgModule, Component, Input, Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({ name: "formatDate", standalone: true })
-export class FormatDatePipe implements PipeTransform {
+class FormatDatePipe implements PipeTransform {
 	// `dateFormat` is an optional argument. If left empty, will simply `formatDate`
 	transform(value: Date, dateFormat?: string): string {
 		// Stands for "Long format month, day of month, year"
@@ -401,7 +401,7 @@ Then, we can use it in our template while passing a second argument:
 		>{{ inputDate | formatDate }}</span
 	>`,
 })
-export class FileDateComponent {
+class FileDateComponent {
 	@Input() inputDate: Date;
 }
 ```
@@ -423,7 +423,7 @@ import { DatePipe } from "@angular/common";
 		inputDate | date
 	}}</span>`,
 })
-export class FileDateComponent {
+class FileDateComponent {
 	@Input() inputDate: Date;
 }
 ```
@@ -487,7 +487,7 @@ const CountAndDoubleComp = () => {
 
 ```typescript
 @Pipe({ name: "doubleNum", standalone: true })
-export class DoubleNumPipe implements PipeTransform {
+class DoubleNumPipe implements PipeTransform {
 	transform(value: number): number {
 		return value * 2;
 	}
@@ -507,7 +507,7 @@ export class DoubleNumPipe implements PipeTransform {
 		</div>
 	`,
 })
-export class CountAndDoubleComponent {
+class CountAndDoubleComponent {
 	number = 0;
 
 	addOne() {
@@ -606,7 +606,7 @@ function formatBytes(bytes) {
 
 ```typescript
 @Pipe({ name: "formatBytes", standalone: true })
-export class FormatBytesPipe implements PipeTransform {
+class FormatBytesPipe implements PipeTransform {
 	kilobyte = 1024;
 	megabyte = this.kilobyte * 1024;
 	gigabyte = this.megabyte * 1024;

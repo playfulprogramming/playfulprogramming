@@ -292,7 +292,7 @@ const ParentList = ({ children }) => {
 	);
 };
 
-export const App = () => {
+const App = () => {
 	return (
 		<ParentList>
 			<span style={{ color: "red" }}>Red</span>
@@ -498,7 +498,7 @@ const AddTwo = ({ children }) => {
 };
 
 // This will display "7"
-export const App = () => {
+const App = () => {
 	return <AddTwo children={5} />;
 };
 ```
@@ -512,7 +512,7 @@ const AddTwo = ({ children }) => {
 	return 2 + children;
 };
 
-export const App = () => {
+const App = () => {
 	return <AddTwo>{5}</AddTwo>;
 };
 ```
@@ -525,7 +525,7 @@ const AddTwo = ({ children }) => {
 };
 
 // This will display "7"
-export const App = () => {
+const App = () => {
 	return <AddTwo>{() => 5}</AddTwo>;
 	// OR <AddTwo children={() => 5} />
 };
@@ -540,7 +540,7 @@ const ShowMessage = ({ children }) => {
 	return children();
 };
 
-export const App = () => {
+const App = () => {
 	return <ShowMessage>{() => <p>Hello, world!</p>}</ShowMessage>;
 };
 ```
@@ -552,7 +552,7 @@ const ShowMessage = ({ children }) => {
 	return children("Hello, world!");
 };
 
-export const App = () => {
+const App = () => {
 	return <ShowMessage>{(message) => <p>{message}</p>}</ShowMessage>;
 };
 ```
@@ -582,7 +582,7 @@ const ParentList = ({ children, list }) => {
 	);
 };
 
-export const App = () => {
+const App = () => {
 	const [list, setList] = useState([1, 42, 13]);
 
 	const addOne = () => {
@@ -841,7 +841,7 @@ function App() {
 		</table>
 	`,
 })
-export class TableComponent {
+class TableComponent {
 	@ContentChild("header", { read: TemplateRef }) header: TemplateRef<any>;
 	@ContentChild("body", { read: TemplateRef }) body: TemplateRef<any>;
 

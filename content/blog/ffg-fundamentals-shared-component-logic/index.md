@@ -180,7 +180,7 @@ Because Vue's `ref` and `reactive` data reactivity systems work anywhere, we can
 // use-window-size.js
 import { ref } from "vue";
 
-export const useWindowSize = () => {
+const useWindowSize = () => {
 	const height = ref(window.innerHeight);
 	const width = ref(window.innerWidth);
 	return { height, width };
@@ -329,7 +329,7 @@ Sharing side effect handling within custom compositions is just as straightforwa
 // use-window-size.js
 import { onMounted, onUnmounted, ref } from "vue";
 
-export const useWindowSize = () => {
+const useWindowSize = () => {
 	const height = ref(window.innerHeight);
 	const width = ref(window.innerWidth);
 
@@ -521,7 +521,7 @@ Composing custom composables (say that 10 times fast) is a straightforward task,
 import { computed } from "vue";
 import { useWindowSize } from "./use-window-size.js";
 
-export const useMobileCheck = () => {
+const useMobileCheck = () => {
 	const { height, width } = useWindowSize();
 	const isMobile = computed(() => {
 		if (width.value <= 480) return true;
@@ -726,7 +726,7 @@ class CloseIfOutSideContext implements OnDestroy {
 	`,
 	providers: [CloseIfOutSideContext],
 })
-export class ContextMenuComponent implements AfterViewInit {
+class ContextMenuComponent implements AfterViewInit {
 	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;
 
 	@Input() x: number = 0;
@@ -791,7 +791,7 @@ class BoundsContext {
 	`,
 	providers: [BoundsContext],
 })
-export class AppComponent implements AfterViewInit, OnDestroy {
+class AppComponent implements AfterViewInit, OnDestroy {
 	@ViewChild("contextOrigin") contextOrigin!: ElementRef<HTMLElement>;
 	@ViewChildren("contextMenu") contextMenu!: QueryList<ContextMenuComponent>;
 
@@ -832,7 +832,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 // use-outside-click.js
 import { onMounted, onUnmounted } from "vue";
 
-export const useOutsideClick = ({ ref, onClose }) => {
+const useOutsideClick = ({ ref, onClose }) => {
 	const closeIfOutsideOfContext = (e) => {
 		const isClickInside = ref.value.contains(e.target);
 		if (isClickInside) return;
@@ -897,7 +897,7 @@ Also
 // use-bounds.js
 import { ref, onMounted, onUnmounted } from "vue";
 
-export const useBounds = () => {
+const useBounds = () => {
 	const elRef = ref();
 
 	const bounds = ref({

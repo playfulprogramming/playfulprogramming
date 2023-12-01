@@ -926,7 +926,7 @@ import { Component } from "@angular/core";
 	selector: "app-cmp",
 	template: "<span>Your name is {{name}}</span>",
 })
-export class AppCmp {
+class AppCmp {
 	name = "Alex";
 }
 ```
@@ -936,7 +936,7 @@ Might compile to something like:
 ```typescript
 import { Component } from "@angular/core";
 import * as i0 from "@angular/core";
-export class AppCmp {
+class AppCmp {
 	constructor() {
 		this.name = "Alex";
 	}

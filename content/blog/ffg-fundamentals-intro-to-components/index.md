@@ -172,7 +172,7 @@ import { Component } from "@angular/core";
 		</div>
 	`,
 })
-export class FileComponent {}
+class FileComponent {}
 ```
 
 Here, we're using the `@Component` decorator to define a class component in Angular.
@@ -311,7 +311,7 @@ import { bootstrapApplication } from "@angular/platform-browser";
 		</div>
 	`,
 })
-export class FileComponent {}
+class FileComponent {}
 
 bootstrapApplication(FileComponent);
 ```
@@ -393,7 +393,7 @@ const FileList = () => {
 		</div>
 	`,
 })
-export class FileComponent {}
+class FileComponent {}
 
 @Component({
 	selector: "file-list",
@@ -405,7 +405,7 @@ export class FileComponent {}
 		</ul>
 	`,
 })
-export class FileListComponent {}
+class FileListComponent {}
 ```
 
 <iframe data-frame-title="Angular Parent/Child - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-parent-child-2?template=node&embed=1&file=src%2Fmain.ts,src%2Findex.html"></iframe>
@@ -493,7 +493,7 @@ const FileList = () => {
 		</ul>
 	`,
 })
-export class FileListComponent {}
+class FileListComponent {}
 ```
 
 <iframe data-frame-title="Angular Component Reuse - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-component-reuse-3?template=node&embed=1&file=src%2Fmain.ts"></iframe>
@@ -578,7 +578,7 @@ const FileList = () => {
 	standalone: true,
 	template: `<span>12/03/21</span>`,
 })
-export class FileDateComponent {}
+class FileDateComponent {}
 
 @Component({
 	selector: "file-item",
@@ -590,7 +590,7 @@ export class FileDateComponent {}
 		</div>
 	`,
 })
-export class FileComponent {}
+class FileComponent {}
 
 @Component({
 	selector: "file-list",
@@ -604,7 +604,7 @@ export class FileComponent {}
 		</ul>
 	`,
 })
-export class FileListComponent {}
+class FileListComponent {}
 ```
 
 <iframe data-frame-title="Angular Component Hierarchy - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-component-hierarchy-4?template=node&embed=1&file=src%2Fmain.ts"></iframe>
@@ -690,7 +690,7 @@ const FileDate = () => {
 	standalone: true,
 	template: `<span>12/03/21</span>`,
 })
-export class FileDateComponent {
+class FileDateComponent {
 	dateStr = `${
 		new Date().getMonth() + 1
 	}/${new Date().getDate()}/${new Date().getFullYear()}`;
@@ -765,7 +765,7 @@ const FileDate = () => {
 	standalone: true,
 	template: `<span>12/03/21</span>`,
 })
-export class FileDateComponent {
+class FileDateComponent {
 	dateStr = this.formatDate();
 
 	formatDate() {
@@ -850,7 +850,7 @@ import { Component, OnInit } from "@angular/core";
 	standalone: true,
 	template: `<span>12/03/21</span>`,
 })
-export class FileDateComponent implements OnInit {
+class FileDateComponent implements OnInit {
 	dateStr = this.formatDate();
 
 	ngOnInit() {
@@ -953,7 +953,7 @@ const FileDate = () => {
 	standalone: true,
 	template: `<span>{{ dateStr }}</span>`,
 })
-export class FileDateComponent {
+class FileDateComponent {
 	dateStr = this.formatDate();
 
 	formatDate() {
@@ -1098,7 +1098,7 @@ import { Component, OnInit } from "@angular/core";
 	standalone: true,
 	template: `<span>{{ dateStr }}</span>`,
 })
-export class FileDateComponent implements OnInit {
+class FileDateComponent implements OnInit {
 	dateStr = this.formatDate(new Date());
 
 	ngOnInit() {
@@ -1200,7 +1200,7 @@ import { Component, OnInit } from "@angular/core";
 	standalone: true,
 	template: ` <span aria-label="January 10th, 2023">{{ dateStr }}</span> `,
 })
-export class FileDateComponent implements OnInit {
+class FileDateComponent implements OnInit {
 	dateStr = this.formatDate(new Date());
 
 	// ...
@@ -1296,7 +1296,7 @@ import { Component, OnInit } from "@angular/core";
 	standalone: true,
 	template: ` <span [attr.aria-label]="labelText">{{ dateStr }}</span> `,
 })
-export class FileDateComponent implements OnInit {
+class FileDateComponent implements OnInit {
 	dateStr = this.formatDate(new Date());
 	labelText = this.formatReadableDate(new Date());
 
@@ -1503,7 +1503,7 @@ import { Input, Component } from "@angular/core";
 		</div>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	@Input() fileName!: string;
 }
 
@@ -1519,7 +1519,7 @@ export class FileComponent {
 		</ul>
 	`,
 })
-export class FileListComponent {}
+class FileListComponent {}
 ```
 
 <iframe data-frame-title="Angular Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-props-11?template=node&embed=1&file=src%2Fmain.ts"></iframe>
@@ -1632,7 +1632,7 @@ const FileList = () => {
 		</div>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	@Input() fileName!: string;
 	@Input() href!: string;
 }
@@ -1651,7 +1651,7 @@ export class FileComponent {
 		</ul>
 	`,
 })
-export class FileListComponent {}
+class FileListComponent {}
 ```
 
 <iframe data-frame-title="Angular Multi Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-multi-props-12?template=node&embed=1&file=src%2Fmain.ts"></iframe>
@@ -1738,7 +1738,7 @@ import { Component, OnInit } from "@angular/core";
 	standalone: true,
 	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
-export class FileDateComponent {
+class FileDateComponent {
 	@Input() inputDate!: Date;
 
 	/**
@@ -1769,7 +1769,7 @@ export class FileDateComponent {
 		</div>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	inputDate = new Date();
 
 	// ...
@@ -1863,7 +1863,7 @@ import { Component, OnInit } from "@angular/core";
 	standalone: true,
 	// ...
 })
-export class GenericListComponent implements OnInit {
+class GenericListComponent implements OnInit {
 	@Input() inputArray: string[];
 
 	ngOnInit() {
@@ -1982,7 +1982,7 @@ There are three major things of note in this code sample:
 		</button>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	isSelected = false;
 	selectFile() {
 		this.isSelected = !this.isSelected;
@@ -2156,7 +2156,7 @@ import { Component, Input, EventEmitter, Output } from "@angular/core";
 		</button>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	@Input() fileName!: string;
 	// `href` is temporarily unused
 	@Input() href!: string;
@@ -2199,7 +2199,7 @@ export class FileComponent {
 		</ul>
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	selectedIndex = -1;
 
 	onSelected(idx: number) {
@@ -2366,7 +2366,7 @@ import { bootstrapApplication } from "@angular/platform-browser";
 	standalone: true,
 	template: ` <p>Hello, world!</p> `,
 })
-export class SidebarComponent {}
+class SidebarComponent {}
 bootstrapApplication(SidebarComponent);
 ```
 
@@ -2450,7 +2450,7 @@ const Sidebar = () => {
 		</div>
 	`,
 })
-export class SidebarComponent {}
+class SidebarComponent {}
 ```
 
 ### Vue
@@ -2521,7 +2521,7 @@ const Sidebar = () => {
 		</div>
 	`,
 })
-export class ExpandableDropdownComponent {
+class ExpandableDropdownComponent {
 	@Input() name!: string;
 }
 
@@ -2541,7 +2541,7 @@ export class ExpandableDropdownComponent {
 		</div>
 	`,
 })
-export class SidebarComponent {}
+class SidebarComponent {}
 ```
 
 ### Vue
@@ -2654,7 +2654,7 @@ const Sidebar = () => {
 		</div>
 	`,
 })
-export class ExpandableDropdownComponent {
+class ExpandableDropdownComponent {
 	@Input() name!: string;
 	@Input() expanded!: boolean;
 }
@@ -2681,7 +2681,7 @@ export class ExpandableDropdownComponent {
 		</div>
 	`,
 })
-export class SidebarComponent {
+class SidebarComponent {
 	// Just to show that the value is displaying properly
 	moviesExpanded = true;
 	picturesExpanded = false;
@@ -2830,7 +2830,7 @@ const Sidebar = () => {
 		</div>
 	`,
 })
-export class ExpandableDropdownComponent {
+class ExpandableDropdownComponent {
 	@Input() name!: string;
 	@Input() expanded!: boolean;
 	@Output() toggle = new EventEmitter();
@@ -2876,7 +2876,7 @@ export class ExpandableDropdownComponent {
 		</div>
 	`,
 })
-export class SidebarComponent {
+class SidebarComponent {
 	moviesExpanded = true;
 	picturesExpanded = false;
 	conceptsExpanded = false;
@@ -3005,7 +3005,7 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 		</div>
 	`,
 })
-export class ExpandableDropdownComponent {
+class ExpandableDropdownComponent {
 	@Input() name!: string;
 	@Input() expanded!: boolean;
 	@Output() toggle = new EventEmitter();

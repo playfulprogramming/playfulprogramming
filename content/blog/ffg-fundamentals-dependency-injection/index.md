@@ -198,7 +198,7 @@ We'll then use this token to create a `provider` that we pass to a component's `
 	template: `<child-comp />`,
 	providers: [{ provide: WELCOME_MESSAGE_TOKEN, useValue: "Hello, world!" }],
 })
-export class AppComponent {}
+class AppComponent {}
 ```
 
 This API uses `useValue` to provide the value associated with the token we pass.
@@ -213,7 +213,7 @@ import { inject } from "@angular/core";
 	standalone: true,
 	template: `<p>{{ welcomeMsg }}</p>`,
 })
-export class ChildComponent {
+class ChildComponent {
 	welcomeMsg: string = inject(WELCOME_MESSAGE_TOKEN);
 
 	ngOnInit() {
@@ -313,14 +313,14 @@ const WELCOME_MESSAGE_TOKEN = new InjectionToken<{ nessage: string }>({
 		{ provide: WELCOME_MESSAGE_TOKEN, useValue: { message: "Hello, world!" } },
 	],
 })
-export class AppComponent {}
+class AppComponent {}
 
 @Component({
 	selector: "child-comp",
 	standalone: true,
 	template: `<p>{{ welcomeMsg.message }}</p>`,
 })
-export class ChildComponent {
+class ChildComponent {
 	welcomeMsg: { message: string } = inject(WELCOME_MESSAGE_TOKEN);
 }
 ```
@@ -1721,7 +1721,7 @@ This concept of "retaining shape" between dependency injection providers is crit
 ## React
 
 ```jsx
-export const UserContext = createContext({});
+const UserContext = createContext({});
 
 function App() {
 	const user = { name: "Corbin Crutchley" };
@@ -1928,7 +1928,7 @@ function App() {
 
 ```jsx
 // Layout.jsx
-export const Layout = ({ sidebar, children }) => {
+const Layout = ({ sidebar, children }) => {
 	return (
 		<div style={{ display: "flex", flexWrap: "nowrap", minHeight: "100vh" }}>
 			<div
@@ -1948,7 +1948,7 @@ export const Layout = ({ sidebar, children }) => {
 
 ```jsx
 // Sidebar.jsx
-export const Sidebar = () => {
+const Sidebar = () => {
 	return (
 		<div style={{ padding: "1rem" }}>
 			<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
@@ -1959,7 +1959,7 @@ export const Sidebar = () => {
 
 ```jsx
 // FileList.jsx
-export const FileList = () => {
+const FileList = () => {
 	return (
 		<div style={{ padding: "1rem" }}>
 			<h1>Files</h1>
@@ -1983,7 +1983,7 @@ export const FileList = () => {
 		</app-layout>
 	`,
 })
-export class AppComponent {}
+class AppComponent {}
 ```
 
 ```typescript
@@ -2008,7 +2008,7 @@ export class AppComponent {}
 		</div>
 	`,
 })
-export class LayoutComponent {}
+class LayoutComponent {}
 ```
 
 ```typescript
@@ -2022,7 +2022,7 @@ export class LayoutComponent {}
 		</div>
 	`,
 })
-export class FileListComponent {}
+class FileListComponent {}
 ```
 
 ```typescript
@@ -2036,7 +2036,7 @@ export class FileListComponent {}
 		</div>
 	`,
 })
-export class SidebarComponent {}
+class SidebarComponent {}
 ```
 
 ### Vue
@@ -2115,7 +2115,7 @@ import FileList from "./FileList.vue";
 
 ```jsx
 // File.jsx
-export const File = ({ name }) => {
+const File = ({ name }) => {
 	return (
 		<button style={{ display: "block", width: "100%", marginBottom: "1rem" }}>
 			{name}
@@ -2145,7 +2145,7 @@ const directories = [
 	},
 ];
 
-export const Sidebar = () => {
+const Sidebar = () => {
 	return (
 		<div style={{ padding: "1rem" }}>
 			<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
@@ -2176,7 +2176,7 @@ const files = [
 	},
 ];
 
-export const FileList = () => {
+const FileList = () => {
 	return (
 		<div style={{ padding: "1rem" }}>
 			<h1>Files</h1>
@@ -2200,7 +2200,7 @@ export const FileList = () => {
 		</button>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	@Input() name!: string;
 }
 ```
@@ -2217,7 +2217,7 @@ export class FileComponent {
 		</div>
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	files = [
 		{
 			name: "Testing.wav",
@@ -2250,7 +2250,7 @@ export class FileListComponent {
 		</div>
 	`,
 })
-export class SidebarComponent {
+class SidebarComponent {
 	directories = [
 		{
 			name: "Movies",
@@ -2294,7 +2294,7 @@ Next, we'll add in a context menu. We'll start by [taking our context menu from 
 import { useState, useRef, useEffect } from "react";
 import { ContextMenu } from "./ContextMenu";
 
-export const File = ({ name, id }) => {
+const File = ({ name, id }) => {
 	const [mouseBounds, setMouseBounds] = useState({
 		x: 0,
 		y: 0,
@@ -2354,7 +2354,7 @@ import {
 } from "react";
 import { ContextMenuContext } from "./ContextMenuContext";
 
-export const ContextMenu = forwardRef(
+const ContextMenu = forwardRef(
 	({ isOpen, x, y, onClose, data }, ref) => {
 		const context = useContext(ContextMenuContext);
 
@@ -2445,7 +2445,7 @@ export const ContextMenu = forwardRef(
 Finally, we need to make sure to pass the `file.id` to `<File id={file.id}/>` component:
 
 ```jsx
-export const FileList = () => {
+const FileList = () => {
 	return (
 		<div style={{ padding: "1rem" }}>
 			<h1>Files</h1>
@@ -2458,7 +2458,7 @@ export const FileList = () => {
 ```
 
 ```jsx
-export const Sidebar = () => {
+const Sidebar = () => {
 	return (
 		<div style={{ padding: "1rem" }}>
 			<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
@@ -2498,7 +2498,7 @@ export const Sidebar = () => {
 		/>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	@ViewChild("contextMenu", { static: true })
 	contextMenu!: ContextMenuComponent;
 	@Input() name!: string;
@@ -2564,7 +2564,7 @@ export class FileComponent {
 		</div>
 	`,
 })
-export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
+class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 	@ViewChild("contextMenu", { static: false }) contextMenuRef!: ElementRef;
 	@Input() isOpen!: boolean;
 	@Input() x!: number;
@@ -2642,7 +2642,7 @@ Finally, we need to make sure to pass the `file.id` to `<file-item id={file.id}/
 		</div>
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	// ...
 }
 ```
@@ -2663,7 +2663,7 @@ export class FileListComponent {
 		</div>
 	`,
 })
-export class SidebarComponent {
+class SidebarComponent {
 	// ...
 }
 ```
@@ -2686,7 +2686,7 @@ export class SidebarComponent {
 // ContextMenuContext.js
 import { createContext } from "react";
 
-export const ContextMenuContext = createContext({
+const ContextMenuContext = createContext({
 	actions: [],
 });
 ```
@@ -2694,7 +2694,7 @@ export const ContextMenuContext = createContext({
 Then we can use this context in our `ContextMenu` component:
 
 ```jsx
-export const ContextMenu = forwardRef(
+const ContextMenu = forwardRef(
 	({ isOpen, x, y, onClose, data }, ref) => {
 		const context = useContext(ContextMenuContext);
 
@@ -2718,7 +2718,7 @@ import { ContextMenuContext } from "./ContextMenuContext";
 
 // ...
 
-export const Sidebar = () => {
+const Sidebar = () => {
 	return (
 		<ContextMenuContext.Provider
 			value={{
@@ -2749,7 +2749,7 @@ import { File } from "./File";
 
 // ...
 
-export const FileList = () => {
+const FileList = () => {
 	return (
 		<ContextMenuContext.Provider
 			value={{
@@ -2826,7 +2826,7 @@ const onCopy = (id) => {
 	}
 };
 
-export const Sidebar = () => {
+const Sidebar = () => {
 	return (
 		<ContextMenuContext.Provider
 			value={{
@@ -2856,7 +2856,7 @@ No changes needed to the other components!
 With this, we can even change our FileList to be interactive:
 
 ```jsx
-export const FileList = () => {
+const FileList = () => {
 	const [files, setFiles] = useState([
 		{
 			name: "Testing.wav",
@@ -2983,7 +2983,7 @@ function App() {
 
 ```jsx
 // Layout.jsx
-export const Layout = ({ sidebar, children }) => {
+const Layout = ({ sidebar, children }) => {
 	return (
 		<div style={{ display: "flex", flexWrap: "nowrap", minHeight: "100vh" }}>
 			<div
@@ -3033,7 +3033,7 @@ const onCopy = (id) => {
 	}
 };
 
-export const Sidebar = () => {
+const Sidebar = () => {
 	return (
 		<ContextMenuContext.Provider
 			value={{
@@ -3078,7 +3078,7 @@ import { FileListComponent } from "./file-list.component";
 		</app-layout>
 	`,
 })
-export class AppComponent {}
+class AppComponent {}
 ```
 
 ```typescript
@@ -3105,7 +3105,7 @@ import { Component } from "@angular/core";
 		</div>
 	`,
 })
-export class LayoutComponent {}
+class LayoutComponent {}
 ```
 
 ```typescript
@@ -3147,7 +3147,7 @@ function injectAndAssignActions(actions: any[]) {
 		</div>
 	`,
 })
-export class SidebarComponent {
+class SidebarComponent {
 	directories = [
 		{
 			name: "Movies",
@@ -3222,7 +3222,7 @@ function injectAndAssignActions(actions: any[]) {
 		</div>
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	files = [
 		{
 			name: "Testing.wav",
@@ -3278,7 +3278,7 @@ export class FileListComponent {
 import { Injectable } from "@angular/core";
 
 @Injectable()
-export class ActionTypes {
+class ActionTypes {
 	actions = [] as Array<{ label: string; fn: (id: number) => void }>;
 }
 ```
@@ -3310,7 +3310,7 @@ import { ContextMenuComponent } from "./context-menu.component";
 		/>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	@ViewChild("contextMenu", { static: true })
 	contextMenu!: ContextMenuComponent;
 	@Input() name!: string;
@@ -3401,7 +3401,7 @@ function injectAndGetActions() {
 		</div>
 	`,
 })
-export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
+class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 	@ViewChild("contextMenu", { static: false }) contextMenuRef!: ElementRef;
 	@Input() isOpen!: boolean;
 	@Input() x!: number;

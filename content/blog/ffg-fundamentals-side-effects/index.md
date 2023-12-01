@@ -253,7 +253,7 @@ const Parent = () => {
 	standalone: true,
 	template: "<p>I am the child</p>",
 })
-export class ChildComponent {}
+class ChildComponent {}
 
 @Component({
 	selector: "parent-comp",
@@ -266,7 +266,7 @@ export class ChildComponent {}
 		</div>
 	`,
 })
-export class ParentComponent {
+class ParentComponent {
 	showChild = true;
 	setShowChild() {
 		this.showChild = !this.showChild;
@@ -356,7 +356,7 @@ import { Component, OnInit } from "@angular/core";
 	standalone: true,
 	template: "<p>I am the child</p>",
 })
-export class ChildComponent implements OnInit {
+class ChildComponent implements OnInit {
 	ngOnInit() {
 		console.log("I am rendering");
 	}
@@ -466,7 +466,7 @@ const WindowSize = () => {
 		</div>
 	`,
 })
-export class WindowSizeComponent {
+class WindowSizeComponent {
 	height = window.innerHeight;
 	width = window.innerWidth;
 }
@@ -544,7 +544,7 @@ const WindowSize = () => {
 		</div>
 	`,
 })
-export class WindowSizeComponent implements OnInit {
+class WindowSizeComponent implements OnInit {
 	height = window.innerHeight;
 	width = window.innerWidth;
 
@@ -647,7 +647,7 @@ const WindowSize = () => {
 		</div>
 	`,
 })
-export class WindowSizeComponent {
+class WindowSizeComponent {
 	height = window.innerHeight;
 	width = window.innerWidth;
 
@@ -822,7 +822,7 @@ function prefixZero(number) {
 	standalone: true,
 	template: ` <p role="timer">Time is: {{ time }}</p> `,
 })
-export class ClockComponent implements OnInit {
+class ClockComponent implements OnInit {
 	time = formatDate(new Date());
 
 	ngOnInit() {
@@ -934,7 +934,7 @@ function App() {
 		</div>
 	`,
 })
-export class AppComponent {
+class AppComponent {
 	showClock = true;
 
 	setShowClock(val) {
@@ -1067,7 +1067,7 @@ function App() {
 		</div>
 	`,
 })
-export class AlarmScreenComponent implements OnInit {
+class AlarmScreenComponent implements OnInit {
 	@Output() snooze = new EventEmitter();
 	@Output() disable = new EventEmitter();
 
@@ -1099,7 +1099,7 @@ export class AlarmScreenComponent implements OnInit {
 		</ng-template>
 	`,
 })
-export class AppComponent implements OnInit {
+class AppComponent implements OnInit {
 	secondsLeft = 5;
 	timerEnabled = true;
 
@@ -1320,7 +1320,7 @@ import {
 	standalone: true,
 	// ...
 })
-export class AlarmScreenComponent implements OnInit, OnDestroy {
+class AlarmScreenComponent implements OnInit, OnDestroy {
 	// ...
 
 	timeout: number | undefined = undefined;
@@ -1344,7 +1344,7 @@ export class AlarmScreenComponent implements OnInit, OnDestroy {
 	standalone: true,
 	// ...
 })
-export class AppComponent implements OnInit, OnDestroy {
+class AppComponent implements OnInit, OnDestroy {
 	// ...
 
 	interval: number | undefined = undefined;
@@ -1589,7 +1589,7 @@ const WindowSize = () => {
 		</div>
 	`,
 })
-export class WindowSizeComponent implements OnInit, OnDestroy {
+class WindowSizeComponent implements OnInit, OnDestroy {
 	height = window.innerHeight;
 	width = window.innerWidth;
 
@@ -1865,7 +1865,7 @@ const App = () => {
 		<button (click)="title = 'Documents'">Documents</button>
 	`,
 })
-export class AppComponent {
+class AppComponent {
 	title = "Movies";
 }
 ```
@@ -2173,7 +2173,7 @@ Instead, we'll have to use a `setTitle` function that calls the variable mutatio
 		<button (click)="setTitles('Documents')">Documents</button>
 	`,
 })
-export class AppComponent {
+class AppComponent {
 	setTitles(val: string) {
 		document.title = val;
 		return val;

@@ -61,7 +61,7 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 		</button>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	@Input() fileName!: string;
 	// `href` is temporarily unused
 	@Input() href!: string;
@@ -197,7 +197,7 @@ import { NgIf } from "@angular/common";
 	imports: [NgIf],
 	template: `<div><p *ngIf="bool">Text here</p></div>`,
 })
-export class ConditionalRenderComponent {
+class ConditionalRenderComponent {
 	@Input() bool!: boolean;
 }
 ```
@@ -322,7 +322,7 @@ const FileList = () => {
 		</button>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	@Input() fileName!: string;
 	@Input() href!: string;
 	@Input() isSelected!: boolean;
@@ -350,7 +350,7 @@ export class FileComponent {
 		</ul>
 	`,
 })
-export class FileListComponent {}
+class FileListComponent {}
 ```
 
 <iframe data-frame-title="Angular Conditional Date - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-conditional-date-18?template=node&embed=1&file=src%2Fmain.ts"></iframe>
@@ -779,7 +779,7 @@ const FileList = () => {
 		</ul>
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	selectedIndex = -1;
 
 	onSelected(idx) {
@@ -936,7 +936,7 @@ import { NgFor } from "@angular/common";
 		</ul>
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	selectedIndex = -1;
 
 	onSelected(idx: number) {
@@ -1135,7 +1135,7 @@ function getRandomWord() {
 		</div>
 	`,
 })
-export class WordListComponent {
+class WordListComponent {
 	words: Word[] = [];
 
 	addWord() {
@@ -1289,7 +1289,7 @@ While Angular doesn't have quite the same API for `key` as React and Vue, Angula
 		</div>
 	`,
 })
-export class WordListComponent {
+class WordListComponent {
 	words: Word[] = [];
 
 	wordTrackBy(index: number, word: Word) {
@@ -1493,7 +1493,7 @@ const FileList = () => {
 		</ul>
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	selectedIndex = -1;
 
 	fileTrackBy(index: number, file: File) {
@@ -1665,7 +1665,7 @@ const FileList = () => {
 		</div>
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	// ...
 
 	onlyShowFiles = false;
@@ -1805,7 +1805,7 @@ const Sidebar = () => {
 		</div>
 	`,
 })
-export class ExpandableDropdownComponent {
+class ExpandableDropdownComponent {
 	@Input() name!: string;
 	@Input() expanded!: boolean;
 	@Output() toggle = new EventEmitter();
@@ -1851,7 +1851,7 @@ export class ExpandableDropdownComponent {
 		</div>
 	`,
 })
-export class SidebarComponent {
+class SidebarComponent {
 	moviesExpanded = false;
 	picturesExpanded = false;
 	conceptsExpanded = false;
@@ -2002,7 +2002,7 @@ const Sidebar = () => {
 		</div>
 	`,
 })
-export class SidebarComponent {
+class SidebarComponent {
 	categories = [
 		"Movies",
 		"Pictures",
@@ -2148,7 +2148,7 @@ function objFromCategories(categories) {
 		</div>
 	`,
 })
-export class SidebarComponent {
+class SidebarComponent {
 	categories = [
 		"Movies",
 		"Pictures",
@@ -2267,7 +2267,7 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 		</div>
 	`,
 })
-export class ExpandableDropdownComponent {
+class ExpandableDropdownComponent {
 	@Input() name!: string;
 	@Input() expanded!: boolean;
 	@Output() toggle = new EventEmitter();

@@ -1005,7 +1005,7 @@ To do that might look something like this:
 ### React
 
 ```jsx
-export const Layout = ({ sidebar, sidebarWidth, children }) => {
+const Layout = ({ sidebar, sidebarWidth, children }) => {
 	return (
 		<div style={{ display: "flex", flexWrap: "nowrap", minHeight: "100vh" }}>
 			<div
@@ -1023,7 +1023,7 @@ export const Layout = ({ sidebar, sidebarWidth, children }) => {
 	);
 };
 
-export const App = () => {
+const App = () => {
 	return (
 		<Layout sidebar={<p>Sidebar</p>} sidebarWidth={150}>
 			<p style={{ padding: "1rem" }}>Hi there!</p>
@@ -1060,7 +1060,7 @@ export const App = () => {
 		</div>
 	`,
 })
-export class LayoutComponent {
+class LayoutComponent {
 	@Input() sidebarWidth!: number;
 }
 
@@ -1075,7 +1075,7 @@ export class LayoutComponent {
 		</app-layout>
 	`,
 })
-export class AppComponent {}
+class AppComponent {}
 ```
 
 ### Vue
@@ -1136,7 +1136,7 @@ We'll also setup constants to support different widths of this sidebar area if i
 ### React
 
 ```jsx
-export const Sidebar = ({ toggle }) => {
+const Sidebar = ({ toggle }) => {
 	const [isCollapsed, setIsCollapsed] = useState(false);
 
 	const setAndToggle = (v) => {
@@ -1169,7 +1169,7 @@ export const Sidebar = ({ toggle }) => {
 const collapsedWidth = 100;
 const expandedWidth = 150;
 
-export const App = () => {
+const App = () => {
 	const [width, setWidth] = useState(expandedWidth);
 
 	return (
@@ -1215,7 +1215,7 @@ export const App = () => {
 		</div>
 	`,
 })
-export class SidebarComponent {
+class SidebarComponent {
 	@Output() toggle = new EventEmitter<boolean>();
 
 	isCollapsed = false;
@@ -1241,7 +1241,7 @@ export class SidebarComponent {
 		</app-layout>
 	`,
 })
-export class AppComponent {
+class AppComponent {
 	collapsedWidth = 100;
 	expandedWidth = 150;
 
@@ -1358,7 +1358,7 @@ Let's implement it:
 ### React
 
 ```tsx
-export const Sidebar = forwardRef(({ toggle }, ref) => {
+const Sidebar = forwardRef(({ toggle }, ref) => {
 	const [isCollapsed, setIsCollapsed] = useState(false);
 
 	const setAndToggle = (v) => {
@@ -1407,7 +1407,7 @@ const collapsedWidth = 100;
 const expandedWidth = 150;
 const widthToCollapseAt = 600;
 
-export const App = () => {
+const App = () => {
 	const [width, setWidth] = useState(expandedWidth);
 
 	const sidebarRef = useRef();
@@ -1470,7 +1470,7 @@ export const App = () => {
 		</div>
 	`,
 })
-export class SidebarComponent {
+class SidebarComponent {
 	@Output() toggle = new EventEmitter<boolean>();
 
 	isCollapsed = false;
@@ -1504,7 +1504,7 @@ export class SidebarComponent {
 		</app-layout>
 	`,
 })
-export class AppComponent implements OnInit, OnDestroy {
+class AppComponent implements OnInit, OnDestroy {
 	@ViewChild("sidebar", { static: true }) sidebar!: SidebarComponent;
 
 	collapsedWidth = 100;

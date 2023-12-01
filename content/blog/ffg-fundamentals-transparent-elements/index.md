@@ -85,7 +85,7 @@ const FileList = () => {
 		</button>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	@Input() fileName: string;
 	@Input() href: string;
 	@Input() isSelected: boolean;
@@ -114,7 +114,7 @@ export class FileComponent {
 		<!-- ... -->
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	// ...
 }
 ```

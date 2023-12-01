@@ -20,7 +20,7 @@ Take the following code:
 # React
 
 ```jsx
-export const App = () => {
+const App = () => {
 	const items = [
 		{ id: 1, name: "Take out the trash", priority: 1 },
 		{ id: 2, name: "Cook dinner", priority: 1 },
@@ -58,7 +58,7 @@ import { Component } from "@angular/core";
 		</ul>
 	`,
 })
-export class AppComponent {
+class AppComponent {
 	items = [
 		{ id: 1, name: "Take out the trash", priority: 1 },
 		{ id: 2, name: "Cook dinner", priority: 1 },
@@ -134,7 +134,7 @@ const ErrorThrowingComponent = () => {
 	standalone: true,
 	template: ` <p>Hello, world!</p> `,
 })
-export class AppComponent {
+class AppComponent {
 	constructor() {
 		throw new Error("Error");
 	}
@@ -181,7 +181,7 @@ const EventErrorThrowingComponent = () => {
 	standalone: true,
 	template: ` <button (click)="onClick()">Click me</button> `,
 })
-export class AppComponent {
+class AppComponent {
 	onClick() {
 		throw new Error("Error");
 	}
@@ -382,7 +382,7 @@ Despite errors thrown in a component's constructor preventing rendering:
 	standalone: true,
 	template: ` <p>Hello, world!</p> `,
 })
-export class AppComponent {
+class AppComponent {
 	// This will prevent rendering
 	constructor() {
 		throw new Error("Error in constructor");
@@ -398,7 +398,7 @@ Errors thrown in any of Angular's other lifecycle methods will not prevent a com
 	standalone: true,
 	template: ` <p>Hello, world!</p> `,
 })
-export class AppComponent implements OnInit {
+class AppComponent implements OnInit {
 	// Will not prevent `Hello, world!` from showing
 	ngOnInit() {
 		throw new Error("Error in constructor");
@@ -952,7 +952,7 @@ Let's say that we were building out [our previous code challenge](/posts/ffg-fun
 ## React
 
 ```jsx
-export const Sidebar = forwardRef(({ toggle }, ref) => {
+const Sidebar = forwardRef(({ toggle }, ref) => {
 	const [isCollapsed, setIsCollapsed] = useState(false);
 	const setAndToggle = (v) => {
 		setIsCollapsed(v);
@@ -1015,7 +1015,7 @@ collapsed is not defined
 		</div>
 	`,
 })
-export class SidebarComponent {
+class SidebarComponent {
 	@Output() toggle = new EventEmitter<boolean>();
 
 	// Notice the type cast to `any`
@@ -1322,7 +1322,7 @@ class ErrorBoundary extends Component {
 
 ```typescript
 @Pipe({ name: "errorHref", standalone: true })
-export class ErrorHrefPipe implements PipeTransform {
+class ErrorHrefPipe implements PipeTransform {
 	transform(err: Error | null): string {
 		console.log({ err });
 		if (!err) return "";
