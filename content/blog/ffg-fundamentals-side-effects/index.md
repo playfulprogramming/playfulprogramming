@@ -631,6 +631,8 @@ const WindowSize = () => {
 };
 ```
 
+<iframe data-frame-title="React Broken Event Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-broken-event-bubbling-30?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Angular
 
 ```typescript
@@ -645,7 +647,7 @@ const WindowSize = () => {
 		</div>
 	`,
 })
-export class WindowSizeComponent implements OnInit {
+export class WindowSizeComponent {
 	height = window.innerHeight;
 	width = window.innerWidth;
 
@@ -655,6 +657,8 @@ export class WindowSizeComponent implements OnInit {
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Broken Event Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-broken-event-bubbling-30?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -681,6 +685,8 @@ function resizeHandler() {
 </template>
 ```
 
+<iframe data-frame-title="Vue Broken Event Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-event-bubbling-30?template=node&embed=1&file=src%2FWindowSize.vue"></iframe>
+
 <!-- tabs:end -->
 
 If we run this code, it will render as-expected with the initial screen size, but on subsequent re-renders will not update the value on screen. This is because the `resize` event is only triggered on the `window` object (associated with the `<html>` tag) and does not permeate downwards towards other elements.
@@ -698,26 +704,39 @@ We can demonstrate this inside of our frameworks.
 ```jsx
 <div onClick={() => logMessage()}>
 	<p>
-		<span>Click me</span> or even me!
+		<span style={{ color: "red" }}>Click me</span> or even
+		<span style={{ background: "green", color: "white" }}>me</span>!
 	</p>
 </div>
 ```
+
+<iframe data-frame-title="React Event Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-event-bubbling-31?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
 ```html
 <div (click)="logMessage()">
-	<p><span>Click me</span> or even me!</p>
+	<p>
+		<span style="color: red">Click me</span> or even
+		<span style="background: green; color: white;">me</span>!
+	</p>
 </div>
 ```
+
+<iframe data-frame-title="Angular Event Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-event-bubbling-31?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
 ```html
 <div @click="logMessage()">
-	<p><span>Click me</span> or even me!</p>
+	<p>
+		<span style="color: red">Click me</span> or even
+		<span style="background: green; color: white;">me</span>!
+	</p>
 </div>
 ```
+
+<iframe data-frame-title="Vue Event Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-event-bubbling-31?template=node&embed=1&file=src%2FEventBubbler.vue"></iframe>
 
 <!-- tabs:end -->
 
