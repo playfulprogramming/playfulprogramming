@@ -210,7 +210,12 @@ Let's look back at the four most common types of component side effect origin po
 
 While the first one was easy enough to tackle, the last three component events are often trickier to solve from a developer experience standpoint.
 
-Oftentimes, a framework may implement an API that corresponds a developer-defined function (ran by the framework) as a one-to-one matching of these events that occur during a component's lifespan. When a framework has a one-to-one mapping of function-to-lifecycle event, **this mapping creates a series of APIs called "Lifecycle Methods"**. Angular and Vue both have lifecycle methods as part of their core APIs.
+Oftentimes,
+a framework may implement an API that corresponds to a developer-defined function (run by the framework)
+as a one-to-one matching of these events that occur during a component's lifespan.
+When a framework has a one-to-one mapping of function-to-lifecycle event,
+**this mapping creates a series of APIs called "Lifecycle Methods"**.
+Angular and Vue both have lifecycle methods as part of their core APIs.
 
 On the other hand, **some frameworks choose to implement side effect handling without lifecycle methods**. React is a key example of this, but Vue also has a non-lifecycle method of managing side effects in a component.
 
@@ -314,7 +319,7 @@ Here, `Child` is being added and removed from the DOM every time `setShowChild` 
 
 > Remember, `console.log` _outputs_ data to the user (albeit in a DevTools panel). As such, it's technically a side effect to call `console.log`.
 
-While we _could_ add this log inside of `setShowChild`, it's more likely to break when we inevitably refactor the `Parent` component's code. Instead, let's use one of the aforementioned lifecycle methods to call `console.log` whenever `Child` is rendered.
+While we _could_ add this log inside of `setShowChild`, it's more likely to break when we inevitably refactor the `Parent` component's code. Instead, let's add a side effect handler to call `console.log` whenever `Child` is rendered.
 
 <!-- tabs:start -->
 
@@ -346,7 +351,8 @@ We mentioned earlier that there is another hook used to handle side effects: `us
 
 ## Angular
 
-In order to execute code during an initial render of a component, Angular uses a method called `ngOnInit`. This function is specially named so that Angular can call it on your behalf during the the "rendered" lifecycle event:
+To execute code during an initial render of a component, Angular uses a method called `ngOnInit`.
+This function is specially named so that Angular can call it on your behalf during the "rendered" lifecycle event:
 
 ```typescript
 import { Component, OnInit } from "@angular/core";
@@ -398,7 +404,7 @@ Here, we're importing the `onMounted` lifecycle handler from the `vue` import. V
 
 ### Vue's `watchEffect` Hook
 
-Just as React has a non-lifecycle method of running side effect, so too does Vue. This is done using Vue's `watchEffect` and `watch` APIs. Let's start with a simple example:
+Just like how React has a non-lifecycle method of running side effect, so too does Vue. This is done using Vue's `watchEffect` and `watch` APIs. Let's start with a simple example:
 
 ```vue
 <!-- Child.vue -->
@@ -899,9 +905,9 @@ In this example, we're [calling `setInterval` to run a function every second](ht
 1. Updates `time` to include [the current `Date`'s](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date) hour, minute, and second hand in its string
 2. `console.log` a message
 
-This `setInterval` call occurs on every `Clock` component render thanks to each frameworks' lifecycle methods.
+This `setInterval` call occurs on every `Clock` component render thanks to each of the frameworks' side effect handlers.
 
-Let's now render this `Clock` component inside of a conditional block:
+Let's now render this `Clock` component inside a conditional block:
 
 <!-- tabs:start -->
 
@@ -1201,12 +1207,12 @@ const disable = () => {
 > You'll notice that we're not using events for our Vue code sample and have instead opted to pass a function.
 > This is because, while the other frameworks will continue to listen for events from an unmounted component, Vue does
 > not.
-> 
+>
 > This doesn't mean that Vue solves this issue for us, however. While passing a function is less common than using an output
 > in Vue, it's not the only way to do things. Moreover, while using Vue's output to handle `snooze` and `disable` functionality
 > solves the issue from the user's standpoint, it doesn't solve the memory leak that you're creating by not cleaning up your
 > `setTimeout`.
-> 
+>
 > To understand this a bit better, [I wrote an article about this exact topic.](TODO://WriteIt)
 
 <!-- tabs:end -->
@@ -1232,13 +1238,13 @@ setTimeout(() => {
 
 When the above code's `snooze` runs, it will add 4 seconds to the `secondsLeft` variable through the `App`'s `snooze` method.
 
-To solve this, we simply need to tell our `AlarmScreen` component to cancel the `setTimeout` when it's no longer rendered. Let's look at we can do that with an `unmounted` lifecycle method.
+To solve this, we simply need to tell our `AlarmScreen` component to cancel the `setTimeout` when it's no longer rendered. Let's look at we can do that with a side effect handler.
 
-## Unmount Lifecycle Method
+## Unmounting Side Effect Handlers
 
-In our previous code sample, we showed that mounted lifecycle methods left unclean will cause bugs in our apps and performance headaches for our users.
+In our previous code sample, we showed that mounted side effects left unclean will cause bugs in our apps and performance headaches for our users.
 
-Let's cleanup these lifecycle methods using a lifecycle method that runs during unmounting. To do this, we'll use JavaScript's `clearTimeout` to remove any `setTimeout`s that are left unrun:
+Lets cleanup these side effects using a handler that runs during unmounting. To do this, we'll use JavaScript's `clearTimeout` to remove any `setTimeout`s that are left unrun:
 
 ```javascript
 const timeout = setTimeout(() => {
@@ -1268,22 +1274,22 @@ clearInterval(interval);
 To run a cleanup function on React's `useEffect`, return a function inside of the `useEffect`.
 
 ```jsx
-const Comp = () => {
+const Cleanup = () => {
 	useEffect(() => {
 		return () => {
-			console.log("I am cleaning up");
+			alert("I am cleaning up");
 		};
 	}, []);
 };
 ```
 
-This returned function will be ran whenever:
+This returned function will be run whenever:
 
 - `useEffect` is re-ran.
-  - The returned function is ran before the new `useEffect` instance is run.
+  - The returned function is run before the new `useEffect` instance is run.
 - `Comp` is unrendered.
 
-> It may seem like I said the same thing twice here, however `useEffect` can be ran independent of a component's initial render lifecycle. More on that soon.
+> It may seem like I said the same thing twice here, however `useEffect` can be run independent of a component's initial render. More on that soon.
 
 Let's apply this returned function to our code sample previously:
 
@@ -1332,14 +1338,23 @@ When we add a mounted lifecycle to Angular, we:
 To add an unmounted lifecycle method to an Angular component, we do the same steps as above, but with `OnDestroy` instead:
 
 ```typescript
-import {
-	Component,
-	EventEmitter,
-	OnInit,
-	Output,
-	OnDestroy,
-} from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 
+@Component({
+	selector: "cleanup-comp",
+	standalone: true,
+	// ...
+})
+class CleanupComponent implements OnDestroy {
+	ngOnDestroy() {
+		alert("I am cleaning up");
+	}
+}
+```
+
+Let's apply this new lifecycle method to our code sample previously:
+
+```typescript
 @Component({
 	selector: "alarm-screen",
 	standalone: true,
@@ -1392,6 +1407,23 @@ class AppComponent implements OnInit, OnDestroy {
 ### Vue
 
 Similar to how we import `onMounted` we can import `onUnmounted` in Vue to run the relevant lifecycle method.
+
+```vue
+<!-- Cleanup.vue -->
+<script setup>
+import { onUnmounted } from "vue";
+
+onUnmounted(() => {
+	alert("I am cleaning up");
+});
+</script>
+
+<template>
+	<!-- ... -->
+</template>
+```
+
+Let's apply this new lifecycle method to our code sample previously:
 
 ```vue
 <!-- AlarmScreen.vue -->
@@ -1452,9 +1484,9 @@ unUnmounted(() => {
 
 #### Vue's `watchEffect` Cleanup
 
-As mentioned previously, Vue has two methods of handling side effects; Lifecycle methods and `watchEffect`. Luckily, `watchEffect` also has the ability to cleanup side effects that were created before.
+As mentioned previously, Vue has two methods of handling side effects; Lifecycle methods and `watchEffect`. Luckily, `watchEffect` also has the ability to clean up side effects that were created before.
 
-To cleanup effect, `watchEffect` provides an argument to the inner `watchEffect` function, which we'll name `onCleanup`. This property is, in itself, a function which we call with the cleanup logic:
+To clean up an effect, `watchEffect` provides an argument to the inner `watchEffect` function, which we'll name `onCleanup`. This property is, in itself, a function that we call with the cleanup logic:
 
 ```javascript
 // onCleanup is a property passed to the inner `watchEffect` function
@@ -1703,9 +1735,9 @@ watchEffect((onCleanup) => {
 
 <!-- tabs:end -->
 
-## Ensuring Lifecycle Cleanup
+## Ensuring Side Effect Cleanup
 
-Some frameworks have taken extra steps to ensure your lifecycle methods always clean up side effects.
+Some frameworks have taken extra steps to ensure your side effects are always cleaned up.
 
 <!-- tabs:start -->
 
@@ -1731,7 +1763,7 @@ ReactDOM.render(
 
 Specifically, `StrictMode` helps find issues with:
 
-- Unsafe lifecycle usage
+- Unsafe Hooks usage
 - Legacy API usage
 - Unexpected side effects
 
@@ -1755,11 +1787,16 @@ Vue does not have any special behaviors with `OnInit` to force component cleanup
 
 # Re-Renders
 
-While rendering and un-rendering are primary actions in a component's lifecycle, they're not the _only_ lifecycle methods on the table.
+While rendering and un-rendering are the most frequent times you might want to add a side effect handler, they're not the _only_ times you're able to do so.
 
-Each of the frameworks has a handful of lifecycle methods beyond the two we've looked at today. However, this is where these frameworks tend to diverge, as their lifecycle methods tend to reflect the framework's internals. While we'll touch on the framework's internals [in the third book of the series](https://unicorn-utterances.com/collections/framework-field-guide#internals-title), for now, let's take a look at one more component lifecycle that's _relatively_ consistent between most frameworks: Re-rendering.
+While many of the examples we've shown before have been relatively consistent between each framework,
+this is where these frameworks tend to diverge. This difference occurs because the APIs exposed by each framework typically depend on how their internals function; this allows you to have more fine-grained control over your components.
 
-Re-rendering is what it sounds like; While the initial "render" is what allows us to see the first contents on screen being drawn, subsequent updates — like our live-updated values — are drawn during subsequent "re-renders".
+While we'll touch on the framework's internals [in the third book of the series](https://unicorn-utterances.com/collections/framework-field-guide#internals-title),
+for now, let's take a look at one more component API that's _relatively_ consistent between most frameworks:
+Re-rendering.
+
+Re-rendering is what it sounds like; While the initial "render" is what allows us to see the first contents on screen being drawn, subsequent updates — like our live-updated values — are drawn during "re-renders".
 
 Re-renders may occur for many reasons:
 
@@ -1767,7 +1804,7 @@ Re-renders may occur for many reasons:
 - State being changed
 - Explicitly calling a re-render via other means
 
-Let's take a look at how each framework exposes re-rendering to the user via lifecycle methods.
+Let's take a look at how each framework exposes re-rendering to you.
 
 <!-- tabs:start -->
 
@@ -2526,9 +2563,9 @@ While this level of internals knowledge is seldomly utilized when getting starte
 
 Like any other superpower, you should use these last few APIs with care, knowing that they may make your application worse rather than better; With great APIs comes great responsibility.
 
-# Lifecycle Chart
+# API Chart
 
-Let's take a look visually at how each framework calls the relevant lifecycle methods we've touched on today:
+Let's take a look visually at how each framework calls the relevant APIs we've touched on today:
 
 <!-- tabs:start -->
 
