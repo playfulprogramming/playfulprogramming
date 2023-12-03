@@ -1240,11 +1240,11 @@ When the above code's `snooze` runs, it will add 4 seconds to the `secondsLeft` 
 
 To solve this, we simply need to tell our `AlarmScreen` component to cancel the `setTimeout` when it's no longer rendered. Let's look at we can do that with a side effect handler.
 
-## Unmounting Side Effect Handlers
+## Unmounting
 
 In our previous code sample, we showed that mounted side effects left unclean will cause bugs in our apps and performance headaches for our users.
 
-Lets cleanup these side effects using a handler that runs during unmounting. To do this, we'll use JavaScript's `clearTimeout` to remove any `setTimeout`s that are left unrun:
+Lets cleanup these side effects using a handler that runs during a component's unmounting. To do this, we'll use JavaScript's `clearTimeout` to remove any `setTimeout`s that are left unrun:
 
 ```javascript
 const timeout = setTimeout(() => {
@@ -1280,8 +1280,12 @@ const Cleanup = () => {
 			alert("I am cleaning up");
 		};
 	}, []);
+
+	return <p>Unmount me to see an alert</p>;
 };
 ```
+
+<iframe data-frame-title="React Unmounting - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-unmounting-34?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 This returned function will be run whenever:
 
@@ -1343,7 +1347,7 @@ import { Component, OnDestroy } from "@angular/core";
 @Component({
 	selector: "cleanup-comp",
 	standalone: true,
-	// ...
+	template: `<p>Unmount me to see an alert</p>`,
 })
 class CleanupComponent implements OnDestroy {
 	ngOnDestroy() {
@@ -1351,6 +1355,8 @@ class CleanupComponent implements OnDestroy {
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Unmounting - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-unmounting-34?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Let's apply this new lifecycle method to our code sample previously:
 
@@ -1419,9 +1425,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<!-- ... -->
+	<p>Unmount me to see an alert</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Unmounting - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-unmounting-34?template=node&embed=1&file=src%2FCleanup.vue"></iframe>
 
 Let's apply this new lifecycle method to our code sample previously:
 
