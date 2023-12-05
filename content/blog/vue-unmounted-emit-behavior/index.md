@@ -147,3 +147,90 @@ After all, [a function is just a value in JavaScript](/posts/javascript-function
 While this behavior allows our users to avoid seeing the alert, it also means that we're still leaking memory.
 
 # Comparison to Other Frameworks
+
+While this disconnect of props and event bindings seems sensible and works well with Vue's established patterns, it's not
+the way many other frameworks handle things.
+
+Let's take a look at some of the other frameworks and see how they do it.
+
+<!-- tabs:start -->
+
+## React
+
+While Vue and Angular both have methods for being able to emit an event from a child to a parent, React's method of doing
+so is entirely based on passing a function from a parent to a child, then calling said function in the child:
+
+```jsx
+import {useState, useEffect} from "react";
+
+const Alert = ({alert}) => {
+    useEffect(() => {
+        setTimeout(() => {
+            alert();
+        }, 1000)
+    })
+    
+    return (
+        <p>Showing alert...</p>
+    )
+}
+const App = () => {
+    const [show, setShow] = useState(false);
+    const alertUser = () => alert("I am an alert!");
+
+    return (
+        <>
+            <button onClick={() => setShow(!show)}>Toggle</button>
+            {show && <Alert alert={alertUser}/>}
+        </>
+    )
+}
+```
+
+// TODO: Write
+
+## Angular
+
+```typescript
+@Component({
+    selector: "app-alert",
+    standalone: true,
+    template: `
+        <p>Showing alert...</p>
+    `
+})
+class AlertComponent implements OnInit {
+    @Output() alert = new EventEmitter();
+    
+    ngOnInit() {
+        setTimeout(() => {
+            this.alert.emit();
+        })
+    }
+}
+
+@Component({
+    selector: "app-root",
+    standlone: true,
+    imports: [AlertComponent, NgIf],
+    template: `
+        <button (click)="toggle()">Toggle</button>
+        <app-alert *ngIf="show" @alert="alertUser()"/>
+    `
+})
+class AppComponent {
+    show = false;
+    
+    toggle() {
+        this.show = !this.show;
+    }
+
+    alertUser() {
+        alert("I am an alert!");
+    }
+}
+```
+
+// TODO: Write
+
+<!-- tabs:end -->
