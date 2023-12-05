@@ -161,8 +161,6 @@ While Vue and Angular both have methods for being able to emit an event from a c
 so is entirely based on passing a function from a parent to a child, then calling said function in the child:
 
 ```jsx
-import {useState, useEffect} from "react";
-
 const Alert = ({alert}) => {
     useEffect(() => {
         setTimeout(() => {
@@ -187,9 +185,13 @@ const App = () => {
 }
 ```
 
+<iframe data-frame-title="React Unmounted Emit Behavior Demo - StackBlitz" src="uu-code:./react-unmounted-behavior?embed=1&file=src/main.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 // TODO: Write
 
 ## Angular
+
+Angular behaves the same as Vue?!?!
 
 ```typescript
 @Component({
@@ -201,21 +203,21 @@ const App = () => {
 })
 class AlertComponent implements OnInit {
     @Output() alert = new EventEmitter();
-    
+
     ngOnInit() {
         setTimeout(() => {
             this.alert.emit();
-        })
+        }, 1000)
     }
 }
 
 @Component({
     selector: "app-root",
-    standlone: true,
+    standalone: true,
     imports: [AlertComponent, NgIf],
     template: `
         <button (click)="toggle()">Toggle</button>
-        <app-alert *ngIf="show" @alert="alertUser()"/>
+        <app-alert *ngIf="show" (alert)="alertUser()"/>
     `
 })
 class AppComponent {
@@ -230,6 +232,8 @@ class AppComponent {
     }
 }
 ```
+
+<iframe data-frame-title="React Unmounted Emit Behavior Demo - StackBlitz" src="uu-code:./react-unmounted-behavior?embed=1&file=src/main.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 // TODO: Write
 
