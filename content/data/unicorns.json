@@ -611,4 +611,21 @@
 		"color": "#1AB5E5",
 		"roles": ["author"]
 	}
+	{
+ 		"id": "mr-chaotic",
+  		"name": "Mr-Chaotic",
+
+ 	 	"firstName": "Mr "
+  		"lastName": "Chaotic",
+
+  		"description": "Mr-Chaotic is a YouTuber, fluent JavaScript programmer and game developer.",
+
+  		"socials": {
+  	 	 	"github": "@MR-CHAOTIC",
+ 	 	},
+
+		"profileImg": "./hello.png",
+ 	 	"color": "#2464B6",
+ 		"roles": ["author"]
+}
 ]
