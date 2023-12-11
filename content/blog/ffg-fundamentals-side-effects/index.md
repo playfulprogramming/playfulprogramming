@@ -1582,6 +1582,253 @@ watchEffect((onCleanup) => {
 
 <!-- tabs:end -->
 
+## Hidden Memory Leaks
+
+While we've quickly glanced at how each framework is able to cleanup their side effects using a side effect handler that runs when a component unmounts, we haven't seen how this impacts other aspects of a component yet.
+
+For example, [we mentioned in the first chapter that you can emit events from a child component into a parent component](/posts/ffg-fundamentals-intro-to-components#Outputs). Let's build out a component that uses _events_ to trigger an parent function a second after its contents are shown.
+
+> Let's not yet introduce cleanup, you'll see why in a second.
+
+<!-- tabs:start -->
+
+### React
+
+React isn't able to emit an event from a child component to a parent component without passing a function down from the parent to the child:
+
+```jsx
+const Child = ({ fn }) => {
+	// ...
+};
+
+const Parent = () => {
+	const fn = () => {
+		// ...
+	};
+	return <Child fn={fn} />;
+};
+```
+
+However, **this is not the same thing as emitting an event in Angular or Vue**. We'll take a look at why that is and how it relates to a component unmounting shortly.
+
+### Angular
+
+```typescript
+@Component({
+	selector: "app-alert",
+	standalone: true,
+	template: ` <p>Showing alert...</p> `,
+})
+class AlertComponent implements OnInit {
+	@Output() alert = new EventEmitter();
+
+	ngOnInit() {
+		// Notice that we don't clean up this side effect
+		setTimeout(() => {
+			this.alert.emit();
+		}, 1000);
+	}
+}
+
+@Component({
+	selector: "app-root",
+	standalone: true,
+	imports: [AlertComponent, NgIf],
+	template: `
+		<div>
+			<!-- Try clicking and unclicking quickly -->
+			<button (click)="toggle()">Toggle</button>
+			<!-- Binding to an event -->
+			<app-alert *ngIf="show" (alert)="alertUser()" />
+		</div>
+	`,
+})
+class AppComponent {
+	show = false;
+
+	toggle() {
+		this.show = !this.show;
+	}
+
+	alertUser() {
+		alert("I am an alert!");
+	}
+}
+```
+
+### Vue
+
+```vue
+<!-- Alert.vue -->
+<script setup>
+import { onMounted } from "vue";
+
+const emit = defineEmits(["alert"]);
+
+onMounted(() => {
+	setTimeout(() => {
+		emit("alert");
+	}, 1000);
+});
+</script>
+
+<template>
+	<p>Showing alert...</p>
+</template>
+```
+
+```vue
+<!-- App.vue -->
+<script setup>
+import { ref } from "vue";
+import Alert from "./Alert.vue";
+
+const show = ref(false);
+
+const toggle = () => (show.value = !show.value);
+
+const alertUser = () => alert("I am an alert!");
+</script>
+
+<template>
+	<div>
+		<!-- Try clicking and unclicking quickly -->
+		<button @click="toggle()">Toggle</button>
+		<!-- Binding to an event -->
+		<Alert v-if="show" @alert="alertUser()" />
+	</div>
+</template>
+```
+
+<!-- tabs:end -->
+
+Now if we run one of our code samples and click on a button rapidly and repeatedly we get... Nothing! Only the last `alert` will show up to notify you that our `Alert` component has rendered.
+
+> That's strange... I thought that our `setTimeout` would still trigger because we haven't cleaned it up using a `clearTimeout`.
+
+You're right! The `setTimeout` _does_ trigger! You can verify this by updating our `setTimeout` to include a `console.log` inside of it.
+
+> Then why isn't our `alert` being triggered?
+
+Well, when you think about how a component in one of these frameworks work, you might visualize them akin to this:
+
+![A component declaration is at the bottom. Two component instances stem from that declaration and then bind to the DOM and Framework root](./event_mount_explainer.png)
+
+Here, we can see that despite there being one component declaration:
+
+<!-- tabs:start -->
+
+### React
+
+```jsx {1}
+const Comp = () => {
+	const obj = {};
+
+	return <p>Hello, world</p>;
+};
+```
+
+### Angular
+
+```typescript {6}
+@Component({
+	standalone: true,
+	selector: "app-comp",
+	template: `<p>Hello, world</p>`,
+})
+class CompComponent {
+	obj = {};
+}
+```
+
+### Vue
+
+```vue {2}
+<!-- Comp.vue -->
+<script setup>
+const obj = {};
+</script>
+
+<template>
+	<p>Hello, world</p>
+</template>
+```
+
+<!-- tabs:end -->
+
+Every time we use this component:
+
+<!-- tabs:start -->
+
+### React
+
+```jsx {2-5}
+const App = () => {
+	return <div>
+		<!-- One: -->
+		<Comp />
+		<!-- Two: -->
+		<Comp />
+	</div>
+}
+```
+
+### Angular
+
+```typescript {6-9}
+@Component({
+	standalone: true,
+	imports: [CompComponent],
+	selector: "app-root",
+	template: `
+		<div>
+            <!-- One: -->
+            <app-comp />
+            <!-- Two: -->
+            <app-comp />
+        </div>
+	`,
+})
+class AppComponent {
+}
+```
+
+### Vue
+
+```vue {7-10}
+<!-- App.vue -->
+<script setup>
+import Comp from "./Comp.vue";
+</script>
+
+<template>
+	<div>
+		<!-- One: -->
+		<Comp />
+		<!-- Two: -->
+		<Comp />
+	</div>
+</template>
+```
+
+<!-- tabs:end -->
+
+Each of the individual `Comp` usages generates a component _instance_. These instances have their own separate memory usage, which
+allows you to control state from them both independently from one another.
+
+Moreover, though, because each component instance has its own connection to the framework root instance,
+it can do some cleanup of event listeners when an instance is detached without impacting other instances:
+
+![When a component is unmounted, it disconnects the event and input handlers from the framework](./event_unmount_explainer.png)
+
+### Seeing Hidden Memory Leaks
+
+
+
+
+
+
+
 ## Cleaning up Event Listeners
 
 [We had a code sample earlier in the chapter that relied on `addEventListener` to get the window size](#prod-side-effects). This code sample, you may have guessed, had a memory leak in it because we never cleaned up this event listener.
