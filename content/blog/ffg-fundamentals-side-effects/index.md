@@ -2145,16 +2145,17 @@ When React 16.3 came out, [it introduced a new component called `StrictMode`](ht
 `StrictMode` was developed to help warn developers of potential problems that lie dormant in their applications. It's commonly enabled in most production codebases and is used at the root of the app like so:
 
 ```jsx
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 
-ReactDOM.render(
-	<App />,
-	<React.StrictMode>
+const App = () => {
+	// ...
+};
+
+createRoot(document.getElementById("root")).render(
+	<StrictMode>
 		<App />
-	</React.StrictMode>,
-	document.getElementById("root"),
+	</StrictMode>,
 );
 ```
 
@@ -2169,6 +2170,38 @@ It does so by modifying slight behaviors of your app and printing errors when ne
 > `StrictMode` only does this on development builds of your app and does not impact your code whatsoever during production.
 
 [Since React 18, `StrictMode` will re-run all `useEffect`s twice](https://unicorn-utterances.com/posts/why-react-18-broke-your-app). This change was made by the React team in order to highlight potential bugs in your application that are caused by un-cleaned side effects.
+
+So, if you have the following code:
+
+```jsx
+let i = 0;
+const App = () => {
+	useEffect(() => {
+		alert(`I am rendering. Counter: ${++i}`);
+	}, []);
+
+	// ...
+};
+
+createRoot(document.getElementById("root")).render(
+	<StrictMode>
+		<App />
+	</StrictMode>,
+);
+```
+
+You'd see two `alert`s when the component renders:
+
+1. `I am rendering. Counter: 1`
+2. `I am rendering. Counter: 2`
+
+However, if you disable `StrictMode` your output would be:
+
+1. `I am rendering. Counter: 1`
+
+<iframe data-frame-title="React Ensure Cleanup - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-ensure-cleanup-37?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+Again, **this is intentional**. React is trying to help you find bugs in your code by highlighting side effects that are not cleaned up.
 
 If you have code that does not work with `StrictMode`, this is most likely the culprit and you should investigate all side effect cleanups in your components.
 
