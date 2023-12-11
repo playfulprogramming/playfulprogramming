@@ -1821,13 +1821,150 @@ it can do some cleanup of event listeners when an instance is detached without i
 
 ![When a component is unmounted, it disconnects the event and input handlers from the framework](./event_unmount_explainer.png)
 
+> So if the framework events are cleaned up for us, why do we need to handle and cleanup side effects manually?
+
+Well, as we showed, our `setTimeout` in our example isn't cleaned up even though the `emit` output from the parent is. This means that if you have long-standing code (say, a `useInterval` instead of a `setTimeout`) you'll not release that part of memory back to JavaScript's internal cleanup.
+
+That's the definition of a memory leak: Not allowing the language to clean up old code. Eventually over time, you may even hit an "out of memory" error, where your computer can no longer run your app or site without resetting itself.
+
+> Have the feeling you're missing something? Some of this section requires pre-existing knowledge about how computer memory works both [in hardware land](https://unicorn-utterances.com/posts/how-computers-speak#ram) as well as [how JavaScript handles memory under-the-hood](https://unicorn-utterances.com/posts/object-mutation). It's suggested to read these resources and come back if you're feeling confused.
+
 ### Seeing Hidden Memory Leaks
 
+Not only are the memory leaks we mentioned hidden from the user when using events, there are ways to accidentally expose them to your user as well.
 
+The easiest way to do this is to switch away from an event handler and towards a function being passed from the parent to the child:
 
+<!-- tabs:start -->
 
+#### React
 
+```jsx
+const Alert = ({alert}) => {
+    useEffect(() => {
+        setTimeout(() => {
+            alert();
+        }, 1000)
+    })
+    
+    return (
+        <p>Showing alert...</p>
+    )
+}
+const App = () => {
+    const [show, setShow] = useState(false);
+    const alertUser = () => alert("I am an alert!");
 
+    return (
+        <>
+            <button onClick={() => setShow(!show)}>Toggle</button>
+            {show && <Alert alert={alertUser}/>}
+        </>
+    )
+}
+```
+
+#### Angular
+
+```typescript
+@Component({
+    selector: "app-alert",
+    standalone: true,
+    template: `
+        <p>Showing alert...</p>
+    `
+})
+class AlertComponent implements OnInit {
+    @Input() alert!: () => void;
+
+    ngOnInit() {
+        setTimeout(() => {
+            this.alert();
+        }, 1000)
+    }
+}
+
+@Component({
+    selector: "app-root",
+    standalone: true,
+    imports: [AlertComponent, NgIf],
+    template: `
+        <button (click)="toggle()">Toggle</button>
+        <app-alert *ngIf="show" [alert]="alertUser"/>
+    `
+})
+class AppComponent {
+    show = false;
+    
+    toggle() {
+        this.show = !this.show;
+    }
+
+    alertUser() {
+        alert("I am an alert!");
+    }
+}
+```
+
+#### Vue
+
+```vue
+<!-- Alert.vue -->
+<script setup>
+import { onMounted } from "vue";
+
+const props = defineProps(["alert"]);
+
+onMounted(() => {
+	setTimeout(() => {
+		props.alert?.(); 
+	}, 1000);
+});
+</script>
+
+<template>
+	<p>Showing alert...</p>
+</template>
+```
+
+```vue
+<!-- App.vue -->
+<script setup>
+import { ref } from "vue";
+import Alert from "./Alert.vue";
+
+const show = ref(false);
+
+const toggle = () => (show.value = !show.value);
+
+const alertUser = () => alert("I am an alert!");
+</script>
+
+<template>
+	<!-- Try clicking and unclicking quickly -->
+	<button @click="toggle()">Toggle</button>
+    <!-- Passing a function -->
+	<Alert v-if="show" :alert="alertUser" />
+</template>
+```
+
+<!-- tabs:end -->
+
+Now if we click the "Toggle" button rapidly, you'll end up with multiple `alert`s back-to-back, as many times as you toggled the `Alert` component. Your hidden memory leak is now visible to the user! 😱
+
+> Why does this behavior differ from listening for an event from the parent?
+
+Well, let's look at our old example visually once again:
+
+![Inputs are being passed from a component instance to the DOM and framework root that's then stored in memory](./function_mount_explainer.png)
+
+You may notice that instead of a two-way binding, we're now passing a function reference from the component instance to the framework and DOM. As a result of this passing (rather than listening), [our framework of choice no longer has the ability to forcibly invalidate this reference](https://unicorn-utterances.com/posts/object-mutation). After all, [a function in JavaScript is just a value](https://unicorn-utterances.com/posts/javascript-functions-are-values) which can be passed like any other.
+
+This shift in how we're handling a parent's data (binding vs getting a reference) means that on cleanup, the function passed to a child will not become invalid. Instead, it will persist in memory until it's no longer needed by the child component and cleaned up by JavaScript's internals:
+
+![When the component unmounts, our inputs are persisted in-memory of the DOM](./function_unmount_explainer.png)
+
+This is why it's so important to clean up memory - it's easy to let it become leaky and accidentally shift the user's expected behavior.
 
 ## Cleaning up Event Listeners
 
