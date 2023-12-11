@@ -2348,6 +2348,7 @@ const App = () => {
 			<button onClick={() => setTitle("Movies")}>Movies</button>
 			<button onClick={() => setTitle("Music")}>Music</button>
 			<button onClick={() => setTitle("Documents")}>Documents</button>
+			<p>{{ title }}</p>
 		</div>
 	);
 };
@@ -2360,9 +2361,12 @@ const App = () => {
 	selector: "app-root",
 	standalone: true,
 	template: `
-		<button (click)="title = 'Movies'">Movies</button>
-		<button (click)="title = 'Music'">Music</button>
-		<button (click)="title = 'Documents'">Documents</button>
+		<div>
+			<button (click)="title = 'Movies'">Movies</button>
+			<button (click)="title = 'Music'">Music</button>
+			<button (click)="title = 'Documents'">Documents</button>
+			<p>{{ title }}</p>
+		</div>
 	`,
 })
 class AppComponent {
@@ -2381,9 +2385,12 @@ const title = ref("Movies");
 </script>
 
 <template>
-	<button @click="title = 'Movies'">Movies</button>
-	<button @click="title = 'Music'">Music</button>
-	<button @click="title = 'Documents'">Documents</button>
+	<div>
+		<button @click="title = 'Movies'">Movies</button>
+		<button @click="title = 'Music'">Music</button>
+		<button @click="title = 'Documents'">Documents</button>
+		<p>{{ title }}</p>
+	</div>
 </template>
 ```
 
@@ -2416,6 +2423,7 @@ const App = () => {
 			<button onClick={() => setTitle("Movies")}>Movies</button>
 			<button onClick={() => setTitle("Music")}>Music</button>
 			<button onClick={() => setTitle("Documents")}>Documents</button>
+			<p>{{ title }}</p>
 		</div>
 	);
 };
@@ -2438,9 +2446,10 @@ function App() {
 	const [count, setCount] = useState(0);
 
 	useEffect(() => {
-		setInterval(() => {
+		const interval = setInterval(() => {
 			console.log("Count is: " + count);
 		}, 1000);
+		return () => clearInterval(interval);
 	}, []);
 
 	return (
@@ -2466,200 +2475,16 @@ To solve this, we can add `count` to the `useEffect` array:
 
 ```js
 useEffect(() => {
-	setInterval(() => {
+	const interval = setInterval(() => {
 		console.log("Count is: " + count);
 	}, 1000);
+	return () => clearInterval(interval);
 }, [count]);
 ```
 
-### Persist Data without Re-Rendering Using `useRef`
-
-Let's go back to our `document.title` example. Say that instead of updating the `title` and `document.title` right away, we want to delay the updating of both using a `setTimeout`:
-
-```jsx
-const App = () => {
-	const [title, setTitle] = useState("Movies");
-
-	function updateTitle(val) {
-		setTimeout(() => {
-			setTitle(val);
-			document.title = title.value;
-		}, 5000);
-	}
-
-	return (
-		<div>
-			<button onClick={() => updateTitle("Movies")}>Movies</button>
-			<button onClick={() => updateTitle("Music")}>Music</button>
-			<button onClick={() => updateTitle("Documents")}>Documents</button>
-		</div>
-	);
-};
-```
-
-If we click one of these buttons, and un-render the `App` component, our `setTimeout` will still execute because we've never told this component to cancel the timeout.
-
-While we could solve this problem using a `useState`:
-
-```jsx
-const App = () => {
-	const [title, setTitle] = useState("Movies");
-
-	const [timeoutExpire, setTimeoutExpire] = useState(null);
-
-	function updateTitle(val) {
-		const timeout = setTimeout(() => {
-			setTitle(val);
-			document.title = title.value;
-		}, 5000);
-
-		setTimeoutExpire(timeout);
-	}
-
-	useEffect(() => {
-		return () => clearTimeout(timeoutExpire);
-	}, [timeoutExpire]);
-
-	return (
-		<div>
-			<button onClick={() => updateTitle("Movies")}>Movies</button>
-			<button onClick={() => updateTitle("Music")}>Music</button>
-			<button onClick={() => updateTitle("Documents")}>Documents</button>
-		</div>
-	);
-};
-```
-
-This will trigger a re-render of `App` when we run `updateTitle`. This re-render will not display any new changes, since our `timeoutExpire` property is not used in the DOM, but may be computationally expensive depending on the size of your `App` component.
-
-To sidestep this, we can use an `useRef` hook to store our `setTimeout` return without triggering a re-render:
-
-```jsx
-import { useState, useRef, useEffect } from "react";
-
-const App = () => {
-	const [title, setTitle] = useState("Movies");
-
-	const timeoutExpire = useRef(null);
-
-	function updateTitle(val) {
-		timeoutExpire.current = setTimeout(() => {
-			setTitle(val);
-			document.title = title.value;
-		}, 5000);
-	}
-
-	useEffect(() => {
-		return () => clearTimeout(timeoutExpire.current);
-	}, [timeoutExpire]);
-
-	return (
-		<div>
-			<button onClick={() => updateTitle("Movies")}>Movies</button>
-			<button onClick={() => updateTitle("Music")}>Music</button>
-			<button onClick={() => updateTitle("Documents")}>Documents</button>
-		</div>
-	);
-};
-```
-
-`useRef` allows you to persist data across renders, similar to `useState`. There are two major differences from `useState`:
-
-1. You access data from a ref using `.current`
-2. It does not trigger a re-render when updating values (more on that soon)
-
-This makes `useRef` perfect for things like `setTimeout` and `setInterval` returned values; they need to be persisted in order to cleanup properly, but do not need to display to the user so we can avoid re-rendering.
-
-### `useRef`s Don't Trigger `useEffect`s
-
-Because `useRef` doesn't trigger a re-render, our `useEffect` will never re-run; **`useEffect` doesn't listen to the passed array values, but rather checks _the reference_ of the array's value**.
-
-> What does this mean?
-
-Take the following JavaScript:
-
-```javascript
-const obj1 = { updated: false };
-
-const obj2 = obj1;
-
-obj1.updated = true;
-
-console.log("Is object 2 updated?", obj2.updated); // true
-console.log("Is object 1 and 2 the same?", obj1 === obj2); // true
-```
-
-This code snippet demonstrates how you can mutate a variable's value without changing its underlying memory location.
-
-> [I've written about this underlying concept in JavaScript; if the above is unfamiliar to you, I'd suggest reading through it](https://unicorn-utterances.com/posts/object-mutation).
-
-The `useRef` hook is implemented under-the-hood similar to the following:
-
-```jsx
-const useRef = (initialValue) => {
-	const [value, _] = useState({ current: initialValue });
-
-	return value;
-};
-```
-
-Because the updates to `useRef` do not trigger the second argument of `useState`, it _mutates_ the underlying object rather than _referentially changes_ the object, which would trigger a re-render.
-
-Now, let's see how this fundamental change impacts our usage of `useRef`. Take the following code sample:
-
-```jsx
-import { useRef, useEffect } from "react";
-
-const Comp = () => {
-	const ref = useRef();
-
-	useEffect(() => {
-		ref.current = Date.now();
-	});
-
-	return <p>The current timestamp is: {ref.current}</p>;
-};
-```
-
-Why doesn't this show a timestamp?
-
-This is because when you change `ref` it never causes a re-render, which then never re-draws the `p` .
-
-Here, `useRef` is set to `undefined` and only updates _after_ the initial render in the `useEffect`, which does not cause a re-render.
-
-To solve for this, we must set a `useState` to trigger a re-render.
-
-```jsx
-const Comp = () => {
-	// Set initial value for first render
-	const ref = useRef(Date.now());
-
-	// We're not using the `_` value, just the `set` method in order to force a re-render
-	const [_, setForceRenderNum] = useState(0);
-
-	useEffect(() => {
-		ref.current = Date.now();
-	});
-
-	return (
-		<>
-			// First render won't have `ref.current` set
-			<p>The current timestamp is: {ref.current}</p>
-			<button onClick={() => setForceRenderNum((v) => v + 1)}>
-				Check timestamp
-			</button>
-		</>
-	);
-};
-```
-
-Here, the timestamp display will never update until you press the `button`. Even then, however, `useEffect` will run _after_ the render, meaning that the displayed timestamp will be from the _previous_ occurrence of the `button` press.
-
-[I wrote more about why we shouldn't use `useRef` in `useEffect`s and when and where they're more useful in another article linked here.](https://unicorn-utterances.com/posts/react-refs-complete-story)
-
 ## Angular
 
-While Angular _today_ does not include a method for tracking internal state changes, a future version of Angular will introduce the concept of ["Signals"](https://github.com/angular/angular/discussions/49090), which will allow us to watch changes made to a variable, regardless of where the state change come from.
+While Angular _today_ does not include a method for tracking internal state changes, a future version of Angular will introduce the concept of ["Signals"](https://angular.io/guide/signals), which will allow us to watch changes made to a variable, regardless of where the state change come from.
 
 Instead, we'll have to use a `setTitle` function that calls the variable mutation as well as sets the `document.title` as a side effect:
 
@@ -2668,9 +2493,12 @@ Instead, we'll have to use a `setTitle` function that calls the variable mutatio
 	selector: "app-root",
 	standalone: true,
 	template: `
-		<button (click)="setTitles('Movies')">Movies</button>
-		<button (click)="setTitles('Music')">Music</button>
-		<button (click)="setTitles('Documents')">Documents</button>
+		<div>
+			<button (click)="setTitles('Movies')">Movies</button>
+			<button (click)="setTitles('Music')">Music</button>
+			<button (click)="setTitles('Documents')">Documents</button>
+			<p>{{ title }}</p>
+		</div>
 	`,
 })
 class AppComponent {
@@ -2703,9 +2531,12 @@ watchEffect(() => {
 </script>
 
 <template>
-	<button @click="title = 'Movies'">Movies</button>
-	<button @click="title = 'Music'">Music</button>
-	<button @click="title = 'Documents'">Documents</button>
+	<div>
+		<button @click="title = 'Movies'">Movies</button>
+		<button @click="title = 'Music'">Music</button>
+		<button @click="title = 'Documents'">Documents</button>
+		<p>{{ title }}</p>
+	</div>
 </template>
 ```
 
@@ -2818,6 +2649,309 @@ watch([title, count], (currentValue, previousValue, onCleanup) => {
 
 	onCleanup(() => clearTimeout(timeout));
 });
+```
+
+<!-- tabs:end -->
+
+## Changing Data without Renderings
+
+Sometimes it's not ideal to trigger a re-render every time you want to set a variable's state.
+
+For example, let's go back to our `document.title` example. Say that instead of updating the `title` and `document.title` right away, we want to delay the updating of both using a `setTimeout`:
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+const App = () => {
+	const [title, setTitle] = useState("Movies");
+
+	function updateTitle(val) {
+		const timeout = setTimeout(() => {
+			setTitle(val);
+			document.title = title.value;
+		}, 5000);
+		return () => clearTimeout(timeout);
+	}
+
+	return (
+		<div>
+			<button onClick={() => updateTitle("Movies")}>Movies</button>
+			<button onClick={() => updateTitle("Music")}>Music</button>
+			<button onClick={() => updateTitle("Documents")}>Documents</button>
+			<p>{{ title }}</p>
+		</div>
+	);
+};
+```
+
+### Angular
+
+// TODO: Write
+
+### Vue
+
+// TODO: Write
+
+<!-- tabs:end -->
+
+If we click one of these buttons, and un-render the `App` component, our `setTimeout` will still execute because we've never told this component to cancel the timeout.
+
+While we could solve this problem using a stateful variable:
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+const App = () => {
+	const [title, setTitle] = useState("Movies");
+
+	const [timeoutExpire, setTimeoutExpire] = useState(null);
+
+	function updateTitle(val) {
+		clearTimeout(timeoutExpire);
+		const timeout = setTimeout(() => {
+			setTitle(val);
+			document.title = title.value;
+		}, 5000);
+
+		setTimeoutExpire(timeout);
+	}
+
+	useEffect(() => {
+		return () => clearTimeout(timeoutExpire);
+	}, []);
+
+	return (
+		<div>
+			<button onClick={() => updateTitle("Movies")}>Movies</button>
+			<button onClick={() => updateTitle("Music")}>Music</button>
+			<button onClick={() => updateTitle("Documents")}>Documents</button>
+			<p>{{ title }}</p>
+		</div>
+	);
+};
+```
+
+### Angular
+
+// TODO: Write
+
+### Vue
+
+// TODO: Write
+
+<!-- tabs:end -->
+
+This will trigger a re-render of `App` when we run `updateTitle`. This re-render will not display any new changes, since our `timeoutExpire` property is not used in the DOM, but may be computationally expensive depending on the size of your `App` component.
+
+Luckily for us, each framework has the ability to sidestep a render while persisting a value in a component's state.
+
+<!-- tabs:start -->
+
+### React
+
+To store a variable's state in a React function component without triggering a re-render, we can use an `useRef` hook to store our `setTimeout` return without triggering a re-render:
+
+```jsx
+import { useState, useRef, useEffect } from "react";
+
+const App = () => {
+	const [title, setTitle] = useState("Movies");
+
+	const timeoutExpire = useRef(null);
+
+	function updateTitle(val) {
+		timeoutExpire.current = setTimeout(() => {
+			setTitle(val);
+			document.title = val;
+		}, 5000);
+	}
+
+	useEffect(() => {
+		return () => clearTimeout(timeoutExpire.current);
+	}, [timeoutExpire]);
+
+	return (
+		<div>
+			<button onClick={() => updateTitle("Movies")}>Movies</button>
+			<button onClick={() => updateTitle("Music")}>Music</button>
+			<button onClick={() => updateTitle("Documents")}>Documents</button>
+			<p>{{ title }}</p>
+		</div>
+	);
+};
+```
+
+`useRef` allows you to persist data across renders, similar to `useState`. There are two major differences from `useState`:
+
+1. You access data from a ref using `.current`
+2. It does not trigger a re-render when updating values (more on that soon)
+
+This makes `useRef` perfect for things like `setTimeout` and `setInterval` returned values; they need to be persisted in order to cleanup properly, but do not need to display to the user so we can avoid re-rendering.
+
+#### `useRef`s Don't Trigger `useEffect`s
+
+Because `useRef` doesn't trigger a re-render, our `useEffect` will never re-run; **`useEffect` doesn't listen to the passed array values, but rather checks _the reference_ of the array's value**.
+
+> What does this mean?
+
+Take the following JavaScript:
+
+```javascript
+const obj1 = { updated: false };
+
+const obj2 = obj1;
+
+obj1.updated = true;
+
+console.log("Is object 2 updated?", obj2.updated); // true
+console.log("Is object 1 and 2 the same?", obj1 === obj2); // true
+```
+
+This code snippet demonstrates how you can mutate a variable's value without changing its underlying memory location.
+
+> [I've written about this underlying concept in JavaScript; if the above is unfamiliar to you, I'd suggest reading through it](https://unicorn-utterances.com/posts/object-mutation).
+
+The `useRef` hook is implemented under-the-hood similar to the following:
+
+```jsx
+const useRef = (initialValue) => {
+	const [value, _] = useState({ current: initialValue });
+
+	return value;
+};
+```
+
+Because the updates to `useRef` do not trigger the second argument of `useState`, it _mutates_ the underlying object rather than _referentially changes_ the object, which would trigger a re-render.
+
+Now, let's see how this fundamental change impacts our usage of `useRef`. Take the following code sample:
+
+```jsx
+import { useRef, useEffect } from "react";
+
+const Comp = () => {
+	const ref = useRef();
+
+	useEffect(() => {
+		ref.current = Date.now();
+	});
+
+	return <p>The current timestamp is: {ref.current}</p>;
+};
+```
+
+Why doesn't this show a timestamp?
+
+This is because when you change `ref` it never causes a re-render, which then never re-draws the `p` .
+
+Here, `useRef` is set to `undefined` and only updates _after_ the initial render in the `useEffect`, which does not cause a re-render.
+
+To solve for this, we must set a `useState` to trigger a re-render.
+
+```jsx
+const Comp = () => {
+	// Set initial value for first render
+	const ref = useRef(Date.now());
+
+	// We're not using the `_` value, just the `set` method in order to force a re-render
+	const [_, setForceRenderNum] = useState(0);
+
+	useEffect(() => {
+		ref.current = Date.now();
+	});
+
+	return (
+		<div>
+			{/* First render won't have `ref.current` set */}
+			<p>The current timestamp is: {ref.current}</p>
+			<button onClick={() => setForceRenderNum((v) => v + 1)}>
+				Check timestamp
+			</button>
+		</div>
+	);
+};
+```
+
+Here, the timestamp display will never update until you press the `button`. Even then, however, `useEffect` will run _after_ the render, meaning that the displayed timestamp will be from the _previous_ occurrence of the `button` press.
+
+[I wrote more about why we shouldn't use `useRef` in `useEffect`s and when and where they're more useful in another article linked here.](https://unicorn-utterances.com/posts/react-refs-complete-story)
+
+### Angular
+
+> While writing this book, dear reader, I had a few objectives. One of those objectives was to not introduce an API without first explaining it. I am about to break this rule for the only time I'm aware of in this book. Please forgive me.
+
+// TODO: Write
+
+```typescript
+@Component({
+	selector: "app-root",
+	standalone: true,
+	template: `
+		<div>
+			<button (click)="updateTitle('Movies')">Movies</button>
+			<button (click)="updateTitle('Music')">Music</button>
+			<button (click)="updateTitle('Documents')">Documents</button>
+			<p>{{ title }}</p>
+		</div>
+	`,
+})
+export class AppComponent {
+	title = "Movies";
+
+	timeoutExpire: any = null;
+
+	// This is using "Dependency Injection" (chapter 11)
+	// To access Angular's internals and expose them to you
+	ngZone = inject(NgZone);
+
+	updateTitle(val: string) {
+		clearTimeout(this.timeoutExpire);
+		// Do not run this in runOutsideAngular, otherwise `title` will never update
+		const expire = setTimeout(() => {
+			this.title = val;
+			document.title = val;
+		}, 5000);
+
+		this.ngZone.runOutsideAngular(() => {
+			this.timeoutExpire = expire;
+		});
+	}
+}
+```
+
+### Vue
+
+// TODO: Write
+
+```vue
+<script setup>
+import { watch, ref, onUnmounted } from "vue";
+const title = ref("Movies");
+
+let timeoutExpire = null;
+
+function updateTitle(val) {
+	clearTimeout(timeoutExpire);
+	timeoutExpire = setTimeout(() => {
+		title.value = val;
+		document.title = val;
+	}, 5000);
+}
+
+onUnmounted(() => clearTimeout(timeoutExpire));
+</script>
+
+<template>
+	<div>
+		<button @click="updateTitle('Movies')">Movies</button>
+		<button @click="updateTitle('Music')">Music</button>
+		<button @click="updateTitle('Documents')">Documents</button>
+		<p>{{ title }}</p>
+	</div>
+</template>
 ```
 
 <!-- tabs:end -->
@@ -2962,10 +3096,12 @@ watch(
 </script>
 
 <template>
-	<button @click="title = 'Movies'">Movies</button>
-	<button @click="title = 'Music'">Music</button>
-	<button @click="title = 'Documents'">Documents</button>
-	<p id="title-paragraph">{{ title }}</p>
+	<div>
+		<button @click="title = 'Movies'">Movies</button>
+		<button @click="title = 'Music'">Music</button>
+		<button @click="title = 'Documents'">Documents</button>
+		<p id="title-paragraph">{{ title }}</p>
+	</div>
 </template>
 ```
 
