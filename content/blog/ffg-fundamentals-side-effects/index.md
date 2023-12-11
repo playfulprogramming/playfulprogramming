@@ -1656,6 +1656,8 @@ class AppComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Hidden Memory Leak Events - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-hidden-memory-leak-events-35?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ### Vue
 
 ```vue
@@ -1699,6 +1701,8 @@ const alertUser = () => alert("I am an alert!");
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Hidden Memory Leak Events - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-hidden-memory-leak-events-35?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1782,15 +1786,14 @@ const App = () => {
 	selector: "app-root",
 	template: `
 		<div>
-            <!-- One: -->
-            <app-comp />
-            <!-- Two: -->
-            <app-comp />
-        </div>
+			<!-- One: -->
+			<app-comp />
+			<!-- Two: -->
+			<app-comp />
+		</div>
 	`,
 })
-class AppComponent {
-}
+class AppComponent {}
 ```
 
 ### Vue
@@ -1840,71 +1843,71 @@ The easiest way to do this is to switch away from an event handler and towards a
 #### React
 
 ```jsx
-const Alert = ({alert}) => {
-    useEffect(() => {
-        setTimeout(() => {
-            alert();
-        }, 1000)
-    })
-    
-    return (
-        <p>Showing alert...</p>
-    )
-}
-const App = () => {
-    const [show, setShow] = useState(false);
-    const alertUser = () => alert("I am an alert!");
+const Alert = ({ alert }) => {
+	useEffect(() => {
+		setTimeout(() => {
+			alert();
+		}, 1000);
+	});
 
-    return (
-        <>
-            <button onClick={() => setShow(!show)}>Toggle</button>
-            {show && <Alert alert={alertUser}/>}
-        </>
-    )
-}
+	return <p>Showing alert...</p>;
+};
+const App = () => {
+	const [show, setShow] = useState(false);
+	const alertUser = () => alert("I am an alert!");
+
+	return (
+		<>
+			<button onClick={() => setShow(!show)}>Toggle</button>
+			{show && <Alert alert={alertUser} />}
+		</>
+	);
+};
 ```
+
+<iframe data-frame-title="React Hidden Memory Leak Functions - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-hidden-memory-leak-functions-36?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 #### Angular
 
 ```typescript
 @Component({
-    selector: "app-alert",
-    standalone: true,
-    template: `
-        <p>Showing alert...</p>
-    `
+	selector: "app-alert",
+	standalone: true,
+	template: ` <p>Showing alert...</p> `,
 })
 class AlertComponent implements OnInit {
-    @Input() alert!: () => void;
+	@Input() alert!: () => void;
 
-    ngOnInit() {
-        setTimeout(() => {
-            this.alert();
-        }, 1000)
-    }
+	ngOnInit() {
+		setTimeout(() => {
+			this.alert();
+		}, 1000);
+	}
 }
 
 @Component({
-    selector: "app-root",
-    standalone: true,
-    imports: [AlertComponent, NgIf],
-    template: `
-        <button (click)="toggle()">Toggle</button>
-        <app-alert *ngIf="show" [alert]="alertUser"/>
-    `
+	selector: "app-root",
+	standalone: true,
+	imports: [AlertComponent, NgIf],
+	template: `
+		<button (click)="toggle()">Toggle</button>
+		<app-alert *ngIf="show" [alert]="alertUser" />
+	`,
 })
 class AppComponent {
-    show = false;
-    
-    toggle() {
-        this.show = !this.show;
-    }
+	show = false;
 
-    alertUser() {
-        alert("I am an alert!");
-    }
+	toggle() {
+		this.show = !this.show;
+	}
+
+	alertUser() {
+		alert("I am an alert!");
+	}
 }
 ```
+
+<iframe data-frame-title="Angular Hidden Memory Leak Functions - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-hidden-memory-leak-functions-36?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 #### Vue
 
@@ -1917,7 +1920,7 @@ const props = defineProps(["alert"]);
 
 onMounted(() => {
 	setTimeout(() => {
-		props.alert?.(); 
+		props.alert?.();
 	}, 1000);
 });
 </script>
@@ -1943,10 +1946,12 @@ const alertUser = () => alert("I am an alert!");
 <template>
 	<!-- Try clicking and unclicking quickly -->
 	<button @click="toggle()">Toggle</button>
-    <!-- Passing a function -->
+	<!-- Passing a function -->
 	<Alert v-if="show" :alert="alertUser" />
 </template>
 ```
+
+<iframe data-frame-title="Vue Hidden Memory Leak Functions - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-hidden-memory-leak-functions-36?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
