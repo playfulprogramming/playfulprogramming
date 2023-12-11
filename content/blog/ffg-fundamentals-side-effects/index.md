@@ -2282,6 +2282,8 @@ const ReRenderListener = () => {
 };
 ```
 
+<iframe data-frame-title="React Re-Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-re-render-38?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 Because the `button` triggers a re-render, `useEffect` will run, even if there is not a paint.
 
 > You may think we're done with `useEffect` now, but there's yet another usage for the passed array, which we'll touch on shortly.
@@ -2298,12 +2300,16 @@ To answer "why" is a much longer topic, [which I've written about in a dedicated
 
 ## Vue
 
-```vue
+```vue {2,10-12}
 <!-- ReRenderListener.vue -->
 <script setup>
-import { onUpdated } from "vue";
+import { ref, onUpdated } from "vue";
 
-const props = defineProps(["val"]);
+const count = ref(0);
+
+const add = () => {
+	count.value++;
+};
 
 onUpdated(() => {
 	console.log("Component was painted");
@@ -2311,9 +2317,11 @@ onUpdated(() => {
 </script>
 
 <template>
-	<div>{{ val }}</div>
+	<button @click="add()">{{ count }}</button>
 </template>
 ```
+
+<iframe data-frame-title="Vue Re-Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-re-render-38?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 Every time the `ReRenderListener` component updates the DOM with new changes, the `onUpdated` method will run.
 
