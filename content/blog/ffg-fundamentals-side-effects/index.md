@@ -2711,7 +2711,7 @@ For example, let's say you want to measure the size of an HTML element and displ
 
 Let's use `useLayoutEffect` to calculate the bounding box of an element in order to position another element:
 
-```jsx
+```jsx {0,13-19}
 import { useState, useLayoutEffect } from "react";
 
 function App() {
@@ -2730,19 +2730,8 @@ function App() {
 		// This should be using a `ref`. More on that in a future chapter
 		const el = document.querySelector("#number");
 		const b = el?.getBoundingClientRect();
-		if (
-			bounding.top === b.top &&
-			bounding.bottom === b.bottom &&
-			bounding.left === b.left &&
-			bounding.right === b.right &&
-			bounding.height === b.height
-		) {
-			// Prevent infinite re-renders
-			return;
-		}
-		console.log(b);
 		setBounding(b);
-	});
+	}, [num]);
 
 	return (
 		<div>
@@ -2774,9 +2763,9 @@ While the initial value is set to `10` with an arrow pointing to the `1`, if we 
 
 ![An uptick symbol facing the 1 in a number of 1000 painted in the DOM](./dom_measure_uselayout_effect.png)
 
-## Angular
+<iframe data-frame-title="React Rendering, Committing, Painting - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-rendering-committing-painting-40?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
- <!-- Note to author: This is because Angular does not use a virtual DOM but instead uses an incremental DOM. This is why there's no clean direct "re-render" lifecycle method -->
+## Angular
 
 Because Angular does not use a virtual DOM, it does not have a method to detect specific parts of the reconciliation process.
 
@@ -2798,7 +2787,7 @@ watch(
 	() => {
 		const el = document.querySelector("#title-paragraph");
 
-		console.log(el?.innerText);
+		alert(el?.innerText);
 	},
 	{ immediate: true },
 );
@@ -2813,6 +2802,8 @@ watch(
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Rendering, Committing, Painting Broken - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-rendering-committing-painting-broken-40?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 Here, when we click any of the buttons to trigger a `title` change you may notice that it shows the _previous_ value of the element's `innerText`. For example, when we press "Music", it shows the `innerText` of `Movies`, which was the previous value of `title`.
 
@@ -2832,11 +2823,13 @@ watch(
 	() => {
 		const el = document.querySelector("#title-paragraph");
 
-		console.log(el?.innerText);
+		alert(el?.innerText);
 	},
 	{ immediate: true, flush: "post" },
 );
 ```
+
+<iframe data-frame-title="Vue Rendering, Committing, Painting - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-rendering-committing-painting-40?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 Now when we click on an item, it will print out the current version of `title` for the element's `innerText`.
 
