@@ -1,3 +1,4 @@
+<<<<<<< HEAD:content/crutchcorn/posts/angular-templates-start-to-source/start-to-source-17-see-viewcontainer-indexes/src/polyfills.ts
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.
@@ -60,3 +61,6 @@ import "zone.js/dist/zone"; // Included with Angular CLI.
  * Needed for: All but Chrome, Firefox, Edge, IE11 and Safari 10
  */
 // import 'intl';  // Run `npm install --save intl`.
+=======
+import "zone.js/dist/zone";
+>>>>>>> 2869bb06 (docs: update code samples to work as-intended):content/blog/angular-templates-start-to-source/start-to-source-17-see-viewcontainer-indexes/src/polyfills.ts
