@@ -2348,7 +2348,7 @@ const App = () => {
 			<button onClick={() => setTitle("Movies")}>Movies</button>
 			<button onClick={() => setTitle("Music")}>Music</button>
 			<button onClick={() => setTitle("Documents")}>Documents</button>
-			<p>{{ title }}</p>
+			<p>{title}</p>
 		</div>
 	);
 };
@@ -2413,7 +2413,7 @@ const App = () => {
 	const [title, setTitle] = useState("Movies");
 
 	useEffect(() => {
-		document.title = title.value;
+		document.title = title;
 
 		// Ask React to only run this `useEffect` if `title` has changed
 	}, [title]);
@@ -2423,11 +2423,13 @@ const App = () => {
 			<button onClick={() => setTitle("Movies")}>Movies</button>
 			<button onClick={() => setTitle("Music")}>Music</button>
 			<button onClick={() => setTitle("Documents")}>Documents</button>
-			<p>{{ title }}</p>
+			<p>{title}</p>
 		</div>
 	);
 };
 ```
+
+<iframe data-frame-title="React In-Component Side Effects - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-in-component-side-effects-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 By doing this, we're _hinting_ to React that this side effect should only ever run when the `test` variable's _reference_ has changed during a render.
 
@@ -2461,6 +2463,8 @@ function App() {
 }
 ```
 
+<iframe data-frame-title="React Stale Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-stale-values-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 Here, we're telling React to `console.log` the `count` value every second inside of a `setInterval`.
 
 However, because we're not passing `count` to the `useEffect` array, the `console.log` will never show any value other than:
@@ -2482,6 +2486,8 @@ useEffect(() => {
 }, [count]);
 ```
 
+<iframe data-frame-title="React Fixed Stale Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-fixed-stale-values-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 While Angular _today_ does not include a method for tracking internal state changes, a future version of Angular will introduce the concept of ["Signals"](https://angular.io/guide/signals), which will allow us to watch changes made to a variable, regardless of where the state change come from.
@@ -2494,9 +2500,9 @@ Instead, we'll have to use a `setTitle` function that calls the variable mutatio
 	standalone: true,
 	template: `
 		<div>
-			<button (click)="setTitles('Movies')">Movies</button>
-			<button (click)="setTitles('Music')">Music</button>
-			<button (click)="setTitles('Documents')">Documents</button>
+			<button (click)="title = setTitles('Movies')">Movies</button>
+			<button (click)="title = setTitles('Music')">Music</button>
+			<button (click)="title = setTitles('Documents')">Documents</button>
 			<p>{{ title }}</p>
 		</div>
 	`,
@@ -2510,6 +2516,8 @@ class AppComponent {
 	title = this.setTitles("Movies");
 }
 ```
+
+<iframe data-frame-title="Angular In-Component Side Effects - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-in-component-side-effects-39?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -2539,6 +2547,8 @@ watchEffect(() => {
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue In-Component Side Effects - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-in-component-side-effects-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 How does `watchEffect` know what refs to watch? The long answer dives deep into Vue's source code and is a challenge to introduce at this stage.
 
@@ -2573,6 +2583,8 @@ watchEffect(() => {
 });
 ```
 
+<iframe data-frame-title="Vue Broken Broken Watch Effect Tracking - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-watch-effect-tracking-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
 It will only track changes to `count`, as the `title.value` usage is inside of an async operation.
 
 ### Manually Track Changes with `watch`
@@ -2582,7 +2594,6 @@ It will only track changes to `count`, as the `title.value` usage is inside of a
 While `watchEffect` seemingly magically detects what variables to listen to, `watch` requires you to be explicit about what properties to listen for changes on:
 
 ```javascript
-import AlarmScreen from "./AlarmScreen.vue";
 import { ref, watch } from "vue";
 
 const title = ref("Movies");
@@ -2596,6 +2607,8 @@ watch(
 	{ immediate: true },
 );
 ```
+
+<iframe data-frame-title="Vue Watch - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-watch-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 > You may notice that we're passing `{immediate: true}` as the options for the `watch`; what is that doing?
 >
@@ -2632,10 +2645,7 @@ watch(
 );
 ```
 
-Similarly, `watch` supports both of the following carried over from `watchEffect`:
-
-1. Removing `{immediate: true}` to not run on first render
-2. Passing an `onCleanup` method to cleanup watched side effects
+`watch` also supports passing an `onCleanup` method to cleanup watched side effects, much like the `watchEffect` API:
 
 ```javascript
 const title = ref("Movies");
@@ -2650,6 +2660,8 @@ watch([title, count], (currentValue, previousValue, onCleanup) => {
 	onCleanup(() => clearTimeout(timeout));
 });
 ```
+
+<iframe data-frame-title="Vue Watch Multiple - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-watch-multiple-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
