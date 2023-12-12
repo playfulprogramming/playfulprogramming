@@ -2672,7 +2672,6 @@ const App = () => {
 			setTitle(val);
 			document.title = title.value;
 		}, 5000);
-		return () => clearTimeout(timeout);
 	}
 
 	return (
@@ -2688,11 +2687,55 @@ const App = () => {
 
 ### Angular
 
-// TODO: Write
+```typescript
+@Component({
+	selector: "app-root",
+	standalone: true,
+	template: `
+		<div>
+			<button (click)="updateTitle('Movies')">Movies</button>
+			<button (click)="updateTitle('Music')">Music</button>
+			<button (click)="updateTitle('Documents')">Documents</button>
+			<p>{{ title }}</p>
+		</div>
+	`,
+})
+export class AppComponent {
+	title = "Movies";
+
+	updateTitle(val: string) {
+		setTimeout(() => {
+			this.title = val;
+			document.title = val;
+		}, 5000);
+	}
+}
+```
 
 ### Vue
 
-// TODO: Write
+```vue
+<script setup>
+import { ref } from "vue";
+const title = ref("Movies");
+
+function updateTitle(val) {
+	setTimeout(() => {
+		title.value = val;
+		document.title = val;
+	}, 5000);
+}
+</script>
+
+<template>
+	<div>
+		<button @click="updateTitle('Movies')">Movies</button>
+		<button @click="updateTitle('Music')">Music</button>
+		<button @click="updateTitle('Documents')">Documents</button>
+		<p>{{ title }}</p>
+	</div>
+</template>
+```
 
 <!-- tabs:end -->
 
@@ -2737,11 +2780,67 @@ const App = () => {
 
 ### Angular
 
-// TODO: Write
+```typescript
+@Component({
+	selector: "app-root",
+	standalone: true,
+	template: `
+		<div>
+			<button (click)="updateTitle('Movies')">Movies</button>
+			<button (click)="updateTitle('Music')">Music</button>
+			<button (click)="updateTitle('Documents')">Documents</button>
+			<p>{{ title }}</p>
+		</div>
+	`,
+})
+export class AppComponent implements OnDestroy {
+	title = "Movies";
+
+	timeoutExpire: any = null;
+
+	updateTitle(val: string) {
+		clearTimeout(this.timeoutExpire);
+		this.timeoutExpire = setTimeout(() => {
+			this.title = val;
+			document.title = val;
+		}, 5000);
+	}
+
+	ngOnDestroy() {
+		clearTimeout(this.timeoutExpire);
+	}
+}
+```
 
 ### Vue
 
-// TODO: Write
+```vue
+<script setup>
+import { ref, onUnmounted } from "vue";
+const title = ref("Movies");
+
+const timeoutExpire = ref(null);
+
+function updateTitle(val) {
+	clearTimeout(timeoutExpire.value);
+	setTimeout(() => {
+		title.value = val;
+		document.title = val;
+	}, 5000);
+}
+
+onUnmounted(() => clearTimeout(timeoutExpire.value));
+</script>
+
+<template>
+	<div>
+		<button @click="updateTitle('Movies')">Movies</button>
+		<button @click="updateTitle('Music')">Music</button>
+		<button @click="updateTitle('Documents')">Documents</button>
+		<p>{{ title }}</p>
+	</div>
+</template>
+```
 
 <!-- tabs:end -->
 
@@ -2755,7 +2854,7 @@ Luckily for us, each framework has the ability to sidestep a render while persis
 
 To store a variable's state in a React function component without triggering a re-render, we can use an `useRef` hook to store our `setTimeout` return without triggering a re-render:
 
-```jsx
+```jsx {5, 8-11}
 import { useState, useRef, useEffect } from "react";
 
 const App = () => {
@@ -2883,9 +2982,13 @@ Here, the timestamp display will never update until you press the `button`. Even
 
 > While writing this book, dear reader, I had a few objectives. One of those objectives was to not introduce an API without first explaining it. I am about to break this rule for the only time I'm aware of in this book. Please forgive me.
 
-// TODO: Write
+[While the internals of how Angular is able to detect changes in values is complex](https://unicorn-utterances.com/posts/angular-internals-zonejs), the simple answer is "It uses some magic in something called [Zone.js](https://unicorn-utterances.com/posts/angular-internals-zonejs) to automatically detect when you change a value."
 
-```typescript
+To sidestep this detection from Zone.js in Angular, you can tell the framework to run something "outside of Angular".
+
+To do this, we need to utilize ["Dependency Injection"](/posts/ffg-fundamentals-dependency-injection) to access Angular's internal `NgZone` reference and use the `runOutsideAngular` method:
+
+```typescript {17-19,29-31}
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -2898,7 +3001,7 @@ Here, the timestamp display will never update until you press the `button`. Even
 		</div>
 	`,
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
 	title = "Movies";
 
 	timeoutExpire: any = null;
@@ -2919,12 +3022,18 @@ export class AppComponent {
 			this.timeoutExpire = expire;
 		});
 	}
+
+	ngOnDestroy() {
+		clearTimeout(this.timeoutExpire);
+	}
 }
 ```
 
+> If `inject` seems magic to you, it might as well be. To explore how dependency injection works under-the-hood, [check out chapter 11, which explores the topic](/posts/ffg-fundamentals-dependency-injection).
+
 ### Vue
 
-// TODO: Write
+Because Vue uses a `script` that only executes once per component run, we can rely on mutating the variable's value using [the `let` variable keyword](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let).
 
 ```vue
 <script setup>
