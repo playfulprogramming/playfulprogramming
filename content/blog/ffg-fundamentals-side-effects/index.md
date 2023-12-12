@@ -2653,418 +2653,6 @@ watch([title, count], (currentValue, previousValue, onCleanup) => {
 
 <!-- tabs:end -->
 
-## Changing Data without Renderings
-
-Sometimes it's not ideal to trigger a re-render every time you want to set a variable's state.
-
-For example, let's go back to our `document.title` example. Say that instead of updating the `title` and `document.title` right away, we want to delay the updating of both using a `setTimeout`:
-
-<!-- tabs:start -->
-
-### React
-
-```jsx
-const App = () => {
-	const [title, setTitle] = useState("Movies");
-
-	function updateTitle(val) {
-		const timeout = setTimeout(() => {
-			setTitle(val);
-			document.title = title.value;
-		}, 5000);
-	}
-
-	return (
-		<div>
-			<button onClick={() => updateTitle("Movies")}>Movies</button>
-			<button onClick={() => updateTitle("Music")}>Music</button>
-			<button onClick={() => updateTitle("Documents")}>Documents</button>
-			<p>{{ title }}</p>
-		</div>
-	);
-};
-```
-
-### Angular
-
-```typescript
-@Component({
-	selector: "app-root",
-	standalone: true,
-	template: `
-		<div>
-			<button (click)="updateTitle('Movies')">Movies</button>
-			<button (click)="updateTitle('Music')">Music</button>
-			<button (click)="updateTitle('Documents')">Documents</button>
-			<p>{{ title }}</p>
-		</div>
-	`,
-})
-export class AppComponent {
-	title = "Movies";
-
-	updateTitle(val: string) {
-		setTimeout(() => {
-			this.title = val;
-			document.title = val;
-		}, 5000);
-	}
-}
-```
-
-### Vue
-
-```vue
-<script setup>
-import { ref } from "vue";
-const title = ref("Movies");
-
-function updateTitle(val) {
-	setTimeout(() => {
-		title.value = val;
-		document.title = val;
-	}, 5000);
-}
-</script>
-
-<template>
-	<div>
-		<button @click="updateTitle('Movies')">Movies</button>
-		<button @click="updateTitle('Music')">Music</button>
-		<button @click="updateTitle('Documents')">Documents</button>
-		<p>{{ title }}</p>
-	</div>
-</template>
-```
-
-<!-- tabs:end -->
-
-If we click one of these buttons, and un-render the `App` component, our `setTimeout` will still execute because we've never told this component to cancel the timeout.
-
-While we could solve this problem using a stateful variable:
-
-<!-- tabs:start -->
-
-### React
-
-```jsx
-const App = () => {
-	const [title, setTitle] = useState("Movies");
-
-	const [timeoutExpire, setTimeoutExpire] = useState(null);
-
-	function updateTitle(val) {
-		clearTimeout(timeoutExpire);
-		const timeout = setTimeout(() => {
-			setTitle(val);
-			document.title = title.value;
-		}, 5000);
-
-		setTimeoutExpire(timeout);
-	}
-
-	useEffect(() => {
-		return () => clearTimeout(timeoutExpire);
-	}, []);
-
-	return (
-		<div>
-			<button onClick={() => updateTitle("Movies")}>Movies</button>
-			<button onClick={() => updateTitle("Music")}>Music</button>
-			<button onClick={() => updateTitle("Documents")}>Documents</button>
-			<p>{{ title }}</p>
-		</div>
-	);
-};
-```
-
-### Angular
-
-```typescript
-@Component({
-	selector: "app-root",
-	standalone: true,
-	template: `
-		<div>
-			<button (click)="updateTitle('Movies')">Movies</button>
-			<button (click)="updateTitle('Music')">Music</button>
-			<button (click)="updateTitle('Documents')">Documents</button>
-			<p>{{ title }}</p>
-		</div>
-	`,
-})
-export class AppComponent implements OnDestroy {
-	title = "Movies";
-
-	timeoutExpire: any = null;
-
-	updateTitle(val: string) {
-		clearTimeout(this.timeoutExpire);
-		this.timeoutExpire = setTimeout(() => {
-			this.title = val;
-			document.title = val;
-		}, 5000);
-	}
-
-	ngOnDestroy() {
-		clearTimeout(this.timeoutExpire);
-	}
-}
-```
-
-### Vue
-
-```vue
-<script setup>
-import { ref, onUnmounted } from "vue";
-const title = ref("Movies");
-
-const timeoutExpire = ref(null);
-
-function updateTitle(val) {
-	clearTimeout(timeoutExpire.value);
-	setTimeout(() => {
-		title.value = val;
-		document.title = val;
-	}, 5000);
-}
-
-onUnmounted(() => clearTimeout(timeoutExpire.value));
-</script>
-
-<template>
-	<div>
-		<button @click="updateTitle('Movies')">Movies</button>
-		<button @click="updateTitle('Music')">Music</button>
-		<button @click="updateTitle('Documents')">Documents</button>
-		<p>{{ title }}</p>
-	</div>
-</template>
-```
-
-<!-- tabs:end -->
-
-This will trigger a re-render of `App` when we run `updateTitle`. This re-render will not display any new changes, since our `timeoutExpire` property is not used in the DOM, but may be computationally expensive depending on the size of your `App` component.
-
-Luckily for us, each framework has the ability to sidestep a render while persisting a value in a component's state.
-
-<!-- tabs:start -->
-
-### React
-
-To store a variable's state in a React function component without triggering a re-render, we can use an `useRef` hook to store our `setTimeout` return without triggering a re-render:
-
-```jsx {5, 8-11}
-import { useState, useRef, useEffect } from "react";
-
-const App = () => {
-	const [title, setTitle] = useState("Movies");
-
-	const timeoutExpire = useRef(null);
-
-	function updateTitle(val) {
-		timeoutExpire.current = setTimeout(() => {
-			setTitle(val);
-			document.title = val;
-		}, 5000);
-	}
-
-	useEffect(() => {
-		return () => clearTimeout(timeoutExpire.current);
-	}, [timeoutExpire]);
-
-	return (
-		<div>
-			<button onClick={() => updateTitle("Movies")}>Movies</button>
-			<button onClick={() => updateTitle("Music")}>Music</button>
-			<button onClick={() => updateTitle("Documents")}>Documents</button>
-			<p>{{ title }}</p>
-		</div>
-	);
-};
-```
-
-`useRef` allows you to persist data across renders, similar to `useState`. There are two major differences from `useState`:
-
-1. You access data from a ref using `.current`
-2. It does not trigger a re-render when updating values (more on that soon)
-
-This makes `useRef` perfect for things like `setTimeout` and `setInterval` returned values; they need to be persisted in order to cleanup properly, but do not need to display to the user so we can avoid re-rendering.
-
-#### `useRef`s Don't Trigger `useEffect`s
-
-Because `useRef` doesn't trigger a re-render, our `useEffect` will never re-run; **`useEffect` doesn't listen to the passed array values, but rather checks _the reference_ of the array's value**.
-
-> What does this mean?
-
-Take the following JavaScript:
-
-```javascript
-const obj1 = { updated: false };
-
-const obj2 = obj1;
-
-obj1.updated = true;
-
-console.log("Is object 2 updated?", obj2.updated); // true
-console.log("Is object 1 and 2 the same?", obj1 === obj2); // true
-```
-
-This code snippet demonstrates how you can mutate a variable's value without changing its underlying memory location.
-
-> [I've written about this underlying concept in JavaScript; if the above is unfamiliar to you, I'd suggest reading through it](https://unicorn-utterances.com/posts/object-mutation).
-
-The `useRef` hook is implemented under-the-hood similar to the following:
-
-```jsx
-const useRef = (initialValue) => {
-	const [value, _] = useState({ current: initialValue });
-
-	return value;
-};
-```
-
-Because the updates to `useRef` do not trigger the second argument of `useState`, it _mutates_ the underlying object rather than _referentially changes_ the object, which would trigger a re-render.
-
-Now, let's see how this fundamental change impacts our usage of `useRef`. Take the following code sample:
-
-```jsx
-import { useRef, useEffect } from "react";
-
-const Comp = () => {
-	const ref = useRef();
-
-	useEffect(() => {
-		ref.current = Date.now();
-	});
-
-	return <p>The current timestamp is: {ref.current}</p>;
-};
-```
-
-Why doesn't this show a timestamp?
-
-This is because when you change `ref` it never causes a re-render, which then never re-draws the `p` .
-
-Here, `useRef` is set to `undefined` and only updates _after_ the initial render in the `useEffect`, which does not cause a re-render.
-
-To solve for this, we must set a `useState` to trigger a re-render.
-
-```jsx
-const Comp = () => {
-	// Set initial value for first render
-	const ref = useRef(Date.now());
-
-	// We're not using the `_` value, just the `set` method in order to force a re-render
-	const [_, setForceRenderNum] = useState(0);
-
-	useEffect(() => {
-		ref.current = Date.now();
-	});
-
-	return (
-		<div>
-			{/* First render won't have `ref.current` set */}
-			<p>The current timestamp is: {ref.current}</p>
-			<button onClick={() => setForceRenderNum((v) => v + 1)}>
-				Check timestamp
-			</button>
-		</div>
-	);
-};
-```
-
-Here, the timestamp display will never update until you press the `button`. Even then, however, `useEffect` will run _after_ the render, meaning that the displayed timestamp will be from the _previous_ occurrence of the `button` press.
-
-[I wrote more about why we shouldn't use `useRef` in `useEffect`s and when and where they're more useful in another article linked here.](https://unicorn-utterances.com/posts/react-refs-complete-story)
-
-### Angular
-
-> While writing this book, dear reader, I had a few objectives. One of those objectives was to not introduce an API without first explaining it. I am about to break this rule for the only time I'm aware of in this book. Please forgive me.
-
-[While the internals of how Angular is able to detect changes in values is complex](https://unicorn-utterances.com/posts/angular-internals-zonejs), the simple answer is "It uses some magic in something called [Zone.js](https://unicorn-utterances.com/posts/angular-internals-zonejs) to automatically detect when you change a value."
-
-To sidestep this detection from Zone.js in Angular, you can tell the framework to run something "outside of Angular".
-
-To do this, we need to utilize ["Dependency Injection"](/posts/ffg-fundamentals-dependency-injection) to access Angular's internal `NgZone` reference and use the `runOutsideAngular` method:
-
-```typescript {17-19,29-31}
-@Component({
-	selector: "app-root",
-	standalone: true,
-	template: `
-		<div>
-			<button (click)="updateTitle('Movies')">Movies</button>
-			<button (click)="updateTitle('Music')">Music</button>
-			<button (click)="updateTitle('Documents')">Documents</button>
-			<p>{{ title }}</p>
-		</div>
-	`,
-})
-export class AppComponent implements OnDestroy {
-	title = "Movies";
-
-	timeoutExpire: any = null;
-
-	// This is using "Dependency Injection" (chapter 11)
-	// To access Angular's internals and expose them to you
-	ngZone = inject(NgZone);
-
-	updateTitle(val: string) {
-		clearTimeout(this.timeoutExpire);
-		// Do not run this in runOutsideAngular, otherwise `title` will never update
-		const expire = setTimeout(() => {
-			this.title = val;
-			document.title = val;
-		}, 5000);
-
-		this.ngZone.runOutsideAngular(() => {
-			this.timeoutExpire = expire;
-		});
-	}
-
-	ngOnDestroy() {
-		clearTimeout(this.timeoutExpire);
-	}
-}
-```
-
-> If `inject` seems magic to you, it might as well be. To explore how dependency injection works under-the-hood, [check out chapter 11, which explores the topic](/posts/ffg-fundamentals-dependency-injection).
-
-### Vue
-
-Because Vue uses a `script` that only executes once per component run, we can rely on mutating the variable's value using [the `let` variable keyword](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let).
-
-```vue
-<script setup>
-import { watch, ref, onUnmounted } from "vue";
-const title = ref("Movies");
-
-let timeoutExpire = null;
-
-function updateTitle(val) {
-	clearTimeout(timeoutExpire);
-	timeoutExpire = setTimeout(() => {
-		title.value = val;
-		document.title = val;
-	}, 5000);
-}
-
-onUnmounted(() => clearTimeout(timeoutExpire));
-</script>
-
-<template>
-	<div>
-		<button @click="updateTitle('Movies')">Movies</button>
-		<button @click="updateTitle('Music')">Music</button>
-		<button @click="updateTitle('Documents')">Documents</button>
-		<p>{{ title }}</p>
-	</div>
-</template>
-```
-
-<!-- tabs:end -->
-
 # Rendering, Committing, Painting
 
 While we might attribute the definition of "rendering" to mean "showing something new on-screen", this is only partially true. While Angular follows this definition to some degree, React and Vue do not.
@@ -3245,6 +2833,418 @@ Now when we click on an item, it will print out the current version of `title` f
 While this level of internals knowledge is seldomly utilized when getting started building applications, they can provide you powerful ability to optimize and improve your applications; think of this information like your developer superpower.
 
 Like any other superpower, you should use these last few APIs with care, knowing that they may make your application worse rather than better; With great APIs comes great responsibility.
+
+# Changing Data without Renderings
+
+Sometimes it's not ideal to trigger a re-render every time you want to set a variable's state.
+
+For example, let's go back to our `document.title` example. Say that instead of updating the `title` and `document.title` right away, we want to delay the updating of both using a `setTimeout`:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const App = () => {
+	const [title, setTitle] = useState("Movies");
+
+	function updateTitle(val) {
+		const timeout = setTimeout(() => {
+			setTitle(val);
+			document.title = title.value;
+		}, 5000);
+	}
+
+	return (
+		<div>
+			<button onClick={() => updateTitle("Movies")}>Movies</button>
+			<button onClick={() => updateTitle("Music")}>Music</button>
+			<button onClick={() => updateTitle("Documents")}>Documents</button>
+			<p>{{ title }}</p>
+		</div>
+	);
+};
+```
+
+## Angular
+
+```typescript
+@Component({
+	selector: "app-root",
+	standalone: true,
+	template: `
+		<div>
+			<button (click)="updateTitle('Movies')">Movies</button>
+			<button (click)="updateTitle('Music')">Music</button>
+			<button (click)="updateTitle('Documents')">Documents</button>
+			<p>{{ title }}</p>
+		</div>
+	`,
+})
+export class AppComponent {
+	title = "Movies";
+
+	updateTitle(val: string) {
+		setTimeout(() => {
+			this.title = val;
+			document.title = val;
+		}, 5000);
+	}
+}
+```
+
+## Vue
+
+```vue
+<script setup>
+import { ref } from "vue";
+const title = ref("Movies");
+
+function updateTitle(val) {
+	setTimeout(() => {
+		title.value = val;
+		document.title = val;
+	}, 5000);
+}
+</script>
+
+<template>
+	<div>
+		<button @click="updateTitle('Movies')">Movies</button>
+		<button @click="updateTitle('Music')">Music</button>
+		<button @click="updateTitle('Documents')">Documents</button>
+		<p>{{ title }}</p>
+	</div>
+</template>
+```
+
+<!-- tabs:end -->
+
+If we click one of these buttons, and un-render the `App` component, our `setTimeout` will still execute because we've never told this component to cancel the timeout.
+
+While we could solve this problem using a stateful variable:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const App = () => {
+	const [title, setTitle] = useState("Movies");
+
+	const [timeoutExpire, setTimeoutExpire] = useState(null);
+
+	function updateTitle(val) {
+		clearTimeout(timeoutExpire);
+		const timeout = setTimeout(() => {
+			setTitle(val);
+			document.title = title.value;
+		}, 5000);
+
+		setTimeoutExpire(timeout);
+	}
+
+	useEffect(() => {
+		return () => clearTimeout(timeoutExpire);
+	}, []);
+
+	return (
+		<div>
+			<button onClick={() => updateTitle("Movies")}>Movies</button>
+			<button onClick={() => updateTitle("Music")}>Music</button>
+			<button onClick={() => updateTitle("Documents")}>Documents</button>
+			<p>{{ title }}</p>
+		</div>
+	);
+};
+```
+
+## Angular
+
+```typescript
+@Component({
+	selector: "app-root",
+	standalone: true,
+	template: `
+		<div>
+			<button (click)="updateTitle('Movies')">Movies</button>
+			<button (click)="updateTitle('Music')">Music</button>
+			<button (click)="updateTitle('Documents')">Documents</button>
+			<p>{{ title }}</p>
+		</div>
+	`,
+})
+export class AppComponent implements OnDestroy {
+	title = "Movies";
+
+	timeoutExpire: any = null;
+
+	updateTitle(val: string) {
+		clearTimeout(this.timeoutExpire);
+		this.timeoutExpire = setTimeout(() => {
+			this.title = val;
+			document.title = val;
+		}, 5000);
+	}
+
+	ngOnDestroy() {
+		clearTimeout(this.timeoutExpire);
+	}
+}
+```
+
+## Vue
+
+```vue
+<script setup>
+import { ref, onUnmounted } from "vue";
+const title = ref("Movies");
+
+const timeoutExpire = ref(null);
+
+function updateTitle(val) {
+	clearTimeout(timeoutExpire.value);
+	setTimeout(() => {
+		title.value = val;
+		document.title = val;
+	}, 5000);
+}
+
+onUnmounted(() => clearTimeout(timeoutExpire.value));
+</script>
+
+<template>
+	<div>
+		<button @click="updateTitle('Movies')">Movies</button>
+		<button @click="updateTitle('Music')">Music</button>
+		<button @click="updateTitle('Documents')">Documents</button>
+		<p>{{ title }}</p>
+	</div>
+</template>
+```
+
+<!-- tabs:end -->
+
+This will trigger a re-render of `App` when we run `updateTitle`. This re-render will not display any new changes, since our `timeoutExpire` property is not used in the DOM, but may be computationally expensive depending on the size of your `App` component.
+
+Luckily for us, each framework has the ability to sidestep a render while persisting a value in a component's state.
+
+<!-- tabs:start -->
+
+## React
+
+To store a variable's state in a React function component without triggering a re-render, we can use an `useRef` hook to store our `setTimeout` return without triggering a re-render:
+
+```jsx {5, 8-11}
+import { useState, useRef, useEffect } from "react";
+
+const App = () => {
+	const [title, setTitle] = useState("Movies");
+
+	const timeoutExpire = useRef(null);
+
+	function updateTitle(val) {
+		timeoutExpire.current = setTimeout(() => {
+			setTitle(val);
+			document.title = val;
+		}, 5000);
+	}
+
+	useEffect(() => {
+		return () => clearTimeout(timeoutExpire.current);
+	}, [timeoutExpire]);
+
+	return (
+		<div>
+			<button onClick={() => updateTitle("Movies")}>Movies</button>
+			<button onClick={() => updateTitle("Music")}>Music</button>
+			<button onClick={() => updateTitle("Documents")}>Documents</button>
+			<p>{{ title }}</p>
+		</div>
+	);
+};
+```
+
+`useRef` allows you to persist data across renders, similar to `useState`. There are two major differences from `useState`:
+
+1. You access data from a ref using `.current`
+2. It does not trigger a re-render when updating values (more on that soon)
+
+This makes `useRef` perfect for things like `setTimeout` and `setInterval` returned values; they need to be persisted in order to cleanup properly, but do not need to display to the user so we can avoid re-rendering.
+
+### `useRef`s Don't Trigger `useEffect`s
+
+Because `useRef` doesn't trigger a re-render, our `useEffect` will never re-run; **`useEffect` doesn't listen to the passed array values, but rather checks _the reference_ of the array's value**.
+
+> What does this mean?
+
+Take the following JavaScript:
+
+```javascript
+const obj1 = { updated: false };
+
+const obj2 = obj1;
+
+obj1.updated = true;
+
+console.log("Is object 2 updated?", obj2.updated); // true
+console.log("Is object 1 and 2 the same?", obj1 === obj2); // true
+```
+
+This code snippet demonstrates how you can mutate a variable's value without changing its underlying memory location.
+
+> [I've written about this underlying concept in JavaScript; if the above is unfamiliar to you, I'd suggest reading through it](https://unicorn-utterances.com/posts/object-mutation).
+
+The `useRef` hook is implemented under-the-hood similar to the following:
+
+```jsx
+const useRef = (initialValue) => {
+	const [value, _] = useState({ current: initialValue });
+
+	return value;
+};
+```
+
+Because the updates to `useRef` do not trigger the second argument of `useState`, it _mutates_ the underlying object rather than _referentially changes_ the object, which would trigger a re-render.
+
+Now, let's see how this fundamental change impacts our usage of `useRef`. Take the following code sample:
+
+```jsx
+import { useRef, useEffect } from "react";
+
+const Comp = () => {
+	const ref = useRef();
+
+	useEffect(() => {
+		ref.current = Date.now();
+	});
+
+	return <p>The current timestamp is: {ref.current}</p>;
+};
+```
+
+Why doesn't this show a timestamp?
+
+This is because when you change `ref` it never causes a re-render, which then never re-draws the `p` .
+
+Here, `useRef` is set to `undefined` and only updates _after_ the initial render in the `useEffect`, which does not cause a re-render.
+
+To solve for this, we must set a `useState` to trigger a re-render.
+
+```jsx
+const Comp = () => {
+	// Set initial value for first render
+	const ref = useRef(Date.now());
+
+	// We're not using the `_` value, just the `set` method in order to force a re-render
+	const [_, setForceRenderNum] = useState(0);
+
+	useEffect(() => {
+		ref.current = Date.now();
+	});
+
+	return (
+		<div>
+			{/* First render won't have `ref.current` set */}
+			<p>The current timestamp is: {ref.current}</p>
+			<button onClick={() => setForceRenderNum((v) => v + 1)}>
+				Check timestamp
+			</button>
+		</div>
+	);
+};
+```
+
+Here, the timestamp display will never update until you press the `button`. Even then, however, `useEffect` will run _after_ the render, meaning that the displayed timestamp will be from the _previous_ occurrence of the `button` press.
+
+[I wrote more about why we shouldn't use `useRef` in `useEffect`s and when and where they're more useful in another article linked here.](https://unicorn-utterances.com/posts/react-refs-complete-story)
+
+## Angular
+
+> While writing this book, dear reader, I had a few objectives. One of those objectives was to not introduce an API without first explaining it. I am about to break this rule for the only time I'm aware of in this book. Please forgive me.
+
+[While the internals of how Angular is able to detect changes in values is complex](https://unicorn-utterances.com/posts/angular-internals-zonejs), the simple answer is "It uses some magic in something called [Zone.js](https://unicorn-utterances.com/posts/angular-internals-zonejs) to automatically detect when you change a value."
+
+To sidestep this detection from Zone.js in Angular, you can tell the framework to run something "outside of Angular".
+
+To do this, we need to utilize ["Dependency Injection"](/posts/ffg-fundamentals-dependency-injection) to access Angular's internal `NgZone` reference and use the `runOutsideAngular` method:
+
+```typescript {17-19,29-31}
+@Component({
+	selector: "app-root",
+	standalone: true,
+	template: `
+		<div>
+			<button (click)="updateTitle('Movies')">Movies</button>
+			<button (click)="updateTitle('Music')">Music</button>
+			<button (click)="updateTitle('Documents')">Documents</button>
+			<p>{{ title }}</p>
+		</div>
+	`,
+})
+export class AppComponent implements OnDestroy {
+	title = "Movies";
+
+	timeoutExpire: any = null;
+
+	// This is using "Dependency Injection" (chapter 11)
+	// To access Angular's internals and expose them to you
+	ngZone = inject(NgZone);
+
+	updateTitle(val: string) {
+		clearTimeout(this.timeoutExpire);
+		// Do not run this in runOutsideAngular, otherwise `title` will never update
+		const expire = setTimeout(() => {
+			this.title = val;
+			document.title = val;
+		}, 5000);
+
+		this.ngZone.runOutsideAngular(() => {
+			this.timeoutExpire = expire;
+		});
+	}
+
+	ngOnDestroy() {
+		clearTimeout(this.timeoutExpire);
+	}
+}
+```
+
+> If `inject` seems magic to you, it might as well be. To explore how dependency injection works under-the-hood, [check out chapter 11, which explores the topic](/posts/ffg-fundamentals-dependency-injection).
+
+## Vue
+
+Because Vue uses a `script` that only executes once per component run, we can rely on mutating the variable's value using [the `let` variable keyword](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let).
+
+```vue
+<script setup>
+import { watch, ref, onUnmounted } from "vue";
+const title = ref("Movies");
+
+let timeoutExpire = null;
+
+function updateTitle(val) {
+	clearTimeout(timeoutExpire);
+	timeoutExpire = setTimeout(() => {
+		title.value = val;
+		document.title = val;
+	}, 5000);
+}
+
+onUnmounted(() => clearTimeout(timeoutExpire));
+</script>
+
+<template>
+	<div>
+		<button @click="updateTitle('Movies')">Movies</button>
+		<button @click="updateTitle('Music')">Music</button>
+		<button @click="updateTitle('Documents')">Documents</button>
+		<p>{{ title }}</p>
+	</div>
+</template>
+```
+
+<!-- tabs:end -->
 
 # API Chart
 
