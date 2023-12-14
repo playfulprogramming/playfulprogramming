@@ -225,15 +225,71 @@ These frameworks allow you to write code that focused on the data in JavaScript,
 
 ### React
 
+```jsx
+const App = () => {
+	const [count, setCount] = useState(0);
 
+	return (
+		<div>
+			<button onClick={() => setCount(count + 1)}>Add one to: {count}</button>
+			<button onClick={() => setCount(count - 1)}>
+				Remove one from: {count}
+			</button>
+			<ul>
+				{Array.from({ length: count }).map((_, i) => (
+					<li>List item {i}</li>
+				))}
+			</ul>
+		</div>
+	);
+};
+```
+
+<iframe data-frame-title="React Reactivity - StackBlitz" src="uu-code:./react-reactivity?template=node&embed=1&file=&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Angular
 
+```typescript
+@Component({
+	selector: "app-root",
+	standalone: true,
+	imports: [NgFor],
+	template: `
+		<button (click)="count = count + 1">Add one to: {{ count }}</button>
+		<button (click)="count = count - 1">Remove one from: {{ count }}</button>
+		<ul>
+			<li *ngFor="let item of [].constructor(count); let i = index">
+				List item {{ i }}
+			</li>
+		</ul>
+	`,
+})
+export class AppComponent {
+	count = 0;
+}
+```
 
+<iframe data-frame-title="Angular Reactivity - StackBlitz" src="uu-code:./angular-reactivity?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Vue
 
+```vue
+<script setup>
+import { ref } from "vue";
 
+const count = ref(0);
+</script>
+
+<template>
+	<button @click="count++">Add one to: {{ count }}</button>
+	<button @click="count--">Remove one from: {{ count }}</button>
+	<ul id="list">
+		<li v-for="(_, i) of [].constructor(count)">List item {{ i }}</li>
+	</ul>
+</template>
+```
+
+<iframe data-frame-title="Vue Reactivity - StackBlitz" src="uu-code:./vue-reactivity?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 <!-- tabs:end -->
 
