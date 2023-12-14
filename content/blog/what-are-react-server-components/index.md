@@ -293,11 +293,29 @@ const count = ref(0);
 
 <!-- tabs:end -->
 
+This, dear reader, is the core idea behind reactivity: Allowing us to focus on how we want to change the state stored in JavaScript and allowing some other mechanism to abstract away _how_ it shows up on-screen.
+
+These mechanisms can have wildly different methods to them, too!
+
+For example, here's what each of the frameworks utilize under-the-hood:
+
+| Framework | Reactivity Method                                            | Rendering Method                                             |
+| --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| React     | [Explicit Function Calls](https://twitter.com/crutchcorn/status/1527059716907487232) | [VDOM](/posts/unraveling-the-magic-of-the-virtual-dom)       |
+| Angular   | [Zone.js](/posts/angular-internals-zonejs)                   | [Incremental DOM](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549) |
+| Vue       | [Proxies](https://vuejs.org/guide/extras/reactivity-in-depth.html) | [VDOM](/posts/unraveling-the-magic-of-the-virtual-dom)       |
+
+> This is real nerd hours, don't feel bad if this just looks like gibberish to you right now.
 
 
 
+## Conclusion
 
+This has been a look at what reactivity is and why you might want to use a modern frontend framework to utilize it in your apps today.
 
+Next time, we'll talk about what "Reconciliation" is and how it impacts most React and Vue frontend applications today.
+
+Want a place to ask questions as you're learning on your journey? [Join our Discord](https://discord.gg/FMcvc6T) and let us know what you thought of this article. We'd love to get to know you!
 
 
 
