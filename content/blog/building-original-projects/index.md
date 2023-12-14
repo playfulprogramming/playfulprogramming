@@ -122,7 +122,7 @@ When you reach a point where you're not sure how to proceed, your first instinct
 ## Wrapping up the planning phase
 With the broad vision in place, a set of sub-tasks, and a bunch of great resources, you're ready to take action. Keep in mind that your plan will change! It is not meant to be a burden that gets in the way of building, but rather a flexible view into the bigger picture of what you're trying to achieve, something to keep you grounded on the path to completion.
 
-Finally, I recommend [keeping a living document](https://unicorn-utterances.com/posts/documentation-driven-development) to record your progress if the project is of sufficient size or complexity. Use it to keep track of your gaps in technical knowledge, how you achieved results, or possible improvements to the architecture of your codebase. Record your insights and make plans to address issues that crop up.
+Finally, I recommend [keeping a living document](/posts/documentation-driven-development) to record your progress if the project is of sufficient size or complexity. Use it to keep track of your gaps in technical knowledge, how you achieved results, or possible improvements to the architecture of your codebase. Record your insights and make plans to address issues that crop up.
 
 # Start building the project
 If you're like me, the first step can be anxiety provoking. This can be as simple as making a new directory, or running a scaffolding command, building out the homepage, or writing your first function. In the planning phase, you should have planned out your core features, prepared actionable tasks, and gathered your preferred tools. All that's left is to actually write some code!
@@ -285,7 +285,7 @@ I'd still recommend parsing your message manually first, as doing so can give yo
 ## Try Debugging
 The basic premise of debuggers are that you can observe the behavior of your code as it's executing. By setting one or several `breakpoints`, your debugger will allow you to slowly step forward line-by-line starting from one of the breakpoints set. The benefit of this is that you can examine the state of your variables in the current scope as you move through the execution of your code.   
 
-How you debug will depend on your development environment and language. If you use Chrome, one way to practice is to use the built-in debugger, [as outlined in this official guide to debugging JavaScript in Chrome](https://developer.chrome.com/docs/devtools/javascript/). There is also a [powerful way to debug NodeJS applications using Chrome](https://unicorn-utterances.com/posts/debugging-nodejs-programs-using-chrome) if that interests you.
+How you debug will depend on your development environment and language. If you use Chrome, one way to practice is to use the built-in debugger, [as outlined in this official guide to debugging JavaScript in Chrome](https://developer.chrome.com/docs/devtools/javascript/). There is also a [powerful way to debug NodeJS applications using Chrome](/posts/debugging-nodejs-programs-using-chrome) if that interests you.
 
 Your IDE will likely have a built-in debugger: learn it! For a quicker fix, you can also try print debugging using your language's print method, for example `console.log` in JavaScript.
 
@@ -305,7 +305,7 @@ Even if you did read it slowly the first time, by the time you've grappled with 
 > When to use: You feel that you're missing something, or can't understand how to use a technology for desired effect, it's likely your knowledge is has shaky foundations.
 
 ## Seek the help of tech communities
-If you've entered some communities, introduce yourself and try leveraging their help in a respectful manner for new perspectives into your issue. Find the relevant channel or subforum of your community, and then [ask good questions](https://unicorn-utterances.com/posts/how-to-ask-good-questions), providing relevant context, errors, and code samples. Sometimes the mere act of explaining your problem to others will grant new insight on how to solve it.
+If you've entered some communities, introduce yourself and try leveraging their help in a respectful manner for new perspectives into your issue. Find the relevant channel or subforum of your community, and then [ask good questions](/posts/how-to-ask-good-questions), providing relevant context, errors, and code samples. Sometimes the mere act of explaining your problem to others will grant new insight on how to solve it.
 
 Please be polite towards others when asking for help. Programming-related problems can be frustrating and at times emotional, but if people are offering to help you out of kindness, be mindful of your reaction to their advice.
 

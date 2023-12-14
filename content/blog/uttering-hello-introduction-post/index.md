@@ -32,7 +32,7 @@ Ignoring skill level, I also acknowledge that there are various learning styles.
 
 This project is going to be a long-standing effort to try to write as often as possible to realize this goal. I know this is a lofty goal though, and I don't want to do it alone. While creating this blog, I have ensured that other authors should have the lowest barrier to contributing as possible. We have author pages built, filtering and searching on our pages, and an [open GitHub repository](https://github.com/crutchcorn/unicorn-utterances). We love and welcome pull requests, new content, code maintenance on the site, bug reports, and general discussion.
 
-In terms of content, there is an extremely in-depth article which is being edited as we speak. Within the next few weeks, keep your eye out for new posts on the site. If you use RSS to keep up with your favorite content, [we have that as well](https://unicorn-utterances.com/rss.xml).
+In terms of content, there is an extremely in-depth article which is being edited as we speak. Within the next few weeks, keep your eye out for new posts on the site. If you use RSS to keep up with your favorite content, [we have that as well](/rss.xml).
 
 Finally, I immediately want to be accessible to people of all forms of physical capabilities. Great care has been taken to ensure this site follows proper accessibility requirements. If there is anything on the site pertaining to accessibility that does not work, please let us know, it will be treated as diligently as any other bug preventing users from accessing the site.
 
@@ -52,4 +52,4 @@ Last, but certainly not least, the site has had some incredible help with gettin
 
 We have some exciting stuff coming up. As mentioned before, there's going to be an in-depth post coming very soon. We also have many posts that've been started, but need editing and finalization before being sent out. That's not the end, though. There's an absolutely gargantuan list of other posts I'd like to work on, and it seems to be growing every day.
 
-You can keep up-to-date either by [following me on Twitter](https://twitter.com/crutchcorn) or by utilizing [our RSS feed](https://unicorn-utterances.com/rss.xml)
+You can keep up-to-date either by [following me on Twitter](https://twitter.com/crutchcorn) or by utilizing [our RSS feed](/rss.xml)

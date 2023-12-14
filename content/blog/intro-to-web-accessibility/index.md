@@ -132,7 +132,7 @@ Additional to `aria` props, [the `role` property](https://developer.mozilla.org/
 
 While HTML relays a significant amount of information to assistive technologies like screen readers, it's not the only thing used to inform those tools. Certain CSS rules can change the functionality as well. After all, screen readers (and other tools) don't look through the source code of a website. Instead, they're looking at [the accessibility tree](https://developers.google.com/web/fundamentals/accessibility/semantics-builtin/the-accessibility-tree): a modified version of the DOM. The accessibility tree and the DOM are both constructed by the browser from the website's source code. 
 
-> Want to learn more about the DOM, how the browser constructs it, and what it's used for internally? [This article helps explain this in detail](https://unicorn-utterances.com/posts/understanding-the-dom/).
+> Want to learn more about the DOM, how the browser constructs it, and what it's used for internally? [This article helps explain this in detail](/posts/understanding-the-dom/).
 
 Because the DOM is influenced by CSS, it impacts the accessibility tree as well. For example, `display: none` removes the element from the [accessibility tree](https://benmyers.dev/blog/accessibility-tree/) and from the browsers visual output. This means that screen readers won't read the contents of an element with that rule applied. However, `visibility: hidden`  or `width: 0px` will hide an element visually, but will still be read by screen readers.
 

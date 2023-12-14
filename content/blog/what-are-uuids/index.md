@@ -170,7 +170,7 @@ Some of you might be wondering "What is a namespace and why does it need to be a
 
 Great question. Let's consider the following usecase:
 
-Let's say we want to assign a UUID to each blog post on the [Unicorn Utterances](https://unicorn-utterances.com/about) site. We could simply assign the URL:
+Let's say we want to assign a UUID to each blog post on the [Unicorn Utterances](/about) site. We could simply assign the URL:
 
 ```
 /posts/intro-to-uuid

@@ -234,7 +234,7 @@ function renderComponent(hostLView: LView, componentHostIdx: number) {
 }
 ```
 
-This function, very generally, accesses a component's `View` ([a concept I've written about before, core to Angular's internal reference to HTML elements](https://unicorn-utterances.com/posts/angular-templates-start-to-source#View-Containers)) and renders it using Angular's `renderView` function.
+This function, very generally, accesses a component's `View` ([a concept I've written about before, core to Angular's internal reference to HTML elements](/posts/angular-templates-start-to-source#View-Containers)) and renders it using Angular's `renderView` function.
 
 [Let's look in said `renderView` function](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#LL286-L300C6):
 

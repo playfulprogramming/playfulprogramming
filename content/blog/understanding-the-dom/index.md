@@ -185,8 +185,8 @@ If you've ever written a website that had back-and-forth communication between H
 
 Let's look at some of the built-in utilities at our disposal for doing so:
 
-- [The `document` global object](document-global-object)
-- [The `Element` base class](element-class)
+- [The `document` global object](#document-global-object)
+- [The `Element` base class](#element-class)
 - [The event system](#events)
 
 ## Document Global Object {#document-global-object}

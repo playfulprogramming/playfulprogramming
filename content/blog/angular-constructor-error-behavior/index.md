@@ -48,7 +48,7 @@ export class App {}
 bootstrapApplication(App);
 ```
 
-When rendering this app, we get the following output in [the DOM](https://unicorn-utterances.com/posts/understanding-the-dom):
+When rendering this app, we get the following output in [the DOM](/posts/understanding-the-dom):
 
 ```html
 <my-app>

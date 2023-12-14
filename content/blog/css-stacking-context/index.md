@@ -836,7 +836,7 @@ function openDialog() {
 
 <!-- tabs:end -->
 
-In this instance, [without moving the state out of dialog](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow), how would you render the contents of `Dialog` after the `Footer` component?
+In this instance, [without moving the state out of dialog](/posts/master-react-unidirectional-data-flow), how would you render the contents of `Dialog` after the `Footer` component?
 
 The answer? JavaScript Portals.
 
