@@ -14,7 +14,7 @@ If you've spent much time in software development, you've undoubtedly heard the 
 
 The idea behind TDD is that you should write tests before programming an implementation. For example, say you want to implement a function called `calculateUserScore` based on a user's K/D in a video game. According to TDD, you should start by writing unit or integration tests to validate the input to an expected set of outputs.
 
-Starting with tests can be a great help to ensure that your program runs the way it's intended when all is said and done. One downside, however, is that tests are still a form of coding; Yes, even when you follow good testing practices by [hardcoding values and avoiding complex logic](https://unicorn-utterances.com/posts/five-suggestions-for-simpler-tests/#dont-include-logic). It's still software development, and your tests still need to pass at the end of the day.
+Starting with tests can be a great help to ensure that your program runs the way it's intended when all is said and done. One downside, however, is that tests are still a form of coding; Yes, even when you follow good testing practices by [hardcoding values and avoiding complex logic](/posts/five-suggestions-for-simpler-tests/#dont-include-logic). It's still software development, and your tests still need to pass at the end of the day.
 
 Making sure tests pass can be challenging to handle with the unknowns of implementation detail. After all, if you expect `parseInt` to act one way and it behaves another, you will likely have to rewrite all tests that worked off that assumption.
 
