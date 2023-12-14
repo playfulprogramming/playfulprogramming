@@ -53,7 +53,7 @@ To understand why we're able to assign a function to a variable, let's analyze w
 
 ## How memory works
 
-Inside of your computer, there's something called "memory," AKA RAM,[which allows your computer to store short-term memory that it can quickly reference later.](https://unicorn-utterances.com/posts/how-computers-speak#ram)
+Inside of your computer, there's something called "memory," AKA RAM,[which allows your computer to store short-term memory that it can quickly reference later.](/posts/how-computers-speak#ram)
 
 When we create a variable, what we're doing is storing values inside of this memory.
 
@@ -72,7 +72,7 @@ This might be visually represented like so:
 
 It's important to remember that the memory address itself doesn't store the name, your compiler does. When you create blocks of memory via variables, the compiler gets back a number that it can use to look up the variable's value inside of a "stack" of memory.
 
-You can *loosely* think of this memory stack as an array that the compiler looks through in order to get the data based on an index. This number can be huge because your computer likely has multiple gigabytes of RAM. Even 16GB is equivalent to 1.28e+11 bytes. Because of this, memory addresses are often colloquially shortened to [hexadecimal representations](https://unicorn-utterances.com/posts/non-decimal-numbers-in-tech).
+You can *loosely* think of this memory stack as an array that the compiler looks through in order to get the data based on an index. This number can be huge because your computer likely has multiple gigabytes of RAM. Even 16GB is equivalent to 1.28e+11 bytes. Because of this, memory addresses are often colloquially shortened to [hexadecimal representations](/posts/non-decimal-numbers-in-tech).
 
 This means that our *0x7de35306* memory address is associated with bit number 2112049926, or just over the 0.2GB mark.
 
@@ -98,7 +98,7 @@ console.log(memoryBlocks[0x7de35306]);
 console.log(memoryBlocks[0x7de35307]);
 ```
 
-> This code is simply pseudocode and will not actually run. Instead, your computer will compile down to ["machine code" or "assembly code"](https://unicorn-utterances.com/posts/how-computers-speak#assembly-code), which will in turn run on "bare metal". What's more, this is a drastic oversimplification of how your browser's JIT compiler and your system's memory management*actually* works under-the-hood.
+> This code is simply pseudocode and will not actually run. Instead, your computer will compile down to ["machine code" or "assembly code"](/posts/how-computers-speak#assembly-code), which will in turn run on "bare metal". What's more, this is a drastic oversimplification of how your browser's JIT compiler and your system's memory management*actually* works under-the-hood.
 
 ## How does this relate to function storage?
 

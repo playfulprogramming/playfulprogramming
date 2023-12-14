@@ -31,7 +31,7 @@ Sin tener en cuenta el nivel de conocimientos, también reconozco que hay varios
 # Objetivos actuales
 Este proyecto va a ser un esfuerzo a largo plazo para tratar de escribir tan a menudo como sea posible para realizar este objetivo. Sin embargo, sé que es un objetivo elevado y no quiero hacerlo solo. Al crear este blog, me he asegurado de que otros autores tengan la menor barrera posible para contribuir. Tenemos páginas de autor construidas, filtrado y búsqueda en nuestras páginas, y [repositorio de GitHub abierto](https://github.com/crutchcorn/unicorn-utterances). Nos encantan y agradecemos las solicitudes de PR(Pull Request), nuevos contenidos, el mantenimiento del código en el sitio, los informes de errores y el debate general.
 
-En cuanto al contenido, hay un artículo muy profundo que se está editando en estos momentos. En las próximas semanas, esté atento a las nuevas publicaciones en el sitio. Si utiliza el RSS para mantenerse al día con su contenido favorito, [tambien lo tenemos](https://unicorn-utterances.com/rss.xml)..
+En cuanto al contenido, hay un artículo muy profundo que se está editando en estos momentos. En las próximas semanas, esté atento a las nuevas publicaciones en el sitio. Si utiliza el RSS para mantenerse al día con su contenido favorito, [tambien lo tenemos](/rss.xml)..
 
 Por último, quiero que sea inmediatamente accesible para personas con cualquier tipo de capacidad física. Se ha tenido mucho cuidado para asegurar que este sitio siga los requisitos de accesibilidad adecuados. Si hay algo en el sitio relacionado con la accesibilidad que no funcione, por favor háganoslo saber, será tratado con la misma diligencia que cualquier otro error que impida a los usuarios acceder al sitio.
 
@@ -49,4 +49,4 @@ Por último, pero no por ello menos importante, el sitio ha contado con la incre
 ## Lo que está por venir
 Tenemos algunas cosas emocionantes por venir. Como se mencionó antes, va a haber un post en profundidad muy pronto. También tenemos muchos posts que han sido empezados, pero que necesitan ser editados y finalizados antes de ser enviados. Pero eso no es todo. Hay una lista absolutamente gigantesca de otros artículos en los que me gustaría trabajar, y parece que crece cada día.
 
-Puedes mantenerte al día siguiéndome en [Twitter](https://twitter.com/crutchcorn) o utilizando nuestro canal [RSS](https://unicorn-utterances.com/rss.xml)
+Puedes mantenerte al día siguiéndome en [Twitter](https://twitter.com/crutchcorn) o utilizando nuestro canal [RSS](/rss.xml)

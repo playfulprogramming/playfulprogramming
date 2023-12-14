@@ -1,8 +1,9 @@
 ---
 {
-	title: "The story of `let` vs `const`, Object Mutation, and a bug in my code",
+	title: "What is Object Mutation in JavaScript?",
 	description: 'When working with objects, you may hear the term "mutation". What is that? How does it work? How do let and const REALLY differ from each other? This and more:',
-	published: '2023-03-25T19:12:03.284Z',
+    published: '2023-03-25T19:12:03.284Z',
+    edited: '2023-12-14T19:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['javascript'],
 	attached: [],
@@ -10,7 +11,7 @@
 }
 ---
 
-Recently, we rewrote [our community blog for "Unicorn Utterances"](https://unicorn-utterances.com) to use [Astro, a static site generator framework](https://astro.build). One of the fan-favorite features of the site is its dark mode toggle, which enables dark mode purists to gloat over the light mode plebians (like myself).
+Recently, we rewrote [our community blog for "Unicorn Utterances"](/) to use [Astro, a static site generator framework](https://astro.build). One of the fan-favorite features of the site is its dark mode toggle, which enables dark mode purists to gloat over the light mode plebians (like myself).
 
 <video src="./theme_toggle.mp4" title="Toggling the dark mode theme on the Unicorn Utterances site"></video>
 
@@ -74,7 +75,7 @@ Let's talk about that. Along the way, we'll touch on:
 
 To understand object mutation, we first need to conceptualize how JavaScript handles variable creation.
 
-In one of my blog posts called ["Functions are values", I talk about how variables are stored in memory](https://unicorn-utterances.com/posts/javascript-functions-are-values). In that article, I specifically talk about how, when you create JavaScript variables, they create a new space in memory.
+In one of my blog posts called ["Functions are values", I talk about how variables are stored in memory](/posts/javascript-functions-are-values). In that article, I specifically talk about how, when you create JavaScript variables, they create a new space in memory.
 
 Say that we wanted to initialize two variables:
 

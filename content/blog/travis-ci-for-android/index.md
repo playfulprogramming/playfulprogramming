@@ -210,7 +210,7 @@ Yay! Now we have fully automated releases on each push to main. Because of the `
 
 # Step 4. Deploying to the Play Store
 
-Travis doesn't have a deployment for the Play Store, so we will have to use a third party tool. I found [Triple-T/gradle-play-publisher](https://github.com/Triple-T/gradle-play-publisher/), which should work, except there isn't an option to deploy an existing APK without building the project. Not only would a deployment that requires building a project _twice_ be super wasteful and take... well, twice as long, [I ran into problems signing the APK](twitter.com/fennifith/status/1061620100409761792) when I tried it, so... let's not. Instead, we'll modify the `script` to run the `./gradlew publish` command when a build is triggered from the main branch.
+Travis doesn't have a deployment for the Play Store, so we will have to use a third party tool. I found [Triple-T/gradle-play-publisher](https://github.com/Triple-T/gradle-play-publisher/), which should work, except there isn't an option to deploy an existing APK without building the project. Not only would a deployment that requires building a project _twice_ be super wasteful and take... well, twice as long, [I ran into problems signing the APK](https://twitter.com/fennifith/status/1061620100409761792) when I tried it, so... let's not. Instead, we'll modify the `script` to run the `./gradlew publish` command when a build is triggered from the main branch.
 
 ## Part A. Setup
 

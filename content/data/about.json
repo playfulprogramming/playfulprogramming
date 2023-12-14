@@ -22,7 +22,7 @@
 		},
 		"RSS Feed": {
 			"icon": "rss",
-			"url": "https://unicorn-utterances.com/rss.xml"
+			"url": "/rss.xml"
 		}
 	},
 	"sponsors": [
