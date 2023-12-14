@@ -35,7 +35,7 @@ See, when you're building a website using only static HTML, the output to the DO
 </main>
 ```
 
-![// TODO: Write alt](../understanding-the-dom/dom_tree.svg)
+![A chart showing the document object model layout of the above code. It shows that the 'main' tag is the parent to a 'ul' tag, and so on](../understanding-the-dom/dom_tree.svg)
 
 The problems start when we want to introduce interactivity into our output. 
 
@@ -45,7 +45,7 @@ Let's build a small-scale application that:
 - Start the counter at `0`
 - Every time the button is clicked, add one to the counter
 
-![// TODO: Write alt](./step_1.svg)
+![A 'main' tag that has a button child. This button updates a JavaScript count when pressed and when that value is updated, will change the text of the button](./step_1.svg)
 
 To do this, let's start with some HTML:
 
@@ -78,7 +78,7 @@ Not too bad, let's increase the difficulty a bit by:
 - Adding an unordered list (`<ul>`)
 - Every time `count` is increased, add a new `<li>` with a unique string inside
 
-![// TODO: Write](./step_2.svg)
+![The main has a button and an unordered list. This button updates the JavaScript count value, which in turns updates the button text and adds a list to the ul element](./step_2.svg)
 
 That might look something like this:
 
@@ -116,7 +116,7 @@ Okay! Things are heating up! For one last exercise, let's:
 - Add a button that removes `1` from `count`
 - When this button is pressed, remove the last element from the list
 
-![// TODO: Write alt](./step_3.svg)
+![There are two buttons now, each change the JavaScript count value. This count value is then reflected in the text nodes for each button, and the list respectively](./step_3.svg)
 
 > Notice how complex our logic tree is getting?
 
@@ -195,7 +195,7 @@ If we strip away all of this glue, we're left with a drastically simplified code
 </script>
 ```
 
-![// TODO: Write alt](./step_3_simplified.svg)
+![The two buttons update the count, but that's all there is. Everything else is handled invisibly to you](./step_3_simplified.svg)
 
 > Look at how many lines disappeared!
 
