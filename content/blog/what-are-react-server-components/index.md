@@ -41,7 +41,7 @@ See, when you're building a website using only static HTML, the output to the DO
 
 
 
-![](../understanding-the-dom/dom_tree.svg)
+![// TODO: Write alt](../understanding-the-dom/dom_tree.svg)
 
 
 
@@ -76,6 +76,8 @@ Then we can add in the required JavaScript to make the button functional:
   });
 </script>
 ```
+
+<iframe data-frame-title="Example #1 - StackBlitz" src="uu-code:./step1-code?template=node&embed=1&file=index.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Adding a List
 
@@ -115,7 +117,7 @@ That might look something like this:
 </script>
 ```
 
-
+<iframe data-frame-title="Example #2 - StackBlitz" src="uu-code:./step2-code?template=node&embed=1&file=index.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Removing items from the list
 
@@ -171,6 +173,8 @@ Okay! Things are heating up! For one last exercise, let's:
 </script>
 ```
 
+<iframe data-frame-title="Example #3 - StackBlitz" src="uu-code:./step3-code?template=node&embed=1&file=index.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 > Wow! That got complex, quick, didn't it?!
 
 Exactly... That leads me to the question:
@@ -181,9 +185,63 @@ Notice how each time we added another item that depended on `count`, our data di
 
 If we strip away all of this glue, we're left with a drastically simplified codebase:
 
+```html
+<main>
+  <button id="add-button">Add one to: 0</button>
+  <button id="remove-button">Remove one from: 0</button>
+  <ul id="list"></ul>
+</main>
+<script>
+  // Magical land where `count` changes auto-update the DOM
+  let count = 0;
+
+  addBtn.addEventListener('click', () => {
+    count++;
+  });
+
+  removeBtn.addEventListener('click', () => {
+    count--;
+  });
+</script>
+```
 
 
-<!-- ADD VISUALS TOO REMOVING THE GLUE -->
+
+![// TODO: Write alt](./step_3_simplified.svg)
+
+> Look at how many lines disappeared!
+
+Not only is this nicer method of writing code theoretically possible, it's widely adopted by millions of developers via a frontend framework.
+
+Some examples of frontend frameworks include:
+
+- [React](https://react.dev/)
+- [Angular](https://angular.dev/)
+- [Vue](https://vuejs.org/)
+
+These frameworks allow you to write code that focused on the data in JavaScript, rather than how it will be bound to the DOM:
+
+<!-- tabs:start -->
+
+### React
+
+
+
+### Angular
+
+
+
+### Vue
+
+
+
+<!-- tabs:end -->
+
+
+
+
+
+
 
 
 
