@@ -512,7 +512,7 @@ Because we now have a database running the data show, we can be sure that our da
 
 # Deployment {#deployment}
 
-Ideally, since our Slack app is a small side project, we'd like to host things in a straightforward manner for cheap/free. One of my favorite hosting solutions for such projects is [Heroku](heroku.com/). Heroku is no stranger to Slack apps, either. They have [an official blog post outlining making their own Slack bot using the web notification feature within Slack](https://blog.heroku.com/how-to-deploy-your-slack-bots-to-heroku). That said, our route is going to be a bit different from theirs because we chose to use the events subscriptions instead.
+Ideally, since our Slack app is a small side project, we'd like to host things in a straightforward manner for cheap/free. One of my favorite hosting solutions for such projects is [Heroku](https://heroku.com/). Heroku is no stranger to Slack apps, either. They have [an official blog post outlining making their own Slack bot using the web notification feature within Slack](https://blog.heroku.com/how-to-deploy-your-slack-bots-to-heroku). That said, our route is going to be a bit different from theirs because we chose to use the events subscriptions instead.
 
 Let's start our step-by-step guide immediately after [you've created an account with Heroku](https://signup.heroku.com/).
 

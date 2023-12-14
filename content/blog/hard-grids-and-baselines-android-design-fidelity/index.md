@@ -292,7 +292,7 @@ Document containing:
 
 * Customizable code blocks for each style in a text box, so you can change each depending on your theme and hand it to developers
 
-## For developers: [styles.xml](./styles.xml)
+## For developers: [styles.xml](/content/blog/hard-grids-and-baselines-android-design-fidelity/styles.xml)
 
 A styles.xml file containing:
 
