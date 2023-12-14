@@ -14,11 +14,16 @@ type Props = {
 const { providedLangs, siteMetadata, pathName } = Astro.props as Props;
 
 const defaultLocale = "en";
+
+const removeTrailingSlash = (str: string) =>
+	str.endsWith("/") ? str.slice(0, -1) : str;
 ---
 
 <link
 	rel="alternate"
-	href={siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || "")}
+	href={removeTrailingSlash(
+		siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || ""),
+	)}
 	hreflang="x-default"
 />
 <>
@@ -27,14 +32,14 @@ const defaultLocale = "en";
 			? providedLangs.map((locale) => (
 					<link
 						rel="alternate"
-						href={
+						href={removeTrailingSlash(
 							siteMetadata.siteUrl +
-							(locale === defaultLocale ? "" : `/${locale}`) +
-							removePrefixLanguageFromPath(pathName || "")
-						}
+								(locale === defaultLocale ? "" : `/${locale}`) +
+								removePrefixLanguageFromPath(pathName || ""),
+						)}
 						hreflang={fileToOpenGraphConverter(locale)}
 					/>
-			  ))
+				))
 			: null
 	}
 </>
