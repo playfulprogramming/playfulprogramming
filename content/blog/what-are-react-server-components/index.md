@@ -12,6 +12,8 @@
 }
 ---
 
+# What is Reactivity?
+
 So first - reactivity
 
 When your data changes, it updates the UI automatically using explicit `useState` (or `useReducer`) function calls
@@ -20,9 +22,13 @@ This is "reactivity" - where changes in your logic layer (JS) automatically upda
 
 -------------------------------------------------------------
 
-OK now "reconcilation" 
 
-Eventally React needs to know what needs rendering and what doesn't
+
+# What is Reconciliation?
+
+OK now "reconciliation" 
+
+Eventually React needs to know what needs rendering and what doesn't
 
 So, for example, say you have:
 
@@ -40,6 +46,10 @@ But, if you add a `key` in a list, React is able to figure out what elements ass
 ![](https://media.discordapp.net/attachments/609441345223917590/1166186746149617794/image.png?ex=658a2c8a&is=6577b78a&hm=db491f9296ee74611891edbcb4af7c4be585a737ef7a62e93a9fd15255f71077&=&format=webp&quality=lossless&width=2879&height=1003)
 
 -----------------------------------------------------------------
+
+# What is SSR?
+
+// Done
 
 OK so now for SSR
 
@@ -71,6 +81,8 @@ So the "traditional" (before today) solution was to render the UI on the server,
 
 -------------------------------------------------------------
 
+# What are React Server Components (RSC)?
+
 So! Instead, what React did is introduce "Server Components", where you can do a few things:
 
 - Not re-render on the client
@@ -101,6 +113,8 @@ And keep the first 4 component renders on the server, but _only_ re-render `Clie
 So that's the RSC (React Server Component) story
 
 ----------------------------------------
+
+# What is React Suspense?
 
 But wait, there's more!
 
@@ -153,6 +167,8 @@ And Suspense will automatically show the `fallback` or not, depending on the `fe
 
 -----------------------------------------------------
 
+# What is the React `use` Hook?
+
 Now let's move back to server-land
 
 We know that we can make server-only components, that don't reinitialize on the client, right? Now what if we could load the data on the server and not have it passed to the client either?
@@ -190,6 +206,8 @@ const ServerComp = () => {
 This works!
 
 ---------------------------------------------------
+
+# What are React Server Actions?
 
 Now this is great for loading data, but what about actions? Not everything happens at load and we may want to find ourselves listening for a user submitting a form
 
@@ -249,6 +267,8 @@ export default function Todo() {
 ```
 
 --------------------------------------
+
+# What is the React `useFormState` Hook? 
 
 Now this works well if you need to pass data to the server and have it refresh the page
 
