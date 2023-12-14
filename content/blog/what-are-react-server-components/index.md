@@ -14,13 +14,176 @@
 
 # What is Reactivity?
 
-So first - reactivity
+> This article is intended for newcomers to HTML and JavaScript programming. However, it's suggested that you read [this article explaining what the DOM is](/posts/understanding-the-dom) first.
 
-When your data changes, it updates the UI automatically using explicit `useState` (or `useReducer`) function calls
+As an experienced frontend engineer, I'm often asked:
 
-This is "reactivity" - where changes in your logic layer (JS) automatically update your markup layer (DOM/HTML)
+> "Why would you want to use a modern frontend framework like React, Angular, or Vue?"
 
--------------------------------------------------------------
+While [I have a whole (free) book on the topic](https://framework.guide), my short answer is typically "Reactivity". The follow-up response I usually get from this is:
+
+> "What is reactivity?"
+
+In short, **Reactivity is the ability to reflect what's in your JavaScript application's memory on the DOM as HTML**.
+
+See, when you're building a website using only static HTML, the output to the DOM is straightforward.
+
+```html
+<!-- index.html -->
+<main id="a">
+	<ul id="b">
+		<li id="c">Item 1</li>
+		<li id="d">Item 2</li>
+	</ul>
+	<p id="e">Text here</p>
+</main>
+```
+
+
+
+![](../understanding-the-dom/dom_tree.svg)
+
+
+
+The problems start when we want to introduce interactivity into our output. 
+
+Let's build a small-scale application that:
+
+- Has a button with a counter inside of it
+- Start the counter at `0`
+- Every time the button is clicked, add one to the counter
+
+![// TODO: Write alt](./step_1.svg)
+
+To do this, let's start with some HTML:
+
+```html
+<main>
+  <button id="add-button">Count: 0</button>
+</main>
+```
+
+Then we can add in the required JavaScript to make the button functional:
+
+```html
+<script>
+  let count = 0;
+
+  const addBtn = document.querySelector('#add-button');
+  addBtn.addEventListener('click', () => {
+    count++;
+    addBtn.innerText = `Count: ${count}`;
+  });
+</script>
+```
+
+## Adding a List
+
+Not too bad, let's increase the difficulty a bit by:
+
+- Adding an unordered list (`<ul>`)
+- Every time `count` is increased, add a new `<li>` with a unique string inside
+
+![// TODO: Write](./step_2.svg)
+
+
+
+That might look something like this:
+
+```html
+<main>
+  <button id="add-button">Count: 0</button>
+  <ul id="list"></ul>
+</main>
+<script>
+  let count = 0;
+
+  const listEl = document.querySelector('#list');
+
+  function makeListItem(innerText) {
+    const li = document.createElement('li');
+    li.innerText = innerText;
+    listEl.append(li);
+  }
+
+  const addBtn = document.querySelector('#add-button');
+  addBtn.addEventListener('click', () => {
+    count++;
+    addBtn.innerText = `Count: ${count}`;
+    makeListItem(`List item: ${count}`);
+  });
+</script>
+```
+
+
+
+## Removing items from the list
+
+Okay! Things are heating up! For one last exercise, let's:
+
+- Add a button that removes `1` from `count`
+- When this button is pressed, remove the last element from the list
+
+![// TODO: Write alt](./step_3.svg)
+
+> Notice how complex our logic tree is getting?
+
+```html
+<main>
+  <button id="add-button">Add one to: 0</button>
+  <button id="remove-button">Remove one from: 0</button>
+  <ul id="list"></ul>
+</main>
+<script>
+  let count = 0;
+
+  const listEl = document.querySelector('#list');
+
+  function makeListItem(innerText) {
+    const li = document.createElement('li');
+    li.innerText = innerText;
+    listEl.append(li);
+  }
+
+  function removeListItem() {
+    listEl.lastChild.remove();
+  }
+
+  const addBtn = document.querySelector('#add-button');
+  const removeBtn = document.querySelector('#remove-button');
+
+  function updateBtnTexts() {
+    addBtn.innerText = `Add one to: ${count}`;
+    removeBtn.innerText = `Remove one from: ${count}`;
+  }
+
+  addBtn.addEventListener('click', () => {
+    count++;
+    updateBtnTexts();
+    makeListItem(`List item: ${count}`);
+  });
+
+  removeBtn.addEventListener('click', () => {
+    count--;
+    updateBtnTexts();
+    removeListItem();
+  });
+</script>
+```
+
+> Wow! That got complex, quick, didn't it?!
+
+Exactly... That leads me to the question:
+
+## Shouldn't it be simpler?
+
+Notice how each time we added another item that depended on `count`, our data didn't change. Instead, we had to add ever increasing levels of complexity to our codebase to glue our JavaScript state to the DOM representation of said state.
+
+If we strip away all of this glue, we're left with a drastically simplified codebase:
+
+
+
+<!-- ADD VISUALS TOO REMOVING THE GLUE -->
 
 
 
