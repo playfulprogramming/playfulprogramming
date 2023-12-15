@@ -6,7 +6,9 @@
     authors: ['crutchcorn'],
     tags: ['react', 'vue', 'angular', 'webdev'],
     attached: [],
-    license: 'cc-by-4'
+    license: 'cc-by-4',
+    collection: "React Beyond the Render",
+    order: 1
 }
 ---
 
