@@ -1,14 +1,14 @@
 ---
 {
     title: "What is Reconciliation and the Virtual DOM (VDOM)?",
-    description: "",
-    published: '2023-12-14T21:52:59.284Z',
+    description: "How does React handle update the DOM? The answer? \"The Virtual DOM and reconciliation.\" Let's explore what these are and how you can leverage them the best.",
+    published: '2023-12-15T21:52:59.284Z',
     authors: ['crutchcorn'],
     tags: ['react', 'javascript', 'webdev'],
     attached: [],
     license: 'cc-by-4',
     collection: "React Beyond the Render",
-    order: 1
+    order: 2
 }
 ---
 
