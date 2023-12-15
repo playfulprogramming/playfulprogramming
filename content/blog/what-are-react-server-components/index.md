@@ -7,8 +7,8 @@
     tags: ['react', 'webdev'],
     attached: [],
     license: 'cc-by-4',
-    collection: "React Beyond the Render",
-    order: 1
+    collection: "react-beyond-the-render",
+    order: 4
 }
 ---
 
