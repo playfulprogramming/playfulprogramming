@@ -173,3 +173,10 @@ To fix this, we just need to explicitly tell React which user is which in the li
 
 # Conclusion
 
+In this series, we've explored how React handles reactivity and how it uses the Virtual DOM and reconciliation to make reactivity work.
+
+These two combined build the foundation for how React works behind the scenes. In the next few posts, starting with ["What is server-side rendering (SSR) and static site generation (SSG)"](/posts/what-is-ssr-and-ssg), we'll explore how React has gradually evolved past the typical client-side rendering process and into the server.
+
+Eventually, this series will show you how to use React Server Actions in-depth and how you can utilize your React knowledge to become a full-stack developer.
+
+Sound like fun? We hope so! [Join us in our Discord](https://discord.gg/FMcvc6T) and let us know what other topics you'd like to see on the site.
