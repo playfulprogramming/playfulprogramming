@@ -144,7 +144,7 @@ Here, we're storing a list of our friends and allowing the user to add to this l
 
 But notice what happens to those notes when someone gets added to the start of the list:
 
-<video src="./incorrect-user.mp4" title="When someone is added to the top of the list, the typed note about \"Little\" is no longer associated with \"Little\""></video>
+<video src="./incorrect-user.mp4" title="When someone is added to the top of the list, the typed note about 'Little' is no longer associated with 'Little'"></video>
 
 See how the note about Little is now assigned to the wrong person.
 
