@@ -12,29 +12,6 @@
 }
 ---
 
-# What is Reconciliation?
-
-OK now "reconciliation" 
-
-Eventually React needs to know what needs rendering and what doesn't
-
-So, for example, say you have:
-
-```
-- List item 1
-- List item 2
-```
-
-And want to add an item to the list. You ideally don't want React to have to re-render items 1&2, because it's expensive
-
-By default, it will do that
-
-But, if you add a `key` in a list, React is able to figure out what elements associate with what keys and prevent a re-render
-
-![](https://media.discordapp.net/attachments/609441345223917590/1166186746149617794/image.png?ex=658a2c8a&is=6577b78a&hm=db491f9296ee74611891edbcb4af7c4be585a737ef7a62e93a9fd15255f71077&=&format=webp&quality=lossless&width=2879&height=1003)
-
------------------------------------------------------------------
-
 # What is SSR?
 
 // Done
