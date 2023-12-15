@@ -7,7 +7,7 @@
 	tags: ['ssr', 'ssg', 'nextjs', 'react'],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
-    collection: "React Beyond the Render",
+    collection: "react-beyond-the-render",
     order: 3
 }
 ---
