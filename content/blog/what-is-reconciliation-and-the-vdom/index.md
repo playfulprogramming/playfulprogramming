@@ -38,11 +38,9 @@ Let's say that you have a bit of HTML:
 
 This might create a DOM tree that looks similar to the following:
 
-![// TODO: Write alt](./dom.svg)
+![A tree of elements starting with the ul at the top, three lis below, and each li has a p element](./dom.svg)
 
 > If you need a refresher on how the DOM works, [check out our post on the topic](/posts/understanding-the-dom).
-
-
 
 Similarly, if you write the following JSX:
 
@@ -72,7 +70,7 @@ Reconciliation is the process of reflecting changes from a frameworks' virtual D
 2) Diffing the changes made to the VDOM
 3) Committing the changes from the VDOM to the DOM
 
-![// TODO: Write alt](./diff-commit.svg)
+![The same DOM tree as before is mirrored both in React's VDOM but in the browser's DOM as well](./diff-commit.svg)
 
 # What is the `key` property?
 
@@ -146,7 +144,7 @@ Here, we're storing a list of our friends and allowing the user to add to this l
 
 But notice what happens to those notes when someone gets added to the start of the list:
 
-<video src="./incorrect-user.mp4" title="// TODO: Write alt"></video>
+<video src="./incorrect-user.mp4" title="When someone is added to the top of the list, the typed note about \"Little\" is no longer associated with \"Little\""></video>
 
 See how the note about Little is now assigned to the wrong person.
 
@@ -154,9 +152,7 @@ This is because React needs some way to identify which element is which in a lis
 
 Without this default behavior, the `input`s inside of the list would all disappear every time the user added to the list, as it wouldn't know to avoid re-rendering the contents of the DOM on existing items:
 
-![// TODO: Write alt](./render_without_keys.svg)
-
-
+![Without React's default behavior, a list without keys would re-render all list items when a new item is added](./render_without_keys.svg)
 
 To fix this, we just need to explicitly tell React which user is which in the list using a special `key` property:
 
@@ -173,7 +169,7 @@ To fix this, we just need to explicitly tell React which user is which in the li
 </ul>
 ```
 
-![// TODO: Write alt](./render_with_keys.svg)
+![When a list is keyed, it knows which item is being added and doesn't need to re-render the other elements in the list](./render_with_keys.svg)
 
 # Conclusion
 
