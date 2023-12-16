@@ -59,9 +59,9 @@ Here, we can see that `<ProfilePicture>`, `<Dashboard/>`, and all of their child
 
 > Keep in mind, client-components will still pre-generate HTML on the server by default. The difference here is that the client re-initialization is now informed by the VDOM constructed on the server, allowing for drastically reduced required execution.
 
-# What is `use server` and `use client`?
+# What is `"use server"` and `"use client"`?
 
-In React Server Components, the syntax to dictate which components are rehydrated or not will vary from metaframework-to-metaframework. A `"use server"` and `"use client"` string at the top of each file is how Next.js makes this distinction.
+In React Server Components, `"use server"` and `"use client"` are strings at the top of the file or function that indicate where the React component should render. If `"use client"`, it will rehydrate on the client; otherwise it won't.
 
 Let's use Next.js' syntax to build out the example from above, distinguishing which type of component is which along the way:
 
@@ -116,35 +116,45 @@ export function profilePicture() {
 }
 ```
 
-# Other
+# Limitations of Server Components
 
+Because a server component runs entirely on the server, there are a few limitations you should be aware of:
 
+- No usage of React Hooks (`useState`, `useReducer`, etc)
 
-So! Instead, what React did is introduce "Server Components", where you can do a few things:
+  - This includes importing code that lazily uses React Hooks, although [library authors have found a way around this for their needs](https://npmjs.com/package/rehackt).
 
-- Not re-render on the client
-- Fetch data on the server and return it to the client 🤫 (spoilers for what I'm _gonna_ write)
+- `<Context.Provider>` usage
 
-So instead of:
+- No usage of browser APIs ([`localstorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), [`querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector), etc)
 
-```tsx
-<Layout>
-  <Header/>
-  <Content/>
-  <Footer/>
-</Layout>
-```
+- You cannot pass the following property values from a server component to a client component:
 
-And having React render 4 components on the server, then re-render 4 components on the client - you might have:
+  - React Elements/JSX
+  - Functions (unless it's a Server Action - more on that in a future article)
+  - Classes
+  - Instances of Custom Classes
+  - Custom [Symbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)
 
-```tsx
-<ServerLayout>
-  <ServerHeader/>
-  <ClientContent/>
-  <ServerFooter/>
-</ServerLayout>
-```
+- Cannot be called inside of a Client component. IE:
 
-And keep the first 4 component renders on the server, but _only_ re-render `ClientContent` on the client, saving the amount of JS needed and the speed in parsing
+  ```jsx
+  const ClientComponent = () => {
+  	return <ServerComponent/>
+  }
+  ```
 
-So that's the RSC (React Server Component) story
+  Is not allowed but:
+
+  ```jsx
+  const ClientComponent = ({children}) => {
+  	return <div>{children}</div>
+  }
+  
+  const App = () => {
+  	return <ClientComponent><ServerComponent/></ClientComponent>
+  }
+  ```
+
+  Is allowed.
+
