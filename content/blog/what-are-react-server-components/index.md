@@ -1,10 +1,10 @@
 ---
 {
     title: "What are React Server Components (RSCs)?",
-    description: "",
-    published: '2023-12-14T21:52:59.284Z',
+    description: "React Server Components have been a topic of regular discussion in the WebDev space as-of late. What are they? How do they improve the SSR story for React? Let's take a look.",
+    published: '2023-12-16T21:52:59.284Z',
     authors: ['crutchcorn'],
-    tags: ['react', 'webdev'],
+    tags: ['react', 'webdev', 'javascript'],
     attached: [],
     license: 'cc-by-4',
     collection: "react-beyond-the-render",
@@ -26,7 +26,7 @@ See, up to that point Next.js and other React SSR solutions had one way of doing
 
 
 
-![// TODO: Write alt](./ssr_slowdown.svg)
+![The developer ships SSR and framework code to the server, which produces HTML. This HTML/CSS is then sent to the user machine where it re-initializes on the client's browser](./ssr_slowdown.svg)
 
 This process is called "Rehydration" and while it _worked_ the way it did before, it introduced a new performance problem. Rehydration could be needlessly expensive if most of your content coming from the server was going to be static anyway. This was a huge problem that the React team had to solve.
 
@@ -53,7 +53,7 @@ function App() {
 
 When executed, it might look something like the following process:
 
-![// TODO: Write alt](./react-server-components.svg)
+![The developer authors JSX with distinct client and server components. These components are ALL rendered on the server, but only the client components are re-rendered on the client](./react-server-components.svg)
 
 Here, we can see that `<ProfilePicture>`, `<Dashboard/>`, and all of their children will be re-initialized on the client. Meanwhile the `<Footer>` and `<Header>` components will not re-initialize on the client.
 
@@ -158,3 +158,14 @@ Because a server component runs entirely on the server, there are a few limitati
 
   Is allowed.
 
+# Conclusion
+
+React Server Components have been a huge topic of discussion lately. So much so that while the fixes to rehydration are useful, you may be left wondering:
+
+> Is that all there is to RSCs?
+
+Luckily, it's not!
+
+See, by providing a primitive for server behavior in React, the team has unlocked a great deal of potential in regards to data loading.
+
+But that's a story for next time. Next up? React's Suspense APIs!
