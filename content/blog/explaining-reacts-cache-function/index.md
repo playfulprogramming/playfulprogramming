@@ -1,7 +1,7 @@
 ---
 {
     title: "Explaining React's cache Function",
-    description: "",
+    description: "React's dipping its toes into data fetching! With this comes a big requirement to cache the results of a given function. Luckily, React's done that. Let's see how.",
     published: '2023-12-17T21:52:59.284Z',
     authors: ['crutchcorn'],
     tags: ['react', 'webdev', 'javascript'],
@@ -48,7 +48,7 @@ function App() {
 }
 ```
 
-<iframe data-frame-title="React Broken Basic Cache Usage - StackBlitz" src="uu-code:./react-broken-basic-cache-usage?template=node&embed=1&file=&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="React Broken Basic Cache Usage - StackBlitz" src="uu-code:./react-broken-basic-cache-usage?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Now traditional React rules would say that `alertCounter` should show an `alert` on every render, regardless of if `counter` is being changed or not. We can see this whenever we trigger a re-render manually without changing `counter`.
 
@@ -83,7 +83,7 @@ function App() {
 
 Now if we force a re-render without changing `count`, it will no longer `alert`:
 
-<iframe data-frame-title="React Basic Cache Usage - StackBlitz" src="uu-code:./react-basic-cache-usage?template=node&embed=1&file=&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="React Basic Cache Usage - StackBlitz" src="uu-code:./react-basic-cache-usage?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 This is because the `cache` function is [_memoizing_](https://whatthefuck.is/memoization) the usage of the function and eagerly opting out of execution as a result.
 
@@ -225,7 +225,7 @@ function ThemePreviewRow({ type, themeColor }) {
 
 This allows us to avoid passing down the entire theme for each `ThemePreviewRow` components, instead relying on `cache`'s memoization to allow multiple components to access the values each.
 
-<iframe data-frame-title="React Theme Cache - StackBlitz" src="uu-code:./react-theme-cache?template=node&embed=1&file=&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="React Theme Cache - StackBlitz" src="uu-code:./react-theme-cache?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Other notable things about `cache`
 
@@ -332,7 +332,7 @@ function App = () => {
 }
 ```
 
-<iframe data-frame-title="React Cache Error - StackBlitz" src="uu-code:./react-cache-error?template=node&embed=1&file=&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="React Cache Error - StackBlitz" src="uu-code:./react-cache-error?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Conclusion
 
