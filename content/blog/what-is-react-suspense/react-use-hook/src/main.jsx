@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { use, Suspense, cache } from "react";
+import { use, cache } from "react";
 
 const UserDisplay = () => {
 	const result = use(fetchUser());
@@ -8,11 +8,7 @@ const UserDisplay = () => {
 };
 
 function App() {
-	return (
-		<Suspense fallback={<p>Loading...</p>}>
-			<UserDisplay />
-		</Suspense>
-	);
+	return <UserDisplay />;
 }
 
 // Pretend this is fetching data from the server

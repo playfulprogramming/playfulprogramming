@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
-import { use, Suspense, cache } from "react";
+import { use, Suspense, Component, cache } from "react";
 
-const UserDisplay = () => {
-	const result = use(fetchUser());
+const UserDisplay = ({ timeout }) => {
+	const result = use(fetchUser({ timeout }));
 
 	return <p>Hello {result.name}</p>;
 };
@@ -10,20 +10,21 @@ const UserDisplay = () => {
 function App() {
 	return (
 		<Suspense fallback={<p>Loading...</p>}>
-			<UserDisplay />
+			<UserDisplay timeout={1500} />
+			<UserDisplay timeout={3000} />
 		</Suspense>
 	);
 }
 
 // Pretend this is fetching data from the server
-const fetchUser = cache(() => {
+const fetchUser = cache(({ timeout }) => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve({
 				name: "John Doe",
 				age: 34,
 			});
-		}, 1000);
+		}, timeout ?? 1000);
 	});
 });
 

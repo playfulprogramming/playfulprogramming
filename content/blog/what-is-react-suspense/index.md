@@ -2,7 +2,7 @@
 {
     title: "What is React Suspense?",
     description: "",
-    published: '2023-12-17T21:52:59.284Z',
+    published: '2023-12-18T21:52:59.284Z',
     authors: ['crutchcorn'],
     tags: ['react', 'webdev'],
     attached: [],
@@ -45,7 +45,7 @@ useEffect(() => {
 }, []);
 ```
 
-<!-- TODO: Add embed -->
+<!-- TODO: Add embed react-use-hook -->
 
 While this works and `useEffect` _can_ be used this way, `useEffect` is not a built-in mechanism for asynchronous data loading. 
 
@@ -53,15 +53,25 @@ Instead, React 18.3 (in canary release at the time of writing) introduces a new 
 
 This hook allows you to pass a promise to it to load data:
 
-```jsx
-const UserDisplay = ({promise}) => {
-	const result = use(promise);
+```jsx {0,2}
+import {use, cache} from "react";
+
+const UserDisplay = () => {
+	const result = use(fetchUser());
 
 	return <p>Hello {result.name}</p>;
 };
+
+// Without `cache`, a new instance of a promise would
+// be returned to `use` on every render. That's bad.
+const fetchUser = cache(() => {
+	// ...
+});
 ```
 
-We then need to pass the `UserDisplay` component to a `<Suspense>` component.
+> Here, we're using `use` in tandem with [React's `cache` function to avoid having to run `useMemo` on `fetchUser`](/posts/explaining-reacts-cache-function).
+
+Now React will treat the `result` as if it were not a promise, so that you can access properties and render them directly inside of your JSX.
 
 > If your only objective is to load data on the client, I'd still highly suggest using [TanStack Query](https://tanstack.com/query/latest) or something similar. After all, even with `use` you likely want to take into consideration the following:
 >
@@ -71,54 +81,12 @@ We then need to pass the `UserDisplay` component to a `<Suspense>` component.
 
 # What is the `<Suspense>` component?
 
-The React `<Suspense>` component allows you to display data and loading indicators from the new `use` Hook.
+The React `<Suspense>` component allows you to add a loading state to your components from the new `use` Hook.
 
-Take the `<UserDisplay>` component from before. If we use it in `<App>` as-is, nothing shows up:
-
-```jsx
-function App() {
-	// Placed in a memo to avoid re-fetching on every render
-	const promise = useMemo(() => fetchUser(), []);
-
-	return (
-    	<UserDisplay promise={promise} />
-	);
-}
-```
-
-<!-- TODO: Add embed -->
-
-To solve this, we need to add a `<Suspense>` to wrap our `<UserDisplay>` component:
+Take the `<UserDisplay>` component from before. To add a loading indicator to the `<UserDisplay>` component, add a `<Suspense>` component in the parent component alongside a `fallback={}` property:
 
 ```jsx
 function App() {
-	// Placed in a memo to avoid re-fetching on every render
-	const promise = useMemo(() => fetchUser(), []);
-
-	return (
-        <Suspense>
-            <UserDisplay promise={promise} />
-        </Suspense>
-	);
-}
-```
-
-<!-- TODO: Add embed -->
-
-> Notice how `promise` is being passed to `<UserDisplay>`. We're doing this for two reasons:
->
-> 1) React's `<Suspense>` component doesn't behave as-expected when assigning the promise inside of a `Suspense` block.
-> 2) You often want to load your data at a higher-level than you might originally suspect. We'll show later how you can use this to your advantage and load multiple async components using a single loading indicator rather than multiple. This leads to better UX for your users. 
-
-## How do I add a loading indicator to `<Suspense>`?
-
-You'll notice that while data is loading, there's no indication that the user that data is being fetched. To add a loading indicator to the `<Suspense>` component, add a `fallback={}` property to the `<Suspense>` component:
-
-```jsx
-function App() {
-	// Placed in a memo to avoid re-fetching on every render
-	const promise = useMemo(() => fetchUser(), []);
-
 	return (
         <Suspense fallback={<p>Loading...</p>}>
             <UserDisplay promise={promise} />
@@ -127,7 +95,7 @@ function App() {
 }
 ```
 
-<!-- TODO: Add embed -->
+<!-- TODO: Add embed react-suspense -->
 
 ## Reusing Loading Indicators
 
@@ -136,48 +104,56 @@ Loading indicators may be important to show in-progress data fetching, but users
 Because of this, React has made handling multiple data sources easy using `<Suspense>`; just wrap multiple `use` Hook components inside of a single `<Suspense>` component:
 
 ```jsx
-function App() {
-	const promiseOne = useMemo(() => fetchUser({ timeout: 1500 }), []);
-	const promiseTwo = useMemo(() => fetchUser({ timeout: 3000 }), []);
+const UserDisplay = ({timeout}) => {
+	const result = use(fetchUser({ timeout }));
 
+	return <p>Hello {result.name}</p>;
+};
+
+function App() {
 	return (
-		<ErrorBoundary>
-            {/* Will show "Loading..." for 3 seconds while
-                waiting for BOTH promises to resolve */}
-			<Suspense fallback={<p>Loading...</p>}>
-				<UserDisplay promise={promiseOne} />
-				<UserDisplay promise={promiseTwo} />
-			</Suspense>
-		</ErrorBoundary>
+		<Suspense fallback={<p>Loading...</p>}>
+			<UserDisplay timeout={1500} />
+			<UserDisplay timeout={3000} />
+		</Suspense>
 	);
 }
+
+// Pretend this is fetching data from the server
+const fetchUser = cache(({ timeout }) => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve({
+				name: "John Doe",
+				age: 34,
+			});
+		}, timeout ?? 1000);
+	});
+});
 ```
 
-<!-- TODO: Add embed -->
+<!-- TODO: Add embed react-suspense-multi -->
 
 To sidestep this behavior, wrap each `<UserDisplay>` in their own `<Suspense>`:
 
 ``` jsx
 function App() {
-	const promiseOne = useMemo(() => fetchUser({ timeout: 1500 }), []);
-	const promiseTwo = useMemo(() => fetchUser({ timeout: 3000 }), []);
-
 	return (
-		<ErrorBoundary>
+		<>
             {/* Will show "Loading..." for 3 seconds while
                 waiting for BOTH promises to resolve */}
 			<Suspense fallback={<p>Loading...</p>}>
-				<UserDisplay promise={promiseOne} />
+                <UserDisplay timeout={1500} />
 			</Suspense>
             <Suspense fallback={<p>Loading...</p>}>
-            	<UserDisplay promise={promiseTwo} />
+                <UserDisplay timeout={3000} />
 			</Suspense>
-		</ErrorBoundary>
+		</>
 	);
 }
 ```
 
-<!-- TODO: Add embed -->
+<!-- TODO: Add embed react-suspense-one-by-one -->
 
 ## How do I handle rejected promises in `<Suspense>`?
 
@@ -188,20 +164,17 @@ To handle rejected promises in Suspense, you'll need to use an `<ErrorBoundary>`
 Let's see how we can do this ourselves:
 
 ```jsx
-const UserDisplay = ({ promise }) => {
-	const result = use(promise);
+const UserDisplay = () => {
+	const result = use(fetchUser());
 
 	return <p>Hello {result.name}</p>;
 };
 
 function App() {
-	// Placed in a memo to avoid re-fetching on every render
-	const promise = useMemo(() => fetchUser(), []);
-
 	return (
 		<ErrorBoundary>
 			<Suspense fallback={<p>Loading...</p>}>
-				<UserDisplay promise={promise} />
+				<UserDisplay />
 			</Suspense>
 		</ErrorBoundary>
 	);
@@ -224,7 +197,7 @@ class ErrorBoundary extends Component {
 }
 ```
 
-<!-- TODO: Add embed -->
+<!-- TODO: Add embed react-suspense-error-boundary  -->
 
 ----------------------------
 
