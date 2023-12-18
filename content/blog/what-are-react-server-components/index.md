@@ -118,9 +118,10 @@ export function profilePicture() {
 
 Because a server component runs entirely on the server, there are a few limitations you should be aware of:
 
-- No usage of React Hooks (`useState`, `useReducer`, etc)
+- No usage of React Hooks that contain client-side state (`useState`, `useReducer`, etc)
 
-  - This includes importing code that lazily uses React Hooks, although [library authors have found a way around this for their needs](https://npmjs.com/package/rehackt).
+  - This includes importing code that lazily uses these React Hooks, although [library authors have found a way around this for their needs](https://npmjs.com/package/rehackt).
+  - Some Hooks that do not require client-side state are okay to use (`useId`, Next.js' `useSearchParams`, etc)
 
 - `<Context.Provider>` usage
 
