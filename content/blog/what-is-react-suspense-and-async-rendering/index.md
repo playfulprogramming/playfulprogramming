@@ -1,7 +1,7 @@
 ---
 {
     title: "What is React Suspense and Async Rendering?",
-    description: "",
+    description: "Handling async code in React code has historically been fairly challenging to get right. Let's see how React's official solutions for promises stack up!",
     published: '2023-12-18T21:52:59.284Z',
     authors: ['crutchcorn'],
     tags: ['react', 'webdev'],
@@ -283,3 +283,13 @@ According to the React team, [there are technical limitations around using async
 
 > **A note about async server components**
 > Something to keep in mind is that while normal React Server Components can use _some_ Hooks (`useId`, `useSearchParams`, etc) [async server components cannot use **any** hooks of any kind.](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md#async-server-components-cannot-contain-hooks)
+
+# Conclusion
+
+In this article, we took a look at React's official solutions for async rendering behavior. This is great to see the team make strides
+in this area; I think most apps are going to end up utilizing these heavily.
+
+However, this is only half of the story for React's async support. Next up, we'll talk about React Server Actions, which enables the client to
+make RPC-like calls back to the server and execute server code for us.
+
+Can't wait to talk about what you learned about? [Join our Discord and tell us what you think about the Suspense API](https://discord.gg/FMcvc6T)!
