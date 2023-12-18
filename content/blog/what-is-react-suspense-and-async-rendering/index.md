@@ -245,7 +245,7 @@ const fetchOurUserFromTheDatabase = cache(() => {
 
 This works!
 
-<iframe data-frame-title="Next.js use Hook - StackBlitz" src="uu-code:./nextjs-use-hook?template=node&embed=1&file=src%2Fpage.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Next.js use Hook - StackBlitz" src="uu-code:./nextjs-use-hook?template=node&embed=1&file=app%2Fpage.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # What are React Async Server Components?
 
@@ -273,7 +273,7 @@ export default function Home() {
 }
 ```
 
-<iframe data-frame-title="Next.js Async Components - StackBlitz" src="uu-code:./nextjs-async-components?template=node&embed=1&file=src%2Fpage.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Next.js Async Components - StackBlitz" src="uu-code:./nextjs-async-components?template=node&embed=1&file=app%2Fpage.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Not only is the developer experience for this component authoring better, but it's drastically more performant due to how its internals work.
 
@@ -281,7 +281,7 @@ Not only is the developer experience for this component authoring better, but it
 
 According to the React team, [there are technical limitations around using async components on the client that make it infeasible to use on the client](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md#why-cant-client-components-be-async-functions).
 
-> **A note about async server components**
+> **A note about async server components:**
 > Something to keep in mind is that while normal React Server Components can use _some_ Hooks (`useId`, `useSearchParams`, etc) [async server components cannot use **any** hooks of any kind.](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md#async-server-components-cannot-contain-hooks)
 
 # Conclusion
