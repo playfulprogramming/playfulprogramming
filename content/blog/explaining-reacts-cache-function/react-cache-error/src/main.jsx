@@ -25,7 +25,7 @@ function App() {
 			{Array.from({ length: howManyInstances }).map((_, i) => (
 				<div key={i}>
 					<ErrorBoundary key={counter}>
-						<ThrowAnErrorIfEven key={i} number={counter} instance={i} />
+						<ThrowAnErrorIfEven number={counter} instance={i} />
 					</ErrorBoundary>
 				</div>
 			))}
