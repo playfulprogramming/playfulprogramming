@@ -235,7 +235,7 @@ const App = () => {
 };
 ```
 
-<iframe data-frame-title="React Reactivity - StackBlitz" src="uu-code:./react-reactivity?template=node&embed=1&file=&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="React Reactivity - StackBlitz" src="uu-code:./react-reactivity?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Angular
 
