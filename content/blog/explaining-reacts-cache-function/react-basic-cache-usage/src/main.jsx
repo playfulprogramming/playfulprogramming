@@ -1,14 +1,16 @@
 import { createRoot } from "react-dom/client";
 import { cache, useReducer, useState } from "react";
 
-const test = cache((id) => {
+const alertCounter = cache((id) => {
 	alert(id);
 });
 
 function App() {
 	const [counter, setCounter] = useState(0);
 	const [_, rerender] = useReducer(() => ({}), {});
-	test(counter);
+
+	alertCounter(counter);
+
 	return (
 		<div>
 			<button onClick={() => setCounter((v) => v + 1)}>Add to {counter}</button>
