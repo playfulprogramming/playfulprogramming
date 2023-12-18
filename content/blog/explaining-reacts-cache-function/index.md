@@ -48,7 +48,7 @@ function App() {
 }
 ```
 
-<!-- TODO: Show broken example -->
+<iframe data-frame-title="React Broken Basic Cache Usage - StackBlitz" src="uu-code:./react-broken-basic-cache-usage?template=node&embed=1&file=&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Now traditional React rules would say that `alertCounter` should show an `alert` on every render, regardless of if `counter` is being changed or not. We can see this whenever we trigger a re-render manually without changing `counter`.
 
@@ -83,7 +83,7 @@ function App() {
 
 Now if we force a re-render without changing `count`, it will no longer `alert`:
 
-<!-- TODO: Show working example -->
+<iframe data-frame-title="React Basic Cache Usage - StackBlitz" src="uu-code:./react-basic-cache-usage?template=node&embed=1&file=&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 This is because the `cache` function is [_memoizing_](https://whatthefuck.is/memoization) the usage of the function and eagerly opting out of execution as a result.
 
@@ -134,7 +134,7 @@ I personally don't find the first argument particularly compelling, so let's tak
 
 Say that you're looking to generate a theme based on the users' input:
 
-![// TODO: Write alt](./theme_preview.png)
+![A primary color of purple is selected by the user with a green and pink secondary and tertiary colors. Each of the colors has a white or dark colored text to match legibility](./theme_preview.png)
 
 > I didn't spend long optimizing how the theme would look for different color types. Admittedly, this doesn't look amazing, but it will suffice for the sake of a demo.
 
@@ -225,7 +225,7 @@ function ThemePreviewRow({ type, themeColor }) {
 
 This allows us to avoid passing down the entire theme for each `ThemePreviewRow` components, instead relying on `cache`'s memoization to allow multiple components to access the values each.
 
-<!-- TODO: Add code embed -->
+<iframe data-frame-title="React Theme Cache - StackBlitz" src="uu-code:./react-theme-cache?template=node&embed=1&file=&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Other notable things about `cache`
 
@@ -331,6 +331,8 @@ function App = () => {
     )
 }
 ```
+
+<iframe data-frame-title="React Cache Error - StackBlitz" src="uu-code:./react-cache-error?template=node&embed=1&file=&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Conclusion
 
