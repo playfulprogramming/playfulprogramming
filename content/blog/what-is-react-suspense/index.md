@@ -1,6 +1,6 @@
 ---
 {
-    title: "What is React Suspense?",
+    title: "What is React Suspense and Async Rendering?",
     description: "",
     published: '2023-12-18T21:52:59.284Z',
     authors: ['crutchcorn'],
@@ -18,7 +18,7 @@ I also hinted in the conclusion of that article that due to the nature of RSCs w
 
 Let's talk about data fetching, first by putting server-side behavior to the side, then we'll reintroduce the server-APIs soon after.
 
-To do this, I want to introduce you to two new APIs: the `use` Hook and `<Suspense>` component.
+To do this, I want to introduce you to three new APIs: the `use` Hook, the `<Suspense>` component, and Async React Server Components.
 
 # What is the React `use` Hook?
 
@@ -71,7 +71,7 @@ const fetchUser = cache(() => {
 
 > Here, we're using `use` in tandem with [React's `cache` function to avoid having to run `useMemo` on `fetchUser`](/posts/explaining-reacts-cache-function).
 
-Now React will treat the `result` as if it were not a promise, so that you can access properties and render them directly inside of your JSX.
+Now React will treat the `result` as if it were not a promise, so that you can access properties and render them directly inside of your JSX. Effectively `use` acts as an `await` for promises in your client components.
 
 > If your only objective is to load data on the client, I'd still highly suggest using [TanStack Query](https://tanstack.com/query/latest) or something similar. After all, even with `use` you likely want to take into consideration the following:
 >
@@ -81,7 +81,7 @@ Now React will treat the `result` as if it were not a promise, so that you can a
 
 # What is the `<Suspense>` component?
 
-The React `<Suspense>` component allows you to add a loading state to your components from the new `use` Hook.
+The React `<Suspense>` component allows you to add a loading state to your components needing to use asynchronous APIs; such as the new `use` Hook.
 
 Take the `<UserDisplay>` component from before. To add a loading indicator to the `<UserDisplay>` component, add a `<Suspense>` component in the parent component alongside a `fallback={}` property:
 
@@ -199,68 +199,87 @@ class ErrorBoundary extends Component {
 
 <!-- TODO: Add embed react-suspense-error-boundary  -->
 
-----------------------------
-
-----------------------------
-
-----------------------------
-
-----------------------------
-
-----------------------------
-
-----------------------------
-
-----------------------------
-
-----------------------------
-
-----------------------------
-
-----------------------------
-
-----------------------------
-
-----------------------------
-
-----------------------------
-
-# How do I use Suspense with React Server Components?
+# Using `use` on the server
 
 Now let's move back to server-land
 
 We know that we can make server-only components, that don't reinitialize on the client, right? Now what if we could load the data on the server and not have it passed to the client either?
 
-Well, luckily for us - we already have a mechanism for loading data in React that's async
+Well, luckily for us - we already have a mechanism for loading data in React that's async:
 
 ```tsx
 const ServerComp = () => {
+    /* This works, but is not the best way of doing
+       things on the server */
     const data = use(fetchData())
 
     return <ChildComp data={data}/>
 }
 
 const Parent = () => {
-    return (<Suspense fallback={<Loading />}>
-        <ServerComp/>
-    </Suspense>)
+    /* We don't need a Suspense component here, since
+       the server will wait for the promise to resolve before
+       sending data to the client */
+    return <ServerComp/>;
 }
 ```
 
-Here, we're seeing the imaginary `ChildComp` rendered with data passed from the server (never fetched on the client)
-
-Because `ServerComp` only runs once thanks to RSC
+Here, we're seeing an imaginary `ChildComp` rendered with data passed from the server - this data is never fetched on the client thanks to how [React Server Components](/posts/what-are-react-server-components) work.
 
 But wait a moment - we're on the server. `use` accepts any promise... What if... What if we just polled our database directly?
 
 ```tsx
 const ServerComp = () => {
-    const data = use(fetchOurUsersFromTheDatabase())
+    /* This also works, but is still not the best way
+        of doing things in server components */
+    const data = use(fetchOurUserFromTheDatabase())
 
     return <ChildComp data={data}/>
 }
+
+// Still using cache... For now...
+const fetchOurUserFromTheDatabase = cache(() => {
+    // ...
+})
 ```
 
 This works!
 
-https://react.dev/reference/react/Suspense#providing-a-fallback-for-server-errors-and-client-only-content
+<!-- TODO: Add embed nextjs-use-hook -->
+
+# What are React Async Server Components?
+
+While `use` is undoubtably useful for client apps, server components have a better option available to us: async components.
+
+Here, we mark our component as being `async` and simply `await` the promise function to resolve it prior to reaching our JSX:
+
+```jsx
+// No need for `cache`!
+async function fetchOurUserFromTheDatabase() {
+	// ...
+};
+
+async function UserDetails() {
+  const user = await fetchOurUserFromTheDatabase();
+  return <p>{user.name}</p>;
+}
+```
+
+We can then use it as if it were any other server component:
+
+```jsx
+export default function Home() {
+  return <UserDetails />;
+}
+```
+
+<!-- TODO: Add embed nextjs-async-components  -->
+
+Not only is the developer experience for this component authoring better, but it's drastically more performant due to how its internals work.
+
+> If that's the case why don't we use `async` components on the client as well?
+
+According to the React team, [there are technical limitations around using async components on the client that make it infeasible to use on the client](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md#why-cant-client-components-be-async-functions).
+
+> **A note about async server components**
+> Something to keep in mind is that while normal React Server Components can use _some_ Hooks (`useId`, `useSearchParams`, etc) [async server components cannot use **any** hooks of any kind.](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md#async-server-components-cannot-contain-hooks)
