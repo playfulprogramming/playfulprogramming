@@ -59,7 +59,7 @@ Well, with `cache`, we can;
 ```jsx {0,2-4,10}
 import { cache, useState, useReducer } from "react"
 
-const test = cache((id) => {
+const alertCounter = cache((id) => {
 	alert(id);
 });
 
