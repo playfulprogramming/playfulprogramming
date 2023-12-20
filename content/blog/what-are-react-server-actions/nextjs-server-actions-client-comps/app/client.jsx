@@ -1,8 +1,7 @@
 "use client";
 import { useCallback, useState } from "react";
-import { addTodo } from "./todos";
 
-export function Todo({ todos }) {
+export function Todo({ todos, addTodo }) {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const addTodoAndRefresh = useCallback(async (formData) => {

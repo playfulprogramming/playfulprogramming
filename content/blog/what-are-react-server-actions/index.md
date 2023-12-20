@@ -97,106 +97,190 @@ Now that we've seen how `<form>` actions work on the client, let's move back to 
 
 # What are React Server Actions?
 
-In short; React Server Actions are a way to call server-side code in React client components. If asynchronous server components with `await` in them allow you to pass server data to the client, server actions enable you to pass data back from the client to the server.
+In short; React Server Actions are a way to call server-side code in React's client-side rendering. If asynchronous server components with `await` in them allow you to pass server data to the client, server actions enable you to pass data back from the client to the server.
 
 ![// TODO: Write alt](back-and-forth-server-actions.svg)
 
-However, to pass a function from a server component down to a client component we must designate our functions we want to pass with a special boundary string.
+However, to pass a function from a server component down to the client we must designate our functions we want to pass with a special boundary string.
 
 # What is `"use server"`?
 
 `"use server"` is the boundary string in React server apps that allows us to mark a function as "ready to pass to the client".
 
-For example, let's say that we have a todo list application. Originally, it's written in client-side React:
+Let's take our previous todo list and migrate the state to the server. This way all of our friends can see our shopping list!
 
+We'll start by using [async server components](/posts/what-is-react-suspense-and-async-rendering#What-are-React-Async-Server-Components) to pass our todo list in from the server's database:
 
+```jsx
+// Theoretical API from a database wrapper
+import { getTodos } from "./todos";
 
-
-
---------------------------
-
---------------------------
-
---------------------------
-
---------------------------
-
---------------------------
-
---------------------------
-
-Now this is great for loading data, but what about actions? Not everything happens at load and we may want to find ourselves listening for a user submitting a form
-
-Well, this is where the React Actions come into play. Let's again move back to client land and see how we can listen for a form submission and add an item to a todo:
-
-```tsx
-import { useState } from "react";
-
-export default function Todo() {
-  const [todos, setTodos] = useState([]);
-  async function addTodo(formData) {
-    const todo = formData.get("todo");
-    setTodos([...todos, todo]);
-  }
-  return (
-    <>
-      <ul>
-        {todos.map((todo) => {
-          return <li>{todo}</li>;
-        })}
-      </ul>
-      <form action={addTodo}>
-        <input name="todo" />
-        <button type="submit">Add Todo</button>
-      </form>
-    </>
-  );
+export default async function Todo() {
+	const todos = await getTodos();
+	return (
+		<>
+			<ul>
+				{todos.map((todo) => {
+					return <li key={todo.id}>{todo.value}</li>;
+				})}
+			</ul>
+        	<!-- This form doesn't work yet -->
+			<form>
+				<input name="todo" />
+				<button type="submit">Add Todo</button>
+			</form>
+		</>
+	);
 }
 ```
 
-Annnnd of course this works on the server as well:
+Now we have a way to pass data to the client, but not a way to get the user's input back. Let's fix that by passing a server action to the client and using `<form action={}/>` to call this function for us:
 
-```tsx
-"use client"
-import { useState } from "react";
+```jsx
+import { addTodoToDatabase, getTodos } from "./todos";
+import { redirect } from "next/navigation";
 
-export default function Todo() {
-  const [todos, setTodos] = useState([]);
-  async function addTodo(formData) {
-    "use server"
-    const todo = formData.get("todo");
-    addTodoToDatabase(todo);
-  }
-  return (
-    <>
-      <ul>
-        {todos.map((todo) => {
-          return <li>{todo}</li>;
-        })}
-      </ul>
-      <form action={addTodo}>
-        <input name="todo" />
-        <button type="submit">Add Todo</button>
-      </form>
-    </>
-  );
+export default async function Todo() {
+	const todos = await getTodos();
+	async function addTodo(formData) {
+		"use server";
+		const todo = formData.get("todo");
+		await addTodoToDatabase(todo);
+		// Refresh the page to see the new todo
+		redirect("/");
+	}
+	return (
+		<>
+			<ul>
+				{todos.map((todo) => {
+					return <li key={todo.id}>{todo.value}</li>;
+				})}
+			</ul>
+			<form action={addTodo}>
+				<input name="todo" />
+				<button type="submit">Add Todo</button>
+			</form>
+		</>
+	);
 }
 ```
 
-Just as "use client" is used to denote a client component in an otherwise fully-server environment; "use server" is used to mark a function as running on the server rather than the client.
+<!-- Add embed: nextjs-server-actions-server-comps -->
 
+Now if we:
 
---------------------------
+- Type something in the `<input/>`
+- Click "Add Todo"
+- Wait a moment
 
---------------------------
+We'll see the todo we typed show up for all of our users on the page.
 
---------------------------
+> Keep in mind, this is using REST APIs, so it won't auto-refresh the page for all users, just the user who added the todo.
 
---------------------------
+## Adding in client-side components
 
---------------------------
+Notice that we're only exclusively using a server-component in the example above. Because of this, we don't have any loading indicator for the time the server is adding our todo.
 
---------------------------
+Let's add a `useState` in our client-component to solve this user experience problem:
+
+```jsx
+import { Todo } from "./client";
+import { addTodoToDatabase, getTodos } from "./todos";
+
+export default async function Home() {
+	const todos = await getTodos();
+
+	async function addTodo(formData) {
+		"use server";
+		const todo = formData.get("todo");
+		await addTodoToDatabase(todo);
+	}
+
+	return <Todo todos={todos} addTodo={addTodo} />;
+}
+```
+
+```jsx
+// client.jsx
+"use client";
+
+import { useCallback, useState } from "react";
+
+export function Todo({ todos, addTodo }) {
+	const [isLoading, setIsLoading] = useState(false);
+
+	const addTodoAndRefresh = useCallback(async (formData) => {
+		await addTodo(formData);
+		window.location.reload();
+	}, []);
+
+	return (
+		<>
+			{isLoading && <p>Adding todo...</p>}
+			<ul>
+				{todos.map((todo) => {
+					return <li key={todo.id}>{todo.value}</li>;
+				})}
+			</ul>
+			<form
+				action={addTodoAndRefresh}
+				onSubmit={() => {
+					// We're using onSubmit so that we don't have to wait for the server
+					// to get the request before we set isLoading to true
+					setIsLoading(true);
+				}}
+			>
+				<input disabled={isLoading} name="todo" />
+				<button disabled={isLoading} type="submit">
+					Add Todo
+				</button>
+			</form>
+		</>
+	);
+}
+```
+
+<!-- Embed: nextjs-server-actions-client-comps -->
+
+Instead of passing a server action from a server component, we could also mark a whole file as `"use server"` and import it from there;
+
+```jsx
+// server-actions.js
+"use server";
+
+import { addTodoToDatabase } from "./todos";
+
+export async function addTodo(formData) {
+    const todo = formData.get("todo");
+    await addTodoToDatabase(todo);
+}
+```
+
+```jsx
+// client.jsx
+"use client";
+
+import { addTodo } from "./server-actions";
+import { useCallback, useState } from "react";
+
+export function Todo({ todos, addTodo }) {
+	const [isLoading, setIsLoading] = useState(false);
+
+	const addTodoAndRefresh = useCallback(async (formData) => {
+		await addTodo(formData);
+		window.location.reload();
+	}, []);
+
+	return (
+		// ...
+	);
+}
+```
+
+> **Be careful what you export:**
+>
+> Don't mark your whole database API file as `"use server"`, otherwise it makes it easier to accidentally cause a security issue by exposing functions you might not wanted to've done otherwise.
+
 ## What happens if you don't mark a function with `"use server"`?
 
 If you forget to mark your server action with the `"use server"` string, like so;

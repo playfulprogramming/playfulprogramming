@@ -1,9 +1,3 @@
-"use server";
-export async function addTodo(formData) {
-	const todo = formData.get("todo");
-	await addTodoToDatabase(todo);
-}
-
 // Pretend this is a real database
 let id = 0;
 const todos = [];
@@ -19,7 +13,7 @@ function getRandomTimePromise() {
 	});
 }
 
-async function addTodoToDatabase(todo) {
+export async function addTodoToDatabase(todo) {
 	await getRandomTimePromise();
 	todos.push({ value: todo, id: ++id });
 }

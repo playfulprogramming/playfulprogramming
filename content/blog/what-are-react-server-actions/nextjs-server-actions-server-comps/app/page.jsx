@@ -7,6 +7,7 @@ export default async function Todo() {
 		"use server";
 		const todo = formData.get("todo");
 		await addTodoToDatabase(todo);
+		// Refresh the page to see the new todo
 		redirect("/");
 	}
 	return (
