@@ -294,44 +294,69 @@ Assume you have the above sample code, but you have JavaScript disabled. When yo
 
 > Keep in mind that any client-side React code will not run if JavaScript is disabled. This includes the `useEffect` Hook among others.
 
-# Use `useFormState` and `useFormStatus` together
+# How to use `useFormState` and `useFormStatus` together
+
+You may have noticed that `useFormState` doesn't provide us the same pending information that `useFormStatus` does. Let's combine them for the ultimate user experience:
 
 ```jsx
-function Submit() {
-  const status = useFormStatus();
-  return (
-    <button disabled={status.pending}>
-      {status.pending ? 'Sending...' : 'Send'}
-    </button>
-  );
-}
+// page.jsx
+import { Todo } from "./client";
+import { addTodoToDatabase, getTodos } from "./todos";
+import { redirect } from "next/navigation";
 
-function App() {
-  async function sayHi() {
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 1000);
-    });
-    return 'Value from the action';
-  }
+export default async function Home() {
+	const todos = await getTodos();
 
-  const [state, action] = useFormState(sayHi, 'Initial value');
+	async function addTodo(previousState, formData) {
+		"use server";
+		const todo = formData.get("todo");
+		if (!todo) return "Please enter a todo";
+		await addTodoToDatabase(todo);
+		redirect("/");
+	}
 
-  return (
-    <form action={action}>
-      <p>{state}</p>
-      <Submit />
-    </form>
-  );
+	return <Todo todos={todos} addTodo={addTodo} />;
 }
 ```
 
-We can even expand this into our real world example:
-
 ```jsx
-// TODO: Write real world example
+// client.jsx
+"use client";
+import { useFormState, useFormStatus } from "react-dom";
+
+function TodoFormInner() {
+	const status = useFormStatus();
+	return (
+		<>
+			{status.pending && <p>Adding todo...</p>}
+			<input disabled={status.pending} name="todo" />
+			<button disabled={status.pending} type="submit">
+				Add Todo
+			</button>
+		</>
+	);
+}
+
+export function Todo({ todos, addTodo }) {
+	const [state, action] = useFormState(addTodo, "");
+
+	return (
+		<>
+			<form action={action}>
+				{state && <p>{state}</p>}
+				<TodoFormInner />
+			</form>
+			<ul>
+				{todos.map((todo) => {
+					return <li key={todo.id}>{todo.value}</li>;
+				})}
+			</ul>
+		</>
+	);
+}
 ```
+
+<!-- TODO: Add embed nextjs-use-form-state-and-status -->
 
 # Conclusion
 
