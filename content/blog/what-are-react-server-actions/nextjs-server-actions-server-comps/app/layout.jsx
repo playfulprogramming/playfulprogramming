@@ -1,6 +1,7 @@
 export const metadata = {
-	title: "Next.js use Hook",
-	description: "For use in the Next.js Suspense article on Unicorn Utterances",
+	title: "Next.js Server Actions Server Comps",
+	description:
+		"For use in the Next.js Server Actions article on Unicorn Utterances",
 };
 
 export default function RootLayout({ children }) {
