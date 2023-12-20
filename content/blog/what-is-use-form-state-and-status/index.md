@@ -290,7 +290,7 @@ Because `useFormState` utilizes the `<form>` element's native `action` attribute
 
 Assume you have the above sample code, but you have JavaScript disabled. When you click the submit button, the form will submit to the `action` attribute, and the page will refresh with the new information for the user.
 
-<!-- TODO: Include video to showcase -->
+<video src="./nextjs-use-state-js-disabled.mp4" title="Disabling the JavaScript while using useFormState with a server action will cause the page to refresh with the data you want to see rendered"></video>
 
 > Keep in mind that any client-side React code will not run if JavaScript is disabled. This includes the `useEffect` Hook among others.
 
