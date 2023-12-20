@@ -378,5 +378,8 @@ Error:
 
 # Conclusion
 
+React Server Actions make for a wonderful way of intermingling server and client state. It's never been easier to write code for React applications that span between both the frontend and backend alike. Moreover, it's only going to get better with time.
 
+But there's one more thing I still want to cover about React Server Components left... Let's look at `useFormState` and `useFormStatus` next time!
 
+Until then, [drop by our Discord server](https://discord.gg/FMcvc6T) and tell us what you think of React Server Actions - we'd love to hear your thoughts!
