@@ -1,7 +1,7 @@
 ---
 {
     title: "What is React's useFormState and useFormStatus?",
-    description: "",
+    description: "React Server Actions are an awesome way to pass data to and from your React client and server. Like all functions, they need a way to return data.",
     published: '2023-12-20T21:52:59.284Z',
     authors: ['crutchcorn'],
     tags: ['react', 'webdev', 'javascript'],
@@ -27,8 +27,6 @@ Well, once you send an action back to the server, how do you get a response back
 Well, this is where `useFormStatus` and `useFormState` come into play:
 
 ![Async data sends info to the client, server actions send it back to the server, useFormState listens for returned data from the server action](./back-and-forth-use-form-state.svg)
-
-
 
 # What is `useFormStatus`?
 
@@ -67,7 +65,7 @@ function App() {
 }
 ```
 
-<!-- TODO: Add react-use-form-status embed -->
+<iframe data-frame-title="React useFormStatus - StackBlitz" src="uu-code:./react-use-form-status?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Here, we're using the `pending` field on `useFormStatus` to tell us when our form is being submitted.
 
@@ -163,7 +161,7 @@ export function Todo({ todos, addTodo }) {
 }
 ```
 
-<!-- // TODO: Add embed nextjs-use-form-status-->
+<iframe data-frame-title="Next.js useFormStatus - StackBlitz" src="uu-code:./nextjs-use-form-status?template=node&embed=1&file=app%2Fpage.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # What is `useFormState`?
 
@@ -195,7 +193,7 @@ function App() {
 }
 ```
 
-<!-- // TODO: Add embed react-use-form-state -->
+<iframe data-frame-title="React useFormState - StackBlitz" src="uu-code:./react-use-form-state?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 We can even implement a simple counter by utilizing the previous state (or initial value if there is no previous state):
 
@@ -217,7 +215,7 @@ function App() {
 
 > This increment example comes from [the React docs for the Hook](https://react.dev/reference/react-dom/hooks/useFormState#useformstate).
 
-<!-- // TODO: Add embed react-use-form-state-counter -->
+<iframe data-frame-title="React useFormState Counter - StackBlitz" src="uu-code:./react-use-form-state-counter?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## `useFormState` usage with server actions
 
@@ -273,7 +271,7 @@ export function Todo({ todos, addTodo }) {
 }
 ```
 
-<!-- // TODO: Add embed nextjs-use-form-state -->
+<iframe data-frame-title="Next.js useFormState - StackBlitz" src="uu-code:./nextjs-use-form-state?template=node&embed=1&file=app%2Fpage.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > **Don't forget the API changes:**
 >
@@ -356,7 +354,7 @@ export function Todo({ todos, addTodo }) {
 }
 ```
 
-<!-- TODO: Add embed nextjs-use-form-state-and-status -->
+<iframe data-frame-title="Next.js useFormState and useFormStatus - StackBlitz" src="uu-code:./nextjs-use-form-state-and-status?template=node&embed=1&file=app%2Fpage.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Conclusion
 
