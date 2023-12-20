@@ -1,10 +1,10 @@
 ---
 {
     title: "What are React Server Actions?",
-    description: "",
+    description: "While React Suspense APIs enable you to load data asynchronously from the server, Server Actions allow you to send data to the server from the client.",
     published: '2023-12-19T21:52:59.284Z',
     authors: ['crutchcorn'],
-    tags: ['react', 'webdev'],
+    tags: ['react', 'webdev', 'javascript'],
     attached: [],
     license: 'cc-by-4',
     collection: "react-beyond-the-render",
@@ -99,7 +99,7 @@ Now that we've seen how `<form>` actions work on the client, let's move back to 
 
 In short; React Server Actions are a way to call server-side code in React's client-side rendering. If asynchronous server components with `await` in them allow you to pass server data to the client, server actions enable you to pass data back from the client to the server.
 
-![// TODO: Write alt](back-and-forth-server-actions.svg)
+![The server passes down data via async server components and is passed back data via server actions](back-and-forth-server-actions.svg)
 
 However, to pass a function from a server component down to the client we must designate our functions we want to pass with a special boundary string.
 
