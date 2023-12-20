@@ -376,6 +376,32 @@ Error:
 > **Remember where to place your server actions:**
 > Server actions can only be defined in a file with `"use server"` at the top or passed in via a server component marked with `"use server"` at the top of the function definition.
 
+# Why are React Server Actions significant?
+
+React Server Actions not only make it easier to call data from the server from the client, but they play an important role in providing your applications ["progressive enhancement"](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement); they enable your server actions to call a server's function even when the user has JavaScript disabled in their browser.
+
+> Keep in mind that while your server action will go through, any client-ran React code (IE `useEffect`) will still fail to execute when JavaScript is disabled.
+
+For example, assume you're building a payment form:
+![A payment form with card information and more](./shadcn_payment.png)
+
+> This payment card graphic comes from [`shadcn/ui`'s examples](https://ui.shadcn.com/examples/cards)
+
+You want this payment form to be bulletproof. Any user having to attempt a re-purchase will likely not return to your site; leading to lost sales.
+
+If your user doesn't have JavaScript enabled but you've implemented Server Actions; no problem. The user's purchase will still go through.
+
+> But this seems a bit like an edge-case, doesn't it? After all, [according to a survey from WebAIM showed that 99.7% of users have JavaScript enabled](https://webaim.org/projects/screenreadersurvey8/#javascript) and I can't imagine many folks that would intentionally turn it off.
+
+While that may be true for some use-cases, consider the following examples:
+
+- A user in a developing country where data is expensive, disabling JavaScript could save money.
+- A user on a subway train with limited cellular network; able to download the HTML but failed the JavaScript bundle download.
+- A user with haywire browser extensions that has disabled the JavaScript on your page due to interference; either due to a bug or adblock.
+- A user that works at a business that has strict security requirements and limits the loading of JavaScript on their network.
+
+All of these are possible scenarios for your users. The more users you account for, the more money your organization can make.
+
 # Conclusion
 
 React Server Actions make for a wonderful way of intermingling server and client state. It's never been easier to write code for React applications that span between both the frontend and backend alike. Moreover, it's only going to get better with time.
