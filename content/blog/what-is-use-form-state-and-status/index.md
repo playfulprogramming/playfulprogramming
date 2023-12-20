@@ -360,4 +360,8 @@ export function Todo({ todos, addTodo }) {
 
 # Conclusion
 
-// TODO: Write
+And with that, that's our article series! We've covered a lot of ground; everything from how React's most fundamental values like reactivity works to advanced bi-directional data flow from the server and back!
+
+Want to keep learning React from lil' ole' me? Well shucks; first thank you for reading!
+
+But I can oblige! [I've written a book called "The Framework Field Guide" that teaches React, Angular, and Vue all-at-once, in-depth, and for free](https://framework.guide). Check it out and let me know what you think.
