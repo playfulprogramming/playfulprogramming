@@ -16,6 +16,85 @@ In our last article, we talked about [React's `use` hook and Async Server Compon
 
 In the conclusion of that article, I hinted that there was going to be more to the Server Components story. Well, sure enough there is in the form of React Server Actions.
 
+First though, let's talk about the client-side once again.
+
+# What are React `<form>` actions?
+
+Let's say that we're building a todo list application:
+
+```jsx
+function App() {
+	const id = useRef(0);
+	const [todos, setTodos] = useState([]);
+	const [todoInput, setTodoInput] = useState("");
+
+	function addTodo(e) {
+		e.preventDefault();
+		setTodos([...todos, { value: todoInput, id: ++id.current }]);
+	}
+
+	return (
+		<>
+			<ul>
+				{todos.map((todo) => {
+					return <li key={todo.id}>{todo.value}</li>;
+				})}
+			</ul>
+			<form onSubmit={addTodo}>
+				<input
+					name="todo"
+					value={todoInput}
+					onChange={(e) => setTodoInput(e.target.value)}
+				/>
+				<button type="submit">Add Todo</button>
+			</form>
+		</>
+	);
+}
+```
+
+<!-- TODO: embed react-classic-todo -->
+
+This works, but notice how we're having to `preventDefault` here. This is because we're sidestepping [`<form>`'s native `submit` event's behavior](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event); [submitting a form using the `action` property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/action).
+
+Luckily, the React core team has noticed this and introduced a means to passing a function in the `action` property in our client-side React applications:
+
+```jsx
+function App() {
+	const id = useRef(0);
+	const [todos, setTodos] = useState([]);
+
+	async function addTodo(formData) {
+		const todo = formData.get("todo");
+		setTodos([...todos, { value: todo, id: ++id.current }]);
+	}
+
+	return (
+		<>
+			<ul>
+				{todos.map((todo) => {
+					return <li key={todo.id}>{todo.value}</li>;
+				})}
+			</ul>
+			<form action={addTodo}>
+				<input name="todo" />
+				<button type="submit">Add Todo</button>
+			</form>
+		</>
+	);
+}
+```
+
+<!-- TODO: embed react-form-action -->
+
+> **A note on API versioning:**
+>
+> This feature is only currently available in [React Canary releases](https://react.dev/community/versioning-policy#canary-channel). This won't work with the current stable release.
+
+This allows us to write less code and focus less on default DOM behavior and shift our efforts to shipping code.
+
+Now that we've seen how `<form>` actions work on the client, let's move back to the server and look at React server actions:
+
 # What are React Server Actions?
 
 In short; React Server Actions are a way to call server-side code in React client components. If asynchronous server components with `await` in them allow you to pass server data to the client, server actions enable you to pass data back from the client to the server.
@@ -27,6 +106,12 @@ However, to pass a function from a server component down to a client component w
 # What is `"use server"`?
 
 `"use server"` is the boundary string in React server apps that allows us to mark a function as "ready to pass to the client".
+
+For example, let's say that we have a todo list application. Originally, it's written in client-side React:
+
+
+
+
 
 --------------------------
 
