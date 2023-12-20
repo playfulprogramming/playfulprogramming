@@ -12,7 +12,45 @@
 }
 ---
 
+Thus far in our article series, we've taken a look at how React handles reactivity, server rendering, and how to send data back and forth between our React-based server and our client.
+
+In particular, our last article outlined how we can send data from the server down to the client and back:
+
+![The server passes down data via async server components and is passed back data via server actions](../what-are-react-server-actions/back-and-forth-server-actions.svg)
+
+This is a great _almost_ bi-directional communication.
+
+> Why do you say "almost"? What's missing?
+
+Well, once you send an action back to the server, how do you get a response back from the server? What happens if the server action needs to inform you of some status?
+
+Well, this is where `useFormStatus` and `useFormState` come into play:
+
+![Async data sends info to the client, server actions send it back to the server, useFormState listens for returned data from the server action](./back-and-forth-use-form-state.svg)
+
+
+
 # What is `useFormStatus`?
+
+`useFormStatus` allows developers to listen for state changes on their React Server Actions. IE: When a server action is pending or not.
+
+While `useFormStatus` isn't directly a way to listen for changes from the server (instead it relies on the information on the client to show its metadata) it allows us to make a nicer user experience by showing a loading indicator while the server is taking its action.
+
+------------------------------------------
+---------------------
+---------------------
+---------------------
+---------------------
+---------------------
+---------------------
+---------------------
+---------------------
+---------------------
+---------------------
+---------------------
+---------------------
+
+
 
 - It works on the client
 
