@@ -18,7 +18,7 @@ In particular, our last article outlined how we can send data from the server do
 
 ![The server passes down data via async server components and is passed back data via server actions](../what-are-react-server-actions/back-and-forth-server-actions.svg)
 
-This is a great _almost_ bi-directional communication.
+This is a great _almost_ bi-directional communication from [React Server Components](/posts/what-are-react-server-components) and back.
 
 > Why do you say "almost"? What's missing?
 
@@ -36,23 +36,7 @@ Well, this is where `useFormStatus` and `useFormState` come into play:
 
 While `useFormStatus` isn't directly a way to listen for changes from the server (instead it relies on the information on the client to show its metadata) it allows us to make a nicer user experience by showing a loading indicator while the server is taking its action.
 
-------------------------------------------
----------------------
----------------------
----------------------
----------------------
----------------------
----------------------
----------------------
----------------------
----------------------
----------------------
----------------------
----------------------
-
-
-
-- It works on the client
+Let's start with a [client-side actions](/posts/what-are-react-server-actions#What-are-React-form-actions) demo:
 
 ```jsx
 import { useFormStatus } from 'react-dom';
@@ -82,6 +66,10 @@ function App() {
   );
 }
 ```
+
+<!-- TODO: Add react-use-form-status embed -->
+
+Here, we're using the `pending` field on `useFormStatus` to tell us when our form is being submitted.
 
 > **A note about `useFormStatus`:**
 > You might be wondering why I've extracted the `Submit` component into its own function. This is because `useFormStatus` is a hook that implicitly gathers its state from the parent `<form>` element.
@@ -115,11 +103,81 @@ function App() {
 
 ## `useFormStatus` usage with server actions
 
-But of course it works with server actions as well:
+But of course it works with server actions as well. Let's adapt our todo list example from our last article:
 
 ```jsx
-// TODO: Write real world example
+// page.jsx
+import { Todo } from "./client";
+import { addTodoToDatabase, getTodos } from "./todos";
+
+export default async function Home() {
+	const todos = await getTodos();
+
+	async function addTodo(formData) {
+		"use server";
+		const todo = formData.get("todo");
+		await addTodoToDatabase(todo);
+	}
+
+	return <Todo todos={todos} addTodo={addTodo} />;
+}
 ```
+
+```jsx
+// client.jsx
+"use client";
+import { useCallback } from "react";
+import { useFormStatus } from "react-dom";
+
+function TodoFormInner() {
+	const status = useFormStatus();
+	return (
+		<>
+			{status.pending && <p>Adding todo...</p>}
+			<input disabled={status.pending} name="todo" />
+			<button disabled={status.pending} type="submit">
+				Add Todo
+			</button>
+		</>
+	);
+}
+
+export function Todo({ todos, addTodo }) {
+	const addTodoAndRefresh = useCallback(async (formData) => {
+		await addTodo(formData);
+		window.location.reload();
+	}, []);
+
+	return (
+		<>
+			<form action={addTodoAndRefresh}>
+				<TodoFormInner />
+			</form>
+			<ul>
+				{todos.map((todo) => {
+					return <li key={todo.id}>{todo.value}</li>;
+				})}
+			</ul>
+		</>
+	);
+}
+```
+
+---------------------------
+
+---------------------------
+
+---------------------------
+
+---------------------------
+
+---------------------------
+
+---------------------------
+
+---------------------------
+
+
 
 # What is `useFormState`?
 
