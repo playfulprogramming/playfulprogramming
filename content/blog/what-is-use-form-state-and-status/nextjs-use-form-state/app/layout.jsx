@@ -1,5 +1,5 @@
 export const metadata = {
-	title: "Next.js useFormStatus",
+	title: "Next.js useFormState",
 	description:
 		"For use in the Next.js useFormState article on Unicorn Utterances",
 };

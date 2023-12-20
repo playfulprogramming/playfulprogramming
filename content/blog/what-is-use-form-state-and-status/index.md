@@ -163,25 +163,13 @@ export function Todo({ todos, addTodo }) {
 }
 ```
 
----------------------------
-
----------------------------
-
----------------------------
-
----------------------------
-
----------------------------
-
----------------------------
-
----------------------------
-
-
+<!-- // TODO: Add embed nextjs-use-form-status-->
 
 # What is `useFormState`?
 
-It works on the client:
+`useFormState` allows us to get a response from a React Server Action and handle the results any way we might want to; including (but not limited to) displaying the contents of the response to the client.
+
+This is a simple example of what `useFormState` looks like on client-side form actions:
 
 ```jsx
 function App() {
@@ -194,9 +182,11 @@ function App() {
     return 'Value from the action';
   }
 
+  // State will be updated when `sayHi` returns a value
   const [state, action] = useFormState(sayHi, 'Initial value');
 
   return (
+    // Pass the action from `useFormState`
     <form action={action}>
       <p>{state}</p>
       <button>Submit</button>
@@ -205,13 +195,94 @@ function App() {
 }
 ```
 
-## `useFormState` usage with server actions
+<!-- // TODO: Add embed react-use-form-state -->
 
-But of course it works with server actions as well:
+We can even implement a simple counter by utilizing the previous state (or initial value if there is no previous state):
 
 ```jsx
-// TODO: Write real world example
+async function increment(previousState, formData) {
+  return previousState + 1;
+}
+
+function App() {
+  const [state, action] = useFormState(increment, 0);
+  return (
+    <form action={action}>
+      <p>{state}</p>
+      <button>Increment</button>
+    </form>
+  )
+}
 ```
+
+> This increment example comes from [the React docs for the Hook](https://react.dev/reference/react-dom/hooks/useFormState#useformstate).
+
+<!-- // TODO: Add embed react-use-form-state-counter -->
+
+## `useFormState` usage with server actions
+
+While `useFormState` works on the client-side, it's the most useful in conjuncture with server actions.
+
+Let's add some form validation to our todo list application so that the user can't submit an empty field:
+
+```jsx
+// page.jsx
+import { Todo } from "./client";
+import { addTodoToDatabase, getTodos } from "./todos";
+import { redirect } from "next/navigation";
+
+export default async function Home() {
+	const todos = await getTodos();
+
+	async function addTodo(previousState, formData) {
+		"use server";
+		const todo = formData.get("todo");
+		if (!todo) return "Please enter a todo";
+		await addTodoToDatabase(todo);
+		redirect("/");
+	}
+
+	return <Todo todos={todos} addTodo={addTodo} />;
+}
+```
+
+```jsx
+// client.jsx
+"use client";
+import { useFormState } from "react-dom";
+
+export function Todo({ todos, addTodo }) {
+	const [state, action] = useFormState(addTodo, "")
+
+	return (
+		<>
+			<form action={action}>
+				{state && <p>{state}</p>}
+				<input name="todo" />
+				<button type="submit">
+					Add Todo
+				</button>
+			</form>
+			<ul>
+				{todos.map((todo) => {
+					return <li key={todo.id}>{todo.value}</li>;
+				})}
+			</ul>
+		</>
+	);
+}
+```
+
+<!-- // TODO: Add embed nextjs-use-form-state -->
+
+> **Don't forget the API changes:**
+>
+> Don't forget that `useFormState` requires you to change your server action to include a new first argument for `previousState`. Otherwise you'll get the following error:
+>
+> ```
+>  ⨯ app\page.jsx (10:24) @ get
+>  ⨯ TypeError: formData.get is not a function
+> ```
 
 ## `useFormState` usage without client-side JavaScript
 
