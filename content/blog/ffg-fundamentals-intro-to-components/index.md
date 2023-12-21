@@ -1794,7 +1794,7 @@ This is because Angular doesn't allow you to access `@Input` values in the root 
 const props = defineProps(["inputDate"]);
 
 const dateStr = ref(formatDate(props.inputDate));
-const labelText = ref(formatDate(props.inputDate));
+const labelText = ref(formatReadableDate(props.inputDate));
 
 // ...
 </script>
