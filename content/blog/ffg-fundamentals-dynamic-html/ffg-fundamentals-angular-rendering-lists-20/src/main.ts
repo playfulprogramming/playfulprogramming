@@ -71,7 +71,7 @@ export class FileDateComponent implements OnInit {
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [FileDateComponent, FileDateComponent, FileDateComponent, NgIf],
+	imports: [FileDateComponent, NgIf],
 	template: `
 		<button
 			(click)="selected.emit()"

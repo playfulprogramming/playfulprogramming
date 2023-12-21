@@ -70,7 +70,7 @@ export class FileDateComponent implements OnInit {
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [FileDateComponent, FileDateComponent],
+	imports: [FileDateComponent],
 	template: `
 		<button
 			(click)="selected.emit()"
