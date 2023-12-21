@@ -3054,7 +3054,7 @@ Luckily for us, each framework has the ability to sidestep a render while persis
 
 To store a variable's state in a React function component without triggering a re-render, we can use an `useRef` hook to store our `setTimeout` return without triggering a re-render:
 
-```jsx {5, 8-11}
+```jsx {0,5,8-11}
 import { useState, useRef, useEffect } from "react";
 
 const TitleChanger = () => {
@@ -3083,6 +3083,8 @@ const TitleChanger = () => {
 	);
 };
 ```
+
+<iframe data-frame-title="React Mutable Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-mutable-update-title-43?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 `useRef` allows you to persist data across renders, similar to `useState`. There are two major differences from `useState`:
 
@@ -3129,8 +3131,6 @@ Because the updates to `useRef` do not trigger the second argument of `useState`
 Now, let's see how this fundamental change impacts our usage of `useRef`. Take the following code sample:
 
 ```jsx
-import { useRef, useEffect } from "react";
-
 const Comp = () => {
 	const ref = useRef();
 
@@ -3138,9 +3138,12 @@ const Comp = () => {
 		ref.current = Date.now();
 	});
 
+	// First render won't have `ref.current` set
 	return <p>The current timestamp is: {ref.current}</p>;
 };
 ```
+
+<iframe data-frame-title="React useRef Timestamp - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-ref-timestamp-43?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Why doesn't this show a timestamp?
 
@@ -3164,7 +3167,7 @@ const Comp = () => {
 
 	return (
 		<div>
-			{/* First render won't have `ref.current` set */}
+			{/* This value will only update when you press "check timestamp" */}
 			<p>The current timestamp is: {ref.current}</p>
 			<button onClick={() => setForceRenderNum((v) => v + 1)}>
 				Check timestamp
@@ -3173,6 +3176,8 @@ const Comp = () => {
 	);
 };
 ```
+
+<iframe data-frame-title="React useRef Timestamp Rerender - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-ref-timestamp-rerender-43?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Here, the timestamp display will never update until you press the `button`. Even then, however, `useEffect` will run _after_ the render, meaning that the displayed timestamp will be from the _previous_ occurrence of the `button` press.
 
@@ -3188,7 +3193,9 @@ To sidestep this detection from Zone.js in Angular, you can tell the framework t
 
 To do this, we need to utilize ["Dependency Injection"](/posts/ffg-fundamentals-dependency-injection) to access Angular's internal `NgZone` reference and use the `runOutsideAngular` method:
 
-```typescript {17-19,29-31}
+```typescript {0,19-21,31-33}
+import { Component, NgZone, OnDestroy, inject } from "@angular/core";
+
 @Component({
 	selector: "title-changer",
 	standalone: true,
@@ -3229,6 +3236,8 @@ export class TitleChangerComponent implements OnDestroy {
 }
 ```
 
+<iframe data-frame-title="Angular Mutable Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-mutable-update-title-43?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 > If `inject` seems magic to you, it might as well be. To explore how dependency injection works under-the-hood, [check out chapter 11, which explores the topic](/posts/ffg-fundamentals-dependency-injection).
 
 ## Vue
@@ -3263,6 +3272,8 @@ onUnmounted(() => clearTimeout(timeoutExpire));
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Mutable Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-mutable-update-title-43?template=node&embed=1&file=src%2FTitleChanger.vue"></iframe>
 
 <!-- tabs:end -->
 
