@@ -1,7 +1,14 @@
 import "zone.js/dist/zone";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, Input, EventEmitter, Output, OnInit } from "@angular/core";
+import {
+	Component,
+	Input,
+	EventEmitter,
+	Output,
+	OnInit,
+	OnDestroy,
+} from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
 
 @Component({
@@ -85,7 +92,7 @@ export class FileDateComponent implements OnInit {
 		</button>
 	`,
 })
-export class FileComponent {
+export class FileComponent implements OnInit, OnDestroy {
 	@Input() fileName!: string;
 	@Input() href!: string;
 	@Input() isSelected!: boolean;

@@ -6,78 +6,35 @@ import {
 	Input,
 	EventEmitter,
 	Output,
-	OnChanges,
-	SimpleChanges,
 	OnInit,
 	OnDestroy,
+	Pipe,
+	PipeTransform,
 } from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
+
+@Pipe({ name: "formatDate", standalone: true })
+class FormatDatePipe implements PipeTransform {
+	// `dateFormat` is an optional argument. If left empty, will simply `formatDate`
+	transform(value: Date, dateFormat?: string): string {
+		// Stands for "Long format month, day of month, year"
+		if (dateFormat === "MMMM d, Y") return formatReadableDate(value);
+		return formatDate(value);
+	}
+}
 
 @Component({
 	selector: "file-date",
 	standalone: true,
-	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
+	imports: [FormatDatePipe],
+	template: `
+		<span [attr.aria-label]="inputDate | formatReadableDate: 'MMMM d, Y'">
+			{{ inputDate | formatDate }}
+		</span>
+	`,
 })
-export class FileDateComponent implements OnChanges {
+export class FileDateComponent {
 	@Input() inputDate!: Date;
-
-	dateStr = "";
-	labelText = "";
-
-	// Notice that we no longer need `ngOnInit`
-	ngOnChanges(changes: SimpleChanges) {
-		/**
-		 * ngOnChanges runs for EVERY prop change. As such, we can
-		 * restrict the recalculation to only when `inputDate` changes
-		 */
-		if (changes["inputDate"]) {
-			this.dateStr = this.formatDate(this.inputDate);
-			this.labelText = this.formatReadableDate(this.inputDate);
-		}
-	}
-
-	formatDate(inputDate: Date) {
-		// Month starts at 0, annoyingly
-		const monthNum = inputDate.getMonth() + 1;
-		const dateNum = inputDate.getDate();
-		const yearNum = inputDate.getFullYear();
-		return monthNum + "/" + dateNum + "/" + yearNum;
-	}
-
-	dateSuffix(dayNumber: number) {
-		const lastDigit = dayNumber % 10;
-		if (lastDigit == 1 && dayNumber != 11) {
-			return dayNumber + "st";
-		}
-		if (lastDigit == 2 && dayNumber != 12) {
-			return dayNumber + "nd";
-		}
-		if (lastDigit == 3 && dayNumber != 13) {
-			return dayNumber + "rd";
-		}
-		return dayNumber + "th";
-	}
-
-	formatReadableDate(inputDate: Date) {
-		const months = [
-			"January",
-			"February",
-			"March",
-			"April",
-			"May",
-			"June",
-			"July",
-			"August",
-			"September",
-			"October",
-			"November",
-			"December",
-		];
-		const monthStr = months[inputDate.getMonth()];
-		const dateSuffixStr = this.dateSuffix(inputDate.getDate());
-		const yearNum = inputDate.getFullYear();
-		return monthStr + " " + dateSuffixStr + "," + yearNum;
-	}
 }
 
 @Component({
@@ -211,6 +168,49 @@ interface File {
 	href: string;
 	isFolder: boolean;
 	id: number;
+}
+
+function formatDate(inputDate: Date) {
+	// Month starts at 0, annoyingly
+	const monthNum = inputDate.getMonth() + 1;
+	const dateNum = inputDate.getDate();
+	const yearNum = inputDate.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
+}
+
+function dateSuffix(dayNumber: number) {
+	const lastDigit = dayNumber % 10;
+	if (lastDigit == 1 && dayNumber != 11) {
+		return dayNumber + "st";
+	}
+	if (lastDigit == 2 && dayNumber != 12) {
+		return dayNumber + "nd";
+	}
+	if (lastDigit == 3 && dayNumber != 13) {
+		return dayNumber + "rd";
+	}
+	return dayNumber + "th";
+}
+
+function formatReadableDate(inputDate: Date) {
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+	const monthStr = months[inputDate.getMonth()];
+	const dateSuffixStr = dateSuffix(inputDate.getDate());
+	const yearNum = inputDate.getFullYear();
+	return monthStr + " " + dateSuffixStr + "," + yearNum;
 }
 
 bootstrapApplication(FileListComponent);
