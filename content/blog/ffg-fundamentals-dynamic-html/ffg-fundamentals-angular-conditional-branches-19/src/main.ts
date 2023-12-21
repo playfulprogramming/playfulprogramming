@@ -84,7 +84,7 @@ export class FileDateComponent implements OnInit {
 			{{ fileName }}
 			<span *ngIf="isFolder; else fileDisplay">Type: Folder</span>
 			<ng-template #fileDisplay><span>Type: File</span></ng-template>
-			<file-date *ngIf="!isFolder" [inputDate]="inputDate"></file-date>
+			<file-date *ngIf="!isFolder" [inputDate]="inputDate" />
 		</button>
 	`,
 })

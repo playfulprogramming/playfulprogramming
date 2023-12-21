@@ -82,7 +82,7 @@ export class FileDateComponent implements OnInit {
 			"
 		>
 			{{ fileName }}
-			<file-date *ngIf="!isFolder" [inputDate]="inputDate"></file-date>
+			<file-date *ngIf="!isFolder" [inputDate]="inputDate" />
 		</button>
 	`,
 })
