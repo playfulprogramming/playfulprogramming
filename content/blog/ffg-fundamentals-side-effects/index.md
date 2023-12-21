@@ -2850,13 +2850,13 @@ For example, let's go back to our `document.title` example. Say that instead of 
 ## React
 
 ```jsx
-const App = () => {
+const TitleChanger = () => {
 	const [title, setTitle] = useState("Movies");
 
 	function updateTitle(val) {
 		const timeout = setTimeout(() => {
 			setTitle(val);
-			document.title = title.value;
+			document.title = val;
 		}, 5000);
 	}
 
@@ -2865,17 +2865,19 @@ const App = () => {
 			<button onClick={() => updateTitle("Movies")}>Movies</button>
 			<button onClick={() => updateTitle("Music")}>Music</button>
 			<button onClick={() => updateTitle("Documents")}>Documents</button>
-			<p>{{ title }}</p>
+			<p>{title}</p>
 		</div>
 	);
 };
 ```
 
+<iframe data-frame-title="React Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-update-title-41?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 ```typescript
 @Component({
-	selector: "app-root",
+	selector: "title-changer",
 	standalone: true,
 	template: `
 		<div>
@@ -2886,7 +2888,7 @@ const App = () => {
 		</div>
 	`,
 })
-export class AppComponent {
+export class TitleChangerComponent {
 	title = "Movies";
 
 	updateTitle(val: string) {
@@ -2898,9 +2900,12 @@ export class AppComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-update-title-41?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
 ```vue
+<!-- TitleChanger.vue -->
 <script setup>
 import { ref } from "vue";
 const title = ref("Movies");
@@ -2923,6 +2928,8 @@ function updateTitle(val) {
 </template>
 ```
 
+<iframe data-frame-title="Vue Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-update-title-41?template=node&embed=1&file=src%2FTitleChanger.vue"></iframe>
+
 <!-- tabs:end -->
 
 If we click one of these buttons, and un-render the `App` component, our `setTimeout` will still execute because we've never told this component to cancel the timeout.
@@ -2934,7 +2941,7 @@ While we could solve this problem using a stateful variable:
 ## React
 
 ```jsx
-const App = () => {
+const TitleChanger = () => {
 	const [title, setTitle] = useState("Movies");
 
 	const [timeoutExpire, setTimeoutExpire] = useState(null);
@@ -2943,7 +2950,7 @@ const App = () => {
 		clearTimeout(timeoutExpire);
 		const timeout = setTimeout(() => {
 			setTitle(val);
-			document.title = title.value;
+			document.title = val;
 		}, 5000);
 
 		setTimeoutExpire(timeout);
@@ -2951,24 +2958,26 @@ const App = () => {
 
 	useEffect(() => {
 		return () => clearTimeout(timeoutExpire);
-	}, []);
+	}, [timeoutExpire]);
 
 	return (
 		<div>
 			<button onClick={() => updateTitle("Movies")}>Movies</button>
 			<button onClick={() => updateTitle("Music")}>Music</button>
 			<button onClick={() => updateTitle("Documents")}>Documents</button>
-			<p>{{ title }}</p>
+			<p>{title}</p>
 		</div>
 	);
 };
 ```
 
+<iframe data-frame-title="React Stateful Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-stateful-update-title-42?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 ```typescript
 @Component({
-	selector: "app-root",
+	selector: "title-changer",
 	standalone: true,
 	template: `
 		<div>
@@ -2979,7 +2988,7 @@ const App = () => {
 		</div>
 	`,
 })
-export class AppComponent implements OnDestroy {
+export class TitleChangerComponent implements OnDestroy {
 	title = "Movies";
 
 	timeoutExpire: any = null;
@@ -2998,9 +3007,12 @@ export class AppComponent implements OnDestroy {
 }
 ```
 
+<iframe data-frame-title="Angular Stateful Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-stateful-update-title-42?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
 ```vue
+<!-- TitleChanger.vue -->
 <script setup>
 import { ref, onUnmounted } from "vue";
 const title = ref("Movies");
@@ -3009,7 +3021,7 @@ const timeoutExpire = ref(null);
 
 function updateTitle(val) {
 	clearTimeout(timeoutExpire.value);
-	setTimeout(() => {
+	timeoutExpire.value = setTimeout(() => {
 		title.value = val;
 		document.title = val;
 	}, 5000);
@@ -3028,6 +3040,8 @@ onUnmounted(() => clearTimeout(timeoutExpire.value));
 </template>
 ```
 
+<iframe data-frame-title="Vue Stateful Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-stateful-update-title-42?template=node&embed=1&file=src%2FTitleChanger.vue"></iframe>
+
 <!-- tabs:end -->
 
 This will trigger a re-render of `App` when we run `updateTitle`. This re-render will not display any new changes, since our `timeoutExpire` property is not used in the DOM, but may be computationally expensive depending on the size of your `App` component.
@@ -3043,7 +3057,7 @@ To store a variable's state in a React function component without triggering a r
 ```jsx {5, 8-11}
 import { useState, useRef, useEffect } from "react";
 
-const App = () => {
+const TitleChanger = () => {
 	const [title, setTitle] = useState("Movies");
 
 	const timeoutExpire = useRef(null);
@@ -3064,7 +3078,7 @@ const App = () => {
 			<button onClick={() => updateTitle("Movies")}>Movies</button>
 			<button onClick={() => updateTitle("Music")}>Music</button>
 			<button onClick={() => updateTitle("Documents")}>Documents</button>
-			<p>{{ title }}</p>
+			<p>{title}</p>
 		</div>
 	);
 };
@@ -3176,7 +3190,7 @@ To do this, we need to utilize ["Dependency Injection"](/posts/ffg-fundamentals-
 
 ```typescript {17-19,29-31}
 @Component({
-	selector: "app-root",
+	selector: "title-changer",
 	standalone: true,
 	template: `
 		<div>
@@ -3187,7 +3201,7 @@ To do this, we need to utilize ["Dependency Injection"](/posts/ffg-fundamentals-
 		</div>
 	`,
 })
-export class AppComponent implements OnDestroy {
+export class TitleChangerComponent implements OnDestroy {
 	title = "Movies";
 
 	timeoutExpire: any = null;
@@ -3222,6 +3236,7 @@ export class AppComponent implements OnDestroy {
 Because Vue uses a `script` that only executes once per component run, we can rely on mutating the variable's value using [the `let` variable keyword](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let).
 
 ```vue
+<!-- TitleChanger.vue -->
 <script setup>
 import { watch, ref, onUnmounted } from "vue";
 const title = ref("Movies");
