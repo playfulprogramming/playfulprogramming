@@ -514,6 +514,8 @@ const CountAndDoubleComp = () => {
 };
 ```
 
+<iframe data-frame-title="React Non-Prop Derived - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 ```typescript
@@ -523,11 +525,9 @@ class DoubleNumPipe implements PipeTransform {
 		return value * 2;
 	}
 }
-```
 
-```typescript
 @Component({
-	selector: "file-date",
+	selector: "count-and-double",
 	standalone: true,
 	imports: [DoubleNumPipe],
 	template: `
@@ -546,6 +546,8 @@ class CountAndDoubleComponent {
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Non-Prop Derived - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -571,6 +573,8 @@ const doubleNum = computed(() => number.value * 2);
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Non-Prop Derived - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-non-prop-derived-48?template=node&embed=1&file=src%2FCountAndDouble.vue"></iframe>
 
 <!-- tabs:end -->
 
