@@ -316,18 +316,18 @@ Luckily for us, all three frameworks have a way of doing just this!
 
 ## React
 
-```jsx {4-8}
+```jsx {0,3-4}
 import { useMemo } from "react";
 
 const FileDate = ({ inputDate }) => {
 	const dateStr = useMemo(() => formatDate(inputDate), [inputDate]);
 	const labelText = useMemo(() => formatReadableDate(inputDate), [inputDate]);
 
-	// ...
-
 	return <span ariaLabel={labelText}>{dateStr}</span>;
 };
 ```
+
+<iframe data-frame-title="React Computed Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-computed-values-47?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 `useMemo` is a method for computing values based on an input or series of inputs. This works because it does the computation and regenerates the calculation whenever the second argument array's values have changed in a render.
 
@@ -358,7 +358,7 @@ const AddComp = ({ baseNum, addNum }) => {
 To solve the derived value problem without recomputing the values manually, Angular introduces the concept of a "pipe" into the mix of things. The idea is that a pipe runs over an input (or series of inputs) just like React's `useMemo`.
 
 ```typescript
-import { NgModule, Component, Input, Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({ name: "formatDate", standalone: true })
 class FormatDatePipe implements PipeTransform {
@@ -382,14 +382,18 @@ You may then use these pipes in your components directly inside of the template.
 	selector: "file-date",
 	standalone: true,
 	imports: [FormatReadableDatePipe, FormatDatePipe],
-	template: `<span [attr.aria-label]="inputDate | formatReadableDate">{{
-		inputDate | formatDate
-	}}</span>`,
+	template: `
+		<span [attr.aria-label]="inputDate | formatReadableDate">
+			{{ inputDate | formatDate }}
+		</span>
+	`,
 })
 class FileDateComponent {
-	@Input() inputDate: Date;
+	@Input() inputDate!: Date;
 }
 ```
+
+<iframe data-frame-title="Angular Computed Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-computed-values-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Multiple Input Pipes
 
@@ -398,8 +402,6 @@ You may notice the similarities between pipes and functions. After all, pipes ar
 Let's add a second input to see if the `formatDate` pipe should return a readable date or not.
 
 ```typescript
-import { NgModule, Component, Input, Pipe, PipeTransform } from "@angular/core";
-
 @Pipe({ name: "formatDate", standalone: true })
 class FormatDatePipe implements PipeTransform {
 	// `dateFormat` is an optional argument. If left empty, will simply `formatDate`
@@ -418,15 +420,18 @@ Then, we can use it in our template while passing a second argument:
 	selector: "file-date",
 	standalone: true,
 	imports: [FormatDatePipe],
-	template: `<span
-		[attr.aria-label]="inputDate | formatReadableDate: 'MMMM d, Y'"
-		>{{ inputDate | formatDate }}</span
-	>`,
+	template: `
+		<span [attr.aria-label]="inputDate | formatReadableDate: 'MMMM d, Y'">
+			{{ inputDate | formatDate }}
+		</span>
+	`,
 })
 class FileDateComponent {
 	@Input() inputDate: Date;
 }
 ```
+
+<iframe data-frame-title="Angular Multi Input Pipes - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-multi-input-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Built-In Pipes
 
@@ -441,18 +446,22 @@ import { DatePipe } from "@angular/common";
 	selector: "file-date",
 	standalone: true,
 	imports: [DatePipe],
-	template: `<span [attr.aria-label]="inputDate | date: 'MMMM d, Y'">{{
-		inputDate | date
-	}}</span>`,
+	template: `
+		<span [attr.aria-label]="inputDate | date: 'MMMM d, Y'">
+			{{ inputDate | date }}
+		</span>
+	`,
 })
 class FileDateComponent {
-	@Input() inputDate: Date;
+	@Input() inputDate!: Date;
 }
 ```
 
+<iframe data-frame-title="Angular Built-In Pipes - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-built-in-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
-```vue
+```vue {2,8-9}
 <!-- FileDate.vue -->
 <script setup>
 import { computed } from "vue";
@@ -463,14 +472,14 @@ const props = defineProps(["inputDate"]);
 
 const dateStr = computed(() => formatDate(props.inputDate));
 const labelText = computed(() => formatReadableDate(props.inputDate));
-
-// ...
 </script>
 
 <template>
 	<span :aria-label="labelText">{{ dateStr }}</span>
 </template>
 ```
+
+<iframe data-frame-title="Vue Computed Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-computed-values-47?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
 
 Instead of using `ref` to construct a set of variables, then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
 
