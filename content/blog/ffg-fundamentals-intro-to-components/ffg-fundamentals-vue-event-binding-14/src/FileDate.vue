@@ -47,7 +47,7 @@ function dateSuffix(dayNumber) {
 
 const props = defineProps(["inputDate"]);
 const dateStr = ref(formatDate(props.inputDate));
-const labelText = ref(formatDate(props.inputDate));
+const labelText = ref(formatReadableDate(props.inputDate));
 </script>
 
 <template>
