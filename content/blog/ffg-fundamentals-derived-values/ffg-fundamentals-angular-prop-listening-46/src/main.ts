@@ -1,7 +1,14 @@
 import "zone.js/dist/zone";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, Input, EventEmitter, Output, OnInit } from "@angular/core";
+import {
+	Component,
+	Input,
+	EventEmitter,
+	Output,
+	OnChanges,
+	SimpleChanges,
+} from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
 
 @Component({
@@ -9,15 +16,22 @@ import { NgFor, NgIf } from "@angular/common";
 	standalone: true,
 	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
-export class FileDateComponent implements OnInit {
+export class FileDateComponent implements OnChanges {
 	@Input() inputDate!: Date;
 
 	dateStr = "";
 	labelText = "";
 
-	ngOnInit() {
-		this.dateStr = this.formatDate(this.inputDate);
-		this.labelText = this.formatReadableDate(this.inputDate);
+	// Notice that we no longer need `ngOnInit`
+	ngOnChanges(changes: SimpleChanges) {
+		/**
+		 * ngOnChanges runs for EVERY prop change. As such, we can
+		 * restrict the recalculation to only when `inputDate` changes
+		 */
+		if (changes["inputDate"]) {
+			this.dateStr = this.formatDate(this.inputDate);
+			this.labelText = this.formatReadableDate(this.inputDate);
+		}
 	}
 
 	formatDate(inputDate: Date) {
