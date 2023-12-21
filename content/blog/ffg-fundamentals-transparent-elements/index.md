@@ -140,7 +140,7 @@ defineEmits(["selected"]);
 	>
 		<a :href="href">
 			{{ fileName }}
-			<FileDate v-if="isFolder" [inputDate]="inputDate" />
+			<FileDate v-if="isFolder" :inputDate="inputDate" />
 		</a>
 	</button>
 </template>

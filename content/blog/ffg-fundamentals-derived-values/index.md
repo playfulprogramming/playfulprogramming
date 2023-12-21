@@ -22,9 +22,7 @@ const FileDate = ({ inputDate }) => {
 	const [dateStr, setDateStr] = useState(formatDate(inputDate));
 	const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
 
-	// ...
-
-	return <span ariaLabel={labelText}>{dateStr}</span>;
+	return <span aria-label={labelText}>{dateStr}</span>;
 };
 ```
 
@@ -39,10 +37,15 @@ import { Component, OnInit } from "@angular/core";
 	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
 class FileDateComponent implements OnInit {
-	@Input() inputDate: Date;
+	@Input() inputDate!: Date;
 
-	dateStr = this.formatDate(this.inputDate);
-	labelText = this.formatReadableDate(this.inputDate);
+	dateStr = "";
+	labelText = "";
+
+	ngOnInit() {
+		this.dateStr = this.formatDate(this.inputDate);
+		this.labelText = this.formatReadableDate(this.inputDate);
+	}
 
 	// ...
 }
@@ -79,7 +82,7 @@ Because of this, if we pass in an updated `inputDate` to the `FileDate` componen
 # React
 
 ```jsx
-const File = () => {
+const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 	const [inputDate, setInputDate] = useState(new Date());
 
 	useEffect(() => {
@@ -96,6 +99,7 @@ const File = () => {
 		return () => clearTimeout(timeout);
 	}, [inputDate]);
 
+	// JSX shortened for focus
 	// This may not show the most up-to-date `formatDate` or `formatReadableDate`
 	return <FileDate inputDate={inputDate} />;
 };
@@ -107,13 +111,18 @@ const File = () => {
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [FileDateComponent],
-	// This may not show the most up-to-date `formatDate` or `formatReadableDate`
-	template: `<file-date [inputDate]="inputDate"></file-date>`,
+	imports: [FileDateComponent, NgIf],
+	template: `
+		<!-- ... -->
+		<!-- This may not show the most up-to-date 'formatDate' or 'formatReadableDate' -->
+		<file-date *ngIf="!isFolder" [inputDate]="inputDate" />
+		<!-- ... -->
+	`,
 })
 class FileComponent implements OnInit, OnDestroy {
+	// ...
 	inputDate = new Date();
-	interval: number = null;
+	interval: any = null;
 
 	ngOnInit() {
 		// Check if it's a new day every 10 minutes
@@ -124,11 +133,11 @@ class FileComponent implements OnInit, OnDestroy {
 				this.inputDate = newDate;
 			},
 			10 * 60 * 1000,
-		) as any;
+		);
 	}
 
 	ngOnDestroy() {
-		clearInterval(this.interval as any);
+		clearInterval(this.interval);
 	}
 }
 ```
@@ -139,11 +148,15 @@ class FileComponent implements OnInit, OnDestroy {
 <!-- File.vue -->
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+import FileDate from "./FileDate.vue";
+
+// ...
 
 const inputDate = ref(new Date());
 const interval = ref(null);
 
 onMounted(() => {
+	// Check if it's a new day every 10 minutes
 	interval.value = setInterval(
 		() => {
 			const newDate = new Date();
@@ -162,7 +175,7 @@ onUnmounted(() => {
 <template>
 	<!-- ... -->
 	<!-- This may not show the most up-to-date `formatDate` or `formatReadableDate` -->
-	<file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
+	<FileDate v-if="isFolder" :inputDate="inputDate" />
 	<!-- ... -->
 </template>
 ```
