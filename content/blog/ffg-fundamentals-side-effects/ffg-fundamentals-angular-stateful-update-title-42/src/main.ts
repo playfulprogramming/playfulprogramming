@@ -1,7 +1,7 @@
 import "zone.js/dist/zone";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { NgIf } from "@angular/common";
 
 @Component({
@@ -16,14 +16,21 @@ import { NgIf } from "@angular/common";
 		</div>
 	`,
 })
-export class TitleChangerComponent {
+export class TitleChangerComponent implements OnDestroy {
 	title = "Movies";
 
+	timeoutExpire: any = null;
+
 	updateTitle(val: string) {
-		setTimeout(() => {
+		clearTimeout(this.timeoutExpire);
+		this.timeoutExpire = setTimeout(() => {
 			this.title = val;
 			document.title = val;
 		}, 5000);
+	}
+
+	ngOnDestroy() {
+		clearTimeout(this.timeoutExpire);
 	}
 }
 
