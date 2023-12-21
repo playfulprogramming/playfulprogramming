@@ -105,6 +105,8 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 };
 ```
 
+<iframe data-frame-title="React Refreshing File Date - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-refreshing-file-date-45?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 # Angular
 
 ```typescript
@@ -141,6 +143,8 @@ class FileComponent implements OnInit, OnDestroy {
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Refreshing File Date - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-refreshing-file-date-45?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 # Vue
 
@@ -180,6 +184,8 @@ onUnmounted(() => {
 </template>
 ```
 
+<iframe data-frame-title="Vue Refreshing File Date - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-refreshing-file-date-45?template=node&embed=1&file=src%2FFile.vue"></iframe>
+
 <!-- tabs:end -->
 
 While the above `File` component updates `inputDate` correctly, our `FileDate` component is never listening for the changed input value and, as such, never recomputed the `formatDate` or `formatReadableDate` value to display to the user.
@@ -207,11 +213,11 @@ const FileDate = ({ inputDate }) => {
 		// Every time `inputDate` changes, it'll trigger a render and therefore call the `useEffect`
 	}, [inputDate]);
 
-	// ...
-
-	return <span ariaLabel={labelText}>{dateStr}</span>;
+	return <span aria-label={labelText}>{dateStr}</span>;
 };
 ```
+
+<iframe data-frame-title="React Prop Listening - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-prop-listening-46?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -219,7 +225,7 @@ While we didn't touch on this lifecycle method in our previous chapter, Angular 
 
 We can use this new lifecycle method to update the value of a component's state based off of the parent's props:
 
-```typescript
+```typescript {0,7,13-23}
 import { Component, OnChanges, SimpleChanges } from "@angular/core";
 
 @Component({
@@ -230,15 +236,16 @@ import { Component, OnChanges, SimpleChanges } from "@angular/core";
 class FileDateComponent implements OnChanges {
 	@Input() inputDate: Date;
 
-	dateStr = this.formatDate(this.inputDate);
-	labelText = this.formatReadableDate(this.inputDate);
+	dateStr = "";
+	labelText = "";
 
+	// Notice that we no longer need `ngOnInit`
 	ngOnChanges(changes: SimpleChanges) {
 		/**
 		 * ngOnChanges runs for EVERY prop change. As such, we can
 		 * restrict the recalculation to only when `inputDate` changes
 		 */
-		if (changes.inputDate) {
+		if (changes["inputDate"]) {
 			this.dateStr = this.formatDate(this.inputDate);
 			this.labelText = this.formatReadableDate(this.inputDate);
 		}
@@ -248,9 +255,11 @@ class FileDateComponent implements OnChanges {
 }
 ```
 
+<iframe data-frame-title="Angular Prop Listening - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-prop-listening-46?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
-```vue
+```vue {2,11-17}
 <!-- FileDate.vue -->
 <script setup>
 import { ref, watch } from "vue";
@@ -265,18 +274,18 @@ const labelText = ref(formatReadableDate(props.inputDate));
 watch(
 	() => props.inputDate,
 	(newDate, oldDate) => {
-		(dateStr.value = formatDate(newDate)),
-			(labelText.value = formatReadableDate(newDate));
+		dateStr.value = formatDate(newDate);
+		labelText.value = formatReadableDate(newDate);
 	},
 );
-
-// ...
 </script>
 
 <template>
 	<span :aria-label="labelText">{{ dateStr }}</span>
 </template>
 ```
+
+<iframe data-frame-title="Vue Prop Listening - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-prop-listening-46?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
 
 Vue's `watch` logic allows you to track a given property or state value changes based on its key.
 
