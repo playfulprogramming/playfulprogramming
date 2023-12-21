@@ -616,8 +616,8 @@ With this JavaScript, we can use a derived value to display the relevant display
 
 ```jsx
 function DisplaySize({ bytes }) {
-	const humanReadibleSize = React.useMemo(() => formatBytes(bytes), [bytes]);
-	return <p>{humanReadibleSize}</p>;
+	const humanReadableSize = useMemo(() => formatBytes(bytes), [bytes]);
+	return <p>{humanReadableSize}</p>;
 }
 
 const kilobyte = 1024;
@@ -636,6 +636,14 @@ function formatBytes(bytes) {
 	}
 }
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Derived Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-derived-challenge-49?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
 
 ## Angular
 
@@ -663,12 +671,20 @@ class FormatBytesPipe implements PipeTransform {
 	selector: "display-size",
 	standalone: true,
 	imports: [FormatBytesPipe],
-	template: ` <p>{{ bytes | formatBytes }}</p> `,
+	template: `<p>{{ bytes | formatBytes }}</p>`,
 })
 class DisplaySizeComponent {
-	@Input() bytes: number;
+	@Input() bytes!: number;
 }
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular Derived Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-derived-challenge-49?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
 
 ## Vue
 
@@ -678,7 +694,7 @@ class DisplaySizeComponent {
 import { computed } from "vue";
 
 const props = defineProps(["bytes"]);
-const humanReadibleSize = computed(() => formatBytes(props.bytes));
+const humanReadableSize = computed(() => formatBytes(props.bytes));
 
 const kilobyte = 1024;
 const megabyte = kilobyte * 1024;
@@ -698,8 +714,16 @@ function formatBytes(bytes) {
 </script>
 
 <template>
-	<p>{{ humanReadibleSize }}</p>
+	<p>{{ humanReadableSize }}</p>
 </template>
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Derived Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-derived-challenge-49?template=node&embed=1&file=src%2FDisplaySize.vue"></iframe>
+
+</details>
 
 <!-- tabs:end -->
