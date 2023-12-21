@@ -3406,7 +3406,7 @@ function DarkModeToggle() {
 class DarkModeToggleComponent {
 	explicitTheme = "inherit";
 
-	setExplicitTheme(val) {
+	setExplicitTheme(val: string) {
 		this.explicitTheme = val;
 	}
 }
@@ -3510,7 +3510,7 @@ import { Component, ViewEncapsulation } from "@angular/core";
 class DarkModeToggleComponent {
 	explicitTheme = "inherit";
 
-	setExplicitTheme(val) {
+	setExplicitTheme(val: string) {
 		this.explicitTheme = val;
 
 		document.documentElement.className = val;
@@ -3676,7 +3676,7 @@ class DarkModeToggleComponent implements OnInit, OnDestroy {
 		this.isOSDark.removeEventListener("change", this.changeOSTheme);
 	}
 
-	setExplicitTheme(val) {
+	setExplicitTheme(val: string) {
 		this.explicitTheme = val;
 
 		if (val === "implicit") {
@@ -3833,6 +3833,14 @@ function App() {
 }
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Effects Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-effects-challenge-44?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
+
 ## Angular
 
 ```typescript {36,58}
@@ -3891,7 +3899,7 @@ class DarkModeToggleComponent implements OnInit, OnDestroy {
 		this.isOSDark.removeEventListener("change", this.changeOSTheme);
 	}
 
-	setExplicitTheme(val) {
+	setExplicitTheme(val: string) {
 		this.explicitTheme = val;
 
 		localStorage.setItem("theme", val);
@@ -3933,6 +3941,14 @@ class DarkModeToggleComponent implements OnInit, OnDestroy {
 })
 class AppComponent {}
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular Effects Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-effects-challenge-44?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
 
 ## Vue
 
@@ -4029,5 +4045,14 @@ import DarkModeToggle from "./DarkModeToggle.vue";
 }
 </style>
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Effects Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-effects-challenge-44?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
+</details>
+
 
 <!-- tabs:end -->
