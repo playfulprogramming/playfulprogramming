@@ -5,7 +5,7 @@ const FileDate = ({ inputDate }) => {
 	const dateStr = useMemo(() => formatDate(inputDate), [inputDate]);
 	const labelText = useMemo(() => formatReadableDate(inputDate), [inputDate]);
 
-	return <span ariaLabel={labelText}>{dateStr}</span>;
+	return <span aria-label={labelText}>{dateStr}</span>;
 };
 
 const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
@@ -36,7 +36,6 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 		>
 			{fileName}
 			{isFolder ? <span>Type: Folder</span> : <span>Type: File</span>}
-			{/* This may not show the most up-to-date `formatDate` or `formatReadableDate` */}
 			{!isFolder && <FileDate inputDate={inputDate} />}
 		</button>
 	);

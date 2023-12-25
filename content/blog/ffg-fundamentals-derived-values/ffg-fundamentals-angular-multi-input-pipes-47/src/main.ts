@@ -28,7 +28,7 @@ class FormatDatePipe implements PipeTransform {
 	standalone: true,
 	imports: [FormatDatePipe],
 	template: `
-		<span [attr.aria-label]="inputDate | formatReadableDate: 'MMMM d, Y'">
+		<span [attr.aria-label]="inputDate | formatDate: 'MMMM d, Y'">
 			{{ inputDate | formatDate }}
 		</span>
 	`,
@@ -53,7 +53,6 @@ export class FileDateComponent {
 			{{ fileName }}
 			<span *ngIf="isFolder; else fileDisplay">Type: Folder</span>
 			<ng-template #fileDisplay><span>Type: File</span></ng-template>
-			<!-- This may not show the most up-to-date 'formatDate' or 'formatReadableDate' -->
 			<file-date *ngIf="!isFolder" [inputDate]="inputDate" />
 		</button>
 	`,

@@ -42,7 +42,6 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 		>
 			{fileName}
 			{isFolder ? <span>Type: Folder</span> : <span>Type: File</span>}
-			{/* This may not show the most up-to-date `formatDate` or `formatReadableDate` */}
 			{!isFolder && <FileDate inputDate={inputDate} />}
 		</button>
 	);
