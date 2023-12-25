@@ -261,7 +261,7 @@ export class AppComponent {
 
 <iframe data-frame-title="Angular Reactivity - StackBlitz" src="uu-code:./angular-reactivity?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-### Vue
+## Vue
 
 ```vue
 <script setup>
