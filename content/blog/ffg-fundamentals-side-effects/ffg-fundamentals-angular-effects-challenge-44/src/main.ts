@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";

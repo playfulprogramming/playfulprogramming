@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
@@ -9,7 +9,7 @@ import { NgIf } from "@angular/common";
 	standalone: true,
 	template: "<p>I am the child</p>",
 })
-export class ChildComponent {}
+class ChildComponent {}
 
 @Component({
 	selector: "parent-comp",
@@ -22,7 +22,7 @@ export class ChildComponent {}
 		</div>
 	`,
 })
-export class ParentComponent {
+class ParentComponent {
 	showChild = true;
 	setShowChild() {
 		this.showChild = !this.showChild;

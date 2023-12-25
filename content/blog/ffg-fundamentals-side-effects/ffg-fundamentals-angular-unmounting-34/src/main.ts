@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnDestroy } from "@angular/core";
@@ -26,7 +26,7 @@ class CleanupComponent implements OnDestroy {
 		</div>
 	`,
 })
-export class AppComponent {
+class AppComponent {
 	show = true;
 
 	toggle() {

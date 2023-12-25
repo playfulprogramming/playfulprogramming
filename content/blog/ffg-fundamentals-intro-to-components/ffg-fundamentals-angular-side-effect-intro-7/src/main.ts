@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnInit } from "@angular/core";
@@ -8,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
 	standalone: true,
 	template: `<span>12/03/21</span>`,
 })
-export class FileDateComponent implements OnInit {
+class FileDateComponent implements OnInit {
 	dateStr = this.formatDate();
 
 	ngOnInit() {

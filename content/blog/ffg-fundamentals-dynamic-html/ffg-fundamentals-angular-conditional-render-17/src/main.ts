@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, Input } from "@angular/core";
@@ -10,7 +10,7 @@ import { NgIf } from "@angular/common";
 	imports: [NgIf],
 	template: `<div><p *ngIf="bool">Text here</p></div>`,
 })
-export class ConditionalRenderComponent {
+class ConditionalRenderComponent {
 	@Input() bool!: boolean;
 }
 
@@ -27,6 +27,6 @@ export class ConditionalRenderComponent {
 		</div>
 	`,
 })
-export class AppComponent {}
+class AppComponent {}
 
 bootstrapApplication(AppComponent);

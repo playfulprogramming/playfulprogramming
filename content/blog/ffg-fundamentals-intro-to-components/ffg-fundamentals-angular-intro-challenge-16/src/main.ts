@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, Input, EventEmitter, Output } from "@angular/core";
@@ -16,7 +16,7 @@ import { Component, Input, EventEmitter, Output } from "@angular/core";
 		</div>
 	`,
 })
-export class ExpandableDropdownComponent {
+class ExpandableDropdownComponent {
 	@Input() name!: string;
 	@Input() expanded!: boolean;
 	@Output() toggle = new EventEmitter();
@@ -62,7 +62,7 @@ export class ExpandableDropdownComponent {
 		</div>
 	`,
 })
-export class SidebarComponent {
+class SidebarComponent {
 	moviesExpanded = true;
 	picturesExpanded = false;
 	conceptsExpanded = false;

@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, Input, EventEmitter, Output, OnInit } from "@angular/core";
@@ -8,7 +8,7 @@ import { Component, Input, EventEmitter, Output, OnInit } from "@angular/core";
 	standalone: true,
 	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
-export class FileDateComponent implements OnInit {
+class FileDateComponent implements OnInit {
 	@Input() inputDate!: Date;
 
 	/**
@@ -85,7 +85,7 @@ export class FileDateComponent implements OnInit {
 		</button>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	@Input() fileName!: string;
 	// `href` is temporarily unused
 	@Input() href!: string;
@@ -128,7 +128,7 @@ export class FileComponent {
 		</ul>
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	selectedIndex = -1;
 
 	onSelected(idx: number) {

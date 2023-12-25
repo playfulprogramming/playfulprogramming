@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
@@ -16,7 +16,7 @@ import { NgIf } from "@angular/common";
 		</div>
 	`,
 })
-export class TitleChangerComponent {
+class TitleChangerComponent {
 	title = "Movies";
 
 	updateTitle(val: string) {
@@ -38,7 +38,7 @@ export class TitleChangerComponent {
 		</div>
 	`,
 })
-export class AppComponent {
+class AppComponent {
 	show = true;
 
 	toggle() {

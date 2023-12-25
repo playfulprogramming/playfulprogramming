@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
@@ -15,7 +15,7 @@ import { Component } from "@angular/core";
 		</div>
 	`,
 })
-export class EventBubblerComponent {
+class EventBubblerComponent {
 	logMessage() {
 		alert("Clicked!");
 	}

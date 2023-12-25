@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, Input, Pipe, PipeTransform } from "@angular/core";
@@ -28,7 +28,7 @@ class FormatBytesPipe implements PipeTransform {
 	imports: [FormatBytesPipe],
 	template: `<p>{{ bytes | formatBytes }}</p>`,
 })
-export class DisplaySizeComponent {
+class DisplaySizeComponent {
 	@Input() bytes!: number;
 }
 
@@ -81,6 +81,6 @@ export class DisplaySizeComponent {
 		</table>
 	`,
 })
-export class AppComponent {}
+class AppComponent {}
 
 bootstrapApplication(AppComponent);

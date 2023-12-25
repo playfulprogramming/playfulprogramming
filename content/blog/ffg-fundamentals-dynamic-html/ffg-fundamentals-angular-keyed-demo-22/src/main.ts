@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
@@ -21,7 +21,7 @@ import { NgFor } from "@angular/common";
 		</div>
 	`,
 })
-export class WordListComponent {
+class WordListComponent {
 	words: Word[] = [];
 
 	wordTrackBy(index: number, word: Word) {

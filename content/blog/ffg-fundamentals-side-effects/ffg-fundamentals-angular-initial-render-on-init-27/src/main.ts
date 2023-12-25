@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnInit } from "@angular/core";
@@ -9,7 +9,7 @@ import { NgIf } from "@angular/common";
 	standalone: true,
 	template: "<p>I am the child</p>",
 })
-export class ChildComponent implements OnInit {
+class ChildComponent implements OnInit {
 	ngOnInit() {
 		console.log("I am rendering");
 	}
@@ -26,7 +26,7 @@ export class ChildComponent implements OnInit {
 		</div>
 	`,
 })
-export class ParentComponent {
+class ParentComponent {
 	showChild = true;
 	setShowChild() {
 		this.showChild = !this.showChild;

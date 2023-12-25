@@ -1,5 +1,5 @@
 // Required by Angular to work, feel free to ignore
-import "zone.js/dist/zone";
+import "zone.js";
 import { Component } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 
@@ -12,6 +12,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 		</div>
 	`,
 })
-export class FileComponent {}
+class FileComponent {}
 
 bootstrapApplication(FileComponent);

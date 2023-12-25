@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, Input, EventEmitter, Output, OnInit } from "@angular/core";
@@ -9,7 +9,7 @@ import { NgFor, NgIf } from "@angular/common";
 	standalone: true,
 	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
-export class FileDateComponent implements OnInit {
+class FileDateComponent implements OnInit {
 	@Input() inputDate!: Date;
 
 	/**
@@ -88,7 +88,7 @@ export class FileDateComponent implements OnInit {
 		</button>
 	`,
 })
-export class FileComponent {
+class FileComponent {
 	@Input() fileName!: string;
 	@Input() href!: string;
 	@Input() isSelected!: boolean;
@@ -122,7 +122,7 @@ export class FileComponent {
 		</div>
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	selectedIndex = -1;
 
 	fileTrackBy(index: number, file: File) {

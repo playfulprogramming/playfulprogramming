@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -18,7 +18,7 @@ import { NgFor, NgIf } from "@angular/common";
 	standalone: true,
 	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
-export class FileDateComponent implements OnChanges {
+class FileDateComponent implements OnChanges {
 	@Input() inputDate!: Date;
 
 	dateStr = "";
@@ -100,7 +100,7 @@ export class FileDateComponent implements OnChanges {
 		</button>
 	`,
 })
-export class FileComponent implements OnInit, OnDestroy {
+class FileComponent implements OnInit, OnDestroy {
 	@Input() fileName!: string;
 	@Input() href!: string;
 	@Input() isSelected!: boolean;
@@ -150,7 +150,7 @@ export class FileComponent implements OnInit, OnDestroy {
 		</div>
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	selectedIndex = -1;
 
 	fileTrackBy(index: number, file: File) {

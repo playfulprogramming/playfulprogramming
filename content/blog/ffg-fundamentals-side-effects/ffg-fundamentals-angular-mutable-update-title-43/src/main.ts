@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, NgZone, OnDestroy, inject } from "@angular/core";
@@ -16,7 +16,7 @@ import { NgIf } from "@angular/common";
 		</div>
 	`,
 })
-export class TitleChangerComponent implements OnDestroy {
+class TitleChangerComponent implements OnDestroy {
 	title = "Movies";
 
 	timeoutExpire: any = null;
@@ -54,7 +54,7 @@ export class TitleChangerComponent implements OnDestroy {
 		</div>
 	`,
 })
-export class AppComponent {
+class AppComponent {
 	show = true;
 
 	toggle() {

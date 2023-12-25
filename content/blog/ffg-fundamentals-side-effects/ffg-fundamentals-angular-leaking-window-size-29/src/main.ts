@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnInit } from "@angular/core";
@@ -13,14 +13,14 @@ import { Component, OnInit } from "@angular/core";
 		</div>
 	`,
 })
-export class WindowSizeComponent implements OnInit {
+class WindowSizeComponent implements OnInit {
 	height = window.innerHeight;
 	width = window.innerWidth;
 
 	resizeHandler = () => {
 		this.height = window.innerHeight;
 		this.width = window.innerWidth;
-	}
+	};
 
 	ngOnInit() {
 		// This code will cause a memory leak, more on that soon

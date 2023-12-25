@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { Component } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 
@@ -7,7 +7,7 @@ import { bootstrapApplication } from "@angular/platform-browser";
 	standalone: true,
 	template: `<span>12/03/21</span>`,
 })
-export class FileDateComponent {}
+class FileDateComponent {}
 
 @Component({
 	selector: "file",
@@ -19,7 +19,7 @@ export class FileDateComponent {}
 		</div>
 	`,
 })
-export class FileComponent {}
+class FileComponent {}
 
 @Component({
 	selector: "file-list",
@@ -33,6 +33,6 @@ export class FileComponent {}
 		</ul>
 	`,
 })
-export class FileListComponent {}
+class FileListComponent {}
 
 bootstrapApplication(FileListComponent);

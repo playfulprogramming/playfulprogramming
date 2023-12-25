@@ -1,4 +1,4 @@
-import "zone.js/dist/zone";
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -33,7 +33,7 @@ class FormatDatePipe implements PipeTransform {
 		</span>
 	`,
 })
-export class FileDateComponent {
+class FileDateComponent {
 	@Input() inputDate!: Date;
 }
 
@@ -57,7 +57,7 @@ export class FileDateComponent {
 		</button>
 	`,
 })
-export class FileComponent implements OnInit, OnDestroy {
+class FileComponent implements OnInit, OnDestroy {
 	@Input() fileName!: string;
 	@Input() href!: string;
 	@Input() isSelected!: boolean;
@@ -107,7 +107,7 @@ export class FileComponent implements OnInit, OnDestroy {
 		</div>
 	`,
 })
-export class FileListComponent {
+class FileListComponent {
 	selectedIndex = -1;
 
 	fileTrackBy(index: number, file: File) {
