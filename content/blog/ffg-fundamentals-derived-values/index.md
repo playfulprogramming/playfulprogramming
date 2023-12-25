@@ -323,7 +323,7 @@ const FileDate = ({ inputDate }) => {
 	const dateStr = useMemo(() => formatDate(inputDate), [inputDate]);
 	const labelText = useMemo(() => formatReadableDate(inputDate), [inputDate]);
 
-	return <span ariaLabel={labelText}>{dateStr}</span>;
+	return <span aria-label={labelText}>{dateStr}</span>;
 };
 ```
 
@@ -421,7 +421,7 @@ Then, we can use it in our template while passing a second argument:
 	standalone: true,
 	imports: [FormatDatePipe],
 	template: `
-		<span [attr.aria-label]="inputDate | formatReadableDate: 'MMMM d, Y'">
+		<span [attr.aria-label]="inputDate | formatDate: 'MMMM d, Y'">
 			{{ inputDate | formatDate }}
 		</span>
 	`,
