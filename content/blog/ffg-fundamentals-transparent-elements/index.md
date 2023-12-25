@@ -21,6 +21,10 @@ Let's think back to the ["Dynamic HTML"](/posts/ffg-fundamentals-dynamic-html) a
 
 ```jsx
 const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
+	const [inputDate, setInputDate] = useState(new Date());
+
+	// ...
+
 	return (
 		<button
 			onClick={onSelected}
@@ -30,8 +34,9 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 					: { backgroundColor: "white", color: "blue" }
 			}
 		>
-			<a href={href}>{fileName}</a>
-			{isFolder && <FileDate inputDate={new Date()} />}
+			{fileName}
+			{isFolder ? <span>Type: Folder</span> : <span>Type: File</span>}
+			{!isFolder && <FileDate inputDate={inputDate} />}
 		</button>
 	);
 };
@@ -43,10 +48,9 @@ const FileList = () => {
 		// ...
 		<ul>
 			{filesArray.map((file, i) => (
-				<li>
+				<li key={file.id}>
 					{(!onlyShowFiles || !file.isFolder) && (
 						<File
-							key={file.id}
 							isSelected={selectedIndex === i}
 							onSelected={() => onSelected(i)}
 							fileName={file.fileName}
@@ -62,13 +66,15 @@ const FileList = () => {
 };
 ```
 
+<iframe data-frame-title="React Transparent Files Before - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-transparent-files-before-50?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 # Angular
 
 ```typescript
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [FileDateComponent],
+	imports: [FileDateComponent, NgIf],
 	template: `
 		<button
 			(click)="selected.emit()"
@@ -78,19 +84,22 @@ const FileList = () => {
 					: 'background-color: white; color: blue'
 			"
 		>
-			<a [href]="href">
-				{{ fileName }}
-				<file-date *ngIf="isFolder" [inputDate]="inputDate"></file-date>
-			</a>
+			{{ fileName }}
+			<span *ngIf="isFolder; else fileDisplay">Type: Folder</span>
+			<ng-template #fileDisplay><span>Type: File</span></ng-template>
+			<file-date *ngIf="!isFolder" [inputDate]="inputDate" />
 		</button>
 	`,
 })
-class FileComponent {
-	@Input() fileName: string;
-	@Input() href: string;
-	@Input() isSelected: boolean;
-	@Input() isFolder: boolean;
+class FileComponent implements OnInit, OnDestroy {
+	@Input() fileName!: string;
+	@Input() href!: string;
+	@Input() isSelected!: boolean;
+	@Input() isFolder!: boolean;
 	@Output() selected = new EventEmitter();
+	inputDate = new Date();
+
+	// ...
 }
 
 @Component({
@@ -101,14 +110,14 @@ class FileComponent {
 		<!-- ... -->
 		<ul>
 			<li *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
-				<file
+				<file-item
 					*ngIf="onlyShowFiles ? !file.isFolder : true"
 					(selected)="onSelected(i)"
 					[isSelected]="selectedIndex === i"
 					[fileName]="file.fileName"
 					[href]="file.href"
 					[isFolder]="file.isFolder"
-				></file>
+				/>
 			</li>
 		</ul>
 		<!-- ... -->
@@ -119,29 +128,37 @@ class FileListComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Transparent Files Before - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-transparent-files-before-50?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 # Vue
 
 ```vue
 <!-- File.vue -->
 <script setup>
+import { ref, onMounted, onUnmounted } from "vue";
+import FileDate from "./FileDate.vue";
+
 const props = defineProps(["isSelected", "isFolder", "fileName", "href"]);
 
-defineEmits(["selected"]);
+const emit = defineEmits(["selected"]);
+
+const inputDate = ref(new Date());
+// ...
 </script>
 
 <template>
 	<button
-		v-on:click="$emit('selected')"
+		v-on:click="emit('selected')"
 		:style="
 			isSelected
 				? 'background-color: blue; color: white'
 				: 'background-color: white; color: blue'
 		"
 	>
-		<a :href="href">
-			{{ fileName }}
-			<FileDate v-if="isFolder" :inputDate="inputDate" />
-		</a>
+		{{ fileName }}
+		<span v-if="isFolder">Type: Folder</span>
+		<span v-else>Type: File</span>
+		<FileDate v-if="!isFolder" :inputDate="inputDate" />
 	</button>
 </template>
 ```
@@ -169,6 +186,8 @@ defineEmits(["selected"]);
 	<!-- ... -->
 </template>
 ```
+
+<iframe data-frame-title="Vue Transparent Files Before - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-transparent-files-before-50?template=node&embed=1&file=src%2FFileList.vue"></iframe>
 
 <!-- tabs:end -->
 
