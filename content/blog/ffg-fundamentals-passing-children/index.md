@@ -74,11 +74,83 @@ const Container = () => {
 
 # Angular
 
-// TODO: Write
+```typescript
+@Component({
+	selector: "list-item",
+	standalone: true,
+	template: ` <li>{{ name }}</li> `,
+})
+class ListItemComponent {
+	@Input() name!: string;
+}
+
+@Component({
+	selector: "app-list",
+	standalone: true,
+	imports: [ListItemComponent],
+	template: `
+		<ul>
+			<list-item name="One" />
+			<list-item name="Two" />
+			<list-item name="Three" />
+		</ul>
+	`,
+})
+class ListComponent {}
+
+@Component({
+	selector: "app-container",
+	standalone: true,
+	imports: [ListComponent],
+	template: `
+		<div>
+			<app-list />
+		</div>
+	`,
+})
+class ContainerComponent {}
+```
 
 # Vue
 
-// TODO: Write
+```vue
+<!-- ListItem.vue -->
+<script setup>
+const props = defineProps(["name"]);
+</script>
+
+<template>
+	<li>{{ props.name }}</li>
+</template>
+```
+
+```vue
+<!-- List.vue -->
+<script setup>
+import ListItem from "./ListItem.vue";
+</script>
+
+<template>
+	<ul>
+		<ListItem name="One" />
+		<ListItem name="Two" />
+		<ListItem name="Three" />
+	</ul>
+</template>
+```
+
+```vue
+<!-- Container.vue -->
+<script setup>
+import List from "./List.vue";
+</script>
+
+<template>
+	<div>
+		<List />
+	</div>
+</template>
+```
 
 <!-- tabs:end -->
 
