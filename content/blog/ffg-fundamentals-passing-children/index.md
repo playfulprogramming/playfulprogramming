@@ -208,6 +208,8 @@ const ToggleButtonList = () => {
 };
 ```
 
+<iframe data-frame-title="React No Passing Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-no-passing-demo-54?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Angular
 
 ```typescript
@@ -230,7 +232,7 @@ const ToggleButtonList = () => {
 	`,
 })
 class ToggleButtonComponent {
-	@Input() text: string;
+	@Input() text!: string;
 	pressed = false;
 	togglePressed() {
 		this.pressed = !this.pressed;
@@ -242,12 +244,14 @@ class ToggleButtonComponent {
 	standalone: true,
 	imports: [ToggleButtonComponent],
 	template: `
-		<toggle-button text="Hello world!"></toggle-button>
-		<toggle-button text="Hello other friends!"></toggle-button>
+		<toggle-button text="Hello world!" />
+		<toggle-button text="Hello other friends!" />
 	`,
 })
 class ToggleButtonListComponent {}
 ```
+
+<iframe data-frame-title="Angular No Passing Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-no-passing-demo-54?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -288,10 +292,12 @@ import ToggleButton from "./ToggleButton.vue";
 </script>
 
 <template>
-	<ToggleButton text="Hello world!"></ToggleButton>
-	<ToggleButton text="Hello other friends!"></ToggleButton>
+	<ToggleButton text="Hello world!" />
+	<ToggleButton text="Hello other friends!" />
 </template>
 ```
+
+<iframe data-frame-title="Vue No Passing Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-no-passing-demo-54?template=node&embed=1&file=src%2FToggleButtonList.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -340,6 +346,8 @@ const ToggleButtonList = () => {
 };
 ```
 
+<iframe data-frame-title="React Passing Basic Children - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-passing-basic-children-55?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Angular
 
 Angular has a special tag called `ng-content` that acts as a pass-through for all children content passed to a component.
@@ -375,16 +383,18 @@ class ToggleButtonComponent {
 	standalone: true,
 	imports: [ToggleButtonComponent],
 	template: `
-		<toggle-button
-			>Hello <span style="font-weight: bold;">world</span>!</toggle-button
-		>
+		<toggle-button>
+			Hello <span style="font-weight: bold;">world</span>!
+		</toggle-button>
 		<toggle-button>Hello other friends!</toggle-button>
 	`,
 })
 class ToggleButtonListComponent {}
 ```
 
-Because `ng-content` is built-in to [Angular's compiler](https://TODO), we do not need to import anything into a module to use the feature.
+<iframe data-frame-title="Angular Passing Basic Children - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-passing-basic-children-55?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+Because `ng-content` is built-in to [Angular's compiler](https://TODO), we do not need to import anything into our component to use the feature.
 
 ### Vue
 
@@ -425,12 +435,14 @@ import ToggleButton from "./ToggleButton.vue";
 </script>
 
 <template>
-	<ToggleButton
-		>Hello <span style="font-weight: bold">world</span>!</ToggleButton
-	>
+	<ToggleButton>
+		Hello <span style="font-weight: bold">world</span>!
+	</ToggleButton>
 	<ToggleButton>Hello other friends!</ToggleButton>
 </template>
 ```
+
+<iframe data-frame-title="Vue Passing Basic Children - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-passing-basic-children-55?template=node&embed=1&file=src%2FToggleButtonList.vue"></iframe>
 
 Because `slot` is a built-in component to Vue, we do not need to import it from the `vue` package.
 
