@@ -269,35 +269,41 @@ import { Fragment } from "react";
 // ...
 
 <ul>
-	{filesArray.map((file) => {
-		return (
-			<Fragment key={file.id}>
-				{file.isFolder && (
-					<li>
-						<File />
-					</li>
-				)}
-			</Fragment>
-		);
-	})}
+	{filesArray.map((file, i) => (
+		<Fragment key={file.id}>
+			{(!onlyShowFiles || !file.isFolder) && (
+				<li>
+					<File
+						isSelected={selectedIndex === i}
+						onSelected={() => onSelected(i)}
+						fileName={file.fileName}
+						href={file.href}
+						isFolder={file.isFolder}
+					/>
+				</li>
+			)}
+		</Fragment>
+	))}
 </ul>;
 ```
+
+<iframe data-frame-title="React Transparent Files After - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-transparent-files-after-51?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+## `Fragment` alternative syntax
 
 `Fragment` also has an alternative syntax in JSX. Instead of `<Fragment></Fragment>`, you can simply do `<></>`. This shorthand removes the need for the import and makes the above code sample read like this:
 
 ```jsx
 <ul>
-	{filesArray.map((file) => {
-		return (
-			<>
-				{file.isFolder && (
-					<li>
-						<File />
-					</li>
-				)}
-			</>
-		);
-	})}
+	{filesArray.map((file, i) => (
+		<>
+			{(!onlyShowFiles || !file.isFolder) && (
+				<li>
+					<File />
+				</li>
+			)}
+		</>
+	))}
 </ul>
 ```
 
@@ -314,19 +320,20 @@ Angular's version of the `nothing` element is the `ng-container` element.
 	<ng-container
 		*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
 	>
-		<li>
-			<file
-				*ngIf="onlyShowFiles ? !file.isFolder : true"
+		<li *ngIf="onlyShowFiles ? !file.isFolder : true">
+			<file-item
 				(selected)="onSelected(i)"
 				[isSelected]="selectedIndex === i"
 				[fileName]="file.fileName"
 				[href]="file.href"
 				[isFolder]="file.isFolder"
-			></file>
+			/>
 		</li>
 	</ng-container>
 </ul>
 ```
+
+<iframe data-frame-title="Angular Transparent Files After - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-transparent-files-after-51?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 # Vue
 
@@ -335,21 +342,22 @@ In order to render out something akin to a `nothing` element, we can use a [`tem
 ```vue
 <template>
 	<ul>
-		<template v-for="(file, i) of filesArray">
-			<li :key="file.id">
+		<template v-for="(file, i) of filesArray" :key="file.id">
+			<li v-if="onlyShowFiles ? !file.isFolder : true">
 				<File
-					v-if="onlyShowFiles ? !file.isFolder : true"
-					(selected)="onSelected(i)"
-					[isSelected]="selectedIndex === i"
-					[fileName]="file.fileName"
-					[href]="file.href"
-					[isFolder]="file.isFolder"
+					@selected="onSelected(i)"
+					:isSelected="selectedIndex === i"
+					:fileName="file.fileName"
+					:href="file.href"
+					:isFolder="file.isFolder"
 				/>
 			</li>
 		</template>
 	</ul>
 </template>
 ```
+
+<iframe data-frame-title="Vue Transparent Files After - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-transparent-files-after-51?template=node&embed=1&file=src%2FFileList.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -607,6 +615,7 @@ const emit = defineEmits(["delete", "copy", "favorite", "settings"]);
 > Oh no! The rendered output isn't as we expected!
 
 ![The first three buttons are bunched together in a weird way without the expected gap we were hoping for](./incorrect_button_bar.png)
+
 That's because when we used a `div` for our `FileActionButtons` component, it bypassed the `gap` property of CSS. To fix this, we can use our handy dandy `nothing` element:
 
 <!-- tabs:start -->
