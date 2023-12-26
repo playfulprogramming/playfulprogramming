@@ -3044,7 +3044,7 @@ const emit = defineEmits(["toggle"]);
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Vue Intro Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-intro-challenge-16?template=node&embed=1&file=src%2Fmain.js"></iframe>
+<iframe data-frame-title="Vue Intro Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-intro-challenge-16?template=node&embed=1&file=src%2FExpandableDropdown.vue"></iframe>
 
 </details>
 

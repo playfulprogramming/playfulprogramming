@@ -552,7 +552,7 @@ class FileActionButtonsComponent {
 }
 
 @Component({
-	selector: "app-root",
+	selector: "button-bar",
 	standalone: true,
 	imports: [NgIf, FileActionButtonsComponent],
 	template: `
@@ -567,8 +567,8 @@ class FileActionButtonsComponent {
 		</div>
 	`,
 })
-class AppComponent {
-	@Input() fileSelected: boolean = true;
+class ButtonBarComponent {
+	@Input() fileSelected!: boolean;
 
 	@Output() delete = new EventEmitter();
 	@Output() copy = new EventEmitter();
@@ -595,7 +595,7 @@ const emit = defineEmits(["delete", "copy", "favorite"]);
 ```
 
 ```vue
-<!-- App.vue -->
+<!-- ButtonBar.vue -->
 <script setup>
 import FileActionButtons from "./FileActionButtons.vue";
 
@@ -637,9 +637,43 @@ That's because when we used a `div` for our `FileActionButtons` component, it by
 </>
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Dynamic Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-transparent-challenge-53?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
+
 ## Angular
 
-```typescript
+```typescript {4-8,10-16}
+@Component({
+	selector: "file-action-buttons",
+	standalone: true,
+	template: `
+		<ng-container>
+			<button (click)="delete.emit()">Delete</button>
+			<button (click)="copy.emit()">Copy</button>
+			<button (click)="favorite.emit()">Favorite</button>
+		</ng-container>
+	`,
+	styles: [
+		`
+			:host {
+				display: contents;
+			}
+		`,
+	],
+})
+class FileActionButtonsComponent {
+	// ...
+}
+```
+
+We can even simplify this by removing the `ng-container`, since Angular supports multiple elements at the root of the component template.
+
+```typescript {3-14}
 @Component({
 	selector: "file-action-buttons",
 	standalone: true,
@@ -648,13 +682,47 @@ That's because when we used a `div` for our `FileActionButtons` component, it by
 		<button (click)="copy.emit()">Copy</button>
 		<button (click)="favorite.emit()">Favorite</button>
 	`,
+	styles: [
+		`
+			:host {
+				display: contents;
+			}
+		`,
+	],
 })
 class FileActionButtonsComponent {
 	// ...
 }
 ```
 
+> Unlike the other frameworks we're talking about, Angular's components add in an HTML element in the DOM.
+>
+> For example here, our rendered markup looks like:
+>
+> ```html
+> <div style="display: flex; gap: 1rem;">
+> 	<file-action-buttons>
+> 		<button>Delete</button>
+> 		<button>Copy</button>
+> 		<button>Favorite</button>
+> 	</file-action-buttons>
+> 	<button>Settings</button>
+> </div>
+> ```
+>
+> This causes our `gap` root to not apply to the inner buttons. To sidestep this, we need to use `styles` and tell our `host` component to treat the `button`s container as if it doesn't exist.
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular Dynamic Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-transparent-challenge-53?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
+
 ## Vue
+
+Because Vue's root `<template>` can support multiple elements without the need for `v-if`, `v-for`, or `v-slot`, we can do the following:
 
 ```vue
 <!-- FileActionButtons.vue -->
@@ -666,5 +734,13 @@ class FileActionButtonsComponent {
 
 <!-- ... -->
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Dynamic Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-transparent-challenge-53?template=node&embed=1&file=src%2FFileActionButtons.vue"></iframe>
+
+</details>
 
 <!-- tabs:end -->

@@ -311,7 +311,7 @@ function setShowChild() {
 </template>
 ```
 
-<iframe data-frame-title="Vue Initial Render Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-initial-render-demo-26?template=node&embed=1&file=src%2Fmain.js"></iframe>
+<iframe data-frame-title="Vue Initial Render Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-initial-render-demo-26?template=node&embed=1&file=src%2FParent.vue"></iframe>
 
 <!-- tabs:end -->
 
