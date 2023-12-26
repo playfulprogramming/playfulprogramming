@@ -357,7 +357,7 @@ In order to render out something akin to a `nothing` element, we can use a [`tem
 </template>
 ```
 
-<iframe data-frame-title="Vue Transparent Files After - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-transparent-files-after-51?template=node&embed=1&file=src%2FFileList.vue"></iframe>
+<iframe data-frame-title="Vue Transparent Files After - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-transparent-files-after-51?template=node&embed=1&file=src%2FFileList.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -385,6 +385,8 @@ Here's some code samples that render out the following:
 </>
 ```
 
+<iframe data-frame-title="React Stacked Transparent - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-stacked-transparent-52?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 ```html
@@ -396,6 +398,8 @@ Here's some code samples that render out the following:
 	</ng-container>
 </ng-container>
 ```
+
+<iframe data-frame-title="Angular Stacked Transparent - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-stacked-transparent-52?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -444,6 +448,8 @@ Will both render out to the following HTML:
 ```html
 <p>Test</p>
 ```
+
+<iframe data-frame-title="Vue Stacked Transparent - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-stacked-transparent-52?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 > Of course, these rules don't apply to the root-level `template`, that acts as a container for our template code. It's a bit confusing at first, but makes sense when you practice more.
 
