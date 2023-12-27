@@ -258,3 +258,14 @@ class RedDirective {
 export class App {}
 ```
 
+This will output to something akin to the following Angular template:
+
+```html
+<red-div
+	[style]="selected ? 'background-color: red; color: white;' : ''"
+  (click)="selected = !selected"
+>
+  <span>This is red when I am selected</span>
+</red-div>
+```
+
