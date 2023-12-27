@@ -10,7 +10,17 @@
 }
 ---
 
-But what if I told you that these `host` properties were not unique to a directive? See, when I asked you at the start of the article to think of directives like components without templates I wasn't joking: **Angular components are directives with an additional template that is rendered as the `selector`'s children**.
+When I started learning Angular, I was taught about Angular's components like this:
+
+> Angular's components have a template that is part of a component and a selector that indicates where the template should go. The way Angular adds this template in is by using a compiler to turn the template into a function that is then executed to generate the DOM nodes.
+
+ My thinking when learning about this went something like this:
+
+> **This my old wrong internal model of how Angular templates worked:**
+>
+> A component compiles its template and assigns it to a `selector`. Whenever Angular sees that `selector`, it runs the template and injects an element with the `selector` to act as the parent.
+
+But see that's not right. Let's take the following example of a `do-nothing` component:
 
 ```typescript
 @Component({
