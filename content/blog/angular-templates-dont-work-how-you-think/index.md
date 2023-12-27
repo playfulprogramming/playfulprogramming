@@ -20,7 +20,11 @@ When I started learning Angular, I was taught about Angular's components like th
 >
 > A component compiles its template and assigns it to a `selector`. Whenever Angular sees that `selector`, it runs the template and injects an element with the `selector` to act as the parent.
 
-But see that's not right. Let's take the following example of a `do-nothing` component:
+But see that's not right.
+
+# Explaining Angular templates the _right_ way
+
+Let's take the following example of a `do-nothing` component:
 
 ```typescript
 @Component({
@@ -86,3 +90,36 @@ This is why when people ask me:
 
 The answer is: **it is not possible to remove the host element**. The host element is not being created by the `selector`, but rather is injecting the component's template as the children of a non-standard HTML element; who's default behavior is to be a blank slate.
 
+# Replacing the host element using `selector`
+
+While you can add reactive attributes and even event listeners to the host element by using the `host` decorator property, sometimes you want to avoid having a non-standard host element and use a built-in HTML element like `li` for your host element.
+
+To do this, we'll just change our `selector` to be an attribute string:
+
+```typescript
+@Component({
+  // Yes, this is supported by components!
+  selector: 'li[sayHi]',
+  standalone: true,
+  template: '<span>Hello, world!</span>',
+})
+class SayHiComponent {}
+```
+
+Now we can use this component and bind it like we might otherwise:
+
+````typescript
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [SayHiComponent],
+  template: `
+    <ul>
+      <li sayHi></li>
+    </ul>
+`,
+})
+export class App {}
+````
+
+Now rather than having an arbitrary `<say-hi>` element without any [semantic meaning](/posts/intro-to-web-accessibility#html-semantic-tags), we can use `<li>` with an attribute to bind our reactivity, lifecycle methods, and everything else components have to offer. 
