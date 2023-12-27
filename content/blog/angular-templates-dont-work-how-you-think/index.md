@@ -90,6 +90,8 @@ This is why when people ask me:
 
 The answer is: **it is not possible to remove the host element**. The host element is not being created by the `selector`, but rather is injecting the component's template as the children of a non-standard HTML element; who's default behavior is to be a blank slate.
 
+This is one of the reasons directives and components are _so_ similar to one another; **a component is just a directive with a template to be injected into the children of the selector**. Other than that; their functionality is shared between the two.
+
 # Replacing the host element using `selector`
 
 While you can add reactive attributes and even event listeners to the host element by using the `host` decorator property, sometimes you want to avoid having a non-standard host element and use a built-in HTML element like `li` for your host element.
