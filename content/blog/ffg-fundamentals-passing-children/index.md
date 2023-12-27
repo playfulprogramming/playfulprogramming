@@ -512,27 +512,11 @@ function RainbowExclamationMark() {
 }
 ```
 
+<iframe data-frame-title="React Use With Other Features - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-with-other-features-56?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Angular
 
 ```typescript
-@Component({
-	selector: "toggle-button-list",
-	standalone: true,
-	imports: [ToggleButtonComponent, RainbowExclamationMarkComponent],
-	template: `
-		<toggle-button
-			>Hello
-			<span *ngFor="let friend of friends">{{ friend }} </span>!</toggle-button
-		>
-		<toggle-button
-			>Hello other friends<rainbow-exclamation-mark
-		/></toggle-button>
-	`,
-})
-class ToggleButtonListComponent {
-	friends = ["Kevin,", "Evelyn,", "and James"];
-}
-
 @Component({
 	selector: "rainbow-exclamation-mark",
 	standalone: true,
@@ -564,7 +548,26 @@ class ToggleButtonListComponent {
 	],
 })
 class RainbowExclamationMarkComponent {}
+
+@Component({
+	selector: "toggle-button-list",
+	standalone: true,
+	imports: [ToggleButtonComponent, RainbowExclamationMarkComponent, NgFor],
+	template: `
+		<toggle-button>
+			Hello <span *ngFor="let friend of friends">{{ friend }} </span>!
+		</toggle-button>
+		<toggle-button>
+			Hello other friends<rainbow-exclamation-mark />
+		</toggle-button>
+	`,
+})
+class ToggleButtonListComponent {
+	friends = ["Kevin,", "Evelyn,", "and James"];
+}
 ```
+
+<iframe data-frame-title="Angular Use With Other Features - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-use-with-other-features-56?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -618,6 +621,8 @@ span {
 }
 </style>
 ```
+
+<iframe data-frame-title="Vue Use With Other Features - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-use-with-other-features-56?template=node&embed=1&file=src%2FToggleButtonList.vue"></iframe>
 
 <!-- tabs:end -->
 
