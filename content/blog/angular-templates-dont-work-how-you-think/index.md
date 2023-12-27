@@ -1,10 +1,10 @@
 ---
 {
 	title: "Angular's Templates Don't Work the Way You Think They Do",
-	description: "",
+	description: "Angular templates are mission-critial for components. But how do they work? Using a compiler, yes, but how do they bind to the DOM itself? Read on to find out.",
 	published: '2023-12-27T13:45:00.284Z',
 	authors: ['crutchcorn'],
-	tags: ['angular', 'webdev', javascript'],
+	tags: ['angular', 'webdev', 'javascript'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
