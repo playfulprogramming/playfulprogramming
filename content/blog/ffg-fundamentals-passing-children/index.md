@@ -646,10 +646,9 @@ This dropdown component has two potential places where passing elements would be
 ```html
 <Dropdown>
 	<DropdownHeader>Let's build this dropdown component</DropdownHeader>
-	<DropdownBody
-		>These tend to be useful for FAQ pages, hidden contents, and
-		more!</DropdownBody
-	>
+	<DropdownBody>
+		These tend to be useful for FAQ pages, hidden contents, and more!
+	</DropdownBody>
 </Dropdown>
 ```
 
@@ -682,7 +681,7 @@ const Dropdown = ({ children, header, expanded, toggle }) => {
 				aria-expanded={expanded}
 				aria-controls="dropdown-contents"
 			>
-				{expanded ? "🡇" : "🡆"} {header}
+				{expanded ? "V" : ">"} {header}
 			</button>
 			<div id="dropdown-contents" role="region" hidden={!expanded}>
 				{children}
@@ -705,6 +704,8 @@ function App() {
 }
 ```
 
+<iframe data-frame-title="React Named Children - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-named-children-57?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 `ng-content` allows you to pass a `select` property to have specific children projected in dedicated locations. This `select` property takes [CSS selector query values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors). Knowing this, we can pass the attribute query for `header` by wrapping the attribute name in square brackets like so:
@@ -719,7 +720,7 @@ function App() {
 			:aria-expanded="expanded"
 			aria-controls="dropdown-contents"
 		>
-			{{ expanded ? "🡇" : "🡆" }} <ng-content select="[header]" />
+			{{ expanded ? "V" : ">" }} <ng-content select="[header]" />
 		</button>
 		<div id="dropdown-contents" role="region" [hidden]="!expanded">
 			<ng-content />
@@ -727,7 +728,7 @@ function App() {
 	`,
 })
 class DropdownComponent {
-	@Input() expanded: boolean;
+	@Input() expanded!: boolean;
 	@Output() toggle = new EventEmitter();
 }
 
@@ -746,6 +747,8 @@ class AppComponent {
 	expanded = false;
 }
 ```
+
+<iframe data-frame-title="Angular Named Children - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-named-children-57?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Once `ng-content` finds related elements that match the `select` query, they will be content projected into the appropriate locations. If not matched by a `ng-content[select]`, they will be projected to a non `select` enabled `ng-content`.
 
@@ -767,7 +770,7 @@ const emit = defineEmits(["toggle"]);
 		:aria-expanded="expanded"
 		aria-controls="dropdown-contents"
 	>
-		{{ props.expanded ? "🡇" : "🡆" }} <slot name="header" />
+		{{ props.expanded ? "V" : ">" }} <slot name="header" />
 	</button>
 	<div id="dropdown-contents" role="region" :hidden="!props.expanded">
 		<slot />
@@ -796,7 +799,7 @@ Here, we can see that `slot` is querying for a `header` template slot. This quer
 
 `v-slot` also has a shorthand of `#`, similar to how `v-bind` has a shorthand of `:`. Using this shorthand, we can modify our `App` component to look like:
 
-```vue
+```vue {10}
 <!-- App.vue -->
 <script setup>
 import { ref } from "vue";
@@ -813,7 +816,11 @@ const expanded = ref(false);
 </template>
 ```
 
+<iframe data-frame-title="Vue Named Children - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-named-children-57?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
 <!-- tabs:end -->
+
+> A simple version of this dropdown component is actually built into the browser as [`<details>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) and [`<summary>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary) HTML tags. Building our own is an experiment intended mostly for learning. For production environment, it's highly suggested to use those built-in elements instead.
 
 # Using Passed Children to Build a Table
 
