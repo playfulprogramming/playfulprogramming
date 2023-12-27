@@ -34,8 +34,10 @@ class DoNothingDirective {}
     <p doNothing>I am currently unchanged.</p>
 `,
 })
-export class App {}
+class AppComponent {}
 ```
+
+<iframe data-frame-title="Do Nothing Directive - StackBlitz" src="uu-code:./do-nothing-directive?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Think of them as components without templates. They can use lifecycle methods:
 
@@ -59,10 +61,12 @@ class AlertOnDestroyDirective implements OnDestroy {
     <button (click)="render = !render">Toggle</button>
 `,
 })
-export class App {
+class AppComponent {
   render = true;
 }
 ```
+
+<iframe data-frame-title="Alert On Destroy - StackBlitz" src="uu-code:./alert-on-destroy?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Store state:
 
@@ -89,13 +93,15 @@ class ListenForEventDirective implements OnInit {
     <button (click)="sendEvent()">Send event</button>
 `,
 })
-export class App {
+class AppComponent {
   sendEvent() {
     const event = new CustomEvent('hello');
     document.dispatchEvent(event);
   }
 }
 ```
+
+<iframe data-frame-title="Listen for Events - StackBlitz" src="uu-code:./listen-for-events?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Use the `inject` function:
 
@@ -169,7 +175,7 @@ class RedDirective {
     <p red>This is red</p>
 `,
 })
-export class App {}
+class AppComponent {}
 ```
 
 # `host` property binding
@@ -194,7 +200,7 @@ class RedDirective {}
     <p red>This is red</p>
 `,
 })
-export class App {}
+class AppComponent {}
 ```
 
 Here, `host` refers to the element the directive is attached to. We can use it to then attach new attributes to the parent element like we did above.
@@ -224,7 +230,7 @@ class RedDirective {
     <p red>This is red when I am selected</p>
 `,
 })
-export class App {}
+class AppComponent {}
 ````
 
 # Using `host` property with Components
@@ -255,7 +261,7 @@ class RedDirective {
     <red-div>This is red when I am selected</red-div>
 `,
 })
-export class App {}
+class AppComponent {}
 ```
 
 This will output to something akin to the following Angular template:
