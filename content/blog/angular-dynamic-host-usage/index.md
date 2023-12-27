@@ -2,9 +2,9 @@
 {
 	title: "Angular Dynamic host Property Usage",
 	description: "",
-	published: '2023-12-27T13:45:00.284Z',
+	published: '2023-12-28T13:45:00.284Z',
 	authors: ['crutchcorn'],
-	tags: ['angular', 'webdev', javascript'],
+	tags: ['angular', 'webdev', 'javascript'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
@@ -227,4 +227,34 @@ class RedDirective {
 export class App {}
 ````
 
+# Using `host` property with Components
+
+Because components are [just like directives but with a template, complete with a host element](/posts/angular-templates-dont-work-how-you-think), we can use the same `host` directive on components as well as directives:
+
+```typescript
+@Component({
+  selector: 'red-div',
+  standalone: true,
+  host: {
+    '[style]': `selected ? 'background-color: red; color: white;' : ''`,
+    '(click)': 'selected = !selected',
+  },
+  template: `
+    <span><ng-content/></span>
+  `,
+})
+class RedDirective {
+  selected = false;
+}
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RedDirective],
+  template: `
+    <red-div>This is red when I am selected</red-div>
+`,
+})
+export class App {}
+```
 
