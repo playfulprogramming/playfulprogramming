@@ -126,6 +126,8 @@ class ListenForEventDirective implements OnInit {
 }
 ```
 
+<iframe data-frame-title="Listen for Events Inject - StackBlitz" src="uu-code:./listen-for-events-inject?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 And do just about anything else a component can do without a template of its own.
 
 # Accessing a directives' element with `ElementRef`
@@ -147,6 +149,8 @@ class LogElDirective {
   _el = injectAndGetEl();
 }
 ```
+
+<iframe data-frame-title="Log Element - StackBlitz" src="uu-code:./log-element?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 While this doesn't do anything yet, it logs the element to the `console.log` method. Let's instead change this code to make the attached element have a red background and white text:
 
