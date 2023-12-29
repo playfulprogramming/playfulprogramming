@@ -2,7 +2,7 @@
 {
 	title: "Astro Healthcheck",
 	description: "Monitoring Your Blog for Issues",
-	published: '2023-12-28T13:45:00.284Z',
+	published: '2023-12-29T13:45:00.284Z',
 	authors: ['splatkillwill'],
 	tags: ['astro', 'webdev', 'javascript'],
 	attached: [],
