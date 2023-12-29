@@ -292,17 +292,17 @@
 	},
 	{
 		"id": "splatkillwill",
-		"name": "William (Will) Lohan",
-		"firstName": "William",
+		"name": "Mina",
+		"firstName": "Mina",
 		"lastName": "Lohan",
-		"description": "",
+		"description": "A seasoned web developer and army veteran, calls Central California home. With over eight years of experience in web development, she brings a unique blend of vocational training and self-taught expertise to her work.",
 		"socials": {
 			"github": "william-lohan",
 			"twitch": "splat_killwill",
 			"website": "https://gatimus.com/",
-			"linkedIn": "william-lohan-b202637a"
+			"linkedIn": "mina-lohan-b202637a/"
 		},
-		"pronouns": "they/themselves",
+		"pronouns": "she/they",
 		"profileImg": "./splatkillwill.jpg",
 		"color": "#BF00FF",
 		"roles": ["author"]
