@@ -1,7 +1,7 @@
 ---
 {
 	title: "Angular Dynamic host Property Usage",
-	description: "",
+	description: "In directives and components alike, it can be a pain to add attributes and bindings to the host element. Instead of using DI to change the host, try this instead.",
 	published: '2023-12-28T13:45:00.284Z',
 	authors: ['crutchcorn'],
 	tags: ['angular', 'webdev', 'javascript'],
