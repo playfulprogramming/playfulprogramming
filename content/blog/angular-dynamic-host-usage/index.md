@@ -182,6 +182,8 @@ class RedDirective {
 class AppComponent {}
 ```
 
+<iframe data-frame-title="Red Directive - StackBlitz" src="uu-code:./red-directive?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 # `host` property binding
 
 While the `inject` method works, there's a better way to bind an element: the `host` property.
@@ -206,6 +208,8 @@ class RedDirective {}
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Red Host Directive - StackBlitz" src="uu-code:./red-host-directive?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Here, `host` refers to the element the directive is attached to. We can use it to then attach new attributes to the parent element like we did above.
 
@@ -237,6 +241,8 @@ class RedDirective {
 class AppComponent {}
 ````
 
+<iframe data-frame-title="Red Dynamic Host Directive - StackBlitz" src="uu-code:./red-dynamic-host-directive?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 # Using `host` property with Components
 
 Because components are [just like directives but with a template, complete with a host element](/posts/angular-templates-dont-work-how-you-think), we can use the same `host` directive on components as well as directives:
@@ -267,6 +273,8 @@ class RedDirective {
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Red Div Component - StackBlitz" src="uu-code:./red-div-component?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 This will output to something akin to the following Angular template:
 
