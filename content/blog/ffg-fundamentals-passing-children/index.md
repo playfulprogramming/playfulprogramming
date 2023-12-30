@@ -930,76 +930,86 @@ const FileTable = () => {
 };
 ```
 
-> Please note that we've temporarily disabled `isSelected` logic for the sake of code sample brevity
-
 ## Angular
+
+Angular is unlike the other frameworks covered in this book.
+
+// TODO: Write aside about host elements and bindings and such.
 
 ```typescript
 @Component({
-	selector: "file-item",
+	selector: "tr[file-item]",
 	standalone: true,
-	imports: [NgIf, FileDateComponent],
+	imports: [FileDateComponent, NgIf],
+	host: {
+		"[attr.aria-selected]": "isSelected",
+		"(click)": "selected.emit()",
+		"[style]": `
+			isSelected ?
+				'background-color: blue; color: white' :
+				'background-color: white; color: blue'
+		`,
+	},
 	template: `
-		<tr
-			(click)="selected.emit()"
-			[attr.aria-selected]="isSelected"
-			[style]="
-				isSelected
-					? { backgroundColor: 'blue', color: 'white' }
-					: { backgroundColor: 'white', color: 'blue' }
-			"
-		>
-			<td>
-				<a [href]="href">{{ fileName }}</a>
-			</td>
-			<td *ngIf="isFolder"><file-date inputDate="{new" Date()} /></td>
-		</tr>
+		<td>
+			<a [href]="href" style="color: inherit">{{ fileName }}</a>
+		</td>
+		<td *ngIf="isFolder; else fileDisplay">Type: Folder</td>
+		<ng-template #fileDisplay><td>Type: File</td></ng-template>
+		<td><file-date *ngIf="!isFolder" [inputDate]="inputDate" /></td>
 	`,
 })
-class FileComponent {
-	@Input() fileName: string;
-	@Input() href: string;
-	@Input() isSelected: boolean;
-	@Input() isFolder: boolean;
+class FileComponent implements OnInit, OnDestroy {
+	@Input() fileName!: string;
+	@Input() href!: string;
+	@Input() isSelected!: boolean;
+	@Input() isFolder!: boolean;
 	@Output() selected = new EventEmitter();
+	inputDate = new Date();
+
+	// ...
 }
 
 // This was previously called "FileList"
 @Component({
-	selector: "file-table-body",
+	selector: "tbody[file-table-body]",
 	standalone: true,
 	imports: [NgFor, NgIf, FileComponent],
 	template: `
-		<tbody>
-			<ng-container *ngFor="let file of filesArray">
-				<file
-					*ngIf="!file.isFolder"
-					[fileName]="file.fileName"
-					[href]="file.href"
-					[isSelected]="false"
-					[isFolder]="file.isFolder"
-				/>
-			</ng-container>
-		</tbody>
+		<ng-container
+			*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
+		>
+			<tr
+				file-item
+				*ngIf="!file.isFolder"
+				(selected)="onSelected(i)"
+				[isSelected]="selectedIndex === i"
+				[fileName]="file.fileName"
+				[href]="file.href"
+				[isFolder]="file.isFolder"
+			></tr>
+		</ng-container>
 	`,
 })
 class FileTableBodyComponent {
-	filesArray = [
+	fileTrackBy(index: number, file: File) {
+		return file.id;
+	}
+
+	filesArray: File[] = [
 		{
 			fileName: "File one",
 			href: "/file/file_one",
 			isFolder: false,
+			id: 1,
 		},
 		{
 			fileName: "File two",
 			href: "/file/file_two",
 			isFolder: false,
+			id: 2,
 		},
-		{
-			fileName: "File three",
-			href: "/file/file_three",
-			isFolder: false,
-		},
+		// ...
 	];
 }
 
@@ -1007,10 +1017,10 @@ class FileTableBodyComponent {
 @Component({
 	selector: "file-table",
 	standalone: true,
-	imports: [FileTableBodyComponent],
+	imports: [NgFor, NgIf, FileTableBody],
 	template: `
-		<table>
-			<file-table-body />
+		<table style="border-collapse: collapse;">
+			<tbody file-table-body></tbody>
 		</table>
 	`,
 })
@@ -1043,7 +1053,7 @@ const emit = defineEmits(["selected"]);
 		<td>
 			<a :href="props.href">{{ props.fileName }}</a>
 		</td>
-		<td v-if="props.isFolder"><FileDate :inputDate="new Date()"></FileDate></td>
+		<td v-if="props.isFolder"><FileDate :inputDate="new Date()" /></td>
 	</tr>
 </template>
 ```
@@ -1229,6 +1239,8 @@ const FileTable = () => {
 ```
 
 ## Angular
+
+// TODO: This code doesn't work, update it to use host
 
 ```typescript
 @Component({
