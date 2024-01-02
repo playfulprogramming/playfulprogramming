@@ -932,9 +932,182 @@ const FileTable = () => {
 
 ## Angular
 
-Angular is unlike the other frameworks covered in this book.
+Angular is unlike the other frameworks covered in this book. For example, let's say we port the table components from the other frameworks one-to-one into Angular.
 
-// TODO: Write aside about host elements and bindings and such.
+```typescript
+@Component({
+	selector: "file-item",
+	standalone: true,
+	imports: [FileDateComponent, NgIf],
+	template: `
+		<tr [attr.aria-selected]="isSelected" (click)="selected.emit()">
+			<!-- Removed other children for readability -->
+			<td>
+				<a [href]="href" style="color: inherit">{{ fileName }}</a>
+			</td>
+		</tr>
+	`,
+})
+class FileComponent {
+	// ...
+}
+
+@Component({
+	selector: "file-table-body",
+	standalone: true,
+	imports: [NgFor, NgIf, FileComponent],
+	template: `
+		<tbody>
+			<ng-container
+				*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
+			>
+				<!-- Removed props for readability -->
+				<file-item />
+			</ng-container>
+		</tbody>
+	`,
+})
+class FileTableBody {
+	// ...
+}
+
+@Component({
+	selector: "file-table",
+	standalone: true,
+	imports: [FileTableBody],
+	template: `
+		<table style="border-collapse: collapse;">
+			<file-table-body />
+		</table>
+	`,
+})
+class FileTableComponent {}
+```
+
+If we render this, we'll see the following incorrectly formatted table:
+
+![// TODO: Write this](./broken-angular-table.png)
+
+<iframe data-frame-title="Angular Broken File Table - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-broken-file-table-58?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+> This table is clearly not formatted correctly. Where are the rows? Why is everything horizontally lined up next to one-another?
+
+This is because, if you look at the output of the `FileTableComponent` being rendered, you'll find the following markup:
+
+```html
+<file-table>
+	<table>
+		<file-table-body>
+			<tbody>
+				<file-item>
+					<tr>
+						<td><a>File one</a></td>
+					</tr>
+				</file-item>
+				<file-item>
+					<tr>
+						<td><a>File two</a></td>
+					</tr>
+				</file-item>
+				<file-item>
+					<tr>
+						<td><a>File three</a></td>
+					</tr>
+				</file-item>
+			</tbody>
+		</file-table-body>
+	</table>
+</file-table>
+```
+
+Here, you'll notice that the `<tbody>` isn't under `<table>`, it's under a `<file-table-body>` in between those two elements. Similarly, `<tr>` isn't under `<tbody>`, it's under `<file-item>`.
+
+These changes to the markup are not allowed or understood by the HTML specificiation, which is why our table is formatted so weirdly.
+
+Instead, our markup needs to look like this:
+
+```html
+<file-table>
+	<table>
+		<tbody>
+			<tr>
+				<td><a>File one</a></td>
+			</tr>
+			<tr>
+				<td><a>File two</a></td>
+			</tr>
+			<tr>
+				<td><a>File three</a></td>
+			</tr>
+		</tbody>
+	</table>
+</file-table>
+```
+
+> Why doesn't our markup look like that already?
+
+The reason our markup isn't correct is because we're creating non-default host elements in our Angular components.
+
+### Angular Host Elements and Bindings
+
+> What are Angular host elements?
+
+When you use a `selector` in Angular to create an element, that selector stays in the DOM:
+
+```typescript
+@Component({
+	selector: "list-item",
+	standalone: true,
+	template: "",
+})
+class ListItemComponent {}
+```
+
+Rendering this component will yeild the following DOM elements:
+
+```html
+<list-item></list-item>
+```
+
+This `list-item` selector-named element is known as a component's "host element". This host element preservation is different from how React and Vue works, which don't have the concept of in-DOM host nodes.
+
+> [I've written more about host elements in my article on the topic](https://unicorn-utterances.com/posts/angular-templates-dont-work-how-you-think). Please read this if you're left a bit confused on how host elements work.
+
+At first, this might seem like a roadblock for implementing our `list-item` component properly. However, there are two features that we can utilize to fix this problem:
+
+1. Selecting HTML elements with an attribute name
+2. Host element element/property binding
+
+Combined, this might look something like this:
+
+```typescript
+@Component({
+	selector: "tr[file-item]",
+	standalone: true,
+	host: {
+		"(click)": "selected.emit()",
+		"[style]": `
+			isSelected ?
+				'background-color: blue; color: white' :
+				'background-color: white; color: blue'
+		`,
+	},
+	template: ` <td>{{ fileName }}</td> `,
+})
+class FileItemComponent {
+	@Input() fileName: string;
+	@Input() isSelected: boolean;
+	@Output() selected = new EventEmitter();
+}
+```
+
+Where `host` is allowing us to bind our typical event handlers and attributes to the `tr` element selected by our new `selector` of `tr[file-item]`.
+
+> The host element might seem confusing at first, but is super useful in the right contexts. [See my article on the property for more information.](https://unicorn-utterances.com/posts/angular-dynamic-host-usage)
+
+### Building a Functional Angular Table
+
+Knowing how `host` and `selector` can properly work together, let's finally build the Angular table that we wanted to from the start:
 
 ```typescript
 @Component({
@@ -1028,6 +1201,8 @@ class FileTableComponent {}
 ```
 
 > Please note that we've temporarily disabled `isSelected` logic for the sake of code sample brevity
+
+<iframe data-frame-title="Angular File Table - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-file-table-58?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
