@@ -857,6 +857,10 @@ Let's refactor our file list to use this DOM layout:
 
 ```jsx
 const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
+	const [inputDate, setInputDate] = useState(new Date());
+
+	// ...
+
 	return (
 		<tr
 			onClick={onSelected}
@@ -868,13 +872,12 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 			}
 		>
 			<td>
-				<a href={href}>{fileName}</a>
+				<a href={href} style={{ color: "inherit" }}>
+					{fileName}
+				</a>
 			</td>
-			{isFolder && (
-				<td>
-					<FileDate inputDate={new Date()} />
-				</td>
-			)}
+			<td>{isFolder ? "Type: Folder" : "Type: File"}</td>
+			<td>{!isFolder && <FileDate inputDate={inputDate} />}</td>
 		</tr>
 	);
 };
@@ -899,11 +902,12 @@ const filesArray = [
 
 // This was previously called "FileList"
 const FileTableBody = () => {
+	// ...
 	return (
 		<tbody>
 			{filesArray.map((file) => {
 				return (
-					<>
+					<Fragment key={file.id}>
 						{!file.isFolder && (
 							<File
 								fileName={file.fileName}
@@ -913,7 +917,7 @@ const FileTableBody = () => {
 								onSelected={() => {}}
 							/>
 						)}
-					</>
+					</Fragment>
 				);
 			})}
 		</tbody>
@@ -923,12 +927,15 @@ const FileTableBody = () => {
 // This is a new component
 const FileTable = () => {
 	return (
-		<table>
+		<table style={{ borderCollapse: "collapse" }}>
 			<FileTableBody />
 		</table>
 	);
 };
 ```
+
+<iframe data-frame-title="React File Table - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-file-table-58?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 
 ## Angular
 
@@ -1155,8 +1162,7 @@ class FileComponent implements OnInit, OnDestroy {
 			<tr
 				file-item
 				*ngIf="!file.isFolder"
-				(selected)="onSelected(i)"
-				[isSelected]="selectedIndex === i"
+				[isSelected]="false"
 				[fileName]="file.fileName"
 				[href]="file.href"
 				[isFolder]="file.isFolder"
@@ -1200,8 +1206,6 @@ class FileTableBodyComponent {
 class FileTableComponent {}
 ```
 
-> Please note that we've temporarily disabled `isSelected` logic for the sake of code sample brevity
-
 <iframe data-frame-title="Angular File Table - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-file-table-58?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
@@ -1209,10 +1213,15 @@ class FileTableComponent {}
 ```vue
 <!-- File.vue -->
 <script setup>
+import { ref } from "vue";
 import FileDate from "./FileDate.vue";
 
 const props = defineProps(["fileName", "href", "isSelected", "isFolder"]);
 const emit = defineEmits(["selected"]);
+
+const inputDate = ref(new Date());
+
+// ...
 </script>
 
 <template>
@@ -1226,9 +1235,11 @@ const emit = defineEmits(["selected"]);
 		"
 	>
 		<td>
-			<a :href="props.href">{{ props.fileName }}</a>
+			<a :href="props.href" style="color: inherit">{{ props.fileName }}</a>
 		</td>
-		<td v-if="props.isFolder"><FileDate :inputDate="new Date()" /></td>
+		<td v-if="props.isFolder">Type: Folder</td>
+		<td v-else>Type: File</td>
+		<td><FileDate v-if="!props.isFolder" :inputDate="inputDate" /></td>
 	</tr>
 </template>
 ```
@@ -1238,6 +1249,8 @@ const emit = defineEmits(["selected"]);
 <!-- This was previously called "FileList" -->
 <script setup>
 import File from "./File.vue";
+
+// ...
 
 const filesArray = [
 	{
@@ -1274,7 +1287,7 @@ const filesArray = [
 ```
 
 ```vue
-<!-- FileTable -->
+<!-- FileTable.vue -->
 <script setup>
 import FileTableBody from "./FileTableBody.vue";
 </script>
@@ -1286,7 +1299,8 @@ import FileTableBody from "./FileTableBody.vue";
 </template>
 ```
 
-> Please note that we've temporarily disabled `isSelected` logic for the sake of code sample brevity
+<iframe data-frame-title="Vue File Table - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-file-table-58?template=node&embed=1&file=src%2FFileTable.vue"></iframe>
+
 
 <!-- tabs:end -->
 
