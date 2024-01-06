@@ -83,7 +83,7 @@ class FileComponent implements OnInit, OnDestroy {
 		>
 			<tr
 				file-item
-				*ngIf="!file.isFolder"
+				*ngIf="onlyShowFiles ? !file.isFolder : true"
 				(selected)="onSelected(i)"
 				[isSelected]="selectedIndex === i"
 				[fileName]="file.fileName"
@@ -108,11 +108,7 @@ class FileTableBody {
 		this.selectedIndex = idx;
 	}
 
-	onlyShowFiles = false;
-
-	toggleOnlyShow() {
-		this.onlyShowFiles = !this.onlyShowFiles;
-	}
+	@Input() onlyShowFiles = false;
 
 	filesArray: File[] = [
 		{
@@ -153,12 +149,23 @@ class FileTableBody {
 	standalone: true,
 	imports: [NgFor, NgIf, FileTableBody],
 	template: `
-		<table style="border-collapse: collapse;">
-			<tbody file-table-body></tbody>
-		</table>
+		<div>
+			<button (click)="toggleOnlyShow()" style="margin-bottom: 1rem">
+				Only show files
+			</button>
+			<table style="border-collapse: collapse;">
+				<tbody file-table-body [onlyShowFiles]="onlyShowFiles"></tbody>
+			</table>
+		</div>
 	`,
 })
-class FileTableComponent {}
+class FileTableComponent {
+	onlyShowFiles = false;
+
+	toggleOnlyShow() {
+		this.onlyShowFiles = !this.onlyShowFiles;
+	}
+}
 
 @Component({
 	selector: "app-root",
