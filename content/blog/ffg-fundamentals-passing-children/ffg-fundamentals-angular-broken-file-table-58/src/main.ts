@@ -155,7 +155,7 @@ class FileTableBody {
 	standalone: true,
 	imports: [NgFor, NgIf, FileTableBody],
 	template: `
-		<table style="border-collapse: collapse;">
+		<table style="border-spacing: 0;">
 			<file-table-body />
 		</table>
 	`,

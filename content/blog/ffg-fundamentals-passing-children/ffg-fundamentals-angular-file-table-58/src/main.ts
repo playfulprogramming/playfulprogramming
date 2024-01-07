@@ -153,7 +153,7 @@ class FileTableBody {
 			<button (click)="toggleOnlyShow()" style="margin-bottom: 1rem">
 				Only show files
 			</button>
-			<table style="border-collapse: collapse;">
+			<table style="border-spacing: 0;">
 				<tbody file-table-body [onlyShowFiles]="onlyShowFiles"></tbody>
 			</table>
 		</div>

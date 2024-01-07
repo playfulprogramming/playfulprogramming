@@ -112,7 +112,21 @@ const FileTableBody = ({ onlyShowFiles }) => {
 	);
 };
 
-// This is a new component
+const FileTableContainer = ({ children }) => {
+	return (
+		<table
+			style={{
+				color: "#3366FF",
+				border: "2px solid #3366FF",
+				padding: "0.5rem",
+				borderSpacing: 0,
+			}}
+		>
+			{children}
+		</table>
+	);
+};
+
 const FileTable = () => {
 	const [onlyShowFiles, setOnlyShowFiles] = useState(false);
 	const toggleOnlyShow = () => setOnlyShowFiles(!onlyShowFiles);
@@ -122,9 +136,9 @@ const FileTable = () => {
 			<button onClick={toggleOnlyShow} style={{ marginBottom: "1rem" }}>
 				Only show files
 			</button>
-			<table style={{ borderSpacing: 0 }}>
+			<FileTableContainer>
 				<FileTableBody onlyShowFiles={onlyShowFiles} />
-			</table>
+			</FileTableContainer>
 		</div>
 	);
 };

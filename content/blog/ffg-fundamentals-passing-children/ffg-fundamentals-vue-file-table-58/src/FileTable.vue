@@ -12,7 +12,7 @@ function toggleOnlyShow() {
 <template>
 	<div>
     <button @click="toggleOnlyShow()" style="margin-bottom: 1rem">Only show files</button>
-    <table style="border-collapse: collapse;">
+    <table style="border-spacing: 0;">
 			<FileTableBody :onlyShowFiles="onlyShowFiles"/>
 		</table>
 	</div>
