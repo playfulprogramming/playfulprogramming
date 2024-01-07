@@ -927,7 +927,7 @@ const FileTableBody = () => {
 // This is a new component
 const FileTable = () => {
 	return (
-		<table style={{ borderCollapse: "collapse" }}>
+		<table style={{ borderSpacing: 0 }}>
 			<FileTableBody />
 		</table>
 	);
@@ -935,7 +935,6 @@ const FileTable = () => {
 ```
 
 <iframe data-frame-title="React File Table - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-file-table-58?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-
 
 ## Angular
 
@@ -983,7 +982,7 @@ class FileTableBody {
 	standalone: true,
 	imports: [FileTableBody],
 	template: `
-		<table style="border-collapse: collapse;">
+		<table style="border-spacing: 0;">
 			<file-table-body />
 		</table>
 	`,
@@ -1198,7 +1197,7 @@ class FileTableBodyComponent {
 	standalone: true,
 	imports: [NgFor, NgIf, FileTableBody],
 	template: `
-		<table style="border-collapse: collapse;">
+		<table style="border-spacing: 0;">
 			<tbody file-table-body></tbody>
 		</table>
 	`,
@@ -1301,7 +1300,6 @@ import FileTableBody from "./FileTableBody.vue";
 
 <iframe data-frame-title="Vue File Table - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-file-table-58?template=node&embed=1&file=src%2FFileTable.vue"></iframe>
 
-
 <!-- tabs:end -->
 
 <!-- Author's note: It's not clear what the best A11Y pattern is here. The best guide for this seems to be an incomplete WCAG guide -->
@@ -1321,7 +1319,14 @@ Now that we have an explicit `FileTable` component, let's see if we're able to s
 ```jsx
 const FileTableContainer = ({ children }) => {
 	return (
-		<table style={{ color: "#3366FF", border: "2px solid #F5F8FF" }}>
+		<table
+			style={{
+				color: "#3366FF",
+				border: "2px solid #3366FF",
+				borderSpacing: 0,
+				padding: "0.5rem",
+			}}
+		>
 			{children}
 		</table>
 	);
@@ -1330,11 +1335,13 @@ const FileTableContainer = ({ children }) => {
 const FileTable = () => {
 	return (
 		<FileTableContainer>
-			<FileList />
+			<FileTableBody />
 		</FileTableContainer>
 	);
 };
 ```
+
+<iframe data-frame-title="React File Table Container - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-file-table-container-59?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -1343,7 +1350,9 @@ const FileTable = () => {
 	selector: "file-table-container",
 	standalone: true,
 	template: `
-		<table [style]="{ color: '#3366FF', border: '2px solid #F5F8FF' }">
+		<table
+			style="color: #3366FF; border: 2px solid #3366FF; border-spacing: 0; padding: 0.5rem"
+		>
 			<ng-content></ng-content>
 		</table>
 	`,
@@ -1353,27 +1362,36 @@ class FileTableContainerComponent {}
 @Component({
 	selector: "file-table",
 	standalone: true,
-	imports: [FileTableContainerComponent],
+	imports: [FileTableContainerComponent, FileTableBody],
 	template: `
-		<file-table-container><file-table-body /></file-table-container>
+		<file-table-container><tbody file-table-body /></file-table-container>
 	`,
 })
 class FileTableComponent {}
 ```
 
+<iframe data-frame-title="Angular File Table Container - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-file-table-container-59?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
 ```vue
-<!-- FileTableContainer -->
+<!-- FileTableContainer.vue -->
 <template>
-	<table :style="{ color: '#3366FF', border: '2px solid #F5F8FF' }">
+	<table
+		style="
+			color: #3366ff;
+			border: 2px solid #3366ff;
+			border-spacing: 0;
+			padding: 0.5rem;
+		"
+	>
 		<slot></slot>
 	</table>
 </template>
 ```
 
 ```vue
-<!-- FileTable -->
+<!-- FileTable.vue -->
 <script setup>
 import FileTableContainer from "./FileTableContainer.vue";
 import FileTableBody from "./FileTableBody.vue";
@@ -1383,6 +1401,8 @@ import FileTableBody from "./FileTableBody.vue";
 	<FileTableContainer><FileTableBody /></FileTableContainer>
 </template>
 ```
+
+<iframe data-frame-title="Vue File Table Container - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-file-table-container-59?template=node&embed=1&file=src%2FFileTable.vue"></iframe>
 
 <!-- tabs:end -->
 
