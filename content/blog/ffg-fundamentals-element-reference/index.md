@@ -239,9 +239,11 @@ In React, there's no simpler demonstration of an element reference than passing 
 ```jsx
 const RenderParagraph = () => {
 	// el is HTMLElement
-	return <p ref={(el) => console.log({ el: el })}></p>;
+	return <p ref={(el) => console.log({ el: el })}>Check your console</p>;
 };
 ```
+
+<iframe data-frame-title="React Ref Property - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-ref-property-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 In this example, once the paragraph tags renders, it will `console.log` the underlying HTML DOM node.
 
@@ -254,13 +256,15 @@ const RenderButton = () => {
 	// el is HTMLElement
 	const addClickListener = (el) => {
 		el.addEventListener("click", () => {
-			console.log("User has clicked!");
+			alert("User has clicked!");
 		});
 	};
 
 	return <button ref={addClickListener}>Click me!</button>;
 };
 ```
+
+<iframe data-frame-title="React addEventListener - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-add-event-listener-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 > This is just used as an example of what you can do with the underlying HTML element. While there _are_ perfectly valid reasons for using `ref` to `addEventListener` (we'll touch on one such case later on), it's usually suggested to use `onClick` style event bindings instead.
 
@@ -295,7 +299,7 @@ const CountButton = () => {
 		return () => {
 			buttonEl.removeEventListener("click", clickFn);
 		};
-	}, [el]);
+	}, [buttonEl]);
 
 	return (
 		<>
@@ -305,6 +309,8 @@ const CountButton = () => {
 	);
 };
 ```
+
+<iframe data-frame-title="React useState Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-state-ref-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 > Once again: You should be using `onClick` to bind a method, this is only to demonstrate how element `ref`s work
 
@@ -354,6 +360,8 @@ const CountButton = () => {
 };
 ```
 
+<iframe data-frame-title="React useRef Fragile - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-ref-fragile-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 This works as we would expect because `buttonRef` is defined before the first run of `useEffect`. However, let's add a short delay to the `button`'s rendering. We can do this using a `setTimeout` and another `useEffect`:
 
 ```jsx
@@ -394,6 +402,8 @@ const CountButton = () => {
 	);
 };
 ```
+
+<iframe data-frame-title="React useRef Broken - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-ref-broken-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Now, if we wait the second it takes to render the `<button>Add one</button>` element and press the button, we'll see that our `click` event handler is never set properly.
 
