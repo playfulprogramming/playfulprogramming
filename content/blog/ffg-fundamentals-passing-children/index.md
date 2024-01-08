@@ -1424,7 +1424,14 @@ Let's make this chapters' challenge a continuation on the table that we just bui
 ```jsx
 const FileTableContainer = ({ children, header }) => {
 	return (
-		<table style={{ color: "#3366FF", border: "2px solid #F5F8FF" }}>
+		<table
+			style={{
+				color: "#3366FF",
+				border: "2px solid #3366FF",
+				padding: "0.5rem",
+				borderSpacing: 0,
+			}}
+		>
 			<thead>{header}</thead>
 			{children}
 		</table>
@@ -1435,6 +1442,7 @@ const FileTable = () => {
 	const headerEl = (
 		<tr>
 			<th>Name</th>
+			<th>File Type</th>
 			<th>Date</th>
 		</tr>
 	);
@@ -1447,16 +1455,24 @@ const FileTable = () => {
 };
 ```
 
-## Angular
+<details>
 
-// TODO: This code doesn't work, update it to use host
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Passing Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-passing-challenge-60?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
+
+## Angular
 
 ```typescript
 @Component({
 	selector: "file-table-container",
 	standalone: true,
 	template: `
-		<table [style]="{ color: '#3366FF', border: '2px solid #F5F8FF' }">
+		<table
+			style="color: #3366FF; border: 2px solid #3366FF; border-spacing: 0; padding: 0.5rem"
+		>
 			<thead>
 				<ng-content select="[header]"></ng-content>
 			</thead>
@@ -1483,12 +1499,27 @@ class FileTableContainerComponent {}
 class FileTableComponent {}
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular Passing Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-passing-challenge-60?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
+
 ## Vue
 
 ```vue
-<!-- FileTableContainer -->
+<!-- FileTableContainer.vue -->
 <template>
-	<table :style="{ color: '#3366FF', border: '2px solid #F5F8FF' }">
+	<table
+		style="
+			color: #3366ff;
+			border: 2px solid #3366ff;
+			border-spacing: 0;
+			padding: 0.5rem;
+		"
+	>
 		<thead>
 			<slot name="header"></slot>
 		</thead>
@@ -1498,7 +1529,7 @@ class FileTableComponent {}
 ```
 
 ```vue
-<!-- FileTable -->
+<!-- FileTable.vue -->
 <script setup>
 import FileTableContainer from "./FileTableContainer.vue";
 import FileTableBody from "./FileTableBody.vue";
@@ -1509,6 +1540,7 @@ import FileTableBody from "./FileTableBody.vue";
 		<template #header>
 			<tr>
 				<th>Name</th>
+				<th>File Type</th>
 				<th>Date</th>
 			</tr>
 		</template>
@@ -1516,5 +1548,13 @@ import FileTableBody from "./FileTableBody.vue";
 	</FileTableContainer>
 </template>
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Passing Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-passing-challenge-60?template=node&embed=1&file=src%2FFileTable.vue"></iframe>
+
+</details>
 
 <!-- tabs:end -->
