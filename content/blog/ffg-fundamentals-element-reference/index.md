@@ -659,22 +659,26 @@ const messages = [
 ];
 
 function App() {
-	const chaptersRef = useRef([]);
+	const messagesRef = useRef([]);
 
 	const scrollToTop = () => {
-		chaptersRef.current[0].scrollIntoView();
+		messagesRef.current[0].scrollIntoView();
 	};
 
 	const scrollToBottom = () => {
-		chaptersRef.current[chaptersRef.current.length - 1].scrollIntoView();
+		messagesRef.current[messagesRef.current.length - 1].scrollIntoView();
 	};
 
 	return (
 		<div>
 			<button onClick={scrollToTop}>Scroll to top</button>
-			<ul style={{ height: "100px", overflow: "scroll" }}>
-				{chapters.map((chapter, i) => {
-					return <li ref={(el) => (chaptersRef.current[i] = el)}>{chapter}</li>;
+			<ul style={{ height: "50px", overflow: "scroll" }}>
+				{messages.map((message, i) => {
+					return (
+						<li key={i} ref={(el) => (messagesRef.current[i] = el)}>
+							{message}
+						</li>
+					);
 				})}
 			</ul>
 			<button onClick={scrollToBottom}>Scroll to bottom</button>
@@ -682,6 +686,8 @@ function App() {
 	);
 }
 ```
+
+<iframe data-frame-title="React Multi-Element Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-multi-element-ref-63?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -698,8 +704,8 @@ Using `ViewChildren`, we can access [template reference variables](https://crutc
 		<div>
 			<button (click)="scrollToTop()">Scroll to top</button>
 			<ul style="height: 100px; overflow: scroll">
-				<li #listItem *ngFor="let chapter of chapters; let i = index">
-					{{ chapter }}
+				<li #listItem *ngFor="let message of messages; let i = index">
+					{{ message }}
 				</li>
 			</ul>
 			<button (click)="scrollToBottom()">Scroll to bottom</button>
@@ -717,7 +723,7 @@ class AppComponent {
 		this.els.get(this.els.length - 1).nativeElement.scrollIntoView();
 	}
 
-	chapters = [
+	messages = [
 		"The new slides for the design keynote look wonderful!",
 		"Some great new colours are planned to debut with Material Next!",
 		"Hey everyone! Please take a look at the resources I’ve attached.",
@@ -748,7 +754,7 @@ function scrollToBottom() {
 	items.value[this.$refs.items.length - 1].scrollIntoView();
 }
 
-const chapters = [
+const messages = [
 	"The new slides for the design keynote look wonderful!",
 	"Some great new colours are planned to debut with Material Next!",
 	"Hey everyone! Please take a look at the resources I’ve attached.",
@@ -763,8 +769,8 @@ const chapters = [
 	<div>
 		<button @click="scrollToTop()">Scroll to top</button>
 		<ul style="height: 100px; overflow: scroll">
-			<li v-for="(chapter, i) of chapters" ref="items">
-				{{ chapter }}
+			<li v-for="(message, i) of messages" :key="i" ref="items">
+				{{ message }}
 			</li>
 		</ul>
 		<button @click="scrollToBottom()">Scroll to bottom</button>
