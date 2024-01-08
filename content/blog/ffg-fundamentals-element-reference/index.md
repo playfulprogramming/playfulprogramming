@@ -605,15 +605,23 @@ Vue's ability to store reactive data using `ref` enables a super simplistic API 
 ```vue
 <!-- App.vue -->
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
+// Assign the ref
 const el = ref();
+
+// Use the ref
+onMounted(() => {
+	console.log(el);
+});
 </script>
 
 <template>
-	<p ref="el"></p>
+	<p ref="el">Check your console</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-ref-62?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 Here, `el.value` points to an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) of the `p` tag within `template`.
 
@@ -628,9 +636,11 @@ function logEl(el) {
 </script>
 
 <template>
-	<p :ref="logEl"></p>
+	<p :ref="logEl">Check your console</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Function Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-function-ref-62?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
