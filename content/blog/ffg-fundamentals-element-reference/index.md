@@ -424,7 +424,7 @@ Using `ViewChild`, we can access an [HTMLElement](https://developer.mozilla.org/
 	template: `<p #pTag>Hello, world!</p>`,
 })
 class RenderParagraphComponent {
-	@ViewChild("pTag") pTag: ElementRef<HTMLElement>;
+	@ViewChild("pTag") pTag!: ElementRef<HTMLElement>;
 }
 ```
 
@@ -443,20 +443,22 @@ Now that we have access to the underlying `<p>` element, let's print it out insi
 	template: `<p #pTag>Hello, world!</p>`,
 })
 class RenderParagraphComponent implements OnInit {
-	@ViewChild("pTag") pTag: ElementRef<HTMLElement>;
+	@ViewChild("pTag") pTag!: ElementRef<HTMLElement>;
 
 	ngOnInit() {
-		// This will log `undefined`
-		console.log(this.pTag);
+		// This will show `undefined`
+		alert(this.pTag);
 	}
 }
 ```
+
+<iframe data-frame-title="Angular ViewChild - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-view-child-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 > Why does this log as `undefined`? How do we fix this?
 
 Well, let's think about the following example:
 
-```typescript
+```typescript {5-7}
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
@@ -468,11 +470,11 @@ Well, let's think about the following example:
 	`,
 })
 class RenderParagraphComponent implements OnInit {
-	@ViewChild("pTag") pTag: ElementRef<HTMLElement>;
+	@ViewChild("pTag") pTag!: ElementRef<HTMLElement>;
 
 	ngOnInit() {
-		// This will still log `undefined`
-		console.log(this.pTag);
+		// This will still show `undefined`
+		alert(this.pTag);
 	}
 }
 ```
@@ -488,15 +490,14 @@ To solve this, we can do one of two things:
 
 To tell Angular that there is no dynamic HTML and it should immediately query for the elements, you can use the `{static: true}` property on `ViewChild`:
 
-```typescript
+```typescript {6}
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
-	imports: [NgIf],
 	template: ` <p #pTag>Hello, world!</p> `,
 })
 class RenderParagraphComponent implements OnInit {
-	@ViewChild("pTag", { static: true }) pTag: ElementRef<HTMLElement>;
+	@ViewChild("pTag", { static: true }) pTag!: ElementRef<HTMLElement>;
 
 	ngOnInit() {
 		// This will log the HTML element
@@ -504,6 +505,8 @@ class RenderParagraphComponent implements OnInit {
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Static - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-static-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 However, keep in mind that if you _do_ later add any dynamic HTML that our element will be `undefined` once again:
 
@@ -519,7 +522,7 @@ However, keep in mind that if you _do_ later add any dynamic HTML that our eleme
 	`,
 })
 class RenderParagraphComponent implements OnInit {
-	@ViewChild("pTag", { static: true }) pTag: ElementRef<HTMLElement>;
+	@ViewChild("pTag", { static: true }) pTag!: ElementRef<HTMLElement>;
 
 	ngOnInit() {
 		// This will log `undefined`
@@ -549,7 +552,7 @@ import { NgIf } from "@angular/common";
 	`,
 })
 class RenderParagraphComponent implements AfterViewInit {
-	@ViewChild("pTag") pTag: ElementRef<HTMLElement>;
+	@ViewChild("pTag") pTag!: ElementRef<HTMLElement>;
 
 	ngAfterViewInit() {
 		console.log(this.pTag.nativeElement);
@@ -557,13 +560,13 @@ class RenderParagraphComponent implements AfterViewInit {
 }
 ```
 
+<iframe data-frame-title="Angular afterViewInit - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-after-view-init-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ### Adding an Event Listener Using `@ViewChild`
 
 Now that we know how to use `ViewChild`, we can add a `addEventListener` and `removeEventListener` to manually bind a `button`'s `click` event:
 
 ```typescript
-import { Component, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
-
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
@@ -573,7 +576,7 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
 	`,
 })
 class RenderParagraphComponent implements AfterViewInit, OnDestroy {
-	@ViewChild("btn") btn: ElementRef<HTMLElement>;
+	@ViewChild("btn") btn!: ElementRef<HTMLElement>;
 
 	count = 0;
 
@@ -590,6 +593,8 @@ class RenderParagraphComponent implements AfterViewInit, OnDestroy {
 	}
 }
 ```
+
+<iframe data-frame-title="Angular addEventListener - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-add-event-listener-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 > Remember, the `addOne` function cannot be a class method, as otherwise [it will not cleanup inside the `removeEventListener` properly.](https://unicorn-utterances.com/posts/javascript-bind-usage#event-listeners)
 
