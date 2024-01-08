@@ -80,6 +80,8 @@ function App() {
 }
 ```
 
+<iframe data-frame-title="React Intro Context Menu - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-intro-context-menu-61?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 # Angular
 
 ```typescript
@@ -146,6 +148,8 @@ class AppComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Intro Context Menu - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-intro-context-menu-61?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 # Vue
 
 ```vue
@@ -203,6 +207,8 @@ const open = (e) => {
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Intro Context Menu - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-intro-context-menu-61?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
