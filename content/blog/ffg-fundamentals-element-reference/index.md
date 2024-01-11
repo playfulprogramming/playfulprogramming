@@ -706,7 +706,7 @@ function App() {
 
 ## Angular
 
-Just as there is a `ViewChild` to gain access to a single underlying HTML element, you can also use a`ViewChildren` to access more than one or more template elements using similar APIs.
+Just as there is a `ViewChild` to gain access to a single underlying HTML element, you can also use a `ViewChildren` to access more than one or more template elements using similar APIs.
 
 Using `ViewChildren`, we can access [template reference variables](https://crutchcorn-book.vercel.app/posts/content-reference#ng-templates) in order to `scrollIntoView` the first and last elements.
 
@@ -719,7 +719,7 @@ Using `ViewChildren`, we can access [template reference variables](https://crutc
 		<div>
 			<button (click)="scrollToTop()">Scroll to top</button>
 			<ul style="height: 100px; overflow: scroll">
-				<li #listItem *ngFor="let message of messages; let i = index">
+				<li #listItem *ngFor="let message of messages">
 					{{ message }}
 				</li>
 			</ul>
@@ -728,14 +728,14 @@ Using `ViewChildren`, we can access [template reference variables](https://crutc
 	`,
 })
 class AppComponent {
-	@ViewChildren("listItem") els: QueryList<ElementRef<HTMLElement>>;
+	@ViewChildren("listItem") els!: QueryList<ElementRef<HTMLElement>>;
 
 	scrollToTop() {
-		this.els.get(0).nativeElement.scrollIntoView();
+		this.els.get(0)!.nativeElement.scrollIntoView();
 	}
 
 	scrollToBottom() {
-		this.els.get(this.els.length - 1).nativeElement.scrollIntoView();
+		this.els.get(this.els.length - 1)!.nativeElement.scrollIntoView();
 	}
 
 	messages = [
@@ -749,6 +749,8 @@ class AppComponent {
 	];
 }
 ```
+
+<iframe data-frame-title="Angular Multi-Element Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-multi-element-ref-63?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -766,7 +768,7 @@ function scrollToTop() {
 }
 
 function scrollToBottom() {
-	items.value[this.$refs.items.length - 1].scrollIntoView();
+	items.value[items.value.length - 1].scrollIntoView();
 }
 
 const messages = [
@@ -792,6 +794,8 @@ const messages = [
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Multi-Element Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-multi-element-ref-63?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
