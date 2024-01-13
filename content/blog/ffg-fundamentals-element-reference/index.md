@@ -917,6 +917,8 @@ function App() {
 }
 ```
 
+<iframe data-frame-title="React Real World Usage - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-real-world-usage-64?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 We can adopt the above code and place it within our `ngAfterViewInit` lifecycle method to add the `addEventListener` to our context menu.
@@ -960,7 +962,7 @@ Additionally, we'll use `ViewChild` to track the `contextMenu` element and `.foc
 	`,
 })
 class AppComponent implements AfterViewInit, OnDestroy {
-	@ViewChild("contextMenu") contextMenu: ElementRef<HTMLElement>;
+	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;
 
 	isOpen = false;
 
@@ -1003,6 +1005,8 @@ class AppComponent implements AfterViewInit, OnDestroy {
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Real World Usage - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-real-world-usage-64?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -1083,6 +1087,8 @@ function focusOnOpen(el) {
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue Real World Usage - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-real-world-usage-64?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
