@@ -1172,13 +1172,13 @@ function App() {
 	`,
 })
 class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef: ElementRef<HTMLElement>;
+	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
 
 	tooltipMeta = {
 		show: false,
 	};
 
-	mouseOverTimeout = null;
+	mouseOverTimeout: any = null;
 
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
@@ -1199,7 +1199,7 @@ class AppComponent implements OnDestroy {
 ```vue
 <!-- App.vue -->
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onUnmounted } from "vue";
 
 const buttonRef = ref();
 
@@ -1311,13 +1311,13 @@ function App() {
 	`,
 })
 class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef: ElementRef<HTMLElement>;
+	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
 
 	tooltipMeta = {
 		show: false,
 	};
 
-	mouseOverTimeout = null;
+	mouseOverTimeout: any = null;
 
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
@@ -1345,7 +1345,7 @@ class AppComponent implements OnDestroy {
 ```vue
 <!-- App.vue -->
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onUnmounted } from "vue";
 
 const buttonRef = ref();
 
@@ -1502,7 +1502,7 @@ function App() {
 	`,
 })
 class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef: ElementRef<HTMLElement>;
+	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
 
 	tooltipMeta = {
 		x: 0,
@@ -1512,7 +1512,7 @@ class AppComponent implements OnDestroy {
 		show: false,
 	};
 
-	mouseOverTimeout = null;
+	mouseOverTimeout: any = null;
 
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
@@ -1549,7 +1549,7 @@ class AppComponent implements OnDestroy {
 ```vue
 <!-- App.vue -->
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onUnmounted } from "vue";
 
 const buttonRef = ref();
 
@@ -1787,7 +1787,7 @@ function App() {
 	`,
 })
 class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef: ElementRef<HTMLElement>;
+	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
 
 	tooltipMeta = {
 		x: 0,
@@ -1797,7 +1797,7 @@ class AppComponent implements OnDestroy {
 		show: false,
 	};
 
-	mouseOverTimeout = null;
+	mouseOverTimeout: any = null;
 
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
@@ -1834,7 +1834,7 @@ class AppComponent implements OnDestroy {
 ```vue
 <!-- App.vue -->
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onUnmounted } from "vue";
 
 const buttonRef = ref();
 
@@ -2035,6 +2035,14 @@ function App() {
 }
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Element Ref Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-element-ref-challenge-65?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
+
 ### Angular
 
 ```typescript
@@ -2099,7 +2107,7 @@ function App() {
 	`,
 })
 class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef: ElementRef<HTMLElement>;
+	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
 
 	tooltipMeta = {
 		x: 0,
@@ -2109,7 +2117,7 @@ class AppComponent implements OnDestroy {
 		show: false,
 	};
 
-	mouseOverTimeout = null;
+	mouseOverTimeout: any = null;
 
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
@@ -2141,12 +2149,20 @@ class AppComponent implements OnDestroy {
 }
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular Element Ref Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-element-ref-challenge-65?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
+
 ### Vue
 
 ```vue
 <!-- App.vue -->
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onUnmounted } from "vue";
 
 const buttonRef = ref();
 
@@ -2237,5 +2253,13 @@ onUnmounted(() => {
 	</div>
 </template>
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Element Ref Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-element-ref-challenge-65?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
+</details>
 
 <!-- tabs:end -->
