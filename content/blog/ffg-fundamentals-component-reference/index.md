@@ -367,12 +367,14 @@ const Component = ({ ref, style }) => {
 const App = () => {
 	return (
 		<Component
-			ref={(el) => console.log(el)}
+			ref={(el) => alert(el)}
 			style={{ height: 100, width: 100, backgroundColor: "red" }}
 		/>
 	);
 };
 ```
+
+<iframe data-frame-title="React Broken forwardRef - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-broken-forward-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Doing this will result in our `ref` callback not being called as expected, alongside two error messages explaining why:
 
@@ -392,12 +394,14 @@ const Component = ({ divRef, style }) => {
 const App = () => {
 	return (
 		<Component
-			divRef={(el) => console.log(el)}
+			divRef={(el) => alert(el)}
 			style={{ height: 100, width: 100, backgroundColor: "red" }}
 		/>
 	);
 };
 ```
+
+<iframe data-frame-title="React Renamed Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-renamed-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 2. Use the `forwardRef` API, as suggested by the error message originally printed.
 
@@ -411,12 +415,14 @@ const Component = forwardRef((props, ref) => {
 const App = () => {
 	return (
 		<Component
-			ref={(el) => console.log(el)}
+			ref={(el) => alert(el)}
 			style={{ height: 100, width: 100, backgroundColor: "red" }}
 		/>
 	);
 };
 ```
+
+<iframe data-frame-title="React Working forwardRef - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-working-forward-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 As we can see, `forwardRef` accepts slightly modified component function. While the first argument might look familiar as our place to access properties, our special property `ref` is passed as a second argument.
 
@@ -426,7 +432,7 @@ But what if we wanted _more_ control over our child component? What if we wanted
 
 Luckily, `useImperativeHandle` does just that!
 
-### `useImerativeHandle` {#imperative-handle}
+### `useImperativeHandle` {#imperative-handle}
 
 While `forwardRef` enables us to pass a `ref` to a child component, `useImperativeHandle` allows us to fully customize this `ref` to our heart's content.
 
@@ -439,18 +445,25 @@ const Component = forwardRef((props, ref) => {
 		return {
 			pi: 3.14,
 			sayHi() {
-				console.log("Hello, world");
+				alert("Hello, world");
 			},
 		};
 	});
 
-	return <div />;
+	return <div style={props.style} />;
 });
 
 const App = () => {
-	return <Component ref={(el) => console.log(el)} />;
+	return (
+		<Component
+			ref={(el) => console.log(el)}
+			style={{ height: 100, width: 100, backgroundColor: "red" }}
+		/>
+	);
 };
 ```
+
+<iframe data-frame-title="React useImperativeHandle - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-imperative-handle-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Here, we can assign properties, functions, or any other JavaScript values into the forwarded `ref`. If we look at the output of our `ref` callback from `App` it shows up the object that we assigned using `useImperativeHandle`:
 
@@ -465,12 +478,14 @@ const App = () => {
 	const compRef = useRef();
 	return (
 		<>
-			<button onClick={() => compRef.sayHi()}>Say hi</button>
+			<button onClick={() => compRef.current.sayHi()}>Say hi</button>
 			<Component ref={compRef} />
 		</>
 	);
 };
 ```
+
+<iframe data-frame-title="React useImperativeHandle Fn Use - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-imperative-handle-fn-use-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 It will output `Hello, world` just as we would expect it to!
 
