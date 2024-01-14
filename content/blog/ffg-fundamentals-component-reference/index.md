@@ -386,7 +386,7 @@ To solve this, we have two options:
 
 1. Rename our `ref` property to another name, like `divRef`:
 
-```jsx
+```jsx {0-2,7}
 const Component = ({ divRef, style }) => {
 	return <div ref={divRef} style={style} />;
 };
@@ -405,7 +405,7 @@ const App = () => {
 
 2. Use the `forwardRef` API, as suggested by the error message originally printed.
 
-```jsx
+```jsx {0-4,9}
 import { forwardRef } from "react";
 
 const Component = forwardRef((props, ref) => {
@@ -436,7 +436,7 @@ Luckily, `useImperativeHandle` does just that!
 
 While `forwardRef` enables us to pass a `ref` to a child component, `useImperativeHandle` allows us to fully customize this `ref` to our heart's content.
 
-```jsx
+```jsx {0,3-11}
 import { forwardRef, useImperativeHandle } from "react";
 
 const Component = forwardRef((props, ref) => {
@@ -473,7 +473,7 @@ Here, we can assign properties, functions, or any other JavaScript values into t
 
 That `sayHi` function still works, too! If we change `App` to the following:
 
-```jsx
+```jsx {1,4}
 const App = () => {
 	const compRef = useRef();
 	return (
@@ -495,33 +495,39 @@ It will output `Hello, world` just as we would expect it to!
 
 Just as we can use `ViewChild` to access an underlying DOM node, we can do the same thing with a component reference. In fact, we can use a template reference variable just like we would to access the DOM node.
 
-```typescript
-// TODO: Check this code
+```typescript {0,23,26}
+import { AfterViewInit, Component, ViewChild } from "@angular/core";
+
 @Component({
 	selector: "child-comp",
 	standalone: true,
-	template: `<div></div>`,
+	template: `<div
+		style="height: 100px; width: 100px; background-color: red;"
+	></div>`,
 })
 class ChildComponent {
 	pi = 3.14;
 	sayHi() {
-		console.log("Hello, world");
+		alert("Hello, world");
 	}
 }
 
 @Component({
 	selector: "parent-comp",
 	standalone: true,
-	template: `<child-comp #childVar></child-comp>`,
+	imports: [ChildComponent],
+	template: `<child-comp #childVar />`,
 })
 class ParentComponent implements AfterViewInit {
-	@ViewChild("childVar") childComp: ChildComponent;
+	@ViewChild("childVar") childComp!: ChildComponent;
 
 	ngAfterViewInit() {
 		console.log(this.childComp);
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Comp Ref Log - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-comp-ref-log-67?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Doing this, we'll see the console output:
 
@@ -542,22 +548,27 @@ This means that, as a result, we can also call the `sayHi` method:
 	selector: "parent-comp",
 	standalone: true,
 	imports: [ChildComponent],
-	template: `<child-comp #childVar></child-comp>`,
+	template: `
+		<button (click)="sayHiFromChild()">Say hi</button>
+		<child-comp #childVar />
+	`,
 })
-class ParentComponent implements AfterViewInit {
-	@ViewChild("childVar") childComp: ChildComponent;
+class ParentComponent {
+	@ViewChild("childVar") childComp!: ChildComponent;
 
-	ngAfterViewInit() {
+	sayHiFromChild() {
 		this.childComp.sayHi();
 	}
 }
 ```
 
-And it will output:
+And it will alert:
 
 ```
 Hello, world
 ```
+
+<iframe data-frame-title="Angular Comp Ref Alert - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-comp-ref-alert-67?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -573,7 +584,7 @@ const Child = {
 	},
 	methods: {
 		sayHi() {
-			console.log("Hello, world");
+			alert("Hello, world");
 		},
 	},
 };
