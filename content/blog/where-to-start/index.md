@@ -2,10 +2,10 @@
 {
     title: 'Where to start?',
     description: 'Basics of computer programming and where to start.',
-    published: '2022-06-24T05:12:03.284Z',
-    edited: '2022-06-27T05:12:04.284Z',
+    published: '2024-01-14T01:4501.284Z',
+    edited: '2024-01-15T01:45:01.284Z',
     authors: ['mr-chaotic'],
-    tags: ['computer science'],
+    tags: ['computer-science'],
     attached: [],
     license: 'cc-by-nc-nd-4'
 }
@@ -41,7 +41,7 @@ a while loop is a type of loop that executes a block of code as long as a certai
 Statements are instructions that are executed in a specific sequence to perform a certain task or action in a program.
 
 #### If
-It it a condition checker, usually built in to every luanguage. You give it a condition to check and it gives and it does something when the condition is met.
+It it a condition checker, usually built into every language. You give it a condition to check and it gives and it does something when the condition is met.
 
 #### While
 While loops are used to execute a block of code repeatedly as long as a certain condition is true. The loop consists of the condition and the code block, and it continues to execute until the condition is no longer true.
@@ -50,14 +50,14 @@ While loops are used to execute a block of code repeatedly as long as a certain 
 Functions are reusable blocks of code that perform a specific task or action. Functions can take input parameters and return output values, and they are used to modularize code and make it more organized and easier to maintain.
 
 #### Built-in (Objects)
-Built in functions are usually things that do something small like JavaScripts toString function that takes a numaricale value and turns it into a string.
+Built-in functions are usually things that do something small like JavaScript's toString function that takes a numerical value and turns it into a string.
 
 ## First language
-Choosing your f.
+Choosing your first programming language can be hard, but we can make it easier to pick one.
+Some good starting languages would be Python, JavaScript, or C.  Python is good for learning the basics of computer programming in a very easy way. It allows for user input and out all in a simple interface while keeping simplicity. JavaScript is another good one to learn as it is usually used in modern-day web development and software. Its interface runs through HTML which you would have to learn too, but it's a good second or starting language. C is the hardest on this list in my opinion, but if you learn C and expand on your skills with C or even C++ you will learn lot's about developing software and complex languages. 
+
+Some ways to start learning these languages on your own could be just to look some things up on YouTube and build off of the little things you learn, eventually, you will get there I'm self-taught about three years into this journey, and I'm doing better than ever, but to get there you need time and motivation, keep going and build your skills.
 
 
 ## Comfort Zones
-
-
-
-## My Experience
+Let's say you have learned more than what I've said in this article and you want to expand on whatever, I recommend getting into a community and sharing your work, posting it to GitHub learning the terminal and other languages around what you work with, and expand.
