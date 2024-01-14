@@ -23,7 +23,7 @@ Let's fix this by moving our context menu code into it's own component. This way
 
 ## React
 
-```jsx {0-12}
+```jsx
 const ContextMenu = ({ isOpen, x, y, onClose }) => {
 	const [contextMenu, setContextMenu] = useState();
 
@@ -93,9 +93,11 @@ function App() {
 }
 ```
 
+<iframe data-frame-title="React Comp Ref Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-comp-ref-intro-66?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
-```typescript {0-43}
+```typescript
 @Component({
 	selector: "context-menu",
 	standalone: true,
@@ -127,11 +129,11 @@ function App() {
 	`,
 })
 class ContextMenuComponent implements AfterViewInit, OnDestroy {
-	@ViewChildren("contextMenu") contextMenu: QueryList<ElementRef<HTMLElement>>;
+	@ViewChildren("contextMenu") contextMenu!: QueryList<ElementRef<HTMLElement>>;
 
-	@Input() isOpen: boolean;
-	@Input() x: number;
-	@Input() y: number;
+	@Input() isOpen!: boolean;
+	@Input() x!: number;
+	@Input() y!: number;
 
 	@Output() close = new EventEmitter();
 
@@ -191,6 +193,8 @@ class AppComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Comp Ref Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-comp-ref-intro-66?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
 ```vue
@@ -245,7 +249,7 @@ onUnmounted(() => {
 ```vue
 <!-- App.vue -->
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref } from "vue";
 import ContextMenu from "./ContextMenu.vue";
 
 const isOpen = ref(false);
@@ -281,6 +285,8 @@ const open = (e) => {
 	/>
 </template>
 ```
+
+<iframe data-frame-title="Vue Comp Ref Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-comp-ref-intro-66?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
