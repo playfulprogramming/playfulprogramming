@@ -11,3 +11,40 @@
 }
 ---
 
+Have you ever wanted to get into computer programming but don't know where to start or search?
+Well in this article I wanna teach you basic computer programming terms, uses, and skills that
+go along with computer programming.
+
+## Terms
+
+### Variables
+
+#### Arrays
+
+#### Strings
+
+#### Number
+
+### Loops
+
+#### For
+
+#### While
+
+### Statements
+
+#### If
+
+#### While
+
+### Functions
+
+#### Built-in (Objects)
+
+## First language
+
+
+## Comfort Zones
+
+
+## My Experience
