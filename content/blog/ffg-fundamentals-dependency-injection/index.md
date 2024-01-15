@@ -2354,92 +2354,89 @@ import {
 } from "react";
 import { ContextMenuContext } from "./ContextMenuContext";
 
-const ContextMenu = forwardRef(
-	({ isOpen, x, y, onClose, data }, ref) => {
-		const context = useContext(ContextMenuContext);
+const ContextMenu = forwardRef(({ isOpen, x, y, onClose, data }, ref) => {
+	const context = useContext(ContextMenuContext);
 
-		const [contextMenu, setContextMenu] = useState();
+	const [contextMenu, setContextMenu] = useState();
 
-		useImperativeHandle(ref, () => ({
-			focus: () => contextMenu && contextMenu.focus(),
-		}));
+	useImperativeHandle(ref, () => ({
+		focus: () => contextMenu && contextMenu.focus(),
+	}));
 
-		useEffect(() => {
-			if (!contextMenu) return;
-			const closeIfOutsideOfContext = (e) => {
-				const isClickInside = contextMenu.contains(e.target);
-				if (isClickInside) return;
-				onClose(false);
-			};
-			document.addEventListener("click", closeIfOutsideOfContext);
-			return () =>
-				document.removeEventListener("click", closeIfOutsideOfContext);
-		}, [contextMenu, onClose]);
+	useEffect(() => {
+		if (!contextMenu) return;
+		const closeIfOutsideOfContext = (e) => {
+			const isClickInside = contextMenu.contains(e.target);
+			if (isClickInside) return;
+			onClose(false);
+		};
+		document.addEventListener("click", closeIfOutsideOfContext);
+		return () => document.removeEventListener("click", closeIfOutsideOfContext);
+	}, [contextMenu, onClose]);
 
-		useEffect(() => {
-			const closeIfContextMenu = () => {
-				if (!isOpen) return;
-				onClose(false);
-			};
-			// Inside a timeout to make sure the initial context menu does not close the menu
-			setTimeout(() => {
-				document.addEventListener("contextmenu", closeIfContextMenu);
-			}, 0);
-			return () => {
-				document.removeEventListener("contextmenu", closeIfContextMenu);
-			};
-		}, [isOpen, onClose]);
+	useEffect(() => {
+		const closeIfContextMenu = () => {
+			if (!isOpen) return;
+			onClose(false);
+		};
+		// Inside a timeout to make sure the initial context menu does not close the menu
+		setTimeout(() => {
+			document.addEventListener("contextmenu", closeIfContextMenu);
+		}, 0);
+		return () => {
+			document.removeEventListener("contextmenu", closeIfContextMenu);
+		};
+	}, [isOpen, onClose]);
 
-		const actions = useMemo(() => {
-			return [
-				{
-					label: "Copy",
-					fn: (data) => alert(`Copied ${data}`),
-				},
-				{
-					label: "Delete",
-					fn: (data) => alert(`Deleted ${data}`),
-				},
-			];
-		});
+	const actions = useMemo(() => {
+		return [
+			{
+				label: "Copy",
+				fn: (data) => alert(`Copied ${data}`),
+			},
+			{
+				label: "Delete",
+				fn: (data) => alert(`Deleted ${data}`),
+			},
+		];
+	});
 
-		if (!isOpen || !context) {
-			return null;
-		}
+	if (!isOpen || !context) {
+		return null;
+	}
 
-		return (
-			<div
-				ref={(el) => setContextMenu(el)}
-				tabIndex={0}
-				style={{
-					position: "fixed",
-					top: y,
-					left: x,
-					background: "white",
-					border: "1px solid black",
-					borderRadius: 16,
-					padding: "1rem",
-				}}
-			>
-				<button onClick={() => onClose()}>X</button>
-				<ul>
-					{actions.map((action) => (
-						<li>
-							<button
-								onClick={() => {
-									action.fn(data);
-									onClose(false);
-								}}
-							>
-								{action.label}
-							</button>
-						</li>
-					))}
-				</ul>
-			</div>
-		);
-	},
-);
+	return (
+		<div
+			ref={(el) => setContextMenu(el)}
+			tabIndex={0}
+			style={{
+				position: "fixed",
+				top: y,
+				left: x,
+				background: "white",
+				border: "1px solid black",
+				borderRadius: 16,
+				padding: "1rem",
+			}}
+		>
+			<button onClick={() => onClose()}>X</button>
+			<ul>
+				{actions.map((action) => (
+					<li>
+						<button
+							onClick={() => {
+								action.fn(data);
+								onClose(false);
+							}}
+						>
+							{action.label}
+						</button>
+					</li>
+				))}
+			</ul>
+		</div>
+	);
+});
 ```
 
 Finally, we need to make sure to pass the `file.id` to `<File id={file.id}/>` component:
@@ -2694,20 +2691,18 @@ const ContextMenuContext = createContext({
 Then we can use this context in our `ContextMenu` component:
 
 ```jsx
-const ContextMenu = forwardRef(
-	({ isOpen, x, y, onClose, data }, ref) => {
-		const context = useContext(ContextMenuContext);
+const ContextMenu = forwardRef(({ isOpen, x, y, onClose, data }, ref) => {
+	const context = useContext(ContextMenuContext);
 
-		// ...
+	// ...
 
-		const actions = useMemo(() => {
-			if (!context) return [];
-			return context.actions;
-		}, [context]);
+	const actions = useMemo(() => {
+		if (!context) return [];
+		return context.actions;
+	}, [context]);
 
-		// ....
-	},
-);
+	// ....
+});
 ```
 
 Finally, we need to make sure to setup our `ContextMenuContext` provider in each of our landmarks:
@@ -2928,856 +2923,39 @@ const FileList = () => {
 };
 ```
 
-<iframe src="https://stackblitz.com/edit/react-context-multiple-di?embed=1"></iframe>
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React DI Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-di-challenge?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
 
 ### Angular
 
 // TODO: ...
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular DI Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-di-challenge?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
+
 ### Vue
 
 // TODO: ...
 
-<!-- tabs:end -->
+<details>
 
----
+<summary>Final code output</summary>
 
----
+<iframe data-frame-title="Vue DI Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-di-challenge?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
----
-
----
-
----
-
-# Delete Everything below This Line
-
----
-
----
-
----
-
----
-
-## All Together Now
-
-// TODO: Write
-
-<!-- Editor's note: This Contextmenu has new functionality from before - the ability to close when another context menu is opened -->
-
-<!-- tabs:start -->
-
-### React
-
-```jsx
-// App.jsx
-function App() {
-	return (
-		<Layout sidebar={<Sidebar />}>
-			<FileList />
-		</Layout>
-	);
-}
-```
-
-```jsx
-// Layout.jsx
-const Layout = ({ sidebar, children }) => {
-	return (
-		<div style={{ display: "flex", flexWrap: "nowrap", minHeight: "100vh" }}>
-			<div
-				style={{
-					width: 150,
-					backgroundColor: "lightgray",
-					borderRight: "1px solid grey",
-				}}
-			>
-				{sidebar}
-			</div>
-			<div style={{ width: 1, flexGrow: 1 }}>{children}</div>
-		</div>
-	);
-};
-```
-
-```jsx
-// Sidebar.tsx
-const directories = [
-	{
-		name: "Movies",
-		id: 1,
-	},
-	{
-		name: "Documents",
-		id: 2,
-	},
-	{
-		name: "Etc",
-		id: 3,
-	},
-];
-
-const getDirectoryById = (id) => {
-	return directories.find((dir) => dir.id === id);
-};
-
-const onCopy = (id) => {
-	const dir = getDirectoryById(id);
-	// Some browsers still do not support this
-	if (navigator?.clipboard?.writeText) {
-		navigator.clipboard.writeText(dir.name);
-		alert("Name is copied");
-	} else {
-		alert("Unable to copy directory name due to browser incompatibility");
-	}
-};
-
-const Sidebar = () => {
-	return (
-		<ContextMenuContext.Provider
-			value={{
-				actions: [
-					{
-						label: "Copy directory name",
-						fn: onCopy,
-					},
-				],
-			}}
-		>
-			<div style={{ padding: "1rem" }}>
-				<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
-				{directories.map((directory) => {
-					return (
-						<File key={directory.id} name={directory.name} id={directory.id} />
-					);
-				})}
-			</div>
-		</ContextMenuContext.Provider>
-	);
-};
-```
-
-### Angular
-
-```typescript
-// App.component.ts
-import { Component } from "@angular/core";
-import { LayoutComponent } from "./layout.component";
-import { SidebarComponent } from "./sidebar.component";
-import { FileListComponent } from "./file-list.component";
-
-@Component({
-	selector: "app-root",
-	standalone: true,
-	imports: [LayoutComponent, SidebarComponent, FileListComponent],
-	template: `
-		<app-layout>
-			<app-sidebar sidebar />
-			<file-list />
-		</app-layout>
-	`,
-})
-class AppComponent {}
-```
-
-```typescript
-// layout.component.ts
-import { Component } from "@angular/core";
-
-@Component({
-	selector: "app-layout",
-	standalone: true,
-	template: `
-		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
-			<div
-				style="
-              width: 150px;
-              background-color: lightgray;
-              border-right: 1px solid grey;
-            "
-			>
-				<ng-content select="sidebar" />
-			</div>
-			<div style="width: 1px; flex-grow: 1">
-				<ng-content />
-			</div>
-		</div>
-	`,
-})
-class LayoutComponent {}
-```
-
-```typescript
-// sidebar.component.ts
-import { Component, inject, Injectable } from "@angular/core";
-import { ActionTypes } from "./context";
-import { NgFor } from "@angular/common";
-import { FileComponent } from "./file.component";
-
-@Injectable()
-class SidebarDirectories {
-	actions = [] as InstanceType<typeof ActionTypes>["actions"];
-}
-
-function injectAndAssignActions(actions: any[]) {
-	const sidebarDirectories = inject(ActionTypes);
-	sidebarDirectories.actions = actions;
-	return sidebarDirectories;
-}
-
-@Component({
-	selector: "app-sidebar",
-	standalone: true,
-	imports: [NgFor, FileComponent],
-	providers: [
-		{
-			provide: ActionTypes,
-			useClass: SidebarDirectories,
-		},
-	],
-	template: `
-		<div style="padding: 1rem">
-			<h1 style="font-size: 1.25rem">Directories</h1>
-			<file-item
-				*ngFor="let directory of directories"
-				[name]="directory.name"
-				[id]="directory.id"
-			/>
-		</div>
-	`,
-})
-class SidebarComponent {
-	directories = [
-		{
-			name: "Movies",
-			id: 1,
-		},
-		{
-			name: "Documents",
-			id: 2,
-		},
-		{
-			name: "Etc",
-			id: 3,
-		},
-	];
-
-	getDirectoryById = (id: number) => {
-		return this.directories.find((dir) => dir.id === id);
-	};
-
-	onCopy = (id: number) => {
-		const dir = this.getDirectoryById(id)!;
-		// Some browsers still do not support this
-		if (navigator?.clipboard?.writeText) {
-			navigator.clipboard.writeText(dir.name);
-			alert("Name is copied");
-		} else {
-			alert("Unable to copy directory name due to browser incompatibility");
-		}
-	};
-
-	sidebarDirectories = injectAndAssignActions([
-		{
-			label: "Copy directory name",
-			fn: this.onCopy,
-		},
-	]);
-}
-```
-
-```typescript
-// file-list.component.ts
-import { Component, inject, Injectable } from "@angular/core";
-import { ActionTypes } from "./context";
-import { NgFor } from "@angular/common";
-import { FileComponent } from "./file.component";
-
-@Injectable()
-class FileListActions {
-	actions = [] as InstanceType<typeof ActionTypes>["actions"];
-}
-
-function injectAndAssignActions(actions: any[]) {
-	const sidebarDirectories = inject(ActionTypes);
-	sidebarDirectories.actions = actions;
-	return sidebarDirectories;
-}
-
-@Component({
-	selector: "file-list",
-	standalone: true,
-	imports: [NgFor, FileComponent],
-	providers: [
-		{
-			provide: ActionTypes,
-			useClass: FileListActions,
-		},
-	],
-	template: `
-		<div style="padding: 1rem">
-			<h1>Files</h1>
-			<file-item *ngFor="let file of files" [name]="file.name" [id]="file.id" />
-		</div>
-	`,
-})
-class FileListComponent {
-	files = [
-		{
-			name: "Testing.wav",
-			id: 1,
-		},
-		{
-			name: "Secrets.txt",
-			id: 2,
-		},
-		{
-			name: "Other.md",
-			id: 3,
-		},
-	];
-
-	getFileIndexById = (id: number) => {
-		return this.files.findIndex((file) => file.id === id);
-	};
-
-	onRename = (id: number) => {
-		const fileIndex = this.getFileIndexById(id)!;
-		const file = this.files[fileIndex];
-		const newName = prompt(
-			`What do you want to rename the file ${file.name} to?`,
-		);
-		if (!newName) return;
-		this.files[fileIndex] = {
-			...file,
-			name: newName,
-		};
-	};
-
-	onDelete = (id: number) => {
-		const fileIndex = this.getFileIndexById(id);
-		this.files.splice(fileIndex, 1);
-	};
-
-	fileListActions = injectAndAssignActions([
-		{
-			label: "Rename",
-			fn: this.onRename,
-		},
-		{
-			label: "Delete",
-			fn: this.onDelete,
-		},
-	]);
-}
-```
-
-```typescript
-// context.ts
-import { Injectable } from "@angular/core";
-
-@Injectable()
-class ActionTypes {
-	actions = [] as Array<{ label: string; fn: (id: number) => void }>;
-}
-```
-
-```typescript
-// file.component.ts
-import { Component, Input, ViewChild } from "@angular/core";
-import { LayoutComponent } from "./layout.component";
-import { ContextMenuComponent } from "./context-menu.component";
-
-@Component({
-	selector: "file-item",
-	standalone: true,
-	imports: [ContextMenuComponent],
-	template: `
-		<button
-			(contextmenu)="onContextMenu($event)"
-			style="display: block; width: 100%; margin-bottom: 1rem"
-		>
-			{{ name }}
-		</button>
-		<context-menu
-			#contextMenu
-			[data]="id"
-			[isOpen]="isOpen"
-			(close)="setIsOpen(false)"
-			[x]="mouseBounds.x"
-			[y]="mouseBounds.y"
-		/>
-	`,
-})
-class FileComponent {
-	@ViewChild("contextMenu", { static: true })
-	contextMenu!: ContextMenuComponent;
-	@Input() name!: string;
-	@Input() id!: number;
-
-	mouseBounds = {
-		x: 0,
-		y: 0,
-	};
-
-	isOpen = false;
-
-	setIsOpen = (v: boolean) => (this.isOpen = v);
-
-	onContextMenu(e: MouseEvent) {
-		e.preventDefault();
-		this.isOpen = true;
-		this.mouseBounds = {
-			x: e.clientX,
-			y: e.clientY,
-		};
-		setTimeout(() => {
-			this.contextMenu.focusMenu();
-		}, 0);
-	}
-}
-```
-
-```typescript
-// context-menu.component.ts
-import {
-	Component,
-	ElementRef,
-	EventEmitter,
-	inject,
-	Input,
-	OnChanges,
-	OnDestroy,
-	OnInit,
-	Output,
-	SimpleChange,
-	SimpleChanges,
-	ViewChild,
-} from "@angular/core";
-import { LayoutComponent } from "./layout.component";
-import { NgFor, NgIf } from "@angular/common";
-import { ActionTypes } from "./context";
-
-function injectAndGetActions() {
-	const context = inject(ActionTypes);
-	if (!context) return [];
-	return context.actions;
-}
-
-@Component({
-	selector: "context-menu",
-	standalone: true,
-	imports: [NgIf, NgFor],
-	template: `
-		<div
-			*ngIf="isOpen && actions"
-			#contextMenu
-			tabIndex="0"
-			[style]="
-				'
-          position: fixed;
-          top: ' +
-				y +
-				'px;
-          left: ' +
-				x +
-				'px;
-          background: white;
-          border: 1px solid black;
-          border-radius: 16px;
-          padding: 1rem;
-        '
-			"
-		>
-			<button (click)="close.emit(false)">X</button>
-			<ul>
-				<li *ngFor="let action of actions">
-					<button (click)="action.fn(data); close.emit(false)">
-						{{ action.label }}
-					</button>
-				</li>
-			</ul>
-		</div>
-	`,
-})
-class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
-	@ViewChild("contextMenu", { static: false }) contextMenuRef!: ElementRef;
-	@Input() isOpen!: boolean;
-	@Input() x!: number;
-	@Input() y!: number;
-	@Input() data!: any;
-
-	@Output() close = new EventEmitter<boolean>();
-
-	actions = injectAndGetActions();
-
-	closeIfOutside = (e: MouseEvent) => {
-		const contextMenuEl = this.contextMenuRef?.nativeElement;
-		if (!contextMenuEl) return;
-		const isClickInside = contextMenuEl.contains(e.target);
-		if (isClickInside) return;
-		this.close.emit(false);
-	};
-
-	closeIfContextMenu = () => {
-		if (!this.isOpen) return;
-		this.close.emit(false);
-	};
-
-	previousListener: null | (() => void) = null;
-
-	ngOnChanges(changes: SimpleChanges) {
-		if (changes["isOpen"].previousValue !== changes["isOpen"].currentValue) {
-			if (this.previousListener) {
-				this.previousListener();
-			}
-			// Inside a timeout to make sure the initial context menu does not close the menu
-			setTimeout(() => {
-				document.addEventListener("contextmenu", this.closeIfContextMenu);
-			}, 0);
-
-			this.previousListener = () =>
-				document.removeEventListener("contextmenu", this.closeIfContextMenu);
-		}
-	}
-
-	ngOnInit() {
-		document.addEventListener("click", this.closeIfOutside);
-	}
-
-	ngOnDestroy() {
-		document.removeEventListener("click", this.closeIfOutside);
-	}
-
-	focusMenu() {
-		this.contextMenuRef.nativeElement.focus();
-	}
-}
-```
-
-### Vue
-
-```vue
-<!-- App.vue -->
-<script setup>
-import Layout from "./Layout.vue";
-import Sidebar from "./Sidebar.vue";
-import FileList from "./FileList.vue";
-</script>
-
-<template>
-	<Layout>
-		<template #sidebar>
-			<Sidebar />
-		</template>
-		<FileList />
-	</Layout>
-</template>
-```
-
-```vue
-<!-- Layout.vue -->
-<script setup></script>
-
-<template>
-	<div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
-		<div
-			style="
-              width: 150px;
-              background-color: lightgray;
-              border-right: 1px solid grey;
-            "
-		>
-			<slot name="sidebar" />
-		</div>
-		<div style="width: 1px; flex-grow: 1">
-			<slot />
-		</div>
-	</div>
-</template>
-```
-
-```vue
-<!-- Sidebar.vue -->
-<script setup>
-import { provide } from "vue";
-import File from "./File.vue";
-
-const directories = [
-	{
-		name: "Movies",
-		id: 1,
-	},
-	{
-		name: "Documents",
-		id: 2,
-	},
-	{
-		name: "Etc",
-		id: 3,
-	},
-];
-
-const getDirectoryById = (id) => {
-	return directories.find((dir) => dir.id === id);
-};
-
-const onCopy = (id) => {
-	const dir = getDirectoryById(id);
-	// Some browsers still do not support this
-	if (navigator?.clipboard?.writeText) {
-		navigator.clipboard.writeText(dir.name);
-		alert("Name is copied");
-	} else {
-		alert("Unable to copy directory name due to browser incompatibility");
-	}
-};
-
-provide("ContextMenu", {
-	actions: [
-		{
-			label: "Copy directory name",
-			fn: onCopy,
-		},
-	],
-});
-</script>
-
-<template>
-	<div style="padding: 1rem">
-		<h1 style="font-size: 1.25rem">Directories</h1>
-		<File
-			v-for="directory of directories"
-			:key="directory.id"
-			:name="directory.name"
-			:id="directory.id"
-		/>
-	</div>
-</template>
-```
-
-```vue
-<!-- FileList.vue -->
-<script setup>
-import { provide, ref } from "vue";
-import File from "./File.vue";
-
-const files = ref([
-	{
-		name: "Testing.wav",
-		id: 1,
-	},
-	{
-		name: "Secrets.txt",
-		id: 2,
-	},
-	{
-		name: "Other.md",
-		id: 3,
-	},
-]);
-
-const getFileIndexById = (id) => {
-	return files.value.findIndex((file) => file.id === id);
-};
-
-const onRename = (id) => {
-	const fileIndex = getFileIndexById(id);
-	const file = files.value[fileIndex];
-	const newName = prompt(
-		`What do you want to rename the file ${file.name} to?`,
-	);
-	if (!newName) return;
-	files.value[fileIndex] = {
-		...file,
-		name: newName,
-	};
-};
-
-const onDelete = (id) => {
-	const fileIndex = getFileIndexById(id);
-	files.value.splice(fileIndex, 1);
-};
-
-provide("ContextMenu", {
-	actions: [
-		{
-			label: "Rename",
-			fn: onRename,
-		},
-		{
-			label: "Delete",
-			fn: onDelete,
-		},
-	],
-});
-</script>
-
-<template>
-	<div style="padding: 1rem">
-		<h1>Files</h1>
-		<File
-			v-for="file of files"
-			:key="file.id"
-			:name="file.name"
-			:id="file.id"
-		/>
-	</div>
-</template>
-```
-
-```vue
-<!-- File.vue -->
-<script setup>
-import { ref } from "vue";
-import ContextMenu from "./ContextMenu.vue";
-
-const props = defineProps(["name", "id"]);
-
-const mouseBounds = ref({
-	x: 0,
-	y: 0,
-});
-const isOpen = ref(false);
-
-const setIsOpen = (v) => (isOpen.value = v);
-
-const contextMenu = ref();
-
-function onContextMenu(e) {
-	e.preventDefault();
-	isOpen.value = true;
-	mouseBounds.value = {
-		x: e.clientX,
-		y: e.clientY,
-	};
-	setTimeout(() => {
-		contextMenu.value.focusMenu();
-	}, 0);
-}
-</script>
-
-<template>
-	<button
-		@contextmenu="onContextMenu($event)"
-		style="display: block; width: 100%; margin-bottom: 1rem"
-	>
-		{{ props.name }}
-	</button>
-	<ContextMenu
-		:data="props.id"
-		ref="contextMenu"
-		:isOpen="isOpen"
-		@close="setIsOpen(false)"
-		:x="mouseBounds.x"
-		:y="mouseBounds.y"
-	/>
-</template>
-```
-
-```vue
-<!-- ContextMenu.vue -->
-<script setup>
-import { ref, onMounted, onUnmounted, inject, computed, watch } from "vue";
-
-const props = defineProps(["isOpen", "x", "y", "data"]);
-
-const emit = defineEmits(["close"]);
-
-const context = inject("ContextMenu");
-
-const actions = computed(() => {
-	if (!context) return [];
-	return context.actions;
-});
-
-const contextMenuRef = ref(null);
-
-function closeIfOutside(e) {
-	const contextMenuEl = contextMenuRef.value;
-	if (!contextMenuEl) return;
-	const isClickInside = contextMenuEl.contains(e.target);
-	if (isClickInside) return;
-	emit("close");
-}
-
-const closeIfContextMenu = () => {
-	if (!props.isOpen) return;
-	emit("close");
-};
-
-// This must live in a watch, as `onMounted` will run whether the `isOpen` boolean is set or not
-watch(
-	() => props.isOpen,
-	(_, __, onCleanup) => {
-		// Inside a timeout to make sure the initial context menu does not close the menu
-		setTimeout(() => {
-			document.addEventListener("contextmenu", closeIfContextMenu);
-		}, 0);
-
-		onCleanup(() =>
-			document.removeEventListener("contextmenu", closeIfContextMenu),
-		);
-	},
-);
-
-onMounted(() => {
-	document.addEventListener("click", closeIfOutside);
-});
-
-onUnmounted(() => {
-	document.removeEventListener("click", closeIfOutside);
-});
-
-function focusMenu() {
-	contextMenuRef.value.focus();
-}
-
-defineExpose({
-	focusMenu,
-});
-</script>
-
-<template>
-	<div
-		v-if="props.isOpen && context"
-		ref="contextMenuRef"
-		tabIndex="0"
-		:style="`
-          position: fixed;
-          top: ${props.y}px;
-          left: ${props.x}px;
-          background: white;
-          border: 1px solid black;
-          border-radius: 16px;
-          padding: 1rem;
-        `"
-	>
-		<button @click="emit('close')">X</button>
-		<ul>
-			<li v-for="action of actions">
-				<button
-					@click="
-						action.fn(data);
-						emit('close', false);
-					"
-				>
-					{{ action.label }}
-				</button>
-			</li>
-		</ul>
-	</div>
-</template>
-```
+</details>
 
 <!-- tabs:end -->
-
----
-
----
-
----
 
 <!-- Editor's note: We're explicitly not going to teach the following features of Angular's DI, unless I can be convinced otherwise: -->
 
