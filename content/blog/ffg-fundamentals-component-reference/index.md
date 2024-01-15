@@ -489,7 +489,81 @@ const App = () => {
 
 It will output `Hello, world` just as we would expect it to!
 
-<!-- TODO: Add useImperativeHandle deps array -->
+### `useImperativeHandle` Dependency Array
+
+Let's stop and think about how `useImperativeHandle` works under-the-hood for a moment.
+
+We know that `useRef` creates an object with the shape of:
+
+```javascript
+({ current: initialValue });
+```
+
+Which you can then mutate without triggering a re-render.
+
+```jsx
+const App = () => {
+	const numberOfRenders = useRef(0);
+
+	numberOfRenders.current += 1;
+
+	return null;
+};
+```
+
+Now, let's say that we didn't have access to `useImperativeHandle`, but still wanted to pass a value from a child component to a parent via the passed `ref`. That might look something like this:
+
+```jsx
+const Child = forwardRef((props, ref) => {
+	ref.current += 1;
+
+	return null;
+});
+
+const Parent = () => {
+	const numberOfChildRenders = useRef(0);
+
+	return <Child ref={numberOfChildRenders} />;
+};
+```
+
+But wait a moment! If we think back to [our Side Effects chapter](/posts/ffg-fundamentals-side-effects) we'll remember that mutating state outside of a component's local values is an example of a side-effect.
+
+![A pure function is allowed to mutate state from within it's local environment, while a side effect changes data outside its own environment](../ffg-fundamentals-side-effects/pure-vs-side-effect.png)
+
+Because this kind of in-render side effect mutation can cause strange issues and edge-cases with React, we need to make sure that we're using `useEffect` or `useLayoutEffect`.
+
+Because our code ideally should happen during our render (rather than afterward), let's opt to use `useLayoutEffect`.
+
+Changing the previous code to use `useLayoutEffect` looks something like this:
+
+```jsx
+const Child = forwardRef((props, ref) => {
+	useLayoutEffect(() => {
+		ref.current += 1;
+	});
+
+	return null;
+});
+```
+
+This is similar to how `useImperativeHandle` works under-the-hood. So similar in fact, that it's effectively how the hook is written [in React's source code itself](https://jser.dev/react/2021/12/25/how-does-useImperativeHandle-work/).
+
+> But wait! `useLayoutEffect` has the option to pass an array to it so that you can avoid re-running the side effect. Does that work in `useImperativeHandle` as well?
+
+Indeed, it does, astute reader! Instead of:
+
+```jsx
+useLayoutEffect(() => {
+	ref.current = someVal;
+}, [someVal]);
+```
+
+We might do the following instead:
+
+```jsx
+useImperativeHandle(ref, () => someVal, [someVal]);
+```
 
 ## Angular
 
