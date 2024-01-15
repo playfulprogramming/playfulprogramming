@@ -1274,9 +1274,9 @@ const useTooltip = ({ tooltipContents, innerContents }) => {
 	};
 
 	useEffect(() => {
+		if (!isVisible || !tooltipRef.current || !targetRef.current) return;
 		const targetRect = targetRef.current.getBoundingClientRect();
 
-		if (!tooltipRef.current) return;
 		tooltipRef.current.style.left = `${targetRect.left}px`;
 		tooltipRef.current.style.top = `${targetRect.bottom}px`;
 	}, [isVisible]);
@@ -1291,7 +1291,7 @@ const useTooltip = ({ tooltipContents, innerContents }) => {
 				{innerContents}
 			</div>
 			{isVisible &&
-				ReactDOM.createPortal(
+				createPortal(
 					<div ref={tooltipRef} className="tooltip">
 						{tooltipContents}
 					</div>,
@@ -1327,12 +1327,197 @@ const App = () => {
 };
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Directives Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-directives-challenge?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
+
 ## Angular
 
-// TODO: Port code
+```typescript
+@Injectable({
+	providedIn: "root",
+})
+class PortalService {
+	// Explain why we need to pass in document
+	// @see https://github.com/angular/components/blob/fdd16e667550690d554bba49888bfc6929bc97b2/src/cdk/portal/dom-portal-outlet.ts#L43-L47
+	outlet = new DomPortalOutlet(
+		document.querySelector("body")!,
+		undefined,
+		undefined,
+		undefined,
+		document,
+	);
+}
+
+@Directive({
+	selector: "[tooltip]",
+	standalone: true,
+})
+class TooltipDirective implements AfterViewInit, OnDestroy {
+	@Input("tooltip") tooltipBase!: HTMLElement;
+	viewContainerRef = inject(ViewContainerRef);
+	templToRender = inject(TemplateRef<any>);
+
+	portalService = inject(PortalService);
+
+	ngAfterViewInit() {
+		this.tooltipBase.addEventListener("mouseenter", () => {
+			this.showTooltip();
+		});
+		this.tooltipBase.addEventListener("mouseleave", () => {
+			this.hideTooltip();
+		});
+	}
+
+	el: HTMLElement | null = null;
+
+	showTooltip = () => {
+		const { left, bottom } = this.tooltipBase.getBoundingClientRect();
+
+		const viewRef = this.viewContainerRef.createEmbeddedView(
+			this.templToRender,
+		);
+
+		// TODO: Explain this
+		this.el = viewRef.rootNodes[0] as HTMLElement;
+
+		this.el.classList.add("tooltip");
+		this.el.style.left = `${left}px`;
+		this.el.style.top = `${bottom}px`;
+
+		setTimeout(() => {
+			this.portalService.outlet.attach(
+				// TODO: Explain why you'd use DomPortal rather than TemplatePortal
+				new DomPortal(this.el),
+			);
+		});
+	};
+
+	hideTooltip = () => {
+		// Detaching the portal does not remove the element from the DOM when using DomPortal rather than TemplatePortal
+		this.portalService.outlet.detach();
+		this.el?.remove();
+	};
+
+	ngOnDestroy() {
+		this.hideTooltip();
+	}
+}
+
+@Component({
+	selector: "app-root",
+	standalone: true,
+	imports: [TooltipDirective],
+	template: `
+		<div>
+			<button #tooltipBase>Hover me</button>
+			<div *tooltip="tooltipBase">This is a tooltip</div>
+		</div>
+	`,
+	encapsulation: ViewEncapsulation.None,
+	styles: [
+		`
+			.tooltip {
+				position: absolute;
+				background-color: #333;
+				color: #fff;
+				padding: 8px;
+				border-radius: 4px;
+				z-index: 1000;
+			}
+		`,
+	],
+})
+class AppComponent {}
+```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular Directives Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-directives-challenge?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
 
 ## Vue
 
-// TODO: Port code
+This code cannot be ported to Vue and would end up looking nearly identical to the previous chapter's code. This is because Vue does not have a way to store a template in a variable without rendering it on-screen.
+
+That said, it would be pretty frustrating to not have anything to show for the end of this chapter. Keeping in mind the limitation of Vue's directives, let's build a directive that can be used to show a tooltip on hover:
+
+```vue
+<!-- App.vue -->
+<script setup>
+import { vTooltip } from "./vTooltip.js";
+
+const obj = { current: null };
+</script>
+
+<template>
+	<div>
+		<!-- TODO: Explain this more -->
+		<!-- Ref doesn't appear to pass in time -->
+		<button :ref="(el) => (obj.current = el)">Hover me</button>
+		<!-- Anything passed to `v-tooltip` is not reactive, so this is the best we got -->
+		<div v-tooltip="obj">This is a tooltip</div>
+	</div>
+</template>
+
+<style>
+.tooltip {
+	position: absolute;
+	background-color: #333;
+	color: #fff;
+	padding: 8px;
+	border-radius: 4px;
+	z-index: 1000;
+}
+</style>
+```
+
+```javascript
+// vTooltip.js
+export const vTooltip = {
+	beforeMount: (el) => {
+		el.style.display = "none";
+	},
+	mounted: (el, binding) => {
+		const baseEl = binding.value.current;
+		el.classList.add("tooltip");
+
+		baseEl.addEventListener("mouseenter", () => {
+			const baseRect = baseEl.getBoundingClientRect();
+
+			el.style.left = `${baseRect.left}px`;
+			el.style.top = `${baseRect.bottom}px`;
+			el.style.display = "block";
+		});
+
+		baseEl.addEventListener("mouseleave", () => {
+			el.style.display = "none";
+		});
+	},
+};
+```
+
+> This doesn't work quite the same as the component version of `<Tooltip>`
+> Namely, it doesn't teleport the tooltip to the body, which might cause issues
+> If you have a stacking context on the parent element.
+>
+> It also doesn't remove the tooltip from the DOM when it's not visible, but
+> rather just hides it using `display: none`. This may cause performance issues
+> if you have a lot of tooltips on the page.
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Directives Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-directives-challenge?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
+</details>
 
 <!-- tabs:end -->
