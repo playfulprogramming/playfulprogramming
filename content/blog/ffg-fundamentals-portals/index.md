@@ -193,13 +193,13 @@ Now that we have that modal, let's build out a small version of our folder app w
 
 ```jsx
 const App = () => {
-  return (
-    <div>
-      <Header />
-      <Body />
-      <Footer />
-    </div>
-  );
+	return (
+		<div>
+			<Header />
+			<Body />
+			<Footer />
+		</div>
+	);
 };
 ```
 
@@ -725,15 +725,15 @@ While most of React's APIs can be imported directly from `react`, the ability to
 Once imported, we can use `ReactDOM.createPortal` to render JSX into an HTML element.
 
 ```jsx
-import React, { useMemo, useState } from "react";
-import ReactDOM from "react-dom";
+import { useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 
 function App() {
 	const [portalRef, setPortalRef] = useState(null);
 
 	const portal = useMemo(() => {
 		if (!portalRef) return null;
-		return ReactDOM.createPortal(<div>Hello world!</div>, portalRef);
+		return createPortal(<div>Hello world!</div>, portalRef);
 	}, [portalRef]);
 
 	return (
@@ -906,14 +906,14 @@ We can pair this with our `createPortal` API to keep track of where we want to p
 
 ```jsx
 import { useState, createContext, useContext } from "react";
-import ReactDOM from "react-dom";
+import { createPortal } from "react-dom";
 
 const PortalContext = createContext();
 
 function ChildComponent() {
 	const portalRef = useContext(PortalContext);
 	if (!portalRef) return null;
-	return ReactDOM.createPortal(<div>Hello, world!</div>, portalRef);
+	return createPortal(<div>Hello, world!</div>, portalRef);
 }
 
 function App() {
@@ -1094,14 +1094,14 @@ Using the second argument of `createPortal`, we can pass a reference to the HTML
 We'll then wrap that `querySelector` into a `useMemo` so that we know not to re-fetch that reference again after it is grabbed once.
 
 ```jsx
-import React, { useMemo } from "react";
-import ReactDOM from "react-dom";
+import { useMemo } from "react";
+import { createPortal } from "react-dom";
 
 function ChildComponent() {
 	const bodyEl = useMemo(() => {
 		return document.querySelector("body");
 	}, []);
-	return ReactDOM.createPortal(<div>Hello, world!</div>, bodyEl);
+	return createPortal(<div>Hello, world!</div>, bodyEl);
 }
 
 function App() {
@@ -1220,9 +1220,9 @@ const Tooltip = ({ text, children }) => {
 	};
 
 	useEffect(() => {
+		if (!isVisible || !tooltipRef.current || !targetRef.current) return;
 		const targetRect = targetRef.current.getBoundingClientRect();
 
-		if (!tooltipRef.current) return;
 		tooltipRef.current.style.left = `${targetRect.left}px`;
 		tooltipRef.current.style.top = `${targetRect.bottom}px`;
 	}, [isVisible]);
@@ -1237,7 +1237,7 @@ const Tooltip = ({ text, children }) => {
 				{children}
 			</div>
 			{isVisible &&
-				ReactDOM.createPortal(
+				createPortal(
 					<div ref={tooltipRef} className="tooltip">
 						{text}
 					</div>,
@@ -1270,12 +1270,194 @@ const App = () => {
 };
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-portals-challenge?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
+
 ### Angular
 
-// TODO: Port code
+```typescript
+@Injectable({
+	providedIn: "root",
+})
+class PortalService {
+	outlet = new DomPortalOutlet(document.querySelector("body")!);
+}
+
+@Component({
+	selector: "app-tooltip",
+	standalone: true,
+	template: `
+		<div>
+			<div #targetRef (mouseenter)="showTooltip()" (mouseleave)="hideTooltip()">
+				<ng-content></ng-content>
+			</div>
+			<ng-template #portalContent>
+				<div
+					class="tooltip"
+					:style="'left: ' + left + 'px; top: ' + top + 'px'"
+				>
+					{{ text }}
+				</div>
+			</ng-template>
+		</div>
+	`,
+})
+class TooltipComponent implements OnDestroy {
+	@ViewChild("targetRef") targetRef!: ElementRef<HTMLElement>;
+	@ViewChild("portalContent") portalContent!: TemplateRef<unknown>;
+	viewContainerRef = inject(ViewContainerRef);
+	portalService = inject(PortalService);
+
+	left = 0;
+	top = 0;
+
+	@Input() text = "";
+
+	showTooltip() {
+		const { left, bottom } =
+			this.targetRef.nativeElement.getBoundingClientRect();
+		this.left = left;
+		this.top = bottom;
+		setTimeout(() => {
+			this.portalService.outlet.attach(
+				new TemplatePortal(this.portalContent, this.viewContainerRef),
+			);
+		});
+	}
+
+	hideTooltip() {
+		if (this.portalService.outlet.hasAttached()) {
+			this.portalService.outlet.detach();
+		}
+	}
+
+	ngOnDestroy() {
+		this.hideTooltip();
+	}
+}
+
+@Component({
+	selector: "app-root",
+	standalone: true,
+	imports: [TooltipComponent],
+	template: `
+		<div>
+			<app-tooltip text="This is a tooltip">
+				<button>Hover me</button>
+			</app-tooltip>
+		</div>
+	`,
+	encapsulation: ViewEncapsulation.None,
+	styles: [
+		`
+			.tooltip {
+				position: absolute;
+				background-color: #333;
+				color: #fff;
+				padding: 8px;
+				border-radius: 4px;
+				z-index: 1000;
+			}
+		`,
+	],
+})
+class AppComponent {}
+```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-portals-challenge?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
 
 ### Vue
 
-// TODO: Port code
+```vue
+<!-- App.vue -->
+<script setup>
+import Tooltip from "./Tooltip.vue";
+</script>
+
+<template>
+	<div>
+		<Tooltip text="This is a tooltip">
+			<button>Hover me</button>
+		</Tooltip>
+	</div>
+</template>
+
+<style>
+.tooltip {
+	position: absolute;
+	background-color: #333;
+	color: #fff;
+	padding: 8px;
+	border-radius: 4px;
+	z-index: 1000;
+}
+</style>
+```
+
+```vue
+<!-- Tooltip.vue -->
+<script setup>
+import { ref, watch } from "vue";
+const isVisible = ref(false);
+
+const showTooltip = () => {
+	isVisible.value = true;
+};
+
+const hideTooltip = () => {
+	isVisible.value = false;
+};
+
+const targetRef = ref(null);
+const tooltipRef = ref(null);
+
+watch(isVisible, (value) => {
+	if (!value || !tooltipRef.value || !targetRef.value) return;
+	const targetRect = targetRef.value.getBoundingClientRect();
+
+	if (!tooltipRef.value) return;
+	tooltipRef.value.style.left = `${targetRect.left}px`;
+	tooltipRef.value.style.top = `${targetRect.bottom}px`;
+});
+
+const props = defineProps(["text"]);
+</script>
+
+<template>
+	<div>
+		<div
+			ref="targetRef"
+			@mouseenter="showTooltip()"
+			@mouseleave="hideTooltip()"
+		>
+			<slot></slot>
+		</div>
+	</div>
+	<Teleport to="body" v-if="isVisible">
+		<div ref="tooltipRef" class="tooltip">
+			{{ props.text }}
+		</div>
+	</Teleport>
+</template>
+```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-portals-challenge?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
+</details>
 
 <!-- tabs:end -->
