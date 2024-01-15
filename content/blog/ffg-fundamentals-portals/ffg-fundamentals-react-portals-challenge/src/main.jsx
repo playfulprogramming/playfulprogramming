@@ -16,9 +16,9 @@ const Tooltip = ({ text, children }) => {
 	};
 
 	useEffect(() => {
+		if (!isVisible || !tooltipRef.current || !targetRef.current) return;
 		const targetRect = targetRef.current.getBoundingClientRect();
 
-		if (!tooltipRef.current) return;
 		tooltipRef.current.style.left = `${targetRect.left}px`;
 		tooltipRef.current.style.top = `${targetRect.bottom}px`;
 	}, [isVisible]);
