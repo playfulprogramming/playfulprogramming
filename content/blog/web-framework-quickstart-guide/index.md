@@ -68,7 +68,7 @@ You may select SWC if you'd like here as well. At a high level, it's an alternat
 > **Note:**
 > If you're following along with my book series ["The Framework Field Guide"](/collections/framework-field-guide), please select "JavaScript". TypeScript is useful but complex and the series' code samples do not use TypeScript, nor does the series teach TypeScript.
 
-4. Run the commands printed in the final output of Vite
+4. Run the commands printed in the final output of Vite:
 
 !["Done. Now run:" and a series of commands](./vite_react_done.png)
 
@@ -125,12 +125,34 @@ This will start a script that guides you through an interactive setup process.
 
 !["Select a framework" dropdown in the CLI with "Vue" highlighted](./select_vue.png)
 
+3. Select "JavaScript" or "TypeScript":
 
+!["Select a variant" with four options: "TypeScript", "JavaScript", "Customize with create-vue", and "Nuxt"](./vite_vue_variant.png)
 
+> If you're unfamiliar with TypeScript, it's an addition to JavaScript that allows you to add "compile-time types" to your code.
+>
+> Confused? [I wrote an article that explains what that means here](/posts/introduction-to-typescript).
 
+> **Note:**
+> If you're following along with my book series ["The Framework Field Guide"](/collections/framework-field-guide), please select "JavaScript". TypeScript is useful but complex and the series' code samples do not use TypeScript, nor does the series teach TypeScript.
 
+4. Run the commands printed in the final output of Vite:
 
+!["Done. Now run:" and a series of commands](./vite_vue_done.png)
 
+```shell
+cd [your-project-name]
+npm install
+npm run dev
+```
+
+5. If all worked, once your packages are installed you should see this template screen:
+
+![[A page with "Vite + Vue" header, some interactive elements, and "Edit components/HelloWorld.vue" and save to test HMR]](./vite_vue_preview.png)
+
+Now when you modify `components/HelloWorld.vue` or any other code in the project it will refresh the screen for you and preview your changes immediately.
+
+> This auto-refresh on code change is called "HMR" or "Hot Module Reloading"
 
 <!-- tabs:end -->
 
