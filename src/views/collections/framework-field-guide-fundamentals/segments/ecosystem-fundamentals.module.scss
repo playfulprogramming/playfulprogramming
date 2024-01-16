@@ -25,6 +25,12 @@
 	color: var(--on-dark-emphasis-high);
 }
 
+.links {
+	position: relative;
+	color: var(--on-dark-emphasis-high);
+	border-radius: var(--corner-radius-circular);
+}
+
 .mediumEmphasis {
 	color: var(--on-dark-emphasis-medium);
 }

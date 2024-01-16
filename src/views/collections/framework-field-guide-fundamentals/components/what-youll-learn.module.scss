@@ -91,6 +91,9 @@
   display: flex;
   align-items: center;
   margin: 0;
+  text-decoration: underline !important;
+  position: relative;
+  border-radius: var(--corner-radius-circular);
 }
 
 .stepCardItemBullet::before {

@@ -80,6 +80,8 @@ body {
 .ffgWord {
 	font-weight: bold;
 	color: var(--on-light-emphasis-high);
+	position: relative;
+	border-radius: var(--corner-radius-circular);
 }
 
 .buttonReadNow {
