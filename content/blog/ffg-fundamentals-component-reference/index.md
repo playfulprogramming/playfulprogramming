@@ -129,7 +129,7 @@ function App() {
 	`,
 })
 class ContextMenuComponent implements AfterViewInit, OnDestroy {
-	@ViewChildren("contextMenu") contextMenu!: QueryList<ElementRef<HTMLElement>>;
+	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;
 
 	@Input() isOpen!: boolean;
 	@Input() x!: number;
@@ -138,7 +138,7 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 	@Output() close = new EventEmitter();
 
 	closeIfOutsideOfContext = (e: MouseEvent) => {
-		const contextMenuEl = this.contextMenu?.first?.nativeElement;
+		const contextMenuEl = this.contextMenu?.nativeElement;
 		if (!contextMenuEl) return;
 		const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
 		if (isClickInside) return;
@@ -791,7 +791,7 @@ Now that we sufficiently understand what component references look like in each 
 
 ## React
 
-```jsx
+```jsx {0,3-5,11,25,27-34,40}
 const ContextMenu = forwardRef(({ isOpen, x, y, onClose }, ref) => {
 	const [contextMenu, setContextMenu] = useState();
 
@@ -799,36 +799,11 @@ const ContextMenu = forwardRef(({ isOpen, x, y, onClose }, ref) => {
 		focus: () => contextMenu && contextMenu.focus(),
 	}));
 
-	useEffect(() => {
-		if (!contextMenu) return;
-		const closeIfOutsideOfContext = (e) => {
-			const isClickInside = contextMenu.contains(e.target);
-			if (isClickInside) return;
-			onClose(false);
-		};
-		document.addEventListener("click", closeIfOutsideOfContext);
-		return () => document.removeEventListener("click", closeIfOutsideOfContext);
-	}, [contextMenu]);
-
-	if (!isOpen) return null;
+	// ...
 
 	return (
-		<div
-			ref={(el) => setContextMenu(el)}
-			tabIndex={0}
-			style={{
-				position: "fixed",
-				top: y,
-				left: x,
-				background: "white",
-				border: "1px solid black",
-				borderRadius: 16,
-				padding: "1rem",
-			}}
-		>
-			<button onClick={() => onClose()}>X</button>
-			This is a context menu
-		</div>
+		// Attributes removed for brevity
+		<div ref={(el) => setContextMenu(el)}>{/* ... */}</div>
 	);
 });
 
@@ -838,34 +813,24 @@ function App() {
 		y: 0,
 	});
 
-	const [isOpen, setIsOpen] = useState(false);
+	// ...
 
-	function onContextMenu(e) {
-		e.preventDefault();
-		setIsOpen(true);
-		setMouseBounds({
-			x: e.clientX,
-			y: e.clientY,
-		});
-	}
+	const [isOpen, setIsOpen] = useState(false);
 
 	const contextMenuRef = useRef();
 
 	useEffect(() => {
 		if (isOpen) {
 			setTimeout(() => {
-				if (contextMenuRef.current) {
-					contextMenuRef.current.focus();
-				}
+				if (!contextMenuRef.current) return;
+				contextMenuRef.current.focus();
 			}, 0);
 		}
 	}, [isOpen, mouseBounds]);
 
 	return (
 		<>
-			<div style={{ marginTop: "5rem", marginLeft: "5rem" }}>
-				<div onContextMenu={onContextMenu}>Right click on me!</div>
-			</div>
+			{/* ... */}
 			<ContextMenu
 				ref={contextMenuRef}
 				isOpen={isOpen}
@@ -878,45 +843,29 @@ function App() {
 }
 ```
 
+<iframe data-frame-title="React Focused Comp Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-focused-comp-ref-68?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Angular
 
-```typescript
+```typescript {6,13,21-23,37,46,67}
 @Component({
 	selector: "context-menu",
 	standalone: true,
 	imports: [NgIf],
 	template: `
-		<div
-			*ngIf="isOpen"
-			tabIndex="0"
-			#contextMenu
-			[style]="
-				'
-        position: fixed;
-        top: ' +
-				y +
-				'px;
-        left: ' +
-				x +
-				'px;
-        background: white;
-        border: 1px solid black;
-        border-radius: 16px;
-        padding: 1rem;
-      '
-			"
-		>
+		<!-- Attributes removed for brevity -->
+		<div *ngIf="isOpen" #contextMenu>
 			<button (click)="close.emit()">X</button>
 			This is a context menu
 		</div>
 	`,
 })
 class ContextMenuComponent implements AfterViewInit, OnDestroy {
-	@ViewChild("contextMenu") contextMenu: ElementRef<HTMLElement>;
+	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;
 
-	@Input() isOpen: boolean;
-	@Input() x: number;
-	@Input() y: number;
+	@Input() isOpen!: boolean;
+	@Input() x!: number;
+	@Input() y!: number;
 
 	@Output() close = new EventEmitter();
 
@@ -924,21 +873,7 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 		this.contextMenu?.nativeElement?.focus();
 	}
 
-	closeIfOutsideOfContext = (e: MouseEvent) => {
-		const contextMenuEl = this.contextMenu?.nativeElement;
-		if (!contextMenuEl) return;
-		const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
-		if (isClickInside) return;
-		this.close.emit();
-	};
-
-	ngAfterViewInit() {
-		document.addEventListener("click", this.closeIfOutsideOfContext);
-	}
-
-	ngOnDestroy() {
-		document.removeEventListener("click", this.closeIfOutsideOfContext);
-	}
+	// ...
 }
 
 @Component({
@@ -959,7 +894,7 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 	`,
 })
 class AppComponent {
-	@ViewChild("contextMenu") contextMenu: ContextMenuComponent;
+	@ViewChild("contextMenu") contextMenu!: ContextMenuComponent;
 
 	isOpen = false;
 
@@ -985,6 +920,8 @@ class AppComponent {
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Focused Comp Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-focused-comp-ref-68?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
