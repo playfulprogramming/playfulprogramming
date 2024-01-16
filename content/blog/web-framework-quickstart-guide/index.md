@@ -1,8 +1,8 @@
 ---
 {
 	title: "Web Framework Quickstart Guide",
-	description: "",
-	published: "2024-01-18T04:45:30.247Z",
+	description: "Here's the quickest ways you can get up-and-running with templates for React, Angular, and Vue; using official tools.",
+	published: "2024-01-16T04:45:30.247Z",
 	authors: ["crutchcorn"],
 	tags: ["react", "angular", "vue"],
 	attached: [],
@@ -120,7 +120,7 @@ This will start a script that guides you through an interactive setup process.
 
 1. First, select if you want to write CSS or use a CSS pre-processor like [SCSS](https://sass-lang.com/) or [Less](https://lesscss.org/):
 
-![TODO: WRITE](./angular_stylesheet_format.png)
+![A CLI with the option "Which stylesheet format would you like to use?"](./angular_stylesheet_format.png)
 
 > If you don't know what SCSS or Less are, that's okay. They're **optional** alternative methods for writing CSS with additional features.
 
@@ -128,7 +128,7 @@ It's suggested to select "CSS" for newcomers.
 
 2. Then, tell Angular CLI if you want to use Server-Side Rendering (SSR) or Static Site Generation (SSG):
 
-![TODO: WRITE](./angular_ssr.png)
+!["Do you want to enable SSR and SSG?"](./angular_ssr.png)
 
 While "Server Side Rendering" (SSR) and "Static Site Generation" (SSG) are useful, I wouldn't recommend utilizing those tools for newcomers.
 
@@ -136,7 +136,7 @@ While "Server Side Rendering" (SSR) and "Static Site Generation" (SSG) are usefu
 
 3. Angular CLI will then start to generate the relevant files and install dependencies for your project:
 
-![](./angular_done.png)
+![A series of commands with "CREATE" showing the created files](./angular_done.png)
 
 Once this is done, run the following commands:
 
@@ -147,7 +147,7 @@ npm start
 
 4. If all worked, once your packages are installed you should see this template screen:
 
-![](./angular_preview.png)
+![A preview page of your template up-and-running](./angular_preview.png)
 
 Now when you modify any code in the project it will refresh the screen for you and preview your changes immediately.
 
