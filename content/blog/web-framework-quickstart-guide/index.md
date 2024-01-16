@@ -90,6 +90,67 @@ Now when you modify `src/App.jsx` (or `src/App.tsx` if you selected TypeScript) 
 
 The Angular team maintains a CLI tool that allows you to generate new projects, upgrade existing projects, and more called [**Angular CLI**](https://angular.dev/tools/cli).
 
+Using Angular CLI, we can quickly generate an Angular project.
+
+### Pre-requisites
+
+To get started with Vite, there's a few things we should know about first:
+
+- [Know what Node and NPM are and how to use them](/posts/how-to-use-npm)
+
+- [How to install Node and NPM](https://nodejs.org/en/download/)
+
+- Install Angular CLI globally:
+
+  ```shell
+  npm install -g @angular/cli
+  ```
+
+That's it!
+
+## Usage
+
+Now that we have our pre-requisites out of the way, let's create an Angular template using Angular CLI:
+
+```shell
+ng new my-app
+```
+
+This will start a script that guides you through an interactive setup process.
+
+1. First, select if you want to write CSS or use a CSS pre-processor like [SCSS](https://sass-lang.com/) or [Less](https://lesscss.org/):
+
+![TODO: WRITE](./angular_stylesheet_format.png)
+
+> If you don't know what SCSS or Less are, that's okay. They're **optional** alternative methods for writing CSS with additional features.
+
+It's suggested to select "CSS" for newcomers.
+
+2. Then, tell Angular CLI if you want to use Server-Side Rendering (SSR) or Static Site Generation (SSG):
+
+![TODO: WRITE](./angular_ssr.png)
+
+While "Server Side Rendering" (SSR) and "Static Site Generation" (SSG) are useful, I wouldn't recommend utilizing those tools for newcomers.
+
+> If you want to learn what SSR and SSG _are_, [check out this article I wrote explaining each.](/posts/what-is-ssr-and-ssg)
+
+3. Angular CLI will then start to generate the relevant files and install dependencies for your project:
+
+![](./angular_done.png)
+
+Once this is done, run the following commands:
+
+```shell
+cd my-app
+npm start
+```
+
+4. If all worked, once your packages are installed you should see this template screen:
+
+![](./angular_preview.png)
+
+Now when you modify any code in the project it will refresh the screen for you and preview your changes immediately.
+
 # Vue
 
 While Vue used to have a CLI tool aptly named "Vue CLI" that let you scaffold projects, it's been replaced by a new tool made by the Vue team: [**Vite**](https://vitejs.dev/).
