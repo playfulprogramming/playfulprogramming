@@ -9,7 +9,9 @@ import {
 	Input,
 	OnDestroy,
 	Output,
+	QueryList,
 	ViewChild,
+	ViewChildren,
 } from "@angular/core";
 import { NgIf } from "@angular/common";
 
@@ -52,6 +54,10 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 
 	@Output() close = new EventEmitter();
 
+	focus() {
+		this.contextMenu?.nativeElement?.focus();
+	}
+
 	closeIfOutsideOfContext = (e: MouseEvent) => {
 		const contextMenuEl = this.contextMenu?.nativeElement;
 		if (!contextMenuEl) return;
@@ -78,6 +84,7 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
 		</div>
 		<context-menu
+			#contextMenu
 			(close)="close()"
 			[isOpen]="isOpen"
 			[x]="mouseBounds.x"
@@ -86,6 +93,8 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 	`,
 })
 class AppComponent {
+	@ViewChild("contextMenu") contextMenu!: ContextMenuComponent;
+
 	isOpen = false;
 
 	mouseBounds = {
@@ -104,6 +113,9 @@ class AppComponent {
 			x: e.clientX,
 			y: e.clientY,
 		};
+		setTimeout(() => {
+			this.contextMenu.focus();
+		}, 0);
 	}
 }
 
