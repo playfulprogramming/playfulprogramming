@@ -648,31 +648,40 @@ Hello, world
 
 Using the same `ref` API as element nodes, you can access a component's instance:
 
-```javascript
-const Child = {
-	template: `<div></div>`,
-	data() {
-		return {
-			pi: 3.14,
-		};
-	},
-	methods: {
-		sayHi() {
-			alert("Hello, world");
-		},
-	},
-};
+```vue
+<!-- Child.vue -->
+<script setup>
+const pi = 3.14;
 
-const Parent = {
-	template: `<child-comp ref="childComp"></child-comp>`,
-	mounted() {
-		console.log(this.$refs.childComp);
-	},
-	components: {
-		Child,
-	},
-};
+function sayHi() {
+	alert("Hello, world");
+}
+</script>
+
+<template>
+	<p>Hello, template</p>
+</template>
 ```
+
+```vue
+<!-- Parent.vue -->
+<script setup>
+import { ref, onMounted } from "vue";
+import Child from "./Child.vue";
+
+const childComp = ref();
+
+onMounted(() => {
+	console.log(childComp.value);
+});
+</script>
+
+<template>
+	<Child ref="childComp" />
+</template>
+```
+
+<iframe data-frame-title="Vue Comp Ref Log - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-comp-ref-log-67?template=node&embed=1&file=src%2FParent.vue"></iframe>
 
 If we look at our console output, we might see something unexpected:
 
@@ -702,7 +711,7 @@ import Child from "./Child.vue";
 const childComp = ref();
 
 onMounted(() => {
-	console.log(childComp.value.pi);
+	alert(childComp.value.pi);
 });
 </script>
 
@@ -711,7 +720,9 @@ onMounted(() => {
 </template>
 ```
 
-We'll see that `childComp.value.pi` is `undefined` currently. This is because, by default, Vue's `setup script` does not "expose" internal variables to component refences externally.
+<iframe data-frame-title="Vue Broken Expose Comp Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-expose-comp-ref-67?template=node&embed=1&file=src%2FParent.vue"></iframe>
+
+We'll see that `childComp.value.pi` is `undefined` currently. This is because, by default, Vue's `setup script` does not "expose" internal variables to component references externally.
 
 To fix this, we can use Vue's `defineExpose` global API to allow parent components to access a child component's variables and methods:
 
@@ -721,7 +732,7 @@ To fix this, we can use Vue's `defineExpose` global API to allow parent componen
 const pi = 3.14;
 
 function sayHi() {
-	console.log("Hello, world");
+	alert("Hello, world");
 }
 
 defineExpose({
@@ -731,7 +742,7 @@ defineExpose({
 </script>
 
 <template>
-	<div></div>
+	<p>Hello, template</p>
 </template>
 ```
 
@@ -746,7 +757,7 @@ import Child from "./Child.vue";
 const childComp = ref();
 
 onMounted(() => {
-	console.log(childComp.value.pi);
+	alert(childComp.value.pi);
 	childComp.value.sayHi();
 });
 </script>
@@ -755,6 +766,8 @@ onMounted(() => {
 	<Child ref="childComp" />
 </template>
 ```
+
+<iframe data-frame-title="Vue Expose Comp Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-expose-comp-ref-67?template=node&embed=1&file=src%2FParent.vue"></iframe>
 
 <!-- tabs:end -->
 
