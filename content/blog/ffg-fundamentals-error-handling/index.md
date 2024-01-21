@@ -42,11 +42,11 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Error Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-error-intro-70?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 # Angular
 
 ```typescript
-import { Component } from "@angular/core";
-
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -69,6 +69,8 @@ class AppComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Error Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-error-intro-70?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 # Vue
 
 ```vue
@@ -90,6 +92,8 @@ const priorityItems = items.filter((item) => item.item.priority === 1);
 	</ul>
 </template>
 ```
+
+<iframe data-frame-title="Vue Error Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-error-intro-70?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
