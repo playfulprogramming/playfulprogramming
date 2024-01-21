@@ -925,7 +925,7 @@ class AppComponent {
 
 ## Vue
 
-```vue
+```vue {8,12-14,16-18}
 <!-- ContextMenu.vue -->
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
@@ -936,21 +936,7 @@ const emit = defineEmits(["close"]);
 
 const contextMenuRef = ref(null);
 
-function closeIfOutside(e) {
-	const contextMenuEl = contextMenuRef.value;
-	if (!contextMenuEl) return;
-	const isClickInside = contextMenuEl.contains(e.target);
-	if (isClickInside) return;
-	emit("close");
-}
-
-onMounted(() => {
-	document.addEventListener("click", closeIfOutside);
-});
-
-onUnmounted(() => {
-	document.removeEventListener("click", closeIfOutside);
-});
+// ...
 
 function focusMenu() {
 	contextMenuRef.value.focus();
@@ -982,10 +968,10 @@ defineExpose({
 </template>
 ```
 
-```vue
+```vue {12,26,36}
 <!-- App.vue -->
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref } from "vue";
 import ContextMenu from "./ContextMenu.vue";
 
 const isOpen = ref(false);
@@ -1027,6 +1013,8 @@ const open = (e) => {
 	/>
 </template>
 ```
+
+<iframe data-frame-title="Vue Focused Comp Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-focused-comp-ref-68?template=node&embed=1&file=src%2FContextMenu.vue"></iframe>
 
 <!-- tabs:end -->
 
