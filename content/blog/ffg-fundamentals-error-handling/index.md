@@ -123,32 +123,35 @@ As shown before, when an error is thrown during a component's [render step](/pos
 
 ```jsx
 const ErrorThrowingComponent = () => {
-	// This WILL be caught by `componentDidCatch`
 	throw new Error("Error");
 
 	return <p>Hello, world!</p>;
 };
 ```
 
+<iframe data-frame-title="React Render Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-render-error-71?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 ```typescript
 @Component({
-	selector: "app-root",
+	selector: "error-throwing",
 	standalone: true,
 	template: ` <p>Hello, world!</p> `,
 })
-class AppComponent {
+class ErrorThrowingComponent {
 	constructor() {
 		throw new Error("Error");
 	}
 }
 ```
 
+<iframe data-frame-title="Angular Render Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-render-error-71?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
 ```vue
-<!-- App.vue -->
+<!-- ErrorThrowing.vue -->
 <script setup>
 throw new Error("Error");
 </script>
@@ -157,6 +160,8 @@ throw new Error("Error");
 	<p>Hello, world!</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Render Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-render-error-71?template=node&embed=1&file=src%2FErrorThrowing.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -169,7 +174,6 @@ However, if we change our code to throw an error during an event handler, the co
 ```jsx
 const EventErrorThrowingComponent = () => {
 	const onClick = () => {
-		// This will NOT be caught by `componentDidCatch`
 		throw new Error("Error");
 	};
 
