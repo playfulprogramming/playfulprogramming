@@ -1030,7 +1030,7 @@ To add an extra special interaction with this sidebar, **let's make it so that w
 
 To do this, we'll:
 
-1. Setup our `App` component to handle a left and main column.
+1. Set up our `App` component to handle a left and main column.
 2. Make a sidebar that can collapse and expand to grow and shrink the main column.
 3. Automatically expand or collapse the sidebar as the browser grows and shrinks.
 
@@ -1490,6 +1490,14 @@ const App = () => {
 };
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Comp Ref Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-comp-ref-challenge-69?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
+
 ### Angular
 
 ```typescript
@@ -1592,6 +1600,7 @@ class AppComponent implements OnInit, OnDestroy {
 ### Vue
 
 ```vue
+<!-- Sidebar.vue -->
 <script setup>
 import { ref } from "vue";
 
@@ -1689,9 +1698,18 @@ onUnmounted(() => {
 </template>
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Comp Ref Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-comp-ref-challenge-69?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
+</details>
+
 <!-- tabs:end -->
 
-// TODO
+Now when the user makes their screen too small, it automatically collapses the sidebar. This makes the rest of our app
+much easier to interact with on mobile devices.
 
 > Truth be told, this is not necessarily how I would build this component in production. Instead, I might ["raise the state"](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow) of "collapsed" from the `Sidebar` component to the `App` component.
 >
