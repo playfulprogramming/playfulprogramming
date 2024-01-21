@@ -181,25 +181,29 @@ const EventErrorThrowingComponent = () => {
 };
 ```
 
+<iframe data-frame-title="React Event Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-event-error-72?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Angular
 
 ```typescript
 @Component({
-	selector: "app-root",
+	selector: "error-throwing",
 	standalone: true,
 	template: ` <button (click)="onClick()">Click me</button> `,
 })
-class AppComponent {
+class ErrorThrowingComponent {
 	onClick() {
 		throw new Error("Error");
 	}
 }
 ```
 
+<iframe data-frame-title="Angular Event Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-event-error-72?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
 ```vue
-<!-- App.vue -->
+<!-- ErrorThrowing.vue -->
 <script setup>
 const onClick = () => {
 	throw new Error("Error");
@@ -210,6 +214,8 @@ const onClick = () => {
 	<button @click="onClick()">Click me</button>
 </template>
 ```
+
+<iframe data-frame-title="Vue Event Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-event-error-72?template=node&embed=1&file=src%2FErrorThrowing.vue"></iframe>
 
 <!-- tabs:end -->
 
