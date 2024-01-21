@@ -223,6 +223,7 @@ This behavior may seem strange until you consider how JavaScript's `throw` claus
 
 ```javascript
 function getRandomNumber() {
+	// Try commenting this line and seeing the different behavior
 	throw new Error("There was an error");
 	// Anything below the "throw" clause will not run
 	console.log("Generating a random number");
@@ -239,6 +240,8 @@ try {
 	console.log("There was an error:", e);
 }
 ```
+
+<iframe data-frame-title="JS Error Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-js-error-demo-73?template=node&embed=1&file=src%2Fmain.js"></iframe>
 
 Moreover, these errors exceed past [their scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope), meaning that they will bubble up [the execution stack](https://www.freecodecamp.org/news/execution-context-how-javascript-works-behind-the-scenes/).
 
@@ -280,17 +283,20 @@ function getDaySchedule() {
 			getRandomTodoItem(),
 		);
 	}
+	return schedule;
 }
 
 function main() {
 	try {
-		getDaySchedule();
+		console.log(getDaySchedule());
 	} catch (e) {
 		// Only now will the error be stopped
 		console.log("An error occured:", e);
 	}
 }
 ```
+
+<iframe data-frame-title="JS Error Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-js-error-bubbling-74?template=node&embed=1&file=src%2Fmain.js"></iframe>
 
 ![TODO: Write alt](./error_bubbling.png)
 
