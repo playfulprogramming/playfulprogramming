@@ -94,7 +94,7 @@ Using Angular CLI, we can quickly generate an Angular project.
 
 ### Pre-requisites
 
-To get started with Vite, there's a few things we should know about first:
+To get started with Angular CLI, there's a few things we should know about first:
 
 - [Know what Node and NPM are and how to use them](/posts/how-to-use-npm)
 
