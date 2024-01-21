@@ -6,10 +6,10 @@ import { Component } from "@angular/core";
 @Component({
 	selector: "error-throwing",
 	standalone: true,
-	template: ` <p>Hello, world!</p> `,
+	template: ` <button (click)="onClick()">Click me</button> `,
 })
 class ErrorThrowingComponent {
-	constructor() {
+	onClick() {
 		throw new Error("Error");
 	}
 }
