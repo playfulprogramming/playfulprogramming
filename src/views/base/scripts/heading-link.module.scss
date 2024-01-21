@@ -87,6 +87,17 @@
 	}
 }
 
+// If the heading contains an <a> which is hovered,
+// click will follow the anchor href, so the "Copy link"
+// button should not be displayed
+@supports selector(:has(*)) {
+	:global(.heading-linked):has(a:hover, a:focus) {
+		.headingLink {
+			opacity: 0 !important;
+		}
+	}
+}
+
 .headingLinkContainer:focus-visible .headingLink {
 	outline: var(--heading-link_outline-width) solid var(--heading-link_outline-color);
 }
@@ -116,13 +127,17 @@
 	--heading_background_outline-width: var(--border-width_focus);
 }
 
-:global(.heading-linked):hover,
-:global(.heading-linked):focus-within,
-:global(.heading-linked):has(.headingLinkContainer:hover) {
-	text-decoration: underline;
-}
-
 @supports selector(:has(*)) {
+	:global(.heading-linked):hover,
+	:global(.heading-linked):focus-within,
+	:global(.heading-linked):has(.headingLinkContainer:hover) {
+		// The underline should not be applied if an inner <a> is focused
+		// as clicking will follow the link, not interact with the heading
+		&:not(:has(a:hover, a:focus)) {
+			text-decoration: underline;
+		}
+	}
+
 	:global(.heading-linked):has(.headingLinkContainer:focus-visible) {
 		&> span {
 			border-radius: calc(var(--heading_background_corner-radius) - var(--heading_background_padding));
@@ -133,6 +148,11 @@
 }
 
 @supports not selector(:has(*)) {
+	:global(.heading-linked):hover,
+	:global(.heading-linked):focus-within {
+		text-decoration: underline;
+	}
+
 	:global(.heading-linked):focus-within {
 		&> span {
 			border-radius: calc(var(--heading_background_corner-radius) - var(--heading_background_padding));
