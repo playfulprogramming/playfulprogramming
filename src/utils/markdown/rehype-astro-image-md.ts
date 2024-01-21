@@ -17,7 +17,7 @@ import { getLargestSourceSetSrc } from "../get-largest-source-set-src";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const MAX_WIDTH = 768;
+const MAX_WIDTH = 896;
 const MAX_HEIGHT = 768;
 
 /**
