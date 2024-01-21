@@ -1086,14 +1086,12 @@ const App = () => {
 		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
 			<div
 				[style]="
-					' 
-          width: ' +
+					'width: ' +
 					sidebarWidth +
-					'px;
-          height: 100vh;
-          overflow-y: scroll;
-          border-right: 2px solid #bfbfbf;
-        '
+					'px;' +
+					'height: 100vh;' +
+					'overflow-y: scroll;' +
+					'border-right: 2px solid #bfbfbf;'
 				"
 			>
 				<ng-content select="[sidebar]" />
@@ -1582,6 +1580,14 @@ class AppComponent implements OnInit, OnDestroy {
 	}
 }
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular Comp Ref Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-comp-ref-challenge-69?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
 
 ### Vue
 
