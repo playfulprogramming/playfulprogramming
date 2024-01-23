@@ -75,6 +75,10 @@
 		color: var(--foreground_emphasis-high);
 	}
 
+	picture {
+		display: block;
+	}
+
 	img:not([data-dont-round]):not([src$=".svg"]),
 	video:not([data-dont-round]) {
 		border-radius: var(--corner-radius_m);
