@@ -326,13 +326,13 @@ try {
 	el.addEventListener("click", () => {
 		throw new Error("There was an error");
 	});
-} catch (e) {
+} catch (error) {
 	// This will not ever run with this code
-	alert("There was an error in the event listener");
+	alert("We're catching an error in try/catch");
 }
 ```
 
-So to catch an error in an event handler, React, Angular, or Vue would have to add [a window `'errror'` listener](https://developer.mozilla.org/en-US/docs/Web/API/Window/error_event), like so:
+So to catch an error in an event handler, React, Angular, or Vue would have to add [a window `'error'` listener](https://developer.mozilla.org/en-US/docs/Web/API/Window/error_event), like so:
 
 ```javascript
 const el = document.getElementById("btn");
@@ -340,10 +340,13 @@ el.addEventListener("click", () => {
 	throw new Error("There was an error");
 });
 
-window.addEventListener("error", (e) => {
-	alert("There was an error in the event listener");
+window.addEventListener("error", (event) => {
+	const error = event.error;
+	alert("We're catching an error in another addEventListener");
 });
 ```
+
+<iframe data-frame-title="JS Event Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-js-event-error-75?template=node&embed=1&file=index.html"></iframe>
 
 But let's think about what adding this `window` listener would mean:
 
