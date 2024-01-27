@@ -367,7 +367,7 @@ This property of an error being thrown in an error handler not preventing a rend
 
 #### React
 
-While some other frameworks catch errors inside of async APIs (like React's `useEffect`), React will not recover from an error thrown in _any_ of the built-in React Hooks covered so far:
+While some other frameworks catch errors inside async APIs (like React's `useEffect`), React will not recover from an error thrown in _any_ of the built-in React Hooks covered so far:
 
 ```jsx
 const App = () => {
@@ -379,7 +379,7 @@ const App = () => {
 	// This will also prevent rendering
 	const memoVal = useMemo(() => {
 		throw new Error("Error in memo");
-	});
+	}, []);
 
 	// Will this prevent rendering? You bet!
 	useEffect(() => {
@@ -394,6 +394,8 @@ const App = () => {
 	return <p>Hello, world!</p>;
 };
 ```
+
+<iframe data-frame-title="React Errors in Hooks - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-errors-in-hooks-76?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 #### Angular
 
@@ -413,6 +415,8 @@ class AppComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Error in Constructor - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-error-in-constructor-76?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 Errors thrown in any of Angular's other lifecycle methods will not prevent a component from rendering:
 
 ```typescript
@@ -428,6 +432,8 @@ class AppComponent implements OnInit {
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Errors in Lifecycles - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-errors-in-lifecycles-76?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 #### Vue
 
@@ -458,6 +464,8 @@ console.log(result.value);
 </template>
 ```
 
+<iframe data-frame-title="Vue Errors in Setup - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-errors-in-setup-76?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
 Other APIs, like the `onMounted` lifecycle method, will not prevent rendering when an error is thrown inside of it:
 
 ```vue
@@ -475,6 +483,8 @@ onMounted(() => {
 	<p>Hello, world!</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Errors in Lifecycles - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-errors-in-lifecycles-76?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 While this might seem confusing at first, it makes sense when you consider _when_ `onMounted` runs when compared with `computed`, for example.
 
