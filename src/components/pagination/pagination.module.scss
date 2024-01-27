@@ -46,6 +46,7 @@
 .paginationButton {
 	border: none;
 	text-decoration: none;
+	outline: none;
 
 	display: inline-flex;
 	justify-content: center;
@@ -83,7 +84,9 @@
 	}
 }
 
-.paginationButton:focus-visible {
+// if "extendPageButton" is used, the element must have *both* :focus-visible and [data-focus-visible="true"]
+// - this prevents the focus outline from being shown on click
+.paginationButton:focus-visible:not(.extendPageButton:not([data-focus-visible="true"])) {
 	color: var(--nav-btn_foreground-color);
 	background-color: var(--nav-btn_background-color_focused);
 	outline: solid var(--nav-btn_focus-outline_color) var(--nav-btn_focus-outline_width);
