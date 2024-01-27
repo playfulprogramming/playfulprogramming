@@ -1,12 +1,12 @@
 import style from "./filter-sidebar-controls.module.scss";
-import { SortType } from "./types";
+import { DisplayContentType, SortType } from "./types";
 import { Item, SelectWithLabel } from "components/select/select";
 
 interface FilterSidebarControlsProps {
 	sort: SortType;
 	setSort: (sortBy: SortType) => void;
-	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
-	contentToDisplay: "all" | "articles" | "collections";
+	setContentToDisplay: (content: DisplayContentType) => void;
+	contentToDisplay: DisplayContentType;
 }
 
 export const FilterSidebarControls = ({
@@ -23,7 +23,7 @@ export const FilterSidebarControls = ({
 				prefixSelected={""}
 				defaultValue={"Relevance"}
 				selectedKey={sort}
-				onSelectionChange={(v) => setSort(v)}
+				onSelectionChange={(v) => setSort(v as SortType)}
 			>
 				<Item key={"relevance"}>Relevance</Item>
 				<Item key={"newest"}>Newest</Item>
@@ -35,7 +35,7 @@ export const FilterSidebarControls = ({
 				prefixSelected={""}
 				defaultValue={"All"}
 				selectedKey={contentToDisplay}
-				onSelectionChange={(v) => setContentToDisplay(v)}
+				onSelectionChange={(v) => setContentToDisplay(v as DisplayContentType)}
 			>
 				<Item key={"all"}>All</Item>
 				<Item key={"articles"}>Articles</Item>
