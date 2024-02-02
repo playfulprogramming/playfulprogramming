@@ -512,13 +512,13 @@ While this logging often involves submitting data to a server, let's keep things
 
 Up to this point, all of our React components have been functions. While this _is_ how most modern React applications are built today there is another way of writing a React component; this being the "class" API.
 
-Class-based React components have existed _well_ before functional components have. Class-based components were in React since day one and functional components were only truly made viable with a significant revamp [in React 16.8; coinciding with the introduction of React Hooks](https://reactjs.org/docs/hooks-intro.html).
+Class-based React components have existed _well_ before function components have. Class-based components were in React since day one and functional components were only truly made viable with a significant revamp [in React 16.8; coinciding with the introduction of React Hooks](https://reactjs.org/docs/hooks-intro.html).
 
 Here's a simple React component in both functional and class based APIs:
 
 ```jsx
-// Functional component
-const Counter = (props) => {
+// Function component
+const FnCounter = (props) => {
 	// Setting up state
 	const [count, setCount] = useState(0);
 
@@ -541,7 +541,7 @@ const Counter = (props) => {
 // Class component
 import { Component } from "react";
 
-class Counter extends Component {
+class ClassCounter extends Component {
 	// Setting up state
 	state = { count: 0 };
 
@@ -553,15 +553,19 @@ class Counter extends Component {
 
 	// Rendered UI via JSX
 	render() {
-		<div>
-			<p>You have pushed the button {this.state.count} times</p>
-			<button onClick={this.addOne}>Add one</button>
-			{/* Using props to project children */}
-			{this.props.children}
-		</div>;
+		return (
+			<div>
+				<p>You have pushed the button {this.state.count} times</p>
+				<button onClick={() => this.addOne()}>Add one</button>
+				{/* Using props to project children */}
+				{this.props.children}
+			</div>
+		);
 	}
 }
 ```
+
+<iframe data-frame-title="React Class vs Function Comparison - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-class-fn-comparison-77?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Both of these components work exactly the same, with no functional differences between them. This is because almost every API that was available to class components made its way over to functional components through React Hooks.
 
@@ -594,7 +598,7 @@ class ErrorBoundary extends Component {
 
 This method is then called any time a child component throws an error.
 
-Luckily for us, we can mix-and-match class components and functional components. This means that we can demonstrate the `componentDidCatch` handler using the following code:
+Luckily for us, we can mix-and-match class components and function components. This means that we can demonstrate the `componentDidCatch` handler using the following code:
 
 ```jsx
 const ErrorThrowingComponent = () => {
@@ -610,6 +614,8 @@ const App = () => {
 	);
 };
 ```
+
+<iframe data-frame-title="React componentDidCatch - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-comp-did-catch-77?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Now, while our screen will still be white when the error is thrown, it will hit our `componentDidCatch` handler as we would expect.
 
@@ -795,6 +801,8 @@ class ErrorBoundary extends Component {
 }
 ```
 
+<iframe data-frame-title="React Fallback UI - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-fallback-ui-79?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 Because a custom error handler is implemented using an Angular service, we can use our `inject` function to gain access to the error handler.
@@ -882,6 +890,11 @@ Let's display to our users the error that's thrown by the component.
 While we previously used `getDerivedStateFromError` to set a Boolean in our `state` object, we can instead use the first argument of the static handler to assign the object to an [`Error` value](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error).
 
 ```jsx
+// JSON.stringify-ing an Error object provides `{}`.
+// This function fixes that
+const getErrorString = (err) =>
+	JSON.stringify(err, Object.getOwnPropertyNames(err));
+
 class ErrorBoundary extends Component {
 	state = { error: null };
 
@@ -895,12 +908,21 @@ class ErrorBoundary extends Component {
 
 	render() {
 		if (this.state.error) {
-			return <h1>{this.state.error}</h1>;
+			return (
+				<div>
+					<h1>You got an error:</h1>
+					<pre style={{ whiteSpace: "pre-wrap" }}>
+						<code>{getErrorString(this.state.error)}</code>
+					</pre>
+				</div>
+			);
 		}
 		return this.props.children;
 	}
 }
 ```
+
+<iframe data-frame-title="React Displaying the Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-displaying-the-error-80?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
