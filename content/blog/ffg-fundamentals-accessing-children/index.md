@@ -114,7 +114,6 @@ In our previous example, we used them to conditionally render content using `ngI
 
 ```typescript
 import {
-	NgModule,
 	Component,
 	AfterContentInit,
 	ContentChild,
@@ -194,7 +193,6 @@ This is where [`ContentChildren`](https://angular.io/api/core/ContentChildren) c
 
 ```typescript
 import {
-	NgModule,
 	Component,
 	AfterContentInit,
 	ContentChildren,

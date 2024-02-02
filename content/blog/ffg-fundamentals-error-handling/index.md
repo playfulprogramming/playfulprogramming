@@ -627,7 +627,7 @@ However, in order to provide the custom error handler service, you **must** prov
 
 ```typescript
 class MyErrorHandler implements ErrorHandler {
-	handleError(error) {
+	handleError(error: unknown) {
 		// Do something with the error
 		console.log(error);
 	}
@@ -648,7 +648,7 @@ Now that we've set up our `ErrorHandler` instance, we can test that it works usi
 @Component({
 	selector: "child-comp",
 	standalone: true,
-	template: ` <p>Testing</p> `,
+	template: `<p>Testing</p>`,
 })
 class ChildComponent implements OnInit {
 	ngOnInit() {
@@ -665,6 +665,8 @@ class ChildComponent implements OnInit {
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Angular Logging the Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-logging-the-error-77?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -810,18 +812,12 @@ Because a custom error handler is implemented using an Angular service, we can u
 From there, it's as simple as storing a Boolean when an error _is_ thrown and using that Boolean to render out a fallback UI when `true`.
 
 ```typescript
-import {
-	Component,
-	NgModule,
-	inject,
-	ErrorHandler,
-	OnInit,
-} from "@angular/core";
+import { Component, inject, ErrorHandler, OnInit } from "@angular/core";
 
 class MyErrorHandler implements ErrorHandler {
 	hadError = false;
 
-	handleError(error) {
+	handleError(error: unknown) {
 		console.log(error);
 		this.hadError = true;
 	}
@@ -842,6 +838,8 @@ class AppComponent {
 
 // Provide the error handler
 ```
+
+<iframe data-frame-title="Angular Fallback UI - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-fallback-ui-79?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 > Unlike most instances of `inject` usage, we have to use `as MyErrorHandler`, otherwise TypeScript does not know about the new `hadError` property we just set.
 
@@ -929,18 +927,10 @@ class ErrorBoundary extends Component {
 Rather than storing a Boolean when an error occurs, we can store [the error value itself](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) within an `error` object, and display the underlying value when present.
 
 ```typescript
-import {
-	Component,
-	NgModule,
-	inject,
-	ErrorHandler,
-	OnInit,
-} from "@angular/core";
-
 class MyErrorHandler implements ErrorHandler {
-	error = null;
+	error: unknown = null;
 
-	handleError(error) {
+	handleError(error: unknown) {
 		console.log(error);
 		this.error = error;
 	}
@@ -961,6 +951,8 @@ class AppComponent {
 
 // ...
 ```
+
+<iframe data-frame-title="Angular Displaying the Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-displaying-the-error-80?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
