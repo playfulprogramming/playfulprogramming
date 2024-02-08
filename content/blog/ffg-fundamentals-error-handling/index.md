@@ -703,6 +703,8 @@ throw new Error("Test");
 </template>
 ```
 
+<iframe data-frame-title="Vue Logging the Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-logging-the-error-77?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
 It will run the function inside of `onErrorCaptured`.
 
 <!-- tabs:end -->
@@ -767,6 +769,8 @@ throw new Error("Test");
 ```
 
 To still render their contents, while logging the error.
+
+<iframe data-frame-title="Vue Ignoring the Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-ignoring-the-error-78?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -873,6 +877,8 @@ onErrorCaptured((err, instance, info) => {
 </template>
 ```
 
+<iframe data-frame-title="Vue Fallback UI - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-fallback-ui-79?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
 <!-- tabs:end -->
 
 ## Displaying the Error
@@ -941,7 +947,12 @@ class MyErrorHandler implements ErrorHandler {
 	standalone: true,
 	imports: [NgIf, ChildComponent],
 	template: `
-		<p *ngIf="errorHandler.error">{{ errorHandler.error }}</p>
+		<div *ngIf="errorHandler.error">
+			<h1>You got an error:</h1>
+			<pre
+				style="white-space: pre-wrap"
+			><code>{{ errorHandler.error }}</code></pre>
+		</div>
 		<child-comp *ngIf="!errorHandler.error" />
 	`,
 })
@@ -972,13 +983,25 @@ onErrorCaptured((err, instance, info) => {
 	error.value = err;
 	return false;
 });
+
+// JSON.stringify-ing an Error object provides `{}`.
+// This function fixes that
+const getErrorString = (err) =>
+	JSON.stringify(err, Object.getOwnPropertyNames(err));
 </script>
 
 <template>
-	<p v-if="error">{{ error.message }}</p>
+	<div v-if="error">
+		<h1>You got an error:</h1>
+		<pre
+			style="white-space: pre-wrap"
+		><code>{{ getErrorString(error) }}</code></pre>
+	</div>
 	<Child v-if="!error" />
 </template>
 ```
+
+<iframe data-frame-title="Vue Displaying the Error - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-displaying-the-error-80?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 > If you bind `{{error}}` rather than `{{error.message}}`, you'll end up with the error:
 >
