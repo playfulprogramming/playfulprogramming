@@ -30,7 +30,12 @@ class ChildComponent implements OnInit {
 	standalone: true,
 	imports: [NgIf, ChildComponent],
 	template: `
-		<p *ngIf="errorHandler.error">{{ errorHandler.error }}</p>
+		<div *ngIf="errorHandler.error">
+			<h1>You got an error:</h1>
+			<pre
+				style="white-space: pre-wrap"
+			><code>{{ errorHandler.error }}</code></pre>
+		</div>
 		<child-comp *ngIf="!errorHandler.error" />
 	`,
 })
