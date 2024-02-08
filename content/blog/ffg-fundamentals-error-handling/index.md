@@ -1061,7 +1061,7 @@ const Sidebar = forwardRef(({ toggle }, ref) => {
 Upon rendering the sidebar, we're greeted with [a JavaScript `ReferenceError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_defined):
 
 ```javascript
-collapsed is not defined
+"collapsed is not defined";
 ```
 
 ## Angular
@@ -1096,6 +1096,8 @@ class SidebarComponent {
 		this.toggle.emit(v);
 	}
 
+	// ...
+
 	toggleCollapsed() {
 		this.setAndToggle(!this.isCollapsed);
 	}
@@ -1114,7 +1116,7 @@ class SidebarComponent {
 Upon clicking the sidebar toggle, we're greeted with [a JavaScript `TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_function):
 
 ```javascript
-Error: ctx_r4.isCollapsed is not a function
+"Error: ctx_r4.isCollapsed is not a function";
 ```
 
 ## Vue
@@ -1123,18 +1125,26 @@ Error: ctx_r4.isCollapsed is not a function
 <!-- Sidebar.vue -->
 <script setup>
 import { ref } from "vue";
+
 const emits = defineEmits(["toggle"]);
+
 const isCollapsed = ref(false);
+
 const setAndToggle = (v) => {
 	isCollapsed.value = v;
 	emits("toggle", v);
 };
+
+// ...
+
 const toggleCollapsed = () => {
 	setAndToggle(!isCollapsed.value);
 };
 </script>
 
 <template>
+	<!--`collapsed` doesn't exist!-->
+	<!--It's supposed to be `isCollapsed`! 😱-->
 	<button v-if="isCollapsed" @click="collapsed()">Toggle</button>
 	<div v-if="!isCollapsed">
 		<button @click="collapsed()">Toggle</button>
@@ -1152,7 +1162,7 @@ const toggleCollapsed = () => {
 Upon clicking the sidebar toggle, we're greeted with [a JavaScript `TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_function):
 
 ```javascript
-Uncaught TypeError: _ctx.collapsed is not a function
+"Uncaught TypeError: _ctx.collapsed is not a function";
 ```
 
 <!-- tabs:end -->
@@ -1169,6 +1179,8 @@ Let's solve this by:
 
 Let's provide the user a means to email us if they find something similar in their time using the app.
 
+![// TODO: Write alt](./final_error_screen.png)
+
 We can do this by showing the user [a `mailto:` link](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks#email_links) when an error occurs. That way, reporting the bug is a single mouse click.
 
 This `mailto:` link might look like the following HTML
@@ -1183,7 +1195,7 @@ This `mailto:` link might look like the following HTML
 Where `subject` and `body` are encoded using `encodeURIComponent` like so:
 
 ```javascript
-// JavaScript psuedo-code
+// JavaScript pseudo-code
 const mailTo = "dev@example.com";
 
 const errorMessage = `
@@ -1201,8 +1213,6 @@ const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedErr}`;
 // HREF can be bound via each frameworks' attribute binding syntax
 const html = `<a href="${href}">Email Us</a>`;
 ```
-
-<!-- TODO: Include screenshot -->
 
 ## Implementing the Error Handler
 
@@ -1242,26 +1252,37 @@ class ErrorBoundary extends Component {
 	}
 }
 
-function App() {
-	// ...
-
-	return <ErrorBoundary>{/* The rest of the app */}</ErrorBoundary>;
-}
+const Root = () => {
+	return (
+		<ErrorBoundary>
+			<App />
+		</ErrorBoundary>
+	);
+};
 ```
 
 ### Angular
 
 ```typescript
+class MyErrorHandler implements ErrorHandler {
+	error: any = null;
+
+	handleError(error: unknown) {
+		console.log(error);
+		this.error = error;
+	}
+}
+
 @Component({
 	selector: "error-catcher",
 	standalone: true,
 	imports: [NgIf],
 	template: `
 		<div *ngIf="errorHandler.error">
-			<h1>There was an error</h1>
-			<pre>
-      <code>{{errorHandler.error.message}}</code>
-    </pre>
+			<h1>You got an error:</h1>
+			<pre
+				style="white-space: pre-wrap"
+			><code>{{ errorHandler.error }}</code></pre>
 		</div>
 		<ng-content *ngIf="!errorHandler.error"></ng-content>
 	`,
@@ -1273,14 +1294,20 @@ class ErrorCatcher {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	// ...
+	imports: [LayoutComponent, SidebarComponent, ErrorCatcher],
 	template: `
 		<error-catcher>
 			<!-- The rest of the app -->
 		</error-catcher>
 	`,
 })
-class AppComponent {}
+class AppComponent implements OnInit, OnDestroy {
+	// ....
+}
+
+bootstrapApplication(AppComponent, {
+	providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
+});
 ```
 
 ### Vue
@@ -1301,9 +1328,7 @@ onErrorCaptured((err, instance, info) => {
 <template>
 	<div v-if="error">
 		<h1>There was an error</h1>
-		<pre>
-      <code>{{error.message}}</code>
-    </pre>
+		<pre><code>{{error.message}}</code></pre>
 	</div>
 	<slot v-if="!error" />
 </template>
@@ -1388,6 +1413,14 @@ class ErrorBoundary extends Component {
 }
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Error Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-error-challenge-81?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
+
 ### Angular
 
 ```typescript
@@ -1427,17 +1460,17 @@ class ErrorHrefPipe implements PipeTransform {
 	template: `
 		<div *ngIf="errorHandler.error">
 			<h1>{{ errorHandler.error.name }}</h1>
-			<pre>
-      <code>{{errorHandler.error.message}}</code>
-    </pre>
+			<pre
+				style="white-space: pre-wrap"
+			><code>{{ errorHandler.error.message }}</code></pre>
 			<a [href]="errorHandler.error | errorHref">Email us to report the bug</a>
 			<br />
 			<br />
 			<details>
 				<summary>Error stack</summary>
-				<pre>
-        <code>{{errorHandler.error.stack}}</code>
-      </pre>
+				<pre
+					style="white-space: pre-wrap"
+				><code>{{ errorHandler.error.stack }}</code></pre>
 			</details>
 		</div>
 		<ng-content *ngIf="!errorHandler.error"></ng-content>
@@ -1447,6 +1480,14 @@ class ErrorCatcher {
 	errorHandler = inject(ErrorHandler) as MyErrorHandler;
 }
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular Error Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-error-challenge-81?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
 
 ### Vue
 
@@ -1491,21 +1532,25 @@ onErrorCaptured((err, instance, info) => {
 <template>
 	<div v-if="error">
 		<h1>{{ error.name }}</h1>
-		<pre>
-      <code>{{error.message}}</code>
-    </pre>
+		<pre><code>{{error.message}}</code></pre>
 		<a :href="href">Email us to report the bug</a>
 		<br />
 		<br />
 		<details>
 			<summary>Error stack</summary>
-			<pre>
-        <code>{{error.stack}}</code>
-      </pre>
+			<pre><code>{{error.stack}}</code></pre>
 		</details>
 	</div>
 	<slot v-if="!error" />
 </template>
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Error Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-error-challenge-81?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
+</details>
 
 <!-- tabs:end -->
