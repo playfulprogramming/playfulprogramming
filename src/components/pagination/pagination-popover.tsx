@@ -15,6 +15,7 @@ import {
 	Overlay,
 	DismissButton,
 	useButton,
+	useFocusVisible,
 } from "react-aria";
 import { OverlayTriggerState, useOverlayTriggerState } from "react-stately";
 import { DOMProps } from "@react-types/shared";
@@ -134,6 +135,7 @@ function PaginationPopover({
 	/* Setup dialog */
 	const dialogRef = useRef(null);
 	const { dialogProps, titleProps } = useDialog(overlayProps, dialogRef);
+	const { isFocusVisible } = useFocusVisible();
 
 	return (
 		<Overlay>
@@ -159,7 +161,7 @@ function PaginationPopover({
 					/>
 				</svg>
 				<DismissButton onDismiss={state.close} />
-				<div {...dialogProps} ref={dialogRef} class={style.popupDialog}>
+				<div {...dialogProps} ref={dialogRef} class={style.popupDialog} data-focus-visible={isFocusVisible}>
 					<h1 {...titleProps} className="visually-hidden">
 						Go to page
 					</h1>
@@ -188,6 +190,7 @@ export function PaginationMenuAndPopover(
 	);
 
 	const { buttonProps } = useButton(triggerProps, triggerRef);
+	const { isFocusVisible } = useFocusVisible();
 
 	return (
 		<Fragment>
@@ -197,6 +200,7 @@ export function PaginationMenuAndPopover(
 					{...buttonProps}
 					aria-label="Go to page"
 					data-testid="pagination-menu"
+					data-focus-visible={isFocusVisible}
 					className={`text-style-body-medium-bold ${mainStyles.extendPageButton} ${mainStyles.paginationButton} ${mainStyles.paginationIconButton}`}
 					dangerouslySetInnerHTML={{ __html: more }}
 				/>
