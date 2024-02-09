@@ -176,6 +176,8 @@ function Child() {
 }
 ```
 
+<iframe data-frame-title="React DI Basic Values String - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-di-basic-values-string-82?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 While React and Vue both have minimal APIs to handle dependency injection, Angular's dependency injection API is simultaneously more complex and powerful.
@@ -292,6 +294,8 @@ const Parent = () => {
 	);
 };
 ```
+
+<iframe data-frame-title="React DI Basic Values Object - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-di-basic-values-object-83?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -441,6 +445,8 @@ const Parent = () => {
 	);
 };
 ```
+
+<iframe data-frame-title="React Change After Val Inject - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-change-val-after-inject-84?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 When we update the `message` value, it will trigger a re-render on the `Child` component and, in turn, update the displayed message.
 
