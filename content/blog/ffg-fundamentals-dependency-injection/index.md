@@ -266,6 +266,8 @@ const welcomeMsg = inject("WELCOME_MESSAGE");
 </template>
 ```
 
+<iframe data-frame-title="Vue DI Basic Values String - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-di-basic-values-string-82?template=node&embed=1&file=src%2FParent.vue"></iframe>
+
 <!-- tabs:end -->
 
 Here, we expect this component to show a `<p>` tag that renders out `"Hello, world!"`.
@@ -411,6 +413,8 @@ const welcomeMsgObj = inject("WELCOME_MESSAGE");
 </template>
 ```
 
+<iframe data-frame-title="Vue DI Basic Values Object - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-di-basic-values-object-83?template=node&embed=1&file=src%2FParent.vue"></iframe>
+
 <!-- tabs:end -->
 
 # Changing Values after Injection
@@ -530,6 +534,8 @@ const welcomeMessage = inject("WELCOME_MESSAGE");
 	<p>{{ welcomeMessage }}</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Change Val After Inject - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-change-val-after-inject-84?template=node&embed=1&file=src%2FParent.vue"></iframe>
 
 <!-- tabs:end -->
 
