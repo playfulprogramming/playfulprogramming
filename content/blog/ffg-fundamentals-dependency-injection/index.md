@@ -876,8 +876,6 @@ Luckily, React, Angular, and Vue are all able to withstand an empty value provid
 In React, handling optionally injected values doesn't require a new API. We can still use the `useContext` hook in the child component, even if there is no provider.
 
 ```jsx
-import { createContext, useContext } from "react";
-
 const HelloMessageContext = createContext();
 
 function Parent() {
@@ -898,6 +896,8 @@ function Child() {
 ```
 
 When this is done, `useContext` is `undefined` if no value is injected for a particular named context.
+
+<iframe data-frame-title="React Optional Injected Vals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-optional-injected-vals-86?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -1043,6 +1043,8 @@ function Child() {
 	return <p>{messageData}</p>;
 }
 ```
+
+<iframe data-frame-title="React Default Vals for Optional - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-default-vals-for-optional-87?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
