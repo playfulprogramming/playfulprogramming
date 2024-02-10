@@ -224,6 +224,8 @@ class ChildComponent {
 }
 ```
 
+<iframe data-frame-title="Angular DI Basic Values String - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-di-basic-values-string-82?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 > Something worth mentioning when using the `inject` function is that you're unable to provide a `constructor` method to the `ChildComponent` class.
 >
 > While this might sound like a heavy limitation, the `inject` function provides various capabilities (and modularity) that the `constructor` method alone does not provide.
@@ -301,12 +303,15 @@ const Parent = () => {
 
 Because Angular's `useValue` accepts any arbitrary value, we can pass it an object to move away from a string injection:
 
-```typescript
-import { InjectionToken, Component, Inject } from "@angular/core";
-
-const WELCOME_MESSAGE_TOKEN = new InjectionToken<{ nessage: string }>({
-	message: "INITIAL_VALUE",
-});
+```typescript {3,15}
+@Component({
+	selector: "child-comp",
+	standalone: true,
+	template: `<p>{{ welcomeMsg.message }}</p>`,
+})
+class ChildComponent {
+	welcomeMsg = inject(WELCOME_MESSAGE_TOKEN);
+}
 
 @Component({
 	selector: "app-root",
@@ -318,16 +323,9 @@ const WELCOME_MESSAGE_TOKEN = new InjectionToken<{ nessage: string }>({
 	],
 })
 class AppComponent {}
-
-@Component({
-	selector: "child-comp",
-	standalone: true,
-	template: `<p>{{ welcomeMsg.message }}</p>`,
-})
-class ChildComponent {
-	welcomeMsg: { message: string } = inject(WELCOME_MESSAGE_TOKEN);
-}
 ```
+
+<iframe data-frame-title="Angular DI Basic Values Object - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-di-basic-values-object-83?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 While this functions, it's not very clean. In particular, some of the headaches present with this method include:
 
@@ -339,7 +337,7 @@ Luckily for us, Angular provides a better solution for this problem than `useVal
 Instead, let's create a class that we mark with an `@Injectable` decorator:
 
 ```typescript
-import { Injectable, Component, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 
 @Injectable()
 class InjectedValue {
@@ -357,7 +355,7 @@ Here, we're telling Angular to treat our `InjectedValue` class as a `InjectionTo
 	providers: [InjectedValue],
 	template: `<child-comp />`,
 })
-class ParentComponent {}
+class AppComponent {}
 ```
 
 Now that our `InjectedValue` is a known type, we can remove our explicit type declaration to our consuming `inject` function in `ChildComponent`
@@ -378,6 +376,8 @@ class ChildComponent implements OnInit {
 ```
 
 Much cleaner!
+
+<iframe data-frame-title="Angular DI Injectable - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-di-injectable-83?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -461,6 +461,15 @@ class InjectedValue {
 }
 
 @Component({
+	selector: "child-comp",
+	standalone: true,
+	template: `<p>{{ injectedValue.message }}</p>`,
+})
+class ChildComponent {
+	injectedValue = inject(InjectedValue);
+}
+
+@Component({
 	selector: "app-root",
 	standalone: true,
 	imports: [ChildComponent],
@@ -470,7 +479,7 @@ class InjectedValue {
 		<button (click)="updateMessage()">Update the message</button>
 	`,
 })
-class ParentComponent {
+class AppComponent {
 	// We can access the `injectedValue` from the same component we provide it from
 	injectedValue = inject(InjectedValue);
 
@@ -478,16 +487,9 @@ class ParentComponent {
 		this.injectedValue.message = "Updated value";
 	}
 }
-
-@Component({
-	selector: "child-comp",
-	standalone: true,
-	template: `<p>{{ injectedValue.message }}</p>`,
-})
-class ChildComponent {
-	injectedValue = inject(InjectedValue);
-}
 ```
+
+<iframe data-frame-title="Angular Change Val After Inject - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-change-val-after-inject-84?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
