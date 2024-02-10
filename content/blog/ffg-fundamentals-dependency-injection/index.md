@@ -583,6 +583,8 @@ function Child() {
 }
 ```
 
+<iframe data-frame-title="React Change Val From Child - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-change-val-from-child-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 #### Using a Reducer Pattern
 
 Despite `useState` and `useContext` making a powerful combination for data passing and updating in dependency injection, it's far from a perfect solution when dealing with large data sets.
@@ -616,6 +618,8 @@ function App() {
 }
 ```
 
+<iframe data-frame-title="React Homegrown Reducer - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-homegrown-reducer-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 But doing so creates a substantial amount of noise: each function has a dedicated variable and needs to be passed independently for the `useContext` to work as intended.
 
 ---
@@ -627,6 +631,8 @@ A "reducer" pattern involves a list of actions that the user can take. These act
 Let's take a look at the most basic version of a `reducer` that only can count up from `0`:
 
 ```jsx
+import { useReducer } from "react";
+
 const initialState = { count: 0 };
 
 function reducer(state, action) {
@@ -643,6 +649,8 @@ function App() {
 	);
 }
 ```
+
+<iframe data-frame-title="React Basic useReducer - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-basic-use-reducer-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Here, whenever `dispatch` is called, it will run the `reducer` with no arguments for `action`, and React will automatically pass `state` for us. Then, when we `return` inside of the reducer, React will automatically keep track of the returned value as the new `state` value.
 
@@ -677,6 +685,8 @@ function App() {
 	);
 }
 ```
+
+<iframe data-frame-title="React useReducer Multi Action - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-reducer-multi-action-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Here, we can pass a `type` object as a parameter of `reducer`'s `action`, run a `switch`/`case` over it, and return relevant data changes as-needed.
 
@@ -714,6 +724,8 @@ function App() {
 	);
 }
 ```
+
+<iframe data-frame-title="React useReducer Payload - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-reducer-payload-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 > It's worth mentioning that [the reducer pattern is not unique to React](https://dev.to/reedbarger/what-is-a-reducer-in-javascript-a-complete-introduction-with-examples-ip1). That said, React is unique in that it has a built-in method to build reducers, unlike many other frameworks.
 
@@ -765,6 +777,8 @@ function Child() {
 	);
 }
 ```
+
+<iframe data-frame-title="React Reducer Within Contexts - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-reducer-within-contexts-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
