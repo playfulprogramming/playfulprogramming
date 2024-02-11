@@ -1061,15 +1061,6 @@ class InjectedValue {
 }
 
 @Component({
-	selector: "app-root",
-	standalone: true,
-	imports: [ChildComponent],
-	providers: [InjectedValue],
-	template: ` <child-comp /> `,
-})
-class ParentComponent {}
-
-@Component({
 	selector: "child-comp",
 	standalone: true,
 	template: `<p>{{ injectedValue.message }}</p>`,
@@ -1077,6 +1068,15 @@ class ParentComponent {}
 class ChildComponent {
 	injectedValue = inject(InjectedValue) || { message: "Default Value" };
 }
+
+@Component({
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	providers: [InjectedValue],
+	template: ` <child-comp /> `,
+})
+class ParentComponent {}
 ```
 
 ### Vue
