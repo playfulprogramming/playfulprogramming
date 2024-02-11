@@ -3288,7 +3288,7 @@ const FileList = () => {
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="React DI Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-di-challenge?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React DI Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-di-challenge-93?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 </details>
 
@@ -3300,7 +3300,7 @@ const FileList = () => {
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Angular DI Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-di-challenge?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular DI Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-di-challenge-93?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 </details>
 
@@ -3312,7 +3312,7 @@ const FileList = () => {
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Vue DI Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-di-challenge?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue DI Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-di-challenge-93?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 </details>
 
