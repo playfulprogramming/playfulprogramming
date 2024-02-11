@@ -1206,7 +1206,7 @@ const App = () => {
 };
 ```
 
-> [This is actual source code pulled from my React Native app, GitShark](https://github.com/oceanbit/GitShark/blob/main/src/App.tsx#L156-L176).
+> [This is actual source code pulled from one of my prior production React Native projects called GitShark](https://github.com/oceanbit/GitShark/blob/main/src/App.tsx#L156-L176).
 
 This code is colloquially called the "Provider Christmas Tree" because of it's formatted structure.
 
@@ -1271,7 +1271,7 @@ class InjectedValue {
 @Component({
 	selector: "child-comp",
 	standalone: true,
-	template: `<div></div>`,
+	template: `<div>{{ injectedValue.message }}</div>`,
 })
 class ChildComponent implements OnInit {
 	injectedValue = inject(InjectedValue);
@@ -1291,6 +1291,8 @@ class ChildComponent implements OnInit {
 })
 class ParentComponent {}
 ```
+
+<iframe data-frame-title="Angular App Wide Providers - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-app-wide-providers-88?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 In Angular, these globally provided values are called "Services". They're often used to break up and move application logic out of components in order to be more widely re-used.
 
@@ -1403,10 +1405,16 @@ function App() {
 }
 
 function Child() {
-	return <GrandChild />;
+	const name = useContext(NameContext);
+	return (
+		<>
+			<p>Name: {name}</p>
+			<GrandChild />
+		</>
+	);
 }
 
-// Notice the new provider here, it will suppliment the `App` injected value
+// Notice the new provider here, it will supplement the `App` injected value
 // for all child components of `GrandChild`
 function GrandChild() {
 	return (
@@ -1422,6 +1430,8 @@ function GreatGrandChild() {
 }
 ```
 
+<iframe data-frame-title="React Overwriting Specificity - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-overwriting-specificity-89?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 ```typescript
@@ -1434,7 +1444,7 @@ class NameValue {
 	selector: "great-grand-child",
 	standalone: true,
 	imports: [],
-	template: `<p>{{ nameValue.name }}</p>`,
+	template: `<p>Name: {{ nameValue.name }}</p>`,
 })
 class GreatGrandChildComponent {
 	nameValue = inject(NameValue);
@@ -1455,9 +1465,14 @@ class GrandChildComponent {}
 	selector: "child-comp",
 	standalone: true,
 	imports: [GrandChildComponent],
-	template: `<grand-child />`,
+	template: `
+		<p>Name: {{ nameValue.name }}</p>
+		<grand-child />
+	`,
 })
-class ChildComponent {}
+class ChildComponent {
+	nameValue = inject(NameValue);
+}
 
 @Component({
 	selector: "app-root",
@@ -1468,6 +1483,8 @@ class ChildComponent {}
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Angular Overwriting Specificity - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-overwriting-specificity-89?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -1488,10 +1505,14 @@ provide("NAME", "Corbin");
 ```vue
 <!-- Child.vue -->
 <script setup>
+import { inject } from "vue";
 import GrandChild from "./GrandChild.vue";
+
+const name = inject("NAME");
 </script>
 
 <template>
+	<p>Name: {{ name }}</p>
 	<GrandChild />
 </template>
 ```
@@ -1524,6 +1545,8 @@ const name = inject("NAME");
 	<p>Name: {{ name }}</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Overwriting Specificity - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-overwriting-specificity-89?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1561,7 +1584,7 @@ Likewise, if you have a data provider that is hosting entirely unrelated data fr
 
 ```jsx
 const NameContext = createContext("");
-const AgeContext = createContext(0);
+const FavFoodContext = createContext("");
 
 function App() {
 	return (
@@ -1577,20 +1600,29 @@ function Child() {
 
 function GrandChild() {
 	return (
-		<AgeContext.Provider value={24}>
+		<FavFoodContext.Provider value={"Ice Cream"}>
 			<GreatGrandChild />
-		</AgeContext.Provider>
+		</FavFoodContext.Provider>
 	);
 }
 
 function GreatGrandChild() {
-	// Despite the `AgeContext` being closer, this is
+	// Despite the `FavFoodContext` being closer, this is
 	// specifically looking for the `NameContext` and will
 	// go further up in the tree to find that data from `App`
 	const name = useContext(NameContext);
-	return <p>Name: {name}</p>;
+	// Meanwhile, this will search for the context that pertains to its name
+	const favFood = useContext(FavFoodContext);
+	return (
+		<>
+			<p>Name: {name}</p>
+			<p>Favorite food: {favFood}</p>
+		</>
+	);
 }
 ```
+
+<iframe data-frame-title="React Finding Specific Vals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-finding-specific-vals-90?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -1601,27 +1633,32 @@ class NameValue {
 }
 
 @Injectable()
-class AgeValue {
-	age = 0;
+class FavFoodValue {
+	favFood = "";
 }
 
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
 	imports: [],
-	template: `<p>{{ nameValue.name }}</p>`,
+	template: `
+		<p>Name: {{ nameValue.name }}</p>
+		<p>Favorite food: {{ favFoodValue.favFood }}</p>
+	`,
 })
 class GreatGrandChildComponent {
-	// Despite the `AgeValue` being closer, this is
+	// Despite the `FavFoodContext` being closer, this is
 	// specifically looking for the `NameValue` and will
 	// go further up in the tree to find that data from `app-root`
 	nameValue = inject(NameValue);
+	// Meanwhile, this will search for the context that pertains to its name
+	favFoodValue = inject(FavFoodValue);
 }
 
 @Component({
 	selector: "grand-child",
 	standalone: true,
-	providers: [{ provide: AgeValue, useValue: { age: 24 } }],
+	providers: [{ provide: FavFoodValue, useValue: { age: "Ice Cream" } }],
 	imports: [GreatGrandChildComponent],
 	template: `<great-grand-child />`,
 })
@@ -1644,6 +1681,8 @@ class ChildComponent {}
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Angular Finding Specific Vals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-finding-specific-vals-90?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -1678,7 +1717,7 @@ import GrandChild from "./GrandChild.vue";
 import { provide } from "vue";
 import GreatGrandChild from "./GreatGrandChild.vue";
 
-provide("AGE", 24);
+provide("FAV_FOOD", "Ice Cream");
 </script>
 
 <template>
@@ -1695,12 +1734,17 @@ import { inject } from "vue";
 // specifically looking for the `NAME` and will
 // go further up in the tree to find that data from `App`
 const name = inject("NAME");
+// Meanwhile, this will search for the context that pertains to its name
+const favFood = inject("FAV_FOOD");
 </script>
 
 <template>
 	<p>Name: {{ name }}</p>
+	<p>Favorite food: {{ favFood }}</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Finding Specific Vals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-finding-specific-vals-90?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
