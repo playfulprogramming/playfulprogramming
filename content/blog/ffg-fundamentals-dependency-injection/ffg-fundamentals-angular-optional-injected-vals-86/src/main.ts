@@ -1,31 +1,28 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 import { Injectable, Component, inject, OnInit } from "@angular/core";
+import { NgIf } from "@angular/common";
 
 @Injectable()
 class InjectedValue {
 	message = "Hello, world";
-	// `this` is referring to the `InjectedValue` instance
-	changeMessage(val: string) {
-		this.message = val;
-	}
 }
 
 @Component({
 	selector: "child-comp",
 	standalone: true,
+	imports: [NgIf],
 	template: `
-		<div>{{ injectedValue.message }}</div>
-		<button (click)="changeMessage()">Change message</button>
+		<div *ngIf="injectedValue">{{ injectedValue.message }}</div>
+		<div *ngIf="!injectedValue">There is no injected value</div>
 	`,
 })
-class ChildComponent {
-	injectedValue = inject(InjectedValue);
+class ChildComponent implements OnInit {
+	injectedValue = inject(InjectedValue, { optional: true });
 
-	changeMessage() {
-		// This will update the value of the class, and
-		// re-render the component to reflect the new value
-		this.injectedValue.changeMessage("Updated value");
+	ngOnInit() {
+		// undefined
+		console.log(this.injectedValue);
 	}
 }
 
@@ -33,7 +30,6 @@ class ChildComponent {
 	selector: "app-root",
 	standalone: true,
 	imports: [ChildComponent],
-	providers: [InjectedValue],
 	template: `<child-comp />`,
 })
 class ParentComponent {}
