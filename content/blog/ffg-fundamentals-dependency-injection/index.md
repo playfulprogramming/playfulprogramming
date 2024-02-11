@@ -3709,14 +3709,7 @@ const Sidebar = () => {
 				],
 			}}
 		>
-			<div style={{ padding: "1rem" }}>
-				<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
-				{directories.map((directory) => {
-					return (
-						<File key={directory.id} name={directory.name} id={directory.id} />
-					);
-				})}
-			</div>
+			{/*	... */}
 		</ContextMenuContext.Provider>
 	);
 };
@@ -3788,12 +3781,7 @@ const FileList = () => {
 				],
 			}}
 		>
-			<div style={{ padding: "1rem" }}>
-				<h1>Files</h1>
-				{files.map((file) => {
-					return <File key={file.id} name={file.name} id={file.id} />;
-				})}
-			</div>
+			{/*	... */}
 		</ContextMenuContext.Provider>
 	);
 };
@@ -3810,6 +3798,119 @@ const FileList = () => {
 ### Angular
 
 // TODO: ...
+
+```typescript
+// sidebar.component.ts
+
+// ...
+
+@Component({
+	selector: "app-sidebar",
+	// ...
+})
+export class SidebarComponent {
+	directories = [
+		{
+			name: "Movies",
+			id: 1,
+		},
+		{
+			name: "Documents",
+			id: 2,
+		},
+		{
+			name: "Etc",
+			id: 3,
+		},
+	];
+
+	getDirectoryById = (id: number) => {
+		return this.directories.find((dir) => dir.id === id);
+	};
+
+	onCopy = (id: number) => {
+		const dir = this.getDirectoryById(id)!;
+		// Some browsers still do not support this
+		if (navigator?.clipboard?.writeText) {
+			navigator.clipboard.writeText(dir.name);
+			alert("Name is copied");
+		} else {
+			alert("Unable to copy directory name due to browser incompatibility");
+		}
+	};
+
+	sidebarDirectories = injectAndAssignActions([
+		{
+			label: "Copy directory name",
+			fn: this.onCopy,
+		},
+	]);
+}
+```
+
+No changes needed to the other components!
+
+With this, we can even change our FileList to be interactive:
+
+```typescript
+// file-list.component.ts
+
+// ...
+
+@Component({
+	selector: "file-list",
+	// ...
+})
+export class FileListComponent {
+	files = [
+		{
+			name: "Testing.wav",
+			id: 1,
+		},
+		{
+			name: "Secrets.txt",
+			id: 2,
+		},
+		{
+			name: "Other.md",
+			id: 3,
+		},
+	];
+
+	getFileIndexById = (id: number) => {
+		return this.files.findIndex((file) => file.id === id);
+	};
+
+	onRename = (id: number) => {
+		const fileIndex = this.getFileIndexById(id)!;
+		const file = this.files[fileIndex];
+		const newName = prompt(
+			`What do you want to rename the file ${file.name} to?`,
+		);
+		if (!newName) return;
+		this.files[fileIndex] = {
+			...file,
+			name: newName,
+		};
+	};
+
+	onDelete = (id: number) => {
+		const fileIndex = this.getFileIndexById(id);
+		this.files.splice(fileIndex, 1);
+	};
+
+	fileListActions = injectAndAssignActions([
+		{
+			label: "Rename",
+			fn: this.onRename,
+		},
+		{
+			label: "Delete",
+			fn: this.onDelete,
+		},
+	]);
+}
+```
 
 <details>
 
