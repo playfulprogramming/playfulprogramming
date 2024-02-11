@@ -7,7 +7,7 @@
 			style="
 				width: 150px;
 				background-color: lightgray;
-				border-right: 1px solid grey;
+				border-right: 1px solid gray;
 			"
 		>
 			<slot name="sidebar" />

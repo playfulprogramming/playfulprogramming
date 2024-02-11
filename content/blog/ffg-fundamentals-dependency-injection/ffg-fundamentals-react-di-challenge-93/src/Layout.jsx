@@ -6,7 +6,7 @@ export const Layout = ({ sidebar, children }) => {
 				style={{
 					width: 150,
 					backgroundColor: "lightgray",
-					borderRight: "1px solid grey",
+					borderRight: "1px solid gray",
 				}}
 			>
 				{sidebar}
