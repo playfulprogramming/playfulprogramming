@@ -83,8 +83,6 @@ class ModalComponent {}
 ## Vue
 
 ```vue
-<script setup></script>
-
 <!-- Modal.vue -->
 <template>
 	<div>
@@ -114,71 +112,70 @@ CSS for the modal
 
 <br/>
 
-```
+```css
 .modal-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  padding: 20px 0px 0px;
-  background: #e0e3e5;
-  border-radius: 28px;
-  font-family: 'Roboto', sans-serif;
-  color: #001f28;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	padding: 20px 0px 0px;
+	background: #e0e3e5;
+	border-radius: 28px;
+	font-family: "Roboto", sans-serif;
+	color: #001f28;
 }
 
 .title {
-margin: 0;
-padding: 0px 24px 16px;
-font-size: 24px;
-font-weight: 400;
+	margin: 0;
+	padding: 0px 24px 16px;
+	font-size: 24px;
+	font-weight: 400;
 }
 
 .body-text {
-margin: 0;
-padding: 0px 24px 24px;
-font-size: 14px;
+	margin: 0;
+	padding: 0px 24px 24px;
+	font-size: 14px;
 }
 
 .buttons-container {
-display: flex;
-justify-content: end;
-padding: 16px;
-gap: 8px;
+	display: flex;
+	justify-content: flex-end;
+	padding: 16px;
+	gap: 8px;
 }
 
 .buttons-container button {
-margin: 4px 0;
-padding: 10px 24px;
-border-radius: 1000px;
-border: none;
+	margin: 4px 0;
+	padding: 10px 24px;
+	border-radius: 1000px;
+	border: none;
 }
 
 .cancel {
-background: #b8eaff;
+	background: #b8eaff;
 }
 
 .cancel:hover {
-filter: brightness(0.8);
+	filter: brightness(0.8);
 }
 
 .cancel:active {
-filter: brightness(0.6);
+	filter: brightness(0.6);
 }
 
 .confirm {
-background: #2e6578;
-color: white;
+	background: #2e6578;
+	color: white;
 }
 
 .confirm:hover {
-filter: brightness(1.4);
+	filter: brightness(1.4);
 }
 
 .confirm:active {
-filter: brightness(1.8);
+	filter: brightness(1.8);
 }
-
 ```
 
 </details>
@@ -314,7 +311,7 @@ class HeaderComponent {}
 @Component({
 	selector: "body-comp",
 	standalone: true,
-	imports: [FolderIconComponent],
+	imports: [NgFor, FolderIconComponent],
 	template: `
 		<ul class="list-container">
 			<li class="list-item" *ngFor="let fileIdx of files">
@@ -472,100 +469,101 @@ const files = Array.from({ length: 10 }, (_, i) => i);
 
 <br/>
 
-```
+```css
 body {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .header-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 8px 12px;
-  border: 2px solid #F5F8FF;
-  background: white;
-  color: #1A42E6;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 1;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 8px 12px;
+	border: 2px solid #f5f8ff;
+	background: white;
+	color: #1a42e6;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	box-sizing: border-box;
+	z-index: 1;
 }
 
 .header-title {
-  font-family: 'Roboto', sans-serif;
-  font-weight: bold;
+	font-family: "Roboto", sans-serif;
+	font-weight: bold;
 }
 
 .auto {
-  margin: 0 auto;
+	margin: 0 auto;
 }
 
-.icon-btn, .icon-container {
-  box-sizing: border-box;
-  background: none;
-  border: none;
-  color: #1A42E6;
-  border-radius: 0.5rem;
-  height: 24px;
-  width: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
+.icon-btn,
+.icon-container {
+	box-sizing: border-box;
+	background: none;
+	border: none;
+	color: #1a42e6;
+	border-radius: 0.5rem;
+	height: 24px;
+	width: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px;
 }
 
 .icon-btn svg {
-  width: 100%;
+	width: 100%;
 }
 
 .icon-btn:hover {
-  background: rgba(26, 66, 229, 0.2);
+	background: rgba(26, 66, 229, 0.2);
 }
 
 .icon-btn:active {
-  background: rgba(26, 66, 229, 0.4);
-  color: white;
+	background: rgba(26, 66, 229, 0.4);
+	color: white;
 }
 
 .list-container {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  margin: 0;
-  margin-top: 2.5rem;
-  padding: 1rem;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	margin: 0;
+	margin-top: 2.5rem;
+	padding: 1rem;
 }
 
 .list-item {
-  padding: 0.5rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  color: #1A42E6;
-  font-family: 'Roboto', sans-serif;
-  border-radius: 0.5rem;
+	padding: 0.5rem 1rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	color: #1a42e6;
+	font-family: "Roboto", sans-serif;
+	border-radius: 0.5rem;
 }
 
 .list-item:hover {
-  background: rgba(245, 248, 255, 1);
+	background: rgba(245, 248, 255, 1);
 }
 
 .list-item svg {
-  width: 24px;
+	width: 24px;
 }
 
 .footer-container {
-  font-family: 'Roboto', sans-serif;
-  position: relative;
-  z-index: 2;
-  background: white;
-  color: #1A42E6;
-  padding: 8px 12px;
-  border: 2px solid #F5F8FF;
+	font-family: "Roboto", sans-serif;
+	position: relative;
+	z-index: 2;
+	background: white;
+	color: #1a42e6;
+	padding: 8px 12px;
+	border: 2px solid #f5f8ff;
 }
 ```
 
@@ -583,10 +581,6 @@ To do this, we'll:
 ## React
 
 ```jsx
-import React, { useState } from "react";
-import { DeleteIcon, FolderIcon } from "./Icons";
-import { Modal } from "./Modal";
-
 const Header = () => {
 	const [showModal, setShowModal] = useState(false);
 	return (
@@ -607,13 +601,15 @@ const Header = () => {
 };
 ```
 
+<iframe data-frame-title="React Buggy Dialog - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-buggy-dialog-94?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 ```typescript
 @Component({
 	selector: "header-comp",
 	standalone: true,
-	imports: [ModalComponent, FolderIconComponent, DeleteIconComponent],
+	imports: [NgIf, ModalComponent, FolderIconComponent, DeleteIconComponent],
 	template: `
 		<div class="header-container">
 			<delete-modal *ngIf="shouldShowModal" />
@@ -636,6 +632,8 @@ class HeaderComponent {
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Buggy Dialog - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-buggy-dialog-94?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -666,9 +664,9 @@ function showModal() {
 		</button>
 	</div>
 </template>
-
-<!-- ... -->
 ```
+
+<iframe data-frame-title="Vue Buggy Dialog - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-buggy-dialog-94?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
