@@ -2272,13 +2272,22 @@ Strap in - this is going to be a long challenge. By the end of it we'll have a f
 
 // TODO: ...
 
+![// TODO: Alt](./directory_files_list.png)
+
+While we've used a single file for most of our code samples prior, let's break out this code to individual files
+and utilize `import` and `export` to share the code between these files.
+
 <!-- tabs:start -->
 
 ### React
 
 ```jsx
 // App.jsx
-function App() {
+import { Layout } from "./Layout";
+import { Sidebar } from "./Sidebar";
+import { FileList } from "./FileList";
+
+export function App() {
 	return (
 		<Layout sidebar={<Sidebar />}>
 			<FileList />
@@ -2289,7 +2298,7 @@ function App() {
 
 ```jsx
 // Layout.jsx
-const Layout = ({ sidebar, children }) => {
+export const Layout = ({ sidebar, children }) => {
 	return (
 		<div style={{ display: "flex", flexWrap: "nowrap", minHeight: "100vh" }}>
 			<div
@@ -2309,7 +2318,7 @@ const Layout = ({ sidebar, children }) => {
 
 ```jsx
 // Sidebar.jsx
-const Sidebar = () => {
+export const Sidebar = () => {
 	return (
 		<div style={{ padding: "1rem" }}>
 			<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
@@ -2320,7 +2329,7 @@ const Sidebar = () => {
 
 ```jsx
 // FileList.jsx
-const FileList = () => {
+export const FileList = () => {
 	return (
 		<div style={{ padding: "1rem" }}>
 			<h1>Files</h1>
@@ -2333,6 +2342,11 @@ const FileList = () => {
 
 ```typescript
 // app.component.ts
+import { Component } from "@angular/core";
+import { LayoutComponent } from "./layout.component";
+import { SidebarComponent } from "./sidebar.component";
+import { FileListComponent } from "./file-list.component";
+
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -2344,11 +2358,13 @@ const FileList = () => {
 		</app-layout>
 	`,
 })
-class AppComponent {}
+export class AppComponent {}
 ```
 
 ```typescript
 // layout.component.ts
+import { Component } from "@angular/core";
+
 @Component({
 	selector: "app-layout",
 	standalone: true,
@@ -2369,11 +2385,13 @@ class AppComponent {}
 		</div>
 	`,
 })
-class LayoutComponent {}
+export class LayoutComponent {}
 ```
 
 ```typescript
 // file-list.component.ts
+import { Component } from "@angular/core";
+
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -2383,11 +2401,13 @@ class LayoutComponent {}
 		</div>
 	`,
 })
-class FileListComponent {}
+export class FileListComponent {}
 ```
 
 ```typescript
 // sidebar.component.ts
+import { Component } from "@angular/core";
+
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
@@ -2397,7 +2417,7 @@ class FileListComponent {}
 		</div>
 	`,
 })
-class SidebarComponent {}
+export class SidebarComponent {}
 ```
 
 ### Vue
@@ -2476,7 +2496,7 @@ import FileList from "./FileList.vue";
 
 ```jsx
 // File.jsx
-const File = ({ name }) => {
+export const File = ({ name }) => {
 	return (
 		<button style={{ display: "block", width: "100%", marginBottom: "1rem" }}>
 			{name}
@@ -2506,7 +2526,7 @@ const directories = [
 	},
 ];
 
-const Sidebar = () => {
+export const Sidebar = () => {
 	return (
 		<div style={{ padding: "1rem" }}>
 			<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
@@ -2537,7 +2557,7 @@ const files = [
 	},
 ];
 
-const FileList = () => {
+export const FileList = () => {
 	return (
 		<div style={{ padding: "1rem" }}>
 			<h1>Files</h1>
@@ -2552,6 +2572,9 @@ const FileList = () => {
 ### Angular
 
 ```typescript
+// file.component.ts
+import { Component, Input } from "@angular/core";
+
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -2561,12 +2584,17 @@ const FileList = () => {
 		</button>
 	`,
 })
-class FileComponent {
+export class FileComponent {
 	@Input() name!: string;
 }
 ```
 
 ```typescript
+// file-list.component.ts
+import { Component } from "@angular/core";
+import { FileComponent } from "./file.component";
+import { NgFor } from "@angular/common";
+
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -2578,7 +2606,7 @@ class FileComponent {
 		</div>
 	`,
 })
-class FileListComponent {
+export class FileListComponent {
 	files = [
 		{
 			name: "Testing.wav",
@@ -2597,8 +2625,13 @@ class FileListComponent {
 ```
 
 ```typescript
+// sidebar.component.ts
+import { Component } from "@angular/core";
+import { NgFor } from "@angular/common";
+import { FileComponent } from "./file.component";
+
 @Component({
-	selector: "sidebar",
+	selector: "app-sidebar",
 	standalone: true,
 	imports: [FileComponent, NgFor],
 	template: `
@@ -2611,7 +2644,7 @@ class FileListComponent {
 		</div>
 	`,
 })
-class SidebarComponent {
+export class SidebarComponent {
 	directories = [
 		{
 			name: "Movies",
@@ -2631,7 +2664,86 @@ class SidebarComponent {
 
 ### Vue
 
-// TODO: ...
+```vue
+<!-- File.vue -->
+<script setup>
+const props = defineProps(["name"]);
+</script>
+
+<template>
+	<button style="display: block; width: 100%; margin-bottom: 1rem">
+		{{ props.name }}
+	</button>
+</template>
+```
+
+```vue
+<!-- FileList.vue -->
+<script setup>
+import File from "./File.vue";
+
+const files = [
+	{
+		name: "Testing.wav",
+		id: 1,
+	},
+	{
+		name: "Secrets.txt",
+		id: 2,
+	},
+	{
+		name: "Other.md",
+		id: 3,
+	},
+];
+</script>
+
+<template>
+	<div style="padding: 1rem">
+		<h1>Files</h1>
+		<File
+			v-for="file of files"
+			:key="file.id"
+			:name="file.name"
+			:id="file.id"
+		/>
+	</div>
+</template>
+```
+
+```vue
+<!-- Sidebar.vue -->
+<script setup>
+import File from "./File.vue";
+
+const directories = [
+  {
+    name: "Movies",
+    id: 1,
+  },
+  {
+    name: "Documents",
+    id: 2,
+  },
+  {
+    name: "Etc",
+    id: 3,
+  },
+];
+</script>
+
+<template>
+  <div style="padding: 1rem">
+    <h1 style="font-size: 1.25rem">Directories</h1>
+    <File
+      v-for="directory of directories"
+      :key="directory.id"
+      :name="directory.name"
+      :id="directory.id"
+    />
+  </div>
+</template>
+```
 
 <!-- tabs:end -->
 
