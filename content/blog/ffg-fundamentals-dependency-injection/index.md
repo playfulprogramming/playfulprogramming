@@ -795,15 +795,6 @@ class InjectedValue {
 }
 
 @Component({
-	selector: "app-root",
-	standalone: true,
-	imports: [ChildComponent],
-	providers: [InjectedValue],
-	template: `<child-comp />`,
-})
-class ParentComponent {}
-
-@Component({
 	selector: "child-comp",
 	standalone: true,
 	template: `
@@ -817,10 +808,21 @@ class ChildComponent {
 	changeMessage() {
 		// This will update the value of the class, and
 		// re-render the component to reflect the new value
-		this.injectedValue.changeMessage("TESTING");
+		this.injectedValue.changeMessage("Updated value");
 	}
 }
+
+@Component({
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	providers: [InjectedValue],
+	template: `<child-comp />`,
+})
+class ParentComponent {}
 ```
+
+<iframe data-frame-title="Angular Change Val From Child - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-change-val-from-child-85?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -910,15 +912,6 @@ class InjectedValue {
 }
 
 @Component({
-	selector: "app-root",
-	standalone: true,
-	imports: [ChildComponent],
-	providers: [InjectedValue],
-	template: `<child-comp />`,
-})
-class ParentComponent {}
-
-@Component({
 	selector: "child-comp",
 	standalone: true,
 	template: `<p>{{ injectedValue.message }}</p>`,
@@ -926,6 +919,15 @@ class ParentComponent {}
 class ChildComponent {
 	injectedValue = inject(InjectedValue);
 }
+
+@Component({
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	providers: [InjectedValue],
+	template: `<child-comp />`,
+})
+class ParentComponent {}
 ```
 
 However, if we remove the `providers` from `ParentComponent`, in order to test our application without any user data, like so:
@@ -947,6 +949,8 @@ We get the following error:
 >   NullInjectorError: No provider for InjectedValue!
 > ```
 
+<iframe data-frame-title="Angular Optional Injected Vals Err - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-optional-injected-vals-err-86?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 This is because our `inject` function inside of `ChildComponent` is marked as a required dependency by default, hence the error.
 
 Fortunately there's a way to tell Angular to mark that dependency as "optional" by passing a second argument to the `inject` function:
@@ -958,18 +962,13 @@ class InjectedValue {
 }
 
 @Component({
-	selector: "app-root",
-	standalone: true,
-	imports: [ChildComponent],
-	template: `<child-comp />`,
-})
-class ParentComponent {}
-
-@Component({
 	selector: "child-comp",
 	standalone: true,
 	imports: [NgIf],
-	template: `<div *ngIf="injectedValue">{{ injectedValue.message }}</div>`,
+	template: `
+		<div *ngIf="injectedValue">{{ injectedValue.message }}</div>
+		<div *ngIf="!injectedValue">There is no injected value</div>
+	`,
 })
 class ChildComponent implements OnInit {
 	injectedValue = inject(InjectedValue, { optional: true });
@@ -979,9 +978,19 @@ class ChildComponent implements OnInit {
 		console.log(this.injectedValue);
 	}
 }
+
+@Component({
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	template: `<child-comp />`,
+})
+class ParentComponent {}
 ```
 
 Now, we get no error when `injectedValue` is not provided. Instead, we get a value of `null`, which we can gaurd against using `ngIf` inside our template.
+
+<iframe data-frame-title="Angular Optional Injected Vals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-optional-injected-vals-86?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -1078,6 +1087,8 @@ class ChildComponent {
 })
 class ParentComponent {}
 ```
+
+<iframe data-frame-title="Angular Default Vals for Optional - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-default-vals-for-optional-87?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
