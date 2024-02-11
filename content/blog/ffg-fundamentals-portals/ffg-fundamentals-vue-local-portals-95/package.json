@@ -1,5 +1,5 @@
 {
-	"name": "@ffg-fundamentals/react-portals-challenge-98",
+	"name": "@ffg-fundamentals/vue-local-portals-95",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
@@ -9,11 +9,10 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"vue": "^3.3.4"
 	},
 	"devDependencies": {
-		"@vitejs/plugin-react": "^4.0.4",
+		"@vitejs/plugin-vue": "^4.2.3",
 		"vite": "^4.4.9"
 	}
 }
