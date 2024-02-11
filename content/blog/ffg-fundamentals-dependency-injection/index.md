@@ -3453,11 +3453,19 @@ Lastly, we need to make sure to pass the `file.id` to `<File :id="file.id"/>` co
 
 ## 4. Adding Dependency Injection to Context Menu
 
-// TODO: ...
+Now that we have our `ContextMenu` component established, let's move forward with adding in dependency injection to our components.
+
+To do this, we'll need to:
+
+- Create any pre-requisite dependency provider files
+- Provide actions from our `FileList` and `Sidebar` components
+- Inject the values into our `ContextMenu` component
 
 <!-- tabs:start -->
 
 ### React
+
+To use context in React, let's start by having a shared file to create our context from. This will be where we import from to provide and inject values:
 
 ```jsx
 // ContextMenuContext.js
@@ -3539,7 +3547,7 @@ const FileList = () => {
 
 ### Angular
 
-// TODO: ...
+Let's use an `Injectable` to provide and inject the values between parts of our app:
 
 ```typescript
 // context.ts
@@ -3660,8 +3668,6 @@ export class FileListComponent {
 ```
 
 ### Vue
-
-// TODO: ...
 
 First, we set up a `provide`r in Vue that adds an array of actions to be passed to our File implementation:
 
