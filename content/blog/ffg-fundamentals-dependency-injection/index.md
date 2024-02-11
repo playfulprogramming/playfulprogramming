@@ -3741,7 +3741,24 @@ const actions = computed(() => {
 
 ## 5. Adding Functionality to Context Menu
 
-// TODO: ...
+Last but not least, we need to make sure that our context menu is able to, you know, actually _do_ something.
+
+Let's add the following actions to our project:
+
+| Type      | Action    |
+| --------- | --------- |
+| Directory | Copy name |
+| File      | Rename    |
+| File      | Delete    |
+
+To do this, we can still leverage an array for our directories and files, but add functions to our actions array
+that updates the file/directory array and triggers a re-render.
+
+As for the "Copy name" action, we'll use the browser's [`navigator.clipboard` API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/clipboard) to copy the text into the user's clipboard:
+
+```javascript
+navigator.clipboard.writeText("Text to copy to clipboard");
+```
 
 <!-- tabs:start -->
 
@@ -3797,11 +3814,8 @@ const Sidebar = () => {
 };
 ```
 
-No changes needed to the other components!
-
-With this, we can even change our FileList to be interactive:
-
 ```jsx
+// FileList.jsx
 const FileList = () => {
 	const [files, setFiles] = useState([
 		{
@@ -3879,8 +3893,6 @@ const FileList = () => {
 
 ### Angular
 
-// TODO: ...
-
 ```typescript
 // sidebar.component.ts
 
@@ -3929,10 +3941,6 @@ export class SidebarComponent {
 	]);
 }
 ```
-
-No changes needed to the other components!
-
-With this, we can even change our FileList to be interactive:
 
 ```typescript
 // file-list.component.ts
@@ -4004,8 +4012,6 @@ export class FileListComponent {
 
 ### Vue
 
-// TODO: ...
-
 ```vue
 <!-- Sidebar.vue -->
 <script setup>
@@ -4055,10 +4061,6 @@ provide("ContextMenu", {
 	<!-- ... -->
 </template>
 ```
-
-No changes needed to the other components!
-
-With this, we can even change our FileList to be interactive:
 
 ```vue
 <!-- FileList.vue -->
