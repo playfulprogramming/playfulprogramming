@@ -2812,18 +2812,125 @@ const directories = [
 
 ## 3. Add Context Menu with Static Actions
 
-// TODO: ...
-
 Next, we'll add in a context menu. We'll start by [taking our context menu from our "Component Reference" chapter](/posts/ffg-fundamentals-component-reference#Using-component-reference-to-focus-our-context-menu) and adapting it to our needs here. Namely, let's change the following to our context menu over the previous version:
 
-- Only allow one context menu to be opened at a time <!-- TODO: Check if this is true for previous code sample or not -->
+- Only allow one context menu to be opened at a time
 - Add a list of actions that the user can take in the context menu
+
+We can do the first by adding in some JavaScript akin to the following:
+
+```javascript
+const closeIfContextMenu = () => {
+	if (!isDialogOpen) return;
+	closeDialog();
+};
+
+document.addEventListener("contextmenu", closeIfContextMenu);
+```
+
+This bit of code will allow us to close other context menu instances when a new one is open.
+
+Then, for the list of actions, we'll start by hardcoding an array into the `ContextMenu` component.
+
+This array should include a label that's visible to the end-user and a function that should be ran when
+the action is taken.
 
 <!-- tabs:start -->
 
 ### React
 
-// TODO: ...
+Let's start by taking our previous context menu and adding in the `"contextmenu"` listener and action array:
+
+```jsx {21-34,36-47}
+// ContextMenu.jsx
+export const ContextMenu = forwardRef(
+	({ isOpen, x, y, onClose, data }, ref) => {
+		const [contextMenu, setContextMenu] = useState();
+
+		useImperativeHandle(ref, () => ({
+			focus: () => contextMenu && contextMenu.focus(),
+		}));
+
+		useEffect(() => {
+			if (!contextMenu) return;
+			const closeIfOutsideOfContext = (e) => {
+				const isClickInside = contextMenu.contains(e.target);
+				if (isClickInside) return;
+				onClose(false);
+			};
+			document.addEventListener("click", closeIfOutsideOfContext);
+			return () =>
+				document.removeEventListener("click", closeIfOutsideOfContext);
+		}, [contextMenu, onClose]);
+
+		// Only allow one context menu to be opened at a time
+		useEffect(() => {
+			const closeIfContextMenu = () => {
+				if (!isOpen) return;
+				onClose(false);
+			};
+			// Inside a timeout to make sure the initial context menu does not close the menu
+			setTimeout(() => {
+				document.addEventListener("contextmenu", closeIfContextMenu);
+			}, 0);
+			return () => {
+				document.removeEventListener("contextmenu", closeIfContextMenu);
+			};
+		}, [isOpen, onClose]);
+
+		const actions = useMemo(() => {
+			return [
+				{
+					label: "Copy",
+					fn: (data) => alert(`Copied ${data}`),
+				},
+				{
+					label: "Delete",
+					fn: (data) => alert(`Deleted ${data}`),
+				},
+			];
+		});
+
+		if (!isOpen) {
+			return null;
+		}
+
+		return (
+			<div
+				ref={(el) => setContextMenu(el)}
+				tabIndex={0}
+				style={{
+					position: "fixed",
+					top: y,
+					left: x,
+					background: "white",
+					border: "1px solid black",
+					borderRadius: 16,
+					padding: "1rem",
+				}}
+			>
+				<button onClick={() => onClose()}>X</button>
+				<ul>
+					{actions.map((action) => (
+						<li>
+							<button
+								onClick={() => {
+									action.fn(data);
+									onClose(false);
+								}}
+							>
+								{action.label}
+							</button>
+						</li>
+					))}
+				</ul>
+			</div>
+		);
+	},
+);
+```
+
+Now we'll use this new component in our `File` component:
 
 ```jsx
 // File.jsx
@@ -2876,106 +2983,6 @@ export const File = ({ name, id }) => {
 		</>
 	);
 };
-```
-
-```jsx
-// ContextMenu.jsx
-import {
-	forwardRef,
-	useContext,
-	useEffect,
-	useImperativeHandle,
-	useState,
-	useMemo,
-} from "react";
-import { ContextMenuContext } from "./ContextMenuContext";
-
-export const ContextMenu = forwardRef(
-	({ isOpen, x, y, onClose, data }, ref) => {
-		const context = useContext(ContextMenuContext);
-
-		const [contextMenu, setContextMenu] = useState();
-
-		useImperativeHandle(ref, () => ({
-			focus: () => contextMenu && contextMenu.focus(),
-		}));
-
-		useEffect(() => {
-			if (!contextMenu) return;
-			const closeIfOutsideOfContext = (e) => {
-				const isClickInside = contextMenu.contains(e.target);
-				if (isClickInside) return;
-				onClose(false);
-			};
-			document.addEventListener("click", closeIfOutsideOfContext);
-			return () =>
-				document.removeEventListener("click", closeIfOutsideOfContext);
-		}, [contextMenu, onClose]);
-
-		useEffect(() => {
-			const closeIfContextMenu = () => {
-				if (!isOpen) return;
-				onClose(false);
-			};
-			// Inside a timeout to make sure the initial context menu does not close the menu
-			setTimeout(() => {
-				document.addEventListener("contextmenu", closeIfContextMenu);
-			}, 0);
-			return () => {
-				document.removeEventListener("contextmenu", closeIfContextMenu);
-			};
-		}, [isOpen, onClose]);
-
-		const actions = useMemo(() => {
-			return [
-				{
-					label: "Copy",
-					fn: (data) => alert(`Copied ${data}`),
-				},
-				{
-					label: "Delete",
-					fn: (data) => alert(`Deleted ${data}`),
-				},
-			];
-		});
-
-		if (!isOpen || !context) {
-			return null;
-		}
-
-		return (
-			<div
-				ref={(el) => setContextMenu(el)}
-				tabIndex={0}
-				style={{
-					position: "fixed",
-					top: y,
-					left: x,
-					background: "white",
-					border: "1px solid black",
-					borderRadius: 16,
-					padding: "1rem",
-				}}
-			>
-				<button onClick={() => onClose()}>X</button>
-				<ul>
-					{actions.map((action) => (
-						<li>
-							<button
-								onClick={() => {
-									action.fn(data);
-									onClose(false);
-								}}
-							>
-								{action.label}
-							</button>
-						</li>
-					))}
-				</ul>
-			</div>
-		);
-	},
-);
 ```
 
 Finally, we need to make sure to pass the `file.id` to `<File id={file.id}/>` component:
@@ -3046,64 +3053,9 @@ export const Sidebar = () => {
 
 ### Angular
 
-// TODO: ...
+Just like we did with React, let's take our previous context menu and add in the `"contextmenu"` listener and action array:
 
-```typescript
-// file.component.ts
-import { Component, Input, ViewChild } from "@angular/core";
-import { ContextMenuComponent } from "./context-menu.component";
-
-@Component({
-	selector: "file-item",
-	standalone: true,
-	imports: [ContextMenuComponent],
-	template: `
-		<button
-			(contextmenu)="onContextMenu($event)"
-			style="display: block; width: 100%; margin-bottom: 1rem"
-		>
-			{{ name }}
-		</button>
-		<context-menu
-			#contextMenu
-			[data]="id"
-			[isOpen]="isOpen"
-			(close)="setIsOpen(false)"
-			[x]="mouseBounds.x"
-			[y]="mouseBounds.y"
-		/>
-	`,
-})
-export class FileComponent {
-	@ViewChild("contextMenu", { static: true })
-	contextMenu!: ContextMenuComponent;
-	@Input() name!: string;
-	@Input() id!: number;
-
-	mouseBounds = {
-		x: 0,
-		y: 0,
-	};
-
-	isOpen = false;
-
-	setIsOpen = (v: boolean) => (this.isOpen = v);
-
-	onContextMenu(e: MouseEvent) {
-		e.preventDefault();
-		this.isOpen = true;
-		this.mouseBounds = {
-			x: e.clientX,
-			y: e.clientY,
-		};
-		setTimeout(() => {
-			this.contextMenu.focusMenu();
-		}, 0);
-	}
-}
-```
-
-```typescript
+```typescript{45-54,65-68,72-85}
 @Component({
 	selector: "context-menu",
 	standalone: true,
@@ -3168,6 +3120,7 @@ export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 		this.close.emit(false);
 	};
 
+	// Only allow one context menu to be opened at a time
 	closeIfContextMenu = () => {
 		if (!this.isOpen) return;
 		this.close.emit(false);
@@ -3204,7 +3157,64 @@ export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 }
 ```
 
-Finally, we need to make sure to pass the `file.id` to `<file-item [id]="file.id"/>` component:
+We'll then use this new component in our `File` component:
+
+```typescript
+// file.component.ts
+import { Component, Input, ViewChild } from "@angular/core";
+import { ContextMenuComponent } from "./context-menu.component";
+
+@Component({
+	selector: "file-item",
+	standalone: true,
+	imports: [ContextMenuComponent],
+	template: `
+		<button
+			(contextmenu)="onContextMenu($event)"
+			style="display: block; width: 100%; margin-bottom: 1rem"
+		>
+			{{ name }}
+		</button>
+		<context-menu
+			#contextMenu
+			[data]="id"
+			[isOpen]="isOpen"
+			(close)="setIsOpen(false)"
+			[x]="mouseBounds.x"
+			[y]="mouseBounds.y"
+		/>
+	`,
+})
+export class FileComponent {
+	@ViewChild("contextMenu", { static: true })
+	contextMenu!: ContextMenuComponent;
+	@Input() name!: string;
+	@Input() id!: number;
+
+	mouseBounds = {
+		x: 0,
+		y: 0,
+	};
+
+	isOpen = false;
+
+	setIsOpen = (v: boolean) => (this.isOpen = v);
+
+	onContextMenu(e: MouseEvent) {
+		e.preventDefault();
+		this.isOpen = true;
+		this.mouseBounds = {
+			x: e.clientX,
+			y: e.clientY,
+		};
+		setTimeout(() => {
+			this.contextMenu.focusMenu();
+		}, 0);
+	}
+}
+```
+
+And again pass the `file.id` to `<file-item [id]="file.id"/>` component:
 
 ```typescript
 @Component({
@@ -3246,58 +3256,9 @@ export class SidebarComponent {
 
 ### Vue
 
-// TODO: ...
+Lastly; Vue. Again we'll add `ContextMenu` from before and add in the `"contextmenu"` event and actions array:
 
-```vue
-<!-- File.vue -->
-<script setup>
-import { ref } from "vue";
-import ContextMenu from "./ContextMenu.vue";
-
-const props = defineProps(["name", "id"]);
-
-const mouseBounds = ref({
-	x: 0,
-	y: 0,
-});
-const isOpen = ref(false);
-
-const setIsOpen = (v) => (isOpen.value = v);
-
-const contextMenu = ref();
-
-function onContextMenu(e) {
-	e.preventDefault();
-	isOpen.value = true;
-	mouseBounds.value = {
-		x: e.clientX,
-		y: e.clientY,
-	};
-	setTimeout(() => {
-		contextMenu.value.focusMenu();
-	}, 0);
-}
-</script>
-
-<template>
-	<button
-		@contextmenu="onContextMenu($event)"
-		style="display: block; width: 100%; margin-bottom: 1rem"
-	>
-		{{ props.name }}
-	</button>
-	<ContextMenu
-		:data="props.id"
-		ref="contextMenu"
-		:isOpen="isOpen"
-		@close="setIsOpen(false)"
-		:x="mouseBounds.x"
-		:y="mouseBounds.y"
-	/>
-</template>
-```
-
-```vue
+```vue {8-17,29-33,35-48}
 <!-- ContextMenu.vue -->
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from "vue";
@@ -3327,6 +3288,7 @@ function closeIfOutside(e) {
 	emit("close");
 }
 
+// Only allow one context menu to be opened at a time
 const closeIfContextMenu = () => {
 	if (!props.isOpen) return;
 	emit("close");
@@ -3396,7 +3358,58 @@ defineExpose({
 </template>
 ```
 
-Finally, we need to make sure to pass the `file.id` to `<File :id="file.id"/>` component:
+Use this new component in the `File` component:
+
+```vue
+<!-- File.vue -->
+<script setup>
+import { ref } from "vue";
+import ContextMenu from "./ContextMenu.vue";
+
+const props = defineProps(["name", "id"]);
+
+const mouseBounds = ref({
+	x: 0,
+	y: 0,
+});
+const isOpen = ref(false);
+
+const setIsOpen = (v) => (isOpen.value = v);
+
+const contextMenu = ref();
+
+function onContextMenu(e) {
+	e.preventDefault();
+	isOpen.value = true;
+	mouseBounds.value = {
+		x: e.clientX,
+		y: e.clientY,
+	};
+	setTimeout(() => {
+		contextMenu.value.focusMenu();
+	}, 0);
+}
+</script>
+
+<template>
+	<button
+		@contextmenu="onContextMenu($event)"
+		style="display: block; width: 100%; margin-bottom: 1rem"
+	>
+		{{ props.name }}
+	</button>
+	<ContextMenu
+		:data="props.id"
+		ref="contextMenu"
+		:isOpen="isOpen"
+		@close="setIsOpen(false)"
+		:x="mouseBounds.x"
+		:y="mouseBounds.y"
+	/>
+</template>
+```
+
+Lastly, we need to make sure to pass the `file.id` to `<File :id="file.id"/>` component:
 
 ```vue
 <!-- FileList.vue -->
