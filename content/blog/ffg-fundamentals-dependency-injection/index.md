@@ -1845,13 +1845,119 @@ function GreatGrandChild() {
 }
 ```
 
+<iframe data-frame-title="React Data Consistency - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-data-consistency-91?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
-// TODO:
+```typescript
+@Injectable()
+class UserValue {
+	name = "";
+}
+
+@Component({
+	selector: "great-grand-child",
+	standalone: true,
+	imports: [],
+	template: ` <p>Name: {{ user.name }}</p> `,
+})
+class GreatGrandChildComponent {
+	// Nothing will display, because we switched the user
+	// type halfway through the component tree
+	user = inject(UserValue);
+}
+
+@Component({
+	selector: "grand-child",
+	standalone: true,
+	providers: [
+		{
+			provide: UserValue,
+			useValue: { firstName: "Corbin", lastName: "Crutchley" },
+		},
+	],
+	imports: [GreatGrandChildComponent],
+	template: `<great-grand-child />`,
+})
+class GrandChildComponent {}
+
+@Component({
+	selector: "child-comp",
+	standalone: true,
+	imports: [GrandChildComponent],
+	template: `<grand-child />`,
+})
+class ChildComponent {}
+
+@Component({
+	selector: "app-root",
+	standalone: true,
+	providers: [{ provide: UserValue, useValue: { name: "Corbin Crutchley" } }],
+	imports: [ChildComponent],
+	template: `<child-comp />`,
+})
+class AppComponent {}
+```
+
+<iframe data-frame-title="Angular Data Consistency - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-data-consistency-91?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
-// TODO:
+```vue
+<!-- App.vue -->
+<script setup>
+import { provide } from "vue";
+import Child from "./Child.vue";
+
+provide("USER", { name: "Corbin" });
+</script>
+
+<template>
+	<Child />
+</template>
+```
+
+```vue
+<!-- Child.vue -->
+<script setup>
+import GrandChild from "./GrandChild.vue";
+</script>
+
+<template>
+	<GrandChild />
+</template>
+```
+
+```vue
+<!-- GrandChild.vue -->
+<script setup>
+import { provide } from "vue";
+import GreatGrandChild from "./GreatGrandChild.vue";
+
+provide("USER", { firstName: "Corbin", lastName: "Crutchley" });
+</script>
+
+<template>
+	<GreatGrandChild />
+</template>
+```
+
+```vue
+<!-- GreatGrandChild.vue -->
+<script setup>
+import { inject } from "vue";
+
+// Nothing will display, because we switched the user
+// type halfway through the component tree
+const user = inject("USER");
+</script>
+
+<template>
+	<p>Name: {{ user.name }}</p>
+</template>
+```
+
+<iframe data-frame-title="Vue Data Consistency - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-data-consistency-91?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
