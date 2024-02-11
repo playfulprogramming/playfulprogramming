@@ -6,7 +6,7 @@ import { FileComponent } from "./file.component";
 
 @Injectable()
 class FileListActions {
-	actions = [] as InstanceType<typeof ActionTypes>["actions"];
+	actions = [] as any[];
 }
 
 function injectAndAssignActions(actions: any[]) {
