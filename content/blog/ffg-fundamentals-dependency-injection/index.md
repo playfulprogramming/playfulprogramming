@@ -3924,6 +3924,121 @@ export class FileListComponent {
 
 // TODO: ...
 
+```vue
+<!-- Sidebar.vue -->
+<script setup>
+// ...
+
+const directories = [
+	{
+		name: "Movies",
+		id: 1,
+	},
+	{
+		name: "Documents",
+		id: 2,
+	},
+	{
+		name: "Etc",
+		id: 3,
+	},
+];
+
+const getDirectoryById = (id) => {
+	return directories.find((dir) => dir.id === id);
+};
+
+const onCopy = (id) => {
+	const dir = getDirectoryById(id);
+	// Some browsers still do not support this
+	if (navigator?.clipboard?.writeText) {
+		navigator.clipboard.writeText(dir.name);
+		alert("Name is copied");
+	} else {
+		alert("Unable to copy directory name due to browser incompatibility");
+	}
+};
+
+provide("ContextMenu", {
+	actions: [
+		{
+			label: "Copy directory name",
+			fn: onCopy,
+		},
+	],
+});
+</script>
+
+<template>
+	<!-- ... -->
+</template>
+```
+
+No changes needed to the other components!
+
+With this, we can even change our FileList to be interactive:
+
+```vue
+<!-- FileList.vue -->
+<script setup>
+// ...
+
+const files = ref([
+	{
+		name: "Testing.wav",
+		id: 1,
+	},
+	{
+		name: "Secrets.txt",
+		id: 2,
+	},
+	{
+		name: "Other.md",
+		id: 3,
+	},
+]);
+
+const getFileIndexById = (id) => {
+	return files.value.findIndex((file) => file.id === id);
+};
+
+const onRename = (id) => {
+	const fileIndex = getFileIndexById(id);
+	const file = files.value[fileIndex];
+	const newName = prompt(
+		`What do you want to rename the file ${file.name} to?`,
+	);
+	if (!newName) return;
+	files.value[fileIndex] = {
+		...file,
+		name: newName,
+	};
+};
+
+const onDelete = (id) => {
+	const fileIndex = getFileIndexById(id);
+	files.value.splice(fileIndex, 1);
+};
+
+provide("ContextMenu", {
+	actions: [
+		{
+			label: "Rename",
+			fn: onRename,
+		},
+		{
+			label: "Delete",
+			fn: onDelete,
+		},
+	],
+});
+</script>
+
+<template>
+	<!-- ... -->
+</template>
+```
+
 <details>
 
 <summary>Final code output</summary>
