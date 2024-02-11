@@ -748,6 +748,8 @@ function App() {
 }
 ```
 
+<iframe data-frame-title="React Local Portals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-local-portals-95?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 You'll notice that we're then displaying the return of `createPortal` - `portal` - within the component. This allows the portal to be activated, which will place the `Hello world!` inside of the `div`.
 
 ## Angular
@@ -903,9 +905,6 @@ If we remember [our dependency injection chapter, React uses a `context` to prov
 We can pair this with our `createPortal` API to keep track of where we want to provide a portal:
 
 ```jsx
-import { useState, createContext, useContext } from "react";
-import { createPortal } from "react-dom";
-
 const PortalContext = createContext();
 
 function ChildComponent() {
@@ -930,6 +929,8 @@ function App() {
 	);
 }
 ```
+
+<iframe data-frame-title="React App-Wide Portals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-app-wide-portals-96?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -1092,9 +1093,6 @@ Using the second argument of `createPortal`, we can pass a reference to the HTML
 We'll then wrap that `querySelector` into a `useMemo` so that we know not to re-fetch that reference again after it is grabbed once.
 
 ```jsx
-import { useMemo } from "react";
-import { createPortal } from "react-dom";
-
 function ChildComponent() {
 	const bodyEl = useMemo(() => {
 		return document.querySelector("body");
@@ -1103,9 +1101,19 @@ function ChildComponent() {
 }
 
 function App() {
-	return <ChildComponent />;
+	return (
+		<>
+			{/* Even though it's rendered first, it shows up last because it's being appended to `<body>` */}
+			<ChildComponent />
+			<div
+				style={{ height: "100px", width: "100px", border: "2px solid black" }}
+			/>
+		</>
+	);
 }
 ```
+
+<iframe data-frame-title="React HTML-Wide Portals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-html-wide-portals-97?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -1272,7 +1280,7 @@ const App = () => {
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="React Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-portals-challenge?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-portals-challenge-98?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 </details>
 
