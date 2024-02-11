@@ -2045,13 +2045,176 @@ function GreatGrandChild() {
 }
 ```
 
+<iframe data-frame-title="React Data Variance - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-data-variance-92?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Angular
 
-// TODO:
+```typescript
+@Injectable({ providedIn: "root" })
+class MessageValue {
+	greeting = "";
+
+	changeGreeting(val: string) {
+		this.greeting = val;
+	}
+}
+
+@Component({
+	selector: "great-grand-child",
+	standalone: true,
+	imports: [],
+	template: `
+		<div>
+			<p>{{ messageValue.greeting }}, user!</p>
+			<label>
+				<div>Set a new greeting</div>
+				<input [value]="messageValue.greeting" (input)="changeVal($event)" />
+			</label>
+		</div>
+	`,
+})
+class GreatGrandChildComponent {
+	// Nothing will display, because we switched the user
+	// type halfway through the component tree
+	messageValue = inject(MessageValue);
+
+	changeVal(e: any) {
+		this.messageValue.changeGreeting(e.target.value);
+	}
+}
+
+@Injectable({ providedIn: "root" })
+class SparklyMessageValue {
+	greeting = "✨ Welcome 💯";
+
+	// New ✨ sparkly ✨ functionality adds some fun! 💯
+	changeGreeting(newVal: string) {
+		if (!newVal.includes("✨")) {
+			newVal += "✨";
+		}
+		if (!newVal.includes("💯")) {
+			newVal += "💯";
+		}
+		this.greeting = newVal;
+	}
+}
+
+@Component({
+	selector: "grand-child",
+	standalone: true,
+	providers: [
+		{
+			provide: MessageValue,
+			// Overwrite the previous injected class with a new implementation
+			useClass: SparklyMessageValue,
+		},
+	],
+	imports: [GreatGrandChildComponent],
+	template: `<great-grand-child />`,
+})
+class GrandChildComponent {}
+
+@Component({
+	selector: "child-comp",
+	standalone: true,
+	imports: [GrandChildComponent],
+	template: `<grand-child />`,
+})
+class ChildComponent {}
+
+@Component({
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	template: `<child-comp />`,
+})
+class AppComponent {}
+```
+
+Here we're using `useClass` in our `provider`s array to replace an `Injectable` class implementation with another one.
+
+<iframe data-frame-title="Angular Data Variance - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-data-variance-92?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
-// TODO:
+```vue
+<!-- App.vue -->
+<script setup>
+import { ref, provide } from "vue";
+import Child from "./Child.vue";
+
+const greeting = ref("");
+
+function changeGreeting(val) {
+	greeting.value = val;
+}
+
+provide("MESSAGE", { greeting, changeGreeting });
+</script>
+
+<template>
+	<Child />
+</template>
+```
+
+```vue
+<!-- Child.vue -->
+<script setup>
+import GrandChild from "./GrandChild.vue";
+</script>
+
+<template>
+	<GrandChild />
+</template>
+```
+
+```vue
+<!-- GrandChild.vue -->
+<script setup>
+import { provide, ref } from "vue";
+import GreatGrandChild from "./GreatGrandChild.vue";
+
+const greeting = ref("✨ Welcome 💯");
+
+// New ✨ sparkly ✨ functionality adds some fun! 💯
+function changeGreeting(newVal) {
+	if (!newVal.includes("✨")) {
+		newVal += "✨";
+	}
+	if (!newVal.includes("💯")) {
+		newVal += "💯";
+	}
+	greeting.value = newVal;
+}
+
+provide("MESSAGE", { greeting, changeGreeting });
+</script>
+
+<template>
+	<GreatGrandChild />
+</template>
+```
+
+```vue
+<!-- GreatGrandChild.vue -->
+<script setup>
+import { inject } from "vue";
+
+const { greeting, changeGreeting } = inject("MESSAGE");
+</script>
+
+<template>
+	<div>
+		<p>{{ greeting }}, user!</p>
+		<label>
+			<div>Set a new greeting</div>
+			<input :value="greeting" @input="changeGreeting($event.target.value)" />
+		</label>
+	</div>
+</template>
+```
+
+<iframe data-frame-title="Vue Data Variance - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-data-variance-92?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
