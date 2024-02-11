@@ -861,6 +861,8 @@ function updateMessage() {
 </template>
 ```
 
+<iframe data-frame-title="Vue Change Val from Child - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-change-val-from-child-85?template=node&embed=1&file=src%2FParent.vue"></iframe>
+
 <!-- tabs:end -->
 
 # Optional Injected Values
@@ -1020,8 +1022,11 @@ console.log(welcomeMessage);
 
 <template>
 	<p v-if="welcomeMessage">{{ welcomeMessage }}</p>
+	<p v-if="!welcomeMessage">There is no welcome message</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Optional Injected Vals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-optional-injected-vals-86?template=node&embed=1&file=src%2FParent.vue"></iframe>
 
 > You may see a warning like this in your `console` if you do this:
 >
@@ -1109,6 +1114,8 @@ console.log(welcomeMessage);
 	<p>{{ welcomeMessage }}</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Default Vals for Optional - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-default-vals-for-optional-87?template=node&embed=1&file=src%2FParent.vue"></iframe>
 
 <!-- tabs:end -->
 
