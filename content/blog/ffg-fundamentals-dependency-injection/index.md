@@ -2314,7 +2314,7 @@ Like so:
 </Layout>
 ```
 
-Where `Sidebar` is injected into the `lightgray` 
+Where `Sidebar` is injected into the `lightgray`
 
 > While we've used a single file for most of our code samples prior, let's break out this code to individual files
 > and utilize `import` and `export` to share the code between these files.
@@ -2530,11 +2530,24 @@ import FileList from "./FileList.vue";
 
 ## 2. Add File and Directory List
 
-// TODO: ...
+Now that we have the scaffolding established for our directory and files lists, let's add in some items to display to the user!
+
+We should have a list that includes:
+
+- A numerical ID
+- The name of the directory or file
+
+Then, we'll display the directory and files using a shared `File` component. This `File` component will need:
+
+- To be displayed in a `for` loop (or equivalent)
+- An input for the item's `name`
+- To display a button for each item's name
 
 <!-- tabs:start -->
 
 ### React
+
+Let's start by building out our `File` component with a button and a `name` input:
 
 ```jsx
 // File.jsx
@@ -2613,6 +2626,8 @@ export const FileList = () => {
 
 ### Angular
 
+Let's start by building out our `File` component with a button and a `name` input:
+
 ```typescript
 // file.component.ts
 import { Component, Input } from "@angular/core";
@@ -2630,6 +2645,8 @@ export class FileComponent {
 	@Input() name!: string;
 }
 ```
+
+Then, we can this component into our `Sidebar` and `FileList` components to display a static list of directories and files:
 
 ```typescript
 // file-list.component.ts
@@ -2706,6 +2723,8 @@ export class SidebarComponent {
 
 ### Vue
 
+Let's start by building out our `File` component with a button and a `name` input:
+
 ```vue
 <!-- File.vue -->
 <script setup>
@@ -2718,6 +2737,8 @@ const props = defineProps(["name"]);
 	</button>
 </template>
 ```
+
+Then, we can this component into our `Sidebar` and `FileList` components to display a static list of directories and files:
 
 ```vue
 <!-- FileList.vue -->
