@@ -3587,6 +3587,74 @@ export class FileListComponent {
 
 // TODO: ...
 
+First, we set up a `provide`r in Vue that adds an array of actions to be passed to our File implementation:
+
+```vue
+<!-- Sidebar.vue -->
+<script setup>
+// ...
+
+provide("ContextMenu", {
+	actions: [
+		{
+			label: "Copy directory name",
+			fn: (data) => alert(`You copied ${data}`),
+		},
+	],
+});
+</script>
+
+<template>
+	<!-- ... -->
+</template>
+```
+
+```vue
+<!-- FileList.vue -->
+<script setup>
+// ...
+
+provide("ContextMenu", {
+	actions: [
+		{
+			label: "Rename",
+			fn: (data) => alert(`You renamed ${data}`),
+		},
+		{
+			label: "Delete",
+			fn: (data) => alert(`You deleted ${data}`),
+		},
+	],
+});
+</script>
+
+<template>
+	<!-- ... -->
+</template>
+```
+
+Then we can use this provided value in our `ContextMenu` component:
+
+```vue
+<!-- ContextMenu.vue -->
+<script setup>
+// ...
+
+const context = inject("ContextMenu");
+
+const actions = computed(() => {
+	if (!context) return [];
+	return context.actions;
+});
+
+// ...
+</script>
+
+<template>
+	<!-- ... -->
+</template>
+```
+
 <!-- tabs:end -->
 
 ## 5. Adding Functionality to Context Menu
