@@ -3409,11 +3409,10 @@ const ContextMenu = forwardRef(({ isOpen, x, y, onClose, data }, ref) => {
 });
 ```
 
-Finally, we need to make sure to setup our `ContextMenuContext` provider in each of our landmarks:
+Finally, we need to make sure to set up our `ContextMenuContext` provider in each of our landmarks:
 
 ```jsx
-import { File } from "./File";
-import { ContextMenuContext } from "./ContextMenuContext";
+// Sidebar.jsx
 
 // ...
 
@@ -3429,22 +3428,14 @@ const Sidebar = () => {
 				],
 			}}
 		>
-			<div style={{ padding: "1rem" }}>
-				<h1 style={{ fontSize: "1.25rem" }}>Directories</h1>
-				{directories.map((directory) => {
-					return (
-						<File key={directory.id} name={directory.name} id={directory.id} />
-					);
-				})}
-			</div>
+			{/* ... */}
 		</ContextMenuContext.Provider>
 	);
 };
 ```
 
 ```jsx
-import { ContextMenuContext } from "./ContextMenuContext";
-import { File } from "./File";
+// FileList.jsx
 
 // ...
 
@@ -3464,12 +3455,7 @@ const FileList = () => {
 				],
 			}}
 		>
-			<div style={{ padding: "1rem" }}>
-				<h1>Files</h1>
-				{files.map((file) => {
-					return <File key={file.id} name={file.name} id={file.id} />;
-				})}
-			</div>
+			{/* ... */}
 		</ContextMenuContext.Provider>
 	);
 };
@@ -3478,6 +3464,124 @@ const FileList = () => {
 ### Angular
 
 // TODO: ...
+
+```typescript
+// context.ts
+import { Injectable } from "@angular/core";
+
+@Injectable()
+export class ActionTypes {
+	actions = [] as Array<{ label: string; fn: (id: number) => void }>;
+}
+```
+
+Then we can use this service in our `ContextMenu` component:
+
+```typescript
+// context-menu.component.ts
+function injectAndGetActions() {
+	const context = inject(ActionTypes);
+	if (!context) return [];
+	return context.actions;
+}
+
+@Component({
+	selector: "context-menu",
+	// ...
+})
+export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
+	// ...
+
+	actions = injectAndGetActions();
+
+	// ...
+}
+```
+
+Finally, we need to make sure to set up our `ActionTypes` provider in each of our landmarks:
+
+```typescript
+// sidebar.component.ts
+
+// ...
+
+@Injectable()
+class SidebarDirectories {
+	actions = [] as any[];
+}
+
+function injectAndAssignActions(actions: any[]) {
+	const sidebarDirectories = inject(ActionTypes);
+	sidebarDirectories.actions = actions;
+	return sidebarDirectories;
+}
+
+@Component({
+	selector: "app-sidebar",
+	standalone: true,
+	imports: [NgFor, FileComponent],
+	providers: [
+		{
+			provide: ActionTypes,
+			useClass: SidebarDirectories,
+		},
+	],
+	template: ` <!-- ... --> `,
+})
+export class SidebarComponent {
+	// ...
+	sidebarDirectories = injectAndAssignActions([
+		{
+			label: "Copy directory name",
+			fn: (data: string) => alert(`You copied ${data}`),
+		},
+	]);
+}
+```
+
+```typescript
+// file-list.component.ts
+
+// ...
+
+@Injectable()
+class FileListActions {
+	actions = [] as any[];
+}
+
+function injectAndAssignActions(actions: any[]) {
+	const sidebarDirectories = inject(ActionTypes);
+	sidebarDirectories.actions = actions;
+	return sidebarDirectories;
+}
+
+@Component({
+	selector: "file-list",
+	standalone: true,
+	imports: [NgFor, FileComponent],
+	providers: [
+		{
+			provide: ActionTypes,
+			useClass: FileListActions,
+		},
+	],
+	template: ` <!-- ... --> `,
+})
+export class FileListComponent {
+	// ...
+
+	fileListActions = injectAndAssignActions([
+		{
+			label: "Rename",
+			fn: (data: string) => alert(`You renamed ${data}`),
+		},
+		{
+			label: "Delete",
+			fn: (data: string) => alert(`You deleted ${data}`),
+		},
+	]);
+}
+```
 
 ### Vue
 
