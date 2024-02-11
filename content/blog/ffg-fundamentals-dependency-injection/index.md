@@ -3141,7 +3141,7 @@ export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 }
 ```
 
-Finally, we need to make sure to pass the `file.id` to `<file-item id={file.id}/>` component:
+Finally, we need to make sure to pass the `file.id` to `<file-item [id]="file.id"/>` component:
 
 ```typescript
 @Component({
@@ -3184,6 +3184,194 @@ export class SidebarComponent {
 ### Vue
 
 // TODO: ...
+
+```vue
+<!-- File.vue -->
+<script setup>
+import { ref } from "vue";
+import ContextMenu from "./ContextMenu.vue";
+
+const props = defineProps(["name", "id"]);
+
+const mouseBounds = ref({
+	x: 0,
+	y: 0,
+});
+const isOpen = ref(false);
+
+const setIsOpen = (v) => (isOpen.value = v);
+
+const contextMenu = ref();
+
+function onContextMenu(e) {
+	e.preventDefault();
+	isOpen.value = true;
+	mouseBounds.value = {
+		x: e.clientX,
+		y: e.clientY,
+	};
+	setTimeout(() => {
+		contextMenu.value.focusMenu();
+	}, 0);
+}
+</script>
+
+<template>
+	<button
+		@contextmenu="onContextMenu($event)"
+		style="display: block; width: 100%; margin-bottom: 1rem"
+	>
+		{{ props.name }}
+	</button>
+	<ContextMenu
+		:data="props.id"
+		ref="contextMenu"
+		:isOpen="isOpen"
+		@close="setIsOpen(false)"
+		:x="mouseBounds.x"
+		:y="mouseBounds.y"
+	/>
+</template>
+```
+
+```vue
+<!-- ContextMenu.vue -->
+<script setup>
+import { ref, onMounted, onUnmounted, watch } from "vue";
+
+const props = defineProps(["isOpen", "x", "y", "data"]);
+
+const emit = defineEmits(["close"]);
+
+const actions = [
+	{
+		label: "Copy",
+		fn: (data) => alert(`Copied ${data}`),
+	},
+	{
+		label: "Delete",
+		fn: (data) => alert(`Deleted ${data}`),
+	},
+];
+
+const contextMenuRef = ref(null);
+
+function closeIfOutside(e) {
+	const contextMenuEl = contextMenuRef.value;
+	if (!contextMenuEl) return;
+	const isClickInside = contextMenuEl.contains(e.target);
+	if (isClickInside) return;
+	emit("close");
+}
+
+const closeIfContextMenu = () => {
+	if (!props.isOpen) return;
+	emit("close");
+};
+
+// This must live in a watch, as `onMounted` will run whether the `isOpen` boolean is set or not
+watch(
+	() => props.isOpen,
+	(_, __, onCleanup) => {
+		// Inside a timeout to make sure the initial context menu does not close the menu
+		setTimeout(() => {
+			document.addEventListener("contextmenu", closeIfContextMenu);
+		}, 0);
+
+		onCleanup(() =>
+			document.removeEventListener("contextmenu", closeIfContextMenu),
+		);
+	},
+);
+
+onMounted(() => {
+	document.addEventListener("click", closeIfOutside);
+});
+
+onUnmounted(() => {
+	document.removeEventListener("click", closeIfOutside);
+});
+
+function focusMenu() {
+	contextMenuRef.value.focus();
+}
+
+defineExpose({
+	focusMenu,
+});
+</script>
+
+<template>
+	<div
+		v-if="props.isOpen"
+		ref="contextMenuRef"
+		tabIndex="0"
+		:style="`
+          position: fixed;
+          top: ${props.y}px;
+          left: ${props.x}px;
+          background: white;
+          border: 1px solid black;
+          border-radius: 16px;
+          padding: 1rem;
+        `"
+	>
+		<button @click="emit('close')">X</button>
+		<ul>
+			<li v-for="action of actions">
+				<button
+					@click="
+						action.fn(data);
+						emit('close', false);
+					"
+				>
+					{{ action.label }}
+				</button>
+			</li>
+		</ul>
+	</div>
+</template>
+```
+
+Finally, we need to make sure to pass the `file.id` to `<File :id="file.id"/>` component:
+
+```vue
+<!-- FileList.vue -->
+<script setup>
+// ...
+</script>
+
+<template>
+	<div style="padding: 1rem">
+		<h1>Files</h1>
+		<File
+			v-for="file of files"
+			:key="file.id"
+			:name="file.name"
+			:id="file.id"
+		/>
+	</div>
+</template>
+```
+
+```vue
+<!-- Sidebar.vue -->
+<script setup>
+// ...
+</script>
+
+<template>
+	<div style="padding: 1rem">
+		<h1 style="font-size: 1.25rem">Directories</h1>
+		<File
+			v-for="directory of directories"
+			:key="directory.id"
+			:name="directory.name"
+			:id="directory.id"
+		/>
+	</div>
+</template>
+```
 
 <!-- tabs:end -->
 
