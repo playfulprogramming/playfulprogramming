@@ -779,9 +779,9 @@ import { PortalModule, DomPortal } from "@angular/cdk/portal";
 	`,
 })
 class AppComponent implements AfterViewInit {
-	@ViewChild("portalContent") portalContent: ElementRef<HTMLElement>;
+	@ViewChild("portalContent") portalContent!: ElementRef<HTMLElement>;
 
-	domPortal: DomPortal<any>;
+	domPortal!: DomPortal<any>;
 
 	ngAfterViewInit() {
 		// This is to avoid an:
@@ -793,6 +793,8 @@ class AppComponent implements AfterViewInit {
 	}
 }
 ```
+
+// TODO: ffg-fundamentals-angular-local-portals-95
 
 You'll notice that we're creating a variable called `domPortal` that we assign an instance of `DomPortal` into. This `DomPortal` instance allows us to take a captured reference to some HTML (in this case, a `div` with `Hello world!`), and project it elsewhere.
 
@@ -835,10 +837,10 @@ import { PortalModule, TemplatePortal } from "@angular/cdk/portal";
 	`,
 })
 class AppComponent implements AfterViewInit {
-	@ViewChild("portalContent") portalContent: TemplateRef<unknown>;
+	@ViewChild("portalContent") portalContent!: TemplateRef<unknown>;
 
 	viewContainerRef = inject(ViewContainerRef);
-	domPortal: TemplatePortal<any>;
+	domPortal!: TemplatePortal<any>;
 
 	ngAfterViewInit() {
 		// This is to avoid an:
@@ -853,6 +855,8 @@ class AppComponent implements AfterViewInit {
 	}
 }
 ```
+
+// TODO: ffg-fundamentals-angular-local-ng-template-95
 
 ## Vue
 
@@ -949,13 +953,13 @@ class PortalService {
 @Component({
 	selector: "modal-comp",
 	standalone: true,
-	template: ` <ng-template #portalContent>Test</ng-template> `,
+	template: ` <ng-template #portalContent>Hello, world!</ng-template> `,
 })
-class ModalComponent implements OnDestroy {
-	@ViewChild("portalContent") portalContent: TemplateRef<unknown>;
+class ModalComponent {
+	@ViewChild("portalContent") portalContent!: TemplateRef<unknown>;
 
 	viewContainerRef = inject(ViewContainerRef);
-	domPortal: TemplatePortal<any>;
+	domPortal!: TemplatePortal<any>;
 
 	portalService = inject(PortalService);
 
@@ -969,10 +973,6 @@ class ModalComponent implements OnDestroy {
 				this.viewContainerRef,
 			);
 		});
-	}
-
-	ngOnDestroy() {
-		this.portalService = null;
 	}
 }
 
@@ -998,6 +998,8 @@ class AppComponent {
 We then `inject` that value to provide data into it and read from it in any related components.
 
 We're also making sure that our portal exists before rending it in our `AppComponent` using `*ngIf="portalService.portal"`.
+
+// TODO: ffg-fundamentals-angular-app-wide-portals-96
 
 ## Vue
 
@@ -1128,7 +1130,7 @@ import { TemplatePortal, DomPortalOutlet } from "@angular/cdk/portal";
 	providedIn: "root",
 })
 class PortalService {
-	outlet = new DomPortalOutlet(document.querySelector("body"));
+	outlet = new DomPortalOutlet(document.querySelector("body")!);
 }
 
 @Component({
@@ -1137,10 +1139,10 @@ class PortalService {
 	template: ` <ng-template #portalContent>Test</ng-template> `,
 })
 class ModalComponent implements OnDestroy {
-	@ViewChild("portalContent") portalContent: TemplateRef<unknown>;
+	@ViewChild("portalContent") portalContent!: TemplateRef<unknown>;
 
 	viewContainerRef = inject(ViewContainerRef);
-	domPortal: TemplatePortal<any>;
+	domPortal!: TemplatePortal<any>;
 
 	portalService = inject(PortalService);
 
@@ -1164,10 +1166,16 @@ class ModalComponent implements OnDestroy {
 	selector: "app-root",
 	standalone: true,
 	imports: [ModalComponent],
-	template: ` <modal-comp /> `,
+	template: `
+		<!-- Even though it's rendered first, it shows up last because it's being appended to <body> -->
+		<modal-comp />
+		<div style="height: 100px; width: 100px; border: 2px solid black;"></div>
+	`,
 })
 class AppComponent {}
 ```
+
+// TODO: ffg-fundamentals-angular-html-wide-portals-97
 
 ## Vue
 
@@ -1379,7 +1387,7 @@ class AppComponent {}
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Angular Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-portals-challenge?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-portals-challenge-98?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 </details>
 
