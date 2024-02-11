@@ -794,7 +794,7 @@ class AppComponent implements AfterViewInit {
 }
 ```
 
-// TODO: ffg-fundamentals-angular-local-portals-95
+<iframe data-frame-title="Angular Local Portals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-local-portals-95?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 You'll notice that we're creating a variable called `domPortal` that we assign an instance of `DomPortal` into. This `DomPortal` instance allows us to take a captured reference to some HTML (in this case, a `div` with `Hello world!`), and project it elsewhere.
 
@@ -856,7 +856,7 @@ class AppComponent implements AfterViewInit {
 }
 ```
 
-// TODO: ffg-fundamentals-angular-local-ng-template-95
+<iframe data-frame-title="Angular Local ngTemplate - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-local-ng-template-95?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -881,6 +881,8 @@ const portalContainerEl = ref(null);
 ```
 
 > We need the `v-if` in this code to ensure that `portalContainerEl` has already been rendered and is ready to project content.
+
+<iframe data-frame-title="Vue Local Portals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-local-portals-95?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -999,7 +1001,7 @@ We then `inject` that value to provide data into it and read from it in any rela
 
 We're also making sure that our portal exists before rending it in our `AppComponent` using `*ngIf="portalService.portal"`.
 
-// TODO: ffg-fundamentals-angular-app-wide-portals-96
+<iframe data-frame-title="Angular App-Wide Portals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-app-wide-portals-96?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -1037,6 +1039,8 @@ const portalContainerEl = inject("portalContainerEl");
 	</div>
 </template>
 ```
+
+<iframe data-frame-title="Vue App-Wide Portals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-app-wide-portals-96?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1175,7 +1179,7 @@ class ModalComponent implements OnDestroy {
 class AppComponent {}
 ```
 
-// TODO: ffg-fundamentals-angular-html-wide-portals-97
+<iframe data-frame-title="Angular HTML-Wide Portals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-html-wide-portals-97?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -1199,9 +1203,13 @@ import Child from "./Child.vue";
 </script>
 
 <template>
+	<!-- Even though it's rendered first, it shows up last because it's being appended to <body> -->
 	<Child />
+	<div style="height: 100px; width: 100px; border: 2px solid black"></div>
 </template>
 ```
+
+<iframe data-frame-title="Vue HTML-Wide Portals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-html-wide-portals-97?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1470,7 +1478,7 @@ const props = defineProps(["text"]);
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Vue Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-portals-challenge?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-portals-challenge-98?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 </details>
 
