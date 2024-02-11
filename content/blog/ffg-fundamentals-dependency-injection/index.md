@@ -2270,12 +2270,54 @@ Strap in - this is going to be a long challenge. By the end of it we'll have a f
 
 ## 1. Creating an Initial App Layout
 
-// TODO: ...
+To start, we'll need a layout component that includes a basic sidebar and main contents.
 
 ![// TODO: Alt](./directory_files_list.png)
 
-While we've used a single file for most of our code samples prior, let's break out this code to individual files
-and utilize `import` and `export` to share the code between these files.
+That might look something like this in HTML:
+
+```html
+<div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
+	<div
+		style="
+        width: 150px;
+        background-color: lightgray;
+        border-right: 1px solid gray;
+      "
+	>
+		<div style="padding: 1rem">
+			<h1 style="font-size: 1.25rem">Directories</h1>
+		</div>
+	</div>
+	<div style="width: 1px; flex-grow: 1">
+		<div style="padding: 1rem">
+			<h1>Files</h1>
+		</div>
+	</div>
+</div>
+```
+
+This is readable in HTML at the small-scale, but as we grow this markup (and logic) is going to rapidly grow in complexity.
+
+Let's break this out into three different components:
+
+- `Layout`
+- `Sidebar`
+- `FileList`
+
+Like so:
+
+```html
+<Layout>
+	<Sidebar />
+	<FileList />
+</Layout>
+```
+
+Where `Sidebar` is injected into the `lightgray` 
+
+> While we've used a single file for most of our code samples prior, let's break out this code to individual files
+> and utilize `import` and `export` to share the code between these files.
 
 <!-- tabs:start -->
 
@@ -2305,7 +2347,7 @@ export const Layout = ({ sidebar, children }) => {
 				style={{
 					width: 150,
 					backgroundColor: "lightgray",
-					borderRight: "1px solid grey",
+					borderRight: "1px solid gray",
 				}}
 			>
 				{sidebar}
@@ -2374,7 +2416,7 @@ import { Component } from "@angular/core";
 				style="
               width: 150px;
               background-color: lightgray;
-              border-right: 1px solid grey;
+              border-right: 1px solid gray;
             "
 			>
 				<ng-content select="sidebar" />
@@ -2450,7 +2492,7 @@ import FileList from "./FileList.vue";
 			style="
         width: 150px;
         background-color: lightgray;
-        border-right: 1px solid grey;
+        border-right: 1px solid gray;
       "
 		>
 			<slot name="sidebar" />
