@@ -78,20 +78,25 @@ const App = () => {
 
 <iframe data-frame-title="React Shared Data Storage - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-shared-data-storage-100?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-<!-- Editor's note: We should probably move these much earlier in the book -->
+### Rules of Custom Hooks {#custom-hook-rules}
 
-### Rules of Custom Hooks
+[In our "Intro to Components" chapter, we covered the rules of React's built-in hooks](/posts/ffg-fundamentals-intro-to-components#Rules-of-React-Hooks).
 
-While creating a custom hook like `useWindowSize` is undoubtably useful, there are some limitations around all custom hooks.
+We mentioned that there are a few rules for any hooks:
 
-Namely, any custom hook hook must:
+- Be called from a component\* (no normal functions)
+- Not be called conditionally inside of a component (no `if` statements)
+- Not be called inside of a loop (no `for` or `while` loops)
 
-- Have a variable name that starts with `use`
-- Be called from within another hook or component (no normal function)
-- Not be called conditionally inside of a component
-- Not be called inside of a loop
+While these rules are mostly true, **let's expand the first point to include "other hooks"** as a place you're allowed to call a hook from.
 
-This means that **the following custom hooks are not allowed**:
+Now that we've corrected that, it's a good time to mention that **custom hooks also follow these rules**.
+
+There's one additional rule that custom hooks must follow, and that's:
+
+- Your custom Hook's name must start with `use`.
+
+To recap, this means that **the following custom hooks are not allowed**:
 
 ```jsx
 // ❌ Not allowed, the function name must start with `use`

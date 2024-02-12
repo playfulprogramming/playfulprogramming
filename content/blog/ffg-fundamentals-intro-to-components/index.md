@@ -669,8 +669,6 @@ We'll start by adding a variable that contains the current date in a human-reada
 ## React
 
 ```jsx
-import { useState } from "react";
-
 const FileDate = () => {
 	const dateStr = `${
 		new Date().getMonth() + 1
@@ -1076,13 +1074,49 @@ const dateStr = dateArr[0];
 const setDateStr = dateArr[1];
 ```
 
-> `useState` is what's known as a ["React Hook"](https://reactjs.org/docs/hooks-intro.html). Hooks are React's method of "hooking" functionality into React's framework code. They allow you to do a myriad of functionalities in React components.
->
-> Hooks can be identified as a function that starts with the word "`use`". Some other Hooks we'll touch on in the future will include [`useEffect`](#lifecycles), [`useMemo`](/posts/ffg-fundamentals-derived-values), and others.
-
 Here, we're using `setDateStr` to tell React that it should re-render, which will update the value of `dateStr`. This differs from Angular and Vue, where you don't have to explicitly tell the framework when to re-render.
 
-> There are benefits and downsides to this method, which we'll touch on in a future section.
+#### Rules of React Hooks
+
+`useState` and `useEffect` are both what are known as a ["React Hooks"](https://reactjs.org/docs/hooks-intro.html). Hooks are React's method of "hooking" functionality into React's framework code. They allow you to do a myriad of functionalities in React components.
+
+Hooks can be identified as a function that starts with the word "`use`". Some other Hooks we'll touch on in the future will include [`useMemo`](/posts/ffg-fundamentals-derived-values), [`useReducer`](/posts/ffg-fundamentals-dependency-injection#reducer-pattern), and others.
+
+Something to keep in mind when thinking about Hooks is that they have limitations placed on them by React itself. Namely, React Hooks must:
+
+- Be called from a component\* (no normal functions)
+- Not be called conditionally inside of a component (no `if` statements)
+- Not be called inside of a loop (no `for` or `while` loops)
+
+```jsx
+// ❌ Not allowed, component names must start with a capital letter, otherwise it's seen as a normal function
+const windowSize = () => {
+	const [dateStr, setDateStr] = useState(formatDate(new Date()));
+
+	// ...
+};
+```
+
+```jsx
+// ❌ Not allowed, you must use a hook _inside_ a component
+const [dateStr, setDateStr] = useState(formatDate(new Date()));
+
+const Component = () => {
+	return <p>The date is: {dateStr}</p>;
+};
+```
+
+```jsx
+// ❌ Not allowed, you cannot `return` before using a hook
+const WindowSize = () => {
+	if (bool) return "Today";
+	const [dateStr, setDateStr] = useState(formatDate(new Date()));
+
+	// ...
+};
+```
+
+We'll [learn more about the nuances surrounding Hooks](/posts/ffg-fundamentals-shared-component-logic#custom-hook-rules) in the future, but for now, just remember that they're the way you interface with React's APIs.
 
 ### Angular
 

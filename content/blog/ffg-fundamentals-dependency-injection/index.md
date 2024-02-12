@@ -585,7 +585,7 @@ function Child() {
 
 <iframe data-frame-title="React Change Val From Child - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-change-val-from-child-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-#### Using a Reducer Pattern
+#### Using a Reducer Pattern {#reducer-pattern}
 
 Despite `useState` and `useContext` making a powerful combination for data passing and updating in dependency injection, it's far from a perfect solution when dealing with large data sets.
 
