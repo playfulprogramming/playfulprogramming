@@ -1219,90 +1219,156 @@ Now when you test the issue again, you find your modal is above the UnicornChat 
 
 # Challenge
 
-// TODO: Write
+If we look back to [our Element Reference chapter's code challenge](/posts/ffg-fundamentals-element-reference#Challenge) you might remember that we were tasked with creating a tooltip component:
 
-Tooltip
+![// TODO: Add alt](../ffg-fundamentals-element-reference/tooltip.png)
+
+The code we wrote previously for this challenge worked well, but it had a major flaw; it would not show up above other elements in the stacking context with a higher `z-index`.
+
+![// TODO: Add alt](./tooltip_underneith.png)
 
 <!-- tabs:start -->
 
 ### React
 
-```jsx
-const Tooltip = ({ text, children }) => {
-	const [isVisible, setIsVisible] = useState(false);
-	const targetRef = useRef();
-	const tooltipRef = useRef();
+<iframe data-frame-title="React Portals Pre-Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-portals-pre-challenge-98?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-	const showTooltip = () => {
-		setIsVisible(true);
+### Angular
+
+<iframe data-frame-title="Angular Portals Pre-Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-portals-pre-challenge-98?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+### Vue
+
+<iframe data-frame-title="Vue Portals Pre-Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-portals-pre-challenge-98?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+<!-- tabs:end -->
+
+To fix this, we'll need to wrap our tooltip in a portal and render it at the end of the `body` tag:
+
+<!-- tabs:start -->
+
+### React
+
+```jsx {56,93-94}
+function App() {
+	const buttonRef = useRef();
+
+	const mouseOverTimeout = useRef();
+
+	const [tooltipMeta, setTooltipMeta] = useState({
+		x: 0,
+		y: 0,
+		height: 0,
+		width: 0,
+		show: false,
+	});
+
+	const onMouseOver = () => {
+		mouseOverTimeout.current = setTimeout(() => {
+			const bounding = buttonRef.current.getBoundingClientRect();
+			setTooltipMeta({
+				x: bounding.x,
+				y: bounding.y,
+				height: bounding.height,
+				width: bounding.width,
+				show: true,
+			});
+		}, 1000);
 	};
 
-	const hideTooltip = () => {
-		setIsVisible(false);
+	const onMouseLeave = () => {
+		setTooltipMeta({
+			x: 0,
+			y: 0,
+			height: 0,
+			width: 0,
+			show: false,
+		});
+		clearTimeout(mouseOverTimeout.current);
 	};
 
 	useEffect(() => {
-		if (!isVisible || !tooltipRef.current || !targetRef.current) return;
-		const targetRect = targetRef.current.getBoundingClientRect();
-
-		tooltipRef.current.style.left = `${targetRect.left}px`;
-		tooltipRef.current.style.top = `${targetRect.bottom}px`;
-	}, [isVisible]);
+		return () => {
+			clearTimeout(mouseOverTimeout.current);
+		};
+	}, []);
 
 	return (
 		<div>
 			<div
-				ref={targetRef}
-				onMouseEnter={showTooltip}
-				onMouseLeave={hideTooltip}
-			>
-				{children}
-			</div>
-			{isVisible &&
-				createPortal(
-					<div ref={tooltipRef} className="tooltip">
-						{text}
-					</div>,
-					document.body,
-				)}
-		</div>
-	);
-};
-
-const App = () => {
-	return (
-		<div>
-			<Tooltip text="This is a tooltip">
-				<button>Hover me</button>
-			</Tooltip>
-			<style
-				children={`
-           .tooltip {
-            position: absolute;
-            background-color: #333;
-            color: #fff;
-            padding: 8px;
-            border-radius: 4px;
-            z-index: 1000;
-          }
-      `}
+				style={{
+					height: 100,
+					width: "100%",
+					background: "lightgrey",
+					position: "relative",
+					zIndex: 2,
+				}}
 			/>
+			<div style={{ paddingLeft: "10rem", paddingTop: "2rem" }}>
+				{tooltipMeta.show &&
+					createPortal(
+						<div
+							style={{
+								zIndex: 9,
+								display: "flex",
+								overflow: "visible",
+								justifyContent: "center",
+								width: `${tooltipMeta.width}px`,
+								position: "fixed",
+								top: `${tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8}px`,
+								left: `${tooltipMeta.x}px`,
+							}}
+						>
+							<div
+								style={{
+									whiteSpace: "nowrap",
+									padding: "8px",
+									background: "#40627b",
+									color: "white",
+									borderRadius: "16px",
+								}}
+							>
+								This will send an email to the recipients
+							</div>
+							<div
+								style={{
+									height: "12px",
+									width: "12px",
+									transform: "rotate(45deg) translateX(-50%)",
+									background: "#40627b",
+									bottom: "calc(-6px - 4px)",
+									position: "absolute",
+									left: "50%",
+									zIndex: -1,
+								}}
+							/>
+						</div>,
+						document.body,
+					)}
+				<button
+					onMouseOver={onMouseOver}
+					onMouseLeave={onMouseLeave}
+					ref={buttonRef}
+				>
+					Send
+				</button>
+			</div>
 		</div>
 	);
-};
+}
 ```
 
 <details>
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="React Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-portals-challenge-98?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-portals-challenge-99?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 </details>
 
 ### Angular
 
-```typescript
+```typescript {0-5,24,69,84,86-87,107-109,120-122}
 @Injectable({
 	providedIn: "root",
 })
@@ -1311,166 +1377,250 @@ class PortalService {
 }
 
 @Component({
-	selector: "app-tooltip",
+	selector: "app-root",
 	standalone: true,
+	imports: [NgIf],
 	template: `
-		<div>
-			<div #targetRef (mouseenter)="showTooltip()" (mouseleave)="hideTooltip()">
-				<ng-content></ng-content>
-			</div>
+		<div
+			style="
+				height: 100px;
+				width: 100%;
+				background: lightgrey;
+				position: relative;
+				z-index: 2;
+			"
+		></div>
+		<div
+			style="z-index: 1; position: relative; padding-left: 10rem; padding-top: 2rem"
+		>
 			<ng-template #portalContent>
 				<div
-					class="tooltip"
-					:style="'left: ' + left + 'px; top: ' + top + 'px'"
+					[style]="
+						'
+				z-index: 9;
+        display: flex;
+        overflow: visible;
+        justify-content: center;
+        width: ' +
+						tooltipMeta.width +
+						'px;
+        position: fixed;
+        top: ' +
+						(tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8) +
+						'px;
+        left: ' +
+						tooltipMeta.x +
+						'px;
+      '
+					"
 				>
-					{{ text }}
+					<div
+						style="
+          white-space: nowrap;
+          padding: 8px;
+          background: #40627b;
+          color: white;
+          border-radius: 16px;
+        "
+					>
+						This will send an email to the recipients
+					</div>
+					<div
+						style="
+          height: 12px;
+          width: 12px;
+          transform: rotate(45deg) translateX(-50%);
+          background: #40627b;
+          bottom: calc(-6px - 4px);
+          position: absolute;
+          left: 50%;
+          zIndex: -1;
+        "
+					></div>
 				</div>
 			</ng-template>
+
+			<button
+				#buttonRef
+				(mouseover)="onMouseOver()"
+				(mouseleave)="onMouseLeave()"
+			>
+				Send
+			</button>
 		</div>
 	`,
 })
-class TooltipComponent implements OnDestroy {
-	@ViewChild("targetRef") targetRef!: ElementRef<HTMLElement>;
+class AppComponent implements OnDestroy {
+	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
+
 	@ViewChild("portalContent") portalContent!: TemplateRef<unknown>;
+
 	viewContainerRef = inject(ViewContainerRef);
 	portalService = inject(PortalService);
 
-	left = 0;
-	top = 0;
+	tooltipMeta = {
+		x: 0,
+		y: 0,
+		height: 0,
+		width: 0,
+	};
 
-	@Input() text = "";
+	mouseOverTimeout: any = null;
 
-	showTooltip() {
-		const { left, bottom } =
-			this.targetRef.nativeElement.getBoundingClientRect();
-		this.left = left;
-		this.top = bottom;
-		setTimeout(() => {
+	onMouseOver() {
+		this.mouseOverTimeout = setTimeout(() => {
+			const bounding = this.buttonRef.nativeElement.getBoundingClientRect();
+			this.tooltipMeta = {
+				x: bounding.x,
+				y: bounding.y,
+				height: bounding.height,
+				width: bounding.width,
+			};
 			this.portalService.outlet.attach(
 				new TemplatePortal(this.portalContent, this.viewContainerRef),
 			);
-		});
+		}, 1000);
 	}
 
-	hideTooltip() {
+	onMouseLeave() {
+		this.tooltipMeta = {
+			x: 0,
+			y: 0,
+			height: 0,
+			width: 0,
+		};
 		if (this.portalService.outlet.hasAttached()) {
 			this.portalService.outlet.detach();
 		}
+		clearTimeout(this.mouseOverTimeout);
 	}
 
 	ngOnDestroy() {
-		this.hideTooltip();
+		clearTimeout(this.mouseOverTimeout);
 	}
 }
-
-@Component({
-	selector: "app-root",
-	standalone: true,
-	imports: [TooltipComponent],
-	template: `
-		<div>
-			<app-tooltip text="This is a tooltip">
-				<button>Hover me</button>
-			</app-tooltip>
-		</div>
-	`,
-	encapsulation: ViewEncapsulation.None,
-	styles: [
-		`
-			.tooltip {
-				position: absolute;
-				background-color: #333;
-				color: #fff;
-				padding: 8px;
-				border-radius: 4px;
-				z-index: 1000;
-			}
-		`,
-	],
-})
-class AppComponent {}
 ```
 
 <details>
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Angular Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-portals-challenge-98?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-portals-challenge-99?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 </details>
 
 ### Vue
 
-```vue
+```vue {63,100}
 <!-- App.vue -->
 <script setup>
-import Tooltip from "./Tooltip.vue";
-</script>
+import { ref, onUnmounted } from "vue";
 
-<template>
-	<div>
-		<Tooltip text="This is a tooltip">
-			<button>Hover me</button>
-		</Tooltip>
-	</div>
-</template>
+const buttonRef = ref();
 
-<style>
-.tooltip {
-	position: absolute;
-	background-color: #333;
-	color: #fff;
-	padding: 8px;
-	border-radius: 4px;
-	z-index: 1000;
-}
-</style>
-```
+const mouseOverTimeout = ref(null);
 
-```vue
-<!-- Tooltip.vue -->
-<script setup>
-import { ref, watch } from "vue";
-const isVisible = ref(false);
-
-const showTooltip = () => {
-	isVisible.value = true;
-};
-
-const hideTooltip = () => {
-	isVisible.value = false;
-};
-
-const targetRef = ref(null);
-const tooltipRef = ref(null);
-
-watch(isVisible, (value) => {
-	if (!value || !tooltipRef.value || !targetRef.value) return;
-	const targetRect = targetRef.value.getBoundingClientRect();
-
-	if (!tooltipRef.value) return;
-	tooltipRef.value.style.left = `${targetRect.left}px`;
-	tooltipRef.value.style.top = `${targetRect.bottom}px`;
+const tooltipMeta = ref({
+	x: 0,
+	y: 0,
+	height: 0,
+	width: 0,
+	show: false,
 });
 
-const props = defineProps(["text"]);
+const onMouseOver = () => {
+	mouseOverTimeout.value = setTimeout(() => {
+		const bounding = buttonRef.value.getBoundingClientRect();
+		tooltipMeta.value = {
+			x: bounding.x,
+			y: bounding.y,
+			height: bounding.height,
+			width: bounding.width,
+			show: true,
+		};
+	}, 1000);
+};
+
+const onMouseLeave = () => {
+	tooltipMeta.value = {
+		x: 0,
+		y: 0,
+		height: 0,
+		width: 0,
+		show: false,
+	};
+	clearTimeout(mouseOverTimeout.current);
+};
+
+onUnmounted(() => {
+	clearTimeout(mouseOverTimeout.current);
+});
 </script>
 
 <template>
-	<div>
-		<div
-			ref="targetRef"
-			@mouseenter="showTooltip()"
-			@mouseleave="hideTooltip()"
+	<div
+		style="
+			height: 100px;
+			width: 100%;
+			background: lightgrey;
+			position: relative;
+			z-index: 2;
+		"
+	></div>
+	<div
+		style="
+			z-index: 1;
+			position: relative;
+			padding-left: 10rem;
+			padding-top: 2rem;
+		"
+	>
+		<Teleport to="body" v-if="tooltipMeta.show">
+			<div
+				:style="`
+				z-index: 9;
+        display: flex;
+        overflow: visible;
+        justify-content: center;
+        width: ${tooltipMeta.width}px;
+        position: fixed;
+        top: ${tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8}px;
+        left: ${tooltipMeta.x}px;
+      `"
+			>
+				<div
+					:style="`
+          white-space: nowrap;
+          padding: 8px;
+          background: #40627b;
+          color: white;
+          border-radius: 16px;
+        `"
+				>
+					This will send an email to the recipients
+				</div>
+				<div
+					:style="`
+          height: 12px;
+          width: 12px;
+          transform: rotate(45deg) translateX(-50%);
+          background: #40627b;
+          bottom: calc(-6px - 4px);
+          position: absolute;
+          left: 50%;
+          zIndex: -1;
+        `"
+				></div>
+			</div>
+		</Teleport>
+		<button
+			ref="buttonRef"
+			@mouseover="onMouseOver()"
+			@mouseleave="onMouseLeave()"
 		>
-			<slot></slot>
-		</div>
+			Send
+		</button>
 	</div>
-	<Teleport to="body" v-if="isVisible">
-		<div ref="tooltipRef" class="tooltip">
-			{{ props.text }}
-		</div>
-	</Teleport>
 </template>
 ```
 
@@ -1478,7 +1628,7 @@ const props = defineProps(["text"]);
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Vue Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-portals-challenge-98?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Portals Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-portals-challenge-99?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 </details>
 
