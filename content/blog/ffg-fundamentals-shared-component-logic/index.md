@@ -76,6 +76,8 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Shared Data Storage - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-shared-data-storage-100?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 <!-- Editor's note: We should probably move these much earlier in the book -->
 
 ### Rules of Custom Hooks
@@ -172,6 +174,8 @@ class AppComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Shared Data Storage - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-shared-data-storage-100?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
 Because Vue's `ref` and `reactive` data reactivity systems work anywhere, we can extract these values to a dedicated function called `useWindowSize`.
@@ -180,7 +184,7 @@ Because Vue's `ref` and `reactive` data reactivity systems work anywhere, we can
 // use-window-size.js
 import { ref } from "vue";
 
-const useWindowSize = () => {
+export const useWindowSize = () => {
 	const height = ref(window.innerHeight);
 	const width = ref(window.innerWidth);
 	return { height, width };
@@ -202,9 +206,11 @@ const { height, width } = useWindowSize();
 </template>
 ```
 
+<iframe data-frame-title="Vue Shared Data Storage - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-shared-data-storage-100?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
 > While React requires you to name your custom hooks "useX", you don't have to do the same with custom compositions. We could have easily called this code `createWindowSize` and have it work just as well.
 >
-> We still use the `use` composition prefix to keep things readible. While this is subjective, it's the naming convention the ecosystem seems to favor for compositions like this.
+> We still use the `use` composition prefix to keep things readable. While this is subjective, it's the naming convention the ecosystem seems to favor for compositions like this.
 
 <!-- tabs:end -->
 
