@@ -219,7 +219,7 @@ const { height, width } = useWindowSize();
 
 <!-- tabs:end -->
 
-# Sharing Lifecycle Methods
+# Sharing Side Effect Handlers
 
 While sharing data between consuming component is helpful in its own right, this is only a fraction of the capabilities these frameworks have for cross-component logic reuse.
 
@@ -279,6 +279,8 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Sharing Side Effect - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-sharing-side-effect-101?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 > Notice that we've changed exactly zero lines of code from our previous example of this component! ✨ Magic ✨
 
 ## Angular
@@ -328,6 +330,8 @@ class AppComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Sharing Side Effect - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-sharing-side-effect-101?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 > This code isn't ideal; the Angular team knows this. This is why they're working on introducing a new method of side effect handling (and data storage) [called "Signals"](https://angular.io/guide/signals). At the time of writing, Signals are still in the experimental phase, but they're worth keeping an eye on.
 
 > While this is the only method we'll be looking at in this book for writing this code, [Lars Gyrup Brink Nielsen showcased how we could improve this code using RxJS in another article on the Unicorn Utterances site.](https://unicorn-utterances.com/posts/angular-extend-class#The-Angular-way-to-fix-the-code)
@@ -340,7 +344,7 @@ Sharing side effect handling within custom compositions is just as straightforwa
 // use-window-size.js
 import { onMounted, onUnmounted, ref } from "vue";
 
-const useWindowSize = () => {
+export const useWindowSize = () => {
 	const height = ref(window.innerHeight);
 	const width = ref(window.innerWidth);
 
@@ -374,13 +378,15 @@ const { height, width } = useWindowSize();
 </template>
 ```
 
+<iframe data-frame-title="Vue Sharing Side Effect - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-sharing-side-effect-101?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
 > We could have also utilized the `watch` or `watchEffect` composition methods, but chose not to for this example.
 
 <!-- tabs:end -->
 
 # Composing Custom Logic
 
-We've covered how shared logic can access data storage and lifecycle methods, now let's talk about the fun stuff: Composability.
+We've covered how shared logic can access data storage and side effect handlers, now let's talk about the fun stuff: Composability.
 
 Not only can you call your custom logic from components, but you can call them from other shared logic fragments.
 
