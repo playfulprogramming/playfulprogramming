@@ -579,8 +579,6 @@ Take code from `component-reference` and refactor to use custom hooks/services/e
 // TODO: This is missing the `resize` listener for the bounds
 
 ```jsx
-import React from "react";
-
 const useOutsideClick = ({ ref, onClose }) => {
 	useEffect(() => {
 		const closeIfOutsideOfContext = (e) => {
@@ -604,6 +602,7 @@ const ContextMenu = forwardRef(({ x, y, onClose }, ref) => {
 
 	return (
 		<div
+			tabIndex={0}
 			ref={divRef}
 			style={{
 				position: "fixed",
@@ -659,7 +658,7 @@ function App() {
 	}, [isOpen]);
 
 	return (
-		<Fragment>
+		<>
 			<div style={{ marginTop: "5rem", marginLeft: "5rem" }}>
 				<div ref={ref} onContextMenu={onContextMenu}>
 					Right click on me!
@@ -673,7 +672,7 @@ function App() {
 					onClose={() => setIsOpen(false)}
 				/>
 			)}
-		</Fragment>
+		</>
 	);
 }
 ```
@@ -741,26 +740,27 @@ class CloseIfOutSideContext implements OnDestroy {
 	`,
 	providers: [CloseIfOutSideContext],
 })
-class ContextMenuComponent implements AfterViewInit {
-	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;
+class ContextMenuComponent implements OnInit {
+	@ViewChild("contextMenu", { static: true })
+	contextMenu!: ElementRef<HTMLElement>;
 
 	@Input() x: number = 0;
 	@Input() y: number = 0;
 	@Output() close = new EventEmitter();
 
-	constructor(private closeIfOutsideContext: CloseIfOutSideContext) {}
+	closeIfOutside = inject(CloseIfOutSideContext);
+
+	ngOnInit() {
+		this.closeIfOutside.setup(this.contextMenu, this.close);
+	}
 
 	focus() {
 		this.contextMenu.nativeElement.focus();
 	}
-
-	ngAfterViewInit() {
-		this.closeIfOutsideContext.setup(this.contextMenu, this.close);
-	}
 }
 
 @Injectable()
-class BoundsContext {
+class BoundsContext implements OnDestroy {
 	bounds = {
 		height: 0,
 		width: 0,
@@ -782,7 +782,7 @@ class BoundsContext {
 		window.addEventListener("resize", this.resizeListener);
 	}
 
-	cleanup() {
+	ngOnDestroy() {
 		window.removeEventListener("resize", this.resizeListener);
 		this.contextOrigin = undefined;
 	}
@@ -806,26 +806,22 @@ class BoundsContext {
 	`,
 	providers: [BoundsContext],
 })
-class AppComponent implements AfterViewInit, OnDestroy {
-	@ViewChild("contextOrigin") contextOrigin!: ElementRef<HTMLElement>;
+class AppComponent implements AfterViewInit {
+	@ViewChild("contextOrigin")
+	contextOrigin!: ElementRef<HTMLElement>;
 	@ViewChildren("contextMenu") contextMenu!: QueryList<ContextMenuComponent>;
 
 	isOpen = false;
 
-	constructor(public boundsContext: BoundsContext) {}
+	boundsContext = inject(BoundsContext);
 
 	ngAfterViewInit() {
 		this.boundsContext.setup(this.contextOrigin);
-
 		this.contextMenu.changes.forEach(() => {
 			const isLoaded = this?.contextMenu?.first;
 			if (!isLoaded) return;
 			this.contextMenu.first.focus();
 		});
-	}
-
-	ngOnDestroy() {
-		this.boundsContext.cleanup();
 	}
 
 	close() {
@@ -841,13 +837,11 @@ class AppComponent implements AfterViewInit, OnDestroy {
 
 ## Vue
 
-// TODO: Write code
-
 ```javascript
 // use-outside-click.js
 import { onMounted, onUnmounted } from "vue";
 
-const useOutsideClick = ({ ref, onClose }) => {
+export const useOutsideClick = ({ ref, onClose }) => {
 	const closeIfOutsideOfContext = (e) => {
 		const isClickInside = ref.value.contains(e.target);
 		if (isClickInside) return;
@@ -912,7 +906,7 @@ Also
 // use-bounds.js
 import { ref, onMounted, onUnmounted } from "vue";
 
-const useBounds = () => {
+export const useBounds = () => {
 	const elRef = ref();
 
 	const bounds = ref({
