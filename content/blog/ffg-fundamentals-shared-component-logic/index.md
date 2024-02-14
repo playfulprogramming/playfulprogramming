@@ -568,15 +568,34 @@ const { isMobile } = useMobileCheck();
 
 # Challenge
 
-Take code from `component-reference` and refactor to use custom hooks/services/etc.
+Let's take everything we've learned about shared-component logic and utilize it to recreate [our `ContextMenu` component from the "Component Reference" chapter](/posts/ffg-fundamentals-component-reference) in smaller pieces.
 
-// TODO: Write
+![// TODO: Add alt](../ffg-fundamentals-element-reference/context-close.png)
+
+Let's break this components into smaller pieces that we'll create composable logic for:
+
+1. A listener for clicks outside of the context menu
+2. A composition that gets the bounds of the context menu's parent element
+
+## Step 1: Create a Outside Click Composition
+
+To listen for clicks outside of the context menu, we can leverage some JavaScript akin to the following:
+
+```javascript
+const closeIfOutsideOfContext = (e) => {
+	const isClickInside = ref.value.contains(e.target);
+	if (isClickInside) return;
+	closeContextMenu();
+};
+
+document.addEventListener("click", closeIfOutsideOfContext);
+```
+
+Let's turn this into a composition that we can use in our `ContextMenu` component.
 
 <!-- tabs:start -->
 
-## React
-
-// TODO: This is missing the `resize` listener for the bounds
+### React
 
 ```jsx
 const useOutsideClick = ({ ref, onClose }) => {
@@ -590,7 +609,11 @@ const useOutsideClick = ({ ref, onClose }) => {
 		return () => document.removeEventListener("click", closeIfOutsideOfContext);
 	}, [onClose]);
 };
+```
 
+Now that we have our `useOutsideClick` hook written we can use it in our `ContextMenu` component:
+
+```jsx
 const ContextMenu = forwardRef(({ x, y, onClose }, ref) => {
 	const divRef = useRef();
 
@@ -619,71 +642,15 @@ const ContextMenu = forwardRef(({ x, y, onClose }, ref) => {
 		</div>
 	);
 });
-
-const useBounds = () => {
-	const [bounds, setBounds] = useState({
-		height: 0,
-		width: 0,
-		x: 0,
-		y: 0,
-	});
-
-	const ref = useCallback((el) => {
-		if (!el) return;
-		const localBounds = el.getBoundingClientRect();
-		setBounds(localBounds);
-	}, []);
-
-	return { ref, bounds };
-};
-
-function App() {
-	const { ref, bounds } = useBounds();
-
-	// An addEventListener is easier to tackle when inside of the conditional render
-	// Add that as an exploration for `useImperativeHandle`
-	const [isOpen, setIsOpen] = useState(false);
-
-	function onContextMenu(e) {
-		e.preventDefault();
-		setIsOpen(true);
-	}
-
-	const contextMenuRef = useRef();
-
-	useEffect(() => {
-		if (isOpen && contextMenuRef.current) {
-			contextMenuRef.current.focus();
-		}
-	}, [isOpen]);
-
-	return (
-		<>
-			<div style={{ marginTop: "5rem", marginLeft: "5rem" }}>
-				<div ref={ref} onContextMenu={onContextMenu}>
-					Right click on me!
-				</div>
-			</div>
-			{isOpen && (
-				<ContextMenu
-					x={bounds.x}
-					y={bounds.y}
-					ref={contextMenuRef}
-					onClose={() => setIsOpen(false)}
-				/>
-			)}
-		</>
-	);
-}
 ```
 
-## Angular
+### Angular
 
-// TODO: Write
+While we were able to use the `constructor` to set up our event listeners in previous code samples, we need to explicitly have a `setup` function in this code sample.
 
-While we were able to use the `constructor` to set up our event listeners in previous code samples, we need to explicitly have a `setup` function in this code sample. This is because our `ViewChild` element reference isn't available until `AfterViewInit`, and isn't immediately accessible from `constructor`
+This is because our `ViewChild` element reference isn't available until `AfterViewInit`, and isn't immediately accessible from `constructor`
 
-<!-- Editor's note: What about `{static: true}`? Is the above still true in this instance? -->
+<!-- Editor's note: This is true even with {static: true} -->
 
 ```typescript
 @Injectable()
@@ -716,7 +683,11 @@ class CloseIfOutSideContext implements OnDestroy {
 
 	closeIfOutsideOfContext: (e: MouseEvent) => void = () => {};
 }
+```
 
+Let's embed this service class in our `ContextMenu` component:
+
+```typescript
 @Component({
 	selector: "context-menu",
 	standalone: true,
@@ -758,7 +729,178 @@ class ContextMenuComponent implements OnInit {
 		this.contextMenu.nativeElement.focus();
 	}
 }
+```
 
+### Vue
+
+```javascript
+// use-outside-click.js
+import { onMounted, onUnmounted } from "vue";
+
+export const useOutsideClick = ({ ref, onClose }) => {
+	const closeIfOutsideOfContext = (e) => {
+		const isClickInside = ref.value.contains(e.target);
+		if (isClickInside) return;
+		onClose();
+	};
+
+	onMounted(() => {
+		document.addEventListener("click", closeIfOutsideOfContext);
+	});
+
+	onUnmounted(() => {
+		document.removeEventListener("click", closeIfOutsideOfContext);
+	});
+};
+```
+
+Then we can use this composition in our `ContextMenu` component:
+
+```vue
+<!-- ContextMenu.vue -->
+<script setup>
+import { onMounted, onUnmounted, ref } from "vue";
+import { useOutsideClick } from "./use-outside-click";
+
+const props = defineProps(["x", "y"]);
+const emit = defineEmits(["close"]);
+const contextMenuRef = ref(null);
+
+useOutsideClick({ ref: contextMenuRef, onClose: () => emit("close") });
+
+function focusMenu() {
+	contextMenuRef.value.focus();
+}
+defineExpose({
+	focusMenu,
+});
+</script>
+
+<template>
+	<div
+		tabIndex="0"
+		ref="contextMenuRef"
+		:style="{
+			position: 'fixed',
+			top: props.y + 20,
+			left: props.x + 20,
+			background: 'white',
+			border: '1px solid black',
+			borderRadius: 16,
+			padding: '1rem',
+		}"
+	>
+		<button @click="$emit('close')">X</button>
+		This is a context menu
+	</div>
+</template>
+```
+
+<!-- tabs:end -->
+
+## Step 2: Create a Bounds Composable
+
+Now let's move the bounds size checking into a composable as well. This is done in JavaScript like so:
+
+```javascript
+const resizeListener = () => {
+	if (!el) return;
+	const localBounds = el.getBoundingClientRect();
+	setBounds(localBounds);
+};
+resizeListener();
+window.addEventListener("resize", resizeListener);
+window.removeEventListener("resize", resizeListener);
+```
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+const useBounds = () => {
+	const [bounds, setBounds] = useState({
+		height: 0,
+		width: 0,
+		x: 0,
+		y: 0,
+	});
+
+	const [el, setEl] = useState(null);
+
+	const ref = useCallback((el) => {
+		setEl(el);
+	}, []);
+
+	useEffect(() => {
+		const resizeListener = () => {
+			if (!el) return;
+			const localBounds = el.getBoundingClientRect();
+			setBounds(localBounds);
+		};
+		resizeListener();
+		window.addEventListener("resize", resizeListener);
+		window.removeEventListener("resize", resizeListener);
+	}, [el]);
+
+	return { ref, bounds };
+};
+```
+
+Now we wrap this into our `App` root:
+
+```jsx
+function App() {
+	const { ref, bounds } = useBounds();
+
+	// An addEventListener is easier to tackle when inside of the conditional render
+	// Add that as an exploration for `useImperativeHandle`
+	const [isOpen, setIsOpen] = useState(false);
+
+	function onContextMenu(e) {
+		e.preventDefault();
+		setIsOpen(true);
+	}
+
+	const contextMenuRef = useRef();
+
+	useEffect(() => {
+		if (isOpen && contextMenuRef.current) {
+			contextMenuRef.current.focus();
+		}
+	}, [isOpen]);
+
+	return (
+		<>
+			<div style={{ marginTop: "5rem", marginLeft: "5rem" }}>
+				<div ref={ref} onContextMenu={onContextMenu}>
+					Right click on me!
+				</div>
+			</div>
+			{isOpen && (
+				<ContextMenu
+					x={bounds.x}
+					y={bounds.y}
+					ref={contextMenuRef}
+					onClose={() => setIsOpen(false)}
+				/>
+			)}
+		</>
+	);
+}
+```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Shared Logic Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-shared-logic-challenge-103?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
+
+### Angular
+
+```typescript
 @Injectable()
 class BoundsContext implements OnDestroy {
 	bounds = {
@@ -787,7 +929,11 @@ class BoundsContext implements OnDestroy {
 		this.contextOrigin = undefined;
 	}
 }
+```
 
+We can then use this service in our `AppComponent`:
+
+```typescript
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -835,72 +981,15 @@ class AppComponent implements AfterViewInit {
 }
 ```
 
-## Vue
+<details>
 
-```javascript
-// use-outside-click.js
-import { onMounted, onUnmounted } from "vue";
+<summary>Final code output</summary>
 
-export const useOutsideClick = ({ ref, onClose }) => {
-	const closeIfOutsideOfContext = (e) => {
-		const isClickInside = ref.value.contains(e.target);
-		if (isClickInside) return;
-		onClose();
-	};
+<iframe data-frame-title="Angular Shared Logic Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-shared-logic-challenge-103?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-	onMounted(() => {
-		document.addEventListener("click", closeIfOutsideOfContext);
-	});
+</details>
 
-	onUnmounted(() => {
-		document.removeEventListener("click", closeIfOutsideOfContext);
-	});
-};
-```
-
-Then
-
-```vue
-<!-- ContextMenu.vue -->
-<script setup>
-import { onMounted, onUnmounted, ref } from "vue";
-import { useOutsideClick } from "./use-outside-click";
-
-const props = defineProps(["x", "y"]);
-const emit = defineEmits(["close"]);
-const contextMenuRef = ref(null);
-
-useOutsideClick({ ref: contextMenuRef, onClose: () => emit("close") });
-
-function focusMenu() {
-	contextMenuRef.value.focus();
-}
-defineExpose({
-	focusMenu,
-});
-</script>
-
-<template>
-	<div
-		tabIndex="0"
-		ref="contextMenuRef"
-		:style="{
-			position: 'fixed',
-			top: props.y + 20,
-			left: props.x + 20,
-			background: 'white',
-			border: '1px solid black',
-			borderRadius: 16,
-			padding: '1rem',
-		}"
-	>
-		<button @click="$emit('close')">X</button>
-		This is a context menu
-	</div>
-</template>
-```
-
-Also
+### Vue
 
 ```javascript
 // use-bounds.js
@@ -932,7 +1021,7 @@ export const useBounds = () => {
 };
 ```
 
-Which allows
+And finally, we'll use this composition in `App`:
 
 ```vue
 <!-- App.vue -->
@@ -972,5 +1061,13 @@ function open(e) {
 	/>
 </template>
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Shared Logic Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-shared-logic-challenge-103?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
+</details>
 
 <!-- tabs:end -->
