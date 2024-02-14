@@ -426,7 +426,7 @@ This is true for custom hooks as well, meaning that we can do the following code
 
 ```jsx
 const useMobileCheck = () => {
-	const { height, width } = useWindowSize();
+	const { width } = useWindowSize();
 
 	if (width <= 480) return { isMobile: true };
 	else return { isMobile: false };
@@ -445,13 +445,7 @@ const Component = () => {
 };
 ```
 
-> Remember, custom hooks are still hooks!
->
-> This means that our custom hooks (both `useWindowSize` and `useMobileCheck` alike) are subject to the same rules as built-in hooks. We still need to:
->
-> - Name the function starting with `use`
-> - Not place the hooks in a conditional (`if`) statement
-> - Use the hooks inside of components or other hooks
+<iframe data-frame-title="React Composing Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-composing-logic-102?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -466,7 +460,7 @@ class WindowSize implements OnDestroy {
 	width = 0;
 
 	// We'll overwrite this behavior in another service
-	_listener: () => void | undefined;
+	_listener!: () => void | undefined;
 
 	constructor() {
 		this.onResize();
@@ -520,6 +514,8 @@ class AppComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Composing Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-composing-logic-102?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 Something worth mentioning is that we need to provide both `WindowSize` and `IsMobile`, otherwise we'll get an error like so:
 
 ```
@@ -536,9 +532,9 @@ Composing custom composables (say that 10 times fast) is a straightforward task,
 ```javascript
 // use-mobile-check.js
 import { computed } from "vue";
-import { useWindowSize } from "./use-window-size.js";
+import { useWindowSize } from "./use-window-size";
 
-const useMobileCheck = () => {
+export const useMobileCheck = () => {
 	const { height, width } = useWindowSize();
 	const isMobile = computed(() => {
 		if (width.value <= 480) return true;
@@ -565,6 +561,8 @@ const { isMobile } = useMobileCheck();
 	<p>Is this a mobile device? {{ isMobile ? "Yes" : "No" }}</p>
 </template>
 ```
+
+<iframe data-frame-title="Vue Composing Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-composing-logic-102?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 <!-- tabs:end -->
 
