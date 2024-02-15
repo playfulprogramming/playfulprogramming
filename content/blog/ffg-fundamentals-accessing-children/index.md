@@ -773,15 +773,29 @@ This `v-slot` is similar to how you might pass properties to a component, but in
 
 # Challenge
 
-// TODO: Write
+Let's write a table component! Something like this:
+
+| Heading One | Heading Two |
+| ----------- | ----------- |
+| Some val 1  | Some val 2  |
+| Some val 3  | Some val 4  |
+| Some val 5  | Some val 6  |
+
+However, instead of having to write out the HTML ourselves, let's try to make this table easy to use for our development team.
+
+Let's pass:
+
+- An array of object data
+- A table header template that receives the length of object data
+- A table body template that receives the value for each row of data
+
+This way, we don't need any loops in our `App` component.
 
 <!-- tabs:start -->
 
 ## React
 
 ```jsx
-import * as React from "react";
-
 const Table = ({ data, header, children }) => {
 	const headerContents = header({ length: data.length });
 
@@ -838,6 +852,14 @@ function App() {
 }
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="React Accessing Children Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-accessing-children-challenge-115?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+</details>
+
 ## Angular
 
 ```typescript
@@ -865,10 +887,10 @@ function App() {
 	`,
 })
 class TableComponent {
-	@ContentChild("header", { read: TemplateRef }) header: TemplateRef<any>;
-	@ContentChild("body", { read: TemplateRef }) body: TemplateRef<any>;
+	@ContentChild("header", { read: TemplateRef }) header!: TemplateRef<any>;
+	@ContentChild("body", { read: TemplateRef }) body!: TemplateRef<any>;
 
-	@Input() data: any[];
+	@Input() data!: any[];
 }
 
 @Component({
@@ -914,6 +936,15 @@ class AppComponent {
 }
 ```
 
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Angular Accessing Children Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-accessing-children-challenge-115?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+</details>
+
+
 ## Vue
 
 ```vue
@@ -958,6 +989,7 @@ const data = [
 ```
 
 ```vue
+<!-- Table.vue -->
 <script setup>
 const props = defineProps(["data"]);
 </script>
@@ -978,5 +1010,13 @@ const props = defineProps(["data"]);
 	</table>
 </template>
 ```
+
+<details>
+
+<summary>Final code output</summary>
+
+<iframe data-frame-title="Vue Accessing Children Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-accessing-children-challenge-115?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
+</details>
 
 <!-- tabs:end -->
