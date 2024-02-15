@@ -192,7 +192,7 @@ While the above `File` component updates `inputDate` correctly, our `FileDate` c
 
 How can we fix this?
 
-# Method 1: Prop Listening
+# Method 1: Prop Listening {#prop-listening}
 
 The first - and arguably easiest to mentally model - method to solve this disparity between prop value and display value is to simply listen for when a property's value has been updated and re-calculate the display value.
 
@@ -293,11 +293,11 @@ Here, we're watching the `inputDate` props key and, when changed, updating `date
 
 <!-- tabs:end -->
 
-While this method works, it tends to introduce duplicate developmental logic. For example, notice how we have to repeat the declaration of the `dateStr` and `labelText` values twice: Once when they're initially defined, and again inside of the property listener.
+While this method works, it tends to introduce duplicate developmental logic. For example, notice how we have to repeat the declaration of the `dateStr` and `labelText` values twice: Once when they're initially defined, and again inside the property listener.
 
-Luckily for us, there's an easy solution for this problem called "computed values".
+Luckily for us, there's an easy solution for this problem called "computed values."
 
-# Method 2: Computed Values
+# Method 2: Computed Values {#computed-values}
 
 Our previous method of deriving a value from a property follows two steps:
 
@@ -333,7 +333,7 @@ const FileDate = ({ inputDate }) => {
 
 Like `useEffect`, this array's values' changes are only tracked when the component is rendering. Unlike `useEffect`, however, there's no option to remove the second array argument entirely.
 
-Instead, if you want to recalculate the logic in every render, you'd simply remove the `useMemo` entirely. So, for simple computations, you can take this code:
+Instead, if you want to recalculate the logic in every render, you'd remove the `useMemo` entirely. So, for simple computations, you can take this code:
 
 ```jsx
 const AddComp = ({ baseNum, addNum }) => {
@@ -375,7 +375,7 @@ class FormatReadableDatePipe implements PipeTransform {
 }
 ```
 
-You may then use these pipes in your components directly inside of the template.
+You may then use these pipes in your components directly inside the template.
 
 ```typescript
 @Component({
@@ -395,7 +395,7 @@ class FileDateComponent {
 
 <iframe data-frame-title="Angular Computed Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-computed-values-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-### Multiple Input Pipes
+### Multiple Input Pipes {#multi-input-pipes}
 
 You may notice the similarities between pipes and functions. After all, pipes are effectively functions you're able to call in your template. Much like functions, they're not limited to a single input property, either.
 
@@ -433,7 +433,7 @@ class FileDateComponent {
 
 <iframe data-frame-title="Angular Multi Input Pipes - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-multi-input-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-### Built-In Pipes
+### Built-In Pipes {#built-in-pipes}
 
 Luckily, Angular's all-in-one methodology means that there's a slew of pipes that the Angular team has written for us. One such pipe is actually a date formatting pipe. We can remove our own implementation in favor of one built right into Angular!
 
@@ -483,15 +483,15 @@ const labelText = computed(() => formatReadableDate(props.inputDate));
 
 Instead of using `ref` to construct a set of variables, then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
 
-Vue is able to ✨ magically ✨ detect what data inside of the `computed` function is dynamic, just like `watchEffect`. When this dynamic data is changed, it will automatically re-initialize the variable it's assigned to with a new value returned from the inner function.
+Vue is able to ✨ magically ✨ detect what data inside the `computed` function is dynamic, just like `watchEffect`. When this dynamic data is changed, it will automatically re-initialize the variable it's assigned to with a new value returned from the inner function.
 
 These `computed` props are then accessible in the same way a `data` property is, both from the template and from Vue's `<script>` alike.
 
 <!-- tabs:end -->
 
-# Non-Prop Derived Values
+# Non-Prop Derived Values {#non-derived-vals}
 
-While we've primarily used component inputs to demonstrate derived values today, both of the methods we've utilized thus far work for the internal component state as well as inputs.
+While we've primarily used component inputs to demonstrate derived values today, both of the methods we've used thus far work for the internal component state and inputs.
 
 Let's say that we have a piece of state called `number` in our component and want to display the doubled value of this property without passing this state to a new component:
 
@@ -578,13 +578,13 @@ const doubleNum = computed(() => number.value * 2);
 
 <!-- tabs:end -->
 
-In this component, we can see two numbers - one doubling the value of the other. We then have a button that allows us to increment the first number, and therefore, using a derived value, the second number also updates.
+In this component, we can see two numbers — one doubling the value of the other. We then have a button that allows us to increment the first number, and therefore, using a derived value, the second number also updates.
 
-# Challenges
+# Challenge {#challenge}
 
 While building through our continued file hosting application, let's think through how our `Size` can be calculated to be displayed in the UI like so:
 
-![// TODO: Write](../ffg-fundamentals-passing-children/file_list.png)
+![A table of files and folders with "Name", "LAst modified", "Type", and "Size" headings](../ffg-fundamentals-passing-children/file_list.png)
 
 File sizes are usually measured in how many bytes it takes to store the file. However, this isn't exactly useful information past a certain size. Let's instead use the following JavaScript to figure out how large a file size is, given the number of bytes:
 
@@ -606,7 +606,7 @@ function formatBytes(bytes) {
 }
 ```
 
-> Fun code challenge for you at home - can you write the above in fewer lines of code? 🤔
+> Fun code challenge for you at home — can you write the above in fewer lines of code? 🤔
 
 With this JavaScript, we can use a derived value to display the relevant display size. Let's build this out using a dedicated `DisplaySize` component:
 
