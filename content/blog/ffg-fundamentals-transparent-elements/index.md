@@ -227,7 +227,7 @@ Because our conditional statement is on the `li` when rendered to the DOM, it mi
 While this might not seem like a big problem at first, the fact that there's an empty `li` in the middle of our `ul` introduces three issues:
 
 1. It will leave an empty space created by any styling you have applied to the `li`.
-2. [Any assistive technologies, like screen readers](https//unicorn-utterances.com/posts/intro-to-web-accessability), will read out that there's an empty item, a confusing behavior for those users.
+2. [Any assistive technologies, like screen readers](https://unicorn-utterances.com/posts/intro-to-web-accessibility), will read out that there's an empty item, a confusing behavior for those users.
 3. Any search engines reading data off of your page may incorrectly assume that your list is intentionally empty, thus potentially impacting your ranking on sites.
 
 Solving these issues is where something called "transparent elements" comes into play. See, ideally, what we want to have is something like a tag that renders to _nothing_.
@@ -289,7 +289,7 @@ import { Fragment } from "react";
 
 <iframe data-frame-title="React Transparent Files After - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-transparent-files-after-51?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-## `Fragment` Alternative Syntax
+## `Fragment` Alternative Syntax {#fragment-alt-syntax}
 
 `Fragment` also has an alternative syntax in JSX. Instead of `<Fragment></Fragment>`, you can simply do `<></>`. This shorthand removes the need for the import and makes the above code sample read like this:
 
@@ -309,7 +309,7 @@ import { Fragment } from "react";
 
 > You may notice that `<>` syntax for `Fragment` does not have a `key` associated with it. This is because the `<>` syntax does not allow you to have props associated with it.
 >
-> However, this means that your loop will still misbehave and add performance overhead as a penalty for not including `key` ([as we discussed in the "Dynamic HTML" chapter](/posts/ffg-fundamentals-dynamic-html)). For this reason, when inside of a `map` loop, you'll want to use `Fragment` with a `key` property associated with it.
+> However, this means that your loop will still misbehave and add performance overhead as a penalty for not including `key` ([as we discussed in the "Dynamic HTML" chapter](/posts/ffg-fundamentals-dynamic-html)). For this reason, when inside a `map` loop, you'll want to use `Fragment` with a `key` property associated with it.
 
 # Angular
 
@@ -337,7 +337,7 @@ Angular's version of the `nothing` element is the `ng-container` element.
 
 # Vue
 
-In order to render out something akin to a `nothing` element, we can use a [`template`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template) element with a `v-for` or `v-if` associated with it.
+To render out something akin to a `nothing` element, we can use a [`template`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template) element with a `v-for` or `v-if` associated with it.
 
 ```vue
 <template>
@@ -361,11 +361,11 @@ In order to render out something akin to a `nothing` element, we can use a [`tem
 
 <!-- tabs:end -->
 
-# Stacking Transparent Elements
+# Stacking Transparent Elements {#stacking-transparent-els}
 
 Just as a quick note, not only can these `nothing` elements be used once, but they can be stacked back-to-back to do... Well, nothing!
 
-Here's some code samples that render out the following:
+Here are some code samples that render out the following:
 
 ```html
 <p>Test</p>
@@ -415,7 +415,7 @@ By default, if you render a `template` in Vue in any other place besides the roo
 </template>
 ```
 
-> It's worth mentioning that even if it shows nothing on screen, the `template` element is still in the DOM itself, waiting to be utilized in other ways. While explaining "why" an HTML `template` element renders nothing by default is outside of the scope of this book, it is expected behavior.
+> It's worth mentioning that even if it shows nothing on screen, the `template` element is still in the DOM itself, waiting to be used in other ways. While explaining "why" an HTML `template` element renders nothing by default is outside the scope of this book, it is expected behavior.
 
 However, if you add a `v-for`, `v-if`, or a `v-slot` (we'll touch on what a `v-slot` is in [our "Content Reference" chapter](/posts/ffg-fundamentals-content-reference)), it will remove the `<template>` and only render out the children.
 
@@ -455,7 +455,7 @@ Will both render out to the following HTML:
 
 <!-- tabs:end -->
 
-# Challenge
+# Challenge {#challenge}
 
 Now that we understand how to render a transparent element (transparent to the DOM, anyway), let's build out an example where this would be useful.
 
@@ -697,7 +697,7 @@ class FileActionButtonsComponent {
 
 > Unlike the other frameworks we're talking about, Angular's components add in an HTML element in the DOM.
 >
-> For example here, our rendered markup looks like:
+> For example, here, our rendered markup looks like:
 >
 > ```html
 > <div style="display: flex; gap: 1rem;">
