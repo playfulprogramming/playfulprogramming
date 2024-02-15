@@ -596,6 +596,8 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Pass Multiple Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-pass-multiple-values-109?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Angular
 
 I have to come clean about something: when I said "a directive's input must be named the same as the attribute's selector", I was lying to keep things simple to explain.
@@ -608,9 +610,9 @@ In reality, you can name an input anything you'd like, but then need to have an 
 	standalone: true,
 })
 class StyleBackgroundDirective implements OnInit {
-	@Input() r: number;
-	@Input() g: number;
-	@Input() b: number;
+	@Input() r!: number;
+	@Input() g!: number;
+	@Input() b!: number;
 
 	el = inject(ElementRef<any>);
 
@@ -629,6 +631,8 @@ class StyleBackgroundDirective implements OnInit {
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Angular Pass Multiple Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-pass-multiple-values-109?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 > If you forget to include the attribute with the same selector (in this case, `styleBackground`), you'll get the following error:
 >
@@ -657,6 +661,8 @@ const vStyleBackground = {
 	<button v-style-background="{ r: 255, g: 174, b: 174 }">Hello, world</button>
 </template>
 ```
+
+<iframe data-frame-title="Vue Pass Multiple Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-pass-multiple-values-109?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
