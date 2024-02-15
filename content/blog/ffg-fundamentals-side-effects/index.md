@@ -1213,7 +1213,7 @@ const disable = () => {
 > solves the issue from the user's standpoint; it doesn't solve the memory leak that you're creating by not cleaning up your
 > `setTimeout`.
 >
-> To understand this a bit better, [I wrote an article about this exact topic.](TODO://WriteIt)
+> To understand this a bit better, [there's a section of this chapter that explains this.](#hidden-memory-leaks)
 
 <!-- tabs:end -->
 
@@ -3285,7 +3285,7 @@ Let's take a look visually at how each framework calls the relevant APIs we've t
 
 ## React
 
-![// TODO: Write](./react_hooks.png)
+![On the main loop, the VDOM constructs which calls useLayoutEffect's first run. Then the component paints which calls first run of useEffect. Then the component has rendered and can re-render (more on that soon). Then when the component unrenders, useLayoutEffect cleans up, then useEffect cleans up. During re-renders, the VDOM updates occur, which calls the previous useLayoutEffect cleanup, then the useLayoutEffect again. Then the DOM paints which triggers the previous useEffect cleanup and the new useEffect.](./react_hooks.png)
 
 ## Angular
 
@@ -3297,11 +3297,11 @@ Because Vue has two different APIs, I made two charts for them.
 
 ### Vue Lifecycle Methods
 
-![// TODO: Write](./vue_lifecycles.png)
+![On the main loop, the VDOM constructs, which calls the beforeCreate lifecycle method. Then the component paints and runs the create lifecycle method. Then the components has rendered and can call updated lifecycle method on re-renders. The unmounted lifecycle runs during the component unrendering](./vue_lifecycles.png)
 
 ### Vue Watchers
 
-![// TODO: Write](./vue_watchers.png)
+![On the main loop, the VDOM constructs which calls "{immediate: true}" watchers. Then the component paints which calls the "{immediate: true, flush: 'post'}" watchers. Then the component has rendered and can re-render (more on that soon). Then when the component unrenders, watchers clean up, then "{flush: 'post'}" watchers cleanup. During re-renders, the VDOM updates occur, which calls the previous watcher run cleanup, then the watchers again. Then the DOM paints which triggers the previous watchers "{flush: 'post'}" watchers cleanup and the new "{flush: 'post'}" watchers.](./vue_watchers.png)
 
 <!-- tabs:end -->
 
@@ -3309,7 +3309,7 @@ Because Vue has two different APIs, I made two charts for them.
 
 Since the start of this book, we've been working on a storage app. While our mockups to this point have been using a light mode, which is an important default for all apps [due to accessibility concerns](https://www.vice.com/en/article/ywyqxw/apple-dark-mode-eye-strain-battery-life), let's add in a dark mode for the app:
 
-![// TODO: Write](./dark_mode_drive_app.png)
+![The previous mockup for dark mode that has inverted colors for dark mode](./dark_mode_drive_app.png)
 
 This can be done by using a combination of technologies:
 
