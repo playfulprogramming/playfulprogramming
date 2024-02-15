@@ -503,6 +503,8 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Numerical Child - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-numerical-child-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 > WHAT?!
 
 Yup - as it turns out, you can pass any JavaScript value to React's `children` prop. It even works when you write it out like this:
@@ -531,6 +533,8 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Function Child - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-function-child-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 Sure enough, it works!
 
 Now, let's combine this knowledge with the ability to use JSX wherever a value might go:
@@ -545,6 +549,8 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Function JSX Child - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-function-jsx-child-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 Finally, we can combine this with the ability to pass values to a function:
 
 ```jsx
@@ -556,6 +562,10 @@ const App = () => {
 	return <ShowMessage>{(message) => <p>{message}</p>}</ShowMessage>;
 };
 ```
+
+<iframe data-frame-title="React Function Child Pass Val - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-function-child-pass-val-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
+> Confused about how this last one is working? Might be a good time to [review your knowledge on how functions are able to pass to one another and call each other](https://unicorn-utterances.com/posts/javascript-functions-are-values).
 
 ### Displaying the List in React
 
@@ -604,6 +614,8 @@ const App = () => {
 	);
 };
 ```
+
+<iframe data-frame-title="React Pass Val to Projected Content - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-pass-val-to-projected-content-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
