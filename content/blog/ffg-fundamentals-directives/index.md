@@ -796,6 +796,8 @@ the `ng-template`.
 However, because `ng-template` doesn't render anything on its own, we'll need to supply a parent to render the `ng-template`'s contents into. We do this using the `ngTemplateOutlet` directive:
 
 ```typescript
+import { NgTemplateOutlet } from "@angular/common";
+
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -813,6 +815,8 @@ However, because `ng-template` doesn't render anything on its own, we'll need to
 class AppComponent {}
 ```
 
+<iframe data-frame-title="Angular Pass Data to Template - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-pass-data-to-template-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 We can even choose to use [an `ng-container`](/posts/ffg-fundamentals-transparent-elements) instead of a `div` to avoid having a `div` in our rendered output:
 
 ```html
@@ -825,6 +829,8 @@ We can even choose to use [an `ng-container`](/posts/ffg-fundamentals-transparen
 >
 </ng-container>
 ```
+
+<iframe data-frame-title="Angular Pass Template Data No Div - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-pass-template-data-no-div-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 #### Default Keys in Template Context
 
@@ -862,6 +868,8 @@ To solve this, we can pass a "default" key called `$implicit` and bind it like s
 class AppComponent {}
 ```
 
+<iframe data-frame-title="Angular Defaul Keys in Context - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-default-keys-in-context-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ### Seeing a Template Render a Comment
 
 While we've been using `inject` in directives to gain access to the directive's underlying HTML element, what happens if we bind a directive to an `ng-template`?
@@ -873,9 +881,10 @@ While we've been using `inject` in directives to gain access to the directive's 
 })
 class TemplateDirective {
 	constructor() {
-		console.log("I am alive!");
+		alert("I am alive!");
 	}
 }
+
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -885,7 +894,9 @@ class TemplateDirective {
 class AppComponent {}
 ```
 
-Suprisingly, this `console.log`s the `"I am alive!"` message, despite nothing being shown on screen!
+<iframe data-frame-title="Angular ngTemplate Directive - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-ng-template-directive-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+Surprisingly, this `alert`s the `"I am alive!"` message, despite nothing being shown on screen!
 
 > Why is this?
 
@@ -897,7 +908,6 @@ Well, there's a hint if we try to access the underlying HTML element using `Elem
 	standalone: true,
 })
 class TemplateDirective implements OnInit {
-	@Input() background: string;
 	el = inject(ElementRef<any>);
 	ngOnInit() {
 		// This will log a "Comment"
@@ -913,6 +923,8 @@ class TemplateDirective implements OnInit {
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Angular ngTemplate Inject El - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-ng-template-inject-el-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 In this example, we're logged a [Comment node](https://developer.mozilla.org/en-US/docs/Web/API/Comment). Interestingly, if we look at our rendered HTML, we'll see an HTML comment where our `ng-template` was:
 
