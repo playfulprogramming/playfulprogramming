@@ -259,7 +259,7 @@ const vStyleBackground = {
 >
 > This is because styling an element through JavaScript can cause issues with [server-side rendering](/posts/what-is-ssr-and-ssg#ssr), and can also cause [layout thrashing](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing) if done incorrectly.
 
-# Lifecycle Methods in Directives
+# Side Effect Handlers in Directives
 
 [Previously in the book, we've explored adding in a `focus` event when an element is rendered](/posts/ffg-fundamentals-component-reference#Using-component-reference-to-focus-our-context-menu). However, in this chapter we explicitly had to call a `focus` method. What if we could have our `button` focus itself immediately when it's rendered onto the page?
 
@@ -296,6 +296,8 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Directive Side Effects - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-directive-side-effects-106?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 > Truthfully, this is a bad example for `useEffect`. Instead, I would simply run `localEl.focus()` inside of the `ref` function.
 
 ## Angular
@@ -324,6 +326,8 @@ class StyleBackgroundDirective implements OnInit {
 class AppComponent {}
 ```
 
+<iframe data-frame-title="Angular Directive Side Effects - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-directive-side-effects-106?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
 Just as you can use the `created` property on a directive object, you can change this property's name to match any of [Vue's component lifecycle method names](https://vuejs.org/guide/essentials/lifecycle.html).
@@ -342,6 +346,8 @@ const vFocusElement = {
 	<button v-focus-element>Hello, world</button>
 </template>
 ```
+
+<iframe data-frame-title="Vue Directive Side Effects - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-directive-side-effects-106?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 For example, if we wanted to add a cleanup to this directive, we could change `mounted` to be `unmounted` instead.
 
