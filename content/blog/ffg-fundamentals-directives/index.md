@@ -200,6 +200,8 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Basic Directives - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-basic-directives-105?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 ```typescript
@@ -226,6 +228,8 @@ class StyleBackgroundDirective {
 class AppComponent {}
 ```
 
+<iframe data-frame-title="Angular Basic Directives - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-basic-directives-105?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
 When using the `created` method inside of a directive, we can gain access to the underlying DOM node the directive is applied to using the function's arguments.
@@ -246,6 +250,8 @@ const vStyleBackground = {
 	<button v-style-background>Hello, world</button>
 </template>
 ```
+
+<iframe data-frame-title="Vue Basic Directives - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-basic-directives-105?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
