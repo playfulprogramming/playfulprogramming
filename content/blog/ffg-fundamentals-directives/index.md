@@ -51,11 +51,13 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React What is a Directive? - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-what-is-a-directive-104?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 > While we'll continue to cover alternative APIs that can do much of the same as directives in other frameworks, it might be beneficial to broaden your horizons and take a glance at what a "true" directive looks like in other frameworks.
 
 ## Angular
 
-You setup a directive in Angular very similarly to how you might construct a component: using the `@Directive` decorator.
+You set up a directive in Angular very similarly to how you might construct a component: using the `@Directive` decorator.
 
 ```typescript
 import { Component, ElementRef, Directive } from "@angular/core";
@@ -79,11 +81,15 @@ class LogElementDirective {
 class AppComponent {}
 ```
 
+<iframe data-frame-title="Angular What is a Directive? - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-what-is-a-directive-104?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 Here, we've told Angular to listen for any `sayHi` attributes ([using a CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)) and run a `console.log` any time an element with said attribute is rendered.
 
 This isn't particularly useful, but demonstrates the most minimal version of what a directive looks like.
 
-Instead, it's oftentimes more useful to get a reference to the element that the attribute is present on. To do this, we'll use Angular's [dependency injection](/posts/ffg-fundamentals-dependency-injection) to ask Angular for an `ElementRef` that's present within the framework's internals when you create a directive instance.
+### Accessing a Directive's Underlying Element
+
+It's oftentimes more useful to get a reference to the element that the attribute is present on. To do this, we'll use Angular's [dependency injection](/posts/ffg-fundamentals-dependency-injection) to ask Angular for an `ElementRef` that's present within the framework's internals when you create a directive instance.
 
 ```typescript
 @Directive({
@@ -117,6 +123,8 @@ class LogElementDirective {
 }
 ```
 
+<iframe data-frame-title="React Directive El Reference - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-directive-el-reference-104?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
 Setting up a directive in Vue sees you creating an object within our `setup` `script`.
@@ -136,7 +144,29 @@ const vSayHi = {
 </template>
 ```
 
+<iframe data-frame-title="Vue What is a Directive? - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-what-is-a-directive-104?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
 Directives in Vue must start with `v-` prefix (which is why our object starts with `v`) and are `dash-cased` when presented inside of a `template`. This means that our `vSayHi` object directive is turned into `v-say-hi` when used in the template.
+
+### Accessing a Directive's Underlying Element
+
+Instead of running a simple `console.log` on a string, let's use the first argument passed to our directive's `created` function
+to access the underlying HTML element:
+
+```vue
+<!-- App.vue -->
+<script setup>
+const vSayHi = {
+	created: (el) => console.log(el),
+};
+</script>
+
+<template>
+	<p v-say-hi>Hello, world</p>
+</template>
+```
+
+<iframe data-frame-title="Vue Directive El Reference - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-directive-el-reference-104?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
