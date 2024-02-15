@@ -13,11 +13,11 @@
 
 While you _can_ build static websites with React, Angular, and Vue, these frameworks shine brightest when building _interactive **applications**_.
 
-These applications come in many shape, forms, and functionalities, but all have one thing in common: They take live input from the user and display information back to the user.
+These applications come in many shapes, forms, and functionalities, but all have one thing in common: They take live input from the user and display information back to the user.
 
-This is the key difference between a static site and an interactive one; static sites show their contents and then allow the user to navigate through the site without drastic changes to the displayed content, meanwhile interactive sites drastically shift their displayed information based off of user input.
+This is the key difference between a static site and an interactive one; static sites show their contents and then allow the user to navigate through the site without drastic changes to the displayed content, meanwhile, interactive sites drastically shift their displayed information based off of user input.
 
-This difference carries through to how you build the application as well. While a static site might prioritize initial load by frontloading the HTML compilation [through server side render (SSR) or static site generation (SSG)](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg), the interactive app is more likely to focus on processing information passed to it in order to customize your experience.
+This difference carries through to how you build the application as well. A static site might prioritize an initial load by front-loading the HTML compilation [through server side render (SSR) or static site generation (SSG)](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg). On the other hand, the interactive app is more likely to focus on processing information passed to it to customize your experience.
 
 As interactive apps rely so heavily on processing information based on user input, React, Angular, and Vue all provide built-in ways of interacting, intercepting, and otherwise ingesting this information.
 
@@ -33,9 +33,9 @@ This raises more questions than it answers:
 
 Let's answer these questions one-by-one, starting with:
 
-# What Is a Side Effect?
+# What Is a Side Effect? {#whats-a-side-effect}
 
-A side effect is when a piece of code changes or relies on state outside its local environment. When a piece of code does not contain a side effect, it is considered "pure".
+A side effect is when a piece of code changes or relies on state outside its local environment. When a piece of code does not contain a side effect, it is considered "pure."
 
 ![A pure function is allowed to mutate state from within it's local environment, while a side effect changes data outside its own environment](./pure-vs-side-effect.png)
 
@@ -49,7 +49,7 @@ function pureFn() {
 }
 ```
 
-This logic would be considered "pure", as it does not rely on external data sources. However, if we move the `data` variable outside of the local environment and mutate it elsewhere:
+This logic would be considered "pure," as it does not rely on external data sources. However, if we move the `data` variable outside the local environment and mutate it elsewhere:
 
 ```javascript
 let data;
@@ -65,7 +65,7 @@ function setupData() {
 }
 ```
 
-`increment` would be considered a "side-effect" that mutates a variable outside of its own environment.
+`increment` would be considered a "side effect" that mutates a variable outside its own environment.
 
 > When does this come into play in a production application?
 
@@ -85,7 +85,7 @@ addToShoppingCart();
 addToShoppingCart(); // window.shoppingCartItems is now `3`
 ```
 
-Because `window` is a global variable, mutating a value within it is a "side effect" when done inside of a function; as the `window` variable was not declared within the `function`'s scope.
+Because `window` is a global variable, mutating a value within it is a "side effect" when done inside a function; as the `window` variable was not declared within the `function`'s scope.
 
 Notice how our `addToShoppingCart` method isn't returning anything; instead, it's mutating the `window` variable as a side effect to update a global value. If we attempted to remove side effects from `addToShoppingCart` without introducing a new variable, we'd be left with the following:
 
@@ -125,7 +125,7 @@ shoppingCartItems = addToShoppingCart(shoppingCartItems);
 
 Because of the inherent nature of side effects, this demonstrates how **all functions that don't return a new value either do nothing or have a side effect within them**.
 
-Further, because an application's inputs and outputs (combined often called "`I/O`") come from the user, rather than from the function itself, **all I/O operations are considered "side effects"**. This means that in addition to non-returning functions, all of the following are considered "side effects":
+Further, because an application's inputs and outputs (combined often called "`I/O`") come from the user, rather than from the function itself, **all I/O operations are considered "side effects"**. This means that in addition to non-returning functions, all the following are considered "side effects":
 
 - A user typing something
 - A user clicking something
@@ -135,9 +135,9 @@ Further, because an application's inputs and outputs (combined often called "`I/
 - Printing something to a printer
 - Logging a value to `console`
 
-# How Do Frameworks Handle Side Effects?
+# How Do Frameworks Handle Side Effects? {#how-frameworks-handle-effects}
 
-As mentioned previously, side effects are mission critical for the kinds of applications that React, Angular, and Vue are all purpose-built for. To make side-effect handling easier, each framework has its own method of running code on behalf of the developer when specific events occur in the component.
+As mentioned previously, side effects are mission-critical for the kinds of applications that React, Angular, and Vue are all purpose-built for. To make side effect handling easier, each framework has its own method of running code on behalf of the developer when specific events occur in the component.
 
 Component events a framework might listen for include:
 
@@ -149,9 +149,9 @@ Component events a framework might listen for include:
 
 - A component's data or passed properties changing
 
-The first of these component events are commonly fully transparent to most developers: User input bindings.
+The first of these component events is commonly fully transparent to most developers: User input bindings.
 
-Take the following for example:
+Take the following, for example:
 
 <!-- tabs:start -->
 
@@ -221,7 +221,7 @@ On the other hand, **some frameworks choose to implement side effect handling wi
 
 To explore what these side effect handlers can do, let's look at an example of a handler that runs during a component's initial render.
 
-# Initial Render Side Effects
+# Initial Render Side Effects {#initial-render-effects}
 
 When we introduced components, we touched on the [concept of "rendering"](/posts/ffg-fundamentals-intro-to-components#Rendering-the-app). This occurs when a component is drawn on-screen, either when the user loads a page for the first time or when shown or hidden using a [conditional render](/posts/ffg-fundamentals-dynamic-html#Conditional-Branches).
 
@@ -325,7 +325,7 @@ While we _could_ add this log inside of `setShowChild`, it's more likely to brea
 
 ## React
 
-All side effects within React components are handled by two Hooks: `useEffect` and `useLayoutEffect`. Let's start by looking at `useEffect`:
+Two Hooks handle all side effects within React components: `useEffect` and `useLayoutEffect`. Let's start by looking at `useEffect`:
 
 ```jsx
 import { useEffect } from "react";
@@ -377,7 +377,7 @@ This `implements` clause help TypeScript figure out which methods have which pro
 
 ## Vue
 
-While Angular strictly uses lifecycle methods and React utilizes a `useEffect` hook to handle side effects, Vue does a bit of both.
+While Angular strictly uses lifecycle methods and React uses a `useEffect` hook to handle side effects, Vue does a bit of both.
 
 Let's start by taking a look at Vue's lifecycle method of handling a side effect.
 
@@ -400,7 +400,7 @@ onMounted(() => {
 
 <iframe data-frame-title="Vue Initial Render onMount - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-initial-render-on-mount-27?template=node&embed=1&file=src%2FChild.vue"></iframe>
 
-Here, we're importing the `onMounted` lifecycle handler from the `vue` import. Vue's lifecycle methods all start with an `on` prefix when used inside of a `<script setup>` component.
+Here, we're importing the `onMounted` lifecycle handler from the `vue` import. Vue's lifecycle methods all start with an `on` prefix when used inside a `<script setup>` component.
 
 ### Vue's `watchEffect` Hook
 
@@ -607,7 +607,7 @@ onMounted(() => {
 
 Now, when we resize the browser, our values on-screen should update as well.
 
-## Event Bubbling Aside
+## Event Bubbling Aside {#event-bubbling}
 
 In our introduction to components, we demonstrated that [components can listen to HTML events](/posts/ffg-fundamentals-intro-to-components#Event-Binding).
 
@@ -701,7 +701,7 @@ You see, by default, events will always "bubble" upwards in the DOM tree from th
 
 ![A click event bubbling to the top of the document](./event_bubbling.png)
 
-We can demonstrate this inside of our frameworks.
+We can demonstrate this inside our frameworks.
 
 <!-- tabs:start -->
 
@@ -748,11 +748,11 @@ We can demonstrate this inside of our frameworks.
 
 If you click on the `span`, the `click` event will start from the `span`, bubble up to the `p` tag, then finally bubble up to the `div`. Because we add an event listener on the `div`, it will run `logMessage`, even when clicking on the `span`.
 
-This is why we don't we simply utilize event binding for the `resize` event: It's only ever emitted directly from the `html` node. Because of this behavior, if we want to access the `resize` event inside of our `WindowSize` component, we need to use `addEventListener`.
+This is why we don't we simply utilize event binding for the `resize` event: It's only ever emitted directly from the `html` node. Because of this behavior, if we want to access the `resize` event inside our `WindowSize` component, we need to use `addEventListener`.
 
 [You can learn more about event bubbling, how it works, and how to overwrite it in specific instances from Mozilla Developer Network.](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling_and_capture)
 
-# Cleaning up Side Effects
+# Cleaning up Side Effects {#effect-cleanup}
 
 Let's put down the code for a moment and talk about side effects with an analogy.
 
@@ -769,15 +769,15 @@ You have two options:
 1. Pause the show then stop the microwave.
 2. Don't pause the show, go stop the microwave immediately.
 
-While the second option might be the more natural reaction at a moment's notice, you'll find yourself with a problem: You just missed the big announcement in the show and now you're left confused when you return to the TV.
+While the second option might be the more natural reaction at a moment's notice, you'll find yourself with a problem: You just missed the big announcement in the show, and now you're left confused when you return to the TV.
 
 Given your particular TV's lack of rewind functionality, you'd be stuck where you were without restarting the episode.
 
-However, if you had paused the show, you would have been able to un-pause once you'd turned off the microwave and see what the big reveal was.
+However, if you had paused the show, you would have been able to unpause once you'd turned off the microwave and see what the big reveal was.
 
 ---
 
-> Surely, this analogy doesn't have much to do with frontend development, does it?
+> Surely, this analogy has little to do with frontend development, right?
 
 Ahh, but it does!
 
@@ -994,9 +994,9 @@ When we toggle the clock from rendering each time, it doesn't stop the `console.
 
 Moreover, this can directly impact your applications' functionality as well. Let's take a look at how that can happen:
 
-## Broken Production Code
+## Broken Production Code {#broken-prod-code}
 
-Imagine you're building an alarm clock application. You want to have the following functionality:
+Imagine that you are building an alarm clock application. You want to have the following functionality:
 
 - Show the remaining time on an alarm
 - Show a "wake up" screen
@@ -1210,7 +1210,7 @@ const disable = () => {
 >
 > This doesn't mean that Vue solves this issue for us, however. While passing a function is less common than using an output
 > in Vue, it's not the only way to do things. Moreover, while using Vue's output to handle `snooze` and `disable` functionality
-> solves the issue from the user's standpoint, it doesn't solve the memory leak that you're creating by not cleaning up your
+> solves the issue from the user's standpoint; it doesn't solve the memory leak that you're creating by not cleaning up your
 > `setTimeout`.
 >
 > To understand this a bit better, [I wrote an article about this exact topic.](TODO://WriteIt)
@@ -1225,7 +1225,7 @@ Let's test our manual "snooze" button and see if that works as expe-...
 
 <video src="./timer_incorrect_loop.mp4" title="A browser displays the second countdown to the alarm screen, but when the user clicks on the 'snooze' button, the countdown goes from '4 seconds left' to '9 seconds left' and keeps counting down from there like normal"></video>
 
-Sure enough, if you happen to click the manual "Snooze" button right before the auto-snooze goes off, it will add an extra 5 seconds to your existing countdown.
+Sure enough, if you happen to click the manual "Snooze" button, right before the auto-snooze goes off, it will add an extra 5 seconds to your existing countdown.
 
 This occurs because we never tell the `AlarmScreen`'s `setTimeout` to stop running, even when `AlarmScreen` is no longer rendered.
 
@@ -1240,7 +1240,7 @@ When the above code's `snooze` runs, it will add 4 seconds to the `secondsLeft` 
 
 To solve this, we simply need to tell our `AlarmScreen` component to cancel the `setTimeout` when it's no longer rendered. Let's look at we can do that with a side effect handler.
 
-## Unmounting
+## Unmounting {#unmounting}
 
 In our previous code sample, we showed that mounted side effects left unclean will cause bugs in our apps and performance headaches for our users.
 
@@ -1271,7 +1271,7 @@ clearInterval(interval);
 
 ### React
 
-To run a cleanup function on React's `useEffect`, return a function inside of the `useEffect`.
+To run a cleanup function on React's `useEffect`, return a function inside the `useEffect`.
 
 ```jsx
 const Cleanup = () => {
@@ -1582,11 +1582,11 @@ watchEffect((onCleanup) => {
 
 <!-- tabs:end -->
 
-## Hidden Memory Leaks
+## Hidden Memory Leaks {#hidden-memory-leaks}
 
-While we've quickly glanced at how each framework is able to cleanup their side effects using a side effect handler that runs when a component unmounts, we haven't seen how this impacts other aspects of a component yet.
+While we've quickly glanced at how each framework is able to clean up their side effects using a side effect handler that runs when a component unmounts, we haven't seen how this impacts other aspects of a component yet.
 
-For example, [we mentioned in the first chapter that you can emit events from a child component into a parent component](/posts/ffg-fundamentals-intro-to-components#Outputs). Let's build out a component that uses _events_ to trigger an parent function a second after its contents are shown.
+For example, [we mentioned in the first chapter that you can emit events from a child component into a parent component](/posts/ffg-fundamentals-intro-to-components#Outputs). Let's build out a component that uses _events_ to trigger a parent function a second after its contents are shown.
 
 > Let's not yet introduce cleanup, you'll see why in a second.
 
@@ -1706,7 +1706,7 @@ const alertUser = () => alert("I am an alert!");
 
 <!-- tabs:end -->
 
-Now if we run one of our code samples and click on a button rapidly and repeatedly we get... Nothing! Only the last `alert` will show up to notify you that our `Alert` component has rendered.
+Now if we run one of our code samples and click on a button rapidly, and repeatedly, we get... Nothing! Only the last `alert` will show up to notify you that our `Alert` component has rendered.
 
 > That's strange... I thought that our `setTimeout` would still trigger because we haven't cleaned it up using a `clearTimeout`.
 
@@ -1714,7 +1714,7 @@ You're right! The `setTimeout` _does_ trigger! You can verify this by updating o
 
 > Then why isn't our `alert` being triggered?
 
-Well, when you think about how a component in one of these frameworks work, you might visualize them akin to this:
+Well, when you think about how a component in one of these frameworks works, you might visualize them akin to this:
 
 ![A component declaration is at the bottom. Two component instances stem from that declaration and then bind to the DOM and Framework root](./event_mount_explainer.png)
 
@@ -1817,7 +1817,7 @@ import Comp from "./Comp.vue";
 <!-- tabs:end -->
 
 Each of the individual `Comp` usages generates a component _instance_. These instances have their own separate memory usage, which
-allows you to control state from them both independently from one another.
+allows you to control state from them both independently of one another.
 
 Moreover, though, because each component instance has its own connection to the framework root instance,
 it can do some cleanup of event listeners when an instance is detached without impacting other instances:
@@ -1830,9 +1830,9 @@ Well, as we showed, our `setTimeout` in our example isn't cleaned up even though
 
 That's the definition of a memory leak: Not allowing the language to clean up old code. Eventually over time, you may even hit an "out of memory" error, where your computer can no longer run your app or site without resetting itself.
 
-> Have the feeling you're missing something? Some of this section requires pre-existing knowledge about how computer memory works both [in hardware land](https://unicorn-utterances.com/posts/how-computers-speak#ram) as well as [how JavaScript handles memory under-the-hood](https://unicorn-utterances.com/posts/object-mutation). It's suggested to read these resources and come back if you're feeling confused.
+> Have the feeling you're missing something? Some of this section requires pre-existing knowledge about how computer memory works both [in hardware land](https://unicorn-utterances.com/posts/how-computers-speak#ram) and [how JavaScript handles memory under-the-hood](https://unicorn-utterances.com/posts/object-mutation). It's suggested to read these resources and come back if you're feeling confused.
 
-### Seeing Hidden Memory Leaks
+### Seeing Hidden Memory Leaks {#seeing-hidden-memory-leaks}
 
 Not only are the memory leaks we mentioned hidden from the user when using events, there are ways to accidentally expose them to your user as well.
 
@@ -1965,13 +1965,13 @@ Well, let's look at our old example visually once again:
 
 You may notice that instead of a two-way binding, we're now passing a function reference from the component instance to the framework and DOM. As a result of this passing (rather than listening), [our framework of choice no longer has the ability to forcibly invalidate this reference](https://unicorn-utterances.com/posts/object-mutation). After all, [a function in JavaScript is just a value](https://unicorn-utterances.com/posts/javascript-functions-are-values) which can be passed like any other.
 
-This shift in how we're handling a parent's data (binding vs getting a reference) means that on cleanup, the function passed to a child will not become invalid. Instead, it will persist in memory until it's no longer needed by the child component and cleaned up by JavaScript's internals:
+This shift in how we're handling a parent's data (binding vs. getting a reference) means that on cleanup, the function passed to a child will not become invalid. Instead, it will persist in memory until it's no longer needed by the child component and cleaned up by JavaScript's internals:
 
 ![When the component unmounts, our inputs are persisted in-memory of the DOM](./function_unmount_explainer.png)
 
-This is why it's so important to clean up memory - it's easy to let it become leaky and accidentally shift the user's expected behavior.
+This is why it's so important to clean up memory — it's easy to let it become leaky and accidentally shift the user's expected behavior.
 
-## Cleaning up Event Listeners
+## Cleaning up Event Listeners {#cleaning-event-listeners}
 
 [We had a code sample earlier in the chapter that relied on `addEventListener` to get the window size](#prod-side-effects). This code sample, you may have guessed, had a memory leak in it because we never cleaned up this event listener.
 
@@ -2132,7 +2132,7 @@ watchEffect((onCleanup) => {
 
 <!-- tabs:end -->
 
-## Ensuring Side Effect Cleanup
+## Ensuring Side Effect Cleanup {#ensuring-effect-cleanup}
 
 Some frameworks have taken extra steps to ensure your side effects are always cleaned up.
 
@@ -2169,7 +2169,7 @@ It does so by modifying slight behaviors of your app and printing errors when ne
 
 > `StrictMode` only does this on development builds of your app and does not impact your code whatsoever during production.
 
-[Since React 18, `StrictMode` will re-run all `useEffect`s twice](https://unicorn-utterances.com/posts/why-react-18-broke-your-app). This change was made by the React team in order to highlight potential bugs in your application that are caused by un-cleaned side effects.
+[Since React 18, `StrictMode` will re-run all `useEffect`s twice](https://unicorn-utterances.com/posts/why-react-18-broke-your-app). This change was made by the React team to highlight potential bugs in your application that are caused by uncleaned side effects.
 
 So, if you have the following code:
 
@@ -2203,7 +2203,7 @@ However, if you disable `StrictMode` your output would be:
 
 Again, **this is intentional**. React is trying to help you find bugs in your code by highlighting side effects that are not cleaned up.
 
-If you have code that does not work with `StrictMode`, this is most likely the culprit and you should investigate all side effect cleanups in your components.
+If you have code that does not work with `StrictMode`, this is most likely the culprit, and you should investigate all side effect cleanups in your components.
 
 ### Angular
 
@@ -2215,7 +2215,7 @@ Vue does not have any special behaviors with `OnInit` to force component cleanup
 
 <!-- tabs:end -->
 
-# Re-Renders
+# Re-Renders {#re-renders}
 
 While rendering and un-rendering are the most frequent times you might want to add a side effect handler, they're not the _only_ times you're able to do so.
 
@@ -2226,7 +2226,7 @@ While we'll touch on the framework's internals [in the third book of the series]
 for now, let's take a look at one more component API that's _relatively_ consistent between most frameworks:
 Re-rendering.
 
-Re-rendering is what it sounds like; While the initial "render" is what allows us to see the first contents on screen being drawn, subsequent updates — like our live-updated values — are drawn during "re-renders".
+Re-rendering is what it sounds like; While the initial "render" is what allows us to see the first contents on screen being drawn, subsequent updates — like our live-updated values — are drawn during "re-renders."
 
 Re-renders may occur for many reasons:
 
@@ -2290,13 +2290,13 @@ Because the `button` triggers a re-render, `useEffect` will run, even if there i
 
 ## Angular
 
-We mentioned earlier that outside of the basics of "rendering" and "un-rendering", each framework tends to diverge. Well, dear reader, it's coming into play here.
+We mentioned earlier that outside the basics of "rendering" and "un-rendering," each framework tends to diverge. Well, dear reader, it's coming into play here.
 
 Angular does not have a lifecycle method specifically for when a component re-renders. This is because Angular does not track DOM changes internally the same way the other two frameworks do.
 
 This isn't to say that Angular components don't re-draw the DOM — we've already demonstrated that it's able to live-refresh the DOM when data changes — just that Angular doesn't provide a lifecycle for detecting when it does.
 
-To answer "why" is a much longer topic, [which I've written about in a dedicated blog post](https://unicorn-utterances.com/posts/angular-internals-zonejs), but in the meantime feel free to see how the other two frameworks work as a reference for what you might expect elsewhere.
+To answer "why" this occurs is a much longer topic, [which I've written about in a dedicated blog post](https://unicorn-utterances.com/posts/angular-internals-zonejs). In the meantime, feel free to see how the other two frameworks work as a reference to what you might expect elsewhere.
 
 ## Vue
 
@@ -2327,9 +2327,9 @@ Every time the `ReRenderListener` component updates the DOM with new changes, th
 
 <!-- tabs:end -->
 
-# In-Component Property Side Effects
+# In-Component Property Side Effects {#in-comp-prop-side-effect}
 
-Up to this point, we've looked at component-wide events such as "rendering the component" and "unrendering the component".
+Up to this point, we've looked at component-wide events such as "rendering the component" and "unrendering the component."
 
 While these events are undeniably helpful to be able to hook into, most user input doesn't cause this drastic of a change.
 
@@ -2433,13 +2433,13 @@ const App = () => {
 
 By doing this, we're _hinting_ to React that this side effect should only ever run when the `test` variable's _reference_ has changed during a render.
 
-### Stale Values
+### Stale Values {#stale-values}
 
-When using a component's variables within `useEffect`, **it's absolutely imperative that we include all of the utilized variables within the `useEffect` array**.
+When using a component's variables within `useEffect`, **it's absolutely imperative that we include all the variables within the `useEffect` array**.
 
 This is because any variables left outside of `useEffect` will likely result in "stale" data.
 
-"Stale" data is any data that is out-of-date from the "true"/intended value. This occurs when you pass data to a function inside of [a "closure"](https://whatthefuck.is/closure) and do not update the value later.
+"Stale" data is any data out-of-date from the "true"/intended value. This occurs when you pass data to a function inside [a "closure"](https://whatthefuck.is/closure) and do not update the value later.
 
 Take the following code sample:
 
@@ -2465,7 +2465,7 @@ function App() {
 
 <iframe data-frame-title="React Stale Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-stale-values-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-Here, we're telling React to `console.log` the `count` value every second inside of a `setInterval`.
+Here, we're telling React to `console.log` the `count` value every second inside a `setInterval`.
 
 However, because we're not passing `count` to the `useEffect` array, the `console.log` will never show any value other than:
 
@@ -2490,7 +2490,7 @@ useEffect(() => {
 
 ## Angular
 
-While Angular _today_ does not include a method for tracking internal state changes, a future version of Angular will introduce the concept of ["Signals"](https://angular.io/guide/signals), which will allow us to watch changes made to a variable, regardless of where the state change come from.
+Angular _today_ does not include a method for tracking internal state changes. However, a future version of Angular will introduce the concept of ["Signals"](https://angular.io/guide/signals), which will allow us to watch changes made to a variable, regardless of where the state change comes from.
 
 Instead, we'll have to use a `setTitle` function that calls the variable mutation as well as sets the `document.title` as a side effect:
 
@@ -2521,7 +2521,7 @@ class AppComponent {
 
 ## Vue
 
-I have to come clean about something: `watchEffect` isn't primarily utilized to run an effect on a component's first render, as we've been using it for to this point.
+I have to come clean about something: `watchEffect` isn't primarily used to run an effect on a component's first render, as we've been using it for to this point.
 
 Instead, `watchEffect` does something pretty magical: It re-runs the inner function whenever a "tracked" `ref` is updated:
 
@@ -2552,7 +2552,7 @@ watchEffect(() => {
 
 How does `watchEffect` know what refs to watch? The long answer dives deep into Vue's source code and is a challenge to introduce at this stage.
 
-The short answer is "Vue's `ref` code contains a bit of logic inside of it to register to the nearest `watchEffect`, but only when `ref` is inside of a synchronous operation".
+The short answer is "Vue's `ref` code contains a bit of logic inside it to register to the nearest `watchEffect`, but only when `ref` is inside a synchronous operation."
 
 This means that if we have the following code:
 
@@ -2583,11 +2583,11 @@ watchEffect(() => {
 });
 ```
 
-<iframe data-frame-title="Vue Broken Broken Watch Effect Tracking - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-watch-effect-tracking-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Broken Watch Effect Tracking - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-watch-effect-tracking-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
-It will only track changes to `count`, as the `title.value` usage is inside of an async operation.
+It will only track changes to `count`, as the `title.value` usage is inside an async operation.
 
-### Manually Track Changes with `watch`
+### Manually Track Changes with `watch` {#watch-manually-track-changes}
 
 `watchEffect` is a bit magic, aye? Maybe it's a bit too much for your needs, maybe you need to be more specific about what you do and do not track. This is where Vue's `watch` function comes into play.
 
@@ -2624,7 +2624,7 @@ watch(
 >
 > Would still run the inner function when `title` has changed, but only after the initial render.
 
-### `watch` Multiple Items
+### `watch` Multiple Items {#watch-multiple-items}
 
 To watch multiple items, we can pass an array of reactive variables:
 
@@ -2645,7 +2645,7 @@ watch(
 );
 ```
 
-`watch` also supports passing an `onCleanup` method to cleanup watched side effects, much like the `watchEffect` API:
+`watch` also supports passing an `onCleanup` method to clean up watched side effects, much like the `watchEffect` API:
 
 ```javascript
 const title = ref("Movies");
@@ -2665,9 +2665,9 @@ watch([title, count], (currentValue, previousValue, onCleanup) => {
 
 <!-- tabs:end -->
 
-# Rendering, Committing, Painting
+# Rendering, Committing, Painting {#rendering-committing-painting}
 
-While we might attribute the definition of "rendering" to mean "showing something new on-screen", this is only partially true. While Angular follows this definition to some degree, React and Vue do not.
+While we might attribute the definition of "rendering" to mean "showing something new on-screen," this is only partially true. While Angular follows this definition to some degree, React and Vue do not.
 
 Instead, React and Vue both have a trick up their sleeves; the virtual DOM (VDOM). While explaining the VDOM is a bit complex, here's the basics:
 
@@ -2676,12 +2676,12 @@ Instead, React and Vue both have a trick up their sleeves; the virtual DOM (VDOM
 - When you tell the framework to update the value on screen, it tries to figure out the specific part of the screen to render and nothing more.
 
 - After the framework has decided specifically which elements it wants to re-render with new contents, it will:
-  1. Create a set of instructions that are needed to run in order to update the DOM
-  2. Run those instruction on the VDOM
+  1. Create a set of instructions that are needed to run to update the DOM
+  2. Run those instructions on the VDOM
   3. Reflect the changes made in VDOM on the actual browser DOM
   4. The browser then takes the updates made to the DOM and shows them to the user
 
-Let's pause on these four steps of the last bullet point here. This process of deciding which elements framework needs to update is called "reconciliation". This reconciliation step has three parts to it and are named respectively:
+Let's pause on these four steps of the last bullet point here. This process of deciding which elements the framework needs to update is called "reconciliation." This reconciliation step has three parts to it and are named respectively:
 
 1. Diffing
 2. Pre-committing
@@ -2692,7 +2692,7 @@ Let's pause on these four steps of the last bullet point here. This process of d
 
 > Keep in mind, this "reconciliation" process occurs **as part of** a render. Your component **may** render due to reactive state changes, but **may not** trigger the entire reconciliation process if it detects nothing has changed during the `diffing` stage.
 
-React and Vue both provide a way to access parts of these internal stages of reconciliation with their own APIs.
+React and Vue both provide a way to access internal stages of reconciliation with their own APIs.
 
 <!-- tabs:start -->
 
@@ -2709,7 +2709,7 @@ If `useLayoutEffect` _only_ ran prior to the browser's paint, it might be accept
 
 For example, let's say you want to measure the size of an HTML element and display that information as part of the UI, you'd want to use `useLayoutEffect` instead of `useEffect`, as otherwise it would flash the contents on screen momentarily before the component re-rendered to hide the initialization data.
 
-Let's use `useLayoutEffect` to calculate the bounding box of an element in order to position another element:
+Let's use `useLayoutEffect` to calculate the bounding box of an element to position another element:
 
 ```jsx {0,13-19}
 import { useState, useLayoutEffect } from "react";
@@ -2835,11 +2835,11 @@ Now when we click on an item, it will print out the current version of `title` f
 
 <!-- tabs:end -->
 
-While this level of internals knowledge is seldomly utilized when getting started building applications, they can provide you powerful ability to optimize and improve your applications; think of this information like your developer superpower.
+While this level of internals knowledge is seldom used when getting started building applications, they can provide you the powerful ability to optimize and improve your applications; think of this information like your developer superpower.
 
 Like any other superpower, you should use these last few APIs with care, knowing that they may make your application worse rather than better; With great APIs comes great responsibility.
 
-# Changing Data without Renderings
+# Changing Data without Renderings {#changing-data-without-rendering}
 
 Sometimes it's not ideal to trigger a re-render every time you want to set a variable's state.
 
@@ -3091,9 +3091,9 @@ const TitleChanger = () => {
 1. You access data from a ref using `.current`
 2. It does not trigger a re-render when updating values (more on that soon)
 
-This makes `useRef` perfect for things like `setTimeout` and `setInterval` returned values; they need to be persisted in order to cleanup properly, but do not need to display to the user so we can avoid re-rendering.
+This makes `useRef` perfect for things like `setTimeout` and `setInterval` returned values; they need to be persisted to clean up properly, but do not need to display to the user, so we can avoid re-rendering.
 
-### `useRef`s Don't Trigger `useEffect`s
+### `useRef`s Don't Trigger `useEffect`s {#useref-dont-trigger-useeffect}
 
 Because `useRef` doesn't trigger a re-render, our `useEffect` will never re-run; **`useEffect` doesn't listen to the passed array values, but rather checks _the reference_ of the array's value**.
 
@@ -3158,7 +3158,7 @@ const Comp = () => {
 	// Set initial value for first render
 	const ref = useRef(Date.now());
 
-	// We're not using the `_` value, just the `set` method in order to force a re-render
+	// We're not using the `_` value, just the `set` method to force a re-render
 	const [_, setForceRenderNum] = useState(0);
 
 	useEffect(() => {
@@ -3185,13 +3185,13 @@ Here, the timestamp display will never update until you press the `button`. Even
 
 ## Angular
 
-> While writing this book, dear reader, I had a few objectives. One of those objectives was to not introduce an API without first explaining it. I am about to break this rule for the only time I'm aware of in this book. Please forgive me.
+> While writing this book, dear reader, I had a few goals. One of those goals was to not introduce an API without first explaining it. I am about to break this rule for the only time I'm aware of in this book. Please forgive me.
 
-[While the internals of how Angular is able to detect changes in values is complex](https://unicorn-utterances.com/posts/angular-internals-zonejs), the simple answer is "It uses some magic in something called [Zone.js](https://unicorn-utterances.com/posts/angular-internals-zonejs) to automatically detect when you change a value."
+[While the internals of how Angular is able to detect changes in values are complex](https://unicorn-utterances.com/posts/angular-internals-zonejs), the simple answer is "It uses some magic in something called [Zone.js](https://unicorn-utterances.com/posts/angular-internals-zonejs) to automatically detect when you change a value."
 
-To sidestep this detection from Zone.js in Angular, you can tell the framework to run something "outside of Angular".
+To sidestep this detection from Zone.js in Angular, you can tell the framework to run something "outside of Angular."
 
-To do this, we need to utilize ["Dependency Injection"](/posts/ffg-fundamentals-dependency-injection) to access Angular's internal `NgZone` reference and use the `runOutsideAngular` method:
+To do this, we need to use ["Dependency Injection"](/posts/ffg-fundamentals-dependency-injection) to access Angular's internal `NgZone` reference and use the `runOutsideAngular` method:
 
 ```typescript {0,19-21,31-33}
 import { Component, NgZone, OnDestroy, inject } from "@angular/core";
@@ -3277,7 +3277,7 @@ onUnmounted(() => clearTimeout(timeoutExpire));
 
 <!-- tabs:end -->
 
-# API Chart
+# API Chart {#api-chart}
 
 Let's take a look visually at how each framework calls the relevant APIs we've touched on today:
 
@@ -3305,7 +3305,7 @@ Because Vue has two different APIs, I made two charts for them.
 
 <!-- tabs:end -->
 
-# Challenge
+# Challenge {#challenge}
 
 Since the start of this book, we've been working on a storage app. While our mockups to this point have been using a light mode, which is an important default for all apps [due to accessibility concerns](https://www.vice.com/en/article/ywyqxw/apple-dark-mode-eye-strain-battery-life), let's add in a dark mode for the app:
 
@@ -3313,7 +3313,7 @@ Since the start of this book, we've been working on a storage app. While our moc
 
 This can be done by using a combination of technologies:
 
-- A manual theme toggle with three options:
+- A manual theme toggles with three options:
   - Light Mode
   - Inherit Mode from OS
   - Dark Mode
