@@ -13,11 +13,11 @@
 
 In our previous chapter, we build context menu functionality into our `App` component. This functionality allowed us to right-click on an element and get a list of actions we could take.
 
-![// TODO: Add alt](../ffg-fundamentals-element-reference/context-close.png)
+![With the context menu open, when you left-click outside of the bounds of the context menu it will close it](../ffg-fundamentals-element-reference/context-close.png)
 
 This code works as we'd expect, but it doesn't follow a fundamental pattern of React, Angular, or Vue: It's not componentized.
 
-Let's fix this by moving our context menu code into it's own component. This way, we're able to do easier refactors, code cleanup, and more.
+Let's fix this by moving our context menu code into its own component. This way, we're able to do easier refactors, code cleanup, and more.
 
 <!-- tabs:start -->
 
@@ -294,7 +294,7 @@ You may have noticed that during this migration, we ended up removing a crucial 
 
 Why was it removed and how can we add it back?
 
-# Introducing Component Reference
+# Introducing Component Reference {#introducing-component-reference}
 
 **The reason we removed the context menu's focus management is to keep the control of the context menu in the parent.**
 
@@ -305,7 +305,7 @@ This allows you to re-use your context menu component in more places, should you
 To do this, let's move the `.focus` method out of our component. Moving from this:
 
 ```javascript
-/* This is valid JS, but is only psuedocode of what each framework is doing */
+/* This is valid JS, but is only pseudocode of what each framework is doing */
 // Child component
 function onComponentRender() {
 	document.addEventListener("click", closeIfOutsideOfContext);
@@ -322,7 +322,7 @@ function openContextMenu(e) {
 To this:
 
 ```javascript
-/* This is valid JS, but is only psuedocode of what each framework is doing */
+/* This is valid JS, but is only pseudocode of what each framework is doing */
 // Child component
 function onComponentRender() {
 	document.addEventListener("click", closeIfOutsideOfContext);
@@ -336,7 +336,7 @@ function openContextMenu(e) {
 }
 ```
 
-While this might seem like a straightforward change at first, there's a new problem present: Our `contextMenu` is now inside of a component. As a result, we need to not only [access the underlying DOM node using element reference](/posts/ffg-fundamentals-element-reference), but we need to access the `ContextMenu` component instance.
+While this might seem like a straightforward change at first, there's a new problem present: Our `contextMenu` is now inside a component. As a result, we need to not only [access the underlying DOM node using element reference](/posts/ffg-fundamentals-element-reference), but we need to access the `ContextMenu` component instance.
 
 Luckily for us, each framework enables us to do just that! Before we implement the `focus` logic, let's dive into how component reference works:
 
@@ -344,7 +344,7 @@ Luckily for us, each framework enables us to do just that! Before we implement t
 
 ## React
 
-React has two APIs that help us gain insights into a component's internals from it's parent:
+React has two APIs that help us gain insights into a component's internals from its parent:
 
 - [`forwardRef`](#forward-ref)
 - [`useImperativeHandle`](#imperative-handle)
@@ -355,7 +355,7 @@ Let's start with the basics: `forwardRef`.
 
 `forwardRef` does what it says on the tin: It allows you to forward a `ref` property through a component instance.
 
-See, in React, `ref` is a special property. This means that in order to be used properly, React has to have a special syntax to enable it's expected functionality.
+See, in React, `ref` is a special property. This means that to be used properly, React has to have a special syntax to enable its expected functionality.
 
 As a result, the following code does not work:
 
@@ -489,7 +489,7 @@ const App = () => {
 
 It will output `Hello, world` just as we would expect it to!
 
-### `useImperativeHandle` Dependency Array
+### `useImperativeHandle` Dependency Array {#useimperativehandle-dep-array}
 
 Let's stop and think about how `useImperativeHandle` works under-the-hood for a moment.
 
@@ -527,7 +527,7 @@ const Parent = () => {
 };
 ```
 
-But wait a moment! If we think back to [our Side Effects chapter](/posts/ffg-fundamentals-side-effects) we'll remember that mutating state outside of a component's local values is an example of a side-effect.
+But wait a moment! If we think back to [our Side Effects chapter](/posts/ffg-fundamentals-side-effects) we'll remember that mutating state outside a component's local values is an example of a side effect.
 
 ![A pure function is allowed to mutate state from within it's local environment, while a side effect changes data outside its own environment](../ffg-fundamentals-side-effects/pure-vs-side-effect.png)
 
@@ -547,7 +547,7 @@ const Child = forwardRef((props, ref) => {
 });
 ```
 
-This is similar to how `useImperativeHandle` works under-the-hood. So similar in fact, that it's effectively how the hook is written [in React's source code itself](https://jser.dev/react/2021/12/25/how-does-useImperativeHandle-work/).
+This is similar to how `useImperativeHandle` works under-the-hood. So similar, in fact, that it's effectively how the hook is written [in React's source code itself](https://jser.dev/react/2021/12/25/how-does-useImperativeHandle-work/).
 
 > But wait! `useLayoutEffect` has the option to pass an array to it so that you can avoid re-running the side effect. Does that work in `useImperativeHandle` as well?
 
@@ -698,7 +698,7 @@ If we look at our console output, we might see something unexpected:
 
 This is because Vue uses Proxies under-the-hood to power component state. Rest assured, however; this `Proxy` is still our component instance.
 
-### Exposing Component Variables to References
+### Exposing Component Variables to References {#exposing-comp-vars}
 
 We're not able to do much with this component instance currently. If we change out `Parent` component to `console.log` the `pi` value from `Child`:
 
@@ -771,7 +771,7 @@ onMounted(() => {
 
 <!-- tabs:end -->
 
-# Using Component Reference to Focus Our Context Menu
+# Using Component Reference to Focus Our Context Menu {#using-comp-ref}
 
 Now that we sufficiently understand what component references look like in each framework, let's add it into our `App` component to re-enable focusing our `ContextMenu` component when it opens.
 
@@ -1018,13 +1018,13 @@ const open = (e) => {
 
 <!-- tabs:end -->
 
-# Challenge
+# Challenge {#challenge}
 
 This information about component reference isn't just theoretically useful. You're able to apply it to your codebase to enable new methods of building out components.
 
 Let's see that in action by building a sidebar component that's able to expand and collapse.
 
-![// TODO: Alt](./collapsible_sidebar.png)
+![A sidebar of items with a collapsed view on the left and an expanded view with longer labels on the right](./collapsible_sidebar.png)
 
 To add an extra special interaction with this sidebar, **let's make it so that when the user shrinks their screen to a certain size, it will automatically collapse the sidebar**.
 
@@ -1036,7 +1036,7 @@ To do this, we'll:
 
 Let's dive in.
 
-## Step 1: Setup App Component Layout
+## Step 1: Setup App Component Layout {#challenge-step-1}
 
 Let's start creating our sidebar!
 
@@ -1163,7 +1163,7 @@ import Layout from "./Layout.vue";
 
 <!-- tabs:end -->
 
-## Step 2: Make a Collapsible Sidebar
+## Step 2: Make a Collapsible Sidebar {#challenge-step-2}
 
 Now that we have a rough sidebar, we'll make it so that the user can manually collapse the sidebar.
 
@@ -1171,7 +1171,7 @@ This can be done by having an `isCollapsed` state that the user toggles with a b
 
 When `isCollapsed` is `true`, it will only show the toggle button, but when `isCollapsed` is `false`, it should display the full sidebar's contents.
 
-We'll also setup constants to support different widths of this sidebar area if it's collapsed or not.
+We'll also set up constants to support different widths of this sidebar area if it's collapsed or not.
 
 <!-- tabs:start -->
 
@@ -1369,13 +1369,13 @@ function onToggle(isCollapsed) {
 
 <!-- tabs:end -->
 
-## Step 3: Auto-Collapse Sidebar on Small Screens
+## Step 3: Auto-Collapse Sidebar on Small Screens {#challenge-step-3}
 
 Finally, let's auto-collapse the sidebar on screens smaller than 600px wide.
 
 We can do this using [a side effect handler](/posts/ffg-fundamentals-side-effects) to add a listener for screen resizes.
 
-Then, we'll use framework-specific code similar to the following pseudo-code to expand or collapse the sidebar based on the screen size:
+Then, we'll use framework-specific code similar to the following pseudocode to expand or collapse the sidebar based on the screen size:
 
 ```javascript
 const onResize = () => {
@@ -1715,4 +1715,4 @@ much easier to interact with on mobile devices.
 >
 > This would give us greater flexibility in controlling our sidebar's `isCollapsed` state without having to use a component reference.
 >
-> However, if you're building a UI library that's meant to interact with multiple applications, sometimes having this state lowered can allow you to reduce boilerplate between apps that share this component.
+> However, if you're building a UI library meant to interact with multiple applications, sometimes having this state lowered can allow you to reduce boilerplate between apps that share this component.
