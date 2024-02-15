@@ -20,7 +20,7 @@ class GreatGrandChildComponent {
 @Component({
 	selector: "grand-child",
 	standalone: true,
-	// Notice the new provider here, it will suppliment the `App` injected value
+	// Notice the new provider here, it will supplement the `App` injected value
 	// for all child components of `grand-child`
 	providers: [{ provide: NameValue, useValue: { name: "Kevin" } }],
 	imports: [GreatGrandChildComponent],
