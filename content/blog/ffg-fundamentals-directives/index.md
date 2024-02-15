@@ -490,6 +490,8 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Directives Pass JS Data - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-directives-pass-js-data-108?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ### Angular
 
 ```typescript
@@ -498,7 +500,7 @@ class Color {
 	g: number;
 	b: number;
 
-	constructor(r, g, b) {
+	constructor(r: number, g: number, b: number) {
 		this.r = r;
 		this.g = g;
 		this.b = b;
@@ -510,7 +512,7 @@ class Color {
 	standalone: true,
 })
 class StyleBackgroundDirective implements OnInit {
-	@Input() styleBackground: Color;
+	@Input() styleBackground!: Color;
 
 	el = inject(ElementRef<any>);
 
@@ -531,6 +533,8 @@ class AppComponent {
 	color = new Color(255, 174, 174);
 }
 ```
+
+<iframe data-frame-title="Angular Directives Pass JS Data - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-directives-pass-js-data-108?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -559,6 +563,8 @@ const vStyleBackground = {
 	<button v-style-background="colorInstance">Hello, world</button>
 </template>
 ```
+
+<iframe data-frame-title="Vue Directives Pass JS Data - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-directives-pass-js-data-108?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
