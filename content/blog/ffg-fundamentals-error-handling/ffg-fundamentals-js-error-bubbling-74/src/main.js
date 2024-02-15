@@ -43,7 +43,7 @@ function main() {
 		el.innerText += getDaySchedule();
 	} catch (e) {
 		// Only now will the error be stopped
-		el.innerText += "An error occured: " + getErrorString(e);
+		el.innerText += "An error occurred: " + getErrorString(e);
 	}
 }
 

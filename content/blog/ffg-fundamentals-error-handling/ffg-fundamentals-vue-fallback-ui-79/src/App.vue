@@ -14,6 +14,6 @@ onErrorCaptured((err, instance, info) => {
 </script>
 
 <template>
-	<p v-if="hadError">An error occured</p>
+	<p v-if="hadError">An error occurred</p>
 	<Child v-if="!hadError" />
 </template>
