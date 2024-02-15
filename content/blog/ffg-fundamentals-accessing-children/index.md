@@ -944,7 +944,6 @@ class AppComponent {
 
 </details>
 
-
 ## Vue
 
 ```vue

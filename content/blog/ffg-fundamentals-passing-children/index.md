@@ -1069,7 +1069,7 @@ When you use a `selector` in Angular to create an element, that selector stays i
 class ListItemComponent {}
 ```
 
-Rendering this component will yeild the following DOM elements:
+Rendering this component will yield the following DOM elements:
 
 ```html
 <list-item></list-item>

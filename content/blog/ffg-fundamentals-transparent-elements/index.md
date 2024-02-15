@@ -289,7 +289,7 @@ import { Fragment } from "react";
 
 <iframe data-frame-title="React Transparent Files After - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-transparent-files-after-51?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-## `Fragment` alternative syntax
+## `Fragment` Alternative Syntax
 
 `Fragment` also has an alternative syntax in JSX. Instead of `<Fragment></Fragment>`, you can simply do `<></>`. This shorthand removes the need for the import and makes the above code sample read like this:
 
@@ -361,7 +361,7 @@ In order to render out something akin to a `nothing` element, we can use a [`tem
 
 <!-- tabs:end -->
 
-# Stacking Partial Application
+# Stacking Transparent Elements
 
 Just as a quick note, not only can these `nothing` elements be used once, but they can be stacked back-to-back to do... Well, nothing!
 
