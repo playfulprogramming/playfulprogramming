@@ -2830,7 +2830,7 @@ document.addEventListener("contextmenu", closeIfContextMenu);
 
 This bit of code will allow us to close other context menu instances when a new one is open.
 
-Then, for the list of actions, we'll start by hardcoding an array into the `ContextMenu` component.
+Then, for the list of actions, we'll start by hard-coding an array into the `ContextMenu` component.
 
 This array should include a label that's visible to the end-user and a function that should be ran when
 the action is taken.

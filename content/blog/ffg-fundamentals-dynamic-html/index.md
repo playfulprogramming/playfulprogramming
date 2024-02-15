@@ -13,7 +13,7 @@
 
 Previously, we learned how to create components for our file application. These components included a way to create a component tree, add inputs to each component to pass data, and add an output of data back to a parent component.
 
-Where we last left off, we manually input a list of files, which included file names and dates inside of a `button`. Let's take a look back at our existing file component to start:
+Where we last left off, we manually input a list of files, which included file names and dates inside a `button`. Let's take a look back at our existing file component to start:
 
 <!-- tabs:start -->
 
@@ -113,7 +113,7 @@ One thing we would love to add is the ability to see folders listed alongside fi
 
 To do this, we'll create a new property called `isFolder`, which hides the date when set to true.
 
-# Conditional Rendering
+# Conditional Rendering {#conditional-rendering}
 
 One way we can hide the `date` from displaying the user is by reusing an HTML attribute we introduced in the last chapter's challenge: [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden).
 
@@ -126,11 +126,11 @@ One way we can hide the `date` from displaying the user is by reusing an HTML at
 
 This works, but introduces a potential problem; while the contents are not _shown_ to the user (and are similarly [hidden from screen-readers](https://unicorn-utterances.com/posts/intro-to-web-accessability#css)) they _are_ still present within the DOM.
 
-This means that if you have a large amount of these HTML elements that are marked as `hidden`, but still in the DOM; they can impact performance and memory usage as if they **were** being displayed to the user.
+This means that if you have a large number of these HTML elements that are marked as `hidden`, but still in the DOM; they can impact performance and memory usage as if they **were** being displayed to the user.
 
 This might sound counterintuitive at first, but in-memory non-displayed UI elements have their place; they're particularly useful when trying to build out animation systems that visually transition items in and out of view.
 
-In order to sidestep these performance concerns, React, Angular, and Vue all have a method to "conditionally render" HTML elements based off of a boolean. This means that if you pass `false`, it will entirely remove the child HTML elements out of the DOM.
+To sidestep these performance concerns, React, Angular, and Vue all have a method to "conditionally render" HTML elements based off of a boolean. This means that if you pass `false`, it will entirely remove the child HTML elements out of the DOM.
 
 Let's see what that looks like in usage:
 
@@ -146,7 +146,7 @@ const ConditionalRender = ({ bool }) => {
 
 <iframe data-frame-title="React Conditional Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-conditional-render-17?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-Here, we're using React's `{}` JavaScript binding to add in an [`AND` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND). This works by utilizing Boolean logic of ["short-circuiting"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation). This means that if we have:
+Here, we're using React's `{}` JavaScript binding to add in an [`AND` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND). This works by using Boolean logic of ["short-circuiting"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation). This means that if we have:
 
 ```javascript
 const val = true || {};
@@ -160,7 +160,7 @@ const val = false || {};
 
 `val` will be set to `false`.
 
-React then uses this return value to render the value when the condition inside of the curly braces is **not** `undefined` or `null`.
+React then uses this return value to render the value when the condition inside the curly braces is **not** `undefined` or `null`.
 
 This means that these examples **will** render their contained values:
 
@@ -206,7 +206,7 @@ class ConditionalRenderComponent {
 
 Here, we're using a special property called `ngIf` on our `p` tag to stop rendering the element if `bool` is `false`. This property is prefixed with an asterisk (`*`) to interact with Angular's compiler in special ways.
 
-> These asterisk prefixed properties are called "Structural Directives" and are a unique feature to Angular. Their usage can be quite advanced, but you can read more about them when you're ready [in this blog post](https://unicorn-utterances.com/posts/angular-templates-start-to-source).
+> These asterisk-prefixed properties are called "Structural Directives" and are a unique feature to Angular. Their usage can be quite advanced, but you can read more about them when you're ready [in this blog post](https://unicorn-utterances.com/posts/angular-templates-start-to-source).
 
 To use `ngIf`, we need to import `NgIf` from `@angular/common` and pass it to the `imports` array for the component.
 
@@ -246,11 +246,11 @@ But when `bool` is set to `false`, it instead renders the following HTML:
 <div></div>
 ```
 
-This is possible because React, Angular, and Vue control what is rendered to the screen. Utilizing this, they can remove or add HTML rendered to the DOM with nothing more than a boolean instruction.
+This is possible because React, Angular, and Vue control what is rendered to the screen. Using this, they can remove or add HTML rendered to the DOM with nothing more than a boolean instruction.
 
 Knowing this, let's add conditional rendering to our application.
 
-## Conditional Rendering Our Date
+## Conditional Rendering Our Date {#conditional-render-date}
 
 Right now, we have a list of files to present to the user. However, if we look back at our mockups, we'll notice that we wanted to list folders alongside files.
 
@@ -258,7 +258,7 @@ Right now, we have a list of files to present to the user. However, if we look b
 
 Luckily for us, our `File` component already manages much of the behavior we'd like to have with a potential `Folder` component to as well. For example, just like files, we want to select a folder when the user has clicked on it so that we can select multiple files and folders at once.
 
-However, unlike files, folders do not have a creation date since there may be ambiguity of what the "Last modified" date would mean for a folder. Is is the last modified date when the folder was renamed? Or was it when a file within said folder was last modified? It's unclear, so we'll axe it.
+However, unlike files, folders do not have a creation date since there may be ambiguity of what the "Last modified" date would mean for a folder. Is the last modified date when the folder was renamed? Or was it when a file within said folder was last modified? It's unclear, so we'll axe it.
 
 Despite this difference in functionality, we can still reuse our `File` component for folders as well. We can reuse this component by conditionally rendering the date if we know we're showing a folder instead of a file.
 
@@ -405,7 +405,7 @@ import File from "./File.vue";
 
 <!-- tabs:end -->
 
-# Conditional Branches
+# Conditional Branches {#conditional-branch}
 
 We're now able to conditionally show the user the last modified date depending on the `isFolder` boolean. However, it may still be unclear to the user what is a folder and what is a file, as we don't have this information clearly displayed to the user yet.
 
@@ -445,7 +445,7 @@ Let's use conditional rendering to show the type of item displayed based on the 
 While working on this, it might become clear that we're effectively reconstructing an [`if ... else` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else), similar to the following logic in JavaScript.
 
 ```javascript
-// This is psuedocode for the above using JavaScript as the syntax
+// This is pseudocode for the above using JavaScript as the syntax
 if (isFolder) return "Type: Folder";
 else return "Type: File";
 ```
@@ -456,7 +456,7 @@ Like the JavaScript environment these frameworks run in, they also implement a s
 
 ## React
 
-One of the benefits of React's JSX templating language is that you're able to embed JavaScript directly inside of an element. This embedded JavaScript will then render the return value of the JavaScript inside.
+One of the benefits of React's JSX templating language is that you're able to embed JavaScript directly inside an element. This embedded JavaScript will then render the return value of the JavaScript inside.
 
 For example, we can use [a JavaScript ternary](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) to return a different value if a boolean is `true` or `false`:
 
@@ -494,7 +494,7 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 
 <iframe data-frame-title="Angular Conditional Branches - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-conditional-branches-19?template=node&embed=1&file=src%2Fmain."></iframe>
 
-Undoubtably you're looking at this snippet of code and wondering what `ng-template` is doing here.
+Undoubtedly, you're looking at this snippet of code and wondering what `ng-template` is doing here.
 
 ### Explaining `ng-template` {#ng-template}
 
@@ -517,7 +517,7 @@ Correct! By default, an `ng-template` will not render anything at all.
 
 > So then what's the point?
 
-The point, my dear reader, is that you can assign a in-template variable to `ng-template` and use it elsewhere. These in-template variables are called "template tags" and are created by assigning an octothorpe (`#`) prefixed attribute to the `ng-template`.
+The point, my dear reader, is that you can assign an in-template variable to `ng-template` and use it elsewhere. These in-template variables are called "template tags" and are created by assigning an octothorpe (`#`) prefixed attribute to the `ng-template`.
 
 ```html
 <ng-template #tag>
@@ -553,7 +553,7 @@ Here, Vue's `if...else` syntax looks fairly similar to the JavaScript pseudo-syn
 
 <!-- tabs:end -->
 
-## Expanded Branches
+## Expanded Branches {#expanded-branches}
 
 While an `if ... else` works wonders if you only have a single Boolean value you need to check, you'll often need more than a single conditional branch to check against.
 
@@ -686,7 +686,7 @@ Once again, the `v-else-if` and `v-else` tags must follow one another to work as
 
 <!-- tabs:end -->
 
-# Rendering Lists
+# Rendering Lists {#rendering-lists}
 
 While we've primarily focused on improvements to our `File` component in this chapter, let's take another look at our original `FileList` component.
 
@@ -847,7 +847,7 @@ function onSelected(idx) {
 
 Upon second glance, something that might immediately jump out at you is just how long these code samples are! Interestingly, this is primarily due to the copy-pasted nature of our `File` component being repeated.
 
-What's more, this method of hardcoding file components means that we cannot create new files in JavaScript and display them in the DOM.
+What's more, this method of hard-coding file components means that we cannot create new files in JavaScript and display them in the DOM.
 
 Let's fix that by replacing the copy-pasted components with a loop and an array.
 
@@ -907,7 +907,7 @@ const FileList = () => {
 };
 ```
 
-We can then use the second argument inside of the `map` to gain access to the index of the looped item.
+We can then use the second argument inside the `map` to gain access to the index of the looped item.
 
 <iframe data-frame-title="React Rendering Lists - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-rendering-lists-20?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
@@ -979,7 +979,7 @@ The `*ngFor` directive was used in the template, but neither the `NgFor` directi
 
 ## Vue
 
-Vue provides a `v-for` global attribute that does for lists what `v-if` does for conditionally rendering:
+Vue provides a `v-for` global attribute that does for lists what `v-if` does for conditional rendering:
 
 ```vue {5-21,37-45}
 <!-- FileList.vue -->
@@ -1032,7 +1032,7 @@ function onSelected(idx) {
 </template>
 ```
 
-Inside of our `v-for`, we're accessing both the value of the item (`file`) and the index of the looped item (`i`).
+Inside our `v-for`, we're accessing both the value of the item (`file`) and the index of the looped item (`i`).
 
 <iframe data-frame-title="Vue Rendering Lists - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-rendering-lists-20?template=node&embed=1&file=src%2FFileList.vue"></iframe>
 
@@ -1040,9 +1040,9 @@ Inside of our `v-for`, we're accessing both the value of the item (`file`) and t
 
 If we look at the rendered output, we can see that we have all three files listing out as expected!
 
-Using this code as a base, we could extend this file list to any number of files just by adding another item to the hardcoded `filesArray` list; no templating code changes required!
+Using this code as a base, we could extend this file list to any number of files just by adding another item to the hard-coded `filesArray` list; no templating code changes required!
 
-## Keys
+## Keys {#keys}
 
 If you're using React, you may have encountered an error in the previous code sample that read like the following:
 
@@ -1056,7 +1056,7 @@ This is because in both of these frameworks, you're expected to pass a special p
 
 Without this `key` prop, the framework doesn't know which elements have been unchanged, and therefore must destroy and recreate each element in the array for every list re-render. This can cause massive performance problems and stability headaches.
 
-> If you're confused, no worries - there was a lot of technical speak in that last paragraph. Continue reading to see what this means in practical terms and don't be afraid to come back and re-read this section when you're done with the chapter.
+> If you're confused, no worries — there was a lot of technical speech in that last paragraph. Continue reading to see what this means in practical terms and don't be afraid to come back and re-read this section when you're done with the chapter.
 
 Say you have the following:
 
@@ -1238,13 +1238,13 @@ This can be demonstrated by typing some text into the `input` and pressing the `
 
 In Angular, the input text simply disappears. In React and Vue, however, the text moves to the line of the word below the one you originally typed inside.
 
-Both of these behaviors are quite peculiar - we've seemingly not modified the `li` that contains the `input` in question, why are its contents moving or being removed entirely?
+Both of these behaviors are quite peculiar — we've seemingly not modified the `li` that contains the `input` in question, why are its contents moving or being removed entirely?
 
-The reason the input text changes is that the framework **isn't able to detect which item in your array has changed** and as a result marks all DOM elements as "outdated". **These "outdated" elements are then destroyed by the framework only to be immediately reconstructed** in order to ensure the most up-to-date information is displayed to the user.
+The reason the input text changes is that the framework **isn't able to detect which item in your array has changed** and as a result marks all DOM elements as "outdated". **These "outdated" elements are then destroyed by the framework only to be immediately reconstructed** to ensure the most up-to-date information is displayed to the user.
 
 ![When a render occurs each item in the array that doesn't have a key also gets re-rendered](./render_without_keys.png)
 
-Instead of this, **we can tell the framework which list item is which with a unique "key"** associated with every list item. This key is then able to **allow the framework to intelligently prevent destruction on items that were not changed** in a list data change.
+Instead of this, **we can tell the framework which list item is which with a unique "key"** associated with every list item. This key is then able to **allow the framework to intelligently prevent destruction of items that were not changed** in a list data change.
 
 ![When a key is assigned to an element in a list, it can avoid duplicative renders, like when a new item in a list is added](./render_with_keys.png)
 
@@ -1342,11 +1342,11 @@ Now when we re-render the list, the framework is able to know exactly which item
 
 As such, it will only re-render the new items, leaving the old and unchanged DOM elements alone.
 
-## Keys as Render Hints
+## Keys as Render Hints {#keys-as-hints}
 
 As we mentioned earlier, the `key` property is used by the framework to figure out which element is which. Change this `key` property for a given element, and it will be destroyed and recreated as if it were a fresh node.
 
-While this is most applicable within lists, this is also true outside of them as well; assign a `key` to an element and change it and it will be recreated from scratch.
+While this is most applicable within lists, this is also true outside them; assign a `key` to an element and change it, and it will be recreated from scratch.
 
 For example, let's assume we have a basic `input` that we want to be able to reset when a button is pressed.
 
@@ -1378,7 +1378,7 @@ function KeyExample() {
 
 Because Angular does not have the concept of a `key`, it is unable to follow the same behavior as Vue and React in this instance. Therefore, this section is more useful in understanding the underlying DOM diffing logic as opposed to functional coding advice for Angular in particular.
 
-This isn't necessarily a bad thing, however. We'll touch on this more in a bit, but using `key` in this way is often an anti-pattern.
+This isn't necessarily a bad thing, however. We'll touch on this more in a bit, but using `key` in this way is often an antipattern.
 
 ### Vue
 
@@ -1413,7 +1413,7 @@ This reset is what's causing the `input` to blank out after a button press.
 >
 > [In a future chapter, we'll learn more about how each framework handles these references under the hood.](/posts/ffg-fundamentals-element-reference)
 
-# Putting It to Production
+# Putting It to Production {#using-in-prod}
 
 Since we now understand the stability and performance benefits of providing a key to our lists, let's add them to our `FileList` components.
 
@@ -1595,11 +1595,11 @@ function onSelected(idx) {
 
 <!-- tabs:end -->
 
-# Using It All Together
+# Using It All Together {#using-together}
 
-Let's use our newfound knowledge of conditional and list rendering and combine them together in our application.
+Let's use our newfound knowledge of conditional and list rendering and combine them in our application.
 
-Say that our users want to filter our `FileList` to only display files and not folders. We can enable this functionality by adding in a conditional statement inside of our template loop!
+Say that our users want to filter our `FileList` to only display files and not folders. We can enable this functionality by adding in a conditional statement inside our template loop!
 
 <!-- tabs:start -->
 
@@ -1719,13 +1719,13 @@ function toggleOnlyShow() {
 
 > While this code works, there's a silent-yet-deadly bug present. While we'll explain what that bug is within our ["Partial DOM Application"](/posts/ffg-fundamentals-transparent-elements) chapter, I'll give you a hint: It has to do with conditionally rendering the `File` component instead of the `li` element.
 
-# Challenge
+# Challenge {#challenge}
 
 In our last chapter's challenge, we started to create dropdown file structure sidebar components.
 
 ![A sidebar with collapsible menu items](../ffg-fundamentals-intro-to-components/sidebar.png)
 
-We did this by hardcoding each of our `ExpandableDropdown` components as individual tags:
+We did this by hard-coding each of our `ExpandableDropdown` components as individual tags:
 
 <!-- tabs:start -->
 
@@ -1934,19 +1934,19 @@ const invoicesExpanded = ref(false);
 
 <!-- tabs:end -->
 
-What's more, we utilized the `hidden` HTML attribute to visually hide the collapsed content.
+What's more, we used the `hidden` HTML attribute to visually hide the collapsed content.
 
 Let's use what we learned in this chapter to improve both of these challenges. In this challenge, we'll:
 
-1. Use a list instead of hardcoding each `ExpandableDropdown` individually
-2. Use a object map to keep track of each dropdown's `expanded` property
+1. Use a list instead of hard-coding each `ExpandableDropdown` individually
+2. Use an object map to keep track of each dropdown's `expanded` property
 3. Migrate the usage of the `hidden` attribute to conditionally render instead
 
-## Migrating Hardcoded Elements to a List
+## Migrating hard-coded Elements to a List {#challenge-migrating-to-list}
 
 Let's start by creating an array of strings that we can use to render each dropdown with.
 
-> Don't worry about the `expanded` functionality yet, for now let's hardcode `expanded` to `false` and point the toggle capability to an empty function.
+> Don't worry about the `expanded` functionality yet, for now let's hard-code `expanded` to `false` and point the toggle capability to an empty function.
 >
 > We'll come back to this soon.
 
@@ -2220,9 +2220,9 @@ function objFromCategories(categories) {
 
 <!-- tabs:end -->
 
-## Conditionally Rendering Hidden Content
+## Conditionally Rendering Hidden Content {#challenge-conditionally-rendering}
 
-Now that we've migrated our dropdowns to use a list instead of hardcoding each component instance, let's migrate our dropdown's collapsed content to conditionally render instead of using the `hidden` HTML attribute.
+Now that we've migrated our dropdowns to use a list instead of hard-coding each component instance, let's migrate our dropdown's collapsed content to conditionally render instead of using the `hidden` HTML attribute.
 
 <!-- tabs:start -->
 

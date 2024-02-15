@@ -37,9 +37,9 @@ The sidebar may not require complex programming logic, but we may want to style 
 
 When you break it down, each part of the app has three primary concerns:
 
-- Logic – What does the app do?
-- Styling – How does the app look visually?
-- Structure – How is the app laid out?
+- Logic — What does the app do?
+- Styling — How does the app look visually?
+- Structure — How is the app laid out?
 
 While the mockup above does a decent job at displaying things structurally, let's look at what the app looks like structurally:
 
@@ -135,7 +135,7 @@ const File = () => {
 
 Here, we're defining a component that we call `File`, which contains a set of instructions for how React is to create the associated HTML when the component is used.
 
-These HTML creation instructions are defined using a syntax very similar to HTML – but in JavaScript instead. This syntax is called ["JSX"](https://reactjs.org/docs/introducing-jsx.html) and powers the show for every React application.
+These HTML creation instructions are defined using a syntax very similar to HTML — but in JavaScript instead. This syntax is called ["JSX"](https://reactjs.org/docs/introducing-jsx.html) and powers the show for every React application.
 
 While JSX looks closer to HTML than standard JS, it is not supported in the language itself. Instead, a compiler (or transpiler) like [Babel](https://babeljs.io/) must compile down to regular JS. Under the hood, this JSX compiles down to function calls.
 
@@ -1190,7 +1190,7 @@ onMounted(() => {
 
 <iframe data-frame-title="Vue Live Display - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-live-display-9?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
 
-> Notice how we're using `.value` to update the value inside of `<script>` but don't use `.value` inside of `<template>`. This isn't a mistake – it's just how Vue's `ref` works!
+> Notice how we're using `.value` to update the value inside of `<script>` but don't use `.value` inside of `<template>`. This isn't a mistake — it's just how Vue's `ref` works!
 
 <!-- tabs:end -->
 
