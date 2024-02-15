@@ -11,7 +11,7 @@
 }
 ---
 
-In [our "Passing Children" chapter](/posts/ffg-fundamentals-passing-children), we talked about how you can pass components and elements as children to another componet:
+In [our "Passing Children" chapter](/posts/ffg-fundamentals-passing-children), we talked about how you can pass components and elements as children to another component:
 
 ```jsx
 <FileTableContainer>
@@ -20,12 +20,20 @@ In [our "Passing Children" chapter](/posts/ffg-fundamentals-passing-children), w
 </FileTableContainer>
 ```
 
-We also learned in two different chapters that you can programmatically access:
+We also touched on the ability to access the following:
 
 - [HTML Elements](/posts/ffg-fundamentals-element-reference)
 - [Custom Components](/posts/ffg-fundamentals-component-reference)
 
-What if there was a way to combine and contrast both of these concepts and programmatically accessing the children elements one-by-one?
+But only when the respective HTML elements or components are inside of the parent's template itself:
+
+```jsx
+// Inside of FileTableContainer
+<FileTableHeader />
+<FileTableBody />
+```
+
+What if, instead, there was a way to access the children passed to an element through the slotted area one-by-one?
 
 > Well, is there a way to do that?
 
@@ -70,6 +78,8 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Counting Comp Children - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-counting-comp-children-112?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 Here, `childArr` is an array of type `ReactNode`. A `ReactNode` is created by React's `createElement` method.
 
 > Remember that JSX transforms to call React's `createElement` node under-the-hood.
@@ -99,6 +109,8 @@ const ParentList = ({ children }) => {
 	);
 };
 ```
+
+<iframe data-frame-title="React Counting Comp Children Util - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-counting-comp-children-util-112?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -236,7 +248,7 @@ class AppComponent {}
 
 ## Vue
 
-Unlike React and Angular, Vue's APIs don't allow us to easily count a child's list items. There's a lot of nuance to _why_ this is the case, but we'll do our best when we [rewrite Vue from scratch in the third book of the series](https://framework.guide).
+Unlike React and Angular, Vue's APIs don't allow us to easily count a child's list items. There's a lot of nuance to _why_ this is the case, but we'll do our best to explain that when we [rewrite Vue from scratch in the third book of the series](https://framework.guide).
 
 <!-- Editor's note: While yes, we could do a `mounted() {this.$slots.children}` for THIS example, two things: 1) It's bad practice in that it will cause two renders. 2) It breaks in the very next code sample -->
 
@@ -301,6 +313,8 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Children in Loop - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-children-in-loop-113?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 Since Angular's `ContentChildren` gives us an `HTMLElement` reference when using our template variables on `HTMLElements`, we're not able to wrap those elements easily.
@@ -361,8 +375,6 @@ Now that we have a list of items being transformed by our component, let's add t
 ### React
 
 ```jsx
-import { Children, useState } from "react";
-
 const ParentList = ({ children }) => {
 	const childArr = Children.toArray(children);
 	console.log(childArr);
@@ -400,6 +412,8 @@ const App = () => {
 	);
 };
 ```
+
+<iframe data-frame-title="React Adding Children Dynamically - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-adding-children-dynamically-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
