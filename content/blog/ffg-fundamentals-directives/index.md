@@ -760,6 +760,8 @@ function App() {
 }
 ```
 
+<iframe data-frame-title="React Conditionally Rendered UI - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-conditionally-rendered-ui-110?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 Before we get into how to implement this functionality in Angular, I first need to circle back to [how Angular uses `ng-template` to define a group of HTML elements that can then be rendered after-the-fact](/posts/ffg-fundamentals-dynamic-html#ng-template).
@@ -1297,6 +1299,8 @@ import FeatureFlag from "./FeatureFlag.vue";
 	</FeatureFlag>
 </template>
 ```
+
+<iframe data-frame-title="Vue Conditionally Rendered UI - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-conditionally-rendered-ui-110?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 In my opinion, this is not as clean as using a directive, since you need to have two additional HTML tags, but that's just one of the limitations with Vue's directive.
 
