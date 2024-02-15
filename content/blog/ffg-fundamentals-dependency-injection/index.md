@@ -13,7 +13,7 @@
 
 One of the core tenants of components we've used repeatedly in the book is the idea of component inputs, or properties.
 
-While component inputs are undoubtably useful, it can be challenging to utilize at scale when you need the same set of data across multiple layers of components.
+While component inputs are undoubtedly useful, it can be challenging to use at scale when you need the same set of data across multiple layers of components.
 
 For example, let's look back at our files app we've been developing throughout the book.
 
@@ -52,7 +52,7 @@ Let's use this data to build out some of the foundation of our application. For 
 
 To do this, we'll need to make sure to pass both our `collection` as well as `currentUser` down to every child component.
 
-Let's use some pseudo-code and mock out what those components might look like with data passing from the parent to the child:
+Let's use some pseudocode and mock out what those components might look like with data passing from the parent to the child:
 
 ```jsx
 // This is not real code, but demonstrates how we might structure our data passing
@@ -128,15 +128,15 @@ While it's obnoxious to pass `currentUser` in every component, we need that data
 
 Well, we can! Sort of...
 
-While we _can't_ outright remove the ability to pass the data from the parent to the children, what we **can** do is pass these components _implicitly_ instead of _explicitly_. This means that instead of telling the child component what data it should accept, we simply hand off data regardless of if it's needed or not. From there, it's the child component's job to raise it's hand and ask for data.
+While we _can't_ outright remove the ability to pass the data from the parent to the children, what we **can** do is pass these components _implicitly_ instead of _explicitly_. This means that instead of telling the child component what data it should accept, we simply hand off data regardless of if it's needed or not. From there, it's the child component's job to raise its hand and ask for data.
 
-Think of this like a buffet of food. Instead of serving food directly to the customer's table, the customer comes to the table with all of the food, takes what it wants, and is satisfied with the results all-the-same.
+Think of this like a buffet of food. Instead of serving food directly to the customer's table, the customer comes to the table with all the food, takes what it wants, and is satisfied with the results all-the-same.
 
 ![A collection of state data is roughly akin to a buffet dinner](./buffet_analogy.png)
 
 We do this method of implicit data passing using a methodology called "**dependency injection**".
 
-# Providing Basic Values with Dependency Injection
+# Providing Basic Values with Dependency Injection {#basic-values}
 
 When we talk about dependency injection, we're referring to a method of providing data from a parent component down to a child component through implicit means.
 
@@ -152,7 +152,7 @@ React, Angular, and Vue all have methods for injecting data implicitly into chil
 
 ## React
 
-In the React world, all dependency injection is powered by a `createContext` method, which you then `Provide` to your child components. Within those child components you then consume the provided data with a `useContext` hook.
+In the React world, all dependency injections are powered by a `createContext` method, which you then `Provide` to your child components. Within those child components you then consume the provided data with a `useContext` hook.
 
 ```jsx
 import { createContext, useContext } from "react";
@@ -205,7 +205,7 @@ class AppComponent {}
 
 This API uses `useValue` to provide the value associated with the token we pass.
 
-Finally, we use an `inject` function in our component class to tell Angular "We want this value in our component".
+Finally, we use an `inject` function in our component class to tell Angular, "We want this value in our component."
 
 ```typescript
 import { inject } from "@angular/core";
@@ -329,7 +329,7 @@ class AppComponent {}
 
 <iframe data-frame-title="Angular DI Basic Values Object - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-di-basic-values-object-83?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-While this functions, it's not very clean. In particular, some of the headaches present with this method include:
+While this functions, it's not very clean. In particular, some headaches present with this method include:
 
 - Duplicative TypeScript typings between `inject` usage and `useValue` providing
   - Mismatches can cause `undefined` bugs intentionally
@@ -417,7 +417,7 @@ const welcomeMsgObj = inject("WELCOME_MESSAGE");
 
 <!-- tabs:end -->
 
-# Changing Values after Injection
+# Changing Values after Injection {#change-values}
 
 While providing values from a parent node down to a child component is useful on its own, it's made even more powerful by the inclusion of data manipulation.
 
@@ -497,7 +497,7 @@ class AppComponent {
 
 ## Vue
 
-Vue's minimal API surface allows us to compose `ref` and `provide` usage in order to provide values that we can change after injection.
+Vue's minimal API surface allows us to compose `ref` and `provide` usage to provide values that we can change after injection.
 
 ```vue
 <!-- Parent.vue -->
@@ -539,11 +539,11 @@ const welcomeMessage = inject("WELCOME_MESSAGE");
 
 <!-- tabs:end -->
 
-## Changing Injected Values from Child
+## Changing Injected Values from Child {#change-injected-values}
 
 In the previous section, we showed how you're able to change the injected value from the root of the component. But what if we wanted to change the injected value from the child component instead of from the root?
 
-Because dependency injection _usually_ only goes in one direction (from the parent to the child) it's not immediately clear how we can do this.
+Because dependency injection _usually_ only goes in one direction (from the parent to the child), it's not immediately clear how we can do this.
 
 Despite this, each framework provides us the tools to update injected values from the children themselves; Let's see how that's done:
 
@@ -551,7 +551,7 @@ Despite this, each framework provides us the tools to update injected values fro
 
 ### React
 
-Previously we utilized the ability to use `useState` in our `Provider` in order to handle data changes from the parent provider. Continuing on this pattern, we'll utilize `useState` once again to handle changes in a child component.
+Previously we used the ability to use `useState` in our `Provider` in order to handle data changes from the parent provider. Continuing on this pattern, we'll utilize `useState` once again to handle changes in a child component.
 
 This works because React's `useContext` enables us to pass data of _any_ kind, functions included. This means that we can pass both the getter and setter function of `useState`, like so:
 
@@ -729,7 +729,7 @@ function App() {
 
 > It's worth mentioning that [the reducer pattern is not unique to React](https://dev.to/reedbarger/what-is-a-reducer-in-javascript-a-complete-introduction-with-examples-ip1). That said, React is unique in that it has a built-in method to build reducers, unlike many other frameworks.
 
-#### Reducer Patterns within Contexts
+#### Reducer Patterns within Contexts {#reducer-patterns-within-contexts}
 
 Just like we were able to pass the `setValue` function from `useState`, we can pass both `state` and `dispatch` using our `context`'s `Provide` and utilize `useContext` to inject those values into our child components.
 
@@ -782,7 +782,7 @@ function Child() {
 
 ### Angular
 
-Because we're able to inject a full class instance into a child component, we can utilize methods in said class to mutate data of the injected class instance.
+Because we're able to inject a full class instance into a child component, we can use methods in said class to mutate data of the injected class instance.
 
 ```typescript
 @Injectable()
@@ -826,7 +826,7 @@ class ParentComponent {}
 
 ### Vue
 
-In our previous example, we used `provide` to inject a `ref` into the child component. Because of Vue's reactivity system, we can utilize this `ref` to change the `.value` of the `ref` in the child to modify the value that's injected across the app.
+In our previous example, we used `provide` to inject a `ref` into the child component. Because of Vue's reactivity system, we can use this `ref` to change the `.value` of the `ref` in the child to modify the value that's injected across the app.
 
 ```vue
 <!-- Parent.vue -->
@@ -865,13 +865,13 @@ function updateMessage() {
 
 <!-- tabs:end -->
 
-# Optional Injected Values
+# Optional Injected Values {#optional-injected-values}
 
 Let's think back to the start of this chapter. The original goal of introducing dependency injection was to enable sharing user login information throughout multiple components.
 
 While you might expect the user's login information to always be present, what if it wasn't? What if, when the user first creates their account, they opt out of inputting their name and profile picture? Even if this seems unlikely, a robust application should handle edge-cases like this.
 
-Luckily, React, Angular, and Vue are all able to withstand an empty value provided through dependency injection by marking the value as "optional".
+Luckily, React, Angular, and Vue are all able to withstand an empty value provided through dependency injection by marking the value as "optional."
 
 <!-- tabs:start -->
 
@@ -932,7 +932,7 @@ class ChildComponent {
 class ParentComponent {}
 ```
 
-However, if we remove the `providers` from `ParentComponent`, in order to test our application without any user data, like so:
+However, if we remove the `providers` from `ParentComponent`, to test our application without any user data, like so:
 
 ```typescript
 @Component({
@@ -990,7 +990,7 @@ class ChildComponent implements OnInit {
 class ParentComponent {}
 ```
 
-Now, we get no error when `injectedValue` is not provided. Instead, we get a value of `null`, which we can gaurd against using `ngIf` inside our template.
+Now, we get no error when `injectedValue` is not provided. Instead, we get a value of `null`, which we can guard against using `ngIf` inside our template.
 
 <iframe data-frame-title="Angular Optional Injected Vals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-optional-injected-vals-86?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
@@ -1032,11 +1032,11 @@ console.log(welcomeMessage);
 >
 > `[Vue warn]: injection "WELCOME_MESSAGE" not found. `
 >
-> This is normal and expected - keep calm and code on.
+> This is normal and expected — keep calm and code on.
 
 <!-- tabs:end -->
 
-## Default Values for Optional Values
+## Default Values for Optional Values {#default-values}
 
 While it's good that our code is now more resilient against missing data, it's not a great user experience to simply have parts of the app missing when said data isn't present.
 
@@ -1097,7 +1097,7 @@ class ParentComponent {}
 
 ### Vue
 
-Vue is the only framework of the three that supports a built-in way to provide a default value for dependency injected values. To do this, pass a second argument to the `inject` method and it will be used as your default value.
+Vue is the only framework of the three that supports a built-in way to provide a default value for dependency-injected values. To do this, pass a second argument to the `inject` method, and it will be used as your default value.
 
 ```vue
 <!-- Child.vue -->
@@ -1119,9 +1119,9 @@ console.log(welcomeMessage);
 
 <!-- tabs:end -->
 
-# Application Wide Providers
+# Application Wide Providers {#app-wide-providers}
 
-In our example codebase, we structured an application where `userData` is utilized all over the app. Instead of having an injected value for this data, it would be ideal to have access to this information anywhere in the component tree.
+In our example codebase, we structured an application where `userData` is used all over the app. Instead of having an injected value for this data, it would be ideal to have access to this information anywhere in the component tree.
 
 <!-- tabs:start -->
 
@@ -1141,11 +1141,11 @@ function App() {
 }
 ```
 
-### Consolidate Providers and Your Logic
+### Consolidate Providers and Your Logic {#consolidate-providers}
 
 When working with providers that needs state of some kind, you may want to keep your `useState` and `<Context.Provider>` code in the same place.
 
-To centralize these APIs, we can utilize the concept of componentization. Start by moving your provider and logic into a new component, then allow the user to pass child components to the new `HelloMessageProvider` component:
+To centralize these APIs, we can use the concept of componentization. Start by moving your provider and logic into a new component, then allow the user to pass child components to the new `HelloMessageProvider` component:
 
 ```jsx
 // This can be named anything! It's a component like any other
@@ -1170,7 +1170,7 @@ function App() {
 
 These children of `HelloMessageProvider` are then passed the `HelloMessageContext` through React's dependency injection system.
 
-### Provider Christmas Trees Are Okay!
+### Provider Christmas Trees Are Okay! {#provider-christmas-trees}
 
 When you have a large enough application, you may end up having an `App` component that looks like this:
 
@@ -1208,7 +1208,7 @@ const App = () => {
 
 > [This is actual source code pulled from one of my prior production React Native projects called GitShark](https://github.com/oceanbit/GitShark/blob/main/src/App.tsx#L156-L176).
 
-This code is colloquially called the "Provider Christmas Tree" because of it's formatted structure.
+This code is colloquially called the "Provider Christmas Tree" because of its formatted structure.
 
 Despite looking ugly, this code is okay! If you _really_ want to break things up, take one step further in componentizing your codebase and move similar providers into their own `StyleProvider` component to help flatten this code:
 
@@ -1256,11 +1256,11 @@ const App = () => {
 
 ## Angular
 
-While other frameworks require you to explicitly provide your dependency injected values at the root of your application, Angular does not.
+While other frameworks require you to explicitly provide your dependency-injected values at the root of your application, Angular does not.
 
-Remember earlier when we utilized `@Injectable` to mark a class as an injectable class instance? Well, this decorator has a trick up its sleave: [the `providedIn` property](https://angular.io/guide/providers#providedin-and-ngmodules).
+Remember earlier when we utilized `@Injectable` to mark a class as an injectable class instance? Well, this decorator has a trick up its sleeve: [the `providedIn` property](https://angular.io/guide/providers#providedin-and-ngmodules).
 
-When you pass `{providedIn: 'root'}` to the `@Injectable` decorator, you no longer have to explicitly place the class inside of a `providers` array; instead, Angular will simply provide this class to the root of your application.
+When you pass `{providedIn: 'root'}` to the `@Injectable` decorator, you no longer have to explicitly place the class inside a `providers` array; instead, Angular will simply provide this class to the root of your application.
 
 ```typescript
 @Injectable({ providedIn: "root" })
@@ -1294,7 +1294,7 @@ class ParentComponent {}
 
 <iframe data-frame-title="Angular App Wide Providers - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-app-wide-providers-88?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-In Angular, these globally provided values are called "Services". They're often used to break up and move application logic out of components in order to be more widely re-used.
+In Angular, these globally provided values are called "Services." They're often used to break up and move application logic out of components to be more widely re-used.
 
 ## Vue
 
@@ -1317,9 +1317,9 @@ provide("WELCOME_MESSAGE", welcomeMessage);
 
 <!-- tabs:end -->
 
-These globally provided values are also called "singletons". When using a singleton, it's important to remember that data is shared between every component. If we have three components that all use one provided value, and mutate said value, it will update all of the consuming components.
+These globally provided values are also called "singletons." When using a singleton, it's important to remember that data is shared between every component. If we have three components that all use one provided value, and mutate said value, it will update all the consuming components.
 
-## Application Wide Providers _Can_ Cause Performance Problems
+## Application Wide Providers _Can_ Cause Performance Problems {#app-wide-providers-performance}
 
 Generally, it's suggested to keep your data providers as close to the intended component as possible. For example, if you have the following component structure:
 
@@ -1345,7 +1345,7 @@ You have two choices to `provide` the data:
 1. At the root of your component structure (`App`)
 2. At the closest source of location (`FileTable`)
 
-Between these two options, you should _generally_ opt to utilize #2, which would place your data injection closer to the components that need said data.
+Between these two options, you should _generally_ opt to use #2, which would place your data injection closer to the components that need said data.
 
 ![Don't pass properties from App into FileType when you don't need to. Instead, pass them from FileTable (which is further down the tree and therefore closer to FileType)](./avoid_prop_drilling.svg)
 
@@ -1355,13 +1355,13 @@ While some frameworks like Vue handle this gracefully and only re-render the com
 
 Let's assume that we go with an application-wide provider. In React and Angular, **when we change the value of the provider, the framework must search through the entire component tree to find the components that need to re-render**.
 
-**React even re-renders all of the child components of `App` when using `useContext`** to provide changing data.
+**React even re-renders all the child components of `App` when using `useContext`** to provide changing data.
 
 [This problem can be solved by external tooling, such as Redux in React](https://blog.isquaredsoftware.com/2021/01/context-redux-differences/) or [NgRx in Angular](https://ngrx.io/), as they introduce a more optimized mechanism of detecting component data changes.
 
-Luckily, your knowledge of these framework's built-in dependency injection APIs will help you greatly along the way of utilizing these external tools.
+Luckily, your knowledge of these framework's built-in dependency injection APIs will help you greatly along the way of using these external tools.
 
-# Overwriting Dependency Injection Specificity
+# Overwriting Dependency Injection Specificity {#overwriting-specificity}
 
 Large apps get complicated fast. Consider the following example:
 
@@ -1373,7 +1373,7 @@ For these instances, these larger apps can replace dependency injection values m
 
 While it's rare, this ability is an incredibly powerful feature you can leverage in your applications.
 
-A child component will have it's dependency injection resolved from the closest parent. This means that if you have two providers, but one is closer, it will read from the closer parent.
+A child component will have its dependency injection resolved from the closest parent. This means that if you have two providers, but one is closer, it will read from the closer parent.
 
 This means that if we have the following structure:
 
@@ -1453,7 +1453,7 @@ class GreatGrandChildComponent {
 @Component({
 	selector: "grand-child",
 	standalone: true,
-	// Notice the new provider here, it will suppliment the `App` injected value
+	// Notice the new provider here, it will supplement the `App` injected value
 	// for all child components of `grand-child`
 	providers: [{ provide: NameValue, useValue: { name: "Kevin" } }],
 	imports: [GreatGrandChildComponent],
@@ -1523,7 +1523,7 @@ const name = inject("NAME");
 import { provide } from "vue";
 import GreatGrandChild from "./GreatGrandChild.vue";
 
-// Notice the new provider here, it will suppliment the `App` injected value
+// Notice the new provider here, it will supplement the `App` injected value
 // for all child components of `GrandChild`
 provide("NAME", "Kevin");
 </script>
@@ -1566,7 +1566,7 @@ If you're hungry for chicken, you're not likely to walk farther to get the same 
 
 This is similar to how a component will try to find the closest source of data for a requested data type in the component tree.
 
-# Finding Specific Injected Values
+# Finding Specific Injected Values {#finding-specific-injected-values}
 
 Just because we can have multiple providers throughout an application doesn't mean that there's not an order to how your component grabs specifically requested data.
 
@@ -1576,7 +1576,7 @@ Despite chicken being closer to them, they'll go out of their way to find the ta
 
 ![The person thinking about fish will walk to the furthest away table because it has fish](./buffet_table_farther.png)
 
-Likewise, if you have a data provider that is hosting entirely unrelated data from what your child component is looking for, it might not pick up the correct data.
+Likewise, if you have a data provider hosting entirely unrelated data from what your child component is looking for, it might not pick up the correct data.
 
 <!-- tabs:start -->
 
@@ -1752,9 +1752,9 @@ This specificity-seeking behavior of your dependency injection consumer is helpf
 
 > What's my data's "shape"?
 
-# The Importance of Consistency in Provided Data
+# The Importance of Consistency in Provided Data {#importance-of-consistency}
 
-The idea of a data's "shape" is that two pieces of data share enough related data to be considered "similar" in "shape".
+The idea of data's "shape" is that two pieces of data share enough related data to be considered "similar" in "shape."
 
 For example, if you have the following object:
 
@@ -1771,7 +1771,7 @@ const obj2 = { a: 2, b: 3 };
 Even if the two objects contain slightly different values. The "shape" of an object is defined by:
 
 1. The names of properties
-2. The types of data being stored in each properties
+2. The types of data being stored in each property
 3. The number of properties
 
 While the above have the same shapes, here's some examples that don't:
@@ -1798,7 +1798,7 @@ isSameShape(obj1, obj2, "exact"); // false
 isSameShape(obj1, obj2, "similar"); // true
 ```
 
-While #1 and #2 are strict requirements, the number of properties can shift a bit and still be considered of a similar "shape", even if it's not an exact match.
+While #1 and #2 are strict requirements, the number of properties can shift a bit and still be considered of a similar "shape," even if it's not an exact match.
 
 You can visualize an object's _shape_ as comparing two geometrical shapes to one another: A triangle is not the same as a diamond.
 
@@ -1973,13 +1973,13 @@ This bug was introduced because we switched the _shape_ of the object midway thr
 >
 > The above link is intended to help
 
-## Variance in Injected Data
+## Variance in Injected Data {#variance-in-injected-data}
 
 This required consistency in injected data doesn't mean that the data provided at each provider must be exactly the same.
 
-Just like each buffet table might have different spices on each plate of the same kind of food, so too can the individual data providers inject variance into their provided values.
+Just as each buffet table might have different spices on the same kind of food for each plate, so too can the individual data providers inject variance into their provided values.
 
-For example, while methods of an injected object should accept the same props and should generally return the same values, you can change the logic inside of injected objects:
+For example, while methods of an injected object should accept the same props and should generally return the same values, you can change the logic inside injected objects:
 
 <!-- tabs:start -->
 
@@ -2226,7 +2226,7 @@ You can think of this like variance within a geometrical shape's color. If you h
 
 While the first set of shapes and the second set of the shapes are not the _same_, they are still the same _shape_.
 
-# Challenge
+# Challenge {#challenge}
 
 Earlier, in our [element reference](/posts/ffg-fundamentals-element-reference) and [component reference](/posts/ffg-fundamentals-component-reference) chapters, we built out a context menu component to show additional actions a user could take with right-clicking on a file.
 
@@ -2236,17 +2236,17 @@ This component has all the key features we need to act as a custom context menu:
 
 - Opens on right-click
 
-- Closes when user clicks outside of it
+- Closes when user clicks outside it
 
 - Focusing when open
 
 While we've done good work on the component thus far, it's missing something critical: Functionality.
 
-Let's fix that by adding in a list of actions the user can take when the context menu is open. Here's the catch: The actions the user can take depends on what part of the app they're right-clicking on.
+Let's fix that by adding in a list of actions the user can take when the context menu is open. Here's the catch: The actions the user can take depend on what part of the app they're right-clicking on.
 
 !["Change file actions with dependency injection" shows how right-clicks in the file list shows different actions than right-clicks in the sidebar](./change_file_actions_with_di.png)
 
-There's a few ways we could solve this, but they all boil down to persisting a list of actions the user can take depending on which part of the component tree they're in.
+There are a few ways we could solve this, but they all boil down to persisting a list of actions the user can take depending on which part of the component tree they're in.
 
 Sound familiar?
 
@@ -2266,9 +2266,9 @@ This will consist of multiple steps:
 
 5. Make the list of actions function as-expected
 
-Strap in - this is going to be a long challenge. By the end of it we'll have a functioning application shell with a real-world example of dependency injection.
+Strap in — this is going to be a long challenge. By the end of it, we'll have a functioning application shell with a real-world example of dependency injection.
 
-## 1. Creating an Initial App Layout
+## Step 1: Creating an Initial App Layout {#challenge-step-1}
 
 To start, we'll need a layout component that includes a basic sidebar and main contents.
 
@@ -2297,7 +2297,7 @@ That might look something like this in HTML:
 </div>
 ```
 
-This is readable in HTML at the small-scale, but as we grow this markup (and logic) is going to rapidly grow in complexity.
+This is readable in HTML at the small-scale, but as we grow, this markup (and logic) is going to rapidly grow in complexity.
 
 Let's break this out into three different components:
 
@@ -2528,7 +2528,7 @@ import FileList from "./FileList.vue";
 
 <!-- tabs:end -->
 
-## 2. Add File and Directory List
+## Step 2: Add File and Directory List {#challenge-step-2}
 
 Now that we have the scaffolding established for our directory and files lists, let's add in some items to display to the user!
 
@@ -2810,7 +2810,7 @@ const directories = [
 
 <!-- tabs:end -->
 
-## 3. Add Context Menu with Static Actions
+## Step 3: Add Context Menu with Static Actions {#challenge-step-3}
 
 Next, we'll add in a context menu. We'll start by [taking our context menu from our "Component Reference" chapter](/posts/ffg-fundamentals-component-reference#Using-component-reference-to-focus-our-context-menu) and adapting it to our needs here. Namely, let's change the following to our context menu over the previous version:
 
@@ -2832,7 +2832,7 @@ This bit of code will allow us to close other context menu instances when a new 
 
 Then, for the list of actions, we'll start by hard-coding an array into the `ContextMenu` component.
 
-This array should include a label that's visible to the end-user and a function that should be ran when
+This array should include a label that's visible to the end-user and a function that should be run when
 the action is taken.
 
 <!-- tabs:start -->
@@ -3256,7 +3256,7 @@ export class SidebarComponent {
 
 ### Vue
 
-Lastly; Vue. Again we'll add `ContextMenu` from before and add in the `"contextmenu"` event and actions array:
+Lastly, Vue. Again we'll add `ContextMenu` from before and add in the `"contextmenu"` event and actions array:
 
 ```vue {8-17,29-33,35-48}
 <!-- ContextMenu.vue -->
@@ -3451,7 +3451,7 @@ Lastly, we need to make sure to pass the `file.id` to `<File :id="file.id"/>` co
 
 <!-- tabs:end -->
 
-## 4. Adding Dependency Injection to Context Menu
+## Step 4: Adding Dependency Injection to Context Menu {#challenge-step-4}
 
 Now that we have our `ContextMenu` component established, let's move forward with adding in dependency injection to our components.
 
@@ -3739,7 +3739,7 @@ const actions = computed(() => {
 
 <!-- tabs:end -->
 
-## 5. Adding Functionality to Context Menu
+## Step 5: Adding Functionality to the Context Menu {#challenge-step-5}
 
 Last but not least, we need to make sure that our context menu is able to, you know, actually _do_ something.
 
@@ -3751,7 +3751,7 @@ Let's add the following actions to our project:
 | File      | Rename    |
 | File      | Delete    |
 
-To do this, we can still leverage an array for our directories and files, but add functions to our actions array
+To do this, we can still leverage an array for our directories and files, but add functions to our `actions` array
 that updates the file/directory array and triggers a re-render.
 
 As for the "Copy name" action, we'll use the browser's [`navigator.clipboard` API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/clipboard) to copy the text into the user's clipboard:
@@ -4139,7 +4139,7 @@ provide("ContextMenu", {
 
 <!-- `@Self` and `@SkipSelf` - too complex, not features in other frameworks -->
 
-<!-- `@Host`  - for the same reasons as `@Self` -->
+<!-- `@Host` - for the same reasons as `@Self` -->
 
 <!-- `factory(() => {})` - this is getting too in the weeds of OOP paradigms IMO -->
 
