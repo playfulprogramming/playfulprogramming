@@ -381,6 +381,8 @@ const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Pass Directives Data - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-pass-directives-data-107?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+
 ## Angular
 
 In order to pass a value to an Angular directive, we can use the `@Input` directive, the same as a component.
@@ -395,7 +397,7 @@ However, one way that a directive's inputs differ from a component's is that you
 	standalone: true,
 })
 class StyleBackgroundDirective implements OnInit {
-	@Input() styleBackground: string;
+	@Input() styleBackground!: string;
 
 	el = inject(ElementRef<any>);
 
@@ -408,10 +410,12 @@ class StyleBackgroundDirective implements OnInit {
 	selector: "app-root",
 	standalone: true,
 	imports: [StyleBackgroundDirective],
-	template: ` <button styleBackground="red">Hello, world</button> `,
+	template: ` <button styleBackground="#FFAEAE">Hello, world</button> `,
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Angular Pass Directives Data - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-pass-directives-data-107?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -430,9 +434,11 @@ const vStyleBackground = {
 </script>
 
 <template>
-	<button v-style-background="'red'">Hello, world</button>
+	<button v-style-background="'#FFAEAE'">Hello, world</button>
 </template>
 ```
+
+<iframe data-frame-title="Vue Pass Directives Data - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-pass-directives-data-107?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 You access the bindings' value through `binding.value`, but can also access things like the previous value by using `binding.oldValue`.
 
