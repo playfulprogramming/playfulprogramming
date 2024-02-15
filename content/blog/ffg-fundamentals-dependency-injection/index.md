@@ -17,7 +17,7 @@ While component inputs are undoubtably useful, it can be challenging to utilize 
 
 For example, let's look back at our files app we've been developing throughout the book.
 
-![// TODO: Add alt](./file_list_owner.png)
+![A cloud-hosted files style application with a table of files and folders](./file_list_owner.png)
 
 Here, we have a list of files, the user's profile picture in the corner of the screen. Here's an example of what our data for the page looks like:
 
@@ -122,7 +122,7 @@ While this isn't real code, we can make a discovery by looking at our code laid 
 
 If we chart out what the flow of data looks like, our `currentUser` property is being passed like so:
 
-![// TODO: Write alt](./passing_props.svg)
+![A large component tree that starts with a root of "App" and has lines passing through children into "Header" and "FileItem"](./passing_props.svg)
 
 While it's obnoxious to pass `currentUser` in every component, we need that data in all of these components, so we can't simply remove the inputs, can we?
 
@@ -132,7 +132,7 @@ While we _can't_ outright remove the ability to pass the data from the parent to
 
 Think of this like a buffet of food. Instead of serving food directly to the customer's table, the customer comes to the table with all of the food, takes what it wants, and is satisfied with the results all-the-same.
 
-![// TODO: Write alt](./buffet_analogy.png)
+![A collection of state data is roughly akin to a buffet dinner](./buffet_analogy.png)
 
 We do this method of implicit data passing using a methodology called "**dependency injection**".
 
@@ -142,7 +142,7 @@ When we talk about dependency injection, we're referring to a method of providin
 
 Using dependency injection, we can change our method of providing data to implicitly pass data to the entire application. Doing so allows us to redesign the app and simplify how data is fetched to reflect something like this:
 
-![// TODO: Write alt](./basic_di.svg)
+![A large component tree that starts with a root of "App" and has lines coming from App's "DI" and passing implicitly past children to get to "Header" and "FileOwner"](./basic_di.svg)
 
 Here, `FileOwner` and `ProfilePicture` are grabbing data from the `App` provided value rather than having to go through every individual component.
 
@@ -1347,7 +1347,7 @@ You have two choices to `provide` the data:
 
 Between these two options, you should _generally_ opt to utilize #2, which would place your data injection closer to the components that need said data.
 
-![// TODO: Write alt](./avoid_prop_drilling.svg)
+![Don't pass properties from App into FileType when you don't need to. Instead, pass them from FileTable (which is further down the tree and therefore closer to FileType)](./avoid_prop_drilling.svg)
 
 While this isn't always possible, the justification for doing so is that any changes made to the injected values must propagate downwards and find the component that needs to be re-rendered.
 
@@ -1369,7 +1369,7 @@ You have an app that provides user data at the root of the application - the `Ap
 
 For these instances, these larger apps can replace dependency injection values mid-tree, like so:
 
-![// TODO: Write alt](./multiple_providers.svg)
+![A large component tree with two different DI providers; one from App the other from FileTable](./multiple_providers.svg)
 
 While it's rare, this ability is an incredibly powerful feature you can leverage in your applications.
 
@@ -1560,7 +1560,7 @@ Assume you're at a buffet with three tables of food. These tables, in order of p
 - Chicken, second closest to you
 - Fish, farthest away
 
-![// TODO: Add alt](./buffet_table_closer.png)
+![The person thinking about chicken will walk to the closest chicken table](./buffet_table_closer.png)
 
 If you're hungry for chicken, you're not likely to walk farther to get the same food and will instead pick the closest table with chicken on it to get your food from.
 
@@ -1574,7 +1574,7 @@ Let's take that same analogy from before with the three buffet tables. Now, assu
 
 Despite chicken being closer to them, they'll go out of their way to find the table with fish on it.
 
-![// TODO: Add alt](./buffet_table_farther.png)
+![The person thinking about fish will walk to the furthest away table because it has fish](./buffet_table_farther.png)
 
 Likewise, if you have a data provider that is hosting entirely unrelated data from what your child component is looking for, it might not pick up the correct data.
 
@@ -1802,7 +1802,7 @@ While #1 and #2 are strict requirements, the number of properties can shift a bi
 
 You can visualize an object's _shape_ as comparing two geometrical shapes to one another: A triangle is not the same as a diamond.
 
-![// TODO: Add alt](./same_color_shapes.svg)
+![A red diamond is roughly the same as a red diamond, but a red diamond isn't roughly the same as a triangle](./same_color_shapes.svg)
 
 > Why does this matter? How does this pertain to frontend frameworks?
 
@@ -2222,7 +2222,7 @@ Here, we see two variants of the same `Greeter` injected value. One is a more se
 
 You can think of this like variance within a geometrical shape's color. If you have two triangles, but one is red and one is blue, you can still recognize the triangles as the same shape.
 
-![// TODO: Add alt](./different_color_shapes.svg)
+![A red diamond is roughly the same as a blue diamond, just like a red triangle is roughly the same as a blue triangle and a red circle is roughly the same as a blue circle](./different_color_shapes.svg)
 
 While the first set of shapes and the second set of the shapes are not the _same_, they are still the same _shape_.
 
@@ -2230,7 +2230,7 @@ While the first set of shapes and the second set of the shapes are not the _same
 
 Earlier, in our [element reference](/posts/ffg-fundamentals-element-reference) and [component reference](/posts/ffg-fundamentals-component-reference) chapters, we built out a context menu component to show additional actions a user could take with right-clicking on a file.
 
-![// TODO: Alt](../ffg-fundamentals-element-reference/context-open.png)
+![When the user right-clicks it shows a context menu of options like "Cut", "Copy", and "Paste"](../ffg-fundamentals-element-reference/context-open.png)
 
 This component has all the key features we need to act as a custom context menu:
 
@@ -2244,7 +2244,7 @@ While we've done good work on the component thus far, it's missing something cri
 
 Let's fix that by adding in a list of actions the user can take when the context menu is open. Here's the catch: The actions the user can take depends on what part of the app they're right-clicking on.
 
-![// TODO](./change_file_actions_with_di.png)
+!["Change file actions with dependency injection" shows how right-clicks in the file list shows different actions than right-clicks in the sidebar](./change_file_actions_with_di.png)
 
 There's a few ways we could solve this, but they all boil down to persisting a list of actions the user can take depending on which part of the component tree they're in.
 
@@ -2252,7 +2252,7 @@ Sound familiar?
 
 Let's use dependency injection to provide a different list of actions based on which part of the component tree they're a part of, like so:
 
-![// TODO](./file_actions_di_showcase.png)
+![There will be two parallel DI providers; one for Sidebar the other for FilePage](./file_actions_di_showcase.png)
 
 This will consist of multiple steps:
 
@@ -2272,7 +2272,7 @@ Strap in - this is going to be a long challenge. By the end of it we'll have a f
 
 To start, we'll need a layout component that includes a basic sidebar and main contents.
 
-![// TODO: Alt](./directory_files_list.png)
+![A rough layout component will have a left-hand gray sidebar and a white right-hand files list](./directory_files_list.png)
 
 That might look something like this in HTML:
 
