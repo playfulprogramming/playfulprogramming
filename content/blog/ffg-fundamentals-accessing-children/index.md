@@ -114,6 +114,10 @@ const ParentList = ({ children }) => {
 
 ## Angular
 
+To get the count of the children elements of a component in Angular requires some pre-requisite knowledge. Let's go through each step until we find ourselves at the solution.
+
+### `ContentChild` to Access a Single Child
+
 In [our "Dynamic HTML" chapter, we talked about how you're able to assign a "variable template variable" using a `#` syntax](/posts/ffg-fundamentals-dynamic-html#ng-template):
 
 ```html
@@ -135,12 +139,12 @@ import {
 @Component({
 	selector: "parent-list",
 	standalone: true,
-	template: ` <ng-content></ng-content> `,
+	template: `<ng-content></ng-content>`,
 })
 class ParentListComponent implements AfterContentInit {
-	@ContentChild("childItem") child: ElementRef<HTMLElement>;
+	@ContentChild("childItem") child!: ElementRef<HTMLElement>;
 
-	// This cannot be replaced with an `OnInit`, otherwise `children` is empty.
+	// This cannot be replaced with an `OnInit`, otherwise `children` is empty. We'll explain soon.
 	ngAfterContentInit() {
 		console.log(this.child.nativeElement); // This is an HTMLElement
 	}
@@ -158,6 +162,8 @@ class ParentListComponent implements AfterContentInit {
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Angular ContentChild - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-contentchild-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Here, we're querying for the template tag `childItem` within the project content by using [the `ContentChild` decorator](https://angular.io/api/core/ContentChild).
 
@@ -182,13 +188,15 @@ See, if we replace our usage of `ngAfterContentInit` with a `ngOnInit`, then we 
 	template: ` <ng-content></ng-content> `,
 })
 class ParentListComponent implements OnInit {
-	@ContentChild("childItem") child: ElementRef<HTMLElement>;
+	@ContentChild("childItem") child!: ElementRef<HTMLElement>;
 
 	ngOnInit() {
 		console.log(this.child); // This is `undefined`
 	}
 }
 ```
+
+<iframe data-frame-title="Angular Why ngAfterContentInit? - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-why-ngaftercontentinit-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 This is because while `ngOnInit` runs after the component has rendered, it has not yet received any values within `ng-content`; This is where `ngAfterContentInit` comes into play. This lifecycle method runs once `ng-content` has received the values, which we can then use as a sign that `ContentChild` has finished it's query.
 
@@ -222,7 +230,7 @@ import {
 	`,
 })
 class ParentListComponent implements AfterContentInit {
-	@ContentChildren("listItem") children: QueryList<HTMLElement>;
+	@ContentChildren("listItem") children!: QueryList<HTMLElement>;
 
 	ngAfterContentInit() {
 		console.log(this.children);
@@ -243,6 +251,8 @@ class ParentListComponent implements AfterContentInit {
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Angular Counting Component Children - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-counting-component-children-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 `ContentChildren` returns an array-like [`QueryList`](https://angular.io/api/core/QueryList) generic type. You can then access the properties of `children` inside of the template itself, like what we're doing with `children.length`.
 
