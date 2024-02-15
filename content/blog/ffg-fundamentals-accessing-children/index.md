@@ -260,6 +260,39 @@ class AppComponent {}
 
 Unlike React and Angular, Vue's APIs don't allow us to easily count a child's list items. There's a lot of nuance to _why_ this is the case, but we'll do our best to explain that when we [rewrite Vue from scratch in the third book of the series](https://framework.guide).
 
+Instead, you'll want to pass the list from the parent component to the list display to show the value you'd intend:
+
+```vue
+<!-- ParentList -->
+<script setup>
+const props = defineProps(["list"]);
+</script>
+
+<template>
+	<p>There are {{ props.list.length }} number of items in this array</p>
+	<ul>
+		<slot></slot>
+	</ul>
+</template>
+```
+
+```vue
+<!-- App.vue -->
+<script setup>
+import ParentList from "./ParentList.vue";
+
+const list = [1, 2, 3];
+</script>
+
+<template>
+	<ParentList :list="list">
+		<li v-for="i in list">Item {{ i }}</li>
+	</ParentList>
+</template>
+```
+
+<iframe data-frame-title="Vue Counting Component Children - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-counting-component-children-112?template=node&embed=1&file=src%2FApp.vue"></iframe>
+
 <!-- Editor's note: While yes, we could do a `mounted() {this.$slots.children}` for THIS example, two things: 1) It's bad practice in that it will cause two renders. 2) It breaks in the very next code sample -->
 
 <!-- Editors note: It breaks in the next sample because if you add `updated` to listen for changes, then call `this.$slots.default()` it will trigger an infinite render, since it will in turn re-trigger `updated -->
@@ -619,6 +652,8 @@ const App = () => {
 
 ## Angular
 
+Let's use the [ability to pass values to an ngTemplate using context](/posts/ffg-fundamentals-directives#Passing-Data-to-ng-template-Using-ngTemplateOutletContext) to provide the background color to the passed template to our `ParentList` component:
+
 ```typescript
 @Component({
 	selector: "parent-list",
@@ -667,49 +702,16 @@ class AppComponent {
 }
 ```
 
+<iframe data-frame-title="Angular Pass Val to Projected Content - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-pass-val-to-projected-content-114?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ## Vue
 
 Vue ca... Wait! Vue _can_ do this one!
 
-Let's start by using code that explicitly passes the list of items to a `ParentList` component:
+Let's take our code from the start of this chapter and refactor it so that we don't have to have our `v-for` inside of the `App.vue`. Instead, let's move it into `ParentList.vue` and pass properties to the `<slot>` element.
 
 ```vue
-<!-- ParentList -->
-<script setup>
-import { defineProps } from "vue";
-
-const props = defineProps(["list"]);
-</script>
-
-<template>
-	<p>There are {{ props.list.length }} number of items in this array</p>
-	<ul>
-		<slot></slot>
-	</ul>
-</template>
-```
-
-```vue
-<!-- App.vue -->
-<script setup>
-import ParentList from "./ParentList.vue";
-
-const list = [1, 2, 3];
-</script>
-
-<template>
-	<ParentList :list="list">
-		<li v-for="i in list">Item {{ i }}</li>
-	</ParentList>
-</template>
-```
-
-While this works, it's obnoxious that we have to reference `list` in more than one component template at a time. Currently, we're using `list` in both our `App` template as well as our `ParentList` template.
-
-Luckily, we can utilize `slot` to pass data to a `template` via a `v-slot` attribute:
-
-```vue
-<!-- ParentList -->
+<!-- ParentList.vue -->
 <script setup>
 const props = defineProps(["list"]);
 </script>
@@ -717,7 +719,12 @@ const props = defineProps(["list"]);
 <template>
 	<p>There are {{ props.list.length }} number of items in this array</p>
 	<ul id="parentList">
-		<slot v-for="(item, i) in props.list" :item="item" :i="i"></slot>
+		<slot
+			v-for="(item, i) in props.list"
+			:item="item"
+			:i="i"
+			:backgroundColor="i % 2 ? 'grey' : ''"
+		></slot>
 	</ul>
 </template>
 ```
@@ -741,12 +748,16 @@ function addOne() {
 		<!-- Think of this as "template is recieving an object
 		 we'll call props" from "ParentList" -->
 		<template v-slot="props">
-			<li>{{ props.i }} {{ props.item }}</li>
+			<li :style="'background-color:' + props.backgroundColor">
+				{{ props.i }} {{ props.item }}
+			</li>
 		</template>
 	</ParentList>
 	<button @click="addOne()">Add</button>
 </template>
 ```
+
+<iframe data-frame-title="Vue Pass Val to Projected Content - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-pass-val-to-projected-content-114?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 This `v-slot` is similar to how you might pass properties to a component, but instead we're passing data directly to a `template` to be rendered by `v-slot`.
 
