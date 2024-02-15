@@ -21,7 +21,7 @@ First, let's explain why frameworks like Angular, React, or Vue differ from othe
 
 It all comes down to a single core concept at the heart of each: **Componentization**.
 
-# What's an App, Anyway?
+# What's an App, Anyway? {#whats-an-app-anyway}
 
 Before we dive into the technical aspects, let's think about what an app consists of at a high level.
 
@@ -69,7 +69,7 @@ JavaScript is like the electrical, plumbing, and appliances of the house. They a
 
 CSS is like the paint and other decors that goes into a home. They're what makes the house feel lived in and inviting. Of course, this decor does little without the rest of the home, but without the decor it's a miserable experience.
 
-# Parts of the App
+# Parts of the App {#parts-of-app}
 
 Now that we've introduced what an app looks like, let's go back for a moment. Remember how I said each app is made of parts? Let's explode the app's mockup into smaller pieces and look at them more in-depth.
 
@@ -214,7 +214,7 @@ We can see that each framework has its own syntax to display these components, b
 
 Now that we've defined our components, there's a question to be asked: how do you _use_ these components in HTML?
 
-# Rendering the App
+# Rendering the App {#rendering-app}
 
 While these components might look like simple HTML, they're capable of much more advanced usage. Because of this, each framework actually uses JavaScript under the hood to "draw" these components on-screen.
 
@@ -349,7 +349,7 @@ Once a component is rendered, you can do a lot more with it!
 
 For example, just like [nodes in the DOM]() have relationships, so too can components.
 
-# Children, Siblings, and More, Oh My!
+# Children, Siblings, and More, Oh My! {#relationships}
 
 While our `File` component currently contains HTML elements, components may also contain other components!
 
@@ -650,7 +650,7 @@ import File from "./File.vue";
 
 <!-- tabs:end -->
 
-# Logic
+# Logic {#logic}
 
 HTML isn't the only thing components are able to store, however! As we mentioned earlier, apps (and by extension, each part of the respective apps) require three parts:
 
@@ -916,7 +916,7 @@ This feature is arguably the biggest advantage of building an application with o
 
 Speaking of updating data on-screen - let's take a look at how we can dynamically display data on a page.
 
-# Display
+# Display {#display}
 
 While displaying the value in the console works well for debugging; it's not of much help to the user. After all, more than likely, your users won't know what a console even is. Let's show `dateStr` on-screen
 
@@ -1001,7 +1001,7 @@ Here, we're using the fact that every variable inside of `<script setup>` is aut
 
 Here, we're using each framework's method of injecting the state into a component. For React, we'll use the `{}` syntax to interpolate JavaScript into the template, while Vue and Angular both rely on `{{}}` syntax.
 
-## Live Updating
+## Live Updating {#reactivity}
 
 But what happens if we update `dateStr` after the fact? Say we have a `setTimeout` call that updates the date to tomorrow's date after 5 minutes.
 
@@ -1076,7 +1076,7 @@ const setDateStr = dateArr[1];
 
 Here, we're using `setDateStr` to tell React that it should re-render, which will update the value of `dateStr`. This differs from Angular and Vue, where you don't have to explicitly tell the framework when to re-render.
 
-#### Rules of React Hooks
+#### Rules of React Hooks {#rules-of-hooks}
 
 `useState` and `useEffect` are both what are known as a ["React Hooks"](https://reactjs.org/docs/hooks-intro.html). Hooks are React's method of "hooking" functionality into React's framework code. They allow you to do a myriad of functionalities in React components.
 
@@ -1202,7 +1202,7 @@ While the frameworks detect reactive changes under the hood differently, they al
 
 This is important because to update the DOM in an efficient way requires significant heavy lifting. In fact, **two of these frameworks (React and Vue) store an entire copy of the DOM in memory to keep that updating as lightweight as possible**. In the third book of this book series, titled "Internals", we'll learn how this works under-the-hood and how to build our work version of this DOM mirroring.
 
-# Attribute Binding
+# Attribute Binding {#attr-binding}
 
 Text isn't the only thing that frameworks are capable of live-updating, however!
 
@@ -1456,7 +1456,7 @@ const labelText = ref(formatReadableDate(new Date()));
 
 Awesome! Now it should read the file's date properly to a screen reader properly!
 
-# Inputs
+# Inputs {#inputs}
 
 Our file list is starting to look good! That said, a file list containing the same file repeatedly isn't much of a file list. Ideally, we'd like to pass in the name of the file into our `File` component to add a bit of variance.
 
@@ -1614,7 +1614,7 @@ One way of thinking about passing properties to a component is that we "pass dow
 
 It's exciting what progress we're making! But oh no - the links are still static! Each file has the same `href` property as the last. Let's fix that!
 
-## Multiple Properties
+## Multiple Properties {#multi-props}
 
 Like functions, components can accept as many properties as you'd like to pass. Let's add another for `href`:
 
@@ -1726,7 +1726,7 @@ import File from "./File.vue";
 
 <!-- tabs:end -->
 
-## Object Passing
+## Object Passing {#obj-passing}
 
 While we've been using strings to pass values to a component as an input, this isn't always the case.
 
@@ -1866,7 +1866,7 @@ const inputDate = new Date();
 >
 > Each framework has a way of live-updating this value for us, as we might usually expect, by [using a derived value](/posts/ffg-fundamentals-derived-values), but we'll touch on that in a future section.
 
-## Props Rules
+## Props Rules {#prop-rules}
 
 While it's true that a component property can be passed a JavaScript object, there's a rule you **must** follow when it comes to object props:
 
@@ -1935,7 +1935,7 @@ You're not intended to mutate properties because it breaks two key concepts of a
 1. [What it means to be a "pure" function](/posts/ffg-fundamentals-side-effects#Side-Effects)
 2. [Unidirectionality of component flow](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow)
 
-# Event Binding
+# Event Binding {#event-binding}
 
 Binding values to an HTML attribute is a powerful way to control your UI, but that's only half the story. Showing information to the user is one thing, but you also need to react to a user's input.
 
@@ -2085,7 +2085,7 @@ Here, we're binding the `style` property using Vue's binding. You may notice tha
 
 We're also using a [ternary statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) (`condition ? trueVal : falseVal`) to act as a single-line `if` statement to decide which style to use.
 
-# Outputs
+# Outputs {#outputs}
 
 Components aren't limited to only being able to receive a value from its parent; You're also able to send values back to the parent from the child component.
 
@@ -2336,7 +2336,7 @@ Here, we're using a simple number-based index to act as an `id` of sorts for eac
 
 You may notice that we've also removed our `isSelected` state and logic from our `file` component. This is because we're following the practices of ["raising state".](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow)
 
-# Challenge
+# Challenge {#challenge}
 
 Now that we have a solid grasp on the fundamentals of components; let's build some ourselves!
 
@@ -2354,7 +2354,7 @@ To do this, let's:
 6. Use an output to toggle the `expanded` input
 7. Make our `expanded` property functional
 
-## Creating Our First Components
+## Creating Our First Components {#challenge-creating-comps}
 
 Let's kick off this process by creating our `index.html` and a basic component to render:
 
@@ -2618,7 +2618,7 @@ const props = defineProps(["name"]);
 
 We should now see a list of buttons with a name associated with each!
 
-## Making Our Components Functional
+## Making Our Components Functional {#challenge-making-comps-functional}
 
 Now that we've created the initial structure of our components, let's work on making them functional.
 
