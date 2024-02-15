@@ -1343,11 +1343,42 @@ That said, this method is fairly extensible as you can even use this `FeatureFla
 
 # Challenge
 
-Let's expand [our tooltip functionality from the code challenge before](/posts/ffg-fundamentals-portals#Challenge)
+[In our "Portals" chapter we implemented a tooltip that utilized portals to avoid issues with the stacking context:](/posts/ffg-fundamentals-portals#Challenge)
+
+![// TODO: Add alt](../ffg-fundamentals-element-reference/tooltip.png)
+
+This code was functional and led to a nice user-experience, but the tooltip wasn't broken out to its own component; making it challenging to share the code elsewhere.
+
+Let's refactor that code so that we can add a `tooltip` directive so that adding a tooltip is as easy as adding an attribute! To make this challenge more focused on what we've learned in this chapter, let's simplify the design of our tooltip to something like the following:
+
+![// TODO: WRITE ALT](./directive_tooltip.png)
+
+To build this, we'll need to:
+
+- Add a tooltip directive
+- Allow for an input to the directive that's the contents
+- Bind the tooltip to a button element
+
+We can use the following CSS for the tooltip itself:
+
+```css
+.tooltip {
+	position: absolute;
+	background-color: #333;
+	color: #fff;
+	padding: 8px;
+	border-radius: 4px;
+	z-index: 1000;
+}
+```
+
+Let's get started.
 
 <!-- tabs:start -->
 
 ## React
+
+To avoid having to add manual event listeners to our button, let's pass in a button and the contents of the tooltip using properties on a `useTooltip` custom hook:
 
 ```jsx
 const useTooltip = ({ tooltipContents, innerContents }) => {
@@ -1421,19 +1452,30 @@ const App = () => {
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="React Directives Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-directives-challenge?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Directives Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-directives-challenge-111?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 </details>
 
 ## Angular
+
+To get this working as-expected in Angular, we'll combine everything we learned about structural directives alongside our typical directive knowledge.
+
+Our API will eventually look like this:
+
+```html
+<button #tooltipBase>Hover me</button>
+<div *tooltip="tooltipBase">This is a tooltip</div>
+```
+
+However, to get this to work we need to use [Angular CDK's DOMPortal](https://material.angular.io/cdk/portal/api#DomPortal) instead of our previously known TemplatePortal, so that we can teleport the `div` itself to `body` and add properties to the `div` when we do so.
+
+We'll build out a custom PortalService that uses a `DomPortalOutlet` to enable this:
 
 ```typescript
 @Injectable({
 	providedIn: "root",
 })
 class PortalService {
-	// Explain why we need to pass in document
-	// @see https://github.com/angular/components/blob/fdd16e667550690d554bba49888bfc6929bc97b2/src/cdk/portal/dom-portal-outlet.ts#L43-L47
 	outlet = new DomPortalOutlet(
 		document.querySelector("body")!,
 		undefined,
@@ -1442,7 +1484,33 @@ class PortalService {
 		document,
 	);
 }
+```
 
+> This code sample has a few peculiar `undefined`s here. This is because Angular will otherwise not work as intended without them.
+>
+> The order of the properties in `DomPortalOutlet` will likely change in the future allowing `document` to be passed first, but has not yet at the time of writing.
+
+Then we can bind to the `DomPortalOutput` by creating a `DOMPortal` like so:
+
+```typescript
+const viewRef = this.viewContainerRef.createEmbeddedView(this.templToRender);
+
+// We need to access the `div` itself to attach to a DomPortal; this is how you do that.
+this.el = viewRef.rootNodes[0] as HTMLElement;
+
+// Now that we have the element reference, we can add a class and style properties
+this.el.classList.add("tooltip");
+this.el.style.left = `${left}px`;
+this.el.style.top = `${bottom}px`;
+
+setTimeout(() => {
+	this.portalService.outlet.attach(new DomPortal(this.el));
+});
+```
+
+Let's put it all together like so:
+
+```typescript
 @Directive({
 	selector: "[tooltip]",
 	standalone: true,
@@ -1472,18 +1540,13 @@ class TooltipDirective implements AfterViewInit, OnDestroy {
 			this.templToRender,
 		);
 
-		// TODO: Explain this
 		this.el = viewRef.rootNodes[0] as HTMLElement;
-
 		this.el.classList.add("tooltip");
 		this.el.style.left = `${left}px`;
 		this.el.style.top = `${bottom}px`;
 
 		setTimeout(() => {
-			this.portalService.outlet.attach(
-				// TODO: Explain why you'd use DomPortal rather than TemplatePortal
-				new DomPortal(this.el),
-			);
+			this.portalService.outlet.attach(new DomPortal(this.el));
 		});
 	};
 
@@ -1525,17 +1588,19 @@ class TooltipDirective implements AfterViewInit, OnDestroy {
 class AppComponent {}
 ```
 
+And suddenly our code works as we would expect!
+
 <details>
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Angular Directives Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-directives-challenge?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Directives Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-directives-challenge-111?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 </details>
 
 ## Vue
 
-This code cannot be ported to Vue and would end up looking nearly identical to the previous chapter's code. This is because Vue does not have a way to store a template in a variable without rendering it on-screen.
+The code from the other frameworks cannot be ported to Vue due to limitations with Vue's directives. This is because Vue does not have a way to store a template in a variable without rendering it on-screen.
 
 That said, it would be pretty frustrating to not have anything to show for the end of this chapter. Keeping in mind the limitation of Vue's directives, let's build a directive that can be used to show a tooltip on hover:
 
@@ -1606,7 +1671,7 @@ export const vTooltip = {
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Vue Directives Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-directives-challenge?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Directives Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-directives-challenge-111?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 </details>
 
