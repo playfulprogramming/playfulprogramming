@@ -99,21 +99,21 @@ const priorityItems = items.filter((item) => item.item.priority === 1);
 
 Without running the code, everything looks pretty good, right?
 
-> Maybe you've spotted the error by now - that's great! Just remember - we all make these small mistakes from time-to-time. Don't dismiss the idea of error handling out of hand as we go forward.
+> Maybe you've spotted the error by now — that's great! Remember that we all make these small mistakes from time-to-time. Don't dismiss the idea of error handling out of hand as we go forward.
 
 But oh no! When you run the application, it's not showing the `h1` or any of the list items like we would expect it to.
 
-The reason those items aren't showing on-screen is because an error is being thrown. Open your console on any of these examples and you'll find an error waiting for you:
+The reason those items aren't showing on-screen is that an error is being thrown. Open your console on any of these examples, and you'll find an error waiting for you:
 
 > Error: can't access property "priority", item.item is undefined
 
-Luckily, this error is a fairly easy fix, but even if we do; bugs will inevitably be introduced into our apps. A white screen is a pretty sub-par experience for our end users - they likely won't even understand what happened that lead them to this broken page.
+Luckily, this error is a fairly easy fix, but even if we do, bugs will inevitably be introduced into our apps. A white screen is a pretty subpar experience for our end users — they likely won't even understand what happened that lead them to this broken page.
 
 While I doubt we'll ever convince our users that an error is a _good_ thing, how can we make this user experience _better_, at least?
 
 Before we do that, however, let's explore _why_ throwing an error causes the rendering of a page to fail.
 
-# Throwing Errors Causes Blank Screens?!
+# Throwing Errors Causes Blank Screens?! {#errors-blank-screens}
 
 As shown before, when an error is thrown during a component's [render step](/posts/ffg-fundamentals-side-effects) it will fail to render any of the contents from the component's template. This means that the following will throw an error and prevent rendering from occurring:
 
@@ -165,7 +165,7 @@ throw new Error("Error");
 
 <!-- tabs:end -->
 
-However, if we change our code to throw an error during an event handler, the contents will render just fine but fail to execute the logic of said error handler:
+However, if we change our code to throw an error during an event handler, the contents will render fine but fail to execute the logic of said error handler:
 
 <!-- tabs:start -->
 
@@ -291,18 +291,18 @@ function main() {
 		console.log(getDaySchedule());
 	} catch (e) {
 		// Only now will the error be stopped
-		console.log("An error occured:", e);
+		console.log("An error occurred:", e);
 	}
 }
 ```
 
 <iframe data-frame-title="JS Error Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-js-error-bubbling-74?template=node&embed=1&file=src%2Fmain.js"></iframe>
 
-![TODO: Write alt](./error_bubbling.png)
+![Error bubbles up from getBaseNumber all the way to main's try/catch](./error_bubbling.png)
 
 Because of these two properties of errors, React, Angular, and Vue are unable to "recover" (continue rendering after an error has occurred) from an error thrown during a render cycle.
 
-## Errors Thrown in Event Handlers
+## Errors Thrown in Event Handlers {#errors-event-handlers}
 
 Conversely, due to the nature of event handlers, these frameworks don't _need_ to handle errors that occur during event handlers. Assume we have the following code in an HTML file:
 
@@ -355,11 +355,11 @@ But let's think about what adding this `window` listener would mean:
   - Larger bundle size
 - When the user clicks on a faulty button, the whole component crashes rather than a single aspect of it failing
 
-This doesn't seem worth the tradeoffs when we're able to add our own `try/catch` handlers inside of event handlers.
+This doesn't seem worth the tradeoffs when we're able to add our own `try/catch` handlers inside event handlers.
 
 After all, a partially broken application is better than a fully broken one!
 
-### Errors Thrown in Other APIs
+### Errors Thrown in Other APIs {#errors-other-apis}
 
 This property of an error being thrown in an error handler not preventing a render transfers to other aspects of these frameworks as well:
 
@@ -466,7 +466,7 @@ console.log(result.value);
 
 <iframe data-frame-title="Vue Errors in Setup - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-errors-in-setup-76?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
-Other APIs, like the `onMounted` lifecycle method, will not prevent rendering when an error is thrown inside of it:
+Other APIs, like the `onMounted` lifecycle method, will not prevent rendering when an error is thrown inside it:
 
 ```vue
 <!-- App.vue -->
@@ -488,13 +488,13 @@ onMounted(() => {
 
 While this might seem confusing at first, it makes sense when you consider _when_ `onMounted` runs when compared with `computed`, for example.
 
-See, while `computed` runs during the setup of the component, `onMounted` executes _after_ the component has been rendered. Because of this, Vue is able to recover from errors thrown during `onMounted` and afterwards, but not during those thrown in a render function.
+See, while `computed` runs during the setup of the component, `onMounted` executes _after_ the component has been rendered. Because of this, Vue is able to recover from errors thrown during `onMounted` and afterward, but not during those thrown in a render function.
 
 <!-- tabs:end -->
 
 Now that we understand why these errors prevent you from rendering content, let's see how we're able to improve the user experience when errors _do_ occur.
 
-# Logging Errors
+# Logging Errors {#logging-errors}
 
 The first step to providing a better end-user experience when it comes to errors is to reduce how many are made.
 
@@ -502,7 +502,7 @@ The first step to providing a better end-user experience when it comes to errors
 
 Sure, this seems obvious, but consider this: If an error occurs on the user's machine, and it isn't caught during internally, how are you supposed to know how to fix it?
 
-This is where the concept of "logging" comes into play. The general idea behind logging is that you can capture a collection of errors and information about the events that led up to the errors, and provide a way to export this data so that your user can send it to you to debug.
+This is where the concept of "logging" comes into play. The general idea behind logging is that you can capture a collection of errors and information about the events that led up to the errors. You want to provide a way to export this data so that your user can send it to you to debug.
 
 While this logging often involves submitting data to a server, let's keep things local to the user's machine for now.
 
@@ -510,11 +510,11 @@ While this logging often involves submitting data to a server, let's keep things
 
 ## React
 
-Up to this point, all of our React components have been functions. While this _is_ how most modern React applications are built today there is another way of writing a React component; this being the "class" API.
+Up to this point, all of our React components have been functions. While this _is_ how most modern React applications are built today, there is another way of writing a React component; this being the "class" API.
 
 Class-based React components have existed _well_ before function components have. Class-based components were in React since day one and functional components were only truly made viable with a significant revamp [in React 16.8; coinciding with the introduction of React Hooks](https://reactjs.org/docs/hooks-intro.html).
 
-Here's a simple React component in both functional and class based APIs:
+Here's a simple React component in both functional and class-based APIs:
 
 ```jsx
 // Function component
@@ -573,7 +573,7 @@ _**Almost** every API made the migration to Hooks._
 
 One of the few exceptions to that rule is the ability to catch and track errors that are thrown within a React application.
 
-### Use Class Components to Build an Error Boundary
+### Use Class Components to Build an Error Boundary {#class-error-boundary}
 
 Now that we understand what a class component is, and why it's required to use one for error handling, let's build one ourselves!
 
@@ -617,13 +617,13 @@ const App = () => {
 
 <iframe data-frame-title="React componentDidCatch - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-comp-did-catch-77?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-Now, while our screen will still be white when the error is thrown, it will hit our `componentDidCatch` handler as we would expect.
+Now, while our screen will still be white, when the error is thrown, it will hit our `componentDidCatch` handler as we would expect.
 
 ## Angular
 
-Angular utilizes its [dependency injection system](/posts/ffg-fundamentals-dependency-injection) to allow developers to keep track of errors as they occur.
+Angular uses its [dependency injection system](/posts/ffg-fundamentals-dependency-injection) to allow developers to keep track of errors as they occur.
 
-However, in order to provide the custom error handler service, you **must** provide it at the root of your application, meaning that you cannot simply provide it from your parent component.
+However, to provide the custom error handler service, you **must** provide it at the root of your application, meaning that you cannot simply provide it from your parent component.
 
 ```typescript
 class MyErrorHandler implements ErrorHandler {
@@ -690,7 +690,7 @@ onErrorCaptured((err, instance, info) => {
 </template>
 ```
 
-Now when we throw an error inside of a child component, like so:
+Now when we throw an error inside a child component, like so:
 
 ```vue
 <!-- Child.vue -->
@@ -713,9 +713,9 @@ Great! We're now able to keep track of what errors are occurring in our app. Hop
 
 Now let's see if we're not able to make the experience a bit nicer for our users when they _do_ hit an error.
 
-# Ignoring the Error
+# Ignoring the Error {#ignoring-the-error}
 
-Some bugs? They're show stoppers. When the happen, you can't do anything to recover from the error and as a result you have to halt the user's ability to interact with the page.
+Some bugs? They're showstoppers. When they happen, you can't do anything to recover from the error, and as a result, you have to halt the user's ability to interact with the page.
 
 Other bugs on the other hand may not require such harsh actions. For example, if you can silently log an error, pretending that nothing ever happened and allowing the app to continue on as normal, that is oftentimes a better user experience.
 
@@ -729,13 +729,13 @@ Unfortunately, React is not able to handle thrown errors invisibly to the user w
 
 ## Angular
 
-As covered before, Angular is able to ignore all errors thrown outside of the `constructor` method. However, if an error does occur in the `constructor` method, it's challenging ([but not impossible](https://unicorn-utterances.com/posts/angular-constructor-error-behavior#The-short-term-fix)) to sidestep. Because of the complexity of the code required to ignore `constructor` method errors, we won't cover it in this book.
+As covered before, Angular is able to ignore all errors thrown outside the `constructor` method. However, if an error does occur in the `constructor` method, it's challenging ([but not impossible](https://unicorn-utterances.com/posts/angular-constructor-error-behavior#The-short-term-fix)) to sidestep. Because of the complexity of the code required to ignore `constructor` method errors, we won't cover it in this book.
 
-> Want to see an official solution to this problem? [Star my feature request on GitHub which outlines a longer-term solution built-into Angular](https://github.com/angular/angular/issues/51941).
+> Want to see an official solution to this problem? [Star my feature request on GitHub, which outlines a longer-term solution built-into Angular](https://github.com/angular/angular/issues/51941).
 
 ## Vue
 
-In order to avoid an error blanking out your Vue application, simply return `false` from your `onErrorCaptured` composition.
+To avoid an error blanking out your Vue application, simply return `false` from your `onErrorCaptured` composition.
 
 ```vue
 <!-- App.vue -->
@@ -774,7 +774,7 @@ To still render their contents, while logging the error.
 
 <!-- tabs:end -->
 
-# Fallback UI
+# Fallback UI {#fallback-ui}
 
 While silently failing _can_ be a valid strategy to hiding errors from your user, other times you may want to display a different UI when an error is thrown.
 
@@ -784,7 +784,7 @@ For example, let's build a screen that tells the user that an unknown error has 
 
 ## React
 
-Because our `ErrorBoundary` component renders the children that's passed in, we can update our state when an error occurs. To do this, React provide a special _static_ handler method called `getDerivedStateFromError` which allows us to set a property in our `state` object when an error is hit.
+Because our `ErrorBoundary` component renders the children that are passed in, we can update our state when an error occurs. To do this, React provide a special _static_ handler method called `getDerivedStateFromError` which allows us to set a property in our `state` object when an error is hit.
 
 ```jsx
 class ErrorBoundary extends Component {
@@ -847,13 +847,13 @@ class AppComponent {
 
 > Unlike most instances of `inject` usage, we have to use `as MyErrorHandler`, otherwise TypeScript does not know about the new `hadError` property we just set.
 
-> Despite this code working well to display a fallback UI in most error throwing scenarios, the `ErorrHandler` service can't prevent the rendering error caused by `constructor` errors. As a result, if you want to display a UI fallback for those errors, you'll need to either [implement a somewhat complex bit of code or wait for Angular to implement the functionality itself.](https://github.com/angular/angular/issues/51941)
+> Despite this code working well to display a fallback UI in most error throwing scenarios, the `ErrorHandler` service can't prevent the rendering error caused by `constructor` errors. As a result, if you want to display a UI fallback for those errors, you'll need to either [implement a somewhat complex bit of code or wait for Angular to implement the functionality itself.](https://github.com/angular/angular/issues/51941)
 
 ## Vue
 
 Because we still have full access to our component's state within `onErrorCaptured`, we can change a `ref` from `false` to `true` to keep track of if an error occurred.
 
-If it hasn't render our main app, otherwise render our fallback UI.
+If it hasn't rendered our main app, otherwise render our fallback UI.
 
 ```vue
 <!-- App.vue -->
@@ -872,7 +872,7 @@ onErrorCaptured((err, instance, info) => {
 </script>
 
 <template>
-	<p v-if="hadError">An error occured</p>
+	<p v-if="hadError">An error occurred</p>
 	<Child v-if="!hadError" />
 </template>
 ```
@@ -881,7 +881,7 @@ onErrorCaptured((err, instance, info) => {
 
 <!-- tabs:end -->
 
-## Displaying the Error
+## Displaying the Error {#displaying-the-error}
 
 While displaying a fallback UI is often to the user's benefit, most users want some indication of _what_ went wrong, rather than simply "something" went wrong.
 
@@ -1013,7 +1013,7 @@ const getErrorString = (err) =>
 
 <!-- tabs:end -->
 
-# Challenge
+# Challenge {#challenge}
 
 Let's say that we were building out [our previous code challenge](/posts/ffg-fundamentals-component-reference#Challenge) and accidentally typo-d the name of a variable in our `Sidebar` component:
 
@@ -1175,11 +1175,11 @@ Let's solve this by:
 - Implementing an error handler
 - Showing the user a nicer error screen
 
-## Reporting Bugs Back to Developers
+## Reporting Bugs Back to Developers {#challenge-reporting-bugs}
 
 Let's provide the user a means to email us if they find something similar in their time using the app.
 
-![// TODO: Write alt](./final_error_screen.png)
+![A screen that shows the type of error, error message, "Email us to report the bug", and a stacktrace obscured by default by a dropdown](./final_error_screen.png)
 
 We can do this by showing the user [a `mailto:` link](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks#email_links) when an error occurs. That way, reporting the bug is a single mouse click.
 
@@ -1199,7 +1199,7 @@ Where `subject` and `body` are encoded using `encodeURIComponent` like so:
 const mailTo = "dev@example.com";
 
 const errorMessage = `
-There was some error that occured. It's unclear why that happened.
+There was some error that occurred. It's unclear why that happened.
 `;
 
 const header = "Bug Found";
@@ -1214,9 +1214,9 @@ const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedErr}`;
 const html = `<a href="${href}">Email Us</a>`;
 ```
 
-## Implementing the Error Handler
+## Implementing the Error Handler {#challenge-implementing-error-handler}
 
-With an plan of attack outlined, let's take a step back and evaluate how we'll implement our error handler in the first place.
+With a plan of attack outlined, let's take a step back and evaluate how we'll implement our error handler in the first place.
 
 Remember: Implement first, increment second.
 
@@ -1351,9 +1351,9 @@ import ErrorCatcher from "./ErrorCatcher.vue";
 
 <!-- tabs:end -->
 
-## Showing a Nicer Error Message
+## Showing a Nicer Error Message {#challenge-showing-nicer-error}
 
-Now that we have a method of showing the error to the user when it occurs, let's make sure that we can report the bug back to the development team. We'll do this by displaying all the information a user would need to report a bug, alongside an auto-filled `mailto:` link so that emailing the developer is a single-button press away.
+Now that we have a method of showing the error to the user when it occurs, let's make sure that we can report the bug back to the development team. We'll do this by displaying all the information a user would need to report a bug, alongside an autofilled `mailto:` link so that emailing the developer is a single-button press away.
 
 <!-- tabs:start -->
 
