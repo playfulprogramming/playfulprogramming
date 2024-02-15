@@ -941,14 +941,18 @@ Now that we know we can attach a template from a directive, let's go one step fu
 Here, we'll use dependency injection to get access to an `ng-template`'s `TemplateRef`:
 
 ```typescript
+function injectTemplateAndLog() {
+	const template = inject(TemplateRef);
+	console.log(template);
+	return template;
+}
+
 @Directive({
 	selector: "[item]",
 	standalone: true,
 })
 class ItemDirective {
-	constructor(private template: TemplateRef<any>) {
-		console.log(this.template);
-	}
+	_template = injectTemplateAndLog();
 }
 
 @Component({
@@ -965,6 +969,8 @@ class ItemDirective {
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Angular Template From Directive - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-template-from-directive-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 > Because we're expecting Angular to pass an `ng-template` reference to `ItemDirective`, if we use the `item` attribute on anything other than a template, we'll end up with the following error:
 >
@@ -1099,7 +1105,7 @@ Might be seen by Angular as such:
 
 ![// TODO: Write alt](./angular_dom.svg)
 
-### Using Viewcontainer to Render a Template
+### Using ViewContainer to Render a Template
 
 This isn't just theoretically helpful to learn, though, we're able to tell Angular that we want to gain access to the underlying `ViewContainer` via a [`ViewContainerRef`](https://angular.io/api/core/ViewContainerRef).
 
@@ -1139,6 +1145,8 @@ class AppComponent {}
 
 Now we should be able to see the `p` tag rendering!
 
+<iframe data-frame-title="Angular ViewContainer Template - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-viewcontainer-template-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ### Pass Data to Rendered Templates inside of Directives
 
 Just as we could pass data to a template inside of a component using `ngTemplateOutletContext`, we can do the same using a second argument of `createEmbeddedView`:
@@ -1177,6 +1185,8 @@ class PassBackgroundDirective {
 class AppComponent {}
 ```
 
+<iframe data-frame-title="Angular Rendered Template Data - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-rendered-template-data-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 ### Use Structural Directives to Make Work Easier
 
 In our previous section, we use an `ng-template` in combination with a `div` to render out our app with the correct DOM structure.
@@ -1211,13 +1221,15 @@ Knowing this, we can take our previous code and convert it to a structural direc
 	standalone: true,
 	imports: [PassBackgroundDirective],
 	template: `
-		<div *passBackground let-backgroundColor="backgroundColor">
+		<div *passBackground="let backgroundColor = backgroundColor">
 			<p [style]="{ backgroundColor }">Hello, world!</p>
 		</div>
 	`,
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Angular Structural Directives - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-structural-directives-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 > Structural directives are immensely powerful! [I wrote a 10k word long blog post all about them here.](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives)
 
@@ -1226,7 +1238,7 @@ class AppComponent {}
 Now that we have our foundation written out, we can finally build a simple `featureFlag` directive that renders nothing if a `flag` is false, but renders the contents if a flag is `true`:
 
 ```typescript
-const flags = {
+const flags: Record<string, boolean> = {
 	addToCartButton: true,
 	purchaseThisItemButton: false,
 };
@@ -1236,7 +1248,7 @@ const flags = {
 	standalone: true,
 })
 class FeatureFlagDirective implements OnChanges {
-	@Input() featureFlag: string;
+	@Input() featureFlag!: string;
 
 	templToRender = inject(TemplateRef<any>);
 	parentViewRef = inject(ViewContainerRef);
@@ -1269,6 +1281,8 @@ class FeatureFlagDirective implements OnChanges {
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Angular Conditionally Rendered UI - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-conditionally-rendered-ui-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
