@@ -262,11 +262,11 @@ Unlike React and Angular, Vue's APIs don't allow us to easily count a child's li
 
 <!-- Editor's note: While yes, we could do a `mounted() {this.$slots.children}` for THIS example, two things: 1) It's bad practice in that it will cause two renders. 2) It breaks in the very next code sample -->
 
-<!-- Editors note: It breaks in the next sample because if you add `updated` to listen for changes, then call `this.$slots.default()` it will trigger an infinate render, since it will in turn re-trigger `updated -->
+<!-- Editors note: It breaks in the next sample because if you add `updated` to listen for changes, then call `this.$slots.default()` it will trigger an infinite render, since it will in turn re-trigger `updated -->
 
 <!-- Editor's note: While `$el` might seem like a viable alternative to an ID, it's not due to the fact that we have multiple root HTML nodes. This means that `$el` is a VNode, not an `HTMLElement` and therefore does not have a `id` property -->
 
-<!-- Editor's note, $slots.default doesn't work with `v-for` -->
+<!-- Editor's note: $slots.default doesn't work with `v-for` -->
 
 <!-- tabs:end -->
 
@@ -346,7 +346,7 @@ Instead, let's change our elements to `ng-template`s and render them in an `ngFo
 	`,
 })
 class ParentListComponent {
-	@ContentChildren("listItem") children: QueryList<TemplateRef<any>>;
+	@ContentChildren("listItem") children!: QueryList<TemplateRef<any>>;
 }
 
 @Component({
@@ -369,6 +369,8 @@ class ParentListComponent {
 })
 class AppComponent {}
 ```
+
+<iframe data-frame-title="Angular Children in Loop - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-children-in-loop-113?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -427,8 +429,6 @@ const App = () => {
 
 ### Angular
 
-<!-- Editor's note: `console.log(this.children)` will not occur when `QueryList` is updated -->
-
 ```typescript
 @Component({
 	selector: "parent-list",
@@ -444,7 +444,7 @@ const App = () => {
 	`,
 })
 class ParentListComponent {
-	@ContentChildren("listItem") children: QueryList<TemplateRef<any>>;
+	@ContentChildren("listItem") children!: QueryList<TemplateRef<any>>;
 }
 
 @Component({
@@ -470,29 +470,7 @@ class AppComponent {
 }
 ```
 
-It's worth noting that when you run `addOne` (by pressing the "Add" button), it will not re-run `ngAfterContentInit`'s `console.log`. To do this, we need to access the `changes` "Observable" and listen for changes:
-
-```typescript
-function ngAfterContentInit() {
-	console.log(this.children);
-
-	// `subscribe` comes from the `changes` RxJS observable
-	this.children.changes.subscribe((childElements) =>
-		console.log(childElements),
-	);
-}
-```
-
-> Wait wait wait, what's an "Observable"?
-
-An Observable is an object type that allows you to listen to a series of events via a push-based listening method. In Angular, these Observables are powered by a library called [RxJS](https://rxjs.dev/) that Angular builds upon.
-
-> RxJS is an incredibly powerful library that's well worth learning in the Angular world. While this book/course won't touch on RxJS much (simply because it's a topic worth it's own book series), a great learning resource for RxJS might be: ["RxJS Fundamentals" by the "This Is Learning" community.](https://this-is-learning.github.io/rxjs-fundamentals-course/)
-
-To quickly synopsis what our `changes` observable does:
-
-- Emits data when `children` is updated with new elements
-- `subscribe` then listens to these emitted events, run the containing function with the updated value of `this.children`
+<iframe data-frame-title="Angular Adding Children Dynamically - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-adding-children-dynamically-114?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
