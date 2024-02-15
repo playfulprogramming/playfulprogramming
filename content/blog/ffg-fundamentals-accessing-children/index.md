@@ -203,7 +203,7 @@ This is because while `ngOnInit` runs after the component has rendered, it has n
 This can be solved by either:
 
 - Using `ngAfterContentInit` if the content is dynamic
-- [Using `{static: true}` on the `ContentChild` decorator if the content is static](/posts/ffg-fundamentals-element-reference#Using-static-true-to-use-ViewChild-immediately)
+- [Using `{static: true}` on the `ContentChild` decorator if the content is static](/posts/ffg-fundamentals-element-reference#using-static-true)
 
 ### Handle Multiple Children with `ContentChildren`
 
@@ -362,7 +362,7 @@ const App = () => {
 
 Since Angular's `ContentChildren` gives us an `HTMLElement` reference when using our template variables on `HTMLElements`, we're not able to wrap those elements easily.
 
-Instead, let's change our elements to `ng-template`s and render them in an `ngFor`, [similarly to what we did in our "Directives" chapter](/posts/ffg-fundamentals-directives#Using-ViewContainer-to-Render-a-Template):
+Instead, let's change our elements to `ng-template`s and render them in an `ngFor`, [similarly to what we did in our "Directives" chapter](/posts/ffg-fundamentals-directives#using-viewcontainer-to-render-a-template):
 
 ```typescript
 @Component({

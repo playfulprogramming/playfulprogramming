@@ -37,7 +37,7 @@ React as a framework doesn't _quite_ have the concept of directives built-in.
 
 Luckily, this doesn't mean that we as React developers need to be left behind. Because a React component is effectively just a JavaScript function, we can use the base concept of a directive to create shared logic for DOM nodes.
 
-Remember from our ["Element Reference" chapter that you can use a function associated with an element's `ref` property](/posts/ffg-fundamentals-element-reference). We'll use this concept alongside the idea of a [custom hook](/posts/ffg-fundamentals-shared-component-logic#Rules-of-Custom-Hooks) in order to create an API to add logic to an HTML element:
+Remember from our ["Element Reference" chapter that you can use a function associated with an element's `ref` property](/posts/ffg-fundamentals-element-reference). We'll use this concept alongside the idea of a [custom hook](/posts/ffg-fundamentals-shared-component-logic#custom-hooks-rules) in order to create an API to add logic to an HTML element:
 
 ```jsx
 const useLogElement = () => {
@@ -261,13 +261,13 @@ const vStyleBackground = {
 
 # Side Effect Handlers in Directives
 
-[Previously in the book, we've explored adding in a `focus` event when an element is rendered](/posts/ffg-fundamentals-component-reference#Using-component-reference-to-focus-our-context-menu). However, in this chapter we explicitly had to call a `focus` method. What if we could have our `button` focus itself immediately when it's rendered onto the page?
+[Previously in the book, we've explored adding in a `focus` event when an element is rendered](/posts/ffg-fundamentals-component-reference#using-comp-ref). However, in this chapter we explicitly had to call a `focus` method. What if we could have our `button` focus itself immediately when it's rendered onto the page?
 
 Luckily, with directives we can!
 
 See, while a component has a series of side effects associated with it: being rendered, updated, cleaned up, and beyond - so too does an HTML element that's bound to a directive!
 
-Because of this, we can hook into the ability to use [side effects](/posts/ffg-fundamentals-side-effects#Side-Effects) within directives that focuses when an element is rendered.
+Because of this, we can hook into the ability to use [side effects](/posts/ffg-fundamentals-side-effects) within directives that focuses when an element is rendered.
 
 <!-- tabs:start -->
 
@@ -994,7 +994,7 @@ A `ViewContainerRef` is a reference to the nearest `ViewContainer`
 
 Okay okay, let's take a step back.
 
-While Angular doesn't [utilize a virtual DOM (VDOM) like React and Vue do](/posts/ffg-fundamentals-side-effects#Rendering-Committing-Painting), it _does_ keep track of what is and isn't rendered.
+While Angular doesn't [utilize a virtual DOM (VDOM) like React and Vue do](/posts/ffg-fundamentals-side-effects#rendering-committing-painting), it _does_ keep track of what is and isn't rendered.
 
 To do this, Angular utilizes a compiler to create intelligent "template functions" when a component has a `template` (or `templateUrl`) field associated with it.
 
@@ -1105,7 +1105,7 @@ Might be seen by Angular as such:
 
 ![// TODO: Write alt](./angular_dom.svg)
 
-### Using ViewContainer to Render a Template
+### Using ViewContainer to Render a Template {#using-viewcontainer-to-render-a-template}
 
 This isn't just theoretically helpful to learn, though, we're able to tell Angular that we want to gain access to the underlying `ViewContainer` via a [`ViewContainerRef`](https://angular.io/api/core/ViewContainerRef).
 
@@ -1343,7 +1343,7 @@ That said, this method is fairly extensible as you can even use this `FeatureFla
 
 # Challenge
 
-[In our "Portals" chapter we implemented a tooltip that utilized portals to avoid issues with the stacking context:](/posts/ffg-fundamentals-portals#Challenge)
+[In our "Portals" chapter we implemented a tooltip that utilized portals to avoid issues with the stacking context:](/posts/ffg-fundamentals-portals#challenge)
 
 ![// TODO: Add alt](../ffg-fundamentals-element-reference/tooltip.png)
 

@@ -1015,7 +1015,7 @@ const getErrorString = (err) =>
 
 # Challenge {#challenge}
 
-Let's say that we were building out [our previous code challenge](/posts/ffg-fundamentals-component-reference#Challenge) and accidentally typo-d the name of a variable in our `Sidebar` component:
+Let's say that we were building out [our previous code challenge](/posts/ffg-fundamentals-component-reference#challenge) and accidentally typo-d the name of a variable in our `Sidebar` component:
 
 <!-- tabs:start -->
 

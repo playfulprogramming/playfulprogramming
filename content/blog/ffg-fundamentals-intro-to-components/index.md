@@ -1932,7 +1932,7 @@ onMounted(() => {
 
 You're not intended to mutate properties because it breaks two key concepts of application architecture with components:
 
-1. [What it means to be a "pure" function](/posts/ffg-fundamentals-side-effects#Side-Effects)
+1. [What it means to be a "pure" function](/posts/ffg-fundamentals-side-effects#whats-a-side-effect)
 2. [Unidirectionality of component flow](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow)
 
 # Event Binding {#event-binding}

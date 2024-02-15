@@ -1219,7 +1219,7 @@ Now when you test the issue again, you find your modal is above the UnicornChat 
 
 # Challenge
 
-If we look back to [our Element Reference chapter's code challenge](/posts/ffg-fundamentals-element-reference#Challenge) you might remember that we were tasked with creating a tooltip component:
+If we look back to [our Element Reference chapter's code challenge](/posts/ffg-fundamentals-element-reference#challenge) you might remember that we were tasked with creating a tooltip component:
 
 ![// TODO: Add alt](../ffg-fundamentals-element-reference/tooltip.png)
 

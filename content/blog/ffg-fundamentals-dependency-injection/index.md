@@ -2812,7 +2812,7 @@ const directories = [
 
 ## Step 3: Add Context Menu with Static Actions {#challenge-step-3}
 
-Next, we'll add in a context menu. We'll start by [taking our context menu from our "Component Reference" chapter](/posts/ffg-fundamentals-component-reference#Using-component-reference-to-focus-our-context-menu) and adapting it to our needs here. Namely, let's change the following to our context menu over the previous version:
+Next, we'll add in a context menu. We'll start by [taking our context menu from our "Component Reference" chapter](/posts/ffg-fundamentals-component-reference#using-comp-ref) and adapting it to our needs here. Namely, let's change the following to our context menu over the previous version:
 
 - Only allow one context menu to be opened at a time
 - Add a list of actions that the user can take in the context menu

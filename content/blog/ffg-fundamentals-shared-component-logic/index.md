@@ -78,9 +78,9 @@ const App = () => {
 
 <iframe data-frame-title="React Shared Data Storage - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-shared-data-storage-100?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-### Rules of Custom Hooks {#custom-hook-rules}
+### Rules of Custom Hooks {#custom-hooks-rules}
 
-[In our "Intro to Components" chapter, we covered the rules of React's built-in hooks](/posts/ffg-fundamentals-intro-to-components#Rules-of-React-Hooks).
+[In our "Intro to Components" chapter, we covered the rules of React's built-in hooks](/posts/ffg-fundamentals-intro-to-components#rules-of-hooks).
 
 We mentioned that there are a few rules for any hooks:
 
@@ -154,7 +154,7 @@ const useWindowSize = () => {
 
 To share data setup between components in Angular, we'll create an instance of a class that can be provided by each consuming component.
 
-Just as we covered [in the dependency injection chapter](/posts/ffg-fundamentals-dependency-injection#Providing-Basic-Values-with-Dependency-Injection), we'll use `Injectable` to create a class that can be provided to a component instance.
+Just as we covered [in the dependency injection chapter](/posts/ffg-fundamentals-dependency-injection#basic-values), we'll use `Injectable` to create a class that can be provided to a component instance.
 
 ```typescript
 @Injectable()
