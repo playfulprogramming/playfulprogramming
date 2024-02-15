@@ -19,8 +19,6 @@ import { DomPortal, DomPortalOutlet } from "@angular/cdk/portal";
 	providedIn: "root",
 })
 class PortalService {
-	// Explain why we need to pass in document
-	// @see https://github.com/angular/components/blob/fdd16e667550690d554bba49888bfc6929bc97b2/src/cdk/portal/dom-portal-outlet.ts#L43-L47
 	outlet = new DomPortalOutlet(
 		document.querySelector("body")!,
 		undefined,
@@ -59,9 +57,10 @@ class TooltipDirective implements AfterViewInit, OnDestroy {
 			this.templToRender,
 		);
 
-		// TODO: Explain this
+		// We need to access the `div` itself to attach to a DomPortal; this is how you do that.
 		this.el = viewRef.rootNodes[0] as HTMLElement;
 
+		// Now that we have the element reference, we can add a class and style properties
 		this.el.classList.add("tooltip");
 		this.el.style.left = `${left}px`;
 		this.el.style.top = `${bottom}px`;
