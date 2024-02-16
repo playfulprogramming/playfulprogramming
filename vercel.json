@@ -41,6 +41,10 @@
 			"source": "/(.*)",
 			"headers": [
 				{
+					"key": "Access-Control-Allow-Origin",
+					"value": "https://unicorn-utterances.com"
+				},
+				{
 					"key": "Content-Security-Policy",
 					"value": "default-src 'self';base-uri 'self';form-action 'self' https://unicorn-utterances.com/ https://app.convertkit.com/;frame-ancestors 'none';frame-src https:;img-src 'self' https: data:;object-src 'none';script-src 'self' 'unsafe-inline' https://vercel.live/;connect-src 'self' https://vercel.live/;style-src 'self' 'unsafe-inline';upgrade-insecure-requests"
 				},
@@ -51,6 +55,10 @@
 				{
 					"key": "Cross-Origin-Resource-Policy",
 					"value": "same-origin"
+				},
+				{
+					"key": "Permissions-Policy",
+					"value": "camera=(), display-capture=(), document-domain=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), clipboard-read=(), clipboard-write=(self)"
 				},
 				{
 					"key": "Referrer-Policy",
