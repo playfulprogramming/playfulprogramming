@@ -35,7 +35,7 @@ function isNestedElement(e: MouseEvent) {
 	return false;
 }
 
-const handleHrefContainerMouseDown = (e: MouseEvent) => {
+globalThis.handleHrefContainerMouseDown = (e: MouseEvent) => {
 	const isMiddleClick = e.button === 1;
 	if (!isMiddleClick) return;
 	if (e.defaultPrevented) return;
@@ -44,17 +44,17 @@ const handleHrefContainerMouseDown = (e: MouseEvent) => {
 };
 
 // implement the AuxClick event using MouseUp (only on browsers that don't support auxclick; i.e. safari)
-const handleHrefContainerMouseUp = (e: MouseEvent) => {
+globalThis.handleHrefContainerMouseUp = (e: MouseEvent) => {
 	// if auxclick is supported, do nothing
 	if ("onauxclick" in e.currentTarget) return;
 	// otherwise, pass mouseup events to auxclick
-	handleHrefContainerAuxClick(e);
+	globalThis.handleHrefContainerAuxClick(e);
 };
 
 // Handle middle click button - should open a new tab (cannot be detected via "click" event)
 // - prefer the "auxclick" event for this, since it ensures that mousedown/mouseup both occur within the same element
 //   otherwise, using "mouseup" would activate on mouseup even when dragging between elements, which should not trigger a click
-const handleHrefContainerAuxClick = (e: MouseEvent) => {
+globalThis.handleHrefContainerAuxClick = (e: MouseEvent) => {
 	const href = (e.currentTarget as HTMLElement).dataset.href;
 
 	// only handle middle click events
@@ -68,7 +68,7 @@ const handleHrefContainerAuxClick = (e: MouseEvent) => {
 	return false;
 };
 
-const handleHrefContainerClick = (e: MouseEvent) => {
+globalThis.handleHrefContainerClick = (e: MouseEvent) => {
 	const href = (e.currentTarget as HTMLElement).dataset.href;
 
 	if (e.defaultPrevented) return;
@@ -98,15 +98,6 @@ const handleHrefContainerClick = (e: MouseEvent) => {
 	window.location.href = href;
 };
 
-export function enableHrefContainers() {
-	document.querySelectorAll<HTMLElement>("[data-href]").forEach((el) => {
-		el.addEventListener("mousedown", handleHrefContainerMouseDown);
-		el.addEventListener("mouseup", handleHrefContainerMouseUp);
-		el.addEventListener("auxclick", handleHrefContainerAuxClick);
-		el.addEventListener("click", handleHrefContainerClick);
-	});
-}
-
 export function getHrefContainerProps(href: string) {
 	// If the href is null or empty, no props should be added
 	if (!href) return {};
@@ -120,15 +111,19 @@ export function getHrefContainerProps(href: string) {
 	) {
 		// if running in NodeJS (Astro), return string props
 		return {
+			onmousedown: "handleHrefContainerMouseDown(event)",
+			onmouseup: "handleHrefContainerMouseUp(event)",
+			onauxclick: "handleHrefContainerAuxClick(event)",
+			onclick: "handleHrefContainerClick(event)",
 			"data-href": href,
 		};
 	} else {
 		// otherwise, need to return client-side functions
 		return {
-			onMouseDown: handleHrefContainerMouseDown,
-			onMouseUp: handleHrefContainerMouseUp,
-			onAuxClick: handleHrefContainerAuxClick,
-			onClick: handleHrefContainerClick,
+			onMouseDown: globalThis.handleHrefContainerMouseDown,
+			onMouseUp: globalThis.handleHrefContainerMouseUp,
+			onAuxClick: globalThis.handleHrefContainerAuxClick,
+			onClick: globalThis.handleHrefContainerClick,
 			"data-href": href,
 		};
 	}
