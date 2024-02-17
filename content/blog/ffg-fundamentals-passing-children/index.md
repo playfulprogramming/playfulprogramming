@@ -11,7 +11,7 @@
 }
 ---
 
-As we've mentioned before, [in the DOM your HTML elements have a relationship to one another](https://unicorn-utterances.com/posts/understanding-the-dom).
+As we've mentioned before, [in the DOM, your HTML elements have a relationship with respect to one another](https://unicorn-utterances.com/posts/understanding-the-dom).
 
 For example, the following:
 
@@ -27,7 +27,7 @@ For example, the following:
 
 Would construct the following DOM tree:
 
-![A top-down DOM tree showing a div at the top, then a ul, then lis beneath the ul and finally text nodes below the li elements](./breadth_first.png)
+![A top-down DOM tree showing a div at the top, then an ul, then lis beneath the ul, and finally text nodes below the li elements](./breadth_first.png)
 
 This is how the DOM constructs nodes as parents and children. Notice how the `<li>` is distinctly below the `<ul>` tag rather than a syntax like:
 
@@ -164,9 +164,9 @@ This is fairly similar to that strange fake nested HTML syntax. The alternative 
 
 This mismatch occurs because if we look at how our components are defined, we're building out our previous components **deeply** rather than **broadly**.
 
-![A left-to-right chart of a div, then a ul, then back to a vertical top-down chart of li elements with text nodes](./depth_first.png)
+![A left-to-right chart of a div, then an ul, then back to a vertical top-down chart of li elements with text nodes](./depth_first.png)
 
-This is the difference in building apps with HTML alone and building them with a frontend framework; while the DOM is typically thought of as one-dimensional, there are really two dimensions that are exposed more thoroughly by the frameworks ability to construct this tree in a more fine-grained manner.
+This is the difference between building apps with HTML alone and building them with a frontend framework; while the DOM is typically thought of as one-dimensional, there are really two dimensions that are exposed more thoroughly by the framework's ability to construct this tree in a more fine-grained manner.
 
 Let's move the component tree back to being breadth first by using a feature that may sound familiar: Passing children.
 
@@ -174,7 +174,7 @@ Let's move the component tree back to being breadth first by using a feature tha
 
 Before we explore passing children with our frameworks, let's first think of a potential use case for when we want to do this.
 
-For example, say you want the `button` to have "pressed" effect whenever you click on it. Then, when you click on it for a second time, it unclicks. This might look something like the following:
+For example, say you want the `button` to have a "pressed" effect whenever you click on it. Then, when you click on it for a second time, it unclicks. This might look something like the following:
 
 <!-- tabs:start -->
 
@@ -350,7 +350,7 @@ const ToggleButtonList = () => {
 
 ### Angular
 
-Angular has a special tag called `ng-content` that acts as a pass-through for all children content passed to a component.
+Angular has a special tag called `ng-content` that acts as a pass-through for all children's content passed to a component.
 
 ```typescript
 @Component({
@@ -394,7 +394,7 @@ class ToggleButtonListComponent {}
 
 <iframe data-frame-title="Angular Passing Basic Children - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-passing-basic-children-55?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-Because `ng-content` is built-in to [Angular's compiler](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549), we do not need to import anything into our component to use the feature.
+Because `ng-content` is built into [Angular's compiler](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549), we do not need to import anything into our component to use the feature.
 
 ### Vue
 
@@ -444,15 +444,15 @@ import ToggleButton from "./ToggleButton.vue";
 
 <iframe data-frame-title="Vue Passing Basic Children - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-passing-basic-children-55?template=node&embed=1&file=src%2FToggleButtonList.vue"></iframe>
 
-Because `slot` is a built-in component to Vue, we do not need to import it from the `vue` package.
+Because `slot` is a built-in component of Vue, we do not need to import it from the `vue` package.
 
 <!-- tabs:end -->
 
-Here, we can see that we're able to pass a `span` and other elements directly as _children_ to our `ToggleButton` component.
+Here, we're able to pass a `span` and other elements directly to our `ToggleButton` component as _children_.
 
 ## Using Other Framework Features with Component Children {#using-other-feats-with-comp-children}
 
-However, because these templates have the full power of the frameworks at their disposal, these _children_ have superpowers! Let's add in a `for` loop into our children template to say hello to all of our friends:
+However, because these templates have the full power of the frameworks at their disposal, these _children_ have superpowers! Let's add a `for` loop into our children's template to say hello to all of our friends:
 
 <!-- tabs:start -->
 
@@ -638,7 +638,7 @@ For example, take this dropdown component:
 
 <details>
 <summary>Let's build this dropdown component</summary>
-These tend to be useful for FAQ pages, hidden contents, and more!
+These tend to be useful for FAQ pages, hidden content, and more!
 </details>
 
 This dropdown component has two potential places where passing elements would be beneficial:
@@ -652,7 +652,7 @@ This dropdown component has two potential places where passing elements would be
 </Dropdown>
 ```
 
-Let's build this component with a similar API to the above using "named children."
+Let's build this component with an API similar to the above using "named children."
 
 <!-- tabs:start -->
 
@@ -754,7 +754,7 @@ Once `ng-content` finds related elements that match the `select` query, they wil
 
 ## Vue
 
-Similar to how Angular's `ng-content[select]` query works, Vue allows you to pass a `name` to the `slot` component to project named content.
+Similar to how Angular's `ng-content[select]` query works, Vue allows you to pass a `name` to the `slot` component to a projected and named content.
 
 ```vue
 <!-- Dropdown.vue -->
@@ -824,11 +824,11 @@ const expanded = ref(false);
 
 # Using Passed Children to Build a Table {#passing-children-table}
 
-Now that we're familiar with how to pass a child to a component, let's apply it to one of our components we've been building for our file hosting application: our files "list."
+Now that we're familiar with how to pass a child to a component, let's apply it to one of the components we've been building for our file hosting application: our files "list."
 
 ![A table of files with headings for "Name", "Last modified", "Type", and "Size"](./file_list.png)
 
-While this _does_ constitute as a list of files, there are actually two dimensions of data: Down and right. This makes this "list" really more of a "table". As such, it's actually a bit of a misconception to use the Unordered List (`<ul>`) and List Item (`<li>`) elements for this specific UI element.
+While this _does_ constitute a list of files, there are actually two dimensions of data: Down and right. This makes this "list" really more of a "table". As such, it's actually a bit of a misconception to use the Unordered List (`<ul>`) and List Item (`<li>`) elements for this specific UI element.
 
 Instead, let's build out an HTML `table` element. A normal HTML table might look something like this:
 
@@ -847,7 +847,7 @@ Instead, let's build out an HTML `table` element. A normal HTML table might look
 </table>
 ```
 
-Where `th` acts as a heading data item and `td` acts as a bit of data on a given row and column.
+Where `th` acts as a heading data item, and `td` acts as a bit of data on a given row and column.
 
 Let's refactor our file list to use this DOM layout:
 
@@ -998,7 +998,7 @@ If we render this, we'll see the following incorrectly formatted table:
 
 > This table is not formatted correctly. Where are the rows? Why is everything horizontally lined up next to one-another?
 
-This is because, if you look at the output of the `FileTableComponent` being rendered, you'll find the following markup:
+This is because if you look at the output of the `FileTableComponent` being rendered, you'll find the following markup:
 
 ```html
 <file-table>
@@ -1026,7 +1026,7 @@ This is because, if you look at the output of the `FileTableComponent` being ren
 </file-table>
 ```
 
-Here, you'll notice that the `<tbody>` isn't under `<table>`, it's under a `<file-table-body>` in between those two elements. Similarly, `<tr>` isn't under `<tbody>`, it's under `<file-item>`.
+Here, you'll notice that the `<tbody>` isn't under `<table>`; it's under a `<file-table-body>` in between those two elements. Similarly, `<tr>` isn't under `<tbody>`, it's under `<file-item>`.
 
 These changes to the markup are not allowed or understood by the HTML specification, which is why our table is formatted so weirdly.
 
@@ -1052,7 +1052,7 @@ Instead, our markup needs to look like this:
 
 > Why doesn't our markup look like that already?
 
-The reason our markup isn't correct is because we're creating non-default host elements in our Angular components.
+The reason our markup isn't correct is that we're creating non-default host elements in our Angular components.
 
 ### Angular Host Elements and Bindings
 
@@ -1079,7 +1079,7 @@ This `list-item` selector-named element is known as a component's "host element.
 
 > [I've written more about host elements in my article on the topic](https://unicorn-utterances.com/posts/angular-templates-dont-work-how-you-think). Please read this if you're left a bit confused on how host elements work.
 
-At first, this might seem like a roadblock for implementing our `list-item` component properly. However, there are two features that we can use to fix this problem:
+At first, this might seem like a roadblock to implementing our `list-item` component properly. However, there are two features that we can use to fix this problem:
 
 1. Selecting HTML elements with an attribute name
 2. Host element element/property binding
@@ -1107,7 +1107,7 @@ class FileItemComponent {
 }
 ```
 
-Where `host` is allowing us to bind our typical event handlers and attributes to the `tr` element selected by our new `selector` of `tr[file-item]`.
+Where `host` allows us to bind our typical event handlers and attributes to the `tr` element selected by our new `selector` of `tr[file-item]`.
 
 > The host element might seem confusing at first, but is super useful in the right contexts. [See my article on the property for more information.](https://unicorn-utterances.com/posts/angular-dynamic-host-usage)
 
@@ -1408,7 +1408,7 @@ import FileTableBody from "./FileTableBody.vue";
 
 # Challenge {#challenge}
 
-Let's make this chapters' challenge a continuation on the table that we just built in the last section. See, our previous table only had the files themselves, not the header. Let's change that by adding in a second set of children we can pass, like so:
+Let's make this chapter's challenge a continuation of the table that we just built in the last section. See, our previous table only had the files themselves, not the header. Let's change that by adding in a second set of children we can pass, like so:
 
 ```jsx
 <table>
