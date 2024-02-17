@@ -1,0 +1,23 @@
+# https://editorconfig.org
+
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+
+# Use tab indentation for most source files
+[*.json,*.js,*.cjs,*.ts,*.tsx,*.astro,*.scss,.prettierrc]
+indent_style = tab
+
+# Use space indentation for yaml
+[*.yml]
+indent_style = space
+indent_size = 2
+
+# Use space indentation for markdown frontmatter
+[*.md]
+indent_style = space
+indent_size = 2
