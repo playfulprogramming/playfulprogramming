@@ -4,7 +4,7 @@
   description: "React, Angular, and Vue provide powerful APIs that let you avoid DOM manipulations most of the time. But sometimes you need to access the underlying DOM. Here's how.",
   published: "2023-01-01T22:12:03.284Z",
   authors: ["crutchcorn"],
-  tags: ["webdev"],
+  tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 8,
   collection: "The Framework Field Guide - Fundamentals",

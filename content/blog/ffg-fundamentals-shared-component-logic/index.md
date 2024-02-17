@@ -4,7 +4,7 @@
   description: "Components provide a great way to share layout, styling, and logic between multiple parts of your app. But what about times you only need to share logic in React, Angular, and Vue?",
   published: "2023-01-01T22:12:03.284Z",
   authors: ["crutchcorn"],
-  tags: ["webdev"],
+  tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 13,
   collection: "The Framework Field Guide - Fundamentals",

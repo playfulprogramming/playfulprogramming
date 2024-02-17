@@ -4,7 +4,7 @@
   description: "One of the primary advantages of using a framework is the ability to quickly generate dynamic HTML from JavaScript logic. Let's walk through some examples.",
   published: "2023-01-01T22:12:03.284Z",
   authors: ["crutchcorn"],
-  tags: ["webdev"],
+  tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 3,
   collection: "The Framework Field Guide - Fundamentals",

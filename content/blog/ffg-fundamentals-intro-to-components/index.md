@@ -4,7 +4,7 @@
   description: "Components are the core building block in which all applications written with React, Angular, and Vue are built. Let's explore what they are and how to build them.",
   published: "2023-01-01T22:12:03.284Z",
   authors: ["crutchcorn"],
-  tags: ["webdev"],
+  tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 2,
   collection: "The Framework Field Guide - Fundamentals",
