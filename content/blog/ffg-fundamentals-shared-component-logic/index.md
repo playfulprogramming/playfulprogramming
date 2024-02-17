@@ -11,7 +11,7 @@
 }
 ---
 
-Components are awesome. They allow you to make your code logic more modular and associate that logic to a related collection of DOM nodes. More importantly than that, **components are _composable_**; You can take two components and use them together to build a third that utilizes them both.
+Components are awesome. They allow you to make your code logic more modular and associate that logic to a related collection of DOM nodes. More importantly than that, **components are _composable_**; You can take two components and use them together to build a third that uses them both.
 
 Sometimes, while building components, you may find yourself needing to share logic between multiple components.
 
@@ -21,13 +21,13 @@ Sometimes, while building components, you may find yourself needing to share log
 >
 > Instead, **we're talking about a way to share logic for each _instance_ of a component**.
 >
-> **IE**: Two instances of the same component having their own data.
+> **IE**: Two instances of the same component have their own data.
 
 For example, let's say that you have some component code that detects the current window size. While this might seem like a simple problem at first, it requires you to:
 
 - Get the initial window size and share that data with the component
 - Add and cleanup event listeners for when the user resizes their browser window
-- Compose the window sizing logic inside of other shared logic, such as a `onlyShowOnMobile` boolean
+- Compose the window sizing logic inside other shared logic, such as a `onlyShowOnMobile` boolean
 
 The method how this logic is shared between components differs from framework to framework.
 
@@ -85,8 +85,8 @@ const App = () => {
 We mentioned that there are a few rules for any hooks:
 
 - Be called from a component\* (no normal functions)
-- Not be called conditionally inside of a component (no `if` statements)
-- Not be called inside of a loop (no `for` or `while` loops)
+- Not be called conditionally inside a component (no `if` statements)
+- Not be called inside a loop (no `for` or `while` loops)
 
 While these rules are mostly true, **let's expand the first point to include "other hooks"** as a place you're allowed to call a hook from.
 
@@ -133,7 +133,7 @@ const useWindowSize = () => {
 };
 
 function getWindowSize() {
-	// ❌ Not allowed, you cannot use a hook inside of a non-hook function
+	// ❌ Not allowed, you cannot use a hook inside a non-hook function
 	const { height, width } = useWindowSize();
 	return { height, width };
 }
@@ -196,7 +196,7 @@ export const useWindowSize = () => {
 };
 ```
 
-This custom function is often called a "composition", since we're using Vue's Composition API inside of it. We can then use this composition inside of our setup `script`, like so:
+This custom function is often called a "composition," since we're using Vue's Composition API inside it. We can then use this composition inside our setup `script`, like so:
 
 ```vue
 <!-- App.vue -->
@@ -213,7 +213,7 @@ const { height, width } = useWindowSize();
 
 <iframe data-frame-title="Vue Shared Data Storage - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-shared-data-storage-100?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
-> While React requires you to name your custom hooks "useX", you don't have to do the same with custom compositions. We could have easily called this code `createWindowSize` and have it work just as well.
+> While React requires you to name your custom hooks "useX," you don't have to do the same with custom compositions. We could have easily called this code `createWindowSize` and have it work just as well.
 >
 > We still use the `use` composition prefix to keep things readable. While this is subjective, it's the naming convention the ecosystem seems to favor for compositions like this.
 
@@ -221,7 +221,7 @@ const { height, width } = useWindowSize();
 
 # Sharing Side Effect Handlers
 
-While sharing data between consuming component is helpful in its own right, this is only a fraction of the capabilities these frameworks have for cross-component logic reuse.
+While sharing data between a consuming component is helpful in its own right, this is only a fraction of the capabilities these frameworks have for cross-component logic reuse.
 
 One of the most powerful things that can be reused between components is [side effect](/posts/ffg-fundamentals-side-effects) logic.
 
@@ -237,7 +237,7 @@ This can be a bit vague to discuss without code, so let's dive in.
 
 While our last code sample was able to expose the browser window's height and width, it didn't respond to window resizing. This means that if you resized the browser window, the value of `height` and `width` would no longer be accurate.
 
-Let's utilize [the window listener side effect we built in our "Side Effects" chapter](https://TODO) in order to add an event handler to listen for window resizing.
+Let's use [the window listener side effect we built in our "Side Effects" chapter](/posts/ffg-fundamentals-side-effects#cleaning-event-listeners) to add an event handler to listen for window resizing.
 
 <!-- tabs:start -->
 
@@ -256,7 +256,7 @@ const useWindowSize = () => {
 
 		window.addEventListener("resize", onResize);
 
-		// Don't forget to cleanup the listener
+		// Remember to cleanup the listener
 		return () => window.removeEventListener("resize", onResize);
 	}, []);
 
@@ -266,7 +266,7 @@ const useWindowSize = () => {
 
 ... That's it!
 
-There's nothing more we need to do inside of our `useWindowSize` consuming component, it simply works transparently as-if we had placed the `useEffect` in the component itself.
+There's nothing more we need to do inside our `useWindowSize` consuming component, it simply works transparently as-if we had placed the `useEffect` in the component itself.
 
 ```jsx
 const App = () => {
@@ -380,7 +380,7 @@ const { height, width } = useWindowSize();
 
 <iframe data-frame-title="Vue Sharing Side Effect - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-sharing-side-effect-101?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
-> We could have also utilized the `watch` or `watchEffect` composition methods, but chose not to for this example.
+> We could have also used the `watch` or `watchEffect` composition methods, but chose not to for this example.
 
 <!-- tabs:end -->
 
@@ -409,12 +409,12 @@ function isMobile() {
 }
 ```
 
-But of course, this comes with downsides when trying to include this logic into a framework, such as:
+But this comes with downsides when trying to include this logic in a framework, such as:
 
 - No access to side effect cleanup
 - No automatic-re-rendering when `height` or `width` changes
 
-Luckily for us, we can do this with our frameworks with full access to all of the other framework-specific APIs we've covered until now.
+Luckily for us, we can do this with our frameworks with full access to all the other framework-specific APIs we've covered until now.
 
 <!-- tabs:start -->
 
@@ -449,7 +449,7 @@ const Component = () => {
 
 ## Angular
 
-Just as we can use dependency injection to provide an instance of our `WindowSize` class, we can use an instance of our provided `WindowSize` class inside of a new `IsMobile` class, that's also provided in a class.
+Just as we can use dependency injection to provide an instance of our `WindowSize` class, we can use an instance of our provided `WindowSize` class inside a new `IsMobile` class, that's also provided in a class.
 
 First, though, we need to provide a way to add behavior to our `onResize` class:
 
@@ -547,7 +547,7 @@ export const useMobileCheck = () => {
 
 > Notice that we aren't showing the source code for `useWindowSize` again, that's because we haven't changed it!
 
-Then, to use this new composable in our components we use it just like we did our previous composables:
+Then, to use this new composable in our components, we use it just like we did our previous composables:
 
 ```vue
 <!-- App.vue -->
@@ -568,18 +568,18 @@ const { isMobile } = useMobileCheck();
 
 # Challenge
 
-Let's take everything we've learned about shared-component logic and utilize it to recreate [our `ContextMenu` component from the "Component Reference" chapter](/posts/ffg-fundamentals-component-reference) in smaller pieces.
+Let's take everything we've learned about shared-component logic and use it to recreate [our `ContextMenu` component from the "Component Reference" chapter](/posts/ffg-fundamentals-component-reference) in smaller pieces.
 
-![// TODO: Add alt](../ffg-fundamentals-element-reference/context-close.png)
+![You right-click to open the context menu open. Then, when you left-click outside of the bounds of the context menu, it will close it](../ffg-fundamentals-element-reference/context-close.png)
 
-Let's break this components into smaller pieces that we'll create composable logic for:
+Let's break these components into smaller pieces that we'll create composable logic for:
 
-1. A listener for clicks outside of the context menu
+1. A listener for clicks outside the context menu
 2. A composition that gets the bounds of the context menu's parent element
 
-## Step 1: Create a Outside Click Composition
+## Step 1: Create an Outside Click Composition
 
-To listen for clicks outside of the context menu, we can leverage some JavaScript akin to the following:
+To listen for clicks outside the context menu, we can leverage some JavaScript akin to the following:
 
 ```javascript
 const closeIfOutsideOfContext = (e) => {
@@ -800,7 +800,7 @@ defineExpose({
 
 ## Step 2: Create a Bounds Composable
 
-Now let's move the bounds size checking into a composable as well. This is done in JavaScript like so:
+Now let's move the bounds' size checking into a composable as well. This is done in JavaScript like so:
 
 ```javascript
 const resizeListener = () => {
@@ -853,7 +853,7 @@ Now we wrap this into our `App` root:
 function App() {
 	const { ref, bounds } = useBounds();
 
-	// An addEventListener is easier to tackle when inside of the conditional render
+	// An addEventListener is easier to tackle when inside the conditional render
 	// Add that as an exploration for `useImperativeHandle`
 	const [isOpen, setIsOpen] = useState(false);
 
