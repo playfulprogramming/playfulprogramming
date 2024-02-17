@@ -1103,7 +1103,7 @@ class AppComponent {}
 
 Might be seen by Angular as such:
 
-![// TODO: Write alt](./angular_dom.svg)
+![A component has a View Container which has embedded views for elements and a host view for other child components. This child component in turn has its own embedded view for its child elements](./angular_dom.svg)
 
 ### Using ViewContainer to Render a Template {#using-viewcontainer-to-render-a-template}
 
@@ -1345,13 +1345,13 @@ That said, this method is fairly extensible as you can even use this `FeatureFla
 
 [In our "Portals" chapter we implemented a tooltip that utilized portals to avoid issues with the stacking context:](/posts/ffg-fundamentals-portals#challenge)
 
-![// TODO: Add alt](../ffg-fundamentals-element-reference/tooltip.png)
+![Hovering over a "send" button will show an alert above the button saying "This will send an email to the recipients"](../ffg-fundamentals-element-reference/tooltip.png)
 
 This code was functional and led to a nice user-experience, but the tooltip wasn't broken out to its own component; making it challenging to share the code elsewhere.
 
 Let's refactor that code so that we can add a `tooltip` directive so that adding a tooltip is as easy as adding an attribute! To make this challenge more focused on what we've learned in this chapter, let's simplify the design of our tooltip to something like the following:
 
-![// TODO: WRITE ALT](./directive_tooltip.png)
+![A tooltip with less fancy styling immediately below the button](./directive_tooltip.png)
 
 To build this, we'll need to:
 
@@ -1614,10 +1614,8 @@ const obj = { current: null };
 
 <template>
 	<div>
-		<!-- TODO: Explain this more -->
-		<!-- Ref doesn't appear to pass in time -->
 		<button :ref="(el) => (obj.current = el)">Hover me</button>
-		<!-- Anything passed to `v-tooltip` is not reactive, so this is the best we got -->
+		<!-- Anything passed to `v-tooltip` is not reactive, so we need to use an object with a mutable `current` property -->
 		<div v-tooltip="obj">This is a tooltip</div>
 	</div>
 </template>
