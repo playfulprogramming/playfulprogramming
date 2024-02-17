@@ -25,10 +25,10 @@ We also touched on the ability to access the following:
 - [HTML Elements](/posts/ffg-fundamentals-element-reference)
 - [Custom Components](/posts/ffg-fundamentals-component-reference)
 
-But only when the respective HTML elements or components are inside of the parent's template itself:
+But only when the respective HTML elements or components are inside the parent's template itself:
 
 ```jsx
-// Inside of FileTableContainer
+// Inside FileTableContainer
 <FileTableHeader />
 <FileTableBody />
 ```
@@ -49,7 +49,7 @@ Let's count how many elements and components are being passed to our component:
 
 ## React
 
-React has a built-in helper called `Children` that will help you access data passed as a child to a component. Using this `Children` helper, we can utilize the `toArray` method to create an array from `children` that we can then do anything we might otherwise do with a typical array.
+React has a built-in helper called `Children` that will help you access data passed as a child to a component. Using this `Children` helper, we can use the `toArray` method to create an array from `children` that we can then do anything we might otherwise do with a typical array.
 
 This comes in handy when trying to access the `length` count.
 
@@ -114,7 +114,7 @@ const ParentList = ({ children }) => {
 
 ## Angular
 
-To get the count of the children elements of a component in Angular requires some pre-requisite knowledge. Let's go through each step until we find ourselves at the solution.
+To get the count of the children elements within a component in Angular requires some pre-requisite knowledge. Let's go through each step until we find ourselves at the solution.
 
 ### `ContentChild` to Access a Single Child
 
@@ -198,7 +198,7 @@ class ParentListComponent implements OnInit {
 
 <iframe data-frame-title="Angular Why ngAfterContentInit? - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-why-ngaftercontentinit-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-This is because while `ngOnInit` runs after the component has rendered, it has not yet received any values within `ng-content`; This is where `ngAfterContentInit` comes into play. This lifecycle method runs once `ng-content` has received the values, which we can then use as a sign that `ContentChild` has finished it's query.
+This is because while `ngOnInit` runs after the component has rendered, it has not yet received any values within `ng-content`; This is where `ngAfterContentInit` comes into play. This lifecycle method runs once `ng-content` has received the values, which we can then use as a sign that `ContentChild` has finished its query.
 
 This can be solved by either:
 
@@ -258,7 +258,7 @@ class AppComponent {}
 
 ## Vue
 
-Unlike React and Angular, Vue's APIs don't allow us to easily count a child's list items. There's a lot of nuance to _why_ this is the case, but we'll do our best to explain that when we [rewrite Vue from scratch in the third book of the series](https://framework.guide).
+Unlike React and Angular, Vue's APIs don't allow us to easily count a child's list items. There are a lot of nuances to _why_ this is the case, but we'll do our best to explain that when we [rewrite Vue from scratch in the third book of the series](https://framework.guide).
 
 Instead, you'll want to pass the list from the parent component to the list display to show the value you'd intend:
 
@@ -297,7 +297,7 @@ const list = [1, 2, 3];
 
 <!-- Editors note: It breaks in the next sample because if you add `updated` to listen for changes, then call `this.$slots.default()` it will trigger an infinite render, since it will in turn re-trigger `updated -->
 
-<!-- Editor's note: While `$el` might seem like a viable alternative to an ID, it's not due to the fact that we have multiple root HTML nodes. This means that `$el` is a VNode, not an `HTMLElement` and therefore does not have a `id` property -->
+<!-- Editor's note: While `$el` might seem like a viable alternative to an ID, it's not due to the fact that we have multiple root HTML nodes. This means that `$el` is a VNode, not an `HTMLElement` and therefore does not have an `id` property -->
 
 <!-- Editor's note: $slots.default doesn't work with `v-for` -->
 
@@ -407,7 +407,7 @@ class AppComponent {}
 
 ## Vue
 
-Just as before, Vue's APIs have a limitation when accessing direct children. Let's explore the _why_ [in the third book in our book series](https://framework.guide).
+Just as before, Vue's APIs have a limitation when accessing direct children. Let's explore _why_ [in the third book in our book series](https://framework.guide).
 
 <!-- tabs:end -->
 
@@ -523,7 +523,7 @@ Instead, let's see if there's a way that we can pass values to our projected con
 
 ## React
 
-By now we should be familiar with the `children` property in React. Now get ready to forget everything you know about it:
+By now we should be familiar with the `children` property in React. Now get ready-to-forget everything you know about it:
 
 ```jsx
 const AddTwo = ({ children }) => {
@@ -540,7 +540,7 @@ const App = () => {
 
 > WHAT?!
 
-Yup - as it turns out, you can pass any JavaScript value to React's `children` prop. It even works when you write it out like this:
+Yup — as it turns out, you can pass any JavaScript value to React's `children` prop. It even works when you write it out like this:
 
 ```jsx
 const AddTwo = ({ children }) => {
@@ -598,7 +598,7 @@ const App = () => {
 
 <iframe data-frame-title="React Function Child Pass Val - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-function-child-pass-val-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-> Confused about how this last one is working? Might be a good time to [review your knowledge on how functions are able to pass to one another and call each other](https://unicorn-utterances.com/posts/javascript-functions-are-values).
+> Confused about how this last one is working? It might be a good time to [review your knowledge on how functions are able to pass to one another and call each other](https://unicorn-utterances.com/posts/javascript-functions-are-values).
 
 ### Displaying the List in React
 
@@ -745,7 +745,7 @@ function addOne() {
 
 <template>
 	<ParentList :list="list">
-		<!-- Think of this as "template is recieving an object
+		<!-- Think of this as "template is receiving an object
 		 we'll call props" from "ParentList" -->
 		<template v-slot="props">
 			<li :style="'background-color:' + props.backgroundColor">
