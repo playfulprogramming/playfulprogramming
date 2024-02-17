@@ -13,7 +13,7 @@ function addOne() {
 
 <template>
 	<ParentList :list="list">
-		<!-- Think of this as "template is recieving an object
+		<!-- Think of this as "template is receiving an object
 		 we'll call props" from "ParentList" -->
 		<template v-slot="props">
 			<li :style="'background-color:' + props.backgroundColor">
