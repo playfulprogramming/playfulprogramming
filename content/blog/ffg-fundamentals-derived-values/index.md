@@ -11,7 +11,7 @@
 }
 ---
 
-We've touched on before how to pass values to a component as properties earlier in the book:
+We've previously touched on how to pass values to a component as properties earlier in the book:
 
 <!-- tabs:start -->
 
@@ -73,7 +73,7 @@ const labelText = ref(formatReadableDate(props.inputDate));
 
 <!-- tabs:end -->
 
-You may notice that we're deriving two values from the same property. This works fine at first but an issue arises with how we're doing things when we realize that our `formatDate` and `formatReadableDate` methods are only running once during the initial render.
+You may notice that we're deriving two values from the same property. This works fine at first, but an issue arises with how we're doing things when we realize that our `formatDate` and `formatReadableDate` methods are only running once during the initial render.
 
 Because of this, if we pass in an updated `inputDate` to the `FileDate` component, the values of `formatDate` and `formatReadableDate` will become out of sync from the parent's passed `inputDate`.
 
@@ -293,7 +293,7 @@ Here, we're watching the `inputDate` props key and, when changed, updating `date
 
 <!-- tabs:end -->
 
-While this method works, it tends to introduce duplicate developmental logic. For example, notice how we have to repeat the declaration of the `dateStr` and `labelText` values twice: Once when they're initially defined, and again inside the property listener.
+While this method works, it tends to introduce duplicate developmental logic. For example, notice how we have to repeat the declaration of the `dateStr` and `labelText` values twice: Once when they're initially defined and again inside the property listener.
 
 Luckily for us, there's an easy solution for this problem called "computed values."
 
@@ -306,7 +306,7 @@ Our previous method of deriving a value from a property follows two steps:
 
 However, what if we could instead simplify this idea to a single step:
 
-1. Run a function over a value, and live update as it changes.
+1. Run a function over a value and live update as it changes.
 
 This may remind you of a similar pattern we've used already for [live updated text](/posts/ffg-fundamentals-intro-to-components#reactivity) and [attribute binding](/posts/intro-to-components#Attribute-Binding).
 
@@ -331,7 +331,7 @@ const FileDate = ({ inputDate }) => {
 
 `useMemo` is a method for computing values based on an input or series of inputs. This works because it does the computation and regenerates the calculation whenever the second argument array's values have changed in a render.
 
-Like `useEffect`, this array's values' changes are only tracked when the component is rendering. Unlike `useEffect`, however, there's no option to remove the second array argument entirely.
+Like `useEffect`, this array's values' changes are only tracked when the component is rendered. Unlike `useEffect`, however, there's no option to remove the second array argument entirely.
 
 Instead, if you want to recalculate the logic in every render, you'd remove the `useMemo` entirely. So, for simple computations, you can take this code:
 
@@ -355,7 +355,7 @@ const AddComp = ({ baseNum, addNum }) => {
 
 ## Angular
 
-To solve the derived value problem without recomputing the values manually, Angular introduces the concept of a "pipe" into the mix of things. The idea is that a pipe runs over an input (or series of inputs) just like React's `useMemo`.
+To solve the derived value problem without recomputing the values manually, Angular introduces the concept of a "pipe" into the mix of things. The idea is that a pipe runs over an input (or series of inputs), just like React's `useMemo`.
 
 ```typescript
 import { Pipe, PipeTransform } from "@angular/core";
@@ -481,7 +481,7 @@ const labelText = computed(() => formatReadableDate(props.inputDate));
 
 <iframe data-frame-title="Vue Computed Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-computed-values-47?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
 
-Instead of using `ref` to construct a set of variables, then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
+Instead of using `ref` to construct a set of variables and then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
 
 Vue is able to ✨ magically ✨ detect what data inside the `computed` function is dynamic, just like `watchEffect`. When this dynamic data is changed, it will automatically re-initialize the variable it's assigned to with a new value returned from the inner function.
 
