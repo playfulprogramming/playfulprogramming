@@ -11,13 +11,13 @@
 }
 ---
 
-In our previous chapter, we build context menu functionality into our `App` component. This functionality allowed us to right-click on an element and get a list of actions we could take.
+In our previous chapter, we built context menu functionality into our `App` component. This functionality allowed us to right-click on an element and get a list of actions we could take.
 
-![With the context menu open, when you left-click outside of the bounds of the context menu it will close it](../ffg-fundamentals-element-reference/context-close.png)
+![With the context menu open, when you left-click outside of the bounds of the context menu, it will close it](../ffg-fundamentals-element-reference/context-close.png)
 
 This code works as we'd expect, but it doesn't follow a fundamental pattern of React, Angular, or Vue: It's not componentized.
 
-Let's fix this by moving our context menu code into its own component. This way, we're able to do easier refactors, code cleanup, and more.
+Let's fix this by moving our context menu code into its own component. This way, we're able to do refactors more easily, code cleanup, and more.
 
 <!-- tabs:start -->
 
@@ -292,13 +292,13 @@ const open = (e) => {
 
 You may have noticed that during this migration, we ended up removing a crucial accessibility feature: **We're no longer running `focus` on the context menu when it opens.**
 
-Why was it removed and how can we add it back?
+Why was it removed, and how can we add it back?
 
 # Introducing Component Reference {#introducing-component-reference}
 
-**The reason we removed the context menu's focus management is to keep the control of the context menu in the parent.**
+**The reason we removed the context menu's focus management is to keep control of the context menu in the parent.**
 
-While we could have kept the `.focus()` logic in the component using [a component side effect handler](/posts/ffg-fundamentals-side-effects), this muddies the water a bit. Ideally in a framework, **you want your parent to be in charge of the child component's behavior**.
+While we could have kept the `.focus()` logic in the component using [a component side effect handler](/posts/ffg-fundamentals-side-effects), this muddies the water a bit. Ideally, in a framework, **you want your parent to be in charge of the child component's behavior**.
 
 This allows you to re-use your context menu component in more places, should you theoretically ever want to use the component without forcing a focus change.
 
@@ -336,7 +336,7 @@ function openContextMenu(e) {
 }
 ```
 
-While this might seem like a straightforward change at first, there's a new problem present: Our `contextMenu` is now inside a component. As a result, we need to not only [access the underlying DOM node using element reference](/posts/ffg-fundamentals-element-reference), but we need to access the `ContextMenu` component instance.
+While this might seem like a straightforward change at first, there's a new problem present: Our `contextMenu` is now inside a component. As a result, we need to [access not only the underlying DOM node using element reference](/posts/ffg-fundamentals-element-reference) but the `ContextMenu` component instance as well.
 
 Luckily for us, each framework enables us to do just that! Before we implement the `focus` logic, let's dive into how component reference works:
 
@@ -424,7 +424,7 @@ const App = () => {
 
 <iframe data-frame-title="React Working forwardRef - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-working-forward-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-As we can see, `forwardRef` accepts slightly modified component function. While the first argument might look familiar as our place to access properties, our special property `ref` is passed as a second argument.
+As we can see, `forwardRef` accepts slightly modified component functions. While the first argument might look familiar as our place to access properties, our special property `ref` is passed as a second argument.
 
 We can then _forward_ that `ref` to wherever we want to gain access to an underlying DOM node in the child.
 
@@ -465,7 +465,7 @@ const App = () => {
 
 <iframe data-frame-title="React useImperativeHandle - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-imperative-handle-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-Here, we can assign properties, functions, or any other JavaScript values into the forwarded `ref`. If we look at the output of our `ref` callback from `App` it shows up the object that we assigned using `useImperativeHandle`:
+Here, we can assign properties, functions, or any other JavaScript values to the forwarded `ref`. If we look at the output of our `ref` callback from `App` it shows up the object that we assigned using `useImperativeHandle`:
 
 ```javascript
 ({ pi: 3.14, sayHi: sayHi() });
@@ -487,11 +487,11 @@ const App = () => {
 
 <iframe data-frame-title="React useImperativeHandle Fn Use - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-imperative-handle-fn-use-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-It will output `Hello, world` just as we would expect it to!
+It will output `Hello, world`, just as we would expect it to!
 
 ### `useImperativeHandle` Dependency Array {#useimperativehandle-dep-array}
 
-Let's stop and think about how `useImperativeHandle` works under-the-hood for a moment.
+Let's stop and think about how `useImperativeHandle` works under the hood for a moment.
 
 We know that `useRef` creates an object with the shape of:
 
@@ -527,9 +527,9 @@ const Parent = () => {
 };
 ```
 
-But wait a moment! If we think back to [our Side Effects chapter](/posts/ffg-fundamentals-side-effects) we'll remember that mutating state outside a component's local values is an example of a side effect.
+But wait a moment! If we think back to [our Side Effects chapter](/posts/ffg-fundamentals-side-effects), we'll remember that mutating state outside a component's local values is an example of a side effect.
 
-![A pure function is allowed to mutate state from within it's local environment, while a side effect changes data outside its own environment](../ffg-fundamentals-side-effects/pure-vs-side-effect.png)
+![A pure function is allowed to mutate state from within its local environment, while a side effect changes data outside its own environment](../ffg-fundamentals-side-effects/pure-vs-side-effect.png)
 
 Because this kind of in-render side effect mutation can cause strange issues and edge-cases with React, we need to make sure that we're using `useEffect` or `useLayoutEffect`.
 
@@ -547,7 +547,7 @@ const Child = forwardRef((props, ref) => {
 });
 ```
 
-This is similar to how `useImperativeHandle` works under-the-hood. So similar, in fact, that it's effectively how the hook is written [in React's source code itself](https://jser.dev/react/2021/12/25/how-does-useImperativeHandle-work/).
+This is similar to how `useImperativeHandle` works under the hood. It's so similar, in fact, that it's effectively how the hook is written [in React's source code itself](https://jser.dev/react/2021/12/25/how-does-useImperativeHandle-work/).
 
 > But wait! `useLayoutEffect` has the option to pass an array to it so that you can avoid re-running the side effect. Does that work in `useImperativeHandle` as well?
 
@@ -696,11 +696,11 @@ If we look at our console output, we might see something unexpected:
 });
 ```
 
-This is because Vue uses Proxies under-the-hood to power component state. Rest assured, however; this `Proxy` is still our component instance.
+This is because Vue uses Proxies under the hood to power component state. Rest assured, however, this `Proxy` is still our component instance.
 
 ### Exposing Component Variables to References {#exposing-comp-vars}
 
-We're not able to do much with this component instance currently. If we change out `Parent` component to `console.log` the `pi` value from `Child`:
+We're not able to do much with this component instance currently. If we change out `Parent` component to `console.log`, the `pi` value from `Child`:
 
 ```vue
 <!-- Parent.vue -->
@@ -746,7 +746,7 @@ defineExpose({
 </template>
 ```
 
-Because we now have access to the component instance, we can access data and call methods similar to how we're able to access data and call a methods from an element reference.
+Because we now have access to the component instance, we can access data and call methods similar to how we're able to access data and call methods from an element reference.
 
 ```vue
 <!-- Parent.vue -->
@@ -773,7 +773,7 @@ onMounted(() => {
 
 # Using Component Reference to Focus Our Context Menu {#using-comp-ref}
 
-Now that we sufficiently understand what component references look like in each framework, let's add it into our `App` component to re-enable focusing our `ContextMenu` component when it opens.
+Now that we sufficiently understand what component references look like in each framework, let's add it to our `App` component to re-enable focusing our `ContextMenu` component when it opens.
 
 > Remember, if you see:
 >
@@ -1708,7 +1708,7 @@ onUnmounted(() => {
 
 <!-- tabs:end -->
 
-Now when the user makes their screen too small, it automatically collapses the sidebar. This makes the rest of our app
+Now, when the user makes their screen too small, the sidebar automatically collapses. This makes the rest of our app
 much easier to interact with on mobile devices.
 
 > Truth be told, this is not necessarily how I would build this component in production. Instead, I might ["raise the state"](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow) of "collapsed" from the `Sidebar` component to the `App` component.
