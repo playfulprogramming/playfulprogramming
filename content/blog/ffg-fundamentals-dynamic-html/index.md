@@ -107,9 +107,9 @@ const emit = defineEmits(["selected"]);
 
 <!-- tabs:end -->
 
-This is a strong basis for a component without needing many changes for the moment.
+This is a strong basis for a component without needing many changes.
 
-One thing we would love to add is the ability to see folders listed alongside files. While we _could_ - and arguably should - add in a component that copy/pastes the code from the `File` component to create a new `Folder` component, let's reuse what we already have!
+We would love to add the ability to see folders listed alongside files. While we _could_ - and arguably should - add in a component that copies/pastes the code from the `File` component to create a new `Folder` component, let's reuse what we already have!
 
 To do this, we'll create a new property called `isFolder`, which hides the date when set to true.
 
@@ -124,13 +124,13 @@ One way we can hide the `date` from displaying the user is by reusing an HTML at
 </div>
 ```
 
-This works, but introduces a potential problem; while the contents are not _shown_ to the user (and are similarly [hidden from screen-readers](https://unicorn-utterances.com/posts/intro-to-web-accessability#css)) they _are_ still present within the DOM.
+This works but introduces a potential problem; while the contents are not _shown_ to the user (and are similarly [hidden from screen-readers](https://unicorn-utterances.com/posts/intro-to-web-accessability#css)), they _are_ still present within the DOM.
 
-This means that if you have a large number of these HTML elements that are marked as `hidden`, but still in the DOM; they can impact performance and memory usage as if they **were** being displayed to the user.
+This means that a large number of these HTML elements marked as `hidden` will still be in the DOM. They can still impact performance and memory usage as if they **were** being displayed to the user.
 
-This might sound counterintuitive at first, but in-memory non-displayed UI elements have their place; they're particularly useful when trying to build out animation systems that visually transition items in and out of view.
+This might sound counterintuitive at first, but in-memory, non-displayed UI elements have their place; they're particularly useful when building animation systems that visually transition items in and out of view.
 
-To sidestep these performance concerns, React, Angular, and Vue all have a method to "conditionally render" HTML elements based off of a boolean. This means that if you pass `false`, it will entirely remove the child HTML elements out of the DOM.
+To sidestep these performance concerns, React, Angular, and Vue all have a method to "conditionally render" HTML elements based off of a boolean. This means that if you pass `false`, it will entirely remove the child HTML elements from the DOM.
 
 Let's see what that looks like in usage:
 
@@ -146,7 +146,7 @@ const ConditionalRender = ({ bool }) => {
 
 <iframe data-frame-title="React Conditional Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-conditional-render-17?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-Here, we're using React's `{}` JavaScript binding to add in an [`AND` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND). This works by using Boolean logic of ["short-circuiting"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation). This means that if we have:
+We're using React's `{}` JavaScript binding to add an [`AND` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND). This works by using Boolean logic of ["short-circuiting"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation). This means that if we have:
 
 ```javascript
 const val = true || {};
@@ -204,11 +204,11 @@ class ConditionalRenderComponent {
 
 <iframe data-frame-title="Angular Conditional Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-conditional-render-17?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-Here, we're using a special property called `ngIf` on our `p` tag to stop rendering the element if `bool` is `false`. This property is prefixed with an asterisk (`*`) to interact with Angular's compiler in special ways.
+Here, we're using a special property called `ngIf` on our `p` tag to stop rendering the element if `bool` is `false`. This property is prefixed with an asterisk (`*`) to interact with Angular's compiler in particular ways.
 
 > These asterisk-prefixed properties are called "Structural Directives" and are a unique feature to Angular. Their usage can be quite advanced, but you can read more about them when you're ready [in this blog post](https://unicorn-utterances.com/posts/angular-templates-start-to-source).
 
-To use `ngIf`, we need to import `NgIf` from `@angular/common` and pass it to the `imports` array for the component.
+To use `ngIf`, we must import `NgIf` from `@angular/common` and pass it to the `imports` array for the component.
 
 > If you forget to import and add the `NgIf` to your component's `imports` array, you might get an error something like:
 >
@@ -246,7 +246,7 @@ But when `bool` is set to `false`, it instead renders the following HTML:
 <div></div>
 ```
 
-This is possible because React, Angular, and Vue control what is rendered to the screen. Using this, they can remove or add HTML rendered to the DOM with nothing more than a boolean instruction.
+This is possible because React, Angular, and Vue control what is rendered on the screen. Using this, they can remove or add HTML rendered to the DOM with nothing more than a boolean instruction.
 
 Knowing this, let's add conditional rendering to our application.
 
@@ -256,13 +256,13 @@ Right now, we have a list of files to present to the user. However, if we look b
 
 ![A list of directory contents with files and folders listed alongside one another.](../ffg-fundamentals-intro-to-components/fancy_mockup.png)
 
-Luckily for us, our `File` component already manages much of the behavior we'd like to have with a potential `Folder` component to as well. For example, just like files, we want to select a folder when the user has clicked on it so that we can select multiple files and folders at once.
+Luckily for us, our `File` component already manages much of the behavior we'd like to have with a potential `Folder` component as well. For example, just like files, we want to select a folder when the user has clicked on it so that we can select multiple files and folders at once.
 
 However, unlike files, folders do not have a creation date since there may be ambiguity of what the "Last modified" date would mean for a folder. Is the last modified date when the folder was renamed? Or was it when a file within said folder was last modified? It's unclear, so we'll axe it.
 
 Despite this difference in functionality, we can still reuse our `File` component for folders as well. We can reuse this component by conditionally rendering the date if we know we're showing a folder instead of a file.
 
-Let's add an input to our `File` component called `isFolder` and prevent the date from rendering if said input set to `true`.
+Let's add an input to our `File` component called `isFolder` and prevent the date from rendering if said input is set to `true``.
 
 <!-- tabs:start -->
 
@@ -498,7 +498,7 @@ Undoubtedly, you're looking at this snippet of code and wondering what `ng-templ
 
 ### Explaining `ng-template` {#ng-template}
 
-See, an `ng-template` allows you to store multiple tags as children without rendering them. You can then take those tags and render them in special ways in the future, using Angular APIs.
+See, an `ng-template` allows you to store multiple tags as children without rendering them. You can then take those tags and render them in special ways in the future using Angular APIs.
 
 Take the following code:
 
@@ -525,7 +525,7 @@ The point, my dear reader, is that you can assign an in-template variable to `ng
 </ng-template>
 ```
 
-We can then use the template tag as we might expect any other variable to be used; we can pass a template variable to a function of sorts (in the form of a [structural directive](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives), like `*ngFor` or `*ngIf`) and see it's usage reflected.
+We can then use the template tag as we might expect any other variable to be used; we can pass a template variable to a function of sorts (in the form of a [structural directive](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives), like `*ngFor` or `*ngIf`) and see its usage reflected.
 
 ```html
 <span *ngIf="false; else trueTag">False</span>
@@ -1038,9 +1038,9 @@ Inside our `v-for`, we're accessing both the value of the item (`file`) and the 
 
 <!-- tabs:end -->
 
-If we look at the rendered output, we can see that we have all three files listing out as expected!
+If we look at the rendered output, we can see that all three files are listed as expected!
 
-Using this code as a base, we could extend this file list to any number of files just by adding another item to the hard-coded `filesArray` list; no templating code changes required!
+Using this code as a base, we could extend this file list to any number of files just by adding another item to the hard-coded `filesArray` list; no templating code changes are required!
 
 ## Keys {#keys}
 
@@ -1052,9 +1052,9 @@ Or, in Vue, the error might've said:
 
 > Elements in iteration expect to have 'v-bind:key' directives
 
-This is because in both of these frameworks, you're expected to pass a special property called `key` which is used by the respective framework to keep track of which item is which.
+This is because, in both of these frameworks, you're expected to pass a special property called the `key`, which the respective framework uses to keep track of which item is which.
 
-Without this `key` prop, the framework doesn't know which elements have been unchanged, and therefore must destroy and recreate each element in the array for every list re-render. This can cause massive performance problems and stability headaches.
+Without this `key` prop, the framework doesn't know which elements have been unchanged and, therefore, must destroy and recreate each element in the array for every list re-render. This can cause massive performance problems and stability headaches.
 
 > If you're confused, no worries — there was a lot of technical speech in that last paragraph. Continue reading to see what this means in practical terms and don't be afraid to come back and re-read this section when you're done with the chapter.
 
@@ -1238,13 +1238,13 @@ This can be demonstrated by typing some text into the `input` and pressing the `
 
 In Angular, the input text simply disappears. In React and Vue, however, the text moves to the line of the word below the one you originally typed inside.
 
-Both of these behaviors are quite peculiar — we've seemingly not modified the `li` that contains the `input` in question, why are its contents moving or being removed entirely?
+Both of these behaviors are quite peculiar — we've seemingly not modified the `li` that contains the `input` in question; why are its contents moving or being removed entirely?
 
-The reason the input text changes is that the framework **isn't able to detect which item in your array has changed** and as a result marks all DOM elements as "outdated". **These "outdated" elements are then destroyed by the framework only to be immediately reconstructed** to ensure the most up-to-date information is displayed to the user.
+The reason the input text changes is that the framework **isn't able to detect which item in your array has changed** and, as a result, marks all DOM elements as "outdated". **These "outdated" elements are then destroyed by the framework, only to be immediately reconstructed** to ensure the most up-to-date information is displayed to the user.
 
-![When a render occurs each item in the array that doesn't have a key also gets re-rendered](./render_without_keys.png)
+![When a render occurs, each item in the array that doesn't have a key also gets re-rendered](./render_without_keys.png)
 
-Instead of this, **we can tell the framework which list item is which with a unique "key"** associated with every list item. This key is then able to **allow the framework to intelligently prevent destruction of items that were not changed** in a list data change.
+Instead, **we can tell the framework which list item is which with a unique "key"** associated with every list item. This key is then able to **allow the framework to intelligently prevent the destruction of items that were not changed** in a list data change.
 
 ![When a key is assigned to an element in a list, it can avoid duplicative renders, like when a new item in a list is added](./render_with_keys.png)
 
@@ -1302,7 +1302,7 @@ class WordListComponent {
 
 <iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain."></iframe>
 
-Another difference to the other frameworks is that while React and Vue have no default `key` behavior, Angular has a default `trackBy` function if one is not provided. If no `trackBy` is provided, the default will simply do strict equality (`===`) between the old item in the array and the new to check if the item is the same.
+Another difference to the other frameworks is that while React and Vue have no default `key` behavior, Angular has a default `trackBy` function if one is not provided. If no `trackBy` is provided, the default will simply do strict equality (`===`) between the old item in the array and the new one to check if the item is the same.
 
 This function might look something like the following:
 
@@ -1338,7 +1338,7 @@ Here, we're using the `key` property to tell Vue which `li` is related to which 
 
 <!-- tabs:end -->
 
-Now when we re-render the list, the framework is able to know exactly which items have and have not changed.
+Now, when we re-render the list, the framework is able to know exactly which items have and have not changed.
 
 As such, it will only re-render the new items, leaving the old and unchanged DOM elements alone.
 
@@ -1405,7 +1405,7 @@ function increase() {
 
 <!-- tabs:end -->
 
-This refresh works because we are not persisting the [`input`'s `value`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement), and therefore when `key` is updated, and a new `input` is rendered in its place, the in-memory DOM value is reset and not bound again.
+This refresh works because we are not persisting the [`input`'s `value`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement), and therefore, when `key` is updated and a new `input` is rendered in its place, the in-memory DOM value is reset and not bound again.
 
 This reset is what's causing the `input` to blank out after a button press.
 
@@ -1599,7 +1599,7 @@ function onSelected(idx) {
 
 Let's use our newfound knowledge of conditional and list rendering and combine them in our application.
 
-Say that our users want to filter our `FileList` to only display files and not folders. We can enable this functionality by adding in a conditional statement inside our template loop!
+Say that our users want to filter our `FileList` to only display files and not folders. We can enable this functionality by adding a conditional statement inside our template loop!
 
 <!-- tabs:start -->
 
