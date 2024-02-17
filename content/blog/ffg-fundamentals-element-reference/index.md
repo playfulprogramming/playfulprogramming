@@ -212,14 +212,14 @@ const open = (e) => {
 
 <!-- tabs:end -->
 
-This works relatively well, until we think about two features that are missing:
+This works relatively well until we think about two features that are missing:
 
 - Listening for any click outside the popup's contents
-- Focusing on the popup's contents when the user right-clicks, so keyboard shortcuts apply to the popup immediately
+- Focusing on the popup's contents when the user right-clicks, keyboard shortcuts apply to the popup immediately
 
 While these features are _possible_ without any newly introduced APIs, they'd both require you to use browser APIs such as [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) to eject away from the framework's limitations.
 
-In those rare events you want to eject away from the framework controlling your access to HTML nodes, each framework enables you to access the underlying DOM nodes without using browser APIs specifically. This allows our code to still retain full control over the underlying elements while remaining within the reactivity systems these frameworks provide.
+In those rare events, you want to eject away from the framework controlling your access to HTML nodes; each framework enables you to access the underlying DOM nodes without using browser APIs specifically. This allows our code to still retain full control over the underlying elements while remaining within the reactivity systems these frameworks provide.
 
 In this chapter, we'll learn:
 
@@ -329,7 +329,7 @@ const App = () => {
 };
 ```
 
-Knowing this, why aren't we using `useRef` in the previous button counter example? Well, the answer goes back to the "Side Effects" chapter once again. Back in said chapter, [we explained how `useRef` doesn't trigger `useEffect`s as one might otherwise expect](/posts/ffg-fundamentals-side-effects#useref-dont-trigger-useeffect).
+Knowing this, why aren't we using `useRef` in the previous button counter example? Well, the answer goes back to the "Side Effects" chapter once again. Back in the said chapter, [we explained how `useRef` doesn't trigger `useEffect`s as one might otherwise expect](/posts/ffg-fundamentals-side-effects#useref-dont-trigger-useeffect).
 
 Let's look at how using an element reference using `useRef` could cause havoc when binding an event via `addEventListener`. Here, we can see an example of what `useRef` might look like in our `CountButton` example:
 
@@ -407,7 +407,7 @@ const CountButton = () => {
 
 Now, if we wait the second it takes to render the `<button>Add one</button>` element and press the button, we'll see that our `click` event handler is never set properly.
 
-This is because `buttonRef.current` is set to `undefined` in the first render and the mutation of `buttonRef` when the `<button>` element is rendered does not trigger a re-render, which in turn does not re-run `useEffect` to add the event binding.
+This is because `buttonRef.current` is set to `undefined` in the first render, and the mutation of `buttonRef` when the `<button>` element is rendered does not trigger a re-render, which in turn does not re-run `useEffect` to add the event binding.
 
 > This is not to say that you shouldn't use `useRef` for element reference, just that you should be aware of its downfalls and alternatives.
 >
@@ -434,7 +434,7 @@ For example, the `#pTag` attribute assigns the template reference variable named
 
 ---
 
-Now that we have access to the underlying `<p>` element, let's print it out inside a `ngOnInit`:
+Now that we have access to the underlying `<p>` element let's print it out inside a `ngOnInit`:
 
 ```typescript
 @Component({
@@ -479,7 +479,7 @@ class RenderParagraphComponent implements OnInit {
 }
 ```
 
-Here, we're conditionally rendering our `p` tag using an `ngIf`. But see, under the hood the `ngIf` won't initialize the `<p>` tag until _after_ the `ngOnInit` lifecycle method is executed.
+Here, we're conditionally rendering our `p` tag using an `ngIf`. But see, under the hood, the `ngIf`` won't initialize the `<p>` tag until _after_ the `ngOnInit` lifecycle method is executed.
 
 To solve this, we can do one of two things:
 
@@ -508,7 +508,7 @@ class RenderParagraphComponent implements OnInit {
 
 <iframe data-frame-title="Angular Static - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-static-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-However, keep in mind that if you _do_ later add any dynamic HTML that our element will be `undefined` once again:
+However, keep in mind that if you _do_ later add any dynamic HTML our element will be `undefined` once again:
 
 ```typescript
 @Component({
@@ -535,7 +535,7 @@ To solve this, we'll have to use a different lifecycle method than `ngOnInit`.
 
 ### Using `ngAfterViewInit` to Use a Deferred `ViewChild` {#using-ngafterviewinit}
 
-While the values a dynamic HTML may not be defined in `ngOnInit`, there is a different lifecycle method to be called when Angular has fully initialized all the child values of your dynamic HTML: `ngAfterViewInit`.
+While the values of a dynamic HTML may not be defined in `ngOnInit`, there is a different lifecycle method to be called when Angular has fully initialized all the child values of your dynamic HTML: `ngAfterViewInit`.
 
 ```typescript
 import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
@@ -564,7 +564,7 @@ class RenderParagraphComponent implements AfterViewInit {
 
 ### Adding an Event Listener Using `@ViewChild` {#adding-event-listener-viewchild}
 
-Now that we know how to use `ViewChild`, we can add a `addEventListener` and `removeEventListener` to manually bind a `button`'s `click` event:
+Now that we know how to use `ViewChild`, we can add an `addEventListener` and `removeEventListener` to manually bind a `button`'s `click` event:
 
 ```typescript
 @Component({
@@ -600,7 +600,7 @@ class RenderParagraphComponent implements AfterViewInit, OnDestroy {
 
 ## Vue
 
-Vue's ability to store reactive data using `ref` enables a super simplistic API to access DOM nodes; create a `ref` with the same variable name as a `ref` property of an element's `ref` attribute value.
+Vue's ability to store reactive data using `ref` enables a super simplistic API to access DOM nodes and create a `ref` with the same variable name as a `ref` property of an element's `ref` attribute value.
 
 ```vue
 <!-- App.vue -->
@@ -660,7 +660,7 @@ Let's see how that's done with each framework.
 
 React's ability to persist data within a `useRef` allows us to create an index-based array to store our elements into.
 
-Using this array, we can then access the `0`th and last index (using `messages.length - 1`) to indicate the first and last element respectively.
+Using this array, we can then access the `0`th and last index (using `messages.length - 1`) to indicate the first and last element, respectively.
 
 ```jsx
 const messages = [
@@ -754,7 +754,7 @@ class AppComponent {
 
 ## Vue
 
-Vue has a handy feature that [enables you to create an array of referenced elements using nothing more than a string inside a `ref` attribute](https://vuejs.org/guide/essentials/template-refs.html#refs-inside-v-for). This then turns the `ref` of the same name into an array that we can access as-expected.
+Vue has a handy feature that [enables you to create an array of referenced elements using nothing more than a string inside a `ref` attribute](https://vuejs.org/guide/essentials/template-refs.html#refs-inside-v-for). This then turns the `ref` of the same name into an array that we can access as expected.
 
 ```vue
 <!-- App.vue -->
@@ -801,16 +801,16 @@ const messages = [
 
 # Real World Usage {#real-world-usage}
 
-Now that we know how to access an underlying HTML element in our given framework, let's go back to our previous context menu example from the start of the chapter.
+Now that we know how to access an underlying HTML element in our given framework let's go back to our previous context menu example from the start of the chapter.
 
 See, while our context menu was able to show properly, we were missing two distinct features:
 
 1. Focusing the dropdown element when opened
 2. Closing the context menu when the user clicks elsewhere
 
-![With the context menu open, when you left-click outside of the bounds of the context menu it will close it](./context-close.png)
+![With the context menu open, when you left-click outside of the bounds of the context menu, it will close it](./context-close.png)
 
-Let's add this functionality into our context menu component.
+Let's add this functionality to our context menu component.
 
 To add the first feature, we'll [focus on the context menu using `element.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) in order to make sure that keyboard users aren't lost when trying to use the feature.
 
@@ -1012,7 +1012,7 @@ class AppComponent implements AfterViewInit, OnDestroy {
 
 Let's adopt the above click listener and apply it within our `onMounted` lifecycle method.
 
-We'll also use a callback ref to run a function every time the context menu is open. This function will then either do nothing or call `.focus` on the element depending on if it's rendered or not.
+We'll also use a callback ref to run a function every time the context menu is open. This function will then either do nothing or call `.focus` on the element depending on whether it's rendered or not.
 
 ```vue
 <!-- App.vue -->
@@ -1098,7 +1098,7 @@ Let's build out a fresh component from our understanding of element reference.
 
 Specifically, let's build out tooltip functionality so that when the user hovers over a button for a second or longer, it displays a popup message to help the user understand how it's used.
 
-![Hovering over a "send" button will show an alert above the button saying "This will send an email to the recipients"](./tooltip.png)
+![Hovering over a "send" button will show an alert above the button saying, "This will send an email to the recipients."](./tooltip.png)
 
 To do this, we'll need to consider a few things:
 
@@ -1234,7 +1234,7 @@ onUnmounted(() => {
 
 ## Step 2: Remove the Element When the User Stops Hovering {#challenge-step-2}
 
-Now that we have our tooltip showing up when we'd expect, let's remove it when we stop hovering on the button element.
+Now that we have our tooltip showing up when we'd expect it, let's remove it when we stop hovering on the button element.
 
 To do this, we'll use [the `mouseleave` HTML event](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event) to set `show` to `false` and cancel the timer to show the tooltip if the event is active.
 
@@ -1395,7 +1395,7 @@ onUnmounted(() => {
 
 To place the tooltip above the button, we'll measure the button's position, height, and width using an element reference and [the `HTMLElement`'s method of `getBoundingClientRect`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect).
 
-We'll then use this positional data, alongside [the CSS `position: fixed`](https://developer.mozilla.org/en-US/docs/Web/CSS/position) to position the tooltip to be placed `8px` above the `y` axis of the button:
+We'll then use this positional data alongside [the CSS `position: fixed`](https://developer.mozilla.org/en-US/docs/Web/CSS/position) to position the tooltip to be placed `8px` above the `y` axis of the button:
 
 <!-- tabs:start -->
 
@@ -1621,14 +1621,14 @@ onUnmounted(() => {
 
 To center a `position: fixed` element is a challenge and a half. While there's half a dozen ways we could go about this, we're going to opt for a solution that involves:
 
-- Creating a `<div>` with the same width of the button
+- Creating a `<div>` with the same width as the button
 - Making this `<div>` a `display: flex` element with `justify-content: center` CSS applied to center all children
 - Allowing overflow inside the `div` using `overflow: visible`
 - Placing our tooltip's text inside the `<div>` with `white-space: nowrap` applied to avoid our text wrapping to meet the `<div>` width.
 
-This works because the `<div>`'s position should mirror the button's, and allow content to be centered around it, like so:
+This works because the `<div>`'s position should mirror the button's and allow content to be centered around it, like so:
 
-![The divs position is above the button, demonstrated by the devtools preview of the div's position](./button_positioned.png)
+![The divs position is above the button, demonstrated by the dev tools preview of the div's position](./button_positioned.png)
 
 In the end, our styling should look something like this HTML markup:
 
@@ -1914,7 +1914,7 @@ onUnmounted(() => {
 
 ## Step 5: Adding Polish {#challenge-step-5}
 
-Our tooltip works now! But being honest, it's a bit plain looking without much styling.
+Our tooltip works now! But, being honest, it's a bit plain-looking without much styling.
 
 Let's fix that by adding:
 
