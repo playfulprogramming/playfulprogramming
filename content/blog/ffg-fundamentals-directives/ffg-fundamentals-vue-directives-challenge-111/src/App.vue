@@ -1,16 +1,15 @@
 <!-- App.vue -->
 <script setup>
-import {vTooltip} from "./vTooltip.js";
+import { vTooltip } from "./vTooltip.js";
 
-const obj = {current: null}
+const obj = { current: null };
 </script>
 
 <template>
 	<div>
-    <!-- Ref doesn't appear to pass in time -->
-    <button :ref="el => obj.current = el">Hover me</button>
-    <!-- Anything passed to `v-tooltip` is not reactive, so this is the best we got -->
-    <div v-tooltip="obj">This is a tooltip</div>
+		<button :ref="(el) => (obj.current = el)">Hover me</button>
+		<!-- Anything passed to `v-tooltip` is not reactive, so we need to use an object with a mutable `current` property -->
+		<div v-tooltip="obj">This is a tooltip</div>
 	</div>
 </template>
 
