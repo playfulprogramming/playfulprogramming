@@ -1056,7 +1056,7 @@ You're tasked with implementing a chat overlay system on your marketing website;
 
 They want the UI to look something like this:
 
-![// TODO: Write alt](./files_app_chat_demo.png)
+![Our files app with a chat dialog spawning from a corner button labelled "UnicornChat HQ"](./files_app_chat_demo.png)
 
 While you could build this out yourself, it's often costly to do so. Not only do you have to build out your own chat UI, but the backend login system for your customer reps to use, the server communciation between them, and more.
 
@@ -1084,7 +1084,7 @@ This is awesome and solved your ticket immediately... Or so you thought.
 
 When QA goes to test your app, they come back with a brand new bug you've never seen before; The UnicornChat UI draws on top of your file deletion confirm dialog.
 
-![// TODO: Write alt](./file_app_chat_above_delete_dialog.png)
+![The UnicornChat is drawn above the dialog despite being less important for the user's dialog at the time](./file_app_chat_above_delete_dialog.png)
 
 This is because the contents of your React app are rendered before the UnicornChat UI, since the UnicornChat code is in a `div` that's after your React's container `div`.
 
@@ -1215,17 +1215,17 @@ import Child from "./Child.vue";
 
 Now when you test the issue again, you find your modal is above the UnicornChat UI.
 
-![// TODO: Write alt](./file_app_chat_below_delete_dialog.png)
+![The modal is drawn above the UnicornChat elements, allowing users to press the dialogs](./file_app_chat_below_delete_dialog.png)
 
 # Challenge
 
 If we look back to [our Element Reference chapter's code challenge](/posts/ffg-fundamentals-element-reference#challenge) you might remember that we were tasked with creating a tooltip component:
 
-![// TODO: Add alt](../ffg-fundamentals-element-reference/tooltip.png)
+![Hovering over a "send" button will show an alert above the button saying "This will send an email to the recipients"](../ffg-fundamentals-element-reference/tooltip.png)
 
 The code we wrote previously for this challenge worked well, but it had a major flaw; it would not show up above other elements in the stacking context with a higher `z-index`.
 
-![// TODO: Add alt](./tooltip_underneith.png)
+![The tooltip dialog is drawn underneath a header element due to z-index stacking contexts](./tooltip_underneath.png)
 
 <!-- tabs:start -->
 
