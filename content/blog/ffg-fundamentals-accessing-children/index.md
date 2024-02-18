@@ -33,7 +33,7 @@ But only when the respective HTML elements or components are inside the parent's
 <FileTableBody />
 ```
 
-What if, instead, there was a way to access the children passed to an element through the slotted area one-by-one?
+What if, instead, there was a way to access the children passed to an element through the slotted area one by one?
 
 > Well, is there a way to do that?
 
@@ -124,7 +124,7 @@ In [our "Dynamic HTML" chapter, we talked about how you're able to assign a "var
 <div #templVar></div>
 ```
 
-In our previous example, we used them to conditionally render content using `ngIf`, but these template tags aren't simply useful in `ngIf` usage; We can also use them in a myriad of programmatic queries, such as [`ContentChild`](https://angular.io/api/core/ContentChild).
+In our previous example, we used them to conditionally render content using `ngIf`, but these template tags aren't simply useful in `ngIf` usage. We can also use them in a myriad of programmatic queries, such as [`ContentChild`](https://angular.io/api/core/ContentChild).
 
 `ContentChild` is a way to query the projected content within [`ng-content`](/posts/ffg-fundamentals-passing-children) from JavaScript.
 
@@ -198,7 +198,7 @@ class ParentListComponent implements OnInit {
 
 <iframe data-frame-title="Angular Why ngAfterContentInit? - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-why-ngaftercontentinit-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-This is because while `ngOnInit` runs after the component has rendered, it has not yet received any values within `ng-content`; This is where `ngAfterContentInit` comes into play. This lifecycle method runs once `ng-content` has received the values, which we can then use as a sign that `ContentChild` has finished its query.
+This is because while `ngOnInit` runs after the component has rendered, it has not yet received any values within `ng-content`; this is where `ngAfterContentInit` comes into play. This lifecycle method runs once `ng-content` has received the values, which we can then use as a sign that `ContentChild` has finished its query.
 
 This can be solved by either:
 
@@ -258,9 +258,9 @@ class AppComponent {}
 
 ## Vue
 
-Unlike React and Angular, Vue's APIs don't allow us to easily count a child's list items. There are a lot of nuances to _why_ this is the case, but we'll do our best to explain that when we [rewrite Vue from scratch in the third book of the series](https://framework.guide).
+Unlike React and Angular, Vue's APIs don't allow us to count a child's list items easily. There are a lot of nuances as to _why_ this is the case, but we'll do our best to explain that when we [rewrite Vue from scratch in the third book of the series](https://framework.guide).
 
-Instead, you'll want to pass the list from the parent component to the list display to show the value you'd intend:
+Instead, you'll want to pass the list from the parent component to the list display to show the value you intend:
 
 ```vue
 <!-- ParentList -->
@@ -295,9 +295,9 @@ const list = [1, 2, 3];
 
 <!-- Editor's note: While yes, we could do a `mounted() {this.$slots.children}` for THIS example, two things: 1) It's bad practice in that it will cause two renders. 2) It breaks in the very next code sample -->
 
-<!-- Editors note: It breaks in the next sample because if you add `updated` to listen for changes, then call `this.$slots.default()` it will trigger an infinite render, since it will in turn re-trigger `updated -->
+<!-- Editors note: It breaks in the next sample because if you add `updated` to listen for changes, then call `this.$slots.default()`, it will trigger an infinite render since it will, in turn re-trigger `updated -->
 
-<!-- Editor's note: While `$el` might seem like a viable alternative to an ID, it's not due to the fact that we have multiple root HTML nodes. This means that `$el` is a VNode, not an `HTMLElement` and therefore does not have an `id` property -->
+<!-- Editor's note: While `$el` might seem like a viable alternative to an ID, it's not due to the fact that we have multiple root HTML nodes. This means that `$el` is a VNode, not an `HTMLElement`, and therefore does not have an `id` property -->
 
 <!-- Editor's note: $slots.default doesn't work with `v-for` -->
 
@@ -305,7 +305,7 @@ const list = [1, 2, 3];
 
 # Rendering Children in a Loop {#rendering-children-in-loop}
 
-Now that we're familiar with accessing children, let's use the same APIs introduced before to take the following component template:
+Now that we're familiar with accessing children let's use the same APIs introduced before to take the following component template:
 
 ```html
 <ParentList>
@@ -413,7 +413,7 @@ Just as before, Vue's APIs have a limitation when accessing direct children. Let
 
 ## Adding Children Dynamically {#adding-children-dynamically}
 
-Now that we have a list of items being transformed by our component, let's add the functionality to add another item to the list:
+Now that we have a list of items being transformed by our component let's add the functionality to add another item to the list:
 
 <!-- tabs:start -->
 
@@ -523,7 +523,7 @@ Instead, let's see if there's a way that we can pass values to our projected con
 
 ## React
 
-By now we should be familiar with the `children` property in React. Now get ready-to-forget everything you know about it:
+By now, we should be familiar with the `children` property in React. Now get ready to forget everything you know about it:
 
 ```jsx
 const AddTwo = ({ children }) => {
@@ -759,7 +759,7 @@ function addOne() {
 
 <iframe data-frame-title="Vue Pass Val to Projected Content - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-pass-val-to-projected-content-114?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
-This `v-slot` is similar to how you might pass properties to a component, but instead we're passing data directly to a `template` to be rendered by `v-slot`.
+This `v-slot` is similar to how you might pass properties to a component, but instead, we're passing data directly to a `template` to be rendered by `v-slot`.
 
 > You can [object destructure](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) the `v-slot` usage to gain access to the property names without having to repeat `props` each time:
 >
