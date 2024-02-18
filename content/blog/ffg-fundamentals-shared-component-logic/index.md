@@ -43,7 +43,7 @@ But here's my favorite part about these methods: We don't have to introduce any 
 
 Without further ado, let's build the window size shared logic.
 
-# Sharing Data Storage Methods
+# Sharing Data Storage Methods {#sharing-data-storage}
 
 The first step of creating composable shared logic is to create a way to store data in an instance of the logic:
 
@@ -219,7 +219,7 @@ const { height, width } = useWindowSize();
 
 <!-- tabs:end -->
 
-# Sharing Side Effect Handlers
+# Sharing Side Effect Handlers {#sharing-side-effect-handlers}
 
 While sharing data between a consuming component is helpful in its own right, this is only a fraction of the capabilities these frameworks have for cross-component logic reuse.
 
@@ -384,7 +384,7 @@ const { height, width } = useWindowSize();
 
 <!-- tabs:end -->
 
-# Composing Custom Logic
+# Composing Custom Logic {#composing-custom-logic}
 
 We've covered how shared logic can access data storage and side-effect handlers. Now let's talk about the fun stuff: Composability.
 
@@ -566,7 +566,7 @@ const { isMobile } = useMobileCheck();
 
 <!-- tabs:end -->
 
-# Challenge
+# Challenge {#challenge}
 
 Let's take everything we've learned about shared-component logic and use it to recreate [our `ContextMenu` component from the "Component Reference" chapter](/posts/ffg-fundamentals-component-reference) in smaller pieces.
 
@@ -577,7 +577,7 @@ Let's break these components into smaller pieces that we'll create composable lo
 1. A listener for clicks outside the context menu
 2. A composition that gets the bounds of the context menu's parent element
 
-## Step 1: Create an Outside Click Composition
+## Step 1: Create an Outside Click Composition {#challenge-step-1}
 
 To listen for clicks outside the context menu, we can leverage some JavaScript akin to the following:
 
@@ -798,7 +798,7 @@ defineExpose({
 
 <!-- tabs:end -->
 
-## Step 2: Create a Bounds Composable
+## Step 2: Create a Bounds Composable {#challenge-step-2}
 
 Now let's move the bounds' size checking into a composable as well. This is done in JavaScript like so:
 

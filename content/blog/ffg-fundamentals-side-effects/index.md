@@ -379,7 +379,7 @@ While Angular strictly uses lifecycle methods and React uses a `useEffect` hook 
 
 Let's start by taking a look at Vue's lifecycle method of handling a side effect.
 
-### Vue's `onMounted` Lifecycle Method
+### Vue's `onMounted` Lifecycle Method {#vue-onmounted}
 
 ```vue
 <!-- Child.vue -->
@@ -400,7 +400,7 @@ onMounted(() => {
 
 Here, we're importing the `onMounted` lifecycle handler from the `vue` import. Vue's lifecycle methods all start with an `on` prefix when used inside a `<script setup>` component.
 
-### Vue's `watchEffect` Hook
+### Vue's `watchEffect` Hook {#vue-watcheffect}
 
 Just like how React has a non-lifecycle method of running side effect, so too does Vue. This is done using Vue's `watchEffect` and `watch` APIs. Let's start with a simple example:
 
@@ -1488,7 +1488,7 @@ unUnmounted(() => {
 </template>
 ```
 
-#### Vue's `watchEffect` Cleanup
+#### Vue's `watchEffect` Cleanup {#watcheffect-cleanup}
 
 As mentioned previously, Vue has two methods of handling side effects; Lifecycle methods and `watchEffect`. Luckily, `watchEffect` also has the ability to clean up side effects that were created before.
 
@@ -3293,11 +3293,11 @@ Let's take a look visually at how each framework calls the relevant APIs we've t
 
 Because Vue has two different APIs, I made two charts for them.
 
-### Vue Lifecycle Methods
+### Vue Lifecycle Methods {#vue-lifecycle-methods}
 
 ![On the main loop, the VDOM constructs, which calls the beforeCreate lifecycle method. Then, the component paints and runs the create lifecycle method. Then, the components are rendered and can call updated lifecycle method on re-renders. The unmounted lifecycle runs during the component unrendering](./vue_lifecycles.png)
 
-### Vue Watchers
+### Vue Watchers {#vue-watchers}
 
 ![On the main loop, the VDOM constructs which calls "{immediate: true}" watchers. Then the component paints which calls the "{immediate: true, flush: 'post'}" watchers. Then, the component has rendered and can re-render (more on that soon). Then, when the component unrenders, watchers clean up, then "{flush: 'post'}" watchers cleanup. During re-renders, the VDOM updates occur, which calls the previous watcher run cleanup, then the watchers again. Then the DOM paints which triggers the previous watchers "{flush: 'post'}" watchers cleanup and the new "{flush: 'post'}" watchers.](./vue_watchers.png)
 
