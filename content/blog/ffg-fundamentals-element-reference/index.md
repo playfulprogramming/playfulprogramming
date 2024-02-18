@@ -2,12 +2,12 @@
 {
   title: "Element Reference",
   description: "React, Angular, and Vue provide powerful APIs that let you avoid DOM manipulations most of the time. But sometimes you need to access the underlying DOM. Here's how.",
-  published: "2023-01-01T22:12:03.284Z",
+  published: "2024-03-11T12:08:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 8,
-  collection: "The Framework Field Guide - Fundamentals",
+  collection: "framework-field-guide-fundamentals",
 }
 ---
 

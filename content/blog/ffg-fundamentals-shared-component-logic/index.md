@@ -2,12 +2,12 @@
 {
   title: "Shared Component Logic",
   description: "Components provide a great way to share layout, styling, and logic between multiple parts of your app. But what about times you only need to share logic in React, Angular, and Vue?",
-  published: "2023-01-01T22:12:03.284Z",
+  published: "2024-03-11T12:13:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 13,
-  collection: "The Framework Field Guide - Fundamentals",
+  collection: "framework-field-guide-fundamentals",
 }
 ---
 

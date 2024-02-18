@@ -2,12 +2,12 @@
 {
   title: "Directives",
   description: "If components are a way to share JS logic between multiple, composable DOM nodes; directives are a way to assign logic to any single DOM node.",
-  published: "2023-01-01T22:12:03.284Z",
+  published: "2024-03-11T12:14:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 14,
-  collection: "The Framework Field Guide - Fundamentals",
+  collection: "framework-field-guide-fundamentals",
 }
 ---
 

@@ -2,12 +2,12 @@
 {
   title: "Dynamic HTML",
   description: "One of the primary advantages of using a framework is the ability to quickly generate dynamic HTML from JavaScript logic. Let's walk through some examples.",
-  published: "2023-01-01T22:12:03.284Z",
+  published: "2024-03-11T12:03:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 3,
-  collection: "The Framework Field Guide - Fundamentals",
+  collection: "framework-field-guide-fundamentals",
 }
 ---
 

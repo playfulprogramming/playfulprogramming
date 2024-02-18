@@ -2,12 +2,12 @@
 {
   title: "Preface",
   description: "Learning web development is a vital skill in a software engineer's toolbox. Let's talk about why you should learn it and what this book will cover.",
-  published: "2023-01-01T22:12:03.284Z",
+  published: "2024-03-11T12:01:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 1,
-  collection: "The Framework Field Guide - Fundamentals",
+  collection: "framework-field-guide-fundamentals",
 }
 ---
 
@@ -65,7 +65,7 @@ While ecosystem size is great and all, it's nothing without a swath of tools at 
 
 Luckily, for all three frameworks alike, myriads of tools build upon their foundation.
 
-For example, do you want to add [Static Site Generation or Server Side Rendering](/posts/what-is-ssr-and-ssg) to your projects to enhance SEO? No problem: React has [Next.js](https://nextjs.org/) and [Gatsby](https://gatsbyjs.com/), Angular has [Angular Universal](https://angular.io/guide/universal) and [Analog](https://analogjs.org/), and Vue has [NuxtJS](https://nuxtjs.org/) and [VuePress](https://vuepress.vuejs.org/).
+For example, do you want to add [Static Site Generation or Server Side Rendering](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg) to your projects to enhance SEO? No problem: React has [Next.js](https://nextjs.org/) and [Gatsby](https://gatsbyjs.com/), Angular has [Angular Universal](https://angular.io/guide/universal) and [Analog](https://analogjs.org/), and Vue has [NuxtJS](https://nuxtjs.org/) and [VuePress](https://vuepress.vuejs.org/).
 
 Want to add a router to add multiple pages to your apps? React has the ["React Router"](https://reactrouter.com/), [Angular has its built-in router](https://angular.io/guide/router), and Vue has the ["Vue Router"](https://router.vuejs.org/).
 
@@ -131,11 +131,11 @@ We will be learning React, Angular, and Vue from the basics all the way to under
 
 In fact, I will do my best to link out to anything that's expected to be known or valuable in continuing the learning process. That said, if you're new to these topics, some suggested pre-reading might include:
 
-- ["How Computers Speak" — An introduction to how your computer takes "source code" and converts it to machine code.](/posts/how-computers-speak)
-- ["Introduction to HTML, CSS, and JavaScript" — An explanation of the three fundamentals of web development and how they're utilized to build websites.](/posts/intro-to-html-css-and-javascript)
-- ["CSS Fundamentals" — An introduction to how CSS works and common rules you should know.](/posts/css-fundamentals)
-- ["WebDev 101: How to use NPM and Yarn" — An explanation of what "Node" is, what "NPM" is, and how to use them.](/posts/how-to-use-npm)
-- ["Understanding The DOM: How Browsers Show Content On-Screen" — An explanation of the "DOM" and how it pertains to HTML.](/posts/understanding-the-dom)
+- ["How Computers Speak" — An introduction to how your computer takes "source code" and converts it to machine code.](https://unicorn-utterances.com/posts/how-computers-speak)
+- ["Introduction to HTML, CSS, and JavaScript" — An explanation of the three fundamentals of web development and how they're utilized to build websites.](https://unicorn-utterances.com/posts/intro-to-html-css-and-javascript)
+- ["CSS Fundamentals" — An introduction to how CSS works and common rules you should know.](https://unicorn-utterances.com/posts/css-fundamentals)
+- ["WebDev 101: How to use NPM and Yarn" — An explanation of what "Node" is, what "NPM" is, and how to use them.](https://unicorn-utterances.com/posts/how-to-use-npm)
+- ["Understanding The DOM: How Browsers Show Content On-Screen" — An explanation of the "DOM" and how it pertains to HTML.](https://unicorn-utterances.com/posts/understanding-the-dom)
 
 ## What Aren't We Learning? {#what-arent-we-learning}
 
@@ -261,7 +261,7 @@ Here are a few nuances we should keep in mind about this book's teachings of Ang
 
 #### Angular Is Not AngularJS {#angular-not-angularjs}
 
-Despite the similarities in their names, these two are entirely distinct entities. More specifically, [AngularJS was initially released in 2010](/posts/web-components-101-history#2010-The-Early-Days-of-MVC-in-JS) and was followed up by the initial release of Angular in 2016. **Despite this shared lineage, the core concepts shifted drastically between these two releases.** For all intents and purposes, you will not know AngularJS at the end of this book: You will know Angular.
+Despite the similarities in their names, these two are entirely distinct entities. More specifically, [AngularJS was initially released in 2010](https://unicorn-utterances.com/posts/web-components-101-history#2010-The-Early-Days-of-MVC-in-JS) and was followed up by the initial release of Angular in 2016. **Despite this shared lineage, the core concepts shifted drastically between these two releases.** For all intents and purposes, you will not know AngularJS at the end of this book: You will know Angular.
 
 #### We're Using Standalone Components {#standalone-components}
 

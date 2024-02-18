@@ -2,12 +2,12 @@
 {
   title: "Derived Values",
   description: "Often in application development, you'll want to base one variable's value off of another. There are a few ways of doing this - some easier than others.",
-  published: "2023-01-01T22:12:03.284Z",
+  published: "2024-03-11T12:05:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 5,
-  collection: "The Framework Field Guide - Fundamentals",
+  collection: "framework-field-guide-fundamentals",
 }
 ---
 

@@ -2,12 +2,12 @@
 {
   title: "Introduction to Components",
   description: "Components are the core building block in which all applications written with React, Angular, and Vue are built. Let's explore what they are and how to build them.",
-  published: "2023-01-01T22:12:03.284Z",
+  published: "2024-03-11T12:02:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 2,
-  collection: "The Framework Field Guide - Fundamentals",
+  collection: "framework-field-guide-fundamentals",
 }
 ---
 
