@@ -11,21 +11,21 @@
 }
 ---
 
-In our last chapter, we talked about how you can create custom logic not associated with any particular component, but can be used by said components to extend its logic.
+In our last chapter, we talked about how you can create custom logic that is not associated with any particular component but can be used by said components to extend its logic.
 
-This is helpful for sharing logic between components, but isn't the whole story of code re-use within React, Angular, and Vue.
+This is helpful for sharing logic between components, but isn't the whole story of code reuse within React, Angular, and Vue.
 
-For example, we may want to have logic associated with a given DOM node without having to create an entire component specifically for that purpose. This exact problem is what a **Directive** aims to solve.
+For example, we may want logic associated with a given DOM node without having to create an entire component specifically for that purpose. This exact problem is what a **Directive** aims to solve.
 
 # What Is a Directive
 
-In our ["Introduction to Components" chapter](/posts/ffg-fundamentals-intro-to-components), we talked about how a component is a collection of structures, styling, and logic that's associated with one or more HTML nodes.
+Our ["Introduction to Components" chapter](/posts/ffg-fundamentals-intro-to-components) mentioned how a component is a collection of structures, styling, and logic that's associated with one or more HTML nodes.
 
-A directive, on the other hand, is a collection of JavaScript logic that you can apply to a single DOM element.
+Conversely, a directive is a collection of JavaScript logic that you can apply to a single DOM element.
 
 While this comparison between a directive and a component seems stark, think about it: Components have a collection of JavaScript logic that's applied to a single "virtual" element.
 
-As a result, some frameworks, like Angular, take this comparison literally and use directives under-the-hood to create components.
+As a result, some frameworks, like Angular, take this comparison literally and use directives under the hood to create components.
 
 Here's what a basic directive looks like in each of the three frameworks:
 
@@ -33,9 +33,9 @@ Here's what a basic directive looks like in each of the three frameworks:
 
 ## React
 
-React as a framework doesn't _quite_ have the concept of directives built-in.
+React as a framework doesn't _quite_ have the concept of directives built in.
 
-Luckily, this doesn't mean that we as React developers need to be left behind. Because a React component is effectively just a JavaScript function, we can use the base concept of a directive to create shared logic for DOM nodes.
+Luckily, this doesn't mean that we, as React developers, need to be left behind. Because a React component is effectively just a JavaScript function, we can use the base concept of a directive to create shared logic for DOM nodes.
 
 Remember from our ["Element Reference" chapter that you can use a function associated with an element's `ref` property](/posts/ffg-fundamentals-element-reference). We'll use this concept alongside the idea of a [custom hook](/posts/ffg-fundamentals-shared-component-logic#custom-hooks-rules) to create an API to add logic to an HTML element:
 
@@ -89,7 +89,7 @@ This isn't particularly useful, but demonstrates the most minimal version of wha
 
 ### Accessing a Directive's Underlying Element
 
-It's oftentimes more useful to get a reference to the element that the attribute is present on. To do this, we'll use Angular's [dependency injection](/posts/ffg-fundamentals-dependency-injection) to ask Angular for an `ElementRef` that's present within the framework's internals when you create a directive instance.
+It's frequently more helpful to get a reference to the element that the attribute is present on. To do this, we'll use Angular's [dependency injection](/posts/ffg-fundamentals-dependency-injection) to ask Angular for an `ElementRef` that's present within the framework's internals when you create a directive instance.
 
 ```typescript
 @Directive({
@@ -102,7 +102,7 @@ class LogElementDirective {
 }
 ```
 
-But oh no! Our directive no longer uses the `constructor` function, which means that our `console.log` no longer runs. This is because, when using the `inject` keyword, you're no longer able to use a constructor function.
+But oh no! Our directive no longer uses the `constructor` function, which means that our `console.log` no longer runs. This is because you can no longer use a constructor function when using the inject keyword.
 
 To fix this, we can extract our `inject` into a function that we can call from within our directive's class body:
 
@@ -127,7 +127,7 @@ class LogElementDirective {
 
 ## Vue
 
-Setting up a directive in Vue sees you creating an object within our `setup` `script`.
+Setting up a directive in Vue sees you create an object within our `setup` `script`.
 
 Inside this object, we'll add a key for `created` and assign it a function to let Vue know to run said function when the directive is instantiated.
 
@@ -257,23 +257,23 @@ const vStyleBackground = {
 
 > While this is a good demonstration of how you can use an element reference within a directive, styling an element is generally suggested to be done within a CSS file itself, unless you have good reason otherwise.
 >
-> This is because styling an element through JavaScript can cause issues with [server-side rendering](/posts/what-is-ssr-and-ssg#ssr), and can also cause [layout thrashing](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing) if done incorrectly.
+> This is because styling an element through JavaScript can cause issues with [server-side rendering](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg#ssr), and can also cause [layout thrashing](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing) if done incorrectly.
 
 # Side Effect Handlers in Directives
 
-[Previously in the book, we've explored adding in a `focus` event when an element is rendered](/posts/ffg-fundamentals-component-reference#using-comp-ref). However, in this chapter we explicitly had to call a `focus` method. What if we could have our `button` focus itself immediately when it's rendered onto the page?
+[Previously, in the book, we've explored adding a `focus` event when an element is rendered](/posts/ffg-fundamentals-component-reference#using-comp-ref). However, in this chapter, we explicitly had to call a `focus` method. What if we could have our `button` focus itself immediately when it's rendered onto the page?
 
-Luckily, with directives we can!
+Luckily, with directives, we can!
 
 See, while a component has a series of side effects associated with it: being rendered, updated, cleaned up, and beyond — so too does an HTML element that's bound to a directive!
 
-Because of this, we can hook into the ability to use [side effects](/posts/ffg-fundamentals-side-effects) within directives that focuses when an element is rendered.
+Because of this, we can hook into the ability to use [side effects](/posts/ffg-fundamentals-side-effects) within directives so that it focuses when an element is rendered.
 
 <!-- tabs:start -->
 
 ## React
 
-As we already know, we can use built-in React hooks into our custom hooks, which means that we can use `useEffect` just like we could inside any other component.
+As we already know, we can use built-in React hooks in our custom hooks, which means that we can use `useEffect` just like we could inside any other component.
 
 ```jsx
 const useFocusElement = () => {
@@ -349,13 +349,13 @@ const vFocusElement = {
 
 <iframe data-frame-title="Vue Directive Side Effects - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-directive-side-effects-106?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
-For example, if we wanted to add a cleanup to this directive, we could change `mounted` to be `unmounted` instead.
+For example, if we wanted to add a cleanup to this directive, we could change `mounted` to `unmounted` instead.
 
 <!-- tabs:end -->
 
 # Passing Data to Directives
 
-Let's look back at our directive we wrote to add colors to our button. It worked, but that red we were applying to the `button` element was rather harsh, wasn't it?
+Let's look back at the directive we wrote to add colors to our button. It worked, but that red we were applying to the `button` element was somewhat harsh, wasn't it?
 
 We could just set the color to a nicer shade of red — say, `#FFAEAE` — but then what if we wanted to re-use that code elsewhere to set a different button to blue?
 
@@ -385,7 +385,7 @@ const App = () => {
 
 ## Angular
 
-To pass a value to an Angular directive, we can use the `@Input` directive, the same as a component.
+To pass a value to an Angular directive, we can use the `@Input` directive, which is the same as a component.
 
 However, one way that a directive's inputs differ from a component's is that you need to prepend the `selector` value as the `Input` variable name, like so:
 
@@ -419,9 +419,9 @@ class AppComponent {}
 
 ## Vue
 
-While Vue's directives are not simply functions — they are instead objects that contain functions — they are able to access the value bound to the directive through a function argument on each property.
+Vue's directives are not simply functions — they are objects that contain functions and can access the value bound to the directive using arguments on each property.
 
-While the first argument of each lifecycles' key is an element reference (`el`) , the second argument will always be the value assigned to the directive.
+While the first argument of each lifecycle's key is an element reference (`el`), the second argument will always be the value assigned to the directive.
 
 ```vue
 <!-- App.vue -->
@@ -446,7 +446,7 @@ You access the bindings' value through `binding.value`, but can also access thin
 
 ## Passing JavaScript Values
 
-Similar to how you can pass any valid JavaScript object to a component's inputs; you can do the same with a directive.
+Similar to how you can pass any valid JavaScript object to a component's inputs, you can do the same with a directive.
 
 To demonstrate this, let's create a `Color` class that includes the following properties:
 
@@ -568,19 +568,19 @@ const vStyleBackground = {
 
 <!-- tabs:end -->
 
-Now we can customize the color using incremental updates to the RGB values of a color we're passing.
+Now, we can customize the color using incremental updates to the RGB values of a color we're passing.
 
 ## Passing Multiple Values
 
-While a class instance of `Color` may be useful in production apps, for smaller projects it might be nicer to manually pass the `r`, `g`, and `b` values directly to a directive, without needing a class.
+While a class instance of `Color` may be useful in production apps, for smaller projects, it might be nicer to manually pass the `r`, `g`, and `b` values directly to a directive without needing a class.
 
-Just like we're able to pass multiple values to a component, we can do the same within a directive. Let's see how it's done for each of the three frameworks:
+Just as we can pass multiple values to a component, we can do the same within a directive. Let's see how it's done for each of the three frameworks:
 
 <!-- tabs:start -->
 
 ### React
 
-Once again, the fact that a custom hook is still just a normal function provides us the ability to pass multiple arguments, as if they are any other function.
+Once again, the fact that a custom hook is still just a normal function provides us the ability to pass multiple arguments as if they are any other function.
 
 ```jsx
 const useStyleBackground = (r, g, b) => {
@@ -600,9 +600,9 @@ const App = () => {
 
 ### Angular
 
-I have to come clean about something: when I said "a directive's input must be named the same as the attribute's selector," I was lying to keep things simple to explain.
+I have to come clean about something: when I said, "A directive's input must be named the same as the attribute's selector," I was lying to keep things simple to explain.
 
-In reality, you can name an input anything you'd like, but then need to have an empty attribute with the same name as the selector.
+In reality, you can name an input anything you'd like, but then you need to have an empty attribute with the same name as the selector.
 
 ```typescript
 @Directive({
@@ -670,7 +670,7 @@ const vStyleBackground = {
 
 The examples we've used to build out basic directives have previously all mutated elements that don't change their visibility; these elements are always rendered on screen and don't change that behavior programmatically.
 
-But what if we wanted a directive that helped us dynamically render an element, [like we do with our conditional rendering](/posts/ffg-fundamentals-dynamic-html#Conditional-Rendering), but using only an attribute to trigger the render?
+But what if we wanted a directive that helped us dynamically render an element [like we do with our conditional rendering](/posts/ffg-fundamentals-dynamic-html#conditional-rendering) but using only an attribute to trigger the render?
 
 Luckily, we can do that!
 
@@ -678,7 +678,7 @@ Luckily, we can do that!
 
 Let's build out a basic "[feature flags](https://www.youtube.com/watch?v=c8KgKTgyFUE)" implementation, where we can decide if we want a part of the UI rendered based on specific values.
 
-The basic idea of a feature flag is that you have multiple different UIs that you'd like to display to different users to test their effectivity.
+The basic idea of a feature flag is that you have multiple different UIs that you'd like to display to different users to test their effectiveness.
 
 For example, say you want to test two different buttons and see which button gets your users to click on more items to purchase:
 
@@ -690,7 +690,7 @@ For example, say you want to test two different buttons and see which button get
 <button>Purchase this item</button>
 ```
 
-You'd start a "feature flag" that separates your audience into two groups, show each group their respective button terminology, and measure their outcome on user's behaviors when purchasing. You'd then take these measured results and use them to change the roadmap and functionality of your app.
+You'd start a "feature flag" that separates your audience into two groups, show each group their respective button terminology, and measure their outcome on user's purchasing behaviors. You'd then take these measured results and use them to change the roadmap and functionality of your app.
 
 While the separation of your users into "groups" (or "buckets") is typically done on the backend, let's just use a simple object for this demo.
 
@@ -713,7 +713,7 @@ Let's build a basic version of this in each of our frameworks.
 
 ## React
 
-React has a special ability that the other frameworks do not. Using JSX, you're able to assign a bit of HTML template into a variable... But that doesn't mean that you have to use that variable.
+React has a unique ability that the other frameworks do not. Using JSX, you're able to assign a bit of HTML template into a variable... But that doesn't mean that you have to use that variable.
 
 The idea in a feature flag is that you conditionally render UI components.
 
@@ -764,7 +764,7 @@ function App() {
 
 ## Angular
 
-Before we get into how to implement this functionality in Angular, I first need to circle back to [how Angular uses `ng-template` to define a group of HTML elements that can then be rendered after-the-fact](/posts/ffg-fundamentals-dynamic-html#ng-template).
+Before we get into how to implement this functionality in Angular, I first need to circle back to [how Angular uses `ng-template` to define a group of HTML elements that can then be rendered after the fact](/posts/ffg-fundamentals-dynamic-html#ng-template).
 
 While we previously have used `ng-template` as a shorthand for "Don't render this until later," the tag is capable of so much more.
 
@@ -793,7 +793,7 @@ And then render this data inside a template using:
 Here, we're saying that we want to bind the context key `name` to a `name` template variable. This template variable is then accessible to any HTML nodes under
 the `ng-template`.
 
-However, because `ng-template` doesn't render anything on its own, we'll need to supply a parent to render the `ng-template`'s contents into. We do this using the `ngTemplateOutlet` directive:
+However, because `ng-template` doesn't render anything on its own, we'll need to supply a parent to render the `ng-template`'s contents. We do this using the `ngTemplateOutlet` directive:
 
 ```typescript
 import { NgTemplateOutlet } from "@angular/common";
@@ -868,7 +868,7 @@ To solve this, we can pass a "default" key called `$implicit` and bind it like s
 class AppComponent {}
 ```
 
-<iframe data-frame-title="Angular Defaul Keys in Context - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-default-keys-in-context-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Default Keys in Context - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-default-keys-in-context-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Seeing a Template Render a Comment
 
@@ -896,7 +896,7 @@ class AppComponent {}
 
 <iframe data-frame-title="Angular ngTemplate Directive - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-ng-template-directive-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-Surprisingly, this `alert`s the `"I am alive!"` message, despite nothing being shown on screen!
+Surprisingly, this `alert`s the `"I am alive!"` message despite nothing being shown on the screen!
 
 > Why is this?
 
@@ -926,7 +926,7 @@ class AppComponent {}
 
 <iframe data-frame-title="Angular ngTemplate Inject El - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-ng-template-inject-el-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-In this example, we're logged a [Comment node](https://developer.mozilla.org/en-US/docs/Web/API/Comment). Interestingly, if we look at our rendered HTML, we'll see an HTML comment where our `ng-template` was:
+In this example, we've logged a [Comment node](https://developer.mozilla.org/en-US/docs/Web/API/Comment). Interestingly, if we look at our rendered HTML, we'll see an HTML comment where our `ng-template` was:
 
 ```html
 <!--container-->
@@ -1103,11 +1103,11 @@ class AppComponent {}
 
 Might be seen by Angular as such:
 
-![A component has a View Container which has embedded views for elements and a host view for other child components. This child component in turn has its own embedded view for its child elements](./angular_dom.svg)
+![A component has a View Container, which has embedded views for elements and a host view for other child components. This child component, in turn, has its own embedded view for its child elements](./angular_dom.svg)
 
 ### Using ViewContainer to Render a Template {#using-viewcontainer-to-render-a-template}
 
-This isn't just theoretically helpful to learn, though, we're able to tell Angular that we want to gain access to the underlying `ViewContainer` via a [`ViewContainerRef`](https://angular.io/api/core/ViewContainerRef).
+This isn't just theoretically helpful to learn, though; we're able to tell Angular that we want to gain access to the underlying `ViewContainer` via a [`ViewContainerRef`](https://angular.io/api/core/ViewContainerRef).
 
 Similarly, as a template is handled by an `EmbeddedView` in Angular's compiler, we can programmatically create an Embedded View using `ViewContainerRef.createEmbeddedView`:
 
@@ -1143,7 +1143,7 @@ class PassBackgroundDirective {
 class AppComponent {}
 ```
 
-Now we should be able to see the `p` tag rendering!
+Now, we should be able to see the `p` tag rendering!
 
 <iframe data-frame-title="Angular ViewContainer Template - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-viewcontainer-template-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
@@ -1189,11 +1189,11 @@ class AppComponent {}
 
 ### Use Structural Directives to Make Work Easier
 
-In our previous section, we use an `ng-template` in combination with a `div` to render out our app with the correct DOM structure.
+In our previous section, we used an `ng-template` combined with a `div` to render our app with the correct DOM structure.
 
 However, did you know that adding `*` next to a directive turns it into a "Structural Directive"?
 
-By doing so, you're telling the directive to wrap the element inside an `ng-template` to use later.
+Doing so tells the directive to wrap the element inside an `ng-template` to use later.
 
 This:
 
@@ -1235,7 +1235,7 @@ class AppComponent {}
 
 ### Build the Feature Flag Behavior Using Structural Templates
 
-Now that we have our foundation written out, we can finally build a simple `featureFlag` directive that renders nothing if a `flag` is false, but renders the contents if a flag is `true`:
+Now that we have our foundation written out, we can finally build a simple `featureFlag` directive that renders nothing if a `flag` is false but renders the contents if a flag is `true`:
 
 ```typescript
 const flags: Record<string, boolean> = {
@@ -1328,9 +1328,9 @@ import FeatureFlag from "./FeatureFlag.vue";
 
 <iframe data-frame-title="Vue Conditionally Rendered UI - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-conditionally-rendered-ui-110?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
-In my opinion, this is not as clean as using a directive, since you need to have two additional HTML tags, but that's just one of the limitations with Vue's directive.
+In my opinion, this is not as clean as using a directive since you need to have two additional HTML tags, but that's just one of the limitations of Vue's directive.
 
-That said, this method is fairly extensible as you can even use this `FeatureFlag` component to [fetch data from the server using an Async Component, which is a concept that's built into Vue](https://vuejs.org/guide/components/async.html#basic-usage).
+That said, this method is reasonable extensible as you can even use this `FeatureFlag` component to [fetch data from the server using an Async Component, a concept built into Vue](https://vuejs.org/guide/components/async.html#basic-usage).
 
 > While you _could_ theoretically use things like `el.innerHTML` to mutate the HTML of a DOM node inside a directive to display what you'd like to, there are a few major limitations:
 >
@@ -1343,11 +1343,11 @@ That said, this method is fairly extensible as you can even use this `FeatureFla
 
 # Challenge
 
-[In our "Portals" chapter we implemented a tooltip that used portals to avoid issues with the stacking context:](/posts/ffg-fundamentals-portals#challenge)
+[In our "Portals" chapter, we implemented a tooltip that used portals to avoid issues with the stacking context:](/posts/ffg-fundamentals-portals#challenge)
 
-![Hovering over a "send" button will show an alert above the button saying "This will send an email to the recipients"](../ffg-fundamentals-element-reference/tooltip.png)
+![Hovering over a "send" button will show an alert above the button saying, "This will send an email to the recipients."](../ffg-fundamentals-element-reference/tooltip.png)
 
-This code was functional and led to a nice user experience, but the tooltip wasn't broken out to its own component, making it challenging to share the code elsewhere.
+This code was functional and led to a nice user experience, but the tooltip wasn't broken out into its own components, making it challenging to share the code elsewhere.
 
 Let's refactor that code so that we can add a `tooltip` directive so that adding a tooltip is as easy as adding an attribute! To make this challenge more focused on what we've learned in this chapter, let's simplify the design of our tooltip to something like the following:
 
@@ -1458,7 +1458,7 @@ const App = () => {
 
 ## Angular
 
-To get this working as-expected in Angular, we'll combine everything we learned about structural directives alongside our typical directive knowledge.
+To get this working as expected in Angular, we'll combine everything we learned about structural directives alongside our typical directive knowledge.
 
 Our API will eventually look like this:
 
@@ -1467,7 +1467,7 @@ Our API will eventually look like this:
 <div *tooltip="tooltipBase">This is a tooltip</div>
 ```
 
-However, to get this to work, we need to use [Angular CDK's DOMPortal](https://material.angular.io/cdk/portal/api#DomPortal) instead of our previously known TemplatePortal, so that we can teleport the `div` itself to `body` and add properties to the `div` when we do so.
+However, to get this to work, we need to use [Angular CDK's DOMPortal](https://material.angular.io/cdk/portal/api#DomPortal) instead of our previously known `TemplatePortal`, so that we can teleport the `div` itself to `body` and add properties to the `div` when we do so.
 
 We'll build out a custom PortalService that uses a `DomPortalOutlet` to enable this:
 
@@ -1490,7 +1490,7 @@ class PortalService {
 >
 > The order of the properties in `DomPortalOutlet` will likely change in the future allowing `document` to be passed first, but has not yet at the time of writing.
 
-Then we can bind to the `DomPortalOutput` by creating a `DOMPortal` like so:
+Then, we can bind to the `DomPortalOutput` by creating a `DOMPortal` like so:
 
 ```typescript
 const viewRef = this.viewContainerRef.createEmbeddedView(this.templToRender);
@@ -1588,7 +1588,7 @@ class TooltipDirective implements AfterViewInit, OnDestroy {
 class AppComponent {}
 ```
 
-And suddenly our code works as we would expect!
+And suddenly, our code works as we would expect!
 
 <details>
 
