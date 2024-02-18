@@ -89,19 +89,19 @@ However, when most mention "React," they tend to talk about the React ecosystem 
 
 On the other hand, Angular is fully funded and supported by Google. They build a substantial portion of their major websites on top of the framework and, as a result, have a vested interest in continuing and up-keeping development. Continuing the differences from React, the Angular core team maintains a slew of helper libraries that provide everything from an [HTTP call layer](https://angular.io/guide/http) to [form validation](https://angular.io/guide/forms-overview).
 
-Vue is often seen as the odd one out when talking about funding. Vue's development is driven by an independent team crowd-funded by a diverse pool of groups and individuals. However, while it's unclear how much money they bring in, it is clear that there are significantly sized contributors involved. Not only do they have a sizable open-source maintenance team, but they also have sponsors from major organizations [like Alibaba, Baidu, Xiaomi, and more](https://medium.com/the-vue-point/the-state-of-vue-1655e10a340a).
+Vue is often seen as the odd one out when talking about funding. Vue's development is driven by an independent team crowd-funded by a diverse pool of groups and individuals. However, while it's unclear how much money they bring in, it is clear that there are significant-sized financial contributors involved, [such as Alibaba, Baidu, Xiaomi, and more](https://medium.com/the-vue-point/the-state-of-vue-1655e10a340a).
 
 Like Angular, the Vue core team consists of groups working on a broad tooling set. Everything from [the official routing library](https://router.vuejs.org/) to its two different global store libraries ([Vuex](https://vuex.vuejs.org/) and [Pinia](https://pinia.vuejs.org/)) and beyond are considered part of Vue's core.
 
 ### Why Learn All Three Frameworks? {#why-learn-all-three}
 
-While the obvious answer is "it broadens the types of work you're able to do," there are more reasons than that to learn more than one framework at a time.
+While the obvious answer is "it broadens the types of work you're able to do," there are many reasons to learn more than one framework at a time.
 
 In particular, each framework has its own restrictions, rules, and best practices. These rules and restrictions can help you understand a different way of coding that often transfers to other frameworks.
 
 For example, Angular focuses on object-oriented programming, while the React ecosystem favors functional programming. While what each of these means is not immediately important, they allow you to do many of the same things in different ways and have other pros and cons.
 
-Because of this, once you have a higher mastery skill with each, you can pick and choose which methodology of programming you want to apply within parts of your applications.
+Because of this, once you have mastered each, you can choose which programming methodology you want to apply within parts of your applications.
 
 Beyond this, it's important to remember that these three frameworks are not the only choices on the table in web development. Svelte is an alternative that's been gaining tremendous traction, for example. While it differs even more from the three options we're learning, Svelte still shares many of the foundations of React, Angular, and Vue.
 
@@ -123,11 +123,11 @@ Additionally, from a cultural standpoint, many developers are also tired of swit
 
 Just because a tool is new doesn't mean that it's inherently better; even better-perceived tools may not be selected for various reasons.
 
-# What Will We Be Learning? {#what-are-we-learning}
+# What Are The Prerequisites? {#what-are-the-prerequisites}
 
-As mentioned earlier, we will be learning React, Angular, and Vue from an introductory place all the way to understanding the inner workings of these frameworks.
+We will be learning React, Angular, and Vue from the basics all the way to understanding the inner workings of these frameworks.
 
-**You do not need any pre-requisite knowledge of these frameworks and very little pre-requisite knowledge of JavaScript, HTML, or CSS.**
+**You do not need any prerequisite knowledge of these frameworks and very little pre-requisite knowledge of JavaScript, HTML, or CSS.**
 
 In fact, I will do my best to link out to anything that's expected to be known or valuable in continuing the learning process. That said, if you're new to these topics, some suggested pre-reading might include:
 
@@ -147,7 +147,7 @@ Before taking a look at some specifics of what we'll be learning, **let's talk a
 - IDE functionality, such as VSCode, WebStorm, or Sublime Text.
 - TypeScript — while Angular code samples will include a bit of it, we won't be diving into the specifics.
 
-All of these are broad concepts in their own right and have a plethora of content capable of hosting their own books. After all, resources without a properly defined scope run into challenges of surface-level explanations, jarring transitions, and even delayed publications.
+All of these are broad topics in their own right and have a plethora of content capable of hosting their own books. After all, resources without a properly defined scope run into challenges of surface-level explanations, jarring transitions, and even delayed publications.
 
 > Remember, knowledge is like a web — these topics intersect in messy and complex ways! It's okay to take your time to learn these or even limit your learning scope to remain focused on a specific subset of knowledge. Nobody knows each and all of these perfectly, and that's okay!
 
