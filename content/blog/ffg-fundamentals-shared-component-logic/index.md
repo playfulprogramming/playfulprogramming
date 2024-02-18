@@ -11,7 +11,7 @@
 }
 ---
 
-Components are awesome. They allow you to make your code logic more modular and associate that logic to a related collection of DOM nodes. More importantly than that, **components are _composable_**; You can take two components and use them together to build a third that uses them both.
+Components are awesome. They allow you to make your code logic more modular and associate that logic with a related collection of DOM nodes. More importantly than that, **components are _composable_**; You can take two components and use them together to build a third that employs them both.
 
 Sometimes, while building components, you may find yourself needing to share logic between multiple components.
 
@@ -26,10 +26,10 @@ Sometimes, while building components, you may find yourself needing to share log
 For example, let's say that you have some component code that detects the current window size. While this might seem like a simple problem at first, it requires you to:
 
 - Get the initial window size and share that data with the component
-- Add and cleanup event listeners for when the user resizes their browser window
-- Compose the window sizing logic inside other shared logic, such as a `onlyShowOnMobile` boolean
+- Add and clean up event listeners for when the user resizes their browser window
+- Compose the window sizing logic inside other shared logic, such as an `onlyShowOnMobile` boolean
 
-The method how this logic is shared between components differs from framework to framework.
+The method of how this logic is shared between components differs from framework to framework.
 
 | Framework | Method Of Logic Sharing |
 | --------- | ----------------------- |
@@ -51,7 +51,7 @@ The first step of creating composable shared logic is to create a way to store d
 
 ## React
 
-In a normal React component, we'd store data using `useState` or `useReducer` hook. Using React's custom hooks, we'll use the same APIs to create our own hook that combines (or, composes) these other APIs:
+In a typical React component, we'd store data using the `useState` or `useReducer` hook. Using React's custom hooks, we'll use the same APIs to create our own hook that combines (or composes) these other APIs:
 
 ```jsx
 const useWindowSize = () => {
@@ -196,7 +196,7 @@ export const useWindowSize = () => {
 };
 ```
 
-This custom function is often called a "composition," since we're using Vue's Composition API inside it. We can then use this composition inside our setup `script`, like so:
+This custom function is often called a "composition" since we're using Vue's Composition API inside it. We can then use this composition inside our setup `script` like so:
 
 ```vue
 <!-- App.vue -->
@@ -225,7 +225,7 @@ While sharing data between a consuming component is helpful in its own right, th
 
 One of the most powerful things that can be reused between components is [side effect](/posts/ffg-fundamentals-side-effects) logic.
 
-Using this, we can say something alone the lines of:
+Using this, we can say something along the lines of:
 
 > When a component that implements this shared bit of code renders, do this behavior.
 
@@ -266,7 +266,7 @@ const useWindowSize = () => {
 
 ... That's it!
 
-There's nothing more we need to do inside our `useWindowSize` consuming component, it simply works transparently as-if we had placed the `useEffect` in the component itself.
+There's nothing more we need to do inside our `useWindowSize` consuming component; it simply works transparently as if we had placed the `useEffect` in the component itself.
 
 ```jsx
 const App = () => {
@@ -338,7 +338,7 @@ class AppComponent {
 
 ## Vue
 
-Sharing side effect handling within custom compositions is just as straightforward as using them within components. We can simply use the same `onMounted` and `onUnmounted` lifecycle methods as we do within our `setup` `script`.
+Sharing side effects handling within custom compositions is just as straightforward as using them within components. We can simply use the same `onMounted` and `onUnmounted` lifecycle methods as we do within our `setup` `script`.
 
 ```javascript
 // use-window-size.js
@@ -386,7 +386,7 @@ const { height, width } = useWindowSize();
 
 # Composing Custom Logic
 
-We've covered how shared logic can access data storage and side effect handlers, now let's talk about the fun stuff: Composability.
+We've covered how shared logic can access data storage and side-effect handlers. Now let's talk about the fun stuff: Composability.
 
 Not only can you call your custom logic from components, but you can call them from other shared logic fragments.
 
@@ -420,7 +420,7 @@ Luckily for us, we can do this with our frameworks with full access to all the o
 
 ## React
 
-So, you remember how we used `useState` inside of `useWindowSize`? That's because all hooks are composable.
+So, do you remember how we used `useState` inside of `useWindowSize`? That's because all hooks are composable.
 
 This is true for custom hooks as well, meaning that we can do the following code:
 
@@ -449,7 +449,7 @@ const Component = () => {
 
 ## Angular
 
-Just as we can use dependency injection to provide an instance of our `WindowSize` class, we can use an instance of our provided `WindowSize` class inside a new `IsMobile` class, that's also provided in a class.
+Just as we can use dependency injection to provide an instance of our `WindowSize` class, we can use an instance of our provided `WindowSize` class inside a new `IsMobile` class that's also provided in a class.
 
 First, though, we need to provide a way to add behavior to our `onResize` class:
 
@@ -482,7 +482,7 @@ class WindowSize implements OnDestroy {
 }
 ```
 
-Now that we have this ability to tap into the `resize` event handler, let's write our own `IsMobile` class:
+Now that we have this ability to tap into the `resize` event handler let's write our own `IsMobile` class:
 
 ```typescript
 @Injectable()
@@ -500,7 +500,7 @@ class IsMobile {
 }
 ```
 
-This allows us to have a `isMobile` field that we can access from our `AppComponent` class:
+This allows us to have an `isMobile` field that we can access from our `AppComponent` class:
 
 ```typescript
 @Component({
@@ -516,7 +516,7 @@ class AppComponent {
 
 <iframe data-frame-title="Angular Composing Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-composing-logic-102?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-Something worth mentioning is that we need to provide both `WindowSize` and `IsMobile`, otherwise we'll get an error like so:
+Something worth mentioning is that we need to provide both `WindowSize` and `IsMobile`; otherwise, we'll get an error like so:
 
 ```
 Error: R3InjectorError(AppModule)[WindowSize -> WindowSize -> WindowSize]:
@@ -611,7 +611,7 @@ const useOutsideClick = ({ ref, onClose }) => {
 };
 ```
 
-Now that we have our `useOutsideClick` hook written we can use it in our `ContextMenu` component:
+Now that we have our `useOutsideClick` hook written, we can use it in our `ContextMenu` component:
 
 ```jsx
 const ContextMenu = forwardRef(({ x, y, onClose }, ref) => {
@@ -648,7 +648,7 @@ const ContextMenu = forwardRef(({ x, y, onClose }, ref) => {
 
 While we were able to use the `constructor` to set up our event listeners in previous code samples, we need to explicitly have a `setup` function in this code sample.
 
-This is because our `ViewChild` element reference isn't available until `AfterViewInit`, and isn't immediately accessible from `constructor`
+This is because our `ViewChild` element reference isn't available until `AfterViewInit`, and isn't immediately accessible from `constructor`:
 
 <!-- Editor's note: This is true even with {static: true} -->
 
@@ -754,7 +754,7 @@ export const useOutsideClick = ({ ref, onClose }) => {
 };
 ```
 
-Then we can use this composition in our `ContextMenu` component:
+Then, we can use this composition in our `ContextMenu` component:
 
 ```vue
 <!-- ContextMenu.vue -->
