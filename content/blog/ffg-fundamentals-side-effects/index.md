@@ -246,7 +246,7 @@ const Parent = () => {
 };
 ```
 
-<iframe data-frame-title="React Initial Render Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-initial-render-demo-26?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Initial Render Demo - StackBlitz" src="uu-code:./ffg-fundamentals-react-initial-render-demo-26?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -277,7 +277,7 @@ class ParentComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Initial Render Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-initial-render-demo-26?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Initial Render Demo - StackBlitz" src="uu-code:./ffg-fundamentals-angular-initial-render-demo-26?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -309,7 +309,7 @@ function setShowChild() {
 </template>
 ```
 
-<iframe data-frame-title="Vue Initial Render Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-initial-render-demo-26?template=node&embed=1&file=src%2FParent.vue"></iframe>
+<iframe data-frame-title="Vue Initial Render Demo - StackBlitz" src="uu-code:./ffg-fundamentals-vue-initial-render-demo-26?template=node&embed=1&file=src%2FParent.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -339,7 +339,7 @@ const Child = () => {
 };
 ```
 
-<iframe data-frame-title="React Initial Render useEffect - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-initial-render-useeffect-27?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Initial Render useEffect - StackBlitz" src="uu-code:./ffg-fundamentals-react-initial-render-useeffect-27?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Here, we're completing the task of "run `console.log` when `Child` is rendered for the first time" by allowing React to run the `console.log` side effect inside of `useEffect`. The empty array hints to React that we'd only like this function to run once — when the component initially renders.
 
@@ -367,7 +367,7 @@ class ChildComponent implements OnInit {
 }
 ```
 
-<iframe data-frame-title="Angular Initial Render onInit - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-initial-render-on-init-27?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Initial Render onInit - StackBlitz" src="uu-code:./ffg-fundamentals-angular-initial-render-on-init-27?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 All of Angular's lifecycle methods are prepended with `ng` and add `implements` to your component class.
 
@@ -396,7 +396,7 @@ onMounted(() => {
 </template>
 ```
 
-<iframe data-frame-title="Vue Initial Render onMount - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-initial-render-on-mount-27?template=node&embed=1&file=src%2FChild.vue"></iframe>
+<iframe data-frame-title="Vue Initial Render onMount - StackBlitz" src="uu-code:./ffg-fundamentals-vue-initial-render-on-mount-27?template=node&embed=1&file=src%2FChild.vue"></iframe>
 
 Here, we're importing the `onMounted` lifecycle handler from the `vue` import. Vue's lifecycle methods all start with an `on` prefix when used inside a `<script setup>` component.
 
@@ -419,7 +419,7 @@ watchEffect(() => {
 </template>
 ```
 
-<iframe data-frame-title="Vue Initial Render watchEffect - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-initial-render-watch-effect-27?template=node&embed=1&file=src%2FChild.vue"></iframe>
+<iframe data-frame-title="Vue Initial Render watchEffect - StackBlitz" src="uu-code:./ffg-fundamentals-vue-initial-render-watch-effect-27?template=node&embed=1&file=src%2FChild.vue"></iframe>
 
 Here, we're using `watchEffect` to run `console.log` as soon as the `Child` component renders.
 
@@ -455,7 +455,7 @@ const WindowSize = () => {
 };
 ```
 
-<iframe data-frame-title="React Broken Window Size - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-broken-window-size-28?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Broken Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-react-broken-window-size-28?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -476,7 +476,7 @@ class WindowSizeComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Broken Window Size - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-broken-window-size-28?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Broken Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-angular-broken-window-size-28?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -495,7 +495,7 @@ const width = window.innerWidth;
 </template>
 ```
 
-<iframe data-frame-title="Vue Broken Window Size - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-window-size-28?template=node&embed=1&file=src%2FWindowSize.vue"></iframe>
+<iframe data-frame-title="Vue Broken Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-vue-broken-window-size-28?template=node&embed=1&file=src%2FWindowSize.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -533,7 +533,7 @@ const WindowSize = () => {
 };
 ```
 
-<iframe data-frame-title="React Leaking Window Size - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-leaking-window-size-29?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Leaking Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-react-leaking-window-size-29?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -568,7 +568,7 @@ class WindowSizeComponent implements OnInit {
 >
 > If this sentence feels unfamiliar, no worries; [I wrote an article explaining what this means](https://unicorn-utterances.com/posts/javascript-bind-usage).
 
-<iframe data-frame-title="Angular Leaking Window Size - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-leaking-window-size-29?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Leaking Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-angular-leaking-window-size-29?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -599,7 +599,7 @@ onMounted(() => {
 </template>
 ```
 
-<iframe data-frame-title="Vue Leaking Window Size - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-leaking-window-size-29?template=node&embed=1&file=src%2FWindowSize.vue"></iframe>
+<iframe data-frame-title="Vue Leaking Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-vue-leaking-window-size-29?template=node&embed=1&file=src%2FWindowSize.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -635,7 +635,7 @@ const WindowSize = () => {
 };
 ```
 
-<iframe data-frame-title="React Broken Event Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-broken-event-bubbling-30?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Broken Event Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-react-broken-event-bubbling-30?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -662,7 +662,7 @@ class WindowSizeComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Broken Event Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-broken-event-bubbling-30?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Broken Event Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-angular-broken-event-bubbling-30?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -689,7 +689,7 @@ function resizeHandler() {
 </template>
 ```
 
-<iframe data-frame-title="Vue Broken Event Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-event-bubbling-30?template=node&embed=1&file=src%2FWindowSize.vue"></iframe>
+<iframe data-frame-title="Vue Broken Event Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-vue-broken-event-bubbling-30?template=node&embed=1&file=src%2FWindowSize.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -714,7 +714,7 @@ We can demonstrate this inside our frameworks.
 </div>
 ```
 
-<iframe data-frame-title="React Event Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-event-bubbling-31?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Event Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-react-event-bubbling-31?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -727,7 +727,7 @@ We can demonstrate this inside our frameworks.
 </div>
 ```
 
-<iframe data-frame-title="Angular Event Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-event-bubbling-31?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Event Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-angular-event-bubbling-31?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -740,7 +740,7 @@ We can demonstrate this inside our frameworks.
 </div>
 ```
 
-<iframe data-frame-title="Vue Event Bubbling - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-event-bubbling-31?template=node&embed=1&file=src%2FEventBubbler.vue"></iframe>
+<iframe data-frame-title="Vue Event Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-vue-event-bubbling-31?template=node&embed=1&file=src%2FEventBubbler.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -924,7 +924,7 @@ function App() {
 }
 ```
 
-<iframe data-frame-title="React Broken Clock - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-broken-clock-32?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Broken Clock - StackBlitz" src="uu-code:./ffg-fundamentals-react-broken-clock-32?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -949,7 +949,7 @@ class AppComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Broken Clock - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-broken-clock-32?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Broken Clock - StackBlitz" src="uu-code:./ffg-fundamentals-angular-broken-clock-32?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -974,7 +974,7 @@ function setShowClock(val) {
 </template>
 ```
 
-<iframe data-frame-title="Vue Broken Clock - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-clock-32?template=node&embed=1&file=src%2FClock.vue"></iframe>
+<iframe data-frame-title="Vue Broken Clock - StackBlitz" src="uu-code:./ffg-fundamentals-vue-broken-clock-32?template=node&embed=1&file=src%2FClock.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1063,7 +1063,7 @@ function App() {
 }
 ```
 
-<iframe data-frame-title="React Broken Alarm - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-broken-alarm-33?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Broken Alarm - StackBlitz" src="uu-code:./ffg-fundamentals-react-broken-alarm-33?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -1133,7 +1133,7 @@ class AppComponent implements OnInit {
 }
 ```
 
-<iframe data-frame-title="Angular Broken Alarm - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-broken-alarm-33?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Broken Alarm - StackBlitz" src="uu-code:./ffg-fundamentals-angular-broken-alarm-33?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -1200,7 +1200,7 @@ const disable = () => {
 </template>
 ```
 
-<iframe data-frame-title="Vue Broken Alarm - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-alarm-33?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Broken Alarm - StackBlitz" src="uu-code:./ffg-fundamentals-vue-broken-alarm-33?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 > You'll notice that we're not using events for our Vue code sample and have instead opted to pass a function.
 > This is because, while the other frameworks will continue to listen for events from an unmounted component, Vue does
@@ -1283,7 +1283,7 @@ const Cleanup = () => {
 };
 ```
 
-<iframe data-frame-title="React Unmounting - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-unmounting-34?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Unmounting - StackBlitz" src="uu-code:./ffg-fundamentals-react-unmounting-34?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 This returned function will be run whenever:
 
@@ -1354,7 +1354,7 @@ class CleanupComponent implements OnDestroy {
 }
 ```
 
-<iframe data-frame-title="Angular Unmounting - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-unmounting-34?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Unmounting - StackBlitz" src="uu-code:./ffg-fundamentals-angular-unmounting-34?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Let's apply this new lifecycle method to our code sample previously:
 
@@ -1427,7 +1427,7 @@ onUnmounted(() => {
 </template>
 ```
 
-<iframe data-frame-title="Vue Unmounting - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-unmounting-34?template=node&embed=1&file=src%2FCleanup.vue"></iframe>
+<iframe data-frame-title="Vue Unmounting - StackBlitz" src="uu-code:./ffg-fundamentals-vue-unmounting-34?template=node&embed=1&file=src%2FCleanup.vue"></iframe>
 
 Let's apply this new lifecycle method to our code sample previously:
 
@@ -1654,7 +1654,7 @@ class AppComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Hidden Memory Leak Events - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-hidden-memory-leak-events-35?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Hidden Memory Leak Events - StackBlitz" src="uu-code:./ffg-fundamentals-angular-hidden-memory-leak-events-35?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -1700,7 +1700,7 @@ const alertUser = () => alert("I am an alert!");
 </template>
 ```
 
-<iframe data-frame-title="Vue Hidden Memory Leak Events - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-hidden-memory-leak-events-35?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Hidden Memory Leak Events - StackBlitz" src="uu-code:./ffg-fundamentals-vue-hidden-memory-leak-events-35?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1863,7 +1863,7 @@ const App = () => {
 };
 ```
 
-<iframe data-frame-title="React Hidden Memory Leak Functions - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-hidden-memory-leak-functions-36?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Hidden Memory Leak Functions - StackBlitz" src="uu-code:./ffg-fundamentals-react-hidden-memory-leak-functions-36?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 #### Angular
 
@@ -1905,7 +1905,7 @@ class AppComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Hidden Memory Leak Functions - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-hidden-memory-leak-functions-36?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Hidden Memory Leak Functions - StackBlitz" src="uu-code:./ffg-fundamentals-angular-hidden-memory-leak-functions-36?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 #### Vue
 
@@ -1949,7 +1949,7 @@ const alertUser = () => alert("I am an alert!");
 </template>
 ```
 
-<iframe data-frame-title="Vue Hidden Memory Leak Functions - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-hidden-memory-leak-functions-36?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Hidden Memory Leak Functions - StackBlitz" src="uu-code:./ffg-fundamentals-vue-hidden-memory-leak-functions-36?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -2197,7 +2197,7 @@ However, if you disable `StrictMode` your output will be:
 
 1. `I am rendering. Counter: 1`
 
-<iframe data-frame-title="React Ensure Cleanup - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-ensure-cleanup-37?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Ensure Cleanup - StackBlitz" src="uu-code:./ffg-fundamentals-react-ensure-cleanup-37?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Again, **this is intentional**. React is trying to help you find bugs in your code by highlighting side effects that are not cleaned up.
 
@@ -2280,7 +2280,7 @@ const ReRenderListener = () => {
 };
 ```
 
-<iframe data-frame-title="React Re-Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-re-render-38?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Re-Render - StackBlitz" src="uu-code:./ffg-fundamentals-react-re-render-38?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Because the `button` triggers a re-render, `useEffect` will run, even if there is not a paint.
 
@@ -2319,7 +2319,7 @@ onUpdated(() => {
 </template>
 ```
 
-<iframe data-frame-title="Vue Re-Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-re-render-38?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Re-Render - StackBlitz" src="uu-code:./ffg-fundamentals-vue-re-render-38?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 Every time the `ReRenderListener` component updates the DOM with new changes, the `onUpdated` method will run.
 
@@ -2427,7 +2427,7 @@ const App = () => {
 };
 ```
 
-<iframe data-frame-title="React In-Component Side Effects - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-in-component-side-effects-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React In-Component Side Effects - StackBlitz" src="uu-code:./ffg-fundamentals-react-in-component-side-effects-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 By doing this, we're _hinting_ to React that this side effect should only ever run when the `test` variable's _reference_ has changed during a render.
 
@@ -2461,7 +2461,7 @@ function App() {
 }
 ```
 
-<iframe data-frame-title="React Stale Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-stale-values-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Stale Values - StackBlitz" src="uu-code:./ffg-fundamentals-react-stale-values-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Here, we're telling React to `console.log` the `count` value every second inside a `setInterval`.
 
@@ -2484,7 +2484,7 @@ useEffect(() => {
 }, [count]);
 ```
 
-<iframe data-frame-title="React Fixed Stale Values - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-fixed-stale-values-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Fixed Stale Values - StackBlitz" src="uu-code:./ffg-fundamentals-react-fixed-stale-values-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -2515,7 +2515,7 @@ class AppComponent {
 }
 ```
 
-<iframe data-frame-title="Angular In-Component Side Effects - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-in-component-side-effects-39?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular In-Component Side Effects - StackBlitz" src="uu-code:./ffg-fundamentals-angular-in-component-side-effects-39?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -2546,7 +2546,7 @@ watchEffect(() => {
 </template>
 ```
 
-<iframe data-frame-title="Vue In-Component Side Effects - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-in-component-side-effects-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue In-Component Side Effects - StackBlitz" src="uu-code:./ffg-fundamentals-vue-in-component-side-effects-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 How does `watchEffect` know what refs to watch? The long answer dives deep into Vue's source code and is a challenge to introduce at this stage.
 
@@ -2581,7 +2581,7 @@ watchEffect(() => {
 });
 ```
 
-<iframe data-frame-title="Vue Broken Watch Effect Tracking - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-watch-effect-tracking-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Broken Watch Effect Tracking - StackBlitz" src="uu-code:./ffg-fundamentals-vue-broken-watch-effect-tracking-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 It will only track changes to `count`, as the `title.value` usage is inside an async operation.
 
@@ -2606,7 +2606,7 @@ watch(
 );
 ```
 
-<iframe data-frame-title="Vue Watch - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-watch-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Watch - StackBlitz" src="uu-code:./ffg-fundamentals-vue-watch-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 > You may notice that we're passing `{immediate: true}` as the options for the `watch`; what is that doing?
 >
@@ -2659,7 +2659,7 @@ watch([title, count], (currentValue, previousValue, onCleanup) => {
 });
 ```
 
-<iframe data-frame-title="Vue Watch Multiple - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-watch-multiple-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Watch Multiple - StackBlitz" src="uu-code:./ffg-fundamentals-vue-watch-multiple-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -2761,7 +2761,7 @@ While the initial value is set to `10` with an arrow pointing to the `1`, if we 
 
 ![An uptick symbol facing the 1 in a number of 1000 painted in the DOM](./dom_measure_uselayout_effect.png)
 
-<iframe data-frame-title="React Rendering, Committing, Painting - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-rendering-committing-painting-40?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Rendering, Committing, Painting - StackBlitz" src="uu-code:./ffg-fundamentals-react-rendering-committing-painting-40?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -2801,7 +2801,7 @@ watch(
 </template>
 ```
 
-<iframe data-frame-title="Vue Rendering, Committing, Painting Broken - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-rendering-committing-painting-broken-40?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Rendering, Committing, Painting Broken - StackBlitz" src="uu-code:./ffg-fundamentals-react-rendering-committing-painting-broken-40?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 Here, when we click any of the buttons to trigger a `title` change, you may notice that it shows the _previous_ value of the element's `innerText`. For example, when we press "Music", it shows the `innerText` of `Movies`, which was the previous value of `title`.
 
@@ -2827,7 +2827,7 @@ watch(
 );
 ```
 
-<iframe data-frame-title="Vue Rendering, Committing, Painting - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-rendering-committing-painting-40?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Rendering, Committing, Painting - StackBlitz" src="uu-code:./ffg-fundamentals-vue-rendering-committing-painting-40?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 Now, when we click on an item, it will print out the current version of `title` for the element's `innerText`.
 
@@ -2869,7 +2869,7 @@ const TitleChanger = () => {
 };
 ```
 
-<iframe data-frame-title="React Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-update-title-41?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-react-update-title-41?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -2898,7 +2898,7 @@ export class TitleChangerComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-update-title-41?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-angular-update-title-41?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -2926,7 +2926,7 @@ function updateTitle(val) {
 </template>
 ```
 
-<iframe data-frame-title="Vue Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-update-title-41?template=node&embed=1&file=src%2FTitleChanger.vue"></iframe>
+<iframe data-frame-title="Vue Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-vue-update-title-41?template=node&embed=1&file=src%2FTitleChanger.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -2969,7 +2969,7 @@ const TitleChanger = () => {
 };
 ```
 
-<iframe data-frame-title="React Stateful Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-stateful-update-title-42?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Stateful Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-react-stateful-update-title-42?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -3005,7 +3005,7 @@ export class TitleChangerComponent implements OnDestroy {
 }
 ```
 
-<iframe data-frame-title="Angular Stateful Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-stateful-update-title-42?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Stateful Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-angular-stateful-update-title-42?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -3038,7 +3038,7 @@ onUnmounted(() => clearTimeout(timeoutExpire.value));
 </template>
 ```
 
-<iframe data-frame-title="Vue Stateful Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-stateful-update-title-42?template=node&embed=1&file=src%2FTitleChanger.vue"></iframe>
+<iframe data-frame-title="Vue Stateful Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-vue-stateful-update-title-42?template=node&embed=1&file=src%2FTitleChanger.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -3082,7 +3082,7 @@ const TitleChanger = () => {
 };
 ```
 
-<iframe data-frame-title="React Mutable Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-mutable-update-title-43?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Mutable Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-react-mutable-update-title-43?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 `useRef` allows you to persist data across renders, similar to `useState`. There are two major differences from `useState`:
 
@@ -3141,7 +3141,7 @@ const Comp = () => {
 };
 ```
 
-<iframe data-frame-title="React useRef Timestamp - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-ref-timestamp-43?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React useRef Timestamp - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-ref-timestamp-43?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Why doesn't this show a timestamp?
 
@@ -3175,7 +3175,7 @@ const Comp = () => {
 };
 ```
 
-<iframe data-frame-title="React useRef Timestamp Rerender - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-ref-timestamp-rerender-43?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React useRef Timestamp Rerender - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-ref-timestamp-rerender-43?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Here, the timestamp display will never update until you press the `button`. Even then, however, `useEffect` will run _after_ the render, meaning that the displayed timestamp will be from the _previous_ occurrence of the `button` press.
 
@@ -3234,7 +3234,7 @@ export class TitleChangerComponent implements OnDestroy {
 }
 ```
 
-<iframe data-frame-title="Angular Mutable Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-mutable-update-title-43?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Mutable Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-angular-mutable-update-title-43?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 > If `inject` seems magic to you, it might as well be. To explore how dependency injection works under-the-hood, [check out chapter 11, which explores the topic](/posts/ffg-fundamentals-dependency-injection).
 
@@ -3271,7 +3271,7 @@ onUnmounted(() => clearTimeout(timeoutExpire));
 </template>
 ```
 
-<iframe data-frame-title="Vue Mutable Update Title - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-mutable-update-title-43?template=node&embed=1&file=src%2FTitleChanger.vue"></iframe>
+<iframe data-frame-title="Vue Mutable Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-vue-mutable-update-title-43?template=node&embed=1&file=src%2FTitleChanger.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -3835,7 +3835,7 @@ function App() {
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="React Effects Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-effects-challenge-44?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Effects Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-effects-challenge-44?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 </details>
 
@@ -3944,7 +3944,7 @@ class AppComponent {}
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Angular Effects Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-effects-challenge-44?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Effects Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-effects-challenge-44?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 </details>
 
@@ -4048,7 +4048,7 @@ import DarkModeToggle from "./DarkModeToggle.vue";
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Vue Effects Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-effects-challenge-44?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Effects Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-effects-challenge-44?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 </details>
 

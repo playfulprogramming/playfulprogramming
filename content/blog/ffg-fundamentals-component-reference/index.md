@@ -93,7 +93,7 @@ function App() {
 }
 ```
 
-<iframe data-frame-title="React Comp Ref Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-comp-ref-intro-66?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Comp Ref Intro - StackBlitz" src="uu-code:./ffg-fundamentals-react-comp-ref-intro-66?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -193,7 +193,7 @@ class AppComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Comp Ref Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-comp-ref-intro-66?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Comp Ref Intro - StackBlitz" src="uu-code:./ffg-fundamentals-angular-comp-ref-intro-66?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -286,7 +286,7 @@ const open = (e) => {
 </template>
 ```
 
-<iframe data-frame-title="Vue Comp Ref Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-comp-ref-intro-66?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Comp Ref Intro - StackBlitz" src="uu-code:./ffg-fundamentals-vue-comp-ref-intro-66?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -374,7 +374,7 @@ const App = () => {
 };
 ```
 
-<iframe data-frame-title="React Broken forwardRef - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-broken-forward-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Broken forwardRef - StackBlitz" src="uu-code:./ffg-fundamentals-react-broken-forward-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Doing this will result in our `ref` callback not being called as expected, alongside two error messages explaining why:
 
@@ -401,7 +401,7 @@ const App = () => {
 };
 ```
 
-<iframe data-frame-title="React Renamed Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-renamed-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Renamed Ref - StackBlitz" src="uu-code:./ffg-fundamentals-react-renamed-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 2. Use the `forwardRef` API, as suggested by the error message originally printed.
 
@@ -422,7 +422,7 @@ const App = () => {
 };
 ```
 
-<iframe data-frame-title="React Working forwardRef - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-working-forward-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Working forwardRef - StackBlitz" src="uu-code:./ffg-fundamentals-react-working-forward-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 As we can see, `forwardRef` accepts slightly modified component functions. While the first argument might look familiar as our place to access properties, our special property `ref` is passed as a second argument.
 
@@ -463,7 +463,7 @@ const App = () => {
 };
 ```
 
-<iframe data-frame-title="React useImperativeHandle - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-imperative-handle-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React useImperativeHandle - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-imperative-handle-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Here, we can assign properties, functions, or any other JavaScript values to the forwarded `ref`. If we look at the output of our `ref` callback from `App` it shows up the object that we assigned using `useImperativeHandle`:
 
@@ -485,7 +485,7 @@ const App = () => {
 };
 ```
 
-<iframe data-frame-title="React useImperativeHandle Fn Use - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-use-imperative-handle-fn-use-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React useImperativeHandle Fn Use - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-imperative-handle-fn-use-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 It will output `Hello, world`, just as we would expect it to!
 
@@ -601,7 +601,7 @@ class ParentComponent implements AfterViewInit {
 }
 ```
 
-<iframe data-frame-title="Angular Comp Ref Log - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-comp-ref-log-67?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Comp Ref Log - StackBlitz" src="uu-code:./ffg-fundamentals-angular-comp-ref-log-67?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Doing this, we'll see the console output:
 
@@ -642,7 +642,7 @@ And it will alert:
 Hello, world
 ```
 
-<iframe data-frame-title="Angular Comp Ref Alert - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-comp-ref-alert-67?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Comp Ref Alert - StackBlitz" src="uu-code:./ffg-fundamentals-angular-comp-ref-alert-67?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -681,7 +681,7 @@ onMounted(() => {
 </template>
 ```
 
-<iframe data-frame-title="Vue Comp Ref Log - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-comp-ref-log-67?template=node&embed=1&file=src%2FParent.vue"></iframe>
+<iframe data-frame-title="Vue Comp Ref Log - StackBlitz" src="uu-code:./ffg-fundamentals-vue-comp-ref-log-67?template=node&embed=1&file=src%2FParent.vue"></iframe>
 
 If we look at our console output, we might see something unexpected:
 
@@ -720,7 +720,7 @@ onMounted(() => {
 </template>
 ```
 
-<iframe data-frame-title="Vue Broken Expose Comp Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-broken-expose-comp-ref-67?template=node&embed=1&file=src%2FParent.vue"></iframe>
+<iframe data-frame-title="Vue Broken Expose Comp Ref - StackBlitz" src="uu-code:./ffg-fundamentals-vue-broken-expose-comp-ref-67?template=node&embed=1&file=src%2FParent.vue"></iframe>
 
 We'll see that `childComp.value.pi` is `undefined` currently. This is because, by default, Vue's `setup script` does not "expose" internal variables to component references externally.
 
@@ -767,7 +767,7 @@ onMounted(() => {
 </template>
 ```
 
-<iframe data-frame-title="Vue Expose Comp Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-expose-comp-ref-67?template=node&embed=1&file=src%2FParent.vue"></iframe>
+<iframe data-frame-title="Vue Expose Comp Ref - StackBlitz" src="uu-code:./ffg-fundamentals-vue-expose-comp-ref-67?template=node&embed=1&file=src%2FParent.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -843,7 +843,7 @@ function App() {
 }
 ```
 
-<iframe data-frame-title="React Focused Comp Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-focused-comp-ref-68?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="React Focused Comp Ref - StackBlitz" src="uu-code:./ffg-fundamentals-react-focused-comp-ref-68?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Angular
 
@@ -921,7 +921,7 @@ class AppComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Focused Comp Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-focused-comp-ref-68?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Focused Comp Ref - StackBlitz" src="uu-code:./ffg-fundamentals-angular-focused-comp-ref-68?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## Vue
 
@@ -1014,7 +1014,7 @@ const open = (e) => {
 </template>
 ```
 
-<iframe data-frame-title="Vue Focused Comp Ref - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-focused-comp-ref-68?template=node&embed=1&file=src%2FContextMenu.vue"></iframe>
+<iframe data-frame-title="Vue Focused Comp Ref - StackBlitz" src="uu-code:./ffg-fundamentals-vue-focused-comp-ref-68?template=node&embed=1&file=src%2FContextMenu.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1494,7 +1494,7 @@ const App = () => {
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="React Comp Ref Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-comp-ref-challenge-69?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Comp Ref Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-comp-ref-challenge-69?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 </details>
 
@@ -1593,7 +1593,7 @@ class AppComponent implements OnInit, OnDestroy {
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Angular Comp Ref Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-comp-ref-challenge-69?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Comp Ref Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-comp-ref-challenge-69?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 </details>
 
@@ -1702,7 +1702,7 @@ onUnmounted(() => {
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Vue Comp Ref Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-comp-ref-challenge-69?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Comp Ref Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-comp-ref-challenge-69?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 </details>
 

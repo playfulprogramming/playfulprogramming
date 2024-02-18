@@ -144,7 +144,7 @@ const ConditionalRender = ({ bool }) => {
 };
 ```
 
-<iframe data-frame-title="React Conditional Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-conditional-render-17?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Conditional Render - StackBlitz" src="uu-code:./ffg-fundamentals-react-conditional-render-17?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 We're using React's `{}` JavaScript binding to add an [`AND` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND). This works by using Boolean logic of ["short-circuiting"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation). This means that if we have:
 
@@ -202,7 +202,7 @@ class ConditionalRenderComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Conditional Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-conditional-render-17?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Conditional Render - StackBlitz" src="uu-code:./ffg-fundamentals-angular-conditional-render-17?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 Here, we're using a special property called `ngIf` on our `p` tag to stop rendering the element if `bool` is `false`. This property is prefixed with an asterisk (`*`) to interact with Angular's compiler in particular ways.
 
@@ -228,7 +228,7 @@ const props = defineProps(["bool"]);
 </template>
 ```
 
-<iframe data-frame-title="Vue Conditional Render - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-conditional-render-17?template=node&embed=1&file=src%2FConditionalRender.vue"></iframe>
+<iframe data-frame-title="Vue Conditional Render - StackBlitz" src="uu-code:./ffg-fundamentals-vue-conditional-render-17?template=node&embed=1&file=src%2FConditionalRender.vue"></iframe>
 
 Unlike Angular, where you need to import the ability to conditionally render an element, Vue treats `v-if` as a global attribute that can be added to any element or component.
 
@@ -299,7 +299,7 @@ const FileList = () => {
 };
 ```
 
-<iframe data-frame-title="React Conditional Date - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-conditional-date-18?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Conditional Date - StackBlitz" src="uu-code:./ffg-fundamentals-react-conditional-date-18?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -353,7 +353,7 @@ class FileComponent {
 class FileListComponent {}
 ```
 
-<iframe data-frame-title="Angular Conditional Date - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-conditional-date-18?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Conditional Date - StackBlitz" src="uu-code:./ffg-fundamentals-angular-conditional-date-18?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -401,7 +401,7 @@ import File from "./File.vue";
 </template>
 ```
 
-<iframe data-frame-title="Vue Conditional Date - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-conditional-date-18?template=node&embed=1&file=src%2FFile.vue"></iframe>
+<iframe data-frame-title="Vue Conditional Date - StackBlitz" src="uu-code:./ffg-fundamentals-vue-conditional-date-18?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -471,7 +471,7 @@ We can combine this information with JSX's ability to treat a tag as a value you
 <div>{isFolder ? <span>Type: Folder</span> : <span>Type: File</span>}</div>
 ```
 
-<iframe data-frame-title="React Conditional Branches - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-conditional-branches-19?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Conditional Branches - StackBlitz" src="uu-code:./ffg-fundamentals-react-conditional-branches-19?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 Here, if `isFolder` is `true`, the following will be rendered:
 
@@ -492,7 +492,7 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 <ng-template #fileDisplay><span>Type: File</span></ng-template>
 ```
 
-<iframe data-frame-title="Angular Conditional Branches - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-conditional-branches-19?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Conditional Branches - StackBlitz" src="uu-code:./ffg-fundamentals-angular-conditional-branches-19?template=node&embed=1&file=src%2Fmain."></iframe>
 
 Undoubtedly, you're looking at this snippet of code and wondering what `ng-template` is doing here.
 
@@ -549,7 +549,7 @@ Here, Vue's `if...else` syntax looks fairly similar to the JavaScript pseudo-syn
 
 > It's worth noting that a `v-else` tag **must** immediately follow a `v-if` tag; otherwise, it won't work.
 
-<iframe data-frame-title="Vue Conditional Branches - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-conditional-branches-19?template=node&embed=1&file=src%2FFile.vue"></iframe>
+<iframe data-frame-title="Vue Conditional Branches - StackBlitz" src="uu-code:./ffg-fundamentals-vue-conditional-branches-19?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -909,7 +909,7 @@ const FileList = () => {
 
 We can then use the second argument inside the `map` to gain access to the index of the looped item.
 
-<iframe data-frame-title="React Rendering Lists - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-rendering-lists-20?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Rendering Lists - StackBlitz" src="uu-code:./ffg-fundamentals-react-rendering-lists-20?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -967,7 +967,7 @@ class FileListComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Rendering Lists - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-rendering-lists-20?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Rendering Lists - StackBlitz" src="uu-code:./ffg-fundamentals-angular-rendering-lists-20?template=node&embed=1&file=src%2Fmain."></iframe>
 
 Inside our `ngFor`, `index` may not seem like it is being defined; however, Angular declares it whenever you attempt to utilize `ngFor` under the hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
 
@@ -1034,7 +1034,7 @@ function onSelected(idx) {
 
 Inside our `v-for`, we're accessing both the value of the item (`file`) and the index of the looped item (`i`).
 
-<iframe data-frame-title="Vue Rendering Lists - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-rendering-lists-20?template=node&embed=1&file=src%2FFileList.vue"></iframe>
+<iframe data-frame-title="Vue Rendering Lists - StackBlitz" src="uu-code:./ffg-fundamentals-vue-rendering-lists-20?template=node&embed=1&file=src%2FFileList.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1113,7 +1113,7 @@ function getRandomWord() {
 }
 ```
 
-<iframe data-frame-title="React Unkeyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Unkeyed Demo - StackBlitz" src="uu-code:./ffg-fundamentals-react-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -1178,7 +1178,7 @@ interface Word {
 }
 ```
 
-<iframe data-frame-title="Angular Unkeyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Unkeyed Demo - StackBlitz" src="uu-code:./ffg-fundamentals-angular-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain."></iframe>
 
 ### Vue
 
@@ -1228,7 +1228,7 @@ function removeFirst() {
 </template>
 ```
 
-<iframe data-frame-title="Vue Unkeyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-unkeyed-demo-21?template=node&embed=1&file=src%2FWordList.vue"></iframe>
+<iframe data-frame-title="Vue Unkeyed Demo - StackBlitz" src="uu-code:./ffg-fundamentals-vue-unkeyed-demo-21?template=node&embed=1&file=src%2FWordList.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1267,7 +1267,7 @@ Let's see how we can do this in each framework.
 
 Here, we're using the `key` property to tell React which `li` is related to which `word` via the `word`'s unique `id` field.
 
-<iframe data-frame-title="React Keyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-keyed-demo-22?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Keyed Demo - StackBlitz" src="uu-code:./ffg-fundamentals-react-keyed-demo-22?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -1300,7 +1300,7 @@ class WordListComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="uu-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain."></iframe>
 
 Another difference to the other frameworks is that while React and Vue have no default `key` behavior, Angular has a default `trackBy` function if one is not provided. If no `trackBy` is provided, the default will simply do strict equality (`===`) between the old item in the array and the new one to check if the item is the same.
 
@@ -1334,7 +1334,7 @@ While this works in some cases, for the most part, it's suggested to provide you
 
 Here, we're using the `key` property to tell Vue which `li` is related to which `word` via the `word`'s unique `id` field.
 
-<iframe data-frame-title="Vue Keyed Demo - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-keyed-demo-22?template=node&embed=1&file=src%2FWordList.vue"></iframe>
+<iframe data-frame-title="Vue Keyed Demo - StackBlitz" src="uu-code:./ffg-fundamentals-vue-keyed-demo-22?template=node&embed=1&file=src%2FWordList.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1372,7 +1372,7 @@ function KeyExample() {
 }
 ```
 
-<iframe data-frame-title="React Key Render Hint - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-key-render-hint-23?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Key Render Hint - StackBlitz" src="uu-code:./ffg-fundamentals-react-key-render-hint-23?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -1401,7 +1401,7 @@ function increase() {
 </template>
 ```
 
-<iframe data-frame-title="Vue Key Render Hint - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-key-render-hint-23?template=node&embed=1&file=src%2FKeyExample.vue"></iframe>
+<iframe data-frame-title="Vue Key Render Hint - StackBlitz" src="uu-code:./ffg-fundamentals-vue-key-render-hint-23?template=node&embed=1&file=src%2FKeyExample.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -1636,7 +1636,7 @@ const FileList = () => {
 };
 ```
 
-<iframe data-frame-title="React Using It Together - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-using-it-together-24?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Using It Together - StackBlitz" src="uu-code:./ffg-fundamentals-react-using-it-together-24?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ## Angular
 
@@ -1676,7 +1676,7 @@ class FileListComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Using It Together - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-using-it-together-24?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Using It Together - StackBlitz" src="uu-code:./ffg-fundamentals-angular-using-it-together-24?template=node&embed=1&file=src%2Fmain."></iframe>
 
 ## Vue
 
@@ -1713,7 +1713,7 @@ function toggleOnlyShow() {
 </template>
 ```
 
-<iframe data-frame-title="Vue Using It Together - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-using-it-together-24?template=node&embed=1&file=src%2FFileList.vue"></iframe>
+<iframe data-frame-title="Vue Using It Together - StackBlitz" src="uu-code:./ffg-fundamentals-vue-using-it-together-24?template=node&embed=1&file=src%2FFileList.vue"></iframe>
 
 <!-- tabs:end -->
 
@@ -2246,7 +2246,7 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="React Dynamic Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-react-dynamic-challenge-25?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-dynamic-challenge-25?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 </details>
 
@@ -2278,7 +2278,7 @@ class ExpandableDropdownComponent {
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Angular Dynamic Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-dynamic-challenge-25?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-dynamic-challenge-25?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 </details>
 
@@ -2306,7 +2306,7 @@ const emit = defineEmits(["toggle"]);
 
 <summary>Final code output</summary>
 
-<iframe data-frame-title="Vue Dynamic Challenge - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-dynamic-challenge-25?template=node&embed=1&file=src%2FExpandableDropdown.vue"></iframe>
+<iframe data-frame-title="Vue Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-dynamic-challenge-25?template=node&embed=1&file=src%2FExpandableDropdown.vue"></iframe>
 
 </details>
 
