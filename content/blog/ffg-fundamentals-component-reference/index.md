@@ -1711,7 +1711,7 @@ onUnmounted(() => {
 Now, when the user makes their screen too small, the sidebar automatically collapses. This makes the rest of our app
 much easier to interact with on mobile devices.
 
-> Truth be told, this is not necessarily how I would build this component in production. Instead, I might ["raise the state"](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow) of "collapsed" from the `Sidebar` component to the `App` component.
+> Truth be told, this is not necessarily how I would build this component in production. Instead, I might ["raise the state"](/posts/master-react-unidirectional-data-flow) of "collapsed" from the `Sidebar` component to the `App` component.
 >
 > This would give us greater flexibility in controlling our sidebar's `isCollapsed` state without having to use a component reference.
 >

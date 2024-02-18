@@ -227,7 +227,7 @@ Because our conditional statement is on the `li` when rendered to the DOM, it mi
 While this might not seem like a big problem at first, the fact that there's an empty `li` in the middle of our `ul` introduces three issues:
 
 1. It will leave an empty space created by any styling you have applied to the `li`.
-2. [Any assistive technologies, like screen readers](https://unicorn-utterances.com/posts/intro-to-web-accessibility), will read out that there's an empty item, which is a confusing behavior for those users.
+2. [Any assistive technologies, like screen readers](/posts/intro-to-web-accessibility), will read out that there's an empty item, which is a confusing behavior for those users.
 3. Any search engines reading data off of your page may incorrectly assume that your list is intentionally empty, thus potentially impacting your ranking on sites.
 
 Solving these issues is where something called "transparent elements" comes into play. See, ideally, what we want to have is something like a tag that renders to _nothing_.

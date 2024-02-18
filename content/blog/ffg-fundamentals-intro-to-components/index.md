@@ -11,7 +11,7 @@
 }
 ---
 
-> Before we can dive into how many front-end frameworks work, we need to set a baseline of information. If you're already familiar with how the DOM represents a tree and how the browser takes that information and uses it, great; You're ready to read ahead! Otherwise, it's strongly suggested that you look at [our post introducing the concepts](https://unicorn-utterances.com/posts/understanding-the-dom/) required to understand some baselines of this post.
+> Before we can dive into how many front-end frameworks work, we need to set a baseline of information. If you're already familiar with how the DOM represents a tree and how the browser takes that information and uses it, great; You're ready to read ahead! Otherwise, it's strongly suggested that you look at [our post introducing the concepts](/posts/understanding-the-dom/) required to understand some baselines of this post.
 
 You may have heard about various frameworks and libraries that modern front-end developers use to build large-scale applications. Among these frameworks are Angular, React, and Vue. While each of these libraries brings its own strengths and weaknesses, many of the core concepts are shared between them.
 
@@ -183,7 +183,7 @@ This decorator has a few properties passed to it. Going from the bottom-up:
 2. `standalone`: A flag telling the framework that this component is newer and can be used directly by another component.
 3. `selector`: The name of the component that can be referenced inside the `template` of another component
 
-> It's important to note that decorators (anything starting with `@`) are not supported in JavaScript itself. Instead, Angular uses [TypeScript](https://unicorn-utterances.com/posts/introduction-to-typescript/) to add types and other features to the language. From there, TypeScript compiles down to JavaScript.
+> It's important to note that decorators (anything starting with `@`) are not supported in JavaScript itself. Instead, Angular uses [TypeScript](/posts/introduction-to-typescript/) to add types and other features to the language. From there, TypeScript compiles down to JavaScript.
 
 > You may have noticed that this component is called `file-item` rather than `file`. Unlike the other frameworks in this book, Angular requires you to have a dash (`-`) in your selector name to avoid confusion with native HTML tags.
 
@@ -1208,7 +1208,7 @@ Text isn't the only thing that frameworks are capable of live updating, however!
 
 Just like each framework has a way to have state rendered into text on-screen, it can also update HTML attributes for an element.
 
-Currently, our `date` component doesn't read out [particularly kindly to screen-readers](https://unicorn-utterances.com/posts/intro-to-web-accessability) since it would only read out as numbers. Let's change that by adding an `aria-label` of a human-readable date to our `date` component.
+Currently, our `date` component doesn't read out [particularly kindly to screen-readers](/posts/intro-to-web-accessability) since it would only read out as numbers. Let's change that by adding an `aria-label` of a human-readable date to our `date` component.
 
 <!-- tabs:start -->
 
@@ -1258,7 +1258,7 @@ const dateStr = ref(formatDate(new Date()));
 
 <!-- tabs:end -->
 
-Now, [when we use a screen reader](https://unicorn-utterances.com/posts/intro-to-web-accessability), it'll read out "January 10th" instead of "One dash ten".
+Now, [when we use a screen reader](/posts/intro-to-web-accessability), it'll read out "January 10th" instead of "One dash ten".
 
 However, while this may have worked before the `date` was dynamically formatted, it won't be correct for most of the year. (Luckily for us, a broken clock is correct at least once a day.)
 
@@ -1816,7 +1816,7 @@ You'll notice that we had to move the logic to set the `dateStr` and `labelText`
 This is because Angular doesn't allow you to access `@Input` values in the root (AKA the "constructor") of a component's class.
 
 > If you're unfamiliar with what a class constructor is and how it associates with root-level class properties, I'd suggest reading through
-> this guide I wrote about [using JavaScript classes without the `class` keyword](https://unicorn-utterances.com/posts/js-classes-without-keyword)
+> this guide I wrote about [using JavaScript classes without the `class` keyword](/posts/js-classes-without-keyword)
 
 ### Vue
 
@@ -1933,7 +1933,7 @@ onMounted(() => {
 You're not intended to mutate properties because it breaks two key concepts of application architecture with components:
 
 1. [What it means to be a "pure" function](/posts/ffg-fundamentals-side-effects#whats-a-side-effect)
-2. [Unidirectionality of component flow](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow)
+2. [Unidirectionality of component flow](/posts/master-react-unidirectional-data-flow)
 
 # Event Binding {#event-binding}
 
@@ -1947,7 +1947,7 @@ In the mockup we saw before, the list of our files has a hover state for the fil
 
 Let's add an `isSelected`` property to our `file` component to add hover styling conditionally, then update it when the user clicks on it.
 
-While we're at it, let's migrate our `File` component to use a `button` instead of a `div`. After all, [it's important for accessibility and SEO to use semantic elements to indicate what element is which in the DOM](https://unicorn-utterances.com/posts/intro-to-web-accessability#html-semantic-tags).
+While we're at it, let's migrate our `File` component to use a `button` instead of a `div`. After all, [it's important for accessibility and SEO to use semantic elements to indicate what element is which in the DOM](/posts/intro-to-web-accessability#html-semantic-tags).
 
 <!-- tabs:start -->
 
@@ -2334,7 +2334,7 @@ function onSelected(idx) {
 
 Here, we're using a simple number-based index to act as an `id` of sorts for each file. This allows us to keep track of which file is currently selected or not. Likewise, if the user selects an index that's already been selected, we will set the `isSelected` index to a number that no file has associated.
 
-You may notice that we've also removed our `isSelected` state and logic from our `file` component. This is because we're following the practices of ["raising state".](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow)
+You may notice that we've also removed our `isSelected` state and logic from our `file` component. This is because we're following the practices of ["raising state".](/posts/master-react-unidirectional-data-flow)
 
 # Challenge {#challenge}
 

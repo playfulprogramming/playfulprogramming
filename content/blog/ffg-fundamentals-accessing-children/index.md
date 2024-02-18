@@ -167,7 +167,7 @@ class AppComponent {}
 
 Here, we're querying for the template tag `childItem` within the project content by using [the `ContentChild` decorator](https://angular.io/api/core/ContentChild).
 
-`ContentChild` then returns [a TypeScript generic type](https://unicorn-utterances.com/posts/typescript-type-generics) of `ElementRef`.
+`ContentChild` then returns [a TypeScript generic type](/posts/typescript-type-generics) of `ElementRef`.
 
 `ElementRef` is a type that has a single property called `nativeElement` containing the [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) in question.
 
@@ -598,7 +598,7 @@ const App = () => {
 
 <iframe data-frame-title="React Function Child Pass Val - StackBlitz" src="uu-code:./ffg-fundamentals-react-function-child-pass-val-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
-> Confused about how this last one is working? It might be a good time to [review your knowledge on how functions are able to pass to one another and call each other](https://unicorn-utterances.com/posts/javascript-functions-are-values).
+> Confused about how this last one is working? It might be a good time to [review your knowledge on how functions are able to pass to one another and call each other](/posts/javascript-functions-are-values).
 
 ### Displaying the List in React {#displaying-list-react}
 

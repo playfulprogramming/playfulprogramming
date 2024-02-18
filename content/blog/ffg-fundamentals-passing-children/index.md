@@ -11,7 +11,7 @@
 }
 ---
 
-As we've mentioned before, [in the DOM, your HTML elements have a relationship with respect to one another](https://unicorn-utterances.com/posts/understanding-the-dom).
+As we've mentioned before, [in the DOM, your HTML elements have a relationship with respect to one another](/posts/understanding-the-dom).
 
 For example, the following:
 
@@ -1077,7 +1077,7 @@ Rendering this component will yield the following DOM elements:
 
 This `list-item` selector-named element is known as a component's "host element." This host element preservation is different from how React and Vue work, which don't have the concept of in-DOM host nodes.
 
-> [I've written more about host elements in my article on the topic](https://unicorn-utterances.com/posts/angular-templates-dont-work-how-you-think). Please read this if you're left a bit confused on how host elements work.
+> [I've written more about host elements in my article on the topic](/posts/angular-templates-dont-work-how-you-think). Please read this if you're left a bit confused on how host elements work.
 
 At first, this might seem like a roadblock to implementing our `list-item` component properly. However, there are two features that we can use to fix this problem:
 
@@ -1109,7 +1109,7 @@ class FileItemComponent {
 
 Where `host` allows us to bind our typical event handlers and attributes to the `tr` element selected by our new `selector` of `tr[file-item]`.
 
-> The host element might seem confusing at first, but is super useful in the right contexts. [See my article on the property for more information.](https://unicorn-utterances.com/posts/angular-dynamic-host-usage)
+> The host element might seem confusing at first, but is super useful in the right contexts. [See my article on the property for more information.](/posts/angular-dynamic-host-usage)
 
 ### Building a Functional Angular Table {#functional-angular-table}
 

@@ -17,7 +17,7 @@ These applications come in many shapes, forms, and functionalities, but all have
 
 This is the key difference between a static site and an interactive one; static sites show their contents and then allow the user to navigate through the site without drastic changes to the displayed content; meanwhile, interactive sites drastically shift their displayed information based off of user input.
 
-This difference carries through to how you build the application as well. A static site might prioritize an initial load by front-loading the HTML compilation [through server-side render (SSR) or static site generation (SSG)](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg). On the other hand, the interactive app is more likely to focus on processing information passed to it to customize your experience.
+This difference carries through to how you build the application as well. A static site might prioritize an initial load by front-loading the HTML compilation [through server-side render (SSR) or static site generation (SSG)](/posts/what-is-ssr-and-ssg). On the other hand, the interactive app is more likely to focus on processing information passed to it to customize your experience.
 
 As interactive apps rely so heavily on processing information based on user input, React, Angular, and Vue, all provide built-in ways of interacting, intercepting, and otherwise ingesting this information.
 
@@ -566,7 +566,7 @@ class WindowSizeComponent implements OnInit {
 
 > You may notice that we're using an arrow function for `resizeHandler`. This arrow function helps us bind `this` in `resizeHandler` back to the `WindowSizeComponent` instance.
 >
-> If this sentence feels unfamiliar, no worries; [I wrote an article explaining what this means](https://unicorn-utterances.com/posts/javascript-bind-usage).
+> If this sentence feels unfamiliar, no worries; [I wrote an article explaining what this means](/posts/javascript-bind-usage).
 
 <iframe data-frame-title="Angular Leaking Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-angular-leaking-window-size-29?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
@@ -1828,7 +1828,7 @@ Well, as we showed, our `setTimeout` in our example isn't cleaned up even though
 
 That's the definition of a memory leak: Not allowing the language to clean up old code. Eventually, over time, you may even hit an "out of memory" error, where your computer can no longer run your app or site without resetting itself.
 
-> Have the feeling you're missing something? Some of this section requires pre-existing knowledge about how computer memory works both [in hardware land](https://unicorn-utterances.com/posts/how-computers-speak#ram) and [how JavaScript handles memory under-the-hood](https://unicorn-utterances.com/posts/object-mutation). It's suggested to read these resources and come back if you're feeling confused.
+> Have the feeling you're missing something? Some of this section requires pre-existing knowledge about how computer memory works both [in hardware land](/posts/how-computers-speak#ram) and [how JavaScript handles memory under-the-hood](/posts/object-mutation). It's suggested to read these resources and come back if you're feeling confused.
 
 ### Seeing Hidden Memory Leaks {#seeing-hidden-memory-leaks}
 
@@ -1961,7 +1961,7 @@ Well, let's look at our old example visually once again:
 
 ![Inputs are being passed from a component instance to the DOM and framework root that's then stored in memory](./function_mount_explainer.png)
 
-You may notice that instead of a two-way binding, we're now passing a function reference from the component instance to the framework and DOM. As a result of this passing (rather than listening), [our framework of choice no longer has the ability to forcibly invalidate this reference](https://unicorn-utterances.com/posts/object-mutation). After all, [a function in JavaScript is just [a value](https://unicorn-utterances.com/posts/javascript-functions-are-values) that can be passed like any other.
+You may notice that instead of a two-way binding, we're now passing a function reference from the component instance to the framework and DOM. As a result of this passing (rather than listening), [our framework of choice no longer has the ability to forcibly invalidate this reference](/posts/object-mutation). After all, [a function in JavaScript is just [a value](/posts/javascript-functions-are-values) that can be passed like any other.
 
 This shift in how we're handling a parent's data (binding vs. getting a reference) means that on cleanup, the function passed to a child will not become invalid. Instead, it will persist in memory until it's no longer needed by the child component and cleaned up by JavaScript's internals:
 
@@ -2063,7 +2063,7 @@ class WindowSizeComponent implements OnInit, OnDestroy {
 
 Here, we're making sure to use an arrow function for `resizeHandler` in order to make sure that `removeEventListener` works as expected.
 
-To learn more about _why_ that is, [read this article I wrote about this topic](https://unicorn-utterances.com/posts/javascript-bind-usage).
+To learn more about _why_ that is, [read this article I wrote about this topic](/posts/javascript-bind-usage).
 
 ### Vue
 
@@ -2167,7 +2167,7 @@ It does so by modifying slight behaviors of your app and printing errors when ne
 
 > `StrictMode` only does this on development builds of your app and does not impact your code whatsoever during production.
 
-[Since React 18, `StrictMode` will re-run all `useEffect`s twice](https://unicorn-utterances.com/posts/why-react-18-broke-your-app). This change was made by the React team to highlight potential bugs in your application that are caused by uncleaned side effects.
+[Since React 18, `StrictMode` will re-run all `useEffect`s twice](/posts/why-react-18-broke-your-app). This change was made by the React team to highlight potential bugs in your application that are caused by uncleaned side effects.
 
 So, if you have the following code:
 
@@ -2220,7 +2220,7 @@ While rendering and un-rendering are the most frequent times you might want to a
 While many of the examples we've shown before have been relatively consistent between each framework,
 this is where these frameworks tend to diverge. This difference occurs because the APIs exposed by each framework typically depend on how their internals function; this allows you to have more fine-grained control over your components.
 
-While we'll touch on the framework's internals [in the third book of the series](https://unicorn-utterances.com/collections/framework-field-guide#internals-title),
+While we'll touch on the framework's internals [in the third book of the series](/collections/framework-field-guide#internals-title),
 for now, let's take a look at one more component API that's _relatively_ consistent between most frameworks:
 Re-rendering.
 
@@ -2294,7 +2294,7 @@ Angular does not have a lifecycle method specifically for when a component re-re
 
 This isn't to say that Angular components don't re-draw the DOM — we've already demonstrated that it's able to live-refresh the DOM when data changes — just that Angular doesn't provide a lifecycle for detecting when it does.
 
-To answer "why" this occurs is a much longer topic, [which I've written about in a dedicated blog post](https://unicorn-utterances.com/posts/angular-internals-zonejs). In the meantime, feel free to see how the other two frameworks work as a reference to what you might expect elsewhere.
+To answer "why" this occurs is a much longer topic, [which I've written about in a dedicated blog post](/posts/angular-internals-zonejs). In the meantime, feel free to see how the other two frameworks work as a reference to what you might expect elsewhere.
 
 ## Vue
 
@@ -2669,7 +2669,7 @@ While we might attribute the definition of "rendering" to mean "showing somethin
 
 Instead, React and Vue both have a trick up their sleeves; the virtual DOM (VDOM). While explaining the VDOM is a bit complex, here's the basics:
 
-- The framework mirrors [the nodes in the DOM tree](https://unicorn-utterances.com/posts/understanding-the-dom) so that it can recreate the entire app's UI at any given moment.
+- The framework mirrors [the nodes in the DOM tree](/posts/understanding-the-dom) so that it can recreate the entire app's UI at any given moment.
 
 - When you tell the framework to update the value on the screen, it tries to figure out the specific part of the screen to render and nothing more.
 
@@ -3112,7 +3112,7 @@ console.log("Is object 1 and 2 the same?", obj1 === obj2); // true
 
 This code snippet demonstrates how you can mutate a variable's value without changing its underlying memory location.
 
-> [I've written about this underlying concept in JavaScript; if the above is unfamiliar to you, I'd suggest reading through it](https://unicorn-utterances.com/posts/object-mutation).
+> [I've written about this underlying concept in JavaScript; if the above is unfamiliar to you, I'd suggest reading through it](/posts/object-mutation).
 
 The `useRef` hook is implemented under the hood similar to the following:
 
@@ -3179,13 +3179,13 @@ const Comp = () => {
 
 Here, the timestamp display will never update until you press the `button`. Even then, however, `useEffect` will run _after_ the render, meaning that the displayed timestamp will be from the _previous_ occurrence of the `button` press.
 
-[I wrote more about why we shouldn't use `useRef` in `useEffect`s and when and where they're more useful in another article linked here.](https://unicorn-utterances.com/posts/react-refs-complete-story)
+[I wrote more about why we shouldn't use `useRef` in `useEffect`s and when and where they're more useful in another article linked here.](/posts/react-refs-complete-story)
 
 ## Angular
 
 > While writing this book, dear reader, I had a few goals. One of those goals was to not introduce an API without first explaining it. I am about to break this rule for the only time I'm aware of in this book. Please forgive me.
 
-[While the internals of how Angular is able to detect changes in values are complex](https://unicorn-utterances.com/posts/angular-internals-zonejs), the simple answer is "It uses some magic in something called [Zone.js](https://unicorn-utterances.com/posts/angular-internals-zonejs) to automatically detect when you change a value."
+[While the internals of how Angular is able to detect changes in values are complex](/posts/angular-internals-zonejs), the simple answer is "It uses some magic in something called [Zone.js](/posts/angular-internals-zonejs) to automatically detect when you change a value."
 
 To sidestep this detection from Zone.js in Angular, you can tell the framework to run something "outside of Angular."
 

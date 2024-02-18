@@ -124,7 +124,7 @@ One way we can hide the `date` from displaying the user is by reusing an HTML at
 </div>
 ```
 
-This works but introduces a potential problem; while the contents are not _shown_ to the user (and are similarly [hidden from screen-readers](https://unicorn-utterances.com/posts/intro-to-web-accessability#css)), they _are_ still present within the DOM.
+This works but introduces a potential problem; while the contents are not _shown_ to the user (and are similarly [hidden from screen-readers](/posts/intro-to-web-accessability#css)), they _are_ still present within the DOM.
 
 This means that a large number of these HTML elements marked as `hidden` will still be in the DOM. They can still impact performance and memory usage as if they **were** being displayed to the user.
 
@@ -206,7 +206,7 @@ class ConditionalRenderComponent {
 
 Here, we're using a special property called `ngIf` on our `p` tag to stop rendering the element if `bool` is `false`. This property is prefixed with an asterisk (`*`) to interact with Angular's compiler in particular ways.
 
-> These asterisk-prefixed properties are called "Structural Directives" and are a unique feature to Angular. Their usage can be quite advanced, but you can read more about them when you're ready [in this blog post](https://unicorn-utterances.com/posts/angular-templates-start-to-source).
+> These asterisk-prefixed properties are called "Structural Directives" and are a unique feature to Angular. Their usage can be quite advanced, but you can read more about them when you're ready [in this blog post](/posts/angular-templates-start-to-source).
 
 To use `ngIf`, we must import `NgIf` from `@angular/common` and pass it to the `imports` array for the component.
 
@@ -525,7 +525,7 @@ The point, my dear reader, is that you can assign an in-template variable to `ng
 </ng-template>
 ```
 
-We can then use the template tag as we might expect any other variable to be used; we can pass a template variable to a function of sorts (in the form of a [structural directive](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives), like `*ngFor` or `*ngIf`) and see its usage reflected.
+We can then use the template tag as we might expect any other variable to be used; we can pass a template variable to a function of sorts (in the form of a [structural directive](/posts/angular-templates-start-to-source#structural-directives), like `*ngFor` or `*ngIf`) and see its usage reflected.
 
 ```html
 <span *ngIf="false; else trueTag">False</span>

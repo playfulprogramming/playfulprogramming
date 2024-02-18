@@ -257,7 +257,7 @@ const vStyleBackground = {
 
 > While this is a good demonstration of how you can use an element reference within a directive, styling an element is generally suggested to be done within a CSS file itself, unless you have good reason otherwise.
 >
-> This is because styling an element through JavaScript can cause issues with [server-side rendering](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg#ssr), and can also cause [layout thrashing](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing) if done incorrectly.
+> This is because styling an element through JavaScript can cause issues with [server-side rendering](/posts/what-is-ssr-and-ssg#ssr), and can also cause [layout thrashing](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing) if done incorrectly.
 
 # Side Effect Handlers in Directives {#side-effect-handlers}
 
@@ -1065,7 +1065,7 @@ AppCmp.ɵcmp = i0.ɵɵdefineComponent({
 
 > This code sample is taken from [the "How the Angular Compiler Works" article written by the Angular team](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549).
 >
-> I explain how this code gets ran in detail in [my "Angular Internals: How Reactivity Works with Zone.js" article](https://unicorn-utterances.com/posts/angular-internals-zonejs).
+> I explain how this code gets ran in detail in [my "Angular Internals: How Reactivity Works with Zone.js" article](/posts/angular-internals-zonejs).
 
 When this compiler runs, it also creates a relationship between each component and their template. For each item in a template, there's either an `EmbeddedView` for HTML elements or a `Host View` for other components.
 
@@ -1231,7 +1231,7 @@ class AppComponent {}
 
 <iframe data-frame-title="Angular Structural Directives - StackBlitz" src="uu-code:./ffg-fundamentals-angular-structural-directives-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-> Structural directives are immensely powerful! [I wrote a 10k word long blog post all about them here.](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives)
+> Structural directives are immensely powerful! [I wrote a 10k word long blog post all about them here.](/posts/angular-templates-start-to-source#structural-directives)
 
 ### Build the Feature Flag Behavior Using Structural Templates {#build-structural-template-feature-flag}
 

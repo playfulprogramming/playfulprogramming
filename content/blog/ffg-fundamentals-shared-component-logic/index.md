@@ -285,7 +285,7 @@ const App = () => {
 
 ## Angular
 
-While Angular can _technically_ [create a base component that shares its lifecycle with a consuming component](https://unicorn-utterances.com/posts/angular-extend-class), it's messy, fragile, and overall considered a malpractice.
+While Angular can _technically_ [create a base component that shares its lifecycle with a consuming component](/posts/angular-extend-class), it's messy, fragile, and overall considered a malpractice.
 
 Instead, we can use a per-component injectable that uses its own `constructor` and `ngOnDestroy` lifecycle methods.
 
@@ -334,7 +334,7 @@ class AppComponent {
 
 > This code isn't ideal; the Angular team knows this. This is why they're working on introducing a new method of side effect handling (and data storage) [called "Signals"](https://angular.io/guide/signals). At the time of writing, Signals are still in the experimental phase, but they're worth keeping an eye on.
 
-> While this is the only method we'll be looking at in this book for writing this code, [Lars Gyrup Brink Nielsen showcased how we could improve this code using RxJS in another article on the Unicorn Utterances site.](https://unicorn-utterances.com/posts/angular-extend-class#The-Angular-way-to-fix-the-code)
+> While this is the only method we'll be looking at in this book for writing this code, [Lars Gyrup Brink Nielsen showcased how we could improve this code using RxJS in another article on the Unicorn Utterances site.](/posts/angular-extend-class#The-Angular-way-to-fix-the-code)
 
 ## Vue
 

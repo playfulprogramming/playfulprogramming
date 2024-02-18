@@ -676,9 +676,9 @@ But wait... When we render the app and open our dialog, why does it look like it
 
 Why is that? After all, `Modal` has a `z-index` of `99`, while `Footer` only has a `z-index` of `2`!
 
-While the long answer of "Why is the modal rendering under the footer in this example" includes a mention of [stacking contexts](https://unicorn-utterances.com/posts/css-stacking-context), the short answer is ["A higher `z-index` number doesn't always guarantee that your element is always on the top."](https://unicorn-utterances.com/posts/css-stacking-context)
+While the long answer of "Why is the modal rendering under the footer in this example" includes a mention of [stacking contexts](/posts/css-stacking-context), the short answer is ["A higher `z-index` number doesn't always guarantee that your element is always on the top."](/posts/css-stacking-context)
 
-> While both of those links lead to the same place, I worry that this might still be too subtle of a hint to [**go read the article I wrote that explains exactly why this `z-index` behavior occurs.**](https://unicorn-utterances.com/posts/css-stacking-context)
+> While both of those links lead to the same place, I worry that this might still be too subtle of a hint to [**go read the article I wrote that explains exactly why this `z-index` behavior occurs.**](/posts/css-stacking-context)
 
 To solve this, we'll reach for the JavaScript API built into React, Angular, and Vue that we mentioned at the start of this chapter: Portals.
 
@@ -690,7 +690,7 @@ Imagine you have a set of components that represent the small app we just built:
 
 ![A chart showcasing "App" at the root, footer, and header are next to one another as siblings, and "Modal" is a child of "Header."](./mini_app_chart.svg)
 
-In this component layout, the `Modal` was showing under the `Footer` component. The reason this was happening is that the `Modal` is trapped under a ["CSS Stacking Context"](https://unicorn-utterances.com/posts/css-stacking-context).
+In this component layout, the `Modal` was showing under the `Footer` component. The reason this was happening is that the `Modal` is trapped under a ["CSS Stacking Context"](/posts/css-stacking-context).
 
 Let's simplify the chart and see what I mean;
 

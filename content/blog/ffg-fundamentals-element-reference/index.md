@@ -596,7 +596,7 @@ class RenderParagraphComponent implements AfterViewInit, OnDestroy {
 
 <iframe data-frame-title="Angular addEventListener - StackBlitz" src="uu-code:./ffg-fundamentals-angular-add-event-listener-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-> Remember, the `addOne` function cannot be a class method, as otherwise [it will not clean up inside the `removeEventListener` properly.](https://unicorn-utterances.com/posts/javascript-bind-usage#event-listeners)
+> Remember, the `addOne` function cannot be a class method, as otherwise [it will not clean up inside the `removeEventListener` properly.](/posts/javascript-bind-usage#event-listeners)
 
 ## Vue
 
