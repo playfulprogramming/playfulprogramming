@@ -182,7 +182,7 @@ CSS for the modal
 
 Now that we have that modal, let's build out a small version of our folder app we've been building in this book. This version of the app should showcase the modal, the header, and a copyright footer:
 
-![// TODO: Add alt](website_modal_example.png)
+![A modal on top of a minimal version of the file app that includes a file list, header, and footer](./website_modal_example.png)
 
 <!-- tabs:start -->
 
@@ -672,7 +672,7 @@ function showModal() {
 
 But wait... Now when we render the app and open our dialog it looks like it's _under_ the `Footer` component?!
 
-![// TODO: Add alt](./website_modal_under_footer_example.png)
+![The dialog is having some of its contents underneath the footer](./website_modal_under_footer_example.png)
 
 Why is that? After all, `Modal` has a `z-index` of `99`, while `Footer` only has a `z-index` of `2`!
 
@@ -688,19 +688,19 @@ The basic idea behind a JavaScript Portal builds on top of [the concepts of comp
 
 Imagine you have a set of components that represent the small app we just built:
 
-![// TODO: Add alt](./mini_app_chart.svg)
+![A chart showcasing "App" at the root, footer and header are next to one another as siblings and "Modal" is a child of "Header"](./mini_app_chart.svg)
 
 In this component layout, the `Modal` was showing under the `Footer` component. The reason this was happening is because the `Modal` is trapped under a ["CSS Stacking Context"](https://unicorn-utterances.com/posts/css-stacking-context).
 
 Let's simplify the chart and see what I mean;
 
-![// TODO: Write alt](./simplified_app_chart.svg)
+![Header, body, and footer are siblings. Header has a group that's z-index 1, of which contains the modal of z-index 99. The footer is a root z-index of 2](./simplified_app_chart.svg)
 
 Here, we can see that despite `Modal` being assigned a `z-index` of `99`, it's trapped under the `Header`, which is a `z-index` of `1`. The `Modal` cannot escape this encapsulated `z-index` painting order, and as a result, `Footer` shows up on top.
 
 Ideally, to solve this problem, we'd want to move `Modal` to be in our HTML after the `Footer`, like so:
 
-![// TODO: Write alt](./how_to_flatten_css_stacking_contexts.svg)
+![We flattened our element structure so that our z-index of 99 is now a sibling of z-index of 2 and 1](./how_to_flatten_css_stacking_contexts.svg)
 
 But how can we do this without moving the `Modal` component outside of the `Header` component?
 
