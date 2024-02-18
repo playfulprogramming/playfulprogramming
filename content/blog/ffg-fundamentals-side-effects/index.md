@@ -221,7 +221,7 @@ To explore what these side-effect handlers can do, let's look at an example of a
 
 # Initial Render Side Effects {#initial-render-effects}
 
-When we introduced components, we touched on the [concept of "rendering"](/posts/ffg-fundamentals-intro-to-components#Rendering-the-app). This occurs when a component is drawn on-screen, either when the user loads a page for the first time or when shown or hidden using a [conditional render](/posts/ffg-fundamentals-dynamic-html#Conditional-Branches).
+When we introduced components, we touched on the [concept of "rendering"](/posts/ffg-fundamentals-intro-to-components#rendering-app). This occurs when a component is drawn on-screen, either when the user loads a page for the first time or when shown or hidden using a [conditional render](/posts/ffg-fundamentals-dynamic-htmll#conditional-branch).
 
 Say we have the following code:
 
@@ -607,7 +607,7 @@ Now, when we resize the browser, our values on-screen should update as well.
 
 ## Event Bubbling Aside {#event-bubbling}
 
-In our introduction to components, we demonstrated that [components can listen to HTML events](/posts/ffg-fundamentals-intro-to-components#Event-Binding).
+In our introduction to components, we demonstrated that [components can listen to HTML events](/posts/ffg-fundamentals-intro-to-components#event-binding).
 
 What if we changed our code above to listen for the `resize` event that way to sidestep `addEventListener`?
 
@@ -1584,7 +1584,7 @@ watchEffect((onCleanup) => {
 
 While we've quickly glanced at how each framework is able to clean up its side effects using a side effect handler that runs when a component unmounts, we haven't seen how this impacts other aspects of a component yet.
 
-For example, [we mentioned in the first chapter that you can emit events from a child component into a parent component](/posts/ffg-fundamentals-intro-to-components#Outputs). Let's build out a component that uses _events_ to trigger a parent function a second after its contents are shown.
+For example, [we mentioned in the first chapter that you can emit events from a child component into a parent component](/posts/ffg-fundamentals-intro-to-components#outputs). Let's build out a component that uses _events_ to trigger a parent function a second after its contents are shown.
 
 > Let's not yet introduce cleanup, you'll see why in a second.
 

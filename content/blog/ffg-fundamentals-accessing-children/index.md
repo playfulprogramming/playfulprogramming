@@ -652,7 +652,7 @@ const App = () => {
 
 ## Angular
 
-Let's use the [ability to pass values to an ngTemplate using context](/posts/ffg-fundamentals-directives#Passing-Data-to-ng-template-Using-ngTemplateOutletContext) to provide the background color to the passed template to our `ParentList` component:
+Let's use the [ability to pass values to an ngTemplate using context](/posts/ffg-fundamentals-directives#passing-data-to-ng-template) to provide the background color to the passed template to our `ParentList` component:
 
 ```typescript
 @Component({
