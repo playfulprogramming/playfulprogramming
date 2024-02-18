@@ -1054,7 +1054,7 @@ Instead, our markup needs to look like this:
 
 The reason our markup isn't correct is that we're creating non-default host elements in our Angular components.
 
-### Angular Host Elements and Bindings
+### Angular Host Elements and Bindings {#angular-host-elements}
 
 > What are Angular host elements?
 

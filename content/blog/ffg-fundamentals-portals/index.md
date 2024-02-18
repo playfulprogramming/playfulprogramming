@@ -27,7 +27,7 @@ What is this API called? **Portals**.
 
 Why do we need a dedicated API for this use case? **CSS**.
 
-# The Problem with Modals; CSS Stacking Contexts
+# The Problem with Modals; CSS Stacking Contexts {#stacking-contexts}
 
 Let's build the "Delete file" modal we saw in our framework of choice:
 
@@ -682,7 +682,7 @@ While the long answer of "Why is the modal rendering under the footer in this ex
 
 To solve this, we'll reach for the JavaScript API built into React, Angular, and Vue that we mentioned at the start of this chapter: Portals.
 
-# What Is a JavaScript Portal?
+# What Is a JavaScript Portal? {#what-is-a-portal}
 
 The basic idea behind a JavaScript Portal builds on top of [the concepts like components we introduced in our first chapter](/posts/ffg-fundamentals-intro-to-components).
 
@@ -710,7 +710,7 @@ This is to say that your framework components will be laid out like the tree on 
 
 Let's take a look at how we can build these portals ourselves.
 
-# Using Local Portals
+# Using Local Portals {#using-local-portals}
 
 While it's not the most useful example of using a portal, let's see how we can use a portal to teleport part of a UI to another part of the same component:
 
@@ -816,7 +816,7 @@ This `cdkPortalOutlet` is where the captured HTML is then projected into.
 > - [Everything you need to know about the `ExpressionChangedAfterItHasBeenCheckedError` error](https://indepth.dev/posts/1001/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error)
 > - [Angular Debugging "Expression has changed after it was checked": Simple Explanation (and Fix)](https://blog.angular-university.io/angular-debugging/)
 
-### Rendering `ng-template`
+### Rendering `ng-template` {#rendering-ng-template}
 
 Because we're using a `div` to act as the parent element of the portal's contents, there might be a flash of the `div` on screen before our `ngAfterViewInit` occurs. This flash happens because a `div` is an HTML element that renders its contents on the screen, and then our `ngAfterViewInit` goes back and removes the `div` from the DOM.
 
@@ -890,7 +890,7 @@ const portalContainerEl = ref(null);
 
 Now that we know how to apply portals within a component, let's see how we can apply a portal to be at the root of the entire application.
 
-# Application-Wide Portals
+# Application-Wide Portals {#app-wide-portals}
 
 In local portals, we were able to see that implementations of portals rely on an [element reference](/posts/ffg-fundamentals-element-reference) to be set to a variable. This tells us where we should render our portal's contents.
 
@@ -1046,7 +1046,7 @@ const portalContainerEl = inject("portalContainerEl");
 
 Our portals should be able to render over all the other content we draw within our apps now!
 
-# HTML-Wide Portals
+# HTML-Wide Portals {#html-wide-portals}
 
 If you only use React, Angular, or Vue in your apps, you can fairly safely use application-wide portals without any significant hiccups... But most applications don't _just_ use React, Angular, or Vue.
 
@@ -1217,7 +1217,7 @@ Now, when you test the issue again, you find your modal is above the UnicornChat
 
 ![The modal is drawn above the UnicornChat elements, allowing users to press the dialogs](./file_app_chat_below_delete_dialog.png)
 
-# Challenge
+# Challenge {#challenge}
 
 If we look back to [our Element Reference chapter's code challenge](/posts/ffg-fundamentals-element-reference#challenge), you might remember that we were tasked with creating a tooltip component:
 
