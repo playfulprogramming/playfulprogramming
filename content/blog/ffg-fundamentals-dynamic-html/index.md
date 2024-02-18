@@ -38,7 +38,7 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 };
 ```
 
-<iframe data-frame-title="React Outputs - StackBlitz" src="uu-remote-code:../ffg-fundamentals-intro-to-components/ffg-fundamentals-react-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Outputs - StackBlitz" src="uu-code:../ffg-fundamentals-intro-to-components/ffg-fundamentals-react-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 ### Angular
 
@@ -72,7 +72,7 @@ class FileComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Outputs - StackBlitz" src="uu-remote-code:../ffg-fundamentals-intro-to-components/ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Outputs - StackBlitz" src="uu-code:../ffg-fundamentals-intro-to-components/ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ### Vue
 
@@ -103,7 +103,7 @@ const emit = defineEmits(["selected"]);
 </template>
 ```
 
-<iframe data-frame-title="Vue Outputs - StackBlitz" src="uu-remote-code:../ffg-fundamentals-intro-to-components/ffg-fundamentals-vue-outputs-15?template=node&embed=1&file=src%2FFile.vue"></iframe>
+<iframe data-frame-title="Vue Outputs - StackBlitz" src="uu-code:../ffg-fundamentals-intro-to-components/ffg-fundamentals-vue-outputs-15?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 <!-- tabs:end -->
 
