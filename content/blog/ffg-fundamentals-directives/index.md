@@ -17,7 +17,7 @@ This is helpful for sharing logic between components, but isn't the whole story 
 
 For example, we may want logic associated with a given DOM node without having to create an entire component specifically for that purpose. This exact problem is what a **Directive** aims to solve.
 
-# What Is a Directive
+# What Is a Directive {#what-is-a-directive}
 
 Our ["Introduction to Components" chapter](/posts/ffg-fundamentals-intro-to-components) mentioned how a component is a collection of structures, styling, and logic that's associated with one or more HTML nodes.
 
@@ -87,7 +87,7 @@ Here, we've told Angular to listen for any `sayHi` attributes ([using a CSS sele
 
 This isn't particularly useful, but demonstrates the most minimal version of what a directive looks like.
 
-### Accessing a Directive's Underlying Element
+### Accessing a Directive's Underlying Element {#angular-underlying-element}
 
 It's frequently more helpful to get a reference to the element that the attribute is present on. To do this, we'll use Angular's [dependency injection](/posts/ffg-fundamentals-dependency-injection) to ask Angular for an `ElementRef` that's present within the framework's internals when you create a directive instance.
 
@@ -148,7 +148,7 @@ const vSayHi = {
 
 Directives in Vue must start with `v-` prefix (which is why our object starts with `v`) and are `dash-cased` when presented inside a `template`. This means that our `vSayHi` object directive is turned into `v-say-hi` when used in the template.
 
-### Accessing a Directive's Underlying Element
+### Accessing a Directive's Underlying Element {#vue-underlying-element}
 
 Instead of running a simple `console.log` on a string, let's use the first argument passed to our directive's `created` function
 to access the underlying HTML element:
@@ -176,7 +176,7 @@ You'll notice that these directives' logics are applied to elements through some
 
 Now that we've seen what a directive looks like, let's apply it to some real-world examples.
 
-# Basic Directives
+# Basic Directives {#basic-directives}
 
 Now that we have a reference to the underlying DOM node, we can use that to do various things with the element.
 
@@ -259,7 +259,7 @@ const vStyleBackground = {
 >
 > This is because styling an element through JavaScript can cause issues with [server-side rendering](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg#ssr), and can also cause [layout thrashing](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing) if done incorrectly.
 
-# Side Effect Handlers in Directives
+# Side Effect Handlers in Directives {#side-effect-handlers}
 
 [Previously, in the book, we've explored adding a `focus` event when an element is rendered](/posts/ffg-fundamentals-component-reference#using-comp-ref). However, in this chapter, we explicitly had to call a `focus` method. What if we could have our `button` focus itself immediately when it's rendered onto the page?
 
@@ -353,7 +353,7 @@ For example, if we wanted to add a cleanup to this directive, we could change `m
 
 <!-- tabs:end -->
 
-# Passing Data to Directives
+# Passing Data to Directives {#passing-data}
 
 Let's look back at the directive we wrote to add colors to our button. It worked, but that red we were applying to the `button` element was somewhat harsh, wasn't it?
 
@@ -444,7 +444,7 @@ You access the bindings' value through `binding.value`, but can also access thin
 
 <!-- tabs:end -->
 
-## Passing JavaScript Values
+## Passing JavaScript Values {#passing-js-values}
 
 Similar to how you can pass any valid JavaScript object to a component's inputs, you can do the same with a directive.
 
@@ -570,7 +570,7 @@ const vStyleBackground = {
 
 Now, we can customize the color using incremental updates to the RGB values of a color we're passing.
 
-## Passing Multiple Values
+## Passing Multiple Values {#passing-multiple-values}
 
 While a class instance of `Color` may be useful in production apps, for smaller projects, it might be nicer to manually pass the `r`, `g`, and `b` values directly to a directive without needing a class.
 
@@ -666,7 +666,7 @@ const vStyleBackground = {
 
 <!-- tabs:end -->
 
-# Conditionally Rendered UI via Directives
+# Conditionally Rendered UI via Directives {#conditionally-rendered-ui}
 
 The examples we've used to build out basic directives have previously all mutated elements that don't change their visibility; these elements are always rendered on screen and don't change that behavior programmatically.
 
@@ -770,7 +770,7 @@ While we previously have used `ng-template` as a shorthand for "Don't render thi
 
 For starters, did you know that you can pass data to an `ng-template`?
 
-### Passing Data to `ng-template` Using `ngTemplateOutletContext`
+### Passing Data to `ng-template` Using `ngTemplateOutletContext` {#passing-data-to-ng-template}
 
 To pass data to an `ng-template`, you need to provide a "context" object for what should be passed.
 
@@ -832,7 +832,7 @@ We can even choose to use [an `ng-container`](/posts/ffg-fundamentals-transparen
 
 <iframe data-frame-title="Angular Pass Template Data No Div - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-pass-template-data-no-div-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-#### Default Keys in Template Context
+#### Default Keys in Template Context {#default-keys-in-template-context}
 
 Previously, we used a syntax like:
 
@@ -870,7 +870,7 @@ class AppComponent {}
 
 <iframe data-frame-title="Angular Default Keys in Context - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-default-keys-in-context-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-### Seeing a Template Render a Comment
+### Seeing a Template Render a Comment {#seeing-a-template-render-a-comment}
 
 While we've been using `inject` in directives to gain access to the directive's underlying HTML element, what happens if we bind a directive to an `ng-template`?
 
@@ -934,7 +934,7 @@ In this example, we've logged a [Comment node](https://developer.mozilla.org/en-
 
 While this is an implementation detail of Angular, it shows that Angular "renders" the `ng-template`, which can trigger side effects like Angular's `onInit` lifecycle methods. This is helpful when using a directive!
 
-### Access a Template from a Directive
+### Access a Template from a Directive {#access-a-template}
 
 Now that we know we can attach a template from a directive, let's go one step further and render the respective template.
 
@@ -986,7 +986,7 @@ TemplateRef {_declarationLView: Array[34], _declarationTContainer: {…}, elemen
 
 To render this `TemplateRef`, we'll use a `ViewContainerRef`.
 
-### Explaining Angular's Dom Structure
+### Explaining Angular's Dom Structure {#explaining-angulars-dom-structure}
 
 A `ViewContainerRef` is a reference to the nearest `ViewContainer`
 
@@ -1147,7 +1147,7 @@ Now, we should be able to see the `p` tag rendering!
 
 <iframe data-frame-title="Angular ViewContainer Template - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-viewcontainer-template-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-### Pass Data to Rendered Templates inside Directives
+### Pass Data to Rendered Templates inside Directives {#pass-data-to-rendered-templates}
 
 Just as we could pass data to a template inside a component using `ngTemplateOutletContext`, we can do the same using a second argument of `createEmbeddedView`:
 
@@ -1187,7 +1187,7 @@ class AppComponent {}
 
 <iframe data-frame-title="Angular Rendered Template Data - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-rendered-template-data-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-### Use Structural Directives to Make Work Easier
+### Use Structural Directives to Make Work Easier {#use-structural-directives}
 
 In our previous section, we used an `ng-template` combined with a `div` to render our app with the correct DOM structure.
 
@@ -1233,7 +1233,7 @@ class AppComponent {}
 
 > Structural directives are immensely powerful! [I wrote a 10k word long blog post all about them here.](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives)
 
-### Build the Feature Flag Behavior Using Structural Templates
+### Build the Feature Flag Behavior Using Structural Templates {#build-structural-template-feature-flag}
 
 Now that we have our foundation written out, we can finally build a simple `featureFlag` directive that renders nothing if a `flag` is false but renders the contents if a flag is `true`:
 
@@ -1341,7 +1341,7 @@ That said, this method is reasonable extensible as you can even use this `Featur
 
 <!-- tabs:end -->
 
-# Challenge
+# Challenge {#challenge}
 
 [In our "Portals" chapter, we implemented a tooltip that used portals to avoid issues with the stacking context:](/posts/ffg-fundamentals-portals#challenge)
 
