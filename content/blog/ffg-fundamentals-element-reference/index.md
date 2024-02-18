@@ -228,7 +228,7 @@ In this chapter, we'll learn:
 - Adding focus and external click listening to the context menu
 - A code challenge to re-enforce knowledge
 
-# Basic Element References {#basic-el-referernces}
+# Basic Element References {#basic-el-references}
 
 <!-- tabs:start -->
 
