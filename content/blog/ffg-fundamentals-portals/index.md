@@ -13,11 +13,11 @@
 
 You ever start up your favorite application, click an action button, then **boom**, there's a popup from the application about your interaction?
 
-For example, you might click the "delete" button and are then greeted by a "Are you sure you'd like to delete the file?" pop up?
+For example, you might click the "delete" button and are then greeted by an "Are you sure you'd like to delete the file?" pop up?
 
 ![A popup that says "Are you sure you want to delete that file?" with a "Confirm" and "Cancel" button](./confirm_delete_modal.svg)
 
-These are called "modals" and, [despite the decry of many developers](https://modalzmodalzmodalz.com), they're widely utilized as a method to grab a user's attention in applications of all kinds.
+These are called "modals" and, [despite the anguish of many developers](https://modalzmodalzmodalz.com), they're widely used as a method to grab a user's attention in applications of all kinds.
 
 You may be surprised to learn that, despite their ubiquity, they can be rather challenging to implement.
 
@@ -670,7 +670,7 @@ function showModal() {
 
 <!-- tabs:end -->
 
-But wait... Now when we render the app and open our dialog it looks like it's _under_ the `Footer` component?!
+But wait... Now when we render the app and open our dialog, it looks like it's _under_ the `Footer` component?!
 
 ![The dialog is having some of its contents underneath the footer](./website_modal_under_footer_example.png)
 
@@ -684,13 +684,13 @@ To solve this, we'll reach for the JavaScript API built into React, Angular, and
 
 # What Is a JavaScript Portal?
 
-The basic idea behind a JavaScript Portal builds on top of [the concepts of components we introduced in our first chapter](/posts/ffg-fundamentals-intro-to-components).
+The basic idea behind a JavaScript Portal builds on top of [the concepts like components we introduced in our first chapter](/posts/ffg-fundamentals-intro-to-components).
 
 Imagine you have a set of components that represent the small app we just built:
 
 ![A chart showcasing "App" at the root, footer and header are next to one another as siblings and "Modal" is a child of "Header"](./mini_app_chart.svg)
 
-In this component layout, the `Modal` was showing under the `Footer` component. The reason this was happening is because the `Modal` is trapped under a ["CSS Stacking Context"](https://unicorn-utterances.com/posts/css-stacking-context).
+In this component layout, the `Modal` was showing under the `Footer` component. The reason this was happening is that the `Modal` is trapped under a ["CSS Stacking Context"](https://unicorn-utterances.com/posts/css-stacking-context).
 
 Let's simplify the chart and see what I mean;
 
@@ -702,7 +702,7 @@ Ideally, to solve this problem, we'd want to move `Modal` to be in our HTML afte
 
 ![We flattened our element structure so that our z-index of 99 is now a sibling of z-index of 2 and 1](./how_to_flatten_css_stacking_contexts.svg)
 
-But how can we do this without moving the `Modal` component outside of the `Header` component?
+But how can we do this without moving the `Modal` component outside the `Header` component?
 
 This is where JavaScript portals come into play. **Portals allow you to render the HTML for a component in a different location of the DOM tree than the location of our component tree**.
 
@@ -754,7 +754,7 @@ You'll notice that we're then displaying the return of `createPortal` - `portal`
 
 ## Angular
 
-While the other frameworks have something akin to a portal system built into their frameworks' core, Angular does not. Instead, the Angular team maintains a library called [the "Angular CDK"](https://cdk.angular.io) in order to have shared UI code for utilities such as portals.
+While the other frameworks have something akin to a portal system built into their frameworks' core, Angular does not. Instead, the Angular team maintains a library called [the "Angular CDK"](https://cdk.angular.io) to have shared UI code for utilities such as portals.
 
 To use the Angular CDK, you'll first need to install it into your project:
 
@@ -808,9 +808,9 @@ This `domPortal` is then assigned to a `[cdkPortalOutlet]` input. This input is 
 
 This `cdkPortalOutlet` is where the captured HTML is then projected into.
 
-> Our code here uses a `setTimeout` to avoid an error of "Expression has changed after it was checked".
+> Our code here uses a `setTimeout` to avoid an error of "Expression has changed after it was checked."
 >
-> The reason for this occuring is quite complex (and out of scope), but you can read about it more with the following resources:
+> The reason for this occurring is quite complex (and out of scope), but you can read about it more with the following resources:
 >
 > - [Official Angular video explaining "Expression has changed"](https://angular.io/errors/NG0100)
 > - [Everything you need to know about the `ExpressionChangedAfterItHasBeenCheckedError` error](https://indepth.dev/posts/1001/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error)
@@ -896,7 +896,7 @@ In local portals, we were able to see that implementations of portals rely on an
 
 While this worked, it didn't do much to solve the original issue that portals were set out to solve; overlapping stacking contexts.
 
-If there was a way that we could provide a variable to all of the application's components, then we could have a way to solve the stacking context problem within our apps...
+If there was a way that we could provide a variable to all the application's components, then we could have a way to solve the stacking context problem within our apps...
 
 > But wait, Corbin, there _is_ a way we can provide all a variable to the rest of our app! We learned how to do that using [dependency injection from the root of the app!](/posts/ffg-fundamentals-dependency-injection)
 
@@ -1058,9 +1058,9 @@ They want the UI to look something like this:
 
 ![Our files app with a chat dialog spawning from a corner button labelled "UnicornChat HQ"](./files_app_chat_demo.png)
 
-While you could build this out yourself, it's often costly to do so. Not only do you have to build out your own chat UI, but the backend login system for your customer reps to use, the server communciation between them, and more.
+While you could build this out yourself, it's often costly to do so. Not only do you have to build out your own chat UI, but the backend login system for your customer reps to use, the server communication between them, and more.
 
-Luckily for you, it just so happens that there a service called "UnicornChat" that solves this exact problem!
+Luckily for you, it just so happens that there is a service called "UnicornChat" that solves this exact problem!
 
 > UnicornChat doesn't exist, but many other services exist like it. Any reference you see to "UnicornChat" in this article is purely fictional, but based on real companies that exist to solve this problem. The APIs I'll demonstrate are often very similar to what these companies really offer.
 
@@ -1082,7 +1082,7 @@ It handles everything else for you! It will add a button to the end of your `<bo
 
 This is awesome and solved your ticket immediately... Or so you thought.
 
-When QA goes to test your app, they come back with a brand new bug you've never seen before; The UnicornChat UI draws on top of your file deletion confirm dialog.
+When QA goes to test your app, they come back with a brand-new bug you've never seen before; The UnicornChat UI draws on top of your file deletion confirmation dialog.
 
 ![The UnicornChat is drawn above the dialog despite being less important for the user's dialog at the time](./file_app_chat_above_delete_dialog.png)
 
