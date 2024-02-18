@@ -11,21 +11,21 @@
 }
 ---
 
-You ever start up your favorite application, click an action button, then **boom**, there's a popup from the application about your interaction?
+Do you ever start up your favorite application, click an action button, and then **boom**, there's a popup from the application about your interaction?
 
-For example, you might click the "delete" button and are then greeted by an "Are you sure you'd like to delete the file?" pop up?
+For example, you might click the "delete" button and then be greeted by a "Are you sure you'd like to delete the file?" pop-up.
 
-![A popup that says "Are you sure you want to delete that file?" with a "Confirm" and "Cancel" button](./confirm_delete_modal.svg)
+![A popup that says, "Are you sure you want to delete that file?" with a "Confirm" and "Cancel" button](./confirm_delete_modal.svg)
 
 These are called "modals" and, [despite the anguish of many developers](https://modalzmodalzmodalz.com), they're widely used as a method to grab a user's attention in applications of all kinds.
 
-You may be surprised to learn that, despite their ubiquity, they can be rather challenging to implement.
+You may be surprised to learn that they can be challenging to implement despite their ubiquity.
 
-However, you may not be surprised to learn that these modals are so common that **there's an API in React, Angular, and Vue each that makes modals easier to implement**; an API that's almost exclusively for these kinds of modal components.
+However, you may not be surprised to learn that these modals are so common that **there's an API in React, Angular, and Vue that makes modals easier to implement**, an API that's almost exclusively for these kinds of modal components.
 
 What is this API called? **Portals**.
 
-Why do we need a dedicated API for this use-case? **CSS**.
+Why do we need a dedicated API for this use case? **CSS**.
 
 # The Problem with Modals; CSS Stacking Contexts
 
@@ -180,7 +180,7 @@ CSS for the modal
 
 </details>
 
-Now that we have that modal, let's build out a small version of our folder app we've been building in this book. This version of the app should showcase the modal, the header, and a copyright footer:
+Now that we have that modal, let's build a small version of the folder app we've been building in this book. This version of the app should showcase the modal, the header, and a copyright footer:
 
 ![A modal on top of a minimal version of the file app that includes a file list, header, and footer](./website_modal_example.png)
 
@@ -569,7 +569,7 @@ body {
 
 </details>
 
-Awesome! This is looking good. Now, let's add in the ability to open our dialog from our `Header` component.
+Awesome! This is looking good. Now, let's add the ability to open our dialog from our `Header` component.
 
 To do this, we'll:
 
@@ -670,13 +670,13 @@ function showModal() {
 
 <!-- tabs:end -->
 
-But wait... Now when we render the app and open our dialog, it looks like it's _under_ the `Footer` component?!
+But wait... When we render the app and open our dialog, why does it look like it's _under_ the `Footer` component?!
 
-![The dialog is having some of its contents underneath the footer](./website_modal_under_footer_example.png)
+![The dialog has some of its contents underneath the footer](./website_modal_under_footer_example.png)
 
 Why is that? After all, `Modal` has a `z-index` of `99`, while `Footer` only has a `z-index` of `2`!
 
-While the long answer of "why is the modal rendering under the footer in this example" includes a mention of [stacking contexts](https://unicorn-utterances.com/posts/css-stacking-context), the short answer is ["A higher `z-index` number doesn't always guarantee that your element is always on the top."](https://unicorn-utterances.com/posts/css-stacking-context)
+While the long answer of "Why is the modal rendering under the footer in this example" includes a mention of [stacking contexts](https://unicorn-utterances.com/posts/css-stacking-context), the short answer is ["A higher `z-index` number doesn't always guarantee that your element is always on the top."](https://unicorn-utterances.com/posts/css-stacking-context)
 
 > While both of those links lead to the same place, I worry that this might still be too subtle of a hint to [**go read the article I wrote that explains exactly why this `z-index` behavior occurs.**](https://unicorn-utterances.com/posts/css-stacking-context)
 
@@ -688,25 +688,25 @@ The basic idea behind a JavaScript Portal builds on top of [the concepts like co
 
 Imagine you have a set of components that represent the small app we just built:
 
-![A chart showcasing "App" at the root, footer and header are next to one another as siblings and "Modal" is a child of "Header"](./mini_app_chart.svg)
+![A chart showcasing "App" at the root, footer, and header are next to one another as siblings, and "Modal" is a child of "Header."](./mini_app_chart.svg)
 
 In this component layout, the `Modal` was showing under the `Footer` component. The reason this was happening is that the `Modal` is trapped under a ["CSS Stacking Context"](https://unicorn-utterances.com/posts/css-stacking-context).
 
 Let's simplify the chart and see what I mean;
 
-![Header, body, and footer are siblings. Header has a group that's z-index 1, of which contains the modal of z-index 99. The footer is a root z-index of 2](./simplified_app_chart.svg)
+![The header, body, and footer are siblings. The header has a group that's z-index 1, which contains the modal of z-index 99. The footer is a root z-index of 2](./simplified_app_chart.svg)
 
-Here, we can see that despite `Modal` being assigned a `z-index` of `99`, it's trapped under the `Header`, which is a `z-index` of `1`. The `Modal` cannot escape this encapsulated `z-index` painting order, and as a result, `Footer` shows up on top.
+Here, we can see that despite `Modal` being assigned a `z-index` of `99`, it's trapped under the `Header`, which is a `z-index` of `1`. The `Modal` cannot escape this encapsulated `z-index` painting order, and as a result, the `Footer` shows up on top.
 
 Ideally, to solve this problem, we'd want to move `Modal` to be in our HTML after the `Footer`, like so:
 
-![We flattened our element structure so that our z-index of 99 is now a sibling of z-index of 2 and 1](./how_to_flatten_css_stacking_contexts.svg)
+![We flattened our element structure so that our z-index of 99 is now a sibling of the z-index of 2 and 1](./how_to_flatten_css_stacking_contexts.svg)
 
 But how can we do this without moving the `Modal` component outside the `Header` component?
 
 This is where JavaScript portals come into play. **Portals allow you to render the HTML for a component in a different location of the DOM tree than the location of our component tree**.
 
-This is to say that your framework components will be laid out like the tree on the left, but will render out like the flat structure on the right.
+This is to say that your framework components will be laid out like the tree on the left but will render out like the flat structure on the right.
 
 Let's take a look at how we can build these portals ourselves.
 
@@ -796,7 +796,7 @@ class AppComponent implements AfterViewInit {
 
 <iframe data-frame-title="Angular Local Portals - StackBlitz" src="uu-remote-code:./ffg-fundamentals-angular-local-portals-95?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-You'll notice that we're creating a variable called `domPortal` that we assign an instance of `DomPortal` into. This `DomPortal` instance allows us to take a captured reference to some HTML (in this case, a `div` with `Hello world!`), and project it elsewhere.
+You'll notice that we're creating a variable called `domPortal` that we assign an instance of `DomPortal`. This `DomPortal` instance allows us to take a captured reference to some HTML (in this case, a `div` with `Hello world!`), and project it elsewhere.
 
 This `domPortal` is then assigned to a `[cdkPortalOutlet]` input. This input is automatically created on all `ng-template`s when `PortalModule` is imported.
 
@@ -818,7 +818,7 @@ This `cdkPortalOutlet` is where the captured HTML is then projected into.
 
 ### Rendering `ng-template`
 
-Because we're using a `div` to act as the parent element of the portal's contents, there might be a flash of the `div` on screen before our `ngAfterViewInit` occurs. This flash happens because a `div` is an HTML element, which renders its contents on screen, then our `ngAfterViewInit` goes back and removes the `div` from the DOM.
+Because we're using a `div` to act as the parent element of the portal's contents, there might be a flash of the `div` on screen before our `ngAfterViewInit` occurs. This flash happens because a `div` is an HTML element that renders its contents on the screen, and then our `ngAfterViewInit` goes back and removes the `div` from the DOM.
 
 As such, we may want to use an `ng-template`, which does not render to the DOM in the first place:
 
@@ -860,7 +860,7 @@ class AppComponent implements AfterViewInit {
 
 ## Vue
 
-Vue may have the most minimal portal API of them all; You use the built-in `Teleport` component, and tell it which HTML element you want it to render to using the `to` input.
+Vue may have the most minimal portal API of them all: You use the built-in `Teleport` component and tell it which HTML element you want it to render to using the `to` input.
 
 ```vue
 <!-- App.vue -->
@@ -892,7 +892,7 @@ Now that we know how to apply portals within a component, let's see how we can a
 
 # Application-Wide Portals
 
-In local portals, we were able to see that implementations of portals rely on an [element reference](/posts/ffg-fundamentals-element-reference) to be set to a variable. This tells us where we should render our portal's contents into.
+In local portals, we were able to see that implementations of portals rely on an [element reference](/posts/ffg-fundamentals-element-reference) to be set to a variable. This tells us where we should render our portal's contents.
 
 While this worked, it didn't do much to solve the original issue that portals were set out to solve; overlapping stacking contexts.
 
@@ -1005,7 +1005,7 @@ We're also making sure that our portal exists before rending it in our `AppCompo
 
 ## Vue
 
-Once again Vue's straightforward API approach is visible through the pairing of its `provide` API, which hosts a variable of the location to present portals into, and its `Teleport` API which enables the portal's usage.
+Once again, Vue's straightforward API approach is visible through the pairing of its `provide` API, which hosts a variable of the location to present portals into, and its `Teleport` API, which enables the portal's usage.
 
 ```vue
 <!-- App.vue -->
@@ -1044,27 +1044,27 @@ const portalContainerEl = inject("portalContainerEl");
 
 <!-- tabs:end -->
 
-Now our portals should be able to render over all the other content we draw within our apps!
+Our portals should be able to render over all the other content we draw within our apps now!
 
 # HTML-Wide Portals
 
-If you only use React, Angular, or Vue in your apps, you can fairly safely use application-wide portals without any major hiccups... But most applications don't _just_ use React, Angular, or Vue.
+If you only use React, Angular, or Vue in your apps, you can fairly safely use application-wide portals without any significant hiccups... But most applications don't _just_ use React, Angular, or Vue.
 
 Consider the following scenario:
 
-You're tasked with implementing a chat overlay system on your marketing website; something to help users when they get stuck in a pinch get in touch with a customer support rep.
+You're tasked with implementing a chat overlay system on your marketing website. This overlay system aims to help users get in touch with a customer support rep when they get stuck in a pinch.
 
 They want the UI to look something like this:
 
-![Our files app with a chat dialog spawning from a corner button labelled "UnicornChat HQ"](./files_app_chat_demo.png)
+![Our files app has a chat dialog spawning from a corner button labeled "UnicornChat HQ"](./files_app_chat_demo.png)
 
-While you could build this out yourself, it's often costly to do so. Not only do you have to build out your own chat UI, but the backend login system for your customer reps to use, the server communication between them, and more.
+While you could build this out yourself, it's often costly to do so. Not only do you have to build out your own chat UI, but you also have to build out the backend login system for your customer reps to use, the server communication between them, and more.
 
-Luckily for you, it just so happens that there is a service called "UnicornChat" that solves this exact problem!
+Luckily for you, it just so happens that a service called "UnicornChat" solves this exact problem!
 
 > UnicornChat doesn't exist, but many other services exist like it. Any reference you see to "UnicornChat" in this article is purely fictional, but based on real companies that exist to solve this problem. The APIs I'll demonstrate are often very similar to what these companies really offer.
 
-UnicornChat integrates with your app by adding in a `script` tag to your HTML's `head` tag:
+UnicornChat integrates with your app by adding a `script` tag to your HTML's `head` tag:
 
 ```html
 <!-- This is an example and does not really work -->
@@ -1080,13 +1080,13 @@ It handles everything else for you! It will add a button to the end of your `<bo
 </body>
 ```
 
-This is awesome and solved your ticket immediately... Or so you thought.
+This is awesome, and it solved your ticket immediately... or so you thought.
 
 When QA goes to test your app, they come back with a brand-new bug you've never seen before; The UnicornChat UI draws on top of your file deletion confirmation dialog.
 
 ![The UnicornChat is drawn above the dialog despite being less important for the user's dialog at the time](./file_app_chat_above_delete_dialog.png)
 
-This is because the contents of your React app are rendered before the UnicornChat UI, since the UnicornChat code is in a `div` that's after your React's container `div`.
+This is because the contents of your React app are rendered before the UnicornChat UI since the UnicornChat code is in a `div` that's after your React's container `div`.
 
 How can we solve this? By placing our portal's contents in the `body` itself after the UnicornChat UI.
 
@@ -1125,7 +1125,7 @@ function App() {
 
 To use a portal that attaches directly to `body` in Angular, we need to switch from using a `cdkPortalOutlet` to manually attaching and detaching a portal to a `DomPortalOutlet`.
 
-We can reuse our existing global service to create one of these `DomPortalOutlet`s and attach and detach in our `modal` component, like so:
+We can reuse our existing global service to create one of these `DomPortalOutlet`s and attach and detach it in our `modal` component, like so:
 
 ```typescript
 import { TemplatePortal, DomPortalOutlet } from "@angular/cdk/portal";
@@ -1213,17 +1213,17 @@ import Child from "./Child.vue";
 
 <!-- tabs:end -->
 
-Now when you test the issue again, you find your modal is above the UnicornChat UI.
+Now, when you test the issue again, you find your modal is above the UnicornChat UI.
 
 ![The modal is drawn above the UnicornChat elements, allowing users to press the dialogs](./file_app_chat_below_delete_dialog.png)
 
 # Challenge
 
-If we look back to [our Element Reference chapter's code challenge](/posts/ffg-fundamentals-element-reference#challenge) you might remember that we were tasked with creating a tooltip component:
+If we look back to [our Element Reference chapter's code challenge](/posts/ffg-fundamentals-element-reference#challenge), you might remember that we were tasked with creating a tooltip component:
 
-![Hovering over a "send" button will show an alert above the button saying "This will send an email to the recipients"](../ffg-fundamentals-element-reference/tooltip.png)
+![Hovering over a "send" button will show an alert above the button saying, "This will send an email to the recipients."](../ffg-fundamentals-element-reference/tooltip.png)
 
-The code we wrote previously for this challenge worked well, but it had a major flaw; it would not show up above other elements in the stacking context with a higher `z-index`.
+The code we wrote previously for this challenge worked well, but it had a major flaw; it would not show up above other elements with a higher `z-index` in the stacking context.
 
 ![The tooltip dialog is drawn underneath a header element due to z-index stacking contexts](./tooltip_underneath.png)
 
