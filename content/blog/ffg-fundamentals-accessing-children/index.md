@@ -41,7 +41,7 @@ Yes.
 
 Let's start with a simple example: Counting how many children a component has.
 
-# Counting a Component's Children
+# Counting a Component's Children {#counting-comp-children}
 
 Let's count how many elements and components are being passed to our component:
 
@@ -116,7 +116,7 @@ const ParentList = ({ children }) => {
 
 To get the count of the children elements within a component in Angular requires some pre-requisite knowledge. Let's go through each step until we find ourselves at the solution.
 
-### `ContentChild` to Access a Single Child
+### `ContentChild` to Access a Single Child {#content-child-access-single}
 
 In [our "Dynamic HTML" chapter, we talked about how you're able to assign a "variable template variable" using a `#` syntax](/posts/ffg-fundamentals-dynamic-html#ng-template):
 
@@ -171,7 +171,7 @@ Here, we're querying for the template tag `childItem` within the project content
 
 `ElementRef` is a type that has a single property called `nativeElement` containing the [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) in question.
 
-### `ngAfterContentInit` Detects Child Initialization
+### `ngAfterContentInit` Detects Child Initialization {#ngaftercontentinit-detects-child-init}
 
 If you were looking at the last code sample and wondered:
 
@@ -205,7 +205,7 @@ This can be solved by either:
 - Using `ngAfterContentInit` if the content is dynamic
 - [Using `{static: true}` on the `ContentChild` decorator if the content is static](/posts/ffg-fundamentals-element-reference#using-static-true)
 
-### Handle Multiple Children with `ContentChildren`
+### Handle Multiple Children with `ContentChildren` {#content-children-access-multiple}
 
 While `ContentChild` is useful for querying against a single item being projected, what if we wanted to query against multiple items being projected?
 
@@ -303,7 +303,7 @@ const list = [1, 2, 3];
 
 <!-- tabs:end -->
 
-# Rendering Children in a Loop
+# Rendering Children in a Loop {#rendering-children-in-loop}
 
 Now that we're familiar with accessing children, let's use the same APIs introduced before to take the following component template:
 
@@ -411,7 +411,7 @@ Just as before, Vue's APIs have a limitation when accessing direct children. Let
 
 <!-- tabs:end -->
 
-## Adding Children Dynamically
+## Adding Children Dynamically {#adding-children-dynamically}
 
 Now that we have a list of items being transformed by our component, let's add the functionality to add another item to the list:
 
@@ -513,7 +513,7 @@ While Vue can't render children in a list, it has many more capabilities to show
 
 Here, we can see that whenever a random number is added to the list, our list item counter still increments properly.
 
-# Passing Values to Projected Content
+# Passing Values to Projected Content {#passing-values-to-projected-content}
 
 While counting the number of items in a list is novel, it's not a very practical use of accessing projected content in JavaScript.
 
@@ -600,7 +600,7 @@ const App = () => {
 
 > Confused about how this last one is working? It might be a good time to [review your knowledge on how functions are able to pass to one another and call each other](https://unicorn-utterances.com/posts/javascript-functions-are-values).
 
-### Displaying the List in React
+### Displaying the List in React {#displaying-list-react}
 
 Now that we've seen the capabilities of a child function, let's use it to render a list with alternating backgrounds:
 
@@ -771,7 +771,7 @@ This `v-slot` is similar to how you might pass properties to a component, but in
 
 <!-- tabs:end -->
 
-# Challenge
+# Challenge {#challenge}
 
 Let's write a table component! Something like this:
 
