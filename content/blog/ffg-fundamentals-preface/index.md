@@ -81,7 +81,7 @@ While this book, in particular, will not touch on most of the ecosystem, the sec
 
 ## Who's Building What? {#framework-owners}
 
-This isn't to say that the only reliance you have that these tools won't disappear is that they're popular; each of these frameworks has at least one prominent backer behind them.
+This isn't to say that the only reason these tools will stick around is because they're popular; each of these frameworks has at least one prominent backer behind them.
 
 React is built by Meta and powers all of its major applications. Moreover, the core team has started to accept external contributions through feedback on the framework's development via ["working groups" consisting of subject-matter experts](https://github.com/reactwg). In recent years, even [groups like Vercel have hired React core members to work on the project from outside of Meta](https://twitter.com/sebmarkbage/status/1470761453091237892).
 
