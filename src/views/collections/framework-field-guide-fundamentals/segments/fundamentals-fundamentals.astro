@@ -28,9 +28,7 @@ const posts = await Astro.glob<PostInfo>(
 
 const chapterList = posts
 	.map((post) => post.frontmatter)
-	.filter(
-		(post) => post.collection === "The Framework Field Guide - Fundamentals",
-	)
+	.filter((post) => post.collection === "framework-field-guide-fundamentals")
 	.sort((postA, postB) => (postA.order > postB.order ? 1 : -1));
 ---
 

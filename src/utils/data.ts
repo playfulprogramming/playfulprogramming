@@ -339,7 +339,7 @@ function getPosts(): Array<PostInfo> {
 					licensesRaw.find((l) => l.id === frontmatter.license),
 				collectionMeta:
 					frontmatter.collection &&
-					collections.find((c) => c.title === frontmatter.collection),
+					collections.find((c) => c.slug === frontmatter.collection),
 				socialImg: `/generated/${slug}.twitter-preview.jpg`,
 			};
 		});
@@ -372,7 +372,7 @@ const posts = getPosts();
 
 collections = collections.map((collection: Omit<CollectionInfo, "posts">) => ({
 	...collection,
-	posts: posts.filter((post) => post.collection === collection.title),
+	posts: posts.filter((post) => post.collection === collection.slug),
 })) as CollectionInfo[];
 
 export {
