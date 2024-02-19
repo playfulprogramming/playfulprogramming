@@ -180,7 +180,7 @@ Here, we're using the `@Component` decorator to define a class component in Angu
 This decorator has a few properties passed to it. Going from the bottom-up:
 
 1. `template`: The HTML associated with this component.
-2. `standalone`: A flag telling the framework that this component is newer and can be used directly by another component.
+2. `standalone`: A flag telling the framework that this component is allowed to use the relatively new "Standalone" feature and can be used directly by another component.
 3. `selector`: The name of the component that can be referenced inside the `template` of another component
 
 > It's important to note that decorators (anything starting with `@`) are not supported in JavaScript itself. Instead, Angular uses [TypeScript](/posts/introduction-to-typescript/) to add types and other features to the language. From there, TypeScript compiles down to JavaScript.
@@ -2061,6 +2061,10 @@ function selectFile() {
 </template>
 ```
 
+Here, we're binding the `style` property using Vue's binding. You may notice that when binding via `style`, you use an object notation for styling instead of the usual string.
+
+We're also using a [ternary statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) (`condition ? trueVal : falseVal`) to act as a single-line `if` statement to decide which style to use.
+
 <iframe data-frame-title="Vue Event Binding - StackBlitz" src="uu-code:./ffg-fundamentals-vue-event-binding-14?template=node&embed=1&file=src%2FFile.vue"></iframe>
 
 We can use `v-on` bind prefix to bind a method to any event. This supports any built-in browser event name.
@@ -2080,10 +2084,6 @@ Can be rewritten into:
 ```
 
 <!-- tabs:end -->
-
-Here, we're binding the `style` property using Vue's binding. You may notice that when binding via `style`, you use an object notation for styling instead of the usual string.
-
-We're also using a [ternary statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) (`condition ? trueVal : falseVal`) to act as a single-line `if` statement to decide which style to use.
 
 # Outputs {#outputs}
 
