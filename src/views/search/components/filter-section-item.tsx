@@ -31,7 +31,7 @@ export const FilterSectionItem = ({
 	const ref = useRef(null);
 	const labelRef = useRef<HTMLLabelElement>(null);
 
-	const { inputProps } = useCheckbox(props, state, ref);
+	const { inputProps, labelProps } = useCheckbox(props, state, ref);
 	const { isFocusVisible, focusProps } = useFocusRing();
 	const isSelected = state.isSelected;
 
@@ -51,6 +51,7 @@ export const FilterSectionItem = ({
 				selected={isSelected}
 				wrapper={(children) => (
 					<label
+						{...labelProps}
 						ref={labelRef}
 						class={`${style.containerLabel} ${
 							isSelected ? style.selected : ""
