@@ -97,6 +97,8 @@
 	pre,
 	code {
 		@extend .text-style-code;
+		// Ensures consistent font-size within code blocks on iOS devices
+		-webkit-text-size-adjust: 100%;
 	}
 
 	code:not(pre code) {
@@ -165,7 +167,10 @@
 		//
 		// - this prevents elements targeted by the URL hash (e.g. "/some-page#Heading-ID")
 		//   from being obscured by the header
-		scroll-margin-top: calc(var(--header_logo_size) + var(--header_padding-vertical)*2 + 1px + var(--site-spacing));
+		scroll-margin-top: calc(
+			var(--header_logo_size) + var(--header_padding-vertical) * 2 + 1px +
+				var(--site-spacing)
+		);
 
 		code {
 			display: inline-flex;
