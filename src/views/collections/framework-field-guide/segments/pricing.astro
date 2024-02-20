@@ -43,8 +43,12 @@ Learn the core concepts behind your favorite frameworks and develop skillsets to
 				"Bonus: Offline download",
 			]}
 		>
-			<SmallFilledButton slot="button" href="https://discord.gg/FMcvc6T">
-				Request access
+			<SmallFilledButton
+				slot="button"
+				href="#signup-form"
+				onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
+			>
+				Notify me at launch
 			</SmallFilledButton>
 		</PricingCard>
 		<PricingCard
@@ -124,15 +128,15 @@ Take a deeper dive into understanding how your apps work under-the-hood, includi
 
 <script>
 	const enterpriseExplainers = Array.from(
-		document.querySelectorAll('[data-enterprise-explainer="true"]')
+		document.querySelectorAll('[data-enterprise-explainer="true"]'),
 	) as HTMLElement[];
 
 	const enterpriseExplainersReadOutLoud = Array.from(
-		document.querySelectorAll('[data-explainer-sr-read="true"]')
+		document.querySelectorAll('[data-explainer-sr-read="true"]'),
 	) as HTMLElement[];
 
 	const toggleEl = document.querySelector(
-		"#enterprise-toggle"
+		"#enterprise-toggle",
 	) as HTMLInputElement;
 	toggleEl.addEventListener("click", () => {
 		enterpriseExplainers.forEach((explainer) => {
