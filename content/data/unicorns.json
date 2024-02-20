@@ -610,7 +610,8 @@
 		"profileImg": "./hello.png",
 		"color": "#1AB5E5",
 		"roles": ["author"]
-	},{
+	},
+	{
 		"id": "jtemporal",
 		"name": "Jess Temporal",
 		"firstName": "Jess",
@@ -634,7 +635,7 @@
 		"firstName": "Tobiloba",
 		"lastName": "Adedeji",
 		"description": "I am a Software Engineer, Open source Advocate and Accessibility enthusiast. I work on the Million.js project as a Community Engineer, A DevRel at Tublian and I love everything frontend",
-		"socials":{
+		"socials": {
 			"twitter": "toby_solutions",
 			"github": "tobySolutions",
 			"twitch": "tobysolutions",
@@ -645,5 +646,19 @@
 		"color": "#ef5f17",
 		"roles": [],
 		"achievements": ["partner"]
+	},
+	{
+		"id": "matt",
+		"name": "Mateusz Wasik",
+		"firstName": "Mateusz",
+		"lastName": "Wasik",
+		"description": "Junior developer for life. Owner of a multitude of unfinished projects. I'm still trying to figure out what 'this' is.",
+		"socials": {
+			"github": "MateuszWasik"
+		},
+		"pronouns": "he/him",
+		"color": "#0091EA",
+		"profileImg": "./matt.png",
+		"roles": ["developer"]
 	}
 ]
