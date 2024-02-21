@@ -17,12 +17,10 @@ const { page } = Astro.props as { page: Page<PostInfo> };
 const pageIndex = page.currentPage;
 
 const SEOTitle = `Post page ${pageIndex}`;
-
-const SEODescription = `Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions. Browse all posts on Unicorn Utterances, page ${pageIndex}`;
 ---
 
 <Document>
-	<SEO slot="head" title={SEOTitle} description={SEODescription} />
+	<SEO slot="head" title={SEOTitle} />
 	<main class="container">
 		<PageView posts={page.data} page={page} />
 	</main>

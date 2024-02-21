@@ -4,26 +4,26 @@ import style from "./related-posts.module.scss";
 import RelatedPostsCard from "./related-posts-card.astro";
 
 interface RelatedPostsProps {
-    post: ExtendedPostInfo;
-    headingId: string;
+	post: ExtendedPostInfo;
+	headingId: string;
 }
 
 const { post, headingId } = Astro.props as RelatedPostsProps;
 ---
 
 <h2 id={headingId} class={`text-style-headline-5 ${style.relatedPostsHeader}`}>
-    Related posts
+	Related posts
 </h2>
 <ul class={style.suggestedPostList}>
-    {
-        post.suggestedArticles.map((suggestedPost) => (
-            <li>
-                <RelatedPostsCard
-                    title={suggestedPost.title}
-                    slug={suggestedPost.slug}
-                    authors={suggestedPost.authorsMeta.map((author) => author)}
-                />
-            </li>
-        ))
-    }
+	{
+		post.suggestedArticles.map((suggestedPost) => (
+			<li>
+				<RelatedPostsCard
+					title={suggestedPost.title}
+					slug={suggestedPost.slug}
+					authors={suggestedPost.authorsMeta}
+				/>
+			</li>
+		))
+	}
 </ul>
