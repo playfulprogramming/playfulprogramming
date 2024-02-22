@@ -314,6 +314,8 @@ Because of this, and following JavaScript's early return implementation of throw
 
 This is why we can see elements rendered _before_ our `throw-an-error` component, but not elements _after_.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
 # Why we need a fix
 
 If you've been a developer in the Angular space for a while, you'll know about [the Angular `ErrorHandler` API](https://angular.io/api/core/ErrorHandler), which allows you to log and otherwise keep track of the errors thrown in your app.
