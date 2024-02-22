@@ -1,0 +1,28 @@
+@import "src/tokens/index";
+
+.in-content-ad-container {
+	background: var(--surface_secondary_emphasis-low);
+	padding: var(--spc-6x);
+	border-radius: var(--corner-radius_l);
+
+	@include from($tabletLarge) {
+		padding: var(--spc-8x);
+		border-radius: var(--corner-radius_xl);
+	}
+}
+
+.in-content-ad-title {
+	margin: 0 !important;
+	margin-bottom: var(--spc-1x) !important;
+	color: var(--foreground_emphasis-high) !important;
+}
+
+.in-content-ad-description {
+	margin: 0 !important;
+	color: var(--foreground_emphasis-medium) !important;
+	margin-bottom: var(--spc-6x) !important;
+
+	@include from($tabletLarge) {
+		margin-bottom: var(--spc-8x) !important;
+	}
+}

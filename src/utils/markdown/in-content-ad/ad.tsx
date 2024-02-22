@@ -19,16 +19,23 @@ export function InContentAd(props: InContentAdProps): Element {
 
 	return (
 		<aside class="in-content-ad-container">
-			<h2 class="in-content-ad-title text-style-headline-5">{title}</h2>
-			<p class="in-content-ad-description text-style-body-medium-bold">
-				{body}
-			</p>
-			<a
-				href={buttonHref}
-				class="button text-style-button-large large secondary-emphasized"
-			>
-				{buttonText}
-			</a>
+			<div class="in-content-ad-contents">
+				<h2
+					data-no-heading-link
+					class="in-content-ad-title text-style-headline-5"
+				>
+					{title}
+				</h2>
+				<p class="in-content-ad-description text-style-body-medium-bold">
+					{body}
+				</p>
+				<a
+					href={buttonHref}
+					class="button text-style-button-large large secondary-emphasized"
+				>
+					{buttonText}
+				</a>
+			</div>
 		</aside>
 	) as never;
 }
