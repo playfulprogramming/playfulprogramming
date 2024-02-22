@@ -40,10 +40,27 @@
 	position: relative;
 	grid-row: 1;
 	grid-column: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	@include from($tabletSmall) {
 		grid-column: 2;
 		grid-row: 1;
+		justify-content: flex-end;
+	}
+}
+
+.in-content-image {
+	height: 160px;
+	width: 160px;
+
+	@include from($tabletSmall) {
+		margin-right: var(--spc-6x);
+	}
+
+	@include from($desktopSmall) {
+		margin-right: var(--spc-8x);
 	}
 }
 

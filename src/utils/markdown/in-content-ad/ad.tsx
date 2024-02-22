@@ -37,6 +37,7 @@ export function InContentAd(props: InContentAdProps): Element {
 				</a>
 			</div>
 			<div class="in-content-image-container">
+				<img data-nozoom class="in-content-image" src="/stickers/donate.svg" />
 				<div class="in-content-image-bg"></div>
 			</div>
 		</aside>
