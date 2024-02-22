@@ -3,6 +3,7 @@
 .in-content-ad-container {
 	background: var(--surface_secondary_emphasis-low);
 	border-radius: var(--corner-radius_l);
+	overflow: hidden;
 	display: grid;
 	grid-template-columns: auto;
 	grid-template-rows: 1fr 1fr;
@@ -97,4 +98,8 @@
 	@include from($desktopSmall) {
 		margin-bottom: var(--spc-8x) !important;
 	}
+}
+
+.in-content-ad-button {
+	display: inline-block;
 }

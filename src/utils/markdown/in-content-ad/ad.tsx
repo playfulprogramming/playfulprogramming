@@ -31,7 +31,7 @@ export function InContentAd(props: InContentAdProps): Element {
 				</p>
 				<a
 					href={buttonHref}
-					class="button text-style-button-large large secondary-emphasized"
+					class="button text-style-button-large large secondary-emphasized in-content-ad-button"
 				>
 					{buttonText}
 				</a>
