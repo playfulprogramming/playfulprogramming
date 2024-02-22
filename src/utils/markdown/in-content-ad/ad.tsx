@@ -36,6 +36,9 @@ export function InContentAd(props: InContentAdProps): Element {
 					{buttonText}
 				</a>
 			</div>
+			<div class="in-content-image-container">
+				<div class="in-content-image-bg"></div>
+			</div>
 		</aside>
 	) as never;
 }
