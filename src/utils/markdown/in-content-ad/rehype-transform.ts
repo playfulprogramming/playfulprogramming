@@ -13,6 +13,7 @@ export const rehypeInContentAd: Plugin<[], Root> = () => {
 					return p1;
 				})
 				.trim();
+			if (!value.startsWith("in-content-ad")) return;
 			value = `<${value}/>`;
 			const root = unified().use(rehypeParse, { fragment: true }).parse(value);
 			const el: Element = root.children[0] as never;
