@@ -17,21 +17,24 @@ export function InContentAd(props: InContentAdProps): Element {
 		body,
 	} = props;
 
+	/**
+	 * We cannot use the "A D" word in the markup, otherwise it will be blocked by ad blockers.
+	 */
 	return (
-		<aside class="in-content-ad-container">
-			<div class="in-content-ad-contents">
+		<aside class="in-content-banner-container">
+			<div class="in-content-banner-contents">
 				<h2
 					data-no-heading-link
-					class="in-content-ad-title text-style-headline-5"
+					class="in-content-banner-title text-style-headline-5"
 				>
 					{title}
 				</h2>
-				<p class="in-content-ad-description text-style-body-medium-bold">
+				<p class="in-content-banner-description text-style-body-medium-bold">
 					{body}
 				</p>
 				<a
 					href={buttonHref}
-					class="button text-style-button-large large secondary-emphasized in-content-ad-button"
+					class="button text-style-button-large large secondary-emphasized in-content-banner-button"
 				>
 					{buttonText}
 				</a>

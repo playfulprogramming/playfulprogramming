@@ -1,6 +1,9 @@
 @import "src/tokens/index";
 
-.in-content-ad-container {
+/**
+ * We cannot use the "A D" word in the markup, otherwise it will be blocked by ad blockers.
+ */
+.in-content-banner-container {
 	background: var(--surface_secondary_emphasis-low);
 	border-radius: var(--corner-radius_l);
 	overflow: hidden;
@@ -20,7 +23,7 @@
 	}
 }
 
-.in-content-ad-contents {
+.in-content-banner-contents {
 	padding: var(--spc-6x);
 	grid-row: 2;
 	grid-column: 1;
@@ -81,18 +84,18 @@
 	}
 }
 
-.in-content-ad-title {
+.in-content-banner-title {
 	margin: 0 !important;
 	margin-bottom: var(--spc-1x) !important;
 	color: var(--foreground_emphasis-high) !important;
 }
 
-.in-content-ad-description {
+.in-content-banner-description {
 	margin: 0 !important;
 	color: var(--foreground_emphasis-medium) !important;
 	margin-bottom: var(--spc-6x) !important;
 }
 
-.in-content-ad-button {
+.in-content-banner-button {
 	display: inline-flex;
 }
