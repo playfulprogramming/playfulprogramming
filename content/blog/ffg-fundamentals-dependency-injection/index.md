@@ -1353,6 +1353,8 @@ While this isn't always possible, the justification for doing so is that any cha
 
 While some frameworks like Vue handle this gracefully and only re-render the components that actually use the injected values, React and Angular differ.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 Let's assume that we go with an application-wide provider. In React and Angular, **when we change the value of the provider, the framework must search through the entire component tree to find the components that need to be re-rendered**.
 
 **React even re-renders all the child components of `App` when using `useContext`** to provide changing data.

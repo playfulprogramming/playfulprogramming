@@ -265,6 +265,8 @@ const vStyleBackground = {
 
 Luckily, with directives, we can!
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 See, while a component has a series of side effects associated with it: being rendered, updated, cleaned up, and beyond — so too does an HTML element that's bound to a directive!
 
 Because of this, we can hook into the ability to use [side effects](/posts/ffg-fundamentals-side-effects) within directives so that it focuses when an element is rendered.

@@ -390,6 +390,8 @@ We've covered how shared logic can access data storage and side-effect handlers.
 
 Not only can you call your custom logic from components, but you can call them from other shared logic fragments.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 For example, let's say that we want to take our window size getter and create another custom logic fragment that composes it.
 
 If we were using plain-ole functions, it might look something like this:

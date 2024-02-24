@@ -502,6 +502,8 @@ The first step to providing a better end-user experience when it comes to errors
 
 Sure, this seems obvious, but consider this: If an error occurs on the user's machine and it isn't caught during internally, how are you supposed to know how to fix it?
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 This is where the concept of "logging" comes into play. The general idea behind logging is that you can capture a collection of errors and information about the events that led up to the errors. You want to provide a way to export this data so that your user can send it to you to debug.
 
 While this logging often involves submitting data to a server, let's keep things local to the user's machine for now.

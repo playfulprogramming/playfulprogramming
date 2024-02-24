@@ -230,6 +230,9 @@ In this chapter, we'll learn:
 
 # Basic Element References {#basic-el-references}
 
+<br/>
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 <!-- tabs:start -->
 
 ## React

@@ -1054,6 +1054,8 @@ Or, in Vue, the error might've said:
 
 This is because, in both of these frameworks, you're expected to pass a special property called the `key`, which the respective framework uses to keep track of which item is which.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 Without this `key` prop, the framework doesn't know which elements have been unchanged and, therefore, must destroy and recreate each element in the array for every list re-render. This can cause massive performance problems and stability headaches.
 
 > If you're confused, no worries — there was a lot of technical speech in that last paragraph. Continue reading to see what this means in practical terms and don't be afraid to come back and re-read this section when you're done with the chapter.

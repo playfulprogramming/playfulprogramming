@@ -698,6 +698,8 @@ Let's simplify the chart and see what I mean;
 
 Here, we can see that despite `Modal` being assigned a `z-index` of `99`, it's trapped under the `Header`, which is a `z-index` of `1`. The `Modal` cannot escape this encapsulated `z-index` painting order, and as a result, the `Footer` shows up on top.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 Ideally, to solve this problem, we'd want to move `Modal` to be in our HTML after the `Footer`, like so:
 
 ![We flattened our element structure so that our z-index of 99 is now a sibling of the z-index of 2 and 1](./how_to_flatten_css_stacking_contexts.svg)

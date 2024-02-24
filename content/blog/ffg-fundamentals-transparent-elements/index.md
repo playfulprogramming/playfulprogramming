@@ -232,6 +232,8 @@ While this might not seem like a big problem at first, the fact that there's an 
 
 Solving these issues is where something called "transparent elements" comes into play. See, ideally, what we want to have is something like a tag that renders to _nothing_.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 This means that if we could instead generate something like the following pseudo-syntax in framework code:
 
 ```html

@@ -910,6 +910,8 @@ For example, let's say you want to show `dateStr` to a user, but later in the da
 
 While the method each framework uses to tell _when_ to re-render is different, they all have a highly stable method of doing so.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 This feature is arguably the most significant advantage of building an application with one of these frameworks.
 
 **This ability to track data being changed relies on the concept of handling "side effects"**. While we'll touch on this more in our future chapter called ["Side effects"](/posts/ffg-fundamentals-side-effects), you can think of a "side effect" as any change made to a component's data: Either through a user's input or the component's output changing.

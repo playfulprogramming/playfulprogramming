@@ -338,6 +338,8 @@ function openContextMenu(e) {
 
 While this might seem like a straightforward change at first, there's a new problem present: Our `contextMenu` is now inside a component. As a result, we need to [access not only the underlying DOM node using element reference](/posts/ffg-fundamentals-element-reference) but the `ContextMenu` component instance as well.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 Luckily for us, each framework enables us to do just that! Before we implement the `focus` logic, let's dive into how component reference works:
 
 <!-- tabs:start -->

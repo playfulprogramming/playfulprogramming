@@ -103,6 +103,8 @@ For example, Angular focuses on object-oriented programming, while the React eco
 
 Because of this, once you have mastered each, you can choose which programming methodology you want to apply within parts of your applications.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 Beyond this, it's important to remember that these three frameworks are not the only choices on the table in web development. Svelte is an alternative that's been gaining tremendous traction, for example. While it differs even more from the three options we're learning, Svelte still shares many of the foundations of React, Angular, and Vue.
 
 This knowledge transfer doesn't stop at JavaScript or web development, either. The more you learn about any aspect of programming, the more it can be used in other languages or types of programming. Many of the APIs I've used in web development were also valuable when doing engineering work with native languages.

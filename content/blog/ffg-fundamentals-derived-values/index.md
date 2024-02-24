@@ -493,6 +493,8 @@ These `computed` props are then accessible in the same way a `data` property is,
 
 While we've primarily used component inputs to demonstrate derived values today, both of the methods we've used thus far work for the internal component state and inputs.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 Let's say that we have a piece of state called `number` in our component and want to display the doubled value of this property without passing this state to a new component:
 
 <!-- tabs:start -->

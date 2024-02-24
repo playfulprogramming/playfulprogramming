@@ -21,6 +21,8 @@ This difference carries through to how you build the application as well. A stat
 
 As interactive apps rely so heavily on processing information based on user input, React, Angular, and Vue, all provide built-in ways of interacting, intercepting, and otherwise ingesting this information.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 While each of these frameworks handles this input ingestion slightly differently, the underlying concepts are the same: **All user input and output generate "Side effects", which need to be handled.**
 
 This raises more questions than it answers:

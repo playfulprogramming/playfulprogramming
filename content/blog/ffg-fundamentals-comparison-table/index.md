@@ -13,6 +13,8 @@
 
 We've looked at a lot of APIs in this series! Here's a cheatsheet for all the APIs we've covered to this point:
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 | React                                                        | Angular                                                      | Vue                                                          | Notes & Link                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `function Comp() {}`                                         | `@Component() class Comp {}`                                 | `Comp.vue` SFC file                                          | [Creates a component.](/posts/ffg-fundamentals-intro-to-components#parts-of-app) |

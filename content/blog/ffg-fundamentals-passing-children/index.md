@@ -168,6 +168,8 @@ This mismatch occurs because if we look at how our components are defined, we're
 
 This is the difference between building apps with HTML alone and building them with a frontend framework; while the DOM is typically thought of as one-dimensional, there are really two dimensions that are exposed more thoroughly by the framework's ability to construct this tree in a more fine-grained manner.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 Let's move the component tree back to being breadth first by using a feature that may sound familiar: Passing children.
 
 # Passing Basic Children {#passing-basic-children}

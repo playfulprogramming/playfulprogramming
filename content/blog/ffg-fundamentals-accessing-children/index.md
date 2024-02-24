@@ -513,6 +513,8 @@ While Vue can't render children in a list, it has many more capabilities to show
 
 Here, we can see that whenever a random number is added to the list, our list item counter still increments properly.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+
 # Passing Values to Projected Content {#passing-values-to-projected-content}
 
 While counting the number of items in a list is novel, it's not a very practical use of accessing projected content in JavaScript.
