@@ -130,6 +130,8 @@ class ListenForEventDirective implements OnInit {
 
 And do just about anything else a component can do without a template of its own.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
 # Accessing a directives' element with `ElementRef`
 
 Because a directive is attached to an element, a typical usage of a directive is to modify the element it's attached to using `ElementRef` and `inject`; like so:

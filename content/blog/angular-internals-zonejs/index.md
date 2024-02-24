@@ -402,7 +402,9 @@ detectChanges(): void {
 }
 ```
 
- ##  Calling Change Detection Manually {#manual-cd}
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
+##  Calling Change Detection Manually {#manual-cd}
 
 Let's use [Angular's `NgZone`'s `runOutsideOfAngular`](https://angular.io/api/core/NgZone#runOutsideAngular) to run some code outside of Angular's typical change detection:
 

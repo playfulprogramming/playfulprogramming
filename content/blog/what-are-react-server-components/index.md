@@ -58,6 +58,8 @@ Here, we can see that `<ProfilePicture>`, `<Dashboard/>`, and all of their child
 
 > Keep in mind, client-components will still pre-generate HTML on the server by default. The difference here is that the client re-initialization is now informed by the VDOM constructed on the server, allowing for drastically reduced required execution.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
 # What is `"use client"`?
 
 In React Server Components, `"use client"` is a string at the top of the file or function that indicates that React should also render the component on the client. Rendering on the client side allows you to use state and rerender reactively. Without "use client", the component will be treated as a server component.

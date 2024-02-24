@@ -92,6 +92,8 @@ Just as you have many options regarding what linting ruleset you'd like to enfor
 
 Another similarity to their code syntax contemporaries is that your commit linter has [a myriad of configuration options available](https://commitlint.js.org/#/reference-rules?id=rules). These options allow you to overwrite the existing configuration you're utilizing or even create your configuration from scratch.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
 ## Setup {#install-commit-lint}
 
 While you can go as in-depth as creating your own configuration, let's assume that we want to stick with the out-of-box settings. Let's assume that you already have a `package.json` configured. First thing's first, let's install the dependencies we need:

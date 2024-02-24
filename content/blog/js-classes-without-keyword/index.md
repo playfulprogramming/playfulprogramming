@@ -79,6 +79,8 @@ class User {
 
 Don't worry, we're getting there!
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
 # Create a class without the `class` keyword
 
 Before we answer the question of "how to make a class in JavaScript without the `class` keyword", let's take a step back and look at what a `class` is actually doing...
