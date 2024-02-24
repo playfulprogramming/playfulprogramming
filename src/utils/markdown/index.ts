@@ -24,8 +24,8 @@ import { rehypeHeaderClass } from "./rehype-header-class";
 import { rehypeFileTree } from "./file-tree/rehype-file-tree";
 import { rehypeTwoslashTabindex } from "./twoslash-tabindex/rehype-transform";
 import { rehypeInContentAd } from "./in-content-ad/rehype-transform";
+import { rehypeNoEbook } from "./rehype-no-ebook";
 import { siteMetadata } from "../../constants/site-config";
-import { rehypeNoEbook } from "utils/markdown/rehype-no-ebook";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RehypePlugin = Plugin<any[]> | [Plugin<any[]>, any];
@@ -42,7 +42,7 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 							maxLength: 150,
 						},
 					] as RehypePlugin,
-				]
+			  ]
 			: []),
 		// This is required to handle unsafe HTML embedded into Markdown
 		[rehypeRaw, { passThrough: [`mdxjsEsm`] }],
@@ -52,7 +52,7 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 					rehypeFixTwoSlashXHTML,
 					[rehypeMakeImagePathsAbsolute, { path: config.path }] as RehypePlugin,
 					rehypeMakeHrefPathsAbsolute,
-				]
+			  ]
 			: []),
 		// Do not add the tabs before the slug. We rely on some of the heading
 		// logic in order to do some of the subheading logic
@@ -124,7 +124,7 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 						},
 					] as RehypePlugin,
 					rehypeInContentAd,
-				]
+			  ]
 			: []),
 	];
 }
