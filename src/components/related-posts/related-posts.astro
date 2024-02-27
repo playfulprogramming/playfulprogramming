@@ -14,7 +14,7 @@ interface RelatedPostsProps {
 const { post, headingId } = Astro.props as RelatedPostsProps;
 const suggestedArticles = getSuggestedArticles(post);
 
-function getPostAuthors(post) {
+function getPostAuthors(post: PostInfo) {
 	return post.authors
 		.map((unicornId) => api.getUnicornById(unicornId, post.locale))
 		.filter(isDefined);
