@@ -30,5 +30,5 @@
 			"assets/*": ["./src/assets/*"]
 		}
 	},
-	"exclude": ["./content/blog"]
+	"exclude": ["./content"]
 }

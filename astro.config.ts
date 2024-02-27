@@ -53,9 +53,9 @@ export default defineConfig({
 					.filter((part) => !!part.length)
 					.at(-1);
 
-				if (lastPartOfSlug.endsWith("_noindex")) return false;
-				const relatedPost = posts.find((post) => post.slug === lastPartOfSlug);
-				if (relatedPost && relatedPost.originalLink) return false;
+				if (lastPartOfSlug!.endsWith("_noindex")) return false;
+				const relatedPost = posts.get(lastPartOfSlug!);
+				if (relatedPost && relatedPost[0]?.originalLink) return false;
 				return true;
 			},
 			serialize({ url, ...rest }) {

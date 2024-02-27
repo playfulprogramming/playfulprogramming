@@ -18,7 +18,7 @@ export const rehypeInContentAd: Plugin<[], Root> = () => {
 			const root = unified().use(rehypeParse, { fragment: true }).parse(value);
 			const el: Element = root.children[0] as never;
 
-			parent.children[i] = InContentAd(el.properties as never) as never;
+			parent.children[i!] = InContentAd(el.properties as never) as never;
 		};
 		visit(tree, { type: "raw" }, transformNode);
 		visit(tree, { type: "comment" }, transformNode);

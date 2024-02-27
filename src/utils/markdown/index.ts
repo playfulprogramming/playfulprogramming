@@ -16,12 +16,12 @@ import { rehypeHeaderText } from "./rehype-header-text";
 import { rehypeHeaderClass } from "./rehype-header-class";
 import { rehypeFileTree } from "./file-tree/rehype-file-tree";
 import { rehypeTwoslashTabindex } from "./twoslash-tabindex/rehype-transform";
+import { rehypeInContentAd } from "./in-content-ad/rehype-transform";
 import { PluggableList } from "unified";
 import { dirname, relative, resolve } from "path";
 import { VFile } from "vfile";
-import { siteMetadata } from "constants/site-config";
+import { siteMetadata } from "../../constants/site-config";
 import * as branch from "git-branch";
-import { rehypeInContentAd } from "utils/markdown/in-content-ad/rehype-transform";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function createRehypePlugins(config: MarkdownConfig): PluggableList {
