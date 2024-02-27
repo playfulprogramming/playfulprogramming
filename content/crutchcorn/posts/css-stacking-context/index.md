@@ -261,6 +261,8 @@ Notice how the purple box seemingly remains on "top" when we re-arrange the CSS 
 
 Well...
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
 # Re-arrange HTML Elements to Change the Painting Order
 
 Let's take the HTML we had before and re-arrange it a bit:
@@ -834,7 +836,7 @@ function openDialog() {
 
 <!-- tabs:end -->
 
-In this instance, [without moving the state out of dialog](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow), how would you render the contents of `Dialog` after the `Footer` component?
+In this instance, [without moving the state out of dialog](/posts/master-react-unidirectional-data-flow), how would you render the contents of `Dialog` after the `Footer` component?
 
 The answer? JavaScript Portals.
 

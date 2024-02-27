@@ -13,7 +13,7 @@ If you ever used GPS instructions to get somewhere, or followed a recipe book to
 In simple terms, an algorithm is a set of instructions that lead to a certain result. If you execute it correctly, you get the result you wanted, a delicious apple pie!
 But if you somehow mess up an instruction (like leaving the pie in the oven for 2 hours instead of 1 hour like the recipe book tells you to) then you end up with a bad result, and you would have to start over.
 
-The same thing applies for machines. If you give a computer a clear set of instructions, it’ll execute them in order to reach the desired result. There is, however, a huge difference between telling another person how to solve a certain equation, and telling a computer to do the same thing, because computers have [their own language](https://unicorn-utterances.com/posts/how-computers-speak#hdd), which is very different from human language.
+The same thing applies for machines. If you give a computer a clear set of instructions, it’ll execute them in order to reach the desired result. There is, however, a huge difference between telling another person how to solve a certain equation, and telling a computer to do the same thing, because computers have [their own language](/posts/how-computers-speak#hdd), which is very different from human language.
 
 However, if you understand what an algorithm is, and how to break down tasks into a small set of very basic instructions, it will be a lot easier to deal with programming languages later in your learning journey.
 
@@ -131,7 +131,7 @@ END
 
 You will notice in our illustration that there's a block that says "A function that displays values", but ignore that for the moment because we'll get to what functions are in a few.
 
-> A more extensive explanation on how computers store and handle variables can be found [here](https://unicorn-utterances.com/posts/how-computers-speak).
+> A more extensive explanation on how computers store and handle variables can be found [here](/posts/how-computers-speak).
 
 Now that we've established how values are stored, comes the part where the computer handles the different instructions given, with the help of what we can call "**Operators**"
 

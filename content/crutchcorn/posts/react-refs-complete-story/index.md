@@ -246,6 +246,8 @@ It's worth noting that the `ref` attribute also accepts a function. While [we'll
   )
 ```
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
 #  Component References {#forward-ref}
 
 HTML elements are a great use-case for `ref`s. However, there are many instances where you need a ref for an element that's part of a child's render process. How are we able to pass a ref from a parent component to a child component?

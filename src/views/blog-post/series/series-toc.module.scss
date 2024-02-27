@@ -27,6 +27,10 @@
 
 	--series-nav_chapter-item_background-color_hovered: var(--surface_primary_emphasis-none);
 	--series-nav_chapter-item_background-color_pressed: var(--surface_primary_emphasis-low);
+	--series-nav_chapter-item_background-color_focused: var(--background_focus);
+
+	--series-nav_chapter-item_outline-color_focused: var(--focus-outline_primary);
+
 	--series-nav_chapter-item_arrow_color: var(--foreground_emphasis-medium);
 	--series-nav_chapter-item_title_color: var(--primary_default);
 	--series-nav_chapter-item_title_color_pressed: var(--foreground_emphasis-high);
@@ -149,6 +153,17 @@
 	left: var(--series-nav_chapter-item_padding-horizontal);
 	width: var(--icon-size_dense);
 	height: 100%;
+}
+
+.navigationItem:focus-visible::before {
+	visibility: hidden;
+}
+
+.navigationItem:focus-visible {
+	background-color: var(--series-nav_chapter-item_background-color_focused);
+	outline: solid var(--series-nav_chapter-item_outline-color_focused) var(--series-nav_chapter-item_border_width);
+	outline-offset: calc(-1 * var(--series-nav_chapter-item_border_width));
+	text-decoration: underline;
 }
 
 .buttonContainer {

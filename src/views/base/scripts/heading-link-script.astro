@@ -31,6 +31,10 @@ import style from "./heading-link.module.scss";
 		) as HTMLTemplateElement;
 
 		function handleClick(e: Event) {
+			if ((e.target as HTMLElement).tagName === "A") {
+				return;
+			}
+
 			const target = e.currentTarget as HTMLElement;
 			const headingAnchorEl = target.hasAttribute("data-heading-anchor")
 				? target

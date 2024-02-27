@@ -353,7 +353,7 @@ Now, if we wait a second for the button to render and click it, our counter does
 
 This is because once our `ref` is set after the initial render, it doesn’t trigger a re-render and our `useEffect` never runs.
 
-A better way to write this would be to utilize a [“callback ref”](https://unicorn-utterances.com/posts/react-refs-complete-story#callback-refs), and then use a `useState` to force a re-render when it’s set.
+A better way to write this would be to utilize a [“callback ref”](/posts/react-refs-complete-story#callback-refs), and then use a `useState` to force a re-render when it’s set.
 
 ```jsx
 const RefEffectComp = ()=>{
@@ -401,7 +401,7 @@ This will force the re-render when `ref` is set after the initial render and, in
 
 To be fair, this “rule” is more of a soft rule than anything. There are absolutely instances - such as setTimeout timers - where utilizing a ref inside of a useEffect make sense. Just make sure you have a proper mental model about refs and useEffect and you’ll be fine. 
 
-> Want to refine your understanding of refs even further? [See my article outlining the important details of refs for more.](https://unicorn-utterances.com/posts/react-refs-complete-story)
+> Want to refine your understanding of refs even further? [See my article outlining the important details of refs for more.](/posts/react-refs-complete-story)
 
 ## Don’t expect an empty dependency array to only run once
 

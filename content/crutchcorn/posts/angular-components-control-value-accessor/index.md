@@ -68,7 +68,7 @@ export class ExampleInputComponent {
 
 With only a bit of CSS, we have a visually appealing, A11Y friendly, and quirky input component. Look, it even wiggles the unicorns!
 
-<iframe src="https://stackblitz.com/edit/angular-unicorns-text-input?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Angular Unicorns Text Input - StackBlitz" src="uu-code:./angular-unicorns-text-input?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Now, this component is far from feature complete. There's no way to `disable` the input, there's no way to extract data out from the typed input, there's not a lot of functionality you'd typically expect to see from an input component. Let's change that.
 
@@ -246,6 +246,8 @@ You'll want to call this `onTouched` method any time that your user "touches" (o
 />
 ```
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
 # Consumption {#consume-demo}
 
 Now that we've done that work let's put it all together, apply [the styling from before](#code-demo), and consume the component we've built!
@@ -301,7 +303,7 @@ Finally, you can pass these options to `ngModel` and `formControl` (or even `for
 If done properly, you should see something like this:
 
 
-<iframe src="https://stackblitz.com/edit/angular-value-accessor-example?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Angular Value Accessor Example - StackBlitz" src="uu-code:./angular-value-accessor-example?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Form Control Classes
 
@@ -405,7 +407,7 @@ export class AppComponent  {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/angular-value-accessor-dep-inject?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Angular Value Accessor Dep Inject - StackBlitz" src="uu-code:./angular-value-accessor-dep-inject?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 
 Not only do you have [a wide range of Angular-built validators at your disposal](https://angular.io/api/forms/Validators), but you're even able to [make your own validator](https://angular.io/api/forms/Validator)!

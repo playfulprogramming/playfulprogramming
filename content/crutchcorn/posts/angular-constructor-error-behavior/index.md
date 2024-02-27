@@ -46,7 +46,7 @@ export class App {}
 bootstrapApplication(App);
 ```
 
-When rendering this app, we get the following output in [the DOM](https://unicorn-utterances.com/posts/understanding-the-dom):
+When rendering this app, we get the following output in [the DOM](/posts/understanding-the-dom):
 
 ```html
 <my-app>
@@ -311,6 +311,8 @@ renderAfter();
 Because of this, and following JavaScript's early return implementation of thrown errors, the render template can never reach the `renderAfter`.
 
 This is why we can see elements rendered _before_ our `throw-an-error` component, but not elements _after_.
+
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # Why we need a fix
 

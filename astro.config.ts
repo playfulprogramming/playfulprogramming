@@ -20,6 +20,7 @@ import * as path from "path";
 import svgr from "vite-plugin-svgr";
 import { languages } from "./src/constants/index";
 import { fileToOpenGraphConverter } from "./src/utils/translations";
+import { posts } from "./src/utils/data";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
@@ -45,15 +46,17 @@ export default defineConfig({
 				),
 			},
 			filter(page) {
-				// return true, unless lart part of the URL ends with "_noindex"
+				// return true, unless last part of the URL ends with "_noindex"
 				// in which case it should not be in the sitemap
-				return !(
-					page
-						.split("/")
-						.filter((part) => !!part.length)
-						.at(-1)
-						?.endsWith("_noindex") ?? false
-				);
+				const lastPartOfSlug = page
+					.split("/")
+					.filter((part) => !!part.length)
+					.at(-1);
+
+				if (lastPartOfSlug.endsWith("_noindex")) return false;
+				const relatedPost = posts.find((post) => post.slug === lastPartOfSlug);
+				if (relatedPost && relatedPost.originalLink) return false;
+				return true;
 			},
 			serialize({ url, ...rest }) {
 				return {

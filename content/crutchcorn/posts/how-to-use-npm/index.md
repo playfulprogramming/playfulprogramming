@@ -169,7 +169,7 @@ brew install yarn
 
 ### Windows {#yarn-windows}
 
-Just as there's a method for installing `yarn` natively on macOS, you can do the same on Windows using [the same third-party package manager we suggest using for installing and maintaining Windows programs on your machine, Chocolatey](https://unicorn-utterances.com/posts/ultimate-windows-development-environment-guide/#package-management):
+Just as there's a method for installing `yarn` natively on macOS, you can do the same on Windows using [the same third-party package manager we suggest using for installing and maintaining Windows programs on your machine, Chocolatey](/posts/ultimate-windows-development-environment-guide/#package-management):
 
 ```
 choco install yarn
@@ -185,7 +185,7 @@ Now that you have it setup, let's walk through how to use Node. First, start by 
 
 > On macOS, you can find your terminal by opening finder (Meta+Space) and typing "Terminal".
 >
-> For Windows usage, there are a few more options. We suggest reading through [our article that outlines those options and explains how to setup and use your terminal correctly.](https://unicorn-utterances.com/posts/ultimate-windows-development-environment-guide/#terminal-usage)
+> For Windows usage, there are a few more options. We suggest reading through [our article that outlines those options and explains how to setup and use your terminal correctly.](/posts/ultimate-windows-development-environment-guide/#terminal-usage)
 
 Once you have your terminal open, run the following command:
 

@@ -29,5 +29,6 @@
 			"uu-utils": ["./src/utils"],
 			"assets/*": ["./src/assets/*"]
 		}
-	}
+	},
+	"exclude": ["./content/blog"]
 }

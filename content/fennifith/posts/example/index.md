@@ -152,3 +152,7 @@ This is regular text.
    2. Padded sub-item 2
 
 3. List item 3
+
+# Heading `with a code snippet` inside of it
+
+# Heading [with a link](https://example.com) inside of it

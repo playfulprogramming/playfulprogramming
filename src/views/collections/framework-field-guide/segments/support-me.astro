@@ -1,0 +1,23 @@
+---
+import styles from "./support-me.module.scss";
+---
+
+<section class={styles.supportMeContainer} aria-labelledby="support-me">
+	<h2 id="support-me" class="srOnly">Support me</h2>
+	<ul aria-describedby="why-learn-all-three" class={styles.supportMeGrid}>
+		<li class={styles.supportMeCard}>
+			<h3 class={`text-style-headline-5 ${styles.title}`}>Sponsorship</h3>
+			<div class={styles.topSpacer}></div>
+			<p class={`text-style-body-medium ${styles.description}`}>
+				If you like the books and want to support me, this is an easy way to do
+				so. Thank you so much for helping.
+			</p>
+			<div class={styles.bottomSpacer}></div>
+			<a
+				href="https://github.com/sponsors/crutchcorn"
+				class={`text-style-button ffg-button-base ffg-small-button ffg-filled-button`}
+				>Sponsor me</a
+			>
+		</li>
+	</ul>
+</section>

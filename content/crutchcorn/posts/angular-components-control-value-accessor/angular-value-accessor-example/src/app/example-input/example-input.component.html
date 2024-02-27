@@ -1,0 +1,17 @@
+<label class="inputContainer">
+  <span class="inputLabel">{{ placeholder }}</span>
+	<input
+        placeholder=""
+        class="inputInput"
+        [disabled]="disabled"
+        [(ngModel)]="value"
+        (change)="onChange($event)"
+        (blur)="onTouched()"
+      />
+</label>
+<p class="hiddenMessage" [class.hideTheMessage]="!isSecretValue" aria-hidden="true">
+	You unlocked the secret unicorn
+	rave!<span>🦄🦄🦄</span></p>
+<p aria-live="assertive" class="visually-hidden">
+	{{isSecretValue ? "You discovered the secret unicorn rave! They're all having a party now that you summoned them by typing their name" : ""}}
+</p>

@@ -8,7 +8,7 @@
 }
 ---
 
-Functions are an integral part of all JavaScript applications, React apps included. [While I've written about how peculiar their usage can be, thanks to the fact that all functions are values](https://unicorn-utterances.com/posts/javascript-functions-are-values), they help split up the monotony of your codebase by splitting similar code into logical segments.
+Functions are an integral part of all JavaScript applications, React apps included. [While I've written about how peculiar their usage can be, thanks to the fact that all functions are values](/posts/javascript-functions-are-values), they help split up the monotony of your codebase by splitting similar code into logical segments.
 
 This knowledge that functions are values can assist you when working on improving your React apps' performance.
 
@@ -138,7 +138,7 @@ If I now click any of the items' `Add to cart` buttons, it will:
 
 1) Trigger the `addToCart` function
 2) Update the `cart` array using `setCart`
-   1) Generating [a new UUIDv4](https://unicorn-utterances.com/posts/what-are-uuids) for the item in the cart
+   1) Generating [a new UUIDv4](/posts/what-are-uuids) for the item in the cart
 3) Cause the `App` component to re-render
 4) Update the displayed items in the cart
 5) Re-run the `totalCost` `useMemo` calculation
@@ -293,6 +293,8 @@ const addToCart = useCallback((item) => {
   setCart(v => [...v, {...item, id: uuid()}])
 }, []);
 ```
+
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # Render functions are expensive {#render-functions}
 

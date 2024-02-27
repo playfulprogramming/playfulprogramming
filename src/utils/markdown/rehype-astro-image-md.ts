@@ -13,8 +13,11 @@ import { getPicture } from "./get-picture-hack";
 import { getImageSize } from "../get-image-size";
 import { resolvePath } from "../url-paths";
 import { getLargestSourceSetSrc } from "../get-largest-source-set-src";
+import { fileURLToPath } from "url";
 
-const MAX_WIDTH = 768;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const MAX_WIDTH = 896;
 const MAX_HEIGHT = 768;
 
 /**

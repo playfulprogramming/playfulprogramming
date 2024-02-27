@@ -1,4 +1,6 @@
 import { Root, Element } from "hast";
+import { VFile } from "vfile";
+import { Plugin } from "unified";
 
 import { visit } from "unist-util-visit";
 
@@ -11,7 +13,10 @@ import type { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
 // This does not download the whole file to get the file size
 import probe from "probe-image-size";
 import { IFramePlaceholder } from "./iframe-placeholder";
-import { Plugin } from "unified";
+
+interface RehypeUnicornIFrameClickToRunProps {
+	srcReplacements?: Array<(val: string, root: VFile) => string>;
+}
 
 // default icon, used if a frame's favicon cannot be resolved
 let defaultPageIcon: Promise<GetPictureResult>;
@@ -121,7 +126,7 @@ type PageInfo = {
 	icon: GetPictureResult;
 };
 
-async function fetchPageInfo(src: string): Promise<PageInfo | null> {
+export async function fetchPageInfo(src: string): Promise<PageInfo | null> {
 	// fetch origin url, catch any connection timeout errors
 	const url = new URL(src);
 	url.search = ""; // remove any search params
@@ -141,8 +146,11 @@ async function fetchPageInfo(src: string): Promise<PageInfo | null> {
 }
 
 // TODO: Add switch/case and dedicated files ala "Components"
-export const rehypeUnicornIFrameClickToRun: Plugin<[], Root> = () => {
-	return async (tree) => {
+export const rehypeUnicornIFrameClickToRun: Plugin<
+	[RehypeUnicornIFrameClickToRunProps | never],
+	Root
+> = ({ srcReplacements = [], ...props }) => {
+	return async (tree, file) => {
 		const iframeNodes: Element[] = [];
 		visit(tree, "element", (node: Element) => {
 			if (node.tagName === "iframe") {
@@ -163,11 +171,15 @@ export const rehypeUnicornIFrameClickToRun: Plugin<[], Root> = () => {
 					...propsToPreserve
 				} = iframeNode.properties;
 
+				for (const replacement of srcReplacements) {
+					src = replacement(src!.toString(), file);
+				}
+
 				width = width ?? EMBED_SIZE.w;
 				height = height ?? EMBED_SIZE.h;
-				const info: PageInfo = (await fetchPageInfo(
-					String(iframeNode.properties.src),
-				).catch(() => null)) || { icon: await fetchDefaultPageIcon() };
+				const info: PageInfo = (await fetchPageInfo(src!.toString()).catch(
+					() => null,
+				)) || { icon: await fetchDefaultPageIcon() };
 
 				const [, heightPx] = /^([0-9]+)(px)?$/.exec(height + "") || [];
 				if (Number(heightPx) < EMBED_MIN_HEIGHT) height = EMBED_MIN_HEIGHT;

@@ -212,6 +212,6 @@ Essentially, I just want to make sure to iterate that while there may be tools t
 
 And with that, we have a better understanding of what TypeScript is! I hope this has been informative and helpful for those that may be new to the language in particular. What'd you learn, let us know!
 
-Now that you're more familiar with TypeScript, maybe you'd like to play around with one of their more experienced functionality: [Type generics](/posts/typescript-type-generics/)? We have a whole post around that concept as well, [you can find that here](https://unicorn-utterances.com/posts/typescript-type-generics/).
+Now that you're more familiar with TypeScript, maybe you'd like to play around with one of their more experienced functionality: [Type generics](/posts/typescript-type-generics/)? We have a whole post around that concept as well, [you can find that here](/posts/typescript-type-generics/).
 
 Thanks for reading! Leave any questions or feedback in the comments below.

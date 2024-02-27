@@ -118,7 +118,7 @@ export const SearchTopbar = ({
 					prefixSelected={"Sort by: "}
 					defaultValue={"Relevance"}
 					selectedKey={sort}
-					onSelectionChange={(v) => setSort(v)}
+					onSelectionChange={(v) => setSort(v as SortType)}
 				>
 					<Item key={"relevance"}>Relevance</Item>
 					<Item key={"newest"}>Newest</Item>

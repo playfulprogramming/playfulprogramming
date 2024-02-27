@@ -17,6 +17,11 @@ import { rehypeHeaderClass } from "./rehype-header-class";
 import { rehypeFileTree } from "./file-tree/rehype-file-tree";
 import { rehypeTwoslashTabindex } from "./twoslash-tabindex/rehype-transform";
 import { PluggableList } from "unified";
+import { dirname, relative, resolve } from "path";
+import { VFile } from "vfile";
+import { siteMetadata } from "constants/site-config";
+import * as branch from "git-branch";
+import { rehypeInContentAd } from "utils/markdown/in-content-ad/rehype-transform";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function createRehypePlugins(config: MarkdownConfig): PluggableList {
@@ -47,7 +52,40 @@ export function createRehypePlugins(config: MarkdownConfig): PluggableList {
 		config.format === "html" ? rehypeHints : noop,
 		config.format === "html" ? rehypeTooltips : noop,
 		config.format === "html" ? rehypeAstroImageMd : noop,
-		config.format === "html" ? rehypeUnicornIFrameClickToRun : noop,
+		config.format === "html"
+			? [
+					rehypeUnicornIFrameClickToRun,
+					{
+						srcReplacements: [
+							(val: string, file: VFile) => {
+								const iFrameUrl = new URL(val);
+								if (!iFrameUrl.protocol.startsWith("uu-code:")) return val;
+
+								const contentDir = dirname(file.path);
+								const fullPath = resolve(contentDir, iFrameUrl.pathname);
+
+								const fsRelativePath = relative(process.cwd(), fullPath);
+
+								// Windows paths need to be converted to URLs
+								let urlRelativePath = fsRelativePath.replace(/\\/g, "/");
+
+								if (urlRelativePath.startsWith("/")) {
+									urlRelativePath = urlRelativePath.slice(1);
+								}
+
+								const q = iFrameUrl.search;
+								const currentBranch =
+									process.env.VERCEL_GIT_COMMIT_REF ?? branch.sync();
+								const repoPath = siteMetadata.repoPath;
+								const provider = `stackblitz.com/github`;
+								return `
+										https://${provider}/${repoPath}/tree/${currentBranch}/${urlRelativePath}${q}
+									`.trim();
+							},
+						],
+					},
+			  ]
+			: noop,
 		config.format === "html" ? rehypeUnicornElementMap : noop,
 		config.format === "html" ? rehypeTwoslashTabindex : noop,
 		config.format === "html" ? rehypeFileTree : noop,
@@ -65,5 +103,6 @@ export function createRehypePlugins(config: MarkdownConfig): PluggableList {
 					},
 			  ]
 			: noop,
+		config.format === "html" ? rehypeInContentAd : noop,
 	];
 }

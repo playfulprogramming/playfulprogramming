@@ -25,22 +25,34 @@ const userLogins = getUnicornsByLang("en")
 	.filter((unicorn) => !!unicorn.socials.github)
 	.map((unicorn) => unicorn.socials.github);
 
-const userResult = (await octokit?.graphql(`
-query {
-	${userLogins.map(
-		(login, i) => `
-	user${i}: user(login: "${login}") {
-		id
-	}
+const userResult: Record<string, { id: string }> = (await octokit
+	?.graphql(
+		`
+		query {
+			${userLogins.map(
+				(login, i) => `
+			user${i}: user(login: "${login}") {
+				id
+			}
+			`,
+			)}
+		}
 	`,
-	)}
-}
-`)) as Record<string, { id: string }>;
+	)
+	.catch((e) => {
+		if (e.data && typeof e.data === "object") {
+			console.warn("Partial error from GitHub GraphQL:", e.errors);
+			return e.data;
+		} else {
+			console.error("Error fetching GitHub user ids:", e);
+			return {};
+		}
+	})) as Record<string, { id: string }>;
 
 const userIds: Record<string, string> = {};
 if (userResult) {
 	userLogins.forEach((login, i) => {
-		if (login !== undefined) userIds[login] = userResult[`user${i}`].id;
+		if (login) userIds[login] = userResult[`user${i}`]?.id;
 	});
 }
 

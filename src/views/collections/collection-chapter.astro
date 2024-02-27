@@ -10,9 +10,10 @@ interface CollectionChapter {
 }
 
 const { num, title, description, href } = Astro.props as CollectionChapter;
+const hrefProps = href ? getHrefContainerProps(href) : {};
 ---
 
-<div class={styles.container} {...getHrefContainerProps(href)}>
+<div class={styles.container} {...hrefProps}>
 	<div class={styles.numAndTitleContainer}>
 		<div class={styles.numContainer}>
 			<p class={`text-style-headline-6 ${styles.num}`} aria-hidden="true">

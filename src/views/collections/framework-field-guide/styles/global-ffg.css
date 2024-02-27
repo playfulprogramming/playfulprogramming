@@ -45,6 +45,7 @@ body {
 	background: var(--cardActiveBackground);
 	border-color: transparent;
 	box-shadow: var(--cardActiveBoxShadow);
+	color: var(--btn-background_filled);
 }
 
 .baseBtn svg,
