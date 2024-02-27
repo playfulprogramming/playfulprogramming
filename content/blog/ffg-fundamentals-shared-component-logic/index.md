@@ -76,7 +76,9 @@ const App = () => {
 };
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Shared Data Storage - StackBlitz" src="uu-code:./ffg-fundamentals-react-shared-data-storage-100?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ### Rules of Custom Hooks {#custom-hooks-rules}
 
@@ -179,7 +181,9 @@ class AppComponent {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Shared Data Storage - StackBlitz" src="uu-code:./ffg-fundamentals-angular-shared-data-storage-100?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ## Vue
 
@@ -211,7 +215,9 @@ const { height, width } = useWindowSize();
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Shared Data Storage - StackBlitz" src="uu-code:./ffg-fundamentals-vue-shared-data-storage-100?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- no-ebook:end -->
 
 > While React requires you to name your custom hooks "useX," you don't have to do the same with custom compositions. We could have easily called this code `createWindowSize` and have it work just as well.
 >
@@ -279,7 +285,9 @@ const App = () => {
 };
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Sharing Side Effect - StackBlitz" src="uu-code:./ffg-fundamentals-react-sharing-side-effect-101?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 > Notice that we've changed exactly zero lines of code from our previous example of this component! ✨ Magic ✨
 
@@ -330,7 +338,9 @@ class AppComponent {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Sharing Side Effect - StackBlitz" src="uu-code:./ffg-fundamentals-angular-sharing-side-effect-101?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 > This code isn't ideal; the Angular team knows this. This is why they're working on introducing a new method of side effect handling (and data storage) [called "Signals"](https://angular.io/guide/signals). At the time of writing, Signals are still in the experimental phase, but they're worth keeping an eye on.
 
@@ -378,7 +388,9 @@ const { height, width } = useWindowSize();
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Sharing Side Effect - StackBlitz" src="uu-code:./ffg-fundamentals-vue-sharing-side-effect-101?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- no-ebook:end -->
 
 > We could have also used the `watch` or `watchEffect` composition methods, but chose not to for this example.
 
@@ -447,7 +459,9 @@ const Component = () => {
 };
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Composing Logic - StackBlitz" src="uu-code:./ffg-fundamentals-react-composing-logic-102?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ## Angular
 
@@ -516,7 +530,9 @@ class AppComponent {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Composing Logic - StackBlitz" src="uu-code:./ffg-fundamentals-angular-composing-logic-102?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 Something worth mentioning is that we need to provide both `WindowSize` and `IsMobile`; otherwise, we'll get an error like so:
 
@@ -564,7 +580,9 @@ const { isMobile } = useMobileCheck();
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Composing Logic - StackBlitz" src="uu-code:./ffg-fundamentals-vue-composing-logic-102?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -896,7 +914,9 @@ function App() {
 
 <summary>Final code output</summary>
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Shared Logic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-shared-logic-challenge-103?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 </details>
 
@@ -987,7 +1007,9 @@ class AppComponent implements AfterViewInit {
 
 <summary>Final code output</summary>
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Shared Logic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-shared-logic-challenge-103?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 </details>
 
@@ -1068,7 +1090,9 @@ function open(e) {
 
 <summary>Final code output</summary>
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Shared Logic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-shared-logic-challenge-103?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- no-ebook:end -->
 
 </details>
 

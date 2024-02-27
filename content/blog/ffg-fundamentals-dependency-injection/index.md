@@ -176,7 +176,9 @@ function Child() {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React DI Basic Values String - StackBlitz" src="uu-code:./ffg-fundamentals-react-di-basic-values-string-82?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ## Angular
 
@@ -224,7 +226,9 @@ class ChildComponent {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular DI Basic Values String - StackBlitz" src="uu-code:./ffg-fundamentals-angular-di-basic-values-string-82?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 > Something worth mentioning when using the `inject` function is that you're unable to provide a `constructor` method to the `ChildComponent` class.
 >
@@ -266,7 +270,9 @@ const welcomeMsg = inject("WELCOME_MESSAGE");
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue DI Basic Values String - StackBlitz" src="uu-code:./ffg-fundamentals-vue-di-basic-values-string-82?template=node&embed=1&file=src%2FParent.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -299,7 +305,9 @@ const Parent = () => {
 };
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React DI Basic Values Object - StackBlitz" src="uu-code:./ffg-fundamentals-react-di-basic-values-object-83?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ## Angular
 
@@ -327,7 +335,9 @@ class ChildComponent {
 class AppComponent {}
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular DI Basic Values Object - StackBlitz" src="uu-code:./ffg-fundamentals-angular-di-basic-values-object-83?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 While this functions, it's not very clean. In particular, some headaches present with this method include:
 
@@ -379,7 +389,9 @@ class ChildComponent implements OnInit {
 
 Much cleaner!
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular DI Injectable - StackBlitz" src="uu-code:./ffg-fundamentals-angular-di-injectable-83?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ## Vue
 
@@ -413,7 +425,9 @@ const welcomeMsgObj = inject("WELCOME_MESSAGE");
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue DI Basic Values Object - StackBlitz" src="uu-code:./ffg-fundamentals-vue-di-basic-values-object-83?template=node&embed=1&file=src%2FParent.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -450,7 +464,9 @@ const Parent = () => {
 };
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Change After Val Inject - StackBlitz" src="uu-code:./ffg-fundamentals-react-change-val-after-inject-84?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 When we update the `message` value, it will trigger a re-render on the `Child` component and, in turn, update the displayed message.
 
@@ -493,7 +509,9 @@ class AppComponent {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Change Val After Inject - StackBlitz" src="uu-code:./ffg-fundamentals-angular-change-val-after-inject-84?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ## Vue
 
@@ -535,7 +553,9 @@ const welcomeMessage = inject("WELCOME_MESSAGE");
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Change Val After Inject - StackBlitz" src="uu-code:./ffg-fundamentals-vue-change-val-after-inject-84?template=node&embed=1&file=src%2FParent.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -583,7 +603,9 @@ function Child() {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Change Val From Child - StackBlitz" src="uu-code:./ffg-fundamentals-react-change-val-from-child-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 #### Using a Reducer Pattern {#reducer-pattern}
 
@@ -618,7 +640,9 @@ function App() {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Homegrown Reducer - StackBlitz" src="uu-code:./ffg-fundamentals-react-homegrown-reducer-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 But doing so creates a substantial amount of noise: each function has a dedicated variable and needs to be passed independently for the `useContext` to work as intended.
 
@@ -650,7 +674,9 @@ function App() {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Basic useReducer - StackBlitz" src="uu-code:./ffg-fundamentals-react-basic-use-reducer-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 Whenever `dispatch` is called, it will run the `reducer` with no arguments for `action`, and React will automatically pass `state` for us. Then, when we `return` inside of the reducer, React will automatically keep track of the returned value as the new `state` value.
 
@@ -686,7 +712,9 @@ function App() {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React useReducer Multi Action - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-reducer-multi-action-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 Here, we can pass a `type` object as a parameter of `reducer`'s `action`, run a `switch`/`case` over it, and return relevant data changes as needed.
 
@@ -725,7 +753,9 @@ function App() {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React useReducer Payload - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-reducer-payload-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 > It's worth mentioning that [the reducer pattern is not unique to React](https://dev.to/reedbarger/what-is-a-reducer-in-javascript-a-complete-introduction-with-examples-ip1). That said, React is unique in that it has a built-in method to build reducers, unlike many other frameworks.
 
@@ -778,7 +808,9 @@ function Child() {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Reducer Within Contexts - StackBlitz" src="uu-code:./ffg-fundamentals-react-reducer-within-contexts-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ### Angular
 
@@ -822,7 +854,9 @@ class ChildComponent {
 class ParentComponent {}
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Change Val From Child - StackBlitz" src="uu-code:./ffg-fundamentals-angular-change-val-from-child-85?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ### Vue
 
@@ -861,7 +895,9 @@ function updateMessage() {
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Change Val from Child - StackBlitz" src="uu-code:./ffg-fundamentals-vue-change-val-from-child-85?template=node&embed=1&file=src%2FParent.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -901,7 +937,9 @@ function Child() {
 
 When this is done, `useContext` is `undefined` if no value is injected for a particular named context.
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Optional Injected Vals - StackBlitz" src="uu-code:./ffg-fundamentals-react-optional-injected-vals-86?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ## Angular
 
@@ -951,7 +989,9 @@ We get the following error:
 >   NullInjectorError: No provider for InjectedValue!
 > ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Optional Injected Vals Err - StackBlitz" src="uu-code:./ffg-fundamentals-angular-optional-injected-vals-err-86?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 This is because our `inject` function inside `ChildComponent` is marked as a required dependency by default, hence the error.
 
@@ -992,7 +1032,9 @@ class ParentComponent {}
 
 Now, we get no error when `injectedValue` is not provided. Instead, we get a value of `null`, which we can guard against using `ngIf` inside our template.
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Optional Injected Vals - StackBlitz" src="uu-code:./ffg-fundamentals-angular-optional-injected-vals-86?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ## Vue
 
@@ -1026,7 +1068,9 @@ console.log(welcomeMessage);
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Optional Injected Vals - StackBlitz" src="uu-code:./ffg-fundamentals-vue-optional-injected-vals-86?template=node&embed=1&file=src%2FParent.vue"></iframe>
+<!-- no-ebook:end -->
 
 > You may see a warning like this in your `console` if you do this:
 >
@@ -1058,7 +1102,9 @@ function Child() {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Default Vals for Optional - StackBlitz" src="uu-code:./ffg-fundamentals-react-default-vals-for-optional-87?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ### Angular
 
@@ -1093,7 +1139,9 @@ class ChildComponent {
 class ParentComponent {}
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Default Vals for Optional - StackBlitz" src="uu-code:./ffg-fundamentals-angular-default-vals-for-optional-87?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ### Vue
 
@@ -1115,7 +1163,9 @@ console.log(welcomeMessage);
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Default Vals for Optional - StackBlitz" src="uu-code:./ffg-fundamentals-vue-default-vals-for-optional-87?template=node&embed=1&file=src%2FParent.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -1292,7 +1342,9 @@ class ChildComponent implements OnInit {
 class ParentComponent {}
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular App Wide Providers - StackBlitz" src="uu-code:./ffg-fundamentals-angular-app-wide-providers-88?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 In Angular, these globally provided values are called "Services." They're often used to break up and move application logic out of components to be more widely reused.
 
@@ -1432,7 +1484,9 @@ function GreatGrandChild() {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Overwriting Specificity - StackBlitz" src="uu-code:./ffg-fundamentals-react-overwriting-specificity-89?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ## Angular
 
@@ -1486,7 +1540,9 @@ class ChildComponent {
 class AppComponent {}
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Overwriting Specificity - StackBlitz" src="uu-code:./ffg-fundamentals-angular-overwriting-specificity-89?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ## Vue
 
@@ -1548,7 +1604,9 @@ const name = inject("NAME");
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Overwriting Specificity - StackBlitz" src="uu-code:./ffg-fundamentals-vue-overwriting-specificity-89?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -1624,7 +1682,9 @@ function GreatGrandChild() {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Finding Specific Vals - StackBlitz" src="uu-code:./ffg-fundamentals-react-finding-specific-vals-90?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ### Angular
 
@@ -1684,7 +1744,9 @@ class ChildComponent {}
 class AppComponent {}
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Finding Specific Vals - StackBlitz" src="uu-code:./ffg-fundamentals-angular-finding-specific-vals-90?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ### Vue
 
@@ -1746,7 +1808,9 @@ const favFood = inject("FAV_FOOD");
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Finding Specific Vals - StackBlitz" src="uu-code:./ffg-fundamentals-vue-finding-specific-vals-90?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -1847,7 +1911,9 @@ function GreatGrandChild() {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Data Consistency - StackBlitz" src="uu-code:./ffg-fundamentals-react-data-consistency-91?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ## Angular
 
@@ -1901,7 +1967,9 @@ class ChildComponent {}
 class AppComponent {}
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Data Consistency - StackBlitz" src="uu-code:./ffg-fundamentals-angular-data-consistency-91?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ## Vue
 
@@ -1959,7 +2027,9 @@ const user = inject("USER");
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Data Consistency - StackBlitz" src="uu-code:./ffg-fundamentals-vue-data-consistency-91?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -2047,7 +2117,9 @@ function GreatGrandChild() {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Data Variance - StackBlitz" src="uu-code:./ffg-fundamentals-react-data-variance-92?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ### Angular
 
@@ -2135,7 +2207,9 @@ class AppComponent {}
 
 Here, we're using `useClass` in our `provider`s array to replace an `Injectable` class implementation with another one.
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Data Variance - StackBlitz" src="uu-code:./ffg-fundamentals-angular-data-variance-92?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ### Vue
 
@@ -2216,7 +2290,9 @@ const { greeting, changeGreeting } = inject("MESSAGE");
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Data Variance - StackBlitz" src="uu-code:./ffg-fundamentals-vue-data-variance-92?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -3889,7 +3965,9 @@ const FileList = () => {
 
 <summary>Final code output</summary>
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React DI Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-di-challenge-93?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 </details>
 
@@ -4008,7 +4086,9 @@ export class FileListComponent {
 
 <summary>Final code output</summary>
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular DI Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-di-challenge-93?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 </details>
 
@@ -4129,7 +4209,9 @@ provide("ContextMenu", {
 
 <summary>Final code output</summary>
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue DI Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-di-challenge-93?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- no-ebook:end -->
 
 </details>
 

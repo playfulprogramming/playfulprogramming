@@ -66,7 +66,9 @@ const FileList = () => {
 };
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Transparent Files Before - StackBlitz" src="uu-code:./ffg-fundamentals-react-transparent-files-before-50?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 # Angular
 
@@ -128,7 +130,9 @@ class FileListComponent {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Transparent Files Before - StackBlitz" src="uu-code:./ffg-fundamentals-angular-transparent-files-before-50?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 # Vue
 
@@ -187,7 +191,9 @@ const inputDate = ref(new Date());
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Transparent Files Before - StackBlitz" src="uu-code:./ffg-fundamentals-vue-transparent-files-before-50?template=node&embed=1&file=src%2FFileList.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -289,7 +295,9 @@ import { Fragment } from "react";
 </ul>;
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Transparent Files After - StackBlitz" src="uu-code:./ffg-fundamentals-react-transparent-files-after-51?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ## `Fragment` Alternative Syntax {#fragment-alt-syntax}
 
@@ -335,7 +343,9 @@ Angular's version of the `nothing` element is the `ng-container` element.
 </ul>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Transparent Files After - StackBlitz" src="uu-code:./ffg-fundamentals-angular-transparent-files-after-51?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 # Vue
 
@@ -359,7 +369,9 @@ To render out something akin to a `nothing` element, we can use a [`template`](h
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Transparent Files After - StackBlitz" src="uu-code:./ffg-fundamentals-vue-transparent-files-after-51?template=node&embed=1&file=src%2FFileList.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -387,7 +399,9 @@ Here are some code samples that render out the following:
 </>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Stacked Transparent - StackBlitz" src="uu-code:./ffg-fundamentals-react-stacked-transparent-52?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ## Angular
 
@@ -401,7 +415,9 @@ Here are some code samples that render out the following:
 </ng-container>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Stacked Transparent - StackBlitz" src="uu-code:./ffg-fundamentals-angular-stacked-transparent-52?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ## Vue
 
@@ -451,7 +467,9 @@ Will both render out to the following HTML:
 <p>Test</p>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Stacked Transparent - StackBlitz" src="uu-code:./ffg-fundamentals-vue-stacked-transparent-52?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- no-ebook:end -->
 
 > Of course, these rules don't apply to the root-level `template`, that acts as a container for our template code. It's a bit confusing at first, but makes sense when you practice more.
 
@@ -643,7 +661,9 @@ That's because when we used a `div` for our `FileActionButtons` component, it by
 
 <summary>Final code output</summary>
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-transparent-challenge-53?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 </details>
 
@@ -718,7 +738,9 @@ class FileActionButtonsComponent {
 
 <summary>Final code output</summary>
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-transparent-challenge-53?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 </details>
 
@@ -741,7 +763,9 @@ Because Vue's root `<template>` can support multiple elements without the need f
 
 <summary>Final code output</summary>
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-transparent-challenge-53?template=node&embed=1&file=src%2FFileActionButtons.vue"></iframe>
+<!-- no-ebook:end -->
 
 </details>
 

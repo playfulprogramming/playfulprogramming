@@ -105,7 +105,9 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 };
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Refreshing File Date - StackBlitz" src="uu-code:./ffg-fundamentals-react-refreshing-file-date-45?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 # Angular
 
@@ -144,7 +146,9 @@ class FileComponent implements OnInit, OnDestroy {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Refreshing File Date - StackBlitz" src="uu-code:./ffg-fundamentals-angular-refreshing-file-date-45?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 # Vue
 
@@ -184,7 +188,9 @@ onUnmounted(() => {
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Refreshing File Date - StackBlitz" src="uu-code:./ffg-fundamentals-vue-refreshing-file-date-45?template=node&embed=1&file=src%2FFile.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -217,7 +223,9 @@ const FileDate = ({ inputDate }) => {
 };
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Prop Listening - StackBlitz" src="uu-code:./ffg-fundamentals-react-prop-listening-46?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ## Angular
 
@@ -255,7 +263,9 @@ class FileDateComponent implements OnChanges {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Prop Listening - StackBlitz" src="uu-code:./ffg-fundamentals-angular-prop-listening-46?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ## Vue
 
@@ -285,7 +295,9 @@ watch(
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Prop Listening - StackBlitz" src="uu-code:./ffg-fundamentals-vue-prop-listening-46?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
+<!-- no-ebook:end -->
 
 Vue's `watch` logic allows you to track a given property or state value changes based on its key.
 
@@ -327,7 +339,9 @@ const FileDate = ({ inputDate }) => {
 };
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Computed Values - StackBlitz" src="uu-code:./ffg-fundamentals-react-computed-values-47?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 `useMemo` is a method for computing values based on an input or series of inputs. This works because it does the computation and regenerates the calculation whenever the second argument array's values have changed in a render.
 
@@ -393,7 +407,9 @@ class FileDateComponent {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Computed Values - StackBlitz" src="uu-code:./ffg-fundamentals-angular-computed-values-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ### Multiple Input Pipes {#multi-input-pipes}
 
@@ -431,7 +447,9 @@ class FileDateComponent {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Multi Input Pipes - StackBlitz" src="uu-code:./ffg-fundamentals-angular-multi-input-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ### Built-In Pipes {#built-in-pipes}
 
@@ -457,7 +475,9 @@ class FileDateComponent {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Built-In Pipes - StackBlitz" src="uu-code:./ffg-fundamentals-angular-built-in-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ## Vue
 
@@ -479,7 +499,9 @@ const labelText = computed(() => formatReadableDate(props.inputDate));
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Computed Values - StackBlitz" src="uu-code:./ffg-fundamentals-vue-computed-values-47?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
+<!-- no-ebook:end -->
 
 Instead of using `ref` to construct a set of variables and then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
 
@@ -516,7 +538,9 @@ const CountAndDoubleComp = () => {
 };
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Non-Prop Derived - StackBlitz" src="uu-code:./ffg-fundamentals-react-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 ## Angular
 
@@ -549,7 +573,9 @@ class CountAndDoubleComponent {
 }
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Non-Prop Derived - StackBlitz" src="uu-code:./ffg-fundamentals-angular-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 ## Vue
 
@@ -576,7 +602,9 @@ const doubleNum = computed(() => number.value * 2);
 </template>
 ```
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Non-Prop Derived - StackBlitz" src="uu-code:./ffg-fundamentals-vue-non-prop-derived-48?template=node&embed=1&file=src%2FCountAndDouble.vue"></iframe>
+<!-- no-ebook:end -->
 
 <!-- tabs:end -->
 
@@ -643,7 +671,9 @@ function formatBytes(bytes) {
 
 <summary>Final code output</summary>
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="React Derived Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-derived-challenge-49?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- no-ebook:end -->
 
 </details>
 
@@ -684,7 +714,9 @@ class DisplaySizeComponent {
 
 <summary>Final code output</summary>
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Angular Derived Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-derived-challenge-49?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- no-ebook:end -->
 
 </details>
 
@@ -724,7 +756,9 @@ function formatBytes(bytes) {
 
 <summary>Final code output</summary>
 
+<!-- no-ebook:start -->
 <iframe data-frame-title="Vue Derived Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-derived-challenge-49?template=node&embed=1&file=src%2FDisplaySize.vue"></iframe>
+<!-- no-ebook:end -->
 
 </details>
 
