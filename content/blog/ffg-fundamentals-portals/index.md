@@ -678,6 +678,13 @@ function showModal() {
 
 But wait... When we render the app and open our dialog, why does it look like it's _under_ the `Footer` component?!
 
+<!-- no-ebook:start -->
+
+> **Note:**
+> If you're running the code embed above, you may have to open it in a new tab and try resizing your window to see the bug.
+
+<!-- no-ebook:end -->
+
 ![The dialog has some of its contents underneath the footer](./website_modal_under_footer_example.png)
 
 Why is that? After all, `Modal` has a `z-index` of `99`, while `Footer` only has a `z-index` of `2`!
