@@ -23,6 +23,20 @@ const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 
 const unicorns = api.getUnicornsByLang(locale);
 
+// Sort unicorns to see if "partner" is in the title, otherwise sort by name
+unicorns.sort((a, b) => {
+	const aIsPartner = a.achievements.includes("partner");
+	const bIsPartner = b.achievements.includes("partner");
+
+	if (aIsPartner && !bIsPartner) {
+		return -1;
+	}
+	if (!aIsPartner && bIsPartner) {
+		return 1;
+	}
+	return a.name.localeCompare(b.name);
+});
+
 const tags = [
 	...[...data.tags.values()]
 		.filter((tag) => !!tag.image && !!tag.explainerHtml)
