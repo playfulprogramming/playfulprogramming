@@ -12,10 +12,13 @@ interface RelatedPostsProps {
 }
 
 const { post, headingId } = Astro.props as RelatedPostsProps;
-const authors = post.authors
-	.map((unicornId) => api.getUnicornById(unicornId, post.locale))
-	.filter(isDefined);
 const suggestedArticles = getSuggestedArticles(post);
+
+function getPostAuthors(post) {
+	return post.authors
+		.map((unicornId) => api.getUnicornById(unicornId, post.locale))
+		.filter(isDefined);
+}
 ---
 
 <h2 id={headingId} class={`text-style-headline-5 ${style.relatedPostsHeader}`}>
@@ -28,7 +31,7 @@ const suggestedArticles = getSuggestedArticles(post);
 				<RelatedPostsCard
 					title={suggestedPost.title}
 					slug={suggestedPost.slug}
-					authors={authors.map((author) => author.name)}
+					authors={getPostAuthors(suggestedPost).map((author) => author.name)}
 				/>
 			</li>
 		))
