@@ -49,6 +49,10 @@
 				{
 					"key": "Content-Security-Policy",
 					"value": "default-src 'self';base-uri 'self';form-action 'self' https://unicorn-utterances.com/ https://app.convertkit.com/;frame-ancestors 'none';frame-src https:;img-src 'self' https: data:;object-src 'none';script-src 'self' 'unsafe-inline';style-src 'self' 'unsafe-inline';upgrade-insecure-requests"
+				},
+				{
+					"key": "Cross-Origin-Opener-Policy",
+					"value": "same-origin"
 				}
 			]
 		},
@@ -58,10 +62,6 @@
 				{
 					"key": "Access-Control-Allow-Origin",
 					"value": "https://unicorn-utterances.com"
-				},
-				{
-					"key": "Cross-Origin-Opener-Policy",
-					"value": "same-origin"
 				},
 				{
 					"key": "Cross-Origin-Resource-Policy",
