@@ -1,6 +1,6 @@
 ---
 {
-  title: "Move manifest.json to the output directory's parent in Vite 5",
+  title: "Move manifest.json to the Output Directory's Parent in Vite 5",
   description: "Move Vite's manifest.json file outside of the build directory.",
   published: '2024-02-07',
   authors: ["tylerlwsmith"],

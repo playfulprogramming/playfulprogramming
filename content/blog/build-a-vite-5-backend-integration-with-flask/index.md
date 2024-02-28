@@ -1,6 +1,6 @@
 ---
 {
-  title: "Build a Vite 5 backend integration with Flask",
+  title: "Build a Vite 5 Backend Integration with Flask",
   description: "Learn how to build a lightweight backend Vite integration using a Flask Blueprint in ~50 lines of code.",
   published: '2024-02-27',
   authors: ["tylerlwsmith"],
