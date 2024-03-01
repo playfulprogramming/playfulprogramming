@@ -34,6 +34,23 @@ TODO:
 
 if at some point, you want to add a mutant snake, it's just one more component rather than an entirely new class
 
+## Components are the Data
+
+Components are defined as structs that hold particular pieces of data for entities in your world. These can be used to identify specific types of entities, or to hold some information about them - such as `Movement`, `Gravity`, or `Health`.
+
+To better visualize this example - components can form the columns of a table that is indexed by `Entity`:
+
+| `Entity` (ID) | `Player` | `Apple` | `Movement` | `Gravity` | `Health` | `Position` |
+| 0             | `{}`     | null    | `{ direction: North }` | null | `{ health: 10 }` | `{ pos: (0, 0) }` |
+| 1             | null     | `{}`    | null       | `{ acceleration: 9.8 }` | null | `{ pos: (3, 4) }` |
+| 2             | null     | `{}`    | null       | `{ acceleration: 9.8 }` | null | `{ pos: (-1, 8) }` |
+
+This shows three entities:
+- a `Player` with `Movement`, `Health`, and `Position`
+- two `Apple` entities with `Gravity` and `Position`
+
+None of these components dictate the functionality that should apply to them! Everything is implemented in systems, which can arbitrarily read and write to the components on any entity.
+
 ## Systems are the Game Loop!
 
 In most games, you'll find a logical "game loop" or "tick loop" that handles logical events or user input and processes its effects in the world. These might involve things like physics calculations, collision detection, score tracking, win conditions - anything related to the game's *state* or *data*.
@@ -44,7 +61,7 @@ These are often (but not always!) kept separate from the *visual* aspects of the
 >
 > Changing from 60 to 120 fps shouldn't also double your character's movement speed in the game!
 
-A *system* is effectively a function that gets continuously invoked during the game. It would typically define a query for the components it uses, and perform some kind of operation as a result.
+A *system* is a function that gets continuously invoked during the game. It would typically define a query for the components it uses, and perform some kind of operation as a result.
 
 The ECS framework then manages the surrounding loop itself, and controls how and when each system is invoked.
 
@@ -113,7 +130,7 @@ loop {
 }
 ```
 
-## Why is this a bad example?
+## What's wrong with this example?
 
 You might be noticing that this code is mixing together a lot of different functionality. `snake.move()` is directly tied to both keyboard input and the game's end condition.
 
@@ -139,6 +156,7 @@ Designing this behavior with components allows us to isolate these mechanics int
 - `SnakeMovement { direction: (i32, i32); }`
 - `Invulnerability { ticks_left: u32; }`
 - `Speed { ticks_left: u32; }`
+- `Apple { position: (i32, i32); }`
 - `Player { key_binds: Map<KeyCode, (i32, i32)>; }`
 - `Apple { position: (i32, i32); }`
 
@@ -146,50 +164,91 @@ Unlike OOP, these components are not restricted into any sort of heirarchy based
 
 We can then write some systems to process parts of the game logic using these components.
 
-```rust
-/// Update the snake movement according to Player.key_binds,
-/// whenever a key is pressed
-fn system_player_input(
-	input: Res<Input>,
-	// query for all entity with the `Player` and `SnakeMovement` components
-	mut player_query: Query<(&Player, &mut SnakeMovement)>,
-) {
-	for (player, mut movement) in player_query.iter_mut() {
-		for (key, value) in player.key_binds.iter() {
-			if input.pressed(key) {
-				movement.direction = value;
+- `system_player_input` can check which keys are pressed using the bevy `Input` API, using key binds configured on the `Player` component, and update the direction of its `SnakeMovement`.
+
+	```rust
+	/// Update the snake movement according to Player.key_binds,
+	/// whenever a key is pressed
+	fn system_player_input(
+		input: Res<Input>,
+		// query for all entity with the `Player` and `SnakeMovement` components
+		mut player_query: Query<(&Player, &mut SnakeMovement)>,
+	) {
+		for (player, mut movement) in player_query.iter_mut() {
+			for (key, value) in player.key_binds.iter() {
+				if input.pressed(key) {
+					movement.direction = value;
+				}
 			}
 		}
 	}
-}
+	```
 
+- `system_move_snake` updates the `SnakeSegments` positions of every snake entity according to its `SnakeMovement` direction.
 
-/// Move any Snake on each tick, according to its
-/// SnakeMovement value
-fn system_move_snake(
-	// query for all entities with the `Snake` and `SnakeMovement` components,
-	// and check whether they have a `Speed` component
-	mut movement_query: Query<(&mut Snake, &SnakeMovement, Has<Speed>)>,
-) {
-	for (mut segments, movement, has_speed) in movement_query.iter_mut() {
-		// - move the tail of the snake to "head.position + movement.direction"
-		// - if has_speed is true, move another segment (to move by two segments at once)
+	```rust
+	/// Move any SnakeSegments on each tick, according to its
+	/// SnakeMovement value
+	fn system_move_snake(
+		// query for all entities with the `Snake` and `SnakeMovement` components,
+		// and check whether they have a `Speed` component
+		mut movement_query: Query<(&mut Snake, &SnakeMovement, Has<Speed>)>,
+	) {
+		for (mut snake, movement, has_speed) in movement_query.iter_mut() {
+			// - move the tail of the snake to "head.position + movement.direction"
+			// - if has_speed is true, move another segment (to move by two segments at once)
+		}
 	}
-}
+	```
+- `system_eat_apple` checks if the snake has found an apple, and makes the snake eat it and grow!
 
-/// If the snake runs into itself, and does not have
-/// invulnerability, end the game!
-fn system_detect_collision(
-	// query for any entities with the `Snake` component that do not
-	// have an `Invulnerability` component
-	mut snake_query: Query<&Snake, Without<Invulnerability>>,
-) {
-	for snake in snake_query.iter() {
-		// - find if any two segments have the same position in the snake
-		// - if true, end the game!
+	```rust
+	// If the snake runs into an apple, it should eat the apple
+	// and grow by one segment.
+	fn system_eat_apple(
+		mut commands: Commands,
+		// query for all entities with the `Snake` component
+		snake_query: Query<&mut Snake>,
+		// query for all entities with the `Apple` component
+		apple_query: Query<(Entity, &Apple)>,
+	) {
+		for mut snake in snake_query.iter_mut() {
+			// Get the first snake segment
+			let Some(snake_segment) = snake.segments.get(0) else { continue };
+
+			for (apple_entity, apple) in apple_query.iter() {
+				// If its position is the same as an apple, then...
+				if (snake_segment.pos == apple.pos) {
+					// Eat the apple (remove it from the world)
+					commands.entity(apple_entity).despawn();
+					// Grow the snake by adding a new segment
+					snake.segments.push(SnakeSegment { pos: snake_segment.pos });
+				}
+			}
+		}
 	}
-}
-```
+	```
+
+- `system_detect_collision` determines when the snake has run into itself, as long as it doesn't have the `Invulnerability` component, and ends the game (by despawning the snake entity).
+
+	```rust
+	/// If the snake runs into itself, and does not have
+	/// invulnerability, end the game!
+	fn system_detect_collision(
+		mut commands: Commands,
+		// query for any entities with the `Snake` component that do not
+		// have an `Invulnerability` component
+		snake_query: Query<(Entity, &Snake), Without<Invulnerability>>,
+	) {
+		for (entity, snake) in snake_query.iter() {
+			// - find if any two segments have the same position in the snake
+			// - if true, end the game!
+			if (is_colliding) {
+				commands.entity(entity).despawn();
+			}
+		}
+	}
+	```
 
 Finally, we can assemble our "player snake" by attaching any combination of the above components, depending on what functionality we want:
 
@@ -212,7 +271,7 @@ This is far from a full implementation, but I hope this illustrates the advantag
 
 This might be a bit more verbose, but it provides a massive improvement for reusability in return.
 
-# Aren't these queries bad?
+# Aren't these queries slow?
 
 So far, every system we've written has defined a `Query<Q, F>` type for it to iterate over.
 
@@ -243,12 +302,16 @@ Well, most ECS frameworks are able to implement some neat tricks by knowing thes
 > | Archetype based filtering (`With`, `Without`, `Or`) | O(a) |
 > | Change detection filtering (`Added`, `Changed`)	 | O(a + n) |
 
+<<<<<<< HEAD
 At this point, most of the runtime is down to the iteration over the query items itself, aside from a few cases where extra filters are involved.
+=======
+At this point, most of the runtime is down to the iteration over the query itself, aside from a few cases where extra filters are involved. This can still be costly for performance... but the same operations could be equally costly when written without ECS.
+>>>>>>> 9203eb67 (update index.md)
 
-This makes the *existence* of a query almost negligible, at the cost of some memory space and a few extra steps after a modification is made. Great!
+On the other hand, the *existence* of a query is almost negligible. Which is great!
 
-> *Note:* If you're familiar with relational databases, this is somewhat similar to
-> the idea of [*materialized views*](https://en.wikipedia.org/wiki/Database#Materialized_views), which store the results of frequent
+> *Note:* If you're familiar with relational databases, this struck me as being similar to
+> the idea of [*materialized views*](https://en.wikipedia.org/wiki/Database#Materialized_views) - which store the results of frequent
 > queries to avoid computing them every time they're needed.
 
 However, there are still some cases where these queries don't work! In particular, considering relations between two entities can be a point of concern.
@@ -318,6 +381,9 @@ However, a single `query.get(id)` is still a big runtime improvement compared to
 
 # Conclusion
 
+<<<<<<< HEAD
 - not a perfect solution!
 - particularly well-suited for game development
+=======
+>>>>>>> 9203eb67 (update index.md)
 
