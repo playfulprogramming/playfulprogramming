@@ -1,6 +1,6 @@
 ---
 {
-	title: "Entity Component System: The Perfect Solution to Reusable Code",
+	title: "Entity Component System: The Perfect Solution to Reusable Code?",
 	description: "The ECS pattern is used by many game engines to create stateless, reusable game logic. But how does it work?",
 	published: '2023-09-13',
 	authors: ['fennifith'],
@@ -41,6 +41,7 @@ Components are defined as structs that hold particular pieces of data for entiti
 To better visualize this example - components can form the columns of a table that is indexed by `Entity`:
 
 | `Entity` (ID) | `Player` | `Apple` | `Movement` | `Gravity` | `Health` | `Position` |
+|---------------|----------|---------|------------|-----------|----------|------------|
 | 0             | `{}`     | null    | `{ direction: North }` | null | `{ health: 10 }` | `{ pos: (0, 0) }` |
 | 1             | null     | `{}`    | null       | `{ acceleration: 9.8 }` | null | `{ pos: (3, 4) }` |
 | 2             | null     | `{}`    | null       | `{ acceleration: 9.8 }` | null | `{ pos: (-1, 8) }` |
@@ -64,6 +65,44 @@ These are often (but not always!) kept separate from the *visual* aspects of the
 A *system* is a function that gets continuously invoked during the game. It would typically define a query for the components it uses, and perform some kind of operation as a result.
 
 The ECS framework then manages the surrounding loop itself, and controls how and when each system is invoked.
+
+## Entities are Composable
+
+This is a significant benefit of having *data-driven behavior* in ECS - unlike patterns where this data is intrinsically tied to the implementation, ECS makes it very easy to configure specific components based on your needs.
+
+Maybe you want type of `Apple` that also has `Health` - in Object Oriented Programming, it might look like this:
+
+```java
+class AppleWithHealth extends Apple {
+	int health = 10;
+
+	public AppleWithHealth(position: Vec3) {
+		super(position);
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		if (health <= 0) {
+			this.despawn();
+		}
+	}
+}
+```
+
+Note that we're re-implementing anything that needs to check `health` inside of the `tick()` function. This behavior is probably defined in multiple places in our code, and will be costly to maintain.
+
+In ECS, rather than creating an entirely new implementation, all you should need is to construct it with the `Health` component:
+
+```rust
+commands.spawn((
+	Apple,
+	Gravity { acceleration: 9.8 },
+	Health { health: 10 },
+));
+```
+
+This is similar to the [Composition over Inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance) pattern - your systems can easily be reused to apply to any entity in your game!
 
 # So, you want to build a game?
 
