@@ -10,7 +10,9 @@
 }
 ---
 
-An "Entity Component System" is a pattern followed by many game engines to create isolated systems of stateless, reusable game logic. They present a lot of advantages for all kinds of games: enabling out-of-the-box parallelization, universal state management, and unrestricted polymorphism. But how does this work? What makes it so special?
+An "Entity Component System" is a pattern followed by many game engines to create isolated systems of stateless, reusable game logic.
+
+ECS presents a lot of advantages for all kinds of games: enabling out-of-the-box parallelization, universal state management, and unrestricted polymorphism. But how does this work? What makes it so special?
 
 > **Note:** While this post focuses on the conceptual aspects of ECS, it will reference a Rust game engine called [Bevy](https://bevyengine.org) in many of its examples.
 >
@@ -26,14 +28,6 @@ ECS is characterized by using entities to represent game objects. Each entity ha
 
 ***There is no top-level class or trait that defines an entity!*** It's just an ID! Everything about it is defined by what components it has, and how the systems interact with it.
 
-## Components are the Data Structure
-
-TODO:
-- having one sheep to copy every other sheep from
-- having multiple components to form every sheep (data-driven)
-
-if at some point, you want to add a mutant snake, it's just one more component rather than an entirely new class
-
 ## Components are the Data
 
 Components are defined as structs that hold particular pieces of data for entities in your world. These can be used to identify specific types of entities, or to hold some information about them - such as `Movement`, `Gravity`, or `Health`.
@@ -42,15 +36,15 @@ To better visualize this example - components can form the columns of a table th
 
 | `Entity` (ID) | `Player` | `Apple` | `Movement` | `Gravity` | `Health` | `Position` |
 |---------------|----------|---------|------------|-----------|----------|------------|
-| 0             | `{}`     | null    | `{ direction: North }` | null | `{ health: 10 }` | `{ pos: (0, 0) }` |
-| 1             | null     | `{}`    | null       | `{ acceleration: 9.8 }` | null | `{ pos: (3, 4) }` |
-| 2             | null     | `{}`    | null       | `{ acceleration: 9.8 }` | null | `{ pos: (-1, 8) }` |
+| 0             | `{}`     |         | `direction: North` |      | `health: 10` | `pos: (0, 0)` |
+| 1             |          | `{}`    |            | `acceleration: 9.8` |      | `pos: (3, 4)` |
+| 2             |          | `{}`    |            | `acceleration: 9.8` |      | `pos: (-1, 8)` |
 
 This shows three entities:
 - a `Player` with `Movement`, `Health`, and `Position`
 - two `Apple` entities with `Gravity` and `Position`
 
-None of these components dictate the functionality that should apply to them! Everything is implemented in systems, which can arbitrarily read and write to the components on any entity.
+However, none of these components dictate the exact functionality that should apply to them! All behavior is implemented in *systems...*
 
 ## Systems are the Game Loop!
 
@@ -341,17 +335,9 @@ Well, most ECS frameworks are able to implement some neat tricks by knowing thes
 > | Archetype based filtering (`With`, `Without`, `Or`) | O(a) |
 > | Change detection filtering (`Added`, `Changed`)	 | O(a + n) |
 
-<<<<<<< HEAD
-At this point, most of the runtime is down to the iteration over the query items itself, aside from a few cases where extra filters are involved.
-=======
 At this point, most of the runtime is down to the iteration over the query itself, aside from a few cases where extra filters are involved. This can still be costly for performance... but the same operations could be equally costly when written without ECS.
->>>>>>> 9203eb67 (update index.md)
 
 On the other hand, the *existence* of a query is almost negligible. Which is great!
-
-> *Note:* If you're familiar with relational databases, this struck me as being similar to
-> the idea of [*materialized views*](https://en.wikipedia.org/wiki/Database#Materialized_views) - which store the results of frequent
-> queries to avoid computing them every time they're needed.
 
 However, there are still some cases where these queries don't work! In particular, considering relations between two entities can be a point of concern.
 
@@ -420,9 +406,6 @@ However, a single `query.get(id)` is still a big runtime improvement compared to
 
 # Conclusion
 
-<<<<<<< HEAD
 - not a perfect solution!
 - particularly well-suited for game development
-=======
->>>>>>> 9203eb67 (update index.md)
 
