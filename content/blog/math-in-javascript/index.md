@@ -5,7 +5,7 @@
     published: '2024-03-03T05:49:41.018Z',
     authors: ['jerico'],
     tags: ['math', 'javascript'],
-    attached: [],
+    attached: ['https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math'],
     license: 'cc-by-4'
 }
 ---
