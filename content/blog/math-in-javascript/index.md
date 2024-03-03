@@ -2,7 +2,7 @@
 {
     title: "Math in JavaScript",
     description: "Math in JavaScript may seem simple and sometimes easy, but sometimes what seems right is wrong.",
-    published: '',
+    published: '2024-03-03T05:49:41.018Z',
     authors: ['jerico'],
     tags: ['math', 'javascript'],
     attached: [],
