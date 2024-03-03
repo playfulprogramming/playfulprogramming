@@ -10,8 +10,6 @@
 }
 ---
 
-# JavaScript: Mathematical Uses
-
 JavaScript is a language usually used for general math when used in software, but it’s how you do the math that’s important.
 
 In this article, I will explain the basics of doing math in JavaScript and how to expand on it.
