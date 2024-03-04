@@ -13,16 +13,8 @@
 		"pronouns": "they/them",
 		"profileImg": "./crutchcorn.png",
 		"color": "#ba68c8",
-		"roles": [
-			"devops",
-			"developer",
-			"author",
-			"community"
-		],
-		"achievements": [
-			"messages-1000",
-			"partner"
-		]
+		"roles": ["devops", "developer", "author", "community"],
+		"achievements": ["messages-1000", "partner"]
 	},
 	{
 		"id": "fennifith",
@@ -40,15 +32,8 @@
 		"pronouns": "he/him",
 		"profileImg": "./fennifith.jpg",
 		"color": "#0091EA",
-		"roles": [
-			"developer",
-			"author",
-			"community"
-		],
-		"achievements": [
-			"messages-500",
-			"partner"
-		]
+		"roles": ["developer", "author", "community"],
+		"achievements": ["messages-500", "partner"]
 	},
 	{
 		"id": "evelynhathaway",
@@ -63,14 +48,8 @@
 		"pronouns": "she/her",
 		"profileImg": "proud.png",
 		"color": "#ef5f17",
-		"roles": [
-			"developer",
-			"devops",
-			"community"
-		],
-		"achievements": [
-			"messages-200"
-		]
+		"roles": ["developer", "devops", "community"],
+		"achievements": ["messages-200"]
 	},
 	{
 		"id": "adueppen",
@@ -86,13 +65,8 @@
 		"pronouns": "he/him",
 		"profileImg": "./adueppen.png",
 		"color": "#69ffff",
-		"roles": [
-			"developer",
-			"community"
-		],
-		"achievements": [
-			"messages-500"
-		]
+		"roles": ["developer", "community"],
+		"achievements": ["messages-500"]
 	},
 	{
 		"id": "zavukodlak",
@@ -108,12 +82,8 @@
 		"pronouns": "he/him",
 		"profileImg": "./vukashin.png",
 		"color": "#3485FF",
-		"roles": [
-			"designer"
-		],
-		"achievements": [
-			"site-logo"
-		]
+		"roles": ["designer"],
+		"achievements": ["site-logo"]
 	},
 	{
 		"id": "tommyemo",
@@ -128,12 +98,8 @@
 		"pronouns": "he/him",
 		"profileImg": "./tommyemo.jpg",
 		"color": "#8539EB",
-		"roles": [
-			"designer"
-		],
-		"achievements": [
-			"site-redesign"
-		]
+		"roles": ["designer"],
+		"achievements": ["site-redesign"]
 	},
 	{
 		"id": "edpratti",
@@ -148,13 +114,8 @@
 		"pronouns": "he/him",
 		"profileImg": "./edpratti.jpg",
 		"color": "#FF3300",
-		"roles": [
-			"designer",
-			"author"
-		],
-		"achievements": [
-			"site-redesign"
-		]
+		"roles": ["designer", "author"],
+		"achievements": ["site-redesign"]
 	},
 	{
 		"id": "sarsamurmu",
@@ -170,9 +131,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./sarsamurmu.png",
 		"color": "#7C4DFF",
-		"roles": [
-			"developer"
-		]
+		"roles": ["developer"]
 	},
 	{
 		"id": "MDutro",
@@ -186,14 +145,8 @@
 		"pronouns": "he/him",
 		"profileImg": "./mdutro.jpg",
 		"color": "#7C4DFF",
-		"roles": [
-			"developer",
-			"author",
-			"community"
-		],
-		"achievements": [
-			"messages-1000"
-		]
+		"roles": ["developer", "author", "community"],
+		"achievements": ["messages-1000"]
 	},
 	{
 		"id": "reikaze",
@@ -208,9 +161,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./reikaze.jpg",
 		"color": "#ba68c8",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "thodges314",
@@ -225,9 +176,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./thodges.png",
 		"color": "#ba68c8",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "skatcat31",
@@ -242,13 +191,8 @@
 		"color": "#ba68c8",
 		"profileImg": "./hello.png",
 		"pronouns": "he/him",
-		"roles": [
-			"author",
-			"community"
-		],
-		"achievements": [
-			"messages-1000"
-		]
+		"roles": ["author", "community"],
+		"achievements": ["messages-1000"]
 	},
 	{
 		"id": "seanmiller",
@@ -265,9 +209,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./seanmiller.jpg",
 		"color": "#551a8b",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "pierremtb",
@@ -284,9 +226,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./pierremtb.jpg",
 		"color": "#FFEB3B",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "maisydino",
@@ -302,13 +242,8 @@
 		"pronouns": "she/her",
 		"profileImg": "./maisydino.jpg",
 		"color": "#FDF6E3",
-		"roles": [
-			"author",
-			"community"
-		],
-		"achievements": [
-			"messages-500"
-		]
+		"roles": ["author", "community"],
+		"achievements": ["messages-500"]
 	},
 	{
 		"id": "bobrossrtx",
@@ -324,10 +259,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./bobrossrtx.jpg",
 		"color": "#b7e11e",
-		"roles": [
-			"developer",
-			"author"
-		]
+		"roles": ["developer", "author"]
 	},
 	{
 		"id": "ljtech",
@@ -344,9 +276,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./ljtechdotca.png",
 		"color": "#7b61ff",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "SkyHawk_0",
@@ -358,9 +288,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./goofy.png",
 		"color": "#18BBC9",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "splatkillwill",
@@ -377,9 +305,7 @@
 		"pronouns": "she/they",
 		"profileImg": "./splatkillwill.jpg",
 		"color": "#BF00FF",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "fmothe",
@@ -395,9 +321,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./fmothe.jpg",
 		"color": "#18BBC9",
-		"roles": [
-			"translator"
-		]
+		"roles": ["translator"]
 	},
 	{
 		"id": "jahirfiquitiva",
@@ -414,9 +338,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./jahirfiquitiva.jpg",
 		"color": "#3867d6",
-		"roles": [
-			"translator"
-		]
+		"roles": ["translator"]
 	},
 	{
 		"id": "kaleem",
@@ -432,9 +354,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./kaleem.jpeg",
 		"color": "#a8b3ba",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "xenophorium",
@@ -449,15 +369,8 @@
 		},
 		"profileImg": "./xeno.jpg",
 		"color": "",
-		"roles": [
-			"developer",
-			"author",
-			"community",
-			"translator"
-		],
-		"achievements": [
-			"messages-200"
-		]
+		"roles": ["developer", "author", "community", "translator"],
+		"achievements": ["messages-200"]
 	},
 	{
 		"id": "alexchadwick",
@@ -475,10 +388,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./alexchadwick.jpg",
 		"color": "",
-		"roles": [
-			"author",
-			"translator"
-		]
+		"roles": ["author", "translator"]
 	},
 	{
 		"id": "eneajahollari",
@@ -494,9 +404,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./eneajahollari.jpeg",
 		"color": "#580dff",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "williamcook",
@@ -513,9 +421,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./williamcook.jpg",
 		"color": "#AF7AC5",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "rudy",
@@ -530,9 +436,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./rudy.jpg",
 		"color": "#ba68c8",
-		"roles": [
-			"community"
-		]
+		"roles": ["community"]
 	},
 	{
 		"id": "LayZee",
@@ -548,12 +452,8 @@
 		"pronouns": "he/him",
 		"profileImg": "./lars-gyrup-brink-nielsen.jpg",
 		"color": "#1b9bf0",
-		"roles": [
-			"author"
-		],
-		"achievements": [
-			"messages-200"
-		]
+		"roles": ["author"],
+		"achievements": ["messages-200"]
 	},
 	{
 		"id": "Nessjs",
@@ -569,9 +469,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./nessjs.jpg",
 		"color": "#D36996",
-		"roles": [
-			"translator"
-		]
+		"roles": ["translator"]
 	},
 	{
 		"id": "kevttob",
@@ -586,9 +484,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./kevttob.jpg",
 		"color": "#99EEC9",
-		"roles": [
-			"designer"
-		]
+		"roles": ["designer"]
 	},
 	{
 		"id": "sasikanth",
@@ -604,9 +500,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./sasikanth.jpg",
 		"color": "#49a8e4",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "badcop",
@@ -623,9 +517,7 @@
 		"pronouns": "she/her",
 		"profileImg": "./badcop.png",
 		"color": "#2464B6",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "hopelezz",
@@ -642,9 +534,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./markspratt.jpg",
 		"color": "#42AD8B",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "ladybluenotes",
@@ -661,9 +551,7 @@
 		"pronouns": "she/her",
 		"profileImg": "./sarahgerrard.jpg",
 		"color": "#49A078",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "richarddprasad",
@@ -677,9 +565,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./hello.png",
 		"color": "#1AB5E5",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "maheshchandra10",
@@ -693,9 +579,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./hello.png",
 		"color": "#1AB5E5",
-		"roles": [
-			"developer"
-		]
+		"roles": ["developer"]
 	},
 	{
 		"id": "rjt",
@@ -711,9 +595,7 @@
 		},
 		"pronouns": "they/them",
 		"profileImg": "./rjt.png",
-		"roles": [
-			"community"
-		]
+		"roles": ["community"]
 	},
 	{
 		"id": "reyes-dev",
@@ -727,9 +609,7 @@
 		"pronouns": "he/him",
 		"profileImg": "./hello.png",
 		"color": "#1AB5E5",
-		"roles": [
-			"author"
-		]
+		"roles": ["author"]
 	},
 	{
 		"id": "jtemporal",
@@ -747,9 +627,7 @@
 		"profileImg": "./profile-jt.jpg",
 		"color": "#ef5f17",
 		"roles": [],
-		"achievements": [
-			"partner"
-		]
+		"achievements": ["partner"]
 	},
 	{
 		"id": "tobysolutions",
@@ -767,9 +645,7 @@
 		"profileImg": "./toby-2.jpeg",
 		"color": "#ef5f17",
 		"roles": [],
-		"achievements": [
-			"partner"
-		]
+		"achievements": ["partner"]
 	},
 	{
 		"id": "matt",
@@ -783,9 +659,7 @@
 		"pronouns": "he/him",
 		"color": "#0091EA",
 		"profileImg": "./matt.png",
-		"roles": [
-			"developer"
-		]
+		"roles": ["developer"]
 	},
 	{
 		"id": "tylerlwsmith",
@@ -794,32 +668,29 @@
 		"lastName": "Smith",
 		"description": "I build software using Laravel, Django, Rails, React, Alpine, Node, Go, Docker, and a lot of duct tape.",
 		"socials": {
-			"twitter": "tylerlwsmith",
-			"github": "tylerlwsmith",
-			"linkedIn": "tylerlwsmith",
-			"website": "https://deadhandmedia.com"
+		  "twitter": "tylerlwsmith",
+		  "github": "tylerlwsmith",
+		  "linkedIn": "tylerlwsmith",
+		  "website": "https://deadhandmedia.com"
 		},
 		"pronouns": "he/him",
 		"profileImg": "./tylersmith.jpg",
 		"color": "#59389b",
-		"roles": [
-			"author"
-		]
-	},
-	{
-		"id": "rusher2004",
-		"name": "Robert Usher",
-		"firstName": "Robert",
-		"lastName": "Usher",
-		"description": "Pretty good full stack developer, not very good music creator, first time blogger.",
-		"socials": {
-			"github": "rusher2004"
-		},
-		"pronouns": "he/him",
-		"profileImg": "./rusher.jpg",
-		"color": "#9256b3",
-		"roles": [
-			"author"
-		]
-	}
+		"roles": ["author"]
+	  },
+		{
+			"id": "rusher2004",
+			"name": "Robert Usher",
+			"firstName": "Robert",
+			"lastName": "Usher",
+			"description": "Pretty good full stack developer, not very good music creator, first time blogger.",
+			"socials": {
+				"github": "rusher2004",
+				"linkedIn": "robert-usher"
+			},
+			"pronouns": "he/him",
+			"profileImg": "./rusher.jpg",
+			"color": "#9256b3",
+			"roles": ["author"]	
+		}
 ]
