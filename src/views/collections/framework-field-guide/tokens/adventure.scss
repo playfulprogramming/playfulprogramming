@@ -1,0 +1,27 @@
+@import "./breakpoints";
+@import "./utils";
+
+:root {
+	--grid-item-border-width: var(--border-1x);
+	--grid-item-corner-radius: var(--corner-radius-2x);
+	--grid-item-padding_top: var(--spc-3x);
+	--grid-item-padding_bottom: var(--spc-3x);
+	--grid-item-padding_horizontal: var(--spc-2x);
+
+	--grid-icon-size: 24px;
+	--grid-icon-padding: var(--spc-1x);
+	--grid-gap: var(--spc-3x);
+}
+
+@include from($desktop) {
+	:root {
+		--grid-item-corner-radius: var(--corner-radius-3x);
+		--grid-item-padding_top: var(--spc-5x);
+		--grid-item-padding_bottom: var(--spc-4x);
+		--grid-item-padding_horizontal: var(--spc-4x);
+
+		--grid-icon-size: 48px;
+		--grid-icon-padding: var(--spc-2x);
+		--grid-gap: var(--spc-6x);
+	}
+}

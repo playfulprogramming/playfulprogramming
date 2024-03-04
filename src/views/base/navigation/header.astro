@@ -1,0 +1,110 @@
+---
+import Icon from "astro-icon";
+import * as data from "src/utils/data";
+import { Button, IconOnlyButton } from "components/index";
+import DarkLightButton from "./dark-light-button/dark-light-button.astro";
+import BackButton from "./back-button/back-button.astro";
+import style from "./header.module.scss";
+import logo from "src/assets/unicorn_utterances_sticker.svg?url";
+import { removePrefixLanguageFromPath, translate } from "utils/translations";
+import { SearchInput } from "components/input/input";
+import { SEARCH_QUERY_KEY } from "utils/search";
+
+const path = removePrefixLanguageFromPath(Astro.url.pathname);
+const isHome = path === "/";
+const isAbout = /^\/about\/?/.test(path);
+const isSearch = /^\/search\/?/.test(path);
+
+const props = Astro.props as {
+	size: undefined | "l" | "xl";
+};
+---
+
+<header id="header-bar" class={style.headerBorder} data-sticky-observer>
+	<nav
+		class={`${style.header} ${
+			props.size === "xl" ? style.header_xl : ""
+		} d-flex`}
+	>
+		{!isHome && <BackButton class={style.backButton} />}
+
+		<a href="/" class={`d-flex ${style.logo}`}>
+			<img
+				src={logo}
+				width={56}
+				height={56}
+				alt={translate(Astro, "alt.unicorn_utterances_logo")}
+			/>
+
+			<span class="text-style-button-regular">
+				Unicorn<br />
+				 Utterances
+			</span>
+		</a>
+
+		<div class={`d-flex ${style.nav}`}>
+			{
+				!isHome && !isAbout && (
+					<Button href="/about" variant="primary">
+						{translate(Astro, "title.about_us")}
+					</Button>
+				)
+			}
+		</div>
+
+		<div class={`d-flex ${style.icons}`}>
+			{
+				!isSearch && [
+					<form method="get" action="/search" class={style.searchLarge}>
+						<SearchInput name={SEARCH_QUERY_KEY} variant="dense" />
+					</form>,
+
+					<IconOnlyButton
+						href="/search"
+						aria-label={translate(Astro, "title.search")}
+						class={style.searchSmall}
+					>
+						<Icon height="100%" width="100%" name="search" />
+					</IconOnlyButton>,
+				]
+			}
+
+			{
+				!isHome && [
+					<Button
+						href={data.about.links.Discord.url}
+						aria-label={translate(Astro, "action.join_discord")}
+						class={style.discordLarge}
+					>
+						<Icon
+							slot="leftIcon"
+							height="100%"
+							width="100%"
+							name={data.about.links.Discord.icon}
+						/>
+						{translate(Astro, "action.join_discord")}
+					</Button>,
+
+					<IconOnlyButton
+						href={data.about.links.Discord.url}
+						aria-label={translate(Astro, "action.join_discord")}
+						class={style.discordSmall}
+					>
+						<Icon
+							height="100%"
+							width="100%"
+							name={data.about.links.Discord.icon}
+						/>
+					</IconOnlyButton>,
+				]
+			}
+
+			{
+				isHome ? (
+					<DarkLightButton variant="large" class={style.themeToggleLarge} />
+				) : undefined
+			}
+			<DarkLightButton variant="iconOnly" class={style.themeToggleSmall} />
+		</div>
+	</nav>
+</header>

@@ -1,6 +1,6 @@
 import { UnicornInfo } from "./UnicornInfo";
 import { LicenseInfo } from "./LicenseInfo";
-import { Languages } from "types/index";
+import { CollectionInfo, Languages } from "types/index";
 import { MarkdownInstance } from "astro";
 
 export interface RawPostInfo {
@@ -12,24 +12,30 @@ export interface RawPostInfo {
 	license: string;
 	description?: string;
 	edited?: string;
-	series?: string;
+	collection?: string;
 	order?: number;
 	originalLink?: string;
+	noindex?: boolean;
 }
 
 export interface PostInfo extends RawPostInfo {
 	slug: string;
+	locales: Languages[];
 	locale: Languages;
-	contentMeta: string;
-	Content: MarkdownInstance<never>["Content"];
-	authorsMeta: UnicornInfo[];
-	licenseMeta: LicenseInfo;
 	publishedMeta: string;
 	editedMeta?: string;
-	excerpt: string;
+	authorsMeta: UnicornInfo[];
+	licenseMeta: LicenseInfo;
+	collectionMeta?: CollectionInfo;
+	socialImg: string;
+	bannerImg?: string;
 	wordCount: number;
-	collectionSlug?: string | null;
-	translations: Partial<Record<Languages, string>>;
+}
+
+export interface ExtendedPostInfo extends PostInfo {
+	contentMeta: string;
+	Content: MarkdownInstance<never>["Content"];
+	excerpt: string;
 	suggestedArticles: [PostInfo, PostInfo, PostInfo];
 	headingsWithId?: Array<{
 		// Title value

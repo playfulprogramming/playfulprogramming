@@ -1,0 +1,41 @@
+---
+import styles from "./why-learn-all-three.module.scss";
+---
+
+<section
+	class={styles.whyLearnAllThreeContainer}
+	aria-labelledby="why-learn-all-three"
+>
+	<h2 id="why-learn-all-three" class={styles.headerContainer}>
+		<span class={`text-style-headline-3 ${styles.whyShouldILearnText}`}
+			>Why should I learn</span
+		>
+		<span class={`text-style-display-1 ${styles.frameworkList}`}
+			>React <span class={styles.plus}>+</span> Angular <span
+				class={styles.plus}>+</span
+			> Vue?</span
+		>
+	</h2>
+	<ul aria-describedby="why-learn-all-three" class={styles.whyLearnGrid}>
+		<li class={styles.whyLearnCard}>
+			<p class={`text-style-headline-6 ${styles.cardText}`}>
+				Deeper understanding of core concepts
+			</p>
+		</li>
+		<li class={styles.whyLearnCard}>
+			<p class={`text-style-headline-6 ${styles.cardText}`}>
+				Insight into different programming methodologies
+			</p>
+		</li>
+		<li class={styles.whyLearnCard}>
+			<p class={`text-style-headline-6 ${styles.cardText}`}>
+				Appreciation for the "why" behind framework tradeoffs
+			</p>
+		</li>
+		<li class={styles.whyLearnCard}>
+			<p class={`text-style-headline-6 ${styles.cardText}`}>
+				Learn similar frameworks much faster
+			</p>
+		</li>
+	</ul>
+</section>

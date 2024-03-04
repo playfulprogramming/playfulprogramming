@@ -1,0 +1,78 @@
+@import "src/tokens/index";
+@import "./filter-sidebar-props";
+
+.sidebarContainer {
+	width: var(--search-page_filter_sidebar_width);
+	display: flex;
+	flex-direction: column;
+	gap: var(--search-page_filter_sidebar_gap);
+	padding-top: var(--search-page_filter_sidebar_padding-vertical);
+	padding-bottom: var(--search-page_filter_sidebar_padding-vertical);
+	padding-left: var(--search-page_filter_sidebar_padding-start);
+
+	// ensure the minimum padding to not clip focus states (#666)
+	padding-right: calc(
+		var(--search-page_filter_sidebar_padding-end) + var(--spc-2x)
+	);
+	margin-right: calc(-1 * var(--spc-2x));
+
+	flex-basis: 100%;
+
+	transition:
+		transform 300ms ease-in-out,
+		opacity 300ms ease-in-out;
+}
+
+.sidebarContainer[inert] {
+	transform: translateX(-100%);
+	opacity: 0;
+}
+
+.jumpToContents {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.jumpToContents:focus-visible {
+	position: unset;
+	width: unset;
+	height: unset;
+	padding: unset;
+	margin: unset;
+	overflow: unset;
+	clip: unset;
+	white-space: unset;
+	border-width: unset;
+}
+
+.sortSelect {
+	width: 100%;
+	justify-content: space-between;
+}
+
+.authorIcon {
+	display: contents;
+}
+
+.authorIcon img {
+	border-radius: 50%;
+	height: 100%;
+	width: 100%;
+}
+
+.tagImage {
+	filter: drop-shadow(0px 1px 1.5px rgba(0, 0, 0, 0.24))
+		drop-shadow(0px 0.5px 0px rgba(0, 0, 0, 0.12));
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.tagEmoji {
+}

@@ -1,0 +1,93 @@
+@import "src/tokens/index";
+
+:root {
+	--chip_corner-radius: var(--corner-radius_s);
+	--chip_border-width: var(--border-width_m);
+	--chip_min-size: var(--min-target-size_s);
+	--chip_padding-vertical: var(--spc-1x);
+	--chip_padding-horizontal: var(--spc-2x);
+	--chip_label_padding-horizontal: var(--spc-1x);
+	--chip_icon_size: var(--icon-size_dense);
+
+	--chip_background-color: var(--transparent);
+	--chip_background-color_hovered: var(--surface_primary_emphasis-low);
+	--chip_background-color_pressed: var(--surface_primary_emphasis-high);
+	--chip_background-color_focused: var(--background_focus);
+	--chip_background-color_disabled: var(--transparent);
+
+	--chip_foreground-color: var(--foreground_emphasis-high);
+	--chip_foreground-color_disabled: var(--foreground_disabled);
+
+	--chip_outline_color: var(--primary_variant);
+	--chip_outline_color_disabled: var(--background_disabled);
+	--chip_outline_width: var(--border-width_m);
+	--chip_outline_offset: calc(0 - var(--chip_outline_width));
+
+	--chip_focus-outline_color: var(--focus-outline_primary);
+	--chip_focus-outline_width: var(--border-width_focus);
+}
+
+.chip {
+	min-height: var(--chip_min-size);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	white-space: nowrap;
+
+	color: var(--chip_foreground-color);
+	text-decoration: none;
+	outline: none;
+
+	padding: var(--chip_padding-vertical) var(--chip_padding-horizontal);
+	border: var(--chip_border-width) solid var(--chip_outline_color);
+	border-radius: var(--chip_corner-radius);
+	background-color: transparent;
+
+	@include transition(color background-color border-color box-shadow);
+
+	&:hover {
+		background-color: var(--chip_background-color_hovered);
+		color: var(--chip_foreground-color);
+	}
+
+	&:focus-visible {
+		background-color: var(--chip_background-color_focused);
+		outline-offset: 0;
+		border-color: transparent;
+		@include transition(color background-color box-shadow);
+		outline: var(--chip_focus-outline_color) solid
+			var(--chip_focus-outline_width);
+		color: var(--chip_foreground-color);
+	}
+
+	&:active {
+		background-color: var(--chip_background-color_pressed);
+		color: var(--chip_foreground-color);
+	}
+
+	&:disabled {
+		background-color: var(--chip_background-color_disabled);
+		border-color: var(--chip_outline_color_disabled);
+		color: var(--chip_foreground-color_disabled);
+	}
+}
+
+.chip_content {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: calc(2 * var(--chip_label_padding-horizontal));
+	padding: 0 var(--chip_label_padding-horizontal);
+}
+
+.chip_content > svg {
+	padding: var(--icon-size-dense-padding);
+	height: var(--chip_icon_size);
+	width: var(--chip_icon_size);
+	margin: 0 calc(-1 * var(--chip_label_padding-horizontal));
+}
+
+.chip_content > picture {
+	display: inline-flex;
+	margin: 0 calc(-1 * var(--chip_label_padding-horizontal));
+}

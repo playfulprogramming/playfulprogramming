@@ -1,42 +1,45 @@
 ---
-import { removePrefixLanguageFromPath } from "utils/translations";
-import { SEOProps } from "./shared";
+import { Languages } from "types/index";
+import {
+	removePrefixLanguageFromPath,
+	fileToOpenGraphConverter,
+} from "utils/translations";
 
-type Props = Pick<SEOProps, "langData"> & {
+type Props = {
+	providedLangs?: Languages[];
 	pathName: string;
 	siteMetadata: { siteUrl: string };
 };
 
-const { langData, siteMetadata, pathName } = Astro.props as Props;
+const { providedLangs, siteMetadata, pathName } = Astro.props as Props;
+
+const defaultLocale = "en";
+
+const removeTrailingSlash = (str: string) =>
+	str.endsWith("/") ? str.slice(0, -1) : str;
 ---
 
+<link
+	rel="alternate"
+	href={removeTrailingSlash(
+		siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || ""),
+	)}
+	hreflang="x-default"
+/>
 <>
 	{
-		langData?.currentLang && (
-			<link
-				rel="alternate"
-				href={
-					siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || "")
-				}
-				href-lang="x-default"
-			/>
-		)
-	}
-</>
-<>
-	{
-		langData?.otherLangs?.length
-			? langData.otherLangs.map((lang) => (
+		providedLangs?.length
+			? providedLangs.map((locale) => (
 					<link
 						rel="alternate"
-						href={
+						href={removeTrailingSlash(
 							siteMetadata.siteUrl +
-							`${lang === "en" ? "" : "/"}${lang === "en" ? "" : lang}` +
-							removePrefixLanguageFromPath(pathName || "")
-						}
-						href-lang={lang}
+								(locale === defaultLocale ? "" : `/${locale}`) +
+								removePrefixLanguageFromPath(pathName || ""),
+						)}
+						hreflang={fileToOpenGraphConverter(locale)}
 					/>
-			  ))
+				))
 			: null
 	}
 </>

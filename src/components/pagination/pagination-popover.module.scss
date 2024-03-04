@@ -1,0 +1,106 @@
+@import "src/tokens/index";
+
+:root {
+	--page-popup_padding: var(--spc-6x);
+	--page-popup_gap: var(--spc-4x);
+	--page-popup_offset: var(--spc-8x);
+	--page-popup_corner-radius: var(--corner-radius_l);
+	--page-popup_border-width: var(--border-width_m);
+
+	--page-popup_background-color: var(--background_primary);
+	--page-popup_border-color: var(--primary_variant);
+}
+
+.popup {
+	background: var(--page-popup_background-color);
+	border: var(--page-popup_border-width) solid var(--page-popup_border-color);
+	box-shadow: var(--shadow_popup);
+	min-width: 13.5rem;
+	border-radius: var(--page-popup_corner-radius);
+}
+
+.popupDialog {
+	outline: none;
+}
+
+.popupDialog[data-focus-visible="true"]:focus-visible {
+	outline: var(--border-width_focus) solid var(--focus-outline_primary);
+	border-radius: var(--page-popup_corner-radius);
+}
+
+.popupInner {
+	padding: var(--page-popup_padding);
+	display: flex;
+	flex-direction: column;
+	gap: var(--page-popup_gap);
+}
+
+.popupInput {
+	width: 1px;
+	flex-grow: 1;
+	text-align: center;
+	min-width: calc(3ch + calc(var(--form-field_padding-horizontal) * 2));
+	-moz-appearance: textfield;
+}
+
+.popupInput::-webkit-outer-spin-button,
+.popupInput::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.popupTopArea {
+	display: flex;
+	gap: var(--page-popup_gap);
+	align-items: center;
+}
+
+.buttonContainer {
+	height: 100%;
+	width: 100%;
+	flex-grow: 0;
+}
+
+.iconButton {
+	height: calc(
+		var(--form-field_padding-vertical) * 2 + var(--p_medium_line-height)
+	);
+	width: calc(
+		var(--form-field_padding-vertical) * 2 + var(--p_medium_line-height)
+	);
+}
+
+.buttonContainer svg {
+	height: 100%;
+	width: 100%;
+	flex-grow: 0;
+}
+
+.underlay {
+	position: fixed;
+	inset: 0;
+}
+
+.arrow {
+	position: absolute;
+}
+
+.arrow[data-placement="top"] {
+	top: 100%;
+	transform: translateX(-50%);
+}
+
+.arrow[data-placement="bottom"] {
+	bottom: 100%;
+	transform: translateX(-50%) rotate(180deg);
+}
+
+.arrow[data-placement="left"] {
+	left: 100%;
+	transform: translateY(-50%) rotate(-90deg);
+}
+
+.arrow[data-placement="right"] {
+	right: 100%;
+	transform: translateY(-50%) rotate(90deg);
+}

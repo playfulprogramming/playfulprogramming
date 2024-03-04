@@ -3,16 +3,17 @@
 	title: "Minecraft Data Pack Programming: Scoreboard Usage",
 	description: "Learn data pack development in Minecraft - using player scoreboards, variables, and operations!",
 	published: '2022-08-20T19:10:03.284Z',
+	edited: '2023-09-27',
 	authors: ['fennifith'],
-	tags: [],
+	tags: ["minecraft", "gamedev"],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
-	series: "Minecraft Data Pack Programming",
+	collection: "minecraft-data-packs",
 	order: 3
 }
 ---
 
-> Please note: this guide specifically covers the **Java Edition** version of Minecraft. Bedrock Edition does not use data packs, but provides customization through [add-ons](https://minecraft.fandom.com/wiki/Add-on).
+> Please note: this guide specifically covers the **Java Edition** version of Minecraft. Bedrock Edition does not use data packs, but provides customization through [add-ons](https://minecraft.wiki/w/Add-on).
 
 The data packs built in this series can be found in the [unicorn-utterances/mc-datapacks-tutorial](https://github.com/unicorn-utterances/mc-datapacks-tutorial/tree/main/3-scoreboards) repository. Feel free to use it for reference as you read through these articles!
 
@@ -67,13 +68,9 @@ We can set values of a scoreboard using the `/scoreboard players` subcommands. M
 scoreboard players set @s fennifith.animals_spawned 1
 ```
 
-<div style="margin-top: -2em;">
-
 | Entry     | fennifith.animals_spawned |
 | --------- | ------------------------- |
 | fennifith | 1                         |
-
-</div>
 
 If we want to add to this value, we can use the `scoreboard players add` subcommand instead. Likewise, `scoreboard players remove` will subtract a value from our scoreboard.
 
@@ -84,13 +81,10 @@ If we want to add to this value, we can use the `scoreboard players add` subcomm
 #                  |   |                    |
 scoreboard players add @s fennifith.animals_spawned 2
 ```
-<div style="margin-top: -2em;">
 
 | Entry     | fennifith.animals_spawned |
 | --------- | ------------------------- |
 | fennifith | 3                         |
-
-</div>
 
 > **Note:** Be wary of the difference between `/scoreboard objectives add` and `/scoreboard players add`, as they are easy to confuse — I even mixed them up a few times while writing this article! The `objectives` subcommands are used exclusively for creating or removing entire scoreboards, while the `players` subcommands can modify specific entries in existing scoreboards to change their values.
 >
@@ -106,14 +100,10 @@ We can do this by referencing a *nonexistent player*. The scoreboard will includ
 scoreboard players set $global fennifith.animals_spawned 4
 ```
 
-<div style="margin-top: -2em;">
-
 | Entry     | fennifith.animals_spawned |
 | --------- | ------------------------- |
 | fennifith | 3                         |
 | $global   | 4                         |
-
-</div>
 
 This trick works because `$` is not a character that Minecraft players can register in their username. As such, we can ensure that the `$global` entry will never be used by any actual player or entity in the world.
 
@@ -137,19 +127,15 @@ For example, this command will copy the value of our `$global` variable into `$g
 execute store result score $global_2 fennifith.animals_spawned run scoreboard players get $global fennifith.animals_spawned
 ```
 
-<div style="margin-top: -2em;">
-
 | Entry     | fennifith.animals_spawned |
 | --------- | ------------------------- |
 | fennifith | 3                         |
 | $global   | 4                         |
 | $global_2 | 4                         |
 
-</div>
-
 > While this example will successfully copy our `$global` variable to `$global_2`, there is somewhat shorter way to achieve that using [scoreboard operations](#Scoreboard-operations)...
 
-It might not always be obvious what value a command returns as its "result", as this is sometimes different from what it prints in the game chat. However, all commands can be looked up on the [Minecraft wiki](https://minecraft.fandom.com/wiki/Commands) to see what values and behavior they should provide.
+It might not always be obvious what value a command returns as its "result", as this is sometimes different from what it prints in the game chat. However, all commands can be looked up on the [Minecraft wiki](https://minecraft.wiki/w/Commands) to see what values and behavior they should provide.
 
 ## Scoreboard operations
 
@@ -165,15 +151,12 @@ For example, to make our `$global` entry in the previous examples equal to the `
 #                            |                                 | |
 scoreboard players operation $global fennifith.animals_spawned = @s fennifith.animals_spawned
 ```
-<div style="margin-top: -2em;">
 
 | Entry     | fennifith.animals_spawned |
 | --------- | ------------------------- |
 | fennifith | 3                         |
 | $global   | 3                         |
 | $global_2 | 4                         |
-
-</div>
 
 ### Math operations
 
@@ -188,15 +171,12 @@ For example, to add the `@s` entry to `$global`:
 #                            |                                 |  |
 scoreboard players operation $global fennifith.animals_spawned += @s fennifith.animals_spawned
 ```
-<div style="margin-top: -2em;">
 
 | Entry     | fennifith.animals_spawned |
 | --------- | ------------------------- |
 | fennifith | 3                         |
 | $global   | 6                         |
 | $global_2 | 4                         |
-
-</div>
 
 The `operation` subcommand only runs on scoreboard entries, so we cannot pass constant values to it. `scoreboard players operation $global fennifith.animals_spawned /= 2` is, unfortunately, not a command that the game will run.
 
@@ -209,16 +189,12 @@ scoreboard players set $divisor fennifith.animals_spawned 2
 scoreboard players operation $global fennifith.animals_spawned /= $divisor fennifith.animals_spawned
 ```
 
-<div style="margin-top: -2em;">
-
 | Entry     | fennifith.animals_spawned |
 | --------- | ------------------------- |
 | fennifith | 3                         |
 | $divisor  | 2                         |
 | $global   | 3                         |
 | $global_2 | 4                         |
-
-</div>
 
 This results in `$global`, which was previously `6`, being divided by `2` — as such, its value is now `3`.
 
@@ -331,7 +307,7 @@ execute unless score $nonexistent fennifith.animals_spawned matches -2147483648.
 
 # Tracking statistics
 
-Scoreboards can also be created to track *game statistics*, such as the number of blocks mined or number of times an item has been used. These can be found in the game by opening the pause menu in any world or server and clicking the "Statistics" button — and the names used to reference them can be found [on the Minecraft wiki](https://minecraft.fandom.com/wiki/Scoreboard#Criteria).
+Scoreboards can also be created to track *game statistics*, such as the number of blocks mined or number of times an item has been used. These can be found in the game by opening the pause menu in any world or server and clicking the "Statistics" button — and the names used to reference them can be found [on the Minecraft wiki](https://minecraft.wiki/w/Scoreboard#Criteria).
 
 We can use any statistic as the second argument of `/scoreboard objectives add` when we create a new objective — for example:
 

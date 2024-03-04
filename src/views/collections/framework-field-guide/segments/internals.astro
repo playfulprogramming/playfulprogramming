@@ -1,0 +1,88 @@
+---
+import BigFilledButton from "../components/big-filled-button.astro";
+import ChipGroup, { TagList } from "../components/chip-group.astro";
+import SectionMetric from "../components/section-metric.astro";
+import "../components/shared-section-styling.scss";
+import InternalsBookCover from "./internals-book-cover.astro";
+
+const tags: TagList = [
+	"Performance",
+	"OnPush",
+	"Memoization",
+	"v-once",
+	"Rendering Behavior",
+	"Virtual DOM",
+	"Incremental DOM",
+	'"h" function',
+	"Reactivity",
+	"Zone.js internals",
+	"Proxies",
+	"Vue RFC sugar",
+	"Vue JSX usage",
+	"DOM diffing",
+	'"createElement"',
+	"Hook state persistence",
+	"Hook call order",
+	"Change detection",
+	"ApplicationRef.tick",
+	"Angular Ivy",
+	"NgZone",
+	"Custom renderers",
+	"Template compilers",
+	"Immutability",
+	"Write your own framework",
+	"Vue's internals",
+	"React's internals",
+	"Angular's internals",
+	"nextTick",
+	"Non-DOM usage",
+] as const;
+---
+
+<section data-change-color-to="inter" aria-labelledby="internals-title">
+	<InternalsBookCover />
+	<div class="class-book-3">
+		<div class="book-section" style="background: var(--section-background);">
+			<h2 id="internals-title" class={`text-style-display-1 book-title`}>
+				Internals
+			</h2>
+			<p class={`text-style-headline-4 book-subtitle`}>
+				Learn how these frameworks work under-the-hood
+			</p>
+			<p class={`text-style-body-large book-bio`}>
+				To get the absolute most out of your tools, you should understand them
+				inside and out; React, Angular, and Vue are no exception. In this book,
+				we'll write our own version of each framework... from scratch. After
+				all, what better way to understand the internals than to write them
+				yourself?
+			</p>
+			<div class="book-ctas">
+				<BigFilledButton
+					href="#signup-form"
+					onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
+				>
+					Sign up for updates
+				</BigFilledButton>
+				<!-- <BigOutlinedButton>Learn more</BigOutlinedButton> -->
+			</div>
+			<p class={`text-style-body-large-bold book-coming-soon`}>
+				Stay tuned — coming late 2025!
+			</p>
+			<div class="section-metrics-main-container" data-no-horiz-pad>
+				<p class="srOnly">This book has:</p>
+				<SectionMetric
+					ariaLabel="12* chapters"
+					numberStr="12"
+					subtitle="chapters"
+					asterisk={true}
+				/>
+			</div>
+			<div class="section-chip-group-container" data-no-max-width>
+				<ChipGroup tags={tags} ariaLabel="Subjects taught in Internals" />
+			</div>
+			<p class="text-style-body-large-bold section-disclaimer">
+				*This book’s contents are subject to change
+			</p>
+		</div>
+	</div>
+</section>

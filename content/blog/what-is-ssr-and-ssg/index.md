@@ -6,11 +6,13 @@
 	authors: ['crutchcorn'],
 	tags: ['ssr', 'ssg', 'nextjs', 'react'],
 	attached: [],
-	license: 'cc-by-nc-sa-4'
+	license: 'cc-by-nc-sa-4',
+    collection: "react-beyond-the-render",
+    order: 3
 }
 ---
 
-In recent years, projects like [Zeit's NextJS](https://nextjs.org/) and [Gatsby](https://www.gatsbyjs.org/) have garnered acclaim and higher and higher usage numbers. Not only that, but their core concepts of Server Side Rendering (SSR) and Static Site Generation (SSG) have been seen in other projects and frameworks such as [Angular Universal](https://angular.io/guide/universal), [ScullyIO](https://scully.io/), and [NuxtJS](https://nuxtjs.org/). Why is that? What _is_ SSR and SSG? How can I use these concepts in my applications?
+In recent years, projects like [Vercel's NextJS](https://nextjs.org/) and [Gatsby](https://www.gatsbyjs.org/) have garnered acclaim and higher and higher usage numbers. Not only that, but their core concepts of Server Side Rendering (SSR) and Static Site Generation (SSG) have been seen in other projects and frameworks such as [Angular Universal](https://angular.io/guide/universal), [ScullyIO](https://scully.io/), and [NuxtJS](https://nuxtjs.org/). Why is that? What _is_ SSR and SSG? How can I use these concepts in my applications?
 
 We'll walk through all of these questions and provide answers for each. First, we have to have an understanding of how a typical HTML site is able to serve content to your user.
 
@@ -40,6 +42,8 @@ While you may not be familiar with this term, you're more than likely familiar w
 ![A diagram explaining how the steps above would flow](./csr.svg)
 
 This is because React's code has to initialize to render the components on screen before it can spit out HTML for the browser to parse. Sure, there's an initial HTML file that might have loading spinner, but until your components have time to render, that's hardly useful content for your user. _While these load times can be sufficient for smaller applications_, if you have many components loading on-screen, _you may be in trouble if you want to keep your time-to-interactive (TTI) low_. That scenario is where SSR often comes into play.
+
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # Server Side Rendering (SSR) {#ssr}
 
@@ -122,9 +126,6 @@ All in all, while lighthouse might score you lower, you can rest assured that yo
 
 As mentioned previously, having SSR and SSG in your toolbox are incredibly useful to have at your disposal. While not appropriate for every application, those that are tend to see great advantages from the concepts. Hopefully we've been able to provide a bit of insight that'll spark further learning and research into them.
 
-
-
 Now you have familiarity with what SSR and SSG are, maybe you want to take a stab at implementing it? [We took a look recently at creating a blog using an Angular SSG solution called Scully](/posts/making-an-angular-blog-with-scully/).
-
 
 As always, let us know what you think down in the comments below or [in our community Discord](https://discord.gg/FMcvc6T).

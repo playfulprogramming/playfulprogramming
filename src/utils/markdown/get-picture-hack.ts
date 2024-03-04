@@ -6,7 +6,7 @@ import {
 import squoosh_service from "../../../node_modules/@astrojs/image/dist/loaders/squoosh.js";
 
 export function getPicture(
-	params: GetPictureParams
+	params: GetPictureParams,
 ): Promise<GetPictureResult> {
 	// HACK: This is a hack that heavily relies on `getImage`'s internals :(
 	globalThis.astroImage = {

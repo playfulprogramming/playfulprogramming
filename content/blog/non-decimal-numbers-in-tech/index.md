@@ -39,7 +39,7 @@ Binary, on the other hand, is _base two_. **This means that there are only two s
 > For the Latin enthusiasts, binary comes from "binarius" meaning "two together". _Deca_, meaning 10, is where "decimal" comes from.
 > Additionally, the term "radix" is sometimes used instead of "base" when describing numeral systems, especially in programming.
 
-Instead of using numbers, which can get very confusing very quickly while learning for the first time, let's use **`X`**s and **`O`**s as our two symbols for our first few examples. _An **`X`** represents if a number is present and that we should add it to the final sum; an **`O`** means that the number is not present and that we should not add it_.
+Instead of using numbers, which can get very confusing very quickly while learning for the first time, let's use **`X`**'s and **`O`**'s as our two symbols for our first few examples. _An **`X`** represents if a number is present and that we should add it to the final sum; an **`O`** means that the number is not present and that we should not add it_.
 Take the following example:
 
 ![A "X" on the two column and a "X" on the ones column which add together to make 3](./base_2_3_symbols.svg)
@@ -92,6 +92,8 @@ And voilà, you have the binary representation of `50`: **`0110010`**.
 > Author's note:
 >
 > While there are plenty of ways to find the binary representation of a decimal number, this example uses a "greedy" algorithm. I find this algorithm to flow the best with learning the binary number system, but it's not the only way (or even the best way, oftentimes).
+
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # Hexadecimal {#hexadecimal}
 

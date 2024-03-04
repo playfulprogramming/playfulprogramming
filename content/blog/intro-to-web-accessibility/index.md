@@ -23,38 +23,12 @@ Another example is users with limited mobility who utilize specialty hardware, s
 
 Something to keep in mind is that these disabilities may not be permanent. For instance, if you fall and break your arm, you may be only using one arm while healing. Likewise, there are situational impairments as well. If you're holding a cup of coffee in one hand, you'll only be using the other for device usage. Here's a chart that outlines a few more of these examples:
 
-<table>
-	<tr>
-	  <th></th>
-		<th scope="col">Permanent</th>
-		<th scope="col">Temporary</th>
-		<th scope="col">Situational</th>
-	</tr>
-	<tr>
-		<th scope="row">Touch</th>
-		<td><img src="./one_arm.png" style="height: 200px"/><br/>One arm</td>
-		<td><img src="./arm_injury.png" style="height: 200px"/><br/>Arm injury</td>
-		<td><img src="./new_parent.png" style="height: 200px"/><br/>New parent</td>
-	</tr>
-	<tr>
-		<th scope="row">See</th>
-		<td><img src="./blind.png" style="height: 200px"/><br/>Blind</td>
-		<td><img src="./cataract.png" style="height: 200px"/><br/>Cataract</td>
-		<td><img src="./distracted_driver.png" style="height: 200px"/><br/>Distracted driver</td>
-	</tr>
-	<tr>
-		<th scope="row">Hear</th>
-		<td><img src="./deaf.png" style="height: 200px"/><br/>Deaf</td>
-		<td><img src="./ear_infection.png" style="height: 200px"/><br/>Ear infection</td>
-		<td><img src="./bartender.png" style="height: 200px"/><br/>Bartender</td>
-	</tr>
-	<tr>
-		<th scope="row">Speak</th>
-		<td><img src="./non_verbal.png" style="height: 200px"/><br/>Non-verbal</td>
-		<td><img src="./laryngitis.png" style="height: 200px"/><br/>Laryngitis</td>
-		<td><img src="./heavy_accent.png" style="height: 200px"/><br/>Heavy accent</td>
-	</tr>
-</table>
+|       | Permanent | Temporary | Situational |
+|-------|-----------|-----------|-------------|
+| Touch | <img height="200" src="./one_arm.png" alt=""><br> One arm | <img height="200" src="./arm_injury.png" alt=""><br> Arm injury | <img height="200" src="./new_parent.png" alt=""><br> New parent |
+| See   | <img height="200" src="./blind.png" alt=""><br> Blind | <img height="200" src="./cataract.png" alt=""><br> Cataract | <img height="200" src="./distracted_driver.png" alt=""><br> Distracted driver |
+| Hear  | <img height="200" src="./deaf.png" alt=""><br> Deaf | <img height="200" src="./ear_infection.png" alt=""><br> Ear infection | <img height="200" src="./bartender.png" alt=""><br> Bartender |
+| Speak | <img height="200" src="./non_verbal.png" alt=""><br> Non-verbal | <img height="200" src="./laryngitis.png" alt=""><br> Laryngitis | <img height="200" src="./heavy_accent.png" alt=""><br> Heavy accent |
 
 > Microsoft originally created this chart as part of their [Inclusive Toolkit](https://download.microsoft.com/download/b/0/d/b0d4bf87-09ce-4417-8f28-d60703d672ed/inclusive_toolkit_manual_final.pdf) manual
 
@@ -158,7 +132,7 @@ Additional to `aria` props, [the `role` property](https://developer.mozilla.org/
 
 While HTML relays a significant amount of information to assistive technologies like screen readers, it's not the only thing used to inform those tools. Certain CSS rules can change the functionality as well. After all, screen readers (and other tools) don't look through the source code of a website. Instead, they're looking at [the accessibility tree](https://developers.google.com/web/fundamentals/accessibility/semantics-builtin/the-accessibility-tree): a modified version of the DOM. The accessibility tree and the DOM are both constructed by the browser from the website's source code. 
 
-> Want to learn more about the DOM, how the browser constructs it, and what it's used for internally? [This article helps explain this in detail](https://unicorn-utterances.com/posts/understanding-the-dom/).
+> Want to learn more about the DOM, how the browser constructs it, and what it's used for internally? [This article helps explain this in detail](/posts/understanding-the-dom/).
 
 Because the DOM is influenced by CSS, it impacts the accessibility tree as well. For example, `display: none` removes the element from the [accessibility tree](https://benmyers.dev/blog/accessibility-tree/) and from the browsers visual output. This means that screen readers won't read the contents of an element with that rule applied. However, `visibility: hidden`  or `width: 0px` will hide an element visually, but will still be read by screen readers.
 
@@ -208,13 +182,13 @@ Many phones using iOS and Android allow users to change the font size on their m
 
 <div style="display: flex; justify-content: space-around">
     <figure>
-		<img src="./ios_text_size.png"  style="height: 300px"/>            
+		<img src="./ios_text_size.png"/>            
         <figcaption>
             iOS font size settings screen
         </figcaption>
     </figure>
     <figure>
-        <img src="./android_text_size.png"  style="height: 300px"/>
+        <img src="./android_text_size.png"/>
         <figcaption>
             Android font size settings screen
         </figcaption>

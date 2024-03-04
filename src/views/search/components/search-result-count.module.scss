@@ -1,0 +1,35 @@
+@import "src/tokens/index";
+
+:root {
+	--search-page_results-count_padding-top: var(--site-spacing);
+	--search-page_results-count_margin: var(--spc-2x);
+	--search-page_results-count_icon-size: var(--icon-size_dense);
+
+	@include from($desktopSmall) {
+		--search-page_results-count_padding-top: 0px;
+		--search-page_results-count_margin: var(--spc-3x);
+		--search-page_results-count_icon-size: var(--icon-size_regular);
+	}
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	gap: var(--search-page_results-count_margin);
+	margin-top: var(--search-page_results-count_padding-top);
+}
+
+.icon {
+	color: var(--foreground_emphasis-medium);
+	height: var(--search-page_results-count_icon-size);
+	width: var(--search-page_results-count_icon-size);
+}
+
+.icon svg {
+	height: 100%;
+	width: 100%;
+}
+
+.text {
+	color: var(--foreground_emphasis-high);
+}

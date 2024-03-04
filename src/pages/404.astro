@@ -1,55 +1,42 @@
 ---
 import Document from "../layouts/document.astro";
 import SEO from "components/seo/seo.astro";
-import sadUnicorn from "assets/sad_unicorn_2048.png";
-import { Picture } from "@astrojs/image/components";
+import PageCard from "components/page-card/page-card.astro";
+
+import sadUnicorn from "../assets/unicorn_sad.svg";
+import { LargeButton } from "../components";
 
 const locale = "en";
 ---
 
 <Document lang={locale}>
 	<SEO slot="head" title="404: Not Found" />
-
-	<main class="listViewContent">
-		<Picture
-			class="sadUnicorn"
-			src={sadUnicorn}
-			loading="eager"
-			sizes="500px"
-			widths={[500]}
-			formats={["avif", "webp", "png"]}
-			width={500}
-			height={500}
-			alt="Unicorn Utterances 404 image"
-		/>
-
-		<h1>We're Sorry, We Don't Understand</h1>
-
-		<p>
-			We don't quite understand where you're trying to go! We're really sorry
-			about this!
-			<br />
-			Maybe the URL has a typo in it or we've configured something wrong!
-			<br />
-			<a href="https://github.com/unicorn-utterances/unicorn-utterances/issues">
-				If you really think it might be something we did, let us know!
-			</a>
-		</p>
+	<main class="missingMain">
+		<PageCard
+			imageSrc={sadUnicorn.src}
+			imageAlt="A crying Unicorn"
+			title="We couldn’t find what you were looking for..."
+			description="We don't quite understand where you're trying to go! We're really sorry about this! Maybe the URL has a typo in it or we've configured something wrong!"
+			numberOfButtons={2}
+		>
+			<LargeButton href="/" slot="button" variant="primary">
+				Go back home
+			</LargeButton>
+			<LargeButton
+				href="https://discord.gg/FMcvc6T"
+				slot="second-button"
+				variant="secondary"
+			>
+				Report an issue
+			</LargeButton>
+		</PageCard>
 	</main>
 </Document>
 
 <style lang="scss">
-	.sadUnicorn {
-		display: block;
-		margin: 0 auto;
-		max-width: 80%;
-		height: auto;
-	}
-
-	main {
-		h1,
-		p {
-			text-align: center;
-		}
+	.missingMain {
+		display: flex;
+		padding: var(--site-spacing);
+		justify-content: center;
 	}
 </style>

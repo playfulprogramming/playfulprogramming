@@ -1,30 +1,16 @@
 import { Root } from "hast";
 import { Plugin } from "unified";
 import matter from "gray-matter";
-import { readFileSync, existsSync } from "fs";
+import { readFileSync } from "fs";
 import * as path from "path";
-import { collections, licenses, unicorns } from "../data";
-import dayjs from "dayjs";
-import { Languages } from "../../types/index";
-import { languages } from "../../constants/index";
-import { dirname, resolve } from "path";
-
-const getIndexPath = (lang: Languages) => {
-	const indexPath = lang !== "en" ? `index.${lang}.md` : `index.md`;
-	return indexPath;
-};
+import { collections, posts } from "../data";
+import { getLanguageFromFilename } from "..";
+import { AstroVFile } from "utils/markdown/types";
 
 interface RehypeUnicornPopulatePostProps {}
 
-export const rehypeUnicornPopulatePost: Plugin<
-	[RehypeUnicornPopulatePostProps | never],
-	Root
-> = () => {
-	return (_, file) => {
-		function setData(key: string, val: any) {
-			(file.data.astro as any).frontmatter[key] = val;
-		}
-
+export const rehypeUnicornPopulatePost = (() => {
+	return (_, file: AstroVFile) => {
 		const fileContents = readFileSync(file.path, "utf8");
 		const { data: frontmatter, content } = matter(fileContents);
 
@@ -32,63 +18,32 @@ export const rehypeUnicornPopulatePost: Plugin<
 
 		// This is the folder name, AKA how we generate the slug ID
 		const slug = directorySplit.at(-2);
+		// This is the containing folder, two levels above the post
+		const folder = directorySplit.at(-3) as "blog" | "collections" | "content";
 
 		// Calculate post locale
 		// index.md or index.es.md
 		const indexName = directorySplit.at(-1);
-		const indexSplit = indexName.split(".");
-		let locale = indexSplit.at(-2);
-		if (locale === "index") {
-			locale = "en";
+		const locale = getLanguageFromFilename(indexName);
+
+		// Find any additional metadata from 'src/utils/data' for the parsed post
+		// - this step needs to support collections / all other markdown pages, not just posts
+		let data = null;
+		if (folder === "blog") {
+			// Find the post metadata from its slug+locale
+			data = posts.find((p) => p.slug === slug && p.locale === locale);
+		} else if (folder === "collections") {
+			// Find the collection metadata from its slug+locale
+			data = collections.find((c) => c.slug === slug && c.locale === locale);
 		}
 
-		const langsToQuery: Languages[] = Object.keys(languages).filter(
-			(l) => l !== locale
-		) as never;
-		const translations = langsToQuery
-			.filter((lang) =>
-				existsSync(resolve(dirname(file.path), getIndexPath(lang)))
-			)
-			.reduce((prev, lang) => {
-				prev[lang] = languages[lang];
-				return prev;
-			}, {} as Record<Languages, string>);
-
-		let collectionSlug;
-		if (frontmatter.series) {
-			collectionSlug = collections.find(
-				(collection) => collection.associatedSeries === frontmatter.series
-			)?.slug;
-		}
-		if (!collectionSlug) collectionSlug = null;
-		const authorsMeta = frontmatter.authors
-			? (frontmatter.authors as string[]).map(
-					(author) => unicorns.find((unicorn) => unicorn.id === author)!
-			  )
-			: undefined;
-
-		let license;
-		if (frontmatter.license) {
-			license = licenses.find((l) => l.id === frontmatter.license);
-		}
-		if (!license) license = null;
-
-		const publishedMeta = frontmatter.published
-			? dayjs(frontmatter.published).format("MMMM D, YYYY")
-			: undefined;
-		const editedMeta = frontmatter.edited
-			? dayjs(frontmatter.edited).format("MMMM D, YYYY")
-			: undefined;
-
-		setData("slug", slug);
-		setData("locale", locale);
-		setData("translations", translations);
-		setData("authorsMeta", authorsMeta);
-		setData("licenseMeta", license);
-		setData("frontmatterBackup", {...frontmatter});
-		setData("contentMeta", content);
-		setData("publishedMeta", publishedMeta);
-		setData("editedMeta", editedMeta);
-		setData("collectionSlug", collectionSlug);
+		// Write the data to Astro's frontmatter
+		Object.assign(file.data.astro.frontmatter, {
+			slug,
+			locale,
+			...data,
+			frontmatterBackup: { ...frontmatter },
+			contentMeta: content,
+		});
 	};
-};
+}) satisfies Plugin<[RehypeUnicornPopulatePostProps | never], Root>;

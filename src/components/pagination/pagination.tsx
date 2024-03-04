@@ -1,85 +1,143 @@
-import { usePaginationRange } from "./pagination-logic";
-import { Page } from "astro";
-import { PostInfo } from "types/PostInfo";
 import styles from "./pagination.module.scss";
+import forward from "src/icons/arrow_right.svg?raw";
+import back from "src/icons/arrow_left.svg?raw";
+import { PaginationMenuAndPopover } from "components/pagination/pagination-popover";
+import { useEffect, useState } from "preact/hooks";
+import {
+	PaginationButtonProps,
+	PaginationProps,
+} from "components/pagination/types";
+import { usePagination } from "./use-pagination";
+import { onSoftNavClick } from "./on-click-base";
 
-interface PaginationProps {
-	page: Pick<Page<PostInfo>, "total" | "currentPage" | "size">;
-	class?: string;
-	id?: string;
-	rootURL: string;
-	getPageHref?: (pageNum: number) => string;
+function PaginationButton({
+	pageInfo,
+	pageNum,
+	href,
+	selected,
+	softNavigate,
+}: PaginationButtonProps) {
+	const pageOptionalMin = Math.min(
+		Math.max(1, pageInfo.currentPage - 1),
+		pageInfo.lastPage - 3,
+	);
+	const isOptional = pageNum < pageOptionalMin || pageNum > pageOptionalMin + 3;
+
+	return (
+		<li
+			className={`${styles.paginationItem} ${
+				isOptional ? styles.paginationItemExtra : ""
+			}`}
+		>
+			<a
+				className={`text-style-body-medium-bold ${styles.paginationButton} ${
+					selected ? styles.selected : ""
+				}`}
+				href={href}
+				onClick={softNavigate ? onSoftNavClick(softNavigate) : undefined}
+				aria-label={`Go to page ${pageNum}`}
+				aria-current={selected || undefined}
+			>
+				{pageNum + ""}
+			</a>
+		</li>
+	);
+}
+
+/**
+ * This prevents the pagination menu from rendering on SSR, which throws errors
+ */
+function PaginationMenuWrapper(
+	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">,
+) {
+	const [shouldRender, setShouldRender] = useState(false);
+
+	useEffect(() => {
+		setShouldRender(true);
+	});
+
+	// if this is a static render, this still needs to return an <li> node so that
+	// it hydrates in the correct order
+	if (!shouldRender) return <li hidden></li>;
+
+	return <PaginationMenuAndPopover {...props} />;
 }
 
 export const Pagination = ({
 	page,
-	rootURL,
+	rootURL = "./",
 	class: className = "",
 	id = "post-list-pagination",
-	getPageHref = (pageNum: number) =>
-		pageNum === 0 || pageNum === 1 ? rootURL : `${rootURL}page/${pageNum}`,
+	getPageHref = (pageNum: number) => `${rootURL}${pageNum}`,
+	softNavigate,
+	testId,
 }: PaginationProps) => {
-	const paginationRange = usePaginationRange({
-		currentPage: page.currentPage,
-		totalCount: page.total,
-		siblingCount: 0,
-		pageSize: page.size,
-	});
+	// if there's only one page, don't render anything
+	if (page.currentPage === 1 && page.lastPage < 2) return <></>;
 
-	const dontShowAnything = page.currentPage === 1 && paginationRange.length < 2;
-
-	const lastPage = paginationRange[paginationRange.length - 1];
-	const firstPage = paginationRange[0];
-
-	const disablePrevious =
-		!firstPage || page.currentPage === firstPage.pageNumber;
-	const disableNext = !lastPage || page.currentPage === lastPage.pageNumber;
+	const { isPreviousEnabled, isNextEnabled, pages } = usePagination(page);
 
 	return (
 		<>
-			{dontShowAnything ? null : (
-				<div role="navigation" aria-label="Pagination Navigation">
-					<ul
-						id={id}
-						class={`${styles.pagination} ${className}`}
-					>
-						{!disablePrevious && (
-							<li class={`${styles.paginationItem} ${styles.previous}`}>
-								<a href={getPageHref(page.currentPage - 1)} aria-label="Previous">
-									{"<"}
-								</a>
-							</li>
-						)}
+			<div
+				role="navigation"
+				aria-label="Pagination Navigation"
+				data-testid={testId}
+			>
+				<ul id={id} className={`${styles.pagination} ${className}`}>
+					<li className={`${styles.paginationItem}`}>
+						<a
+							data-testid="pagination-previous"
+							className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
+							aria-label="Previous page"
+							href={
+								!isPreviousEnabled
+									? "javascript:void(0)"
+									: getPageHref(page.currentPage - 1)
+							}
+							onClick={softNavigate ? onSoftNavClick(softNavigate) : undefined}
+							aria-disabled={!isPreviousEnabled}
+							dangerouslySetInnerHTML={{ __html: back }}
+						/>
+					</li>
 
-						{paginationRange.map((pageItem) => {
-							const isSelected = pageItem.pageNumber === page.currentPage;
-							return (
-								<li
-									class={`${styles.paginationItem} ${
-										isSelected ? styles.active : ""
-									}`}
-								>
-									<a
-										href={getPageHref(pageItem.pageNumber)}
-										aria-label={pageItem.ariaLabel}
-										aria-current={isSelected || undefined}
-									>
-										{pageItem.display}
-									</a>
-								</li>
-							);
-						})}
+					{pages.map((pageNum) => {
+						return typeof pageNum === "number" ? (
+							<PaginationButton
+								key={pageNum}
+								pageInfo={page}
+								pageNum={pageNum}
+								selected={pageNum === page.currentPage}
+								href={getPageHref(pageNum)}
+								softNavigate={softNavigate}
+							/>
+						) : (
+							<PaginationMenuWrapper
+								key={pageNum}
+								page={page}
+								getPageHref={getPageHref}
+								softNavigate={softNavigate}
+							/>
+						);
+					})}
 
-						{!disableNext && (
-							<li class={`${styles.paginationItem} ${styles.next}`}>
-								<a href={getPageHref(page.currentPage + 1)} aria-label="Next">
-									{">"}
-								</a>
-							</li>
-						)}
-					</ul>
-				</div>
-			)}
+					<li className={`${styles.paginationItem}`}>
+						<a
+							data-testid="pagination-next"
+							className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
+							href={
+								!isNextEnabled
+									? "javascript:void(0)"
+									: getPageHref(page.currentPage + 1)
+							}
+							onClick={softNavigate ? onSoftNavClick(softNavigate) : undefined}
+							aria-label="Next page"
+							aria-disabled={!isNextEnabled}
+							dangerouslySetInnerHTML={{ __html: forward }}
+						/>
+					</li>
+				</ul>
+			</div>
 		</>
 	);
 };

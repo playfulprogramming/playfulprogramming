@@ -5,10 +5,10 @@
 export function debounce<T extends Function>(
 	func: T,
 	wait: number,
-	immediate: boolean
+	immediate: boolean,
 ): T {
 	let timeout: number | null;
-	return function (this: any) {
+	return function (this: void) {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const context = this;
 		// eslint-disable-next-line prefer-rest-params

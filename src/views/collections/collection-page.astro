@@ -1,0 +1,150 @@
+---
+import { ExtendedCollectionInfo, ExtendedPostInfo } from "../../types";
+import { MarkdownInstance } from "astro";
+import { Picture } from "@astrojs/image/components";
+import { Picture as UUPicture } from "components/image/picture";
+import { LargeButton, Button } from "components/button/button";
+import { translate } from "src/utils/translations";
+import { getHrefContainerProps } from "utils/href-container-script";
+
+import "../../styles/post-body.scss";
+import "../../styles/markdown/tabs.scss";
+import "../../styles/shiki.scss";
+import "../../styles/convertkit.scss";
+
+import styles from "./collection-page.module.scss";
+import { collections } from "../../utils/data";
+import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
+
+const unicornProfilePicMap = await getUnicornProfilePicMap();
+
+const posts = (
+	await Astro.glob<ExtendedPostInfo>("../../../content/blog/**/*.md")
+).map((post) => post.frontmatter);
+
+interface CollectionProps {
+	collection: ExtendedCollectionInfo;
+	Content: MarkdownInstance<never>["Content"];
+	coverImgPath: string;
+}
+
+const { Content, collection, coverImgPath } = Astro.props as CollectionProps;
+
+const collectionMeta = collections.find((col) => col.slug === collection.slug)!;
+
+const coverImgAspectRatio =
+	collection.coverImgMeta.width / collection.coverImgMeta.height;
+// adjust the image width to ensure its height=240px
+// (i.e. it shouldn't get upscaled/downscaled with `object-fit: cover`)
+const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
+---
+
+<section class={styles.collectionPageContainer}>
+	<div class={styles.collectionPageInnerContainer}>
+		<div class={styles.coverImage}>
+			<Picture
+				alt=""
+				src={coverImgPath}
+				sizes={`${coverImgWidth}px`}
+				widths={[coverImgWidth]}
+				formats={["avif", "webp", "png"]}
+				loading="eager"
+				aspectRatio={coverImgAspectRatio}
+			/>
+		</div>
+		<div class={styles.titleAndDescContainer}>
+			<h1 class={`text-style-headline-1 ${styles.title}`}>
+				{collection.title}
+			</h1>
+			<p class={`text-style-headline-6 ${styles.description}`}>
+				{collection.description}
+			</p>
+		</div>
+		<div class={styles.contentContainer}>
+			<div class={`post-body ${styles.content}`}>
+				<Content />
+			</div>
+			<div class={styles.buttonContainer}>
+				{
+					collection.buttons.map((button, i) => (
+						<LargeButton
+							tag="a"
+							href={button.url}
+							variant={i === 0 ? "primary-emphasized" : "primary"}
+						>
+							{button.text}
+						</LargeButton>
+					))
+				}
+			</div>
+			<ul
+				class={styles.authorsList}
+				role="list"
+				aria-label="Collection authors"
+			>
+				{
+					collectionMeta.authorsMeta.map((author) => {
+						const authorPosts = posts.filter(
+							(post) =>
+								post.authors.includes(author.id) && post.locale === "en",
+						);
+
+						const wordCount = authorPosts.reduce(
+							(acc, post) => acc + (post as ExtendedPostInfo).wordCount ?? 0,
+							0,
+						);
+						const href = `/unicorns/${author.id}`;
+						return (
+							<li
+								class={styles.authorContainer}
+								{...getHrefContainerProps(href)}
+							>
+								<div
+									class={styles.authorImage}
+									style={{ borderColor: author.color }}
+								>
+									<UUPicture
+										picture={unicornProfilePicMap.find(
+											(u) => u.id === author.id,
+										)}
+										alt=""
+									/>
+								</div>
+								<div class={styles.authorMetaData}>
+									<p class={`text-style-body-large-bold ${styles.authorName}`}>
+										{author.name}
+									</p>
+									<p class="text-style-body-large">
+										<span
+											class={`text-style-body-medium-bold ${styles.authorArticles}`}
+										>
+											{translate(
+												Astro,
+												"title.n_articles",
+												authorPosts.length.toString(),
+											)}
+										</span>
+										<span class={styles.authorMetaSeperatorDot}>•</span>
+										<span
+											class={`text-style-body-medium-bold ${styles.authorWordCount}`}
+										>
+											{translate(Astro, "title.n_words", wordCount.toString())}
+										</span>
+									</p>
+								</div>
+								<Button as="a" href={href} class={styles.viewProfileBtn}>
+									{translate(Astro, "action.view_profile")}
+								</Button>
+								<div
+									class={`text-style-body-medium ${styles.authorDescription}`}
+								>
+									{author.description}
+								</div>
+							</li>
+						);
+					})
+				}
+			</ul>
+		</div>
+	</div>
+</section>

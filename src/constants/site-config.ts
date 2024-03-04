@@ -31,7 +31,6 @@ const siteMetadata = {
 	title: `Unicorn Utterances`,
 	description: `Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions`,
 	siteUrl,
-	disqusShortname: "unicorn-utterances",
 	repoPath: "unicorn-utterances/unicorn-utterances",
 	relativeToPosts: "/content/blog",
 	keywords:

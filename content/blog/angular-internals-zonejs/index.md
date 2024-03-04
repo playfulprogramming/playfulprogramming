@@ -234,7 +234,7 @@ function renderComponent(hostLView: LView, componentHostIdx: number) {
 }
 ```
 
-This function, very generally, accesses a component's `View` ([a concept I've written about before, core to Angular's internal reference to HTML elements](https://unicorn-utterances.com/posts/angular-templates-start-to-source#View-Containers)) and renders it using Angular's `renderView` function.
+This function, very generally, accesses a component's `View` ([a concept I've written about before, core to Angular's internal reference to HTML elements](/posts/angular-templates-start-to-source#View-Containers)) and renders it using Angular's `renderView` function.
 
 [Let's look in said `renderView` function](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#LL286-L300C6):
 
@@ -402,7 +402,9 @@ detectChanges(): void {
 }
 ```
 
- ##  Calling Change Detection Manually {#manual-cd}
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
+##  Calling Change Detection Manually {#manual-cd}
 
 Let's use [Angular's `NgZone`'s `runOutsideOfAngular`](https://angular.io/api/core/NgZone#runOutsideAngular) to run some code outside of Angular's typical change detection:
 

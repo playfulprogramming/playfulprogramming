@@ -24,7 +24,7 @@ Similarly, [monorepos](https://monorepo.tools/) can be a fantastic way to share 
 
 Combined together and even a small team can maintain multiple React Native applications seamlessly.
 
-![Two apps: One customer portal and one admin panel extending from shared code. Each portal has a Windows, macOS, Android, and iOS app](./rn_monorepo.png)
+<img src="./rn_monorepo.png" alt="Two apps: One customer portal and one admin panel extending from shared code. Each portal has a Windows, macOS, Android, and iOS app" data-dont-round/>
 
 Unfortunately, it can be rather challenging to build out a monorepo that properly supports React Native. While [Expo supports monorepo usage](https://docs.expo.dev/guides/monorepos/), one common complaint when using Expo is that [Expo does not support many popular React Native libraries that require native code](https://web.archive.org/web/20230321191807/https://docs.expo.dev/introduction/why-not-expo/#expo-go).
 
@@ -550,7 +550,7 @@ export default defineConfig({
 });
 ```
 
-Because these packages aren't included in the bundle anymore, we need to flag to our apps that they need to install the packages as well. To do this we need to utilize [`devDependencies` and `peerDependencies`](https://unicorn-utterances.com/posts/how-to-use-npm) in  `/packages/shared-elements/`:
+Because these packages aren't included in the bundle anymore, we need to flag to our apps that they need to install the packages as well. To do this we need to utilize [`devDependencies` and `peerDependencies`](/posts/how-to-use-npm) in  `/packages/shared-elements/`:
 
 ```json {19-31}
 {
@@ -692,9 +692,9 @@ This means that any time you add a package that relies on React, you'll want to 
 
 # Add Testing to our Monorepo with Jest {#jest}
 
-While [I'm not an avid fan of Test-Driven-Development](https://unicorn-utterances.com/posts/documentation-driven-development), it's hard to argue that testing doesn't make a massive impact to the overall quality of the end-result of a codebase.
+While [I'm not an avid fan of Test-Driven-Development](/posts/documentation-driven-development), it's hard to argue that testing doesn't make a massive impact to the overall quality of the end-result of a codebase.
 
-Let's set up [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.com/docs/react-testing-library/intro/) to write fast and [easy to read](https://unicorn-utterances.com/posts/five-suggestions-for-simpler-tests) integration tests for our applications.
+Let's set up [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.com/docs/react-testing-library/intro/) to write fast and [easy to read](/posts/five-suggestions-for-simpler-tests) integration tests for our applications.
 
 > While you could add end-to-end testing with something like [Detox](https://github.com/wix/Detox) or [Maestro](https://maestro.mobile.dev/platform-support/react-native), I find that integration testing is often a better fit for most apps.
 

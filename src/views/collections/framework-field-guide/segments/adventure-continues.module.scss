@@ -1,0 +1,66 @@
+@import "../tokens/utils";
+@import "../tokens/breakpoints.scss";
+
+.adventureContinuesContainer {
+	padding: var(--section-ver-padding) var(--section-hor-padding);
+	text-align: center;
+	max-width: var(--max-width_large);
+	margin: 0 auto;
+}
+
+.title {
+	margin: 0;
+}
+
+.subtitle {
+	margin: var(--spc-1x) 0 calc(var(--section-ver-padding) * 2) 0;
+	color: var(--on-dark-emphasis-medium);
+}
+
+.gridItems {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: var(--grid-gap);
+
+	.gridItem:last-child {
+		grid-column: span 2;
+	}
+
+	@include from($desktop) {
+		grid-template-columns: repeat(3, 1fr);
+
+		.gridItem:last-child {
+			grid-column: unset;
+		}
+	}
+}
+
+.gridItem {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	border-style: solid;
+	border-color: var(--outline);
+	border-width: var(--grid-item-border-width);
+	border-radius: var(--grid-item-corner-radius);
+	padding: var(--grid-item-padding_top) var(--grid-item-padding_horizontal)
+		var(--grid-item-padding_bottom);
+}
+
+.gridItem svg {
+	position: absolute;
+	left: 50%;
+	background: var(--section-background);
+	transition: background var(--color-transition-time)
+		var(--color-transition-ease);
+	padding-left: var(--grid-icon-padding);
+	padding-right: var(--grid-icon-padding);
+	height: var(--grid-icon-size) !important;
+	width: var(--grid-icon-size) !important;
+	transform: translateX(-50%);
+	top: calc(0px - (var(--grid-icon-size) / 2));
+}

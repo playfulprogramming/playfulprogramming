@@ -1,0 +1,30 @@
+:root {
+	--blockquote_border-width: var(--border-width_l);
+	--blockquote_border-color: var(--primary_variant);
+	--blockquote_padding-start: var(--spc-3x);
+}
+
+blockquote:not([class]),
+blockquote.twitter-tweet {
+	position: relative;
+	margin: var(--site-spacing) 0;
+	padding: 0;
+	padding-left: calc(
+		var(--blockquote_border-width) + var(--blockquote_padding-start)
+	);
+
+	color: var(--foreground_emphasis-medium);
+
+	&::before {
+		content: "";
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+
+		width: var(--blockquote_border-width);
+		background-color: var(--blockquote_border-color);
+		border-radius: calc(var(--blockquote_border-width) / 2);
+	}
+}

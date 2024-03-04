@@ -1,0 +1,62 @@
+---
+import Document from "src/layouts/document.astro";
+
+import SEO from "components/seo/seo.astro";
+
+import type { MarkdownInstance } from "astro";
+import { ExtendedPostInfo } from "types/index";
+import BlogPost from "src/views/blog-post/blog-post.astro";
+
+export async function getStaticPaths() {
+	const posts = await Astro.glob<ExtendedPostInfo>(
+		"../../../../content/blog/**/*.md",
+	);
+
+	return posts.map((post) => {
+		return {
+			params: {
+				locale:
+					post.frontmatter.locale !== "en"
+						? post.frontmatter.locale
+						: undefined,
+				postid:
+					post.frontmatter.slug +
+					// "_noindex" appended here to filter affected URLs
+					// from the sitemap
+					(post.frontmatter.noindex ? "_noindex" : ""),
+			},
+			props: {
+				Content: post.Content,
+				post: post.frontmatter,
+				posts,
+			},
+		};
+	});
+}
+
+const { Content, post, posts } = Astro.props as {
+	post: ExtendedPostInfo;
+	posts: MarkdownInstance<ExtendedPostInfo>[];
+	Content: MarkdownInstance<any>["Content"];
+};
+
+const locales = post?.locales || [];
+---
+
+<Document size="xl">
+	<SEO
+		slot="head"
+		title={post.title}
+		description={post.description || post.excerpt}
+		unicornsData={post.authorsMeta}
+		publishedTime={post.published}
+		editedTime={post.edited}
+		keywords={post.tags}
+		type="article"
+		canonical={post.originalLink}
+		providedLangs={locales}
+		shareImage={post.socialImg}
+		noindex={post.noindex}
+	/>
+	<BlogPost Content={Content} post={post} posts={posts} />
+</Document>

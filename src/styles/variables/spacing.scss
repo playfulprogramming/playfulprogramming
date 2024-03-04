@@ -1,0 +1,30 @@
+@import "src/tokens/index";
+
+:root {
+	--spc-1x: 4px;
+	--spc-2x: calc(var(--spc-1x) * 2);
+	--spc-3x: calc(var(--spc-1x) * 3);
+	--spc-4x: calc(var(--spc-1x) * 4);
+	--spc-5x: calc(var(--spc-1x) * 5);
+	--spc-6x: calc(var(--spc-1x) * 6);
+	--spc-7x: calc(var(--spc-1x) * 7);
+	--spc-8x: calc(var(--spc-1x) * 8);
+	--spc-9x: calc(var(--spc-1x) * 9);
+	--spc-10x: calc(var(--spc-1x) * 10);
+	--spc-11x: calc(var(--spc-1x) * 11);
+	--spc-12x: calc(var(--spc-1x) * 12);
+	--spc-13x: calc(var(--spc-1x) * 13);
+	--spc-14x: calc(var(--spc-1x) * 14);
+	--spc-15x: calc(var(--spc-1x) * 15);
+	--spc-16x: calc(var(--spc-1x) * 16);
+	--chip-gap: var(--spc-2x);
+	--site-spacing: var(--spc-4x);
+
+	@include from($tabletSmall) {
+		--site-spacing: var(--spc-6x);
+	}
+
+	@include from($desktopSmall) {
+		--site-spacing: var(--spc-8x);
+	}
+}

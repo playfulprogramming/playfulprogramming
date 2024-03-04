@@ -1,0 +1,61 @@
+@import "src/tokens/index";
+
+// :where() in this file is used to ensure a low CSS specificity, so that component-specific CSS can override these values
+
+:where(.d-flex) {
+	display: flex;
+	align-items: center;
+	justify-content: inherit;
+}
+
+:where(.text-center) {
+	text-align: center;
+	justify-content: center;
+}
+
+:where(.unlist-inline) {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: var(--spc-4x);
+}
+
+:where(.unlist-row) {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	display: flex;
+	flex-direction: row;
+	gap: var(--spc-4x);
+}
+
+:where(.unlist-column) {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-4x);
+}
+
+:where(.gap-0) {
+	gap: 0;
+}
+
+:where(.gap-1) {
+	gap: var(--spc-1x);
+}
+
+:where(.gap-2) {
+	gap: var(--spc-2x);
+}
+
+:where(.gap-4) {
+	gap: var(--spc-4x);
+}

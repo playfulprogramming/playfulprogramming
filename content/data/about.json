@@ -1,0 +1,40 @@
+{
+	"links": {
+		"Discord": {
+			"icon": "discord",
+			"url": "https://discord.gg/FMcvc6T"
+		},
+		"LinkedIn": {
+			"icon": "linkedin",
+			"url": "https://www.linkedin.com/company/unicorn-utterances"
+		},
+		"Twitter": {
+			"icon": "twitter",
+			"url": "https://twitter.com/unicornuttrncs"
+		},
+		"Mastodon": {
+			"icon": "mastodon",
+			"url": "https://hachyderm.io/@UnicornUtterances"
+		},
+		"Facebook": {
+			"icon": "facebook",
+			"url": "https://www.facebook.com/Unicorn-Utterances-104838014459905"
+		},
+		"RSS Feed": {
+			"icon": "rss",
+			"url": "/rss.xml"
+		}
+	},
+	"sponsors": [
+		{
+			"name": "The Polyglot Developer",
+			"logo": "/sponsors/the-polyglot-developer.svg",
+			"url": "https://www.thepolyglotdeveloper.com/"
+		},
+		{
+			"name": "OceanBit",
+			"logo": "/sponsors/oceanbit.svg",
+			"url": "https://oceanbit.dev/"
+		}
+	]
+}

@@ -1,0 +1,21 @@
+@font-face {
+	font-family: "Changa One";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src:
+		url("/fonts/Changa_One/ChangaOne-Regular.woff2") format("woff2"),
+		url("/fonts/Changa_One/ChangaOne-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Changa One-fallback";
+	size-adjust: 101.20000000000005%;
+	src: local("Arial");
+}
+
+@font-face {
+	font-family: "Changa One-fallback2";
+	size-adjust: 101%;
+	src: local("Roboto");
+}

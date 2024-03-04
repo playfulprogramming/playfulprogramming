@@ -1,53 +1,35 @@
 ---
 import Document from "../layouts/document.astro";
 import SEO from "components/seo/seo.astro";
-import proudUnicorn from "assets/proud_2048.png";
-import { Picture } from "@astrojs/image/components";
+import PageCard from "components/page-card/page-card.astro";
+
+import happyUnicorn from "../assets/unicorn_happy.svg";
+import { LargeButton } from "../components";
 
 const locale = "en";
 ---
 
 <Document lang={locale}>
-	<SEO title="Thank You!" slot="head" />
+	<SEO title="Thank You!" slot="head" pathName={`/thanks`} />
 
-	<main class="listViewContent">
-		<Picture
-			class="proudUnicorn"
-			src={proudUnicorn}
-			sizes="450px"
-			widths={[450]}
-			formats={["avif", "webp", "png"]}
-			loading="eager"
-			width={450}
-			height={450}
-			alt="A proud unicorn"
-		/>
-
-		<h1>Thank you for subscribing.</h1>
-
-		<p>
-			Your subscription is now confirmed. You can expect to receive emails as we
-			create new content.
-		</p>
+	<main class="thanksMain">
+		<PageCard
+			imageSrc={happyUnicorn.src}
+			imageAlt="A widely smiling Unicorn"
+			title="Thank you for subscribing."
+			description="Your subscription is now confirmed. You can expect to receive emails as we create new content."
+		>
+			<LargeButton href="/" slot="button" variant="primary">
+				Go back home
+			</LargeButton>
+		</PageCard>
 	</main>
 </Document>
 
 <style lang="scss">
-	.proudUnicorn {
-		display: block;
-		margin: 0 auto;
-		max-width: 80%;
-		height: auto;
-
-		background-color: var(--primary);
-		border-radius: 50%;
-		overflow: hidden;
-	}
-
-	main {
-		h1,
-		p {
-			text-align: center;
-		}
+	.thanksMain {
+		display: flex;
+		padding: var(--site-spacing);
+		justify-content: center;
 	}
 </style>

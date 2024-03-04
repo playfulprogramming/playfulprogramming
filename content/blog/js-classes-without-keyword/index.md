@@ -24,7 +24,7 @@ A good question! Let's answer that and, along the way, look at:
 - How to "extend" a "class"
 - How to add static methods to our "class"
 
-# Create public fields with the `contructor`
+# Create public fields with the `constructor`
 
 Let's look at a modern JavaScript class:
 
@@ -78,6 +78,8 @@ class User {
 > An interesting fact, for sure - but it doesn't answer the question of how to make a class.
 
 Don't worry, we're getting there!
+
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # Create a class without the `class` keyword
 
@@ -176,7 +178,7 @@ user.sayCatchphrase(); // "It depends"
 
 Before we talk about function-based class extension, we need to talk about pre-ES2020 class creation once again.
 
-See, when we convert the following code to use a `contructor`:
+See, when we convert the following code to use a `constructor`:
 
 ```javascript
 class Person {

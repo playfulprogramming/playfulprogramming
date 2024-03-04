@@ -1,0 +1,46 @@
+---
+import unicornSticker from "assets/unicorn_utterances_sticker.svg";
+import { tags } from "src/utils/data";
+import styles from "./banner-stickers-group.module.scss";
+
+const stickers = [...tags.values()]
+	.filter((tag) => !!tag.shownWithBranding && !!tag.image)
+	.sort(() => 0.5 - Math.random());
+
+const stickerTransforms = [
+	styles.sticker1,
+	styles.sticker2,
+	styles.sticker3,
+	styles.sticker4,
+	styles.sticker5,
+	styles.sticker6,
+	styles.sticker7,
+	styles.sticker8,
+	styles.sticker9,
+].map((className) => {
+	const sticker = stickers.pop();
+	return {
+		...sticker,
+		className,
+	};
+});
+
+const props = Astro.props as { class: string; unicornClass: string };
+---
+
+<div class={props.class} aria-hidden="true">
+	{
+		stickerTransforms.map((sticker) => (
+			<img src={sticker.image} class={sticker.className} alt="" />
+		))
+	}
+
+	<img
+		src={unicornSticker.src}
+		height="190"
+		width="190"
+		class={styles.unicornLogo}
+		style="position: absolute; left: 47.81%; top: 26.67%;"
+		alt=""
+	/>
+</div>

@@ -1,0 +1,320 @@
+@import "src/tokens/index";
+
+:root {
+	--search-hero_container_padding: calc(var(--site-spacing) * 2);
+	--search-hero_container_corner-radius: calc(var(--site-spacing) * 2);
+	--search-hero_container_gap: var(--spc-2x);
+	--search-hero_container_max-width: var(--max-width_s);
+
+	--search-hero_image_size: 144px;
+	--search-hero_image_border_width: var(--spc-2x);
+	--search-hero_image_corner-radius: 25%;
+
+	--search-hero_icon_size: var(--icon-size_regular);
+
+	--search-hero_container_background-color: var(
+		--surface_primary_emphasis-none
+	);
+	--search-hero_image_border_color: var(--background_primary);
+
+	--search-hero_title_color: var(--foreground_emphasis-high);
+	--search-hero_description_color: var(--foreground_emphasis-medium);
+
+	--search-hero_btn_margin-top: var(--site-spacing);
+
+	@include from($tabletSmall) {
+		--search-hero_image_size: 192px;
+		--search-hero_image_border_width: var(--spc-4x);
+		--search-hero_icon_size: calc(var(--icon-size_regular) * 2);
+	}
+
+	@include from($desktopSmall) {
+		--search-hero_container_max-width: var(--max-width_m);
+		--search-hero_icon_size: calc(var(--icon-size_regular) * 3);
+	}
+}
+
+.container {
+	position: relative;
+	background: var(--search-hero_container_background-color);
+	border-radius: var(--search-hero_container_corner-radius);
+	padding: var(--search-hero_container_padding);
+	padding-top: calc(
+		var(--search-hero_container_padding) +
+			calc(var(--search-hero_image_size) / 2) +
+			var(--search-hero_image_border_width)
+	);
+	margin-top: calc(
+		calc(var(--search-hero_image_size) / 2) +
+			var(--search-hero_image_border_width) + var(--site-spacing)
+	);
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	max-width: var(--search-hero_container_max-width);
+
+	display: flex;
+	flex-direction: column;
+	gap: var(--search-hero_container_gap);
+
+	@include transition(background-color);
+}
+
+.image {
+	position: absolute;
+	left: 50%;
+	top: 0;
+	transform: translateX(-50%) translateY(-50%);
+	width: var(--search-hero_image_size);
+	height: var(--search-hero_image_size);
+	border-radius: var(--search-hero_image_corner-radius);
+	border: var(--search-hero_image_border_width) solid
+		var(--search-hero_image_border_color);
+
+	@include transition(border-color);
+}
+
+.title,
+.description {
+	z-index: 2;
+	@include transition(text-shadow);
+	text-shadow:
+		0 0 5px var(--background_primary),
+		0 0 6px var(--background_primary),
+		0 0 8px var(--background_primary),
+		0 0 8px var(--background_primary);
+}
+
+.buttons {
+	z-index: 2;
+}
+
+.title {
+	margin: 0;
+	color: var(--search-hero_title_color);
+}
+
+.description {
+	margin: 0;
+	color: var(--search-hero_description_color);
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+	margin-top: var(--search-hero_btn_margin-top);
+}
+
+.buttons > :global(.button) {
+	min-width: 320px;
+}
+
+/**
+ * Stickers :)
+ */
+.sticker1,
+.sticker2,
+.sticker3,
+.sticker4,
+.sticker5,
+.sticker6,
+.sticker7,
+.sticker8 {
+	--sticker_timing: 300ms ease-in-out;
+	z-index: 1;
+	position: absolute;
+	height: 24px;
+	width: 24px;
+	object-fit: contain;
+	filter: var(--shadow_sticker_drop_shadow);
+	transition:
+		height var(--sticker_timing),
+		width var(--sticker_timing),
+		left var(--sticker_timing),
+		top var(--sticker_timing),
+		right var(--sticker_timing),
+		transform var(--sticker_timing);
+
+	@include from($tabletSmall) {
+		height: 48px;
+		width: 48px;
+	}
+
+	@include from($desktopSmall) {
+		height: 72px;
+		width: 72px;
+	}
+}
+
+.sticker1 {
+	left: 2%;
+	top: 0%;
+	transform: rotate(-4deg) translateY(-38%);
+}
+
+@include from($tabletSmall) {
+	.sticker1 {
+		left: 2%;
+		top: 0%;
+		transform: rotate(-4deg) translateY(-38%);
+	}
+}
+
+@include from($desktopSmall) {
+	.sticker1 {
+		left: 2%;
+		top: 0%;
+		transform: rotate(-4deg) translateY(-38%);
+	}
+}
+
+.sticker2 {
+	left: calc(30% - calc(var(--search-hero_image_size) / 2));
+	top: 10%;
+	transform: rotate(6deg);
+}
+
+@include from($tabletSmall) {
+	.sticker2 {
+		left: calc(27% - calc(var(--search-hero_image_size) / 2));
+		top: 10%;
+		transform: rotate(6deg);
+	}
+}
+
+@include from($desktopSmall) {
+	.sticker2 {
+		left: 16%;
+		top: 0%;
+		transform: rotate(6deg) translateY(-68%);
+	}
+}
+
+.sticker3 {
+	left: calc(38% - calc(var(--search-hero_image_size) / 2));
+	top: 0%;
+	transform: rotate(-15deg) translateY(-35%);
+}
+
+@include from($tabletSmall) {
+	.sticker3 {
+		left: calc(38% - calc(var(--search-hero_image_size) / 2));
+		top: 0%;
+		transform: rotate(-15deg) translateY(-35%);
+	}
+}
+
+@include from($desktopSmall) {
+	.sticker3 {
+		left: 30%;
+		top: 0%;
+		transform: rotate(-15deg) translateY(-2%);
+	}
+}
+
+.sticker4 {
+	left: 5%;
+	top: 22%;
+}
+
+@include from($tabletSmall) {
+	.sticker4 {
+		left: 5%;
+		top: 32%;
+	}
+}
+
+@include from($desktopSmall) {
+	.sticker4 {
+		left: 5%;
+		top: 32%;
+	}
+}
+
+.sticker5 {
+	right: 30%;
+	right: calc(38% - calc(var(--search-hero_image_size) / 2));
+	top: 20%;
+	transform: rotate(-8deg);
+}
+
+@include from($tabletSmall) {
+	.sticker5 {
+		right: 30%;
+		right: calc(38% - calc(var(--search-hero_image_size) / 2));
+		top: 20%;
+		transform: rotate(-8deg);
+	}
+}
+
+@include from($desktopSmall) {
+	.sticker5 {
+		right: 30%;
+		top: 20%;
+		transform: rotate(-8deg);
+	}
+}
+
+.sticker6 {
+	right: calc(38% - calc(var(--search-hero_image_size) / 2));
+	top: 0%;
+	transform: rotate(-8deg) translateY(-63%);
+}
+
+@include from($tabletSmall) {
+	.sticker6 {
+		right: 20%;
+		top: 0%;
+		transform: rotate(-8deg) translateY(-63%);
+	}
+}
+
+@include from($desktopSmall) {
+	.sticker6 {
+		right: 20%;
+		top: 0%;
+		transform: rotate(-8deg) translateY(-63%);
+	}
+}
+
+.sticker7 {
+	right: 6%;
+	top: 0;
+	transform: rotate(5deg) translateY(-42%);
+}
+
+@include from($tabletSmall) {
+	.sticker7 {
+		right: 6%;
+		top: 0;
+		transform: rotate(5deg) translateY(-42%);
+	}
+}
+
+@include from($desktopSmall) {
+	.sticker7 {
+		right: 6%;
+		top: 0;
+		transform: rotate(5deg) translateY(-42%);
+	}
+}
+
+.sticker8 {
+	right: 4%;
+	top: 30%;
+}
+
+@include from($tabletSmall) {
+	.sticker8 {
+		right: 4%;
+		top: 30%;
+	}
+}
+
+@include from($desktopSmall) {
+	.sticker8 {
+		right: 4%;
+		top: 30%;
+	}
+}

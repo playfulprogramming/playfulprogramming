@@ -1,0 +1,89 @@
+@import "src/tokens/index";
+
+.container {
+	display: grid;
+	grid-template-columns: 0fr 1fr;
+	width: 100%;
+	max-width: var(--max-width_xl);
+	margin: 0 auto;
+
+	&:where(:not([data-hide-left-sidebar])) {
+		@include from($tabletLarge) {
+			grid-template-columns: 25% 1fr;
+		}
+	}
+
+	// in tablet view, when the sidebar is hidden, the "content" column needs to be centered
+	&[data-hide-left-sidebar] {
+		@include until($desktopSmall) {
+			max-width: var(--max-width_m);
+		}
+	}
+
+	@include from($desktopSmall) {
+		grid-template-columns: 25% 1fr 25%;
+	}
+}
+
+.header {
+	grid-column: 2;
+	max-width: var(--max-width_m);
+	min-width: 1px;
+	padding: var(--site-spacing);
+	padding-bottom: 0;
+}
+
+.content {
+	grid-column: 2;
+	max-width: var(--max-width_m);
+	min-width: 1px;
+	padding: var(--site-spacing);
+	padding-top: 0;
+}
+
+.sidebarLeft {
+	grid-row: 1 / span 2;
+	grid-column: 1;
+}
+
+.sidebarRight {
+	grid-row: 1 / span 2;
+	grid-column: 3;
+}
+
+.sidebarLeft,
+.sidebarRight {
+	max-width: calc(var(--max-width_m) / 2);
+	animation: fadeIn 300ms ease-in-out;
+
+	position: sticky;
+
+	$headerSize: calc(
+		var(--header_logo_size) + var(--header_padding-vertical) * 2 + 1px
+	);
+	top: $headerSize;
+	max-height: calc(100vh - $headerSize);
+
+	overflow-y: auto;
+}
+
+.sidebarRight {
+	@include until($desktopSmall) {
+		display: none;
+	}
+}
+
+.sidebarLeft {
+	@include until($tabletLarge) {
+		display: none;
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

@@ -1,0 +1,149 @@
+---
+import PostTitleHeader from "./post-title-header/post-title-header.astro";
+import TableOfContents from "./table-of-contents/table-of-contents.astro";
+import MailingList from "../../components/mailing-list/mailing-list.astro";
+import TranslationsHeader from "../base/translations/translations-header.astro";
+import BlogPostLayout from "./blog-post-layout/blog-post-layout.astro";
+import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
+import { Icon } from "astro-icon";
+
+import type { MarkdownInstance } from "astro";
+import { ExtendedPostInfo } from "types/index";
+
+import { siteMetadata } from "constants/site-config";
+import "../../styles/shiki.scss";
+import "../../styles/markdown/tabs.scss";
+import "../../styles/markdown/in-content-ads.scss";
+import "../../styles/convertkit.scss";
+import SeriesToC from "./series/series-toc.astro";
+import { ArticleNav } from "./article-nav/article-nav";
+import { getPrefixLanguageFromPath } from "utils/translations";
+import RelatedPosts from "components/related-posts/related-posts.astro";
+import { LargeButton } from "../../components/button/button";
+
+import styles from "./blog-post.module.scss";
+
+const { Content, post, posts } = Astro.props as {
+	post: ExtendedPostInfo;
+	Content: MarkdownInstance<any>["Content"];
+	posts: MarkdownInstance<ExtendedPostInfo>[];
+};
+
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
+
+const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
+
+let seriesPosts: ExtendedPostInfo[] = [];
+if (post.collection && post.order) {
+	seriesPosts = posts
+		.filter(
+			(filterPost) =>
+				filterPost.frontmatter.locale === locale &&
+				filterPost.frontmatter.collection === post.collection,
+		)
+		.sort(
+			(postA, postB) =>
+				Number(postA.frontmatter.order) - Number(postB.frontmatter.order),
+		)
+		.map((post) => post.frontmatter);
+}
+---
+
+<script>
+	import mediumZoom from "medium-zoom";
+
+	mediumZoom(".post-body img:not([data-nozoom])");
+</script>
+<script>
+	import { enableTabs } from "../../utils/markdown/tabs/tabs-script";
+	enableTabs();
+</script>
+<script>
+	import { enableTwoslashTabindex } from "../../utils/markdown/twoslash-tabindex/twoslash-tabindex-script";
+	enableTwoslashTabindex();
+</script>
+<script>
+	import { enableStickyObserver } from "../../utils/sticky-observer-script";
+	enableStickyObserver();
+</script>
+<script>
+	import { iFrameClickToRun } from "../../utils/markdown/iframes/iframe-script";
+	iFrameClickToRun();
+</script>
+<HeadingLinkScript />
+
+<main>
+	<BlogPostLayout hideLeftSidebar={!post.headingsWithId?.length}>
+		<PostTitleHeader slot="header" post={post}>
+			{
+				post.collection ? (
+					<SeriesToC
+						post={post}
+						postSeries={seriesPosts}
+						collection={post.collectionMeta}
+					/>
+				) : null
+			}
+			{
+				post.locales && post.locales.length > 1 ? (
+					<TranslationsHeader locales={post.locales} />
+				) : null
+			}
+		</PostTitleHeader>
+		{
+			post.headingsWithId?.length ? (
+				<TableOfContents slot="left" headingsWithId={post.headingsWithId} />
+			) : null
+		}
+		<section
+			class="post-body"
+			data-testid="post-body-div"
+			aria-labelledby="blog-post-contents"
+		>
+			<h2 id="blog-post-contents" class="visually-hidden" data-no-heading-link>
+				Post contents
+			</h2>
+			<Content />
+			{
+				post.collection ? (
+					<ArticleNav post={post} postSeries={seriesPosts} />
+				) : null
+			}
+		</section>
+		<aside slot="right" aria-labelledby="related-posts-heading">
+			<RelatedPosts post={post} headingId="related-posts-heading" />
+		</aside>
+		<footer role="contentinfo" class={styles.footer}>
+			{
+				post.licenseMeta ? (
+					<a
+						aria-label={`Post licensed with ${post.licenseMeta.displayName}`}
+						href={post.licenseMeta.explainLink}
+						class={styles.licenseImageContainer}
+					>
+						<img
+							class={styles.licenseImage}
+							src={post.licenseMeta.footerImg}
+							alt={post.licenseMeta.licenceType}
+						/>
+					</a>
+				) : null
+			}
+			<MailingList />
+			<div class={styles.buttonsContainer}>
+				<LargeButton tag="a" href={GHLink} variant="primary">
+					<Icon slot="leftIcon" height="100%" width="100%" name="github" />
+					 View this post on GitHub
+				</LargeButton>
+				<LargeButton
+					tag="a"
+					href="https://discord.gg/FMcvc6T"
+					variant="primary-emphasized"
+				>
+					<Icon slot="leftIcon" height="100%" width="100%" name="discord" />
+					 Join our Discord server
+				</LargeButton>
+			</div>
+		</footer>
+	</BlogPostLayout>
+</main>

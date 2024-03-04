@@ -4,7 +4,7 @@
 	description: "Have you ever wanted to run native Java and Kotlin code from your mobile game written in Unity? Well, you can! Let's see how.",
 	published: '2020-01-04T05:12:03.284Z',
 	authors: ['crutchcorn'],
-	tags: ['unity', 'android', 'csharp', 'java'],
+	tags: ['gamedev', 'android', 'csharp', 'java'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
@@ -124,6 +124,8 @@ It's great that we're able to manage those dependencies, but they don't mean muc
 For example, take the following library: https://github.com/jaredrummler/AndroidDeviceNames
 
 That library allows you to grab metadata about a user's device. This might be useful for analytics or bug reporters you may be developing yourself. Let's see how we're able to integrate this Java library in our C# code when building for the Android platform.
+
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 ## Introduction {#intro-call-android-from-c-sharp}
 

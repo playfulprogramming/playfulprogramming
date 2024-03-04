@@ -1,0 +1,52 @@
+@import "./breakpoints";
+@import "./utils";
+
+:root {
+	// Sections
+
+	--section-ver-padding: var(--spc-3x);
+	--section-hor-padding: var(--spc-3x);
+	--section-gap: var(--spc-3x);
+
+	// Book metrics
+
+	--metric-book-ver-padding: var(--spc-2x);
+	--metric-book-hor-padding: var(--spc-1x);
+
+	// Chips
+
+	--chip-ver-padding: var(--spc-1x);
+	--chip-hor-padding: var(--spc-2x);
+	--chip-group-gap: var(--spc-1x);
+
+	--chip-corner-radius: var(--corner-radius-circular);
+}
+
+@include from($tablet) {
+	:root {
+		// Sections
+
+		--section-ver-padding: var(--spc-6x);
+		--section-hor-padding: var(--spc-6x);
+	}
+}
+
+@include from($desktop) {
+	:root {
+		// Sections
+
+		--section-ver-padding: var(--spc-6x);
+		--section-hor-padding: var(--spc-6x);
+
+		// Book metrics
+
+		--metric-book-ver-padding: var(--spc-4x);
+		--metric-book-hor-padding: var(--spc-2x);
+
+		// Chips
+
+		--chip-ver-padding: var(--spc-2x);
+		--chip-hor-padding: var(--spc-4x);
+		--chip-group-gap: var(--spc-2x);
+	}
+}

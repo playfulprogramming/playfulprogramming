@@ -4,7 +4,7 @@
     description: "Twitch streaming can be fun and fulfilling, but has various roadblocks in the way for newcomers. Here's how you can overcome them and grow your Twitch channel.",
     published: '2023-03-25T21:52:59.284Z',
     authors: ['crutchcorn'],
-    tags: ['opinion'],
+    tags: ['opinion', 'twitch'],
     attached: [],
     license: 'cc-by-4'
 }

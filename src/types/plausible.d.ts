@@ -1,8 +1,11 @@
+import type { EventOptions, PlausibleOptions } from "plausible-tracker";
+
 export {};
 
 declare global {
 	const plausible: (
-		val: string,
-		args?: { props?: any; callback?: () => void }
+		eventName: string,
+		options?: EventOptions,
+		eventData?: PlausibleOptions,
 	) => void;
 }

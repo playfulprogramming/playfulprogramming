@@ -4,7 +4,7 @@
 	description: 'Learn how to interactively debug your NodeJS applications using a GUI-based debugger built into Chrome.',
 	published: '2020-01-21T05:12:03.284Z',
 	authors: ['crutchcorn'],
-	tags: ['node', 'chrome'],
+	tags: ['nodejs', 'chrome'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
@@ -136,6 +136,8 @@ For help, see: https://nodejs.org/en/docs/inspector
 ```
 
 At this point, _it will hang and not process the code or run it_. That's okay though, as we'll be running the inspector to get the code to run again in the next step.
+
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # The Debugger {#the-debugger}
 

@@ -1,5 +1,9 @@
 ---
 import { siteMetadata, siteUrl } from "constants/site-config";
+import {
+	getPrefixLanguageFromPath,
+	removePrefixLanguageFromPath,
+} from "utils/translations";
 import Analytics from "./analytics.astro";
 import Article from "./article.astro";
 import Book from "./book.astro";
@@ -18,11 +22,14 @@ const {
 	unicornsData,
 	publishedTime,
 	editedTime,
-	pathName,
 	isbn,
-	langData,
+	providedLangs,
 	shareImage,
+	noindex,
 } = Astro.props as SEOProps;
+
+const lang = getPrefixLanguageFromPath(Astro.url.pathname);
+const pathName = removePrefixLanguageFromPath(Astro.url.pathname);
 
 const metaDescription = description || siteMetadata.description;
 const metaKeywords = keywords ? keywords.join(",") : siteMetadata.keywords;
@@ -34,16 +41,36 @@ const socialUnicorn = unicornsData?.find((uni) => uni.socials);
 const uniTwitter =
 	socialUnicorn && socialUnicorn.socials && socialUnicorn.socials.twitter;
 
-const currentPath = siteMetadata.siteUrl + (pathName || "");
+const removeTrailingSlash = (str: string) =>
+	str.endsWith("/") ? str.slice(0, -1) : str;
+
+const currentPath = removeTrailingSlash(
+	siteMetadata.siteUrl + (pathName || ""),
+);
 ---
 
 <title>
 	{title ? `${title} | ${siteMetadata.title}` : siteMetadata.title}
 </title>
-<>{canonical ? <link rel="canonical" href={canonical} /> : null}</>
+<>
+	{
+		canonical ? (
+			<link rel="canonical" href={canonical} />
+		) : (
+			<link rel="canonical" href={currentPath} />
+		)
+	}
+</>
 <meta property="name" content={siteMetadata.title} />
 <meta name="description" content={metaDescription} />
 <meta property="keywords" content={metaKeywords} />
+
+{
+	// If the page is non-indexed, exclude it from any search results with the "robots" tag
+	// https://developers.google.com/search/docs/crawling-indexing/block-indexing
+	noindex ? <meta name="robots" content="noindex, nofollow" /> : null
+}
+
 <Analytics />
 <Twitter
 	title={title}
@@ -58,12 +85,17 @@ const currentPath = siteMetadata.siteUrl + (pathName || "");
 	currentPath={currentPath}
 	siteMetadata={siteMetadata}
 	title={title}
-	langData={langData}
+	lang={lang}
+	providedLangs={providedLangs}
 	metaDescription={metaDescription}
 	metaImage={metaImage}
 	ogType={ogType}
 />
-<Locale langData={langData} siteMetadata={siteMetadata} pathName={pathName} />
+<Locale
+	providedLangs={providedLangs}
+	siteMetadata={siteMetadata}
+	pathName={pathName}
+/>
 <>
 	{
 		type === "article" && (

@@ -1,0 +1,43 @@
+@import "./breakpoints";
+@import "./utils";
+
+:root,
+.book-section {
+	// Buttons
+
+	--btn-state-transition-duration: 150ms;
+	--btn-state-transition-easing: ease-out;
+
+	--btn-ver-padding_small: var(--spc-1x);
+	--btn-hor-padding_small: var(--spc-3x);
+	--btn-ver-padding_large: var(--spc-2x);
+	--btn-hor-padding_large: var(--spc-4x);
+	--btn-border-width_small: var(--border-2x);
+	--btn-border-width_large: var(--border-2x);
+	--btn-border-width_disabled: var(--border-1x);
+
+	--btn-corner-radius: var(--corner-radius-circular);
+
+	--btn-border: var(--outline);
+	--btn-foreground_outlined: var(--on-dark-emphasis-high);
+	--btn-state-hovered_outlined: rgba(var(--state-overlay), 0.16);
+	--btn-state-pressed_outlined: rgba(var(--state-overlay), 0.32);
+	--btn-foreground_filled: var(--cta-foreground);
+	--btn-background_filled: var(--cta-background);
+	--btn-state-hovered_filled: var(--cta-background_hovered);
+	--btn-state-pressed_filled: var(--cta-background_pressed);
+}
+
+@include from($desktop) {
+	:root,
+	.book-section {
+		// Buttons
+
+		--btn-ver-padding_small: var(--spc-2x);
+		--btn-hor-padding_small: var(--spc-4x);
+		--btn-ver-padding_large: var(--spc-3x);
+		--btn-hor-padding_large: var(--spc-6x);
+		--btn-border-width_small: var(--border-2x);
+		--btn-border-width_large: var(--border-3x);
+	}
+}

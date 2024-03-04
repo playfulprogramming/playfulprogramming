@@ -3,3 +3,6 @@ node_modules
 package-lock.json
 *.md
 *.min.js
+
+content/blog/**/*
+public/content/blog/**/*

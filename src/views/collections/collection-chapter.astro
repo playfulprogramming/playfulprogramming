@@ -1,0 +1,30 @@
+---
+import styles from "./collection-chapter.module.scss";
+import { getHrefContainerProps } from "utils/href-container-script";
+
+interface CollectionChapter {
+	num: number;
+	title: string;
+	description: string;
+	href: string;
+}
+
+const { num, title, description, href } = Astro.props as CollectionChapter;
+const hrefProps = href ? getHrefContainerProps(href) : {};
+---
+
+<div class={styles.container} {...hrefProps}>
+	<div class={styles.numAndTitleContainer}>
+		<div class={styles.numContainer}>
+			<p class={`text-style-headline-6 ${styles.num}`} aria-hidden="true">
+				{num}
+			</p>
+		</div>
+		<h3 class={`text-style-headline-5 ${styles.title}`}>
+			{href ? <a href={href}>{title}</a> : title}
+		</h3>
+	</div>
+	<p class={`text-style-body-large ${styles.description}`}>
+		{description}
+	</p>
+</div>

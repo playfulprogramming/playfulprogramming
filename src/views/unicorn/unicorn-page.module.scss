@@ -1,0 +1,44 @@
+@import "src/tokens/index";
+
+.container {
+	padding: var(--site-spacing);
+	width: 100%;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto auto;
+	gap: 0;
+
+	@include from($desktopSmall) {
+		grid-template-columns: auto 1fr;
+		grid-template-rows: 1fr;
+		gap: var(--site-spacing);
+	}
+
+	@include from($desktopLarge) {
+		max-width: var(--max-width_xl);
+	}
+}
+
+.contentContainer {
+	width: 100%;
+	margin: 0 auto;
+
+	@include from($desktopSmall) {
+		max-width: var(--max-width_l);
+	}
+}
+
+.achievementsContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--site-spacing);
+
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+
+	@include from($tabletLarge) {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}

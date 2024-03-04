@@ -51,6 +51,8 @@ Enabling IOMMU on a Gigabyte AMD motherboard is much easier than enabling SVM mo
 
 Once changed, tab over to "Save & Exit" and select "Exit and save changes".
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
 # Windows Features Setup {#windows-features}
 
 Now that we have our BIOS (UEFI, really) configured correctly, we can enable the Windows features we need for the Android Emulator.
@@ -101,7 +103,7 @@ SDK_INSTALL_LOCATION\extras\google\Android_Emulator_Hypervisor_Driver
 
 ![The location of the hypervisor visually using OneCommander app](./hypervisor_filesystem_path.png)
 
-> If you like having this macOS-like preview pane of files, you can find it in the OneCommander application. We covered this app in [our "Ultimate Windows Development Environment Guide" article](posts/ultimate-windows-development-environment-guide/#Paid)
+> If you like having this macOS-like preview pane of files, you can find it in the OneCommander application. We covered this app in [our "Ultimate Windows Development Environment Guide" article](/posts/ultimate-windows-development-environment-guide/#Paid)
 
 Once you have the path located, you'll want to run the `silent_installer.bat` inside of an elevated shell. I did this by pressing <kbd>Win</kbd> + <kbd>X</kbd> and pressing **"Windows PowerShell (Admin)"**. Once that was opened, I copied the path to the PowerShell window via `cd` and ran the installer.
 

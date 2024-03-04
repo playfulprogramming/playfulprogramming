@@ -7,7 +7,7 @@
 	tags: ['networking'],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
-	series: "Networking 101",
+	collection: "Networking 101",
 	order: 2
 }
 ---
@@ -48,6 +48,8 @@ As mentioned previously, the Internet Engineering Task Force manages various spe
 ## Ports  {#udp-ports}
 
 Continuing with the mail analogy, just like an apartment complex can have a single mailbox for multiple apartments living within the same building, so too can a single machine have multiple landing sites for network packets.
+
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 These separated landing sites are called "ports"; called as such because they operate very similarly to the seaside "ports" that are used to dock ships. You're able to "open" a port to start engaging in network activity through that port, or "close" it to stop communication from flowing through that port. A single machine may choose to open a myriad of ports ranging anywhere from `0` to `65,535`. Any one of these ports can receive a different stream of information in-bound and out-bound alike.
 
