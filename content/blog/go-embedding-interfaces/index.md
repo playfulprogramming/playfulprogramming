@@ -4,13 +4,13 @@
     published: '2024-03-04',
     authors: ['rusher2004'],
     tags: ['go', 'testing'],
-    description: ""
+    description: "Creating tests can feel tedious, but doing it in Go can be, dare I say, *fun*. Let's take a look at how embedding interfaces clears some of that tedium for us."
 }
 ---
 
 I think about testing a lot. I've come to enjoy writing the tests for the things I build more than the things themselves.
 A large reason why is because of how easy it is to do with the Go standard library, especially when it comes to mocking dependencies with the use of interfaces.
-Here I'd like to show an example of how I make use of embedding interfaces to quickly create mock 
+Here I'd like to show an example of how I make use of embedding interfaces to quickly create mocks for use in tests.
 
 ## Embedding in Go
 
@@ -64,7 +64,11 @@ Bonus points: your IDE will show you what those embedded interfaces define.
 
 ![](./stringer_interface_def.png)
 
-## CHANGE THIS HEADING
+## Defining and Using an Interface
+
+Often, you will collect methods used across your Go package into interfaces you define. Let's take a look at an example to then see how we might need to implement or embed it elsewhere.
+
+---
 
 We have a program where we've created a `stuff` package and defined our own interface called `Thinger`. It says that, in order to be considered a Thinger, a struct must have at least two methods: 
 
@@ -73,8 +77,6 @@ We have a program where we've created a `stuff` package and defined our own inte
 
 ```go
 package stuff
-
-import "fmt"
 
 type Thinger interface {
 	DoThisThing() (Thing, error)
@@ -194,6 +196,12 @@ Except we should have some tests in place before we do, right?
 
 ## Mocking and Embedding in Tests
 
+Let's talk about unit testing. In general, the goal is to test each of our functions for expected output based on some given input. Specifically, I like to create at least one test for the happy path, no matter how simple the function signature, and then create test cases around anticipated failures. Table-driven testing makes this super easy.
+
+So let's put together some tests that will incorporate the interface embedding we've been looking at to tie all of this together.
+
+---
+
 In our `stuff_test.go` file, we can setup a mock struct to embed `stuff.Thinger`.
 
 ```go
@@ -250,7 +258,7 @@ panic: runtime error: invalid memory address or nil pointer dereference [recover
 [signal SIGSEGV: segmentation violation code=0x2 addr=0x20 pc=0x10221ee38]
 ```
 
-We need to implement the method we want to use. Because unlike an embedded struct, and embedded interface doesn't come with anything, only its definition.
+Unlike an embedded struct, an embedded interface doesn't come with anything, only its definition. Hence, a nil pointer is found where the `DoThisThing` method was expected to be. So, we need to implement the method we want to use.
 
 Here's what that will look like for our `DoSomeStuff` test:
 
@@ -368,6 +376,10 @@ This enables us to tightly couple our mocks to the tests that them. If you try t
 
 ## Wrapping up
 
-To summarize, Go uses struct and interface embedding as tools to *compose* the behavior of our objects, instead of *inheriting* from things like superclasses.
+To summarize, Go uses struct and interface embedding as tools to ***compose*** the behavior of our objects, instead of ***inheriting*** from things like superclasses.
 
 We can use this behavior to keep our type definitions neat and succinct, and enable easy, yet still robust, testing of our packages.
+
+Now go forth and test stuff.
+
+> The above `stuff` example can be found on [GitHub](https://github.com/rusher2004/interface-embedding-go).
