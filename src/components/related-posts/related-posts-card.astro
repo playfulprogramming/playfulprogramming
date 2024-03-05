@@ -17,9 +17,12 @@ const { title, slug, authors } = Astro.props as RelatedPostsCardProps;
 	class={style.container}
 	href={`/posts/${slug}`}
 >
-	<span class={`text-style-body-medium-bold ${style.articleTitle}`}
-		>{title}</span
-	>
+	<a
+		href={`/posts/${slug}`}
+		class={`text-style-body-medium-bold ${style.articleTitle}`}
+		>{title}
+	</a>
+
 	<span class={`text-style-body-small-bold ${style.authorsList}`}>
 		{
 			authors.map((author, i) => (
