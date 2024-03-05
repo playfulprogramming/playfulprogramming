@@ -1,9 +1,10 @@
 ---
 {
-    title: 'Embedding Interfaces in Go'
-    published: '2024-03-08'
-    authors: ['rusher']
-    tags: ['go', 'golang', 'testing', 'mocking', 'dependency injection']
+    title: 'Embedding Interfaces in Go',
+    published: '2024-03-04',
+    authors: ['rusher2004'],
+    tags: ['go', 'testing'],
+    description: ""
 }
 ---
 
@@ -16,7 +17,7 @@ Here I'd like to show an example of how I make use of embedding interfaces to qu
 Go doesn't do inheritance, but you can take a little shortcut to borrow from other types when you want to.
 First, let's look at an example of embedding a struct:
 
-```Go
+```go
 type MyStruct struct {
 	message string
 	*log.Logger
@@ -35,7 +36,7 @@ We get to use the `log.Logger` struct methods on our struct without the extra ve
 You can also embed interfaces. Let's say that you want to make use of something that should satisfy both the [error](https://pkg.go.dev/builtin#error) and [fmt.Stringer](https://pkg.go.dev/fmt#Stringer) interfaces.
 You could make a definition like this:
 
-```Go
+```go
 type StringError interface {
 	String() string // fmt.Stringer
 	Error() string  // error
@@ -45,7 +46,7 @@ type StringError interface {
 It works, but it doesn't quite communicate our intent to implement those existing and widely used interfaces.
 To improve that, we can embed the interfaces.
 
-```Go
+```go
 type StringError interface {
 	error
 	fmt.Stringer
@@ -70,7 +71,7 @@ We have a program where we've created a `stuff` package and defined our own inte
 - DoThisThing() (Thing, error)
 - DoThatThing() error
 
-```Go
+```go
 package stuff
 
 import "fmt"
@@ -87,7 +88,7 @@ type Thing struct {
 
 And in this package, we have two functions that accept a `Thinger` as an argument, and uses its methods.
 
-```Go
+```go
 func DoSomeStuff(t Thinger) (Thing, error) {
 	out, err := t.DoThisThing()
 	if err != nil {
@@ -111,7 +112,7 @@ These are simple and arbitrary examples, but it demonstrates a very common patte
 
 Put that all together, and we have this package:
 
-```Go
+```go
 package stuff
 
 import "fmt"
@@ -146,7 +147,7 @@ func DoOtherStuff(t Thinger) error {
 
 Now, in our program's `main` package, we want to make use of the `stuff` package. so we make a struct `myThing` that implements `stuff.Thinger`.
 
-```Go
+```go
 package main
 
 import (
@@ -195,7 +196,7 @@ Except we should have some tests in place before we do, right?
 
 In our `stuff_test.go` file, we can setup a mock struct to embed `stuff.Thinger`.
 
-```Go
+```go
 type mockThis struct {
 	stuff.Thinger
 }
@@ -203,7 +204,7 @@ type mockThis struct {
 
 Which will then let us run tests against our functions. Let's start with `DoSomeStuff`.
 
-```Go
+```go
 func TestDoSomeStuff(t *testing.T) {
 	tests := []struct {
 		name    string
@@ -253,7 +254,7 @@ We need to implement the method we want to use. Because unlike an embedded struc
 
 Here's what that will look like for our `DoSomeStuff` test:
 
-```Go
+```go
 type mockThis struct {
 	stuff.Thinger
 
@@ -270,7 +271,7 @@ func (m mockThis) DoThisThing() (stuff.Thing, error) {
 
  Now let's update our first test case to use a real value for its mock.
 
- ```Go
+ ```go
  {
 	name:    "happy path",
 	want:    stuff.Thing{ID: "123"},
@@ -291,7 +292,7 @@ Success!
 
 Now it's super easy to add test cases.
 
-```Go
+```go
 // happy path
 {
 	name: "happy path",
@@ -313,7 +314,7 @@ Now it's super easy to add test cases.
 
 For more complex functions, you'll have a lot more test cases that produce various errors and return values. For now, let's finish out with some tests for `stuff.DoOtherStuff`.
 
-```Go
+```go
 type mockThat struct {
 	stuff.Thinger
 
