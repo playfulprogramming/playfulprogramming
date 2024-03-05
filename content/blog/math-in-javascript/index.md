@@ -2,11 +2,11 @@
 {
     title: "Math in JavaScript",
     description: "Math in JavaScript may seem simple and sometimes easy, but sometimes what seems right is wrong.",
-    published: '2024-03-03T05:49:41.018Z',
+    published: '2024-03-04',
     authors: ['jerico'],
     tags: ['math', 'javascript'],
-    attached: ['https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math'],
-    license: 'cc-by-4'
+    license: 'cc-by-4',
+    originalLink: "https://jericogit.github.io/Jerico/Articles/math-js.html"
 }
 ---
 
@@ -17,7 +17,7 @@ In this article, I will explain the basics of doing math in JavaScript and how t
 ## Math Js
 Math Js is a built-in object for JavaScript that does math. A good starting example of Math Js would be solving and returning a basic equation like this.
 
-```
+```javascript
 console.log(Math(1+1)); //Result 2
 ```
 
@@ -27,7 +27,7 @@ The symbols use in Math Js is “+” for adding, “-” for subtraction, “*�
  
 Math Js is commonly used for concatenating and changing variables to solvable equations. We use “.toNumber” to change our equation that’s in string form, that we have concatinate to, to number form something we can feed to Math Js and get a result on. 
 
-```
+```javascript
 let string = "1+1";
 
 string.concat("+2"); //Add more to the sring at the end  of it.
@@ -41,7 +41,7 @@ Some think doing math in variables is the proper way to do math in JavaScript, b
 
 Math also has features like Math.PI which gives a value of PI and others listed below.
 
-```
+```javascript
 console.log(Math.PI) //Returns 3.14
 
 console.log(Math.ceil(0.86)); //Returns 1 rounds up
