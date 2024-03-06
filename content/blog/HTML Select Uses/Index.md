@@ -20,7 +20,7 @@ I will also cover their functionality, introduce bits of JavaScript, and then sh
 
 Here is a starting example using `Input`, `datalist`, and `option` elements.
 
-```
+```html
 <input list=”optionsList”>
 
 <datalist id=”optionsList”>
