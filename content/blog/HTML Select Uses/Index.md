@@ -48,7 +48,7 @@ The code will have comments, so there is no further explanation. The example bel
 JsFiddle for quick viewing https://jsfiddle.net/dek12pgj/. 
 
 Html:
-```
+```html
 <input id="zip" list="zipcodes" name="zip" oninput="validate()">
 <datalist id="zipcodes">
 	<option value="1320">
