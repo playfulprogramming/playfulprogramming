@@ -1,4 +1,14 @@
-
+---
+{
+    title: "HTML Select Uses",
+    description: "An introduction to HTML's input:list and select boxes.",
+    published: '2024-03-04',
+    authors: ['jerico'],
+    tags: ['select', 'javascript'],
+    license: 'cc-by-4',
+    originalLink: ""
+}
+---
 
 In this short article, I will introduce you to HTML’s Input:List and DataList elements/attributes. 
 
@@ -34,10 +44,16 @@ Note: A user still can type in this `input:list` box but all that does is search
 In the note before this section, I mentioned how “A user still can type in this `input:list` box but all that does is search all the options for you and give you the remaining ones that you can select”.  With that in mind, I want to show how you can return the remaining options in the input with `JavaScript`. 
 
 The code will have comments, so there is no further explanation. The example below is an expansion on the ZipCodes example.
+JsFiddle for quick viewing https://jsfiddle.net/dek12pgj/. 
 
 Html:
 ```
-<body> <input id="zip" list="zipcodes" name="zip" oninput="validate()"> <datalist id="zipcodes"> <option value="1320"> <option value="1101> <option value="1890"> </datalist> </body>
+<input id="zip" list="zipcodes" name="zip" oninput="validate()">
+<datalist id="zipcodes">
+	<option value="1320">
+	<option value="1101>
+	<option value="1890">
+ </datalist> 
 ```
 
 Js:
