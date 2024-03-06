@@ -32,6 +32,7 @@ Here is a starting example using `Input`, `datalist`, and `option` elements.
 
 In the example above I give `Thing#` as one of the options. If you were a user trying to select one of these options it would look something like this.
 
+ ![Options, input, datalist example.](./optionsPic.png)
 
 ## Reasonable Use 
 
