@@ -22,9 +22,18 @@
 	outline: var(--spc-1x) solid var(--surface_primary_emphasis-high);
 }
 
-.container:focus-visible {
-	outline: var(--spc-1x) solid var(--focus-outline_primary);
-	background: var(--background_focus);
+@supports selector(:has(*)) {
+	.container:has(:focus-visible) {
+		outline: var(--spc-1x) solid var(--focus-outline_primary);
+		background: var(--background_focus);
+	}
+}
+
+@supports not selector(:has(*)) {
+	.container:focus-within {
+		outline: var(--spc-1x) solid var(--focus-outline_primary);
+		background: var(--background_focus);
+	}
 }
 
 .articleTitle {
@@ -42,5 +51,5 @@
 
 .authorName:hover,
 .authorName:focus {
-    text-decoration: underline;
+	text-decoration: underline;
 }
