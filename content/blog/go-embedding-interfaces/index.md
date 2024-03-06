@@ -1,7 +1,7 @@
 ---
 {
     title: 'Embedding Interfaces in Go',
-    published: '2024-03-04',
+    published: '2024-03-06',
     authors: ['rusher2004'],
     tags: ['go', 'testing'],
     description: "Creating tests can feel tedious, but doing it in Go can be, dare I say, *fun*. Let's take a look at how embedding interfaces clears some of that tedium for us."
