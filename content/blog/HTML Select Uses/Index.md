@@ -58,7 +58,7 @@ Html:
 ```
 
 Js:
-```
+```javascript
 let optionValues = document.getElementById("zipcodes").children;
 let optionsRemaining = [];
 
