@@ -12,11 +12,7 @@ interface RelatedPostsCardProps {
 const { title, slug, authors } = Astro.props as RelatedPostsCardProps;
 ---
 
-<span
-	{...getHrefContainerProps(`/posts/${slug}`)}
-	class={style.container}
-	href={`/posts/${slug}`}
->
+<li {...getHrefContainerProps(`/posts/${slug}`)} class={style.container}>
 	<a
 		href={`/posts/${slug}`}
 		class={`text-style-body-medium-bold ${style.articleTitle}`}
@@ -26,10 +22,10 @@ const { title, slug, authors } = Astro.props as RelatedPostsCardProps;
 	<span class={`text-style-body-small-bold ${style.authorsList}`}>
 		{
 			authors.map((author, i) => (
-				<a href={`/unicorns/${author.id}`}>
+				<a href={`/unicorns/${author.id}`} class={style.authorName}>
 					{[author.name, i + 1 < authors.length ? "," : ""]}
 				</a>
 			))
 		}
 	</span>
-</span>
+</li>
