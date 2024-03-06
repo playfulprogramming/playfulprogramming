@@ -2,7 +2,7 @@
 {
     title: "HTML Select Uses",
     description: "An introduction to HTML's input:list and select boxes.",
-    published: '2024-03-04',
+    published: '2024-03-06',
     authors: ['jerico'],
     tags: ['select', 'javascript'],
     license: 'cc-by-4',
