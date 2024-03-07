@@ -679,18 +679,6 @@
 		"roles": ["author"]
 	},
 	{
-		"id": "jerico",
-		"name": "jerico",
-		"firstName": "Jerico",
-		"lastName": "User",
-		"description": "Jerico is a personal brand focusing on teaching and building the future of the web.",
-		"socials": {},
-		"pronouns": "he/him",
-		"profileImg": "./jerico.png",
-		"color": "#ba68c8",
-		"roles": ["author"]
-	},
-	{
 		"id": "rusher2004",
 		"name": "Robert Usher",
 		"firstName": "Robert",
@@ -703,6 +691,6 @@
 		"pronouns": "he/him",
 		"profileImg": "./rusher.jpg",
 		"color": "#9256b3",
-		"roles": ["author"]	
+		"roles": ["author"]
 	}
 ]
