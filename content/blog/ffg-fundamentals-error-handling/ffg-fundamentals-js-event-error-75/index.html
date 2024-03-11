@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<title>JS Event Error - Example #75 - FFG Fundamentals</title>
+	</head>
+	<body>
+		<button id="btn">Click me - I will throw an error</button>
+		<script>
+			const el = document.getElementById("btn");
+			// This try catch block will not catch the error inside `addEventListener`
+			try {
+				const el = document.getElementById("btn");
+				el.addEventListener("click", () => {
+					throw new Error("There was an error");
+				});
+			} catch (error) {
+				// This will not ever run with this code
+				alert("We're catching an error in try/catch");
+			}
+
+			// This code will run though
+			window.addEventListener("error", (event) => {
+				const error = event.error;
+				alert("We're catching an error in another addEventListener");
+			});
+		</script>
+	</body>
+</html>

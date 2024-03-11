@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<title>Vue Errors in Setup - Example #76 - FFG Fundamentals</title>
+	</head>
+	<body>
+		<div id="root"></div>
+		<sub class="fadeIn">
+			You don't see anything here because Vue is erroring out
+		</sub>
+		<script type="module" src="/src/main.js"></script>
+	</body>
+</html>
+
+<style>
+	.fadeIn {
+		opacity: 0;
+		animation-duration: 1s;
+		animation-delay: 2s;
+		animation-name: fadeIn;
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+</style>
