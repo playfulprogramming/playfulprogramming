@@ -43,6 +43,8 @@ While you may not be familiar with this term, you're more than likely familiar w
 
 This is because React's code has to initialize to render the components on screen before it can spit out HTML for the browser to parse. Sure, there's an initial HTML file that might have loading spinner, but until your components have time to render, that's hardly useful content for your user. _While these load times can be sufficient for smaller applications_, if you have many components loading on-screen, _you may be in trouble if you want to keep your time-to-interactive (TTI) low_. That scenario is where SSR often comes into play.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
 # Server Side Rendering (SSR) {#ssr}
 
 Because React has to initialize _somewhere_, what if we were to move the initial rendering off to the server? Imagine - for each request the user sends your way, you spin up an instance of React. Then, you're able to serve up the initial render (also called "fully hydrated") HTML and CSS to the user, ready to roll. That's just what server-side rendering is!

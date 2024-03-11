@@ -103,6 +103,8 @@ In short; React Server Actions are a way to call server-side code in React's cli
 
 However, to pass a function from a server component down to the client we must designate our functions we want to pass with a special boundary string.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
 # What is `"use server"`?
 
 `"use server"` is the boundary string in React server apps that allows us to mark a function as "ready to pass to the client".

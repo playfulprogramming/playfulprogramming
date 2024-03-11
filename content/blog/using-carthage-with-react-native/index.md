@@ -32,6 +32,8 @@ There are three main methods you may use to install Carthage:
 
 Now that you have Carthage installed, you can start using it in your projects.
 
+<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+
 # Usage
 
 Just as npm has the `package.json` file, Carthage has the `Cartfile`. You'll want to create a file named `Cartfile` next to your `.xcworkspace` file. If your project was configured with the [React Native CLI](https://github.com/react-native-community/cli), this folder would be your `:projectRoot/ios` directory. 

@@ -1,0 +1,46 @@
+@import "../tokens/utils";
+@import "../tokens/breakpoints.scss";
+
+.supportMeContainer {
+	padding: var(--section-ver-padding) var(--section-hor-padding);
+	text-align: center;
+	max-width: var(--max-width_large);
+	margin: 0 auto;
+}
+
+.supportMeGrid {
+	max-width: $desktop;
+	margin: 0 auto;
+	gap: var(--spc-3x);
+	list-style: none;
+	padding: 0;
+}
+
+.supportMeCard {
+	width: 100%;
+	margin: 0 auto;
+
+	@include from($desktop) {
+		width: 50%;
+	}
+}
+
+.title {
+	margin: 0;
+}
+
+.description {
+	margin: 0;
+}
+
+.topSpacer {
+	height: var(--spc-2x);
+}
+
+.bottomSpacer {
+	height: var(--spc-4x);
+}
+
+.supportMeCard {
+	padding: var(--spc-12x);
+}

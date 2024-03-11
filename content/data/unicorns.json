@@ -610,7 +610,8 @@
 		"profileImg": "./hello.png",
 		"color": "#1AB5E5",
 		"roles": ["author"]
-	},{
+	},
+	{
 		"id": "jtemporal",
 		"name": "Jess Temporal",
 		"firstName": "Jess",
@@ -634,7 +635,7 @@
 		"firstName": "Tobiloba",
 		"lastName": "Adedeji",
 		"description": "I am a Software Engineer, Open source Advocate and Accessibility enthusiast. I work on the Million.js project as a Community Engineer, A DevRel at Tublian and I love everything frontend",
-		"socials":{
+		"socials": {
 			"twitter": "toby_solutions",
 			"github": "tobySolutions",
 			"twitch": "tobysolutions",
@@ -645,5 +646,51 @@
 		"color": "#ef5f17",
 		"roles": [],
 		"achievements": ["partner"]
+	},
+	{
+		"id": "matt",
+		"name": "Mateusz Wasik",
+		"firstName": "Mateusz",
+		"lastName": "Wasik",
+		"description": "Junior developer for life. Owner of a multitude of unfinished projects. I'm still trying to figure out what 'this' is.",
+		"socials": {
+			"github": "MateuszWasik"
+		},
+		"pronouns": "he/him",
+		"color": "#0091EA",
+		"profileImg": "./matt.png",
+		"roles": ["developer"]
+	},
+	{
+		"id": "tylerlwsmith",
+		"name": "Tyler Smith",
+		"firstName": "Tyler",
+		"lastName": "Smith",
+		"description": "I build software using Laravel, Django, Rails, React, Alpine, Node, Go, Docker, and a lot of duct tape.",
+		"socials": {
+			"twitter": "tylerlwsmith",
+			"github": "tylerlwsmith",
+			"linkedIn": "tylerlwsmith",
+			"website": "https://deadhandmedia.com"
+		},
+		"pronouns": "he/him",
+		"profileImg": "./tylersmith.jpg",
+		"color": "#59389b",
+		"roles": ["author"]
+	},
+	{
+		"id": "rusher2004",
+		"name": "Robert Usher",
+		"firstName": "Robert",
+		"lastName": "Usher",
+		"description": "Pretty good full stack developer, not very good music creator, first time blogger.",
+		"socials": {
+			"github": "rusher2004",
+			"linkedIn": "robert-usher"
+		},
+		"pronouns": "he/him",
+		"profileImg": "./rusher.jpg",
+		"color": "#9256b3",
+		"roles": ["author"]
 	}
 ]
