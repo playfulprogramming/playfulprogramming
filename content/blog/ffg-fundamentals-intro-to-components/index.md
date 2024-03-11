@@ -1114,7 +1114,7 @@ const FileDate = () => {
 
 `useState` is what React uses to store data that the developer wants to persist between renders. Its first argument (that we're passing a string into) sets the initial value.
 
-We then use [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to convert the returned array into two variables. Another way to write this code is:
+We then use [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to convert the returned array into two variables. Another way to write this code is:
 
 ```jsx
 const dateArr = useState(
