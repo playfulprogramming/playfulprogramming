@@ -58,6 +58,19 @@ tbody tr:last-child {
 	background-color: var(--table_background-color);
 }
 
+.table-overflow {
+	@include until(560px) {
+		.table-container {
+			overflow-y: auto;
+			width: 100%;
+		}
+
+		table:has(tr:nth-child(4)) thead {
+			top: 0 !important;
+		}
+	}
+}
+
 table {
 	border-collapse: collapse;
 

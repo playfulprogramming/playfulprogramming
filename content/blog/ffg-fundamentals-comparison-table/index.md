@@ -15,6 +15,8 @@ We've looked at a lot of APIs in this series! Here's a cheatsheet for all the AP
 
 <!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
+<div class="table-overflow">
+
 | React                                                        | Angular                                                      | Vue                                                          | Notes & Link                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `function Comp() {}`                                         | `@Component() class Comp {}`                                 | `Comp.vue` SFC file                                          | [Creates a component.](/posts/ffg-fundamentals-intro-to-components#parts-of-app) |
@@ -65,3 +67,5 @@ We've looked at a lot of APIs in this series! Here's a cheatsheet for all the AP
 | `Children.toArray(children)`                                 | `@ContentChildren()`                                         | N/A                                                          | [Access a reference to projected children](/posts/ffg-fundamentals-accessing-children) |
 | `Children.count(children)`                                   | `@ContentChildren()` & `length` property                     | N/A                                                          | [Count projected children](/posts/ffg-fundamentals-accessing-children#counting-comp-children) |
 | `children(val)`                                              | `ng-template` & Template Context                             | `<template>` & `v-slot`                                      | [Pass values to projected children](/posts/ffg-fundamentals-accessing-children#passing-values-to-projected-content) |
+
+</div>
