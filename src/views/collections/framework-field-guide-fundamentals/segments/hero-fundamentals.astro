@@ -1,0 +1,37 @@
+---
+import styles from "./hero-fundamentals.module.scss";
+import Sun from "../../framework-field-guide/cover-layers/fundamentals/sun.astro";
+import BigFilledButton from "../../framework-field-guide/components/big-filled-button.astro";
+---
+
+<section class={`class-book-1 class-book-hero`}>
+	<div class={`book-section ${styles.heroContainer}`}>
+		<div class={styles.sunContainerContainer} data-move-on-scroll-by="0.2">
+			<div>
+				<Sun />
+			</div>
+		</div>
+		<div class={styles.bannerContainer}>
+			<p class={`text-style-body-large-bold ${styles.introducing}`}>
+				Welcome to start of your journey
+			</p>
+			<h1 class={`text-style-display-1 ${styles.seriesTitle}`}>Fundamentals</h1>
+			<div class={styles.readNowContainer}>
+				<p class={`text-style-headline-6 ${styles.ffgDescription}`}>
+					This is part one of the <a href="/collections/framework-field-guide" class={styles.ffgWord}
+						>Framework Field Guide</a
+					>, a three-part series <br />
+					 that teaches you Angular, React and Vue all at once.
+				</p>
+				<div class={`${styles.buttonReadNow}`}>
+					<BigFilledButton
+						href="#chapter-listing-heading"
+						onclick='event.preventDefault();var title=document.getElementById("chapter-listing-heading");title.scrollIntoView({behavior: "smooth", block: "start"});'
+					>
+						Read now
+					</BigFilledButton>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

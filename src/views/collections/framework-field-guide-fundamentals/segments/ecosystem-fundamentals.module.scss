@@ -1,0 +1,50 @@
+@import "src/tokens/index";
+@import "../../framework-field-guide/tokens/breakpoints";
+
+:root {
+	--sign-up-btn-gap: var(--spc-6x);
+}
+
+@include from($desktop) {
+	:root {
+		--sign-up-btn-gap: var(--spc-3x);
+	}
+}
+
+.signUpContainer {
+	text-align: center;
+	color: var(--on-dark-emphasis-high);
+	max-width: var(--max-width_small);
+}
+
+.subtext {
+	color: var(--on-dark-emphasis-medium);
+}
+
+.highEmphasis {
+	color: var(--on-dark-emphasis-high);
+}
+
+.links {
+	position: relative;
+	color: var(--on-dark-emphasis-high);
+	border-radius: var(--corner-radius-circular);
+}
+
+.mediumEmphasis {
+	color: var(--on-dark-emphasis-medium);
+}
+
+.inDevelopment {
+	margin: 0;
+}
+
+.inDevelopmentTwo {
+	margin-top: var(--spc-1x);
+	margin-bottom: var(--spc-3x);
+}
+
+.emailWarning {
+	margin: 0;
+	margin-top: var(--spc-2x);
+}

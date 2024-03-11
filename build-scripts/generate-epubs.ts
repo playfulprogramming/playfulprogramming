@@ -127,9 +127,11 @@ async function generateCollectionEPub(
 const posts = [...getAllExtendedPosts("en")];
 
 for (const collection of collections) {
-	const collectionPosts = posts.filter(
-		(post) => post.collection === collection.slug,
-	);
+	const collectionPosts = posts
+		.filter((post) => post.collection === collection.slug)
+		.sort((a, b) => {
+			return a.order - b.order;
+		});
 
 	generateCollectionEPub(
 		collection,
