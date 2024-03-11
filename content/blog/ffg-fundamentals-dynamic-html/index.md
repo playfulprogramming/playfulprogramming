@@ -130,7 +130,7 @@ One way we can hide the `date` from displaying the user is by reusing an HTML at
 </div>
 ```
 
-This works but introduces a potential problem; while the contents are not _shown_ to the user (and are similarly [hidden from screen-readers](/posts/intro-to-web-accessability#css)), they _are_ still present within the DOM.
+This works but introduces a potential problem; while the contents are not _shown_ to the user (and are similarly [hidden from screen-readers](/posts/intro-to-web-accessibility#css)), they _are_ still present within the DOM.
 
 This means that a large number of these HTML elements marked as `hidden` will still be in the DOM. They can still impact performance and memory usage as if they **were** being displayed to the user.
 
