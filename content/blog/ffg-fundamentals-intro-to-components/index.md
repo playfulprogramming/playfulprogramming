@@ -2027,7 +2027,7 @@ In the mockup we saw before, the list of our files has a hover state for the fil
 
 Let's add an `isSelected`` property to our `file` component to add hover styling conditionally, then update it when the user clicks on it.
 
-While we're at it, let's migrate our `File` component to use a `button` instead of a `div`. After all, [it's important for accessibility and SEO to use semantic elements to indicate what element is which in the DOM](/posts/intro-to-web-accessability#html-semantic-tags).
+While we're at it, let's migrate our `File` component to use a `button` instead of a `div`. After all, [it's important for accessibility and SEO to use semantic elements to indicate what element is which in the DOM](/posts/intro-to-web-accessibility#html-semantic-tags).
 
 <!-- tabs:start -->
 

@@ -67,7 +67,7 @@ class TooltipDirective implements AfterViewInit, OnDestroy {
 
 		setTimeout(() => {
 			this.portalService.outlet.attach(
-				// TODO: Explain why you'd use DomPortal rather than TemplatePortal
+				// DOMPortal allows us to attach a DOM element to the portal
 				new DomPortal(this.el),
 			);
 		});
