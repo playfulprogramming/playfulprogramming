@@ -3,17 +3,10 @@ import { PostInfo } from "../../../../types/PostInfo";
 import styles from "./collection-table-of-contents-fundamentals.module.scss";
 
 interface CollectionTableOfContentsProps {
-	collection: {
-		chapterList: Array<{
-			order: string | number;
-			title: string;
-			description: string;
-		}>;
-	};
 	posts?: PostInfo[];
 }
 
-const { collection, posts } = Astro.props as CollectionTableOfContentsProps;
+const { posts } = Astro.props as CollectionTableOfContentsProps;
 
 const maxChapterToShow = 10;
 ---

@@ -24,21 +24,6 @@ import Header from "src/views/collections/framework-field-guide/segments/header.
 import Hero from "../../../views/collections/framework-field-guide-fundamentals/segments/hero-fundamentals.astro";
 import Fundamentals from "../../../views/collections/framework-field-guide-fundamentals/segments/fundamentals-fundamentals.astro";
 import Ecosystem from "../../../views/collections/framework-field-guide-fundamentals/segments/ecosystem-fundamentals.astro";
-
-const frontmatter = {
-	title: "The Framework Field Guide - Fundamentals",
-	associatedSeries: "Framework Field Guide",
-	description:
-		"A practical and free way to teach Angular, React, and Vue all at once, so you can choose the right tool for the job and learn the underlying concepts in depth.",
-	authors: ["crutchcorn"],
-	coverImg: "/custom-content/collections/framework-field-guide/cover.png",
-	socialImg:
-		"/custom-content/collections/framework-field-guide-fundamentals/framework_field_guide_fundamentals_social.png",
-	type: "book",
-	published: "2023-01-01T13:45:00.284Z",
-	buttons: [{ text: "Read now", url: "/posts/preface" }],
-	authorsMeta: [unicorns.find((uni) => uni.id === "crutchcorn")],
-};
 ---
 
 <Barebones>

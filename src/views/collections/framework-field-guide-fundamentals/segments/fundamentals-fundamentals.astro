@@ -7,21 +7,6 @@ import CollectionTableOfContents from "../components/collection-table-of-content
 import { PostInfo } from "../../../../types/PostInfo";
 import { unicorns } from "../../../../utils/data";
 
-const frontmatter = {
-	title: "The Framework Field Guide - Fundamentals",
-	associatedSeries: "Framework Field Guide",
-	description:
-		"A practical and free way to teach Angular, React, and Vue all at once, so you can choose the right tool for the job and learn the underlying concepts in depth.",
-	authors: ["crutchcorn"],
-	coverImg: "/custom-content/collections/framework-field-guide/cover.png",
-	socialImg:
-		"/custom-content/collections/framework-field-guide-fundamentals/framework_field_guide_fundamentals_social.png",
-	type: "book",
-	published: "2023-01-01T13:45:00.284Z",
-	buttons: [{ text: "Read now", url: "/posts/preface" }],
-	authorsMeta: [unicorns.find((uni) => uni.id === "crutchcorn")],
-};
-
 const posts = await Astro.glob<PostInfo>(
 	"../../../../../content/blog/**/index.md",
 );
@@ -38,7 +23,7 @@ const chapterList = posts
 	<div class="class-book-1">
 		<div class={`book-section`} style="background: var(--section-background);">
 			<WhatYouNeed />
-			<CollectionTableOfContents collection={frontmatter} posts={chapterList} />
+			<CollectionTableOfContents posts={chapterList} />
 			<WhatYoullLearn />
 		</div>
 	</div>
