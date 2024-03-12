@@ -20,7 +20,8 @@ import { getUnicornById } from "utils/api";
 		<Picture
 			class={styles.avatar}
 			alt=""
-			src={getUnicornById("crutchcorn", "en")!.profileImgMeta.relativePath}
+			src={getUnicornById("crutchcorn", "en")!.profileImgMeta
+				.relativeServerPath}
 			sizes={"72"}
 			widths={[72]}
 			aspectRatio={1}
