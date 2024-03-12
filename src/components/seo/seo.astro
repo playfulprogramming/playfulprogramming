@@ -64,6 +64,13 @@ const currentPath = removeTrailingSlash(
 <meta property="name" content={siteMetadata.title} />
 <meta name="description" content={metaDescription} />
 <meta property="keywords" content={metaKeywords} />
+<link
+	rel="preload"
+	href="/fonts/Figtree/Figtree-VariableFont_wght.ttf"
+	as="font"
+	type="font/ttf"
+	crossorigin
+/>
 
 {
 	// If the page is non-indexed, exclude it from any search results with the "robots" tag

@@ -17,6 +17,7 @@ import { rehypeHeaderClass } from "./rehype-header-class";
 import { rehypeFileTree } from "./file-tree/rehype-file-tree";
 import { rehypeTwoslashTabindex } from "./twoslash-tabindex/rehype-transform";
 import { rehypeInContentAd } from "./in-content-ad/rehype-transform";
+import { rehypeNoEbook } from "./rehype-no-ebook";
 import { PluggableList } from "unified";
 import { dirname, relative, resolve } from "path";
 import { VFile } from "vfile";
@@ -35,6 +36,7 @@ export function createRehypePlugins(config: MarkdownConfig): PluggableList {
 			? [rehypeMakeImagePathsAbsolute, { path: config.path }]
 			: noop,
 		config.format === "epub" ? rehypeMakeHrefPathsAbsolute : noop,
+		config.format === "epub" ? rehypeNoEbook : noop,
 		// Do not add the tabs before the slug. We rely on some of the heading
 		// logic in order to do some of the subheading logic
 		[
