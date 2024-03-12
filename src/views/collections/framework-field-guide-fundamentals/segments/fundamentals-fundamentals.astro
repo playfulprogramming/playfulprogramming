@@ -4,17 +4,12 @@ import FundamentalsBookCover from "../../framework-field-guide/segments/fundamen
 import WhatYouNeed from "../components/what-you-need.astro";
 import WhatYoullLearn from "../components/what-youll-learn.astro";
 import CollectionTableOfContents from "../components/collection-table-of-contents-fundamentals.astro";
-import { PostInfo } from "../../../../types/PostInfo";
-import { unicorns } from "../../../../utils/data";
+import { getPostsByCollection } from "../../../../utils/api";
 
-const posts = await Astro.glob<PostInfo>(
-	"../../../../../content/blog/**/index.md",
+const chapterList = getPostsByCollection(
+	"framework-field-guide-fundamentals",
+	"en",
 );
-
-const chapterList = posts
-	.map((post) => post.frontmatter)
-	.filter((post) => post.collection === "framework-field-guide-fundamentals")
-	.sort((postA, postB) => (postA.order > postB.order ? 1 : -1));
 ---
 
 <section data-change-color-to="fund">
