@@ -320,7 +320,7 @@ However, what if we could instead simplify this idea to a single step:
 
 1. Run a function over a value and live update as it changes.
 
-This may remind you of a similar pattern we've used already for [live updated text](/posts/ffg-fundamentals-intro-to-components#reactivity) and [attribute binding](/posts/intro-to-components#attr-binding).
+This may remind you of a similar pattern we've used already for [live updated text](/posts/ffg-fundamentals-intro-to-components#reactivity) and [attribute binding](/posts/ffg-fundamentals-intro-to-components#attr-binding).
 
 Luckily for us, all three frameworks have a way of doing just this!
 

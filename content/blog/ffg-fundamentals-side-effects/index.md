@@ -223,7 +223,7 @@ To explore what these side-effect handlers can do, let's look at an example of a
 
 # Initial Render Side Effects {#initial-render-effects}
 
-When we introduced components, we touched on the [concept of "rendering"](/posts/ffg-fundamentals-intro-to-components#rendering-app). This occurs when a component is drawn on-screen, either when the user loads a page for the first time or when shown or hidden using a [conditional render](/posts/ffg-fundamentals-dynamic-htmll#conditional-branch).
+When we introduced components, we touched on the [concept of "rendering"](/posts/ffg-fundamentals-intro-to-components#rendering-app). This occurs when a component is drawn on-screen, either when the user loads a page for the first time or when shown or hidden using a [conditional render](/posts/ffg-fundamentals-dynamic-html#conditional-branch).
 
 Say we have the following code:
 
