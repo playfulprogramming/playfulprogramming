@@ -25,6 +25,7 @@ import { rehypeFileTree } from "./file-tree/rehype-file-tree";
 import { rehypeTwoslashTabindex } from "./twoslash-tabindex/rehype-transform";
 import { rehypeInContentAd } from "./in-content-ad/rehype-transform";
 import { rehypeNoEbook } from "./rehype-no-ebook";
+import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
 import { siteMetadata } from "../../constants/site-config";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -108,6 +109,7 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 					rehypeUnicornElementMap,
 					rehypeTwoslashTabindex,
 					rehypeFileTree,
+					rehypeExpandDetailsAndSummary,
 			  ]
 			: [rehypeNoEbook]),
 		...(config.format === "html"
