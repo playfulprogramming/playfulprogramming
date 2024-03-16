@@ -1264,7 +1264,7 @@ Text isn't the only thing that frameworks are capable of live updating, however!
 
 Just like each framework has a way to have state rendered into text on-screen, it can also update HTML attributes for an element.
 
-Currently, our `date` component doesn't read out [particularly kindly to screen-readers](/posts/intro-to-web-accessability) since it would only read out as numbers. Let's change that by adding an `aria-label` of a human-readable date to our `date` component.
+Currently, our `date` component doesn't read out [particularly kindly to screen-readers](/posts/intro-to-web-accessibility) since it would only read out as numbers. Let's change that by adding an `aria-label` of a human-readable date to our `date` component.
 
 <!-- tabs:start -->
 
@@ -1314,7 +1314,7 @@ const dateStr = ref(formatDate(new Date()));
 
 <!-- tabs:end -->
 
-Now, [when we use a screen reader](/posts/intro-to-web-accessability), it'll read out "January 10th" instead of "One dash ten".
+Now, [when we use a screen reader](/posts/intro-to-web-accessibility), it'll read out "January 10th" instead of "One dash ten".
 
 However, while this may have worked before the `date` was dynamically formatted, it won't be correct for most of the year. (Luckily for us, a broken clock is correct at least once a day.)
 
