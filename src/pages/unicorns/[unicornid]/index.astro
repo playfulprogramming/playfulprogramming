@@ -2,18 +2,19 @@
 import Document from "../../../layouts/document.astro";
 import SEO from "components/seo/seo.astro";
 import UnicornsPage from "src/views/unicorn/unicorn-page.astro";
-import { getPostsByUnicorn } from "utils/api";
-import { unicorns } from "utils/data";
+import { Languages } from "types/index";
+import * as api from "utils/api";
 
 export async function getStaticPaths() {
+	const unicorns = api.getUnicornsByLang("en");
 	return unicorns.map((unicorn) => ({ params: { unicornid: unicorn.id } }));
 }
 
 const params = Astro.params as { unicornid: string };
 
-const unicorn = unicorns.find((unicorn) => unicorn.id === params.unicornid);
-
-const posts = getPostsByUnicorn(unicorn.id, "en");
+const locale: Languages = "en";
+const unicorn = api.getUnicornById(params.unicornid, locale)!;
+const posts = api.getPostsByUnicorn(unicorn.id, locale);
 ---
 
 <Document size="xl">

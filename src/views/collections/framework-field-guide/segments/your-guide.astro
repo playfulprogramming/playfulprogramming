@@ -1,6 +1,7 @@
 ---
 import { Picture } from "@astrojs/image/components";
 import styles from "./your-guide.module.scss";
+import { getUnicornById } from "utils/api";
 ---
 
 <section class={styles.guideContainer} aria-labelledby="your-guide">
@@ -10,8 +11,9 @@ import styles from "./your-guide.module.scss";
 	<Picture
 		class={styles.guidePicture}
 		alt=""
-		src={import("../../../../../public/content/data/crutchcorn.png")}
+		src={getUnicornById("crutchcorn", "en")!.profileImgMeta.relativeServerPath}
 		widths={[96, 72]}
+		aspectRatio={1}
 		sizes="96"
 	/>
 	<p class={`text-style-headline-3 ${styles.authorIntro}`}>

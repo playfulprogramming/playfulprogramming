@@ -1,14 +1,14 @@
 import Fuse from "fuse.js";
-import { getAllExtendedPosts } from "../src/utils/get-all-posts";
-
 import * as fs from "fs";
 import * as path from "path";
-import { collections } from "utils/data";
+import * as api from "utils/api";
+import { PostInfo, CollectionInfo, UnicornInfo } from "types/index";
 
-const posts = [...getAllExtendedPosts("en")];
+const posts = api.getPostsByLang("en");
+const collections = api.getCollectionsByLang("en");
 
 const createPostIndex = () => {
-	return Fuse.createIndex(
+	return Fuse.createIndex<PostInfo>(
 		[
 			{
 				name: "title",
@@ -17,7 +17,9 @@ const createPostIndex = () => {
 			{
 				name: "authorName",
 				getFn: (post) => {
-					return post.authorsMeta.map((author) => author.name).join(", ");
+					return post.authors
+						.map((id) => api.getUnicornById(id, post.locale)!.name)
+						.join(", ");
 				},
 				weight: 1.8,
 			},
@@ -28,8 +30,10 @@ const createPostIndex = () => {
 			{
 				name: "authorHandles",
 				getFn: (post) => {
-					return post.authorsMeta
-						.flatMap((author) => Object.values(author.socials))
+					return post.authors
+						.map((id) => api.getUnicornById(id, post.locale))
+						.flatMap((author) => Object.values(author!.socials))
+						.filter((handle) => handle)
 						.join(", ");
 				},
 				weight: 1.2,
@@ -43,7 +47,7 @@ const createPostIndex = () => {
 };
 
 const createCollectionIndex = () => {
-	return Fuse.createIndex(
+	return Fuse.createIndex<CollectionInfo>(
 		[
 			{
 				name: "title",
@@ -56,15 +60,19 @@ const createCollectionIndex = () => {
 			{
 				name: "authorName",
 				getFn: (post) => {
-					return post.authorsMeta.map((author) => author.name).join(", ");
+					return post.authors
+						.map((id) => api.getUnicornById(id, post.locale)!.name)
+						.join(", ");
 				},
 				weight: 1.8,
 			},
 			{
 				name: "authorHandles",
 				getFn: (post) => {
-					return post.authorsMeta
-						.flatMap((author) => Object.values(author.socials))
+					return post.authors
+						.map((id) => api.getUnicornById(id, post.locale))
+						.flatMap((author) => Object.values(author!.socials))
+						.filter((handle) => handle)
 						.join(", ");
 				},
 				weight: 1.2,
@@ -81,5 +89,19 @@ const createCollectionIndex = () => {
 const postIndex = createPostIndex();
 const collectionIndex = createCollectionIndex();
 
-const json = JSON.stringify({ postIndex, posts, collectionIndex, collections });
+const unicorns = api.getUnicornsByLang("en").reduce(
+	(obj, unicorn) => {
+		obj[unicorn.id] = unicorn;
+		return obj;
+	},
+	{} as Record<string, UnicornInfo>,
+);
+
+const json = JSON.stringify({
+	postIndex,
+	posts,
+	collectionIndex,
+	collections,
+	unicorns,
+});
 fs.writeFileSync(path.resolve(process.cwd(), "./api/searchIndex.json"), json);

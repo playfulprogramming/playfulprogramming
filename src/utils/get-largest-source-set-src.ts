@@ -17,7 +17,9 @@
 const sizeStringRegex = / ([0-9.]+)([xw])$/;
 
 const parseSourceString = (source: string) => {
-	const [fullMatch, sizeStr, sizeType] = sizeStringRegex.exec(source);
+	const [fullMatch, sizeStr, sizeType] = sizeStringRegex.exec(
+		source,
+	) as string[];
 	const srcStr = source.replace(fullMatch, "");
 	return {
 		src: srcStr,

@@ -42,7 +42,7 @@ export const FilterSection = ({
 	// When cleared, the focus needs to be passed to the heading button
 	// to avoid resetting to <body> when the clear button is removed from the DOM.
 	// https://github.com/unicorn-utterances/unicorn-utterances/issues/742
-	const buttonRef = useRef<HTMLButtonElement>();
+	const buttonRef = useRef<HTMLButtonElement | null>(null);
 	const handleClear = () => {
 		onClear();
 

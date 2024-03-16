@@ -1,17 +1,10 @@
-import { Plugin } from "unified";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
-import { VFile } from "vfile";
-import { resolve, relative, dirname } from "path";
-import * as branch from "git-branch";
 import { rehypeTabs } from "./tabs/rehype-transform";
 import { rehypeTooltips } from "./tooltips/rehype-transform";
 import { rehypeHints } from "./hints/rehype-transform";
 import { rehypeAstroImageMd } from "./rehype-astro-image-md";
 import { rehypeUnicornElementMap } from "./rehype-unicorn-element-map";
-import { rehypeExcerpt } from "./rehype-excerpt";
-import { rehypeUnicornPopulatePost } from "./rehype-unicorn-populate-post";
-import { rehypeUnicornGetSuggestedPosts } from "./rehype-unicorn-get-suggested-posts";
 import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
 import { MarkdownConfig } from "./constants";
 import {
@@ -25,35 +18,25 @@ import { rehypeFileTree } from "./file-tree/rehype-file-tree";
 import { rehypeTwoslashTabindex } from "./twoslash-tabindex/rehype-transform";
 import { rehypeInContentAd } from "./in-content-ad/rehype-transform";
 import { rehypeNoEbook } from "./rehype-no-ebook";
+import { PluggableList } from "unified";
+import { dirname, relative, resolve } from "path";
+import { VFile } from "vfile";
 import { siteMetadata } from "../../constants/site-config";
+import * as branch from "git-branch";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type RehypePlugin = Plugin<any[]> | [Plugin<any[]>, any];
-
-export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
+export function createRehypePlugins(config: MarkdownConfig): PluggableList {
+	const noop = () => {};
 	return [
-		...(config.format === "html"
-			? [
-					rehypeUnicornPopulatePost,
-					rehypeUnicornGetSuggestedPosts,
-					[
-						rehypeExcerpt,
-						{
-							maxLength: 150,
-						},
-					] as RehypePlugin,
-			  ]
-			: []),
 		// This is required to handle unsafe HTML embedded into Markdown
 		[rehypeRaw, { passThrough: [`mdxjsEsm`] }],
 		// When generating an epub, any relative paths need to be made absolute
-		...(config.format === "epub"
-			? [
-					rehypeFixTwoSlashXHTML,
-					[rehypeMakeImagePathsAbsolute, { path: config.path }] as RehypePlugin,
-					rehypeMakeHrefPathsAbsolute,
-			  ]
-			: []),
+		config.format === "epub" ? rehypeFixTwoSlashXHTML : noop,
+		config.format === "epub"
+			? [rehypeMakeImagePathsAbsolute, { path: config.path }]
+			: noop,
+		config.format === "epub" ? rehypeMakeHrefPathsAbsolute : noop,
+		config.format === "epub" ? rehypeNoEbook : noop,
 		// Do not add the tabs before the slug. We rely on some of the heading
 		// logic in order to do some of the subheading logic
 		[
@@ -64,67 +47,64 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 				enableCustomId: true,
 			},
 		],
-		...(config.format === "html"
+		/**
+		 * Insert custom HTML generation code here
+		 */
+		config.format === "html" ? rehypeTabs : noop,
+		config.format === "html" ? rehypeHints : noop,
+		config.format === "html" ? rehypeTooltips : noop,
+		config.format === "html" ? rehypeAstroImageMd : noop,
+		config.format === "html"
 			? [
-					/**
-					 * Insert custom HTML generation code here
-					 */
-					rehypeTabs,
-					rehypeHints,
-					rehypeTooltips,
-					rehypeAstroImageMd,
-					[
-						rehypeUnicornIFrameClickToRun,
-						{
-							srcReplacements: [
-								(val: string, file: VFile) => {
-									const iFrameUrl = new URL(val);
-									if (!iFrameUrl.protocol.startsWith("uu-code:")) return val;
+					rehypeUnicornIFrameClickToRun,
+					{
+						srcReplacements: [
+							(val: string, file: VFile) => {
+								const iFrameUrl = new URL(val);
+								if (!iFrameUrl.protocol.startsWith("uu-code:")) return val;
 
-									const contentDir = dirname(file.path);
-									const fullPath = resolve(contentDir, iFrameUrl.pathname);
+								const contentDir = dirname(file.path);
+								const fullPath = resolve(contentDir, iFrameUrl.pathname);
 
-									const fsRelativePath = relative(process.cwd(), fullPath);
+								const fsRelativePath = relative(process.cwd(), fullPath);
 
-									// Windows paths need to be converted to URLs
-									let urlRelativePath = fsRelativePath.replace(/\\/g, "/");
+								// Windows paths need to be converted to URLs
+								let urlRelativePath = fsRelativePath.replace(/\\/g, "/");
 
-									if (urlRelativePath.startsWith("/")) {
-										urlRelativePath = urlRelativePath.slice(1);
-									}
+								if (urlRelativePath.startsWith("/")) {
+									urlRelativePath = urlRelativePath.slice(1);
+								}
 
-									const q = iFrameUrl.search;
-									const currentBranch =
-										process.env.VERCEL_GIT_COMMIT_REF ?? branch.sync();
-									const repoPath = siteMetadata.repoPath;
-									const provider = `stackblitz.com/github`;
-									return `
+								const q = iFrameUrl.search;
+								const currentBranch =
+									process.env.VERCEL_GIT_COMMIT_REF ?? branch.sync();
+								const repoPath = siteMetadata.repoPath;
+								const provider = `stackblitz.com/github`;
+								return `
 										https://${provider}/${repoPath}/tree/${currentBranch}/${urlRelativePath}${q}
 									`.trim();
-								},
-							],
-						},
-					] as RehypePlugin,
-					rehypeUnicornElementMap,
-					rehypeTwoslashTabindex,
-					rehypeFileTree,
+							},
+						],
+					},
 			  ]
-			: [rehypeNoEbook]),
-		...(config.format === "html"
+			: noop,
+		config.format === "html" ? rehypeUnicornElementMap : noop,
+		config.format === "html" ? rehypeTwoslashTabindex : noop,
+		config.format === "html" ? rehypeFileTree : noop,
+
+		config.format === "html" ? rehypeHeaderText : noop,
+		config.format === "html"
 			? [
-					rehypeHeaderText,
-					[
-						rehypeHeaderClass,
-						{
-							// the page starts at h3 (under {title} -> "Post content")
-							depth: 2,
-							// visually, headings should start at h2-h6
-							className: (depth: number) =>
-								`text-style-headline-${Math.min(depth + 1, 6)}`,
-						},
-					] as RehypePlugin,
-					rehypeInContentAd,
+					rehypeHeaderClass,
+					{
+						// the page starts at h3 (under {title} -> "Post content")
+						depth: 2,
+						// visually, headings should start at h2-h6
+						className: (depth: number) =>
+							`text-style-headline-${Math.min(depth + 1, 6)}`,
+					},
 			  ]
-			: []),
+			: noop,
+		config.format === "html" ? rehypeInContentAd : noop,
 	];
 }

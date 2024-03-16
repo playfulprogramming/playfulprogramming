@@ -1,17 +1,17 @@
 import { Element, Root } from "hast";
-import { isRelativePath } from "../url-paths";
+import { isURL } from "../url-paths";
 import { visit } from "unist-util-visit";
 import { join } from "path";
+import { Plugin } from "unified";
 
-export function rehypeMakeImagePathsAbsolute(options: { path: string }) {
+export const rehypeMakeImagePathsAbsolute: Plugin<[{ path: string }], Root> = (
+	options,
+) => {
 	return (tree: Root) => {
 		function imgVisitor(node: Element) {
 			if (node.tagName === "img") {
 				let src = node.properties!.src as string;
-				if (src.startsWith("http")) {
-					return;
-				}
-				if (isRelativePath(src)) {
+				if (!isURL(src)) {
 					src = join(options.path, src);
 					src = src.replace(/\\/g, "/");
 				}
@@ -22,24 +22,23 @@ export function rehypeMakeImagePathsAbsolute(options: { path: string }) {
 		visit(tree, "element", imgVisitor);
 		return tree;
 	};
-}
+};
 
-export function rehypeMakeHrefPathsAbsolute() {
-	return (tree: Root) => {
+export const rehypeMakeHrefPathsAbsolute: Plugin<[], Root> = () => {
+	return (tree) => {
 		function aVisitor(node: Element) {
 			if (node.tagName === "a") {
-				let href = node.properties!.href as string;
+				const href = node.properties!.href as string;
 				if (href.startsWith("#")) {
 					return;
 				}
-				if (isRelativePath(href)) {
-					href = "https://unicorn-utterances.com" + href;
-					href = href.replace(/\\/g, "/");
-				}
-				node.properties!.href = href;
+				node.properties!.href = new URL(
+					href,
+					"https://unicorn-utterances.com",
+				).toString();
 			}
 		}
 		visit(tree, "element", aVisitor);
 		return tree;
 	};
-}
+};

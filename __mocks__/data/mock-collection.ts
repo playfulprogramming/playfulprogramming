@@ -1,19 +1,10 @@
-import { MockUnicorn, MockUnicornTwo } from "./mock-unicorn";
-import { MockLicense } from "./mock-license";
-import { ExtendedCollectionInfo, ExtendedPostInfo } from "types/index";
-import { MockPost } from "./mock-post";
+import { MockUnicorn } from "./mock-unicorn";
+import { CollectionInfo } from "types/index";
 
-export const MockCollection: ExtendedCollectionInfo = {
+export const MockCollection: CollectionInfo = {
 	authors: [MockUnicorn.id],
-	authorsMeta: [MockUnicorn],
-	Content: () => null,
 	tags: [],
-	contentMeta: "",
-	licenseMeta: null,
-	publishedMeta: "October 10, 2010",
-	collectionSlug: null,
-	excerpt: "This would be an auto generated excerpt of the post in particular",
-	wordCount: 10000,
+	postCount: 3,
 	coverImgMeta: {
 		absoluteFSPath: "",
 		height: 0,
@@ -23,7 +14,6 @@ export const MockCollection: ExtendedCollectionInfo = {
 	},
 	locales: ["en"],
 	locale: "en",
-	posts: [MockPost],
 	slug: "this-collection-name-here",
 	title: "Collection title",
 	description: "This is a short description dunno why this would be this short",

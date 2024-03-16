@@ -20,7 +20,7 @@ import { toString } from "hast-util-to-string";
  */
 export const rehypeTooltips: Plugin<[], Root> = () => {
 	return (tree) => {
-		visit(tree, (node: Element, index, parent: Element) => {
+		visit(tree, "element", (node: Element, index, parent) => {
 			if (node.tagName !== "blockquote") return;
 
 			const firstParagraph = node.children.find((e) => e.type === "element");
@@ -42,11 +42,13 @@ export const rehypeTooltips: Plugin<[], Root> = () => {
 			// remove `firstText` from children nodes
 			firstParagraph.children.splice(0, 1);
 
-			parent.children[index] = Tooltip({
-				icon: firstText.tagName === "em" ? "warning" : "info",
-				title: toString(firstText as never).replace(/:$/, ""),
-				children: node.children,
-			});
+			if (parent?.children && index !== undefined) {
+				parent.children[index] = Tooltip({
+					icon: firstText.tagName === "em" ? "warning" : "info",
+					title: toString(firstText as never).replace(/:$/, ""),
+					children: node.children,
+				});
+			}
 		});
 	};
 };

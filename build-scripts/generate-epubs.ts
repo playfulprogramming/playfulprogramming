@@ -5,24 +5,25 @@ import remarkGfm from "remark-gfm";
 import remarkUnwrapImages from "remark-unwrap-images";
 import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
-import { collections, unicorns } from "../src/utils/data";
-import { getAllExtendedPosts } from "../src/utils/get-all-posts";
+import {
+	getCollectionsByLang,
+	getPostsByCollection,
+	getUnicornById,
+} from "../src/utils/api";
 import { resolve } from "path";
 import { EPub } from "@lesjoursfr/html-to-epub";
 import { unified } from "unified";
-import {
-	CollectionInfo,
-	ExtendedPostInfo,
-	RawCollectionInfo,
-} from "types/index";
+import { CollectionInfo, PostInfo } from "types/index";
 import { createRehypePlugins } from "utils/markdown";
+import { getPostContentMarkdown } from "utils/get-post-content";
+import { contentDirectory } from "utils/data";
 
 // https://github.com/shikijs/twoslash/issues/147
 const remarkTwoslash =
 	(remarkTwoslashDefault as never as { default: typeof remarkTwoslashDefault })
 		.default ?? remarkTwoslashDefault;
 
-async function generateEpubHTML(slug: string, content: string) {
+async function generateEpubHTML(post: PostInfo, content: string) {
 	const unifiedChain = unified()
 		.use(remarkParse, { fragment: true } as never)
 		.use([
@@ -39,7 +40,7 @@ async function generateEpubHTML(slug: string, content: string) {
 		.use(
 			createRehypePlugins({
 				format: "epub",
-				path: resolve(process.cwd(), `content/blog/${slug}/`),
+				path: resolve(contentDirectory, post.path),
 			}),
 		)
 		// Voids: [] is required for epub generation, and causes little/no harm for non-epub usage
@@ -53,13 +54,13 @@ async function generateEpubHTML(slug: string, content: string) {
 type EpubOptions = ConstructorParameters<typeof EPub>[0];
 
 async function generateCollectionEPub(
-	collection: RawCollectionInfo & Pick<CollectionInfo, "coverImgMeta">,
-	collectionPosts: ExtendedPostInfo[],
+	collection: CollectionInfo,
+	collectionPosts: PostInfo[],
 	fileLocation: string,
 ) {
-	const authors = collection.authors.map((id) => {
-		return unicorns.find((u) => u.id === id).name;
-	});
+	const authors = collection.authors
+		.map((id) => getUnicornById(id, collection.locale)?.name)
+		.filter((name): name is string => !!name);
 
 	const epub = new EPub(
 		{
@@ -114,7 +115,10 @@ async function generateCollectionEPub(
 			content: await Promise.all(
 				collectionPosts.map(async (post) => ({
 					title: post.title,
-					data: await generateEpubHTML(post.slug, post.contentMeta),
+					data: await generateEpubHTML(
+						post,
+						await getPostContentMarkdown(post),
+					),
 				})),
 			),
 		} as Partial<EpubOptions> as EpubOptions,
@@ -124,14 +128,11 @@ async function generateCollectionEPub(
 	await epub.render();
 }
 
-const posts = [...getAllExtendedPosts("en")];
-
-for (const collection of collections) {
-	const collectionPosts = posts
-		.filter((post) => post.collection === collection.slug)
-		.sort((a, b) => {
-			return a.order - b.order;
-		});
+for (const collection of getCollectionsByLang("en")) {
+	const collectionPosts = getPostsByCollection(
+		collection.slug,
+		collection.locale,
+	);
 
 	generateCollectionEPub(
 		collection,

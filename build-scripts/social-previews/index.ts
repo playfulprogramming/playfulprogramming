@@ -1,12 +1,12 @@
 import { chromium } from "playwright";
 import { promises as fsPromises } from "fs";
 import { resolve } from "path";
-import { getAllExtendedPosts } from "utils/get-all-posts";
-import { ExtendedPostInfo } from "types/index";
+import * as api from "utils/api";
 import { renderPostPreviewToString } from "./shared-post-preview-png";
 import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
 import banner from "./layouts/banner";
 import twitterPreview from "./layouts/twitter-preview";
+import { PostInfo } from "types/PostInfo";
 
 if (!process.env.CI) process.exit(0);
 
@@ -68,11 +68,7 @@ const context = await browser.newContext({
 });
 const page = await context.newPage();
 
-async function renderPostImage(
-	layout: Layout,
-	post: ExtendedPostInfo,
-	path: string,
-) {
+async function renderPostImage(layout: Layout, post: PostInfo, path: string) {
 	const label = `${post.slug} (${layout.name})`;
 	console.time(label);
 
@@ -92,7 +88,7 @@ await fsPromises.mkdir(resolve(outDir, "./generated"), { recursive: true });
  * This is done synchronously, in order to prevent more than a single instance
  * of the browser from running at the same time.
  */
-for (const post of getAllExtendedPosts("en")) {
+for (const post of api.getPostsByLang("en")) {
 	if (post.socialImg) {
 		await renderPostImage(
 			twitterPreview,
@@ -102,7 +98,7 @@ for (const post of getAllExtendedPosts("en")) {
 	}
 }
 
-for (const post of getAllExtendedPosts("en")) {
+for (const post of api.getPostsByLang("en")) {
 	if (post.bannerImg) {
 		await renderPostImage(banner, post, resolve(outDir, `.${post.bannerImg}`));
 	}

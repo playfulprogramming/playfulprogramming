@@ -3,6 +3,8 @@ import { hasProperty } from "hast-util-has-property";
 import { toString } from "hast-util-to-string";
 import { Root, Parent } from "hast";
 import { visit } from "unist-util-visit";
+import { AstroVFile, isAstroVFile } from "./types";
+import { Plugin } from "unified";
 
 interface RehypeHeaderClassOpts {
 	depth: number;
@@ -13,20 +15,26 @@ interface RehypeHeaderClassOpts {
  * Plugin to act as "rehype-behead", but add a className to display headings
  * at the intended visual level.
  */
-export const rehypeHeaderClass = (opts: RehypeHeaderClassOpts) => {
-	return (tree: Root, file) => {
+export const rehypeHeaderClass: Plugin<[RehypeHeaderClassOpts], Root> = (
+	opts,
+) => {
+	return (tree, file) => {
 		// hacky (temporary) fix to exclude the site/about-us*.mdx files, since
 		// those start at a different heading level
-		if (file.data.astro.frontmatter.slug === "site") return;
+		if (isAstroVFile(file) && file.data.astro.frontmatter.slug === "site")
+			return;
 
 		// Find the minimum heading rank in the file
 		// (e.g. if it starts at h2, minDepth = 2)
-		let minDepth: number;
+		let minDepth: number | undefined;
 		visit(tree, "element", (node: Parent["children"][number]) => {
 			const nodeHeadingRank = headingRank(node);
-			if (!minDepth || nodeHeadingRank < minDepth) minDepth = nodeHeadingRank;
+			if (
+				!minDepth ||
+				(nodeHeadingRank !== undefined && nodeHeadingRank < minDepth)
+			)
+				minDepth = nodeHeadingRank;
 		});
-		minDepth ||= 1;
 
 		visit(tree, "element", (node: Parent["children"][number]) => {
 			const nodeHeadingRank = headingRank(node);
@@ -42,7 +50,7 @@ export const rehypeHeaderClass = (opts: RehypeHeaderClassOpts) => {
 				// - when (minDepth = 5, depth = 2) h5 + 2 - 4 -> h3
 				// - when (minDepth = 1, depth = 2) h1 + 2 + 0 -> h3
 				const tagHeadingRank = Math.min(
-					nodeHeadingRank + opts.depth + (1 - minDepth),
+					nodeHeadingRank + opts.depth + (1 - (minDepth ?? 1)),
 					6,
 				);
 				const className = opts.className(nodeHeadingRank);

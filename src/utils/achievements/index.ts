@@ -1,7 +1,7 @@
 import { getPostsByUnicorn } from "src/utils/api";
 import { UnicornInfo } from "types/UnicornInfo";
 import { contributorYears, fetchGitHubData } from "./github";
-import { collections } from "utils/data";
+import * as api from "utils/api";
 
 export interface Achievement {
 	name: string;
@@ -52,10 +52,7 @@ export async function* getAchievements(
 		};
 	}
 
-	if (
-		collections.filter((collection) => collection.authors.includes(unicorn.id))
-			.length > 0
-	) {
+	if (api.getCollectionsByUnicorn(unicorn.id, "en").length > 0) {
 		yield {
 			name: "Collect 'em all",
 			body: "Author a collection of posts!",
@@ -83,44 +80,44 @@ export async function* getAchievements(
 		};
 	}
 
-	if (data?.issueCount >= 25) {
+	if (data && data.issueCount >= 25) {
 		yield {
 			name: "Insect infestation!",
 			body: `Open 25 issues in our GitHub repo`,
 		};
-	} else if (data?.issueCount >= 10) {
+	} else if (data && data.issueCount >= 10) {
 		yield {
 			name: "Creepy crawlies!",
 			body: "Open 10 issues in our GitHub repo",
 		};
-	} else if (data?.issueCount > 0) {
+	} else if (data && data.issueCount > 0) {
 		yield {
 			name: "Bug!",
 			body: "Open an issue in our GitHub repo",
 		};
 	}
 
-	if (data?.pullRequestCount >= 30) {
+	if (data && data.pullRequestCount >= 30) {
 		yield {
 			name: "Rabid Requester",
 			body: `Open 30 pull requests in our GitHub repo`,
 		};
-	} else if (data?.pullRequestCount >= 10) {
+	} else if (data && data.pullRequestCount >= 10) {
 		yield {
 			name: "Request Rampage",
 			body: "Open 10 pull requests in our GitHub repo",
 		};
-	} else if (data?.pullRequestCount >= 5) {
+	} else if (data && data.pullRequestCount >= 5) {
 		yield {
 			name: "Request Robot",
 			body: "Open 5 pull requests in our GitHub repo",
 		};
-	} else if (data?.pullRequestCount >= 3) {
+	} else if (data && data.pullRequestCount >= 3) {
 		yield {
 			name: "Request Racer",
 			body: "Open 3 pull requests in our GitHub repo",
 		};
-	} else if (data?.pullRequestCount > 0) {
+	} else if (data && data.pullRequestCount > 0) {
 		yield {
 			name: "Request Ranger",
 			body: "Open a pull request in our GitHub repo",
@@ -145,7 +142,7 @@ export async function* getAchievements(
 	}
 
 	for (const year of contributorYears) {
-		if (data?.commitsInYear?.includes(year)) {
+		if (data && data.commitsInYear?.includes(year)) {
 			yield {
 				name: `${year} Contributor`,
 				body: `Make a commit to the site in ${year}!`,

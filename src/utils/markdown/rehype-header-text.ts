@@ -2,14 +2,19 @@ import { headingRank } from "hast-util-heading-rank";
 import { hasProperty } from "hast-util-has-property";
 import { toString } from "hast-util-to-string";
 import { Root, Parent } from "hast";
+import { PostHeadingInfo } from "src/types/index";
+import { isAstroVFile } from "./types";
+import { Plugin } from "unified";
 import { visit, SKIP } from "unist-util-visit";
 
 /**
  * Plugin to add `data-header-text`s to headings.
  */
-export const rehypeHeaderText = () => {
-	return (tree: Root, file) => {
-		const headingsWithId = (file.data.astro.frontmatter.headingsWithId = []);
+export const rehypeHeaderText: Plugin<[], Root> = () => {
+	return (tree, file) => {
+		const headingsWithId: PostHeadingInfo[] = isAstroVFile(file)
+			? (file.data.astro.frontmatter.headingsWithId = [])
+			: [];
 
 		visit(tree, "element", (node: Parent["children"][number]) => {
 			// Don't descend into tab containers or collapsible <details> elements

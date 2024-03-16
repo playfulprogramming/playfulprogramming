@@ -40,15 +40,18 @@ import style from "./heading-link.module.scss";
 				? target
 				: target.querySelector("[data-heading-anchor]");
 
+			if (!headingAnchorEl) return;
+
 			const href = headingAnchorEl.getAttribute("data-heading-href");
+			if (!href) return;
 			navigator.clipboard.writeText(href);
 
 			const copyEl = headingAnchorEl.querySelector(
 				"[data-heading-link='copy']",
-			);
+			)!;
 			const copiedEl = headingAnchorEl.querySelector(
 				"[data-heading-link='copied']",
-			);
+			)!;
 
 			headingAnchorEl.setAttribute("data-heading-anchor", "copied");
 			copyEl.setAttribute("hidden", "true");
@@ -65,8 +68,8 @@ import style from "./heading-link.module.scss";
 
 		document
 			.querySelector(".post-body")
-			.querySelectorAll<HTMLElement>("h1, h2, h3, h4, h5, h6")
-			.forEach((headingEl) => {
+			?.querySelectorAll<HTMLElement>("h1, h2, h3, h4, h5, h6")
+			?.forEach((headingEl) => {
 				// ensure that each heading has an ID, and doesn't have a "data-no-heading-link" attr
 				if (!headingEl.matches("[id]:not([data-no-heading-link])")) return;
 
@@ -78,7 +81,7 @@ import style from "./heading-link.module.scss";
 				const templateClone = template.content.cloneNode(true) as HTMLElement;
 
 				// set href/label attributes on the template
-				const anchorEl = templateClone.querySelector("button");
+				const anchorEl = templateClone.querySelector("button")!;
 				anchorEl.addEventListener("click", handleClick);
 				const href = new URL(`#${headingEl.id}`, location.href);
 				anchorEl.setAttribute("data-heading-href", href.toString());

@@ -77,7 +77,7 @@ export const SearchTopbar = ({
 					type="submit"
 					aria-label="Search"
 					dangerouslySetInnerHTML={{ __html: forward }}
-					children={null}
+					children={[]}
 				/>
 			</form>
 			<div className={style.bigScreenContainer} />

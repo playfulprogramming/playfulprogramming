@@ -20,12 +20,13 @@
  */
 import { toString } from "hast-util-to-string";
 import type { Child as HChild } from "hastscript";
-import { Element } from "hast";
+import { Data, Element, Parent, Node } from "hast";
 import { visit } from "unist-util-visit";
 import replaceAllBetween from "unist-util-replace-all-between";
-import { Node } from "unist";
 import JSON5 from "json5";
 import { FileList, Directory, File } from "./file-list";
+import { Root } from "postcss";
+import { Plugin } from "unified";
 
 interface DirectoryMetadata {
 	open?: boolean;
@@ -33,20 +34,25 @@ interface DirectoryMetadata {
 
 interface FileMetadata {}
 
-export const rehypeFileTree = () => {
+export const rehypeFileTree: Plugin<[], Root> = () => {
 	return (tree) => {
 		function replaceFiletreeNodes(nodes: Node[]) {
 			const items: Array<Directory | File> = [];
 
 			const isNodeElement = (node: unknown): node is Element =>
-				typeof node === "object" && node["type"] === "element";
+				(typeof node === "object" &&
+					node &&
+					"type" in node &&
+					node["type"] === "element") ??
+				false;
 
 			function traverseUl(listNode: Element, listItems: typeof items) {
 				if (listNode.children.length === 0) return;
 
 				for (const listItem of listNode.children) {
 					// Filter out `\n` text nodes
-					if (!(isNodeElement(listItem) && listItem.tagName === "li")) continue;
+					if (!(listItem.type === "element" && listItem.tagName === "li"))
+						continue;
 
 					// Strip nodes that only contain newlines
 					listItem.children = listItem.children.filter(
@@ -165,13 +171,13 @@ export const rehypeFileTree = () => {
 		}
 
 		replaceAllBetween(
-			tree,
+			tree as never as Parent,
 			{ type: "raw", value: "<!-- filetree:start -->" } as never,
 			{ type: "raw", value: "<!-- filetree:end -->" } as never,
 			replaceFiletreeNodes,
 		);
 		replaceAllBetween(
-			tree,
+			tree as never as Parent,
 			{ type: "comment", value: " filetree:start " } as never,
 			{ type: "comment", value: " filetree:end " } as never,
 			replaceFiletreeNodes,

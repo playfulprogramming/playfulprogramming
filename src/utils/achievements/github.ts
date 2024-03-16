@@ -1,5 +1,5 @@
 import { Octokit } from "octokit";
-import { unicorns } from "src/utils/data";
+import { getUnicornsByLang } from "utils/api";
 
 const octokit =
 	typeof process.env.GITHUB_TOKEN !== "undefined"
@@ -21,7 +21,7 @@ export const contributorYears: number[] = [];
 for (let year = 2019; year <= new Date().getFullYear(); year++)
 	contributorYears.push(year);
 
-const userLogins = unicorns
+const userLogins = getUnicornsByLang("en")
 	.filter((unicorn) => !!unicorn.socials.github)
 	.map((unicorn) => unicorn.socials.github);
 
@@ -52,7 +52,7 @@ const userResult: Record<string, { id: string }> = (await octokit
 const userIds: Record<string, string> = {};
 if (userResult) {
 	userLogins.forEach((login, i) => {
-		userIds[login] = userResult[`user${i}`]?.id;
+		if (login) userIds[login] = userResult[`user${i}`]?.id;
 	});
 }
 

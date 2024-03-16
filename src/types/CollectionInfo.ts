@@ -1,18 +1,17 @@
-import { MarkdownInstance } from "astro";
-import { Languages, PostInfo } from "types/index";
-import { UnicornInfo } from "./UnicornInfo";
+import { Languages } from "types/index";
 
 export interface RawCollectionInfo {
 	title: string;
 	description: string;
-	authors: string[];
+	authors?: string[];
 	coverImg: string;
 	socialImg?: string;
 	type?: "book";
+	pageLayout?: "none";
 	customChaptersText?: string;
-	tags: string[];
+	tags?: string[];
 	published: string;
-	buttons: Array<{ text: string; url: string }>;
+	buttons?: Array<{ text: string; url: string }>;
 	chapterList?: Array<{
 		title: string;
 		description: string;
@@ -22,9 +21,11 @@ export interface RawCollectionInfo {
 
 export interface CollectionInfo extends RawCollectionInfo {
 	slug: string;
+	authors: string[];
+	tags: string[];
 	locales: Languages[];
 	locale: Languages;
-	authorsMeta: UnicornInfo[];
+	postCount: number;
 	coverImgMeta: {
 		// Relative to "public/unicorns"
 		relativePath: string;
@@ -35,16 +36,4 @@ export interface CollectionInfo extends RawCollectionInfo {
 		height: number;
 		width: number;
 	};
-	posts: PostInfo[];
-}
-
-export interface ExtendedCollectionInfo extends CollectionInfo {
-	authorsMeta: UnicornInfo[];
-	Content: MarkdownInstance<never>["Content"];
-	contentMeta: string;
-	licenseMeta: null;
-	publishedMeta: string;
-	collectionSlug: null;
-	excerpt: string;
-	wordCount: number;
 }

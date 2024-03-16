@@ -4,5 +4,5 @@ package-lock.json
 *.md
 *.min.js
 
-content/blog/**/*
-public/content/blog/**/*
+content/**/*
+public/content/**/*

@@ -1,5 +1,5 @@
 ---
-import { ExtendedCollectionInfo, ExtendedPostInfo } from "../../types";
+import { CollectionInfo, UnicornInfo } from "../../types";
 import { MarkdownInstance } from "astro";
 import { Picture } from "@astrojs/image/components";
 import { Picture as UUPicture } from "components/image/picture";
@@ -13,24 +13,17 @@ import "../../styles/shiki.scss";
 import "../../styles/convertkit.scss";
 
 import styles from "./collection-page.module.scss";
-import { collections } from "../../utils/data";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 
 const unicornProfilePicMap = await getUnicornProfilePicMap();
 
-const posts = (
-	await Astro.glob<ExtendedPostInfo>("../../../content/blog/**/*.md")
-).map((post) => post.frontmatter);
-
 interface CollectionProps {
-	collection: ExtendedCollectionInfo;
+	collection: CollectionInfo;
+	authors: UnicornInfo[];
 	Content: MarkdownInstance<never>["Content"];
-	coverImgPath: string;
 }
 
-const { Content, collection, coverImgPath } = Astro.props as CollectionProps;
-
-const collectionMeta = collections.find((col) => col.slug === collection.slug)!;
+const { Content, collection, authors } = Astro.props as CollectionProps;
 
 const coverImgAspectRatio =
 	collection.coverImgMeta.width / collection.coverImgMeta.height;
@@ -44,7 +37,7 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 		<div class={styles.coverImage}>
 			<Picture
 				alt=""
-				src={coverImgPath}
+				src={collection.coverImgMeta.relativeServerPath}
 				sizes={`${coverImgWidth}px`}
 				widths={[coverImgWidth]}
 				formats={["avif", "webp", "png"]}
@@ -66,7 +59,7 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 			</div>
 			<div class={styles.buttonContainer}>
 				{
-					collection.buttons.map((button, i) => (
+					collection.buttons?.map((button, i) => (
 						<LargeButton
 							tag="a"
 							href={button.url}
@@ -83,16 +76,7 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 				aria-label="Collection authors"
 			>
 				{
-					collectionMeta.authorsMeta.map((author) => {
-						const authorPosts = posts.filter(
-							(post) =>
-								post.authors.includes(author.id) && post.locale === "en",
-						);
-
-						const wordCount = authorPosts.reduce(
-							(acc, post) => acc + (post as ExtendedPostInfo).wordCount ?? 0,
-							0,
-						);
+					authors.map((author) => {
 						const href = `/unicorns/${author.id}`;
 						return (
 							<li
@@ -104,9 +88,9 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 									style={{ borderColor: author.color }}
 								>
 									<UUPicture
-										picture={unicornProfilePicMap.find(
-											(u) => u.id === author.id,
-										)}
+										picture={
+											unicornProfilePicMap.find((u) => u.id === author.id)!
+										}
 										alt=""
 									/>
 								</div>
@@ -121,14 +105,18 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 											{translate(
 												Astro,
 												"title.n_articles",
-												authorPosts.length.toString(),
+												author.totalPostCount.toLocaleString("en"),
 											)}
 										</span>
 										<span class={styles.authorMetaSeperatorDot}>•</span>
 										<span
 											class={`text-style-body-medium-bold ${styles.authorWordCount}`}
 										>
-											{translate(Astro, "title.n_words", wordCount.toString())}
+											{translate(
+												Astro,
+												"title.n_words",
+												author.totalWordCount.toLocaleString("en"),
+											)}
 										</span>
 									</p>
 								</div>

@@ -1,8 +1,8 @@
-import { ExtendedPostInfo } from "types/index";
+import { PostInfo } from "types/index";
 import { FunctionComponent } from "preact";
 
 export type ComponentProps = {
-	post: ExtendedPostInfo;
+	post: PostInfo;
 	postHtml: string;
 	height: number;
 	width: number;

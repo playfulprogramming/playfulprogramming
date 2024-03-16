@@ -4,7 +4,7 @@ import { visit } from "unist-util-visit";
 
 export const rehypeTwoslashTabindex: Plugin<[], Root> = () => {
 	return async (tree, _) => {
-		visit(tree, (node: Element) => {
+		visit(tree, "element", (node: Element) => {
 			if (
 				node.tagName === "div" &&
 				node.properties.className instanceof Array &&

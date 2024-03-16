@@ -1,7 +1,6 @@
-import { RolesEnum } from "./RolesInfo";
+import { Languages } from ".";
 
 export interface RawUnicornInfo {
-	id: string;
 	name: string;
 	firstName: string;
 	lastName: string;
@@ -21,13 +20,17 @@ export interface RawUnicornInfo {
 	};
 	pronouns?: string;
 	profileImg: string;
-	color: string;
-	roles: Array<RolesEnum["id"]>;
-	achievements: string[];
+	color?: string;
+	roles?: Array<string>;
+	achievements?: string[];
 }
 
-export interface UnicornInfo extends RawUnicornInfo {
-	rolesMeta: RolesEnum[];
+export interface UnicornInfo extends Required<RawUnicornInfo> {
+	id: string;
+	locale: Languages;
+	locales: Languages[];
+	totalPostCount: number;
+	totalWordCount: number;
 	profileImgMeta: {
 		// Relative to "public/unicorns"
 		relativePath: string;
