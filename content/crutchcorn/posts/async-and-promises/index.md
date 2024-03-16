@@ -12,7 +12,7 @@ When using JavaScript, you'll likely to've run into a function like `fetch` that
 
 ```javascript
 const res = fetch("example.com/something");
-   // ^? Promise<"resolving">
+   // ^? Promise<"pending">
 ```
 
 If you try to rely on the value returned from `fetch` without anything else; you'll likely run into something you won't expect:
@@ -258,7 +258,119 @@ sleep(1)
 
 That's right! Now we can chain these promises and avoid the headaches that callbacks can cause.
 
+## Async Functions and the Await Keyword
+
+Now that we understand promises, let's explore two nice addons to promises that was made in 2017:
+
+- Async functions 
+- The `await` keyword
+
+Using these, your ability to use promises is made even easier.
+
+Let's start with the async function:
+
 ## Async Functions
 
- 
+The most simple usage of an async function is by wrapping any normal function in `async`:
 
+```javascript
+async function returnNumber() {
+	return 123;
+}
+
+const promise = returnNumber();
+   // ^? Promise<"pending">
+```
+
+Here, the behavior of `returnNumber` hasn't changed with one minor exception:
+
+**Any value returned from an async function is automatically marked as a promise**.
+
+This means that you can now add `.then` to our `returnNumber` like so:
+
+```javascript
+async function returnNumber() {
+	return 123;
+}
+
+returnNumber()
+  .then(num => console.log(num));
+```
+
+While the ability to return a promise quickly and easily is nice, it isn't the main superpower of `async` functions.
+
+## `await` keyword
+
+The main utility of the `async` function is its ability to use an `await` on an existing promise. Let's go back to our `sleep` function and demonstrate its use within an `async` function:
+
+```javascript
+function sleep(seconds) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, seconds * 1000);    
+  })
+}
+
+async function main() {
+  await sleep(1);
+  console.log("One second has passed");
+  await sleep(1);
+  console.log("Two seconds have passed");
+}
+```
+
+This is functionally equivalent to:
+
+```javascript
+function main() {
+  return sleep(1)
+  	.then(() => {
+      console.log("One second has passed");
+      return sleep(1);    
+	  })
+  	.then(() => {
+	    console.log("Two seconds have passed");  
+	  })
+}
+```
+
+But with a much more readable syntax.
+
+## Errors with `await`
+
+It's important to note that you're only able to use `await` inside of a function marked as `async`:
+
+```javascript
+// ✅ Good
+async function fn() {
+	await sleep(1);
+}
+
+// ✅ Good
+const fn = async () => {
+	await sleep(1);
+}
+
+// ❌ Bad
+const fn = () => {
+	await sleep(1);
+}
+
+// ❌ Bad
+function fn() {
+	await sleep(1);
+}
+```
+
+If you try to use `await` inside of a non-async function, you'll get the error:
+
+```
+Uncaught SyntaxError: await is only valid in async functions and the top level bodies of modules
+```
+
+To fix this, wrap your functions that use `await` in an `async` keyword.
+
+## Mix and match `async` and `new Promise`
+
+As you may have caught onto; you're able to implicitly mix and match `async` functions, the `await` 
