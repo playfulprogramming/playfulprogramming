@@ -18,7 +18,7 @@ const createPostIndex = () => {
 				name: "authorName",
 				getFn: (post) => {
 					return post.authors
-						.map((id) => api.getUnicornById(id, post.locale))
+						.map((id) => api.getUnicornById(id, post.locale)!.name)
 						.join(", ");
 				},
 				weight: 1.8,
@@ -33,6 +33,7 @@ const createPostIndex = () => {
 					return post.authors
 						.map((id) => api.getUnicornById(id, post.locale))
 						.flatMap((author) => Object.values(author!.socials))
+						.filter((handle) => handle)
 						.join(", ");
 				},
 				weight: 1.2,
@@ -71,6 +72,7 @@ const createCollectionIndex = () => {
 					return post.authors
 						.map((id) => api.getUnicornById(id, post.locale))
 						.flatMap((author) => Object.values(author!.socials))
+						.filter((handle) => handle)
 						.join(", ");
 				},
 				weight: 1.2,
