@@ -92,7 +92,7 @@ When the main thread is blocked, it means a few things for your users:
 
 We can see this behavior when the main thread is blocked on [the Unicorn Utterances homepage](https://unicorn-utterances.com):
 
-<video src="./blocked_main_thread.mp4" title=""></video>
+<video src="./blocked_main_thread.mp4" title="A user trying to interact with the UU homepage, leading to none of the mouse interactions working out"></video>
 
 >  So how can you accidentally block the main thread?
 
@@ -111,23 +111,9 @@ logEachItem(items)
 
 While adding these numbers might not block the main thread, any I/O operation is fairly expensive comparatively; which leads to this usage blocking the main thread.
 
+This isn't inherently unique to I/O operations, however; you can block the main thread with any sufficiently expensive syncronous code.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## Async Operations
 
 Now assume we have the following implementation of `sleep`, which forces our codebase to wait a certain number of seconds:
 
@@ -138,4 +124,68 @@ function sleep(seconds) {
   }, seconds * 1000);
 }
 ```
+
+Were this `setTimout` function syncronous, it would prevent the user from interacting with your homepage for however long you asked to wait.
+
+But instead, if we run `sleep` in our code, you'll notice that other code is able to execute before the `setTimeout` finished:
+
+```javascript
+sleep(1000)
+console.log("I am running before the setTimeout is done");
+```
+
+So then how can we tell our code that `sleep` is done and it should execute the next line of code?
+
+There's two ways to do this:
+
+- Callbacks
+- Promises
+
+## Callbacks
+
+If we piggy-back off of [the idea that you can pass a function to another function](/posts/javascript-functions-are-values), we can make it so that you pass a function that's called when the `setTimeout` is done executing:
+
+```javascript
+function sleep(callback, seconds) {
+  setTimeout(() => {
+    callback();
+  }, seconds * 1000);
+}
+
+sleep(() => {
+  console.log("The sleep is finished");
+}, 1)
+```
+
+This is how older JavaScript APIs functioned due to its intuitive nature, but comes with some flaws; Namely when you want to compose multiple `sleep`s one-by-one:
+
+````javascript
+sleep(() => {
+    sleep(() => {
+        sleep(() => {
+            sleep(() => {
+                sleep(() => {
+                    sleep(() => {
+                        sleep(() => {
+                            sleep(() => {
+                                sleep(() => {
+                                    sleep(() => {
+                                        console.log("10 seconds have passed")
+                                    }, 1)
+                                }, 1)
+                            }, 1)
+                        }, 1)
+                    }, 1)
+                }, 1)
+            }, 1)
+        }, 1)
+    }, 1)
+}, 1)
+````
+
+This is the biggest problem with callbacks; it leads to multiple chained items leading to a nested structure colloquially called a "Christmas Tree".
+
+To solve this, we can reach for promises to handle the async nature of `sleep`.
+
+## Async Promises
 
