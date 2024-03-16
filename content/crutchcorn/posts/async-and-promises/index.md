@@ -1,8 +1,8 @@
 ---
 {
-	title: "Explaining JavaScript Promises and Async Functions",
+	title: "Explaining Promises, Async, and Await in JavaScript",
 	description: "",
-	published: '2024-03-16T13:45:00.284Z',
+	published: '2024-03-15T13:45:00.284Z',
 	tags: ['javascript', 'webdev'],
 	license: 'cc-by-nc-sa-4'
 }
@@ -405,8 +405,49 @@ function fetchItems() {
   	.then((res) => res.json())
 }
 
-async function main() {
-  await fetchItems();
+async function loadList() {
+  // Default to an empty array if there is an error;
+  const list = await fetchItems()
+  	.catch(err => {
+      console.warn(err);
+      // This resolves as a fulfilled promise now
+      return [];
+    });
+
+  // Wait a second since `example.com` is too fast
+  // And our users are suspicious without a loading spinner
+ 	await new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, 1000)
+  });
+  
+  return list;
 }
+
+let loading = true;
+loadList.then((list) => {
+  loading = false;
+  console.log("The list is", list)
+})
+.catch((err) => {
+    loading = false;
+})
 ```
 
+# Conclusion
+
+That's all for today! There's so much more to learn about promises that we'll explore in the future. This will include:
+
+- Methods of concurrent promise running: 
+  - `Promise.all`
+  - `Promise.allSettled`
+  - `Promise.any`
+  - `Promise.race`
+- Async function generators:
+  - `for await (const item of list)`
+  - `async function*`
+
+And more!
+
+In the meantime if this article caught your attention, consider [joining our Discord](https://discord.gg/FMcvc6T) to ask more questions and hang out with like-minded engineers ready to help with any engineering problems you might have.
