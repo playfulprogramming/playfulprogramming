@@ -337,7 +337,28 @@ function main() {
 
 But with a much more readable syntax.
 
-## Errors with `await`
+### Error Handling with `await`
+
+>  Manually handling promises allows us to use the `.catch` handle to catch rejected promises, but how do we do this with `await`?
+
+Well, we can use the classic `try/catch` to handle rejected errors in `await` usage:
+
+```javascript
+async function main() {
+  try {
+		await Promise.reject("There was an error");
+  } catch (e) {
+    console.error(e);
+  }
+}
+```
+
+Without this, the rejected promise will bubble up past `main` and into whatever was used to call `main`; which can cause a ton of problems on its own.
+
+> **Note:**
+> Remember to handle errors in `async` functions like you would elsewhere. Resilient code is good code!
+
+## `await` usage mistakes
 
 It's important to note that you're only able to use `await` inside of a function marked as `async`:
 
@@ -373,4 +394,19 @@ To fix this, wrap your functions that use `await` in an `async` keyword.
 
 ## Mix and match `async` and `new Promise`
 
-As you may have caught onto; you're able to implicitly mix and match `async` functions, the `await` 
+As you may have caught onto; you're able to implicitly mix and match `async` functions, the `await` keyword, `new Promise` construction, and `.then`.
+
+To showcase this, let's create a code sample that does just that:
+
+```javascript
+function fetchItems() {
+  return fetch("https://example.com/items")
+  	.then(res => res.ok ? Promise.resolve(res) : Promise.reject(res))
+  	.then((res) => res.json())
+}
+
+async function main() {
+  await fetchItems();
+}
+```
+
