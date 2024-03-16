@@ -38,7 +38,7 @@ const json = res.json();
 
 That you'll see the JSON returned from this endpoint.
 
-Why is this? What is `.then` or `await` doing? Are they interchangable?
+Why is this? What is `.then` or `await` doing? Are they interchangeable?
 
 Let's dive in and explain more.
 
@@ -111,7 +111,7 @@ logEachItem(items)
 
 While adding these numbers might not block the main thread, any I/O operation is fairly expensive comparatively; which leads to this usage blocking the main thread.
 
-This isn't inherently unique to I/O operations, however; you can block the main thread with any sufficiently expensive syncronous code.
+This isn't inherently unique to I/O operations, however; you can block the main thread with any sufficiently expensive synchronous code.
 
 ## Async Operations
 
@@ -125,7 +125,7 @@ function sleep(seconds) {
 }
 ```
 
-Were this `setTimout` function syncronous, it would prevent the user from interacting with your homepage for however long you asked to wait.
+Were this `setTimeout` function synchronous, it would prevent the user from interacting with your homepage for however long you asked to wait.
 
 But instead, if we run `sleep` in our code, you'll notice that other code is able to execute before the `setTimeout` finished:
 
@@ -136,7 +136,7 @@ console.log("I am running before the setTimeout is done");
 
 So then how can we tell our code that `sleep` is done and it should execute the next line of code?
 
-There's two ways to do this:
+There're two ways to do this:
 
 - Callbacks
 - Promises
@@ -260,7 +260,7 @@ That's right! Now we can chain these promises and avoid the headaches that callb
 
 ## Async Functions and the Await Keyword
 
-Now that we understand promises, let's explore two nice addons to promises that was made in 2017:
+Now that we understand promises, let's explore two nice addons to promises that were made in 2017:
 
 - Async functions 
 - The `await` keyword
