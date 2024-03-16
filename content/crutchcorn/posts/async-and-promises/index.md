@@ -189,3 +189,76 @@ To solve this, we can reach for promises to handle the async nature of `sleep`.
 
 ## Async Promises
 
+Luckily for us, JavaScript introduced a primitive to handle async code in 2015 called a "Promise".
+
+You can create a promise like so:
+
+```javascript
+const promise = new Promise((resolve, reject) => {
+	resolve();
+  // or
+  reject();
+})
+
+// Alternatively:
+
+const fulfilledPromise = Promise.resolve()
+
+const rejectedPromise = Promise.reject();
+```
+
+A promise can have one of three potential states:
+
+- Pending - The promise has not yet "settled" to being "fulfilled" or "rejected"
+- Fulfilled - The promise has successfully resolved a value
+- Rejected - The promise has thrown an error which rejected the promise
+
+A promise-based `sleep` function might look something like this:
+
+```javascript
+function sleep(seconds) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, seconds * 1000);    
+  })
+}
+
+sleep(1)
+  .then(resolvedValue => {
+    console.log("The sleep is finished");
+	})
+	.catch(rejectedError => {
+  	console.error("The sleep had an error")
+	})
+```
+
+Here, we're using `.then` and `.catch` to handle the success and failure states from the promise. We can even gather the value resolved inside of the `.then` and the rejected value inside of `.catch`.
+
+`.then` is also able to chain together to handle a promise returned from a previous `.then` state:
+
+```javascript
+sleep(1)
+	.then(() => sleep(1))
+	.then(() => sleep(1))
+	.then(() => sleep(1))
+	.then(() => sleep(1))
+	.then(() => sleep(1))
+	.then(() => sleep(1))
+	.then(() => sleep(1))
+	.then(() => sleep(1))
+	.then(() => sleep(1))
+  .then(() => {
+    console.log("The sleep is finished");
+	})
+
+```
+
+> Wow! There's no more Christmas Tree effect!
+
+That's right! Now we can chain these promises and avoid the headaches that callbacks can cause.
+
+## Async Functions
+
+ 
+
