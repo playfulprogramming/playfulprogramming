@@ -1,7 +1,7 @@
 ---
 {
 	title: "Explaining Promises, Async, and Await in JavaScript",
-	description: "",
+	description: "Modern JavaScript is built on promises and callbacks. Let's learn what promises are and how we can make their usage easier using async functions.",
 	published: '2024-03-15T13:45:00.284Z',
 	tags: ['javascript', 'webdev'],
 	license: 'cc-by-nc-sa-4'
