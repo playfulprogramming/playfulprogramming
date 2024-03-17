@@ -27,10 +27,6 @@
 }
 
 .tabs {
-	// This prevents the browser from choosing a scroll anchor within
-	// a tab container - which can cause page jumps when the selected
-	// tab is changed
-	overflow-anchor: none;
 	margin: var(--site-spacing) 0;
 }
 
@@ -76,6 +72,11 @@
 }
 
 .tabs__tab-panel {
+	// This prevents the browser from choosing a scroll anchor within
+	// a tab container - which can cause page jumps when the selected
+	// tab is changed
+	overflow-anchor: none;
+
 	padding: var(--tabbed-wrapper_padding);
 	border-radius: 0 var(--tabbed-wrapper_corner-radius_outer)
 		var(--tabbed-wrapper_corner-radius_outer)
