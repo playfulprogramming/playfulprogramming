@@ -1,45 +1,53 @@
 ---
 import SEO from "src/components/seo/seo.astro";
 import Document from "src/layouts/document.astro";
-import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { MarkdownInstance } from "astro";
-import { getPostsByCollection } from "utils/api";
+import * as api from "utils/api";
 import CollectionPage from "src/views/collections/collection-page.astro";
 import CollectionChapter from "src/views/collections/collection-chapter.astro";
 import { SubHeader } from "src/components/subheader/subheader";
 import { getLanguageFromFilename, translate } from "utils/translations";
+import { Languages, RawCollectionInfo } from "types/index";
 
 export async function getStaticPaths() {
-	const collections = await Astro.glob(
-		"../../../../content/collections/**/*.md",
+	const collections = await Astro.glob<RawCollectionInfo>(
+		"../../../../content/*/collections/*/*.md",
 	);
 
-	return collections.map((collection) => {
-		const locale = getLanguageFromFilename(collection.file);
+	return collections
+		.filter((collection) => collection.frontmatter.pageLayout !== "none")
+		.map((collection) => {
+			const locale = getLanguageFromFilename(collection.file);
 
-		return {
-			params: {
-				locale: locale !== "en" ? locale : undefined,
-				slug: collection.frontmatter.slug,
-			},
-			props: {
-				Content: collection.Content,
-				collection: collection.frontmatter,
-			},
-		};
-	});
+			return {
+				params: {
+					locale: locale !== "en" ? locale : undefined,
+					slug: collection.file.split("/").at(-2),
+				},
+				props: {
+					Content: collection.Content,
+				},
+			};
+		});
 }
 
 interface CollectionProps {
-	collection: ExtendedCollectionInfo;
 	Content: MarkdownInstance<never>["Content"];
 }
 
-const { Content, collection } = Astro.props as CollectionProps;
+const { Content } = Astro.props as CollectionProps;
 
-const { slug } = collection;
+const params = Astro.params as {
+	locale?: Languages;
+	slug: string;
+};
 
-const collectionPosts = getPostsByCollection(slug, collection.locale);
+const locale = params.locale || "en";
+const collection = api.getCollectionBySlug(params.slug, locale)!;
+const collectionPosts = api.getPostsByCollection(params.slug, locale);
+const authors = collection.authors.map((authorId) =>
+	api.getUnicornById(authorId, locale),
+);
 ---
 
 <Document size="l">
@@ -47,7 +55,7 @@ const collectionPosts = getPostsByCollection(slug, collection.locale);
 		slot="head"
 		title={collection.title}
 		description={collection.description}
-		unicornsData={collection.authorsMeta}
+		unicornsData={authors}
 		publishedTime={collection.published}
 		type={collection.type}
 		shareImage={collection.socialImg ||
@@ -58,7 +66,7 @@ const collectionPosts = getPostsByCollection(slug, collection.locale);
 		<CollectionPage
 			Content={Content}
 			collection={collection}
-			coverImgPath={collection.coverImgMeta.relativeServerPath}
+			authors={authors}
 		/>
 		<section class="collection-post-list-container">
 			<div class="collection-post-list">

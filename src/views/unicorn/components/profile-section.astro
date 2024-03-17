@@ -1,9 +1,11 @@
 ---
 import styles from "./profile-section.module.scss";
-import { Picture as UUPicture } from "../../../components";
-import { ProfilePictureMap } from "../../../utils/get-unicorn-profile-pic-map";
-import { UnicornInfo } from "../../../types";
+import { Picture as UUPicture } from "components/index";
+import { UnicornInfo } from "types/index";
 import Icon from "astro-icon";
+import * as api from "utils/api";
+import type { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
+import { isDefined } from "utils/is-defined";
 
 interface ProfileSectionProps {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -70,14 +72,22 @@ const socials = [
 		name: "Cohost",
 		href: `https://cohost.org/${unicorn.socials.cohost}`,
 	},
-].filter((s) => !!s);
+].filter((s) => !!s) as {
+	icon: string;
+	name: string;
+	href: string;
+}[];
+
+const roles = unicorn.roles
+	.map((roleId) => api.getRoleById(roleId, unicorn.locale))
+	.filter(isDefined);
 ---
 
 <section class={styles.container}>
 	<div class={styles.cardContainer}>
 		<div class={styles.nameAndDesc}>
 			<UUPicture
-				picture={unicornProfilePicMap.find((u) => u.id === unicorn.id)}
+				picture={unicornProfilePicMap.find((u) => u.id === unicorn.id)!}
 				alt=""
 				class={styles.authorImage}
 			/>
@@ -124,7 +134,7 @@ const socials = [
 		</ul>
 		<ul class={styles.rolesList} role="list" aria-label="Contributor roles">
 			{
-				unicorn.rolesMeta.map((role) => (
+				roles.map((role) => (
 					<li class={styles.role}>
 						<img
 							src={`/stickers/role_${role.id}.svg`}

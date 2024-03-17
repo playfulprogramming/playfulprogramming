@@ -1,4 +1,4 @@
-import { PostInfo, Languages, ExtendedPostInfo } from "types/index";
+import { PostInfo, Languages } from "types/index";
 import { getPostsByLang } from "./api";
 
 /**
@@ -40,32 +40,37 @@ const howManySimilarBetween = <T>(arr1: T[], arr2: T[]): number => {
 const getOrderRange = (arr: PostInfo[]) => {
 	return arr.reduce(
 		(prev, curr) => {
-			if (prev.smallest === null || prev.largest === null) {
+			if (!prev.smallest || !prev.largest) {
 				return {
 					largest: curr,
 					smallest: curr,
 				};
 			}
-			if (curr.order! < prev.smallest.order!) {
+			if (
+				curr.order !== undefined &&
+				prev.smallest.order !== undefined &&
+				curr.order < prev.smallest.order
+			) {
 				prev.smallest = curr;
 			}
-			if (curr.order! > prev.largest.order!) {
+			if (
+				curr.order !== undefined &&
+				prev.largest.order !== undefined &&
+				curr.order > prev.largest.order
+			) {
 				prev.largest = curr;
 			}
 			return prev;
 		},
 		{
-			largest: null as PostInfo,
-			smallest: null as PostInfo,
+			largest: undefined as PostInfo | undefined,
+			smallest: undefined as PostInfo | undefined,
 		},
 	);
 };
 
-export const getSuggestedArticles = (
-	postNode: ExtendedPostInfo,
-	lang: Languages,
-) => {
-	const suggestedPosts = getPostsByLang(lang);
+export const getSuggestedArticles = (postNode: PostInfo) => {
+	const suggestedPosts = getPostsByLang(postNode.locale);
 
 	const extraSuggestedArticles: PostInfo[] = [];
 	const suggestedArticles: PostInfo[] = [];
@@ -107,8 +112,10 @@ export const getSuggestedArticles = (
 				const { largest, smallest } = getOrderRange(suggestedArticles) || {};
 				for (const suggestedPost of extraSuggestedArticles) {
 					if (
-						suggestedPost.order === smallest.order! - 1 ||
-						suggestedPost.order === largest.order! + 1
+						largest &&
+						smallest &&
+						(suggestedPost.order === smallest.order! - 1 ||
+							suggestedPost.order === largest.order! + 1)
 					) {
 						suggestedArticles.push(suggestedPost);
 					}

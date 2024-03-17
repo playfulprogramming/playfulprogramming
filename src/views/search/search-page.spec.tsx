@@ -9,7 +9,8 @@ import {
 	queryByText,
 	getByTestId,
 } from "@testing-library/preact";
-import SearchPage, { ServerReturnType } from "./search-page";
+import SearchPage from "./search-page";
+import type { ServerReturnType } from "./types";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import { MockCanonicalPost, MockPost } from "../../../__mocks__/data/mock-post";
@@ -40,7 +41,7 @@ afterAll(() => server.close());
 function mockFetch(fn: (searchStr: string) => ServerReturnType) {
 	server.use(
 		rest.get<ServerReturnType>(`/api/search`, async (req, res, ctx) => {
-			const searchString = req.url.searchParams.get("query");
+			const searchString = req.url.searchParams.get("query")!;
 			return res(ctx.json(fn(searchString)));
 		}),
 	);
@@ -52,7 +53,9 @@ function mockFetchWithStatus(
 ) {
 	server.use(
 		rest.get<never>(`/api/search`, async (req, res, ctx) => {
-			const searchString = req.url.searchParams.get("query");
+			const searchString = req.url.searchParams.get("query")!;
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore it's fine
 			return res(ctx.status(status), ctx.json(fn(searchString)));
 		}),
 	);
@@ -67,6 +70,7 @@ describe("Search page", () => {
 
 	test("Should show search results for posts", async () => {
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [MockPost],
 			totalPosts: 1,
 			totalCollections: 0,
@@ -84,6 +88,7 @@ describe("Search page", () => {
 
 	test("Should show search results for collections", async () => {
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [],
 			totalPosts: 0,
 			totalCollections: 1,
@@ -120,6 +125,7 @@ describe("Search page", () => {
 
 	test("Should show 'nothing found'", async () => {
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [],
 			totalPosts: 0,
 			totalCollections: 0,
@@ -139,6 +145,7 @@ describe("Search page", () => {
 
 	test("Remove collections header when none found", async () => {
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [MockPost],
 			totalPosts: 1,
 			totalCollections: 0,
@@ -159,6 +166,7 @@ describe("Search page", () => {
 
 	test("Remove posts header when none found", async () => {
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [],
 			totalPosts: 0,
 			totalCollections: 1,
@@ -179,6 +187,7 @@ describe("Search page", () => {
 
 	test("Filter by tag works on desktop sidebar", async () => {
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [
 				{ ...MockPost, tags: ["Angular"], title: "One blog post" },
 				{ ...MockCanonicalPost, tags: [], title: "Two blog post" },
@@ -210,6 +219,10 @@ describe("Search page", () => {
 
 	test("Filter by author works on desktop sidebar", async () => {
 		mockFetch(() => ({
+			unicorns: {
+				[MockUnicorn.id]: MockUnicorn,
+				[MockUnicornTwo.id]: MockUnicornTwo,
+			},
 			posts: [
 				{
 					...MockPost,
@@ -251,6 +264,7 @@ describe("Search page", () => {
 
 	test("Filter by content type work on radio group buttons", async () => {
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [{ ...MockPost, title: "One blog post" }],
 			totalPosts: 1,
 			totalCollections: 1,
@@ -293,6 +307,7 @@ describe("Search page", () => {
 		global.innerWidth = 2000;
 
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [
 				{
 					...MockPost,
@@ -325,7 +340,7 @@ describe("Search page", () => {
 		const select =
 			container instanceof HTMLSelectElement
 				? container
-				: container.querySelector("select");
+				: container.querySelector("select")!;
 
 		await user.selectOptions(select, "newest");
 
@@ -352,6 +367,7 @@ describe("Search page", () => {
 	test("Sort by date works on mobile radio group buttons", async () => {
 		global.innerWidth = 500;
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [
 				{
 					...MockPost,
@@ -384,7 +400,7 @@ describe("Search page", () => {
 		const select =
 			container instanceof HTMLSelectElement
 				? container
-				: container.querySelector("select");
+				: container.querySelector("select")!;
 
 		user.selectOptions(select, "newest");
 
@@ -411,6 +427,7 @@ describe("Search page", () => {
 	test("Pagination - Changing pages to page 2 shows second page of results", async () => {
 		// 6 posts per page
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [
 				{ ...MockPost, slug: `blog-post-1`, title: "One blog post" },
 				{ ...MockPost, slug: `blog-post-2`, title: "Two blog post" },
@@ -473,6 +490,10 @@ describe("Search page", () => {
 		global.innerWidth = 2000;
 		// 6 posts per page
 		mockFetch(() => ({
+			unicorns: {
+				[MockUnicorn.id]: MockUnicorn,
+				[MockUnicornTwo.id]: MockUnicornTwo,
+			},
 			posts: [
 				{
 					...MockPost,
@@ -603,6 +624,7 @@ describe("Search page", () => {
 	// Search page, sort order, etc
 	test("Make sure that initial search props are not thrown away", async () => {
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [
 				{
 					...MockPost,
@@ -762,19 +784,21 @@ describe("Search page", () => {
 		global.innerWidth = 2000;
 
 		mockFetch(() => ({
+			unicorns: {
+				[MockUnicorn.id]: MockUnicorn,
+				[MockUnicornTwo.id]: MockUnicornTwo,
+			},
 			posts: [
 				{
 					...MockPost,
 					tags: ["Angular"],
 					authors: [MockUnicorn.id],
-					authorsMeta: [MockUnicorn],
 					title: "One blog post",
 				},
 				{
 					...MockCanonicalPost,
 					tags: [],
 					authors: [MockUnicornTwo.id],
-					authorsMeta: [MockUnicornTwo],
 					title: "Two blog post",
 				},
 			],
@@ -830,6 +854,7 @@ describe("Search page", () => {
 
 	test("Make sure that re-searches reset page to 1 and preserve tags, authors, etc", async () => {
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [
 				{
 					...MockPost,
@@ -981,6 +1006,7 @@ describe("Search page", () => {
 
 	test("Make sure that re-searches to empty string reset page, tags, authors, etc", async () => {
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [
 				{
 					...MockPost,
@@ -1132,6 +1158,7 @@ describe("Search page", () => {
 
 	test("Back button should show last query", async () => {
 		mockFetch(() => ({
+			unicorns: {},
 			posts: [],
 			totalPosts: 0,
 			totalCollections: 0,

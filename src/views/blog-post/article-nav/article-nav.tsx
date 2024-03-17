@@ -1,4 +1,4 @@
-import { PostInfo } from "types/PostInfo";
+import { PostInfo, CollectionInfo } from "types/index";
 import style from "./article-nav.module.scss";
 import arrow_left from "../../../icons/arrow_left.svg?raw";
 import arrow_right from "../../../icons/arrow_right.svg?raw";
@@ -7,10 +7,11 @@ import { getHrefContainerProps } from "utils/href-container-script";
 
 type ArticleNavItemProps = {
 	post: PostInfo;
+	collection?: CollectionInfo;
 	type: "next" | "previous";
 };
 
-function ArticleNavItem({ post, type }: ArticleNavItemProps) {
+function ArticleNavItem({ post, collection, type }: ArticleNavItemProps) {
 	const href = `/posts/${post.slug}`;
 	return (
 		<div
@@ -35,7 +36,7 @@ function ArticleNavItem({ post, type }: ArticleNavItemProps) {
 				</span>
 			)}
 			<a href={href} class="text-style-body-medium-bold">
-				{getShortTitle(post)}
+				{getShortTitle(post, collection)}
 			</a>
 		</div>
 	);
@@ -43,18 +44,19 @@ function ArticleNavItem({ post, type }: ArticleNavItemProps) {
 
 export interface ArticleNavProps {
 	post: PostInfo;
-	postSeries: PostInfo[];
+	collection?: CollectionInfo;
+	collectionPosts: PostInfo[];
 }
 
-export function ArticleNav({ post, postSeries }: ArticleNavProps) {
-	const postIndex = postSeries.findIndex((p) => p.order === post.order);
+export function ArticleNav({ post, collection, collectionPosts }: ArticleNavProps) {
+	const postIndex = collectionPosts.findIndex((p) => p.order === post.order);
 
-	const prevPost = postSeries[postIndex - 1];
-	const nextPost = postSeries[postIndex + 1];
+	const prevPost = collectionPosts[postIndex - 1];
+	const nextPost = collectionPosts[postIndex + 1];
 	return (
 		<div class={style.container}>
-			{prevPost && <ArticleNavItem post={prevPost} type="previous" />}
-			{nextPost && <ArticleNavItem post={nextPost} type="next" />}
+			{prevPost && <ArticleNavItem post={prevPost} collection={collection} type="previous" />}
+			{nextPost && <ArticleNavItem post={nextPost} collection={collection} type="next" />}
 		</div>
 	);
 }

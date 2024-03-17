@@ -34,12 +34,12 @@ import styles from "./quotes-container.module.scss";
 	>
 </div>
 <script>
-	const quotesScrim = document.getElementById("quotes-scrim");
+	const quotesScrim = document.getElementById("quotes-scrim")!;
 	const quotesContainer = document.getElementById(
-		"quotes-hidden-overflow-container"
-	);
-	const showMoreBtn = document.getElementById("show-more-quotes-btn");
-	const showLessBtn = document.getElementById("show-less-quotes-btn");
+		"quotes-hidden-overflow-container",
+	)!;
+	const showMoreBtn = document.getElementById("show-more-quotes-btn")!;
+	const showLessBtn = document.getElementById("show-less-quotes-btn")!;
 
 	const hideElement = (el: HTMLElement) => {
 		el.style.opacity = "0";

@@ -1,6 +1,6 @@
-import { RolesEnum } from "types/RolesInfo";
+import { RolesInfo } from "types/RolesInfo";
 
-export const MockRole: RolesEnum = {
+export const MockRole: RolesInfo = {
 	id: "developer",
 	prettyname: "Developer",
 };

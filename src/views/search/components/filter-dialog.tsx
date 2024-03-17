@@ -90,7 +90,7 @@ const FilterDialogMobile = ({
 							count={author.numPosts}
 							icon={
 								<UUPicture
-									picture={unicornProfilePicMap.find((u) => u.id === author.id)}
+									picture={unicornProfilePicMap.find((u) => u.id === author.id)!}
 									alt={""}
 									class={styles.authorIcon}
 								/>
@@ -198,7 +198,7 @@ const FilterDialogSmallTablet = ({
 										<UUPicture
 											picture={unicornProfilePicMap.find(
 												(u) => u.id === author.id,
-											)}
+											)!}
 											alt={""}
 											class={styles.authorIcon}
 										/>
@@ -261,7 +261,7 @@ export const FilterDialog = ({
 	};
 
 	const onFormConfirm = useCallback(
-		(returnValue: string) => {
+		(returnValue?: string) => {
 			// if the "confirm" button is pressed, the dialog should
 			// close with the selected values
 			if (returnValue === "confirm") {

@@ -1,4 +1,3 @@
-import { getExtendedPost } from "../../src/utils/get-all-posts";
 import { writeFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
@@ -8,12 +7,13 @@ import { renderPostPreviewToString } from "./shared-post-preview-png";
 import banner from "./layouts/banner";
 import twitterPreview from "./layouts/twitter-preview";
 import { Layout } from "./base";
+import { getPostBySlug } from "utils/api";
 
 export const layouts: Layout[] = [banner, twitterPreview];
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const post = getExtendedPost("async-pipe-is-not-pure", "en");
+const post = getPostBySlug("async-pipe-is-not-pure", "en")!;
 
 const rebuild = async () => {
 	console.log("rebuilding...");

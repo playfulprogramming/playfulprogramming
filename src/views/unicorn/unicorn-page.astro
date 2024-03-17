@@ -2,8 +2,7 @@
 import ProfileSection from "./components/profile-section.astro";
 import { SubHeader } from "../../components/subheader/subheader";
 import { PostCardGrid } from "components/post-card/post-card-grid";
-import { ExtendedPostInfo } from "types/index";
-import { UnicornInfo } from "types/UnicornInfo";
+import { UnicornInfo, PostInfo } from "types/index";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import { Button } from "../../components";
 import styles from "./unicorn-page.module.scss";
@@ -11,10 +10,12 @@ import AchievementCard from "./components/achievement-card.astro";
 import { buildSearchQuery } from "../../utils/search";
 import { getAchievements, Achievement } from "src/utils/achievements";
 import { translate } from "utils/translations";
+import * as api from "utils/api";
+import { isDefined } from "utils/is-defined";
 
 interface UnicornPageProps {
 	unicorn: UnicornInfo;
-	posts: ExtendedPostInfo[];
+	posts: PostInfo[];
 }
 
 const { unicorn, posts } = Astro.props as UnicornPageProps;
@@ -29,6 +30,13 @@ const numberOfAchievementsToShowAtStart = posts.length ? 3 : 6;
 const showAchievementToggle =
 	achievementsMeta.length > numberOfAchievementsToShowAtStart;
 const showPostsToggle = posts.length > postsToDisplay.length;
+
+const postAuthors = new Map(
+	[...new Set(posts.flatMap((p) => p.authors))]
+		.map((id) => api.getUnicornById(id, unicorn.locale))
+		.filter(isDefined)
+		.map((u) => [u.id, u]),
+);
 ---
 
 <div class={styles.container}>
@@ -95,6 +103,7 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 						<PostCardGrid
 							aria-labelledby={"recent-articles-header"}
 							postsToDisplay={postsToDisplay}
+							postAuthors={postAuthors}
 							postHeadingTag="h3"
 							unicornProfilePicMap={unicornProfilePicMap}
 						/>,
@@ -107,9 +116,9 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 <script>
 	const viewAllAchievementsButton: HTMLElement = document.querySelector(
 		"#view-all-achievements",
-	);
+	)!;
 	const viewAllAchievementsText: HTMLElement =
-		viewAllAchievementsButton.querySelector(".innerText");
+		viewAllAchievementsButton.querySelector(".innerText")!;
 
 	if (viewAllAchievementsButton) {
 		const hiddenAchievements: HTMLElement[] = Array.from(

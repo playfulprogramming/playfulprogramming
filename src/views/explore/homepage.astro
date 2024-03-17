@@ -1,24 +1,33 @@
 ---
 import { PostCardGrid } from "src/components/post-card/post-card-grid";
 import { Button } from "components/button/button";
-import { PostInfo } from "../../types";
+import { Languages, PostInfo, CollectionInfo } from "types/index";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import { translate } from "utils/translations";
-import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { CollectionCard } from "components/collection-card/collection-card";
 import { SubHeader } from "../../components/subheader/subheader";
 import Hero from "../../components/hero/hero.astro";
 import SearchSection from "../../components/search-section/search-section.astro";
 import styles from "./homepage.module.scss";
-import { buildSearchQuery } from "../../utils/search";
+import { buildSearchQuery } from "utils/search";
 import { getPicture } from "@astrojs/image";
+import * as api from "utils/api";
+import { isDefined } from "utils/is-defined";
 
 export interface HomepageProps {
 	posts: PostInfo[];
-	collections: ExtendedCollectionInfo[];
+	collections: CollectionInfo[];
+	locale: Languages;
 }
 
-const { posts, collections } = Astro.props as HomepageProps;
+const { posts, collections, locale } = Astro.props as HomepageProps;
+
+const postAuthors = new Map(
+	[...new Set(posts.flatMap((p) => p.authors))]
+		.map((id) => api.getUnicornById(id, locale))
+		.filter(isDefined)
+		.map((u) => [u.id, u]),
+);
 
 const unicornProfilePicMap = await getUnicornProfilePicMap();
 
@@ -54,6 +63,7 @@ const collectionsWithPictures = await Promise.all(
 	<PostCardGrid
 		aria-labelledby="posts-header"
 		postsToDisplay={posts}
+		postAuthors={postAuthors}
 		postHeadingTag="h3"
 		unicornProfilePicMap={unicornProfilePicMap}
 	/>
@@ -79,6 +89,9 @@ const collectionsWithPictures = await Promise.all(
 				<li>
 					<CollectionCard
 						collection={collection}
+						authors={collection.authors
+							.map((id) => api.getUnicornById(id, collection.locale))
+							.filter(isDefined)}
 						headingTag="h3"
 						unicornProfilePicMap={unicornProfilePicMap}
 					/>

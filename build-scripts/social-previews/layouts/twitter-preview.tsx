@@ -2,6 +2,7 @@ import * as React from "preact";
 import { ComponentProps, Layout } from "../base";
 import style from "./twitter-preview-css";
 import fs from "fs/promises";
+import { getUnicornById } from "utils/api";
 
 const unicornUtterancesHead = await fs.readFile("src/assets/unicorn_utterances_sticker.svg", "utf-8");
 
@@ -71,7 +72,7 @@ const TwitterLargeCard = ({
 					</div>
 					<div class="postInfo">
 						<span class="authors">
-							{post.authorsMeta.map((author) => author.name).join(", ")}
+							{post.authors.map((id) => getUnicornById(id, post.locale)!.name).join(", ")}
 						</span>
 						<span class="date">
 							{post.publishedMeta} &nbsp;&middot;&nbsp; {post.wordCount.toLocaleString("en")} words

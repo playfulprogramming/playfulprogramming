@@ -1,8 +1,9 @@
 import { Element, Root } from "hast";
 import { visit } from "unist-util-visit";
+import { Plugin } from "unified";
 
-export function rehypeFixTwoSlashXHTML() {
-	return (tree: Root) => {
+export const rehypeFixTwoSlashXHTML: Plugin<[], Root> = () => {
+	return (tree) => {
 		function preVisitor(node: Element) {
 			if (node.tagName === "pre") {
 				visit(node, "element", (childNode: Element) => {
@@ -24,4 +25,4 @@ export function rehypeFixTwoSlashXHTML() {
 		visit(tree, "element", preVisitor);
 		return tree;
 	};
-}
+};

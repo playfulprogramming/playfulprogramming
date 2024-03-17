@@ -1,7 +1,10 @@
-import { ExtendedPostInfo, PostInfo } from "types/index";
+import { CollectionInfo, PostInfo } from "types/index";
 
-export function getShortTitle(post: PostInfo): string {
-	const collectionTitle = post.collectionMeta?.title || post.collection;
+export function getShortTitle(
+	post: PostInfo,
+	collection?: CollectionInfo,
+): string {
+	const collectionTitle = collection?.title || post.collection || "";
 	// if the post title starts with its collection title, remove it
 	if (post.title.startsWith(`${collectionTitle}: `))
 		return post.title.substring(collectionTitle.length + 2);
@@ -9,15 +12,12 @@ export function getShortTitle(post: PostInfo): string {
 	return post.title;
 }
 
-interface ActivePostMeta extends ExtendedPostInfo {
+interface ActivePostMeta extends PostInfo {
 	shouldShowInitially: boolean;
 	isActive: boolean;
 }
 
-export function findActivePost(
-	post: ExtendedPostInfo,
-	seriesPosts: ExtendedPostInfo[],
-) {
+export function findActivePost(post: PostInfo, seriesPosts: PostInfo[]) {
 	const newPosts = [...seriesPosts] as ActivePostMeta[];
 
 	let isActiveFirst = false;

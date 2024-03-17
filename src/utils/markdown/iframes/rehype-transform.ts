@@ -37,20 +37,21 @@ function fetchDefaultPageIcon(): Promise<GetPictureResult> {
 //   and multiple fetchPageInfo() calls can await the same icon
 const pageIconMap = new Map<string, Promise<GetPictureResult>>();
 function fetchPageIcon(src: URL, srcHast: Root): Promise<GetPictureResult> {
-	if (pageIconMap.has(src.origin)) return pageIconMap.get(src.origin);
+	if (pageIconMap.has(src.origin)) return pageIconMap.get(src.origin)!;
 
 	const promise = (async () => {
 		// <link rel="manifest" href="/manifest.json">
-		const manifestPath: Element = find(
+		const manifestPath: Element | undefined = find(
 			srcHast,
-			(node: unknown) => (node as Element)?.properties?.rel?.[0] === "manifest",
+			(node: unknown) =>
+				(node as Element)?.properties?.rel?.toString() === "manifest",
 		);
 
-		let iconLink: string;
+		let iconLink: string | undefined;
 
-		if (manifestPath) {
+		if (manifestPath?.properties?.href) {
 			// `/manifest.json`
-			const manifestRelativeURL = manifestPath.properties.href.toString();
+			const manifestRelativeURL = String(manifestPath.properties.href);
 			const fullManifestURL = new URL(manifestRelativeURL, src).href;
 
 			const manifest = await fetch(fullManifestURL)
@@ -59,20 +60,22 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<GetPictureResult> {
 
 			if (manifest) {
 				const largestIcon = getLargestManifestIcon(manifest);
-				iconLink = new URL(largestIcon.icon.src, src.origin).href;
+				if (largestIcon?.icon)
+					iconLink = new URL(largestIcon.icon.src, src.origin).href;
 			}
 		}
 
 		if (!iconLink) {
 			// fetch `favicon.ico`
 			// <link rel="shortcut icon" type="image/png" href="https://example.com/img.png">
-			const favicon: Element = find(
+			const favicon: Element | undefined = find(
 				srcHast,
 				(node: unknown) =>
-					(node as Element)?.properties?.rel?.toString()?.includes("icon"),
+					(node as Element)?.properties?.rel?.toString()?.includes("icon") ??
+					false,
 			);
 
-			if (favicon) {
+			if (favicon?.properties?.href) {
 				iconLink = new URL(favicon.properties.href.toString(), src).href;
 			}
 		}
@@ -99,11 +102,11 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<GetPictureResult> {
 
 const pageHtmlMap = new Map<string, Promise<Root | null>>();
 function fetchPageHtml(src: string): Promise<Root | null> {
-	if (pageHtmlMap.has(src)) return pageHtmlMap.get(src);
+	if (pageHtmlMap.has(src)) return pageHtmlMap.get(src)!;
 
 	const promise = (async () => {
 		const srcHTML = await fetch(src)
-			.then((r) => r.status === 200 && r.text())
+			.then((r) => (r.status === 200 ? r.text() : undefined))
 			.catch(() => null);
 
 		// if fetch fails...
@@ -132,7 +135,7 @@ export async function fetchPageInfo(src: string): Promise<PageInfo | null> {
 	if (!srcHast) return null;
 
 	// find <title> element in response HTML
-	const titleEl: Element = find(srcHast, { tagName: "title" });
+	const titleEl = find<Element>(srcHast, { tagName: "title" });
 	const titleContentEl = titleEl && titleEl.children[0];
 	const title =
 		titleContentEl?.type === "text" ? titleContentEl.value : undefined;
@@ -149,7 +152,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 > = ({ srcReplacements = [], ...props }) => {
 	return async (tree, file) => {
 		const iframeNodes: Element[] = [];
-		visit(tree, (node: Element) => {
+		visit(tree, "element", (node: Element) => {
 			if (node.tagName === "iframe") {
 				iframeNodes.push(node);
 			}
@@ -169,14 +172,14 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				} = iframeNode.properties;
 
 				for (const replacement of srcReplacements) {
-					src = replacement(src.toString(), file);
+					src = replacement(src!.toString(), file);
 				}
 
 				width = width ?? EMBED_SIZE.w;
 				height = height ?? EMBED_SIZE.h;
-				const info: PageInfo = (await fetchPageInfo(
-					src.toString(),
-				).catch(() => null)) || { icon: await fetchDefaultPageIcon() };
+				const info: PageInfo = (await fetchPageInfo(src!.toString()).catch(
+					() => null,
+				)) || { icon: await fetchDefaultPageIcon() };
 
 				const [, heightPx] = /^([0-9]+)(px)?$/.exec(height + "") || [];
 				if (Number(heightPx) < EMBED_MIN_HEIGHT) height = EMBED_MIN_HEIGHT;
@@ -184,7 +187,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				const iframeReplacement = IFramePlaceholder({
 					width: width.toString(),
 					height: height.toString(),
-					src: src.toString(),
+					src: String(src),
 					pageTitle: String(dataFrameTitle ?? "") || info.title || "",
 					pageIcon: info.icon,
 					propsToPreserve: JSON.stringify(propsToPreserve),

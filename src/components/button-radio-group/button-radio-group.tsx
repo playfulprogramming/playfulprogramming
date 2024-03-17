@@ -15,7 +15,7 @@ import {
 	useRadioGroupState,
 } from "react-stately";
 
-const RadioContext = createContext<RadioGroupState>(null);
+const RadioContext = createContext<RadioGroupState | null>(null);
 
 interface RadioButtonGroupProps extends PropsWithChildren<RadioGroupProps> {
 	class?: string;
@@ -51,6 +51,10 @@ export function RadioButtonGroup(props: RadioButtonGroupProps) {
 export function RadioButton(props: AriaRadioProps) {
 	const { children } = props;
 	const state = useContext(RadioContext);
+	if (!state) {
+		throw new Error("<RadioButton> must only be used within a <RadioButtonGroup>!");
+	}
+
 	const ref = useRef(null);
 	const { inputProps, isSelected } = useRadio(props, state, ref);
 	const { isFocusVisible, focusProps } = useFocusRing();

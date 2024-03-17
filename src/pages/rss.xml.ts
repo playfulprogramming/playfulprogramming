@@ -1,13 +1,7 @@
 import { Feed } from "feed";
-import { MarkdownInstance } from "astro";
 import { siteUrl } from "constants/site-config";
-import { ExtendedPostInfo } from "types/index";
-
-const postImportResult = import.meta.glob<MarkdownInstance<ExtendedPostInfo>>(
-	"../../content/blog/**/*.md",
-	{ eager: true },
-);
-const posts = Object.values(postImportResult);
+import { getPostsByLang, getUnicornById } from "utils/api";
+import licenses from "../../content/data/licenses.json";
 
 export const get = () => {
 	const feed = new Feed({
@@ -26,32 +20,27 @@ export const get = () => {
 		},
 	});
 
-	posts
-		.filter((post) => !post.frontmatter.noindex)
-		.sort((a, b) =>
-			new Date(b.frontmatter.published) > new Date(a.frontmatter.published)
-				? 1
-				: -1,
-		)
-		.forEach((post) => {
-			const nodeUrl = `${siteUrl}/posts/${post.frontmatter.slug}`;
+	getPostsByLang("en").forEach((post) => {
+		const nodeUrl = `${siteUrl}/posts/${post.slug}`;
 
-			feed.addItem({
-				title: post.frontmatter.title,
-				guid: nodeUrl,
-				link: nodeUrl,
-				description: post.frontmatter.description || post.frontmatter.excerpt,
-				author: post.frontmatter.authorsMeta.map((author) => {
+		feed.addItem({
+			title: post.title,
+			guid: nodeUrl,
+			link: nodeUrl,
+			description: post.description,
+			author: post.authors
+				.map((id) => getUnicornById(id, post.locale))
+				.map((author) => {
 					return {
-						name: author.name,
-						link: `${siteUrl}/unicorns/${author.id}`,
+						name: author!.name,
+						link: `${siteUrl}/unicorns/${author!.id}`,
 					};
 				}),
-				date: new Date(post.frontmatter.published),
-				copyright: post.frontmatter.licenseMeta?.displayName,
-				extensions: [],
-			});
+			date: new Date(post.published),
+			copyright: licenses.find((l) => l.id === post.license)?.displayName,
+			extensions: [],
 		});
+	});
 
 	return { body: feed.rss2() };
 };

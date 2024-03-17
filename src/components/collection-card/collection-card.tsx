@@ -1,19 +1,22 @@
 import style from "./collection-card.module.scss";
 import { Button } from "components/index";
-import { ExtendedCollectionInfo } from "types/CollectionInfo";
+import { CollectionInfo } from "types/CollectionInfo";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import forward from "src/icons/arrow_right.svg?raw";
 import { Picture as UUPicture } from "components/image/picture";
 import { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
+import { UnicornInfo } from "types/UnicornInfo";
 
 interface CollectionCardProps {
-	collection: ExtendedCollectionInfo & { coverPicture?: GetPictureResult };
+	collection: CollectionInfo & { coverPicture?: GetPictureResult };
+	authors: UnicornInfo[];
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	unicornProfilePicMap: ProfilePictureMap;
 }
 
 export const CollectionCard = ({
 	collection,
+	authors,
 	headingTag: HeadingTag = "h2",
 	unicornProfilePicMap,
 }: CollectionCardProps) => {
@@ -46,14 +49,14 @@ export const CollectionCard = ({
 			</div>
 			<div className={style.bottomRow}>
 				<ul className={`unlist-inline ${style.authorList}`} role="list" aria-label="Collection authors">
-					{collection.authorsMeta?.map((author) => (
+					{authors?.map((author) => (
 						<li>
 							<a
 								href={`/unicorns/${author.id}`}
 								className={`text-style-button-regular ${style.authorListItem}`}
 							>
 								<UUPicture
-									picture={unicornProfilePicMap.find((u) => u.id === author.id)}
+									picture={unicornProfilePicMap.find((u) => u.id === author.id)!}
 									alt=""
 									class={style.authorImage}
 								/>
@@ -73,7 +76,7 @@ export const CollectionCard = ({
 					}
 				>
 					{collection.customChaptersText ?? (
-						<>{String(collection.posts.length)} chapters</>
+						<>{String(collection.postCount)} chapters</>
 					)}
 				</Button>
 			</div>

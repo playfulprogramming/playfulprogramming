@@ -1,11 +1,11 @@
 ---
 import styles from "./table-of-contents.module.scss";
 import classnames from "classnames";
-import { ExtendedPostInfo } from "types/index";
+import { PostHeadingInfo } from "types/index";
 import HeadingIntersectionObserverScript from "./heading-intersection-observer-script.astro";
 
 interface TableOfContentsProps {
-	headingsWithId: ExtendedPostInfo["headingsWithId"];
+	headingsWithId: PostHeadingInfo[];
 }
 
 const { headingsWithId } = Astro.props as TableOfContentsProps;

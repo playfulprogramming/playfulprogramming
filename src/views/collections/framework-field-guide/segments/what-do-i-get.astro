@@ -226,7 +226,7 @@ const professionalCalendar = generateCalendar(professionalActivityLevel);
 		document.querySelector(`#what-do-i-get-professional-text`),
 	];
 
-	newcomerCheckbox.addEventListener("input", (e) => {
+	newcomerCheckbox.addEventListener("input", () => {
 		if (newcomerCheckbox.checked) {
 			newcomerEls.forEach((el) => (el.style.display = "block"));
 			midlevelEls.forEach((el) => (el.style.display = "none"));
@@ -235,7 +235,7 @@ const professionalCalendar = generateCalendar(professionalActivityLevel);
 			fillCalendarWith(newcomerCalendar);
 		}
 	});
-	midlevelCheckbox.addEventListener("input", (e) => {
+	midlevelCheckbox.addEventListener("input", () => {
 		if (midlevelCheckbox.checked) {
 			newcomerEls.forEach((el) => (el.style.display = "none"));
 			midlevelEls.forEach((el) => (el.style.display = "block"));
@@ -244,7 +244,7 @@ const professionalCalendar = generateCalendar(professionalActivityLevel);
 			fillCalendarWith(midlevelCalendar);
 		}
 	});
-	professionalCheckbox.addEventListener("input", (e) => {
+	professionalCheckbox.addEventListener("input", () => {
 		if (professionalCheckbox.checked) {
 			newcomerEls.forEach((el) => (el.style.display = "none"));
 			midlevelEls.forEach((el) => (el.style.display = "none"));

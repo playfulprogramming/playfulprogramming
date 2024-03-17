@@ -1,10 +1,10 @@
 import { Root } from "hast";
 import replaceAllBetween from "unist-util-replace-all-between";
-import { Plugin } from "unified";
 import { getHeaderNodeId, slugs } from "rehype-slug-custom-id";
 import { Element, Node, Parent, Text } from "hast";
 import { TabInfo, Tabs } from "./tabs";
 import { toString } from "hast-util-to-string";
+import { Plugin } from "unified";
 
 const isNodeHeading = (n: Element) =>
 	n.type === "element" && /h[1-6]/.exec(n.tagName);
@@ -42,12 +42,14 @@ const getApproxLineCount = (nodes: Node[], inParagraph?: boolean): number => {
 			["div", "p", "br"].includes((n as Element).tagName)
 		)
 			lines++;
-		// assume that any image or embed could add ~10 lines
+		// assume that any image or embed could add ~20 lines
 		if (
 			n.type === "element" &&
-			["img", "svg", "iframe"].includes((n as Element).tagName)
+			["picture", "img", "svg", "iframe", "video"].includes(
+				(n as Element).tagName,
+			)
 		)
-			lines += 10;
+			lines += 20;
 		// approximate line wraps in <p> tag, assuming ~100 chars per line
 		if (
 			isInParagraph &&
@@ -109,18 +111,18 @@ export const rehypeTabs: Plugin<[], Root> = () => {
 				}
 
 				// For any other heading found in the tab contents, append to the nested headers array
-				if (isNodeHeading(localNode)) {
+				if (isNodeHeading(localNode) && tabs.length) {
 					const lastTab = tabs.at(-1);
 
 					// Store the related tab ID in the attributes of the header
-					localNode.properties["data-tabname"] = lastTab.slug;
+					localNode.properties["data-tabname"] = lastTab?.slug;
 
 					// Add header ID to array
-					tabs.at(-1).headers.push(localNode.properties.id.toString());
+					tabs.at(-1)?.headers?.push(String(localNode.properties.id));
 				}
 
 				// Otherwise, append the node as tab content
-				tabs.at(-1).contents.push(localNode);
+				tabs.at(-1)?.contents?.push(localNode);
 			}
 
 			// Determine if the set of tabs should use a constant height (via the "tabs-small" class)

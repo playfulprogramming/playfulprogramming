@@ -9,7 +9,7 @@ interface SearchResultCountProps {
 }
 
 export const SearchResultCount = forwardRef<
-	HTMLDivElement,
+	HTMLDivElement | null,
 	SearchResultCountProps
 >(({ numberOfPosts, numberOfCollections }, ref) => {
 	const language = useMemo(() => {

@@ -19,15 +19,17 @@ function isNodeSummary(e: Node) {
  */
 export const rehypeHints: Plugin<[], Root> = () => {
 	return (tree) => {
-		visit(tree, (node: Element, index, parent: Element) => {
+		visit(tree, "element", (node: Element, index, parent) => {
 			if (node.tagName !== "details") return;
 
 			const summaryNode = node.children.find(isNodeSummary);
 
-			parent.children[index] = Hint({
-				title: toString(summaryNode as never),
-				children: node.children.filter((e) => !isNodeSummary(e)),
-			});
+			if (index !== undefined && parent?.children) {
+				parent.children[index] = Hint({
+					title: toString(summaryNode as never),
+					children: node.children.filter((e) => !isNodeSummary(e)),
+				});
+			}
 		});
 	};
 };

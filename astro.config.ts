@@ -37,10 +37,13 @@ export default defineConfig({
 			lastmod: new Date(),
 			i18n: {
 				defaultLocale: "en",
-				locales: Object.keys(languages).reduce((prev, key) => {
-					prev[key] = fileToOpenGraphConverter(key as keyof typeof languages);
-					return prev;
-				}, {}),
+				locales: Object.keys(languages).reduce(
+					(prev, key) => {
+						prev[key] = fileToOpenGraphConverter(key as keyof typeof languages);
+						return prev;
+					},
+					{} as Record<string, string>,
+				),
 			},
 			filter(page) {
 				// return true, unless last part of the URL ends with "_noindex"
@@ -50,9 +53,9 @@ export default defineConfig({
 					.filter((part) => !!part.length)
 					.at(-1);
 
-				if (lastPartOfSlug.endsWith("_noindex")) return false;
-				const relatedPost = posts.find((post) => post.slug === lastPartOfSlug);
-				if (relatedPost && relatedPost.originalLink) return false;
+				if (lastPartOfSlug!.endsWith("_noindex")) return false;
+				const relatedPost = posts.get(lastPartOfSlug!);
+				if (relatedPost && relatedPost[0]?.originalLink) return false;
 				return true;
 			},
 			serialize({ url, ...rest }) {

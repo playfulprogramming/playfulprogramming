@@ -11,9 +11,9 @@ import path from "path";
  */
 import { getPicture } from "./get-picture-hack";
 import { getImageSize } from "../get-image-size";
-import { fileURLToPath } from "url";
-import { getFullRelativePath } from "../url-paths";
+import { resolvePath } from "../url-paths";
 import { getLargestSourceSetSrc } from "../get-largest-source-set-src";
+import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -33,7 +33,7 @@ function getPixelValue(attr: unknown): number | undefined {
 export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 	return async (tree, file) => {
 		const imgNodes: Element[] = [];
-		visit(tree, (node: Element) => {
+		visit(tree, "element", (node: Element) => {
 			if (node.tagName === "img") {
 				imgNodes.push(node);
 			}
@@ -41,30 +41,16 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 
 		await Promise.all(
 			imgNodes.map(async (node) => {
-				const splitFilePath = path.dirname(file.path).split(path.sep);
-				const slug = splitFilePath.at(-1);
-				// "collections" | "blog"
-				const parentFolder = splitFilePath.at(-2);
-
-				const filePathDir = path.resolve(
-					__dirname,
-					`../../../public/content/${parentFolder}`,
-					slug,
-				);
-
-				const rootFileDir = path.resolve(__dirname, `../../../public/`);
-
 				const nodeSrc = node.properties.src as string;
 				const nodeAlt = node.properties.alt as string;
 
 				let src: string;
-				if (nodeSrc.startsWith("/")) {
-					src = nodeSrc;
+
+				const resolvedSrc = resolvePath(nodeSrc, path.dirname(file.path));
+				if (resolvedSrc) {
+					src = "/" + resolvedSrc.relativePath;
 				} else {
-					src = getFullRelativePath(
-						`/content/${parentFolder}/${slug}/`,
-						nodeSrc,
-					);
+					src = nodeSrc;
 				}
 
 				if (src.endsWith(".svg") || src.endsWith(".gif")) {
@@ -73,7 +59,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				}
 
 				// TODO: How should remote images be handled?
-				const srcSize = getImageSize(nodeSrc, filePathDir, rootFileDir) || {
+				const srcSize = getImageSize(nodeSrc, path.dirname(file.path)) || {
 					height: undefined,
 					width: undefined,
 				};
@@ -86,7 +72,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				const nodeWidth = getPixelValue(node.properties.width);
 				const nodeHeight = getPixelValue(node.properties.height);
 
-				const dimensions = { ...srcSize };
+				const dimensions = { ...srcSize } as { width: number; height: number };
 				if (nodeHeight) {
 					dimensions.height = nodeHeight;
 					dimensions.width = Math.floor(nodeHeight * imageRatio);
@@ -133,7 +119,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 						alt: nodeAlt || "",
 					});
 
-					pngSource = originalPictureResult.sources.reduce(
+					const newPngSource = originalPictureResult.sources.reduce(
 						(prev, source) => {
 							const largestSrc = getLargestSourceSetSrc(source.srcset);
 							// select first option
@@ -160,8 +146,10 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 							}
 							return prev;
 						},
-						null as ReturnType<typeof getLargestSourceSetSrc>,
+						undefined as ReturnType<typeof getLargestSourceSetSrc> | undefined,
 					);
+
+					if (newPngSource) pngSource = newPngSource;
 				}
 
 				const sources = pictureResult.sources.map((attrs) => {

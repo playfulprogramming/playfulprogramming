@@ -1,4 +1,5 @@
 ---
+import { getUnicornById } from "utils/api";
 import ProminentQuote from "../components/prominent-quote.astro";
 import QuoteCard from "../components/quote-card.astro";
 import QuotesContainer from "../components/quotes-container.astro";
@@ -17,7 +18,8 @@ import styles from "./quotes.module.scss";
 		<ProminentQuote
 			personName={"Lars Gyrup Brink Nielsen"}
 			personLink="https://github.com/LayZeeDK"
-			avatarSrc={import("../people-pictures/lars_gyrup_brink_nielsen.png")}
+			avatarSrc={getUnicornById("LayZee", "en")!.profileImgMeta
+				.relativeServerPath}
 			personTitle="GitHub Star, Microsoft MVP, Angular Hero of Education"
 			quote={`
 Whether you want to go from zero to hero in the marvelous world of frontend JavaScript frameworks or are a veteran looking to learn another framework while comparing it to a framework you know, this epic book series is for you. Me? I'm learning Vue. Corbin has made good choices to ensure that your learning experience is well thought out. These books use modern and simple frameworks APIs, and each concept or technique is introduced step-by-step to avoid overwhelming you.
@@ -128,7 +130,8 @@ The Framework Field Guide does a wonderful job of comparing and contrasting thre
 		<QuoteCard
 			personName={`Enea Jahollari`}
 			personLink="https://eneajaho.me/"
-			avatarSrc={import("../people-pictures/enea_jahollari.jpg")}
+			avatarSrc={getUnicornById("eneajahollari", "en")!.profileImgMeta
+				.relativeServerPath}
 			personTitle={`Angular Developer`}
 			quote={`
 Reading the Framework Field Guide is like boarding the ship of frontend development and sailing through the peaceful and beautiful seas of it, but also the deep oceans of concepts that will make you think twice when you say, I know React, Vue, and Angular.
@@ -146,7 +149,8 @@ Corbin does an amazing job teaching fundamentals that simplify learning React, A
 		<QuoteCard
 			personName={`James Fenn`}
 			personLink="https://jfenn.me/"
-			avatarSrc={import("../people-pictures/james_fenn.jpg")}
+			avatarSrc={getUnicornById("fennifith", "en")!.profileImgMeta
+				.relativeServerPath}
 			personTitle={`Miscellaneous Software Author, Bug Creator`}
 			quote={`
 This guide offers a brilliant overview of concepts that can apply to almost any web tooling. It forms connections with real-world examples that are invaluable for picking up a new framework. Corbin has put a huge amount of time and effort into making this book series a convenient and extensive overview of frontend programming, and the result is truly the bee's knees.
@@ -193,7 +197,8 @@ Corbin is great at giving new developers the keys to the kingdom. The pictures, 
 		<QuoteCard
 			personName={`Jahir Fiquitiva`}
 			personLink="https://jahir.dev/"
-			avatarSrc={import("../people-pictures/jahir_fiquitiva.jpg")}
+			avatarSrc={getUnicornById("jahirfiquitiva", "en")!.profileImgMeta
+				.relativeServerPath}
 			personTitle={`Full Stack Engineer, Open Source Maintainer`}
 			quote={`
 Corbin is a really talented expert with deep knowledge in a wide range of tech areas. He's truly capable of providing support and explaining hard concepts in an understandable way.
@@ -213,7 +218,8 @@ New software developers often don't see how programming languages share many com
 		<QuoteCard
 			personName={`Xeno`}
 			personLink="https://www.xenophorium.dev/"
-			avatarSrc={import("../../../../../public/content/data/xeno.jpg")}
+			avatarSrc={getUnicornById("xenophorium", "en")!.profileImgMeta
+				.relativeServerPath}
 			personTitle={`Frontend Developer`}
 			quote={`
 The amount of improvement I gained within a period of 3 months through interactions with Corbin (both about the book and outside of it) was way more than what I had learned in my two professional years as a frontend developer because, at some point, I was kind of stuck in a cycle of mundane tasks and was questioning why I did frontend in the first place; so, in a way, I have him to thank for helping me find joy in coding again.

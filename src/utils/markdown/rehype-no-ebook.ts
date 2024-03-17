@@ -5,8 +5,8 @@ import replaceAllBetween from "unist-util-replace-all-between";
 export const rehypeNoEbook: Plugin<[], Root> = () => {
 	return (tree) => {
 		const replaceTabNodes = () => {
-			return []
-		}
+			return [];
+		};
 		replaceAllBetween(
 			tree,
 			{ type: "raw", value: "<!-- no-ebook:start -->" } as never,

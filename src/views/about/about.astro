@@ -3,16 +3,39 @@ import style from "./about.module.scss";
 import "../../styles/shiki.scss";
 import * as data from "src/utils/data";
 import ContributorCard from "./contributor-card.astro";
-import { getTranslatedPage, translate } from "src/utils/translations";
+import {
+	getPrefixLanguageFromPath,
+	getTranslatedPage,
+	translate,
+} from "src/utils/translations";
 import TranslationsHeader from "src/views/base/translations/translations-header.astro";
 import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import { License } from "./license";
 import BannerSvg from "./banner-svg.astro";
+import * as api from "utils/api";
 
 const about = getTranslatedPage(
 	Astro,
 	await Astro.glob("../../../content/site/about-us*.mdx"),
 );
+
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
+
+const unicorns = api.getUnicornsByLang(locale);
+
+// Sort unicorns to see if "partner" is in the title, otherwise sort by name
+unicorns.sort((a, b) => {
+	const aIsPartner = a.achievements.includes("partner");
+	const bIsPartner = b.achievements.includes("partner");
+
+	if (aIsPartner && !bIsPartner) {
+		return -1;
+	}
+	if (!aIsPartner && bIsPartner) {
+		return 1;
+	}
+	return a.name.localeCompare(b.name);
+});
 
 const tags = [
 	...[...data.tags.values()]
@@ -42,11 +65,7 @@ const tags = [
 			<span>{translate(Astro, "title.contributors")}</span>
 		</h2>
 		<ul class={style.unicorns} role="list" aria-labelledby="contributors">
-			{
-				data.unicorns.map((unicornInfo) => (
-					<ContributorCard unicorn={unicornInfo} />
-				))
-			}
+			{unicorns.map((unicornInfo) => <ContributorCard unicorn={unicornInfo} />)}
 		</ul>
 
 		<hr />
@@ -92,7 +111,7 @@ const tags = [
 			<script>
 				{
 					const a: HTMLAnchorElement =
-						document.querySelector("#email-licenses");
+						document.querySelector("#email-licenses")!;
 					// This is base64 for UU's contact email, to prevent automated page crawlers from finding it
 					a.href =
 						"mailto:" +

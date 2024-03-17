@@ -1,8 +1,8 @@
 ---
 import { getImage } from "@astrojs/image";
 import { escape } from "html-escaper";
-import * as data from "src/utils/data";
 import fs from "fs/promises";
+import { getUnicornsByLang } from "utils/api";
 
 const sticker_star = await fs.readFile(
 	"public/stickers/sticker_star.svg",
@@ -21,7 +21,7 @@ const sticker_developer = await fs.readFile(
 	"utf-8",
 );
 
-const unicorns = [...data.unicorns]
+const unicorns = getUnicornsByLang("en")
 	.sort((_) => 0.5 - Math.random())
 	.slice(0, 28);
 
@@ -43,6 +43,8 @@ const unicornImages = await Promise.all(
 			format: "avif",
 			alt: "",
 		});
+
+		if (!image.src) return "";
 
 		return `
 		<image class="bannerSvgImage" width="96" height="96" xlink:href="${escape(

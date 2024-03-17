@@ -10,6 +10,7 @@
 		// Enable stricter transpilation for better output.
 		"isolatedModules": true,
 		"esModuleInterop": true,
+		"strict": true,
 		"jsx": "react-jsx",
 		"skipLibCheck": true,
 		"jsxImportSource": "preact",
@@ -29,5 +30,5 @@
 			"assets/*": ["./src/assets/*"]
 		}
 	},
-	"exclude": ["./content/blog"]
+	"exclude": ["./content"]
 }

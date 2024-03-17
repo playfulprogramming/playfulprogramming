@@ -22,7 +22,7 @@ export function Dialog(props: DialogProps) {
 		if (dialogRef.current) {
 			if (props.open && !dialogRef.current.open) {
 				// reset the return value when re-opening the dialog
-				dialogRef.current.returnValue = undefined;
+				dialogRef.current.returnValue = "";
 				dialogRef.current.showModal();
 			}
 
