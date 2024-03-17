@@ -58,11 +58,19 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 * Derive state and setup for search
 	 */
 	const setSearch = useCallback((str: string) => {
-		setQuery({
+		const newQuery = {
 			...query,
 			searchQuery: str,
 			searchPage: 1,
-		});
+		};
+
+		if (!str) {
+			// Remove tags and authors when no value is present
+			newQuery.filterTags = [];
+			newQuery.filterAuthors = [];
+		}
+
+		setQuery(newQuery);
 	}, [query, setQuery]);
 
 	const [debouncedSearch, immediatelySetDebouncedSearch] = useDebouncedValue(
@@ -84,18 +92,6 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 * Fetch data
 	 */
 	const enabled = !!debouncedSearch;
-
-	useEffect(() => {
-		if (!enabled) {
-			// Remove tags and authors when no value is present
-			// - this should wait until after the 500ms debounce delay
-			setQuery({
-				...query,
-				filterTags: [],
-				filterAuthors: [],
-			});
-		}
-	}, [enabled]);
 
 	const { isLoading, isFetching, isError, error, data, refetch } = useQuery({
 		queryFn: ({ signal }) => {
@@ -142,7 +138,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				searchPage: 1, // reset to page 1
 			});
 		},
-		[query, setQuery],
+		[query],
 	);
 
 	const setSelectedTags = useCallback(
@@ -153,7 +149,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				searchPage: 1, // reset to page 1
 			});
 		},
-		[query, setQuery],
+		[query],
 	);
 
 	const setContentToDisplay = useCallback(
@@ -164,7 +160,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				searchPage: 1, // reset to page 1
 			});
 		},
-		[query, setQuery],
+		[query],
 	);
 
 	const unicornsMap = useMemo(() => {
@@ -185,7 +181,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				searchPage: 1, // reset to page 1
 			});
 		},
-		[query, setQuery],
+		[query],
 	);
 
 	/**

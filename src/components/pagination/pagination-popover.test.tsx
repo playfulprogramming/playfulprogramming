@@ -108,6 +108,6 @@ test("when 'Go to page' is clicked, softNavigate is invoked with the input page 
 
 	await waitFor(() => {
 		expect(softNavigate).toBeCalledTimes(1);
-		expect(softNavigate).toBeCalledWith("./3", 3);
+		expect(softNavigate).toBeCalledWith("./3");
 	});
 });
