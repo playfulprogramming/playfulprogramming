@@ -20,7 +20,7 @@ import {
 	MockUnicorn,
 	MockUnicornTwo,
 } from "../../../__mocks__/data/mock-unicorn";
-import { buildSearchQuery } from "utils/search";
+import { buildSearchQuery } from "src/views/search/search";
 
 const user = userEvent.setup();
 
@@ -740,7 +740,7 @@ describe("Search page", () => {
 		const searchQuery = buildSearchQuery({
 			searchQuery: "blog",
 			searchPage: 2,
-			contentToDisplay: "articles",
+			display: "articles",
 			filterTags: ["angular"],
 			filterAuthors: [MockUnicorn.id],
 			sort: "oldest",
@@ -978,7 +978,7 @@ describe("Search page", () => {
 		const searchQuery = buildSearchQuery({
 			searchQuery: "blog",
 			searchPage: 2,
-			contentToDisplay: "articles",
+			display: "articles",
 			filterTags: ["angular"],
 			filterAuthors: [MockUnicorn.id],
 			sort: "oldest",
@@ -999,9 +999,12 @@ describe("Search page", () => {
 
 		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
 
-		expect(window.location.search).toMatchInlineSnapshot(
-			`"?searchQuery=blogother&display=articles&filterTags=angular&filterAuthors=joe&sort=oldest"`,
-		);
+		// Since the search URL is debounced, it might update a while after the search results are visible
+		await waitFor(() => {
+			expect(window.location.search).toEqual(
+				"?q=blogother&display=articles&filterTags=angular&filterAuthors=joe&sort=oldest",
+			);
+		});
 	});
 
 	test("Make sure that re-searches to empty string reset page, tags, authors, etc", async () => {
@@ -1130,7 +1133,7 @@ describe("Search page", () => {
 		const searchQuery = buildSearchQuery({
 			searchQuery: "blog",
 			searchPage: 2,
-			contentToDisplay: "articles",
+			display: "articles",
 			filterTags: ["angular"],
 			filterAuthors: [MockUnicorn.id],
 			sort: "oldest",
@@ -1151,9 +1154,12 @@ describe("Search page", () => {
 
 		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
 
-		expect(window.location.search).toMatchInlineSnapshot(
-			`"?searchQuery=&display=articles&sort=oldest"`,
-		);
+		// Since the search URL is debounced, it might update a while after the search results are visible
+		await waitFor(() => {
+			expect(window.location.search).toEqual(
+				"?display=articles&sort=oldest",
+			);
+		});
 	});
 
 	test("Back button should show last query", async () => {
@@ -1179,13 +1185,13 @@ describe("Search page", () => {
 		await user.type(searchInput, "other");
 
 		await waitFor(() =>
-			expect(window.location.search).toBe("?searchQuery=blogother"),
+			expect(window.location.search).toBe("?q=blogother"),
 		);
 
 		history.back();
 
 		await waitFor(() =>
-			expect(window.location.search).toBe("?searchQuery=blog"),
+			expect(window.location.search).toBe("?q=blog"),
 		);
 	});
 });

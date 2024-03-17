@@ -34,7 +34,7 @@ function PaginationButton({
 					selected ? styles.selected : ""
 				}`}
 				href={href}
-				onClick={softNavigate ? onSoftNavClick(softNavigate) : undefined}
+				onClick={softNavigate ? onSoftNavClick(softNavigate, pageNum) : undefined}
 				aria-label={`Go to page ${pageNum}`}
 				aria-current={selected || undefined}
 			>
@@ -95,7 +95,7 @@ export const Pagination = ({
 									? "javascript:void(0)"
 									: getPageHref(page.currentPage - 1)
 							}
-							onClick={softNavigate ? onSoftNavClick(softNavigate) : undefined}
+							onClick={softNavigate ? onSoftNavClick(softNavigate, page.currentPage - 1) : undefined}
 							aria-disabled={!isPreviousEnabled}
 							dangerouslySetInnerHTML={{ __html: back }}
 						/>
@@ -130,7 +130,7 @@ export const Pagination = ({
 									? "javascript:void(0)"
 									: getPageHref(page.currentPage + 1)
 							}
-							onClick={softNavigate ? onSoftNavClick(softNavigate) : undefined}
+							onClick={softNavigate ? onSoftNavClick(softNavigate, page.currentPage + 1) : undefined}
 							aria-label="Next page"
 							aria-disabled={!isNextEnabled}
 							dangerouslySetInnerHTML={{ __html: forward }}

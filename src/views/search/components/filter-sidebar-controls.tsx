@@ -1,5 +1,5 @@
 import style from "./filter-sidebar-controls.module.scss";
-import { DisplayContentType, SortType } from "./types";
+import { DisplayContentType, SortType } from "src/views/search/search";
 import { Item, SelectWithLabel } from "components/select/select";
 
 interface FilterSidebarControlsProps {

@@ -31,22 +31,17 @@ import sadUnicorn from "../../assets/unicorn_sad.svg";
 import happyUnicorn from "../../assets/unicorn_happy.svg";
 import scaredUnicorn from "../../assets/unicorn_scared.svg";
 import {
-	SEARCH_QUERY_KEY,
 	SEARCH_PAGE_KEY,
-	CONTENT_TO_DISPLAY_KEY,
-	FILTER_TAGS_KEY,
-	FILTER_AUTHOR_KEY,
-	SORT_KEY,
-} from "../../utils/search";
-import { debounce } from "utils/debounce";
-import { SortType } from "./components/types";
+	SearchQuery,
+	serializeParams,
+	deserializeParams,
+	DisplayContentType,
+	SortType,
+} from "./search";
 import { SearchResultCount } from "./components/search-result-count";
 import { ServerReturnType } from "./types";
 import { CollectionInfo } from "types/CollectionInfo";
 import { isDefined } from "utils/is-defined";
-
-const DEFAULT_SORT = "relevance";
-const DEFAULT_CONTENT_TO_DISPLAY = "all";
 
 interface SearchPageProps {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -55,47 +50,28 @@ interface SearchPageProps {
 const MAX_POSTS_PER_PAGE = 6;
 
 function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
-	const { urlParams, pushState } = useSearchParams();
+	const [query, setQuery] = useSearchParams<SearchQuery>(serializeParams, deserializeParams);
 
-	const [search, _setSearch] = useState(
-		() => urlParams.get(SEARCH_QUERY_KEY) ?? "",
-	);
+	const search = query.searchQuery ?? "";
 
 	/**
 	 * Derive state and setup for search
 	 */
-	const setSearch = useMemo(() => {
-		const updateUrl = debounce(
-			(str: string, dontUpdateSearchURL = false) => {
-				if (!dontUpdateSearchURL) {
-					pushState({ key: SEARCH_QUERY_KEY, val: str });
-				}
-				pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
-				if (!str) {
-					// Remove tags and authors when no value is present
-					pushState({ key: FILTER_TAGS_KEY, val: undefined });
-					pushState({ key: FILTER_AUTHOR_KEY, val: undefined });
-				}
-			},
-			500,
-			false,
-		);
-
-		return (str: string, dontUpdateSearchURL = false) => {
-			_setSearch(str);
-			updateUrl(str);
+	const setSearch = useCallback((str: string) => {
+		const newQuery = {
+			...query,
+			searchQuery: str,
+			searchPage: 1,
 		};
-	}, [pushState]);
 
-	const searchRef = useRef(search);
-	searchRef.current = search;
-
-	useEffect(() => {
-		const urlSearchVal = urlParams.get(SEARCH_QUERY_KEY);
-		if (urlSearchVal && urlSearchVal !== searchRef.current) {
-			setSearch(urlSearchVal, true);
+		if (!str) {
+			// Remove tags and authors when no value is present
+			newQuery.filterTags = [];
+			newQuery.filterAuthors = [];
 		}
-	}, [urlParams, setSearch]);
+
+		setQuery(newQuery);
+	}, [query, setQuery]);
 
 	const [debouncedSearch, immediatelySetDebouncedSearch] = useDebouncedValue(
 		search,
@@ -154,58 +130,37 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 	const isContentLoading = isLoading || isFetching;
 
-	/**
-	 * Derived state
-	 */
-	const page = useMemo(
-		() => Number(urlParams.get(SEARCH_PAGE_KEY) || "1"),
-		[urlParams],
-	);
-
-	// Setup selected unicorns
-	const selectedUnicorns = useMemo(() => {
-		const urlVal = urlParams.get(FILTER_AUTHOR_KEY);
-		if (!urlVal || urlVal === "") return [];
-		return urlVal.split(",").filter(Boolean);
-	}, [urlParams]);
-
 	const setSelectedUnicorns = useCallback(
 		(authors: string[]) => {
-			pushState({ key: FILTER_AUTHOR_KEY, val: authors.toString() });
-			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
+			setQuery({
+				...query,
+				filterAuthors: authors,
+				searchPage: 1, // reset to page 1
+			});
 		},
-		[urlParams],
+		[query],
 	);
-
-	// Setup tags
-	const selectedTags = useMemo(() => {
-		const urlVal = urlParams.get(FILTER_TAGS_KEY);
-		if (!urlVal || urlVal === "") return [];
-		return urlVal.split(",").filter(Boolean);
-	}, [urlParams]);
 
 	const setSelectedTags = useCallback(
 		(tags: string[]) => {
-			pushState({ key: FILTER_TAGS_KEY, val: tags.toString() });
-			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
+			setQuery({
+				...query,
+				filterTags: tags,
+				searchPage: 1, // reset to page 1
+			});
 		},
-		[urlParams],
+		[query],
 	);
 
-	// Setup content to display
-	const contentToDisplay = useMemo(() => {
-		const urlVal = urlParams.get(CONTENT_TO_DISPLAY_KEY);
-		const isValid = ["all", "articles", "collections"].includes(String(urlVal));
-		if (isValid) return urlVal as "all" | "articles" | "collections";
-		return DEFAULT_CONTENT_TO_DISPLAY;
-	}, [urlParams]);
-
 	const setContentToDisplay = useCallback(
-		(display: "all" | "articles" | "collections") => {
-			pushState({ key: CONTENT_TO_DISPLAY_KEY, val: display });
-			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
+		(display: DisplayContentType) => {
+			setQuery({
+				...query,
+				display: display,
+				searchPage: 1, // reset to page 1
+			});
 		},
-		[urlParams],
+		[query],
 	);
 
 	const unicornsMap = useMemo(() => {
@@ -213,29 +168,20 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	}, [data.unicorns]);
 
 	const showArticles =
-		contentToDisplay === "all" || contentToDisplay === "articles";
+		query.display === "all" || query.display === "articles";
 
 	const showCollections =
-		contentToDisplay === "all" || contentToDisplay === "collections";
-
-	// Setup sort
-	const sort = useMemo(() => {
-		const sort = urlParams.get(SORT_KEY) as SortType;
-		if (sort === "relevance" || sort === "newest" || sort === "oldest")
-			return sort;
-		else return DEFAULT_SORT;
-	}, [urlParams]);
+		query.display === "all" || query.display === "collections";
 
 	const setSort = useCallback(
 		(sort: SortType) => {
-			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
-			if (sort === "relevance") {
-				pushState({ key: SORT_KEY, val: undefined });
-				return;
-			}
-			pushState({ key: SORT_KEY, val: sort });
+			setQuery({
+				...query,
+				sort: sort,
+				searchPage: 1, // reset to page 1
+			});
 		},
-		[urlParams],
+		[query],
 	);
 
 	/**
@@ -243,56 +189,56 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 */
 	const filteredAndSortedPosts = useMemo(() => {
 		const posts = [...data.posts];
-		if (sort && sort !== "relevance") {
+		if (query.sort !== "relevance") {
 			posts.sort(
 				(a, b) =>
-					(sort === "newest" ? -1 : 1) *
+					(query.sort === "newest" ? -1 : 1) *
 					(new Date(a.published).getTime() - new Date(b.published).getTime()),
 			);
 		}
 
 		return posts.filter((post) => {
 			if (
-				selectedTags.length > 0 &&
-				!post.tags.some((tag) => selectedTags.includes(tag))
+				query.filterTags.length > 0 &&
+				!post.tags.some((tag) => query.filterTags.includes(tag))
 			) {
 				return false;
 			}
 
 			if (
-				selectedUnicorns.length > 0 &&
-				!post.authors.some((unicorn) => selectedUnicorns.includes(unicorn))
+				query.filterAuthors.length > 0 &&
+				!post.authors.some((unicorn) => query.filterAuthors.includes(unicorn))
 			) {
 				return false;
 			}
 
 			return true;
 		});
-	}, [data, page, sort, selectedUnicorns, selectedTags]);
+	}, [data, query.sort, query.filterTags, query.filterAuthors]);
 
 	const filteredAndSortedCollections: CollectionInfo[] = useMemo(() => {
 		const collections = [...data.collections];
 
-		if (sort && sort !== "relevance") {
+		if (query.sort !== "relevance") {
 			collections.sort(
 				(a, b) =>
-					(sort === "newest" ? -1 : 1) *
+					(query.sort === "newest" ? -1 : 1) *
 					(new Date(a.published).getTime() - new Date(b.published).getTime()),
 			);
 		}
 
 		return collections.filter((collection) => {
 			if (
-				selectedTags.length > 0 &&
-				!collection.tags.some((tag) => selectedTags.includes(tag))
+				query.filterTags.length > 0 &&
+				!collection.tags.some((tag) => query.filterTags.includes(tag))
 			) {
 				return false;
 			}
 
 			if (
-				selectedUnicorns.length > 0 &&
+				query.filterAuthors.length > 0 &&
 				!collection.authors.some((unicorn) =>
-					selectedUnicorns.includes(unicorn),
+				query.filterAuthors.includes(unicorn),
 				)
 			) {
 				return false;
@@ -300,17 +246,17 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 			return true;
 		});
-	}, [data, page, sort, selectedUnicorns, selectedTags]);
+	}, [data, query.sort, query.filterTags, query.filterAuthors]);
 
 	/**
 	 * Paginate posts
 	 */
 	const posts = useMemo(() => {
 		return filteredAndSortedPosts.slice(
-			(page - 1) * MAX_POSTS_PER_PAGE,
-			page * MAX_POSTS_PER_PAGE,
+			(query.searchPage - 1) * MAX_POSTS_PER_PAGE,
+			query.searchPage * MAX_POSTS_PER_PAGE,
 		);
-	}, [filteredAndSortedPosts, page]);
+	}, [filteredAndSortedPosts, query.searchPage]);
 
 	/**
 	 * Calculate the last page based on the number of posts.
@@ -365,14 +311,14 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				collections={data.collections}
 				posts={data.posts}
 				unicornsMap={unicornsMap}
-				selectedTags={selectedTags}
+				selectedTags={query.filterTags}
 				setSelectedTags={setSelectedTags}
-				selectedAuthorIds={selectedUnicorns}
+				selectedAuthorIds={query.filterAuthors}
 				setSelectedAuthorIds={setSelectedUnicorns}
-				sort={sort}
+				sort={query.sort}
 				setSort={setSort}
 				setContentToDisplay={setContentToDisplay}
-				contentToDisplay={contentToDisplay}
+				contentToDisplay={query.display}
 				desktopStyle={{
 					height: `calc(100vh - ${headerHeight}px)`,
 					top: headerHeight,
@@ -391,9 +337,9 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					search={search}
 					setSearch={setSearch}
 					setContentToDisplay={setContentToDisplay}
-					contentToDisplay={contentToDisplay}
+					contentToDisplay={query.display}
 					setSort={setSort}
-					sort={sort}
+					sort={query.sort}
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
 					headerHeight={headerHeight}
 				/>
@@ -516,15 +462,18 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 								/>
 								<Pagination
 									testId="pagination"
-									softNavigate={(href) => {
-										pushState(href);
+									softNavigate={(_href, pageNum) => {
+										setQuery({
+											...query,
+											searchPage: pageNum,
+										});
 									}}
 									page={{
-										currentPage: page,
+										currentPage: query.searchPage,
 										lastPage: lastPage,
 									}}
 									getPageHref={(pageNum) => {
-										const pageParams = new URLSearchParams(urlParams);
+										const pageParams = new URLSearchParams(window.location.search);
 										pageParams.set(SEARCH_PAGE_KEY, pageNum.toString());
 										return `${
 											window.location.pathname

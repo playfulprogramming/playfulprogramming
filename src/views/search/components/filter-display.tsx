@@ -9,7 +9,7 @@ import { tabletLarge } from "../../../tokens/breakpoints";
 import { FilterDialog } from "./filter-dialog";
 import { FilterSidebar } from "./filter-sidebar";
 import tagsObj from "../../../../content/data/tags.json";
-import { SortType } from "./types";
+import { SortType } from "src/views/search/search";
 
 const tagsMap = new Map(Object.entries(tagsObj));
 
