@@ -1152,7 +1152,7 @@ describe("Search page", () => {
 
 		await user.clear(searchInput);
 
-		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+		await waitFor(() => expect(getByText("What would you like to find?")).toBeInTheDocument());
 
 		// Since the search URL is debounced, it might update a while after the search results are visible
 		await waitFor(() => {
