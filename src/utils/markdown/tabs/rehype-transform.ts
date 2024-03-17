@@ -42,12 +42,14 @@ const getApproxLineCount = (nodes: Node[], inParagraph?: boolean): number => {
 			["div", "p", "br"].includes((n as Element).tagName)
 		)
 			lines++;
-		// assume that any image or embed could add ~10 lines
+		// assume that any image or embed could add ~20 lines
 		if (
 			n.type === "element" &&
-			["img", "svg", "iframe"].includes((n as Element).tagName)
+			["picture", "img", "svg", "iframe", "video"].includes(
+				(n as Element).tagName,
+			)
 		)
-			lines += 10;
+			lines += 20;
 		// approximate line wraps in <p> tag, assuming ~100 chars per line
 		if (
 			isInParagraph &&
