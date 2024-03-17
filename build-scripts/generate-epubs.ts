@@ -14,7 +14,7 @@ import { resolve } from "path";
 import { EPub } from "@lesjoursfr/html-to-epub";
 import { unified } from "unified";
 import { CollectionInfo, PostInfo } from "types/index";
-import { createRehypePlugins } from "utils/markdown";
+import { createRehypePlugins } from "utils/markdown/createRehypePlugins";
 import { getPostContentMarkdown } from "utils/get-post-content";
 import { contentDirectory } from "utils/data";
 

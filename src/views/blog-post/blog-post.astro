@@ -29,7 +29,7 @@ import { LargeButton } from "../../components/button/button";
 import styles from "./blog-post.module.scss";
 
 const {
-	Content,
+	postHtml,
 	post,
 	postHeadings,
 	authors,
@@ -43,7 +43,7 @@ const {
 	collection?: CollectionInfo;
 	collectionPosts?: PostInfo[];
 	license?: LicenseInfo;
-	Content: MarkdownInstance<any>["Content"];
+	postHtml: string;
 };
 
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
@@ -103,7 +103,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main${siteMetad
 			<h2 id="blog-post-contents" class="visually-hidden" data-no-heading-link>
 				Post contents
 			</h2>
-			<Content />
+			<div set:html={postHtml} />
 			{
 				collectionPosts?.length ? (
 					<ArticleNav

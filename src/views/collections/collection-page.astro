@@ -17,13 +17,13 @@ import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 
 const unicornProfilePicMap = await getUnicornProfilePicMap();
 
-interface CollectionProps {
+interface Props {
 	collection: CollectionInfo;
+	collectionHtml: string;
 	authors: UnicornInfo[];
-	Content: MarkdownInstance<never>["Content"];
 }
 
-const { Content, collection, authors } = Astro.props as CollectionProps;
+const { collection, collectionHtml, authors } = Astro.props as Props;
 
 const coverImgAspectRatio =
 	collection.coverImgMeta.width / collection.coverImgMeta.height;
@@ -54,9 +54,7 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 			</p>
 		</div>
 		<div class={styles.contentContainer}>
-			<div class={`post-body ${styles.content}`}>
-				<Content />
-			</div>
+			<div class={`post-body ${styles.content}`} set:html={collectionHtml} />
 			<div class={styles.buttonContainer}>
 				{
 					collection.buttons?.map((button, i) => (

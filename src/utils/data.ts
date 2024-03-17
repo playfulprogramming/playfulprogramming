@@ -96,7 +96,8 @@ async function readUnicorn(unicornPath: string): Promise<UnicornInfo[]> {
 
 	for (const file of files) {
 		const locale = getLanguageFromFilename(file);
-		const fileContents = await fs.readFile(join(unicornPath, file), "utf-8");
+		const filePath = join(unicornPath, file);
+		const fileContents = await fs.readFile(filePath, "utf-8");
 		const frontmatter = matter(fileContents).data as RawUnicornInfo;
 
 		const profileImgSize = getImageSize(frontmatter.profileImg, unicornPath);
@@ -110,7 +111,9 @@ async function readUnicorn(unicornPath: string): Promise<UnicornInfo[]> {
 			roles: [],
 			achievements: [],
 			...frontmatter,
+			kind: "unicorn",
 			id: unicornId,
+			file: filePath,
 			locale,
 			locales,
 			totalPostCount: 0,
@@ -177,7 +180,8 @@ async function readCollection(
 	const collectionObjects: CollectionInfo[] = [];
 	for (const file of files) {
 		const locale = getLanguageFromFilename(file);
-		const fileContents = await fs.readFile(join(collectionPath, file), "utf-8");
+		const filePath = join(collectionPath, file);
+		const fileContents = await fs.readFile(filePath, "utf-8");
 		const frontmatter = matter(fileContents).data as RawCollectionInfo;
 
 		const coverImgSize = getImageSize(frontmatter.coverImg, collectionPath);
@@ -210,7 +214,9 @@ async function readCollection(
 		collectionObjects.push({
 			...fallbackInfo,
 			...frontmatter,
+			kind: "collection",
 			slug,
+			file: filePath,
 			locale,
 			locales,
 			postCount,
@@ -239,7 +245,8 @@ async function readPost(
 	const postObjects: PostInfo[] = [];
 	for (const file of files) {
 		const locale = getLanguageFromFilename(file);
-		const fileContents = await fs.readFile(join(postPath, file), "utf-8");
+		const filePath = join(postPath, file);
+		const fileContents = await fs.readFile(filePath, "utf-8");
 		const fileMatter = matter(fileContents);
 		const frontmatter = fileMatter.data as RawPostInfo;
 
@@ -287,7 +294,9 @@ async function readPost(
 		postObjects.push({
 			...fallbackInfo,
 			...frontmatter,
+			kind: "post",
 			slug,
+			file: filePath,
 			path: path.relative(contentDirectory, postPath),
 			locale,
 			locales,
