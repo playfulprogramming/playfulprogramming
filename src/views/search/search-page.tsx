@@ -138,7 +138,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				searchPage: 1, // reset to page 1
 			});
 		},
-		[query],
+		[query, setQuery],
 	);
 
 	const setSelectedTags = useCallback(
@@ -149,7 +149,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				searchPage: 1, // reset to page 1
 			});
 		},
-		[query],
+		[query, setQuery],
 	);
 
 	const setContentToDisplay = useCallback(
@@ -160,7 +160,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				searchPage: 1, // reset to page 1
 			});
 		},
-		[query],
+		[query, setQuery],
 	);
 
 	const unicornsMap = useMemo(() => {
@@ -181,7 +181,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				searchPage: 1, // reset to page 1
 			});
 		},
-		[query],
+		[query, setQuery],
 	);
 
 	/**
