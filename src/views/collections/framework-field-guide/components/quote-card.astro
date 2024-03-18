@@ -1,10 +1,10 @@
 ---
-import { Picture } from "@astrojs/image/components";
-import { ImageMetadata } from "@astrojs/image/dist/vite-plugin-astro-image";
+import Picture from "components/image/astro-picture.astro";
 import styles from "./quote-card.module.scss";
+import type { ImageMetadata } from "astro";
 
-interface QuoteCardProps {
-	avatarSrc: Promise<{ default: ImageMetadata }>;
+interface Props {
+	avatarSrc: string | Promise<{ default: ImageMetadata }>;
 	quote: string;
 	personLink: string;
 	personTitle: string;
@@ -12,7 +12,10 @@ interface QuoteCardProps {
 }
 
 const { avatarSrc, quote, personTitle, personName, personLink } =
-	Astro.props as QuoteCardProps;
+	Astro.props as Props;
+
+const src =
+	typeof avatarSrc === "string" ? avatarSrc : (await avatarSrc).default;
 ---
 
 <li class={styles.quoteCardContainerLi}>
@@ -23,9 +26,8 @@ const { avatarSrc, quote, personTitle, personName, personLink } =
 		<div class={styles.personDetailsContainer}>
 			<Picture
 				class={styles.personAvatar}
-				src={avatarSrc}
+				src={src}
 				alt=""
-				sizes="40px"
 				widths={[40]}
 				aspectRatio={1}
 			/>

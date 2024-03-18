@@ -3,7 +3,7 @@ import rehypeRaw from "rehype-raw";
 import { rehypeTabs } from "./tabs/rehype-transform";
 import { rehypeTooltips } from "./tooltips/rehype-transform";
 import { rehypeHints } from "./hints/rehype-transform";
-import { rehypeAstroImageMd } from "./rehype-astro-image-md";
+import { rehypeAstroImageMd } from "./picture/rehype-transform";
 import { rehypeUnicornElementMap } from "./rehype-unicorn-element-map";
 import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
 import { MarkdownConfig } from "./constants";

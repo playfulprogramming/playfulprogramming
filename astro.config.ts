@@ -2,13 +2,12 @@ import { defineConfig, AstroUserConfig } from "astro/config";
 
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
+import icon from "astro-icon";
 import { EnumChangefreq as ChangeFreq } from "sitemap";
 import { siteUrl } from "./src/constants/site-config";
 import vercel from "@astrojs/vercel/static";
-import image from "@astrojs/image";
 import symlink from "symlink-dir";
 import * as path from "path";
-import svgr from "vite-plugin-svgr";
 import { languages } from "./src/constants/index";
 import { fileToOpenGraphConverter } from "./src/utils/translations";
 import { posts } from "./src/utils/data";
@@ -19,7 +18,7 @@ export default defineConfig({
 	site: siteUrl,
 	adapter: vercel(),
 	integrations: [
-		image(),
+		icon(),
 		preact({ compat: true }),
 		sitemap({
 			changefreq: ChangeFreq.DAILY,
@@ -59,7 +58,7 @@ export default defineConfig({
 	],
 	vite: {
 		ssr: {
-			external: ["svgo"],
+			external: ["svgo", "msw", "msw/node"],
 			noExternal: [
 				"react-aria",
 				"react-stately",
@@ -68,7 +67,6 @@ export default defineConfig({
 				/@react-types/,
 			],
 		},
-		plugins: [svgr()],
 	},
 	markdown: {} as AstroUserConfig["markdown"] as never,
 });

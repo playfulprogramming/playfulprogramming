@@ -9,13 +9,11 @@ import path from "path";
 /**
  * They need to be the same `getImage` with the same `globalThis` instance, thanks to the "hack" workaround.
  */
-import { getPicture } from "./get-picture-hack";
-import { getImageSize } from "../get-image-size";
-import { resolvePath } from "../url-paths";
-import { getLargestSourceSetSrc } from "../get-largest-source-set-src";
-import { fileURLToPath } from "url";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import { getPicture } from "utils/get-picture";
+import { getImageSize } from "../../get-image-size";
+import { resolvePath } from "../../url-paths";
+import { getLargestSourceSetSrc } from "../../get-largest-source-set-src";
+import { Picture } from "./picture";
 
 const MAX_WIDTH = 896;
 const MAX_HEIGHT = 768;
@@ -42,7 +40,6 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 		await Promise.all(
 			imgNodes.map(async (node) => {
 				const nodeSrc = node.properties.src as string;
-				const nodeAlt = node.properties.alt as string;
 
 				let src: string;
 
@@ -96,7 +93,6 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					widths: [dimensions.width],
 					formats: ["avif", "webp", "png"],
 					aspectRatio: imageRatio,
-					alt: nodeAlt || "",
 				});
 
 				let pngSource = {
@@ -116,7 +112,6 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 						widths: [srcSize.width],
 						formats: ["png"],
 						aspectRatio: imageRatio,
-						alt: nodeAlt || "",
 					});
 
 					const newPngSource = originalPictureResult.sources.reduce(
@@ -152,10 +147,6 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					if (newPngSource) pngSource = newPngSource;
 				}
 
-				const sources = pictureResult.sources.map((attrs) => {
-					return h("source", attrs);
-				});
-
 				const {
 					height: _height,
 					width: _width,
@@ -167,18 +158,12 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 
 				Object.assign(
 					node,
-					h("picture", {}, [
-						...sources,
-						h("img", {
-							alt: node.properties.alt,
-							loading: "lazy",
-							decoding: "async",
-							"data-zoom-src": pngSource.src,
-							width: pictureResult.image.width,
-							height: pictureResult.image.height,
-							...rest,
-						}),
-					]),
+					Picture({
+						result: pictureResult,
+						alt: node.properties.alt?.toString(),
+						zoomSrc: pngSource.src,
+						imgAttrs: rest,
+					}),
 				);
 			}),
 		);

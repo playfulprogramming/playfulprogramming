@@ -8,8 +8,7 @@ import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants";
 import { fromHtml } from "hast-util-from-html";
 import { find } from "unist-util-find";
 import { getLargestManifestIcon } from "../../get-largest-manifest-icon";
-import { getPicture } from "../get-picture-hack";
-import type { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
+import { getPicture, type GetPictureResult } from "utils/get-picture";
 // This does not download the whole file to get the file size
 import probe from "probe-image-size";
 import { IFramePlaceholder } from "./iframe-placeholder";
@@ -28,7 +27,6 @@ function fetchDefaultPageIcon(): Promise<GetPictureResult> {
 			widths: [24],
 			formats: ["avif", "webp", "png"],
 			aspectRatio: 1,
-			alt: "",
 		}))
 	);
 }
@@ -89,7 +87,6 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<GetPictureResult> {
 			widths: [24],
 			formats: ["avif", "webp", "png"],
 			aspectRatio: aspectRatio,
-			alt: "",
 		});
 	})()
 		// if an error is thrown, or response is null, use the default page icon

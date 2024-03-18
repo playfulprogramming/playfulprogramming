@@ -10,7 +10,7 @@ import Hero from "../../components/hero/hero.astro";
 import SearchSection from "../../components/search-section/search-section.astro";
 import styles from "./homepage.module.scss";
 import { buildSearchQuery } from "src/views/search/search";
-import { getPicture } from "@astrojs/image";
+import { getPicture } from "utils/get-picture";
 import * as api from "utils/api";
 import { isDefined } from "utils/is-defined";
 
@@ -41,7 +41,6 @@ const collectionsWithPictures = await Promise.all(
 
 		const coverPicture = await getPicture({
 			src: collection.coverImgMeta.relativeServerPath,
-			alt: "",
 			widths: [coverImgWidth],
 			aspectRatio: coverImgAspectRatio,
 			formats: ["avif", "webp", "png"],

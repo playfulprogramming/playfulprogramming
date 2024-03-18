@@ -1,6 +1,6 @@
 import { buildMode, siteUrl } from "constants/site-config";
 
-export const get = () => {
+export const GET = () => {
 	let body = "";
 	if (buildMode === "production") {
 		body = `

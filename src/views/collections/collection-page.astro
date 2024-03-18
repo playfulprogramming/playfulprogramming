@@ -1,7 +1,6 @@
 ---
 import { CollectionInfo, UnicornInfo } from "../../types";
-import { MarkdownInstance } from "astro";
-import { Picture } from "@astrojs/image/components";
+import Picture from "components/image/astro-picture.astro";
 import { Picture as UUPicture } from "components/image/picture";
 import { LargeButton, Button } from "components/button/button";
 import { translate } from "src/utils/translations";
@@ -38,7 +37,6 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 			<Picture
 				alt=""
 				src={collection.coverImgMeta.relativeServerPath}
-				sizes={`${coverImgWidth}px`}
 				widths={[coverImgWidth]}
 				formats={["avif", "webp", "png"]}
 				loading="eager"

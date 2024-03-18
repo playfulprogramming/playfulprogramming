@@ -1,5 +1,5 @@
 import { unicorns } from "./data";
-import { getPicture } from "@astrojs/image";
+import { getPicture } from "utils/get-picture";
 
 /**
  * We do it this way so that we only generate the list of images once
@@ -15,7 +15,6 @@ const unicornProfilePicMap = Promise.all(
 				formats: ["webp", "png"],
 				widths: [192, 128, 96, 72, 48],
 				aspectRatio: 1,
-				alt: "",
 			})),
 			id: unicorn.id,
 		})),

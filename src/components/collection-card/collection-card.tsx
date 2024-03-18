@@ -4,7 +4,7 @@ import { CollectionInfo } from "types/CollectionInfo";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import forward from "src/icons/arrow_right.svg?raw";
 import { Picture as UUPicture } from "components/image/picture";
-import { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
+import type { GetPictureResult } from "utils/get-picture";
 import { UnicornInfo } from "types/UnicornInfo";
 
 interface CollectionCardProps {
