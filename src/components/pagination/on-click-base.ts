@@ -1,5 +1,6 @@
 export const onSoftNavClick =
-	(softNavigate: (href: string) => void) => (e: MouseEvent) => {
+	(softNavigate: (href: string, pageNum: number) => void, pageNum: number) =>
+	(e: MouseEvent) => {
 		let link = e.target as HTMLElement | null;
 		// Could click on a child element of an anchor
 		while (link && !(link instanceof HTMLAnchorElement)) {
@@ -21,6 +22,6 @@ export const onSoftNavClick =
 			!e.defaultPrevented
 		) {
 			e.preventDefault();
-			softNavigate(link.href);
+			softNavigate(link.href, pageNum);
 		}
 	};

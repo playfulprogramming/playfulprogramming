@@ -36,7 +36,7 @@ function PopupContents(
 				if (!props.getPageHref) return;
 
 				if (props.softNavigate) {
-					props.softNavigate(props.getPageHref(count));
+					props.softNavigate(props.getPageHref(count), count);
 					props.close();
 					return;
 				}
