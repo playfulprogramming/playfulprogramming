@@ -16,7 +16,16 @@ await symlink(path.resolve("content"), path.resolve("public/content"));
 
 export default defineConfig({
 	site: siteUrl,
-	adapter: vercel(),
+	adapter: vercel({
+		// Uses Vercel's Image Optimization API: https://vercel.com/docs/image-optimization
+		imageService: true,
+		imagesConfig: {
+			sizes: [24, 48, 72, 96, 160, 192, 896, 1080, 1200],
+			domains: [],
+			formats: ["image/avif", "image/webp"],
+		},
+		devImageService: "sharp",
+	}),
 	integrations: [
 		icon(),
 		preact({ compat: true }),
@@ -57,8 +66,11 @@ export default defineConfig({
 		}),
 	],
 	vite: {
+		optimizeDeps: {
+			exclude: ["msw", "msw/node"],
+		},
 		ssr: {
-			external: ["svgo", "msw", "msw/node"],
+			external: ["svgo"],
 			noExternal: [
 				"react-aria",
 				"react-stately",

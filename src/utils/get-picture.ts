@@ -1,6 +1,6 @@
-import { getImage } from "astro/assets";
 import type { JSX } from "preact";
 import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
 
 export interface GetPictureOptions {
 	src: string | ImageMetadata;
@@ -23,15 +23,12 @@ export async function getPicture(
 	const sources = await Promise.all(
 		formats.flatMap((format) =>
 			options.widths.map((width) =>
-				getImage(
-					{
-						src: options.src,
-						width,
-						height: width / options.aspectRatio,
-						format,
-					},
-					{} as never,
-				),
+				getImage({
+					src: options.src,
+					width,
+					height: width / options.aspectRatio,
+					format,
+				}),
 			),
 		),
 	);
@@ -41,8 +38,8 @@ export async function getPicture(
 	return {
 		image: {
 			src: image.src,
-			width: image.attributes.width,
-			height: image.attributes.height,
+			width: Math.round(image.attributes.width),
+			height: Math.round(image.attributes.height),
 			decoding: "async",
 			loading: options.loading ?? "lazy",
 		},

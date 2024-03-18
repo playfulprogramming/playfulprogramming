@@ -4,7 +4,7 @@
 		"target": "ESNext",
 		"module": "ESNext",
 		// Enable node-style module resolution, for things like npm package imports.
-		"moduleResolution": "Bundler",
+		"moduleResolution": "node",
 		// Enable JSON imports.
 		"resolveJsonModule": true,
 		// Enable stricter transpilation for better output.

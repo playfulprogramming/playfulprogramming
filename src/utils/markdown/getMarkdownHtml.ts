@@ -1,33 +1,16 @@
 import { PostHeadingInfo } from "types/PostInfo";
 import { unified } from "unified";
-import { createRemarkPlugins } from "./createRemarkPlugins";
-import { createRehypePlugins } from "./createRehypePlugins";
-import remarkParse from "remark-parse";
-import remarkToRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
 import { getMarkdownVFile } from "./getMarkdownVFile";
 import { MarkdownFileInfo, MarkdownVFile } from "./types";
+import { createHtmlPlugins } from "./createHtmlPlugins";
 
 export type MarkdownHtml = {
 	headingsWithIds: PostHeadingInfo[];
 	html: string;
 };
 
-const unifiedChain = unified()
-	.use(remarkParse, { fragment: true } as never)
-	.use(
-		createRemarkPlugins({
-			format: "html",
-		}),
-	)
-	.use(remarkToRehype, { allowDangerousHtml: true })
-	.use(
-		createRehypePlugins({
-			format: "html",
-		}),
-	)
-	// Voids: [] is required for html generation
-	.use(rehypeStringify, { allowDangerousHtml: true, voids: [] });
+const unifiedChain = unified();
+createHtmlPlugins(unifiedChain);
 
 export async function getMarkdownHtml(
 	post: MarkdownFileInfo,
