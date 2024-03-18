@@ -44,5 +44,5 @@ export const GET = () => {
 		});
 	});
 
-	return { body: feed.rss2() };
+	return new Response(feed.rss2());
 };

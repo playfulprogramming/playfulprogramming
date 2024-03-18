@@ -27,5 +27,5 @@ Host: ${siteUrl}
 Sitemap: ${siteUrl}/sitemap-index.xml
         `.trim();
 	}
-	return { body };
+	return new Response(body);
 };
