@@ -10,7 +10,7 @@ const unicodeElement: Element = {
 	children: [
 		{
 			type: "text",
-			value: "\u25B2", // Unicode character for chevron up (▲)
+			value: "\u25BC", // Unicode character for chevron up (▲)
 		},
 	],
 };
