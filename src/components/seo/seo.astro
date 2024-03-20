@@ -107,19 +107,19 @@ const currentPath = removeTrailingSlash(
 	rel="alternate"
 	href={`${siteUrl}/atom.xml`}
 	type="application/atom+xml"
-	title="Unicorn Utterances | Atom Feed"
+	title={`${siteMetadata.title} | Atom Feed`}
 />
 <link
 	rel="alternate"
 	href={`${siteUrl}/rss.xml`}
 	type="application/rss+xml"
-	title="Unicorn Utterances | RSS Feed"
+	title={`${siteMetadata.title} | RSS Feed`}
 />
 <link
 	rel="alternate"
 	href={`${siteUrl}/feed.json`}
 	type="application/json"
-	title="Unicorn Utterances | JSON Feed"
+	title={`${siteMetadata.title} | JSON Feed`}
 />
 <>
 	{
