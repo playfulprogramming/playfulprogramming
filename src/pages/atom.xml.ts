@@ -5,7 +5,7 @@ import licenses from "../../content/data/licenses.json";
 
 export const get = () => {
 	const feed = new Feed({
-		title: "Unicorn Utterances's RSS Feed",
+		title: "Unicorn Utterances's Atom Feed",
 		description:
 			"Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions",
 		id: siteUrl,
@@ -44,5 +44,5 @@ export const get = () => {
 		});
 	});
 
-	return { body: feed.rss2() };
+	return { body: feed.atom1() };
 };
