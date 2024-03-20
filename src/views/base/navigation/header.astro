@@ -8,7 +8,7 @@ import style from "./header.module.scss";
 import logo from "src/assets/unicorn_utterances_sticker.svg?url";
 import { removePrefixLanguageFromPath, translate } from "utils/translations";
 import { SearchInput } from "components/input/input";
-import { SEARCH_QUERY_KEY } from "utils/search";
+import { SEARCH_QUERY_KEY } from "src/views/search/search";
 
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
 const isHome = path === "/";

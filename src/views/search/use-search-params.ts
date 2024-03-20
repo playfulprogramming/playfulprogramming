@@ -1,62 +1,61 @@
-import { useEffect, useReducer } from "preact/hooks";
+import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
+import { debounce } from "utils/debounce";
 
-export const useSearchParams = () => {
-	const [urlParams, pushState] = useReducer<
-		URLSearchParams,
-		{ key: string; val?: string } | string | boolean
-	>((prevParams, action) => {
-		const pushStateIfNotEqual = (nav: string) => {
-			if (
-				new URL(nav, window.location.href).searchParams.toString() !==
-				new URL(window.location.href).searchParams.toString()
-			) {
-				window.history.pushState({}, "", nav);
-			}
-		};
+export function useSearchParams<T>(
+	serialize: (params: T) => URLSearchParams,
+	deserialize: (params: URLSearchParams) => T,
+): [T, (newState: T) => void] {
+	const [urlParams, setUrlParams] = useState<URLSearchParams>(
+		() => new URL(window.location.href).searchParams,
+	);
 
-		if (typeof action === "string") {
-			const newParams = new URL(action, window.location.href).searchParams;
-			const nav = action;
-			pushStateIfNotEqual(nav);
-			return newParams;
-		} else if (typeof action === "boolean") {
-			const newParams = new URL(window.location.href).searchParams;
-			const nav = window.location.href;
-			if (action) pushStateIfNotEqual(nav);
-			return newParams;
-		}
+	const pushHistoryState = useMemo(() => {
+		// Debounce any calls to pushState to avoid spamming the history API
+		return debounce(
+			(urlParams: URLSearchParams) => {
+				const currentUrl = new URL(window.location.href).toString();
+				const newUrl = new URL(
+					"?" + urlParams.toString(),
+					window.location.href,
+				).toString();
 
-		/**
-		 * This cannot reference window.location.search directly,
-		 * as Chrome will throttle the pushState if the user is
-		 * spamming the any of the filters.
-		 *
-		 * This is a workaround to prevent the throttling.
-		 */
-		const newParams = new URLSearchParams(prevParams.toString());
-
-		if (action.val !== undefined) newParams.set(action.key, action.val);
-		else newParams.delete(action.key);
-
-		const nav = `${window.location.pathname}?${newParams.toString()}`;
-		pushStateIfNotEqual(nav);
-		return newParams;
-	}, new URLSearchParams(window.location.search));
+				if (currentUrl != newUrl) {
+					window.history.pushState({}, "", newUrl);
+				}
+			},
+			500,
+			false,
+		);
+	}, []);
 
 	useEffect(() => {
-		const listener = () => {
+		pushHistoryState(urlParams);
+	}, [urlParams]);
+
+	useEffect(() => {
+		const onPopState = () => {
+			// When 'popstate' is sent, the window properties do not immediately reflect the change
+			// so we need to wait until the end of the event loop
 			setTimeout(() => {
-				pushState(false);
-			}, 10);
+				const searchParams = new URL(window.location.href).searchParams;
+				setUrlParams(searchParams);
+			}, 0);
 		};
-		window.addEventListener("popstate", listener);
+
+		window.addEventListener("popstate", onPopState);
 		return () => {
-			window.removeEventListener("popstate", listener);
+			window.removeEventListener("popstate", onPopState);
 		};
 	});
 
-	return {
-		urlParams,
-		pushState,
-	};
-};
+	const params = useMemo(() => deserialize(urlParams), [urlParams]);
+
+	const setParams = useCallback(
+		(params: T) => {
+			setUrlParams(serialize(params));
+		},
+		[setUrlParams],
+	);
+
+	return [params, setParams];
+}

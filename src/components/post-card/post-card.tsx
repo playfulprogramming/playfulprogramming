@@ -5,7 +5,7 @@ import { Chip } from "components/index";
 import date from "src/icons/date.svg?raw";
 import authorsSvg from "src/icons/authors.svg?raw";
 import { getHrefContainerProps } from "utils/href-container-script";
-import { buildSearchQuery } from "utils/search";
+import { buildSearchQuery } from "src/views/search/search";
 
 interface PostCardProps {
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -66,7 +66,7 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 			<ul className={style.cardList} aria-label={"Post tags"} role="list">
 				{post.tags.map((tag) => (
 					<li>
-						<Chip href={`/search?${buildSearchQuery({ filterTags: [tag] })}`}>
+						<Chip href={`/search?${buildSearchQuery({ searchQuery: "*", filterTags: [tag] })}`}>
 							{tag}
 						</Chip>
 					</li>

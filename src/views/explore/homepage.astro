@@ -9,7 +9,7 @@ import { SubHeader } from "../../components/subheader/subheader";
 import Hero from "../../components/hero/hero.astro";
 import SearchSection from "../../components/search-section/search-section.astro";
 import styles from "./homepage.module.scss";
-import { buildSearchQuery } from "utils/search";
+import { buildSearchQuery } from "src/views/search/search";
 import { getPicture } from "@astrojs/image";
 import * as api from "utils/api";
 import { isDefined } from "utils/is-defined";
@@ -72,7 +72,10 @@ const collectionsWithPictures = await Promise.all(
 <section>
 	<SubHeader tag="h2" text="Collections" id="collections-header">
 		<Button
-			href={`/search?${buildSearchQuery({ contentToDisplay: "collections" })}`}
+			href={`/search?${buildSearchQuery({
+				searchQuery: "*",
+				display: "collections",
+			})}`}
 			aria-labelledby="collections-header"
 		>
 			{translate(Astro, "action.view_all")}

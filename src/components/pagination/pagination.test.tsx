@@ -74,7 +74,7 @@ test("when the previous button is clicked, softNavigate is called for the previo
 	previous.click();
 
 	expect(softNavigate).toBeCalledTimes(1);
-	expect(softNavigate).toBeCalledWith("http://localhost/1");
+	expect(softNavigate).toBeCalledWith("http://localhost/1", 1);
 });
 
 test("when the next button is clicked, softNavigate is called for the next page", () => {
@@ -93,7 +93,7 @@ test("when the next button is clicked, softNavigate is called for the next page"
 	next.click();
 
 	expect(softNavigate).toBeCalledTimes(1);
-	expect(softNavigate).toBeCalledWith("http://localhost/3");
+	expect(softNavigate).toBeCalledWith("http://localhost/3", 3);
 });
 
 test("when a page button is clicked, softNavigate is called for its page", () => {
@@ -112,5 +112,5 @@ test("when a page button is clicked, softNavigate is called for its page", () =>
 	button5.click();
 
 	expect(softNavigate).toBeCalledTimes(1);
-	expect(softNavigate).toBeCalledWith("http://localhost/5");
+	expect(softNavigate).toBeCalledWith("http://localhost/5", 5);
 });

@@ -8,7 +8,7 @@ import {
 	RadioButton,
 	RadioButtonGroup,
 } from "components/button-radio-group/button-radio-group";
-import { SortType } from "./types";
+import { SortType } from "src/views/search/search";
 
 interface SearchTopbarProps {
 	onSubmit: (search: string) => void;

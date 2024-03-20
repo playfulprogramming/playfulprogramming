@@ -4,7 +4,7 @@ import { PostInfo, UnicornInfo } from "types/index";
 import { Icon } from "astro-icon";
 import { Chip } from "components/index";
 import dayjs from "dayjs";
-import { buildSearchQuery } from "../../../utils/search";
+import { buildSearchQuery } from "../../search/search";
 import { translate } from "utils/translations";
 
 interface PostTitleHeaderProps {
@@ -93,7 +93,12 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 			{
 				tags?.map((tag) => (
 					<li>
-						<Chip href={`/search?${buildSearchQuery({ filterTags: [tag] })}`}>
+						<Chip
+							href={`/search?${buildSearchQuery({
+								searchQuery: "*",
+								filterTags: [tag],
+							})}`}
+						>
 							{tag}
 						</Chip>
 					</li>

@@ -7,7 +7,7 @@ import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import { Button } from "../../components";
 import styles from "./unicorn-page.module.scss";
 import AchievementCard from "./components/achievement-card.astro";
-import { buildSearchQuery } from "../../utils/search";
+import { buildSearchQuery } from "../search/search";
 import { getAchievements, Achievement } from "src/utils/achievements";
 import { translate } from "utils/translations";
 import * as api from "utils/api";
@@ -92,6 +92,7 @@ const postAuthors = new Map(
 								<Button
 									tag="a"
 									href={`/search?${buildSearchQuery({
+										searchQuery: "*",
 										filterAuthors: [unicorn.id],
 									})}`}
 									aria-labelledby="recent-articles-header"
