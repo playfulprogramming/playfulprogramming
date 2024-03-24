@@ -23,3 +23,5 @@ pnpm-debug.log*
 .puppeteer
 
 .vercel
+
+.history
