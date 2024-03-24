@@ -36,7 +36,7 @@
 		"social-previews:dev:server": "live-server build-scripts/social-previews/dist",
 		"social-previews:dev": "npm-run-all --parallel social-previews:dev:build social-previews:dev:server",
 		"epub": "tsx --tsconfig tsconfig.script.json build-scripts/generate-epubs.ts",
-		"tsc": "tsc --noEmit && astro check",
+		"tsc": "astro check && tsc --noEmit",
 		"test": "jest",
 		"test:debug": "set DEBUG_PRINT_LIMIT=9999999999 && node --inspect-brk ./node_modules/jest/bin/jest.js",
 		"prepare": "husky install && playwright install"
