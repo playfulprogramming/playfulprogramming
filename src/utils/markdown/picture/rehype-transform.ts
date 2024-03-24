@@ -10,6 +10,7 @@ import { getPicture } from "utils/get-picture";
 import { getImageSize } from "../../get-image-size";
 import { resolvePath } from "../../url-paths";
 import { Picture } from "./picture";
+import { mobile, tabletSmall } from "src/tokens/breakpoints";
 
 const MAX_WIDTH = 896;
 const MAX_HEIGHT = 768;
@@ -95,6 +96,10 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					src: src,
 					width: dimensions.width,
 					height: dimensions.height,
+					sizes: {
+						356: { maxWidth: mobile },
+						596: { maxWidth: tabletSmall },
+					},
 					formats: ["avif", "webp", "png"],
 				});
 

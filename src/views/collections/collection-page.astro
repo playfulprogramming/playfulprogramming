@@ -11,6 +11,7 @@ import "../../styles/shiki.scss";
 import "../../styles/convertkit.scss";
 
 import styles from "./collection-page.module.scss";
+import { desktopSmall } from "src/tokens/breakpoints";
 
 interface Props {
 	collection: CollectionInfo;
@@ -36,7 +37,7 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 				width={coverImgWidth}
 				height={720}
 				sizes={{
-					360: { maxWidth: 1280 },
+					360: { maxWidth: desktopSmall },
 				}}
 				loading="eager"
 			/>

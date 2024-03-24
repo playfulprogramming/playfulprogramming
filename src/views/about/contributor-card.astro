@@ -6,6 +6,7 @@ import { Button } from "components/index";
 import { translate } from "src/utils/translations";
 import { getHrefContainerProps } from "utils/href-container-script";
 import allRoles from "../../../content/data/roles.json";
+import { tabletSmall } from "src/tokens/breakpoints";
 
 interface CardProps {
 	unicorn: UnicornInfo;
@@ -29,7 +30,7 @@ if (unicorn.achievements.includes("partner")) {
 		width={96}
 		height={96}
 		sizes={{
-			80: { maxWidth: 640 },
+			80: { maxWidth: tabletSmall },
 		}}
 		imgAttrs={{
 			class: style.avatar,

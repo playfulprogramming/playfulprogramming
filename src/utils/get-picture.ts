@@ -91,6 +91,8 @@ export function getPictureAttrs(
 
 	const widths = Object.keys(sizeMap)
 		.map(Number)
+		// any additional source widths must be smaller than the original image width
+		.filter((w) => w < options.width)
 		// breakpoints only need to be mapped for widths that *aren't* the max size
 		.filter((w) => getSupportedWidth(w) != getSupportedWidth(options.width))
 		.sort()
