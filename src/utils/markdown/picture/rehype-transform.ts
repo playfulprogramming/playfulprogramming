@@ -1,9 +1,6 @@
 import { Root, Element } from "hast";
 import { Plugin } from "unified";
-
-import { h } from "hastscript";
 import { visit } from "unist-util-visit";
-
 import path from "path";
 
 /**
@@ -12,7 +9,6 @@ import path from "path";
 import { getPicture } from "utils/get-picture";
 import { getImageSize } from "../../get-image-size";
 import { resolvePath } from "../../url-paths";
-import { getLargestSourceSetSrc } from "../../get-largest-source-set-src";
 import { Picture } from "./picture";
 
 const MAX_WIDTH = 896;
@@ -45,12 +41,19 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 
 				const resolvedSrc = resolvePath(nodeSrc, path.dirname(file.path));
 				if (resolvedSrc) {
-					src = "/" + resolvedSrc.relativePath;
+					src = resolvedSrc.relativeServerPath;
 				} else {
-					src = nodeSrc;
+					// If the image links to an external URL, do nothing
+					node.properties.src = nodeSrc;
+					return;
 				}
 
-				if (src.endsWith(".svg") || src.endsWith(".gif")) {
+				// If the image is an unsupported format, do nothing
+				if (
+					![".png", ".jpg", ".jpeg"].includes(
+						path.extname(nodeSrc).toLowerCase(),
+					)
+				) {
 					node.properties.src = src;
 					return;
 				}
@@ -88,64 +91,12 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					dimensions.height = Math.floor(MAX_WIDTH / imageRatio);
 				}
 
-				const pictureResult = await getPicture({
+				const pictureResult = getPicture({
 					src: src,
-					widths: [dimensions.width],
+					width: dimensions.width,
+					height: dimensions.height,
 					formats: ["avif", "webp", "png"],
-					aspectRatio: imageRatio,
 				});
-
-				let pngSource = {
-					src: src,
-					size: srcSize.width,
-				};
-
-				if (
-					!(
-						src.endsWith(".png") ||
-						src.endsWith(".jpg") ||
-						src.endsWith(".jpeg")
-					)
-				) {
-					const originalPictureResult = await getPicture({
-						src: src,
-						widths: [srcSize.width],
-						formats: ["png"],
-						aspectRatio: imageRatio,
-					});
-
-					const newPngSource = originalPictureResult.sources.reduce(
-						(prev, source) => {
-							const largestSrc = getLargestSourceSetSrc(source.srcset);
-							// select first option
-							if (!prev) return largestSrc;
-							// SVG first
-							if (prev.src.endsWith(".svg")) return prev;
-							if (largestSrc.src.endsWith(".svg")) return prev;
-							// Prefer `w`
-							if (prev.sizeType === "w" && largestSrc.sizeType === "x")
-								return prev;
-							if (largestSrc.sizeType === "w" && prev.sizeType === "x")
-								return largestSrc;
-							// Get the bigger of the two
-							if (largestSrc.size > prev.size) return largestSrc;
-							// Prefer PNG and JPG
-							if (largestSrc.size === prev.size) {
-								if (
-									prev.src.endsWith(".webp") &&
-									(largestSrc.src.endsWith(".png") ||
-										largestSrc.src.endsWith(".jpg") ||
-										largestSrc.src.endsWith(".jpeg"))
-								)
-									return largestSrc;
-							}
-							return prev;
-						},
-						undefined as ReturnType<typeof getLargestSourceSetSrc> | undefined,
-					);
-
-					if (newPngSource) pngSource = newPngSource;
-				}
 
 				const {
 					height: _height,
@@ -161,7 +112,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					Picture({
 						result: pictureResult,
 						alt: node.properties.alt?.toString(),
-						zoomSrc: pngSource.src,
+						zoomSrc: resolvedSrc.relativeServerPath,
 						imgAttrs: rest,
 					}),
 				);

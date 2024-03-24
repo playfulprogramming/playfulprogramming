@@ -1,7 +1,6 @@
 ---
 import { CollectionInfo, UnicornInfo } from "../../types";
-import Picture from "components/image/astro-picture.astro";
-import { Picture as UUPicture } from "components/image/picture";
+import { Picture } from "components/image/picture";
 import { LargeButton, Button } from "components/button/button";
 import { translate } from "src/utils/translations";
 import { getHrefContainerProps } from "utils/href-container-script";
@@ -12,9 +11,6 @@ import "../../styles/shiki.scss";
 import "../../styles/convertkit.scss";
 
 import styles from "./collection-page.module.scss";
-import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
-
-const unicornProfilePicMap = await getUnicornProfilePicMap();
 
 interface Props {
 	collection: CollectionInfo;
@@ -26,7 +22,7 @@ const { collection, collectionHtml, authors } = Astro.props as Props;
 
 const coverImgAspectRatio =
 	collection.coverImgMeta.width / collection.coverImgMeta.height;
-// adjust the image width to ensure its height=240px
+// adjust the image width to ensure its height=720px
 // (i.e. it shouldn't get upscaled/downscaled with `object-fit: cover`)
 const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 ---
@@ -37,10 +33,12 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 			<Picture
 				alt=""
 				src={collection.coverImgMeta.relativeServerPath}
-				widths={[coverImgWidth]}
-				formats={["avif", "webp", "png"]}
+				width={coverImgWidth}
+				height={720}
+				sizes={{
+					360: { maxWidth: 1280 },
+				}}
 				loading="eager"
-				aspectRatio={coverImgAspectRatio}
 			/>
 		</div>
 		<div class={styles.titleAndDescContainer}>
@@ -83,10 +81,10 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 									class={styles.authorImage}
 									style={{ borderColor: author.color }}
 								>
-									<UUPicture
-										picture={
-											unicornProfilePicMap.find((u) => u.id === author.id)!
-										}
+									<Picture
+										src={author.profileImgMeta.relativeServerPath}
+										width={48}
+										height={48}
 										alt=""
 									/>
 								</div>

@@ -1,5 +1,5 @@
 ---
-import Picture from "components/image/astro-picture.astro";
+import { Picture } from "components/image/picture";
 import styles from "./quote-card.module.scss";
 import type { ImageMetadata } from "astro";
 
@@ -25,11 +25,11 @@ const src =
 		</blockquote>
 		<div class={styles.personDetailsContainer}>
 			<Picture
-				class={styles.personAvatar}
+				imgAttrs={{ class: styles.personAvatar }}
 				src={src}
 				alt=""
-				widths={[40]}
-				aspectRatio={1}
+				width={40}
+				height={40}
 			/>
 			<div class={styles.personTextContainer}>
 				<a

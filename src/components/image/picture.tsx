@@ -1,8 +1,8 @@
-import type { GetPictureResult } from "utils/get-picture";
+import { getPictureAttrs, getPictureUrls, GetPictureOptions, GetPictureUrls } from "utils/get-picture";
 import type { JSX } from "preact";
 
-interface PictureProps {
-	picture: GetPictureResult;
+interface PictureProps extends GetPictureOptions {
+	urls?: GetPictureUrls;
 	alt: string;
 	class?: string;
 	pictureAttrs?: JSX.HTMLAttributes<HTMLPictureElement> & Record<string, unknown>;
@@ -10,16 +10,19 @@ interface PictureProps {
 }
 
 export const Picture = ({
-	picture,
 	alt,
 	class: className,
 	pictureAttrs,
 	imgAttrs,
+	urls,
+	...props
 }: PictureProps) => {
+	const pictureUrls = urls ?? getPictureUrls(props);
+	const pictureResult = getPictureAttrs(props, pictureUrls);
 	return (
 		<picture class={className} {...pictureAttrs}>
-			{picture?.sources.map((attrs) => <source {...attrs} />)}
-			<img {...((picture?.image) ?? {})} alt={alt} {...imgAttrs}/>
+			{pictureResult.sources.map((attrs) => <source {...attrs} />)}
+			<img alt={alt} {...pictureResult.image} {...imgAttrs}/>
 		</picture>
 	);
 };

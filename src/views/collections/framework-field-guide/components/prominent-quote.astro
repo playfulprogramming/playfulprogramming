@@ -1,5 +1,5 @@
 ---
-import Picture from "components/image/astro-picture.astro";
+import { Picture } from "components/image/picture";
 import styles from "./prominent-quote.module.scss";
 import type { ImageMetadata } from "astro";
 
@@ -23,11 +23,11 @@ const src =
 		{quote}
 	</blockquote>
 	<Picture
-		class={styles.quoteAvatar}
+		imgAttrs={{ class: styles.quoteAvatar }}
 		alt=""
 		src={src}
-		widths={[96]}
-		aspectRatio={1}
+		width={96}
+		height={96}
 		formats={["avif", "webp", "png"]}
 	/>
 	<figcaption>

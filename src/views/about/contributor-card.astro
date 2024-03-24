@@ -1,7 +1,7 @@
 ---
 import style from "./contributor-card.module.scss";
 import { UnicornInfo } from "uu-types";
-import Picture from "components/image/astro-picture.astro";
+import { Picture } from "components/image/picture";
 import { Button } from "components/index";
 import { translate } from "src/utils/translations";
 import { getHrefContainerProps } from "utils/href-container-script";
@@ -26,15 +26,16 @@ if (unicorn.achievements.includes("partner")) {
 <li class={style.card} {...getHrefContainerProps(unicornHref)}>
 	<Picture
 		alt=""
-		widths={[96]}
-		aspectRatio={1}
+		width={96}
+		height={96}
+		sizes={{
+			80: { maxWidth: 640 },
+		}}
 		imgAttrs={{
 			class: style.avatar,
 			"data-dont-round": "true",
 		}}
-		formats={["avif", "webp", "png"]}
 		src={unicorn.profileImgMeta.relativeServerPath}
-		loading="lazy"
 	/>
 
 	<div class={style.info}>

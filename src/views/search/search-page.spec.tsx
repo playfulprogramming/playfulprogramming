@@ -61,7 +61,7 @@ function mockFetchWithStatus(
 
 describe("Search page", () => {
 	test("Should show initial results", () => {
-		const { getByText } = render(<SearchPage unicornProfilePicMap={[]} />);
+		const { getByText } = render(<SearchPage />);
 
 		expect(getByText("What would you like to find?")).toBeInTheDocument();
 	});
@@ -76,7 +76,7 @@ describe("Search page", () => {
 		}));
 
 		const { getByText, getByTestId } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockPost.title);
@@ -94,7 +94,7 @@ describe("Search page", () => {
 		}));
 
 		const { getByText, getByTestId } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockCollection.title);
@@ -109,7 +109,7 @@ describe("Search page", () => {
 			error: "There was an error fetching your search results.",
 		}));
 		const { getByText, getByTestId } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockPost.title);
@@ -131,7 +131,7 @@ describe("Search page", () => {
 		}));
 
 		const { getByText, getByTestId } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "Asdfasdfasdf");
@@ -151,7 +151,7 @@ describe("Search page", () => {
 		}));
 
 		const { getByTestId, queryByTestId } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockPost.title);
@@ -172,7 +172,7 @@ describe("Search page", () => {
 		}));
 
 		const { getByTestId, queryByTestId } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockCollection.title);
@@ -196,7 +196,7 @@ describe("Search page", () => {
 		}));
 
 		const { getByTestId, queryByTestId, getByText } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 
 		const searchInput = getByTestId("search-input");
@@ -241,7 +241,7 @@ describe("Search page", () => {
 		}));
 
 		const { getByTestId, getByText, queryByTestId } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 
 		const searchInput = getByTestId("search-input");
@@ -270,7 +270,7 @@ describe("Search page", () => {
 		}));
 
 		const { getByTestId, getByText, getByLabelText, queryByTestId } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 
 		const searchInput = getByTestId("search-input");
@@ -326,7 +326,7 @@ describe("Search page", () => {
 		}));
 
 		const { getByTestId, getByText } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 
 		const searchInput = getByTestId("search-input");
@@ -386,7 +386,7 @@ describe("Search page", () => {
 		}));
 
 		const { getByTestId, getByText } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 
 		const searchInput = getByTestId("search-input");
@@ -446,7 +446,7 @@ describe("Search page", () => {
 		}));
 
 		const { findByTestId, getByText, getByTestId, queryByText } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 
 		const searchInput = getByTestId("search-input");
@@ -588,7 +588,7 @@ describe("Search page", () => {
 			getByText,
 			getByTestId,
 			queryByText,
-		} = render(<SearchPage unicornProfilePicMap={[]} />);
+		} = render(<SearchPage />);
 
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "*");
@@ -747,7 +747,7 @@ describe("Search page", () => {
 		window.location.assign(`?${searchQuery}`);
 
 		const { getByTestId, getByText, queryByText } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 
 		// Persists search query
@@ -806,7 +806,7 @@ describe("Search page", () => {
 		}));
 
 		var { getByTestId, getByText } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 
 		var searchInput = getByTestId("search-input");
@@ -834,7 +834,7 @@ describe("Search page", () => {
 
 		// Re-render
 		var { getByTestId, getByText } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 
 		var searchInput = getByTestId("search-input");
@@ -985,7 +985,7 @@ describe("Search page", () => {
 		window.location.assign(`?${searchQuery}`);
 
 		const { getByTestId, getByText } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 
 		await waitFor(() => expect(getByText("Ten blog post")).toBeInTheDocument());
@@ -1140,7 +1140,7 @@ describe("Search page", () => {
 		window.location.assign(`?${searchQuery}`);
 
 		const { getByTestId, getByText } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 
 		await waitFor(() => expect(getByText("Ten blog post")).toBeInTheDocument());
@@ -1170,7 +1170,7 @@ describe("Search page", () => {
 		}));
 
 		const { getByTestId, getByText } = render(
-			<SearchPage unicornProfilePicMap={[]} />,
+			<SearchPage />,
 		);
 
 		const searchInput = getByTestId("search-input");

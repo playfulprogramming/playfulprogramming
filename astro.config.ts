@@ -11,6 +11,7 @@ import * as path from "path";
 import { languages } from "./src/constants/index";
 import { fileToOpenGraphConverter } from "./src/utils/translations";
 import { posts } from "./src/utils/data";
+import { SUPPORTED_IMAGE_SIZES } from "./src/utils/get-picture";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
@@ -20,7 +21,7 @@ export default defineConfig({
 		// Uses Vercel's Image Optimization API: https://vercel.com/docs/image-optimization
 		imageService: true,
 		imagesConfig: {
-			sizes: [24, 48, 72, 96, 160, 192, 896, 1080, 1200],
+			sizes: SUPPORTED_IMAGE_SIZES,
 			domains: [],
 			formats: ["image/avif", "image/webp"],
 		},
