@@ -90,7 +90,6 @@ export function createRehypePlugins(config: MarkdownConfig): PluggableList {
 					},
 			  ]
 			: noop,
-
 		config.format === "html" ? rehypeUnicornElementMap : noop,
 		config.format === "html" ? rehypeTwoslashTabindex : noop,
 		config.format === "html" ? rehypeFileTree : noop,
