@@ -39,7 +39,6 @@ export function createRehypePlugins(config: MarkdownConfig): PluggableList {
 		config.format === "epub" ? rehypeMakeHrefPathsAbsolute : noop,
 		config.format === "epub" ? rehypeNoEbook : noop,
 		config.format === "epub" ? rehypeDeleteUucodeIframe : noop,
-
 		// Do not add the tabs before the slug. We rely on some of the heading
 		// logic in order to do some of the subheading logic
 		[
@@ -95,7 +94,6 @@ export function createRehypePlugins(config: MarkdownConfig): PluggableList {
 		config.format === "html" ? rehypeUnicornElementMap : noop,
 		config.format === "html" ? rehypeTwoslashTabindex : noop,
 		config.format === "html" ? rehypeFileTree : noop,
-
 		config.format === "html" ? rehypeHeaderText : noop,
 		config.format === "html"
 			? [
