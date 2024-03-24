@@ -5,7 +5,6 @@ import { UnicornInfo } from "types/index";
 import { Icon } from "astro-icon/components";
 import * as api from "utils/api";
 import { isDefined } from "utils/is-defined";
-import type { Icon as IconKey } from "virtual:astro-icon";
 
 interface ProfileSectionProps {
 	unicorn: UnicornInfo;
@@ -16,7 +15,7 @@ const { unicorn } = Astro.props as ProfileSectionProps;
 const iconSize = 20;
 
 interface SocialInfo {
-	icon: IconKey;
+	icon: string;
 	name: string;
 	href: (socials: UnicornInfo["socials"]) => string | undefined;
 }
