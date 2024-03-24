@@ -40,8 +40,8 @@ afterAll(() => server.close());
 
 function mockFetch(fn: (searchStr: string) => ServerReturnType) {
 	server.use(
-		http.get(`/api/search`, async ({ params }) => {
-			const searchString = params.query.toString();
+		http.get(`/api/search`, async ({ request }) => {
+			const searchString = new URL(request.url).searchParams.get("query")!;
 			return HttpResponse.json(fn(searchString));
 		}),
 	);
@@ -52,8 +52,8 @@ function mockFetchWithStatus(
 	fn: (searchStr: string) => unknown,
 ) {
 	server.use(
-		http.get(`/api/search`, async ({ params }) => {
-			const searchString = params.query.toString();
+		http.get(`/api/search`, async ({ request }) => {
+			const searchString = new URL(request.url).searchParams.get("query")!;
 			return HttpResponse.json({ body: fn(searchString) }, { status });
 		}),
 	);

@@ -40,7 +40,7 @@ function getSupportedWidth(width: number) {
 	);
 }
 
-const isDev = Boolean(import.meta.env.DEV);
+const isDev = Boolean(import.meta.env?.DEV);
 
 function getSource(src: string, width: number) {
 	if (isDev) {
