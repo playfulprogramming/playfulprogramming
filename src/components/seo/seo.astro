@@ -103,6 +103,24 @@ const currentPath = removeTrailingSlash(
 	siteMetadata={siteMetadata}
 	pathName={pathName}
 />
+<link
+	rel="alternate"
+	href={`${siteUrl}/atom.xml`}
+	type="application/atom+xml"
+	title={`${siteMetadata.title} | Atom Feed`}
+/>
+<link
+	rel="alternate"
+	href={`${siteUrl}/rss.xml`}
+	type="application/rss+xml"
+	title={`${siteMetadata.title} | RSS Feed`}
+/>
+<link
+	rel="alternate"
+	href={`${siteUrl}/feed.json`}
+	type="application/json"
+	title={`${siteMetadata.title} | JSON Feed`}
+/>
 <>
 	{
 		type === "article" && (
