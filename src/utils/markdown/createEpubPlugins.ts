@@ -13,6 +13,7 @@ import { rehypeFixTwoSlashXHTML } from "./rehype-fix-twoslash-xhtml";
 import { rehypeNoEbook } from "./rehype-no-ebook";
 import { Processor } from "unified";
 import rehypeStringify from "rehype-stringify";
+import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
 
 // https://github.com/shikijs/twoslash/issues/147
 const remarkTwoslash =
@@ -36,6 +37,7 @@ export function createEpubPlugins(unified: Processor): Processor {
 			.use(rehypeMakeImagePathsAbsolute)
 			.use(rehypeMakeHrefPathsAbsolute)
 			.use(rehypeNoEbook)
+			.use(rehypeExpandDetailsAndSummary)
 			.use(rehypeSlug, {
 				maintainCase: true,
 				removeAccents: true,
