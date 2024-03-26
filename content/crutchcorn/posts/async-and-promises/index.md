@@ -65,7 +65,7 @@ Here, `sum` is assigned the number of `6` from `sumNumbers`. This type of code i
 
 For example, you don't have to use any kind of special syntax to tell the `for` loop that you want to wait for the next value. It runs each items in the for loop one-by-one:
 
-``` javascript
+```javascript
 function logEachItem(items) {
   for (let i = 0; i < items.length; i++) {
     console.log(items[i]);
