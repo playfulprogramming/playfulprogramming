@@ -3,8 +3,6 @@ import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
 import remarkGfm from "remark-gfm";
 import remarkUnwrapImages from "remark-unwrap-images";
 import { TwitchTransformer } from "./remark-embedder-twitch";
-import remarkTwoslashDefault from "remark-shiki-twoslash";
-import type { UserConfigSettings } from "shiki-twoslash";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
 import remarkToRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug-custom-id";
@@ -25,12 +23,8 @@ import { dirname, relative, resolve } from "path";
 import type { VFile } from "vfile";
 import { siteMetadata } from "../../constants/site-config";
 import branch from "git-branch";
+import rehypeShiki from "@shikijs/rehype";
 import rehypeStringify from "rehype-stringify";
-
-// https://github.com/shikijs/twoslash/issues/147
-const remarkTwoslash =
-	(remarkTwoslashDefault as never as { default: typeof remarkTwoslashDefault })
-		.default ?? remarkTwoslashDefault;
 
 export function createHtmlPlugins(unified: Processor): Processor {
 	return (
@@ -43,9 +37,6 @@ export function createHtmlPlugins(unified: Processor): Processor {
 			.use(remarkEmbedder, {
 				transformers: [oembedTransformer, TwitchTransformer],
 			} as RemarkEmbedderOptions)
-			.use(remarkTwoslash, {
-				themes: ["css-variables"],
-			} as UserConfigSettings)
 			.use(remarkToRehype, { allowDangerousHtml: true })
 			// This is required to handle unsafe HTML embedded into Markdown
 			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] })
@@ -104,6 +95,14 @@ export function createHtmlPlugins(unified: Processor): Processor {
 					`text-style-headline-${Math.min(depth + 1, 6)}`,
 			})
 			.use(rehypeInContentAd)
+			// Shiki is the last plugin before stringify, to avoid performance issues
+			// with node traversal (shiki creates A LOT of element nodes)
+			.use(rehypeShiki as never, {
+				themes: {
+					light: "github-light",
+					dark: "github-dark",
+				},
+			})
 			.use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
 	);
 }

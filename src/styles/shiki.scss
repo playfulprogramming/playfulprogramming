@@ -1,5 +1,21 @@
 @import "src/tokens/index";
 
+:root {
+	--shiki_padding: 12px;
+}
+
+.shiki {
+	@include darkTheme {
+		color: var(--shiki-dark) !important;
+	}
+}
+.shiki span {
+	@include darkTheme {
+		color: var(--shiki-dark) !important;
+		background-color: var(--shiki-dark-bg) !important;
+	}
+}
+
 /*
  * This code handles line of code counting
  */
@@ -11,6 +27,14 @@ pre code {
 	position: relative;
 	padding-left: 2.5rem;
 	tab-size: 4;
+
+	/* Important to allow the code to move horizontally; */
+	overflow-x: auto;
+	position: relative;
+
+	/* Give it some space to breathe */
+	padding-top: var(--shiki_padding);
+	padding-bottom: var(--shiki_padding);
 }
 
 pre code .line::before {
@@ -45,80 +69,29 @@ Code blocks structurally look like:
     </div>
   </pre>
 */
-
-// Provides the github-light and github-dark themes as CSS variables
-// using https://github.com/sdorra/convert-sh-theme
-.shiki {
-	--shiki-color-text: #24292e;
-	--shiki-color-background: #fff;
-
-	--shiki-token-constant: #005cc5;
-	--shiki-token-string: #032f62;
-	--shiki-token-comment: #6a737d;
-	--shiki-token-keyword: #d73a49;
-	--shiki-token-parameter: #24292e;
-	--shiki-token-function: #24292e;
-	--shiki-token-string-expression: #22863a;
-	--shiki-token-punctuation: #24292e;
-	--shiki-token-link: #24292e;
-
-	--shiki_padding: 12px;
-
-	@include darkTheme {
-		--shiki-color-text: #e1e4e8;
-		--shiki-color-background: #24292e;
-
-		--shiki-token-constant: #79b8ff;
-		--shiki-token-string: #9ecbff;
-		--shiki-token-comment: #6a737d;
-		--shiki-token-keyword: #f97583;
-		--shiki-token-parameter: #e1e4e8;
-		--shiki-token-function: #e1e4e8;
-		--shiki-token-string-expression: #85e89d;
-		--shiki-token-punctuation: #e1e4e8;
-		--shiki-token-link: #e1e4e8;
-	}
-}
-
-pre {
-	/* Important to allow the code to move horizontally; */
-	overflow-x: auto;
-	position: relative;
-}
-
-pre .code-container {
-	/* Give it some space to breathe */
-	padding: var(--shiki_padding) 0;
-	display: flex;
-
-	code {
-		flex-grow: 1;
-	}
-}
-
 pre.shiki {
 	overflow-x: auto;
 }
-pre.shiki div.line {
+pre.shiki .line {
 	// must be the same value as used for line-height
 	min-height: 1.7em;
 	padding: 0 var(--shiki_padding);
 }
-pre.shiki div.highlight {
+pre.shiki .line.highlight {
 	font-weight: bold;
 	background-color: var(--surface_primary_emphasis-none);
 }
 
-pre.shiki div:not(.highlight) + div.highlight,
-pre.shiki div:first-child.highlight {
+pre.shiki .line:not(.highlight) + .line.highlight,
+pre.shiki .line:first-child.highlight {
 	border-top: 2px dashed var(--primary_default);
 }
 
-pre.shiki div.highlight + div:not(.highlight) {
+pre.shiki .line.highlight + .line:not(.highlight) {
 	border-top: 2px dashed var(--primary_default);
 }
 
-pre.shiki div:last-child.highlight {
+pre.shiki .line:last-child.highlight {
 	border-bottom: 2px dashed var(--primary_default);
 }
 
