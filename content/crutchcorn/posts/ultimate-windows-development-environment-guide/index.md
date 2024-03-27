@@ -458,7 +458,7 @@ Just as before, you're able to delete and edit a value by highlighting and press
 
 Git, by default, uses `vim` to edit files. While I understand and respect the power of `vim`, I have never got the hang of `:!qnoWaitThatsNotRight!qq!helpMeLetMeOut`. As such, I tend to change my configuration to use `micro`, the CLI editor mentioned in [the CLI packages section](#cli-packages). In order to do so, I can just run:
 
-``` 
+```
 git config --global core.editor "micro"
 ```
 

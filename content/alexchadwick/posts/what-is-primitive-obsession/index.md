@@ -25,7 +25,7 @@ class User {
   public int Id { get; set; }
   public string Name { get; set; }
 }
-``` 
+```
 
 And this may look like a perfectly good type. However it is flawed in various ways. For example, we're not able to easily enforce any sort of constraints.
 

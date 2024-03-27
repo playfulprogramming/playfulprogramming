@@ -25,7 +25,7 @@ If you didn't know already, when you get the MOD of something, you divide the fi
 ## The days of the week
 
 The days of the week have numbers, I have put ways of remembering them in brackets:
-```  
+```
 0 = Sunday (Noneday)  
 1 = Monday (Oneday)  
 2 = Tuesday (Twosday)  

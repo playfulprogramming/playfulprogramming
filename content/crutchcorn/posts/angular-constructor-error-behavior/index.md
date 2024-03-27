@@ -150,7 +150,7 @@ You'll see that neither `Before` nor `After` renders anymore. Why is that?
 
 If we take a step back for a moment and [look at how Angular's compiler works](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549), you'll learn that Angular takes a component template like this:
 
-``` typescript
+```typescript
 @Component({
   selector: 'app-cmp',
   template: '<span>Your name is {{name}}</span>',

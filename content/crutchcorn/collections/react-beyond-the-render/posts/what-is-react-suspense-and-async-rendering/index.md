@@ -136,7 +136,7 @@ const fetchUser = cache(({ timeout }) => {
 
 To sidestep this behavior, wrap each `<UserDisplay>` in their own `<Suspense>`:
 
-``` jsx
+```jsx
 function App() {
 	return (
 		<>
