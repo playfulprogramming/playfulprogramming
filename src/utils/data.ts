@@ -93,8 +93,11 @@ async function readUnicorn(unicornPath: string): Promise<UnicornInfo[]> {
 		const fileContents = await fs.readFile(filePath, "utf-8");
 		const frontmatter = matter(fileContents).data as RawUnicornInfo;
 
-		const profileImgSize = getImageSize(frontmatter.profileImg, unicornPath);
-		if (!profileImgSize) {
+		const profileImgSize = await getImageSize(
+			frontmatter.profileImg,
+			unicornPath,
+		);
+		if (!profileImgSize || !profileImgSize.width || !profileImgSize.height) {
 			throw new Error(`${unicornPath}: Unable to parse profile image size`);
 		}
 
@@ -112,8 +115,8 @@ async function readUnicorn(unicornPath: string): Promise<UnicornInfo[]> {
 			totalPostCount: 0,
 			totalWordCount: 0,
 			profileImgMeta: {
-				height: profileImgSize.height as number,
-				width: profileImgSize.width as number,
+				height: profileImgSize.height,
+				width: profileImgSize.width,
 				...resolvePath(frontmatter.profileImg, unicornPath)!,
 			},
 		};
@@ -177,14 +180,17 @@ async function readCollection(
 		const fileContents = await fs.readFile(filePath, "utf-8");
 		const frontmatter = matter(fileContents).data as RawCollectionInfo;
 
-		const coverImgSize = getImageSize(frontmatter.coverImg, collectionPath);
-		if (!coverImgSize) {
+		const coverImgSize = await getImageSize(
+			frontmatter.coverImg,
+			collectionPath,
+		);
+		if (!coverImgSize || !coverImgSize.width || !coverImgSize.height) {
 			throw new Error(`${collectionPath}: Unable to parse cover image size`);
 		}
 
 		const coverImgMeta = {
-			height: coverImgSize.height as number,
-			width: coverImgSize.width as number,
+			height: coverImgSize.height,
+			width: coverImgSize.width,
 			...resolvePath(frontmatter.coverImg, collectionPath)!,
 		};
 

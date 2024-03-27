@@ -60,7 +60,10 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				}
 
 				// TODO: How should remote images be handled?
-				const srcSize = getImageSize(nodeSrc, path.dirname(file.path)) || {
+				const srcSize = (await getImageSize(
+					nodeSrc,
+					path.dirname(file.path),
+				)) || {
 					height: undefined,
 					width: undefined,
 				};

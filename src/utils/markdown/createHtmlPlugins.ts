@@ -26,6 +26,8 @@ import branch from "git-branch";
 import rehypeShiki from "@shikijs/rehype";
 import rehypeStringify from "rehype-stringify";
 
+const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
+
 export function createHtmlPlugins(unified: Processor): Processor {
 	return (
 		unified
@@ -63,7 +65,7 @@ export function createHtmlPlugins(unified: Processor): Processor {
 						const contentDir = dirname(file.path);
 						const fullPath = resolve(contentDir, iFrameUrl.pathname);
 
-						const fsRelativePath = relative(process.cwd(), fullPath);
+						const fsRelativePath = relative(file.cwd, fullPath);
 
 						// Windows paths need to be converted to URLs
 						let urlRelativePath = fsRelativePath.replace(/\\/g, "/");
@@ -73,8 +75,6 @@ export function createHtmlPlugins(unified: Processor): Processor {
 						}
 
 						const q = iFrameUrl.search;
-						const currentBranch =
-							process.env.VERCEL_GIT_COMMIT_REF ?? branch.sync();
 						const repoPath = siteMetadata.repoPath;
 						const provider = `stackblitz.com/github`;
 						return `

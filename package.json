@@ -87,7 +87,6 @@
 		"hastscript": "^8.0.0",
 		"husky": "^8.0.3",
 		"identity-obj-proxy": "^3.0.0",
-		"image-size": "^1.0.2",
 		"jest-environment-jsdom": "^29.6.2",
 		"jest-location-mock": "^1.0.10",
 		"jest-watch-typeahead": "^2.2.2",
