@@ -47,7 +47,7 @@ Now open `plugin.xml` file, this is where you can configure all the information 
 
 We are interested in the `depends` configuration. By default, the plugin depends on the IntelliJ platform only, but we also want to make sure the IDE has the Android plugin for our plugin to work. We can add the following two lines in the `plugin.xml`
 
-```XML
+```xml
 <idea-plugin>
   <depends>org.jetbrains.android</depends>
   <depends>com.intellij.modules.androidstudio</depends>

@@ -20,18 +20,12 @@ import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import { rehypeUnicornElementMap } from "./markdown/rehype-unicorn-element-map";
-import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
 import { getExcerpt } from "./markdown/get-excerpt";
 import { getLanguageFromFilename } from "./translations";
 import aboutRaw from "../../content/data/about.json";
 import rolesRaw from "../../content/data/roles.json";
 import licensesRaw from "../../content/data/licenses.json";
 import tagsRaw from "../../content/data/tags.json";
-
-// https://github.com/shikijs/twoslash/issues/147
-const remarkTwoslash =
-	(remarkTwoslashDefault as never as { default: typeof remarkTwoslashDefault })
-		.default ?? remarkTwoslashDefault;
 
 export const contentDirectory = join(process.cwd(), "content");
 
@@ -42,7 +36,6 @@ const tags = new Map<string, TagInfo>();
 // file due to the hastscript JSX
 const tagExplainerParser = unified()
 	.use(remarkParse, { fragment: true } as never)
-	.use(remarkTwoslash, { themes: ["css-variables"] })
 	.use(remarkToRehype, { allowDangerousHtml: true })
 	.use(rehypeUnicornElementMap)
 	.use(rehypeStringify, { allowDangerousHtml: true, voids: [] });
