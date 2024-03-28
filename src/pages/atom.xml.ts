@@ -3,7 +3,7 @@ import { siteUrl } from "constants/site-config";
 import { getPostsByLang, getUnicornById } from "utils/api";
 import licenses from "../../content/data/licenses.json";
 
-export const get = () => {
+export const GET = () => {
 	const feed = new Feed({
 		title: "Unicorn Utterances's Atom Feed",
 		description:
@@ -44,5 +44,5 @@ export const get = () => {
 		});
 	});
 
-	return { body: feed.atom1() };
+	return new Response(feed.atom1());
 };
