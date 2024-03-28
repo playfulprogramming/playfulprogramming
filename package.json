@@ -39,7 +39,8 @@
 		"tsc": "astro check && tsc --noEmit",
 		"test": "jest",
 		"test:debug": "set DEBUG_PRINT_LIMIT=9999999999 && node --inspect-brk ./node_modules/jest/bin/jest.js",
-		"prepare": "husky install && playwright install"
+		"prepare": "husky install && playwright install",
+		"postinstall": "patch-package"
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.5.9",
@@ -137,6 +138,7 @@
 	"dependencies": {
 		"@tanstack/react-query": "^4.32.6",
 		"medium-zoom": "^1.0.8",
+		"patch-package": "^8.0.0",
 		"preact": "^10.18.1",
 		"react-aria": "^3.31.1",
 		"react-stately": "^3.29.1",
