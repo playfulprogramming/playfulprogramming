@@ -23,7 +23,7 @@ import { dirname, relative, resolve } from "path";
 import type { VFile } from "vfile";
 import { siteMetadata } from "../../constants/site-config";
 import branch from "git-branch";
-import rehypeShiki from "@shikijs/rehype";
+import { rehypeShikiUU } from "./shiki/rehype-transform";
 import rehypeStringify from "rehype-stringify";
 
 const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
@@ -97,12 +97,7 @@ export function createHtmlPlugins(unified: Processor): Processor {
 			.use(rehypeInContentAd)
 			// Shiki is the last plugin before stringify, to avoid performance issues
 			// with node traversal (shiki creates A LOT of element nodes)
-			.use(rehypeShiki as never, {
-				themes: {
-					light: "github-light",
-					dark: "github-dark",
-				},
-			})
+			.use(...rehypeShikiUU)
 			.use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
 	);
 }

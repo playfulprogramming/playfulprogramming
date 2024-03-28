@@ -13,7 +13,7 @@ import { rehypeNoEbook } from "./rehype-no-ebook";
 import { Processor } from "unified";
 import rehypeStringify from "rehype-stringify";
 import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
-import rehypeShiki from "@shikijs/rehype";
+import { rehypeShikiUU } from "./shiki/rehype-transform";
 
 export function createEpubPlugins(unified: Processor): Processor {
 	return (
@@ -35,9 +35,7 @@ export function createEpubPlugins(unified: Processor): Processor {
 				removeAccents: true,
 				enableCustomId: true,
 			})
-			.use(rehypeShiki as never, {
-				theme: "github-light",
-			})
+			.use(...rehypeShikiUU)
 			// Voids: [] is required for epub generation, and causes little/no harm for non-epub usage
 			.use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
 	);
