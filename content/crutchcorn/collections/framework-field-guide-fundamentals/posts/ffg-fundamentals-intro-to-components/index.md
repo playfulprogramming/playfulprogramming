@@ -160,7 +160,7 @@ React.createElement("div", null, aTag);
 
 ## Angular
 
-```typescript
+```angular-ts
 import { Component } from "@angular/core";
 
 @Component({
@@ -300,7 +300,7 @@ createRoot(document.getElementById("root")).render(<File />);
 
 ## Angular
 
-```typescript {2,15}
+```angular-ts {2,15}
 import { Component } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 
@@ -391,7 +391,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {12-22}
+```angular-ts {12-22}
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -494,7 +494,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -592,7 +592,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {1-6,11,14,23,26}
+```angular-ts {1-6,11,14,23,26}
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -708,7 +708,7 @@ const FileDate = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -789,7 +789,7 @@ const FileDate = () => {
 
 ## Angular
 
-```typescript {7,9-16}
+```angular-ts {7,9-16}
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -878,7 +878,7 @@ const FileDate = () => {
 
 ### Angular
 
-```typescript {1,8,11-13}
+```angular-ts {1,8,11-13}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -991,7 +991,7 @@ const FileDate = () => {
 
 ### Angular
 
-```typescript {4}
+```angular-ts {4}
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -1176,7 +1176,7 @@ While React takes a very explicit method of telling the framework when to re-ren
 
 All it takes in Angular to trigger a re-render is to update a variable's value:
 
-```typescript {11-17}
+```angular-ts {11-17}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1282,7 +1282,7 @@ const FileDate = () => {
 
 ### Angular
 
-```typescript {6}
+```angular-ts {6}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1380,7 +1380,7 @@ function dateSuffix(dayNumber) {
 
 ### Angular
 
-```typescript {6,10}
+```angular-ts {6,10}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1588,7 +1588,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {1,14,23}
+```angular-ts {1,14,23}
 import { Input, Component } from "@angular/core";
 
 @Component({
@@ -1725,7 +1725,7 @@ const FileList = () => {
 
 ### Angular
 
-```typescript {12-13,22}
+```angular-ts {12-13,22}
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -1840,7 +1840,7 @@ const File = ({ href, fileName }) => {
 
 ### Angular
 
-```typescript {9,11-21,34,40}
+```angular-ts {9,11-21,34,40}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1969,7 +1969,7 @@ const GenericList = ({ inputArray }) => {
 
 ### Angular
 
-```typescript
+```angular-ts
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -2079,7 +2079,7 @@ There are three major things of note in this code sample:
 
 ### Angular
 
-```typescript {7-12,20-24}
+```angular-ts {7-12,20-24}
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -2257,7 +2257,7 @@ const FileList = () => {
 
 Angular provides us a simple `@Output` decorator that enables us to `emit()` events from a child component up to the parent. This is fairly similar to how we pass _in_ data using an `@Input` decorator.
 
-```typescript {9,26,38-43,65,67-73}
+```angular-ts {9,26,38-43,65,67-73}
 import { Component, Input, EventEmitter, Output } from "@angular/core";
 
 @Component({
@@ -2484,7 +2484,7 @@ createRoot(document.getElementById("root")).render(<Sidebar />);
 </html>
 ```
 
-```typescript
+```angular-ts
 import { Component } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 @Component({
@@ -2560,7 +2560,7 @@ const Sidebar = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
@@ -2635,7 +2635,7 @@ const Sidebar = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
@@ -2765,7 +2765,7 @@ const Sidebar = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
@@ -2941,7 +2941,7 @@ const Sidebar = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
@@ -3119,7 +3119,7 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
