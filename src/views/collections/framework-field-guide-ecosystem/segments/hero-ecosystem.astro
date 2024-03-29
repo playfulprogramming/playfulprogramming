@@ -1,0 +1,32 @@
+---
+import styles from "./hero-ecosystem.module.scss";
+import BigFilledButton from "../../framework-field-guide/components/big-filled-button.astro";
+---
+
+<section class={`class-book-2 class-book-hero`}>
+	<div class={`book-section ${styles.heroContainer}`}>
+		<div class={styles.bannerContainer}>
+			<p class={`text-style-body-large-bold ${styles.introducing}`}>
+				Build production-ready apps
+			</p>
+			<h1 class={`text-style-display-1 ${styles.seriesTitle}`}>Ecosystem</h1>
+			<div class={styles.readNowContainer}>
+				<p class={`text-style-headline-6 ${styles.ffgDescription}`}>
+					This is part two of the <a
+						href="/collections/framework-field-guide"
+						class={styles.ffgWord}>Framework Field Guide</a
+					>, a three-part series <br />
+					 that teaches you Angular, React and Vue all at once.
+				</p>
+				<div class={`${styles.buttonReadNow}`}>
+					<BigFilledButton
+						href="#chapter-listing-heading"
+						onclick='event.preventDefault();var title=document.getElementById("chapter-listing-heading");title.scrollIntoView({behavior: "smooth", block: "start"});'
+					>
+						Read now
+					</BigFilledButton>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

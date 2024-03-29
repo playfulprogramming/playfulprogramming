@@ -1,0 +1,94 @@
+---
+import { PostInfo } from "../../../../types/PostInfo";
+import styles from "./collection-table-of-contents-ecosystem.module.scss";
+
+interface CollectionTableOfContentsProps {
+	posts: PostInfo[];
+}
+
+const { posts } = Astro.props as CollectionTableOfContentsProps;
+
+const maxChapterToShow = 10;
+---
+
+<section class={styles.chaptersContainer}>
+	<h2
+		id="chapter-listing-heading"
+		class={`text-style-headline-1 ${styles.chaptersTitle}`}
+	>
+		Chapters
+	</h2>
+	<ul aria-describedby="chapter-listing-heading" class={styles.chapterList}>
+		{
+			posts &&
+				posts.map((post, i) => {
+					const shouldHideInitially = i >= maxChapterToShow;
+					const isLastVisible = i === maxChapterToShow - 1;
+					return (
+						<li
+							class={styles.postContainer}
+							data-is-last-visible={isLastVisible}
+							data-should-hide={shouldHideInitially}
+						>
+							<a href={"/posts/" + post.slug} class={styles.listItem}>
+								<span
+									class={`text-style-body-large-bold ${styles.numberIndicator}`}
+								>
+									{post.order}
+								</span>
+								<span class={`text-style-body-large-bold ${styles.numberDot}`}>
+									.
+								</span>
+								<span class={`text-style-body-large-bold ${styles.postTitle}`}>
+									{post.title}
+								</span>
+								<span
+									class={`text-style-button ffg-button-base ffg-small-button ffg-outlined-button ${styles.noOutlineButton}`}
+								>
+									View Chapter
+								</span>
+							</a>
+						</li>
+					);
+				})
+		}
+	</ul>
+	<script is:inline>
+		let shown = false;
+
+		const lastChild = document.querySelector("[data-is-last-visible]");
+
+		function toggleChapterList() {
+			const els = [...document.querySelectorAll("[data-should-hide]")];
+			if (!shown) {
+				els.forEach((el) => (el.style.display = "block"));
+				document.querySelector("#show-button").style.display = "none";
+				document.querySelector("#hide-button").style.display = "inline-block";
+				lastChild.removeAttribute("data-is-last-visible");
+			} else {
+				els.forEach((el) => (el.style.display = "none"));
+				document.querySelector("#hide-button").style.display = "none";
+				document.querySelector("#show-button").style.display = "inline-block";
+				lastChild.setAttribute("data-is-last-visible", "");
+			}
+
+			shown = !shown;
+		}
+	</script>
+	<div class={styles.buttonContainer}>
+		<button
+			id="show-button"
+			class="text-style-button ffg-button-base ffg-small-button ffg-outlined-button"
+			style="display: inline-block"
+			onclick="toggleChapterList();"
+			>Show all {posts.length} chapters
+		</button>
+		<button
+			id="hide-button"
+			class="text-style-button ffg-button-base ffg-small-button ffg-outlined-button"
+			style="display: none"
+			onclick="toggleChapterList();"
+			>Only show 10 chapters
+		</button>
+	</div>
+</section>

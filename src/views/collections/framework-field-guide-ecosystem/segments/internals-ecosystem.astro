@@ -1,0 +1,56 @@
+---
+import "../../framework-field-guide/components/shared-section-styling.scss";
+import SignupForm from "../../framework-field-guide/components/signup-form.astro";
+import InternalsBookCover from "../../framework-field-guide/segments/internals-book-cover.astro";
+import styles from "./internals-ecosystem.module.scss";
+---
+
+<section data-change-color-to="inter">
+	<div class="class-book-3">
+		<div class="book-section" style="background: var(--section-background);">
+			<h2
+				data-no-max-width
+				id="ecosystem-title"
+				class={`text-style-headline-1 book-title`}
+			>
+				Eager to learn more?
+			</h2>
+			<p class={`text-style-headline-6 ${styles.subtext}`}>
+				Eagerly executing on your ecosystem education and want to understand how it all works?
+				<br />
+				 Then, it's time for <a
+					class={`${styles.links}`}
+					href="/collections/framework-field-guide#internals-title">Internals</a
+				>, the next part of the
+				<a class={`${styles.links}`} href="/collections/framework-field-guide"
+					>Framework Field Guide</a
+				>.
+			</p>
+		</div>
+	</div>
+	<InternalsBookCover />
+	<div class="class-book-3">
+		<div class="book-section" style="background: var(--section-background);">
+			<p
+				class={`text-style-headline-4 ${styles.highEmphasis} ${styles.inDevelopment}`}
+			>
+				Internals is still under development
+			</p>
+			<p
+				class={`text-style-headline-6 ${styles.mediumEmphasis} ${styles.inDevelopmentTwo}`}
+			>
+				A late 2025 release is expected. In the meantime, sign up to get updates
+				on the book!
+			</p>
+			<div class={styles.signUpContainer}>
+				<SignupForm />
+			</div>
+			<p
+				class={`text-style-body-medium ${styles.mediumEmphasis} ${styles.emailWarning}`}
+			>
+				All of the emails sent out will be strictly about important updates
+				regarding the progress of the books.
+			</p>
+		</div>
+	</div>
+</section>

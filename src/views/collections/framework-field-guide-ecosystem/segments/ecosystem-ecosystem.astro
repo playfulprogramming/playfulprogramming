@@ -1,0 +1,25 @@
+---
+import "../../framework-field-guide/components/shared-section-styling.scss";
+import EcosystemBookCover from "../../framework-field-guide/segments/ecosystem-book-cover.astro";
+import WhatYouNeed from "../components/what-you-need.astro";
+import WhatYoullLearn from "../components/what-youll-learn.astro";
+import CollectionTableOfContents from "../components/collection-table-of-contents-ecosystem.astro";
+import { getPostsByCollection } from "../../../../utils/api";
+
+const chapterList = getPostsByCollection(
+	"framework-field-guide-ecosystem",
+	"en",
+);
+---
+
+<section data-change-color-to="ecos">
+	<EcosystemBookCover />
+
+	<div class="class-book-2">
+		<div class={`book-section`} style="background: var(--section-background);">
+			<WhatYouNeed />
+			<CollectionTableOfContents posts={chapterList} />
+			<WhatYoullLearn />
+		</div>
+	</div>
+</section>
