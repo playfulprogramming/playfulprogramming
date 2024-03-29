@@ -23,14 +23,14 @@ export function createEpubPlugins(unified: Processor): Processor {
 			.use(remarkUnwrapImages)
 			.use(remarkToRehype, { allowDangerousHtml: true })
 			// This is required to handle unsafe HTML embedded into Markdown
-			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] })
+			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] } as never)
 			// When generating an epub, any relative paths need to be made absolute
 			.use(rehypeFixTwoSlashXHTML)
 			.use(rehypeMakeImagePathsAbsolute)
 			.use(rehypeMakeHrefPathsAbsolute)
 			.use(rehypeNoEbook)
 			.use(rehypeExpandDetailsAndSummary)
-			.use(rehypeSlug, {
+			.use(rehypeSlug as never, {
 				maintainCase: true,
 				removeAccents: true,
 				enableCustomId: true,

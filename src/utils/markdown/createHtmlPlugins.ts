@@ -25,8 +25,17 @@ import { siteMetadata } from "../../constants/site-config";
 import branch from "git-branch";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
 import rehypeStringify from "rehype-stringify";
+import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta";
 
 const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
+
+const remarkEmbedderDefault =
+	(remarkEmbedder as never as { default: typeof remarkEmbedder }).default ??
+	remarkEmbedder;
+
+const oembedTransformerDefault =
+	(oembedTransformer as never as { default: typeof oembedTransformer })
+		.default ?? oembedTransformer;
 
 export function createHtmlPlugins(unified: Processor): Processor {
 	return (
@@ -36,15 +45,18 @@ export function createHtmlPlugins(unified: Processor): Processor {
 			// Remove complaining about "div cannot be in p element"
 			.use(remarkUnwrapImages)
 			/* start remark plugins here */
-			.use(remarkEmbedder, {
-				transformers: [oembedTransformer, TwitchTransformer],
-			} as RemarkEmbedderOptions)
+			.use(
+				remarkEmbedderDefault as never,
+				{
+					transformers: [oembedTransformerDefault, TwitchTransformer],
+				} as RemarkEmbedderOptions,
+			)
 			.use(remarkToRehype, { allowDangerousHtml: true })
 			// This is required to handle unsafe HTML embedded into Markdown
 			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] })
 			// Do not add the tabs before the slug. We rely on some of the heading
 			// logic in order to do some of the subheading logic
-			.use(rehypeSlug, {
+			.use(rehypeSlug as never, {
 				maintainCase: true,
 				removeAccents: true,
 				enableCustomId: true,
@@ -97,6 +109,7 @@ export function createHtmlPlugins(unified: Processor): Processor {
 			.use(rehypeInContentAd)
 			// Shiki is the last plugin before stringify, to avoid performance issues
 			// with node traversal (shiki creates A LOT of element nodes)
+			.use(rehypeCodeblockMeta)
 			.use(...rehypeShikiUU)
 			.use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
 	);
