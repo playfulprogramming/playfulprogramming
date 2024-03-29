@@ -44,7 +44,7 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -195,7 +195,7 @@ But the following examples **will not** render their contained values:
 
 ### Angular
 
-```typescript {2,7-8}
+```angular-ts {2,7-8}
 import { Component, Input } from "@angular/core";
 import { NgIf } from "@angular/common";
 
@@ -317,7 +317,7 @@ const FileList = () => {
 
 ### Angular
 
-```typescript {15,41}
+```angular-ts {15,41}
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -766,7 +766,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -941,7 +941,7 @@ We can then use the second argument inside the `map` to gain access to the index
 
 Just as how the previous `*ngIf` structural directive is used to conditionally render items, Angular uses a different structural directive to render a list of items: `*ngFor`.
 
-```typescript {1,6,9-17,32-48}
+```angular-ts {1,6,9-17,32-48}
 import { NgFor } from "@angular/common";
 
 @Component({
@@ -1151,7 +1151,7 @@ function getRandomWord() {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "word-list",
 	standalone: true,
@@ -1313,7 +1313,7 @@ Here, we're using the `key` property to tell React which `li` is related to whic
 
 While Angular doesn't have quite the same API for `key` as React and Vue, Angular instead uses a [`trackBy` method](https://angular.io/api/core/TrackByFunction) to figure out which item is which.
 
-```typescript {9,17-19}
+```angular-ts {9,17-19}
 @Component({
 	selector: "word-list",
 	standalone: true,
@@ -1522,7 +1522,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {7,22-24,39}
+```angular-ts {7,22-24,39}
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -1690,7 +1690,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {4,7,10,13,28,30-32}
+```angular-ts {4,7,10,13,28,30-32}
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -1845,7 +1845,7 @@ const Sidebar = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
@@ -2039,7 +2039,7 @@ const Sidebar = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
@@ -2185,7 +2185,7 @@ function objFromCategories(categories) {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
@@ -2308,7 +2308,7 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
