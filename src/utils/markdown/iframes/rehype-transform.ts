@@ -8,35 +8,52 @@ import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants";
 import { fromHtml } from "hast-util-from-html";
 import { find } from "unist-util-find";
 import { getLargestManifestIcon } from "../../get-largest-manifest-icon";
-import { getPicture, type GetPictureResult } from "utils/get-picture";
 import { IFramePlaceholder } from "./iframe-placeholder";
+import * as path from "path";
+import * as fs from "fs";
+import * as stream from "stream";
+import sharp from "sharp";
+import * as svgo from "svgo";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
 }
 
 // default icon, used if a frame's favicon cannot be resolved
-const defaultPageIcon = getPicture({
-	src: "/link.png",
-	width: 24,
-	height: 24,
-});
+const defaultPageIcon = "/link.png";
+
+function getIconPath(src: URL) {
+	return `generated/${src.hostname}.favicon`;
+}
 
 // Cache the fetch *promises* - so that only one request per manifest/icon is processed,
 //   and multiple fetchPageInfo() calls can await the same icon
-const pageIconMap = new Map<string, Promise<GetPictureResult>>();
-function fetchPageIcon(src: URL, srcHast: Root): Promise<GetPictureResult> {
-	if (pageIconMap.has(src.origin)) return pageIconMap.get(src.origin)!;
+const pageIconMap = new Map<string, Promise<string>>();
+function fetchPageIcon(src: URL, srcHast: Root): Promise<string> {
+	if (pageIconMap.has(src.hostname)) return pageIconMap.get(src.hostname)!;
 
 	const promise = (async () => {
-		// <link rel="manifest" href="/manifest.json">
-		const manifestPath: Element | undefined = find(
-			srcHast,
-			(node: unknown) =>
-				(node as Element)?.properties?.rel?.toString() === "manifest",
-		);
+		const iconPath = getIconPath(src);
+		const iconDir = await fs.promises
+			.readdir(path.dirname(iconPath))
+			.catch(() => []);
 
-		let iconLink: string | undefined;
+		// If an icon has already been downloaded for the origin (in a previous build)
+		const existingIconFile = iconDir.find((file) =>
+			file.startsWith(path.basename(iconPath)),
+		);
+		if (existingIconFile) {
+			return path.join(path.dirname(iconPath), existingIconFile);
+		}
+
+		// <link rel="manifest" href="/manifest.json">
+		const manifestPath: Element | undefined = find(srcHast, {
+			type: "element",
+			tagName: "link",
+			rel: "manifest",
+		});
+
+		let iconHref: string | undefined;
 
 		if (manifestPath?.properties?.href) {
 			// `/manifest.json`
@@ -50,40 +67,70 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<GetPictureResult> {
 			if (manifest) {
 				const largestIcon = getLargestManifestIcon(manifest);
 				if (largestIcon?.icon)
-					iconLink = new URL(largestIcon.icon.src, src.origin).href;
+					iconHref = new URL(largestIcon.icon.src, src.origin).href;
 			}
 		}
 
-		if (!iconLink) {
+		if (!iconHref) {
 			// fetch `favicon.ico`
 			// <link rel="shortcut icon" type="image/png" href="https://example.com/img.png">
-			const favicon: Element | undefined = find(
-				srcHast,
-				(node: unknown) =>
-					(node as Element)?.properties?.rel?.toString()?.includes("icon") ??
-					false,
-			);
+			for (const extension of [".svg", ".png", ".jpg", ".jpeg"]) {
+				const favicon: Element | undefined = find(srcHast, (node) => {
+					if (node.type !== "element" || (node as Element).tagName !== "link")
+						return false;
 
-			if (favicon?.properties?.href) {
-				iconLink = new URL(favicon.properties.href.toString(), src).href;
+					const rel = (node as Element).properties?.rel?.toString() ?? "";
+					const href = (node as Element).properties?.href?.toString() ?? "";
+
+					return rel.includes("icon") && path.extname(href) === extension;
+				});
+
+				if (favicon?.properties?.href) {
+					iconHref = new URL(favicon.properties.href.toString(), src).href;
+					break;
+				}
 			}
 		}
 
 		// no icon image URL is found
-		if (!iconLink) return null;
+		if (!iconHref) return null;
 
-		// TODO: needs to insert favicons into /public/generated instead of using a remote URL
-		return getPicture({
-			src: iconLink,
-			width: 24,
-			height: 24,
-		});
+		if (process.argv.includes("--verbose"))
+			console.log(`[iframes] found iconHref for ${src.origin}:`, iconHref);
+
+		// Fetch the provided image href
+		const iconExt = path.extname(iconHref);
+
+		// If it's an SVG, pipe directly to the output dir
+		if (iconExt === ".svg") {
+			const svg = await fetch(iconHref).then((r) => r.text());
+			const optimizedSvg = svgo.optimize(svg, { multipass: true });
+			await fs.promises.writeFile(
+				"public/" + iconPath + iconExt,
+				optimizedSvg.data,
+			);
+		}
+
+		// If it's an image file, pass it through sharp to ensure 24px compression
+		if ([".png", ".jpg", ".jpeg"].includes(iconExt)) {
+			const writeStream = fs.createWriteStream("public/" + iconPath + iconExt);
+			const { body } = await fetch(iconHref);
+			if (!body) return null;
+			const transformer = sharp().resize(24, 24);
+			await stream.promises.finished(
+				stream.Readable.fromWeb(body as never)
+					.pipe(transformer)
+					.pipe(writeStream),
+			);
+		}
+
+		return "/" + iconPath + iconExt;
 	})()
 		// if an error is thrown, or response is null, use the default page icon
 		.catch(() => null)
 		.then((p) => p || defaultPageIcon);
 
-	pageIconMap.set(src.origin, promise);
+	pageIconMap.set(src.hostname, promise);
 	return promise;
 }
 
@@ -110,7 +157,7 @@ function fetchPageHtml(src: string): Promise<Root | null> {
 
 type PageInfo = {
 	title?: string;
-	icon: GetPictureResult;
+	iconFile: string;
 };
 
 export async function fetchPageInfo(src: string): Promise<PageInfo | null> {
@@ -127,9 +174,12 @@ export async function fetchPageInfo(src: string): Promise<PageInfo | null> {
 	const title =
 		titleContentEl?.type === "text" ? titleContentEl.value : undefined;
 
+	if (process.argv.includes("--verbose"))
+		console.log(`[iframes] found title for ${src}: "${title}"`);
+
 	// find the page favicon (cache by page origin)
-	const icon = await fetchPageIcon(url, srcHast);
-	return { title, icon };
+	const iconFile = await fetchPageIcon(url, srcHast);
+	return { title, iconFile };
 }
 
 // TODO: Add switch/case and dedicated files ala "Components"
@@ -166,7 +216,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				height = height ?? EMBED_SIZE.h;
 				const info: PageInfo = (await fetchPageInfo(src!.toString()).catch(
 					() => null,
-				)) || { icon: defaultPageIcon };
+				)) || { iconFile: defaultPageIcon };
 
 				const [, heightPx] = /^([0-9]+)(px)?$/.exec(height + "") || [];
 				if (Number(heightPx) < EMBED_MIN_HEIGHT) height = EMBED_MIN_HEIGHT;
@@ -176,7 +226,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					height: height.toString(),
 					src: String(src),
 					pageTitle: String(dataFrameTitle ?? "") || info.title || "",
-					pageIcon: info.icon,
+					pageIcon: info.iconFile,
 					propsToPreserve: JSON.stringify(propsToPreserve),
 				});
 

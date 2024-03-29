@@ -13,7 +13,7 @@ export interface IFramePlaceholderProps {
 	src: string;
 	propsToPreserve: string;
 	pageTitle: string;
-	pageIcon: GetPictureResult;
+	pageIcon: string;
 }
 
 /** @jsxImportSource hastscript */
@@ -27,19 +27,14 @@ export function IFramePlaceholder({
 		<div class="embed">
 			<div class="embed__header">
 				<div class="embed__header__favicon">
-					<picture aria-hidden="true">
-						{props.pageIcon.sources.map((source) => (
-							<source {...source} />
-						))}
-						<img
-							{...(props.pageIcon.image as Record<string, string>)}
-							alt=""
-							loading="lazy"
-							decoding="async"
-							data-nozoom="true"
-							data-dont-round="true"
-						/>
-					</picture>
+					<img
+						src={props.pageIcon}
+						alt=""
+						loading="lazy"
+						decoding="async"
+						data-nozoom="true"
+						data-dont-round="true"
+					/>
 				</div>
 				<div class="embed__header__info">
 					<p>
