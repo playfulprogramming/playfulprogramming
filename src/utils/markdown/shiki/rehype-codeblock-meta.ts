@@ -30,11 +30,13 @@ export const rehypeCodeblockMeta: Plugin<[], Root> = () => {
 					node.position!.start.offset,
 					node.position!.end.offset,
 				);
+
 				// Don't try to use regex here, it breaks things.
-				const meta = codeblock.slice(
-					codeblock.indexOf(" ") + 1,
-					codeblock.indexOf("\n"),
-				);
+				const metaStart = codeblock.indexOf(" ");
+				const metaEnd = codeblock.indexOf("\n");
+				if (metaStart === -1 || metaEnd === -1 || metaEnd < metaStart) return;
+
+				const meta = codeblock.slice(metaStart + 1, metaEnd).trim();
 
 				if (meta) {
 					(node.data ??= {} as never).meta = meta;
