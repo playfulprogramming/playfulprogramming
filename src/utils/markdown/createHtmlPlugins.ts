@@ -16,7 +16,6 @@ import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
 import { rehypeHeaderText } from "./rehype-header-text";
 import { rehypeHeaderClass } from "./rehype-header-class";
 import { rehypeFileTree } from "./file-tree/rehype-file-tree";
-import { rehypeTwoslashTabindex } from "./twoslash-tabindex/rehype-transform";
 import { rehypeInContentAd } from "./in-content-ad/rehype-transform";
 import { Processor } from "unified";
 import { dirname, relative, resolve } from "path";
@@ -26,6 +25,7 @@ import branch from "git-branch";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
 import rehypeStringify from "rehype-stringify";
 import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta";
+import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
 
 const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
 
@@ -96,7 +96,6 @@ export function createHtmlPlugins(unified: Processor): Processor {
 				],
 			})
 			.use(rehypeUnicornElementMap)
-			.use(rehypeTwoslashTabindex)
 			.use(rehypeFileTree)
 			.use(rehypeHeaderText)
 			.use(rehypeHeaderClass, {
@@ -111,6 +110,7 @@ export function createHtmlPlugins(unified: Processor): Processor {
 			// with node traversal (shiki creates A LOT of element nodes)
 			.use(rehypeCodeblockMeta)
 			.use(...rehypeShikiUU)
+			.use(rehypePostShikiTransform)
 			.use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
 	);
 }
