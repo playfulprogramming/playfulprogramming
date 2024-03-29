@@ -313,7 +313,7 @@ const Parent = () => {
 
 Because Angular's `useValue` accepts any arbitrary value, we can pass it an object to move away from a string injection:
 
-```typescript {3,15}
+```typescript {4,16}
 @Component({
 	selector: "child-comp",
 	standalone: true,
@@ -2919,7 +2919,7 @@ the action is taken.
 
 Let's start by taking our previous context menu and adding in the `"contextmenu"` listener and action array:
 
-```jsx {21-34,36-47}
+```jsx {22-35,37-48}
 // ContextMenu.jsx
 export const ContextMenu = forwardRef(
 	({ isOpen, x, y, onClose, data }, ref) => {
@@ -3133,7 +3133,7 @@ export const Sidebar = () => {
 
 Just like we did with React, let's take our previous context menu and add in the `"contextmenu"` listener and action array:
 
-```typescript {45-54,65-68,72-85}
+```typescript {46-55,66-69,73-86}
 @Component({
 	selector: "context-menu",
 	standalone: true,
@@ -3336,7 +3336,7 @@ export class SidebarComponent {
 
 Lastly, Vue. Again, we'll add `ContextMenu` from before and add in the `"contextmenu"` event and actions array:
 
-```vue {8-17,29-33,35-48}
+```vue {9-18,30-34,36-49}
 <!-- ContextMenu.vue -->
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from "vue";

@@ -208,7 +208,7 @@ Luckily, we can use [our existing knowledge of side effects](/posts/ffg-fundamen
 
 ## React
 
-```jsx {4-8}
+```jsx {5-9}
 const FileDate = ({ inputDate }) => {
 	const [dateStr, setDateStr] = useState(formatDate(inputDate));
 	const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
@@ -233,7 +233,7 @@ While we didn't touch on this lifecycle method in our previous chapter, Angular 
 
 We can use this new lifecycle method to update the value of a component's state based off of the parent's props:
 
-```typescript {0,7,13-23}
+```typescript {1,8,14-24}
 import { Component, OnChanges, SimpleChanges } from "@angular/core";
 
 @Component({
@@ -269,7 +269,7 @@ class FileDateComponent implements OnChanges {
 
 ## Vue
 
-```vue {2,11-17}
+```vue {3,12-18}
 <!-- FileDate.vue -->
 <script setup>
 import { ref, watch } from "vue";
@@ -328,7 +328,7 @@ Luckily for us, all three frameworks have a way of doing just this!
 
 ## React
 
-```jsx {0,3-4}
+```jsx {1,4-5}
 import { useMemo } from "react";
 
 const FileDate = ({ inputDate }) => {
@@ -481,7 +481,7 @@ class FileDateComponent {
 
 ## Vue
 
-```vue {2,8-9}
+```vue {3,9-10}
 <!-- FileDate.vue -->
 <script setup>
 import { computed } from "vue";

@@ -51,7 +51,7 @@ Instead, React 18.3 (in canary release at the time of writing) introduces a new 
 
 This hook allows you to pass a promise to it to load data:
 
-```jsx {0,2}
+```jsx {1,3}
 import {use, cache} from "react";
 
 const UserDisplay = () => {

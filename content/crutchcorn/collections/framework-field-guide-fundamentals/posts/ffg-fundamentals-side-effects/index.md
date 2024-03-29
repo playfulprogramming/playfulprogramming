@@ -531,7 +531,7 @@ Let's solve this by using [`window.addEventListener`](https://developer.mozilla.
 
 ## React
 
-```jsx {4-12}
+```jsx {5-13}
 const WindowSize = () => {
 	const [height, setHeight] = useState(window.innerHeight);
 	const [width, setWidth] = useState(window.innerWidth);
@@ -561,7 +561,7 @@ const WindowSize = () => {
 
 ## Angular
 
-```typescript {13-22}
+```typescript {14-23}
 @Component({
 	selector: "window-size",
 	standalone: true,
@@ -598,7 +598,7 @@ class WindowSizeComponent implements OnInit {
 
 ## Vue
 
-```vue {7-15}
+```vue {8-16}
 <!-- WindowSize.vue -->
 <script setup>
 import { ref, onMounted } from "vue";
@@ -1784,7 +1784,7 @@ Here, we can see that despite there being one component declaration:
 
 ### React
 
-```jsx {1}
+```jsx {2}
 const Comp = () => {
 	const obj = {};
 
@@ -1794,7 +1794,7 @@ const Comp = () => {
 
 ### Angular
 
-```typescript {6}
+```typescript {7}
 @Component({
 	standalone: true,
 	selector: "app-comp",
@@ -1807,7 +1807,7 @@ class CompComponent {
 
 ### Vue
 
-```vue {2}
+```vue {3}
 <!-- Comp.vue -->
 <script setup>
 const obj = {};
@@ -1826,7 +1826,7 @@ Every time we use this component:
 
 ### React
 
-```jsx {2-5}
+```jsx {3-6}
 const App = () => {
 	return <div>
 		<!-- One: -->
@@ -1839,7 +1839,7 @@ const App = () => {
 
 ### Angular
 
-```typescript {6-9}
+```typescript {7-10}
 @Component({
 	standalone: true,
 	imports: [CompComponent],
@@ -1858,7 +1858,7 @@ class AppComponent {}
 
 ### Vue
 
-```vue {7-10}
+```vue {8-11}
 <!-- App.vue -->
 <script setup>
 import Comp from "./Comp.vue";
@@ -2370,7 +2370,7 @@ To answer "why" this occurs is a much longer topic, [which I've written about in
 
 ## Vue
 
-```vue {2,10-12}
+```vue {3,11-13}
 <!-- ReRenderListener.vue -->
 <script setup>
 import { ref, onUpdated } from "vue";
@@ -2799,7 +2799,7 @@ For example, let's say you want to measure the size of an HTML element and displ
 
 Let's use `useLayoutEffect` to calculate the bounding box of an element to position another element:
 
-```jsx {0,13-19}
+```jsx {1,14-20}
 import { useState, useLayoutEffect } from "react";
 
 function App() {
@@ -3160,7 +3160,7 @@ Luckily for us, each framework has the ability to sidestep a render while persis
 
 To store a variable's state in a React function component without triggering a re-render, we can use a `useRef` hook to store our `setTimeout` return without triggering a re-render:
 
-```jsx {0,5,8-11}
+```jsx {1,6,9-12}
 import { useState, useRef, useEffect } from "react";
 
 const TitleChanger = () => {
@@ -3305,7 +3305,7 @@ To sidestep this detection from Zone.js in Angular, you can tell the framework t
 
 To do this, we need to use ["Dependency Injection"](/posts/ffg-fundamentals-dependency-injection) to access Angular's internal `NgZone` reference and use the `runOutsideAngular` method:
 
-```typescript {0,19-21,31-33}
+```typescript {1,20-22,32-34}
 import { Component, NgZone, OnDestroy, inject } from "@angular/core";
 
 @Component({
@@ -3861,7 +3861,7 @@ Let's integrate this in our `DarkModeToggle` component:
 
 ## React
 
-```jsx {3-5,9-11}
+```jsx {4-6,10-12}
 const isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
 function DarkModeToggle() {
@@ -3961,7 +3961,7 @@ function App() {
 
 ## Angular
 
-```typescript {36,58}
+```typescript {37,59}
 @Component({
 	selector: "dark-mode-toggle",
 	standalone: true,
@@ -4072,7 +4072,7 @@ class AppComponent {}
 
 ## Vue
 
-```vue {4,6-8}
+```vue {5,7-9}
 <!-- DarkModeToggle.vue -->
 <script setup>
 import { ref, watch, onMounted, onUnmounted } from "vue";

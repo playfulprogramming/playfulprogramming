@@ -279,7 +279,7 @@ On the note of Git, **you'll want to commit `.yarn/releases/yarn-3.x.x.cjs`**, a
 
 Now that we've disabled Yarn PNP, we need to configure Yarn to install all deps for all of the projects in our workspace. To do this, add the following to your `package.json`:
 
-```json {4-10}
+```json {5-11}
 {
     "name": "@your-org/app-root",
     "version": "0.0.1",
@@ -418,7 +418,7 @@ export default defineConfig({
 
 The `fileName`, `formats`, and `entry` files tell Vite to "build everything inside of `src/index.tsx` into a CommonJS and ES Module file for apps to consume". We then need to update our `package.json` file (located in `/packages/shared-elements/`) to tell these apps where to look when importing from this package:
 
-```json {8-18}
+```json {9-19}
 {
   "name": "@your-org/shared-elements",
   "version": "0.0.1",
@@ -504,7 +504,7 @@ This error is occuring because React Native is written with Flow, which our Vite
 
 This is because React (and React Native) expects a [singleton](https://www.patterns.dev/posts/singleton-pattern) where the app only has a single instance of the project. This means that we need to tell Vite not to transform the `import` and `require`s of those two libraries:
 
-```typescript {22-38}
+```typescript {23-39}
 // vite.config.ts
 import react from "@vitejs/plugin-react";
 import * as path from "node:path";
@@ -550,7 +550,7 @@ export default defineConfig({
 
 Because these packages aren't included in the bundle anymore, we need to flag to our apps that they need to install the packages as well. To do this we need to utilize [`devDependencies` and `peerDependencies`](/posts/how-to-use-npm) in  `/packages/shared-elements/`:
 
-```json {19-31}
+```json {20-32}
 {
   "name": "@your-org/shared-elements",
   "version": "0.0.1",

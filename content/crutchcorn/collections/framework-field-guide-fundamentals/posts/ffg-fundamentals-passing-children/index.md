@@ -823,7 +823,7 @@ Here, we can see that `slot` is querying for a `header` template slot. This quer
 
 `v-slot` also has a shorthand of `#`, similar to how `v-bind` has a shorthand of `:`. Using this shorthand, we can modify our `App` component to look like:
 
-```vue {10}
+```vue {11}
 <!-- App.vue -->
 <script setup>
 import { ref } from "vue";

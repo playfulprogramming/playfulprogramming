@@ -144,7 +144,7 @@ Let's see what that looks like in usage:
 
 ### React
 
-```jsx {1}
+```jsx {2}
 const ConditionalRender = ({ bool }) => {
 	return <div>{bool && <p>Text here</p>}</div>;
 };
@@ -195,7 +195,7 @@ But the following examples **will not** render their contained values:
 
 ### Angular
 
-```typescript {1,6-7}
+```typescript {2,7-8}
 import { Component, Input } from "@angular/core";
 import { NgIf } from "@angular/common";
 
@@ -228,7 +228,7 @@ To use `ngIf`, we must import `NgIf` from `@angular/common` and pass it to the `
 
 ### Vue
 
-```vue {1,5}
+```vue {2,6}
 <script setup>
 const props = defineProps(["bool"]);
 </script>
@@ -280,7 +280,7 @@ Let's add an input to our `File` component called `isFolder` and prevent the dat
 
 ### React
 
-```jsx {11}
+```jsx {12}
 const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 	return (
 		<button
@@ -317,7 +317,7 @@ const FileList = () => {
 
 ### Angular
 
-```typescript {14,40}
+```typescript {15,41}
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -373,7 +373,7 @@ class FileListComponent {}
 
 ### Vue
 
-```vue {20}
+```vue {21}
 <!-- File.vue -->
 <script setup>
 import FileDate from "./FileDate.vue";
@@ -399,7 +399,7 @@ const emit = defineEmits(["selected"]);
 </template>
 ```
 
-```vue {11}
+```vue {12}
 <!-- FileList.vue -->
 <script setup>
 import File from "./File.vue";
@@ -881,7 +881,7 @@ Let's fix that by replacing the copy-pasted components with a loop and an array.
 
 React uses [JavaScript's built-in `Array.map` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) to loop through each item and map them to some React component.
 
-```jsx {0-16,33-43}
+```jsx {1-17,34-44}
 const filesArray = [
 	{
 		fileName: "File one",
@@ -941,7 +941,7 @@ We can then use the second argument inside the `map` to gain access to the index
 
 Just as how the previous `*ngIf` structural directive is used to conditionally render items, Angular uses a different structural directive to render a list of items: `*ngFor`.
 
-```typescript {0,5,8-16,31-47}
+```typescript {1,6,9-17,32-48}
 import { NgFor } from "@angular/common";
 
 @Component({
@@ -1009,7 +1009,7 @@ The `*ngFor` directive was used in the template, but neither the `NgFor` directi
 
 Vue provides a `v-for` global attribute that does for lists what `v-if` does for conditional rendering:
 
-```vue {5-21,37-45}
+```vue {6-22,38-46}
 <!-- FileList.vue -->
 <script setup>
 import { ref } from "vue";
@@ -1292,7 +1292,7 @@ Let's see how we can do this in each framework.
 
 ### React
 
-```jsx {4}
+```jsx {5}
 <div>
 	<button onClick={addWord}>Add word</button>
 	<ul>
@@ -1313,7 +1313,7 @@ Here, we're using the `key` property to tell React which `li` is related to whic
 
 While Angular doesn't have quite the same API for `key` as React and Vue, Angular instead uses a [`trackBy` method](https://angular.io/api/core/TrackByFunction) to figure out which item is which.
 
-```typescript {8,16-18}
+```typescript {9,17-19}
 @Component({
 	selector: "word-list",
 	standalone: true,
@@ -1400,7 +1400,7 @@ To do this, we can assign a `key` property to the `input` and change the value o
 
 ### React
 
-```jsx {7}
+```jsx {8}
 function KeyExample() {
 	const [num, setNum] = useState(0);
 
@@ -1428,7 +1428,7 @@ This isn't necessarily a bad thing, however. We'll touch on this more in a bit, 
 
 ### Vue
 
-```vue {12}
+```vue {13}
 <!-- KeyExample.vue -->
 <script setup>
 import { ref } from "vue";
@@ -1469,7 +1469,7 @@ Since we now understand the stability and performance benefits of providing a ke
 
 ## React
 
-```jsx {5,35}
+```jsx {6,36}
 const filesArray = [
 	{
 		fileName: "File one",
@@ -1522,7 +1522,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {6,21-23,38}
+```typescript {7,22-24,39}
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -1588,7 +1588,7 @@ interface File {
 
 ## Vue
 
-```vue {10,39}
+```vue {11,40}
 <!-- FileList.vue -->
 <script setup>
 import { ref } from "vue";
@@ -1653,7 +1653,7 @@ Say that our users want to filter our `FileList` to only display files and not f
 
 ## React
 
-```jsx {3-4,8,12}
+```jsx {4-5,9,13}
 const FileList = () => {
 	// ...
 
@@ -1690,7 +1690,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {3,6,9,12,27,29-31}
+```typescript {4,7,10,13,28,30-32}
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -1732,7 +1732,7 @@ class FileListComponent {
 
 ## Vue
 
-```vue {6,8-10,15,17,19}
+```vue {7,9-11,16,18,20}
 <!-- FileList.vue -->
 <script setup>
 import { ref } from "vue";

@@ -396,7 +396,7 @@ To solve this, we have two options:
 
 1. Rename our `ref` property to another name, like `divRef`:
 
-```jsx {0-2,7}
+```jsx {1-3,8}
 const Component = ({ divRef, style }) => {
 	return <div ref={divRef} style={style} />;
 };
@@ -417,7 +417,7 @@ const App = () => {
 
 2. Use the `forwardRef` API, as suggested by the error message originally printed.
 
-```jsx {0-4,9}
+```jsx {1-5,10}
 import { forwardRef } from "react";
 
 const Component = forwardRef((props, ref) => {
@@ -450,7 +450,7 @@ Luckily, `useImperativeHandle` does just that!
 
 While `forwardRef` enables us to pass a `ref` to a child component, `useImperativeHandle` allows us to fully customize this `ref` to our heart's content.
 
-```jsx {0,3-11}
+```jsx {1,4-12}
 import { forwardRef, useImperativeHandle } from "react";
 
 const Component = forwardRef((props, ref) => {
@@ -489,7 +489,7 @@ Here, we can assign properties, functions, or any other JavaScript values to the
 
 That `sayHi` function still works, too! If we change `App` to the following:
 
-```jsx {1,4}
+```jsx {2,5}
 const App = () => {
 	const compRef = useRef();
 	return (
@@ -587,7 +587,7 @@ useImperativeHandle(ref, () => someVal, [someVal]);
 
 Just as we can use `ViewChild` to access an underlying DOM node, we can do the same thing with a component reference. In fact, we can use a template reference variable just like we would to access the DOM node.
 
-```typescript {0,23,26}
+```typescript {1,24,27}
 import { AfterViewInit, Component, ViewChild } from "@angular/core";
 
 @Component({
@@ -819,7 +819,7 @@ Now that we sufficiently understand what component references look like in each 
 
 ## React
 
-```jsx {0,3-5,11,25,27-34,40}
+```jsx {1,4-6,12,26,28-35,41}
 const ContextMenu = forwardRef(({ isOpen, x, y, onClose }, ref) => {
 	const [contextMenu, setContextMenu] = useState();
 
@@ -877,7 +877,7 @@ function App() {
 
 ## Angular
 
-```typescript {6,13,21-23,37,46,67}
+```typescript {7,14,22-24,38,47,68}
 @Component({
 	selector: "context-menu",
 	standalone: true,
@@ -957,7 +957,7 @@ class AppComponent {
 
 ## Vue
 
-```vue {8,12-14,16-18}
+```vue {9,13-15,17-19}
 <!-- ContextMenu.vue -->
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
@@ -1000,7 +1000,7 @@ defineExpose({
 </template>
 ```
 
-```vue {12,26,36}
+```vue {13,27,37}
 <!-- App.vue -->
 <script setup>
 import { ref } from "vue";

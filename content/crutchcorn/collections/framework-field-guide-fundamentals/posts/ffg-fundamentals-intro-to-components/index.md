@@ -278,7 +278,7 @@ Then, in JavaScript, you "render" a component into an element that acts as the "
 
 ## React
 
-```jsx {0,12}
+```jsx {1,13}
 import { createRoot } from "react-dom/client";
 
 const File = () => {
@@ -300,7 +300,7 @@ createRoot(document.getElementById("root")).render(<File />);
 
 ## Angular
 
-```typescript {1,14}
+```typescript {2,15}
 import { Component } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 
@@ -337,7 +337,7 @@ Because Vue's components all live within dedicated `.vue` SFCs, we have to use t
 
 Then, we can import this into our main JavaScript file:
 
-```javascript {1,4}
+```javascript {2,5}
 // main.js
 import { createApp } from "vue";
 import File from "./File.vue";
@@ -363,7 +363,7 @@ While our `File` component currently contains HTML elements, components may also
 
 ## React
 
-```jsx {10-18}
+```jsx {11-19}
 const File = () => {
 	return (
 		<div>
@@ -391,7 +391,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {11-21}
+```typescript {12-22}
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -553,7 +553,7 @@ We can extend this hierarchical relationship to have "grandchildren" and beyond 
 
 ## React
 
-```jsx {0-2,4-14,19}
+```jsx {1-3,5-15,20}
 const FileDate = () => {
 	return <span>12/03/21</span>;
 };
@@ -592,7 +592,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {0-5,10,13,22,25}
+```typescript {1-6,11,14,23,26}
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -765,7 +765,7 @@ function formatDate() {
 
 ## React
 
-```jsx {0-7, 10}
+```jsx {1-8,11}
 function formatDate() {
 	const today = new Date();
 	// Month starts at 0, annoyingly
@@ -789,7 +789,7 @@ const FileDate = () => {
 
 ## Angular
 
-```typescript {6,8-15}
+```typescript {7,9-16}
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -815,7 +815,7 @@ class FileDateComponent {
 
 ## Vue
 
-```vue {2-9,11}
+```vue {3-10,12}
 <!-- FileDate.vue -->
 <script setup>
 function formatDate() {
@@ -849,7 +849,7 @@ Let's verify that our `formatDate` method outputs the correct value by telling o
 
 ### React
 
-```jsx {0,14-16}
+```jsx {1,15-17}
 import { useEffect } from "react";
 
 function formatDate() {
@@ -878,7 +878,7 @@ const FileDate = () => {
 
 ### Angular
 
-```typescript {0,7,10-12}
+```typescript {1,8,11-13}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -910,7 +910,7 @@ class FileDateComponent implements OnInit {
 
 ### Vue
 
-```vue {2,15-17}
+```vue {3,16-18}
 <!-- FileDate.vue -->
 <script setup>
 import { onMounted } from "vue";
@@ -968,7 +968,7 @@ While displaying the value in the console works well for debugging, it's not muc
 
 ### React
 
-```jsx {12}
+```jsx {13}
 function formatDate() {
 	const today = new Date();
 	// Month starts at 0, annoyingly
@@ -991,7 +991,7 @@ const FileDate = () => {
 
 ### Angular
 
-```typescript {3}
+```typescript {4}
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -1019,7 +1019,7 @@ Every class property inside the component instance is usable inside the `@Compon
 
 ### Vue
 
-```vue {17}
+```vue {18}
 <!-- FileDate.vue -->
 <script setup>
 import { onMounted } from "vue";
@@ -1081,7 +1081,7 @@ In the pseudocode sample we wrote before, we update the value of `dateStr` and t
 
 In React, we use a single line of code to do both and have a special `useState` method to tell React what data needs changing.
 
-```jsx {13-20}
+```jsx {14-21}
 import { useState, useEffect } from "react";
 
 function formatDate(inputDate) {
@@ -1176,7 +1176,7 @@ While React takes a very explicit method of telling the framework when to re-ren
 
 All it takes in Angular to trigger a re-render is to update a variable's value:
 
-```typescript {10-16}
+```typescript {11-17}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1213,7 +1213,7 @@ class FileDateComponent implements OnInit {
 
 Similar to how React has `useState` in order to set data in a component, Vue introduces an API called `ref` in order to have data updates trigger a re-render.
 
-```vue {14-20}
+```vue {15-21}
 <!-- FileDate.vue -->
 <script setup>
 import { ref, onMounted } from "vue";
@@ -1270,7 +1270,7 @@ Currently, our `date` component doesn't read out [particularly kindly to screen-
 
 ### React
 
-```jsx {5}
+```jsx {6}
 const FileDate = () => {
 	const [dateStr, setDateStr] = useState(formatDate(new Date()));
 
@@ -1282,7 +1282,7 @@ const FileDate = () => {
 
 ### Angular
 
-```typescript {5}
+```typescript {6}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1299,7 +1299,7 @@ class FileDateComponent implements OnInit {
 
 ### Vue
 
-```vue {8}
+```vue {9}
 <!-- FileDate.vue -->
 <script setup>
 // ...
@@ -1324,7 +1324,7 @@ Let's correct that by adding in a `formatReadableDate` method and reflect that i
 
 ### React
 
-```jsx {25,29}
+```jsx {26,30}
 import { useState, useEffect } from "react";
 
 function formatReadableDate(inputDate) {
@@ -1380,7 +1380,7 @@ function dateSuffix(dayNumber) {
 
 ### Angular
 
-```typescript {5,9}
+```typescript {6,10}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1441,7 +1441,7 @@ class FileDateComponent implements OnInit {
 
 ### Vue
 
-```vue {40,46}
+```vue {41,47}
 <!-- FileDate.vue -->
 <script setup>
 // ...
@@ -1530,7 +1530,7 @@ Let's have the file name be an input to our `File` component:
 
 ## React
 
-```jsx {0-9,15}
+```jsx {1-10,16}
 const File = (props) => {
 	return (
 		<div>
@@ -1588,7 +1588,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {0,13,22}
+```typescript {1,14,23}
 import { Input, Component } from "@angular/core";
 
 @Component({
@@ -1630,7 +1630,7 @@ class FileListComponent {}
 
 ## Vue
 
-```vue {4,9}
+```vue {5,10}
 <!-- File.vue -->
 <script setup>
 import FileDate from "./FileDate.vue";
@@ -1645,7 +1645,7 @@ const props = defineProps(["fileName"]);
 </template>
 ```
 
-```vue {7}
+```vue {8}
 <!-- FileList.vue -->
 <script setup>
 import File from "./File.vue";
@@ -1690,7 +1690,7 @@ Like functions, components can accept as many properties as you'd like to pass. 
 
 ### React
 
-```jsx {0-9,15}
+```jsx {1-10,16}
 const File = ({ fileName, href }) => {
 	return (
 		<div>
@@ -1725,7 +1725,7 @@ const FileList = () => {
 
 ### Angular
 
-```typescript {11-12,21}
+```typescript {12-13,22}
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -1764,7 +1764,7 @@ class FileListComponent {}
 
 ### Vue
 
-```vue {4}
+```vue {5}
 <!-- File.vue -->
 <script setup>
 import FileDate from "./FileDate.vue";
@@ -1779,7 +1779,7 @@ const props = defineProps(["fileName", "href"]);
 </template>
 ```
 
-```vue {7}
+```vue {8}
 <!-- FileList.vue -->
 <script setup>
 import File from "./File.vue";
@@ -1812,7 +1812,7 @@ To showcase this, let's add the ability to pass a `Date` class instance to our `
 
 ### React
 
-```jsx {1-2,14}
+```jsx {2-3,15}
 const FileDate = ({ inputDate }) => {
 	const [dateStr, setDateStr] = useState(formatDate(inputDate));
 	const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
@@ -1840,7 +1840,7 @@ const File = ({ href, fileName }) => {
 
 ### Angular
 
-```typescript {8,10-20,33,39}
+```typescript {9,11-21,34,40}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1898,7 +1898,7 @@ This is because Angular doesn't allow you to access `@Input` values in the root 
 
 ### Vue
 
-```vue {4}
+```vue {5}
 <!-- FileDate.vue -->
 <script setup>
 // ...
@@ -1916,7 +1916,7 @@ const labelText = ref(formatReadableDate(props.inputDate));
 </template>
 ```
 
-```vue {6,12}
+```vue {7,13}
 <!-- File.vue -->
 <script setup>
 import FileDate from "./FileDate.vue";
@@ -2033,7 +2033,7 @@ While we're at it, let's migrate our `File` component to use a `button` instead 
 
 ### React
 
-```jsx {1,4,9-14}
+```jsx {2,5,10-15}
 const File = ({ fileName }) => {
 	const [isSelected, setSelected] = useState(false);
 
@@ -2079,7 +2079,7 @@ There are three major things of note in this code sample:
 
 ### Angular
 
-```typescript {6-11,19-23}
+```typescript {7-12,20-24}
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -2117,7 +2117,7 @@ Instead of the `[]` symbols to do input binding, we're using the `()` symbols to
 
 ### Vue
 
-```vue {6-9,14-19}
+```vue {7-10,15-20}
 <!-- File.vue -->
 <script setup>
 import { ref } from "vue";
@@ -2187,7 +2187,7 @@ React expects you to pass in a function as opposed to emitting an event and list
 
 This differs slightly from Vue and Angular but has the same fundamental idea of "sending data to a parent component."
 
-```jsx {2,6,20-28,33-38}
+```jsx {3,7,21-29,34-39}
 import { useState } from "react";
 
 const File = ({ href, fileName, isSelected, onSelected }) => {
@@ -2257,7 +2257,7 @@ const FileList = () => {
 
 Angular provides us a simple `@Output` decorator that enables us to `emit()` events from a child component up to the parent. This is fairly similar to how we pass _in_ data using an `@Input` decorator.
 
-```typescript {8,25,37-42,64,66-72}
+```typescript {9,26,38-43,65,67-73}
 import { Component, Input, EventEmitter, Output } from "@angular/core";
 
 @Component({
@@ -2342,7 +2342,7 @@ class FileListComponent {
 
 Vue introduces the idea of an emitted event using the `defineEmits` global function:
 
-```vue {6,11}
+```vue {7,12}
 <!-- File.vue -->
 <script setup>
 // ...
@@ -2369,7 +2369,7 @@ const emit = defineEmits(["selected"]);
 
 > The `defineEmits` function does not need to be imported from `vue`, since Vue's compiler handles that for us.
 
-```vue {5,7-13,20}
+```vue {6,8-14,21}
 <!-- FileList.vue -->
 <script setup>
 import { ref } from "vue";

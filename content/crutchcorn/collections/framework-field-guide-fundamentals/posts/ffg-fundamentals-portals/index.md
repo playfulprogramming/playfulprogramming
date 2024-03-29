@@ -1290,7 +1290,7 @@ To fix this, we'll need to wrap our tooltip in a portal and render it at the end
 
 ### React
 
-```jsx {56,93-94}
+```jsx {57,94-95}
 function App() {
 	const buttonRef = useRef();
 
@@ -1411,7 +1411,7 @@ function App() {
 
 ### Angular
 
-```typescript {0-5,24,69,84,86-87,107-109,120-122}
+```typescript {1-6,25,70,85,87-88,108-110,121-123}
 @Injectable({
 	providedIn: "root",
 })
@@ -1556,7 +1556,7 @@ class AppComponent implements OnDestroy {
 
 ### Vue
 
-```vue {63,100}
+```vue {64,101}
 <!-- App.vue -->
 <script setup>
 import { ref, onUnmounted } from "vue";

@@ -669,7 +669,7 @@ That's because when we used a `div` for our `FileActionButtons` component, it by
 
 ## Angular
 
-```typescript {4-8,10-16}
+```typescript {5-9,11-17}
 @Component({
 	selector: "file-action-buttons",
 	standalone: true,
@@ -695,7 +695,7 @@ class FileActionButtonsComponent {
 
 We can even simplify this by removing the `ng-container`, since Angular supports multiple elements at the root of the component template.
 
-```typescript {3-14}
+```typescript {4-15}
 @Component({
 	selector: "file-action-buttons",
 	standalone: true,

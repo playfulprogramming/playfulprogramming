@@ -479,7 +479,7 @@ class RenderParagraphComponent implements OnInit {
 
 Well, let's think about the following example:
 
-```typescript {5-7}
+```typescript {6-8}
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
@@ -511,7 +511,7 @@ To solve this, we can do one of two things:
 
 To tell Angular that there is no dynamic HTML, and it should immediately query for the elements, you can use the `{static: true}` property on `ViewChild`:
 
-```typescript {6}
+```typescript {7}
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
