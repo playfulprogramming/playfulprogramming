@@ -29,6 +29,8 @@ export function IFramePlaceholder({
 				<div class="embed__header__favicon">
 					<img
 						src={props.pageIcon}
+						width={24}
+						height={24}
 						alt=""
 						loading="lazy"
 						decoding="async"
