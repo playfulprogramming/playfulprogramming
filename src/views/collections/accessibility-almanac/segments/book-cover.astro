@@ -2,7 +2,8 @@
 import BookCoverContainer from "../../framework-field-guide/components/book-cover-container.astro";
 import BookCoverLayer from "../../framework-field-guide/components/book-cover-layer.astro";
 import { Cityscape } from "../cover-layers/cityscape";
-import {PeopleAndCafe } from "../cover-layers/people-and-cafe";
+import { Cafe } from "../cover-layers/cafe";
+import { BlindMan } from "../cover-layers/blind-man";
 import SafeArea from "../cover-layers/safe-area.astro";
 ---
 
@@ -30,10 +31,17 @@ import SafeArea from "../cover-layers/safe-area.astro";
 		</div>
 		<div slot="right"></div>
 	</BookCoverLayer>
-	<BookCoverLayer name="people-and-cafe">
+	<BookCoverLayer moveOnScrollBy={0.2} name="cafe">
 		<div slot="left"></div>
 		<div slot="center">
-			<PeopleAndCafe />
+			<Cafe />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+	<BookCoverLayer name="blind-man">
+		<div slot="left"></div>
+		<div slot="center">
+			<BlindMan />
 		</div>
 		<div slot="right"></div>
 	</BookCoverLayer>
