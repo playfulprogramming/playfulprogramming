@@ -8,3 +8,7 @@
   margin: 0 auto;
   text-align: center;
 }
+
+:global(.book-section) {
+  --outline_focused: white;
+}

@@ -10,15 +10,8 @@
   }
 }
 
-:global(.book-section) {
-  --cta-foreground: white;
-  --cta-background: var(--floor);
-  --cta-background_hovered: #4583ed;
-  --cta-background_pressed: #4172c5;
-}
-
 .titleContainer {
-  border: 4px solid white;
+  border: 4px solid var(--title);
   width: fit-content;
   border-radius: var(--spc-3x);
   position: relative;
@@ -39,7 +32,7 @@
 }
 
 .title {
-  color: white;
+  color: var(--title);
   text-transform: uppercase !important;
   white-space: break-spaces;
   margin: 0;
@@ -94,14 +87,16 @@
 }
 
 .readNowText {
-  color: rgb(255,255,255,0.8);
+  color: var(--title);
   white-space: pre-line;
   text-align: center;
   margin: 0;
 }
 
 .ffgWord {
-  color: white;
+  color: black;
+  position: relative;
+  border-radius: var(--spc-1x);
 }
 
 
