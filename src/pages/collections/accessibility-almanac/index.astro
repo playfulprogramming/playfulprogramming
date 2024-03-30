@@ -5,11 +5,12 @@ import SEO from "src/components/seo/seo.astro";
 import Header from "src/views/collections/framework-field-guide/segments/header.astro";
 import Hero from "../../../views/collections/accessibility-almanac/segments/hero.astro";
 import { getUnicornById } from "../../../utils/api";
-
+import { getPostsByCollection } from "../../../utils/api";
 
 import "../../../views/collections/framework-field-guide/fonts/plus-jakarta-sans.css";
 import "../../../views/collections/framework-field-guide/fonts/changa-one.css";
 import "../../../views/collections/framework-field-guide/tokens/buttons.scss";
+import "../../../views/collections/framework-field-guide/tokens/book-sections.scss";
 import "../../../views/collections/framework-field-guide/tokens/dimensions.scss";
 import "../../../views/collections/framework-field-guide/tokens/text-styles.scss";
 import "../../../views/collections/framework-field-guide/styles/buttons.css";
@@ -21,6 +22,15 @@ import "../../../views/collections/framework-field-guide/tokens/sign-up.scss";
 
 import "../../../views/collections/accessibility-almanac/tokens/colors.scss";
 import "../../../views/collections/accessibility-almanac/styles/global-a11y.css";
+import Rest from "../../../views/collections/accessibility-almanac/segments/rest.astro";
+import CollectionTableOfContents
+	from "../../../views/collections/framework-field-guide-fundamentals/components/collection-table-of-contents-fundamentals.astro";
+
+
+const chapterList = getPostsByCollection(
+"framework-field-guide-fundamentals",
+"en",
+);
 ---
 
 <Barebones>
@@ -36,6 +46,9 @@ import "../../../views/collections/accessibility-almanac/styles/global-a11y.css"
 	<Header />
 	<main>
 		<Hero />
+		<Rest>
+			<CollectionTableOfContents posts={chapterList} />
+		</Rest>
 	</main>
 </Barebones>
 <script>
