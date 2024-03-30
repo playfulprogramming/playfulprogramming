@@ -2,12 +2,10 @@
 {
     title: "Tab Focusing",
     description: "",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
+    published: '2025-01-01T22:12:03.284Z',
+    tags: ['webdev', 'accessibility'],
     order: 4,
-    series: "The Accessibility Almanac"
+    collection: "accessibility-almanac"
 }
 ---
 
