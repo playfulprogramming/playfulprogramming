@@ -1,15 +1,27 @@
 ---
 import BookCover from "./book-cover.astro";
 import style from "./hero.module.scss";
+import BigFilledButton from "../../framework-field-guide/components/big-filled-button.astro";
 ---
 
-<div class={style.heroContainer}>
-	<div class={style.titleContainer}>
-		<h1 class={`text-style-display-1 ${style.title}`}>
-			<span class={style.titleFirst}>The</span>
-			<span class={style.titleMiddle}>Accessibility</span>
-			<span class={style.titleLast}>Almanac</span>
-		</h1>
+<section class="book-section" aria-labelledby="book-title">
+	<div class={style.heroContainer}>
+		<div class={style.titleContainer}>
+			<h1 id="book-title" class={`text-style-display-1 ${style.title}`}>
+				<span class={style.titleFirst}>The</span>
+				<span class={style.titleMiddle}>Accessibility</span>
+				<span class={style.titleLast}>Almanac</span>
+			</h1>
+		</div>
+
+		<div class={style.buttonContainer}>
+			<BigFilledButton
+				href="#chapter-listing-heading"
+				onclick='event.preventDefault();var title=document.getElementById("chapter-listing-heading");title.scrollIntoView({behavior: "smooth", block: "start"});'
+			>
+				Read now
+			</BigFilledButton>
+		</div>
 	</div>
-</div>
-<BookCover />
+	<BookCover />
+</section>
