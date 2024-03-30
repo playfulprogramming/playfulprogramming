@@ -1,13 +1,10 @@
 ---
 {
-    title: "Element Association",
-    description: "",
-    published: '2023-01-01T22:12:03.284Z',
-    authors: ['crutchcorn'],
-    tags: ['webdev'],
-    attached: [],
-    order: 3,
-    series: "The Accessibility Almanac"
+    title: "Labels",
+    description: "TODO: Change",
+    published: '2026-01-01T22:12:03.284Z',
+    tags: ['webdev', 'accessibility'],
+    order: 4
 }
 ---
 
