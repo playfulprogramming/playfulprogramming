@@ -1,6 +1,16 @@
 ---
 import BookCover from "./book-cover.astro";
+import style from "./hero.module.scss";
 ---
 
+<div class={style.heroContainer}>
+	<div class={style.titleContainer}>
+		<h1 class={`text-style-display-1 ${style.title}`}>
+			<span class={style.titleFirst}>The</span>
+			<span class={style.titleMiddle}>Accessibility</span>
+			<span class={style.titleLast}>Almanac</span>
+		</h1>
+	</div>
+</div>
 <BookCover />
 <div style="height: 300vh; background: var(--floor)"></div>

@@ -1,0 +1,74 @@
+@import "../../framework-field-guide/tokens/utils";
+@import "../../framework-field-guide/tokens/breakpoints.scss";
+
+.heroContainer {
+  padding: 1rem;
+  padding-top: 2.75rem;
+
+  @include from($desktop) {
+    padding-top: 7rem;
+  }
+}
+
+.titleContainer {
+  border: 4px solid white;
+  width: fit-content;
+  border-radius: 12px;
+  position: relative;
+  padding-top: calc((2.75rem / 2) + 0.5rem);
+  padding-bottom: calc((2.75rem / 2) + 0.5rem);
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  margin: 0 auto;
+
+  @include from($desktop) {
+    padding-top: calc((7rem / 2) + 1.5rem);
+    padding-bottom: calc((7rem / 2) + 1.5rem);
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+  }
+}
+
+.title {
+  color: white;
+  text-transform: uppercase;
+  white-space: break-spaces;
+  margin: 0;
+  display: contents;
+}
+
+.titleFirst {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  background: var(--sky);
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  @include from($desktop) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+
+.titleMiddle {
+  z-index: 1;
+  position: relative;
+}
+
+.titleLast {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(50%) translateX(-50%);
+  left: 50%;
+  background: var(--sky);
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
+  @include from($desktop) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
