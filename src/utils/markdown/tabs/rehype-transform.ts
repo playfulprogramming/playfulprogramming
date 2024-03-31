@@ -36,8 +36,6 @@ const getApproxLineCount = (nodes: Node[], inParagraph?: boolean): number => {
 				isInParagraph,
 			);
 		}
-		if (n.type === "element" && (n as Element).tagName === "code")
-			console.log(n);
 		// assume that any div/p/br causes a line break
 		if (
 			n.type === "element" &&
