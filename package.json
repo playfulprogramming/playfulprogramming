@@ -31,15 +31,15 @@
 		"format": "prettier -w . --cache --plugin-search-dir=.",
 		"lint": "eslint . --ext .js,.ts,.astro",
 		"search-index": "tsx build-scripts/search-index.ts",
-		"social-previews:build": "tsx --tsconfig tsconfig.script.json build-scripts/social-previews/index.ts",
-		"social-previews:dev:build": "tsx watch --tsconfig tsconfig.script.json build-scripts/social-previews/live-server.ts",
-		"social-previews:dev:server": "live-server build-scripts/social-previews/dist",
+		"social-previews:build": "PLAYWRIGHT_BROWSERS_PATH=0 tsx --tsconfig tsconfig.script.json build-scripts/social-previews/index.ts",
+		"social-previews:dev:build": "PLAYWRIGHT_BROWSERS_PATH=0 tsx watch --tsconfig tsconfig.script.json build-scripts/social-previews/live-server.ts",
+		"social-previews:dev:server": "PLAYWRIGHT_BROWSERS_PATH=0 live-server build-scripts/social-previews/dist",
 		"social-previews:dev": "npm-run-all --parallel social-previews:dev:build social-previews:dev:server",
 		"epub": "tsx --tsconfig tsconfig.script.json build-scripts/generate-epubs.ts",
 		"tsc": "astro check && tsc --noEmit",
 		"test": "jest",
 		"test:debug": "set DEBUG_PRINT_LIMIT=9999999999 && node --inspect-brk ./node_modules/jest/bin/jest.js",
-		"prepare": "husky install && playwright install"
+		"prepare": "husky install && PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium"
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.5.9",
@@ -99,7 +99,7 @@
 		"npm-run-all": "^4.1.5",
 		"octokit": "^3.1.1",
 		"plausible-tracker": "^0.3.8",
-		"playwright": "^1.37.0",
+		"playwright": "^1.42.1",
 		"postcss": "^8.4.27",
 		"postcss-csso": "^6.0.1",
 		"preact-render-to-string": "^6.2.1",
