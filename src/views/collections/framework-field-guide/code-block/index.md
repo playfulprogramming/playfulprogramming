@@ -1,4 +1,4 @@
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 # React
 
 ```jsx
@@ -30,4 +30,4 @@ class HelloWorldComp {}
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->

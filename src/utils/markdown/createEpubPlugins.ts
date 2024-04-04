@@ -9,11 +9,11 @@ import {
 	rehypeMakeImagePathsAbsolute,
 } from "./rehype-absolute-paths";
 import { rehypeFixTwoSlashXHTML } from "./rehype-fix-twoslash-xhtml";
-import { rehypeNoEbook } from "./rehype-no-ebook";
 import { Processor } from "unified";
 import rehypeStringify from "rehype-stringify";
 import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
+import { rehypeTransformComponents } from "./components";
 
 export function createEpubPlugins(unified: Processor): Processor {
 	return (
@@ -28,7 +28,14 @@ export function createEpubPlugins(unified: Processor): Processor {
 			.use(rehypeFixTwoSlashXHTML)
 			.use(rehypeMakeImagePathsAbsolute)
 			.use(rehypeMakeHrefPathsAbsolute)
-			.use(rehypeNoEbook)
+			.use(rehypeTransformComponents, {
+				components: {
+					filetree: ({ children }) => children,
+					["in-content-ad"]: ({ children }) => children,
+					["no-ebook"]: () => [],
+					tabs: ({ children }) => children,
+				},
+			})
 			.use(rehypeExpandDetailsAndSummary)
 			.use(rehypeSlug as never, {
 				maintainCase: true,

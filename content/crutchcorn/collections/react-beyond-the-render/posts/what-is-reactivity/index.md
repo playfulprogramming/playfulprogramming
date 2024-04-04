@@ -71,7 +71,7 @@ Then we can add in the required JavaScript to make the button functional:
 
 <iframe data-frame-title="Example #1 - StackBlitz" src="uu-code:./step1-code?template=node&embed=1&file=index.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # Adding a List
 
@@ -211,7 +211,7 @@ Some examples of frontend frameworks include:
 
 These frameworks allow you to write code that focused on the data in JavaScript, rather than how it will be bound to the DOM:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -281,7 +281,7 @@ const count = ref(0);
 
 <iframe data-frame-title="Vue Reactivity - StackBlitz" src="uu-code:./vue-reactivity?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This, dear reader, is the core idea behind reactivity: Allowing us to focus on how we want to change the state stored in JavaScript and allowing some other mechanism to abstract away _how_ it shows up on-screen.
 

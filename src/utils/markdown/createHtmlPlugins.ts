@@ -7,7 +7,6 @@ import oembedTransformer from "@remark-embedder/transformer-oembed";
 import remarkToRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
-import { rehypeTabs } from "./tabs/rehype-transform";
 import { rehypeTooltips } from "./tooltips/rehype-transform";
 import { rehypeHints } from "./hints/rehype-transform";
 import { rehypeAstroImageMd } from "./picture/rehype-transform";
@@ -15,8 +14,6 @@ import { rehypeUnicornElementMap } from "./rehype-unicorn-element-map";
 import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
 import { rehypeHeaderText } from "./rehype-header-text";
 import { rehypeHeaderClass } from "./rehype-header-class";
-import { rehypeFileTree } from "./file-tree/rehype-file-tree";
-import { rehypeInContentAd } from "./in-content-ad/rehype-transform";
 import { Processor } from "unified";
 import { dirname, relative, resolve } from "path";
 import type { VFile } from "vfile";
@@ -26,6 +23,12 @@ import { rehypeShikiUU } from "./shiki/rehype-transform";
 import rehypeStringify from "rehype-stringify";
 import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
+import {
+	rehypeTransformComponents,
+	transformFileTree,
+	transformInContentAd,
+	transformTabs,
+} from "./components";
 
 const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
 
@@ -64,7 +67,6 @@ export function createHtmlPlugins(unified: Processor): Processor {
 			/**
 			 * Insert custom HTML generation code here
 			 */
-			.use(rehypeTabs)
 			.use(rehypeHints)
 			.use(rehypeTooltips)
 			.use(rehypeAstroImageMd)
@@ -95,8 +97,16 @@ export function createHtmlPlugins(unified: Processor): Processor {
 					},
 				],
 			})
+			.use(rehypeTransformComponents, {
+				components: {
+					filetree: transformFileTree,
+					["in-content-ad"]: transformInContentAd,
+					["no-ebook"]: ({ children }) => children,
+					tabs: transformTabs,
+				},
+			})
 			.use(rehypeUnicornElementMap)
-			.use(rehypeFileTree)
+			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)
 			.use(rehypeHeaderClass, {
 				// the page starts at h3 (under {title} -> "Post content")
@@ -105,7 +115,6 @@ export function createHtmlPlugins(unified: Processor): Processor {
 				className: (depth: number) =>
 					`text-style-headline-${Math.min(depth + 1, 6)}`,
 			})
-			.use(rehypeInContentAd)
 			// Shiki is the last plugin before stringify, to avoid performance issues
 			// with node traversal (shiki creates A LOT of element nodes)
 			.use(rehypeCodeblockMeta)

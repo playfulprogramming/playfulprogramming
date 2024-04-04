@@ -13,7 +13,7 @@
 
 We've previously touched on how to pass values to a component as properties earlier in the book:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # React
 
@@ -71,13 +71,13 @@ const labelText = ref(formatReadableDate(props.inputDate));
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 You may notice that we're deriving two values from the same property. This works fine at first, but an issue arises with how we're doing things when we realize that our `formatDate` and `formatReadableDate` methods are only running once during the initial render.
 
 Because of this, if we pass in an updated `inputDate` to the `FileDate` component, the values of `formatDate` and `formatReadableDate` will become out of sync from the parent's passed `inputDate`.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # React
 
@@ -105,9 +105,9 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Refreshing File Date - StackBlitz" src="uu-code:./ffg-fundamentals-react-refreshing-file-date-45?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 # Angular
 
@@ -146,9 +146,9 @@ class FileComponent implements OnInit, OnDestroy {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Refreshing File Date - StackBlitz" src="uu-code:./ffg-fundamentals-angular-refreshing-file-date-45?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 # Vue
 
@@ -188,11 +188,11 @@ onUnmounted(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Refreshing File Date - StackBlitz" src="uu-code:./ffg-fundamentals-vue-refreshing-file-date-45?template=node&embed=1&file=src%2FFile.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 While the above `File` component updates `inputDate` correctly, our `FileDate` component is never listening for the changed input value and, as such, never recomputed the `formatDate` or `formatReadableDate` value to display to the user.
 
@@ -204,7 +204,7 @@ The first - and arguably easiest to mentally model - method to solve this dispar
 
 Luckily, we can use [our existing knowledge of side effects](/posts/ffg-fundamentals-side-effects) to do so:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -223,9 +223,9 @@ const FileDate = ({ inputDate }) => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Prop Listening - StackBlitz" src="uu-code:./ffg-fundamentals-react-prop-listening-46?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -263,9 +263,9 @@ class FileDateComponent implements OnChanges {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Prop Listening - StackBlitz" src="uu-code:./ffg-fundamentals-angular-prop-listening-46?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -295,15 +295,15 @@ watch(
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Prop Listening - StackBlitz" src="uu-code:./ffg-fundamentals-vue-prop-listening-46?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Vue's `watch` logic allows you to track a given property or state value changes based on its key.
 
 Here, we're watching the `inputDate` props key and, when changed, updating `dateStr` and `labelText` based off of the new property value.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 While this method works, it tends to introduce duplicate developmental logic. For example, notice how we have to repeat the declaration of the `dateStr` and `labelText` values twice: Once when they're initially defined and again inside the property listener.
 
@@ -324,7 +324,7 @@ This may remind you of a similar pattern we've used already for [live updated te
 
 Luckily for us, all three frameworks have a way of doing just this!
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -339,9 +339,9 @@ const FileDate = ({ inputDate }) => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Computed Values - StackBlitz" src="uu-code:./ffg-fundamentals-react-computed-values-47?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 `useMemo` is a method for computing values based on an input or series of inputs. This works because it does the computation and regenerates the calculation whenever the second argument array's values have changed in a render.
 
@@ -407,9 +407,9 @@ class FileDateComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Computed Values - StackBlitz" src="uu-code:./ffg-fundamentals-angular-computed-values-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Multiple Input Pipes {#multi-input-pipes}
 
@@ -447,9 +447,9 @@ class FileDateComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Multi Input Pipes - StackBlitz" src="uu-code:./ffg-fundamentals-angular-multi-input-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Built-In Pipes {#built-in-pipes}
 
@@ -475,9 +475,9 @@ class FileDateComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Built-In Pipes - StackBlitz" src="uu-code:./ffg-fundamentals-angular-built-in-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -499,9 +499,9 @@ const labelText = computed(() => formatReadableDate(props.inputDate));
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Computed Values - StackBlitz" src="uu-code:./ffg-fundamentals-vue-computed-values-47?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Instead of using `ref` to construct a set of variables and then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
 
@@ -509,17 +509,17 @@ Vue is able to ✨ magically ✨ detect what data inside the `computed` function
 
 These `computed` props are then accessible in the same way a `data` property is, both from the template and from Vue's `<script>` alike.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Non-Prop Derived Values {#non-derived-vals}
 
 While we've primarily used component inputs to demonstrate derived values today, both of the methods we've used thus far work for the internal component state and inputs.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 Let's say that we have a piece of state called `number` in our component and want to display the doubled value of this property without passing this state to a new component:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -538,9 +538,9 @@ const CountAndDoubleComp = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Non-Prop Derived - StackBlitz" src="uu-code:./ffg-fundamentals-react-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -573,9 +573,9 @@ class CountAndDoubleComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Non-Prop Derived - StackBlitz" src="uu-code:./ffg-fundamentals-angular-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -602,11 +602,11 @@ const doubleNum = computed(() => number.value * 2);
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Non-Prop Derived - StackBlitz" src="uu-code:./ffg-fundamentals-vue-non-prop-derived-48?template=node&embed=1&file=src%2FCountAndDouble.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 In this component, we can see two numbers — one doubling the value of the other. We then have a button that allows us to increment the first number, and therefore, using a derived value, the second number also updates.
 
@@ -640,7 +640,7 @@ function formatBytes(bytes) {
 
 With this JavaScript, we can use a derived value to display the relevant display size. Let's build this out using a dedicated `DisplaySize` component:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -671,9 +671,9 @@ function formatBytes(bytes) {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Derived Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-derived-challenge-49?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -714,9 +714,9 @@ class DisplaySizeComponent {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Derived Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-derived-challenge-49?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -756,10 +756,10 @@ function formatBytes(bytes) {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Derived Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-derived-challenge-49?template=node&embed=1&file=src%2FDisplaySize.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->

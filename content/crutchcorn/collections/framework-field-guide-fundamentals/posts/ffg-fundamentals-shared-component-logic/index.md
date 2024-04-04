@@ -47,7 +47,7 @@ Without further ado, let's build the window size shared logic.
 
 The first step of creating composable shared logic is to create a way to store data in an instance of the logic:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -76,9 +76,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Shared Data Storage - StackBlitz" src="uu-code:./ffg-fundamentals-react-shared-data-storage-100?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Rules of Custom Hooks {#custom-hooks-rules}
 
@@ -181,9 +181,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Shared Data Storage - StackBlitz" src="uu-code:./ffg-fundamentals-angular-shared-data-storage-100?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -215,15 +215,15 @@ const { height, width } = useWindowSize();
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Shared Data Storage - StackBlitz" src="uu-code:./ffg-fundamentals-vue-shared-data-storage-100?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > While React requires you to name your custom hooks "useX," you don't have to do the same with custom compositions. We could have easily called this code `createWindowSize` and have it work just as well.
 >
 > We still use the `use` composition prefix to keep things readable. While this is subjective, it's the naming convention the ecosystem seems to favor for compositions like this.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Sharing Side Effect Handlers {#sharing-side-effect-handlers}
 
@@ -245,7 +245,7 @@ While our last code sample was able to expose the browser window's height and wi
 
 Let's use [the window listener side effect we built in our "Side Effects" chapter](/posts/ffg-fundamentals-side-effects#cleaning-event-listeners) to add an event handler to listen for window resizing.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -285,9 +285,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Sharing Side Effect - StackBlitz" src="uu-code:./ffg-fundamentals-react-sharing-side-effect-101?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > Notice that we've changed exactly zero lines of code from our previous example of this component! ✨ Magic ✨
 
@@ -338,9 +338,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Sharing Side Effect - StackBlitz" src="uu-code:./ffg-fundamentals-angular-sharing-side-effect-101?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > This code isn't ideal; the Angular team knows this. This is why they're working on introducing a new method of side effect handling (and data storage) [called "Signals"](https://angular.io/guide/signals). At the time of writing, Signals are still in the experimental phase, but they're worth keeping an eye on.
 
@@ -388,13 +388,13 @@ const { height, width } = useWindowSize();
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Sharing Side Effect - StackBlitz" src="uu-code:./ffg-fundamentals-vue-sharing-side-effect-101?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > We could have also used the `watch` or `watchEffect` composition methods, but chose not to for this example.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Composing Custom Logic {#composing-custom-logic}
 
@@ -402,7 +402,7 @@ We've covered how shared logic can access data storage and side-effect handlers.
 
 Not only can you call your custom logic from components, but you can call them from other shared logic fragments.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 For example, let's say that we want to take our window size getter and create another custom logic fragment that composes it.
 
@@ -430,7 +430,7 @@ But this comes with downsides when trying to include this logic in a framework, 
 
 Luckily for us, we can do this with our frameworks with full access to all the other framework-specific APIs we've covered until now.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -459,9 +459,9 @@ const Component = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Composing Logic - StackBlitz" src="uu-code:./ffg-fundamentals-react-composing-logic-102?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -530,9 +530,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Composing Logic - StackBlitz" src="uu-code:./ffg-fundamentals-angular-composing-logic-102?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Something worth mentioning is that we need to provide both `WindowSize` and `IsMobile`; otherwise, we'll get an error like so:
 
@@ -580,11 +580,11 @@ const { isMobile } = useMobileCheck();
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Composing Logic - StackBlitz" src="uu-code:./ffg-fundamentals-vue-composing-logic-102?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Challenge {#challenge}
 
@@ -613,7 +613,7 @@ document.addEventListener("click", closeIfOutsideOfContext);
 
 Let's turn this into a composition that we can use in our `ContextMenu` component.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -816,7 +816,7 @@ defineExpose({
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Step 2: Create a Bounds Composable {#challenge-step-2}
 
@@ -833,7 +833,7 @@ window.addEventListener("resize", resizeListener);
 window.removeEventListener("resize", resizeListener);
 ```
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -914,9 +914,9 @@ function App() {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Shared Logic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-shared-logic-challenge-103?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -1007,9 +1007,9 @@ class AppComponent implements AfterViewInit {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Shared Logic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-shared-logic-challenge-103?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -1090,10 +1090,10 @@ function open(e) {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Shared Logic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-shared-logic-challenge-103?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->

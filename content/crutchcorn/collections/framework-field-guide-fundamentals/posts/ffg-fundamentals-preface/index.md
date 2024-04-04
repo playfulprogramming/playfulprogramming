@@ -103,7 +103,7 @@ For example, Angular focuses on object-oriented programming, while the React eco
 
 Because of this, once you have mastered each, you can choose which programming methodology you want to apply within parts of your applications.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 Beyond this, it's important to remember that these three frameworks are not the only choices on the table in web development. Svelte is an alternative that's been gaining tremendous traction, for example. While it differs even more from the three options we're learning, Svelte still shares many of the foundations of React, Angular, and Vue.
 
@@ -241,7 +241,7 @@ We will also have easy-to-reference resources in case you're already a pro with 
 
 As a final note, before I send you into the rest of the book, I want to touch on a few points about these frameworks:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -330,6 +330,6 @@ Vue is a highly flexible framework and, as a result, allows you to define compon
 
 While the "Internals" book (the third in the series) will introduce the other methods and how they work under the hood, SFCs are commonly used as the de facto method of creating Vue components for most applications.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Without further ado, let's get started.

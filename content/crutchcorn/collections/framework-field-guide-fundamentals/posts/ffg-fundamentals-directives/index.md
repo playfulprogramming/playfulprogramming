@@ -29,7 +29,7 @@ As a result, some frameworks, like Angular, take this comparison literally and u
 
 Here's what a basic directive looks like in each of the three frameworks:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -51,9 +51,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React What is a Directive? - StackBlitz" src="uu-code:./ffg-fundamentals-react-what-is-a-directive-104?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > We'll continue to cover alternative APIs in React that can do much of the same as directives in other frameworks. In the meantime, it might be beneficial to broaden your horizons and take a glance at what a "true" directive looks like in other frameworks.
 
@@ -83,9 +83,9 @@ class LogElementDirective {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular What is a Directive? - StackBlitz" src="uu-code:./ffg-fundamentals-angular-what-is-a-directive-104?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, we've told Angular to listen for any `sayHi` attributes ([using a CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)) and run a `console.log` any time an element with said attribute is rendered.
 
@@ -127,9 +127,9 @@ class LogElementDirective {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Directive El Reference - StackBlitz" src="uu-code:./ffg-fundamentals-angular-directive-el-reference-104?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -150,9 +150,9 @@ const vSayHi = {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue What is a Directive? - StackBlitz" src="uu-code:./ffg-fundamentals-vue-what-is-a-directive-104?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Directives in Vue must start with `v-` prefix (which is why our object starts with `v`) and are `dash-cased` when presented inside a `template`. This means that our `vSayHi` object directive is turned into `v-say-hi` when used in the template.
 
@@ -174,11 +174,11 @@ const vSayHi = {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Directive El Reference - StackBlitz" src="uu-code:./ffg-fundamentals-vue-directive-el-reference-104?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Once our apps load up, you should see a `console.log` execute that prints out the [HTMLParagraphElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLParagraphElement) reference.
 
@@ -192,7 +192,7 @@ Now that we have a reference to the underlying DOM node, we can use that to do v
 
 For example, let's say that we wanted to change the color of a button using nothing more than an HTML attribute — we can do that now using [the HTMLElement's `style` property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style):
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -210,9 +210,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Basic Directives - StackBlitz" src="uu-code:./ffg-fundamentals-react-basic-directives-105?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -240,9 +240,9 @@ class StyleBackgroundDirective {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Basic Directives - StackBlitz" src="uu-code:./ffg-fundamentals-angular-basic-directives-105?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -265,11 +265,11 @@ const vStyleBackground = {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Basic Directives - StackBlitz" src="uu-code:./ffg-fundamentals-vue-basic-directives-105?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 > While this is a good demonstration of how you can use an element reference within a directive, styling an element is generally suggested to be done within a CSS file itself, unless you have good reason otherwise.
 >
@@ -281,13 +281,13 @@ const vStyleBackground = {
 
 Luckily, with directives, we can!
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 See, while a component has a series of side effects associated with it: being rendered, updated, cleaned up, and beyond — so too does an HTML element that's bound to a directive!
 
 Because of this, we can hook into the ability to use [side effects](/posts/ffg-fundamentals-side-effects) within directives so that it focuses when an element is rendered.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -314,9 +314,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Directive Side Effects - StackBlitz" src="uu-code:./ffg-fundamentals-react-directive-side-effects-106?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > Truthfully, this is a bad example for `useEffect`. Instead, I would simply run `localEl.focus()` inside of the `ref` function.
 
@@ -346,9 +346,9 @@ class StyleBackgroundDirective implements OnInit {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Directive Side Effects - StackBlitz" src="uu-code:./ffg-fundamentals-angular-directive-side-effects-106?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -369,13 +369,13 @@ const vFocusElement = {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Directive Side Effects - StackBlitz" src="uu-code:./ffg-fundamentals-vue-directive-side-effects-106?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 For example, if we wanted to add a cleanup to this directive, we could change `mounted` to `unmounted` instead.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Passing Data to Directives {#passing-data}
 
@@ -385,7 +385,7 @@ We could just set the color to a nicer shade of red — say, `#FFAEAE` — but t
 
 To solve this issue regarding per-instance customization of a directive, let's add the ability to pass in data to a directive.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -405,9 +405,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Pass Directives Data - StackBlitz" src="uu-code:./ffg-fundamentals-react-pass-directives-data-107?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -441,9 +441,9 @@ class StyleBackgroundDirective implements OnInit {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Pass Directives Data - StackBlitz" src="uu-code:./ffg-fundamentals-angular-pass-directives-data-107?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -466,13 +466,13 @@ const vStyleBackground = {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Pass Directives Data - StackBlitz" src="uu-code:./ffg-fundamentals-vue-pass-directives-data-107?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 You access the bindings' value through `binding.value`, but can also access things like the previous value by using `binding.oldValue`.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Passing JavaScript Values {#passing-js-values}
 
@@ -492,7 +492,7 @@ class Color {
 
 Then, we can render out this color inside our background styling directive:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -520,9 +520,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Directives Pass JS Data - StackBlitz" src="uu-code:./ffg-fundamentals-react-directives-pass-js-data-108?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
@@ -566,9 +566,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Directives Pass JS Data - StackBlitz" src="uu-code:./ffg-fundamentals-angular-directives-pass-js-data-108?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -598,11 +598,11 @@ const vStyleBackground = {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Directives Pass JS Data - StackBlitz" src="uu-code:./ffg-fundamentals-vue-directives-pass-js-data-108?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now, we can customize the color using incremental updates to the RGB values of a color we're passing.
 
@@ -612,7 +612,7 @@ While a class instance of `Color` may be useful in production apps, for smaller 
 
 Just as we can pass multiple values to a component, we can do the same within a directive. Let's see how it's done for each of the three frameworks:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -632,9 +632,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Pass Multiple Values - StackBlitz" src="uu-code:./ffg-fundamentals-react-pass-multiple-values-109?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
@@ -670,9 +670,9 @@ class StyleBackgroundDirective implements OnInit {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Pass Multiple Values - StackBlitz" src="uu-code:./ffg-fundamentals-angular-pass-multiple-values-109?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > If you forget to include the attribute with the same selector (in this case, `styleBackground`), you'll get the following error:
 >
@@ -702,11 +702,11 @@ const vStyleBackground = {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Pass Multiple Values - StackBlitz" src="uu-code:./ffg-fundamentals-vue-pass-multiple-values-109?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Conditionally Rendered UI via Directives {#conditionally-rendered-ui}
 
@@ -751,7 +751,7 @@ In this instance, we might render something like:
 
 Let's build a basic version of this in each of our frameworks.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -802,9 +802,9 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Conditionally Rendered UI - StackBlitz" src="uu-code:./ffg-fundamentals-react-conditionally-rendered-ui-110?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -859,9 +859,9 @@ import { NgTemplateOutlet } from "@angular/common";
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Pass Data to Template - StackBlitz" src="uu-code:./ffg-fundamentals-angular-pass-data-to-template-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 We can even choose to use [an `ng-container`](/posts/ffg-fundamentals-transparent-elements) instead of a `div` to avoid having a `div` in our rendered output:
 
@@ -876,9 +876,9 @@ We can even choose to use [an `ng-container`](/posts/ffg-fundamentals-transparen
 </ng-container>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Pass Template Data No Div - StackBlitz" src="uu-code:./ffg-fundamentals-angular-pass-template-data-no-div-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 #### Default Keys in Template Context {#default-keys-in-template-context}
 
@@ -916,9 +916,9 @@ To solve this, we can pass a "default" key called `$implicit` and bind it like s
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Default Keys in Context - StackBlitz" src="uu-code:./ffg-fundamentals-angular-default-keys-in-context-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Seeing a Template Render a Comment {#seeing-a-template-render-a-comment}
 
@@ -944,9 +944,9 @@ class TemplateDirective {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular ngTemplate Directive - StackBlitz" src="uu-code:./ffg-fundamentals-angular-ng-template-directive-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Surprisingly, this `alert`s the `"I am alive!"` message despite nothing being shown on the screen!
 
@@ -976,9 +976,9 @@ class TemplateDirective implements OnInit {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular ngTemplate Inject El - StackBlitz" src="uu-code:./ffg-fundamentals-angular-ng-template-inject-el-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 In this example, we've logged a [Comment node](https://developer.mozilla.org/en-US/docs/Web/API/Comment). Interestingly, if we look at our rendered HTML, we'll see an HTML comment where our `ng-template` was:
 
@@ -1024,9 +1024,9 @@ class ItemDirective {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Template From Directive - StackBlitz" src="uu-code:./ffg-fundamentals-angular-template-from-directive-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > Because we're expecting Angular to pass an `ng-template` reference to `ItemDirective`, if we use the `item` attribute on anything other than a template, we'll end up with the following error:
 >
@@ -1201,9 +1201,9 @@ class AppComponent {}
 
 Now, we should be able to see the `p` tag rendering!
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular ViewContainer Template - StackBlitz" src="uu-code:./ffg-fundamentals-angular-viewcontainer-template-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Pass Data to Rendered Templates inside Directives {#pass-data-to-rendered-templates}
 
@@ -1243,9 +1243,9 @@ class PassBackgroundDirective {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Rendered Template Data - StackBlitz" src="uu-code:./ffg-fundamentals-angular-rendered-template-data-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Use Structural Directives to Make Work Easier {#use-structural-directives}
 
@@ -1289,9 +1289,9 @@ Knowing this, we can take our previous code and convert it to a structural direc
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Structural Directives - StackBlitz" src="uu-code:./ffg-fundamentals-angular-structural-directives-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > Structural directives are immensely powerful! [I wrote a 10k word long blog post all about them here.](/posts/angular-templates-start-to-source#structural-directives)
 
@@ -1344,9 +1344,9 @@ class FeatureFlagDirective implements OnChanges {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Conditionally Rendered UI - StackBlitz" src="uu-code:./ffg-fundamentals-angular-conditionally-rendered-ui-110?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1390,9 +1390,9 @@ import FeatureFlag from "./FeatureFlag.vue";
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Conditionally Rendered UI - StackBlitz" src="uu-code:./ffg-fundamentals-vue-conditionally-rendered-ui-110?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 In my opinion, this is not as clean as using a directive since you need to have two additional HTML tags, but that's just one of the limitations of Vue's directive.
 
@@ -1405,7 +1405,7 @@ That said, this method is reasonable extensible as you can even use this `Featur
 > - Slow performance
 > - Brittle and easy to break
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Challenge {#challenge}
 
@@ -1440,7 +1440,7 @@ We can use the following CSS for the tooltip itself:
 
 Let's get started.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -1518,9 +1518,9 @@ const App = () => {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Directives Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-directives-challenge-111?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -1662,9 +1662,9 @@ And suddenly, our code works as we would expect!
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Directives Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-directives-challenge-111?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -1739,10 +1739,10 @@ export const vTooltip = {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Directives Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-directives-challenge-111?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->

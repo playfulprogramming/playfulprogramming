@@ -123,19 +123,19 @@ Note that, while a preceding `/` is needed to type these commands into the text 
 
 We should now have our data pack organized as follows:
 
-<!-- filetree:start -->
+<!-- ::start:filetree -->
 - `1-introduction/`
   - `pack.mcmeta`
   - `data/`
     - `fennifith/functions/animals/`
       - `spawn.mcfunction`
-<!-- filetree:end -->
+<!-- ::end:filetree -->
 
 ## Installing & testing the data pack
 
 To turn this folder into a data pack, we simply need to convert the "1-introduction" folder into a zip file.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # Windows
 
@@ -168,7 +168,7 @@ zip -r 1-introduction.zip ./*
 
 Then, assuming you named your world "testing", the command `ls ~/.minecraft/saves/testing` should list that world's save files. Run `mv ./1-introduction.zip ~/.minecraft/saves/testing/datapacks/` to move the zip file into the world's datapacks folder.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now that we've installed the data pack, you should be able to enter the world save again (or use the `/reload` command if you still have it open). But nothing happens!
 
@@ -188,7 +188,7 @@ In order to run a function automatically, Minecraft provides two built-in [funct
 
 We'll start with `load` &mdash; for which we'll need to create two new files in our folder structure! Below, I'm creating a new `load.mcfunction` next to our previous function, and a `minecraft/tags/functions/load.json` file for the `load` tag.
 
-<!-- filetree:start -->
+<!-- ::start:filetree -->
 - `1-introduction/`
   - `pack.mcmeta`
   - `data/`
@@ -197,7 +197,7 @@ We'll start with `load` &mdash; for which we'll need to create two new files in 
     - `fennifith/functions/animals/`
       - `load.mcfunction`
       - `spawn.mcfunction`
-<!-- filetree:end -->
+<!-- ::end:filetree -->
 
 Note that, while I'm using the `fennifith/` namespace for my functions, the tag file lives under the `minecraft/` namespace. This helps to keep some data isolated from the rest of the game &mdash; any files in the `minecraft/` folder are *modifying Minecraft's functionality,* while anything in a different namespace is creating something that belongs to my data pack.
 

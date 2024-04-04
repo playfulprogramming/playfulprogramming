@@ -77,7 +77,7 @@ Now React will treat the `result` as if it were not a promise, so that you can a
 > - Refetching with new inputs
 > - Abort signals to avoid timing issues
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # What is the `<Suspense>` component?
 

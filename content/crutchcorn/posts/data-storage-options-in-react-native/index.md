@@ -58,7 +58,7 @@ While you're more than able to cache database calls manually, sometimes it's con
 
 > A note about RealmDB: [MongoDB acquired Realm in 2019](https://techcrunch.com/2019/04/24/mongodb-to-acquire-open-source-mobile-database-realm-startup-that-raised-40m/). While this may seem like an unrelated note to leave here, I mention it because large-scale changes are in the immediate horizon for the platform. MongoDB is open about such. They plan on integrating the platform into a larger-scoped platform _also_ (confusingly) called [Realm](https://www.mongodb.com/realm). I mention this because if you're starting a new project, you may want to be aware of what these changes will have in store for your future. It seems like they have a lot of exciting things coming soon!
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # Pros and Cons {#pros-and-cons}
 

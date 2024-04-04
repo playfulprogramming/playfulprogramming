@@ -45,7 +45,7 @@ Let's start with a simple example: Counting how many children a component has.
 
 Let's count how many elements and components are being passed to our component:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -78,9 +78,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Counting Comp Children - StackBlitz" src="uu-code:./ffg-fundamentals-react-counting-comp-children-112?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, `childArr` is an array of type `ReactNode`. A `ReactNode` is created by React's `createElement` method.
 
@@ -112,9 +112,9 @@ const ParentList = ({ children }) => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Counting Comp Children Util - StackBlitz" src="uu-code:./ffg-fundamentals-react-counting-comp-children-util-112?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -167,9 +167,9 @@ class ParentListComponent implements AfterContentInit {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular ContentChild - StackBlitz" src="uu-code:./ffg-fundamentals-angular-contentchild-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, we're querying for the template tag `childItem` within the project content by using [the `ContentChild` decorator](https://angular.io/api/core/ContentChild).
 
@@ -202,9 +202,9 @@ class ParentListComponent implements OnInit {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Why ngAfterContentInit? - StackBlitz" src="uu-code:./ffg-fundamentals-angular-why-ngaftercontentinit-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 This is because while `ngOnInit` runs after the component has rendered, it has not yet received any values within `ng-content`; this is where `ngAfterContentInit` comes into play. This lifecycle method runs once `ng-content` has received the values, which we can then use as a sign that `ContentChild` has finished its query.
 
@@ -260,9 +260,9 @@ class ParentListComponent implements AfterContentInit {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Counting Component Children - StackBlitz" src="uu-code:./ffg-fundamentals-angular-counting-component-children-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 `ContentChildren` returns an array-like [`QueryList`](https://angular.io/api/core/QueryList) generic type. You can then access the properties of `children` inside of the template itself, like what we're doing with `children.length`.
 
@@ -301,9 +301,9 @@ const list = [1, 2, 3];
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Counting Component Children - StackBlitz" src="uu-code:./ffg-fundamentals-vue-counting-component-children-112?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 <!-- Editor's note: While yes, we could do a `mounted() {this.$slots.children}` for THIS example, two things: 1) It's bad practice in that it will cause two renders. 2) It breaks in the very next code sample -->
 
@@ -313,7 +313,7 @@ const list = [1, 2, 3];
 
 <!-- Editor's note: $slots.default doesn't work with `v-for` -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Rendering Children in a Loop {#rendering-children-in-loop}
 
@@ -337,7 +337,7 @@ To render the following HTML:
 </ul>
 ```
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -368,9 +368,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Children in Loop - StackBlitz" src="uu-code:./ffg-fundamentals-react-children-in-loop-113?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -417,21 +417,21 @@ class ParentListComponent {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Children in Loop - StackBlitz" src="uu-code:./ffg-fundamentals-angular-children-in-loop-113?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
 Just as before, Vue's APIs have a limitation when accessing direct children. Let's explore _why_ [in the third book in our book series](https://framework.guide).
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Adding Children Dynamically {#adding-children-dynamically}
 
 Now that we have a list of items being transformed by our component let's add the functionality to add another item to the list:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -474,9 +474,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Adding Children Dynamically - StackBlitz" src="uu-code:./ffg-fundamentals-react-adding-children-dynamically-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
@@ -521,19 +521,19 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Adding Children Dynamically - StackBlitz" src="uu-code:./ffg-fundamentals-angular-adding-children-dynamically-114?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
 While Vue can't render children in a list, it has many more capabilities to showcase. Read on, dear reader.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Here, we can see that whenever a random number is added to the list, our list item counter still increments properly.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 # Passing Values to Projected Content {#passing-values-to-projected-content}
 
@@ -541,7 +541,7 @@ While counting the number of items in a list is novel, it's not a very practical
 
 Instead, let's see if there's a way that we can pass values to our projected content. For example, let's try to change the background color of each `li` item if the index is even or odd.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -558,9 +558,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Numerical Child - StackBlitz" src="uu-code:./ffg-fundamentals-react-numerical-child-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > WHAT?!
 
@@ -590,9 +590,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Function Child - StackBlitz" src="uu-code:./ffg-fundamentals-react-function-child-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Sure enough, it works!
 
@@ -608,9 +608,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Function JSX Child - StackBlitz" src="uu-code:./ffg-fundamentals-react-function-jsx-child-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Finally, we can combine this with the ability to pass values to a function:
 
@@ -624,9 +624,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Function Child Pass Val - StackBlitz" src="uu-code:./ffg-fundamentals-react-function-child-pass-val-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > Confused about how this last one is working? It might be a good time to [review your knowledge on how functions are able to pass to one another and call each other](/posts/javascript-functions-are-values).
 
@@ -678,9 +678,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Pass Val to Projected Content - StackBlitz" src="uu-code:./ffg-fundamentals-react-pass-val-to-projected-content-114?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -734,9 +734,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Pass Val to Projected Content - StackBlitz" src="uu-code:./ffg-fundamentals-angular-pass-val-to-projected-content-114?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -791,9 +791,9 @@ function addOne() {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Pass Val to Projected Content - StackBlitz" src="uu-code:./ffg-fundamentals-vue-pass-val-to-projected-content-114?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 This `v-slot` is similar to how you might pass properties to a component, but instead, we're passing data directly to a `template` to be rendered by `v-slot`.
 
@@ -805,7 +805,7 @@ This `v-slot` is similar to how you might pass properties to a component, but in
 > </template>
 > ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Challenge {#challenge}
 
@@ -827,7 +827,7 @@ Let's pass:
 
 This way, we don't need any loops in our `App` component.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -892,9 +892,9 @@ function App() {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Accessing Children Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-accessing-children-challenge-115?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -978,9 +978,9 @@ class AppComponent {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Accessing Children Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-accessing-children-challenge-115?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -1054,10 +1054,10 @@ const props = defineProps(["data"]);
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Accessing Children Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-accessing-children-challenge-115?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->

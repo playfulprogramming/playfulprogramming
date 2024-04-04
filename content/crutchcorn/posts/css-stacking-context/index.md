@@ -261,7 +261,7 @@ Notice how the purple box seemingly remains on "top" when we re-arrange the CSS 
 
 Well...
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # Re-arrange HTML Elements to Change the Painting Order
 
@@ -780,7 +780,7 @@ In particular, if you use a framework such as React, Angular, or Vue, your compo
 
 Where `Header` is a component with the following:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -834,7 +834,7 @@ function openDialog() {
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 In this instance, [without moving the state out of dialog](/posts/master-react-unidirectional-data-flow), how would you render the contents of `Dialog` after the `Footer` component?
 

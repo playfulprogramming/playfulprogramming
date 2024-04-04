@@ -126,7 +126,6 @@
 		"unist-util-find": "^3.0.0",
 		"unist-util-find-all-after": "^5.0.0",
 		"unist-util-is": "^6.0.0",
-		"unist-util-replace-all-between": "^0.1.1",
 		"unist-util-visit": "^5.0.0",
 		"vercel": "^31.2.3",
 		"vfile": "^5.0.0",

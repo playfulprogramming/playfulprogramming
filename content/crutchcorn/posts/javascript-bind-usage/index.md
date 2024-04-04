@@ -182,7 +182,7 @@ Such that you're not only able to `call` a function with the `this` value, but a
 fn.call(thisArg, arg1, arg2, arg3)
 ```
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # Can we solve this without `.bind`? {#arrow-functions}
 

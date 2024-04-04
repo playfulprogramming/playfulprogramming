@@ -19,7 +19,7 @@ This code works as we'd expect, but it doesn't follow a fundamental pattern of R
 
 Let's fix this by moving our context menu code into its own component. This way, we're able to do refactors more easily, code cleanup, and more.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -93,9 +93,9 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Comp Ref Intro - StackBlitz" src="uu-code:./ffg-fundamentals-react-comp-ref-intro-66?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -195,9 +195,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Comp Ref Intro - StackBlitz" src="uu-code:./ffg-fundamentals-angular-comp-ref-intro-66?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -290,11 +290,11 @@ const open = (e) => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Comp Ref Intro - StackBlitz" src="uu-code:./ffg-fundamentals-vue-comp-ref-intro-66?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 You may have noticed that during this migration, we ended up removing a crucial accessibility feature: **We're no longer running `focus` on the context menu when it opens.**
 
@@ -344,11 +344,11 @@ function openContextMenu(e) {
 
 While this might seem like a straightforward change at first, there's a new problem present: Our `contextMenu` is now inside a component. As a result, we need to [access not only the underlying DOM node using element reference](/posts/ffg-fundamentals-element-reference) but the `ContextMenu` component instance as well.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 Luckily for us, each framework enables us to do just that! Before we implement the `focus` logic, let's dive into how component reference works:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -382,9 +382,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Broken forwardRef - StackBlitz" src="uu-code:./ffg-fundamentals-react-broken-forward-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Doing this will result in our `ref` callback not being called as expected, alongside two error messages explaining why:
 
@@ -411,9 +411,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Renamed Ref - StackBlitz" src="uu-code:./ffg-fundamentals-react-renamed-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 2. Use the `forwardRef` API, as suggested by the error message originally printed.
 
@@ -434,9 +434,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Working forwardRef - StackBlitz" src="uu-code:./ffg-fundamentals-react-working-forward-ref-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 As we can see, `forwardRef` accepts slightly modified component functions. While the first argument might look familiar as our place to access properties, our special property `ref` is passed as a second argument.
 
@@ -477,9 +477,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React useImperativeHandle - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-imperative-handle-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, we can assign properties, functions, or any other JavaScript values to the forwarded `ref`. If we look at the output of our `ref` callback from `App` it shows up the object that we assigned using `useImperativeHandle`:
 
@@ -501,9 +501,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React useImperativeHandle Fn Use - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-imperative-handle-fn-use-67?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 It will output `Hello, world`, just as we would expect it to!
 
@@ -619,9 +619,9 @@ class ParentComponent implements AfterViewInit {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Comp Ref Log - StackBlitz" src="uu-code:./ffg-fundamentals-angular-comp-ref-log-67?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Doing this, we'll see the console output:
 
@@ -662,9 +662,9 @@ And it will alert:
 Hello, world
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Comp Ref Alert - StackBlitz" src="uu-code:./ffg-fundamentals-angular-comp-ref-alert-67?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -703,9 +703,9 @@ onMounted(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Comp Ref Log - StackBlitz" src="uu-code:./ffg-fundamentals-vue-comp-ref-log-67?template=node&embed=1&file=src%2FParent.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 If we look at our console output, we might see something unexpected:
 
@@ -744,9 +744,9 @@ onMounted(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Broken Expose Comp Ref - StackBlitz" src="uu-code:./ffg-fundamentals-vue-broken-expose-comp-ref-67?template=node&embed=1&file=src%2FParent.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 We'll see that `childComp.value.pi` is `undefined` currently. This is because, by default, Vue's `setup script` does not "expose" internal variables to component references externally.
 
@@ -793,11 +793,11 @@ onMounted(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Expose Comp Ref - StackBlitz" src="uu-code:./ffg-fundamentals-vue-expose-comp-ref-67?template=node&embed=1&file=src%2FParent.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Using Component Reference to Focus Our Context Menu {#using-comp-ref}
 
@@ -815,7 +815,7 @@ Now that we sufficiently understand what component references look like in each 
 >
 > "Wait until the element is rendered to run `.focus()` on it"
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -871,9 +871,9 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Focused Comp Ref - StackBlitz" src="uu-code:./ffg-fundamentals-react-focused-comp-ref-68?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -951,9 +951,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Focused Comp Ref - StackBlitz" src="uu-code:./ffg-fundamentals-angular-focused-comp-ref-68?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1046,11 +1046,11 @@ const open = (e) => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Focused Comp Ref - StackBlitz" src="uu-code:./ffg-fundamentals-vue-focused-comp-ref-68?template=node&embed=1&file=src%2FContextMenu.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Challenge {#challenge}
 
@@ -1078,7 +1078,7 @@ Our first step in doing so will be creating a layout file that includes a left-h
 
 To do that might look something like this:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1195,7 +1195,7 @@ import Layout from "./Layout.vue";
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Step 2: Make a Collapsible Sidebar {#challenge-step-2}
 
@@ -1207,7 +1207,7 @@ When `isCollapsed` is `true`, it will only show the toggle button, but when `isC
 
 We'll also set up constants to support different widths of this sidebar area if it's collapsed or not.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1401,7 +1401,7 @@ function onToggle(isCollapsed) {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Step 3: Auto-Collapse Sidebar on Small Screens {#challenge-step-3}
 
@@ -1429,7 +1429,7 @@ window.removeEventListener("resize", onResize);
 
 Let's implement it:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1528,9 +1528,9 @@ const App = () => {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Comp Ref Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-comp-ref-challenge-69?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -1629,9 +1629,9 @@ class AppComponent implements OnInit, OnDestroy {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Comp Ref Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-comp-ref-challenge-69?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -1740,13 +1740,13 @@ onUnmounted(() => {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Comp Ref Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-comp-ref-challenge-69?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now, when the user makes their screen too small, the sidebar automatically collapses. This makes the rest of our app
 much easier to interact with on mobile devices.

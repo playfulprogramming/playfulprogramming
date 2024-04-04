@@ -85,7 +85,7 @@ Now if we force a re-render without changing `count`, it will no longer `alert`:
 
 This is because the `cache` function is [_memoizing_](https://whatthefuck.is/memoization) the usage of the function and eagerly opting out of execution as a result.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # How does `cache` differ from `useMemo` or `memo`?
 
