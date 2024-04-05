@@ -6,7 +6,6 @@ import AboutView from "src/views/about/about.astro";
 import { getLanguageFromFilename, translate } from "utils/translations";
 import { join } from "path";
 import { contentDirectory } from "utils/data";
-import { getMarkdownHtml } from "utils/markdown";
 import { Languages } from "types/index";
 
 export async function getStaticPaths() {
@@ -38,7 +37,6 @@ interface Props {
 }
 
 const { file, locales, locale } = Astro.props as Props;
-const fileHtml = await getMarkdownHtml({ kind: "page", file });
 ---
 
 <Document>
@@ -48,5 +46,5 @@ const fileHtml = await getMarkdownHtml({ kind: "page", file });
 		providedLangs={locales}
 		slot="head"
 	/>
-	<AboutView locales={locales} locale={locale} markdownHtml={fileHtml.html} />
+	<AboutView locales={locales} locale={locale} file={file} />
 </Document>

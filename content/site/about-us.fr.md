@@ -1,5 +1,3 @@
-import { Links, Sponsors } from "src/views/about/components";
-
 <p><span class="text-style-headline-2">Notre but est de fournir les meilleurs ressources pour apprendre n’importe quel aspect dans le domaine de l’informatique</span></p>
 
 C’est quoi une boucle “for”? Comment créer des animations avec CSS? Comment se fait le stockage mémoire avec Assembly? Quel que soit le sujet, nous voudrions nous assurer que le site soit accueillant, incitatif et informatif.
@@ -16,13 +14,13 @@ Nous partageons notre contenu avec tout le monde sur les différents réseaux so
 
 Et comme nous l’avons déjà cité, on a un serveur Discord ou on parle tech, on s'entraide sur les différents problèmes d’informatique, et on s’amuse bien. Si vous voulez nous contacter, ça serait la meilleure façon de le faire.
 
-<Links />
+<!-- split -->
 
 ---
 
-## Sponsors \{#sponsors\}
+## Sponsors {#sponsors}
 
-<Sponsors />
+<!-- split -->
 
 > **Learn more about sponsorships:**
 > Pour plus d’informations concernant nos sponsors et leurs impact sur notre site, vous pouvez consulter [les divulgations que nous avons publiées sur GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed).
@@ -31,7 +29,7 @@ Et comme nous l’avons déjà cité, on a un serveur Discord ou on parle tech, 
 
 ---
 
-## Code d’éthique \{#ethics\}
+## Code d’éthique {#ethics}
 
 Nous ne voudrions jamais nous retrouver dans un endroit où le contenu ou la communauté sont compromis par des influences financières, ou bien des individus potentiellement nuisibles. Pour cela, nous avons adopté le
 [“Contributor Covenant”](https://www.contributor-covenant.org/)

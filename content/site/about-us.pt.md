@@ -1,5 +1,3 @@
-import { Links, Sponsors } from "src/views/about/components";
-
 <p><span class="text-style-headline-2">O nosso objetivo é fornecer os melhores recursos possíveis para aprender qualquer tópico que esteja relacionado a Ciência dos Computadores</span></p>
 
 O que é um ciclo for? Como faço animações com CSS? Como é que a memória é gerida em Assembly? Não importa qual é o tópico, nós queremos que o nosso website seja amigável, que forneça apoio e seja informativo.
@@ -16,13 +14,13 @@ Nós temos diversas redes sociais, onde partilhamos updates e novidades com os m
 
 Como já foi mencionado antes, nós também temos um Discord onde falamos sobre tecnologia, não só ajudamos como respondemos questões relacionadas a Ciência dos Computadores e vivemos bons momentos a conviver. Esta é provavelmente a melhor maneira de entrares em contacto connosco.
 
-<Links />
+<!-- split -->
 
 ---
 
-## Sponsors \{#sponsors\}
+## Sponsors {#sponsors}
 
-<Sponsors />
+<!-- split -->
 
 > **Learn more about sponsorships:**
 > Se queres saber mais sobre os nossos patrocinadores e como estes influenciam este projeto, podes informar-te aqui: [Divulgações que publicadas por nós no GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed).
@@ -31,7 +29,7 @@ Como já foi mencionado antes, nós também temos um Discord onde falamos sobre 
 
 ---
 
-## Princípios de Ética \{#ethics\}
+## Princípios de Ética {#ethics}
 
 Não queremos acabar num lugar onde o nosso conteúdo educacional, a nossa experiência,
 ou comunidade está comprometida pelas oscilação das finanças ou potencialmente

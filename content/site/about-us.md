@@ -1,5 +1,3 @@
-import { Links, Sponsors } from "src/views/about/components";
-
 <p><span class="text-style-headline-2">Our goal is to provide the best resources possible to learn any computer science related topic</span></p>
 
 What’s a for loop? How do I create animations in CSS? How is memory allocated in Assembly? No matter what the topic is, we want our website to be welcoming, supportive and informational.
@@ -16,13 +14,13 @@ We have various social media accounts where we share updates and new content wit
 
 As mentioned previously, we also have a Discord where we chat tech, help out with CS related problems and questions, and generally have a good time. If you're looking to get in touch with us, this is probably the best way to do so.
 
-<Links />
+<!-- split -->
 
 ---
 
-## Sponsors \{#sponsors\}
+## Sponsors {#sponsors}
 
-<Sponsors />
+<!-- split -->
 
 > **Learn more about sponsorships:**
 > If you want to learn more about our sponsorships and how they impact our site, you can read through [our disclosures that we've posted on GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed).
@@ -31,7 +29,7 @@ As mentioned previously, we also have a Discord where we chat tech, help out wit
 
 ---
 
-## Statement of Ethics \{#ethics\}
+## Statement of Ethics {#ethics}
 
 We never want to end up in a place where our educational content, experience, or community is compromised by either financial sway or potentially harmful members of the community. As such, we've implemented the [Contributor Covenant](https://www.contributor-covenant.org/) as our [code of conduct](https://github.com/unicorn-utterances/unicorn-utterances/blob/master/CODE_OF_CONDUCT.md) to uphold these values.
 

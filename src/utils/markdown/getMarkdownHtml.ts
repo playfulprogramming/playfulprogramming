@@ -14,7 +14,7 @@ createHtmlPlugins(unifiedChain);
 
 export async function getMarkdownHtml(
 	post: MarkdownFileInfo,
-	vfilePromise: Promise<MarkdownVFile> = getMarkdownVFile(post),
+	vfilePromise: MarkdownVFile | Promise<MarkdownVFile> = getMarkdownVFile(post),
 ): Promise<MarkdownHtml> {
 	const vfile = await vfilePromise;
 
