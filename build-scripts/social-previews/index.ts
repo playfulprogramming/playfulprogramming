@@ -1,7 +1,8 @@
 import { chromium } from "playwright";
 import { promises as fsPromises } from "fs";
-import { resolve } from "path";
+import { resolve, basename } from "path";
 import * as api from "utils/api";
+import * as fileCache from "utils/cache/fileCache";
 import { renderPostPreviewToString } from "./shared-post-preview-png";
 import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
 import banner from "./layouts/banner";
@@ -69,6 +70,17 @@ const page = await context.newPage();
 
 async function renderPostImage(layout: Layout, post: PostInfo, path: string) {
 	const label = `${post.slug} (${layout.name})`;
+
+	const isCached = await fileCache
+		.retrieve(post, basename(path), path)
+		.then((_) => true)
+		.catch((_) => false);
+
+	if (isCached) {
+		console.log("FROM CACHE:", label);
+		return;
+	}
+
 	console.time(label);
 
 	await page.setContent(await renderPostPreviewToString(layout, post), {
@@ -77,6 +89,8 @@ async function renderPostImage(layout: Layout, post: PostInfo, path: string) {
 	await page.screenshot({ type: "jpeg", path });
 
 	console.timeEnd(label);
+
+	await fileCache.store(post, basename(path), path);
 }
 
 // Relative to root
