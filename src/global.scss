@@ -17,7 +17,7 @@
 @import "./styles/utilities";
 
 :root {
-	scrollbar-gutter: stable;
+	scrollbar-gutter: auto;
 	scrollbar-color: var(--focus-outline_primary) transparent;
 	transition: scrollbar-color $animStyle $animSpeed;
 
