@@ -7,6 +7,7 @@
 	socials: {
 		github: "gungier",
         twitter: "@GabrielUngier",
+		website: "https://example.com/#re-coming-again-soon-one-day",
 		linkedIn: "gabriel-ungier-10b5b467"
         
 	},
