@@ -29,7 +29,48 @@ Without further ado, let's get to the meat of the chapter.
 
 </details>
 
+Let's build a small `index.html` file that contains a button and a count of how many times the button was pressed:
 
+```
+
+```
+
+Now let's add some logic:
+
+// TODO: Add
+
+Now, let's some styling:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>My Site</title>
+    <style>
+        #count {
+            font-size: 3rem;
+            text-align: center;
+        }
+
+        #button {
+            background-color: #00344d;
+            color: #e5f2ff;
+        }
+    </style>
+</head>
+<body>
+    <p id="count">0</p>
+    <button id="button">Add one</button>
+    <script>
+        const buttonEl = document.querySelector("#button");
+        let count = 0;
+        buttonEl.addEventListener("click", () => {
+
+        })
+    </script>
+</body>
+</html>
+```
 
 
 
@@ -47,8 +88,6 @@ It can do many things:
 5) Merge multiple files that rely on one another into a single file so that HTTP doesn't have to make multiple round-trips to download everything
 6) Optimize the code for size, making harder for humans to read but faster to download
    - This step is called "minification"
-
-// TODO: WRITE
 
 While each of these steps may call a different tool under-the-hood, most bundlers nowadays do a good job at abstracting away those nuances for many use-cases.
 
