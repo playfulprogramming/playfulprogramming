@@ -6,8 +6,7 @@
 	description: "webdev, JavaScript/Typescript, world traveler, avid reader, loves writing code and hopefully one day will be good at it, too!",
 	socials: {
 		github: "gungier",
-        x: "@GabrielUngier",
-		website: "re-coming-again-soon-one-day",
+        twitter: "@GabrielUngier",
 		linkedIn: "gabriel-ungier-10b5b467"
         
 	},
