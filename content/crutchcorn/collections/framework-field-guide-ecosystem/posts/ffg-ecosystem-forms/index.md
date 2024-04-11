@@ -4,7 +4,7 @@
     description: "Forms are a core part of any application. Even when a single input, it can be tricky to manage where the state should live. Let's learn how to do so with React, Angular, and Vue.",
     published: '2025-01-01T22:12:03.284Z',
     tags: ["react", "angular", "vue", "webdev"],
-    order: 1
+    order: 2
 }
 ---
 
