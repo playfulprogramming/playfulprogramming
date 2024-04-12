@@ -26,6 +26,10 @@ window.history.back = () => {
 	window.location.assign(history[history.length - 1]);
 };
 
+global.CSS = {
+	supports: () => false,
+};
+
 global.IntersectionObserver = class IntersectionObserver {
 	constructor() {}
 
