@@ -11,6 +11,7 @@ import { getImageSize } from "../../get-image-size";
 import { resolvePath } from "../../url-paths";
 import { Picture } from "./picture";
 import { mobile, tabletSmall } from "src/tokens/breakpoints";
+import { logError } from "../logger";
 
 const MAX_WIDTH = 896;
 const MAX_HEIGHT = 768;
@@ -35,7 +36,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 		});
 
 		await Promise.all(
-			imgNodes.map(async (node) => {
+			imgNodes.map(async (node): Promise<void> => {
 				const nodeSrc = node.properties.src as string;
 
 				let src: string;
@@ -46,6 +47,11 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				} else {
 					// If the image links to an external URL, do nothing
 					node.properties.src = nodeSrc;
+					logError(
+						file,
+						node,
+						"Avoid using external images, as they cannot be optimized.",
+					);
 					return;
 				}
 
@@ -59,7 +65,6 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					return;
 				}
 
-				// TODO: How should remote images be handled?
 				const srcSize = (await getImageSize(
 					nodeSrc,
 					path.dirname(file.path),
@@ -68,7 +73,6 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					width: undefined,
 				};
 
-				// TODO: Remote images?
 				if (!srcSize.height || !srcSize.width) return;
 
 				const imageRatio = srcSize.width / srcSize.height;

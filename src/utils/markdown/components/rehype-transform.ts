@@ -4,6 +4,7 @@ import { Root, Node, Element } from "hast";
 import { unified, Plugin } from "unified";
 import { RehypeFunctionComponent } from "./types";
 import rehypeParse from "rehype-parse";
+import { logError } from "../logger";
 
 type RehypeComponentsProps = {
 	components: Record<string, RehypeFunctionComponent>;
@@ -26,9 +27,9 @@ export const rehypeTransformComponents: Plugin<
 	[RehypeComponentsProps],
 	Root
 > = ({ components }) => {
-	return (tree) => {
+	return (tree, vfile) => {
 		visit(tree, { type: "comment" }, (node, index, parent) => {
-			if (!index || !parent) return;
+			if (index === undefined || !parent) return;
 			// ` ::start:in-content-ad title="Hello world" `
 			const value = String((node as { value?: string }).value).trim();
 			if (!value.startsWith(COMPONENT_PREFIX)) return;
@@ -43,14 +44,18 @@ export const rehypeTransformComponents: Plugin<
 			const componentNode = unifiedRehype.parse(`<${valueContent}/>`)
 				.children[0];
 			if (!isNodeElement(componentNode)) {
-				console.warn(`Unable to parse component: ${valueContent}`);
+				logError(vfile, node, `Unable to parse component: ${valueContent}`);
 				return;
 			}
 
 			// Find the component matching the given tag
 			const component = components[componentNode.tagName];
 			if (!component) {
-				console.warn(`Missing component: ${componentNode.tagName}`);
+				logError(
+					vfile,
+					node,
+					`Unknown markdown component ${componentNode.tagName}`,
+				);
 				return;
 			}
 
@@ -71,7 +76,9 @@ export const rehypeTransformComponents: Plugin<
 				}
 
 				if (indexEnd == 0) {
-					console.error(
+					logError(
+						vfile,
+						node,
 						`Ranged component with "${START_PREFIX}${componentNode.tagName}" is missing a corresponding "${END_PREFIX}${componentNode.tagName}"!`,
 					);
 				}
@@ -79,6 +86,8 @@ export const rehypeTransformComponents: Plugin<
 
 			// Create the component nodes
 			const replacement = component({
+				vfile,
+				node,
 				attributes: Object.fromEntries<string>(
 					Object.entries(componentNode.properties).map(([key, value]) => [
 						key,

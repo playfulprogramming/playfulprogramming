@@ -4,6 +4,7 @@ import "../../../../styles/shiki.scss";
 import "./code-block.scss";
 import styles from "./code-block.module.scss";
 import index from "../code-block/index.md?raw";
+import indexPath from "../code-block/index.md?url";
 import { VFile } from "vfile";
 import { MarkdownVFile } from "utils/markdown/types";
 
@@ -21,6 +22,7 @@ const { html } = await getMarkdownHtml(
 	Promise.resolve(
 		new VFile({
 			value: index,
+			path: new URL(indexPath, "http://localhost").pathname,
 			data: vfileData,
 		}) as MarkdownVFile,
 	),

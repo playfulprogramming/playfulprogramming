@@ -25,6 +25,7 @@ import { visit } from "unist-util-visit";
 import JSON5 from "json5";
 import { FileList, Directory, File } from "./file-list";
 import { RehypeFunctionComponent } from "../types";
+import { logError } from "utils/markdown/logger";
 
 interface DirectoryMetadata {
 	open?: boolean;
@@ -150,7 +151,11 @@ function traverseUl(listNode: Element, listItems: Array<Directory | File>) {
 	}
 }
 
-export const transformFileTree: RehypeFunctionComponent = ({ children }) => {
+export const transformFileTree: RehypeFunctionComponent = ({
+	vfile,
+	node,
+	children,
+}) => {
 	if (children.length === 0) return;
 
 	const items: Array<Directory | File> = [];
@@ -159,7 +164,10 @@ export const transformFileTree: RehypeFunctionComponent = ({ children }) => {
 		(node) => isNodeElement(node) && node.tagName === "ul",
 	) as Element;
 
-	if (!list) throw "No list found in filetree";
+	if (!list) {
+		logError(vfile, node, "No list found in filetree");
+		return;
+	}
 
 	traverseUl(list, items);
 
