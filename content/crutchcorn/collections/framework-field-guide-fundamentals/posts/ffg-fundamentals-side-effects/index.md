@@ -1492,7 +1492,7 @@ Let's apply this new lifecycle method to our code sample previously:
 ```vue
 <!-- AlarmScreen.vue -->
 <script setup>
-import { ref, onMounted, unUnmounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
 const emit = defineEmits(["snooze", "disable"]);
 
@@ -1508,7 +1508,7 @@ onMounted(() => {
 	}, 10 * 1000);
 });
 
-unUnmounted(() => {
+onUnmounted(() => {
 	clearTimeout(timeout);
 });
 </script>
@@ -1534,7 +1534,7 @@ onMounted(() => {
 	}, 1000);
 });
 
-unUnmounted(() => {
+onUnmounted(() => {
 	clearInterval(interval);
 });
 
