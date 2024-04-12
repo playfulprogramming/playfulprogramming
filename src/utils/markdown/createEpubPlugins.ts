@@ -1,4 +1,9 @@
 import remarkParse from "remark-parse";
+import remarkFrontmatter from "remark-frontmatter";
+import {
+	TYPE_FRONTMATTER,
+	remarkProcessFrontmatter,
+} from "./remark-process-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkUnwrapImages from "remark-unwrap-images";
 import remarkToRehype from "remark-rehype";
@@ -19,6 +24,11 @@ export function createEpubPlugins(unified: Processor): Processor {
 	return (
 		unified
 			.use(remarkParse, { fragment: true } as never)
+			.use(remarkFrontmatter, {
+				type: TYPE_FRONTMATTER,
+				marker: "-",
+			} as never)
+			.use(remarkProcessFrontmatter)
 			.use(remarkGfm)
 			.use(remarkUnwrapImages)
 			.use(remarkToRehype, { allowDangerousHtml: true })

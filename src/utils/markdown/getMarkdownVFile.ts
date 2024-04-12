@@ -1,6 +1,5 @@
 import * as fs from "fs/promises";
 import { VFile } from "vfile";
-import matter from "gray-matter";
 import { MarkdownFileInfo, MarkdownVFile } from "./types";
 
 export async function getMarkdownVFile(
@@ -21,7 +20,7 @@ export async function getMarkdownVFile(
 		headingsWithIds: [],
 	};
 	return new VFile({
-		value: matter(fileContent).content,
+		value: fileContent,
 		path: data.file,
 		data: vfileData,
 	}) as MarkdownVFile;

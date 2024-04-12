@@ -1,4 +1,9 @@
 import remarkParse from "remark-parse";
+import remarkFrontmatter from "remark-frontmatter";
+import {
+	TYPE_FRONTMATTER,
+	remarkProcessFrontmatter,
+} from "./remark-process-frontmatter";
 import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
 import remarkGfm from "remark-gfm";
 import remarkUnwrapImages from "remark-unwrap-images";
@@ -44,6 +49,11 @@ export function createHtmlPlugins(unified: Processor): Processor {
 	return (
 		unified
 			.use(remarkParse, { fragment: true } as never)
+			.use(remarkFrontmatter, {
+				type: TYPE_FRONTMATTER,
+				marker: "-",
+			} as never)
+			.use(remarkProcessFrontmatter)
 			.use(remarkGfm)
 			// Remove complaining about "div cannot be in p element"
 			.use(remarkUnwrapImages)
