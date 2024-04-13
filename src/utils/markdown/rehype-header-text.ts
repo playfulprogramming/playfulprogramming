@@ -29,6 +29,7 @@ export const rehypeHeaderText: Plugin<[], Root> = () => {
 				headingRank(node) &&
 				"properties" in node &&
 				node.properties &&
+				hasProperty(node, "id") &&
 				!hasProperty(node, "data-header-text")
 			) {
 				const headerText = toString(node as never);
