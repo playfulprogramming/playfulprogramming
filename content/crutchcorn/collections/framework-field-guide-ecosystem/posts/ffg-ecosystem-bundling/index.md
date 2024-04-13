@@ -371,28 +371,186 @@ As such, you typically either do not need to modify a bundler's behavior beyond 
 
 # The Bundling Pipeline
 
+Let's take a look at an example of a bundling pipeline for each of the frameworks we'll be looking at today.
 
-
-
+> Keep in mind, you can customize essentially every aspect of this pipeline; this is just _an_ example, not _the_ example.
 
 <!-- tabs:start -->
 
 ## React
 
+Let's start by assuming that we  have the following TypeScript-based React component:
+
 ```tsx
-// A TypeScript React component - `App.tsx`
+// App.tsx
 export const App = () => {
     const message: string = "Test";
 	return <p>{message}</p>
 }
 ```
 
-// TODO: Write this
+This component would likely follow a pipeline similar to the following:
 
+![// TODO: Write](./react_bundling_pipeline.svg)
+
+In the first step of this pipeline, the TypeScript syntax would be removed to leave only the JSX syntax:
+
+```jsx
+// App.jsx
+export const App = () => {
+    const message = "Test";
+    return <p>{message}</p>;
+};
+```
+
+This JSX would then be converted to `createElement` vanilla JavaScript calls:
+
+```javascript
+// App.js
+export const App = () => {
+    const message = "Test";
+    return React.createElement("p", null, message);
+};
+```
+
+This might then be transformed to an older version of JavaScript where `const` isn't available but `var` is:
+
+```javascript
+// App.js (ES5)
+export const App = () => {
+    var message = "Test";
+    return React.createElement("p", null, message);
+};
+```
+
+Then, the code might be minified to shorten the code's length:
+
+```javascript
+export const App=()=>React.createElement("p",null,"Test");
+```
+
+And finally, this `App` component might be bundled with other code to create the final output of `bundle.js`.
 
 ## Angular
 
-// TODO: Write this
+Let's start by assuming that we have the following Angular component:
+
+```angular-ts
+@Component({
+	selector: "app-root",
+	standalone: true,
+	template: `
+		<p>{{message}}</p>
+	`
+})
+class AppComponent {
+	message: string = "Test";
+}
+```
+
+This component would likely follow a pipeline similar to the following:
+
+![// TODO: Write](./angular_bundling_pipeline.svg)
+
+In the first step of this pipeline, Angular compiles the template into a function that can be used at runtime.
+
+This template of `<p>{{message}}</p>` compiles to a function that might look something like this:
+
+```javascript
+// "App.ts (fn template)"
+function AppComponent_Template(rf, ctx) {
+    if (rf & 1) {
+      ɵɵelementStart(0, 'p');
+      ɵɵtext(1);
+      ɵɵelementEnd();
+    }
+    if (rf & 2) {
+      ɵɵadvance();
+      ɵɵtextInterpolate(ctx.message);
+    }
+}
+```
+
+> The strange `ɵɵ` symbols that prefix some of these functions denote Angular internal functions that should only ever be accessed by the compiler to generate the runtime of your program.
+
+The rest of your TypeScript code would then be transformed into JavaScript:
+
+```javascript
+// App.js
+// Your Angular `@Component` decorator is transformed to this:
+ɵɵdefineComponent({
+  type: AppComponent,
+  selectors: [['app-root']],
+  standalone: true,
+  features: [ɵɵStandaloneFeature],
+  decls: 2,
+  vars: 1,
+  template: function AppComponent_Template(rf, ctx) {
+    if (rf & 1) {
+      ɵɵelementStart(0, 'p');
+      ɵɵtext(1);
+      ɵɵelementEnd();
+    }
+    if (rf & 2) {
+      ɵɵadvance();
+      ɵɵtextInterpolate(ctx.message);
+    }
+  },
+  encapsulation: 2,
+});
+
+class AppComponent {
+	message = "Test";
+}
+```
+
+This might then be transformed to an older version of JavaScript where the `class` keyword isn't available:
+
+```javascript
+// App.js (ES5)
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+// Your Angular `@Component` decorator is transformed to this:
+ɵɵdefineComponent({
+  type: AppComponent,
+  selectors: [['app-root']],
+  standalone: true,
+  features: [ɵɵStandaloneFeature],
+  decls: 2,
+  vars: 1,
+  template: function AppComponent_Template(rf, ctx) {
+    if (rf & 1) {
+      ɵɵelementStart(0, 'p');
+      ɵɵtext(1);
+      ɵɵelementEnd();
+    }
+    if (rf & 2) {
+      ɵɵadvance();
+      ɵɵtextInterpolate(ctx.message);
+    }
+  },
+  encapsulation: 2
+});
+var AppComponent = /*#__PURE__*/_createClass(function AppComponent() {
+  _classCallCheck(this, AppComponent);
+  _defineProperty(this, "message", "Test");
+});
+```
+
+> This code is broadly not intended to be read by application developer. Instead, it's the output of a step known as "transpilation" that converts newer JS syntax into older JS syntax so your code can run on older browsers.
+
+Then, the code might be minified to shorten the code's length:
+
+```javascript
+function _typeof(e){return _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},_typeof(e)}function _defineProperties(e,t){for(var r=0;r<t.length;r++){var o=t[r];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,_toPropertyKey(o.key),o)}}function _createClass(e,t,r){return t&&_defineProperties(e.prototype,t),r&&_defineProperties(e,r),Object.defineProperty(e,"prototype",{writable:!1}),e}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _defineProperty(e,t,r){return(t=_toPropertyKey(t))in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r,e}function _toPropertyKey(e){var t=_toPrimitive(e,"string");return"symbol"==_typeof(t)?t:t+""}function _toPrimitive(e,t){if("object"!=_typeof(e)||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var o=r.call(e,t||"default");if("object"!=_typeof(o))return o;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}ɵɵdefineComponent({type:AppComponent,selectors:[["app-root"]],standalone:!0,features:[ɵɵStandaloneFeature],decls:2,vars:1,template:function(e,t){1&e&&(ɵɵelementStart(0,"p"),ɵɵtext(1),ɵɵelementEnd()),2&e&&(ɵɵadvance(),ɵɵtextInterpolate(t.message))},encapsulation:2});var AppComponent=_createClass((function e(){_classCallCheck(this,e),_defineProperty(this,"message","Test")}));
+```
+
+And finally, this `App` component might be bundled with other code to create the final output of `bundle.js`.
 
 ## Vue
 
