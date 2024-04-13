@@ -41,7 +41,7 @@ When you break it down, each part of the app has three primary concerns:
 - Styling — How does the app look visually?
 - Structure — How is the app laid out?
 
-While the mockup above does a decent job of displaying things structurally, let's look at what the app looks like structurally:
+While the mockup above does a decent job of displaying things visually, let's look at what the app looks like structurally:
 
 ![The same mockup of the file list but with everything greyed out and showing just blocks](./after_html.png)
 

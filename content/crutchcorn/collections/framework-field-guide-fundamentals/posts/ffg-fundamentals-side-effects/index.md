@@ -2029,7 +2029,7 @@ Well, let's look at our old example visually once again:
 
 ![Inputs are being passed from a component instance to the DOM and framework root that's then stored in memory](./function_mount_explainer.png)
 
-You may notice that instead of a two-way binding, we're now passing a function reference from the component instance to the framework and DOM. As a result of this passing (rather than listening), [our framework of choice no longer has the ability to forcibly invalidate this reference](/posts/object-mutation). After all, [a function in JavaScript is just [a value](/posts/javascript-functions-are-values) that can be passed like any other.
+You may notice that instead of a two-way binding, we're now passing a function reference from the component instance to the framework and DOM. As a result of this passing (rather than listening), [our framework of choice no longer has the ability to forcibly invalidate this reference](/posts/object-mutation). After all, [a function in JavaScript is just a value](/posts/javascript-functions-are-values) that can be passed like any other.
 
 This shift in how we're handling a parent's data (binding vs. getting a reference) means that on cleanup, the function passed to a child will not become invalid. Instead, it will persist in memory until it's no longer needed by the child component and cleaned up by JavaScript's internals:
 
