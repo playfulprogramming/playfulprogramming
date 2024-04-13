@@ -436,6 +436,7 @@ And finally, this `App` component might be bundled with other code to create the
 Let's start by assuming that we have the following Angular component:
 
 ```angular-ts
+// App.ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -554,7 +555,104 @@ And finally, this `App` component might be bundled with other code to create the
 
 ## Vue
 
-// TODO: Write this
+Let's start by assuming that we have the following TypeScript-based Vue component:
+
+```vue
+<!-- App.vue -->
+<script setup lang="ts">
+const message: string = "Test";
+</script>
+
+<template>
+  <p>{{message}}</p>
+</template>
+```
+
+This component would likely follow a pipeline similar to the following:
+
+![// TODO: Write this](./vue_bundling_pipeline.svg)
+
+In the first step of this pipeline, Vue compiles the template and script into a function:
+
+```typescript
+// App.ts
+import { defineComponent, toDisplayString, openBlock, createElementBlock } from "vue"
+const message: string = "Test";
+
+const sfc = defineComponent({
+    __name: 'App',
+    setup(_props, { expose }) {
+        expose();
+
+        return { message }
+    }
+
+});
+
+function render(_, __, ___, setup) {
+    return (openBlock(), createElementBlock("p", null, toDisplayString(setup.message)))
+}
+
+sfc.render = render
+export default sfc
+```
+
+The rest of your TypeScript code would then be transformed into JavaScript:
+
+```javascript {3}
+// App.js
+import { defineComponent, toDisplayString, openBlock, createElementBlock } from "vue"
+const message = "Test";
+
+const sfc = defineComponent({
+    __name: 'App',
+    setup(_props, { expose }) {
+        expose();
+
+        return { message }
+    }
+
+});
+
+function render(_, __, ___, setup) {
+    return (openBlock(), createElementBlock("p", null, toDisplayString(setup.message)))
+}
+
+sfc.render = render
+export default sfc
+```
+
+This might then be transformed to an older version of JavaScript where `const` isn't available but `var` is:
+
+```javascript
+// App.js (ES5)
+import { defineComponent, toDisplayString, openBlock, createElementBlock } from "vue";
+var message = "Test";
+var sfc = defineComponent({
+  __name: 'App',
+  setup: function setup(_props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    return {
+      message: message
+    };
+  }
+});
+function render(_, __, ___, setup) {
+  return openBlock(), createElementBlock("p", null, toDisplayString(setup.message));
+}
+sfc.render = render;
+export default sfc;
+```
+
+Then, the code might be minified to shorten the code's length:
+
+```javascript
+// App.min.js
+import{defineComponent,toDisplayString,openBlock,createElementBlock}from"vue";var message="Test",sfc=defineComponent({__name:"App",setup:function(e,n){return(0,n.expose)(),{message:message}}});function render(e,n,t,o){return openBlock(),createElementBlock("p",null,toDisplayString(o.message))}sfc.render=render;export default sfc;
+```
+
+And finally, this `App` component might be bundled with other code to create the final output of `bundle.js`.
 
 <!-- tabs:end -->
 
