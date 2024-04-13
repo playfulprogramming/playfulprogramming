@@ -310,9 +310,45 @@ You may be asking yourself:
 
 > What is a bundler and what can it do?
 
-In short, a bundler is responsible for a wide array of actions that helps you manage your codebase and consolidate it to a final output you can host for your site to be optimized.
+In short, a bundler is responsible for a wide array of actions that helps you manage your codebase and make it ready to others to consume.
 
-A bundler can do many things:
+See, among other things, a bundler is responsible for making sure that code which doesn't natively run on the browser (say, TypeScript, SCSS, and others) are transformed to the relevant transformed code which can.
+
+Take a basic website, for example:
+
+![// TODO: Write this](./basic_website.svg)
+
+Here, we have an `index.html`, `style.css` and `script.js` file. These three files are able to run in the browser without any transformation, so we can upload them to our server and have people immediately consume this site.
+
+Now let's look at a slightly larger website that uses TypeScript and SCSS:
+
+![// TODO: Write this](./bundled_app.svg)
+
+Because TypeScript and SCSS files don't run in the browser natively, we need to first transform them into `.css` and `.js` files, which we can _then_ upload to a server.
+
+This doesn't just apply to these tools, either. The same transformation process can be applied to React, Angular, and Vue applications alike:
+
+<!-- tabs:start -->
+
+## React
+
+![// TODO: Write](./bundled_react_app.svg)
+
+## Angular
+
+![// TODO: Write](./bundled_angular_app.svg)
+
+## Vue
+
+![// TODO: Write](./bundled_vue_app.svg)
+
+<!-- tabs:end -->
+
+
+
+## Bundler Capabilities
+
+While we've hinted at some of what a bundler is capable of, that's only the start. A bundler is able to do many things:
 
 1) Compile templates from `.jsx`, `.vue` files and Angular Templates into dedicated CSS files and JavaScript instructions to run in the browser
 2) Compile TypeScript to regular JavaScript so it can run in the browser
@@ -330,8 +366,6 @@ While each of these steps may call a different tool under-the-hood, most bundler
 As such, you typically either do not need to modify a bundler's behavior beyond a couple of configuration options, if even.
 
 > This isn't to say that you can never modify a bundler's behavior, just be aware that when you do so, there tends to be seldom resources out there to explain what to do to fix things when they go awry. Thar be dragons. 🐉
-
-
 
 
 
