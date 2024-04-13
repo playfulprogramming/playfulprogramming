@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>My Site</title>
+		<style>
+			* {
+				font-family: sans-serif;
+			}
+
+			#count {
+				font-size: 3rem;
+				text-align: center;
+			}
+
+			#button {
+				border-radius: 99px;
+				background-color: #00344d;
+				color: #e5f2ff;
+				border: none;
+				padding: 1rem 2rem;
+				font-size: 2rem;
+				margin: 0 auto;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<p id="count">0</p>
+		<button id="button">Add one</button>
+		<script>
+			const buttonEl = document.querySelector("#button");
+			let count = 0;
+			buttonEl.addEventListener("click", () => {
+				count++;
+				document.querySelector("#count").textContent = count;
+			});
+		</script>
+	</body>
+</html>

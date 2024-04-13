@@ -29,54 +29,290 @@ Without further ado, let's get to the meat of the chapter.
 
 </details>
 
-Let's build a small `index.html` file that contains a button and a count of how many times the button was pressed:
+When working with websites written with nothing more than HTML, CSS, and JavaScript, it can be challenging to keep all of your code organized and consolidated.
 
-```
+Not sure what I mean? Let's build a small `index.html` file to demonstate.
 
-```
+This `index.html` file will contains a button and a count of how many times the button was pressed:
 
-Now let's add some logic:
-
-// TODO: Add
-
-Now, let's some styling:
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <meta charset="UTF-8" />
-    <title>My Site</title>
-    <style>
-        #count {
-            font-size: 3rem;
-            text-align: center;
-        }
-
-        #button {
-            background-color: #00344d;
-            color: #e5f2ff;
-        }
-    </style>
-</head>
-<body>
-    <p id="count">0</p>
-    <button id="button">Add one</button>
-    <script>
-        const buttonEl = document.querySelector("#button");
-        let count = 0;
-        buttonEl.addEventListener("click", () => {
-
-        })
-    </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<title>My Site</title>
+	</head>
+	<body>
+		<p id="count">0</p>
+		<button id="button">Add one</button>
+	</body>
 </html>
 ```
 
+Naturally, this code won't function without some JavaScript, so let's add in some logic:
 
+```html
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>My Site</title>
+	</head>
+	<body>
+		<p id="count">0</p>
+		<button id="button">Add one</button>
+		<script>
+			const buttonEl = document.querySelector("#button");
+			let count = 0;
+			buttonEl.addEventListener("click", () => {
+				count++;
+				document.querySelector("#count").textContent = count;
+			});
+		</script>
+	</body>
+</html>
+```
+
+Finally, we'll sprinkle in some styling to make it look nicer:
+
+```html
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>My Site</title>
+		<style>
+			* {
+				font-family: sans-serif;
+			}
+
+			#count {
+				font-size: 3rem;
+				text-align: center;
+			}
+
+			#button {
+				border-radius: 99px;
+				background-color: #00344d;
+				color: #e5f2ff;
+				border: none;
+				padding: 1rem 2rem;
+				font-size: 2rem;
+				margin: 0 auto;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<p id="count">0</p>
+		<button id="button">Add one</button>
+		<script>
+			const buttonEl = document.querySelector("#button");
+			let count = 0;
+			buttonEl.addEventListener("click", () => {
+				count++;
+				document.querySelector("#count").textContent = count;
+			});
+		</script>
+	</body>
+</html>
+```
+
+<iframe data-frame-title="No Bundle - StackBlitz" src="uu-code:./ffg-ecosystem-no-bundle-1?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+Notice how our `index.html` file went from a quickly glanceable 11 lines of code into a somewhat sprawling 40?
+
+# Splitting files using web standards
+
+Let's take that longer `index.html` file and break it into multiple files:
+
+```html
+<!-- index.html -->
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>My Site</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<p id="count">0</p>
+		<button id="button">Add one</button>
+		<script src="script.js"></script>
+	</body>
+</html>
+```
+
+```javascript
+// script.js
+const buttonEl = document.querySelector("#button");
+let count = 0;
+buttonEl.addEventListener("click", () => {
+	count++;
+	document.querySelector("#count").textContent = count;
+});
+```
+
+```css
+/* style.css */
+* {
+    font-family: sans-serif;
+}
+
+#count {
+    font-size: 3rem;
+    text-align: center;
+}
+
+#button {
+    border-radius: 99px;
+    background-color: #00344d;
+    color: #e5f2ff;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    margin: 0 auto;
+    display: block;
+}
+```
+
+<iframe data-frame-title="Web Standard Imports - StackBlitz" src="uu-code:./ffg-ecosystem-web-standard-imports-2?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+Notice how our files are now separated by concerns? One file for templating, another for logic, and a final one for styling; all neat and organized.
+
+----------
+
+Now let's say that we want to use [TypeScript](https://www.typescriptlang.org/) and [SCSS](https://sass-lang.com/) (two languages that compile to JavaScript and CSS, respectively) in our website.
+
+```scss
+/* style.scss */
+* {
+    font-family: sans-serif;
+}
+
+#count {
+    font-size: 3rem;
+    text-align: center;
+}
+
+$bgColor: #00344d;
+$textColor: #e5f2ff;
+
+#button {
+    border-radius: 99px;
+    background-color: $bgColor;
+    color: $textColor;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    margin: 0 auto;
+    display: block;
+}
+```
+
+```typescript
+// script.ts
+const buttonEl = document.querySelector("#button") as HTMLButtonElement;
+let count = 0;
+buttonEl.addEventListener("click", () => {
+	count++;
+	document.querySelector("#count")!.textContent = "" + count;
+});
+```
+
+We could:
+
+1. Add the TypeScript compiler as a pre-serve step to compile down to JavaScript
+2. Add the SCSS compiler as a pre-serve step to compile down to CSS
+3. Link the compiled files to your `index.html` file and hope you didn't make a typo
+
+```json
+{
+	"name": "your-package-json",
+	"scripts": {
+		"start": "tsc && sass src && servor src"
+	},
+	"dependencies": {
+		"servor": "^4.0.2",
+		"sass": "^1.75.0",
+		"typescript": "^5.4.5"
+	}
+}
+```
+
+```json
+{
+	"// tsconfig.json": "",
+	"compilerOptions": {
+		"target": "es2016",
+		"lib": ["dom"],
+		"strict": true,
+		"skipLibCheck": true
+	},
+	"include": ["src/**/*.ts"]
+}
+```
+
+
+But by doing this, you'll lose:
+
+- Warnings when you rename a source code file, but not the reference to that file in your `index.html`
+- Hot reloading when you change the `.ts` or `.scss` file
+  - You can re-introduce that, but you'll need another dependency for it
+- Only compiling the related files when you modify one of them
+
+<iframe data-frame-title="No Bundle SCSS/TS - StackBlitz" src="uu-code:./ffg-ecosystem-no-bundle-scss-ts-3?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+
+
+-----
+
+Alternatively, we could use a bundler, change two lines of code in our `index.html` file, change our `"start"` script, and be done:
+
+```html
+<!-- index.html -->
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>My Site</title>
+		<link rel="stylesheet" href="./src/style.scss" />
+	</head>
+	<body>
+		<p id="count">0</p>
+		<button id="button">Add one</button>
+		<script src="./src/script.ts"></script>
+	</body>
+</html>
+```
+
+```json
+{
+	"name": "your-package-json",
+	"scripts": {
+		"start": "vite"
+	},
+	"dependencies": {
+		"vite": "^5.2.8",
+		"sass": "^1.75.0",
+		"typescript": "^5.4.5"
+	}
+}
+```
+
+<iframe data-frame-title="Bundled SCSS/TS - StackBlitz" src="uu-code:./ffg-ecosystem-bundle-scss-ts-4?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+This barely scratches the surface of the power and convenience of what a bundler can provide you.
 
 # What does a bundler do?
 
-It can do many things:
+You may be asking yourself:
+
+> What is a bundler and what can it do?
+
+In short, a bundler is responsible for a wide array of actions that helps you manage your codebase and consolidate it to a final output you can host for your site to be optimized.
+
+A bundler can do many things:
 
 1) Compile templates from `.jsx`, `.vue` files and Angular Templates into dedicated CSS files and JavaScript instructions to run in the browser
 2) Compile TypeScript to regular JavaScript so it can run in the browser

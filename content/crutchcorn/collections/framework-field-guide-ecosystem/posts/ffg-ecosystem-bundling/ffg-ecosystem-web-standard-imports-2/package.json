@@ -1,0 +1,9 @@
+{
+	"name": "@ffg-ecosystem/web-standard-imports-2",
+	"scripts": {
+		"start": "servor --reload src"
+	},
+	"dependencies": {
+		"servor": "^4.0.2"
+	}
+}
