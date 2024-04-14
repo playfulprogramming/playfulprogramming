@@ -5,6 +5,7 @@ import { Languages } from "types/index";
 import BlogPost from "src/views/blog-post/blog-post.astro";
 import * as api from "utils/api";
 import { getMarkdownHtml } from "utils/markdown";
+import { isDefined } from "utils/is-defined";
 
 export async function getStaticPaths() {
 	const posts = api.getAllPosts();
@@ -21,9 +22,6 @@ export async function getStaticPaths() {
 			},
 			props: {
 				slug: post.slug,
-				// temporary hack for Table of Contents - pass headingsWithId from "rehype-header-text" as a prop
-				// TODO: in the future, this can be obtained directly from the markdown parser when invoked
-				postHeadings: [],
 			},
 		};
 	});
@@ -40,15 +38,17 @@ const params = Astro.params as {
 
 const locale = params.locale ?? "en";
 const post = api.getPostBySlug(slug, locale)!;
-const authors = post.authors.map((unicornId) =>
-	api.getUnicornById(unicornId, locale),
-);
+const authors = post.authors
+	.map((unicornId) => api.getUnicornById(unicornId, locale))
+	.filter(isDefined);
 
 // these need to be separate; multiple posts *can* be in a collection without having a collection entry
-const collection =
-	post.collection && api.getCollectionBySlug(post.collection, locale);
-const collectionPosts =
-	post.collection && api.getPostsByCollection(post.collection, locale);
+const collection = post.collection
+	? api.getCollectionBySlug(post.collection, locale)
+	: undefined;
+const collectionPosts = post.collection
+	? api.getPostsByCollection(post.collection, locale)
+	: undefined;
 
 const locales = post?.locales || [];
 

@@ -28,6 +28,16 @@ import { LargeButton } from "../../components/button/button";
 
 import styles from "./blog-post.module.scss";
 
+export interface Props {
+	post: PostInfo;
+	postHeadings: PostHeadingInfo[];
+	authors: UnicornInfo[];
+	collection?: CollectionInfo;
+	collectionPosts?: PostInfo[];
+	license?: LicenseInfo;
+	postHtml: string;
+}
+
 const {
 	postHtml,
 	post,
@@ -36,15 +46,7 @@ const {
 	collection,
 	collectionPosts,
 	license,
-} = Astro.props as {
-	post: PostInfo;
-	postHeadings: PostHeadingInfo[];
-	authors: UnicornInfo[];
-	collection?: CollectionInfo;
-	collectionPosts?: PostInfo[];
-	license?: LicenseInfo;
-	postHtml: string;
-};
+} = Astro.props;
 
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
 ---
