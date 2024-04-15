@@ -85,7 +85,7 @@ This isn't to say that the only reason these tools will stick around is because 
 
 React is built by Meta and powers all of its major applications. Moreover, the core team has started to accept external contributions through feedback on the framework's development via ["working groups" consisting of subject-matter experts](https://github.com/reactwg). In recent years, even [groups like Vercel have hired React core members to work on the project from outside of Meta](https://twitter.com/sebmarkbage/status/1470761453091237892).
 
-However, when most mention "React," they tend to talk about the React ecosystem at large. See, the core maintainers of React itself tend to remain focused on a small subsection of tooling. Instead, they rely on external groups, like [Remix](https://reactrouter.com/) and [Vercel](https://nextjs.org/), to provide libraries that are often integral to application development.
+However, when most mention "React," they tend to talk about the React ecosystem at large. See, the core maintainers of React itself tend to remain focused on a small subsection of tooling. Instead, they rely on external groups, like [Remix](https://remix.run/) and [Vercel](https://vercel.com/), to provide libraries that are often integral to application development.
 
 On the other hand, Angular is fully funded and supported by Google. They build a substantial portion of their major websites on top of the framework and, as a result, have a vested interest in continuing and up-keeping development. Continuing the differences from React, the Angular core team maintains a slew of helper libraries that provide everything from an [HTTP call layer](https://angular.io/guide/http) to [form validation](https://angular.io/guide/forms-overview).
 
