@@ -45,15 +45,15 @@ export const enableTabs = () => {
 			tab.focus();
 			tab.click();
 
-			// Scroll onto screen in order to avoid jumping page locations
-			setTimeout(() => {
-				tab.scrollIntoView &&
-					tab.scrollIntoView({
-						behavior: "auto",
-						block: "center",
-						inline: "center",
-					});
-			}, 0);
+			// Redundant: Scroll handled by `handleClick` on `tab.click()`
+			// setTimeout(() => {
+			// 	tab.scrollIntoView &&
+			// 		tab.scrollIntoView({
+			// 			behavior: "auto",
+			// 			block: "center",
+			// 			inline: "center",
+			// 		});
+			// }, 0);
 		}
 	}
 
