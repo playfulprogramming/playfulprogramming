@@ -462,7 +462,7 @@ While `forEach`, `map`, `filter`, and `reduce` are all built into JavaScript, th
 For example, a `forEach` can be implemented using a basic `for` loop:
 
 ```javascript
-const forEach = (arr, callback) {
+const forEach = (arr, callback) => {
     for (let i = 0; i < arr.length; i++) {
         callback(arr[i], i, arr);
     }
@@ -475,7 +475,7 @@ forEach(cars, car => console.log(car));
 Similarly, you can write your own implementation of `map` with an intermediary array alongside a `for` loop.
 
 ```javascript
-const map = (arr, callback) {
+const map = (arr, callback) => {
     const returnedVal = [];
     for (let i = 0; i < arr.length; i++) {
         const newVal = callback(arr[i], i, arr);
@@ -493,7 +493,7 @@ console.log(carNameLengths); // [4, 5, 3]
 To implement `filter` is as easy as adding a single `if` statement to our `map` implementation.
 
 ```javascript
-const filter = (arr, callback) {
+const filter = (arr, callback) => {
     const returnedVal = [];
     for (let i = 0; i < arr.length; i++) {
         const exist = callback(arr[i], i, arr);
