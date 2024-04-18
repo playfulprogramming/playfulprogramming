@@ -500,7 +500,7 @@ class RenderParagraphComponent implements OnInit {
 }
 ```
 
-Here, we're conditionally rendering our `p` tag using an `ngIf`. But see, under the hood, the `ngIf`` won't initialize the `<p>` tag until _after_ the `ngOnInit` lifecycle method is executed.
+Here, we're conditionally rendering our `p` tag using an `ngIf`. But see, under the hood, `ngIf` won't initialize the `<p>` tag until _after_ the `ngOnInit` lifecycle method is executed.
 
 To solve this, we can do one of two things:
 
