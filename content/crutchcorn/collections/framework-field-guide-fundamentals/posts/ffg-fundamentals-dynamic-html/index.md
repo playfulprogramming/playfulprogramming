@@ -15,7 +15,7 @@ Previously, we learned how to create components for our file application. These 
 
 Where we last left off, we manually input a list of files, which included file names and dates inside a `button`. Let's take a look back at our existing file component to start:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -38,13 +38,13 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Outputs - StackBlitz" src="uu-code:../ffg-fundamentals-intro-to-components/ffg-fundamentals-react-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -74,9 +74,9 @@ class FileComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Outputs - StackBlitz" src="uu-code:../ffg-fundamentals-intro-to-components/ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -107,11 +107,11 @@ const emit = defineEmits(["selected"]);
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Outputs - StackBlitz" src="uu-code:../ffg-fundamentals-intro-to-components/ffg-fundamentals-vue-outputs-15?template=node&embed=1&file=src%2FFile.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This is a strong basis for a component without needing many changes.
 
@@ -140,19 +140,19 @@ To sidestep these performance concerns, React, Angular, and Vue all have a metho
 
 Let's see what that looks like in usage:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {1}
+```jsx {2}
 const ConditionalRender = ({ bool }) => {
 	return <div>{bool && <p>Text here</p>}</div>;
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Conditional Render - StackBlitz" src="uu-code:./ffg-fundamentals-react-conditional-render-17?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 We're using React's `{}` JavaScript binding to add an [`AND` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND). This works by using Boolean logic of ["short-circuiting"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation). This means that if we have:
 
@@ -195,7 +195,7 @@ But the following examples **will not** render their contained values:
 
 ### Angular
 
-```typescript {1,6-7}
+```angular-ts {2,7-8}
 import { Component, Input } from "@angular/core";
 import { NgIf } from "@angular/common";
 
@@ -210,9 +210,9 @@ class ConditionalRenderComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Conditional Render - StackBlitz" src="uu-code:./ffg-fundamentals-angular-conditional-render-17?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, we're using a special property called `ngIf` on our `p` tag to stop rendering the element if `bool` is `false`. This property is prefixed with an asterisk (`*`) to interact with Angular's compiler in particular ways.
 
@@ -228,7 +228,7 @@ To use `ngIf`, we must import `NgIf` from `@angular/common` and pass it to the `
 
 ### Vue
 
-```vue {1,5}
+```vue {2,6}
 <script setup>
 const props = defineProps(["bool"]);
 </script>
@@ -238,13 +238,13 @@ const props = defineProps(["bool"]);
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Conditional Render - StackBlitz" src="uu-code:./ffg-fundamentals-vue-conditional-render-17?template=node&embed=1&file=src%2FConditionalRender.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Unlike Angular, where you need to import the ability to conditionally render an element, Vue treats `v-if` as a global attribute that can be added to any element or component.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 In this example, when we pass `bool` as `true`, the component's HTML is rendered as:
 
@@ -276,11 +276,11 @@ Despite this difference in functionality, we can still reuse our `File` componen
 
 Let's add an input to our `File` component called `isFolder` and prevent the date from rendering if said input is set to `true``.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {11}
+```jsx {12}
 const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 	return (
 		<button
@@ -311,13 +311,13 @@ const FileList = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Conditional Date - StackBlitz" src="uu-code:./ffg-fundamentals-react-conditional-date-18?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript {14,40}
+```angular-ts {15,41}
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -367,13 +367,13 @@ class FileComponent {
 class FileListComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Conditional Date - StackBlitz" src="uu-code:./ffg-fundamentals-angular-conditional-date-18?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
-```vue {20}
+```vue {21}
 <!-- File.vue -->
 <script setup>
 import FileDate from "./FileDate.vue";
@@ -399,7 +399,7 @@ const emit = defineEmits(["selected"]);
 </template>
 ```
 
-```vue {11}
+```vue {12}
 <!-- FileList.vue -->
 <script setup>
 import File from "./File.vue";
@@ -417,11 +417,11 @@ import File from "./File.vue";
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Conditional Date - StackBlitz" src="uu-code:./ffg-fundamentals-vue-conditional-date-18?template=node&embed=1&file=src%2FFile.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Conditional Branches {#conditional-branch}
 
@@ -429,7 +429,7 @@ We're now able to conditionally show the user the last modified date depending o
 
 Let's use conditional rendering to show the type of item displayed based on the `isFolder` boolean.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -458,7 +458,7 @@ Let's use conditional rendering to show the type of item displayed based on the 
 </div>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 While working on this, it might become clear that we're effectively reconstructing an [`if ... else` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else), similar to the following logic in JavaScript.
 
@@ -470,7 +470,7 @@ else return "Type: File";
 
 Like the JavaScript environment these frameworks run in, they also implement a similar `else`-style API for this exact purpose.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -489,9 +489,9 @@ We can combine this information with JSX's ability to treat a tag as a value you
 <div>{isFolder ? <span>Type: Folder</span> : <span>Type: File</span>}</div>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Conditional Branches - StackBlitz" src="uu-code:./ffg-fundamentals-react-conditional-branches-19?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, if `isFolder` is `true`, the following will be rendered:
 
@@ -512,9 +512,9 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 <ng-template #fileDisplay><span>Type: File</span></ng-template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Conditional Branches - StackBlitz" src="uu-code:./ffg-fundamentals-angular-conditional-branches-19?template=node&embed=1&file=src%2Fmain."></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Undoubtedly, you're looking at this snippet of code and wondering what `ng-template` is doing here.
 
@@ -571,11 +571,11 @@ Here, Vue's `if...else` syntax looks fairly similar to the JavaScript pseudo-syn
 
 > It's worth noting that a `v-else` tag **must** immediately follow a `v-if` tag; otherwise, it won't work.
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Conditional Branches - StackBlitz" src="uu-code:./ffg-fundamentals-vue-conditional-branches-19?template=node&embed=1&file=src%2FFile.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Expanded Branches {#expanded-branches}
 
@@ -585,7 +585,7 @@ For example, what if we added an `isImage` Boolean to differentiate between imag
 
 While we could move back to a simple `if` statement for each condition:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -613,11 +613,11 @@ While we could move back to a simple `if` statement for each condition:
 <span v-if="!isFolder && !isImage">Type: File</span>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This can get hard to read with multiple conditionals in a row. As a result, these frameworks have tools that you can use to make things a bit more readable.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -708,13 +708,13 @@ Using Vue's `v-else-if` attribute:
 
 Once again, the `v-else-if` and `v-else` tags must follow one another to work as intended.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Rendering Lists {#rendering-lists}
 
 While we've primarily focused on improvements to our `File` component in this chapter, let's take another look at our original `FileList` component.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -766,7 +766,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -867,7 +867,7 @@ function onSelected(idx) {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Upon second glance, something that might immediately jump out at you is just how long these code samples are! Interestingly, this is primarily due to the copy-pasted nature of our `File` component being repeated.
 
@@ -875,13 +875,13 @@ What's more, this method of hard-coding file components means that we cannot cre
 
 Let's fix that by replacing the copy-pasted components with a loop and an array.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
 React uses [JavaScript's built-in `Array.map` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) to loop through each item and map them to some React component.
 
-```jsx {0-16,33-43}
+```jsx {1-17,34-44}
 const filesArray = [
 	{
 		fileName: "File one",
@@ -933,15 +933,15 @@ const FileList = () => {
 
 We can then use the second argument inside the `map` to gain access to the index of the looped item.
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Rendering Lists - StackBlitz" src="uu-code:./ffg-fundamentals-react-rendering-lists-20?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
 Just as how the previous `*ngIf` structural directive is used to conditionally render items, Angular uses a different structural directive to render a list of items: `*ngFor`.
 
-```typescript {0,5,8-16,31-47}
+```angular-ts {1,6,9-17,32-48}
 import { NgFor } from "@angular/common";
 
 @Component({
@@ -993,9 +993,9 @@ class FileListComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Rendering Lists - StackBlitz" src="uu-code:./ffg-fundamentals-angular-rendering-lists-20?template=node&embed=1&file=src%2Fmain."></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Inside our `ngFor`, `index` may not seem like it is being defined; however, Angular declares it whenever you attempt to utilize `ngFor` under the hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
 
@@ -1009,7 +1009,7 @@ The `*ngFor` directive was used in the template, but neither the `NgFor` directi
 
 Vue provides a `v-for` global attribute that does for lists what `v-if` does for conditional rendering:
 
-```vue {5-21,37-45}
+```vue {6-22,38-46}
 <!-- FileList.vue -->
 <script setup>
 import { ref } from "vue";
@@ -1062,11 +1062,11 @@ function onSelected(idx) {
 
 Inside our `v-for`, we're accessing both the value of the item (`file`) and the index of the looped item (`i`).
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Rendering Lists - StackBlitz" src="uu-code:./ffg-fundamentals-vue-rendering-lists-20?template=node&embed=1&file=src%2FFileList.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 If we look at the rendered output, we can see that all three files are listed as expected!
 
@@ -1084,7 +1084,7 @@ Or, in Vue, the error might've said:
 
 This is because, in both of these frameworks, you're expected to pass a special property called the `key`, which the respective framework uses to keep track of which item is which.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 Without this `key` prop, the framework doesn't know which elements have been unchanged and, therefore, must destroy and recreate each element in the array for every list re-render. This can cause massive performance problems and stability headaches.
 
@@ -1092,7 +1092,7 @@ Without this `key` prop, the framework doesn't know which elements have been unc
 
 Say you have the following:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1145,13 +1145,13 @@ function getRandomWord() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Unkeyed Demo - StackBlitz" src="uu-code:./ffg-fundamentals-react-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "word-list",
 	standalone: true,
@@ -1212,9 +1212,9 @@ interface Word {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Unkeyed Demo - StackBlitz" src="uu-code:./ffg-fundamentals-angular-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain."></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -1264,11 +1264,11 @@ function removeFirst() {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Unkeyed Demo - StackBlitz" src="uu-code:./ffg-fundamentals-vue-unkeyed-demo-21?template=node&embed=1&file=src%2FWordList.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Without using some kind of `key` prop, your list will be destroyed and recreated every time you run `addWord`.
 
@@ -1288,11 +1288,11 @@ Instead, **we can tell the framework which list item is which with a unique "key
 
 Let's see how we can do this in each framework.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {4}
+```jsx {5}
 <div>
 	<button onClick={addWord}>Add word</button>
 	<ul>
@@ -1305,15 +1305,15 @@ Let's see how we can do this in each framework.
 
 Here, we're using the `key` property to tell React which `li` is related to which `word` via the `word`'s unique `id` field.
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Keyed Demo - StackBlitz" src="uu-code:./ffg-fundamentals-react-keyed-demo-22?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
 While Angular doesn't have quite the same API for `key` as React and Vue, Angular instead uses a [`trackBy` method](https://angular.io/api/core/TrackByFunction) to figure out which item is which.
 
-```typescript {8,16-18}
+```angular-ts {9,17-19}
 @Component({
 	selector: "word-list",
 	standalone: true,
@@ -1340,9 +1340,9 @@ class WordListComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="uu-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain."></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Another difference to the other frameworks is that while React and Vue have no default `key` behavior, Angular has a default `trackBy` function if one is not provided. If no `trackBy` is provided, the default will simply do strict equality (`===`) between the old item in the array and the new one to check if the item is the same.
 
@@ -1376,11 +1376,11 @@ While this works in some cases, for the most part, it's suggested to provide you
 
 Here, we're using the `key` property to tell Vue which `li` is related to which `word` via the `word`'s unique `id` field.
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Keyed Demo - StackBlitz" src="uu-code:./ffg-fundamentals-vue-keyed-demo-22?template=node&embed=1&file=src%2FWordList.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now, when we re-render the list, the framework is able to know exactly which items have and have not changed.
 
@@ -1396,11 +1396,11 @@ For example, let's assume we have a basic `input` that we want to be able to res
 
 To do this, we can assign a `key` property to the `input` and change the value of said `key` to force a re-creation of the `input`.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {7}
+```jsx {8}
 function KeyExample() {
 	const [num, setNum] = useState(0);
 
@@ -1416,9 +1416,9 @@ function KeyExample() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Key Render Hint - StackBlitz" src="uu-code:./ffg-fundamentals-react-key-render-hint-23?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
@@ -1428,7 +1428,7 @@ This isn't necessarily a bad thing, however. We'll touch on this more in a bit, 
 
 ### Vue
 
-```vue {12}
+```vue {13}
 <!-- KeyExample.vue -->
 <script setup>
 import { ref } from "vue";
@@ -1447,11 +1447,11 @@ function increase() {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Key Render Hint - StackBlitz" src="uu-code:./ffg-fundamentals-vue-key-render-hint-23?template=node&embed=1&file=src%2FKeyExample.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This refresh works because we are not persisting the [`input`'s `value`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement), and therefore, when `key` is updated and a new `input` is rendered in its place, the in-memory DOM value is reset and not bound again.
 
@@ -1465,11 +1465,11 @@ This reset is what's causing the `input` to blank out after a button press.
 
 Since we now understand the stability and performance benefits of providing a key to our lists, let's add them to our `FileList` components.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
-```jsx {5,35}
+```jsx {6,36}
 const filesArray = [
 	{
 		fileName: "File one",
@@ -1522,7 +1522,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {6,21-23,38}
+```angular-ts {7,22-24,39}
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -1588,7 +1588,7 @@ interface File {
 
 ## Vue
 
-```vue {10,39}
+```vue {11,40}
 <!-- FileList.vue -->
 <script setup>
 import { ref } from "vue";
@@ -1641,7 +1641,7 @@ function onSelected(idx) {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Using It All Together {#using-together}
 
@@ -1649,11 +1649,11 @@ Let's use our newfound knowledge of conditional and list rendering and combine t
 
 Say that our users want to filter our `FileList` to only display files and not folders. We can enable this functionality by adding a conditional statement inside our template loop!
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
-```jsx {3-4,8,12}
+```jsx {4-5,9,13}
 const FileList = () => {
 	// ...
 
@@ -1684,13 +1684,13 @@ const FileList = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Using It Together - StackBlitz" src="uu-code:./ffg-fundamentals-react-using-it-together-24?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript {3,6,9,12,27,29-31}
+```angular-ts {4,7,10,13,28,30-32}
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -1726,13 +1726,13 @@ class FileListComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Using It Together - StackBlitz" src="uu-code:./ffg-fundamentals-angular-using-it-together-24?template=node&embed=1&file=src%2Fmain."></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
-```vue {6,8-10,15,17,19}
+```vue {7,9-11,16,18,20}
 <!-- FileList.vue -->
 <script setup>
 import { ref } from "vue";
@@ -1765,11 +1765,11 @@ function toggleOnlyShow() {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Using It Together - StackBlitz" src="uu-code:./ffg-fundamentals-vue-using-it-together-24?template=node&embed=1&file=src%2FFileList.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 > While this code works, there's a silent-yet-deadly bug present. While we'll explain what that bug is within our ["Partial DOM Application"](/posts/ffg-fundamentals-transparent-elements) chapter, I'll give you a hint: It has to do with conditionally rendering the `File` component instead of the `li` element.
 
@@ -1781,7 +1781,7 @@ In our last chapter's challenge, we started to create dropdown file structure si
 
 We did this by hard-coding each of our `ExpandableDropdown` components as individual tags:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -1845,7 +1845,7 @@ const Sidebar = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
@@ -1986,7 +1986,7 @@ const invoicesExpanded = ref(false);
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 What's more, we used the `hidden` HTML attribute to visually hide the collapsed content.
 
@@ -2004,7 +2004,7 @@ Let's start by creating an array of strings that we can use to render each dropd
 >
 > We'll come back to this soon.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2039,7 +2039,7 @@ const Sidebar = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
@@ -2103,7 +2103,7 @@ const onToggle = () => {};
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now that we've got an initial list of dropdowns rendering, let's move forward with re-enabling the `expanded` functionality.
 
@@ -2136,7 +2136,7 @@ function objFromCategories(categories) {
 
 Let's see this in use:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2185,7 +2185,7 @@ function objFromCategories(categories) {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
@@ -2272,13 +2272,13 @@ function objFromCategories(categories) {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Conditionally Rendering Hidden Content {#challenge-conditionally-rendering}
 
 Now that we've migrated our dropdowns to use a list instead of hard-coding each component instance, let's migrate our dropdown's collapsed content to conditionally render instead of using the `hidden` HTML attribute.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2300,15 +2300,15 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-dynamic-challenge-25?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
@@ -2334,9 +2334,9 @@ class ExpandableDropdownComponent {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-dynamic-challenge-25?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -2364,10 +2364,10 @@ const emit = defineEmits(["toggle"]);
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-dynamic-challenge-25?template=node&embed=1&file=src%2FExpandableDropdown.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->

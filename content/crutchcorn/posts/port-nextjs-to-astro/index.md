@@ -28,7 +28,7 @@ To start migrating a Next.js layout file from Next.js to Astro, you'll:
 
 1. Identify the return().
 
-    ```jsx {5-17}
+    ```jsx {6-18}
     // _document.js
     import { Html, Head, Main, NextScript } from 'next/document'
 
@@ -83,7 +83,7 @@ To start migrating a Next.js layout file from Next.js to Astro, you'll:
 
     In addition to the `_document` file, the Next.js application has a `_app.js` file that imports global styling via a CSS import:
 
-    ```jsx {2}
+    ```jsx {3}
     // pages/_app.js
     import '../styles/index.css'
     
@@ -94,7 +94,7 @@ To start migrating a Next.js layout file from Next.js to Astro, you'll:
 
     This CSS import can be moved to the Astro Layout component:
 
-    ```astro {0-4} 
+    ```astro {1-5}
     ---
     // src/layouts/Layout.astro
     import '../styles/index.css'
@@ -208,7 +208,7 @@ Now move the `<head>` into your existing `layout.astro` file. To do this, we can
 2. Import the layout file in `/src/pages/index.astro`
 3. Wrap the Astro page's template in the Layout component
 
-```astro {4,10} 
+```astro {5,11}
 ---
 // src/layouts/Layout.astro
 import '../styles/index.css'
@@ -231,7 +231,7 @@ const {title} = Astro.props;
 </html>
 ```
 
-```astro  {3,6,18}
+```astro {4,7,19}
 ---
 // src/pages/index.astro
 import styles from '../styles/poke-list.module.css';
@@ -290,7 +290,7 @@ export default function Home({ pokemons }) {
 
 In Astro, this process is different. Instead of using a dedicated `getStaticProps` function, move the props logic into the code fence of our Astro page:
 
-```astro {4-16}
+```astro {5-17}
 ---
 // src/pages/index.astro
 import styles from '../styles/poke-list.module.css';
@@ -480,7 +480,7 @@ export const getStaticPaths = async () => {
 
 Migrate the `getStaticPaths` method to Astro by removing the `paths` route prefix and returning an array:
 
-```astro {9-11}
+```astro {10-12}
 ---
 // src/pages/pokemon/[name].astro
 import styles from '../../styles/pokemon-entry.module.css';
@@ -558,7 +558,7 @@ Migrate this to the Astro page's code fence:
 
 > Use `Astro.props` to access the `params` returned from the `getStaticPaths` function
 
-```astro {14-32}
+```astro {15-33}
 ---
 // src/pages/pokemon/[name].astro
 import styles from '../../styles/pokemon-entry.module.css';

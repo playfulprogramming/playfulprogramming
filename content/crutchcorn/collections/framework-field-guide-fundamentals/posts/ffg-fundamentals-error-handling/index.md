@@ -15,7 +15,7 @@ Despite our best efforts, bugs will find their way into our applications. Unfort
 
 Take the following code:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # React
 
@@ -42,13 +42,13 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Error Intro - StackBlitz" src="uu-code:./ffg-fundamentals-react-error-intro-70?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 # Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -71,9 +71,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Error Intro - StackBlitz" src="uu-code:./ffg-fundamentals-angular-error-intro-70?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 # Vue
 
@@ -97,11 +97,11 @@ const priorityItems = items.filter((item) => item.item.priority === 1);
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Error Intro - StackBlitz" src="uu-code:./ffg-fundamentals-vue-error-intro-70?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Without running the code, everything looks pretty good, right?
 
@@ -123,7 +123,7 @@ Before we do that, however, let's explore _why_ throwing an error causes the ren
 
 As shown before, when an error is thrown during a component's [render step](/posts/ffg-fundamentals-side-effects), it will fail to render any of the contents from the component's template. This means that the following will throw an error and prevent rendering from occurring:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -135,13 +135,13 @@ const ErrorThrowingComponent = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Render Error - StackBlitz" src="uu-code:./ffg-fundamentals-react-render-error-71?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "error-throwing",
 	standalone: true,
@@ -154,9 +154,9 @@ class ErrorThrowingComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Render Error - StackBlitz" src="uu-code:./ffg-fundamentals-angular-render-error-71?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -171,15 +171,15 @@ throw new Error("Error");
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Render Error - StackBlitz" src="uu-code:./ffg-fundamentals-vue-render-error-71?template=node&embed=1&file=src%2FErrorThrowing.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 However, if we change our code to throw an error during an event handler, the contents will render fine but fail to execute the logic of said error handler:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -193,13 +193,13 @@ const EventErrorThrowingComponent = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Event Error - StackBlitz" src="uu-code:./ffg-fundamentals-react-event-error-72?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "error-throwing",
 	standalone: true,
@@ -212,9 +212,9 @@ class ErrorThrowingComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Event Error - StackBlitz" src="uu-code:./ffg-fundamentals-angular-event-error-72?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -231,11 +231,11 @@ const onClick = () => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Event Error - StackBlitz" src="uu-code:./ffg-fundamentals-vue-event-error-72?template=node&embed=1&file=src%2FErrorThrowing.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This behavior may seem strange until you consider how JavaScript's `throw` clause works. When a JavaScript function throws an error, it also acts as an early return of sorts.
 
@@ -259,9 +259,9 @@ try {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="JS Error Demo - StackBlitz" src="uu-code:./ffg-fundamentals-js-error-demo-73?template=node&embed=1&file=src%2Fmain.js"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Moreover, these errors exceed past [their scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope), meaning that they will bubble up [the execution stack](https://www.freecodecamp.org/news/execution-context-how-javascript-works-behind-the-scenes/).
 
@@ -316,9 +316,9 @@ function main() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="JS Error Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-js-error-bubbling-74?template=node&embed=1&file=src%2Fmain.js"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ![Error bubbles up from getBaseNumber all the way to main's try/catch](./error_bubbling.png)
 
@@ -368,9 +368,9 @@ window.addEventListener("error", (event) => {
 });
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="JS Event Error - StackBlitz" src="uu-code:./ffg-fundamentals-js-event-error-75?template=node&embed=1&file=index.html"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 But let's think about what adding this `window` listener would mean:
 
@@ -387,7 +387,7 @@ After all, a partially broken application is better than a fully broken one!
 
 This property of an error being thrown in an error handler not preventing a render transfers to other aspects of these frameworks as well:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 #### React
 
@@ -419,15 +419,15 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Errors in Hooks - StackBlitz" src="uu-code:./ffg-fundamentals-react-errors-in-hooks-76?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 #### Angular
 
 Despite errors thrown in a component's constructor preventing rendering:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -441,13 +441,13 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Error in Constructor - StackBlitz" src="uu-code:./ffg-fundamentals-angular-error-in-constructor-76?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Errors thrown in any of Angular's other lifecycle methods will not prevent a component from rendering:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -461,9 +461,9 @@ class AppComponent implements OnInit {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Errors in Lifecycles - StackBlitz" src="uu-code:./ffg-fundamentals-angular-errors-in-lifecycles-76?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 #### Vue
 
@@ -494,9 +494,9 @@ console.log(result.value);
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Errors in Setup - StackBlitz" src="uu-code:./ffg-fundamentals-vue-errors-in-setup-76?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Other APIs, like the `onMounted` lifecycle method, will not prevent rendering when an error is thrown inside it:
 
@@ -516,15 +516,15 @@ onMounted(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Errors in Lifecycles - StackBlitz" src="uu-code:./ffg-fundamentals-vue-errors-in-lifecycles-76?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 While this might seem confusing at first, it makes sense when you consider _when_ `onMounted` runs when compared with `computed`, for example.
 
 See, while `computed` runs during the setup of the component, `onMounted` executes _after_ the component has been rendered. Because of this, Vue is able to recover from errors thrown during `onMounted` and afterward but not during those thrown in a render function.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now that we understand why these errors prevent you from rendering content, let's see how we're able to improve the user experience when errors _do_ occur.
 
@@ -536,13 +536,13 @@ The first step to providing a better end-user experience when it comes to errors
 
 Sure, this seems obvious, but consider this: If an error occurs on the user's machine and it isn't caught during internally, how are you supposed to know how to fix it?
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 This is where the concept of "logging" comes into play. The general idea behind logging is that you can capture a collection of errors and information about the events that led up to the errors. You want to provide a way to export this data so that your user can send it to you to debug.
 
 While this logging often involves submitting data to a server, let's keep things local to the user's machine for now.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -601,9 +601,9 @@ class ClassCounter extends Component {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Class vs Function Comparison - StackBlitz" src="uu-code:./ffg-fundamentals-react-class-fn-comparison-77?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Both of these components work exactly the same, with no functional differences between them. This is because almost every API that was available to class components made its way over to functional components through React Hooks.
 
@@ -653,9 +653,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React componentDidCatch - StackBlitz" src="uu-code:./ffg-fundamentals-react-comp-did-catch-77?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Now, while our screen will still be white when the error is thrown, it will hit our `componentDidCatch` handler as we would expect.
 
@@ -665,7 +665,7 @@ Angular uses its [dependency injection system](/posts/ffg-fundamentals-dependenc
 
 However, to provide the custom error handler service, you **must** provide it at the root of your application, meaning that you cannot simply provide it from your parent component.
 
-```typescript
+```angular-ts
 class MyErrorHandler implements ErrorHandler {
 	handleError(error: unknown) {
 		// Do something with the error
@@ -684,7 +684,7 @@ bootstrapApplication(AppComponent, {
 
 Now that we've set up our `ErrorHandler` instance, we can test that it works using a component that throws an error:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "child-comp",
 	standalone: true,
@@ -706,9 +706,9 @@ class ChildComponent implements OnInit {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Logging the Error - StackBlitz" src="uu-code:./ffg-fundamentals-angular-logging-the-error-77?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -745,13 +745,13 @@ throw new Error("Test");
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Logging the Error - StackBlitz" src="uu-code:./ffg-fundamentals-vue-logging-the-error-77?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 It will run the function inside of `onErrorCaptured`.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Great! We're now able to keep track of what errors are occurring in our app. Hopefully, this allows us to address bugs as the user experiences them, making the app feel more stable as time goes on.
 
@@ -765,7 +765,7 @@ Other bugs, on the other hand, may not require such harsh actions. For example, 
 
 Let's see how we can implement this in our apps.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -814,11 +814,11 @@ throw new Error("Test");
 
 To still render their contents while logging the error.
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Ignoring the Error - StackBlitz" src="uu-code:./ffg-fundamentals-vue-ignoring-the-error-78?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Fallback UI {#fallback-ui}
 
@@ -826,7 +826,7 @@ While silently failing _can_ be a valid strategy to hide errors from your user, 
 
 For example, let's build a screen that tells the user that an unknown error has occurred when something is thrown.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -853,9 +853,9 @@ class ErrorBoundary extends Component {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Fallback UI - StackBlitz" src="uu-code:./ffg-fundamentals-react-fallback-ui-79?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -863,7 +863,7 @@ Because a custom error handler is implemented using an Angular service, we can u
 
 From there, it's as simple as storing a Boolean when an error _is_ thrown and using that Boolean to render out a fallback UI when `true`.
 
-```typescript
+```angular-ts
 import { Component, inject, ErrorHandler, OnInit } from "@angular/core";
 
 class MyErrorHandler implements ErrorHandler {
@@ -891,9 +891,9 @@ class AppComponent {
 // Provide the error handler
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Fallback UI - StackBlitz" src="uu-code:./ffg-fundamentals-angular-fallback-ui-79?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > Unlike most instances of `inject` usage, we have to use `as MyErrorHandler`, otherwise TypeScript does not know about the new `hadError` property we just set.
 
@@ -927,11 +927,11 @@ onErrorCaptured((err, instance, info) => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Fallback UI - StackBlitz" src="uu-code:./ffg-fundamentals-vue-fallback-ui-79?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Displaying the Error {#displaying-the-error}
 
@@ -939,7 +939,7 @@ While displaying a fallback UI is often to the user's benefit, most users want s
 
 Let's display the error thrown by the component to our users.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -978,15 +978,15 @@ class ErrorBoundary extends Component {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Displaying the Error - StackBlitz" src="uu-code:./ffg-fundamentals-react-displaying-the-error-80?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
 Rather than storing a Boolean when an error occurs, we can store [the error value itself](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) within an `error` object and display the underlying value when present.
 
-```typescript
+```angular-ts
 class MyErrorHandler implements ErrorHandler {
 	error: unknown = null;
 
@@ -1017,9 +1017,9 @@ class AppComponent {
 // ...
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Displaying the Error - StackBlitz" src="uu-code:./ffg-fundamentals-angular-displaying-the-error-80?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -1057,9 +1057,9 @@ const getErrorString = (err) =>
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Displaying the Error - StackBlitz" src="uu-code:./ffg-fundamentals-vue-displaying-the-error-80?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > If you bind `{{error}}` rather than `{{error.message}}`, you'll end up with the error:
 >
@@ -1069,13 +1069,13 @@ const getErrorString = (err) =>
 >
 > As Vue's internals attempt to wrap and unwrap the Error object in its reactivity handler.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Challenge {#challenge}
 
 Let's say that we were building out [our previous code challenge](/posts/ffg-fundamentals-component-reference#challenge) and accidentally typo-d the name of a variable in our `Sidebar` component:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -1124,7 +1124,7 @@ Upon rendering the sidebar, we're greeted with [a JavaScript `ReferenceError`](h
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
@@ -1223,7 +1223,7 @@ Upon clicking the sidebar toggle, we're greeted with [a JavaScript `TypeError`](
 "Uncaught TypeError: _ctx.collapsed is not a function";
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 While we can solve this by correcting the typo, we'll also want to add an error handler to log these kinds of issues in case they happen in production. After all, [if a bug is found in the wild without a way to report it back to the developer, is it ever fixed](https://en.wikipedia.org/wiki/If_a_tree_falls_in_a_forest)?
 
@@ -1282,7 +1282,7 @@ Let's start with an error handler that will catch our error and display a UI whe
 
 We'll also make sure that this error handler is application-wide to ensure that it shows up when any error in the app comes up:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1321,7 +1321,7 @@ const Root = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 class MyErrorHandler implements ErrorHandler {
 	error: any = null;
 
@@ -1407,13 +1407,13 @@ import ErrorCatcher from "./ErrorCatcher.vue";
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Showing a Nicer Error Message {#challenge-showing-nicer-error}
 
 Now that we have a method of showing the error to the user when it occurs, let's make sure that we can report the bug back to the development team. We'll do this by displaying all the information a user would need to report a bug alongside an auto-filled `mailto:`` link so that emailing the developer is a single-button press away.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1475,15 +1475,15 @@ class ErrorBoundary extends Component {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Error Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-error-challenge-81?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
 ### Angular
 
-```typescript
+```angular-ts
 @Pipe({ name: "errorHref", standalone: true })
 class ErrorHrefPipe implements PipeTransform {
 	transform(err: Error | null): string {
@@ -1545,9 +1545,9 @@ class ErrorCatcher {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Error Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-error-challenge-81?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -1611,10 +1611,10 @@ onErrorCaptured((err, instance, info) => {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Error Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-error-challenge-81?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->

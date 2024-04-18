@@ -21,7 +21,7 @@ This difference carries through to how you build the application as well. A stat
 
 As interactive apps rely so heavily on processing information based on user input, React, Angular, and Vue, all provide built-in ways of interacting, intercepting, and otherwise ingesting this information.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 While each of these frameworks handles this input ingestion slightly differently, the underlying concepts are the same: **All user input and output generate "Side effects", which need to be handled.**
 
@@ -155,7 +155,7 @@ The first of these component events is commonly fully transparent to most develo
 
 Take the following, for example:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -168,7 +168,7 @@ const Comp = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "comp-comp",
 	standalone: true,
@@ -194,7 +194,7 @@ const sayHi = () => alert("Hi!");
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This component handles a `click` event (which is a user input — a side effect) and outputs an `alert` to the user in return (an output, another side effect).
 
@@ -227,7 +227,7 @@ When we introduced components, we touched on the [concept of "rendering"](/posts
 
 Say we have the following code:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -248,13 +248,13 @@ const Parent = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Initial Render Demo - StackBlitz" src="uu-code:./ffg-fundamentals-react-initial-render-demo-26?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "child-comp",
 	standalone: true,
@@ -281,9 +281,9 @@ class ParentComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Initial Render Demo - StackBlitz" src="uu-code:./ffg-fundamentals-angular-initial-render-demo-26?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -315,11 +315,11 @@ function setShowChild() {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Initial Render Demo - StackBlitz" src="uu-code:./ffg-fundamentals-vue-initial-render-demo-26?template=node&embed=1&file=src%2FParent.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Here, `Child` is added and removed from the DOM every time `setShowChild` is clicked. Let's say we wanted to add a way to call a `console.log` every time `Child` is shown on screen.
 
@@ -327,7 +327,7 @@ Here, `Child` is added and removed from the DOM every time `setShowChild` is cli
 
 While we _could_ add this log inside of `setShowChild`, it's more likely to break when we inevitably refactor the `Parent` component's code. Instead, let's add a side effect handler to call `console.log` whenever `Child` is rendered.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -347,9 +347,9 @@ const Child = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Initial Render useEffect - StackBlitz" src="uu-code:./ffg-fundamentals-react-initial-render-useeffect-27?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, we're completing the task of "run `console.log` when `Child` is rendered for the first time" by allowing React to run the `console.log` side effect inside of `useEffect`. The empty array hints to React that we'd only like this function to run once — when the component initially renders.
 
@@ -362,7 +362,7 @@ We mentioned earlier that there is another hook used to handle side effects: `us
 To execute code during an initial render of a component, Angular uses a method called `ngOnInit`.
 This function is specially named so that Angular can call it on your behalf during the "rendered" lifecycle event:
 
-```typescript
+```angular-ts
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -377,9 +377,9 @@ class ChildComponent implements OnInit {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Initial Render onInit - StackBlitz" src="uu-code:./ffg-fundamentals-angular-initial-render-on-init-27?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 All of Angular's lifecycle methods are prepended with `ng` and add `implements` to your component class.
 
@@ -408,9 +408,9 @@ onMounted(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Initial Render onMount - StackBlitz" src="uu-code:./ffg-fundamentals-vue-initial-render-on-mount-27?template=node&embed=1&file=src%2FChild.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, we're importing the `onMounted` lifecycle handler from the `vue` import. Vue's lifecycle methods all start with an `on` prefix when used inside a `<script setup>` component.
 
@@ -433,15 +433,15 @@ watchEffect(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Initial Render watchEffect - StackBlitz" src="uu-code:./ffg-fundamentals-vue-initial-render-watch-effect-27?template=node&embed=1&file=src%2FChild.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, we're using `watchEffect` to run `console.log` as soon as the `Child` component renders.
 
 Instead, `watchEffect` is commonly expected to be used alongside reactive values (like `ref` variables). We'll touch on how this works later on in the chapter.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 As mentioned before, the framework itself calls these methods on your behalf when an internal event occurs; in this case, when `Child` is rendered.
 
@@ -453,7 +453,7 @@ On top of providing a global variable that we can mutate to store values, both [
 
 Let's say that inside our component, we'd like to display the window size:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -471,13 +471,13 @@ const WindowSize = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Broken Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-react-broken-window-size-28?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "window-size",
 	standalone: true,
@@ -494,9 +494,9 @@ class WindowSizeComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Broken Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-angular-broken-window-size-28?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -515,11 +515,11 @@ const width = window.innerWidth;
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Broken Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-vue-broken-window-size-28?template=node&embed=1&file=src%2FWindowSize.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This works to display the window size on the initial render, but what happens when the user resizes their browser?
 
@@ -527,11 +527,11 @@ Because we aren't listening for the change in window size, we never get an updat
 
 Let's solve this by using [`window.addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) to handle [`resize` events](https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event) — emitted when the user changes their window size.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
-```jsx {4-12}
+```jsx {5-13}
 const WindowSize = () => {
 	const [height, setHeight] = useState(window.innerHeight);
 	const [width, setWidth] = useState(window.innerWidth);
@@ -555,13 +555,13 @@ const WindowSize = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Leaking Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-react-leaking-window-size-29?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript {13-22}
+```angular-ts {14-23}
 @Component({
 	selector: "window-size",
 	standalone: true,
@@ -592,13 +592,13 @@ class WindowSizeComponent implements OnInit {
 >
 > If this sentence feels unfamiliar, no worries; [I wrote an article explaining what this means](/posts/javascript-bind-usage).
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Leaking Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-angular-leaking-window-size-29?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
-```vue {7-15}
+```vue {8-16}
 <!-- WindowSize.vue -->
 <script setup>
 import { ref, onMounted } from "vue";
@@ -625,11 +625,11 @@ onMounted(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Leaking Window Size - StackBlitz" src="uu-code:./ffg-fundamentals-vue-leaking-window-size-29?template=node&embed=1&file=src%2FWindowSize.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now, when we resize the browser, our values on-screen should update as well.
 
@@ -639,7 +639,7 @@ In our introduction to components, we demonstrated that [components can listen t
 
 What if we changed our code above to listen for the `resize` event that way to sidestep `addEventListener`?
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -663,13 +663,13 @@ const WindowSize = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Broken Event Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-react-broken-event-bubbling-30?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "window-size",
 	standalone: true,
@@ -692,9 +692,9 @@ class WindowSizeComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Broken Event Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-angular-broken-event-bubbling-30?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -721,11 +721,11 @@ function resizeHandler() {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Broken Event Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-vue-broken-event-bubbling-30?template=node&embed=1&file=src%2FWindowSize.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 If we run this code, it will render as expected with the initial screen size, but subsequent re-renders will not update the value on the screen. This is because the `resize` event is only triggered on the `window` object (associated with the `<html>` tag) and does not permeate downwards towards other elements.
 
@@ -735,7 +735,7 @@ You see, by default, events will always "bubble" upwards in the DOM tree from th
 
 We can demonstrate this inside our frameworks.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -748,9 +748,9 @@ We can demonstrate this inside our frameworks.
 </div>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Event Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-react-event-bubbling-31?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
@@ -763,9 +763,9 @@ We can demonstrate this inside our frameworks.
 </div>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Event Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-angular-event-bubbling-31?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -778,11 +778,11 @@ We can demonstrate this inside our frameworks.
 </div>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Event Bubbling - StackBlitz" src="uu-code:./ffg-fundamentals-vue-event-bubbling-31?template=node&embed=1&file=src%2FEventBubbler.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 If you click on the `span`, the `click` event will start from the `span`, bubble up to the `p` tag, and then finally bubble up to the `div`. Because we add an event listener on the `div`, it will run `logMessage`, even when clicking on the `span`.
 
@@ -821,7 +821,7 @@ Ahh, but it does!
 
 See, think of the TV as being a component in your app with a side effect. Let's use this clock component as an example:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -860,7 +860,7 @@ function prefixZero(number) {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "clock-comp",
 	standalone: true,
@@ -936,7 +936,7 @@ function prefixZero(number) {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 In this example, we're [calling `setInterval` to run a function every second](https://developer.mozilla.org/en-US/docs/Web/API/setInterval). This function does two things:
 
@@ -947,7 +947,7 @@ This `setInterval` call occurs on every `Clock` component render, thanks to each
 
 Let's now render this `Clock` component inside a conditional block:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -964,13 +964,13 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Broken Clock - StackBlitz" src="uu-code:./ffg-fundamentals-react-broken-clock-32?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -991,9 +991,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Broken Clock - StackBlitz" src="uu-code:./ffg-fundamentals-angular-broken-clock-32?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1018,11 +1018,11 @@ function setShowClock(val) {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Broken Clock - StackBlitz" src="uu-code:./ffg-fundamentals-vue-broken-clock-32?template=node&embed=1&file=src%2FClock.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 In `App`, we're defaulting `showClock` to `true`. This means that our `Clock` component will render on `App`'s first render.
 
@@ -1051,7 +1051,7 @@ Additionally, let's throw in **the ability to auto-snooze alarms that have been 
 
 Let's build that functionality now, but reduce the "minutes" to "seconds" for easier testing:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1109,13 +1109,13 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Broken Alarm - StackBlitz" src="uu-code:./ffg-fundamentals-react-broken-alarm-33?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "alarm-screen",
 	standalone: true,
@@ -1181,9 +1181,9 @@ class AppComponent implements OnInit {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Broken Alarm - StackBlitz" src="uu-code:./ffg-fundamentals-angular-broken-alarm-33?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -1250,9 +1250,9 @@ const disable = () => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Broken Alarm - StackBlitz" src="uu-code:./ffg-fundamentals-vue-broken-alarm-33?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > You'll notice that we're not using events for our Vue code sample and have instead opted to pass a function.
 > This is because, while the other frameworks will continue to listen for events from an unmounted component, Vue does
@@ -1265,7 +1265,7 @@ const disable = () => {
 >
 > To understand this a bit better, [there's a section of this chapter that explains this.](#hidden-memory-leaks)
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Yes! It renders the seconds to countdown and then shows the `AlarmScreen` as expected. Even our "auto-snooze" functionality is working as intended.
 
@@ -1317,7 +1317,7 @@ const interval = setInterval(() => {
 clearInterval(interval);
 ```
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1335,9 +1335,9 @@ const Cleanup = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Unmounting - StackBlitz" src="uu-code:./ffg-fundamentals-react-unmounting-34?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 This returned function will be run whenever:
 
@@ -1393,7 +1393,7 @@ When we add a mounted lifecycle to Angular, we:
 
 To add an unmounted lifecycle method to an Angular component, we do the same steps as above, but with `OnDestroy` instead:
 
-```typescript
+```angular-ts
 import { Component, OnDestroy } from "@angular/core";
 
 @Component({
@@ -1408,13 +1408,13 @@ class CleanupComponent implements OnDestroy {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Unmounting - StackBlitz" src="uu-code:./ffg-fundamentals-angular-unmounting-34?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Let's apply this new lifecycle method to our code sample previously:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "alarm-screen",
 	standalone: true,
@@ -1483,9 +1483,9 @@ onUnmounted(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Unmounting - StackBlitz" src="uu-code:./ffg-fundamentals-vue-unmounting-34?template=node&embed=1&file=src%2FCleanup.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Let's apply this new lifecycle method to our code sample previously:
 
@@ -1636,7 +1636,7 @@ watchEffect((onCleanup) => {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Hidden Memory Leaks {#hidden-memory-leaks}
 
@@ -1646,7 +1646,7 @@ For example, [we mentioned in the first chapter that you can emit events from a 
 
 > Let's not yet introduce cleanup, you'll see why in a second.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1669,7 +1669,7 @@ However, **this is not the same thing as emitting an event in Angular or Vue**. 
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-alert",
 	standalone: true,
@@ -1712,9 +1712,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Hidden Memory Leak Events - StackBlitz" src="uu-code:./ffg-fundamentals-angular-hidden-memory-leak-events-35?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -1760,11 +1760,11 @@ const alertUser = () => alert("I am an alert!");
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Hidden Memory Leak Events - StackBlitz" src="uu-code:./ffg-fundamentals-vue-hidden-memory-leak-events-35?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now, if we run one of our code samples and click on a button rapidly and repeatedly, we get... Nothing! Only the last `alert` will show up to notify you that our `Alert` component has been rendered.
 
@@ -1780,11 +1780,11 @@ Well, when you think about how a component in one of these frameworks works, you
 
 Here, we can see that despite there being one component declaration:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {1}
+```jsx {2}
 const Comp = () => {
 	const obj = {};
 
@@ -1794,7 +1794,7 @@ const Comp = () => {
 
 ### Angular
 
-```typescript {6}
+```angular-ts {7}
 @Component({
 	standalone: true,
 	selector: "app-comp",
@@ -1807,7 +1807,7 @@ class CompComponent {
 
 ### Vue
 
-```vue {2}
+```vue {3}
 <!-- Comp.vue -->
 <script setup>
 const obj = {};
@@ -1818,15 +1818,15 @@ const obj = {};
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Every time we use this component:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {2-5}
+```jsx {3-6}
 const App = () => {
 	return <div>
 		<!-- One: -->
@@ -1839,7 +1839,7 @@ const App = () => {
 
 ### Angular
 
-```typescript {6-9}
+```angular-ts {7-10}
 @Component({
 	standalone: true,
 	imports: [CompComponent],
@@ -1858,7 +1858,7 @@ class AppComponent {}
 
 ### Vue
 
-```vue {7-10}
+```vue {8-11}
 <!-- App.vue -->
 <script setup>
 import Comp from "./Comp.vue";
@@ -1874,7 +1874,7 @@ import Comp from "./Comp.vue";
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Each of the individual `Comp` usages generates a component _instance_. These instances have their own separate memory usage, which
 allows you to control the state from them both independently of one another.
@@ -1898,7 +1898,7 @@ Not only are the memory leaks we mentioned hidden from the user when using event
 
 The easiest way to do this is to switch away from an event handler and towards a function being passed from the parent to the child:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 #### React
 
@@ -1925,13 +1925,13 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Hidden Memory Leak Functions - StackBlitz" src="uu-code:./ffg-fundamentals-react-hidden-memory-leak-functions-36?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 #### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-alert",
 	standalone: true,
@@ -1969,9 +1969,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Hidden Memory Leak Functions - StackBlitz" src="uu-code:./ffg-fundamentals-angular-hidden-memory-leak-functions-36?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 #### Vue
 
@@ -2015,11 +2015,11 @@ const alertUser = () => alert("I am an alert!");
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Hidden Memory Leak Functions - StackBlitz" src="uu-code:./ffg-fundamentals-vue-hidden-memory-leak-functions-36?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now if we click the "Toggle" button rapidly, you'll end up with multiple `alert`s back-to-back, as many times as you toggled the `Alert` component. Your hidden memory leak is now visible to the user! 😱
 
@@ -2068,7 +2068,7 @@ window.removeEventListener("resize", fn);
 
 Let's fix our `WindowSize` component from before by cleaning up the event listener side effect using the knowledge we have now.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2098,7 +2098,7 @@ const WindowSize = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "window-size",
 	standalone: true,
@@ -2196,13 +2196,13 @@ watchEffect((onCleanup) => {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Ensuring Side Effect Cleanup {#ensuring-effect-cleanup}
 
 Some frameworks have taken extra steps to ensure your side effects are always cleaned up.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2265,9 +2265,9 @@ However, if you disable `StrictMode` your output will be:
 
 1. `I am rendering. Counter: 1`
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Ensure Cleanup - StackBlitz" src="uu-code:./ffg-fundamentals-react-ensure-cleanup-37?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Again, **this is intentional**. React is trying to help you find bugs in your code by highlighting side effects that are not cleaned up.
 
@@ -2281,7 +2281,7 @@ Angular does not have any special behaviors with `OnInit` to force component cle
 
 Vue does not have any special behaviors with `OnInit` to force component cleanup. React, however, does.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Re-Renders {#re-renders}
 
@@ -2304,7 +2304,7 @@ Re-renders may occur for many reasons:
 
 Let's take a look at how each framework exposes re-rendering to you.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -2350,9 +2350,9 @@ const ReRenderListener = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Re-Render - StackBlitz" src="uu-code:./ffg-fundamentals-react-re-render-38?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Because the `button` triggers a re-render, `useEffect` will run, even if there is not a paint.
 
@@ -2370,7 +2370,7 @@ To answer "why" this occurs is a much longer topic, [which I've written about in
 
 ## Vue
 
-```vue {2,10-12}
+```vue {3,11-13}
 <!-- ReRenderListener.vue -->
 <script setup>
 import { ref, onUpdated } from "vue";
@@ -2391,13 +2391,13 @@ onUpdated(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Re-Render - StackBlitz" src="uu-code:./ffg-fundamentals-vue-re-render-38?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Every time the `ReRenderListener` component updates the DOM with new changes, the `onUpdated` method will run.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # In-Component Property Side Effects {#in-comp-prop-side-effect}
 
@@ -2407,7 +2407,7 @@ While these events are undeniably helpful to hook into, most user input doesn't 
 
 For example, let's say we wanted to update the browser tab's title when we select a new document:
 
- <!-- tabs:start -->
+ <!-- ::start:tabs -->
 
 ## React
 
@@ -2428,7 +2428,7 @@ const App = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -2466,13 +2466,13 @@ const title = ref("Movies");
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Here, `title` is a variable that is being updated, which triggers a re-render. Because the framework knows how to trigger a re-render based on a reactive change, it also has the ability to trigger a side effect whenever a value is changed.
 
 Let's see how we do this in React, Angular, and Vue:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -2501,9 +2501,9 @@ const App = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React In-Component Side Effects - StackBlitz" src="uu-code:./ffg-fundamentals-react-in-component-side-effects-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 By doing this, we're _hinting_ to React that this side effect should only ever run when the `test` variable's _reference_ has changed during a render.
 
@@ -2537,9 +2537,9 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Stale Values - StackBlitz" src="uu-code:./ffg-fundamentals-react-stale-values-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, we're telling React to `console.log` the `count` value every second inside a `setInterval`.
 
@@ -2562,9 +2562,9 @@ useEffect(() => {
 }, [count]);
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Fixed Stale Values - StackBlitz" src="uu-code:./ffg-fundamentals-react-fixed-stale-values-39?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -2572,7 +2572,7 @@ _Today_, Angular does not include a method for tracking internal state changes. 
 
 Instead, we'll have to use a `setTitle` function that calls the variable mutation as well as sets the `document.title` as a side effect:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -2595,9 +2595,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular In-Component Side Effects - StackBlitz" src="uu-code:./ffg-fundamentals-angular-in-component-side-effects-39?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -2628,9 +2628,9 @@ watchEffect(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue In-Component Side Effects - StackBlitz" src="uu-code:./ffg-fundamentals-vue-in-component-side-effects-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 How does `watchEffect` know what refs to watch? The long answer dives deep into Vue's source code and is a challenge to introduce at this stage.
 
@@ -2665,9 +2665,9 @@ watchEffect(() => {
 });
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Broken Watch Effect Tracking - StackBlitz" src="uu-code:./ffg-fundamentals-vue-broken-watch-effect-tracking-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 It will only track changes to `count`, as the `title.value` usage is inside an async operation.
 
@@ -2692,9 +2692,9 @@ watch(
 );
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Watch - StackBlitz" src="uu-code:./ffg-fundamentals-vue-watch-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > You may notice that we're passing `{immediate: true}` as the options for the `watch`; what is that doing?
 >
@@ -2747,11 +2747,11 @@ watch([title, count], (currentValue, previousValue, onCleanup) => {
 });
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Watch Multiple - StackBlitz" src="uu-code:./ffg-fundamentals-vue-watch-multiple-39?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Rendering, Committing, Painting {#rendering-committing-painting}
 
@@ -2782,7 +2782,7 @@ Let's pause on these four steps of the last bullet point here. This process of d
 
 React and Vue both provide a way to access internal stages of reconciliation with their own APIs.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -2799,7 +2799,7 @@ For example, let's say you want to measure the size of an HTML element and displ
 
 Let's use `useLayoutEffect` to calculate the bounding box of an element to position another element:
 
-```jsx {0,13-19}
+```jsx {1,14-20}
 import { useState, useLayoutEffect } from "react";
 
 function App() {
@@ -2851,9 +2851,9 @@ While the initial value is set to `10` with an arrow pointing to the `1`, if we 
 
 ![An uptick symbol facing the 1 in a number of 1000 painted in the DOM](./dom_measure_uselayout_effect.png)
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Rendering, Committing, Painting - StackBlitz" src="uu-code:./ffg-fundamentals-react-rendering-committing-painting-40?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -2893,9 +2893,9 @@ watch(
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Rendering, Committing, Painting Broken - StackBlitz" src="uu-code:./ffg-fundamentals-react-rendering-committing-painting-broken-40?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, when we click any of the buttons to trigger a `title` change, you may notice that it shows the _previous_ value of the element's `innerText`. For example, when we press "Music", it shows the `innerText` of `Movies`, which was the previous value of `title`.
 
@@ -2921,13 +2921,13 @@ watch(
 );
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Rendering, Committing, Painting - StackBlitz" src="uu-code:./ffg-fundamentals-vue-rendering-committing-painting-40?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Now, when we click on an item, it will print out the current version of `title` for the element's `innerText`.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 While this level of internals knowledge is seldom used when getting started building applications, it can provide you the powerful ability to optimize and improve your applications; think of this information as your developer superpower.
 
@@ -2939,7 +2939,7 @@ Sometimes, it's not ideal to trigger a re-render every time you want to set a va
 
 For example, let's go back to our `document.title` example. Say that instead of updating the `title` and `document.title` right away, we want to delay the updating of both using a `setTimeout`:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -2965,13 +2965,13 @@ const TitleChanger = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-react-update-title-41?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "title-changer",
 	standalone: true,
@@ -2996,9 +2996,9 @@ export class TitleChangerComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-angular-update-title-41?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -3026,17 +3026,17 @@ function updateTitle(val) {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-vue-update-title-41?template=node&embed=1&file=src%2FTitleChanger.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 If we click one of these buttons and un-render the `App` component, our `setTimeout` will still execute because we've never told this component to cancel the timeout.
 
 We could solve this problem using a stateful variable:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -3071,13 +3071,13 @@ const TitleChanger = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Stateful Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-react-stateful-update-title-42?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "title-changer",
 	standalone: true,
@@ -3109,9 +3109,9 @@ export class TitleChangerComponent implements OnDestroy {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Stateful Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-angular-stateful-update-title-42?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -3144,23 +3144,23 @@ onUnmounted(() => clearTimeout(timeoutExpire.value));
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Stateful Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-vue-stateful-update-title-42?template=node&embed=1&file=src%2FTitleChanger.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This will trigger a re-render of `App` when we run `updateTitle`. This re-render will not display any new changes since our `timeoutExpire` property is not used in the DOM but may be computationally expensive depending on the size of your `App` component.
 
 Luckily for us, each framework has the ability to sidestep a render while persisting a value in a component's state.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
 To store a variable's state in a React function component without triggering a re-render, we can use a `useRef` hook to store our `setTimeout` return without triggering a re-render:
 
-```jsx {0,5,8-11}
+```jsx {1,6,9-12}
 import { useState, useRef, useEffect } from "react";
 
 const TitleChanger = () => {
@@ -3190,9 +3190,9 @@ const TitleChanger = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Mutable Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-react-mutable-update-title-43?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 `useRef` allows you to persist data across renders, similar to `useState`. There are two major differences from `useState`:
 
@@ -3251,9 +3251,9 @@ const Comp = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React useRef Timestamp - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-ref-timestamp-43?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Why doesn't this show a timestamp?
 
@@ -3287,9 +3287,9 @@ const Comp = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React useRef Timestamp Rerender - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-ref-timestamp-rerender-43?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, the timestamp display will never update until you press the `button`. Even then, however, `useEffect` will run _after_ the render, meaning that the displayed timestamp will be from the _previous_ occurrence of the `button` press.
 
@@ -3305,7 +3305,7 @@ To sidestep this detection from Zone.js in Angular, you can tell the framework t
 
 To do this, we need to use ["Dependency Injection"](/posts/ffg-fundamentals-dependency-injection) to access Angular's internal `NgZone` reference and use the `runOutsideAngular` method:
 
-```typescript {0,19-21,31-33}
+```angular-ts {1,20-22,32-34}
 import { Component, NgZone, OnDestroy, inject } from "@angular/core";
 
 @Component({
@@ -3348,9 +3348,9 @@ export class TitleChangerComponent implements OnDestroy {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Mutable Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-angular-mutable-update-title-43?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > If `inject` seems magic to you, it might as well be. To explore how dependency injection works under-the-hood, [check out chapter 11, which explores the topic](/posts/ffg-fundamentals-dependency-injection).
 
@@ -3387,17 +3387,17 @@ onUnmounted(() => clearTimeout(timeoutExpire));
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Mutable Update Title - StackBlitz" src="uu-code:./ffg-fundamentals-vue-mutable-update-title-43?template=node&embed=1&file=src%2FTitleChanger.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # API Chart {#api-chart}
 
 Let's take a look visually at how each framework calls the relevant APIs we've touched on today:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -3419,7 +3419,7 @@ Because Vue has two different APIs, I made two charts for them.
 
 ![On the main loop, the VDOM constructs which calls "{immediate: true}" watchers. Then the component paints which calls the "{immediate: true, flush: 'post'}" watchers. Then, the component has rendered and can re-render (more on that soon). Then, when the component unrenders, watchers clean up, then "{flush: 'post'}" watchers cleanup. During re-renders, the VDOM updates occur, which calls the previous watcher run cleanup, then the watchers again. Then the DOM paints which triggers the previous watchers "{flush: 'post'}" watchers cleanup and the new "{flush: 'post'}" watchers.](./vue_watchers.png)
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Challenge {#challenge}
 
@@ -3439,7 +3439,7 @@ This can be done by using a combination of technologies:
 
 Let's start by building out the theme toggle using our respective frameworks.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -3483,7 +3483,7 @@ function DarkModeToggle() {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "dark-mode-toggle",
 	standalone: true,
@@ -3571,11 +3571,11 @@ const explicitTheme = ref("inherit");
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now that we have this theme toggle let's make the `dark` mode work by using some CSS and a side effect handler to listen for changes to `value`:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -3615,7 +3615,7 @@ function App() {
 
 ## Angular
 
-```typescript
+```angular-ts
 import { Component, ViewEncapsulation } from "@angular/core";
 
 @Component({
@@ -3707,7 +3707,7 @@ import DarkModeToggle from "./DarkModeToggle.vue";
 </style>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now, we can use the `matchMedia` API to add a check if the user's OS has changed its theme or not.
 
@@ -3731,7 +3731,7 @@ window
 
 Now that we know the JavaScript API let's integrate it with our application:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -3766,7 +3766,7 @@ function DarkModeToggle() {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "dark-mode-toggle",
 	standalone: true,
@@ -3843,7 +3843,7 @@ onUnmounted(() => {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now when the user changes their operating system's dark mode settings, it will reflect through our website.
 
@@ -3857,11 +3857,11 @@ if (!car) localStorage.setItem("car", "Hatchback");
 
 Let's integrate this in our `DarkModeToggle` component:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
-```jsx {3-5,9-11}
+```jsx {4-6,10-12}
 const isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
 function DarkModeToggle() {
@@ -3953,15 +3953,15 @@ function App() {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Effects Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-effects-challenge-44?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
 ## Angular
 
-```typescript {36,58}
+```angular-ts {37,59}
 @Component({
 	selector: "dark-mode-toggle",
 	standalone: true,
@@ -4064,15 +4064,15 @@ class AppComponent {}
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Effects Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-effects-challenge-44?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
 ## Vue
 
-```vue {4,6-8}
+```vue {5,7-9}
 <!-- DarkModeToggle.vue -->
 <script setup>
 import { ref, watch, onMounted, onUnmounted } from "vue";
@@ -4170,10 +4170,10 @@ import DarkModeToggle from "./DarkModeToggle.vue";
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Effects Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-effects-challenge-44?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->

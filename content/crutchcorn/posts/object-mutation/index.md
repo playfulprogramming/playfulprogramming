@@ -259,7 +259,7 @@ console.log(&name); // Prefixing & could show the memory address `name` was assi
 
 > Some languages, [such as Rust](https://doc.rust-lang.org/std/primitive.pointer.html) and C++ _do_ have this feature, it's called a "pointer" and allows you to change the value of a memory block rather than create a new memory block with the new value you'd like to assign.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 This is essentially what's happening with our `const obj` mutation from the previous section. Instead of creating a new memory space for `obj`, it's reusing the existing memory block it already has assigned to `obj` and is simply changing the values within it.
 

@@ -15,7 +15,7 @@ In recent years, we've seen frameworks like React and Vue develop utilities to s
 
 For example, if you wanted to have a component that measures the browser window, you might write some code like so:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # React
 
@@ -68,7 +68,7 @@ onUnMounted(() => {
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 > Like seeing equivical code between multiple frameworks at once? You might like the book I'm writing called ["The Framework Field Guide", which teaches React, Angular, and Vue all at once](https://framework.guide).
 
@@ -76,7 +76,7 @@ This works great for a single component, but what if you want to reuse this `win
 
 While you _could_ copy and paste the code between multiple components, or even export functions to setup and take down the event listeners, both of these methods are clunky. This is where the aforementioned Hooks and Composition APIs come into play for React and Vue respectively.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # React
 
@@ -145,7 +145,7 @@ const {height, width} = useWindowSize();
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This enables us to use the `useWindowSize` logic in more than one component - lifecycle methods and all.
 

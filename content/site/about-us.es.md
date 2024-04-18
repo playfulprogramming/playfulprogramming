@@ -1,5 +1,3 @@
-import { Links, Sponsors } from "src/views/about/components";
-
 <p><span class="text-style-headline-2">Nuestro objetivo es proveer los mejores recursos posibles para aprender cualquier tema relacionado con las ciencias de la computación</span></p>
 
 Ya sea desde cómo se almacena la memoria en assembly o cómo hacer animaciones complejas en CSS, hasta lo que es un bucle For, queremos brindar recursos que sean acogedores, de apoyo e informativos.
@@ -16,13 +14,13 @@ Tenemos varias cuentas en redes sociales donde compartimos actualizaciones y nue
 
 Como lo mencionamos antes, también tenemos un servidor de Discord donde podemos hablar de tecnología, ayudar con problemas y preguntas relacionados con las ciencias de la computación, y en general, pasar un buen rato. Si estás buscando ponerte en contacto con nosotros, esta es posiblemente la mejor manera de hacerlo.
 
-<Links />
+<!-- split -->
 
 ---
 
-## Patrocinadores \{#sponsors\}
+## Patrocinadores {#sponsors}
 
-<Sponsors />
+<!-- split -->
 
 > **Más información sobre patrocinios:**
 > Si quieres conocer más sobre los patrocinios y su impacto en nuestro sitio, puedes leer [los detalles que publicamos en GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed).
@@ -31,7 +29,7 @@ Como lo mencionamos antes, también tenemos un servidor de Discord donde podemos
 
 ---
 
-## Declaración de Ética \{#ethics\}
+## Declaración de Ética {#ethics}
 
 Nunca queremos terminar en un lugar en el que nuestro contenido educativo, la experiencia,
 o la comunidad se vean comprometidos ya sea por influencias financieras o miembros potencialmente

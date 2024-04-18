@@ -51,7 +51,7 @@ Instead, React 18.3 (in canary release at the time of writing) introduces a new 
 
 This hook allows you to pass a promise to it to load data:
 
-```jsx {0,2}
+```jsx {1,3}
 import {use, cache} from "react";
 
 const UserDisplay = () => {
@@ -77,7 +77,7 @@ Now React will treat the `result` as if it were not a promise, so that you can a
 > - Refetching with new inputs
 > - Abort signals to avoid timing issues
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # What is the `<Suspense>` component?
 

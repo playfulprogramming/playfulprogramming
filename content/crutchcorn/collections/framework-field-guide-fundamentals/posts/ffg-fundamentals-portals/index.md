@@ -31,7 +31,7 @@ Why do we need a dedicated API for this use case? **CSS**.
 
 Let's build the "Delete file" modal we saw in our framework of choice:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -57,7 +57,7 @@ const Modal = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "delete-modal",
 	standalone: true,
@@ -101,7 +101,7 @@ class ModalComponent {}
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 <br/>
 
@@ -184,7 +184,7 @@ Now that we have that modal, let's build a small version of the folder app we've
 
 ![A modal on top of a minimal version of the file app that includes a file list, header, and footer](./website_modal_example.png)
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -270,7 +270,7 @@ const FolderIcon = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -286,7 +286,7 @@ const FolderIcon = () => {
 class AppComponent {}
 ```
 
-```typescript
+```angular-ts
 @Component({
 	selector: "header-comp",
 	standalone: true,
@@ -307,7 +307,7 @@ class AppComponent {}
 class HeaderComponent {}
 ```
 
-```typescript
+```angular-ts
 @Component({
 	selector: "body-comp",
 	standalone: true,
@@ -326,7 +326,7 @@ class BodyComponent {
 }
 ```
 
-```typescript
+```angular-ts
 @Component({
 	selector: "footer-comp",
 	standalone: true,
@@ -335,7 +335,7 @@ class BodyComponent {
 class FooterComponent {}
 ```
 
-```typescript
+```angular-ts
 @Component({
 	selector: "folder-icon",
 	standalone: true,
@@ -351,7 +351,7 @@ class FooterComponent {}
 class FolderIconComponent {}
 ```
 
-```typescript
+```angular-ts
 @Component({
 	selector: "delete-icon",
 	standalone: true,
@@ -460,7 +460,7 @@ const files = Array.from({ length: 10 }, (_, i) => i);
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 <br/>
 
@@ -576,7 +576,7 @@ To do this, we'll:
 - Add our `Modal` component into our `Header` component
 - Add some state to conditionally render `Modal` depending on if the user has clicked on the delete icon
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -601,13 +601,13 @@ const Header = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Buggy Dialog - StackBlitz" src="uu-code:./ffg-fundamentals-react-buggy-dialog-94?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "header-comp",
 	standalone: true,
@@ -635,9 +635,9 @@ class HeaderComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Buggy Dialog - StackBlitz" src="uu-code:./ffg-fundamentals-angular-buggy-dialog-94?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -670,20 +670,20 @@ function showModal() {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Buggy Dialog - StackBlitz" src="uu-code:./ffg-fundamentals-vue-buggy-dialog-94?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 But wait... When we render the app and open our dialog, why does it look like it's _under_ the `Footer` component?!
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 
 > **Note:**
 > If you're running the code embed above, you may have to open it in a new tab and try resizing your window to see the bug.
 
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ![The dialog has some of its contents underneath the footer](./website_modal_under_footer_example.png)
 
@@ -711,7 +711,7 @@ Let's simplify the chart and see what I mean;
 
 Here, we can see that despite `Modal` being assigned a `z-index` of `99`, it's trapped under the `Header`, which is a `z-index` of `1`. The `Modal` cannot escape this encapsulated `z-index` painting order, and as a result, the `Footer` shows up on top.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 Ideally, to solve this problem, we'd want to move `Modal` to be in our HTML after the `Footer`, like so:
 
@@ -729,7 +729,7 @@ Let's take a look at how we can build these portals ourselves.
 
 While it's not the most useful example of using a portal, let's see how we can use a portal to teleport part of a UI to another part of the same component:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -763,9 +763,9 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Local Portals - StackBlitz" src="uu-code:./ffg-fundamentals-react-local-portals-95?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 You'll notice that we're then displaying the return of `createPortal` - `portal` - within the component. This allows the portal to be activated, which will place the `Hello world!` inside of the `div`.
 
@@ -781,7 +781,7 @@ npm i @angular/cdk
 
 From here, we can import components and utilities directly from the CDK.
 
-```typescript
+```angular-ts
 import { PortalModule, DomPortal } from "@angular/cdk/portal";
 
 @Component({
@@ -811,9 +811,9 @@ class AppComponent implements AfterViewInit {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Local Portals - StackBlitz" src="uu-code:./ffg-fundamentals-angular-local-portals-95?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 You'll notice that we're creating a variable called `domPortal` that we assign an instance of `DomPortal`. This `DomPortal` instance allows us to take a captured reference to some HTML (in this case, a `div` with `Hello world!`), and project it elsewhere.
 
@@ -841,7 +841,7 @@ Because we're using a `div` to act as the parent element of the portal's content
 
 As such, we may want to use an `ng-template`, which does not render to the DOM in the first place:
 
-```typescript
+```angular-ts
 import { PortalModule, TemplatePortal } from "@angular/cdk/portal";
 
 @Component({
@@ -875,9 +875,9 @@ class AppComponent implements AfterViewInit {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Local ngTemplate - StackBlitz" src="uu-code:./ffg-fundamentals-angular-local-ng-template-95?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -903,11 +903,11 @@ const portalContainerEl = ref(null);
 
 > We need the `v-if` in this code to ensure that `portalContainerEl` has already been rendered and is ready to project content.
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Local Portals - StackBlitz" src="uu-code:./ffg-fundamentals-vue-local-portals-95?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 > It's worth mentioning that this is not the most useful example of a portal, because if we are within the same component, we could simply move the elements around freely, with full control over a component.
 
@@ -925,7 +925,7 @@ If there was a way that we could provide a variable to all the application's com
 
 Good call, keen reader! Let's do that.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -959,15 +959,15 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React App-Wide Portals - StackBlitz" src="uu-code:./ffg-fundamentals-react-app-wide-portals-96?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
 In Angular, we can use a basic service to share our instance of a `Portal` between multiple components, parent and child alike.
 
-```typescript
+```angular-ts
 import { Portal, PortalModule, TemplatePortal } from "@angular/cdk/portal";
 
 @Injectable({
@@ -1026,9 +1026,9 @@ We then `inject` that value to provide data into it and read from it in any rela
 
 We're also making sure that our portal exists before rending it in our `AppComponent` using `*ngIf="portalService.portal"`.
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular App-Wide Portals - StackBlitz" src="uu-code:./ffg-fundamentals-angular-app-wide-portals-96?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1067,11 +1067,11 @@ const portalContainerEl = inject("portalContainerEl");
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue App-Wide Portals - StackBlitz" src="uu-code:./ffg-fundamentals-vue-app-wide-portals-96?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Our portals should be able to render over all the other content we draw within our apps now!
 
@@ -1119,7 +1119,7 @@ This is because the contents of your React app are rendered before the UnicornCh
 
 How can we solve this? By placing our portal's contents in the `body` itself after the UnicornChat UI.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -1148,9 +1148,9 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React HTML-Wide Portals - StackBlitz" src="uu-code:./ffg-fundamentals-react-html-wide-portals-97?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -1158,7 +1158,7 @@ To use a portal that attaches directly to `body` in Angular, we need to switch f
 
 We can reuse our existing global service to create one of these `DomPortalOutlet`s and attach and detach it in our `modal` component, like so:
 
-```typescript
+```angular-ts
 import { TemplatePortal, DomPortalOutlet } from "@angular/cdk/portal";
 
 @Injectable({
@@ -1210,9 +1210,9 @@ class ModalComponent implements OnDestroy {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular HTML-Wide Portals - StackBlitz" src="uu-code:./ffg-fundamentals-angular-html-wide-portals-97?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1242,11 +1242,11 @@ import Child from "./Child.vue";
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue HTML-Wide Portals - StackBlitz" src="uu-code:./ffg-fundamentals-vue-html-wide-portals-97?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now, when you test the issue again, you find your modal is above the UnicornChat UI.
 
@@ -1262,35 +1262,35 @@ The code we wrote previously for this challenge worked well, but it had a major 
 
 ![The tooltip dialog is drawn underneath a header element due to z-index stacking contexts](./tooltip_underneath.png)
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Portals Pre-Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-portals-pre-challenge-98?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Portals Pre-Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-portals-pre-challenge-98?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Portals Pre-Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-portals-pre-challenge-98?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 To fix this, we'll need to wrap our tooltip in a portal and render it at the end of the `body` tag:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {56,93-94}
+```jsx {57,94-95}
 function App() {
 	const buttonRef = useRef();
 
@@ -1403,15 +1403,15 @@ function App() {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Portals Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-portals-challenge-99?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
 ### Angular
 
-```typescript {0-5,24,69,84,86-87,107-109,120-122}
+```angular-ts {1-6,25,70,85,87-88,108-110,121-123}
 @Injectable({
 	providedIn: "root",
 })
@@ -1548,15 +1548,15 @@ class AppComponent implements OnDestroy {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Portals Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-portals-challenge-99?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
 ### Vue
 
-```vue {63,100}
+```vue {64,101}
 <!-- App.vue -->
 <script setup>
 import { ref, onUnmounted } from "vue";
@@ -1673,10 +1673,10 @@ onUnmounted(() => {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Portals Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-portals-challenge-99?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->

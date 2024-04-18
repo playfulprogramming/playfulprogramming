@@ -46,7 +46,7 @@ However, despite [the `class` keyword being added in 2015 with ES6](https://262.
 
 The answer? The `constructor` method:
 
-```javascript {1-4}
+```javascript {2-5}
 class User {
     constructor() {
         this.name = "Corbin",
@@ -61,7 +61,7 @@ class User {
 
 In fact, using this `constructor` method, we can even add the method as well:
 
-```javascript {4-6}
+```javascript {5-7}
 class User {
     constructor() {
         this.name = "Corbin",
@@ -77,7 +77,7 @@ class User {
 
 Don't worry, we're getting there!
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 # Create a class without the `class` keyword
 
@@ -221,7 +221,7 @@ This is because we're not using the `super()` method to tell our extended class 
 
 To fix this, we'll add that method to the extended class' `constructor`:
 
-```javascript {8}
+```javascript {9}
 class Person {
     constructor() {
     	this.personality = "quirky";

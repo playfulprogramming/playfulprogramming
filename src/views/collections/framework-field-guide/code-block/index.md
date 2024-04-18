@@ -1,4 +1,4 @@
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 # React
 
 ```jsx
@@ -9,7 +9,7 @@ const Hello = () => {
 
 # Angular
 
-```typescript
+```angular-ts
 @Component({
   selector: "my-app",
   template: `<p>Hello, world!</p>`,
@@ -30,4 +30,4 @@ class HelloWorldComp {}
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->

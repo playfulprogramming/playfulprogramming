@@ -32,7 +32,7 @@ Knowing just how potent the potential impact of a monorepo would be on my projec
 
 By the end of it all, I had a monorepo structure that looked something like the following:
 
-<!-- filetree:start -->
+<!-- ::start:filetree -->
 
 - `apps/`
   - `customer-portal/{open: false}`
@@ -92,7 +92,7 @@ By the end of it all, I had a monorepo structure that looked something like the 
 - `package.json`
 - `yarn.lock`
 
-<!-- filetree:end -->
+<!-- ::end:filetree -->
 
 
 I'd like to share how you can do the same in this article. Let's walk through how to:
@@ -122,7 +122,7 @@ npx react-native init CustomerPortal
 
 Once this command finishes, you should have a functioning React Native project scaffolded in `CustomerPortal` folder:
 
-<!-- filetree:start -->
+<!-- ::start:filetree -->
 
 - `android/`
 - `ios/`
@@ -136,7 +136,7 @@ Once this command finishes, you should have a functioning React Native project s
 - `package.json`
 - `tsconfig.json`
 
-<!-- filetree:end -->
+<!-- ::end:filetree -->
 
 We now have a basic demo application that we can extend by adding it to our monorepo.
 
@@ -147,7 +147,7 @@ To start setting up the monorepo, take the following actions:
 3. Run `git init` at the new root to create a Git repository to track your code changes
 4. Add a `.gitignore` (you can copy it from your app) at the new root to make sure you're not tracking new `node_modules`
 
-<!-- filetree:start -->
+<!-- ::start:filetree -->
 
 - `.git/`
 - `apps/`
@@ -166,7 +166,7 @@ To start setting up the monorepo, take the following actions:
 - `.gitignore`
 - `package.json`
 
-<!-- filetree:end -->
+<!-- ::end:filetree -->
 
 Congrats! You _technically_ now have a monorepo, even if it's currently missing many conveniences of a well-established monorepo.
 
@@ -175,7 +175,7 @@ Congrats! You _technically_ now have a monorepo, even if it's currently missing 
 
 Let's imagine that we've taken our newly created monorepo and added a second application inside:
 
-<!-- filetree:start -->
+<!-- ::start:filetree -->
 
 - `apps/`
   - `customer-portal/`
@@ -187,7 +187,7 @@ Let's imagine that we've taken our newly created monorepo and added a second app
 - `.gitignore`
 - `package.json`
 
-<!-- filetree:end -->
+<!-- ::end:filetree -->
 
 Notice how each of our sub-projects has its own `package.json`? This allows us to split out our dependencies based on which project requires them rather than having a single global `package.json` with every project's dependencies in it.
 
@@ -279,7 +279,7 @@ On the note of Git, **you'll want to commit `.yarn/releases/yarn-3.x.x.cjs`**, a
 
 Now that we've disabled Yarn PNP, we need to configure Yarn to install all deps for all of the projects in our workspace. To do this, add the following to your `package.json`:
 
-```json {4-10}
+```json {5-11}
 {
     "name": "@your-org/app-root",
     "version": "0.0.1",
@@ -337,7 +337,7 @@ Start by:
 2. Running `npm init` inside to make a new `package.json` file.
 3. Create `src/index.tsx`.
 
-<!-- filetree:start -->
+<!-- ::start:filetree -->
 
 - `apps/`
   - `customer-portal/`
@@ -352,7 +352,7 @@ Start by:
 - `package.json`
 - `yarn.lock`
 
-<!-- filetree:end -->
+<!-- ::end:filetree -->
 
 Inside of our newly created `index.tsx`, let's create a `HelloWorld` component:
 
@@ -418,7 +418,7 @@ export default defineConfig({
 
 The `fileName`, `formats`, and `entry` files tell Vite to "build everything inside of `src/index.tsx` into a CommonJS and ES Module file for apps to consume". We then need to update our `package.json` file (located in `/packages/shared-elements/`) to tell these apps where to look when importing from this package:
 
-```json {8-18}
+```json {9-19}
 {
   "name": "@your-org/shared-elements",
   "version": "0.0.1",
@@ -504,7 +504,7 @@ This error is occuring because React Native is written with Flow, which our Vite
 
 This is because React (and React Native) expects a [singleton](https://www.patterns.dev/posts/singleton-pattern) where the app only has a single instance of the project. This means that we need to tell Vite not to transform the `import` and `require`s of those two libraries:
 
-```typescript {22-38}
+```typescript {23-39}
 // vite.config.ts
 import react from "@vitejs/plugin-react";
 import * as path from "node:path";
@@ -550,7 +550,7 @@ export default defineConfig({
 
 Because these packages aren't included in the bundle anymore, we need to flag to our apps that they need to install the packages as well. To do this we need to utilize [`devDependencies` and `peerDependencies`](/posts/how-to-use-npm) in  `/packages/shared-elements/`:
 
-```json {19-31}
+```json {20-32}
 {
   "name": "@your-org/shared-elements",
   "version": "0.0.1",

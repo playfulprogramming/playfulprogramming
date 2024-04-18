@@ -37,7 +37,6 @@ const browser_args = [
 	"--disable-speech-api",
 	"--disable-sync",
 	"--disable-web-security",
-	"--disable-dev-shm-usage",
 	"--disk-cache-size=33554432",
 	"--enable-features=SharedArrayBuffer",
 	"--hide-scrollbars",
@@ -52,7 +51,6 @@ const browser_args = [
 	"--no-zygote",
 	"--password-store=basic",
 	"--single-process",
-	"--use-gl=swiftshader",
 	"--use-mock-keychain",
 	"--window-size=1920,1080",
 ];
@@ -65,6 +63,7 @@ const context = await browser.newContext({
 		width: PAGE_WIDTH,
 		height: PAGE_HEIGHT,
 	},
+	javaScriptEnabled: false,
 });
 const page = await context.newPage();
 

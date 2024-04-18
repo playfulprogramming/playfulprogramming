@@ -148,7 +148,7 @@ Here, `FileOwner` and `ProfilePicture` are grabbing data from the `App` provided
 
 React, Angular, and Vue all have methods for injecting data implicitly into child components using dependency injection. Let's start with the most basic method of dependency injection by providing some primitive values, like a number or string, down to a child component.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -176,9 +176,9 @@ function Child() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React DI Basic Values String - StackBlitz" src="uu-code:./ffg-fundamentals-react-di-basic-values-string-82?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -186,7 +186,7 @@ While React and Vue both have minimal APIs to handle dependency injection, Angul
 
 In Angular, it all starts with an `InjectionToken` of some kind. We'll start by importing Angular `InjectionToken` API and creating a new token we can use later.
 
-```typescript
+```angular-ts
 import { InjectionToken } from "@angular/core";
 
 const WELCOME_MESSAGE_TOKEN = new InjectionToken<string>("WELCOME_MESSAGE");
@@ -194,7 +194,7 @@ const WELCOME_MESSAGE_TOKEN = new InjectionToken<string>("WELCOME_MESSAGE");
 
 We'll then use this token to create a `provider` that we pass to a component's `providers` list:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -209,7 +209,7 @@ This API uses `useValue` to provide the value associated with the token we pass.
 
 Finally, we use an `inject` function in our component class to tell Angular, "We want this value in our component."
 
-```typescript
+```angular-ts
 import { inject } from "@angular/core";
 
 @Component({
@@ -226,9 +226,9 @@ class ChildComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular DI Basic Values String - StackBlitz" src="uu-code:./ffg-fundamentals-angular-di-basic-values-string-82?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > Something worth mentioning when using the `inject` function is that you're unable to provide a `constructor` method to the `ChildComponent` class.
 >
@@ -270,17 +270,17 @@ const welcomeMsg = inject("WELCOME_MESSAGE");
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue DI Basic Values String - StackBlitz" src="uu-code:./ffg-fundamentals-vue-di-basic-values-string-82?template=node&embed=1&file=src%2FParent.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Here, we expect this component to show a `<p>` tag that renders out `"Hello, world!"`.
 
 While this is convenient for passing simple values to multiple parts of the app, most usages of dependency injection tend to have more complex data provided. Let's extend this logic to provide an object to children instead.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -305,15 +305,15 @@ const Parent = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React DI Basic Values Object - StackBlitz" src="uu-code:./ffg-fundamentals-react-di-basic-values-object-83?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
 Because Angular's `useValue` accepts any arbitrary value, we can pass it an object to move away from a string injection:
 
-```typescript {3,15}
+```angular-ts {4,16}
 @Component({
 	selector: "child-comp",
 	standalone: true,
@@ -335,9 +335,9 @@ class ChildComponent {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular DI Basic Values Object - StackBlitz" src="uu-code:./ffg-fundamentals-angular-di-basic-values-object-83?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 While this functions, it's not very clean. In particular, some headaches present with this method include:
 
@@ -348,7 +348,7 @@ Luckily for us, Angular provides a better solution for this problem than `useVal
 
 Instead, let's create a class that we mark with an `@Injectable` decorator:
 
-```typescript
+```angular-ts
 import { Injectable } from "@angular/core";
 
 @Injectable()
@@ -359,7 +359,7 @@ class InjectedValue {
 
 Here, we're telling Angular to treat our `InjectedValue` class as a `InjectionToken` that we can use by name in our `providers`.
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -372,7 +372,7 @@ class AppComponent {}
 
 Now that our `InjectedValue` is a known type, we can remove our explicit type declaration to our consuming `inject` function in `ChildComponent`
 
-```typescript
+```angular-ts
 @Component({
 	selector: "child-comp",
 	standalone: true,
@@ -389,9 +389,9 @@ class ChildComponent implements OnInit {
 
 Much cleaner!
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular DI Injectable - StackBlitz" src="uu-code:./ffg-fundamentals-angular-di-injectable-83?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -425,11 +425,11 @@ const welcomeMsgObj = inject("WELCOME_MESSAGE");
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue DI Basic Values Object - StackBlitz" src="uu-code:./ffg-fundamentals-vue-di-basic-values-object-83?template=node&embed=1&file=src%2FParent.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Changing Values after Injection {#change-values}
 
@@ -437,7 +437,7 @@ While providing values from a parent node down to a child component is useful on
 
 For example, what happens when your user wants to change their name with some kind of rename functionality? You should be able to change how the data is stored in your dependency injection to propagate those changes immediately throughout your whole application.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -464,9 +464,9 @@ const Parent = () => {
 };
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Change After Val Inject - StackBlitz" src="uu-code:./ffg-fundamentals-react-change-val-after-inject-84?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 When we update the `message` value, it will trigger a re-render on the `Child` component and, in turn, update the displayed message.
 
@@ -474,7 +474,7 @@ When we update the `message` value, it will trigger a re-render on the `Child` c
 
 Because we've marked our `InjectedValue` class as an `Injectable`, we can have the parent component request access in the `constructor` to mutate the class instance.
 
-```typescript
+```angular-ts
 @Injectable()
 class InjectedValue {
 	message = "Initial value";
@@ -509,9 +509,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Change Val After Inject - StackBlitz" src="uu-code:./ffg-fundamentals-angular-change-val-after-inject-84?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -553,11 +553,11 @@ const welcomeMessage = inject("WELCOME_MESSAGE");
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Change Val After Inject - StackBlitz" src="uu-code:./ffg-fundamentals-vue-change-val-after-inject-84?template=node&embed=1&file=src%2FParent.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Changing Injected Values from Child {#change-injected-values}
 
@@ -567,7 +567,7 @@ Because dependency injection _usually_ only goes in one direction (from the pare
 
 Despite this, each framework provides us the tools to update injected values from the children themselves. Let's see how that's done:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -603,9 +603,9 @@ function Child() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Change Val From Child - StackBlitz" src="uu-code:./ffg-fundamentals-react-change-val-from-child-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 #### Using a Reducer Pattern {#reducer-pattern}
 
@@ -640,9 +640,9 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Homegrown Reducer - StackBlitz" src="uu-code:./ffg-fundamentals-react-homegrown-reducer-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 But doing so creates a substantial amount of noise: each function has a dedicated variable and needs to be passed independently for the `useContext` to work as intended.
 
@@ -674,9 +674,9 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Basic useReducer - StackBlitz" src="uu-code:./ffg-fundamentals-react-basic-use-reducer-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Whenever `dispatch` is called, it will run the `reducer` with no arguments for `action`, and React will automatically pass `state` for us. Then, when we `return` inside of the reducer, React will automatically keep track of the returned value as the new `state` value.
 
@@ -712,9 +712,9 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React useReducer Multi Action - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-reducer-multi-action-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 Here, we can pass a `type` object as a parameter of `reducer`'s `action`, run a `switch`/`case` over it, and return relevant data changes as needed.
 
@@ -753,9 +753,9 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React useReducer Payload - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-reducer-payload-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > It's worth mentioning that [the reducer pattern is not unique to React](https://dev.to/reedbarger/what-is-a-reducer-in-javascript-a-complete-introduction-with-examples-ip1). That said, React is unique in that it has a built-in method to build reducers, unlike many other frameworks.
 
@@ -808,15 +808,15 @@ function Child() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Reducer Within Contexts - StackBlitz" src="uu-code:./ffg-fundamentals-react-reducer-within-contexts-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
 Because we can inject a whole class instance into a child component, we can use methods in said class to mutate data of the injected class instance.
 
-```typescript
+```angular-ts
 @Injectable()
 class InjectedValue {
 	message = "Hello, world";
@@ -854,9 +854,9 @@ class ChildComponent {
 class ParentComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Change Val From Child - StackBlitz" src="uu-code:./ffg-fundamentals-angular-change-val-from-child-85?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -895,11 +895,11 @@ function updateMessage() {
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Change Val from Child - StackBlitz" src="uu-code:./ffg-fundamentals-vue-change-val-from-child-85?template=node&embed=1&file=src%2FParent.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Optional Injected Values {#optional-injected-values}
 
@@ -909,7 +909,7 @@ While you might expect the user's login information to always be present, what i
 
 Luckily, React, Angular, and Vue can all withstand an empty value provided through dependency injection by marking the value as "optional."
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -937,15 +937,15 @@ function Child() {
 
 When this is done, `useContext` is `undefined` if no value is injected for a particular named context.
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Optional Injected Vals - StackBlitz" src="uu-code:./ffg-fundamentals-react-optional-injected-vals-86?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
 In Angular, we provide values to be injected using the `providers` array on a component.
 
-```typescript
+```angular-ts
 @Injectable()
 class InjectedValue {
 	message = "Initial value";
@@ -972,7 +972,7 @@ class ParentComponent {}
 
 However, if we remove the `providers` from `ParentComponent` to test our application without any user data, like so:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -989,15 +989,15 @@ We get the following error:
 >   NullInjectorError: No provider for InjectedValue!
 > ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Optional Injected Vals Err - StackBlitz" src="uu-code:./ffg-fundamentals-angular-optional-injected-vals-err-86?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 This is because our `inject` function inside `ChildComponent` is marked as a required dependency by default, hence the error.
 
 Fortunately, there's a way to tell Angular to mark that dependency as "optional" by passing a second argument to the `inject` function:
 
-```typescript
+```angular-ts
 @Injectable()
 class InjectedValue {
 	message = "Hello, world";
@@ -1032,9 +1032,9 @@ class ParentComponent {}
 
 Now, we get no error when `injectedValue` is not provided. Instead, we get a value of `null`, which we can guard against using `ngIf` inside our template.
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Optional Injected Vals - StackBlitz" src="uu-code:./ffg-fundamentals-angular-optional-injected-vals-86?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1068,9 +1068,9 @@ console.log(welcomeMessage);
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Optional Injected Vals - StackBlitz" src="uu-code:./ffg-fundamentals-vue-optional-injected-vals-86?template=node&embed=1&file=src%2FParent.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 > You may see a warning like this in your `console` if you do this:
 >
@@ -1078,7 +1078,7 @@ console.log(welcomeMessage);
 >
 > This is normal and expected — keep calm and code on.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Default Values for Optional Values {#default-values}
 
@@ -1086,7 +1086,7 @@ While it's good that our code is now more resilient against missing data, it's n
 
 Instead, let's decide that when the user doesn't have a provided name, let's provide a default value of "Unknown Name" throughout our app. To do this, we'll need to provide that default value in our dependency injection system.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1102,9 +1102,9 @@ function Child() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Default Vals for Optional - StackBlitz" src="uu-code:./ffg-fundamentals-react-default-vals-for-optional-87?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
@@ -1114,7 +1114,7 @@ When an `inject` function is marked as `{optional: true}`, the default value (wh
 
 As such, we can use [JavaScript's built-in "OR" operator (`||`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR) to default to a different value as our default:
 
-```typescript
+```angular-ts
 @Injectable()
 class InjectedValue {
 	message = "Initial value";
@@ -1139,9 +1139,9 @@ class ChildComponent {
 class ParentComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Default Vals for Optional - StackBlitz" src="uu-code:./ffg-fundamentals-angular-default-vals-for-optional-87?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -1163,17 +1163,17 @@ console.log(welcomeMessage);
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Default Vals for Optional - StackBlitz" src="uu-code:./ffg-fundamentals-vue-default-vals-for-optional-87?template=node&embed=1&file=src%2FParent.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Application Wide Providers {#app-wide-providers}
 
 In our example codebase, we structured an application where `userData` is used all over the app. Instead of having an injected value for this data, it would be ideal to have access to this information anywhere in the component tree.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -1312,7 +1312,7 @@ Remember when we used `@Injectable` to mark a class as an injectable class insta
 
 When you pass `{providedIn: 'root'}` to the `@Injectable` decorator, you no longer have to explicitly place the class inside a `providers` array; instead, Angular will simply provide this class to the root of your application.
 
-```typescript
+```angular-ts
 @Injectable({ providedIn: "root" })
 class InjectedValue {
 	message = "Hello, world";
@@ -1342,9 +1342,9 @@ class ChildComponent implements OnInit {
 class ParentComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular App Wide Providers - StackBlitz" src="uu-code:./ffg-fundamentals-angular-app-wide-providers-88?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 In Angular, these globally provided values are called "Services." They're often used to break up and move application logic out of components to be more widely reused.
 
@@ -1367,7 +1367,7 @@ provide("WELCOME_MESSAGE", welcomeMessage);
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 These globally provided values are also called "singletons." When using a singleton, it's important to remember that data is shared between every component. If we have three components that all use one provided value and mutate said value, it will update all the consuming components.
 
@@ -1405,7 +1405,7 @@ While this isn't always possible, the justification for doing so is that any cha
 
 While some frameworks like Vue handle this gracefully and only re-render the components that actually use the injected values, React and Angular differ.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 Let's assume that we go with an application-wide provider. In React and Angular, **when we change the value of the provider, the framework must search through the entire component tree to find the components that need to be re-rendered**.
 
@@ -1443,7 +1443,7 @@ This means that if we have the following structure:
 
 And both `App` and `GrandChild` inject values into the same named context, then `GreatGrandChild` will display information from `GrandChild` rather than `App`:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -1484,13 +1484,13 @@ function GreatGrandChild() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Overwriting Specificity - StackBlitz" src="uu-code:./ffg-fundamentals-react-overwriting-specificity-89?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Injectable()
 class NameValue {
 	name = "";
@@ -1540,9 +1540,9 @@ class ChildComponent {
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Overwriting Specificity - StackBlitz" src="uu-code:./ffg-fundamentals-angular-overwriting-specificity-89?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1604,11 +1604,11 @@ const name = inject("NAME");
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Overwriting Specificity - StackBlitz" src="uu-code:./ffg-fundamentals-vue-overwriting-specificity-89?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Earlier, we discussed how dependency injection is like a buffet of data; components act like customers grabbing food from an all-you-can-eat data buffet.
 
@@ -1638,7 +1638,7 @@ Despite chicken being closer to them, they'll go out of their way to find the ta
 
 Likewise, if you have a data provider hosting entirely unrelated data from what your child component is looking for, it might not pick up the correct data.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1682,13 +1682,13 @@ function GreatGrandChild() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Finding Specific Vals - StackBlitz" src="uu-code:./ffg-fundamentals-react-finding-specific-vals-90?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript
+```angular-ts
 @Injectable()
 class NameValue {
 	name = "";
@@ -1744,9 +1744,9 @@ class ChildComponent {}
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Finding Specific Vals - StackBlitz" src="uu-code:./ffg-fundamentals-angular-finding-specific-vals-90?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -1808,11 +1808,11 @@ const favFood = inject("FAV_FOOD");
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Finding Specific Vals - StackBlitz" src="uu-code:./ffg-fundamentals-vue-finding-specific-vals-90?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This specificity-seeking behavior of your dependency injection consumer is helpful to ensure your data retains its "shape" between injector sites.
 
@@ -1874,7 +1874,7 @@ You can visualize an object's _shape_ by comparing two geometrical shapes to one
 
 This concept of "retaining shape" between dependency injection providers is critical. Assume you have the following code:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -1911,13 +1911,13 @@ function GreatGrandChild() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Data Consistency - StackBlitz" src="uu-code:./ffg-fundamentals-react-data-consistency-91?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Injectable()
 class UserValue {
 	name = "";
@@ -1967,9 +1967,9 @@ class ChildComponent {}
 class AppComponent {}
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Data Consistency - StackBlitz" src="uu-code:./ffg-fundamentals-angular-data-consistency-91?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -2027,11 +2027,11 @@ const user = inject("USER");
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Data Consistency - StackBlitz" src="uu-code:./ffg-fundamentals-vue-data-consistency-91?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 If we were to read through the `App` component and the `GreatGrandChild` component, we wouldn't expect to see any problems. But if we look at the final render, we'll see the following markup:
 
@@ -2053,7 +2053,7 @@ Just as each buffet table might have different spices on the same kind of food f
 
 For example, while methods of an injected object should accept the same props and should generally return the same values, you can change the logic inside injected objects:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2117,13 +2117,13 @@ function GreatGrandChild() {
 }
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Data Variance - StackBlitz" src="uu-code:./ffg-fundamentals-react-data-variance-92?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript
+```angular-ts
 @Injectable({ providedIn: "root" })
 class MessageValue {
 	greeting = "";
@@ -2207,9 +2207,9 @@ class AppComponent {}
 
 Here, we're using `useClass` in our `provider`s array to replace an `Injectable` class implementation with another one.
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Data Variance - StackBlitz" src="uu-code:./ffg-fundamentals-angular-data-variance-92?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -2290,11 +2290,11 @@ const { greeting, changeGreeting } = inject("MESSAGE");
 </template>
 ```
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Data Variance - StackBlitz" src="uu-code:./ffg-fundamentals-vue-data-variance-92?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Here, we see two variants of the same `Greeter` injected value. One is more serious: "Set the value without changing it," while the other injected value adds some emoji to spice up your greetings!
 
@@ -2397,7 +2397,7 @@ Where `Sidebar` is injected into the `lightgray`
 > While we've used a single file for most of our code samples prior, let's break out this code to individual files
 > and utilize `import` and `export` to share the code between these files.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2460,7 +2460,7 @@ export const FileList = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 // app.component.ts
 import { Component } from "@angular/core";
 import { LayoutComponent } from "./layout.component";
@@ -2481,7 +2481,7 @@ import { FileListComponent } from "./file-list.component";
 export class AppComponent {}
 ```
 
-```typescript
+```angular-ts
 // layout.component.ts
 import { Component } from "@angular/core";
 
@@ -2508,7 +2508,7 @@ import { Component } from "@angular/core";
 export class LayoutComponent {}
 ```
 
-```typescript
+```angular-ts
 // file-list.component.ts
 import { Component } from "@angular/core";
 
@@ -2524,7 +2524,7 @@ import { Component } from "@angular/core";
 export class FileListComponent {}
 ```
 
-```typescript
+```angular-ts
 // sidebar.component.ts
 import { Component } from "@angular/core";
 
@@ -2604,7 +2604,7 @@ import FileList from "./FileList.vue";
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Step 2: Add File and Directory List {#challenge-step-2}
 
@@ -2621,7 +2621,7 @@ Then, we'll display the directory and files using a shared `File` component. Thi
 - An input for the item's `name`
 - To display a button for each item's name
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2706,7 +2706,7 @@ export const FileList = () => {
 
 Let's start by building out our `File` component with a button and a `name` input:
 
-```typescript
+```angular-ts
 // file.component.ts
 import { Component, Input } from "@angular/core";
 
@@ -2726,7 +2726,7 @@ export class FileComponent {
 
 Then, we can this component into our `Sidebar` and `FileList` components to display a static list of directories and files:
 
-```typescript
+```angular-ts
 // file-list.component.ts
 import { Component } from "@angular/core";
 import { FileComponent } from "./file.component";
@@ -2761,7 +2761,7 @@ export class FileListComponent {
 }
 ```
 
-```typescript
+```angular-ts
 // sidebar.component.ts
 import { Component } from "@angular/core";
 import { NgFor } from "@angular/common";
@@ -2886,7 +2886,7 @@ const directories = [
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Step 3: Add Context Menu with Static Actions {#challenge-step-3}
 
@@ -2913,13 +2913,13 @@ Then, for the list of actions, we'll start by hard-coding an array into the `Con
 This array should include a label that's visible to the end user and a function that should be run when
 the action is taken.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
 Let's start by taking our previous context menu and adding in the `"contextmenu"` listener and action array:
 
-```jsx {21-34,36-47}
+```jsx {22-35,37-48}
 // ContextMenu.jsx
 export const ContextMenu = forwardRef(
 	({ isOpen, x, y, onClose, data }, ref) => {
@@ -3133,7 +3133,7 @@ export const Sidebar = () => {
 
 Just like we did with React, let's take our previous context menu and add in the `"contextmenu"` listener and action array:
 
-```typescript{45-54,65-68,72-85}
+```angular-ts {46-55,66-69,73-86}
 @Component({
 	selector: "context-menu",
 	standalone: true,
@@ -3237,7 +3237,7 @@ export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 
 We'll then use this new component in our `File` component:
 
-```typescript
+```angular-ts
 // file.component.ts
 import { Component, Input, ViewChild } from "@angular/core";
 import { ContextMenuComponent } from "./context-menu.component";
@@ -3294,7 +3294,7 @@ export class FileComponent {
 
 And, again, pass the `file.id` to `<file-item [id]="file.id"/>` component:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -3311,7 +3311,7 @@ export class FileListComponent {
 }
 ```
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
@@ -3336,7 +3336,7 @@ export class SidebarComponent {
 
 Lastly, Vue. Again, we'll add `ContextMenu` from before and add in the `"contextmenu"` event and actions array:
 
-```vue {8-17,29-33,35-48}
+```vue {9-18,30-34,36-49}
 <!-- ContextMenu.vue -->
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from "vue";
@@ -3527,7 +3527,7 @@ Lastly, we need to make sure to pass the `file.id` to `<File :id="file.id"/>` co
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Step 4: Adding Dependency Injection to Context Menu {#challenge-step-4}
 
@@ -3539,7 +3539,7 @@ To do this, we'll need to:
 - Provide actions from our `FileList` and `Sidebar` components
 - Inject the values into our `ContextMenu` component
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -3627,7 +3627,7 @@ const FileList = () => {
 
 Let's use an `Injectable` to provide and inject the values between parts of our app:
 
-```typescript
+```angular-ts
 // context.ts
 import { Injectable } from "@angular/core";
 
@@ -3639,7 +3639,7 @@ export class ActionTypes {
 
 Then, we can use this service in our `ContextMenu` component:
 
-```typescript
+```angular-ts
 // context-menu.component.ts
 function injectAndGetActions() {
 	const context = inject(ActionTypes);
@@ -3662,7 +3662,7 @@ export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 
 Finally, we need to make sure to set up our `ActionTypes` provider in each of our landmarks:
 
-```typescript
+```angular-ts
 // sidebar.component.ts
 
 // ...
@@ -3701,7 +3701,7 @@ export class SidebarComponent {
 }
 ```
 
-```typescript
+```angular-ts
 // file-list.component.ts
 
 // ...
@@ -3815,7 +3815,7 @@ const actions = computed(() => {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Step 5: Adding Functionality to the Context Menu {#challenge-step-5}
 
@@ -3838,7 +3838,7 @@ As for the "Copy name" action, we'll use the browser's [`navigator.clipboard` AP
 navigator.clipboard.writeText("Text to copy to clipboard");
 ```
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -3965,15 +3965,15 @@ const FileList = () => {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="React DI Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-di-challenge-93?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
 ### Angular
 
-```typescript
+```angular-ts
 // sidebar.component.ts
 
 // ...
@@ -4022,7 +4022,7 @@ export class SidebarComponent {
 }
 ```
 
-```typescript
+```angular-ts
 // file-list.component.ts
 
 // ...
@@ -4086,9 +4086,9 @@ export class FileListComponent {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular DI Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-di-challenge-93?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
@@ -4209,13 +4209,13 @@ provide("ContextMenu", {
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
+<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue DI Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-di-challenge-93?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::end:no-ebook -->
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 <!-- Editor's note: We're explicitly not going to teach the following features of Angular's DI, unless I can be convinced otherwise: -->
 

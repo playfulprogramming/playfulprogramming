@@ -122,7 +122,7 @@ Because we're planning on using Angular CLI, we'll want to set the `src` propert
 > @include foundry_sterling("/assets")
 > ```
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 ### Font Name Value Mapping {#font-val-mapping}
 

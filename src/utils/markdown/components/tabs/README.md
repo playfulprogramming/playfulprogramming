@@ -10,7 +10,7 @@ This is particularly useful when paired with a `remark` parsing step.
 ### HTML Example
 
 ```html
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 <h1><b>English</b></h1>
 
@@ -24,14 +24,14 @@ Bonjour!
 
 Ciao!
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 ```
 
 
 ### Markdown Example
 
 ```markdown
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 #### **English**
 
@@ -45,7 +45,7 @@ Bonjour!
 
 Ciao!
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 ```
 
 ### Output
@@ -78,7 +78,7 @@ If you have sub-headings, they will not be turned into tabs. This works by detec
 So, if you have the following:
 
 ```markdown
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## One
 
@@ -92,7 +92,7 @@ Howdy!
 
 Hi there!
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 ```
 
 It would render "One" and "Three" as tab headings, but "Two" would be listed as a heading in the "One" tab's contents.

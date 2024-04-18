@@ -10,13 +10,6 @@ import rss from "src/icons/rss.svg?raw";
 
 const icons: Record<string, string> = { discord, linkedin, twitter, mastodon, facebook, rss };
 
-// Components used in the .MDX about files
-// - see /content/site/about-us*.mdx for usages
-
-// None of these components should include any SCSS styles!
-// This is because of an astro CSS scoping bug:
-// - https://github.com/withastro/astro/issues/3816
-
 export function Links() {
 	return (
 		<ul class="links" role="list" aria-label="Social media links">
@@ -25,6 +18,7 @@ export function Links() {
 					<Button
 						variant="primary"
 						href={link.url}
+						rel={name === "Mastodon" ? "me" : undefined}
 						leftIcon={<span dangerouslySetInnerHTML={{ __html: icons[link.icon]! }} />}
 					>
 						{name}
