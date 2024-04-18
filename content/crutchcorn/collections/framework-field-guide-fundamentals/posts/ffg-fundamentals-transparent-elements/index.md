@@ -435,7 +435,7 @@ By default, if you render a `template` in Vue in any other place besides the roo
 
 > It's worth mentioning that even if it shows nothing on screen, the `template` element is still in the DOM itself, waiting to be used in other ways. While explaining "why" an HTML `template` element renders nothing by default is outside the scope of this book, it is expected behavior.
 
-However, if you add a `v-for`, `v-if`, or a `v-slot` (we'll touch on what a `v-slot` is in [our "Content Reference" chapter](/posts/ffg-fundamentals-content-reference)), it will remove the `<template>` and only render out the children.
+However, if you add a `v-for`, `v-if`, or a `v-slot` (we'll touch on what a `v-slot` is in [our "Accessing Children" chapter](/posts/ffg-fundamentals-accessing-children#passing-values-to-projected-content)), it will remove the `<template>` and only render out the children.
 
 This means that both:
 
