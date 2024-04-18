@@ -741,7 +741,7 @@ function App() {
 
 Just as there is a `ViewChild` to gain access to a single underlying HTML element, you can also use a `ViewChildren` to access more than one or more template elements using similar APIs.
 
-Using `ViewChildren`, we can access [template reference variables](https://crutchcorn-book.vercel.app/posts/content-reference#ng-templates) in order to `scrollIntoView` the first and last elements.
+Using `ViewChildren`, we can access [template reference variables](/posts/ffg-fundamentals-dynamic-html#ng-template) in order to `scrollIntoView` the first and last elements.
 
 ```typescript
 @Component({
