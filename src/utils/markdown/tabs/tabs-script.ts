@@ -62,17 +62,14 @@ export const enableTabs = () => {
 		const tabName = target.dataset.tabname;
 		if (!tabName) return;
 
+		const offsetBeforeChangeTabs = target.offsetTop - window.scrollY;
+
 		changeTabs(tabName);
 
 		if (shouldScrollToTab) {
 			// Scroll onto screen in order to avoid jumping page locations
 			setTimeout(() => {
-				target.scrollIntoView &&
-					target.scrollIntoView({
-						behavior: "auto",
-						block: "center",
-						inline: "center",
-					});
+				window.scroll(0, target.offsetTop - offsetBeforeChangeTabs);
 			}, 0);
 		}
 	}
