@@ -20,15 +20,15 @@ export const enableTabs = () => {
 
 	// Handle arrow navigation between tabs in the tab list
 	function handleKeydown(this: HTMLElement, e: KeyboardEvent) {
-		if (e.keyCode === 39 || e.keyCode === 37) {
+		if (e.code === "ArrowRight" || e.code === "ArrowLeft") {
 			const tabs = this.children;
 			let tabfocus = Number(this.dataset.tabfocus || 0);
 			tabs[tabfocus].setAttribute("tabindex", "-1");
-			if (e.keyCode === 39) {
+			if (e.code === "ArrowRight") {
 				// Move right
 				// Increase tab index, wrap by # of tabs
 				tabfocus = (tabfocus + 1) % tabs.length;
-			} else if (e.keyCode === 37) {
+			} else if (e.code === "ArrowLeft") {
 				// Move left
 				tabfocus--;
 				// If we're at the start, move to the end
@@ -39,21 +39,33 @@ export const enableTabs = () => {
 
 			// Update tabfocus values
 			this.dataset.tabfocus = tabfocus + "";
-			// Focus + click selected tab
+			// Focus selected tab
 			const tab = tabs[tabfocus] as HTMLElement;
 			tab.setAttribute("tabindex", "0");
 			tab.focus();
-			tab.click();
 
-			// Redundant: Scroll handled by `handleClick` on `tab.click()`
-			// setTimeout(() => {
-			// 	tab.scrollIntoView &&
-			// 		tab.scrollIntoView({
-			// 			behavior: "auto",
-			// 			block: "center",
-			// 			inline: "center",
-			// 		});
-			// }, 0);
+			// Check if tab list is within viewport
+			const header = document.querySelector("#header-bar");
+			const headerOffset = (header?.getBoundingClientRect().height ?? 0) + 20;
+			const tabYPosition = tab.getBoundingClientRect().y;
+			const tabHeight = tab.getBoundingClientRect().height;
+			const isWithinViewport =
+				tabYPosition > headerOffset &&
+				tabYPosition < window.innerHeight - tabHeight;
+
+			// Preserve scroll position if within viewport
+			// Else scroll to 20px below header
+			const offsetBeforeChangeTabs = tab.offsetTop - window.scrollY;
+			const offset = isWithinViewport ? offsetBeforeChangeTabs : headerOffset;
+
+			const tabName = tab.dataset.tabname;
+			if (!tabName) return;
+			changeTabs(tabName);
+
+			// Ensure tab list is within viewport after switching tabs
+			setTimeout(() => {
+				window.scroll(0, tab.offsetTop - offset);
+			}, 0);
 		}
 	}
 
