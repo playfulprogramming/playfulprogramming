@@ -51,7 +51,7 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 							•
 						</span>
 						<span className={`text-style-body-small ${style.wordCount}`}>
-							{post.wordCount} words
+							{post.wordCount.toLocaleString("en")} words
 						</span>
 					</span>
 				</p>
