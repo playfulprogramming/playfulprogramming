@@ -11,6 +11,8 @@ import {
 	usePopover,
 	AriaPopoverProps,
 	useButton,
+	useFocusVisible,
+	useFocusRing,
 } from "react-aria";
 import { PropsWithChildren } from "preact/compat";
 import down from "src/icons/chevron_down.svg?raw";
@@ -19,6 +21,7 @@ import styles from "./select.module.scss";
 import checkmark from "src/icons/checkmark.svg?raw";
 import { useRef } from "preact/hooks";
 import { Node } from "@react-types/shared";
+import { useReactAriaScrollGutterHack } from "src/hooks/useReactAriaScrollGutterHack";
 
 export { Item, Section } from "react-stately";
 
@@ -40,6 +43,9 @@ function Popover({
 		},
 		state,
 	);
+
+	// bandaid solution for layout shift
+	useReactAriaScrollGutterHack();
 
 	return (
 		<Overlay>
@@ -78,6 +84,7 @@ export function SelectWithLabel<T extends object>({
 		state,
 		ref,
 	);
+	const { isFocusVisible, focusProps } = useFocusRing();
 
 	const { buttonProps } = useButton(triggerProps, ref);
 
@@ -107,8 +114,10 @@ export function SelectWithLabel<T extends object>({
 				tag="button"
 				type="button"
 				variant={"primary"}
+				isFocusVisible={isFocusVisible}
 				ref={ref}
 				{...buttonProps}
+				{...focusProps}
 				rightIcon={
 					<span
 						style={{
@@ -234,7 +243,7 @@ interface OptionProps {
 
 export function Option({ item, state }: OptionProps) {
 	const ref = useRef<HTMLLIElement>(null);
-	const { optionProps, isDisabled, isSelected, isFocused } = useOption(
+	const { optionProps, isDisabled, isSelected, isFocusVisible } = useOption(
 		{
 			key: item.key,
 		},
@@ -254,6 +263,7 @@ export function Option({ item, state }: OptionProps) {
 			{...optionProps}
 			ref={ref}
 			class={`${styles.option} ${isSelected ? styles.selected : ""}`}
+			data-focus-visible={isFocusVisible}
 		>
 			<span className={`text-style-button-regular ${styles.optionText}`}>
 				{item.rendered}

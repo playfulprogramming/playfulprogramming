@@ -51,9 +51,9 @@ const ButtonWrapper = forwardRef<AllowedElements<AllowedTags> | null, ButtonProp
 			<Wrapper
 				{...props}
 				aria-label={props["aria-label"]}
+				data-focus-visible={isFocusVisible}
 				class={[
 					"button",
-					isFocusVisible ? "focusVisible" : "",
 					className,
 					variant,
 				]

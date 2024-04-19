@@ -90,6 +90,7 @@
 	border: none;
 	cursor: pointer;
 	box-sizing: border-box;
+	outline: none;
 
 	@include transition(color background-color);
 }
@@ -169,8 +170,8 @@
 		background-color: var(--btn_primary_background-color_emphasized_hovered);
 	}
 
-	&:focus-visible,
-	&.focusVisible {
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
 		outline: var(--btn_primary_focus-outline_width) solid var(--btn_primary_focus-oultine_color);
 		outline-offset: var(--btn_primary_focus-outline_gap);
 	}
@@ -188,8 +189,8 @@
 		background-color: var(--btn_secondary_background-color_emphasized_hovered);
 	}
 
-	&:focus-visible,
-	&.focusVisible {
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
 		outline: var(--btn_secondary_focus-outline_width) solid var(--btn_secondary_focus-oultine_color);
 		outline-offset: var(--btn_secondary_focus-outline_gap);
 	}
@@ -207,8 +208,8 @@
 		background-color: var(--btn_primary_background-color_default_hovered);
 	}
 
-	&:focus-visible,
-	&.focusVisible {
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
 		outline: var(--btn_primary_focus-outline_width) solid var(--btn_primary_focus-oultine_color);
 		outline-offset: var(--btn_primary_focus-outline_gap);
 	}
@@ -226,8 +227,8 @@
 		background-color: var(--btn_secondary_background-color_default_hovered);
 	}
 
-	&:focus-visible,
-	&.focusVisible {
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
 		outline: var(--btn_secondary_focus-outline_width) solid var(--btn_secondary_focus-oultine_color);
 		outline-offset: var(--btn_secondary_focus-outline_gap);
 	}
