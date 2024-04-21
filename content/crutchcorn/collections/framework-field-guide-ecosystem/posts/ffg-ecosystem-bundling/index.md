@@ -661,3 +661,81 @@ And finally, this `App` component might be bundled with other code to create the
 >
 > Similarly, you can often explicitly disable specific features — like minification — by configuring your bundler to skip that step.
 
+# Using a Bundler with a Framework
+
+Let's take our knowledge of bundlers out of theoretical land and move onto implementing them in an app with our chosen framework.
+
+As we mentioned at the start of the article, while there are many options for bundlers these days, we'll be using [Vite](https://vitejs.dev/) for its ubiquitous usage and simplicity of setup.
+
+<!-- tabs:start -->
+
+## React
+
+To start a project with React and Vite, we'll use the `create-vite` NPM package to configure Vite with a plugin to support React's JSX syntax. This can be ran via the `npm create` command:
+
+```shell
+npm create vite@latest
+```
+
+This will start an interactive setup process. Let's go through it together:
+
+1) First, give Vite your project name:
+
+![The command asking you for "Project name" with "vite-project" pre-filled](../../../../posts/web-framework-quickstart-guide/create_vite_step_1.png)
+
+2) Select "React" as your framework:
+
+!["Select a framework" dropdown in the CLI with "React" highlighted](../../../../posts/web-framework-quickstart-guide/select_react.png)
+
+3) This will then give you an option to use TypeScript or JavaScript. For our purposes, select "JavaScript":
+
+!["Select a variant" with four options: TypeScript, TypeScript + SWC, JavaScript, JavaScript + SWC](../../../../posts/web-framework-quickstart-guide/select_react_javascript.png)
+
+> Curious about what TypeScript is? It's an addition to JavaScript that allows you to add "compile-time types" to your code.
+>
+> Confused? [I wrote an article that explains what that means here](/posts/introduction-to-typescript).
+
+> You may select SWC if you'd like here as well. It's an alternative to Vite's default ESBuild which handles much of the JavaScript source code transformation we've outlined previously in this chapter. 
+>
+> [SWC claims to be faster at transforming JavaScript than ESBuild](https://swc.rs/docs/benchmarks), but be aware that any potential errors caused during transformation may be harder to debug as it's less commonly used.
+
+Once you've selected your flavor of JavaScript, you'll see a screen like the following:
+
+!["Done. Now run:" and a series of commands](../../../../posts/web-framework-quickstart-guide/vite_react_done.png)
+
+5. Run the commands listed:
+
+```shell
+cd [your-project-name]
+npm install
+npm run dev
+```
+
+6. Finally, if all worked, you can run `npm start` to see this template screen of the generated template running and being bundled:
+
+![A page with "Vite + React" header, some interactive elements, and "Edit src/App.jsx" and save to test HMR](../../../../posts/web-framework-quickstart-guide/vite_react_preview.png)
+
+Now when you modify `src/App.jsx` (or `src/App.tsx` if you selected TypeScript) it will refresh the screen for you and preview your changes immediately.
+
+> This auto-refresh on code change is called "HMR" or "Hot Module Reloading"
+
+## Angular
+
+Angular, being an "everything, including the kitchen sink" framework has an official solution to the bundling solution.
+
+This solution can be found in the shape of [the Angular CLI](https://angular.io/cli), which uses [Vite](https://vitejs.dev/) (and Vite's dependency, [ESBuild](https://esbuild.github.io/)) under-the-hood.
+
+------
+
+To spin up a new project, 
+
+## Vue
+
+
+
+https://github.com/vuejs/create-vue
+
+
+
+<!-- tabs:end -->
+
