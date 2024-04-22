@@ -727,7 +727,46 @@ This solution can be found in the shape of [the Angular CLI](https://angular.io/
 
 ------
 
-To spin up a new project, 
+To spin up a new project, let's start by installing the Angular CLI globally:
+
+```shell
+npm i -g @angular/cli
+```
+
+This will provide us with the `ng` command globally, which we can use with the `new` subcommand to start a fresh project:
+
+```shell
+ng new
+```
+
+This will prompt you for a project name:
+
+![A CLI prompt with "What name would you like to use for the new workspace and initial project?"](./ng-new.png)
+
+Then, it will ask if you want to use an extension of CSS, like Sass or Less, that can provide additional features to CSS but still compile down to it. For our needs, let's pick "CSS":
+
+![A prompt with "Which stylesheet format would you like to use?"](./ng-new-css.png)
+
+Finally, it will ask you if you'd like to use Server-Side Rendering (SSR) or Static Site Generation (SSG). We'll learn more about what those are in future chapters, but for now type "N" for no and hit "Enter":
+
+![A prompt with "Do you want to enable Server-Side Rendering (SSR) and Static Site Generation (SSG/Prerendering)?"](./ng-new-ssr.png)
+
+This will then start the project generation from the built-in template:
+
+![The template being generated via the CLI](./ng-new-generate.png)
+
+Finally, you can start the project with:
+
+```shell
+cd my-app
+npm start
+```
+
+To see a link that opens the template from the source code in the template:
+
+!["Hello, my-app. Congratulations, you app is running!"](./ng-new-welcome.png)
+
+Now, by modifying the source code in `src`, you're able to see the browser contents update live as you make changes.
 
 ## Vue
 
