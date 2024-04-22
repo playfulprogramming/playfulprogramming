@@ -719,6 +719,8 @@ Now when you modify `src/App.jsx` (or `src/App.tsx` if you selected TypeScript) 
 
 > This auto-refresh on code change is called "HMR" or "Hot Module Reloading"
 
+<!-- TODO: Add iframe -->
+
 ## Angular
 
 Angular, being an "everything, including the kitchen sink" framework has an official solution to the bundling solution.
@@ -768,11 +770,46 @@ To see a link that opens the template from the source code in the template:
 
 Now, by modifying the source code in `src`, you're able to see the browser contents update live as you make changes.
 
+<!-- TODO: Add iframe -->
+
 ## Vue
 
+To spin up a fresh Vue project, you have two options:
 
+- The [`create-vite`](https://vitejs.dev/guide/#scaffolding-your-first-vite-project) NPM package
+- The [`create-vue`](https://github.com/vuejs/create-vue) NPM package
 
-https://github.com/vuejs/create-vue
+The while we've been using something akin to the more minimal output from `create-vite` in the first book, the official recommendation for spinning up a new Vue project is _actually_ the `create-vue` package, as it includes more built-in functionality that most production apps can leverage.
+
+To get started with `create-vue`, execute the command via `npm create`:
+
+```shell
+npm create vue@latest
+```
+
+This will prompt you for a project name:
+
+![A CLI prompt for "Project name" with the title "VUe.js - The Progressive JavaScript Framework"](./create-vue-new.png)
+
+This will then begin a series of prompts of specific features you might want in your Vue app:
+
+![Prompts for TypeScript, JSX, Vue Router, Pinia, Vitest, End-to-End testing, and ESLint](./create-vue-new-options.png)
+
+These options may not be clear at this time, but rest assured that we'll touch on what each of these options means throughout the course of this book.
+
+For now, we'll select "No" to each. Once this is done, we'll see instructions to run the freshly generated template in our browser:
+
+```shell
+cd my-app
+npm install
+npm run dev
+```
+
+This should spit out a URL you can access to see the preview:
+
+!["You did it! You've successfully created a project with Vite + Vue 3"](./create-vue-new-welcome.png)
+
+<!-- TODO: Add iframe -->
 
 
 
