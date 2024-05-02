@@ -5,7 +5,9 @@
   published: '2023-06-29T13:45:00.284Z',
   tags: ['react', 'react native'],
   license: 'cc-by-nc-sa-4',
-  originalLink: "https://blog.cvoice.io/how-to-setup-a-react-native-monorepo"
+  originalLink: "https://blog.cvoice.io/how-to-setup-a-react-native-monorepo",
+  collection: "React Native Monorepo",
+  order: 1
 }
 ---
 
