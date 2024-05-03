@@ -136,3 +136,151 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
 # Adding React Native Web Support
 
+Now, to run React Native in the Vite project, we'll add a few new packages:
+
+```shell
+yarn add react-native react-native-web
+```
+
+Then, we can tell Vite that "whenever you see `react-native`, replace it with `react-native-web`" by updating our `vite.config.ts` file:
+
+```typescript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: [
+      { find: /^react-native\/(.*)/, replacement: "react-native-web/$1" },
+      {
+        find: /^react-native$/,
+        replacement: "react-native-web",
+      },
+    ]
+  }
+})
+```
+
+Now we can use `react-native` imports in our app:
+
+```tsx
+import {Text} from "react-native";
+
+function App() {
+  return <Text>Hello, world!</Text>
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------
+
+--------
+
+--------
+
+----------------
+
+--------
+
+--------
+
+--------
+
+--------
+
+# Handle JSX in JS Files 
+
+Some packages do not bundle their JSX in `.jsx` file extensions and instead have their JSX in `.js` files. [Vite does not support this](// TODO: Link).
+
+To sidestep this, we'll add a custom Vite plugin that transfoms 
+
+```javascript
+{
+  name: "load-js-files-as-jsx",
+  async load(id) {
+    if (
+      !id.match(
+        /node_modules\/(?:react-native-reanimated|react-native-vector-icons)\/.*.js$/,
+      )
+    ) {
+      return;
+    }
+
+    const file = await fs.promises.readFile(id, "utf-8");
+    return esbuild.transformSync(file, { loader: "jsx" });
+  },
+}
+```
+
+This means that if you see this error:
+
+```
+// TODO: Add error
+```
+
+You should add the dependency throwing the error (in this case, `some-pkg`) to the regex above.
+
+
+
+--------
+
+--------
+
+--------
+
+----------------
+
+--------
+
+--------
+
+--------
+
+--------
+
+# Add Font Icons (`react-native-vector-icons`)
+
+- Copy plugin
+- Stylesheet
+
+
+
+# Styled Components
+
+```jsx
+optimizeDeps: {
+  esbuildOptions: {
+    loader: {
+      ".js": "jsx",
+      ".ts": "tsx",
+    },
+    mainFields: ["module", "main"],
+    resolveExtensions: [".web.js", ".js", ".ts"],
+  },
+  include: [
+    "react",
+    "react/jsx-runtime",
+    "react/jsx-dev-runtime",
+    "react-dom",
+    "styled-components",
+    "styled-components/native",
+    "use-sync-external-store-shim",
+    "use-sync-external-store",
+  ],
+},
+```
+
