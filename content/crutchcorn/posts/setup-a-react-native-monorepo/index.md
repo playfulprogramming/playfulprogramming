@@ -1306,11 +1306,17 @@ To create a base ESLint configuration you can use in all of your apps, start by 
 module.exports = {
   extends: [
     "@react-native-community",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:prettier/recommended",
   ],
   parser: "@typescript-eslint/parser",
   plugins: ["prettier"],
+  overrides: [
+    {
+      extends: ["plugin:@typescript-eslint/disable-type-checked"],
+      files: ["./**/*.js"],
+    },
+  ],
   rules: {
     "no-extra-boolean-cast": "off",
     "react/react-in-jsx-scope": "off",
@@ -1326,25 +1332,53 @@ Then, create `.eslintrc.js` files in:
 - `packages/config/.eslintrc.js`:
 
   ```javascript
-  module.exports = require("./eslint-preset");
+  module.exports = {
+      root: true,
+      ...require("./eslint-preset"),
+      parserOptions: {
+          project: true,
+          tsconfigRootDir: __dirname,
+      },
+  };
   ```
 
 - `/.eslintrc.js`
 
   ```javascript
-  module.exports = require("./packages/config/eslint-preset");
+  module.exports = {
+      root: true,
+      ...require("./packages/config/eslint-preset"),
+      parserOptions: {
+          project: true,
+          tsconfigRootDir: __dirname,
+      },
+  };
   ```
 
 - `packages/shared-elements/.eslintrc.js`
 
   ```javascript
-  module.exports = require("@your-org/config/eslint-preset");
+  module.exports = {
+      root: true,
+      ...require("@your-org/config/eslint-preset"),
+      parserOptions: {
+          project: true,
+          tsconfigRootDir: __dirname,
+      },
+  };
   ```
 
 - `/apps/customer-portal/.eslintrc.js`
 
   ```javascript
-  module.exports = require("@your-org/config/eslint-preset");
+  module.exports = {
+      root: true,
+      ...require("@your-org/config/eslint-preset"),
+      parserOptions: {
+          project: true,
+          tsconfigRootDir: __dirname,
+      },
+  };
   ```
 
 Finally, at the root of your project, run:
