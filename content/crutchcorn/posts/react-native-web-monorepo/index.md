@@ -172,11 +172,74 @@ function App() {
 }
 ```
 
+# Resolving Web Modules First
 
+In React Native's default bundler, Metro, it's able to select which files should be imported based on which platform you're building for.
 
+IE:
 
+<!-- ::start:filetree -->
 
+- `main.tsx`
+- `main.ios.tsx`
+- `main.android.tsx`
 
+<!-- ::end:filetree -->
+
+Will import from `main.tsx` if you're not using React Native, `main.ios.tsx` if you are and are building for iOS apps, and `main.android.tsx` if you're targeting Android.
+
+IE - Building for iOS will select the following file when importing `main`:
+
+<!-- ::start:filetree -->
+
+- `main.tsx`
+- **`main.ios.tsx`**
+- `main.android.tsx`
+
+<!-- ::end:filetree -->
+
+This feature extends to React Native Web support as well. Many libraries rely on this functionality to resolve a `.web.tsx` or `.web.js` extension before other prefixed paths.
+
+-------
+
+To add support for this into Vite, we'll need to add the following to our Vite config:
+
+```typescript
+const defaultExtensions = [
+  ".mjs",
+  ".js",
+  ".mts",
+  ".ts",
+  ".jsx",
+  ".tsx",
+  ".json",
+];
+
+const allExtensions = [
+  ...defaultExtensions.map((ext) => ext.replace(/^\./, ".web.")),
+  // For AWS
+  ...defaultExtensions.map((ext) => ext.replace(/^\./, ".browser.")),
+  ...defaultExtensions,
+];
+
+export default defineConfig({
+  // ...
+  optimizeDeps: {
+    esbuildOptions: {
+      loader: {
+        ".js": "jsx",
+        ".ts": "tsx",
+      },
+      mainFields: ["module", "main"],
+      resolveExtensions: [".web.js", ".js", ".ts"],
+    },
+  },
+  resolve: {
+    extensions: allExtensions,
+    // ...
+  },
+});
+```
 
 
 
