@@ -241,33 +241,9 @@ export default defineConfig({
 });
 ```
 
-
-
-
-
-
-
-
-
---------
-
---------
-
---------
-
-----------------
-
---------
-
---------
-
---------
-
---------
-
 # Handle JSX in JS Files 
 
-Some packages do not bundle their JSX in `.jsx` file extensions and instead have their JSX in `.js` files. [Vite does not support this](// TODO: Link).
+Some packages do not bundle their JSX in `.jsx` file extensions and instead have their JSX in `.js` files. [Vite does not support this and requires all JSX syntax to be in `.jsx` or `.tsx` files](https://github.com/vitejs/vite/discussions/3112). 
 
 To sidestep this, we'll add a custom Vite plugin that transfoms 
 
@@ -289,13 +265,22 @@ To sidestep this, we'll add a custom Vite plugin that transfoms
 }
 ```
 
-This means that if you see this error:
+This means that if you see an error like this:
 
 ```
-// TODO: Add error
+[commonjs--resolver] Unexpected token (58:16) in /websites/web-portal/node_modules/react-native-elements/dist/input/Input.js
+file: /websites/web-portal/node_modules/react-native-elements/dist/input/Input.js:58:16
+56:         });
+57:         const hideErrorMessage = !renderErrorMessage && !errorMessage;
+58:         return (<View style={StyleSheet.flatten([styles.container, containerStyle])}>
+                    ^
+59:         {renderText(label, Object.assign({ style: labelStyle }, labelProps), Object.assign({ fontSize: 16, color: (_a...
+60:                 android: Object.assign({}, fonts.android.bold),
+error during build:
+SyntaxError: Unexpected token (58:16) in /websites/web-portal/node_modules/react-native-elements/dist/input/Input.js
 ```
 
-You should add the dependency throwing the error (in this case, `some-pkg`) to the regex above.
+You should add the dependency throwing the error (in this case, `react-native-elements`) to the regex above.
 
 
 
