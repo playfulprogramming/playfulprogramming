@@ -286,24 +286,6 @@ SyntaxError: Unexpected token (58:16) in /websites/web-portal/node_modules/react
 
 You should add the dependency throwing the error (in this case, `react-native-elements`) to the regex above.
 
-
-
---------
-
---------
-
---------
-
-----------------
-
---------
-
---------
-
---------
-
---------
-
 ## Add Font Icons (`react-native-vector-icons`)
 
 Any good UI project comes with icons. In the React Native world, the most common set of icons comes from [the `react-native-vector-icons` package](https://github.com/oblador/react-native-vector-icons).
@@ -382,25 +364,6 @@ Then add the following to your `index.html` file:
 </html>
 ```
 
-----------
-
-----------
-
-----------
-
-----------
-
-----------
-
-----------
-
-----------
-
-----------
-
-----------
-
-----------
 
 # Adding in Monorepo Support
 
@@ -454,3 +417,261 @@ export const App = () => {
 And it should render properly!
 
 ## Web-Specific Code in Shared Elements
+
+Now that we have shared code between our desktop and mobile apps, it's tempting to have all of our code generic enough to support both platforms in our shared elements.
+
+However, it turns out that there's a lot of instances where it's highly useful to have platform specific code. Let's break out `@your-org/shared-elements` package into two dedicated packages:
+
+- `@your-org/shared-elements/mobile`
+- `@your-org/shared-elements/web`
+
+Where each platform is able to remove specific code from their respective bundles.
+
+IE, we can do this:
+
+```tsx
+// packages/shared-elements/src/hello.tsx
+import {Text} from "react-native";
+
+const HelloWeb = () => {
+	return <p>I am a website</p>;
+}
+
+const HelloMobile = () => {
+	return <Text>I am an app</Text>;
+}
+
+export HelloWorld = process.env.IS_WEB ? HelloWeb : HelloMobile;
+```
+
+And only having the following on the web import:
+
+```tsx
+const HelloWorld = () => {
+	return <p>I am a website</p>;
+}
+```
+
+And this on the mobile import:
+
+```tsx
+import {Text} from "react-native";
+
+const HelloMobile = () => {
+	return <Text>I am an app</Text>;
+}
+```
+
+-----
+
+To enable this, we'll need to add a custom Vite plugin to replace `process.env.IS_WEB` with `true` on web builds and `false` on mobile builds. 
+
+```typescript
+// packages/shared-elements/vite/plugins.ts
+import { PluginOption } from "vite";
+
+function removeMobileCodePlugin(): PluginOption {
+  return {
+    name: "define web",
+    transform(code, _id, ssr) {
+      if (!ssr && code.includes("process.env.IS_WEB")) {
+        return code.replace(/process.env.IS_WEB/g, "true");
+      }
+      return undefined;
+    },
+    enforce: "pre",
+  };
+}
+
+function removeWebCodePlugin(): PluginOption {
+  return {
+    name: "define web",
+    transform(code, _id, ssr) {
+      if (!ssr && code.includes("process.env.IS_WEB")) {
+        return code.replace(/process.env.IS_WEB/g, "false");
+      }
+    },
+    enforce: "pre",
+  };
+}
+```
+
+Then, we'll need:
+
+- A shared common Vite config file
+- Two dedicated builds of web and mobile:
+
+```typescript
+// packages/shared-elements/vite/base-config.ts
+import { LibraryFormats, UserConfigExport } from "vite";
+import react from "@vitejs/plugin-react";
+
+export const commonFormats = ["es", "cjs"] as LibraryFormats[];
+
+export const baseOutDir = "./dist";
+
+export const getFileName = (prefix: string, format: string) => {
+  switch (format) {
+    case "es":
+    case "esm":
+    case "module":
+      return `${prefix}.mjs`;
+    case "cjs":
+    case "commonjs":
+    default:
+      return `${prefix}.cjs`;
+  }
+};
+
+export const baseConfig = {
+  plugins: [react()],
+  build: {
+    rollupOptions: {
+      external: [
+        "@react-native-async-storage/async-storage",
+        "@react-native-async-storage/async-storage",
+        "@react-native-community/netinfo",
+        "@react-native-picker/picker",
+        "@react-native-community/geolocation",
+        "@reduxjs/toolkit",
+        "@tanstack/react-query"
+      ],
+      output: {
+        globals: {
+          react: "React",
+          "react/jsx-runtime": "jsxRuntime",
+          "react-native": "ReactNative",
+          "react-dom": "ReactDOM",
+        },
+      },
+    },
+  },
+} satisfies UserConfigExport;
+```
+
+```typescript
+// packages/shared-elements/vite.config.web.ts
+import { baseConfig, baseOutDir, commonFormats, getFileName } from "./base-config";
+import { removeMobileCodePlugin } from "./remove-mobile-code-plugin";
+import path from "node:path";
+import { resolve } from "path";
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
+
+export const getWebConfig = defineConfig(({
+    ...baseConfig,
+    plugins: [
+      removeMobileCodePlugin(),
+      ...baseConfig.plugins,
+      dts({
+        entryRoot: path.resolve(__dirname, "../src"),
+        outDir: resolve(__dirname, "..", baseOutDir, "web"),
+      }),
+    ],
+    build: {
+      ...baseConfig.build,
+      outDir: resolve(__dirname, "..", baseOutDir, "web"),
+      lib: {
+        entry: resolve(__dirname, "../src/index.tsx"),
+        name: "CVElementsWeb",
+        fileName: (format, entryName) => getFileName("web", format),
+        formats: commonFormats,
+      },
+    },
+  })
+
+```
+
+```typescript
+// packages/shared-elements/vite.config.mobile.ts
+import { baseConfig, baseOutDir, commonFormats, getFileName } from "./base-config";
+import { removeMobileCodePlugin } from "./remove-mobile-code-plugin";
+import path from "node:path";
+import { resolve } from "path";
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
+
+export const getWebConfig = defineConfig(({
+    ...baseConfig,
+    plugins: [
+      removeWebCodePlugin(),
+      ...baseConfig.plugins,
+      dts({
+        entryRoot: path.resolve(__dirname, "../src"),
+        outDir: resolve(__dirname, "..", baseOutDir, "mobile"),
+      }),
+    ],
+    build: {
+      ...baseConfig.build,
+      outDir: resolve(__dirname, "..", baseOutDir, "mobile"),
+      lib: {
+        entry: resolve(__dirname, "../src/index.tsx"),
+        name: "CVElementsMobile",
+        fileName: (format, entryName) => getFileName("mobile", format),
+        formats: commonFormats,
+      },
+    },
+  })
+```
+
+Then, update your `packages/shared-elements/package.json` file to build two different outputs:
+
+```json
+{
+  "name": "@your-org/shared-elements",
+  "scripts": {
+    "build": "run-p \"build:*\"",
+    "build:mobile": "vite build --config vite.config.mobile.ts",
+    "build:web": "vite build --config vite.config.web.ts",
+  },
+  "files": [
+    "assets",
+    "dist",
+    "src"
+  ],
+  "exports": {
+    "./mobile": {
+      "types": "./dist/mobile/index.d.ts",
+      "import": "./dist/mobile/mobile.mjs",
+      "require": "./dist/mobile/mobile.cjs",
+      "default": "./dist/mobile/mobile.cjs"
+    },
+    "./web": {
+      "types": "./dist/web/index.d.ts",
+      "import": "./dist/web/web.mjs",
+      "require": "./dist/web/web.cjs",
+      "default": "./dist/web/web.cjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "mobile": [
+        "./dist/mobile/index.d.ts"
+      ],
+      "web": [
+        "./dist/web/index.d.ts"
+      ]
+    }
+  }
+}
+```
+
+> This is a partial view of the `shared-elements` `package.json` file
+
+------
+
+Now you'll import the code differently in your mobile and web projects. You'll import like this on your mobile project:
+
+```tsx
+import {HelloWorld} from "@your-org/shared-elements/mobile"
+```
+
+And this in your web project:
+
+```tsx
+import {HelloWorld} from "@your-org/shared-elements/web"
+```
+
+## Adding in Styled Component Support
+
+// TODO: Write
