@@ -803,7 +803,31 @@ export function removeWebCodePlugin(): PluginOption {
 
 While explaining how this Babel plugin is complex, let's go over it quickly:
 
-1) ```typescript
+1. We first check if we should be transforming the code in the first place within Babel by seeing if the code in the file contains `styled.` in its string represtentation of the code:
+   ```tsx
+   if (code.includes("styled.")) {
+   	// ...
+   }
+   ```
+
+2. We then parse the plain text source code into a Babel AST as JSX TypeScript code:
+   ```tsx
+   const ast = parse(code, {
+     sourceType: "module",
+     plugins: ["jsx", "typescript"],
+   });
+   ```
+
+3. We then step through every node of the AST looking for a `TaggedTemplateExpression`, namely a named tag:
+   ```tsx
+   traverse(ast, {
+     TaggedTemplateExpression(path) {
+   		// ...
+   	}
+   }
+   ```
+
+4. ```typescript
    const isStyledIdentifier =
      styledExpressionNode.type === "MemberExpression" &&
      styledExpressionNode.object &&
@@ -813,7 +837,7 @@ While explaining how this Babel plugin is complex, let's go over it quickly:
 
    Finds the `styled.div` API
 
-2) ```tsx
+5. ```tsx
    const isStyledCallExpression =
      styledExpressionNode.type === "CallExpression" &&
      styledExpressionNode.callee &&
@@ -823,7 +847,7 @@ While explaining how this Babel plugin is complex, let's go over it quickly:
 
    Finds the extended `styled.div.attrs()` API
 
-3) Finally, we can simplify the last line to show:
+6. Finally, we can simplify the last line to show:
 
    ```tsx
    if (isStyledIdentifier || isStyledCallExpression) {
@@ -839,3 +863,4 @@ Add this plugin where you had the previous `removeWebCodePlugin` plugin in Vite,
 > This plugin has edgecases it won't handle. IE, if you rename `styled.p` to `webStyled.p`.
 >
 > To handle these kinds of edgecases would require a much larger Babel plugin. Please let us know if you end up extending this or writing one from scratch!
+
