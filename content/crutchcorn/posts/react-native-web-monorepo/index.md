@@ -33,6 +33,10 @@ It's true! While this might seem backwards at first, it's a superpower to get a 
 
 So, how do we do this?
 
+# Creating a Vite Project
+
+While there's more to the monorepo aspect of the monorepo, let's talk about how to set up a web project using Vite and React Native first without worrying about the monorepo parts too much.
+
 ## Setting Up the Initial Vite Project
 
 So, let's take the file structure from the last article and add a `websites/admin-portal` folder:
@@ -134,7 +138,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 )
 ```
 
-# Adding React Native Web Support
+## Adding React Native Web Support
 
 Now, to run React Native in the Vite project, we'll add a few new packages:
 
@@ -172,7 +176,7 @@ function App() {
 }
 ```
 
-# Resolving Web Modules First
+## Resolving Web Modules First
 
 In React Native's default bundler, Metro, it's able to select which files should be imported based on which platform you're building for.
 
@@ -241,7 +245,7 @@ export default defineConfig({
 });
 ```
 
-# Handle JSX in JS Files 
+## Handle JSX in JS Files 
 
 Some packages do not bundle their JSX in `.jsx` file extensions and instead have their JSX in `.js` files. [Vite does not support this and requires all JSX syntax to be in `.jsx` or `.tsx` files](https://github.com/vitejs/vite/discussions/3112). 
 
@@ -300,35 +304,91 @@ You should add the dependency throwing the error (in this case, `react-native-el
 
 --------
 
-# Add Font Icons (`react-native-vector-icons`)
+## Add Font Icons (`react-native-vector-icons`)
 
-- Copy plugin
-- Stylesheet
+Any good UI project comes with icons. In the React Native world, the most common set of icons comes from [the `react-native-vector-icons` package](https://github.com/oblador/react-native-vector-icons).
 
+To add support for the package in a Vite project, you'll:
 
+- Use the `rollup-plugin-copy` plugin to copy the font files to a static `public` folder
+- Add a stylesheet that references those fonts
 
-# Styled Components
+You do the first by adding in the plugin to your `vite.config.ts` file:
 
-```jsx
-optimizeDeps: {
-  esbuildOptions: {
-    loader: {
-      ".js": "jsx",
-      ".ts": "tsx",
+```typescript
+import { defineConfig } from "vite";
+import copy from "rollup-plugin-copy";
+
+export default defineConfig({
+  plugins: [
+    // ...
+    {
+      ...copy({
+        hook: "options",
+        flatten: true,
+        targets: [
+          {
+            src: "node_modules/react-native-vector-icons/Fonts/*",
+            dest: "public/fonts",
+          },
+        ],
+      }),
+      enforce: "pre",
     },
-    mainFields: ["module", "main"],
-    resolveExtensions: [".web.js", ".js", ".ts"],
-  },
-  include: [
-    "react",
-    "react/jsx-runtime",
-    "react/jsx-dev-runtime",
-    "react-dom",
-    "styled-components",
-    "styled-components/native",
-    "use-sync-external-store-shim",
-    "use-sync-external-store",
   ],
-},
+  // ...
+});
 ```
 
+Then add the following to your `index.html` file:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Title</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <style>
+      @font-face {
+        src: url("/fonts/MaterialIcons.ttf");
+        font-family: MaterialIcons;
+      }
+
+      @font-face {
+        src: url("/fonts/MaterialCommunityIcons.ttf");
+        font-family: MaterialCommunityIcons;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+```
+
+----------
+
+----------
+
+----------
+
+----------
+
+----------
+
+----------
+
+----------
+
+----------
+
+----------
+
+----------
+
+# Adding in Monorepo Support
+
+Now that we have our Vite React Native proejct set up properly, let's configure the monorepo aspects so we can share code with our mobile apps quickly.
