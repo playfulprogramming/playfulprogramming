@@ -674,4 +674,168 @@ import {HelloWorld} from "@your-org/shared-elements/web"
 
 ## Adding in Styled Component Support
 
-// TODO: Write
+As we showcased before, you can mix-n-match HTML-elements and React Native elements in your `shared-element`'s JSX; but only so long as you edgecase the HTML elements within a `process.env.IS_WEB` check.
+
+Now what happens if we want to use `styled(Text)` and `styled.p` usage within the same file?
+
+Well, unfortunately for us, [the `styled.p` syntax is not tree-shakable from the mobile build](https://github.com/styled-components/babel-plugin-styled-components/issues/245), even if you're not using it in your codebase.
+
+This means that if we build our mobile build and run the following code:
+
+```tsx
+import {Text} from "react-native";
+import styledWeb from "styled-components";
+import styled from "styled-components/native";
+
+const WebText = styledWeb.p`
+	color: red;
+`
+
+const MobileText = styled(View)`
+	color: red;
+`
+
+export const HelloWorld = () => {
+	return <MobileText>Testing 123</MobileText>
+}
+```
+
+You'll get an error when running the mobile app:
+
+```
+```
+
+-------
+
+To solve this error, we can write our own Babel plugin to be executed by Vite that replaces:
+
+````tsx
+// ❌ Not tree-shakable, kept in mobile bundle
+const WebText = styledWeb.p`
+	color: red;
+`;
+````
+
+Into:
+
+```tsx
+// ✅ Tree-shakable, removed from mobile bundle
+const WebText = () => null;
+```
+
+To do this, we wrote a Babel plugin that runs in Vite:
+
+```tsx
+import { PluginOption } from "vite";
+import { parse } from "@babel/parser";
+import generate from "@babel/generator";
+import traverse from "@babel/traverse";
+
+/**
+ * This code is required to generate a mobile-only build, as:
+ * - Styled components are eagerly imported
+ * - This is because, despite dead code elimination, SC breaks with `styled.div` usage
+ * @see https://github.com/styled-components/babel-plugin-styled-components/issues/245
+ *
+ * So this plugin literally replaces:
+ * `styled.div` with `() => null`
+ */
+export function removeWebCodePlugin(): PluginOption {
+  return {
+    name: "define web",
+    transform(code, _id, ssr) {
+      if (!ssr && code.includes("process.env.IS_WEB")) {
+        return code.replace(/process.env.IS_WEB/g, "false");
+      }
+      if (code.includes("styled.")) {
+        const ast = parse(code, {
+          sourceType: "module",
+          plugins: ["jsx", "typescript"],
+        });
+
+        traverse(ast, {
+          TaggedTemplateExpression(path) {
+            const styledExpressionNode = path.node.tag;
+
+            /**
+             * styled.div`...`
+             */
+            const isStyledIdentifier =
+              styledExpressionNode.type === "MemberExpression" &&
+              styledExpressionNode.object &&
+              styledExpressionNode.object.type === "Identifier" &&
+              styledExpressionNode.object.name === "styled";
+
+            /**
+             * styled.div.attrs(...)`...`
+             */
+            const isStyledCallExpression =
+              styledExpressionNode.type === "CallExpression" &&
+              styledExpressionNode.callee &&
+              styledExpressionNode.callee.type === "Identifier" &&
+              styledExpressionNode.callee.name === "styled";
+
+            // Replace `styled.div` with `() => null` (AKA empty functional React component)
+            if (isStyledIdentifier || isStyledCallExpression) {
+              const replacementAst = parse("() => null");
+              // This statement is `true`, now try telling TypeScript that.
+              if (
+                replacementAst.type === "File" &&
+                path.parent.type === "VariableDeclarator"
+              ) {
+                path.parent.init = replacementAst.program.body[0] as never;
+              }
+            }
+          },
+        });
+
+        const output = generate(ast);
+
+        return output.code;
+      }
+
+      return undefined;
+    },
+    enforce: "pre",
+  };
+}
+```
+
+While explaining how this Babel plugin is complex, let's go over it quickly:
+
+1) ```typescript
+   const isStyledIdentifier =
+     styledExpressionNode.type === "MemberExpression" &&
+     styledExpressionNode.object &&
+     styledExpressionNode.object.type === "Identifier" &&
+     styledExpressionNode.object.name === "styled";
+   ```
+
+   Finds the `styled.div` API
+
+2) ```tsx
+   const isStyledCallExpression =
+     styledExpressionNode.type === "CallExpression" &&
+     styledExpressionNode.callee &&
+     styledExpressionNode.callee.type === "Identifier" &&
+     styledExpressionNode.callee.name === "styled";
+   ```
+
+   Finds the extended `styled.div.attrs()` API
+
+3) Finally, we can simplify the last line to show:
+
+   ```tsx
+   if (isStyledIdentifier || isStyledCallExpression) {
+     const replacementAst = parse("() => null");
+     path.parent.init = replacementAst.program.body[0] as never;
+   }
+   ```
+
+   Replacing the parent assignment `=` to `() => null`
+
+Add this plugin where you had the previous `removeWebCodePlugin` plugin in Vite, and you're off to the races!
+
+> This plugin has edgecases it won't handle. IE, if you rename `styled.p` to `webStyled.p`.
+>
+> To handle these kinds of edgecases would require a much larger Babel plugin. Please let us know if you end up extending this or writing one from scratch!
