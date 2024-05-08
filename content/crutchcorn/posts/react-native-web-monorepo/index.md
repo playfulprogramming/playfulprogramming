@@ -1,8 +1,8 @@
 ---
 {
   title: "Set up a React Native Web Project in a Monorepo",
-  description: "",
-  published: '2024-04-05T13:45:00.284Z',
+  description: "Setting up a React Native Web project in a monorepo is challenging. Let's do so and see what challenges we run into!",
+  published: '2024-05-08T13:45:00.284Z',
   tags: ['react', 'react native'],
   license: 'cc-by-nc-sa-4',
   originalLink: "https://example.com",
@@ -13,7 +13,7 @@
 
 In our last blog post, we took a look at how to scaffold a React Native monorepo. We explained how some of the benefits were not only code sharing between native apps, but that it enabled us to have different types of applications share the same code:
 
-![// TODO:](../setup-a-react-native-monorepo/rn_monorepo.png)
+![Multiple apps with multiple platforms load the same shared code](../setup-a-react-native-monorepo/rn_monorepo.png)
 
 Here, we showed a Windows, macOS, Android, and iOS app that all share from the same codebase in a monorepo.
 
@@ -703,6 +703,14 @@ export const HelloWorld = () => {
 You'll get an error when running the mobile app:
 
 ```
+ERROR  TypeError: undefined is not a function, js engine: hermes 
+    at loadModuleImplementation (http://localhost:8081/index.bundle//&platform=ios&dev=true&lazy=true&minify=false&inlineSourceMap=false&modulesOnly=false&runModule=true&app=com.your-org.AdminPanel:259:14)
+    at RCTView
+    at View (http://localhost:8081/index.bundle//&platform=ios&dev=true&lazy=true&minify=false&inlineSourceMap=false&modulesOnly=false&runModule=true&app=com.your-org.AdminPanel:88607:43)
+    at RCTView
+    at View (http://localhost:8081/index.bundle//&platform=ios&dev=true&lazy=true&minify=false&inlineSourceMap=false&modulesOnly=false&runModule=true&app=com.your-org.AdminPanel:88607:43)
+    at AppContainer (http://localhost:8081/index.bundle//&platform=ios&dev=true&lazy=true&minify=false&inlineSourceMap=false&modulesOnly=false&runModule=true&app=com.your-org.AdminPanel:88449:36)
+    at AdminPanel(RootComponent) (http://localhost:8081/index.bundle//&platform=ios&dev=true&lazy=true&minify=false&inlineSourceMap=false&modulesOnly=false&runModule=true&app=com.your-org.AdminPanel:139624:28)
 ```
 
 -------
