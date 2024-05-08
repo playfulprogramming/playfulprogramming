@@ -64,7 +64,7 @@ This `package.json` will include the basics to get a Vite site up-and-running:
 
 ```typescript
 {
-  "name": "vite-project",
+  "name": "@your-org/web-admin-portal",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -336,6 +336,19 @@ export default defineConfig({
       enforce: "pre",
     },
   ],
+  resolve: {
+    // You also need to alias the vector-icons packages to be web-centric!
+    alias: [
+      {
+        find: "react-native-vector-icons/MaterialIcons",
+        replacement: "react-native-vector-icons/dist/MaterialIcons",
+      },
+      {
+        find: "react-native-vector-icons/MaterialCommunityIcons",
+        replacement: "react-native-vector-icons/dist/MaterialCommunityIcons",
+      },
+    ]
+  }
   // ...
 });
 ```
@@ -392,3 +405,52 @@ Then add the following to your `index.html` file:
 # Adding in Monorepo Support
 
 Now that we have our Vite React Native proejct set up properly, let's configure the monorepo aspects so we can share code with our mobile apps quickly.
+
+## Deduplicating React Native Deps
+
+Because all React Native projects rely on a single instance of React and React Native (as a singleton), we need to tell Vite that it should remove duplicate copies of React Native deps in our apps. We do this by using `resolve.dedupe` in `vite.config.ts`:
+
+```typescript
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  // ...
+  resolve: {
+    dedupe: [
+      "@react-native-async-storage/async-storage",
+      "@react-native-picker/picker",
+      "@reduxjs/toolkit",
+      "@tanstack/react-query",
+      "react",
+      "react-dom",
+      "react-native",
+      "react-native-device-info",
+      "react-native-elements",
+      "react-native-maps",
+      "react-redux",
+      "react/jsx-runtime",
+      "styled-components",
+      "styled-components/native",
+    ],
+    // ...
+  },
+});
+```
+
+This means that you'll want to add to this `dedupe` list anytime you add a `react` or `react-native` dependency to your shared project's `package.json`.
+
+Now we can import our shared library into our web portal:
+
+```typescript
+// websites/admin-portal/App.tsx
+
+import {HelloWorld} from "@your-org/shared-elements";
+
+export const App = () => {
+    return <HelloWorld/>
+}
+```
+
+And it should render properly!
+
+## Web-Specific Code in Shared Elements
