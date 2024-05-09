@@ -2,10 +2,10 @@
 {
   title: "Set up a React Native Web Project in a Monorepo",
   description: "Setting up a React Native Web project in a monorepo is challenging. Let's do so and see what challenges we run into!",
-  published: '2024-05-08T13:45:00.284Z',
+  published: '2024-05-09T13:45:00.284Z',
   tags: ['react', 'react native'],
   license: 'cc-by-nc-sa-4',
-  originalLink: "https://example.com",
+  originalLink: "https://blog.cvoice.io/set-up-a-react-native-web-project-in-a-monorepo",
   collection: "React Native Monorepo",
   order: 2
 }
@@ -367,7 +367,7 @@ Then add the following to your `index.html` file:
 
 # Adding in Monorepo Support
 
-Now that we have our Vite React Native proejct set up properly, let's configure the monorepo aspects so we can share code with our mobile apps quickly.
+Now that we have our Vite React Native project set up properly, let's configure the monorepo aspects so we can share code with our mobile apps quickly.
 
 ## Deduplicating React Native Deps
 
@@ -573,7 +573,7 @@ export const getWebConfig = defineConfig(({
       outDir: resolve(__dirname, "..", baseOutDir, "web"),
       lib: {
         entry: resolve(__dirname, "../src/index.tsx"),
-        name: "CVElementsWeb",
+        name: "SharedElementsWeb",
         fileName: (format, entryName) => getFileName("web", format),
         formats: commonFormats,
       },
@@ -606,7 +606,7 @@ export const getWebConfig = defineConfig(({
       outDir: resolve(__dirname, "..", baseOutDir, "mobile"),
       lib: {
         entry: resolve(__dirname, "../src/index.tsx"),
-        name: "CVElementsMobile",
+        name: "SharedElementsMobile",
         fileName: (format, entryName) => getFileName("mobile", format),
         formats: commonFormats,
       },
