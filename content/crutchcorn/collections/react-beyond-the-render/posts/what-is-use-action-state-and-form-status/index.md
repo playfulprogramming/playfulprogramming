@@ -3,6 +3,7 @@
     title: "What is React's useActionState and useFormStatus?",
     description: "React Server Actions are an awesome way to pass data to and from your React client and server. Like all functions, they need a way to return data.",
     published: '2023-12-20T21:52:59.284Z',
+    edited: "2024-06-03T14:17:00.247Z",
     tags: ['react', 'webdev', 'javascript'],
     license: 'cc-by-4',
     collection: "react-beyond-the-render",
