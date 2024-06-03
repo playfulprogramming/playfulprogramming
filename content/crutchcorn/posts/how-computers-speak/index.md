@@ -46,7 +46,7 @@ If you're not familiar with what that code does,  we'll explain it in a bit. Rig
 The mention of "regardless of file name" might seem like an odd thing to mention until you consider [the file extension](/posts/what-do-files-extensions-do/) is part of the file name.
 This means that you can store source code in a `.txt` file and still have it run if executed properly. Most programming languages have their own file extensions, which they tell your computer they own. Still, even  if you change a file's extension, [the contents of the file are exactly the same, just the file name (ala extension) is different](/posts/what-do-files-extensions-do/).
 
-Let's assume that we've stored the `magicNumber` code inside of a text file. Go ahead and open Notepad, copy+paste that code, and save it to `/User/Destop/code.js`. Now, download [NodeJS](https://nodejs.org/). NodeJS is a program that runs JavaScript source code files. [Not all programming languages are run this way](#compiled-vs-runtime), but JavaScript is.
+Let's assume that we've stored the `magicNumber` code inside of a text file. Go ahead and open Notepad, copy+paste that code, and save it to `/User/Desktop/code.js`. Now, download [NodeJS](https://nodejs.org/). NodeJS is a program that runs JavaScript source code files. [Not all programming languages are run this way](#compiled-vs-runtime), but JavaScript is.
 
 Once NodeJS is downloaded, open your terminal (also known as CMD in Windows), go to your desktop, and run `node code.js`, it will output the number `185` so that you can see it.
 
@@ -173,7 +173,7 @@ addu    $1,$2,$1   # Add (+) data from register 1 and 2, store the result back i
 
 # Register 1 now contains the value "185"
 
-lw      $2,12($fp) # Load RAM tag 16 data into register 2
+lw      $2,16($fp) # Load RAM tag 16 data into register 2
 
 # Remember, register 2 now contains the value "20"
 
@@ -231,7 +231,7 @@ int main() {
 }
 ```
 
-This code simply says, "print the number 185 to the screen so the user can see it". **To do the same in assembly requires a massive amount of knowledge about the system** you're intending to run code on, due to the lack of portability granted by higher-level languages.
+This code simply says, "print the number 185 to the screen so the user can see it". However, **doing the same in assembly requires a massive amount of knowledge about the system** where your code is being run - in other words, C has a much higher *portability* than assembly.
 
 What do I mean by portability? Well, let's say you want to write code that runs on both low-end Chromebooks and high-end Desktops alike, you need to adapt your code to run on their respective processors. Most low-end Chromebooks use a type of CPU called "ARM", while most high-end Desktops run "x86_64" processors. **This difference in CPU architecture means an entirely different instruction set, which requires a different set of assembly instructions to be written to do the same thing in both**.
 
@@ -279,7 +279,7 @@ main:
 
 There's a lot there that's not familiar to us. That's okay. There's a lot of Vudu that the compiler does to make sure your code is efficient and compatible with as many computers (of the same CPU type) as possible. You'll still likely recognize the `addiu`, `li`, and `sw` instructions [from before](#assembly-code).
 
-Further, some abstractions make higher-level languages easier to build and scale than assembly, which doesn't have trivial 1:1 mappings. This is why compilers are so complex: there are many tricks up a compiler's sleeve to convert code to run and even internally "rewrite" your code to be more efficient - All without know knowing.
+Further, some abstractions make higher-level languages easier to build and scale than assembly, which doesn't have trivial 1:1 mappings. This is why compilers are so complex: there are many tricks up a compiler's sleeve to convert code to run and even internally "rewrite" your code to be more efficient - all without you knowing.
 
 This is why to run your C code, you need to run the compiler to convert your source code into an executable file to run your program.
 
