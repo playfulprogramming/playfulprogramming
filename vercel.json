@@ -15,6 +15,11 @@
 			"source": "/posts/",
 			"destination": "/",
 			"permanent": true
+		},
+		{
+			"source": "/posts/what-is-use-form-state-and-status",
+			"destination": "/posts/what-is-use-action-state-and-form-status",
+			"permanent": true
 		}
 	],
 	"rewrites": [

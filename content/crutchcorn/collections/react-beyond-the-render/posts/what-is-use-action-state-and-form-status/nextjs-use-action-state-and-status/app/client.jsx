@@ -1,5 +1,6 @@
 "use client";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
+import { useActionState } from "react";
 
 function TodoFormInner() {
 	const status = useFormStatus();
@@ -15,7 +16,7 @@ function TodoFormInner() {
 }
 
 export function Todo({ todos, addTodo }) {
-	const [state, action] = useFormState(addTodo, "");
+	const [state, action] = useActionState(addTodo, "");
 
 	return (
 		<>
