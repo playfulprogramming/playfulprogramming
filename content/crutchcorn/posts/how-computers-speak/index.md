@@ -231,7 +231,7 @@ int main() {
 }
 ```
 
-This code simply says, "print the number 185 to the screen so the user can see it". **To do the same in assembly requires a massive amount of knowledge about the system** you're intending to run code on, due to the lack of portability granted by lower-level languages.
+This code simply says, "print the number 185 to the screen so the user can see it". However, **doing the same in assembly requires a massive amount of knowledge about the system** where your code is being run - in other words, C has a much higher *portability* than assembly.
 
 What do I mean by portability? Well, let's say you want to write code that runs on both low-end Chromebooks and high-end Desktops alike, you need to adapt your code to run on their respective processors. Most low-end Chromebooks use a type of CPU called "ARM", while most high-end Desktops run "x86_64" processors. **This difference in CPU architecture means an entirely different instruction set, which requires a different set of assembly instructions to be written to do the same thing in both**.
 
