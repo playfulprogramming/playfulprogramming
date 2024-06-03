@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 
 function App() {
 	async function sayHi() {
@@ -12,7 +12,7 @@ function App() {
 	}
 
 	// State will be updated when `sayHi` returns a value
-	const [state, action] = useFormState(sayHi, "Initial value");
+	const [state, action] = useActionState(sayHi, "Initial value");
 
 	return (
 		// Pass the action from `useFormState`

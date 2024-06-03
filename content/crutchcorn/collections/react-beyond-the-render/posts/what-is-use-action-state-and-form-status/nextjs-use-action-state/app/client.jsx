@@ -1,8 +1,8 @@
 "use client";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 
 export function Todo({ todos, addTodo }) {
-	const [state, action] = useFormState(addTodo, "");
+	const [state, action] = useActionState(addTodo, "");
 
 	return (
 		<>
