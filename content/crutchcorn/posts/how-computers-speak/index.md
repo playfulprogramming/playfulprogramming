@@ -173,7 +173,7 @@ addu    $1,$2,$1   # Add (+) data from register 1 and 2, store the result back i
 
 # Register 1 now contains the value "185"
 
-lw      $2,12($fp) # Load RAM tag 16 data into register 2
+lw      $2,16($fp) # Load RAM tag 16 data into register 2
 
 # Remember, register 2 now contains the value "20"
 
