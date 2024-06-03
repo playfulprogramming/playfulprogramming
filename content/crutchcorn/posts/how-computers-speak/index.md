@@ -279,7 +279,7 @@ main:
 
 There's a lot there that's not familiar to us. That's okay. There's a lot of Vudu that the compiler does to make sure your code is efficient and compatible with as many computers (of the same CPU type) as possible. You'll still likely recognize the `addiu`, `li`, and `sw` instructions [from before](#assembly-code).
 
-Further, some abstractions make higher-level languages easier to build and scale than assembly, which doesn't have trivial 1:1 mappings. This is why compilers are so complex: there are many tricks up a compiler's sleeve to convert code to run and even internally "rewrite" your code to be more efficient - All without know knowing.
+Further, some abstractions make higher-level languages easier to build and scale than assembly, which doesn't have trivial 1:1 mappings. This is why compilers are so complex: there are many tricks up a compiler's sleeve to convert code to run and even internally "rewrite" your code to be more efficient - all without you knowing.
 
 This is why to run your C code, you need to run the compiler to convert your source code into an executable file to run your program.
 
