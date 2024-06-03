@@ -46,7 +46,7 @@ If you're not familiar with what that code does,  we'll explain it in a bit. Rig
 The mention of "regardless of file name" might seem like an odd thing to mention until you consider [the file extension](/posts/what-do-files-extensions-do/) is part of the file name.
 This means that you can store source code in a `.txt` file and still have it run if executed properly. Most programming languages have their own file extensions, which they tell your computer they own. Still, even  if you change a file's extension, [the contents of the file are exactly the same, just the file name (ala extension) is different](/posts/what-do-files-extensions-do/).
 
-Let's assume that we've stored the `magicNumber` code inside of a text file. Go ahead and open Notepad, copy+paste that code, and save it to `/User/Destop/code.js`. Now, download [NodeJS](https://nodejs.org/). NodeJS is a program that runs JavaScript source code files. [Not all programming languages are run this way](#compiled-vs-runtime), but JavaScript is.
+Let's assume that we've stored the `magicNumber` code inside of a text file. Go ahead and open Notepad, copy+paste that code, and save it to `/User/Desktop/code.js`. Now, download [NodeJS](https://nodejs.org/). NodeJS is a program that runs JavaScript source code files. [Not all programming languages are run this way](#compiled-vs-runtime), but JavaScript is.
 
 Once NodeJS is downloaded, open your terminal (also known as CMD in Windows), go to your desktop, and run `node code.js`, it will output the number `185` so that you can see it.
 
