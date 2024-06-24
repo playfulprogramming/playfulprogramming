@@ -113,6 +113,10 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<string> {
 
 		// If it's an image file, pass it through sharp to ensure 24px compression
 		if ([".png", ".jpg", ".jpeg"].includes(iconExt)) {
+			const dir = path.dirname("public/" + iconPath + iconExt);
+			if (!fs.existsSync(dir)) {
+				fs.mkdirSync(dir, { recursive: true });
+			}
 			const writeStream = fs.createWriteStream("public/" + iconPath + iconExt);
 			const { body } = await fetch(iconHref);
 			if (!body) return null;
