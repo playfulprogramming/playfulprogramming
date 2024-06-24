@@ -15,6 +15,12 @@ import * as stream from "stream";
 import sharp from "sharp";
 import * as svgo from "svgo";
 
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
 }
@@ -26,6 +32,8 @@ function getIconPath(src: URL) {
 	return `generated/${src.hostname}.favicon`;
 }
 
+const publicDir = path.resolve(__dirname, "../../../../public");
+
 // Cache the fetch *promises* - so that only one request per manifest/icon is processed,
 //   and multiple fetchPageInfo() calls can await the same icon
 const pageIconMap = new Map<string, Promise<string>>();
@@ -35,7 +43,7 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<string> {
 	const promise = (async () => {
 		const iconPath = getIconPath(src);
 		const iconDir = await fs.promises
-			.readdir(path.dirname(path.resolve(process.cwd(), iconPath)))
+			.readdir(path.dirname(path.resolve(publicDir, iconPath)))
 			.catch(() => []);
 
 		// If an icon has already been downloaded for the origin (in a previous build)
@@ -106,21 +114,19 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<string> {
 			const svg = await fetch(iconHref).then((r) => r.text());
 			const optimizedSvg = svgo.optimize(svg, { multipass: true });
 			await fs.promises.writeFile(
-				path.resolve(process.cwd(), "public/" + iconPath + iconExt),
+				path.resolve(publicDir, iconPath + iconExt),
 				optimizedSvg.data,
 			);
 		}
 
 		// If it's an image file, pass it through sharp to ensure 24px compression
 		if ([".png", ".jpg", ".jpeg"].includes(iconExt)) {
-			const dir = path.dirname(
-				path.resolve(process.cwd(), "public/" + iconPath + iconExt),
-			);
+			const dir = path.dirname(path.resolve(publicDir, iconPath + iconExt));
 			if (!fs.existsSync(dir)) {
 				fs.mkdirSync(dir, { recursive: true });
 			}
 			const writeStream = fs.createWriteStream(
-				path.resolve(process.cwd(), "public/" + iconPath + iconExt),
+				path.resolve(publicDir, iconPath + iconExt),
 			);
 			const { body } = await fetch(iconHref);
 			if (!body) return null;
