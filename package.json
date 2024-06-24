@@ -31,15 +31,15 @@
 		"format": "prettier -w . --cache --plugin-search-dir=.",
 		"lint": "eslint . --ext .js,.ts,.astro",
 		"search-index": "tsx build-scripts/search-index.ts",
-		"social-previews:build": "PLAYWRIGHT_BROWSERS_PATH=0 tsx --tsconfig tsconfig.script.json build-scripts/social-previews/index.ts",
-		"social-previews:dev:build": "PLAYWRIGHT_BROWSERS_PATH=0 tsx watch --tsconfig tsconfig.script.json build-scripts/social-previews/live-server.ts",
-		"social-previews:dev:server": "PLAYWRIGHT_BROWSERS_PATH=0 live-server build-scripts/social-previews/dist",
+		"social-previews:build": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 tsx --tsconfig tsconfig.script.json build-scripts/social-previews/index.ts",
+		"social-previews:dev:build": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 tsx watch --tsconfig tsconfig.script.json build-scripts/social-previews/live-server.ts",
+		"social-previews:dev:server": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 live-server build-scripts/social-previews/dist",
 		"social-previews:dev": "npm-run-all --parallel social-previews:dev:build social-previews:dev:server",
 		"epub": "tsx --tsconfig tsconfig.script.json build-scripts/generate-epubs.ts",
 		"tsc": "astro check && tsc --noEmit",
 		"test": "jest",
-		"test:debug": "set DEBUG_PRINT_LIMIT=9999999999 && node --inspect-brk ./node_modules/jest/bin/jest.js",
-		"prepare": "husky install && PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium"
+		"test:debug": "cross-env DEBUG_PRINT_LIMIT=9999999999 && node --inspect-brk ./node_modules/jest/bin/jest.js",
+		"prepare": "husky install && cross-env PLAYWRIGHT_BROWSERS_PATH=0 playwright install --with-deps chromium"
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.5.9",
@@ -70,6 +70,7 @@
 		"astro-icon": "^1.1.0",
 		"autoprefixer": "^10.4.15",
 		"classnames": "^2.3.2",
+		"cross-env": "^7.0.3",
 		"dayjs": "^1.11.9",
 		"env-cmd": "^10.1.0",
 		"esbuild": "^0.18.20",
