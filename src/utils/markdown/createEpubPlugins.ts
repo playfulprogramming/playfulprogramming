@@ -20,7 +20,7 @@ import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
 import { rehypeTransformComponents } from "./components";
 
-export function createEpubPlugins(unified: Processor): Processor {
+export function createEpubPlugins(unified: Processor) {
 	return (
 		unified
 			.use(remarkParse, { fragment: true } as never)

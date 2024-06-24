@@ -45,7 +45,7 @@ const oembedTransformerDefault =
 	(oembedTransformer as never as { default: typeof oembedTransformer })
 		.default ?? oembedTransformer;
 
-export function createHtmlPlugins(unified: Processor): Processor {
+export function createHtmlPlugins(unified: Processor) {
 	return (
 		unified
 			.use(remarkParse, { fragment: true } as never)
