@@ -12,7 +12,7 @@
 	grid-template-columns: repeat(1, minmax(0, 1fr));
 
 	@include from($tabletLarge) {
-		grid-template-columns: repeat(2, minmax(0, 1fr))
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	@include from($desktopSmall) {
@@ -20,7 +20,7 @@
 	}
 
 	@include from($desktopLarge) {
-		grid-template-columns: repeat(2, minmax(0, 1fr))
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 }
 
@@ -42,7 +42,8 @@
 	margin: var(--spc-4x) 0;
 }
 
-.title, .desc {
+.title,
+.desc {
 	@include transition(text-shadow);
 	text-shadow:
 		0 0 5px var(--background_primary),

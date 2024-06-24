@@ -27,7 +27,14 @@ export function License(props: LicenseProps) {
 
 	return (
 		<div class={style.license} onClick={handleOpen}>
-			<img aria-hidden="true" class={style.icon} width="24" height="24" src={props.image} loading="lazy" />
+			<img
+				aria-hidden="true"
+				class={style.icon}
+				width="24"
+				height="24"
+				src={props.image}
+				loading="lazy"
+			/>
 			<div class={`text-style-button-regular ${style.info}`}>
 				<span>{props.name}</span>
 				<button
@@ -38,19 +45,19 @@ export function License(props: LicenseProps) {
 					{props.action}
 				</button>
 			</div>
-			{
-				isOpen ?
-					createPortal(
-						<LicenseDialog
-							image={props.image}
-							name={props.name}
-							explainerHtml={props.explainerHtml}
-							onClose={handleClose}
-						/>,
-						document.body,
-					)
-					: <></>
-			}
+			{isOpen ? (
+				createPortal(
+					<LicenseDialog
+						image={props.image}
+						name={props.name}
+						explainerHtml={props.explainerHtml}
+						onClose={handleClose}
+					/>,
+					document.body,
+				)
+			) : (
+				<></>
+			)}
 		</div>
 	);
 }
@@ -81,12 +88,21 @@ export function LicenseDialog({
 					class={style.closeButton}
 					aria-label="Close"
 				>
-					<span style="display: flex;" dangerouslySetInnerHTML={{ __html: close }} />
+					<span
+						style="display: flex;"
+						dangerouslySetInnerHTML={{ __html: close }}
+					/>
 				</LargeIconOnlyButton>
 				<h1 class={`text-style-headline-4 ${style.title}`}>{name}</h1>
 			</div>
 			<div class={`text-style-body-large ${style.body}`}>
-				<img class={style.iconLarge} width="96" height="96" src={image} loading="lazy" />
+				<img
+					class={style.iconLarge}
+					width="96"
+					height="96"
+					src={image}
+					loading="lazy"
+				/>
 				<div
 					class="post-body"
 					dangerouslySetInnerHTML={{ __html: explainerHtml }}

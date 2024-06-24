@@ -10,7 +10,9 @@
 	--header_end-items_max-width: var(--max-width_xxs);
 
 	@include from($desktopSmall) {
-		--header_end-items_max-width: calc(var(--max-width_l) / 2 - var(--site-spacing) * 1.5);
+		--header_end-items_max-width: calc(
+			var(--max-width_l) / 2 - var(--site-spacing) * 1.5
+		);
 		--header_logo_size: 56px;
 	}
 }

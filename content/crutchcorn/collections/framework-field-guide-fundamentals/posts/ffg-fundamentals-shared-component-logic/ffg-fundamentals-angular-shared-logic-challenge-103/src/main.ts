@@ -63,7 +63,7 @@ class CloseIfOutSideContext implements OnDestroy {
 				background: 'white',
 				border: '1px solid black',
 				borderRadius: 16,
-				padding: '1rem'
+				padding: '1rem',
 			}"
 		>
 			<button (click)="close.emit()">X</button>

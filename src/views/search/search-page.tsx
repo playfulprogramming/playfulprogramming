@@ -45,28 +45,34 @@ import { isDefined } from "utils/is-defined";
 const MAX_POSTS_PER_PAGE = 6;
 
 function SearchPageBase() {
-	const [query, setQuery] = useSearchParams<SearchQuery>(serializeParams, deserializeParams);
+	const [query, setQuery] = useSearchParams<SearchQuery>(
+		serializeParams,
+		deserializeParams,
+	);
 
 	const search = query.searchQuery ?? "";
 
 	/**
 	 * Derive state and setup for search
 	 */
-	const setSearch = useCallback((str: string) => {
-		const newQuery = {
-			...query,
-			searchQuery: str,
-			searchPage: 1,
-		};
+	const setSearch = useCallback(
+		(str: string) => {
+			const newQuery = {
+				...query,
+				searchQuery: str,
+				searchPage: 1,
+			};
 
-		if (!str) {
-			// Remove tags and authors when no value is present
-			newQuery.filterTags = [];
-			newQuery.filterAuthors = [];
-		}
+			if (!str) {
+				// Remove tags and authors when no value is present
+				newQuery.filterTags = [];
+				newQuery.filterAuthors = [];
+			}
 
-		setQuery(newQuery);
-	}, [query, setQuery]);
+			setQuery(newQuery);
+		},
+		[query, setQuery],
+	);
 
 	const [debouncedSearch, immediatelySetDebouncedSearch] = useDebouncedValue(
 		search,
@@ -162,8 +168,7 @@ function SearchPageBase() {
 		return new Map(Object.entries(data.unicorns));
 	}, [data.unicorns]);
 
-	const showArticles =
-		query.display === "all" || query.display === "articles";
+	const showArticles = query.display === "all" || query.display === "articles";
 
 	const showCollections =
 		query.display === "all" || query.display === "collections";
@@ -233,7 +238,7 @@ function SearchPageBase() {
 			if (
 				query.filterAuthors.length > 0 &&
 				!collection.authors.some((unicorn) =>
-				query.filterAuthors.includes(unicorn),
+					query.filterAuthors.includes(unicorn),
 				)
 			) {
 				return false;
@@ -294,10 +299,7 @@ function SearchPageBase() {
 	const numberOfPosts = showArticles ? filteredAndSortedPosts.length : 0;
 
 	return (
-		<main
-			className={style.fullPageContainer}
-			data-hide-sidebar={!search}
-		>
+		<main className={style.fullPageContainer} data-hide-sidebar={!search}>
 			<h1 className={"visually-hidden"}>Search</h1>
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
@@ -427,7 +429,9 @@ function SearchPageBase() {
 										<li>
 											<CollectionCard
 												collection={collection}
-												authors={collection.authors.map(id => unicornsMap.get(id)).filter(isDefined)}
+												authors={collection.authors
+													.map((id) => unicornsMap.get(id))
+													.filter(isDefined)}
 												headingTag="h3"
 											/>
 										</li>
@@ -465,7 +469,9 @@ function SearchPageBase() {
 										lastPage: lastPage,
 									}}
 									getPageHref={(pageNum) => {
-										const pageParams = new URLSearchParams(window.location.search);
+										const pageParams = new URLSearchParams(
+											window.location.search,
+										);
 										pageParams.set(SEARCH_PAGE_KEY, pageNum.toString());
 										return `${
 											window.location.pathname

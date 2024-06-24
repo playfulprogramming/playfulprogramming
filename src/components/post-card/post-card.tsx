@@ -23,7 +23,11 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 						className={style.cardIcon}
 						dangerouslySetInnerHTML={{ __html: authorsSvg }}
 					/>
-					<ul className={style.authorList} role="list" aria-label="Post authors">
+					<ul
+						className={style.authorList}
+						role="list"
+						aria-label="Post authors"
+					>
 						{authors.map((author, i, arr) => (
 							<li class="text-style-body-small-bold">
 								<a
@@ -44,7 +48,9 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 						dangerouslySetInnerHTML={{ __html: date }}
 					/>
 					<span>
-						<span className={`text-style-body-small-bold ${style.publishedDate}`}>
+						<span
+							className={`text-style-body-small-bold ${style.publishedDate}`}
+						>
 							{post.publishedMeta}
 						</span>
 						<span className={`text-style-body-small ${style.separatorDot}`}>
@@ -64,7 +70,9 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 			<ul className={style.cardList} aria-label={"Post tags"} role="list">
 				{post.tags.map((tag) => (
 					<li>
-						<Chip href={`/search?${buildSearchQuery({ searchQuery: "*", filterTags: [tag] })}`}>
+						<Chip
+							href={`/search?${buildSearchQuery({ searchQuery: "*", filterTags: [tag] })}`}
+						>
 							{tag}
 						</Chip>
 					</li>
@@ -96,7 +104,9 @@ export const PostCardExpanded = ({
 			</div>
 			<div className={style.postContainer}>
 				<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
-					<HeadingTag className={`text-style-headline-2`}>{post.title}</HeadingTag>
+					<HeadingTag className={`text-style-headline-2`}>
+						{post.title}
+					</HeadingTag>
 				</a>
 				<PostCardMeta post={post} authors={authors} />
 			</div>
@@ -116,7 +126,9 @@ export const PostCard = ({
 			className={`${className} ${style.postContainer} ${style.postBase} ${style.regularPostContainer}`}
 		>
 			<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
-				<HeadingTag className={`text-style-headline-5`}>{post.title}</HeadingTag>
+				<HeadingTag className={`text-style-headline-5`}>
+					{post.title}
+				</HeadingTag>
 			</a>
 			<PostCardMeta post={post} authors={authors} />
 		</li>

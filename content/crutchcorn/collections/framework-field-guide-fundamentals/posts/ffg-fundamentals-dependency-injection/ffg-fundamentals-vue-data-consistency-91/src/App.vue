@@ -3,7 +3,7 @@
 import { provide } from "vue";
 import Child from "./Child.vue";
 
-provide("USER", {name: "Corbin"});
+provide("USER", { name: "Corbin" });
 </script>
 
 <template>

@@ -42,7 +42,7 @@
 		"prepare": "husky install && env-cmd -f ./src/environments/browser-path.env playwright install chromium"
 	},
 	"devDependencies": {
-		"@astrojs/check": "^0.5.9",
+		"@astrojs/check": "^0.7.0",
 		"@astrojs/preact": "^3.1.1",
 		"@astrojs/sitemap": "^3.1.1",
 		"@astrojs/vercel": "^7.3.6",
@@ -104,7 +104,7 @@
 		"postcss-csso": "^6.0.1",
 		"preact-render-to-string": "^6.2.1",
 		"prettier": "^3.0.1",
-		"prettier-plugin-astro": "^0.11.0",
+		"prettier-plugin-astro": "^0.14.0",
 		"rehype-raw": "^6.1.1",
 		"rehype-slug-custom-id": "^1.1.0",
 		"rehype-stringify": "^9.0.4",
@@ -115,7 +115,7 @@
 		"remark-rehype": "^10.1.0",
 		"remark-unwrap-images": "^3.0.1",
 		"sass": "^1.65.1",
-		"sharp": "^0.32.6",
+		"sharp": "^0.33.4",
 		"shiki": "^1.2.1",
 		"sitemap": "^7.1.1",
 		"svgo": "^3.2.0",

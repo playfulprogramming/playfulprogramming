@@ -21,7 +21,8 @@ export function PostCardGrid({
 	return (
 		<ul {...props} class={style.list} role="list" id="post-list-container">
 			{postsToDisplay.map((post, i) => {
-				const authors = post.authors.map(id => postAuthors.get(id))
+				const authors = post.authors
+					.map((id) => postAuthors.get(id))
 					.filter(isDefined);
 
 				return expanded && post.bannerImg ? (
@@ -34,11 +35,7 @@ export function PostCardGrid({
 						imageLoading={i < 4 ? "eager" : "lazy"}
 					/>
 				) : (
-					<PostCard
-						post={post}
-						authors={authors}
-						headingTag={postHeadingTag}
-					/>
+					<PostCard post={post} authors={authors} headingTag={postHeadingTag} />
 				);
 			})}
 		</ul>

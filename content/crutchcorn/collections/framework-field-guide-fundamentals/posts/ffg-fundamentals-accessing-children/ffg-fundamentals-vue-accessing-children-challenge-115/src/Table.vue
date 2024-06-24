@@ -6,15 +6,15 @@ const props = defineProps(["data"]);
 <template>
 	<table>
 		<thead>
-		<slot name="header" :length="props.data.length"></slot>
+			<slot name="header" :length="props.data.length"></slot>
 		</thead>
 		<tbody>
-		<slot
-			v-for="(item, i) in props.data"
-			:key="i"
-			:rowI="i"
-			:value="props.data[i]"
-		/>
+			<slot
+				v-for="(item, i) in props.data"
+				:key="i"
+				:rowI="i"
+				:value="props.data[i]"
+			/>
 		</tbody>
 	</table>
 </template>

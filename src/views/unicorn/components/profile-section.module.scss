@@ -66,10 +66,10 @@
 }
 
 .nameAndDesc {
-@include from($tabletSmall) {
-	display: flex;
-	align-items: center;
-}
+	@include from($tabletSmall) {
+		display: flex;
+		align-items: center;
+	}
 
 	@include from($desktopSmall) {
 		display: unset;
@@ -157,7 +157,6 @@
 		width: 100%;
 	}
 }
-
 
 .rolePic {
 	height: 32px;

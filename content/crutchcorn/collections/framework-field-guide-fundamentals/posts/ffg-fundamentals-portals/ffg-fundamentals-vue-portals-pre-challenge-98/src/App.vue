@@ -53,7 +53,14 @@ onUnmounted(() => {
 			z-index: 2;
 		"
 	></div>
-	<div style="z-index: 1; position: relative; padding-left: 10rem; padding-top: 2rem">
+	<div
+		style="
+			z-index: 1;
+			position: relative;
+			padding-left: 10rem;
+			padding-top: 2rem;
+		"
+	>
 		<div
 			v-if="tooltipMeta.show"
 			:style="`

@@ -10,8 +10,8 @@ const toggle = () => {
 </script>
 
 <template>
-  <div>
-    <button @click="toggle">Toggle</button>
-    <Cleanup v-if="show" />
-  </div>
+	<div>
+		<button @click="toggle">Toggle</button>
+		<Cleanup v-if="show" />
+	</div>
 </template>

@@ -5,7 +5,7 @@ const octokit =
 	typeof process.env.GITHUB_TOKEN !== "undefined"
 		? new Octokit({
 				auth: process.env.GITHUB_TOKEN,
-		  })
+			})
 		: undefined;
 
 if (!octokit)

@@ -1,13 +1,13 @@
 @import "src/tokens/index";
 
 .collectionsGrid {
-  display: grid;
-  gap: var(--site-spacing);
-  list-style: none;
-  margin: 0;
-  padding: 0;
+	display: grid;
+	gap: var(--site-spacing);
+	list-style: none;
+	margin: 0;
+	padding: 0;
 
-  @include from($tabletLarge) {
-    grid-template-columns: repeat(2, minmax(0, 1fr))
-  }
+	@include from($tabletLarge) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
 }

@@ -69,7 +69,9 @@ export function IFramePlaceholder({
 				style={`height: ${Number(height) ? `${height}px` : height};`}
 			>
 				<button class="button regular primary-emphasized text-style-button-regular">
-					<div aria-hidden="true" class="buttonIcon">{fromHtml(play)}</div>
+					<div aria-hidden="true" class="buttonIcon">
+						{fromHtml(play)}
+					</div>
 					<div class="innerText">Run</div>
 				</button>
 			</div>

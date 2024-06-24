@@ -47,7 +47,8 @@
 	flex-shrink: 0;
 	overflow: hidden;
 
-	&:where(img), & img {
+	&:where(img),
+	& img {
 		object-fit: cover;
 	}
 

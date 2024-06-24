@@ -4,7 +4,10 @@ import style from "./twitter-preview-css";
 import fs from "fs/promises";
 import { getUnicornById } from "utils/api";
 
-const unicornUtterancesHead = await fs.readFile("src/assets/unicorn_utterances_sticker.svg", "utf-8");
+const unicornUtterancesHead = await fs.readFile(
+	"src/assets/unicorn_utterances_sticker.svg",
+	"utf-8",
+);
 
 interface TwitterCodeScreenProps {
 	title: string;
@@ -27,7 +30,10 @@ const TwitterCodeScreen = ({ title, html }: TwitterCodeScreenProps) => {
 				className="absoluteFill codeScreen"
 				style={`transform: ${transform};`}
 			>
-				<div className="absoluteFill" dangerouslySetInnerHTML={{ __html: html }} />
+				<div
+					className="absoluteFill"
+					dangerouslySetInnerHTML={{ __html: html }}
+				/>
 			</div>
 		</div>
 	);
@@ -72,10 +78,13 @@ const TwitterLargeCard = ({
 					</div>
 					<div class="postInfo">
 						<span class="authors">
-							{post.authors.map((id) => getUnicornById(id, post.locale)!.name).join(", ")}
+							{post.authors
+								.map((id) => getUnicornById(id, post.locale)!.name)
+								.join(", ")}
 						</span>
 						<span class="date">
-							{post.publishedMeta} &nbsp;&middot;&nbsp; {post.wordCount.toLocaleString("en")} words
+							{post.publishedMeta} &nbsp;&middot;&nbsp;{" "}
+							{post.wordCount.toLocaleString("en")} words
 						</span>
 					</div>
 					<div

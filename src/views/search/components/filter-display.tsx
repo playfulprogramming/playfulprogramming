@@ -16,7 +16,7 @@ interface FilterDisplayProps {
 	posts: PostInfo[];
 
 	collections: CollectionInfo[];
-	unicornsMap: Map<string, UnicornInfo>,
+	unicornsMap: Map<string, UnicornInfo>;
 	selectedTags: string[];
 	setSelectedTags: (tags: string[]) => void;
 	selectedAuthorIds: string[];

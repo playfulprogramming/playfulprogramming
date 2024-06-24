@@ -6,14 +6,14 @@ interface PictureProps {
 	result: GetPictureResult;
 	alt?: string;
 	zoomSrc: string;
-	imgAttrs: Record<string, unknown>,
+	imgAttrs: Record<string, unknown>;
 }
 
 /** @jsxImportSource hastscript */
 export function Picture(props: PictureProps): Element {
 	return (
 		<picture>
-			{props.result.sources.map(s => (
+			{props.result.sources.map((s) => (
 				<source {...s} />
 			))}
 			<img
