@@ -19,12 +19,19 @@ const copyFiles = async (srcDir: string, destDir: string) => {
 				}
 				await copyFiles(srcFile, destFile);
 			} else {
-				await fs.promises.copyFile(
-					srcFile,
-					destFile,
-					// Do not overwrite files, as the transforms may have already been applied
-					fs.constants.COPYFILE_EXCL,
-				);
+				await fs.promises
+					.copyFile(
+						srcFile,
+						destFile,
+						// Do not overwrite files, as the transforms may have already been applied
+						fs.constants.COPYFILE_EXCL,
+					)
+					.catch((reason) => {
+						// Ignore errors if the file already exists
+						if (reason.code !== "EEXIST") {
+							throw reason;
+						}
+					});
 			}
 		}),
 	);
