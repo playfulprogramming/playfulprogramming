@@ -18,6 +18,7 @@
 		"type": "git",
 		"url": "git+https://github.com/unicorn-utterances/unicorn-utterances.git"
 	},
+	"packageManager": "pnpm@9.4.0",
 	"scripts": {
 		"debug": "env-cmd -f ./src/environments/debug.env astro dev --experimental-integrations",
 		"dev": "env-cmd -f ./src/environments/dev.env astro dev --experimental-integrations",
