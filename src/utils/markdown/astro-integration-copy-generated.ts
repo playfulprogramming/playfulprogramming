@@ -1,7 +1,7 @@
 import { AstroIntegration } from "astro";
 import * as fs from "node:fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const copyFiles = async (srcDir: string, destDir: string) => {
 	const readDir = await fs.promises.readdir(srcDir);
