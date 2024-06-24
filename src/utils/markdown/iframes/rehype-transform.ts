@@ -35,7 +35,7 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<string> {
 	const promise = (async () => {
 		const iconPath = getIconPath(src);
 		const iconDir = await fs.promises
-			.readdir(path.dirname(iconPath))
+			.readdir(path.dirname(path.resolve(process.cwd(), iconPath)))
 			.catch(() => []);
 
 		// If an icon has already been downloaded for the origin (in a previous build)
@@ -106,18 +106,22 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<string> {
 			const svg = await fetch(iconHref).then((r) => r.text());
 			const optimizedSvg = svgo.optimize(svg, { multipass: true });
 			await fs.promises.writeFile(
-				"public/" + iconPath + iconExt,
+				path.resolve(process.cwd(), "public/" + iconPath + iconExt),
 				optimizedSvg.data,
 			);
 		}
 
 		// If it's an image file, pass it through sharp to ensure 24px compression
 		if ([".png", ".jpg", ".jpeg"].includes(iconExt)) {
-			const dir = path.dirname("public/" + iconPath + iconExt);
+			const dir = path.dirname(
+				path.resolve(process.cwd(), "public/" + iconPath + iconExt),
+			);
 			if (!fs.existsSync(dir)) {
 				fs.mkdirSync(dir, { recursive: true });
 			}
-			const writeStream = fs.createWriteStream("public/" + iconPath + iconExt);
+			const writeStream = fs.createWriteStream(
+				path.resolve(process.cwd(), "public/" + iconPath + iconExt),
+			);
 			const { body } = await fetch(iconHref);
 			if (!body) return null;
 			const transformer = sharp().resize(24, 24);
