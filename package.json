@@ -137,7 +137,7 @@
 		"*.{js,ts,astro,jsx}": "prettier --write"
 	},
 	"dependencies": {
-		"@tanstack/react-query": "^4.32.6",
+		"@tanstack/react-query": "^5.45.1",
 		"medium-zoom": "^1.0.8",
 		"preact": "^10.18.1",
 		"react-aria": "^3.31.1",
