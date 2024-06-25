@@ -1,4 +1,5 @@
 import { Octokit } from "octokit";
+import { GraphqlResponseError } from "@octokit/graphql";
 import { getUnicornsByLang } from "utils/api";
 
 const octokit =
@@ -39,7 +40,7 @@ const userResult: Record<string, { id: string }> = (await octokit
 		}
 	`,
 	)
-	.catch((e) => {
+	.catch((e: GraphqlResponseError<unknown>) => {
 		if (e.data && typeof e.data === "object") {
 			console.warn("Partial error from GitHub GraphQL:", e.errors);
 			return e.data;
