@@ -1,5 +1,5 @@
 const { resolve } = require("path");
-require('whatwg-fetch');
+require("whatwg-fetch");
 
 // Add any custom config to be passed to Jest
 module.exports = {
@@ -30,7 +30,9 @@ module.exports = {
 	// moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
 	moduleNameMapper: {
 		"^msw/node$": require.resolve("msw/node"),
-		"^@mswjs/interceptors/ClientRequest$": require.resolve("@mswjs/interceptors/ClientRequest"),
+		"^@mswjs/interceptors/ClientRequest$": require.resolve(
+			"@mswjs/interceptors/ClientRequest",
+		),
 		"^preact$": require.resolve("preact"),
 		"^react(-dom)?$": require.resolve("preact/compat"),
 		"^@testing-library\\/preact$": require.resolve("@testing-library/preact"),

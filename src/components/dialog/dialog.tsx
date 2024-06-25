@@ -26,17 +26,18 @@ export function Dialog(props: DialogProps) {
 				dialogRef.current.showModal();
 			}
 
-			if (!props.open && dialogRef.current.open)
-				dialogRef.current.close();
+			if (!props.open && dialogRef.current.open) dialogRef.current.close();
 		}
 	}, [dialogRef.current, props.open]);
 
 	// When the dialog backdrop is clicked (target == <dialog>),
 	// call `props.onClose(undefined)`
-	const handleClick = useCallback((e: Event) => {
-		if (e.target === dialogRef.current)
-			props.onClose();
-	}, [dialogRef.current, props.onClose]);
+	const handleClick = useCallback(
+		(e: Event) => {
+			if (e.target === dialogRef.current) props.onClose();
+		},
+		[dialogRef.current, props.onClose],
+	);
 
 	// When the dialog close event fires, call `props.onClose(v)`
 	// with the dialog's return value.
@@ -45,7 +46,12 @@ export function Dialog(props: DialogProps) {
 	}, [dialogRef.current, props.onClose]);
 
 	return (
-		<dialog onClose={handleClose} onClick={handleClick} class={props.dialogClass} ref={dialogRef}>
+		<dialog
+			onClose={handleClose}
+			onClick={handleClick}
+			class={props.dialogClass}
+			ref={dialogRef}
+		>
 			<form method="dialog" class={props.formClass}>
 				{props.children}
 			</form>

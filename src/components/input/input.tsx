@@ -11,7 +11,11 @@ interface InputProps extends HTMLAttributes<HTMLInputElement> {
 	containerClass?: string;
 }
 
-export function Input({ class: className = "", containerClass = "", ...props }: InputProps) {
+export function Input({
+	class: className = "",
+	containerClass = "",
+	...props
+}: InputProps) {
 	const _id = useRandomId();
 
 	const id = props.id ?? _id;
@@ -45,7 +49,7 @@ const IconOnlyButtonButOnClick = IconOnlyButton as never as ComponentType<
 >;
 
 interface SearchInputProps {
-	variant?: "default" | "dense",
+	variant?: "default" | "dense";
 	usedInPreact?: boolean;
 	hideSearchButton?: boolean;
 }
@@ -76,10 +80,10 @@ export function SearchInput({
 					}, 0);
 					el.focus();
 				},
-		  }
+			}
 		: {
 				onclick: `el=document.querySelector("#${id}");el.value="";el.focus();`,
-		  };
+			};
 
 	return (
 		<div

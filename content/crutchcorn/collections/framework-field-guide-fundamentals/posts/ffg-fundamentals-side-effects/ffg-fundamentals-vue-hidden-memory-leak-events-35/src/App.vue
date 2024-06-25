@@ -11,10 +11,10 @@ const alertUser = () => alert("I am an alert!");
 </script>
 
 <template>
-  <div>
-    <!-- Try clicking and unclicking quickly -->
-    <button @click="toggle()">Toggle</button>
-    <!-- Binding to an event -->
-    <Alert v-if="show" @alert="alertUser()" />
-  </div>
+	<div>
+		<!-- Try clicking and unclicking quickly -->
+		<button @click="toggle()">Toggle</button>
+		<!-- Binding to an event -->
+		<Alert v-if="show" @alert="alertUser()" />
+	</div>
 </template>

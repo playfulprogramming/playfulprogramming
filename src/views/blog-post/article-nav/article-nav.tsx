@@ -48,15 +48,27 @@ export interface ArticleNavProps {
 	collectionPosts: PostInfo[];
 }
 
-export function ArticleNav({ post, collection, collectionPosts }: ArticleNavProps) {
+export function ArticleNav({
+	post,
+	collection,
+	collectionPosts,
+}: ArticleNavProps) {
 	const postIndex = collectionPosts.findIndex((p) => p.order === post.order);
 
 	const prevPost = collectionPosts[postIndex - 1];
 	const nextPost = collectionPosts[postIndex + 1];
 	return (
 		<div class={style.container}>
-			{prevPost && <ArticleNavItem post={prevPost} collection={collection} type="previous" />}
-			{nextPost && <ArticleNavItem post={nextPost} collection={collection} type="next" />}
+			{prevPost && (
+				<ArticleNavItem
+					post={prevPost}
+					collection={collection}
+					type="previous"
+				/>
+			)}
+			{nextPost && (
+				<ArticleNavItem post={nextPost} collection={collection} type="next" />
+			)}
 		</div>
 	);
 }

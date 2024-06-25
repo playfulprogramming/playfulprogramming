@@ -3,7 +3,10 @@ import styles from "./search-hero.module.scss";
 import tags from "../../../../content/data/tags.json";
 
 const stickers = Object.values(tags)
-	.filter((tag) => "shownWithBranding" in tag && "image" in tag && tag.shownWithBranding)
+	.filter(
+		(tag) =>
+			"shownWithBranding" in tag && "image" in tag && tag.shownWithBranding,
+	)
 	.sort(() => 0.5 - Math.random()) as { image: string }[];
 
 const stickerTransforms = [
@@ -50,9 +53,7 @@ export const SearchHero = ({
 			))}
 
 			<img className={styles.image} src={imageSrc} alt={imageAlt} />
-			<h2 class={`text-style-headline-1 ${styles.title}`}>
-				{title}
-			</h2>
+			<h2 class={`text-style-headline-1 ${styles.title}`}>{title}</h2>
 			<p class={`text-style-body-medium ${styles.description}`}>
 				{description}
 			</p>

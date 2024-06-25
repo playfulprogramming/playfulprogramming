@@ -21,7 +21,9 @@ body.dark,
 	& ::backdrop {
 		--shadow_sticker: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.72),
 			0px 0px 1px 0px rgba(0, 0, 0, 0.48);
-		--shadow_sticker_drop_shadow: drop-shadow(0px 1px 0.75px rgba(0, 0, 0, 0.72))
+		--shadow_sticker_drop_shadow: drop-shadow(
+				0px 1px 0.75px rgba(0, 0, 0, 0.72)
+			)
 			drop-shadow(0px 0px 0.5px rgba(0, 0, 0, 0.48));
 		--shadow_popup: 0px 8px 16px rgba(0, 0, 0, 0.72),
 			0px 4px 6px rgba(0, 0, 0, 0.72);

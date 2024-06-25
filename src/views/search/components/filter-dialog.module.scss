@@ -37,10 +37,10 @@
 }
 
 .dialog::backdrop {
-	background-color: rgba(0,0,0,0.32);
+	background-color: rgba(0, 0, 0, 0.32);
 
 	@include darkTheme {
-		background-color: rgba(0,0,0,0.72);
+		background-color: rgba(0, 0, 0, 0.72);
 	}
 }
 
@@ -59,8 +59,9 @@
 	align-items: center;
 	margin: var(--filter-modal_header_padding-vertical)
 		calc(
-			var(--filter-modal_header_padding-horizontal) -
-				var(--filter-modal_padding-horizontal)
+			var(--filter-modal_header_padding-horizontal) - var(
+					--filter-modal_padding-horizontal
+				)
 		);
 }
 

@@ -45,7 +45,6 @@ function dateSuffix(dayNumber) {
 	return dayNumber + "th";
 }
 
-
 const props = defineProps(["inputDate"]);
 
 const dateStr = computed(() => formatDate(props.inputDate));

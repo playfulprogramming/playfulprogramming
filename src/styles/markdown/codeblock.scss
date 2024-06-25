@@ -5,8 +5,9 @@
 	--code-block_padding: var(--spc-2x);
 	--code-block_corner-radius: var(--corner-radius_l);
 	--code-block_inner-corner-radius: calc(
-		var(--code-block_corner-radius) - var(--code-block_padding) -
-			var(--code-block_border_width)
+		var(--code-block_corner-radius) - var(--code-block_padding) - var(
+				--code-block_border_width
+			)
 	);
 
 	--code-block_header_gap: var(--spc-4x);
@@ -19,7 +20,8 @@
 	--code-block_border_width: var(--border-width_l);
 }
 
-pre.shiki, pre:not([class]) {
+pre.shiki,
+pre:not([class]) {
 	margin: var(--site-spacing) 0;
 	padding: var(--code-block_padding);
 
@@ -28,7 +30,7 @@ pre.shiki, pre:not([class]) {
 	border-radius: var(--code-block_corner-radius);
 	border: var(--code-block_border_width) solid var(--code-block_border_color);
 
-	&> code {
+	& > code {
 		border-radius: var(--code-block_inner-corner-radius);
 		background-color: var(--code-block_inner_background-color);
 		--shiki-dark-bg: var(--code-block_inner_background-color) !important;

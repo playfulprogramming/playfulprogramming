@@ -75,9 +75,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByText, getByTestId } = render(
-			<SearchPage />,
-		);
+		const { getByText, getByTestId } = render(<SearchPage />);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockPost.title);
 		await user.type(searchInput, "{enter}");
@@ -93,9 +91,7 @@ describe("Search page", () => {
 			collections: [MockCollection],
 		}));
 
-		const { getByText, getByTestId } = render(
-			<SearchPage />,
-		);
+		const { getByText, getByTestId } = render(<SearchPage />);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockCollection.title);
 		await user.type(searchInput, "{enter}");
@@ -108,9 +104,7 @@ describe("Search page", () => {
 		mockFetchWithStatus(500, () => ({
 			error: "There was an error fetching your search results.",
 		}));
-		const { getByText, getByTestId } = render(
-			<SearchPage />,
-		);
+		const { getByText, getByTestId } = render(<SearchPage />);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockPost.title);
 		await user.type(searchInput, "{enter}");
@@ -130,9 +124,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByText, getByTestId } = render(
-			<SearchPage />,
-		);
+		const { getByText, getByTestId } = render(<SearchPage />);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "Asdfasdfasdf");
 		await user.type(searchInput, "{enter}");
@@ -150,9 +142,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByTestId, queryByTestId } = render(
-			<SearchPage />,
-		);
+		const { getByTestId, queryByTestId } = render(<SearchPage />);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockPost.title);
 		await user.type(searchInput, "{enter}");
@@ -171,9 +161,7 @@ describe("Search page", () => {
 			collections: [MockCollection],
 		}));
 
-		const { getByTestId, queryByTestId } = render(
-			<SearchPage />,
-		);
+		const { getByTestId, queryByTestId } = render(<SearchPage />);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockCollection.title);
 		await user.type(searchInput, "{enter}");
@@ -195,9 +183,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByTestId, queryByTestId, getByText } = render(
-			<SearchPage />,
-		);
+		const { getByTestId, queryByTestId, getByText } = render(<SearchPage />);
 
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "*");
@@ -240,9 +226,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByTestId, getByText, queryByTestId } = render(
-			<SearchPage />,
-		);
+		const { getByTestId, getByText, queryByTestId } = render(<SearchPage />);
 
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "*");
@@ -325,9 +309,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByTestId, getByText } = render(
-			<SearchPage />,
-		);
+		const { getByTestId, getByText } = render(<SearchPage />);
 
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "*");
@@ -385,9 +367,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByTestId, getByText } = render(
-			<SearchPage />,
-		);
+		const { getByTestId, getByText } = render(<SearchPage />);
 
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "*");
@@ -583,12 +563,9 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const {
-			findByTestId,
-			getByText,
-			getByTestId,
-			queryByText,
-		} = render(<SearchPage />);
+		const { findByTestId, getByText, getByTestId, queryByText } = render(
+			<SearchPage />,
+		);
 
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "*");
@@ -746,9 +723,7 @@ describe("Search page", () => {
 
 		window.location.assign(`?${searchQuery}`);
 
-		const { getByTestId, getByText, queryByText } = render(
-			<SearchPage />,
-		);
+		const { getByTestId, getByText, queryByText } = render(<SearchPage />);
 
 		// Persists search query
 		const searchInput = getByTestId("search-input");
@@ -805,9 +780,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		var { getByTestId, getByText } = render(
-			<SearchPage />,
-		);
+		var { getByTestId, getByText } = render(<SearchPage />);
 
 		var searchInput = getByTestId("search-input");
 		await user.type(searchInput, "*");
@@ -833,9 +806,7 @@ describe("Search page", () => {
 		cleanup();
 
 		// Re-render
-		var { getByTestId, getByText } = render(
-			<SearchPage />,
-		);
+		var { getByTestId, getByText } = render(<SearchPage />);
 
 		var searchInput = getByTestId("search-input");
 		await user.type(searchInput, "*");
@@ -984,9 +955,7 @@ describe("Search page", () => {
 
 		window.location.assign(`?${searchQuery}`);
 
-		const { getByTestId, getByText } = render(
-			<SearchPage />,
-		);
+		const { getByTestId, getByText } = render(<SearchPage />);
 
 		await waitFor(() => expect(getByText("Ten blog post")).toBeInTheDocument());
 
@@ -1139,9 +1108,7 @@ describe("Search page", () => {
 
 		window.location.assign(`?${searchQuery}`);
 
-		const { getByTestId, getByText } = render(
-			<SearchPage />,
-		);
+		const { getByTestId, getByText } = render(<SearchPage />);
 
 		await waitFor(() => expect(getByText("Ten blog post")).toBeInTheDocument());
 
@@ -1150,13 +1117,13 @@ describe("Search page", () => {
 
 		await user.clear(searchInput);
 
-		await waitFor(() => expect(getByText("What would you like to find?")).toBeInTheDocument());
+		await waitFor(() =>
+			expect(getByText("What would you like to find?")).toBeInTheDocument(),
+		);
 
 		// Since the search URL is debounced, it might update a while after the search results are visible
 		await waitFor(() => {
-			expect(window.location.search).toEqual(
-				"?display=articles&sort=oldest",
-			);
+			expect(window.location.search).toEqual("?display=articles&sort=oldest");
 		});
 	});
 
@@ -1169,9 +1136,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByTestId, getByText } = render(
-			<SearchPage />,
-		);
+		const { getByTestId, getByText } = render(<SearchPage />);
 
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "blog");
@@ -1182,14 +1147,10 @@ describe("Search page", () => {
 
 		await user.type(searchInput, "other");
 
-		await waitFor(() =>
-			expect(window.location.search).toBe("?q=blogother"),
-		);
+		await waitFor(() => expect(window.location.search).toBe("?q=blogother"));
 
 		history.back();
 
-		await waitFor(() =>
-			expect(window.location.search).toBe("?q=blog"),
-		);
+		await waitFor(() => expect(window.location.search).toBe("?q=blog"));
 	});
 });

@@ -5,10 +5,18 @@ interface BookCoverLayerProps {
 	name?: string;
 }
 
-const { class: className, moveOnScrollBy, name } = Astro.props as BookCoverLayerProps;
+const {
+	class: className,
+	moveOnScrollBy,
+	name,
+} = Astro.props as BookCoverLayerProps;
 ---
 
-<div data-layer-name={name} data-move-on-scroll-by={moveOnScrollBy} class={`bookCoverLayer ${className}`}>
+<div
+	data-layer-name={name}
+	data-move-on-scroll-by={moveOnScrollBy}
+	class={`bookCoverLayer ${className}`}
+>
 	<slot name="left" />
 	<slot name="center" />
 	<slot name="right" />

@@ -51,8 +51,16 @@
 	border: var(--form-field_outline_width) solid
 		var(--form-field_outline_color_focused);
 	// only use outline for the :focus-within state, for visibility in high-contrast themes
-	outline: calc(var(--form-field_outline_width_focused) - var(--form-field_outline_width)) solid var(--form-field_outline_color_focused);
-	box-shadow: 0 0 0 calc(var(--form-field_outline_width_focused) - var(--form-field_outline_width) + var(--form-field_halo_width)) var(--form-field_halo_color);
+	outline: calc(
+			var(--form-field_outline_width_focused) - var(--form-field_outline_width)
+		)
+		solid var(--form-field_outline_color_focused);
+	box-shadow: 0 0 0
+		calc(
+			var(--form-field_outline_width_focused) - var(--form-field_outline_width) +
+				var(--form-field_halo_width)
+		)
+		var(--form-field_halo_color);
 	background: var(--form-field_background_focused);
 }
 
@@ -74,7 +82,8 @@
 	color: var(--foreground_emphasis-high);
 	caret-color: var(--foreground_emphasis-high);
 	-webkit-text-fill-color: var(--foreground_emphasis-high);
-	-webkit-box-shadow: 0 0 0 var(--form-field_min-height) var(--form-field_background_focused) inset;
+	-webkit-box-shadow: 0 0 0 var(--form-field_min-height)
+		var(--form-field_background_focused) inset;
 }
 
 .labelContainer {

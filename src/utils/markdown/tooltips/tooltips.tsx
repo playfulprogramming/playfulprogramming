@@ -9,7 +9,8 @@ const warning = await fs.readFile("src/icons/warning.svg", "utf8");
 const InfoIcon = fromHtml(info, { fragment: true }).children[0] as Element;
 InfoIcon.properties["aria-hidden"] = "true";
 
-const WarningIcon = fromHtml(warning, { fragment: true }).children[0] as Element;
+const WarningIcon = fromHtml(warning, { fragment: true })
+	.children[0] as Element;
 WarningIcon.properties["aria-hidden"] = "true";
 
 interface TooltipProps {

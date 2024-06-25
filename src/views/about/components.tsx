@@ -8,7 +8,14 @@ import mastodon from "src/icons/mastodon.svg?raw";
 import facebook from "src/icons/facebook.svg?raw";
 import rss from "src/icons/rss.svg?raw";
 
-const icons: Record<string, string> = { discord, linkedin, twitter, mastodon, facebook, rss };
+const icons: Record<string, string> = {
+	discord,
+	linkedin,
+	twitter,
+	mastodon,
+	facebook,
+	rss,
+};
 
 export function Links() {
 	return (
@@ -19,7 +26,9 @@ export function Links() {
 						variant="primary"
 						href={link.url}
 						rel={name === "Mastodon" ? "me" : undefined}
-						leftIcon={<span dangerouslySetInnerHTML={{ __html: icons[link.icon]! }} />}
+						leftIcon={
+							<span dangerouslySetInnerHTML={{ __html: icons[link.icon]! }} />
+						}
 					>
 						{name}
 					</Button>
@@ -35,7 +44,14 @@ export function Sponsors() {
 			{Object.values(data.about.sponsors).map(({ name, logo, url }) => (
 				<li>
 					<a href={url}>
-						<img data-dont-round="true" height="300" width="122" alt={name} src={logo} loading="lazy"/>
+						<img
+							data-dont-round="true"
+							height="300"
+							width="122"
+							alt={name}
+							src={logo}
+							loading="lazy"
+						/>
 					</a>
 				</li>
 			))}

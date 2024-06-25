@@ -2,6 +2,7 @@ import { PostInfo } from "types/index";
 import { render } from "preact-render-to-string";
 import { VNode, createElement } from "preact";
 import sharp from "sharp";
+import { Parent } from "unist";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
@@ -17,7 +18,9 @@ const unifiedChain = unified()
 	.use(remarkToRehype, { allowDangerousHtml: true })
 	.use(() => (tree) => {
 		// extract code snippets from parsed markdown
-		const nodes = findAllAfter(tree, 0, { tagName: "pre" });
+		const nodes = findAllAfter(tree as unknown as Parent, 0, {
+			tagName: "pre",
+		});
 
 		// join code parts into one element
 		const value =
@@ -97,7 +100,7 @@ export const renderPostPreviewToString = async (
 
 	html, body {
 		margin: 0;
-  		padding: 0;
+		padding: 0;
 		width: ${PAGE_WIDTH}px;
 		height: ${PAGE_HEIGHT}px;
 		position: relative;

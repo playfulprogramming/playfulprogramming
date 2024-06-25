@@ -7,7 +7,7 @@ interface UseElementSizeProps {
 export const useElementSize = ({
 	includeMargin = true,
 }: UseElementSizeProps = {}) => {
-	const [el, setEl] = useState<HTMLElement|null>(null);
+	const [el, setEl] = useState<HTMLElement | null>(null);
 	const [size, setSize] = useState({ width: 0, height: 0 });
 
 	useLayoutEffect(() => {

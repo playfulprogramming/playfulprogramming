@@ -16,7 +16,6 @@ export const CollectionCard = ({
 	authors,
 	headingTag: HeadingTag = "h2",
 }: CollectionCardProps) => {
-
 	const coverImgAspectRatio =
 		collection.coverImgMeta.width / collection.coverImgMeta.height;
 
@@ -42,7 +41,11 @@ export const CollectionCard = ({
 				</div>
 			</div>
 			<div className={style.bottomRow}>
-				<ul className={`unlist-inline ${style.authorList}`} role="list" aria-label="Collection authors">
+				<ul
+					className={`unlist-inline ${style.authorList}`}
+					role="list"
+					aria-label="Collection authors"
+				>
 					{authors?.map((author) => (
 						<li>
 							<a

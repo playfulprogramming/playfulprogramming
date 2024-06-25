@@ -205,15 +205,17 @@ input[type="checkbox"].enterpriseToggle:checked::before {
 
 input[type="checkbox"].enterpriseToggle:checked:hover::before {
 	left: calc(
-		100% - var(--pricing-toggle-thumb-size_hovered) -
-			var(--pricing-toggle-gap_hovered)
+		100% - var(--pricing-toggle-thumb-size_hovered) - var(
+				--pricing-toggle-gap_hovered
+			)
 	);
 }
 
 input[type="checkbox"].enterpriseToggle:checked:active::before {
 	left: calc(
-		100% - var(--pricing-toggle-thumb-size_pressed) -
-			var(--pricing-toggle-gap_pressed)
+		100% - var(--pricing-toggle-thumb-size_pressed) - var(
+				--pricing-toggle-gap_pressed
+			)
 	);
 }
 

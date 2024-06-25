@@ -40,7 +40,8 @@
 		color: var(--primary_default);
 	}
 
-	&:hover .viewButton, &:active .viewButton {
+	&:hover .viewButton,
+	&:active .viewButton {
 		text-decoration: underline;
 	}
 
@@ -123,8 +124,9 @@
 
 		padding: var(--license-modal_header_padding-vertical)
 			calc(
-				var(--license-modal_header_padding-horizontal) -
-					var(--license-modal_padding-horizontal)
+				var(--license-modal_header_padding-horizontal) - var(
+						--license-modal_padding-horizontal
+					)
 			);
 	}
 
@@ -147,16 +149,21 @@
 
 	:global(.post-body) {
 		display: grid;
-		grid-template-columns: calc(var(--license-modal_icon-size) + var(--license-modal_icon-gap)) 1fr;
-		grid-template-rows: minmax(var(--license-modal_icon-size), auto) repeat(10, auto);
+		grid-template-columns: calc(
+				var(--license-modal_icon-size) + var(--license-modal_icon-gap)
+			) 1fr;
+		grid-template-rows: minmax(var(--license-modal_icon-size), auto) repeat(
+				10,
+				auto
+			);
 		align-items: center;
 
-		&> *:first-child {
+		& > *:first-child {
 			grid-column: 2;
 			margin: var(--spc-2x) 0;
 		}
 
-		&> *:not(:first-child) {
+		& > *:not(:first-child) {
 			grid-column: 1 / span 2;
 			margin-bottom: 0;
 		}
@@ -164,9 +171,9 @@
 }
 
 .licenseDialog::backdrop {
-	background-color: rgba(0,0,0,0.32);
+	background-color: rgba(0, 0, 0, 0.32);
 
 	@include darkTheme {
-		background-color: rgba(0,0,0,0.72);
+		background-color: rgba(0, 0, 0, 0.72);
 	}
 }

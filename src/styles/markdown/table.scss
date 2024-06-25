@@ -89,7 +89,9 @@ table {
 table:has(tr:nth-child(4)) thead {
 	position: sticky;
 	// this should be -1px for the IntersectionObserver in utils/markdown/tables-script.ts to pick up the `position: sticky` state
-	$headerSize: calc(var(--header_logo_size) + var(--header_padding-vertical)*2 + 1px);
+	$headerSize: calc(
+		var(--header_logo_size) + var(--header_padding-vertical) * 2 + 1px
+	);
 	top: $headerSize;
 
 	// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius

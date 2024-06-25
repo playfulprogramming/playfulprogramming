@@ -22,8 +22,12 @@
 	--hint-header_gap: var(--spc-2x);
 
 	--hint-container_background-color: var(--surface_primary_emphasis-low);
-	--hint-container_background-color_hovered: var(--surface_primary_emphasis-medium);
-	--hint-container_background-color_pressed: var(--surface_primary_emphasis-high);
+	--hint-container_background-color_hovered: var(
+		--surface_primary_emphasis-medium
+	);
+	--hint-container_background-color_pressed: var(
+		--surface_primary_emphasis-high
+	);
 	--hint-container_background-color_focused: var(--background_focus);
 
 	--hint-container_foreground-color: var(--foreground_emphasis-high);

@@ -11,8 +11,9 @@
 	--filesystem_outer_padding: var(--spc-2x);
 	--filesystem_inner_background-color: var(--background_focus);
 	--filesystem_inner_corner-radius: calc(
-		var(--filesystem_outer_corner-radius) - var(--filesystem_outer_padding) -
-			var(--filesystem_border_width)
+		var(--filesystem_outer_corner-radius) - var(--filesystem_outer_padding) - var(
+				--filesystem_border_width
+			)
 	);
 	--filesystem_inner_padding: var(--spc-2x);
 	--filesystem_border_width: var(--border-width_l);
@@ -31,10 +32,16 @@
 
 	// Colors for folders
 	--filesystem_item_folder_container_color: var(--transparent);
-	--filesystem_item_folder_container_color_hovered: var(--surface_secondary_emphasis-low);
-	--filesystem_item_folder_container_color_pressed: var(--surface_secondary_emphasis-medium);
+	--filesystem_item_folder_container_color_hovered: var(
+		--surface_secondary_emphasis-low
+	);
+	--filesystem_item_folder_container_color_pressed: var(
+		--surface_secondary_emphasis-medium
+	);
 	--filesystem_item_folder_container_color_focused: var(--background_focus);
-	--filesystem_item_folder_container_corner-radius: var(--corner-radius_circular);
+	--filesystem_item_folder_container_corner-radius: var(
+		--corner-radius_circular
+	);
 	--filesystem_item_folder_icon-arrow_color: var(--secondary_on-variant);
 	--filesystem_item_folder_icon-folder_color: var(--secondary_default);
 	--filesystem_item_folder_label_color: var(--secondary_on-variant);
@@ -42,7 +49,9 @@
 	--filesystem_item_folder_focus-outline_color: var(--focus-outline_secondary);
 	--filesystem_item_folder_highlight_border_width: var(--border-width_s);
 	--filesystem_item_folder_highlight_border_color: var(--secondary_default);
-	--filesystem_item_folder_highlight_background-color: var(--surface_secondary_emphasis-low);
+	--filesystem_item_folder_highlight_background-color: var(
+		--surface_secondary_emphasis-low
+	);
 
 	// Colors for files
 	--filesystem_item_file_icon_color: var(--primary_default);
@@ -50,16 +59,22 @@
 	--filesystem_item_file_label_color: var(--foreground_emphasis-high);
 	--filesystem_item_file_highlight_border_width: var(--border-width_s);
 	--filesystem_item_file_highlight_border_color: var(--primary_default);
-	--filesystem_item_file_highlight_background-color: var(--surface_primary_emphasis-low);
+	--filesystem_item_file_highlight_background-color: var(
+		--surface_primary_emphasis-low
+	);
 
 	// Tokens for the level inset dividers
 	--filesystem_item_inset_margin-start: calc(
-		var(--half-icon) + var(--filesystem_item_container_padding-start) -
-			max(1px, var(--half-divider))
+		var(--half-icon) + var(--filesystem_item_container_padding-start) - max(
+				1px,
+				var(--half-divider)
+			)
 	);
 	--filesystem_item_inset_margin-end: calc(
-		var(--half-icon) - var(--filesystem_item_container_padding-start) -
-			max(1px, var(--half-divider))
+		var(--half-icon) - var(--filesystem_item_container_padding-start) - max(
+				1px,
+				var(--half-divider)
+			)
 	);
 	--filesystem_item_inset_divider_width: var(--border-width_s);
 	--filesystem_item_inset_divider_color: var(--background_disabled);
@@ -156,8 +171,9 @@
 		var(--filesystem_item_container_padding-vertical)
 		var(--filesystem_item_container_padding-start);
 	min-height: calc(
-		var(--filesystem_item_container_min-height) -
-			calc(var(--filesystem_item_container_padding-vertical) * 2)
+		var(--filesystem_item_container_min-height) - calc(
+				var(--filesystem_item_container_padding-vertical) * 2
+			)
 	);
 	display: inline-flex !important;
 	align-items: center;

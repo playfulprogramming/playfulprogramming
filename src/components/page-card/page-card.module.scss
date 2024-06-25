@@ -150,8 +150,9 @@
 		align-items: unset;
 		margin-bottom: unset;
 		margin-top: calc(
-			var(--page-card_container_compound-padding) -
-				var(--page-card_container_padding)
+			var(--page-card_container_compound-padding) - var(
+					--page-card_container_padding
+				)
 		);
 	}
 }
@@ -164,8 +165,9 @@
 		grid-column: 1/3;
 		padding: 0
 			calc(
-				var(--page-card_container_compound-padding) -
-					var(--page-card_container_padding)
+				var(--page-card_container_compound-padding) - var(
+						--page-card_container_padding
+					)
 			);
 	}
 
@@ -193,8 +195,9 @@
 		grid-column: 1/3;
 		padding: 0
 			calc(
-				var(--page-card_container_compound-padding) -
-					var(--page-card_container_padding)
+				var(--page-card_container_compound-padding) - var(
+						--page-card_container_padding
+					)
 			);
 	}
 
@@ -202,8 +205,9 @@
 		grid-column: unset;
 		justify-content: space-between;
 		margin-bottom: calc(
-			var(--page-card_container_compound-padding) -
-				var(--page-card_container_padding)
+			var(--page-card_container_compound-padding) - var(
+					--page-card_container_padding
+				)
 		);
 		padding: unset;
 	}

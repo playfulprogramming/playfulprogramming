@@ -20,7 +20,7 @@ interface ChipGroupProps {
 const { tags, ariaLabel } = Astro.props as ChipGroupProps;
 const SHUFFLED_TAGS = shuffle(tags);
 const tagTable = [...new Array(ROWS)].map((_, i) =>
-	SHUFFLED_TAGS.slice(TAGS_PER_ROW * i, TAGS_PER_ROW * (i + 1))
+	SHUFFLED_TAGS.slice(TAGS_PER_ROW * i, TAGS_PER_ROW * (i + 1)),
 );
 ---
 
@@ -91,8 +91,8 @@ const tagTable = [...new Array(ROWS)].map((_, i) =>
 		margin-right: var(--chip-group-gap);
 		white-space: nowrap;
 		/* Animations */
-		transition: background-color var(--color-transition-time)
-				var(--color-transition-ease),
+		transition:
+			background-color var(--color-transition-time) var(--color-transition-ease),
 			color var(--color-transition-time) var(--color-transition-ease);
 		will-change: background-color, color;
 	}

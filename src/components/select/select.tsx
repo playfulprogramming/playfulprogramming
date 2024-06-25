@@ -89,7 +89,10 @@ export function SelectWithLabel<T extends object>({
 	const { buttonProps } = useButton(triggerProps, ref);
 
 	// fix: ids passed to aria-labelledby are in the reverse order: https://github.com/unicorn-utterances/unicorn-utterances/issues/805
-	buttonProps["aria-labelledby"] = buttonProps["aria-labelledby"].split(" ").reverse().join(" ");
+	buttonProps["aria-labelledby"] = buttonProps["aria-labelledby"]
+		.split(" ")
+		.reverse()
+		.join(" ");
 
 	return (
 		<div
