@@ -12,6 +12,7 @@ import { languages } from "./src/constants/index";
 import { fileToOpenGraphConverter } from "./src/utils/translations";
 import { posts } from "./src/utils/data";
 import { SUPPORTED_IMAGE_SIZES } from "./src/utils/get-picture";
+import { astroIntegrationCopyGenerated } from "./src/utils/markdown/astro-integration-copy-generated";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
@@ -65,6 +66,7 @@ export default defineConfig({
 				};
 			},
 		}),
+		astroIntegrationCopyGenerated(),
 	],
 	vite: {
 		optimizeDeps: {
