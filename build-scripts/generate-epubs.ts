@@ -20,7 +20,7 @@ interface GetReferencePageMarkdownOptions {
 	collectionPosts: PostInfo[];
 }
 
-async function getReferencePageMarkdown({
+async function getReferencePageHtml({
 	collection,
 	collectionPosts,
 }: GetReferencePageMarkdownOptions) {
@@ -52,26 +52,31 @@ ${collectionPosts
 
 		if (!chapterMetaLinks?.length) {
 			return `
-## ${chapter.title} {#${collection.slug}-${chapter.order}}
+<h2 id="${collection.slug}-${chapter.order}">${chapter.title.trim()}</h2>
 
-No links for this chapter
+<p>No links for this chapter</p>
 `.trim();
 		}
 
+		// TODO: `<ol start="">` Blocked by: https://github.com/lesjoursfr/html-to-epub/issues/140
 		return `
-## ${chapter.title} {#${collection.slug}-${chapter.order}}
+<h2 id="${collection.slug}-${chapter.order}">${chapter.title.trim()}</h2>
 
+<ol start="${chapterMetaLinks[0].countWithinCollection}">
 ${chapterMetaLinks
 	.map((link) => {
 		return `
-[${escapeHtml(link.title)}<sup>${link.countWithinCollection}</sup>](${link.originalHref}): ${link.originalHref}
-`;
+<li style="white-space: pre-line; margin-top: 2rem; margin-bottom: 2rem;">${escapeHtml(link.title.trim())}:
+
+<a href="${link.originalHref.trim()}">${link.originalHref.trim()}</a></li>
+`.trim();
 	})
 	.join("\n")}
-`;
+</ol>
+`.trim();
 	})
 	.join("\n\n")}
-`;
+`.trim();
 }
 
 interface GenerateReferencePageHTMLOptions {
@@ -126,20 +131,11 @@ async function generateCollectionEPub(
 		});
 	}
 
-	const referencePageMarkdown = await getReferencePageMarkdown({
-		collection,
-		collectionPosts,
-	});
-
 	contents.push({
 		title: "References",
-		data: await generateReferencePageHTML({
-			markdown: referencePageMarkdown,
-			/**
-			 * We need to create a new unified chain because we don't want to modify the original one
-			 * and don't want to have the reference page in the final ePub
-			 */
-			unifiedChain: createEpubPlugins(unified()),
+		data: await getReferencePageHtml({
+			collection,
+			collectionPosts,
 		}),
 	});
 
