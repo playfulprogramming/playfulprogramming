@@ -18,6 +18,7 @@
 		"type": "git",
 		"url": "git+https://github.com/unicorn-utterances/unicorn-utterances.git"
 	},
+	"packageManager": "pnpm@9.4.0",
 	"scripts": {
 		"debug": "env-cmd -f ./src/environments/debug.env astro dev --experimental-integrations",
 		"dev": "env-cmd -f ./src/environments/dev.env astro dev --experimental-integrations",
@@ -139,13 +140,15 @@
 	"dependencies": {
 		"@tanstack/react-query": "^5.45.1",
 		"medium-zoom": "^1.0.8",
-		"preact": "^10.18.1",
+		"preact": "10.22.0",
 		"react-aria": "^3.31.1",
 		"react-stately": "^3.29.1",
 		"uuid": "^10.0.0"
 	},
-	"overrides": {
-		"react": "npm:@preact/compat@latest",
-		"react-dom": "npm:@preact/compat@latest"
+	"pnpm": {
+		"overrides": {
+			"react": "@preact/compat@10.22.0",
+			"react-dom": "@preact/compat@10.22.0"
+		}
 	}
 }
