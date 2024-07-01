@@ -14,6 +14,7 @@ import * as fs from "fs";
 import * as stream from "stream";
 import sharp from "sharp";
 import * as svgo from "svgo";
+import { fetchPageHtml, getPageTitle } from "utils/fetch-page-html";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
@@ -138,27 +139,6 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<string> {
 	return promise;
 }
 
-const pageHtmlMap = new Map<string, Promise<Root | null>>();
-function fetchPageHtml(src: string): Promise<Root | null> {
-	if (pageHtmlMap.has(src)) return pageHtmlMap.get(src)!;
-
-	const promise = (async () => {
-		const srcHTML = await fetch(src)
-			.then((r) => (r.status === 200 ? r.text() : undefined))
-			.catch(() => null);
-
-		// if fetch fails...
-		if (!srcHTML) return null;
-
-		const srcHast = fromHtml(srcHTML);
-
-		return srcHast;
-	})();
-
-	pageHtmlMap.set(src, promise);
-	return promise;
-}
-
 type PageInfo = {
 	title?: string;
 	iconFile: string;
@@ -172,11 +152,7 @@ export async function fetchPageInfo(src: string): Promise<PageInfo | null> {
 	const srcHast = await fetchPageHtml(url.toString());
 	if (!srcHast) return null;
 
-	// find <title> element in response HTML
-	const titleEl = find<Element>(srcHast, { tagName: "title" });
-	const titleContentEl = titleEl && titleEl.children[0];
-	const title =
-		titleContentEl?.type === "text" ? titleContentEl.value : undefined;
+	const title = getPageTitle(srcHast);
 
 	if (process.argv.includes("--verbose"))
 		console.log(`[iframes] found title for ${src}: "${title}"`);

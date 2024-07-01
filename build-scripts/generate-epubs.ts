@@ -13,22 +13,40 @@ import {
 	rehypeReferencePage,
 	collectionMetaRecord,
 } from "utils/markdown/reference-page/rehype-reference-page";
+import { escapeHtml, fetchPageHtml, getPageTitle } from "utils/fetch-page-html";
 
 interface GetReferencePageMarkdownOptions {
 	collection: CollectionInfo;
 	collectionPosts: PostInfo[];
 }
 
-function getReferencePageMarkdown({
+async function getReferencePageMarkdown({
 	collection,
 	collectionPosts,
 }: GetReferencePageMarkdownOptions) {
 	const collectionMeta = collectionMetaRecord.get(collection.slug);
 
+	const links = await Promise.all(
+		collectionMeta?.links?.map(async (link) => {
+			const srcHast = await fetchPageHtml(link.originalHref);
+			if (!srcHast)
+				return {
+					...link,
+					title: link.originalText,
+				};
+
+			const title = getPageTitle(srcHast);
+			return {
+				...link,
+				title: title ?? link.originalText,
+			};
+		}) ?? [],
+	);
+
 	return `
 ${collectionPosts
 	.map((chapter) => {
-		const chapterMetaLinks = collectionMeta?.links?.filter(
+		const chapterMetaLinks = links.filter(
 			(link) => link.associatedChapterOrder === chapter.order,
 		);
 
@@ -46,7 +64,7 @@ No links for this chapter
 ${chapterMetaLinks
 	.map((link) => {
 		return `
-[${link.originalText}<sup>${link.countWithinCollection}</sup>](${link.originalHref})
+[${escapeHtml(link.title)}<sup>${link.countWithinCollection}</sup>](${link.originalHref}): ${link.originalHref}
 `;
 	})
 	.join("\n")}
@@ -108,12 +126,10 @@ async function generateCollectionEPub(
 		});
 	}
 
-	const referencePageMarkdown = getReferencePageMarkdown({
+	const referencePageMarkdown = await getReferencePageMarkdown({
 		collection,
 		collectionPosts,
 	});
-
-	console.log(referencePageMarkdown);
 
 	contents.push({
 		title: "References",
