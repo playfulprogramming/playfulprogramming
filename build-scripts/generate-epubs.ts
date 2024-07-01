@@ -14,6 +14,7 @@ import {
 	collectionMetaRecord,
 } from "utils/markdown/reference-page/rehype-reference-page";
 import { escapeHtml, fetchPageHtml, getPageTitle } from "utils/fetch-page-html";
+import { rehypeRemoveCollectionLinks } from "utils/markdown/rehype-remove-collection-links";
 
 interface GetReferencePageMarkdownOptions {
 	collection: CollectionInfo;
@@ -117,9 +118,13 @@ async function generateCollectionEPub(
 		.map((id) => getUnicornById(id, collection.locale)?.name)
 		.filter((name): name is string => !!name);
 
-	const unifiedChain = createEpubPlugins(unified()).use(rehypeReferencePage, {
-		collection,
-	});
+	const unifiedChain = createEpubPlugins(unified())
+		.use(rehypeRemoveCollectionLinks, {
+			collection,
+		})
+		.use(rehypeReferencePage, {
+			collection,
+		});
 
 	const contents: Array<{ title: string; data: string }> = [];
 
