@@ -10,13 +10,15 @@ interface CollectionLinks {
 	node: Node;
 	originalText: string;
 	originalHref: string;
+	// The chapter that the link is associated with
+	associatedChapterOrder: number;
 	/**
 	 * A sequential count of the link in the collection (not the chapter)
 	 *
 	 * @example
 	 * If the collection has 3 chapters, each with 3 links, `count` would be `9` in the final link
 	 */
-	count: number;
+	countWithinCollection: number;
 }
 
 interface CollectionMeta {
@@ -56,7 +58,8 @@ export const rehypeReferencePage: Plugin<
 			linkCount++;
 			links.push({
 				node,
-				count: linkCount,
+				associatedChapterOrder: rawPostInfo.order!,
+				countWithinCollection: linkCount,
 				originalHref: href,
 				originalText: nodeText,
 			});

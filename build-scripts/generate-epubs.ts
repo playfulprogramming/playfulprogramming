@@ -23,14 +23,16 @@ function getReferencePageMarkdown({
 	collection,
 	collectionPosts,
 }: GetReferencePageMarkdownOptions) {
-	return `
-# References
+	const collectionMeta = collectionMetaRecord.get(collection.slug);
 
+	return `
 ${collectionPosts
 	.map((chapter) => {
-		const chapterMeta = collectionMetaRecord.get(collection.slug);
+		const chapterMetaLinks = collectionMeta?.links?.filter(
+			(link) => link.associatedChapterOrder === chapter.order,
+		);
 
-		if (!chapterMeta) {
+		if (!chapterMetaLinks?.length) {
 			return `
 ## ${chapter.title} {#${collection.slug}-${chapter.order}}
 
@@ -41,19 +43,17 @@ No links for this chapter
 		return `
 ## ${chapter.title} {#${collection.slug}-${chapter.order}}
 
-${chapterMeta.links
+${chapterMetaLinks
 	.map((link) => {
 		return `
-[${link.originalText}<sup>${link.count}</sup>](${link.originalHref})
+[${link.originalText}<sup>${link.countWithinCollection}</sup>](${link.originalHref})
 `;
 	})
-	.join("\n")
-	.trim()}
-`.trim();
+	.join("\n")}
+`;
 	})
-	.join("\n")
-	.trim()}
-`.trim();
+	.join("\n\n")}
+`;
 }
 
 interface GenerateReferencePageHTMLOptions {
@@ -113,7 +113,8 @@ async function generateCollectionEPub(
 		collectionPosts,
 	});
 
-	// Check to see if we need to add a reference page and, if we do, generate one and add it to the contents
+	console.log(referencePageMarkdown);
+
 	contents.push({
 		title: "References",
 		data: await generateReferencePageHTML({
