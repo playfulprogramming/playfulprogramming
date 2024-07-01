@@ -19,6 +19,7 @@ import rehypeStringify from "rehype-stringify";
 import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
 import { rehypeTransformComponents } from "./components";
+import { rehypeReferencePage } from "utils/markdown/rehype-reference-page";
 
 export function createEpubPlugins(unified: Processor) {
 	return (

@@ -9,11 +9,71 @@ import { unified } from "unified";
 import { CollectionInfo, PostInfo } from "types/index";
 import { createEpubPlugins } from "utils/markdown/createEpubPlugins";
 import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
+import {
+	rehypeReferencePage,
+	collectionMetaRecord,
+} from "utils/markdown/reference-page/rehype-reference-page";
 
-const unifiedChain = unified();
-createEpubPlugins(unifiedChain);
+interface GetReferencePageMarkdownOptions {
+	collection: CollectionInfo;
+	collectionPosts: PostInfo[];
+}
 
-async function generateEpubHTML(post: PostInfo) {
+function getReferencePageMarkdown({
+	collection,
+	collectionPosts,
+}: GetReferencePageMarkdownOptions) {
+	return `
+# References
+
+		${collectionPosts.map((chapter) => {
+			const chapterMeta = collectionMetaRecord.get(chapter.slug);
+
+			if (!chapterMeta) {
+				return `
+## ${chapter.title} {#${collection.slug}-${chapter.order}}
+
+No links for this chapter
+				`.trim();
+			}
+
+			return `
+## ${chapter.title} {#${collection.slug}-${chapter.order}}
+
+${chapterMeta.links
+	.map((link) => {
+		return `
+		[${link.originalText}<sup>${link.count}</sup>](${link.originalHref})
+	`;
+	})
+	.join("\n")}
+			`.trim();
+		})}
+	`.trim();
+}
+
+interface GenerateReferencePageHTMLOptions {
+	markdown: string;
+	unifiedChain: ReturnType<typeof createEpubPlugins>;
+}
+
+async function generateReferencePageHTML({
+	markdown,
+	unifiedChain,
+}: GenerateReferencePageHTMLOptions) {
+	const result = await unifiedChain.process(markdown);
+	return result.toString();
+}
+
+interface GenerateEpubHTMLOptions {
+	post: PostInfo;
+	unifiedChain: ReturnType<typeof createEpubPlugins>;
+}
+
+async function generateEpubHTML({
+	post,
+	unifiedChain,
+}: GenerateEpubHTMLOptions) {
 	const vfile = await getMarkdownVFile(post);
 	const result = await unifiedChain.process(vfile);
 	return result.toString();
@@ -30,17 +90,37 @@ async function generateCollectionEPub(
 		.map((id) => getUnicornById(id, collection.locale)?.name)
 		.filter((name): name is string => !!name);
 
-	const contents: Array<{title: string, data: string}> = [];
+	const unifiedChain = createEpubPlugins(unified()).use(rehypeReferencePage, {
+		collection,
+	});
+
+	const contents: Array<{ title: string; data: string }> = [];
 
 	// We cannot use `Promise.all` here because we need to keep the order for the link transform to work
 	for (const post of collectionPosts) {
 		contents.push({
 			title: post.title,
-			data: await generateEpubHTML(post),
-		})
+			data: await generateEpubHTML({ post, unifiedChain }),
+		});
 	}
 
+	const referencePageMarkdown = getReferencePageMarkdown({
+		collection,
+		collectionPosts,
+	});
+
 	// Check to see if we need to add a reference page and, if we do, generate one and add it to the contents
+	contents.push({
+		title: "References",
+		data: await generateReferencePageHTML({
+			markdown: referencePageMarkdown,
+			/**
+			 * We need to create a new unified chain because we don't want to modify the original one
+			 * and don't want to have the reference page in the final ePub
+			 */
+			unifiedChain: createEpubPlugins(unified()),
+		}),
+	});
 
 	const epub = new EPub(
 		{
