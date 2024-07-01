@@ -3961,15 +3961,17 @@ const FileList = () => {
 };
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="React DI Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-di-challenge-93?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ### Angular
 
@@ -4082,15 +4084,17 @@ export class FileListComponent {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular DI Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-di-challenge-93?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -4205,15 +4209,17 @@ provide("ContextMenu", {
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue DI Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-di-challenge-93?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->
 

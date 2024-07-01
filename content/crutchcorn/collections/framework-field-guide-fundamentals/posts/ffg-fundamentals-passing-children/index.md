@@ -1495,15 +1495,17 @@ const FileTable = () => {
 };
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Passing Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-passing-challenge-60?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -1541,15 +1543,17 @@ class FileTableContainerComponent {}
 class FileTableComponent {}
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Passing Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-passing-challenge-60?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1593,14 +1597,16 @@ import FileTableBody from "./FileTableBody.vue";
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Passing Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-passing-challenge-60?template=node&embed=1&file=src%2FFileTable.vue"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->

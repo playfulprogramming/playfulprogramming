@@ -667,15 +667,17 @@ function formatBytes(bytes) {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Derived Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-derived-challenge-49?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -710,15 +712,17 @@ class DisplaySizeComponent {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Derived Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-derived-challenge-49?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -752,14 +756,16 @@ function formatBytes(bytes) {
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Derived Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-derived-challenge-49?template=node&embed=1&file=src%2FDisplaySize.vue"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->

@@ -1524,15 +1524,17 @@ const App = () => {
 };
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Comp Ref Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-comp-ref-challenge-69?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ### Angular
 
@@ -1625,15 +1627,17 @@ class AppComponent implements OnInit, OnDestroy {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Comp Ref Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-comp-ref-challenge-69?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -1736,15 +1740,17 @@ onUnmounted(() => {
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Comp Ref Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-comp-ref-challenge-69?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->
 

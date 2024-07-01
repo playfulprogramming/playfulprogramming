@@ -3949,15 +3949,17 @@ function App() {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Effects Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-effects-challenge-44?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -4060,15 +4062,17 @@ class DarkModeToggleComponent implements OnInit, OnDestroy {
 class AppComponent {}
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Effects Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-effects-challenge-44?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -4166,14 +4170,16 @@ import DarkModeToggle from "./DarkModeToggle.vue";
 </style>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Effects Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-effects-challenge-44?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->

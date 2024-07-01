@@ -2296,15 +2296,17 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 };
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-dynamic-challenge-25?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ### Angular
 
@@ -2330,15 +2332,17 @@ class ExpandableDropdownComponent {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-dynamic-challenge-25?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -2360,14 +2364,16 @@ const emit = defineEmits(["toggle"]);
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-dynamic-challenge-25?template=node&embed=1&file=src%2FExpandableDropdown.vue"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->

@@ -1514,15 +1514,17 @@ const App = () => {
 };
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Directives Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-directives-challenge-111?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -1658,15 +1660,17 @@ class AppComponent {}
 
 And suddenly, our code works as we would expect!
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Directives Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-directives-challenge-111?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1735,14 +1739,16 @@ export const vTooltip = {
 > rather just hides it using `display: none`. This may cause performance issues
 > if you have a lot of tooltips on the page.
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Directives Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-directives-challenge-111?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->
