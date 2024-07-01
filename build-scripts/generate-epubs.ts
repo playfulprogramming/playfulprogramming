@@ -147,11 +147,6 @@ async function generateCollectionEPub(
 						border-radius: 8px;
 					}
 
-					/** Don't show the language identifiers */
-					pre.shiki .language-id {
-						display: none !important;
-					}
-
 					/*
 					* This code handles line of code counting
 					*/
@@ -171,8 +166,13 @@ async function generateCollectionEPub(
 						opacity: 0.8;
 					}
 
-					pre.shiki span.line {
+					pre.shiki code {
 						white-space: normal;
+					}
+
+					pre.shiki span.line {
+						display: block;
+						white-space: pre;
 					}
 					`,
 			// fonts: ['/path/to/Merriweather.ttf'],
