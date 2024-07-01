@@ -184,7 +184,7 @@ async function generateCollectionEPub(
 
 					pre.shiki span.line {
 						display: block;
-						white-space: pre;
+						white-space: pre-wrap;
 					}
 					`,
 			// fonts: ['/path/to/Merriweather.ttf'],
