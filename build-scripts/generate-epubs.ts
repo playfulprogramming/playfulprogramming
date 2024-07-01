@@ -26,30 +26,34 @@ function getReferencePageMarkdown({
 	return `
 # References
 
-		${collectionPosts.map((chapter) => {
-			const chapterMeta = collectionMetaRecord.get(chapter.slug);
+${collectionPosts
+	.map((chapter) => {
+		const chapterMeta = collectionMetaRecord.get(collection.slug);
 
-			if (!chapterMeta) {
-				return `
+		if (!chapterMeta) {
+			return `
 ## ${chapter.title} {#${collection.slug}-${chapter.order}}
 
 No links for this chapter
-				`.trim();
-			}
+`.trim();
+		}
 
-			return `
+		return `
 ## ${chapter.title} {#${collection.slug}-${chapter.order}}
 
 ${chapterMeta.links
 	.map((link) => {
 		return `
-		[${link.originalText}<sup>${link.count}</sup>](${link.originalHref})
-	`;
+[${link.originalText}<sup>${link.count}</sup>](${link.originalHref})
+`;
 	})
-	.join("\n")}
-			`.trim();
-		})}
-	`.trim();
+	.join("\n")
+	.trim()}
+`.trim();
+	})
+	.join("\n")
+	.trim()}
+`.trim();
 }
 
 interface GenerateReferencePageHTMLOptions {
