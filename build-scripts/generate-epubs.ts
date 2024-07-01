@@ -30,6 +30,18 @@ async function generateCollectionEPub(
 		.map((id) => getUnicornById(id, collection.locale)?.name)
 		.filter((name): name is string => !!name);
 
+	const contents: Array<{title: string, data: string}> = [];
+
+	// We cannot use `Promise.all` here because we need to keep the order for the link transform to work
+	for (const post of collectionPosts) {
+		contents.push({
+			title: post.title,
+			data: await generateEpubHTML(post),
+		})
+	}
+
+	// Check to see if we need to add a reference page and, if we do, generate one and add it to the contents
+
 	const epub = new EPub(
 		{
 			title: collection.title,
@@ -80,12 +92,7 @@ async function generateCollectionEPub(
 					`,
 			// fonts: ['/path/to/Merriweather.ttf'],
 			lang: "en",
-			content: await Promise.all(
-				collectionPosts.map(async (post) => ({
-					title: post.title,
-					data: await generateEpubHTML(post),
-				})),
-			),
+			content: contents,
 		} as Partial<EpubOptions> as EpubOptions,
 		fileLocation,
 	);
@@ -94,6 +101,7 @@ async function generateCollectionEPub(
 }
 
 for (const collection of getCollectionsByLang("en")) {
+	// This should return a sorted list of posts in the correct order
 	const collectionPosts = getPostsByCollection(
 		collection.slug,
 		collection.locale,
