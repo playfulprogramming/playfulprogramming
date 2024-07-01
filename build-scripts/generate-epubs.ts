@@ -118,12 +118,16 @@ async function generateCollectionEPub(
 		.map((id) => getUnicornById(id, collection.locale)?.name)
 		.filter((name): name is string => !!name);
 
+	const referenceTitle = "References";
+
 	const unifiedChain = createEpubPlugins(unified())
 		.use(rehypeRemoveCollectionLinks, {
 			collection,
 		})
 		.use(rehypeReferencePage, {
 			collection,
+			collectionPosts,
+			referenceTitle,
 		});
 
 	const contents: Array<{ title: string; data: string }> = [];
@@ -137,7 +141,7 @@ async function generateCollectionEPub(
 	}
 
 	contents.push({
-		title: "References",
+		title: referenceTitle,
 		data: await getReferencePageHtml({
 			collection,
 			collectionPosts,

@@ -1,7 +1,7 @@
 import { Root, Node } from "hast";
 import { Plugin } from "unified";
 import { CollectionInfo } from "types/CollectionInfo";
-import { RawPostInfo } from "types/PostInfo";
+import { PostInfo, RawPostInfo } from "types/PostInfo";
 import { visit } from "unist-util-visit";
 import { toString } from "hast-util-to-string";
 import { SuperScriptLink } from "./link";
@@ -30,6 +30,8 @@ export const collectionMetaRecord = new Map<string, CollectionMeta>();
 
 interface RehypeReferencePageOptions {
 	collection: CollectionInfo;
+	collectionPosts: PostInfo[];
+	referenceTitle: string;
 }
 
 /**
@@ -38,7 +40,10 @@ interface RehypeReferencePageOptions {
 export const rehypeReferencePage: Plugin<
 	[RehypeReferencePageOptions],
 	Root
-> = ({ collection }) => {
+> = ({ collection, collectionPosts, referenceTitle }) => {
+	const lastPost = collectionPosts[collectionPosts.length - 1];
+	const lastPostNumber = lastPost.order!;
+
 	let linkCount = 0;
 
 	const links: CollectionLinks[] = [];
@@ -64,7 +69,8 @@ export const rehypeReferencePage: Plugin<
 				originalText: nodeText,
 			});
 
-			const newHref = `#${collection.slug}-${rawPostInfo.order}`;
+			// This relies on the xhtml generation from `html-to-epub` to generate the correct href
+			const newHref = `${lastPostNumber + 1}_${referenceTitle.toLowerCase()}.xhtml#${collection.slug}-${rawPostInfo.order}`;
 
 			if (parent?.children && index !== undefined) {
 				parent.children[index] = SuperScriptLink({
