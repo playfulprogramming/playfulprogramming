@@ -4,7 +4,7 @@ import {
 	getUnicornById,
 } from "../src/utils/api";
 import { resolve } from "path";
-import { EPub } from "@lesjoursfr/html-to-epub";
+import { EPub, defaultAllowedAttributes } from "@lesjoursfr/html-to-epub";
 import { unified } from "unified";
 import { CollectionInfo, PostInfo } from "types/index";
 import { createEpubPlugins } from "utils/markdown/createEpubPlugins";
@@ -154,6 +154,7 @@ async function generateCollectionEPub(
 			author: authors,
 			publisher: "Unicorn Utterances",
 			cover: collection.coverImgMeta.absoluteFSPath,
+			allowedAttributes: [...defaultAllowedAttributes, "start"],
 			css: `
 					img {
 						max-width: 100%;
