@@ -59,6 +59,29 @@ export const rehypeReferencePage: Plugin<
 				return;
 			}
 			const { href, ...linkProps } = node.properties as Record<string, string>;
+
+			const existingCollection = collectionMetaRecord.get(collection.slug);
+			const existingLink = existingCollection?.links.find(
+				(link) => link.originalHref === href,
+			);
+
+			// We've already seen this link before
+			if (existingLink) {
+				// This relies on the xhtml generation from `html-to-epub` to generate the correct href
+				const newHref = `${lastPostNumber + 1}_${referenceTitle.toLowerCase()}.xhtml#${collection.slug}-${existingLink.associatedChapterOrder}`;
+
+				if (parent?.children && index !== undefined) {
+					parent.children[index] = SuperScriptLink({
+						href: newHref,
+						linkProps: linkProps,
+						superScriptNumber: existingLink.countWithinCollection,
+						children: node.children,
+					});
+				}
+
+				return;
+			}
+
 			const nodeText = toString(node);
 			linkCount++;
 			links.push({
