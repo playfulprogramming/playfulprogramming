@@ -105,6 +105,8 @@ class ModalComponent {}
 
 <br/>
 
+<!-- ::start:no-ebook -->
+
 <details>
 <summary>
 CSS for the modal
@@ -179,6 +181,8 @@ CSS for the modal
 ```
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 Now that we have that modal, let's build a small version of the folder app we've been building in this book. This version of the app should showcase the modal, the header, and a copyright footer:
 
@@ -464,6 +468,8 @@ const files = Array.from({ length: 10 }, (_, i) => i);
 
 <br/>
 
+<!-- ::start:no-ebook -->
+
 <details>
 <summary>CSS for the Rest of the App</summary>
 
@@ -568,6 +574,8 @@ body {
 ```
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 Awesome! This is looking good. Now, let's add the ability to open our dialog from our `Header` component.
 
