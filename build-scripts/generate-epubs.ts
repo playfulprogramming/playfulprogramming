@@ -4,6 +4,7 @@ import {
 	getUnicornById,
 } from "../src/utils/api";
 import { resolve } from "path";
+import emojiRegexFn from "emoji-regex";
 import { EPub, defaultAllowedAttributes } from "@lesjoursfr/html-to-epub";
 import { unified } from "unified";
 import { CollectionInfo, PostInfo } from "types/index";
@@ -15,6 +16,8 @@ import {
 } from "utils/markdown/reference-page/rehype-reference-page";
 import { escapeHtml, fetchPageHtml, getPageTitle } from "utils/fetch-page-html";
 import { rehypeRemoveCollectionLinks } from "utils/markdown/rehype-remove-collection-links";
+
+const emojiRegex = emojiRegexFn();
 
 interface GetReferencePageMarkdownOptions {
 	collection: CollectionInfo;
@@ -104,7 +107,8 @@ async function generateEpubHTML({
 }: GenerateEpubHTMLOptions) {
 	const vfile = await getMarkdownVFile(post);
 	const result = await unifiedChain.process(vfile);
-	return result.toString();
+	const html = result.toString();
+	return html.replace(emojiRegex, "");
 }
 
 type EpubOptions = ConstructorParameters<typeof EPub>[0];
@@ -140,12 +144,14 @@ async function generateCollectionEPub(
 		});
 	}
 
+	const referencePageHTML = await getReferencePageHtml({
+		collection,
+		collectionPosts,
+	});
+
 	contents.push({
 		title: referenceTitle,
-		data: await getReferencePageHtml({
-			collection,
-			collectionPosts,
-		}),
+		data: referencePageHTML.replace(emojiRegex, ""),
 	});
 
 	const epub = new EPub(
@@ -180,7 +186,7 @@ async function generateCollectionEPub(
 					code .line::before {
 						content: counter(step);
 						counter-increment: step;
-						width: 1rem;
+						width: 4ch;
 						margin-right: 1.5rem;
 						display: inline-block !important;
 						text-align: right;
@@ -195,6 +201,30 @@ async function generateCollectionEPub(
 					pre.shiki span.line {
 						display: block;
 						white-space: pre-wrap;
+					}
+					
+					/**
+					 * Make the details and summary more clear on ebook readers
+					 */
+					details {
+						border: 1px solid #aaa;
+						border-radius: 4px;
+						padding: 0.5em 0.5em 0;
+					}
+					
+					summary {
+						font-weight: bold;
+						margin: -0.5em -0.5em 0;
+						padding: 0.5em;
+					}
+					
+					details[open] {
+						padding: 0.5em;
+					}
+					
+					details[open] summary {
+						border-bottom: 1px solid #aaa;
+						margin-bottom: 0.5em;
 					}
 					`,
 			// fonts: ['/path/to/Merriweather.ttf'],
