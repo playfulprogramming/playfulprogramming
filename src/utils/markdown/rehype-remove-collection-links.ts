@@ -18,13 +18,12 @@ export const rehypeRemoveCollectionLinks: Plugin<
 	Root
 > = ({ collection }) => {
 	const posts = getPostsByCollection(collection.slug, "en");
-	return (tree, file) => {
-		const rawPostInfo = file.data.frontmatterData as RawPostInfo;
+	return (tree) => {
 		visit(tree, "element", (node, index, parent) => {
 			if (node.tagName !== "a") {
 				return;
 			}
-			const { href, ...linkProps } = node.properties as Record<string, string>;
+			const { href } = node.properties as Record<string, string>;
 			const matchingPost = posts.find((post) => {
 				const postUrl = normalizeUrl(`/posts/${post.slug}`);
 				const normalizedHref = normalizeUrl(href);
@@ -35,7 +34,7 @@ export const rehypeRemoveCollectionLinks: Plugin<
 				}
 				return normalizedHref.endsWith(postUrl);
 			});
-			if (!matchingPost) return;
+			if (!matchingPost || href.startsWith("#")) return;
 			node.tagName = "span";
 			delete node.properties.href;
 		});
