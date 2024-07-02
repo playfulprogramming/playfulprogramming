@@ -7,6 +7,10 @@ import { VFile } from "vfile";
 
 export const rehypeMakeImagePathsAbsolute: Plugin<[], Root> = () => {
 	return (tree: Root, file: VFile) => {
+		if (!file.path) {
+			// We're in a `unified.process` call with the input of a string, not a VFile with a path
+			return tree;
+		}
 		const path = dirname(file.path);
 
 		function imgVisitor(node: Element) {

@@ -888,15 +888,17 @@ function App() {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Accessing Children Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-accessing-children-challenge-115?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -974,15 +976,17 @@ class AppComponent {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Accessing Children Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-accessing-children-challenge-115?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1050,14 +1054,16 @@ const props = defineProps(["data"]);
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Accessing Children Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-accessing-children-challenge-115?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->

@@ -657,15 +657,17 @@ That's because when we used a `div` for our `FileActionButtons` component, it by
 </>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-transparent-challenge-53?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -734,15 +736,17 @@ class FileActionButtonsComponent {
 >
 > This causes our `gap` root to not apply to the inner buttons. To sidestep this, we need to use `styles` and tell our `host` component to treat the `button`s container as if it doesn't exist.
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-transparent-challenge-53?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -759,14 +763,16 @@ Because Vue's root `<template>` can support multiple elements without the need f
 <!-- ... -->
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Dynamic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-transparent-challenge-53?template=node&embed=1&file=src%2FFileActionButtons.vue"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->

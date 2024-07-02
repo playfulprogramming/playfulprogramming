@@ -1399,15 +1399,17 @@ function App() {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Portals Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-portals-challenge-99?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ### Angular
 
@@ -1544,15 +1546,17 @@ class AppComponent implements OnDestroy {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Portals Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-portals-challenge-99?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -1669,14 +1673,16 @@ onUnmounted(() => {
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Portals Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-portals-challenge-99?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->

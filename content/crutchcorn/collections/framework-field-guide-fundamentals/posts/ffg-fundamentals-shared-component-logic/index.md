@@ -910,15 +910,17 @@ function App() {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="React Shared Logic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-shared-logic-challenge-103?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ### Angular
 
@@ -1003,15 +1005,17 @@ class AppComponent implements AfterViewInit {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Shared Logic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-shared-logic-challenge-103?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -1086,14 +1090,16 @@ function open(e) {
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Vue Shared Logic Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-shared-logic-challenge-103?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- ::end:no-ebook -->
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->
