@@ -206,27 +206,20 @@ async function generateCollectionEPub(
 					/**
 					 * Make the details and summary more clear on ebook readers
 					 */
-					details {
-						border: 1px solid #aaa;
+					.hint__container {
+						border: 1px solid black;
 						border-radius: 4px;
-						padding: 0.5em 0.5em 0;
+						padding: 0.5rem;
 					}
 					
-					summary {
+					.hint__title {
 						font-weight: bold;
 						margin: -0.5em -0.5em 0;
 						padding: 0.5em;
-					}
-					
-					details[open] {
-						padding: 0.5em;
-					}
-					
-					details[open] summary {
-						border-bottom: 1px solid #aaa;
+						border-bottom: 1px solid black;
 						margin-bottom: 0.5em;
 					}
-					`,
+				`,
 			// fonts: ['/path/to/Merriweather.ttf'],
 			lang: "en",
 			content: contents,
