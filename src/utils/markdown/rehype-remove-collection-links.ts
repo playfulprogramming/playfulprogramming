@@ -34,7 +34,7 @@ export const rehypeRemoveCollectionLinks: Plugin<
 				}
 				return normalizedHref.endsWith(postUrl);
 			});
-			if (!matchingPost || href.startsWith("#")) return;
+			if (!matchingPost && !href.startsWith("#")) return;
 			node.tagName = "span";
 			delete node.properties.href;
 		});
