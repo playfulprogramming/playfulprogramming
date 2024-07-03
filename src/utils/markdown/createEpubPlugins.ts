@@ -44,6 +44,7 @@ export function createEpubPlugins(unified: Processor) {
 					filetree: ({ children }) => children,
 					["in-content-ad"]: ({ children }) => children,
 					["no-ebook"]: () => [],
+					["only-ebook"]: ({ children }) => children,
 					tabs: ({ children }) => children,
 				},
 			})

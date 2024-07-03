@@ -112,6 +112,7 @@ export function createHtmlPlugins(unified: Processor) {
 					filetree: transformFileTree,
 					["in-content-ad"]: transformInContentAd,
 					["no-ebook"]: ({ children }) => children,
+					["only-ebook"]: () => [],
 					tabs: transformTabs,
 				},
 			})
