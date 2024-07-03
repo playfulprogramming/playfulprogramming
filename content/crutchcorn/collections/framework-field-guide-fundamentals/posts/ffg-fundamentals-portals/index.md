@@ -244,6 +244,8 @@ const Footer = () => {
 };
 ```
 
+<!-- ::start:no-ebook -->
+
 ```jsx
 const DeleteIcon = () => {
 	return (
@@ -271,6 +273,24 @@ const FolderIcon = () => {
 	);
 };
 ```
+
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+```jsx
+const DeleteIcon = () => {
+	return <svg viewBox="0 0 20 21">{/*	... */}</svg>;
+};
+```
+
+```jsx
+const FolderIcon = () => {
+	return <svg viewBox="0 0 20 16">{/*	... */}</svg>;
+};
+```
+
+<!-- ::end:only-ebook -->
 
 ## Angular
 
@@ -339,6 +359,8 @@ class BodyComponent {
 class FooterComponent {}
 ```
 
+<!-- ::start:no-ebook -->
+
 ```angular-ts
 @Component({
 	selector: "folder-icon",
@@ -372,6 +394,38 @@ class FolderIconComponent {}
 })
 class DeleteIconComponent {}
 ```
+
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+```angular-ts
+@Component({
+	selector: "folder-icon",
+	standalone: true,
+	template: `
+		<svg viewBox="0 0 20 16">
+            <!-- ... -->
+        </svg>
+	`,
+})
+class FolderIconComponent {}
+```
+
+```angular-ts
+@Component({
+	selector: "delete-icon",
+	standalone: true,
+	template: `
+		<svg viewBox="0 0 20 21">
+			<!-- ... -->
+		</svg>
+	`,
+})
+class DeleteIconComponent {}
+```
+
+<!-- ::end:only-ebook -->
 
 ## Vue
 
@@ -438,6 +492,8 @@ const files = Array.from({ length: 10 }, (_, i) => i);
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 ```vue
 <!-- DeleteIcon.vue -->
 <template>
@@ -463,6 +519,30 @@ const files = Array.from({ length: 10 }, (_, i) => i);
 	</svg>
 </template>
 ```
+
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+```vue
+<!-- DeleteIcon.vue -->
+<template>
+	<svg viewBox="0 0 20 21">
+		<!-- ... -->
+	</svg>
+</template>
+```
+
+```vue
+<!-- FolderIcon.vue -->
+<template>
+	<svg viewBox="0 0 20 16">
+		<!-- ... -->
+	</svg>
+</template>
+```
+
+<!-- ::end:only-ebook -->
 
 <!-- ::end:tabs -->
 

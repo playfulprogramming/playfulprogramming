@@ -290,11 +290,15 @@ const App = () => {
 <!-- ::end:no-ebook -->
 
 <!-- ::start:no-ebook -->
+
 > Notice that we've changed exactly zero lines of code from our previous example of this component! ✨ Magic ✨
+
 <!-- ::end:no-ebook -->
 
 <!-- ::start:only-ebook -->
+
 > Notice that we've changed exactly zero lines of code from our previous example of this component! Magic!
+
 <!-- ::end:only-ebook -->
 
 ## Angular

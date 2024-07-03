@@ -2121,7 +2121,6 @@ function GreatGrandChild() {
 
 <!-- ::end:no-ebook -->
 
-
 <!-- ::start:only-ebook -->
 
 ```jsx
@@ -2185,7 +2184,6 @@ function GreatGrandChild() {
 ```
 
 <!-- ::end:only-ebook -->
-
 
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="React Data Variance - StackBlitz" src="uu-code:./ffg-fundamentals-react-data-variance-92?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
@@ -2278,7 +2276,6 @@ class AppComponent {}
 ```
 
 <!-- ::end:no-ebook -->
-
 
 <!-- ::start:only-ebook -->
 
@@ -2436,7 +2433,6 @@ provide("MESSAGE", { greeting, changeGreeting });
 
 <!-- ::end:no-ebook -->
 
-
 <!-- ::start:only-ebook -->
 
 ```vue
@@ -2467,7 +2463,6 @@ provide("MESSAGE", { greeting, changeGreeting });
 ```
 
 <!-- ::end:only-ebook -->
-
 
 ```vue
 <!-- GreatGrandChild.vue -->
