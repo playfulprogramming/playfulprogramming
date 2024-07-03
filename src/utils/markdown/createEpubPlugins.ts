@@ -19,6 +19,7 @@ import rehypeStringify from "rehype-stringify";
 import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
 import { rehypeTransformComponents } from "./components";
+import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
 
 export function createEpubPlugins(unified: Processor) {
 	return (
@@ -43,6 +44,7 @@ export function createEpubPlugins(unified: Processor) {
 					filetree: ({ children }) => children,
 					["in-content-ad"]: ({ children }) => children,
 					["no-ebook"]: () => [],
+					["only-ebook"]: ({ children }) => children,
 					tabs: ({ children }) => children,
 				},
 			})
@@ -53,6 +55,7 @@ export function createEpubPlugins(unified: Processor) {
 				enableCustomId: true,
 			})
 			.use(...rehypeShikiUU)
+			.use(rehypePostShikiTransform)
 			// Voids: [] is required for epub generation, and causes little/no harm for non-epub usage
 			.use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
 	);

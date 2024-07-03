@@ -105,6 +105,8 @@ class ModalComponent {}
 
 <br/>
 
+<!-- ::start:no-ebook -->
+
 <details>
 <summary>
 CSS for the modal
@@ -180,6 +182,8 @@ CSS for the modal
 
 </details>
 
+<!-- ::end:no-ebook -->
+
 Now that we have that modal, let's build a small version of the folder app we've been building in this book. This version of the app should showcase the modal, the header, and a copyright footer:
 
 ![A modal on top of a minimal version of the file app that includes a file list, header, and footer](./website_modal_example.png)
@@ -240,6 +244,8 @@ const Footer = () => {
 };
 ```
 
+<!-- ::start:no-ebook -->
+
 ```jsx
 const DeleteIcon = () => {
 	return (
@@ -267,6 +273,24 @@ const FolderIcon = () => {
 	);
 };
 ```
+
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+```jsx
+const DeleteIcon = () => {
+	return <svg viewBox="0 0 20 21">{/*	... */}</svg>;
+};
+```
+
+```jsx
+const FolderIcon = () => {
+	return <svg viewBox="0 0 20 16">{/*	... */}</svg>;
+};
+```
+
+<!-- ::end:only-ebook -->
 
 ## Angular
 
@@ -335,6 +359,8 @@ class BodyComponent {
 class FooterComponent {}
 ```
 
+<!-- ::start:no-ebook -->
+
 ```angular-ts
 @Component({
 	selector: "folder-icon",
@@ -368,6 +394,38 @@ class FolderIconComponent {}
 })
 class DeleteIconComponent {}
 ```
+
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+```angular-ts
+@Component({
+	selector: "folder-icon",
+	standalone: true,
+	template: `
+		<svg viewBox="0 0 20 16">
+            <!-- ... -->
+        </svg>
+	`,
+})
+class FolderIconComponent {}
+```
+
+```angular-ts
+@Component({
+	selector: "delete-icon",
+	standalone: true,
+	template: `
+		<svg viewBox="0 0 20 21">
+			<!-- ... -->
+		</svg>
+	`,
+})
+class DeleteIconComponent {}
+```
+
+<!-- ::end:only-ebook -->
 
 ## Vue
 
@@ -434,6 +492,8 @@ const files = Array.from({ length: 10 }, (_, i) => i);
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 ```vue
 <!-- DeleteIcon.vue -->
 <template>
@@ -460,9 +520,35 @@ const files = Array.from({ length: 10 }, (_, i) => i);
 </template>
 ```
 
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+```vue
+<!-- DeleteIcon.vue -->
+<template>
+	<svg viewBox="0 0 20 21">
+		<!-- ... -->
+	</svg>
+</template>
+```
+
+```vue
+<!-- FolderIcon.vue -->
+<template>
+	<svg viewBox="0 0 20 16">
+		<!-- ... -->
+	</svg>
+</template>
+```
+
+<!-- ::end:only-ebook -->
+
 <!-- ::end:tabs -->
 
 <br/>
+
+<!-- ::start:no-ebook -->
 
 <details>
 <summary>CSS for the Rest of the App</summary>
@@ -568,6 +654,8 @@ body {
 ```
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 Awesome! This is looking good. Now, let's add the ability to open our dialog from our `Header` component.
 

@@ -2057,6 +2057,8 @@ For example, while methods of an injected object should accept the same props an
 
 ### React
 
+<!-- ::start:no-ebook -->
+
 ```jsx
 const GreeterContext = createContext({
 	greeting: "",
@@ -2117,11 +2119,79 @@ function GreatGrandChild() {
 }
 ```
 
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+```jsx
+const GreeterContext = createContext({
+	greeting: "",
+	changeGreeting: (newGreeting) => {},
+});
+
+function App() {
+	const [greeting, setGreeting] = useState("");
+	const value = { greeting, changeGreeting: setGreeting };
+	return (
+		<GreeterContext.Provider value={value}>
+			<Child />
+		</GreeterContext.Provider>
+	);
+}
+
+function Child() {
+	return <GrandChild />;
+}
+
+function GrandChild() {
+	const [greeting, setGreeting] = useState(":D Welcome :P");
+
+	// New :D functionality adds some fun! :P
+	const changeGreeting = (newVal) => {
+		if (!newVal.includes(":D")) {
+			newVal += ":D";
+		}
+		if (!newVal.includes(":P")) {
+			newVal += ":P";
+		}
+
+		setGreeting(newVal);
+	};
+
+	const value = { greeting, changeGreeting };
+	return (
+		<GreeterContext.Provider value={value}>
+			<GreatGrandChild />
+		</GreeterContext.Provider>
+	);
+}
+
+function GreatGrandChild() {
+	const { greeting, changeGreeting } = useContext(GreeterContext);
+	return (
+		<div>
+			<p>{greeting}, user!</p>
+			<label>
+				<div>Set a new greeting</div>
+				<input
+					value={greeting}
+					onChange={(e) => changeGreeting(e.target.value)}
+				/>
+			</label>
+		</div>
+	);
+}
+```
+
+<!-- ::end:only-ebook -->
+
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="React Data Variance - StackBlitz" src="uu-code:./ffg-fundamentals-react-data-variance-92?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 <!-- ::end:no-ebook -->
 
 ### Angular
+
+<!-- ::start:no-ebook -->
 
 ```angular-ts
 @Injectable({ providedIn: "root" })
@@ -2205,6 +2275,94 @@ class ChildComponent {}
 class AppComponent {}
 ```
 
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+```angular-ts
+@Injectable({ providedIn: "root" })
+class MessageValue {
+	greeting = "";
+
+	changeGreeting(val: string) {
+		this.greeting = val;
+	}
+}
+
+@Component({
+	selector: "great-grand-child",
+	standalone: true,
+	imports: [],
+	template: `
+		<div>
+			<p>{{ messageValue.greeting }}, user!</p>
+			<label>
+				<div>Set a new greeting</div>
+				<input [value]="messageValue.greeting" (input)="changeVal($event)" />
+			</label>
+		</div>
+	`,
+})
+class GreatGrandChildComponent {
+	// Nothing will display, because we switched the user
+	// type halfway through the component tree
+	messageValue = inject(MessageValue);
+
+	changeVal(e: any) {
+		this.messageValue.changeGreeting(e.target.value);
+	}
+}
+
+@Injectable({ providedIn: "root" })
+class SparklyMessageValue {
+	greeting = ":D Welcome :P";
+
+	// New :D functionality adds some fun! :P
+	changeGreeting(newVal: string) {
+		if (!newVal.includes(":D")) {
+			newVal += ":D";
+		}
+		if (!newVal.includes(":P")) {
+			newVal += ":P";
+		}
+		this.greeting = newVal;
+	}
+}
+
+@Component({
+	selector: "grand-child",
+	standalone: true,
+	providers: [
+		{
+			provide: MessageValue,
+			// Overwrite the previous injected class with a new implementation
+			useClass: SparklyMessageValue,
+		},
+	],
+	imports: [GreatGrandChildComponent],
+	template: `<great-grand-child />`,
+})
+class GrandChildComponent {}
+
+@Component({
+	selector: "child-comp",
+	standalone: true,
+	imports: [GrandChildComponent],
+	template: `<grand-child />`,
+})
+class ChildComponent {}
+
+@Component({
+	selector: "app-root",
+	standalone: true,
+	imports: [ChildComponent],
+	template: `<child-comp />`,
+})
+class AppComponent {}
+```
+
+<!-- ::end:only-ebook -->
+
 Here, we're using `useClass` in our `provider`s array to replace an `Injectable` class implementation with another one.
 
 <!-- ::start:no-ebook -->
@@ -2244,6 +2402,8 @@ import GrandChild from "./GrandChild.vue";
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 ```vue
 <!-- GrandChild.vue -->
 <script setup>
@@ -2270,6 +2430,39 @@ provide("MESSAGE", { greeting, changeGreeting });
 	<GreatGrandChild />
 </template>
 ```
+
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+```vue
+<!-- GrandChild.vue -->
+<script setup>
+import { provide, ref } from "vue";
+import GreatGrandChild from "./GreatGrandChild.vue";
+
+const greeting = ref(":D Welcome :P");
+
+// New :D functionality adds some fun! :P
+function changeGreeting(newVal) {
+	if (!newVal.includes(":D")) {
+		newVal += ":D";
+	}
+	if (!newVal.includes(":P")) {
+		newVal += ":P";
+	}
+	greeting.value = newVal;
+}
+
+provide("MESSAGE", { greeting, changeGreeting });
+</script>
+
+<template>
+	<GreatGrandChild />
+</template>
+```
+
+<!-- ::end:only-ebook -->
 
 ```vue
 <!-- GreatGrandChild.vue -->

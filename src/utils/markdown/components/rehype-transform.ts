@@ -1,10 +1,11 @@
 import { visit } from "unist-util-visit";
 import { is } from "unist-util-is";
-import { Root, Node, Element } from "hast";
+import { Root, Parent, Element } from "hast";
 import { unified, Plugin } from "unified";
 import { RehypeFunctionComponent } from "./types";
 import rehypeParse from "rehype-parse";
 import { logError } from "../logger";
+import { VFile } from "vfile";
 
 type RehypeComponentsProps = {
 	components: Record<string, RehypeFunctionComponent>;
@@ -15,6 +16,9 @@ const unifiedRehype = unified().use(rehypeParse, { fragment: true });
 const COMPONENT_PREFIX = "::";
 const START_PREFIX = "::start:";
 const END_PREFIX = "::end:";
+
+const isNodeParent = (node: unknown): node is Parent =>
+	!!(typeof node === "object" && node && "children" in node);
 
 const isNodeElement = (node: unknown): node is Element =>
 	(typeof node === "object" &&
@@ -98,16 +102,29 @@ export const rehypeTransformComponents: Plugin<
 				children: parent.children.slice(index + 1, indexEnd),
 			});
 
+			const replacementArray =
+				replacement instanceof Array ? replacement : [replacement];
 			// Replace child nodes (including comments) with the replacement component
 			parent.children.splice(
 				index,
 				isRanged ? indexEnd - index + 1 : 1,
-				...(replacement
-					? ((replacement instanceof Array
-							? replacement
-							: [replacement]) as never)
-					: []),
+				...(replacement ? (replacementArray as never) : []),
 			);
+
+			// Recursively transform the children
+			// This allows for nested components like ebook only content in tabs
+			replacementArray.forEach((replacement) => {
+				if (!isNodeParent(replacement)) return;
+				replacement?.children?.map((child) => {
+					const tree = { type: "root", children: [child] } as Root;
+					(
+						rehypeTransformComponents as (
+							props: RehypeComponentsProps,
+						) => (tree: Root, vfile: VFile) => void
+					)({ components })(tree, vfile);
+					return tree;
+				});
+			});
 
 			return;
 		});

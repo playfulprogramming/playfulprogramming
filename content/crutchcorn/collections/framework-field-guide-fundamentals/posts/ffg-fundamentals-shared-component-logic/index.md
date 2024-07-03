@@ -289,7 +289,17 @@ const App = () => {
 <iframe data-frame-title="React Sharing Side Effect - StackBlitz" src="uu-code:./ffg-fundamentals-react-sharing-side-effect-101?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 <!-- ::end:no-ebook -->
 
+<!-- ::start:no-ebook -->
+
 > Notice that we've changed exactly zero lines of code from our previous example of this component! ✨ Magic ✨
+
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+> Notice that we've changed exactly zero lines of code from our previous example of this component! Magic!
+
+<!-- ::end:only-ebook -->
 
 ## Angular
 

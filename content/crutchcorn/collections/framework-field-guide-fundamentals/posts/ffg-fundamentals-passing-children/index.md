@@ -311,7 +311,7 @@ import ToggleButton from "./ToggleButton.vue";
 
 Here, we're passing `text` as a string property to assign text. But oh no! What if we wanted to add a `span` inside of the `button` to add bolded text? After all, if you pass `Hello, <span>world</span>!`, it wouldn't render the `span`, but instead render the `<span>` as text.
 
-![A button with the inner text of "Hello, <span>world</span>!"](./hello_span_button.png)
+![A button with the inner text of "Hello, span, world, end span,!"](./hello_span_button.png)
 
 Instead, **let's allow the parent of our `ToggleButton` to pass in a template that's then rendered into the component**.
 

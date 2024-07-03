@@ -505,7 +505,17 @@ const labelText = computed(() => formatReadableDate(props.inputDate));
 
 Instead of using `ref` to construct a set of variables and then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
 
+<!-- ::start:no-ebook -->
+
 Vue is able to ✨ magically ✨ detect what data inside the `computed` function is dynamic, just like `watchEffect`. When this dynamic data is changed, it will automatically re-initialize the variable it's assigned to with a new value returned from the inner function.
+
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+Vue is able to magically detect what data inside the `computed` function is dynamic, just like `watchEffect`. When this dynamic data is changed, it will automatically re-initialize the variable it's assigned to with a new value returned from the inner function.
+
+<!-- ::end:only-ebook -->
 
 These `computed` props are then accessible in the same way a `data` property is, both from the template and from Vue's `<script>` alike.
 
