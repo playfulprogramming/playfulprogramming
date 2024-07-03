@@ -106,6 +106,23 @@ async function generateEpubHTML({
 	unifiedChain,
 }: GenerateEpubHTMLOptions) {
 	const vfile = await getMarkdownVFile(post);
+
+	// Replace our Prettier useTabs with two spaces for ebook consistency
+	let contents = vfile.value.toString();
+	let didReplace = true;
+	while (didReplace) {
+		didReplace = false;
+		// Only replace tabs at the start of the line
+		const newContents = contents.replace
+			? contents.replace(/^\t+/gm, (tabs) => "  ".repeat(tabs.length))
+			: contents;
+		if (newContents !== contents) {
+			didReplace = true;
+			contents = newContents;
+		}
+	}
+	vfile.value = contents;
+
 	const result = await unifiedChain.process(vfile);
 	const html = result.toString();
 	return html.replace(emojiRegex, "");
