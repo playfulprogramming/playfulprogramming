@@ -1,13 +1,15 @@
-import {
-	getCollectionsByLang,
-	getPostsByCollection,
-	getUnicornById,
-} from "../src/utils/api";
-import { resolve } from "path";
+import { dirname, resolve } from "path";
+import { promises as fs } from "fs";
+import { fileURLToPath } from "url";
 import emojiRegexFn from "emoji-regex";
 import { EPub, defaultAllowedAttributes } from "@lesjoursfr/html-to-epub";
 import { unified } from "unified";
 import { CollectionInfo, PostInfo } from "types/index";
+import {
+	getCollectionsByLang,
+	getPostsByCollection,
+	getUnicornById,
+} from "utils/api";
 import { createEpubPlugins } from "utils/markdown/createEpubPlugins";
 import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
 import {
@@ -16,6 +18,8 @@ import {
 } from "utils/markdown/reference-page/rehype-reference-page";
 import { escapeHtml, fetchPageHtml, getPageTitle } from "utils/fetch-page-html";
 import { rehypeRemoveCollectionLinks } from "utils/markdown/rehype-remove-collection-links";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const emojiRegex = emojiRegexFn();
 
@@ -178,65 +182,7 @@ async function generateCollectionEPub(
 			publisher: "Unicorn Utterances",
 			cover: collection.coverImgMeta.absoluteFSPath,
 			allowedAttributes: [...defaultAllowedAttributes, "start"],
-			css: `
-					img {
-						max-width: 100%;
-					}
-
-					/**
-					* Shiki styling
-					*/
-					pre {
-						padding: 0.5rem;
-						border: 1px solid currentcolor;
-						border-radius: 8px;
-					}
-
-					/*
-					* This code handles line of code counting
-					*/
-					code {
-						counter-reset: step;
-						counter-increment: step 0;
-					}
-
-					code .line::before {
-						content: counter(step);
-						counter-increment: step;
-						width: 4ch;
-						margin-right: 1.5rem;
-						display: inline-block !important;
-						text-align: right;
-						color: currentcolor;
-						opacity: 0.8;
-					}
-
-					pre.shiki code {
-						white-space: normal;
-					}
-
-					pre.shiki span.line {
-						display: block;
-						white-space: pre-wrap;
-					}
-					
-					/**
-					 * Make the details and summary more clear on ebook readers
-					 */
-					.hint__container {
-						border: 1px solid black;
-						border-radius: 4px;
-						padding: 0.5rem;
-					}
-					
-					.hint__title {
-						font-weight: bold;
-						margin: -0.5em -0.5em 0;
-						padding: 0.5em;
-						border-bottom: 1px solid black;
-						margin-bottom: 0.5em;
-					}
-				`,
+			css: await fs.readFile(resolve(__dirname, "./epub.css"), "utf-8"),
 			// fonts: ['/path/to/Merriweather.ttf'],
 			lang: "en",
 			content: contents,
