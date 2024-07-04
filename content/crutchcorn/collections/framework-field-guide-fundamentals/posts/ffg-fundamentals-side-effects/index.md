@@ -1030,7 +1030,11 @@ We can visually see that our clock is updating every second, but the really inte
 
 However, let's toggle the `Clock` component a couple of times by clicking the button.
 
+<!-- ::start:no-ebook -->
+
 <video src="./lifecycle_timer.mp4" title="A browser showing developer tools and clock component rendering. On first render, the console.log occurs once per visual clock update, but on subsequent renders of the Clock component, the console.log runs too frequently"></video>
+
+<!-- ::end:no-ebook -->
 
 When we toggle the clock from rendering each time, it doesn't stop the `console.log` from running. However, when we re-render `Clock`, it creates a new interval of `console.log`s. This means that if we toggle the `Clock` component three times, it will run `console.log` three times for each update of the on-screen time.
 
@@ -1273,7 +1277,11 @@ Let's test our manual "snooze" button and see if that works as expe-...
 
 > Wait, did the timer screen go from 4 seconds to 9? That's not how a countdown works!
 
+<!-- ::start:no-ebook -->
+
 <video src="./timer_incorrect_loop.mp4" title="A browser displays the second countdown to the alarm screen, but when the user clicks on the 'snooze' button, the countdown goes from '4 seconds left' to '9 seconds left' and keeps counting down from there like normal"></video>
+
+<!-- ::end:no-ebook -->
 
 Sure enough, if you happen to click the manual "Snooze" button right before the auto-snooze goes off, it will add an extra 5 seconds to your existing countdown.
 
