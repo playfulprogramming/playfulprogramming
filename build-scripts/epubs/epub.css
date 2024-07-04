@@ -30,7 +30,10 @@ code .line::before {
 	opacity: 0.8;
 }
 
-pre.shiki code {
+/**
+ * Apply to code blocks, Shiki and non-Shiki alike
+ */
+pre code {
 	white-space: normal;
 }
 
