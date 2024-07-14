@@ -1,0 +1,91 @@
+---
+import { getInitialItems } from "./test";
+const numberOfItems = 14;
+const initialItems = getInitialItems(numberOfItems);
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<div class="container">
+			<div style="display: inline-block; width: 800px; height: 800px">
+				<h1>Astro</h1>
+			</div>
+			<div class="inner-container">
+				{
+					initialItems.map((item, index) => (
+						<div
+							data-is-circle-item
+							id={`circle-item-${index}`}
+							style={{
+								position: "absolute",
+								left: item.x,
+								top: item.y,
+								width: "80px",
+								height: "80px",
+								borderRadius: "50%",
+								transform: `scale(${item.scale}) translate(-50%, -50%)`,
+								backgroundImage:
+									"url('https://pbs.twimg.com/profile_images/1646398592360361985/ydPxzz9U_400x400.jpg')",
+								backgroundSize: "cover",
+								transition: "opacity 0.5s, transform 0.1s",
+							}}
+						/>
+					))
+				}
+			</div>
+		</div>
+
+		<script>
+			import { getInitialItems, calculatePosition } from "./test";
+
+			// In a 30fps requestAnimationFrame loop, take each item and change the X, Y, and scale to rotate the items in the circle clockwise
+			let items = document.querySelectorAll("[data-is-circle-item]");
+
+			let angle = 0;
+
+			function update() {
+				angle += 0.001;
+				items.forEach((element: HTMLElement, index) => {
+					const { x, y, scale } = calculatePosition(
+						items.length,
+						index + angle,
+					);
+					element.style.left = `${x}%`;
+					element.style.top = `${y}%`;
+					element.style.transform = `scale(${scale}) translate(-50%, -50%)`;
+					if (scale < 0.1) {
+						element.style.opacity = "0";
+					} else {
+						element.style.opacity = "1";
+					}
+					return { x: `${x}%`, y: `${y}%`, scale };
+				});
+				requestAnimationFrame(update);
+			}
+			update();
+		</script>
+
+		<style>
+			.container {
+				display: inline-block;
+				position: relative;
+			}
+
+			.inner-container {
+				top: 50%;
+				left: 50%;
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				transform: translate(-50%, -50%);
+			}
+		</style>
+	</body>
+</html>
