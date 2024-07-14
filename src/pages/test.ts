@@ -5,7 +5,9 @@ export function calculatePosition(
 	index: number,
 	offset = 0,
 ) {
-	const angle = ((Math.PI * 2) / numberOfItems) * index + offset;
+	const angle = Math.abs(
+		(((Math.PI * 2) / numberOfItems) * index + offset) % 360,
+	);
 	const x = Math.cos(angle) * 50 + 50; // Adjusted for horizontal positioning
 	const y = Math.sin(angle) * 50 + 50; // Adjusted for vertical positioning
 
@@ -18,14 +20,14 @@ export function calculatePosition(
 
 	let scale;
 	// Determine scale based on angle range
-	if (angleDegrees >= 50 && angleDegrees <= 130) {
+	if (angleDegrees >= 10 && angleDegrees <= 170) {
 		scale = 1; // No scaling for items within this range
-	} else if (angleDegrees > 130 && angleDegrees <= 160) {
+	} else if (angleDegrees > 170 && angleDegrees <= 180) {
 		// Scale down linearly from 120 to 150 degrees to 0
-		scale = ((angleDegrees - 160) / (130 - 160)) * (1 - 0) + 0;
-	} else if (angleDegrees >= 30 && angleDegrees <= 50) {
+		scale = ((angleDegrees - 180) / (170 - 180)) * (1 - 0) + 0;
+	} else if (angleDegrees >= 0 && angleDegrees <= 10) {
 		// Scale down linearly from 30 to 60 degrees to 0
-		scale = ((angleDegrees - 30) / (50 - 30)) * (1 - 0) + 0;
+		scale = ((angleDegrees - 0) / (10 - 0)) * (1 - 0) + 0;
 	} else {
 		scale = 0;
 	}
@@ -37,9 +39,9 @@ export function calculatePosition(
 	return { x, y, scale };
 }
 
-export function getInitialItems(numberOfItems: number) {
+export function getInitialItems(numberOfItems: number, offset = 0) {
 	return Array.from({ length: numberOfItems }).map((_, index) => {
-		const { x, y, scale } = calculatePosition(numberOfItems, index);
+		const { x, y, scale } = calculatePosition(numberOfItems, index, offset);
 		return { x: `${x}%`, y: `${y}%`, scale };
 	});
 }
