@@ -1,10 +1,18 @@
 ---
+import { getUnicornsByLang } from "../utils/api";
 import { getInitialItems } from "./test";
 const numberOfInnerItems = 22;
 const numberOfOuterItems = 28;
 const offset = 150;
 const initialInnerItems = getInitialItems(numberOfInnerItems);
 const initialOuterItems = getInitialItems(numberOfOuterItems, offset);
+
+const unicorns = getUnicornsByLang("en");
+const reverseUnicorns = unicorns.slice().reverse();
+
+const getSafeIndex = <T,>(array: T[], index: number) => {
+	return array[index % array.length];
+};
 ---
 
 <html lang="en">
@@ -32,34 +40,58 @@ const initialOuterItems = getInitialItems(numberOfOuterItems, offset);
 				</div>
 				<div class="inner-involved-container">
 					{
-						initialInnerItems.map((item, index) => (
-							<div
-								data-is-circle-inner-item
-								id={`circle-item-inner-${index}`}
-								class="circle-item"
-								style={{
-									left: item.x,
-									top: item.y,
-									transform: `scale(${item.scale}) translate(-50%, -50%)`,
-								}}
-							/>
-						))
+						initialInnerItems.map((item, index) => {
+							const unicorn = getSafeIndex(unicorns, index);
+							return (
+								<div
+									data-is-circle-inner-item
+									id={`circle-item-inner-${index}`}
+									class="circle-item"
+									style={{
+										left: item.x,
+										top: item.y,
+										backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
+										transform: `scale(${item.scale}) translate(-50%, -50%)`,
+									}}
+								>
+									{unicorn.roles[0] && (
+										<img
+											class="sticker-role"
+											src={`/public/stickers/role_${unicorn.roles[0]}.svg`}
+											alt=""
+										/>
+									)}
+								</div>
+							);
+						})
 					}
 				</div>
 				<div class="outer-involved-container">
 					{
-						initialOuterItems.map((item, index) => (
-							<div
-								data-is-circle-outer-item
-								id={`circle-item-outer-${index}`}
-								class="circle-item"
-								style={{
-									left: item.x,
-									top: item.y,
-									transform: `scale(${item.scale}) translate(-50%, -50%)`,
-								}}
-							/>
-						))
+						initialOuterItems.map((item, index) => {
+							const unicorn = getSafeIndex(reverseUnicorns, index);
+							return (
+								<div
+									data-is-circle-outer-item
+									id={`circle-item-outer-${index}`}
+									class="circle-item"
+									style={{
+										left: item.x,
+										top: item.y,
+										backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
+										transform: `scale(${item.scale}) translate(-50%, -50%)`,
+									}}
+								>
+									{unicorn.roles[0] && (
+										<img
+											class="sticker-role"
+											src={`/public/stickers/role_${unicorn.roles[0]}.svg`}
+											alt=""
+										/>
+									)}
+								</div>
+							);
+						})
 					}
 				</div>
 			</div>
@@ -142,12 +174,21 @@ const initialOuterItems = getInitialItems(numberOfOuterItems, offset);
 				width: 80px;
 				height: 80px;
 				border-radius: 50%;
-				background-image: url("https://pbs.twimg.com/profile_images/1646398592360361985/ydPxzz9U_400x400.jpg");
 				background-size: cover;
 				transition:
 					opacity 0.75s,
 					transform 0.2s;
 				transform-origin: top left;
+			}
+
+			.sticker-role {
+				position: absolute;
+				width: 32px;
+				height: 32px;
+				bottom: -4px;
+				right: -4px;
+				filter: drop-shadow(0px 1.25px 1.5px rgba(0, 0, 0, 0.24))
+					drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.16));
 			}
 
 			body {
