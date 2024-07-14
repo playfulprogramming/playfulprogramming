@@ -3,9 +3,7 @@
   title: "DRY multicomparisons",
   published: "2018-07-14",
   edited: "2018-07-14",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2018/07/dry-multicomparisons.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 Now and then, I find myself writing something like if `(x == a || x == b || x == c) ...`, and every time the repetition

@@ -3,9 +3,7 @@
   title: "The accidentally sliced CRTP base",
   published: "2020-12-22",
   edited: "2020-12-22",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2020/12/the-accidentally-sliced-crtp-base.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 Some time ago, I received a bug report that, in short, said "your class does not work with CRTP". I was very confused by

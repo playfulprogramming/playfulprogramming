@@ -3,9 +3,7 @@
   title: "Compile time quicksort in idiomatic modern C++",
   published: "2015-01-18",
   edited: "2015-01-18",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2015/01/compile-time-quicksort-in-idiomatic.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 A contender for the most useless program ever written just got a much needed overhaul. In

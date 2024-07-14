@@ -3,9 +3,7 @@
   title: "Cache optimizing a priority queue",
   published: "2015-08-03",
   edited: "2015-08-04",
-  tags: ['cpp'],
-  originalLink: "https://playfulprogramming.blogspot.com/2015/08/cache-optimizing-priority-queue.html"
-}
+  tags: ['cpp']}
 ---
 
 I must begin with saying that if you found this because you have a performance problem, you should almost certainly look

@@ -3,9 +3,7 @@
   title: "How to speak at a conference",
   published: "2018-11-29",
   edited: "2018-11-29",
-  tags: [ 'opinion' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2018/11/how-to-speak-at-conference.html"
-}
+  tags: [ 'opinion' ]}
 ---
 
 A former colleague of mine recently described the steps to speak at a conference as:

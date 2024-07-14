@@ -3,9 +3,7 @@
   title: "A Linux C++ programmers adventure in improving Windows CI on GitHub actions",
   published: "2023-01-06",
   edited: "2023-01-07",
-  tags: ['linux', 'cpp', 'windows'],
-  originalLink: "https://playfulprogramming.blogspot.com/2023/01/a-linux-c-programmers-adventure-in.html"
-}
+  tags: ['linux', 'cpp', 'windows']}
 ---
 
 **TL;DR;**

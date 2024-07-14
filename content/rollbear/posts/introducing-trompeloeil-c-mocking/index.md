@@ -3,9 +3,7 @@
   title: "Introducing the Trompeloeil C++ Mocking framework",
   published: "2014-12-13",
   edited: "2014-12-13",
-  tags: [ 'cpp', 'testing' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2014/12/introducing-trompeloeil-c-mocking.html"
-}
+  tags: [ 'cpp', 'testing' ]}
 ---
 
 [Trompeloeil](https://github.com/rollbear/trompeloeil) is a new mocking framework for C++, aimed at ease of use without

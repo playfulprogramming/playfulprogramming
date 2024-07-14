@@ -3,9 +3,7 @@
   title: "strings as types",
   published: "2013-03-31",
   edited: "2013-03-31",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2013/03/strings-as-types.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 As odd as it may seem, I have more than once felt the need to express a string literal as a unique type which can be

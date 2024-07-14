@@ -3,9 +3,7 @@
   title: "When private member function?",
   published: "2023-12-12",
   edited: "2023-12-12",
-  tags: [ 'cpp', 'opinion' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2023/12/when-private-member-function.html"
-}
+  tags: [ 'cpp', 'opinion' ]}
 ---
 
 I've seen this a few times too many recently, and need to get it off my chest.

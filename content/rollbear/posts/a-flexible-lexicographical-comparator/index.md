@@ -3,9 +3,7 @@
   title: "A flexible lexicographical comparator for C++ structs",
   published: "2016-01-01",
   edited: "2016-01-01",
-  tags: ['cpp'],
-  originalLink: "https://playfulprogramming.blogspot.com/2016/01/a-flexible-lexicographical-comparator.html"
-}
+  tags: ['cpp']}
 ---
 
 We've all hand crafted comparison operators for structs with many members, and we've all cursed the tedium. It's all

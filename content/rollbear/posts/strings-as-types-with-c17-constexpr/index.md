@@ -3,9 +3,7 @@
   title: "strings as types with c++17 constexpr lambdas",
   published: "2016-08-25",
   edited: "2016-08-25",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2016/08/strings-as-types-with-c17-constexpr.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 Recently I stumbled upon a question by [@arne_mertz](https://twitter.com/arne_mertz)

@@ -3,9 +3,7 @@
   title: "Higher order functions as an enabler for lazy evaluation",
   published: "2017-01-08",
   edited: "2017-01-08",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2017/01/higher-order-functions-as-enabler-for.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 Yesterday's post about [Generating lambdas for clarity and performance](/posts/generate-lambdas-for-clarity-and.html)

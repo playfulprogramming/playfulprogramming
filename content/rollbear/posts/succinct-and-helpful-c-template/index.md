@@ -3,9 +3,7 @@
   title: "Succinct and helpful C++ template compilation errors",
   published: "2016-05-18",
   edited: "2016-05-24",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2016/05/succinct-and-helpful-c-template.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 We've all experienced them, the long and unhelpful compilation errors from templates, usually referring to some internal

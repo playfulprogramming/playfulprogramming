@@ -3,9 +3,7 @@
   title: "When performance guarantees hurts performance - std::visit",
   published: "2018-12-22",
   edited: "2018-12-22",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2018/12/when-performance-guarantees-hurts.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 The performance of [`std::visit`](https://en.cppreference.com/w/cpp/utility/variant/visit) came up in a discussion, and

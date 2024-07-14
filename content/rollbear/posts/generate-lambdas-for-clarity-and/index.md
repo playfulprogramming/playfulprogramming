@@ -3,9 +3,7 @@
   title: "Generate lambdas for clarity and performance",
   published: "2017-01-07",
   edited: "2017-01-14",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2017/01/generate-lambdas-for-clarity-and.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 [Higher order functions](https://en.wikipedia.org/wiki/Higher-order_function), functions that operate on other functions

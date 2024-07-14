@@ -3,9 +3,7 @@
   title: "Serializing structs with C++17 structured bindings",
   published: "2016-12-29",
   edited: "2016-12-29",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2016/12/serializing-structs-with-c17-structured.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 Serializing data in C++ is a surprisingly difficult problem. There are many libraries for it with varying degrees of

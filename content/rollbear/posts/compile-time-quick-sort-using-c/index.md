@@ -3,9 +3,7 @@
   title: "Compile time quick sort using C++ variadic templates",
   published: "2011-09-23",
   edited: "2015-06-04",
-  tags: ['cpp'],
-  originalLink: "https://playfulprogramming.blogspot.com/2011/09/compile-time-quick-sort-using-c.html"
-}
+  tags: ['cpp']}
 ---
 
 > Edit June 4th 2015: This article is very dated. Read this [revisiting article](/compile-time-quicksort-in-idiomatic)

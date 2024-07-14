@@ -3,9 +3,7 @@
   title: "Performance of flat maps",
   published: "2017-08-07",
   edited: "2017-08-07",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2017/08/performance-of-flat-maps.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 A flat map is a data structure that maps a key to a value, and that stores the data in a compact flat memory structure

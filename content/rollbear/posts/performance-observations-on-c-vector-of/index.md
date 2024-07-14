@@ -3,9 +3,7 @@
   title: "Performance observations on a C++ vector of lambdas",
   published: "2015-06-05",
   edited: "2015-06-07",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2015/06/performance-observations-on-c-vector-of.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 > Edit 2015-Jun-7: The source code is available on [GitHub](https://github.com/rollbear/vector_lambda)

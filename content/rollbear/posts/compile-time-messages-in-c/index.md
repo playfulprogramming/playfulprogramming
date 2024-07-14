@@ -3,9 +3,7 @@
   title: "Compile time messages in C++",
   published: "2011-09-28",
   edited: "2011-09-29",
-  tags: ['cpp'],
-  originalLink: "https://playfulprogramming.blogspot.com/2011/09/compile-time-messages-in-c.html"
-}
+  tags: ['cpp']}
 ---
 
 At times it's desirable to give a message at compile time. Sounds cheezy, eh? Well read on and find out.

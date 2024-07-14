@@ -3,9 +3,7 @@
   title: "constexpr quicksort in C++17",
   published: "2017-06-03",
   edited: "2017-06-03",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2017/06/constexpr-quicksort-in-c17.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 So I've written about compile time quick sort twice

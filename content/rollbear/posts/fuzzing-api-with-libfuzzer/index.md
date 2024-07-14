@@ -3,9 +3,7 @@
   title: "Fuzzing an API with libfuzzer",
   published: "2024-01-23",
   edited: "2024-01-28",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2024/01/fuzzing-api-with-libfuzzer.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 > [Edit] I was just told that libFuzzer is deprecated. I think the ideas presented are valid for any fuzzer, but the

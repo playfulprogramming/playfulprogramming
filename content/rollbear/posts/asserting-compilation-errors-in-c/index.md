@@ -3,9 +3,7 @@
   title: "Asserting compilation errors in C++",
   published: "2014-08-28",
   edited: "2014-08-28",
-  tags: ['cpp'],
-  originalLink: "https://playfulprogramming.blogspot.com/2014/08/asserting-compilation-errors-in-c.html"
-}
+  tags: ['cpp']}
 ---
 
 Sometimes when crafting an interface, we want to ensure that some illegal constructs leads to compilation errors. After

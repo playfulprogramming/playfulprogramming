@@ -3,9 +3,7 @@
   title: "Exploring time keeping in ISO C++ 2011",
   published: "2011-09-25",
   edited: "2011-09-25",
-  tags: [ 'cpp' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2011/09/lot-has-been-written-about-new-features.html"
-}
+  tags: [ 'cpp' ]}
 ---
 
 A lot has been written about new features coming in the 2011 revision of ISO C++. One that has received surprisingly

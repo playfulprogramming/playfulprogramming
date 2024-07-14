@@ -3,9 +3,7 @@
   title: "Sequence Control with the Trompeloeil C++ Mocking Framework",
   published: "2015-01-06",
   edited: "2015-01-06",
-  tags: [ 'cpp', 'testing' ],
-  originalLink: "https://playfulprogramming.blogspot.com/2015/01/sequence-control-with-trompeloeil-c.html"
-}
+  tags: [ 'cpp', 'testing' ]}
 ---
 
 ![](./trompeloeil-logo.png)

@@ -3,9 +3,7 @@
   title: "About time - how to unit test code that depends on time",
   published: "2023-12-19",
   edited: "2023-12-19",
-  tags: ['cpp', 'testing'],
-  originalLink: "https://playfulprogramming.blogspot.com/2023/12/about-time.html"
-}
+  tags: ['cpp', 'testing']}
 ---
 
 Suppose that the logic of your program depends on time. That is, you need to keep track of when something in the past
