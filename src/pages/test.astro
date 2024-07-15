@@ -126,6 +126,18 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 				prevX = e.clientX;
 			}
 
+			function onTouchMove(e: TouchEvent) {
+				if (prevX === 0) {
+					prevX = e.touches[0].clientX;
+				}
+				const diff = e.touches[0].clientX - prevX;
+				innerAngle -= diff * 0.01;
+				outerAngle -= diff * 0.005;
+
+				redraw();
+				prevX = e.touches[0].clientX;
+			}
+
 			const innerContainer = document.querySelector("#inner-circle-container")!;
 			const outerContainer = document.querySelector("#outer-circle-container")!;
 
@@ -148,6 +160,24 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 						}
 					}
 				});
+
+				el.addEventListener("touchstart", (event: TouchEvent) => {
+					shouldUpdate = false;
+					document.addEventListener("touchmove", onTouchMove);
+				});
+
+				document.addEventListener(
+					"touchend",
+					(event: TouchEvent) => {
+						document.removeEventListener("touchmove", onTouchMove);
+						prevX = 0;
+						if (!shouldUpdate) {
+							shouldUpdate = true;
+							update();
+						}
+					},
+					{ passive: true },
+				);
 			}
 
 			function redraw() {
