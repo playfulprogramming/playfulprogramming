@@ -1,11 +1,14 @@
 ---
 import { getUnicornsByLang } from "../../utils/api";
 import { getInitialItems } from "./get-involved-header";
-const numberOfInnerItems = 22;
-const numberOfOuterItems = 28;
-const offset = 150;
-const initialInnerItems = getInitialItems(numberOfInnerItems);
-const initialOuterItems = getInitialItems(numberOfOuterItems, offset);
+
+const NUMBER_OF_INNER_ITEMS = 22;
+const NUMBER_OF_OUTER_ITEMS = 28;
+const INNER_OFFSET = 150;
+const OUTER_OFFSET = 300;
+
+const initialInnerItems = getInitialItems(NUMBER_OF_INNER_ITEMS, INNER_OFFSET);
+const initialOuterItems = getInitialItems(NUMBER_OF_OUTER_ITEMS, OUTER_OFFSET);
 
 const unicorns = getUnicornsByLang("en");
 const reverseUnicorns = unicorns.slice().reverse();
@@ -88,35 +91,56 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 </div>
 
 <script>
+	// In a 30fps requestAnimationFrame loop, take each item and change the X, Y, and scale to rotate the items in the circle clockwise
 	import { getInitialItems, calculatePosition } from "./get-involved-header";
 
-	// In a 30fps requestAnimationFrame loop, take each item and change the X, Y, and scale to rotate the items in the circle clockwise
-	let innerCircle = document.querySelectorAll("[data-is-circle-inner-item]");
-	let outerCircle = document.querySelectorAll("[data-is-circle-outer-item]");
+	const DECELERATION_RATE = 0.99;
+	const MIN_SPEED_THRESHOLD = 0.0001;
+	const INNER_CIRCLE_ROTATION_SPEED = 0.001;
+	const OUTER_CIRCLE_ROTATION_SPEED = 0.0005;
+	const SPEED_CALCULATION_FACTOR = 0.01;
+	const OUTER_SPEED_MULTIPLIER = 0.5;
+	const INNER_OFFSET = 150;
+	const OUTER_OFFSET = 300;
+
+	const innerCircle = document.querySelectorAll("[data-is-circle-inner-item]");
+	const outerCircle = document.querySelectorAll("[data-is-circle-outer-item]");
+	const innerContainer = document.querySelector("#inner-circle-container")!;
+	const outerContainer = document.querySelector("#outer-circle-container")!;
 
 	let innerAngle = 0;
 	let outerAngle = 0;
-
 	let shouldUpdate = true;
-
 	let prevX = 0;
-	let speed = 0; // Variable to hold the calculated speed
-	let decelerating = false; // Flag to control the deceleration effect
+	let speed = 0;
+	let decelerating = false;
 
-	function onMouseMove(e) {
-		if (prevX === 0) {
-			prevX = e.clientX;
-		}
-		const diff = e.clientX - prevX;
-		speed = diff * 0.01; // Calculate speed based on movement difference
-		innerAngle -= speed;
-		outerAngle -= speed * 0.5;
-
-		redraw();
-		prevX = e.clientX;
+	function calculateSpeed(e: MouseEvent | TouchEvent) {
+		const isMouseEvent = (e: any): e is MouseEvent => {
+			return "clientX" in e;
+		};
+		const currentX = isMouseEvent(e) ? e.clientX : e.touches[0].clientX;
+		if (prevX === 0) prevX = currentX;
+		const diff = currentX - prevX;
+		speed = diff * SPEED_CALCULATION_FACTOR;
+		prevX = currentX;
 	}
 
-	function onMouseUp() {
+	function onMouseMove(e: MouseEvent) {
+		calculateSpeed(e);
+		innerAngle -= speed;
+		outerAngle -= speed * OUTER_SPEED_MULTIPLIER;
+		redraw();
+	}
+
+	function onTouchMove(e: TouchEvent) {
+		calculateSpeed(e);
+		innerAngle -= speed;
+		outerAngle -= speed * OUTER_SPEED_MULTIPLIER;
+		redraw();
+	}
+
+	function startDeceleration() {
 		if (speed !== 0) {
 			decelerating = true;
 			requestAnimationFrame(decelerate);
@@ -126,14 +150,10 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	function decelerate() {
 		if (!decelerating) return;
 		innerAngle -= speed;
-		outerAngle -= speed * 0.5;
+		outerAngle -= speed * OUTER_SPEED_MULTIPLIER;
 		redraw();
-
-		// Reduce speed to simulate deceleration
-		speed *= 0.99; // Adjust this value to control the deceleration rate
-
-		// Stop decelerating once the speed is very low
-		if (Math.abs(speed) < 0.0001) {
+		speed *= DECELERATION_RATE;
+		if (Math.abs(speed) < MIN_SPEED_THRESHOLD) {
 			decelerating = false;
 			speed = 0;
 		} else {
@@ -141,20 +161,11 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 		}
 	}
 
-	// Attach the mouseup event listener to stop moving and start decelerating
-	document.addEventListener("mouseup", onMouseUp);
-
-	function onTouchMove(e: TouchEvent) {
-		if (prevX === 0) {
-			prevX = e.touches[0].clientX;
+	function onMouseUp() {
+		if (speed !== 0) {
+			decelerating = true;
+			requestAnimationFrame(decelerate);
 		}
-		const diff = e.touches[0].clientX - prevX;
-		speed = diff * 0.01; // Calculate speed based on movement difference
-		innerAngle -= diff * 0.01;
-		outerAngle -= diff * 0.005;
-
-		redraw();
-		prevX = e.touches[0].clientX;
 	}
 
 	function onTouchEnd() {
@@ -164,52 +175,12 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 		}
 	}
 
-	document.addEventListener("touchend", onTouchEnd);
-
-	const innerContainer = document.querySelector("#inner-circle-container")!;
-	const outerContainer = document.querySelector("#outer-circle-container")!;
-
-	for (const el of [innerContainer, outerContainer]) {
-		// Listen for left and right mouse drag events to move the circles
-		el.addEventListener("mousedown", (event: MouseEvent) => {
-			if (event.button === 0) {
-				shouldUpdate = false;
-				document.addEventListener("mousemove", onMouseMove);
-			}
-		});
-
-		document.addEventListener("mouseup", (event: MouseEvent) => {
-			if (event.button === 0) {
-				document.removeEventListener("mousemove", onMouseMove);
-				prevX = 0;
-				if (!shouldUpdate) {
-					shouldUpdate = true;
-					update();
-				}
-			}
-		});
-
-		el.addEventListener("touchstart", (event: TouchEvent) => {
-			shouldUpdate = false;
-			document.addEventListener("touchmove", onTouchMove);
-		});
-
-		document.addEventListener("touchend", (event: TouchEvent) => {
-			document.removeEventListener("touchmove", onTouchMove);
-			prevX = 0;
-			if (!shouldUpdate) {
-				shouldUpdate = true;
-				update();
-			}
-		});
-	}
-
 	function redraw() {
 		innerCircle.forEach((element: HTMLElement, index) => {
 			const { x, y, scale } = calculatePosition(
 				innerCircle.length,
 				index + innerAngle,
-				150,
+				INNER_OFFSET,
 			);
 			element.style.left = `${x}%`;
 			element.style.top = `${y}%`;
@@ -219,7 +190,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 			const { x, y, scale } = calculatePosition(
 				outerCircle.length,
 				index + outerAngle,
-				300,
+				OUTER_OFFSET,
 			);
 			element.style.left = `${x}%`;
 			element.style.top = `${y}%`;
@@ -228,16 +199,54 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	}
 
 	function update() {
-		if (!shouldUpdate) {
-			return;
-		}
-		innerAngle += 0.001;
-		outerAngle += 0.0005;
-
+		if (!shouldUpdate) return;
+		innerAngle += INNER_CIRCLE_ROTATION_SPEED;
+		outerAngle += OUTER_CIRCLE_ROTATION_SPEED;
 		redraw();
-
 		requestAnimationFrame(update);
 	}
+
+	function setupEventListeners() {
+		function handleDragStart(e: MouseEvent | TouchEvent) {
+			shouldUpdate = false;
+			if (e.type === "mousedown") {
+				document.addEventListener("mousemove", onMouseMove);
+			} else if (e.type === "touchstart") {
+				document.addEventListener("touchmove", onTouchMove);
+			}
+		}
+
+		function handleDragEnd() {
+			document.removeEventListener("mousemove", onMouseMove);
+			document.removeEventListener("touchmove", onTouchMove);
+			prevX = 0;
+			if (!shouldUpdate) {
+				shouldUpdate = true;
+				update();
+			}
+		}
+
+		function setupContainerListeners(container: Element) {
+			container.addEventListener("touchstart", handleDragStart);
+			container.addEventListener("mousedown", handleDragStart);
+		}
+
+		document.addEventListener("mouseup", startDeceleration);
+		document.addEventListener("touchend", startDeceleration);
+		document.addEventListener("mouseup", handleDragEnd);
+		document.addEventListener("touchend", handleDragEnd);
+
+		return {
+			setupContainerListeners,
+		};
+	}
+
+	// Setup event listeners
+	const { setupContainerListeners } = setupEventListeners();
+	setupContainerListeners(innerContainer);
+	setupContainerListeners(outerContainer);
+
+	// Start the event loop
 	update();
 </script>
 
