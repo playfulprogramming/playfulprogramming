@@ -1,0 +1,14 @@
+---
+import Document from "../layouts/document.astro";
+import GetInvolvedHeader from "../views/get-involved/get-involved-header.astro";
+import SEO from "components/seo/seo.astro";
+---
+
+<Document>
+	<SEO
+		title={"Get Involved"}
+		description={`Get involved with the community and help us make learning programming more accessible.`}
+		slot="head"
+	/>
+	<GetInvolvedHeader />
+</Document>
