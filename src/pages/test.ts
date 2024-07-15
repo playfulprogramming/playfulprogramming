@@ -8,6 +8,7 @@ export function calculatePosition(
 	const angle = Math.abs(
 		(((Math.PI * 2) / numberOfItems) * index + offset) % 360,
 	);
+
 	const x = Math.cos(angle) * 50 + 50; // Adjusted for horizontal positioning
 	const y = Math.sin(angle) * 50 + 50; // Adjusted for vertical positioning
 

@@ -38,7 +38,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 						</p>
 					</div>
 				</div>
-				<div class="inner-involved-container">
+				<div class="inner-involved-container" id="inner-circle-container">
 					{
 						initialInnerItems.map((item, index) => {
 							const unicorn = getSafeIndex(unicorns, index);
@@ -66,7 +66,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 						})
 					}
 				</div>
-				<div class="outer-involved-container">
+				<div class="outer-involved-container" id="outer-circle-container">
 					{
 						initialOuterItems.map((item, index) => {
 							const unicorn = getSafeIndex(reverseUnicorns, index);
@@ -111,9 +111,45 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 			let innerAngle = 0;
 			let outerAngle = 0;
 
-			function update() {
-				innerAngle += 0.001;
-				outerAngle += 0.0005;
+			let shouldUpdate = true;
+
+			let prevX = 0;
+			function onMouseMove(e: MouseEvent) {
+				if (prevX === 0) {
+					prevX = e.clientX;
+				}
+				const diff = e.clientX - prevX;
+				innerAngle += diff * 0.001;
+				outerAngle += diff * 0.0005;
+				redraw();
+				prevX = e.clientX;
+			}
+
+			const innerContainer = document.querySelector("#inner-circle-container")!;
+			const outerContainer = document.querySelector("#outer-circle-container")!;
+
+			for (const el of [innerContainer, outerContainer]) {
+				// Listen for left and right mouse drag events to move the circles
+				el.addEventListener("mousedown", (event: MouseEvent) => {
+					if (event.button === 0) {
+						shouldUpdate = false;
+						document.addEventListener("mousemove", onMouseMove);
+					}
+				});
+
+				document.addEventListener("mouseup", (event: MouseEvent) => {
+					if (event.button === 0) {
+						document.removeEventListener("mousemove", onMouseMove);
+						prevX = 0;
+						if (!shouldUpdate) {
+							shouldUpdate = true;
+							update();
+						}
+					}
+				});
+			}
+
+			function redraw() {
 				innerCircle.forEach((element: HTMLElement, index) => {
 					const { x, y, scale } = calculatePosition(
 						innerCircle.length,
@@ -126,13 +162,24 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 				outerCircle.forEach((element: HTMLElement, index) => {
 					const { x, y, scale } = calculatePosition(
 						outerCircle.length,
-						index + innerAngle,
+						index + outerAngle,
 						150,
 					);
 					element.style.left = `${x}%`;
 					element.style.top = `${y}%`;
 					element.style.transform = `scale(${scale}) translate(-50%, -50%)`;
 				});
+			}
+
+			function update() {
+				if (!shouldUpdate) {
+					return;
+				}
+				innerAngle += 0.001;
+				outerAngle += 0.0005;
+
+				redraw();
+
 				requestAnimationFrame(update);
 			}
 			update();
@@ -167,6 +214,12 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 				width: calc(300vw + calc(var(--offset) * 3.14));
 				max-width: calc(960px + calc(var(--offset) * 3.14));
 				transform: translateY(20%) translateX(-50%);
+			}
+
+			.outer-involved-container,
+			.inner-involved-container {
+				user-select: none;
+				z-index: -1;
 			}
 
 			.circle-item {
