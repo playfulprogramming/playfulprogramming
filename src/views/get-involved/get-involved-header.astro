@@ -100,29 +100,71 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	let shouldUpdate = true;
 
 	let prevX = 0;
-	function onMouseMove(e: MouseEvent) {
+	let speed = 0; // Variable to hold the calculated speed
+	let decelerating = false; // Flag to control the deceleration effect
+
+	function onMouseMove(e) {
 		if (prevX === 0) {
 			prevX = e.clientX;
 		}
 		const diff = e.clientX - prevX;
-		innerAngle -= diff * 0.001;
-		outerAngle -= diff * 0.0005;
+		speed = diff * 0.01; // Calculate speed based on movement difference
+		innerAngle -= speed;
+		outerAngle -= speed * 0.5;
 
 		redraw();
 		prevX = e.clientX;
 	}
+
+	function onMouseUp() {
+		if (speed !== 0) {
+			decelerating = true;
+			requestAnimationFrame(decelerate);
+		}
+	}
+
+	function decelerate() {
+		if (!decelerating) return;
+		innerAngle -= speed;
+		outerAngle -= speed * 0.5;
+		redraw();
+
+		// Reduce speed to simulate deceleration
+		speed *= 0.99; // Adjust this value to control the deceleration rate
+
+		// Stop decelerating once the speed is very low
+		if (Math.abs(speed) < 0.0001) {
+			decelerating = false;
+			speed = 0;
+		} else {
+			requestAnimationFrame(decelerate);
+		}
+	}
+
+	// Attach the mouseup event listener to stop moving and start decelerating
+	document.addEventListener("mouseup", onMouseUp);
 
 	function onTouchMove(e: TouchEvent) {
 		if (prevX === 0) {
 			prevX = e.touches[0].clientX;
 		}
 		const diff = e.touches[0].clientX - prevX;
+		speed = diff * 0.01; // Calculate speed based on movement difference
 		innerAngle -= diff * 0.01;
 		outerAngle -= diff * 0.005;
 
 		redraw();
 		prevX = e.touches[0].clientX;
 	}
+
+	function onTouchEnd() {
+		if (speed !== 0) {
+			decelerating = true;
+			requestAnimationFrame(decelerate);
+		}
+	}
+
+	document.addEventListener("touchend", onTouchEnd);
 
 	const innerContainer = document.querySelector("#inner-circle-container")!;
 	const outerContainer = document.querySelector("#outer-circle-container")!;
@@ -152,18 +194,14 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 			document.addEventListener("touchmove", onTouchMove);
 		});
 
-		document.addEventListener(
-			"touchend",
-			(event: TouchEvent) => {
-				document.removeEventListener("touchmove", onTouchMove);
-				prevX = 0;
-				if (!shouldUpdate) {
-					shouldUpdate = true;
-					update();
-				}
-			},
-			{ passive: true },
-		);
+		document.addEventListener("touchend", (event: TouchEvent) => {
+			document.removeEventListener("touchmove", onTouchMove);
+			prevX = 0;
+			if (!shouldUpdate) {
+				shouldUpdate = true;
+				update();
+			}
+		});
 	}
 
 	function redraw() {
