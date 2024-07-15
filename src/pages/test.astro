@@ -119,8 +119,9 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 					prevX = e.clientX;
 				}
 				const diff = e.clientX - prevX;
-				innerAngle += diff * 0.001;
-				outerAngle += diff * 0.0005;
+				innerAngle -= diff * 0.001;
+				outerAngle -= diff * 0.0005;
+
 				redraw();
 				prevX = e.clientX;
 			}
@@ -154,6 +155,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 					const { x, y, scale } = calculatePosition(
 						innerCircle.length,
 						index + innerAngle,
+						1,
 					);
 					element.style.left = `${x}%`;
 					element.style.top = `${y}%`;
@@ -220,6 +222,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 			.inner-involved-container {
 				user-select: none;
 				z-index: -1;
+				cursor: ew-resize;
 			}
 
 			.circle-item {
