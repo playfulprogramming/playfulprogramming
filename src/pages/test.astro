@@ -24,8 +24,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 		<title>Astro</title>
 	</head>
 	<body>
-		<div style="display: flex;
-    justify-content: center; margin-top: 5rem">
+		<div class="header-container">
 			<div class="get-involved-container">
 				<div class="get-involved-contents">
 					<h1>Get involved</h1>
@@ -218,11 +217,22 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 		</script>
 
 		<style>
+			.header-container {
+				display: flex;
+				justify-content: center;
+				margin-top: 5rem;
+				width: 100vw;
+				overflow: hidden;
+				/* For the carousel */
+				padding-bottom: 450px;
+			}
+
 			.get-involved-container {
 				position: relative;
 				display: inline-block;
 				max-width: 960px;
 				overflow: visible;
+				height: fit-content;
 			}
 
 			.get-involved-contents {
