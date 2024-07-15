@@ -4,6 +4,7 @@ export function calculatePosition(
 	numberOfItems: number,
 	index: number,
 	offset = 0,
+	playSound = false,
 ) {
 	const angle = Math.abs(
 		(((Math.PI * 2) / numberOfItems) * index + offset) % 360,
@@ -37,7 +38,7 @@ export function calculatePosition(
 		scale = 0;
 	}
 
-	return { x, y, scale };
+	return { x, y, scale, angleDegrees };
 }
 
 export function getInitialItems(numberOfItems: number, offset = 0) {
