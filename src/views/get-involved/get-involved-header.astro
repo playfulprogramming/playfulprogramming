@@ -153,7 +153,6 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 		outerAngle -= speed * OUTER_SPEED_MULTIPLIER;
 		redraw();
 		speed *= DECELERATION_RATE;
-
 		if (Math.abs(speed) < MIN_SPEED_THRESHOLD) {
 			decelerating = false;
 			speed = 0;
@@ -176,57 +175,23 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 		}
 	}
 
-	let soundMap = new Map<Element, undefined | boolean>();
-
-	function playSound({
-		scale,
-		angleDegrees,
-		element,
-	}: ReturnType<typeof calculatePosition> & { element: Element }) {
-		if (scale === 0 && angleDegrees < 180) {
-			if (!soundMap.get(element)) {
-				soundMap.set(element, true);
-				const audio = new Audio("/click.ogg");
-				audio.playbackRate = Math.abs(speed) + 1;
-				audio.preservesPitch = false;
-				audio.load();
-				audio.play();
-				audio.addEventListener("end", () => {
-					soundMap.set(element, undefined);
-				});
-			}
-		} else if (scale === 1 && angleDegrees < 180) {
-			soundMap.set(element, undefined);
-		}
-	}
-
 	function redraw() {
 		innerCircle.forEach((element: HTMLElement, index) => {
-			const positionProps = calculatePosition(
+			const { x, y, scale } = calculatePosition(
 				innerCircle.length,
 				index + innerAngle,
 				INNER_OFFSET,
 			);
-
-			playSound({ ...positionProps, element });
-
-			const { x, y, scale } = positionProps;
-
 			element.style.left = `${x}%`;
 			element.style.top = `${y}%`;
 			element.style.transform = `scale(${scale}) translate(-50%, -50%)`;
 		});
 		outerCircle.forEach((element: HTMLElement, index) => {
-			const positionProps = calculatePosition(
+			const { x, y, scale } = calculatePosition(
 				outerCircle.length,
 				index + outerAngle,
 				OUTER_OFFSET,
 			);
-
-			playSound({ ...positionProps, element });
-
-			const { x, y, scale } = positionProps;
-
 			element.style.left = `${x}%`;
 			element.style.top = `${y}%`;
 			element.style.transform = `scale(${scale}) translate(-50%, -50%)`;
