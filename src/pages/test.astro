@@ -1,7 +1,6 @@
 ---
 import { getUnicornsByLang } from "../utils/api";
 import { getInitialItems } from "./test";
-import Barebones from "../layouts/barebones.astro";
 const numberOfInnerItems = 22;
 const numberOfOuterItems = 28;
 const offset = 150;
@@ -16,325 +15,339 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 };
 ---
 
-<Barebones lang={"en"}>
-	<div style="display: flex;
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<div style="display: flex;
     justify-content: center; margin-top: 5rem">
-		<div class="get-involved-container">
-			<div class="get-involved-contents">
-				<h1>Get involved</h1>
-				<hr />
-				<div class="paragraph-container">
-					<p>
-						Playful Programming embraces the best part of Open Source: We’re ran
-						by real people wanting to make an impact in the world and help
-						others learn and join us along the journey.
-					</p>
+			<div class="get-involved-container">
+				<div class="get-involved-contents">
+					<h1>Get involved</h1>
+					<hr />
+					<div class="paragraph-container">
+						<p>
+							Playful Programming embraces the best part of Open Source: We’re
+							ran by real people wanting to make an impact in the world and help
+							others learn and join us along the journey.
+						</p>
+					</div>
+				</div>
+				<div class="inner-involved-container" id="inner-circle-container">
+					{
+						initialInnerItems.map((item, index) => {
+							const unicorn = getSafeIndex(unicorns, index);
+							return (
+								<div
+									data-is-circle-inner-item
+									id={`circle-item-inner-${index}`}
+									class="circle-item"
+									style={{
+										left: item.x,
+										top: item.y,
+										backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
+										transform: `scale(${item.scale}) translate(-50%, -50%)`,
+									}}
+								>
+									{unicorn.roles[0] && (
+										<img
+											class="sticker-role"
+											src={`/public/stickers/role_${unicorn.roles[0]}.svg`}
+											alt=""
+										/>
+									)}
+								</div>
+							);
+						})
+					}
+				</div>
+				<div class="outer-involved-container" id="outer-circle-container">
+					{
+						initialOuterItems.map((item, index) => {
+							const unicorn = getSafeIndex(reverseUnicorns, index);
+							return (
+								<div
+									data-is-circle-outer-item
+									id={`circle-item-outer-${index}`}
+									class="circle-item"
+									style={{
+										left: item.x,
+										top: item.y,
+										backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
+										transform: `scale(${item.scale}) translate(-50%, -50%)`,
+									}}
+								>
+									{unicorn.roles[0] && (
+										<img
+											class="sticker-role"
+											src={`/public/stickers/role_${unicorn.roles[0]}.svg`}
+											alt=""
+										/>
+									)}
+								</div>
+							);
+						})
+					}
 				</div>
 			</div>
 		</div>
-		<div class="inner-involved-container" id="inner-circle-container">
-			{
-				initialInnerItems.map((item, index) => {
-					const unicorn = getSafeIndex(unicorns, index);
-					return (
-						<div
-							data-is-circle-inner-item
-							id={`circle-item-inner-${index}`}
-							class="circle-item"
-							style={{
-								left: item.x,
-								top: item.y,
-								backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
-								transform: `scale(${item.scale}) translate(-50%, -50%)`,
-							}}
-						>
-							{unicorn.roles[0] && (
-								<img
-									class="sticker-role"
-									src={`/public/stickers/role_${unicorn.roles[0]}.svg`}
-									alt=""
-								/>
-							)}
-						</div>
-					);
-				})
-			}
-		</div>
-		<div class="outer-involved-container" id="outer-circle-container">
-			{
-				initialOuterItems.map((item, index) => {
-					const unicorn = getSafeIndex(reverseUnicorns, index);
-					return (
-						<div
-							data-is-circle-outer-item
-							id={`circle-item-outer-${index}`}
-							class="circle-item"
-							style={{
-								left: item.x,
-								top: item.y,
-								backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
-								transform: `scale(${item.scale}) translate(-50%, -50%)`,
-							}}
-						>
-							{unicorn.roles[0] && (
-								<img
-									class="sticker-role"
-									src={`/public/stickers/role_${unicorn.roles[0]}.svg`}
-									alt=""
-								/>
-							)}
-						</div>
-					);
-				})
-			}
-		</div>
-	</div>
 
-	<script>
-		import { getInitialItems, calculatePosition } from "./test";
+		<script>
+			import { getInitialItems, calculatePosition } from "./test";
 
-		// In a 30fps requestAnimationFrame loop, take each item and change the X, Y, and scale to rotate the items in the circle clockwise
-		let innerCircle = document.querySelectorAll("[data-is-circle-inner-item]");
-		let outerCircle = document.querySelectorAll("[data-is-circle-outer-item]");
+			// In a 30fps requestAnimationFrame loop, take each item and change the X, Y, and scale to rotate the items in the circle clockwise
+			let innerCircle = document.querySelectorAll(
+				"[data-is-circle-inner-item]",
+			);
+			let outerCircle = document.querySelectorAll(
+				"[data-is-circle-outer-item]",
+			);
 
-		let innerAngle = 0;
-		let outerAngle = 0;
+			let innerAngle = 0;
+			let outerAngle = 0;
 
-		let shouldUpdate = true;
+			let shouldUpdate = true;
 
-		let prevX = 0;
-		function onMouseMove(e: MouseEvent) {
-			if (prevX === 0) {
+			let prevX = 0;
+			function onMouseMove(e: MouseEvent) {
+				if (prevX === 0) {
+					prevX = e.clientX;
+				}
+				const diff = e.clientX - prevX;
+				innerAngle -= diff * 0.001;
+				outerAngle -= diff * 0.0005;
+
+				redraw();
 				prevX = e.clientX;
 			}
-			const diff = e.clientX - prevX;
-			innerAngle -= diff * 0.001;
-			outerAngle -= diff * 0.0005;
 
-			redraw();
-			prevX = e.clientX;
-		}
+			function onTouchMove(e: TouchEvent) {
+				if (prevX === 0) {
+					prevX = e.touches[0].clientX;
+				}
+				const diff = e.touches[0].clientX - prevX;
+				innerAngle -= diff * 0.01;
+				outerAngle -= diff * 0.005;
 
-		function onTouchMove(e: TouchEvent) {
-			if (prevX === 0) {
+				redraw();
 				prevX = e.touches[0].clientX;
 			}
-			const diff = e.touches[0].clientX - prevX;
-			innerAngle -= diff * 0.005;
-			outerAngle -= diff * 0.0025;
 
-			redraw();
-			prevX = e.touches[0].clientX;
-		}
+			const innerContainer = document.querySelector("#inner-circle-container")!;
+			const outerContainer = document.querySelector("#outer-circle-container")!;
 
-		const innerContainer = document.querySelector("#inner-circle-container")!;
-		const outerContainer = document.querySelector("#outer-circle-container")!;
+			for (const el of [innerContainer, outerContainer]) {
+				// Listen for left and right mouse drag events to move the circles
+				el.addEventListener("mousedown", (event: MouseEvent) => {
+					if (event.button === 0) {
+						shouldUpdate = false;
+						document.addEventListener("mousemove", onMouseMove);
+					}
+				});
 
-		for (const el of [innerContainer, outerContainer]) {
-			// Listen for left and right mouse drag events to move the circles
-			el.addEventListener("mousedown", (event: MouseEvent) => {
-				if (event.button === 0) {
+				document.addEventListener("mouseup", (event: MouseEvent) => {
+					if (event.button === 0) {
+						document.removeEventListener("mousemove", onMouseMove);
+						prevX = 0;
+						if (!shouldUpdate) {
+							shouldUpdate = true;
+							update();
+						}
+					}
+				});
+
+				el.addEventListener("touchstart", (event: TouchEvent) => {
 					shouldUpdate = false;
-					document.addEventListener("mousemove", onMouseMove);
-				}
-			});
+					document.addEventListener("touchmove", onTouchMove);
+				});
 
-			document.addEventListener("mouseup", (event: MouseEvent) => {
-				if (event.button === 0) {
-					document.removeEventListener("mousemove", onMouseMove);
-					prevX = 0;
-					if (!shouldUpdate) {
-						shouldUpdate = true;
-						update();
-					}
-				}
-			});
-
-			el.addEventListener("touchstart", (event: TouchEvent) => {
-				shouldUpdate = false;
-				document.addEventListener("touchmove", onTouchMove);
-			});
-
-			document.addEventListener(
-				"touchend",
-				(event: TouchEvent) => {
-					document.removeEventListener("touchmove", onTouchMove);
-					prevX = 0;
-					if (!shouldUpdate) {
-						shouldUpdate = true;
-						update();
-					}
-				},
-				{ passive: true },
-			);
-		}
-
-		function redraw() {
-			innerCircle.forEach((element: HTMLElement, index) => {
-				const { x, y, scale } = calculatePosition(
-					innerCircle.length,
-					index + innerAngle,
-					150,
+				document.addEventListener(
+					"touchend",
+					(event: TouchEvent) => {
+						document.removeEventListener("touchmove", onTouchMove);
+						prevX = 0;
+						if (!shouldUpdate) {
+							shouldUpdate = true;
+							update();
+						}
+					},
+					{ passive: true },
 				);
-				element.style.left = `${x}%`;
-				element.style.top = `${y}%`;
-				element.style.transform = `scale(${scale}) translate(-50%, -50%)`;
-			});
-			outerCircle.forEach((element: HTMLElement, index) => {
-				const { x, y, scale } = calculatePosition(
-					outerCircle.length,
-					index + outerAngle,
-					300,
-				);
-				element.style.left = `${x}%`;
-				element.style.top = `${y}%`;
-				element.style.transform = `scale(${scale}) translate(-50%, -50%)`;
-			});
-		}
-
-		function update() {
-			if (!shouldUpdate) {
-				return;
 			}
-			innerAngle += 0.001;
-			outerAngle += 0.0005;
 
-			redraw();
+			function redraw() {
+				innerCircle.forEach((element: HTMLElement, index) => {
+					const { x, y, scale } = calculatePosition(
+						innerCircle.length,
+						index + innerAngle,
+						150,
+					);
+					element.style.left = `${x}%`;
+					element.style.top = `${y}%`;
+					element.style.transform = `scale(${scale}) translate(-50%, -50%)`;
+				});
+				outerCircle.forEach((element: HTMLElement, index) => {
+					const { x, y, scale } = calculatePosition(
+						outerCircle.length,
+						index + outerAngle,
+						300,
+					);
+					element.style.left = `${x}%`;
+					element.style.top = `${y}%`;
+					element.style.transform = `scale(${scale}) translate(-50%, -50%)`;
+				});
+			}
 
-			requestAnimationFrame(update);
-		}
-		update();
-	</script>
+			function update() {
+				if (!shouldUpdate) {
+					return;
+				}
+				innerAngle += 0.001;
+				outerAngle += 0.0005;
 
-	<style>
-		.get-involved-container {
-			position: relative;
-			display: inline-block;
-			max-width: 960px;
-		}
+				redraw();
 
-		.get-involved-contents {
-			display: inline-block;
-		}
+				requestAnimationFrame(update);
+			}
+			update();
+		</script>
 
-		.inner-involved-container {
-			top: 0;
-			left: 50%;
-			position: fixed;
-			aspect-ratio: 1;
-			width: 300vw;
-			max-width: 960px;
-			transform: translateY(-50%) translateX(-50%);
-		}
-		.outer-involved-container {
-			--offset: 100px;
-			top: 0;
-			left: 50%;
-			position: fixed;
-			aspect-ratio: 1;
-			width: calc(300vw + calc(var(--offset) * 3.14));
-			max-width: calc(960px + calc(var(--offset) * 3.14));
-			transform: translateY(-50%) translateX(-50%);
-		}
+		<style>
+			.get-involved-container {
+				position: relative;
+				display: inline-block;
+				max-width: 960px;
+				overflow: visible;
+			}
 
-		.outer-involved-container,
-		.inner-involved-container {
-			user-select: none;
-			z-index: -1;
-			cursor: ew-resize;
-		}
+			.get-involved-contents {
+				display: inline-block;
+			}
 
-		.circle-item {
-			position: absolute;
-			width: 80px;
-			height: 80px;
-			border-radius: 50%;
-			background-size: cover;
-			transition:
-				opacity 0.75s,
-				transform 0.2s;
-			transform-origin: top left;
-		}
+			.inner-involved-container {
+				bottom: 0px;
+				left: 50%;
+				position: absolute;
+				aspect-ratio: 1;
+				width: 300vw;
+				max-width: 960px;
+				transform: translateY(20%) translateX(-50%);
+			}
+			.outer-involved-container {
+				--offset: 100px;
+				bottom: calc(0px - var(--offset));
+				left: 50%;
+				position: absolute;
+				aspect-ratio: 1;
+				width: calc(300vw + calc(var(--offset) * 3.14));
+				max-width: calc(960px + calc(var(--offset) * 3.14));
+				transform: translateY(20%) translateX(-50%);
+			}
 
-		.sticker-role {
-			position: absolute;
-			width: 32px;
-			height: 32px;
-			bottom: -4px;
-			right: -4px;
-			filter: drop-shadow(0px 1.25px 1.5px rgba(0, 0, 0, 0.24))
-				drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.16));
-		}
+			.outer-involved-container,
+			.inner-involved-container {
+				user-select: none;
+				z-index: -1;
+				cursor: ew-resize;
+			}
 
-		body {
-			background: var(--light-background-primary, #e5f2ff);
-		}
+			.circle-item {
+				position: absolute;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				background-size: cover;
+				transition:
+					opacity 0.75s,
+					transform 0.2s;
+				transform-origin: top left;
+			}
 
-		hr {
-			position: relative;
-			overflow: clip;
-			border: none;
-			margin-top: var(--site-spacing);
-			margin-bottom: var(--site-spacing);
+			.sticker-role {
+				position: absolute;
+				width: 32px;
+				height: 32px;
+				bottom: -4px;
+				right: -4px;
+				filter: drop-shadow(0px 1.25px 1.5px rgba(0, 0, 0, 0.24))
+					drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.16));
+			}
 
-			color: var(--primary_variant);
-			height: 20px;
+			body {
+				background: var(--light-background-primary, #e5f2ff);
+			}
 
-			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 8 8' fill='none'%3E%3Cpath stroke='%23000' stroke-width='1.6' stroke-linecap='round' d='M -4 4 C -3 5 -1 5 0 4 C 1 3 3 3 4 4 C 5 5 7 5 8 4 C 9 3 11 3 12 4'%3E%3C/path%3E%3C/svg%3E");
-			mask-repeat: repeat-x;
-		}
+			hr {
+				position: relative;
+				overflow: clip;
+				border: none;
+				margin-top: var(--site-spacing);
+				margin-bottom: var(--site-spacing);
 
-		hr {
-			color: #87ceff;
-			transform: scale(2);
-			width: 50%;
-			background: linear-gradient(
-				to right,
-				transparent,
-				currentColor 32px,
-				currentColor calc(100% - 32px),
-				transparent
-			) !important;
-			margin-top: 8px;
-			margin-bottom: 20px;
-		}
+				color: var(--primary_variant);
+				height: 20px;
 
-		h1 {
-			color: var(--light-primary-default, #006590);
-			text-shadow: 0px -8px 0px #fff;
-			font-family: Figtree;
-			font-size: 96px;
-			font-style: normal;
-			font-weight: 900;
-			line-height: 100%; /* 96px */
-		}
+				mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 8 8' fill='none'%3E%3Cpath stroke='%23000' stroke-width='1.6' stroke-linecap='round' d='M -4 4 C -3 5 -1 5 0 4 C 1 3 3 3 4 4 C 5 5 7 5 8 4 C 9 3 11 3 12 4'%3E%3C/path%3E%3C/svg%3E");
+				mask-repeat: repeat-x;
+			}
 
-		h1 {
-			margin: 0;
-		}
+			hr {
+				color: #87ceff;
+				transform: scale(2);
+				width: 50%;
+				background: linear-gradient(
+					to right,
+					transparent,
+					currentColor 32px,
+					currentColor calc(100% - 32px),
+					transparent
+				) !important;
+				margin-top: 8px;
+				margin-bottom: 20px;
+			}
 
-		.paragraph-container {
-			display: flex;
-		}
+			h1 {
+				color: var(--light-primary-default, #006590);
+				text-shadow: 0px -8px 0px #fff;
+				font-family: Figtree;
+				font-size: 96px;
+				font-style: normal;
+				font-weight: 900;
+				line-height: 100%; /* 96px */
+			}
 
-		p {
-			color: var(--light-foreground-emphasis-high, #0b1d28);
-			text-align: center;
+			h1 {
+				margin: 0;
+			}
 
-			/* desktop/p/large/normal */
-			font-family: Figtree;
-			font-size: 18px;
-			font-style: normal;
-			font-weight: 400;
-			line-height: 24px; /* 133.333% */
-		}
+			.paragraph-container {
+				display: flex;
+			}
 
-		p {
-			margin: 0;
-			display: inline-block;
-			width: 1px;
-			flex-grow: 1;
-			text-align: center;
-		}
-	</style>
-</Barebones>
+			p {
+				color: var(--light-foreground-emphasis-high, #0b1d28);
+				text-align: center;
+
+				/* desktop/p/large/normal */
+				font-family: Figtree;
+				font-size: 18px;
+				font-style: normal;
+				font-weight: 400;
+				line-height: 24px; /* 133.333% */
+			}
+
+			p {
+				margin: 0;
+				display: inline-block;
+				width: 1px;
+				flex-grow: 1;
+				text-align: center;
+			}
+		</style>
+	</body>
+</html>
