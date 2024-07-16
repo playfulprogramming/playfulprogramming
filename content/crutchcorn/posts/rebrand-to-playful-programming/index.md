@@ -2,7 +2,7 @@
 {
     title: "It's Time For A Change: Rebranding Our Platform",
     description: "\"Unicorn Utterances\" is now \"Playful Programming\". Let's talk about why, what's different, what's the same, and what's next.",
-    published: '2024-07-29',
+    published: '2024-07-29T20:12:03.284Z',
     tags: ['announcements'],
     license: 'cc-by-4'
 }
