@@ -88,7 +88,7 @@ Today, our spend can be broken down by:
 
 **We need sponsors** to continue supporting us as we grow. We offer in-banner content ads like this one:
 
-<!-- *::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances"* -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
 
 As well as sidebar ads, inclusion in our newsletter, Discord, and other social media announcements. We'd even be willing to consider partnered content if we found the conditions acceptable.
 
