@@ -2,7 +2,7 @@
 {
     title: "A Complete History of Unicorn Utterances",
     description: "Now that \"Unicorn Utterances\" is called \"Playful Programming\", let's look at the history of the project.",
-    published: '2024-07-29',
+    published: '2024-07-29T10:12:03.284Z',
     tags: ['announcements'],
     license: 'cc-by-4'
 }
