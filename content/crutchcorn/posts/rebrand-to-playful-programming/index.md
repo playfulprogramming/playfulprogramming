@@ -12,9 +12,11 @@ Today's a big day. After 5 years of this platform being called "Unicorn Utteranc
 
 > What? Why? What does this mean?
 
-To talk about that, let's explore the history of Unicorn Utterances as a whole.
+Let's talk about it.
 
 # The Timeline
+
+While Unicorn Utterances has always been a volunteer-ran platform, let's a look at our history as a whole:
 
 - October 2014: [Corbin Crutchley](/unicorns/crutchcorn) (cofounder of the platform; author of this post) turns 16. Not only are they a year older; they started working at an adult high school as their only tech person. This role required them to learn Python and Bash; starting their career early on.
 
@@ -121,4 +123,98 @@ To talk about that, let's explore the history of Unicorn Utterances as a whole.
 - June 2024: The 5 year anniversary of "Unicorn Utterances" occurs:
 
   !["Corbin Crutchley, Author of The Framework Field Guide is Celebrating 5 years at Unicorn Utterances"](./five_years_uu.png)
+
+# Measuring Our Impact
+
+Whew! What a wild 5 years. What started as a humble project of a few friends has since grown to:
+
+- [400,000 lifetime pageviews to our site](https://plausible.io/unicorn-utterances.com/unicorn-utterances.com/unicorn-utterances.com/?period=all&with_imported=true)
+- [333,000 words written on our blog](/search?q=*)
+- [217,000 unique visitors to our site](https://plausible.io/unicorn-utterances.com/unicorn-utterances.com/unicorn-utterances.com/?period=all&with_imported=true)
+- [52,000 messages sent in our Discord](https://discord.gg/FMcvc6T)
+- [4,800 commits to our site's codebase](https://github.com/unicorn-utterances/unicorn-utterances)
+- [2000 Discord members](https://discord.gg/FMcvc6T)
+- 1000 members of our mailing list
+- [156 blog posts written on our blog](/search?q=*)
+- [45 contributors](/about)
+- [1 book published](/collections/framework-field-guide-fundamentals)
+
+From the bottom of our hearts; wow. Thank you. Thank you for contributing, for asking questions, for talking with us, and for supporting us through the years.
+
+Most exciting of all has been seeing our platform grow over that time:
+
+![](./uu_plausible.png)
+
+But while all of this is exciting when put into the right perspective, I can't help shake a feeling: Is this a healthy growth curve?
+
+To be clear; this isn't a rhetorical question - I authentically do not know; I'm not a subject matter expert in blog growth metrics or SEO.
+
+But, if I'm being vulnerable for a moment, I'm worried that the answer might be "no, your growth is slower than it should be given the amount of effort going into it."
+
+After all, we migrated from Google Analytics to [Plausible](https://plausible.io/) in October 2022. As a result of this migration and some tricks we utilize to maximize our analytics tracking since then, metrics looked like they doubled overnight when they hadn't.
+
+Let's take a look at a year of data prior to the migration and a year of data after the migration.
+
+Here's our data imported from Google Analytics to Plausible from September 2021 to September 2022:
+
+![](./plausible_2022.png)
+
+> In September 2021, we had an outage of our analytics data thanks to some misconfiguration on our end.
+
+And here's our Plausible data from Jan 1st 2023 to December 31st 2023:
+
+![](./plausible_2023.png)
+
+Moreover, if we do the math and:
+
+- Add an extra month (~2.2K visitors) of data from the missing September 2021 dataset
+- Multiply that data by 2x to reduce the difference in our analytics hosting providers' reporting
+
+We can see that growth from September 2021 to December 2023 went from:
+
+- ~62.2k visitors from September 2021 - September 2021
+
+To:
+
+- ~63.9k visitors from Janurary 2023 to December 2023
+
+That's only a growth of `0.9%` in over 2 years 😬
+
+> This ignores some details such as the exact deviation of Google Anaylitics from Plausible reporting to December historically being a bad month for tech readership as industry knowledge. That said, this still demonstrates the point that we've struggled to see much growth on our site.
+
+Needless to say, it appears that we have a problem with growth. Google Search analytics seem to back this hypothesis up:
+
+![](./search_console.png)
+
+In the past 16 months, our click-through rate (CTR) is lower than usual as far as I can tell looking at other tech blogs, and it's been challenging to get folks to click on our site when it's shown to them as an option.
+
+## Breaking From The Expected Patterns
+
+This all looks rather bleak until you move the sethoscope of our project's health to today:
+
+![](./plausible_2024.png)
+
+As you can see, looking halfway through the year and it seems like we've already passed the traffic of last year's entire visiter count. Our launch of "The Framework Field Guide" seems to have gone well!
+
+Not only is the unique visitor count higher, our bounce rate is only at ~70%, which is better than some tech blogs I've seen.
+
+Finally, if we remove our marketing sites (which are often only glanced at, even outside of our organization) and look only at articles themselves, we find ourselves with a time-on-page of nearly 4 minutes:
+
+![](./article_read_time.png)
+
+These are great indicators that people are eager to consume our educational materials and want enough of it that they'd continue to sign up for our newsletter to be notified for more of it:
+
+![](./convertkit.png)
+
+And even join our Discord to discuss our content further:
+
+![](./discord_joins.png)
+
+# Conclusions From Our Data
+
+So, if we have a problem with growth but people are eager to read our content once they find us; **that's a discoverability problem.**
+
+Our "top-of-funnel", so to speak, is broken...
+
+# Looking Forward
 
