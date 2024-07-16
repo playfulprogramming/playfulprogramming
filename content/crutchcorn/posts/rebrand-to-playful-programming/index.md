@@ -16,7 +16,9 @@ Let's talk about it.
 
 # Measuring Our Impact
 
-Whew! What a wild 5 years. What started as a humble project of a few friends has since grown to:
+[This month marks 5 years of Unicorn Utterances.](/posts/a-complete-history-of-uu)
+
+And whew! What a wild 5 years. What started as a humble project of a few friends has since grown to:
 
 - [400,000 lifetime pageviews to our site](https://plausible.io/unicorn-utterances.com/unicorn-utterances.com/unicorn-utterances.com/?period=all&with_imported=true)
 - [333,000 words written on our blog](/search?q=*)
@@ -35,88 +37,19 @@ Most exciting of all has been seeing our platform grow over that time:
 
 ![](./uu_plausible.png)
 
-But while all of this is exciting when put into the right perspective, I can't help shake a feeling: Is this a healthy growth curve?
-
-To be clear; this isn't a rhetorical question - I authentically do not know; I'm not a subject matter expert in blog growth metrics or SEO.
-
-But, if I'm being vulnerable for a moment, I'm worried that the answer might be "no, your growth is slower than it should be given the amount of effort going into it."
-
-After all, we migrated from Google Analytics to [Plausible](https://plausible.io/) in October 2022. As a result of this migration and some tricks we utilize to maximize our analytics tracking since then, metrics looked like they doubled overnight when they hadn't.
-
-Let's take a look at a year of data prior to the migration and a year of data after the migration.
-
-Here's our data imported from Google Analytics to Plausible from September 2021 to September 2022:
-
-![](./plausible_2022.png)
-
-> In September 2021, we had an outage of our analytics data thanks to some misconfiguration on our end.
-
-And here's our Plausible data from Jan 1st 2023 to December 31st 2023:
-
-![](./plausible_2023.png)
-
-Moreover, if we do the math and:
-
-- Add an extra month (~2.2K visitors) of data from the missing September 2021 dataset
-- Multiply that data by 2x to reduce the difference in our analytics hosting providers' reporting
-
-We can see that growth from September 2021 to December 2023 went from:
-
-- ~62.2k visitors from September 2021 - September 2021
-
-To:
-
-- ~63.9k visitors from Janurary 2023 to December 2023
-
-That's only a growth of `0.9%` in over 2 years 😬
-
-> This ignores some details such as the exact deviation of Google Anaylitics from Plausible reporting to December historically being a bad month for tech readership as industry knowledge. That said, this still demonstrates the point that we've struggled to see much growth on our site.
-
-Needless to say, it appears that we have a problem with growth. Google Search analytics seem to back this hypothesis up:
-
-![](./search_console.png)
-
-In the past 16 months, our click-through rate (CTR) is lower than usual as far as I can tell looking at other tech blogs, and it's been challenging to get folks to click on our site when it's shown to them as an option.
-
-## Breaking From The Expected Patterns
-
-This all looks rather bleak until you move the sethoscope of our project's health to today:
-
-![](./plausible_2024.png)
-
-As you can see, looking halfway through the year and it seems like we've already passed the traffic of last year's entire visiter count. Our launch of "The Framework Field Guide" seems to have gone well!
-
-Not only is the unique visitor count higher, our bounce rate is only at ~70%, which is better than some tech blogs I've seen.
-
-Finally, if we remove our marketing sites (which are often only glanced at, even outside of our organization) and look only at articles themselves, we find ourselves with a time-on-page of nearly 4 minutes:
-
-![](./article_read_time.png)
-
-These are great indicators that people are eager to consume our educational materials and want enough of it that they'd continue to sign up for our newsletter to be notified for more of it:
-
-![](./convertkit.png)
-
-And even join our Discord to discuss our content further:
-
-![](./discord_joins.png)
-
 # Conclusions From Our Data
 
-So, if we have a problem with growth but people are eager to read our content once they find us; **that's a discoverability problem.**
-
-Our "top-of-funnel", so to speak, is broken. Let's not mince words or confuse responsibility, however; This is solely my (Corbin's) fault.
-
-While others have had a massive role in other aspects of Unicorn Utterances, I've been responsible for managing our social media and promoting the brand. As far as I know, nobody else even has access to our social media account.
-
-However, while there's some things I can do to offload this onus and improve my throughput on social media engagement, there's some repeated bits of feedback we've gotten a few times:
+While we're beyond excited with our growth from this year in particular, we've gotten some feedback that we think is valuable to take to heart:
 
 1) What is an "Utterance"?
 2) What do y'all do?
 3) How do you fund yourselves?
 
+> We've gotten asked these **a lot**.
+
 While these three questions may seem disjointed, there's a throughline in it; **brand confusion.** 
 
-After all, the word "Unicorn" often refers to [a company evaluated for more than billion dollars](https://en.wikipedia.org/wiki/Unicorn_(finance)) and "Utterances" is often misheard as "Udderances", which leads some to sheepishly ask if we pertain to dairy work in any way.
+After all, the word "Unicorn" often refers to [a company evaluated for more than billion dollars](https://en.wikipedia.org/wiki/Unicorn_(finance)) and "Utterances" is often misheard as "[Udder](https://en.wikipedia.org/wiki/Udder)-ances", which leads some to sheepishly ask if we pertain to dairy work in any way.
 
 Moreover, since our redesign launched this year, I've been asked repeatedly what's our "company"'s funding source and what our main product is.
 
