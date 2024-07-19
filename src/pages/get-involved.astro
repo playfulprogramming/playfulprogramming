@@ -9,6 +9,7 @@ import ContributorCard from "../views/get-involved/contributor-card.astro";
 import WhyGetInvolved from "../views/get-involved/why-get-involved.astro";
 import WelcomeToEveryone from "../views/get-involved/welcome-to-everyone.astro";
 import ReadyToLevelUp from "../views/get-involved/ready-to-level-up.astro";
+import SupportUs from "../views/get-involved/support-us.astro";
 import Hr from "../views/get-involved/hr.astro";
 
 const unicorns = api.getUnicornsByLang("en");
@@ -25,6 +26,10 @@ const unicorns = api.getUnicornsByLang("en");
 	<WhyGetInvolved />
 	<WelcomeToEveryone />
 	<ReadyToLevelUp />
+	<div class={style.container}>
+		<Hr />
+	</div>
+	<SupportUs />
 	<div class={style.container}>
 		<Hr />
 	</div>
