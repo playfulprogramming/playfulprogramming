@@ -115,6 +115,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	let innerAngle = 0;
 	let outerAngle = 0;
 	let shouldUpdate = true;
+	let noMotion = false;
 	let prevX = 0;
 	let speed = 0;
 	let decelerating = false;
@@ -152,7 +153,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	}
 
 	function decelerate() {
-		if (!decelerating) return;
+		if (!decelerating || noMotion) return;
 		innerAngle -= speed;
 		outerAngle -= speed * OUTER_SPEED_MULTIPLIER;
 		redraw();
@@ -203,7 +204,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	}
 
 	function update() {
-		if (!shouldUpdate) return;
+		if (!shouldUpdate || noMotion) return;
 		innerAngle += INNER_CIRCLE_ROTATION_SPEED;
 		outerAngle += OUTER_CIRCLE_ROTATION_SPEED;
 		redraw();
@@ -211,6 +212,18 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	}
 
 	function setupEventListeners() {
+		// If prefers-reduced-motion is enabled, stop the animation
+		const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+		mediaQuery.addEventListener("change", (e) => {
+			if (e.matches) {
+				noMotion = true;
+			} else {
+				noMotion = false;
+				update();
+			}
+		});
+		noMotion = mediaQuery.matches;
+
 		function handleDragStart(e: MouseEvent | TouchEvent) {
 			shouldUpdate = false;
 			if (e.type === "mousedown") {
