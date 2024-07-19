@@ -8,6 +8,7 @@ import { translate } from "../utils";
 import ContributorCard from "../views/get-involved/contributor-card.astro";
 import WhyGetInvolved from "../views/get-involved/why-get-involved.astro";
 import WelcomeToEveryone from "../views/get-involved/welcome-to-everyone.astro";
+import ReadyToLevelUp from "../views/get-involved/ready-to-level-up.astro";
 
 const unicorns = api.getUnicornsByLang("en");
 ---
@@ -22,6 +23,7 @@ const unicorns = api.getUnicornsByLang("en");
 
 	<WhyGetInvolved />
 	<WelcomeToEveryone />
+	<ReadyToLevelUp />
 
 	<h2 id="contributors">
 		<span>{translate(Astro, "title.contributors")}</span>
