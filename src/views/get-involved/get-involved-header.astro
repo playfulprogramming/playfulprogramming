@@ -2,6 +2,7 @@
 import { getUnicornsByLang } from "../../utils/api";
 import { getInitialItems } from "./get-involved-header";
 import style from "./get-involved-header.module.scss";
+import Hr from "./hr.astro";
 
 const NUMBER_OF_INNER_ITEMS = 22;
 const NUMBER_OF_OUTER_ITEMS = 28;
@@ -23,7 +24,9 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	<div class={style.getInvolvedContainer}>
 		<div class={style.getInvolvedContents}>
 			<h1 class={style.getInvolvedHeader}>Get involved</h1>
-			<hr class={style.break} />
+			<div class={style.break}>
+				<Hr />
+			</div>
 			<div class={style.paragraphContainer}>
 				<p class={`text-style-body-large ${style.paragraph}`}>
 					Playful Programming embraces the best part of Open Source: We’re ran
