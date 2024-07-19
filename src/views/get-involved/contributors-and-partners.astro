@@ -1,0 +1,44 @@
+---
+import * as api from "../../utils/api";
+import { translate } from "../../utils";
+
+import ContributorCard from "./contributor-card.astro";
+
+import style from "./contributors-and-partners.module.scss";
+
+const people = api.getUnicornsByLang("en");
+
+const { partners, nonPartners } = people.reduce(
+	(prev, person) => {
+		if (person.achievements.includes("partner")) {
+			prev.partners.push(person);
+		} else {
+			prev.nonPartners.push(person);
+		}
+		return prev;
+	},
+	{
+		partners: [],
+		nonPartners: [],
+	},
+);
+---
+
+<div class={style.allPeopleContainer}>
+	<ul class={style.peopleContainer} role="list" aria-label="Partners">
+		{partners.map((unicornInfo) => <ContributorCard unicorn={unicornInfo} />)}
+	</ul>
+	<h2
+		class={`text-style-headline-3 ${style.contributorsTitle}`}
+		id="contributors"
+	>
+		{translate(Astro, "title.contributors")}
+	</h2>
+	<ul class={style.peopleContainer} role="list" aria-labelledby="contributors">
+		{
+			nonPartners.map((unicornInfo) => (
+				<ContributorCard unicorn={unicornInfo} />
+			))
+		}
+	</ul>
+</div>
