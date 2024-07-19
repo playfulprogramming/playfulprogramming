@@ -13,10 +13,11 @@
 }
 
 .illustrationListItem {
-	flex-basis: calc(33.33% - calc(var(--site-spacing) * 2));
+	width: 1px;
+	flex-grow: 1;
 
 	@include until($tabletSmall) {
-		flex-basis: 100%;
+		width: 100%;
 	}
 }
 

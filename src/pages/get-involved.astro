@@ -7,6 +7,7 @@ import SEO from "components/seo/seo.astro";
 import { translate } from "../utils";
 import ContributorCard from "../views/get-involved/contributor-card.astro";
 import WhyGetInvolved from "../views/get-involved/why-get-involved.astro";
+import WelcomeToEveryone from "../views/get-involved/welcome-to-everyone.astro";
 
 const unicorns = api.getUnicornsByLang("en");
 ---
@@ -20,7 +21,7 @@ const unicorns = api.getUnicornsByLang("en");
 	<GetInvolvedHeader />
 
 	<WhyGetInvolved />
-	<hr />
+	<WelcomeToEveryone />
 
 	<h2 id="contributors">
 		<span>{translate(Astro, "title.contributors")}</span>
