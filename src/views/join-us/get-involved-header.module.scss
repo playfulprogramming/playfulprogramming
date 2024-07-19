@@ -24,6 +24,22 @@
 	position: relative;
 }
 
+.starFlair,
+.bowtieFlair {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+}
+
+.starFlair {
+	left: -64px;
+	top: 12px;
+}
+.bowtieFlair {
+	right: -64px;
+	top: 50px;
+}
+
 .innerInvolvedContainer {
 	bottom: 0px;
 	left: 50%;
