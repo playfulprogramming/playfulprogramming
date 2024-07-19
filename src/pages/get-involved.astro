@@ -1,7 +1,14 @@
 ---
+import * as api from "../utils/api";
+import style from "../views/get-involved/get-involved.module.scss";
 import Document from "../layouts/document.astro";
 import GetInvolvedHeader from "../views/get-involved/get-involved-header.astro";
 import SEO from "components/seo/seo.astro";
+import { translate } from "../utils";
+import ContributorCard from "../views/get-involved/contributor-card.astro";
+import WhyGetInvolved from "../views/get-involved/why-get-involved.astro";
+
+const unicorns = api.getUnicornsByLang("en");
 ---
 
 <Document>
@@ -11,4 +18,14 @@ import SEO from "components/seo/seo.astro";
 		slot="head"
 	/>
 	<GetInvolvedHeader />
+
+	<WhyGetInvolved />
+	<hr />
+
+	<h2 id="contributors">
+		<span>{translate(Astro, "title.contributors")}</span>
+	</h2>
+	<ul class={style.unicorns} role="list" aria-labelledby="contributors">
+		{unicorns.map((unicornInfo) => <ContributorCard unicorn={unicornInfo} />)}
+	</ul>
 </Document>

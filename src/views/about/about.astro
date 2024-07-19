@@ -2,7 +2,6 @@
 import style from "./about.module.scss";
 import "../../styles/shiki.scss";
 import * as data from "src/utils/data";
-import ContributorCard from "./contributor-card.astro";
 import { translate } from "src/utils/translations";
 import TranslationsHeader from "src/views/base/translations/translations-header.astro";
 import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
@@ -79,15 +78,6 @@ const tags = [
 		<div set:html={content2.html} />
 		<Sponsors />
 		<div set:html={content3.html} />
-
-		<hr />
-
-		<h2 id="contributors">
-			<span>{translate(Astro, "title.contributors")}</span>
-		</h2>
-		<ul class={style.unicorns} role="list" aria-labelledby="contributors">
-			{unicorns.map((unicornInfo) => <ContributorCard unicorn={unicornInfo} />)}
-		</ul>
 
 		<hr />
 

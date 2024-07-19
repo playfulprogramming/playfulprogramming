@@ -254,8 +254,11 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	.header-container {
 		display: flex;
 		justify-content: center;
-		width: 100vw;
+		width: 100%;
 		overflow: hidden;
+		padding-left: var(--site-spacing);
+		padding-right: var(--site-spacing);
+		box-sizing: border-box;
 		/* For the carousel */
 		padding-bottom: 450px;
 	}
@@ -263,7 +266,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	.get-involved-container {
 		position: relative;
 		display: inline-block;
-		max-width: 960px;
+		max-width: var(--max-width_s);
 		overflow: visible;
 		height: fit-content;
 	}

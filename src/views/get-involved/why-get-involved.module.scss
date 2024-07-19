@@ -1,0 +1,41 @@
+@import "src/tokens/index";
+
+.illustrationList {
+	display: flex;
+	list-style: none;
+	padding: 0 var(--site-spacing);
+	gap: calc(var(--site-spacing) * 2);
+	flex-wrap: wrap;
+	max-width: var(--max-width_m);
+	margin: 0 auto;
+	justify-content: center;
+}
+
+.illustrationListItem {
+	flex-basis: calc(33.33% - calc(var(--site-spacing) * 2));
+
+	@include until($tabletSmall) {
+		flex-basis: 100%;
+	}
+}
+
+.illustration {
+	background: var(--primary_variant);
+	height: 144px;
+	width: 100%;
+	border-radius: var(--corner-radius_xl);
+}
+
+.illustrationTextContainer {
+	display: flex;
+}
+
+.illustrationText {
+	margin: 0;
+	margin-top: var(--spc-4x);
+	display: inline-block;
+	width: 1px;
+	flex-grow: 1;
+	color: var(--primary_default);
+	text-align: center;
+}
