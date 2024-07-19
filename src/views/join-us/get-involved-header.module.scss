@@ -103,19 +103,14 @@
 
 	margin: 0;
 	margin-top: var(--spc-8x);
-}
-
-.paragraphContainer {
-	display: flex;
+	text-align: center;
 }
 
 .paragraph {
-	color: var(--foreground_emphasis-high);
+	color: var(--primary_default);
 	text-align: center;
 
 	margin: 0;
 	display: inline-block;
-	width: 1px;
-	flex-grow: 1;
 	text-align: center;
 }
