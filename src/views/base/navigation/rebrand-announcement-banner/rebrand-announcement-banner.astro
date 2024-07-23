@@ -59,11 +59,17 @@ const props = Astro.props as {
 	const isClosed = localStorage.getItem(isBannerClosedKey);
 	const hasSeenBannerAnimate = localStorage.getItem(hasSeenBannerAnimateKey);
 
+	const prefersReducedMotion = window.matchMedia(
+		"(prefers-reduced-motion: reduce)",
+	).matches;
+
 	if (banner && !isClosed) {
 		banner.style.display = "block";
 		if (!hasSeenBannerAnimate) {
-			banner.style.transition = "max-height 3s ease-in";
 			localStorage.setItem(hasSeenBannerAnimateKey, "true");
+			if (!prefersReducedMotion) {
+				banner.style.transition = "max-height 3s ease-in";
+			}
 		}
 		setTimeout(() => {
 			banner.style.maxHeight = "100vh";
@@ -72,13 +78,18 @@ const props = Astro.props as {
 
 	if (closeButton) {
 		closeButton.addEventListener("click", () => {
-			banner.style.transition = "max-height 1s ease-out";
+			if (!prefersReducedMotion) {
+				banner.style.transition = "max-height 1s ease-out";
+			}
 			localStorage.setItem(isBannerClosedKey, "true");
 			setTimeout(() => {
 				banner.style.maxHeight = "0px";
-				setTimeout(() => {
-					banner.style.display = "none";
-				}, 1200);
+				setTimeout(
+					() => {
+						banner.style.display = "none";
+					},
+					prefersReducedMotion ? 0 : 1200,
+				);
 			}, 0);
 		});
 	}
