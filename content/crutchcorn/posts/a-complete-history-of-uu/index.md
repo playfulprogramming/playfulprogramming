@@ -45,19 +45,20 @@ While Unicorn Utterances has always been a volunteer-ran platform, let's a look 
   With a name selected and a logo on the way, the `unicorn-utterances.com` domain was registered.
 
 - May 20th, 2019: Vukašin provides the initial sketches that would turn into the Unicorn Utterances logo.
-  ![](./uu_logo_sketches.jpg)
+
+  ![Sketches on dotted paper with a speaking unicorn, a unicorn with glasses, and a unicorn with a tie](./uu_logo_sketches.jpg)
 
 - May 23rd, 2019: Vukašin iterates on the logo further in Figma:
 
-  ![](./uu_logo_first_figma.jpg)
+  ![Nine digital unicorns with different facial expressions. The last three unicorns are encapsulated in a square box](./uu_logo_first_figma.jpg)
 
   Corbin proposes adding an accessory that personalizes the Unicorn without making it too much of a nerd cliché; a bowtie.
 
-  ![](./uu_logo_almost_final.jpg)
+  ![Four unicorns in black and white. Two with a bowtie, two without](./uu_logo_almost_final.jpg)
 
   The logo is then finalized into what was shipped with the website for 5 years:
 
-  ![](./uu_logo_final.jpg)
+  ![The final iteration of the Unicorn Utterances logo with a bowtie and a smile](./uu_logo_final.jpg)
 
 
 - May 30th, 2019: Tom Wellington is approached to design the initial UI for the site.
@@ -66,11 +67,11 @@ While Unicorn Utterances has always been a volunteer-ran platform, let's a look 
 
 - June 5th, 2019: Tom provides the first mockups for the site:
 
-  ![](./uu_initial_site_design.jpg)
+  ![A site with a lightblue background, a simple list of articles without outlines, and the Unicorn logo. A header at the top reads "A software development blog focused on the kinds of things they don't teach you. Curated by Corbin Crutchley"](./uu_initial_site_design.jpg)
 
   Tom spends an inordinate amount of time [iterating on this design in Figma](https://www.figma.com/design/di3zKgJCj264nqN9g3UCSLwP/crutchcorn-%E2%80%93-unicorn-utterances), but ultimately lands on the following design for the initial launch:
 
-  ![](./tom_uu_initial_design.png)
+  ![More site mockups with a search box, dark mode toggle, cards for articles, and previews of the content itself in the cards](./tom_uu_initial_design.png)
 
   > Tom did an amazing job on the initial design. I (Corbin) never fully followed this design pattern due to a lack of attention to detail.
   >
@@ -78,13 +79,11 @@ While Unicorn Utterances has always been a volunteer-ran platform, let's a look 
 
 # The Launch
 
-
 - June 29th, 2019; [A blog post is written to test the development of and announce the website to the public](/posts/uttering-hello-introduction-post)
 
-  ![](./old_homepage.png)
+  ![A site with a header and a single card for the only article on the site at the time](./old_homepage.png)
 
-  ![](./uttering_hello.png)
-
+  ![The starting of the "Uttering Hello" article on our site](./uttering_hello.png)
 
 - July 11th, 2019: [The inaugural programming blog post is written about Angular templates](/posts/angular-templates-start-to-source)
 
@@ -105,7 +104,7 @@ While Unicorn Utterances has always been a volunteer-ran platform, let's a look 
 
 - June 11th, 2022: [The initial announcement for "The Framework Field Guide" is launched](https://github.com/unicorn-utterances/unicorn-utterances/pull/367)
 
-  ![](./ffg_first_preview.png)
+  ![A simple website with a book cover of the outdoors - a lake and mountains - with a "Get notified of release" button](./ffg_first_preview.png)
 
 - July 9th, 2022: [The site begins its rewrite to Astro](https://github.com/unicorn-utterances/unicorn-utterances/pull/386) due to performance problems in the Next.js site.
 
@@ -113,11 +112,11 @@ While Unicorn Utterances has always been a volunteer-ran platform, let's a look 
 
   His very first mockup was presented the same day:
 
-  ![](./ffg_initial_mockup.jpg)
+  ![The same book cover as before, with the illustration extended into the whole page of a site mockup with a timeline representing the chapter headings](./ffg_initial_mockup.jpg)
 
 - August 24th, 2022: Eduardo Pratti showcases an initial proposal to redesign the main Unicorn Utterances site:
 
-  ![](./uu_ed_initial_redesign.png)
+  ![A playful site mockup with lightly bordered cards, stickers everywhere, and pastel colors](./uu_ed_initial_redesign.png)
 
 - November 8th, 2022: [The new landing page for "The Framework Field Guide" starts development.](https://github.com/unicorn-utterances/unicorn-utterances/pull/436)
 
