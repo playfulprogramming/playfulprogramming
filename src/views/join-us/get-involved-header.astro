@@ -3,6 +3,7 @@ import { getUnicornsByLang } from "../../utils/api";
 import { getInitialItems } from "./get-involved-header";
 import style from "./get-involved-header.module.scss";
 import Hr from "./hr.astro";
+import { Button } from "components/index";
 
 const NUMBER_OF_INNER_ITEMS = 22;
 const NUMBER_OF_OUTER_ITEMS = 28;
@@ -44,6 +45,9 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 				real people wanting to make an impact in the world and help others learn
 				and join us along the journey.
 			</p>
+			<Button tag="button" class={style.playPauseBtn} id="carousel-play-pause"
+				>Pause</Button
+			>
 		</div>
 		<div class={style.innerInvolvedContainer} id="inner-circle-container">
 			{
@@ -121,13 +125,21 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	const outerCircle = document.querySelectorAll("[data-is-circle-outer-item]");
 	const innerContainer = document.querySelector("#inner-circle-container")!;
 	const outerContainer = document.querySelector("#outer-circle-container")!;
+	const playPauseBtn = document.querySelector("#carousel-play-pause")!;
 
 	let innerAngle = 0;
 	let outerAngle = 0;
+	// Is the user currently dragging the mouse/touch?
 	let shouldUpdate = true;
+	// Does the user have `prefers-reduced-motion` enabled?
 	let noMotion = false;
+	// Has the user explicitly paused using the button?
+	let paused = false;
+	// The previous X coord for the mouse/touch movement
 	let prevX = 0;
+	// The speed of which to move the icons left/right when dragging, used for momentum
 	let speed = 0;
+	// Is decelerating from a mouse/touch drag?
 	let decelerating = false;
 
 	function calculateSpeed(e: MouseEvent | TouchEvent) {
@@ -163,7 +175,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	}
 
 	function decelerate() {
-		if (!decelerating || noMotion) return;
+		if (!decelerating || noMotion || paused) return;
 		innerAngle -= speed;
 		outerAngle -= speed * OUTER_SPEED_MULTIPLIER;
 		redraw();
@@ -214,7 +226,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	}
 
 	function update() {
-		if (!shouldUpdate || noMotion) return;
+		if (!shouldUpdate || noMotion || paused) return;
 		innerAngle += INNER_CIRCLE_ROTATION_SPEED;
 		outerAngle += OUTER_CIRCLE_ROTATION_SPEED;
 		redraw();
@@ -227,14 +239,24 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 		mediaQuery.addEventListener("change", (e) => {
 			if (e.matches) {
 				noMotion = true;
+				playPauseBtn.ariaHidden = `true`;
 			} else {
 				noMotion = false;
-				update();
+				playPauseBtn.ariaHidden = `false`;
 			}
+			update();
 		});
 		noMotion = mediaQuery.matches;
+		playPauseBtn.ariaHidden = `${noMotion}`;
+
+		playPauseBtn.addEventListener("click", () => {
+			paused = !paused;
+			playPauseBtn.children[0].textContent = paused ? "Play" : "Pause";
+			update();
+		});
 
 		function handleDragStart(e: MouseEvent | TouchEvent) {
+			if (paused) return;
 			shouldUpdate = false;
 			if (e.type === "mousedown") {
 				document.addEventListener("mousemove", onMouseMove);

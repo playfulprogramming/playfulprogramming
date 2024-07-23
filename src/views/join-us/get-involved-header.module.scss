@@ -40,6 +40,18 @@
 	top: 50px;
 }
 
+.playPauseBtn {
+	min-width: 128px;
+	margin: 0 auto;
+	margin-top: var(--spc-8x);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.playPauseBtn {
+		opacity: 0;
+	}
+}
+
 .innerInvolvedContainer {
 	bottom: 0px;
 	left: 50%;

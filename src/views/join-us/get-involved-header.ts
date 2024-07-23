@@ -21,14 +21,14 @@ export function calculatePosition(
 
 	let scale;
 	// Determine scale based on angle range
-	if (angleDegrees >= 20 && angleDegrees <= 160) {
+	if (angleDegrees >= 10 && angleDegrees <= 170) {
 		scale = 1; // No scaling for items within this range
-	} else if (angleDegrees > 160 && angleDegrees <= 180) {
+	} else if (angleDegrees > 170 && angleDegrees <= 180) {
 		// Scale down linearly from 120 to 150 degrees to 0
-		scale = ((angleDegrees - 180) / (160 - 180)) * (1 - 0) + 0;
-	} else if (angleDegrees >= 0 && angleDegrees <= 20) {
+		scale = ((angleDegrees - 180) / (170 - 180)) * (1 - 0) + 0;
+	} else if (angleDegrees >= 0 && angleDegrees <= 10) {
 		// Scale down linearly from 30 to 60 degrees to 0
-		scale = ((angleDegrees - 0) / (20 - 0)) * (1 - 0) + 0;
+		scale = ((angleDegrees - 0) / (10 - 0)) * (1 - 0) + 0;
 	} else {
 		scale = 0;
 	}
