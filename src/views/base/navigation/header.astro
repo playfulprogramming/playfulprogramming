@@ -9,12 +9,14 @@ import logo from "src/assets/playfulprogramming_sticker.svg?url";
 import { removePrefixLanguageFromPath, translate } from "utils/translations";
 import { SearchInput } from "components/input/input";
 import { SEARCH_QUERY_KEY } from "src/views/search/search";
+import RebrandAnnouncementBanner from "./rebrand-announcement-banner/rebrand-announcement-banner.astro";
 
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
 const isHome = path === "/";
 const isAbout = /^\/about\/?/.test(path);
 const isJoinUs = /^\/join-us\/?/.test(path);
 const isSearch = /^\/search\/?/.test(path);
+const isRebrandPost = /^\/posts\/rebrand-to-playful-programming\/?/.test(path);
 
 const props = Astro.props as {
 	size: undefined | "l" | "xl";
@@ -114,3 +116,4 @@ const props = Astro.props as {
 		</div>
 	</nav>
 </header>
+{!isRebrandPost && <RebrandAnnouncementBanner size={props.size} />}
