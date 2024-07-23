@@ -2,6 +2,7 @@
 import style from "./rebrand-announcement-banner.module.scss";
 import { Button, IconOnlyButton } from "../../../../components";
 import close from "../../../../icons/close.svg?raw";
+import { getHrefContainerProps } from "../../../../utils/href-container-script";
 
 const props = Astro.props as {
 	size: undefined | "l" | "xl";
@@ -11,6 +12,7 @@ const props = Astro.props as {
 <div
 	style="display: none; max-height: 0px; overflow: hidden"
 	id="uu-pfp-rebrand-banner"
+	{...getHrefContainerProps(`/posts/rebrand-to-playful-programming`)}
 >
 	<div
 		class={`${style.outerContainer}  ${
