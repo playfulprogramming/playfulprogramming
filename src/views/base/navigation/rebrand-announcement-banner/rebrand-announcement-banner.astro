@@ -1,0 +1,42 @@
+---
+import style from "./rebrand-announcement-banner.module.scss";
+import { Button, IconOnlyButton } from "../../../../components";
+import close from "../../../../icons/close.svg?raw";
+
+const props = Astro.props as {
+	size: undefined | "l" | "xl";
+};
+---
+
+<div
+	id="uu-pfp-rebrand-banner"
+	class={`${style.outerContainer}  ${
+		props.size === "xl" ? style.header_xl : ""
+	}`}
+>
+	<div class={style.innerContainer}>
+		<div class={style.textContainer}>
+			<p class={`text-style-body-large`}>
+				<span class={`text-style-headline-6`}>Unicorn Utterances</span> is now
+				<span class={`text-style-headline-6`}>Playful Programming</span>!
+			</p>
+			<Button
+				class={style.button}
+				tag="a"
+				href="/posts/rebrand-to-playful-programming">Learn more</Button
+			>
+		</div>
+		<IconOnlyButton
+			variant="secondary"
+			aria-label="Close this announcement"
+			tag="button"
+			type="button"
+			class={style.closeButton}
+		>
+			<div
+				class={style.closeButtonContainer}
+				set:html={close}
+			/></IconOnlyButton
+		>
+	</div>
+</div>
