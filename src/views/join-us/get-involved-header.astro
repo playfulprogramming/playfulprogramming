@@ -121,11 +121,21 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	const INNER_OFFSET = 150;
 	const OUTER_OFFSET = 300;
 
-	const innerCircle = document.querySelectorAll("[data-is-circle-inner-item]");
-	const outerCircle = document.querySelectorAll("[data-is-circle-outer-item]");
-	const innerContainer = document.querySelector("#inner-circle-container")!;
-	const outerContainer = document.querySelector("#outer-circle-container")!;
-	const playPauseBtn = document.querySelector("#carousel-play-pause")!;
+	const innerCircle = Array.from(
+		document.querySelectorAll("[data-is-circle-inner-item]"),
+	) as HTMLElement[];
+	const outerCircle = Array.from(
+		document.querySelectorAll("[data-is-circle-outer-item]"),
+	) as HTMLElement[];
+	const innerContainer = document.querySelector(
+		"#inner-circle-container",
+	) as HTMLElement;
+	const outerContainer = document.querySelector(
+		"#outer-circle-container",
+	) as HTMLElement;
+	const playPauseBtn = document.querySelector(
+		"#carousel-play-pause",
+	) as HTMLElement;
 
 	let innerAngle = 0;
 	let outerAngle = 0;
@@ -275,7 +285,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 			}
 		}
 
-		function setupContainerListeners(container: Element) {
+		function setupContainerListeners(container: HTMLElement) {
 			container.addEventListener("touchstart", handleDragStart);
 			container.addEventListener("mousedown", handleDragStart);
 		}

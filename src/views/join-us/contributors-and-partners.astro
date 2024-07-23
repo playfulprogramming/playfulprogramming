@@ -19,8 +19,8 @@ const { partners, nonPartners } = people.reduce(
 		return prev;
 	},
 	{
-		partners: [],
-		nonPartners: [],
+		partners: [] as typeof people,
+		nonPartners: [] as typeof people,
 	},
 );
 ---
