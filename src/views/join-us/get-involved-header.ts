@@ -1,21 +1,23 @@
 // Evenly dispurse the number of items across a circle going downward from the base of a DIV
-// Calculate the positions in pixels we need to place each item
+// Calculate the positions in percentages we need to place each item
 export function calculatePosition(
-	index: number,
 	numberOfItems: number,
-	// Can exceed 360 degrees and go lower than 0
-	rotation: number,
-	containerWidth: number,
+	index: number,
+	offset = 0,
 ) {
-	// The calculation is based on the container's width and height, x and y should be pixels
-	const radius = containerWidth / 2;
-	const angle = (rotation * Math.PI) / 180;
-	const angleStep = 360 / numberOfItems;
-	const itemAngle = angleStep * index;
-	const x = radius + radius * Math.cos((angle + itemAngle) * (Math.PI / 180));
-	const y = radius + radius * Math.sin((angle + itemAngle) * (Math.PI / 180));
+	const angle = Math.abs(
+		(((Math.PI * 2) / numberOfItems) * index + offset) % 360,
+	);
 
-	const angleDegrees = (angle + itemAngle) % 360;
+	const x = Math.cos(angle) * 50 + 50; // Adjusted for horizontal positioning
+	const y = Math.sin(angle) * 50 + 50; // Adjusted for vertical positioning
+
+	// Items between 180 and 240 degrees and items between 300 and 360 degrees are scaled down
+	// Items between 240 and 300 degrees are scale of 1
+	// Items at 0 and 180 degrees are 0
+
+	// Convert angle to degrees, and ensure it's positive and within 0-360 degrees
+	const angleDegrees = Math.abs((angle * (180 / Math.PI)) % 360);
 
 	let scale;
 	// Determine scale based on angle range
@@ -38,6 +40,9 @@ export function calculatePosition(
 	return { x, y, scale };
 }
 
-export function getInitialItems(numberOfItems: number) {
-	return Array.from({ length: numberOfItems });
+export function getInitialItems(numberOfItems: number, offset = 0) {
+	return Array.from({ length: numberOfItems }).map((_, index) => {
+		const { x, y, scale } = calculatePosition(numberOfItems, index, offset);
+		return { x: `${x}%`, y: `${y}%`, scale };
+	});
 }

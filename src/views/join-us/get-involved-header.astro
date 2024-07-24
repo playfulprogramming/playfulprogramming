@@ -74,6 +74,31 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 				})
 			}
 		</div>
+		<div class={style.outerInvolvedContainer} id="outer-circle-container">
+			{
+				initialOuterItems.map((item, index) => {
+					const unicorn = getSafeIndex(reverseUnicorns, index);
+					return (
+						<div
+							data-is-circle-outer-item
+							id={`circle-item-outer-${index}`}
+							class={style.circleItem}
+							style={{
+								backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
+							}}
+						>
+							{unicorn.roles[0] && (
+								<img
+									class={style.stickerRole}
+									src={`/stickers/role_${unicorn.roles[0]}.svg`}
+									alt=""
+								/>
+							)}
+						</div>
+					);
+				})
+			}
+		</div>
 	</div>
 </section>
 
@@ -83,23 +108,25 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 
 	const DECELERATION_RATE = 0.99;
 	const MIN_SPEED_THRESHOLD = 0.0001;
-	const INNER_CIRCLE_ROTATION_SPEED = 0.75;
+	const INNER_CIRCLE_ROTATION_SPEED = 0.001;
 	const OUTER_CIRCLE_ROTATION_SPEED = 0.0005;
-	const SPEED_CALCULATION_FACTOR = 2;
-	const OUTER_SPEED_MULTIPLIER = 5;
+	const SPEED_CALCULATION_FACTOR = 0.01;
+	const OUTER_SPEED_MULTIPLIER = 0.5;
+	const INNER_OFFSET = 150;
+	const OUTER_OFFSET = 300;
 
 	const innerCircle = Array.from(
 		document.querySelectorAll("[data-is-circle-inner-item]"),
 	) as HTMLElement[];
-	// const outerCircle = Array.from(
-	// 	document.querySelectorAll("[data-is-circle-outer-item]"),
-	// ) as HTMLElement[];
+	const outerCircle = Array.from(
+		document.querySelectorAll("[data-is-circle-outer-item]"),
+	) as HTMLElement[];
 	const innerContainer = document.querySelector(
 		"#inner-circle-container",
 	) as HTMLElement;
-	// const outerContainer = document.querySelector(
-	// 	"#outer-circle-container",
-	// ) as HTMLElement;
+	const outerContainer = document.querySelector(
+		"#outer-circle-container",
+	) as HTMLElement;
 	const playPauseBtn = document.querySelector(
 		"#carousel-play-pause",
 	) as HTMLElement;
@@ -165,17 +192,38 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 		}
 	}
 
-	const innerContainerSize = innerContainer.getBoundingClientRect();
+	let innerContainerSize = innerContainer.getBoundingClientRect();
+	let outerContainerSize = outerContainer.getBoundingClientRect();
+	document.addEventListener("resize", () => {
+		innerContainerSize = innerContainer.getBoundingClientRect();
+		outerContainerSize = outerContainer.getBoundingClientRect();
+	});
+
 	function redraw() {
 		innerCircle.forEach((element: HTMLElement, index) => {
 			const { x, y, scale } = calculatePosition(
-				index,
 				innerCircle.length,
-				innerAngle,
-				innerContainerSize.width,
+				index + innerAngle,
+				INNER_OFFSET,
 			);
 
-			element.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+			// x and y are percentages (EG: 80.51) of the container size
+			const newX = innerContainerSize.width * (x / 100);
+			const newY = innerContainerSize.height * (y / 100);
+			element.style.transform = `translate(${newX}px, ${newY}px) scale(${scale})`;
+		});
+
+		outerCircle.forEach((element: HTMLElement, index) => {
+			const { x, y, scale } = calculatePosition(
+				outerCircle.length,
+				index + outerAngle,
+				OUTER_OFFSET,
+			);
+
+			// x and y are percentages (EG: 80.51) of the container size
+			const newX = outerContainerSize.width * (x / 100);
+			const newY = outerContainerSize.height * (y / 100);
+			element.style.transform = `translate(${newX}px, ${newY}px) scale(${scale})`;
 		});
 	}
 
@@ -247,7 +295,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	// Setup event listeners
 	const { setupContainerListeners } = setupEventListeners();
 	setupContainerListeners(innerContainer);
-	// setupContainerListeners(outerContainer);
+	setupContainerListeners(outerContainer);
 
 	// Start the event loop
 	update();
