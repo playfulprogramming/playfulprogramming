@@ -10,6 +10,9 @@ const NUMBER_OF_OUTER_ITEMS = 28;
 const INNER_OFFSET = 150;
 const OUTER_OFFSET = 300;
 
+// We return percentages to use in initial (no JS) left/top, but then the problem
+// Is that left/top are aligned to the pixel-subgrid, which causes headaches
+// With the animation causing "wobbles".
 const initialInnerItems = getInitialItems(NUMBER_OF_INNER_ITEMS, INNER_OFFSET);
 const initialOuterItems = getInitialItems(NUMBER_OF_OUTER_ITEMS, OUTER_OFFSET);
 
@@ -58,11 +61,16 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 							data-is-circle-inner-item
 							id={`circle-item-inner-${index}`}
 							class={style.circleItem}
+							style={{
+								left: item.x,
+								top: item.y,
+							}}
 						>
 							<div
 								class={style.inner}
 								style={{
 									backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
+									transform: `scale(${item.scale})`,
 								}}
 							>
 								{unicorn.roles[0] && (
@@ -87,11 +95,16 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 							data-is-circle-outer-item
 							id={`circle-item-outer-${index}`}
 							class={style.circleItem}
+							style={{
+								left: item.x,
+								top: item.y,
+							}}
 						>
 							<div
 								class={style.inner}
 								style={{
 									backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
+									transform: `scale(${item.scale})`,
 								}}
 							>
 								{unicorn.roles[0] && (
@@ -111,7 +124,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 </section>
 
 <script>
-	// In a 30fps requestAnimationFrame loop, take each item and change the X, Y, and scale to rotate the items in the circle clockwise
+	// In a requestAnimationFrame loop, take each item and change the X, Y, and scale to rotate the items in the circle clockwise
 	import { getInitialItems, calculatePosition } from "./get-involved-header";
 
 	const DECELERATION_RATE = 0.99;
@@ -219,6 +232,8 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 			const newX = innerContainerSize.width * (x / 100);
 			const newY = innerContainerSize.height * (y / 100);
 			element.style.transform = `translate(${newX}px, ${newY}px)`;
+			element.style.left = "0";
+			element.style.top = "0";
 			(element.children[0] as HTMLElement).style.transform = `scale(${scale})`;
 		});
 
@@ -233,6 +248,8 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 			const newX = outerContainerSize.width * (x / 100);
 			const newY = outerContainerSize.height * (y / 100);
 			element.style.transform = `translate(${newX}px, ${newY}px)`;
+			element.style.left = "0";
+			element.style.top = "0";
 			(element.children[0] as HTMLElement).style.transform = `scale(${scale})`;
 		});
 	}
