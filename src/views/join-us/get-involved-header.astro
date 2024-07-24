@@ -83,12 +83,10 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 
 	const DECELERATION_RATE = 0.99;
 	const MIN_SPEED_THRESHOLD = 0.0001;
-	const INNER_CIRCLE_ROTATION_SPEED = 0.001;
+	const INNER_CIRCLE_ROTATION_SPEED = 0.75;
 	const OUTER_CIRCLE_ROTATION_SPEED = 0.0005;
-	const SPEED_CALCULATION_FACTOR = 0.01;
-	const OUTER_SPEED_MULTIPLIER = 0.5;
-	const INNER_OFFSET = 150;
-	const OUTER_OFFSET = 300;
+	const SPEED_CALCULATION_FACTOR = 2;
+	const OUTER_SPEED_MULTIPLIER = 5;
 
 	const innerCircle = Array.from(
 		document.querySelectorAll("[data-is-circle-inner-item]"),
@@ -168,21 +166,16 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	}
 
 	const innerContainerSize = innerContainer.getBoundingClientRect();
-
 	function redraw() {
-		// const outerContainerSize = outerContainer.getBoundingClientRect();
-
 		innerCircle.forEach((element: HTMLElement, index) => {
 			const { x, y, scale } = calculatePosition(
+				index,
 				innerCircle.length,
-				index + innerAngle,
-				INNER_OFFSET,
+				innerAngle,
+				innerContainerSize.width,
 			);
 
-			// x and y are percentages (EG: 80.51) of the container size
-			const newX = innerContainerSize.width * (x / 100);
-			const newY = innerContainerSize.height * (y / 100);
-			element.style.transform = `translate(${newX}px, ${newY}px) scale(${scale})`;
+			element.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
 		});
 	}
 
