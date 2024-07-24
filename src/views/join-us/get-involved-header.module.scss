@@ -59,7 +59,7 @@
 	aspect-ratio: 1;
 	width: 300vw;
 	max-width: 960px;
-	transform: translateY(16%) translateX(-50%);
+	transform: translateY(18%) translateX(-50%);
 }
 .outerInvolvedContainer {
 	--offset: 100px;
@@ -69,7 +69,7 @@
 	aspect-ratio: 1;
 	width: calc(300vw + calc(var(--offset) * 3.14));
 	max-width: calc(960px + calc(var(--offset) * 3.14));
-	transform: translateY(16%) translateX(-50%);
+	transform: translateY(18%) translateX(-50%);
 }
 
 .outerInvolvedContainer,
@@ -84,10 +84,15 @@
 	height: 80px;
 	top: 0;
 	left: 0;
+}
+
+.circleItem > .inner {
+	height: 100%;
+	width: 100%;
 	border-radius: 50%;
 	background-size: cover;
-	transition: opacity 0.75s;
 	transform-origin: center;
+	transition: transform 0.2s;
 }
 
 .stickerRole {

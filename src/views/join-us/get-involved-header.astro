@@ -58,17 +58,21 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 							data-is-circle-inner-item
 							id={`circle-item-inner-${index}`}
 							class={style.circleItem}
-							style={{
-								backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
-							}}
 						>
-							{unicorn.roles[0] && (
-								<img
-									class={style.stickerRole}
-									src={`/stickers/role_${unicorn.roles[0]}.svg`}
-									alt=""
-								/>
-							)}
+							<div
+								class={style.inner}
+								style={{
+									backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
+								}}
+							>
+								{unicorn.roles[0] && (
+									<img
+										class={style.stickerRole}
+										src={`/stickers/role_${unicorn.roles[0]}.svg`}
+										alt=""
+									/>
+								)}
+							</div>
 						</div>
 					);
 				})
@@ -83,17 +87,21 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 							data-is-circle-outer-item
 							id={`circle-item-outer-${index}`}
 							class={style.circleItem}
-							style={{
-								backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
-							}}
 						>
-							{unicorn.roles[0] && (
-								<img
-									class={style.stickerRole}
-									src={`/stickers/role_${unicorn.roles[0]}.svg`}
-									alt=""
-								/>
-							)}
+							<div
+								class={style.inner}
+								style={{
+									backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
+								}}
+							>
+								{unicorn.roles[0] && (
+									<img
+										class={style.stickerRole}
+										src={`/stickers/role_${unicorn.roles[0]}.svg`}
+										alt=""
+									/>
+								)}
+							</div>
 						</div>
 					);
 				})
@@ -210,7 +218,8 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 			// x and y are percentages (EG: 80.51) of the container size
 			const newX = innerContainerSize.width * (x / 100);
 			const newY = innerContainerSize.height * (y / 100);
-			element.style.transform = `translate(${newX}px, ${newY}px) scale(${scale})`;
+			element.style.transform = `translate(${newX}px, ${newY}px)`;
+			(element.children[0] as HTMLElement).style.transform = `scale(${scale})`;
 		});
 
 		outerCircle.forEach((element: HTMLElement, index) => {
@@ -223,7 +232,8 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 			// x and y are percentages (EG: 80.51) of the container size
 			const newX = outerContainerSize.width * (x / 100);
 			const newY = outerContainerSize.height * (y / 100);
-			element.style.transform = `translate(${newX}px, ${newY}px) scale(${scale})`;
+			element.style.transform = `translate(${newX}px, ${newY}px)`;
+			(element.children[0] as HTMLElement).style.transform = `scale(${scale})`;
 		});
 	}
 
