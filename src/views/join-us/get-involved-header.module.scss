@@ -82,12 +82,14 @@
 	position: absolute;
 	width: 80px;
 	height: 80px;
+	top: 0;
+	left: 0;
 	border-radius: 50%;
 	background-size: cover;
 	transition:
 		opacity 0.75s,
 		transform 0.2s;
-	transform-origin: top left;
+	transform-origin: center;
 }
 
 .stickerRole {

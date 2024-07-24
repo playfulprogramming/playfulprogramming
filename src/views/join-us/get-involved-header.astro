@@ -59,38 +59,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 							id={`circle-item-inner-${index}`}
 							class={style.circleItem}
 							style={{
-								left: item.x,
-								top: item.y,
 								backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
-								transform: `scale(${item.scale}) translate(-50%, -50%)`,
-							}}
-						>
-							{unicorn.roles[0] && (
-								<img
-									class={style.stickerRole}
-									src={`/stickers/role_${unicorn.roles[0]}.svg`}
-									alt=""
-								/>
-							)}
-						</div>
-					);
-				})
-			}
-		</div>
-		<div class={style.outerInvolvedContainer} id="outer-circle-container">
-			{
-				initialOuterItems.map((item, index) => {
-					const unicorn = getSafeIndex(reverseUnicorns, index);
-					return (
-						<div
-							data-is-circle-outer-item
-							id={`circle-item-outer-${index}`}
-							class={style.circleItem}
-							style={{
-								left: item.x,
-								top: item.y,
-								backgroundImage: `url(${encodeURI(unicorn.profileImgMeta.relativeServerPath)})`,
-								transform: `scale(${item.scale}) translate(-50%, -50%)`,
 							}}
 						>
 							{unicorn.roles[0] && (
@@ -124,15 +93,15 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	const innerCircle = Array.from(
 		document.querySelectorAll("[data-is-circle-inner-item]"),
 	) as HTMLElement[];
-	const outerCircle = Array.from(
-		document.querySelectorAll("[data-is-circle-outer-item]"),
-	) as HTMLElement[];
+	// const outerCircle = Array.from(
+	// 	document.querySelectorAll("[data-is-circle-outer-item]"),
+	// ) as HTMLElement[];
 	const innerContainer = document.querySelector(
 		"#inner-circle-container",
 	) as HTMLElement;
-	const outerContainer = document.querySelector(
-		"#outer-circle-container",
-	) as HTMLElement;
+	// const outerContainer = document.querySelector(
+	// 	"#outer-circle-container",
+	// ) as HTMLElement;
 	const playPauseBtn = document.querySelector(
 		"#carousel-play-pause",
 	) as HTMLElement;
@@ -198,40 +167,22 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 		}
 	}
 
-	function onMouseUp() {
-		if (speed !== 0) {
-			decelerating = true;
-			requestAnimationFrame(decelerate);
-		}
-	}
-
-	function onTouchEnd() {
-		if (speed !== 0) {
-			decelerating = true;
-			requestAnimationFrame(decelerate);
-		}
-	}
+	const innerContainerSize = innerContainer.getBoundingClientRect();
 
 	function redraw() {
+		// const outerContainerSize = outerContainer.getBoundingClientRect();
+
 		innerCircle.forEach((element: HTMLElement, index) => {
 			const { x, y, scale } = calculatePosition(
 				innerCircle.length,
 				index + innerAngle,
 				INNER_OFFSET,
 			);
-			element.style.left = `${x}%`;
-			element.style.top = `${y}%`;
-			element.style.transform = `scale(${scale}) translate(-50%, -50%)`;
-		});
-		outerCircle.forEach((element: HTMLElement, index) => {
-			const { x, y, scale } = calculatePosition(
-				outerCircle.length,
-				index + outerAngle,
-				OUTER_OFFSET,
-			);
-			element.style.left = `${x}%`;
-			element.style.top = `${y}%`;
-			element.style.transform = `scale(${scale}) translate(-50%, -50%)`;
+
+			// x and y are percentages (EG: 80.51) of the container size
+			const newX = innerContainerSize.width * (x / 100);
+			const newY = innerContainerSize.height * (y / 100);
+			element.style.transform = `translate(${newX}px, ${newY}px) scale(${scale})`;
 		});
 	}
 
@@ -303,7 +254,7 @@ const getSafeIndex = <T,>(array: T[], index: number) => {
 	// Setup event listeners
 	const { setupContainerListeners } = setupEventListeners();
 	setupContainerListeners(innerContainer);
-	setupContainerListeners(outerContainer);
+	// setupContainerListeners(outerContainer);
 
 	// Start the event loop
 	update();
