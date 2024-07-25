@@ -41,9 +41,10 @@
 	margin-bottom: var(--spc-6x);
 }
 
-.badgesContainer img {
+.sticker {
 	width: 32px;
 	height: 32px;
+	filter: var(--shadow_sticker_drop_shadow);
 }
 
 .typeTitle {
