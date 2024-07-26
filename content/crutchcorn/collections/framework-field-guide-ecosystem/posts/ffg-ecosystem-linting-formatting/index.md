@@ -78,29 +78,100 @@ Luckily for us, there are tools that solve both of these problems!
 - Formatters: Aimed at solving "What should my code look like?"
 - Linters: Aimed at solving "What bugs will my code introduce?"
 
+Let's explore each of these tools, how to use them in our codebase, and what their primary advantages are.
+
 # Formatters
 
+As demonstrated earlier, a formatter allows you to take messy code:
+
+```javascript
+function test(
+arg
+	)
+{ return arg}
+```
+
+And format it into something more readible:
+
+```javascript
+function test(arg) {
+  return arg;
+}
+```
+
+Most all coding languages will either have a community or an official code formatter. In the JavaScript ecosystem, that tool is more often than not "Prettier".
+
+To install Prettier, we can update our `package.json` using our package manager of choice:
+
+```shell
+npm i -D prettier
+```
+
+Then add a script to execute Prettier against our source code files:
+
+```json
+"scripts": {
+  "format": "prettier ."
+},
+```
+
+Prettier supports React, Angular, and Vue all very well out of the box. This means that once the package is installed, you can run `npm run format` on any repository without any additional configuration:
 
 
-## Improved Readability
 
+<!-- tabs:start -->
 
+## React
 
-## Reducing Merge Conflicts
+// TODO: Add iframe
 
-// Consistent styles allow fewer lines of code changed between edits, which makes diffs easier to grok
+## Angular
+
+// TODO: Add iframe
+
+## Vue
+
+// TODO: Add iframe
+
+<!-- tabs:end -->
 
 
 
 ## Fewer Bike Sheds
 
-There's a humorous story amongst developers that goes:
+There's a humorous story amongst developers that goes something like:
 
-""
+> There's an organizational committee for the construction of a powerplant. The committee has all of the research required for the powerplant and the blueprints laid out in front of them. They talk for a bit about it and, after 15 minutes, come to the agreement that the powerplant can be moved forward with and developed.
+>
+> But then they get to talking about the employee bike shed. It'll make the lives of the employees better, yes, but _what color should the shed be_? They spend an hour talking about which color the shed should be and finally land on a nice shade of brown.
 
-![](https://miro.medium.com/v2/resize:fit:1276/format:webp/1*6o0eeC4bRz2HPQ7vJB3p0g.jpeg)
+This story demonstrates how, without proper guidance and prioritization, insignificant issues (like the color of a shed) can triumph over more significant problems; like how to fund and organize the development of a powerplant.
 
-https://en.wikipedia.org/wiki/Law_of_triviality
+![TODO: Write alt](./bike_shedding_visual.png)
+
+> This story is often attributed with the ["Law of triviality"](https://en.wikipedia.org/wiki/Law_of_triviality), which states "people within an organization commonly give disproportionate weight to trivial issues."
+
+This story has led to the term "bike-shedding" to refer to any argument that follows the law of triviality.
+
+----
+
+As you can imagine, many developers have very strong preferences for coding style. Some prefer semicolons, while others are vehemently against them.
+
+By having a strongly opinionated tool like Prettier to establish the code conventions for you, you're able to sidestep many of these time-wasting arguments in favor of something built-in.
+
+It's for this reason that, while Prettier can be configured fairly modularly, I suggest keeping most if not all of the defaults of Prettier.
+
+## Reducing Merge Conflicts
+
+Code style consistency and avoiding bike-shedding aren't the only benefits of formatters, either.
+
+
+
+// Consistent styles allow fewer lines of code changed between edits, which makes diffs easier to grok
+
+
+
+
 
 # Linters
 
