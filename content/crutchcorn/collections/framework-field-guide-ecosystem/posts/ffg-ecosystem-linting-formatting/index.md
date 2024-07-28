@@ -165,11 +165,21 @@ It's for this reason that, while Prettier can be configured fairly modularly, I 
 
 Code style consistency and avoiding bike-shedding aren't the only benefits of formatters, either.
 
+When using tools like [Git](https://git-scm.com/), it's common to store a difference between two snapshots of your code:
 
+![TODO: Write alt](./rss_diff.png)
 
-// Consistent styles allow fewer lines of code changed between edits, which makes diffs easier to grok
+This is fundamental to how many code backup and versioning solutions work; they track a before and after of each line of code.
 
+Because it tracks the difference in each line of code, it can sometimes figure out when a change is smaller, like the example above; but other times it's only able to see "enough changed in this line that I don't recognize anything from the previous change":
 
+![TODO: Add alt](./unified_diff.png)
+
+This inability to recognize differences makes it much harder to visually identify what's specifically changed between versions of the codebase.
+
+----
+
+Worse than the difficulties visually seeing code changes; this same problem makes things like [`git merge`](https://www.atlassian.com/git/tutorials/using-branches/git-merge) much more likely to introduce a [Git conflict](https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts). These conflicts make code sharing and collaboration much harder to reconcile when too many variants of the code exist.
 
 
 
@@ -179,6 +189,8 @@ Code style consistency and avoiding bike-shedding aren't the only benefits of fo
 
 ## Is TypeScript a linter?
 
+So why am I talking about TypeScript in this article?
+
 [According to Wikipedia, the definition of a linter](https://en.wikipedia.org/wiki/Lint_(software)) is:
 
 > [...] a static code analysis tool used to flag programming errors, bugs, stylistic errors and suspicious constructs.
@@ -186,6 +198,10 @@ Code style consistency and avoiding bike-shedding aren't the only benefits of fo
 
 
 ### Using TypeScript with ESLint
+
+Regardless of whether or not TypeScript is truly a linter, its ability to have metadata associated with your code allows more formalized linters like ESLint to add additional capabilities using said metadata.
+
+// TODO: Talk about TypeScript ESLint and rules like "Must await promises"
 
 # Formatting vs Linting
 
