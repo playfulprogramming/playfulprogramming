@@ -231,9 +231,73 @@ We get the following error show up in our IDE:
 
 ## Adapt ESLint to your tools
 
-// Talk about React, Angular, Vue plugins
+While ESLint without many configuration changes will find many issues it can be made even more utilitarian when you inform it on what tools you use in your project.
+
+For example, if you use a framework like React that supports JSX syntax, you can add a plugin for ESLint to detect common issues in JSX codebases.
+
+<!-- tabs:start -->
+
+### React
+
+To add support for React additions to ESLint, we'll need to install an ESLint plugin:
+
+```shell
+npm i -D eslint-plugin-react eslint-plugin-react-hooks
+```
+
+And add the files to the ESLint configuration from earlier:
+
+```javascript
+import globals from "globals";
+import pluginJs from "@eslint/js";
+import pluginReact from "eslint-plugin-react";
+
+export default [
+  {files: ["**/*.{js,mjs,cjs,jsx}"]},
+  {languageOptions: { globals: globals.browser }},
+  pluginJs.configs.recommended,
+  {settings: { react: { version: "detect" } }},
+  pluginReact.configs.flat.recommended,
+];
+```
+
+// TODO: ADD REACT HOOKS RULES WHEN FLAT CONFIG IS SUPPORTED:
+// https://github.com/facebook/react/issues/28313
+
+Now we can check this buggy code against the Rules of React Hooks linting configuration:
+
+```jsx
+// This is buggy code that ESLint will catch with React plugins configured
+import {useState} from 'react'; 
+
+let someBool = true;
+
+export default function App() {
+    if (someBool) {
+        const [val, setVal] = useState(0);
+        return <p onClick={() => setVal(val + 1)}>{val}</p>
+    }
+    return null;
+}
+```
+
+And see this error:
+
+> ```
+> React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
+> ```
 
 
+
+### Angular
+
+
+
+### Vue
+
+
+
+<!-- tabs:end --> 
 
 
 
