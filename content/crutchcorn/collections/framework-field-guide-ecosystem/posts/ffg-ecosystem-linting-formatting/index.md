@@ -115,26 +115,11 @@ Then add a script to execute Prettier against our source code files:
 },
 ```
 
-Prettier supports React, Angular, and Vue all very well out of the box. This means that once the package is installed, you can run `npm run format` on any repository without any additional configuration:
-
-
-
-<!-- tabs:start -->
-
-## React
+Once the package is installed, you can run `npm run format` on any repository without any additional configuration:
 
 // TODO: Add iframe
 
-## Angular
-
-// TODO: Add iframe
-
-## Vue
-
-// TODO: Add iframe
-
-<!-- tabs:end -->
-
+> It's worth mentioning that Prettier supports React, Angular, and Vue all very well out of the box. You shouldn't need to add any additional configuration to get Prettier working with your other projects.
 
 
 ## Fewer Bike Sheds
@@ -181,13 +166,80 @@ This inability to recognize differences makes it much harder to visually identif
 
 Worse than the difficulties visually seeing code changes; this same problem makes things like [`git merge`](https://www.atlassian.com/git/tutorials/using-branches/git-merge) much more likely to introduce a [Git conflict](https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts). These conflicts make code sharing and collaboration much harder to reconcile when too many variants of the code exist.
 
-
-
 # Linters
 
+While formatting is important to a well-organized codebase; it doesn't often find bugs in your codebase.
+
+Instead, this responsibility often comes down to a bit of tooling that evaluates your source code and detects common mistakes and patterns to avoid. This bit of tooling is called a "linter".
+
+For example, we might have a bit of code that looks like this:
+
+```javascript
+// This code is broken, but would probably be
+// caught by a linter like ESLint
+if ([1, 2, 3]) {
+	console.log("Your array includes the number `2`")
+}
+```
+
+Here, we're passing an array to an `if` statement, rather than our intended `[1, 2, 3].includes(2)`.
+
+While this might not seem like something a tool could detect for us, it might be able to pick up on the fact that `if ([])` would **always** run, and throw an error to you as a result. This would make catching this bug's solution substantially more obvious.
+
+# How to set up ESLint
+
+In JavaScript, the most utilized tool to lint your code is ESLint. To install ESLint in your project, you'll start by installing some pre-requisite NPM modules:
+
+```shell
+npm i -D eslint @eslint/js globals
+```
+
+Once this is established, we can create a configuration file for ESLint:
+
+```javascript
+// eslint.config.mjs
+import globals from "globals";
+import pluginJs from "@eslint/js";
+
+export default [
+  {languageOptions: { globals: globals.browser }},
+  pluginJs.configs.recommended,
+];
+```
+
+Here, we're telling ESLint that it should:
+
+- Correctly detect any Browser code we'll use in our projects
+- Apply the default linting rules to catch errors
+
+Now when we reproduce our buggy code from before:
+
+```javascript
+// This is buggy code caught by ESLint
+if ([1, 2, 3]) {
+    console.log("Your array includes the number `2`")
+}
+```
+
+We get the following error show up in our IDE:
+
+> ```
+> Unexpected constant condition. eslint(no-constant-condition)
+> ```
+>
+> ![](./unexpected_constant.png)
+
+## Adapt ESLint to your tools
+
+// Talk about React, Angular, Vue plugins
 
 
-## Is TypeScript a linter?
+
+
+
+## What is TypeScript?
+
+### Is TypeScript a linter?
 
 So why am I talking about TypeScript in this article?
 
