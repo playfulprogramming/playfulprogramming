@@ -287,11 +287,67 @@ And see this error:
 > React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
 > ```
 
-
-
 ### Angular
 
+> The Angular CLI - the quickest and official way to start new Angular projects - may already have ESLint configured for you when you generate a project using it. This outlines how to add ESLint to an Angular project not using the Angular CLI.
 
+Let's install the dependencies required to use ESLint in our Angular project:
+
+```shell
+npm i -D angular-eslint typescript-eslint@rc-v8 typescript @types/eslint__js
+```
+
+And apply it to our ESLint configuration file:
+
+```javascript
+// @ts-check
+
+import pluginJs from "@eslint/js";
+import pluginTs from 'typescript-eslint';
+import pluginAngular from 'angular-eslint';
+
+export default tseslint.config(
+  {
+    files: ['**/*.ts'],
+    extends: [
+      pluginJs.configs.recommended,
+      ...pluginTs.configs.recommended,
+      ...pluginAngular.configs.tsRecommended,
+    ],
+    processor: pluginAngular.processInlineTemplates,
+  },
+  {
+    files: ['**/*.html'],
+    extends: [
+      ...pluginAngular.configs.templateRecommended,
+    ]
+  },
+);
+```
+
+This will:
+
+- Add the recommended configuration of JavaScript ESLint rules
+- Add the recommended configuration of TypeScript ESLint rules
+- Add the recommended configuration of Angular's TypeScript ESLint rules
+- Treat inline templates in Angular components as HTML files
+- Add the recommended configuration of Angular's HTML ESLint rules
+
+Once this is present, we can check it's working by throwing some buggy Angular code at it:
+
+```angular-ts
+// This is buggy code that ESLint will catch with Angular plugins configured
+@Component()
+class Test {
+  ngOnInit() {
+  	// Some code
+  }
+}
+```
+
+> ```
+> TODO: Add Angular ESLint error here
+> ```
 
 ### Vue
 
