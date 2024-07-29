@@ -186,7 +186,7 @@ Here, we're passing an array to an `if` statement, rather than our intended `[1,
 
 While this might not seem like something a tool could detect for us, it might be able to pick up on the fact that `if ([])` would **always** run, and throw an error to you as a result. This would make catching this bug's solution substantially more obvious.
 
-# How to set up ESLint
+## How to set up ESLint
 
 In JavaScript, the most utilized tool to lint your code is ESLint. To install ESLint in your project, you'll start by installing some pre-requisite NPM modules:
 
@@ -400,19 +400,127 @@ export let msg = 'Hello!'
 
 
 
-## What is TypeScript?
+# What is TypeScript?
 
-### Is TypeScript a linter?
+At a very high level, TypeScript is a way to add types to your JavaScript codebase.
 
-So why am I talking about TypeScript in this article?
+```typescript
+const val: number = 123;
+```
 
-[According to Wikipedia, the definition of a linter](https://en.wikipedia.org/wiki/Lint_(software)) is:
+We can use this metadata to throw us an error when we're, say, passing the wrong type to a function: 
+
+```typescript
+// This is buggy code that TypeScript will catch
+function add(val1: number, val2: number) {
+    return val1 + val2;
+}
+
+add(123, "123")
+```
+
+> ```
+> Argument of type 'string' is not assignable to parameter of type 'number'.ts(2345)
+> ```
+
+You can [learn more about TypeScript and what it is in this article I wrote.](/posts/introduction-to-typescript)
+
+-----
+
+TypeScript isn't _exactly_ a linter; instead it provides you a type system you can use to make your code more resilient to breakages.
+
+However, [according to Wikipedia, the definition of a linter](https://en.wikipedia.org/wiki/Lint_(software)) is:
 
 > [...] a static code analysis tool used to flag programming errors, bugs, stylistic errors and suspicious constructs.
 
+Which sounds a lot like TypeScript to me.
+
+However, some have pointed to the fact that TypeScript requires you to add additional code to your own for it to function as an indicator that TypeScript it its own programming language; an extension of JavaScript at that.
+
+I'd argue it's both and that one argument does not preclude the other from being true...
+
+-----
+
+Regardless of whether TypeScript is a linter or a programming language in its own right - its utility is almost impossible to argue. This is why many choose to write their JavaScript projects exclusively in TypeScript nowadays.
+
+To install TypeScript in your project, you can `npm i` it:
+
+```shell
+npm i -D typescript
+```
+
+Then place a configuration file for TypeScript in `tsconfig.json`:
+
+```json
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "lib": [
+            "esnext",
+            "dom"
+        ],
+        "strict": true,
+        "outDir": "dist"
+    }
+}
+```
+
+This tells our code that it should:
+
+- Target the latest version of JavaScript (officially called "EcmaScript", which is shortened to "ES" here).
+- Include the required types to run our code in the browser.
+- Strictly enforce our types.
+- Output type-removed JavaScript to the `dist` directory.
+
+Finally, we add `tsc` to our `scripts` in our `package.json`:
+
+```json
+"scripts": {
+  "tsc": "tsc"
+},
+```
+
+From here, you'll write code in `.ts` files rather than `.js` files:
+
+```typescript
+// index.ts
+const RoughlyPi: number = 3.14;
+
+function areaOfCircle(radius: number) {
+    return RoughlyPi * radius * radius;
+}
+
+const Radius: number = 5;
+
+console.log(`Area of circle with radius ${Radius} is ${areaOfCircle(Radius)}`);
+```
+
+And compile them back to JavaScript using:
+
+```shell
+npm run tsc
+```
+
+> ```javascript
+> // dist/index.js
+> "use strict";
+> const RoughlyPi = 3.14;
+> function areaOfCircle(radius) {
+>     return RoughlyPi * radius * radius;
+> }
+> const Radius = 5;
+> console.log(`Area of circle with radius ${Radius} is ${areaOfCircle(Radius)}`);
+> ```
 
 
-### Using TypeScript with ESLint
+
+## Use TypeScript with a framework
+
+
+
+
+
+## Using TypeScript with ESLint
 
 Regardless of whether or not TypeScript is truly a linter, its ability to have metadata associated with your code allows more formalized linters like ESLint to add additional capabilities using said metadata.
 
