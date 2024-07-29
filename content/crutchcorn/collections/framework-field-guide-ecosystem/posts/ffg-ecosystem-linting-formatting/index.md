@@ -306,7 +306,7 @@ import pluginJs from "@eslint/js";
 import pluginTs from 'typescript-eslint';
 import pluginAngular from 'angular-eslint';
 
-export default tseslint.config(
+export default pluginTs.config(
   {
     files: ['**/*.ts'],
     extends: [
@@ -336,22 +336,27 @@ This will:
 Once this is present, we can check it's working by throwing some buggy Angular code at it:
 
 ```angular-ts
+import { Component } from "@angular/core";
+
 // This is buggy code that ESLint will catch with Angular plugins configured
-@Component()
-class Test {
+@Component({
+    selector: "app-root"
+})
+export class AppComponent {
   ngOnInit() {
   	// Some code
+    console.log("The app is initialized");
   }
 }
 ```
 
 > ```
-> TODO: Add Angular ESLint error here
+> Lifecycle interface 'OnInit' should be implemented for method 'ngOnInit'. (https://angular.dev/style-guide#style-09-01) eslint(angular-eslint/use-lifecycle-interface)
 > ```
 
 ### Vue
 
-
+// TODO: Write this
 
 <!-- tabs:end --> 
 
