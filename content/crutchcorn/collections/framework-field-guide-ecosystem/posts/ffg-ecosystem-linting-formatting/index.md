@@ -284,8 +284,10 @@ export default function App() {
 And see this error:
 
 > ```
-> React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
+> React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return? eslint(react-hooks/rules-of-hooks)
 > ```
+
+// TODO: Add iframe
 
 ### Angular
 
@@ -301,6 +303,7 @@ And apply it to our ESLint configuration file:
 
 ```javascript
 // @ts-check
+// eslint.config.mjs
 
 import pluginJs from "@eslint/js";
 import pluginTs from 'typescript-eslint';
@@ -354,9 +357,44 @@ export class AppComponent {
 > Lifecycle interface 'OnInit' should be implemented for method 'ngOnInit'. (https://angular.dev/style-guide#style-09-01) eslint(angular-eslint/use-lifecycle-interface)
 > ```
 
+// TODO: Add iframe
+
 ### Vue
 
-// TODO: Write this
+Adding ESLint support to your Vue app is fairly straightforward using the `eslint-vue-plugin` addon:
+
+``` shell
+npm i -D eslint-plugin-vue
+```
+
+```javascript
+// eslint.config.mjs
+import globals from "globals";
+import pluginJs from "@eslint/js";
+import pluginVue from "eslint-plugin-vue";
+
+export default [
+  {files: ["**/*.{js,mjs,cjs,vue}"]},
+  {languageOptions: { globals: globals.browser }},
+  pluginJs.configs.recommended,
+  ...pluginVue.configs["flat/recommended"],
+];
+```
+
+Now it'll catch common errors in our Vue SFC files like this one:
+
+```vue
+<script setup>
+// This is buggy code that ESLint will catch with Vue plugins configured
+export let msg = 'Hello!'
+</script>
+```
+
+> ```
+> `<script setup>` cannot contain ES module exports. eslint(vue/no-export-in-script-setup)
+> ```
+
+// TODO: Add iframe
 
 <!-- tabs:end --> 
 
