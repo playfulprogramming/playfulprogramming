@@ -309,14 +309,27 @@ import pluginJs from "@eslint/js";
 import pluginTs from 'typescript-eslint';
 import pluginAngular from 'angular-eslint';
 
+/**
+ * @type {any}
+ * import.meta.dirname is not supported by TypeScript
+ */
+const importMeta = import.meta;
+const dirname = importMeta.dirname;
+
 export default pluginTs.config(
   {
     files: ['**/*.ts'],
     extends: [
       pluginJs.configs.recommended,
-      ...pluginTs.configs.recommended,
+      ...pluginTs.configs.recommendedTypeChecked,
       ...pluginAngular.configs.tsRecommended,
     ],
+    languageOptions: {
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: dirname,
+      },
+    },
     processor: pluginAngular.processInlineTemplates,
   },
   {
@@ -325,13 +338,13 @@ export default pluginTs.config(
       ...pluginAngular.configs.templateRecommended,
     ]
   },
-);
+);s
 ```
 
 This will:
 
 - Add the recommended configuration of JavaScript ESLint rules
-- Add the recommended configuration of TypeScript ESLint rules
+- Add the recommended configuration of TypeScript ESLint rules enhanced by TypeScript's types
 - Add the recommended configuration of Angular's TypeScript ESLint rules
 - Treat inline templates in Angular components as HTML files
 - Add the recommended configuration of Angular's HTML ESLint rules
@@ -699,11 +712,71 @@ export default (await import('vue')).defineComponent({
 
 <!-- tabs:end -->
 
-
+// TODO: Add Vite to this section
 
 ## Using TypeScript with ESLint
 
-Regardless of whether or not TypeScript is truly a linter, its ability to have metadata associated with your code allows more formalized linters like ESLint to add additional capabilities using said metadata.
+Regardless of whether or not TypeScript is truly a linter, its ability to have metadata associated with your code allows more traditional linters like ESLint to add additional capabilities using said metadata.
 
-// TODO: Talk about TypeScript ESLint and rules like "Must await promises"
+To do this, we'll update our ESLint configuration from before to include a new plugin called `typescript-eslint`:
+
+```
+npm i -D typescript-eslint
+```
+
+```javascript
+// @ts-check
+// eslint.config.mjs
+import globals from "globals";
+import pluginJs from "@eslint/js";
+import pluginTs from "typescript-eslint";
+
+/**
+ * @type {any}
+ * import.meta.dirname is not supported by TypeScript
+ */
+const importMeta = import.meta;
+const dirname = importMeta.dirname;
+
+export default pluginTs.config(
+  pluginJs.configs.recommended,
+  ...pluginTs.configs.recommendedTypeChecked,
+  {
+    languageOptions: {
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: dirname,
+      },
+    },
+  },
+  {languageOptions: { globals: globals.browser }}
+);
+```
+
+> You will likely need to configure this differently for React, Angular, and Vue projects. Replace the array of items with `pluginTS.config` and add `...pluginTs.configs.recommended` and that should start as a good foundation for how to add in TypeScript ESLint support.
+
+Once this is done, your ESLint will be superpowered with the capabilities that types have to offer. For example, you can now detect promises that are not properly waited on, which could cause a timing bug in your code:
+
+```typescript
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function main() {
+  console.log('Start');
+  await wait(500);
+  console.log("Halfway");
+  // This is buggy code that ESLint will catch with the TypeScript plugin configured
+  wait(500);
+  console.log('End');
+}
+
+void main();
+```
+
+> ```
+> Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator. eslint(typescript-eslint/no-floating-promises)
+> ```
+
+
 
