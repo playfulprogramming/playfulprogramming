@@ -712,7 +712,52 @@ export default (await import('vue')).defineComponent({
 
 <!-- tabs:end -->
 
-// TODO: Add Vite to this section
+### Framework + Vite + TypeScript
+
+While being able to type-check is cool, and seeing the generated `.js` file helps with the mental model we explored in the previous chapter, nothing beats actually being able to run the code itself.
+
+Let's integrate our frameworks' TypeScript support into a bundled project:
+
+#### React
+
+Once TypeScript is set up for React as outlined before, adding it into our Vite bundler is relatively trivial; update the `index.html` file to point to the new `main.tsx` file rather than the old `main.jsx` file:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+```
+
+// TODO: Add iframe
+
+#### Angular
+
+Once again, the ability to use Angular with TypeScript is required. This means that any bundled option of Angular will already be preconfigured, not requiring additional work. Let's skip over to Vue's Vite support of TypeScript...
+
+#### Vue
+
+Because we don't care about Vue's `index.vue.js` file, we want to tell `vue-tsc` that "We don't want to generate the JS files; only type-check to make sure everything is type-checked before building the project". We can do that by updating our `package.json`'s `script` properties:
+
+```json
+"scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "tsc": "vue-tsc"
+},
+```
+
+After that, you should be off to the races!
+
+// TODO: Add iframe
 
 ## Using TypeScript with ESLint
 
