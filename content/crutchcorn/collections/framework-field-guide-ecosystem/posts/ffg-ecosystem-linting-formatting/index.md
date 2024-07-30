@@ -614,7 +614,88 @@ TypeScript is required to use Angular. If you've installed Angular and have it r
 
 ### Vue
 
+To use TypeScript with Vue, we'll need to replace our `tsc` command with one specifically meant for Vue's SFC format:
 
+```shell
+npm i -D vue-tsc
+```
+
+```
+"scripts": {
+  "tsc": "vue-tsc"
+},
+```
+
+Then to use TypeScript in your SFCs you'll just add `lang="ts"` to your `<script setup>` tag:
+
+```vue
+<!-- index.vue -->
+<script setup lang="ts">
+const RoughlyPi: number = 3.14;
+
+function areaOfCircle(radius: number) {
+    return RoughlyPi * radius * radius;
+}
+
+const Radius: number = 5;
+</script>
+
+<template>
+  <p>Area of circle with radius {{ Radius }} is {{ areaOfCircle(Radius) }}</p>
+</template>
+```
+
+And have it transformed to `.js` when you run the `tsc` script:
+
+```javascript
+// dist/index.vue.js
+/* __placeholder__ */
+const { defineProps, defineSlots, defineEmits, defineExpose, defineModel, defineOptions, withDefaults, } = await import('vue');
+const RoughlyPi = 3.14;
+function areaOfCircle(radius) {
+    return RoughlyPi * radius * radius;
+}
+const Radius = 5;
+const __VLS_fnComponent = (await import('vue')).defineComponent({});
+;
+let __VLS_functionalComponentProps;
+function __VLS_template() {
+    let __VLS_ctx;
+    /* Components */
+    let __VLS_otherComponents;
+    let __VLS_own;
+    let __VLS_localComponents;
+    let __VLS_components;
+    let __VLS_styleScopedClasses;
+    let __VLS_resolvedLocalAndGlobalComponents;
+    __VLS_elementAsFunction(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({});
+    (__VLS_ctx.Radius);
+    (__VLS_ctx.areaOfCircle(__VLS_ctx.Radius));
+    // @ts-ignore
+    [Radius, Radius, areaOfCircle,];
+    if (typeof __VLS_styleScopedClasses === 'object' && !Array.isArray(__VLS_styleScopedClasses)) {
+    }
+    var __VLS_slots;
+    return __VLS_slots;
+    const __VLS_componentsOption = {};
+    let __VLS_name;
+    let __VLS_defineComponent;
+    const __VLS_internalComponent = __VLS_defineComponent({
+        setup() {
+            return {
+                areaOfCircle: areaOfCircle,
+                Radius: Radius,
+            };
+        },
+    });
+}
+export default (await import('vue')).defineComponent({
+    setup() {
+        return {};
+    },
+});
+;
+```
 
 <!-- tabs:end -->
 
