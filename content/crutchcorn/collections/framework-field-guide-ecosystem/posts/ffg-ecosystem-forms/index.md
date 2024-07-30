@@ -22,7 +22,7 @@ Let's create a form that the user can fill out to add a new user to their existi
 
 One common and easy way to assign a value to form elements - like a text input - is to simply listen for value changes (using events) on the element and assign those changes back to a bound input value.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -100,7 +100,7 @@ function onSubmit(e) {
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 
 
@@ -116,7 +116,7 @@ Let's try to simplify this by removing the first step.
 
 One method for removing the input change listener is by using two-way variable bindings. When your framework supports this, you don't need to assign a function for change listening. Simply pass a variable and watch the value change as you type!
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -203,7 +203,7 @@ function onSubmit(e) {
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 While these methods of two-way binding help mitigate some problems, there's still one big problem: Your data is no longer consolidated. This means that if you submit a form and want to, say, pass the form's data to your server, you'll need to:
 
@@ -220,7 +220,7 @@ Reactive forms are a way for you to keep all of your form data inside of a singl
 
 Let's take a look at how we can use reactive forms in our frameworks, then touch on the additional features afterward.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -573,7 +573,7 @@ Here, we'll use the `import {Something as SomethingElse}` syntax in order to avo
 
 > We are currently using version 4 of `vee-validate`. Inevitably, its API will change, and this section will be out-of-date, but the core concepts at play likely will not change very much.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Input States {#input-states}
 
@@ -622,7 +622,7 @@ Here's an interactive playground that you can use to play around with each of th
 
 
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -836,7 +836,7 @@ function sendToServer(formData) {
 
 > You may notice that `vee-validate`'s `dirty` only seems to be `true` when the form actively has data inside of it. This differs in behavior from the other frameworks and is worth noting.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Additional to form states, a reactive form also adds the following features into a form: 
 
@@ -856,7 +856,7 @@ While we've built a primitive version of this that allows us to share a file wit
 
 To do this, we'll need to rely on the ability to add in an array of a form.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -1019,7 +1019,7 @@ function onSubmit(values) {
 
 Our usage of `key-path` with the `id` to track which user is which is worth highlighting here.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Because we're now using an array, we need a unique ID for each user. This is why, for each implementation, there's an `id` field. We then use this `id` field to identify which user is which to the framework, [just like we've done before for loops in HTML](/posts/dynamic-html).
 
@@ -1035,7 +1035,7 @@ Let's see if we can't mark the name field as "required" and show an error when t
 
 > To focus on form validation, let's temporarily remove the array requirement and limit our scope just to the form validation.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -1331,7 +1331,7 @@ const formSchema = yup.object().shape({
 });
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 One concept that's introduced with form validation -- especially forms with groups -- is the idea of an object's "shape". You can think of this as the "type" of information an object might contain. For example:
 
@@ -1364,7 +1364,7 @@ Marking a field as required is far from the only type of form validation. While 
 
 Here's a playground where we demonstrate a form that validates all of those examples:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1609,7 +1609,7 @@ function onSubmit(values) {
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Caution When Validating & Form Building
 
@@ -1645,7 +1645,7 @@ Just like text inputs, you can combine these input types with validation!
 
 While there are many other types of user input elements, let's focus on just one: Checkboxes.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -1765,7 +1765,7 @@ function onSubmit(values) {
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 
 # Wrapping Up
