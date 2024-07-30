@@ -235,7 +235,7 @@ While ESLint without many configuration changes will find many issues it can be 
 
 For example, if you use a framework like React that supports JSX syntax, you can add a plugin for ESLint to detect common issues in JSX codebases.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -409,7 +409,7 @@ export let msg = 'Hello!'
 
 // TODO: Add iframe
 
-<!-- tabs:end --> 
+<!-- ::end:tabs --> 
 
 # Formatting vs Linting
 
@@ -565,7 +565,7 @@ npm run tsc
 
 TypeScript works with your favorite pre-existing tools:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -710,7 +710,7 @@ export default (await import('vue')).defineComponent({
 ;
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ### Framework + Vite + TypeScript
 

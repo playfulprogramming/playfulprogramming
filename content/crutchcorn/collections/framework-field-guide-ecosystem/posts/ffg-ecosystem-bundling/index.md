@@ -328,7 +328,7 @@ Because TypeScript and SCSS files don't run in the browser natively, we need to 
 
 This doesn't just apply to these tools, either. The same transformation process can be applied to React, Angular, and Vue applications alike:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -342,7 +342,7 @@ This doesn't just apply to these tools, either. The same transformation process 
 
 ![// TODO: Write](./bundled_vue_app.svg)
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 
 
@@ -375,7 +375,7 @@ Let's take a look at an example of a bundling pipeline for each of the framework
 
 > Keep in mind, you can customize essentially every aspect of this pipeline; this is just _an_ example, not _the_ example.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -654,7 +654,7 @@ import{defineComponent,toDisplayString,openBlock,createElementBlock}from"vue";va
 
 And finally, this `App` component might be bundled with other code to create the final output of `bundle.js`.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 
 > Notice how the bundling process doesn't inherently have to include every feature available. You could, for example, opt out of the TypeScript compilation by using JavaScript.
@@ -667,7 +667,7 @@ Let's take our knowledge of bundlers out of theoretical land and move onto imple
 
 As we mentioned at the start of the article, while there are many options for bundlers these days, we'll be using [Vite](https://vitejs.dev/) for its ubiquitous usage and simplicity of setup.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -813,5 +813,5 @@ This should spit out a URL you can access to see the preview:
 
 
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
