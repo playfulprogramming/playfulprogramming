@@ -398,6 +398,40 @@ export let msg = 'Hello!'
 
 <!-- tabs:end --> 
 
+# Formatting vs Linting
+
+Formatting and linting your code both require deeper understanding of your codebase than "it is some text". This deeper understanding comes from the transformation of your source code into an AST:
+
+![TODO: Add alt](../../../../posts/how-computers-speak/ast_1.svg)
+
+> [We spoke about this transformation of source code to AST in my article "How computers speak"](/posts/how-computers-speak).
+
+It might be tempting to hear about how these two tools have similar internals to understand your code and think "Oh, sweet, we can reduce two tools into one" and try to merge your linter and formatter into one command.
+
+In fact, there exist plugins to combine ESLint and Prettier:
+
+- [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier)
+- [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier)
+
+And even a dedicated ESLint plugin to add formatting to your code:
+
+- [ESLint Stylistic](https://eslint.style/)
+
+However, while this might seem appealing at first, it's not a good idea to mix-n-match these tools in a single command.
+
+These tools are not generally suggested by either [the ESLint team](https://www.joshuakgoldberg.com/blog/you-probably-dont-need-eslint-config-prettier-or-eslint-plugin-prettier/) or [the Prettier team](https://prettier.io/docs/en/integrating-with-linters.html) because they:
+
+- Bring heavy maintenance burden to both teams to support this workflow
+- Are built for different tasks
+
+Consider the following:
+
+Linters need to catch errors cautiously and may need to do a double-glance at your code to understand the context of some items.
+
+Formatters, on the other hand, should be as fast as possible and will likely only look through your code once to get the job done.
+
+> [You can learn more about why you should not be using ESLint to format tools from one of the ESLint maintainers, Joshua K Goldberg.](https://www.joshuakgoldberg.com/blog/configuring-eslint-prettier-and-typescript-together/#stop-using-eslint-for-formatting)
+
 
 
 # What is TypeScript?
@@ -526,11 +560,3 @@ Regardless of whether or not TypeScript is truly a linter, its ability to have m
 
 // TODO: Talk about TypeScript ESLint and rules like "Must await promises"
 
-# Formatting vs Linting
-
-
-## Don't format and lint with the same tool!
-
-https://www.joshuakgoldberg.com/blog/you-probably-dont-need-eslint-config-prettier-or-eslint-plugin-prettier/
-
-https://www.joshuakgoldberg.com/blog/configuring-eslint-prettier-and-typescript-together/#stop-using-eslint-for-formatting
