@@ -550,7 +550,73 @@ npm run tsc
 
 ## Use TypeScript with a framework
 
+TypeScript works with your favorite pre-existing tools:
 
+<!-- tabs:start -->
+
+### React
+
+To use TypeScript with React, you'll need to modify your `tsconfig.json` file mildly:
+
+```json
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "lib": [
+            "esnext",
+            "dom"
+        ],
+        "strict": true,
+        "outDir": "dist",
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
+        "jsx": "react-jsx"
+    }
+}
+```
+
+Once this is done, you can change your `.jsx` files to `.tsx` and use the same `tsc` command from before to transform this:
+
+```tsx
+// index.tsx
+const RoughlyPi: number = 3.14;
+
+function areaOfCircle(radius: number) {
+    return RoughlyPi * radius * radius;
+}
+
+function App() {
+	const Radius: number = 5;
+    return <p>Area of circle with radius {Radius} is {areaOfCircle(Radius)}</p>
+}
+```
+
+To this:
+
+````javascript
+// dist/index.js
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const jsx_runtime_1 = require("react/jsx-runtime");
+const RoughlyPi = 3.14;
+function areaOfCircle(radius) {
+    return RoughlyPi * radius * radius;
+}
+function App() {
+    const Radius = 5;
+    return (0, jsx_runtime_1.jsxs)("p", { children: ["Area of circle with radius ", Radius, " is ", areaOfCircle(Radius)] });
+}
+````
+
+### Angular
+
+TypeScript is required to use Angular. If you've installed Angular and have it running, you have TypeScript running as well. As such, I won't be including instructions to include TypeScript in your Angular project; since they are (in terms of installation) one in the same.
+
+### Vue
+
+
+
+<!-- tabs:end -->
 
 
 
