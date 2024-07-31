@@ -42,7 +42,7 @@ for (let i = 0; i < 10; i++) {
 ```
 
 ```javascript
-// Also valid, albiet ugly, code
+// Also valid, albeit ugly, code
 for(
 let i
     = 0
@@ -54,7 +54,7 @@ console.log(
 );}
 ```
 
-While supported by any stable JavaScript environment, the first code sample is almost undeniably nicer than the second in terms of readability.
+While supported by any stable JavaScript environment, the first code sample is undeniably nicer than the second in terms of readability.
 
 It would be swell if we were able to automatically have code formatted like the first code block, no matter how we wrote it?
 
@@ -63,26 +63,40 @@ It would be swell if we were able to automatically have code formatted like the 
 What's more, this code is **also** semantically valid, but will throw an error at runtime:
 
 ```javascript
-for (let i = 0; i < 10; i++) {
-    // This will throw an error, as `ii` is not defined
-    console.log(ii);
+// This will throw an error, as the loop will never exit
+for (let i = 0; i < 10; i--) {
+    console.log(i);
 }
 ```
 
 Wouldn't it be nice if we could have some tooling established to catch this kind of "undefined variable" error programmatically?
 
+------
+
+Alternatively, wouldn't it be awesome if we were able to catch mistakes that would cause bugs due to type-mismatches, like this:
+
+```typescript
+const Balance = 3000;
+const Income = "2000";
+// NewBalance is now `"30002000"`, not `5000`
+const NewBalance = Balance + Income;
+```
+
 ----
 
-Luckily for us, there are tools that solve both of these problems!
+Luckily for us, there are tools that solve all three of these problems!
 
-- Formatters: Aimed at solving "What should my code look like?"
-- Linters: Aimed at solving "What bugs will my code introduce?"
+- Formatters, like Prettier: Aimed at solving "What should my code look like?"
+- Linters, like ESLint: Aimed at solving "What rules does my code break?"
+- Type-Checkers, like TypeScript: Aimed at solving "What types are being enforced?"
+
+![TODO: Add alt](./venn_diagram.svg)
 
 Let's explore each of these tools, how to use them in our codebase, and what their primary advantages are.
 
 # Formatters
 
-As demonstrated earlier, a formatter allows you to take messy code:
+As mentioned earlier, a formatter allows you to take messy code:
 
 ```javascript
 function test(
@@ -99,7 +113,7 @@ function test(arg) {
 }
 ```
 
-Most all coding languages will either have a community or an official code formatter. In the JavaScript ecosystem, that tool is more often than not "Prettier".
+Most coding languages will either have a community or an official code formatter. In the JavaScript ecosystem, that tool is more often than not "Prettier".
 
 To install Prettier, we can update our `package.json` using our package manager of choice:
 
