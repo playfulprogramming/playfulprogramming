@@ -1,6 +1,6 @@
 ---
 {
-    title: "Linting and Formatting",
+    title: "Linters, Formatters, and Type-Checkers",
     description: "",
     published: '2025-01-01T22:12:03.284Z',
     tags: ["react", "angular", "vue", "webdev"],
@@ -11,7 +11,7 @@
 <details>
 <summary>What tools are we learning in this chapter?</summary>
 
-While there's a few other options in the linting and formatting space:
+While there's a few other options in the linting, formatting, and type-checking space:
 
 - [Biome](https://biomejs.dev/)
 - [Oxlint](https://oxc.rs/docs/guide/usage/linter.html)
@@ -20,13 +20,12 @@ While there's a few other options in the linting and formatting space:
 We'll instead be learning about [ESLint](https://eslint.org/), [Prettier](https://prettier.io/), and [TypeScript](https://www.typescriptlang.org/). Let's talk about why:
 
 - ESLint is the de-facto linting solution for JavaScript projects, being downloaded nearly 500 million times a months on NPM.
-- [ESLint is working becoming language agnostic.](https://eslint.org/blog/2024/07/whats-coming-next-for-eslint/) I suspect this will lead to growth of ESLint outside of JavaScript projects.
+- [ESLint is working on becoming language agnostic.](https://eslint.org/blog/2024/07/whats-coming-next-for-eslint/) I suspect this will lead to growth of ESLint outside of JavaScript projects.
 - Prettier is also adopted almost as well as ESLint, just barely shy of ESLint's downloads a month.
 - Prettier is a strongly opinionated formatting solution with many edge cases covered. This means that we can spend less time configuring our tooling and allow the defaults to handle highly debated scenarios for us.
 - TypeScript is the most widely used tool of the bunch, used far more often than alternative JavaScript superset languages.
-- While TypeScript isn't in the _exact same_ category of the other tools listed, it often plays an important role in formatting and linting
 
-> In our article, we'll use Prettier and ESLint separately from one-another. While there _are_ ways to glue them together to run Prettier _from_ ESLint (or even use ESLint as a Prettier replacement) [this practice should be avoided. We'll explore why later on.](// TODO: Link to this part of the chapter)
+> In our article, we'll use Prettier and ESLint separately from one-another. While there _are_ ways to glue them together to run Prettier _from_ ESLint (or even use ESLint as a Prettier replacement) [this practice should be avoided. We'll explore why later on.](#formatting-vs-linting)
 
 With this covered - Let's dive in!
 
@@ -224,7 +223,7 @@ export default [
 Here, we're telling ESLint that it should:
 
 - Correctly detect any Browser code we'll use in our projects
-- Apply the default linting rules to catch errors
+- Apply the recommended linting rules to catch errors
 
 Now when we reproduce our buggy code from before:
 
@@ -425,9 +424,9 @@ export let msg = 'Hello!'
 
 <!-- ::end:tabs --> 
 
-# Formatting vs Linting
+# Formatting vs Linting {#formatting-vs-linting}
 
-Formatting and linting your code both require deeper understanding of your codebase than "it is some text". This deeper understanding comes from the transformation of your source code into an AST:
+Formatting and linting your code both require deeper understanding of your codebase than "it is some text". This deeper understanding comes from the transformation of your source code into an abstract syntax tree (AST):
 
 ![TODO: Add alt](../../../../posts/how-computers-speak/ast_1.svg)
 
@@ -446,10 +445,10 @@ And even a dedicated ESLint plugin to add formatting to your code:
 
 However, while this might seem appealing at first, it's not a good idea to mix-n-match these tools in a single command.
 
-These tools are not generally suggested by either [the ESLint team](https://www.joshuakgoldberg.com/blog/you-probably-dont-need-eslint-config-prettier-or-eslint-plugin-prettier/) or [the Prettier team](https://prettier.io/docs/en/integrating-with-linters.html) because they:
+These tools are not generally suggested by either [the ESLint team](https://eslint.org/blog/2023/10/deprecating-formatting-rules/) or [the Prettier team](https://prettier.io/docs/en/integrating-with-linters.html) because they:
 
 - Bring heavy maintenance burden to both teams to support this workflow
-- Are built for different tasks
+- Introduce performance headaches for those that integrate Prettier into ESLint.
 
 Consider the following:
 
@@ -457,9 +456,9 @@ Linters need to catch errors cautiously and may need to do a double-glance at yo
 
 Formatters, on the other hand, should be as fast as possible and will likely only look through your code once to get the job done.
 
-> [You can learn more about why you should not be using ESLint to format tools from one of the ESLint maintainers, Joshua K Goldberg.](https://www.joshuakgoldberg.com/blog/configuring-eslint-prettier-and-typescript-together/#stop-using-eslint-for-formatting)
+Ultimately, this difference in expected behavior can force substantial performance problems when attempting to merge them into one tool; They're different tools built for different tasks.
 
-
+> [You can learn more about why you should not be using ESLint to format tools from one of the TypeScript ESLint maintainers and ESLint core committer, Josh Goldberg.](https://www.joshuakgoldberg.com/blog/you-probably-dont-need-eslint-config-prettier-or-eslint-plugin-prettier/)
 
 # What is TypeScript?
 
@@ -486,23 +485,7 @@ add(123, "123")
 
 You can [learn more about TypeScript and what it is in this article I wrote.](/posts/introduction-to-typescript)
 
------
-
-TypeScript isn't _exactly_ a linter; instead it provides you a type system you can use to make your code more resilient to breakages.
-
-However, [according to Wikipedia, the definition of a linter](https://en.wikipedia.org/wiki/Lint_(software)) is:
-
-> [...] a static code analysis tool used to flag programming errors, bugs, stylistic errors and suspicious constructs.
-
-Which sounds a lot like TypeScript to me.
-
-However, some have pointed to the fact that TypeScript requires you to add additional code to your own for it to function as an indicator that TypeScript it its own programming language; an extension of JavaScript at that.
-
-I'd argue it's both and that one argument does not preclude the other from being true...
-
------
-
-Regardless of whether TypeScript is a linter or a programming language in its own right - its utility is almost impossible to argue. This is why many choose to write their JavaScript projects exclusively in TypeScript nowadays.
+----
 
 To install TypeScript in your project, you can `npm i` it:
 
@@ -516,10 +499,6 @@ Then place a configuration file for TypeScript in `tsconfig.json`:
 {
     "compilerOptions": {
         "target": "esnext",
-        "lib": [
-            "esnext",
-            "dom"
-        ],
         "strict": true,
         "outDir": "dist"
     }
@@ -528,7 +507,7 @@ Then place a configuration file for TypeScript in `tsconfig.json`:
 
 This tells our code that it should:
 
-- Target the latest version of JavaScript (officially called "EcmaScript", which is shortened to "ES" here).
+- Target the latest version of JavaScript (officially called "ECMAScript", which is shortened to "ES" here).
 - Include the required types to run our code in the browser.
 - Strictly enforce our types.
 - Output type-removed JavaScript to the `dist` directory.
@@ -601,6 +580,8 @@ To use TypeScript with React, you'll need to modify your `tsconfig.json` file mi
     }
 }
 ```
+
+> Depending on your tooling, you may need to set `jsx` to `preserve` instead of `react-jsx`. Check the docs for your tools if this doesn't work for your needs.
 
 Once this is done, you can change your `.jsx` files to `.tsx` and use the same `tsc` command from before to transform this:
 
@@ -790,21 +771,15 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import pluginTs from "typescript-eslint";
 
-/**
- * @type {any}
- * import.meta.dirname is not supported by TypeScript
- */
-const importMeta = import.meta;
-const dirname = importMeta.dirname;
-
 export default pluginTs.config(
   pluginJs.configs.recommended,
   ...pluginTs.configs.recommendedTypeChecked,
   {
     languageOptions: {
       parserOptions: {
-        project: true,
-        tsconfigRootDir: dirname,
+        projectService: true,
+        // If TypeScript complains about this line, run `npm i -D @types/node`
+        tsconfigRootDir: import.meta.dirname,
       },
     },
   },
@@ -821,16 +796,12 @@ function wait(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function main() {
-  console.log('Start');
-  await wait(500);
-  console.log("Halfway");
-  // This is buggy code that ESLint will catch with the TypeScript plugin configured
-  wait(500);
-  console.log('End');
-}
-
-void main();
+console.log('Start');
+await wait(500);
+console.log("Halfway");
+// This is buggy code that ESLint will catch with the TypeScript plugin configured
+wait(500);
+console.log('End');
 ```
 
 > ```
