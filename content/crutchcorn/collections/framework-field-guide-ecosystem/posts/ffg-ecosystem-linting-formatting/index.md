@@ -462,26 +462,73 @@ Ultimately, this difference in expected behavior can force substantial performan
 
 # What is TypeScript?
 
-At a very high level, TypeScript is a way to add types to your JavaScript codebase.
+JavaScript is what's known as a ["dynamically typed" programming language](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#dynamic_and_weak_typing).
 
-```typescript
-const val: number = 123;
+This means that, along with other quirks and behaviors, you're able to take a variable of one type and change it to another.
+
+For example, you might have a numeric value you want to store in a variable.
+
+```javascript
+let someValue = 123;
 ```
 
-We can use this metadata to throw us an error when we're, say, passing the wrong type to a function: 
+In some languages, this would be the end of the story; `someValue` would be required to always hold a number. In JavaScript, however, you're able to reassign this value to a string, object, or any other data type you'd like:
+
+```javascript
+someValue = {};
+someValue = "Hello, world";
+```
+
+Moreover, JavaScript is also ["weakly typed"](https://en.wikipedia.org/wiki/Strong_and_weak_typing), which means that a mismatch in typings can cause an implicit type cast in many operations.
+
+In layman's terms, this means that if you try to add a number and a string together:
+
+``` javascript
+123 + "456";
+```
+
+It will automatically convert the `123` number to a string of `"123"` to fulfill the behavior of `+` against one string.
+
+As you can imagine, however, `"123456"` may not be the wanted result of this operation. Instead, you might want to have the numerical `579` instead.
+
+This is where TypeScript comes into play as a type-checker; not only would it correctly warn you that the new value of this addition would be a string:
 
 ```typescript
-// This is buggy code that TypeScript will catch
+const newVal = 123 + "456";
+//    ^? const newVal: string
+```
+
+But we can even add explicit type declarations to prevent our code from compiling when, say, we passing the wrong type to a function: 
+
+```typescript
 function add(val1: number, val2: number) {
     return val1 + val2;
 }
 
+// This is buggy code that TypeScript will catch
 add(123, "123")
 ```
 
 > ```
 > Argument of type 'string' is not assignable to parameter of type 'number'.ts(2345)
 > ```
+
+Moreover, because of this newfound knowledge about variables' types, TypeScript can correctly warn you when you're about to introduce a bug based off of the knowledge of the type system:
+
+```typescript
+function test() {
+    if (true) {
+        return 123;
+    }
+
+    // This code is unreachable, and is correctly reported by TypeScript as such
+    console.log("Test");
+}
+```
+
+> ````
+> Unreachable code detected.(7027)
+> ````
 
 You can [learn more about TypeScript and what it is in this article I wrote.](/posts/introduction-to-typescript)
 
