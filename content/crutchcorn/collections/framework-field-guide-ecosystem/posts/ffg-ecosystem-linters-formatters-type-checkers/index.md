@@ -19,7 +19,7 @@ While there's a few other options in the linting, formatting, and type-checking 
 
 We'll instead be learning about [ESLint](https://eslint.org/), [Prettier](https://prettier.io/), and [TypeScript](https://www.typescriptlang.org/). Let's talk about why:
 
-- ESLint is the de-facto linting solution for JavaScript projects, being downloaded nearly 500 million times a months on NPM.
+- ESLint is the de-facto linting solution for JavaScript projects, being downloaded nearly 500 million times a months on npm.
 - [ESLint is working on becoming language agnostic.](https://eslint.org/blog/2024/07/whats-coming-next-for-eslint/) I suspect this will lead to growth of ESLint outside of JavaScript projects.
 - Prettier is also adopted almost as well as ESLint, just barely shy of ESLint's downloads a month.
 - Prettier is a strongly opinionated formatting solution with many edge cases covered. This means that we can spend less time configuring our tooling and allow the defaults to handle highly debated scenarios for us.
@@ -63,6 +63,7 @@ What's more, this code is **also** semantically valid, but will throw an error a
 
 ```javascript
 // This will throw an error, as the loop will never exit
+// Notice how we're counting down using `--`, rather than up with `++`
 for (let i = 0; i < 10; i--) {
     console.log(i);
 }
@@ -112,7 +113,7 @@ function test(arg) {
 }
 ```
 
-Most coding languages will either have a community or an official code formatter. In the JavaScript ecosystem, that tool is more often than not "Prettier".
+Most coding languages have a community or an official code formatter. In the JavaScript ecosystem, that tool is more often than not "Prettier".
 
 To install Prettier, we can update our `package.json` using our package manager of choice:
 
@@ -124,7 +125,7 @@ Then add a script to execute Prettier against our source code files:
 
 ```json
 "scripts": {
-  "format": "prettier ."
+  "format": "prettier --write ."
 },
 ```
 
@@ -169,9 +170,7 @@ When using tools like [Git](https://git-scm.com/), it's common to store a differ
 
 This is fundamental to how many code backup and versioning solutions work; they track a before and after of each line of code.
 
-Because it tracks the difference in each line of code, it can sometimes figure out when a change is smaller, like the example above; but other times it's only able to see "enough changed in this line that I don't recognize anything from the previous change":
-
-![TODO: Add alt](./unified_diff.png)
+Because it tracks the difference in each line of code, it can sometimes figure out when a change is smaller, like the example above; but other times it's only able to see "enough changed in this line that I don't recognize anything from the previous change".
 
 This inability to recognize differences makes it much harder to visually identify what's specifically changed between versions of the codebase.
 
@@ -214,7 +213,7 @@ Worse than the difficulties visually seeing code changes; this same problem make
 
 # Linters
 
-While formatting is important to a well-organized codebase; it doesn't often find bugs in your codebase.
+While formatting is important to a well-organized codebase; it doesn't directly find bugs in your codebase.
 
 Instead, this responsibility often comes down to a bit of tooling that evaluates your source code and detects common mistakes and patterns to avoid. This bit of tooling is called a "linter".
 
@@ -227,7 +226,7 @@ for (let i = 0; i < 10; i--) {
 }
 ```
 
-Here, ESLint properly reports to us that:
+Here, ESLint - the most popular JavaScript tool for linting - properly reports to us that:
 
 > ```
 > The update clause in this loop moves the variable in the wrong direction. eslint(for-direction)
@@ -238,7 +237,7 @@ Which sets us up for success in figuring out why this bug was happening and migh
 
 ## How to set up ESLint
 
-In JavaScript, the most utilized tool to lint your code is ESLint. To install ESLint in your project, you'll start by installing some pre-requisite NPM modules:
+To install ESLint in your project, you'll start by installing some pre-requisite npm modules:
 
 ```shell
 npm i -D eslint @eslint/js globals
@@ -327,7 +326,7 @@ let someBool = true;
 export default function App() {
     if (someBool) {
         const [val, setVal] = useState(0);
-        return <p onClick={() => setVal(val + 1)}>{val}</p>
+        return <p onClick={() => setVal(val + 1)}>{val}</p>;
     }
     return null;
 }
@@ -499,7 +498,7 @@ Formatters, on the other hand, should be as fast as possible and will likely onl
 
 Ultimately, this difference in expected behavior can force substantial performance problems when attempting to merge them into one tool; They're different tools built for different tasks.
 
-> [You can learn more about why you should not be using ESLint to format tools from one of the TypeScript ESLint maintainers and ESLint core committer, Josh Goldberg.](https://www.joshuakgoldberg.com/blog/you-probably-dont-need-eslint-config-prettier-or-eslint-plugin-prettier/)
+> [You can learn more about why you should not be using ESLint to format tools from one of the TypeScript ESLint maintainers and ESLint committer, Josh Goldberg.](https://www.joshuakgoldberg.com/blog/you-probably-dont-need-eslint-config-prettier-or-eslint-plugin-prettier/)
 
 # What is TypeScript?
 
@@ -539,7 +538,7 @@ const newVal = 123 + "456";
 //    ^? const newVal: string
 ```
 
-But we can even add explicit type declarations to prevent our code from compiling when, say, we passing the wrong type to a function: 
+But we can even add explicit type declarations to prevent our code from compiling when, say, we pass the wrong type to a function: 
 
 ```typescript
 function add(val1: number, val2: number) {
@@ -575,7 +574,7 @@ You can [learn more about TypeScript and what it is in this article I wrote.](/p
 
 ----
 
-To install TypeScript in your project, you can `npm i` it:
+To install TypeScript in your project, you can install it with your package manager:
 
 ```shell
 npm i -D typescript
@@ -596,7 +595,6 @@ Then place a configuration file for TypeScript in `tsconfig.json`:
 This tells our code that it should:
 
 - Target the latest version of JavaScript (officially called "ECMAScript", which is shortened to "ES" here).
-- Include the required types to run our code in the browser.
 - Strictly enforce our types.
 - Output type-removed JavaScript to the `dist` directory.
 
@@ -656,10 +654,6 @@ To use TypeScript with React, you'll need to modify your `tsconfig.json` file mi
 {
     "compilerOptions": {
         "target": "esnext",
-        "lib": [
-            "esnext",
-            "dom"
-        ],
         "strict": true,
         "outDir": "dist",
         "module": "NodeNext",
@@ -844,7 +838,7 @@ After that, you should be off to the races!
 
 ## Using TypeScript with ESLint
 
-Regardless of whether or not TypeScript is truly a linter, its ability to have metadata associated with your code allows more traditional linters like ESLint to add additional capabilities using said metadata.
+TypeScripts' ability to have metadata associated with your code allows more traditional linters like ESLint to add additional capabilities using said metadata.
 
 To do this, we'll update our ESLint configuration from before to include a new plugin called `typescript-eslint`:
 
@@ -875,7 +869,7 @@ export default pluginTs.config(
 );
 ```
 
-> You will likely need to configure this differently for React, Angular, and Vue projects. Replace the array of items with `pluginTS.config` and add `...pluginTs.configs.recommended` and that should start as a good foundation for how to add in TypeScript ESLint support.
+> You will likely need to configure this differently for React, Angular, and Vue projects. Replace the array of configuration options from the non-TypeScript config file with a combination off `pluginTS.config` and add `...pluginTs.configs.recommended`. That should start as a good foundation for how to add in TypeScript ESLint support.
 
 Once this is done, your ESLint will be superpowered with the capabilities that types have to offer. For example, you can now detect promises that are not properly waited on, which could cause a timing bug in your code:
 
