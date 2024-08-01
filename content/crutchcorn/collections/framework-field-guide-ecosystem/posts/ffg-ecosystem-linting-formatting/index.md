@@ -188,16 +188,20 @@ Instead, this responsibility often comes down to a bit of tooling that evaluates
 For example, we might have a bit of code that looks like this:
 
 ```javascript
-// This code is broken, but would probably be
-// caught by a linter like ESLint
-if ([1, 2, 3]) {
-	console.log("Your array includes the number `2`")
+// This code is broken, but would be caught by a linter like ESLint
+for (let i = 0; i < 10; i--) {
+    console.log(i);
 }
 ```
 
-Here, we're passing an array to an `if` statement, rather than our intended `[1, 2, 3].includes(2)`.
+Here, ESLint properly reports to us that:
 
-While this might not seem like something a tool could detect for us, it might be able to pick up on the fact that `if ([])` would **always** run, and throw an error to you as a result. This would make catching this bug's solution substantially more obvious.
+> ```
+> The update clause in this loop moves the variable in the wrong direction. eslint(for-direction)
+> ```
+>
+
+Which sets us up for success in figuring out why this bug was happening and might likely even help prevent us from shipping the bug in the first place.
 
 ## How to set up ESLint
 
@@ -266,10 +270,12 @@ import pluginJs from "@eslint/js";
 import pluginReact from "eslint-plugin-react";
 
 export default [
-  {files: ["**/*.{js,mjs,cjs,jsx}"]},
-  {languageOptions: { globals: globals.browser }},
+  {
+      files: ["**/*.{js,mjs,cjs,jsx}"],
+      languageOptions: { globals: globals.browser },
+      settings: { react: { version: "detect" } }
+  },
   pluginJs.configs.recommended,
-  {settings: { react: { version: "detect" } }},
   pluginReact.configs.flat.recommended,
 ];
 ```
@@ -400,8 +406,10 @@ import pluginJs from "@eslint/js";
 import pluginVue from "eslint-plugin-vue";
 
 export default [
-  {files: ["**/*.{js,mjs,cjs,vue}"]},
-  {languageOptions: { globals: globals.browser }},
+  {
+      files: ["**/*.{js,mjs,cjs,vue}"],
+      languageOptions: { globals: globals.browser }
+  },
   pluginJs.configs.recommended,
   ...pluginVue.configs["flat/recommended"],
 ];
@@ -506,7 +514,7 @@ function add(val1: number, val2: number) {
 }
 
 // This is buggy code that TypeScript will catch
-add(123, "123")
+add(123, "123");
 ```
 
 > ```
@@ -828,9 +836,9 @@ export default pluginTs.config(
         // If TypeScript complains about this line, run `npm i -D @types/node`
         tsconfigRootDir: import.meta.dirname,
       },
+      globals: globals.browser
     },
-  },
-  {languageOptions: { globals: globals.browser }}
+  }
 );
 ```
 
