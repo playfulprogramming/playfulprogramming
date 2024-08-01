@@ -101,15 +101,72 @@ Annnnd:
 
 Oh dear... It seems like the styling for the header has impacted the search box and vice-versa.
 
-// Talk about CSS and how to use it in their apps
+-----
 
-// Talk about how CSS isn't scoped and can easily cause problems
+This merging of styling is occurring because `container` is the same CSS identifier between the search box container and the header container; despite being in two different CSS files.
+
+This problem is known as "scoping", and is a problem that gets worse the larger your codebase gets; it's hard to keep track of every preexisting class name that's been used.
 
 # BEM Classes
 
-// Talk about how to solve scoping issues ourselves by using the BEM styling pattern
+One way to solve this problem of scoping in CSS relies on no external tooling than a self-motivated convention. This solution is called "BEM Classes".
+
+BEM stands for "Box Element Modifier" and helps you establish scoping through uniquely named classes that are "namespaced" based on where on the screen they exist.
+
+// TODO: Replace this with our own
+
+![](https://getbem.com/assets/github_captions.3a78c10d_ZfCSDb.jpg)
+
+The example we demonstrated scoping problems within has two "boxes":
+
+1) The header
+2) The search box
+
+As such, the container for these elements might be called:
+
+```css
+.header {}
+
+.search-box {}
+```
+
+-----
+
+The "Elements" part of BEM is then referring to the elements within each "Box".
+
+For example, both the header and the search box have icons inside. We would then prefix the "Box" name and then the name of the "Element":
+
+```css
+.header__icon {}
+
+.search-box__icon {}
+```
+
+------
+
+Finally, we have "Modifiers" to complete the "BEM" acronym.
+
+For example, we might want to have two different colors of icons we support; sharing the rest of the styling across all header icons besides the color.
+
+To do this, we'll prefix the name of the "Box" followed by what the "Modifier" does:
+
+```css
+.header--blue {}
+
+.search-box--grey {}
+```
+
+------
+
+BEM is a viable alternative for large-scale codebases if you follow its conventions well enough. Many people swear by its utility and ability to leverage the platform itself to solve the scoping problem.
+
+However, for some, even the need to remember what "Box" names have already been used can lead to confusion and other levels of scoping problems.
+
+Let's look at some other alternatives to using the BEM methodology.
 
 # Utility Classes
+
+Another way you're able to solve the problem of scoping through convention is by leaning into the shared aspects of CSS classes as styling identifiers.
 
 // Talk about how you can build your own utility classes and avoid this scoping issue by never scoping
 
