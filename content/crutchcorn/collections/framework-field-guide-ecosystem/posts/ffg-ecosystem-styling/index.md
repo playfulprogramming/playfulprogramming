@@ -32,6 +32,46 @@ Let's get into it.
 
 </details>
 
+CSS is awesome. It's also used in every web app out there; which makes sense given that it's one of the three core languages of the web: HTML, CSS, and JavaScript.
+
+If we wanted to, for example, build the header bar of this mockup:
+
+![](./css_intro_mockup.png)
+
+Our markup might look something like this:
+
+```jsx
+<header class="container">
+	<LogoIcon/>
+	<SearchBar/>
+	<SettingsCog/>
+	<ProfilePicture/>
+</header>
+```
+
+With the `container` class being defined in CSS like so:
+
+``` css
+.container {
+    display: flex;
+    padding: 8px 24px;
+    align-items: center;
+    gap: 32px;
+    border-bottom: 2px solid #F5F8FF;
+    background: #FFF;
+}
+```
+
+This works out pretty well for some basic styling!
+
+![TODO: Add alt](./header_basic_css_demo.png)
+
+Now let's build out the search box:
+
+// Showcase how another `.container` would work
+
+
+
 // Talk about CSS and how to use it in their apps
 
 // Talk about how CSS isn't scoped and can easily cause problems
