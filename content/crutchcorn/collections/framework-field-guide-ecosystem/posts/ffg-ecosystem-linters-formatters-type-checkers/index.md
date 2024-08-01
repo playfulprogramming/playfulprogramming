@@ -262,18 +262,14 @@ Now when we reproduce our buggy code from before:
 
 ```javascript
 // This is buggy code caught by ESLint
-if ([1, 2, 3]) {
-    console.log("Your array includes the number `2`")
+for (let i = 0; i < 10; i--) {
+    console.log(i);
 }
 ```
 
-We get the following error show up in our IDE:
+We get the previously mentioned error shown in our IDE:
 
-> ```
-> Unexpected constant condition. eslint(no-constant-condition)
-> ```
->
-> ![](./unexpected_constant.png)
+> ![TODO: Add alt](./for_direction.png)
 
 ## Adapt ESLint to your tools
 
