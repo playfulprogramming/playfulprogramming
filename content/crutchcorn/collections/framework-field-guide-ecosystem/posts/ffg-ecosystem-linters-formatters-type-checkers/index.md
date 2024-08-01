@@ -193,15 +193,12 @@ And see what the diff would be to change the `n` variable name to `num`:
 
 ![TODO: Write alt](./well_formatted_git_diff.png)
 
-And how that story changes when there's no formatting applied:
+And how that story changes when there's inconsistent formatting applied:
 
 ```javascript
 function fibonacci(n) {
-  if (n<=0)return 0;if(n===1)return 1;return fibonacci(n
-    -
-                   1) +
-    fibonacci(n -
-2);
+  if (n<=0)return 0;if(n===1)return 1;
+  return fibonacci(n-1) + fibonacci(n-2);
 }
 ```
 
@@ -538,7 +535,7 @@ const newVal = 123 + "456";
 //    ^? const newVal: string
 ```
 
-But we can even add explicit type declarations to prevent our code from compiling when, say, we pass the wrong type to a function: 
+But we can even add explicit type declarations to warn us when compiling, say, we pass the wrong type to a function: 
 
 ```typescript
 function add(val1: number, val2: number) {
@@ -556,18 +553,15 @@ add(123, "123");
 Moreover, because of this newfound knowledge about variables' types, TypeScript can correctly warn you when you're about to introduce a bug based off of the knowledge of the type system:
 
 ```typescript
-function test() {
-    if (true) {
-        return 123;
-    }
+const Pi = "3.14159265";
 
-    // This code is unreachable, and is correctly reported by TypeScript as such
-    console.log("Test");
-}
+// This is attempting to run `toFixed`, which is a method on number types
+// on a string; which would throw a runtime error
+const LessPi = Pi.toFixed(2);
 ```
 
 > ````
-> Unreachable code detected.(7027)
+> Property 'toFixed' does not exist on type '"3.14159265"'. Did you mean 'fixed'?(2551)
 > ````
 
 You can [learn more about TypeScript and what it is in this article I wrote.](/posts/introduction-to-typescript)
