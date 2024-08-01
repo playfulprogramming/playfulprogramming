@@ -52,6 +52,7 @@ Our markup might look something like this:
 With the `container` class being defined in CSS like so:
 
 ``` css
+/* header.css */
 .container {
     display: flex;
     padding: 8px 24px;
@@ -68,9 +69,37 @@ This works out pretty well for some basic styling!
 
 Now let's build out the search box:
 
-// Showcase how another `.container` would work
+```html
+<div class="container">
+	<SearchIcon/>
+</div>
+```
 
+```css
+/* search-box.css */
+.container {
+	border-radius: 8px;
+    color: #3366FF;
+    background: rgba(102, 148, 255, 0.1);
+    padding: 8px;
+    flex-grow: 1;
+}
+```
 
+![TODO: Add alt](./search_box.png)
+
+Now let's import both of these CSS files into the same HTML file:
+
+```html
+<link rel="stylesheet" href="header.css">
+<link rel="stylesheet" href="search-box.css">
+```
+
+Annnnd:
+
+![TODO: Add alt](./header_searchbox_merge.png)
+
+Oh dear... It seems like the styling for the header has impacted the search box and vice-versa.
 
 // Talk about CSS and how to use it in their apps
 
