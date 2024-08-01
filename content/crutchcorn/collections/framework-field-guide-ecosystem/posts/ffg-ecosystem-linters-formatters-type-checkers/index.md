@@ -134,6 +134,8 @@ Once the package is installed, you can run `npm run format` on any repository wi
 // TODO: Add iframe
 
 > It's worth mentioning that Prettier supports React, Angular, and Vue all very well out of the box. You shouldn't need to add any additional configuration to get Prettier working with your other projects.
+>
+> You can [find more documentation on Prettier on their docs page.](https://prettier.io/)
 
 
 ## Fewer Bike Sheds
@@ -269,7 +271,9 @@ for (let i = 0; i < 10; i--) {
 
 We get the previously mentioned error shown in our IDE:
 
-> ![TODO: Add alt](./for_direction.png)
+![TODO: Add alt](./for_direction.png)
+
+> You can [find more on ESLint's capabilities and setup in their docs website.](https://eslint.org/)
 
 ## Adapt ESLint to your tools
 
@@ -333,6 +337,11 @@ And see this error:
 
 // TODO: Add iframe
 
+> You can learn more about the React ESLint's dependencies on their respective docs pages:
+>
+> - [`eslint-plugin-react`](https://github.com/jsx-eslint/eslint-plugin-react)
+> - [`eslint-plugin-react-hooks`](https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks)
+
 ### Angular
 
 > The Angular CLI - the quickest and official way to start new Angular projects - may already have ESLint configured for you when you generate a project using it. This outlines how to add ESLint to an Angular project not using the Angular CLI.
@@ -353,13 +362,6 @@ import pluginJs from "@eslint/js";
 import pluginTs from 'typescript-eslint';
 import pluginAngular from 'angular-eslint';
 
-/**
- * @type {any}
- * import.meta.dirname is not supported by TypeScript
- */
-const importMeta = import.meta;
-const dirname = importMeta.dirname;
-
 export default pluginTs.config(
   {
     files: ['**/*.ts'],
@@ -370,8 +372,9 @@ export default pluginTs.config(
     ],
     languageOptions: {
       parserOptions: {
-        project: true,
-        tsconfigRootDir: dirname,
+        projectService: true,
+        // If TypeScript complains about this line, install `@types/node`
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     processor: pluginAngular.processInlineTemplates,
@@ -382,7 +385,7 @@ export default pluginTs.config(
       ...pluginAngular.configs.templateRecommended,
     ]
   },
-);s
+);
 ```
 
 This will:
@@ -415,6 +418,8 @@ export class AppComponent {
 > ```
 
 // TODO: Add iframe
+
+> You can [find more linting rules and configurations in the `angular-eslint` docs](https://github.com/angular-eslint/angular-eslint).
 
 ### Vue
 
@@ -454,6 +459,8 @@ export let msg = 'Hello!'
 > ```
 
 // TODO: Add iframe
+
+> [Learn more about Vue's ESLint plugin from their docs website.](https://eslint.vuejs.org/) 
 
 <!-- ::end:tabs --> 
 
@@ -560,7 +567,7 @@ const LessPi = Pi.toFixed(2);
 > Property 'toFixed' does not exist on type '"3.14159265"'. Did you mean 'fixed'?(2551)
 > ````
 
-You can [learn more about TypeScript and what it is in this article I wrote.](/posts/introduction-to-typescript)
+You can [learn more about TypeScript and what it is in this article I wrote](/posts/introduction-to-typescript) or from [the TypeScript docs website.](https://www.typescriptlang.org/)
 
 ----
 
@@ -777,6 +784,8 @@ export default (await import('vue')).defineComponent({
 ;
 ```
 
+> You can [learn more about the Vue TSC project on their website.](https://github.com/vuejs/language-tools/tree/master/packages/tsc)
+
 <!-- ::end:tabs -->
 
 ### Framework + Vite + TypeScript
@@ -850,7 +859,7 @@ export default pluginTs.config(
     languageOptions: {
       parserOptions: {
         projectService: true,
-        // If TypeScript complains about this line, run `npm i -D @types/node`
+        // If TypeScript complains about this line, install `@types/node`
         tsconfigRootDir: import.meta.dirname,
       },
       globals: globals.browser
@@ -880,5 +889,5 @@ console.log('End');
 > Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator. eslint(typescript-eslint/no-floating-promises)
 > ```
 
-
+> You can [learn more about the TypeScript ESLint project on their website.](https://typescript-eslint.io/)
 
