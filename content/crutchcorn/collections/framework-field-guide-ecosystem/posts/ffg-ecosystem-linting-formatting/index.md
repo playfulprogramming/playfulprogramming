@@ -175,6 +175,39 @@ Because it tracks the difference in each line of code, it can sometimes figure o
 
 This inability to recognize differences makes it much harder to visually identify what's specifically changed between versions of the codebase.
 
+For example, look at this well formatted code:
+
+```javascript
+function fibonacci(n) {
+  if (n <= 0) return 0;
+  if (n === 1) return 1;
+
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+for (let i = 0; i < 10; i++) {
+  console.log(fibonacci(i));
+}
+```
+
+And see what the diff would be to change the `n` variable name to `num`:
+
+![TODO: Write alt](./well_formatted_git_diff.png)
+
+And how that story changes when there's no formatting applied:
+
+```javascript
+function fibonacci(n) {
+  if (n<=0)return 0;if(n===1)return 1;return fibonacci(n
+    -
+                   1) +
+    fibonacci(n -
+2);
+}
+```
+
+![TODO: Add alt](./poorly_formatted_code.png)
+
 ----
 
 Worse than the difficulties visually seeing code changes; this same problem makes things like [`git merge`](https://www.atlassian.com/git/tutorials/using-branches/git-merge) much more likely to introduce a [Git conflict](https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts). These conflicts make code sharing and collaboration much harder to reconcile when too many variants of the code exist.
