@@ -113,9 +113,7 @@ One way to solve this problem of scoping in CSS relies on no external tooling th
 
 BEM stands for "Box Element Modifier" and helps you establish scoping through uniquely named classes that are "namespaced" based on where on the screen they exist.
 
-// TODO: Replace this with our own
-
-![](https://getbem.com/assets/github_captions.3a78c10d_ZfCSDb.jpg)
+![TODO: Write alt](./bem.png)
 
 The example we demonstrated scoping problems within has two "boxes":
 
