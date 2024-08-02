@@ -166,11 +166,103 @@ Let's look at some other alternatives to using the BEM methodology.
 
 Another way you're able to solve the problem of scoping through convention is by leaning into the shared aspects of CSS classes as styling identifiers.
 
-// Talk about how you can build your own utility classes and avoid this scoping issue by never scoping
+This means that instead of something like this:
+
+```html
+<div class="search-container"></div>
+
+<style>
+.search-container {
+	border-radius: 8px;
+    color: #3366FF;
+    background: rgba(102, 148, 255, 0.1);
+    padding: 8px;
+    flex-grow: 1;
+}
+</style>
+```
+
+We could instead break these CSS rules into modular reusable classes:
+
+```html
+<div class="rounded-md padding-md grow blue-on-blue"></div>
+
+<style>
+.rounded-md {
+	border-radius: 8px;
+}
+
+.padding-md {
+	padding: 8px;
+}
+
+.grow {
+    flex-grow: 1;
+}
+
+.blue-on-blue {
+    color: #3366FF;
+    background: rgba(102, 148, 255, 0.1);
+}
+</style>
+```
+
+This means that instead of having one-off classes that are utilized on a case by case basis, we have global classes that are reused across the entire application.
+
+This comes with a few added benefits:
+
+- Only one CSS file to worry about
+- Less duplicated CSS shipped
+- Easier to visualize styling from markup
+
+But also has its own downfalls:
+
+- You have to figure out naming for every class; consistency can be challenging
+- Your markup ends up cluttered with complex styles represented by many classes
 
 ## Tailwind
 
-// Then talk about the benefits of having a pre-built utility system like Tailwind avoiding retraining for folks and providing sane out-of-the-box token defaults
+When the topic of utility classes comes up, Tailwind is not far behind.
+
+Tailwind is a CSS framework that ships with all of the utility classes you could ever need. Just like rolling your own utility classes, Tailwind's are able to be applied to any element and reused globally.
+
+Our example from before might look something like this:
+
+```html
+<div class="rounded-lg p-8 grow bg-blue-50 text-blue-800"></div>
+```
+
+![TODO: Add alt](./search_box.png)
+
+While Tailwind doesn't solve the cluttered markup challenges with hand-rolling your own utility classes, it comes with some additional benefits over utility classes:
+
+- Ease of training. If someone's used Tailwind before, they know how to use it and what class names to use. Moreover, the Tailwind docs are very very polished.
+
+  ![TODO: Add alt](./tailwind_docs.png)
+
+- Pre-built styling tokens. No need to figure out what `padding-lg` or `padding-xl` should be; Tailwind ships with a strong color pallet and sane defaults out-of-the-box for you to use as your design system base.
+
+  ![TODO: Add alt](./tailwind_colors.png)
+
+- IDE support. From color previews to class name auto-completion, Tailwind has many integrations with most IDEs you'd want to use. 
+
+  ![TODO: Add alt](./tailwind_ide.png)
+
+### Dynamic Classes using Tailwind
+
+Tailwind isn't your average CSS file, however. It comes with the ability to create classes during build-time that didn't exist beforehand.
+
+For example,
+
+https://tailwindcss.com/docs/dark-mode
+
+https://tailwindcss.com/docs/adding-custom-styles#arbitrary-properties
+
+https://tailwindcss.com/docs/responsive-design#arbitrary-values
+
+### Install Tailwind
+
+
 
 # CSS Modules
 
