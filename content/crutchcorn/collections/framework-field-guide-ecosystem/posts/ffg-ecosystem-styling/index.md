@@ -368,19 +368,53 @@ To make sure that Tailwind is properly configured, we can add it to our root com
 
 #### React
 
-// TODO: Add example
+```jsx
+const App = () => {
+	return (
+      <a
+        className="bg-indigo-600 text-white py-2 px-4 rounded-md"
+        href="https://discord.gg/FMcvc6T"
+      >
+        Join our Discord
+      </a>
+	)
+}
+```
 
 // TODO: Add iframe
 
 #### Angular
 
-// TODO: Add example
+```angular-ts
+@Component({
+  selector: "app-root",
+  standalone: true,
+  template: `
+      <a
+        class="bg-indigo-600 text-white py-2 px-4 rounded-md"
+        href="https://discord.gg/FMcvc6T"
+      >
+        Join our Discord
+      </a>
+  `,
+})
+export class App {}
+```
 
 // TODO: Add iframe
 
 #### Vue
 
-// TODO: Add example
+```vue
+<template>
+  <a
+    className="bg-indigo-600 text-white py-2 px-4 rounded-md"
+    href="https://discord.gg/FMcvc6T"
+  >
+    Join our Discord
+  </a>
+</template>
+```
 
 // TODO: Add iframe
 
@@ -388,7 +422,7 @@ To make sure that Tailwind is properly configured, we can add it to our root com
 
 Once you preview the component, it should look like this:
 
-// TODO: Add example image
+![TODO: Add alt](./tailwind_join_our_discord.png)
 
 ### Tailwind Compilation
 
@@ -415,22 +449,18 @@ Because of Tailwind's "compile based on your code" strategy, it's able to have a
 Say you want to blur an image:
 
  ```html
- <div class="[filter:blur(4px)]">
-   <!-- ... -->
- </div>
+ <img class="[filter:blur(4px)]" src="/unicorn.png" alt="A blurry cartoon unicorn in a bowtie"/>
  ```
 
-// TODO: Add image of UU logo blurred
+<img src="./unicorn.png" alt="A blurry cartoon unicorn in a bowtie" style="filter: blur(4px);" />
 
 Or maybe you want to have border width of a specific pixel value:
 
 ```html
-<div class="border-red-500 border-[12px]">
-  <!-- ... -->
-</div>
+<img class="rounded-full border-sky-200 border-[12px]" src="/unicorn.png" alt="A cartoon unicorn in a bowtie with a light blue rounded border"/>
 ```
 
-// TODO: Add image of UU logo with a red border
+<img src="./unicorn.png" alt="A cartoon unicorn in a bowtie with a light blue rounded border" style="border-radius: 9999px; border-color: rgb(186 230 253); border-width: 12px; border-style: solid" />
 
 You're able to truly make Tailwind your own.
 
@@ -439,6 +469,10 @@ You're able to truly make Tailwind your own.
 # CSS Modules
 
 But not everyone wants to use utility classes for their solutions. For many, they just want to reuse their existing CSS knowledge with selectors and all just with the scoping problem solved for them.
+
+Well, what if each CSS file had their own auto-scoping pre-applied?
+
+For example, wouldn't it be great if we had t
 
 // Talk about how this is built into just about everything and solves the problems with CSS scoping
 
