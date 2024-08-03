@@ -531,7 +531,7 @@ Will generate the following CSS and Markup:
 
 This means that if we have two different components, each with their own `.title` CSS class; each will be isolated in their styling relative to their parent component.
 
-### Customizing Scoped Behavior
+### Local and Global Styling
 
 Say you have a root `App` component that you want to disable the CSS scoping; This would enable the styles of `App` to act as global styles for your app.
 
@@ -560,13 +560,90 @@ import { Component, ViewEncapsulation } from '@angular/core';
 export class App {}
 ```
 
+> It's worth mentioning that `encapsulation` will affect _all_ of a component's `styles` and `styleUrls`. There's no way to customize the encapsulation for each of them individually.
+
 ## Vue
 
-**Built-in**
+Like Angular, Vue's SFC component format has scoped CSS as a feature built-in. There's two ways to do so in Vue:
+
+1) Using the `scoped` attribute - which uses PostCSS to add a prefix to the styled elements automatically
+2) Using the `module` attribute - which compiles down to [CSS Modules](https://github.com/css-modules/css-modules)
+
+### `scoped` Attribute
+
+To scope your CSS in a Vue SFC, you can add the `scoped` attribute to your `<style>` tag:
+
+```vue
+<template>
+  <h1 class="title">The Framework Field Guide</h1>
+</template>
+
+<style scoped>
+.title {
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 2rem;
+}
+</style>
+```
+
+This will output the following markup and styling:
+
+```html
+<h1 data-v-7a7a37b1="" class="title">The Framework Field Guide</h1>
+
+<style>
+.title[data-v-7a7a37b1] {
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 2rem;
+}
+</style>
+```
+
+#### Local and Global Styling
+
+When using the `scoped` attribute, you can mix and match which styles are global and which are scoped.
+
+You can either do this on a per-CSS-selector basis:
+
+```vue
+<!-- ... -->
+
+<style scoped>
+.red {
+}
+
+:global(.blue) {
+}
+</style>
+```
+
+Or have two `<style>` tags; one scoped and one global:
+
+```vue
+<!-- ... -->
+
+<style scoped>
+.red {
+}
+</style>
+
+<style>
+.blue {
+}
+</style>
+```
+
+### CSS Modules
+
+
+
+
 
 <!-- ::end:tabs -->
 
-
+<!-- Editor's note: Should we talk about `::ng-deep` (Angular) and `:deep` (Vue)? -->
 
 # SCSS
 
