@@ -1031,7 +1031,7 @@ class AppComponent {}
 > Because we're expecting Angular to pass an `ng-template` reference to `ItemDirective`, if we use the `item` attribute on anything other than a template, we'll end up with the following error:
 >
 > ```
-> Error: NG0201: No provider for TemplateRef found. Find more at https://angular.io/errors/NG0201
+> Error: NG0201: No provider for TemplateRef found. Find more at https://angular.dev/errors/NG0201
 > ```
 
 Doing this, we'll see that we get the `TemplateRef` as expected in our console:
@@ -1119,7 +1119,7 @@ AppCmp.ɵcmp = i0.ɵɵdefineComponent({
 })();
 ```
 
-> This code sample is taken from [the "How the Angular Compiler Works" article written by the Angular team](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549).
+> This code sample is taken from [the "How the Angular Compiler Works" article written by the Angular team](https://blog.angular.dev/how-the-angular-compiler-works-42111f9d2549).
 >
 > I explain how this code gets ran in detail in [my "Angular Internals: How Reactivity Works with Zone.js" article](/posts/angular-internals-zonejs).
 
@@ -1163,7 +1163,7 @@ Might be seen by Angular as such:
 
 ### Using ViewContainer to Render a Template {#using-viewcontainer-to-render-a-template}
 
-This isn't just theoretically helpful to learn, though; we're able to tell Angular that we want to gain access to the underlying `ViewContainer` via a [`ViewContainerRef`](https://angular.io/api/core/ViewContainerRef).
+This isn't just theoretically helpful to learn, though; we're able to tell Angular that we want to gain access to the underlying `ViewContainer` via a [`ViewContainerRef`](https://angular.dev/api/core/ViewContainerRef).
 
 Similarly, as a template is handled by an `EmbeddedView` in Angular's compiler, we can programmatically create an Embedded View using `ViewContainerRef.createEmbeddedView`:
 
