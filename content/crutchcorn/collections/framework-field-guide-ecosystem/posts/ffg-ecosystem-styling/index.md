@@ -466,15 +466,107 @@ You're able to truly make Tailwind your own.
 
 // TODO: Add iframe to play with
 
-# CSS Modules
+# Scoped CSS
 
 But not everyone wants to use utility classes for their solutions. For many, they just want to reuse their existing CSS knowledge with selectors and all just with the scoping problem solved for them.
 
 Well, what if each CSS file had their own auto-scoping pre-applied?
 
-For example, wouldn't it be great if we had t
+```css
+/* file-one.css */
+.container {}
 
-// Talk about how this is built into just about everything and solves the problems with CSS scoping
+/* When used, is transformed to */
+.FILE_ONE_6591_container {}
+
+/* To preserve uniqueness against other CSS files */
+```
+
+Luckily for us, each framework has a solution to this problem.
+
+<!-- ::start:tabs -->
+
+## React
+
+**CSS Modules**
+
+## Angular
+
+In Angular, we're able to use styles relative to the component by using either the `styleUrl` or `style` property in the `@Component` decorator:
+
+```angular-ts
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  styles: [
+    `
+    .title {
+      font-weight: bold;
+      text-decoration: underline;
+      font-size: 2rem;
+    }
+ `,
+  ],
+  template: `
+    <h1 class="title">The Framework Field Guide</h1>
+  `,
+})
+export class App {}
+```
+
+Will generate the following CSS and Markup:
+
+```html
+<app-root _nghost-ng-c118366096="">
+    <h1 _ngcontent-ng-c118366096="" class="title">The Framework Field Guide</h1></app-root>
+
+<style>
+.title[_ngcontent-ng-c118366096] {
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 2rem;
+}
+</style>
+```
+
+This means that if we have two different components, each with their own `.title` CSS class; each will be isolated in their styling relative to their parent component.
+
+### Customizing Scoped Behavior
+
+Say you have a root `App` component that you want to disable the CSS scoping; This would enable the styles of `App` to act as global styles for your app.
+
+ Angular supports doing this by changing the `encapsulation` property in the `@Component` decorator:
+
+```angular-ts {15}
+import { Component, ViewEncapsulation } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  styles: [
+    `
+    .title {
+      font-weight: bold;
+      text-decoration: underline;
+      font-size: 2rem;
+    }
+ `,
+  ],
+  encapsulation: ViewEncapsulation.None,
+  template: `
+    <h1 class="title">The Framework Field Guide</h1>
+  `,
+})
+export class App {}
+```
+
+## Vue
+
+**Built-in**
+
+<!-- ::end:tabs -->
+
+
 
 # SCSS
 
