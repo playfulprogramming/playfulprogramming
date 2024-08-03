@@ -406,7 +406,7 @@ class ToggleButtonListComponent {}
 <iframe data-frame-title="Angular Passing Basic Children - StackBlitz" src="uu-code:./ffg-fundamentals-angular-passing-basic-children-55?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
-Because `ng-content` is built into [Angular's compiler](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549), we do not need to import anything into our component to use the feature.
+Because `ng-content` is built into [Angular's compiler](https://blog.angular.dev/how-the-angular-compiler-works-42111f9d2549), we do not need to import anything into our component to use the feature.
 
 ### Vue
 

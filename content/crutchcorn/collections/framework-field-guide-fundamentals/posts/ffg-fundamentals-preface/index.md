@@ -65,9 +65,9 @@ While ecosystem size is great and all, it's nothing without a swath of tools at 
 
 Luckily, for all three frameworks alike, myriads of tools build upon their foundation.
 
-For example, do you want to add [Static Site Generation or Server Side Rendering](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg) to your projects to enhance SEO? No problem: React has [Next.js](https://nextjs.org/) and [Gatsby](https://gatsbyjs.com/), Angular has [Angular Universal](https://angular.io/guide/universal) and [Analog](https://analogjs.org/), and Vue has [NuxtJS](https://nuxtjs.org/) and [VuePress](https://vuepress.vuejs.org/).
+For example, do you want to add [Static Site Generation or Server Side Rendering](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg) to your projects to enhance SEO? No problem: React has [Next.js](https://nextjs.org/) and [Gatsby](https://gatsbyjs.com/), Angular has [Angular SSR](https://angular.dev/guide/ssr) and [Analog](https://analogjs.org/), and Vue has [NuxtJS](https://nuxtjs.org/) and [VuePress](https://vuepress.vuejs.org/).
 
-Want to add a router to add multiple pages to your apps? React has the ["React Router"](https://reactrouter.com/), [Angular has its built-in router](https://angular.io/guide/router), and Vue has the ["Vue Router"](https://router.vuejs.org/).
+Want to add a router to add multiple pages to your apps? React has the ["React Router"](https://reactrouter.com/), [Angular has its built-in router](https://angular.dev/guide/routing), and Vue has the ["Vue Router"](https://router.vuejs.org/).
 
 Do you want to add global state management, making sharing data across an entire app easier? React has [Redux](https://redux.js.org/), Angular has [NgRx](https://ngrx.io/), and Vue has [Vuex](https://vuex.vuejs.org/).
 
@@ -87,7 +87,7 @@ React is built by Meta and powers all of its major applications. Moreover, the c
 
 However, when most mention "React," they tend to talk about the React ecosystem at large. See, the core maintainers of React itself tend to remain focused on a small subsection of tooling. Instead, they rely on external groups, like [Remix](https://remix.run/) and [Vercel](https://vercel.com/), to provide libraries that are often integral to application development.
 
-On the other hand, Angular is fully funded and supported by Google. They build a substantial portion of their major websites on top of the framework and, as a result, have a vested interest in continuing and up-keeping development. Continuing the differences from React, the Angular core team maintains a slew of helper libraries that provide everything from an [HTTP call layer](https://angular.io/guide/http) to [form validation](https://angular.io/guide/forms-overview).
+On the other hand, Angular is fully funded and supported by Google. They build a substantial portion of their major websites on top of the framework and, as a result, have a vested interest in continuing and up-keeping development. Continuing the differences from React, the Angular core team maintains a slew of helper libraries that provide everything from an [HTTP call layer](https://angular.dev/guide/http) to [form validation](https://angular.dev/guide/forms).
 
 Vue is often seen as the odd one out when talking about funding. Vue's development is driven by an independent team crowd-funded by a diverse pool of groups and individuals. However, while it's unclear how much money they bring in, it is clear that there are significant-sized financial contributors involved, [such as Alibaba, Baidu, Xiaomi, and more](https://medium.com/the-vue-point/the-state-of-vue-1655e10a340a).
 
@@ -269,11 +269,11 @@ Despite the similarities in their names, these two are entirely distinct entitie
 
 Angular has two ways of defining component imports: modules and standalone components. **We'll be using Standalone components**.
 
-When Angular was first released, it launched with [the concept of NgModules](https://angular.io/guide/ngmodules). Very broadly, this was an API that allowed you to namespace a collection of related UI items (called components, more on that in the next chapter) into so-called "modules".
+When Angular was first released, it launched with [the concept of NgModules](https://angular.dev/guide/ngmodules). Very broadly, this was an API that allowed you to namespace a collection of related UI items (called components, more on that in the next chapter) into so-called "modules".
 
 While these modules worked, they were primarily dissimilar from alternatives in other related frameworks like React and Vue. Further, a common complaint against them is that they were overly complicated with minimal yield.
 
-[Starting with an experimental release in Angular 14](https://github.com/angular/angular/discussions/45554) (and [being marked as stable in Angular 15](https://blog.angular.io/angular-v15-is-now-available-df7be7f2f4c8)), Angular introduced the "standalone components" API. This was a more similar method of importing similar UI elements into one another and is what our book will be using.
+[Starting with an experimental release in Angular 14](https://github.com/angular/angular/discussions/45554) (and [being marked as stable in Angular 15](https://blog.angular.dev/angular-v15-is-now-available-df7be7f2f4c8)), Angular introduced the "standalone components" API. This was a more similar method of importing similar UI elements into one another and is what our book will be using.
 
 > Keep in mind that if you're working with an older Angular codebase, it's likely to still be using modules.
 
@@ -298,7 +298,7 @@ Similarly, Angular 15.1 introduced a method for using self-closing tags with com
 
 #### We Won't Be Learning "Signals" {#no-signals}
 
-[Early in 2023, the Angular team announced that they would be introducing a new method of programming in Angular called "Signals"](https://angular.io/guide/signals). To pull back the curtains a bit, this book began life in January 2022, and by the time the book had launched, parts of the signals API had not yet been introduced as a stable API within the Angular ecosystem.
+[Early in 2023, the Angular team announced that they would be introducing a new method of programming in Angular called "Signals"](https://angular.dev/guide/signals). To pull back the curtains a bit, this book began life in January 2022, and by the time the book had launched, parts of the signals API had not yet been introduced as a stable API within the Angular ecosystem.
 
 While I believe Signals are the way forward for the Angular community, delaying the book further and waiting for this API to stabilize was simply not viable. As such, **this book will not teach Angular signals** at this time.
 

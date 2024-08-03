@@ -352,7 +352,7 @@ class AppComponent {
 <iframe data-frame-title="Angular Sharing Side Effect - StackBlitz" src="uu-code:./ffg-fundamentals-angular-sharing-side-effect-101?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
-> This code isn't ideal; the Angular team knows this. This is why they're working on introducing a new method of side effect handling (and data storage) [called "Signals"](https://angular.io/guide/signals). At the time of writing, Signals are still in the experimental phase, but they're worth keeping an eye on.
+> This code isn't ideal; the Angular team knows this. This is why they're working on introducing a new method of side effect handling (and data storage) [called "Signals"](https://angular.dev/guide/signals). At the time of writing, Signals are still in the experimental phase, but they're worth keeping an eye on.
 
 > While this is the only method we'll be looking at in this book for writing this code, [Lars Gyrup Brink Nielsen showcased how we could improve this code using RxJS in another article on the Unicorn Utterances site.](/posts/angular-extend-class#The-Angular-way-to-fix-the-code)
 

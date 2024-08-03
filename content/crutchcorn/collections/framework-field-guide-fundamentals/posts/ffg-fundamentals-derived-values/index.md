@@ -455,7 +455,7 @@ class FileDateComponent {
 
 Luckily, Angular's all-in-one methodology means that there's a slew of pipes that the Angular team has written for us. One such pipe is actually a date formatting pipe. We can remove our own implementation in favor of one built right into Angular!
 
-To use the built-in pipes, we need to import them from `CommonModule` into the component. In this case, the pipe we're looking to use is called [`DatePipe`](https://angular.io/api/common/DatePipe). This provided date pipe is, expectedly, called `date` when used in the template and can be used like so:
+To use the built-in pipes, we need to import them from `CommonModule` into the component. In this case, the pipe we're looking to use is called [`DatePipe`](https://angular.dev/api/common/DatePipe). This provided date pipe is, expectedly, called `date` when used in the template and can be used like so:
 
 ```angular-ts
 import { DatePipe } from "@angular/common";

@@ -2576,7 +2576,7 @@ useEffect(() => {
 
 ## Angular
 
-_Today_, Angular does not include a method for tracking internal state changes. However, a future version of Angular will introduce the concept of ["Signals"](https://angular.io/guide/signals), which will allow us to watch changes made to a variable, regardless of where the state change comes from.
+_Today_, Angular does not include a method for tracking internal state changes. However, a future version of Angular will introduce the concept of ["Signals"](https://angular.dev/guide/signals), which will allow us to watch changes made to a variable, regardless of where the state change comes from.
 
 Instead, we'll have to use a `setTitle` function that calls the variable mutation as well as sets the `document.title` as a side effect:
 

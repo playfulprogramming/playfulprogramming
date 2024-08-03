@@ -128,7 +128,7 @@ In [our "Dynamic HTML" chapter, we talked about how you're able to assign a "var
 <div #templVar></div>
 ```
 
-In our previous example, we used them to conditionally render content using `ngIf`, but these template tags aren't simply useful in `ngIf` usage. We can also use them in a myriad of programmatic queries, such as [`ContentChild`](https://angular.io/api/core/ContentChild).
+In our previous example, we used them to conditionally render content using `ngIf`, but these template tags aren't simply useful in `ngIf` usage. We can also use them in a myriad of programmatic queries, such as [`ContentChild`](https://angular.dev/api/core/ContentChild).
 
 `ContentChild` is a way to query the projected content within [`ng-content`](/posts/ffg-fundamentals-passing-children) from JavaScript.
 
@@ -171,7 +171,7 @@ class AppComponent {}
 <iframe data-frame-title="Angular ContentChild - StackBlitz" src="uu-code:./ffg-fundamentals-angular-contentchild-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
-Here, we're querying for the template tag `childItem` within the project content by using [the `ContentChild` decorator](https://angular.io/api/core/ContentChild).
+Here, we're querying for the template tag `childItem` within the project content by using [the `ContentChild` decorator](https://angular.dev/api/core/ContentChild).
 
 `ContentChild` then returns [a TypeScript generic type](/posts/typescript-type-generics) of `ElementRef`.
 
@@ -217,7 +217,7 @@ This can be solved by either:
 
 While `ContentChild` is useful for querying against a single item being projected, what if we wanted to query against multiple items being projected?
 
-This is where [`ContentChildren`](https://angular.io/api/core/ContentChildren) comes into play:
+This is where [`ContentChildren`](https://angular.dev/api/core/ContentChildren) comes into play:
 
 ```angular-ts
 import {
@@ -264,7 +264,7 @@ class AppComponent {}
 <iframe data-frame-title="Angular Counting Component Children - StackBlitz" src="uu-code:./ffg-fundamentals-angular-counting-component-children-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
-`ContentChildren` returns an array-like [`QueryList`](https://angular.io/api/core/QueryList) generic type. You can then access the properties of `children` inside of the template itself, like what we're doing with `children.length`.
+`ContentChildren` returns an array-like [`QueryList`](https://angular.dev/api/core/QueryList) generic type. You can then access the properties of `children` inside of the template itself, like what we're doing with `children.length`.
 
 ## Vue
 

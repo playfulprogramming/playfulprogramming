@@ -1308,7 +1308,7 @@ const App = () => {
 
 While other frameworks require you to explicitly provide your dependency-injected values at the root of your application, Angular does not.
 
-Remember when we used `@Injectable` to mark a class as an injectable class instance? Well, this decorator has a trick up its sleeve: [the `providedIn` property](https://angular.io/guide/providers#providedin-and-ngmodules).
+Remember when we used `@Injectable` to mark a class as an injectable class instance? Well, this decorator has a trick up its sleeve: [the `providedIn` property](https://angular.dev/guide/ngmodules/providers#providing-a-service).
 
 When you pass `{providedIn: 'root'}` to the `@Injectable` decorator, you no longer have to explicitly place the class inside a `providers` array; instead, Angular will simply provide this class to the root of your application.
 

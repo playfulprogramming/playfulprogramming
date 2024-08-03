@@ -919,7 +919,7 @@ This `cdkPortalOutlet` is where the captured HTML is then projected into.
 >
 > The reason for this occurring is quite complex (and out of scope), but you can read about it more with the following resources:
 >
-> - [Official Angular video explaining "Expression has changed"](https://angular.io/errors/NG0100)
+> - [Official Angular video explaining "Expression has changed"](https://angular.dev/errors/NG0100)
 > - [Everything you need to know about the `ExpressionChangedAfterItHasBeenCheckedError` error](https://indepth.dev/posts/1001/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error)
 > - [Angular Debugging "Expression has changed after it was checked": Simple Explanation (and Fix)](https://blog.angular-university.io/angular-debugging/)
 

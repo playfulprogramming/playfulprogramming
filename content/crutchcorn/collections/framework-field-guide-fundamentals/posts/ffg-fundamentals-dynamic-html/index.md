@@ -1311,7 +1311,7 @@ Here, we're using the `key` property to tell React which `li` is related to whic
 
 ### Angular
 
-While Angular doesn't have quite the same API for `key` as React and Vue, Angular instead uses a [`trackBy` method](https://angular.io/api/core/TrackByFunction) to figure out which item is which.
+While Angular doesn't have quite the same API for `key` as React and Vue, Angular instead uses a [`trackBy` method](https://angular.dev/api/core/TrackByFunction) to figure out which item is which.
 
 ```angular-ts {9,17-19}
 @Component({
