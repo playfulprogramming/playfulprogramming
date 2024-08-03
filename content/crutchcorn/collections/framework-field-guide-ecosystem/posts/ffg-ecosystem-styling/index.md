@@ -248,25 +248,197 @@ While Tailwind doesn't solve the cluttered markup challenges with hand-rolling y
 
   ![TODO: Add alt](./tailwind_ide.png)
 
-### Dynamic Classes using Tailwind
-
-Tailwind isn't your average CSS file, however. It comes with the ability to create classes during build-time that didn't exist beforehand.
-
-For example,
-
-https://tailwindcss.com/docs/dark-mode
-
-https://tailwindcss.com/docs/adding-custom-styles#arbitrary-properties
-
-https://tailwindcss.com/docs/responsive-design#arbitrary-values
-
 ### Install Tailwind
 
+To install Tailwind, start by using your package manager to install the required packages:
 
+```shell
+npm install -D tailwindcss postcss autoprefixer
+```
+
+Then, create a `tailwind.config.js` file:
+
+```javascript
+// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+    content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx,html,vue}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+Next, create a CSS file:
+
+```css
+// src/styles.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+Finally, you'll configure Tailwind to integrate with your bundler:
+
+<!-- ::start:tabs -->
+
+#### React
+
+To enable Tailwind in your React Vite project, you'll use Vite's built-in support for [PostCSS](https://postcss.org/https://postcss.org/). PostCSS is a CSS transformer that powers Tailwind's compilation of your CSS. (more on this later)
+
+Let's start by configuring the PostCSS configuration:
+
+```javascript
+// postcss.config.js
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+```
+
+Finally we'll import our `src/styles.css` file into Vite's entry point of `index.html`:
+
+```html {7}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+```
+
+#### Angular
+
+Since the Angular CLI supports Tailwind out-of-the-box, we don't need to do any additional configuration steps.
+
+So long as your `angular.json` file references the `src/style.css` file we added earlier, you should be off to the races!
+
+#### Vue
+
+Just like React, we'll use [PostCSS](https://postcss.org/https://postcss.org/), the CSS transformer that powers Tailwind's compilation of your CSS, to add Tailwind to our Vue app.
+
+Add the PostCSS configuration:
+
+```javascript
+// postcss.config.js
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+```
+
+And import our `src/styles.css` file into Vite's `index.html`:
+
+```html {7}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+```
+
+<!-- ::end:tabs -->
+
+To make sure that Tailwind is properly configured, we can add it to our root component:
+
+<!-- ::start:tabs -->
+
+#### React
+
+// TODO: Add example
+
+// TODO: Add iframe
+
+#### Angular
+
+// TODO: Add example
+
+// TODO: Add iframe
+
+#### Vue
+
+// TODO: Add example
+
+// TODO: Add iframe
+
+<!-- ::end:tabs -->
+
+Once you preview the component, it should look like this:
+
+// TODO: Add example image
+
+### Tailwind Compilation
+
+You might wonder:
+
+> With **so many** utility classes in Tailwind, if I use it the download size of my CSS must be huge!
+
+Not so! See, when Tailwind generates the CSS for your application, it only adds in the classes you actually use within your templates.
+
+This is why we had to add a list of files (via regex) to our `tailwind.config.js` file earlier: It's watching to see what classes to add to your CSS or not.
+
+This means that if you don't have any Tailwind classes in your code, only the prerequisite CSS generated will be included:
+
+![TODO: Add alt](./tailwind_base_size.png) 
+
+> You're even able to shrink this prerequisite CSS down if you'd like. We can customize our `src/style.css` file to only include the prerequisites we need for our project. 
+>
+> To demonstrate this, you can remove all of the `@tailwind` imports and you'll end up with `0kb` of CSS when you aren't using any Tailwind classes.
+
+### Dynamic Classes using Tailwind
+
+Because of Tailwind's "compile based on your code" strategy, it's able to have a distinct superpower over rolling your own utility classes: [Generating arbitrary CSS from class names.](https://tailwindcss.com/docs/adding-custom-styles#arbitrary-properties)
+
+Say you want to blur an image:
+
+ ```html
+ <div class="[filter:blur(4px)]">
+   <!-- ... -->
+ </div>
+ ```
+
+// TODO: Add image of UU logo blurred
+
+Or maybe you want to have border width of a specific pixel value:
+
+```html
+<div class="border-red-500 border-[12px]">
+  <!-- ... -->
+</div>
+```
+
+// TODO: Add image of UU logo with a red border
+
+You're able to truly make Tailwind your own.
+
+// TODO: Add iframe to play with
 
 # CSS Modules
 
-"But not everyone wants to use utility classes for their solutions. For many, they just want to reuse their existing CSS knowledge with the scoping problem solved for them."
+But not everyone wants to use utility classes for their solutions. For many, they just want to reuse their existing CSS knowledge with selectors and all just with the scoping problem solved for them.
 
 // Talk about how this is built into just about everything and solves the problems with CSS scoping
 
