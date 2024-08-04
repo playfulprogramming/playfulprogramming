@@ -637,9 +637,49 @@ Or have two `<style>` tags; one scoped and one global:
 
 ### CSS Modules
 
+CSS modules is an alternative way to structure your CSS in a scoped way. It transforms the class selectors using JS names for classes instead of a raw string.
+
+To do this in Vue SFC components, we'll use `<style module>` and the `useCssModule` composible:
+
+```vue
+<script setup>
+import { useCssModule } from 'vue';
+
+const style = useCssModule();
+</script>
+
+<template>
+  <h1 :class="style.title">The Framework Field Guide</h1>
+</template>
+
+<style module>
+.title {
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 2rem;
+}
+</style>
+```
+
+This will transform the class name itself, rather than adding any attributes to the impacted elements:
+
+```html
+<h1 class="_title_1nd3v_2">The Framework Field Guide</h1>
+
+<style>
+._title_1nd3v_2 {
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 2rem;
+}
+</style>
+```
 
 
 
+
+
+// TODO: Add iframe
 
 <!-- ::end:tabs -->
 
