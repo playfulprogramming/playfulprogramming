@@ -181,7 +181,7 @@ async function generateCollectionEPub(
 			author: authors,
 			publisher: "Unicorn Utterances",
 			cover: collection.coverImgMeta.absoluteFSPath,
-			allowedAttributes: [...defaultAllowedAttributes, "start"],
+			allowedAttributes: [...defaultAllowedAttributes, "start", "colSpan"],
 			css: await fs.readFile(resolve(__dirname, "./epub.css"), "utf-8"),
 			// fonts: ['/path/to/Merriweather.ttf'],
 			lang: "en",
