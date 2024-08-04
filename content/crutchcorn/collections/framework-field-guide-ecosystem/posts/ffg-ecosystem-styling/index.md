@@ -488,7 +488,47 @@ Luckily for us, each framework has a solution to this problem.
 
 ## React
 
-**CSS Modules**
+To automatically scope our CSS in our React application we'll rely on Vite's built-in support for [CSS Modules](https://github.com/css-modules/css-modules). 
+
+To do this, we just need to add `.module.css` to the name of any CSS file:
+
+```css
+/* app.module.css */
+.title {
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 2rem;
+}
+```
+
+Then we'll import the CSS in our JSX file and use the name of the class as a property on the imported object: 
+
+```jsx
+// App.jsx
+import style from './app.module.css';
+
+export function App() {
+  return <h1 class={style.title}>The Framework Field Guide</h1>;
+}
+```
+
+This will then generate the following markup and styling for us:
+
+```html
+<h1 class="_title_q98e2_3">The Framework Field Guide</h1>
+
+<style>
+._title_q98e2_3 {
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 2rem;
+}
+</style>
+```
+
+This transformation of the class name will ensure that each CSS file has its own scope that's different from another.
+
+// TODO: Add iframe
 
 ## Angular
 
@@ -531,6 +571,8 @@ Will generate the following CSS and Markup:
 
 This means that if we have two different components, each with their own `.title` CSS class; each will be isolated in their styling relative to their parent component.
 
+// TODO: Add iframe
+
 ### Local and Global Styling
 
 Say you have a root `App` component that you want to disable the CSS scoping; This would enable the styles of `App` to act as global styles for your app.
@@ -561,6 +603,8 @@ export class App {}
 ```
 
 > It's worth mentioning that `encapsulation` will affect _all_ of a component's `styles` and `styleUrls`. There's no way to customize the encapsulation for each of them individually.
+
+// TODO: Add iframe
 
 ## Vue
 
@@ -601,6 +645,8 @@ This will output the following markup and styling:
 </style>
 ```
 
+// TODO: Add iframe
+
 #### Local and Global Styling
 
 When using the `scoped` attribute, you can mix and match which styles are global and which are scoped.
@@ -634,6 +680,8 @@ Or have two `<style>` tags; one scoped and one global:
 }
 </style>
 ```
+
+// TODO: Add iframe
 
 ### CSS Modules
 
@@ -674,10 +722,6 @@ This will transform the class name itself, rather than adding any attributes to 
 }
 </style>
 ```
-
-
-
-
 
 // TODO: Add iframe
 
