@@ -15,7 +15,7 @@
 	display: flex;
 	flex-direction: column;
 
-	@include from($mobile) {
+	@include from($tabletSmall) {
 		flex-direction: row;
 		justify-content: space-between;
 	}
@@ -25,7 +25,7 @@
 	max-width: var(--max-width_xs);
 	margin-bottom: calc(var(--site-spacing) * 1.5);
 
-	@include from($mobile) {
+	@include from($tabletSmall) {
 		margin-bottom: 0;
 		margin-right: calc(var(--site-spacing) * 1.5);
 	}
