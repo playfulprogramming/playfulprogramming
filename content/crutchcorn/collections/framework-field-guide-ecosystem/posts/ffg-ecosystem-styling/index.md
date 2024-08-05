@@ -822,7 +822,107 @@ export function App() {
 
 ### Angular
 
-// TODO: How?
+With the package installed, we can use `styleUrl` to link to a dedicated `.scss` file, like so:
+
+```scss
+/* app.component.scss */
+
+/* This is the syntax for a SCSS variable. More on that soon */
+$red: #ff0000;
+
+.title {
+  color: $red;
+}
+```
+
+```angular-ts
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  styleUrl: './app.component.scss',
+  template: `
+  <h1 class="title">Hello, I am red</h1>
+  `,
+})
+export class App {}
+```
+
+// TODO: Add iframe
+
+## Inline SCSS Support
+
+This doesn't work out of the box, however, with inline styles. For example, if you try to add SCSS code into the  `styles` property in your `@Component` decorator:
+
+```angular-ts
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  styles: [
+    `
+  /* app.component.scss */
+
+/* This is the syntax for a SCSS variable. More on that soon */
+$red: #ff0000;
+
+.title {
+  color: $red;
+}
+`,
+  ],
+  template: `
+  <h1 class="title">Hello, I am red</h1>
+  `,
+})
+export class App {}
+```
+
+You'll be greeted with this error:
+
+```
+▲ [WARNING] Unexpected "$" [plugin angular-compiler] [css-syntax-error]
+
+    angular:styles/component:css;fd332d6991449d8e664dbb64acc576d5770fd57a43365fb9fe74755ecaad47ba;/home/projects/stackblitz-starters-upht8y/src/main.ts:5:0:
+      5 │ $red: #ff0000;
+        ╵ ^
+```
+
+To solve this, we'll need to modify our `angular.json` file.
+
+``` json
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "your-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "//": "...",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "//": "...",
+            "inlineStyleLanguage": "scss"
+          },
+          "//": "..."
+         },
+        "//": "..."
+      }
+    }
+  }
+}
+```
+
+> This file can historically be very long, so we've omitted most of it. Just make sure that these keys are set.
+
+Once this is done, our inline styles will be treated as if they were inside of a `.scss` file.
+
+// TODO: Add iframe
 
 ### Vue
 
@@ -842,6 +942,8 @@ $red: #ff0000;
 }
 </style>
 ```
+
+// TODO: Add iframe
 
 This works with the `scoped` and `module` attributes as well:
 
