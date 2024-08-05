@@ -729,7 +729,197 @@ This will transform the class name itself, rather than adding any attributes to 
 
 <!-- Editor's note: Should we talk about `::ng-deep` (Angular) and `:deep` (Vue)? -->
 
-# SCSS
+# Sass
+
+Modern CSS is amazing.
+
+// Talk about CSS variables
+
+However, just like JavaScript, you can accidentally ship a variable that's not defined.
+
+```css
+.title {
+	/* Notice the typo of `heder` instead of `header` */
+    /* Because of this typo, no `color` will be defined for this class */
+	color: var(--heder_color);
+}
+```
+
+This lack of variable definition will not throw an error either at build time or runtime, making it exceedingly hard to catch or debug in many instances.
+
+[As we learned in our last chapter](/posts/ffg-ecosystem-linters-formatters-type-checkers), one common solution to this type of problem in JavaScript is to introduce TypeScript which can check for many of these mistakes at build time. TypeScript then compiles down to JavaScript which can run in your bowser.
+
+Similarly, CSS has a slew of subset languages which compile down to CSS. One such language is "[Syntactically Awesome Style Sheets](https://sass-lang.com/)", or "Sass" for short.
+
+> Sass has two options for syntax;
+>
+> 1) Sass, which deviates a fair bit from the standard CSS syntax:
+>
+>    ```sass
+>    .title
+>      font-weight: bold
+>      text-decoration: underline
+>      font-size: 2rem
+>    ```
+>
+> 2) SCSS, which extends CSS' syntax and, by default, looks very familiar:
+>
+>    ```scss
+>    .title {
+>      font-weight: bold;
+>      text-decoration: underline;
+>      font-size: 2rem;
+>    }
+>    ```
+>
+> Because of the similarity to existing CSS, many choose SCSS over the Sass syntax; we'll follow suit and do the same.
+
+Sass adds a slew of features to CSS:
+
+- Compile-time variables
+- Loops and conditional statements
+- Functions
+- Mixins
+
+And so much more.
+
+## Install Sass
+
+To install Sass you'll use your package manager:
+
+```shell
+npm install -D sass
+```
+
+Once it's installed, you can use it with your respective framework:
+
+<!-- ::start:tabs -->
+
+### React
+
+When using Vite, we can use Sass alongside CSS modules by naming our files in a way that ends with `.module.scss` and using the names of the imported classes like before:
+
+```scss
+/* app.module.scss */
+
+/* This is the syntax for a SCSS variable. More on that soon */
+$red: #FF0000;
+
+.title {
+    color: $red;
+}
+```
+
+````jsx
+import style from "./app.module.scss"
+
+export function App() {
+	return <h1 class={style.title}>Hello, I am red</h1>
+}
+````
+
+// TODO: Add iframe
+
+### Angular
+
+// TODO: How?
+
+### Vue
+
+SCSS works seamlessly with SFC components. To enable this integration, we'll add `lang="scss"` to our `<style>` tag:
+
+``` vue
+<template>
+  <h1 class="title">Hello, I am red</h1>
+</template>
+
+<style lang="scss">
+/* This is the syntax for a SCSS variable. More on that soon */
+$red: #ff0000;
+
+.title {
+  color: $red;
+}
+</style>
+```
+
+This works with the `scoped` and `module` attributes as well:
+
+```vue
+<template>
+  <h1 class="title">Hello, I am red</h1>
+</template>
+
+<style scoped lang="scss">
+/* This is the syntax for a SCSS variable. More on that soon */
+$red: #ff0000;
+
+.title {
+  color: $red;
+}
+</style>
+```
+
+```vue
+<script setup>
+import { useCssModule } from 'vue';
+const style = useCssModule();
+</script>
+
+<template>
+  <h1 :class="style.title">Hello, I am red</h1>
+</template>
+
+<style module lang="scss">
+/* This is the syntax for a SCSS variable. More on that soon */
+$red: #ff0000;
+
+.title {
+  color: $red;
+}
+</style>
+```
+
+<!-- ::end:tabs -->
+
+
+
+## Compile-time variables
+
+Let's look at that typo example from before, but this time use SCSS variables rather than CSS variables:
+
+```scss
+$header_color: #2A3751;
+
+.title {
+  color: $heder_color;
+}
+```
+
+While before the only indication of a typo was the styling not applying, now we have a proper error exposed to us when we try to build the app:
+
+``` 
+Undefined variable.
+  ╷
+4 │   color: $heder_color;
+  │          ^^^^^^^^^^^^
+  ╵
+  - 4:10  root stylesheet
+```
+
+## Loops and conditional statements
+
+
+
+## Functions
+
+
+
+## Mixins
+
+
+
+
 
 // Talk about how adding in a compilation step into your stylesheets enables everything from CSS modules but also adds new features (tokens, etc)
 
