@@ -1,5 +1,11 @@
-// Evenly dispurse the number of items across a circle going downward from the base of a DIV
-// Calculate the positions in percentages we need to place each item
+/**
+ * Evenly dispurse the number of items across a circle going downward from the base of a DIV
+ * Calculate the positions in percentages we need to place each item
+ *
+ * @param numberOfItems The total number of items in the circle
+ * @param index The index of the current item in the list (may be floating point)
+ * @param offset Degrees to offset the angle by
+ */
 export function calculatePosition(
 	numberOfItems: number,
 	index: number,
@@ -38,11 +44,4 @@ export function calculatePosition(
 	}
 
 	return { x, y, scale };
-}
-
-export function getInitialItems(numberOfItems: number, offset = 0) {
-	return Array.from({ length: numberOfItems }).map((_, index) => {
-		const { x, y, scale } = calculatePosition(numberOfItems, index, offset);
-		return { x: `${x}%`, y: `${y}%`, scale };
-	});
 }
