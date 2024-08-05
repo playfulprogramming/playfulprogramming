@@ -1,3 +1,5 @@
+@import "src/tokens/index";
+
 .headerContainer {
 	display: flex;
 	justify-content: center;
@@ -80,6 +82,11 @@
 	margin: 0;
 	margin-top: var(--spc-8x);
 	text-align: center;
+
+	@include transition(text-shadow);
+	@include darkTheme {
+		text-shadow: 0px -8px 0px #000;
+	}
 }
 
 .paragraph {
