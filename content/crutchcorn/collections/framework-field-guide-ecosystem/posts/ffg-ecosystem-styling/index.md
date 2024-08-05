@@ -493,11 +493,13 @@ To automatically scope our CSS in our React application we'll rely on Vite's bui
 To do this, we just need to add `.module.css` to the name of any CSS file:
 
 ```css
-/* app.module.css */
-.title {
-  font-weight: bold;
-  text-decoration: underline;
-  font-size: 2rem;
+/* search-box.module.css */
+.container {
+	border-radius: 8px;
+    color: #3366FF;
+    background: rgba(102, 148, 255, 0.1);
+    padding: 8px;
+    flex-grow: 1;
 }
 ```
 
@@ -507,8 +509,10 @@ Then we'll import the CSS in our JSX file and use the name of the class as a pro
 // App.jsx
 import style from './app.module.css';
 
-export function App() {
-  return <h1 class={style.title}>The Framework Field Guide</h1>;
+export function SearchBox() {
+  return <div className={style.container}>
+	<SearchIcon/>
+  </div>
 }
 ```
 
@@ -536,35 +540,45 @@ In Angular, we're able to use styles relative to the component by using either t
 
 ```angular-ts
 @Component({
-  selector: 'app-root',
+  selector: 'search-box',
   standalone: true,
+  imports: [SearchIcon],
   styles: [
     `
-    .title {
-      font-weight: bold;
-      text-decoration: underline;
-      font-size: 2rem;
+    .container {
+        border-radius: 8px;
+        color: #3366FF;
+        background: rgba(102, 148, 255, 0.1);
+        padding: 8px;
+        flex-grow: 1;
     }
  `,
   ],
   template: `
-    <h1 class="title">The Framework Field Guide</h1>
-  `,
+    <div class="container">
+        <search-icon/>
+    </div>
+`,
 })
-export class App {}
+export class SearchBox {}
 ```
 
 Will generate the following CSS and Markup:
 
 ```html
 <app-root _nghost-ng-c118366096="">
-    <h1 _ngcontent-ng-c118366096="" class="title">The Framework Field Guide</h1></app-root>
+    <div _ngcontent-ng-c118366096="" class="container">
+        <!-- ... -->
+    </div>
+</app-root>
 
 <style>
-.title[_ngcontent-ng-c118366096] {
-    font-weight: bold;
-    text-decoration: underline;
-    font-size: 2rem;
+.container[_ngcontent-ng-c118366096] {
+    border-radius: 8px;
+    color: #3366FF;
+    background: rgba(102, 148, 255, 0.1);
+    padding: 8px;
+    flex-grow: 1;
 }
 </style>
 ```
@@ -579,27 +593,32 @@ Say you have a root `App` component that you want to disable the CSS scoping; Th
 
  Angular supports doing this by changing the `encapsulation` property in the `@Component` decorator:
 
-```angular-ts {15}
+```angular-ts {18}
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'search-box',
   standalone: true,
+  imports: [SearchIcon],
   styles: [
     `
-    .title {
-      font-weight: bold;
-      text-decoration: underline;
-      font-size: 2rem;
+    .container {
+        border-radius: 8px;
+        color: #3366FF;
+        background: rgba(102, 148, 255, 0.1);
+        padding: 8px;
+        flex-grow: 1;
     }
  `,
   ],
   encapsulation: ViewEncapsulation.None,
   template: `
-    <h1 class="title">The Framework Field Guide</h1>
+    <div class="container">
+        <search-icon/>
+    </div>
   `,
 })
-export class App {}
+export class SearchBox {}
 ```
 
 > It's worth mentioning that `encapsulation` will affect _all_ of a component's `styles` and `styleUrls`. There's no way to customize the encapsulation for each of them individually.
@@ -618,15 +637,23 @@ Like Angular, Vue's SFC component format has scoped CSS as a feature built-in. T
 To scope your CSS in a Vue SFC, you can add the `scoped` attribute to your `<style>` tag:
 
 ```vue
+<script setup>
+import SearchIcon from "./SearchIcon.vue"
+</script>
+
 <template>
-  <h1 class="title">The Framework Field Guide</h1>
+	<div class="container">
+	    <SearchIcon/>
+	</div>
 </template>
 
 <style scoped>
-.title {
-  font-weight: bold;
-  text-decoration: underline;
-  font-size: 2rem;
+.container {
+    border-radius: 8px;
+    color: #3366FF;
+    background: rgba(102, 148, 255, 0.1);
+    padding: 8px;
+    flex-grow: 1;
 }
 </style>
 ```
@@ -634,13 +661,17 @@ To scope your CSS in a Vue SFC, you can add the `scoped` attribute to your `<sty
 This will output the following markup and styling:
 
 ```html
-<h1 data-v-7a7a37b1="" class="title">The Framework Field Guide</h1>
+<div data-v-7a7a37b1="" class="title">
+	<!-- ... -->
+</div>
 
 <style>
-.title[data-v-7a7a37b1] {
-    font-weight: bold;
-    text-decoration: underline;
-    font-size: 2rem;
+.container[data-v-7a7a37b1] {
+    border-radius: 8px;
+    color: #3366FF;
+    background: rgba(102, 148, 255, 0.1);
+    padding: 8px;
+    flex-grow: 1;
 }
 </style>
 ```
@@ -692,19 +723,24 @@ To do this in Vue SFC components, we'll use `<style module>` and the `useCssModu
 ```vue
 <script setup>
 import { useCssModule } from 'vue';
+import SearchIcon from "./SearchIcon.vue";
 
 const style = useCssModule();
 </script>
 
 <template>
-  <h1 :class="style.title">The Framework Field Guide</h1>
+  	<div :class="style.container">
+    	<SearchIcon/>
+	</div>
 </template>
 
 <style module>
-.title {
-    font-weight: bold;
-    text-decoration: underline;
-    font-size: 2rem;
+.container {
+    border-radius: 8px;
+    color: #3366FF;
+    background: rgba(102, 148, 255, 0.1);
+    padding: 8px;
+    flex-grow: 1;
 }
 </style>
 ```
@@ -712,13 +748,17 @@ const style = useCssModule();
 This will transform the class name itself, rather than adding any attributes to the impacted elements:
 
 ```html
-<h1 class="_title_1nd3v_2">The Framework Field Guide</h1>
+<div class="_container_1nd3v_2">
+	<!-- ... -->
+</div>
 
 <style>
-._title_1nd3v_2 {
-    font-weight: bold;
-    text-decoration: underline;
-    font-size: 2rem;
+._container_1nd3v_2 {
+    border-radius: 8px;
+    color: #3366FF;
+    background: rgba(102, 148, 255, 0.1);
+    padding: 8px;
+    flex-grow: 1;
 }
 </style>
 ```
@@ -788,22 +828,26 @@ Similarly, CSS has a slew of subset languages which compile down to CSS. One suc
 
 > Sass has two options for syntax;
 >
-> 1) Sass, which deviates a fair bit from the standard CSS syntax:
+> 1. Sass, which deviates a fair bit from the standard CSS syntax:
 >
 >    ```sass
->    .title
->      font-weight: bold
->      text-decoration: underline
->      font-size: 2rem
+>    .container
+>        border-radius: 8px;
+>        color: #3366FF;
+>        background: rgba(102, 148, 255, 0.1);
+>        padding: 8px;
+>        flex-grow: 1;
 >    ```
 >
 > 2) SCSS, which extends CSS' syntax and, by default, looks very familiar:
 >
 >    ```scss
->    .title {
->      font-weight: bold;
->      text-decoration: underline;
->      font-size: 2rem;
+>    .container {
+>        border-radius: 8px;
+>        color: #3366FF;
+>        background: rgba(102, 148, 255, 0.1);
+>        padding: 8px;
+>        flex-grow: 1;
 >    }
 >    ```
 >
