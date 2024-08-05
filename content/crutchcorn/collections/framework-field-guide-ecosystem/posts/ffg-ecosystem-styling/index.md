@@ -776,49 +776,42 @@ Modern CSS is amazing. Between older advancements like [CSS variables](https://d
 CSS variables, in particular, have made large-scale CSS organization much easier to manage. Tokenizing a design system like so:
 
 ```css
-/* Shortened example of tokens from Playful Programming's website */
 :root {
-	--primary10: rgba(0, 30, 46, 1);
-	--primary50: rgba(0, 127, 180, 1);
-	--primary90: rgba(200, 230, 255, 1);
-	--secondary10: rgba(56, 0, 55, 1);
-	--secondary50: rgba(168, 93, 159, 1);
-	--secondary90: rgba(255, 214, 245, 1);
+	/* You'd ideally want other colors in here as well */
+   --blue-50: #F5F8FF;
+   --blue-100: #D6E4FF;
+   --blue-200: #AFC9FD;
+   --blue-300: #88AEFC;
+   --blue-400: #6694FF;
+   --blue-500: #3366FF;
+   --blue-600: #1942E6;
+   --blue-700: #0F2CBD;
+   --blue-800: #082096;
+   --blue-900: #031677;
 }
 ```
 
-Means that developers and designers can work in tandem with one another much more than ever before. You can even abstract these tokens to be contextually relevant to where they'll be used:
+Means that developers and designers can work in tandem with one another much more than ever before.
+
+You can even abstract these tokens to be contextually relevant to where they'll be used, like in a component:
 
 ```css
-/* Shortened example of tokens from Playful Programming's website */
 :root {
-	--background_primary: var(--primary95);
-	--background_secondary: var(--secondary95);
-	--background_error: var(--error95);
-	--background_focus: var(--white);
-	--background_disabled: var(--neutral10_12);
-}
-```
-
-And then break _those_ tokens down even further into ones specific to a component:
-
-```css
-/* Shortened example of tokens from Playful Programming's website */
-:root {
-	--page-popup_background-color: var(--background_primary);
-	--page-popup_border-color: var(--primary_variant);
+	--search-bg-default: var(--blue-400);
 }
 ```
 
 However, just like JavaScript, you can accidentally ship a variable that's not defined.
 
 ```css
-.title {
+.container {
 	/* Notice the typo of `heder` instead of `header` */
-    /* Because of this typo, no `color` will be defined for this class */
-	color: var(--heder_color);
+    /* Because of this typo, no `background-color` will be defined for this class */
+	background-color: var(--search-bg-defaultt);
 }
 ```
+
+![TODO: Add alt](./token_chain.png)
 
 This lack of variable definition will not throw an error either at build time or runtime, making it exceedingly hard to catch or debug in many instances.
 
@@ -882,10 +875,10 @@ When using Vite, we can use Sass alongside CSS modules by naming our files in a 
 /* app.module.scss */
 
 /* This is the syntax for a SCSS variable. More on that soon */
-$red: #FF0000;
+$blue_400: #6694FF;
 
-.title {
-    color: $red;
+.container {
+    background-color: $blue_400;
 }
 ```
 
@@ -893,7 +886,9 @@ $red: #FF0000;
 import style from "./app.module.scss"
 
 export function App() {
-	return <h1 class={style.title}>Hello, I am red</h1>
+	return <div className={style.container}>
+        <SearchIcon/>
+      </div>
 }
 ````
 
@@ -904,24 +899,27 @@ export function App() {
 With the package installed, we can use `styleUrl` to link to a dedicated `.scss` file, like so:
 
 ```scss
-/* app.component.scss */
+/* app.module.scss */
 
 /* This is the syntax for a SCSS variable. More on that soon */
-$red: #ff0000;
+$blue_400: #6694FF;
 
-.title {
-  color: $red;
+.container {
+    background-color: $blue_400;
 }
 ```
 
 ```angular-ts
 @Component({
-  selector: 'app-root',
+  selector: 'search-box',
   standalone: true,
+  imports: [SearchIcon],
   styleUrl: './app.component.scss',
   template: `
-  <h1 class="title">Hello, I am red</h1>
-  `,
+ 	<div class="container">
+        <search-icon/>
+    </div>
+    `,
 })
 export class App {}
 ```
@@ -934,23 +932,23 @@ This doesn't work out of the box, however, with inline styles. For example, if y
 
 ```angular-ts
 @Component({
-  selector: 'app-root',
+  selector: 'search-box',
   standalone: true,
+  imports: [SearchIcon],
   styles: [
     `
-  /* app.component.scss */
+$blue_400: #6694FF;
 
-/* This is the syntax for a SCSS variable. More on that soon */
-$red: #ff0000;
-
-.title {
-  color: $red;
+.container {
+    background-color: $blue_400;
 }
 `,
   ],
   template: `
-  <h1 class="title">Hello, I am red</h1>
-  `,
+	<div class="container">
+        <search-icon/>
+    </div>
+	`,
 })
 export class App {}
 ```
@@ -960,8 +958,8 @@ You'll be greeted with this error:
 ```
 ▲ [WARNING] Unexpected "$" [plugin angular-compiler] [css-syntax-error]
 
-    angular:styles/component:css;fd332d6991449d8e664dbb64acc576d5770fd57a43365fb9fe74755ecaad47ba;/home/projects/stackblitz-starters-upht8y/src/main.ts:5:0:
-      5 │ $red: #ff0000;
+    angular:styles/component:css;fd332d6991449d8e664dbb64acc576d5770fd57a43365fb9fe74755ecaad47ba;/src/main.ts:1:0:
+      1 │ $blue_400: #6694FF;
         ╵ ^
 ```
 
@@ -1008,16 +1006,22 @@ Once this is done, our inline styles will be treated as if they were inside of a
 SCSS works seamlessly with SFC components. To enable this integration, we'll add `lang="scss"` to our `<style>` tag:
 
 ``` vue
+<script setup>
+import SearchIcon from "./SearchIcon.vue"
+</script>
+
 <template>
-  <h1 class="title">Hello, I am red</h1>
+	<div class="container">
+	    <SearchIcon/>
+	</div>
 </template>
 
 <style lang="scss">
 /* This is the syntax for a SCSS variable. More on that soon */
-$red: #ff0000;
+$blue_400: #6694FF;
 
-.title {
-  color: $red;
+.container {
+    background-color: $blue_400;
 }
 </style>
 ```
@@ -1027,16 +1031,21 @@ $red: #ff0000;
 This works with the `scoped` and `module` attributes as well:
 
 ```vue
+<script setup>
+import SearchIcon from "./SearchIcon.vue"
+</script>
+
 <template>
-  <h1 class="title">Hello, I am red</h1>
+	<div class="container">
+	    <SearchIcon/>
+	</div>
 </template>
 
 <style scoped lang="scss">
-/* This is the syntax for a SCSS variable. More on that soon */
-$red: #ff0000;
+$blue_400: #6694FF;
 
-.title {
-  color: $red;
+.container {
+    background-color: $blue_400;
 }
 </style>
 ```
@@ -1044,19 +1053,22 @@ $red: #ff0000;
 ```vue
 <script setup>
 import { useCssModule } from 'vue';
-const style = useCssModule();
+import SearchIcon from "./SearchIcon.vue"
+
+    const style = useCssModule();
 </script>
 
 <template>
-  <h1 :class="style.title">Hello, I am red</h1>
+	<div :class="style.container">
+	    <SearchIcon/>
+	</div>
 </template>
 
 <style module lang="scss">
-/* This is the syntax for a SCSS variable. More on that soon */
-$red: #ff0000;
+$blue_400: #6694FF;
 
-.title {
-  color: $red;
+.container {
+    background-color: $blue_400;
 }
 </style>
 ```
