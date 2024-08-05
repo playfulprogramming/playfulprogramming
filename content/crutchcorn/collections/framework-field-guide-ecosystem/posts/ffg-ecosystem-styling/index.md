@@ -731,9 +731,44 @@ This will transform the class name itself, rather than adding any attributes to 
 
 # Sass
 
-Modern CSS is amazing.
+Modern CSS is amazing. Between older advancements like [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) and [CSS grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout) and newer updates like [View Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name) and [Scroll Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline), sometimes it feels like CSS is capable of everything.
 
-// Talk about CSS variables
+CSS variables, in particular, have made large-scale CSS organization much easier to manage. Tokenizing a design system like so:
+
+```css
+/* Shortened example of tokens from Playful Programming's website */
+:root {
+	--primary10: rgba(0, 30, 46, 1);
+	--primary50: rgba(0, 127, 180, 1);
+	--primary90: rgba(200, 230, 255, 1);
+	--secondary10: rgba(56, 0, 55, 1);
+	--secondary50: rgba(168, 93, 159, 1);
+	--secondary90: rgba(255, 214, 245, 1);
+}
+```
+
+Means that developers and designers can work in tandem with one another much more than ever before. You can even abstract these tokens to be contextually relevant to where they'll be used:
+
+```css
+/* Shortened example of tokens from Playful Programming's website */
+:root {
+	--background_primary: var(--primary95);
+	--background_secondary: var(--secondary95);
+	--background_error: var(--error95);
+	--background_focus: var(--white);
+	--background_disabled: var(--neutral10_12);
+}
+```
+
+And then break _those_ tokens down even further into ones specific to a component:
+
+```css
+/* Shortened example of tokens from Playful Programming's website */
+:root {
+	--page-popup_background-color: var(--background_primary);
+	--page-popup_border-color: var(--primary_variant);
+}
+```
 
 However, just like JavaScript, you can accidentally ship a variable that's not defined.
 
@@ -1009,6 +1044,10 @@ Undefined variable.
   - 4:10  root stylesheet
 ```
 
+// Talk about compile-time variables being useful for media queries, something that CSS still can't do yet
+
+
+
 ## Loops and conditional statements
 
 
@@ -1027,9 +1066,161 @@ Undefined variable.
 
 // Talk about the downsides of using a new language for tokens and such
 
-# CSS-in-JS 
+# CSS-in-JS
 
-// Talk about the benefits regarding typechecking, tokens, and more
+Sass is a cool technology that's been used in codebases for many years now. However, isn't it unfortunate that we have to learn _yet another_ language to have features like the ones offered by Sass? 
+
+> It's not enough to learn TypeScript, JavaScript, HTML, and CSS; now we have to learn Sass' extensions as well?
+
+This was some of the thoughts that went into building what we're talking about in this section: CSS-in-JS solutions.
+
+Instead of having to utilize a new language, what if we could write CSS tokens, functions, and more using JavaScript and TypeScript as the extensions?
+
+Well, with [Emotion](https://emotion.sh/docs/introduction) - we can!
+
+```jsx
+import { css } from '@emotion/css'
+
+const headerColor = '#2A3751'
+
+render(
+  <h1
+    className={css`
+      color: ${headerColor};
+      font-size: 2rem;
+      text-decoration: underline;
+   `}
+  >
+    I am a title
+  </h1>
+)
+```
+
+By using this pattern, we're able to have all of the features outlined from Sass represented in a language we're more familiar with.
+
+## Installing Emotion
+
+Start by installing the Emotion base in your project:
+
+```shell
+npm i @emotion/css
+```
+
+Now let's integrate it with our framework of choice:
+
+<!-- ::start:tabs -->
+
+### React
+
+So here's the funny thing: The above code sample is actually using React and Emotion together:
+
+```jsx
+import { css } from '@emotion/css'
+
+const headerColor = '#2A3751'
+
+function App() {
+  return (<h1
+    className={css`
+      color: ${headerColor};
+      font-size: 2rem;
+	  text-decoration: underline;
+    `}
+  >
+    I am a title
+  </h1>
+  )
+}
+```
+
+// TODO: Add iframe
+
+This is valid code that we can use and extend as we see fit. However, that's not all; Emotion has another API available for React applications.
+
+#### Emotion Styled API
+
+Instead of the code sample above, what if we made the `<h1>` into its own component with the styled pre-applied?
+
+This is possible, but we first need to install these modules:
+
+```shell
+npm i @emotion/styled @emotion/react
+```
+
+Now let's see usage of this API:
+
+```jsx
+import styled from '@emotion/styled';
+
+const headerColor = '#2A3751';
+
+const H1 = styled.h1`
+  color: ${headerColor};
+  font-size: 2rem;
+  text-decoration: underline;
+`;
+
+export function App() {
+  return <H1>I am a heading</H1>;
+}
+```
+
+// TODO: Add iframe
+
+### Angular
+
+To use Angular and Emotion together, we'll create a property in our class that contains our styles, then apply those styles to an element by binding it to the `class` attribute:
+
+```angular-ts
+import { css } from '@emotion/css';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  template: `
+    <h1 [class]="styles">I am a heading</h1>
+  `,
+})
+export class App {
+  headerColor = '#2A3751';
+
+  styles = css`
+    color: ${this.headerColor};
+    font-size: 2rem;
+    text-decoration: underline;
+   `;
+}
+```
+
+// TODO: Add iframe
+
+### Vue
+
+Let's use Emotion with Vue! To do this, we'll have a `css` template literal in our `<script setup>` tag and use that in our `:class` on an element:
+
+```vue
+<script setup>
+import { css } from '@emotion/css';
+
+const headerColor = '#2A3751';
+
+const styles = css`
+  color: ${headerColor};
+  font-size: 2rem;
+  text-decoration: underline;
+`;
+</script>
+
+<template>
+  <h1 :class="styles">I am a heading</h1>
+</template>
+```
+
+// TODO: Add iframe
+
+<!-- ::end:tabs -->
+
+
 
 // Then talk about the downsides of not working properly in SSR, SSG, or other static contexts
 
