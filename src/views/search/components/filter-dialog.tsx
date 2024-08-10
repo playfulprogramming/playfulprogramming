@@ -289,7 +289,7 @@ export const FilterDialog = ({
 	const windowSize = useWindowSize();
 
 	// Adding 100px as a workaround since the mobile breakpoint is too small for this layout
-	// https://github.com/unicorn-utterances/unicorn-utterances/issues/655
+	// https://github.com/playfulprogramming/playfulprogramming/issues/655
 	const isMobile = windowSize.width <= mobile + 100;
 
 	const Inner = isMobile ? FilterDialogMobile : FilterDialogSmallTablet;

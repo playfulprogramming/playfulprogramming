@@ -4,7 +4,7 @@ O que é um ciclo for? Como faço animações com CSS? Como é que a memória é
 
 O nosso conteúdo têm uma vasta variação de temas, curvas de dificuldades, e (nós esperamos) perspetivas. Nós queremos fornecer recursos para um desenvolvedor, a tempo inteiro, da mesma forma que faríamos com um iniciante, e qualquer um que esteja entre esses dois.
 
-Mas sabemos que este é um objetivo arrojado, e não o queremos fazer sozinhos. Se tu estás com interesse em ajudar a nossa iniciativa, [Abrir um pull request](https://github.com/unicorn-utterances/unicorn-utterances/pulls) and help us reach others by providing translations, [Ajuda a manter o código atualizado no website](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22), [Escrever um artigo para nós](https://github.com/unicorn-utterances/unicorn-utterances#blog-posts), or [Entra no nosso discord, para te juntares a nós e ajudar outros leitores](https://discord.gg/FMcvc6T).
+Mas sabemos que este é um objetivo arrojado, e não o queremos fazer sozinhos. Se tu estás com interesse em ajudar a nossa iniciativa, [Abrir um pull request](https://github.com/playfulprogramming/playfulprogramming/pulls) and help us reach others by providing translations, [Ajuda a manter o código atualizado no website](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22), [Escrever um artigo para nós](https://github.com/playfulprogramming/playfulprogramming#blog-posts), or [Entra no nosso discord, para te juntares a nós e ajudar outros leitores](https://discord.gg/FMcvc6T).
 
 ---
 
@@ -24,7 +24,7 @@ Não queremos acabar num lugar onde o nosso conteúdo educacional, a nossa exper
 ou comunidade está comprometida pelas oscilação das finanças ou potencialmente
 membros da comunidade prejudiciais. Como tal, tivemos de implementar
 [Código do Contribuidor](https://www.contributor-covenant.org/)
-como o nosso [Código de Conduta](https://github.com/unicorn-utterances/unicorn-utterances/blob/master/CODE_OF_CONDUCT.md) para nos
+como o nosso [Código de Conduta](https://github.com/playfulprogramming/playfulprogramming/blob/master/CODE_OF_CONDUCT.md) para nos
 assegurarmos desses mesmos valores.
 
 Comprometemos-nos também a manter a transparência no que diz respeito a quaisquer finanças que corram

@@ -226,7 +226,7 @@ With the understanding of what we won't be looking at out of the way, **let's ta
   - Modifying each child in a loop
   - Passing values to projected children
 
-> This can seem overwhelming but remember that this book is meant to be a "newcomer" to "expert" resource. You absolutely do not need to tackle this all at once. You can stop at any point, go elsewhere, and come back at your leisure. This book isn't going anywhere and **will be free online forever**; it is [open-source to ensure this is the case](https://github.com/unicorn-utterances/unicorn-utterances/).
+> This can seem overwhelming but remember that this book is meant to be a "newcomer" to "expert" resource. You absolutely do not need to tackle this all at once. You can stop at any point, go elsewhere, and come back at your leisure. This book isn't going anywhere and **will be free online forever**; it is [open-source to ensure this is the case](https://github.com/playfulprogramming/playfulprogramming/).
 
 But wait, there's more! While this is the outline for the first book in the series, there will be two more books teaching React, Angular, and Vue. The second book will focus on the ecosystem around these tools, and the third will focus specifically on internals and advanced usage.
 

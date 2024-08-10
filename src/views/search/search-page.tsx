@@ -321,7 +321,7 @@ function SearchPageBase() {
 					position: "sticky",
 					// this should be overflow: clip; to prevent the browser scrolling within the element when a filter checkbox is focused:
 					// https://stackoverflow.com/q/75419337
-					// https://github.com/unicorn-utterances/unicorn-utterances/issues/653
+					// https://github.com/playfulprogramming/playfulprogramming/issues/653
 					overflow: "clip",
 				}}
 				searchString={search}
