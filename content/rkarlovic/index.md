@@ -6,9 +6,9 @@
   description: "Fullstack developer",
   socials: {
     github: "rkarlovic",
-    linkedin: "ratomir-karlovi%C4%87-323bb6116/"
+    linkedin: "https://www.linkedin.com/in/ratomir-karlovi%C4%87-323bb6116/"
   },
-  profileImg: "./seagull.png",
+  profileImg: "./seagullB.png",
   roles: [ "authors" ]
 }
 ---
