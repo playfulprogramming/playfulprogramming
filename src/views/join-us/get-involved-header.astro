@@ -1,19 +1,19 @@
 ---
 import { getPictureUrls } from "utils/get-picture";
-import { getUnicornsByLang } from "../../utils/api";
+import { getPeopleByLang } from "../../utils/api";
 import style from "./get-involved-header.module.scss";
 import Hr from "./hr.astro";
 import { Button } from "components/index";
 
-const unicorns = getUnicornsByLang("en").map((unicorn) => {
+const people = getPeopleByLang("en").map((person) => {
 	const imageUrls = getPictureUrls({
-		src: unicorn.profileImgMeta.relativeServerPath,
+		src: person.profileImgMeta.relativeServerPath,
 		width: 160,
 		height: 160,
 	});
-	const badgeUrls = unicorn.roles.length
+	const badgeUrls = person.roles.length
 		? getPictureUrls({
-				src: `/stickers/role_${unicorn.roles[0]}.svg`,
+				src: `/stickers/role_${person.roles[0]}.svg`,
 				width: 64,
 				height: 64,
 		  })
@@ -59,7 +59,7 @@ const unicorns = getUnicornsByLang("en").map((unicorn) => {
 		<canvas
 			id="get-involved-header-canvas"
 			class={style.getInvolvedCanvas}
-			data-unicorns={JSON.stringify(unicorns)}></canvas>
+			data-people={JSON.stringify(people)}></canvas>
 	</div>
 </section>
 
@@ -82,11 +82,11 @@ const unicorns = getUnicornsByLang("en").map((unicorn) => {
 	context.imageSmoothingEnabled = true;
 	context.imageSmoothingQuality = "high";
 
-	const unicorns = JSON.parse(canvas.dataset.unicorns ?? "") as {
+	const people = JSON.parse(canvas.dataset.people ?? "") as {
 		imageUrl: string;
 		badgeUrl?: string;
 	}[];
-	const reverseUnicorns = unicorns.slice().reverse();
+	const reversePeople = people.slice().reverse();
 
 	const playPauseBtn = document.querySelector(
 		"#carousel-play-pause",
@@ -186,7 +186,7 @@ const unicorns = getUnicornsByLang("en").map((unicorn) => {
 		return image.complete ? image : null;
 	}
 
-	function drawUnicorn(
+	function drawPerson(
 		image: HTMLImageElement,
 		badge: HTMLImageElement | null,
 		pos: {
@@ -237,12 +237,12 @@ const unicorns = getUnicornsByLang("en").map((unicorn) => {
 		context.clearRect(0, 0, canvas.width, canvas.height);
 
 		for (let i = 0; i < NUMBER_OF_INNER_ITEMS; i++) {
-			const unicorn = getSafeIndex(unicorns, i);
-			const image = getImage(unicorn.imageUrl, 160, 160);
-			const badge = unicorn.badgeUrl
-				? getImage(unicorn.badgeUrl, 64, 64)
+			const person = getSafeIndex(people, i);
+			const image = getImage(person.imageUrl, 160, 160);
+			const badge = person.badgeUrl
+				? getImage(person.badgeUrl, 64, 64)
 				: null;
-			if (image == null || (badge == null && unicorn.badgeUrl)) break;
+			if (image == null || (badge == null && person.badgeUrl)) break;
 
 			const pos = calculatePosition(
 				NUMBER_OF_INNER_ITEMS,
@@ -255,7 +255,7 @@ const unicorns = getUnicornsByLang("en").map((unicorn) => {
 			nextScale = Math.max(nextScale, 0);
 			innerScaleInterpolated[i] = nextScale;
 
-			drawUnicorn(image, badge, {
+			drawPerson(image, badge, {
 				...pos,
 				scale: nextScale,
 				containerX: innerX,
@@ -264,12 +264,12 @@ const unicorns = getUnicornsByLang("en").map((unicorn) => {
 		}
 
 		for (let i = 0; i < NUMBER_OF_OUTER_ITEMS; i++) {
-			const unicorn = getSafeIndex(reverseUnicorns, i);
-			const image = getImage(unicorn.imageUrl, 160, 160);
-			const badge = unicorn.badgeUrl
-				? getImage(unicorn.badgeUrl, 64, 64)
+			const person = getSafeIndex(reversePeople, i);
+			const image = getImage(person.imageUrl, 160, 160);
+			const badge = person.badgeUrl
+				? getImage(person.badgeUrl, 64, 64)
 				: null;
-			if (image == null || (badge == null && unicorn.badgeUrl)) break;
+			if (image == null || (badge == null && person.badgeUrl)) break;
 
 			const pos = calculatePosition(
 				NUMBER_OF_OUTER_ITEMS,
@@ -282,7 +282,7 @@ const unicorns = getUnicornsByLang("en").map((unicorn) => {
 			nextScale = Math.max(nextScale, 0);
 			outerScaleInterpolated[i] = nextScale;
 
-			drawUnicorn(image, badge, {
+			drawPerson(image, badge, {
 				...pos,
 				scale: nextScale,
 				containerX: outerX,
