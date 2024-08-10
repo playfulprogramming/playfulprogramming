@@ -49,7 +49,7 @@ Enabling IOMMU on a Gigabyte AMD motherboard is much easier than enabling SVM mo
 
 Once changed, tab over to "Save & Exit" and select "Exit and save changes".
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
 
 # Windows Features Setup {#windows-features}
 

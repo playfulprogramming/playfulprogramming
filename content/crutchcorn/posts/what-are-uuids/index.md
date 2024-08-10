@@ -82,7 +82,7 @@ At the time of writing, [there are 5 different types of UUIDs](https://ietf-wg-u
 - [UUIDv5](#UUIDv3and5)
   - UUIDv3 but more secure (uses SHA-1)
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
 
 ## Track Network Systems Using UUIDv1 {#UUIDv1}
 
