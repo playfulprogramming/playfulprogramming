@@ -35,7 +35,7 @@ const siteMetadata = {
 	relativeToPosts: "/content/blog",
 	keywords:
 		"programming,development,mobile,web,game,playful,software engineering,javascript,angular,react,computer science",
-	twitterHandle: "@unicornuttrncs",
+	twitterHandle: "@playful_program",
 };
 
 export { parent, siteUrl, buildMode, siteMetadata };

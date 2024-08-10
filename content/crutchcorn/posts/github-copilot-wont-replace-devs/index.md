@@ -228,7 +228,7 @@ GCP, I love your work, but I don't think your suggestion that [humans need not a
 
 After all, GitHub’s tool is called “Copilot”, not “Autopilot”
 
-What do you think? Let us know [on Twitter](https://twitter.com/UnicornUttrncs) or [join our Discord](https://discord.gg/FMcvc6T) and start a conversation with us! We're an open-source community ran project with no ads, no spam.
+What do you think? Let us know [on Twitter](https://twitter.com/playful_program) or [join our Discord](https://discord.gg/FMcvc6T) and start a conversation with us! We're an open-source community ran project with no ads, no spam.
 
 We'd love to hear your thoughts!
 
