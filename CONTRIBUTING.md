@@ -8,7 +8,7 @@ Here are a few things to keep in mind while writing your post:
 - Aim to provide factual and relevant information - citing sources is encouraged!
 - Keep your content unbiased; i.e. don't advertise commercial products or services without reason.
 
-If at any point you get stuck or want to ask questions, feel free to [open an issue on GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues/new) or [reach out to us on Discord](https://discord.gg/FMcvc6T) for help!
+If at any point you get stuck or want to ask questions, feel free to [open an issue on GitHub](https://github.com/playfulprogramming/playfulprogramming/issues/new) or [reach out to us on Discord](https://discord.gg/FMcvc6T) for help!
 
 ---
 
@@ -44,7 +44,7 @@ Here's an example of what your `index.md` might look like:
   // and "cohost", as well as a "website" that can be anything you want!
   socials: {
     mastodon: "https://hachyderm.io/@UnicornUtterances",
-    github: "unicorn-utterances",
+    github: "playfulprogramming",
     website: "https://playfulprogramming.com/"
   },
 
@@ -63,7 +63,7 @@ Here's an example of what your `index.md` might look like:
 ---
 ```
 
-> Don't want to show your real picture on the site? That's alright! We have a [myriad of custom unicorn emotes that can be used as profile pictures as well](https://github.com/unicorn-utterances/design-assets/tree/main/emotes). They're adorable, go check! 🤩
+> Don't want to show your real picture on the site? That's alright! We have a [myriad of custom unicorn emotes that can be used as profile pictures as well](https://github.com/playfulprogramming/design-assets/tree/main/emotes). They're adorable, go check! 🤩
 
 Once your profile is created, you'll be ready to proceed to the next step...
 
@@ -117,7 +117,7 @@ Currently, the following creative commons licenses are supported as "license" va
 - [`'cc-by-nc-nd-4'`](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 - [`'publicdomain-zero-1'`](https://creativecommons.org/publicdomain/zero/1.0/)
 
-Authors may also choose to omit the "license" property entirely. If you do this, your post will fall under the repository's [MPL 2.0](https://github.com/unicorn-utterances/unicorn-utterances/blob/main/LICENSE.md) license.
+Authors may also choose to omit the "license" property entirely. If you do this, your post will fall under the repository's [MPL 2.0](https://github.com/playfulprogramming/playfulprogramming/blob/main/LICENSE.md) license.
 
 ## Embedded Links
 
@@ -167,7 +167,7 @@ Refer to [Wikipedia: List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List
 
 Once all of your changes have been made, [create a Pull Request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) to merge your post into the site.
 
-- Open a [new Pull Request](https://github.com/unicorn-utterances/unicorn-utterances/compare) from your fork
+- Open a [new Pull Request](https://github.com/playfulprogramming/playfulprogramming/compare) from your fork
 - Check that your files are in the Pull Request, and that they're being merged into the `main` branch.
 - Create the PR and wait for a maintainer to review it.
 - Once merged, your post will be visible on the site!

@@ -4,7 +4,7 @@
  * These are added by shiki, but can be removed with JS on elements that
  * cannot be horizontally scrolled.
  *
- * https://github.com/unicorn-utterances/unicorn-utterances/issues/738
+ * https://github.com/playfulprogramming/playfulprogramming/issues/738
  */
 export const enableShikiTabindex = () => {
 	const codeContainerEls = document.querySelectorAll("pre.shiki > code");

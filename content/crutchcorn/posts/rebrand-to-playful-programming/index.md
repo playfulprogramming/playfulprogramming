@@ -57,7 +57,7 @@ But that's not all; I mentioned that all funding has come from me or my company,
 
 **We need sponsors** to continue supporting us as we grow. We currently offer in-banner content ads like this one:
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
 
 We can also provide the following:
 
@@ -65,7 +65,7 @@ We can also provide the following:
 - Inclusion in our newsletter, Discord, and other social media announcements.
 - Partnered content — if we found the conditions acceptable.
 
-To support us, [we also accept donations through our Open Collective](https://opencollective.com/unicorn-utterances). Any money donated will go directly to growing our project. We'd love to get to a point where we can even compensate our contributors.
+To support us, [we also accept donations through our Open Collective](https://opencollective.com/playfulprogramming). Any money donated will go directly to growing our project. We'd love to get to a point where we can even compensate our contributors.
 
 ---
 

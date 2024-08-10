@@ -4,7 +4,7 @@
 
 আমাদের বিষয়বস্তুর বিস্তৃত পরিসর থাকবে। আমরা অভিজ্ঞ ফুল-টাইম ডেভেলপারের জন্য সম্পদ তৈরি করতে চাই যেমন আমরা একজন নবাগত সাথী এবং উভয়ের মধ্যে প্রত্যেকের জন্য করব।.
 
-যদিও আমরা জানি এটি একটি উচ্চ লক্ষ্য, এবং আমরা এটি একা করতে চাই না. আপনি যদি সাহায্য করতে আগ্রহী হন,[open a pull request](https://github.com/unicorn-utterances/unicorn-utterances/pulls) এবং অনুবাদ প্রদান করে আমাদের অন্যদের কাছে পৌঁছাতে সাহায্য করুন, [এই সাইটে কোড রক্ষণাবেক্ষণে সহায়তা করুন](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22), [আমাদের জন্য একটি পোস্ট লিখুন](https://github.com/unicorn-utterances/unicorn-utterances#blog-posts), বা [আলোচনায় ঝাঁপিয়ে পড়ুন এবং আমাদের ডিসকর্ডে অন্যান্য পাঠকদের সাহায্য করুন](https://discord.gg/FMcvc6T).
+যদিও আমরা জানি এটি একটি উচ্চ লক্ষ্য, এবং আমরা এটি একা করতে চাই না. আপনি যদি সাহায্য করতে আগ্রহী হন,[open a pull request](https://github.com/playfulprogramming/playfulprogramming/pulls) এবং অনুবাদ প্রদান করে আমাদের অন্যদের কাছে পৌঁছাতে সাহায্য করুন, [এই সাইটে কোড রক্ষণাবেক্ষণে সহায়তা করুন](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22), [আমাদের জন্য একটি পোস্ট লিখুন](https://github.com/playfulprogramming/playfulprogramming#blog-posts), বা [আলোচনায় ঝাঁপিয়ে পড়ুন এবং আমাদের ডিসকর্ডে অন্যান্য পাঠকদের সাহায্য করুন](https://discord.gg/FMcvc6T).
 
 ---
 
@@ -20,6 +20,6 @@
 
 ## নীতিশাস্ত্রের বিবৃতি {#ethics}
 
-আমরা কখনই এমন জায়গায় যেতে চাই না যেখানে আমাদের শিক্ষাগত বিষয়বস্তু, অভিজ্ঞতা বা সম্প্রদায়ের আর্থিক প্রভাব বা সম্প্রদায়ের সম্ভাব্য ক্ষতিকারক সদস্যদের দ্বারা আপস করা হয়। যেমন, আমরা বাস্তবায়ন করেছি [অবদানকারী চুক্তি](https://www.contributor-covenant.org/) আমাদের [আচরণবিধি হিসাবে](https://github.com/unicorn-utterances/unicorn-utterances/blob/master/CODE_OF_CONDUCT.md) এই মান বজায় রাখা.
+আমরা কখনই এমন জায়গায় যেতে চাই না যেখানে আমাদের শিক্ষাগত বিষয়বস্তু, অভিজ্ঞতা বা সম্প্রদায়ের আর্থিক প্রভাব বা সম্প্রদায়ের সম্ভাব্য ক্ষতিকারক সদস্যদের দ্বারা আপস করা হয়। যেমন, আমরা বাস্তবায়ন করেছি [অবদানকারী চুক্তি](https://www.contributor-covenant.org/) আমাদের [আচরণবিধি হিসাবে](https://github.com/playfulprogramming/playfulprogramming/blob/master/CODE_OF_CONDUCT.md) এই মান বজায় রাখা.
 
 আমরা প্রকল্পের মাধ্যমে প্রবাহিত যেকোন অর্থের ক্ষেত্রে স্বচ্ছতা বজায় রাখার অঙ্গীকার করি। প্রতিটি স্পনসরশিপে একটি আর্থিক অবদান থাকে না, তবে কেউ যদি করে তবে আমরা উভয়ই প্রকাশ করব সেই অর্থগুলি কি কারণে ব্যবহার করা হচ্ছে

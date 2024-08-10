@@ -342,7 +342,7 @@ slackEvents.on('message', async event => {
 });
 ```
 
-As you can see, we're able to add in the functionality for the score-keeping relatively easily with little additional code. Slightly cheating, but to pretty-print the score table, we're using a `tablize` package that's part of [the "batteries not included" library we've built](https://github.com/unicorn-utterances/batteries-not-included) in order to provide an ASCII table for our output.
+As you can see, we're able to add in the functionality for the score-keeping relatively easily with little additional code. Slightly cheating, but to pretty-print the score table, we're using a `tablize` package that's part of [the "batteries not included" library we've built](https://github.com/playfulprogramming/batteries-not-included) in order to provide an ASCII table for our output.
 
 # Adding a Database {#mongodb}
 

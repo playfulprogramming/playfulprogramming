@@ -4,7 +4,7 @@
 	"description": "Learning programming from magically majestic words",
 	"version": "0.3.0-alpha.1",
 	"bugs": {
-		"url": "https://github.com/unicorn-utterances/unicorn-utterances/issues"
+		"url": "https://github.com/playfulprogramming/playfulprogramming/issues"
 	},
 	"homepage": "https://playfulprogramming.com",
 	"keywords": [
@@ -16,7 +16,7 @@
 	"license": "MPL-2.0",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/unicorn-utterances/unicorn-utterances.git"
+		"url": "git+https://github.com/playfulprogramming/playfulprogramming.git"
 	},
 	"packageManager": "pnpm@9.4.0",
 	"scripts": {

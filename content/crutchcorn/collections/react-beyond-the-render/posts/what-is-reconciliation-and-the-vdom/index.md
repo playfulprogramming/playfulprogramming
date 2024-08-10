@@ -60,7 +60,7 @@ You'll end up with a VDOM that mirrors the markup you've written in JSX. This JS
 
 The process of how these changes are mirrored is called "Reconciliation".
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
 
 # What is "Reconciliation"?
 

@@ -63,7 +63,7 @@ While Unicorn Utterances has always been a volunteer-ran platform, let's a look 
 
 - May 30th, 2019: Tom Wellington is approached to design the initial UI for the site.
 
-- May 31st, 2019: [The initial commit of Unicorn Utterances is made](https://github.com/unicorn-utterances/unicorn-utterances/commit/567f3d32b3c2a1bdeca95f2b3c16026901b539cb), starting development in [Gatsby](https://web.archive.org/web/20190625131121/https://www.gatsbyjs.com/).
+- May 31st, 2019: [The initial commit of Unicorn Utterances is made](https://github.com/playfulprogramming/playfulprogramming/commit/567f3d32b3c2a1bdeca95f2b3c16026901b539cb), starting development in [Gatsby](https://web.archive.org/web/20190625131121/https://www.gatsbyjs.com/).
 
 - June 5th, 2019: Tom provides the first mockups for the site:
 
@@ -93,7 +93,7 @@ While Unicorn Utterances has always been a volunteer-ran platform, let's a look 
 
 - February 2nd, 2020: [Corbin starts streaming regularly on Twitch](https://www.twitch.tv/crutchcorn) to help others learn and have fun.
 
-- November 29th, 2021: [The site begins its rewrite to Next.js](https://github.com/unicorn-utterances/unicorn-utterances/pull/289) due to buggy customization in Gatsby interrupting site development.
+- November 29th, 2021: [The site begins its rewrite to Next.js](https://github.com/playfulprogramming/playfulprogramming/pull/289) due to buggy customization in Gatsby interrupting site development.
 
 - January 9th 2022: Corbin starts work on [The Framework Field Guide](https://framework.guide) privately; aiming to be the platform's first book published.
 
@@ -102,11 +102,11 @@ While Unicorn Utterances has always been a volunteer-ran platform, let's a look 
 # Maturing The Platform
 
 
-- June 11th, 2022: [The initial announcement for "The Framework Field Guide" is launched](https://github.com/unicorn-utterances/unicorn-utterances/pull/367)
+- June 11th, 2022: [The initial announcement for "The Framework Field Guide" is launched](https://github.com/playfulprogramming/playfulprogramming/pull/367)
 
   ![A simple website with a book cover of the outdoors - a lake and mountains - with a "Get notified of release" button](./ffg_first_preview.png)
 
-- July 9th, 2022: [The site begins its rewrite to Astro](https://github.com/unicorn-utterances/unicorn-utterances/pull/386) due to performance problems in the Next.js site.
+- July 9th, 2022: [The site begins its rewrite to Astro](https://github.com/playfulprogramming/playfulprogramming/pull/386) due to performance problems in the Next.js site.
 
 - August 2nd, 2022: Corbin approaches Eduardo Pratti with a request to redesign "The Framework Field Guide"'s website.
 
@@ -118,13 +118,13 @@ While Unicorn Utterances has always been a volunteer-ran platform, let's a look 
 
   ![A playful site mockup with lightly bordered cards, stickers everywhere, and pastel colors](./uu_ed_initial_redesign.png)
 
-- November 8th, 2022: [The new landing page for "The Framework Field Guide" starts development.](https://github.com/unicorn-utterances/unicorn-utterances/pull/436)
+- November 8th, 2022: [The new landing page for "The Framework Field Guide" starts development.](https://github.com/playfulprogramming/playfulprogramming/pull/436)
 
 - December 3rd, 2022: The site's migration to Astro is finalized, original design in place. The lighthouse score on every page is improved; on some pages it is even doubled.
 
 - December 6th, 2022: The new landing page for "The Framework Field Guide" launches
 
-- March 3rd, 2022: [The site's redesign, led by Eduardo Pratti and James Fenn, launches](https://github.com/unicorn-utterances/unicorn-utterances/pull/497)
+- March 3rd, 2022: [The site's redesign, led by Eduardo Pratti and James Fenn, launches](https://github.com/playfulprogramming/playfulprogramming/pull/497)
 
   > Fun fact, this redesign was codenamed "UwU" as joke amongst the team.
 

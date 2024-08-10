@@ -59,7 +59,7 @@ if (userResult) {
 
 const dataQuery = `
 query($login: String, $id: ID, $prSearch: String!) {
-	repository(owner: "unicorn-utterances", name: "unicorn-utterances") {
+	repository(owner: "playfulprogramming", name: "playfulprogramming") {
 		defaultBranchRef {
 			target {
 				... on Commit {
@@ -97,7 +97,7 @@ export async function fetchGitHubData(
 	const response = (await octokit.graphql(dataQuery, {
 		login,
 		id,
-		prSearch: `repo:unicorn-utterances/unicorn-utterances is:pr author:${login}`,
+		prSearch: `repo:playfulprogramming/playfulprogramming is:pr author:${login}`,
 	})) as {
 		repository: {
 			defaultBranchRef: {
