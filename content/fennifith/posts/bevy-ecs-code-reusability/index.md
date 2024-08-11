@@ -2,7 +2,7 @@
 {
 	title: "Entity Component System: The Perfect Solution to Reusable Code?",
 	description: "The ECS pattern is used by many game engines to create stateless, reusable game logic. But how does it work?",
-	published: '2023-09-13',
+	published: '2024-08-10',
 	authors: ['fennifith'],
 	tags: ['rust', 'computer science', 'opinion'],
 	attached: [],
@@ -12,7 +12,7 @@
 
 An "Entity Component System" is a pattern followed by many game engines to create isolated systems of stateless, reusable game logic.
 
-ECS presents a lot of advantages for all kinds of games: enabling out-of-the-box parallelization, universal state management, and unrestricted polymorphism. But how does this work? What makes it so special?
+ECS presents a lot of advantages for all kinds of games: enabling out-of-the-box parallelization, universal state management, and unrestricted abstractions. But how does this work? What makes it so special?
 
 > **Note:** While this post focuses on the conceptual aspects of ECS, it will reference a Rust game engine called [Bevy](https://bevyengine.org) in many of its examples.
 >
@@ -46,7 +46,7 @@ This shows three entities:
 
 However, none of these components dictate the exact functionality that should apply to them! All behavior is implemented in *systems...*
 
-## Systems are the Game Loop!
+## Systems form the Game Loop!
 
 In most games, you'll find a logical "game loop" or "tick loop" that handles logical events or user input and processes its effects in the world. These might involve things like physics calculations, collision detection, score tracking, win conditions - anything related to the game's *state* or *data*.
 
@@ -58,7 +58,20 @@ These are often (but not always!) kept separate from the *visual* aspects of the
 
 A *system* is a function that gets continuously invoked during the game. It would typically define a query for the components it uses, and perform some kind of operation as a result.
 
-The ECS framework then manages the surrounding loop itself, and controls how and when each system is invoked.
+In the above example, we might want a system to operate on each entity with `Velocity` and `Gravity` to apply the effect of gravity on each tick:
+
+```rust
+// This is psuedocode, don't read too much into it - just illustrating the above :)
+fn apply_gravity(velocity: Velocity, gravity: Gravity) {
+	velocity.y -= gravity.acceleration
+}
+fn apply_velocity(position: Position, velocity: Velocity) {
+	position.x += velocity.x;
+	position.y += velocity.y;
+}
+```
+
+The ECS framework is then in charge of the surrounding loop itself, and controls how and when each system is invoked.
 
 ## Entities are Composable
 
@@ -96,7 +109,7 @@ commands.spawn((
 ));
 ```
 
-This is similar to the [Composition over Inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance) pattern - your systems can easily be reused to apply to any entity in your game!
+This is similar to the [Composition over Inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance) pattern, where behavior is defined by assembling an entity out of components, rather than having a single concrete implementation. This means that your systems can be reused to apply to any entity in your game!
 
 # So, you want to build a game?
 
@@ -163,7 +176,7 @@ loop {
 }
 ```
 
-## What's wrong with this example?
+## The challenge with reusability
 
 You might be noticing that this code is mixing together a lot of different functionality. `snake.move()` is directly tied to both keyboard input and the game's end condition.
 
@@ -359,7 +372,7 @@ Many ECS frameworks implement some kind of Entity-Entity relation mechanism to s
 
 While Bevy has [ongoing discussion](https://github.com/bevyengine/bevy/issues/3742) about entity relations, there isn't a clear-cut way to implement them in the current release (at the time of writing).
 
-> *Note:* Bevy *does* support [Parent-Child relations](https://bevy-cheatbook.github.io/features/parent-child.html), which may
+> *Note:* Bevy *does* support [Parent-Child relations](https://bevy-cheatbook.github.io/fundamentals/hierarchy.html), which may
 > satisfy some use cases.
 
 In the meantime, the alternative practice seems to be storing any related entity IDs in a component attached to each entity...
@@ -406,6 +419,7 @@ However, a single `query.get(id)` is still a big runtime improvement compared to
 
 # Conclusion
 
-- not a perfect solution!
-- particularly well-suited for game development
+Overall, while ECS might not be a perfect solution to every problem, it's clear that it presents a lot of advantages in the context of game development.
+
+If this post caught your interest, I recommend looking into the [Bevy tutorials](https://bevyengine.org/learn/) and the [Unofficial Bevy Cheat Book](https://bevy-cheatbook.github.io/) to explore it further!
 
