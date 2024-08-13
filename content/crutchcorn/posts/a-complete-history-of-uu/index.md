@@ -18,19 +18,19 @@ Without further ado; the timeline of Unicorn Utterances.
 
 While Unicorn Utterances has always been a volunteer-ran platform, let's a look at our history as a whole:
 
-- October 2014: [Corbin Crutchley](/unicorns/crutchcorn) (cofounder of the platform; author of this post) turns 16. Not only are they a year older; they started working at an adult high school as their only tech person. This role required them to learn Python and Bash; starting their career early on.
+- October 2014: [Corbin Crutchley](/people/crutchcorn) (cofounder of the platform; author of this post) turns 16. Not only are they a year older; they started working at an adult high school as their only tech person. This role required them to learn Python and Bash; starting their career early on.
 
   Partly due to the new job, partly due to an overarching interest in tech; Corbin joined the [social media platform Google+](https://en.wikipedia.org/wiki/Google%2B) (remember that?) and started talking with other people on the platform.
 
   The list of people they met would eventually be a whos-who of Unicorn Utterances alumni:
 
-    - [James Fenn](/unicorns/fennifith) (cofounder)
-    - [Evelyn Hathaway](/unicorns/evelynhathaway) (cofounder)
-    - [Vukašin Anđelković](https://unicorn-utterances.com/unicorns/zavukodlak) (logo designer)
-    - [Tom Wellington](/unicorns/tommyemo) (initial design lead)
-    - [Eduardo Pratti](/unicorns/edpratti) (future/present design lead)
-    - [Alex Dueppen](/unicorns/adueppen) (developer, moderator)
-    - [Kevin Aguilar](/unicorns/kevttob) (designer)
+    - [James Fenn](/people/fennifith) (cofounder)
+    - [Evelyn Hathaway](/people/evelynhathaway) (cofounder)
+    - [Vukašin Anđelković](/people/zavukodlak) (logo designer)
+    - [Tom Wellington](/people/tommyemo) (initial design lead)
+    - [Eduardo Pratti](/people/edpratti) (future/present design lead)
+    - [Alex Dueppen](/people/adueppen) (developer, moderator)
+    - [Kevin Aguilar](/people/kevttob) (designer)
 
 - May 2018: Corbin starts working in person at a bootcamp nearby them. While they adored the students, peers, and process of teaching others - they found the high up-front cost and promises of work post-graduation (an impossible promise given the industry's volatility) to be arguably predatory. As a result, Corbin quits the bootcamp after only 5 months.
 

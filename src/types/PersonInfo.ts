@@ -34,7 +34,7 @@ export interface PersonInfo extends Required<RawPersonInfo> {
 	totalPostCount: number;
 	totalWordCount: number;
 	profileImgMeta: {
-		// Relative to "public/unicorns"
+		// Relative to "public/people"
 		relativePath: string;
 		// Relative to site root
 		relativeServerPath: string;
