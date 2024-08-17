@@ -13,7 +13,7 @@
 
 ### Welcome in to the third installment of Web Fundamentals!
 
-In this chapter we will talk everything layout related, and start getting into the weeds of responsive design. Starting with **Flexbox**.
+In this chapter we will talk everything layout related, and start getting into the weeds of responsive design. Starting with Flexbox.
 
 ---
 
@@ -37,12 +37,17 @@ flex-direction: row;
 
 ![A row of three items stacked next to one-another](./flex-row.svg)
 
+## Using `flex-wrap`
+
+This property allows you to make dynamic layouts that can respond to dimension constraints. In practice, it means you can tell a `flex` layout to wrap into a new row - or column - if there is not enough space available. Let's look at a simple example:
+
+![Two examples of elements in a row. The second example has a smaller width, thus causing the layout to wrap into a new line](./flex-wrap.svg)
 
 ## Using `align-items`
 
 This property allows you to arrange your items between the `start`, `center` or `end` of a given layout.
 
-For the following example, the `flex-direction` has been set to **row**. This will become important later.
+For the following example, the `flex-direction` has been set to row. This will become important later.
 
 ```css
 align-items: center;
@@ -63,16 +68,15 @@ align-items: flex-start;
 ![Three items in a container vertically aligned to the top of the container](./align-start.svg)
 
 > #### Important! The `start` and `end` suffixes are axis-dependent.
-> - When a flex layout is set to `row`, the start and end will point to **top and bottom**.
-> - When a flex layout is set to `column`, the start and end will point to **left and right**.
+> - When a flex layout is set to `row`, the start and end will point to top and bottom.
+> - When a flex layout is set to `column`, the start and end will point to left and right.
 
----
 
 ## Using `justify-content`
 
 This property is used to distribute your content across the main axis of a flex layout. 
 
-This can serve as 
+This can serve as an alignment property, or as a way to space out your content. Here are the available values.
 
 ```css
 justify-content: center;
@@ -112,11 +116,11 @@ justify-content: space-evenly;
 
 Here is a list of CSS properties used to control flexbox properties: 
 
-- [`flex-direction`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction) - controls flexbox direction
-- [`flex-grow`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow) - controls a flex items grow factor
-- [`flex-shrink`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink) - controls a flex items shrink factor
-- [`flex-basis`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis) - controls the initial size of a flex item
-- [`flex-wrap`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap) - controls flex items wrapping onto multiple lines
+> **[`flex-grow 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow): Controls a `flex` items grow factor**
+
+> **[`flex-shrink 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink): Controls a `flex` items shrink factor**
+
+> **[`flex-basis 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis): Controls the initial size of a `flex` item**
 
 > ⚡ [Live Code Example: Flexbox Layout](https://codesandbox.io/s/flexbox-layout-p4cy8?file=/styles.css)
 
@@ -124,11 +128,11 @@ Here is a list of CSS properties used to control flexbox properties:
 
 Using a few additional CSS properties we can align, justify, and space these same flex items inside the container.
 
-These placement methods are used to distribute both flex and gridbox items:
+> **These placement methods are used to distribute both flex and gridbox items.**
 
-- [`place-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-content) - shorthand property for [`align-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-content) and [`justify-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)
-- [`place-items`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-items) - shorthand property for [`align-items`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items) and [`justify-items`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-items)
-- [`place-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-self) - shorthand property for [`align-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self) and [`justify-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self)
+- **[`place-content 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-content):** Shorthand property for [`align-content 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-content) and [`justify-content 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)
+- **[`place-items 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-items):** Shorthand property for [`align-items 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items) and [`justify-items 🡕](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-items)
+- **[`place-self 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-self):** Shorthand property for [`align-self 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self) and [`justify-self 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self)
 
 > 🤓 These are some godly CSS properties that everyone should know about
 
@@ -238,15 +242,15 @@ The CSS properties `top`, `bottom`, `left`, `right` are used on positioned eleme
 
 There are five types of element positions:
 
-- **Absolute** - The element is removed from document flow and positioned relative to the nearest `position: relative` parent
+- Absolute - The element is removed from document flow and positioned relative to the nearest `position: relative` parent
   - Can be offset relative to the parent container and ordered
-- **Fixed** - The element is removed from document flow and positioned relative to the initial container
+- Fixed - The element is removed from document flow and positioned relative to the initial container
   - Can be offset relative to the initial container and ordered
-- **Relative** - The element flows normally and provides relative positioning for children elements
+- Relative - The element flows normally and provides relative positioning for children elements
   - Can be offset relative to itself and ordered
-- **Static** - The default position
+- Static - The default position
   - Unaffected by offset and order
-- **Sticky** - The element flows normally and "sticks" to the nearest container
+- Sticky - The element flows normally and "sticks" to the nearest container
   - A mixture between relative and fixed positions depending on the scroll mechanism
   - Can be offset relative to the parent container and ordered
 

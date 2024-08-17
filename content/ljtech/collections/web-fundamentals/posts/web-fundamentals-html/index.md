@@ -69,7 +69,7 @@ These elements all have some browser styles called HTML defaults. These may chan
 
 Here's an example of a group of **input** elements, which help users interact with a website.
 
-<iframe data-frame-title="HTML: Input elements" src="uu-code:./input-elements?template=node&embed=1&file=src%2Fmain.js"></iframe>
+<iframe data-frame-title="HTML: Input elements" src="uu-code:./input-elements?template=node&embed=1&file=src%2Fstylesheet.css"></iframe>
 
 These elements contain controls, input fields, date pickers, and generally anything that can assist a user to perform an action or add data to a particular screen.
 
