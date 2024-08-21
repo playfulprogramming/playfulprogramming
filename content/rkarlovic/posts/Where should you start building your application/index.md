@@ -2,13 +2,13 @@
 {
   title: "Where should you start building your application",
   description: "Talking about where you should start building your full stack application",
-  published: '2024-08-10',
+  published: '2024-08-21',
   tags: ["opinion", "webdev"],
   license: 'cc-by-4'
 }
 ---
 
-On our Discord channel we have started "book club" where someone suggest article for that week, and then we have discussion around it.
+[On our Discord channel](https://discord.gg/FMcvc6T) we have started "book club" where someone suggest article for that week, and then we have discussion around it.
 
 This week [article](https://www.freecodecamp.org/news/how-to-build-a-full-stack-application-from-start-to-finish/) was about how to architect a full-stack application from start to finish.
 
