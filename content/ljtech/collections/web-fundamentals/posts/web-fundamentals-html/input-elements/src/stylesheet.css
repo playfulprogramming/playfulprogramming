@@ -1,23 +1,24 @@
 :root {
-    background-color: #E5F2FF;
-  }
-  
-  .elements {
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100vh;
-    scale: 2.0;
-  }
-  
-  section {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-  }
-  
-  fieldset {
-    border: none; margin: 0px;
-    padding: 0px;
-  }
+  background-color: #E5F2FF;
+}
+
+.elements {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  scale: 2.0;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+fieldset {
+  border: none;
+  margin: 0px;
+  padding: 0px;
+}

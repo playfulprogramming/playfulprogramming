@@ -11,7 +11,10 @@
 
 ---
 
-### Welcome in to the third installment of Web Fundamentals!
+### Welcome to the third installment of Web Fundamentals!
+
+> **What you should know:**
+> This chapter expects you to have read the previous two installments of Web Fundamentals.
 
 In this chapter we will talk everything layout related, and start getting into the weeds of responsive design. Starting with Flexbox.
 

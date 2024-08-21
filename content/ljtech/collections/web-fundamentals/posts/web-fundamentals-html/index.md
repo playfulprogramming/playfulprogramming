@@ -11,7 +11,7 @@
 
 ---
 
-### Welcome in to the first installment of Web Fundamentals!
+### Welcome to the first installment of Web Fundamentals!
 
 > **What you should know:**
 > This series only expects you to know what HTML and CSS are on a **very** basic level. If you need an introduction, check the article below.
@@ -53,7 +53,7 @@ A `<div>` is the purest form of a container. It has no default styling or specia
 
 However, it's important to understand when to use them. While you can use a `<div>`, HTML has introduced several elements that provide the same function but are more accessible towards developers and users with screen readers by explicitly declaring their use. 
 
-This is what is commonly known as "semantic elements." Let's dive deeper.
+**This is what is commonly known as "semantic elements." Let's dive deeper.**
 
 # Semantic elements & defaults
 
@@ -113,6 +113,14 @@ This list is by no means comprehensive. HTML is a complex set of tools, and it's
 > To view a full list of all HTML elements, click the link below. 
 >
 > 📚 [**HTML reference →**](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
+
+# HTML attributes
+
+<img src="./html_attributes.svg" style="border-radius: var(--corner-radius_l);" alt="Three HTML elements with their corresponding attributes. It starts with an image, then a video, then a standard div."></img>
+
+## Required attributes
+
+## Optional attributes
 
 # Styling HTML
 

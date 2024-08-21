@@ -11,40 +11,18 @@
 
 ---
 
-Responsive Design is an approach to web design where the goal is to create a layout that will render beautifully on any device or screen size.
+### Welcome to the second installment of Web Fundamentals!
 
-![Two folding phones; The Samsung Galaxy Flip and Galaxy Fold](./responsive-design.png)
+> **What you should know:**
+> This chapter expects you to have read the previous installment of Web Fundamentals.
 
-To achieve this, designers can use media queries (AKA breakpoints) to add, override, and unset styles on any screen size.
+This article will go over Cascading Style Sheets, detailing what they are, what they allow, and how they are used to bend and style HTML to make up beautiful and responsive designs in an efficient manner. 
 
-The code snippet below shows how breakpoints can be used inside a `.css` file to override an existing CSS rule:
+Let's waste no time, and get right into it.
 
-```css
-.foobar {
-  border: 1px solid red;
-  color: red;
-}
+# Introduction to CSS
 
-@media (min-width: 768px) {
-  .foobar {
-    border: unset;
-    color: orange;
-    display: flex;
-  }
-}
-
-```
-
-Here is a list of popular screen size breakpoints for max- and min-width:
-
-- **320px** - Mobile S
-- **375px** - Mobile M
-- **425px** - Mobile L
-- **768px** - Tablet
-- **1024px** - Laptop
-- **1440px** - Laptop L
-
-
+In the previous article, we discussed how HTML is the skeleton of the web. And that's a very apt description.
 
 ## CSS Selectors
 
