@@ -37,15 +37,13 @@ A box model is a representation of a document's element through a set of boxes. 
 - [**`Padding 🡕`**](https://developer.mozilla.org/en-US/docs/Web/CSS/padding): Wraps any contents, again, as white space.
 - **Content**: Contains text, imagery, videos, etc.
 
-To better understand this, let's look at the following example:
+To better understand this, let's look at the following example; click on the button to switch modes and watch as the boxes translate into a real-world layout.
 
-![A card, displaying visual representations of margins, borders, padding and the content within.](./box-model-card.svg)
+<iframe data-frame-title="HTML: Box model card" src="uu-code:./box-model?template=node&embed=1&file=src%2Findex.html"></iframe>
 
-- We can see that the `margin` determines the space between the article card and the edges of the screen, as well as the spacing between any elements that may come before or after our card layout. 
-- The `border` stands between the margin and the padding
-- The `padding` wraps all the details of the card, and is illustrated here as a texture around the content.
+This structure is the foundation of HTML, and is used to build everything you see onscreen. In fact, some components are already built into the web for you to use.
 
-This structure is the foundation of HTML, and is used to build everything you see onscreen. In fact, some components are already built into the web for you to use. Let's look at them now.
+Let's look at them now.
 
 --- 
 
@@ -69,7 +67,7 @@ These elements all have some browser styles called HTML defaults. These may chan
 
 Here's an example of a group of **input** elements, which help users interact with a website.
 
-<iframe data-frame-title="HTML: Input elements" src="uu-code:./input-elements?template=node&embed=1&file=src%2Fstylesheet.css"></iframe>
+<iframe data-frame-title="HTML: Input elements" src="uu-code:./input-elements?template=node&embed=1&file=src%2Findex.html"></iframe>
 
 These elements contain controls, input fields, date pickers, and generally anything that can assist a user to perform an action or add data to a particular screen.
 

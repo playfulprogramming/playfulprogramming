@@ -1,0 +1,134 @@
+:root {
+    --bg: #E5F2FF;
+    --border: #C8E6FF;
+  
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 500;
+    background-color: var(--bg);
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  h1, h2, h3, h4, h5, h6, p {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    line-height: 125%;
+    font-family: "Figtree";
+  }
+  
+  .label {
+    position: absolute;
+    top: 0.75rem;
+    left: 0%;
+    right: 0%;
+    margin: 0;
+    text-align: center;
+  
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+  
+  div {
+    position: relative;
+    box-sizing: border-box;
+    padding: 3rem;
+    transition-duration: 500ms;
+    transition-duration-function: ease-out;
+  }
+  
+  .box-margin {
+    background-color: #FFC68B;
+    width: 30rem;
+    height: 22rem;
+    border: dashed 1px #202020;
+  }
+  
+  .box-border {
+    background-color: #FDFFB2;
+    width: 100%;
+    height: 100%;
+    border: solid 1px #202020;
+  }
+  
+  .box-padding {
+    background-color: #A3F0B7;
+    width: 100%;
+    height: 100%;
+    border: dashed 1px #202020;
+  }
+  
+  .box-content {
+    background-color: #8FBBEB;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    border: solid 1px #202020;
+  
+    align-items: center;
+    justify-items: center;
+    color: rgba(0,0,0,0);
+  }
+  
+  .box-content .label {
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(0,0,0,1);
+  }
+  
+  .box-margin-styled {
+    background-color: var(--bg);
+    padding: 1rem;
+  }
+  
+  .box-border-styled {
+    background-color: var(--border);
+    padding: 1rem;
+    border-radius: 3rem;
+  }
+  
+  .box-padding-styled {
+    background-color: var(--bg);
+    border-radius: 2rem;
+    padding: 2rem;
+  }
+  
+  .box-padding-styled .label:not(.box-content-styled .label) {
+    top: 0.4rem;
+  }
+  
+  .box-content-styled {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    background-color: transparent;
+    color: rgba(0,0,0,1);
+  }
+  
+  .box-content-styled .label {
+    display: none;
+  }
+  
+  button {
+    background-color: var(--border);
+    font-weight: 600;
+    padding: 16px 24px;
+    border-radius: 28px;
+    border: none;
+    font-size: 1rem;
+    font-family: "Figtree";
+  }

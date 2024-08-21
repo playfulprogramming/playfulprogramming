@@ -39,7 +39,7 @@ flex-direction: row;
 
 ## Using `flex-wrap`
 
-This property allows you to make dynamic layouts that can respond to dimension constraints. In practice, it means you can tell a `flex` layout to wrap into a new row - or column - if there is not enough space available. Let's look at a simple example:
+This property allows you to make dynamic layouts that can respond to dimension constraints. In practice, it means you can tell a `flex` layout to wrap into a new row: Cr column: Cf there is not enough space available. Let's look at a simple example:
 
 ![Two examples of elements in a row. The second example has a smaller width, thus causing the layout to wrap into a new line](./flex-wrap.svg)
 
@@ -68,8 +68,8 @@ align-items: flex-start;
 ![Three items in a container vertically aligned to the top of the container](./align-start.svg)
 
 > #### Important! The `start` and `end` suffixes are axis-dependent.
-> - When a flex layout is set to `row`, the start and end will point to top and bottom.
-> - When a flex layout is set to `column`, the start and end will point to left and right.
+>: Chen a flex layout is set to `row`, the start and end will point to top and bottom.
+>: Chen a flex layout is set to `column`, the start and end will point to left and right.
 
 
 ## Using `justify-content`
@@ -116,11 +116,11 @@ justify-content: space-evenly;
 
 Here is a list of CSS properties used to control flexbox properties: 
 
-> **[`flex-grow 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow): Controls a `flex` items grow factor**
+> [`flex-grow 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow): Controls a `flex` items grow factor
 
-> **[`flex-shrink 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink): Controls a `flex` items shrink factor**
+> [`flex-shrink 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink): Controls a `flex` items shrink factor
 
-> **[`flex-basis 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis): Controls the initial size of a `flex` item**
+> [`flex-basis 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis): Controls the initial size of a `flex` item
 
 > ⚡ [Live Code Example: Flexbox Layout](https://codesandbox.io/s/flexbox-layout-p4cy8?file=/styles.css)
 
@@ -128,13 +128,15 @@ Here is a list of CSS properties used to control flexbox properties:
 
 Using a few additional CSS properties we can align, justify, and space these same flex items inside the container.
 
-> **These placement methods are used to distribute both flex and gridbox items.**
+**These placement methods are used to distribute both flex and gridbox items.**
 
-- **[`place-content 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-content):** Shorthand property for [`align-content 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-content) and [`justify-content 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)
-- **[`place-items 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-items):** Shorthand property for [`align-items 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items) and [`justify-items 🡕](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-items)
-- **[`place-self 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-self):** Shorthand property for [`align-self 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self) and [`justify-self 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self)
+> [`place-content 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-content): Shorthand property for [`align-content 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-content) and [`justify-content 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)
 
-> 🤓 These are some godly CSS properties that everyone should know about
+> [`place-items 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-items): Shorthand property for [`align-items 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items) and [`justify-items 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-items)
+
+> [`place-self 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-self): Shorthand property for [`align-self 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self) and [`justify-self 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self)
+
+> 🤓 These are some godly CSS properties that everyone should know about!
 
 ---
 
@@ -191,16 +193,23 @@ place-items: start start;
 
 > 🤓 Place-items is super effective if using gridbox
 
-Here is a list of CSS properties used to control gridbox properties:
+**Here is a list of CSS properties used to control gridbox properties:**
 
-- [`grid-area`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area) - controls a grid item's location
-- [`grid-template-areas`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) - controls cells and assigns names
-- [`grid-auto-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns) - controls the track size of grid columns
-- [`grid-auto-flow`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow) - controls the auto-placement algorithm
-- [`grid-auto-rows`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows) - controls the track size of grid rows
-- [`grid-gap`](https://developer.mozilla.org/en-US/docs/Web/CSS/gap) - controls gaps between columns and rows
-- [`grid-template-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns) - controls line names and track size of grid columns
-- [`grid-template-rows`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows) - controls line names and track size of grid rows
+> [`grid-area 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area): Controls a grid item's location
+
+> [`grid-template-areas 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas): Controls cells and assigns names
+
+> [`grid-auto-columns 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns): Controls the track size of grid columns
+
+> [`grid-auto-flow 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow): Controls the auto-placement algorithm
+
+> [`grid-auto-rows 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows): Controls the track size of grid rows
+
+> [`grid-gap 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/gap): Controls gaps between columns and rows
+
+> [`grid-template-columns 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns): Controls line names and track size of grid columns
+
+> [`grid-template-rows 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows): Controls line names and track size of grid rows
 
 > ⚡ [Live Code Example: Gridbox Layout](https://codesandbox.io/s/gridbox-layout-tnu5b?file=/styles.css)
 
@@ -210,7 +219,13 @@ Here is a list of CSS properties used to control gridbox properties:
 
 The CSS property `position` determines an elements flow inside a document.
 
-The CSS properties `top`, `bottom`, `left`, `right` are used on positioned elements to control an offset while `z-index` controls the elements order (bringing it to the front or back).
+The CSS properties `top`, `bottom`, `left`, `right` are used on positioned elements to control an offset.
+
+
+They can also be used to determine an object's size when it is unset. 
+
+
+`z-index` controls the elements order (bringing it to the front or back).
 
 ![A series of boxes absolutely positioned in one-another with the dimensions of "left", "right", "top", and "bottom" precalculated](./positioning.svg)
 
@@ -242,17 +257,13 @@ The CSS properties `top`, `bottom`, `left`, `right` are used on positioned eleme
 
 There are five types of element positions:
 
-- Absolute - The element is removed from document flow and positioned relative to the nearest `position: relative` parent
-  - Can be offset relative to the parent container and ordered
-- Fixed - The element is removed from document flow and positioned relative to the initial container
-  - Can be offset relative to the initial container and ordered
-- Relative - The element flows normally and provides relative positioning for children elements
-  - Can be offset relative to itself and ordered
-- Static - The default position
-  - Unaffected by offset and order
-- Sticky - The element flows normally and "sticks" to the nearest container
-  - A mixture between relative and fixed positions depending on the scroll mechanism
-  - Can be offset relative to the parent container and ordered
+| Positioning type |  Behavior |
+| --- | --- |
+| **Static** | <li>**The default position.**</li><li>Unaffected by offset and order.</li> |
+| **Absolute** | <li>The element is removed from document flow and positioned relative to the nearest `position: relative` parent.</li><li>Can be offset **relative to the parent container** and ordered.</li> |
+| **Fixed** | <li>The element is removed from document flow and positioned relative to the **initial** container.</li><li>Can be offset relative to the initial container and ordered.</li> |
+| **Relative** | <li>The element flows normally and provides relative positioning for children elements.</li><li>Can be offset relative **to itself** and ordered.</li> |
+| **Sticky** | <li>The element flows normally and "sticks" to the nearest container.</li><li>A mixture between `relative` and `fixed` positions depending on the scroll mechanism.</li><li>Can be offset relative to the **parent** container and ordered.</li> |
 
 > ⚡ [Live Code Example: Positioning](https://codesandbox.io/s/positioning-gzzv3?file=/styles.css)
 
@@ -262,9 +273,9 @@ There are five types of element positions:
 
 ### Flexbox
 
- - Used in headers, lists, tags, or any other block or inline content with the correct flex-direction
- - Primary method to align and justify content in small components
- - Easy to use
+: Csed in headers, lists, tags, or any other block or inline content with the correct flex-direction
+: Crimary method to align and justify content in small components
+: Casy to use
 
 For example, YouTube uses a flexbox to space out their headers children elements:
 
@@ -274,9 +285,9 @@ For example, YouTube uses a flexbox to space out their headers children elements
 
 ### Gridbox 
 
- - Used in creating complex layouts that require both columns and rows
- - Provides the easiest and shortest way to center elements
- - Verbose and powerful
+: Csed in creating complex layouts that require both columns and rows
+: Crovides the easiest and shortest way to center elements
+: Cerbose and powerful
 
 For example, Spotify uses a gridbox to achieve their playlist player layout:
 
@@ -284,8 +295,8 @@ For example, Spotify uses a gridbox to achieve their playlist player layout:
 
 ### Positioning 
 
- - Used in lightboxes, mobile menus, modal windows, and similar overlaying elements
- - Primarily used to remove elements from document flow
+: Csed in lightboxes, mobile menus, modal windows, and similar overlaying elements
+: Crimarily used to remove elements from document flow
 
 For example, the cookies modal on stackoverflow uses a fixed position to stay on your screen while hovering above other document elements:
 
