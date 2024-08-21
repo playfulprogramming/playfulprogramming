@@ -112,17 +112,58 @@ This list is by no means comprehensive. HTML is a complex set of tools, and it's
 > **Learn more about HTML and its elements:**
 > To view a full list of all HTML elements, click the link below. 
 >
-> 📚 [**HTML reference →**](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
+> 📚 [**MDN: HTML →**](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
+
+---
 
 # HTML attributes
 
+HTML elements have native attributes that define their functionality, styling or add important information to them. These can be either required attributes - meaning an element cannot be displayed or function without them - or optional, depending on the developer's needs.
+
+An example of HTML attributes are as following:
+
 <img src="./html_attributes.svg" style="border-radius: var(--corner-radius_l);" alt="Three HTML elements with their corresponding attributes. It starts with an image, then a video, then a standard div."></img>
 
-## Required attributes
+## Global attributes
+
+Global attributes can be applied to any HTML element. Some of the most used ones are:
+
+| Attribute | Functionality |
+| --- | --- |
+| `id` | **Specifies a string ID that must be unique to that element.** <br>Useful when combined with CSS and/or JavaScript to apply styling or behaviors to an specific element. |
+| `title` | **Specifies a title for the element.** <br>Useful for accessiblity, as it tells screen readers what the content of a particular object is. |
+|  `class` | **Specifies a CSS class to style the element with.** <br>This is a core feature of front-end development that allows you to reuse the same styling to several different elements by applying the same class. |
+| `style` | **Allows the use of inline CSS code inside an HTML element.** <br>Useful for quick and specific CSS overrides that are not meant to be applied universally to a particular element or class. |
+
+> **View all global attributes:**
+> To see a comprehensive list of global attributes, click on the link below.
+>
+> 📚 [**MDN: Global attributes →**](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes)
+
+## Mandatory attributes
+
+HTML elements require certain attributes to function, and which attributes differ depending on the element beind used. Let's look at an example, using an `<img>` tag, which defines an image block in HTML.
+
+<img src="./html_mandatory.svg" style="border-radius: var(--corner-radius_l);" alt="A representation of an img tag, showing the src attribute and the alt attribute."></img>
+
+| Attribute | Functionality |
+| --- | --- |
+| `src` | **This is a mandatory attribute.** It tells the `<img>` tag which source file to load. Without it, there would be nothing to display. |
+| `alt` | **This is not a mandatory attribute, but it may as well be.** This is essential for screen readers to be able to tell visually-impaired users what is currently being shown onscreen. |
 
 ## Optional attributes
 
-# Styling HTML
+<img src="./html_optional.svg" style="border-radius: var(--corner-radius_l);" alt="A representation of an img tag, showing the src attribute and the loading attribute."></img>
+
+| Attribute | Functionality |
+| --- | --- |
+| `loading` | **This is an optional attribute.** It tells the browser when to load an image.<br>`lazy` tells the browser to load an image **only when it is close to or within the viewport.** This helps to load a webpage faster, but may result in users waiting if the image is simply too large to load instantly.<br>`eager` tells the browser to load the image **as soon as possible**. |
+
+> Because optional and mandatory attributes differ per element, it is important to check the documentation when using an existing HTML element.
+
+---
+
+# Styling HTML with CSS
 
 Now that we've looked over some of the components HTML has, you may be wondering how you can take control of their aesthetics and make it your own.
 

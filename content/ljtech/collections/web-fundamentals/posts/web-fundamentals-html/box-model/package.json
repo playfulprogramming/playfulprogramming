@@ -1,5 +1,5 @@
 {
-    "name": "@playfulprogramming/input-elements",
+    "name": "@playfulprogramming/box-model",
     "private": true,
     "scripts": {
       "start": "http-server src"

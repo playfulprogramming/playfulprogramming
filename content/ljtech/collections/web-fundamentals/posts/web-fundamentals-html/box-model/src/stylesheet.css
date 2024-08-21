@@ -52,7 +52,7 @@ div {
     box-sizing: border-box;
     padding: 3rem;
     transition-duration: 500ms;
-    transition-duration-function: ease-out;
+    transition-timing-function: ease-out;
 }
 
 .box-margin {
