@@ -1,4 +1,4 @@
-Como comunidad le damos la bienvenida a cualquiera que desee escribir y enviar entradas al blog de Playful Programming. ¡Vamos! En este documento revisaremos los pasos necesarios para crear una nueva publicación, y después enviarla a PP como un *pull request*.
+Como comunidad le damos la bienvenida a cualquiera que desee escribir y enviar entradas al blog de Playful Programming. ¡Vamos! En este documento revisaremos los pasos necesarios para crear una nueva publicación, y después enviarla a PP como una *pull request* o solicitud para incorporar cambios.
 
 > [!NOTA]
 > Para un tutorial más general sobre cómo contribuir a un proyecto con GitHub podrías revisar la guía [ Primeras contribuciones](https://github.com/firstcontributions/first-contributions/blob/main/translations/README.mx.md) antes de seguir leyendo esta página.
@@ -15,8 +15,8 @@ Si en algún momento te sientes bloqueado o tienes alguna duda que quieras resol
 Contenido:
 1. [Crear un perfil de autor](#crear-un-perfil-de-autor)
 2. [Escribir una nueva entrada](#escribir-una-nueva-entrada)
-3. [Traducir una entrada del blog](#traducir_una-entrada-del-blog)
-4. [Enviar una pull request](#submitting-a-pull-request)
+3. [Traducir una entrada del blog](#traducir-una-entrada-del-blog)
+4. [Enviar una pull request](#enviar-una-pull-request)
 
 # Crear un perfil de autor
 
@@ -143,3 +143,34 @@ Los vídeos también se pueden incrustar con la siguiente sintaxis:
 ```
 
 > Cuando sea posible, los elementos `<video>` deberán elegirse por sobre los archivos `.gif` u otras imágenes animadas en tus entradas. Esto es por motivos de accesibilidad - los vídeos dan más control a los usuarios acerca de cuándo y cómo es que la animación se reproduce.
+
+# Traducir una entrada del blog
+
+Si quires agregar una traducción, primero asegúrate de crear un [Archivo de datos de autor](#crear-un-perfil-de-autor) con el rol de `"translator"`, ¡Así podrás recibir crédito por tu trabajo en el sitio!
+
+Para crear un archivo de traduccción para una entrada, copia su archivo `index.md` y renómbralo a `index.(lenguaje).md`, donde `(lenguaje)` es el lenguaje al que traduces la entrada. Por ejemplo, una traducción al `fr` (francés) podría ser nombrada `index.fr.md`. El contenido dentro de este archivo puede ser traducido a su lenguaje respectivo.
+
+> Si fuera necesario traducir cualquiera de las inágenes usadas en la entrada, éstas deberán ser nombradas de forma similar - por ejemplo, una traducción de `dom_tree.svg` deberá ser nombrada `dom_tree.fr.svg`.
+>
+> Cualquier enlace a esas imágenes deberá ser actualizado en el archivo `index.fr.md` de la entrada para que apunte a la imagen traducida.
+
+Para una referencia de los códigos de cada lenguaje, puedes consultar el archivo [`/content/data/languages.json`](./content/data/languages.json) - si el lenguaje que quieres usar no se encuentra tal vez sea necesario que lo agregues.
+
+## Encontrar un código de lenguaje
+
+Cada código de lenguaje dentro de [`/content/data/languages.json`](./content/data/languages.json) debería estar formado de dos letras en minúscula. Si incluye una región, agrega un guion seguido de otras dos letras en minúscula. Por ejemplo, el código para el francés es `fr` - para referirse al dialecto del francés que se habla en Canadá, el código será `fr-ca`.
+
+> Por favor usa `-` en lugar de `_` en los formatos ISO de la región del idioma. En lugar de `fr_ca`, deberá ser `fr-ca`.
+
+Consulta la lista [Wikipedia: List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) para conocer los identificadores que usarás en este formato.
+
+# Enviar una Pull Request
+
+Una vez que hayas hecho todos los cambios, [crea una Pull Request](https://docs.github.com/es/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) para agregar tu entrada al sitio.
+
+- Abre una [nueva Pull Request](https://github.com/playfulprogramming/playfulprogramming/compare) desde tu *fork* (bifurcación).
+- Revisa que todos tus archivos estén dentro de la Pull Request, y que éstos estén siendo combinados dentro de la rama principal o `main`.
+- Crea el PR y espera a que quien mantiene el sitio lo revise.
+- Una vez combinada (*merged*), ¡Tu entrada será visible en el sitio!
+
+¡Nos pondremos en contacto contigo si tenemos alguna duda o retroalimentación cuando revisemos tu entrada!
