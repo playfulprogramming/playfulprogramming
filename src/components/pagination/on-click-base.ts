@@ -9,11 +9,17 @@ export const onSoftNavClick =
 
 		if (!link) return;
 
+		let sameOrigin = link.origin === location.origin;
+		// Sidestep this check for tests, since tests cannot figure out what our proper origin is
+		if (globalThis["inTestSuite" as never]) {
+			sameOrigin = true;
+		}
+
 		if (
 			link instanceof HTMLAnchorElement &&
 			link.href &&
 			(!link.target || link.target === "_self") &&
-			link.origin === location.origin &&
+			sameOrigin &&
 			e.button === 0 && // left click only
 			!e.metaKey && // open in new tab (mac)
 			!e.ctrlKey && // open in new tab (windows)
