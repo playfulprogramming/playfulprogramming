@@ -8,14 +8,16 @@ import {
 	cleanup,
 } from "@testing-library/preact";
 import SearchPage from "./search-page";
-import type { ServerReturnType } from "./types";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { MockCanonicalPost, MockPost } from "../../../__mocks__/data/mock-post";
 import userEvent from "@testing-library/user-event";
 import { MockCollection } from "../../../__mocks__/data/mock-collection";
 import { MockPerson, MockPersonTwo } from "../../../__mocks__/data/mock-person";
-import { buildSearchQuery } from "./search";
+import { buildSearchQuery } from "src/views/search/search";
+import { PersonInfo } from "types/PersonInfo";
+import { PostInfo } from "types/PostInfo";
+import { CollectionInfo } from "types/CollectionInfo";
 
 const user = userEvent.setup();
 
@@ -33,37 +35,158 @@ beforeEach(() => {
 
 afterAll(() => server.close());
 
-function mockFetch(fn: (searchStr: string) => ServerReturnType) {
+interface FnReply {
+	people: PersonInfo[];
+	posts: PostInfo[];
+	totalPosts: number;
+	totalCollections: number;
+	collections: CollectionInfo[];
+}
+
+function mockFetch(fn: (searchStr: string) => FnReply) {
 	server.use(
-		http.get(`*/api/search`, async ({ request }) => {
+		http.post(
+			`https://cloud.orama.run/v1/indexes/playful-programming-collections-oksaw0/search`,
+			async ({ request }) => {
+				const searchString = new URL(request.url).searchParams.get("query")!;
+				const res = fn(searchString);
+				const count = res.totalCollections;
+				let id = 1;
+				const hits =
+					res.collections.map((collection) => {
+						return {
+							id: ++id,
+							score: 2,
+							document: collection,
+						};
+					}) || [];
+				return HttpResponse.json({
+					hits,
+					count,
+					elapsed: { raw: 0, formatted: "0ms" },
+				});
+			},
+		),
+		http.post(
+			`https://cloud.orama.run/v1/indexes/playful-programming-p9lpvl/search`,
+			async ({ request }) => {
+				const searchString = new URL(request.url).searchParams.get("query")!;
+				const res = fn(searchString);
+				const count = res.totalPosts;
+				let id = 1;
+				const hits =
+					res.posts.map((post) => {
+						return {
+							id: ++id,
+							score: 2,
+							document: post,
+						};
+					}) || [];
+				return HttpResponse.json({
+					hits,
+					count,
+					elapsed: { raw: 0, formatted: "0ms" },
+				});
+			},
+		),
+		http.get(`*/peopleIndex.json`, async ({ request }) => {
 			const searchString = new URL(request.url).searchParams.get("query")!;
-			return HttpResponse.json(fn(searchString));
+			const res = fn(searchString);
+			return HttpResponse.json({
+				people: res.people,
+			});
 		}),
 	);
 }
 
 function mockFetchWithStatus(
 	status: number,
-	fn: (searchStr: string) => unknown,
+	fn: (searchStr: string) => FnReply,
 ) {
 	server.use(
-		http.get(`*/api/search`, async ({ request }) => {
+		http.post(
+			`https://cloud.orama.run/v1/indexes/playful-programming-collections-oksaw0/search`,
+			async ({ request }) => {
+				const searchString = new URL(request.url).searchParams.get("query")!;
+				const res = fn(searchString);
+				const count = res.totalCollections;
+				let id = 1;
+				const hits =
+					res.collections.map((collection) => {
+						return {
+							id: ++id,
+							score: 2,
+							document: collection,
+						};
+					}) || [];
+				return HttpResponse.json(
+					{
+						hits,
+						count,
+						elapsed: { raw: 0, formatted: "0ms" },
+					},
+					{ status },
+				);
+			},
+		),
+		http.post(
+			`https://cloud.orama.run/v1/indexes/playful-programming-p9lpvl/search`,
+			async ({ request }) => {
+				const searchString = new URL(request.url).searchParams.get("query")!;
+				const res = fn(searchString);
+				const count = res.totalPosts;
+				let id = 1;
+				const hits =
+					res.posts.map((post) => {
+						return {
+							id: ++id,
+							score: 2,
+							document: post,
+						};
+					}) || [];
+				return HttpResponse.json(
+					{
+						hits,
+						count,
+						elapsed: { raw: 0, formatted: "0ms" },
+					},
+					{ status },
+				);
+			},
+		),
+		http.get(`*/peopleIndex.json`, async ({ request }) => {
 			const searchString = new URL(request.url).searchParams.get("query")!;
-			return HttpResponse.json({ body: fn(searchString) }, { status });
+			const res = fn(searchString);
+			return HttpResponse.json(
+				{
+					people: res.people,
+				},
+				{ status },
+			);
 		}),
 	);
 }
 
 describe("Search page", () => {
-	test("Should show initial results", () => {
+	test("Should show initial results", async () => {
+		mockFetch(() => ({
+			people: [],
+			posts: [],
+			totalPosts: 0,
+			totalCollections: 0,
+			collections: [],
+		}));
+
 		const { getByText } = render(<SearchPage />);
 
-		expect(getByText("What would you like to find?")).toBeInTheDocument();
+		await waitFor(() =>
+			expect(getByText("What would you like to find?")).toBeInTheDocument(),
+		);
 	});
 
 	test("Should show search results for posts", async () => {
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [MockPost],
 			totalPosts: 1,
 			totalCollections: 0,
@@ -79,7 +202,7 @@ describe("Search page", () => {
 
 	test("Should show search results for collections", async () => {
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [],
 			totalPosts: 0,
 			totalCollections: 1,
@@ -96,9 +219,13 @@ describe("Search page", () => {
 	});
 
 	test("Should show error screen when 500", async () => {
-		mockFetchWithStatus(500, () => ({
-			error: "There was an error fetching your search results.",
-		}));
+		mockFetchWithStatus(
+			500,
+			() =>
+				({
+					error: "There was an error fetching your search results.",
+				}) as never,
+		);
 		const { getByText, getByTestId } = render(<SearchPage />);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockPost.title);
@@ -112,7 +239,7 @@ describe("Search page", () => {
 
 	test("Should show 'nothing found'", async () => {
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [],
 			totalPosts: 0,
 			totalCollections: 0,
@@ -130,7 +257,7 @@ describe("Search page", () => {
 
 	test("Remove collections header when none found", async () => {
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [MockPost],
 			totalPosts: 1,
 			totalCollections: 0,
@@ -149,7 +276,7 @@ describe("Search page", () => {
 
 	test("Remove posts header when none found", async () => {
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [],
 			totalPosts: 0,
 			totalCollections: 1,
@@ -168,7 +295,7 @@ describe("Search page", () => {
 
 	test("Filter by tag works on desktop sidebar", async () => {
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [
 				{ ...MockPost, tags: ["Angular"], title: "One blog post" },
 				{ ...MockCanonicalPost, tags: [], title: "Two blog post" },
@@ -198,10 +325,7 @@ describe("Search page", () => {
 
 	test("Filter by author works on desktop sidebar", async () => {
 		mockFetch(() => ({
-			people: {
-				[MockPerson.id]: MockPerson,
-				[MockPersonTwo.id]: MockPersonTwo,
-			},
+			people: [MockPerson, MockPersonTwo],
 			posts: [
 				{
 					...MockPost,
@@ -241,7 +365,7 @@ describe("Search page", () => {
 
 	test("Filter by content type work on radio group buttons", async () => {
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [{ ...MockPost, title: "One blog post" }],
 			totalPosts: 1,
 			totalCollections: 1,
@@ -281,10 +405,10 @@ describe("Search page", () => {
 	});
 
 	test("Sort by date works on desktop radio group buttons", async () => {
-		global.innerWidth = 2000;
+		(global as { innerWidth: number }).innerWidth = 2000;
 
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [
 				{
 					...MockPost,
@@ -340,9 +464,9 @@ describe("Search page", () => {
 	});
 
 	test("Sort by date works on mobile radio group buttons", async () => {
-		global.innerWidth = 500;
+		(global as { innerWidth: number }).innerWidth = 500;
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [
 				{
 					...MockPost,
@@ -400,7 +524,7 @@ describe("Search page", () => {
 	test("Pagination - Changing pages to page 2 shows second page of results", async () => {
 		// 6 posts per page
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [
 				{ ...MockPost, slug: `blog-post-1`, title: "One blog post" },
 				{ ...MockPost, slug: `blog-post-2`, title: "Two blog post" },
@@ -460,13 +584,10 @@ describe("Search page", () => {
 	});
 
 	test("Pagination - Filters impact pagination", async () => {
-		global.innerWidth = 2000;
+		(global as { innerWidth: number }).innerWidth = 2000;
 		// 6 posts per page
 		mockFetch(() => ({
-			people: {
-				[MockPerson.id]: MockPerson,
-				[MockPersonTwo.id]: MockPersonTwo,
-			},
+			people: [MockPerson, MockPersonTwo],
 			posts: [
 				{
 					...MockPost,
@@ -594,7 +715,7 @@ describe("Search page", () => {
 	// Search page, sort order, etc
 	test("Make sure that initial search props are not thrown away", async () => {
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [
 				{
 					...MockPost,
@@ -749,13 +870,10 @@ describe("Search page", () => {
 	});
 
 	test("Make sure that complete re-renders preserve tags, authors, etc", async () => {
-		global.innerWidth = 2000;
+		(global as { innerWidth: number }).innerWidth = 2000;
 
 		mockFetch(() => ({
-			people: {
-				[MockPerson.id]: MockPerson,
-				[MockPersonTwo.id]: MockPersonTwo,
-			},
+			people: [MockPerson, MockPersonTwo],
 			posts: [
 				{
 					...MockPost,
@@ -818,7 +936,7 @@ describe("Search page", () => {
 
 	test("Make sure that re-searches reset page to 1 and preserve tags, authors, etc", async () => {
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [
 				{
 					...MockPost,
@@ -971,7 +1089,7 @@ describe("Search page", () => {
 
 	test("Make sure that re-searches to empty string reset page, tags, authors, etc", async () => {
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [
 				{
 					...MockPost,
@@ -1124,7 +1242,7 @@ describe("Search page", () => {
 
 	test("Back button should show last query", async () => {
 		mockFetch(() => ({
-			people: {},
+			people: [],
 			posts: [],
 			totalPosts: 0,
 			totalCollections: 0,

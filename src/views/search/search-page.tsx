@@ -115,6 +115,9 @@ function SearchPageBase() {
 		initialData: {
 			people: [] as PersonInfo[],
 		},
+		refetchOnWindowFocus: false,
+		retry: false,
+		enabled,
 	});
 
 	const {
@@ -409,7 +412,7 @@ function SearchPageBase() {
 								description={"Please adjust your query or your active filters!"}
 							/>
 						)}
-						{isError && !isContentLoading && (
+						{isError && (
 							<SearchHero
 								imageSrc={scaredUnicorn.src}
 								imageAlt={""}
