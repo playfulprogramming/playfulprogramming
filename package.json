@@ -79,7 +79,6 @@
 		"eslint-plugin-astro": "^1.2.2",
 		"eslint-plugin-jsx-a11y": "^6.7.1",
 		"feed": "^4.2.2",
-		"fuse.js": "^7.0.0",
 		"git-branch": "^2.0.1",
 		"gray-matter": "^4.0.3",
 		"hast-util-from-html": "^2.0.1",
