@@ -115,7 +115,8 @@ export function getHrefContainerProps(href: string) {
 	if (
 		typeof process !== "undefined" &&
 		typeof process?.versions !== "undefined" &&
-		process.versions?.node
+		process.versions?.node &&
+		!globalThis["inTestSuite" as never]
 	) {
 		// if running in NodeJS (Astro), return string props
 		return {

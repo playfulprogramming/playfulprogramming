@@ -1,13 +1,11 @@
 /* eslint-disable no-var */
+import { beforeAll, beforeEach, test, describe, expect } from "vitest";
 import {
-	fireEvent,
 	findByText as findByTextFrom,
 	queryByText as queryByTextFrom,
 	render,
 	waitFor,
 	cleanup,
-	queryByText,
-	getByTestId,
 } from "@testing-library/preact";
 import SearchPage from "./search-page";
 import type { ServerReturnType } from "./types";
@@ -16,11 +14,8 @@ import { setupServer } from "msw/node";
 import { MockCanonicalPost, MockPost } from "../../../__mocks__/data/mock-post";
 import userEvent from "@testing-library/user-event";
 import { MockCollection } from "../../../__mocks__/data/mock-collection";
-import {
-	MockPerson,
-	MockPersonTwo,
-} from "../../../__mocks__/data/mock-person";
-import { buildSearchQuery } from "src/views/search/search";
+import { MockPerson, MockPersonTwo } from "../../../__mocks__/data/mock-person";
+import { buildSearchQuery } from "./search";
 
 const user = userEvent.setup();
 
@@ -40,7 +35,7 @@ afterAll(() => server.close());
 
 function mockFetch(fn: (searchStr: string) => ServerReturnType) {
 	server.use(
-		http.get(`/api/search`, async ({ request }) => {
+		http.get(`*/api/search`, async ({ request }) => {
 			const searchString = new URL(request.url).searchParams.get("query")!;
 			return HttpResponse.json(fn(searchString));
 		}),
@@ -52,7 +47,7 @@ function mockFetchWithStatus(
 	fn: (searchStr: string) => unknown,
 ) {
 	server.use(
-		http.get(`/api/search`, async ({ request }) => {
+		http.get(`*/api/search`, async ({ request }) => {
 			const searchString = new URL(request.url).searchParams.get("query")!;
 			return HttpResponse.json({ body: fn(searchString) }, { status });
 		}),
