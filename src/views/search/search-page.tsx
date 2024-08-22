@@ -38,9 +38,9 @@ import {
 	SortType,
 } from "./search";
 import { SearchResultCount } from "./components/search-result-count";
-import { ServerReturnType } from "./types";
-import { CollectionInfo } from "types/CollectionInfo";
 import { isDefined } from "utils/is-defined";
+import { searchForTerm } from "./orama";
+import { PersonInfo } from "types/PersonInfo";
 
 const MAX_POSTS_PER_PAGE = 6;
 
@@ -94,42 +94,72 @@ function SearchPageBase() {
 	 */
 	const enabled = !!debouncedSearch;
 
-	const { isLoading, isFetching, isError, error, data, refetch } = useQuery({
+	const {
+		isLoading: isLoadingPeople,
+		isFetching: isFetchingPeople,
+		isError: isErrorPeople,
+		error: errorPeople,
+		data: people,
+	} = useQuery({
+		queryFn: async ({ signal }) => {
+			return fetch("/peopleIndex.json", { signal, method: "GET" }).then(
+				(res) => {
+					if (!res.ok) {
+						return res.text().then((text) => Promise.reject(text));
+					}
+					return res.json() as Promise<{ people: PersonInfo[] }>;
+				},
+			);
+		},
+		queryKey: ["people"],
+		initialData: {
+			people: [] as PersonInfo[],
+		},
+	});
+
+	const {
+		isLoading: isLoadingData,
+		isFetching: isFetchingData,
+		isError: isErrorData,
+		error: errorData,
+		data,
+		refetch,
+	} = useQuery({
 		queryFn: ({ signal }) => {
 			// Analytics go brr
 			plausible &&
 				plausible("search", { props: { searchVal: debouncedSearch } });
 
-			return fetch(`/api/search?query=${debouncedSearch}`, {
-				signal: signal,
-				method: "GET",
-			}).then((res) => {
-				if (!res.ok) {
-					return res.text().then((text) => Promise.reject(text));
-				}
-				return res.json() as Promise<ServerReturnType>;
-			});
+			return searchForTerm(debouncedSearch, signal);
 		},
 		queryKey: ["search", debouncedSearch],
 		initialData: {
-			people: {},
 			posts: [],
 			totalPosts: 0,
 			collections: [],
 			totalCollections: 0,
-		} as ServerReturnType,
+		},
 		refetchOnWindowFocus: false,
 		retry: false,
 		enabled,
 	});
 
-	useEffect(() => {
-		if (error) {
-			console.error("There was an error", { error });
-		}
-	}, [error]);
+	const isError = isErrorPeople || isErrorData;
 
-	const isContentLoading = isLoading || isFetching;
+	useEffect(() => {
+		if (errorPeople) {
+			console.error("There was an error", { error: errorPeople });
+		}
+	}, [errorPeople]);
+
+	useEffect(() => {
+		if (errorData) {
+			console.error("There was an error", { error: errorData });
+		}
+	}, [errorData]);
+
+	const isContentLoading =
+		isLoadingData || isFetchingData || isLoadingPeople || isFetchingPeople;
 
 	const setSelectedPeople = useCallback(
 		(authors: string[]) => {
@@ -165,8 +195,8 @@ function SearchPageBase() {
 	);
 
 	const peopleMap = useMemo(() => {
-		return new Map(Object.entries(data.people));
-	}, [data.people]);
+		return new Map(Object.entries(people.people));
+	}, [people.people]);
 
 	const showArticles = query.display === "all" || query.display === "articles";
 
@@ -216,7 +246,7 @@ function SearchPageBase() {
 		});
 	}, [data, query.sort, query.filterTags, query.filterAuthors]);
 
-	const filteredAndSortedCollections: CollectionInfo[] = useMemo(() => {
+	const filteredAndSortedCollections = useMemo(() => {
 		const collections = [...data.collections];
 
 		if (query.sort !== "relevance") {

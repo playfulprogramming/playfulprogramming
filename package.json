@@ -22,7 +22,6 @@
 	"scripts": {
 		"debug": "env-cmd -f ./src/environments/debug.env astro dev --experimental-integrations",
 		"dev": "env-cmd -f ./src/environments/dev.env astro dev --experimental-integrations",
-		"dev:vercel": "env-cmd -f ./src/environments/dev.env vercel dev",
 		"start": "astro dev --experimental-integrations",
 		"build": "npm-run-all --parallel search-index epub social-previews:build && astro build --experimental-integrations",
 		"build:debug": "env-cmd -f ./src/environments/debug.env astro build --experimental-integrations",
@@ -66,7 +65,6 @@
 		"@types/uuid": "^10.0.0",
 		"@typescript-eslint/eslint-plugin": "^7.14.1",
 		"@typescript-eslint/parser": "^7.14.1",
-		"@vercel/node": "^3.1.7",
 		"astro": "^4.11.1",
 		"astro-icon": "^1.1.0",
 		"autoprefixer": "^10.4.15",
@@ -128,7 +126,6 @@
 		"unist-util-find-all-after": "^5.0.0",
 		"unist-util-is": "^6.0.0",
 		"unist-util-visit": "^5.0.0",
-		"vercel": "^34.2.7",
 		"vfile": "^6.0.1",
 		"vite-tsconfig-paths": "^5.0.1",
 		"vitest": "^2.0.5"
@@ -138,6 +135,7 @@
 		"*.{js,ts,astro,jsx}": "prettier --write"
 	},
 	"dependencies": {
+		"@oramacloud/client": "^1.3.13",
 		"@tanstack/react-query": "^5.45.1",
 		"medium-zoom": "^1.0.8",
 		"preact": "10.23.2",

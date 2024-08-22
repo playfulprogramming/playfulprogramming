@@ -44,3 +44,12 @@ fs.writeFileSync(
 	path.resolve(process.cwd(), "./public/searchIndex.json"),
 	json,
 );
+
+const people = api.getPeopleByLang("en");
+
+fs.writeFileSync(
+	path.resolve(process.cwd(), "./public/peopleIndex.json"),
+	JSON.stringify({
+		people,
+	}),
+);
