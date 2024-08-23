@@ -1,5 +1,5 @@
 {
-  "name": "@playfulprogramming/value-percentage",
+  "name": "@playfulprogramming/relative-values",
   "private": true,
   "scripts": {
     "start": "http-server src"
