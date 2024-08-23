@@ -61,6 +61,7 @@
 .option {
 	background: unset;
 	border: unset;
+	outline: none;
 	display: flex;
 	gap: var(--popup_item_gap);
 	align-items: center;
@@ -68,10 +69,13 @@
 	min-height: var(--popup_item_min-height);
 	border-radius: var(--popup_item_corner-radius);
 	min-width: var(--popup_min-width);
+
+	@include transition(background-color);
 }
 
-.option:focus-visible {
+.option[data-focus-visible="true"] {
 	background-color: var(--popup_item_background-color_focused);
+	outline: var(--border-width_focus) solid var(--focus-outline_primary);
 }
 
 .option.selected {

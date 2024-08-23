@@ -8,17 +8,10 @@ import File from "./File.vue";
 <template>
 	<ul>
 		<li>
-			<File
-				fileName="File one"
-				href="/file/file_one"
-			/>
+			<File fileName="File one" href="/file/file_one" />
 		</li>
-    <li>
-      <File
-        fileName="Folder one"
-        href="/file/folder_one/"
-        :isFolder="true"
-      />
-    </li>
+		<li>
+			<File fileName="Folder one" href="/file/folder_one/" :isFolder="true" />
+		</li>
 	</ul>
 </template>

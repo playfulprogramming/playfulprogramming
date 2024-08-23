@@ -117,7 +117,7 @@ Luckily, by using frameworks, this mental model can be reflected in real code!
 
 Let's look at what `<file>` might look like in each framework:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -160,7 +160,7 @@ React.createElement("div", null, aTag);
 
 ## Angular
 
-```typescript
+```angular-ts
 import { Component } from "@angular/core";
 
 @Component({
@@ -206,7 +206,7 @@ Each Vue component uses an individual `.vue` file to contain its layout, styling
 
 While this SFC looks precisely like standard HTML with nothing special added, that will quickly change as we learn more about Vue.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 These are called "components." Components have various aspects to them, which we'll learn about throughout the course of this book.
 
@@ -233,7 +233,7 @@ Traditionally, when you build out a website with just HTML, you'd define an `ind
 
 Similarly, all apps built with React, Angular, and Vue start with an `index.html` file.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -270,15 +270,15 @@ Similarly, all apps built with React, Angular, and Vue start with an `index.html
 </html>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Then, in JavaScript, you "render" a component into an element that acts as the "root" injection site for your framework to build your UI around.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
-```jsx {0,12}
+```jsx {1,13}
 import { createRoot } from "react-dom/client";
 
 const File = () => {
@@ -294,13 +294,13 @@ const File = () => {
 createRoot(document.getElementById("root")).render(<File />);
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Rendering - StackBlitz" src="uu-code:./ffg-fundamentals-react-rendering-1?template=node&embed=1&file=src%2Fmain.jsx&terminal=dev"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Rendering - StackBlitz" src="pfp-code:./ffg-fundamentals-react-rendering-1?template=node&embed=1&file=src%2Fmain.jsx&terminal=dev"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript {1,14}
+```angular-ts {2,15}
 import { Component } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 
@@ -318,9 +318,9 @@ class FileComponent {}
 bootstrapApplication(FileComponent);
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Rendering - StackBlitz" src="uu-code:./ffg-fundamentals-angular-rendering-1?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Rendering - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-1?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -337,7 +337,7 @@ Because Vue's components all live within dedicated `.vue` SFCs, we have to use t
 
 Then, we can import this into our main JavaScript file:
 
-```javascript {1,4}
+```javascript {2,5}
 // main.js
 import { createApp } from "vue";
 import File from "./File.vue";
@@ -345,11 +345,11 @@ import File from "./File.vue";
 createApp(File).mount("#root");
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Rendering - StackBlitz" src="uu-code:./ffg-fundamentals-vue-rendering-1?template=node&embed=1&file=src%2Fmain.js"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Rendering - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-rendering-1?template=node&embed=1&file=src%2Fmain.js"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Once a component is rendered, you can do a lot more with it!
 
@@ -359,11 +359,11 @@ For example, just like [nodes in the DOM]() have relationships, so too can compo
 
 While our `File` component currently contains HTML elements, components may also contain other components!
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
-```jsx {10-18}
+```jsx {11-19}
 const File = () => {
 	return (
 		<div>
@@ -385,13 +385,13 @@ const FileList = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Parent/Child - StackBlitz" src="uu-code:./ffg-fundamentals-react-parent-child-2?template=node&embed=1&file=src%2Fmain.jsx&terminal=dev"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Parent/Child - StackBlitz" src="pfp-code:./ffg-fundamentals-react-parent-child-2?template=node&embed=1&file=src%2Fmain.jsx&terminal=dev"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript {11-21}
+```angular-ts {12-22}
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -416,9 +416,9 @@ class FileComponent {}
 class FileListComponent {}
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Parent/Child - StackBlitz" src="uu-code:./ffg-fundamentals-angular-parent-child-2?template=node&embed=1&file=src%2Fmain.ts,src%2Findex.html"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Parent/Child - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-parent-child-2?template=node&embed=1&file=src%2Fmain.ts,src%2Findex.html"></iframe>
+<!-- ::end:no-ebook -->
 
 Notice how we've told our `FileListComponent` to `import` `FileComponent` by passing it the `imports` array.
 
@@ -450,9 +450,9 @@ import File from "./File.vue";
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Parent/Child - StackBlitz" src="uu-code:./ffg-fundamentals-vue-parent-child-2?template=node&embed=1&file=src%2FFileList.vue&terminal=dev"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Parent/Child - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-parent-child-2?template=node&embed=1&file=src%2FFileList.vue&terminal=dev"></iframe>
+<!-- ::end:no-ebook -->
 
 We can `import` and use our component immediately because any variable we expose inside of `<script setup>` is automatically available in the `<template>` portion of our SFC.
 
@@ -462,11 +462,11 @@ We must import all the components we'll use in our parent component! Otherwise, 
 
 > Failed to resolve component: file
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Looking through our `File` component, we'll notice that we're rendering multiple elements inside a single component. Funnily enough, this has the fun side effect that we can also render multiple components inside a parent component.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -488,13 +488,13 @@ const FileList = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Component Reuse - StackBlitz" src="uu-code:./ffg-fundamentals-react-component-reuse-3?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Component Reuse - StackBlitz" src="pfp-code:./ffg-fundamentals-react-component-reuse-3?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-list",
 	standalone: true,
@@ -510,9 +510,9 @@ const FileList = () => {
 class FileListComponent {}
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Component Reuse - StackBlitz" src="uu-code:./ffg-fundamentals-angular-component-reuse-3?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Component Reuse - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-component-reuse-3?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -531,11 +531,11 @@ import File from "./File.vue";
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Component Reuse - StackBlitz" src="uu-code:./ffg-fundamentals-vue-component-reuse-3?template=node&embed=1&file=src%2FFileList.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Component Reuse - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-component-reuse-3?template=node&embed=1&file=src%2FFileList.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This is a handy feature of components. It allows you to reuse aspects of your structure (and styling + logic, but I'm getting ahead of myself) without repeating yourself. It allows for a very DRY architecture where your code is declared once and reused elsewhere.
 
@@ -549,11 +549,11 @@ This means that the related `File` components are "siblings" of one another, eac
 
 We can extend this hierarchical relationship to have "grandchildren" and beyond as well:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
-```jsx {0-2,4-14,19}
+```jsx {1-3,5-15,20}
 const FileDate = () => {
 	return <span>12/03/21</span>;
 };
@@ -586,13 +586,13 @@ const FileList = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Component Hierarchy - StackBlitz" src="uu-code:./ffg-fundamentals-react-component-hierarchy-4?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Component Hierarchy - StackBlitz" src="pfp-code:./ffg-fundamentals-react-component-hierarchy-4?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript {0-5,10,13,22,25}
+```angular-ts {1-6,11,14,23,26}
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -627,9 +627,9 @@ class FileComponent {}
 class FileListComponent {}
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Component Hierarchy - StackBlitz" src="uu-code:./ffg-fundamentals-angular-component-hierarchy-4?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Component Hierarchy - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-component-hierarchy-4?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -668,11 +668,11 @@ import File from "./File.vue";
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Component Hierarchy - StackBlitz" src="uu-code:./ffg-fundamentals-vue-component-hierarchy-4?template=node&embed=1&file=src%2FFileList.vue,src%2FFile.vue,src%2FFileDate.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Component Hierarchy - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-component-hierarchy-4?template=node&embed=1&file=src%2FFileList.vue,src%2FFile.vue,src%2FFileDate.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Logic {#logic}
 
@@ -688,7 +688,7 @@ Let's look at how we can declare logic in a component by making `file-date` show
 
 We'll start by adding a variable containing the current date in a human-readable string of `MM/DD/YY`.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -702,13 +702,13 @@ const FileDate = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Inline Logic - StackBlitz" src="uu-code:./ffg-fundamentals-react-inline-logic-5?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Inline Logic - StackBlitz" src="pfp-code:./ffg-fundamentals-react-inline-logic-5?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -721,9 +721,9 @@ class FileDateComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Inline Logic - StackBlitz" src="uu-code:./ffg-fundamentals-angular-inline-logic-5?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Inline Logic - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-inline-logic-5?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -740,11 +740,11 @@ const dateStr = `${
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Inline Logic - StackBlitz" src="uu-code:./ffg-fundamentals-vue-inline-logic-5?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Inline Logic - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-inline-logic-5?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 > We're not using this new `dateStr` variable yet. This is intentional; we'll use it here shortly.
 
@@ -761,11 +761,11 @@ function formatDate() {
 }
 ```
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
-```jsx {0-7, 10}
+```jsx {1-8,11}
 function formatDate() {
 	const today = new Date();
 	// Month starts at 0, annoyingly
@@ -781,15 +781,15 @@ const FileDate = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Extracted Logic - StackBlitz" src="uu-code:./ffg-fundamentals-react-extracted-logic-6?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Extracted Logic - StackBlitz" src="pfp-code:./ffg-fundamentals-react-extracted-logic-6?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 > Because React can easily access functions outside the component declaration, we decided to move it outside the component scope. This allows us to avoid re-declaring this function in every render, which the other frameworks don't do, thanks to different philosophies.
 
 ## Angular
 
-```typescript {6,8-15}
+```angular-ts {7,9-16}
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -809,13 +809,13 @@ class FileDateComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Extracted Logic - StackBlitz" src="uu-code:./ffg-fundamentals-angular-extracted-logic-6?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Extracted Logic - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-extracted-logic-6?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Vue
 
-```vue {2-9,11}
+```vue {3-10,12}
 <!-- FileDate.vue -->
 <script setup>
 function formatDate() {
@@ -835,21 +835,21 @@ const dateStr = formatDate();
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Extracted Logic - StackBlitz" src="uu-code:./ffg-fundamentals-vue-extracted-logic-6?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Extracted Logic - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-extracted-logic-6?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Intro to Side Effects {#side-effects}
 
 Let's verify that our `formatDate` method outputs the correct value by telling our components, "Once you're rendered on screen, `console.log` the value of that data."
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {0,14-16}
+```jsx {1,15-17}
 import { useEffect } from "react";
 
 function formatDate() {
@@ -872,13 +872,13 @@ const FileDate = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Side Effect Intro - StackBlitz" src="uu-code:./ffg-fundamentals-react-side-effect-intro-7?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Side Effect Intro - StackBlitz" src="pfp-code:./ffg-fundamentals-react-side-effect-intro-7?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript {0,7,10-12}
+```angular-ts {1,8,11-13}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -904,13 +904,13 @@ class FileDateComponent implements OnInit {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Side Effect Intro - StackBlitz" src="uu-code:./ffg-fundamentals-angular-side-effect-intro-7?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Side Effect Intro - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-side-effect-intro-7?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Vue
 
-```vue {2,15-17}
+```vue {3,16-18}
 <!-- FileDate.vue -->
 <script setup>
 import { onMounted } from "vue";
@@ -936,11 +936,11 @@ onMounted(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Side Effect Intro - StackBlitz" src="uu-code:./ffg-fundamentals-vue-side-effect-intro-7?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Side Effect Intro - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-side-effect-intro-7?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Here, we're telling each respective framework to log the value of `dateStr` to the console once the component is rendered for the first time.
 
@@ -952,7 +952,7 @@ For example, let's say you want to show `dateStr` to a user, but later in the da
 
 While the method each framework uses to tell _when_ to re-render is different, they all have a highly stable method of doing so.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 This feature is arguably the most significant advantage of building an application with one of these frameworks.
 
@@ -964,11 +964,11 @@ Speaking of updating data on-screen - let's look at how we can dynamically displ
 
 While displaying the value in the console works well for debugging, it's not much help to the user. After all, more than likely, your users won't know what a console even is. Let's show `dateStr` on-screen
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {12}
+```jsx {13}
 function formatDate() {
 	const today = new Date();
 	// Month starts at 0, annoyingly
@@ -985,13 +985,13 @@ const FileDate = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Display - StackBlitz" src="uu-code:./ffg-fundamentals-react-display-8?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Display - StackBlitz" src="pfp-code:./ffg-fundamentals-react-display-8?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript {3}
+```angular-ts {4}
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -1011,15 +1011,15 @@ class FileDateComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Display - StackBlitz" src="uu-code:./ffg-fundamentals-angular-display-8?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Display - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-display-8?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 Every class property inside the component instance is usable inside the `@Component`'s `template`.
 
 ### Vue
 
-```vue {17}
+```vue {18}
 <!-- FileDate.vue -->
 <script setup>
 import { onMounted } from "vue";
@@ -1041,13 +1041,13 @@ const dateStr = formatDate();
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Display - StackBlitz" src="uu-code:./ffg-fundamentals-vue-display-8?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Display - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-display-8?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
+<!-- ::end:no-ebook -->
 
 Here, we're using the fact that every variable inside of `<script setup>` is automatically exposed to our `<template>` code.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Here, we're using each framework's method of injecting the state into a component. For React, we'll use the `{}` syntax to interpolate JavaScript into the template, while Vue and Angular both rely on `{{}}` syntax.
 
@@ -1073,7 +1073,7 @@ setTimeout(() => {
 
 Let's see what that looks like in practice for each framework:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1081,7 +1081,7 @@ In the pseudocode sample we wrote before, we update the value of `dateStr` and t
 
 In React, we use a single line of code to do both and have a special `useState` method to tell React what data needs changing.
 
-```jsx {13-20}
+```jsx {14-21}
 import { useState, useEffect } from "react";
 
 function formatDate(inputDate) {
@@ -1108,9 +1108,9 @@ const FileDate = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Live Display - StackBlitz" src="uu-code:./ffg-fundamentals-react-live-display-9?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Live Display - StackBlitz" src="pfp-code:./ffg-fundamentals-react-live-display-9?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 `useState` is what React uses to store data that the developer wants to persist between renders. Its first argument (that we're passing a string into) sets the initial value.
 
@@ -1176,7 +1176,7 @@ While React takes a very explicit method of telling the framework when to re-ren
 
 All it takes in Angular to trigger a re-render is to update a variable's value:
 
-```typescript {10-16}
+```angular-ts {11-17}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1205,15 +1205,15 @@ class FileDateComponent implements OnInit {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Live Display - StackBlitz" src="uu-code:./ffg-fundamentals-angular-live-display-9?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Live Display - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-live-display-9?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Vue
 
 Similar to how React has `useState` in order to set data in a component, Vue introduces an API called `ref` in order to have data updates trigger a re-render.
 
-```vue {14-20}
+```vue {15-21}
 <!-- FileDate.vue -->
 <script setup>
 import { ref, onMounted } from "vue";
@@ -1242,13 +1242,13 @@ onMounted(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Live Display - StackBlitz" src="uu-code:./ffg-fundamentals-vue-live-display-9?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Live Display - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-live-display-9?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
+<!-- ::end:no-ebook -->
 
 > Notice how we're using `.value` to update the value inside of `<script>` but don't use `.value` inside of `<template>`. This isn't a mistake — it's just how Vue's `ref` works!
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 If you sit on these screens for a while, you'll see that they update automatically!
 
@@ -1266,11 +1266,11 @@ Just like each framework has a way to have state rendered into text on-screen, i
 
 Currently, our `date` component doesn't read out [particularly kindly to screen-readers](/posts/intro-to-web-accessibility) since it would only read out as numbers. Let's change that by adding an `aria-label` of a human-readable date to our `date` component.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {5}
+```jsx {6}
 const FileDate = () => {
 	const [dateStr, setDateStr] = useState(formatDate(new Date()));
 
@@ -1282,7 +1282,7 @@ const FileDate = () => {
 
 ### Angular
 
-```typescript {5}
+```angular-ts {6}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1299,7 +1299,7 @@ class FileDateComponent implements OnInit {
 
 ### Vue
 
-```vue {8}
+```vue {9}
 <!-- FileDate.vue -->
 <script setup>
 // ...
@@ -1312,7 +1312,7 @@ const dateStr = ref(formatDate(new Date()));
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now, [when we use a screen reader](/posts/intro-to-web-accessibility), it'll read out "January 10th" instead of "One dash ten".
 
@@ -1320,11 +1320,11 @@ However, while this may have worked before the `date` was dynamically formatted,
 
 Let's correct that by adding in a `formatReadableDate` method and reflect that in the attribute:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {25,29}
+```jsx {26,30}
 import { useState, useEffect } from "react";
 
 function formatReadableDate(inputDate) {
@@ -1372,15 +1372,15 @@ function dateSuffix(dayNumber) {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Attribute Binding - StackBlitz" src="uu-code:./ffg-fundamentals-react-attribute-binding-10?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Attribute Binding - StackBlitz" src="pfp-code:./ffg-fundamentals-react-attribute-binding-10?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 > Notice the `{}` used after the `=` to assign the attribute value. This is pretty similar to the syntax to interpolate text into the DOM!
 
 ### Angular
 
-```typescript {5,9}
+```angular-ts {6,10}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1431,9 +1431,9 @@ class FileDateComponent implements OnInit {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Attribute Binding - StackBlitz" src="uu-code:./ffg-fundamentals-angular-attribute-binding-10?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Attribute Binding - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-attribute-binding-10?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 > Unlike the `{{}}` that you'd use to bind text to the DOM, you use `[]` to bind attributes in Angular.
 >
@@ -1441,7 +1441,7 @@ class FileDateComponent implements OnInit {
 
 ### Vue
 
-```vue {40,46}
+```vue {41,47}
 <!-- FileDate.vue -->
 <script setup>
 // ...
@@ -1492,9 +1492,9 @@ const labelText = ref(formatReadableDate(new Date()));
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Attribute Binding - StackBlitz" src="uu-code:./ffg-fundamentals-vue-attribute-binding-10?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Attribute Binding - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-attribute-binding-10?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
+<!-- ::end:no-ebook -->
 
 > In Vue, `v-bind` has a shorter syntax that does the same thing. If you ax the `v-bind` and leave the `:`, it works the same way.
 >
@@ -1512,7 +1512,7 @@ const labelText = ref(formatReadableDate(new Date()));
 >
 > Both work to bind to an attribute in HTML.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 > This code isn't exactly what you might expect to see in production. If you're looking to write production code, you may want to look into [derived values](/posts/ffg-fundamentals-derived-values) to base the `labelText` and `date` values off of the same [`Date` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) directly. This would let you avoid calling `new Date` twice, but I'm getting ahead of myself - we'll touch on derived values in a future section.
 
@@ -1526,11 +1526,11 @@ Luckily for us, components accept arguments just like functions! These arguments
 
 Let's have the file name be an input to our `File` component:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
-```jsx {0-9,15}
+```jsx {1-10,16}
 const File = (props) => {
 	return (
 		<div>
@@ -1559,9 +1559,9 @@ const FileList = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Props - StackBlitz" src="uu-code:./ffg-fundamentals-react-props-11?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Props - StackBlitz" src="pfp-code:./ffg-fundamentals-react-props-11?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 > React uses an object to contain all properties that we want to pass to a component. We can use [parameter destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to get the properties without having to use `props` before the name of the parameter we really want, like so:
 >
@@ -1588,7 +1588,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {0,13,22}
+```angular-ts {1,14,23}
 import { Input, Component } from "@angular/core";
 
 @Component({
@@ -1620,9 +1620,9 @@ class FileComponent {
 class FileListComponent {}
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Props - StackBlitz" src="uu-code:./ffg-fundamentals-angular-props-11?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Props - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-props-11?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 > See? Told you we'd cover what `[]` would be used for. It's the same binding syntax as with attributes!
 >
@@ -1630,7 +1630,7 @@ class FileListComponent {}
 
 ## Vue
 
-```vue {4,9}
+```vue {5,10}
 <!-- File.vue -->
 <script setup>
 import FileDate from "./FileDate.vue";
@@ -1645,7 +1645,7 @@ const props = defineProps(["fileName"]);
 </template>
 ```
 
-```vue {7}
+```vue {8}
 <!-- FileList.vue -->
 <script setup>
 import File from "./File.vue";
@@ -1660,9 +1660,9 @@ import File from "./File.vue";
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Props - StackBlitz" src="uu-code:./ffg-fundamentals-vue-props-11?template=node&embed=1&file=src%2FFile.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Props - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-props-11?template=node&embed=1&file=src%2FFile.vue"></iframe>
+<!-- ::end:no-ebook -->
 
 > We don't need to import `defineProps`, instead, Vue uses some compiler magic to provide it as a globally accessible method.
 >
@@ -1674,7 +1674,7 @@ import File from "./File.vue";
 > <File v-bind:fileName="'File three'" />
 > ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Here, we can see each `File` being rendered with its own name.
 
@@ -1686,11 +1686,11 @@ It's exciting what progress we're making! But oh no - the links are still static
 
 Like functions, components can accept as many properties as you'd like to pass. Let's add another for `href`:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {0-9,15}
+```jsx {1-10,16}
 const File = ({ fileName, href }) => {
 	return (
 		<div>
@@ -1719,13 +1719,13 @@ const FileList = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Multi Props - StackBlitz" src="uu-code:./ffg-fundamentals-react-multi-props-12?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Multi Props - StackBlitz" src="pfp-code:./ffg-fundamentals-react-multi-props-12?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript {11-12,21}
+```angular-ts {12-13,22}
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -1758,13 +1758,13 @@ class FileComponent {
 class FileListComponent {}
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Multi Props - StackBlitz" src="uu-code:./ffg-fundamentals-angular-multi-props-12?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Multi Props - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-multi-props-12?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Vue
 
-```vue {4}
+```vue {5}
 <!-- File.vue -->
 <script setup>
 import FileDate from "./FileDate.vue";
@@ -1779,7 +1779,7 @@ const props = defineProps(["fileName", "href"]);
 </template>
 ```
 
-```vue {7}
+```vue {8}
 <!-- FileList.vue -->
 <script setup>
 import File from "./File.vue";
@@ -1794,11 +1794,11 @@ import File from "./File.vue";
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Multi Props - StackBlitz" src="uu-code:./ffg-fundamentals-vue-multi-props-12?template=node&embed=1&file=src%2FFile.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Multi Props - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-multi-props-12?template=node&embed=1&file=src%2FFile.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Object Passing {#obj-passing}
 
@@ -1808,11 +1808,11 @@ Input properties can be of any JavaScript type. This can include objects, string
 
 To showcase this, let's add the ability to pass a `Date` class instance to our `file-date` component. After all, each file in the list of our files will likely be created at different times.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {1-2,14}
+```jsx {2-3,15}
 const FileDate = ({ inputDate }) => {
 	const [dateStr, setDateStr] = useState(formatDate(inputDate));
 	const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
@@ -1834,13 +1834,13 @@ const File = ({ href, fileName }) => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Object Props - StackBlitz" src="uu-code:./ffg-fundamentals-react-object-props-13?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Object Props - StackBlitz" src="pfp-code:./ffg-fundamentals-react-object-props-13?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript {8,10-20,33,39}
+```angular-ts {9,11-21,34,40}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1886,9 +1886,9 @@ class FileComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Object Props - StackBlitz" src="uu-code:./ffg-fundamentals-angular-object-props-13?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Object Props - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-object-props-13?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 You'll notice that we had to move the logic to set the `dateStr` and `labelText` values to the `ngOnInit` method.
 This is because Angular doesn't allow you to access `@Input` values in the root (AKA the "constructor") of a component's class.
@@ -1898,7 +1898,7 @@ This is because Angular doesn't allow you to access `@Input` values in the root 
 
 ### Vue
 
-```vue {4}
+```vue {5}
 <!-- FileDate.vue -->
 <script setup>
 // ...
@@ -1916,7 +1916,7 @@ const labelText = ref(formatReadableDate(props.inputDate));
 </template>
 ```
 
-```vue {6,12}
+```vue {7,13}
 <!-- File.vue -->
 <script setup>
 import FileDate from "./FileDate.vue";
@@ -1936,11 +1936,11 @@ const inputDate = new Date();
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Object Props - StackBlitz" src="uu-code:./ffg-fundamentals-vue-object-props-13?template=node&embed=1&file=src%2FFile.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Object Props - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-object-props-13?template=node&embed=1&file=src%2FFile.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 > Once again, I have to add a minor asterisk next to this code sample. Right now, if you update the `inputDate` value after the initial render, it will not show the new date string in `FileDate`. This is because we're setting the value of `dateStr` and `labelText` only once and not updating the values.
 >
@@ -1954,7 +1954,7 @@ You must not mutate component prop values.
 
 For example, here's some code that **will not work as expected**:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1969,7 +1969,7 @@ const GenericList = ({ inputArray }) => {
 
 ### Angular
 
-```typescript
+```angular-ts
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -2008,7 +2008,7 @@ onMounted(() => {
 <!-- ... -->
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 You're not intended to mutate properties because it breaks two key concepts of application architecture with components:
 
@@ -2029,11 +2029,11 @@ Let's add an `isSelected` property to our `file` component to add hover styling 
 
 While we're at it, let's migrate our `File` component to use a `button` instead of a `div`. After all, [it's important for accessibility and SEO to use semantic elements to indicate what element is which in the DOM](/posts/intro-to-web-accessibility#html-semantic-tags).
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
-```jsx {1,4,9-14}
+```jsx {2,5,10-15}
 const File = ({ fileName }) => {
 	const [isSelected, setSelected] = useState(false);
 
@@ -2057,9 +2057,9 @@ const File = ({ fileName }) => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Event Binding - StackBlitz" src="uu-code:./ffg-fundamentals-react-event-binding-14?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Event Binding - StackBlitz" src="pfp-code:./ffg-fundamentals-react-event-binding-14?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 There are three major things of note in this code sample:
 
@@ -2079,7 +2079,7 @@ There are three major things of note in this code sample:
 
 ### Angular
 
-```typescript {6-11,19-23}
+```angular-ts {7-12,20-24}
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -2109,15 +2109,15 @@ class FileComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Event Binding - StackBlitz" src="uu-code:./ffg-fundamentals-angular-event-binding-14?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Event Binding - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-event-binding-14?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 Instead of the `[]` symbols to do input binding, we're using the `()` symbols to bind to any built-in browser name.
 
 ### Vue
 
-```vue {6-9,14-19}
+```vue {7-10,15-20}
 <!-- File.vue -->
 <script setup>
 import { ref } from "vue";
@@ -2149,9 +2149,9 @@ Here, we're binding the `style` property using Vue's binding. You may notice tha
 
 We're also using a [ternary statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) (`condition ? trueVal : falseVal`) to act as a single-line `if` statement to decide which style to use.
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Event Binding - StackBlitz" src="uu-code:./ffg-fundamentals-vue-event-binding-14?template=node&embed=1&file=src%2FFile.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Event Binding - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-event-binding-14?template=node&embed=1&file=src%2FFile.vue"></iframe>
+<!-- ::end:no-ebook -->
 
 We can use `v-on` bind prefix to bind a method to any event. This supports any built-in browser event name.
 
@@ -2169,7 +2169,7 @@ Can be rewritten into:
 <button @click="selectFile()"></button>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Outputs {#outputs}
 
@@ -2179,7 +2179,7 @@ The way this usually works is by passing data upwards via a custom event, much l
 
 While listening for a `click` event in our `File` component works well enough when we only have one file, it introduces some odd behavior with multiple files. Namely, it allows us to select more than one file at a time simply by clicking. Let's assume this isn't the expected behavior and instead emit a `selected` custom event to allow for only one selected file at a time.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2187,7 +2187,7 @@ React expects you to pass in a function as opposed to emitting an event and list
 
 This differs slightly from Vue and Angular but has the same fundamental idea of "sending data to a parent component."
 
-```jsx {2,6,20-28,33-38}
+```jsx {3,7,21-29,34-39}
 import { useState } from "react";
 
 const File = ({ href, fileName, isSelected, onSelected }) => {
@@ -2249,15 +2249,15 @@ const FileList = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Outputs - StackBlitz" src="uu-code:./ffg-fundamentals-react-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Outputs - StackBlitz" src="pfp-code:./ffg-fundamentals-react-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Angular
 
 Angular provides us a simple `@Output` decorator that enables us to `emit()` events from a child component up to the parent. This is fairly similar to how we pass _in_ data using an `@Input` decorator.
 
-```typescript {8,25,37-42,64,66-72}
+```angular-ts {9,26,38-43,65,67-73}
 import { Component, Input, EventEmitter, Output } from "@angular/core";
 
 @Component({
@@ -2334,15 +2334,15 @@ class FileListComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Outputs - StackBlitz" src="uu-code:./ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Outputs - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Vue
 
 Vue introduces the idea of an emitted event using the `defineEmits` global function:
 
-```vue {6,11}
+```vue {7,12}
 <!-- File.vue -->
 <script setup>
 // ...
@@ -2369,7 +2369,7 @@ const emit = defineEmits(["selected"]);
 
 > The `defineEmits` function does not need to be imported from `vue`, since Vue's compiler handles that for us.
 
-```vue {5,7-13,20}
+```vue {6,8-14,21}
 <!-- FileList.vue -->
 <script setup>
 import { ref } from "vue";
@@ -2416,11 +2416,11 @@ function onSelected(idx) {
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Outputs - StackBlitz" src="uu-code:./ffg-fundamentals-vue-outputs-15?template=node&embed=1&file=src%2FFile.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Outputs - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-outputs-15?template=node&embed=1&file=src%2FFile.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 > Keep in mind: This code isn't _quite_ production-ready. There are some accessibility concerns with this code and might require things like [`aria-selected`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected) and more to fix.
 
@@ -2450,7 +2450,7 @@ To do this, let's:
 
 Let's kick off this process by creating our `index.html` and a basic component to render:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2484,7 +2484,7 @@ createRoot(document.getElementById("root")).render(<Sidebar />);
 </html>
 ```
 
-```typescript
+```angular-ts
 import { Component } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 @Component({
@@ -2522,11 +2522,11 @@ createApp(Sidebar).mount("#root");
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now that we have an initial testbed for our component let's add a list of buttons with the names of the sidebar list items:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2560,7 +2560,7 @@ const Sidebar = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
@@ -2596,7 +2596,7 @@ class SidebarComponent {}
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This repeated `div` and `button` combo makes me think that we should extract each of these items to a component since we want to both:
 
@@ -2605,7 +2605,7 @@ This repeated `div` and `button` combo makes me think that we should extract eac
 
 Start by extracting the `div` and `button` to their own component, which we'll call `ExpandableDropdown`.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2635,7 +2635,7 @@ const Sidebar = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
@@ -2706,7 +2706,7 @@ const props = defineProps(["name"]);
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 We should now see a list of buttons with a name associated with each!
 
@@ -2720,7 +2720,7 @@ To start, we'll:
 - Pass the `expanded` property using an input
 - Display the value of `expanded` inside of our `ExpandableDropdown` component
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2765,7 +2765,7 @@ const Sidebar = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
@@ -2874,11 +2874,11 @@ const props = defineProps(["name", "expanded"]);
 
 > Remember to add our new `expanded` property name inside of `defineProps`! Otherwise, this component won't bind the value correctly.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Let's now add an output to allow our component to toggle the `expanded` input.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2941,7 +2941,7 @@ const Sidebar = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
@@ -3085,11 +3085,11 @@ const emit = defineEmits(["toggle"]);
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Finally, we can update our `ExpandableDropdown` component to hide and show the contents of the dropdown by using [an HTML attribute called "hidden".](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden) When this attribute is `true`, it will hide the contents, but when `false`, it will display them.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -3107,19 +3107,21 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 };
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Intro Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-intro-challenge-16?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<iframe data-frame-title="React Intro Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-react-intro-challenge-16?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 </details>
 
+<!-- ::end:no-ebook -->
+
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
@@ -3140,15 +3142,17 @@ class ExpandableDropdownComponent {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Intro Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-intro-challenge-16?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<iframe data-frame-title="Angular Intro Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-intro-challenge-16?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -3170,14 +3174,16 @@ const emit = defineEmits(["toggle"]);
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Intro Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-intro-challenge-16?template=node&embed=1&file=src%2FExpandableDropdown.vue"></iframe>
-<!-- no-ebook:end -->
+<iframe data-frame-title="Vue Intro Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-intro-challenge-16?template=node&embed=1&file=src%2FExpandableDropdown.vue"></iframe>
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:no-ebook -->
+
+<!-- ::end:tabs -->

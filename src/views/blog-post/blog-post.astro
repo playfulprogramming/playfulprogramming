@@ -5,7 +5,7 @@ import MailingList from "../../components/mailing-list/mailing-list.astro";
 import TranslationsHeader from "../base/translations/translations-header.astro";
 import BlogPostLayout from "./blog-post-layout/blog-post-layout.astro";
 import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
-import { Icon } from "astro-icon";
+import { Icon } from "astro-icon/components";
 
 import type { MarkdownInstance } from "astro";
 import {
@@ -13,7 +13,7 @@ import {
 	LicenseInfo,
 	PostInfo,
 	PostHeadingInfo,
-	UnicornInfo,
+	PersonInfo,
 } from "types/index";
 
 import { siteMetadata } from "constants/site-config";
@@ -28,23 +28,25 @@ import { LargeButton } from "../../components/button/button";
 
 import styles from "./blog-post.module.scss";
 
+export interface Props {
+	post: PostInfo;
+	postHeadings: PostHeadingInfo[];
+	authors: PersonInfo[];
+	collection?: CollectionInfo;
+	collectionPosts?: PostInfo[];
+	license?: LicenseInfo;
+	postHtml: string;
+}
+
 const {
-	Content,
+	postHtml,
 	post,
 	postHeadings,
 	authors,
 	collection,
 	collectionPosts,
 	license,
-} = Astro.props as {
-	post: PostInfo;
-	postHeadings: PostHeadingInfo[];
-	authors: UnicornInfo[];
-	collection?: CollectionInfo;
-	collectionPosts?: PostInfo[];
-	license?: LicenseInfo;
-	Content: MarkdownInstance<any>["Content"];
-};
+} = Astro.props;
 
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${post.path}/index.md`;
 ---
@@ -55,12 +57,12 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 	mediumZoom(".post-body img:not([data-nozoom])");
 </script>
 <script>
-	import { enableTabs } from "../../utils/markdown/tabs/tabs-script";
+	import { enableTabs } from "../../utils/markdown/components/tabs/tabs-script";
 	enableTabs();
 </script>
 <script>
-	import { enableTwoslashTabindex } from "../../utils/markdown/twoslash-tabindex/twoslash-tabindex-script";
-	enableTwoslashTabindex();
+	import { enableShikiTabindex } from "../../utils/markdown/shiki/shiki-tabindex-script";
+	enableShikiTabindex();
 </script>
 <script>
 	import { enableStickyObserver } from "../../utils/sticky-observer-script";
@@ -103,7 +105,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 			<h2 id="blog-post-contents" class="visually-hidden" data-no-heading-link>
 				Post contents
 			</h2>
-			<Content />
+			<div set:html={postHtml} />
 			{
 				collectionPosts?.length ? (
 					<ArticleNav
@@ -136,16 +138,24 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 			<MailingList />
 			<div class={styles.buttonsContainer}>
 				<LargeButton tag="a" href={GHLink} variant="primary">
-					<Icon slot="leftIcon" height="100%" width="100%" name="github" />
-					 View this post on GitHub
+					<Icon
+						slot="leftIcon"
+						style="width: 100%; height: 100%;"
+						name="github"
+					/>
+					View this post on GitHub
 				</LargeButton>
 				<LargeButton
 					tag="a"
 					href="https://discord.gg/FMcvc6T"
 					variant="primary-emphasized"
 				>
-					<Icon slot="leftIcon" height="100%" width="100%" name="discord" />
-					 Join our Discord server
+					<Icon
+						slot="leftIcon"
+						style="width: 100%; height: 100%;"
+						name="discord"
+					/>
+					Join our Discord server
 				</LargeButton>
 			</div>
 		</footer>

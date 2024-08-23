@@ -26,7 +26,9 @@
 	--collection-page_author_description_padding-top: var(--spc-4x);
 
 	--collection-page_author_name_color: var(--foreground_emphasis-high);
-	--collection-page_author_count-articles_color: var(--foreground_emphasis-high);
+	--collection-page_author_count-articles_color: var(
+		--foreground_emphasis-high
+	);
 	--collection-page_author_count-words_color: var(--foreground_emphasis-medium);
 	--collection-page_author_dot_color: var(--foreground_emphasis-medium);
 	--collection-page_author_description_color: var(--foreground_emphasis-high);
@@ -161,7 +163,6 @@
 	@include from($desktopSmall) {
 		height: 720px;
 		width: 480px;
-		image-rendering: pixelated;
 	}
 }
 

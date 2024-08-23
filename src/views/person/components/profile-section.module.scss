@@ -1,0 +1,168 @@
+@import "src/tokens/index";
+
+:root {
+	--profile_avatar_size: 96px;
+	--profile_avatar_margin-end: var(--spc-5x);
+	--profile_pronouns_gap: 0.5rem;
+	--profile_bio_margin-top: 0.5rem;
+	--profile_bio_max-width: var(--max-width_xxs);
+
+	--profile_padding: var(--spc-6x);
+	--profile_gap: var(--spc-4x);
+
+	--profile_links_gap: var(--spc-4x);
+	--profile_links_icon_size: var(--icon-size_dense);
+	--profile_links_label_margin-start: 0.25rem;
+
+	--profile_roles_gap: var(--chip-gap);
+
+	--profile_background-color: var(--surface_primary_emphasis-none);
+	--profile_name_color: var(--foreground_emphasis-high);
+	--profile_pronouns_color: var(--foreground_disabled);
+	--profile_bio_color: var(--foreground_emphasis-high);
+
+	@include from($tabletSmall) {
+		--profile_avatar_size: 128px;
+	}
+
+	@include from($desktopSmall) {
+		--profile_avatar_size: 192px;
+	}
+}
+
+.container {
+	@include from($desktopSmall) {
+		width: var(--profile_bio_max-width);
+	}
+}
+
+.cardContainer {
+	padding: var(--profile_padding);
+	display: flex;
+	flex-direction: column;
+	gap: var(--profile_gap);
+	background-color: var(--profile_background-color);
+	/* TODO: Make this match spec when token is added */
+	border-radius: var(--corner-radius_xl);
+}
+
+.authorImage {
+	img {
+		border-radius: var(--corner-radius_circular);
+		height: var(--profile_avatar_size);
+		width: var(--profile_avatar_size);
+		margin-bottom: var(--profile_avatar_margin-end);
+
+		@include from($tabletSmall) {
+			margin-right: var(--profile_avatar_margin-end);
+			margin-bottom: unset;
+		}
+
+		@include from($desktopSmall) {
+			margin-right: unset;
+			margin-bottom: var(--profile_avatar_margin-end);
+		}
+	}
+}
+
+.nameAndDesc {
+	@include from($tabletSmall) {
+		display: flex;
+		align-items: center;
+	}
+
+	@include from($desktopSmall) {
+		display: unset;
+	}
+}
+
+.nameAndPronouns {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--profile_pronouns_gap);
+	align-items: center;
+
+	@include from($desktopSmall) {
+		flex-direction: column;
+		align-items: unset;
+	}
+}
+
+.name {
+	margin: 0;
+	color: var(--profile_name_color);
+}
+
+.pronouns {
+	margin: 0;
+	color: var(--profile_pronouns_color);
+}
+
+.bio {
+	margin: 0;
+	margin-top: var(--profile_bio_margin-top) !important;
+	color: var(--profile_bio_color);
+}
+
+.socialLinkContainer {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	gap: var(--profile_links_gap);
+
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.socialLink {
+	margin: 0;
+	// TODO: Make this match spec when token is added
+	color: var(--primary_default);
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+}
+
+.linkIcon {
+	margin-right: var(--spc-1x);
+	height: var(--profile_links_icon_size);
+	width: var(--profile_links_icon_size);
+	padding: var(--icon-size-dense-padding);
+}
+
+.rolesList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--profile_roles_gap);
+
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+/* Replace the below with specs */
+.role {
+	background: var(--background_primary);
+	border: 1px solid var(--surface_primary_emphasis-medium);
+	border-radius: var(--corner-radius_s);
+	display: flex;
+	align-items: center;
+	gap: var(--spc-2x);
+	padding: var(--spc-1x) var(--spc-4x) var(--spc-1x) var(--spc-2x);
+}
+
+@include from($desktopSmall) {
+	.role {
+		width: 100%;
+	}
+}
+
+.rolePic {
+	height: 32px;
+	width: 32px;
+}
+
+.roleName {
+	color: var(--foreground_emphasis-medium);
+}

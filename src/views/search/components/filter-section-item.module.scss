@@ -10,12 +10,22 @@
 	--search-page_filter_list_item_label_color: var(--foreground_emphasis-high);
 	--search-page_filter_list_item_count_color: var(--foreground_disabled);
 
-	--search-page_filter_list_item_background-color_hovered: var(--surface_primary_emphasis-low);
-	--search-page_filter_list_item_background-color_pressed: var(--surface_primary_emphasis-medium);
-	--search-page_filter_list_item_background-color_selected: var(--surface_primary_emphasis-none);
-	--search-page_filter_list_item_background-color_focused: var(--background_focus);
+	--search-page_filter_list_item_background-color_hovered: var(
+		--surface_primary_emphasis-low
+	);
+	--search-page_filter_list_item_background-color_pressed: var(
+		--surface_primary_emphasis-medium
+	);
+	--search-page_filter_list_item_background-color_selected: var(
+		--surface_primary_emphasis-none
+	);
+	--search-page_filter_list_item_background-color_focused: var(
+		--background_focus
+	);
 
-	--search-page_filter_list_item_focus-outline_color: var(--focus-outline_primary);
+	--search-page_filter_list_item_focus-outline_color: var(
+		--focus-outline_primary
+	);
 	--search-page_filter_list_item_focus-outline_width: var(--border-width_focus);
 }
 
@@ -50,19 +60,30 @@
 }
 
 .containerLabel.selected {
-	background-color: var(--search-page_filter_list_item_background-color_selected);
+	background-color: var(
+		--search-page_filter_list_item_background-color_selected
+	);
 }
 
 .containerLabel:hover {
-	background-color: var(--search-page_filter_list_item_background-color_hovered);
+	background-color: var(
+		--search-page_filter_list_item_background-color_hovered
+	);
 }
 
 .containerLabel:active {
-	background-color: var(--search-page_filter_list_item_background-color_pressed);
+	background-color: var(
+		--search-page_filter_list_item_background-color_pressed
+	);
 }
 
 .containerLabel[data-focus-visible="true"] {
-	background-color: var(--search-page_filter_list_item_background-color_focused);
-	outline: var(--search-page_filter_list_item_focus-outline_width) solid var(--search-page_filter_list_item_focus-outline_color);
-	outline-offset: calc(-1 * var(--search-page_filter_list_item_focus-outline_width));
+	background-color: var(
+		--search-page_filter_list_item_background-color_focused
+	);
+	outline: var(--search-page_filter_list_item_focus-outline_width) solid
+		var(--search-page_filter_list_item_focus-outline_color);
+	outline-offset: calc(
+		-1 * var(--search-page_filter_list_item_focus-outline_width)
+	);
 }

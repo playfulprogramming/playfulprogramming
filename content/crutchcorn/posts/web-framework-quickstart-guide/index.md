@@ -14,7 +14,7 @@ Thankfully, today it's much easier to get a quick [client-side application](/pos
 
 Let's take a quick look at how we can scaffold a project for React, Angular, and Vue:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # React
 
@@ -213,7 +213,7 @@ Now when you modify `components/HelloWorld.vue` or any other code in the project
 
 > This auto-refresh on code change is called "HMR" or "Hot Module Reloading"
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Keep in mind, this is only one option for configuring your code's build tooling. There's lots of other tools and options for configuring the aforementioned tools.
 

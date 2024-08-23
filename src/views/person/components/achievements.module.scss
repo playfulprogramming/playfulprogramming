@@ -1,0 +1,30 @@
+@import "src/tokens/index";
+
+:root {
+	--achievement_padding-vertical: var(--spc-3x);
+	--achievement_padding-horizontal: var(--spc-4x);
+	--achievement_corner-radius: var(--corner-radius_m);
+	--achievement_border_width: var(--border-width_m);
+	--achievement_border_color: var(--surface_primary_emphasis-medium);
+
+	@include from($desktopSmall) {
+		--achievement_padding-vertical: var(--spc-4x);
+		--achievement_padding-horizontal: var(--spc-5x);
+	}
+}
+
+.container {
+	height: 100%;
+	padding: var(--achievement_padding-vertical)
+		var(--achievement_padding-horizontal);
+	border-radius: var(--achievement_corner-radius);
+	border: var(--achievement_border_width) solid var(--achievement_border_color);
+}
+
+.name {
+	color: var(--foreground_emphasis-high);
+}
+
+.description {
+	color: var(--foreground_emphasis-medium);
+}

@@ -2,29 +2,45 @@
 import style from "./about.module.scss";
 import "../../styles/shiki.scss";
 import * as data from "src/utils/data";
-import ContributorCard from "./contributor-card.astro";
-import {
-	getPrefixLanguageFromPath,
-	getTranslatedPage,
-	translate,
-} from "src/utils/translations";
+import { translate } from "src/utils/translations";
 import TranslationsHeader from "src/views/base/translations/translations-header.astro";
 import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import { License } from "./license";
 import BannerSvg from "./banner-svg.astro";
 import * as api from "utils/api";
+import { Languages } from "types/index";
+import { VFile } from "vfile";
+import { getMarkdownHtml } from "utils/markdown";
+import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
+import { MarkdownFileInfo, MarkdownVFile } from "utils/markdown/types";
+import { Links } from "./components";
 
-const about = getTranslatedPage(
-	Astro,
-	await Astro.glob("../../../content/site/about-us*.mdx"),
+interface Props {
+	locales: Languages[];
+	locale: Languages;
+	file: string;
+}
+
+const { locales, locale, file } = Astro.props as Props;
+const fileInfo: MarkdownFileInfo = { kind: "page", file };
+const vfile = await getMarkdownVFile(fileInfo);
+
+const [content1, content2] = await Promise.all(
+	vfile.value
+		.toString()
+		.split("<!-- split -->")
+		.map((value) =>
+			getMarkdownHtml(
+				fileInfo,
+				new VFile({ ...vfile, value }) as MarkdownVFile,
+			),
+		),
 );
 
-const locale = getPrefixLanguageFromPath(Astro.url.pathname);
+const people = api.getPeopleByLang(locale);
 
-const unicorns = api.getUnicornsByLang(locale);
-
-// Sort unicorns to see if "partner" is in the title, otherwise sort by name
-unicorns.sort((a, b) => {
+// Sort people to see if "partner" is in the title, otherwise sort by name
+people.sort((a, b) => {
 	const aIsPartner = a.achievements.includes("partner");
 	const bIsPartner = b.achievements.includes("partner");
 
@@ -55,19 +71,11 @@ const tags = [
 		<BannerSvg />
 	</div>
 	<div class={`${style.aboutBody} post-body`}>
-		<TranslationsHeader locales={about.locales} />
+		<TranslationsHeader locales={locales} />
 
-		<about.page.Content />
-
-		<hr />
-
-		<h2 id="contributors">
-			<span>{translate(Astro, "title.contributors")}</span>
-		</h2>
-		<ul class={style.unicorns} role="list" aria-labelledby="contributors">
-			{unicorns.map((unicornInfo) => <ContributorCard unicorn={unicornInfo} />)}
-		</ul>
-
+		<div set:html={content1.html} />
+		<Links />
+		<div set:html={content2.html} />
 		<hr />
 
 		<h2 id="licenses">
@@ -95,7 +103,7 @@ const tags = [
 											Astro,
 											"label.view_attribution_for",
 											tag.displayName,
-									  )
+										)
 							}
 						/>
 					</li>
@@ -116,13 +124,11 @@ const tags = [
 					a.href =
 						"mailto:" +
 						(a.innerText = atob(
-							"bGljZW5zaW5nQHVuaWNvcm4tdXR0ZXJhbmNlcy5jb20=",
+							"bGljZW5zaW5nQHBsYXlmdWxwcm9ncmFtbWluZy5jb20=",
 						));
 				}
 			</script>
 		</p>
-
-		<hr />
 	</div>
 </main>
 

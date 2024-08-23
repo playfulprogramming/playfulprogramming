@@ -1,5 +1,5 @@
 ---
-import { Icon } from "astro-icon";
+import { Icon } from "astro-icon/components";
 import style from "./heading-link.module.scss";
 ---
 
@@ -10,14 +10,14 @@ import style from "./heading-link.module.scss";
 				<div class={style.icon} aria-hidden>
 					<Icon name="link" />
 				</div>
-				 Copy link
+				Copy link
 			</span>
 			<span aria-live="polite">
 				<span data-heading-link="copied" hidden>
 					<div class={style.icon} aria-hidden>
 						<Icon name="checkmark" />
 					</div>
-					 Link copied!
+					Link copied!
 				</span>
 			</span>
 		</div>

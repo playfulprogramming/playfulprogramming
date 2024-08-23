@@ -11,19 +11,19 @@ const inputDate = ref(new Date());
 const interval = ref(null);
 
 onMounted(() => {
-  // Check if it's a new day every 10 minutes
-  interval.value = setInterval(
-    () => {
-      const newDate = new Date();
-      if (inputDate.value.getDate() === newDate.getDate()) return;
-      inputDate.value = newDate;
-    },
-    10 * 60 * 1000,
-  );
+	// Check if it's a new day every 10 minutes
+	interval.value = setInterval(
+		() => {
+			const newDate = new Date();
+			if (inputDate.value.getDate() === newDate.getDate()) return;
+			inputDate.value = newDate;
+		},
+		10 * 60 * 1000,
+	);
 });
 
 onUnmounted(() => {
-  clearInterval(interval.value);
+	clearInterval(interval.value);
 });
 </script>
 

@@ -13,7 +13,7 @@
 
 We've previously touched on how to pass values to a component as properties earlier in the book:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # React
 
@@ -28,7 +28,7 @@ const FileDate = ({ inputDate }) => {
 
 # Angular
 
-```typescript
+```angular-ts
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -71,13 +71,13 @@ const labelText = ref(formatReadableDate(props.inputDate));
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 You may notice that we're deriving two values from the same property. This works fine at first, but an issue arises with how we're doing things when we realize that our `formatDate` and `formatReadableDate` methods are only running once during the initial render.
 
 Because of this, if we pass in an updated `inputDate` to the `FileDate` component, the values of `formatDate` and `formatReadableDate` will become out of sync from the parent's passed `inputDate`.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # React
 
@@ -105,13 +105,13 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Refreshing File Date - StackBlitz" src="uu-code:./ffg-fundamentals-react-refreshing-file-date-45?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Refreshing File Date - StackBlitz" src="pfp-code:./ffg-fundamentals-react-refreshing-file-date-45?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 # Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -146,9 +146,9 @@ class FileComponent implements OnInit, OnDestroy {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Refreshing File Date - StackBlitz" src="uu-code:./ffg-fundamentals-angular-refreshing-file-date-45?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Refreshing File Date - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-refreshing-file-date-45?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 # Vue
 
@@ -188,11 +188,11 @@ onUnmounted(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Refreshing File Date - StackBlitz" src="uu-code:./ffg-fundamentals-vue-refreshing-file-date-45?template=node&embed=1&file=src%2FFile.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Refreshing File Date - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-refreshing-file-date-45?template=node&embed=1&file=src%2FFile.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 While the above `File` component updates `inputDate` correctly, our `FileDate` component is never listening for the changed input value and, as such, never recomputed the `formatDate` or `formatReadableDate` value to display to the user.
 
@@ -204,11 +204,11 @@ The first - and arguably easiest to mentally model - method to solve this dispar
 
 Luckily, we can use [our existing knowledge of side effects](/posts/ffg-fundamentals-side-effects) to do so:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
-```jsx {4-8}
+```jsx {5-9}
 const FileDate = ({ inputDate }) => {
 	const [dateStr, setDateStr] = useState(formatDate(inputDate));
 	const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
@@ -223,9 +223,9 @@ const FileDate = ({ inputDate }) => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Prop Listening - StackBlitz" src="uu-code:./ffg-fundamentals-react-prop-listening-46?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Prop Listening - StackBlitz" src="pfp-code:./ffg-fundamentals-react-prop-listening-46?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -233,7 +233,7 @@ While we didn't touch on this lifecycle method in our previous chapter, Angular 
 
 We can use this new lifecycle method to update the value of a component's state based off of the parent's props:
 
-```typescript {0,7,13-23}
+```angular-ts {1,8,14-24}
 import { Component, OnChanges, SimpleChanges } from "@angular/core";
 
 @Component({
@@ -263,13 +263,13 @@ class FileDateComponent implements OnChanges {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Prop Listening - StackBlitz" src="uu-code:./ffg-fundamentals-angular-prop-listening-46?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Prop Listening - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-prop-listening-46?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Vue
 
-```vue {2,11-17}
+```vue {3,12-18}
 <!-- FileDate.vue -->
 <script setup>
 import { ref, watch } from "vue";
@@ -295,15 +295,15 @@ watch(
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Prop Listening - StackBlitz" src="uu-code:./ffg-fundamentals-vue-prop-listening-46?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Prop Listening - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-prop-listening-46?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
+<!-- ::end:no-ebook -->
 
 Vue's `watch` logic allows you to track a given property or state value changes based on its key.
 
 Here, we're watching the `inputDate` props key and, when changed, updating `dateStr` and `labelText` based off of the new property value.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 While this method works, it tends to introduce duplicate developmental logic. For example, notice how we have to repeat the declaration of the `dateStr` and `labelText` values twice: Once when they're initially defined and again inside the property listener.
 
@@ -324,11 +324,11 @@ This may remind you of a similar pattern we've used already for [live updated te
 
 Luckily for us, all three frameworks have a way of doing just this!
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
-```jsx {0,3-4}
+```jsx {1,4-5}
 import { useMemo } from "react";
 
 const FileDate = ({ inputDate }) => {
@@ -339,9 +339,9 @@ const FileDate = ({ inputDate }) => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Computed Values - StackBlitz" src="uu-code:./ffg-fundamentals-react-computed-values-47?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Computed Values - StackBlitz" src="pfp-code:./ffg-fundamentals-react-computed-values-47?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 `useMemo` is a method for computing values based on an input or series of inputs. This works because it does the computation and regenerates the calculation whenever the second argument array's values have changed in a render.
 
@@ -371,7 +371,7 @@ const AddComp = ({ baseNum, addNum }) => {
 
 To solve the derived value problem without recomputing the values manually, Angular introduces the concept of a "pipe" into the mix of things. The idea is that a pipe runs over an input (or series of inputs), just like React's `useMemo`.
 
-```typescript
+```angular-ts
 import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({ name: "formatDate", standalone: true })
@@ -391,7 +391,7 @@ class FormatReadableDatePipe implements PipeTransform {
 
 You may then use these pipes in your components directly inside the template.
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -407,9 +407,9 @@ class FileDateComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Computed Values - StackBlitz" src="uu-code:./ffg-fundamentals-angular-computed-values-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Computed Values - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-computed-values-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Multiple Input Pipes {#multi-input-pipes}
 
@@ -417,7 +417,7 @@ You may notice the similarities between pipes and functions. After all, pipes ar
 
 Let's add a second input to see if the `formatDate` pipe should return a readable date or not.
 
-```typescript
+```angular-ts
 @Pipe({ name: "formatDate", standalone: true })
 class FormatDatePipe implements PipeTransform {
 	// `dateFormat` is an optional argument. If left empty, will simply `formatDate`
@@ -431,7 +431,7 @@ class FormatDatePipe implements PipeTransform {
 
 Then, we can use it in our template while passing a second argument:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -447,17 +447,17 @@ class FileDateComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Multi Input Pipes - StackBlitz" src="uu-code:./ffg-fundamentals-angular-multi-input-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Multi Input Pipes - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-multi-input-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Built-In Pipes {#built-in-pipes}
 
 Luckily, Angular's all-in-one methodology means that there's a slew of pipes that the Angular team has written for us. One such pipe is actually a date formatting pipe. We can remove our own implementation in favor of one built right into Angular!
 
-To use the built-in pipes, we need to import them from `CommonModule` into the component. In this case, the pipe we're looking to use is called [`DatePipe`](https://angular.io/api/common/DatePipe). This provided date pipe is, expectedly, called `date` when used in the template and can be used like so:
+To use the built-in pipes, we need to import them from `CommonModule` into the component. In this case, the pipe we're looking to use is called [`DatePipe`](https://angular.dev/api/common/DatePipe). This provided date pipe is, expectedly, called `date` when used in the template and can be used like so:
 
-```typescript
+```angular-ts
 import { DatePipe } from "@angular/common";
 
 @Component({
@@ -475,13 +475,13 @@ class FileDateComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Built-In Pipes - StackBlitz" src="uu-code:./ffg-fundamentals-angular-built-in-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Built-In Pipes - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-built-in-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Vue
 
-```vue {2,8-9}
+```vue {3,9-10}
 <!-- FileDate.vue -->
 <script setup>
 import { computed } from "vue";
@@ -499,27 +499,37 @@ const labelText = computed(() => formatReadableDate(props.inputDate));
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Computed Values - StackBlitz" src="uu-code:./ffg-fundamentals-vue-computed-values-47?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Computed Values - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-computed-values-47?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
+<!-- ::end:no-ebook -->
 
 Instead of using `ref` to construct a set of variables and then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
 
+<!-- ::start:no-ebook -->
+
 Vue is able to ✨ magically ✨ detect what data inside the `computed` function is dynamic, just like `watchEffect`. When this dynamic data is changed, it will automatically re-initialize the variable it's assigned to with a new value returned from the inner function.
+
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+Vue is able to magically detect what data inside the `computed` function is dynamic, just like `watchEffect`. When this dynamic data is changed, it will automatically re-initialize the variable it's assigned to with a new value returned from the inner function.
+
+<!-- ::end:only-ebook -->
 
 These `computed` props are then accessible in the same way a `data` property is, both from the template and from Vue's `<script>` alike.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Non-Prop Derived Values {#non-derived-vals}
 
 While we've primarily used component inputs to demonstrate derived values today, both of the methods we've used thus far work for the internal component state and inputs.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 Let's say that we have a piece of state called `number` in our component and want to display the doubled value of this property without passing this state to a new component:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -538,13 +548,13 @@ const CountAndDoubleComp = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Non-Prop Derived - StackBlitz" src="uu-code:./ffg-fundamentals-react-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Non-Prop Derived - StackBlitz" src="pfp-code:./ffg-fundamentals-react-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Pipe({ name: "doubleNum", standalone: true })
 class DoubleNumPipe implements PipeTransform {
 	transform(value: number): number {
@@ -573,9 +583,9 @@ class CountAndDoubleComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Non-Prop Derived - StackBlitz" src="uu-code:./ffg-fundamentals-angular-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Non-Prop Derived - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -602,11 +612,11 @@ const doubleNum = computed(() => number.value * 2);
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Non-Prop Derived - StackBlitz" src="uu-code:./ffg-fundamentals-vue-non-prop-derived-48?template=node&embed=1&file=src%2FCountAndDouble.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Non-Prop Derived - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-non-prop-derived-48?template=node&embed=1&file=src%2FCountAndDouble.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 In this component, we can see two numbers — one doubling the value of the other. We then have a button that allows us to increment the first number, and therefore, using a derived value, the second number also updates.
 
@@ -640,7 +650,7 @@ function formatBytes(bytes) {
 
 With this JavaScript, we can use a derived value to display the relevant display size. Let's build this out using a dedicated `DisplaySize` component:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -667,19 +677,21 @@ function formatBytes(bytes) {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Derived Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-derived-challenge-49?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<iframe data-frame-title="React Derived Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-react-derived-challenge-49?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 </details>
 
+<!-- ::end:no-ebook -->
+
 ## Angular
 
-```typescript
+```angular-ts
 @Pipe({ name: "formatBytes", standalone: true })
 class FormatBytesPipe implements PipeTransform {
 	kilobyte = 1024;
@@ -710,15 +722,17 @@ class DisplaySizeComponent {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Derived Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-derived-challenge-49?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<iframe data-frame-title="Angular Derived Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-derived-challenge-49?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -752,14 +766,16 @@ function formatBytes(bytes) {
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Derived Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-derived-challenge-49?template=node&embed=1&file=src%2FDisplaySize.vue"></iframe>
-<!-- no-ebook:end -->
+<iframe data-frame-title="Vue Derived Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-derived-challenge-49?template=node&embed=1&file=src%2FDisplaySize.vue"></iframe>
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:no-ebook -->
+
+<!-- ::end:tabs -->

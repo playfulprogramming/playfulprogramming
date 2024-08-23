@@ -11,7 +11,9 @@
 	--nav-btn_background-color_disabled: var(--background_disabled);
 
 	--nav-btn_background-color_selected: var(--primary_default);
-	--nav-btn_background-color_selected_hovered: var(--primary_high-contrast_hovered);
+	--nav-btn_background-color_selected_hovered: var(
+		--primary_high-contrast_hovered
+	);
 	--nav-btn_background-color_selected_pressed: var(--primary_high-contrast);
 
 	--nav-btn_foreground-color: var(--foreground_emphasis-high);
@@ -85,11 +87,16 @@
 
 // if "extendPageButton" is used, the element must have *both* :focus-visible and [data-focus-visible="true"]
 // - this prevents the focus outline from being shown on click
-.paginationButton:focus-visible:not(.extendPageButton:not([data-focus-visible="true"])) {
+.paginationButton:focus-visible:not(
+		.extendPageButton:not([data-focus-visible="true"])
+	) {
 	color: var(--nav-btn_foreground-color);
 	background-color: var(--nav-btn_background-color_focused);
-	outline: solid var(--nav-btn_focus-outline_color) var(--nav-btn_focus-outline_width);
-	outline-offset: calc(-1 * var(--nav-btn_focus-outline_width) + 0.5px); // the "0.5px" here prevents aliasing overlap around the border-radius...
+	outline: solid var(--nav-btn_focus-outline_color)
+		var(--nav-btn_focus-outline_width);
+	outline-offset: calc(
+		-1 * var(--nav-btn_focus-outline_width) + 0.5px
+	); // the "0.5px" here prevents aliasing overlap around the border-radius...
 	box-sizing: border-box;
 }
 
@@ -102,8 +109,11 @@
 .extendPageButton[aria-expanded="true"] {
 	background-color: var(--nav-btn_background-color_selected);
 	color: var(--nav-btn_foreground-color_selected);
-	outline: solid var(--nav-btn_selected-outline_color) var(--nav-btn_selected-outline_width);
-	outline-offset: calc(-1 * var(--nav-btn_selected-outline_width) + 0.5px); // the "0.5px" here prevents aliasing overlap around the border-radius...
+	outline: solid var(--nav-btn_selected-outline_color)
+		var(--nav-btn_selected-outline_width);
+	outline-offset: calc(
+		-1 * var(--nav-btn_selected-outline_width) + 0.5px
+	); // the "0.5px" here prevents aliasing overlap around the border-radius...
 	box-sizing: border-box;
 }
 

@@ -1,13 +1,12 @@
 @import "src/tokens/index";
 @import "../../framework-field-guide/tokens/breakpoints";
 
-
 :root {
 	--chapter-item-padding-ver: var(--spc-2x);
 	--spc-num: 3rem;
 	--spc-dot: 1.5rem;
 
-	--divider-inset-start: calc( var(--spc-num) + var(--spc-dot) );
+	--divider-inset-start: calc(var(--spc-num) + var(--spc-dot));
 	--divider-inset-end: var(--spc-4x);
 	--divider-border-width: var(--border-1x);
 
@@ -52,7 +51,7 @@
 
 .postContainer:not([data-is-last-visible]):not(:last-child)::after {
 	position: absolute;
-	content: ' ';
+	content: " ";
 	bottom: 0;
 	left: 0;
 	width: calc(100% - var(--divider-inset-end) - var(--divider-inset-start));

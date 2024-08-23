@@ -18,7 +18,7 @@ During discussions of reactivity and front-end frameworks, one "odd duck" stands
 
 Take the following button counter reactivity example in each framework:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # Angular
 
@@ -70,7 +70,7 @@ function addOne() {
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 
 
@@ -400,7 +400,7 @@ detectChanges(): void {
 }
 ```
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
 
 ##  Calling Change Detection Manually {#manual-cd}
 

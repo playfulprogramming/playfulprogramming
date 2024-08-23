@@ -82,7 +82,7 @@ class DoNothingComponent {}
 
 While there _is_ a template compiler in Angular, it's only really there for [reactivity](/posts/what-is-reactivity). Otherwise, it injects the results of `template` in the `selector`'s (by default empty) children array.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
 
 This is why when people ask me:
 

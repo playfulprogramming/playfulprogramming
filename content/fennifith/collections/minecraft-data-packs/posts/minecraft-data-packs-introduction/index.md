@@ -13,7 +13,7 @@
 
 > Please note: this guide specifically covers the **Java Edition** version of Minecraft. Bedrock Edition does not use data packs, but provides customization through [add-ons](https://minecraft.wiki/w/Add-on).
 
-The data packs built in this series can be found in the [unicorn-utterances/mc-datapacks-tutorial](https://github.com/unicorn-utterances/mc-datapacks-tutorial/tree/main/1-introduction) repository. Feel free to use it for reference as you read through these articles!
+The data packs built in this series can be found in the [playfulprogramming/mc-datapacks-tutorial](https://github.com/playfulprogramming/mc-datapacks-tutorial/tree/main/1-introduction) repository. Feel free to use it for reference as you read through these articles!
 
 # What is a data pack?
 
@@ -123,19 +123,19 @@ Note that, while a preceding `/` is needed to type these commands into the text 
 
 We should now have our data pack organized as follows:
 
-<!-- filetree:start -->
+<!-- ::start:filetree -->
 - `1-introduction/`
   - `pack.mcmeta`
   - `data/`
     - `fennifith/functions/animals/`
       - `spawn.mcfunction`
-<!-- filetree:end -->
+<!-- ::end:filetree -->
 
 ## Installing & testing the data pack
 
 To turn this folder into a data pack, we simply need to convert the "1-introduction" folder into a zip file.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # Windows
 
@@ -168,7 +168,7 @@ zip -r 1-introduction.zip ./*
 
 Then, assuming you named your world "testing", the command `ls ~/.minecraft/saves/testing` should list that world's save files. Run `mv ./1-introduction.zip ~/.minecraft/saves/testing/datapacks/` to move the zip file into the world's datapacks folder.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now that we've installed the data pack, you should be able to enter the world save again (or use the `/reload` command if you still have it open). But nothing happens!
 
@@ -188,7 +188,7 @@ In order to run a function automatically, Minecraft provides two built-in [funct
 
 We'll start with `load` &mdash; for which we'll need to create two new files in our folder structure! Below, I'm creating a new `load.mcfunction` next to our previous function, and a `minecraft/tags/functions/load.json` file for the `load` tag.
 
-<!-- filetree:start -->
+<!-- ::start:filetree -->
 - `1-introduction/`
   - `pack.mcmeta`
   - `data/`
@@ -197,7 +197,7 @@ We'll start with `load` &mdash; for which we'll need to create two new files in 
     - `fennifith/functions/animals/`
       - `load.mcfunction`
       - `spawn.mcfunction`
-<!-- filetree:end -->
+<!-- ::end:filetree -->
 
 Note that, while I'm using the `fennifith/` namespace for my functions, the tag file lives under the `minecraft/` namespace. This helps to keep some data isolated from the rest of the game &mdash; any files in the `minecraft/` folder are *modifying Minecraft's functionality,* while anything in a different namespace is creating something that belongs to my data pack.
 
@@ -235,6 +235,6 @@ Try experimenting! See if you can find a command that does this &mdash; and chec
 
 # Conclusion
 
-If your data pack hasn't worked first try &mdash; don't worry! There are a lot of steps here, and the slightest typo or misplacement will cause Minecraft to completely ignore your code altogether. If you're ever stuck and can't find the issue, the [Unicorn Utterances discord](https://discord.gg/FMcvc6T) is a great place to ask for help!
+If your data pack hasn't worked first try &mdash; don't worry! There are a lot of steps here, and the slightest typo or misplacement will cause Minecraft to completely ignore your code altogether. If you're ever stuck and can't find the issue, the [Playful Programming discord](https://discord.gg/FMcvc6T) is a great place to ask for help!
 
 So far, we've covered the basics of data packs and how to write them &mdash; but there's a lot more to get into. Next, we'll start writing conditional behavior using block positions and entity selectors!

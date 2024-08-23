@@ -4,15 +4,13 @@ import { ForwardedRef, forwardRef } from "preact/compat";
 
 type AllowedTags = "a" | "button" | "span" | "div";
 
-type AllowedElements<Tag extends AllowedTags> = (
-	Tag extends "a"
-		? HTMLAnchorElement
-		: Tag extends "div"
+type AllowedElements<Tag extends AllowedTags> = Tag extends "a"
+	? HTMLAnchorElement
+	: Tag extends "div"
 		? HTMLDivElement
 		: Tag extends "span"
-		? HTMLSpanElement
-		: HTMLButtonElement
-);
+			? HTMLSpanElement
+			: HTMLButtonElement;
 
 type ButtonProps<Tag extends AllowedTags> = PropsWithChildren<
 	{
@@ -30,7 +28,10 @@ type ButtonProps<Tag extends AllowedTags> = PropsWithChildren<
 	} & JSX.HTMLAttributes<AllowedElements<Tag>>
 >;
 
-const ButtonWrapper = forwardRef<AllowedElements<AllowedTags> | null, ButtonProps<AllowedTags>>(
+const ButtonWrapper = forwardRef<
+	AllowedElements<AllowedTags> | null,
+	ButtonProps<AllowedTags>
+>(
 	(
 		{
 			tag = "a" as never,
@@ -51,14 +52,8 @@ const ButtonWrapper = forwardRef<AllowedElements<AllowedTags> | null, ButtonProp
 			<Wrapper
 				{...props}
 				aria-label={props["aria-label"]}
-				class={[
-					"button",
-					isFocusVisible ? "focusVisible" : "",
-					className,
-					variant,
-				]
-					.filter((c) => !!c)
-					.join(" ")}
+				data-focus-visible={isFocusVisible}
+				class={["button", className, variant].filter((c) => !!c).join(" ")}
 				ref={ref}
 			>
 				{leftIcon && (
@@ -77,71 +72,59 @@ const ButtonWrapper = forwardRef<AllowedElements<AllowedTags> | null, ButtonProp
 	},
 );
 
-export const Button = forwardRef<AllowedElements<AllowedTags> | null, ButtonProps<AllowedTags>>(
-	(
-		{ class: className = "", ...props },
-		ref,
-	) => {
-		return (
-			<ButtonWrapper
-				{...props}
-				class={`text-style-button-regular regular ${className}`}
-				ref={ref}
-			/>
-		);
-	},
-);
+export const Button = forwardRef<
+	AllowedElements<AllowedTags> | null,
+	ButtonProps<AllowedTags>
+>(({ class: className = "", ...props }, ref) => {
+	return (
+		<ButtonWrapper
+			{...props}
+			class={`text-style-button-regular regular ${className}`}
+			ref={ref}
+		/>
+	);
+});
 
-export const LargeButton = forwardRef<AllowedElements<AllowedTags> | null, ButtonProps<AllowedTags>>(
-	(
-		{ class: className = "", ...props },
-		ref,
-	) => {
-		return (
-			<ButtonWrapper
-				{...props}
-				class={`text-style-button-large large ${className}`}
-				ref={ref}
-			/>
-		);
-	},
-);
+export const LargeButton = forwardRef<
+	AllowedElements<AllowedTags> | null,
+	ButtonProps<AllowedTags>
+>(({ class: className = "", ...props }, ref) => {
+	return (
+		<ButtonWrapper
+			{...props}
+			class={`text-style-button-large large ${className}`}
+			ref={ref}
+		/>
+	);
+});
 
 type IconOnlyButtonProps<T extends AllowedTags = "a"> = Omit<
 	ButtonProps<T>,
 	"leftIcon" | "rightIcon"
 >;
 
-export const IconOnlyButton = forwardRef<AllowedElements<AllowedTags> | null, IconOnlyButtonProps<AllowedTags>>(
-	(
-		{ class: className = "", children, ...props },
-		ref,
-	) => {
-		return (
-			<ButtonWrapper
-				{...props}
-				class={`iconOnly regular ${className}`}
-				ref={ref}
-			>
-				<div class="iconOnlyButtonIcon" aria-hidden="true">
-					{children}
-				</div>
-			</ButtonWrapper>
-		);
-	},
-);
+export const IconOnlyButton = forwardRef<
+	AllowedElements<AllowedTags> | null,
+	IconOnlyButtonProps<AllowedTags>
+>(({ class: className = "", children, ...props }, ref) => {
+	return (
+		<ButtonWrapper {...props} class={`iconOnly regular ${className}`} ref={ref}>
+			<div class="iconOnlyButtonIcon" aria-hidden="true">
+				{children}
+			</div>
+		</ButtonWrapper>
+	);
+});
 
-export const LargeIconOnlyButton = forwardRef<AllowedElements<AllowedTags> | null, IconOnlyButtonProps<AllowedTags>>(
-	(
-		{ class: className = "", children, ...props },
-		ref,
-	) => {
-		return (
-			<ButtonWrapper {...props} class={`iconOnly large ${className}`} ref={ref}>
-				<div class="iconOnlyButtonIcon" aria-hidden="true">
-					{children}
-				</div>
-			</ButtonWrapper>
-		);
-	},
-);
+export const LargeIconOnlyButton = forwardRef<
+	AllowedElements<AllowedTags> | null,
+	IconOnlyButtonProps<AllowedTags>
+>(({ class: className = "", children, ...props }, ref) => {
+	return (
+		<ButtonWrapper {...props} class={`iconOnly large ${className}`} ref={ref}>
+			<div class="iconOnlyButtonIcon" aria-hidden="true">
+				{children}
+			</div>
+		</ButtonWrapper>
+	);
+});

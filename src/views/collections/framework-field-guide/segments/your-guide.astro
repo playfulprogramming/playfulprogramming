@@ -1,7 +1,7 @@
 ---
-import { Picture } from "@astrojs/image/components";
+import { Picture } from "components/image/picture";
 import styles from "./your-guide.module.scss";
-import { getUnicornById } from "utils/api";
+import { getPersonById } from "utils/api";
 ---
 
 <section class={styles.guideContainer} aria-labelledby="your-guide">
@@ -9,12 +9,11 @@ import { getUnicornById } from "utils/api";
 		Your guide for the trip
 	</h2>
 	<Picture
-		class={styles.guidePicture}
+		imgAttrs={{ class: styles.guidePicture }}
 		alt=""
-		src={getUnicornById("crutchcorn", "en")!.profileImgMeta.relativeServerPath}
-		widths={[96, 72]}
-		aspectRatio={1}
-		sizes="96"
+		src={getPersonById("crutchcorn", "en")!.profileImgMeta.relativeServerPath}
+		width={96}
+		height={96}
 	/>
 	<p class={`text-style-headline-3 ${styles.authorIntro}`}>
 		Hi, I'm <span class={styles.authorName}>Corbin Crutchley</span>, the author
@@ -35,9 +34,9 @@ import { getUnicornById } from "utils/api";
 			consists of knowledge I wish I had access to when I first started out.
 			<br />
 			<br />
-			 The series will take you through all the necessary stages, no matter your
-			level of proficiency. My goal is to provide access to learning tools and
-			support for everyone, so they can go and build their vision.
+			The series will take you through all the necessary stages, no matter your level
+			of proficiency. My goal is to provide access to learning tools and support
+			for everyone, so they can go and build their vision.
 		</p>
 	</div>
 	<ul class={styles.metricsContainer} aria-label="Metrics about Corbin">

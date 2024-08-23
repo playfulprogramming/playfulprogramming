@@ -2,6 +2,7 @@ import { PostInfo } from "types/index";
 import { render } from "preact-render-to-string";
 import { VNode, createElement } from "preact";
 import sharp from "sharp";
+import { Parent } from "unist";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
@@ -9,7 +10,7 @@ import { findAllAfter } from "unist-util-find-all-after";
 import { toString } from "hast-util-to-string";
 import rehypeStringify from "rehype-stringify";
 import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
-import { getUnicornById } from "utils/api";
+import { getPersonById } from "utils/api";
 import { getPostContentMarkdown } from "utils/get-post-content";
 
 const unifiedChain = unified()
@@ -17,7 +18,9 @@ const unifiedChain = unified()
 	.use(remarkToRehype, { allowDangerousHtml: true })
 	.use(() => (tree) => {
 		// extract code snippets from parsed markdown
-		const nodes = findAllAfter(tree, 0, { tagName: "pre" });
+		const nodes = findAllAfter(tree as unknown as Parent, 0, {
+			tagName: "pre",
+		});
 
 		// join code parts into one element
 		const value =
@@ -68,7 +71,7 @@ export const renderPostPreviewToString = async (
 	const authorImageMap = Object.fromEntries(
 		await Promise.all(
 			post.authors.map(async (authorId) => {
-				const author = getUnicornById(authorId, post.locale)!;
+				const author = getPersonById(authorId, post.locale)!;
 
 				if (authorImageCache.has(author.id))
 					return [author.id, authorImageCache.get(author.id)];
@@ -97,7 +100,7 @@ export const renderPostPreviewToString = async (
 
 	html, body {
 		margin: 0;
-  		padding: 0;
+		padding: 0;
 		width: ${PAGE_WIDTH}px;
 		height: ${PAGE_HEIGHT}px;
 		position: relative;

@@ -15,8 +15,12 @@
 	--article-nav_item_overline-color: var(--primary_default);
 
 	--article-nav_item_background-color: var(--transparent);
-	--article-nav_item_background-color_hovered: var(--surface_primary_emphasis-low);
-	--article-nav_item_background-color_pressed: var(--surface_primary_emphasis-low);
+	--article-nav_item_background-color_hovered: var(
+		--surface_primary_emphasis-low
+	);
+	--article-nav_item_background-color_pressed: var(
+		--surface_primary_emphasis-low
+	);
 	--article-nav_item_background-color_focused: var(--background_focus);
 
 	--article-nav_item_border_color: var(--surface_primary_emphasis-low);

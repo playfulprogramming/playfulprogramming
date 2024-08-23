@@ -65,9 +65,9 @@ While ecosystem size is great and all, it's nothing without a swath of tools at 
 
 Luckily, for all three frameworks alike, myriads of tools build upon their foundation.
 
-For example, do you want to add [Static Site Generation or Server Side Rendering](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg) to your projects to enhance SEO? No problem: React has [Next.js](https://nextjs.org/) and [Gatsby](https://gatsbyjs.com/), Angular has [Angular Universal](https://angular.io/guide/universal) and [Analog](https://analogjs.org/), and Vue has [NuxtJS](https://nuxtjs.org/) and [VuePress](https://vuepress.vuejs.org/).
+For example, do you want to add [Static Site Generation or Server Side Rendering](/posts/what-is-ssr-and-ssg) to your projects to enhance SEO? No problem: React has [Next.js](https://nextjs.org/) and [Gatsby](https://gatsbyjs.com/), Angular has [Angular SSR](https://angular.dev/guide/ssr) and [Analog](https://analogjs.org/), and Vue has [NuxtJS](https://nuxtjs.org/) and [VuePress](https://vuepress.vuejs.org/).
 
-Want to add a router to add multiple pages to your apps? React has the ["React Router"](https://reactrouter.com/), [Angular has its built-in router](https://angular.io/guide/router), and Vue has the ["Vue Router"](https://router.vuejs.org/).
+Want to add a router to add multiple pages to your apps? React has the ["React Router"](https://reactrouter.com/), [Angular has its built-in router](https://angular.dev/guide/routing), and Vue has the ["Vue Router"](https://router.vuejs.org/).
 
 Do you want to add global state management, making sharing data across an entire app easier? React has [Redux](https://redux.js.org/), Angular has [NgRx](https://ngrx.io/), and Vue has [Vuex](https://vuex.vuejs.org/).
 
@@ -87,7 +87,7 @@ React is built by Meta and powers all of its major applications. Moreover, the c
 
 However, when most mention "React," they tend to talk about the React ecosystem at large. See, the core maintainers of React itself tend to remain focused on a small subsection of tooling. Instead, they rely on external groups, like [Remix](https://remix.run/) and [Vercel](https://vercel.com/), to provide libraries that are often integral to application development.
 
-On the other hand, Angular is fully funded and supported by Google. They build a substantial portion of their major websites on top of the framework and, as a result, have a vested interest in continuing and up-keeping development. Continuing the differences from React, the Angular core team maintains a slew of helper libraries that provide everything from an [HTTP call layer](https://angular.io/guide/http) to [form validation](https://angular.io/guide/forms-overview).
+On the other hand, Angular is fully funded and supported by Google. They build a substantial portion of their major websites on top of the framework and, as a result, have a vested interest in continuing and up-keeping development. Continuing the differences from React, the Angular core team maintains a slew of helper libraries that provide everything from an [HTTP call layer](https://angular.dev/guide/http) to [form validation](https://angular.dev/guide/forms).
 
 Vue is often seen as the odd one out when talking about funding. Vue's development is driven by an independent team crowd-funded by a diverse pool of groups and individuals. However, while it's unclear how much money they bring in, it is clear that there are significant-sized financial contributors involved, [such as Alibaba, Baidu, Xiaomi, and more](https://medium.com/the-vue-point/the-state-of-vue-1655e10a340a).
 
@@ -103,7 +103,7 @@ For example, Angular focuses on object-oriented programming, while the React eco
 
 Because of this, once you have mastered each, you can choose which programming methodology you want to apply within parts of your applications.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 Beyond this, it's important to remember that these three frameworks are not the only choices on the table in web development. Svelte is an alternative that's been gaining tremendous traction, for example. While it differs even more from the three options we're learning, Svelte still shares many of the foundations of React, Angular, and Vue.
 
@@ -133,11 +133,11 @@ We will be learning React, Angular, and Vue from the basics all the way to under
 
 In fact, I will do my best to link out to anything that's expected to be known or valuable in continuing the learning process. That said, if you're new to these topics, some suggested pre-reading might include:
 
-- ["How Computers Speak" — An introduction to how your computer takes "source code" and converts it to machine code.](https://unicorn-utterances.com/posts/how-computers-speak)
-- ["Introduction to HTML, CSS, and JavaScript" — An explanation of the three fundamentals of web development and how they're utilized to build websites.](https://unicorn-utterances.com/posts/intro-to-html-css-and-javascript)
-- ["CSS Fundamentals" — An introduction to how CSS works and common rules you should know.](https://unicorn-utterances.com/posts/css-fundamentals)
-- ["WebDev 101: How to use NPM and Yarn" — An explanation of what "Node" is, what "NPM" is, and how to use them.](https://unicorn-utterances.com/posts/how-to-use-npm)
-- ["Understanding The DOM: How Browsers Show Content On-Screen" — An explanation of the "DOM" and how it pertains to HTML.](https://unicorn-utterances.com/posts/understanding-the-dom)
+- ["How Computers Speak" — An introduction to how your computer takes "source code" and converts it to machine code.](/posts/how-computers-speak)
+- ["Introduction to HTML, CSS, and JavaScript" — An explanation of the three fundamentals of web development and how they're utilized to build websites.](/posts/intro-to-html-css-and-javascript)
+- ["CSS Fundamentals" — An introduction to how CSS works and common rules you should know.](/posts/css-fundamentals)
+- ["WebDev 101: How to use NPM and Yarn" — An explanation of what "Node" is, what "NPM" is, and how to use them.](/posts/how-to-use-npm)
+- ["Understanding The DOM: How Browsers Show Content On-Screen" — An explanation of the "DOM" and how it pertains to HTML.](/posts/understanding-the-dom)
 
 ## What Aren't We Learning? {#what-arent-we-learning}
 
@@ -226,7 +226,7 @@ With the understanding of what we won't be looking at out of the way, **let's ta
   - Modifying each child in a loop
   - Passing values to projected children
 
-> This can seem overwhelming but remember that this book is meant to be a "newcomer" to "expert" resource. You absolutely do not need to tackle this all at once. You can stop at any point, go elsewhere, and come back at your leisure. This book isn't going anywhere and **will be free online forever**; it is [open-source to ensure this is the case](https://github.com/unicorn-utterances/unicorn-utterances/).
+> This can seem overwhelming but remember that this book is meant to be a "newcomer" to "expert" resource. You absolutely do not need to tackle this all at once. You can stop at any point, go elsewhere, and come back at your leisure. This book isn't going anywhere and **will be free online forever**; it is [open-source to ensure this is the case](https://github.com/playfulprogramming/playfulprogramming/).
 
 But wait, there's more! While this is the outline for the first book in the series, there will be two more books teaching React, Angular, and Vue. The second book will focus on the ecosystem around these tools, and the third will focus specifically on internals and advanced usage.
 
@@ -241,7 +241,7 @@ We will also have easy-to-reference resources in case you're already a pro with 
 
 As a final note, before I send you into the rest of the book, I want to touch on a few points about these frameworks:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -263,17 +263,17 @@ Here are a few nuances we should keep in mind about this book's teachings of Ang
 
 #### Angular Is Not AngularJS {#angular-not-angularjs}
 
-Despite the similarities in their names, these two are entirely distinct entities. More specifically, [AngularJS was initially released in 2010](https://unicorn-utterances.com/posts/web-components-101-history#2010-The-Early-Days-of-MVC-in-JS) and was followed up by the initial release of Angular in 2016. **Despite this shared lineage, the core concepts shifted drastically between these two releases.** For all intents and purposes, you will not know AngularJS at the end of this book: You will know Angular.
+Despite the similarities in their names, these two are entirely distinct entities. More specifically, [AngularJS was initially released in 2010](/posts/web-components-101-history#2010-The-Early-Days-of-MVC-in-JS) and was followed up by the initial release of Angular in 2016. **Despite this shared lineage, the core concepts shifted drastically between these two releases.** For all intents and purposes, you will not know AngularJS at the end of this book: You will know Angular.
 
 #### We're Using Standalone Components {#standalone-components}
 
 Angular has two ways of defining component imports: modules and standalone components. **We'll be using Standalone components**.
 
-When Angular was first released, it launched with [the concept of NgModules](https://angular.io/guide/ngmodules). Very broadly, this was an API that allowed you to namespace a collection of related UI items (called components, more on that in the next chapter) into so-called "modules".
+When Angular was first released, it launched with [the concept of NgModules](https://angular.dev/guide/ngmodules). Very broadly, this was an API that allowed you to namespace a collection of related UI items (called components, more on that in the next chapter) into so-called "modules".
 
 While these modules worked, they were primarily dissimilar from alternatives in other related frameworks like React and Vue. Further, a common complaint against them is that they were overly complicated with minimal yield.
 
-[Starting with an experimental release in Angular 14](https://github.com/angular/angular/discussions/45554) (and [being marked as stable in Angular 15](https://blog.angular.io/angular-v15-is-now-available-df7be7f2f4c8)), Angular introduced the "standalone components" API. This was a more similar method of importing similar UI elements into one another and is what our book will be using.
+[Starting with an experimental release in Angular 14](https://github.com/angular/angular/discussions/45554) (and [being marked as stable in Angular 15](https://blog.angular.dev/angular-v15-is-now-available-df7be7f2f4c8)), Angular introduced the "standalone components" API. This was a more similar method of importing similar UI elements into one another and is what our book will be using.
 
 > Keep in mind that if you're working with an older Angular codebase, it's likely to still be using modules.
 
@@ -298,7 +298,7 @@ Similarly, Angular 15.1 introduced a method for using self-closing tags with com
 
 #### We Won't Be Learning "Signals" {#no-signals}
 
-[Early in 2023, the Angular team announced that they would be introducing a new method of programming in Angular called "Signals"](https://angular.io/guide/signals). To pull back the curtains a bit, this book began life in January 2022, and by the time the book had launched, parts of the signals API had not yet been introduced as a stable API within the Angular ecosystem.
+[Early in 2023, the Angular team announced that they would be introducing a new method of programming in Angular called "Signals"](https://angular.dev/guide/signals). To pull back the curtains a bit, this book began life in January 2022, and by the time the book had launched, parts of the signals API had not yet been introduced as a stable API within the Angular ecosystem.
 
 While I believe Signals are the way forward for the Angular community, delaying the book further and waiting for this API to stabilize was simply not viable. As such, **this book will not teach Angular signals** at this time.
 
@@ -330,6 +330,6 @@ Vue is a highly flexible framework and, as a result, allows you to define compon
 
 While the "Internals" book (the third in the series) will introduce the other methods and how they work under the hood, SFCs are commonly used as the de facto method of creating Vue components for most applications.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Without further ado, let's get started.

@@ -5,7 +5,8 @@ import { promises as fs } from "fs";
 
 const chevron_down = await fs.readFile("src/icons/chevron_down.svg", "utf8");
 
-const ChevronDownIcon = fromHtml(chevron_down, { fragment: true }).children[0] as Element;
+const ChevronDownIcon = fromHtml(chevron_down, { fragment: true })
+	.children[0] as Element;
 ChevronDownIcon.properties["aria-hidden"] = "true";
 
 interface HintProps {

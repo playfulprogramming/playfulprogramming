@@ -21,4 +21,4 @@ This series covers everything needed to get started with Minecraft data pack dev
 
 We'll start with the basics of assembling a data pack, then build up to complex list sorting logic, ray casting techniques, and edge case hacks to make any in-game idea come to life.
 
-The data packs built in this series can be found in the [unicorn-utterances/mc-datapacks-tutorial](https://github.com/unicorn-utterances/mc-datapacks-tutorial) repository. Feel free to use it for reference as you read through these articles!
+The data packs built in this series can be found in the [playfulprogramming/mc-datapacks-tutorial](https://github.com/playfulprogramming/mc-datapacks-tutorial) repository. Feel free to use it for reference as you read through these articles!

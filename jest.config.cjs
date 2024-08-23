@@ -1,5 +1,5 @@
 const { resolve } = require("path");
-require('whatwg-fetch');
+require("whatwg-fetch");
 
 // Add any custom config to be passed to Jest
 module.exports = {
@@ -24,13 +24,18 @@ module.exports = {
 	},
 	transformIgnorePatterns: [
 		// ...your ignore patterns
-		"^((?!node_modules).)*node_modules.((?!preact|unified|unist|hast|rehype|remark|mdast|micromark|retext|nlcst|rehype|decode-named-character-reference|character-entities|zwitch|longest-streak|unherit|parse-|strip-|html-void-elements|stringify-entities|ccount|markdown-|slash|vfile|property-|space-separated-|comma-separated-|web-namespaces|junk).)*$",
+		"^((?!node_modules).)*node_modules.((?!preact|unified|unist|hast|rehype|remark|mdast|micromark|retext|nlcst|rehype|decode-named-character-reference|character-entities|zwitch|longest-streak|unherit|parse-|strip-|html-void-elements|stringify-entities|ccount|markdown-|slash|vfile|property-|space-separated-|comma-separated-|web-namespaces|junk|@tanstack).)*$",
 		"^.+\\.module\\.(css|sass|scss)$",
 	],
 	// moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
 	moduleNameMapper: {
+		"^msw/node$": require.resolve("msw/node"),
+		"^@mswjs/interceptors/ClientRequest$": require.resolve(
+			"@mswjs/interceptors/ClientRequest",
+		),
 		"^preact$": require.resolve("preact"),
 		"^react(-dom)?$": require.resolve("preact/compat"),
+		"^react/jsx-runtime$": require.resolve("preact/jsx-runtime"),
 		"^@testing-library\\/preact$": require.resolve("@testing-library/preact"),
 		// NextJS
 		// Handle CSS imports (with CSS modules)
@@ -50,9 +55,9 @@ module.exports = {
 		"^types/(.*)$": resolve(__dirname, "./src/types/$1"),
 		"^components/(.*)$": resolve(__dirname, "./src/components/$1"),
 		"^utils/(.*)$": resolve(__dirname, "./src/utils/$1"),
-		"^uu-types$": resolve(__dirname, "./src/types"),
-		"^uu-utils$": resolve(__dirname, "./src/utils"),
-		"^uu-constants$": resolve(__dirname, "./src/constants"),
+		"^pfp-types$": resolve(__dirname, "./src/types"),
+		"^pfp-utils$": resolve(__dirname, "./src/utils"),
+		"^pfp-constants$": resolve(__dirname, "./src/constants"),
 		"^assets/(.*)": resolve(__dirname, "./src/assets/$1"),
 	},
 };

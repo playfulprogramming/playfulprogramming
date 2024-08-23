@@ -1,15 +1,16 @@
 import { Octokit } from "octokit";
-import { getUnicornsByLang } from "utils/api";
+import { GraphqlResponseError } from "@octokit/graphql";
+import { getPeopleByLang } from "utils/api";
 
 const octokit =
 	typeof process.env.GITHUB_TOKEN !== "undefined"
 		? new Octokit({
 				auth: process.env.GITHUB_TOKEN,
-		  })
+			})
 		: undefined;
 
 if (!octokit)
-	console.warn("No GITHUB_TOKEN provided - skipping unicorn achievements!");
+	console.warn("No GITHUB_TOKEN provided - skipping person achievements!");
 
 export interface GitHubData {
 	issueCount: number;
@@ -21,9 +22,9 @@ export const contributorYears: number[] = [];
 for (let year = 2019; year <= new Date().getFullYear(); year++)
 	contributorYears.push(year);
 
-const userLogins = getUnicornsByLang("en")
-	.filter((unicorn) => !!unicorn.socials.github)
-	.map((unicorn) => unicorn.socials.github);
+const userLogins = getPeopleByLang("en")
+	.filter((person) => !!person.socials.github)
+	.map((person) => person.socials.github);
 
 const userResult: Record<string, { id: string }> = (await octokit
 	?.graphql(
@@ -39,7 +40,7 @@ const userResult: Record<string, { id: string }> = (await octokit
 		}
 	`,
 	)
-	.catch((e) => {
+	.catch((e: GraphqlResponseError<unknown>) => {
 		if (e.data && typeof e.data === "object") {
 			console.warn("Partial error from GitHub GraphQL:", e.errors);
 			return e.data;
@@ -58,7 +59,7 @@ if (userResult) {
 
 const dataQuery = `
 query($login: String, $id: ID, $prSearch: String!) {
-	repository(owner: "unicorn-utterances", name: "unicorn-utterances") {
+	repository(owner: "playfulprogramming", name: "playfulprogramming") {
 		defaultBranchRef {
 			target {
 				... on Commit {
@@ -96,7 +97,7 @@ export async function fetchGitHubData(
 	const response = (await octokit.graphql(dataQuery, {
 		login,
 		id,
-		prSearch: `repo:unicorn-utterances/unicorn-utterances is:pr author:${login}`,
+		prSearch: `repo:playfulprogramming/playfulprogramming is:pr author:${login}`,
 	})) as {
 		repository: {
 			defaultBranchRef: {

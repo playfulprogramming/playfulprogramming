@@ -1,5 +1,5 @@
 ---
-import { getUnicornById } from "utils/api";
+import { getPersonById } from "utils/api";
 import ProminentQuote from "../components/prominent-quote.astro";
 import QuoteCard from "../components/quote-card.astro";
 import QuotesContainer from "../components/quotes-container.astro";
@@ -18,7 +18,7 @@ import styles from "./quotes.module.scss";
 		<ProminentQuote
 			personName={"Lars Gyrup Brink Nielsen"}
 			personLink="https://github.com/LayZeeDK"
-			avatarSrc={getUnicornById("LayZee", "en")!.profileImgMeta
+			avatarSrc={getPersonById("LayZee", "en")!.profileImgMeta
 				.relativeServerPath}
 			personTitle="GitHub Star, Microsoft MVP, Angular Hero of Education"
 			quote={`
@@ -130,7 +130,7 @@ The Framework Field Guide does a wonderful job of comparing and contrasting thre
 		<QuoteCard
 			personName={`Enea Jahollari`}
 			personLink="https://eneajaho.me/"
-			avatarSrc={getUnicornById("eneajahollari", "en")!.profileImgMeta
+			avatarSrc={getPersonById("eneajahollari", "en")!.profileImgMeta
 				.relativeServerPath}
 			personTitle={`Angular Developer`}
 			quote={`
@@ -149,7 +149,7 @@ Corbin does an amazing job teaching fundamentals that simplify learning React, A
 		<QuoteCard
 			personName={`James Fenn`}
 			personLink="https://jfenn.me/"
-			avatarSrc={getUnicornById("fennifith", "en")!.profileImgMeta
+			avatarSrc={getPersonById("fennifith", "en")!.profileImgMeta
 				.relativeServerPath}
 			personTitle={`Miscellaneous Software Author, Bug Creator`}
 			quote={`
@@ -197,7 +197,7 @@ Corbin is great at giving new developers the keys to the kingdom. The pictures, 
 		<QuoteCard
 			personName={`Jahir Fiquitiva`}
 			personLink="https://jahir.dev/"
-			avatarSrc={getUnicornById("jahirfiquitiva", "en")!.profileImgMeta
+			avatarSrc={getPersonById("jahirfiquitiva", "en")!.profileImgMeta
 				.relativeServerPath}
 			personTitle={`Full Stack Engineer, Open Source Maintainer`}
 			quote={`
@@ -213,16 +213,6 @@ I'm confident the book contents will help you grow your skillset and use any fra
 			personTitle={`Lead Software Engineer, Renaissance Learning`}
 			quote={`
 New software developers often don't see how programming languages share many commonalities with each other and get hung up on syntax instead of functionality. By showing three frameworks at the same time, Corbin dispels this misconception while also showing the pros and cons of each framework.
-			`.trim()}
-		/>
-		<QuoteCard
-			personName={`Xeno`}
-			personLink="https://www.xenophorium.dev/"
-			avatarSrc={getUnicornById("xenophorium", "en")!.profileImgMeta
-				.relativeServerPath}
-			personTitle={`Frontend Developer`}
-			quote={`
-The amount of improvement I gained within a period of 3 months through interactions with Corbin (both about the book and outside of it) was way more than what I had learned in my two professional years as a frontend developer because, at some point, I was kind of stuck in a cycle of mundane tasks and was questioning why I did frontend in the first place; so, in a way, I have him to thank for helping me find joy in coding again.
 			`.trim()}
 		/>
 		<QuoteCard

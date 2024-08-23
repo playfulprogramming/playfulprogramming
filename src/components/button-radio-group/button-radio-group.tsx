@@ -52,7 +52,9 @@ export function RadioButton(props: AriaRadioProps) {
 	const { children } = props;
 	const state = useContext(RadioContext);
 	if (!state) {
-		throw new Error("<RadioButton> must only be used within a <RadioButtonGroup>!");
+		throw new Error(
+			"<RadioButton> must only be used within a <RadioButtonGroup>!",
+		);
 	}
 
 	const ref = useRef(null);

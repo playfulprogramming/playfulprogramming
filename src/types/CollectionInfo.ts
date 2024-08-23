@@ -20,14 +20,16 @@ export interface RawCollectionInfo {
 }
 
 export interface CollectionInfo extends RawCollectionInfo {
+	kind: "collection";
 	slug: string;
+	file: string;
 	authors: string[];
 	tags: string[];
 	locales: Languages[];
 	locale: Languages;
 	postCount: number;
 	coverImgMeta: {
-		// Relative to "public/unicorns"
+		// Relative to "public/people"
 		relativePath: string;
 		// Relative to site root
 		relativeServerPath: string;

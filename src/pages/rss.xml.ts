@@ -1,11 +1,11 @@
 import { Feed } from "feed";
 import { siteUrl } from "constants/site-config";
-import { getPostsByLang, getUnicornById } from "utils/api";
+import { getPostsByLang, getPersonById } from "utils/api";
 import licenses from "../../content/data/licenses.json";
 
-export const get = () => {
+export const GET = () => {
 	const feed = new Feed({
-		title: "Unicorn Utterances's RSS Feed",
+		title: "Playful Programming's RSS Feed",
 		description:
 			"Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions",
 		id: siteUrl,
@@ -13,7 +13,7 @@ export const get = () => {
 		language: "en",
 		image: `${siteUrl}/image.png`,
 		favicon: `${siteUrl}/favicon.ico`,
-		copyright: `Contributor's rights reserved ${new Date().getFullYear()}, Unicorn Utterances`,
+		copyright: `Contributor's rights reserved ${new Date().getFullYear()}, Playful Programming`,
 		feedLinks: {
 			rss: `${siteUrl}/rss.xml`,
 			atom: `${siteUrl}/atom.xml`,
@@ -31,7 +31,7 @@ export const get = () => {
 			description: post.description,
 			content: post.excerpt,
 			author: post.authors
-				.map((id) => getUnicornById(id, post.locale))
+				.map((id) => getPersonById(id, post.locale))
 				.map((author) => {
 					return {
 						name: author!.name,
@@ -44,5 +44,5 @@ export const get = () => {
 		});
 	});
 
-	return { body: feed.rss2() };
+	return new Response(feed.rss2());
 };

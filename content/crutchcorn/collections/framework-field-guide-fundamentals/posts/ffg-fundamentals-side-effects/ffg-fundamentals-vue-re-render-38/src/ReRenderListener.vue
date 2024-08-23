@@ -5,7 +5,7 @@ import { ref, onUpdated } from "vue";
 const count = ref(0);
 
 const add = () => {
-  count.value++;
+	count.value++;
 };
 
 onUpdated(() => {

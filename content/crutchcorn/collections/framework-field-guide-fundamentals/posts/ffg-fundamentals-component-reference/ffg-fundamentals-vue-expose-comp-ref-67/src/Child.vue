@@ -3,15 +3,15 @@
 const pi = 3.14;
 
 function sayHi() {
-  alert("Hello, world");
+	alert("Hello, world");
 }
 
 defineExpose({
-  pi,
-  sayHi,
+	pi,
+	sayHi,
 });
 </script>
 
 <template>
-  <p>Hello, template</p>
+	<p>Hello, template</p>
 </template>

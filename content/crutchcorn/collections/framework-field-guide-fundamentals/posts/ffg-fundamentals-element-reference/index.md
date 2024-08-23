@@ -23,7 +23,7 @@ We're able to build some of this functionality with the APIs we've covered thus 
 - Conditionally rendering the context menu's elements until relevant
 - Binding the `style` attribute to position the popup's `x` and `y` value
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # React
 
@@ -80,13 +80,13 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Intro Context Menu - StackBlitz" src="uu-code:./ffg-fundamentals-react-intro-context-menu-61?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Intro Context Menu - StackBlitz" src="pfp-code:./ffg-fundamentals-react-intro-context-menu-61?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 # Angular
 
-```typescript
+```angular-ts
 /**
  * This code sample is inaccessible and generally not
  * production-grade. It's missing:
@@ -150,9 +150,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Intro Context Menu - StackBlitz" src="uu-code:./ffg-fundamentals-angular-intro-context-menu-61?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Intro Context Menu - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-intro-context-menu-61?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 # Vue
 
@@ -212,11 +212,11 @@ const open = (e) => {
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Intro Context Menu - StackBlitz" src="uu-code:./ffg-fundamentals-vue-intro-context-menu-61?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Intro Context Menu - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-intro-context-menu-61?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This works relatively well until we think about two features that are missing:
 
@@ -237,9 +237,9 @@ In this chapter, we'll learn:
 # Basic Element References {#basic-el-references}
 
 <br/>
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -252,9 +252,9 @@ const RenderParagraph = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Ref Property - StackBlitz" src="uu-code:./ffg-fundamentals-react-ref-property-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Ref Property - StackBlitz" src="pfp-code:./ffg-fundamentals-react-ref-property-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 In this example, once the paragraph tags renders, it will `console.log` the underlying HTML DOM node.
 
@@ -275,9 +275,9 @@ const RenderButton = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React addEventListener - StackBlitz" src="uu-code:./ffg-fundamentals-react-add-event-listener-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React addEventListener - StackBlitz" src="pfp-code:./ffg-fundamentals-react-add-event-listener-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 > This is just used as an example of what you can do with the underlying HTML element. While there _are_ perfectly valid reasons for using `ref` to `addEventListener` (we'll touch on one such case later on), it's usually suggested to use `onClick` style event bindings instead.
 
@@ -323,9 +323,9 @@ const CountButton = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React useState Ref - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-state-ref-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React useState Ref - StackBlitz" src="pfp-code:./ffg-fundamentals-react-use-state-ref-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 > Once again: You should be using `onClick` to bind a method, this is only to demonstrate how element `ref`s work
 
@@ -375,9 +375,9 @@ const CountButton = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React useRef Fragile - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-ref-fragile-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React useRef Fragile - StackBlitz" src="pfp-code:./ffg-fundamentals-react-use-ref-fragile-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 This works as we would expect because `buttonRef` is defined before the first run of `useEffect`. However, let's add a short delay to the `button`'s rendering. We can do this using a `setTimeout` and another `useEffect`:
 
@@ -420,9 +420,9 @@ const CountButton = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React useRef Broken - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-ref-broken-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React useRef Broken - StackBlitz" src="pfp-code:./ffg-fundamentals-react-use-ref-broken-62?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 Now, if we wait the second it takes to render the `<button>Add one</button>` element and press the button, we'll see that our `click` event handler is never set properly.
 
@@ -436,7 +436,7 @@ This is because `buttonRef.current` is set to `undefined` in the first render, a
 
 Using `ViewChild`, we can access an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) that's within an Angular component's `template`:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
@@ -455,7 +455,7 @@ For example, the `#pTag` attribute assigns the template reference variable named
 
 Now that we have access to the underlying `<p>` element let's print it out inside a `ngOnInit`:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
@@ -471,15 +471,15 @@ class RenderParagraphComponent implements OnInit {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular ViewChild - StackBlitz" src="uu-code:./ffg-fundamentals-angular-view-child-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular ViewChild - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-view-child-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 > Why does this log as `undefined`? How do we fix this?
 
 Well, let's think about the following example:
 
-```typescript {5-7}
+```angular-ts {6-8}
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
@@ -500,7 +500,7 @@ class RenderParagraphComponent implements OnInit {
 }
 ```
 
-Here, we're conditionally rendering our `p` tag using an `ngIf`. But see, under the hood, the `ngIf`` won't initialize the `<p>` tag until _after_ the `ngOnInit` lifecycle method is executed.
+Here, we're conditionally rendering our `p` tag using an `ngIf`. But see, under the hood, `ngIf` won't initialize the `<p>` tag until _after_ the `ngOnInit` lifecycle method is executed.
 
 To solve this, we can do one of two things:
 
@@ -511,7 +511,7 @@ To solve this, we can do one of two things:
 
 To tell Angular that there is no dynamic HTML, and it should immediately query for the elements, you can use the `{static: true}` property on `ViewChild`:
 
-```typescript {6}
+```angular-ts {7}
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
@@ -527,13 +527,13 @@ class RenderParagraphComponent implements OnInit {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Static - StackBlitz" src="uu-code:./ffg-fundamentals-angular-static-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Static - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-static-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 However, keep in mind that if you _do_ later add any dynamic HTML our element will be `undefined` once again:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
@@ -560,7 +560,7 @@ To solve this, we'll have to use a different lifecycle method than `ngOnInit`.
 
 While the values of a dynamic HTML may not be defined in `ngOnInit`, there is a different lifecycle method to be called when Angular has fully initialized all the child values of your dynamic HTML: `ngAfterViewInit`.
 
-```typescript
+```angular-ts
 import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
 import { NgIf } from "@angular/common";
 
@@ -583,15 +583,15 @@ class RenderParagraphComponent implements AfterViewInit {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular afterViewInit - StackBlitz" src="uu-code:./ffg-fundamentals-angular-after-view-init-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular afterViewInit - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-after-view-init-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Adding an Event Listener Using `@ViewChild` {#adding-event-listener-viewchild}
 
 Now that we know how to use `ViewChild`, we can add an `addEventListener` and `removeEventListener` to manually bind a `button`'s `click` event:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
@@ -619,9 +619,9 @@ class RenderParagraphComponent implements AfterViewInit, OnDestroy {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular addEventListener - StackBlitz" src="uu-code:./ffg-fundamentals-angular-add-event-listener-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular addEventListener - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-add-event-listener-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 > Remember, the `addOne` function cannot be a class method, as otherwise [it will not clean up inside the `removeEventListener` properly.](/posts/javascript-bind-usage#event-listeners)
 
@@ -648,9 +648,9 @@ onMounted(() => {
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Ref - StackBlitz" src="uu-code:./ffg-fundamentals-vue-ref-62?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Ref - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-ref-62?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- ::end:no-ebook -->
 
 Here, `el.value` points to an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) of the `p` tag within `template`.
 
@@ -669,11 +669,11 @@ function logEl(el) {
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Function Ref - StackBlitz" src="uu-code:./ffg-fundamentals-vue-function-ref-62?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Function Ref - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-function-ref-62?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # How to Keep an Array of Element References {#array-of-elements}
 
@@ -685,7 +685,7 @@ One way of building out this button is to store each underlying message's DOM el
 
 Let's see how that's done with each framework.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -733,17 +733,17 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Multi-Element Ref - StackBlitz" src="uu-code:./ffg-fundamentals-react-multi-element-ref-63?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Multi-Element Ref - StackBlitz" src="pfp-code:./ffg-fundamentals-react-multi-element-ref-63?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Angular
 
 Just as there is a `ViewChild` to gain access to a single underlying HTML element, you can also use a `ViewChildren` to access more than one or more template elements using similar APIs.
 
-Using `ViewChildren`, we can access [template reference variables](https://crutchcorn-book.vercel.app/posts/content-reference#ng-templates) in order to `scrollIntoView` the first and last elements.
+Using `ViewChildren`, we can access [template reference variables](/posts/ffg-fundamentals-dynamic-html#ng-template) in order to `scrollIntoView` the first and last elements.
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -783,9 +783,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Multi-Element Ref - StackBlitz" src="uu-code:./ffg-fundamentals-angular-multi-element-ref-63?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Multi-Element Ref - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-multi-element-ref-63?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -830,11 +830,11 @@ const messages = [
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Multi-Element Ref - StackBlitz" src="uu-code:./ffg-fundamentals-vue-multi-element-ref-63?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Multi-Element Ref - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-multi-element-ref-63?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Real World Usage {#real-world-usage}
 
@@ -881,7 +881,7 @@ This code in vanilla JavaScript might look something like this:
 
 Let's port this logic to React, Angular, and Vue:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -954,9 +954,9 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Real World Usage - StackBlitz" src="uu-code:./ffg-fundamentals-react-real-world-usage-64?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Real World Usage - StackBlitz" src="pfp-code:./ffg-fundamentals-react-real-world-usage-64?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Angular
 
@@ -966,7 +966,7 @@ Additionally, we'll use `ViewChild` to track the `contextMenu` element and `.foc
 
 > We need to use a `setTimeout` in our `open` method to make sure the HTML element renders before our `focus` call.
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -1045,9 +1045,9 @@ class AppComponent implements AfterViewInit, OnDestroy {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Real World Usage - StackBlitz" src="uu-code:./ffg-fundamentals-angular-real-world-usage-64?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Real World Usage - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-real-world-usage-64?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1129,11 +1129,11 @@ function focusOnOpen(el) {
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Real World Usage - StackBlitz" src="uu-code:./ffg-fundamentals-vue-real-world-usage-64?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Real World Usage - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-real-world-usage-64?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Challenge {#challenge}
 
@@ -1159,7 +1159,7 @@ To make sure the user has been hovering for at least 1 second, we can add a `set
 
 > Remember to clean up the `setTimeout` when the component is unrendered!
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1200,7 +1200,7 @@ function App() {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -1273,7 +1273,7 @@ onUnmounted(() => {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Step 2: Remove the Element When the User Stops Hovering {#challenge-step-2}
 
@@ -1281,7 +1281,7 @@ Now that we have our tooltip showing up when we'd expect it, let's remove it whe
 
 To do this, we'll use [the `mouseleave` HTML event](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event) to set `show` to `false` and cancel the timer to show the tooltip if the event is active.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1333,7 +1333,7 @@ function App() {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -1432,7 +1432,7 @@ onUnmounted(() => {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Step 3: Placing the Tooltip above the Button {#challenge-step-3}
 
@@ -1440,7 +1440,7 @@ To place the tooltip above the button, we'll measure the button's position, heig
 
 We'll then use this positional data alongside [the CSS `position: fixed`](https://developer.mozilla.org/en-US/docs/Web/CSS/position) to position the tooltip to be placed `8px` above the `y` axis of the button:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1514,7 +1514,7 @@ function App() {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -1658,7 +1658,7 @@ onUnmounted(() => {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Step 4: Centering the Tooltip Horizontally {#challenge-step-4}
 
@@ -1699,7 +1699,7 @@ In the end, our styling should look something like this HTML markup:
 
 Let's implement this within our frameworks:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -1784,7 +1784,7 @@ function App() {
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -1953,7 +1953,7 @@ onUnmounted(() => {
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 ## Step 5: Adding Polish {#challenge-step-5}
 
@@ -1979,7 +1979,7 @@ However, we can use this knowledge to use a square and trick the human eye into 
 
 Let's build it!
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -2078,19 +2078,21 @@ function App() {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Element Ref Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-element-ref-challenge-65?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<iframe data-frame-title="React Element Ref Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-react-element-ref-challenge-65?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 </details>
 
+<!-- ::end:no-ebook -->
+
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -2194,15 +2196,17 @@ class AppComponent implements OnDestroy {
 }
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Element Ref Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-element-ref-challenge-65?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<iframe data-frame-title="Angular Element Ref Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-element-ref-challenge-65?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -2301,14 +2305,16 @@ onUnmounted(() => {
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Element Ref Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-element-ref-challenge-65?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<iframe data-frame-title="Vue Element Ref Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-element-ref-challenge-65?template=node&embed=1&file=src%2FApp.vue"></iframe>
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:no-ebook -->
+
+<!-- ::end:tabs -->

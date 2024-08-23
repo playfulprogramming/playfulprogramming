@@ -25,13 +25,21 @@
 
 	// Colors: Primary buttons
 	--btn_primary_background-color_default: var(--surface_primary_emphasis-low);
-	--btn_primary_background-color_default_hovered: var(--surface_primary_emphasis-medium);
-	--btn_primary_background-color_default_pressed: var(--surface_primary_emphasis-high);
+	--btn_primary_background-color_default_hovered: var(
+		--surface_primary_emphasis-medium
+	);
+	--btn_primary_background-color_default_pressed: var(
+		--surface_primary_emphasis-high
+	);
 	--btn_primary_foreground-color_default: var(--primary_on-variant);
 
 	--btn_primary_background-color_emphasized: var(--primary_high-contrast);
-	--btn_primary_background-color_emphasized_hovered: var(--primary_high-contrast_hovered);
-	--btn_primary_background-color_emphasized_pressed: var(--primary_high-contrast_pressed);
+	--btn_primary_background-color_emphasized_hovered: var(
+		--primary_high-contrast_hovered
+	);
+	--btn_primary_background-color_emphasized_pressed: var(
+		--primary_high-contrast_pressed
+	);
 	--btn_primary_foreground-color_emphasized: var(--background_primary);
 
 	--btn_primary_focus-outline_width: var(--border-width_focus);
@@ -39,14 +47,24 @@
 	--btn_primary_focus-oultine_color: var(--focus-outline_primary);
 
 	// Colors: Secondary buttons
-	--btn_secondary_background-color_default: var(--surface_secondary_emphasis-low);
-	--btn_secondary_background-color_default_hovered: var(--surface_secondary_emphasis-medium);
-	--btn_secondary_background-color_default_pressed: var(--surface_secondary_emphasis-high);
+	--btn_secondary_background-color_default: var(
+		--surface_secondary_emphasis-low
+	);
+	--btn_secondary_background-color_default_hovered: var(
+		--surface_secondary_emphasis-medium
+	);
+	--btn_secondary_background-color_default_pressed: var(
+		--surface_secondary_emphasis-high
+	);
 	--btn_secondary_foreground-color_default: var(--secondary_on-variant);
 
 	--btn_secondary_background-color_emphasized: var(--secondary_high-contrast);
-	--btn_secondary_background-color_emphasized_hovered: var(--secondary_high-contrast_hovered);
-	--btn_secondary_background-color_emphasized_pressed: var(--secondary_high-contrast_pressed);
+	--btn_secondary_background-color_emphasized_hovered: var(
+		--secondary_high-contrast_hovered
+	);
+	--btn_secondary_background-color_emphasized_pressed: var(
+		--secondary_high-contrast_pressed
+	);
 	--btn_secondary_foreground-color_emphasized: var(--background_secondary);
 
 	--btn_secondary_focus-outline_width: var(--border-width_focus);
@@ -90,6 +108,7 @@
 	border: none;
 	cursor: pointer;
 	box-sizing: border-box;
+	outline: none;
 
 	@include transition(color background-color);
 }
@@ -169,9 +188,10 @@
 		background-color: var(--btn_primary_background-color_emphasized_hovered);
 	}
 
-	&:focus-visible,
-	&.focusVisible {
-		outline: var(--btn_primary_focus-outline_width) solid var(--btn_primary_focus-oultine_color);
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
+		outline: var(--btn_primary_focus-outline_width) solid
+			var(--btn_primary_focus-oultine_color);
 		outline-offset: var(--btn_primary_focus-outline_gap);
 	}
 
@@ -188,9 +208,10 @@
 		background-color: var(--btn_secondary_background-color_emphasized_hovered);
 	}
 
-	&:focus-visible,
-	&.focusVisible {
-		outline: var(--btn_secondary_focus-outline_width) solid var(--btn_secondary_focus-oultine_color);
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
+		outline: var(--btn_secondary_focus-outline_width) solid
+			var(--btn_secondary_focus-oultine_color);
 		outline-offset: var(--btn_secondary_focus-outline_gap);
 	}
 
@@ -207,9 +228,10 @@
 		background-color: var(--btn_primary_background-color_default_hovered);
 	}
 
-	&:focus-visible,
-	&.focusVisible {
-		outline: var(--btn_primary_focus-outline_width) solid var(--btn_primary_focus-oultine_color);
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
+		outline: var(--btn_primary_focus-outline_width) solid
+			var(--btn_primary_focus-oultine_color);
 		outline-offset: var(--btn_primary_focus-outline_gap);
 	}
 
@@ -226,9 +248,10 @@
 		background-color: var(--btn_secondary_background-color_default_hovered);
 	}
 
-	&:focus-visible,
-	&.focusVisible {
-		outline: var(--btn_secondary_focus-outline_width) solid var(--btn_secondary_focus-oultine_color);
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
+		outline: var(--btn_secondary_focus-outline_width) solid
+			var(--btn_secondary_focus-oultine_color);
 		outline-offset: var(--btn_secondary_focus-outline_gap);
 	}
 

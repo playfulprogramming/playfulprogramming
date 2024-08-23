@@ -1,0 +1,85 @@
+img {
+	max-width: 100%;
+}
+
+/**
+* Shiki styling
+*/
+pre {
+	padding: 0.5rem;
+	border: 1px solid currentcolor;
+	border-radius: 8px;
+}
+
+/*
+* This code handles line of code counting
+*/
+code {
+	counter-reset: step;
+	counter-increment: step 0;
+}
+
+code .line::before {
+	content: counter(step);
+	counter-increment: step;
+	width: 4ch;
+	margin-right: 1.5rem;
+	display: inline-block !important;
+	text-align: right;
+	color: currentcolor;
+	opacity: 0.8;
+}
+
+/**
+ * Apply to code blocks, Shiki and non-Shiki alike
+ */
+pre code {
+	white-space: normal;
+}
+
+pre.shiki span.line {
+	display: block;
+	white-space: pre-wrap;
+}
+
+/**
+ * Make the details and summary more clear on ebook readers
+ */
+.hint__container {
+	border: 1px solid black;
+	border-radius: 4px;
+	padding: 0.5rem;
+}
+
+.hint__title {
+	font-weight: bold;
+	margin: -0.5em -0.5em 0;
+	padding: 0.5em;
+	border-bottom: 1px solid black;
+	margin-bottom: 0.5em;
+}
+
+blockquote {
+	border-left: 4px solid currentcolor;
+	padding-left: 1em;
+	margin-left: 0;
+}
+
+.table-overflow {
+	max-width: calc(100% - 1rem);
+}
+
+.table-overflow > table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+th,
+td {
+	border: 1px solid black;
+	padding: 0.5em;
+}

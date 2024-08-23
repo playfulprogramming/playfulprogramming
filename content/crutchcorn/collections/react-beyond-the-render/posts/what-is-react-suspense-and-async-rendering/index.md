@@ -43,7 +43,7 @@ useEffect(() => {
 }, []);
 ```
 
-<iframe data-frame-title="React use Hook - StackBlitz" src="uu-code:./react-use-hook?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="React use Hook - StackBlitz" src="pfp-code:./react-use-hook?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 While this works and `useEffect` _can_ be used this way, `useEffect` is not a built-in mechanism for asynchronous data loading. 
 
@@ -51,7 +51,7 @@ Instead, React 18.3 (in canary release at the time of writing) introduces a new 
 
 This hook allows you to pass a promise to it to load data:
 
-```jsx {0,2}
+```jsx {1,3}
 import {use, cache} from "react";
 
 const UserDisplay = () => {
@@ -77,7 +77,7 @@ Now React will treat the `result` as if it were not a promise, so that you can a
 > - Refetching with new inputs
 > - Abort signals to avoid timing issues
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
 
 # What is the `<Suspense>` component?
 
@@ -95,7 +95,7 @@ function App() {
 }
 ```
 
-<iframe data-frame-title="React Suspense - StackBlitz" src="uu-code:./react-suspense?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="React Suspense - StackBlitz" src="pfp-code:./react-suspense?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Reusing Loading Indicators
 
@@ -132,7 +132,7 @@ const fetchUser = cache(({ timeout }) => {
 });
 ```
 
-<iframe data-frame-title="React Suspense Multi - StackBlitz" src="uu-code:./react-suspense-multi?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="React Suspense Multi - StackBlitz" src="pfp-code:./react-suspense-multi?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 To sidestep this behavior, wrap each `<UserDisplay>` in their own `<Suspense>`:
 
@@ -153,7 +153,7 @@ function App() {
 }
 ```
 
-<iframe data-frame-title="React Suspense One-by-One - StackBlitz" src="uu-code:./react-suspense-one-by-one?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="React Suspense One-by-One - StackBlitz" src="pfp-code:./react-suspense-one-by-one?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## How do I handle rejected promises in `<Suspense>`?
 
@@ -197,7 +197,7 @@ class ErrorBoundary extends Component {
 }
 ```
 
-<iframe data-frame-title="React Suspense Error Boundary - StackBlitz" src="uu-code:./react-suspense-error-boundary?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="React Suspense Error Boundary - StackBlitz" src="pfp-code:./react-suspense-error-boundary?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Using `use` on the server
 
@@ -245,7 +245,7 @@ const fetchOurUserFromTheDatabase = cache(() => {
 
 This works!
 
-<iframe data-frame-title="Next.js use Hook - StackBlitz" src="uu-code:./nextjs-use-hook?template=node&embed=1&file=app%2Fpage.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Next.js use Hook - StackBlitz" src="pfp-code:./nextjs-use-hook?template=node&embed=1&file=app%2Fpage.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # What are React Async Server Components?
 
@@ -273,7 +273,7 @@ export default function Home() {
 }
 ```
 
-<iframe data-frame-title="Next.js Async Components - StackBlitz" src="uu-code:./nextjs-async-components?template=node&embed=1&file=app%2Fpage.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Next.js Async Components - StackBlitz" src="pfp-code:./nextjs-async-components?template=node&embed=1&file=app%2Fpage.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Not only is the developer experience for this component authoring better, but it's drastically more performant due to how its internals work.
 

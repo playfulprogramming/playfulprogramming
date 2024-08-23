@@ -1,25 +1,28 @@
-import { MockUnicorn, MockUnicornTwo } from "./mock-unicorn";
+import { MockPerson, MockPersonTwo } from "./mock-person";
 import { MockLicense } from "./mock-license";
 import { PostInfo } from "types/index";
 
 export const MockPost: PostInfo = {
+	kind: "post",
 	title: "Post title",
 	published: "10-10-2010T00:00:00.000Z",
 	publishedMeta: "October 10, 2010",
 	tags: ["item1"],
 	description: "This is a short description dunno why this would be this short",
 	excerpt: "This is a short description dunno why this would be this short",
-	authors: [MockUnicorn.id],
+	authors: [MockPerson.id],
 	license: MockLicense.id,
 	locale: "en",
 	locales: ["en", "es"],
 	slug: "this-post-name-here",
+	file: "path/index.md",
 	path: "path",
 	wordCount: 10000,
 	socialImg: "img.png",
 };
 
 export const MockMultiAuthorPost: PostInfo = {
+	kind: "post",
 	title: "Another post title",
 	published: "10-20-2010T00:00:00.000Z",
 	publishedMeta: "October 20, 2010",
@@ -28,17 +31,19 @@ export const MockMultiAuthorPost: PostInfo = {
 		"This is another short description dunno why this would be this short",
 	excerpt:
 		"This is another short description dunno why this would be this short",
-	authors: [MockUnicornTwo.id, MockUnicorn.id],
+	authors: [MockPersonTwo.id, MockPerson.id],
 	license: MockLicense.id,
 	locale: "en",
 	locales: ["en", "es"],
 	slug: "this-other-post-name-here",
+	file: "path/index.md",
 	path: "path",
 	wordCount: 100000,
 	socialImg: "img.png",
 };
 
 export const MockMuliLanguagePost: PostInfo = {
+	kind: "post",
 	title: "Another post title",
 	published: "10-20-2010T00:00:00.000Z",
 	publishedMeta: "October 20, 2010",
@@ -47,17 +52,19 @@ export const MockMuliLanguagePost: PostInfo = {
 		"This is another short description dunno why this would be this short",
 	excerpt:
 		"This is another short description dunno why this would be this short",
-	authors: [MockUnicornTwo.id, MockUnicorn.id],
+	authors: [MockPersonTwo.id, MockPerson.id],
 	license: MockLicense.id,
 	locale: "en",
 	locales: ["en", "es"],
 	slug: "this-other-post-name-here",
+	file: "path/index.md",
 	path: "path",
 	wordCount: 100000,
 	socialImg: "img.png",
 };
 
 export const MockCanonicalPost: PostInfo = {
+	kind: "post",
 	title: "Another post title",
 	published: "10-20-2010T00:00:00.000Z",
 	publishedMeta: "October 20, 2010",
@@ -67,11 +74,12 @@ export const MockCanonicalPost: PostInfo = {
 		"This is another short description dunno why this would be this short",
 	excerpt:
 		"This is another short description dunno why this would be this short",
-	authors: [MockUnicornTwo.id, MockUnicorn.id],
+	authors: [MockPersonTwo.id, MockPerson.id],
 	license: MockLicense.id,
 	locale: "en",
 	locales: ["en", "es"],
 	slug: "this-other-post-name-here",
+	file: "path/index.md",
 	path: "path",
 	wordCount: 100000,
 	socialImg: "img.png",

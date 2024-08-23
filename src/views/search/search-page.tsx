@@ -14,7 +14,6 @@ import {
 	useQuery,
 } from "@tanstack/react-query";
 import { useDebouncedValue } from "./use-debounced-value";
-import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 
 import style from "./search-page.module.scss";
 import { PostCardGrid } from "components/post-card/post-card-grid";
@@ -43,35 +42,37 @@ import { ServerReturnType } from "./types";
 import { CollectionInfo } from "types/CollectionInfo";
 import { isDefined } from "utils/is-defined";
 
-interface SearchPageProps {
-	unicornProfilePicMap: ProfilePictureMap;
-}
-
 const MAX_POSTS_PER_PAGE = 6;
 
-function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
-	const [query, setQuery] = useSearchParams<SearchQuery>(serializeParams, deserializeParams);
+function SearchPageBase() {
+	const [query, setQuery] = useSearchParams<SearchQuery>(
+		serializeParams,
+		deserializeParams,
+	);
 
 	const search = query.searchQuery ?? "";
 
 	/**
 	 * Derive state and setup for search
 	 */
-	const setSearch = useCallback((str: string) => {
-		const newQuery = {
-			...query,
-			searchQuery: str,
-			searchPage: 1,
-		};
+	const setSearch = useCallback(
+		(str: string) => {
+			const newQuery = {
+				...query,
+				searchQuery: str,
+				searchPage: 1,
+			};
 
-		if (!str) {
-			// Remove tags and authors when no value is present
-			newQuery.filterTags = [];
-			newQuery.filterAuthors = [];
-		}
+			if (!str) {
+				// Remove tags and authors when no value is present
+				newQuery.filterTags = [];
+				newQuery.filterAuthors = [];
+			}
 
-		setQuery(newQuery);
-	}, [query, setQuery]);
+			setQuery(newQuery);
+		},
+		[query, setQuery],
+	);
 
 	const [debouncedSearch, immediatelySetDebouncedSearch] = useDebouncedValue(
 		search,
@@ -111,7 +112,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		},
 		queryKey: ["search", debouncedSearch],
 		initialData: {
-			unicorns: {},
+			people: {},
 			posts: [],
 			totalPosts: 0,
 			collections: [],
@@ -130,7 +131,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 	const isContentLoading = isLoading || isFetching;
 
-	const setSelectedUnicorns = useCallback(
+	const setSelectedPeople = useCallback(
 		(authors: string[]) => {
 			setQuery({
 				...query,
@@ -163,12 +164,11 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		[query, setQuery],
 	);
 
-	const unicornsMap = useMemo(() => {
-		return new Map(Object.entries(data.unicorns));
-	}, [data.unicorns]);
+	const peopleMap = useMemo(() => {
+		return new Map(Object.entries(data.people));
+	}, [data.people]);
 
-	const showArticles =
-		query.display === "all" || query.display === "articles";
+	const showArticles = query.display === "all" || query.display === "articles";
 
 	const showCollections =
 		query.display === "all" || query.display === "collections";
@@ -207,7 +207,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 			if (
 				query.filterAuthors.length > 0 &&
-				!post.authors.some((unicorn) => query.filterAuthors.includes(unicorn))
+				!post.authors.some((person) => query.filterAuthors.includes(person))
 			) {
 				return false;
 			}
@@ -237,8 +237,8 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 			if (
 				query.filterAuthors.length > 0 &&
-				!collection.authors.some((unicorn) =>
-				query.filterAuthors.includes(unicorn),
+				!collection.authors.some((person) =>
+					query.filterAuthors.includes(person),
 				)
 			) {
 				return false;
@@ -299,22 +299,18 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const numberOfPosts = showArticles ? filteredAndSortedPosts.length : 0;
 
 	return (
-		<main
-			className={style.fullPageContainer}
-			data-hide-sidebar={!search}
-		>
+		<main className={style.fullPageContainer} data-hide-sidebar={!search}>
 			<h1 className={"visually-hidden"}>Search</h1>
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
 				setFilterIsDialogOpen={setFilterIsDialogOpen}
-				unicornProfilePicMap={unicornProfilePicMap}
 				collections={data.collections}
 				posts={data.posts}
-				unicornsMap={unicornsMap}
+				peopleMap={peopleMap}
 				selectedTags={query.filterTags}
 				setSelectedTags={setSelectedTags}
 				selectedAuthorIds={query.filterAuthors}
-				setSelectedAuthorIds={setSelectedUnicorns}
+				setSelectedAuthorIds={setSelectedPeople}
 				sort={query.sort}
 				setSort={setSort}
 				setContentToDisplay={setContentToDisplay}
@@ -325,7 +321,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					position: "sticky",
 					// this should be overflow: clip; to prevent the browser scrolling within the element when a filter checkbox is focused:
 					// https://stackoverflow.com/q/75419337
-					// https://github.com/unicorn-utterances/unicorn-utterances/issues/653
+					// https://github.com/playfulprogramming/playfulprogramming/issues/653
 					overflow: "clip",
 				}}
 				searchString={search}
@@ -432,9 +428,10 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 									{filteredAndSortedCollections.map((collection) => (
 										<li>
 											<CollectionCard
-												unicornProfilePicMap={unicornProfilePicMap}
 												collection={collection}
-												authors={collection.authors.map(id => unicornsMap.get(id)).filter(isDefined)}
+												authors={collection.authors
+													.map((id) => peopleMap.get(id))
+													.filter(isDefined)}
 												headingTag="h3"
 											/>
 										</li>
@@ -456,9 +453,8 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 								<PostCardGrid
 									aria-labelledby={"articles-header"}
 									postsToDisplay={posts}
-									postAuthors={unicornsMap}
+									postAuthors={peopleMap}
 									postHeadingTag="h3"
-									unicornProfilePicMap={unicornProfilePicMap}
 								/>
 								<Pagination
 									testId="pagination"
@@ -473,7 +469,9 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 										lastPage: lastPage,
 									}}
 									getPageHref={(pageNum) => {
-										const pageParams = new URLSearchParams(window.location.search);
+										const pageParams = new URLSearchParams(
+											window.location.search,
+										);
 										pageParams.set(SEARCH_PAGE_KEY, pageNum.toString());
 										return `${
 											window.location.pathname
@@ -490,10 +488,10 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 const queryClient = new QueryClient();
 
-export default function SearchPage(props: SearchPageProps) {
+export default function SearchPage() {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<SearchPageBase {...props} />
+			<SearchPageBase />
 		</QueryClientProvider>
 	);
 }

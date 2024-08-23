@@ -44,7 +44,7 @@ This is how the DOM constructs nodes as parents and children. Notice how the `<l
 
 While the above looks strange and counter-intuitive, let's look at how we define the same list if each element is a dedicated component using the methods we've created thus far:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 # React
 
@@ -74,7 +74,7 @@ const Container = () => {
 
 # Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "list-item",
 	standalone: true,
@@ -152,7 +152,7 @@ import List from "./List.vue";
 </template>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 This is fairly similar to that strange fake nested HTML syntax. The alternative component usage syntax that matches closer to the DOM might otherwise look like this:
 
@@ -168,7 +168,7 @@ This mismatch occurs because if we look at how our components are defined, we're
 
 This is the difference between building apps with HTML alone and building them with a frontend framework; while the DOM is typically thought of as one-dimensional, there are really two dimensions that are exposed more thoroughly by the framework's ability to construct this tree in a more fine-grained manner.
 
-<!-- in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
 Let's move the component tree back to being breadth first by using a feature that may sound familiar: Passing children.
 
@@ -178,7 +178,7 @@ Before we explore passing children with our frameworks, let's first think of a p
 
 For example, say you want the `button` to have a "pressed" effect whenever you click on it. Then, when you click on it for a second time, it unclicks. This might look something like the following:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -210,13 +210,13 @@ const ToggleButtonList = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React No Passing Demo - StackBlitz" src="uu-code:./ffg-fundamentals-react-no-passing-demo-54?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React No Passing Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-react-no-passing-demo-54?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "toggle-button",
 	standalone: true,
@@ -255,9 +255,9 @@ class ToggleButtonComponent {
 class ToggleButtonListComponent {}
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular No Passing Demo - StackBlitz" src="uu-code:./ffg-fundamentals-angular-no-passing-demo-54?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular No Passing Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-no-passing-demo-54?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -303,19 +303,19 @@ import ToggleButton from "./ToggleButton.vue";
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue No Passing Demo - StackBlitz" src="uu-code:./ffg-fundamentals-vue-no-passing-demo-54?template=node&embed=1&file=src%2FToggleButtonList.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue No Passing Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-no-passing-demo-54?template=node&embed=1&file=src%2FToggleButtonList.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Here, we're passing `text` as a string property to assign text. But oh no! What if we wanted to add a `span` inside of the `button` to add bolded text? After all, if you pass `Hello, <span>world</span>!`, it wouldn't render the `span`, but instead render the `<span>` as text.
 
-![A button with the inner text of "Hello, <span>world</span>!"](./hello_span_button.png)
+![A button with the inner text of "Hello, span, world, end span,!"](./hello_span_button.png)
 
 Instead, **let's allow the parent of our `ToggleButton` to pass in a template that's then rendered into the component**.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -354,15 +354,15 @@ const ToggleButtonList = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Passing Basic Children - StackBlitz" src="uu-code:./ffg-fundamentals-react-passing-basic-children-55?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Passing Basic Children - StackBlitz" src="pfp-code:./ffg-fundamentals-react-passing-basic-children-55?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Angular
 
 Angular has a special tag called `ng-content` that acts as a pass-through for all children's content passed to a component.
 
-```typescript
+```angular-ts
 @Component({
 	selector: "toggle-button",
 	standalone: true,
@@ -402,11 +402,11 @@ class ToggleButtonComponent {
 class ToggleButtonListComponent {}
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Passing Basic Children - StackBlitz" src="uu-code:./ffg-fundamentals-angular-passing-basic-children-55?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Passing Basic Children - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-passing-basic-children-55?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
-Because `ng-content` is built into [Angular's compiler](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549), we do not need to import anything into our component to use the feature.
+Because `ng-content` is built into [Angular's compiler](https://blog.angular.dev/how-the-angular-compiler-works-42111f9d2549), we do not need to import anything into our component to use the feature.
 
 ### Vue
 
@@ -454,13 +454,13 @@ import ToggleButton from "./ToggleButton.vue";
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Passing Basic Children - StackBlitz" src="uu-code:./ffg-fundamentals-vue-passing-basic-children-55?template=node&embed=1&file=src%2FToggleButtonList.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Passing Basic Children - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-passing-basic-children-55?template=node&embed=1&file=src%2FToggleButtonList.vue"></iframe>
+<!-- ::end:no-ebook -->
 
 Because `slot` is a built-in component of Vue, we do not need to import it from the `vue` package.
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Here, we're able to pass a `span` and other elements directly to our `ToggleButton` component as _children_.
 
@@ -468,7 +468,7 @@ Here, we're able to pass a `span` and other elements directly to our `ToggleButt
 
 However, because these templates have the full power of the frameworks at their disposal, these _children_ have superpowers! Let's add a `for` loop into our children's template to say hello to all of our friends:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -526,13 +526,13 @@ function RainbowExclamationMark() {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Use With Other Features - StackBlitz" src="uu-code:./ffg-fundamentals-react-use-with-other-features-56?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Use With Other Features - StackBlitz" src="pfp-code:./ffg-fundamentals-react-use-with-other-features-56?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "rainbow-exclamation-mark",
 	standalone: true,
@@ -583,9 +583,9 @@ class ToggleButtonListComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Use With Other Features - StackBlitz" src="uu-code:./ffg-fundamentals-angular-use-with-other-features-56?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Use With Other Features - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-use-with-other-features-56?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ### Vue
 
@@ -640,11 +640,11 @@ span {
 </style>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Use With Other Features - StackBlitz" src="uu-code:./ffg-fundamentals-vue-use-with-other-features-56?template=node&embed=1&file=src%2FToggleButtonList.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Use With Other Features - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-use-with-other-features-56?template=node&embed=1&file=src%2FToggleButtonList.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 As you can see, we can use any features inside our `children` - even other components!
 
@@ -674,7 +674,7 @@ This dropdown component has two potential places where passing elements would be
 
 Let's build this component with an API similar to the above using "named children."
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -724,15 +724,15 @@ function App() {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Named Children - StackBlitz" src="uu-code:./ffg-fundamentals-react-named-children-57?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React Named Children - StackBlitz" src="pfp-code:./ffg-fundamentals-react-named-children-57?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Angular
 
 `ng-content` allows you to pass a `select` property to have specific children projected in dedicated locations. This `select` property takes [CSS selector query values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors). Knowing this, we can pass the attribute query for `header` by wrapping the attribute name in square brackets like so:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "dropdown-comp",
 	standalone: true,
@@ -770,9 +770,9 @@ class AppComponent {
 }
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Named Children - StackBlitz" src="uu-code:./ffg-fundamentals-angular-named-children-57?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Named Children - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-named-children-57?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 Once `ng-content` finds related elements that match the `select` query, they will be content projected into the appropriate locations. If not matched by a `ng-content[select]`, they will be projected to a non `select` enabled `ng-content`.
 
@@ -823,7 +823,7 @@ Here, we can see that `slot` is querying for a `header` template slot. This quer
 
 `v-slot` also has a shorthand of `#`, similar to how `v-bind` has a shorthand of `:`. Using this shorthand, we can modify our `App` component to look like:
 
-```vue {10}
+```vue {11}
 <!-- App.vue -->
 <script setup>
 import { ref } from "vue";
@@ -840,11 +840,11 @@ const expanded = ref(false);
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Named Children - StackBlitz" src="uu-code:./ffg-fundamentals-vue-named-children-57?template=node&embed=1&file=src%2FApp.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue Named Children - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-named-children-57?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 > A simple version of this dropdown component is actually built into the browser as [`<details>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) and [`<summary>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary) HTML tags. Building our own is an experiment intended mostly for learning. For production environment, it's highly suggested to use those built-in elements instead.
 
@@ -877,7 +877,7 @@ Where `th` acts as a heading data item, and `td` acts as a bit of data on a give
 
 Let's refactor our file list to use this DOM layout:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -960,15 +960,15 @@ const FileTable = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React File Table - StackBlitz" src="uu-code:./ffg-fundamentals-react-file-table-58?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React File Table - StackBlitz" src="pfp-code:./ffg-fundamentals-react-file-table-58?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Angular
 
 Angular is unlike the other frameworks covered in this book. For example, let's say we port the table components from the other frameworks one-to-one into Angular.
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-item",
 	standalone: true,
@@ -1022,9 +1022,9 @@ If we render this, we'll see the following incorrectly formatted table:
 
 ![Our table data in a single line rather than in a grid](./broken-angular-table.png)
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Broken File Table - StackBlitz" src="uu-code:./ffg-fundamentals-angular-broken-file-table-58?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Broken File Table - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-broken-file-table-58?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 > This table is not formatted correctly. Where are the rows? Why is everything horizontally lined up next to one-another?
 
@@ -1090,7 +1090,7 @@ The reason our markup isn't correct is that we're creating non-default host elem
 
 When you use a `selector` in Angular to create an element, that selector stays in the DOM:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "list-item",
 	standalone: true,
@@ -1116,7 +1116,7 @@ At first, this might seem like a roadblock to implementing our `list-item` compo
 
 Combined, this might look something like this:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "tr[file-item]",
 	standalone: true,
@@ -1145,7 +1145,7 @@ Where `host` allows us to bind our typical event handlers and attributes to the 
 
 Knowing how `host` and `selector` can properly work together, let's finally build the Angular table that we wanted to from the start:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "tr[file-item]",
 	standalone: true,
@@ -1235,9 +1235,9 @@ class FileTableBodyComponent {
 class FileTableComponent {}
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular File Table - StackBlitz" src="uu-code:./ffg-fundamentals-angular-file-table-58?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular File Table - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-file-table-58?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1330,11 +1330,11 @@ import FileTableBody from "./FileTableBody.vue";
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue File Table - StackBlitz" src="uu-code:./ffg-fundamentals-vue-file-table-58?template=node&embed=1&file=src%2FFileTable.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue File Table - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-file-table-58?template=node&embed=1&file=src%2FFileTable.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 <!-- Author's note: It's not clear what the best A11Y pattern is here. The best guide for this seems to be an incomplete WCAG guide -->
 
@@ -1346,7 +1346,7 @@ import FileTableBody from "./FileTableBody.vue";
 
 Now that we have an explicit `FileTable` component, let's see if we're able to style it a bit more with a replacement `FileTableContainer` component, which uses passing children to style the underlying `table` element.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -1375,13 +1375,13 @@ const FileTable = () => {
 };
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React File Table Container - StackBlitz" src="uu-code:./ffg-fundamentals-react-file-table-container-59?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="React File Table Container - StackBlitz" src="pfp-code:./ffg-fundamentals-react-file-table-container-59?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-table-container",
 	standalone: true,
@@ -1406,9 +1406,9 @@ class FileTableContainerComponent {}
 class FileTableComponent {}
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular File Table Container - StackBlitz" src="uu-code:./ffg-fundamentals-angular-file-table-container-59?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular File Table Container - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-file-table-container-59?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1440,11 +1440,11 @@ import FileTableBody from "./FileTableBody.vue";
 </template>
 ```
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue File Table Container - StackBlitz" src="uu-code:./ffg-fundamentals-vue-file-table-container-59?template=node&embed=1&file=src%2FFileTable.vue"></iframe>
-<!-- no-ebook:end -->
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Vue File Table Container - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-file-table-container-59?template=node&embed=1&file=src%2FFileTable.vue"></iframe>
+<!-- ::end:no-ebook -->
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 # Challenge {#challenge}
 
@@ -1457,7 +1457,7 @@ Let's make this chapter's challenge a continuation of the table that we just bui
 </table>
 ```
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -1495,19 +1495,21 @@ const FileTable = () => {
 };
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="React Passing Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-react-passing-challenge-60?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
-<!-- no-ebook:end -->
+<iframe data-frame-title="React Passing Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-react-passing-challenge-60?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 
 </details>
 
+<!-- ::end:no-ebook -->
+
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "file-table-container",
 	standalone: true,
@@ -1541,15 +1543,17 @@ class FileTableContainerComponent {}
 class FileTableComponent {}
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Angular Passing Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-angular-passing-challenge-60?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- no-ebook:end -->
+<iframe data-frame-title="Angular Passing Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-passing-challenge-60?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 </details>
+
+<!-- ::end:no-ebook -->
 
 ## Vue
 
@@ -1593,14 +1597,16 @@ import FileTableBody from "./FileTableBody.vue";
 </template>
 ```
 
+<!-- ::start:no-ebook -->
+
 <details>
 
 <summary>Final code output</summary>
 
-<!-- no-ebook:start -->
-<iframe data-frame-title="Vue Passing Challenge - StackBlitz" src="uu-code:./ffg-fundamentals-vue-passing-challenge-60?template=node&embed=1&file=src%2FFileTable.vue"></iframe>
-<!-- no-ebook:end -->
+<iframe data-frame-title="Vue Passing Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-passing-challenge-60?template=node&embed=1&file=src%2FFileTable.vue"></iframe>
 
 </details>
 
-<!-- tabs:end -->
+<!-- ::end:no-ebook -->
+
+<!-- ::end:tabs -->

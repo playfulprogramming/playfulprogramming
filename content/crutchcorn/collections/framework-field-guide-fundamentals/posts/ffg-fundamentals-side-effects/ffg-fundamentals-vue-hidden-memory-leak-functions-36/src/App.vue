@@ -11,8 +11,8 @@ const alertUser = () => alert("I am an alert!");
 </script>
 
 <template>
-  <!-- Try clicking and unclicking quickly -->
-  <button @click="toggle()">Toggle</button>
-  <!-- Passing a function -->
-  <Alert v-if="show" :alert="alertUser" />
+	<!-- Try clicking and unclicking quickly -->
+	<button @click="toggle()">Toggle</button>
+	<!-- Passing a function -->
+	<Alert v-if="show" :alert="alertUser" />
 </template>

@@ -5,57 +5,57 @@ import { ref, onMounted, onUnmounted } from "vue";
 const isOpen = ref(false);
 
 const mouseBounds = ref({
-  x: 0,
-  y: 0,
+	x: 0,
+	y: 0,
 });
 
 const contextMenuRef = ref(null);
 
 function closeIfOutside(e) {
-  const contextMenuEl = contextMenuRef.value;
-  if (!contextMenuEl) return;
-  const isClickInside = contextMenuEl.contains(e.target);
-  if (isClickInside) return;
-  isOpen.value = false;
+	const contextMenuEl = contextMenuRef.value;
+	if (!contextMenuEl) return;
+	const isClickInside = contextMenuEl.contains(e.target);
+	if (isClickInside) return;
+	isOpen.value = false;
 }
 
 onMounted(() => {
-  document.addEventListener("click", closeIfOutside);
+	document.addEventListener("click", closeIfOutside);
 });
 
 onUnmounted(() => {
-  document.removeEventListener("click", closeIfOutside);
+	document.removeEventListener("click", closeIfOutside);
 });
 
 const close = () => {
-  isOpen.value = false;
+	isOpen.value = false;
 };
 
 const open = (e) => {
-  e.preventDefault();
-  isOpen.value = true;
-  mouseBounds.value = {
-    x: e.clientX,
-    y: e.clientY,
-  };
+	e.preventDefault();
+	isOpen.value = true;
+	mouseBounds.value = {
+		x: e.clientX,
+		y: e.clientY,
+	};
 };
 
 function focusOnOpen(el) {
-  contextMenuRef.value = el;
-  if (!el) return;
-  el.focus();
+	contextMenuRef.value = el;
+	if (!el) return;
+	el.focus();
 }
 </script>
 
 <template>
-  <div style="margin-top: 5rem; margin-left: 5rem">
-    <div @contextmenu="open($event)">Right click on me!</div>
-  </div>
-  <div
-    v-if="isOpen"
-    :ref="(el) => focusOnOpen(el)"
-    tabIndex="0"
-    :style="`
+	<div style="margin-top: 5rem; margin-left: 5rem">
+		<div @contextmenu="open($event)">Right click on me!</div>
+	</div>
+	<div
+		v-if="isOpen"
+		:ref="(el) => focusOnOpen(el)"
+		tabIndex="0"
+		:style="`
       position: fixed;
       top: ${mouseBounds.y}px;
       left: ${mouseBounds.x}px;
@@ -64,8 +64,8 @@ function focusOnOpen(el) {
       border-radius: 16px;
       padding: 1rem;
     `"
-  >
-    <button @click="close()">X</button>
-    This is a context menu
-  </div>
+	>
+		<button @click="close()">X</button>
+		This is a context menu
+	</div>
 </template>
