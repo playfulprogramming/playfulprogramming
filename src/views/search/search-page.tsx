@@ -39,12 +39,12 @@ import {
 } from "./search";
 import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
-import { searchForTerm } from "./orama";
+import { OramaClientProvider, useOramaSearch } from "./orama";
 import { PersonInfo } from "types/PersonInfo";
 
 const MAX_POSTS_PER_PAGE = 6;
 
-function SearchPageBase() {
+export function SearchPageBase() {
 	const [query, setQuery] = useSearchParams<SearchQuery>(
 		serializeParams,
 		deserializeParams,
@@ -93,6 +93,8 @@ function SearchPageBase() {
 	 * Fetch data
 	 */
 	const enabled = !!debouncedSearch;
+
+	const { searchForTerm } = useOramaSearch();
 
 	const {
 		isLoading: isLoadingPeople,
@@ -523,8 +525,10 @@ const queryClient = new QueryClient();
 
 export default function SearchPage() {
 	return (
-		<QueryClientProvider client={queryClient}>
-			<SearchPageBase />
-		</QueryClientProvider>
+		<OramaClientProvider>
+			<QueryClientProvider client={queryClient}>
+				<SearchPageBase />
+			</QueryClientProvider>
+		</OramaClientProvider>
 	);
 }

@@ -1,5 +1,5 @@
 /* eslint-disable no-var */
-import { beforeAll, beforeEach, test, describe, expect } from "vitest";
+import { beforeAll, beforeEach, afterEach, afterAll, test, describe, expect } from "vitest";
 import {
 	findByText as findByTextFrom,
 	queryByText as queryByTextFrom,
@@ -7,7 +7,7 @@ import {
 	waitFor,
 	cleanup,
 } from "@testing-library/preact";
-import SearchPage from "./search-page";
+import { SearchPageBase } from "./search-page";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { MockCanonicalPost, MockPost } from "../../../__mocks__/data/mock-post";
@@ -18,6 +18,8 @@ import { buildSearchQuery } from "src/views/search/search";
 import { PersonInfo } from "types/PersonInfo";
 import { PostInfo } from "types/PostInfo";
 import { CollectionInfo } from "types/CollectionInfo";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { OramaClientProvider } from "./orama";
 
 const user = userEvent.setup();
 
@@ -164,6 +166,17 @@ function mockFetchWithStatus(
 				{ status },
 			);
 		}),
+	);
+}
+
+function SearchPage() {
+	const queryClient = new QueryClient();
+	return (
+		<OramaClientProvider params={{ cache: false }}>
+			<QueryClientProvider client={queryClient}>
+				<SearchPageBase />
+			</QueryClientProvider>
+		</OramaClientProvider>
 	);
 }
 
