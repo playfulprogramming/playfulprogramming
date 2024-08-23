@@ -1,3 +1,4 @@
+import { test, vi, expect } from "vitest";
 import { render, waitFor } from "@testing-library/preact";
 import { PaginationMenuAndPopover } from "./pagination-popover";
 
@@ -75,7 +76,7 @@ test("when '-' is clicked, the page number is decremented", async () => {
 });
 
 test("when 'Go to page' is clicked, softNavigate is invoked with the input page number", async () => {
-	const softNavigate = jest.fn();
+	const softNavigate = vi.fn();
 	const { getByTestId } = render(
 		<PaginationMenuAndPopover
 			page={{
@@ -107,7 +108,7 @@ test("when 'Go to page' is clicked, softNavigate is invoked with the input page 
 	getByTestId("pagination-popup-submit").click();
 
 	await waitFor(() => {
-		expect(softNavigate).toBeCalledTimes(1);
-		expect(softNavigate).toBeCalledWith("./3", 3);
+		expect(softNavigate).toHaveBeenCalledTimes(1);
+		expect(softNavigate).toHaveBeenCalledWith("./3", 3);
 	});
 });
