@@ -926,7 +926,7 @@ export class App {}
 
 // TODO: Add iframe
 
-## Inline SCSS Support
+#### Inline SCSS Support
 
 This doesn't work out of the box, however, with inline styles. For example, if you try to add SCSS code into the  `styles` property in your `@Component` decorator:
 
@@ -1100,15 +1100,114 @@ Undefined variable.
   - 4:10  root stylesheet
 ```
 
-// Talk about compile-time variables being useful for media queries, something that CSS still can't do yet
 
+### Media Query Variables
 
+More than its utility in preventing typos, Sass variables are amazing when it comes to making media queries more consistent.
+
+See, CSS variables are unable to be used inside of media queries at this time:
+
+```css
+/* This is not valid CSS */
+@media screen and (min-width: var(--mobile)) {
+	/* ... */
+}
+```
+
+However, because SCSS variables compile to vanilla CSS, we _can_ do something like this:
+
+````scss
+$mobile: 860px;
+@media screen and (min-width: $mobile) {
+	/* ... */
+}
+````
+
+This makes enabling consistent media queries much easier to handle.
+
+## Functions
+
+Not only does Sass have the variable goodies of a compiled language, but it too has functions as well.
+
+While there are many, the idea behind them is the same: Take inputs, transform them in some way, and output a new value.
+
+We could, for example, change the opacity of a color:
+
+```sass
+p {
+  color: transparentize(#FFF, 0.5);
+}
+
+/* Outputs: */
+p {
+  color: rgba(255, 255, 255, 0.5);
+}
+```
+
+Do math operations:
+
+```sass
+.header {
+  font-size: #{round(2.2)}rem;
+}
+
+/* Outputs: */
+.header {
+  font-size: 2rem;
+}
+```
+
+And much more.
+
+> **Note:**
+>
+> It's worth mentioning that even CSS has a few "functions" of its own:
+>
+> `calc()`, `sin()`, `cos()`, `rotate()`, `opacity()`, and more exist to transform your CSS without SCSS' functions.
+>
+> You can even use these CSS functions inside of SCSS functions.
+>
+> [Learn more about CSS functions on MDN.](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions)
 
 ## Loops and conditional statements
 
 
 
-## Functions
+```scss
+// Given a single color, get white or black, depending on what's more readable
+@function getReadableColor($color) {
+    @if (lightness($color) > 50%) {
+        @return #000;
+    } @else {
+        @return #fff;
+    }
+}
+```
+
+
+
+```scss
+// Given a single color, return an array of 10 colors that are lighter than the original color.
+@function getGradient($color) {
+  $colors: ();
+  @for $i from 1 through 10 {
+    $colors: append($colors, lighten($color, $i * 10%), comma);
+  }
+  @return linear-gradient(to right, $colors);
+}
+
+.gradient {
+  background: getGradient(red);
+}
+```
+
+
+
+
+
+
+
+
 
 
 
