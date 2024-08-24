@@ -1405,19 +1405,107 @@ const styles = css`
 
 <!-- ::end:tabs -->
 
+## Downsides of CSS-in-JS
+
+The upsides of CSS-in-JS are abundant and useful:
+
+- Shared language configuration for complex styling
+- Dynamic styling based on runtime behavior
+- Being able to ship a single JS file that includes styling (useful in some restrictive environments)
+
+If these statements are true, why then are the download trends for traditional CSS-in-JS libraries (such as but not exclusive to Emotion CSS) trending downwards?
+
+![TODO: Write alt](./emotion_download_trends.png)
+
+Well, there's also a lot of downsides to CSS-in-JS libraries. Let's zoom out and evaluate each of the major concerns with traditional CSS-in-JS libraries:
+
+- Performance concerns
+- Issues in static apps
+
+### Performance Concerns
+
+Let's zoom out for a moment and think about how CSS makes it on our screen using traditional CSS loading mechanisms. Say we have a stylesheet and a JS file loaded in an HTML file like so:
+
+```html {5}
+<!-- index.html -->
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<!-- ... -->
+	</body>
+</html>
+```
+
+When 
 
 
-// Then talk about the downsides of not working properly in SSR, SSG, or other static contexts
 
-// Also downsides of the performance aspect
+This is true for JavaScript, HTML, or any other languages.
 
-React: https://emotion.sh/docs/introduction
+// Talk about waterfalling the chains a bit
 
-Also with React, talk about the `styled` API
+// Talk about "Flash of unstyled content" (FOUC)
 
-Angular: https://stackblitz.com/edit/angular-ivy-v7vjkp?file=src%2Fapp%2Fapp.component.ts,src%2Fapp%2Fapp.component.html
+```html {5,9}
+<!-- index.html -->
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<!-- ... -->
+    	<script src="script.js"></script>
+	</body>
+</html>
+```
 
-Vue: https://stackblitz.com/edit/vue-ai8qpp?file=src%2FApp.vue
+
+
+// TODO: Fill in
+
+
+
+![TODO: Write alt](./html_css_handling.png)
+
+
+
+![TODO: Write alt](./html_head_css_in_js_handling.png)
+
+
+
+![TODO: Write alt](./html_body_css_in_js_handling.png)
+
+
+
+![TODO: Write alt](./framework_css_in_js_handling.png)
+
+
+
+
+
+// TODO: Fill in
+
+
+
+
+
+
+
+
+
+> [You can learn more about how our source code is transformed into machine understandable runnable codes in our "How Computers Speak" article.](/posts/how-computers-speak)
+
+### SSG and SSR Issues
+
+// Shortly touch on what SSR and SSG is
+
+// Talk about challenges with groking the differences between static styling and dynamic styling and how you can extract one from another
+
+// Talk about waterfall chains
 
 # Compiled CSS-in-JS
 
