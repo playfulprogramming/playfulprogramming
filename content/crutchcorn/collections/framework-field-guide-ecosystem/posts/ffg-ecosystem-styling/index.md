@@ -1133,7 +1133,7 @@ While there are many, the idea behind them is the same: Take inputs, transform t
 
 We could, for example, change the opacity of a color:
 
-```sass
+```scss
 p {
   color: transparentize(#FFF, 0.5);
 }
@@ -1146,7 +1146,7 @@ p {
 
 Do math operations:
 
-```sass
+```scss
 .header {
   font-size: #{round(2.2)}rem;
 }
@@ -1169,9 +1169,25 @@ And much more.
 >
 > [Learn more about CSS functions on MDN.](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions)
 
+### Writing our own Sass Functions
+
+We can even write our own Sass functions like so:
+
+```scss
+@function getFavoriteColor() {
+    @return purple;
+}
+
+.purple-bg {
+    background-color: getFavoriteColor();
+}
+```
+
+While this particular demo isn't very helpful, we'll explore how we can make more useful Sass functions soon.
+
 ## Loops and conditional statements
 
-
+Just like any other language, Sass has the ability to do conditional statements. This can be useful when, say, you want a function to change its behavior based on a given set of inputs:
 
 ```scss
 // Given a single color, get white or black, depending on what's more readable
@@ -1182,9 +1198,19 @@ And much more.
         @return #fff;
     }
 }
+
+.red-text {
+    padding: 1rem;
+    font-size: 1.5rem;
+    background-color: darkred;
+    /* White */
+    color: getReadableColor(darkred);
+}
 ```
 
+<p style="padding: 1rem; font-size: 1.5rem; background-color: darkred; color: white;">Testing 123</p>
 
+Likewise, we can even use lists and loops in Sass to generate a collection of items to use later: 
 
 ```scss
 // Given a single color, return an array of 10 colors that are lighter than the original color.
@@ -1197,29 +1223,33 @@ And much more.
 }
 
 .gradient {
-  background: getGradient(red);
+  background: getGradient(darkred);
 }
 ```
 
+<div style="height: 100px; width: 100%; background: linear-gradient(to right, #be0000, #f10000, #ff2525, #ff5858, #ff8b8b, #ffbebe, #fff1f1, white, white, white);
+"></div>
 
-
-
-
-
-
-
-
-
+<br/>
 
 ## Mixins
 
+While functions are useful, they're only able to return a single value that can be used later. What if we could make a "function" that returns a set of CSS rules that can then be applied?
 
+Well, in Sass, these CSS-rule functions are called "Mixins" and can be used like so:
 
+```scss
+@mixin text-color($color) {
+  padding: 1rem;
+  font-size: 1.5rem;
+  background-color: $color;
+  color: getReadableColor(darkred);
+}
 
-
-// Talk about how adding in a compilation step into your stylesheets enables everything from CSS modules but also adds new features (tokens, etc)
-
-// Talk about the downsides of using a new language for tokens and such
+.red-bg {
+  @include text-color(darkred);
+}
+```
 
 # CSS-in-JS
 
