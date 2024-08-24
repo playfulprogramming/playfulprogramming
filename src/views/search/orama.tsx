@@ -1,10 +1,11 @@
 import type { TypedDocument, Orama, Results, Nullable } from "@orama/orama";
-import { OramaClient } from "@oramacloud/client";
+import { OramaClient, SortByClauseUnion } from "@oramacloud/client";
 import { PostInfo } from "types/PostInfo";
 import { CollectionInfo } from "types/CollectionInfo";
 import { PropsWithChildren } from "components/types";
 import { createContext } from "preact";
 import { useContext } from "preact/hooks";
+import { SearchQuery } from "./search";
 
 const postSchema = {
 	slug: "string",
@@ -12,6 +13,7 @@ const postSchema = {
 	title: "string",
 	excerpt: "string",
 	description: "string",
+	publishedTimestamp: "number",
 } as const;
 
 const collectionSchema = {
@@ -19,17 +21,18 @@ const collectionSchema = {
 	title: "string",
 	description: "string",
 	tags: "string[]",
+	publishedTimestamp: "number",
 } as const;
 
 type PostDocument = TypedDocument<Orama<typeof postSchema>>;
 type CollectionDocument = TypedDocument<Orama<typeof collectionSchema>>;
 
-interface SearchContext {
+export interface SearchContext {
 	postClient: OramaClient;
 	collectionClient: OramaClient;
 }
 
-const SearchClient = createContext<SearchContext>(undefined as never);
+export const SearchClient = createContext<SearchContext>(undefined as never);
 
 interface OramaClientProviderProps extends PropsWithChildren {
 	params?: Partial<ConstructorParameters<typeof OramaClient>[0]>;
@@ -61,17 +64,31 @@ export function OramaClientProvider(props: OramaClientProviderProps) {
 export function useOramaSearch() {
 	const searchCtx = useContext(SearchClient);
 	return {
-		searchForTerm: (term: string, signal: AbortSignal) => searchForTerm(searchCtx, term, signal),
+		searchForTerm: (query: SearchQuery, signal: AbortSignal) => searchForTerm(searchCtx, query, signal),
 	};
 }
 
-export async function searchForTerm({ postClient, collectionClient }: SearchContext, term: string, signal: AbortSignal) {
+export async function searchForTerm({ postClient, collectionClient }: SearchContext, query: SearchQuery, signal: AbortSignal) {
 	// Schema should be passed to `search` method when:
 	// https://github.com/askorama/oramacloud-client-javascript/pull/35
 	// Is merged and released.
+	const term = query.searchQuery === "*" ? "" : query.searchQuery;
+	const sortBy: SortByClauseUnion | undefined = query.sort === "relevance"
+		? undefined
+		: { property: "publishedTimestamp", order: query.sort === "newest" ? "desc" : "asc" };
+
 	const postSearchPromise: Promise<Nullable<Results<PostDocument>>> =
 		postClient.search(
-			{ term },
+			{
+				term,
+				limit: 6,
+				offset: 6 * (query.searchPage-1),
+				sortBy,
+				where: {
+					tags: query.filterTags.length ? query.filterTags : undefined,
+					authors: query.filterAuthors.length ? query.filterAuthors : undefined,
+				},
+			},
 			{
 				debounce: 0,
 				// // TODO: This does nothing yet:
@@ -83,7 +100,14 @@ export async function searchForTerm({ postClient, collectionClient }: SearchCont
 	const collectionSearchPromise: Promise<
 		Nullable<Results<CollectionDocument>>
 	> = collectionClient.search(
-		{ term },
+		{
+			term,
+			limit: 4,
+			sortBy,
+			where: {
+				authors: query.filterAuthors.length ? query.filterAuthors : undefined,
+			},
+		},
 		{
 			debounce: 0,
 			// abortSignal: signal,

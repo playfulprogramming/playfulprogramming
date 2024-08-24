@@ -2,37 +2,28 @@ import * as fs from "fs";
 import * as path from "path";
 import * as api from "utils/api";
 import { PostInfo } from "types/PostInfo";
-import { PersonInfo } from "types/PersonInfo";
 import { CollectionInfo } from "types/CollectionInfo";
 
 interface ExtendedPostInfo extends PostInfo {
-	authorsMeta: PersonInfo[];
+	publishedTimestamp: number;
 }
 
 interface ExtendedCollectionInfo extends CollectionInfo {
-	authorsMeta: PersonInfo[];
+	publishedTimestamp: number;
 }
 
 const posts = api.getPostsByLang("en").map((post) => {
 	return {
 		...post,
-		authorsMeta: post.authors
-			.map((author) => {
-				return api.getPersonById(author, "en")!;
-			})
-			.filter(Boolean),
-	} as ExtendedPostInfo;
+		publishedTimestamp: new Date(post.published).getTime(),
+	} satisfies ExtendedPostInfo;
 });
 
 const collections = api.getCollectionsByLang("en").map((collection) => {
 	return {
 		...collection,
-		authorsMeta: collection.authors
-			.map((author) => {
-				return api.getPersonById(author, "en")!;
-			})
-			.filter(Boolean),
-	} as ExtendedCollectionInfo;
+		publishedTimestamp: new Date(collection.published).getTime(),
+	} satisfies ExtendedCollectionInfo;
 });
 
 const json = JSON.stringify({

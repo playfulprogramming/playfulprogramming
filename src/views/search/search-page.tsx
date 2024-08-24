@@ -45,54 +45,61 @@ import { PersonInfo } from "types/PersonInfo";
 const MAX_POSTS_PER_PAGE = 6;
 
 export function SearchPageBase() {
-	const [query, setQuery] = useSearchParams<SearchQuery>(
+	const [query, setQueryState] = useSearchParams<SearchQuery>(
 		serializeParams,
 		deserializeParams,
 	);
 
+	const [debouncedQuery, immediatelySetDebouncedQuery] = useDebouncedValue(query, 500);
+
 	const search = query.searchQuery ?? "";
+
+	const setQuery = useCallback(
+		(newQuery: SearchQuery, immediate?: boolean) => {
+			if (!newQuery.searchQuery) {
+				// Remove tags and authors when no value is present
+				newQuery.filterTags = [];
+				newQuery.filterAuthors = [];
+			}
+
+			setQueryState(newQuery);
+			if (immediate) {
+				immediatelySetDebouncedQuery(newQuery);
+			}
+		},
+		[query, setQueryState],
+	);
 
 	/**
 	 * Derive state and setup for search
 	 */
 	const setSearch = useCallback(
-		(str: string) => {
+		(str: string, immediate?: boolean) => {
 			const newQuery = {
 				...query,
 				searchQuery: str,
 				searchPage: 1,
 			};
 
-			if (!str) {
-				// Remove tags and authors when no value is present
-				newQuery.filterTags = [];
-				newQuery.filterAuthors = [];
-			}
-
-			setQuery(newQuery);
+			setQuery(newQuery, immediate);
 		},
 		[query, setQuery],
-	);
-
-	const [debouncedSearch, immediatelySetDebouncedSearch] = useDebouncedValue(
-		search,
-		500,
 	);
 
 	const resultsHeading = useRef<HTMLDivElement | null>(null);
 
 	const onManualSubmit = useCallback(
 		(str: string) => {
-			immediatelySetDebouncedSearch(str);
+			setSearch(str, true);
 			resultsHeading.current?.focus();
 		},
-		[immediatelySetDebouncedSearch],
+		[immediatelySetDebouncedQuery],
 	);
 
 	/**
 	 * Fetch data
 	 */
-	const enabled = !!debouncedSearch;
+	const enabled = !!debouncedQuery.searchQuery;
 
 	const { searchForTerm } = useOramaSearch();
 
@@ -133,11 +140,11 @@ export function SearchPageBase() {
 		queryFn: ({ signal }) => {
 			// Analytics go brr
 			plausible &&
-				plausible("search", { props: { searchVal: debouncedSearch } });
+				plausible("search", { props: { searchVal: debouncedQuery.searchQuery } });
 
-			return searchForTerm(debouncedSearch, signal);
+			return searchForTerm(debouncedQuery, signal);
 		},
-		queryKey: ["search", debouncedSearch],
+		queryKey: ["search", debouncedQuery],
 		initialData: {
 			posts: [],
 			totalPosts: 0,
@@ -172,7 +179,7 @@ export function SearchPageBase() {
 				...query,
 				filterAuthors: authors,
 				searchPage: 1, // reset to page 1
-			});
+			}, true);
 		},
 		[query, setQuery],
 	);
@@ -183,7 +190,7 @@ export function SearchPageBase() {
 				...query,
 				filterTags: tags,
 				searchPage: 1, // reset to page 1
-			});
+			}, true);
 		},
 		[query, setQuery],
 	);
@@ -194,7 +201,7 @@ export function SearchPageBase() {
 				...query,
 				display: display,
 				searchPage: 1, // reset to page 1
-			});
+			}, true);
 		},
 		[query, setQuery],
 	);
@@ -214,91 +221,17 @@ export function SearchPageBase() {
 				...query,
 				sort: sort,
 				searchPage: 1, // reset to page 1
-			});
+			}, true);
 		},
 		[query, setQuery],
 	);
 
 	/**
-	 * Filter and sort posts
-	 */
-	const filteredAndSortedPosts = useMemo(() => {
-		const posts = [...data.posts];
-		if (query.sort !== "relevance") {
-			posts.sort(
-				(a, b) =>
-					(query.sort === "newest" ? -1 : 1) *
-					(new Date(a.published).getTime() - new Date(b.published).getTime()),
-			);
-		}
-
-		return posts.filter((post) => {
-			if (
-				query.filterTags.length > 0 &&
-				!post.tags.some((tag) => query.filterTags.includes(tag))
-			) {
-				return false;
-			}
-
-			if (
-				query.filterAuthors.length > 0 &&
-				!post.authors.some((person) => query.filterAuthors.includes(person))
-			) {
-				return false;
-			}
-
-			return true;
-		});
-	}, [data, query.sort, query.filterTags, query.filterAuthors]);
-
-	const filteredAndSortedCollections = useMemo(() => {
-		const collections = [...data.collections];
-
-		if (query.sort !== "relevance") {
-			collections.sort(
-				(a, b) =>
-					(query.sort === "newest" ? -1 : 1) *
-					(new Date(a.published).getTime() - new Date(b.published).getTime()),
-			);
-		}
-
-		return collections.filter((collection) => {
-			if (
-				query.filterTags.length > 0 &&
-				!collection.tags.some((tag) => query.filterTags.includes(tag))
-			) {
-				return false;
-			}
-
-			if (
-				query.filterAuthors.length > 0 &&
-				!collection.authors.some((person) =>
-					query.filterAuthors.includes(person),
-				)
-			) {
-				return false;
-			}
-
-			return true;
-		});
-	}, [data, query.sort, query.filterTags, query.filterAuthors]);
-
-	/**
-	 * Paginate posts
-	 */
-	const posts = useMemo(() => {
-		return filteredAndSortedPosts.slice(
-			(query.searchPage - 1) * MAX_POSTS_PER_PAGE,
-			query.searchPage * MAX_POSTS_PER_PAGE,
-		);
-	}, [filteredAndSortedPosts, query.searchPage]);
-
-	/**
 	 * Calculate the last page based on the number of posts.
 	 */
 	const lastPage = useMemo(
-		() => Math.ceil(filteredAndSortedPosts.length / MAX_POSTS_PER_PAGE),
-		[filteredAndSortedPosts],
+		() => Math.ceil(data.totalPosts / MAX_POSTS_PER_PAGE),
+		[data.totalPosts],
 	);
 
 	/**
@@ -318,20 +251,20 @@ export function SearchPageBase() {
 	const noResults =
 		enabled &&
 		!isContentLoading &&
-		((posts.length === 0 && showArticles && !showCollections) ||
-			(filteredAndSortedCollections.length === 0 &&
+		((data.posts.length === 0 && showArticles && !showCollections) ||
+			(data.collections.length === 0 &&
 				showCollections &&
 				!showArticles) ||
 			(showCollections &&
 				showArticles &&
-				posts.length === 0 &&
-				filteredAndSortedCollections.length === 0));
+				data.posts.length === 0 &&
+				data.collections.length === 0));
 
 	const numberOfCollections = showCollections
-		? filteredAndSortedCollections.length
+		? data.totalCollections
 		: 0;
 
-	const numberOfPosts = showArticles ? filteredAndSortedPosts.length : 0;
+	const numberOfPosts = showArticles ? data.totalPosts : 0;
 
 	return (
 		<main className={style.fullPageContainer} data-hide-sidebar={!search}>
@@ -364,7 +297,7 @@ export function SearchPageBase() {
 			<div className={style.mainContents}>
 				<SearchTopbar
 					onSubmit={(val) => onManualSubmit(val)}
-					onBlur={(val) => immediatelySetDebouncedSearch(val)}
+					onBlur={(val) => setSearch(val, true)}
 					search={search}
 					setSearch={setSearch}
 					setContentToDisplay={setContentToDisplay}
@@ -447,7 +380,7 @@ export function SearchPageBase() {
 					{enabled &&
 						!isContentLoading &&
 						showCollections &&
-						Boolean(filteredAndSortedCollections.length) && (
+						Boolean(data.collections.length) && (
 							<Fragment>
 								<SubHeader
 									tag="h2"
@@ -460,7 +393,7 @@ export function SearchPageBase() {
 									role="list"
 									className={style.collectionsGrid}
 								>
-									{filteredAndSortedCollections.map((collection) => (
+									{data.collections.map((collection) => (
 										<li>
 											<CollectionCard
 												collection={collection}
@@ -477,7 +410,7 @@ export function SearchPageBase() {
 					{enabled &&
 						!isContentLoading &&
 						showArticles &&
-						Boolean(posts.length) && (
+						Boolean(data.posts.length) && (
 							<Fragment>
 								<SubHeader
 									tag="h2"
@@ -487,7 +420,7 @@ export function SearchPageBase() {
 								/>
 								<PostCardGrid
 									aria-labelledby={"articles-header"}
-									postsToDisplay={posts}
+									postsToDisplay={data.posts}
 									postAuthors={peopleMap}
 									postHeadingTag="h3"
 								/>
