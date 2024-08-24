@@ -98,7 +98,7 @@ This ability to block the HTML from displaying to the user allows us to avoid sc
 >
 > This video is slowed down for demonstrative effect. This is not how the above code sample would function in a typical HTML file.
 
-
+This flashing of content is often called a "Flash of unstyled content" or "FOUC" for short.
 
 ## `<head>` CSS-in-JS
 
@@ -150,49 +150,39 @@ Let's explore how this chain evolves when we move our `<script>` tag into the `<
 
 ## `<body>` CSS-in-JS
 
+By moving our code to the body:
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <p class="hide-me">Shh, it's a secret!</p>
+    <script>
+      const styleTag = document.createElement('style');
+      styleTag.innerText = `
+  p {
+    display: none;
+  }
+`;
+      document.head.append(styleTag);
+    </script>
+  </body>
+</html>
+```
+
+We introduce another step to our little waterfall chain: Now the browser displays the DOM before parsing the JS.
 
 ![TODO: Write alt](./html_body_css_in_js_handling.png)
 
-
-
-
-
-
+This isn't ideal, but is _still_ missing another step we need to make before it's emblematic of framework CSS-in-JS usage.
 
 ## Framework CSS-in-JS
 
+See, while our code before immediately executes the `document.createElement('style')` logic, the same can't be said for all frameworks using this solution.
 
+Your framework needs to create the markup for the `<App/>` entrypoint component and render it. Depending on your framework, this might happen asynchronously from the parsing of the JS.
 
-
-
-// TODO: Fill in
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Likewise, your CSS-in-JS library might not render the CSS synchronously with the first render of your component. As a result, you might get _two_ FOUCs; once when the HTML is downloaded without the framework markup rendered, the second when framework renders without the CSS injected yet. 
 
 ![TODO: Write alt](./framework_css_in_js_handling.png)
-
-
-
-
-
-// TODO: Fill in
-
-
-
-
-
-
 
