@@ -200,7 +200,7 @@ export function SearchPageBase() {
 	);
 
 	const peopleMap = useMemo(() => {
-		return new Map(Object.entries(people.people));
+		return new Map(people.people.map((person) => [person.id, person]));
 	}, [people.people]);
 
 	const showArticles = query.display === "all" || query.display === "articles";
