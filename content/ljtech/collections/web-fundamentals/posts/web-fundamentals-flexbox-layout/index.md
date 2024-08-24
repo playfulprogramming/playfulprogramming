@@ -119,11 +119,11 @@ justify-content: space-evenly;
 
 Here is a list of CSS properties used to control flexbox properties: 
 
-> [`flex-grow 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow): Controls a `flex` items grow factor
+> [`flex-grow`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow): Controls a `flex` items grow factor
 
-> [`flex-shrink 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink): Controls a `flex` items shrink factor
+> [`flex-shrink`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink): Controls a `flex` items shrink factor
 
-> [`flex-basis 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis): Controls the initial size of a `flex` item
+> [`flex-basis`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis): Controls the initial size of a `flex` item
 
 > ⚡ [Live Code Example: Flexbox Layout](https://codesandbox.io/s/flexbox-layout-p4cy8?file=/styles.css)
 
@@ -133,11 +133,11 @@ Using a few additional CSS properties we can align, justify, and space these sam
 
 **These placement methods are used to distribute both flex and gridbox items.**
 
-> [`place-content 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-content): Shorthand property for [`align-content 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-content) and [`justify-content 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)
+> [`place-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-content): Shorthand property for [`align-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-content) and [`justify-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)
 
-> [`place-items 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-items): Shorthand property for [`align-items 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items) and [`justify-items 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-items)
+> [`place-items`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-items): Shorthand property for [`align-items`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items) and [`justify-items`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-items)
 
-> [`place-self 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-self): Shorthand property for [`align-self 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self) and [`justify-self 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self)
+> [`place-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-self): Shorthand property for [`align-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self) and [`justify-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self)
 
 > 🤓 These are some godly CSS properties that everyone should know about!
 
@@ -198,21 +198,21 @@ place-items: start start;
 
 **Here is a list of CSS properties used to control gridbox properties:**
 
-> [`grid-area 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area): Controls a grid item's location
+> [`grid-area`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area): Controls a grid item's location
 
-> [`grid-template-areas 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas): Controls cells and assigns names
+> [`grid-template-areas`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas): Controls cells and assigns names
 
-> [`grid-auto-columns 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns): Controls the track size of grid columns
+> [`grid-auto-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns): Controls the track size of grid columns
 
-> [`grid-auto-flow 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow): Controls the auto-placement algorithm
+> [`grid-auto-flow`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow): Controls the auto-placement algorithm
 
-> [`grid-auto-rows 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows): Controls the track size of grid rows
+> [`grid-auto-rows`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows): Controls the track size of grid rows
 
-> [`grid-gap 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/gap): Controls gaps between columns and rows
+> [`grid-gap`](https://developer.mozilla.org/en-US/docs/Web/CSS/gap): Controls gaps between columns and rows
 
-> [`grid-template-columns 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns): Controls line names and track size of grid columns
+> [`grid-template-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns): Controls line names and track size of grid columns
 
-> [`grid-template-rows 🡕`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows): Controls line names and track size of grid rows
+> [`grid-template-rows`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows): Controls line names and track size of grid rows
 
 > ⚡ [Live Code Example: Gridbox Layout](https://codesandbox.io/s/gridbox-layout-tnu5b?file=/styles.css)
 

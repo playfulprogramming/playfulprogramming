@@ -32,14 +32,14 @@ A box model is a representation of a document's element through a set of boxes. 
 
 ![Four boxes, each containing one-another. The boxes, from largest to smallest are: "Margin", "Border", "Padding", and "Content"](./box-model.svg)
 
-- [**`Margin 🡕`**](https://developer.mozilla.org/en-US/docs/Web/CSS/margin): Wraps any border, padding, and content as white space.
-- [**`Border 🡕`**](https://developer.mozilla.org/en-US/docs/Web/CSS/border): Wraps any padding and content.
-- [**`Padding 🡕`**](https://developer.mozilla.org/en-US/docs/Web/CSS/padding): Wraps any contents, again, as white space.
+- [**`Margin`**](https://developer.mozilla.org/en-US/docs/Web/CSS/margin): Wraps any border, padding, and content as white space.
+- [**`Border`**](https://developer.mozilla.org/en-US/docs/Web/CSS/border): Wraps any padding and content.
+- [**`Padding`**](https://developer.mozilla.org/en-US/docs/Web/CSS/padding): Wraps any contents, again, as white space.
 - **Content**: Contains text, imagery, videos, etc.
 
 To better understand this, let's look at the following example; click on the button to switch modes and watch as the boxes translate into a real-world layout.
 
-<iframe data-frame-title="HTML: Box model card" src="uu-code:./box-model?template=node&embed=1&file=src%2Findex.html"></iframe>
+<iframe height="600px" data-frame-title="HTML: Box model card" src="uu-code:./box-model?template=node&embed=1&file=src%2Findex.html"></iframe>
 
 This structure is the foundation of HTML, and is used to build everything you see onscreen. In fact, some components are already built into the web for you to use.
 
@@ -51,9 +51,20 @@ Let's look at them now.
 
 A `<div>` is the purest form of a container. It has no default styling or special behavior of its own. It has no assignated function apart from being a simple, blank container. When inspecting any layout, you'll see that almost everything is enclosed within a `<div>`.
 
-However, it's important to understand when to use them. While you can use a `<div>`, HTML has introduced several elements that provide the same function but are more accessible towards developers and users with screen readers by explicitly declaring their use. 
+However, it's important to understand when to use them. While you can use a `<div>`, HTML has introduced several elements that provide the same function but are more accessible towards developers and users.
 
-**This is what is commonly known as "semantic elements." Let's dive deeper.**
+**This is what is commonly known as "semantic elements."**
+
+The reason these elements are important is that users with screen readers must be told what is currently onscreen to be able to navigate effectively. A screen reader cannot interpret a screen like a human would, and thus has to rely on ***the accessibility tree***\* to understand the hierarchy and navigation patterns to do its job.
+
+The problem is that, when not using semantic elements, the user is not given the proper context for a particular part of your application or webpage, and going through it with a screen reader becomes that much more difficult.
+
+It's important to understand that semantic elements are best practice for a reason, and accessibility should always be a priority. If you'd like to learn more, we have a fantastic post going over web accessibility.
+
+> #### **[Intro to accessibility](./intro-to-web-accessibility)** 
+> Accessibility allows as many people to use your product as possible. That, in turn, generates more profit. Here's how to improve it on web.
+
+Now let's dive into the elements, shall we?
 
 # Semantic elements & defaults
 
@@ -112,7 +123,7 @@ This list is by no means comprehensive. HTML is a complex set of tools, and it's
 > **Learn more about HTML and its elements:**
 > To view a full list of all HTML elements, click the link below. 
 >
-> 📚 [**MDN: HTML →**](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
+> 📚 [**MDN: HTML**](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
 
 ---
 
@@ -138,7 +149,7 @@ Global attributes can be applied to any HTML element. Some of the most used ones
 > **View all global attributes:**
 > To see a comprehensive list of global attributes, click on the link below.
 >
-> 📚 [**MDN: Global attributes →**](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes)
+> 📚 [**MDN: Global attributes**](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes)
 
 ## Mandatory attributes
 

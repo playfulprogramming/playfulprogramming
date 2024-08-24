@@ -60,7 +60,7 @@ You can group selectors under one CSS rule using commas to share properties amon
   padding: 1rem;
 }
 ```
-## Nesting selectors
+## Combining selectors
 
 You can also combine selectors using a variety of syntax to target anything from descendants to siblings:
 
@@ -111,7 +111,7 @@ Using this variety of combinators and selectors you can easily style any part of
 > **Selectors are very extensive:**
 > To learn more about what you can achieve with them, click on the link below.
 >
-> 📚 [**MDN: Selectors →**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
+> 📚 [**MDN: Selectors**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 
 ---
 
@@ -155,7 +155,7 @@ Now that we've looked at these two types of units, I think it's important to hig
 | Unit | Behavior |
 | --- | --- |
 | `em` | Relative to the parent element's `font-size`. |
-| `rem` | Relative to the `:root`'s `font-size`. |
+| `rem` | Relative to the `:root`'s `font-size`. We will talk more about the `:root` soon. |
 
 
 ---
@@ -187,8 +187,8 @@ CSS property values will only accept certain syntax and types. Let's use `color`
 > **Learn more:**
 > We're just going over the surface of what's available. To learn more, visit the links below.
 >
-> 📚 [**CSS types →**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Types)<br>
-> 📚 [**Units and values →**](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)
+> 📚 [**CSS types**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Types)<br>
+> 📚 [**Units and values**](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)
 
 ---
 
