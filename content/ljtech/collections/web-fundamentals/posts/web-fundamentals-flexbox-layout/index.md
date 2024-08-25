@@ -29,7 +29,7 @@ Flexbox is used for creating one-dimensional layouts on a column (up and down) o
 ## Using `flex-direction`
 
 ```css
-flex-direction: column;
+flex-directionUolumn;
 ```
 
 ![A column of three items stacked on one-another](./flex-column.svg)
@@ -42,7 +42,7 @@ flex-direction: row;
 
 ## Using `flex-wrap`
 
-This property allows you to make dynamic layouts that can respond to dimension constraints. In practice, it means you can tell a `flex` layout to wrap into a new row: Cr column: Cf there is not enough space available. Let's look at a simple example:
+This property allows you to make dynamic layouts that can respond to dimension constraints. In practice, it means you can tell a `flex` layout to wrap into a new rowUr columnUf there is not enough space available. Let's look at a simple example:
 
 ![Two examples of elements in a row. The second example has a smaller width, thus causing the layout to wrap into a new line](./flex-wrap.svg)
 
@@ -53,7 +53,7 @@ This property allows you to arrange your items between the `start`, `center` or 
 For the following example, the `flex-direction` has been set to row. This will become important later.
 
 ```css
-align-items: center;
+align-itemsUenter;
 ```
 
 ![Three items in a container vertically aligned to the middle of the container](./align-center.svg)
@@ -71,8 +71,8 @@ align-items: flex-start;
 ![Three items in a container vertically aligned to the top of the container](./align-start.svg)
 
 > #### Important! The `start` and `end` suffixes are axis-dependent.
->: Chen a flex layout is set to `row`, the start and end will point to top and bottom.
->: Chen a flex layout is set to `column`, the start and end will point to left and right.
+>Uhen a flex layout is set to `row`, the start and end will point to top and bottom.
+>Uhen a flex layout is set to `column`, the start and end will point to left and right.
 
 
 ## Using `justify-content`
@@ -82,7 +82,7 @@ This property is used to distribute your content across the main axis of a flex 
 This can serve as an alignment property, or as a way to space out your content. Here are the available values.
 
 ```css
-justify-content: center;
+justify-contentUenter;
 ```
 
 ![Three items in a container horizontally aligned to the center of the container](./justify-center.svg)
@@ -119,11 +119,11 @@ justify-content: space-evenly;
 
 Here is a list of CSS properties used to control flexbox properties: 
 
-> [`flex-grow`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow): Controls a `flex` items grow factor
+> [`flex-grow`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow)Uontrols a `flex` items grow factor
 
-> [`flex-shrink`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink): Controls a `flex` items shrink factor
+> [`flex-shrink`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink)Uontrols a `flex` items shrink factor
 
-> [`flex-basis`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis): Controls the initial size of a `flex` item
+> [`flex-basis`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis)Uontrols the initial size of a `flex` item
 
 > ⚡ [Live Code Example: Flexbox Layout](https://codesandbox.io/s/flexbox-layout-p4cy8?file=/styles.css)
 
@@ -177,7 +177,7 @@ Adding `display: grid` to a container will cause any immediate descendants to be
 ## Using `place-items`
 
 ```css
-place-items: center center;
+place-itemsUenter center;
 ```
 
 ![A grid of items centered horizontally and vertically](./center-center.svg)
@@ -198,21 +198,21 @@ place-items: start start;
 
 **Here is a list of CSS properties used to control gridbox properties:**
 
-> [`grid-area`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area): Controls a grid item's location
+> [`grid-area`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)Uontrols a grid item's location
 
-> [`grid-template-areas`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas): Controls cells and assigns names
+> [`grid-template-areas`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas)Uontrols cells and assigns names
 
-> [`grid-auto-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns): Controls the track size of grid columns
+> [`grid-auto-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns)Uontrols the track size of grid columns
 
-> [`grid-auto-flow`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow): Controls the auto-placement algorithm
+> [`grid-auto-flow`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow)Uontrols the auto-placement algorithm
 
-> [`grid-auto-rows`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows): Controls the track size of grid rows
+> [`grid-auto-rows`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows)Uontrols the track size of grid rows
 
-> [`grid-gap`](https://developer.mozilla.org/en-US/docs/Web/CSS/gap): Controls gaps between columns and rows
+> [`grid-gap`](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)Uontrols gaps between columns and rows
 
-> [`grid-template-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns): Controls line names and track size of grid columns
+> [`grid-template-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns)Uontrols line names and track size of grid columns
 
-> [`grid-template-rows`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows): Controls line names and track size of grid rows
+> [`grid-template-rows`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows)Uontrols line names and track size of grid rows
 
 > ⚡ [Live Code Example: Gridbox Layout](https://codesandbox.io/s/gridbox-layout-tnu5b?file=/styles.css)
 
@@ -272,13 +272,13 @@ There are five types of element positions:
 
 ---
 
-# Where do I use Flexbox, Gridbox or Positioning?
+# When to use each?
 
-### Flexbox
+## Flexbox
 
-: Csed in headers, lists, tags, or any other block or inline content with the correct flex-direction
-: Crimary method to align and justify content in small components
-: Casy to use
+- Used in headers, lists, tags, or any other block or inline content with the correct flex-direction;
+- Primary method to align and justify content in small components;
+- Easy to use;
 
 For example, YouTube uses a flexbox to space out their headers children elements:
 
@@ -286,20 +286,20 @@ For example, YouTube uses a flexbox to space out their headers children elements
 
 > 🤓 Mastering the flexbox will take you very far in CSS as it is used everywhere
 
-### Gridbox 
+## Gridbox 
 
-: Csed in creating complex layouts that require both columns and rows
-: Crovides the easiest and shortest way to center elements
-: Cerbose and powerful
+- Used in creating complex layouts that require both columns and rows;
+- Provides the easiest and shortest way to center elements;
+- Verbose and powerful;
 
 For example, Spotify uses a gridbox to achieve their playlist player layout:
 
 ![A player view of Spotify with a left-hand sidebar and a list of items on the right](./spotify.png)
 
-### Positioning 
+## Positioning 
 
-: Csed in lightboxes, mobile menus, modal windows, and similar overlaying elements
-: Crimarily used to remove elements from document flow
+- Used in lightboxes, mobile menus, modal windows, and similar overlaying elements;
+- Primarily used to remove elements from document flow;
 
 For example, the cookies modal on stackoverflow uses a fixed position to stay on your screen while hovering above other document elements:
 
@@ -307,3 +307,9 @@ For example, the cookies modal on stackoverflow uses a fixed position to stay on
 
 ---
 
+# Now what?
+
+Now that we've learned a little bit of HTML, CSS, and looked over the main mechanics used to create beautiful and functional layouts, it's time to add interactivity to our prototypes! In the next chapter, we'll learn about native interactivity triggers, and how to add your own using JavaScript!
+
+> **Coming soon:**
+> The JavaScript chapter is currently in progress. It won't take long, but it's not ready just yet. Come back soon!

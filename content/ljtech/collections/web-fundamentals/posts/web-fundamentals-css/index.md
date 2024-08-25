@@ -113,7 +113,7 @@ Using this variety of combinators and selectors you can easily style any part of
 >
 > 📚 [**MDN: Selectors**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 
----
+
 
 # Unit & value types
 
@@ -129,7 +129,7 @@ While CSS contains multiple absolute units, they are mostly for print. For the w
 
 > **A word of caution on absolute units:** The web is responsive. Websites and applications must adapt to several form factors and that's why `px` values should not be used in elements that need to resize based on the user's context, meaning their viewport, their zoom level or their font size.
 
----
+
 
 ## Relative units
 
@@ -159,7 +159,7 @@ Now that we've looked at these two types of units, I think it's important to hig
 | `em` | Relative to the parent element's `font-size`. |
 | `rem` | Relative to the `:root`'s `font-size`. We will talk more about the `:root` soon. |
 
----
+
 
 ## Values
 
@@ -211,7 +211,7 @@ It's also important to make sure how to format your values. Putting a numerical 
 > 📚 [**MDN: CSS types**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Types)<br>
 > 📚 [**MDN: Units and values**](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)
 
----
+
 
 ## Shorthands
 
@@ -251,7 +251,7 @@ In the example below, we must only change the `--green` value to automatically p
 
 Using variables is a great way to improve the maintainability and consistency of your projects, as it allows you to update values from a single point as opposed to using raw values.
 
-Any valid value can become a variable, but you have to be careful
+Any valid value can become a variable, but you have to be careful about when and how to use them. But don't fret, that's what we'll teach you!
 
 ## Declaring variables
 
@@ -271,13 +271,33 @@ Variables are usually declared in the `:root` and declared before anything else.
 
 This is an overly simplistic example, of course. A real stylesheet would have dozens or hundreds of tokens in order to support more complex usecases.
 
----
+
 
 ## Fallbacks
 
-TO-DO
+Now, one great feature of `var()`s is that they allow the use of fallbacks. If for some reason a variable is unable to be loaded, developers can declare raw values that will be used instead.
 
----
+<img src="./variables_fallback.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="A single border attribute making use of the CSS shorthand."></img>
+
+You'll mostly see this with font-face declarations, as those can be finnicky to load.
+
+```css
+:root {
+  /* If Figtree is not available, it will move on to Arial.
+  If Arial is not available either, it will default to
+  whatever sans-serif font the system contains. */
+  --brand-font: "Figtree", Arial, sans-serif;
+}
+```
+Particularly with fonts, it means that layouts can load with the fallback fonts first, and then update to the desired font once it is loaded.
+
+#### The obvious caveat
+
+Fallbacks are a last-ditch effort by design and are only used as a safety measure to be able to display a webpage in the event of widespread failure.
+
+Unlike the variables that they are replacing, these are raw values, and are not dynamic nor easily edited en masse.
+
+Still, make sure to add fallbacks whenever possible to make sure you can still display content to your users, despite any issues that may arise.
 
 ## Nesting
 
@@ -285,7 +305,7 @@ In design systems, it's common to have variables for everything — colors, opac
 
 This means CSS needs to support scalable sets of variables that are sometimes dependent on one another to reduce style declarations.
 
-In our previous example we saw how to declare variables in the :root. We can nest variables in the :root of our CSS file in order to optimize their use.
+In our previous example we saw how to declare variables in the `:root`. We can nest variables in the `:root` of our CSS file in order to optimize their use.
 
 ```css
 :root {
@@ -303,7 +323,7 @@ A really good example of this is the `rgba()` function. It takes a red, green, b
 
 <img src="./variables_rgba.svg" style="border-radius: var(--corner-radius_l);" alt="A standard rgba declaration in CSS."></img>
 
-However, doing raw color declarations like this is unsustainables, as it becomes difficult to maintain without variables.
+However, doing raw color declarations like this is unsustainable, as it becomes difficult to maintain without variables.
 
 **Thankfully, CSS allows us to compartmentalize the values of this function!**
 
@@ -330,7 +350,7 @@ Check the sample below to see the use of variables in action!
 >
 > 📚 [**MDN: var()**](https://developer.mozilla.org/en-US/docs/Web/CSS/var)
 
---
+
 
 ## Functions
 

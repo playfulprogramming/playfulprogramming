@@ -9,6 +9,14 @@
     tags: ["css", "design", "html"],
     published: "2024-08-18T13:45:00.284Z",
     buttons: [{ text: "Read now", url: "/posts/web-fundamentals-html" }],
+    authors: ["ljtech","edpratti"],
+    chapterList: [
+    {
+      order: '?',
+      title: "Coming soon: JavaScript & Interactivity",
+      description: "",
+    },
+  ],
 }
 ---
 
