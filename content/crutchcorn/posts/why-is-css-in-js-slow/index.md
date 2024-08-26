@@ -2,7 +2,7 @@
 {
     title: "Why is CSS-in-JS slow?",
     description: "",
-    published: '2024-09-01T10:12:03.284Z',
+    published: '2024-08-26T10:12:03.284Z',
     tags: ['webdev', 'css'],
     license: 'cc-by-4'
 }
