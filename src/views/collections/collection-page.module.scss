@@ -183,6 +183,10 @@
 	padding: 0;
 }
 
+.authorsList li + li {
+	margin-top: var(--spc-4x);
+}
+
 .authorContainer {
 	padding: var(--collection-page_author_padding);
 	background-color: var(--surface_primary_emphasis-none);
