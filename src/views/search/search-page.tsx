@@ -41,8 +41,22 @@ import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
 import { OramaClientProvider, useOramaSearch } from "./orama";
 import { PersonInfo } from "types/PersonInfo";
+import tagsObj from "../../../content/data/tags.json";
 
 const MAX_POSTS_PER_PAGE = 6;
+const ALL_TAGS = Object.fromEntries(Object.entries(tagsObj).map(([tag]) => [tag, 0]));
+
+function usePersistedEmptyRef<T extends object>(value: T) {
+	const ref = useRef<T>();
+	return useMemo(() => {
+		if (Object.entries(value).length) {
+			ref.current = value;
+			return value;
+		} else {
+			return ref.current ?? value;
+		}
+	}, [value]);
+}
 
 export function SearchPageBase() {
 	const [query, setQueryState] = useSearchParams<SearchQuery>(
@@ -53,6 +67,7 @@ export function SearchPageBase() {
 	const [debouncedQuery, immediatelySetDebouncedQuery] = useDebouncedValue(query, 500);
 
 	const search = query.searchQuery ?? "";
+	const isWildcardSearch = debouncedQuery.searchQuery === "*";
 
 	const setQuery = useCallback(
 		(newQuery: SearchQuery, immediate?: boolean) => {
@@ -93,7 +108,7 @@ export function SearchPageBase() {
 			setSearch(str, true);
 			resultsHeading.current?.focus();
 		},
-		[immediatelySetDebouncedQuery],
+		[setSearch],
 	);
 
 	/**
@@ -150,11 +165,16 @@ export function SearchPageBase() {
 			totalPosts: 0,
 			collections: [],
 			totalCollections: 0,
+			tags: {},
+			authors: {},
 		},
 		refetchOnWindowFocus: false,
 		retry: false,
 		enabled,
 	});
+
+	const tagCounts = usePersistedEmptyRef(isWildcardSearch ? ALL_TAGS : data.tags);
+	const authorCounts = usePersistedEmptyRef(isWildcardSearch ? Object.fromEntries(people.people.map(person => [person.id, person.totalPostCount])) : data.authors);
 
 	const isError = isErrorPeople || isErrorData;
 
@@ -272,8 +292,8 @@ export function SearchPageBase() {
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
 				setFilterIsDialogOpen={setFilterIsDialogOpen}
-				collections={data.collections}
-				posts={data.posts}
+				tagCounts={tagCounts}
+				authorCounts={authorCounts}
 				peopleMap={peopleMap}
 				selectedTags={query.filterTags}
 				setSelectedTags={setSelectedTags}
@@ -398,7 +418,7 @@ export function SearchPageBase() {
 											<CollectionCard
 												collection={collection}
 												authors={collection.authors
-													.map((id) => peopleMap.get(id))
+													.map((id) => peopleMap.get(id + ""))
 													.filter(isDefined)}
 												headingTag="h3"
 											/>
@@ -427,10 +447,11 @@ export function SearchPageBase() {
 								<Pagination
 									testId="pagination"
 									softNavigate={(_href, pageNum) => {
+										window.scrollTo(0, 0);
 										setQuery({
 											...query,
 											searchPage: pageNum,
-										});
+										}, true);
 									}}
 									page={{
 										currentPage: query.searchPage,

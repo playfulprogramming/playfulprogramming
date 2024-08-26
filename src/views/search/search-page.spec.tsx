@@ -253,6 +253,8 @@ describe("Search page", () => {
 			totalPosts: 2,
 			totalCollections: 0,
 			collections: [],
+			tags: { angular: 1 },
+			authors: {},
 		}));
 
 		const { getByTestId, queryByTestId, getByText } = render(<SearchPage mockClients={clients} />);
@@ -413,6 +415,7 @@ describe("Search page", () => {
 					authors: undefined,
 					tags: undefined,
 				},
+				facets: expect.anything(),
 			},
 			expect.anything(),
 		);
@@ -435,6 +438,7 @@ describe("Search page", () => {
 					authors: undefined,
 					tags: undefined,
 				},
+				facets: expect.anything(),
 			},
 			expect.anything(),
 		);
@@ -499,6 +503,7 @@ describe("Search page", () => {
 					authors: undefined,
 					tags: undefined,
 				},
+				facets: expect.anything(),
 			},
 			expect.anything(),
 		);
@@ -521,6 +526,7 @@ describe("Search page", () => {
 					authors: undefined,
 					tags: undefined,
 				},
+				facets: expect.anything(),
 			},
 			expect.anything(),
 		);
@@ -570,6 +576,7 @@ describe("Search page", () => {
 					authors: undefined,
 					tags: undefined,
 				},
+				facets: expect.anything(),
 			},
 			expect.anything(),
 		);
@@ -596,6 +603,7 @@ describe("Search page", () => {
 					authors: undefined,
 					tags: undefined,
 				},
+				facets: expect.anything(),
 			},
 			expect.anything(),
 		);
@@ -718,6 +726,7 @@ describe("Search page", () => {
 					authors: undefined,
 					tags: undefined,
 				},
+				facets: expect.anything(),
 			},
 			expect.anything(),
 		);
@@ -749,6 +758,7 @@ describe("Search page", () => {
 					authors: [MockPerson.id],
 					tags: undefined,
 				},
+				facets: expect.anything(),
 			},
 			expect.anything(),
 		);
@@ -902,6 +912,7 @@ describe("Search page", () => {
 					tags: ["angular"],
 					authors: [MockPerson.id],
 				},
+				facets: expect.anything(),
 			},
 			expect.anything(),
 		);
@@ -912,6 +923,7 @@ describe("Search page", () => {
 			{
 				term: "blog",
 				limit: 4,
+				offset: 4,
 				sortBy: {
 					property: "publishedTimestamp",
 					order: "asc",
@@ -919,6 +931,7 @@ describe("Search page", () => {
 				where: {
 					authors: [MockPerson.id],
 				},
+				facets: expect.anything(),
 			},
 			expect.anything(),
 		);
@@ -947,6 +960,8 @@ describe("Search page", () => {
 			totalPosts: 2,
 			totalCollections: 0,
 			collections: [],
+			tags: { angular: 1 },
+			authors: { [MockPerson.id]: 1 },
 		}));
 
 		var { getByTestId, getByText } = render(<SearchPage mockClients={clients} />);

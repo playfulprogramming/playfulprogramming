@@ -9,7 +9,8 @@ import { SearchQuery } from "./search";
 
 const postSchema = {
 	slug: "string",
-	tags: "string[]",
+	tags: "enum[]",
+	authors: "enum[]",
 	title: "string",
 	excerpt: "string",
 	description: "string",
@@ -20,7 +21,8 @@ const collectionSchema = {
 	slug: "string",
 	title: "string",
 	description: "string",
-	tags: "string[]",
+	tags: "enum[]",
+	authors: "enum[]",
 	publishedTimestamp: "number",
 } as const;
 
@@ -68,6 +70,17 @@ export function useOramaSearch() {
 	};
 }
 
+/**
+ * Given two Record<string, number>, combines them into one record, summing any overlapping entries.
+ * Ex. addMerge({a:1,b:2}, {b:1}) -> {a:1,b:3}
+ */
+function addMerge(obj1: Record<string, number>, obj2: Record<string, number>): Record<string, number> {
+	return Object.entries(obj2).reduce(
+		(acc, [key, value]) => ({ ...acc, [key]: (acc[key] || 0) + value }),
+		{ ...obj1 },
+	);
+}
+
 export async function searchForTerm({ postClient, collectionClient }: SearchContext, query: SearchQuery, signal: AbortSignal) {
 	// Schema should be passed to `search` method when:
 	// https://github.com/askorama/oramacloud-client-javascript/pull/35
@@ -88,9 +101,18 @@ export async function searchForTerm({ postClient, collectionClient }: SearchCont
 					tags: query.filterTags.length ? query.filterTags : undefined,
 					authors: query.filterAuthors.length ? query.filterAuthors : undefined,
 				},
+				facets: {
+					tags: {
+						limit: 50,
+					},
+					authors: {
+						limit: 50,
+					},
+				},
 			},
 			{
 				debounce: 0,
+				abortController: { signal } as never as AbortController,
 				// // TODO: This does nothing yet:
 				// // https://github.com/askorama/oramacloud-client-javascript/pull/34
 				// abortSignal: signal,
@@ -103,13 +125,23 @@ export async function searchForTerm({ postClient, collectionClient }: SearchCont
 		{
 			term,
 			limit: 4,
+			offset: 4 * (query.searchPage-1),
 			sortBy,
 			where: {
 				authors: query.filterAuthors.length ? query.filterAuthors : undefined,
 			},
+			facets: {
+				tags: {
+					limit: 50,
+				},
+				authors: {
+					limit: 50,
+				},
+			},
 		},
 		{
 			debounce: 0,
+			abortController: { signal } as never as AbortController,
 			// abortSignal: signal,
 		},
 	);
@@ -119,6 +151,17 @@ export async function searchForTerm({ postClient, collectionClient }: SearchCont
 		collectionSearchPromise,
 	]);
 
+	// Combine tags & authors facets between the two searches
+	const tags = addMerge(
+		postSearch?.facets?.tags?.values ?? {},
+		collectionSearch?.facets?.tags?.values ?? {}
+	);
+
+	const authors = addMerge(
+		postSearch?.facets?.authors?.values ?? {},
+		collectionSearch?.facets?.authors?.values ?? {}
+	);
+
 	return {
 		posts: (postSearch?.hits.map((hit) => hit.document) ?? []) as Array<
 			PostDocument & PostInfo
@@ -127,5 +170,7 @@ export async function searchForTerm({ postClient, collectionClient }: SearchCont
 		collections: (collectionSearch?.hits.map((hit) => hit.document) ??
 			[]) as Array<CollectionDocument & CollectionInfo>,
 		totalCollections: collectionSearch?.count ?? 0,
+		tags,
+		authors,
 	};
 }

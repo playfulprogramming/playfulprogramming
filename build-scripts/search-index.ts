@@ -36,7 +36,9 @@ fs.writeFileSync(
 	json,
 );
 
-const people = api.getPeopleByLang("en");
+const people = api
+	.getPeopleByLang("en")
+	.filter((person) => person.totalPostCount > 0);
 
 fs.writeFileSync(
 	path.resolve(process.cwd(), "./public/peopleIndex.json"),
