@@ -16,7 +16,7 @@ Many detractors of CSS-in-JS have a common qualm with the concept of the tooling
 
 > **CSS-in-JS is slow**.
 
-Here's the unfortunate truth: It's true.
+Here's the unfortunate truth: That's correct.
 
 Don't get me wrong, I like CSS-in-JS for certain projects; but it's challenging (or often impossible) to make a CSS-in-JS solution be as fast as vanilla CSS.
 
@@ -206,7 +206,7 @@ export function App() {
 }
 ```
 
-Might compile to something like this:
+Might compile to something like this **during your site's compilation, on your developer machine**:
 
 
 ```html
@@ -233,8 +233,6 @@ export function App() {
   return <div className={"bg_red.400"} />
 }
 ```
-
-During your site's compilation on your developer machine. 
 
 This takes our problem back from this:
 
