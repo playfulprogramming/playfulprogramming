@@ -254,7 +254,7 @@ Hopefully this has been an insightful look into how different CSS-in-JS solution
 
 Want to learn more about styling options in your framework? Check out [the second book in The Framework Field Guide series](https://framework.guide#ecosystem-title).
 
-[![The Framework Field Guide, a free and pratical way to learn Angular, React & Vue all at once.](./ffg_ecosystem.png)](https://framework.guide#ecosystem-title)
+[![The Framework Field Guide, a free and practical way to learn Angular, React & Vue all at once.](./ffg_ecosystem.png)](https://framework.guide#ecosystem-title)
 
 The book is in beta and will have a chapter all about styling options in your framework. This article was actually originally part of the book until I broke it out into something new.
 
