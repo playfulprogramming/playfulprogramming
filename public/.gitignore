@@ -2,8 +2,5 @@ content
 content/**
 .ignored_*
 people-profile-pic-map.ts
-searchIndex.js
 generated/
 *.epub
-searchIndex.json
-peopleIndex.json
