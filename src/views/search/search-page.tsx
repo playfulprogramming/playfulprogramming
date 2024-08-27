@@ -36,15 +36,15 @@ import {
 	deserializeParams,
 	DisplayContentType,
 	SortType,
+	SearchFiltersData,
 } from "./search";
 import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
 import { OramaClientProvider, useOramaSearch } from "./orama";
 import { PersonInfo } from "types/PersonInfo";
-import tagsObj from "../../../content/data/tags.json";
+import { TagInfo } from "types/TagInfo";
 
 const MAX_POSTS_PER_PAGE = 6;
-const ALL_TAGS = Object.fromEntries(Object.entries(tagsObj).map(([tag]) => [tag, 0]));
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -126,19 +126,20 @@ export function SearchPageBase() {
 		data: people,
 	} = useQuery({
 		queryFn: async ({ signal }) => {
-			return fetch("/peopleIndex.json", { signal, method: "GET" }).then(
+			return fetch("/searchFilters.json", { signal, method: "GET" }).then(
 				(res) => {
 					if (!res.ok) {
 						return res.text().then((text) => Promise.reject(text));
 					}
-					return res.json() as Promise<{ people: PersonInfo[] }>;
+					return res.json() as Promise<SearchFiltersData>;
 				},
 			);
 		},
 		queryKey: ["people"],
 		initialData: {
-			people: [] as PersonInfo[],
-		},
+			people: [],
+			tags: [],
+		} as SearchFiltersData,
 		refetchOnWindowFocus: false,
 		retry: false,
 		enabled,
@@ -173,7 +174,7 @@ export function SearchPageBase() {
 		enabled,
 	});
 
-	const tagCounts = usePersistedEmptyRef(isWildcardSearch ? ALL_TAGS : data.tags);
+	const tagCounts = usePersistedEmptyRef(isWildcardSearch ? Object.fromEntries(people.tags.map(tag => [tag.id, tag.totalPostCount])) : data.tags);
 	const authorCounts = usePersistedEmptyRef(isWildcardSearch ? Object.fromEntries(people.people.map(person => [person.id, person.totalPostCount])) : data.authors);
 
 	const isError = isErrorPeople || isErrorData;

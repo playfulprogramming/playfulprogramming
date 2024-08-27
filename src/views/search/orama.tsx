@@ -87,7 +87,8 @@ export async function searchForTerm({ postClient, collectionClient }: SearchCont
 	// Is merged and released.
 	const term = query.searchQuery === "*" ? "" : query.searchQuery;
 	const sortBy: SortByClauseUnion | undefined = query.sort === "relevance"
-		? undefined
+		// When term is empty (returning all results), there is no "relevance" to sort by - so this defaults to a sort by newest
+		? (term.length > 0 ? undefined : { property: "publishedTimestamp", order: "desc" })
 		: { property: "publishedTimestamp", order: query.sort === "newest" ? "desc" : "asc" };
 
 	const postSearchPromise: Promise<Nullable<Results<PostDocument>>> =
@@ -128,6 +129,7 @@ export async function searchForTerm({ postClient, collectionClient }: SearchCont
 			offset: 4 * (query.searchPage-1),
 			sortBy,
 			where: {
+				tags: query.filterTags.length ? query.filterTags : undefined,
 				authors: query.filterAuthors.length ? query.filterAuthors : undefined,
 			},
 			facets: {
