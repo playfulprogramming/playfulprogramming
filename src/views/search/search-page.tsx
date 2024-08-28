@@ -88,14 +88,16 @@ export function SearchPageBase() {
 		setQueryState(queryToSet);
 	}, [query, setQueryState]);
 
-	const setQueryDebounced = useDebouncedCallback((searchQuery: string) => {
+	// When the query is changed from input events, we want to debounce callbacks so that it doesn't result in one fetch() per keypress.
+	const { callback: setQueryDebounced, cancel: cancelSetQueryDebounced } = useDebouncedCallback((searchQuery: string) => {
 		setQueryImmediate({
 			searchQuery,
 			searchPage: 1,
 		});
 	}, 500, [setQueryImmediate]);
 
-	const isWildcardSearch = query.searchQuery === "*";
+	// If the searchQuery is changed for external reasons (history or onSubmit), cancel any pending debounced updates.
+	useEffect(() => cancelSetQueryDebounced(), [query.searchQuery]);
 
 	const resultsHeading = useRef<HTMLDivElement | null>(null);
 
@@ -162,6 +164,8 @@ export function SearchPageBase() {
 		enabled,
 	});
 
+	const isWildcardSearch = query.searchQuery === "*";
+	// If the search is a wildcard, we want to use *every* tag/person filter (the search API returns a limited amount)
 	const tagCounts = usePersistedEmptyRef(isWildcardSearch ? Object.fromEntries(people.tags.map(tag => [tag.id, tag.totalPostCount])) : data.tags);
 	const authorCounts = usePersistedEmptyRef(isWildcardSearch ? Object.fromEntries(people.people.map(person => [person.id, person.totalPostCount])) : data.authors);
 

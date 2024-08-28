@@ -36,7 +36,10 @@ export const SearchTopbar = ({
 	setFilterIsDialogOpen,
 	headerHeight,
 }: SearchTopbarProps) => {
+	// while search and setSearch reflect the current query values, they are debounced to prevent fetch spam
+	// - searchInput contains the current input value
 	const [searchInput, setSearchInput] = useState(search);
+	// when search is changed externally (history navigation), update the search input value
 	useEffect(() => setSearchInput(search), [search]);
 
 	function handleBlur(e: FocusEvent) {

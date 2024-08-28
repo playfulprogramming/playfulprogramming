@@ -23,13 +23,18 @@ export function useDebouncedCallback<T extends Function>(
 	callback: T,
 	delay: number,
 	inputs: Inputs,
-): T {
+) {
 	const cb = useCallback(callback, inputs);
 
 	const handler = useRef<NodeJS.Timeout>();
+
+	const cancel = useCallback(() => {
+		handler.current && clearTimeout(handler.current);
+	}, [handler]);
+
 	const invoke = useCallback(
 		(...args: unknown[]) => {
-			handler.current && clearTimeout(handler.current);
+			cancel();
 			handler.current = setTimeout(() => {
 				callback(...args);
 			}, delay);
@@ -37,5 +42,8 @@ export function useDebouncedCallback<T extends Function>(
 		[cb],
 	);
 
-	return invoke as never as T;
+	return {
+		callback: invoke as never as T,
+		cancel,
+	};
 }
