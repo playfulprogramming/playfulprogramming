@@ -11,16 +11,14 @@
 
 ---
 
-### Welcome to the first installment of Web Fundamentals!
+This series will guide you through the fundamentals of CSS, HTML & JavaScript in one - or a few - steps at a time.
+
+In our first chapter, we'll talk a little - well, *more than a little* - about HTML's box model and the elements that make up the web as you see today.
 
 > **What you should know:**
 > This series only expects you to know what HTML and CSS are on a **very** basic level. If you need an introduction, check the article below.
 >
 >[📚 **Introduction to HTML, CSS and JavaScript**](https://unicorn-utterances.com/posts/intro-to-html-css-and-javascript)
-
-This series will guide you through the fundamentals of CSS, HTML & JavaScript in one - or a few - steps at a time.
-
-In our first chapter, we'll talk a little - well, *more than a little* - about HTML's box model and the elements that make up the web as you see today.
 
 ---
 
@@ -45,7 +43,7 @@ This structure is the foundation of HTML, and is used to build everything you se
 
 Let's look at them now.
 
---- 
+---
 
 # Introduction to the `<div>`
 
@@ -61,7 +59,7 @@ The problem is that, when not using semantic elements, the user is not given the
 
 It's important to understand that semantic elements are best practice for a reason, and accessibility should always be a priority. If you'd like to learn more, we have a fantastic post going over web accessibility.
 
-> #### **[Intro to accessibility](./intro-to-web-accessibility)** 
+> #### **[Intro to accessibility](./intro-to-web-accessibility)**
 > Accessibility allows as many people to use your product as possible. That, in turn, generates more profit. Here's how to improve it on web.
 
 Now let's dive into the elements, shall we?

@@ -1,7 +1,7 @@
 ---
 {
-  title: "Web Fundamentals: Flexbox & Positioning",
-  description: "In the third chapter of our series, we'll have thorough look at web layout principles and properties, as well as features like flexbox, which allow you to build complex and dynamic pages with ease.",
+  title: "Web Fundamentals: Flexbox",
+  description: "In the third chapter of our series, we'll look at flexbox, a powerful layout feature that allows you to create responsive designs with ease.",
   published: "2024-08-18T20:08:26.988Z",
   tags: ["css", "html", "design"],
   license: "cc-by-4",
@@ -11,12 +11,11 @@
 
 ---
 
-### Welcome to the third installment of Web Fundamentals!
+In this chapter we will talk everything layout related, and start getting into the weeds of responsive design. Starting with Flexbox.
 
 > **What you should know:**
 > This chapter expects you to have read the previous two installments of Web Fundamentals.
-
-In this chapter we will talk everything layout related, and start getting into the weeds of responsive design. Starting with Flexbox.
+> We will not be covering what HTML and CSS are, or what they do in this chapter.
 
 ---
 
@@ -71,8 +70,8 @@ align-items: flex-start;
 ![Three items in a container vertically aligned to the top of the container](./align-start.svg)
 
 > #### Important! The `start` and `end` suffixes are axis-dependent.
->Uhen a flex layout is set to `row`, the start and end will point to top and bottom.
->Uhen a flex layout is set to `column`, the start and end will point to left and right.
+> When a flex layout is set to `row`, the start and end will point to top and bottom.
+> When a flex layout is set to `column`, the start and end will point to left and right.
 
 
 ## Using `justify-content`
@@ -82,7 +81,7 @@ This property is used to distribute your content across the main axis of a flex 
 This can serve as an alignment property, or as a way to space out your content. Here are the available values.
 
 ```css
-justify-contentUenter;
+justify-content: center;
 ```
 
 ![Three items in a container horizontally aligned to the center of the container](./justify-center.svg)
@@ -119,11 +118,11 @@ justify-content: space-evenly;
 
 Here is a list of CSS properties used to control flexbox properties: 
 
-> [`flex-grow`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow)Uontrols a `flex` items grow factor
+> [`flex-grow`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow): Controls a `flex` items grow factor
 
-> [`flex-shrink`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink)Uontrols a `flex` items shrink factor
+> [`flex-shrink`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink): Controls a `flex` items shrink factor
 
-> [`flex-basis`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis)Uontrols the initial size of a `flex` item
+> [`flex-basis`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis): Controls the initial size of a `flex` item
 
 > ⚡ [Live Code Example: Flexbox Layout](https://codesandbox.io/s/flexbox-layout-p4cy8?file=/styles.css)
 
@@ -140,81 +139,6 @@ Using a few additional CSS properties we can align, justify, and space these sam
 > [`place-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-self): Shorthand property for [`align-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self) and [`justify-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self)
 
 > 🤓 These are some godly CSS properties that everyone should know about!
-
----
-
-# Gridbox
-
-The CSS property `display: grid` is commonly referred to as gridbox. Unlike flexbox, it is capable of creating two-dimensional layouts using intersecting columns and rows.
-
-## Grid templates: areas & columns
-
-Using `grid-template-areas` and `grid-template-columns` we can define 
-
-```css
-grid-template-areas:
-  "a a"
-  "b c";
-grid-template-columns: 1fr 1fr;
-```
-
-![A grid with an item on the top spanning two columns and two items on the bottom](./grid-columns.svg)
-
----
-
-## Grid templates: rows
-
-```css
-grid-template-rows: 1fr 2fr 1fr;
-```
-
-![A grid with a single column and three items; the item in the middle is double the height as the other two items above and below it](./grid-rows.svg)
-
-Adding `display: grid` to a container will cause any immediate descendants to become grid items. Similar to flexbox, we can use placement methods to help align, justify, and space grid items inside the container.
-
----
-
-## Using `place-items`
-
-```css
-place-itemsUenter center;
-```
-
-![A grid of items centered horizontally and vertically](./center-center.svg)
-
-```css
-place-items: end end;
-```
-
-![A grid of items aligned to the bottom left corner](./end-end.svg)
-
-```css
-place-items: start start;
-```
-
-![A grid of items aligned to the top right corner](./start-start.svg)
-
-> 🤓 Place-items is super effective if using gridbox
-
-**Here is a list of CSS properties used to control gridbox properties:**
-
-> [`grid-area`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)Uontrols a grid item's location
-
-> [`grid-template-areas`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas)Uontrols cells and assigns names
-
-> [`grid-auto-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns)Uontrols the track size of grid columns
-
-> [`grid-auto-flow`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow)Uontrols the auto-placement algorithm
-
-> [`grid-auto-rows`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows)Uontrols the track size of grid rows
-
-> [`grid-gap`](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)Uontrols gaps between columns and rows
-
-> [`grid-template-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns)Uontrols line names and track size of grid columns
-
-> [`grid-template-rows`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows)Uontrols line names and track size of grid rows
-
-> ⚡ [Live Code Example: Gridbox Layout](https://codesandbox.io/s/gridbox-layout-tnu5b?file=/styles.css)
 
 ---
 
@@ -286,7 +210,7 @@ For example, YouTube uses a flexbox to space out their headers children elements
 
 > 🤓 Mastering the flexbox will take you very far in CSS as it is used everywhere
 
-## Gridbox 
+## Grid
 
 - Used in creating complex layouts that require both columns and rows;
 - Provides the easiest and shortest way to center elements;

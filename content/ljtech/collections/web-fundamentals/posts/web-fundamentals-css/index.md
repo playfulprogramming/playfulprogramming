@@ -11,14 +11,12 @@
 
 ---
 
-### Welcome to the second installment of Web Fundamentals!
-
-> **What you should know:**
-> This chapter expects you to have read the previous installment of Web Fundamentals.
-
 This article will go over Cascading Style Sheets, detailing what they are, what they allow, and how they are used to bend and style HTML to make up beautiful and responsive designs in an efficient manner. 
 
 Let's waste no time, and get right into it.
+
+> **What you should know:**
+> This chapter expects you to have read the previous installment of Web Fundamentals. Do so if you haven't already!
 
 # Introduction to CSS
 
