@@ -9,7 +9,8 @@ import {
 	RadioButtonGroup,
 } from "components/button-radio-group/button-radio-group";
 import { SortType } from "src/views/search/search";
-import { useEffect, useState } from "preact/hooks";
+import { useCallback, useEffect, useState } from "preact/hooks";
+import { useDebouncedCallback } from "../use-debounced-value";
 
 interface SearchTopbarProps {
 	onSubmit: (search: string) => void;
@@ -39,21 +40,27 @@ export const SearchTopbar = ({
 	// while search and setSearch reflect the current query values, they are debounced to prevent fetch spam
 	// - searchInput contains the current input value
 	const [searchInput, setSearchInput] = useState(search);
-	// when search is changed externally (history navigation), update the search input value
-	useEffect(() => setSearchInput(search), [search]);
 
-	function handleBlur(e: FocusEvent) {
+	// When the query is changed from input events, we want to debounce callbacks so that it doesn't result in one fetch() per keypress.
+	const { callback: setSearchDebounced, cancel: cancelSetSearchDebounced } = useDebouncedCallback(setSearch, 500, [setSearch]);
+
+	// If the searchQuery is changed for external reasons (history or onSubmit), update the input & cancel any pending setSearch calls.
+	useEffect(() => {
+		setSearchInput(search);
+		cancelSetSearchDebounced();
+	}, [search]);
+
+	const handleBlur = useCallback((e: FocusEvent) => {
 		const newVal = (e.target as HTMLInputElement).value;
 		setSearchInput(newVal);
-		setSearch(newVal);
 		onBlur(newVal);
-	}
+	}, [setSearchInput, onBlur]);
 
-	function handleInput(e: InputEvent) {
+	const handleInput = useCallback((e: InputEvent) => {
 		const newVal = (e.target as HTMLInputElement).value;
 		setSearchInput(newVal);
-		setSearch(newVal);
-	}
+		setSearchDebounced(newVal);
+	}, [setSearchInput, setSearchDebounced]);
 
 	return (
 		<section

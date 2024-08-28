@@ -73,7 +73,7 @@ export function SearchPageBase() {
 		deserializeParams,
 	);
 
-	const setQueryImmediate = useCallback((newQuery: Partial<SearchQuery>) => {
+	const setQuery = useCallback((newQuery: Partial<SearchQuery>) => {
 		const queryToSet = {
 			...query,
 			...newQuery,
@@ -88,25 +88,16 @@ export function SearchPageBase() {
 		setQueryState(queryToSet);
 	}, [query, setQueryState]);
 
-	// When the query is changed from input events, we want to debounce callbacks so that it doesn't result in one fetch() per keypress.
-	const { callback: setQueryDebounced, cancel: cancelSetQueryDebounced } = useDebouncedCallback((searchQuery: string) => {
-		setQueryImmediate({
-			searchQuery,
-			searchPage: 1,
-		});
-	}, 500, [setQueryImmediate]);
-
-	// If the searchQuery is changed for external reasons (history or onSubmit), cancel any pending debounced updates.
-	useEffect(() => cancelSetQueryDebounced(), [query.searchQuery]);
-
 	const resultsHeading = useRef<HTMLDivElement | null>(null);
+
+	const setSearch = useCallback((str: string) => setQuery({ searchQuery: str, searchPage: 1 }), [setQuery]);
 
 	const onManualSubmit = useCallback(
 		(str: string) => {
-			setQueryImmediate({ searchQuery: str, searchPage: 1 });
+			setQuery({ searchQuery: str, searchPage: 1 });
 			resultsHeading.current?.focus();
 		},
-		[setQueryImmediate],
+		[setQuery],
 	);
 
 	/**
@@ -188,32 +179,32 @@ export function SearchPageBase() {
 
 	const setSelectedPeople = useCallback(
 		(authors: string[]) => {
-			setQueryImmediate({
+			setQuery({
 				filterAuthors: authors,
 				searchPage: 1, // reset to page 1
 			});
 		},
-		[query, setQueryImmediate],
+		[setQuery],
 	);
 
 	const setSelectedTags = useCallback(
 		(tags: string[]) => {
-			setQueryImmediate({
+			setQuery({
 				filterTags: tags,
 				searchPage: 1, // reset to page 1
 			});
 		},
-		[query, setQueryImmediate],
+		[setQuery],
 	);
 
 	const setContentToDisplay = useCallback(
 		(display: DisplayContentType) => {
-			setQueryImmediate({
+			setQuery({
 				display: display,
 				searchPage: 1, // reset to page 1
 			});
 		},
-		[query],
+		[setQuery],
 	);
 
 	const peopleMap = useMemo(() => {
@@ -227,12 +218,12 @@ export function SearchPageBase() {
 
 	const setSort = useCallback(
 		(sort: SortType) => {
-			setQueryImmediate({
+			setQuery({
 				sort: sort,
 				searchPage: 1, // reset to page 1
 			});
 		},
-		[query],
+		[setQuery],
 	);
 
 	/**
@@ -306,9 +297,9 @@ export function SearchPageBase() {
 			<div className={style.mainContents}>
 				<SearchTopbar
 					onSubmit={onManualSubmit}
-					onBlur={(val) => setQueryImmediate({ searchQuery: val, searchPage: 1 })}
+					onBlur={setSearch}
 					search={query.searchQuery}
-					setSearch={setQueryDebounced}
+					setSearch={setSearch}
 					setContentToDisplay={setContentToDisplay}
 					contentToDisplay={query.display}
 					setSort={setSort}
@@ -437,7 +428,7 @@ export function SearchPageBase() {
 									testId="pagination"
 									softNavigate={(_href, pageNum) => {
 										window.scrollTo(0, 0);
-										setQueryImmediate({
+										setQuery({
 											searchPage: pageNum,
 										});
 									}}
