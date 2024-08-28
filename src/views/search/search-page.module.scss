@@ -125,3 +125,29 @@
 		margin-right: calc(24px * 11);
 	}
 }
+
+@media screen and not (prefers-reduced-motion) {
+	:global(#post-list-container) > li {
+		animation: fadeIn .5s;
+		animation-fill-mode: forwards;
+		animation-timing-function: ease-out;
+		opacity: 0;
+	}
+
+	@for $i from 1 through 6 {
+		:global(#post-list-container) > li:nth-of-type(#{$i}) {
+			animation-delay: #{($i - 1) * 0.05s};
+		}
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0%;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 100%;
+		transform: translateY(0);
+	}
+}

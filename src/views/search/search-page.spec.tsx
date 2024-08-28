@@ -42,6 +42,8 @@ interface FnReply {
 	totalPosts: number;
 	collections: CollectionInfo[];
 	totalCollections: number;
+	tags?: Record<string, number>;
+	authors?: Record<string, number>;
 }
 
 function mockOramaClient(partial: Partial<OramaClient>): OramaClient {
@@ -69,6 +71,16 @@ function mockClients(fn: (searchStr: string) => FnReply): SearchContext {
 			return {
 				hits,
 				count,
+				facets: {
+					tags: {
+						count: 0,
+						values: res.tags ?? {},
+					},
+					authors: {
+						count: 0,
+						values: res.authors ?? {},
+					},
+				},
 				elapsed: { raw: 0, formatted: "0ms" },
 			};
 		}),
@@ -91,6 +103,16 @@ function mockClients(fn: (searchStr: string) => FnReply): SearchContext {
 			return {
 				hits,
 				count,
+				facets: {
+					tags: {
+						count: 0,
+						values: {},
+					},
+					authors: {
+						count: 0,
+						values: {},
+					},
+				},
 				elapsed: { raw: 0, formatted: "0ms" },
 			};
 		}),
@@ -103,8 +125,19 @@ function mockPeopleIndex(
 	people: PersonInfo[],
 ) {
 	server.use(
-		http.get(`*/peopleIndex.json`, async () => {
-			return HttpResponse.json({ people });
+		http.get(`*/searchFilters.json`, async () => {
+			return HttpResponse.json({
+				people,
+				tags: [
+					{
+						displayName: "Angular",
+						id: "angular",
+						image: "/stickers/angular.svg",
+						shownWithBranding: true,
+						totalPostCount: 32,
+					}
+				],
+			});
 		}),
 	);
 }
@@ -571,7 +604,10 @@ describe("Search page", () => {
 				term: "",
 				limit: 6,
 				offset: 0,
-				sortBy: undefined,
+				sortBy: {
+					property: "publishedTimestamp",
+					order: "desc",
+				},
 				where: {
 					authors: undefined,
 					tags: undefined,
@@ -598,7 +634,10 @@ describe("Search page", () => {
 				term: "",
 				limit: 6,
 				offset: 6,
-				sortBy: undefined,
+				sortBy: {
+					order: "desc",
+					property: "publishedTimestamp",
+				},
 				where: {
 					authors: undefined,
 					tags: undefined,
@@ -721,7 +760,10 @@ describe("Search page", () => {
 				term: "",
 				limit: 6,
 				offset: 0,
-				sortBy: undefined,
+				sortBy: {
+					property: "publishedTimestamp",
+					order: "desc",
+				},
 				where: {
 					authors: undefined,
 					tags: undefined,
@@ -753,7 +795,10 @@ describe("Search page", () => {
 				term: "",
 				limit: 6,
 				offset: 0,
-				sortBy: undefined,
+				sortBy: {
+					property: "publishedTimestamp",
+					order: "desc",
+				},
 				where: {
 					authors: [MockPerson.id],
 					tags: undefined,
@@ -929,6 +974,7 @@ describe("Search page", () => {
 					order: "asc",
 				},
 				where: {
+					tags: ["angular"],
 					authors: [MockPerson.id],
 				},
 				facets: expect.anything(),
@@ -1141,12 +1187,36 @@ describe("Search page", () => {
 
 		const { getByTestId, getByText } = render(<SearchPage mockClients={clients} />);
 
+		await waitFor(() =>
+			expect(clients.postClient.search).toHaveBeenCalledOnce()
+		);
+
 		await waitFor(() => expect(getByText("Ten blog post")).toBeInTheDocument());
 
 		const searchInput = getByTestId("search-input");
 		expect(searchInput).toHaveValue("blog");
 
 		await user.type(searchInput, "other");
+		await user.type(searchInput, "{enter}");
+
+		await waitFor(() =>
+			expect(clients.postClient.search).toHaveBeenCalledTimes(2)
+		);
+
+		expect(clients.postClient.search).toHaveBeenLastCalledWith({
+			term: "blogother",
+			limit: 6,
+			offset: 0,
+			sortBy: {
+				property: "publishedTimestamp",
+				order: "asc",
+			},
+			where: {
+				authors: ["joe"],
+				tags: ["angular"],
+			},
+			facets: expect.anything(),
+		}, expect.anything());
 
 		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
 
@@ -1318,6 +1388,8 @@ describe("Search page", () => {
 			totalPosts: 0,
 			totalCollections: 0,
 			collections: [],
+			tags: {},
+			authors: {},
 		}));
 
 		const { getByTestId, getByText } = render(<SearchPage mockClients={clients} />);
@@ -1325,16 +1397,18 @@ describe("Search page", () => {
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "blog");
 
-		await waitFor(() =>
-			expect(getByText("No results found...")).toBeInTheDocument(),
-		);
+		await waitFor(() => {
+			expect(window.location.search).toBe("?q=blog");
+			expect(getByText("No results found...")).toBeInTheDocument();
+		}, { timeout: 1500 });
 
 		await user.type(searchInput, "other");
 
-		await waitFor(() => expect(window.location.search).toBe("?q=blogother"));
+		await waitFor(() =>
+			expect(window.location.search).toBe("?q=blogother")
+		, { timeout: 1500 });
 
 		history.back();
-
-		await waitFor(() => expect(window.location.search).toBe("?q=blog"));
+		expect(window.location.search).toBe("?q=blog");
 	});
 });

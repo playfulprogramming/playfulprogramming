@@ -9,6 +9,7 @@ import {
 	RadioButtonGroup,
 } from "components/button-radio-group/button-radio-group";
 import { SortType } from "src/views/search/search";
+import { useEffect, useState } from "preact/hooks";
 
 interface SearchTopbarProps {
 	onSubmit: (search: string) => void;
@@ -35,6 +36,22 @@ export const SearchTopbar = ({
 	setFilterIsDialogOpen,
 	headerHeight,
 }: SearchTopbarProps) => {
+	const [searchInput, setSearchInput] = useState(search);
+	useEffect(() => setSearchInput(search), [search]);
+
+	function handleBlur(e: FocusEvent) {
+		const newVal = (e.target as HTMLInputElement).value;
+		setSearchInput(newVal);
+		setSearch(newVal);
+		onBlur(newVal);
+	}
+
+	function handleInput(e: InputEvent) {
+		const newVal = (e.target as HTMLInputElement).value;
+		setSearchInput(newVal);
+		setSearch(newVal);
+	}
+
 	return (
 		<section
 			className={style.topBar}
@@ -51,7 +68,7 @@ export const SearchTopbar = ({
 				className={style.searchbarRow}
 				onSubmit={(e) => {
 					e.preventDefault();
-					onSubmit(search);
+					onSubmit(searchInput);
 				}}
 			>
 				<SearchInput
@@ -60,13 +77,9 @@ export const SearchTopbar = ({
 					aria-description={"Results will update as you type"}
 					class={style.searchbar}
 					usedInPreact={true}
-					value={search}
-					onBlur={(e) => {
-						const newVal = (e.target as HTMLInputElement).value;
-						setSearch(newVal);
-						onBlur(newVal);
-					}}
-					onInput={(e) => setSearch((e.target as HTMLInputElement).value)}
+					value={searchInput}
+					onBlur={handleBlur}
+					onInput={handleInput}
 				/>
 				<LargeButton class={style.searchTextButton} tag="button" type="submit">
 					Search

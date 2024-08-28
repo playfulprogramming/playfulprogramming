@@ -13,7 +13,7 @@ import {
 	QueryClientProvider,
 	useQuery,
 } from "@tanstack/react-query";
-import { useDebouncedValue } from "./use-debounced-value";
+import { useDebouncedCallback } from "./use-debounced-value";
 
 import style from "./search-page.module.scss";
 import { PostCardGrid } from "components/post-card/post-card-grid";
@@ -41,8 +41,6 @@ import {
 import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
 import { OramaClientProvider, useOramaSearch } from "./orama";
-import { PersonInfo } from "types/PersonInfo";
-import { TagInfo } from "types/TagInfo";
 
 const MAX_POSTS_PER_PAGE = 6;
 
@@ -58,65 +56,63 @@ function usePersistedEmptyRef<T extends object>(value: T) {
 	}, [value]);
 }
 
+const fetchSearchFilters = async ({ signal }: { signal: AbortSignal }) => {
+	return fetch("/searchFilters.json", { signal, method: "GET" }).then(
+		(res) => {
+			if (!res.ok) {
+				return res.text().then((text) => Promise.reject(text));
+			}
+			return res.json() as Promise<SearchFiltersData>;
+		},
+	);
+};
+
 export function SearchPageBase() {
 	const [query, setQueryState] = useSearchParams<SearchQuery>(
 		serializeParams,
 		deserializeParams,
 	);
 
-	const [debouncedQuery, immediatelySetDebouncedQuery] = useDebouncedValue(query, 500);
+	const setQueryImmediate = useCallback((newQuery: Partial<SearchQuery>) => {
+		const queryToSet = {
+			...query,
+			...newQuery,
+		};
 
-	const search = query.searchQuery ?? "";
-	const isWildcardSearch = debouncedQuery.searchQuery === "*";
+		if (queryToSet.searchQuery.length == 0) {
+			// Remove tags and authors when no value is present
+			queryToSet.filterTags = [];
+			queryToSet.filterAuthors = [];
+		}
 
-	const setQuery = useCallback(
-		(newQuery: SearchQuery, immediate?: boolean) => {
-			if (!newQuery.searchQuery) {
-				// Remove tags and authors when no value is present
-				newQuery.filterTags = [];
-				newQuery.filterAuthors = [];
-			}
+		setQueryState(queryToSet);
+	}, [query, setQueryState]);
 
-			setQueryState(newQuery);
-			if (immediate) {
-				immediatelySetDebouncedQuery(newQuery);
-			}
-		},
-		[query, setQueryState],
-	);
+	const setQueryDebounced = useDebouncedCallback((searchQuery: string) => {
+		console.log("setQueryDebounced", { searchQuery });
+		setQueryImmediate({
+			searchQuery,
+			searchPage: 1,
+		});
+	}, 500, [setQueryImmediate]);
 
-	/**
-	 * Derive state and setup for search
-	 */
-	const setSearch = useCallback(
-		(str: string, immediate?: boolean) => {
-			const newQuery = {
-				...query,
-				searchQuery: str,
-				searchPage: 1,
-			};
-
-			setQuery(newQuery, immediate);
-		},
-		[query, setQuery],
-	);
+	const isWildcardSearch = query.searchQuery === "*";
 
 	const resultsHeading = useRef<HTMLDivElement | null>(null);
 
 	const onManualSubmit = useCallback(
 		(str: string) => {
-			setSearch(str, true);
+			console.log("onManualSubmit", { str });
+			setQueryImmediate({ searchQuery: str, searchPage: 1 });
 			resultsHeading.current?.focus();
 		},
-		[setSearch],
+		[setQueryImmediate],
 	);
 
 	/**
 	 * Fetch data
 	 */
-	const enabled = !!debouncedQuery.searchQuery;
-
-	const { searchForTerm } = useOramaSearch();
+	const enabled = !!query.searchQuery;
 
 	const {
 		isLoading: isLoadingPeople,
@@ -125,16 +121,7 @@ export function SearchPageBase() {
 		error: errorPeople,
 		data: people,
 	} = useQuery({
-		queryFn: async ({ signal }) => {
-			return fetch("/searchFilters.json", { signal, method: "GET" }).then(
-				(res) => {
-					if (!res.ok) {
-						return res.text().then((text) => Promise.reject(text));
-					}
-					return res.json() as Promise<SearchFiltersData>;
-				},
-			);
-		},
+		queryFn: fetchSearchFilters,
 		queryKey: ["people"],
 		initialData: {
 			people: [],
@@ -145,6 +132,16 @@ export function SearchPageBase() {
 		enabled,
 	});
 
+	const { searchForTerm } = useOramaSearch();
+	const fetchSearchQuery = useCallback(({ signal, queryKey: [_, query] }: { signal: AbortSignal, queryKey: [string, SearchQuery]}) => {
+		// Analytics go brr
+		plausible &&
+			plausible("search", { props: { searchVal: query.searchQuery } });
+
+		console.log("searchForTerm", { query });
+		return searchForTerm(query, signal);
+	}, [searchForTerm]);
+
 	const {
 		isLoading: isLoadingData,
 		isFetching: isFetchingData,
@@ -153,14 +150,8 @@ export function SearchPageBase() {
 		data,
 		refetch,
 	} = useQuery({
-		queryFn: ({ signal }) => {
-			// Analytics go brr
-			plausible &&
-				plausible("search", { props: { searchVal: debouncedQuery.searchQuery } });
-
-			return searchForTerm(debouncedQuery, signal);
-		},
-		queryKey: ["search", debouncedQuery],
+		queryFn: fetchSearchQuery,
+		queryKey: ["search", query],
 		initialData: {
 			posts: [],
 			totalPosts: 0,
@@ -196,35 +187,32 @@ export function SearchPageBase() {
 
 	const setSelectedPeople = useCallback(
 		(authors: string[]) => {
-			setQuery({
-				...query,
+			setQueryImmediate({
 				filterAuthors: authors,
 				searchPage: 1, // reset to page 1
-			}, true);
+			});
 		},
-		[query, setQuery],
+		[query, setQueryImmediate],
 	);
 
 	const setSelectedTags = useCallback(
 		(tags: string[]) => {
-			setQuery({
-				...query,
+			setQueryImmediate({
 				filterTags: tags,
 				searchPage: 1, // reset to page 1
-			}, true);
+			});
 		},
-		[query, setQuery],
+		[query, setQueryImmediate],
 	);
 
 	const setContentToDisplay = useCallback(
 		(display: DisplayContentType) => {
-			setQuery({
-				...query,
+			setQueryImmediate({
 				display: display,
 				searchPage: 1, // reset to page 1
-			}, true);
+			});
 		},
-		[query, setQuery],
+		[query],
 	);
 
 	const peopleMap = useMemo(() => {
@@ -238,13 +226,12 @@ export function SearchPageBase() {
 
 	const setSort = useCallback(
 		(sort: SortType) => {
-			setQuery({
-				...query,
+			setQueryImmediate({
 				sort: sort,
 				searchPage: 1, // reset to page 1
-			}, true);
+			});
 		},
-		[query, setQuery],
+		[query],
 	);
 
 	/**
@@ -288,7 +275,7 @@ export function SearchPageBase() {
 	const numberOfPosts = showArticles ? data.totalPosts : 0;
 
 	return (
-		<main className={style.fullPageContainer} data-hide-sidebar={!search}>
+		<main className={style.fullPageContainer} data-hide-sidebar={!query.searchQuery}>
 			<h1 className={"visually-hidden"}>Search</h1>
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
@@ -313,14 +300,14 @@ export function SearchPageBase() {
 					// https://github.com/playfulprogramming/playfulprogramming/issues/653
 					overflow: "clip",
 				}}
-				searchString={search}
+				searchString={query.searchQuery}
 			/>
 			<div className={style.mainContents}>
 				<SearchTopbar
-					onSubmit={(val) => onManualSubmit(val)}
-					onBlur={(val) => setSearch(val, true)}
-					search={search}
-					setSearch={setSearch}
+					onSubmit={onManualSubmit}
+					onBlur={(val) => setQueryImmediate({ searchQuery: val, searchPage: 1 })}
+					search={query.searchQuery}
+					setSearch={setQueryDebounced}
 					setContentToDisplay={setContentToDisplay}
 					contentToDisplay={query.display}
 					setSort={setSort}
@@ -449,10 +436,9 @@ export function SearchPageBase() {
 									testId="pagination"
 									softNavigate={(_href, pageNum) => {
 										window.scrollTo(0, 0);
-										setQuery({
-											...query,
+										setQueryImmediate({
 											searchPage: pageNum,
-										}, true);
+										});
 									}}
 									page={{
 										currentPage: query.searchPage,
