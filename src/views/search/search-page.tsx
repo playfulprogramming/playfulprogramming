@@ -89,7 +89,6 @@ export function SearchPageBase() {
 	}, [query, setQueryState]);
 
 	const setQueryDebounced = useDebouncedCallback((searchQuery: string) => {
-		console.log("setQueryDebounced", { searchQuery });
 		setQueryImmediate({
 			searchQuery,
 			searchPage: 1,
@@ -102,7 +101,6 @@ export function SearchPageBase() {
 
 	const onManualSubmit = useCallback(
 		(str: string) => {
-			console.log("onManualSubmit", { str });
 			setQueryImmediate({ searchQuery: str, searchPage: 1 });
 			resultsHeading.current?.focus();
 		},
@@ -138,7 +136,6 @@ export function SearchPageBase() {
 		plausible &&
 			plausible("search", { props: { searchVal: query.searchQuery } });
 
-		console.log("searchForTerm", { query });
 		return searchForTerm(query, signal);
 	}, [searchForTerm]);
 
