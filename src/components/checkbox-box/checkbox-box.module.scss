@@ -47,7 +47,7 @@
 	// prevents the user from selecting nodes inside the checkbox, which causes
 	// strange behavior when the state is changed (possibly caused by the browser
 	// re-evaluating the selection when the checkbox is re-rendered)
-	// https://github.com/unicorn-utterances/unicorn-utterances/issues/652
+	// https://github.com/playfulprogramming/playfulprogramming/issues/652
 	user-select: none;
 }
 

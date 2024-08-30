@@ -29,7 +29,7 @@ export interface CollectionInfo extends RawCollectionInfo {
 	locale: Languages;
 	postCount: number;
 	coverImgMeta: {
-		// Relative to "public/unicorns"
+		// Relative to "public/people"
 		relativePath: string;
 		// Relative to site root
 		relativeServerPath: string;

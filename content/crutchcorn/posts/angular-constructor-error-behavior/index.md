@@ -312,7 +312,7 @@ Because of this, and following JavaScript's early return implementation of throw
 
 This is why we can see elements rendered _before_ our `throw-an-error` component, but not elements _after_.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
 
 # Why we need a fix
 

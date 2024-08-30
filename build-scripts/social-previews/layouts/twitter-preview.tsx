@@ -2,10 +2,10 @@ import * as React from "preact";
 import { ComponentProps, Layout } from "../base";
 import style from "./twitter-preview-css";
 import fs from "fs/promises";
-import { getUnicornById } from "utils/api";
+import { getPersonById } from "utils/api";
 
-const unicornUtterancesHead = await fs.readFile(
-	"src/assets/unicorn_utterances_sticker.svg",
+const playfulProgrammingHead = await fs.readFile(
+	"src/assets/playfulprogramming_sticker.svg",
 	"utf-8",
 );
 
@@ -51,7 +51,7 @@ const TwitterLargeCard = ({
 			<div className="absoluteFill codeScreenOverlay" />
 			<div className="absoluteFill backgroundColor content">
 				<div style="flex-grow: 1; text-align: right;">
-					<div class="url">unicorn-utterances.com</div>
+					<div class="url">playfulprogramming.com</div>
 				</div>
 				<h1
 					style={{
@@ -79,7 +79,7 @@ const TwitterLargeCard = ({
 					<div class="postInfo">
 						<span class="authors">
 							{post.authors
-								.map((id) => getUnicornById(id, post.locale)!.name)
+								.map((id) => getPersonById(id, post.locale)!.name)
 								.join(", ")}
 						</span>
 						<span class="date">
@@ -89,7 +89,7 @@ const TwitterLargeCard = ({
 					</div>
 					<div
 						class="unicorn"
-						dangerouslySetInnerHTML={{ __html: unicornUtterancesHead }}
+						dangerouslySetInnerHTML={{ __html: playfulProgrammingHead }}
 					/>
 				</div>
 			</div>

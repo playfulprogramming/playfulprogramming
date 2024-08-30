@@ -1,3 +1,4 @@
+import { describe, test, expect } from "vitest";
 import { enableTabs } from "./tabs-script";
 
 const tabsHtml = `

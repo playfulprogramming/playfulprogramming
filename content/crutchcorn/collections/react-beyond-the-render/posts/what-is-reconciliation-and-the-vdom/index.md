@@ -60,7 +60,7 @@ You'll end up with a VDOM that mirrors the markup you've written in JSX. This JS
 
 The process of how these changes are mirrored is called "Reconciliation".
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
 
 # What is "Reconciliation"?
 
@@ -138,7 +138,7 @@ export default function App() {
 }
 ```
 
-<iframe data-frame-title="React List Key - StackBlitz" src="uu-code:./react-list-key?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="React List Key - StackBlitz" src="pfp-code:./react-list-key?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Here, we're storing a list of our friends and allowing the user to add to this list by pressing a button. We even have a little place to store notes about your friends!
 

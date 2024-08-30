@@ -17,6 +17,10 @@
 	}
 }
 
+header {
+	display: contents;
+}
+
 .headerBorder {
 	border-bottom: 1px solid transparent;
 	&[data-sticky="pinned"] {
@@ -25,7 +29,7 @@
 
 	top: -0.1px;
 	position: sticky;
-	z-index: 1;
+	z-index: 2;
 	background-color: var(--background_primary);
 	@include transition(background-color);
 }
