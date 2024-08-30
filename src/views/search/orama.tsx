@@ -20,6 +20,7 @@ const postSchema = {
 const collectionSchema = {
 	slug: "string",
 	title: "string",
+	excerpt: "string",
 	description: "string",
 	tags: "enum[]",
 	authors: "enum[]",

@@ -10,6 +10,7 @@ interface ExtendedPostInfo extends PostInfo {
 }
 
 interface ExtendedCollectionInfo extends CollectionInfo {
+	excerpt: string;
 	publishedTimestamp: number;
 }
 
@@ -32,6 +33,10 @@ export const GET = async () => {
 	const collections = api.getCollectionsByLang("en").map((collection) => {
 		return {
 			...collection,
+			excerpt:
+				collection.chapterList
+					?.map((chapter) => `${chapter.title} ${chapter.description}`)
+					?.join(" ") ?? "",
 			publishedTimestamp: new Date(collection.published).getTime(),
 		} satisfies ExtendedCollectionInfo;
 	});

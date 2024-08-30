@@ -13,7 +13,6 @@ import {
 	QueryClientProvider,
 	useQuery,
 } from "@tanstack/react-query";
-import { useDebouncedCallback } from "./use-debounced-value";
 
 import style from "./search-page.module.scss";
 import { PostCardGrid } from "components/post-card/post-card-grid";
