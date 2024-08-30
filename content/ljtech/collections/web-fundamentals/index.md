@@ -12,9 +12,9 @@
     authors: ["ljtech","edpratti"],
     chapterList: [
     {
-      order: '?',
-      title: "Coming soon: JavaScript & Interactivity",
-      description: "",
+      order: '✍️',
+      title: "Coming soon: Grid, Flexbox & JavaScript",
+      description: "All of these articles are being written concurrently, and are a lot more extensive than the previous chapters. But don't worry, they won't take too long!",
     },
   ],
 }

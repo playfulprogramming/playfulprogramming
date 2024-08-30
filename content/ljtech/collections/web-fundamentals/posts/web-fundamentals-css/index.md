@@ -148,7 +148,7 @@ Relative units dominate the web. These are the most common type of units, and fo
 
 Now that we've looked at these two types of units, I think it's important to highlight their differences in a practical way. In the demo below, you can switch between them and see how they behave within the frame.
 
-<iframe data-frame-title="Percentage and viewport units" src="uu-code:./relative-values?template=node&embed=1&file=src%2Fstylesheet.css" height="800"></iframe>
+<iframe data-frame-title="Percentage and viewport units" src="pfp-code:./relative-values?template=node&embed=1&file=src%2Fstylesheet.css" height="800"></iframe>
 
 #### Font-size units
 

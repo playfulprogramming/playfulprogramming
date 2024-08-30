@@ -37,7 +37,7 @@ A box model is a representation of a document's element through a set of boxes. 
 
 To better understand this, let's look at the following example; click on the button to switch modes and watch as the boxes translate into a real-world layout.
 
-<iframe height="600px" data-frame-title="HTML: Box model card" src="uu-code:./box-model?template=node&embed=1&file=src%2Findex.html"></iframe>
+<iframe height="600px" data-frame-title="HTML: Box model card" src="pfp-code:./box-model?template=node&embed=1&file=src%2Findex.html"></iframe>
 
 This structure is the foundation of HTML, and is used to build everything you see onscreen. In fact, some components are already built into the web for you to use.
 
@@ -76,13 +76,13 @@ These elements all have some browser styles called HTML defaults. These may chan
 
 Here's an example of a group of **input** elements, which help users interact with a website.
 
-<iframe data-frame-title="HTML: Input elements" src="uu-code:./input-elements?template=node&embed=1&file=src%2Findex.html"></iframe>
+<iframe data-frame-title="HTML: Input elements" src="pfp-code:./input-elements?template=node&embed=1&file=src%2Findex.html"></iframe>
 
 These elements contain controls, input fields, date pickers, and generally anything that can assist a user to perform an action or add data to a particular screen.
 
 ## Container elements
 
-Now let's look at a small subject of semantic **container elements** that you have access to. Unlike the input elements, these **do not** have any visual representation, and are there to  tell both developers and screen-readers what each container does and their purpose.
+Now let's look at a small subject of semantic **container elements** that you have access to. Unlike the input elements, these **do not** have any visual representation or styling of their own, and are there to  tell both developers and screen-readers what each container does and their purpose.
 
 ```html
 <body>
