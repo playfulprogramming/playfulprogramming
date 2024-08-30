@@ -7,11 +7,11 @@
 	socials: {
 		twitter: "CarlosRanghul",
 		github: "ThorondorManwe",
-        website: "https://carlosrangel.net/"
+		website: "https://carlosrangel.net/"
 	},
 	pronouns: "he/him",
 	profileImg: "./carlos_profile.png",
 	color: "#56c9ed",
-	roles: ["author", "translator"]
+	roles: ["translator"]
 }
 ---
