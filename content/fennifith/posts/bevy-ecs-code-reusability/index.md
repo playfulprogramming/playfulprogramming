@@ -2,7 +2,7 @@
 {
 	title: "Entity Component System: The Perfect Solution to Reusable Code?",
 	description: "The ECS pattern is used by many game engines to create stateless, reusable game logic. But how does it work?",
-	published: '2024-08-10',
+	published: '2024-08-30',
 	authors: ['fennifith'],
 	tags: ['rust', 'computer science', 'opinion'],
 	attached: [],
