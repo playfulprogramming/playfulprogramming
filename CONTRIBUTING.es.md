@@ -109,7 +109,7 @@ Cuando escribas tu publicación, necesitarás incluir metadatos en el *frontmatt
 
 ## Licencias
 
-Proporcionar una licencia ayuda a explicar lo que los lectores pueden hacer con tu trabajo - ya sea que puedan usarlo como material para un curso, o reusarlo en otras formas. Visita [el sitio de Creative Commons](https://creativecommons.org/about/cclicenses/) para obtener una descripción general de lo que se permite hacer dentro de los distintos tipos de licencias.
+Proporcionar una licencia ayuda a explicar lo que los lectores pueden hacer con tu trabajo - ya sea que puedan usarlo como material para un curso o reusarlo en otras formas. Visita [el sitio de Creative Commons](https://creativecommons.org/about/cclicenses/) para obtener una descripción general de lo que se permite hacer dentro de los distintos tipos de licencias.
 
 Actualmente, estas son las licencias de creative commons que se permiten como valores dentro de la propiedad "license":
 
