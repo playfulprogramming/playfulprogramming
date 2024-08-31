@@ -210,7 +210,6 @@ It's also important to make sure how to format your values. Putting a numerical 
 > 📚 [**MDN: Units and values**](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)
 
 
-
 ## Shorthands
 
 In CSS, some properties can be combined into a shorthand property instead, which takes many values at once.

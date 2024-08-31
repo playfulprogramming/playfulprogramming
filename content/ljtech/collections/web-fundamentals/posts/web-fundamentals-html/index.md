@@ -178,6 +178,21 @@ Now that we've looked over some of the components HTML has, you may be wondering
 
 For that, we're going to use **CSS**, short for *Cascading Style Sheets*. These tie with HTML elements to allow you to change their properties.
 
+## Initial values
+
+Most components contain their own default values for styling. But these can be customized using CSS.
+
+Let's take a form, for example. By simply changing a couple of values in CSS, we can get a new look and feel very easily.
+
+| Property | Initial value | Custom value |
+| --- | --- | --- |
+| `background-color` | `#FFF` | `#E5FEFF` |
+| `border` | `2px inset #767676` | `2px solid #55B4ED` |
+| `padding` | `2px` | `16px` `12px` |
+| `font-weight` | `400` | `700` |
+
+<iframe data-frame-title="HTML: Initial values" src="pfp-code:./initial-values?template=node&embed=1&file=src%2Findex.html"></iframe>
+
 CSS is extremely powerful, which means it warrants its own article! We'll be looking at properties, values, variables, selectors and more!
 
 #### Follow me to the next chapter below!
