@@ -9,6 +9,6 @@
     linkedIn: "ratomir-karlovi%C4%87-323bb6116"
   },
   profileImg: "./seagullB.png",
-  roles: [ "author" ]
+  roles: [ "author", "developer" ]
 }
 ---

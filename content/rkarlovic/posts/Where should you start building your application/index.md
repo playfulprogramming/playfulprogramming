@@ -2,7 +2,7 @@
 {
   title: "Where should you start building your application",
   description: "Talking about where you should start building your full stack application",
-  published: '2024-08-21',
+  published: '2024-09-01',
   tags: ["opinion", "webdev"],
   license: 'cc-by-4'
 }
