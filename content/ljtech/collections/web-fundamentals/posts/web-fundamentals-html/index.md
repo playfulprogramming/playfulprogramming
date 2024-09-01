@@ -193,6 +193,12 @@ Let's take a form, for example. By simply changing a couple of values in CSS, we
 
 <iframe data-frame-title="HTML: Initial values" src="pfp-code:./initial-values?template=node&embed=1&file=src%2Findex.html"></iframe>
 
+> **Default values are not consistent!:**
+> The values shown here are the default values in Chrome.
+> The default styling of HTML components can change drastically depending on the platform it is being displayed on.
+
+**Let's learn more about CSS!**
+
 CSS is extremely powerful, which means it warrants its own article! We'll be looking at properties, values, variables, selectors and more!
 
 #### Follow me to the next chapter below!

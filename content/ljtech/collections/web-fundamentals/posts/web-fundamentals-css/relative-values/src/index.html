@@ -1,10 +1,24 @@
-<div class="container">
-    <div class="box"></div>
-    <div class="controls">
-        <input type="range" id="heightSlider" min="0" max="100" value="50">
-        <label for="heightSlider">Height: <b><span id="heightValue">50%</span></b></label>
-        <input type="range" id="widthSlider" min="0" max="100" value="50">
-        <label for="widthSlider">Width: <b><span id="widthValue">50%</span></b></label>
-        <button id="modeButton">Change to vh/vw</button>
+<html>
+
+<head>
+    <link href="stylesheet.css" rel="stylesheet">
+    </link>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box"></div>
+        <div class="controls">
+            <div id="slider-wrapper">
+                <input type="range" id="heightSlider" min="0" max="100" value="50">
+                <label for="heightSlider">Height: <b><span id="heightValue">50%</span></b></label>
+                <input type="range" id="widthSlider" min="0" max="100" value="50">
+                <label for="widthSlider">Width: <b><span id="widthValue">50%</span></b></label>
+            </div>
+            <button id="modeButton">Change to vh/vw</button>
+        </div>
     </div>
-</div>
+    <script src="script.js"></script>
+</body>
+
+</html>
