@@ -1,5 +1,9 @@
+import { vi, test, expect } from "vitest";
 import { render } from "@testing-library/preact";
+import { userEvent } from "@testing-library/user-event";
 import { Pagination } from "./pagination";
+
+const user = userEvent.setup();
 
 test("Pagination renders", () => {
 	const { baseElement, getByText } = render(
@@ -59,7 +63,7 @@ test("when page 1 is selected, its button has the selected state", () => {
 });
 
 test("when the previous button is clicked, softNavigate is called for the previous page", () => {
-	const softNavigate = jest.fn();
+	const softNavigate = vi.fn();
 	const { getByTestId } = render(
 		<Pagination
 			page={{
@@ -73,12 +77,12 @@ test("when the previous button is clicked, softNavigate is called for the previo
 	const previous = getByTestId("pagination-previous");
 	previous.click();
 
-	expect(softNavigate).toBeCalledTimes(1);
-	expect(softNavigate).toBeCalledWith("http://localhost/1", 1);
+	expect(softNavigate).toHaveBeenCalledTimes(1);
+	expect(softNavigate).toHaveBeenCalledWith("http://localhost:3000/1", 1);
 });
 
 test("when the next button is clicked, softNavigate is called for the next page", () => {
-	const softNavigate = jest.fn();
+	const softNavigate = vi.fn();
 	const { getByTestId } = render(
 		<Pagination
 			page={{
@@ -92,12 +96,12 @@ test("when the next button is clicked, softNavigate is called for the next page"
 	const next = getByTestId("pagination-next");
 	next.click();
 
-	expect(softNavigate).toBeCalledTimes(1);
-	expect(softNavigate).toBeCalledWith("http://localhost/3", 3);
+	expect(softNavigate).toHaveBeenCalledTimes(1);
+	expect(softNavigate).toHaveBeenCalledWith("http://localhost:3000/3", 3);
 });
 
-test("when a page button is clicked, softNavigate is called for its page", () => {
-	const softNavigate = jest.fn();
+test("when a page button is clicked, softNavigate is called for its page", async () => {
+	const softNavigate = vi.fn();
 	const { getByText } = render(
 		<Pagination
 			page={{
@@ -109,8 +113,8 @@ test("when a page button is clicked, softNavigate is called for its page", () =>
 	);
 
 	const button5 = getByText("5");
-	button5.click();
+	await user.click(button5);
 
-	expect(softNavigate).toBeCalledTimes(1);
-	expect(softNavigate).toBeCalledWith("http://localhost/5", 5);
+	expect(softNavigate).toHaveBeenCalledTimes(1);
+	expect(softNavigate).toHaveBeenCalledWith("http://localhost:3000/5", 5);
 });

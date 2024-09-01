@@ -4,7 +4,7 @@ What’s a for loop? How do I create animations in CSS? How is memory allocated 
 
 Our content will have a wide range of subject matters, difficulty curves, and (we hope) perspectives. We want to make resources for the seasoned full-time developer just as we would a newcomer hobbyist and everyone between the two.
 
-We know this is a lofty goal, though, and we don't want to do it alone. If you're interested in helping out, [open a pull request](https://github.com/unicorn-utterances/unicorn-utterances/pulls) and help us reach others by providing translations, [help the code maintenance on this site](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22), [write a post for us](https://github.com/unicorn-utterances/unicorn-utterances#blog-posts), or [jump in on discussions and help other readers on our Discord](https://discord.gg/FMcvc6T).
+We know this is a lofty goal, though, and we don't want to do it alone. If you're interested in helping out, [open a pull request](https://github.com/playfulprogramming/playfulprogramming/pulls) and help us reach others by providing translations, [help the code maintenance on this site](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22), [write a post for us](https://github.com/playfulprogramming/playfulprogramming#blog-posts), or [jump in on discussions and help other readers on our Discord](https://discord.gg/FMcvc6T).
 
 ---
 
@@ -18,19 +18,8 @@ As mentioned previously, we also have a Discord where we chat tech, help out wit
 
 ---
 
-## Sponsors {#sponsors}
-
-<!-- split -->
-
-> **Learn more about sponsorships:**
-> If you want to learn more about our sponsorships and how they impact our site, you can read through [our disclosures that we've posted on GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed).
->
-> **No sponsor has any say about the content hosted on the site.**
-
----
-
 ## Statement of Ethics {#ethics}
 
-We never want to end up in a place where our educational content, experience, or community is compromised by either financial sway or potentially harmful members of the community. As such, we've implemented the [Contributor Covenant](https://www.contributor-covenant.org/) as our [code of conduct](https://github.com/unicorn-utterances/unicorn-utterances/blob/master/CODE_OF_CONDUCT.md) to uphold these values.
+We never want to end up in a place where our educational content, experience, or community is compromised by either financial sway or potentially harmful members of the community. As such, we've implemented the [Contributor Covenant](https://www.contributor-covenant.org/) as our [code of conduct](https://github.com/playfulprogramming/playfulprogramming/blob/master/CODE_OF_CONDUCT.md) to uphold these values.
 
 We also pledge to maintain transparency in regards to any finances that flow through the project. Not every sponsorship contains a financial contribution, but if one does we will disclose both what those finances are going towards and what will be done in exchange.

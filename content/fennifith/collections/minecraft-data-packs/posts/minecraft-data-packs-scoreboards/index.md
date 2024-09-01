@@ -13,7 +13,7 @@
 
 > Please note: this guide specifically covers the **Java Edition** version of Minecraft. Bedrock Edition does not use data packs, but provides customization through [add-ons](https://minecraft.wiki/w/Add-on).
 
-The data packs built in this series can be found in the [unicorn-utterances/mc-datapacks-tutorial](https://github.com/unicorn-utterances/mc-datapacks-tutorial/tree/main/3-scoreboards) repository. Feel free to use it for reference as you read through these articles!
+The data packs built in this series can be found in the [playfulprogramming/mc-datapacks-tutorial](https://github.com/playfulprogramming/mc-datapacks-tutorial/tree/main/3-scoreboards) repository. Feel free to use it for reference as you read through these articles!
 
 Previously, this series has covered the structure of a data pack, conditional statements, and other command syntax. This article will build on top of that to cover scoreboards, which allows us to keep track of player information and store variables in our programs.
 

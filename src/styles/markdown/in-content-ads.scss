@@ -57,6 +57,7 @@
 
 .in-content-image {
 	height: 152px;
+	z-index: 1;
 
 	@include from($tabletSmall) {
 		min-height: 152px;

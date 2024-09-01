@@ -15,7 +15,7 @@ import rehypeRaw from "rehype-raw";
 import { rehypeTooltips } from "./tooltips/rehype-transform";
 import { rehypeHints } from "./hints/rehype-transform";
 import { rehypeAstroImageMd } from "./picture/rehype-transform";
-import { rehypeUnicornElementMap } from "./rehype-unicorn-element-map";
+import { rehypePlayfulElementMap } from "./rehype-playful-element-map";
 import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
 import { rehypeHeaderText } from "./rehype-header-text";
 import { rehypeHeaderClass } from "./rehype-header-class";
@@ -84,7 +84,7 @@ export function createHtmlPlugins(unified: Processor) {
 				srcReplacements: [
 					(val: string, file: VFile) => {
 						const iFrameUrl = new URL(val);
-						if (!iFrameUrl.protocol.startsWith("uu-code:")) return val;
+						if (!iFrameUrl.protocol.startsWith("pfp-code:")) return val;
 
 						const contentDir = dirname(file.path);
 						const fullPath = resolve(contentDir, iFrameUrl.pathname);
@@ -116,7 +116,7 @@ export function createHtmlPlugins(unified: Processor) {
 					tabs: transformTabs,
 				},
 			})
-			.use(rehypeUnicornElementMap)
+			.use(rehypePlayfulElementMap)
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)
 			.use(rehypeHeaderClass, {

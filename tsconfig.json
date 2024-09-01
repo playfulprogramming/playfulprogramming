@@ -16,18 +16,16 @@
 		"skipLibCheck": true,
 		"jsxImportSource": "preact",
 		"allowSyntheticDefaultImports": true,
-		// Add type definitions for our Vite runtime.
-		"types": ["jest", "@testing-library/jest-dom"],
 		"lib": ["DOM"],
 		"baseUrl": ".",
 		"paths": {
 			"constants/*": ["./src/constants/*"],
-			"uu-constants": ["./src/constants"],
+			"pfp-constants": ["./src/constants"],
 			"types/*": ["./src/types/*"],
-			"uu-types": ["./src/types"],
+			"pfp-types": ["./src/types"],
 			"components/*": ["./src/components/*"],
 			"utils/*": ["./src/utils/*"],
-			"uu-utils": ["./src/utils"],
+			"pfp-utils": ["./src/utils"],
 			"assets/*": ["./src/assets/*"]
 		}
 	},

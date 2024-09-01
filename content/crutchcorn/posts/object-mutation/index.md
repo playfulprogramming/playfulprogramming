@@ -9,9 +9,9 @@
 }
 ---
 
-Recently, we rewrote [our community blog for "Unicorn Utterances"](/) to use [Astro, a static site generator framework](https://astro.build). One of the fan-favorite features of the site is its dark mode toggle, which enables dark mode purists to gloat over the light mode plebians (like myself).
+Recently, we rewrote [our community blog for "Playful Programming"](/) to use [Astro, a static site generator framework](https://astro.build). One of the fan-favorite features of the site is its dark mode toggle, which enables dark mode purists to gloat over the light mode plebians (like myself).
 
-<video src="./theme_toggle.mp4" title="Toggling the dark mode theme on the Unicorn Utterances site"></video>
+<video src="./theme_toggle.mp4" title="Toggling the dark mode theme on the Playful Programming site"></video>
 
 > For real though, support light mode in your sites and make them the default setting - [it's a major accessibility concern](https://www.vice.com/en/article/ywyqxw/apple-dark-mode-eye-strain-battery-life).
 
@@ -259,7 +259,7 @@ console.log(&name); // Prefixing & could show the memory address `name` was assi
 
 > Some languages, [such as Rust](https://doc.rust-lang.org/std/primitive.pointer.html) and C++ _do_ have this feature, it's called a "pointer" and allows you to change the value of a memory block rather than create a new memory block with the new value you'd like to assign.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
 
 This is essentially what's happening with our `const obj` mutation from the previous section. Instead of creating a new memory space for `obj`, it's reusing the existing memory block it already has assigned to `obj` and is simply changing the values within it.
 

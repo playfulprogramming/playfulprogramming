@@ -1,4 +1,4 @@
-As a community, we welcome anyone to write and submit posts to the Unicorn Utterances blog! In this document, we'll go over how to create a new post in UU and submit it as a pull request.
+As a community, we welcome anyone to write and submit posts to the Playful Programming blog! In this document, we'll go over how to create a new post in UU and submit it as a pull request.
 
 > [!NOTE]
 > For a general tutorial on contributing to a project with GitHub, you may want to go through [the First Contributions guide](https://github.com/firstcontributions/first-contributions) before continuing through this page.
@@ -8,7 +8,7 @@ Here are a few things to keep in mind while writing your post:
 - Aim to provide factual and relevant information - citing sources is encouraged!
 - Keep your content unbiased; i.e. don't advertise commercial products or services without reason.
 
-If at any point you get stuck or want to ask questions, feel free to [open an issue on GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues/new) or [reach out to us on Discord](https://discord.gg/FMcvc6T) for help!
+If at any point you get stuck or want to ask questions, feel free to [open an issue on GitHub](https://github.com/playfulprogramming/playfulprogramming/issues/new) or [reach out to us on Discord](https://discord.gg/FMcvc6T) for help!
 
 ---
 
@@ -20,7 +20,7 @@ Contents:
 
 # Creating an author profile
 
-Before creating a post, you'll need to add some information about yourself. To do this, create a new folder in [`content/`](./content/data/unicorns.json) with your username, and add an `index.md` inside it; e.g. `content/eric/index.md`.
+Before creating a post, you'll need to add some information about yourself. To do this, create a new folder in [`content/`](./content/) with your username, and add an `index.md` inside it; e.g. `content/eric/index.md`.
 
 Here's an example of what your `index.md` might look like:
 
@@ -29,12 +29,12 @@ Here's an example of what your `index.md` might look like:
 {
   // "name" should be your displayed name, however you want it
   // to appear on your posts
-  name: "Eric Utterances",
+  name: "Eric Programmer",
 
   // "firstName" and "lastName" are unfortunately needed for
   // OpenGraph tags - fill these out however you feel is appropriate
   firstName: "Eric",
-  lastName: "Utterances",
+  lastName: "Programmer",
 
   // "description" is a short bio that will be shown on your profile page
   description: "Haskell programmer, fanfiction author, and an omniscient unicorn.",
@@ -43,9 +43,9 @@ Here's an example of what your `index.md` might look like:
   // "linkedIn", "twitch", "dribbble", "mastodon", "threads", "youtube",
   // and "cohost", as well as a "website" that can be anything you want!
   socials: {
-    mastodon: "https://hachyderm.io/@UnicornUtterances",
-    github: "unicorn-utterances",
-    website: "https://unicorn-utterances.com/"
+    mastodon: "https://hachyderm.io/@playfulprogramming",
+    github: "playfulprogramming",
+    website: "https://playfulprogramming.com/"
   },
 
   // "pronouns" are optional, but encouraged to include on your profile
@@ -63,13 +63,13 @@ Here's an example of what your `index.md` might look like:
 ---
 ```
 
-> Don't want to show your real picture on the site? That's alright! We have a [myriad of custom unicorn emotes that can be used as profile pictures as well](https://github.com/unicorn-utterances/design-assets/tree/main/emotes). They're adorable, go check! 🤩
+> Don't want to show your real picture on the site? That's alright! We have a [myriad of custom unicorn emotes that can be used as profile pictures as well](https://github.com/playfulprogramming/design-assets/tree/main/emotes). They're adorable, go check! 🤩
 
 Once your profile is created, you'll be ready to proceed to the next step...
 
 # Writing a new post
 
-All posts on Unicorn Utterances live in a `content/{username}/posts/` folder - we structure this with a subfolder for each post, containing a markdown file named `index.md`. The naming of this post folder will match its URL on the site.
+All posts on Playful Programming live in a `content/{username}/posts/` folder - we structure this with a subfolder for each post, containing a markdown file named `index.md`. The naming of this post folder will match its URL on the site.
 
 > **New to Markdown?**
 >
@@ -81,7 +81,7 @@ When writing your post, you'll need to include some metadata in the frontmatter 
 ---
 {
   title: "My First Post",
-  description: "This is my first post on the Unicorn Utterances site!",
+  description: "This is my first post on the Playful Programming site!",
   published: '2023-04-11',
   tags: ["meta"],
   license: 'cc-by-4'
@@ -117,7 +117,7 @@ Currently, the following creative commons licenses are supported as "license" va
 - [`'cc-by-nc-nd-4'`](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 - [`'publicdomain-zero-1'`](https://creativecommons.org/publicdomain/zero/1.0/)
 
-Authors may also choose to omit the "license" property entirely. If you do this, your post will fall under the repository's [MPL 2.0](https://github.com/unicorn-utterances/unicorn-utterances/blob/main/LICENSE.md) license.
+Authors may also choose to omit the "license" property entirely. If you do this, your post will fall under the repository's [MPL 2.0](https://github.com/playfulprogramming/playfulprogramming/blob/main/LICENSE.md) license.
 
 ## Embedded Links
 
@@ -167,7 +167,7 @@ Refer to [Wikipedia: List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List
 
 Once all of your changes have been made, [create a Pull Request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) to merge your post into the site.
 
-- Open a [new Pull Request](https://github.com/unicorn-utterances/unicorn-utterances/compare) from your fork
+- Open a [new Pull Request](https://github.com/playfulprogramming/playfulprogramming/compare) from your fork
 - Check that your files are in the Pull Request, and that they're being merged into the `main` branch.
 - Create the PR and wait for a maintainer to review it.
 - Once merged, your post will be visible on the site!

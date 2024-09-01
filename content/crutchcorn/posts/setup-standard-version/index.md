@@ -90,7 +90,7 @@ Just as you have many options regarding what linting ruleset you'd like to enfor
 
 Another similarity to their code syntax contemporaries is that your commit linter has [a myriad of configuration options available](https://commitlint.js.org/#/reference-rules?id=rules). These options allow you to overwrite the existing configuration you're utilizing or even create your configuration from scratch.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/unicorn-utterances" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
 
 ## Setup {#install-commit-lint}
 
@@ -201,17 +201,17 @@ Initial release
 Let's say we introduce a new version that has a set of features and bug fixes:
 
 ```markdown
-### [0.0.2](https://github.com/unicorn-utterances/batteries-not-included/compare/v0.0.1...v0.0.2) (2020-02-25)
+### [0.0.2](https://github.com/playfulprogramming/batteries-not-included/compare/v0.0.1...v0.0.2) (2020-02-25)
 
 ### Features
 
-* added overflow property to keyboard handler ([3f85fdc](https://github.com/unicorn-utterances/batteries-not-included/commit/3f85fdcc9ff2bf2e765585c500b0d2f3421c92dc))
-* added wrap number util ([762f1cd](https://github.com/unicorn-utterances/batteries-not-included/commit/762f1cd5ff60274b221eccf6da829b72fac97d7b))
+* added overflow property to keyboard handler ([3f85fdc](https://github.com/playfulprogramming/batteries-not-included/commit/3f85fdcc9ff2bf2e765585c500b0d2f3421c92dc))
+* added wrap number util ([762f1cd](https://github.com/playfulprogramming/batteries-not-included/commit/762f1cd5ff60274b221eccf6da829b72fac97d7b))
 
 ### Bug Fixes
 
-* parameter in name in doc in wrap-number.ts ([249b63b](https://github.com/unicorn-utterances/batteries-not-included/commit/249b63bebe1816655dd64cc1acf7f57875b0613e))
-* updated overflow to work on keyboard handler ([eb50de0](https://github.com/unicorn-utterances/batteries-not-included/commit/eb50de0c401d98f84a5c9628c6d34c6cef311eb1))
+* parameter in name in doc in wrap-number.ts ([249b63b](https://github.com/playfulprogramming/batteries-not-included/commit/249b63bebe1816655dd64cc1acf7f57875b0613e))
+* updated overflow to work on keyboard handler ([eb50de0](https://github.com/playfulprogramming/batteries-not-included/commit/eb50de0c401d98f84a5c9628c6d34c6cef311eb1))
 ```
 
 You might think "Well, this file is auto-generated. I shouldn't modify it, least it stop working!" Luckily for us, this is not the case! So long as we leave the headers as-is, we're able to customize the `CHANGELOG.md` file with further details. _We can even include images_ using the standard markdown `![]()` syntax! Using this knowledge, we can create extremely robust and explanative changelogs for our consumers.

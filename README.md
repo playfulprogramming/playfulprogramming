@@ -1,25 +1,25 @@
 <p align="center">
-    <img alt="Unicorn Utterances logo" width="256" src="./src/assets/unicorn_utterances_logo_512.png"/>
+    <img alt="Playful Programming logo" width="256" src="./src/assets/playfulprogramming_logo_512.png"/>
 </p>
 <h1 align="center">
-  Unicorn Utterances Website
+  Playful Programming Website
 </h1>
 <div align="center">
 
 [![Join chat on Discord](https://badgen.net/badge/discord/join%20chat/7289DA?icon=discord)](https://discord.gg/FMcvc6T)
 [![Contributor Covenant v1.4 adopted](https://badgen.net/badge/Contributor%20Covenant/v1.4%20adopted/ff69b4)](CODE_OF_CONDUCT.md)
-[![Check Status](https://badgen.net/github/checks/unicorn-utterances/unicorn-utterances/?icon=github)](https://github.com/unicorn-utterances/unicorn-utterances/actions)
+[![Check Status](https://badgen.net/github/checks/playfulprogramming/playfulprogramming/?icon=github)](https://github.com/playfulprogramming/playfulprogramming/actions)
 
 </div>
 
-This repository acts as the source code location for [the Unicorn Utterances blog](https://unicorn-utterances.com).
+This repository acts as the source code location for [the Playful Programming blog](https://playfulprogramming.com).
 
 ## Sponsors
 
-<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="https://unicorn-utterances.com/sponsors/the-polyglot-developer.svg" width="300"/></a>
-<a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored"><img alt="OceanBit" src="https://unicorn-utterances.com/sponsors/oceanbit.svg" width="300"/></a>
+<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="https://playfulprogramming.com/sponsors/the-polyglot-developer.svg" width="300"/></a>
+<a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored"><img alt="OceanBit" src="https://playfulprogramming.com/sponsors/oceanbit.svg" width="300"/></a>
 
-[We disclose every sponsorship we share openly on GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed)
+[We disclose every sponsorship we share openly on GitHub](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed)
 
 ## Statement of Ethics
 
@@ -38,7 +38,7 @@ are going towards and what will be done in exchange.
 
 We highly encourage and celebrate others contributing to our site and our community! We've written [a comprehensive guide on how to do so here](./CONTRIBUTING.md). This guide includes instructions for how to add a new post to the site, how to edit our code, and what our deployment strategy is.
 
-Keep in mind that we request developers reach out [via our Discord](https://discord.gg/FMcvc6T) or [via GitHub issue](https://github.com/unicorn-utterances/unicorn-utterances/issues/new) before extensive development is pursued. If you have a feature you'd like to add to the site, let us know! We'd love to do some brainstorming before coding begins!
+Keep in mind that we request developers reach out [via our Discord](https://discord.gg/FMcvc6T) or [via GitHub issue](https://github.com/playfulprogramming/playfulprogramming/issues/new) before extensive development is pursued. If you have a feature you'd like to add to the site, let us know! We'd love to do some brainstorming before coding begins!
 
 We extend this invitation to those who may be unfamiliar with our processes. Be sure to check out [our CONTRIBUTING.md](./CONTRIBUTING.md) file first, but don't be afraid to join in and ask questions if you're uncertain of anything
 
