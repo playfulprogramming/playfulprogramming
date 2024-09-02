@@ -351,11 +351,11 @@ Check the sample below to see the use of variables in action!
 
 ## Functions
 
-Nesting of variables inside functions is commonplace in CSS. You'll often see the calc() function being used a lot.
+Nesting of variables inside functions is commonplace in CSS. You'll often see the `calc()` function being used a lot.
 
-A good example of a calc function being used to automate a layout is as follows:
+A good example of a `calc()` function being used to automate a layout is as follows:
 
-> You have a row of avatars. The spec states that they are 40px tall and wide, with a margin of -20px, causing them to overlap.
+> You have a row of avatars. The spec states that they are **40px** tall and wide, with a margin of **-20px**, causing them to overlap.
 > The avatars can change size, and the row must maintain its look when scaled up or down.
 
 **We start with this:**
@@ -384,7 +384,7 @@ However, this solution isn't dynamic, and does not support the avatars changing 
 ```css
 :root {
   --avatar-size: 40px;
-  --avatar-offset: calc(0 - var(--avatar-size) / 2); // Divide the avatar size in half and turn it into a negative number.
+  --avatar-offset: calc(0px - var(--avatar-size) / 2); // Divide the avatar size in half and turn it into a negative number.
 }
 
 .avatar {
@@ -409,9 +409,3 @@ The avatar row will now adapt regardless of the avatar size in order to maintain
 > 📚 [**MDN: CSS functions**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions)
 
 ---
-
-# What's next?
-
-Now that we've looked at HTML and CSS, it's time to learn about how layouts work. The next chapter of our series will go over flexbox and positioning features of the web.
-
-There's a lot to cover, so let's get right into it. **Click the button below to move on to the next chapter!**
