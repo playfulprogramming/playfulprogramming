@@ -2,7 +2,7 @@
 {
   title: "Web Fundamentals: HTML",
   description: "The first chapter of this series offers an introductory dive into the box model, HTML defaults and semantic elements.",
-  published: "2024-08-18T20:08:26.988Z",
+  published: "2024-09-03T20:08:26.988Z",
   tags: ["css", "html", "design"],
   license: "cc-by-4",
   authors: ["ljtech","edpratti"],

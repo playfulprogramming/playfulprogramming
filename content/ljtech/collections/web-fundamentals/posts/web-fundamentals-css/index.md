@@ -2,7 +2,7 @@
 {
   title: "Web Fundamentals: CSS",
   description: "The second chapter in our front-end series. Let's delve right into the world of CSS, variables and selectors.",
-  published: "2024-08-18T20:08:26.988Z",
+  published: "2024-09-03T20:08:26.988Z",
   tags: ["css", "html", "design"],
   license: "cc-by-4",
   authors: ["ljtech","edpratti"],
