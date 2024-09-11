@@ -409,3 +409,63 @@ The avatar row will now adapt regardless of the avatar size in order to maintain
 > 📚 [**MDN: CSS functions**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions)
 
 ---
+
+# Positioning
+
+The CSS property `position` determines an elements flow inside a document.
+
+The CSS properties `top`, `bottom`, `left`, `right` are used on positioned elements to control an offset.
+
+There are five types of element positions:
+
+| Positioning type |  Behavior |
+| --- | --- |
+| **Static** | <li>**The default position.**</li><li>Unaffected by offset and order.</li> |
+| **Absolute** | <li>The element is removed from document flow and positioned relative to the nearest `position: relative` parent.</li><li>Can be offset **relative to the parent container** and ordered.</li> |
+| **Fixed** | <li>The element is removed from document flow and positioned relative to the **initial** container.</li><li>Can be offset relative to the initial container and ordered.</li> |
+| **Relative** | <li>The element flows normally and provides relative positioning for children elements.</li><li>Can be offset relative **to itself** and ordered.</li> |
+| **Sticky** | <li>The element flows normally and "sticks" to the nearest container.</li><li>A mixture between `relative` and `fixed` positions depending on the scroll mechanism.</li><li>Can be offset relative to the **parent** container and ordered.</li> |
+
+![A series of boxes absolutely positioned in one-another with the dimensions of "left", "right", "top", and "bottom" precalculated](./positioning.svg)
+
+```css
+.root {
+  position: relative;
+  width: 768px;
+    height: 272px;
+}
+
+.container {
+  position: absolute;
+  left: 224px;
+    top: 100px;
+    width: 320px;
+    height: 145px;
+    z-index: 90;
+}
+
+.item {
+  position: absolute;
+    bottom: 50px;
+    right: 90px;
+  width: 213px;
+  height: 65px;
+    z-index: 100;
+}
+```
+
+`z-index` controls the elements' order, bringing it to the front or back.
+
+## When to use positioning? 
+
+- Used in lightboxes, mobile menus, modal windows, and similar overlaying elements;
+- Primarily used to remove elements from document flow;
+
+For example, our own header is fixed so that it remains at the top of the screen at all times, on top of all other elements.
+
+<img src="./fixed-header.svg" style="border: 1px solid var(--foreground_disabled); border-radius: var(--corner-radius_l);"></img>
+
+> **Live code example:** 
+> **[CodeSandbox: Positioning](https://codesandbox.io/s/positioning-gzzv3?file=/styles.css)**
+
+---
