@@ -1424,7 +1424,23 @@ Well, there's also a lot of downsides to CSS-in-JS libraries. Let's zoom out and
 
 ### Performance Concerns
 
+When building HTML files without JavaScript, you might have a `<style>` tag in your `<head>` element. This is the most ideal solution, because it enables the CSS to be parsed alongside your HTML. This simul-parsing allows your CSS to display at the same time as your HTML, just like you'd expect:
 
+![TODO: Write alt](../../../../posts/why-is-css-in-js-slow/html_css_handling.png)
+
+However, when you use CSS-in-JS, you're adding a chain of pre-processing that needs to occur before the CSS can display:
+
+![TODO: Write alt](../../../../posts/why-is-css-in-js-slow/framework_css_in_js_handling.png)
+
+> Look at that complexity increase as you add in CSS-in-JS solutions!
+
+While the details of that pipeline aren't necessarily important at the moment, it's important to note that it's caused because we've moved the execution and parsing of our CSS _into_ JavaScript; making it harder for the browser to pre-emptively execute things.
+
+This isn't a premature optimization to think about this kind of thing, either! It can impact your user in real-world ways like a "Flash Of Unstyled Content" (FOUC) where it displays your markup before the styling has a chance to load. Imagine we want some content on the screen to be hidden on initial load using `display: none`; that might not occur due to this FOUC.
+
+<video src="../../../../posts/why-is-css-in-js-slow/display_none_fail.mp4"></video>
+
+> To learn more about performance concerns in CSS-in-JS solutions, [check out our article on the topic.](/posts/why-is-css-in-js-slow)
 
 ### SSG and SSR Issues
 
