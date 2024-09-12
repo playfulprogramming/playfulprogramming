@@ -1444,11 +1444,21 @@ This isn't a premature optimization to think about this kind of thing, either! I
 
 ### SSG and SSR Issues
 
-// Shortly touch on what SSR and SSG is
+This issue of FOUC is made even worse when we introduce static apps into the mix.
 
-// Talk about challenges with groking the differences between static styling and dynamic styling and how you can extract one from another
+Unless you've specifically opted into static behavior, your React, Angular, and Vue apps are all "client-side rendered" (CSR). This means that you ship a hyper minimal HTML bundle and a more expressive JavaScript bundle to generate the intended HTML on the user's machine:
 
-// Talk about waterfall chains
+![TODO: Write alt](../../../react-beyond-the-render/posts/what-is-ssr-and-ssg/csr.svg)
+
+However, if we wanted to ship the full HTML bundle to the user, say to improve SEO, we might do that using "server-side rendering" (SSR):
+
+![TODO: Write alt](../../../react-beyond-the-render/posts/what-is-ssr-and-ssg/ssr.svg)
+
+> You can learn more about SSR and SSG apps in [our article which introduces the concepts.](/posts/what-is-ssr-and-ssg)
+
+However, especially in the context of CSS-in-JS apps, this can cause problems with initial layout. Because of the way the server executes the JavaScript required to generate the styles for your app, it may not properly hydrate the styling before your markup lands on the user's machine.
+
+This again causes a FOUC but in a more extreme manner, since you now have to wait for your framework to replace the server-sent markup first as well as every step before it.
 
 # Compiled CSS-in-JS
 
