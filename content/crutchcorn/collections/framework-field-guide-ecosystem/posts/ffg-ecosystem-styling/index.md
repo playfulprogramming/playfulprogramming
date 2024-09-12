@@ -276,7 +276,7 @@ module.exports = {
 Next, create a CSS file:
 
 ```css
-// src/styles.css
+/* src/styles.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -1596,6 +1596,69 @@ export class App {
 <!-- ::end:tabs -->
 
 ## Installing PandaCSS
+
+Let's set up PandaCSS in our project!
+
+To begin, install the dependencies using your package manager:
+
+```shell
+npm install --save-dev @pandacss/dev postcss
+```
+
+Then you'll want to configure a `panda.config.ts` file:
+
+```typescript
+import { defineConfig } from "@pandacss/dev"
+ 
+export default defineConfig({
+ // Whether to use css reset
+ preflight: true,
+ 
+ // Where to look for your css declarations
+ include: ['./src/**/*.{js,jsx,ts,tsx,vue}'],
+ 
+ // Files to exclude
+ exclude: [],
+ 
+ // The output directory for your css system
+ outdir: "styled-system",
+})
+```
+
+Add the following to your global `.css` file:
+
+```css
+/* src/styles.css */
+@layer reset, base, tokens, recipes, utilities;
+```
+
+This is all executed at build time by a `prepare` command in your `package.json` file, so let's add that:
+
+```diff
+{
+  "scripts": {
++    "prepare": "panda codegen",
+  }
+}
+```
+
+And finally, we can configure the rest of Panda for our specific frameworks.
+
+<!-- ::start:tabs -->
+
+### React
+
+
+
+### Angular
+
+
+
+### Vue
+
+
+
+<!-- ::end:tabs -->
 
 React: https://panda-css.com/docs/installation/vite
 Angular: https://panda-css.com/docs/installation/cli (Angular)
