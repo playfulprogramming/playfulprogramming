@@ -1486,13 +1486,48 @@ This `app_generated.js` file is the same as before, but with a different bit of 
 
 One such compiled CSS-in-JS library is called "PandaCSS". Its API allows us to take code like this:
 
+<!-- ::start:tabs -->
+
+## React
+
 ```jsx
-import { css } from './styled-system/css'
+import { css } from '../styled-system/css'
  
 export function App() {
   return <div className={css({ bg: 'red.400' })} />
 }
 ```
+
+## Angular
+
+```angular-ts
+import { css } from '../styled-system/css';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  template: `
+    <div [class]="redBg"></div>
+  `,
+})
+export class App {
+  redBg = css({ bg: 'red.400' });
+}
+```
+
+## Vue
+
+```vue
+<script setup lang="ts">
+import { css } from "../styled-system/css";
+</script>
+ 
+<template>
+  <div :class="css({ bg: 'red.400' })"></div>
+</template>
+```
+
+<!-- ::end:tabs -->
 
 And transform it into this:
 
@@ -1512,14 +1547,53 @@ And transform it into this:
 </html>
 ```
 
+<!-- ::start:tabs -->
+
+## React
+
 ```jsx
-// App.jsx
-import { css } from './styled-system/css'
- 
+// App.jsx 
 export function App() {
-  return <div className={"bg_red.400"} />
+  return <div className="bg_red.400" />
 }
 ```
+
+// TODO: Add iframe
+
+## Angular
+
+```angular-ts
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  template: `
+    <div [class]="redBg"></div>
+  `,
+})
+export class App {
+  redBg = "bg_red.400";
+}
+```
+
+// TODO: Add iframe
+
+<!-- https://stackblitz.com/edit/angular-panda-css?description=An%20angular-cli%20project%20based%20on%20@angular/animations,%20@angular/common,%20@angular/compiler,%20@angular/core,%20@angular/forms,%20@angular/platform-browser,%20@angular/platform-browser-dynamic,%20@angular/router,%20core-js,%20rxjs,%20tslib%20and%20zone.js&file=src%2Fmain.ts,postcss.config.json&template=node&title=Angular%20Starter -->
+
+<!-- https://github.com/angular/angular-cli/pull/27000 -->
+
+<!-- Notice JSON POSTCSS file and skipLibCheck: true -->
+
+## Vue
+
+```vue
+<template>
+  <div class="bg_red.400"></div>
+</template>
+```
+
+// TODO: Add iframe
+
+<!-- ::end:tabs -->
 
 ## Installing PandaCSS
 
