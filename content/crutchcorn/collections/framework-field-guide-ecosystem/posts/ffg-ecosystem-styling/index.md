@@ -1462,7 +1462,66 @@ This again causes a FOUC but in a more extreme manner, since you now have to wai
 
 # Compiled CSS-in-JS
 
-// Talk about how ASTs are able to explore your codebase pre-emtively and codegen CSS for you in a static way
+So! We now know that CSS-in-JS, while great for developer experience (DX), has problems with performance.
+
+> Is there any way we can get the DX wins of CSS-in-JS while retaining the performance of other CSS solutions?
+
+Indeed, dear reader! See, while some CSS-in-JS solutions rely on a JavaScript runtime on the user's machine to generate styles for us, others are able to generate the required CSS on the developer's machine; sidestepping problems with performance.
+
+These CSS-in-JS solutions are able to fix their performance problems because they use "statistical analysis" to extract and compile the CSS from inside of your JavaScript files into dedicated CSS files ahead-of-the-time.
+
+// TODO: Add visual explainer.
+
+--------
+
+> What is statistical analysis?
+
+Think of statistical analysis as a scan through your codebase looking for dedicated keywords. In our case, the compiled CSS-in-JS library looks for code it recognizes in `app.js`. When it detects code it recognizes as "CSS", it moves it into a brand new **`app_generated.css`** and a fresh variant of `app.js` called **`app_generated.js`**.
+
+This `app_generated.js` file is the same as before, but with a different bit of code injecting the CSS file into the place you originally had CSS:
+
+// TODO: Add visual explainer.
+
+-------
+
+One such compiled CSS-in-JS library is called "PandaCSS". Its API allows us to take code like this:
+
+```jsx
+import { css } from './styled-system/css'
+ 
+export function App() {
+  return <div className={css({ bg: 'red.400' })} />
+}
+```
+
+And transform it into this:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+        .bg_red\.400 {
+            background: var(--colors-red-400);
+        }
+        </style>
+    </head>
+    <body>
+        <!-- ... -->
+    </body>
+</html>
+```
+
+```jsx
+// App.jsx
+import { css } from './styled-system/css'
+ 
+export function App() {
+  return <div className={"bg_red.400"} />
+}
+```
+
+## Installing PandaCSS
 
 React: https://panda-css.com/docs/installation/vite
 Angular: https://panda-css.com/docs/installation/cli (Angular)
