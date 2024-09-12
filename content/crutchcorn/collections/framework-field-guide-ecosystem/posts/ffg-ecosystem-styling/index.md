@@ -1577,12 +1577,6 @@ export class App {
 
 // TODO: Add iframe
 
-<!-- https://stackblitz.com/edit/angular-panda-css?description=An%20angular-cli%20project%20based%20on%20@angular/animations,%20@angular/common,%20@angular/compiler,%20@angular/core,%20@angular/forms,%20@angular/platform-browser,%20@angular/platform-browser-dynamic,%20@angular/router,%20core-js,%20rxjs,%20tslib%20and%20zone.js&file=src%2Fmain.ts,postcss.config.json&template=node&title=Angular%20Starter -->
-
-<!-- https://github.com/angular/angular-cli/pull/27000 -->
-
-<!-- Notice JSON POSTCSS file and skipLibCheck: true -->
-
 ## Vue
 
 ```vue
@@ -1603,6 +1597,16 @@ To begin, install the dependencies using your package manager:
 
 ```shell
 npm install --save-dev @pandacss/dev postcss
+```
+
+Create a file called `postcss.config.json` so that PostCSS knows to run PandaCSS:
+
+```json
+{
+  "plugins": {
+    "@pandacss/dev/postcss": {}
+  }
+}
 ```
 
 Then you'll want to configure a `panda.config.ts` file:
@@ -1642,24 +1646,14 @@ This is all executed at build time by a `prepare` command in your `package.json`
 }
 ```
 
-And finally, we can configure the rest of Panda for our specific frameworks.
+Finally, if you're using TypeScript we need to update our `tsconfig.json` file to include:
 
-<!-- ::start:tabs -->
+```diff
+{
+	"compilerOptions": {
++		"skipLibCheck": true
+	}
+}
+```
 
-### React
-
-
-
-### Angular
-
-
-
-### Vue
-
-
-
-<!-- ::end:tabs -->
-
-React: https://panda-css.com/docs/installation/vite
-Angular: https://panda-css.com/docs/installation/cli (Angular)
-Vue: https://panda-css.com/docs/installation/vue
+That's it! You can now use PandaCSS in your projects!
