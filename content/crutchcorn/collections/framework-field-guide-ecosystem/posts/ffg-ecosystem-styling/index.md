@@ -1470,7 +1470,9 @@ Indeed, dear reader! See, while some CSS-in-JS solutions rely on a JavaScript ru
 
 These CSS-in-JS solutions are able to fix their performance problems because they use "statistical analysis" to extract and compile the CSS from inside of your JavaScript files into dedicated CSS files ahead-of-the-time.
 
-// TODO: Add visual explainer.
+![TODO: Write alt](./stylesheet_extract.svg)
+
+
 
 --------
 
@@ -1480,7 +1482,7 @@ Think of statistical analysis as a scan through your codebase looking for dedica
 
 This `app_generated.js` file is the same as before, but with a different bit of code injecting the CSS file into the place you originally had CSS:
 
-// TODO: Add visual explainer.
+![TODO: Write alt](./scan_keywords.svg)
 
 -------
 
