@@ -22,7 +22,7 @@ Grids and grid cells take in numerical values. They can be a value relative to t
 | Value | Behavior |
 | --- | --- |
 | `px` | Sets a static size for each column. |
-| `fr` | Sets a fraction value based on the container size. This will take into account the `gap` property, and make sure content does not overflow. |
+| `fr` | Sets a fraction value based on the container size or the content size, if a container size is not set. This will take into account the `gap` property, and make sure content does not overflow. |
 | `%` | Sets a percentage value based on the container size. Unlike `fr`, this will ignore the `gap` property, and content will overflow if the sum of the percentage and `gap` is bigger than 100%. |
 | `vw`, `vh` | Set a percentage value based on the viewport size. Unlike `fr`, this will ignore the `gap` property, and content will overflow if the sum of the percentage and `gap` is bigger than 100%. |
 
@@ -185,6 +185,8 @@ In those situations, you can specify the size of auto generated cells.
 
 ![A grid displaying grid-auto items.](./grid-auto-column-row.svg)
 
+<iframe data-frame-title="Grid: Auto column" src="pfp-code:./auto-grid?template=node&embed=1&file=src%2Fstylesheet.css"></iframe>
+
 > ⚡ [Live Code Example: Gridbox Layout](https://codesandbox.io/s/gridbox-layout-tnu5b?file=/styles.css)
 
 ---
@@ -240,7 +242,7 @@ place-items: start start;
 ![A grid of items aligned to the top right corner.](./grid-start-start.svg)
 
 ```css
-/* Center horizontally and align them to the top edge */
+/* Center vertically and align them to the left corner */
 place-items: start center;
 ```
 
@@ -248,12 +250,184 @@ place-items: start center;
 
 ---
 
-# When to use Grid?
+# Subgrid
 
-- Used in creating complex layouts that require both columns and rows;
-- Provides the easiest and shortest way to center elements;
-- Verbose and powerful;
+Subgrid is a powerful feature that answers the following questions:
 
-For example, Spotify uses a gridbox to achieve their playlist player layout:
+> - What if I wanted to make child elements of my grid items also align to the grid?
+> - What if I want to make sure that certain elements are aligned in an axis regardless of the content?
 
-![A player view of Spotify with a left-hand sidebar and a list of items on the right](./spotify.png)
+Or even:
+
+> - What if I'd like to style a particular set of grid cells?
+
+Subgrid is fantastic for all of these use cases.
+
+In theory, subgrid is very simple. To make a subgrid item, we must apply these properties:
+
+```css
+.subgrid-container {
+  grid-template-columns: subgrid; /* Use the parent's grid on the column axis. */
+  grid-template-rows: subgrid; /* Use the parent's grid on the row axis */
+}
+```
+
+We can then set, in any child layout, the same property we've been using for grid items:
+
+```css
+.subgrid-item {
+  grid-area: /* area-name; */
+}
+```
+
+This will cause that layout to attach to the parent's grid cell. Everything works as you'd expect!
+
+---
+
+## Using subgrid
+
+**Let's take our own website as an example to learn from!**
+
+In our homepage, we have a grid of cards. And in these cards, **we have a container with tags.**
+
+Let's rebuild the layout as we can, using flex layouts and just stacking containers; you know, the usual.
+
+<img src="./subgrid-example-default.svg" alt="Two cards with a headline, a description and a set of tags below them. They are misaligned due to the text having different lengths." style="border-radius: var(--corner-radius_l); border: var(--border-width_s) solid var(--foreground_disabled);">
+
+<iframe data-frame-title="Grid without subgrid" src="pfp-code:./no-subgrid?template=node&embed=1&file=src%2Fstylesheet.css"></iframe>
+
+This follows the design closely, but one thing is different: The placement of the tag container.
+
+<img src="./subgrid-example-misalignment.svg" alt="The same two cards as before, but darkened, highlighting the misalignment of the tag container." style="border-radius: var(--corner-radius_l); border: var(--border-width_s) solid var(--foreground_disabled);">
+
+In our design we intentionally aligned it to the bottom of the cards to provide an anchor point to the distribution of content.
+
+We can use `subgrid` and `grid-template-areas` to make sure they align properly!
+
+```css
+.grid-container {
+  width: clamp(640px, 100vw, 960px); /* Responsive stuff */
+  display: grid;
+
+  /* Set up both columns. 
+  Rows are left unstyled so they fit the content. */
+  grid-template-areas: "content content"
+                       "tags tags";
+  grid-template-columns: 1fr 1fr;
+  gap: 0px 32px;
+  padding: 32px;
+  background-color: #E5F2FF;
+  box-sizing: border-box;
+}
+```
+
+That leaves us with the updated grid:
+
+<img src="./subgrid-example-default.svg" alt="The same two cards as before, seemingly not updated. But behind the scenes, there's a new grid line." style="border-radius: var(--corner-radius_l); border: var(--border-width_s) solid var(--foreground_disabled);">
+
+> But wait... That looks the same.
+
+Indeed! If none of the children are using `grid-area`, and dimensions have not been set to draw cells, the grid cell will simply collapse into nothing.
+
+> While it may not seem like it, there are two rows in our layout, but we need to attach content to fill them!
+
+## Refactoring our layout
+
+In our demo above, every item inside our article cards was loose inside the flex outer container.
+
+To properly adapt our layout, we will now separate the contents of the article card into two layouts: The `content-container`, and the `tag-container`.
+
+```html
+<div class="grid-container">
+  <div class="article">
+    <div class="content-container">
+      <h2>Web Fundamentals: HTML</h2>
+      <p>The first chapter of this series offers an introductory dive into the box model, HTML defaults and semantic elements.</p>
+    </div>
+    <div class="tag-container">
+      <div class="tag">css</div>
+      <div class="tag">html</div>
+      <div class="tag">design</div>
+    </div>
+  </div>
+  <div class="article">
+    <div class="content-container">
+      <h2>Entity Component System: The Perfect Solution to Reusable Code?</h2>
+      <p>The ECS pattern is used by many game engines to create stateless, reusable game logic. But how does it work?</p>
+    </div>
+    <div class="tag-container">
+      <div class="tag">rust</div>
+      <div class="tag">computer science</div>
+      <div class="tag">opinion</div>
+    </div>
+  </div>
+</div>
+```
+
+What we just did was separate the `tag-container` from the rest of the layout so it could be tied to the `tags' template row.
+
+```css
+.article {
+  /* This is necessary to define a subgrid. */
+  display: grid; 
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+
+  /* Article cards must span
+  both rows, to encapsulate all content */
+  grid-row: content / chips; 
+
+  padding: 24px;
+  border: 8px solid rgba(135, 206, 255, 0.32);
+  border-radius: 32px;
+  box-sizing: border-box;
+}
+
+.content-container {
+  /* Tie the content container to the content area */
+  grid-area: content;
+
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  gap: 8px;
+  padding-bottom: 16px;
+}
+
+.tag-container {
+  /* Tie the tags container to the tags area */
+  grid-area: tags;
+
+  display: flex;
+  flex-wrap: wrap;
+  height: fit-content;
+  gap: 8px;
+}
+```
+
+<img src="./subgrid-example-refactoring.svg" alt="The same two cards as before, but now refactored to properly align on their grid areas." style="border-radius: var(--corner-radius_l); border: var(--border-width_s) solid var(--foreground_disabled);">
+
+**With this, we have successfully aligned our tags!**
+
+They will also remain aligned even if the tags overflow into another line! The demo below shows this behavior when the viewport is resized.
+
+<iframe data-frame-title="Subgrid alignment" src="pfp-code:./subgrid?template=node&embed=1&file=src%2Fstylesheet.css"></iframe>
+
+---
+
+# Why use CSS grid, after all?
+
+CSS grid is extremely popular for a reason! The main advantages of grid are:
+
+1. Able to create complex layouts that require both columns and rows
+2. Provides the easiest and shortest way to center elements
+3. Verbose and powerful, with tons of customization options
+
+---
+
+# Now what?
+
+Now that we've learned a little bit of HTML, CSS, and looked over the main mechanics used to create beautiful and functional layouts, it's time to add interactivity to our prototypes! In the next chapter, we'll learn about native interactivity triggers, and how to add your own using JavaScript!
+
+> **Coming soon:**
+> The JavaScript chapter is currently in progress. It won't take long, but it's not ready just yet. Come back soon!

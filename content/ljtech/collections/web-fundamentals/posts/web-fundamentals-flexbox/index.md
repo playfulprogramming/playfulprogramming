@@ -43,7 +43,26 @@ flex-direction: row;
 
 This property allows you to make dynamic layouts that can respond to dimension constraints. In practice, it means you can tell a `flex` layout to wrap into a new rowUr columnUf there is not enough space available. Let's look at a simple example:
 
+```css
+.flex-container {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+```
+
 ![Two examples of elements in a row. The second example has a smaller width, thus causing the layout to wrap into a new line](./flex-wrap.svg)
+
+# Using `flex-flow`
+
+The `flex-flow` property allows us to use just one command to define both the `flex-direction` and `flex-wrap` properties!
+
+If we wanted to set up the previous example using this property, we'd do so like this:
+
+```css
+.flex-container {
+  flex-flow: row wrap;
+}
+```
 
 # Using `align-items`
 
@@ -134,6 +153,8 @@ justify-content: space-evenly;
 
 ![Three items in a container with equal spacing on all sides](./flex-justify-space-evenly.svg)
 
+# `Grow`, `shrink` and `basis`
+
 Here is a list of CSS properties used to control flexbox properties: 
 
 > [`flex-grow`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow): Controls a `flex` items grow factor
@@ -143,9 +164,6 @@ Here is a list of CSS properties used to control flexbox properties:
 > [`flex-basis`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis): Controls the initial size of a `flex` item
 
 > ⚡ [Live Code Example: Flexbox Layout](https://codesandbox.io/s/flexbox-layout-p4cy8?file=/styles.css)
-
-
-<TODO: EXPAND THIS>
 
 
 ---
@@ -160,10 +178,3 @@ For example, YouTube uses a flexbox to space out their headers children elements
 ![A heading on the YouTube search bar with spacing for each item](./youtube.png)
 
 ---
-
-# Now what?
-
-Now that we've learned a little bit of HTML, CSS, and looked over the main mechanics used to create beautiful and functional layouts, it's time to add interactivity to our prototypes! In the next chapter, we'll learn about native interactivity triggers, and how to add your own using JavaScript!
-
-> **Coming soon:**
-> The JavaScript chapter is currently in progress. It won't take long, but it's not ready just yet. Come back soon!
