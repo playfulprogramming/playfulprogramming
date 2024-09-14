@@ -364,7 +364,7 @@ To properly adapt our layout, we will now separate the contents of the article c
 </div>
 ```
 
-What we just did was separate the `tag-container` from the rest of the layout so it could be tied to the `tags' template row.
+What we just did was separate the `tag-container` from the rest of the layout so it could be tied to the `tags` template row.
 
 ```css
 .article {
@@ -375,7 +375,7 @@ What we just did was separate the `tag-container` from the rest of the layout so
 
   /* Article cards must span
   both rows, to encapsulate all content */
-  grid-row: content / chips; 
+  grid-row: content / tags; 
 
   padding: 24px;
   border: 8px solid rgba(135, 206, 255, 0.32);

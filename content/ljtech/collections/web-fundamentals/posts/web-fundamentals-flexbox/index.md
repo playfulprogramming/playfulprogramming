@@ -153,18 +153,55 @@ justify-content: space-evenly;
 
 ![Three items in a container with equal spacing on all sides](./flex-justify-space-evenly.svg)
 
+---
+
 # `Grow`, `shrink` and `basis`
 
-Here is a list of CSS properties used to control flexbox properties: 
+<--TODO-->
 
-> [`flex-grow`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow): Controls a `flex` items grow factor
+## Using `flex-grow`
 
-> [`flex-shrink`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink): Controls a `flex` items shrink factor
+Initial.
 
-> [`flex-basis`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis): Controls the initial size of a `flex` item
+![Alt description](./flex-grow-initial.svg)
+
+Distribute.
+
+```css
+.box {
+  flex-grow: 1;
+}
+```
+
+![Alt description](./flex-grow-three-columns.svg)
+
+All good. Now let's change the label.
+
+![Alt description](./flex-grow-new-label.svg)
+
+#### Why did this happen?
+
+In our first example:
+
+![Alt description](./flex-grow-bts.svg)
+
+This is because the `flex-grow` property *distributes the space* that's available around the elements.
+
+![Alt description](./flex-grow-space-available.svg)
+
+This means that, if the starting size of an element is bigger than another, they will continue to be larger when `flex-grow: 1` is set!
+
+![Alt description](./flex-grow-space-distributed.svg)
+
+#### How do we solve this?
+
+For that, we need to move onto the next property, which helps us set the initial size of an element.
+
+## Using `flex-basis`
+
+<-- TODO -->
 
 > ⚡ [Live Code Example: Flexbox Layout](https://codesandbox.io/s/flexbox-layout-p4cy8?file=/styles.css)
-
 
 ---
 
@@ -172,9 +209,5 @@ Here is a list of CSS properties used to control flexbox properties:
 
 - Used in headers, lists, tags, or any other block or inline content with the appropriate `flex-direction`;
 - Primary method to align and justify content in small components;
-
-For example, YouTube uses a flexbox to space out their headers children elements:
-
-![A heading on the YouTube search bar with spacing for each item](./youtube.png)
 
 ---
