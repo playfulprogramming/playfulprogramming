@@ -39,6 +39,8 @@ flex-direction: row;
 
 ![A row of three items stacked next to one-another](./flex-row.svg)
 
+---
+
 # Using `flex-wrap`
 
 This property allows you to make dynamic layouts that can respond to dimension constraints. In practice, it means you can tell a `flex` layout to wrap into a new rowUr columnUf there is not enough space available. Let's look at a simple example:
@@ -52,7 +54,35 @@ This property allows you to make dynamic layouts that can respond to dimension c
 
 ![Two examples of elements in a row. The second example has a smaller width, thus causing the layout to wrap into a new line](./flex-wrap.svg)
 
-# Using `flex-flow`
+## Wrapping with `min-width`
+
+You can also set a minimum width to elements that are set to fill the flex container.
+
+Applying a `min-width` to a child element will automatically trigger a wrap on the outer container if that element reaches its minimum value.
+
+```css
+.flex-container {
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 480px;
+}
+
+.flex-child-item {
+  flex-basis: 0;
+  flex-grow: 1;
+  min-width: 128px;
+}
+```
+
+![Three different blocks with a minimum width value, automatically wrapping when they get too small.](./flex-wrap-min-width.svg)
+
+Keep in mind that we cannot neatly fit elements into a grid this way. The last overlapping item *will* fill the entire row.
+
+🔗 [**If you need to set up a grid, read our CSS grid article!**](/posts/web-fundamentals-grid)
+
+---
+
+# Tip: Use `flex-flow`!
 
 The `flex-flow` property allows us to use just one command to define both the `flex-direction` and `flex-wrap` properties!
 
@@ -63,6 +93,8 @@ If we wanted to set up the previous example using this property, we'd do so like
   flex-flow: row wrap;
 }
 ```
+
+---
 
 # Using `align-items`
 
@@ -94,6 +126,7 @@ align-items: flex-start;
 >
 > When a flex layout is set to `column`, the start and end will point to left and right.
 
+---
 
 # Using `justify-content`
 
@@ -157,15 +190,23 @@ justify-content: space-evenly;
 
 # `Grow`, `shrink` and `basis`
 
-<--TODO-->
+With flexbox, you'll find these three properties that are rarely used, but help us define how elements change size based on their container and their sibling elements.
+
+As a baseline, `grow` defines how items take up empty space, `shrink` defines how items that overflow can decrease in size to properly fill the available space, and `basis` defines the initial size of a flex item.
+
+Let's look at them more closely.
 
 ## Using `flex-grow`
 
-Initial.
+This property defines how empty space is distributed among the objects inside a flex container.
 
-![Alt description](./flex-grow-initial.svg)
+Say you have three items, one each with a number inside. They contain their own padding, but apart from that, have nothing else applied.
 
-Distribute.
+You'll be met with this flex layout:
+
+![Three blocks with the same dimensions, centered in a flex container.](./flex-grow-initial.svg)
+
+But now let's distribute these items so that we have a 3x1 grid instead of a pack of boxes. To do that, we will apply the following code to the `.box` class.
 
 ```css
 .box {
@@ -173,35 +214,91 @@ Distribute.
 }
 ```
 
-![Alt description](./flex-grow-three-columns.svg)
+![The three blocks evenly stretched to fit the container.](./flex-grow-three-columns.svg)
 
-All good. Now let's change the label.
+This works out perfectly! But what if we wanted to change the contents? For the sake of demonstration, let's change each label and make their lengths very different.
 
-![Alt description](./flex-grow-new-label.svg)
+![With different sized labels, the items are no longer taking equal amounts of space in the container.](./flex-grow-new-label.svg)
 
-#### Why did this happen?
+Now the items are no longer distributed properly... But why?
 
-In our first example:
+<br>
 
-![Alt description](./flex-grow-bts.svg)
+### How grow works
 
+This has to do with how `flex-grow` works in tandem with an object's initial size.
+
+In our first example, all of our labels had the same width, and thus, all of our objects had the same size.
+<br>
+
+![A visual explanation of how element sizes are being calculated with padding.](./flex-grow-bts.svg)
+<br>
 This is because the `flex-grow` property *distributes the space* that's available around the elements.
-
-![Alt description](./flex-grow-space-available.svg)
 
 This means that, if the starting size of an element is bigger than another, they will continue to be larger when `flex-grow: 1` is set!
 
-![Alt description](./flex-grow-space-distributed.svg)
+![A visual representation of the space available inside the container.](./flex-grow-space-available.svg)
 
-#### How do we solve this?
+
+![The three elements are now bigger thanks to the extra space, evenly distributed among them.](./flex-grow-space-distributed.svg)
+<br>
+
+> **The value used for the property determines the percentage of the available space that a particular item will take.**
+
+We can see this in action by dividing the space unevenly to see how it'll behave:
+<br><br>
+![The three elements all hav different grow values, thus having an uneven distribution.](./flex-grow-uneven.svg)
+<br><br>
+And if the growth value does not add up to 1, we can expect there to be empty spaces in our flex layout, as in the following example:
+<br><br>
+![Three grow values that do not add to 1, thus leaving empty space.](./flex-grow-incomplete.svg)
+<br><br>
+
+#### How do we solve our original problem?
 
 For that, we need to move onto the next property, which helps us set the initial size of an element.
 
+---
+
 ## Using `flex-basis`
 
-<-- TODO -->
+The basis property lets us define the initial size of an element. This can be any numerical value, but also some special property values as well.
 
-> ⚡ [Live Code Example: Flexbox Layout](https://codesandbox.io/s/flexbox-layout-p4cy8?file=/styles.css)
+| Value | Behavior |
+| --- | --- |
+| `flex-basis: auto` | This is the default value. It will by default attempt to take either the width or height of the element, depending on the `flex-direction`. If those dimensions are unset, it defaults to `fit-content`. |
+| `flex-basis: fit-content` | As the name suggests, it sets the initial dimension as the content's dimensions on the appropriate axis. |
+| `flex-basis: min-content` | Sets the initial value as the minimum possible dimension. This means squishing the flex layout until it can no longer be shrunk. |
+| `flex-basis: 0` | Sets the initial value of the element to zero. Visually, however, that doesn't actually happen. It reaches `min-content` and stops. |
+
+Here are different examples of how `flex-basis` works with different values.
+
+![An example of an element filling the available space with a flex-basis value of 100%.](./flex-basis-example-one.svg)
+
+![All three elements now have different flex-basis values. Auto, zero and 320px, respectively.](./flex-basis-example-two.svg)
+<br>
+
+### Applying our solution
+
+To distribute flex items evenly, we must set two properties to all child elements of the flex container.
+
+```css
+.box {
+  /* Distribute the available
+  space evenly among elements */
+  flex-grow: 1;
+
+  /* Set the initial value of
+  all elements to zero. */
+  flex-basis: 0;
+}
+```
+
+While visually, `flex-basis: 0` sets the minimum dimensions to `min-content`, it actually does set the initial value to `0` behind the scenes.
+
+This means that, when we apply `flex-grow: 1` to all elements, their initial size will be null, and the space of the entire container will be shared evenly. 
+
+![With the properties applied, the size of each element is now equal again.](./flex-grow-basis-zero.svg)
 
 ---
 
@@ -211,3 +308,9 @@ For that, we need to move onto the next property, which helps us set the initial
 - Primary method to align and justify content in small components;
 
 ---
+
+# What's next?
+
+It's time for the next step - **CSS Grid!** Grid is an extremely powerful feature that allows you to create really complex layouts that are responsive and flexible.
+
+Join me on the next chapter below!
