@@ -2,7 +2,7 @@
 {
   title: "Web Fundamentals: Grid",
   description: "In the fourth chapter of our series, we're going to be introduced to CSS grid, a well-known feature to display content, and used in almost every website you visit.",
-  published: "2024-08-18T20:08:26.988Z",
+  published: "2024-09-18T20:10:26.988Z",
   tags: ["css", "html", "design"],
   license: "cc-by-4",
   authors: ["ljtech","edpratti"],

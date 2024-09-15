@@ -2,7 +2,7 @@
 {
   title: "Web Fundamentals: Flexbox",
   description: "In the third chapter of our series, we'll look at flexbox, a powerful layout feature that allows you to create responsive designs with ease.",
-  published: "2024-08-18T20:08:26.988Z",
+  published: "2024-09-18T20:08:26.988Z",
   tags: ["css", "html", "design"],
   license: "cc-by-4",
   authors: ["ljtech","edpratti"],
