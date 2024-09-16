@@ -31,12 +31,13 @@ export const GET = async () => {
 	);
 
 	const collections = api.getCollectionsByLang("en").map((collection) => {
+		const chapters = api.getPostsByCollection(collection.slug, "en");
+		const excerpt = chapters
+			.map((chapter) => `${chapter.title} ${chapter.description}`)
+			.join(" ");
 		return {
 			...collection,
-			excerpt:
-				collection.chapterList
-					?.map((chapter) => `${chapter.title} ${chapter.description}`)
-					?.join(" ") ?? "",
+			excerpt,
 			publishedTimestamp: new Date(collection.published).getTime(),
 		} satisfies ExtendedCollectionInfo;
 	});
