@@ -40,6 +40,7 @@ import {
 import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
 import { OramaClientProvider, useOramaSearch } from "./orama";
+import { SearchFooter } from "./components/search-footer";
 
 const MAX_POSTS_PER_PAGE = 6;
 
@@ -148,6 +149,7 @@ export function SearchPageBase() {
 			totalCollections: 0,
 			tags: {},
 			authors: {},
+			duration: 0,
 		},
 		refetchOnWindowFocus: false,
 		retry: false,
@@ -447,6 +449,10 @@ export function SearchPageBase() {
 								/>
 							</Fragment>
 						)}
+
+					{!isContentLoading && (
+						<SearchFooter duration={data.duration} />
+					)}
 				</section>
 			</div>
 		</main>

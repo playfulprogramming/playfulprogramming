@@ -165,6 +165,13 @@ export async function searchForTerm({ postClient, collectionClient }: SearchCont
 		collectionSearch?.facets?.authors?.values ?? {}
 	);
 
+	const duration = Math.round(
+		Math.max(
+			postSearch?.elapsed?.raw ?? 0,
+			collectionSearch?.elapsed?.raw ?? 0,
+		) / 1000000
+	);
+
 	return {
 		posts: (postSearch?.hits.map((hit) => hit.document) ?? []) as Array<
 			PostDocument & PostInfo
@@ -175,5 +182,6 @@ export async function searchForTerm({ postClient, collectionClient }: SearchCont
 		totalCollections: collectionSearch?.count ?? 0,
 		tags,
 		authors,
+		duration: isFinite(duration) ? duration : 0,
 	};
 }
