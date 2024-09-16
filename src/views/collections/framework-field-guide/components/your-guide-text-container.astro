@@ -13,6 +13,28 @@ import YourGuideTextContainerFront from "./your-guide-text-container-front.astro
 		>
 	</p>
 	<div class={styles.guideText}>
-		<YourGuideTextContainerFront/>
+		<div id="guide-text-front" class={styles.guideTextFront}>
+			<YourGuideTextContainerFront buttonId="read-full-story-btn" />
+		</div>
+		<div
+			id="guide-text-back"
+			style="opacity: 0; z-index: -1"
+			class={styles.guideTextBack}
+		>
+			<p>Testing</p>
+		</div>
 	</div>
 </div>
+
+<script>
+	const guideTextFront = document.getElementById("guide-text-front")!;
+	const guideTextBack = document.getElementById("guide-text-back")!;
+	const readFullStoryBtn = document.getElementById("read-full-story-btn")!;
+
+	readFullStoryBtn.addEventListener("click", () => {
+		guideTextFront.style.opacity = "0";
+		guideTextFront.style.zIndex = "-1";
+		guideTextBack.style.opacity = "1";
+		guideTextBack.style.zIndex = "0";
+	});
+</script>
