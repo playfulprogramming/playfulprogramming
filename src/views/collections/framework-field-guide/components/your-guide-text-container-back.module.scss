@@ -1,0 +1,18 @@
+@import "../tokens/utils";
+@import "../tokens/breakpoints.scss";
+
+.container {
+	padding: 48px;
+	box-sizing: border-box;
+	overflow-y: auto;
+	height: 100%;
+	width: 100%;
+}
+
+.transformative {
+	background: var(--gradient-ffg);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	margin: 0;
+}

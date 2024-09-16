@@ -1,6 +1,7 @@
 ---
 import styles from "./your-guide-text-container.module.scss";
 import YourGuideTextContainerFront from "./your-guide-text-container-front.astro";
+import YourGuideTextContainerBack from "./your-guide-text-container-back.astro";
 ---
 
 <div class={styles.guideTextContainer}>
@@ -18,10 +19,11 @@ import YourGuideTextContainerFront from "./your-guide-text-container-front.astro
 		</div>
 		<div
 			id="guide-text-back"
+			aria-hidden="true"
 			style="opacity: 0; z-index: -1"
 			class={styles.guideTextBack}
 		>
-			<p>Testing</p>
+			<YourGuideTextContainerBack buttonId="show-my-info-btn" />
 		</div>
 	</div>
 </div>
@@ -34,7 +36,9 @@ import YourGuideTextContainerFront from "./your-guide-text-container-front.astro
 	readFullStoryBtn.addEventListener("click", () => {
 		guideTextFront.style.opacity = "0";
 		guideTextFront.style.zIndex = "-1";
+		guideTextFront.setAttribute("aria-hidden", "true");
 		guideTextBack.style.opacity = "1";
 		guideTextBack.style.zIndex = "0";
+		guideTextBack.setAttribute("aria-hidden", "false");
 	});
 </script>

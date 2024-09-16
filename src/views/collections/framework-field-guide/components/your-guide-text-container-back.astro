@@ -1,0 +1,51 @@
+---
+import styles from "./your-guide-text-container-back.module.scss";
+import SmallFilledButton from "./small-filled-button.astro";
+
+interface Props {
+	buttonId: string;
+}
+
+const { buttonId } = Astro.props;
+---
+
+<div class={styles.container}>
+	<h3 class={`text-style-headline-4 ${styles.title}`}>
+		“Why is Framework Field Guide free?”
+	</h3>
+
+	<p class={`text-style-headline-6 ${styles.transformative}`}>
+		Being in the software field has been absolutely transformative to my life.
+	</p>
+
+	<p>
+		When I reflect on my life, it's incredible to think about how fortunate I've
+		been to make it into tech. While I'm financially very stable today, my
+		family was never super well off growing up. We stayed with family when we
+		weren't living in low income communities, were often in debt, and relied on
+		our food stamps. So how did I get here?
+	</p>
+
+	<p>
+		Early on, it was clear that education was never going to be my forte. Due to
+		several psychiatric episodes and other stressors, I dropped out of high
+		school, after being diagnosed with schizoaffective disorder schizophrenia
+		and bipolar disorder combined.
+	</p>
+
+	<p>
+		I worked a series of minimum-wage tech jobs until a storm of events,
+		including my father's dual-organ transplant, jeopardized my ability to care
+		for myself; much less my family. Right as everything was looking down I got
+		my first major, six-figure software gig. I went from being behind on rent by
+		three months to becoming debt-free and affording my medication. The money
+		I've made in tech has been transformative for me, my family, and my friends.
+	</p>
+
+	<p>
+		I didn't do it alone; I owe a lot of my career to my friends and my many
+		many mentors over the years to whom I'm eternally grateful. This is why I
+		made "The Framework Field Guide" free; I want to contribute back to the
+		community that helped elevate me to where I am today.
+	</p>
+</div>
