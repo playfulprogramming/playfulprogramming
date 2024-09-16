@@ -450,7 +450,7 @@ export function SearchPageBase() {
 							</Fragment>
 						)}
 
-					{!isContentLoading && (
+					{!isContentLoading && !noResults && (
 						<SearchFooter duration={data.duration} />
 					)}
 				</section>
