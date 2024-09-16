@@ -22,7 +22,6 @@
 }
 
 .handwrittenLines {
-	--base: calc(1rem + 1rex);
 	position: absolute;
 	top: calc(var(--base) * 0.5);
 	left: 0;
@@ -31,13 +30,14 @@
 	background: repeating-linear-gradient(
 		transparent,
 		transparent calc(4rex - 2px),
-		#9198e5 calc(4rex - 1px),
-		#9198e5 calc(4rex + 0px)
+		var(--slate-600) calc(4rex - 1px),
+		var(--slate-600) calc(4rex + 0px)
 	);
 }
 
 .handwritten {
-	line-height: calc(1rem + 1rex);
-	margin: 1rex 0;
+	line-height: 4rex;
+	font-size: 1.25rem;
+	margin: 4rex 0;
 	font-family: "Playpen Sans", sans-serif;
 }
