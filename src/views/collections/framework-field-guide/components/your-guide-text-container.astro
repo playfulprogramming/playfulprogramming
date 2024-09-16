@@ -1,0 +1,18 @@
+---
+import styles from "./your-guide-text-container.module.scss";
+import YourGuideTextContainerFront from "./your-guide-text-container-front.astro";
+---
+
+<div class={styles.guideTextContainer}>
+	<p class={`text-style-button ${styles.titleText}`}>
+		<span>Staff Engineer</span>
+		<span class={styles.titleDivider}>·</span>
+		<a
+			class={`text-style-button ${styles.titleLink}`}
+			href="https://stars.github.com/profiles/crutchcorn/">GitHub Star</a
+		>
+	</p>
+	<div class={styles.guideText}>
+		<YourGuideTextContainerFront/>
+	</div>
+</div>

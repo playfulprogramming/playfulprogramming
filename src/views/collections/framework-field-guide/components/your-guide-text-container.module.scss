@@ -1,0 +1,52 @@
+@import "../tokens/utils";
+@import "../tokens/breakpoints.scss";
+
+.guideTextContainer {
+  position: relative;
+  margin: var(--section-ver-padding) 0;
+}
+
+.titleText {
+  color: var(--on-dark-emphasis-medium);
+  background: var(--section-background);
+  border-radius: var(--corner-radius-circular);
+  border-color: var(--outline);
+  border-width: var(--border-1x);
+  border-style: solid;
+  padding: 0 var(--spc-3x);
+  min-height: 2rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  left: 50%;
+  top: 0;
+  white-space: pre;
+}
+
+.titleDivider {
+  color: var(--outline);
+  margin: 0 var(--spc-1x);
+}
+
+.titleLink {
+  color: var(--on-dark-emphasis-medium);
+  text-decoration: underline !important;
+}
+
+.guideText {
+  margin: 0;
+  color: var(--on-dark-emphasis-high);
+  padding-top: calc(1rem + var(--spc-3x));
+  padding-bottom: var(--section-ver-padding);
+  padding-left: var(--section-ver-padding);
+  padding-right: var(--section-ver-padding);
+  border-radius: var(--corner-radius-3x);
+  border: var(--border-1x) solid var(--outline);
+
+  @include from($desktop) {
+    padding-top: var(--section-ver-padding);
+  }
+}
