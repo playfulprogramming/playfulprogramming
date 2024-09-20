@@ -5,6 +5,7 @@
 	padding: 48px;
 	box-sizing: border-box;
 	overflow-y: auto;
+	overflow-x: hidden;
 	height: 100%;
 	width: 100%;
 }
@@ -45,7 +46,8 @@
 
 .paragraphOne,
 .paragraphTwo,
-.paragraphThree {
+.paragraphThree,
+.paragraphFour {
 	position: relative;
 }
 
@@ -86,6 +88,22 @@
 	z-index: -1;
 }
 
-.mouseImg {
+.mouseAndKeyContainer {
+	position: relative;
+}
 
+.mouseImg {
+	height: 43px;
+	position: absolute;
+	right: -55px;
+	bottom: -25px;
+	z-index: -1;
+}
+
+.keyImg {
+	height: 66px;
+	position: absolute;
+	right: -125px;
+	bottom: -65px;
+	z-index: -1;
 }
