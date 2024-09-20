@@ -23,21 +23,69 @@
 
 .handwrittenLines {
 	position: absolute;
-	top: calc(var(--base) * 0.5);
+	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: repeating-linear-gradient(
-		transparent,
-		transparent calc(4rex - 2px),
-		var(--slate-600) calc(4rex - 1px),
-		var(--slate-600) calc(4rex + 0px)
-	);
+	background-image: url("/patterns/line.svg");
+	background-repeat: repeat;
+	background-size: auto 3rem;
+	margin-top: -0.375rem;
+	padding-bottom: 9rem;
 }
 
 .handwritten {
-	line-height: 4rex;
+	line-height: 3rem;
 	font-size: 1.25rem;
-	margin: 4rex 0;
+	font-weight: 350;
+	margin: 3rem 0;
+	text-align: left;
 	font-family: "Playpen Sans", sans-serif;
+}
+
+.paragraphOne,
+.paragraphTwo,
+.paragraphThree {
+	position: relative;
+}
+
+.computerImg {
+	height: 240px;
+	position: absolute;
+	right: -100px;
+	top: -100px;
+	z-index: -1;
+}
+
+.bigDumb {
+	height: 100px;
+	position: absolute;
+	right: 50px;
+	top: -80px;
+	z-index: -1;
+	transform: rotate(-13deg);
+}
+
+.halfFaceContainer {
+	position: relative;
+}
+
+.halfFace {
+	position: absolute;
+	left: 0;
+	top: calc(50% - 10px);
+	transform: translateY(-50%);
+	height: 2em;
+}
+
+.stormImg {
+	height: 75px;
+	position: absolute;
+	right: 150px;
+	top: -70px;
+	z-index: -1;
+}
+
+.mouseImg {
+
 }
