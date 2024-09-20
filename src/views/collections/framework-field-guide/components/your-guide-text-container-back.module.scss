@@ -107,3 +107,32 @@
 	bottom: -65px;
 	z-index: -1;
 }
+
+.sparkleImg {
+	height: 90px;
+	position: absolute;
+	left: -60px;
+	bottom: 20px;
+	translate: translateY(-50%);
+	z-index: -1;
+}
+
+.rainboxAndStarContainer {
+	position: relative;
+}
+
+.rainbowImg {
+	height: 84px;
+	position: absolute;
+	right: -150px;
+	bottom: -60px;
+	z-index: -1;
+}
+
+.starsImg {
+	height: 60px;
+	position: absolute;
+	right: -210px;
+	bottom: -50px;
+	z-index: -1;
+}
