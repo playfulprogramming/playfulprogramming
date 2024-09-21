@@ -32,6 +32,7 @@ import YourGuideTextContainerBack from "./your-guide-text-container-back.astro";
 	const guideTextFront = document.getElementById("guide-text-front")!;
 	const guideTextBack = document.getElementById("guide-text-back")!;
 	const readFullStoryBtn = document.getElementById("read-full-story-btn")!;
+	const showMyInfoBtn = document.getElementById("show-my-info-btn")!;
 
 	readFullStoryBtn.addEventListener("click", () => {
 		guideTextFront.style.opacity = "0";
@@ -40,5 +41,14 @@ import YourGuideTextContainerBack from "./your-guide-text-container-back.astro";
 		guideTextBack.style.opacity = "1";
 		guideTextBack.style.zIndex = "0";
 		guideTextBack.setAttribute("aria-hidden", "false");
+	});
+
+	showMyInfoBtn.addEventListener("click", () => {
+		guideTextBack.style.opacity = "0";
+		guideTextBack.style.zIndex = "-1";
+		guideTextBack.setAttribute("aria-hidden", "true");
+		guideTextFront.style.opacity = "1";
+		guideTextFront.style.zIndex = "0";
+		guideTextFront.setAttribute("aria-hidden", "false");
 	});
 </script>

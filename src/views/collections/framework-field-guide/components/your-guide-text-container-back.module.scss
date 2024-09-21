@@ -12,7 +12,7 @@
 
 .innerContainer {
 	padding: 48px;
-	padding-bottom: 72px;
+	padding-bottom: calc(48px + var(--section-ver-padding));
 	position: relative;
 	overflow-y: visible;
 	overflow-x: hidden;
