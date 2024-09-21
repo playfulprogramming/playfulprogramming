@@ -91,7 +91,7 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 			href="#why-free"
 			data-no-horiz-pad
 			class={styles.whyFreeBtn}
-			onclick="event.preventDefault();var title=document.getElementById('why-free');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+			onclick="event.preventDefault();window.location.hash='why-free-story';setTimeout(() => {var title=document.getElementById('why-free-story');title.scrollIntoView({behavior: 'smooth', block: 'center'})}, 100)"
 		>
 			Learn why we made it free
 		</BigFilledButton>

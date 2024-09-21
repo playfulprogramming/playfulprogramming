@@ -34,21 +34,42 @@ import YourGuideTextContainerBack from "./your-guide-text-container-back.astro";
 	const readFullStoryBtn = document.getElementById("read-full-story-btn")!;
 	const showMyInfoBtn = document.getElementById("show-my-info-btn")!;
 
-	readFullStoryBtn.addEventListener("click", () => {
+	function showFullStory() {
 		guideTextFront.style.opacity = "0";
 		guideTextFront.style.zIndex = "-1";
 		guideTextFront.setAttribute("aria-hidden", "true");
 		guideTextBack.style.opacity = "1";
 		guideTextBack.style.zIndex = "0";
 		guideTextBack.setAttribute("aria-hidden", "false");
-	});
+	}
 
-	showMyInfoBtn.addEventListener("click", () => {
+	function showMyInfo() {
 		guideTextBack.style.opacity = "0";
 		guideTextBack.style.zIndex = "-1";
 		guideTextBack.setAttribute("aria-hidden", "true");
 		guideTextFront.style.opacity = "1";
 		guideTextFront.style.zIndex = "0";
 		guideTextFront.setAttribute("aria-hidden", "false");
+	}
+
+	readFullStoryBtn.addEventListener("click", () => {
+		showFullStory();
 	});
+
+	showMyInfoBtn.addEventListener("click", () => {
+		showMyInfo();
+		history.replaceState("", "", location.pathname);
+	});
+
+	function checkToSeeIfHashMatches() {
+		if (guideTextBack.querySelector(window.location.hash)) {
+			showFullStory();
+		}
+	}
+
+	window.addEventListener("hashchange", () => {
+		checkToSeeIfHashMatches();
+	});
+
+	checkToSeeIfHashMatches();
 </script>
