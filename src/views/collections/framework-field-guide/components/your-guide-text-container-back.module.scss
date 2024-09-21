@@ -12,6 +12,7 @@
 
 .innerContainer {
 	padding: 48px;
+	padding-bottom: 72px;
 	position: relative;
 	overflow-y: visible;
 	overflow-x: hidden;
@@ -171,4 +172,12 @@
 	margin: 0;
 	font-size: 1.25rem;
 	color: var(--on-dark-emphasis-medium);
+}
+
+.showMyInfo {
+	position: absolute;
+	bottom: var(--section-ver-padding);
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 3;
 }
