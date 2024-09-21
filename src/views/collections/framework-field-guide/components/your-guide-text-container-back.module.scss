@@ -80,7 +80,7 @@
 	position: absolute;
 	right: -100px;
 	top: -100px;
-	z-index: 0;
+	z-index: -1;
 }
 
 .bigDumb {
@@ -88,7 +88,7 @@
 	position: absolute;
 	right: 50px;
 	top: -80px;
-	z-index: 0;
+	z-index: -1;
 	transform: rotate(-13deg);
 }
 
@@ -109,7 +109,7 @@
 	position: absolute;
 	right: 150px;
 	top: -70px;
-	z-index: 0;
+	z-index: -1;
 }
 
 .mouseAndKeyContainer {
@@ -121,7 +121,7 @@
 	position: absolute;
 	right: -55px;
 	bottom: -25px;
-	z-index: 0;
+	z-index: -1;
 }
 
 .keyImg {
@@ -129,7 +129,7 @@
 	position: absolute;
 	right: -125px;
 	bottom: -65px;
-	z-index: 0;
+	z-index: -1;
 }
 
 .sparkleImg {
@@ -138,7 +138,7 @@
 	left: -60px;
 	bottom: 20px;
 	translate: translateY(-50%);
-	z-index: 0;
+	z-index: -1;
 }
 
 .rainboxAndStarContainer {
@@ -150,7 +150,7 @@
 	position: absolute;
 	right: -150px;
 	bottom: -60px;
-	z-index: 0;
+	z-index: -1;
 }
 
 .starsImg {
@@ -158,7 +158,7 @@
 	position: absolute;
 	right: -210px;
 	bottom: -50px;
-	z-index: 0;
+	z-index: -1;
 }
 
 .signature {
