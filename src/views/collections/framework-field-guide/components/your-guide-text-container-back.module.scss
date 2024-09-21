@@ -178,7 +178,7 @@
 }
 
 .showMyInfo {
-	position: absolute;
+	position: absolute !important;
 	bottom: var(--section-ver-padding);
 	left: 50%;
 	transform: translateX(-50%);
