@@ -2,6 +2,7 @@
 import styles from "./hero.module.scss";
 import LeftTitleSpark from "../components/left-title-spark.astro";
 import RightTitleSpark from "../components/right-title-spark.astro";
+import BigFilledButton from "../components/big-filled-button.astro";
 import SmallFilledButton from "../components/small-filled-button.astro";
 import SmallOutlinedButton from "../components/small-outlined-button.astro";
 import Sun from "../cover-layers/fundamentals/sun.astro";
@@ -27,8 +28,7 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 			<div></div>
 		</div>
 		<p class={`text-style-headline-5 ${styles.explainer}`}>
-			A free and practical way to learn <span class={styles.frameworkName}
-				>Angular</span
+			A practical way to learn <span class={styles.frameworkName}>Angular</span
 			>, <span class={styles.frameworkName}>React</span> &
 			<span class={styles.frameworkName}>Vue</span> all at once
 		</p>
@@ -84,7 +84,16 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 			</li>
 		</ul>
 		<p class={`text-style-headline-2 ${styles.readyToStart}`}>
-			Ready to start your journey?
+			<span class={styles.lighterBlue}>Ready to start your journey,</span> entirely
+			for free<span class={styles.lighterBlue}>?</span>
 		</p>
+		<BigFilledButton
+			href="#why-free"
+			data-no-horiz-pad
+			class={styles.whyFreeBtn}
+			onclick="event.preventDefault();var title=document.getElementById('why-free');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+		>
+			Learn why we made it free
+		</BigFilledButton>
 	</div>
 </section>
