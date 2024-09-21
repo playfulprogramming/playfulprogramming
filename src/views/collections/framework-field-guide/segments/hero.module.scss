@@ -11,11 +11,11 @@ body {
 	transition: transform 1ms;
 }
 
-.sunContainerContainer>div {
+.sunContainerContainer > div {
 	position: relative;
 }
 
-.sunContainerContainer>div>svg {
+.sunContainerContainer > div > svg {
 	position: absolute;
 	left: -30%;
 	top: -100px;
@@ -61,7 +61,7 @@ body {
 	padding: 1rem;
 }
 
-.sparkContainer>svg {
+.sparkContainer > svg {
 	height: 100%;
 	width: 100%;
 	fill: var(--outline) !important;
@@ -188,8 +188,8 @@ body {
 }
 
 .whyFreeBtn {
-	background-color: white;
-	color: var(--on-light-emphasis-high);
+	background-color: white !important;
+	color: var(--on-light-emphasis-high) !important;
 	box-shadow:
 		0px 8px 8px 0px rgba(18, 25, 38, 0.08),
 		0px 16px 16px 0px rgba(18, 25, 38, 0.08),
@@ -197,9 +197,9 @@ body {
 }
 
 .whyFreeBtn:hover {
-	background-color: var(--fund-100);
+	background-color: var(--fund-100) !important;
 }
 
 .whyFreeBtn:active {
-	background-color: var(--fund-300);
+	background-color: var(--fund-300) !important;
 }
