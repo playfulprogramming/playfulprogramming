@@ -62,14 +62,23 @@ import YourGuideTextContainerBack from "./your-guide-text-container-back.astro";
 	});
 
 	function checkToSeeIfHashMatches() {
-		if (guideTextBack.querySelector(window.location.hash)) {
+		const match = guideTextBack.querySelector(window.location.hash);
+		if (match) {
 			showFullStory();
 		}
+		return match;
 	}
 
 	window.addEventListener("hashchange", () => {
 		checkToSeeIfHashMatches();
 	});
 
-	checkToSeeIfHashMatches();
+	// Only scroll on the first load to make sure that we're loading the right part of the page
+	const hashMatch = checkToSeeIfHashMatches();
+	setTimeout(() => {
+		if (hashMatch) {
+			hashMatch.scrollIntoView({ behavior: "smooth", block: "center" });
+		}
+		// Give ourselves half a second to finish the opacity transition
+	}, 550);
 </script>
