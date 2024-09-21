@@ -47,6 +47,7 @@
 	padding-right: var(--section-ver-padding);
 	border-radius: var(--corner-radius-3x);
 	border: var(--border-1x) solid var(--outline);
+	overflow: hidden;
 
 	@include from($desktop) {
 		padding-top: var(--section-ver-padding);
