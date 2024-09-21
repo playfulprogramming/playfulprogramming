@@ -189,9 +189,9 @@ body {
 
 .whyFreeBtn {
 	// Slate 50
-	background-color: rgb(246, 249, 254);
+	background-color: rgb(246, 249, 254) !important;
 	// Slate 900
-	color: rgb(18, 25, 38);
+	color: rgb(18, 25, 38) !important;
 	box-shadow:
 		0px 8px 8px 0px rgba(18, 25, 38, 0.08),
 		0px 16px 16px 0px rgba(18, 25, 38, 0.08),
@@ -200,10 +200,10 @@ body {
 
 .whyFreeBtn:hover {
 	// Slate 200
-	background-color: rgb(217, 225, 242);
+	background-color: rgb(217, 225, 242) !important;
 }
 
 .whyFreeBtn:active {
 	// Slate 400
-	background-color: rgb(137, 155, 189);
+	background-color: rgb(137, 155, 189) !important;
 }

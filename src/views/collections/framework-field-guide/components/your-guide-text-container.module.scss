@@ -59,6 +59,8 @@
 }
 
 .guideTextBack {
+	/* Without this, when the page scrolls it occasionally scrolls this parent container despite not wanting to */
+	overflow: hidden;
 	transition: all 0.5s;
 	position: absolute;
 	top: 0;
