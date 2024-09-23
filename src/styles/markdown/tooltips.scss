@@ -31,14 +31,14 @@
 		align-items: center;
 		gap: var(--tooltip_icon-margin);
 
-		& > svg {
+		&>svg {
 			padding: var(--icon-size-dense-padding);
 			width: var(--tooltip_icon-size);
 			height: var(--tooltip_icon-size);
 			color: var(--tooltip_icon-color);
 		}
 
-		& > p {
+		&>p {
 			@extend .text-style-body-medium-bold;
 			margin: 0;
 		}
@@ -48,15 +48,15 @@
 		padding-left: calc(var(--tooltip_icon-size) + var(--tooltip_icon-margin));
 		margin-top: var(--tooltip_desc-gap);
 
-		& > * {
+		&>* {
 			@extend .text-style-body-small;
 		}
 
-		& > *:first-child {
+		&>*:first-child {
 			margin-top: 0;
 		}
 
-		& > *:last-child {
+		&>*:last-child {
 			margin-bottom: 0;
 		}
 	}
