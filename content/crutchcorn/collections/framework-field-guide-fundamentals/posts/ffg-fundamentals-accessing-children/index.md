@@ -8,6 +8,7 @@
   attached: [],
   order: 15,
   collection: "framework-field-guide-fundamentals",
+  version: "v1.1",
 }
 ---
 
