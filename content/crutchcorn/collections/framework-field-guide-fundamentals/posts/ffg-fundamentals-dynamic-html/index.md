@@ -327,8 +327,8 @@ const FileList = () => {
 			{{ fileName }}
 
 			@if (!isFolder) {
-                <file-date [inputDate]="inputDate"></file-date>
-            }
+				<file-date [inputDate]="inputDate"></file-date>
+			}
 		</button>
 	`,
 })
@@ -440,12 +440,12 @@ Let's use conditional rendering to show the type of item displayed based on the 
 
 ```angular-html
 <div>
-    @if (isFolder) {
-        <span>Type: Folder</span>
-    }
-    @if (!isFolder) {
-        <span>Type: File</span>
-    }
+	@if (isFolder) {
+		<span>Type: Folder</span>
+	}
+	@if (!isFolder) {
+		<span>Type: File</span>
+	}
 </div>
 ```
 
@@ -509,11 +509,11 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 
 ```angular-html
 <div>
-    @if (isFolder) {
-        <span>Type: Folder</span>
-    } @else {
-        <span>Type: File</span>
-    }
+	@if (isFolder) {
+		<span>Type: Folder</span>
+	} @else {
+		<span>Type: File</span>
+	}
 </div>
 ```
 
@@ -564,15 +564,15 @@ While we could move back to a simple `if` statement for each condition:
 
 ```angular-html
 <div>
-    @if (isFolder) {
-        <span>Type: Folder</span>
-    }
-    @if (!isFolder && isImage) {
-        <span>Type: Image</span>
-    }
-    @if (!isFolder && !isImage) {
-        <span>Type: File</span>
-    }
+	@if (isFolder) {
+		<span>Type: Folder</span>
+	}
+	@if (!isFolder && isImage) {
+		<span>Type: Image</span>
+	}
+	@if (!isFolder && !isImage) {
+		<span>Type: File</span>
+	}
 </div>
 ```
 
@@ -641,13 +641,13 @@ To recreate an `if...else` using Angular's Control Flow syntax.
 
 ```angular-html
 <div>
-    @if (isFolder) {
-        <span>Type: Folder</span>
-    @else if (isImage) {
-            <span>Type: Image</span>
-    } @else {
-        <span>Type: File</span>
-    }
+	@if (isFolder) {
+		<span>Type: Folder</span>
+	@else if (isImage) {
+			<span>Type: Image</span>
+	} @else {
+		<span>Type: File</span>
+	}
 </div>
 ```
 
@@ -655,17 +655,17 @@ In addition to the `if/else` syntax, Angular also has a mechanism for utilizing 
 
 ```angular-html
 <div>
-    @switch (type) {
-        @case ("folder") {
-            <span>Type: Folder</span>
-        }
-        @case ("image") {
-            <span>Type: Image</span>
-        }
-        @default {
-            <span>Type: File</span>
-        }
-    }
+	@switch (type) {
+		@case ("folder") {
+			<span>Type: Folder</span>
+		}
+		@case ("image") {
+			<span>Type: Image</span>
+		}
+		@default {
+			<span>Type: File</span>
+		}
+	}
 </div>
 ```
 
@@ -681,17 +681,17 @@ Using this tool, we can even set the `@switch` value to `true` and add a conditi
 
 ```angular-html
 <div>
-    @switch (true) {
-        @case (isFolder) {
-            <span>Type: Folder</span>
-        }
-        @case (isImage) {
-            <span>Type: Image</span>
-        }
-        @default {
-            <span>Type: File</span>
-        }
-    }
+	@switch (true) {
+		@case (isFolder) {
+			<span>Type: Folder</span>
+		}
+		@case (isImage) {
+			<span>Type: Image</span>
+		}
+		@default {
+			<span>Type: File</span>
+		}
+	}
 </div>
 ```
 
@@ -711,9 +711,9 @@ Using Vue's `v-else-if` attribute:
 
 ```html
 <div>
-    <span v-if="isFolder">Type: Folder</span>
-    <span v-else-if="isImage">Type: Image</span>
-    <span v-else>Type: File</span>
+	<span v-if="isFolder">Type: Folder</span>
+	<span v-else-if="isImage">Type: Image</span>
+	<span v-else>Type: File</span>
 </div>
 ```
 
@@ -959,16 +959,16 @@ Just as how the previous `@if` control flow block is used to conditionally rende
 	imports: [FileComponent],
 	template: `
 		<ul>
-		    @for (file of filesArray; track "identity"; let i = $index) {
-                <li>
-                    <file-item
-                        (selected)="onSelected(i)"
-                        [isSelected]="selectedIndex === i"
-                        [fileName]="file.fileName"
-                        [href]="file.href"
-                        [isFolder]="file.isFolder"
-                    />
-                </li>
+			@for (file of filesArray; track file; let i = $index) {
+				<li>
+					<file-item
+						(selected)="onSelected(i)"
+						[isSelected]="selectedIndex === i"
+						[fileName]="file.fileName"
+						[href]="file.href"
+						[isFolder]="file.isFolder"
+					/>
+				</li>
 			}
 		</ul>
 	`,
@@ -1010,7 +1010,7 @@ class FileListComponent {
 
 Inside our `@for`, `$index` may not seem like it is being defined; however, Angular declares it whenever you attempt to utilize `@for` under the hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
 
-Likewise, there may be some questions as to what `track: "identity"` is doing. [We'll answer this in our next section: "Keys"](#keys)
+Likewise, there may be some questions as to what `track: file` is doing. [We'll answer this in our next section: "Keys"](#keys)
 
 ## Vue
 
@@ -1114,9 +1114,8 @@ Regardless of the framework, you may have encountered an error in the previous c
 **Vue**
 
 > Elements in iteration expect to have 'v-bind:key' directives
+
 <!-- ::end:only-ebook -->
-
-
 
 This is because, in these frameworks, you're expected to pass a special property called the `key` (or, `track` in Angular), which the respective framework uses to keep track of which item is which.
 
@@ -1196,12 +1195,12 @@ function getRandomWord() {
 			<button (click)="addWord()">Add word</button>
 			<button (click)="removeFirst()">Remove first word</button>
 			<ul>
-			    @for (word of words; track "identity") {
-                    <li>
-                        {{ word.word }}
-                        <input type="text" />
-                    </li>
-                }
+				@for (word of words; track word) {
+					<li>
+						{{ word.word }}
+						<input type="text" />
+					</li>
+				}
 			</ul>
 		</div>
 	`,
@@ -1307,7 +1306,7 @@ function removeFirst() {
 
 <!-- ::end:tabs -->
 
-Without using some kind of `key` prop (or, when you use `track "identity"` in Angular), your list will be destroyed and recreated every time you run `addWord`.
+Without using some kind of `key` prop (or, when you use `track obj` without a property in Angular), your list will be destroyed and recreated every time you run `addWord`.
 
 This can be demonstrated by typing some text into the `input` and pressing the `"Remove first word"` button. When you do so, the typed text behaves in a strange way.
 
@@ -1358,9 +1357,9 @@ While Angular doesn't have quite the same API for `key` as React and Vue, Angula
 		<div>
 			<button (click)="addWord()">Add word</button>
 			<ul>
-			    @for (word of words; track word.id) {
-                    <li>{{ word.word }}</li>
-                }
+				@for (word of words; track word.id) {
+					<li>{{ word.word }}</li>
+				}
 			</ul>
 		</div>
 	`,
@@ -1376,7 +1375,7 @@ class WordListComponent {
 <iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain."></iframe>
 <!-- ::end:no-ebook -->
 
-Using the `"identity"` tracker is a way to opt-out of this behavior, as it will track the object reference (`===`) of the object in the array. This is useful when you don't have a unique identifier for each item in the array, but is highly discouraged due to the aforementioned performance and behavior benefits of having a unique identifier.
+Using a tracker without a property accessor (`track obj` vs `track obj.id`) is a way to opt-out of this behavior, as it will track the object reference (`===`) of the object in the array. This is useful when you don't have a unique identifier for each item in the array, but is highly discouraged due to the aforementioned performance and behavior benefits of having a unique identifier.
 
 > To learn more about object reference tracking, [see our article explaining how memory addresses are tracked in JavaScript.](/posts/object-mutation)
 
@@ -1551,17 +1550,17 @@ const FileList = () => {
 	imports: [FileComponent],
 	template: `
 		<ul>
-		    @for (file of filesArray; track file.id; let i = $index) {
-                <li>
-                    <file-item
-                        (selected)="onSelected(i)"
-                        [isSelected]="selectedIndex === i"
-                        [fileName]="file.fileName"
-                        [href]="file.href"
-                        [isFolder]="file.isFolder"
-                    />
-                </li>
-            }
+			@for (file of filesArray; track file.id; let i = $index) {
+				<li>
+					<file-item
+						(selected)="onSelected(i)"
+						[isSelected]="selectedIndex === i"
+						[fileName]="file.fileName"
+						[href]="file.href"
+						[isFolder]="file.isFolder"
+					/>
+				</li>
+			}
 		</ul>
 	`,
 })
@@ -1719,19 +1718,19 @@ const FileList = () => {
 		<div>
 			<button (click)="toggleOnlyShow()">Only show files</button>
 			<ul>
-			    @for (file of filesArray; track file.id; let i = $index) {
-                    <li>
-                        @if (onlyShowFiles ? !file.isFolder : true) {
-                            <file-item
-                                (selected)="onSelected(i)"
-                                [isSelected]="selectedIndex === i"
-                                [fileName]="file.fileName"
-                                [href]="file.href"
-                                [isFolder]="file.isFolder"
-                            />
-                        }
-                    </li>
-                }
+				@for (file of filesArray; track file.id; let i = $index) {
+					<li>
+						@if (onlyShowFiles ? !file.isFolder : true) {
+							<file-item
+								(selected)="onSelected(i)"
+								[isSelected]="selectedIndex === i"
+								[fileName]="file.fileName"
+								[href]="file.href"
+								[isFolder]="file.isFolder"
+							/>
+						}
+					</li>
+				}
 			</ul>
 		</div>
 	`,
@@ -1742,7 +1741,7 @@ class FileListComponent {
 	toggleOnlyShow() {
 		this.onlyShowFiles = !this.onlyShowFiles;
 	}
-	
+
 	// ...
 }
 ```
@@ -2068,13 +2067,13 @@ const Sidebar = () => {
 	template: `
 		<div>
 			<h1>My Files</h1>
-			@for (cat of categories; track "identity") {
-                <expandable-dropdown
-                    [name]="cat"
-                    [expanded]="false"
-                    (toggle)="onToggle()"
-                />
-            }
+			@for (cat of categories; track cat) {
+				<expandable-dropdown
+					[name]="cat"
+					[expanded]="false"
+					(toggle)="onToggle()"
+				/>
+			}
 		</div>
 	`,
 })
@@ -2215,13 +2214,13 @@ function objFromCategories(categories) {
 	template: `
 		<div>
 			<h1>My Files</h1>
-			@for (cat of categories; track "identity") {
-                <expandable-dropdown
-                    [name]="cat"
-                    [expanded]="expandedMap[cat]"
-                    (toggle)="onToggle(cat)"
-                />
-            }
+			@for (cat of categories; track cat) {
+				<expandable-dropdown
+					[name]="cat"
+					[expanded]="expandedMap[cat]"
+					(toggle)="onToggle(cat)"
+				/>
+			}
 		</div>
 	`,
 })
@@ -2344,8 +2343,8 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 				{{ name }}
 			</button>
 			@if (expanded) {
-                <div>More information here</div>
-            }
+				<div>More information here</div>
+			}
 		</div>
 	`,
 })
