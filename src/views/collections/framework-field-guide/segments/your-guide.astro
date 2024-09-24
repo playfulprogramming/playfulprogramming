@@ -2,8 +2,8 @@
 import { Picture } from "components/image/picture";
 import styles from "./your-guide.module.scss";
 import { getPersonById } from "utils/api";
-import YourGuideMetrics from "../components/your-guide-metrics.astro"
-import YourGuideTextContainer from "../components/your-guide-text-container.astro"
+import YourGuideMetrics from "../components/your-guide-metrics.astro";
+import YourGuideTextContainer from "../components/your-guide-text-container.astro";
 ---
 
 <section class={styles.guideContainer} aria-labelledby="your-guide">
@@ -21,6 +21,6 @@ import YourGuideTextContainer from "../components/your-guide-text-container.astr
 		Hi, I'm <span class={styles.authorName}>Corbin Crutchley</span>, the author
 		of <span class={styles.seriesName}>The Framework Field Guide</span> 📒.
 	</p>
-	<YourGuideMetrics/>
-	<YourGuideTextContainer/>
+	<YourGuideMetrics />
+	<YourGuideTextContainer />
 </section>
