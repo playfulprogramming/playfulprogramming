@@ -2,21 +2,21 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
-import { NgFor } from "@angular/common";
 
 @Component({
 	selector: "word-list",
 	standalone: true,
-	imports: [NgFor],
 	template: `
 		<div>
 			<button (click)="addWord()">Add word</button>
 			<button (click)="removeFirst()">Remove first word</button>
 			<ul>
-				<li *ngFor="let word of words">
-					{{ word.word }}
-					<input type="text" />
-				</li>
+				@for (word of words; track word) {
+					<li>
+						{{ word.word }}
+						<input type="text" />
+					</li>
+				}
 			</ul>
 		</div>
 	`,
