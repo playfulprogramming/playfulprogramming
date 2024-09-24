@@ -196,15 +196,17 @@ But the following examples **will not** render their contained values:
 
 ### Angular
 
-```angular-ts {2,7-8}
+```angular-ts {7-9}
 import { Component, Input } from "@angular/core";
-import { NgIf } from "@angular/common";
 
 @Component({
 	selector: "conditional-render",
 	standalone: true,
-	imports: [NgIf],
-	template: `<div><p *ngIf="bool">Text here</p></div>`,
+	template: `<div>
+	@if(bool) {
+		<p>Text here</p>
+	}
+	</div>`,
 })
 class ConditionalRenderComponent {
 	@Input() bool!: boolean;
@@ -215,17 +217,7 @@ class ConditionalRenderComponent {
 <iframe data-frame-title="Angular Conditional Render - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-conditional-render-17?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
-Here, we're using a special property called `ngIf` on our `p` tag to stop rendering the element if `bool` is `false`. This property is prefixed with an asterisk (`*`) to interact with Angular's compiler in particular ways.
-
-> These asterisk-prefixed properties are called "Structural Directives" and are a unique feature to Angular. Their usage can be quite advanced, but you can read more about them when you're ready [in this blog post](/posts/angular-templates-start-to-source).
-
-To use `ngIf`, we must import `NgIf` from `@angular/common` and pass it to the `imports` array for the component.
-
-> If you forget to import and add the `NgIf` to your component's `imports` array, you might get an error something like:
->
-> ```
-> The `*ngIf` directive was used in the template, but neither the `NgIf` directive nor the `CommonModule` was imported. Please make sure that either the `NgIf` directive or the `CommonModule` is included in the `@Component.imports` array of this component.
-> ```
+Here, we're using a special syntax called ["Control Flow Blocks"](https://angular.dev/guide/templates/control-flow) wrapping our `p` tag to stop rendering the element if `bool` is `false`.
 
 ### Vue
 
@@ -318,11 +310,11 @@ const FileList = () => {
 
 ### Angular
 
-```angular-ts {15,41}
+```angular-ts {16-18,44}
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [NgIf, FileDateComponent],
+	imports: [FileDateComponent],
 	template: `
 		<button
 			(click)="selected.emit()"
@@ -333,7 +325,10 @@ const FileList = () => {
 			"
 		>
 			{{ fileName }}
-			<file-date *ngIf="!isFolder" [inputDate]="inputDate"></file-date>
+
+			@if (!isFolder) {
+                <file-date [inputDate]="inputDate"></file-date>
+            }
 		</button>
 	`,
 })
@@ -443,10 +438,14 @@ Let's use conditional rendering to show the type of item displayed based on the 
 
 ## Angular
 
-```html
+```angular-html
 <div>
-	<span *ngIf="isFolder">Type: Folder</span>
-	<span *ngIf="!isFolder">Type: File</span>
+    @if (isFolder) {
+        <span>Type: Folder</span>
+    }
+    @if (!isFolder) {
+        <span>Type: File</span>
+    }
 </div>
 ```
 
@@ -508,56 +507,19 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 
 ## Angular
 
-```html
-<span *ngIf="isFolder; else fileDisplay">Type: Folder</span>
-<ng-template #fileDisplay><span>Type: File</span></ng-template>
+```angular-html
+<div>
+    @if (isFolder) {
+        <span>Type: Folder</span>
+    } @else {
+        <span>Type: File</span>
+    }
+</div>
 ```
 
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Conditional Branches - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-conditional-branches-19?template=node&embed=1&file=src%2Fmain."></iframe>
 <!-- ::end:no-ebook -->
-
-Undoubtedly, you're looking at this snippet of code and wondering what `ng-template` is doing here.
-
-### Explaining `ng-template` {#ng-template}
-
-See, an `ng-template` allows you to store multiple tags as children without rendering them. You can then take those tags and render them in special ways in the future using Angular APIs.
-
-Take the following code:
-
-```html
-<ng-template> Hello, <strong>world</strong>! </ng-template>
-```
-
-This will convert to the following HTML:
-
-```html
-```
-
-> Wait, but there's nothing there...
-
-Correct! By default, an `ng-template` will not render anything at all.
-
-> So then what's the point?
-
-The point, my dear reader, is that you can assign an in-template variable to `ng-template` and use it elsewhere. These in-template variables are called "template tags" and are created by assigning an octothorpe (`#`) prefixed attribute to the `ng-template`.
-
-```html
-<ng-template #tag>
-	This template is now assigned to the "tag" template variable.
-</ng-template>
-```
-
-We can then use the template tag as we might expect any other variable to be used; we can pass a template variable to a function of sorts (in the form of a [structural directive](/posts/angular-templates-start-to-source#structural-directives), like `*ngFor` or `*ngIf`) and see its usage reflected.
-
-```html
-<span *ngIf="false; else trueTag">False</span>
-<ng-template #trueTag>True</ng-template>
-```
-
-Here, we're passing the `trueTag` to the `else` value of `ngIf`, which will render when the passed value is `false`.
-
-> There's a lot more you can do with Angular templates! Keep an eye out in future chapters for more information.
 
 ## Vue
 
@@ -600,10 +562,18 @@ While we could move back to a simple `if` statement for each condition:
 
 ### Angular
 
-```html
-<span *ngIf="isFolder">Type: Folder</span>
-<span *ngIf="!isFolder && isImage">Type: Image</span>
-<span *ngIf="!isFolder && !isImage">Type: File</span>
+```angular-html
+<div>
+    @if (isFolder) {
+        <span>Type: Folder</span>
+    }
+    @if (!isFolder && isImage) {
+        <span>Type: Image</span>
+    }
+    @if (!isFolder && !isImage) {
+        <span>Type: File</span>
+    }
+</div>
 ```
 
 ### Vue
@@ -657,34 +627,72 @@ As the following React JSX
 
 ### Angular
 
-Angular does not support `else if` statements in the template like the other frameworks do.
+We're able to reuse much of the same logic as JavaScript:
 
-Instead, Angular has a mechanism for utilizing [`switch/case` statements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch). These switch/case statements work by matching a value from a `case` to the `switch` value. So, if you had:
+```js
+function getType() {
+	if (isFolder) return "Folder";
+	else if (isImage) return "Image";
+	else return "File";
+}
+```
 
-```html
-<ng-container [ngSwitch]="'folder'">
-	<span *ngSwitchCase="'folder'">Type: Folder</span>
-	<span *ngSwitchCase="'image'">Type: Image</span>
-	<span *ngSwitchDefault>Type: File</span>
-</ng-container>
+To recreate an `if...else` using Angular's Control Flow syntax.
+
+```angular-html
+<div>
+    @if (isFolder) {
+        <span>Type: Folder</span>
+    @else if (isImage) {
+            <span>Type: Image</span>
+    } @else {
+        <span>Type: File</span>
+    }
+</div>
+```
+
+In addition to the `if/else` syntax, Angular also has a mechanism for utilizing [`switch/case` statements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch). These switch/case statements work by matching a value from a `case` to the `switch` value. So, if you had:
+
+```angular-html
+<div>
+    @switch (type) {
+        @case ("folder") {
+            <span>Type: Folder</span>
+        }
+        @case ("image") {
+            <span>Type: Image</span>
+        }
+        @default {
+            <span>Type: File</span>
+        }
+    }
+</div>
 ```
 
 It would render:
 
 ```html
-<span>Type: Folder</span>
+<div><span>Type: Folder</span></div>
 ```
 
-Because the `[ngSwitch]` value of `'folder'` matched the `ngSwitchCase` value of `'folder'`.
+Because the `@switch` value of `'folder'` matched the `@case` value of `'folder'`.
 
-Using this tool, we can simply set the `ngSwitch` value to `true` and add a conditional into the `ngSwitchCase`.
+Using this tool, we can even set the `@switch` value to `true` and add a conditional into the `@case`.
 
-```html
-<ng-container [ngSwitch]="true">
-	<span *ngSwitchCase="isFolder">Type: Folder</span>
-	<span *ngSwitchCase="isImage">Type: Image</span>
-	<span *ngSwitchDefault>Type: File</span>
-</ng-container>
+```angular-html
+<div>
+    @switch (true) {
+        @case (isFolder) {
+            <span>Type: Folder</span>
+        }
+        @case (isImage) {
+            <span>Type: Image</span>
+        }
+        @default {
+            <span>Type: File</span>
+        }
+    }
+</div>
 ```
 
 ### Vue
@@ -702,9 +710,11 @@ function getType() {
 Using Vue's `v-else-if` attribute:
 
 ```html
-<span v-if="isFolder">Type: Folder</span>
-<span v-else-if="isImage">Type: Image</span>
-<span v-else>Type: File</span>
+<div>
+    <span v-if="isFolder">Type: Folder</span>
+    <span v-else-if="isImage">Type: Image</span>
+    <span v-else>Type: File</span>
+</div>
 ```
 
 Once again, the `v-else-if` and `v-else` tags must follow one another to work as intended.
@@ -807,7 +817,7 @@ const FileList = () => {
 class FileListComponent {
 	selectedIndex = -1;
 
-	onSelected(idx) {
+	onSelected(idx: number) {
 		if (this.selectedIndex === idx) {
 			this.selectedIndex = -1;
 			return;
@@ -940,26 +950,26 @@ We can then use the second argument inside the `map` to gain access to the index
 
 ## Angular
 
-Just as how the previous `*ngIf` structural directive is used to conditionally render items, Angular uses a different structural directive to render a list of items: `*ngFor`.
+Just as how the previous `@if` control flow block is used to conditionally render items, Angular uses a different block to render a list of items: `@for`.
 
-```angular-ts {1,6,9-17,32-48}
-import { NgFor } from "@angular/common";
-
+```angular-ts {7-17,32-48}
 @Component({
 	selector: "file-list",
 	standalone: true,
-	imports: [FileComponent, NgFor],
+	imports: [FileComponent],
 	template: `
 		<ul>
-			<li *ngFor="let file of filesArray; let i = index">
-				<file-item
-					(selected)="onSelected(i)"
-					[isSelected]="selectedIndex === i"
-					[fileName]="file.fileName"
-					[href]="file.href"
-					[isFolder]="file.isFolder"
-				/>
-			</li>
+		    @for (file of filesArray; track "identity"; let i = $index) {
+                <li>
+                    <file-item
+                        (selected)="onSelected(i)"
+                        [isSelected]="selectedIndex === i"
+                        [fileName]="file.fileName"
+                        [href]="file.href"
+                        [isFolder]="file.isFolder"
+                    />
+                </li>
+			}
 		</ul>
 	`,
 })
@@ -998,13 +1008,9 @@ class FileListComponent {
 <iframe data-frame-title="Angular Rendering Lists - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-lists-20?template=node&embed=1&file=src%2Fmain."></iframe>
 <!-- ::end:no-ebook -->
 
-Inside our `ngFor`, `index` may not seem like it is being defined; however, Angular declares it whenever you attempt to utilize `ngFor` under the hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
+Inside our `@for`, `$index` may not seem like it is being defined; however, Angular declares it whenever you attempt to utilize `@for` under the hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
 
-Just like `NgIf` must be imported, we need to import `NgFor` into our component's `imports` array, least we be greeted with the following error:
-
-```
-The `*ngFor` directive was used in the template, but neither the `NgFor` directive nor the `CommonModule` was imported. Please make sure that either the `NgFor` directive or the `CommonModule` is included in the `@Component.imports` array of this component.
-```
+Likewise, there may be some questions as to what `track: "identity"` is doing. [We'll answer this in our next section: "Keys"](#keys)
 
 ## Vue
 
@@ -1075,15 +1081,44 @@ Using this code as a base, we could extend this file list to any number of files
 
 ## Keys {#keys}
 
-If you're using React, you may have encountered an error in the previous code sample that read like the following:
+Regardless of the framework, you may have encountered an error in the previous code sample that read like the following:
+
+<!-- ::start:no-ebook -->
+<!-- ::start:tabs -->
+
+### React
 
 > Warning: Each child in a list should have a unique "key" prop.
 
-Or, in Vue, the error might've said:
+### Angular
+
+> NG5002: @for loop must have a "track" expression
+
+### Vue
 
 > Elements in iteration expect to have 'v-bind:key' directives
 
-This is because, in both of these frameworks, you're expected to pass a special property called the `key`, which the respective framework uses to keep track of which item is which.
+<!-- ::end:tabs -->
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+
+**React**
+
+> Warning: Each child in a list should have a unique "key" prop.
+
+**Angular**
+
+> NG5002: @for loop must have a "track" expression
+
+**Vue**
+
+> Elements in iteration expect to have 'v-bind:key' directives
+<!-- ::end:only-ebook -->
+
+
+
+This is because, in these frameworks, you're expected to pass a special property called the `key` (or, `track` in Angular), which the respective framework uses to keep track of which item is which.
 
 <!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of the Framework Field Guide." button-text="Sponsor my work" button-href="https://github.com/sponsors/crutchcorn/" -->
 
@@ -1156,16 +1191,17 @@ function getRandomWord() {
 @Component({
 	selector: "word-list",
 	standalone: true,
-	imports: [NgFor],
 	template: `
 		<div>
 			<button (click)="addWord()">Add word</button>
 			<button (click)="removeFirst()">Remove first word</button>
 			<ul>
-				<li *ngFor="let word of words">
-					{{ word.word }}
-					<input type="text" />
-				</li>
+			    @for (word of words; track "identity") {
+                    <li>
+                        {{ word.word }}
+                        <input type="text" />
+                    </li>
+                }
 			</ul>
 		</div>
 	`,
@@ -1271,7 +1307,7 @@ function removeFirst() {
 
 <!-- ::end:tabs -->
 
-Without using some kind of `key` prop, your list will be destroyed and recreated every time you run `addWord`.
+Without using some kind of `key` prop (or, when you use `track "identity"` in Angular), your list will be destroyed and recreated every time you run `addWord`.
 
 This can be demonstrated by typing some text into the `input` and pressing the `"Remove first word"` button. When you do so, the typed text behaves in a strange way.
 
@@ -1312,30 +1348,25 @@ Here, we're using the `key` property to tell React which `li` is related to whic
 
 ### Angular
 
-While Angular doesn't have quite the same API for `key` as React and Vue, Angular instead uses a [`trackBy` method](https://angular.dev/api/core/TrackByFunction) to figure out which item is which.
+While Angular doesn't have quite the same API for `key` as React and Vue, Angular instead uses a `track` keyword to figure out which item is which.
 
-```angular-ts {9,17-19}
+```angular-ts {8}
 @Component({
 	selector: "word-list",
 	standalone: true,
-	imports: [NgFor],
 	template: `
 		<div>
 			<button (click)="addWord()">Add word</button>
 			<ul>
-				<li *ngFor="let word of words; trackBy: wordTrackBy">
-					{{ word.word }}
-				</li>
+			    @for (word of words; track word.id) {
+                    <li>{{ word.word }}</li>
+                }
 			</ul>
 		</div>
 	`,
 })
 class WordListComponent {
 	words: Word[] = [];
-
-	wordTrackBy(index: number, word: Word) {
-		return word.id;
-	}
 
 	// ...
 }
@@ -1345,23 +1376,13 @@ class WordListComponent {
 <iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain."></iframe>
 <!-- ::end:no-ebook -->
 
-Another difference to the other frameworks is that while React and Vue have no default `key` behavior, Angular has a default `trackBy` function if one is not provided. If no `trackBy` is provided, the default will simply do strict equality (`===`) between the old item in the array and the new one to check if the item is the same.
+Using the `"identity"` tracker is a way to opt-out of this behavior, as it will track the object reference (`===`) of the object in the array. This is useful when you don't have a unique identifier for each item in the array, but is highly discouraged due to the aforementioned performance and behavior benefits of having a unique identifier.
 
-This function might look something like the following:
-
-```js
-function defaultTrackBy(index, item) {
-	// Angular checks to see if `item === item` between
-	//  renders for each list item in `ngFor`
-	return item;
-}
-```
-
-While this works in some cases, for the most part, it's suggested to provide your own `trackBy` to avoid problems with the limitations present with the default.
+> To learn more about object reference tracking, [see our article explaining how memory addresses are tracked in JavaScript.](/posts/object-mutation)
 
 ### Vue
 
-```vue
+```vue {6}
 <!-- WordList.vue -->
 <template>
 	<div>
@@ -1423,7 +1444,7 @@ function KeyExample() {
 
 ### Angular
 
-Because Angular does not have the concept of a `key`, it is unable to follow the same behavior as Vue and React in this instance. Therefore, this section is more useful in understanding the underlying DOM diffing logic as opposed to functional coding advice for Angular in particular.
+Because Angular does not have the same API as the `key` property, it is unable to follow the same behavior as Vue and React in this instance. Therefore, this section is more useful in understanding the underlying DOM diffing logic as opposed to functional coding advice for Angular in particular.
 
 This isn't necessarily a bad thing, however. We'll touch on this more in a bit, but using `key` in this way is often an antipattern.
 
@@ -1523,33 +1544,31 @@ const FileList = () => {
 
 ## Angular
 
-```angular-ts {7,22-24,39}
+```angular-ts {7,35}
 @Component({
 	selector: "file-list",
 	standalone: true,
-	imports: [FileComponent, NgFor],
+	imports: [FileComponent],
 	template: `
 		<ul>
-			<li *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
-				<file
-					(selected)="onSelected(i)"
-					[isSelected]="selectedIndex === i"
-					[fileName]="file.fileName"
-					[href]="file.href"
-					[isFolder]="file.isFolder"
-				/>
-			</li>
+		    @for (file of filesArray; track file.id; let i = $index) {
+                <li>
+                    <file-item
+                        (selected)="onSelected(i)"
+                        [isSelected]="selectedIndex === i"
+                        [fileName]="file.fileName"
+                        [href]="file.href"
+                        [isFolder]="file.isFolder"
+                    />
+                </li>
+            }
 		</ul>
 	`,
 })
 class FileListComponent {
 	selectedIndex = -1;
 
-	fileTrackBy(index: number, file: File) {
-		return file.id;
-	}
-
-	onSelected(idx) {
+	onSelected(idx: number) {
 		if (this.selectedIndex === idx) {
 			this.selectedIndex = -1;
 			return;
@@ -1691,39 +1710,40 @@ const FileList = () => {
 
 ## Angular
 
-```angular-ts {4,7,10,13,28,30-32}
+```angular-ts {7,9,11,27-31}
 @Component({
 	selector: "file-list",
 	standalone: true,
-	imports: [FileComponent, NgFor, NgIf],
+	imports: [FileComponent],
 	template: `
 		<div>
 			<button (click)="toggleOnlyShow()">Only show files</button>
 			<ul>
-				<li
-					*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
-				>
-					<file-item
-						*ngIf="onlyShowFiles ? !file.isFolder : true"
-						(selected)="onSelected(i)"
-						[isSelected]="selectedIndex === i"
-						[fileName]="file.fileName"
-						[href]="file.href"
-						[isFolder]="file.isFolder"
-					/>
-				</li>
+			    @for (file of filesArray; track file.id; let i = $index) {
+                    <li>
+                        @if (onlyShowFiles ? !file.isFolder : true) {
+                            <file-item
+                                (selected)="onSelected(i)"
+                                [isSelected]="selectedIndex === i"
+                                [fileName]="file.fileName"
+                                [href]="file.href"
+                                [isFolder]="file.isFolder"
+                            />
+                        }
+                    </li>
+                }
 			</ul>
 		</div>
 	`,
 })
 class FileListComponent {
-	// ...
-
 	onlyShowFiles = false;
 
 	toggleOnlyShow() {
 		this.onlyShowFiles = !this.onlyShowFiles;
 	}
+	
+	// ...
 }
 ```
 
@@ -2044,16 +2064,17 @@ const Sidebar = () => {
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
-	imports: [ExpandableDropdownComponent, NgFor],
+	imports: [ExpandableDropdownComponent],
 	template: `
 		<div>
 			<h1>My Files</h1>
-			<expandable-dropdown
-				*ngFor="let cat of categories"
-				[name]="cat"
-				[expanded]="false"
-				(toggle)="onToggle()"
-			/>
+			@for (cat of categories; track "identity") {
+                <expandable-dropdown
+                    [name]="cat"
+                    [expanded]="false"
+                    (toggle)="onToggle()"
+                />
+            }
 		</div>
 	`,
 })
@@ -2190,16 +2211,17 @@ function objFromCategories(categories) {
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
-	imports: [ExpandableDropdownComponent, NgFor],
+	imports: [ExpandableDropdownComponent],
 	template: `
 		<div>
 			<h1>My Files</h1>
-			<expandable-dropdown
-				*ngFor="let cat of categories"
-				[name]="cat"
-				[expanded]="expandedMap[cat]"
-				(toggle)="onToggle(cat)"
-			/>
+			@for (cat of categories; track "identity") {
+                <expandable-dropdown
+                    [name]="cat"
+                    [expanded]="expandedMap[cat]"
+                    (toggle)="onToggle(cat)"
+                />
+            }
 		</div>
 	`,
 })
@@ -2315,14 +2337,15 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
-	imports: [NgIf],
 	template: `
 		<div>
 			<button (click)="toggle.emit()">
 				{{ expanded ? "V" : ">" }}
 				{{ name }}
 			</button>
-			<div *ngIf="expanded">More information here</div>
+			@if (expanded) {
+                <div>More information here</div>
+            }
 		</div>
 	`,
 })
