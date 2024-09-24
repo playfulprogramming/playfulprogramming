@@ -50,19 +50,19 @@
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
-            "production": {
-              "buildTarget": "DemoApp:build:production"
+						"production": {
+							"buildTarget": "DemoApp:build:production"
 						},
-            "development": {
-              "buildTarget": "DemoApp:build:development"
+						"development": {
+							"buildTarget": "DemoApp:build:development"
 						}
 					},
 					"defaultConfiguration": "development"
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "DemoApp:build"
+					"options": {
+						"buildTarget": "DemoApp:build"
 					}
 				}
 			}

@@ -1,24 +1,24 @@
 :root {
-  background-color: #E5F2FF;
+	background-color: #e5f2ff;
 }
 
 .elements {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100vh;
-  scale: 1.5;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100vh;
+	scale: 1.5;
 }
 
 section {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	align-items: center;
 }
 
 fieldset {
-  border: none;
-  margin: 0px;
-  padding: 0px;
+	border: none;
+	margin: 0px;
+	padding: 0px;
 }

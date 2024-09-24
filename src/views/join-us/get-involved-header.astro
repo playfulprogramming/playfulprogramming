@@ -16,7 +16,7 @@ const people = getPeopleByLang("en").map((person) => {
 				src: `/stickers/role_${person.roles[0]}.svg`,
 				width: 64,
 				height: 64,
-		  })
+			})
 		: null;
 	const imageUrl = Object.values(imageUrls.png!!).at(0);
 	const badgeUrl = badgeUrls ? Object.values(badgeUrls.png!!).at(0) : undefined;
@@ -239,9 +239,7 @@ const people = getPeopleByLang("en").map((person) => {
 		for (let i = 0; i < NUMBER_OF_INNER_ITEMS; i++) {
 			const person = getSafeIndex(people, i);
 			const image = getImage(person.imageUrl, 160, 160);
-			const badge = person.badgeUrl
-				? getImage(person.badgeUrl, 64, 64)
-				: null;
+			const badge = person.badgeUrl ? getImage(person.badgeUrl, 64, 64) : null;
 			if (image == null || (badge == null && person.badgeUrl)) break;
 
 			const pos = calculatePosition(
@@ -266,9 +264,7 @@ const people = getPeopleByLang("en").map((person) => {
 		for (let i = 0; i < NUMBER_OF_OUTER_ITEMS; i++) {
 			const person = getSafeIndex(reversePeople, i);
 			const image = getImage(person.imageUrl, 160, 160);
-			const badge = person.badgeUrl
-				? getImage(person.badgeUrl, 64, 64)
-				: null;
+			const badge = person.badgeUrl ? getImage(person.badgeUrl, 64, 64) : null;
 			if (image == null || (badge == null && person.badgeUrl)) break;
 
 			const pos = calculatePosition(
