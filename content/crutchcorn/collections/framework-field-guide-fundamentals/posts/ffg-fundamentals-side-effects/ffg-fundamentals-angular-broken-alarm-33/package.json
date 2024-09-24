@@ -1,31 +1,31 @@
 {
-	"name": "@ffg-fundamentals/angular-broken-alarm-33",
-	"version": "0.0.0",
-	"scripts": {
-		"ng": "ng",
-		"dev": "ng serve",
-		"start": "ng serve",
-		"build": "ng build",
-		"watch": "ng build --watch --configuration development"
-	},
-	"private": true,
-	"dependencies": {
-		"@angular/animations": "^16.2.0",
-		"@angular/common": "^16.2.0",
-		"@angular/compiler": "^16.2.0",
-		"@angular/core": "^16.2.0",
-		"@angular/forms": "^16.2.0",
-		"@angular/platform-browser": "^16.2.0",
-		"@angular/platform-browser-dynamic": "^16.2.0",
-		"@angular/router": "^16.2.0",
-		"rxjs": "~7.8.0",
-		"tslib": "^2.3.0",
-		"zone.js": "~0.13.0"
-	},
-	"devDependencies": {
-		"@angular-devkit/build-angular": "^16.2.10",
-		"@angular/cli": "^16.2.10",
-		"@angular/compiler-cli": "^16.2.0",
-		"typescript": "~5.1.3"
-	}
+  "name": "@ffg-fundamentals/angular-broken-alarm-33",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "dev": "ng serve",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^17.3.12",
+    "@angular/common": "^17.3.12",
+    "@angular/compiler": "^17.3.12",
+    "@angular/core": "^17.3.12",
+    "@angular/forms": "^17.3.12",
+    "@angular/platform-browser": "^17.3.12",
+    "@angular/platform-browser-dynamic": "^17.3.12",
+    "@angular/router": "^17.3.12",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.14.10"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.3.9",
+    "@angular/cli": "^17.3.9",
+    "@angular/compiler-cli": "^17.3.12",
+    "typescript": "~5.4.5"
+  }
 }
