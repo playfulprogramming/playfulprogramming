@@ -123,7 +123,7 @@ To get the count of the children elements within a component in Angular requires
 
 ### `ContentChild` to Access a Single Child {#content-child-access-single}
 
-In [our "Dynamic HTML" chapter, we talked about how you're able to assign a "variable template variable" using a `#` syntax](/posts/ffg-fundamentals-dynamic-html#ng-template):
+In [our "Element Reference" chapter, we talked about how you're able to assign a "variable template variable" using a `#` syntax](/posts/ffg-fundamentals-element-reference#basic-el-references):
 
 ```html
 <div #templVar></div>
@@ -383,13 +383,15 @@ Instead, let's change our elements to `ng-template`s and render them in an `ngFo
 @Component({
 	selector: "parent-list",
 	standalone: true,
-	imports: [NgFor, NgTemplateOutlet],
+	imports: [NgTemplateOutlet],
 	template: `
 		<p>There are {{ children.length }} number of items in this array</p>
 		<ul>
-			<li *ngFor="let child of children">
-				<ng-template [ngTemplateOutlet]="child" />
-			</li>
+			@for (child of children; track child) {
+				<li>
+					<ng-template [ngTemplateOutlet]="child"></ng-template>
+				</li>
+			}
 		</ul>
 	`,
 })
@@ -485,13 +487,15 @@ const App = () => {
 @Component({
 	selector: "parent-list",
 	standalone: true,
-	imports: [NgFor, NgTemplateOutlet],
+	imports: [NgTemplateOutlet],
 	template: `
 		<p>There are {{ children.length }} number of items in this array</p>
 		<ul>
-			<li *ngFor="let child of children">
-				<ng-template [ngTemplateOutlet]="child" />
-			</li>
+			@for (child of children; track child) {
+				<li>
+					<ng-template [ngTemplateOutlet]="child"></ng-template>
+				</li>
+			}
 		</ul>
 	`,
 })
@@ -501,13 +505,15 @@ class ParentListComponent {
 
 @Component({
 	standalone: true,
-	imports: [ParentListComponent, NgFor],
+	imports: [ParentListComponent],
 	selector: "app-root",
 	template: `
 		<parent-list>
-			<ng-template *ngFor="let item of list; let i = index" #listItem>
-				<span>{{ i }} {{ item }}</span>
-			</ng-template>
+			@for (item of list; track item; let i = $index) {
+				<ng-template #listItem>
+					<span>{{ i }} {{ item }}</span>
+				</ng-template>
+			}
 		</parent-list>
 		<button (click)="addOne()">Add</button>
 	`,
@@ -694,11 +700,12 @@ Let's use the [ability to pass values to an ngTemplate using context](/posts/ffg
 	template: `
 		<p>There are {{ children.length }} number of items in this array</p>
 		<ul>
-			<ng-template
-				*ngFor="let template of children; let i = index"
-				[ngTemplateOutlet]="template"
-				[ngTemplateOutletContext]="{ backgroundColor: i % 2 ? 'grey' : '' }"
-			></ng-template>
+			@for (let template of children; track template; let i = $index) {
+				<ng-template
+					[ngTemplateOutlet]="template"
+					[ngTemplateOutletContext]="{ backgroundColor: i % 2 ? 'grey' : '' }"
+				></ng-template>
+			}
 		</ul>
 	`,
 })
@@ -714,13 +721,11 @@ class ParentListComponent {
 	imports: [ParentListComponent],
 	template: `
 		<parent-list>
-			<ng-template
-				#listItem
-				*ngFor="let item of list; let i = index"
-				let-backgroundColor="backgroundColor"
-			>
-				<li [style]="{ backgroundColor }">{{ i }} {{ item }}</li>
-			</ng-template>
+			@for (item of list; track item; let i = $index) {
+				<ng-template #listItem let-backgroundColor="backgroundColor">
+					<li [style]="{ backgroundColor }">{{ i }} {{ item }}</li>
+				</ng-template>
+			}
 		</parent-list>
 		<button (click)="addOne()">Add</button>
 	`,
@@ -907,7 +912,7 @@ function App() {
 @Component({
 	selector: "table-comp",
 	standalone: true,
-	imports: [NgFor, NgTemplateOutlet],
+	imports: [NgTemplateOutlet],
 	template: `
 		<table>
 			<thead>
@@ -918,11 +923,12 @@ function App() {
 			</thead>
 
 			<tbody>
-				<ng-template
-					*ngFor="let item of data; let index = index"
-					[ngTemplateOutlet]="body"
-					[ngTemplateOutletContext]="{ rowI: index, value: item }"
-				/>
+				@for (item of data; track item; let index = index) {
+					<ng-template
+						[ngTemplateOutlet]="body"
+						[ngTemplateOutletContext]="{ rowI: index, value: item }"
+					/>
+				}
 			</tbody>
 		</table>
 	`,
