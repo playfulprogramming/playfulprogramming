@@ -1,7 +1,7 @@
 // sidebar.component.ts
 import { Component, inject, Injectable } from "@angular/core";
 import { ActionTypes } from "./context";
-import { NgFor } from "@angular/common";
+
 import { FileComponent } from "./file.component";
 
 @Injectable()
@@ -18,7 +18,7 @@ function injectAndAssignActions(actions: any[]) {
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
-	imports: [NgFor, FileComponent],
+	imports: [FileComponent],
 	providers: [
 		{
 			provide: ActionTypes,
@@ -27,14 +27,15 @@ function injectAndAssignActions(actions: any[]) {
 	],
 	template: `
 		<div style="padding: 1rem">
-			<h1 style="font-size: 1.25rem">Directories</h1>
-			<file-item
-				*ngFor="let directory of directories"
-				[name]="directory.name"
-				[id]="directory.id"
-			/>
+		  <h1 style="font-size: 1.25rem">Directories</h1>
+		  @for (directory of directories; track directory.id) {
+		    <file-item
+		      [name]="directory.name"
+		      [id]="directory.id"
+		      />
+		  }
 		</div>
-	`,
+		`,
 })
 export class SidebarComponent {
 	directories = [

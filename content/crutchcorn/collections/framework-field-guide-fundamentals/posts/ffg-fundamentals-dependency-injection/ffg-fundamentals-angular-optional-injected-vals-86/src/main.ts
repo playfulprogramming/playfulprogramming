@@ -1,7 +1,7 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 import { Injectable, Component, inject, OnInit } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 
 @Injectable()
 class InjectedValue {
@@ -11,11 +11,15 @@ class InjectedValue {
 @Component({
 	selector: "child-comp",
 	standalone: true,
-	imports: [NgIf],
+	imports: [],
 	template: `
-		<div *ngIf="injectedValue">{{ injectedValue.message }}</div>
-		<div *ngIf="!injectedValue">There is no injected value</div>
-	`,
+		@if (injectedValue) {
+		  <div>{{ injectedValue.message }}</div>
+		}
+		@if (!injectedValue) {
+		  <div>There is no injected value</div>
+		}
+		`,
 })
 class ChildComponent implements OnInit {
 	injectedValue = inject(InjectedValue, { optional: true });
