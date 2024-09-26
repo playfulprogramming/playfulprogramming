@@ -13,17 +13,17 @@ import {
 	ViewChild,
 	ViewChildren,
 } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 
 @Component({
 	selector: "context-menu",
 	standalone: true,
-	imports: [NgIf],
+	imports: [],
 	template: `
-		<div
-			*ngIf="isOpen"
-			tabIndex="0"
-			#contextMenu
+		@if (isOpen) {
+		  <div
+		    tabIndex="0"
+		    #contextMenu
 			[style]="
 				'
         position: fixed;
@@ -39,11 +39,12 @@ import { NgIf } from "@angular/common";
         padding: 1rem;
       '
 			"
-		>
-			<button (click)="close.emit()">X</button>
-			This is a context menu
-		</div>
-	`,
+		    >
+		    <button (click)="close.emit()">X</button>
+		    This is a context menu
+		  </div>
+		}
+		`,
 })
 class ContextMenuComponent implements AfterViewInit, OnDestroy {
 	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;
@@ -78,7 +79,7 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, ContextMenuComponent],
+	imports: [ContextMenuComponent],
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
