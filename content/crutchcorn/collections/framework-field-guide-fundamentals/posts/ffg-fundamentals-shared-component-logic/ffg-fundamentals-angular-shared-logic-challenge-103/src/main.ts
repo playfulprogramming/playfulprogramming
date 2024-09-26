@@ -16,7 +16,7 @@ import {
 	OnInit,
 	AfterViewInit,
 } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 
 @Injectable()
 class CloseIfOutSideContext implements OnDestroy {
@@ -123,19 +123,20 @@ class BoundsContext implements OnDestroy {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, ContextMenuComponent],
+	imports: [ContextMenuComponent],
 	template: `
 		<div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
-			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
+		  <div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
 		</div>
-		<context-menu
-			#contextMenu
-			*ngIf="isOpen"
-			[x]="boundsContext.bounds.x"
-			[y]="boundsContext.bounds.y"
-			(close)="close()"
-		></context-menu>
-	`,
+		@if (isOpen) {
+		  <context-menu
+		    #contextMenu
+		    [x]="boundsContext.bounds.x"
+		    [y]="boundsContext.bounds.y"
+		    (close)="close()"
+		  ></context-menu>
+		}
+		`,
 	providers: [BoundsContext],
 })
 class AppComponent implements AfterViewInit {
