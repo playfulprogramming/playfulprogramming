@@ -7,7 +7,7 @@
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 10,
-  collection: "framework-field-guide-fundamentals",
+  collection: "framework-field-guide-fundamentals-v1",
   noIndex: true,
   version: "v1",
   upToDateSlug: "ffg-fundamentals-error-handling",
