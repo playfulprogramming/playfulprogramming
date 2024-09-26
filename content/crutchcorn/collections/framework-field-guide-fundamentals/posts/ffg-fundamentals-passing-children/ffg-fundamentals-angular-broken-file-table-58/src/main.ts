@@ -31,27 +31,29 @@ class FileDateComponent {
 	imports: [FileDateComponent],
 	template: `
 		<tr
-		  [attr.aria-selected]="isSelected"
-		  (click)="selected.emit()"
+			[attr.aria-selected]="isSelected"
+			(click)="selected.emit()"
 			[style]="
 				isSelected
 					? 'background-color: blue; color: white'
 					: 'background-color: white; color: blue'
 			"
-		  >
-		  <td>
-		    <a [href]="href" style="color: inherit">{{ fileName }}</a>
-		  </td>
-		  @if (isFolder) {
-		    <td>Type: Folder</td>
-		  } @else {
-		    <td>Type: File</td>
-		  }
-		  <td>@if (!isFolder) {
-		    <file-date [inputDate]="inputDate" />
-		  }</td>
+		>
+			<td>
+				<a [href]="href" style="color: inherit">{{ fileName }}</a>
+			</td>
+			@if (isFolder) {
+				<td>Type: Folder</td>
+			} @else {
+				<td>Type: File</td>
+			}
+			<td>
+				@if (!isFolder) {
+					<file-date [inputDate]="inputDate" />
+				}
+			</td>
 		</tr>
-		`,
+	`,
 })
 class FileComponent implements OnInit, OnDestroy {
 	@Input() fileName!: string;
@@ -85,19 +87,19 @@ class FileComponent implements OnInit, OnDestroy {
 	imports: [FileComponent],
 	template: `
 		<tbody>
-		  @for (file of filesArray; track file.id; let i = $index) {
-		    @if (!file.isFolder) {
-		      <file-item
-		        (selected)="onSelected(i)"
-		        [isSelected]="selectedIndex === i"
-		        [fileName]="file.fileName"
-		        [href]="file.href"
-		        [isFolder]="file.isFolder"
-		        />
-		    }
-		  }
+			@for (file of filesArray; track file.id; let i = $index) {
+				@if (!file.isFolder) {
+					<file-item
+						(selected)="onSelected(i)"
+						[isSelected]="selectedIndex === i"
+						[fileName]="file.fileName"
+						[href]="file.href"
+						[isFolder]="file.isFolder"
+					/>
+				}
+			}
 		</tbody>
-		`,
+	`,
 })
 class FileTableBody {
 	selectedIndex = -1;

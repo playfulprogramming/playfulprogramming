@@ -14,14 +14,14 @@ import {
 	template: `
 		<p>There are {{ children.length }} number of items in this array</p>
 		<ul>
-		  @for (template of children; track template; let i = $index) {
-		    <ng-template
-		      [ngTemplateOutlet]="template"
-		      [ngTemplateOutletContext]="{ backgroundColor: i % 2 ? 'grey' : '' }"
-		    ></ng-template>
-		  }
+			@for (template of children; track template; let i = $index) {
+				<ng-template
+					[ngTemplateOutlet]="template"
+					[ngTemplateOutletContext]="{ backgroundColor: i % 2 ? 'grey' : '' }"
+				></ng-template>
+			}
 		</ul>
-		`,
+	`,
 })
 class ParentListComponent {
 	@ContentChildren("listItem", { read: TemplateRef }) children: QueryList<
@@ -35,17 +35,14 @@ class ParentListComponent {
 	imports: [ParentListComponent],
 	template: `
 		<parent-list>
-		  @for (item of list; track item; let i = $index) {
-		    <ng-template
-		      #listItem
-		      let-backgroundColor="backgroundColor"
-		      >
-		      <li [style]="{ backgroundColor }">{{ i }} {{ item }}</li>
-		    </ng-template>
-		  }
+			@for (item of list; track item; let i = $index) {
+				<ng-template #listItem let-backgroundColor="backgroundColor">
+					<li [style]="{ backgroundColor }">{{ i }} {{ item }}</li>
+				</ng-template>
+			}
 		</parent-list>
 		<button (click)="addOne()">Add</button>
-		`,
+	`,
 })
 class AppComponent {
 	list = [1, 42, 13];

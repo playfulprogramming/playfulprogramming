@@ -15,7 +15,6 @@ import {
 	ViewChild,
 } from "@angular/core";
 
-
 @Component({
 	selector: "app-layout",
 	standalone: true,
@@ -51,22 +50,22 @@ class LayoutComponent {
 		<!-- "isCollapsed" is a boolean! -->
 		<!-- It's supposed to be "toggleCollapsed"! 😱 -->
 		@if (isCollapsed) {
-		  <button (click)="isCollapsed()">Toggle</button>
+			<button (click)="isCollapsed()">Toggle</button>
 		}
 		@if (!isCollapsed) {
-		  <div>
-		    <button (click)="isCollapsed()">Toggle</button>
-		    <ul style="padding: 1rem">
-		      <li>List item 1</li>
-		      <li>List item 2</li>
-		      <li>List item 3</li>
-		      <li>List item 4</li>
-		      <li>List item 5</li>
-		      <li>List item 6</li>
-		    </ul>
-		  </div>
+			<div>
+				<button (click)="isCollapsed()">Toggle</button>
+				<ul style="padding: 1rem">
+					<li>List item 1</li>
+					<li>List item 2</li>
+					<li>List item 3</li>
+					<li>List item 4</li>
+					<li>List item 5</li>
+					<li>List item 6</li>
+				</ul>
+			</div>
 		}
-		`,
+	`,
 })
 class SidebarComponent {
 	@Output() toggle = new EventEmitter<boolean>();
@@ -136,26 +135,28 @@ class ErrorHrefPipe implements PipeTransform {
 	imports: [ErrorHrefPipe],
 	template: `
 		@if (errorHandler.error) {
-		  <div>
-		    <h1>{{ errorHandler.error.name }}</h1>
-		    <pre
-		      style="white-space: pre-wrap"
-		      ><code>{{ errorHandler.error.message }}</code></pre>
-		      <a [href]="errorHandler.error | errorHref">Email us to report the bug</a>
-		      <br />
-		      <br />
-		      <details>
-		        <summary>Error stack</summary>
-		        <pre
-		          style="white-space: pre-wrap"
-		          ><code>{{ errorHandler.error.stack }}</code></pre>
-		        </details>
-		      </div>
-		    }
-		    @if (!errorHandler.error) {
-		      <ng-content></ng-content>
-		    }
-		`,
+			<div>
+				<h1>{{ errorHandler.error.name }}</h1>
+				<pre
+					style="white-space: pre-wrap"
+				><code>{{ errorHandler.error.message }}</code></pre>
+				<a [href]="errorHandler.error | errorHref"
+					>Email us to report the bug</a
+				>
+				<br />
+				<br />
+				<details>
+					<summary>Error stack</summary>
+					<pre
+						style="white-space: pre-wrap"
+					><code>{{ errorHandler.error.stack }}</code></pre>
+				</details>
+			</div>
+		}
+		@if (!errorHandler.error) {
+			<ng-content></ng-content>
+		}
+	`,
 })
 class ErrorCatcher {
 	errorHandler = inject(ErrorHandler) as MyErrorHandler;

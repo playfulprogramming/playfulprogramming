@@ -3,24 +3,23 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, ViewChildren, QueryList, ElementRef } from "@angular/core";
 
-
 @Component({
 	selector: "app-root",
 	standalone: true,
 	imports: [],
 	template: `
 		<div>
-		  <button (click)="scrollToTop()">Scroll to top</button>
-		  <ul style="height: 100px; overflow: scroll">
-		    @for (message of messages; track message) {
-		      <li #listItem>
-		        {{ message }}
-		      </li>
-		    }
-		  </ul>
-		  <button (click)="scrollToBottom()">Scroll to bottom</button>
+			<button (click)="scrollToTop()">Scroll to top</button>
+			<ul style="height: 100px; overflow: scroll">
+				@for (message of messages; track message) {
+					<li #listItem>
+						{{ message }}
+					</li>
+				}
+			</ul>
+			<button (click)="scrollToBottom()">Scroll to bottom</button>
 		</div>
-		`,
+	`,
 })
 class AppComponent {
 	@ViewChildren("listItem") els!: QueryList<ElementRef<HTMLElement>>;

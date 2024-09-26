@@ -40,17 +40,19 @@ class FileDateComponent {
 	},
 	template: `
 		<td>
-		  <a [href]="href" style="color: inherit">{{ fileName }}</a>
+			<a [href]="href" style="color: inherit">{{ fileName }}</a>
 		</td>
 		@if (isFolder) {
-		  <td>Type: Folder</td>
+			<td>Type: Folder</td>
 		} @else {
-		  <td>Type: File</td>
+			<td>Type: File</td>
 		}
-		<td>@if (!isFolder) {
-		  <file-date [inputDate]="inputDate" />
-		}</td>
-		`,
+		<td>
+			@if (!isFolder) {
+				<file-date [inputDate]="inputDate" />
+			}
+		</td>
+	`,
 })
 class FileComponent implements OnInit, OnDestroy {
 	@Input() fileName!: string;
@@ -84,18 +86,18 @@ class FileComponent implements OnInit, OnDestroy {
 	imports: [FileComponent],
 	template: `
 		@for (file of filesArray; track file.id; let i = $index) {
-		  @if (onlyShowFiles ? !file.isFolder : true) {
-		    <tr
-		      file-item
-		      (selected)="onSelected(i)"
-		      [isSelected]="selectedIndex === i"
-		      [fileName]="file.fileName"
-		      [href]="file.href"
-		      [isFolder]="file.isFolder"
-		    ></tr>
-		  }
+			@if (onlyShowFiles ? !file.isFolder : true) {
+				<tr
+					file-item
+					(selected)="onSelected(i)"
+					[isSelected]="selectedIndex === i"
+					[fileName]="file.fileName"
+					[href]="file.href"
+					[isFolder]="file.isFolder"
+				></tr>
+			}
 		}
-		`,
+	`,
 })
 class FileTableBody {
 	selectedIndex = -1;

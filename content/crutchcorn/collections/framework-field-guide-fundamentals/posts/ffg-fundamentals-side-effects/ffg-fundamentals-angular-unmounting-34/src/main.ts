@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnDestroy } from "@angular/core";
 
-
 @Component({
 	selector: "cleanup-comp",
 	standalone: true,
@@ -21,12 +20,12 @@ class CleanupComponent implements OnDestroy {
 	imports: [CleanupComponent],
 	template: `
 		<div>
-		  <button (click)="toggle()">Toggle</button>
-		  @if (show) {
-		    <cleanup-comp />
-		  }
+			<button (click)="toggle()">Toggle</button>
+			@if (show) {
+				<cleanup-comp />
+			}
 		</div>
-		`,
+	`,
 })
 class AppComponent {
 	show = true;

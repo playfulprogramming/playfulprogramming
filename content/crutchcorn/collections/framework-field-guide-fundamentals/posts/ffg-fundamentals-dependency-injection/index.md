@@ -1503,7 +1503,6 @@ class NameValue {
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
-	imports: [],
 	template: `<p>Name: {{ nameValue.name }}</p>`,
 })
 class GreatGrandChildComponent {
@@ -1706,7 +1705,6 @@ class FavFoodValue {
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
-	imports: [],
 	template: `
 		<p>Name: {{ nameValue.name }}</p>
 		<p>Favorite food: {{ favFoodValue.favFood }}</p>
@@ -1930,7 +1928,6 @@ class UserValue {
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
-	imports: [],
 	template: ` <p>Name: {{ user.name }}</p> `,
 })
 class GreatGrandChildComponent {
@@ -2210,7 +2207,6 @@ class MessageValue {
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
-	imports: [],
 	template: `
 		<div>
 			<p>{{ messageValue.greeting }}, user!</p>
@@ -2296,7 +2292,6 @@ class MessageValue {
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
-	imports: [],
 	template: `
 		<div>
 			<p>{{ messageValue.greeting }}, user!</p>

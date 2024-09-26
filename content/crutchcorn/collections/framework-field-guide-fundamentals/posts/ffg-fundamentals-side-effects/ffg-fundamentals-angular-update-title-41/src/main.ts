@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
 
-
 @Component({
 	selector: "title-changer",
 	standalone: true,
@@ -33,12 +32,12 @@ class TitleChangerComponent {
 	imports: [TitleChangerComponent],
 	template: `
 		<div>
-		  <button (click)="toggle()">Toggle title changer</button>
-		  @if (show) {
-		    <title-changer />
-		  }
+			<button (click)="toggle()">Toggle title changer</button>
+			@if (show) {
+				<title-changer />
+			}
 		</div>
-		`,
+	`,
 })
 class AppComponent {
 	show = true;

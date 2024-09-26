@@ -16,13 +16,13 @@ import { NgTemplateOutlet } from "@angular/common";
 	template: `
 		<p>There are {{ children.length }} number of items in this array</p>
 		<ul>
-		  @for (child of children; track child) {
-		    <li>
-		      <ng-template [ngTemplateOutlet]="child" />
-		    </li>
-		  }
+			@for (child of children; track child) {
+				<li>
+					<ng-template [ngTemplateOutlet]="child" />
+				</li>
+			}
 		</ul>
-		`,
+	`,
 })
 class ParentListComponent {
 	@ContentChildren("listItem") children!: QueryList<TemplateRef<any>>;

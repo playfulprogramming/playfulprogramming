@@ -12,7 +12,6 @@ import {
 	OnDestroy,
 } from "@angular/core";
 
-
 @Component({
 	selector: "file-date",
 	standalone: true,
@@ -86,24 +85,24 @@ class FileDateComponent implements OnChanges {
 	imports: [FileDateComponent],
 	template: `
 		<button
-		  (click)="selected.emit()"
+			(click)="selected.emit()"
 			[style]="
 				isSelected
 					? 'background-color: blue; color: white'
 					: 'background-color: white; color: blue'
 			"
-		  >
-		  {{ fileName }}
-		  @if (isFolder) {
-		    <span>Type: Folder</span>
-		  } @else {
-		    <span>Type: File</span>
-		  }
-		  @if (!isFolder) {
-		    <file-date [inputDate]="inputDate" />
-		  }
+		>
+			{{ fileName }}
+			@if (isFolder) {
+				<span>Type: Folder</span>
+			} @else {
+				<span>Type: File</span>
+			}
+			@if (!isFolder) {
+				<file-date [inputDate]="inputDate" />
+			}
 		</button>
-		`,
+	`,
 })
 class FileComponent implements OnInit, OnDestroy {
 	@Input() fileName!: string;
@@ -137,25 +136,24 @@ class FileComponent implements OnInit, OnDestroy {
 	imports: [FileComponent],
 	template: `
 		<div>
-		  <button (click)="toggleOnlyShow()">Only show files</button>
-		  <ul>
-		    @for (file of filesArray; track file.id; let i = $index) {
-		      <li
-		        >
-		        @if (onlyShowFiles ? !file.isFolder : true) {
-		          <file-item
-		            (selected)="onSelected(i)"
-		            [isSelected]="selectedIndex === i"
-		            [fileName]="file.fileName"
-		            [href]="file.href"
-		            [isFolder]="file.isFolder"
-		            />
-		        }
-		      </li>
-		    }
-		  </ul>
+			<button (click)="toggleOnlyShow()">Only show files</button>
+			<ul>
+				@for (file of filesArray; track file.id; let i = $index) {
+					<li>
+						@if (onlyShowFiles ? !file.isFolder : true) {
+							<file-item
+								(selected)="onSelected(i)"
+								[isSelected]="selectedIndex === i"
+								[fileName]="file.fileName"
+								[href]="file.href"
+								[isFolder]="file.isFolder"
+							/>
+						}
+					</li>
+				}
+			</ul>
 		</div>
-		`,
+	`,
 })
 class FileListComponent {
 	selectedIndex = -1;

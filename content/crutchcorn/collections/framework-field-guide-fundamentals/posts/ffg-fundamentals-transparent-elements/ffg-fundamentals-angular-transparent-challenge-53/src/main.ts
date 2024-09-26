@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 
-
 @Component({
 	selector: "file-action-buttons",
 	standalone: true,
@@ -32,16 +31,16 @@ class FileActionButtonsComponent {
 	imports: [FileActionButtonsComponent],
 	template: `
 		<div style="display: flex; gap: 1rem">
-		  @if (fileSelected) {
-		    <file-action-buttons
-		      (delete)="delete.emit()"
-		      (copy)="copy.emit()"
-		      (favorite)="favorite.emit()"
-		      />
-		  }
-		  <button (click)="settings.emit()">Settings</button>
+			@if (fileSelected) {
+				<file-action-buttons
+					(delete)="delete.emit()"
+					(copy)="copy.emit()"
+					(favorite)="favorite.emit()"
+				/>
+			}
+			<button (click)="settings.emit()">Settings</button>
 		</div>
-		`,
+	`,
 })
 class ButtonBarComponent {
 	@Input() fileSelected!: boolean;

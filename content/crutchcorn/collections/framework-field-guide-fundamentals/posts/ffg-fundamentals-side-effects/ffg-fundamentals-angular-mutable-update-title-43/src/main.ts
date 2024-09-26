@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, NgZone, OnDestroy, inject } from "@angular/core";
 
-
 @Component({
 	selector: "title-changer",
 	standalone: true,
@@ -49,12 +48,12 @@ class TitleChangerComponent implements OnDestroy {
 	imports: [TitleChangerComponent],
 	template: `
 		<div>
-		  <button (click)="toggle()">Toggle title changer</button>
-		  @if (show) {
-		    <title-changer />
-		  }
+			<button (click)="toggle()">Toggle title changer</button>
+			@if (show) {
+				<title-changer />
+			}
 		</div>
-		`,
+	`,
 })
 class AppComponent {
 	show = true;

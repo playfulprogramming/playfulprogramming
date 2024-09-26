@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 
-
 @Component({
 	selector: "app-alert",
 	standalone: true,
@@ -26,14 +25,14 @@ class AlertComponent implements OnInit {
 	imports: [AlertComponent],
 	template: `
 		<div>
-		  <!-- Try clicking and unclicking quickly -->
-		  <button (click)="toggle()">Toggle</button>
-		  <!-- Binding to an event -->
-		  @if (show) {
-		    <app-alert (alert)="alertUser()" />
-		  }
+			<!-- Try clicking and unclicking quickly -->
+			<button (click)="toggle()">Toggle</button>
+			<!-- Binding to an event -->
+			@if (show) {
+				<app-alert (alert)="alertUser()" />
+			}
 		</div>
-		`,
+	`,
 })
 class AppComponent {
 	show = false;

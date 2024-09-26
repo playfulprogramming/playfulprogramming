@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 
-
 /**
  * This code sample is inaccessible and generally not
  * production-grade. It's missing:
@@ -18,31 +17,31 @@ import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 	imports: [],
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
-		  <div (contextmenu)="open($event)">Right click on me!</div>
+			<div (contextmenu)="open($event)">Right click on me!</div>
 		</div>
 		@if (isOpen) {
-		  <div
-			[style]="
-				'
+			<div
+				[style]="
+					'
       position: fixed;
       top: ' +
-				mouseBounds.y +
-				'px;
+					mouseBounds.y +
+					'px;
       left: ' +
-				mouseBounds.x +
-				'px;
+					mouseBounds.x +
+					'px;
       background: white;
       border: 1px solid black;
       border-radius: 16px;
       padding: 1rem;
     '
-			"
-		    >
-		    <button (click)="close()">X</button>
-		    This is a context menu
-		  </div>
+				"
+			>
+				<button (click)="close()">X</button>
+				This is a context menu
+			</div>
 		}
-		`,
+	`,
 })
 class AppComponent {
 	isOpen = false;

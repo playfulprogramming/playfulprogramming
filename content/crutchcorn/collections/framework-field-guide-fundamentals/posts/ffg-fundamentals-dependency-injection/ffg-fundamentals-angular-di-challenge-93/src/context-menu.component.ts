@@ -26,41 +26,40 @@ function injectAndGetActions() {
 @Component({
 	selector: "context-menu",
 	standalone: true,
-	imports: [],
 	template: `
 		@if (isOpen && actions) {
-		  <div
-		    #contextMenu
-		    tabIndex="0"
-			[style]="
-				'
+			<div
+				#contextMenu
+				tabIndex="0"
+				[style]="
+					'
           position: fixed;
           top: ' +
-				y +
-				'px;
+					y +
+					'px;
           left: ' +
-				x +
-				'px;
+					x +
+					'px;
           background: white;
           border: 1px solid black;
           border-radius: 16px;
           padding: 1rem;
         '
-			"
-		    >
-		    <button (click)="close.emit(false)">X</button>
-		    <ul>
-		      @for (action of actions; track action) {
-		        <li>
-		          <button (click)="action.fn(data); close.emit(false)">
-		            {{ action.label }}
-		          </button>
-		        </li>
-		      }
-		    </ul>
-		  </div>
+				"
+			>
+				<button (click)="close.emit(false)">X</button>
+				<ul>
+					@for (action of actions; track action) {
+						<li>
+							<button (click)="action.fn(data); close.emit(false)">
+								{{ action.label }}
+							</button>
+						</li>
+					}
+				</ul>
+			</div>
 		}
-		`,
+	`,
 })
 export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 	@ViewChild("contextMenu", { static: false }) contextMenuRef!: ElementRef;

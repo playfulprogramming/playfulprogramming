@@ -9,40 +9,39 @@ import {
 	ViewChild,
 } from "@angular/core";
 
-
 @Component({
 	selector: "app-root",
 	standalone: true,
 	imports: [],
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
-		  <div (contextmenu)="open($event)">Right click on me!</div>
+			<div (contextmenu)="open($event)">Right click on me!</div>
 		</div>
 		@if (isOpen) {
-		  <div
-		    tabIndex="0"
-		    #contextMenu
-			[style]="
-				'
+			<div
+				tabIndex="0"
+				#contextMenu
+				[style]="
+					'
       position: fixed;
       top: ' +
-				mouseBounds.y +
-				'px;
+					mouseBounds.y +
+					'px;
       left: ' +
-				mouseBounds.x +
-				'px;
+					mouseBounds.x +
+					'px;
       background: white;
       border: 1px solid black;
       border-radius: 16px;
       padding: 1rem;
     '
-			"
-		    >
-		    <button (click)="close()">X</button>
-		    This is a context menu
-		  </div>
+				"
+			>
+				<button (click)="close()">X</button>
+				This is a context menu
+			</div>
 		}
-		`,
+	`,
 })
 class AppComponent implements AfterViewInit, OnDestroy {
 	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;

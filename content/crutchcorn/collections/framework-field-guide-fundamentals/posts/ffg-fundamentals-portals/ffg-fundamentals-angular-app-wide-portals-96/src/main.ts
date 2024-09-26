@@ -12,7 +12,6 @@ import {
 } from "@angular/core";
 import { Portal, PortalModule, TemplatePortal } from "@angular/cdk/portal";
 
-
 @Injectable({
 	providedIn: "root",
 })
@@ -52,14 +51,12 @@ class ModalComponent {
 	imports: [PortalModule, ModalComponent],
 	template: `
 		@if (portalService.portal) {
-		  <div
-		    style="height: 100px; width: 100px; border: 2px solid black;"
-		    >
-		    <ng-template [cdkPortalOutlet]="portalService.portal" />
-		  </div>
+			<div style="height: 100px; width: 100px; border: 2px solid black;">
+				<ng-template [cdkPortalOutlet]="portalService.portal" />
+			</div>
 		}
 		<modal-comp />
-		`,
+	`,
 })
 class AppComponent {
 	portalService = inject(PortalService);

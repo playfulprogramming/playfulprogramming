@@ -27,12 +27,12 @@ function injectAndAssignActions(actions: any[]) {
 	],
 	template: `
 		<div style="padding: 1rem">
-		  <h1>Files</h1>
-		  @for (file of files; track file.id) {
-		    <file-item [name]="file.name" [id]="file.id" />
-		  }
+			<h1>Files</h1>
+			@for (file of files; track file.id) {
+				<file-item [name]="file.name" [id]="file.id" />
+			}
 		</div>
-		`,
+	`,
 })
 export class FileListComponent {
 	files = [

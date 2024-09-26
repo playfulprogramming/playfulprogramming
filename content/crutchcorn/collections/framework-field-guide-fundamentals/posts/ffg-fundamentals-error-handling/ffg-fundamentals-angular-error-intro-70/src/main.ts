@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
 
-
 @Component({
 	selector: "app-root",
 	standalone: true,
@@ -11,11 +10,11 @@ import { Component } from "@angular/core";
 	template: `
 		<h1>To-do items</h1>
 		<ul>
-		  @for (item of priorityItems; track item) {
-		    <li>{{ item.name }}</li>
-		  }
+			@for (item of priorityItems; track item) {
+				<li>{{ item.name }}</li>
+			}
 		</ul>
-		`,
+	`,
 })
 class AppComponent {
 	items = [

@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnInit, Input } from "@angular/core";
 
-
 @Component({
 	selector: "app-alert",
 	standalone: true,
@@ -26,9 +25,9 @@ class AlertComponent implements OnInit {
 	template: `
 		<button (click)="toggle()">Toggle</button>
 		@if (show) {
-		  <app-alert [alert]="alertUser" />
+			<app-alert [alert]="alertUser" />
 		}
-		`,
+	`,
 })
 class AppComponent {
 	show = false;

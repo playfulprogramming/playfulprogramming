@@ -14,37 +14,36 @@ import {
 	ViewChildren,
 } from "@angular/core";
 
-
 @Component({
 	selector: "context-menu",
 	standalone: true,
 	imports: [],
 	template: `
 		@if (isOpen) {
-		  <div
-		    tabIndex="0"
-		    #contextMenu
-			[style]="
-				'
+			<div
+				tabIndex="0"
+				#contextMenu
+				[style]="
+					'
         position: fixed;
         top: ' +
-				y +
-				'px;
+					y +
+					'px;
         left: ' +
-				x +
-				'px;
+					x +
+					'px;
         background: white;
         border: 1px solid black;
         border-radius: 16px;
         padding: 1rem;
       '
-			"
-		    >
-		    <button (click)="close.emit()">X</button>
-		    This is a context menu
-		  </div>
+				"
+			>
+				<button (click)="close.emit()">X</button>
+				This is a context menu
+			</div>
 		}
-		`,
+	`,
 })
 class ContextMenuComponent implements AfterViewInit, OnDestroy {
 	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;

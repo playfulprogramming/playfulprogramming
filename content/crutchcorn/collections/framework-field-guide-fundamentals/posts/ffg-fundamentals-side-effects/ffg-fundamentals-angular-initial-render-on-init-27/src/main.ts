@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnInit } from "@angular/core";
 
-
 @Component({
 	selector: "child-comp",
 	standalone: true,
@@ -21,12 +20,12 @@ class ChildComponent implements OnInit {
 	imports: [ChildComponent],
 	template: `
 		<div>
-		  <button (click)="setShowChild()">Toggle Child</button>
-		  @if (showChild) {
-		    <child-comp />
-		  }
+			<button (click)="setShowChild()">Toggle Child</button>
+			@if (showChild) {
+				<child-comp />
+			}
 		</div>
-		`,
+	`,
 })
 class ParentComponent {
 	showChild = true;

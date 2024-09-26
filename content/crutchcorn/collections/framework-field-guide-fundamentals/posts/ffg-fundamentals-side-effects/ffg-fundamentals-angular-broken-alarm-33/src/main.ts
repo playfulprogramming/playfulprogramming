@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 
-
 @Component({
 	selector: "alarm-screen",
 	standalone: true,
@@ -35,16 +34,13 @@ class AlarmScreenComponent implements OnInit {
 	imports: [AlarmScreenComponent],
 	template: `
 		@if (!timerEnabled) {
-		  <p>There is no timer</p>
+			<p>There is no timer</p>
 		} @else if (secondsLeft === 0) {
-			<alarm-screen
-				(snooze)="snooze()"
-				(disable)="disable()"
-			/>
+			<alarm-screen (snooze)="snooze()" (disable)="disable()" />
 		} @else {
 			<p>{{ secondsLeft }} seconds left in timer</p>
 		}
-		`,
+	`,
 })
 class AppComponent implements OnInit {
 	secondsLeft = 5;

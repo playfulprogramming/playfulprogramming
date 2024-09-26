@@ -27,15 +27,12 @@ function injectAndAssignActions(actions: any[]) {
 	],
 	template: `
 		<div style="padding: 1rem">
-		  <h1 style="font-size: 1.25rem">Directories</h1>
-		  @for (directory of directories; track directory.id) {
-		    <file-item
-		      [name]="directory.name"
-		      [id]="directory.id"
-		      />
-		  }
+			<h1 style="font-size: 1.25rem">Directories</h1>
+			@for (directory of directories; track directory.id) {
+				<file-item [name]="directory.name" [id]="directory.id" />
+			}
 		</div>
-		`,
+	`,
 })
 export class SidebarComponent {
 	directories = [

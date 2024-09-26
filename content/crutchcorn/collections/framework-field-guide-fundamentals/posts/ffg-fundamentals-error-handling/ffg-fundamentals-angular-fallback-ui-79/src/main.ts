@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, inject, ErrorHandler, OnInit } from "@angular/core";
 
-
 class MyErrorHandler implements ErrorHandler {
 	hadError = false;
 
@@ -31,12 +30,12 @@ class ChildComponent implements OnInit {
 	imports: [ChildComponent],
 	template: `
 		@if (errorHandler.hadError) {
-		  <p>There was an error</p>
+			<p>There was an error</p>
 		}
 		@if (!errorHandler.hadError) {
-		  <child-comp />
+			<child-comp />
 		}
-		`,
+	`,
 })
 class AppComponent {
 	errorHandler = inject(ErrorHandler) as MyErrorHandler;

@@ -10,23 +10,23 @@ import { NgTemplateOutlet } from "@angular/common";
 	imports: [NgTemplateOutlet],
 	template: `
 		<table>
-		  <thead>
-		    <ng-template
-		      [ngTemplateOutlet]="header"
-		      [ngTemplateOutletContext]="{ length: data.length }"
-		      />
-		  </thead>
-		
-		  <tbody>
-		    @for (item of data; track item; let index = $index) {
-		      <ng-template
-		        [ngTemplateOutlet]="body"
-		        [ngTemplateOutletContext]="{ rowI: index, value: item }"
-		        />
-		    }
-		  </tbody>
+			<thead>
+				<ng-template
+					[ngTemplateOutlet]="header"
+					[ngTemplateOutletContext]="{ length: data.length }"
+				/>
+			</thead>
+
+			<tbody>
+				@for (item of data; track item; let index = $index) {
+					<ng-template
+						[ngTemplateOutlet]="body"
+						[ngTemplateOutletContext]="{ rowI: index, value: item }"
+					/>
+				}
+			</tbody>
 		</table>
-		`,
+	`,
 })
 class TableComponent {
 	@ContentChild("header", { read: TemplateRef }) header!: TemplateRef<any>;

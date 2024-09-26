@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
 
-
 @Component({
 	selector: "child-comp",
 	standalone: true,
@@ -17,12 +16,12 @@ class ChildComponent {}
 	imports: [ChildComponent],
 	template: `
 		<div>
-		  <button (click)="setShowChild()">Toggle Child</button>
-		  @if (showChild) {
-		    <child-comp />
-		  }
+			<button (click)="setShowChild()">Toggle Child</button>
+			@if (showChild) {
+				<child-comp />
+			}
 		</div>
-		`,
+	`,
 })
 class ParentComponent {
 	showChild = true;

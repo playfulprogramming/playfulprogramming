@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, Input } from "@angular/core";
 
-
 @Component({
 	selector: "toggle-button",
 	standalone: true,
@@ -67,14 +66,16 @@ class RainbowExclamationMarkComponent {}
 	imports: [ToggleButtonComponent, RainbowExclamationMarkComponent],
 	template: `
 		<toggle-button>
-		  Hello @for (friend of friends; track friend) {
-		  <span>{{ friend }} </span>
-		  }!
+			Hello
+			@for (friend of friends; track friend) {
+				<span>{{ friend }} </span>
+			}
+			!
 		</toggle-button>
 		<toggle-button>
-		  Hello other friends<rainbow-exclamation-mark />
+			Hello other friends<rainbow-exclamation-mark />
 		</toggle-button>
-		`,
+	`,
 })
 class ToggleButtonListComponent {
 	friends = ["Kevin,", "Evelyn,", "and James"];

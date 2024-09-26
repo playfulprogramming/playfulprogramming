@@ -3,7 +3,6 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnInit } from "@angular/core";
 
-
 @Component({
 	selector: "clock-comp",
 	standalone: true,
@@ -44,12 +43,12 @@ function prefixZero(number: number) {
 	imports: [ClockComponent],
 	template: `
 		<div>
-		  <button (click)="setShowClock(!showClock)">Toggle clock</button>
-		  @if (showClock) {
-		    <clock-comp />
-		  }
+			<button (click)="setShowClock(!showClock)">Toggle clock</button>
+			@if (showClock) {
+				<clock-comp />
+			}
 		</div>
-		`,
+	`,
 })
 class AppComponent {
 	showClock = true;
