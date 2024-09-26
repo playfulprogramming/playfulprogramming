@@ -13,7 +13,7 @@
   buttons: [],
   pageLayout: "none",
   version: "v1",
-  noIndex: true,
+  noindex: true,
   upToDateSlug: "framework-field-guide-fundamentals",
 }
 ---

@@ -8,7 +8,7 @@
   attached: [],
   order: 8,
   collection: "framework-field-guide-fundamentals-v1",
-  noIndex: true,
+  noindex: true,
   version: "v1",
   upToDateSlug: "ffg-fundamentals-element-reference",
 }

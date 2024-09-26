@@ -8,7 +8,7 @@
   attached: [],
   order: 4,
   collection: "framework-field-guide-fundamentals-v1",
-  noIndex: true,
+  noindex: true,
   version: "v1",
   upToDateSlug: "ffg-fundamentals-side-effects",
 }
