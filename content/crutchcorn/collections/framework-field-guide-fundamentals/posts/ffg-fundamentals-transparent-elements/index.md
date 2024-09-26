@@ -91,7 +91,7 @@ const FileList = () => {
 			@if (isFolder) {
 				<span>Type: Folder</span>
 			} @else {
-				<span>Type: File</span></ng-template>
+				<span>Type: File</span>
 			}
 			@if (!isFolder) {
 				<file-date [inputDate]="inputDate" />

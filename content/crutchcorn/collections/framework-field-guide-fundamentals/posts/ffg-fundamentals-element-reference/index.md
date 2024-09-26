@@ -738,7 +738,7 @@ function App() {
 
 Just as there is a `ViewChild` to gain access to a single underlying HTML element, you can also use a `ViewChildren` to access more than one or more template elements using similar APIs.
 
-Using `ViewChildren`, we can access [template reference variables](/posts/ffg-fundamentals-dynamic-html#ng-template) in order to `scrollIntoView` the first and last elements.
+Using `ViewChildren`, we can access in-template variables (prefixed with `#`) to `scrollIntoView` the first and last elements.
 
 ```angular-ts
 @Component({
@@ -749,6 +749,8 @@ Using `ViewChildren`, we can access [template reference variables](/posts/ffg-fu
 			<button (click)="scrollToTop()">Scroll to top</button>
 			<ul style="height: 100px; overflow: scroll">
 				@for (message of messages; track message) {
+					<!-- Create a new template variable called listItem -->
+					<!-- for each item in the `messages` array -->
 					<li #listItem>{{ message }}</li>
 				}
 			</ul>
@@ -757,6 +759,7 @@ Using `ViewChildren`, we can access [template reference variables](/posts/ffg-fu
 	`,
 })
 class AppComponent {
+	// Reference the template variable `listItem`
 	@ViewChildren("listItem") els!: QueryList<ElementRef<HTMLElement>>;
 
 	scrollToTop() {

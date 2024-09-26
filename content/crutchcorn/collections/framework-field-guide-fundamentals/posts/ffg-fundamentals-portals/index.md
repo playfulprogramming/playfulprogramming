@@ -336,13 +336,15 @@ class HeaderComponent {}
 @Component({
 	selector: "body-comp",
 	standalone: true,
-	imports: [NgFor, FolderIconComponent],
+	imports: [FolderIconComponent],
 	template: `
 		<ul class="list-container">
-			<li class="list-item" *ngFor="let fileIdx of files">
-				<folder-icon />
-				<span>File number {{ fileIdx + 1 }}</span>
-			</li>
+			@for (fileIdx of files; track fileIdx) {
+				<li class="list-item">
+					<folder-icon />
+					<span>File number {{ fileIdx + 1 }}</span>
+				</li>
+			}
 		</ul>
 	`,
 })
@@ -700,10 +702,12 @@ const Header = () => {
 @Component({
 	selector: "header-comp",
 	standalone: true,
-	imports: [NgIf, ModalComponent, FolderIconComponent, DeleteIconComponent],
+	imports: [ModalComponent, FolderIconComponent, DeleteIconComponent],
 	template: `
 		<div class="header-container">
-			<delete-modal *ngIf="shouldShowModal" />
+			@if (shouldShowModal)
+				<delete-modal />
+			}
 			<span class="icon-container">
 				<folder-icon />
 			</span>
@@ -862,9 +866,46 @@ You'll notice that we're then displaying the return of `createPortal` - `portal`
 
 While the other frameworks have something akin to a portal system built into their frameworks' core, Angular does not. Instead, the Angular team maintains a library called [the "Angular CDK"](https://cdk.angular.io) to have shared UI code for utilities such as portals.
 
+Before we can talk about the Angular CDK, however, we have to talk about an Angular feature called "templates".
+
+### Explaining `ng-template` {#ng-template}
+
+An `ng-template` allows you to store multiple tags as children without rendering them. You can then take those tags and render them in special ways in the future using Angular APIs.
+
+Take the following code:
+
+```angular-html
+<ng-template> Hello, <strong>world</strong>! </ng-template>
+```
+
+This will convert to the following HTML:
+
+```html
+```
+
+> Wait, but there's nothing there...
+
+Correct! By default, an `ng-template` will not render anything at all.
+
+> So then what's the point?
+
+The point is that we can use the `ng-template` as a sort of "template" for rendering content in the future. We can assign the `ng-template` to a template variable, and then render that variable in the future.
+
+```angular-html
+<ng-template #tag>
+	This template is now assigned to the "tag" template variable.
+</ng-template>
+```
+
+This variable can then be passed to a number of Angular APIs to render the contents of the `ng-template` in a special way. Think of `<ng-template>` as a sort of "template" for rendering content in the future.
+
+### Using Angular CDK Portals {#explaining-angular-cdk-portals}
+
+Now that we understand `ng-template`, we can talk about the Angular CDK.
+
 To use the Angular CDK, you'll first need to install it into your project:
 
-```
+```shell
 npm i @angular/cdk
 ```
 
@@ -1095,14 +1136,13 @@ class ModalComponent {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [PortalModule, ModalComponent, NgIf],
+	imports: [PortalModule, ModalComponent],
 	template: `
-		<div
-			style="height: 100px; width: 100px; border: 2px solid black;"
-			*ngIf="portalService.portal"
-		>
-			<ng-template [cdkPortalOutlet]="portalService.portal" />
-		</div>
+		@if (portalService.portal) {
+			<div style="height: 100px; width: 100px; border: 2px solid black;">
+				<ng-template [cdkPortalOutlet]="portalService.portal" />
+			</div>
+		}
 		<modal-comp />
 	`,
 })
@@ -1113,7 +1153,7 @@ class AppComponent {
 
 We then `inject` that value to provide data into it and read from it in any related components.
 
-We're also making sure that our portal exists before rending it in our `AppComponent` using `*ngIf="portalService.portal"`.
+We're also making sure that our portal exists before rending it in our `AppComponent` using `@if (portalService.portal)`.
 
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular App-Wide Portals - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-app-wide-portals-96?template=node&embed=1&file=src%2Fmain.ts"></iframe>
@@ -1502,7 +1542,7 @@ function App() {
 
 ### Angular
 
-```angular-ts {1-6,25,70,85,87-88,108-110,121-123}
+```angular-ts {1-6,24,69,84,86-87,107-109,120-122}
 @Injectable({
 	providedIn: "root",
 })
@@ -1513,7 +1553,6 @@ class PortalService {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
 	template: `
 		<div
 			style="
