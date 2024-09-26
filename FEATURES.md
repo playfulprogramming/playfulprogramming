@@ -275,3 +275,47 @@ This is missing from the website
 <!-- ::end:only-ebook -->
 ```
 
+## Frontmatter
+
+We support adding metadata to an article or collection via a JS-object "frontmatter":
+
+```markdown
+---
+{
+    title: "A title",
+    published: '2023-03-25',
+    tags: ['opinion']
+}
+---
+
+Article contents here
+```
+
+
+
+### Post Frontmatter
+
+We support the following properties on a post:
+
+- `title`: The title of the article
+- `published`: The publication date of the article
+  - Must be an ISO timestamp of `YYYY-MM-DD`
+- `authors`:  A list of ids of the related authors
+  - Only used when there's multiple authors per article. Must list all authors, including the one the post is in the folder of.
+- `tags`: A list of tags the post relates to
+  - Must match [one of these](./content/data/tags.json) tags.
+- `license`: A string of what license to attribute the post to
+  - Must match [one of these](./content/data/licenses.json) license IDs.
+- `description`: The description of the article 
+  - Without this present, one will auto-generate for you based on the first ~160 characters of the post
+- `edited`: When an article was edited last
+  - Optional.
+  - Must be an ISO timestamp of `YYYY-MM-DD`
+- `collection`: The name of the series the post is associated with
+  - If you need to add more metadata than this, please create a folder of `collections` and put an `index.md` file there with said metadata. Then place the post in the `posts` subfolder of the collection.
+- `order`: The order of which the article is within a collection
+  - Only used when inside of a collection
+- `originalLink`: The [canonical link](https://en.wikipedia.org/wiki/Canonical_link_element) of the post, where it was originally posted.
+  - Required if the post is a cross-post
+- `noindex`: Should the article be hidden from the site's list view, `sitemap`, and search?
+  - Useful for draft or archived content
