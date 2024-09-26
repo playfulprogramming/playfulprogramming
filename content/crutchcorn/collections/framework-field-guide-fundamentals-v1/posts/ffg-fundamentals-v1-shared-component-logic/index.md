@@ -603,7 +603,7 @@ const { isMobile } = useMobileCheck();
 
 Let's take everything we've learned about shared-component logic and use it to recreate [our `ContextMenu` component from the "Component Reference" chapter](/posts/ffg-fundamentals-component-reference) in smaller pieces.
 
-![You right-click to open the context menu open. Then, when you left-click outside of the bounds of the context menu, it will close it](../ffg-fundamentals-element-reference/context-close.png)
+![You right-click to open the context menu open. Then, when you left-click outside of the bounds of the context menu, it will close it](../ffg-fundamentals-v1-element-reference/context-close.png)
 
 Let's break these components into smaller pieces that we'll create composable logic for:
 

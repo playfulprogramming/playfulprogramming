@@ -42,7 +42,7 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="React Outputs - StackBlitz" src="pfp-code:../ffg-fundamentals-intro-to-components/ffg-fundamentals-react-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
+<iframe data-frame-title="React Outputs - StackBlitz" src="pfp-code:../ffg-fundamentals-v1-intro-to-components/ffg-fundamentals-react-outputs-15?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 <!-- ::end:no-ebook -->
 
 ### Angular
@@ -78,7 +78,7 @@ class FileComponent {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Outputs - StackBlitz" src="pfp-code:../ffg-fundamentals-intro-to-components/ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Outputs - StackBlitz" src="pfp-code:../ffg-fundamentals-v1-intro-to-components/ffg-fundamentals-angular-outputs-15?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 ### Vue
@@ -111,7 +111,7 @@ const emit = defineEmits(["selected"]);
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Vue Outputs - StackBlitz" src="pfp-code:../ffg-fundamentals-intro-to-components/ffg-fundamentals-vue-outputs-15?template=node&embed=1&file=src%2FFile.vue"></iframe>
+<iframe data-frame-title="Vue Outputs - StackBlitz" src="pfp-code:../ffg-fundamentals-v1-intro-to-components/ffg-fundamentals-vue-outputs-15?template=node&embed=1&file=src%2FFile.vue"></iframe>
 <!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->
@@ -269,7 +269,7 @@ Knowing this, let's add conditional rendering to our application.
 
 Right now, we have a list of files to present to the user. However, if we look back at our mockups, we'll notice that we wanted to list folders alongside files.
 
-![A list of directory contents with files and folders listed alongside one another.](../ffg-fundamentals-intro-to-components/fancy_mockup.png)
+![A list of directory contents with files and folders listed alongside one another.](../ffg-fundamentals-v1-intro-to-components/fancy_mockup.png)
 
 Luckily for us, our `File` component already manages much of the behavior we'd like to have with a potential `Folder` component as well. For example, just like files, we want to select a folder when the user has clicked on it so that we can select multiple files and folders at once.
 
@@ -1780,7 +1780,7 @@ function toggleOnlyShow() {
 
 In our last chapter's challenge, we started to create dropdown file structure sidebar components.
 
-![A sidebar with collapsible menu items](../ffg-fundamentals-intro-to-components/sidebar.png)
+![A sidebar with collapsible menu items](../ffg-fundamentals-v1-intro-to-components/sidebar.png)
 
 We did this by hard-coding each of our `ExpandableDropdown` components as individual tags:
 

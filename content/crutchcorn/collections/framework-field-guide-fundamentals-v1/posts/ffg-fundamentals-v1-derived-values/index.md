@@ -627,7 +627,7 @@ In this component, we can see two numbers — one doubling the value of the othe
 
 While building through our continued file hosting application, let's think through how our `Size` can be calculated to be displayed in the UI like so:
 
-![A table of files and folders with "Name", "LAst modified", "Type", and "Size" headings](../ffg-fundamentals-passing-children/file_list.png)
+![A table of files and folders with "Name", "Last modified", "Type", and "Size" headings](../ffg-fundamentals-v1-passing-children/file_list.png)
 
 File sizes are usually measured in how many bytes it takes to store the file. However, this isn't exactly useful information past a certain size. Let's instead use the following JavaScript to figure out how large a file size is, given the number of bytes:
 

@@ -2504,7 +2504,7 @@ While the first set of shapes and the second set of shapes are not the _same_, t
 
 Earlier, in our [element reference](/posts/ffg-fundamentals-element-reference) and [component reference](/posts/ffg-fundamentals-component-reference) chapters, we built out a context menu component to show additional actions a user could take by right-clicking on a file.
 
-![When the user right-clicks, it shows a context menu of options like "Cut", "Copy", and "Paste."](../ffg-fundamentals-element-reference/context-open.png)
+![When the user right-clicks, it shows a context menu of options like "Cut", "Copy", and "Paste."](../ffg-fundamentals-v1-element-reference/context-open.png)
 
 This component has all the key features we need to act as a custom context menu:
 

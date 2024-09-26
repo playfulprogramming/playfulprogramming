@@ -16,7 +16,7 @@
 
 In our previous chapter, we built context menu functionality into our `App` component. This functionality allowed us to right-click on an element and get a list of actions we could take.
 
-![With the context menu open, when you left-click outside of the bounds of the context menu, it will close it](../ffg-fundamentals-element-reference/context-close.png)
+![With the context menu open, when you left-click outside of the bounds of the context menu, it will close it](../ffg-fundamentals-v1-element-reference/context-close.png)
 
 This code works as we'd expect, but it doesn't follow a fundamental pattern of React, Angular, or Vue: It's not componentized.
 
@@ -550,7 +550,7 @@ const Parent = () => {
 
 But wait a moment! If we think back to [our Side Effects chapter](/posts/ffg-fundamentals-side-effects), we'll remember that mutating state outside a component's local values is an example of a side effect.
 
-![A pure function is allowed to mutate state from within its local environment, while a side effect changes data outside its own environment](../ffg-fundamentals-side-effects/pure-vs-side-effect.png)
+![A pure function is allowed to mutate state from within its local environment, while a side effect changes data outside its own environment](../ffg-fundamentals-v1-side-effects/pure-vs-side-effect.png)
 
 Because this kind of in-render side effect mutation can cause strange issues and edge-cases with React, we need to make sure that we're using `useEffect` or `useLayoutEffect`.
 

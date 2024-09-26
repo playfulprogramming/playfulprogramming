@@ -1414,7 +1414,7 @@ That said, this method is reasonable extensible as you can even use this `Featur
 
 [In our "Portals" chapter, we implemented a tooltip that used portals to avoid issues with the stacking context:](/posts/ffg-fundamentals-portals#challenge)
 
-![Hovering over a "send" button will show an alert above the button saying, "This will send an email to the recipients."](../ffg-fundamentals-element-reference/tooltip.png)
+![Hovering over a "send" button will show an alert above the button saying, "This will send an email to the recipients."](../ffg-fundamentals-v1-element-reference/tooltip.png)
 
 This code was functional and led to a nice user experience, but the tooltip wasn't broken out into its own components, making it challenging to share the code elsewhere.
 

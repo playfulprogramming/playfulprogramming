@@ -1347,7 +1347,7 @@ Now, when you test the issue again, you find your modal is above the UnicornChat
 
 If we look back to [our Element Reference chapter's code challenge](/posts/ffg-fundamentals-element-reference#challenge), you might remember that we were tasked with creating a tooltip component:
 
-![Hovering over a "send" button will show an alert above the button saying, "This will send an email to the recipients."](../ffg-fundamentals-element-reference/tooltip.png)
+![Hovering over a "send" button will show an alert above the button saying, "This will send an email to the recipients."](../ffg-fundamentals-v1-element-reference/tooltip.png)
 
 The code we wrote previously for this challenge worked well, but it had a major flaw; it would not show up above other elements with a higher `z-index` in the stacking context.
 
