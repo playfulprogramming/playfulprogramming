@@ -9,7 +9,7 @@ import {
 	OnInit,
 	OnDestroy,
 } from "@angular/core";
-import { NgFor, NgIf, DatePipe } from "@angular/common";
+import { DatePipe } from "@angular/common";
 
 @Component({
 	selector: "file-date",
@@ -28,22 +28,27 @@ class FileDateComponent {
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [FileDateComponent, NgIf],
+	imports: [FileDateComponent],
 	template: `
 		<button
-			(click)="selected.emit()"
+		  (click)="selected.emit()"
 			[style]="
 				isSelected
 					? 'background-color: blue; color: white'
 					: 'background-color: white; color: blue'
 			"
-		>
-			{{ fileName }}
-			<span *ngIf="isFolder; else fileDisplay">Type: Folder</span>
-			<ng-template #fileDisplay><span>Type: File</span></ng-template>
-			<file-date *ngIf="!isFolder" [inputDate]="inputDate" />
+		  >
+		  {{ fileName }}
+		  @if (isFolder) {
+		    <span>Type: Folder</span>
+		  } @else {
+		    <span>Type: File</span>
+		  }
+		  @if (!isFolder) {
+		    <file-date [inputDate]="inputDate" />
+		  }
 		</button>
-	`,
+		`,
 })
 class FileComponent implements OnInit, OnDestroy {
 	@Input() fileName!: string;
@@ -74,33 +79,31 @@ class FileComponent implements OnInit, OnDestroy {
 @Component({
 	selector: "file-list",
 	standalone: true,
-	imports: [FileComponent, NgFor, NgIf],
+	imports: [FileComponent],
 	template: `
 		<div>
-			<button (click)="toggleOnlyShow()">Only show files</button>
-			<ul>
-				<li
-					*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
-				>
-					<file-item
-						*ngIf="onlyShowFiles ? !file.isFolder : true"
-						(selected)="onSelected(i)"
-						[isSelected]="selectedIndex === i"
-						[fileName]="file.fileName"
-						[href]="file.href"
-						[isFolder]="file.isFolder"
-					/>
-				</li>
-			</ul>
+		  <button (click)="toggleOnlyShow()">Only show files</button>
+		  <ul>
+		    @for (file of filesArray; track file.id; let i = $index) {
+		      <li
+		        >
+		        @if (onlyShowFiles ? !file.isFolder : true) {
+		          <file-item
+		            (selected)="onSelected(i)"
+		            [isSelected]="selectedIndex === i"
+		            [fileName]="file.fileName"
+		            [href]="file.href"
+		            [isFolder]="file.isFolder"
+		            />
+		        }
+		      </li>
+		    }
+		  </ul>
 		</div>
-	`,
+		`,
 })
 class FileListComponent {
 	selectedIndex = -1;
-
-	fileTrackBy(index: number, file: File) {
-		return file.id;
-	}
 
 	onSelected(idx: number) {
 		if (this.selectedIndex === idx) {
