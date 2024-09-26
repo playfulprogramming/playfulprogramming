@@ -4,17 +4,21 @@
 			"icon": "discord",
 			"url": "https://discord.gg/FMcvc6T"
 		},
+		"(Twitter)": {
+			"icon": "twitter",
+			"url": "https://x.com/playful_program"
+		},
 		"LinkedIn": {
 			"icon": "linkedin",
 			"url": "https://www.linkedin.com/company/playfulprogramming"
 		},
-		"Twitter": {
-			"icon": "twitter",
-			"url": "https://x.com/playful_program"
-		},
 		"Mastodon": {
 			"icon": "mastodon",
 			"url": "https://hachyderm.io/@playfulprogramming"
+		},
+		"Bluesky": {
+			"icon": "bluesky",
+			"url": "https://bsky.app/profile/playfulprogramming.com"
 		},
 		"Facebook": {
 			"icon": "facebook",
