@@ -116,11 +116,13 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [FileDateComponent, NgIf],
+	imports: [FileDateComponent],
 	template: `
 		<!-- ... -->
 		<!-- This may not show the most up-to-date 'formatDate' or 'formatReadableDate' -->
-		<file-date *ngIf="!isFolder" [inputDate]="inputDate" />
+		@if (!isFolder) {
+			<file-date [inputDate]="inputDate" />
+		}
 		<!-- ... -->
 	`,
 })
