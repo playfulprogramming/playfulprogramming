@@ -248,3 +248,30 @@ This is the content of tab 2.
 This is the content of tab 3.
 <!-- ::end:tabs -->
 ```
+
+## EPUB Generation
+
+We auto-generate an EPUB file for all article collections. This allows you to read contents from Playful Programming on-the-go with an ereader.
+
+Just go to:
+
+```
+https://playfulprogramming.com/YOUR-COLLECTION-SLUG-HERE.epub
+```
+
+To get the EPUB for the related collection.
+
+### Markdown Extensions
+
+We support customizing the contents of the epub by hiding or exlusively showing parts of a markdown file from the generated epub:
+
+```markdown
+<!-- ::start:no-ebook -->
+This is missing from the EPUB
+<!-- ::end:no-ebook -->
+
+<!-- ::start:only-ebook -->
+This is missing from the website
+<!-- ::end:only-ebook -->
+```
+
