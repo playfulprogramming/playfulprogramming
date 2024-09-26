@@ -2,16 +2,16 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
+	imports: [],
 	template: `
 		<div style="padding: 10rem">
-			<div
-				*ngIf="tooltipMeta.show"
+		  @if (tooltipMeta.show) {
+		    <div
 				[style]="
 					'
         display: flex;
@@ -29,8 +29,8 @@ import { NgIf } from "@angular/common";
 					'px;
       '
 				"
-			>
-				<div
+		      >
+		      <div
 					style="
           white-space: nowrap;
           padding: 8px;
@@ -38,10 +38,10 @@ import { NgIf } from "@angular/common";
           color: white;
           border-radius: 16px;
         "
-				>
-					This will send an email to the recipients
-				</div>
-				<div
+		        >
+		        This will send an email to the recipients
+		      </div>
+		      <div
 					style="
           height: 12px;
           width: 12px;
@@ -52,17 +52,18 @@ import { NgIf } from "@angular/common";
           left: 50%;
           zIndex: -1;
         "
-				></div>
-			</div>
-			<button
-				#buttonRef
-				(mouseover)="onMouseOver()"
-				(mouseleave)="onMouseLeave()"
-			>
-				Send
-			</button>
+		      ></div>
+		    </div>
+		  }
+		  <button
+		    #buttonRef
+		    (mouseover)="onMouseOver()"
+		    (mouseleave)="onMouseLeave()"
+		    >
+		    Send
+		  </button>
 		</div>
-	`,
+		`,
 })
 class AppComponent implements OnDestroy {
 	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;

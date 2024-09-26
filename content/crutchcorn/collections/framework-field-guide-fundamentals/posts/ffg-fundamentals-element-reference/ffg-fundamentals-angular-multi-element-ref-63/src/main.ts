@@ -2,23 +2,25 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, ViewChildren, QueryList, ElementRef } from "@angular/core";
-import { NgFor } from "@angular/common";
+
 
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgFor],
+	imports: [],
 	template: `
 		<div>
-			<button (click)="scrollToTop()">Scroll to top</button>
-			<ul style="height: 100px; overflow: scroll">
-				<li #listItem *ngFor="let message of messages">
-					{{ message }}
-				</li>
-			</ul>
-			<button (click)="scrollToBottom()">Scroll to bottom</button>
+		  <button (click)="scrollToTop()">Scroll to top</button>
+		  <ul style="height: 100px; overflow: scroll">
+		    @for (message of messages; track message) {
+		      <li #listItem>
+		        {{ message }}
+		      </li>
+		    }
+		  </ul>
+		  <button (click)="scrollToBottom()">Scroll to bottom</button>
 		</div>
-	`,
+		`,
 })
 class AppComponent {
 	@ViewChildren("listItem") els!: QueryList<ElementRef<HTMLElement>>;

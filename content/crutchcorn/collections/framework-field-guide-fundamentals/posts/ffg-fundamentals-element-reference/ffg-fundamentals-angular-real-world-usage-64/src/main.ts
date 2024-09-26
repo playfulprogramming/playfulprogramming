@@ -8,20 +8,20 @@ import {
 	OnDestroy,
 	ViewChild,
 } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
+	imports: [],
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
-			<div (contextmenu)="open($event)">Right click on me!</div>
+		  <div (contextmenu)="open($event)">Right click on me!</div>
 		</div>
-		<div
-			*ngIf="isOpen"
-			tabIndex="0"
-			#contextMenu
+		@if (isOpen) {
+		  <div
+		    tabIndex="0"
+		    #contextMenu
 			[style]="
 				'
       position: fixed;
@@ -37,11 +37,12 @@ import { NgIf } from "@angular/common";
       padding: 1rem;
     '
 			"
-		>
-			<button (click)="close()">X</button>
-			This is a context menu
-		</div>
-	`,
+		    >
+		    <button (click)="close()">X</button>
+		    This is a context menu
+		  </div>
+		}
+		`,
 })
 class AppComponent implements AfterViewInit, OnDestroy {
 	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;
