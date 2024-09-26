@@ -7,20 +7,22 @@ import {
 	QueryList,
 	TemplateRef,
 } from "@angular/core";
-import { NgFor, NgTemplateOutlet } from "@angular/common";
+import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
 	selector: "parent-list",
 	standalone: true,
-	imports: [NgFor, NgTemplateOutlet],
+	imports: [NgTemplateOutlet],
 	template: `
 		<p>There are {{ children.length }} number of items in this array</p>
 		<ul>
-			<li *ngFor="let child of children">
-				<ng-template [ngTemplateOutlet]="child" />
-			</li>
+		  @for (child of children; track child) {
+		    <li>
+		      <ng-template [ngTemplateOutlet]="child" />
+		    </li>
+		  }
 		</ul>
-	`,
+		`,
 })
 class ParentListComponent {
 	@ContentChildren("listItem") children!: QueryList<TemplateRef<any>>;
@@ -28,16 +30,18 @@ class ParentListComponent {
 
 @Component({
 	standalone: true,
-	imports: [ParentListComponent, NgFor],
+	imports: [ParentListComponent],
 	selector: "app-root",
 	template: `
 		<parent-list>
-			<ng-template *ngFor="let item of list; let i = index" #listItem>
-				<span>{{ i }} {{ item }}</span>
-			</ng-template>
+		  @for (item of list; track item; let i = $index) {
+		    <ng-template #listItem>
+		      <span>{{ i }} {{ item }}</span>
+		    </ng-template>
+		  }
 		</parent-list>
 		<button (click)="addOne()">Add</button>
-	`,
+		`,
 })
 class AppComponent {
 	list = [1, 42, 13];
