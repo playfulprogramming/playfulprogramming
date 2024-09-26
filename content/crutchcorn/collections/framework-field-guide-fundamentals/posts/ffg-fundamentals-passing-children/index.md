@@ -569,10 +569,10 @@ class RainbowExclamationMarkComponent {}
 @Component({
 	selector: "toggle-button-list",
 	standalone: true,
-	imports: [ToggleButtonComponent, RainbowExclamationMarkComponent, NgFor],
+	imports: [ToggleButtonComponent, RainbowExclamationMarkComponent],
 	template: `
 		<toggle-button>
-			Hello <span *ngFor="let friend of friends">{{ friend }} </span>!
+			Hello @for (friend of friends; track friend) { <span>{{ friend }} </span> }!
 		</toggle-button>
 		<toggle-button>
 			Hello other friends<rainbow-exclamation-mark />
@@ -973,7 +973,7 @@ Angular is unlike the other frameworks covered in this book. For example, let's 
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [FileDateComponent, NgIf],
+	imports: [FileDateComponent],
 	template: `
 		<tr [attr.aria-selected]="isSelected" (click)="selected.emit()">
 			<!-- Removed other children for readability -->
@@ -990,15 +990,13 @@ class FileComponent {
 @Component({
 	selector: "file-table-body",
 	standalone: true,
-	imports: [NgFor, NgIf, FileComponent],
+	imports: [FileComponent],
 	template: `
 		<tbody>
-			<ng-container
-				*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
-			>
+			@for (file of filesArray; let i = $index; track file.id) {
 				<!-- Removed props for readability -->
 				<file-item />
-			</ng-container>
+			}
 		</tbody>
 	`,
 })
@@ -1150,7 +1148,7 @@ Knowing how `host` and `selector` can properly work together, let's finally buil
 @Component({
 	selector: "tr[file-item]",
 	standalone: true,
-	imports: [FileDateComponent, NgIf],
+	imports: [FileDateComponent],
 	host: {
 		"[attr.aria-selected]": "isSelected",
 		"(click)": "selected.emit()",
@@ -1164,9 +1162,16 @@ Knowing how `host` and `selector` can properly work together, let's finally buil
 		<td>
 			<a [href]="href" style="color: inherit">{{ fileName }}</a>
 		</td>
-		<td *ngIf="isFolder; else fileDisplay">Type: Folder</td>
-		<ng-template #fileDisplay><td>Type: File</td></ng-template>
-		<td><file-date *ngIf="!isFolder" [inputDate]="inputDate" /></td>
+		@if (isFolder) {
+			<td>Type: Folder</td>
+		} else {
+			<td>Type: File</td>
+		}
+		<td>
+			@if (!isFolder) {
+				<file-date [inputDate]="inputDate" />
+			}
+		</td>
 	`,
 })
 class FileComponent implements OnInit, OnDestroy {
@@ -1184,27 +1189,22 @@ class FileComponent implements OnInit, OnDestroy {
 @Component({
 	selector: "tbody[file-table-body]",
 	standalone: true,
-	imports: [NgFor, NgIf, FileComponent],
+	imports: [FileComponent],
 	template: `
-		<ng-container
-			*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
-		>
-			<tr
-				file-item
-				*ngIf="!file.isFolder"
-				[isSelected]="false"
-				[fileName]="file.fileName"
-				[href]="file.href"
-				[isFolder]="file.isFolder"
-			></tr>
-		</ng-container>
+		@for (file of filesArray; let i = $index; track file.id) {
+			@if (!file.isFolder) {
+				<tr
+					file-item
+					[isSelected]="false"
+					[fileName]="file.fileName"
+					[href]="file.href"
+					[isFolder]="file.isFolder"
+				></tr>
+			}
+		}
 	`,
 })
 class FileTableBodyComponent {
-	fileTrackBy(index: number, file: File) {
-		return file.id;
-	}
-
 	filesArray: File[] = [
 		{
 			fileName: "File one",
@@ -1226,7 +1226,7 @@ class FileTableBodyComponent {
 @Component({
 	selector: "file-table",
 	standalone: true,
-	imports: [NgFor, NgIf, FileTableBody],
+	imports: [FileTableBody],
 	template: `
 		<table style="border-spacing: 0;">
 			<tbody file-table-body></tbody>
