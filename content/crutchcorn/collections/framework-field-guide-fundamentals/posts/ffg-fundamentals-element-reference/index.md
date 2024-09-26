@@ -99,32 +99,32 @@ function App() {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div (contextmenu)="open($event)">Right click on me!</div>
 		</div>
-		<div
-			*ngIf="isOpen"
-			[style]="
-				'
-      position: fixed;
-      top: ' +
-				mouseBounds.y +
-				'px;
-      left: ' +
-				mouseBounds.x +
-				'px;
-      background: white;
-      border: 1px solid black;
-      border-radius: 16px;
-      padding: 1rem;
-    '
-			"
-		>
-			<button (click)="close()">X</button>
-			This is a context menu
-		</div>
+		@if (isOpen) {
+			<div
+				[style]="
+					'
+		  position: fixed;
+		  top: ' +
+					mouseBounds.y +
+					'px;
+		  left: ' +
+					mouseBounds.x +
+					'px;
+		  background: white;
+		  border: 1px solid black;
+		  border-radius: 16px;
+		  padding: 1rem;
+		'
+				"
+			>
+				<button (click)="close()">X</button>
+				This is a context menu
+			</div>
+		}
 	`,
 })
 class AppComponent {
@@ -480,15 +480,14 @@ class RenderParagraphComponent implements OnInit {
 
 Well, let's think about the following example:
 
-```angular-ts {6-8}
+```angular-ts {5-7}
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
-	imports: [NgIf],
 	template: `
-		<ng-container *ngIf="true">
+		@if (true) {
 			<p #pTag>Hello, world!</p>
-		</ng-container>
+		}
 	`,
 })
 class RenderParagraphComponent implements OnInit {
@@ -501,11 +500,11 @@ class RenderParagraphComponent implements OnInit {
 }
 ```
 
-Here, we're conditionally rendering our `p` tag using an `ngIf`. But see, under the hood, `ngIf` won't initialize the `<p>` tag until _after_ the `ngOnInit` lifecycle method is executed.
+Here, we're conditionally rendering our `p` tag using an `@if`. But see, under the hood, `@if` won't initialize the `<p>` tag until _after_ the `ngOnInit` lifecycle method is executed.
 
 To solve this, we can do one of two things:
 
-1. Tell Angular that our code doesn't contain any dynamic HTML (IE: No `*ngIf`, `*ngFor`, or `<ng-template>`s)
+1. Tell Angular that our code doesn't contain any dynamic HTML (IE: No `@if`s or `@for`s)
 2. Use a different lifecycle method that occurs after `ngOnInit`.
 
 ### Using `{static: true}` to Use `ViewChild` Immediately {#using-static-true}
@@ -538,11 +537,10 @@ However, keep in mind that if you _do_ later add any dynamic HTML our element wi
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
-	imports: [NgIf],
 	template: `
-		<ng-container *ngIf="true">
+		@if (true) {
 			<p #pTag>Hello, world!</p>
-		</ng-container>
+		}
 	`,
 })
 class RenderParagraphComponent implements OnInit {
@@ -563,16 +561,14 @@ While the values of a dynamic HTML may not be defined in `ngOnInit`, there is a 
 
 ```angular-ts
 import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
-import { NgIf } from "@angular/common";
 
 @Component({
 	selector: "paragraph-tag",
 	standalone: true,
-	imports: [NgIf],
 	template: `
-		<ng-container *ngIf="true">
+		@if (true) {
 			<p #pTag>Hello, world!</p>
-		</ng-container>
+		}
 	`,
 })
 class RenderParagraphComponent implements AfterViewInit {
@@ -748,14 +744,13 @@ Using `ViewChildren`, we can access [template reference variables](/posts/ffg-fu
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgFor],
 	template: `
 		<div>
 			<button (click)="scrollToTop()">Scroll to top</button>
 			<ul style="height: 100px; overflow: scroll">
-				<li #listItem *ngFor="let message of messages">
-					{{ message }}
-				</li>
+				@for (message of messages; track message) {
+					<li #listItem>{{ message }}</li>
+				}
 			</ul>
 			<button (click)="scrollToBottom()">Scroll to bottom</button>
 		</div>
@@ -971,34 +966,34 @@ Additionally, we'll use `ViewChild` to track the `contextMenu` element and `.foc
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div (contextmenu)="open($event)">Right click on me!</div>
 		</div>
-		<div
-			*ngIf="isOpen"
-			tabIndex="0"
-			#contextMenu
-			[style]="
-				'
-      position: fixed;
-      top: ' +
-				mouseBounds.y +
-				'px;
-      left: ' +
-				mouseBounds.x +
-				'px;
-      background: white;
-      border: 1px solid black;
-      border-radius: 16px;
-      padding: 1rem;
-    '
-			"
-		>
-			<button (click)="close()">X</button>
-			This is a context menu
-		</div>
+		@if (isOpen) {
+			<div
+				tabIndex="0"
+				#contextMenu
+				[style]="
+					'
+		  position: fixed;
+		  top: ' +
+					mouseBounds.y +
+					'px;
+		  left: ' +
+					mouseBounds.x +
+					'px;
+		  background: white;
+		  border: 1px solid black;
+		  border-radius: 16px;
+		  padding: 1rem;
+		'
+				"
+			>
+				<button (click)="close()">X</button>
+				This is a context menu
+			</div>
+		}
 	`,
 })
 class AppComponent implements AfterViewInit, OnDestroy {
@@ -1205,13 +1200,14 @@ function App() {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
 	template: `
 		<div style="padding: 10rem">
 			<button #buttonRef (mouseover)="onMouseOver()">Send</button>
-			<div *ngIf="tooltipMeta.show">
-				This will send an email to the recipients
-			</div>
+			@if (tooltipMeta.show) {
+				<div>
+					This will send an email to the recipients
+				</div>
+			}
 		</div>
 	`,
 })
@@ -1338,7 +1334,6 @@ function App() {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
 	template: `
 		<div style="padding: 10rem">
 			<button
@@ -1348,9 +1343,11 @@ function App() {
 			>
 				Send
 			</button>
-			<div *ngIf="tooltipMeta.show">
-				This will send an email to the recipients
-			</div>
+			@if (tooltipMeta.show) {
+				<div>
+					This will send an email to the recipients
+				</div>
+			}
 		</div>
 	`,
 })
@@ -1519,30 +1516,30 @@ function App() {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
 	template: `
 		<div style="padding: 10rem">
-			<div
-				*ngIf="tooltipMeta.show"
-				[style]="
-					'
-        position: fixed;
-        top: ' +
-					(tooltipMeta.y - tooltipMeta.height - 8) +
-					'px;
-      '
-				"
-			>
-				This will send an email to the recipients
+			@if (tooltipMeta.show) {
+				<div
+					[style]="
+						'
+			position: fixed;
+			top: ' +
+						(tooltipMeta.y - tooltipMeta.height - 8) +
+						'px;
+		  '
+					"
+				>
+					This will send an email to the recipients
+				</div>
+				<button
+					#buttonRef
+					(mouseover)="onMouseOver()"
+					(mouseleave)="onMouseLeave()"
+				>
+					Send
+				</button>
 			</div>
-			<button
-				#buttonRef
-				(mouseover)="onMouseOver()"
-				(mouseleave)="onMouseLeave()"
-			>
-				Send
-			</button>
-		</div>
+		}
 	`,
 })
 class AppComponent implements OnDestroy {
@@ -1789,37 +1786,37 @@ function App() {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
 	template: `
 		<div style="padding: 10rem">
-			<div
-				*ngIf="tooltipMeta.show"
-				[style]="
-					'
-        display: flex;
-        overflow: visible;
-        justify-content: center;
-        width: ' +
-					tooltipMeta.width +
-					'px;
-        position: fixed;
-        top: ' +
-					(tooltipMeta.y - tooltipMeta.height - 8) +
-					'px;
-        left: ' +
-					tooltipMeta.x +
-					'px;
-      '
-				"
-			>
+			@if (tooltipMeta.show) {
 				<div
-					style="
-          white-space: nowrap;
-        "
+					[style]="
+						'
+			display: flex;
+			overflow: visible;
+			justify-content: center;
+			width: ' +
+						tooltipMeta.width +
+						'px;
+			position: fixed;
+			top: ' +
+						(tooltipMeta.y - tooltipMeta.height - 8) +
+						'px;
+			left: ' +
+						tooltipMeta.x +
+						'px;
+		  '
+					"
 				>
-					This will send an email to the recipients
+					<div
+						style="
+			  white-space: nowrap;
+			"
+					>
+						This will send an email to the recipients
+					</div>
 				</div>
-			</div>
+			}
 			<button
 				#buttonRef
 				(mouseover)="onMouseOver()"
@@ -2097,53 +2094,53 @@ function App() {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
 	template: `
 		<div style="padding: 10rem">
-			<div
-				*ngIf="tooltipMeta.show"
-				[style]="
-					'
-        display: flex;
-        overflow: visible;
-        justify-content: center;
-        width: ' +
-					tooltipMeta.width +
-					'px;
-        position: fixed;
-        top: ' +
-					(tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8) +
-					'px;
-        left: ' +
-					tooltipMeta.x +
-					'px;
-      '
-				"
-			>
+			@if (tooltipMeta.show) {
 				<div
-					style="
-          white-space: nowrap;
-          padding: 8px;
-          background: #40627b;
-          color: white;
-          border-radius: 16px;
-        "
+					[style]="
+						'
+			display: flex;
+			overflow: visible;
+			justify-content: center;
+			width: ' +
+						tooltipMeta.width +
+						'px;
+			position: fixed;
+			top: ' +
+						(tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8) +
+						'px;
+			left: ' +
+						tooltipMeta.x +
+						'px;
+		  '
+					"
 				>
-					This will send an email to the recipients
+					<div
+						style="
+			  white-space: nowrap;
+			  padding: 8px;
+			  background: #40627b;
+			  color: white;
+			  border-radius: 16px;
+			"
+					>
+						This will send an email to the recipients
+					</div>
+					<div
+						style="
+			  height: 12px;
+			  width: 12px;
+			  transform: rotate(45deg) translateX(-50%);
+			  background: #40627b;
+			  bottom: calc(-6px - 4px);
+			  position: absolute;
+			  left: 50%;
+			  zIndex: -1;
+			"
+					></div>
 				</div>
-				<div
-					style="
-          height: 12px;
-          width: 12px;
-          transform: rotate(45deg) translateX(-50%);
-          background: #40627b;
-          bottom: calc(-6px - 4px);
-          position: absolute;
-          left: 50%;
-          zIndex: -1;
-        "
-				></div>
-			</div>
+			}
 			<button
 				#buttonRef
 				(mouseover)="onMouseOver()"
