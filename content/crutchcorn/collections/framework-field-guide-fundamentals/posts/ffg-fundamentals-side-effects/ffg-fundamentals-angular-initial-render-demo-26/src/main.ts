@@ -2,7 +2,7 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 
 @Component({
 	selector: "child-comp",
@@ -14,13 +14,15 @@ class ChildComponent {}
 @Component({
 	selector: "parent-comp",
 	standalone: true,
-	imports: [ChildComponent, NgIf],
+	imports: [ChildComponent],
 	template: `
 		<div>
-			<button (click)="setShowChild()">Toggle Child</button>
-			<child-comp *ngIf="showChild" />
+		  <button (click)="setShowChild()">Toggle Child</button>
+		  @if (showChild) {
+		    <child-comp />
+		  }
 		</div>
-	`,
+		`,
 })
 class ParentComponent {
 	showChild = true;

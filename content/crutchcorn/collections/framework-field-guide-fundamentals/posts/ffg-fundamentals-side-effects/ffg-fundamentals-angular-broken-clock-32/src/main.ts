@@ -2,7 +2,7 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnInit } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 
 @Component({
 	selector: "clock-comp",
@@ -41,13 +41,15 @@ function prefixZero(number: number) {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, ClockComponent],
+	imports: [ClockComponent],
 	template: `
 		<div>
-			<button (click)="setShowClock(!showClock)">Toggle clock</button>
-			<clock-comp *ngIf="showClock" />
+		  <button (click)="setShowClock(!showClock)">Toggle clock</button>
+		  @if (showClock) {
+		    <clock-comp />
+		  }
 		</div>
-	`,
+		`,
 })
 class AppComponent {
 	showClock = true;

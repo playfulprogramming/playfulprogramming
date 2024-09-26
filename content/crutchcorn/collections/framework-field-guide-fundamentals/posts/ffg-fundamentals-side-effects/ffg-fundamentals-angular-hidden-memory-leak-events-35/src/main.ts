@@ -2,7 +2,7 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 
 @Component({
 	selector: "app-alert",
@@ -23,15 +23,17 @@ class AlertComponent implements OnInit {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [AlertComponent, NgIf],
+	imports: [AlertComponent],
 	template: `
 		<div>
-			<!-- Try clicking and unclicking quickly -->
-			<button (click)="toggle()">Toggle</button>
-			<!-- Binding to an event -->
-			<app-alert *ngIf="show" (alert)="alertUser()" />
+		  <!-- Try clicking and unclicking quickly -->
+		  <button (click)="toggle()">Toggle</button>
+		  <!-- Binding to an event -->
+		  @if (show) {
+		    <app-alert (alert)="alertUser()" />
+		  }
 		</div>
-	`,
+		`,
 })
 class AppComponent {
 	show = false;

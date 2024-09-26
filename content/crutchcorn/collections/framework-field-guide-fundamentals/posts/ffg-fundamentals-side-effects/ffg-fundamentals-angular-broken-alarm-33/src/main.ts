@@ -2,7 +2,7 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 
 @Component({
 	selector: "alarm-screen",
@@ -32,20 +32,19 @@ class AlarmScreenComponent implements OnInit {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, AlarmScreenComponent],
+	imports: [AlarmScreenComponent],
 	template: `
-		<p *ngIf="!timerEnabled; else timerDisplay">There is no timer</p>
-		<ng-template #timerDisplay>
+		@if (!timerEnabled) {
+		  <p>There is no timer</p>
+		} @else if (secondsLeft === 0) {
 			<alarm-screen
-				*ngIf="secondsLeft === 0; else secondsDisplay"
 				(snooze)="snooze()"
 				(disable)="disable()"
 			/>
-		</ng-template>
-		<ng-template #secondsDisplay>
+		} @else {
 			<p>{{ secondsLeft }} seconds left in timer</p>
-		</ng-template>
-	`,
+		}
+		`,
 })
 class AppComponent implements OnInit {
 	secondsLeft = 5;
