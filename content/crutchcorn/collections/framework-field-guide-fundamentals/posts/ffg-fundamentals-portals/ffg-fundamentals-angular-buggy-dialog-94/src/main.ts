@@ -2,7 +2,7 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
-import { NgFor, NgIf } from "@angular/common";
+
 
 @Component({
 	selector: "delete-modal",
@@ -65,15 +65,17 @@ class FooterComponent {}
 @Component({
 	selector: "body-comp",
 	standalone: true,
-	imports: [NgFor, FolderIconComponent],
+	imports: [FolderIconComponent],
 	template: `
 		<ul class="list-container">
-			<li class="list-item" *ngFor="let fileIdx of files">
-				<folder-icon />
-				<span>File number {{ fileIdx + 1 }}</span>
-			</li>
+		  @for (fileIdx of files; track fileIdx) {
+		    <li class="list-item">
+		      <folder-icon />
+		      <span>File number {{ fileIdx + 1 }}</span>
+		    </li>
+		  }
 		</ul>
-	`,
+		`,
 })
 class BodyComponent {
 	files = Array.from({ length: 10 }, (_, i) => i);
@@ -82,20 +84,22 @@ class BodyComponent {
 @Component({
 	selector: "header-comp",
 	standalone: true,
-	imports: [NgIf, ModalComponent, FolderIconComponent, DeleteIconComponent],
+	imports: [ModalComponent, FolderIconComponent, DeleteIconComponent],
 	template: `
 		<div class="header-container">
-			<delete-modal *ngIf="shouldShowModal" />
-			<span class="icon-container">
-				<folder-icon />
-			</span>
-			<span class="header-title">Main folder</span>
-			<span class="auto"></span>
-			<button class="icon-btn" (click)="showModal()">
-				<delete-icon />
-			</button>
+		  @if (shouldShowModal) {
+		    <delete-modal />
+		  }
+		  <span class="icon-container">
+		    <folder-icon />
+		  </span>
+		  <span class="header-title">Main folder</span>
+		  <span class="auto"></span>
+		  <button class="icon-btn" (click)="showModal()">
+		    <delete-icon />
+		  </button>
 		</div>
-	`,
+		`,
 })
 class HeaderComponent {
 	shouldShowModal = false;

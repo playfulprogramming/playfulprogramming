@@ -2,12 +2,12 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
+	imports: [],
 	template: `
 		<div
 			style="
@@ -19,10 +19,10 @@ import { NgIf } from "@angular/common";
 			"
 		></div>
 		<div
-			style="z-index: 1; position: relative; padding-left: 10rem; padding-top: 2rem"
-		>
-			<div
-				*ngIf="tooltipMeta.show"
+		  style="z-index: 1; position: relative; padding-left: 10rem; padding-top: 2rem"
+		  >
+		  @if (tooltipMeta.show) {
+		    <div
 				[style]="
 					'
 				z-index: 9;
@@ -41,8 +41,8 @@ import { NgIf } from "@angular/common";
 					'px;
       '
 				"
-			>
-				<div
+		      >
+		      <div
 					style="
           white-space: nowrap;
           padding: 8px;
@@ -50,10 +50,10 @@ import { NgIf } from "@angular/common";
           color: white;
           border-radius: 16px;
         "
-				>
-					This will send an email to the recipients
-				</div>
-				<div
+		        >
+		        This will send an email to the recipients
+		      </div>
+		      <div
 					style="
           height: 12px;
           width: 12px;
@@ -64,17 +64,18 @@ import { NgIf } from "@angular/common";
           left: 50%;
           zIndex: -1;
         "
-				></div>
-			</div>
-			<button
-				#buttonRef
-				(mouseover)="onMouseOver()"
-				(mouseleave)="onMouseLeave()"
-			>
-				Send
-			</button>
+		      ></div>
+		    </div>
+		  }
+		  <button
+		    #buttonRef
+		    (mouseover)="onMouseOver()"
+		    (mouseleave)="onMouseLeave()"
+		    >
+		    Send
+		  </button>
 		</div>
-	`,
+		`,
 })
 class AppComponent implements OnDestroy {
 	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
