@@ -2,18 +2,20 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
-import { NgFor } from "@angular/common";
+
 
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgFor],
+	imports: [],
 	template: `
 		<h1>To-do items</h1>
 		<ul>
-			<li *ngFor="let item of priorityItems">{{ item.name }}</li>
+		  @for (item of priorityItems; track item) {
+		    <li>{{ item.name }}</li>
+		  }
 		</ul>
-	`,
+		`,
 })
 class AppComponent {
 	items = [
