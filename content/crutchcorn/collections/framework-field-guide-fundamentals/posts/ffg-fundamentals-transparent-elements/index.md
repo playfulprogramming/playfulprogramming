@@ -77,7 +77,7 @@ const FileList = () => {
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [FileDateComponent, NgIf],
+	imports: [FileDateComponent],
 	template: `
 		<button
 			(click)="selected.emit()"
@@ -88,9 +88,14 @@ const FileList = () => {
 			"
 		>
 			{{ fileName }}
-			<span *ngIf="isFolder; else fileDisplay">Type: Folder</span>
-			<ng-template #fileDisplay><span>Type: File</span></ng-template>
-			<file-date *ngIf="!isFolder" [inputDate]="inputDate" />
+			@if (isFolder) {
+				<span>Type: Folder</span>
+			} @else {
+				<span>Type: File</span></ng-template>
+			}
+			@if (!isFolder) {
+				<file-date [inputDate]="inputDate" />
+			}
 		</button>
 	`,
 })
@@ -108,20 +113,23 @@ class FileComponent implements OnInit, OnDestroy {
 @Component({
 	selector: "file-list",
 	standalone: true,
-	imports: [NgFor, NgIf, FileComponent],
+	imports: [FileComponent],
 	template: `
 		<!-- ... -->
 		<ul>
-			<li *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
-				<file-item
-					*ngIf="onlyShowFiles ? !file.isFolder : true"
-					(selected)="onSelected(i)"
-					[isSelected]="selectedIndex === i"
-					[fileName]="file.fileName"
-					[href]="file.href"
-					[isFolder]="file.isFolder"
-				/>
-			</li>
+			@for (file of filesArray; let i = $index; track file.id) {
+				<li>
+					@if (onlyShowFiles ? !file.isFolder : true) {
+						<file-item
+							(selected)="onSelected(i)"
+							[isSelected]="selectedIndex === i"
+							[fileName]="file.fileName"
+							[href]="file.href"
+							[isFolder]="file.isFolder"
+						/>
+					}
+				</li>
+			}
 		</ul>
 		<!-- ... -->
 	`,
@@ -326,27 +334,51 @@ import { Fragment } from "react";
 
 Angular's version of the `nothing` element is the `ng-container` element.
 
-```html
+```angular-html
 <ul>
-	<ng-container
-		*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
-	>
-		<li *ngIf="onlyShowFiles ? !file.isFolder : true">
-			<file-item
-				(selected)="onSelected(i)"
-				[isSelected]="selectedIndex === i"
-				[fileName]="file.fileName"
-				[href]="file.href"
-				[isFolder]="file.isFolder"
-			/>
-		</li>
-	</ng-container>
+	@for (file of filesArray; let i = $index; track file.id) {
+		<ng-container>
+			@if (onlyShowFiles ? !file.isFolder : true) {
+				<li>
+					<file-item
+						(selected)="onSelected(i)"
+						[isSelected]="selectedIndex === i"
+						[fileName]="file.fileName"
+						[href]="file.href"
+						[isFolder]="file.isFolder"
+					/>
+				</li>
+			}
+		</ng-container>
+	}
 </ul>
 ```
 
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Transparent Files After - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-transparent-files-after-51?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
+
+However, unlike React and Vue; we don't need to use `ng-container` in this example. Angular allows us to have multiple elements at the root of any control flow block, so we can remove the `ng-container` and have the following:
+
+```angular-html
+<ul>
+	@for (file of filesArray; let i = $index; track file.id) {
+		@if (onlyShowFiles ? !file.isFolder : true) {
+			<li>
+				<file-item
+					(selected)="onSelected(i)"
+					[isSelected]="selectedIndex === i"
+					[fileName]="file.fileName"
+					[href]="file.href"
+					[isFolder]="file.isFolder"
+				/>
+			</li>
+		}
+	}
+</ul>
+```
+
+This has the same effect as the previous example, but with less code. We'll continue to use `ng-container` in this chapter to keep the examples consistent with other frameworks, but there's little need for it in most modern Angular codebases.
 
 # Vue
 
@@ -575,15 +607,16 @@ class FileActionButtonsComponent {
 @Component({
 	selector: "button-bar",
 	standalone: true,
-	imports: [NgIf, FileActionButtonsComponent],
+	imports: [FileActionButtonsComponent],
 	template: `
 		<div style="display: flex; gap: 1rem">
-			<file-action-buttons
-				*ngIf="fileSelected"
-				(delete)="delete.emit()"
-				(copy)="copy.emit()"
-				(favorite)="favorite.emit()"
-			/>
+			@if (fileSelected) {
+				<file-action-buttons
+					(delete)="delete.emit()"
+					(copy)="copy.emit()"
+					(favorite)="favorite.emit()"
+				/>
+			}
 			<button (click)="settings.emit()">Settings</button>
 		</div>
 	`,
