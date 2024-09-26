@@ -2,7 +2,7 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 
 @Component({
 	selector: "file-action-buttons",
@@ -29,18 +29,19 @@ class FileActionButtonsComponent {
 @Component({
 	selector: "button-bar",
 	standalone: true,
-	imports: [NgIf, FileActionButtonsComponent],
+	imports: [FileActionButtonsComponent],
 	template: `
 		<div style="display: flex; gap: 1rem">
-			<file-action-buttons
-				*ngIf="fileSelected"
-				(delete)="delete.emit()"
-				(copy)="copy.emit()"
-				(favorite)="favorite.emit()"
-			/>
-			<button (click)="settings.emit()">Settings</button>
+		  @if (fileSelected) {
+		    <file-action-buttons
+		      (delete)="delete.emit()"
+		      (copy)="copy.emit()"
+		      (favorite)="favorite.emit()"
+		      />
+		  }
+		  <button (click)="settings.emit()">Settings</button>
 		</div>
-	`,
+		`,
 })
 class ButtonBarComponent {
 	@Input() fileSelected!: boolean;
