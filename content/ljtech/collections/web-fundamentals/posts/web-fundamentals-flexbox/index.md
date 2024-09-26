@@ -43,7 +43,7 @@ flex-direction: row;
 
 # Using `flex-wrap`
 
-This property allows you to make dynamic layouts that can respond to dimension constraints. In practice, it means you can tell a `flex` layout to wrap into a new rowUr columnUf there is not enough space available. Let's look at a simple example:
+This property allows you to make dynamic layouts that can respond to dimension constraints. In practice, it means you can tell a `flex` layout to wrap into a new row or column if there is not enough space available. Let's look at a simple example:
 
 ```css
 .flex-container {
