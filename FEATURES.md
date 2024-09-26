@@ -319,3 +319,32 @@ We support the following properties on a post:
   - Required if the post is a cross-post
 - `noindex`: Should the article be hidden from the site's list view, `sitemap`, and search?
   - Useful for draft or archived content
+
+### Collection Frontmatter
+
+- `title`: The title of the collection
+- `description`: The description of the collection
+  - Unlike posts, without one nothing will auto-generate for you.
+- `authors`:  A list of ids of the related authors
+  - Only used when there's multiple authors per article. Must list all authors, including the one the post is in the folder of.
+- `coverImg`: The cover image of the collection
+  - Used in EPUB generation for the cover
+  - Used in the auto-generated page as the top image
+- `socialImg`: The image used in social media preview pages
+  - If unused, `coverImg` will be used instead
+- `type`: The type of collection it is
+  - `"book"` - Used for SEO
+  - Nothing (defualt) - Unused
+- `pageLayout`: 
+  - `"none"` - Do not auto-generate a page for this collection
+    - Useful for custom pages like The Framework Field Guide 
+  - Nothing (defualt) - auto-generate a page for the collection
+- `customChaptersText`: The custom text to be used in the "A part of a series" text
+- `tags`: A list of related tags
+  - Must match [one of these](./content/data/tags.json) tags.
+- `published`: The publication date of the article
+  - Must be an ISO timestamp of `YYYY-MM-DD`
+- `buttons`: A list of buttons to show on the auto-generated page
+  - Must be an array of `{text: string, url: string}`
+- `chapterList`: A list of extra chapters to include in addition to the auto-discovered ones
+  - Must be an array of `{title: string;description: string;order: string;}`
