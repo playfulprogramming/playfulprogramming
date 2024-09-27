@@ -203,13 +203,128 @@ function computed(fn, signals) {
 
 In fact, this idea that a `computed` signal is just a normal `signal` but in read-only mode is one which is critical to understanding much of the underlying optimizations for many signals implementations.
 
+# Effects
+
+```javascript
+function effect(fn, signals) {
+    for (let signal of signals) {
+      signal.subscribe(() => {
+        fn();
+      });
+    }
+}
+```
+
+```javascript
+
+const a = signal(1);
+const b = signal(2);
+const sum = computed(() => a.get() + b.get(), [a, b]);
+
+effect(() => {
+    console.log(sum.get());
+}, [sum]);
+
+a.set(2);
+// "4" is logged to the console
+b.set(3);
+// "5" is logged to the console
+```
+
+Now we can get rid of `subscribe`-ing manually in our previous addition sample all-together:
+
+```javascript
+const num1 = document.getElementById('num1');
+const num2 = document.getElementById('num2');
+const output = document.getElementById('output');
+
+const num1Signal = signal(0);
+const num2Signal = signal(0);
+const outputSignal = computed(
+	() => num1Signal.get() + num2Signal.get(),
+	[num1Signal, num2Signal]
+);
+
+num1.addEventListener('input', (e) => {
+	num1Signal.set(e.target.valueAsNumber);
+});
+
+num2.addEventListener('input', (e) => {
+	num2Signal.set(e.target.valueAsNumber);
+});
+
+effect(() => {
+	output.innerText = outputSignal.get();
+}, [outputSignal]);
+```
+
+## Effects in Computed
+
+Now that we've removed manual `subscribe`-ing from our usage of `signal`s, let's remove it from our internal `computed` example as well:
+
+```javascript
+function computed(fn, signals) {
+    const valueSignal = signal(fn());
+
+    effect(() => {
+      valueSignal.set(fn());
+    }, signals);
+
+    return {
+      get: valueSignal.get,
+      subscribe: valueSignal.subscribe,
+    };
+}
+```
+
+Now the only place we use `.subscribe` is inside of `effect`.
+
 # Auto-tracking
 
 
 
+```javascript
+var Listener = null;
+
+function signal(initialValue) {
+  let value = initialValue;
+  const subscribers = new Set();
+
+  return {
+    get: () => {
+      if (Listener) {
+        subscribers.add(Listener);
+      }
+      return value;
+    },
+    set: (newValue) => {
+      value = newValue;
+      subscribers.forEach((fn) => fn());
+    },
+  };
+}
+
+function computed(fn) {
+  const valueSignal = signal(fn());
+
+  effect(() => {
+    valueSignal.set(fn());
+  });
+
+  return {
+    get: valueSignal.get,
+  };
+}
+
+function effect(fn) {
+  Listener = fn;
+  fn();
+  Listener = null;
+}
+```
 
 
-# Effects
+
 
 
 # Glitches
