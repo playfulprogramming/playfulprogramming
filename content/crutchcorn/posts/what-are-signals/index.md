@@ -107,7 +107,101 @@ Here, we can see how a signal acts as a primitive for recreating [JavaScript Rea
 
 # Computed Properties
 
+```javascript
+function computed(fn, signals) {
+    let value = fn();
+    for (let signal of signals) {
+        signal.subscribe(() => {
+            value = fn();
+        });
+    }
+    return {
+        get: () => value
+    }
+}
+```
 
+
+
+Now, we can have a bit of state that derives another:
+
+```javascript
+const a = signal(1);
+const b = signal(2);
+const sum = computed(() => a.get() + b.get(), [a, b]);
+
+console.log(sum.get()); // 3
+a.set(3);
+console.log(sum.get()); // 5
+```
+
+Which we can apply to our document once more for a basic adder:
+
+```html
+<label>
+  <div>Number 1:</div>
+  <input id="num1" type="number" value="0" />
+</label>
+<label>
+  <div>Number 2:</div>
+  <input id="num2" type="number" value="0" />
+</label>
+<p>The sum of these numbers is: <span id="output">0</span></p>
+
+<script>
+  const num1 = document.getElementById('num1');
+  const num2 = document.getElementById('num2');
+  const output = document.getElementById('output');
+
+  const num1Signal = signal(0);
+  const num2Signal = signal(0);
+  const outputSignal = computed(
+    () => num1Signal.get() + num2Signal.get(),
+    [num1Signal, num2Signal]
+  );
+
+  num1.addEventListener('input', (e) => {
+    num1Signal.set(e.target.valueAsNumber);
+  });
+
+  num2.addEventListener('input', (e) => {
+    num2Signal.set(e.target.valueAsNumber);
+  });
+
+  outputSignal.subscribe(() => {
+    output.innerText = outputSignal.get();
+  });
+
+  // ...
+</script>
+```
+
+// TODO: Add iframe
+
+## Computed with a Signal internally
+
+> But wait! Aren't we already keeping track of state and a list of subscribers inside of `signal`? Can't we reuse that in `computed`?
+
+We can indeed, astute reader! Let's simplify our usage of `computed` to have a `signal` as our primitive data storage:
+
+```javascript
+function computed(fn, signals) {
+    const valueSignal = signal(fn());
+
+    for (let signal of signals) {
+      signal.subscribe(() => {
+        valueSignal.set(fn());
+      });
+    }
+
+    return {
+      get: valueSignal.get,
+      subscribe: valueSignal.subscribe,
+    };
+}
+```
+
+In fact, this idea that a `computed` signal is just a normal `signal` but in read-only mode is one which is critical to understanding much of the underlying optimizations for many signals implementations.
 
 # Auto-tracking
 
