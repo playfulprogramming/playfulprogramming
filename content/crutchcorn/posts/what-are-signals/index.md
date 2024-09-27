@@ -329,3 +329,116 @@ function effect(fn) {
 
 # Glitches
 
+![](https://raw.githubusercontent.com/angular/angular/b14fa29376936398e71ccc486416aba630f4f9da/packages/core/primitives/signals/images/what_is_a_glitch.svg)
+
+
+
+```javascript
+var Listener = null;
+var accessedSignals = new Set();
+var writingSignal = null;
+
+function signal(initialValue) {
+  let value = initialValue;
+  const subscribers = new Set();
+
+  const obj = {
+    get: () => {
+      if (Listener) {
+        subscribers.add(Listener);
+        accessedSignals.add(obj);
+      }
+      return value;
+    },
+    set: (newValue) => {
+      // A computed value should not update `writingSignal`, as its state is purely internal and should be marked as "read-only"
+      const isInsideAComputed = !!obj.__trackedSignals;
+      value = newValue;
+      if (!isInsideAComputed) {
+        writingSignal = obj;
+      }
+      subscribers.forEach((fn) => fn(obj));
+      if (!isInsideAComputed) {
+        writingSignal = null;
+      }
+    },
+  };
+  return obj;
+}
+
+function computed(fn) {
+  const valueSignal = signal(fn());
+
+  const {__trackedSignals} = effect(() => {
+    valueSignal.set(fn());
+  });
+
+  // Assign the tracked signals to the value signal so it can be used in the `Listener` of the effect,
+  // and avoid updating the `writingSignal` when the value signal is updated
+  Object.assign(valueSignal, {
+    __trackedSignals
+  })
+
+  return {
+    get: valueSignal.get,
+    __trackedSignals,
+  };
+}
+
+function effect(fn) {
+  let trackedSignals = new Set();
+  let seen = new Set();
+  let relatedSignals = null;
+  // Setup the listener that will be called when a signal is accessed
+  Listener = (signal) => {
+    // We have "seen" this signal
+    seen.add(signal);
+
+    // Check to see if we need to "see" any related signals before running the function
+    // and cache the results until the next run
+    if (!relatedSignals) {
+      relatedSignals = new Set(Array.from(trackedSignals).filter(signalLike => {
+        if (signalLike.__trackedSignals) {
+          return signalLike.__trackedSignals.has(writingSignal);
+        }
+        return signalLike === writingSignal;
+      }));
+    }
+
+    // Have we seen all the signals we need to? If so, run the function and cleanup
+    if (seen.size === relatedSignals?.size) {
+      fn();
+      seen.clear();
+      relatedSignals = null;
+    }
+  }
+  // Trigger the effect for the first time. This also starts auto-tracking and stores vars in `accessedSignals`
+  fn();
+  // Keep a copy of the accessed signals for reference in the `Listener` later
+  trackedSignals = new Set(accessedSignals);
+  // Cleanup
+  Listener = null;
+  accessedSignals.clear();
+
+  // Return the tracked signals for the effect so it can be used in the `Listener` later
+  return {
+    __trackedSignals: trackedSignals,
+  }
+}
+
+// ................
+
+const a = signal(1);
+const b = signal(2);
+const c = computed(() => a.get() + b.get());
+
+// Notice how this effect only runs once, even though it depends on `a` and `c`
+effect(() => {
+  const newVal = c.get() * a.get();
+  console.log({newVal});
+});
+
+a.set(2);
+a.set(123);
+```
+
