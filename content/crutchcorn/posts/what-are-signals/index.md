@@ -397,18 +397,22 @@ function effect(fn) {
     // Check to see if we need to "see" any related signals before running the function
     // and cache the results until the next run
     if (!relatedSignals) {
-      relatedSignals = new Set(Array.from(trackedSignals).filter(signalLike => {
-        if (signalLike.__trackedSignals) {
-          return signalLike.__trackedSignals.has(writingSignal);
+      relatedSignals = new Set();
+      trackedSignals.forEach(
+        signalLike => {
+          if (signalLike.__trackedSignals?.has(writingSignal)) {
+            relatedSignals.add(signal);
+          } else if (signalLike === writingSignal) {
+            relatedSignals.add(signalLike);
+          }
         }
-        return signalLike === writingSignal;
-      }));
+      );
     }
 
     // Have we seen all the signals we need to? If so, run the function and cleanup
     if (seen.size === relatedSignals?.size) {
       fn();
-      seen.clear();
+      seen = new Set();
       relatedSignals = null;
     }
   }
@@ -418,7 +422,7 @@ function effect(fn) {
   trackedSignals = new Set(accessedSignals);
   // Cleanup
   Listener = null;
-  accessedSignals.clear();
+  accessedSignals = new Set();
 
   // Return the tracked signals for the effect so it can be used in the `Listener` later
   return {
