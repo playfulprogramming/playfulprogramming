@@ -72,6 +72,8 @@ function signal(initialValue) {
 
 > You can see another basic variant of a signals implementation in [a 5 minute lightning talk I gave at ngConf 2024](https://www.youtube.com/watch?v=cJ7AuQUBmA4).
 
+![TODO: Write alt](./signals_explainer.png)
+
 Here, we can see how a signal has:
 
 - An initial value
@@ -134,6 +136,8 @@ console.log(sum.get()); // 3
 a.set(3);
 console.log(sum.get()); // 5
 ```
+
+![](./computed_explainer.png)
 
 Which we can apply to our document once more for a basic adder:
 
@@ -204,6 +208,12 @@ function computed(fn, signals) {
 In fact, this idea that a `computed` signal is just a normal `signal` but in read-only mode is one which is critical to understanding much of the underlying optimizations for many signals implementations.
 
 # Effects
+
+![TODO: Write alt](./effects_explainer.png)
+
+// An example of an observable is `addEventListener`
+
+
 
 ```javascript
 function effect(fn, signals) {
@@ -329,7 +339,7 @@ function effect(fn) {
 
 # Glitches
 
-![](https://raw.githubusercontent.com/angular/angular/b14fa29376936398e71ccc486416aba630f4f9da/packages/core/primitives/signals/images/what_is_a_glitch.svg)
+![TODO: Write alt](./what_is_a_glitch.svg)
 
 
 
@@ -414,7 +424,7 @@ function effect(fn) {
       fn();
       seen = new Set();
       relatedSignals = null;
-    }
+    }dz
   }
   // Trigger the effect for the first time. This also starts auto-tracking and stores vars in `accessedSignals`
   fn();
@@ -446,3 +456,6 @@ a.set(2);
 a.set(123);
 ```
 
+-----
+
+![TODO: Write alt](./state_venn_diagram.png)
