@@ -72,7 +72,7 @@ function signal(initialValue) {
 
 > You can see another basic variant of a signals implementation in [a 5 minute lightning talk I gave at ngConf 2024](https://www.youtube.com/watch?v=cJ7AuQUBmA4).
 
-![TODO: Write alt](./signals_explainer.svg)
+<img src="./signals_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
 
 Here, we can see how a signal has:
 
@@ -137,7 +137,7 @@ a.set(3);
 console.log(sum.get()); // 5
 ```
 
-![TODO: Write alt](./computed_explainer.svg)
+<img src="./computed_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
 
 Which we can apply to our document once more for a basic adder:
 
@@ -209,7 +209,7 @@ In fact, this idea that a `computed` signal is just a normal `signal` but in rea
 
 # Effects
 
-![TODO: Write alt](./effects_explainer.svg)
+<img src="./effects_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
 
 // An example of an observable is `addEventListener`
 
