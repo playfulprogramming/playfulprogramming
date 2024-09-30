@@ -319,6 +319,11 @@ We support the following properties on a post:
   - Required if the post is a cross-post
 - `noindex`: Should the article be hidden from the site's list view, `sitemap`, and search?
   - Useful for draft or archived content
+- `upToDateSlug`: The latest published version of the article
+- `version`: The version of the article
+  - IE: `v1`, `v3.5`, etc
+  - Useful when combined with `upToDateSlug` and `noindex`
+
 
 ### Collection Frontmatter
 
@@ -348,3 +353,9 @@ We support the following properties on a post:
   - Must be an array of `{text: string, url: string}`
 - `chapterList`: A list of extra chapters to include in addition to the auto-discovered ones
   - Must be an array of `{title: string;description: string;order: string;}`
+- `noindex`: Should the collection be hidden from the site's list view, `sitemap`, and search?
+  - Useful for draft or archived content
+- `upToDateSlug`: The latest published version of the collection
+- `version`: The version of the collection
+  - IE: `v1`, `v3.5`, etc
+  - Useful when combined with `upToDateSlug` and `noindex`
