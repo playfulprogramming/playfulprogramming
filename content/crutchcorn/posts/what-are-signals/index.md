@@ -333,14 +333,13 @@ function effect(fn) {
 }
 ```
 
-
-
-
-
 # Glitches
 
-![TODO: Write alt](./what_is_a_glitch.svg)
+<img src="./glitch_setup.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
 
+<img src="./glitch_demo.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
+
+<img src="./glitch_free.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
 
 
 ```javascript
@@ -458,4 +457,4 @@ a.set(123);
 
 -----
 
-![TODO: Write alt](./state_venn_diagram.png)
+![TODO: Write alt](./state_venn_diagram.svg)
