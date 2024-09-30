@@ -2,31 +2,27 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
-import { NgFor } from "@angular/common";
 
 @Component({
 	selector: "word-list",
 	standalone: true,
-	imports: [NgFor],
 	template: `
 		<div>
 			<button (click)="addWord()">Add word</button>
 			<button (click)="removeFirst()">Remove first word</button>
 			<ul>
-				<li *ngFor="let word of words; trackBy: wordTrackBy">
-					{{ word.word }}
-					<input type="text" />
-				</li>
+				@for (word of words; track word.id) {
+					<li>
+						{{ word.word }}
+						<input type="text" />
+					</li>
+				}
 			</ul>
 		</div>
 	`,
 })
 class WordListComponent {
 	words: Word[] = [];
-
-	wordTrackBy(index: number, word: Word) {
-		return word.id;
-	}
 
 	addWord() {
 		const newWord = getRandomWord();

@@ -9,7 +9,6 @@ import {
 	OnInit,
 	OnDestroy,
 } from "@angular/core";
-import { NgFor, NgIf } from "@angular/common";
 
 @Component({
 	selector: "file-date",
@@ -74,7 +73,7 @@ class FileDateComponent implements OnInit {
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [FileDateComponent, NgIf],
+	imports: [FileDateComponent],
 	template: `
 		<button
 			(click)="selected.emit()"
@@ -85,10 +84,15 @@ class FileDateComponent implements OnInit {
 			"
 		>
 			{{ fileName }}
-			<span *ngIf="isFolder; else fileDisplay">Type: Folder</span>
-			<ng-template #fileDisplay><span>Type: File</span></ng-template>
+			@if (isFolder) {
+				<span>Type: Folder</span>
+			} @else {
+				<span>Type: File</span>
+			}
 			<!-- This may not show the most up-to-date 'formatDate' or 'formatReadableDate' -->
-			<file-date *ngIf="!isFolder" [inputDate]="inputDate" />
+			@if (!isFolder) {
+				<file-date [inputDate]="inputDate" />
+			}
 		</button>
 	`,
 })
@@ -121,33 +125,30 @@ class FileComponent implements OnInit, OnDestroy {
 @Component({
 	selector: "file-list",
 	standalone: true,
-	imports: [FileComponent, NgFor, NgIf],
+	imports: [FileComponent],
 	template: `
 		<div>
 			<button (click)="toggleOnlyShow()">Only show files</button>
 			<ul>
-				<li
-					*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
-				>
-					<file-item
-						*ngIf="onlyShowFiles ? !file.isFolder : true"
-						(selected)="onSelected(i)"
-						[isSelected]="selectedIndex === i"
-						[fileName]="file.fileName"
-						[href]="file.href"
-						[isFolder]="file.isFolder"
-					/>
-				</li>
+				@for (file of filesArray; track file.id; let i = $index) {
+					<li>
+						@if (onlyShowFiles ? !file.isFolder : true) {
+							<file-item
+								(selected)="onSelected(i)"
+								[isSelected]="selectedIndex === i"
+								[fileName]="file.fileName"
+								[href]="file.href"
+								[isFolder]="file.isFolder"
+							/>
+						}
+					</li>
+				}
 			</ul>
 		</div>
 	`,
 })
 class FileListComponent {
 	selectedIndex = -1;
-
-	fileTrackBy(index: number, file: File) {
-		return file.id;
-	}
 
 	onSelected(idx: number) {
 		if (this.selectedIndex === idx) {

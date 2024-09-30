@@ -8,6 +8,7 @@
   attached: [],
   order: 14,
   collection: "framework-field-guide-fundamentals",
+  version: "v1.1",
 }
 ---
 
@@ -808,7 +809,7 @@ function App() {
 
 ## Angular
 
-Before we get into how to implement this functionality in Angular, I first need to circle back to [how Angular uses `ng-template` to define a group of HTML elements that can then be rendered after the fact](/posts/ffg-fundamentals-dynamic-html#ng-template).
+Before we get into how to implement this functionality in Angular, I first need to circle back to [how Angular uses `ng-template` to define a group of HTML elements that can then be rendered after the fact](/posts/ffg-fundamentals-portals#ng-template).
 
 While we previously have used `ng-template` as a shorthand for "Don't render this until later," the tag is capable of so much more.
 

@@ -60,7 +60,6 @@ export function getPostsByCollection(
 	return [...posts.values()]
 		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
 		.filter((p) => p?.collection === collectionSlug)
-		.filter((p) => !p.noindex)
 		.sort((postA, postB) =>
 			Number(postA.order) > Number(postB.order) ? 1 : -1,
 		);

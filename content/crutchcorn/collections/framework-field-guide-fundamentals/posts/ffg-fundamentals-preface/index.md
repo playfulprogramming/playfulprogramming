@@ -8,6 +8,7 @@
   attached: [],
   order: 1,
   collection: "framework-field-guide-fundamentals",
+  version: "v1.1",
 }
 ---
 
@@ -17,7 +18,7 @@ This series will teach you how to build applications, the concepts under the hoo
 
 While other resources can help you learn these concepts for one framework at a time, **this series will help you learn three different frameworks at once: React, Angular, and Vue.**
 
-Namely, we'll be looking at the most modern iterations of these frameworks: React 18, Angular 17, and Vue 3.
+Namely, we'll be looking at the most modern iterations of these frameworks: React 18, Angular 18, and Vue 3.
 
 > It's worth mentioning that React and Angular iterate their major versions much more frequently than Vue. So if you're reading this in the future and see "Angular 24" or "React 22," it's likely that it's using similar concepts under the hood.
 
@@ -295,6 +296,12 @@ Similarly, Angular 15.1 introduced a method for using self-closing tags with com
 **We will be using these self-closing tags throughout the book**, as they're common practice in applications built with the other two frameworks.
 
 > This will not work with versions of Angular older than 15.1, so be aware of this when working in older codebases.
+
+#### We're using Control Flow Blocks {#control-flow-blocks}
+
+Starting as an experimental feature in Angular 17 and stabilizing in Angular 18, Angular introduced a new method of managing [dynamic HTML](/posts/ffg-fundamentals-dynamic-html) in templates called "Control Flow Blocks" (`@if() {}`, `@for() {}` and friends). This supersedes the "Structural Directives" method (`ngIf` and `ngFor`) in earlier versions of Angular and introduces a myriad of developer experience improvements.
+
+**We will be using Control Flow Blocks throughout this book**, as they are the most modern method of managing dynamic HTML in Angular. However, [an earlier version of this book used the "Structural Directives" method, which you can still read on Playful Programming](/posts/ffg-fundamentals-v1-preface).
 
 #### We Won't Be Learning "Signals" {#no-signals}
 

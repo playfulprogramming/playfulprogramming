@@ -14,7 +14,6 @@ class MessageValue {
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
-	imports: [],
 	template: `
 		<div>
 			<p>{{ messageValue.greeting }}, user!</p>

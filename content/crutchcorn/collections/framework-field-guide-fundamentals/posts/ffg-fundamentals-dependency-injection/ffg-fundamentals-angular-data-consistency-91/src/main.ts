@@ -10,7 +10,6 @@ class UserValue {
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
-	imports: [],
 	template: ` <p>Name: {{ user.name }}</p> `,
 })
 class GreatGrandChildComponent {
