@@ -354,13 +354,23 @@ Now the only place we use `.subscribe` is inside of `effect`.
 
 # Auto-tracking
 
+Our current signals API looks something like this:
 
+```javascript
+signal(init);
+computed(fn, deps);
+effect(fn, deps);
+```
 
+This works, but having `deps` be an explicit array brings a set of challenges and downsides:
 
+- It's more verbose
+- `computed` and `effect` s need a dependency array but `signal` does not
+- It's easy to accidentally forget a signal in the deps array
 
+What if we could eliminate the need for the array while still tracking the internal signals used inside of `computed` and `effect`?
 
-
-
+This idea of invisibly tracking dependencies is called "Auto-tracking" and can be implemented by replacing our `subscribe` internal methods with usage of a `Listener` singleton.
 
 ```javascript
 var Listener = null;
@@ -401,6 +411,54 @@ function effect(fn) {
   Listener = null;
 }
 ```
+
+This works because `effect` updates the `Listener` and then the signals inside of `effect` are reading the initial value:
+
+```javascript
+effect(() => {
+	// Inside of `signal.get` there's a check for `Listener`
+	// which is now this function. It's then added as a subscriber
+	// to `signal` which, on write, will retrigger this.
+    //
+    // It doesn't get added twice because the `Listener` is only set on the
+    // first call of `fn`
+	signal.get();
+})
+```
+
+This behavior is then propagated into `computed` since it uses `effect` internally.
+
+-----
+
+Now let's see our previous code sample with the new API:
+
+```javascript
+const num1 = document.getElementById('num1');
+const num2 = document.getElementById('num2');
+const output = document.getElementById('output');
+
+const num1Signal = signal(0);
+const num2Signal = signal(0);
+const outputSignal = computed(() => num1Signal.get() + num2Signal.get());
+
+num1.addEventListener('input', (e) => {
+	num1Signal.set(e.target.valueAsNumber);
+});
+
+num2.addEventListener('input', (e) => {
+	num2Signal.set(e.target.valueAsNumber);
+});
+
+effect(() => {
+	output.innerText = outputSignal.get();
+});
+```
+
+Cleaner, right?
+
+
+
+
 
 # Glitches
 
