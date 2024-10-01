@@ -109,6 +109,24 @@ Here, we can see how a signal acts as a primitive for recreating [JavaScript Rea
 
 # Computed Properties
 
+It's a regular occurance to derive state from other pieces of state in software engineering.
+
+Take a `sum` function for example:
+
+```javascript
+function sum(a, b) {
+	return a + b;
+}
+
+const num1 = 12;
+const num2 = 24;
+const output = sum(a, b);
+```
+
+Having the ability to have `output` auto-calculated when `num1` or `num2` changed would be a gamechanger for derived state.
+
+Luckily for us, we can build a basic API for derived state relatively trivially based on our signals implementation:
+
 ```javascript
 function computed(fn, signals) {
     let value = fn();
@@ -123,23 +141,61 @@ function computed(fn, signals) {
 }
 ```
 
-
-
-Now, we can have a bit of state that derives another:
+Now we can derive signals in a nicer way using `computed`:
 
 ```javascript
-const a = signal(1);
-const b = signal(2);
-const sum = computed(() => a.get() + b.get(), [a, b]);
+const num1 = signal(1);
+const num2 = signal(2);
+const output = computed(() => num1.get() + num2.get(), [num1, num2]);
 
-console.log(sum.get()); // 3
-a.set(3);
-console.log(sum.get()); // 5
+console.log(output.get()); // 3
+num1.set(3);
+console.log(output.get()); // 5
 ```
+
+We can even add in the ability to subscribe to the state updates of `computed`, much like a `signal`:
+
+```javascript
+function computed(fn, signals) {
+    let value = fn();
+    const subscribers = new Set();
+
+    for (let signal of signals) {
+        signal.subscribe(() => {
+            value = fn();
+            subscribers.forEach(sub => sub());
+        });
+    }
+
+    return {
+        get: () => value,
+        subscribe: (listener) => {
+            subscribers.add(listener);
+            return () => subscribers.delete(listener);
+        }
+    }
+}
+```
+
+```javascript
+const num1 = signal(1);
+const num2 = signal(2);
+const output = computed(() => num1.get() + num2.get(), [num1, num2]);
+
+output.subscribe(() => {
+  console.log(output.get())
+});
+
+num1.set(3); // Logs "5"
+```
+
+This `computed` method is is much like a `signal` but instead of having its own writable state, creates state by reading from the base signals:
 
 <img src="./computed_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
 
-Which we can apply to our document once more for a basic adder:
+
+
+With this API we can apply to our document once more for a basic adder:
 
 ```html
 <label>
@@ -227,17 +283,17 @@ function effect(fn, signals) {
 
 ```javascript
 
-const a = signal(1);
-const b = signal(2);
-const sum = computed(() => a.get() + b.get(), [a, b]);
+const num1 = signal(1);
+const num2 = signal(2);
+const output = computed(() => num1.get() + b.get(), [num1, num2]);
 
 effect(() => {
-    console.log(sum.get());
-}, [sum]);
+    console.log(output.get());
+}, [output]);
 
-a.set(2);
+num1.set(2);
 // "4" is logged to the console
-b.set(3);
+num2.set(3);
 // "5" is logged to the console
 ```
 
