@@ -265,11 +265,11 @@ In fact, this idea that a `computed` signal is just a normal `signal` but in rea
 
 # Effects
 
-<img src="./effects_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
+To track a signal or computed value, you can use the `subscribe` method. But if we look at the other APIs, they're functions, not methods.
 
-// An example of an observable is `addEventListener`
+To keep our APIs consistent (and to add features later-on), let's create a way to subscribe to signals without using `subscribe` itself.
 
-
+To do this, we can just wrap `subscribe` in an API not dissimilar from how `computed` looks:
 
 ```javascript
 function effect(fn, signals) {
@@ -282,7 +282,6 @@ function effect(fn, signals) {
 ```
 
 ```javascript
-
 const num1 = signal(1);
 const num2 = signal(2);
 const output = computed(() => num1.get() + b.get(), [num1, num2]);
@@ -291,13 +290,19 @@ effect(() => {
     console.log(output.get());
 }, [output]);
 
-num1.set(2);
-// "4" is logged to the console
-num2.set(3);
-// "5" is logged to the console
+num1.set(2); // "4" is logged to the console
+num2.set(3); // "5" is logged to the console
 ```
 
-Now we can get rid of `subscribe`-ing manually in our previous addition sample all-together:
+This completes our base signals API trio:
+
+- Signals can be subscribed to, has state, and can be written to.
+- Computed values can be subscribed to and has state.
+- Effects can be subscribed to.
+
+<img src="./effects_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
+
+With `effect` we can get rid of `subscribe`-ing manually in our previous addition sample all-together:
 
 ```javascript
 const num1 = document.getElementById('num1');
@@ -345,7 +350,15 @@ function computed(fn, signals) {
 
 Now the only place we use `.subscribe` is inside of `effect`.
 
+> This is not often how `computed` is implemented, but simplies code for our usecase going forward.
+
 # Auto-tracking
+
+
+
+
+
+
 
 
 
@@ -513,4 +526,6 @@ a.set(123);
 
 -----
 
-![TODO: Write alt](./state_venn_diagram.svg)
+
+
+// An example of an observable is `addEventListener`![TODO: Write alt](./state_venn_diagram.svg)
