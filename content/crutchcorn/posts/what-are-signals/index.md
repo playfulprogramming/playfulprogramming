@@ -456,22 +456,57 @@ effect(() => {
 
 Cleaner, right?
 
-
-
-
-
 # Glitches
+
+Friends, I have something to admit; we have a fatal flaw in our signals implementation we've been building to this point.
+
+Namely, it's possible to create a value that's incorrect for a temporary period of time before it's corrected.
+
+This occurs because of how we've built out our subscriptions in a naive way, allowing one subscriber to receive a value earlier than the other dependencies are finished resolving the values.
+
+Take the following code:
+
+```javascript
+const count = signal(0);
+const evenOdd = computed(() => count.get() % 2 ? "Even" : "Odd");
+
+effect(() => {
+	console.log(`${count} is ${evenOdd}`);
+})
+```
 
 <img src="./glitch_setup.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
 
+While this code is valid, our implementation lets it down. It will in fact emit `0 is even` at first, but once you update `count` you'll get `1 is even`, which is clearly incorrect.
+
 <img src="./glitch_demo.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
 
+Now, this value eventually reconciles back to `1 is odd` after emitting the incorrect value, but this could lead to a number of problems if left as-is:
+
+- Incorrect logging behavior
+- Jumpy UIs
+- Wrong data sent to the server
+
+And more.
+
+This rapid shift from an incorrect value to a correct value is called a "glitch".
+
+> How do we make our signals "glitch-free"? 
+
+Well, we can do this by having the last `effect` wait for all the depended upon values to resolve before running.
+
 <img src="./glitch_free.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
+
+------
+
+Let's see how this glitch fixing looks like in code:
 
 
 ```javascript
 var Listener = null;
+// Track what signals are accessed in the Listener
 var accessedSignals = new Set();
+// Track what current signal is being written to
 var writingSignal = null;
 
 function signal(initialValue) {
@@ -550,7 +585,7 @@ function effect(fn) {
       fn();
       seen = new Set();
       relatedSignals = null;
-    }dz
+    }
   }
   // Trigger the effect for the first time. This also starts auto-tracking and stores vars in `accessedSignals`
   fn();
@@ -565,25 +600,49 @@ function effect(fn) {
     __trackedSignals: trackedSignals,
   }
 }
-
-// ................
-
-const a = signal(1);
-const b = signal(2);
-const c = computed(() => a.get() + b.get());
-
-// Notice how this effect only runs once, even though it depends on `a` and `c`
-effect(() => {
-  const newVal = c.get() * a.get();
-  console.log({newVal});
-});
-
-a.set(2);
-a.set(123);
 ```
 
------
+Here, we're keeping track of what signal is currently writing state. We're then checking what variables are relative to the `Listener` when we run `fn` inside of our `effect`.
 
+Finally, we cross-reference how many variables depend on the written signal and wait for that number of subscription calls are ran and only execute the `effect` when we've seen the right number of updates.
 
+```javascript
+const count = signal(0);
+const evenOdd = computed(() => count.get() % 2 ? "Even" : "Odd");
 
-// An example of an observable is `addEventListener`![TODO: Write alt](./state_venn_diagram.svg)
+// Notice how this effect only runs once, even though it depends
+// on both `count` and `evenOdd`
+effect(() => {
+	console.log(`${count} is ${evenOdd}`);
+})
+
+count.set(2);
+count.set(123);
+```
+
+// TODO: Add iframe
+
+# Where do Signals fit in?
+
+Before we wrap up, let's talk about where signals fit into the broader scope of the JavaScript ecosystem.
+
+If we take a venn diagram of whether a primitive:
+
+1) Has state
+2) Can be written to
+3) Can be subscribed to
+
+It might look something like this:
+
+![TODO: Write alt](./state_venn_diagram.svg)
+
+> You may not be familiar with what an observable or `Subject` are. These terms [come from RxJS](https://rxjs.dev/), which is a library that provides an event system in your codebase.
+>
+> However, we can see examples of observables in [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) when you run [`addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) to a `<button>`.
+>
+> The event target itself doesn't have permanent state but will pass a value to a subscriber when an in-transit value comes through. However, you're unable to write values to that event stream.
+>
+> Compare and contrast to, say, a `Subject` that extends an observable with the capabilities of being able to emit your own events. A good example of this might be emitting your own [`CustomEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent) on the `document` object.
+
+Here, we can see that signals are a powerful primitive that takes ownership over multiple areas of the reactivity story.
+
