@@ -309,7 +309,7 @@ You get the following error, reminding you to explicitly mark your function as b
 
 This is a safety feature so you don't end up enabling the client to call functions that aren't allowed.
 
-## Are synchronous functions allows in React server actions? 
+## Are synchronous functions allowed in React server actions? 
 
 No. Only `async` functions are allowed in server actions. If you forget to mark your action as `async`;
 
