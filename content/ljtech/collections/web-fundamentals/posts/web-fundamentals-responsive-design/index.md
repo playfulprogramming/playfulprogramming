@@ -253,7 +253,7 @@ The `object-fit` property defines how the image will behave within its aspect ra
 
 **To better illustrate this, I've built a demo that allows us to customize both `aspect-ratio` and `object-fit` in tandem!**
 
-<iframe data-frame-title="Responsive graphics" src="pfp-code:./responsive-graphics?template=node&embed=1&file=src%2Fstylesheet.css"></iframe>
+<iframe data-frame-title="Responsive graphics" src="pfp-code:./responsive-graphics?template=node&embed=1&file=src%2Fstylesheet.css" height="800"></iframe>
 
 ---
 
