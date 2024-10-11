@@ -68,30 +68,69 @@ const newContents = [firstHalf, ourHTML, secondHalf].join("\n");
 		document.querySelectorAll("[data-snitip]"),
 	);
 	for (let snitipTriggerEl of snitipTriggerEls) {
+		const explicitSnitipBtn = snitipTriggerEl.querySelector(
+			`[role="button"]`,
+		) as HTMLElement;
 		let snitip: HTMLElement | null = null;
-		snitipTriggerEl.addEventListener("mouseover", () => {
-			const snitipName = snitipTriggerEl.getAttribute("data-snitip");
-			const snitipTemplate = document.getElementById(
-				`${snitipName}-snitip`,
-			) as HTMLTemplateElement;
-			debugger;
-			if (!snitipTemplate) {
-				return;
-			}
-			snitip = snitipTemplate.content.cloneNode(true).firstChild as HTMLElement;
+
+		// eslint-disable-next-line no-inner-declarations
+		function positionSnitip() {
+			if (!snitip) return;
 			const snitipTriggerRect = snitipTriggerEl.getBoundingClientRect();
-			document.body.appendChild(snitip);
 			const snitipRect = snitip.getBoundingClientRect();
 			const top = snitipTriggerRect.top + snitipTriggerRect.height;
 			const left =
 				snitipTriggerRect.left + snitipTriggerRect.width - snitipRect.width / 2;
 			snitip.style.top = `${top}px`;
 			snitip.style.left = `${left}px`;
-		});
-		snitipTriggerEl.addEventListener("mouseout", () => {
+		}
+
+		// eslint-disable-next-line no-inner-declarations
+		function openSnitip() {
+			const snitipName = snitipTriggerEl.getAttribute("data-snitip");
+			const snitipTemplate = document.getElementById(
+				`${snitipName}-snitip`,
+			) as HTMLTemplateElement;
+			if (!snitipTemplate) {
+				return;
+			}
+			snitip = snitipTemplate.content.cloneNode(true).firstChild as HTMLElement;
+			document.body.appendChild(snitip);
+			positionSnitip();
+		}
+
+		// eslint-disable-next-line no-inner-declarations
+		function closeSnitip() {
 			if (snitip) {
 				document.body.removeChild(snitip);
+				snitip = null;
 			}
+		}
+		snitipTriggerEl.addEventListener("mouseover", () => {
+			openSnitip();
+		});
+		explicitSnitipBtn.addEventListener("keydown", (e) => {
+			if (e.code === "Enter" || e.code === "Space") {
+				e.preventDefault();
+				openSnitip();
+			}
+		});
+
+		document.addEventListener("mousedown", (e) => {
+			const target = e.target as HTMLElement;
+			if (!snitip || (snitip && snitip.contains(target))) {
+				return;
+			}
+			closeSnitip();
+		});
+		document.addEventListener("scroll", () => {
+			positionSnitip();
+		});
+		document.addEventListener("resize", () => {
+			positionSnitip();
+		});
+		snitipTriggerEl.addEventListener("mouseout", () => {
+			closeSnitip();
 		});
 	}
 </script>
