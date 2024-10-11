@@ -3,6 +3,7 @@ import * as api from "../../utils/api";
 import Document from "../../layouts/document.astro";
 import BlogPost from "../../views/blog-post/blog-post.astro";
 import { getMarkdownHtml } from "../../utils/markdown";
+import { getHrefContainerProps } from "../../utils/href-container-script";
 const authors = api.getPeopleByLang("en");
 const author = authors[0];
 const posts = api.getAllPosts();
@@ -11,8 +12,22 @@ const postHtml = await getMarkdownHtml(post);
 
 const contents = postHtml.html.split("\n");
 
+const hrefProps = getHrefContainerProps(`#`) as Record<string, string>;
+
+function convertRecordToAttributeString(record: Record<string, string>) {
+	let string = "";
+	for (const key in record) {
+		string += `${key}="${record[key]}" `;
+	}
+	return string;
+}
+
 const ourHTML = `
-<p>But did you know that prior to 2015, <a href="#" data-snitip="javascript">JavaScript</a> didn't even have a class keyword as part of the language?</p>
+<p>But did you know that prior to 2015, <span ${convertRecordToAttributeString(hrefProps)} data-snitip="javascript">
+<a href="#">JavaScript</a>
+<span tabindex="0" role="button" aria-label="More information about JavaScript">ⓘ</span>
+</span>
+didn't even have a class keyword as part of the language?</p>
 `.trim();
 
 const firstHalf = contents.slice(0, 5).join("\n");
@@ -26,8 +41,17 @@ const newContents = [firstHalf, ourHTML, secondHalf].join("\n");
 	:global([data-snitip]) {
 		color: var(--primary_default);
 		font-weight: bold;
-		text-decoration: wavy underline;
 		cursor: pointer;
+		text-decoration: none;
+	}
+
+	:global([data-snitip] > *:first-child) {
+		text-decoration: wavy underline;
+	}
+
+	:global([data-snitip] > *:last-child) {
+		padding: 0.25rem;
+		margin: -0.25rem;
 	}
 
 	.snitipHover {
@@ -54,16 +78,13 @@ const newContents = [firstHalf, ourHTML, secondHalf].join("\n");
 			if (!snitipTemplate) {
 				return;
 			}
-			snitip = snitipTemplate.content.cloneNode(true)
-				.firstChild as HTMLElement;
+			snitip = snitipTemplate.content.cloneNode(true).firstChild as HTMLElement;
 			const snitipTriggerRect = snitipTriggerEl.getBoundingClientRect();
 			document.body.appendChild(snitip);
 			const snitipRect = snitip.getBoundingClientRect();
 			const top = snitipTriggerRect.top + snitipTriggerRect.height;
 			const left =
-				snitipTriggerRect.left +
-				snitipTriggerRect.width -
-				snitipRect.width / 2;
+				snitipTriggerRect.left + snitipTriggerRect.width - snitipRect.width / 2;
 			snitip.style.top = `${top}px`;
 			snitip.style.left = `${left}px`;
 		});
