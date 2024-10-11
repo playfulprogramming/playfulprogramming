@@ -1,8 +1,8 @@
 ---
-import * as api from "../utils/api";
-import Document from "../layouts/document.astro";
-import BlogPost from "../views/blog-post/blog-post.astro";
-import { getMarkdownHtml } from "../utils/markdown";
+import * as api from "../../utils/api";
+import Document from "../../layouts/document.astro";
+import BlogPost from "../../views/blog-post/blog-post.astro";
+import { getMarkdownHtml } from "../../utils/markdown";
 const authors = api.getPeopleByLang("en");
 const author = authors[0];
 const posts = api.getAllPosts();
@@ -12,7 +12,7 @@ const postHtml = await getMarkdownHtml(post);
 const contents = postHtml.html.split("\n");
 
 const ourHTML = `
-<p>But did you know that prior to 2015, <a href="#" data-tooltip="javascript">JavaScript</a> didn't even have a class keyword as part of the language?</p>
+<p>But did you know that prior to 2015, <a href="#" data-snitip="javascript">JavaScript</a> didn't even have a class keyword as part of the language?</p>
 `.trim();
 
 const firstHalf = contents.slice(0, 5).join("\n");
@@ -23,14 +23,14 @@ const newContents = [firstHalf, ourHTML, secondHalf].join("\n");
 ---
 
 <style>
-	:global([data-tooltip]) {
+	:global([data-snitip]) {
 		color: var(--primary_default);
 		font-weight: bold;
 		text-decoration: wavy underline;
 		cursor: pointer;
 	}
 
-	.tooltipHover {
+	.snitipHover {
 		position: fixed;
 		background-color: var(--primary_default);
 		color: white;
@@ -40,45 +40,45 @@ const newContents = [firstHalf, ourHTML, secondHalf].join("\n");
 </style>
 
 <script>
-	const tooltipTriggerEls = Array.from(
-		document.querySelectorAll("[data-tooltip]"),
+	const snitipTriggerEls = Array.from(
+		document.querySelectorAll("[data-snitip]"),
 	);
-	for (let tooltipTriggerEl of tooltipTriggerEls) {
-		let tooltip: HTMLElement | null = null;
-		tooltipTriggerEl.addEventListener("mouseover", () => {
-			const tooltipName = tooltipTriggerEl.getAttribute("data-tooltip");
-			const tooltipTemplate = document.getElementById(
-				`${tooltipName}-tooltip`,
+	for (let snitipTriggerEl of snitipTriggerEls) {
+		let snitip: HTMLElement | null = null;
+		snitipTriggerEl.addEventListener("mouseover", () => {
+			const snitipName = snitipTriggerEl.getAttribute("data-snitip");
+			const snitipTemplate = document.getElementById(
+				`${snitipName}-snitip`,
 			) as HTMLTemplateElement;
 			debugger;
-			if (!tooltipTemplate) {
+			if (!snitipTemplate) {
 				return;
 			}
-			tooltip = tooltipTemplate.content.cloneNode(true)
+			snitip = snitipTemplate.content.cloneNode(true)
 				.firstChild as HTMLElement;
-			const tooltipTriggerRect = tooltipTriggerEl.getBoundingClientRect();
-			document.body.appendChild(tooltip);
-			const tooltipRect = tooltip.getBoundingClientRect();
-			const top = tooltipTriggerRect.top + tooltipTriggerRect.height;
+			const snitipTriggerRect = snitipTriggerEl.getBoundingClientRect();
+			document.body.appendChild(snitip);
+			const snitipRect = snitip.getBoundingClientRect();
+			const top = snitipTriggerRect.top + snitipTriggerRect.height;
 			const left =
-				tooltipTriggerRect.left +
-				tooltipTriggerRect.width -
-				tooltipRect.width / 2;
-			tooltip.style.top = `${top}px`;
-			tooltip.style.left = `${left}px`;
+				snitipTriggerRect.left +
+				snitipTriggerRect.width -
+				snitipRect.width / 2;
+			snitip.style.top = `${top}px`;
+			snitip.style.left = `${left}px`;
 		});
-		tooltipTriggerEl.addEventListener("mouseout", () => {
-			if (tooltip) {
-				document.body.removeChild(tooltip);
+		snitipTriggerEl.addEventListener("mouseout", () => {
+			if (snitip) {
+				document.body.removeChild(snitip);
 			}
 		});
 	}
 </script>
 
-<template id="javascript-tooltip">
-	<div class="tooltipHover">
+<template id="javascript-snitip">
+	<div class="snitipHover">
 		<h1>Tooltip</h1>
-		<p>Hover over the word "JavaScript" to see the tooltip.</p>
+		<p>Hover over the word "JavaScript" to see the snitip.</p>
 	</div>
 </template>
 
