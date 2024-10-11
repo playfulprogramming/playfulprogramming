@@ -1,0 +1,94 @@
+---
+import * as api from "../utils/api";
+import Document from "../layouts/document.astro";
+import BlogPost from "../views/blog-post/blog-post.astro";
+import { getMarkdownHtml } from "../utils/markdown";
+const authors = api.getPeopleByLang("en");
+const author = authors[0];
+const posts = api.getAllPosts();
+const post = posts.find((post) => !post.collection)!;
+const postHtml = await getMarkdownHtml(post);
+
+const contents = postHtml.html.split("\n");
+
+const ourHTML = `
+<p>But did you know that prior to 2015, <a href="#" data-tooltip="javascript">JavaScript</a> didn't even have a class keyword as part of the language?</p>
+`.trim();
+
+const firstHalf = contents.slice(0, 5).join("\n");
+
+const secondHalf = contents.slice(5).join("\n");
+
+const newContents = [firstHalf, ourHTML, secondHalf].join("\n");
+---
+
+<style>
+	:global([data-tooltip]) {
+		color: var(--primary_default);
+		font-weight: bold;
+		text-decoration: wavy underline;
+		cursor: pointer;
+	}
+
+	.tooltipHover {
+		position: fixed;
+		background-color: var(--primary_default);
+		color: white;
+		padding: 10px;
+		border-radius: 5px;
+	}
+</style>
+
+<script>
+	const tooltipTriggerEls = Array.from(
+		document.querySelectorAll("[data-tooltip]"),
+	);
+	for (let tooltipTriggerEl of tooltipTriggerEls) {
+		let tooltip: HTMLElement | null = null;
+		tooltipTriggerEl.addEventListener("mouseover", () => {
+			const tooltipName = tooltipTriggerEl.getAttribute("data-tooltip");
+			const tooltipTemplate = document.getElementById(
+				`${tooltipName}-tooltip`,
+			) as HTMLTemplateElement;
+			debugger;
+			if (!tooltipTemplate) {
+				return;
+			}
+			tooltip = tooltipTemplate.content.cloneNode(true)
+				.firstChild as HTMLElement;
+			const tooltipTriggerRect = tooltipTriggerEl.getBoundingClientRect();
+			document.body.appendChild(tooltip);
+			const tooltipRect = tooltip.getBoundingClientRect();
+			const top = tooltipTriggerRect.top + tooltipTriggerRect.height;
+			const left =
+				tooltipTriggerRect.left +
+				tooltipTriggerRect.width -
+				tooltipRect.width / 2;
+			tooltip.style.top = `${top}px`;
+			tooltip.style.left = `${left}px`;
+		});
+		tooltipTriggerEl.addEventListener("mouseout", () => {
+			if (tooltip) {
+				document.body.removeChild(tooltip);
+			}
+		});
+	}
+</script>
+
+<template id="javascript-tooltip">
+	<div class="tooltipHover">
+		<h1>Tooltip</h1>
+		<p>Hover over the word "JavaScript" to see the tooltip.</p>
+	</div>
+</template>
+
+<Document>
+	<BlogPost
+		post={post}
+		postHtml={newContents}
+		postHeadings={postHtml.headingsWithIds}
+		authors={[author]}
+		collection={undefined}
+		collectionPosts={[]}
+	/>
+</Document>
