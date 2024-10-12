@@ -19,11 +19,13 @@ One of its core functions is manipulating the Document Object Model (DOM), which
 
 JavaScript is event-driven, meaning it can respond to user inputs like clicks or keyboard presses, making it essential for building interactive websites. Additionally, it supports asynchronous programming, allowing tasks like fetching data from servers without disrupting the user interface.
 
-# The basics
+### Recap if you must!
 
 Before we get started, it's important to have read up on every part of our Web Fundamentals series. We're not going to stop to explain concepts that were previously explored. The goal for this chapter is to learn the essentials so we can move on to cooler, more fun things in the next one!
 
-## Variables & types
+---
+
+# Basics: Variables & types
 
 ### Variables
 
@@ -44,7 +46,9 @@ Types are categorized into two groups: Primitive types and Object types.
 | Type | Details |
 | --- | --- |
 | Primitive | Number, string, boolean, symbol, null, undefined and BigInt. |
-| Object | Object, array, function, Date, RegExp. | 
+| Object | Object, Array, function, Date, RegExp. | 
+
+---
 
 ## Number
 
@@ -61,6 +65,8 @@ If you need to represent a value bigger than allowed by `number`, you can use a 
 /* Same as let hugeNumber = 9007199254740991n */
 let hugeNumber = BigInt("9007199254740991");
 ```
+
+---
 
 ## String
 
@@ -85,6 +91,8 @@ to add an integer to a string value! */
 age = age + 1;
 ```
 
+---
+
 ## Boolean
 
 A `boolean` is a value that can be either `true` or `false`.
@@ -103,9 +111,77 @@ b += 5;
 isLarger = a > b;
 ```
 
+---
+
 ## Null
 
-Applying `null` to a value simply leaves it empty. Unlike 
+The `null` is as it's described; unlike `undefined`, **it specifically sets an empty value.**
+
+```js
+let result = null;
+```
+
+---
+
+## Undefined
+
+The `undefined` value is a default value that is applied when one is not provided.
+
+```js
+let value;
+
+/* Returns undefined */
+console.log(value);
+```
+
+---
+
+## Objects
+
+Objects are powerful tools in JavaScript that allow us to store key and value pairs for data management. An example of a object would be as such:
+
+```js
+const person = {
+  name: "Eduardo";
+  age: 27;
+  country: "Brazil";
+}
+```
+
+We can then retrieve those values or modify them.
+
+```js
+console.log(person.name); /* Returns "Eduardo". */
+console.log(person.age); /* Returns 27. */
+
+person.age++; /* Age is now 28. */
+
+console.log(person.age) /* Returns 28. */
+```
+
+Like we mentioned previously, `Object`s can be modified despite being attached to a `const` variable. This is because, while their reference is immutable, **their contents are not.** To learn more, visit our article on [**Object Mutability**](/posts/object-mutation).
+
+---
+
+## Arrays
+
+Arrays are a type of `Object` as well. They can hold any content type, including themselves!
+
+```js
+
+const numberArray = [1, 2, 3, 4, 5];
+const stringArray = ["Corbin", "Eduardo", "Obi", "Sarah"];
+const mixedArray = [1, "Corbin", null, undefined];
+```
+
+We can retrieve values from array positions using their index value.
+
+```js
+const numberArray = [1, 2, 3];
+
+console.log(numberArray[0]); /* Outputs 1; */
+console.log(numberArray[3]); /* Error: No value found at the 4th position. */
+```
 
 ---
 
@@ -213,7 +289,75 @@ Now our function will only trigger when the button is pressed.
 
 # Classes
 
-TO-DO
+Classes were saved for last for being the most robust. Classes allow us to build `Object`s with ease, and provide Class-specific methods that can be reused.
+
+For the next example, we're going to create a coffee cup class. This class needs to be able to:
+
+- Support multiple cup sizes with different amounts
+- Be depleted
+- Be refilled
+
+Let's start with the basics.
+
+```js
+class CoffeeCup {
+  constructor(size) {
+    this.size = size;
+    this.amount = this.getCapacity();  /* Set the initial amount based on size */
+  }
+
+  /* Method to get the maximum amount of coffee based on the cup size */
+  getCapacity() {
+    switch (this.size) {
+      case 'small': return 50;
+      case 'large': return 150;
+      default:      return 100;  /* Default to 'medium' */
+    }
+  }
+}
+```
+
+## Constructors
+
+Constructors are used to create properties attached to instances of a particular class. For our example, our coffee cup needs to have a `size` and this size determines yet another property; its `amount`.
+
+For this, we define a `constructor(size)` that attaches the desired size argument to our `this.size`.
+
+**The `this` keyword:**<br> When creating properties for classes, we use the `this` prefix to bind them. If we do not use `this.size`, we cannot retrieve a value with `CoffeeCup.size`.
+
+## Methods / functions
+
+Now let's add our additional functions, `sip()` and `refill()`, to interact with our coffee.
+
+```js
+/* Method to take a sip, reducing the coffee amount */
+sip() {
+  if (this.amount > 0) {
+    this.amount -= 10;
+    console.log(`You took a sip. ${this.amount}% coffee left.`);
+  } else {
+    console.log("The cup is empty! Time to refill.");
+  }
+}
+
+/* Method to refill the coffee cup */
+refill() {
+  this.amount = this.getCapacity();  /* Use getCapacity to refill based on size */
+  console.log(`The cup is now full again! (${this.size} size)`);
+}
+```
+
+Now we can create a cup of coffee and interact with all of our previously set up methods.
+
+```js
+const myMediumCoffee = new CoffeeCup('medium');
+
+myMediumCoffee.sip();   
+/* Output: You took a sip. 90% coffee left. */
+
+myMediumCoffee.refill();
+/* Output: The cup is now full again! (medium size) */
+```
 
 ---
 

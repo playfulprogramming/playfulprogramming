@@ -1,6 +1,6 @@
 ---
 {
-  title: "Web Fundamentals: Responsive design",
+  title: "Web Fundamentals: Responsive Design",
   description: "The fifth chapter tackles responsive design, breakpoints, media queries and more!",
   published: "2024-10-03T20:08:26.988Z",
   tags: ["css", "html", "design"],
