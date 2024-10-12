@@ -54,7 +54,6 @@ To better illustrate it, let's change the terms from letters to our actual conte
   gap: 16px;
   height: 376px;
 }
-
 ```
 
 - A header that takes up the whole top row.
@@ -69,7 +68,6 @@ Using `grid-template-areas` will define the default distribution, but that does 
 By default, columns and rows are distributed evenly.
 
 ```css
-
 grid-template-areas:
   "a a"
   "b c";

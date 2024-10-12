@@ -61,6 +61,8 @@ If we were to look at our document, we would now see our paragraph as part of th
 
 We can use `createElement('tag')` to create any tag supported by HTML. In our first chapter - HTML - we go over semantic elements. Make sure to recap!
 
+---
+
 # Selecting elements
 
 In our demo above, we're already making use of the selecting methods of JavaScript do make our demo interactive. But here's a list of the ways we can get elements from the DOM.
@@ -81,9 +83,85 @@ We're now going to use everything we've learned in Web Fundamentals — variable
 
 ## Adding and removing styles
 
+CSS properties are called `styles`, and we can access them through JavaScript.
+
+In CSS, properties are shown as such:
+
+```css
+body {
+  background-color: lightblue;
+}
+```
+
+When accessing properties in JavaScript, we use a different syntax, in camel-case.
+
+Using the `document`, we can access and apply any styles we want.
+
+```js
+document.body.style.backgroundColor = "lightblue";
+```
+
+There are some limitations, however. In JavaScript, unlike CSS, there are no shorthands. Let's take `padding`, for example.
+
+```css
+body {
+  padding: 24px 48px;
+  /* [padding-top & padding-bottom], [padding-left & padding-right] */
+}
+```
+
+In JavaScript, however, we cannot apply those properties at once. In JavaScript, we would need to do each individually.
+
+```js
+document.body.style.paddingTop = "24px";
+document.body.style.paddingBottom = "24px";
+document.body.style.paddingLeft = "48px";
+document.body.style.paddingRight = "48px";
+```
+
 ---
 
 ## Adding and removing classes
+
+In HTML, we can apply as many classes to an element as we'd like.
+
+```html
+<button class="btn-emphasized btn-large btn-icon">Button label</button>
+```
+
+In CSS, these are declared as separate classes.
+
+```css
+.btn-emphasized { };
+.btn-large { };
+.btn-icon { };
+```
+
+In JavaScript, we can access an element's classes with the `.classList` suffix.
+
+We can **add a class** with the following command.
+
+```js
+const element = document.getElementById("#element");
+
+element.classList.add("myClass");
+```
+
+We can **remove a class** with the following command:
+
+```js
+const element = document.getElementById("#element");
+
+element.classList.remove("myClass");
+```
+
+We can also **toggle a class** using `.toggle`.
+
+```js
+const element = document.getElementById("#element");
+
+element.classList.toggle("myClass");
+```
 
 ---
 
