@@ -57,7 +57,7 @@ document.body.appendChild(newParagraph);
 
 If we were to look at our document, we would now see our paragraph as part of the body.
 
-<iframe data-frame-title="Creating elements" src="pfp-code:./responsive-graphics?template=node&embed=1&file=src%2Fscript.js"></iframe>
+<iframe data-frame-title="Creating elements" src="pfp-code:./creating-elements?template=node&embed=1&file=src%2Fscript.js"></iframe>
 
 We can use `createElement('tag')` to create any tag supported by HTML. In our first chapter - HTML - we go over semantic elements. Make sure to recap!
 
