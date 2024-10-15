@@ -163,13 +163,102 @@ const element = document.getElementById("#element");
 element.classList.toggle("myClass");
 ```
 
+In the following demo, we're toggling two classes on a card.: `.small` and `.no-image`. We're also performing style changes when both are applied!
+
+```css
+/* Causes the card to shrink in size */
+.small {
+  width: 240px;
+}
+
+/* When applied, hides the #illustration */
+.no-image > #illustration {
+  display: none;
+}
+
+/* When the card is small and the illustration is hidden,
+change the corner radius to be smaller, so as to not clip the text. */
+.pfp-card.small.no-image {
+  border-radius: 24px;
+}
+```
+
+<iframe data-frame-title="Toggling classes" src="pfp-code:./toggling-classes?template=node&embed=1&file=src%2Fscript.js" height="800"></iframe>
+
 ---
 
 ## Adding and removing events
 
+In all of our demos in this series, we've been attaching events to elements to make them interactive. Now we're going to formally talk about them.
+
+To add an event, we must attach it to an element, using `addEventListener(type, listener)`.
+
+```js
+/* Declare our target */
+const toggleButton = document.getElementById("myButton");
+
+/* Attach an event */
+toggleButton.addEventListener('click', myFunction);
+
+function myFunction() = { ... };
+```
+
+In the example above, our `addEventListener()` is detecting an interaction type of `'click'`, and when triggered, executes the `myFunction` function.
+
+### Event types
+
+Not all events are created equal. Not only can specific elements trigger specific events, but so can different interaction sources.
+
+
+| Common sources | Event type |
+| --- | --- |
+| Mouse | <ul><li>`click`: A single click.</li><li>`dbclick`: A double click.</li><li>`mousedown`: When pressing down on a mouse's left button.</li><li>`mouseup`: When letting go of a mouse's left button.</li><li>`mouseover`: When hovering on an element.</li><li>`mouseout`: When a mouse cursor leaves the element it was previously hovering on.</li><li>`mousewheel`: A mousewheel click.</li><li>`contextmenu`: Triggered by a right-click.</li></ul> |
+| Keyboard | <ul><li>`keypress`: A particular key is pressed.</li><li>`keydown`: A key is currently being pressed.</li><li>`keyup`: A key was released.</li></ul> |
+| Touch | <ul><li>`keypress`: A particular key is pressed.</li></ul> |
+| Forms | <ul><li>`focus`: When the form is focused.</li><li>`blur`: When focus is taken away from the form.</li><li>`change`: When the form's value is changed.</li><li>`submit`: When the form value is submitted, either through a key or through a `<submit>` button.</li></ul> |
+| Window | <ul><li>`resize`: When the viewport is resized.</li><li>`scroll`: When a scroll event is detected.</li><li>`load`: When the current page loads completely.</li><li>`unload`: When the user leaves the current page, unloading it.</li></ul> |
+
 ---
 
-# Data loading
+# Fetching data
+
+Now let's add data to our layouts! So far, we've been working with static data, where we manually input every piece of content that is being shown to the user. But what if we want to fetch data from an API?
+
+To do so, we use a `fetch` request, or a `GET` request. Let's assume that our API provides two key pairs: A title, and an image URL.
+
+To fetch this data, we would write a `GET` request as such:
+
+```js
+fetch("https://example.com/api/random-image")
+  .then(response => response.json())  // Parse the response as JSON
+  .then(data => {
+    const title = data.title;         // Extract the title
+    const imageUrl = data.url;        // Extract the image URL
+  })
+  .catch(error => console.error('Error:', error)); // Catch any errors with the response
+```
+
+<iframe data-frame-title="GET Request" src="pfp-code:./get-request?template=node&embed=1&file=src%2Fscript.js" height="640"></iframe>
 
 ---
 
+## Populating a layout
+
+Now let's modify our code so that it populates an entire grid of items! 
+
+> In the following demo, we're now iterating several times over our `fetch` function, and creating an array of items.<br>
+> After the array is complete, we construct a new card for each item with `appendChild` and then append that card to the grid!
+
+<iframe data-frame-title="Populating grid with data" src="pfp-code:./populating-grid?template=node&embed=1&file=src%2Fscript.js" height="640"></iframe>
+
+---
+
+# Conclusion
+
+**And with that, we've reached the end of Web Fundamentals.**
+
+I would like to thank each and every one that has read through the series, provided feedback, and those who found it helpful!
+
+If you'd like to see more articles on this series, tackling topics that we have missed, **let us know in our Discord!** We're always monitoring blog post requests, and we'd love to help more and more people get started on their webdev journey.
+
+I'll see you on the next one. Take care, and happy development!

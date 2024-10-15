@@ -257,4 +257,8 @@ The `object-fit` property defines how the image will behave within its aspect ra
 
 ---
 
-TO-DO: PUT IT ALL TOGETHER, WITH GRID!
+# What next?
+
+Now that we're all caught up on how to make each part of our design process responsive, it's time to add interactivity. **In our next chapter, we're tackling the basics of JavaScript!**
+
+I'll see you there.
