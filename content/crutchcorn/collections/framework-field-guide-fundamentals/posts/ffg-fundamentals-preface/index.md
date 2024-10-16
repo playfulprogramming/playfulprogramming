@@ -136,7 +136,7 @@ In fact, I will do my best to link out to anything that's expected to be known o
 
 - ["How Computers Speak" — An introduction to how your computer takes "source code" and converts it to machine code.](/posts/how-computers-speak)
 - ["Introduction to HTML, CSS, and JavaScript" — An explanation of the three fundamentals of web development and how they're utilized to build websites.](/posts/intro-to-html-css-and-javascript)
-- ["CSS Fundamentals" — An introduction to how CSS works and common rules you should know.](/posts/css-fundamentals)
+- ["CSS Fundamentals" — An introduction to how CSS works and common rules you should know.](/posts/web-fundamentals-css)
 - ["WebDev 101: How to use NPM and Yarn" — An explanation of what "Node" is, what "NPM" is, and how to use them.](/posts/how-to-use-npm)
 - ["Understanding The DOM: How Browsers Show Content On-Screen" — An explanation of the "DOM" and how it pertains to HTML.](/posts/understanding-the-dom)
 
