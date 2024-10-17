@@ -62,7 +62,12 @@ window.customElements.define('hello-component', HelloElement);
 <hello-component></hello-component>
 ```
 
+<iframe data-frame-title="Lit: Render" src="pfp-code:./lit-render?template=node&embed=1&file=src%2Fmain.js"></iframe>
+
+```html
+DELETEDELETE
 <iframe src="https://app.coderpad.io/sandbox?question_id=194516" loading="lazy"></iframe>
+```
 
 There are two primary differences from the vanilla JavaScript example. First, we no longer need to use the `connectedCallback` to call `render`. The LitElement’s `render` function is called by Lit itself whenever needed - such as when data changes or for an initial render - avoiding the need to manually re-call the render method. 
 
