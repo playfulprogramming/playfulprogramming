@@ -156,7 +156,12 @@ window.customElements.define('hello-component', HelloElement);
 <hello-component></hello-component>
 ```
 
+<iframe data-frame-title="Lit: Event Listener" src="pfp-code:./lit-listener?template=node&embed=1&file=src%2Findex.html"></iframe>
+
+```html
+DELETEDELETE
 <iframe src="https://app.coderpad.io/sandbox?question_id=194518" loading="lazy"></iframe>
+```
 
 Yup, that’s all. Lit allows you to bind elements by using the `@` sign and passing the function as a placeholder to the `html` tagged template. Not only does this look much HTML-like, it handles event cleanup, re-rendering, and more.
 
@@ -250,11 +255,14 @@ window.customElements.define('hello-component', HelloElement);
 <!-- This will show "NaN is typeof number"  -->
 <hello-component val="Test"></hello-component>
 ```
+<iframe data-frame-title="Lit: Attribute Conversion" src="pfp-code:./lit-attr-typeof?template=node&embed=1&file=src%2Fmain.js"></iframe>
 
+```html
+DELETEDELETE
 <iframe src="https://app.coderpad.io/sandbox?question_id=194519" loading="lazy"></iframe>
+```
 
 ## Attribute Reactivity
-
 
 One of the biggest benefits of not having to call `render` manually is that Lit is able to render contents when they need to update.
 
@@ -281,15 +289,20 @@ export class ChangeMessageElement extends LitElement {
   }
 
   render() {
-      return html`
-    <button @click="${this.changeSelectedMsg}">Toggle</button>
-    <hello-component message=${this.message}></hello-component>
-  `;
+    return html`
+      <button @click="${this.changeSelectedMsg}">Toggle</button>
+      <hello-component message=${this.message}></hello-component>
+    `;
   }
 }
 ```
 
+<iframe data-frame-title="Lit: Attribute Reactivity" src="pfp-code:./lit-attr-reactivity?template=node&embed=1&file=src%2Fmain.js"></iframe>
+
+```html
+DELETEDELETE
 <iframe src="https://app.coderpad.io/sandbox?question_id=181069" loading="lazy"></iframe>
+```
 
 # Reactive Data Binding
 
@@ -329,7 +342,12 @@ export class FormElement extends LitElement {
 }
 ```
 
+<iframe data-frame-title="Lit: Reactive Binding" src="pfp-code:./lit-attr-reactivity?template=node&embed=1&file=src%2Fmain.js"></iframe>
+
+```html
+DELETEDELETE
 <iframe src="https://app.coderpad.io/sandbox?question_id=181090" loading="lazy"></iframe>
+```
 
 You may also notice that we’re binding both the user’s input and output to set and reflect the state. [This is exactly how other frameworks like React also expect you to manage user state](https://coderpad.io/blog/master-react-unidirectional-data-flow/). 
 
@@ -446,7 +464,12 @@ window.customElements.define('change-message-component', ChangeMessageElement);
 <change-message-component></change-message-component>
 ```
 
+<iframe data-frame-title="Lit: Prop Passing" src="pfp-code:./lit-prop-passing?template=node&embed=1&file=src%2Fmain.js"></iframe>
+
+```html
+DELETEDELETE
 <iframe src="https://app.coderpad.io/sandbox?question_id=194520" loading="lazy"></iframe>
+```
 
 This works because properties and attributes are both created at the same time with Lit.
 
@@ -511,7 +534,12 @@ class TodoElement extends LitElement {
 }
 ```
 
+<iframe data-frame-title="Lit: Array Iteration" src="pfp-code:./lit-array-repeat?template=node&embed=1&file=src%2Fmain.js"></iframe>
+
+```html
+DELETEDELETE
 <iframe src="https://app.coderpad.io/sandbox?question_id=181092" loading="lazy"></iframe>
+```
 
 # Passing Functions
 
@@ -546,7 +574,12 @@ class TodoElement extends LitElement {
 }
 ```
 
+<iframe data-frame-title="Lit: Passing Functions" src="pfp-code:./lit-passing-functions?template=node&embed=1&file=src%2Fmain.js"></iframe>
+
+```html
+DELETEDELETE
 <iframe src="https://app.coderpad.io/sandbox?question_id=181093" loading="lazy"></iframe>
+```
 
 You will notice that we’re using a `filter` within our `render` method. Because this logic is within the `render` method, it will run on every UI update. This is important to note in case you have expensive operations: you should avoid running those within the render method.
 
