@@ -1,6 +1,6 @@
 ---
 {
-  title: "Web Fundamentals: CSS",
+  title: "Web Fundamentals: CSS - The Basics",
   description: "The second chapter in our front-end series. Let's delve right into the world of CSS, variables and selectors.",
   published: "2024-09-03T20:08:26.988Z",
   tags: ["css", "html", "design"],
@@ -111,7 +111,15 @@ Using this variety of combinators and selectors you can easily style any part of
 >
 > 📚 [**MDN: Selectors**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 
+---
 
+## Cascade, inheritance & specificity
+
+There's a defined set of hierarchical structures in CSS, and those can be difficult to parse through. Because these topics require more explanation than the average section in this article, we have chosen to separate it into its own!
+
+> 📝 [**Web Fundamentals: CSS - Hierarchy**](/posts/web-fundamentals-css-hierarchy)
+
+---
 
 # Unit & value types
 
@@ -157,6 +165,12 @@ Now that we've looked at these two types of units, I think it's important to hig
 | `em` | Relative to the parent element's `font-size`. |
 | `rem` | Relative to the `:root`'s `font-size`. We will talk more about the `:root` soon. |
 
+### Typographic units
+
+| Unit | Behavior |
+| --- | --- |
+| `ch` | Equal to the width of a font's "0" character. |
+| `ex` | Equal to the x-height of the current font. The *x-height* refers to the height between the baseline and the top of a lowercase character. |
 
 
 ## Values
@@ -469,3 +483,9 @@ For example, our own header is fixed so that it remains at the top of the screen
 > **[CodeSandbox: Positioning](https://codesandbox.io/s/positioning-gzzv3?file=/styles.css)**
 
 ---
+
+# We have more to learn
+
+In the second installment of the CSS portion of our series, we will talk about CSS inheritance, hierarchy, and specificity. It's a lot to go through, which is why we had to split it up! 
+
+I'll meet you there.

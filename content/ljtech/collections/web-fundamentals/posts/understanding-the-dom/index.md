@@ -1,16 +1,18 @@
 ---
 {
-	title: 'Understanding The DOM: How Browsers Show Content On-Screen',
-	description: 'Learn how the browser internally handles HTML and CSS to show the user webpages on-screen',
+	title: 'Web Fundamentals: Understanding the DOM',
+	description: 'In our eight chapter, we learn how the browser internally handles HTML and CSS to show the user webpages on-screen.',
 	published: '2019-11-26T22:12:03.284Z',
 	tags: ['webdev', 'css', 'javascript', 'html'],
-	license: 'cc-by-nc-sa-4'
+	license: 'cc-by-nc-sa-4',
+    authors: ["crutchcorn"],
+	order: 8
 }
 ---
 
-Any web application relies on some fundamental technologies: HTML, CSS, and JavaScript. Even advanced front-end JavaScript frameworks such as Angular, React, or Vue will utilize some level of HTML to load the JavaScript. That said, how the browser handles HTML and CSS under-the-hood can be quite the mystery. In this article, I'm going to explain what the browser does to understand what it should show to the user.
+Any web application relies on some fundamental technologies: HTML, CSS, and JavaScript. Even advanced front-end JavaScript frameworks such as **[Angular, React, or Vue](/collections/framework-field-guide)** will utilize some level of HTML to load the JavaScript. 
 
-> If you're unfamiliar with HTML, CSS, or JavaScript, you may want to take a look at [our post that introduces these three items](/posts/intro-to-html-css-and-javascript). They'll provide a good foundation for this article for newcomers to the programming scene or folks who may not be familiar with what those languages do.
+That said, how the browser handles HTML and CSS under-the-hood can be quite the mystery. In this article, I'm going to explain what the browser does to understand what it should show to the user.
 
 # The DOM {#the-dom}
 
@@ -30,15 +32,13 @@ For example, when you load a file similar to this:
 </main>
 ```
 
-_The browser takes the items defined in the HTML and turns them into a tree that the browser understands how to lay out and draw on the screen_. That tree, internally, might look something like this:
+The browser takes the items defined in the HTML and turns them into a tree that the browser understands how to lay out and draw on the screen. That tree, internally, might look something like this:
 
 ![A chart showing the document object model layout of the above code. It shows that the 'main' tag is the parent to a 'ul' tag, and so on](./dom_tree.svg "Diagram showing the above code as a graph")
 
 > This is an oversimplified example of how the browser interprets HTML, but gets the job done to convey introductory information.
 
-Let's see how this is done.
-
-At the root of any HTML file, you have three things: tags, attributes, and text content.
+Let's see how this is done: At the root of any HTML file, you have three things: tags, attributes, and text content.
 
 ```html
 <!-- A "header" tag -->
@@ -51,6 +51,8 @@ At the root of any HTML file, you have three things: tags, attributes, and text 
 </header>
 ```
 
+## The DOM tree
+
 When you type a tag, like `<header>` or `<a>`, you're creating an _element node_. These nodes are then composed to create _"leaves"_ on the DOM tree. Attributes are then able to manually add information to these nodes. When you have one element node inside of a separate one, you add a _"child"_ to said node. The relationship between the nodes allows metadata, CSS properties, and more to be preserved.
 
 There's also the idea of a _"sibling"_ node. When a node's parent has more than one child, those other nodes are that child node's _"siblings"_.
@@ -61,15 +63,19 @@ Altogether, the terminology used to refer to the nodes and their various relatio
 
 There are some rules for the tree that's created from these nodes:
 
-- There must be one "root" or "trunk" node, and there cannot be more than one root
-- There must be a one-to-many relationship with parents and children. A node:
-	- May have many children
-	- Cannot have more than one parent
-- A non-root node may have many siblings as a result of the parent having many children
+- **There must be one "root" or "trunk" node, and there cannot be more than one root.**
+- **There must be a one-to-many relationship with parents and children.**
+	- A node may have many children.
+	- A node cannot have more than one parent.
+- **A non-root node may have many siblings as a result of the parent having many children.**
+
+<br>
 
 ![A chart showing the aforementioned rules of the node relationships](./dom_relationship_rules.svg)
 
-### How It's Used By The Browser {#how-the-browser-uses-the-dom}
+<br>
+
+### How it is used by the browser {#how-the-browser-uses-the-dom}
 
 This tree tells the browser all of the information it needs to execute tasks in order to display and handle interaction with the user. For example, when the following CSS is applied to this HTML file:
 
@@ -93,11 +99,20 @@ This tree tells the browser all of the information it needs to execute tasks in 
 
 While moving through the tree, the browser can keep track of the fact that it needs to find an element with the `ID` of `b` and then mark its `<li>` children with a red background. They're "children" because the DOM tree preserves the relationship defined by the HTML.
 
+<br>
+
 ![A chart showing the 'ul' tag highlighted in green with the children 'li' tags marked in red](./dom_tree_with_css.svg "Diagram showing the above code as a graph")
 
 > The `<ul>` element is marked as green just to showcase that it is the element being marked by the first part of the selector.
 
-Typically, the browser will "visit" it's nodes in a specific order. For example, in the above chart, the browser might start at the `<main>` tag, then go to the `<p>` tag, then visit the `<ul>` tag, and finally the two children in order from left-to-right (`<li id="c">` , `<li id="d">`).
+## The browser ordering
+
+Typically, the browser will "visit" it's nodes in a specific order. For example, in the above chart, the browser might:
+
+- Start at the `<main>` tag;
+- Then go to the `<p>` tag;
+- Then visit the `<ul>` tag;
+- And finally access the two children in order from left-to-right (`<li id="c">` , `<li id="d">`).
 
 The browser, knowing what CSS to look for, is able to see the `<ul>` with the correct ID and know to mark its children with the correct metadata that matches the selector with the relevant CSS.
 
@@ -105,17 +120,20 @@ This tree relationship also enables CSS selectors such as the [general sibling s
 
 ![A showcase of the above selectors and how they always look forward, never behind](css_selectors_demo.svg)
 
+---
+
+> ### Why is there no "parent" selector?
 > Interestingly, one of the questions that I've often heard asked concerns a "parent selector". The idea behind the question is that the [direct child selector (`>`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) exists, so why not have the ability to select any parent of `.classname` selectors?
 >
 > The answer behind that? Performance. The [W3 Consortium](https://www.w3.org/Style/CSS/#specs) (the organization that maintains the HTML and CSS standard specifications) points to the tree structure of the DOM and the algorithm used by the browser to traverse the DOM (or, "visit" the nodes in order to figure out what CSS to apply) as not being performant when allowing parent selectors.
 >
 > This happens because browsers read from top-to-bottom in the DOM and apply CSS as they find matching nodes; CSS doesn't command the browser to do anything to the DOM, but rather provides the metadata for the DOM to apply the relevant CSS when the browser comes across that specific node.
 >
-> As mentioned before, they start at the root node, keep notes on what they've seen, then move to children. Then, they move to siblings, etc. Specific browsers may have slight deviations on this algorithm, but for the most part, they don't allow for upwards vertical movement of nodes within the DOM.
+> As mentioned before, they start at the root node, keep notes on what they've seen, then move to children; then, they move to siblings, etc. Specific browsers may have slight deviations on this algorithm, but for the most part, they don't allow for upwards vertical movement of nodes within the DOM.
 
+---
 
-
-# Using The Correct Tags {#accessibility}
+# Defaults & accessibility {#accessibility}
 
 HTML, as a specification, has tons of tags that are able to be used at one's disposal. These tags contain various pieces of metadata internally to provide information to the browser about how they should be rendered in the DOM. This metadata can then be handled by the browser how it sees fit; it may apply default CSS styling, it may change the default interaction the user has with it, or even what behavior that element has upon clicking on it (in the case of a button in a form).
 
@@ -151,7 +169,7 @@ What can be done to remediate this? Well, by utilizing the proper tags, of cours
 
 In this example, both the browsers as well as Google's scraper bots are able to discern that this is a list with three list items within it.
 
-> While there ARE tags that may potentially impact SEO somewhat significantly, it's unlikely `<ul>` and `<li>` would significantly impact your SEO scores.
+> While there ***are*** tags that may potentially impact SEO somewhat significantly, it's unlikely `<ul>` and `<li>` would significantly impact your SEO scores.
 >
 > Needless to say, it's still good to use semantic (correctly tagged) HTML as people that use screen-readers and other assistive technologies benefit greatly from these minor changes. Additionally, it can make code more readable and parsable with automated tools.
 
@@ -175,11 +193,11 @@ In fact, the metadata that specific tags have by default can be manually applied
 </ol>
 ```
 
-> It's worth mentioning that this example is generally considered malpractice. While you may have been able to preserve _some_ of the metadata from a `<li>` tag in a `<div>` element, it's extremely difficult to catch all of the defaults a browser might apply to the original tag that may enhance the experience of someone that uses a screen-reader.
+> **It's worth mentioning that this example is generally considered malpractice.** While you may have been able to preserve _some_ of the metadata from a `<li>` tag in a `<div>` element, it's extremely difficult to catch all of the defaults a browser might apply to the original tag that may enhance the experience of someone that uses a screen-reader.
 >
 > This is all to say, unless you have a **really** good reason for using `role` rather than an appropriate tag, stick with the related tag. Just as any other form of engineering, properly employing HTML requires nuance and logic to be deployed at the hand of the implementing developer.
 
-# Element Metadata {#interacting-with-elements-using-js}
+# Element metadata {#interacting-with-elements-using-js}
 
 If you've ever written a website that had back-and-forth communication between HTML and JavaScript, you're likely aware that you can access DOM elements from JavaScript: modifying, reading, and creating them to your heart's content.
 
@@ -189,7 +207,7 @@ Let's look at some of the built-in utilities at our disposal for doing so:
 - [The `Element` base class](#element-class)
 - [The event system](#events)
 
-## Document Global Object {#document-global-object}
+## The `Document` global object {#document-global-object}
 
 [As mentioned before, the DOM tree must contain one root node](#the-dom). This node, for any instance of the DOM, is the document entry point. When in the browser, this entry point is exposed to the developer with [the global object `document`](https://developer.mozilla.org/en-US/docs/Web/API/Document). This object has various methods and properties to assist in a meaningful way. For example, given a standard HTML5 document:
 
@@ -214,7 +232,7 @@ The `document` object has the ability to get the `<body>` node ([`document.body`
 
 ![A screenshot of the Chrome debugger console displaying those properties](first_document_properties.png)
 
-### Querying Elements
+### Querying elements
 
 Besides containing static references to `<body>` and `<head>`, there is also a way to query any element by using CSS selectors. For example, if we wanted to get a reference to the single element with the `id` of `mainText`, we could use the CSS selector for an id, combined with [the `querySelector` method on the `document`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector):
 
@@ -248,7 +266,7 @@ console.log(boldedElements[0].innerHTML); // Will output the HTML for that eleme
 
 > It's worth mentioning that the way `querySelector` works is not the same [way that the browser checks a node against the CSS selector data when the browser "visits" that node](#how-the-browser-uses-the-dom). `querySelector` and `querySelectorAll` work from a more top-down perspective where it searches the elements one-by-one against the query. First, it finds the top-most layer of the CSS selector. Then it will move to the next item and so-on-so forth until it returns the expected results.
 
-## Element Base Class {#element-class}
+## The `Element` base class {#element-class}
 
 While `innerHTML` has been used to demonstrate that the element that's gathered is in fact the element that was queried, there are many _many_ more properties and methods that can be run on an element reference.
 
@@ -266,7 +284,7 @@ console.log(mainTextElement.getBoundingClientRect());
 >
 > This means that all queried elements will have their own `getBoundingClientRect` methods.
 
-### Attributes {#html-attributes}
+### HTML attributes
 
 [As covered earlier, elements are able to have _attributes_ that will apply metadata to an element for the browser to utilize.](#accessibility) However, what I may not have mentioned is that you're able to read and write that metadata, as well as applying new metadata, using JavaScript.
 
@@ -356,7 +374,7 @@ Will turn the element's background color red, for example.
 
 Somewhat silly, seeing as how the `<div>` is no longer green. 🤭
 
-#### Limitations {#attribute-limitations}
+#### Limitations
 
 While attributes can be of great use to store data about an element, there's a limitation: Values are always stored as strings. This means that objects, arrays, and other non-string primitives must find a way to go to and from strings when being read and written.
 
@@ -405,9 +423,7 @@ console.log(element.dataset.userInfo); // "[object Object]"
 >
 > For now, it will suffice just to know that you're only able to store strings in an element attribute.
 
-
-
-## Events {#events}
+## Events
 
 Just as your browser uses the DOM to handle on-screen content visibility, your browser also utilizes the DOM for knowing how to handle user interactions. The way your browser handles user interaction is by listening for _events_ that occur when the user takes action or when other noteworthy changes occur.
 
@@ -417,7 +433,7 @@ For example, say you have a form that includes a default `<button>` element. Whe
 
 _Bubbling_, as shown here, is the default behavior of any given event. Its behavior is to move an event up the DOM tree to the nodes above it, moving from child to parent until it hits the root. Parent nodes can respond to these events as expected, stop their upward motion on the tree, and more.
 
-### Event Listening {#event-bubbling}
+### `Event` listening {#event-bubbling}
 
 Much like many of the other internal uses of the DOM discussed in this article, you're able to hook into this event system to handle user interaction yourself.
 
@@ -460,7 +476,6 @@ Let's look at an example of some code doing so:
 </html>
 ```
 
-
 In this example, we're adding click listeners to three squares, each one smaller than their parent square. This allows us to see the effect of bubbling in our console. If you click on the red square, you'd expect the event to bubble up to `<body>`, but not down to `#green`. Likewise, if you clicked on the green square, you'd expect the event to bubble up to both `#blue` and `#red` as well as `<body>`.
 
 However, as you can see, we're running `stopPropagation` on the event in the blue square. This will make the click event stop bubbling. This means that any click events that are called on `#green` will not make it to `#red` as they will be stopped at `#blue`.
@@ -469,7 +484,7 @@ However, as you can see, we're running `stopPropagation` on the event in the blu
 
 You can see a running example of this here:
 
-<iframe src="https://stackblitz.com/edit/event-bubbling-demo?embed=1&file=index.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Example of stopPropagation"src="https://stackblitz.com/edit/event-bubbling-demo?embed=1&file=index.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Capturing {#event-capturing}
 
@@ -497,8 +512,6 @@ greenEl.addEventListener('click', () => {
 
 As demonstrated by the code above, `stopPropagation` works as you might expect it to in capture mode as well!
 
-
-
 ![stopPropagation works similarly to how it does in bubble mode, just that it stops events from moving _down_ the tree](./capture_stop_propagation.svg)
 
 This means that when the user clicks on the red square, you'll see the following in your console:
@@ -510,12 +523,12 @@ This means that when the user clicks on the red square, you'll see the following
 
 You won't see anything from the green square's `eventListener`, however.
 
-<iframe src="https://stackblitz.com/edit/event-capture-demo?embed=1&file=index.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Example of event capturing"src="https://stackblitz.com/edit/event-capture-demo?embed=1&file=index.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 You'll also notice that if you click on the green square, you'll never see the `"A click handled on green using capture"` message. This is due to the `stopPropagation`, as mentioned before. The click is being registered on the red square first and then stopped on the blue square.
 
 # Conclusion
 
-This post is filled to the brim with information. 😵 Even I, the author, had a few amazing folks give it a re-read to confirm what I've written. Please don't be afraid or ashamed to re-read anything that might not have made sense or to revisit the post whenever a question arises. Hopefully, this has been a helpful exploration of the DOM and the ways you interact with it using code.
+This post is filled to the brim with information. 😵 Even I, the author, had a few amazing folks give it a re-read to confirm what I've written. Please don't be afraid or ashamed to re-read anything that might not have made sense or to revisit the post whenever a question arises. Hopefully, this has been a helpful exploration of the DOM and the ways you interact with it using code!
 
-Please ask any questions or comments in our comments section and remember that we have [a Discord](https://discord.gg/FMcvc6T) for further conversation, including any questions!
+Next up, **we're going to directly manipulate the DOM with the power of JavaScript!** You'll learn how to make components interactive, add events and much, much more!
