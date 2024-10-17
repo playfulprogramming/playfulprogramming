@@ -1,12 +1,12 @@
 ---
 {
   title: "Web Fundamentals: Grid",
-  description: "In the fourth chapter of our series, we're going to be introduced to CSS grid, a well-known feature to display content, and used in almost every website you visit.",
+  description: "In the fifth chapter of our series, we're going to be introduced to CSS grid, a well-known feature to display content, and used in almost every website you visit.",
   published: "2024-09-18T20:10:26.988Z",
   tags: ["css", "html", "design"],
   license: "cc-by-4",
   authors: ["ljtech","edpratti"],
-  order: 4
+  order: 5
 }
 ---
 
@@ -22,7 +22,7 @@ Grids and grid cells take in numerical values. They can be a value relative to t
 | Value | Behavior |
 | --- | --- |
 | `px` | Sets a static size for each column. |
-| `fr` | Sets a fraction value based on the container size or the content size, if a container size is not set. This will take into account the `gap` property, and make sure content does not overflow. |
+| `fr` | Sets a fraction value based on the container size or the content size, if a container size is not set. This will take into account the `gap` property, and make sure content does not overflow.<br><br>**Only available inside `display: grid`.** |
 | `%` | Sets a percentage value based on the container size. Unlike `fr`, this will ignore the `gap` property, and content will overflow if the sum of the percentage and `gap` is bigger than 100%. |
 | `vw`, `vh` | Set a percentage value based on the viewport size. Unlike `fr`, this will ignore the `gap` property, and content will overflow if the sum of the percentage and `gap` is bigger than 100%. |
 
@@ -423,9 +423,8 @@ CSS grid is extremely popular for a reason! The main advantages of grid are:
 
 ---
 
-# Now what?
+# Next up: Responsive design
 
-Now that we've learned a little bit of HTML, CSS, and looked over the main mechanics used to create beautiful and functional layouts, it's time to add interactivity to our prototypes! In the next chapter, we'll learn about native interactivity triggers, and how to add your own using JavaScript!
+Now that we're all familiar with Flexbox and Grid, it's time to put it all to the test by building responsive layouts that users can enjoy on any form factor.
 
-> **Coming soon:**
-> The JavaScript chapter is currently in progress. It won't take long, but it's not ready just yet. Come back soon!
+That's what the next chapter is for. Follow me there!

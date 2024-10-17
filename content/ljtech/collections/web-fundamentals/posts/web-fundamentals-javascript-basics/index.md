@@ -1,12 +1,12 @@
 ---
 {
-  title: "Web Fundamentals: JavaScript - The Basics",
-  description: "The sixth chapter of this series contains the first look into JavaScript and its basic components.",
+  title: "Web Fundamentals: JavaScript Basics",
+  description: "The seventh chapter of this series contains the first look into JavaScript and its basic components.",
   published: "2024-10-20T20:08:26.988Z",
   tags: ["css", "html", "design"],
   license: "cc-by-4",
   authors: ["edpratti"],
-  order: 6
+  order: 7
 }
 
 ---
@@ -59,7 +59,11 @@ let age = 27;
 let pi = 3.14;
 ```
 
-If you need to represent a value bigger than allowed by `number`, you can use a `BigInt` value instead.
+## BigInt
+
+When using regular numbers, we are limited to what is called a `MAX_SAFE_INTEGER`, whose value is capped at `9007199254740991`.
+
+If you need to represent a value bigger than allowed by `number`, you can use a `BigInt` value instead. We declare a `BigInt` by appending an `n` at the end of a number, or using the `BigInt()` function.
 
 ```js
 /* Same as let hugeNumber = 9007199254740991n */
@@ -113,16 +117,6 @@ isLarger = a > b;
 
 ---
 
-## Null
-
-The `null` is as it's described; unlike `undefined`, **it specifically sets an empty value.**
-
-```js
-let result = null;
-```
-
----
-
 ## Undefined
 
 The `undefined` value is a default value that is applied when one is not provided.
@@ -132,6 +126,16 @@ let value;
 
 /* Returns undefined */
 console.log(value);
+```
+
+---
+
+## Null
+
+The `null` is as it's described; unlike `undefined`, **it specifically sets an empty value.**
+
+```js
+let result = null;
 ```
 
 ---
@@ -165,10 +169,9 @@ Like we mentioned previously, `Object`s can be modified despite being attached t
 
 ## Arrays
 
-Arrays are a type of `Object` as well. They can hold any content type, including themselves!
+Arrays are a type of `Object` as well. They can hold any content type, including other arrays!
 
 ```js
-
 const numberArray = [1, 2, 3, 4, 5];
 const stringArray = ["Corbin", "Eduardo", "Obi", "Sarah"];
 const mixedArray = [1, "Corbin", null, undefined];
@@ -189,14 +192,11 @@ console.log(numberArray[3]); /* Error: No value found at the 4th position. */
 
 Functions, as the name implies, are used to perform reusable tasks or return values.
 
-> 📝 **[Functions, in and of themselves, are values.](./javascript-functions-are-values)** (Advanced)<br>
-> If this chapter of our series leaves a little to be desired, go ahead and read this article instead!
-
 We can declare functions in two different ways.
 
 ## Standard functions
 
-A standard function in JavaScript differs very little from one you'd see on any other Object-Oriented Programming language.
+A function in JavaScript may look familiar to those that have used other languages in the past.
 
 ```js
 function functionName() {
@@ -246,15 +246,17 @@ A much shorter syntax is achieved when there is only one `return` statement, as 
 
 <img src="./js_arrow_args.svg" style="border-radius: var(--corner-radius_l); background-color: var(--surface_primary_emphasis-none);" alt="An example showing the more concise syntax of the arrow function with no need for parentheses or a return statement."></img>
 
-In other areas, arrow functions have several key differences.
+Besides that, arrow functions differ in one important area: The context of the `this` keyword.
 
-| Features | Standard functions | Arrow functions
-| --- | --- | --- |
-| Syntax | Longer | Shorter |
-| Constructor | Can be used as a constructor | Cannot be used as a constructor |
-| Best used when | Dealing with objects and constructors | Callbacks, concise tasks and returns |
+> **Learn more:**
+> Learn how context matters when using `this` and how standard and arrow functions differ when assigning properties.
+><br>
+> 📃 [**Mastering JavaScript's `this` keyword using `bind`**](/posts/javascript-bind-usage)
 
 ### Calling functions as values
+
+> 📝 **[Functions, in and of themselves, are values.](./javascript-functions-are-values)**<br>
+> We have an article that goes over this in much more detail. Please check it out to learn more.
 
 We can encapsulate functions and their returns in variables.
 
@@ -361,6 +363,6 @@ myMediumCoffee.refill();
 
 ---
 
-# Meet the DOM
+# Up next: Understanding the DOM
 
-In our next chapter, we're going to build things! We're going to directly interact with the DOM — Document Object Model — and make our HTML elements interactive in the process. I hope to see you there!
+In our next chapter, we're going to learn about the DOM — Document Object Model — and how it renders content inside of our browsers. This will be very important for the second part of our JavaScript section! I'll see you there.

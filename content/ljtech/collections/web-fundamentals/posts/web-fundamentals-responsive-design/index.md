@@ -1,12 +1,12 @@
 ---
 {
   title: "Web Fundamentals: Responsive Design",
-  description: "The fifth chapter tackles responsive design, breakpoints, media queries and more!",
+  description: "The sixth chapter tackles responsive design, breakpoints, media queries and more!",
   published: "2024-10-03T20:08:26.988Z",
   tags: ["css", "html", "design"],
   license: "cc-by-4",
   authors: ["edpratti"],
-  order: 5
+  order: 6
 }
 
 ---
@@ -58,6 +58,13 @@ There are different relative units for each context. Use them accordingly!
 | --- | --- |
 | `em` | Relative to the parent element's `font-size`. |
 | `rem` | Relative to the `:root`'s `font-size`. |
+
+### Typographic units
+
+| Unit | Behavior |
+| --- | --- |
+| `ch` | Equal to the width of a font's "0" character. |
+| `ex` | Equal to the x-height of the current font. The *x-height* refers to the height between the baseline and the top of a lowercase character. |
 
 Now let's learn a little about how to trigger a change in layout.
 
@@ -160,7 +167,7 @@ They both have different use cases and it's important to know when to use each.
 
 ## When to use `rem`
 
-**In almost all situations, using `rem` is advised.** The *root em* is the value that browsers change according to the user's text size preferences. The sizes for Chromium-based browsers are as follows:
+**In almost all situations, using `rem` for text values is advised.** The *root em* is the value that browsers change according to the user's text size preferences. The sizes for Chromium-based browsers are as follows:
 
 | Text size (Chromium) | `px` value |
 | --- | --- |
@@ -197,6 +204,10 @@ In the following demo, we are simulating the `rem` to `font-size` relationship.
 > The demo also scales with the browser's `rem`, but this wasn't necessary.
 
 <iframe data-frame-title="Using rem" src="pfp-code:./using-rem?template=node&embed=1&file=src%2Fstylesheet.css"></iframe>
+
+> **Learn about accessibility:**
+> If you'd like a deep-dive into accessibility, we have an article specifically going over all the best practices for text!<br>
+> 📝 [**Introduction to Web Accessibility (A11Y)**](/posts/intro-to-web-accessibility#font-rem)
 
 ---
 

@@ -1,12 +1,12 @@
 ---
 {
-  title: "Web Fundamentals: JavaScript - DOM Manipulation & Interactivity",
-  description: "The seventh chapter of this series finally goes over the DOM, how to manipulate it, and how to make our components interactive!",
+  title: "Web Fundamentals: Manipulating the DOM with JavaScript",
+  description: "The ninth chapter of this series finally goes over the DOM, how to manipulate it, and how to make our components interactive!",
   published: "2024-10-20T20:08:26.988Z",
   tags: ["css", "html", "design"],
   license: "cc-by-4",
   authors: ["obibaratt", "edpratti"],
-  order: 7
+  order: 9
 }
 
 ---
@@ -28,7 +28,10 @@ The DOM represents the structure of a webpage, enabling developers to modify con
 
 The `document` is how you interact with the DOM and everything that is loaded within it. We use the `document.` prefix to manipulate all elements that compose the webpage we're looking at.
 
-We have access to many methods that allow us to get, set and modify elements from the HTML document.
+> **Understanding the DOM:**
+> If you haven't read the previous chapter, this is the time to do so. We're going to dive straight into how to manipulate the DOM, but it's important to understand the context behind how content is displayed by the browser.
+>
+> 📝 **[Click here to read the article](/posts/understanding-the-dom)**
 
 # Creating elements
 
@@ -69,9 +72,9 @@ In our demo above, we're already making use of the selecting methods of JavaScri
 
 | Method | JavaScript | Returns |
 | --- | --- | --- |
-| Select by `id` | document.getElementById("myElement") | A unique HTMLElement |
-| Select by `class` | document.getElementsByClassName("myClass") | HTMLCollection (Live) |
-| Select by `<tag>` | document.querySelectAll("p") | NodeList (Static) |
+| Select by `id` | `document.getElementById("myElement")` | A unique HTMLElement |
+| Select by `class` | `document.getElementsByClassName("myClass")` | HTMLCollection (Live) |
+| Select by `<tag>` | `document.querySelectAll("p")` | NodeList (Static) |
 
 ---
 
@@ -163,7 +166,7 @@ const element = document.getElementById("#element");
 element.classList.toggle("myClass");
 ```
 
-In the following demo, we're toggling two classes on a card.: `.small` and `.no-image`. We're also performing style changes when both are applied!
+In the following demo, we're toggling two classes on a card: `.small` and `.no-image`. We're also performing style changes when both are applied!
 
 ```css
 /* Causes the card to shrink in size */
