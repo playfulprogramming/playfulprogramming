@@ -27,7 +27,8 @@
 			"utils/*": ["./src/utils/*"],
 			"pfp-utils": ["./src/utils"],
 			"assets/*": ["./src/assets/*"]
-		}
+		},
+		"types": ["@testing-library/jest-dom"]
 	},
 	"exclude": ["./content"]
 }
