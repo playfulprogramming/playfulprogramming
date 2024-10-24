@@ -316,13 +316,13 @@ See, among other things, a bundler is responsible for making sure that code whic
 
 Take a basic website, for example:
 
-![// TODO: Write this](./basic_website.svg)
+![An index.html file loads a style.css and a script.js file](./basic_website.svg)
 
 Here, we have an `index.html`, `style.css` and `script.js` file. These three files are able to run in the browser without any transformation, so we can upload them to our server and have people immediately consume this site.
 
 Now let's look at a slightly larger website that uses TypeScript and SCSS:
 
-![// TODO: Write this](./bundled_app.svg)
+![A bundled app has source code and output assets. The source code sees an index.html file loading a main.ts file, which loads other .ts files and a style.scss file. This outputs to an index.html file loading style.css and bundle.js files](./bundled_app.svg)
 
 Because TypeScript and SCSS files don't run in the browser natively, we need to first transform them into `.css` and `.js` files, which we can _then_ upload to a server.
 
@@ -332,15 +332,15 @@ This doesn't just apply to these tools, either. The same transformation process 
 
 ## React
 
-![// TODO: Write](./bundled_react_app.svg)
+![A bundled React app has source code and output assets. The source code has an index.html file loading main.ts, which loads various .tsx files and a style.css file. This outputs to index.html, style.css, and bundle.js files.](./bundled_react_app.svg)
 
 ## Angular
 
-![// TODO: Write](./bundled_angular_app.svg)
+![A bundled Angular app has source code and output assets. The source code has index.html and various TypeScript files underneath. The output assets has an index.html, style.css, and bundle.js](./bundled_angular_app.svg)
 
 ## Vue
 
-![// TODO: Write](./bundled_vue_app.svg)
+![A bundled Vue app has source code and output assets. The source code has an index.html, main.js, and various .vue files. The output assets are index.html, style.css, and bundle.js](./bundled_vue_app.svg)
 
 <!-- ::end:tabs -->
 
@@ -391,7 +391,7 @@ export const App = () => {
 
 This component would likely follow a pipeline similar to the following:
 
-![// TODO: Write](./react_bundling_pipeline.svg)
+![The React bundling pipeline has 5 steps. A compilation step takes us from .tsx to .jsx files and sees TypeScript compiling away its syntax. There's then another compilation step that sees Babel transform JSX syntax to function calls which moves us from .jsx to .js files. Then there's a transpilation step that sees Babel replace modern JS with equivalent older JS. Then there's minification that has the bundler rename variables and more to shorten code. Finally, we have bundling which combines multiple JS files into one.](./react_bundling_pipeline.svg)
 
 In the first step of this pipeline, the TypeScript syntax would be removed to leave only the JSX syntax:
 
@@ -451,7 +451,7 @@ class AppComponent {
 
 This component would likely follow a pipeline similar to the following:
 
-![// TODO: Write](./angular_bundling_pipeline.svg)
+![The Angular bundling pipeline has 5 steps. A compilation step compiles the TypeScript template into a function (which is also TypeScript). There's then another compilation step that has TypeScript compile away its syntax away from a .ts file to a .js file. Then there's a transpilation step that sees Babel replace modern JS with equivalent older JS. Then there's minification that has the bundler rename variables and more to shorten code. Finally, we have bundling which combines multiple JS files into one.](./angular_bundling_pipeline.svg)
 
 In the first step of this pipeline, Angular compiles the template into a function that can be used at runtime.
 
@@ -570,7 +570,7 @@ const message: string = "Test";
 
 This component would likely follow a pipeline similar to the following:
 
-![// TODO: Write this](./vue_bundling_pipeline.svg)
+![The Vue bundling pipeline has 5 steps. A compilation step takes us from .vue to .ts files and sees Vue compile the template and script into a function. There's then another compilation step that has TypeScript compiling away its syntax, which takes us from a .ts file to a .js file. Then there's a transpilation step that sees Babel replace modern JS with equivalent older JS. Then there's minification that has the bundler rename variables and more to shorten code. Finally, we have bundling which combines multiple JS files into one.](./vue_bundling_pipeline.svg)
 
 In the first step of this pipeline, Vue compiles the template and script into a function:
 
@@ -719,7 +719,7 @@ Now when you modify `src/App.jsx` (or `src/App.tsx` if you selected TypeScript) 
 
 > This auto-refresh on code change is called "HMR" or "Hot Module Reloading"
 
-<!-- TODO: Add iframe -->
+<iframe data-frame-title="React Build - StackBlitz" src="uu-code:./ffg-ecosystem-react-build-5?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Angular
 
@@ -770,7 +770,7 @@ To see a link that opens the template from the source code in the template:
 
 Now, by modifying the source code in `src`, you're able to see the browser contents update live as you make changes.
 
-<!-- TODO: Add iframe -->
+<iframe data-frame-title="Angular Build - StackBlitz" src="uu-code:./ffg-ecosystem-angular-build-5?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Vue
 
@@ -809,9 +809,7 @@ This should spit out a URL you can access to see the preview:
 
 !["You did it! You've successfully created a project with Vite + Vue 3"](./create-vue-new-welcome.png)
 
-<!-- TODO: Add iframe -->
-
-
+<iframe data-frame-title="Vue Build - StackBlitz" src="uu-code:./ffg-ecosystem-vue-build-5?template=node&embed=1&file=src%2Fmain.js" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 <!-- ::end:tabs -->
 
