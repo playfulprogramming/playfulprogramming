@@ -18,7 +18,7 @@ This series will teach you how to build applications, the concepts under the hoo
 
 While other resources can help you learn these concepts for one framework at a time, **this series will help you learn three different frameworks at once: React, Angular, and Vue.**
 
-Namely, we'll be looking at the most modern iterations of these frameworks: React 18, Angular 18, and Vue 3.
+Namely, we'll be looking at the most modern iterations of these frameworks: React 18, Angular 19, and Vue 3.
 
 > It's worth mentioning that React and Angular iterate their major versions much more frequently than Vue. So if you're reading this in the future and see "Angular 24" or "React 22," it's likely that it's using similar concepts under the hood.
 
@@ -266,50 +266,17 @@ Here are a few nuances we should keep in mind about this book's teachings of Ang
 
 Despite the similarities in their names, these two are entirely distinct entities. More specifically, [AngularJS was initially released in 2010](/posts/web-components-101-history#2010-The-Early-Days-of-MVC-in-JS) and was followed up by the initial release of Angular in 2016. **Despite this shared lineage, the core concepts shifted drastically between these two releases.** For all intents and purposes, you will not know AngularJS at the end of this book: You will know Angular.
 
-#### We're Using Standalone Components {#standalone-components}
+#### We're Using "Signals" {#signals}
 
-Angular has two ways of defining component imports: modules and standalone components. **We'll be using Standalone components**.
+[Early in 2023, the Angular team announced that they would be introducing a new method of programming in Angular called "Signals"](https://angular.dev/guide/signals). Since then, they've become the de-facto way of writing performant and optimized Angular code.
 
-When Angular was first released, it launched with [the concept of NgModules](https://angular.dev/guide/ngmodules). Very broadly, this was an API that allowed you to namespace a collection of related UI items (called components, more on that in the next chapter) into so-called "modules".
-
-While these modules worked, they were primarily dissimilar from alternatives in other related frameworks like React and Vue. Further, a common complaint against them is that they were overly complicated with minimal yield.
-
-[Starting with an experimental release in Angular 14](https://github.com/angular/angular/discussions/45554) (and [being marked as stable in Angular 15](https://blog.angular.dev/angular-v15-is-now-available-df7be7f2f4c8)), Angular introduced the "standalone components" API. This was a more similar method of importing similar UI elements into one another and is what our book will be using.
-
-> Keep in mind that if you're working with an older Angular codebase, it's likely to still be using modules.
-
-#### We're Using Self-Closing Tags {#self-closing-tags}
-
-HTML supports self-closing tags on some elements that don't contain children:
-
-```html
-<input />
-```
-
-Similarly, Angular 15.1 introduced a method for using self-closing tags with component selectors:
-
-```html
-<component />
-<!-- vs. <component></component> -->
-```
-
-**We will be using these self-closing tags throughout the book**, as they're common practice in applications built with the other two frameworks.
-
-> This will not work with versions of Angular older than 15.1, so be aware of this when working in older codebases.
+As such, **we will be using Signals throughout this book**, including some newer APIs like `effect` and `linkedSignal`. That said, [there's an earlier version of this book that did not use signals that can be read on Playful Programming.](/posts/ffg-fundamentals-v1-1-preface).
 
 #### We're using Control Flow Blocks {#control-flow-blocks}
 
 Starting as an experimental feature in Angular 17 and stabilizing in Angular 18, Angular introduced a new method of managing [dynamic HTML](/posts/ffg-fundamentals-dynamic-html) in templates called "Control Flow Blocks" (`@if() {}`, `@for() {}` and friends). This supersedes the "Structural Directives" method (`ngIf` and `ngFor`) in earlier versions of Angular and introduces a myriad of developer experience improvements.
 
 **We will be using Control Flow Blocks throughout this book**, as they are the most modern method of managing dynamic HTML in Angular. However, [an earlier version of this book used the "Structural Directives" method, which you can still read on Playful Programming](/posts/ffg-fundamentals-v1-preface).
-
-#### We Won't Be Learning "Signals" {#no-signals}
-
-[Early in 2023, the Angular team announced that they would be introducing a new method of programming in Angular called "Signals"](https://angular.dev/guide/signals). To pull back the curtains a bit, this book began life in January 2022, and by the time the book had launched, parts of the signals API had not yet been introduced as a stable API within the Angular ecosystem.
-
-While I believe Signals are the way forward for the Angular community, delaying the book further and waiting for this API to stabilize was simply not viable. As such, **this book will not teach Angular signals** at this time.
-
-However, in the future, I will revise this book to be geared towards Angular Signals instead of the current method of Zone.js mutations. This will come as a second edition of the book sometime in the future.
 
 ### Vue
 
