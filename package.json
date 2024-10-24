@@ -115,7 +115,7 @@
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.0",
 		"remark-unwrap-images": "^4.0.0",
-		"sass": "^1.65.1",
+		"sass": "^1.80.4",
 		"sharp": "^0.33.4",
 		"shiki": "^1.2.1",
 		"sitemap": "^8.0.0",
