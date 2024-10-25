@@ -466,10 +466,10 @@ Take the following code:
 
 ```javascript
 const count = signal(0);
-const evenOdd = computed(() => (count.get() % 2 ? "Even" : "Odd"));
+const evenOdd = computed(() => (count.get() % 2 ? "Odd" : "Even"));
 
 effect(() => {
-	console.log(`${count} is ${evenOdd}`);
+	console.log(`${count.get()} is ${evenOdd.get()}`);
 });
 ```
 
@@ -603,19 +603,19 @@ Finally, we cross-reference how many variables depend on the written signal and 
 
 ```javascript
 const count = signal(0);
-const evenOdd = computed(() => (count.get() % 2 ? "Even" : "Odd"));
+const evenOdd = computed(() => (count.get() % 2 ? "Odd" : "Even"));
 
 // Notice how this effect only runs once, even though it depends
 // on both `count` and `evenOdd`
 effect(() => {
-	console.log(`${count} is ${evenOdd}`);
+	alert(`${count.get()} is ${evenOdd.get()}`);
 });
 
 count.set(2);
 count.set(123);
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Glitch-Free - StackBlitz" src="pfp-code:./glitch-free?template=node&embed=1&file=index.html"></iframe>
 
 # Where do Signals fit in?
 
