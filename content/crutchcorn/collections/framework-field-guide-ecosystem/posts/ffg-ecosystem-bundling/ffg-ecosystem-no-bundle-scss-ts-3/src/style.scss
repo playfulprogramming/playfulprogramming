@@ -1,23 +1,23 @@
 /* style.scss */
 * {
-    font-family: sans-serif;
+	font-family: sans-serif;
 }
 
 #count {
-    font-size: 3rem;
-    text-align: center;
+	font-size: 3rem;
+	text-align: center;
 }
 
 $bgColor: #00344d;
 $textColor: #e5f2ff;
 
 #button {
-    border-radius: 99px;
-    background-color: $bgColor;
-    color: $textColor;
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 2rem;
-    margin: 0 auto;
-    display: block;
+	border-radius: 99px;
+	background-color: $bgColor;
+	color: $textColor;
+	border: none;
+	padding: 1rem 2rem;
+	font-size: 2rem;
+	margin: 0 auto;
+	display: block;
 }

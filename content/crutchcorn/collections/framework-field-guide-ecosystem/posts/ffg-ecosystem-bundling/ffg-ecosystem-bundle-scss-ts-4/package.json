@@ -3,7 +3,7 @@
 	"scripts": {
 		"start": "vite"
 	},
-	"dependencies": {
+	"devDependencies": {
 		"vite": "^5.2.8",
 		"sass": "^1.75.0",
 		"typescript": "^5.4.5"
