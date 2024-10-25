@@ -105,7 +105,7 @@ arg
 { return arg}
 ```
 
-And format it into something more readible:
+And format it into something more readable:
 
 ```javascript
 function test(arg) {
@@ -131,7 +131,7 @@ Then add a script to execute Prettier against our source code files:
 
 Once the package is installed, you can run `npm run format` on any repository without any additional configuration:
 
-// TODO: Add iframe
+<iframe data-frame-title="Prettier - StackBlitz" src="uu-code:./ffg-ecosystem-prettier-6?template=node&embed=1&file=src%2Findex.js" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > It's worth mentioning that Prettier supports React, Angular, and Vue all very well out of the box. You shouldn't need to add any additional configuration to get Prettier working with your other projects.
 >
