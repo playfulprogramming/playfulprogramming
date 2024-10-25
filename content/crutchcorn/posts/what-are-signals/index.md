@@ -103,7 +103,7 @@ This is incredibly useful for being able to run one bit of code when your state 
 </script>
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Basic Signals - StackBlitz" src="pfp-code:./basic-signals?template=node&embed=1&file=index.html"></iframe>
 
 Here, we can see how a signal acts as a primitive for recreating [JavaScript Reactivity](/posts/what-is-reactivity) to sync state between the DOM and JS.
 
@@ -234,7 +234,7 @@ With this API we can apply to our document once more for a basic adder:
 </script>
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Computed - StackBlitz" src="pfp-code:./computed?template=node&embed=1&file=index.html"></iframe>
 
 ## Computed with a Signal internally
 
