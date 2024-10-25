@@ -1,10 +1,10 @@
 ---
 {
-    title: "What are Signals?",
-    description: "",
-    published: '2024-09-26T21:52:59.284Z',
-    tags: ['javascript','angular'],
-    license: 'cc-by-4'
+  title: "What are Signals?",
+  description: "",
+  published: "2024-09-26T21:52:59.284Z",
+  tags: ["javascript", "angular"],
+  license: "cc-by-4",
 }
 ---
 
@@ -38,14 +38,14 @@ const counter = signal(0);
 // This will re-run whenever `counter` updates
 counter.subscribe(() => {
 	console.log(counter.get());
-})
+});
 
-// We can call it once 
+// We can call it once
 counter.set(1);
 
 // Or any number of times
 setInterval(() => {
-    counter.set(count.get() + 1);
+	counter.set(count.get() + 1);
 }, 1000);
 ```
 
@@ -53,20 +53,20 @@ There's a few ways to implement this, but here's a basic implementation of the A
 
 ```javascript
 function signal(initialValue) {
-    let value = initialValue;
-    const subscribers = new Set();
+	let value = initialValue;
+	const subscribers = new Set();
 
-    return {
-        get: () => value,
-        set: (newValue) => {
-            value = newValue;
-            subscribers.forEach(fn => fn());
-        },
-        subscribe: (listener) => {
-            subscribers.add(listener);
-            return () => subscribers.delete(listener);
-        }
-    }
+	return {
+		get: () => value,
+		set: (newValue) => {
+			value = newValue;
+			subscribers.forEach((fn) => fn());
+		},
+		subscribe: (listener) => {
+			subscribers.add(listener);
+			return () => subscribers.delete(listener);
+		},
+	};
 }
 ```
 
@@ -88,18 +88,18 @@ This is incredibly useful for being able to run one bit of code when your state 
 
 <script>
 	const clickerBtn = document.getElementById("clicker");
-    
-    const countSignal = signal(0);
-    
-    countSignal.subscribe(() => {
-        clickerBtn.innerText = countSignal.get();
-    });
-    
-    clickerBtn.addEventListener("click", () => {
-       countSignal.set(countSignal.get() + 1); 
-    });
 
-    // ...
+	const countSignal = signal(0);
+
+	countSignal.subscribe(() => {
+		clickerBtn.innerText = countSignal.get();
+	});
+
+	clickerBtn.addEventListener("click", () => {
+		countSignal.set(countSignal.get() + 1);
+	});
+
+	// ...
 </script>
 ```
 
@@ -129,15 +129,15 @@ Luckily for us, we can build a basic API for derived state relatively trivially 
 
 ```javascript
 function computed(fn, signals) {
-    let value = fn();
-    for (let signal of signals) {
-        signal.subscribe(() => {
-            value = fn();
-        });
-    }
-    return {
-        get: () => value
-    }
+	let value = fn();
+	for (let signal of signals) {
+		signal.subscribe(() => {
+			value = fn();
+		});
+	}
+	return {
+		get: () => value,
+	};
 }
 ```
 
@@ -157,23 +157,23 @@ We can even add in the ability to subscribe to the state updates of `computed`, 
 
 ```javascript
 function computed(fn, signals) {
-    let value = fn();
-    const subscribers = new Set();
+	let value = fn();
+	const subscribers = new Set();
 
-    for (let signal of signals) {
-        signal.subscribe(() => {
-            value = fn();
-            subscribers.forEach(sub => sub());
-        });
-    }
+	for (let signal of signals) {
+		signal.subscribe(() => {
+			value = fn();
+			subscribers.forEach((sub) => sub());
+		});
+	}
 
-    return {
-        get: () => value,
-        subscribe: (listener) => {
-            subscribers.add(listener);
-            return () => subscribers.delete(listener);
-        }
-    }
+	return {
+		get: () => value,
+		subscribe: (listener) => {
+			subscribers.add(listener);
+			return () => subscribers.delete(listener);
+		},
+	};
 }
 ```
 
@@ -183,7 +183,7 @@ const num2 = signal(2);
 const output = computed(() => num1.get() + num2.get(), [num1, num2]);
 
 output.subscribe(() => {
-  console.log(output.get())
+	console.log(output.get());
 });
 
 num1.set(3); // Logs "5"
@@ -193,46 +193,44 @@ This `computed` method is is much like a `signal` but instead of having its own 
 
 <img src="./computed_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="Signals and computed can both be subscribed to, but only signals can be written to"></img>
 
-
-
 With this API we can apply to our document once more for a basic adder:
 
 ```html
 <label>
-  <div>Number 1:</div>
-  <input id="num1" type="number" value="0" />
+	<div>Number 1:</div>
+	<input id="num1" type="number" value="0" />
 </label>
 <label>
-  <div>Number 2:</div>
-  <input id="num2" type="number" value="0" />
+	<div>Number 2:</div>
+	<input id="num2" type="number" value="0" />
 </label>
 <p>The sum of these numbers is: <span id="output">0</span></p>
 
 <script>
-  const num1 = document.getElementById('num1');
-  const num2 = document.getElementById('num2');
-  const output = document.getElementById('output');
+	const num1 = document.getElementById("num1");
+	const num2 = document.getElementById("num2");
+	const output = document.getElementById("output");
 
-  const num1Signal = signal(0);
-  const num2Signal = signal(0);
-  const outputSignal = computed(
-    () => num1Signal.get() + num2Signal.get(),
-    [num1Signal, num2Signal]
-  );
+	const num1Signal = signal(0);
+	const num2Signal = signal(0);
+	const outputSignal = computed(
+		() => num1Signal.get() + num2Signal.get(),
+		[num1Signal, num2Signal],
+	);
 
-  num1.addEventListener('input', (e) => {
-    num1Signal.set(e.target.valueAsNumber);
-  });
+	num1.addEventListener("input", (e) => {
+		num1Signal.set(e.target.valueAsNumber);
+	});
 
-  num2.addEventListener('input', (e) => {
-    num2Signal.set(e.target.valueAsNumber);
-  });
+	num2.addEventListener("input", (e) => {
+		num2Signal.set(e.target.valueAsNumber);
+	});
 
-  outputSignal.subscribe(() => {
-    output.innerText = outputSignal.get();
-  });
+	outputSignal.subscribe(() => {
+		output.innerText = outputSignal.get();
+	});
 
-  // ...
+	// ...
 </script>
 ```
 
@@ -246,18 +244,18 @@ We can indeed, astute reader! Let's simplify our usage of `computed` to have a `
 
 ```javascript
 function computed(fn, signals) {
-    const valueSignal = signal(fn());
+	const valueSignal = signal(fn());
 
-    for (let signal of signals) {
-      signal.subscribe(() => {
-        valueSignal.set(fn());
-      });
-    }
+	for (let signal of signals) {
+		signal.subscribe(() => {
+			valueSignal.set(fn());
+		});
+	}
 
-    return {
-      get: valueSignal.get,
-      subscribe: valueSignal.subscribe,
-    };
+	return {
+		get: valueSignal.get,
+		subscribe: valueSignal.subscribe,
+	};
 }
 ```
 
@@ -273,11 +271,11 @@ To do this, we can just wrap `subscribe` in an API not dissimilar from how `comp
 
 ```javascript
 function effect(fn, signals) {
-    for (let signal of signals) {
-      signal.subscribe(() => {
-        fn();
-      });
-    }
+	for (let signal of signals) {
+		signal.subscribe(() => {
+			fn();
+		});
+	}
 }
 ```
 
@@ -287,7 +285,7 @@ const num2 = signal(2);
 const output = computed(() => num1.get() + b.get(), [num1, num2]);
 
 effect(() => {
-    console.log(output.get());
+	console.log(output.get());
 }, [output]);
 
 num1.set(2); // "4" is logged to the console
@@ -305,22 +303,22 @@ This completes our base signals API trio:
 With `effect` we can get rid of `subscribe`-ing manually in our previous addition sample all-together:
 
 ```javascript
-const num1 = document.getElementById('num1');
-const num2 = document.getElementById('num2');
-const output = document.getElementById('output');
+const num1 = document.getElementById("num1");
+const num2 = document.getElementById("num2");
+const output = document.getElementById("output");
 
 const num1Signal = signal(0);
 const num2Signal = signal(0);
 const outputSignal = computed(
 	() => num1Signal.get() + num2Signal.get(),
-	[num1Signal, num2Signal]
+	[num1Signal, num2Signal],
 );
 
-num1.addEventListener('input', (e) => {
+num1.addEventListener("input", (e) => {
 	num1Signal.set(e.target.valueAsNumber);
 });
 
-num2.addEventListener('input', (e) => {
+num2.addEventListener("input", (e) => {
 	num2Signal.set(e.target.valueAsNumber);
 });
 
@@ -335,16 +333,16 @@ Now that we've removed manual `subscribe`-ing from our usage of `signal`s, let's
 
 ```javascript
 function computed(fn, signals) {
-    const valueSignal = signal(fn());
+	const valueSignal = signal(fn());
 
-    effect(() => {
-      valueSignal.set(fn());
-    }, signals);
+	effect(() => {
+		valueSignal.set(fn());
+	}, signals);
 
-    return {
-      get: valueSignal.get,
-      subscribe: valueSignal.subscribe,
-    };
+	return {
+		get: valueSignal.get,
+		subscribe: valueSignal.subscribe,
+	};
 }
 ```
 
@@ -376,39 +374,39 @@ This idea of invisibly tracking dependencies is called "Auto-tracking" and can b
 var Listener = null;
 
 function signal(initialValue) {
-  let value = initialValue;
-  const subscribers = new Set();
+	let value = initialValue;
+	const subscribers = new Set();
 
-  return {
-    get: () => {
-      if (Listener) {
-        subscribers.add(Listener);
-      }
-      return value;
-    },
-    set: (newValue) => {
-      value = newValue;
-      subscribers.forEach((fn) => fn());
-    },
-  };
+	return {
+		get: () => {
+			if (Listener) {
+				subscribers.add(Listener);
+			}
+			return value;
+		},
+		set: (newValue) => {
+			value = newValue;
+			subscribers.forEach((fn) => fn());
+		},
+	};
 }
 
 function computed(fn) {
-  const valueSignal = signal(fn());
+	const valueSignal = signal(fn());
 
-  effect(() => {
-    valueSignal.set(fn());
-  });
+	effect(() => {
+		valueSignal.set(fn());
+	});
 
-  return {
-    get: valueSignal.get,
-  };
+	return {
+		get: valueSignal.get,
+	};
 }
 
 function effect(fn) {
-  Listener = fn;
-  fn();
-  Listener = null;
+	Listener = fn;
+	fn();
+	Listener = null;
 }
 ```
 
@@ -419,33 +417,33 @@ effect(() => {
 	// Inside of `signal.get` there's a check for `Listener`
 	// which is now this function. It's then added as a subscriber
 	// to `signal` which, on write, will retrigger this.
-    //
-    // It doesn't get added twice because the `Listener` is only set on the
-    // first call of `fn`
+	//
+	// It doesn't get added twice because the `Listener` is only set on the
+	// first call of `fn`
 	signal.get();
-})
+});
 ```
 
 This behavior is then propagated into `computed` since it uses `effect` internally.
 
------
+---
 
 Now let's see our previous code sample with the new API:
 
 ```javascript
-const num1 = document.getElementById('num1');
-const num2 = document.getElementById('num2');
-const output = document.getElementById('output');
+const num1 = document.getElementById("num1");
+const num2 = document.getElementById("num2");
+const output = document.getElementById("output");
 
 const num1Signal = signal(0);
 const num2Signal = signal(0);
 const outputSignal = computed(() => num1Signal.get() + num2Signal.get());
 
-num1.addEventListener('input', (e) => {
+num1.addEventListener("input", (e) => {
 	num1Signal.set(e.target.valueAsNumber);
 });
 
-num2.addEventListener('input', (e) => {
+num2.addEventListener("input", (e) => {
 	num2Signal.set(e.target.valueAsNumber);
 });
 
@@ -468,11 +466,11 @@ Take the following code:
 
 ```javascript
 const count = signal(0);
-const evenOdd = computed(() => count.get() % 2 ? "Even" : "Odd");
+const evenOdd = computed(() => (count.get() % 2 ? "Even" : "Odd"));
 
 effect(() => {
 	console.log(`${count} is ${evenOdd}`);
-})
+});
 ```
 
 <img src="./glitch_setup.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="Given the following: A signal of 'count' and a computed of 'evenOdd' based off of count. Then, an effect based off of both with the message of '{count} is {evenOdd}'"></img>
@@ -497,10 +495,9 @@ Well, we can do this by having the last `effect` wait for all the depended upon 
 
 <img src="./glitch_free.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="The solution is an example of 'glitch-free' signals. The effect waits for all dependencies to resolve the value before calculating '1 is Odd'"></img>
 
-------
+---
 
 Let's see how this glitch fixing looks like in code:
-
 
 ```javascript
 var Listener = null;
@@ -510,95 +507,93 @@ var accessedSignals = new Set();
 var writingSignal = null;
 
 function signal(initialValue) {
-  let value = initialValue;
-  const subscribers = new Set();
+	let value = initialValue;
+	const subscribers = new Set();
 
-  const obj = {
-    get: () => {
-      if (Listener) {
-        subscribers.add(Listener);
-        accessedSignals.add(obj);
-      }
-      return value;
-    },
-    set: (newValue) => {
-      // A computed value should not update `writingSignal`, as its state is purely internal and should be marked as "read-only"
-      const isInsideAComputed = !!obj.__trackedSignals;
-      value = newValue;
-      if (!isInsideAComputed) {
-        writingSignal = obj;
-      }
-      subscribers.forEach((fn) => fn(obj));
-      if (!isInsideAComputed) {
-        writingSignal = null;
-      }
-    },
-  };
-  return obj;
+	const obj = {
+		get: () => {
+			if (Listener) {
+				subscribers.add(Listener);
+				accessedSignals.add(obj);
+			}
+			return value;
+		},
+		set: (newValue) => {
+			// A computed value should not update `writingSignal`, as its state is purely internal and should be marked as "read-only"
+			const isInsideAComputed = !!obj.__trackedSignals;
+			value = newValue;
+			if (!isInsideAComputed) {
+				writingSignal = obj;
+			}
+			subscribers.forEach((fn) => fn(obj));
+			if (!isInsideAComputed) {
+				writingSignal = null;
+			}
+		},
+	};
+	return obj;
 }
 
 function computed(fn) {
-  const valueSignal = signal(fn());
+	const valueSignal = signal(fn());
 
-  const {__trackedSignals} = effect(() => {
-    valueSignal.set(fn());
-  });
+	const { __trackedSignals } = effect(() => {
+		valueSignal.set(fn());
+	});
 
-  // Assign the tracked signals to the value signal so it can be used in the `Listener` of the effect,
-  // and avoid updating the `writingSignal` when the value signal is updated
-  Object.assign(valueSignal, {
-    __trackedSignals
-  })
+	// Assign the tracked signals to the value signal so it can be used in the `Listener` of the effect,
+	// and avoid updating the `writingSignal` when the value signal is updated
+	Object.assign(valueSignal, {
+		__trackedSignals,
+	});
 
-  return {
-    get: valueSignal.get,
-    __trackedSignals,
-  };
+	return {
+		get: valueSignal.get,
+		__trackedSignals,
+	};
 }
 
 function effect(fn) {
-  let trackedSignals = new Set();
-  let seen = new Set();
-  let relatedSignals = null;
-  // Setup the listener that will be called when a signal is accessed
-  Listener = (signal) => {
-    // We have "seen" this signal
-    seen.add(signal);
+	let trackedSignals = new Set();
+	let seen = new Set();
+	let relatedSignals = null;
+	// Setup the listener that will be called when a signal is accessed
+	Listener = (signal) => {
+		// We have "seen" this signal
+		seen.add(signal);
 
-    // Check to see if we need to "see" any related signals before running the function
-    // and cache the results until the next run
-    if (!relatedSignals) {
-      relatedSignals = new Set();
-      trackedSignals.forEach(
-        signalLike => {
-          if (signalLike.__trackedSignals?.has(writingSignal)) {
-            relatedSignals.add(signal);
-          } else if (signalLike === writingSignal) {
-            relatedSignals.add(signalLike);
-          }
-        }
-      );
-    }
+		// Check to see if we need to "see" any related signals before running the function
+		// and cache the results until the next run
+		if (!relatedSignals) {
+			relatedSignals = new Set();
+			trackedSignals.forEach((signalLike) => {
+				if (signalLike.__trackedSignals?.has(writingSignal)) {
+					relatedSignals.add(signal);
+				} else if (signalLike === writingSignal) {
+					relatedSignals.add(signalLike);
+				}
+			});
+		}
 
-    // Have we seen all the signals we need to? If so, run the function and cleanup
-    if (seen.size === relatedSignals?.size) {
-      fn();
-      seen = new Set();
-      relatedSignals = null;
-    }
-  }
-  // Trigger the effect for the first time. This also starts auto-tracking and stores vars in `accessedSignals`
-  fn();
-  // Keep a copy of the accessed signals for reference in the `Listener` later
-  trackedSignals = new Set(accessedSignals);
-  // Cleanup
-  Listener = null;
-  accessedSignals = new Set();
+		// Have we seen all the signals we need to? If so, run the function and cleanup
+		if (seen.size === relatedSignals?.size) {
+			fn();
+			seen = new Set();
+			relatedSignals = null;
+		}
+	};
+	// Trigger the effect for the first time. This also starts auto-tracking and stores vars in `accessedSignals`
+	fn();
+	// Keep a copy of the accessed signals for reference in the `Listener` later
+	trackedSignals = new Set(accessedSignals);
+	// Cleanup
+	Listener = null;
+	accessedSignals = new Set();
 
-  // Return the tracked signals for the effect so it can be used in the `Listener` later
-  return {
-    __trackedSignals: trackedSignals,
-  }
+	// Return the tracked signals for the effect so it can be used in the `Listener` later
+	return {
+		__trackedSignals: trackedSignals,
+	};
 }
 ```
 
@@ -608,13 +603,13 @@ Finally, we cross-reference how many variables depend on the written signal and 
 
 ```javascript
 const count = signal(0);
-const evenOdd = computed(() => count.get() % 2 ? "Even" : "Odd");
+const evenOdd = computed(() => (count.get() % 2 ? "Even" : "Odd"));
 
 // Notice how this effect only runs once, even though it depends
 // on both `count` and `evenOdd`
 effect(() => {
 	console.log(`${count} is ${evenOdd}`);
-})
+});
 
 count.set(2);
 count.set(123);
@@ -628,9 +623,9 @@ Before we wrap up, let's talk about where signals fit into the broader scope of 
 
 If we take a venn diagram of whether a primitive:
 
-1) Has state
-2) Can be written to
-3) Can be subscribed to
+1. Has state
+2. Can be written to
+3. Can be subscribed to
 
 It might look something like this:
 
@@ -645,4 +640,3 @@ It might look something like this:
 > Compare and contrast to, say, a `Subject` that extends an observable with the capabilities of being able to emit your own events. A good example of this might be emitting your own [`CustomEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent) on the `document` object.
 
 Here, we can see that signals are a powerful primitive that takes ownership over multiple areas of the reactivity story.
-
