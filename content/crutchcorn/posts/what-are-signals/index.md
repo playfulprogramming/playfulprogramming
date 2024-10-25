@@ -72,7 +72,7 @@ function signal(initialValue) {
 
 > You can see another basic variant of a signals implementation in [a 5 minute lightning talk I gave at ngConf 2024](https://www.youtube.com/watch?v=cJ7AuQUBmA4).
 
-<img src="./signals_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
+<img src="./signals_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="The signal stores values and sends updates to listeners. Then a setter can update the store using some API and the listeners recieves notifications of signal state changes"></img>
 
 Here, we can see how a signal has:
 
@@ -191,7 +191,7 @@ num1.set(3); // Logs "5"
 
 This `computed` method is is much like a `signal` but instead of having its own writable state, creates state by reading from the base signals:
 
-<img src="./computed_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
+<img src="./computed_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="Signals and computed can both be subscribed to, but only signals can be written to"></img>
 
 
 
@@ -300,7 +300,7 @@ This completes our base signals API trio:
 - Computed values can be subscribed to and has state.
 - Effects can be subscribed to.
 
-<img src="./effects_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
+<img src="./effects_explainer.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="Signals, computeds, and effects can all be subscribed to, signals and computed have state, and signals can be written to."></img>
 
 With `effect` we can get rid of `subscribe`-ing manually in our previous addition sample all-together:
 
@@ -475,11 +475,11 @@ effect(() => {
 })
 ```
 
-<img src="./glitch_setup.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
+<img src="./glitch_setup.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="Given the following: A signal of 'count' and a computed of 'evenOdd' based off of count. Then, an effect based off of both with the message of '{count} is {evenOdd}'"></img>
 
 While this code is valid, our implementation lets it down. It will in fact emit `0 is even` at first, but once you update `count` you'll get `1 is even`, which is clearly incorrect.
 
-<img src="./glitch_demo.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
+<img src="./glitch_demo.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: The problem, however... Is that the signal updating to '1' is update the effect and the computed at the same time. Meaning that the effect will get '1' and 'Even', showing the incorrect temporary state of '1 is Even'"></img>
 
 Now, this value eventually reconciles back to `1 is odd` after emitting the incorrect value, but this could lead to a number of problems if left as-is:
 
@@ -491,11 +491,11 @@ And more.
 
 This rapid shift from an incorrect value to a correct value is called a "glitch".
 
-> How do we make our signals "glitch-free"? 
+> How do we make our signals "glitch-free"?
 
 Well, we can do this by having the last `effect` wait for all the depended upon values to resolve before running.
 
-<img src="./glitch_free.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="TODO: Write alt"></img>
+<img src="./glitch_free.svg" style="border-radius: var(--corner-radius_l); background-color: var(--background_focus);" alt="The solution is an example of 'glitch-free' signals. The effect waits for all dependencies to resolve the value before calculating '1 is Odd'"></img>
 
 ------
 
@@ -634,7 +634,7 @@ If we take a venn diagram of whether a primitive:
 
 It might look something like this:
 
-![TODO: Write alt](./state_venn_diagram.svg)
+!['const var' has state. 'let var' has state and can write. 'effect' can write. 'subject' can write and can subscribe. 'computed' has state and can subscribe. 'observable's can subscribe. Signals can do all.](./state_venn_diagram.svg)
 
 > You may not be familiar with what an observable or `Subject` are. These terms [come from RxJS](https://rxjs.dev/), which is a library that provides an event system in your codebase.
 >
