@@ -8,7 +8,7 @@ import { isDefined } from "utils/is-defined";
 
 export interface PageProps {
 	posts: PostInfo[];
-	page: Pick<Page<any>, "currentPage" | "lastPage">;
+	page: Pick<Page, "currentPage" | "lastPage">;
 	locale: Languages;
 }
 
