@@ -1,46 +1,50 @@
 const refreshButton = document.getElementById("refresh-btn");
 const dogGrid = document.getElementById("dog-grid");
 
-function fetchDogs() {
-  dogGrid.innerHTML = '';
+async function fetchDogs() {
+	dogGrid.innerHTML = ""; // Clear the dog grid
 
-  const requests = [];
+	const requests = [];
 
-  for (let i = 0; i < 8; i++) {
-    const request = fetch("https://dog.ceo/api/breeds/image/random")
-    .then(response => response.json());
-    requests.push(request);
-  }
+	// Loop to fetch 8 random dog images
+	for (let i = 0; i < 8; i++) {
+		const request = fetch("https://dog.ceo/api/breeds/image/random");
+		requests.push(request); // Add fetch promise to the array
+	}
 
-  Promise.all(requests)
-    .then(results => {
-    results.forEach(data => {
-      const dogCard = document.createElement("div");
-      dogCard.className = "dog-card";
+	try {
+		const responses = await Promise.all(requests); // Wait for all requests to complete
 
-      const dogImage = document.createElement("img");
-      dogImage.src = data.message;
-      dogImage.alt = "Dog Image";
+		const results = await Promise.all(responses.map((res) => res.json())); // Parse each response as JSON
 
-      const dogName = document.createElement("h3");
-      dogName.innerText = getBreed(data.message);
+		results.forEach((data) => {
+			const dogCard = document.createElement("div");
+			dogCard.className = "dog-card";
 
-      dogCard.appendChild(dogImage);
-      dogCard.appendChild(dogName);
-      dogGrid.appendChild(dogCard);
-    });
-  })
-    .catch(error => console.error('Error:', error));
+			const dogImage = document.createElement("img");
+			dogImage.src = data.message;
+			dogImage.alt = "Dog Image";
+
+			const dogName = document.createElement("h3");
+			dogName.innerText = getBreed(data.message); // Extract breed from image URL
+
+			dogCard.appendChild(dogImage);
+			dogCard.appendChild(dogName);
+			dogGrid.appendChild(dogCard);
+		});
+	} catch (error) {
+		console.error("Error:", error); // Handle any errors in fetching data
+	}
 }
 
 function getBreed(url) {
-  const parts = url.split('/');
-  const breed = parts[parts.indexOf('breeds') + 1];
+	const parts = url.split("/");
+	const breed = parts[parts.indexOf("breeds") + 1];
 
-  return breed
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+	return breed
+		.split("-")
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join(" ");
 }
 
-refreshButton.addEventListener('click', fetchDogs);
+refreshButton.addEventListener("click", fetchDogs);
