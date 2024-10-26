@@ -58,7 +58,9 @@ const tags = [
 		.filter((tag) => !!tag.image && !!tag.explainerHtml)
 		// prevent duplicates when images are used with multiple tags
 		.reduce((map, entry) => {
-			!map.has(entry.image) && map.set(entry.image, entry);
+			if (!map.has(entry.image)) {
+				map.set(entry.image, entry);
+			}
 			return map;
 		}, new Map())
 		.values(),
