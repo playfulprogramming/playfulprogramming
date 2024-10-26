@@ -515,7 +515,7 @@ In this demo, there are some added tweaks.
 
 Now, when loading, all cards are slightly transparent, to show that their content is being replaced and that they are inactive.
 
-However, it's still not good enough. We want to provide a more straight-forward and accessible indicator to our users.
+***However, it's still not good enough.*** We want to provide a more straight-forward and accessible indicator to our users.
 
 For this, let's actually show a loading spinner and change the label to indicate what is happening! First, we must slightly restructure our code.
 
