@@ -18,6 +18,7 @@ export function useDebouncedValue<T>(value: T, delay: number) {
 	return [debouncedValue, immediatelySetDebouncedValue] as const;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function useDebouncedCallback<T extends Function>(
 	callback: T,
 	delay: number,
@@ -28,7 +29,7 @@ export function useDebouncedCallback<T extends Function>(
 	const handler = useRef<NodeJS.Timeout>();
 
 	const cancel = useCallback(() => {
-		handler.current && clearTimeout(handler.current);
+		if (handler.current) clearTimeout(handler.current);
 	}, [handler]);
 
 	const invoke = useCallback(
