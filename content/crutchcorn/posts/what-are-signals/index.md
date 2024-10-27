@@ -2,7 +2,7 @@
 {
   title: "What are Signals?",
   description: "",
-  published: "2024-09-26T21:52:59.284Z",
+  published: "2024-11-01T21:52:59.284Z",
   tags: ["javascript", "angular"],
   license: "cc-by-4",
 }
