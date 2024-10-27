@@ -90,7 +90,7 @@ Luckily for us, there are tools that solve all three of these problems!
 - Linters, like ESLint: Aimed at solving "What rules does my code break?"
 - Type-Checkers, like TypeScript: Aimed at solving "What types are being enforced?"
 
-![TODO: Add alt](./venn_diagram.svg)
+![A venn diagram with ESLint, Prettier and TypeScript. All of them understand your code. Prettier and TypeScript makes updates easier. ESLint and Prettier dictates code style. ESLint and TypeScript catches logic bugs. TypeScript enforces the type system. ESLint runs granular rules. Prettier formats your code](./venn_diagram.svg)
 
 Let's explore each of these tools, how to use them in our codebase, and what their primary advantages are.
 
@@ -148,7 +148,7 @@ There's a humorous story amongst developers that goes something like:
 
 This story demonstrates how, without proper guidance and prioritization, insignificant issues (like the color of a shed) can triumph over more significant problems; like how to fund and organize the development of a powerplant.
 
-![TODO: Write alt](./bike_shedding_visual.png)
+![A powerplant has a cost of 20 million dollars and a talk time of 15 minutes. The bike shed has a cost of $2,000 dollars and a talk time of 1 hour](./bike_shedding_visual.png)
 
 > This story is often attributed with the ["Law of triviality"](https://en.wikipedia.org/wiki/Law_of_triviality), which states "people within an organization commonly give disproportionate weight to trivial issues."
 
@@ -168,7 +168,7 @@ Code style consistency and avoiding bike-shedding aren't the only benefits of fo
 
 When using tools like [Git](https://git-scm.com/), it's common to store a difference between two snapshots of your code:
 
-![TODO: Write alt](./rss_diff.png)
+![A snapshot of code that shows the diff of "{body: feed.rss2()}" to "new Response(feed.rss2())"](./rss_diff.png)
 
 This is fundamental to how many code backup and versioning solutions work; they track a before and after of each line of code.
 
@@ -176,7 +176,7 @@ Because it tracks the difference in each line of code, it can sometimes figure o
 
 This inability to recognize differences makes it much harder to visually identify what's specifically changed between versions of the codebase.
 
-For example, look at this well formatted code:
+For example, look at this well-formatted code:
 
 ```javascript
 function fibonacci(n) {
@@ -193,7 +193,7 @@ for (let i = 0; i < 10; i++) {
 
 And see what the diff would be to change the `n` variable name to `num`:
 
-![TODO: Write alt](./well_formatted_git_diff.png)
+![The diff only shows the individual characters that have changed and is clear to detect the differences between them](./well_formatted_git_diff.png)
 
 And how that story changes when there's inconsistent formatting applied:
 
@@ -204,7 +204,7 @@ function fibonacci(n) {
 }
 ```
 
-![TODO: Add alt](./poorly_formatted_code.png)
+![The diff is muddied by the amount of code changed in a single line, making it harder to see what changed](./poorly_formatted_code.png)
 
 ----
 
@@ -271,7 +271,7 @@ for (let i = 0; i < 10; i--) {
 
 We get the previously mentioned error shown in our IDE:
 
-![TODO: Add alt](./for_direction.png)
+![A highlight of the for loop with red underlines. It shows the error of "The update clause in this loop moves the variable in the wrong direction"](./for_direction.png)
 
 > You can [find more on ESLint's capabilities and setup in their docs website.](https://eslint.org/)
 
@@ -466,7 +466,7 @@ export let msg = 'Hello!'
 
 Formatting and linting your code both require deeper understanding of your codebase than "it is some text". This deeper understanding comes from the transformation of your source code into an abstract syntax tree (AST):
 
-![TODO: Add alt](../../../../posts/how-computers-speak/ast_1.svg)
+![Some JavaScript broken down into tokens, which are then placed inside of the proper context of a JSON object representing the code and its metadata](../../../../posts/how-computers-speak/ast_1.svg)
 
 > [We spoke about this transformation of source code to AST in my article "How computers speak"](/posts/how-computers-speak).
 
