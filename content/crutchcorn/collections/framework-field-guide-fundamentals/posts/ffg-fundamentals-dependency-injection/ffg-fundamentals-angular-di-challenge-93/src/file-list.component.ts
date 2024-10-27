@@ -1,7 +1,7 @@
 // file-list.component.ts
 import { Component, inject, Injectable } from "@angular/core";
 import { ActionTypes } from "./context";
-import { NgFor } from "@angular/common";
+
 import { FileComponent } from "./file.component";
 
 @Injectable()
@@ -18,7 +18,7 @@ function injectAndAssignActions(actions: any[]) {
 @Component({
 	selector: "file-list",
 	standalone: true,
-	imports: [NgFor, FileComponent],
+	imports: [FileComponent],
 	providers: [
 		{
 			provide: ActionTypes,
@@ -28,7 +28,9 @@ function injectAndAssignActions(actions: any[]) {
 	template: `
 		<div style="padding: 1rem">
 			<h1>Files</h1>
-			<file-item *ngFor="let file of files" [name]="file.name" [id]="file.id" />
+			@for (file of files; track file.id) {
+				<file-item [name]="file.name" [id]="file.id" />
+			}
 		</div>
 	`,
 })

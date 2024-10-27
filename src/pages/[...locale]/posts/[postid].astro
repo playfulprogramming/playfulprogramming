@@ -14,11 +14,7 @@ export async function getStaticPaths() {
 		return {
 			params: {
 				locale: post.locale !== "en" ? post.locale : undefined,
-				postid:
-					post.slug +
-					// "_noindex" appended here to filter affected URLs
-					// from the sitemap
-					(post.noindex ? "_noindex" : ""),
+				postid: post.slug,
 			},
 			props: {
 				slug: post.slug,

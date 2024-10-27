@@ -2,7 +2,6 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, Input, EventEmitter, Output, OnInit } from "@angular/core";
-import { NgIf } from "@angular/common";
 
 @Component({
 	selector: "file-date",
@@ -71,7 +70,7 @@ class FileDateComponent implements OnInit {
 @Component({
 	selector: "file-item",
 	standalone: true,
-	imports: [NgIf, FileDateComponent],
+	imports: [FileDateComponent],
 	template: `
 		<button
 			(click)="selected.emit()"
@@ -82,7 +81,9 @@ class FileDateComponent implements OnInit {
 			"
 		>
 			{{ fileName }}
-			<file-date *ngIf="!isFolder" [inputDate]="inputDate" />
+			@if (!isFolder) {
+				<file-date [inputDate]="inputDate" />
+			}
 		</button>
 	`,
 })

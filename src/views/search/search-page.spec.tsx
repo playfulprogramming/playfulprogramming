@@ -1,5 +1,14 @@
 /* eslint-disable no-var */
-import { beforeAll, beforeEach, afterEach, afterAll, test, describe, expect, vi } from "vitest";
+import {
+	beforeAll,
+	beforeEach,
+	afterEach,
+	afterAll,
+	test,
+	describe,
+	expect,
+	vi,
+} from "vitest";
 import {
 	findByText as findByTextFrom,
 	render,

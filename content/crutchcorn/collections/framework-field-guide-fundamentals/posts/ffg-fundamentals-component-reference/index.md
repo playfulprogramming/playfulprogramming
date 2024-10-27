@@ -8,6 +8,7 @@
   attached: [],
   order: 9,
   collection: "framework-field-guide-fundamentals",
+  version: "v1.1",
 }
 ---
 
@@ -103,31 +104,31 @@ function App() {
 @Component({
 	selector: "context-menu",
 	standalone: true,
-	imports: [NgIf],
 	template: `
-		<div
-			*ngIf="isOpen"
-			tabIndex="0"
-			#contextMenu
-			[style]="
-				'
-        position: fixed;
-        top: ' +
-				y +
-				'px;
-        left: ' +
-				x +
-				'px;
-        background: white;
-        border: 1px solid black;
-        border-radius: 16px;
-        padding: 1rem;
-      '
-			"
-		>
-			<button (click)="close.emit()">X</button>
-			This is a context menu
-		</div>
+		@if (isOpen) {
+			<div
+				tabIndex="0"
+				#contextMenu
+				[style]="
+					'
+			position: fixed;
+			top: ' +
+					y +
+					'px;
+			left: ' +
+					x +
+					'px;
+			background: white;
+			border: 1px solid black;
+			border-radius: 16px;
+			padding: 1rem;
+		  '
+				"
+			>
+				<button (click)="close.emit()">X</button>
+				This is a context menu
+			</div>
+		}
 	`,
 })
 class ContextMenuComponent implements AfterViewInit, OnDestroy {
@@ -159,7 +160,7 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, ContextMenuComponent],
+	imports: [ContextMenuComponent],
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
@@ -877,17 +878,18 @@ function App() {
 
 ## Angular
 
-```angular-ts {7,14,22-24,38,47,68}
+```angular-ts {7,15,23-25,39,48,69}
 @Component({
 	selector: "context-menu",
 	standalone: true,
-	imports: [NgIf],
 	template: `
+		@if (isOpen) {
 		<!-- Attributes removed for brevity -->
-		<div *ngIf="isOpen" #contextMenu>
-			<button (click)="close.emit()">X</button>
-			This is a context menu
-		</div>
+			<div #contextMenu>
+				<button (click)="close.emit()">X</button>
+				This is a context menu
+			</div>
+		}
 	`,
 })
 class ContextMenuComponent implements AfterViewInit, OnDestroy {
@@ -909,7 +911,7 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, ContextMenuComponent],
+	imports: [ContextMenuComponent],
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
@@ -1275,20 +1277,23 @@ const App = () => {
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
-	imports: [NgIf],
 	template: `
-		<button *ngIf="isCollapsed" (click)="toggleCollapsed()">Toggle</button>
-		<div *ngIf="!isCollapsed">
+		@if (isCollapsed) {
 			<button (click)="toggleCollapsed()">Toggle</button>
-			<ul style="padding: 1rem">
-				<li>List item 1</li>
-				<li>List item 2</li>
-				<li>List item 3</li>
-				<li>List item 4</li>
-				<li>List item 5</li>
-				<li>List item 6</li>
-			</ul>
-		</div>
+		}
+		@if (!isCollapsed) {
+			<div>
+				<button (click)="toggleCollapsed()">Toggle</button>
+				<ul style="padding: 1rem">
+					<li>List item 1</li>
+					<li>List item 2</li>
+					<li>List item 3</li>
+					<li>List item 4</li>
+					<li>List item 5</li>
+					<li>List item 6</li>
+				</ul>
+			</div>
+		}
 	`,
 })
 class SidebarComponent {
@@ -1542,20 +1547,23 @@ const App = () => {
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
-	imports: [NgIf],
 	template: `
-		<button *ngIf="isCollapsed" (click)="toggleCollapsed()">Toggle</button>
-		<div *ngIf="!isCollapsed">
+		@if (isCollapsed) {
 			<button (click)="toggleCollapsed()">Toggle</button>
-			<ul style="padding: 1rem">
-				<li>List item 1</li>
-				<li>List item 2</li>
-				<li>List item 3</li>
-				<li>List item 4</li>
-				<li>List item 5</li>
-				<li>List item 6</li>
-			</ul>
-		</div>
+		}
+		@if (!isCollapsed) {
+			<div>
+				<button (click)="toggleCollapsed()">Toggle</button>
+				<ul style="padding: 1rem">
+					<li>List item 1</li>
+					<li>List item 2</li>
+					<li>List item 3</li>
+					<li>List item 4</li>
+					<li>List item 5</li>
+					<li>List item 6</li>
+				</ul>
+			</div>
+		}
 	`,
 })
 class SidebarComponent {

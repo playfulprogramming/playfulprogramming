@@ -2,47 +2,46 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
-import { NgIf } from "@angular/common";
 
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
+	imports: [],
 	template: `
 		<div style="padding: 10rem">
-			<div
-				*ngIf="tooltipMeta.show"
-				[style]="
-					'
+			@if (tooltipMeta.show) {
+				<div
+					[style]="
+						'
         display: flex;
         overflow: visible;
         justify-content: center;
         width: ' +
-					tooltipMeta.width +
-					'px;
+						tooltipMeta.width +
+						'px;
         position: fixed;
         top: ' +
-					(tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8) +
-					'px;
+						(tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8) +
+						'px;
         left: ' +
-					tooltipMeta.x +
-					'px;
+						tooltipMeta.x +
+						'px;
       '
-				"
-			>
-				<div
-					style="
+					"
+				>
+					<div
+						style="
           white-space: nowrap;
           padding: 8px;
           background: #40627b;
           color: white;
           border-radius: 16px;
         "
-				>
-					This will send an email to the recipients
-				</div>
-				<div
-					style="
+					>
+						This will send an email to the recipients
+					</div>
+					<div
+						style="
           height: 12px;
           width: 12px;
           transform: rotate(45deg) translateX(-50%);
@@ -52,8 +51,9 @@ import { NgIf } from "@angular/common";
           left: 50%;
           zIndex: -1;
         "
-				></div>
-			</div>
+					></div>
+				</div>
+			}
 			<button
 				#buttonRef
 				(mouseover)="onMouseOver()"

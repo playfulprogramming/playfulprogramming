@@ -9,7 +9,7 @@ import {
 	OnInit,
 	OnDestroy,
 } from "@angular/core";
-import { NgFor, NgIf, DatePipe } from "@angular/common";
+import { DatePipe } from "@angular/common";
 
 @Component({
 	selector: "file-date",
@@ -28,7 +28,7 @@ class FileDateComponent {
 @Component({
 	selector: "tr[file-item]",
 	standalone: true,
-	imports: [FileDateComponent, NgIf],
+	imports: [FileDateComponent],
 	host: {
 		"[attr.aria-selected]": "isSelected",
 		"(click)": "selected.emit()",
@@ -42,9 +42,16 @@ class FileDateComponent {
 		<td>
 			<a [href]="href" style="color: inherit">{{ fileName }}</a>
 		</td>
-		<td *ngIf="isFolder; else fileDisplay">Folder</td>
-		<ng-template #fileDisplay><td>File</td></ng-template>
-		<td><file-date *ngIf="!isFolder" [inputDate]="inputDate" /></td>
+		@if (isFolder) {
+			<td>Folder</td>
+		} @else {
+			<td>File</td>
+		}
+		<td>
+			@if (!isFolder) {
+				<file-date [inputDate]="inputDate" />
+			}
+		</td>
 	`,
 })
 class FileComponent implements OnInit, OnDestroy {
@@ -76,29 +83,24 @@ class FileComponent implements OnInit, OnDestroy {
 @Component({
 	selector: "tbody[file-table-body]",
 	standalone: true,
-	imports: [NgFor, NgIf, FileComponent],
+	imports: [FileComponent],
 	template: `
-		<ng-container
-			*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
-		>
-			<tr
-				file-item
-				*ngIf="onlyShowFiles ? !file.isFolder : true"
-				(selected)="onSelected(i)"
-				[isSelected]="selectedIndex === i"
-				[fileName]="file.fileName"
-				[href]="file.href"
-				[isFolder]="file.isFolder"
-			></tr>
-		</ng-container>
+		@for (file of filesArray; track file.id; let i = $index) {
+			@if (onlyShowFiles ? !file.isFolder : true) {
+				<tr
+					file-item
+					(selected)="onSelected(i)"
+					[isSelected]="selectedIndex === i"
+					[fileName]="file.fileName"
+					[href]="file.href"
+					[isFolder]="file.isFolder"
+				></tr>
+			}
+		}
 	`,
 })
 class FileTableBody {
 	selectedIndex = -1;
-
-	fileTrackBy(index: number, file: File) {
-		return file.id;
-	}
 
 	onSelected(idx: number) {
 		if (this.selectedIndex === idx) {
@@ -163,7 +165,7 @@ class FileTableContainerComponent {}
 @Component({
 	selector: "file-table",
 	standalone: true,
-	imports: [NgFor, NgIf, FileTableContainerComponent, FileTableBody],
+	imports: [FileTableContainerComponent, FileTableBody],
 	template: `
 		<div>
 			<button (click)="toggleOnlyShow()" style="margin-bottom: 1rem">

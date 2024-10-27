@@ -156,6 +156,10 @@ body {
 	color: var(--on-light-emphasis-high);
 }
 
+.readyToStart .lighterBlue {
+	color: var(--on-light-emphasis-medium);
+}
+
 .bookPart {
 	text-transform: uppercase !important;
 	display: inline-block;
@@ -181,4 +185,21 @@ body {
 .bookPartBottomText {
 	margin-top: var(--spc-1x);
 	color: var(--on-light-emphasis-medium);
+}
+
+.whyFreeBtn {
+	background-color: white !important;
+	color: var(--on-light-emphasis-high) !important;
+	box-shadow:
+		0px 8px 8px 0px rgba(18, 25, 38, 0.08),
+		0px 16px 16px 0px rgba(18, 25, 38, 0.08),
+		0px 32px 32px 0px rgba(18, 25, 38, 0.08);
+}
+
+.whyFreeBtn:hover {
+	background-color: var(--fund-100) !important;
+}
+
+.whyFreeBtn:active {
+	background-color: var(--fund-300) !important;
 }

@@ -8,6 +8,7 @@
   attached: [],
   order: 13,
   collection: "framework-field-guide-fundamentals",
+  version: "v1.1",
 }
 ---
 
@@ -971,18 +972,19 @@ We can then use this service in our `AppComponent`:
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, ContextMenuComponent],
+	imports: [ContextMenuComponent],
 	template: `
 		<div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
 			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
 		</div>
-		<context-menu
-			#contextMenu
-			*ngIf="isOpen"
-			[x]="boundsContext.bounds.x"
-			[y]="boundsContext.bounds.y"
-			(close)="close()"
-		></context-menu>
+		@if (isOpen) {
+			<context-menu
+				#contextMenu
+				[x]="boundsContext.bounds.x"
+				[y]="boundsContext.bounds.y"
+				(close)="close()"
+			/>
+		}
 	`,
 	providers: [BoundsContext],
 })

@@ -1,0 +1,26 @@
+body {
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	scale: 2;
+}
+
+.custom-form {
+	background-color: #e5f2ff;
+	padding: 16px 12px;
+	border-radius: 12px;
+	border: 2px solid #55b4ed;
+}
+
+.custom-form:focus {
+	outline: none;
+	border-color: #007fb4;
+	background-color: #c8e6ff;
+}
+
+.custom-form::placeholder {
+	font-weight: 700;
+}

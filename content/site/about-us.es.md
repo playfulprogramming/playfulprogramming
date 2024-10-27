@@ -8,7 +8,7 @@ Sin embargo, sabemos que este es un objetivo ambicioso, y no queremos hacerlo so
 
 ---
 
-## Dónde encontrarnos?
+## ¿Dónde encontrarnos?
 
 Tenemos varias cuentas en redes sociales donde compartimos actualizaciones y nuevo contenido con amigos! También tenemos un canal de YouTube donde compartimos transmisiones en vivo, charlas grabadas, y mucho contenido educativo adicional sobre temas relacionados a las ciencias de la computación.
 

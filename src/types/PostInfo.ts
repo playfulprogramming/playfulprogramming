@@ -12,6 +12,8 @@ export interface RawPostInfo {
 	order?: number;
 	originalLink?: string;
 	noindex?: boolean;
+	version?: string;
+	upToDateSlug?: string;
 }
 
 export interface PostInfo extends RawPostInfo {

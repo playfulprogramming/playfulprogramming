@@ -1,0 +1,52 @@
+---
+import styles from "./your-guide-text-container-front.module.scss";
+import SmallFilledButton from "./small-filled-button.astro";
+
+interface Props {
+	buttonId: string;
+}
+
+const { buttonId } = Astro.props;
+---
+
+<p class={`text-style-body-medium ${styles.topTextContainer}`}>
+	With more than 8 years of web development experience and after getting to know
+	these frameworks from the inside out, the 'Framework Field Guide' consists of
+	knowledge I wish I had access to when I first started out.
+	<br />
+	<br />
+	The series will take you through all the necessary stages, no matter your level
+	of proficiency. My goal is to provide access to learning tools and support for
+	everyone, so they can go and build their vision.
+</p>
+<hr class={styles.divider} />
+<div class={styles.sponsorContainer}>
+	<h3 class={`text-style-headline-6 ${styles.sponsorTitle}`}>Sponsorship</h3>
+	<p class={`text-style-body-small ${styles.sponsorDescription}`}>
+		If you like the books and want to support me, this is an easy way to do so.
+		Thank you so much for helping.
+	</p>
+	<SmallFilledButton href="https://github.com/sponsors/crutchcorn"
+		>Sponsor me
+	</SmallFilledButton>
+</div>
+<hr class={styles.divider} />
+<div class={styles.whyFreeContainer}>
+	<h3 id="why-free" class={`text-style-headline-5 ${styles.sponsorTitle}`}>
+		“Why is Framework Field Guide free?”
+	</h3>
+	<p class={`text-style-body-medium ${styles.bottomText}`}>
+		<span class={styles.transformative}
+			>Being in the software field has been absolutely transformative to my
+			life.</span
+		>
+		It's allowed me to help family and friends through tough times. That’s why I
+		want to help others break into the field as I have been fortunate enough to and
+		have a similar impact to their lives as well.
+	</p>
+	<button
+		id={buttonId}
+		class={`text-style-button ffg-button-base ffg-big-button ffg-filled-button`}
+		>Read my full story
+	</button>
+</div>

@@ -8,39 +8,39 @@ import {
 	OnDestroy,
 	ViewChild,
 } from "@angular/core";
-import { NgIf } from "@angular/common";
 
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
+	imports: [],
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div (contextmenu)="open($event)">Right click on me!</div>
 		</div>
-		<div
-			*ngIf="isOpen"
-			tabIndex="0"
-			#contextMenu
-			[style]="
-				'
+		@if (isOpen) {
+			<div
+				tabIndex="0"
+				#contextMenu
+				[style]="
+					'
       position: fixed;
       top: ' +
-				mouseBounds.y +
-				'px;
+					mouseBounds.y +
+					'px;
       left: ' +
-				mouseBounds.x +
-				'px;
+					mouseBounds.x +
+					'px;
       background: white;
       border: 1px solid black;
       border-radius: 16px;
       padding: 1rem;
     '
-			"
-		>
-			<button (click)="close()">X</button>
-			This is a context menu
-		</div>
+				"
+			>
+				<button (click)="close()">X</button>
+				This is a context menu
+			</div>
+		}
 	`,
 })
 class AppComponent implements AfterViewInit, OnDestroy {

@@ -39,7 +39,7 @@ const showMoreText = translate(
 					{collection ? (
 						<a
 							class={`text-style-headline-4 ${styles.articleTitle}`}
-							href={`/collections/${collection.slug}`}
+							href={`/collections/${collection.upToDateSlug ?? collection.slug}`}
 						>
 							{collection.title}
 						</a>
