@@ -314,7 +314,6 @@ Here's the range of HTTP codes that can be returned.
 | `300`-`399` | Redirection messages | 
 | `400`-`499` | Client error responses |
 | `500`-`599` | Server error responses |
-| | |
 | **[View all responses](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)** | Check the MDN Docs for a full breakdown. |
 
 ## Handling data errors
