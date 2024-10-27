@@ -131,7 +131,7 @@ Then add a script to execute Prettier against our source code files:
 
 Once the package is installed, you can run `npm run format` on any repository without any additional configuration:
 
-<iframe data-frame-title="Prettier - StackBlitz" src="uu-code:./ffg-ecosystem-prettier-6?template=node&embed=1&file=src%2Findex.js" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Prettier - StackBlitz" src="pfp-code:./ffg-ecosystem-prettier-6?template=node&embed=1&file=src%2Findex.js" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > It's worth mentioning that Prettier supports React, Angular, and Vue all very well out of the box. You shouldn't need to add any additional configuration to get Prettier working with your other projects.
 >
@@ -335,7 +335,7 @@ And see this error:
 > React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return? eslint(react-hooks/rules-of-hooks)
 > ```
 
-<iframe data-frame-title="React ESLint - StackBlitz" src="uu-code:./ffg-ecosystem-react-eslint-7?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="React ESLint - StackBlitz" src="pfp-code:./ffg-ecosystem-react-eslint-7?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > You can learn more about the React ESLint's dependencies on their respective docs pages:
 >
@@ -415,7 +415,7 @@ export class AppThing {
 > ESLint: Component class names should end with one of these suffixes: "Component" (https:// angular. dev/ style-guide#style-02-03)(@angular-eslint/ component-class-suffix)
 > ```
 
-<iframe data-frame-title="Angular ESLint - StackBlitz" src="uu-code:./ffg-ecosystem-angular-eslint-7?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Angular ESLint - StackBlitz" src="pfp-code:./ffg-ecosystem-angular-eslint-7?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > You can [find more linting rules and configurations in the `angular-eslint` docs](https://github.com/angular-eslint/angular-eslint).
 
@@ -456,7 +456,7 @@ export let msg = 'Hello!'
 > `<script setup>` cannot contain ES module exports. eslint(vue/no-export-in-script-setup)
 > ```
 
-<iframe data-frame-title="Vue ESLint - StackBlitz" src="uu-code:./ffg-ecosystem-vue-eslint-7?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Vue ESLint - StackBlitz" src="pfp-code:./ffg-ecosystem-vue-eslint-7?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > [Learn more about Vue's ESLint plugin from their docs website.](https://eslint.vuejs.org/) 
 
@@ -792,6 +792,8 @@ While being able to type-check is cool, and seeing the generated `.js` file help
 
 Let's integrate our frameworks' TypeScript support into a bundled project:
 
+<!-- ::start:tabs -->
+
 #### React
 
 Once TypeScript is set up for React as outlined before, adding it into our Vite bundler is relatively trivial; update the `index.html` file to point to the new `main.tsx` file rather than the old `main.jsx` file:
@@ -810,7 +812,7 @@ Once TypeScript is set up for React as outlined before, adding it into our Vite 
 </html>
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="React TypeScript - StackBlitz" src="pfp-code:./ffg-ecosystem-react-typescript-8?template=node&embed=1&file=src%2FApp.tsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 #### Angular
 
@@ -831,7 +833,9 @@ Because we don't care about Vue's `index.vue.js` file, we want to tell `vue-tsc`
 
 After that, you should be off to the races!
 
-// TODO: Add iframe
+<iframe data-frame-title="Vue TypeScript - StackBlitz" src="pfp-code:./ffg-ecosystem-vue-typescript-8?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<!-- ::end:tabs -->
 
 ## Using TypeScript with ESLint
 

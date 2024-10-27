@@ -1,23 +1,21 @@
 {
-	"name": "@ffg-ecosystem/vue-eslint-7",
+	"name": "@ffg-ecosystem/vue-typescript-8",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build",
+		"build": "vue-tsc --noEmit && vite build",
 		"preview": "vite preview",
-		"lint": "eslint ."
+		"tsc": "vue-tsc"
 	},
 	"dependencies": {
 		"vue": "^3.5.12"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.13.0",
 		"@vitejs/plugin-vue": "^5.1.4",
-		"eslint": "^9.13.0",
-		"eslint-plugin-vue": "^9.29.1",
-		"globals": "^15.11.0",
-		"vite": "^5.4.9"
+		"typescript": "^5.6.3",
+		"vite": "^5.4.9",
+		"vue-tsc": "^2.1.8"
 	}
 }
