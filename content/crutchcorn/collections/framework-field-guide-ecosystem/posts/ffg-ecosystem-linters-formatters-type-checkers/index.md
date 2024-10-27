@@ -335,7 +335,7 @@ And see this error:
 > React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return? eslint(react-hooks/rules-of-hooks)
 > ```
 
-// TODO: Add iframe
+<iframe data-frame-title="React ESLint - StackBlitz" src="uu-code:./ffg-ecosystem-react-eslint-7?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > You can learn more about the React ESLint's dependencies on their respective docs pages:
 >
@@ -403,21 +403,19 @@ import { Component } from "@angular/core";
 
 // This is buggy code that ESLint will catch with Angular plugins configured
 @Component({
-    selector: "app-root"
+	selector: "app-root",
+	standalone: true,
+	template: "<p>Hello, world!</p>"
 })
-export class AppComponent {
-  ngOnInit() {
-  	// Some code
-    console.log("The app is initialized");
-  }
+export class AppThing {
 }
 ```
 
 > ```
-> Lifecycle interface 'OnInit' should be implemented for method 'ngOnInit'. (https://angular.dev/style-guide#style-09-01) eslint(angular-eslint/use-lifecycle-interface)
+> ESLint: Component class names should end with one of these suffixes: "Component" (https:// angular. dev/ style-guide#style-02-03)(@angular-eslint/ component-class-suffix)
 > ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Angular ESLint - StackBlitz" src="uu-code:./ffg-ecosystem-angular-eslint-7?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > You can [find more linting rules and configurations in the `angular-eslint` docs](https://github.com/angular-eslint/angular-eslint).
 
@@ -458,7 +456,7 @@ export let msg = 'Hello!'
 > `<script setup>` cannot contain ES module exports. eslint(vue/no-export-in-script-setup)
 > ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Vue ESLint - StackBlitz" src="uu-code:./ffg-ecosystem-vue-eslint-7?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > [Learn more about Vue's ESLint plugin from their docs website.](https://eslint.vuejs.org/) 
 
@@ -837,7 +835,7 @@ After that, you should be off to the races!
 
 ## Using TypeScript with ESLint
 
-TypeScripts' ability to have metadata associated with your code allows more traditional linters like ESLint to add additional capabilities using said metadata.
+TypeScript's ability to have metadata associated with your code allows more traditional linters like ESLint to add additional capabilities using said metadata.
 
 To do this, we'll update our ESLint configuration from before to include a new plugin called `typescript-eslint`:
 
