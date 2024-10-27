@@ -14,6 +14,7 @@ const postSchema = {
 	title: "string",
 	excerpt: "string",
 	description: "string",
+	searchMeta: "string",
 	publishedTimestamp: "number",
 } as const;
 
@@ -22,6 +23,7 @@ const collectionSchema = {
 	title: "string",
 	excerpt: "string",
 	description: "string",
+	searchMeta: "string",
 	tags: "enum[]",
 	authors: "enum[]",
 	publishedTimestamp: "number",
