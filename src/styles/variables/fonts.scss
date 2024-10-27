@@ -1,4 +1,5 @@
-@import "src/tokens/index";
+@use "src/tokens/index";
+@use "src/tokens/_breakpoints.scss" as *;
 
 :root {
 	--pfp-font-family: "Figtree", "Arial", "Roboto", sans-serif;

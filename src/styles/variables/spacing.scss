@@ -1,4 +1,5 @@
-@import "src/tokens/index";
+@use "src/tokens/index";
+@use "src/tokens/_breakpoints.scss" as *;
 
 :root {
 	--spc-1x: 4px;

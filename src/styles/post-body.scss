@@ -1,5 +1,5 @@
-@import "src/tokens/index";
-@import "./text-styles.scss";
+@use "src/tokens/index";
+@use "./text-styles.scss";
 
 :where(a) {
 	color: var(--primary_default);

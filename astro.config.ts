@@ -19,7 +19,6 @@ await symlink(path.resolve("content"), path.resolve("public/content"));
 export default defineConfig({
 	site: siteUrl,
 	adapter: vercel({
-		// Uses Vercel's Image Optimization API: https://vercel.com/docs/image-optimization
 		imageService: true,
 		imagesConfig: {
 			sizes: SUPPORTED_IMAGE_SIZES,
@@ -46,8 +45,6 @@ export default defineConfig({
 				),
 			},
 			filter(page) {
-				// return true, unless the page is a blog post with `noindex` or `originalLink` set
-				// Or if it's a collection with `noindex` set
 				const lastPartOfSlug = page
 					.split("/")
 					.filter((part) => !!part.length)
@@ -62,7 +59,6 @@ export default defineConfig({
 			},
 			serialize({ url, ...rest }) {
 				return {
-					// remove trailing slash from sitemap URLs
 					url: url.replace(/\/$/g, ""),
 					...rest,
 				};
@@ -83,6 +79,13 @@ export default defineConfig({
 				/@react-stately/,
 				/@react-types/,
 			],
+		},
+		css: {
+			preprocessorOptions: {
+				scss: {
+					api: "modern",
+				},
+			},
 		},
 	},
 	markdown: {} as AstroUserConfig["markdown"] as never,

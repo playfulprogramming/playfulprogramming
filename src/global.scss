@@ -1,20 +1,21 @@
 @use "sass:math";
-@import "./styles/variables/border_widths";
-@import "./styles/variables/colors";
-@import "./styles/variables/corner_radius";
-@import "./styles/variables/fonts";
-@import "./styles/variables/icons";
-@import "./styles/variables/max_widths";
-@import "./styles/variables/shadows";
-@import "./styles/variables/spacing";
-@import "./styles/variables/target_sizes";
-@import "./styles/variables/themes";
+@use "./tokens/index" as *;
+@use "./styles/variables/border_widths";
+@use "./styles/variables/colors";
+@use "./styles/variables/corner_radius";
+@use "./styles/variables/fonts";
+@use "./styles/variables/icons";
+@use "./styles/variables/max_widths";
+@use "./styles/variables/shadows";
+@use "./styles/variables/spacing";
+@use "./styles/variables/target_sizes";
+@use "./styles/variables/themes";
 
-@import "./styles/text-styles";
-@import "./styles/button";
-@import "./styles/container";
-@import "./styles/post-body";
-@import "./styles/utilities";
+@use "./styles/text-styles";
+@use "./styles/button";
+@use "./styles/container";
+@use "./styles/post-body";
+@use "./styles/utilities";
 
 :root {
 	scrollbar-gutter: stable;
