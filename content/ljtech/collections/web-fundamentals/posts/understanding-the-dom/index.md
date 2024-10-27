@@ -484,7 +484,7 @@ However, as you can see, we're running `stopPropagation` on the event in the blu
 
 You can see a running example of this here:
 
-<iframe data-frame-title="Example of stopPropagation"src="https://stackblitz.com/edit/event-bubbling-demo?embed=1&file=index.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Example of stopPropagation" src="pfp-code:./event-bubbling-demo?embed=1&file=index.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Capturing {#event-capturing}
 
@@ -523,7 +523,7 @@ This means that when the user clicks on the red square, you'll see the following
 
 You won't see anything from the green square's `eventListener`, however.
 
-<iframe data-frame-title="Example of event capturing"src="https://stackblitz.com/edit/event-capture-demo?embed=1&file=index.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Example of event capturing" src="pfp-code:./event-capture-demo?embed=1&file=index.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 You'll also notice that if you click on the green square, you'll never see the `"A click handled on green using capture"` message. This is due to the `stopPropagation`, as mentioned before. The click is being registered on the red square first and then stopped on the blue square.
 
