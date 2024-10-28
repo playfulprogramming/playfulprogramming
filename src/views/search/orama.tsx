@@ -85,15 +85,15 @@ function addMerge(obj1: Record<string, number>, obj2: Record<string, number>): R
 }
 
 export async function searchForTerm({ postClient, collectionClient }: SearchContext, query: SearchQuery, signal: AbortSignal) {
-	// Schema should be passed to `search` method when:
-	// https://github.com/askorama/oramacloud-client-javascript/pull/35
-	// Is merged and released.
 	const term = query.searchQuery === "*" ? "" : query.searchQuery;
 	const sortBy: SortByClauseUnion | undefined = query.sort === "relevance"
 		// When term is empty (returning all results), there is no "relevance" to sort by - so this defaults to a sort by newest
 		? (term.length > 0 ? undefined : { property: "publishedTimestamp", order: "desc" })
 		: { property: "publishedTimestamp", order: query.sort === "newest" ? "desc" : "asc" };
 
+	// Schema should be passed to `search` method when:
+	// https://github.com/askorama/oramacloud-client-javascript/pull/35
+	// is working. Does not seem tp be reflected in the type definitions at present,
 	const postSearchPromise: Promise<Nullable<Results<PostDocument>>> =
 		postClient.search(
 			{
