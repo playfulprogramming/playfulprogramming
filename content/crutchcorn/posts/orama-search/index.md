@@ -73,12 +73,14 @@ This worked well for an initial implementation, but to keep things simple for an
 
 We knew we could fix this in a follow-up, but this would've required more work.
 
-In addition, we weren't entirely happy with the search results:
+In addition, we weren't entirely happy with the search results. For example, searching `"AST"` showed unrelated articles instead of Corbin's article of ["How Computers Speak: Assembly to AST"](/posts/how-computers-speak)
 
-// SHow demo of "AST" before/after
+![TODO: Write](./ast_search_before.png)
 
-// Show conversational request before/after
+Similarly, any searches that include a more conversational tone, like `"articles that explain how effects work in React"` would either return unrelated items or nothing at all:
+
+![TODO: Write](./search_term_before.png)
 
 # Fixing Search Results
 
-// ORAMA TIME BABY
+To solve these issues, we reached out to [Orama](https://orama.com/). Corbin had worked with them previously with his work on [the TanStack docs site](https://tanstack.com/) and knew that they could solve 
