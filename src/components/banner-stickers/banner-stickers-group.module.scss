@@ -1,4 +1,5 @@
-@import "src/tokens/index";
+@use "src/tokens/index";
+@use "src/tokens/_breakpoints.scss" as *;
 
 .sticker1,
 .sticker2,

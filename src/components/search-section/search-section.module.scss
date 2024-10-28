@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index";
 
 :root {
 	--search-section_padding-vertical: calc(var(--site-spacing) * 2);
