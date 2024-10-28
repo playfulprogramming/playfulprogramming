@@ -10,14 +10,12 @@ function useDarkMode() {
 		() => document.documentElement.classList.contains("dark")
 	);
 
-	const handleMutation = () => {
-		setIsDarkTheme(
-			document.documentElement.classList.contains("dark")
-		);
-	};
-
 	useEffect(() => {
-		const observer = new MutationObserver(handleMutation);
+		const observer = new MutationObserver(() => {
+			setIsDarkTheme(
+				document.documentElement.classList.contains("dark")
+			);
+		});
 		observer.observe(document.documentElement, { attributes: true });
 		return () => observer.disconnect();
 	}, []);
