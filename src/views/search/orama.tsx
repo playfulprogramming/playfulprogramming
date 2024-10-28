@@ -6,6 +6,7 @@ import { PropsWithChildren } from "components/types";
 import { createContext } from "preact";
 import { useContext } from "preact/hooks";
 import { SearchQuery } from "./search";
+import { ORAMA_COLLECTIONS_API_KEY, ORAMA_COLLECTIONS_ENDPOINT, ORAMA_POSTS_API_KEY, ORAMA_POSTS_ENDPOINT } from "./constants";
 
 const postSchema = {
 	slug: "string",
@@ -45,15 +46,14 @@ interface OramaClientProviderProps extends PropsWithChildren {
 
 export function OramaClientProvider(props: OramaClientProviderProps) {
 	const postClient = new OramaClient({
-		endpoint: "https://cloud.orama.run/v1/indexes/playful-programming-p9lpvl",
-		api_key: "OLeHrFPWLR0alSSZkMiq4tokMZZNEbDL",
+		endpoint: ORAMA_POSTS_ENDPOINT,
+		api_key: ORAMA_POSTS_API_KEY,
 		...props.params
 	});
 
 	const collectionClient = new OramaClient({
-		endpoint:
-			"https://cloud.orama.run/v1/indexes/playful-programming-collections-oksaw0",
-		api_key: "yxsPLU2kjhAjjNxTUQ4F6c3bF9eXUSNJ",
+		endpoint: ORAMA_COLLECTIONS_ENDPOINT,
+		api_key: ORAMA_COLLECTIONS_API_KEY,
 		...props.params
 	});
 
