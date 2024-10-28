@@ -1,4 +1,5 @@
-@import "src/styles/text-styles.scss";
+@use "src/tokens/index" as *;
+@use "src/styles/text-styles.scss";
 
 :root {
 	--table_padding-horizontal: var(--spc-1x);
@@ -81,8 +82,10 @@ table {
 		}
 	}
 
-	border-radius: var(--table_grid-wrapper_corner-radius);
-	overflow: clip;
+	& {
+		border-radius: var(--table_grid-wrapper_corner-radius);
+		overflow: clip;
+	}
 }
 
 // Only use a sticky header on tables with 4+ rows

@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 :root {
 	--page-card_container_corner-radius: calc(var(--site-spacing) * 2);

@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index";
 
 :root {
 	--list_item_padding-vertical: var(--spc-1x);
@@ -9,7 +9,7 @@
 	margin: var(--site-spacing) 0;
 
 	& > li {
-		@extend .text-style-body-large;
+		@extend .text-style-body-large !optional;
 
 		padding-top: calc(var(--list_item_padding-vertical) / 2);
 		padding-bottom: calc(var(--list_item_padding-vertical) / 2);

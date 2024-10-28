@@ -1,5 +1,4 @@
-@use "src/tokens/index";
-@use "src/tokens/_breakpoints.scss" as *;
+@use "src/tokens/index" as *;
 
 .collectionsGrid {
 	display: grid;

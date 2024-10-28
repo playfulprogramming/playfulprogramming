@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 :global(#header-bar[data-sticky="pinned"]) {
 	border-bottom: none !important;

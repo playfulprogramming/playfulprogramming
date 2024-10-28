@@ -39,7 +39,7 @@
 		}
 
 		& > p {
-			@extend .text-style-body-medium-bold;
+			@extend .text-style-body-medium-bold !optional;
 			margin: 0;
 		}
 	}
@@ -49,7 +49,7 @@
 		margin-top: var(--tooltip_desc-gap);
 
 		& > * {
-			@extend .text-style-body-small;
+			@extend .text-style-body-small !optional;
 		}
 
 		& > *:first-child {

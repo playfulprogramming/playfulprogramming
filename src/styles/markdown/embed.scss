@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 :root {
 	--embed_header_padding: var(--spc-4x);
@@ -65,12 +65,12 @@
 			min-width: 0;
 
 			& > p {
-				@extend .text-style-body-medium-bold;
+				@extend .text-style-body-medium-bold !optional;
 				margin: 0;
 			}
 
 			& > a {
-				@extend .text-style-body-small-bold;
+				@extend .text-style-body-small-bold !optional;
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;

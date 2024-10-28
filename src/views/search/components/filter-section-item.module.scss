@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 :root {
 	--search-page_filter_list_item_padding-vertical: var(--spc-2x);

@@ -1,5 +1,5 @@
-@import "./breakpoints";
-@import "./utils";
+@use "./breakpoints";
+@use "./utils";
 
 $plusJakartaSans: "Plus Jakarta Sans", "Plus Jakarta Sans-fallback",
 	"Plus Jakarta Sans-fallback2", sans-serif;

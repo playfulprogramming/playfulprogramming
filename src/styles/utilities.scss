@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index";
 
 // :where() in this file is used to ensure a low CSS specificity, so that component-specific CSS can override these values
 
