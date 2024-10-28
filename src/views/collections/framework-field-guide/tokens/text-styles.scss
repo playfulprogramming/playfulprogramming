@@ -1,4 +1,4 @@
-@use "./breakpoints";
+@use "./breakpoints" as *;
 @use "./utils";
 
 $plusJakartaSans: "Plus Jakarta Sans", "Plus Jakarta Sans-fallback",

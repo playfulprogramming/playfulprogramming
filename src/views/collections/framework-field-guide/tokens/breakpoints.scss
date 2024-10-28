@@ -1,2 +1,8 @@
 $desktop: 960px;
 $tablet: 600px;
+
+@mixin from($breakpoint) {
+	@media (min-width: $breakpoint) {
+		@content;
+	}
+}
