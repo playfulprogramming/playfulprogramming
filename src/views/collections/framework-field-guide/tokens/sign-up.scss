@@ -1,5 +1,5 @@
 @use "./breakpoints" as *;
-@use "./utils";
+@use "./utils" as *;
 
 :root {
 	--sign-up-avatar-size: var(--avatar-size_large);

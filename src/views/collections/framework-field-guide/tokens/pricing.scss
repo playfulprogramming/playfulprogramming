@@ -1,5 +1,5 @@
 @use "./breakpoints" as *;
-@use "./utils";
+@use "./utils" as *;
 
 :root {
 	--pricing-container_default: var(--slate-800);

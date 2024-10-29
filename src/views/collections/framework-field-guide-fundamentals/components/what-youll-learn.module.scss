@@ -1,5 +1,5 @@
 @use "src/tokens/index" as *;
-@use "../../framework-field-guide/tokens/breakpoints";
+@use "../../framework-field-guide/tokens/breakpoints" as *;
 
 :root {
 	--step-num-size: calc((56px / 16) * 1rem);

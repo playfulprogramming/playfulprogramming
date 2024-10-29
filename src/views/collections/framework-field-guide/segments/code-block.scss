@@ -1,5 +1,5 @@
-@use "../tokens/utils";
-@use "../tokens/breakpoints.scss";
+@use "../tokens/utils" as *;
+@use "../tokens/breakpoints.scss" as *;
 
 pre {
 	margin: 0;

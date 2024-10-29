@@ -1,5 +1,5 @@
-@use "../tokens/utils";
-@use "../tokens/breakpoints";
+@use "../tokens/utils" as *;
+@use "../tokens/breakpoints" as *;
 
 .book-section {
 	padding: var(--section-ver-padding) 0;

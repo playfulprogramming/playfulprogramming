@@ -1,5 +1,5 @@
 @use "src/tokens/index" as *;
-@use "../../framework-field-guide/tokens/breakpoints";
+@use "../../framework-field-guide/tokens/breakpoints" as *;
 
 :root {
 	--article-link-padding-ver: var(--spc-1x);

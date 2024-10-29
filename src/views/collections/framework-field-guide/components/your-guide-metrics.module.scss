@@ -1,5 +1,5 @@
-@use "../tokens/utils";
-@use "../tokens/breakpoints.scss";
+@use "../tokens/utils" as *;
+@use "../tokens/breakpoints.scss" as *;
 
 .metricsContainer {
 	display: grid;
