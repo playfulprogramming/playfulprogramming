@@ -7,6 +7,8 @@
 }
 ---
 
+> As part of our partnership with Orama, this blog post was sponsored and financially compensated for by Orama. This doesn't invalidate our learnings from this post, but if you'd like to read more, you can [check our disclosure of our partnership with Orama to learn more.](#)
+
 On [October 20th, 2023 we launched a major redesign](https://github.com/playfulprogramming/playfulprogramming/pull/497). Not only did this redesign massively facelift all of the pages we had built previously:
 
 ![TODO: Write](./uu_homepage_before.png)
