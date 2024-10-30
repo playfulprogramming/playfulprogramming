@@ -83,4 +83,47 @@ Similarly, any searches that include a more conversational tone, like `"articles
 
 # Fixing Search Results
 
-To solve these issues, we reached out to [Orama](https://orama.com/). Corbin had worked with them previously with his work on [the TanStack docs site](https://tanstack.com/) and knew that they could solve 
+To solve these issues, we reached out to [Orama](https://orama.com/). Corbin had worked with them previously with his work on [the TanStack docs site](https://tanstack.com/) and knew that they could solve the challenges we were facing.
+
+While Orama has an incredibly powerful built-in UI:
+
+![TODO: Write](./orama_default_ui.png)
+
+We didn't want to give up on the custom UI we'd built.
+
+Luckily, [Orama provides a great JavaScript SDK that we could utilize for our needs: `@oramacloud/client`](https://docs.orama.com/cloud/integrating-orama-cloud/javascript-sdk).
+
+To use it, we exposed our database of articles via a remote JSON that's deployed via CI/CD:
+
+![TODO: Write](./search_json.png)
+
+We point Orama at this JSON endpoint:
+
+![TODO: Write](./orama_dashboard.png)
+
+> Orama will regularly check this remote JSON endpoint of ours to make sure that it's the most up-to-date data as needed.
+
+Then, we initialize the Orama client like so:
+
+````javascript
+const postClient = new OramaClient({
+    endpoint: ORAMA_POSTS_ENDPOINT,
+    api_key: ORAMA_POSTS_API_KEY
+});
+````
+
+And can call this client with a simple search term, complete with pagination and more:
+
+````javascript
+postClient.search(
+    {
+        term: "articles that explain how effects work in React",
+        limit: 6,
+        offset: 6 * pageIndex,
+    },
+);
+````
+
+Once this was done in our codebase, our search results were immediately improved:
+
+![TODO: Write](./search_term_after.png)
