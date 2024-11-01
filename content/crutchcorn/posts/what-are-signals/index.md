@@ -1,7 +1,7 @@
 ---
 {
   title: "What are Signals?",
-  description: "",
+  description: "Signals are seemingly everywhere today. So here's the question? What are they? Let's build an implementation ourselves to understand them better.",
   published: "2024-11-01T21:52:59.284Z",
   tags: ["javascript", "angular"],
   license: "cc-by-4",
