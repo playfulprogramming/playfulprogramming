@@ -1,25 +1,25 @@
 :root {
-	--primary95: #E5F2FF;
-	--primary90: #C8E6FF;
-	--primary80: #87CEFF;
+	--primary95: #e5f2ff;
+	--primary90: #c8e6ff;
+	--primary80: #87ceff;
 	--primary40: #006590;
-	--primary20: #00344D;
-  }
-  
-  * {
+	--primary20: #00344d;
+}
+
+* {
 	font-family: Figtree;
 	margin: 0;
-  }
-  
-  body {
+}
+
+body {
 	display: flex;
 	height: 100vh;
 	width: 100vw;
 	background-color: var(--primary95);
 	overflow: hidden;
-  }
-  
-  .side-container {
+}
+
+.side-container {
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
@@ -27,9 +27,9 @@
 	flex-basis: 0;
 	gap: 8px;
 	padding: 24px;
-  }
-  
-  .sidebar-item {
+}
+
+.sidebar-item {
 	display: inline-flex;
 	height: fit-content;
 	min-width: max-content;
@@ -38,32 +38,32 @@
 	font-weight: 600;
 	background-color: var(--primary90);
 	color: var(--primary20);
-  }
-  
-  .related-item {
+}
+
+.related-item {
 	display: inline-flex;
 	flex-direction: column;
 	height: fit-content;
 	padding: 8px 0px;
 	border-radius: 12px;
 	color: var(--primary40);
-  }
-  
-  .pfp-article {
+}
+
+.pfp-article {
 	flex-grow: 2;
 	flex-basis: 0;
 	padding: 24px;
 	min-width: 50%;
-  }
-  
-  @media screen and (max-width: 480px) {
+}
+
+@media screen and (max-width: 480px) {
 	#toc {
-	  display: none;
+		display: none;
 	}
-  }
-  
-  @media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 768px) {
 	#related-articles {
-	  display: none;
+		display: none;
 	}
-  }
+}

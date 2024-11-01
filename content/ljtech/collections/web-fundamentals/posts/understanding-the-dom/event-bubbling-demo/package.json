@@ -1,6 +1,10 @@
 {
-  "name": "js-ouuvkf",
-  "version": "0.0.0",
-  "private": true,
-  "dependencies": {}
+	"name": "@playfulprogramming/event-bubbling-demo",
+	"private": true,
+	"scripts": {
+		"start": "http-server src"
+	},
+	"devDependencies": {
+		"http-server": "^14.1.1"
+	}
 }

@@ -1,17 +1,17 @@
 * {
 	font-family: Figtree;
 	margin: 0 auto;
-  }
-  
-  body {
+}
+
+body {
 	display: flex;
 	height: 100vh;
 	width: 100vw;
-	background-color: #E5F2FF;
+	background-color: #e5f2ff;
 	overflow: hidden;
-  }
-  
-  .controls {
+}
+
+.controls {
 	box-sizing: border-box;
 	display: flex;
 	position: absolute;
@@ -25,25 +25,25 @@
 	background-color: rgba(229, 242, 255, 1);
 	box-shadow: 0 -1px 0px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
-  }
-  
-  .span {
-	background-color: #C8E6FF;
+}
+
+.span {
+	background-color: #c8e6ff;
 	padding: 0.25em;
 	border-radius: 0.25em;
 	z-index: -2;
-  }
-  
-  button {
+}
+
+button {
 	padding: 12px 20px;
 	border: none;
 	border-radius: 99px;
 	font-weight: 700;
 	transition-duration: 0.1s;
 	background-color: rgba(200, 230, 255, 1);
-  }
-  
-  button:hover {
+}
+
+button:hover {
 	transition-duration: 0.1s;
 	background-color: rgba(135, 206, 255, 1);
-  }
+}
