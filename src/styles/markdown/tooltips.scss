@@ -1,3 +1,5 @@
+@use "src/styles/text-styles.scss";
+
 :root {
 	--tooltip_padding-vertical: var(--spc-3x);
 	--tooltip_padding-start: var(--spc-3x);
@@ -39,7 +41,7 @@
 		}
 
 		& > p {
-			@extend .text-style-body-medium-bold !optional;
+			@extend .text-style-body-medium-bold;
 			margin: 0;
 		}
 	}
