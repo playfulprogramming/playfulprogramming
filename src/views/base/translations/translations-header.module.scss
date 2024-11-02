@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 :root {
 	--translation_padding: var(--spc-5x);
@@ -28,9 +28,11 @@
 		flex-direction: row;
 	}
 
-	padding: var(--translation_padding);
-	background-color: var(--translation_background-color);
-	border-radius: var(--translation_corner-radius);
+	& {
+		padding: var(--translation_padding);
+		background-color: var(--translation_background-color);
+		border-radius: var(--translation_corner-radius);
+	}
 
 	svg {
 		width: var(--translation_icon_size);

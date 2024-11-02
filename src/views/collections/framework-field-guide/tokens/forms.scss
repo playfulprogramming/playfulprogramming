@@ -1,5 +1,5 @@
-@import "./breakpoints";
-@import "./utils";
+@use "./breakpoints" as *;
+@use "./utils" as *;
 
 :root {
 	--form-border-radius: 12px;

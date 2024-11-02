@@ -84,6 +84,13 @@ export default defineConfig({
 				/@react-types/,
 			],
 		},
+		css: {
+			preprocessorOptions: {
+				scss: {
+					api: "modern",
+				},
+			},
+		},
 	},
 	markdown: {} as AstroUserConfig["markdown"] as never,
 });

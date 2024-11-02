@@ -1,5 +1,5 @@
-@import "../tokens/utils";
-@import "../tokens/breakpoints";
+@use "../tokens/utils" as *;
+@use "../tokens/breakpoints" as *;
 
 .signUpFormContainer {
 	display: flex;

@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 .container {
 	max-width: var(--max-width_m);

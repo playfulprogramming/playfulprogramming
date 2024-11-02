@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 :root {
 	--article-nav_padding-vertical: var(--site-spacing);
@@ -118,7 +118,9 @@
 			justify-content: end;
 		}
 
-		text-align: right;
+		& {
+			text-align: right;
+		}
 	}
 }
 

@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 :root {
 	--chip_corner-radius: var(--corner-radius_s);

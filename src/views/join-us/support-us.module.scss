@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 .supportUsTextContainer {
 	max-width: var(--max-width_s);

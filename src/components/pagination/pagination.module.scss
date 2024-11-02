@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 :root {
 	--nav-btn_min-size: var(--min-target-size_m);
