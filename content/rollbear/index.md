@@ -6,7 +6,7 @@
 	description: "I write code, I do not drink coffee.\nAvatar by Franzisca Panter",
 	socials: {
 		github: "rollbear",
-		mastodon: "https://mastodon.social/@bjorn_fahller"
+		mastodon: "https://fosstodon.org/@rollbear"
 	},
 	pronouns: "he/him",
 	profileImg: "./rollbear.jpg",
