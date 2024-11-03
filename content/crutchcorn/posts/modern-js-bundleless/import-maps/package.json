@@ -2,10 +2,13 @@
 	"name": "@playfulprogramming/import-maps",
 	"private": true,
 	"version": "0.0.0",
+	"type": "module",
 	"scripts": {
-		"start": "http-server src"
+		"start": "http-server src",
+		"postinstall": "node scripts/bundle-deps.js"
 	},
 	"devDependencies": {
+		"esbuild": "^0.24.0",
 		"http-server": "^14.1.1"
 	},
 	"dependencies": {
