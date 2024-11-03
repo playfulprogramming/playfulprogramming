@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width" />
+		<meta charset="utf-8" />
+		<title>PNPM + Import Map</title>
+		<script type="importmap">
+			{
+				"imports": {
+					"vue": "/vendor/vue/dist/vue.esm-browser.js"
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="app"></div>
+		<script type="module" src="/script.js"></script>
+	</body>
+</html>

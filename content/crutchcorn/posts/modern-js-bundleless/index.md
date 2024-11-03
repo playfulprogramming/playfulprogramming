@@ -56,9 +56,31 @@ This gives us a `src/vendor` folder that looks like this:
 
 <!-- ::start:tabs -->
 
+### Angular
+
+Not possible without a compiler to bundle the template.
+
+### React
+
+Technically possible to use without JSX:
+
+```
+React.createElement(Element, propsObject, childrenArray)
+```
+
+// TODO: Add iframe
+
+But it's not a pretty API at scale; practically infeasible.
+
+### Vue
+
+- Cannot use SFCs
+- Must add components via `components: {}` property
+
 ### Lit
 
 - Cannot use decorators, must be replaced with `static get` properties
 - Must call `customElements.define` manually
 
 <!-- ::end:tabs -->
+
