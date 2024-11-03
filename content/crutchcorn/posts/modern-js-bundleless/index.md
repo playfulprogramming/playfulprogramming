@@ -51,3 +51,14 @@ This gives us a `src/vendor` folder that looks like this:
 - `README.md`
 
 <!-- ::end:filetree -->
+
+## Framework Support
+
+<!-- ::start:tabs -->
+
+### Lit
+
+- Cannot use decorators, must be replaced with `static get` properties
+- Must call `customElements.define` manually
+
+<!-- ::end:tabs -->
