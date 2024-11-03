@@ -1,0 +1,14 @@
+{
+	"name": "@playfulprogramming/import-maps",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"start": "http-server src"
+	},
+	"devDependencies": {
+		"http-server": "^14.1.1"
+	},
+	"dependencies": {
+		"dayjs": "^1.11.13"
+	}
+}
