@@ -9,6 +9,14 @@
 ---
 
 
+- JSDoc + TypeScript + ESLint
+- "HMR"
+- Import maps
+- CDNs
+- PNPM vendor install path
+- node_modules aliasing
+- Tooling choices
+- Bundling deps w/ many files to single ESM file (lol)
 
 
 

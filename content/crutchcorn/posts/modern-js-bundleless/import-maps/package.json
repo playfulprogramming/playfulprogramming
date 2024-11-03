@@ -4,12 +4,12 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"start": "http-server src",
+		"start": "browser-sync start --server \"src\" --watch --no-ui",
 		"postinstall": "node scripts/bundle-deps.js"
 	},
 	"devDependencies": {
-		"esbuild": "^0.24.0",
-		"http-server": "^14.1.1"
+		"browser-sync": "^3.0.3",
+		"esbuild": "^0.24.0"
 	},
 	"dependencies": {
 		"dayjs": "^1.11.13"
