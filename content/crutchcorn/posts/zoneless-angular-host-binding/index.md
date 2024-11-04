@@ -5,16 +5,98 @@
   published: "2024-11-08T21:52:59.284Z",
   tags: ["angular", "javascript", "webdev"],
   license: "cc-by-4",
+  collection: "Angular Zone.js Internals",
+  order: 2
 }
 ---
 
+> **Warning:**
+>
+> This article talks in-depth about technical specifics of [the `provideExperimentalZonelessChangeDetection` experiment](https://angular.dev/api/core/provideExperimentalZonelessChangeDetection) present in Angular 18. The mechanisms discussed in this article are likely to change before this experiment is made production-ready.
 
+Recently [I was live on my Twitch stream coding away](https://twitch.tv/crutchcorn) until I got massively [nerd sniped](https://xkcd.com/356/) away from my discussion.
+
+One of my viewers asked me:
+
+> How does Zoneless bind to events if [Zone.js is supposed to be the one monkey-patching `EventTarget`](/posts/angular-internals-zonejs#zone-patch-intro)?
+
+I originally thought that the Zoneless strategy offered by [`provideExperimentalZonelessChangeDetection`](https://angular.dev/api/core/provideExperimentalZonelessChangeDetection) didn't do any kind of event binding, but to my surprise the following code works fine without Zone.js:
+
+```angular-ts
+import { bootstrapApplication } from "@angular/platform-browser";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
+
+@Component({
+	selector: "app-root",
+	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `<button (click)="add()">{{ count }}</button>`,
+})
+export class AppComponent {
+	count = 0;
+
+	add() {
+		this.count++;
+	}
+}
+
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});
+```
+
+<iframe data-frame-title="Zoneless Event Bind Simple - StackBlitz" src="pfp-code:./zoneless-event-bind-simple-1?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+So wait, if Zone.js isn't here to patch `EventTarget`, then what is?
+
+# Confirming that `Zone.js` is disabled
+
+Let's first double-check something; let's make sure that Zone.js is honestly and truly disabled in our code sample.
+
+If it were enabled, we'd expect any kind of `addEventListener` to trigger change detection. Taking another look and sure enough, a `addEventListener` added after-the-template compilation still triggers change detection when Zone.js is imported:
+
+```
+import "zone.js";
+import { bootstrapApplication } from "@angular/platform-browser";
+import { AfterViewInit, Component, ElementRef, viewChild } from "@angular/core";
+
+@Component({
+	selector: "app-root",
+	standalone: true,
+	// Must not be `OnPush` to demonstrate this behavior working
+	template: `<button #el>{{ count }}</button>`,
+})
+export class AppComponent implements AfterViewInit {
+	count = 0;
+
+	el = viewChild.required<ElementRef>("el");
+
+	ngAfterViewInit() {
+		// Can't be OnPush is because we're not properly marking this component
+		// as a dirty one for checking, so OnPush bypasses checking this node.
+		this.el()!.nativeElement.addEventListener("click", this.add.bind(this));
+	}
+
+	add() {
+		this.count++;
+	}
+}
+
+bootstrapApplication(AppComponent);
+```
+
+<iframe data-frame-title="Zone.js addEventListener - StackBlitz" src="pfp-code:./zone-js-add-event-listener-2?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+Now if we remove Zone.js using `provideExperimentalZonelessChangeDetection`, we'd expect this demo to break the intended functionality:
 
 ```angular-ts
 @Component({
   selector: 'app-root',
   standalone: true,
-  // Must not be `OnPush` to demonstrate this behavior working
   template: `<button #el>{{ count }}</button>`,
 })
 export class AppComponent implements AfterViewInit {
@@ -34,32 +116,16 @@ export class AppComponent implements AfterViewInit {
 }
 ```
 
-This demo works with `Zone.js` used in the app, but doesn't work with `provideExperimentalZonelessChangeDetection` passed. Why?
+<iframe data-frame-title="Zoneless addEventListener - StackBlitz" src="pfp-code:./zoneless-add-event-listener-3?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+Sure enough, this is the case. Why does this demo break?
 
 Well, it's because:
 
 - Zone.js patches `EventTarget` to call `tick`
 - Enabling the Zoneless provider removes this `EventTarget` patch
 
-But wait, if this is true, how does _this_ code work with no Zoneless change detection?
-
-```angular-ts
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  // Must not be `OnPush` to demonstrate this behavior working
-  template: `<button (click)="add()">{{ count }}</button>`,
-})
-export class AppComponent implements AfterViewInit {
-  count = 0;
-
-  add() {
-    this.count++;
-  }
-}
-```
-
-Surely, Angular must be notified when the user clicks on the event?
+But wait, if this is true, how does the first code sample work with no Zoneless change detection? Surely, Angular must be notified when the user clicks on the event?
 
 Well, it does, but it doesn't do so using `EventTarget`.
 

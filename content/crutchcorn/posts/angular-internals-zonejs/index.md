@@ -4,7 +4,9 @@
 	description: "Reactivity is core to JavaScript frameworks; changing data should cause a re-render. How does this work in Angular? Let's dive into the Angular source code to see.",
 	published: '2023-01-02T13:45:00.284Z',
 	tags: ['angular', 'javascript'],
-	license: 'cc-by-nc-sa-4'
+	license: 'cc-by-nc-sa-4',
+    collection: "Angular Zone.js Internals",
+    order: 1
 }
 ---
 
