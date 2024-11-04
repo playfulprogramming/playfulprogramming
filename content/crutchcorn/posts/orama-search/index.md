@@ -129,3 +129,38 @@ postClient.search(
 Once this was done in our codebase, our search results were immediately improved:
 
 ![TODO: Write](./search_term_after.png)
+
+# Why Orama?
+
+Like any other decision-making tree, our decision to go with Orama extended beyond the developer experience wins we showcased before.
+
+***First***, for Orama is perfect for open-source projects like ours. **Not only do you get unlimited search queries on any plan; Orama is free for open-source and community projects, forever**.
+
+> Don't take it from us! We asked Michele Riva, CEO of Orama, and this is what he had to say about community usage of their product:
+>
+> TODO: Provide quote from Michele
+
+-------
+
+***Secondly***, Orama handles generating embeddings for your project. This means that we didn't have to be machine learning (ML) experts to get up-and running. We only needed to provide our data and it handled everything else for us.
+
+---------
+
+**Third**, Orama's vector searches allow us to maintain context through our search. This means that if someone searches something like "Green dress", it won't show search results for "Green salad dressing", but instead only show results for "Dressing in a green gown".
+
+-----
+
+***Finally***, Orama not only provides vector search, but it manages "hybrid search features". This means that it's able to mix-n-match methods of vector search and conventional text search to provide the best results; regardless of the length of text.
+
+After all, if I know that I want to search `"React Side Effect"`, looking for a specific article, I don't want a vector database to override my request with something less relevant.
+
+# Takeaways
+
+Ultimately, we're very happy with our decision to go with Orama for our semantic search experience. They provided incredible support, a good product, and our users are happier as a result.
+
+> **Story Time:**
+> True story, after our first call with Orama, they had a proof-of-concept up and running against our API in 5 minutes
+
+What do you think about our search page? We'd love to hear from you! 
+
+[Let us know in our Discord](https://discord.gg/FMcvc6T); we hope to see you soon!
