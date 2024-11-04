@@ -42,7 +42,7 @@ Veamos un ejemplo de cómo se vería tu archivo `index.md`:
 
   // Tus usuarios de redes sociales pueden incluir "twitter", "github", "gitlab",
   // "linkedIn", "twitch", "dribbble", "mastodon", "threads", "youtube",
-  // y "cohost", además de un "website" que ¡puede ser lo que quieras!
+  // "bluesky", y "cohost", además de un "website" que ¡puede ser lo que quieras!
   socials: {
     mastodon: "https://hachyderm.io/@playfulprogramming",
     github: "playfulprogramming",
