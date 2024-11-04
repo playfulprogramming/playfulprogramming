@@ -129,7 +129,7 @@ But wait, if this is true, how does the first code sample work with no Zoneless 
 
 Well, it does, but it doesn't do so using `EventTarget`.
 
-# Angular 
+# How does Angular bind to events?
 
 Let's look at how Angular triggers `addEventListener`. First, [we look at `DomEventsPlugin` which is the actual code that called `element.addEventListener`](https://github.com/angular/angular/blob/6819d6abf3381383d3b5e25e04d1866b7438fca8/packages/platform-browser/src/dom/events/dom_events.ts#L26-L29):
 
@@ -224,11 +224,11 @@ function wrapListener(
 }
 ```
 
-# Takeaway
+# What we learned
 
-If we apply what we learned while exploring Angular's source code, we can see the differences between how Zone.js is able to 
-
-
+If we apply what we learned while exploring Angular's source code, we can see the differences between how Zone.js and Zoneless apps bind to events in the template.
 
 **Zone.js works by patching `EventTarget.prototype.addEventListener` itself, while `provideExperimentalZonelessChangeDetection` works by hooking into the compiler to track usage of `(event)` bindings. This binding then, in turn, calls the `markViewDirty` hook to update change detection.**
+
+That's all for today, but if you'd like to learn more about Angular and how to use it, check out [my book that teaches Angular from beginning to end: The Framework Field Guide.](https://framework.guide)
 
