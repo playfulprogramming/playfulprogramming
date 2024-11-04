@@ -1,7 +1,7 @@
 ---
 {
   title: "How does Zoneless Angular Work?",
-  description: "",
+  description: "In the future Angular will not have Zone.js enabled by default and will not need it for change detection. But how will that work in a technical sense?",
   published: "2024-11-08T21:52:59.284Z",
   tags: ["angular", "javascript", "webdev"],
   license: "cc-by-4",
@@ -59,7 +59,7 @@ Let's first double-check something; let's make sure that Zone.js is honestly and
 
 If it were enabled, we'd expect any kind of `addEventListener` to trigger change detection. Taking another look and sure enough, a `addEventListener` added after-the-template compilation still triggers change detection when Zone.js is imported:
 
-```
+```angular-ts
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 import { AfterViewInit, Component, ElementRef, viewChild } from "@angular/core";
