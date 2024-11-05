@@ -11,17 +11,17 @@
 
 On [October 20th, 2023 we launched a major redesign](https://github.com/playfulprogramming/playfulprogramming/pull/497). Not only did this redesign massively facelift all of the pages we had built previously:
 
-![TODO: Write](./uu_homepage_before.png)
+![A bowtie Unicorn with a grid of articles in a simple two-tone UI](./uu_homepage_before.png)
 
 > [Unicorn Utterances was our old name, which you can learn more about here.](/posts/rebrand-to-playful-programming)
 
-![TODO: Write](./pfp_homepage_after.png)
+![A more refined homepage with stickers and a "Join our Discord" button and search box](./pfp_homepage_after.png)
 
 But during this process we decided to flesh out some functionality we had previously. For example, while our old site had the concept of a "collection", they weren't exposed anywhere on our site; not on the homepage, not via search, etc.
 
 In the new site, we have this banner of collections on the homepage and they show up in our searches (more on that later):
 
-![TODO: Write](./collections_preview.png)
+![A list of collections like "Web Fundamentals", "The Framework Field Guide", and "React Beyond the Render"](./collections_preview.png)
 
 One of the features we embarked on improving was search.
 
@@ -29,7 +29,7 @@ One of the features we embarked on improving was search.
 
 On the previous site, you could only make a search on the homepage. It was clunky, didn't have many of the features people wanted (like tags filtering), and wasn't scalable.
 
-![TODO: Write](./uu_search_before.png)
+![A search box showing "Next.js" in the input showing an article on the homepage](./uu_search_before.png)
 
 > Yup, that was the entire search experience.
 
@@ -43,7 +43,7 @@ To solve this, we worked hard on a new search experience with a dedicated search
 
 And more.
 
-![TODO: search](./pfp_search_after.png)
+![A complete search page with a sidebar for filters and sort and the results on the main part of the screen](./pfp_search_after.png)
 
 # Scalability Concerns
 
@@ -65,7 +65,7 @@ We did this through a faily trivial pipeline:
 3) Consume the `searchIndex.json` file via a `fs.readFile` method in our serverless function
 4) Deploy the static file and serverless functions via Vercel
 
-![TODO: Write](./vercel_search.png)
+![Vercel's dashboard showing "/api/search" and some metrics](./vercel_search.png)
 
 This worked well for an initial implementation, but to keep things simple for an MVP, we initially avoided:
 
@@ -77,11 +77,11 @@ We knew we could fix this in a follow-up, but this would've required more work.
 
 In addition, we weren't entirely happy with the search results. For example, searching `"AST"` showed unrelated articles instead of Corbin's article of ["How Computers Speak: Assembly to AST"](/posts/how-computers-speak)
 
-![TODO: Write](./ast_search_before.png)
+![A search result for "AST" showing "Porting a Next.js Site to Astro Step-by-Step"](./ast_search_before.png)
 
 Similarly, any searches that include a more conversational tone, like `"articles that explain how effects work in React"` would either return unrelated items or nothing at all:
 
-![TODO: Write](./search_term_before.png)
+![Search result for "articles that explain how effects work in React" with 0 results](./search_term_before.png)
 
 # Fixing Search Results
 
@@ -89,7 +89,7 @@ To solve these issues, we reached out to [Orama](https://orama.com/). Corbin had
 
 While Orama has an incredibly powerful built-in UI:
 
-![TODO: Write](./orama_default_ui.png)
+![A pre-built search UI showing "facets" search on Orama's docs](./orama_default_ui.png)
 
 We didn't want to give up on the custom UI we'd built.
 
@@ -97,11 +97,11 @@ Luckily, [Orama provides a great JavaScript SDK that we could utilize for our ne
 
 To use it, we exposed our database of articles via a remote JSON that's deployed via CI/CD:
 
-![TODO: Write](./search_json.png)
+![Our searchIndex.json showing the whole list of our articles](./search_json.png)
 
 We point Orama at this JSON endpoint:
 
-![TODO: Write](./orama_dashboard.png)
+![The Orama dashboard pointed at our remote JSON URL](./orama_dashboard.png)
 
 > Orama will regularly check this remote JSON endpoint of ours to make sure that it's the most up-to-date data as needed.
 
@@ -128,7 +128,7 @@ postClient.search(
 
 Once this was done in our codebase, our search results were immediately improved:
 
-![TODO: Write](./search_term_after.png)
+!["articles that explain how effects work in React" search result showing "side effects" in React](./search_term_after.png)
 
 # Why Orama?
 
@@ -136,9 +136,11 @@ Like any other decision-making tree, our decision to go with Orama extended beyo
 
 ***First***, for Orama is perfect for open-source projects like ours. **Not only do you get unlimited search queries on any plan; Orama is free for open-source and community projects, forever**.
 
-> Don't take it from us! We asked Michele Riva, CEO of Orama, and this is what he had to say about community usage of their product:
+Don't take it from us! We asked Michele Riva, CTO of Orama, and [this is what he had to say about community usage of their product:](https://bsky.app/profile/riva.wtf/post/3la52ozb2sx2g)
+
+> @orama.com is free and unlimited for all open-source projects and non-profit communities, forever.
 >
-> TODO: Provide quote from Michele
+> If you need full-text, vector, hybrid search, and unlimited GenAI sessions + analytics for free on your project, feel free to reach out!
 
 -------
 
