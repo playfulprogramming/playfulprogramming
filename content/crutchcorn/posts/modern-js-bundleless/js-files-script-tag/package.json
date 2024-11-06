@@ -1,0 +1,11 @@
+{
+	"name": "@playfulprogramming/js-files-script-tag",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"start": "http-server src"
+	},
+	"devDependencies": {
+		"http-server": "^14.1.1"
+	}
+}
