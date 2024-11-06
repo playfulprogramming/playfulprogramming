@@ -36,13 +36,15 @@ Let's first set up the initial bit of tooling required to run a webpage locally.
 	"private": true,
 	"version": "0.0.0",
 	"scripts": {
-		"start": "http-server src"
+		"start": "http-server -c-1 src"
 	},
 	"devDependencies": {
 		"http-server": "^14.1.1"
 	}
 }
 ```
+
+> We're adding `-c-1` to disable caching. This means that you can refresh the page when you've made changes and it'll automatically show the newest results instead of caching them for an hour.
 
 Then create a `src` folder so we don't mix up our source code files with other files we'll add later:
 
@@ -74,6 +76,8 @@ And finally, we'll create our `index.html` file with a `Hello world` message:
 Now we can `npm run start` from root and get a basic web server at `http://127.0.0.1:8080/`.
 
 <iframe data-frame-title="Basic Setup - StackBlitz" src="pfp-code:./basic-setup?template=node&embed=1&file=src%2Findex.html"></iframe>
+
+> Remember, when you make changes you'll need to refresh the page to see them loaded. We'll explore how to fix that in a later section of this article.
 
 # Import JS files From a Script Tag
 
