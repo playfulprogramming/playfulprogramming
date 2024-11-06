@@ -132,7 +132,54 @@ And see as the page refreshed while we modify any of the files in `src`:
 
 # Using CDNs to load libraries
 
-// TODO: Write
+Most apps require a fair number of libraries to get up-and-running. Let's load in a date library, [Luxon](https://moment.github.io/luxon/), to handle our dates in a nicer way.
+
+To do this, we can use a CDN like [unpkg.com](https://unpkg.com/) to load in the files required to run the library in our app.
+
+If we go to [https://unpkg.com/luxon](https://unpkg.com/luxon), we'll see a loaded bit of JavaScript:
+
+![TODO: Write](./cdn_screenshot.png)
+
+However, this isn't the format we need the library in. Remember, we need to have `import` and `export` lines, ideally without any additional `import` statements for ease-of-setup (more on that later in the article).
+
+To find this, we're looking for files labeled something like `ES6` or `ESM` or `BROWSER`, like so:
+
+[https://unpkg.com/browse/luxon@3.5.0/build/es6/luxon.js](https://unpkg.com/browse/luxon@3.5.0/build/es6/luxon.js)
+
+To find these files, you can use the `browse` feature of Unpkg by adding `browse` at the start of the URL:
+
+![TODO: Write](./cdn_browse.png)
+
+> Not all libraries are bundled to support ESM in this way as a single file. If it does not, you can add compile the dependency to support it, as we'll touch on later.
+
+Once we find the right file, we need to make sure to use the raw file:
+
+[https://unpkg.com/luxon@3.5.0/build/es6/luxon.js](https://unpkg.com/luxon@3.5.0/build/es6/luxon.js)
+
+Instead of:
+
+[https://unpkg.com/browse/luxon@3.5.0/build/es6/luxon.js](https://unpkg.com/browse/luxon@3.5.0/build/es6/luxon.js)
+
+Then we can import from this URL like any other import:
+
+```javascript
+// script.js
+import { DateTime } from "https://unpkg.com/luxon@3.5.0/build/es6/luxon.js";
+
+const root = document.getElementById("root");
+
+const date = DateTime.now()
+	.setZone("America/New_York")
+	.minus({ weeks: 1 })
+	.endOf("day")
+	.toISO();
+
+root.innerText = date;
+```
+
+# Aliasing modules
+
+// TODO: Write about `importmap`
 
 # Installing Libraries from NPM
 
@@ -203,6 +250,10 @@ This gives us a `src/vendor/dayjs` folder that looks like this:
 - `README.md`
 
 <!-- ::end:filetree -->
+
+
+
+While we could importmap all of the relative imports: TODO: SHOW THAT AND EXPLAIN WHY BAD
 
 # Using TypeScript and ESlint
 
