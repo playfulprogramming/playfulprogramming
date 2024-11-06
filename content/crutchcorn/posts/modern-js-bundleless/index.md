@@ -16,13 +16,14 @@ Let's explore how we can build a website using many of the conveniences of a Vit
 
 In this article, we'll learn how to:
 
+- Set up pre-requisites for local web development
 - Import JavaScript files from a script tag
-- Use tools like TypeScript and ESLint without adding a build step
 - Adding a flavor of "hot module reloading" (HMR) to reload our code in development for better developer experience (DX)
 - Import libraries from CDNs
 - Move away from CDNs and leverage NPM to install modules
 - Pick a framework that supports no-build environments
 - Use dependencies that might otherwise not work through micro-bundling
+- Use tools like TypeScript and ESLint without adding a build step
 
 Without further ado, let's dive in!
 
@@ -81,70 +82,97 @@ Now we can `npm run start` from root and get a basic web server at `http://127.0
 
 # Import JS files From a Script Tag
 
-Let's start 
+Managing multiple files in older vanilla JavaScript projects used to be a pain. Luckily, modern browsers support the `import "something.js"` syntax that we can now use to manage multiple files.
 
-- `<script type="module">`
-- `import "./something.js"`
+To use this, we need to denote our `script` tag (from our HTML file) as `type="module"`:
+
+```html
+<script type="module" src="script.js"></script>
+```
+
+Once this is done, we can add `import` statements in our JS files:
+
+```javascript
+// script.js
+import template from "./template.js";
+
+const root = document.getElementById("root");
+root.innerHTML = template;
+```
+
+> Something worth noting is that you need to have the `.js` identifier at the end of your `import` statement, otherwise the browser will not know where to look.
 
 <iframe data-frame-title="JS Files Script Tag - StackBlitz" src="pfp-code:./js-files-script-tag?template=node&embed=1&file=src%2Fscript.js"></iframe>
 
---------
+# Introducing HMR for Vanilla JavaScript Apps
 
---------
+It's neat that we're able to load JavaScript files without a bundler, but if you spend much time in our environment you'll likely yearn for a solution that reloads the page whenever you modify the files in use.
 
---------
+Luckily for us, there's a different web server that can handle this for us: `browser-sync`.
 
---------
+Let's change it in our `package.json`:
 
---------
+```json
+{
+	"name": "your-name-here",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"start": "browser-sync start --server \"src\" --watch --no-ui"
+	},
+	"devDependencies": {
+		"browser-sync": "^3.0.3"
+	}
+}
+```
 
---------
+And see as the page refreshed while we modify any of the files in `src`:
 
---------
+<iframe data-frame-title="HMR - StackBlitz" src="pfp-code:./hmr?template=node&embed=1&file=src%2Fscript.js"></iframe>
 
---------
+# Using CDNs to load libraries
 
---------
+// TODO: Write
 
---------
+# Installing Libraries from NPM
 
---------
+// TODO: Write
 
---------
+# Picking the right framework
 
---------
+<!-- ::start:tabs -->
 
---------
+## Angular
 
---------
+Not possible without a compiler to bundle the template.
 
---------
+## React
 
---------
+Technically possible to use without JSX:
 
---------
+```
+React.createElement(Element, propsObject, childrenArray)
+```
 
---------
+// TODO: Add iframe
 
---------
+But it's not a pretty API at scale; practically infeasible.
 
+## Vue
 
+- Cannot use SFCs
+- Must add components via `components: {}` property
 
+## Lit
 
-- `<script type="module">`
-- `import "./something.js"`
-- JSDoc + TypeScript + ESLint
-- "HMR"
-- Import maps
-- CDNs
-- PNPM vendor install path
-- node_modules aliasing
-- Tooling choices (Vue, Lit, etc)
-- Bundling deps w/ many files to single ESM file (lol)
+- Cannot use decorators, must be replaced with `static get` properties
+- Must call `customElements.define` manually
+
+<!-- ::end:tabs -->
 
 
 
-## Incompatible Modules
+# Adding support for incompatible modules
 
 While many libraries are properly packaged to be bundled in a single ESM file, others are not. Let's take `dayjs` as an example:
 
@@ -152,7 +180,7 @@ While many libraries are properly packaged to be bundled in a single ESM file, o
 pnpm install dayjs
 ```
 
-This gives us a `src/vendor` folder that looks like this:
+This gives us a `src/vendor/dayjs` folder that looks like this:
 
 <!-- ::start:filetree -->
 
@@ -176,35 +204,6 @@ This gives us a `src/vendor` folder that looks like this:
 
 <!-- ::end:filetree -->
 
-## Framework Support
+# Using TypeScript and ESlint
 
-<!-- ::start:tabs -->
-
-### Angular
-
-Not possible without a compiler to bundle the template.
-
-### React
-
-Technically possible to use without JSX:
-
-```
-React.createElement(Element, propsObject, childrenArray)
-```
-
-// TODO: Add iframe
-
-But it's not a pretty API at scale; practically infeasible.
-
-### Vue
-
-- Cannot use SFCs
-- Must add components via `components: {}` property
-
-### Lit
-
-- Cannot use decorators, must be replaced with `static get` properties
-- Must call `customElements.define` manually
-
-<!-- ::end:tabs -->
-
+// TODO: Write
