@@ -1,0 +1,4 @@
+# Our custom PNPM settings
+.pnpm
+src/vendor/
+src/vendor_bundled/

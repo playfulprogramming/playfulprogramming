@@ -390,7 +390,102 @@ The `lodash-es` main import file has **hundreds** of these relative imports, mak
 
 -----
 
-// TODO: Intro esbuild
+To solve for this, we can do something a bit silly: We can bundle our dependencies that have this problem.
+
+We'll use `esbuild` for this solution, since it's lightweight and can be script-able using a straightforward API:
+
+```shell
+pnpm i -D esbuild
+```
+
+To do this, let's add a `scripts/bundle-deps.js` file:
+
+```javascript
+import esbuild from "esbuild";
+
+Promise.all([
+	esbuild.build({
+		format: "esm",
+		entryPoints: ["./src/vendor/lodash-es/lodash.js"],
+		bundle: true,
+		platform: "browser",
+		outfile: "./src/vendor_bundled/lodash-es.js",
+	}),
+  // Add other `esbuild.build` commands here
+]).catch(console.error);
+```
+
+And run the script from `pnpm`'s `postinstall` step, so that it autogenerates after each `pnpm i` usage.
+
+```json
+{
+	"name": "your-name-here",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"start": "browser-sync start --server \"src\" --watch --no-ui",
+		"postinstall": "node scripts/bundle-deps.js"
+	},
+	"devDependencies": {
+		"browser-sync": "^3.0.3",
+		"esbuild": "^0.24.0"
+	},
+	"dependencies": {
+		"lodash-es": "^4.17.21"
+	}
+}
+```
+
+> If you get the error:
+> ```
+> import esbuild from "esbuild";
+> ^^^^^^
+> 
+> SyntaxError: Cannot use import statement outside a module
+> ```
+>
+> Make sure to add the `"type": "module"` to your `package.json` file.
+
+Now when you `pnpm i` you'll see the `src/vendor_bundled/lodash-es.js` generated and containing a single list of exports at the bottom of the file:
+
+```javascript
+// ...
+
+export {
+  add_default as add,
+  // ...
+  zipWith_default as zipWith
+};
+```
+
+This enables us to update our `importmap`:
+
+```html
+<script type="importmap">
+  {
+    "imports": {
+      "lodash-es": "./vendor_bundled/lodash-es.js"
+    }
+  }
+</script>
+```
+
+And use the new module in `script.js`:
+
+```javascript
+import { add } from "lodash-es";
+
+const root = document.getElementById("root");
+
+const val = add(1, 2);
+
+root.innerText = val;
+```
+
+<iframe data-frame-title="Bundle Modules - StackBlitz" src="pfp-code:./bundle-modules?template=node&embed=1&file=src%2Fscript.js"></iframe>
+
+> Don't forget to add `src/vendor_bundled` to your `.gitignore`!
 
 # Picking the right framework
 
