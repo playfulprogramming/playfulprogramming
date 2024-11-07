@@ -177,13 +177,99 @@ const date = DateTime.now()
 root.innerText = date;
 ```
 
+<iframe data-frame-title="CDN - StackBlitz" src="pfp-code:./cdn?template=node&embed=1&file=src%2Fscript.js"></iframe>
+
 # Aliasing modules
 
-// TODO: Write about `importmap`
+The `script.js` file above works in-browser, but doesn't look quite right to anyone that's done modern JS. Moreover, if you wanted to use a different version of `luxon`, you'd have to track all imports from this URL and update them one-by-one.
+
+Let's instead alias that URL to be imported when we `import "luxon"`. To do this, we'll leverage an `importmap`:
+
+```html
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width" />
+		<meta charset="utf-8" />
+		<title>Import Map</title>
+		<script type="importmap">
+			{
+				"imports": {
+					"luxon": "https://unpkg.com/luxon@3.5.0/build/es6/luxon.js"
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/script.js"></script>
+	</body>
+</html>
+```
+
+And modify our `script.js` file to import from that path:
+
+```javascript
+// script.js
+import { DateTime } from "luxon";
+
+const root = document.getElementById("root");
+
+const date = DateTime.now()
+	.setZone("America/New_York")
+	.minus({ weeks: 1 })
+	.endOf("day")
+	.toISO();
+
+root.innerText = date;
+```
+
+<iframe data-frame-title="Import Map - StackBlitz" src="pfp-code:./importmap?template=node&embed=1&file=src%2Fscript.js"></iframe>
 
 # Installing Libraries from NPM
 
 // TODO: Write
+
+
+
+# Adding support for incompatible modules
+
+// TODO: Migrate to loads
+
+While many libraries are properly packaged to be bundled in a single ESM file, others are not. Let's take `lodash-es` as an example:
+
+```shell
+pnpm install lodash-es
+```
+
+This gives us a `src/vendor/dayjs` folder that looks like this:
+
+<!-- ::start:filetree -->
+
+- `esm/`
+	- `locale/`
+		- `en.js`
+		- `es.js`
+		- `fr.js`
+		- `...`
+	- `plugin/`
+	- `constant.js`
+	- `index.d.ts`
+	- `index.js`
+	- `utils.js`
+- `locale`
+- `CHANGELOG.md`
+- `dayjs.min.js`
+- `index.d.ts`
+- `package.json`
+- `README.md`
+
+<!-- ::end:filetree -->
+
+
+
+While we could importmap all of the relative imports: TODO: SHOW THAT AND EXPLAIN WHY BAD
 
 # Picking the right framework
 
@@ -218,42 +304,6 @@ But it's not a pretty API at scale; practically infeasible.
 <!-- ::end:tabs -->
 
 
-
-# Adding support for incompatible modules
-
-While many libraries are properly packaged to be bundled in a single ESM file, others are not. Let's take `dayjs` as an example:
-
-```shell
-pnpm install dayjs
-```
-
-This gives us a `src/vendor/dayjs` folder that looks like this:
-
-<!-- ::start:filetree -->
-
-- `esm/`
-	- `locale/`
-		- `en.js`
-		- `es.js`
-		- `fr.js`
-		- `...`
-	- `plugin/`
-	- `constant.js`
-	- `index.d.ts`
-	- `index.js`
-	- `utils.js`
-- `locale`
-- `CHANGELOG.md`
-- `dayjs.min.js`
-- `index.d.ts`
-- `package.json`
-- `README.md`
-
-<!-- ::end:filetree -->
-
-
-
-While we could importmap all of the relative imports: TODO: SHOW THAT AND EXPLAIN WHY BAD
 
 # Using TypeScript and ESlint
 
