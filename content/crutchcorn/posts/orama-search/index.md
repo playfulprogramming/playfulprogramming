@@ -1,8 +1,8 @@
 ---
 {
 	title: "How we built our custom semantic search page",
-	description: "",
-	published: '2024-11-04T13:45:00.284Z',
+	description: "Let's learn how we managed to improve our search experience using semantic search, powered by Orama.",
+	published: '2024-11-07T13:45:00.284Z',
 	tags: ['webdev', 'javascript']
 }
 ---
