@@ -229,9 +229,119 @@ root.innerText = date;
 
 # Installing Libraries from NPM
 
-// TODO: Write
+While using a CDN can be convinient, it comes with a number of problems:
 
+- Reliance on someone else's uptime
+- Trusting a third-party's security to not replace modules later
+- IDE and tooling issues
 
+To sidestep this, it would be ideal for us to use the NPM registry to load our modules in our apps manually.
+
+However, if we were to `npm install` normally, it would place our installs inside of `node_modules`. Instead, we need our installs to go into `src` so that our web server is able to reference those files using the public server URL.
+
+As the NPM CLI doesn't allow us to change the directory of `node_modules`, we'll use [PNPM](https://pnpm.io/) as our NPM install CLI:
+
+```shell
+npm i -g pnpm
+```
+
+> There are other ways to install PNPM; [Check their docs for other methods of installing PNPM](https://pnpm.io/installation).
+
+Now we have PNPM installed, we can configure it using a root file of `.npmrc`:
+
+```
+# Move all dependencies to src/vendor so we can use import maps
+modules-dir = src/vendor
+# Hoist all dependencies to the top level so to avoid symbolic links, which won't work well with import maps
+node-linker = hoisted
+# Change the virtual store location so we can symbolically link node_modules to src/vendor
+virtual-store-dir = .pnpm
+```
+
+Here, we're telling our package manager to install all dependencies into `src/vendor` rather than `node_modules`, avoiding symbolic links, and to move PNPM's internal instances to the `.pnpm` folder (more on that in a moment).
+
+> If you have a `.gitignore` file, make sure to add these items to it:
+>
+> ```
+> # Our custom PNPM settings
+> .pnpm
+> # Our custom node_modules path
+> src/vendor/
+> ```
+
+Now, we'll want to create a symbolic link from `node_modules` that points to `src/vendor` so our IDEs can track our deps better:
+
+<!-- ::start:tabs -->
+
+## Windows
+
+```shell
+mklink /D node_modules src/vendor
+```
+
+## macOS / Linux
+
+```
+ln -s node_modules src/vendor
+```
+
+<!-- ::end:tabs -->
+
+Now, we'll update our  `package.json` to include the deps we want to use:
+
+```json
+{
+	"name": "your-name-here",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"start": "browser-sync start --server \"src\" --watch --no-ui"
+	},
+	"devDependencies": {
+		"browser-sync": "^3.0.3"
+	},
+	"dependencies": {
+		"luxon": "^3.5.0"
+	}
+}
+```
+
+> As a helpful tip, [we can use `devDependencies` to track the tools we don't need to ship to the browser and `dependencies` as the libraries we need in production](https://playfulprogramming.com/posts/how-to-use-npm#dev-deps).
+
+And install them using `pnpm`:
+
+```shell
+pnpm install
+```
+
+This finally enables us to reference our modules from our `importmap` but using a local URL instead of a remote one:
+
+```html
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width" />
+		<meta charset="utf-8" />
+		<title>Import Map</title>
+		<script type="importmap">
+			{
+				"imports": {
+					"luxon": "./vendor/luxon/build/es6/luxon.js"
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/script.js"></script>
+	</body>
+</html>
+```
+
+And without modifying the JavaScript file from before, we should be up-and-running!
+
+<iframe data-frame-title="NPM - StackBlitz" src="pfp-code:./npm?template=node&embed=1&file=src%2Findex.html"></iframe>
 
 # Adding support for incompatible modules
 
