@@ -1,0 +1,14 @@
+diff --git a/dist/node/chunks/dep-BWSbWtLw.js b/dist/node/chunks/dep-BWSbWtLw.js
+index d7bddd3da64618901cbaa96f64dd05c2a0daa934..1215f6ff4bbe2b86b5bc0df56d90460fea0d588a 100644
+--- a/dist/node/chunks/dep-BWSbWtLw.js
++++ b/dist/node/chunks/dep-BWSbWtLw.js
+@@ -17091,6 +17091,9 @@ function copyDir(srcDir, destDir) {
+     }
+     const destFile = path$n.resolve(destDir, file);
+     const stat = fs__default.statSync(srcFile);
++    if (!fs.existsSync(destFile)) {
++        return
++    }
+     if (stat.isDirectory()) {
+       copyDir(srcFile, destFile);
+     } else {
