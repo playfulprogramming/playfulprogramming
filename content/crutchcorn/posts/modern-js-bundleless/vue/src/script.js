@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { createApp, ref } from "vue";
 
 const OtherComponent = {
 	template: `<div>{{ message }}</div>`,
@@ -10,7 +10,7 @@ const OtherComponent = {
 	},
 };
 
-export default {
+const App = {
 	components: {
 		OtherComponent,
 	},
@@ -20,3 +20,5 @@ export default {
 		</div>
 	`,
 };
+
+createApp(App).mount("#app");

@@ -489,33 +489,107 @@ root.innerText = val;
 
 # Picking the right framework
 
+While its possible to avoid a framework and still have a good website, it's undeniably become a part of modern web development, so I wanted to touch on that here.
+
+Fortunately, for some tools it's as easy to use a buildless version as the built version.
+
+Unfortunately, it's impossible to use other tools without a build step.
+
+Let's explore and see which is which:
+
 <!-- ::start:tabs -->
-
-## Angular
-
-Not possible without a compiler to bundle the template.
 
 ## React
 
-Technically possible to use without JSX:
+While it's technically possible to use React without JSX:
 
-```
+```javascript
 React.createElement(Element, propsObject, childrenArray)
 ```
 
-// TODO: Add iframe
-
-But it's not a pretty API at scale; practically infeasible.
+It's not a pretty API at scale; using React without a bundler is practically infeasible.
 
 ## Vue
+
+Vue comes with a few limitations to use it without a build step:
 
 - Cannot use SFCs
 - Must add components via `components: {}` property
 
+However, outside of this limitation, Vue is actually quite nice to use bundle-less:
+
+```javascript
+// script.js
+import { createApp, ref } from "vue";
+
+const OtherComponent = {
+	template: `<div>{{ message }}</div>`,
+	setup() {
+		const message = ref("Hello vue!");
+		return {
+			message,
+		};
+	},
+};
+
+const App = {
+	components: {
+		OtherComponent,
+	},
+	template: `
+		<div>
+			<OtherComponent />
+		</div>
+	`,
+};
+
+createApp(App).mount("#app");
+```
+
+<iframe data-frame-title="Vue - StackBlitz" src="pfp-code:./vue?template=node&embed=1&file=src%2Fscript.js"></iframe>
+
 ## Lit
 
+To use Lit in a bundle-less scenario, you:
+
+- Must bundle Lit to avoid many relative imports in your `importmap`
 - Cannot use decorators, must be replaced with `static get` properties
 - Must call `customElements.define` manually
+
+Let's see it in action:
+
+```javascript
+import { html, css, LitElement } from "lit";
+
+export class SimpleGreeting extends LitElement {
+	static get styles() {
+		return css`
+			p {
+				color: blue;
+			}
+		`;
+	}
+
+	static get properties() {
+		return {
+			name: { type: String },
+		};
+	}
+
+	constructor() {
+		super();
+		this.name = "Somebody";
+	}
+
+	render() {
+		return html`<p>Hello, ${this.name}!</p>`;
+	}
+}
+
+customElements.define("simple-greeting", SimpleGreeting);
+```
+
+<iframe data-frame-title="Lit - StackBlitz" src="pfp-code:./lit?template=node&embed=1&file=src%2Fscript.js"></iframe>
 
 <!-- ::end:tabs -->
 
