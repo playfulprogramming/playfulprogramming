@@ -281,8 +281,8 @@ mklink /D node_modules src/vendor
 
 ## macOS / Linux
 
-```
-ln -s node_modules src/vendor
+```shell
+ln -s src/vendor node_modules
 ```
 
 <!-- ::end:tabs -->
@@ -345,41 +345,52 @@ And without modifying the JavaScript file from before, we should be up-and-runni
 
 # Adding support for incompatible modules
 
-// TODO: Migrate to loads
-
 While many libraries are properly packaged to be bundled in a single ESM file, others are not. Let's take `lodash-es` as an example:
 
 ```shell
 pnpm install lodash-es
 ```
 
-This gives us a `src/vendor/dayjs` folder that looks like this:
+This gives us a `src/vendor/lodash-es` folder that looks like this:
 
 <!-- ::start:filetree -->
 
-- `esm/`
-	- `locale/`
-		- `en.js`
-		- `es.js`
-		- `fr.js`
-		- `...`
-	- `plugin/`
-	- `constant.js`
-	- `index.d.ts`
-	- `index.js`
-	- `utils.js`
-- `locale`
-- `CHANGELOG.md`
-- `dayjs.min.js`
-- `index.d.ts`
+- `add.js`
+- `...`
+- `lodash.js`
+- `...`
+- `zipWith.js`
 - `package.json`
 - `README.md`
 
 <!-- ::end:filetree -->
 
+With every single method as a dedicated file that imports from other individual files.
 
+This becomes tricky because, while `importmap`s support relative links:
 
-While we could importmap all of the relative imports: TODO: SHOW THAT AND EXPLAIN WHY BAD
+```javascript
+// src/vendor/lodash-es/lodash.js
+export { default as add } from './add.js';
+// ...
+```
+
+````html
+<script type="importmap">
+  {
+    "imports": {
+      "lodash": "/vendor/lodash-es/lodash.js",
+      "./add.js": "/vendor/lodash-es/attempt.js",
+    }
+  }
+</script>
+````
+
+The `lodash-es` main import file has **hundreds** of these relative imports, making this nearly impossible to manage long-term.
+
+-----
+
+// TODO: Intro esbuild
 
 # Picking the right framework
 
