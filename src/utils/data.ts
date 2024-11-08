@@ -150,6 +150,17 @@ async function readPerson(personPath: string): Promise<PersonInfo[]> {
 			throw e;
 		}
 
+		// "bluesky" should be a full URL; this will error if not valid
+		try {
+			if (person.socials.bluesky)
+				person.socials.bluesky = new URL(person.socials.bluesky).toString();
+		} catch (e) {
+			console.error(
+				`'${person.id}' socials.mastodon is not a valid URL: '${person.socials.bluesky}'`,
+			);
+			throw e;
+		}
+
 		if (person.socials.youtube) {
 			// this can either be a "@username" or "channel/{id}" URL, which cannot be mixed.
 			const username = normalizeUsername(person.socials.youtube);
