@@ -123,7 +123,7 @@ Sure enough, this is the case. Why does this demo break?
 Well, it's because:
 
 - Zone.js patches `EventTarget` to call `tick`
-- Enabling the Zoneless provider removes this `EventTarget` patch
+- When we remove Zone.js from our bundle to make our app Zoneless, it removes this `EventTarget` patch
 
 But wait, if this is true, how does the first code sample work with no Zoneless change detection? Surely, Angular must be notified when the user clicks on the event?
 
