@@ -672,6 +672,23 @@ pnpm-lock.yaml
 
 Now you can `pnpm format` and `pnpm lint` to your heart's content!
 
+```javascript
+// script.js
+// This code is broken, but would be caught by a linter like ESLint
+for (let i = 0; i < 10; i--) {
+	console.log(i);
+}
+```
+
+```
+> eslint .
+
+/src/script.js
+  2:1  error  The update clause in this loop moves the variable in the wrong direction  for-direction
+
+✖ 1 problem (1 error, 0 warnings)
+```
+
 > **Note:**
 >
 > If you get errors like this:
