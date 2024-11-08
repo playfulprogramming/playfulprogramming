@@ -23,7 +23,7 @@ In this article, we'll learn how to:
 - Move away from CDNs and leverage NPM to install modules
 - Pick a framework that supports no-build environments
 - Use dependencies that might otherwise not work through micro-bundling
-- Use tools like TypeScript and ESLint without adding a build step
+- Use tools like Prettier, ESLint, and TypeScript without adding a build step
 
 Without further ado, let's dive in!
 
@@ -595,6 +595,101 @@ customElements.define("simple-greeting", SimpleGreeting);
 
 
 
-# Using TypeScript and ESlint
+# Using Prettier, ESLint, and TypeScript
+
+Using Prettier and ESLint in a buildless system have nearly identical setup processes as they would in a bundled situation.
+
+You can use ESLint's CLI to setup ESLint:
+
+```shell
+npm init @eslint/config@latest
+```
+
+> When prompted, these should be your answers:
+> 
+> ```
+> ✔ How would you like to use ESLint? · problems
+> ✔ What type of modules does your project use? · esm
+> ✔ Which framework does your project use? · none
+> ✔ Does your project use TypeScript? · javascript
+> ✔ Where does your code run? · browser
+> The config that you've selected requires the following dependencies:
+> 
+> eslint, globals, @eslint/js
+> ✔ Would you like to install them now? · No / Yes
+> ✔ Which package manager do you want to use? · pnpm
+> ```
+
+And even `pnpm install -D prettier` to add Prettier, only needing a single `script` configuration in your `package.json` to run:
+
+```json
+{
+	"name": "@playfulprogramming/eslint",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"start": "browser-sync start --server \"src\" --watch --no-ui",
+		"lint": "eslint .",
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.14.0",
+		"browser-sync": "^3.0.3",
+		"eslint": "^9.14.0",
+		"globals": "^15.12.0",
+		"prettier": "^3.3.3"
+	}
+}
+```
+
+The only hiccup is that you'll need to:
+
+- Add `src/vendor` and `src/vendor_bundled` as ignored paths to ESLint
+- Add `pnpm-lock.yaml` as an ignored path to Prettier
+
+By changing your `eslint.config.mjs` file to:
+
+```javascript
+import globals from "globals";
+import pluginJs from "@eslint/js";
+
+/** @type {import('eslint').Linter.Config[]} */
+export default [
+	{ languageOptions: { globals: globals.browser } },
+	pluginJs.configs.recommended,
+	{
+		ignores: ["src/vendor", "src/vendor_bundled"],
+	},
+];
+```
+
+And your `.prettierignore` file to include:
+
+```
+pnpm-lock.yaml
+```
+
+Now you can `pnpm format` and `pnpm lint` to your heart's content!
+
+> **Note:**
+>
+> If you get errors like this:
+>
+> ```shell
+> > eslint .
+> 
+> Oops! Something went wrong! :(
+> 
+> ESLint: 9.14.0
+> 
+> Error: Cannot find module 'ajv/lib/refs/json-schema-draft-04.json'
+> ```
+>
+> It's because you've forgotten to alias `node_modules` using a symbolic link. ESLint doesn't know how to import from `src/vendor` and instead looks to `node_modules` for the `ajv` internal package.
+
+## TypeScript
+
+While ESLint and Prettier don't _really_ require different usages in a buildless system, TypeScript most certainly does.
 
 // TODO: Write
