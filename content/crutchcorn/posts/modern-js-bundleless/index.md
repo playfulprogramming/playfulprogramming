@@ -692,4 +692,77 @@ Now you can `pnpm format` and `pnpm lint` to your heart's content!
 
 While ESLint and Prettier don't _really_ require different usages in a buildless system, TypeScript most certainly does.
 
-// TODO: Write
+See, in most TypeScript usages, you have `.ts` and `.d.ts` (and maybe even `.tsx`) files that compile into `.js` files during a build pipeline:
+
+![TODO: Write](./bundled_app.svg)
+
+But this goes against what we're trying to do; we want to eliminate the need for a build pipeline and ship what we've written directly.
+
+Luckily for us, this is where [TypeScript's JSDoc support](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) comes in. JSDoc is a markup extension to JavaScript where you can add metadata about your code through JavaScript comments:
+
+```javascript
+/**
+ * Add two numbers
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+function add(a, b) {
+	return a + b;
+}
+```
+
+These comments then can:
+
+- Highlight usage comments to your IDE
+- Inform your IDE and tooling about the metadata associated with the code
+
+For example, we can run TypeScript over this `add` function's usage:
+
+```javascript
+add(1, "2");
+```
+
+And get the expected error of:
+
+```
+Argument type string is not assignable to parameter type number
+```
+
+-----
+
+To setup TypeScript with our JSDoc setup we will install the `typescript` package:
+
+```shell
+pnpm i -D typescript
+```
+
+Then configure it to check JavaScript files by modifying our `tsconfig.json` file to:
+
+```json
+{
+	"compilerOptions": {
+		"target": "es2022",
+		"allowJs": true,
+		"checkJs": true,
+		"noEmit": true,
+		"strict": true,
+		"skipLibCheck": true
+	},
+	"exclude": ["src/vendor", "src/vendor_bundled"]
+}
+```
+
+Now if we run `tsc` we get:
+
+```
+↳ pnpm tsc
+src/script.js:11:8 - error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+
+11 add(1, "2");
+          ~~~
+
+
+Found 1 error in src/script.js:11
+```
+
