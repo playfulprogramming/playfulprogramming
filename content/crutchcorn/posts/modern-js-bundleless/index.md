@@ -16,18 +16,18 @@ Let's explore how we can build a website using many of the conveniences of a Vit
 
 In this article, we'll learn how to:
 
-- Set up pre-requisites for local web development
-- Import JavaScript files from a script tag
-- Adding a flavor of "hot module reloading" (HMR) to reload our code in development for better developer experience (DX)
-- Import libraries from CDNs
-- Move away from CDNs and leverage NPM to install modules
-- Pick a framework that supports no-build environments
-- Use dependencies that might otherwise not work through micro-bundling
-- Use tools like Prettier, ESLint, and TypeScript without adding a build step
+- [Set up pre-requisites for local web development](#pre-req)
+- [Import JavaScript files from a script tag](#import-js)
+- [Adding a flavor of "hot module reloading" (HMR) to reload our code in development for better developer experience (DX)](#hmr)
+- [Import libraries from CDNs](#cdn)
+- [Move away from CDNs and leverage NPM to install modules](#npm)
+- [Use dependencies that might otherwise not work through micro-bundling](#bundle-modules)
+- [Pick a framework that supports no-build environments](#frameworks)
+- [Use tools like Prettier, ESLint, and TypeScript without adding a build step](#tooling)
 
 Without further ado, let's dive in!
 
-# Setting up Pre-Requisites
+# Setting up Pre-Requisites {#pre-req}
 
 Let's first set up the initial bit of tooling required to run a webpage locally. We'll start with a `package.json` file:
 
@@ -80,7 +80,7 @@ Now we can `npm run start` from root and get a basic web server at `http://127.0
 
 > Remember, when you make changes you'll need to refresh the page to see them loaded. We'll explore how to fix that in a later section of this article.
 
-# Import JS files From a Script Tag
+# Import JS files From a Script Tag {#import-js}
 
 Managing multiple files in older vanilla JavaScript projects used to be a pain. Luckily, modern browsers support the `import "something.js"` syntax that we can now use to manage multiple files.
 
@@ -104,7 +104,7 @@ root.innerHTML = template;
 
 <iframe data-frame-title="JS Files Script Tag - StackBlitz" src="pfp-code:./js-files-script-tag?template=node&embed=1&file=src%2Fscript.js"></iframe>
 
-# Introducing HMR for Vanilla JavaScript Apps
+# Introducing HMR for Vanilla JavaScript Apps {#hmr}
 
 It's neat that we're able to load JavaScript files without a bundler, but if you spend much time in our environment you'll likely yearn for a solution that reloads the page whenever you modify the files in use.
 
@@ -130,7 +130,7 @@ And see as the page refreshed while we modify any of the files in `src`:
 
 <iframe data-frame-title="HMR - StackBlitz" src="pfp-code:./hmr?template=node&embed=1&file=src%2Fscript.js"></iframe>
 
-# Using CDNs to load libraries
+# Using CDNs to load libraries {#cdn}
 
 Most apps require a fair number of libraries to get up-and-running. Let's load in a date library, [Luxon](https://moment.github.io/luxon/), to handle our dates in a nicer way.
 
@@ -179,7 +179,7 @@ root.innerText = date;
 
 <iframe data-frame-title="CDN - StackBlitz" src="pfp-code:./cdn?template=node&embed=1&file=src%2Fscript.js"></iframe>
 
-# Aliasing modules
+# Aliasing modules {#importmap}
 
 The `script.js` file above works in-browser, but doesn't look quite right to anyone that's done modern JS. Moreover, if you wanted to use a different version of `luxon`, you'd have to track all imports from this URL and update them one-by-one.
 
@@ -227,7 +227,7 @@ root.innerText = date;
 
 <iframe data-frame-title="Import Map - StackBlitz" src="pfp-code:./importmap?template=node&embed=1&file=src%2Fscript.js"></iframe>
 
-# Installing Libraries from NPM
+# Installing Libraries from NPM {#npm}
 
 While using a CDN can be convinient, it comes with a number of problems:
 
@@ -273,13 +273,13 @@ Now, we'll want to create a symbolic link from `node_modules` that points to `sr
 
 <!-- ::start:tabs -->
 
-## Windows
+## Windows {#win-symlink}
 
 ```shell
 mklink /D node_modules src/vendor
 ```
 
-## macOS / Linux
+## macOS / Linux {#nix-symlink}
 
 ```shell
 ln -s src/vendor node_modules
@@ -343,7 +343,7 @@ And without modifying the JavaScript file from before, we should be up-and-runni
 
 <iframe data-frame-title="NPM - StackBlitz" src="pfp-code:./npm?template=node&embed=1&file=src%2Findex.html"></iframe>
 
-# Adding support for incompatible modules
+# Adding support for incompatible modules {#bundle-modules}
 
 While many libraries are properly packaged to be bundled in a single ESM file, others are not. Let's take `lodash-es` as an example:
 
@@ -487,7 +487,7 @@ root.innerText = val;
 
 > Don't forget to add `src/vendor_bundled` to your `.gitignore`!
 
-# Picking the right framework
+# Picking the right framework {#frameworks}
 
 While its possible to avoid a framework and still have a good website, it's undeniably become a part of modern web development, so I wanted to touch on that here.
 
@@ -499,7 +499,7 @@ Let's explore and see which is which:
 
 <!-- ::start:tabs -->
 
-## React
+## React {#react}
 
 While it's technically possible to use React without JSX:
 
@@ -509,7 +509,7 @@ React.createElement(Element, propsObject, childrenArray)
 
 It's not a pretty API at scale; using React without a bundler is practically infeasible.
 
-## Vue
+## Vue {#vue}
 
 Vue comes with a few limitations to use it without a build step:
 
@@ -548,7 +548,7 @@ createApp(App).mount("#app");
 
 <iframe data-frame-title="Vue - StackBlitz" src="pfp-code:./vue?template=node&embed=1&file=src%2Fscript.js"></iframe>
 
-## Lit
+## Lit {#lit}
 
 To use Lit in a bundle-less scenario, you:
 
@@ -595,7 +595,7 @@ customElements.define("simple-greeting", SimpleGreeting);
 
 
 
-# Using Prettier, ESLint, and TypeScript
+# Using Prettier, ESLint, and TypeScript {#tooling}
 
 Using Prettier and ESLint in a buildless system have nearly identical setup processes as they would in a bundled situation.
 
@@ -688,7 +688,7 @@ Now you can `pnpm format` and `pnpm lint` to your heart's content!
 >
 > It's because you've forgotten to alias `node_modules` using a symbolic link. ESLint doesn't know how to import from `src/vendor` and instead looks to `node_modules` for the `ajv` internal package.
 
-## TypeScript
+## TypeScript {#typescript}
 
 While ESLint and Prettier don't _really_ require different usages in a buildless system, TypeScript most certainly does.
 
