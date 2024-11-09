@@ -1,7 +1,7 @@
 ---
 {
     title: "UUIDv6, UUIDv7, and UUIDv8; what are they?",
-    description: "",
+    description: "There's new UUIDs on the block! Let's explore what's new with UUIDv6, v7, and v8.",
     published: '2024-11-20T21:52:59.284Z',
     tags: ['computer science'],
     license: 'cc-by-4',
@@ -44,7 +44,7 @@ If you've worked much with UUIDv1 UUIDs, you'll see a pattern in the new UUIDv6 
 
 And compare it to the UUIDv6 example:
 
-![// TODO: Write](./UUIDv6.svg)
+![A UUID broken down into "Time High", a dash, "Time Mid", a dash, "Version", "Time Low", a dash, "Variant", "Clock", a dash, and finally a "MAC Address". An example UUIDv6 might be "1ed92e84-e2b4-6d4c-86a8-3fdb0085247e"](./UUIDv6.svg)
 
 We can see how the order of the UUIDv6 is "just" a rearrangement of the bytes presented in a UUIDv1.
 
@@ -70,7 +70,7 @@ Let's explore why that is by taking a look at UUIDv7 next.
 
 If we look at the byte order of UUIDv7 without any additional context, it might start to look familiar to UUIDv1 and v6:
 
-![// TODO: Write](./UUIDv7.svg)
+![A UUID broken down into "Time High", a dash, "Time Mid", a dash, "Version", "Random", a dash, "Variant", "Random", a dash, and finally "Random". An example UUIDv7 might be "0185aa25-112e-7cc3-98c4-dc0c0c07398f"](./UUIDv7.svg)
 
 However, if we note the `input data` section of this graph, the distinction becomes clear.
 
@@ -84,7 +84,7 @@ See, Epoch time is broadly used in nearly every computer system that needs to ke
 
 Now comes the fun one of the bunch of new UUID formats: UUIDv8.
 
-![// TODO: Write](./UUIDv8.svg)
+![A UUID broken down into "Custom", a dash, "Custom", a dash, "Version", "Custom, a dash, "Variant", "Custom", a dash, and finally "Custom". An example UUIDv8 might be "01234567-89ab-8cde-8f01-23456789abcd"](./UUIDv8.svg)
 
 You'll notice that outside of the encoded variant and version that UUIDv8 allows you to encode any data you'd like.
 
