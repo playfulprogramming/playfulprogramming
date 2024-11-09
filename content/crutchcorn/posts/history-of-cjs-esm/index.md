@@ -2,13 +2,13 @@
 {
 	title: "The History of CJS and ESM",
 	description: "",
-	published: '2024-03-24T05:12:03.284Z',
+	published: '2024-12-05T05:12:03.284Z',
 	tags: ['javascript', "webdev"],
 	license: 'cc-by-nc-sa-4'
 }
 ---
 
-Whikle working in the NodeJS ecosystem, you may have heard of "ESM" or "EcmaScript Modules". Alternatively, maybe you've heard of "CJS" or "CommonJS Modules".
+While working in the NodeJS ecosystem, you may have heard of "ESM" or "EcmaScript Modules". Alternatively, maybe you've heard of "CJS" or "CommonJS Modules".
 
 They're even front-and-center in many of Node's current docs:
 
