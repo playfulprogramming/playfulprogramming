@@ -82,8 +82,11 @@ See, Epoch time is broadly used in nearly every computer system that needs to ke
 
 # Make your own UUID rules with UUIDv8 {#UUIDv8}
 
-https://blog.devgenius.io/analyzing-new-unique-identifier-formats-uuidv6-uuidv7-and-uuidv8-d6cc5cd7391a
-
-https://ietf-wg-uuidrev.github.io/rfc4122bis/draft-00/draft-ietf-uuidrev-rfc4122bis.html#name-uuid-version-8
+Now comes the fun one of the bunch of new UUID formats: UUIDv8.
 
 ![// TODO: Write](./UUIDv8.svg)
+
+You'll notice that outside of the encoded variant and version that UUIDv8 allows you to encode any data you'd like.
+
+This is mostly useful for future-proofing UUIDs for the foreseeable future. By allowing whatever format you want as a formalized UUID standard,
+vendors (like APIs, databases, and more) can make their own flavors of UUIDs that extend the v8 format for their own needs.
