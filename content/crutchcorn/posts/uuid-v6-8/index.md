@@ -2,11 +2,11 @@
 {
     title: "UUIDv6, UUIDv7, and UUIDv8; what are they?",
     description: "",
-    published: '2023-02-20T21:52:59.284Z',
-    authors: ['crutchcorn'],
+    published: '2024-11-20T21:52:59.284Z',
     tags: ['computer science'],
-    attached: [],
-    license: 'cc-by-4'
+    license: 'cc-by-4',
+    collection: "Explaining UUIDs",
+    order: 3
 }
 ---
 
