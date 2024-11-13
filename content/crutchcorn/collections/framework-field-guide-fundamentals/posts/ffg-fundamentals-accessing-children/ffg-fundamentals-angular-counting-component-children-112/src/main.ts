@@ -1,34 +1,29 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import {
-	Component,
-	AfterContentInit,
-	ContentChildren,
-	QueryList,
-} from "@angular/core";
+import { Component, contentChildren, afterRenderEffect } from "@angular/core";
 
 @Component({
 	selector: "parent-list",
-	standalone: true,
 	template: `
-		<p>There are {{ children.length }} number of items in this array</p>
+		<p>There are {{ children().length }} number of items in this array</p>
 		<ul>
 			<ng-content></ng-content>
 		</ul>
 	`,
 })
-class ParentListComponent implements AfterContentInit {
-	@ContentChildren("listItem") children!: QueryList<HTMLElement>;
+class ParentListComponent {
+	children = contentChildren<HTMLElement>("listItem");
 
-	ngAfterContentInit() {
-		console.log(this.children);
+	constructor() {
+		afterRenderEffect(() => {
+			console.log(this.children());
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ParentListComponent],
 	template: `
 		<parent-list>

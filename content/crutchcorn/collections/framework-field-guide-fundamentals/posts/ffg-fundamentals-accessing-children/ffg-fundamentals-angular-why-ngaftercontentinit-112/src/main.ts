@@ -1,18 +1,27 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, OnInit, ContentChild, ElementRef } from "@angular/core";
+import {
+	Component,
+	effect,
+	contentChild,
+	ElementRef,
+	untracked,
+} from "@angular/core";
 
 @Component({
 	selector: "parent-list",
 	standalone: true,
 	template: ` <ng-content></ng-content> `,
 })
-class ParentListComponent implements OnInit {
-	@ContentChild("childItem") child!: ElementRef<HTMLElement>;
+class ParentListComponent {
+	child = contentChild.required<ElementRef<HTMLElement>>("childItem");
 
-	ngOnInit() {
-		console.log(this.child); // This is `undefined`
+	constructor() {
+		effect(() => {
+			// TODO: This is not really undefined - it's ElementRef<HTMLElement> but... Why???
+			console.log(untracked(this.child)); // This is `undefined`
+		});
 	}
 }
 

@@ -1,12 +1,7 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import {
-	Component,
-	ContentChildren,
-	QueryList,
-	TemplateRef,
-} from "@angular/core";
+import { Component, contentChildren, TemplateRef } from "@angular/core";
 import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
@@ -14,9 +9,9 @@ import { NgTemplateOutlet } from "@angular/common";
 	standalone: true,
 	imports: [NgTemplateOutlet],
 	template: `
-		<p>There are {{ children.length }} number of items in this array</p>
+		<p>There are {{ children().length }} number of items in this array</p>
 		<ul>
-			@for (child of children; track child) {
+			@for (child of children(); track child) {
 				<li>
 					<ng-template [ngTemplateOutlet]="child" />
 				</li>
@@ -25,11 +20,10 @@ import { NgTemplateOutlet } from "@angular/common";
 	`,
 })
 class ParentListComponent {
-	@ContentChildren("listItem") children!: QueryList<TemplateRef<any>>;
+	children = contentChildren<TemplateRef<any>>("listItem");
 }
 
 @Component({
-	standalone: true,
 	imports: [ParentListComponent],
 	selector: "app-root",
 	template: `
