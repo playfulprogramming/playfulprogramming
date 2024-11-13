@@ -1,6 +1,6 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Injectable, Component, inject, OnInit } from "@angular/core";
+import { Injectable, Component, inject, effect } from "@angular/core";
 
 @Injectable({ providedIn: "root" })
 class InjectedValue {
@@ -9,22 +9,22 @@ class InjectedValue {
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
 	template: `<div>{{ injectedValue.message }}</div>`,
 })
-class ChildComponent implements OnInit {
+class ChildComponent {
 	injectedValue = inject(InjectedValue);
 
-	ngOnInit() {
-		// This will include the `message` property, alongside
-		// any other methods and properties on the class instance
-		console.log(this.injectedValue);
+	constructor() {
+		effect(() => {
+			// This will include the `message` property, alongside
+			// any other methods and properties on the class instance
+			console.log(this.injectedValue);
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ChildComponent],
 	template: `<child-comp />`,
 })

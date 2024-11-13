@@ -8,7 +8,6 @@ const WELCOME_MESSAGE_TOKEN = new InjectionToken<{ message: string }>(
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
 	template: `<p>{{ welcomeMsg.message }}</p>`,
 })
 class ChildComponent {
@@ -17,7 +16,6 @@ class ChildComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ChildComponent],
 	template: `<child-comp />`,
 	providers: [

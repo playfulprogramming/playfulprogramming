@@ -9,7 +9,6 @@ class UserValue {
 
 @Component({
 	selector: "great-grand-child",
-	standalone: true,
 	template: ` <p>Name: {{ user.name }}</p> `,
 })
 class GreatGrandChildComponent {
@@ -20,7 +19,6 @@ class GreatGrandChildComponent {
 
 @Component({
 	selector: "grand-child",
-	standalone: true,
 	providers: [
 		{
 			provide: UserValue,
@@ -34,7 +32,6 @@ class GrandChildComponent {}
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
 	imports: [GrandChildComponent],
 	template: `<grand-child />`,
 })
@@ -42,7 +39,6 @@ class ChildComponent {}
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	providers: [{ provide: UserValue, useValue: { name: "Corbin Crutchley" } }],
 	imports: [ChildComponent],
 	template: `<child-comp />`,
