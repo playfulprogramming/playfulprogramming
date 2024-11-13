@@ -5,7 +5,6 @@ import { Component } from "@angular/core";
 
 @Component({
 	selector: "error-throwing",
-	standalone: true,
 	template: ` <button (click)="onClick()">Click me</button> `,
 })
 class ErrorThrowingComponent {
@@ -16,7 +15,6 @@ class ErrorThrowingComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ErrorThrowingComponent],
 	template: `<error-throwing />`,
 })

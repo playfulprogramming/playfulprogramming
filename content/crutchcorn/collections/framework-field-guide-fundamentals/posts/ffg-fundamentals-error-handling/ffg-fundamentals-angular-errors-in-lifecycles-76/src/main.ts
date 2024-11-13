@@ -1,17 +1,19 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, OnInit } from "@angular/core";
+import { Component, effect } from "@angular/core";
 
 @Component({
 	selector: "app-root",
 	standalone: true,
 	template: ` <p>Hello, world!</p> `,
 })
-class AppComponent implements OnInit {
+class AppComponent {
 	// Will not prevent `Hello, world!` from showing
-	ngOnInit() {
-		throw new Error("Error in constructor");
+	constructor() {
+		effect(() => {
+			throw new Error("Error in constructor");
+		});
 	}
 }
 
