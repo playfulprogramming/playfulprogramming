@@ -3,17 +3,17 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
 	Component,
-	EventEmitter,
-	Input,
+	effect,
+	input,
 	OnDestroy,
 	OnInit,
-	Output,
-	ViewChild,
+	output,
+	signal,
+	viewChild,
 } from "@angular/core";
 
 @Component({
 	selector: "app-layout",
-	standalone: true,
 	template: `
 		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
 			<div
@@ -35,18 +35,16 @@ import {
 	`,
 })
 class LayoutComponent {
-	@Input() sidebarWidth!: number;
+	sidebarWidth = input.required<number>();
 }
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
-	imports: [],
 	template: `
-		@if (isCollapsed) {
+		@if (isCollapsed()) {
 			<button (click)="toggleCollapsed()">Toggle</button>
 		}
-		@if (!isCollapsed) {
+		@if (!isCollapsed()) {
 			<div>
 				<button (click)="toggleCollapsed()">Toggle</button>
 				<ul style="padding: 1rem">
@@ -62,12 +60,12 @@ class LayoutComponent {
 	`,
 })
 class SidebarComponent {
-	@Output() toggle = new EventEmitter<boolean>();
+	toggle = output<boolean>();
 
-	isCollapsed = false;
+	isCollapsed = signal(false);
 
 	setAndToggle(v: boolean) {
-		this.isCollapsed = v;
+		this.isCollapsed.set(v);
 		this.toggle.emit(v);
 	}
 
@@ -86,46 +84,47 @@ class SidebarComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [LayoutComponent, SidebarComponent],
 	template: `
-		<app-layout [sidebarWidth]="width">
+		<app-layout [sidebarWidth]="width()">
 			<app-sidebar #sidebar sidebar (toggle)="onToggle($event)" />
 			<p style="padding: 1rem">Hi there!</p>
 		</app-layout>
 	`,
 })
-class AppComponent implements OnInit, OnDestroy {
-	@ViewChild("sidebar", { static: true }) sidebar!: SidebarComponent;
+class AppComponent {
+	sidebar = viewChild.required("sidebar", { read: SidebarComponent });
 
 	collapsedWidth = 100;
 	expandedWidth = 150;
 	widthToCollapseAt = 600;
 
-	width = this.expandedWidth;
+	width = signal(this.expandedWidth);
 
 	onToggle(isCollapsed: boolean) {
 		if (isCollapsed) {
-			this.width = this.collapsedWidth;
+			this.width.set(this.collapsedWidth);
 			return;
 		}
-		this.width = this.expandedWidth;
+		this.width.set(this.expandedWidth);
 	}
 
 	onResize = () => {
 		if (window.innerWidth < this.widthToCollapseAt) {
-			this.sidebar.collapse();
-		} else if (this.sidebar.isCollapsed) {
-			this.sidebar.expand();
+			this.sidebar().collapse();
+		} else if (this.sidebar().isCollapsed()) {
+			this.sidebar().expand();
 		}
 	};
 
-	ngOnInit() {
-		window.addEventListener("resize", this.onResize);
-	}
+	constructor() {
+		effect((onCleanup) => {
+			window.addEventListener("resize", this.onResize);
 
-	ngOnDestroy() {
-		window.removeEventListener("resize", this.onResize);
+			onCleanup(() => {
+				window.removeEventListener("resize", this.onResize);
+			});
+		});
 	}
 }
 

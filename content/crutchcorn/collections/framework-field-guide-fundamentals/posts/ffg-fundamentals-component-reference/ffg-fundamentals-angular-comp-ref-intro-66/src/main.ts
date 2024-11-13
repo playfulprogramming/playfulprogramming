@@ -2,39 +2,36 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
-	AfterViewInit,
+	afterRenderEffect,
 	Component,
 	ElementRef,
-	EventEmitter,
-	Input,
-	OnDestroy,
-	Output,
-	ViewChild,
+	input,
+	output,
+	signal,
+	viewChild,
 } from "@angular/core";
 
 @Component({
 	selector: "context-menu",
-	standalone: true,
-	imports: [],
 	template: `
-		@if (isOpen) {
+		@if (isOpen()) {
 			<div
 				tabIndex="0"
 				#contextMenu
 				[style]="
 					'
-        position: fixed;
-        top: ' +
-					y +
+		position: fixed;
+		top: ' +
+					y() +
 					'px;
-        left: ' +
-					x +
+		left: ' +
+					x() +
 					'px;
-        background: white;
-        border: 1px solid black;
-        border-radius: 16px;
-        padding: 1rem;
-      '
+		background: white;
+		border: 1px solid black;
+		border-radius: 16px;
+		padding: 1rem;
+		'
 				"
 			>
 				<button (click)="close.emit()">X</button>
@@ -43,35 +40,37 @@ import {
 		}
 	`,
 })
-class ContextMenuComponent implements AfterViewInit, OnDestroy {
-	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;
+class ContextMenuComponent {
+	contextMenu = viewChild("contextMenu", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	@Input() isOpen!: boolean;
-	@Input() x!: number;
-	@Input() y!: number;
+	isOpen = input.required<boolean>();
+	x = input.required<number>();
+	y = input.required<number>();
 
-	@Output() close = new EventEmitter();
+	close = output();
 
 	closeIfOutsideOfContext = (e: MouseEvent) => {
-		const contextMenuEl = this.contextMenu?.nativeElement;
+		const contextMenuEl = this.contextMenu()?.nativeElement;
 		if (!contextMenuEl) return;
 		const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
 		if (isClickInside) return;
 		this.close.emit();
 	};
 
-	ngAfterViewInit() {
-		document.addEventListener("click", this.closeIfOutsideOfContext);
-	}
-
-	ngOnDestroy() {
-		document.removeEventListener("click", this.closeIfOutsideOfContext);
+	constructor() {
+		afterRenderEffect((onCleanup) => {
+			document.addEventListener("click", this.closeIfOutsideOfContext);
+			onCleanup(() => {
+				document.removeEventListener("click", this.closeIfOutsideOfContext);
+			});
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ContextMenuComponent],
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
@@ -79,31 +78,31 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 		</div>
 		<context-menu
 			(close)="close()"
-			[isOpen]="isOpen"
-			[x]="mouseBounds.x"
-			[y]="mouseBounds.y"
+			[isOpen]="isOpen()"
+			[x]="mouseBounds().x"
+			[y]="mouseBounds().y"
 		/>
 	`,
 })
 class AppComponent {
-	isOpen = false;
+	isOpen = signal(false);
 
-	mouseBounds = {
+	mouseBounds = signal({
 		x: 0,
 		y: 0,
-	};
+	});
 
 	close() {
-		this.isOpen = false;
+		this.isOpen.set(false);
 	}
 
 	open(e: MouseEvent) {
 		e.preventDefault();
-		this.isOpen = true;
-		this.mouseBounds = {
+		this.isOpen.set(true);
+		this.mouseBounds.set({
 			x: e.clientX,
 			y: e.clientY,
-		};
+		});
 	}
 }
 

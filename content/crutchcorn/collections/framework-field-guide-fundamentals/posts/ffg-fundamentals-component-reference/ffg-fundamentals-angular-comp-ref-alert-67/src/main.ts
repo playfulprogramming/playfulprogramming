@@ -1,11 +1,10 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, ViewChild } from "@angular/core";
+import { Component, viewChild } from "@angular/core";
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
 	template: `<div
 		style="height: 100px; width: 100px; background-color: red;"
 	></div>`,
@@ -19,7 +18,6 @@ class ChildComponent {
 
 @Component({
 	selector: "parent-comp",
-	standalone: true,
 	imports: [ChildComponent],
 	template: `
 		<button (click)="sayHiFromChild()">Say hi</button>
@@ -27,10 +25,10 @@ class ChildComponent {
 	`,
 })
 class ParentComponent {
-	@ViewChild("childVar") childComp!: ChildComponent;
+	childComp = viewChild.required("childVar", { read: ChildComponent });
 
 	sayHiFromChild() {
-		this.childComp.sayHi();
+		this.childComp().sayHi();
 	}
 }
 
