@@ -1,53 +1,59 @@
 // file.component.ts
-import { Component, Input, ViewChild } from "@angular/core";
-import { LayoutComponent } from "./layout.component";
+import {
+	Component,
+	input,
+	Input,
+	signal,
+	viewChild,
+	ViewChild,
+} from "@angular/core";
 import { ContextMenuComponent } from "./context-menu.component";
 
 @Component({
 	selector: "file-item",
-	standalone: true,
 	imports: [ContextMenuComponent],
 	template: `
 		<button
 			(contextmenu)="onContextMenu($event)"
 			style="display: block; width: 100%; margin-bottom: 1rem"
 		>
-			{{ name }}
+			{{ name() }}
 		</button>
 		<context-menu
 			#contextMenu
-			[data]="id"
-			[isOpen]="isOpen"
+			[data]="id()"
+			[isOpen]="isOpen()"
 			(close)="setIsOpen(false)"
-			[x]="mouseBounds.x"
-			[y]="mouseBounds.y"
+			[x]="mouseBounds().x"
+			[y]="mouseBounds().y"
 		/>
 	`,
 })
 export class FileComponent {
-	@ViewChild("contextMenu", { static: true })
-	contextMenu!: ContextMenuComponent;
-	@Input() name!: string;
-	@Input() id!: number;
+	contextMenu = viewChild.required("contextMenu", {
+		read: ContextMenuComponent,
+	});
+	name = input.required<string>();
+	id = input.required<number>();
 
-	mouseBounds = {
+	mouseBounds = signal({
 		x: 0,
 		y: 0,
-	};
+	});
 
-	isOpen = false;
+	isOpen = signal(false);
 
-	setIsOpen = (v: boolean) => (this.isOpen = v);
+	setIsOpen = (v: boolean) => this.isOpen.set(v);
 
 	onContextMenu(e: MouseEvent) {
 		e.preventDefault();
-		this.isOpen = true;
-		this.mouseBounds = {
+		this.isOpen.set(true);
+		this.mouseBounds.set({
 			x: e.clientX,
 			y: e.clientY,
-		};
+		});
 		setTimeout(() => {
-			this.contextMenu.focusMenu();
+			this.contextMenu().focusMenu();
 		}, 0);
 	}
 }

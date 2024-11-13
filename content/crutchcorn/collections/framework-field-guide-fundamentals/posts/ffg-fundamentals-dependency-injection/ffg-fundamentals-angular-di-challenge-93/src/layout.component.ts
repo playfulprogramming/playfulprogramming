@@ -3,7 +3,6 @@ import { Component } from "@angular/core";
 
 @Component({
 	selector: "app-layout",
-	standalone: true,
 	template: `
 		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
 			<div

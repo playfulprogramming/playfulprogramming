@@ -6,7 +6,6 @@ import { FileListComponent } from "./file-list.component";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [LayoutComponent, SidebarComponent, FileListComponent],
 	template: `
 		<app-layout>

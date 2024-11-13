@@ -17,7 +17,6 @@ function injectAndAssignActions(actions: any[]) {
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
 	imports: [FileComponent],
 	providers: [
 		{
