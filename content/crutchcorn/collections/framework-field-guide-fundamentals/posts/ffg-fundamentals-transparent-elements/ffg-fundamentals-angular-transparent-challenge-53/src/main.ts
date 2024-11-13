@@ -1,11 +1,10 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, input, output } from "@angular/core";
 
 @Component({
 	selector: "file-action-buttons",
-	standalone: true,
 	template: `
 		<button (click)="delete.emit()">Delete</button>
 		<button (click)="copy.emit()">Copy</button>
@@ -20,18 +19,17 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 	],
 })
 class FileActionButtonsComponent {
-	@Output() delete = new EventEmitter();
-	@Output() copy = new EventEmitter();
-	@Output() favorite = new EventEmitter();
+	delete = output();
+	copy = output();
+	favorite = output();
 }
 
 @Component({
 	selector: "button-bar",
-	standalone: true,
 	imports: [FileActionButtonsComponent],
 	template: `
 		<div style="display: flex; gap: 1rem">
-			@if (fileSelected) {
+			@if (fileSelected()) {
 				<file-action-buttons
 					(delete)="delete.emit()"
 					(copy)="copy.emit()"
@@ -43,17 +41,16 @@ class FileActionButtonsComponent {
 	`,
 })
 class ButtonBarComponent {
-	@Input() fileSelected!: boolean;
+	fileSelected = input<boolean>();
 
-	@Output() delete = new EventEmitter();
-	@Output() copy = new EventEmitter();
-	@Output() favorite = new EventEmitter();
-	@Output() settings = new EventEmitter();
+	delete = output();
+	copy = output();
+	favorite = output();
+	settings = output();
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ButtonBarComponent],
 	template: `
 		<button-bar
