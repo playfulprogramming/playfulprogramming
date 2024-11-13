@@ -2,36 +2,36 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
-	AfterViewInit,
 	Component,
 	ElementRef,
-	ViewChild,
-	OnDestroy,
+	signal,
+	afterRenderEffect,
+	viewChild,
 } from "@angular/core";
 
 @Component({
 	selector: "paragraph-tag",
-	standalone: true,
 	template: `
 		<button #btn>Add one</button>
-		<p>Count is {{ count }}</p>
+		<p>Count is {{ count() }}</p>
 	`,
 })
-class RenderParagraphComponent implements AfterViewInit, OnDestroy {
-	@ViewChild("btn") btn!: ElementRef<HTMLElement>;
+class RenderParagraphComponent {
+	btn = viewChild.required("btn", { read: ElementRef<HTMLElement> });
 
-	count = 0;
+	count = signal(0);
 
 	addOne = () => {
-		this.count++;
+		this.count.set(this.count() + 1);
 	};
 
-	ngAfterViewInit() {
-		this.btn.nativeElement.addEventListener("click", this.addOne);
-	}
-
-	ngOnDestroy() {
-		this.btn.nativeElement.removeEventListener("click", this.addOne);
+	constructor() {
+		afterRenderEffect((onCleanup) => {
+			this.btn().nativeElement.addEventListener("click", this.addOne);
+			onCleanup(() => {
+				this.btn().nativeElement.removeEventListener("click", this.addOne);
+			});
+		});
 	}
 }
 
