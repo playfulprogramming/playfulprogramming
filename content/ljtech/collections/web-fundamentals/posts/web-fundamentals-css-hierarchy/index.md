@@ -2,7 +2,7 @@
 {
   title: "Web Fundamentals: CSS - Inheritance & Hierarchy",
   description: "The third chapter of our series talks about the cascade hierarchy in CSS, including inheritance and specificity.",
-  published: "2024-10-03T20:08:26.988Z",
+  published: "2024-11-10T20:08:26.988Z",
   tags: ["css", "html", "design"],
   license: "cc-by-4",
   authors: ["edpratti"],

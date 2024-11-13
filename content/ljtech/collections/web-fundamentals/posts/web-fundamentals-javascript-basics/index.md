@@ -2,7 +2,7 @@
 {
   title: "Web Fundamentals: JavaScript Basics",
   description: "The seventh chapter of this series contains the first look into JavaScript and its basic components.",
-  published: "2024-10-20T20:08:26.988Z",
+  published: "2024-11-12T20:08:26.988Z",
   tags: ["css", "html", "design"],
   license: "cc-by-4",
   authors: ["edpratti"],

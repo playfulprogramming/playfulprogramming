@@ -3,6 +3,7 @@
 	title: 'Web Fundamentals: Understanding the DOM',
 	description: 'In our eight chapter, we learn how the browser internally handles HTML and CSS to show the user webpages on-screen.',
 	published: '2019-11-26T22:12:03.284Z',
+	edited: '2024-11-13',
 	tags: ['webdev', 'css', 'javascript', 'html'],
 	license: 'cc-by-nc-sa-4',
     authors: ["crutchcorn"],
