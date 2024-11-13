@@ -1,7 +1,13 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, effect, ElementRef, viewChild } from "@angular/core";
+import {
+	afterRenderEffect,
+	Component,
+	ElementRef,
+	signal,
+	viewChild,
+} from "@angular/core";
 import { PortalModule, DomPortal } from "@angular/cdk/portal";
 
 @Component({
@@ -9,7 +15,9 @@ import { PortalModule, DomPortal } from "@angular/cdk/portal";
 	imports: [PortalModule],
 	template: `
 		<div style="height: 100px; width: 100px; border: 2px solid black;">
-			<ng-template [cdkPortalOutlet]="domPortal" />
+			@if (domPortal()) {
+				<ng-template [cdkPortalOutlet]="domPortal()" />
+			}
 		</div>
 		<div #portalContent>Hello world!</div>
 	`,
@@ -19,14 +27,14 @@ class AppComponent {
 		read: ElementRef<HTMLElement>,
 	});
 
-	domPortal!: DomPortal<any>;
+	domPortal = signal<DomPortal<any> | null>(null);
 
 	constructor() {
-		effect((onCleanup) => {
-			this.domPortal = new DomPortal(this.portalContent());
+		afterRenderEffect((onCleanup) => {
+			this.domPortal.set(new DomPortal(this.portalContent()));
 
 			onCleanup(() => {
-				this.domPortal.detach();
+				this.domPortal()?.detach();
 			});
 		});
 	}
