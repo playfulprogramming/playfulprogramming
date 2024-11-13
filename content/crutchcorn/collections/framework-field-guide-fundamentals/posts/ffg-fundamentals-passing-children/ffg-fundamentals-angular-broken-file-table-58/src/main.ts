@@ -10,22 +10,33 @@ import {
 	OnDestroy,
 	signal,
 	input,
+	computed,
 	output,
 	effect,
 } from "@angular/core";
-import { DatePipe } from "@angular/common";
 
 @Component({
 	selector: "file-date",
-	imports: [DatePipe],
 	template: `
-		<span [attr.aria-label]="inputDate() | date: 'MMMM d, Y'">
-			{{ inputDate() | date }}
+		<span [attr.aria-label]="humanReadableDate()">
+			{{ displayDate() }}
 		</span>
 	`,
 })
 class FileDateComponent {
 	inputDate = input.required<Date>();
+
+	displayDate = computed(() => {
+		return new Intl.DateTimeFormat("en-US").format(this.inputDate());
+	});
+
+	humanReadableDate = computed(() => {
+		return new Intl.DateTimeFormat("en-US", {
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+		}).format(this.inputDate());
+	});
 }
 
 @Component({

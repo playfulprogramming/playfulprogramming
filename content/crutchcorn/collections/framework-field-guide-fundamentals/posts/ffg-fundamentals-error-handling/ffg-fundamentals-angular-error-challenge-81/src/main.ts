@@ -3,21 +3,14 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
 	Component,
+	computed,
 	effect,
 	ErrorHandler,
-	EventEmitter,
 	inject,
 	input,
-	Input,
-	OnDestroy,
-	OnInit,
 	output,
-	Output,
-	Pipe,
-	PipeTransform,
 	signal,
 	viewChild,
-	ViewChild,
 } from "@angular/core";
 
 @Component({
@@ -102,10 +95,36 @@ class MyErrorHandler implements ErrorHandler {
 	}
 }
 
-@Pipe({ name: "errorHref" })
-class ErrorHrefPipe implements PipeTransform {
-	transform(err: Error | null): string {
-		console.log({ err });
+@Component({
+	selector: "error-catcher",
+	template: `
+		@if (errorHandler.error()) {
+			<div>
+				<h1>{{ errorHandler.error().name }}</h1>
+				<pre
+					style="white-space: pre-wrap"
+				><code>{{ errorHandler.error().message }}</code></pre>
+				<a [href]="errorHref()">Email us to report the bug</a>
+				<br />
+				<br />
+				<details>
+					<summary>Error stack</summary>
+					<pre
+						style="white-space: pre-wrap"
+					><code>{{ errorHandler.error().stack }}</code></pre>
+				</details>
+			</div>
+		}
+		@if (!errorHandler.error()) {
+			<ng-content></ng-content>
+		}
+	`,
+})
+class ErrorCatcher {
+	errorHandler = inject(ErrorHandler) as MyErrorHandler;
+
+	errorHref = computed(() => {
+		const err = this.errorHandler.error();
 		if (!err) return "";
 		const mailTo = "dev@example.com";
 		const header = "Bug Found";
@@ -128,39 +147,7 @@ class ErrorHrefPipe implements PipeTransform {
 		const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedMsg}`;
 
 		return href;
-	}
-}
-
-@Component({
-	selector: "error-catcher",
-	imports: [ErrorHrefPipe],
-	template: `
-		@if (errorHandler.error()) {
-			<div>
-				<h1>{{ errorHandler.error().name }}</h1>
-				<pre
-					style="white-space: pre-wrap"
-				><code>{{ errorHandler.error().message }}</code></pre>
-				<a [href]="errorHandler.error() | errorHref"
-					>Email us to report the bug</a
-				>
-				<br />
-				<br />
-				<details>
-					<summary>Error stack</summary>
-					<pre
-						style="white-space: pre-wrap"
-					><code>{{ errorHandler.error().stack }}</code></pre>
-				</details>
-			</div>
-		}
-		@if (!errorHandler.error()) {
-			<ng-content></ng-content>
-		}
-	`,
-})
-class ErrorCatcher {
-	errorHandler = inject(ErrorHandler) as MyErrorHandler;
+	});
 }
 
 @Component({
