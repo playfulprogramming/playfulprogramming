@@ -10,7 +10,7 @@ import {
 	ViewContainerRef,
 	inject,
 } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 import { TemplatePortal, DomPortalOutlet } from "@angular/cdk/portal";
 
 @Injectable({

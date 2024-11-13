@@ -1,5 +1,5 @@
-@import "src/tokens/index";
-@import "./filter-sidebar-props";
+@use "src/tokens/index" as *;
+@use "./filter-sidebar-props";
 
 .section {
 	display: flex;

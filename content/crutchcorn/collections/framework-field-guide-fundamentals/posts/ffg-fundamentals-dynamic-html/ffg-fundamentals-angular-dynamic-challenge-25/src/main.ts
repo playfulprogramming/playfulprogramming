@@ -2,19 +2,19 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, Input, EventEmitter, Output } from "@angular/core";
-import { NgFor, NgIf } from "@angular/common";
 
 @Component({
 	selector: "expandable-dropdown",
 	standalone: true,
-	imports: [NgIf],
 	template: `
 		<div>
 			<button (click)="toggle.emit()">
 				{{ expanded ? "V" : ">" }}
 				{{ name }}
 			</button>
-			<div *ngIf="expanded">More information here</div>
+			@if (expanded) {
+				<div>More information here</div>
+			}
 		</div>
 	`,
 })
@@ -27,16 +27,17 @@ class ExpandableDropdownComponent {
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
-	imports: [ExpandableDropdownComponent, NgFor],
+	imports: [ExpandableDropdownComponent],
 	template: `
 		<div>
 			<h1>My Files</h1>
-			<expandable-dropdown
-				*ngFor="let cat of categories"
-				[name]="cat"
-				[expanded]="expandedMap[cat]"
-				(toggle)="onToggle(cat)"
-			/>
+			@for (cat of categories; track cat) {
+				<expandable-dropdown
+					[name]="cat"
+					[expanded]="expandedMap[cat]"
+					(toggle)="onToggle(cat)"
+				/>
+			}
 		</div>
 	`,
 })

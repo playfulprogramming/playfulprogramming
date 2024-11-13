@@ -8,6 +8,7 @@
   attached: [],
   order: 10,
   collection: "framework-field-guide-fundamentals",
+  version: "v1.1",
 }
 ---
 
@@ -52,11 +53,12 @@ const App = () => {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgFor],
 	template: `
 		<h1>To-do items</h1>
 		<ul>
-			<li *ngFor="let item of priorityItems">{{ item.name }}</li>
+			@for (item of priorityItems; track item.id) {
+				<li>{{ item.name }}</li>
+			}
 		</ul>
 	`,
 })
@@ -775,8 +777,6 @@ Unfortunately, React is not able to handle thrown errors invisibly to the user w
 
 As covered before, Angular is able to ignore all errors thrown outside the `constructor` method. However, if an error does occur in the `constructor` method, it's challenging ([but not impossible](https://playfulprogramming.com/posts/angular-constructor-error-behavior#The-short-term-fix)) to sidestep. Because of the complexity of the code required to ignore `constructor` method errors, we won't cover it in this book.
 
-> Want to see an official solution to this problem? [Star my feature request on GitHub, which outlines a longer-term solution built-into Angular](https://github.com/angular/angular/issues/51941).
-
 ## Vue
 
 To avoid an error blanking out your Vue application, simply return `false` from your `onErrorCaptured` composition.
@@ -878,10 +878,14 @@ class MyErrorHandler implements ErrorHandler {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, ChildComponent],
+	imports: [ChildComponent],
 	template: `
-		<p *ngIf="errorHandler.hadError">There was an error</p>
-		<child-comp *ngIf="!errorHandler.hadError" />
+		@if (errorHandler.hadError) {
+			<h1>There was an error</h1>
+		}
+		@if (!errorHandler.hadError) {
+			<child-comp />
+		}
 	`,
 })
 class AppComponent {
@@ -999,15 +1003,17 @@ class MyErrorHandler implements ErrorHandler {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, ChildComponent],
+	imports: [ChildComponent],
 	template: `
-		<div *ngIf="errorHandler.error">
-			<h1>You got an error:</h1>
-			<pre
-				style="white-space: pre-wrap"
-			><code>{{ errorHandler.error }}</code></pre>
-		</div>
-		<child-comp *ngIf="!errorHandler.error" />
+		@if (errorHandler.error) {
+			<div>
+				<h1>You got an error:</h1>
+				<pre style="white-space: pre-wrap"><code>{{ errorHandler.error }}</code></pre>
+			</div>
+		}
+		@if (!errorHandler.error) {
+			<child-comp />
+		}
 	`,
 })
 class AppComponent {
@@ -1128,19 +1134,22 @@ Upon rendering the sidebar, we're greeted with [a JavaScript `ReferenceError`](h
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
-	imports: [NgIf],
 	template: `
 		<!-- "isCollapsed" is a boolean! -->
 		<!-- It's supposed to be "toggleCollapsed"! 😱 -->
-		<button *ngIf="isCollapsed" (click)="isCollapsed()">Toggle</button>
-		<div *ngIf="!isCollapsed">
-			<button (click)="isCollapsed()">Toggle</button>
-			<ul style="padding: 1rem">
-				<li>List item 1</li>
-				<li>List item 2</li>
-				<li>List item 3</li>
-			</ul>
-		</div>
+		@if (isCollapsed) {
+			<button (click)="collapsed()">Toggle</button>
+		}
+		@if (!isCollapsed) {
+			<div>
+				<button (click)="collapsed()">Toggle</button>
+				<ul style="padding: 1rem">
+					<li>List item 1</li>
+					<li>List item 2</li>
+					<li>List item 3</li>
+				</ul>
+			</div>
+		}
 	`,
 })
 class SidebarComponent {
@@ -1334,15 +1343,16 @@ class MyErrorHandler implements ErrorHandler {
 @Component({
 	selector: "error-catcher",
 	standalone: true,
-	imports: [NgIf],
 	template: `
-		<div *ngIf="errorHandler.error">
-			<h1>You got an error:</h1>
-			<pre
-				style="white-space: pre-wrap"
-			><code>{{ errorHandler.error }}</code></pre>
-		</div>
-		<ng-content *ngIf="!errorHandler.error"></ng-content>
+		@if (errorHandler.error) {
+			<div>
+				<h1>You got an error:</h1>
+				<pre style="white-space: pre-wrap"><code>{{ errorHandler.error }}</code></pre>
+			</div>
+		}
+		@if (!errorHandler.error) {
+			<ng-content></ng-content>
+		}
 	`,
 })
 class ErrorCatcher {
@@ -1518,24 +1528,28 @@ class ErrorHrefPipe implements PipeTransform {
 @Component({
 	selector: "error-catcher",
 	standalone: true,
-	imports: [NgIf, ErrorHrefPipe],
+	imports: [ErrorHrefPipe],
 	template: `
-		<div *ngIf="errorHandler.error">
-			<h1>{{ errorHandler.error.name }}</h1>
-			<pre
-				style="white-space: pre-wrap"
-			><code>{{ errorHandler.error.message }}</code></pre>
-			<a [href]="errorHandler.error | errorHref">Email us to report the bug</a>
-			<br />
-			<br />
-			<details>
-				<summary>Error stack</summary>
+		@if (errorHandler.error) {
+			<div>
+				<h1>{{ errorHandler.error.name }}</h1>
 				<pre
 					style="white-space: pre-wrap"
-				><code>{{ errorHandler.error.stack }}</code></pre>
-			</details>
-		</div>
-		<ng-content *ngIf="!errorHandler.error"></ng-content>
+				><code>{{ errorHandler.error.message }}</code></pre>
+				<a [href]="errorHandler.error | errorHref">Email us to report the bug</a>
+				<br />
+				<br />
+				<details>
+					<summary>Error stack</summary>
+					<pre
+						style="white-space: pre-wrap"
+					><code>{{ errorHandler.error.stack }}</code></pre>
+				</details>
+			</div>
+		}
+		@if (!errorHandler.error) {
+			<ng-content></ng-content>
+		}
 	`,
 })
 class ErrorCatcher {

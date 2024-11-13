@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 :root {
 	--search-hero_container_padding: calc(var(--site-spacing) * 2);

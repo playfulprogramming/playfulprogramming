@@ -2,13 +2,15 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, Input } from "@angular/core";
-import { NgIf } from "@angular/common";
 
 @Component({
 	selector: "conditional-render",
 	standalone: true,
-	imports: [NgIf],
-	template: `<div><p *ngIf="bool">Text here</p></div>`,
+	template: `<div>
+		@if (bool) {
+			<p>Text here</p>
+		}
+	</div>`,
 })
 class ConditionalRenderComponent {
 	@Input() bool!: boolean;

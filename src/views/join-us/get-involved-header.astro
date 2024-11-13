@@ -18,8 +18,8 @@ const people = getPeopleByLang("en").map((person) => {
 				height: 64,
 			})
 		: null;
-	const imageUrl = Object.values(imageUrls.png!!).at(0);
-	const badgeUrl = badgeUrls ? Object.values(badgeUrls.png!!).at(0) : undefined;
+	const imageUrl = Object.values(imageUrls.png!).at(0);
+	const badgeUrl = badgeUrls ? Object.values(badgeUrls.png!).at(0) : undefined;
 	return { imageUrl, badgeUrl };
 });
 ---

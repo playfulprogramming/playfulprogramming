@@ -8,6 +8,7 @@
   attached: [],
   order: 4,
   collection: "framework-field-guide-fundamentals",
+  version: "v1.1",
 }
 ---
 
@@ -265,11 +266,13 @@ class ChildComponent {}
 @Component({
 	selector: "parent-comp",
 	standalone: true,
-	imports: [ChildComponent, NgIf],
+	imports: [ChildComponent],
 	template: `
 		<div>
 			<button (click)="setShowChild()">Toggle Child</button>
-			<child-comp *ngIf="showChild" />
+			@if (showChild) {
+				<child-comp />
+			}
 		</div>
 	`,
 })
@@ -974,11 +977,13 @@ function App() {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, ClockComponent],
+	imports: [ClockComponent],
 	template: `
 		<div>
 			<button (click)="setShowClock(!showClock)">Toggle clock</button>
-			<clock-comp *ngIf="showClock" />
+			@if (showClock) {
+				<clock-comp />
+			}
 		</div>
 	`,
 })
@@ -1148,19 +1153,18 @@ class AlarmScreenComponent implements OnInit {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, AlarmScreenComponent],
+	imports: [AlarmScreenComponent],
 	template: `
-		<p *ngIf="!timerEnabled; else timerDisplay">There is no timer</p>
-		<ng-template #timerDisplay>
+		@if (!timerEnabled) {
+			<p>There is no timer</p>
+		} @else if (secondsLeft === 0) {
 			<alarm-screen
-				*ngIf="secondsLeft === 0; else secondsDisplay"
 				(snooze)="snooze()"
 				(disable)="disable()"
 			/>
-		</ng-template>
-		<ng-template #secondsDisplay>
+		} @else {
 			<p>{{ secondsLeft }} seconds left in timer</p>
-		</ng-template>
+		}
 	`,
 })
 class AppComponent implements OnInit {
@@ -1697,13 +1701,15 @@ class AlertComponent implements OnInit {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [AlertComponent, NgIf],
+	imports: [AlertComponent],
 	template: `
 		<div>
 			<!-- Try clicking and unclicking quickly -->
 			<button (click)="toggle()">Toggle</button>
 			<!-- Binding to an event -->
-			<app-alert *ngIf="show" (alert)="alertUser()" />
+			@if (show) {
+				<app-alert (alert)="alertUser()" />
+			}
 		</div>
 	`,
 })
@@ -1958,10 +1964,12 @@ class AlertComponent implements OnInit {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [AlertComponent, NgIf],
+	imports: [AlertComponent],
 	template: `
 		<button (click)="toggle()">Toggle</button>
-		<app-alert *ngIf="show" [alert]="alertUser" />
+		@if (show) {
+			<app-alert [alert]="alertUser" />
+		}
 	`,
 })
 class AppComponent {

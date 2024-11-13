@@ -11,6 +11,9 @@ export interface RawCollectionInfo {
 	customChaptersText?: string;
 	tags?: string[];
 	published: string;
+	noindex?: boolean;
+	version?: string;
+	upToDateSlug?: string;
 	buttons?: Array<{ text: string; url: string }>;
 	chapterList?: Array<{
 		title: string;

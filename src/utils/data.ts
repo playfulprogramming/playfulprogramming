@@ -9,7 +9,7 @@ import {
 } from "types/index";
 import * as fs from "fs/promises";
 import path, { join } from "path";
-import { isNotJunk } from "junk";
+import { isNotJunk as baseIsNotJunk } from "junk";
 import { getImageSize } from "../utils/get-image-size";
 import { resolvePath } from "./url-paths";
 import matter from "gray-matter";
@@ -26,6 +26,11 @@ import aboutRaw from "../../content/data/about.json";
 import rolesRaw from "../../content/data/roles.json";
 import licensesRaw from "../../content/data/licenses.json";
 import tagsRaw from "../../content/data/tags.json";
+
+function isNotJunk(name: string): boolean {
+	// Ignore VSCode and JetBrains project files
+	return baseIsNotJunk(name) && name !== ".idea" && name !== ".vscode";
+}
 
 export const contentDirectory = join(process.cwd(), "content");
 
@@ -141,6 +146,17 @@ async function readPerson(personPath: string): Promise<PersonInfo[]> {
 		} catch (e) {
 			console.error(
 				`'${person.id}' socials.mastodon is not a valid URL: '${person.socials.mastodon}'`,
+			);
+			throw e;
+		}
+
+		// "bluesky" should be a full URL; this will error if not valid
+		try {
+			if (person.socials.bluesky)
+				person.socials.bluesky = new URL(person.socials.bluesky).toString();
+		} catch (e) {
+			console.error(
+				`'${person.id}' socials.mastodon is not a valid URL: '${person.socials.bluesky}'`,
 			);
 			throw e;
 		}

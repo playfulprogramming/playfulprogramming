@@ -1,4 +1,5 @@
-@import "src/tokens/index";
+@use "src/tokens/index";
+@use "src/styles/text-styles.scss";
 
 :root {
 	--list_item_padding-vertical: var(--spc-1x);

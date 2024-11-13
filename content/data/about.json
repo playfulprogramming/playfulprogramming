@@ -39,6 +39,11 @@
 			"name": "OceanBit",
 			"logo": "/sponsors/oceanbit.svg",
 			"url": "https://oceanbit.dev/"
+		},
+		{
+			"name": "Orama",
+			"logo": "/sponsors/orama.svg",
+			"url": "https://orama.com/"
 		}
 	]
 }

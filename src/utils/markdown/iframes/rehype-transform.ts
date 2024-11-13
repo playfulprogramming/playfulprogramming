@@ -180,7 +180,6 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				let {
 					height,
 					width,
-					// eslint-disable-next-line prefer-const
 					src,
 					// eslint-disable-next-line prefer-const
 					dataFrameTitle,

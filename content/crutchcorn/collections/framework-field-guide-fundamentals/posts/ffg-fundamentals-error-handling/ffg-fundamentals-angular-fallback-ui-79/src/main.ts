@@ -2,7 +2,6 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, inject, ErrorHandler, OnInit } from "@angular/core";
-import { NgIf } from "@angular/common";
 
 class MyErrorHandler implements ErrorHandler {
 	hadError = false;
@@ -28,10 +27,14 @@ class ChildComponent implements OnInit {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, ChildComponent],
+	imports: [ChildComponent],
 	template: `
-		<p *ngIf="errorHandler.hadError">There was an error</p>
-		<child-comp *ngIf="!errorHandler.hadError" />
+		@if (errorHandler.hadError) {
+			<p>There was an error</p>
+		}
+		@if (!errorHandler.hadError) {
+			<child-comp />
+		}
 	`,
 })
 class AppComponent {

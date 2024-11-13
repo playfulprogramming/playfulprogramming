@@ -2,6 +2,7 @@
 // be triggered. The function will be called after it stops being called for
 // N milliseconds. If `immediate` is passed, trigger the function on the
 // leading edge, instead of the trailing.
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function debounce<T extends Function>(
 	func: T,
 	wait: number,

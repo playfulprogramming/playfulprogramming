@@ -2,7 +2,6 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, Input } from "@angular/core";
-import { NgFor } from "@angular/common";
 
 @Component({
 	selector: "toggle-button",
@@ -64,10 +63,14 @@ class RainbowExclamationMarkComponent {}
 @Component({
 	selector: "toggle-button-list",
 	standalone: true,
-	imports: [ToggleButtonComponent, RainbowExclamationMarkComponent, NgFor],
+	imports: [ToggleButtonComponent, RainbowExclamationMarkComponent],
 	template: `
 		<toggle-button>
-			Hello <span *ngFor="let friend of friends">{{ friend }} </span>!
+			Hello
+			@for (friend of friends; track friend) {
+				<span>{{ friend }} </span>
+			}
+			!
 		</toggle-button>
 		<toggle-button>
 			Hello other friends<rainbow-exclamation-mark />

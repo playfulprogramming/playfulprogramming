@@ -8,6 +8,7 @@
   attached: [],
   order: 11,
   collection: "framework-field-guide-fundamentals",
+  version: "v1.1",
 }
 ---
 
@@ -1006,10 +1007,13 @@ class InjectedValue {
 @Component({
 	selector: "child-comp",
 	standalone: true,
-	imports: [NgIf],
 	template: `
-		<div *ngIf="injectedValue">{{ injectedValue.message }}</div>
-		<div *ngIf="!injectedValue">There is no injected value</div>
+		@if (injectedValue) {
+			<div>{{ injectedValue.message }}</div>
+		}
+		@if (!injectedValue) {
+			<div>There is no injected value</div>
+		}
 	`,
 })
 class ChildComponent implements OnInit {
@@ -1411,7 +1415,7 @@ Let's assume that we go with an application-wide provider. In React and Angular,
 
 **React even re-renders all the child components of `App` when using `useContext`** to provide changing data.
 
-[This problem can be solved by external tooling, such as Redux in React](https://blog.isquaredsoftware.com/2021/01/context-redux-differences/) or [NgRx in Angular](https://ngrx.io/), as they introduce a more optimized mechanism for detecting component data changes.
+This problem can be solved by external tooling, such as [React Redux](https://blog.isquaredsoftware.com/2021/01/context-redux-differences/) or [Angular Redux](https://angular-redux.js.org/), as they introduce a more optimized mechanism for detecting component data changes.
 
 Luckily, your knowledge of these frameworks' built-in dependency injection APIs will help you immensely while using these external tools.
 
@@ -1499,7 +1503,6 @@ class NameValue {
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
-	imports: [],
 	template: `<p>Name: {{ nameValue.name }}</p>`,
 })
 class GreatGrandChildComponent {
@@ -1702,7 +1705,6 @@ class FavFoodValue {
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
-	imports: [],
 	template: `
 		<p>Name: {{ nameValue.name }}</p>
 		<p>Favorite food: {{ favFoodValue.favFood }}</p>
@@ -1926,7 +1928,6 @@ class UserValue {
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
-	imports: [],
 	template: ` <p>Name: {{ user.name }}</p> `,
 })
 class GreatGrandChildComponent {
@@ -2206,7 +2207,6 @@ class MessageValue {
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
-	imports: [],
 	template: `
 		<div>
 			<p>{{ messageValue.greeting }}, user!</p>
@@ -2292,7 +2292,6 @@ class MessageValue {
 @Component({
 	selector: "great-grand-child",
 	standalone: true,
-	imports: [],
 	template: `
 		<div>
 			<p>{{ messageValue.greeting }}, user!</p>
@@ -2923,16 +2922,17 @@ Then, we can this component into our `Sidebar` and `FileList` components to disp
 // file-list.component.ts
 import { Component } from "@angular/core";
 import { FileComponent } from "./file.component";
-import { NgFor } from "@angular/common";
 
 @Component({
 	selector: "file-list",
 	standalone: true,
-	imports: [FileComponent, NgFor],
+	imports: [FileComponent],
 	template: `
 		<div style="padding: 1rem">
 			<h1>Files</h1>
-			<file-item *ngFor="let file of files" [name]="file.name" />
+			@for (file of files; track file.id) {
+				<file-item [name]="file.name" />
+			}
 		</div>
 	`,
 })
@@ -2957,20 +2957,18 @@ export class FileListComponent {
 ```angular-ts
 // sidebar.component.ts
 import { Component } from "@angular/core";
-import { NgFor } from "@angular/common";
 import { FileComponent } from "./file.component";
 
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
-	imports: [FileComponent, NgFor],
+	imports: [FileComponent],
 	template: `
 		<div style="padding: 1rem">
 			<h1 style="font-size: 1.25rem">Directories</h1>
-			<file-item
-				*ngFor="let directory of directories"
-				[name]="directory.name"
-			/>
+			@for (directory of directories; track directory.id) {
+				<file-item [name]="directory.name" />
+			}
 		</div>
 	`,
 })
@@ -3326,41 +3324,43 @@ export const Sidebar = () => {
 
 Just like we did with React, let's take our previous context menu and add in the `"contextmenu"` listener and action array:
 
-```angular-ts {46-55,66-69,73-86}
+```angular-ts {48-57,68-71,75-88}
 @Component({
 	selector: "context-menu",
 	standalone: true,
-	imports: [NgIf, NgFor],
 	template: `
-		<div
-			*ngIf="isOpen && actions"
-			#contextMenu
-			tabIndex="0"
-			[style]="
-				'
-        position: fixed;
-        top: ' +
-				y +
-				'px;
-        left: ' +
-				x +
-				'px;
-        background: white;
-        border: 1px solid black;
-        border-radius: 16px;
-        padding: 1rem;
-      '
-			"
-		>
-			<button (click)="close.emit(false)">X</button>
-			<ul>
-				<li *ngFor="let action of actions">
-					<button (click)="action.fn(data); close.emit(false)">
-						{{ action.label }}
-					</button>
-				</li>
-			</ul>
-		</div>
+		@if (isOpen && actions) {
+			<div
+				#contextMenu
+				tabIndex="0"
+				[style]="
+					'
+			position: fixed;
+			top: ' +
+					y +
+					'px;
+			left: ' +
+					x +
+					'px;
+			background: white;
+			border: 1px solid black;
+			border-radius: 16px;
+			padding: 1rem;
+		  '
+				"
+			>
+				<button (click)="close.emit(false)">X</button>
+				<ul>
+					@for (action of actions; track action) {
+						<li>
+							<button (click)="action.fn(data); close.emit(false)">
+								{{ action.label }}
+							</button>
+						</li>
+					}
+				</ul>
+			</div>
+		}
 	`,
 })
 export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
@@ -3491,11 +3491,13 @@ And, again, pass the `file.id` to `<file-item [id]="file.id"/>` component:
 @Component({
 	selector: "file-list",
 	standalone: true,
-	imports: [FileComponent, NgFor],
+	imports: [FileComponent],
 	template: `
 		<div style="padding: 1rem">
 			<h1>Files</h1>
-			<file-item *ngFor="let file of files" [name]="file.name" [id]="file.id" />
+			@for (file of files) {
+				<file-item [name]="file.name" [id]="file.id" />
+			}
 		</div>
 	`,
 })
@@ -3508,15 +3510,13 @@ export class FileListComponent {
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
-	imports: [FileComponent, NgFor],
+	imports: [FileComponent],
 	template: `
 		<div style="padding: 1rem">
 			<h1 style="font-size: 1.25rem">Directories</h1>
-			<file-item
-				*ngFor="let directory of directories"
-				[name]="directory.name"
-				[id]="directory.id"
-			/>
+			@for (directory of directories; track directory.id) {
+				<file-item [name]="directory.name" [id]="directory.id" />
+			}
 		</div>
 	`,
 })
@@ -3874,7 +3874,7 @@ function injectAndAssignActions(actions: any[]) {
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
-	imports: [NgFor, FileComponent],
+	imports: [FileComponent],
 	providers: [
 		{
 			provide: ActionTypes,
@@ -3913,7 +3913,7 @@ function injectAndAssignActions(actions: any[]) {
 @Component({
 	selector: "file-list",
 	standalone: true,
-	imports: [NgFor, FileComponent],
+	imports: [FileComponent],
 	providers: [
 		{
 			provide: ActionTypes,

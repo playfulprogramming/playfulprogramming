@@ -1,5 +1,5 @@
-@import "./breakpoints";
-@import "./utils";
+@use "./breakpoints" as *;
+@use "./utils" as *;
 
 :root {
 	--grid-item-border-width: var(--border-1x);

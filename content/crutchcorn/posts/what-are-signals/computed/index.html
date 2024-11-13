@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<title>Computed</title>
+	</head>
+
+	<body>
+		<label>
+			<div>Number 1:</div>
+			<input id="num1" type="number" value="0" />
+		</label>
+		<label>
+			<div>Number 2:</div>
+			<input id="num2" type="number" value="0" />
+		</label>
+		<p>The sum of these numbers is: <span id="output">0</span></p>
+
+		<script>
+			const num1 = document.getElementById("num1");
+			const num2 = document.getElementById("num2");
+			const output = document.getElementById("output");
+
+			const num1Signal = signal(0);
+			const num2Signal = signal(0);
+			const outputSignal = computed(
+				() => num1Signal.get() + num2Signal.get(),
+				[num1Signal, num2Signal],
+			);
+
+			num1.addEventListener("input", (e) => {
+				num1Signal.set(e.target.valueAsNumber);
+			});
+
+			num2.addEventListener("input", (e) => {
+				num2Signal.set(e.target.valueAsNumber);
+			});
+
+			outputSignal.subscribe(() => {
+				output.innerText = outputSignal.get();
+			});
+
+			function computed(fn, signals) {
+				let value = fn();
+				const subscribers = new Set();
+
+				for (let signal of signals) {
+					signal.subscribe(() => {
+						value = fn();
+						subscribers.forEach((sub) => sub());
+					});
+				}
+
+				return {
+					get: () => value,
+					subscribe: (listener) => {
+						subscribers.add(listener);
+						return () => subscribers.delete(listener);
+					},
+				};
+			}
+
+			function signal(initialValue) {
+				let value = initialValue;
+				const subscribers = new Set();
+
+				return {
+					get: () => value,
+					set: (newValue) => {
+						value = newValue;
+						subscribers.forEach((fn) => fn());
+					},
+					subscribe: (listener) => {
+						subscribers.add(listener);
+						return () => subscribers.delete(listener);
+					},
+				};
+			}
+		</script>
+	</body>
+</html>

@@ -1,5 +1,5 @@
-@import "src/tokens/index";
-@import "src/styles/text-styles";
+@use "src/tokens/index" as *;
+@use "src/styles/text-styles";
 
 :root {
 	--heading-link_padding-vertical: calc(var(--spc-1x) / 2);

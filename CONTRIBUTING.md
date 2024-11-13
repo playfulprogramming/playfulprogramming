@@ -41,7 +41,7 @@ Here's an example of what your `index.md` might look like:
 
   // Social usernames can include "twitter", "github", "gitlab",
   // "linkedIn", "twitch", "dribbble", "mastodon", "threads", "youtube",
-  // and "cohost", as well as a "website" that can be anything you want!
+  // "bluesky", and "cohost", as well as a "website" that can be anything you want!
   socials: {
     mastodon: "https://hachyderm.io/@playfulprogramming",
     github: "playfulprogramming",
