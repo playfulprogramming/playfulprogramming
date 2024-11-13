@@ -8,82 +8,84 @@ import {
 	Output,
 	OnInit,
 	OnDestroy,
+	signal,
+	input,
+	output,
+	effect,
 } from "@angular/core";
 import { DatePipe } from "@angular/common";
 
 @Component({
 	selector: "file-date",
-	standalone: true,
 	imports: [DatePipe],
 	template: `
-		<span [attr.aria-label]="inputDate | date: 'MMMM d, Y'">
-			{{ inputDate | date }}
+		<span [attr.aria-label]="inputDate() | date: 'MMMM d, Y'">
+			{{ inputDate() | date }}
 		</span>
 	`,
 })
 class FileDateComponent {
-	@Input() inputDate!: Date;
+	inputDate = input.required<Date>();
 }
 
 @Component({
 	selector: "file-item",
-	standalone: true,
 	imports: [FileDateComponent],
 	template: `
 		<tr
-			[attr.aria-selected]="isSelected"
+			[attr.aria-selected]="isSelected()"
 			(click)="selected.emit()"
 			[style]="
-				isSelected
+				isSelected()
 					? 'background-color: blue; color: white'
 					: 'background-color: white; color: blue'
 			"
 		>
 			<td>
-				<a [href]="href" style="color: inherit">{{ fileName }}</a>
+				<a [href]="href()" style="color: inherit">{{ fileName() }}</a>
 			</td>
-			@if (isFolder) {
+			@if (isFolder()) {
 				<td>Type: Folder</td>
 			} @else {
 				<td>Type: File</td>
 			}
 			<td>
-				@if (!isFolder) {
-					<file-date [inputDate]="inputDate" />
+				@if (!isFolder()) {
+					<file-date [inputDate]="inputDate()" />
 				}
 			</td>
 		</tr>
 	`,
 })
-class FileComponent implements OnInit, OnDestroy {
-	@Input() fileName!: string;
-	@Input() href!: string;
-	@Input() isSelected!: boolean;
-	@Input() isFolder!: boolean;
-	@Output() selected = new EventEmitter();
-	inputDate = new Date();
-	interval: any = null;
+class FileComponent {
+	fileName = input.required<string>();
+	href = input.required<string>();
+	isSelected = input.required<boolean>();
+	isFolder = input.required<boolean>();
+	selected = output();
+	inputDate = signal(new Date());
 
-	ngOnInit() {
-		// Check if it's a new day every 10 minutes
-		this.interval = setInterval(
-			() => {
-				const newDate = new Date();
-				if (this.inputDate.getDate() === newDate.getDate()) return;
-				this.inputDate = newDate;
-			},
-			10 * 60 * 1000,
-		);
-	}
+	constructor() {
+		effect((onCleanup) => {
+			// Check if it's a new day every 10 minutes
+			const interval = setInterval(
+				() => {
+					const newDate = new Date();
+					if (this.inputDate().getDate() === newDate.getDate()) return;
+					this.inputDate.set(newDate);
+				},
+				10 * 60 * 1000,
+			);
 
-	ngOnDestroy() {
-		clearInterval(this.interval);
+			onCleanup(() => {
+				clearInterval(interval);
+			});
+		});
 	}
 }
 
 @Component({
 	selector: "file-table-body",
-	standalone: true,
 	imports: [FileComponent],
 	template: `
 		<tbody>
@@ -91,7 +93,7 @@ class FileComponent implements OnInit, OnDestroy {
 				@if (!file.isFolder) {
 					<file-item
 						(selected)="onSelected(i)"
-						[isSelected]="selectedIndex === i"
+						[isSelected]="selectedIndex() === i"
 						[fileName]="file.fileName"
 						[href]="file.href"
 						[isFolder]="file.isFolder"
@@ -102,20 +104,20 @@ class FileComponent implements OnInit, OnDestroy {
 	`,
 })
 class FileTableBody {
-	selectedIndex = -1;
+	selectedIndex = signal(-1);
 
 	onSelected(idx: number) {
-		if (this.selectedIndex === idx) {
-			this.selectedIndex = -1;
+		if (this.selectedIndex() === idx) {
+			this.selectedIndex.set(-1);
 			return;
 		}
-		this.selectedIndex = idx;
+		this.selectedIndex.set(idx);
 	}
 
-	onlyShowFiles = false;
+	onlyShowFiles = signal(false);
 
 	toggleOnlyShow() {
-		this.onlyShowFiles = !this.onlyShowFiles;
+		this.onlyShowFiles.set(!this.onlyShowFiles());
 	}
 
 	filesArray: File[] = [
@@ -154,7 +156,6 @@ class FileTableBody {
 
 @Component({
 	selector: "file-table",
-	standalone: true,
 	imports: [FileTableBody],
 	template: `
 		<table style="border-spacing: 0;">
@@ -166,7 +167,6 @@ class FileTableComponent {}
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [FileTableComponent],
 	template: `<file-table />`,
 })

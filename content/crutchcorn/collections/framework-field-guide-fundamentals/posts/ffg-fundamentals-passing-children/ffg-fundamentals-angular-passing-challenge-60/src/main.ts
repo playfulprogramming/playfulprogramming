@@ -1,96 +1,87 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import {
-	Component,
-	Input,
-	EventEmitter,
-	Output,
-	OnInit,
-	OnDestroy,
-} from "@angular/core";
+import { Component, signal, input, output, effect } from "@angular/core";
 import { DatePipe } from "@angular/common";
 
 @Component({
 	selector: "file-date",
-	standalone: true,
 	imports: [DatePipe],
 	template: `
-		<span [attr.aria-label]="inputDate | date: 'MMMM d, Y'">
-			{{ inputDate | date }}
+		<span [attr.aria-label]="inputDate() | date: 'MMMM d, Y'">
+			{{ inputDate() | date }}
 		</span>
 	`,
 })
 class FileDateComponent {
-	@Input() inputDate!: Date;
+	inputDate = input.required<Date>();
 }
 
 @Component({
 	selector: "tr[file-item]",
-	standalone: true,
 	imports: [FileDateComponent],
 	host: {
-		"[attr.aria-selected]": "isSelected",
+		"[attr.aria-selected]": "isSelected()",
 		"(click)": "selected.emit()",
 		"[style]": `
-			isSelected ?
+			isSelected() ?
 				'background-color: blue; color: white' :
 				'background-color: white; color: blue'
 		`,
 	},
 	template: `
 		<td>
-			<a [href]="href" style="color: inherit">{{ fileName }}</a>
+			<a [href]="href()" style="color: inherit">{{ fileName() }}</a>
 		</td>
-		@if (isFolder) {
+		@if (isFolder()) {
 			<td>Folder</td>
 		} @else {
 			<td>File</td>
 		}
 		<td>
-			@if (!isFolder) {
-				<file-date [inputDate]="inputDate" />
+			@if (!isFolder()) {
+				<file-date [inputDate]="inputDate()" />
 			}
 		</td>
 	`,
 })
-class FileComponent implements OnInit, OnDestroy {
-	@Input() fileName!: string;
-	@Input() href!: string;
-	@Input() isSelected!: boolean;
-	@Input() isFolder!: boolean;
-	@Output() selected = new EventEmitter();
-	inputDate = new Date();
-	interval: any = null;
+class FileComponent {
+	fileName = input.required<string>();
+	href = input.required<string>();
+	isSelected = input.required<boolean>();
+	isFolder = input.required<boolean>();
+	selected = output();
+	inputDate = signal(new Date());
 
-	ngOnInit() {
-		// Check if it's a new day every 10 minutes
-		this.interval = setInterval(
-			() => {
-				const newDate = new Date();
-				if (this.inputDate.getDate() === newDate.getDate()) return;
-				this.inputDate = newDate;
-			},
-			10 * 60 * 1000,
-		);
-	}
+	constructor() {
+		effect((onCleanup) => {
+			// Check if it's a new day every 10 minutes
+			const interval = setInterval(
+				() => {
+					const newDate = new Date();
+					if (this.inputDate().getDate() === newDate.getDate()) return;
+					this.inputDate.set(newDate);
+				},
+				10 * 60 * 1000,
+			);
 
-	ngOnDestroy() {
-		clearInterval(this.interval);
+			onCleanup(() => {
+				clearInterval(interval);
+			});
+		});
 	}
 }
 
 @Component({
 	selector: "tbody[file-table-body]",
-	standalone: true,
 	imports: [FileComponent],
 	template: `
 		@for (file of filesArray; track file.id; let i = $index) {
-			@if (onlyShowFiles ? !file.isFolder : true) {
+			@if (onlyShowFiles() ? !file.isFolder : true) {
 				<tr
 					file-item
 					(selected)="onSelected(i)"
-					[isSelected]="selectedIndex === i"
+					[isSelected]="selectedIndex() === i"
 					[fileName]="file.fileName"
 					[href]="file.href"
 					[isFolder]="file.isFolder"
@@ -100,17 +91,17 @@ class FileComponent implements OnInit, OnDestroy {
 	`,
 })
 class FileTableBody {
-	selectedIndex = -1;
+	selectedIndex = signal(-1);
 
 	onSelected(idx: number) {
-		if (this.selectedIndex === idx) {
-			this.selectedIndex = -1;
+		if (this.selectedIndex() === idx) {
+			this.selectedIndex.set(-1);
 			return;
 		}
-		this.selectedIndex = idx;
+		this.selectedIndex.set(idx);
 	}
 
-	@Input() onlyShowFiles = false;
+	onlyShowFiles = input(false);
 
 	filesArray: File[] = [
 		{
@@ -148,7 +139,6 @@ class FileTableBody {
 
 @Component({
 	selector: "file-table-container",
-	standalone: true,
 	template: `
 		<table
 			style="color: #3366FF; border: 2px solid #3366FF; border-spacing: 0; padding: 0.5rem"
@@ -164,7 +154,6 @@ class FileTableContainerComponent {}
 
 @Component({
 	selector: "file-table",
-	standalone: true,
 	imports: [FileTableContainerComponent, FileTableBody],
 	template: `
 		<div>
@@ -177,22 +166,21 @@ class FileTableContainerComponent {}
 					<th>File Type</th>
 					<th>Date</th>
 				</tr>
-				<tbody file-table-body [onlyShowFiles]="onlyShowFiles"></tbody>
+				<tbody file-table-body [onlyShowFiles]="onlyShowFiles()"></tbody>
 			</file-table-container>
 		</div>
 	`,
 })
 class FileTableComponent {
-	onlyShowFiles = false;
+	onlyShowFiles = signal(false);
 
 	toggleOnlyShow() {
-		this.onlyShowFiles = !this.onlyShowFiles;
+		this.onlyShowFiles.set(!this.onlyShowFiles());
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [FileTableComponent],
 	template: `<file-table />`,
 })

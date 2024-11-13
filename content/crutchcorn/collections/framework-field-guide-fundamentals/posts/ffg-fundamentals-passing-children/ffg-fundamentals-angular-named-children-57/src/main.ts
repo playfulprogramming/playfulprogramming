@@ -1,42 +1,40 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, input, output, signal } from "@angular/core";
 
 @Component({
 	selector: "dropdown-comp",
-	standalone: true,
 	template: `
 		<button
 			(click)="toggle.emit()"
 			:aria-expanded="expanded"
 			aria-controls="dropdown-contents"
 		>
-			{{ expanded ? "V" : ">" }} <ng-content select="[header]" />
+			{{ expanded() ? "V" : ">" }} <ng-content select="[header]" />
 		</button>
-		<div id="dropdown-contents" role="region" [hidden]="!expanded">
+		<div id="dropdown-contents" role="region" [hidden]="!expanded()">
 			<ng-content />
 		</div>
 	`,
 })
 class DropdownComponent {
-	@Input() expanded!: boolean;
-	@Output() toggle = new EventEmitter();
+	expanded = input.required<boolean>();
+	toggle = output();
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [DropdownComponent],
 	template: `
-		<dropdown-comp [expanded]="expanded" (toggle)="expanded = !expanded">
+		<dropdown-comp [expanded]="expanded()" (toggle)="expanded.set(!expanded())">
 			<ng-container header>Let's build this dropdown component</ng-container>
 			These tend to be useful for FAQ pages, hidden contents, and more!
 		</dropdown-comp>
 	`,
 })
 class AppComponent {
-	expanded = false;
+	expanded = signal(false);
 }
 
 bootstrapApplication(AppComponent);

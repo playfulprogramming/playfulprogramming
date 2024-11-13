@@ -1,37 +1,35 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, Input } from "@angular/core";
+import { Component, input, signal } from "@angular/core";
 
 @Component({
 	selector: "toggle-button",
-	standalone: true,
 	template: `
 		<button
 			(click)="togglePressed()"
 			[style]="
-				pressed
+				pressed()
 					? 'background-color: black; color: white;'
 					: 'background-color: white;color: black'
 			"
 			type="button"
-			[attr.aria-pressed]="pressed"
+			[attr.aria-pressed]="pressed()"
 		>
-			{{ text }}
+			{{ text() }}
 		</button>
 	`,
 })
 class ToggleButtonComponent {
-	@Input() text!: string;
-	pressed = false;
+	text = input.required<string>();
+	pressed = signal(false);
 	togglePressed() {
-		this.pressed = !this.pressed;
+		this.pressed.set(!this.pressed());
 	}
 }
 
 @Component({
 	selector: "toggle-button-list",
-	standalone: true,
 	imports: [ToggleButtonComponent],
 	template: `
 		<toggle-button text="Hello world!" />
@@ -42,7 +40,6 @@ class ToggleButtonListComponent {}
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ToggleButtonListComponent],
 	template: ` <toggle-button-list /> `,
 })
