@@ -5,7 +5,6 @@ import { Component, effect } from "@angular/core";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	template: ` <p>Hello, world!</p> `,
 })
 class AppComponent {

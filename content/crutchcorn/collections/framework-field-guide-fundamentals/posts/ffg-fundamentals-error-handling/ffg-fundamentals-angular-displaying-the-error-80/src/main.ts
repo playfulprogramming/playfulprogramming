@@ -14,7 +14,6 @@ class MyErrorHandler implements ErrorHandler {
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
 	template: `<p>Testing</p>`,
 })
 class ChildComponent {
@@ -28,7 +27,6 @@ class ChildComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ChildComponent],
 	template: `
 		@if (errorHandler.error()) {

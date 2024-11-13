@@ -165,7 +165,6 @@ class ErrorCatcher {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [LayoutComponent, SidebarComponent, ErrorCatcher],
 	template: `
 		<error-catcher>
