@@ -1,7 +1,7 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, ViewChildren, QueryList, ElementRef } from "@angular/core";
+import { Component, ElementRef, viewChildren } from "@angular/core";
 
 @Component({
 	selector: "app-root",
@@ -22,14 +22,14 @@ import { Component, ViewChildren, QueryList, ElementRef } from "@angular/core";
 	`,
 })
 class AppComponent {
-	@ViewChildren("listItem") els!: QueryList<ElementRef<HTMLElement>>;
+	els = viewChildren("listItem", { read: ElementRef<HTMLElement> });
 
 	scrollToTop() {
-		this.els.get(0)!.nativeElement.scrollIntoView();
+		this.els()[0]!.nativeElement.scrollIntoView();
 	}
 
 	scrollToBottom() {
-		this.els.get(this.els.length - 1)!.nativeElement.scrollIntoView();
+		this.els()[this.els().length - 1]!.nativeElement.scrollIntoView();
 	}
 
 	messages = [

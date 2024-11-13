@@ -1,19 +1,28 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import {
+	afterRenderEffect,
+	Component,
+	ElementRef,
+	viewChild,
+} from "@angular/core";
 
 @Component({
 	selector: "paragraph-tag",
-	standalone: true,
-	template: `<p #pTag>Hello, world!</p>`,
+	template: `
+		@if (true) {
+			<p #pTag>Hello, world!</p>
+		}
+	`,
 })
-class RenderParagraphComponent implements OnInit {
-	@ViewChild("pTag") pTag!: ElementRef<HTMLElement>;
+class RenderParagraphComponent {
+	pTag = viewChild.required("pTag", { read: ElementRef<HTMLElement> });
 
-	ngOnInit() {
-		// This will show `undefined`
-		alert(this.pTag);
+	constructor() {
+		afterRenderEffect(() => {
+			console.log(this.pTag().nativeElement);
+		});
 	}
 }
 

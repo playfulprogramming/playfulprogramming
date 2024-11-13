@@ -1,7 +1,7 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, OnInit, EventEmitter, Output } from "@angular/core";
+import { Component, signal } from "@angular/core";
 
 /**
  * This code sample is inaccessible and generally not
@@ -13,22 +13,20 @@ import { Component, OnInit, EventEmitter, Output } from "@angular/core";
  */
 @Component({
 	selector: "app-root",
-	standalone: true,
-	imports: [],
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div (contextmenu)="open($event)">Right click on me!</div>
 		</div>
-		@if (isOpen) {
+		@if (isOpen()) {
 			<div
 				[style]="
 					'
       position: fixed;
       top: ' +
-					mouseBounds.y +
+					mouseBounds().y +
 					'px;
       left: ' +
-					mouseBounds.x +
+					mouseBounds().x +
 					'px;
       background: white;
       border: 1px solid black;
@@ -44,25 +42,25 @@ import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 	`,
 })
 class AppComponent {
-	isOpen = false;
+	isOpen = signal(false);
 
-	mouseBounds = {
+	mouseBounds = signal({
 		x: 0,
 		y: 0,
-	};
+	});
 
 	close() {
-		this.isOpen = false;
+		this.isOpen.set(false);
 	}
 
 	open(e: MouseEvent) {
 		e.preventDefault();
-		this.isOpen = true;
-		this.mouseBounds = {
+		this.isOpen.set(true);
+		this.mouseBounds.set({
 			// Mouse position on click
 			x: e.clientX,
 			y: e.clientY,
-		};
+		});
 	}
 }
 
