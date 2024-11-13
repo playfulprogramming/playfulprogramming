@@ -35,7 +35,7 @@ See, when you're building a website using only static HTML, the output to the DO
 </main>
 ```
 
-![A chart showing the document object model layout of the above code. It shows that the 'main' tag is the parent to a 'ul' tag, and so on](../../../../posts/understanding-the-dom/dom_tree.svg)
+![A chart showing the document object model layout of the above code. It shows that the 'main' tag is the parent to a 'ul' tag, and so on](../../../../../ljtech/collections/web-fundamentals/posts/understanding-the-dom/dom_tree.svg)
 
 The problems start when we want to introduce interactivity into our output. 
 

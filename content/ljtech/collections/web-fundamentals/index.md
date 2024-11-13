@@ -9,14 +9,7 @@
     tags: ["css", "design", "html"],
     published: "2024-08-18T13:45:00.284Z",
     buttons: [{ text: "Read now", url: "/posts/web-fundamentals-html" }],
-    authors: ["ljtech","edpratti"],
-    chapterList: [
-    {
-      order: '✍️',
-      title: "Coming soon: JavaScript",
-      description: "In the last installment of Web Fundamentals, we learn how to program! JavaScript gives us interactivity and the ability to add logic to our designs.",
-    },
-  ],
+    authors: ["ljtech","edpratti", "obibaratt"]
 }
 ---
 
