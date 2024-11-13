@@ -4,24 +4,22 @@ import { bootstrapApplication } from "@angular/platform-browser";
 import {
 	Injectable,
 	Component,
-	OnDestroy,
 	ElementRef,
-	EventEmitter,
-	ViewChildren,
-	ViewChild,
-	QueryList,
-	Output,
-	Input,
 	inject,
-	OnInit,
-	AfterViewInit,
+	viewChild,
+	viewChildren,
+	signal,
+	afterRenderEffect,
+	output,
+	input,
+	OutputEmitterRef,
 } from "@angular/core";
 
 @Injectable()
-class CloseIfOutSideContext implements OnDestroy {
+class CloseIfOutSideContext {
 	getCloseIfOutsideFunction = (
 		contextMenu: ElementRef<HTMLElement>,
-		close: EventEmitter<any>,
+		close: OutputEmitterRef<void>,
 	) => {
 		return (e: MouseEvent) => {
 			const contextMenuEl = contextMenu?.nativeElement;
@@ -32,17 +30,21 @@ class CloseIfOutSideContext implements OnDestroy {
 		};
 	};
 
-	setup(contextMenu: ElementRef<HTMLElement>, close: EventEmitter<any>) {
-		this.closeIfOutsideOfContext = this.getCloseIfOutsideFunction(
-			contextMenu,
-			close,
-		);
-		document.addEventListener("click", this.closeIfOutsideOfContext);
-	}
+	contextMenu!: () => ElementRef;
+	close!: OutputEmitterRef<void>;
 
-	ngOnDestroy() {
-		document.removeEventListener("click", this.closeIfOutsideOfContext);
-		this.closeIfOutsideOfContext = () => {};
+	constructor() {
+		afterRenderEffect((onCleanup) => {
+			this.closeIfOutsideOfContext = this.getCloseIfOutsideFunction(
+				this.contextMenu(),
+				this.close,
+			);
+			document.addEventListener("click", this.closeIfOutsideOfContext);
+			onCleanup(() => {
+				document.removeEventListener("click", this.closeIfOutsideOfContext);
+				this.closeIfOutsideOfContext = () => {};
+			});
+		});
 	}
 
 	closeIfOutsideOfContext: (e: MouseEvent) => void = () => {};
@@ -50,15 +52,14 @@ class CloseIfOutSideContext implements OnDestroy {
 
 @Component({
 	selector: "context-menu",
-	standalone: true,
 	template: `
 		<div
 			#contextMenu
 			tabIndex="0"
 			[style]="{
 				position: 'fixed',
-				top: y + 20,
-				left: x + 20,
+				top: y() + 20,
+				left: x() + 20,
 				background: 'white',
 				border: '1px solid black',
 				borderRadius: 16,
@@ -71,98 +72,103 @@ class CloseIfOutSideContext implements OnDestroy {
 	`,
 	providers: [CloseIfOutSideContext],
 })
-class ContextMenuComponent implements OnInit {
-	@ViewChild("contextMenu", { static: true })
-	contextMenu!: ElementRef<HTMLElement>;
+class ContextMenuComponent {
+	contextMenu = viewChild.required("contextMenu", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	@Input() x: number = 0;
-	@Input() y: number = 0;
-	@Output() close = new EventEmitter();
+	x = input(0);
+	y = input(0);
+	close = output();
 
-	closeIfOutside = inject(CloseIfOutSideContext);
-
-	ngOnInit() {
-		this.closeIfOutside.setup(this.contextMenu, this.close);
+	constructor() {
+		const closeIfOutside = inject(CloseIfOutSideContext);
+		closeIfOutside.close = this.close;
+		closeIfOutside.contextMenu = this.contextMenu;
 	}
 
 	focus() {
-		this.contextMenu.nativeElement.focus();
+		this.contextMenu().nativeElement.focus();
 	}
 }
 
 @Injectable()
-class BoundsContext implements OnDestroy {
-	bounds = {
+class BoundsContext {
+	bounds = signal({
 		height: 0,
 		width: 0,
 		x: 0,
 		y: 0,
-	};
+	});
 
-	contextOrigin: ElementRef | undefined;
+	contextOrigin!: () => ElementRef;
 
 	resizeListener = () => {
 		if (!this.contextOrigin) return;
-		this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
+		this.bounds.set(this.contextOrigin().nativeElement.getBoundingClientRect());
 	};
 
-	setup(contextOrigin: ElementRef) {
-		this.bounds = contextOrigin.nativeElement.getBoundingClientRect();
-		this.contextOrigin = contextOrigin;
+	constructor() {
+		afterRenderEffect((onCleanup) => {
+			this.bounds.set(
+				this.contextOrigin().nativeElement.getBoundingClientRect(),
+			);
 
-		window.addEventListener("resize", this.resizeListener);
-	}
-
-	ngOnDestroy() {
-		window.removeEventListener("resize", this.resizeListener);
-		this.contextOrigin = undefined;
+			window.addEventListener("resize", this.resizeListener);
+			onCleanup(() => {
+				window.removeEventListener("resize", this.resizeListener);
+			});
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ContextMenuComponent],
 	template: `
 		<div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
 			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
 		</div>
-		@if (isOpen) {
+		@if (isOpen()) {
 			<context-menu
 				#contextMenu
-				[x]="boundsContext.bounds.x"
-				[y]="boundsContext.bounds.y"
+				[x]="boundsContext.bounds().x"
+				[y]="boundsContext.bounds().y"
 				(close)="close()"
 			></context-menu>
 		}
 	`,
 	providers: [BoundsContext],
 })
-class AppComponent implements AfterViewInit {
-	@ViewChild("contextOrigin")
-	contextOrigin!: ElementRef<HTMLElement>;
-	@ViewChildren("contextMenu") contextMenu!: QueryList<ContextMenuComponent>;
+class AppComponent {
+	contextOrigin = viewChild.required("contextOrigin", {
+		read: ElementRef<HTMLElement>,
+	});
+	contextMenu = viewChildren("contextMenu", { read: ContextMenuComponent });
 
-	isOpen = false;
+	isOpen = signal(false);
 
 	boundsContext = inject(BoundsContext);
 
-	ngAfterViewInit() {
-		this.boundsContext.setup(this.contextOrigin);
-		this.contextMenu.changes.forEach(() => {
-			const isLoaded = this?.contextMenu?.first;
-			if (!isLoaded) return;
-			this.contextMenu.first.focus();
+	constructor() {
+		this.boundsContext.contextOrigin = this.contextOrigin;
+
+		afterRenderEffect(() => {
+			this.contextMenu().forEach(() => {
+				const isLoaded = this?.contextMenu()[0];
+				if (!isLoaded) return;
+				this.contextMenu()[0].focus();
+			});
 		});
 	}
 
 	close() {
-		this.isOpen = false;
+		this.isOpen.set(false);
 	}
 
 	open(e: UIEvent) {
 		e.preventDefault();
-		this.isOpen = true;
+		this.isOpen.set(true);
 	}
 }
 
