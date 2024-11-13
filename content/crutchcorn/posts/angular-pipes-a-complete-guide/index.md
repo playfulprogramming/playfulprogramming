@@ -8,22 +8,118 @@
 }
 ---
 
-To solve the derived value problem without recomputing the values manually, Angular introduces the concept of a "pipe" into the mix of things. The idea is that a pipe runs over an input (or series of inputs), just like React's `useMemo`.
+As I explain in [my book, The Framework Field Guide, that teaches React, Angular, and Vue all at once](/posts/ffg-fundamentals-derived-values), having derived data is mission critical for any sufficiently mature and production-ready framework.
+
+The general idea is as such:
+
+```javascript
+const count = 1;
+// How to get this to regenerate when the variable above changes
+const doubleCount = count * 2;
+// Such that this bit of UI is always up-to-date
+el.innerText = doubleCount;
+```
+
+While Angular has a great way of handling this inside of class logic via `computed`:
 
 ```angular-ts
+@Component({
+    selector: "app-root"
+	template: `
+		<p>{{doubleCount}}</p>
+	`
+})
+class AppComponent {
+	count = signal(1);
+	doubleCount = computed(() => this.count() * 2);
+}
+```
+
+It's often not a perfect solution when you need an in-template variable.
+
+For example, let's say that you had a list of dates you wanted to display to your user:
+
+```angular-ts
+@Component({
+    selector: "app-root"
+	template: `
+		@for (dateObj of dates(); track dateObj) {
+			<p>{{dateObj}}</p>
+		}
+	`
+})
+class AppComponent {
+	dates = signal([
+        new Date("03-15-2005"),
+        new Date("07-21-2010"),
+        new Date("11-02-2017"),
+        new Date("06-08-2003"),
+        new Date("09-27-2014")
+    ]);
+}
+```
+
+Now, to visually display the date in a form akin to `"March 15, 2005"`, we'd need to pass each `Date` object through `Intl.DateTimeFormat` like so:
+
+```typescript
+new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+}).format(dateGoesHere);
+```
+
+We can do this using a `computed` field:
+
+```angular-ts
+@Component({
+    selector: "app-root"
+	template: `
+		@for (dateObj of dates; track dateObj) {
+			<p>{{dateObj}}</p>
+		}
+	`
+})
+class AppComponent {
+	dates = signal([
+        new Date("03-15-2005"),
+        new Date("07-21-2010"),
+        new Date("11-02-2017"),
+        new Date("06-08-2003"),
+        new Date("09-27-2014")
+    ]);
+    
+    displayableDates = computed(() => this.dates.map(date =>
+    	new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+   	 	}).format(date)
+    );
+}
+```
+
+But this can be a bit verbose and tricky to keep track of in larger codebases.
+
+Instead, Angular provides us a different API: Pipes.
+
+# Introducing pipes {#intro}
+
+To solve this problem, Angular introduced a nice way to call functions right from the template itself.
+
+We start with the `@Pipe` definition:
+
+```typescript
 import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({ name: "formatDate" })
 class FormatDatePipe implements PipeTransform {
 	transform(value: Date): string {
-		return formatDate(value);
-	}
-}
-
-@Pipe({ name: "formatReadableDate" })
-class FormatReadableDatePipe implements PipeTransform {
-	transform(value: Date): string {
-		return formatReadableDate(value);
+		return new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+   	 	}).format(value);
 	}
 }
 ```
@@ -32,37 +128,45 @@ You may then use these pipes in your components directly inside the template.
 
 ```angular-ts
 @Component({
-	selector: "file-date",
-	imports: [FormatReadableDatePipe, FormatDatePipe],
+    selector: "app-root"
+	imports: [FormatDatePipe],
 	template: `
-		<span [attr.aria-label]="inputDate | formatReadableDate">
-			{{ inputDate | formatDate }}
-		</span>
-	`,
+		@for (dateObj of dates; track dateObj) {
+			<p>{{dateObj | formatDate}}</p>
+		}
+	`
 })
-class FileDateComponent {
-	@Input() inputDate!: Date;
+class AppComponent {
+	dates = signal([
+        new Date("03-15-2005"),
+        new Date("07-21-2010"),
+        new Date("11-02-2017"),
+        new Date("06-08-2003"),
+        new Date("09-27-2014")
+    ]);
 }
 ```
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Computed Values - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-computed-values-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 # Multiple Input Pipes {#multi-input-pipes}
 
 You may notice the similarities between pipes and functions. After all, pipes are effectively functions you're able to call in your template. Much like functions, they're not limited to a single input property, either.
 
-Let's add a second input to see if the `formatDate` pipe should return a readable date or not.
+Let's add a second input to have `formatDate` return a specific date format.
 
-```angular-ts
+```typescript
 @Pipe({ name: "formatDate" })
 class FormatDatePipe implements PipeTransform {
 	// `dateFormat` is an optional argument. If left empty, will simply `formatDate`
 	transform(value: Date, dateFormat?: string): string {
 		// Stands for "Long format month, day of month, year"
-		if (dateFormat === "MMMM d, Y") return formatReadableDate(value);
-		return formatDate(value);
+		if (dateFormat === "MMMM d, Y") return new Intl.DateTimeFormat("en-US").format(value);
+		return new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+   	 	}).format(value);
 	}
 }
 ```
@@ -71,22 +175,26 @@ Then, we can use it in our template while passing a second argument:
 
 ```angular-ts
 @Component({
-	selector: "file-date",
+    selector: "app-root"
 	imports: [FormatDatePipe],
 	template: `
-		<span [attr.aria-label]="inputDate | formatDate: 'MMMM d, Y'">
-			{{ inputDate | formatDate }}
-		</span>
-	`,
+		@for (dateObj of dates; track dateObj) {
+			<p>{{dateObj | formatDate: 'MMMM d, Y'}}</p>
+		}
+	`
 })
-class FileDateComponent {
-	@Input() inputDate: Date;
+class AppComponent {
+	dates = signal([
+        new Date("03-15-2005"),
+        new Date("07-21-2010"),
+        new Date("11-02-2017"),
+        new Date("06-08-2003"),
+        new Date("09-27-2014")
+    ]);
 }
 ```
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Multi Input Pipes - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-multi-input-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 # Built-In Pipes {#built-in-pipes}
 
@@ -98,22 +206,26 @@ To use the built-in pipes, we need to import them from `CommonModule` into the c
 import { DatePipe } from "@angular/common";
 
 @Component({
-	selector: "file-date",
+    selector: "app-root"
 	imports: [DatePipe],
 	template: `
-		<span [attr.aria-label]="inputDate | date: 'MMMM d, Y'">
-			{{ inputDate | date }}
-		</span>
-	`,
+		@for (dateObj of dates; track dateObj) {
+			<p>{{dateObj | date: 'MMMM d, Y'}}</p>
+		}
+	`
 })
-class FileDateComponent {
-	@Input() inputDate!: Date;
+class AppComponent {
+	dates = signal([
+        new Date("03-15-2005"),
+        new Date("07-21-2010"),
+        new Date("11-02-2017"),
+        new Date("06-08-2003"),
+        new Date("09-27-2014")
+    ]);
 }
 ```
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Built-In Pipes - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-built-in-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 ## List of Built-in Pipes
 
@@ -171,9 +283,7 @@ class CountAndDoubleComponent {
 }
 ```
 
-<!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Non-Prop Derived - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
 
 # Performance Concerns
 
