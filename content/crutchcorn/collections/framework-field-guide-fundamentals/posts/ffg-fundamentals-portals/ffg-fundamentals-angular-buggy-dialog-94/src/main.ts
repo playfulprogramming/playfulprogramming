@@ -1,11 +1,10 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import { Component, signal } from "@angular/core";
 
 @Component({
 	selector: "delete-modal",
-	standalone: true,
 	template: `
 		<div>
 			<div class="modal-container">
@@ -26,7 +25,6 @@ class ModalComponent {}
 
 @Component({
 	selector: "delete-icon",
-	standalone: true,
 	template: `
 		<svg viewBox="0 0 20 21">
 			<path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
@@ -42,7 +40,6 @@ class DeleteIconComponent {}
 
 @Component({
 	selector: "folder-icon",
-	standalone: true,
 	template: `
 		<svg viewBox="0 0 20 16">
 			<path
@@ -56,14 +53,12 @@ class FolderIconComponent {}
 
 @Component({
 	selector: "footer-comp",
-	standalone: true,
 	template: ` <div class="footer-container">Copyright 2022</div> `,
 })
 class FooterComponent {}
 
 @Component({
 	selector: "body-comp",
-	standalone: true,
 	imports: [FolderIconComponent],
 	template: `
 		<ul class="list-container">
@@ -82,11 +77,10 @@ class BodyComponent {
 
 @Component({
 	selector: "header-comp",
-	standalone: true,
 	imports: [ModalComponent, FolderIconComponent, DeleteIconComponent],
 	template: `
 		<div class="header-container">
-			@if (shouldShowModal) {
+			@if (shouldShowModal()) {
 				<delete-modal />
 			}
 			<span class="icon-container">
@@ -101,16 +95,15 @@ class BodyComponent {
 	`,
 })
 class HeaderComponent {
-	shouldShowModal = false;
+	shouldShowModal = signal(false);
 
 	showModal() {
-		this.shouldShowModal = true;
+		this.shouldShowModal.set(true);
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [HeaderComponent, BodyComponent, FooterComponent],
 	template: `
 		<div>
