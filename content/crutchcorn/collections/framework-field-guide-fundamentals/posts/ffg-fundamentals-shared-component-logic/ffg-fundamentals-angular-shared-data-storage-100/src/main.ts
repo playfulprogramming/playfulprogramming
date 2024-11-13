@@ -11,7 +11,6 @@ class WindowSize {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	template: `
 		<p>
 			The window is {{ windowSize.height }}px high and {{ windowSize.width }}px
