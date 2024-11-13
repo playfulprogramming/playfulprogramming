@@ -1,14 +1,7 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import {
-	Directive,
-	Component,
-	OnInit,
-	Input,
-	inject,
-	TemplateRef,
-} from "@angular/core";
+import { Directive, Component, inject, TemplateRef } from "@angular/core";
 
 function injectTemplateAndLog() {
 	const template = inject(TemplateRef);
@@ -18,15 +11,15 @@ function injectTemplateAndLog() {
 
 @Directive({
 	selector: "[item]",
-	standalone: true,
 })
 class ItemDirective {
-	_template = injectTemplateAndLog();
+	constructor() {
+		injectTemplateAndLog();
+	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ItemDirective],
 	template: `
 		<div>

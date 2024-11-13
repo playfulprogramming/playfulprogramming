@@ -6,27 +6,27 @@ import {
 	inject,
 	ElementRef,
 	Directive,
-	OnInit,
-	Input,
+	effect,
+	input,
 } from "@angular/core";
 
 @Directive({
 	selector: "[styleBackground]",
-	standalone: true,
 })
-class StyleBackgroundDirective implements OnInit {
-	@Input() styleBackground!: string;
+class StyleBackgroundDirective {
+	styleBackground = input.required<string>();
 
 	el = inject(ElementRef<any>);
 
-	ngOnInit() {
-		this.el.nativeElement.style.background = this.styleBackground;
+	constructor() {
+		effect(() => {
+			this.el.nativeElement.style.background = this.styleBackground();
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [StyleBackgroundDirective],
 	template: ` <button styleBackground="#FFAEAE">Hello, world</button> `,
 })

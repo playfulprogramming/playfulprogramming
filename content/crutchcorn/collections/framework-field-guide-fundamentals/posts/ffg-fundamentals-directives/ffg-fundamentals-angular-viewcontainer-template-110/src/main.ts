@@ -10,7 +10,7 @@ import {
 } from "@angular/core";
 
 function injectAndRenderTemplate() {
-	const templToRender = inject(TemplateRef<any>);
+	const templToRender = inject(TemplateRef);
 	const parentViewRef = inject(ViewContainerRef);
 
 	parentViewRef.createEmbeddedView(templToRender);
@@ -19,15 +19,15 @@ function injectAndRenderTemplate() {
 
 @Directive({
 	selector: "[passBackground]",
-	standalone: true,
 })
 class PassBackgroundDirective {
-	template = injectAndRenderTemplate();
+	constructor() {
+		injectAndRenderTemplate();
+	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [PassBackgroundDirective],
 	template: `
 		<div>

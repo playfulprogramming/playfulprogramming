@@ -11,7 +11,6 @@ function injectElAndStyle() {
 
 @Directive({
 	selector: "[styleBackground]",
-	standalone: true,
 })
 class StyleBackgroundDirective {
 	el = injectElAndStyle();
@@ -19,7 +18,6 @@ class StyleBackgroundDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [StyleBackgroundDirective],
 	template: ` <button styleBackground>Hello, world</button> `,
 })

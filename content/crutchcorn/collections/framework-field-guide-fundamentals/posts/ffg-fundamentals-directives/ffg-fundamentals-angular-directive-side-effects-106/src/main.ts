@@ -6,18 +6,19 @@ import {
 	inject,
 	ElementRef,
 	Directive,
-	OnInit,
+	afterRenderEffect,
 } from "@angular/core";
 
 @Directive({
 	selector: "[focusElement]",
-	standalone: true,
 })
-class StyleBackgroundDirective implements OnInit {
+class StyleBackgroundDirective {
 	el = inject(ElementRef<any>);
 
-	ngOnInit() {
-		this.el.nativeElement.focus();
+	constructor() {
+		afterRenderEffect(() => {
+			this.el.nativeElement.focus();
+		});
 	}
 }
 

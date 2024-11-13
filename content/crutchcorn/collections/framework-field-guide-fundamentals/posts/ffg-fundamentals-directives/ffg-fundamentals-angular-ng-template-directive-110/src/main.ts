@@ -5,7 +5,6 @@ import { Directive, Component } from "@angular/core";
 
 @Directive({
 	selector: "[beOnTemplate]",
-	standalone: true,
 })
 class TemplateDirective {
 	constructor() {
@@ -15,7 +14,6 @@ class TemplateDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [TemplateDirective],
 	template: ` <ng-template beOnTemplate><p>Hello, world</p></ng-template> `,
 })

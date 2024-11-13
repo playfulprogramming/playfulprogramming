@@ -1,11 +1,10 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, ElementRef, Directive } from "@angular/core";
+import { Component, Directive } from "@angular/core";
 
 @Directive({
 	selector: "[sayHi]",
-	standalone: true,
 })
 class LogElementDirective {
 	constructor() {
@@ -15,7 +14,6 @@ class LogElementDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [LogElementDirective],
 	template: ` <p sayHi>Hello, world</p> `,
 })

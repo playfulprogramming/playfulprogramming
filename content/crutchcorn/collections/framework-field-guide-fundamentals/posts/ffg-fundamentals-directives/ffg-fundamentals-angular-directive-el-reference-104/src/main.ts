@@ -12,7 +12,6 @@ function findAndLogTheElement() {
 
 @Directive({
 	selector: "[sayHi]",
-	standalone: true,
 })
 class LogElementDirective {
 	el = findAndLogTheElement();
@@ -20,7 +19,6 @@ class LogElementDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [LogElementDirective],
 	template: ` <p sayHi>Hello, world</p> `,
 })

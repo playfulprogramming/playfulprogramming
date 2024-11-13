@@ -6,8 +6,8 @@ import {
 	inject,
 	ElementRef,
 	Directive,
-	OnInit,
-	Input,
+	input,
+	effect,
 } from "@angular/core";
 
 class Color {
@@ -24,23 +24,22 @@ class Color {
 
 @Directive({
 	selector: "[styleBackground]",
-	standalone: true,
 })
-class StyleBackgroundDirective implements OnInit {
-	@Input() styleBackground!: Color;
+class StyleBackgroundDirective {
+	styleBackground = input.required<Color>();
 
 	el = inject(ElementRef<any>);
 
-	ngOnInit() {
-		const color = this.styleBackground;
-		this.el.nativeElement.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
+	constructor() {
+		effect(() => {
+			const color = this.styleBackground();
+			this.el.nativeElement.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-
-	standalone: true,
 	imports: [StyleBackgroundDirective],
 	template: ` <button [styleBackground]="color">Hello, world</button> `,
 })

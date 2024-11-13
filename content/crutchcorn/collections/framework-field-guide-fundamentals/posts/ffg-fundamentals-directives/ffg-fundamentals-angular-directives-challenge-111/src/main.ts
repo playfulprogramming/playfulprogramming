@@ -6,12 +6,11 @@ import {
 	Component,
 	inject,
 	Injectable,
-	Input,
-	OnDestroy,
 	TemplateRef,
 	ViewContainerRef,
 	ViewEncapsulation,
-	AfterViewInit,
+	afterRenderEffect,
+	input,
 } from "@angular/core";
 import { DomPortal, DomPortalOutlet } from "@angular/cdk/portal";
 
@@ -30,28 +29,18 @@ class PortalService {
 
 @Directive({
 	selector: "[tooltip]",
-	standalone: true,
 })
-class TooltipDirective implements AfterViewInit, OnDestroy {
-	@Input("tooltip") tooltipBase!: HTMLElement;
+class TooltipDirective {
+	tooltip = input.required<HTMLElement>();
 	viewContainerRef = inject(ViewContainerRef);
-	templToRender = inject(TemplateRef<any>);
+	templToRender = inject(TemplateRef);
 
 	portalService = inject(PortalService);
-
-	ngAfterViewInit() {
-		this.tooltipBase.addEventListener("mouseenter", () => {
-			this.showTooltip();
-		});
-		this.tooltipBase.addEventListener("mouseleave", () => {
-			this.hideTooltip();
-		});
-	}
 
 	el: HTMLElement | null = null;
 
 	showTooltip = () => {
-		const { left, bottom } = this.tooltipBase.getBoundingClientRect();
+		const { left, bottom } = this.tooltip().getBoundingClientRect();
 
 		const viewRef = this.viewContainerRef.createEmbeddedView(
 			this.templToRender,
@@ -79,14 +68,24 @@ class TooltipDirective implements AfterViewInit, OnDestroy {
 		this.el?.remove();
 	};
 
-	ngOnDestroy() {
-		this.hideTooltip();
+	constructor() {
+		afterRenderEffect((onCleanup) => {
+			this.tooltip().addEventListener("mouseenter", () => {
+				this.showTooltip();
+			});
+			this.tooltip().addEventListener("mouseleave", () => {
+				this.hideTooltip();
+			});
+
+			onCleanup(() => {
+				this.hideTooltip();
+			});
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [TooltipDirective],
 	template: `
 		<div>

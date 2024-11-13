@@ -6,7 +6,6 @@ import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [NgTemplateOutlet],
 	template: `
 		<ng-template #templ let-name="name">
