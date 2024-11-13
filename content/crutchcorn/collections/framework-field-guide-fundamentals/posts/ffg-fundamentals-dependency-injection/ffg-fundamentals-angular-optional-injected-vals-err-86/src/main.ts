@@ -9,7 +9,6 @@ class InjectedValue {
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
 	template: `<p>{{ injectedValue.message }}</p>`,
 })
 class ChildComponent {
@@ -18,7 +17,6 @@ class ChildComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ChildComponent],
 	template: `<child-comp />`,
 })

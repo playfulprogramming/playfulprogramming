@@ -9,7 +9,6 @@ class InjectedValue {
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
 	template: `
 		@if (injectedValue) {
 			<div>{{ injectedValue.message }}</div>
@@ -19,10 +18,10 @@ class InjectedValue {
 		}
 	`,
 })
-class ChildComponent implements OnInit {
+class ChildComponent {
 	injectedValue = inject(InjectedValue, { optional: true });
 
-	ngOnInit() {
+	constructor() {
 		// undefined
 		console.log(this.injectedValue);
 	}
@@ -30,7 +29,6 @@ class ChildComponent implements OnInit {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ChildComponent],
 	template: `<child-comp />`,
 })
