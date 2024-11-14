@@ -1,9 +1,9 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, Pipe, PipeTransform } from "@angular/core";
+import { Component, Pipe, PipeTransform, signal } from "@angular/core";
 
-@Pipe({ name: "doubleNum", standalone: true })
+@Pipe({ name: "doubleNum" })
 class DoubleNumPipe implements PipeTransform {
 	transform(value: number): number {
 		return value * 2;
@@ -11,23 +11,22 @@ class DoubleNumPipe implements PipeTransform {
 }
 
 @Component({
-	selector: "count-and-double",
-	standalone: true,
+	selector: "app-root",
 	imports: [DoubleNumPipe],
 	template: `
 		<div>
-			<p>{{ number }}</p>
-			<p>{{ number | doubleNum }}</p>
+			<p>{{ number() }}</p>
+			<p>{{ number() | doubleNum }}</p>
 			<button (click)="addOne()">Add one</button>
 		</div>
 	`,
 })
-class CountAndDoubleComponent {
-	number = 0;
+class AppComponent {
+	number = signal(0);
 
 	addOne() {
-		this.number++;
+		this.number.set(this.number() + 1);
 	}
 }
 
-bootstrapApplication(CountAndDoubleComponent);
+bootstrapApplication(AppComponent);

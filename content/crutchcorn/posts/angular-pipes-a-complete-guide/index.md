@@ -24,7 +24,7 @@ While Angular has a great way of handling this inside of class logic via `comput
 
 ```angular-ts
 @Component({
-    selector: "app-root"
+    selector: "app-root",
 	template: `
 		<p>{{doubleCount}}</p>
 	`
@@ -41,7 +41,7 @@ For example, let's say that you had a list of dates you wanted to display to you
 
 ```angular-ts
 @Component({
-    selector: "app-root"
+    selector: "app-root",
 	template: `
 		@for (dateObj of dates(); track dateObj) {
 			<p>{{dateObj}}</p>
@@ -73,9 +73,9 @@ We can do this using a `computed` field:
 
 ```angular-ts
 @Component({
-    selector: "app-root"
+    selector: "app-root",
 	template: `
-		@for (dateObj of dates; track dateObj) {
+		@for (dateObj of dates(); track dateObj) {
 			<p>{{dateObj}}</p>
 		}
 	`
@@ -128,10 +128,10 @@ You may then use these pipes in your components directly inside the template.
 
 ```angular-ts
 @Component({
-    selector: "app-root"
+    selector: "app-root",
 	imports: [FormatDatePipe],
 	template: `
-		@for (dateObj of dates; track dateObj) {
+		@for (dateObj of dates(); track dateObj) {
 			<p>{{dateObj | formatDate}}</p>
 		}
 	`
@@ -147,7 +147,7 @@ class AppComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Computed Values - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-computed-values-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Intro to Pipes - StackBlitz" src="pfp-code:./intro-to-pipes-1?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 # Multiple Input Pipes {#multi-input-pipes}
 
@@ -158,16 +158,18 @@ Let's add a second input to have `formatDate` return a specific date format.
 ```typescript
 @Pipe({ name: "formatDate" })
 class FormatDatePipe implements PipeTransform {
-	// `dateFormat` is an optional argument. If left empty, will simply `formatDate`
-	transform(value: Date, dateFormat?: string): string {
-		// Stands for "Long format month, day of month, year"
-		if (dateFormat === "MMMM d, Y") return new Intl.DateTimeFormat("en-US").format(value);
-		return new Intl.DateTimeFormat("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-   	 	}).format(value);
-	}
+    // `dateFormat` is an optional argument. If left empty, will simply `DateTimeFormat`
+    transform(value: Date, dateFormat?: string): string {
+        // Stands for "Long format month, day of month, year"
+        if (dateFormat === "MMMM d, Y") {
+            return new Intl.DateTimeFormat("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            }).format(value);
+        }
+        return new Intl.DateTimeFormat("en-US").format(value);
+    }
 }
 ```
 
@@ -175,10 +177,10 @@ Then, we can use it in our template while passing a second argument:
 
 ```angular-ts
 @Component({
-    selector: "app-root"
+    selector: "app-root",
 	imports: [FormatDatePipe],
 	template: `
-		@for (dateObj of dates; track dateObj) {
+		@for (dateObj of dates(); track dateObj) {
 			<p>{{dateObj | formatDate: 'MMMM d, Y'}}</p>
 		}
 	`
@@ -194,7 +196,7 @@ class AppComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Multi Input Pipes - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-multi-input-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Multi Input Pipes - StackBlitz" src="pfp-code:./multi-input-pipes-2?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 # Built-In Pipes {#built-in-pipes}
 
@@ -206,10 +208,10 @@ To use the built-in pipes, we need to import them from `CommonModule` into the c
 import { DatePipe } from "@angular/common";
 
 @Component({
-    selector: "app-root"
+    selector: "app-root",
 	imports: [DatePipe],
 	template: `
-		@for (dateObj of dates; track dateObj) {
+		@for (dateObj of dates(); track dateObj) {
 			<p>{{dateObj | date: 'MMMM d, Y'}}</p>
 		}
 	`
@@ -225,7 +227,7 @@ class AppComponent {
 }
 ```
 
-<iframe data-frame-title="Angular Built-In Pipes - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-built-in-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Built-In Pipes - StackBlitz" src="pfp-code:./built-in-pipes-3?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 ## List of Built-in Pipes
 
@@ -258,32 +260,32 @@ Let's say that we have a piece of state called `number` in our component and wan
 ```angular-ts
 @Pipe({ name: "doubleNum" })
 class DoubleNumPipe implements PipeTransform {
-	transform(value: number): number {
-		return value * 2;
-	}
+  transform(value: number): number {
+    return value * 2;
+  }
 }
 
 @Component({
-	selector: "count-and-double",
-	imports: [DoubleNumPipe],
-	template: `
-		<div>
-			<p>{{ number }}</p>
-			<p>{{ number | doubleNum }}</p>
-			<button (click)="addOne()">Add one</button>
-		</div>
-	`,
+  selector: "app-root",
+  imports: [DoubleNumPipe],
+  template: `
+    <div>
+      <p>{{ number() }}</p>
+      <p>{{ number() | doubleNum }}</p>
+      <button (click)="addOne()">Add one</button>
+    </div>
+  `,
 })
-class CountAndDoubleComponent {
-	number = 0;
+class AppComponent {
+  number = signal(0);
 
-	addOne() {
-		this.number++;
-	}
+  addOne() {
+    this.number.set(this.number() + 1);
+  }
 }
 ```
 
-<iframe data-frame-title="Angular Non-Prop Derived - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Non-Prop Derived - StackBlitz" src="pfp-code:./non-prop-derived-4?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
 # Performance Concerns
 
