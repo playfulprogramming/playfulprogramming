@@ -352,7 +352,9 @@ We can add `pure: false` to the pipe and, voila, it works!
 
 # Using Services in Pipes
 
-// TODO: "Just like components or directives"
+Some folks have asked me how they can use [Angular's dependency injection](posts/ffg-fundamentals-dependency-injection) in pipes.
+
+Well, luckily for us it's no different than using the `inject` function in a `@Component` or `@Directive`:
 
 ```angular-ts
 @Injectable({ providedIn: "root" })
@@ -381,3 +383,5 @@ class GreetingPipe implements PipeTransform {
 class AppComponent {
 }
 ```
+
+<iframe data-frame-title="DI - StackBlitz" src="pfp-code:./di-6?template=node&embed=1&file=src%2Fmain.ts"></iframe>
