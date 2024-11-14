@@ -2,7 +2,7 @@
 {
     title: "Quick Guide to Building a PWA with Next.js",
     description: "Learn how to turn your Next.js app into a Progressive Web App (PWA).",
-    published: '2023-11-13T10:00:00.000Z',
+    published: '2024-11-14T10:00:00.000Z',
     tags: ['nextjs', 'react', 'webdev', 'pwa'],
     license: 'cc-by-nc-sa-4',
 }
