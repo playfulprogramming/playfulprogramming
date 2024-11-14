@@ -289,12 +289,66 @@ class AppComponent {
 
 # Performance Concerns
 
-// TODO: Talk about `pure: true` and how it differs from existing pipes
+Let's talk about performance for a moment. While pipes default to their most performant capabilities out-of-the-box, let's investigate a performance de-opt that you can choose to enable for fringe usecases.
 
-> A pure pipe is only called when Angular detects a change in the value or the parameters passed to a pipe.
-> 
-> An impure pipe is called for every change detection cycle no matter whether the value or parameter(s) changes.
-> https://stackoverflow.com/a/39285608
+See, by default, a pipe will not run multiple times given the same input:
+
+```angular-html
+<!-- Imagine each of these is a re-render of the component -->
+<p>{{ 1 | doubleNum }}</p>
+<p>{{ 1 | doubleNum }}</p>
+<p>{{ 1 | doubleNum }}</p>
+```
+
+Will all return `2` without doing the math to recalulate this result.
+
+However, the way it does this comparison is by strict equality: `===`. This means that if you pass an object and then mutate the reference, it won't track the changes to an object.
+
+So, while this code won't work by default:
+
+```angular-ts
+@Pipe({ name: "getListProps" })
+class GetListPropsPipe implements PipeTransform {
+    transform<T extends object, K extends keyof T>(value: T[], key: K): T[K][] {
+        return value.map((item) => item[key]);
+    }
+}
+
+@Component({
+    selector: "app-root",
+    imports: [GetListPropsPipe, JsonPipe],
+    template: `
+    <div>
+      <p>{{ list | getListProps: "age" | json }}</p>
+      <button (click)="addTenToAges()">Change ages</button>
+    </div>
+  `,
+})
+class AppComponent {
+    list = [
+        {
+            name: "John",
+            age: 30,
+        },
+        {
+            name: "Jane",
+            age: 25,
+        },
+    ];
+
+    addTenToAges() {
+        this.list.forEach((item) => {
+            item.age = item.age + 10;
+        });
+    }
+}
+```
+
+We can add `pure: false` to the pipe and, voila, it works!
+
+<iframe data-frame-title="Unpure Pipe - StackBlitz" src="pfp-code:./unpure-pipe-5?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+> To learn more about object reference and comparison in JavaScript, [check out our article that explains how memory addresses work in JS.](/posts/object-mutation)
 
 # Using Services in Pipes
 
