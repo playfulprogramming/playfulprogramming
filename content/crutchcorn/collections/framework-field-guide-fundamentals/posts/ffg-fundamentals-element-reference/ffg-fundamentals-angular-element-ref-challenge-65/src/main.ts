@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -7,6 +6,7 @@ import {
 	ElementRef,
 	signal,
 	viewChild,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 @Component({
@@ -114,4 +114,6 @@ class AppComponent {
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

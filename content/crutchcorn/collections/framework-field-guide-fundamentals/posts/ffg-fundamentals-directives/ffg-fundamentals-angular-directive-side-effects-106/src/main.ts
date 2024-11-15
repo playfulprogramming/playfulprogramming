@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -7,6 +6,7 @@ import {
 	ElementRef,
 	Directive,
 	afterRenderEffect,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 @Directive({
@@ -24,10 +24,11 @@ class StyleBackgroundDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [StyleBackgroundDirective],
 	template: ` <button focusElement>Hello, world</button> `,
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

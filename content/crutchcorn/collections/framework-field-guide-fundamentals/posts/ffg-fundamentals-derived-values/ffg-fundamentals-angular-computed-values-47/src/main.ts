@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -8,6 +7,7 @@ import {
 	output,
 	input,
 	computed,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 @Component({
@@ -27,7 +27,6 @@ class FileDateComponent {
 
 @Component({
 	selector: "file-item",
-	standalone: true,
 	imports: [FileDateComponent],
 	template: `
 		<button
@@ -79,7 +78,6 @@ class FileComponent {
 
 @Component({
 	selector: "file-list",
-	standalone: true,
 	imports: [FileComponent],
 	template: `
 		<div>
@@ -202,4 +200,6 @@ function dateSuffix(dayNumber: number) {
 	return dayNumber + "th";
 }
 
-bootstrapApplication(FileListComponent);
+bootstrapApplication(FileListComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

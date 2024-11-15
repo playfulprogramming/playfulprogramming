@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -6,6 +5,7 @@ import {
 	Component,
 	ElementRef,
 	viewChild,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 @Component({
@@ -26,4 +26,6 @@ class RenderParagraphComponent {
 	}
 }
 
-bootstrapApplication(RenderParagraphComponent);
+bootstrapApplication(RenderParagraphComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

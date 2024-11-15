@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -9,6 +8,7 @@ import {
 	inject,
 	viewChild,
 	afterRenderEffect,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 import { TemplatePortal, DomPortalOutlet } from "@angular/cdk/portal";
@@ -55,4 +55,6 @@ class ModalComponent {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

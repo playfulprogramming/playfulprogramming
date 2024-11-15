@@ -1,7 +1,11 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, input, signal } from "@angular/core";
+import {
+	Component,
+	input,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "toggle-button",
@@ -45,4 +49,6 @@ class ToggleButtonListComponent {}
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

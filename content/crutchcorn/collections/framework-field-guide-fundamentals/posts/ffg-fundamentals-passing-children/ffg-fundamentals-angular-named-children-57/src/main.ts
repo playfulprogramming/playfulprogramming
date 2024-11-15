@@ -1,7 +1,12 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, input, output, signal } from "@angular/core";
+import {
+	Component,
+	input,
+	output,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "dropdown-comp",
@@ -37,4 +42,6 @@ class AppComponent {
 	expanded = signal(false);
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

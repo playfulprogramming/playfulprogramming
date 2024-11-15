@@ -1,5 +1,8 @@
 // context.ts
-import { Injectable } from "@angular/core";
+import {
+	Injectable,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Injectable()
 export class ActionTypes {

@@ -1,7 +1,11 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, computed, signal } from "@angular/core";
+import {
+	Component,
+	computed,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "count-and-double",
@@ -22,4 +26,6 @@ class CountAndDoubleComponent {
 	}
 }
 
-bootstrapApplication(CountAndDoubleComponent);
+bootstrapApplication(CountAndDoubleComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

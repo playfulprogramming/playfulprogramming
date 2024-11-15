@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -7,6 +6,7 @@ import {
 	inject,
 	TemplateRef,
 	ViewContainerRef,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 function injectAndRenderTemplate() {
@@ -39,4 +39,6 @@ class PassBackgroundDirective {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

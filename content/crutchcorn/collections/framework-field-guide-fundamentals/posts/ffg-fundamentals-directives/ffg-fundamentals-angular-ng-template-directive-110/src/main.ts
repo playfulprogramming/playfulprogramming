@@ -1,7 +1,10 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Directive, Component } from "@angular/core";
+import {
+	Directive,
+	Component,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Directive({
 	selector: "[beOnTemplate]",
@@ -19,4 +22,6 @@ class TemplateDirective {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

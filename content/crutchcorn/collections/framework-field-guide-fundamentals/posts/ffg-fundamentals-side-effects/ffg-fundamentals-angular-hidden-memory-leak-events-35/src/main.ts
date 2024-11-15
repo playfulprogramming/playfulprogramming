@@ -1,7 +1,12 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, signal, effect, output } from "@angular/core";
+import {
+	Component,
+	signal,
+	effect,
+	output,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "app-alert",
@@ -46,4 +51,6 @@ class AppComponent {
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

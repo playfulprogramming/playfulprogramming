@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -7,6 +6,7 @@ import {
 	inject,
 	ElementRef,
 	effect,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 @Directive({
@@ -29,4 +29,6 @@ class TemplateDirective {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

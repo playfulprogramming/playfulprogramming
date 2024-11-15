@@ -1,7 +1,10 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, viewChild } from "@angular/core";
+import {
+	Component,
+	viewChild,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "child-comp",
@@ -32,4 +35,6 @@ class ParentComponent {
 	}
 }
 
-bootstrapApplication(ParentComponent);
+bootstrapApplication(ParentComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

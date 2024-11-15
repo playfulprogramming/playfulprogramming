@@ -6,6 +6,7 @@ import {
 	signal,
 	viewChild,
 	ViewChild,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 import { ContextMenuComponent } from "./context-menu.component";
 

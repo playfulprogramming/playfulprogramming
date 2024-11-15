@@ -1,6 +1,11 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Injectable, Component, inject, signal } from "@angular/core";
+import {
+	Injectable,
+	Component,
+	inject,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Injectable({ providedIn: "root" })
 class MessageValue {
@@ -13,7 +18,6 @@ class MessageValue {
 
 @Component({
 	selector: "great-grand-child",
-	standalone: true,
 	template: `
 		<div>
 			<p>{{ messageValue.greeting() }}, user!</p>
@@ -76,4 +80,6 @@ class ChildComponent {}
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

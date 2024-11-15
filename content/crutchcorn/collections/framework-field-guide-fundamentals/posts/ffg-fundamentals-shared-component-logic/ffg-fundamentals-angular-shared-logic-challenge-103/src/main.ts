@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -13,6 +12,7 @@ import {
 	output,
 	input,
 	OutputEmitterRef,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 @Injectable()
@@ -172,4 +172,6 @@ class AppComponent {
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

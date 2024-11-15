@@ -1,7 +1,11 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, effect, signal } from "@angular/core";
+import {
+	Component,
+	effect,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "window-size",
@@ -29,4 +33,6 @@ class WindowSizeComponent {
 	}
 }
 
-bootstrapApplication(WindowSizeComponent);
+bootstrapApplication(WindowSizeComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

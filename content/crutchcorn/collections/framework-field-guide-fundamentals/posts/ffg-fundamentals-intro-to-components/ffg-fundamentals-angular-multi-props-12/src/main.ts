@@ -1,11 +1,14 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, OnInit, Input } from "@angular/core";
+import {
+	Component,
+	OnInit,
+	Input,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "file-date",
-	standalone: true,
 	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
 class FileDateComponent implements OnInit {
@@ -67,7 +70,6 @@ class FileDateComponent implements OnInit {
 
 @Component({
 	selector: "file",
-	standalone: true,
 	imports: [FileDateComponent],
 	template: `
 		<div>
@@ -82,7 +84,6 @@ class FileComponent {
 
 @Component({
 	selector: "file-list",
-	standalone: true,
 	imports: [FileComponent],
 	template: `
 		<ul>
@@ -94,4 +95,6 @@ class FileComponent {
 })
 class FileListComponent {}
 
-bootstrapApplication(FileListComponent);
+bootstrapApplication(FileListComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

@@ -1,5 +1,8 @@
 // layout.component.ts
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "app-layout",

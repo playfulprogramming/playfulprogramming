@@ -1,11 +1,15 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, signal, output, input } from "@angular/core";
+import {
+	Component,
+	signal,
+	output,
+	input,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "expandable-dropdown",
-	standalone: true,
 	template: `
 		<div>
 			<button (click)="toggle.emit()">
@@ -67,4 +71,6 @@ function objFromCategories(categories: string[]) {
 	return obj;
 }
 
-bootstrapApplication(SidebarComponent);
+bootstrapApplication(SidebarComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

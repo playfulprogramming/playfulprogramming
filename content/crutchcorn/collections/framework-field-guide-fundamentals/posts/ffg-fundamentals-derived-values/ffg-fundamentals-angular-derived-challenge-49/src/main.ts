@@ -1,7 +1,11 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, computed, input } from "@angular/core";
+import {
+	Component,
+	computed,
+	input,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 const kilobyte = 1024;
 const megabyte = kilobyte * 1024;
@@ -31,7 +35,6 @@ class DisplaySizeComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [DisplaySizeComponent],
 	template: `
 		<table>
@@ -80,4 +83,6 @@ class DisplaySizeComponent {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

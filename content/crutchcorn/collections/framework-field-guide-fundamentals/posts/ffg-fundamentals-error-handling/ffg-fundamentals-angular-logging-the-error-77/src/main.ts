@@ -1,7 +1,11 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, effect, ErrorHandler } from "@angular/core";
+import {
+	Component,
+	effect,
+	ErrorHandler,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 const getErrorString = (err: unknown) =>
 	JSON.stringify(err, Object.getOwnPropertyNames(err));

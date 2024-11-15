@@ -1,17 +1,16 @@
-import 'zone.js';
-import { bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, signal, effect, output, input } from '@angular/core';
+import { Component, signal, effect, output, input } from "@angular/core";
 
 @Component({
-	selector: 'file-date',
+	selector: "file-date",
 	template: `<span [attr.aria-label]="labelText()">{{ dateStr() }}</span>`,
 })
 class FileDateComponent {
 	inputDate = input.required<Date>();
 
-	dateStr = signal('');
-	labelText = signal('');
+	dateStr = signal("");
+	labelText = signal("");
 
 	constructor() {
 		/**
@@ -25,28 +24,28 @@ class FileDateComponent {
 }
 
 @Component({
-	selector: 'file-item',
+	selector: "file-item",
 	imports: [FileDateComponent],
 	template: `
-    <button
-      (click)="selected.emit()"
-      [style]="
-        isSelected()
-          ? 'background-color: blue; color: white'
-          : 'background-color: white; color: blue'
-      "
-    >
-      {{ fileName() }}
-      @if (isFolder()) {
-        <span>Type: Folder</span>
-      } @else {
-        <span>Type: File</span>
-      }
-      @if (!isFolder()) {
-        <file-date [inputDate]="inputDate()" />
-      }
-    </button>
-  `,
+		<button
+			(click)="selected.emit()"
+			[style]="
+				isSelected()
+					? 'background-color: blue; color: white'
+					: 'background-color: white; color: blue'
+			"
+		>
+			{{ fileName() }}
+			@if (isFolder()) {
+				<span>Type: Folder</span>
+			} @else {
+				<span>Type: File</span>
+			}
+			@if (!isFolder()) {
+				<file-date [inputDate]="inputDate()" />
+			}
+		</button>
+	`,
 })
 class FileComponent {
 	fileName = input.required<string>();
@@ -76,28 +75,28 @@ class FileComponent {
 }
 
 @Component({
-	selector: 'file-list',
+	selector: "file-list",
 	imports: [FileComponent],
 	template: `
-    <div>
-      <button (click)="toggleOnlyShow()">Only show files</button>
-      <ul>
-        @for (file of filesArray; track file.id; let i = $index) {
-          <li>
-            @if (onlyShowFiles() ? !file.isFolder : true) {
-              <file-item
-                (selected)="onSelected(i)"
-                [isSelected]="selectedIndex() === i"
-                [fileName]="file.fileName"
-                [href]="file.href"
-                [isFolder]="file.isFolder"
-              />
-            }
-          </li>
-        }
-      </ul>
-    </div>
-  `,
+		<div>
+			<button (click)="toggleOnlyShow()">Only show files</button>
+			<ul>
+				@for (file of filesArray; track file.id; let i = $index) {
+					<li>
+						@if (onlyShowFiles() ? !file.isFolder : true) {
+							<file-item
+								(selected)="onSelected(i)"
+								[isSelected]="selectedIndex() === i"
+								[fileName]="file.fileName"
+								[href]="file.href"
+								[isFolder]="file.isFolder"
+							/>
+						}
+					</li>
+				}
+			</ul>
+		</div>
+	`,
 })
 class FileListComponent {
 	selectedIndex = signal(-1);
@@ -118,32 +117,32 @@ class FileListComponent {
 
 	filesArray: File[] = [
 		{
-			fileName: 'File one',
-			href: '/file/file_one',
+			fileName: "File one",
+			href: "/file/file_one",
 			isFolder: false,
 			id: 1,
 		},
 		{
-			fileName: 'File two',
-			href: '/file/file_two',
+			fileName: "File two",
+			href: "/file/file_two",
 			isFolder: false,
 			id: 2,
 		},
 		{
-			fileName: 'File three',
-			href: '/file/file_three',
+			fileName: "File three",
+			href: "/file/file_three",
 			isFolder: false,
 			id: 3,
 		},
 		{
-			fileName: 'Folder one',
-			href: '/file/folder_one/',
+			fileName: "Folder one",
+			href: "/file/folder_one/",
 			isFolder: true,
 			id: 4,
 		},
 		{
-			fileName: 'Folder two',
-			href: '/file/folder_two/',
+			fileName: "Folder two",
+			href: "/file/folder_two/",
 			isFolder: true,
 			id: 5,
 		},
@@ -162,42 +161,44 @@ function formatDate(inputDate: Date) {
 	const monthNum = inputDate.getMonth() + 1;
 	const dateNum = inputDate.getDate();
 	const yearNum = inputDate.getFullYear();
-	return monthNum + '/' + dateNum + '/' + yearNum;
+	return monthNum + "/" + dateNum + "/" + yearNum;
 }
 
 function formatReadableDate(inputDate: Date) {
 	const months = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December',
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
 	];
 	const monthStr = months[inputDate.getMonth()];
 	const dateSuffixStr = dateSuffix(inputDate.getDate());
 	const yearNum = inputDate.getFullYear();
-	return monthStr + ' ' + dateSuffixStr + ',' + yearNum;
+	return monthStr + " " + dateSuffixStr + "," + yearNum;
 }
 
 function dateSuffix(dayNumber: number) {
 	const lastDigit = dayNumber % 10;
 	if (lastDigit == 1 && dayNumber != 11) {
-		return dayNumber + 'st';
+		return dayNumber + "st";
 	}
 	if (lastDigit == 2 && dayNumber != 12) {
-		return dayNumber + 'nd';
+		return dayNumber + "nd";
 	}
 	if (lastDigit == 3 && dayNumber != 13) {
-		return dayNumber + 'rd';
+		return dayNumber + "rd";
 	}
-	return dayNumber + 'th';
+	return dayNumber + "th";
 }
 
-bootstrapApplication(FileListComponent);
+bootstrapApplication(FileListComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

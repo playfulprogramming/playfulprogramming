@@ -1,7 +1,9 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
@@ -17,4 +19,6 @@ import { NgTemplateOutlet } from "@angular/common";
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

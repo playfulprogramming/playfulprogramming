@@ -1,6 +1,10 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { InjectionToken, Component, inject } from "@angular/core";
+import {
+	InjectionToken,
+	Component,
+	inject,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 const WELCOME_MESSAGE_TOKEN = new InjectionToken<{ message: string }>(
 	"WELCOME_MESSAGE",
@@ -24,4 +28,6 @@ class ChildComponent {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

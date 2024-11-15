@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -8,6 +7,7 @@ import {
 	Directive,
 	effect,
 	input,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 @Directive({
@@ -32,4 +32,6 @@ class StyleBackgroundDirective {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

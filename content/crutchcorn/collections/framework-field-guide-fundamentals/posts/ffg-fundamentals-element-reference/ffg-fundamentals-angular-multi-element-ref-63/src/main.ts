@@ -1,11 +1,14 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, ElementRef, viewChildren } from "@angular/core";
+import {
+	Component,
+	ElementRef,
+	viewChildren,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [],
 	template: `
 		<div>
@@ -43,4 +46,6 @@ class AppComponent {
 	];
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -10,6 +9,7 @@ import {
 	EmbeddedViewRef,
 	input,
 	effect,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 const flags: Record<string, boolean> = {
@@ -55,4 +55,6 @@ class FeatureFlagDirective {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

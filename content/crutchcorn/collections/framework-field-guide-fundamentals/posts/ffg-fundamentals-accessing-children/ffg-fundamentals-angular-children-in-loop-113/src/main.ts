@@ -1,12 +1,15 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, contentChildren, TemplateRef } from "@angular/core";
+import {
+	Component,
+	contentChildren,
+	TemplateRef,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
 	selector: "parent-list",
-	standalone: true,
 	imports: [NgTemplateOutlet],
 	template: `
 		<p>There are {{ children().length }} number of items in this array</p>
@@ -42,4 +45,6 @@ class ParentListComponent {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

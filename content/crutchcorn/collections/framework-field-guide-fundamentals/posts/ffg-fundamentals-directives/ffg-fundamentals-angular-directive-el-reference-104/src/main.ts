@@ -1,7 +1,12 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, inject, ElementRef, Directive } from "@angular/core";
+import {
+	Component,
+	inject,
+	ElementRef,
+	Directive,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 function findAndLogTheElement() {
 	const el = inject(ElementRef<any>);
@@ -24,4 +29,6 @@ class LogElementDirective {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

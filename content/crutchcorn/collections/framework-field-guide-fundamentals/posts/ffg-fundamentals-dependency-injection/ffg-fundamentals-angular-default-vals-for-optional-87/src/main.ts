@@ -1,6 +1,10 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Injectable, Component, inject } from "@angular/core";
+import {
+	Injectable,
+	Component,
+	inject,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Injectable()
 class InjectedValue {
@@ -23,4 +27,6 @@ class ChildComponent {
 })
 class ParentComponent {}
 
-bootstrapApplication(ParentComponent);
+bootstrapApplication(ParentComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

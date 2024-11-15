@@ -1,7 +1,12 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Directive, Component, inject, TemplateRef } from "@angular/core";
+import {
+	Directive,
+	Component,
+	inject,
+	TemplateRef,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 function injectTemplateAndLog() {
 	const template = inject(TemplateRef);
@@ -31,4 +36,6 @@ class ItemDirective {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

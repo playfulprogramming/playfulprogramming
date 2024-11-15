@@ -1,5 +1,10 @@
 // sidebar.component.ts
-import { Component, inject, Injectable } from "@angular/core";
+import {
+	Component,
+	inject,
+	Injectable,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 import { ActionTypes } from "./context";
 
 import { FileComponent } from "./file.component";

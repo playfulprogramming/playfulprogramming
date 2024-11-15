@@ -1,7 +1,13 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, inject, ErrorHandler, signal, effect } from "@angular/core";
+import {
+	Component,
+	inject,
+	ErrorHandler,
+	signal,
+	effect,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 class MyErrorHandler implements ErrorHandler {
 	error = signal<unknown>(null);

@@ -1,7 +1,10 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, signal } from "@angular/core";
+import {
+	Component,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 /**
  * This code sample is inaccessible and generally not
@@ -64,4 +67,6 @@ class AppComponent {
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

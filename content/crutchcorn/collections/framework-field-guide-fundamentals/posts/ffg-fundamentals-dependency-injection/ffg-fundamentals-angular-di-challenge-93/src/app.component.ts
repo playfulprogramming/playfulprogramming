@@ -1,5 +1,8 @@
 // App.component.ts
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 import { LayoutComponent } from "./layout.component";
 import { SidebarComponent } from "./sidebar.component";
 import { FileListComponent } from "./file-list.component";

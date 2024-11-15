@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -11,6 +10,7 @@ import {
 	effect,
 	signal,
 	afterRenderEffect,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 import { Portal, PortalModule, TemplatePortal } from "@angular/cdk/portal";
 
@@ -61,4 +61,6 @@ class AppComponent {
 	portalService = inject(PortalService);
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

@@ -1,11 +1,12 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "word-list",
-	standalone: true,
 	template: `
 		<div>
 			<button (click)="addWord()">Add word</button>
@@ -63,4 +64,6 @@ interface Word {
 	id: number;
 }
 
-bootstrapApplication(WordListComponent);
+bootstrapApplication(WordListComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

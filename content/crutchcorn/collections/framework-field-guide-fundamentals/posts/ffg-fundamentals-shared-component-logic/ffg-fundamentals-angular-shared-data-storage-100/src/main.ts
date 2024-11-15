@@ -1,7 +1,11 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Injectable, Component, inject } from "@angular/core";
+import {
+	Injectable,
+	Component,
+	inject,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Injectable()
 class WindowSize {
@@ -23,4 +27,6 @@ class AppComponent {
 	windowSize = inject(WindowSize);
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

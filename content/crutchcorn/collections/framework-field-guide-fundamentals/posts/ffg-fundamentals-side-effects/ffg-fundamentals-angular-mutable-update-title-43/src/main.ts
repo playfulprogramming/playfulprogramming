@@ -1,10 +1,9 @@
-import 'zone.js';
-import { bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, effect, signal } from '@angular/core';
+import { Component, effect, signal } from "@angular/core";
 
 @Component({
-	selector: 'title-changer',
+	selector: "title-changer",
 	template: `
 		<div>
 			<button (click)="updateTitle('Movies')">Movies</button>
@@ -15,7 +14,7 @@ import { Component, effect, signal } from '@angular/core';
 	`,
 })
 class TitleChangerComponent {
-	title = signal('Movies');
+	title = signal("Movies");
 
 	timeoutExpire: any = null;
 
@@ -37,7 +36,7 @@ class TitleChangerComponent {
 }
 
 @Component({
-	selector: 'app-root',
+	selector: "app-root",
 	imports: [TitleChangerComponent],
 	template: `
 		<div>
@@ -56,4 +55,6 @@ class AppComponent {
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

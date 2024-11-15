@@ -1,7 +1,10 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, Directive } from "@angular/core";
+import {
+	Component,
+	Directive,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Directive({
 	selector: "[sayHi]",
@@ -19,4 +22,6 @@ class LogElementDirective {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

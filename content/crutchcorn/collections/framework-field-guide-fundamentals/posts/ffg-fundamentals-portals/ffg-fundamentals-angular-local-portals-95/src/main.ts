@@ -1,12 +1,16 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { PortalModule, DomPortal } from "@angular/cdk/portal";
-import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	ViewChild,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [PortalModule],
 	template: `
 		<div style="height: 100px; width: 100px; border: 2px solid black;">
@@ -30,4 +34,6 @@ class AppComponent implements AfterViewInit {
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

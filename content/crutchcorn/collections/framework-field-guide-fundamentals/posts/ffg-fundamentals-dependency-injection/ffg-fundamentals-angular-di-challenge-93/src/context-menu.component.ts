@@ -7,6 +7,7 @@ import {
 	input,
 	output,
 	viewChild,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 import { ActionTypes } from "./context";

@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -8,6 +7,7 @@ import {
 	Directive,
 	input,
 	effect,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 class Color {
@@ -47,4 +47,6 @@ class AppComponent {
 	color = new Color(255, 174, 174);
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

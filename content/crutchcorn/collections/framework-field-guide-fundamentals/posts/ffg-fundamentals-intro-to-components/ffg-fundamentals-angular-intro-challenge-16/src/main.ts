@@ -1,11 +1,15 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, Input, EventEmitter, Output } from "@angular/core";
+import {
+	Component,
+	Input,
+	EventEmitter,
+	Output,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "expandable-dropdown",
-	standalone: true,
 	template: `
 		<div>
 			<button (click)="toggle.emit()">
@@ -24,7 +28,6 @@ class ExpandableDropdownComponent {
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
 	imports: [ExpandableDropdownComponent],
 	template: `
 		<div>
@@ -71,4 +74,6 @@ class SidebarComponent {
 	invoicesExpanded = false;
 }
 
-bootstrapApplication(SidebarComponent);
+bootstrapApplication(SidebarComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

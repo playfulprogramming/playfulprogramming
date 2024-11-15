@@ -1,17 +1,17 @@
-import "zone.js";
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 @Component({
 	selector: "file-date",
-	standalone: true,
 	template: `<span>12/03/21</span>`,
 })
 class FileDateComponent {}
 
 @Component({
 	selector: "file",
-	standalone: true,
 	imports: [FileDateComponent],
 	template: `
 		<div>
@@ -23,7 +23,6 @@ class FileComponent {}
 
 @Component({
 	selector: "file-list",
-	standalone: true,
 	imports: [FileComponent],
 	template: `
 		<ul>
@@ -35,4 +34,6 @@ class FileComponent {}
 })
 class FileListComponent {}
 
-bootstrapApplication(FileListComponent);
+bootstrapApplication(FileListComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

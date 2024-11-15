@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -11,6 +10,7 @@ import {
 	ViewEncapsulation,
 	afterRenderEffect,
 	input,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 import { DomPortal, DomPortalOutlet } from "@angular/cdk/portal";
 
@@ -18,13 +18,7 @@ import { DomPortal, DomPortalOutlet } from "@angular/cdk/portal";
 	providedIn: "root",
 })
 class PortalService {
-	outlet = new DomPortalOutlet(
-		document.querySelector("body")!,
-		undefined,
-		undefined,
-		undefined,
-		document,
-	);
+	outlet = new DomPortalOutlet(document.querySelector("body")!);
 }
 
 @Directive({
@@ -109,4 +103,6 @@ class TooltipDirective {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

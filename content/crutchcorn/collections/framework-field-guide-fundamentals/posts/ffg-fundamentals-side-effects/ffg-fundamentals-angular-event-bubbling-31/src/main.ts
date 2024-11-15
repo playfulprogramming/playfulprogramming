@@ -1,7 +1,9 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "event-bubbler",
@@ -20,4 +22,6 @@ class EventBubblerComponent {
 	}
 }
 
-bootstrapApplication(EventBubblerComponent);
+bootstrapApplication(EventBubblerComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

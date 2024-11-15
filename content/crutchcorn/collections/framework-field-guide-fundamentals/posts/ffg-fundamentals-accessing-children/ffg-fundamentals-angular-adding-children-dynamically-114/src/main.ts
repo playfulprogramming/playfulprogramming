@@ -1,7 +1,12 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, contentChildren, signal, TemplateRef } from "@angular/core";
+import {
+	Component,
+	contentChildren,
+	signal,
+	TemplateRef,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
@@ -23,7 +28,6 @@ class ParentListComponent {
 }
 
 @Component({
-	standalone: true,
 	imports: [ParentListComponent],
 	selector: "app-root",
 	template: `
@@ -46,4 +50,6 @@ class AppComponent {
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

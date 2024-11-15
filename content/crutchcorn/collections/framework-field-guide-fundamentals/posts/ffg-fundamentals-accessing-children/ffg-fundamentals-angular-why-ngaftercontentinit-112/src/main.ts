@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -7,11 +6,11 @@ import {
 	contentChild,
 	ElementRef,
 	untracked,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 @Component({
 	selector: "parent-list",
-	standalone: true,
 	template: ` <ng-content></ng-content> `,
 })
 class ParentListComponent {
@@ -27,7 +26,6 @@ class ParentListComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ParentListComponent],
 	template: `
 		<parent-list>
@@ -37,4 +35,6 @@ class ParentListComponent {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

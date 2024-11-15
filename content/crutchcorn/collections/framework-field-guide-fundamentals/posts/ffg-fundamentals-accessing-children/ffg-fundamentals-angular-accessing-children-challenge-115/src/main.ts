@@ -1,12 +1,16 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, contentChild, input, TemplateRef } from "@angular/core";
+import {
+	Component,
+	contentChild,
+	input,
+	TemplateRef,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
 	selector: "table-comp",
-	standalone: true,
 	imports: [NgTemplateOutlet],
 	template: `
 		<table>
@@ -76,4 +80,6 @@ class AppComponent {
 	];
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

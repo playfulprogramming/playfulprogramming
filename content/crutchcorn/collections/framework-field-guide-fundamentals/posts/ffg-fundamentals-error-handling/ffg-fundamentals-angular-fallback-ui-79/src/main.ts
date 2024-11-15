@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -8,6 +7,7 @@ import {
 	OnInit,
 	effect,
 	signal,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 class MyErrorHandler implements ErrorHandler {

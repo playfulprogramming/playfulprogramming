@@ -1,5 +1,11 @@
 // file-list.component.ts
-import { Component, inject, Injectable, signal } from "@angular/core";
+import {
+	Component,
+	inject,
+	Injectable,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+} from "@angular/core";
 import { ActionTypes } from "./context";
 
 import { FileComponent } from "./file.component";

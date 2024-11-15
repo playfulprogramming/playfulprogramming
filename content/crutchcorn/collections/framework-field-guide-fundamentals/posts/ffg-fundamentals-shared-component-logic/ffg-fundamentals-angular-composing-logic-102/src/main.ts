@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -8,6 +7,7 @@ import {
 	signal,
 	effect,
 	computed,
+	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
 
 @Injectable()
@@ -46,4 +46,6 @@ class AppComponent {
 	isMobile = inject(IsMobile);
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});
