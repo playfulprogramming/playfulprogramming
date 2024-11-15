@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 
 @Component({
-	selector: 'word-list',
+	selector: "word-list",
 	template: `
 		<div>
 			<button (click)="addWord()">Add word</button>
@@ -44,12 +44,12 @@ class WordListComponent {
 }
 
 const wordDatabase = [
-	{ word: 'who', id: 1 },
-	{ word: 'what', id: 2 },
-	{ word: 'when', id: 3 },
-	{ word: 'where', id: 4 },
-	{ word: 'why', id: 5 },
-	{ word: 'how', id: 6 },
+	{ word: "who", id: 1 },
+	{ word: "what", id: 2 },
+	{ word: "when", id: 3 },
+	{ word: "where", id: 4 },
+	{ word: "why", id: 5 },
+	{ word: "how", id: 6 },
 ];
 
 function getRandomWord() {

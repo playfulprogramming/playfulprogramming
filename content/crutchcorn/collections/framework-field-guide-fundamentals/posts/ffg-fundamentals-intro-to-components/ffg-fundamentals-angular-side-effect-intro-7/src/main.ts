@@ -1,13 +1,13 @@
-import { bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
 	Component,
 	effect,
 	provideExperimentalZonelessChangeDetection,
-} from '@angular/core';
+} from "@angular/core";
 
 @Component({
-	selector: 'file-date',
+	selector: "file-date",
 	template: `<span>12/03/21</span>`,
 })
 class FileDateComponent {
@@ -26,7 +26,7 @@ function formatDate() {
 	const monthNum = today.getMonth() + 1;
 	const dateNum = today.getDate();
 	const yearNum = today.getFullYear();
-	return monthNum + '/' + dateNum + '/' + yearNum;
+	return monthNum + "/" + dateNum + "/" + yearNum;
 }
 
 bootstrapApplication(FileDateComponent, {
