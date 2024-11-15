@@ -54,8 +54,8 @@ class FileDateComponent {
 class FileComponent {
 	fileName = input.required<string>();
 	href = input.required<string>();
-	isSelected = input.required<boolean>();
-	isFolder = input.required<boolean>();
+	isSelected = input(false);
+	isFolder = input(false);
 	selected = output();
 	inputDate = signal(new Date());
 
