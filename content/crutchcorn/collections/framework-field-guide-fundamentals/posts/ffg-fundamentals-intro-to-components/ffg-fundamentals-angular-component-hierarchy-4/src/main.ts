@@ -11,7 +11,7 @@ import { bootstrapApplication } from "@angular/platform-browser";
 class FileDateComponent {}
 
 @Component({
-	selector: "file",
+	selector: "file-item",
 	imports: [FileDateComponent],
 	template: `
 		<div>
@@ -26,9 +26,9 @@ class FileComponent {}
 	imports: [FileComponent],
 	template: `
 		<ul>
-			<li><file /></li>
-			<li><file /></li>
-			<li><file /></li>
+			<li><file-item /></li>
+			<li><file-item /></li>
+			<li><file-item /></li>
 		</ul>
 	`,
 })

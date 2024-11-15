@@ -1,21 +1,24 @@
-import { bootstrapApplication } from "@angular/platform-browser";
+import { bootstrapApplication } from '@angular/platform-browser';
 
 import {
 	Component,
-	OnInit,
+	effect,
 	provideExperimentalZonelessChangeDetection,
-} from "@angular/core";
+} from '@angular/core';
 
 @Component({
-	selector: "file-date",
+	selector: 'file-date',
 	template: `<span>12/03/21</span>`,
 })
-class FileDateComponent implements OnInit {
-	dateStr = this.formatDate();
+class FileDateComponent {
+	dateStr = formatDate();
 
-	ngOnInit() {
-		console.log(this.dateStr);
+	constructor() {
+		effect(() => {
+			console.log(this.dateStr);
+		});
 	}
+}
 
 function formatDate() {
 	const today = new Date();
@@ -23,7 +26,7 @@ function formatDate() {
 	const monthNum = today.getMonth() + 1;
 	const dateNum = today.getDate();
 	const yearNum = today.getFullYear();
-	return monthNum + "/" + dateNum + "/" + yearNum;
+	return monthNum + '/' + dateNum + '/' + yearNum;
 }
 
 bootstrapApplication(FileDateComponent, {

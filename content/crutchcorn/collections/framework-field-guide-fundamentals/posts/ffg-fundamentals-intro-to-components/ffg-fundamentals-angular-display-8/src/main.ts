@@ -10,16 +10,16 @@ import {
 	template: `<span>{{ dateStr }}</span>`,
 })
 class FileDateComponent {
-	dateStr = this.formatDate();
+	dateStr = formatDate();
+}
 
-	formatDate() {
-		const today = new Date();
-		// Month starts at 0, annoyingly
-		const monthNum = today.getMonth() + 1;
-		const dateNum = today.getDate();
-		const yearNum = today.getFullYear();
-		return monthNum + "/" + dateNum + "/" + yearNum;
-	}
+function formatDate() {
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const monthNum = today.getMonth() + 1;
+	const dateNum = today.getDate();
+	const yearNum = today.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
 }
 
 bootstrapApplication(FileDateComponent, {

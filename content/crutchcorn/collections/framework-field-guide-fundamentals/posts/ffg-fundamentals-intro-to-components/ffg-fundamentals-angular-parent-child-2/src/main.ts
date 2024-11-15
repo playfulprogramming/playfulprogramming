@@ -5,7 +5,7 @@ import {
 import { bootstrapApplication } from "@angular/platform-browser";
 
 @Component({
-	selector: "file",
+	selector: "file-item",
 	template: `
 		<div>
 			<a href="/file/file_one">File one<span>12/03/21</span></a>
@@ -19,7 +19,7 @@ class FileComponent {}
 	imports: [FileComponent],
 	template: `
 		<ul>
-			<li><file /></li>
+			<li><file-item /></li>
 		</ul>
 	`,
 })

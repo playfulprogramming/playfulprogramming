@@ -2,32 +2,35 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
 	Component,
-	OnInit,
+	effect,
 	provideExperimentalZonelessChangeDetection,
+	signal,
 } from "@angular/core";
 
 @Component({
 	selector: "file-date",
-	template: `<span>{{ dateStr }}</span>`,
+	template: `<span>{{ dateStr() }}</span>`,
 })
-class FileDateComponent implements OnInit {
-	dateStr = this.formatDate(new Date());
+class FileDateComponent {
+	dateStr = signal(formatDate(new Date()));
 
-	ngOnInit() {
-		setTimeout(() => {
-			// 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
-			const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
-			this.dateStr = this.formatDate(tomorrow);
-		}, 5000);
+	constructor() {
+		effect(() => {
+			setTimeout(() => {
+				// 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+				const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
+				this.dateStr.set(formatDate(tomorrow));
+			}, 5000);
+		});
 	}
+}
 
-	formatDate(inputDate: Date) {
-		// Month starts at 0, annoyingly
-		const monthNum = inputDate.getMonth() + 1;
-		const dateNum = inputDate.getDate();
-		const yearNum = inputDate.getFullYear();
-		return monthNum + "/" + dateNum + "/" + yearNum;
-	}
+function formatDate(inputDate: Date) {
+	// Month starts at 0, annoyingly
+	const monthNum = inputDate.getMonth() + 1;
+	const dateNum = inputDate.getDate();
+	const yearNum = inputDate.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
 }
 
 bootstrapApplication(FileDateComponent, {
