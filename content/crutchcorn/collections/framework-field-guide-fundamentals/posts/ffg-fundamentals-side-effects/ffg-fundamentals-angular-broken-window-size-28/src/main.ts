@@ -5,7 +5,6 @@ import { Component } from "@angular/core";
 
 @Component({
 	selector: "window-size",
-	standalone: true,
 	template: `
 		<div>
 			<p>Height: {{ height }}</p>

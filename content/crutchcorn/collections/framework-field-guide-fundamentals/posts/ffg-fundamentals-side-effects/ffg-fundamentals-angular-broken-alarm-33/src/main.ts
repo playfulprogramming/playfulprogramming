@@ -1,11 +1,10 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, OnInit, EventEmitter, Output } from "@angular/core";
+import { Component, output, effect, signal } from "@angular/core";
 
 @Component({
 	selector: "alarm-screen",
-	standalone: true,
 	template: `
 		<div>
 			<p>Time to wake up!</p>
@@ -14,52 +13,55 @@ import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 		</div>
 	`,
 })
-class AlarmScreenComponent implements OnInit {
-	@Output() snooze = new EventEmitter();
-	@Output() disable = new EventEmitter();
+class AlarmScreenComponent {
+	snooze = output();
+	disable = output();
 
-	ngOnInit() {
-		setTimeout(() => {
-			// Automatically snooze the alarm
-			// after 10 seconds of inactivity
-			// In production, this would be 10 minutes
-			this.snooze.emit();
-		}, 10 * 1000);
+	constructor() {
+		effect(() => {
+			setTimeout(() => {
+				// Automatically snooze the alarm
+				// after 10 seconds of inactivity
+				// In production, this would be 10 minutes
+				this.snooze.emit();
+			}, 10 * 1000);
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [AlarmScreenComponent],
 	template: `
-		@if (!timerEnabled) {
+		@if (!timerEnabled()) {
 			<p>There is no timer</p>
-		} @else if (secondsLeft === 0) {
+		} @else if (secondsLeft() === 0) {
 			<alarm-screen (snooze)="snooze()" (disable)="disable()" />
 		} @else {
-			<p>{{ secondsLeft }} seconds left in timer</p>
+			<p>{{ secondsLeft() }} seconds left in timer</p>
 		}
 	`,
 })
-class AppComponent implements OnInit {
-	secondsLeft = 5;
-	timerEnabled = true;
+class AppComponent {
+	secondsLeft = signal(5);
+	timerEnabled = signal(true);
 
-	ngOnInit() {
-		setInterval(() => {
-			if (this.secondsLeft === 0) return;
-			this.secondsLeft = this.secondsLeft - 1;
-		}, 1000);
+	constructor() {
+		effect(() => {
+			setInterval(() => {
+				if (this.secondsLeft() === 0) return;
+				this.secondsLeft.set(this.secondsLeft() - 1);
+			}, 1000);
+		});
 	}
 
 	snooze() {
 		// In production, this would add 5 minutes, not 5 seconds
-		this.secondsLeft = this.secondsLeft + 5;
+		this.secondsLeft.set(this.secondsLeft() + 5);
 	}
 
 	disable() {
-		this.timerEnabled = false;
+		this.timerEnabled.set(false);
 	}
 }
 

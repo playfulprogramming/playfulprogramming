@@ -1,20 +1,23 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, signal, effect, input } from "@angular/core";
 
 @Component({
 	selector: "app-alert",
 	standalone: true,
 	template: ` <p>Showing alert...</p> `,
 })
-class AlertComponent implements OnInit {
-	@Input() alert!: () => void;
+class AlertComponent {
+	alert = input.required<() => void>();
 
-	ngOnInit() {
-		setTimeout(() => {
-			this.alert();
-		}, 1000);
+	constructor() {
+		effect(() => {
+			setTimeout(() => {
+				const alertFn = this.alert();
+				alertFn();
+			}, 1000);
+		});
 	}
 }
 
@@ -24,16 +27,16 @@ class AlertComponent implements OnInit {
 	imports: [AlertComponent],
 	template: `
 		<button (click)="toggle()">Toggle</button>
-		@if (show) {
+		@if (show()) {
 			<app-alert [alert]="alertUser" />
 		}
 	`,
 })
 class AppComponent {
-	show = false;
+	show = signal(false);
 
 	toggle() {
-		this.show = !this.show;
+		this.show.set(!this.show());
 	}
 
 	alertUser() {

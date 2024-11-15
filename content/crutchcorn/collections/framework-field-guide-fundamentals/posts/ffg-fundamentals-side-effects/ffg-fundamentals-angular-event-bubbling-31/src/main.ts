@@ -5,7 +5,6 @@ import { Component } from "@angular/core";
 
 @Component({
 	selector: "event-bubbler",
-	standalone: true,
 	template: `
 		<div (click)="logMessage()">
 			<p>

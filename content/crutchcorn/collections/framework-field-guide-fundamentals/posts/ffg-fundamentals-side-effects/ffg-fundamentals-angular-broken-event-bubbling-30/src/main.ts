@@ -1,18 +1,17 @@
-import "zone.js";
-import { bootstrapApplication } from "@angular/platform-browser";
+import 'zone.js';
+import { bootstrapApplication } from '@angular/platform-browser';
 
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-	selector: "window-size",
-	standalone: true,
+	selector: 'window-size',
 	template: `
-		<!-- This code doesn't work, we'll explain why soon -->
-		<div (resize)="resizeHandler()">
-			<p>Height: {{ height }}</p>
-			<p>Width: {{ width }}</p>
-		</div>
-	`,
+    <!-- This code doesn't work, we'll explain why soon -->
+    <div (resize)="resizeHandler()">
+      <p>Height: {{ height }}</p>
+      <p>Width: {{ width }}</p>
+    </div>
+  `,
 })
 class WindowSizeComponent {
 	height = window.innerHeight;

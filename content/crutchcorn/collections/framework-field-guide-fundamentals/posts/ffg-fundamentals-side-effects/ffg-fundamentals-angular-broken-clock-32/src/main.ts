@@ -1,21 +1,22 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, OnInit } from "@angular/core";
+import { Component, effect, signal } from "@angular/core";
 
 @Component({
 	selector: "clock-comp",
-	standalone: true,
-	template: ` <p role="timer">Time is: {{ time }}</p> `,
+	template: ` <p role="timer">Time is: {{ time() }}</p> `,
 })
-class ClockComponent implements OnInit {
-	time = formatDate(new Date());
+class ClockComponent {
+	time = signal(formatDate(new Date()));
 
-	ngOnInit() {
-		setInterval(() => {
-			console.log("I am updating the time");
-			this.time = formatDate(new Date());
-		}, 1000);
+	constructor() {
+		effect(() => {
+			setInterval(() => {
+				console.log("I am updating the time");
+				this.time.set(formatDate(new Date()));
+			}, 1000);
+		});
 	}
 }
 
@@ -39,22 +40,21 @@ function prefixZero(number: number) {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ClockComponent],
 	template: `
 		<div>
-			<button (click)="setShowClock(!showClock)">Toggle clock</button>
-			@if (showClock) {
+			<button (click)="setShowClock(!showClock())">Toggle clock</button>
+			@if (showClock()) {
 				<clock-comp />
 			}
 		</div>
 	`,
 })
 class AppComponent {
-	showClock = true;
+	showClock = signal(true);
 
 	setShowClock(val: boolean) {
-		this.showClock = val;
+		this.showClock.set(val);
 	}
 }
 

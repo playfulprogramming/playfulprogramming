@@ -1,11 +1,10 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, effect, signal, ViewEncapsulation } from "@angular/core";
 
 @Component({
 	selector: "dark-mode-toggle",
-	standalone: true,
 	template: `
 		<div style="display: flex; gap: 1rem">
 			<label style="display: inline-flex; flex-direction: column">
@@ -13,8 +12,8 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'light'"
-					(change)="setExplicitTheme('light')"
+					[checked]="explicitTheme() === 'light'"
+					(change)="explicitTheme.set('light')"
 				/>
 			</label>
 			<label style="display: inline-flex; flex-direction: column">
@@ -22,8 +21,8 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'inherit'"
-					(change)="setExplicitTheme('inherit')"
+					[checked]="explicitTheme() === 'inherit'"
+					(change)="explicitTheme.set('inherit')"
 				/>
 			</label>
 			<label style="display: inline-flex; flex-direction: column">
@@ -31,50 +30,48 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'dark'"
-					(change)="setExplicitTheme('dark')"
+					[checked]="explicitTheme() === 'dark'"
+					(change)="explicitTheme.set('dark')"
 				/>
 			</label>
 		</div>
 	`,
 })
-class DarkModeToggleComponent implements OnInit, OnDestroy {
-	explicitTheme = localStorage.getItem("theme") || "inherit";
+class DarkModeToggleComponent {
+	explicitTheme = signal(localStorage.getItem("theme") || "inherit");
 
 	isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-	osTheme = this.isOSDark.matches ? "dark" : "light";
-
 	// Remember, this has to be an arrow function, not a method
 	changeOSTheme = () => {
-		this.setExplicitTheme(this.isOSDark.matches ? "dark" : "light");
+		this.explicitTheme.set(this.isOSDark.matches ? "dark" : "light");
 	};
 
-	ngOnInit() {
-		this.isOSDark.addEventListener("change", this.changeOSTheme);
-	}
+	constructor() {
+		effect(() => {
+			localStorage.setItem("theme", this.explicitTheme());
+		});
 
-	ngOnDestroy() {
-		this.isOSDark.removeEventListener("change", this.changeOSTheme);
-	}
+		effect(() => {
+			if (this.explicitTheme() === "implicit") {
+				document.documentElement.className = this.explicitTheme();
+				return;
+			}
 
-	setExplicitTheme(val: string) {
-		this.explicitTheme = val;
+			document.documentElement.className = this.explicitTheme();
+		});
 
-		localStorage.setItem("theme", val);
-
-		if (val === "implicit") {
-			document.documentElement.className = val;
-			return;
-		}
-
-		document.documentElement.className = val;
+		effect((onCleanup) => {
+			this.isOSDark.addEventListener("change", this.changeOSTheme);
+			onCleanup(() => {
+				this.isOSDark.removeEventListener("change", this.changeOSTheme);
+			});
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [DarkModeToggleComponent],
 	// This allows our CSS to be global
 	encapsulation: ViewEncapsulation.None,
