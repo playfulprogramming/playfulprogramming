@@ -1,30 +1,31 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, OnInit } from "@angular/core";
+import { Component, effect, signal } from "@angular/core";
 
 @Component({
 	selector: "window-size",
-	standalone: true,
 	template: `
 		<div>
-			<p>Height: {{ height }}</p>
-			<p>Width: {{ width }}</p>
+			<p>Height: {{ height() }}</p>
+			<p>Width: {{ width() }}</p>
 		</div>
 	`,
 })
-class WindowSizeComponent implements OnInit {
-	height = window.innerHeight;
-	width = window.innerWidth;
+class WindowSizeComponent {
+	height = signal(window.innerHeight);
+	width = signal(window.innerWidth);
 
 	resizeHandler = () => {
-		this.height = window.innerHeight;
-		this.width = window.innerWidth;
+		this.height.set(window.innerHeight);
+		this.width.set(window.innerWidth);
 	};
 
-	ngOnInit() {
+	constructor() {
 		// This code will cause a memory leak, more on that soon
-		window.addEventListener("resize", this.resizeHandler);
+		effect(() => {
+			window.addEventListener("resize", this.resizeHandler);
+		});
 	}
 }
 

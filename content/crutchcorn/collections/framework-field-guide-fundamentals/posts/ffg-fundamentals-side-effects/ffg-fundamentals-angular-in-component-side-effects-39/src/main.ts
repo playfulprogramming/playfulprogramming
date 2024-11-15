@@ -5,7 +5,6 @@ import { Component, effect, signal } from "@angular/core";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	template: `
 		<div>
 			<button (click)="title.set('Movies')">Movies</button>

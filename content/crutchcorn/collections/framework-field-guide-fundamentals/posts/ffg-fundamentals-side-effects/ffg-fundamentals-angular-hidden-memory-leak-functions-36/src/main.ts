@@ -5,7 +5,6 @@ import { Component, signal, effect, input } from "@angular/core";
 
 @Component({
 	selector: "app-alert",
-	standalone: true,
 	template: ` <p>Showing alert...</p> `,
 })
 class AlertComponent {
@@ -23,7 +22,6 @@ class AlertComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [AlertComponent],
 	template: `
 		<button (click)="toggle()">Toggle</button>

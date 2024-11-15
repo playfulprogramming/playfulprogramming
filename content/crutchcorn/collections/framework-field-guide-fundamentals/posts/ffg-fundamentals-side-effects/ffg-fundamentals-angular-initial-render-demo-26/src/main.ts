@@ -1,32 +1,30 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import { Component, signal } from "@angular/core";
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
 	template: "<p>I am the child</p>",
 })
 class ChildComponent {}
 
 @Component({
 	selector: "parent-comp",
-	standalone: true,
 	imports: [ChildComponent],
 	template: `
 		<div>
 			<button (click)="setShowChild()">Toggle Child</button>
-			@if (showChild) {
+			@if (showChild()) {
 				<child-comp />
 			}
 		</div>
 	`,
 })
 class ParentComponent {
-	showChild = true;
+	showChild = signal(true);
 	setShowChild() {
-		this.showChild = !this.showChild;
+		this.showChild.set(!this.showChild());
 	}
 }
 
