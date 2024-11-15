@@ -1,40 +1,46 @@
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
-	afterRenderEffect,
 	Component,
-	ElementRef,
-	signal,
+	TemplateRef,
+	ViewContainerRef,
+	inject,
+	afterRenderEffect,
 	viewChild,
+	signal,
 	provideExperimentalZonelessChangeDetection,
 } from "@angular/core";
-import { PortalModule, DomPortal } from "@angular/cdk/portal";
+import { PortalModule, TemplatePortal } from "@angular/cdk/portal";
 
 @Component({
 	selector: "app-root",
+	standalone: true,
 	imports: [PortalModule],
 	template: `
 		<div style="height: 100px; width: 100px; border: 2px solid black;">
-			@if (domPortal()) {
-				<ng-template [cdkPortalOutlet]="domPortal()" />
+			@if (templatePortal()) {
+				<ng-template [cdkPortalOutlet]="templatePortal()" />
 			}
 		</div>
-		<div #portalContent>Hello world!</div>
+		<ng-template #portalContent>Hello, this is a template portal</ng-template>
 	`,
 })
 class AppComponent {
 	portalContent = viewChild.required("portalContent", {
-		read: ElementRef<HTMLElement>,
+		read: TemplateRef<unknown>,
 	});
 
-	domPortal = signal<DomPortal<any> | null>(null);
+	viewContainerRef = inject(ViewContainerRef);
+	templatePortal = signal<TemplatePortal | null>(null);
 
 	constructor() {
 		afterRenderEffect((onCleanup) => {
-			this.domPortal.set(new DomPortal(this.portalContent()));
+			this.templatePortal.set(
+				new TemplatePortal(this.portalContent(), this.viewContainerRef),
+			);
 
 			onCleanup(() => {
-				this.domPortal()?.detach();
+				this.templatePortal()?.detach();
 			});
 		});
 	}
