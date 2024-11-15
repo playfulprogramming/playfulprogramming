@@ -5,10 +5,12 @@ import {
 	input,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "toggle-button",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(click)="togglePressed()"
@@ -35,6 +37,7 @@ class ToggleButtonComponent {
 @Component({
 	selector: "toggle-button-list",
 	imports: [ToggleButtonComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<toggle-button text="Hello world!" />
 		<toggle-button text="Hello other friends!" />
@@ -45,6 +48,7 @@ class ToggleButtonListComponent {}
 @Component({
 	selector: "app-root",
 	imports: [ToggleButtonListComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <toggle-button-list /> `,
 })
 class AppComponent {}

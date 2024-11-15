@@ -5,11 +5,13 @@ import {
 	ElementRef,
 	viewChildren,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "app-root",
 	imports: [],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="scrollToTop()">Scroll to top</button>

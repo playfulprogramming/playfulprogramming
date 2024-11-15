@@ -8,6 +8,7 @@ import {
 	effect,
 	computed,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Injectable()
@@ -39,6 +40,7 @@ class IsMobile {
 
 @Component({
 	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Is mobile? {{ isMobile.isMobile() }}</p> `,
 	providers: [WindowSize, IsMobile],
 })

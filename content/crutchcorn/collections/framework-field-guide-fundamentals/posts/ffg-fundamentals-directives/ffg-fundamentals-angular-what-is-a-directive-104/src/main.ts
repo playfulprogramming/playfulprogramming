@@ -4,6 +4,7 @@ import {
 	Component,
 	Directive,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Directive({
@@ -18,6 +19,7 @@ class LogElementDirective {
 @Component({
 	selector: "app-root",
 	imports: [LogElementDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p sayHi>Hello, world</p> `,
 })
 class AppComponent {}

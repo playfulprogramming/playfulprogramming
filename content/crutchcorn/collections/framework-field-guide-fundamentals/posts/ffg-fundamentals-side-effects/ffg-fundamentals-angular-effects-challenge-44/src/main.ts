@@ -6,10 +6,12 @@ import {
 	signal,
 	ViewEncapsulation,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "dark-mode-toggle",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; gap: 1rem">
 			<label style="display: inline-flex; flex-direction: column">
@@ -93,6 +95,7 @@ class DarkModeToggleComponent {
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<dark-mode-toggle />

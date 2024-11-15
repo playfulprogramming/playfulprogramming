@@ -11,6 +11,7 @@ import {
 	signal,
 	afterRenderEffect,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 import { Portal, PortalModule, TemplatePortal } from "@angular/cdk/portal";
 
@@ -23,6 +24,7 @@ class PortalService {
 
 @Component({
 	selector: "modal-comp",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <ng-template #portalContent>Hello, world!</ng-template> `,
 })
 class ModalComponent {
@@ -48,6 +50,7 @@ class ModalComponent {
 @Component({
 	selector: "app-root",
 	imports: [PortalModule, ModalComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (portalService.portal()) {
 			<div style="height: 100px; width: 100px; border: 2px solid black;">

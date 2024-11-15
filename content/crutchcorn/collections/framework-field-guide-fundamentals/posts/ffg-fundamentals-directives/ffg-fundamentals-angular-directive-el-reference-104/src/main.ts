@@ -6,6 +6,7 @@ import {
 	ElementRef,
 	Directive,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 function findAndLogTheElement() {
@@ -25,6 +26,7 @@ class LogElementDirective {
 @Component({
 	selector: "app-root",
 	imports: [LogElementDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p sayHi>Hello, world</p> `,
 })
 class AppComponent {}

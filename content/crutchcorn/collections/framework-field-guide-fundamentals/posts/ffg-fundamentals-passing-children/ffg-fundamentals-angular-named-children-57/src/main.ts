@@ -6,10 +6,12 @@ import {
 	output,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "dropdown-comp",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(click)="toggle.emit()"
@@ -31,6 +33,7 @@ class DropdownComponent {
 @Component({
 	selector: "app-root",
 	imports: [DropdownComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<dropdown-comp [expanded]="expanded()" (toggle)="expanded.set(!expanded())">
 			<ng-container header>Let's build this dropdown component</ng-container>

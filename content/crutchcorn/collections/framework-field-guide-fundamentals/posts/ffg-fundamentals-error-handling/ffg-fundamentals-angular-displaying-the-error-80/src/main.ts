@@ -7,6 +7,7 @@ import {
 	signal,
 	effect,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 class MyErrorHandler implements ErrorHandler {
@@ -20,6 +21,7 @@ class MyErrorHandler implements ErrorHandler {
 
 @Component({
 	selector: "child-comp",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>Testing</p>`,
 })
 class ChildComponent {
@@ -34,6 +36,7 @@ class ChildComponent {
 @Component({
 	selector: "app-root",
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (errorHandler.error()) {
 			<div>

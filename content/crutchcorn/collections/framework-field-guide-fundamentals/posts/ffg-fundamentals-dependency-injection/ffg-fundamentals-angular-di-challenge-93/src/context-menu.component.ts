@@ -8,6 +8,7 @@ import {
 	output,
 	viewChild,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 import { ActionTypes } from "./context";
@@ -20,6 +21,7 @@ function injectAndGetActions() {
 
 @Component({
 	selector: "context-menu",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (isOpen() && actions) {
 			<div

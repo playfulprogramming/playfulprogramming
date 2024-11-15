@@ -6,10 +6,12 @@ import {
 	output,
 	input,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "expandable-dropdown",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="toggle.emit()">
@@ -31,6 +33,7 @@ class ExpandableDropdownComponent {
 @Component({
 	selector: "app-sidebar",
 	imports: [ExpandableDropdownComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<h1>My Files</h1>

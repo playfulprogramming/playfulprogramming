@@ -3,6 +3,7 @@ import { bootstrapApplication } from "@angular/platform-browser";
 import {
 	Component,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 	input,
 	effect,
 	signal,
@@ -10,6 +11,7 @@ import {
 
 @Component({
 	selector: "file-date",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<span [attr.aria-label]="labelText()">{{ dateStr() }}</span>`,
 })
 class FileDateComponent {
@@ -31,6 +33,7 @@ class FileDateComponent {
 @Component({
 	selector: "file-item",
 	imports: [FileDateComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<a href="/file/file_one">{{ fileName() }}<file-date /></a>
@@ -44,6 +47,7 @@ class FileComponent {
 @Component({
 	selector: "file-list",
 	imports: [FileComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ul>
 			<li><file-item [fileName]="'File one'" /></li>

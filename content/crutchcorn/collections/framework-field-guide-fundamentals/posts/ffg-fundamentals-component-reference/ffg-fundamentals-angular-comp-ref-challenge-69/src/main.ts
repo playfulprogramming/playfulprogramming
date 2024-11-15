@@ -10,10 +10,12 @@ import {
 	signal,
 	viewChild,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "app-layout",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
 			<div
@@ -40,6 +42,7 @@ class LayoutComponent {
 
 @Component({
 	selector: "app-sidebar",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (isCollapsed()) {
 			<button (click)="toggleCollapsed()">Toggle</button>
@@ -85,6 +88,7 @@ class SidebarComponent {
 @Component({
 	selector: "app-root",
 	imports: [LayoutComponent, SidebarComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<app-layout [sidebarWidth]="width()">
 			<app-sidebar #sidebar sidebar (toggle)="onToggle($event)" />

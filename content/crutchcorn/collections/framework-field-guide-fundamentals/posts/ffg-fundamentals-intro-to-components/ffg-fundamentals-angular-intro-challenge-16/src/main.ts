@@ -3,6 +3,7 @@ import { bootstrapApplication } from "@angular/platform-browser";
 import {
 	Component,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 	signal,
 	output,
 	input,
@@ -10,6 +11,7 @@ import {
 
 @Component({
 	selector: "expandable-dropdown",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="toggle.emit()">
@@ -29,6 +31,7 @@ class ExpandableDropdownComponent {
 @Component({
 	selector: "app-sidebar",
 	imports: [ExpandableDropdownComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<h1>My Files</h1>

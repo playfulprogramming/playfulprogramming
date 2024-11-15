@@ -4,10 +4,12 @@ import {
 	Component,
 	effect,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Hello, world!</p> `,
 })
 class AppComponent {

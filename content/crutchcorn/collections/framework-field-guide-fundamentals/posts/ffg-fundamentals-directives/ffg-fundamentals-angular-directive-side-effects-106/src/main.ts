@@ -7,6 +7,7 @@ import {
 	Directive,
 	afterRenderEffect,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Directive({
@@ -25,6 +26,7 @@ class StyleBackgroundDirective {
 @Component({
 	selector: "app-root",
 	imports: [StyleBackgroundDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <button focusElement>Hello, world</button> `,
 })
 class AppComponent {}

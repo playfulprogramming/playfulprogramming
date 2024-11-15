@@ -7,10 +7,12 @@ import {
 	ElementRef,
 	untracked,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "parent-list",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <ng-content></ng-content> `,
 })
 class ParentListComponent {
@@ -27,6 +29,7 @@ class ParentListComponent {
 @Component({
 	selector: "app-root",
 	imports: [ParentListComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<parent-list>
 			<p #childItem>Hello, world!</p>

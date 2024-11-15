@@ -7,10 +7,12 @@ import {
 	afterRenderEffect,
 	viewChild,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "paragraph-tag",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button #btn>Add one</button>
 		<p>Count is {{ count() }}</p>

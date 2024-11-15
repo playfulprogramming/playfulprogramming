@@ -6,10 +6,12 @@ import {
 	effect,
 	output,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "app-alert",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Showing alert...</p> `,
 })
 class AlertComponent {
@@ -28,6 +30,7 @@ class AlertComponent {
 @Component({
 	selector: "app-root",
 	imports: [AlertComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<!-- Try clicking and unclicking quickly -->

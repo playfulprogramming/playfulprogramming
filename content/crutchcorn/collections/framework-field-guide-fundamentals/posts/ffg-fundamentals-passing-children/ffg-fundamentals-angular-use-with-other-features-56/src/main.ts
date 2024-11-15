@@ -4,10 +4,12 @@ import {
 	Component,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "toggle-button",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(click)="togglePressed()"
@@ -32,6 +34,7 @@ class ToggleButtonComponent {
 
 @Component({
 	selector: "rainbow-exclamation-mark",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <span>!</span> `,
 	// These styles will only apply to this component
 	styles: [
@@ -64,6 +67,7 @@ class RainbowExclamationMarkComponent {}
 @Component({
 	selector: "toggle-button-list",
 	imports: [ToggleButtonComponent, RainbowExclamationMarkComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<toggle-button>
 			Hello
@@ -84,6 +88,7 @@ class ToggleButtonListComponent {
 @Component({
 	selector: "app-root",
 	imports: [ToggleButtonListComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <toggle-button-list /> `,
 })
 class AppComponent {}

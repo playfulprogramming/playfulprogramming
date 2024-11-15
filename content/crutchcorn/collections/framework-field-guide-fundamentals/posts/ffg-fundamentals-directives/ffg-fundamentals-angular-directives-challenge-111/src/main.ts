@@ -11,6 +11,7 @@ import {
 	afterRenderEffect,
 	input,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 import { DomPortal, DomPortalOutlet } from "@angular/cdk/portal";
 
@@ -81,6 +82,7 @@ class TooltipDirective {
 @Component({
 	selector: "app-root",
 	imports: [TooltipDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button #tooltipBase>Hover me</button>

@@ -7,10 +7,12 @@ import {
 	afterRender,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "file-date",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<span [attr.aria-label]="labelText()">{{ dateStr() }}</span>`,
 })
 class FileDateComponent {
@@ -34,6 +36,7 @@ class FileDateComponent {
 @Component({
 	selector: "file-item",
 	imports: [FileDateComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(click)="selected.emit()"
@@ -62,6 +65,7 @@ class FileComponent {
 @Component({
 	selector: "file-list",
 	imports: [FileComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ul>
 			<li>

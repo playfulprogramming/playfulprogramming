@@ -6,10 +6,12 @@ import {
 	effect,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "alarm-screen",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<p>Time to wake up!</p>
@@ -37,6 +39,7 @@ class AlarmScreenComponent {
 @Component({
 	selector: "app-root",
 	imports: [AlarmScreenComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (!timerEnabled()) {
 			<p>There is no timer</p>

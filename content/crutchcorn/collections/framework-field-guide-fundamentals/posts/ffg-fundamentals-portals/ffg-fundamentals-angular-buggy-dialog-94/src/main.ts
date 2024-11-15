@@ -4,10 +4,12 @@ import {
 	Component,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "delete-modal",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<div class="modal-container">
@@ -28,6 +30,7 @@ class ModalComponent {}
 
 @Component({
 	selector: "delete-icon",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<svg viewBox="0 0 20 21">
 			<path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
@@ -43,6 +46,7 @@ class DeleteIconComponent {}
 
 @Component({
 	selector: "folder-icon",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<svg viewBox="0 0 20 16">
 			<path
@@ -56,6 +60,7 @@ class FolderIconComponent {}
 
 @Component({
 	selector: "footer-comp",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <div class="footer-container">Copyright 2022</div> `,
 })
 class FooterComponent {}
@@ -63,6 +68,7 @@ class FooterComponent {}
 @Component({
 	selector: "body-comp",
 	imports: [FolderIconComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ul class="list-container">
 			@for (fileIdx of files; track fileIdx) {
@@ -81,6 +87,7 @@ class BodyComponent {
 @Component({
 	selector: "header-comp",
 	imports: [ModalComponent, FolderIconComponent, DeleteIconComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="header-container">
 			@if (shouldShowModal()) {
@@ -108,6 +115,7 @@ class HeaderComponent {
 @Component({
 	selector: "app-root",
 	imports: [HeaderComponent, BodyComponent, FooterComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<header-comp />

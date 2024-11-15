@@ -3,11 +3,13 @@ import { bootstrapApplication } from "@angular/platform-browser";
 import {
 	Component,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 	signal,
 } from "@angular/core";
 
 @Component({
 	selector: "word-list",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="addWord()">Add word</button>

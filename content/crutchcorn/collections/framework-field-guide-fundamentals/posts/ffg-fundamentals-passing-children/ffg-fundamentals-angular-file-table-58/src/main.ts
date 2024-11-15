@@ -8,10 +8,12 @@ import {
 	output,
 	computed,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "file-date",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<span [attr.aria-label]="labelText()">
 			{{ dateStr() }}
@@ -37,6 +39,7 @@ class FileDateComponent {
           'background-color: white; color: blue'
     `,
 	},
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<td>
 			<a [href]="href()" style="color: inherit">{{ fileName() }}</a>
@@ -83,6 +86,7 @@ class FileComponent {
 @Component({
 	selector: "tbody[file-table-body]",
 	imports: [FileComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@for (file of filesArray; track file.id; let i = $index) {
 			@if (onlyShowFiles() ? !file.isFolder : true) {
@@ -148,6 +152,7 @@ class FileTableBody {
 @Component({
 	selector: "file-table",
 	imports: [FileTableBody],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="toggleOnlyShow()" style="margin-bottom: 1rem">
@@ -170,6 +175,7 @@ class FileTableComponent {
 @Component({
 	selector: "app-root",
 	imports: [FileTableComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<file-table />`,
 })
 class AppComponent {}

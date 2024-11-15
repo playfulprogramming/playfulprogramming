@@ -5,10 +5,12 @@ import {
 	input,
 	output,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "file-action-buttons",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button (click)="delete.emit()">Delete</button>
 		<button (click)="copy.emit()">Copy</button>
@@ -31,6 +33,7 @@ class FileActionButtonsComponent {
 @Component({
 	selector: "button-bar",
 	imports: [FileActionButtonsComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; gap: 1rem">
 			@if (fileSelected()) {
@@ -56,6 +59,7 @@ class ButtonBarComponent {
 @Component({
 	selector: "app-root",
 	imports: [ButtonBarComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button-bar
 			[fileSelected]="true"

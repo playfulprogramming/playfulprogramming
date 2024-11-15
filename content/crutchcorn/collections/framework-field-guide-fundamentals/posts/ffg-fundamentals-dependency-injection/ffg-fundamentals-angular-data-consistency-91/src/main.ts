@@ -5,6 +5,7 @@ import {
 	inject,
 	OnInit,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Injectable()
@@ -14,6 +15,7 @@ class UserValue {
 
 @Component({
 	selector: "great-grand-child",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Name: {{ user.name }}</p> `,
 })
 class GreatGrandChildComponent {
@@ -31,6 +33,7 @@ class GreatGrandChildComponent {
 		},
 	],
 	imports: [GreatGrandChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<great-grand-child />`,
 })
 class GrandChildComponent {}
@@ -38,6 +41,7 @@ class GrandChildComponent {}
 @Component({
 	selector: "child-comp",
 	imports: [GrandChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<grand-child />`,
 })
 class ChildComponent {}
@@ -46,6 +50,7 @@ class ChildComponent {}
 	selector: "app-root",
 	providers: [{ provide: UserValue, useValue: { name: "Corbin Crutchley" } }],
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<child-comp />`,
 })
 class AppComponent {}

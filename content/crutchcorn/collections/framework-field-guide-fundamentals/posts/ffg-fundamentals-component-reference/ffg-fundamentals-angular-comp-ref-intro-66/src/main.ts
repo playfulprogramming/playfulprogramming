@@ -9,10 +9,12 @@ import {
 	signal,
 	viewChild,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "context-menu",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (isOpen()) {
 			<div
@@ -72,6 +74,7 @@ class ContextMenuComponent {
 @Component({
 	selector: "app-root",
 	imports: [ContextMenuComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>

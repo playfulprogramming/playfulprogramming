@@ -5,6 +5,7 @@ import {
 	computed,
 	input,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 const kilobyte = 1024;
@@ -25,6 +26,7 @@ function formatBytes(bytes: number) {
 
 @Component({
 	selector: "display-size",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>{{ readableBytes() }}</p>`,
 })
 class DisplaySizeComponent {
@@ -36,6 +38,7 @@ class DisplaySizeComponent {
 @Component({
 	selector: "app-root",
 	imports: [DisplaySizeComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<table>
 			<thead>

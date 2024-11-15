@@ -5,6 +5,7 @@ import {
 	Component,
 	ElementRef,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 	afterRenderEffect,
 	signal,
 	viewChild,
@@ -13,6 +14,7 @@ import {
 @Component({
 	selector: "app-root",
 	imports: [PortalModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="height: 100px; width: 100px; border: 2px solid black;">
 			@if (domPortal()) {

@@ -3,11 +3,13 @@ import { bootstrapApplication } from "@angular/platform-browser";
 import {
 	Component,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "app-root",
 	imports: [],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<h1>To-do items</h1>
 		<ul>

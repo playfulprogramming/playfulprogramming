@@ -5,6 +5,7 @@ import {
 	Injectable,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 import { ActionTypes } from "./context";
 
@@ -30,6 +31,7 @@ function injectAndAssignActions(actions: any[]) {
 			useClass: FileListActions,
 		},
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="padding: 1rem">
 			<h1>Files</h1>

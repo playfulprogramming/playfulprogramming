@@ -5,6 +5,7 @@ import {
 	inject,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Injectable({ providedIn: "root" })
@@ -18,6 +19,7 @@ class MessageValue {
 
 @Component({
 	selector: "great-grand-child",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<p>{{ messageValue.greeting() }}, user!</p>
@@ -62,6 +64,7 @@ class SparklyMessageValue {
 		},
 	],
 	imports: [GreatGrandChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<great-grand-child />`,
 })
 class GrandChildComponent {}
@@ -69,6 +72,7 @@ class GrandChildComponent {}
 @Component({
 	selector: "child-comp",
 	imports: [GrandChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<grand-child />`,
 })
 class ChildComponent {}
@@ -76,6 +80,7 @@ class ChildComponent {}
 @Component({
 	selector: "app-root",
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<child-comp />`,
 })
 class AppComponent {}

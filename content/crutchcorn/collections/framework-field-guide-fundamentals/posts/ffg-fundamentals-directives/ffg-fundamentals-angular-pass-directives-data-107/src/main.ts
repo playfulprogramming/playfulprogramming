@@ -8,6 +8,7 @@ import {
 	effect,
 	input,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Directive({
@@ -28,6 +29,7 @@ class StyleBackgroundDirective {
 @Component({
 	selector: "app-root",
 	imports: [StyleBackgroundDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <button styleBackground="#FFAEAE">Hello, world</button> `,
 })
 class AppComponent {}

@@ -9,6 +9,7 @@ import {
 	viewChild,
 	afterRenderEffect,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 import { TemplatePortal, DomPortalOutlet } from "@angular/cdk/portal";
@@ -22,6 +23,7 @@ class PortalService {
 
 @Component({
 	selector: "modal-comp",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <ng-template #portalContent>Hello, world!</ng-template> `,
 })
 class ModalComponent {
@@ -47,6 +49,7 @@ class ModalComponent {
 @Component({
 	selector: "app-root",
 	imports: [ModalComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<!-- Even though it's rendered first, it shows up last because it's being appended to <body> -->
 		<modal-comp />

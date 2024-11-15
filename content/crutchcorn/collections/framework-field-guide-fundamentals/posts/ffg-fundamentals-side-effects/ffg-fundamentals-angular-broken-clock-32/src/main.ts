@@ -5,10 +5,12 @@ import {
 	effect,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "clock-comp",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p role="timer">Time is: {{ time() }}</p> `,
 })
 class ClockComponent {
@@ -45,6 +47,7 @@ function prefixZero(number: number) {
 @Component({
 	selector: "app-root",
 	imports: [ClockComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="setShowClock(!showClock())">Toggle clock</button>

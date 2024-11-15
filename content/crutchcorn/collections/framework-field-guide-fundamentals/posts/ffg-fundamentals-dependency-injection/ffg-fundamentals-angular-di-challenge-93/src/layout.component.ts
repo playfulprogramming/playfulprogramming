@@ -2,10 +2,12 @@
 import {
 	Component,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "app-layout",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
 			<div

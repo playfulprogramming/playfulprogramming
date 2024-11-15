@@ -5,6 +5,7 @@ import {
 	effect,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
@@ -22,6 +23,7 @@ class ChildComponent {
 @Component({
 	selector: "parent-comp",
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="setShowChild()">Toggle Child</button>

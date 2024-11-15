@@ -9,6 +9,7 @@ import {
 	viewChild,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 import { PortalModule, TemplatePortal } from "@angular/cdk/portal";
 
@@ -16,6 +17,7 @@ import { PortalModule, TemplatePortal } from "@angular/cdk/portal";
 	selector: "app-root",
 	standalone: true,
 	imports: [PortalModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="height: 100px; width: 100px; border: 2px solid black;">
 			@if (templatePortal()) {

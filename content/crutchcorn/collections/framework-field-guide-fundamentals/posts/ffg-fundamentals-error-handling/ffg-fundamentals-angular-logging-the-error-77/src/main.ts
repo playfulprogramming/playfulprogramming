@@ -5,6 +5,7 @@ import {
 	effect,
 	ErrorHandler,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 const getErrorString = (err: unknown) =>
@@ -19,6 +20,7 @@ class MyErrorHandler implements ErrorHandler {
 
 @Component({
 	selector: "child-comp",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>Testing</p>`,
 })
 class ChildComponent {
@@ -33,6 +35,7 @@ class ChildComponent {
 @Component({
 	selector: "app-root",
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<child-comp />`,
 })
 class AppComponent {}

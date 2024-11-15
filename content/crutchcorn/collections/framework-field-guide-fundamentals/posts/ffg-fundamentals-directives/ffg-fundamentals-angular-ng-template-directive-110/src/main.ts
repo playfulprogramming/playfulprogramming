@@ -4,6 +4,7 @@ import {
 	Directive,
 	Component,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Directive({
@@ -18,6 +19,7 @@ class TemplateDirective {
 @Component({
 	selector: "app-root",
 	imports: [TemplateDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <ng-template beOnTemplate><p>Hello, world</p></ng-template> `,
 })
 class AppComponent {}

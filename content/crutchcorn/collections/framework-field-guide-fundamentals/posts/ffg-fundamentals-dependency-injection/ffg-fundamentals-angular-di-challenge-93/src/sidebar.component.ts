@@ -4,6 +4,7 @@ import {
 	inject,
 	Injectable,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 import { ActionTypes } from "./context";
 
@@ -29,6 +30,7 @@ function injectAndAssignActions(actions: any[]) {
 			useClass: SidebarDirectories,
 		},
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="padding: 1rem">
 			<h1 style="font-size: 1.25rem">Directories</h1>

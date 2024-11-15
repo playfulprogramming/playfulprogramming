@@ -6,10 +6,12 @@ import {
 	ElementRef,
 	viewChild,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "paragraph-tag",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (true) {
 			<p #pTag>Hello, world!</p>

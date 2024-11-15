@@ -7,6 +7,7 @@ import {
 	TemplateRef,
 	ViewContainerRef,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 function injectAndRenderTemplate() {
@@ -31,6 +32,7 @@ class PassBackgroundDirective {
 @Component({
 	selector: "app-root",
 	imports: [PassBackgroundDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<ng-template passBackground let-backgroundColor="backgroundColor">

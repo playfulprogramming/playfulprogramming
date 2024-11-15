@@ -6,12 +6,14 @@ import {
 	signal,
 	TemplateRef,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
 	selector: "parent-list",
 	imports: [NgTemplateOutlet],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<p>There are {{ children().length }} number of items in this array</p>
 		<ul>
@@ -30,6 +32,7 @@ class ParentListComponent {
 @Component({
 	imports: [ParentListComponent],
 	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<parent-list>
 			@for (item of list(); track item; let i = $index) {

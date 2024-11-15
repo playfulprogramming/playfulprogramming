@@ -7,10 +7,12 @@ import {
 	signal,
 	viewChild,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			style="

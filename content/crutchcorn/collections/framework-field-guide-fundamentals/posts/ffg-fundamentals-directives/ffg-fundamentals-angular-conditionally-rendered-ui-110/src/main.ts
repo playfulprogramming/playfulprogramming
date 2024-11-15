@@ -10,6 +10,7 @@ import {
 	input,
 	effect,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 const flags: Record<string, boolean> = {
@@ -44,6 +45,7 @@ class FeatureFlagDirective {
 @Component({
 	selector: "app-root",
 	imports: [FeatureFlagDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button *featureFlag="'addToCartButton'">Add to cart</button>

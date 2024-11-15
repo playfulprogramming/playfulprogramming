@@ -6,12 +6,14 @@ import {
 	input,
 	TemplateRef,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
 	selector: "table-comp",
 	imports: [NgTemplateOutlet],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<table>
 			<thead>
@@ -42,6 +44,7 @@ class TableComponent {
 @Component({
 	selector: "app-root",
 	imports: [TableComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<table-comp [data]="data">
 			<ng-template #header let-length="length">

@@ -5,12 +5,14 @@ import {
 	OnInit,
 	Input,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 	input,
 	signal,
 } from "@angular/core";
 
 @Component({
 	selector: "file-date",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<span [attr.aria-label]="labelText()">{{ dateStr() }}</span>`,
 })
 class FileDateComponent implements OnInit {
@@ -30,6 +32,7 @@ class FileDateComponent implements OnInit {
 @Component({
 	selector: "file-item",
 	imports: [FileDateComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<a [attr.href]="href()">{{ fileName() }}<file-date /></a>
@@ -44,6 +47,7 @@ class FileComponent {
 @Component({
 	selector: "file-list",
 	imports: [FileComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ul>
 			<li><file-item [fileName]="'File one'" [href]="'/file/file_one'" /></li>

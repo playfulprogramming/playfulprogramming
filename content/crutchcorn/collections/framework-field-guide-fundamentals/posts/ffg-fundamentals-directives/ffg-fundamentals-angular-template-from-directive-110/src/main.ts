@@ -6,6 +6,7 @@ import {
 	inject,
 	TemplateRef,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 function injectTemplateAndLog() {
@@ -26,6 +27,7 @@ class ItemDirective {
 @Component({
 	selector: "app-root",
 	imports: [ItemDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<ng-template item>

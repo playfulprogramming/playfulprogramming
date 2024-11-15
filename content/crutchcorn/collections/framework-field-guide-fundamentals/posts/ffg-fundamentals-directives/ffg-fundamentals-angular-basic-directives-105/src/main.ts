@@ -6,6 +6,7 @@ import {
 	ElementRef,
 	Directive,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 function injectElAndStyle() {
@@ -24,6 +25,7 @@ class StyleBackgroundDirective {
 @Component({
 	selector: "app-root",
 	imports: [StyleBackgroundDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <button styleBackground>Hello, world</button> `,
 })
 class AppComponent {}

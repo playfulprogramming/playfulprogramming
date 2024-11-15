@@ -4,6 +4,7 @@ import { Component } from "@angular/core";
 
 @Component({
 	selector: "window-size",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<!-- This code doesn't work, we'll explain why soon -->
 		<div (resize)="resizeHandler()">

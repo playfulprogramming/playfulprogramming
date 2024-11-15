@@ -4,10 +4,12 @@ import {
 	Component,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "title-changer",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="updateTitle('Movies')">Movies</button>
@@ -31,6 +33,7 @@ class TitleChangerComponent {
 @Component({
 	selector: "app-root",
 	imports: [TitleChangerComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="toggle()">Toggle title changer</button>

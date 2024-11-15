@@ -7,12 +7,14 @@ import {
 	viewChild,
 	ViewChild,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 import { ContextMenuComponent } from "./context-menu.component";
 
 @Component({
 	selector: "file-item",
 	imports: [ContextMenuComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(contextmenu)="onContextMenu($event)"

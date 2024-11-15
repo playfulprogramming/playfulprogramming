@@ -13,6 +13,7 @@ import {
 	input,
 	OutputEmitterRef,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Injectable()
@@ -52,6 +53,7 @@ class CloseIfOutSideContext {
 
 @Component({
 	selector: "context-menu",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			#contextMenu
@@ -125,6 +127,7 @@ class BoundsContext {
 @Component({
 	selector: "app-root",
 	imports: [ContextMenuComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
 			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>

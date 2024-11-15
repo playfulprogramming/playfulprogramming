@@ -11,6 +11,7 @@ import {
 	signal,
 	effect,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 import { DomPortalOutlet, TemplatePortal } from "@angular/cdk/portal";
@@ -24,6 +25,7 @@ class PortalService {
 
 @Component({
 	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			style="

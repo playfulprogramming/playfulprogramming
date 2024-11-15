@@ -4,10 +4,12 @@ import {
 	Component,
 	effect,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "file-date",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<span>12/03/21</span>`,
 })
 class FileDateComponent {

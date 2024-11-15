@@ -5,10 +5,12 @@ import {
 	effect,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "cleanup-comp",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Unmount me to see an alert</p> `,
 })
 class CleanupComponent {
@@ -24,6 +26,7 @@ class CleanupComponent {
 @Component({
 	selector: "app-root",
 	imports: [CleanupComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="toggle()">Toggle</button>

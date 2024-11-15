@@ -2,6 +2,7 @@
 import {
 	Injectable,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Injectable()

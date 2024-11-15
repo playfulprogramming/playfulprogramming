@@ -11,10 +11,12 @@ import {
 	signal,
 	viewChild,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "app-layout",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
 			<div
@@ -41,6 +43,7 @@ class LayoutComponent {
 
 @Component({
 	selector: "app-sidebar",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<!-- "toggle" is an event emitter! -->
 		<!-- It's supposed to be "toggleCollapsed"! 😱 -->
@@ -97,6 +100,7 @@ class MyErrorHandler implements ErrorHandler {
 
 @Component({
 	selector: "error-catcher",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (errorHandler.error()) {
 			<div>
@@ -153,6 +157,7 @@ class ErrorCatcher {
 @Component({
 	selector: "app-root",
 	imports: [LayoutComponent, SidebarComponent, ErrorCatcher],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<error-catcher>
 			<app-layout [sidebarWidth]="width()">

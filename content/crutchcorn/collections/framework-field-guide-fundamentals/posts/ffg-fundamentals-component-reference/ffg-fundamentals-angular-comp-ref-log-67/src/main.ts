@@ -5,10 +5,12 @@ import {
 	Component,
 	viewChild,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "child-comp",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<div
 		style="height: 100px; width: 100px; background-color: red;"
 	></div>`,
@@ -23,6 +25,7 @@ class ChildComponent {
 @Component({
 	selector: "parent-comp",
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<child-comp #childVar />`,
 })
 class ParentComponent {

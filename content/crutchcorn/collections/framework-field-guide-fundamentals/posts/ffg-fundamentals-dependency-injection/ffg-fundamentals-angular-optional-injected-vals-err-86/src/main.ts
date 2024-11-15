@@ -5,6 +5,7 @@ import {
 	inject,
 	OnInit,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Injectable()
@@ -14,6 +15,7 @@ class InjectedValue {
 
 @Component({
 	selector: "child-comp",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>{{ injectedValue.message }}</p>`,
 })
 class ChildComponent {
@@ -23,6 +25,7 @@ class ChildComponent {
 @Component({
 	selector: "app-root",
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<child-comp />`,
 })
 class ParentComponent {}

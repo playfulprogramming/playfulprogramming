@@ -5,6 +5,7 @@ import {
 	Component,
 	inject,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Injectable()
@@ -15,6 +16,7 @@ class WindowSize {
 
 @Component({
 	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<p>
 			The window is {{ windowSize.height }}px high and {{ windowSize.width }}px

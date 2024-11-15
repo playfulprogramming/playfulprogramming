@@ -4,10 +4,12 @@ import {
 	Component,
 	input,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "conditional-render",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<div>
 		@if (bool()) {
 			<p>Text here</p>
@@ -21,6 +23,7 @@ class ConditionalRenderComponent {
 @Component({
 	selector: "app-root",
 	imports: [ConditionalRenderComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<h1>Shown contents</h1>

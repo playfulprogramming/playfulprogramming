@@ -3,10 +3,12 @@ import { bootstrapApplication } from "@angular/platform-browser";
 import {
 	Component,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "event-bubbler",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div (click)="logMessage()">
 			<p>

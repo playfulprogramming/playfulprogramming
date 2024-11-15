@@ -4,6 +4,7 @@ import {
 	Component,
 	signal,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 /**
@@ -16,6 +17,7 @@ import {
  */
 @Component({
 	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div (contextmenu)="open($event)">Right click on me!</div>

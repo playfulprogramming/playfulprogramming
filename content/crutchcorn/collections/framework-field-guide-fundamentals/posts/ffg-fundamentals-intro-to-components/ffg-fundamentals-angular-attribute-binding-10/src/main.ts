@@ -4,11 +4,13 @@ import {
 	Component,
 	effect,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 	signal,
 } from "@angular/core";
 
 @Component({
 	selector: "file-date",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<span [attr.aria-label]="labelText()">{{ dateStr() }}</span>`,
 })
 class FileDateComponent {

@@ -13,10 +13,12 @@ import {
 	output,
 	effect,
 	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "file-date",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<span [attr.aria-label]="labelText()">
 			{{ dateStr() }}
@@ -33,6 +35,7 @@ class FileDateComponent {
 @Component({
 	selector: "file-item",
 	imports: [FileDateComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<tr
 			[attr.aria-selected]="isSelected()"
@@ -89,6 +92,7 @@ class FileComponent {
 @Component({
 	selector: "file-table-body",
 	imports: [FileComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<tbody>
 			@for (file of filesArray; track file.id; let i = $index) {
@@ -159,6 +163,7 @@ class FileTableBody {
 @Component({
 	selector: "file-table",
 	imports: [FileTableBody],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<table style="border-spacing: 0;">
 			<file-table-body />
@@ -170,6 +175,7 @@ class FileTableComponent {}
 @Component({
 	selector: "app-root",
 	imports: [FileTableComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<file-table />`,
 })
 class AppComponent {}
