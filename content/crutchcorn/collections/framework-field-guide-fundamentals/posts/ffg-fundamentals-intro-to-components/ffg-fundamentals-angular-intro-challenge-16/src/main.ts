@@ -2,10 +2,10 @@ import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
 	Component,
-	Input,
-	EventEmitter,
-	Output,
 	provideExperimentalZonelessChangeDetection,
+	signal,
+	output,
+	input,
 } from "@angular/core";
 
 @Component({
@@ -13,17 +13,17 @@ import {
 	template: `
 		<div>
 			<button (click)="toggle.emit()">
-				{{ expanded ? "V" : ">" }}
-				{{ name }}
+				{{ expanded() ? "V" : ">" }}
+				{{ name() }}
 			</button>
-			<div [hidden]="!expanded">More information here</div>
+			<div [hidden]="!expanded()">More information here</div>
 		</div>
 	`,
 })
 class ExpandableDropdownComponent {
-	@Input() name!: string;
-	@Input() expanded!: boolean;
-	@Output() toggle = new EventEmitter();
+	name = input.required<string>();
+	expanded = input.required<boolean>();
+	toggle = output();
 }
 
 @Component({
@@ -34,44 +34,44 @@ class ExpandableDropdownComponent {
 			<h1>My Files</h1>
 			<expandable-dropdown
 				name="Movies"
-				[expanded]="moviesExpanded"
-				(toggle)="moviesExpanded = !moviesExpanded"
+				[expanded]="moviesExpanded()"
+				(toggle)="moviesExpanded.set(!moviesExpanded())"
 			/>
 			<expandable-dropdown
 				name="Pictures"
-				[expanded]="picturesExpanded"
-				(toggle)="picturesExpanded = !picturesExpanded"
+				[expanded]="picturesExpanded()"
+				(toggle)="picturesExpanded.set(!picturesExpanded())"
 			/>
 			<expandable-dropdown
 				name="Concepts"
-				[expanded]="conceptsExpanded"
-				(toggle)="conceptsExpanded = !conceptsExpanded"
+				[expanded]="conceptsExpanded()"
+				(toggle)="conceptsExpanded.set(!conceptsExpanded())"
 			/>
 			<expandable-dropdown
 				name="Articles I'll Never Finish"
-				[expanded]="articlesExpanded"
-				(toggle)="articlesExpanded = !articlesExpanded"
+				[expanded]="articlesExpanded()"
+				(toggle)="articlesExpanded.set(!articlesExpanded())"
 			/>
 			<expandable-dropdown
 				name="Website Redesigns v5"
-				[expanded]="redesignExpanded"
-				(toggle)="redesignExpanded = !redesignExpanded"
+				[expanded]="redesignExpanded()"
+				(toggle)="redesignExpanded.set(!redesignExpanded())"
 			/>
 			<expandable-dropdown
 				name="Invoices"
-				[expanded]="invoicesExpanded"
-				(toggle)="invoicesExpanded = !invoicesExpanded"
+				[expanded]="invoicesExpanded()"
+				(toggle)="invoicesExpanded.set(!invoicesExpanded())"
 			/>
 		</div>
 	`,
 })
 class SidebarComponent {
-	moviesExpanded = true;
-	picturesExpanded = false;
-	conceptsExpanded = false;
-	articlesExpanded = false;
-	redesignExpanded = false;
-	invoicesExpanded = false;
+	moviesExpanded = signal(true);
+	picturesExpanded = signal(false);
+	conceptsExpanded = signal(false);
+	articlesExpanded = signal(false);
+	redesignExpanded = signal(false);
+	invoicesExpanded = signal(false);
 }
 
 bootstrapApplication(SidebarComponent, {

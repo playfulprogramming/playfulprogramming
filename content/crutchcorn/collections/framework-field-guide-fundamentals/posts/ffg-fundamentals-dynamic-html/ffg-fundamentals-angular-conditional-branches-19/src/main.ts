@@ -17,7 +17,7 @@ class FileDateComponent {
 	inputDate = input.required<Date>();
 
 	/**
-	 * You cannot access `Input` data from the root (constructor)
+	 * You cannot access `input` data from the root (constructor)
 	 * of the class
 	 */
 	dateStr = signal("");
