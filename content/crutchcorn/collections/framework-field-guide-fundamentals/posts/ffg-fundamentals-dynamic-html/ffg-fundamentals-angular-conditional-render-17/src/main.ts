@@ -1,24 +1,22 @@
 import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, Input } from "@angular/core";
+import { Component, input } from "@angular/core";
 
 @Component({
 	selector: "conditional-render",
-	standalone: true,
 	template: `<div>
-		@if (bool) {
+		@if (bool()) {
 			<p>Text here</p>
 		}
 	</div>`,
 })
 class ConditionalRenderComponent {
-	@Input() bool!: boolean;
+	bool = input.required<boolean>();
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ConditionalRenderComponent],
 	template: `
 		<div>
