@@ -1,4 +1,3 @@
-// Required by Angular to work, feel free to ignore
 import {
 	Component,
 	provideExperimentalZonelessChangeDetection,

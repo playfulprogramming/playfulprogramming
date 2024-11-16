@@ -162,12 +162,12 @@ React.createElement("div", null, aTag);
 ## Angular
 
 ```angular-ts
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
-	selector: "file-item",
-	standalone: true,
-	template: `
+  selector: "file-item",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
 		<div>
 			<a href="/file/file_one">File one<span>12/03/21</span></a>
 		</div>
@@ -181,12 +181,13 @@ Here, we're using the `@Component` decorator to define a class component in Angu
 This decorator has a few properties passed to it. Going from the bottom-up:
 
 1. `template`: The HTML associated with this component.
-2. `standalone`: A flag telling the framework that this component is allowed to use the relatively new "Standalone" feature and can be used directly by another component.
+2. `changeDetection`: A flag we're using to tell Angular to use the non-default [`OnPush` method of detecting changes](https://angular.dev/best-practices/skipping-subtrees), which provides better performance.
+    - All of the code examples in this book would work with `OnPush` or without it, but we opted to make it the default for our components to enforce the additional rules required to make `OnPush` works. This will set you up better for production apps in your future.
 3. `selector`: The name of the component that can be referenced inside the `template` of another component
+    - You may have noticed that this component is called `file-item` rather than `file`. Unlike the other frameworks in this book, Angular requires you to have a dash (`-`) in your selector name to avoid confusion with native HTML tags.
 
 > It's important to note that decorators (anything starting with `@`) are not supported in JavaScript itself. Instead, Angular uses [TypeScript](/posts/introduction-to-typescript/) to add types and other features to the language. From there, TypeScript compiles down to JavaScript.
 
-> You may have noticed that this component is called `file-item` rather than `file`. Unlike the other frameworks in this book, Angular requires you to have a dash (`-`) in your selector name to avoid confusion with native HTML tags.
 
 ## Vue
 
@@ -301,14 +302,16 @@ createRoot(document.getElementById("root")).render(<File />);
 
 ## Angular
 
-```angular-ts {2,15}
-import { Component } from "@angular/core";
-import { bootstrapApplication } from "@angular/platform-browser";
+```angular-ts {1-2,17-22}
+import { bootstrapApplication } from '@angular/platform-browser';
+import {provideExperimentalZonelessChangeDetection} from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
-	selector: "file-item",
-	standalone: true,
-	template: `
+  selector: "file-item",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
 		<div>
 			<a href="/file/file_one">File one<span>12/03/21</span></a>
 		</div>
@@ -316,10 +319,29 @@ import { bootstrapApplication } from "@angular/platform-browser";
 })
 class FileComponent {}
 
-bootstrapApplication(FileComponent);
+bootstrapApplication(FileComponent, {
+  providers: [
+    provideExperimentalZonelessChangeDetection()
+  ]
+})
+  .catch((err) => console.error(err))
 ```
 
+As the name implies, `provideExperimentalZonelessChangeDetection` enables "Zoneless change detection". When combined with the `providers` array (our [Dependency Injection chapter](/posts/ffg-fundamentals-dependency-injection) will explain this more), it disables [Zone.js, an older (and slower) method of detecting changes in your component](/posts/angular-internals-zonejs).
+
+> What is a "change detection"? Why do we care about it?
+
+We'll touch on this soon!
+
+> While `provideExperimentalZonelessChangeDetection` is _technically_ experimental, it's fairly stable. Stable enough that [Google's usage of Angular internally has enabled this by default for all of their apps going forward.](https://bsky.app/profile/jelbourn.bsky.social/post/3laylhu2crc2y)
+>
+> The reason we've opted to use it in our book is:
+>
+> 1) It's the future of Angular. One day, all modern Angular apps will be "Zoneless".
+> 2) When used with `OnPush`, you shouldn't notice a difference between this and Zone.js usage.
+
 <!-- ::start:no-ebook -->
+
 <iframe data-frame-title="Angular Rendering - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-1?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
@@ -394,9 +416,9 @@ const FileList = () => {
 
 ```angular-ts {12-22}
 @Component({
-	selector: "file-item",
-	standalone: true,
-	template: `
+  selector: "file-item",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
 		<div>
 			<a href="/file/file_one">File one<span>12/03/21</span></a>
 		</div>
@@ -405,10 +427,10 @@ const FileList = () => {
 class FileComponent {}
 
 @Component({
-	selector: "file-list",
-	standalone: true,
-	imports: [FileComponent],
-	template: `
+  selector: "file-list",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FileComponent],
+  template: `
 		<ul>
 			<li><file-item /></li>
 		</ul>
@@ -497,16 +519,16 @@ const FileList = () => {
 
 ```angular-ts
 @Component({
-	selector: "file-list",
-	standalone: true,
-	imports: [FileComponent],
-	template: `
-		<ul>
-			<li><file-item /></li>
-			<li><file-item /></li>
-			<li><file-item /></li>
-		</ul>
-	`,
+  selector: "file-list",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FileComponent],
+  template: `
+    <ul>
+      <li><file-item /></li>
+      <li><file-item /></li>
+      <li><file-item /></li>
+    </ul>
+  `,
 })
 class FileListComponent {}
 ```
@@ -595,17 +617,17 @@ const FileList = () => {
 
 ```angular-ts {1-6,11,14,23,26}
 @Component({
-	selector: "file-date",
-	standalone: true,
-	template: `<span>12/03/21</span>`,
+  selector: "file-date",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `<span>12/03/21</span>`,
 })
 class FileDateComponent {}
 
 @Component({
-	selector: "file-item",
-	standalone: true,
-	imports: [FileDateComponent],
-	template: `
+  selector: "file-item",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FileDateComponent],
+  template: `
 		<div>
 			<a href="/file/file_one">File one<file-date /></a>
 		</div>
@@ -614,10 +636,10 @@ class FileDateComponent {}
 class FileComponent {}
 
 @Component({
-	selector: "file-list",
-	standalone: true,
-	imports: [FileComponent],
-	template: `
+  selector: "file-list",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FileComponent],
+  template: `
 		<ul>
 			<li><file-item /></li>
 			<li><file-item /></li>
@@ -712,7 +734,7 @@ const FileDate = () => {
 ```angular-ts
 @Component({
 	selector: "file-date",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<span>12/03/21</span>`,
 })
 class FileDateComponent {
@@ -790,23 +812,23 @@ const FileDate = () => {
 
 ## Angular
 
-```angular-ts {7,9-16}
+```angular-ts {7,10-17}
 @Component({
 	selector: "file-date",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<span>12/03/21</span>`,
 })
 class FileDateComponent {
-	dateStr = this.formatDate();
+	dateStr = formatDate();
+}
 
-	formatDate() {
-		const today = new Date();
-		// Month starts at 0, annoyingly
-		const monthNum = today.getMonth() + 1;
-		const dateNum = today.getDate();
-		const yearNum = today.getFullYear();
-		return monthNum + "/" + dateNum + "/" + yearNum;
-	}
+function formatDate() {
+    const today = new Date();
+    // Month starts at 0, annoyingly
+    const monthNum = today.getMonth() + 1;
+    const dateNum = today.getDate();
+    const yearNum = today.getFullYear();
+    return monthNum + "/" + dateNum + "/" + yearNum;
 }
 ```
 
@@ -879,29 +901,31 @@ const FileDate = () => {
 
 ### Angular
 
-```angular-ts {1,8,11-13}
-import { Component, OnInit } from "@angular/core";
+```angular-ts {1,11-15}
+import { Component, ChangeDetectionStrategy, effect } from "@angular/core";
 
 @Component({
 	selector: "file-date",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<span>12/03/21</span>`,
 })
-class FileDateComponent implements OnInit {
-	dateStr = this.formatDate();
+class FileDateComponent {
+	dateStr = formatDate();
 
-	ngOnInit() {
-		console.log(this.dateStr);
+	constructor() {
+		effect(() => {
+			console.log(this.dateStr);
+		});
 	}
+}
 
-	formatDate() {
-		const today = new Date();
-		// Month starts at 0, annoyingly
-		const monthNum = today.getMonth() + 1;
-		const dateNum = today.getDate();
-		const yearNum = today.getFullYear();
-		return monthNum + "/" + dateNum + "/" + yearNum;
-	}
+function formatDate() {
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const monthNum = today.getMonth() + 1;
+	const dateNum = today.getDate();
+	const yearNum = today.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
 }
 ```
 
@@ -995,20 +1019,20 @@ const FileDate = () => {
 ```angular-ts {4}
 @Component({
 	selector: "file-date",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<span>{{ dateStr }}</span>`,
 })
 class FileDateComponent {
-	dateStr = this.formatDate();
+	dateStr = formatDate();
+}
 
-	formatDate() {
-		const today = new Date();
-		// Month starts at 0, annoyingly
-		const monthNum = today.getMonth() + 1;
-		const dateNum = today.getDate();
-		const yearNum = today.getFullYear();
-		return monthNum + "/" + dateNum + "/" + yearNum;
-	}
+function formatDate() {
+    const today = new Date();
+    // Month starts at 0, annoyingly
+    const monthNum = today.getMonth() + 1;
+    const dateNum = today.getDate();
+    const yearNum = today.getFullYear();
+    return monthNum + "/" + dateNum + "/" + yearNum;
 }
 ```
 
@@ -1082,16 +1106,8 @@ In the pseudocode sample we wrote before, we update the value of `dateStr` and t
 
 In React, we use a single line of code to do both and have a special `useState` method to tell React what data needs changing.
 
-```jsx {14-21}
+```jsx {4,6-13}
 import { useState, useEffect } from "react";
-
-function formatDate(inputDate) {
-	// Month starts at 0, annoyingly
-	const month = inputDate.getMonth() + 1;
-	const date = inputDate.getDate();
-	const year = inputDate.getFullYear();
-	return month + "/" + date + "/" + year;
-}
 
 const FileDate = () => {
 	const [dateStr, setDateStr] = useState(formatDate(new Date()));
@@ -1107,6 +1123,14 @@ const FileDate = () => {
 
 	return <span>{dateStr}</span>;
 };
+
+function formatDate(inputDate) {
+	// Month starts at 0, annoyingly
+	const month = inputDate.getMonth() + 1;
+	const date = inputDate.getDate();
+	const year = inputDate.getFullYear();
+	return month + "/" + date + "/" + year;
+}
 ```
 
 <!-- ::start:no-ebook -->
@@ -1173,36 +1197,61 @@ We'll [learn more about the nuances surrounding Hooks](/posts/ffg-fundamentals-s
 
 ### Angular
 
-While React takes a very explicit method of telling the framework when to re-render a component, Angular does the opposite and implicitly knows when you need to re-render based on the data changed.
+In Angular, any data that's:
 
-All it takes in Angular to trigger a re-render is to update a variable's value:
+- Updated more than once
+- Shown on screen
 
-```angular-ts {11-17}
-import { Component, OnInit } from "@angular/core";
+Needs to be stored in a "Signal". In short, [a signal is a data container that notifies other parts of the code when the inner data has changed](/posts/what-are-signals). Angular can then hook into that notification system to update the DOM live.
+
+To use a signal, you have to create an instance of it:
+
+```typescript
+const count = signal(0);
+```
+
+You then _call_ a signal like a function to read the inner value:
+
+```typescript
+console.log(count());
+```
+
+And use `.set` to update the inner value:
+
+```typescript
+count.set(1);
+```
+
+Now that we know how to use a signal, we can see it in effect:
+
+```angular-ts {9,11-19}
+import { Component, ChangeDetectionStrategy, effect, signal } from "@angular/core";
 
 @Component({
 	selector: "file-date",
-	standalone: true,
-	template: `<span>{{ dateStr }}</span>`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `<span>{{ dateStr() }}</span>`,
 })
-class FileDateComponent implements OnInit {
-	dateStr = this.formatDate(new Date());
+class FileDateComponent {
+	dateStr = signal(formatDate(new Date()));
 
-	ngOnInit() {
-		setTimeout(() => {
-			// 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
-			const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
-			this.dateStr = this.formatDate(tomorrow);
-		}, 5000);
+	constructor() {
+		effect(() => {
+			setTimeout(() => {
+				// 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+				const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
+				this.dateStr.set(formatDate(tomorrow));
+			}, 5000);
+		});
 	}
+}
 
-	formatDate(inputDate: Date) {
-		// Month starts at 0, annoyingly
-		const monthNum = inputDate.getMonth() + 1;
-		const dateNum = inputDate.getDate();
-		const yearNum = inputDate.getFullYear();
-		return monthNum + "/" + dateNum + "/" + yearNum;
-	}
+function formatDate(inputDate: Date) {
+	// Month starts at 0, annoyingly
+	const monthNum = inputDate.getMonth() + 1;
+	const dateNum = inputDate.getDate();
+	const yearNum = inputDate.getFullYear();
+	return monthNum + "/" + dateNum + "/" + yearNum;
 }
 ```
 
@@ -1283,16 +1332,14 @@ const FileDate = () => {
 
 ### Angular
 
-```angular-ts {6}
-import { Component, OnInit } from "@angular/core";
-
+```angular-ts {4}
 @Component({
 	selector: "file-date",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <span aria-label="January 10th, 2023">{{ dateStr }}</span> `,
 })
 class FileDateComponent implements OnInit {
-	dateStr = this.formatDate(new Date());
+	dateStr = signal(formatDate(new Date()));
 
 	// ...
 }
@@ -1325,8 +1372,19 @@ Let's correct that by adding in a `formatReadableDate` method and reflect that i
 
 ### React
 
-```jsx {26,30}
+```jsx {5,9}
 import { useState, useEffect } from "react";
+
+const FileDate = () => {
+	const [dateStr, setDateStr] = useState(formatDate(new Date()));
+	const [labelText, setLabelText] = useState(formatReadableDate(new Date()));
+
+	// ...
+
+	return <span aria-label={labelText}>{dateStr}</span>;
+};
+
+// ...
 
 function formatReadableDate(inputDate) {
 	const months = [
@@ -1348,15 +1406,6 @@ function formatReadableDate(inputDate) {
 	const yearNum = inputDate.getFullYear();
 	return monthStr + " " + dateSuffixStr + "," + yearNum;
 }
-
-const FileDate = () => {
-	const [dateStr, setDateStr] = useState(formatDate(new Date()));
-	const [labelText, setLabelText] = useState(formatReadableDate(new Date()));
-
-	// ...
-
-	return <span aria-label={labelText}>{dateStr}</span>;
-};
 
 function dateSuffix(dayNumber) {
 	const lastDigit = dayNumber % 10;
@@ -1381,54 +1430,54 @@ function dateSuffix(dayNumber) {
 
 ### Angular
 
-```angular-ts {6,10}
-import { Component, OnInit } from "@angular/core";
-
+```angular-ts {4,8}
 @Component({
 	selector: "file-date",
-	standalone: true,
-	template: ` <span [attr.aria-label]="labelText">{{ dateStr }}</span> `,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `<span [attr.aria-label]="labelText()">{{ dateStr() }}</span>`,
 })
-class FileDateComponent implements OnInit {
-	dateStr = this.formatDate(new Date());
-	labelText = this.formatReadableDate(new Date());
+class FileDateComponent {
+	dateStr = signal(formatDate(new Date()));
+	labelText = signal(formatReadableDate(new Date()));
 
 	// ...
+}
 
-	dateSuffix(dayNumber: number) {
-		const lastDigit = dayNumber % 10;
-		if (lastDigit == 1 && dayNumber != 11) {
-			return dayNumber + "st";
-		}
-		if (lastDigit == 2 && dayNumber != 12) {
-			return dayNumber + "nd";
-		}
-		if (lastDigit == 3 && dayNumber != 13) {
-			return dayNumber + "rd";
-		}
-		return dayNumber + "th";
-	}
+// ...
 
-	formatReadableDate(inputDate: Date) {
-		const months = [
-			"January",
-			"February",
-			"March",
-			"April",
-			"May",
-			"June",
-			"July",
-			"August",
-			"September",
-			"October",
-			"November",
-			"December",
-		];
-		const monthStr = months[inputDate.getMonth()];
-		const dateSuffixStr = this.dateSuffix(inputDate.getDate());
-		const yearNum = inputDate.getFullYear();
-		return monthStr + " " + dateSuffixStr + "," + yearNum;
+function dateSuffix(dayNumber: number) {
+	const lastDigit = dayNumber % 10;
+	if (lastDigit == 1 && dayNumber != 11) {
+		return dayNumber + "st";
 	}
+	if (lastDigit == 2 && dayNumber != 12) {
+		return dayNumber + "nd";
+	}
+	if (lastDigit == 3 && dayNumber != 13) {
+		return dayNumber + "rd";
+	}
+	return dayNumber + "th";
+}
+
+function formatReadableDate(inputDate: Date) {
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+	const monthStr = months[inputDate.getMonth()];
+	const dateSuffixStr = dateSuffix(inputDate.getDate());
+	const yearNum = inputDate.getFullYear();
+	return monthStr + " " + dateSuffixStr + "," + yearNum;
 }
 ```
 
@@ -1590,26 +1639,26 @@ const FileList = () => {
 ## Angular
 
 ```angular-ts {1,14,23}
-import { Input, Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy, input } from "@angular/core";
 
 @Component({
 	selector: "file-item",
-	standalone: true,
 	imports: [FileDateComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
-			<a href="/file/file_one">{{ fileName }}<file-date /></a>
+			<a href="/file/file_one">{{ fileName() }}<file-date /></a>
 		</div>
 	`,
 })
 class FileComponent {
-	@Input() fileName!: string;
+	fileName = input.required<string>();
 }
 
 @Component({
 	selector: "file-list",
-	standalone: true,
 	imports: [FileComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ul>
 			<li><file-item [fileName]="'File one'" /></li>
@@ -1626,8 +1675,30 @@ class FileListComponent {}
 <!-- ::end:no-ebook -->
 
 > See? Told you we'd cover what `[]` would be used for. It's the same binding syntax as with attributes!
->
-> We're also using the `@Input` decorator to declare inputs for each component input.
+
+### Required vs Optional Properties
+
+In our code sample, we wrote:
+
+```typescript
+class FileComponent {
+	fileName = input.required<string>();
+}
+```
+
+This tells Angular that this input **must** be passed, and that an error should be thrown if it is not.
+
+However, not all inputs are this mandatory. We could, for example, choose to have a default `fileName` if one is not passed:
+
+```typescript
+class FileComponent {
+	fileName = input("file.txt");
+}
+```
+
+We can see that we can remove the manual `<string>` when we pass a default value, but now it will no longer throw an error if you forget to pass it.
+
+> Make sure to pick the right one for any given example! Don't just hastily default to one or another.
 
 ## Vue
 
@@ -1729,23 +1800,23 @@ const FileList = () => {
 ```angular-ts {12-13,22}
 @Component({
 	selector: "file-item",
-	standalone: true,
 	imports: [FileDateComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
-			<a [attr.href]="href">{{ fileName }}<file-date /></a>
+			<a [attr.href]="href()">{{ fileName() }}<file-date /></a>
 		</div>
 	`,
 })
 class FileComponent {
-	@Input() fileName!: string;
-	@Input() href!: string;
+	fileName = input.required<string>();
+	href = input.required<string>();
 }
 
 @Component({
 	selector: "file-list",
-	standalone: true,
 	imports: [FileComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ul>
 			<li><file-item [fileName]="'File one'" [href]="'/file/file_one'" /></li>
@@ -1841,35 +1912,38 @@ const File = ({ href, fileName }) => {
 
 ### Angular
 
-```angular-ts {9,11-21,34,40}
-import { Component, OnInit } from "@angular/core";
+```angular-ts {10,12-24,37,43}
+import { Component, ChangeDetectionStrategy, input, signal, afterRender } from "@angular/core";
+
 
 @Component({
 	selector: "file-date",
-	standalone: true,
-	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `<span [attr.aria-label]="labelText()">{{ dateStr() }}</span>`,
 })
 class FileDateComponent {
-	@Input() inputDate!: Date;
+	inputDate = input.required<Date>();
 
 	/**
-	 * You cannot access `Input` data from the root (constructor)
+	 * You cannot access `input` data from the root (constructor)
 	 * of the class
 	 */
-	dateStr = "";
-	labelText = "";
+	dateStr = signal("");
+	labelText = signal("");
 
-	ngOnInit() {
-		this.dateStr = this.formatDate(this.inputDate);
-		this.labelText = this.formatReadableDate(this.inputDate);
+	constructor() {
+		afterRender(() => {
+			this.dateStr.set(formatDate(this.inputDate()));
+			this.labelText.set(formatReadableDate(this.inputDate()));
+		});
 	}
-
+	
 	// ...
 }
 
 @Component({
 	selector: "file-item",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileDateComponent],
 	template: `
 		<div>
@@ -1891,11 +1965,11 @@ class FileComponent {
 <iframe data-frame-title="Angular Object Props - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-object-props-13?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
-You'll notice that we had to move the logic to set the `dateStr` and `labelText` values to the `ngOnInit` method.
-This is because Angular doesn't allow you to access `@Input` values in the root (AKA the "constructor") of a component's class.
+You'll notice that we had to move the logic to set the `dateStr` and `labelText` values to the `afterRender` method. This tells Angular that after its first render, it should update the values of the signals based on the `input` method.
 
-> If you're unfamiliar with what a class constructor is and how it associates with root-level class properties, I'd suggest reading through
-> this guide I wrote about [using JavaScript classes without the `class` keyword](/posts/js-classes-without-keyword)
+This is because Angular doesn't allow you to access `input` values in the root (AKA the "constructor") of a component's class.
+
+> If you're unfamiliar with what a class constructor is and how it associates with root-level class properties, I'd suggest reading through this guide I wrote about [using JavaScript classes without the `class` keyword](/posts/js-classes-without-keyword)
 
 ### Vue
 
@@ -1971,26 +2045,23 @@ const GenericList = ({ inputArray }) => {
 ### Angular
 
 ```angular-ts
-import { Component, OnInit } from "@angular/core";
-
 @Component({
 	selector: "generic-list",
-	standalone: true,
 	// ...
 })
-class GenericListComponent implements OnInit {
-	@Input() inputArray: string[];
+class GenericListComponent {
+	inputArray = input.required<string[]>();
 
-	ngOnInit() {
-		// This is NOT allowed and will break things
-		this.inputArray.push("some value");
+	constructor() {
+		afterRender(() => {
+            // This is NOT allowed and will break things
+			this.inputArray().push("some value");
+		})		
 	}
 
 	// ...
 }
 ```
-
-> Technically, Angular supports this in some capacity, but it's fragile at best and downright won't work in some instances. It's generally recommended to avoid this pattern even if you _technically_ can use it in some instances.
 
 ### Vue
 
@@ -2080,33 +2151,34 @@ There are three major things of note in this code sample:
 
 ### Angular
 
-```angular-ts {7-12,20-24}
+```angular-ts {7-12,23-27}
 @Component({
 	selector: "file-item",
-	standalone: true,
 	imports: [FileDateComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(click)="selectFile()"
 			[style]="
-				isSelected
+				isSelected()
 					? 'background-color: blue; color: white'
 					: 'background-color: white; color: blue'
 			"
 		>
-			{{ fileName }}
+			{{ fileName() }}
 			<file-date [inputDate]="inputDate" />
 		</button>
 	`,
 })
 class FileComponent {
-	isSelected = false;
-	selectFile() {
-		this.isSelected = !this.isSelected;
-	}
-
+	fileName = input.required<string>();
 	inputDate = new Date();
-	@Input() fileName!: string;
+
+	isSelected = signal(false);
+
+	selectFile() {
+		this.isSelected.set(!this.isSelected());
+	}
 }
 ```
 
@@ -2114,7 +2186,7 @@ class FileComponent {
 <iframe data-frame-title="Angular Event Binding - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-event-binding-14?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
-Instead of the `[]` symbols to do input binding, we're using the `()` symbols to bind to any built-in browser name.
+Instead of the `[]` symbols to do input binding, we're using the `()` symbols to bind to any built-in browser event name.
 
 ### Vue
 
@@ -2256,49 +2328,49 @@ const FileList = () => {
 
 ### Angular
 
-Angular provides us a simple `@Output` decorator that enables us to `emit()` events from a child component up to the parent. This is fairly similar to how we pass _in_ data using an `@Input` decorator.
+Angular provides us a simple `output` method that enables us to `emit()` events from a child component up to the parent. This is fairly similar to how we pass _in_ data using an `input` method.
 
 ```angular-ts {9,26,38-43,65,67-73}
-import { Component, Input, EventEmitter, Output } from "@angular/core";
+import { Component, ChangeDetectionStrategy, signal, input, output } from "@angular/core";
 
 @Component({
 	selector: "file-item",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileDateComponent],
 	template: `
 		<button
 			(click)="selected.emit()"
 			[style]="
-				isSelected
+				isSelected()
 					? 'background-color: blue; color: white'
 					: 'background-color: white; color: blue'
 			"
 		>
-			{{ fileName }}
+			{{ fileName() }}
 			<!-- ... -->
 		</button>
 	`,
 })
 class FileComponent {
-	@Input() fileName!: string;
+	fileName = input.required<string>();
 	// `href` is temporarily unused
-	@Input() href!: string;
-	@Input() isSelected!: boolean;
-	@Output() selected = new EventEmitter();
+	href = input.required<string>();
+	isSelected = input<boolean>(false);
+	selected = output();
 
 	// ...
 }
 
 @Component({
 	selector: "file-list",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileComponent],
 	template: `
 		<ul>
 			<li>
 				<file-item
 					(selected)="onSelected(0)"
-					[isSelected]="selectedIndex === 0"
+					[isSelected]="selectedIndex() === 0"
 					fileName="File one"
 					href="/file/file_one"
 				/>
@@ -2306,7 +2378,7 @@ class FileComponent {
 			<li>
 				<file-item
 					(selected)="onSelected(1)"
-					[isSelected]="selectedIndex === 1"
+					[isSelected]="selectedIndex() === 1"
 					fileName="File two"
 					href="/file/file_two"
 				/>
@@ -2314,7 +2386,7 @@ class FileComponent {
 			<li>
 				<file-item
 					(selected)="onSelected(2)"
-					[isSelected]="selectedIndex === 2"
+					[isSelected]="selectedIndex() === 2"
 					fileName="File three"
 					href="/file/file_three"
 				/>
@@ -2323,14 +2395,14 @@ class FileComponent {
 	`,
 })
 class FileListComponent {
-	selectedIndex = -1;
+	selectedIndex = signal(-1);
 
 	onSelected(idx: number) {
-		if (this.selectedIndex === idx) {
-			this.selectedIndex = -1;
+		if (this.selectedIndex() === idx) {
+			this.selectedIndex.set(-1);
 			return;
 		}
-		this.selectedIndex = idx;
+		this.selectedIndex.set(idx);
 	}
 }
 ```
@@ -2486,14 +2558,16 @@ createRoot(document.getElementById("root")).render(<Sidebar />);
 ```
 
 ```angular-ts
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
+
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Hello, world!</p> `,
 })
 class SidebarComponent {}
+
 bootstrapApplication(SidebarComponent);
 ```
 
@@ -2564,7 +2638,7 @@ const Sidebar = () => {
 ```angular-ts
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<h1>My Files</h1>
@@ -2639,22 +2713,22 @@ const Sidebar = () => {
 ```angular-ts
 @Component({
 	selector: "expandable-dropdown",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button>
-				{{ name }}
+				{{ name() }}
 			</button>
 		</div>
 	`,
 })
 class ExpandableDropdownComponent {
-	@Input() name!: string;
+	name = input.required<string>();
 }
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ExpandableDropdownComponent],
 	template: `
 		<div>
@@ -2769,53 +2843,53 @@ const Sidebar = () => {
 ```angular-ts
 @Component({
 	selector: "expandable-dropdown",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button>
-				{{ name }}
+				{{ name() }}
 			</button>
 			<div>
-				{{ expanded ? "Expanded" : "Collapsed" }}
+				{{ expanded() ? "Expanded" : "Collapsed" }}
 			</div>
 		</div>
 	`,
 })
 class ExpandableDropdownComponent {
-	@Input() name!: string;
-	@Input() expanded!: boolean;
+	name = input.required<string>();
+	expanded = input.required<boolean>();
 }
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ExpandableDropdownComponent],
 	template: `
 		<div>
 			<h1>My Files</h1>
-			<expandable-dropdown name="Movies" [expanded]="moviesExpanded" />
-			<expandable-dropdown name="Pictures" [expanded]="picturesExpanded" />
-			<expandable-dropdown name="Concepts" [expanded]="conceptsExpanded" />
+			<expandable-dropdown name="Movies" [expanded]="moviesExpanded()" />
+			<expandable-dropdown name="Pictures" [expanded]="picturesExpanded()" />
+			<expandable-dropdown name="Concepts" [expanded]="conceptsExpanded()" />
 			<expandable-dropdown
 				name="Articles I'll Never Finish"
-				[expanded]="articlesExpanded"
+				[expanded]="articlesExpanded()"
 			/>
 			<expandable-dropdown
 				name="Website Redesigns v5"
-				[expanded]="redesignExpanded"
+				[expanded]="redesignExpanded()"
 			/>
-			<expandable-dropdown name="Invoices" [expanded]="invoicesExpanded" />
+			<expandable-dropdown name="Invoices" [expanded]="invoicesExpanded()" />
 		</div>
 	`,
 })
 class SidebarComponent {
 	// Just to show that the value is displaying properly
-	moviesExpanded = true;
-	picturesExpanded = false;
-	conceptsExpanded = false;
-	articlesExpanded = false;
-	redesignExpanded = false;
-	invoicesExpanded = false;
+	moviesExpanded = signal(true);
+	picturesExpanded = signal(false);
+	conceptsExpanded = signal(false);
+	articlesExpanded = signal(false);
+	redesignExpanded = signal(false);
+	invoicesExpanded = signal(false);
 }
 ```
 
@@ -2945,71 +3019,71 @@ const Sidebar = () => {
 ```angular-ts
 @Component({
 	selector: "expandable-dropdown",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="toggle.emit()">
-				{{ name }}
+				{{ name() }}
 			</button>
 			<div>
-				{{ expanded ? "Expanded" : "Collapsed" }}
+				{{ expanded() ? "Expanded" : "Collapsed" }}
 			</div>
 		</div>
 	`,
 })
 class ExpandableDropdownComponent {
-	@Input() name!: string;
-	@Input() expanded!: boolean;
-	@Output() toggle = new EventEmitter();
+	name = input.required<string>();
+	expanded = input.required<boolean>();
+	toggle = output();
 }
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ExpandableDropdownComponent],
 	template: `
 		<div>
 			<h1>My Files</h1>
 			<expandable-dropdown
 				name="Movies"
-				[expanded]="moviesExpanded"
-				(toggle)="moviesExpanded = !moviesExpanded"
+				[expanded]="moviesExpanded()"
+				(toggle)="moviesExpanded.set(!moviesExpanded())"
 			/>
 			<expandable-dropdown
 				name="Pictures"
-				[expanded]="picturesExpanded"
-				(toggle)="picturesExpanded = !picturesExpanded"
+				[expanded]="picturesExpanded()"
+				(toggle)="picturesExpanded.set(!picturesExpanded())"
 			/>
 			<expandable-dropdown
 				name="Concepts"
-				[expanded]="conceptsExpanded"
-				(toggle)="conceptsExpanded = !conceptsExpanded"
+				[expanded]="conceptsExpanded()"
+				(toggle)="conceptsExpanded.set(!conceptsExpanded())"
 			/>
 			<expandable-dropdown
 				name="Articles I'll Never Finish"
-				[expanded]="articlesExpanded"
-				(toggle)="articlesExpanded = !articlesExpanded"
+				[expanded]="articlesExpanded()"
+				(toggle)="articlesExpanded.set(!articlesExpanded())"
 			/>
 			<expandable-dropdown
 				name="Website Redesigns v5"
-				[expanded]="redesignExpanded"
-				(toggle)="redesignExpanded = !redesignExpanded"
+				[expanded]="redesignExpanded()"
+				(toggle)="redesignExpanded.set(!redesignExpanded())"
 			/>
 			<expandable-dropdown
 				name="Invoices"
-				[expanded]="invoicesExpanded"
-				(toggle)="invoicesExpanded = !invoicesExpanded"
+				[expanded]="invoicesExpanded()"
+				(toggle)="invoicesExpanded.set(!invoicesExpanded())"
 			/>
 		</div>
 	`,
 })
 class SidebarComponent {
-	moviesExpanded = true;
-	picturesExpanded = false;
-	conceptsExpanded = false;
-	articlesExpanded = false;
-	redesignExpanded = false;
-	invoicesExpanded = false;
+	moviesExpanded = signal(true);
+	picturesExpanded = signal(false);
+	conceptsExpanded = signal(false);
+	articlesExpanded = signal(false);
+	redesignExpanded = signal(false);
+	invoicesExpanded = signal(false);
 }
 ```
 
@@ -3125,21 +3199,21 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 ```angular-ts
 @Component({
 	selector: "expandable-dropdown",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="toggle.emit()">
-				{{ expanded ? "V" : ">" }}
-				{{ name }}
+				{{ expanded() ? "V" : ">" }}
+				{{ name() }}
 			</button>
-			<div [hidden]="!expanded">More information here</div>
+			<div [hidden]="!expanded()">More information here</div>
 		</div>
 	`,
 })
 class ExpandableDropdownComponent {
-	@Input() name!: string;
-	@Input() expanded!: boolean;
-	@Output() toggle = new EventEmitter();
+	name = input.required<string>();
+	expanded = input.required<boolean>();
+	toggle = output();
 }
 ```
 
