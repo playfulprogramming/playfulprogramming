@@ -262,15 +262,30 @@ That all said, the core concepts outlined in this book apply to both of these me
 
 Here are a few nuances we should keep in mind about this book's teachings of Angular:
 
-#### Angular Is Not AngularJS {#angular-not-angularjs}
-
-Despite the similarities in their names, these two are entirely distinct entities. More specifically, [AngularJS was initially released in 2010](/posts/web-components-101-history#2010-The-Early-Days-of-MVC-in-JS) and was followed up by the initial release of Angular in 2016. **Despite this shared lineage, the core concepts shifted drastically between these two releases.** For all intents and purposes, you will not know AngularJS at the end of this book: You will know Angular.
-
 #### We're Using "Signals" {#signals}
 
 [Early in 2023, the Angular team announced that they would be introducing a new method of programming in Angular called "Signals"](https://angular.dev/guide/signals). Since then, they've become the de-facto way of writing performant and optimized Angular code.
 
-As such, **we will be using Signals throughout this book**, including some newer APIs like `effect` and `linkedSignal`. That said, [there's an earlier version of this book that did not use signals that can be read on Playful Programming.](/posts/ffg-fundamentals-v1-1-preface).
+As such, **we will be using Signals throughout this book**, including some newer APIs like `effect` and `linkedSignal`. That said, [there's an earlier version of this book that did not use signals that can be read on Playful Programming.](/posts/ffg-fundamentals-v1-1-preface)
+
+#### We're Not Using Zone.js {#zonejs}
+
+In all current versions of Angular, the default method of [detecting reactivity in a template](/posts/what-is-reactivity) is by using a library called "Zone.js". However, this method of reactivity is slow and actively being phased out by the Angular team in favor of signals.
+
+As a result, **we will not be using Zone.js in this book**, allowing us to stay focused on the future of Angular, rather than the past.
+
+While using Angular without Zone.js is still _technically_ experimental, [Google themselves now ship Angular apps by default without Zone.js](https://bsky.app/profile/jelbourn.bsky.social/post/3laylhu2crc2y).
+
+#### We're Defaulting to `OnPush` {#onpush}
+
+Angular has two methods of detecting changes in your template: 
+
+- `CheckAlways`: The default
+- `OnPush`: Opt-in on a per-component level that's [more performant](https://angular.dev/best-practices/skipping-subtrees)
+
+While `OnPush` requires another line of boilerplate for each component you author, the performance gains you receive are massive.
+
+Because of this, **we'll be using `OnPush` in every component we write** and treating its behavior as the default.
 
 #### We're using Control Flow Blocks {#control-flow-blocks}
 
