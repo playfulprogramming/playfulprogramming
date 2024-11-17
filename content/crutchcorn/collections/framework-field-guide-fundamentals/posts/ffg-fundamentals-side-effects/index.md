@@ -3526,7 +3526,7 @@ Let's take a look visually at how each framework calls the relevant APIs we've t
 
 ## Angular
 
-![When a component renders, it will trigger ngOnInit. Then, when a prop changes, it triggers ngOnChanges. Finally, when it unrenders, it will call ngOnDestroy.](./angular_lifecycles.png)
+![On the main loop, the component is created, which calls effect's first run. Then, the component renders, which calls the first run of afterRenderEffect. Then, the component has rendered and can re-render (more on that soon). Then, when the component unrenders, effect cleans up, and then afterRenderEffect cleans up. During re-renders, the VDOM updates occur, which calls the previous effect cleanup, and then the effect again. Then, the DOM updates which triggers the previous afterRenderEffect cleanup and the new afterRenderEffect.](./angular_signals.png)
 
 ## Vue
 
