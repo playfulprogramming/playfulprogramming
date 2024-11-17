@@ -46,9 +46,15 @@ In many of these code samples, we'll see two types show up repeatedly:
 > What are they?
 
 Well, while both `TView` and `LView` represent [Angular Views](/posts/angular-templates-start-to-source#components-are-directives), they differ in key areas.
-**TView**:
+**`TView`**:
 
--
+- Static data shared between all instances of a view
+- A blueprint for creating `LView` instances
+
+**`LView`:**
+
+- Tied to a specific view instance
+- Stores dynamic data needed to invoke the template (context, flags, etc)
 
 We can see this distinction between the two in their types inside Angular's source code.
 
@@ -118,80 +124,31 @@ export interface LView<T = unknown> extends Array<any> {
 }
 ```
 
-> **GPT SAYS:**
->
-> An LView and a TView are both internal data structures used in Angular's Ivy rendering engine to manage and render views. Here is a brief explanation of each and their differences:
->
-> **LView**
->
-> - Instance-specific: An LView represents a specific instance of a view. Each embedded view and component view has its own LView.
-> - Dynamic Data: It stores dynamic data needed to process the instructions as they are invoked from the template, such as the context, flags, and references to child views.
-> - Array Structure: It is implemented as an array where each index has a specific meaning (e.g., HOST, TVIEW, FLAGS, etc.).
-> - Lifecycle Management: It keeps track of lifecycle hooks, listeners, and other runtime-specific information.
->
-> **TView**
->
-> - Static Data: A TView contains static data that is shared between all instances of a given type of view. This includes the template function, directive definitions, and other metadata.
-> - Blueprint: It acts as a blueprint for creating LView instances. The TView is used to initialize the LView with the necessary static data.
-> - Type: It has a type (Root, Component, or Embedded) that indicates what kind of view it represents.
-> - First Pass Flags: It includes flags to indicate whether the view has been processed in creation mode or update mode.
->
-> Key Differences
->
-> - Purpose: LView is for instance-specific data and runtime management, while TView is for static data and template definitions.
-> - Mutability: LView is mutable and changes as the view is processed, whereas TView is immutable and shared across instances.
-> - Structure: LView is an array with specific indices for different pieces of data, while TView contains metadata and static information about the view.
->
-> Here is a simplified example to illustrate the relationship:
->
-> ```typescript
-> // TView: Static data for a component
-> const tView: TView = {
-> 	type: TViewType.Component,
-> 	blueprint: [], // Blueprint for creating LView instances
-> 	template: myComponentTemplate,
-> 	firstCreatePass: true,
-> 	firstUpdatePass: true,
-> 	data: [],
-> 	// Other static properties...
-> };
->
-> // LView: Instance-specific data for a component
-> const lView: LView = [
-> 	null, // HOST
-> 	tView, // TVIEW
-> 	LViewFlags.CreationMode, // FLAGS
-> 	null, // PARENT
-> 	null, // NEXT
-> 	null, // T_HOST
-> 	// Other dynamic properties...
-> ];
-> ```
->
-> In this example, tView contains the static template and metadata, while lView is an instance that uses tView as a blueprint to manage the specific state and data for a particular view instance.
+## Multiple `LView`s Explainer 
 
-How can a template have multiple instances?
+You may have read the last section and wondered:
 
-> In Angular, a template can have multiple instances through the use of structural directives like *ngIf, *ngFor, and \*ngTemplateOutlet. These directives allow you to create and manage multiple instances of a template dynamically.
->
-> ```typescript
-> @Component({
-> 	selector: "app-example",
-> 	template: `
-> 		<ng-template #templateRef>
-> 			<div>This is a template instance.</div>
-> 		</ng-template>
->
-> 		<ng-container *ngTemplateOutlet="templateRef"></ng-container>
-> 		<ng-container *ngTemplateOutlet="templateRef"></ng-container>
-> 	`,
-> })
-> export class ExampleComponent {}
-> ```
->
-> In these examples, the directives manage the creation and destruction of LView instances for each template instance, allowing Angular to render multiple instances of the same template dynamically.
+> How can a view have multiple instances of the same template?
 
-Let's begin:
+Well, consider the following usage of [templates](/posts/angular-templates-start-to-source):
+
+```angular-ts
+@Component({
+	selector: "app-root",
+	imports: [NgTemplateOutlet],
+	template: `
+		<ng-template #templateRef>
+			<div>This is a template instance.</div>
+		</ng-template>
+
+		<ng-container *ngTemplateOutlet="templateRef"></ng-container>
+		<ng-container *ngTemplateOutlet="templateRef"></ng-container>
+	`,
+})
+export class AppComponent {}
+```
+
+Here, we have a `templateRef` that's being provided to multiple `ng-container` hosts. This is a great example of a template being shared with two instances.
 
 # Lifecycle Hooks Setup
 
@@ -406,7 +363,7 @@ export function refreshView<T>(
 
 As you may have guessed, the code for `runEffectsInView` executes the effects present in `view[EFFECTS]`:
 
-https://github.com/angular/angular/blob/main/packages/core/src/render3/reactivity/view_effect_runner.ts#L11-L43
+https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/reactivity/view_effect_runner.ts#L11-L43
 
 ```typescript
 export function runEffectsInView(view: LView): void {
