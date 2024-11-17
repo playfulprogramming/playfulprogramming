@@ -2,7 +2,8 @@
 {
 	title: 'Angular Templates — From Start to Source',
 	description: 'Learn how templates work in Angular. From the basics to being able to read Angular source code and write your own structural directives',
-	published: '2019-07-11T22:12:03.284Z',
+    published: '2019-07-11T22:12:03.284Z',
+    edited: '2024-11-19T22:12:03.284Z',
 	tags: ['angular', 'webdev'],
 	license: 'cc-by-nc-sa-4'
 }
@@ -11,6 +12,8 @@
 # Article Overview {#overview}
 
 > This article was written with the idea that the reader is at least somewhat familiar with the introductory concepts of Angular. As a result, if you haven't done so already, it is highly suggested that you make your way through the fantastic [Angular getting started guide](https://angular.io/start).
+> 
+> Also, despite the prevalence of Control Flow Syntax (`@for`, `@if`, et al), we're using structural directives for conditional logic (`*ngIf`, `*ngFor`, et al) for educational reasons here.
 
 One of the core concepts to the Angular framework is the idea of templates. Templates allow developers to create embedded views of UI from other locations.
 
@@ -142,8 +145,11 @@ While template reference variables are very useful for referencing values within
 Using [`ViewChild`](https://angular.io/api/core/ViewChild), you're able to grab a reference to the `ng-template` from the component logic rather than the template code:
 
 ```typescript
+import { NgTemplateOutlet } from "@angular/common";
+
 @Component({
 	selector: 'my-app',
+ 	imports: [NgTemplateOutlet],
 	template: `
 		<div>
 			<ng-template #helloMsg>Hello</ng-template>
@@ -170,6 +176,7 @@ _`ViewChild` is a "property decorator" utility for Angular that searches the com
 ```typescript
 @Component({
 	selector: 'my-app',
+	imports: [MyComponentComponent],
 	template: `
 		<my-custom-component #myComponent [inputHere]="50" data-unrelatedAttr="Hi there!"></my-custom-component>
 	`
@@ -233,6 +240,7 @@ console.log(myComponent.nativeElement.dataset.getAttribute('data-unrelatedAttr')
 ```typescript
 @Component({
 	selector: 'my-app',
+	imports: [MyComponentComponent],
 	template: `
 		<div>
 			<my-custom-component [inputHere]="50"></my-custom-component>
@@ -393,6 +401,7 @@ We'll see that the code now runs as expected. The cards are recolored, the `cons
 // render-template-with-name.component.ts
 @Component({
 	selector: 'render-template-with-name',
+	imports: [NgTemplateOutlet],
 	template: `
 	<ng-template
 		[ngTemplateOutlet]="contentChildTemplate"
@@ -541,6 +550,7 @@ This host view can also be attached to another view by using the `selector` valu
 ```typescript
 @Component({
 	selector: "child-component",
+	imports: [NgTemplateOutlet],
 	template: `
 		<p>I am in the host view, which acts as a view container for other views to attach to</p>
 		<div><p>I am still in the child-component's host view</p></div>
@@ -558,6 +568,7 @@ export class ChildComponent {}
 
 @Component({
 	selector: 'my-app',
+	imports: [ChildComponent],
 	template: `
 		<p>I am in app's host view, and can act as a view container for even other host views by using the component's selector</p>
 		<child-component></child-component>
@@ -671,6 +682,7 @@ Luckily, we've already covered `@ViewChild`, which is able to get references all
 ```typescript
 @Component({
 	selector: "my-app",
+	imports: [NgTemplateOutlet],
 	template: `
 		<ng-template #helloThereMsg>
 			Hello There!
@@ -766,6 +778,7 @@ Well, that can be controlled via the `static` prop! Before this example, I was d
 ```typescript
 @Component({
 	selector: "my-app",
+	imports: [NgTemplateOutlet],
 	template: `
 		<div>
 			<p>Hello?</p>
@@ -1015,6 +1028,7 @@ export class RenderTheTemplateDirective implements OnInit {
 
 @Component({
 	selector: 'my-app',
+	imports: [RenderTheTemplateDirective],
 	template: `
 		<div renderTheTemplate>
 			<ng-template>
@@ -1049,6 +1063,7 @@ export class RenderTheTemplateDirective implements OnInit {
 
 @Component({
 	selector: 'my-app',
+	imports: [RenderTheTemplateDirective],
 	template: `
 		<ng-template renderTheTemplate>
 				<p>Hello</p>
@@ -1080,6 +1095,7 @@ export class RenderTheTemplateDirective implements OnInit {
 
 @Component({
 	selector: 'my-app',
+	imports: [RenderTheTemplateDirective],
 	template: `
 		<ng-template [renderTheTemplate]="'Hi there!'" let-message>
 				<p>{{message}}</p>
@@ -1114,6 +1130,7 @@ export class RenderTheTemplateDirective implements OnInit {
 
 @Component({
 	selector: 'my-app',
+	imports: [RenderTheTemplateDirective],
 	template: `
 		<ng-template [renderTheTemplate]="template1"
 								[renderTheTemplateContext]="{$implicit: 'Whoa 🤯'}"></ng-template>
@@ -1179,6 +1196,7 @@ export class RenderThisDirective implements OnInit {
 
 @Component({
 	selector: 'my-app',
+	imports: [RenderThisDirective],
 	template: `
 			<p *renderThis>
 					Rendering from <code>structural directive</code>
@@ -1237,6 +1255,7 @@ export class RenderThisIfDirective implements OnInit {
 
 @Component({
 	selector: 'my-app',
+	imports: [RenderThisIfDirective, FormsModule],
 	template: `
 		<label for="boolToggle">Toggle me!</label>
 		<input id="boolToggle" type="checkbox" [(ngModel)]="bool"/>
@@ -1384,6 +1403,7 @@ export class MakePigLatinDirective {
 
 @Component({
 	selector: 'my-app',
+	imports: [MakePigLatinDirective],
 	template: `
 		<p *makePiglatin="'This is a string'; let msg">
 			{{msg}}
@@ -1419,6 +1439,7 @@ export class MakePigLatinDirective {
 
 @Component({
 	selector: 'my-app',
+	imports: [MakePigLatinDirective],
 	template: `
 		<p *makePiglatin="'This is a string'; let msg; let ogMsg = original">
 			The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
@@ -1492,6 +1513,7 @@ export class MakePigLatinDirective implements OnInit {
 
 @Component({
 	selector: 'my-app',
+	imports: [MakePigLatinDirective],
 	template: `
 		<p *makePiglatin="'This is a string'; casing: 'UPPER'; let msg; let ogMsg = original">
 			The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
@@ -1576,6 +1598,7 @@ But this example doesn't showcase very much of what makes the `as` keyword as po
 ```typescript
 @Component({
 	selector: 'my-app',
+	imports: [NgIf],
 	template: `
 		<p *ngIf="message | uppercase as uppermessage">{{uppermessage}}</p>
 		<!-- Will output "HELLO THERE, WORLD" -->
@@ -1783,7 +1806,7 @@ So, what is the API we want to support?
 Sounds reasonable enough. Just to make things even easier on us, let's not worry about re-rendering the list if it updates or properly cleaning up if this directive view unrenders. These requirement changes make our code much more simple for demonstration purposes, but inherently makes the resulting code unfit for production.
 
 ```typescript
-@Directive({ selector: "[uniFor]", standalone: true })
+@Directive({ selector: "[uniFor]" })
 export class UniForOf<T> implements AfterViewInit {
 	@Input() uniForOf!: Array<T> | null;
 
@@ -1806,6 +1829,7 @@ export class UniForOf<T> implements AfterViewInit {
 
 @Component({
 	selector: 'my-app',
+	imports: [UniForOf, NgIf],
 	template: `
 	<p *uniFor="let num of numbers | async as allNumbers; let firstItem = isFirst">
 		Number in a list of {{allNumbers.length}} numbers: {{num}}
