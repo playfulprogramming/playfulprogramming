@@ -152,9 +152,9 @@ Here, we have a `templateRef` that's being provided to multiple `ng-container` h
 
 # Lifecycle Hooks Setup
 
----
+Now that we understand what `TView` and `LView` are, let's take a look at how Angular handles setting up lifecycle methods for execution later on.
 
-https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/hooks.ts#L53-L76
+It all starts in `core/src/render3/hooks.ts`, [where we register our `ngOnChanges`, `ngOnInit`, and `ngDoCheck` lifecycle methods onto `tView.preOrderHooks` and `tView.preOrderCheckHooks`](https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/hooks.ts#L53-L76):
 
 ```typescript
 export function registerPreOrderHooks(
@@ -183,23 +183,111 @@ export function registerPreOrderHooks(
 }
 ```
 
----
+Likewise, we also register:
+
+- `ngAfterContentInit`
+- `ngAfterContentChecked`
+- `ngAfterViewInit`
+- `ngAfterViewChecked`
+- `ngOnDestroy`
+
+Inside of `hooks.ts` with `registerPostOrderHooks`, to then be placed in `contentHooks`, `contentCheckHooks`, `viewHooks`, and `destroyHooks`:
+
+```typescript
+export function registerPostOrderHooks(tView: TView, tNode: TNode): void {
+  ngDevMode && assertFirstCreatePass(tView);
+  // It's necessary to loop through the directives at elementEnd() (rather than processing in
+  // directiveCreate) so we can preserve the current hook order. Content, view, and destroy
+  // hooks for projected components and directives must be called *before* their hosts.
+  for (let i = tNode.directiveStart, end = tNode.directiveEnd; i < end; i++) {
+    const directiveDef = tView.data[i] as DirectiveDef<any>;
+    ngDevMode && assertDefined(directiveDef, 'Expecting DirectiveDef');
+    const lifecycleHooks: AfterContentInit &
+      AfterContentChecked &
+      AfterViewInit &
+      AfterViewChecked &
+      OnDestroy = directiveDef.type.prototype;
+    const {
+      ngAfterContentInit,
+      ngAfterContentChecked,
+      ngAfterViewInit,
+      ngAfterViewChecked,
+      ngOnDestroy,
+    } = lifecycleHooks;
+
+    if (ngAfterContentInit) {
+      (tView.contentHooks ??= []).push(-i, ngAfterContentInit);
+    }
+
+    if (ngAfterContentChecked) {
+      (tView.contentHooks ??= []).push(i, ngAfterContentChecked);
+      (tView.contentCheckHooks ??= []).push(i, ngAfterContentChecked);
+    }
+
+    if (ngAfterViewInit) {
+      (tView.viewHooks ??= []).push(-i, ngAfterViewInit);
+    }
+
+    if (ngAfterViewChecked) {
+      (tView.viewHooks ??= []).push(i, ngAfterViewChecked);
+      (tView.viewCheckHooks ??= []).push(i, ngAfterViewChecked);
+    }
+
+    if (ngOnDestroy != null) {
+      (tView.destroyHooks ??= []).push(i, ngOnDestroy);
+    }
+  }
+}
+```
+
+Let's keep this in mind while we continue reading other parts of Angular's source code.
+
+# What is a Root Effect?
+
+Let's take a break from lifecycle methods for a moment to talk about `effect`.
+
+See, when you're calling `effect`, you're actually creating one of two distinct effects:
+
+- Component effects
+- Root effects
+
+While they share the same API:
+
+```typescript
+const _rootEffect = effect(() => {});
+
+@Component({
+	selector: "app-root",
+	// ...
+})
+class AppComponent {
+	_componentEffect = effect(() => {});
+}
+```
+
+They behave different; mostly when it comes to timing. According to [Angular's docs](https://next.angular.dev/api/core/effect#effect_0):
+
+> Component effects run as a component lifecycle event during Angular's synchronization (change detection) process, and can safely read input signals or create/destroy views that depend on component state. Root effects run as microtasks and have no connection to the component tree or change detection.
+
+--------------
+
+We can even force a component effect to become a root effect by passing: `{forceRoot: true}` to the `effect` method's second argument:
+
+```typescript
+@Component({
+	selector: "app-root",
+	// ...
+})
+class AppComponent {
+	_nowRootEffect = effect(() => {}, {forceRoot: true});
+}
+```
 
 # Effect Setup
 
-Let's take a break frrom lifecycle methods for a moment to talk about `effect`.
+With the pre-requisite knowledge of root vs component effects out of the way, let's explore how `effect` sets up code to execute later.
 
-First, let's talk about `forceRoot`:
-
-https://next.angular.dev/api/core/effect#effect_0
-
-> Angular has two different kinds of effect: component effects and root effects. Component effects are created when `effect()` is called from a component, directive, or within a service of a component/directive. Root effects are created when `effect()` is called from outside the component tree, such as in a root service, or when the `forceRoot` option is provided.
->
-> The two effect types differ in their timing. Component effects run as a component lifecycle event during Angular's synchronization (change detection) process, and can safely read input signals or create/destroy views that depend on component state. Root effects run as microtasks and have no connection to the component tree or change detection.
-
----
-
-https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/reactivity/effect.ts#L148-L207
+It starts with `core/src/render3/reactivity/effects.ts`, [which is where the `effect` function's logic lives](https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/reactivity/effect.ts#L148-L207):
 
 ```typescript
 export function effect(
@@ -223,9 +311,7 @@ export function effect(
 }
 ```
 
----
-
-https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/reactivity/effect.ts#L325-L341
+Now, if we look at `createViewEffect`, we can see that it [adds to a `Set` of effects on the associated `LView`](https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/reactivity/effect.ts#L325-L341):
 
 ```typescript
 export function createViewEffect(
@@ -243,9 +329,9 @@ export function createViewEffect(
 }
 ```
 
----
+-----
 
-This gets added to the `LView`:
+We can even see the `EFFECTS` property on the `LView` on [its source](https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/interfaces/view.ts#L350):
 
 ```typescript
 export interface LView<T = unknown> extends Array<any> {
@@ -255,11 +341,9 @@ export interface LView<T = unknown> extends Array<any> {
 }
 ```
 
-Now that we've seen how both the basic lifecyle methods and effects are registered, let's see how they're called:
-
 # Timing Execution
 
----
+Now that we've seen how both the basic lifecyle methods and effects are registered, let's see how they're called.
 
 https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/instructions/change_detection.ts#L189-L375
 
