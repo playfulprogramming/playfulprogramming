@@ -3104,7 +3104,7 @@ const TitleChanger = () => {
 ```angular-ts
 @Component({
 	selector: "title-changer",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="updateTitle('Movies')">Movies</button>
@@ -3114,12 +3114,12 @@ const TitleChanger = () => {
 		</div>
 	`,
 })
-export class TitleChangerComponent {
-	title = "Movies";
+class TitleChangerComponent {
+	title = signal("Movies");
 
 	updateTitle(val: string) {
 		setTimeout(() => {
-			this.title = val;
+			this.title.set(val);
 			document.title = val;
 		}, 5000);
 	}
@@ -3210,31 +3210,37 @@ const TitleChanger = () => {
 ```angular-ts
 @Component({
 	selector: "title-changer",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="updateTitle('Movies')">Movies</button>
 			<button (click)="updateTitle('Music')">Music</button>
 			<button (click)="updateTitle('Documents')">Documents</button>
-			<p>{{ title }}</p>
+			<p>{{ title() }}</p>
 		</div>
 	`,
 })
-export class TitleChangerComponent implements OnDestroy {
-	title = "Movies";
+class TitleChangerComponent {
+	title = signal("Movies");
 
-	timeoutExpire: any = null;
+	timeoutExpire = signal<any>(null);
 
 	updateTitle(val: string) {
-		clearTimeout(this.timeoutExpire);
-		this.timeoutExpire = setTimeout(() => {
-			this.title = val;
-			document.title = val;
-		}, 5000);
+		clearTimeout(this.timeoutExpire());
+		this.timeoutExpire.set(
+			setTimeout(() => {
+				this.title.set(val);
+				document.title = val;
+			}, 5000),
+		);
 	}
 
-	ngOnDestroy() {
-		clearTimeout(this.timeoutExpire);
+	constructor() {
+		effect((onCleanup) => {
+			onCleanup(() => {
+				clearTimeout(this.timeoutExpire());
+			});
+		});
 	}
 }
 ```
@@ -3427,53 +3433,40 @@ Here, the timestamp display will never update until you press the `button`. Even
 
 ## Angular
 
-> While writing this book, dear reader, I had a few goals. One of those goals was to not introduce an API without first explaining it. I am about to break this rule for the only time I'm aware of in this book. Please forgive me.
+To avoid a re-render while persisting a value in Angular, we can mutate a class property without using a `signal`:
 
-[While the internals of how Angular is able to detect changes in values are complex](/posts/angular-internals-zonejs), the simple answer is "It uses some magic in something called [Zone.js](/posts/angular-internals-zonejs) to automatically detect when you change a value."
-
-To sidestep this detection from Zone.js in Angular, you can tell the framework to run something "outside of Angular."
-
-To do this, we need to use ["Dependency Injection"](/posts/ffg-fundamentals-dependency-injection) to access Angular's internal `NgZone` reference and use the `runOutsideAngular` method:
-
-```angular-ts {1,20-22,32-34}
-import { Component, NgZone, OnDestroy, inject } from "@angular/core";
-
+```angular-ts {16,19,20-23,29}
 @Component({
 	selector: "title-changer",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="updateTitle('Movies')">Movies</button>
 			<button (click)="updateTitle('Music')">Music</button>
 			<button (click)="updateTitle('Documents')">Documents</button>
-			<p>{{ title }}</p>
+			<p>{{ title() }}</p>
 		</div>
 	`,
 })
-export class TitleChangerComponent implements OnDestroy {
-	title = "Movies";
+class TitleChangerComponent {
+	title = signal("Movies");
 
 	timeoutExpire: any = null;
 
-	// This is using "Dependency Injection" (chapter 11)
-	// To access Angular's internals and expose them to you
-	ngZone = inject(NgZone);
-
 	updateTitle(val: string) {
 		clearTimeout(this.timeoutExpire);
-		// Do not run this in runOutsideAngular, otherwise `title` will never update
-		const expire = setTimeout(() => {
-			this.title = val;
+		this.timeoutExpire = setTimeout(() => {
+			this.title.set(val);
 			document.title = val;
 		}, 5000);
-
-		this.ngZone.runOutsideAngular(() => {
-			this.timeoutExpire = expire;
-		});
 	}
 
-	ngOnDestroy() {
-		clearTimeout(this.timeoutExpire);
+	constructor() {
+		effect((onCleanup) => {
+			onCleanup(() => {
+				clearTimeout(this.timeoutExpire);
+			});
+		});
 	}
 }
 ```
@@ -3481,8 +3474,6 @@ export class TitleChangerComponent implements OnDestroy {
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Mutable Update Title - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-mutable-update-title-43?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
-
-> If `inject` seems magic to you, it might as well be. To explore how dependency injection works under-the-hood, [check out chapter 11, which explores the topic](/posts/ffg-fundamentals-dependency-injection).
 
 ## Vue
 
