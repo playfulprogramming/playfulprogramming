@@ -12,4 +12,8 @@
 
 Hi! :)
 
-<iframe data-frame-title="Angular Hello - StackBlitz" src="pfp-code:./start-to-source-1-ng-template?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Timings No Conditional - StackBlitz" src="pfp-code:./timings-no-conditional?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+However, if you add a control flow block like `@if (bool) {}`, we can see the results change:
+
+<iframe data-frame-title="Timings Conditional - StackBlitz" src="pfp-code:./timings-conditional?template=node&embed=1&file=src%2Fmain.ts"></iframe>
