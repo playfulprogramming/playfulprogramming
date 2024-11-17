@@ -1,19 +1,27 @@
-import "./polyfills";
+import "zone.js";
+import { bootstrapApplication } from "@angular/platform-browser";
 
-import { enableProdMode } from "@angular/core";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { Component } from "@angular/core";
+import { NgTemplateOutlet } from "@angular/common";
 
-import { AppModule } from "./app/app.module";
+@Component({
+	selector: "my-app",
+	standalone: true,
+	imports: [NgTemplateOutlet],
+	template: `
+		<ng-template
+			[ngTemplateOutlet]="showMsgToPerson"
+			[ngTemplateOutletContext]="{
+				$implicit: 'Hello World',
+				personName: 'Corbin',
+			}"
+		>
+		</ng-template>
+		<ng-template #showMsgToPerson let-message let-thisPersonsName="personName">
+			<p>{{ message }} {{ thisPersonsName }}</p>
+		</ng-template>
+	`,
+})
+export class AppComponent {}
 
-platformBrowserDynamic()
-	.bootstrapModule(AppModule)
-	.then((ref) => {
-		// Ensure Angular destroys itself on hot reloads.
-		if (window["ngRef"]) {
-			window["ngRef"].destroy();
-		}
-		window["ngRef"] = ref;
-
-		// Otherwise, log the boot error
-	})
-	.catch((err) => console.error(err));
+bootstrapApplication(AppComponent);
