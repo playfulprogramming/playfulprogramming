@@ -2913,7 +2913,81 @@ While the initial value is set to `10` with an arrow pointing to the `1`, if we 
 
 ## Angular
 
-Because Angular does not use a virtual DOM, it does not have a method to detect specific parts of the reconciliation process.
+While Angular does not use a virtual DOM, it does have an API that executes outside the timeline of a normal `effect`: `afterRenderEffect`.
+
+Take the following code for example:
+
+```angular-ts
+@Component({
+  selector: 'app-root',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div>
+      <input
+        type="number"
+        [value]="num()"
+        (input)="num.set($any($event.target).valueAsNumber)"
+      />
+      <div style="display: flex; justify-content: flex-end">
+        <h1 id="number" style="display: inline-block">
+          {{ num() }}
+        </h1>
+      </div>
+      <h1
+        style="position: absolute; left: {{ bounding().left }}px; top: {{
+          bounding().top + bounding().height
+        }}px"
+      >
+        ^
+      </h1>
+    </div>
+  `,
+})
+class App {
+  num = signal(10);
+
+  bounding = signal({
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    height: 0,
+  });
+
+  constructor() {
+    effect(() => {
+      const _rerunWhenThisIsUpdated = this.num();
+      // This should be using a `ref`. More on that in a future chapter
+      const el = document.querySelector('#number');
+      const b = el?.getBoundingClientRect();
+      if (!b) return;
+      this.bounding.set(b);
+    });
+  }
+}
+```
+
+Here, we're trying to read the `#number` element whenever the `num()` signal changes to draw a `^` symbol at the start of the number.
+
+However, if we look at the output, we'll see that it points instead at the second number, not the start:
+
+![An uptick symbol incorrectly facing the first zero in a number of 1000 painted in the DOM](./broken_dom_measure_uselayout_effect.png)
+
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Broken Rendering, Committing, Painting - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-committing-painting-broken-40?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
+
+This is because `effect` is executing before the component has written the updated values to the DOM. This means that instead of reading `1000`, it's reading `100` and then drawing _that_ value.
+
+Once we migrate this to an `afterRenderEffect`, which runs _after_ the component has updated the DOM so that `el` is defined when we read the value, it works as-expected:
+
+![An uptick symbol correctly facing the 1 in a number of 1000 painted in the DOM](./dom_measure_uselayout_effect.png)
+
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Rendering, Committing, Painting - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-committing-painting-40?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
+
+> Want to learn more about Angular's internal timing of `effect` vs `afterRenderEffect`? [Check out our article on the topic to have a deep dive on the topic](/posts/angular-internals-timings).
 
 ## Vue
 
