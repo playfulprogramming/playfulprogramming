@@ -489,7 +489,56 @@ class CountAndDoubleComponent {
 ```
 
 <!-- ::start:no-ebook -->
+
 <iframe data-frame-title="Angular Non-Prop Derived - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
+
+### Writable Derived State {#linked-signal}
+
+What if we wanted to have a bit of derived state that you can write temporary updates to that get reset when you update the base signal?
+
+Luckily for us, we can do this using Angular's `linkedSignal`: 
+
+```angular-ts
+import {
+  Component,
+  ChangeDetectionStrategy,
+  linkedSignal,
+  signal,
+} from '@angular/core';
+
+@Component({
+  selector: 'count-and-double',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div>
+      <p>{{ number() }}</p>
+      <button (click)="addOne()">Add one</button>
+      <p>{{ doubleNum() }}</p>
+      <button (click)="addOneToDouble()">Add one</button>
+    </div>
+  `,
+})
+class CountAndDoubleComponent {
+  number = signal(0);
+  doubleNum = linkedSignal(() => this.number() * 2);
+
+  addOne() {
+    this.number.set(this.number() + 1);
+  }
+
+  addOneToDouble() {
+    this.doubleNum.set(this.doubleNum() + 1);
+  }
+}
+```
+
+Now we can add `1` to `doubleNum()` any time we want, but when we update `number()` it resets `doubleNum()` to the calculated value of `number() * 2`.
+
+<!-- ::start:no-ebook -->
+
+<iframe data-frame-title="Angular linkedSignal - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-linked-signal-48?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 <!-- ::end:no-ebook -->
 
 ## Vue
