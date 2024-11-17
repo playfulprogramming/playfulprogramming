@@ -48,28 +48,28 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 ```angular-ts
 @Component({
 	selector: "file-item",
-	standalone: true,
 	imports: [FileDateComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(click)="selected.emit()"
 			[style]="
-				isSelected
+				isSelected()
 					? 'background-color: blue; color: white'
 					: 'background-color: white; color: blue'
 			"
 		>
-			{{ fileName }}
+			{{ fileName() }}
 			<file-date [inputDate]="inputDate" />
 		</button>
 	`,
 })
 class FileComponent {
-	@Input() fileName!: string;
+	fileName = input.required<string>();
 	// `href` is temporarily unused
-	@Input() href!: string;
-	@Input() isSelected!: boolean;
-	@Output() selected = new EventEmitter();
+	href = input.required<string>();
+	isSelected = input<boolean>(false);
+	selected = output();
 
 	inputDate = new Date();
 }
@@ -196,20 +196,18 @@ But the following examples **will not** render their contained values:
 
 ### Angular
 
-```angular-ts {7-9}
-import { Component, Input } from "@angular/core";
-
+```angular-ts {5-7}
 @Component({
 	selector: "conditional-render",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<div>
-	@if(bool) {
-		<p>Text here</p>
-	}
+		@if (bool()) {
+			<p>Text here</p>
+		}
 	</div>`,
 })
 class ConditionalRenderComponent {
-	@Input() bool!: boolean;
+	bool = input.required<boolean>();
 }
 ```
 
@@ -313,38 +311,38 @@ const FileList = () => {
 ```angular-ts {16-18,44}
 @Component({
 	selector: "file-item",
-	standalone: true,
 	imports: [FileDateComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(click)="selected.emit()"
 			[style]="
-				isSelected
+				isSelected()
 					? 'background-color: blue; color: white'
 					: 'background-color: white; color: blue'
 			"
 		>
-			{{ fileName }}
+			{{ fileName() }}
 
-			@if (!isFolder) {
-				<file-date [inputDate]="inputDate"></file-date>
+			@if (!isFolder()) {
+				<file-date [inputDate]="inputDate" />
 			}
 		</button>
 	`,
 })
 class FileComponent {
-	@Input() fileName!: string;
-	@Input() href!: string;
-	@Input() isSelected!: boolean;
-	@Input() isFolder!: boolean;
-	@Output() selected = new EventEmitter();
+	fileName = input.required<string>();
+	href = input.required<string>();
+	isSelected = input(false);
+	isFolder = input(false);
+	selected = output();
 	inputDate = new Date();
 }
 
 @Component({
 	selector: "file-list",
-	standalone: true,
 	imports: [FileComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ul>
 			<li>
@@ -440,10 +438,10 @@ Let's use conditional rendering to show the type of item displayed based on the 
 
 ```angular-html
 <div>
-	@if (isFolder) {
+	@if (isFolder()) {
 		<span>Type: Folder</span>
 	}
-	@if (!isFolder) {
+	@if (!isFolder()) {
 		<span>Type: File</span>
 	}
 </div>
@@ -509,7 +507,7 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 
 ```angular-html
 <div>
-	@if (isFolder) {
+	@if (isFolder()) {
 		<span>Type: Folder</span>
 	} @else {
 		<span>Type: File</span>
@@ -518,7 +516,8 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Conditional Branches - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-conditional-branches-19?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Conditional Branches - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-conditional-branches-19?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 <!-- ::end:no-ebook -->
 
 ## Vue
@@ -564,13 +563,13 @@ While we could move back to a simple `if` statement for each condition:
 
 ```angular-html
 <div>
-	@if (isFolder) {
+	@if (isFolder()) {
 		<span>Type: Folder</span>
 	}
-	@if (!isFolder && isImage) {
+	@if (!isFolder() && isImage()) {
 		<span>Type: Image</span>
 	}
-	@if (!isFolder && !isImage) {
+	@if (!isFolder() && !isImage()) {
 		<span>Type: File</span>
 	}
 </div>
@@ -641,9 +640,9 @@ To recreate an `if...else` using Angular's Control Flow syntax.
 
 ```angular-html
 <div>
-	@if (isFolder) {
+	@if (isFolder()) {
 		<span>Type: Folder</span>
-	@else if (isImage) {
+	@else if (isImage()) {
 			<span>Type: Image</span>
 	} @else {
 		<span>Type: File</span>
@@ -655,7 +654,7 @@ In addition to the `if/else` syntax, Angular also has a mechanism for utilizing 
 
 ```angular-html
 <div>
-	@switch (type) {
+	@switch (type()) {
 		@case ("folder") {
 			<span>Type: Folder</span>
 		}
@@ -682,10 +681,10 @@ Using this tool, we can even set the `@switch` value to `true` and add a conditi
 ```angular-html
 <div>
 	@switch (true) {
-		@case (isFolder) {
+		@case (isFolder()) {
 			<span>Type: Folder</span>
 		}
-		@case (isImage) {
+		@case (isImage()) {
 			<span>Type: Image</span>
 		}
 		@default {
@@ -780,14 +779,14 @@ const FileList = () => {
 ```angular-ts
 @Component({
 	selector: "file-list",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileComponent],
 	template: `
 		<ul>
 			<li>
 				<file
 					(selected)="onSelected(0)"
-					[isSelected]="selectedIndex === 0"
+					[isSelected]="selectedIndex() === 0"
 					fileName="File one"
 					href="/file/file_one"
 					[isFolder]="false"
@@ -796,7 +795,7 @@ const FileList = () => {
 			<li>
 				<file
 					(selected)="onSelected(1)"
-					[isSelected]="selectedIndex === 1"
+					[isSelected]="selectedIndex() === 1"
 					fileName="File two"
 					href="/file/file_two"
 					[isFolder]="false"
@@ -805,7 +804,7 @@ const FileList = () => {
 			<li>
 				<file
 					(selected)="onSelected(2)"
-					[isSelected]="selectedIndex === 2"
+					[isSelected]="selectedIndex() === 2"
 					fileName="File three"
 					href="/file/file_three"
 					[isFolder]="false"
@@ -815,14 +814,14 @@ const FileList = () => {
 	`,
 })
 class FileListComponent {
-	selectedIndex = -1;
+	selectedIndex = signal(-1);
 
 	onSelected(idx: number) {
-		if (this.selectedIndex === idx) {
-			this.selectedIndex = -1;
+		if (this.selectedIndex() === idx) {
+			this.selectedIndex.set(-1);
 			return;
 		}
-		this.selectedIndex = idx;
+		this.selectedIndex.set(idx);
 	}
 }
 ```
@@ -955,7 +954,7 @@ Just as how the previous `@if` control flow block is used to conditionally rende
 ```angular-ts {7-17,32-48}
 @Component({
 	selector: "file-list",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileComponent],
 	template: `
 		<ul>
@@ -963,7 +962,7 @@ Just as how the previous `@if` control flow block is used to conditionally rende
 				<li>
 					<file-item
 						(selected)="onSelected(i)"
-						[isSelected]="selectedIndex === i"
+						[isSelected]="selectedIndex() === i"
 						[fileName]="file.fileName"
 						[href]="file.href"
 						[isFolder]="file.isFolder"
@@ -974,14 +973,14 @@ Just as how the previous `@if` control flow block is used to conditionally rende
 	`,
 })
 class FileListComponent {
-	selectedIndex = -1;
+	selectedIndex = signal(-1);
 
 	onSelected(idx: number) {
-		if (this.selectedIndex === idx) {
-			this.selectedIndex = -1;
+		if (this.selectedIndex() === idx) {
+			this.selectedIndex.set(-1);
 			return;
 		}
-		this.selectedIndex = idx;
+		this.selectedIndex.set(idx);
 	}
 
 	filesArray = [
@@ -1005,7 +1004,7 @@ class FileListComponent {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Rendering Lists - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-lists-20?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Rendering Lists - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-lists-20?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 Inside our `@for`, `$index` may not seem like it is being defined; however, Angular declares it whenever you attempt to utilize `@for` under the hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
@@ -1189,13 +1188,13 @@ function getRandomWord() {
 ```angular-ts
 @Component({
 	selector: "word-list",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="addWord()">Add word</button>
 			<button (click)="removeFirst()">Remove first word</button>
 			<ul>
-				@for (word of words; track word) {
+				@for (word of words(); track word) {
 					<li>
 						{{ word.word }}
 						<input type="text" />
@@ -1206,26 +1205,19 @@ function getRandomWord() {
 	`,
 })
 class WordListComponent {
-	words: Word[] = [];
+	words = signal<Word[]>([]);
 
 	addWord() {
 		const newWord = getRandomWord();
 		// Remove ability for duplicate words
-		if (this.words.includes(newWord)) return;
-		this.words = [...this.words, newWord];
+		if (this.words().includes(newWord)) return;
+		this.words.set([...this.words(), newWord]);
 	}
 
 	removeFirst() {
 		const newWords: Word[] = [];
-		for (let i = 0; i < this.words.length; i++) {
-			if (i === 0) continue;
-			// We could just push `this.words[i]` without making a new object
-			// But when we do so the bug I'm hoping to showcase isn't visible.
-			// Further, this is commonplace to make a new object in a list to
-			// avoid accidental mutations
-			newWords.push({ ...this.words[i] });
-		}
-		this.words = newWords;
+        newWords.shift();
+		this.words.set(newWords);
 	}
 }
 
@@ -1249,7 +1241,7 @@ interface Word {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Unkeyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Unkeyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 ### Vue
@@ -1357,7 +1349,7 @@ While Angular doesn't have quite the same API for `key` as React and Vue, Angula
 		<div>
 			<button (click)="addWord()">Add word</button>
 			<ul>
-				@for (word of words; track word.id) {
+				@for (word of words(); track word.id) {
 					<li>{{ word.word }}</li>
 				}
 			</ul>
@@ -1365,14 +1357,14 @@ While Angular doesn't have quite the same API for `key` as React and Vue, Angula
 	`,
 })
 class WordListComponent {
-	words: Word[] = [];
+	words = signal<Word[]>([]);
 
 	// ...
 }
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 Using a tracker without a property accessor (`track obj` vs `track obj.id`) is a way to opt-out of this behavior, as it will track the object reference (`===`) of the object in the array. This is useful when you don't have a unique identifier for each item in the array, but is highly discouraged due to the aforementioned performance and behavior benefits of having a unique identifier.
@@ -1543,18 +1535,18 @@ const FileList = () => {
 
 ## Angular
 
-```angular-ts {7,35}
+```angular-ts {7,37}
 @Component({
-	selector: "file-list",
-	standalone: true,
-	imports: [FileComponent],
-	template: `
+  selector: "file-list",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FileComponent],
+  template: `
 		<ul>
 			@for (file of filesArray; track file.id; let i = $index) {
 				<li>
 					<file-item
 						(selected)="onSelected(i)"
-						[isSelected]="selectedIndex === i"
+						[isSelected]="selectedIndex() === i"
 						[fileName]="file.fileName"
 						[href]="file.href"
 						[isFolder]="file.isFolder"
@@ -1565,43 +1557,43 @@ const FileList = () => {
 	`,
 })
 class FileListComponent {
-	selectedIndex = -1;
+  selectedIndex = signal(-1);
 
-	onSelected(idx: number) {
-		if (this.selectedIndex === idx) {
-			this.selectedIndex = -1;
-			return;
-		}
-		this.selectedIndex = idx;
-	}
+  onSelected(idx: number) {
+    if (this.selectedIndex() === idx) {
+      this.selectedIndex.set(-1);
+      return;
+    }
+    this.selectedIndex.set(idx);
+  }
 
-	filesArray: File[] = [
-		{
-			fileName: "File one",
-			href: "/file/file_one",
-			isFolder: false,
-			id: 1,
-		},
-		{
-			fileName: "File two",
-			href: "/file/file_two",
-			isFolder: false,
-			id: 2,
-		},
-		{
-			fileName: "File three",
-			href: "/file/file_three",
-			isFolder: false,
-			id: 3,
-		},
-	];
+  filesArray: File[] = [
+    {
+      fileName: "File one",
+      href: "/file/file_one",
+      isFolder: false,
+      id: 1,
+    },
+    {
+      fileName: "File two",
+      href: "/file/file_two",
+      isFolder: false,
+      id: 2,
+    },
+    {
+      fileName: "File three",
+      href: "/file/file_three",
+      isFolder: false,
+      id: 3,
+    },
+  ];
 }
 
 interface File {
-	fileName: string;
-	href: string;
-	isFolder: boolean;
-	id: number;
+  fileName: string;
+  href: string;
+  isFolder: boolean;
+  id: number;
 }
 ```
 
@@ -1720,10 +1712,10 @@ const FileList = () => {
 			<ul>
 				@for (file of filesArray; track file.id; let i = $index) {
 					<li>
-						@if (onlyShowFiles ? !file.isFolder : true) {
+						@if (onlyShowFiles() ? !file.isFolder : true) {
 							<file-item
 								(selected)="onSelected(i)"
-								[isSelected]="selectedIndex === i"
+								[isSelected]="selectedIndex() === i"
 								[fileName]="file.fileName"
 								[href]="file.href"
 								[isFolder]="file.isFolder"
@@ -1736,10 +1728,10 @@ const FileList = () => {
 	`,
 })
 class FileListComponent {
-	onlyShowFiles = false;
+	onlyShowFiles = signal(false);
 
 	toggleOnlyShow() {
-		this.onlyShowFiles = !this.onlyShowFiles;
+		this.onlyShowFiles.set(!this.onlyShowFiles());
 	}
 
 	// ...
@@ -1747,7 +1739,7 @@ class FileListComponent {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Using It Together - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-using-it-together-24?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Using It Together - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-using-it-together-24?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 ## Vue
@@ -1868,70 +1860,70 @@ const Sidebar = () => {
 ```angular-ts
 @Component({
 	selector: "expandable-dropdown",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="toggle.emit()">
-				{{ expanded ? "V" : ">" }}
-				{{ name }}
+				{{ expanded() ? "V" : ">" }}
+				{{ name() }}
 			</button>
-			<div [hidden]="!expanded">More information here</div>
+			<div [hidden]="!expanded()">More information here</div>
 		</div>
 	`,
 })
 class ExpandableDropdownComponent {
-	@Input() name!: string;
-	@Input() expanded!: boolean;
-	@Output() toggle = new EventEmitter();
+	name = input.required<string>();
+	expanded = input.required<boolean>();
+	toggle = output();
 }
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ExpandableDropdownComponent],
 	template: `
 		<div>
 			<h1>My Files</h1>
 			<expandable-dropdown
 				name="Movies"
-				[expanded]="moviesExpanded"
-				(toggle)="moviesExpanded = !moviesExpanded"
+				[expanded]="moviesExpanded()"
+				(toggle)="moviesExpanded.set(!moviesExpanded())"
 			/>
 			<expandable-dropdown
 				name="Pictures"
-				[expanded]="picturesExpanded"
-				(toggle)="picturesExpanded = !picturesExpanded"
+				[expanded]="picturesExpanded()"
+				(toggle)="picturesExpanded.set(!picturesExpanded())"
 			/>
 			<expandable-dropdown
 				name="Concepts"
-				[expanded]="conceptsExpanded"
-				(toggle)="conceptsExpanded = !conceptsExpanded"
+				[expanded]="conceptsExpanded()"
+				(toggle)="conceptsExpanded.set(!conceptsExpanded())"
 			/>
 			<expandable-dropdown
 				name="Articles I'll Never Finish"
-				[expanded]="articlesExpanded"
-				(toggle)="articlesExpanded = !articlesExpanded"
+				[expanded]="articlesExpanded()"
+				(toggle)="articlesExpanded.set(!articlesExpanded())"
 			/>
 			<expandable-dropdown
 				name="Website Redesigns v5"
-				[expanded]="redesignExpanded"
-				(toggle)="redesignExpanded = !redesignExpanded"
+				[expanded]="redesignExpanded()"
+				(toggle)="redesignExpanded.set(!redesignExpanded())"
 			/>
 			<expandable-dropdown
 				name="Invoices"
-				[expanded]="invoicesExpanded"
-				(toggle)="invoicesExpanded = !invoicesExpanded"
+				[expanded]="invoicesExpanded()"
+				(toggle)="invoicesExpanded.set(!invoicesExpanded())"
 			/>
 		</div>
 	`,
 })
 class SidebarComponent {
-	moviesExpanded = false;
-	picturesExpanded = false;
-	conceptsExpanded = false;
-	articlesExpanded = false;
-	redesignExpanded = false;
-	invoicesExpanded = false;
+	moviesExpanded = signal(true);
+	picturesExpanded = signal(false);
+	conceptsExpanded = signal(false);
+	articlesExpanded = signal(false);
+	redesignExpanded = signal(false);
+	invoicesExpanded = signal(false);
 }
 ```
 
@@ -2062,7 +2054,7 @@ const Sidebar = () => {
 ```angular-ts
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ExpandableDropdownComponent],
 	template: `
 		<div>
@@ -2209,7 +2201,7 @@ function objFromCategories(categories) {
 ```angular-ts
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ExpandableDropdownComponent],
 	template: `
 		<div>
@@ -2217,7 +2209,7 @@ function objFromCategories(categories) {
 			@for (cat of categories; track cat) {
 				<expandable-dropdown
 					[name]="cat"
-					[expanded]="expandedMap[cat]"
+					[expanded]="expandedMap()[cat]"
 					(toggle)="onToggle(cat)"
 				/>
 			}
@@ -2234,10 +2226,12 @@ class SidebarComponent {
 		"Invoices",
 	];
 
-	expandedMap = objFromCategories(this.categories);
+	expandedMap = signal(objFromCategories(this.categories));
 
-	onToggle(cat: string) {
-		this.expandedMap[cat] = !this.expandedMap[cat];
+    onToggle(cat: string) {
+		const newExtendedMap = this.expandedMap();
+		newExtendedMap[cat] = !newExtendedMap[cat];
+		this.expandedMap.set(newExtendedMap);
 	}
 }
 
@@ -2335,23 +2329,23 @@ const ExpandableDropdown = ({ name, expanded, onToggle }) => {
 ```angular-ts
 @Component({
 	selector: "expandable-dropdown",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="toggle.emit()">
-				{{ expanded ? "V" : ">" }}
-				{{ name }}
+				{{ expanded() ? "V" : ">" }}
+				{{ name() }}
 			</button>
-			@if (expanded) {
+			@if (expanded()) {
 				<div>More information here</div>
 			}
 		</div>
 	`,
 })
 class ExpandableDropdownComponent {
-	@Input() name!: string;
-	@Input() expanded!: boolean;
-	@Output() toggle = new EventEmitter();
+	name = input.required<string>();
+	expanded = input.required<boolean>();
+	toggle = output();
 }
 ```
 

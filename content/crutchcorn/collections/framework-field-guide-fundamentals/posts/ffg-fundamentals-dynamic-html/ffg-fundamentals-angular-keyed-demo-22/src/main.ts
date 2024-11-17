@@ -37,10 +37,7 @@ class WordListComponent {
 
 	removeFirst() {
 		const newWords: Word[] = [];
-		for (let i = 0; i < this.words().length; i++) {
-			if (i === 0) continue;
-			newWords.push({ ...this.words()[i] });
-		}
+		newWords.shift();
 		this.words.set(newWords);
 	}
 }
