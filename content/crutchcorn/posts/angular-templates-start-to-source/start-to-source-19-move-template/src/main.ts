@@ -1,19 +1,42 @@
-import "./polyfills";
+import "zone.js";
+import { bootstrapApplication } from "@angular/platform-browser";
 
-import { enableProdMode } from "@angular/core";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import {
+	Component,
+	ViewContainerRef,
+	OnInit,
+	ViewChild,
+	TemplateRef,
+	EmbeddedViewRef,
+} from "@angular/core";
 
-import { AppModule } from "./app/app.module";
+@Component({
+	selector: "my-app",
+	standalone: true,
+	template: `
+		<ng-template #templ let-i>
+			<li>List Item {{ i }}</li>
+			<li>List Item {{ i + 1 }}</li>
+		</ng-template>
+		<ul>
+			<ng-container #viewContainerRef></ng-container>
+		</ul>
+	`,
+})
+export class AppComponent implements OnInit {
+	@ViewChild("viewContainerRef", { read: ViewContainerRef, static: true })
+	viewContainerRef!: ViewContainerRef;
+	@ViewChild("templ", { read: TemplateRef, static: true })
+	templ!: TemplateRef<any>;
 
-platformBrowserDynamic()
-	.bootstrapModule(AppModule)
-	.then((ref) => {
-		// Ensure Angular destroys itself on hot reloads.
-		if (window["ngRef"]) {
-			window["ngRef"].destroy();
-		}
-		window["ngRef"] = ref;
+	ngOnInit() {
+		const embeddRef3: EmbeddedViewRef<any> =
+			this.viewContainerRef.createEmbeddedView(this.templ, { $implicit: 3 });
+		const embeddRef1: EmbeddedViewRef<any> =
+			this.viewContainerRef.createEmbeddedView(this.templ, { $implicit: 1 });
+		const newViewIndex = 0;
+		this.viewContainerRef.move(embeddRef1, newViewIndex);
+	}
+}
 
-		// Otherwise, log the boot error
-	})
-	.catch((err) => console.error(err));
+bootstrapApplication(AppComponent);
