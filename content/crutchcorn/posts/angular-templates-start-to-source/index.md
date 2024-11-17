@@ -1783,23 +1783,24 @@ So, what is the API we want to support?
 Sounds reasonable enough. Just to make things even easier on us, let's not worry about re-rendering the list if it updates or properly cleaning up if this directive view unrenders. These requirement changes make our code much more simple for demonstration purposes, but inherently makes the resulting code unfit for production.
 
 ```typescript
-@Directive({ selector: '[uniFor]' })
+@Directive({ selector: "[uniFor]", standalone: true })
 export class UniForOf<T> implements AfterViewInit {
-	@Input() uniForOf: Array<T>;
+	@Input() uniForOf!: Array<T> | null;
 
 	constructor(
 		private viewContainer: ViewContainerRef,
-		private template: TemplateRef<any>
+		private template: TemplateRef<any>,
 	) {}
 
 	ngAfterViewInit() {
+		if (!this.uniForOf) return;
 		this.uniForOf.forEach((ofItem, i) => {
 			this.viewContainer.createEmbeddedView(this.template, {
 				isFirst: i === 0,
 				$implicit: ofItem,
-				uniForOf: this.uniForOf
-			})
-		})
+				uniForOf: this.uniForOf,
+			});
+		});
 	}
 }
 
