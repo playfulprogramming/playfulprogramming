@@ -21,20 +21,14 @@ import {
 			<div
 				tabIndex="0"
 				#contextMenu
-				[style]="
-					'
-		position: fixed;
-		top: ' +
-					mouseBounds().y +
-					'px;
-		left: ' +
-					mouseBounds().x +
-					'px;
-		background: white;
-		border: 1px solid black;
-		border-radius: 16px;
-		padding: 1rem;
-		'
+				style="
+      position: fixed;
+      top: {{ mouseBounds().y }}px;
+      left: {{ mouseBounds().x }}px;
+      background: white;
+      border: 1px solid black;
+      border-radius: 16px;
+      padding: 1rem;
 				"
 			>
 				<button (click)="close()">X</button>

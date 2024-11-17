@@ -17,22 +17,14 @@ import {
 		<div style="padding: 10rem">
 			@if (tooltipMeta().show) {
 				<div
-					[style]="
-						'
+					style="
         display: flex;
         overflow: visible;
         justify-content: center;
-        width: ' +
-						tooltipMeta().width +
-						'px;
+        width: {{ tooltipMeta().width }}px;
         position: fixed;
-        top: ' +
-						(tooltipMeta().y - tooltipMeta().height - 16 - 6 - 8) +
-						'px;
-        left: ' +
-						tooltipMeta().x +
-						'px;
-      '
+        top: {{ tooltipMeta().y - tooltipMeta().height - 16 - 6 - 8 }}px;
+        left: {{ tooltipMeta().x }}px;
 					"
 				>
 					<div

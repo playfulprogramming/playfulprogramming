@@ -27,20 +27,14 @@ function injectAndGetActions() {
 			<div
 				#contextMenu
 				tabIndex="0"
-				[style]="
-					'
+				style="
         position: fixed;
-        top: ' +
-					y +
-					'px;
-        left: ' +
-					x +
-					'px;
+        top: {{ y() }}px;
+        left: {{ x() }}px;
         background: white;
         border: 1px solid black;
         border-radius: 16px;
         padding: 1rem;
-        '
 				"
 			>
 				<button (click)="close.emit(false)">X</button>

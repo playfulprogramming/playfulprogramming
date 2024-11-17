@@ -19,13 +19,11 @@ import {
 	template: `
 		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
 			<div
-				[style]="
-					'width: ' +
-					sidebarWidth +
-					'px;' +
-					'height: 100vh;' +
-					'overflow-y: scroll;' +
-					'border-right: 2px solid #bfbfbf;'
+				style="
+					width: {{ sidebarWidth() }}px;
+					height: 100vh;
+					overflow-y: scroll;
+					border-right: 2px solid #bfbfbf;
 				"
 			>
 				<ng-content select="[sidebar]" />
@@ -81,7 +79,7 @@ class SidebarComponent {
 	}
 
 	toggleCollapsed() {
-		this.setAndToggle(!this.isCollapsed);
+		this.setAndToggle(!this.isCollapsed());
 	}
 }
 
