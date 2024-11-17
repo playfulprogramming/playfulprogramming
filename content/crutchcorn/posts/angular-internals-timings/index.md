@@ -343,9 +343,9 @@ export interface LView<T = unknown> extends Array<any> {
 
 # Timing Execution
 
-Now that we've seen how both the basic lifecyle methods and effects are registered, let's see how they're called.
+Now that we've seen how both the basic lifecycle methods and effects are registered, let's see how they're called.
 
-https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/instructions/change_detection.ts#L189-L375
+It all goes down in [`core/src/render3/instructions/change_detection.ts`](https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/instructions/change_detection.ts#L189-L375):
 
 ```typescript
 export function refreshView<T>(
@@ -445,9 +445,7 @@ export function refreshView<T>(
 
 ---
 
-As you may have guessed, the code for `runEffectsInView` executes the effects present in `view[EFFECTS]`:
-
-https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/reactivity/view_effect_runner.ts#L11-L43
+As you may have guessed, [the code for `runEffectsInView` executes the effects present in `view[EFFECTS]`](https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/reactivity/view_effect_runner.ts#L11-L43):
 
 ```typescript
 export function runEffectsInView(view: LView): void {
@@ -472,8 +470,25 @@ Which runs all of the `effect` and `afterRenderEffect` method usages.
 
 # Quiz and Demo
 
+Whew! Okay, so that was a lot of code. If we take our time to read through it, we would expect to see the following order of calls:
+
+- `constructor`
+- Root `effect`s
+- `ngOnInit`
+- `ngOnDoCheck`
+- Component `effect`s
+- `ngAfterContentInit`
+- `ngAfterContentChecked`
+- `ngAfterViewInit`
+- `ngAfterViewChecked`
+- `ngAfterRenderEffect`
+
+Where, for example, `viewChild` and `viewChildren` detection occurs _after_ `ngAfterContentChecked`.
+
+We can verify this by comparing the effect run when no `@if () {}` control flow block is present:
+
 <iframe data-frame-title="Timings No Conditional - StackBlitz" src="pfp-code:./timings-no-conditional?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 
-However, if you add a control flow block like `@if (bool) {}`, we can see the results change:
+Against when a control flow block _is_ present:
 
 <iframe data-frame-title="Timings Conditional - StackBlitz" src="pfp-code:./timings-conditional?template=node&embed=1&file=src%2Fmain.ts"></iframe>
