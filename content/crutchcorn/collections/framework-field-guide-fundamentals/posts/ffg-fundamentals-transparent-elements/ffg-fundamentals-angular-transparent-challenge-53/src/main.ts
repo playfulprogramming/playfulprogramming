@@ -48,7 +48,7 @@ class FileActionButtonsComponent {
 	`,
 })
 class ButtonBarComponent {
-	fileSelected = input<boolean>();
+	fileSelected = input.required<boolean>();
 
 	delete = output();
 	copy = output();

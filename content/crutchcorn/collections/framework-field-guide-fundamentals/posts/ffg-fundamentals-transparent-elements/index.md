@@ -76,61 +76,61 @@ const FileList = () => {
 ```angular-ts
 @Component({
 	selector: "file-item",
-	standalone: true,
 	imports: [FileDateComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(click)="selected.emit()"
 			[style]="
-				isSelected
+				isSelected()
 					? 'background-color: blue; color: white'
 					: 'background-color: white; color: blue'
 			"
 		>
-			{{ fileName }}
-			@if (isFolder) {
+			{{ fileName() }}
+			@if (isFolder()) {
 				<span>Type: Folder</span>
 			} @else {
 				<span>Type: File</span>
 			}
-			@if (!isFolder) {
-				<file-date [inputDate]="inputDate" />
+			@if (!isFolder()) {
+				<file-date [inputDate]="inputDate()" />
 			}
 		</button>
 	`,
 })
-class FileComponent implements OnInit, OnDestroy {
-	@Input() fileName!: string;
-	@Input() href!: string;
-	@Input() isSelected!: boolean;
-	@Input() isFolder!: boolean;
-	@Output() selected = new EventEmitter();
-	inputDate = new Date();
+class FileComponent {
+	fileName = input.required<string>();
+	href = input.required<string>();
+	isSelected = input(false);
+	isFolder = input(false);
+	selected = output();
+	inputDate = signal(new Date());
 
 	// ...
 }
 
 @Component({
 	selector: "file-list",
-	standalone: true,
 	imports: [FileComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<!-- ... -->
-		<ul>
-			@for (file of filesArray; let i = $index; track file.id) {
-				<li>
-					@if (onlyShowFiles ? !file.isFolder : true) {
-						<file-item
-							(selected)="onSelected(i)"
-							[isSelected]="selectedIndex === i"
-							[fileName]="file.fileName"
-							[href]="file.href"
-							[isFolder]="file.isFolder"
-						/>
-					}
-				</li>
-			}
-		</ul>
+        <ul>
+            @for (file of filesArray; track file.id; let i = $index) {
+                <li>
+                    @if (onlyShowFiles() ? !file.isFolder : true) {
+                        <file-item
+                            (selected)="onSelected(i)"
+                            [isSelected]="selectedIndex() === i"
+                            [fileName]="file.fileName"
+                            [href]="file.href"
+                            [isFolder]="file.isFolder"
+                        />
+                    }
+                </li>
+            }
+        </ul>
 		<!-- ... -->
 	`,
 })
@@ -338,11 +338,11 @@ Angular's version of the `nothing` element is the `ng-container` element.
 <ul>
 	@for (file of filesArray; let i = $index; track file.id) {
 		<ng-container>
-			@if (onlyShowFiles ? !file.isFolder : true) {
+			@if (onlyShowFiles() ? !file.isFolder : true) {
 				<li>
 					<file-item
 						(selected)="onSelected(i)"
-						[isSelected]="selectedIndex === i"
+						[isSelected]="selectedIndex() === i"
 						[fileName]="file.fileName"
 						[href]="file.href"
 						[isFolder]="file.isFolder"
@@ -363,11 +363,11 @@ However, unlike React and Vue; we don't need to use `ng-container` in this examp
 ```angular-html
 <ul>
 	@for (file of filesArray; let i = $index; track file.id) {
-		@if (onlyShowFiles ? !file.isFolder : true) {
+		@if (onlyShowFiles() ? !file.isFolder : true) {
 			<li>
 				<file-item
 					(selected)="onSelected(i)"
-					[isSelected]="selectedIndex === i"
+					[isSelected]="selectedIndex() === i"
 					[fileName]="file.fileName"
 					[href]="file.href"
 					[isFolder]="file.isFolder"
@@ -589,7 +589,7 @@ const ButtonBar = ({
 ```angular-ts
 @Component({
 	selector: "file-action-buttons",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="delete.emit()">Delete</button>
@@ -599,18 +599,18 @@ const ButtonBar = ({
 	`,
 })
 class FileActionButtonsComponent {
-	@Output() delete = new EventEmitter();
-	@Output() copy = new EventEmitter();
-	@Output() favorite = new EventEmitter();
+	delete = output();
+	copy = output();
+	favorite = output();
 }
 
 @Component({
 	selector: "button-bar",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileActionButtonsComponent],
 	template: `
 		<div style="display: flex; gap: 1rem">
-			@if (fileSelected) {
+			@if (fileSelected()) {
 				<file-action-buttons
 					(delete)="delete.emit()"
 					(copy)="copy.emit()"
@@ -622,12 +622,12 @@ class FileActionButtonsComponent {
 	`,
 })
 class ButtonBarComponent {
-	@Input() fileSelected!: boolean;
+	fileSelected = input.required<boolean>();
 
-	@Output() delete = new EventEmitter();
-	@Output() copy = new EventEmitter();
-	@Output() favorite = new EventEmitter();
-	@Output() settings = new EventEmitter();
+	delete = output();
+	copy = output();
+	favorite = output();
+	settings = output();
 }
 ```
 
@@ -708,7 +708,7 @@ That's because when we used a `div` for our `FileActionButtons` component, it by
 ```angular-ts {5-9,11-17}
 @Component({
 	selector: "file-action-buttons",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-container>
 			<button (click)="delete.emit()">Delete</button>
@@ -734,7 +734,7 @@ We can even simplify this by removing the `ng-container`, since Angular supports
 ```angular-ts {4-15}
 @Component({
 	selector: "file-action-buttons",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button (click)="delete.emit()">Delete</button>
 		<button (click)="copy.emit()">Copy</button>
