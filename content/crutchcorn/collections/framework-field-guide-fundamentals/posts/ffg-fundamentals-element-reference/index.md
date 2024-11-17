@@ -98,27 +98,21 @@ function App() {
  */
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div (contextmenu)="open($event)">Right click on me!</div>
 		</div>
-		@if (isOpen) {
+		@if (isOpen()) {
 			<div
-				[style]="
-					'
-		  position: fixed;
-		  top: ' +
-					mouseBounds.y +
-					'px;
-		  left: ' +
-					mouseBounds.x +
-					'px;
-		  background: white;
-		  border: 1px solid black;
-		  border-radius: 16px;
-		  padding: 1rem;
-		'
+				style="
+      position: fixed;
+      top: {{ mouseBounds().y }}px;
+      left: {{ mouseBounds().x }}px;
+      background: white;
+      border: 1px solid black;
+      border-radius: 16px;
+      padding: 1rem;
 				"
 			>
 				<button (click)="close()">X</button>
@@ -128,25 +122,25 @@ function App() {
 	`,
 })
 class AppComponent {
-	isOpen = false;
+	isOpen = signal(false);
 
-	mouseBounds = {
+	mouseBounds = signal({
 		x: 0,
 		y: 0,
-	};
+	});
 
 	close() {
-		this.isOpen = false;
+		this.isOpen.set(false);
 	}
 
 	open(e: MouseEvent) {
 		e.preventDefault();
-		this.isOpen = true;
-		this.mouseBounds = {
+		this.isOpen.set(true);
+		this.mouseBounds.set({
 			// Mouse position on click
 			x: e.clientX,
 			y: e.clientY,
-		};
+		});
 	}
 }
 ```
@@ -435,50 +429,112 @@ This is because `buttonRef.current` is set to `undefined` in the first render, a
 
 ## Angular
 
-Using `ViewChild`, we can access an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) that's within an Angular component's `template`:
+Using `viewChild`, we can access an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) that's within an Angular component's `template`:
 
 ```angular-ts
 @Component({
 	selector: "paragraph-tag",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p #pTag>Hello, world!</p>`,
 })
 class RenderParagraphComponent {
-	@ViewChild("pTag") pTag!: ElementRef<HTMLElement>;
+	pTag = viewChild.required("pTag", {read: ElementRef<HTMLElement>});
 }
 ```
 
-You may notice that our `<p>` tag has an attribute prefixed with a pound sign (`#`). This pound-sign prefixed attribute allows Angular to associate the element with a "template reference variable," which can then be referenced inside our `ViewChild` to gain access to an element.
+You may notice that our `<p>` tag has an attribute prefixed with a pound sign (`#`). This pound-sign prefixed attribute allows Angular to associate the element with a "template reference variable," which can then be referenced inside our `viewChild` to gain access to an element.
 
-For example, the `#pTag` attribute assigns the template reference variable named `"pTag"` to the `<p>` element and allows `ViewChild` to find that element based on the variable's name.
+For example, the `#pTag` attribute assigns the template reference variable named `"pTag"` to the `<p>` element and allows `viewChild` to find that element based on the variable's name.
 
 ---
 
-Now that we have access to the underlying `<p>` element let's print it out inside a `ngOnInit`:
+Now that we have access to the underlying `<p>` element let's print it out inside an `effect`:
 
 ```angular-ts
 @Component({
-	selector: "paragraph-tag",
-	standalone: true,
-	template: `<p #pTag>Hello, world!</p>`,
+  selector: 'paragraph-tag',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: ` <p #pTag>Hello, world!</p> `,
 })
-class RenderParagraphComponent implements OnInit {
-	@ViewChild("pTag") pTag!: ElementRef<HTMLElement>;
+class RenderParagraphComponent {
+  pTag = viewChild.required('pTag', { read: ElementRef<HTMLElement> });
 
-	ngOnInit() {
-		// This will show `undefined`
-		alert(this.pTag);
-	}
+  constructor() {
+    effect(() => {
+      console.log(this.pTag());
+    });
+  }
 }
 ```
 
-<!-- ::start:no-ebook -->
+This works! If we look at our log, we see `{nativeElement: p}` in our console.
+
+// TODO: Add iframe
+
+### `viewChild` Timings {#after-render-view-child}
+
+Now let's make the `paragraph-tag` conditionally render our `"Hello, world"` message using a control flow block and:
+
+```angular-ts
+@Component({
+  selector: "paragraph-tag",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    @if (true) {
+        <p #pTag>Hello, world!</p>
+    }`,
+})
+class RenderParagraphComponent {
+  pTag = viewChild.required("pTag", {read: ElementRef<HTMLElement>});
+
+  constructor() {
+    effect(() => {
+      console.log(this.pTag());
+    });
+  }
+}
+```
+
+> ERROR RuntimeError: NG0951: Child query result is required but no value is available. Find more at https://angular.dev/errors/NG0951
+
+Oh dear! This error is being thrown by the `.required` part of `viewChild`, telling us that `pTag` was not found by the time the value was read. Even if we remove `.required`, `pTag` is still `undefined` when `effect` is first ran.
+
+// TODO: Add iframe
+
+> Why is that?
+
+Well, Angular doesn't yet know that `<p>` is going to exist due to the `@if` block. It might or it might not, depending on the input.
+
+As a result, the `viewChild` is not accessible until after the component's first render; when Angular has had time to figure out if it should display the element and renders it to the DOM based off of the respective input.
+
+To solve for this, we need to move away from reading the `viewChild` using `effect` and instead read it using `afterRenderEffect`:
+
+```angular-ts {13-15}
+@Component({
+  selector: "paragraph-tag",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    @if (true) {
+        <p #pTag>Hello, world!</p>
+    }`,
+})
+class RenderParagraphComponent {
+  pTag = viewChild.required("pTag", {read: ElementRef<HTMLElement>});
+
+  constructor() {
+    afterRenderEffect(() => {
+      console.log(this.pTag());
+    });
+  }
+}
+```
+
+Update that value and ba-da-bing ba-da-boom, everything's up and running!
+
+// TODO: Add iframe
+
 <iframe data-frame-title="Angular ViewChild - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-view-child-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
-
-// TODO: Write this
-
-// TODO: Do we need a dedicated section/code sample to afterRenderEffect? Right now `effect` works the same for trivial examples, so not all-that-helpful to demo. Reached out to Angular team for clarification
 
 ### Adding an Event Listener Using `@ViewChild` {#adding-event-listener-viewchild}
 
@@ -487,27 +543,28 @@ Now that we know how to use `ViewChild`, we can add an `addEventListener` and `r
 ```angular-ts
 @Component({
 	selector: "paragraph-tag",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button #btn>Add one</button>
-		<p>Count is {{ count }}</p>
+		<p>Count is {{ count() }}</p>
 	`,
 })
-class RenderParagraphComponent implements AfterViewInit, OnDestroy {
-	@ViewChild("btn") btn!: ElementRef<HTMLElement>;
+class RenderParagraphComponent {
+	btn = viewChild.required("btn", { read: ElementRef<HTMLElement> });
 
-	count = 0;
+	count = signal(0);
 
 	addOne = () => {
-		this.count++;
+		this.count.set(this.count() + 1);
 	};
 
-	ngAfterViewInit() {
-		this.btn.nativeElement.addEventListener("click", this.addOne);
-	}
-
-	ngOnDestroy() {
-		this.btn.nativeElement.removeEventListener("click", this.addOne);
+	constructor() {
+		afterRenderEffect((onCleanup) => {
+			this.btn().nativeElement.addEventListener("click", this.addOne);
+			onCleanup(() => {
+				this.btn().nativeElement.removeEventListener("click", this.addOne);
+			});
+		});
 	}
 }
 ```
