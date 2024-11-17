@@ -1,19 +1,46 @@
-import "./polyfills";
+import "zone.js";
+import { bootstrapApplication } from "@angular/platform-browser";
 
-import { enableProdMode } from "@angular/core";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	Input,
+	ViewChild,
+} from "@angular/core";
 
-import { AppModule } from "./app/app.module";
+@Component({
+	selector: "my-custom-component",
+	standalone: true,
+	template: `
+		<p>Check the console to see the inputs' values from the parent component</p>
+	`,
+})
+export class MyComponentComponent {
+	@Input() inputHere!: number;
+}
 
-platformBrowserDynamic()
-	.bootstrapModule(AppModule)
-	.then((ref) => {
-		// Ensure Angular destroys itself on hot reloads.
-		if (window["ngRef"]) {
-			window["ngRef"].destroy();
-		}
-		window["ngRef"] = ref;
+@Component({
+	selector: "my-app",
+	imports: [MyComponentComponent],
+	standalone: true,
+	template: `
+		<my-custom-component
+			#myComponent
+			[inputHere]="50"
+			data-unrelatedAttr="Hi there!"
+		></my-custom-component>
+	`,
+})
+export class AppComponent implements AfterViewInit {
+	@ViewChild("myComponent", { read: ElementRef, static: false })
+	myComponent!: ElementRef;
 
-		// Otherwise, log the boot error
-	})
-	.catch((err) => console.error(err));
+	ngAfterViewInit() {
+		console.log(
+			this.myComponent.nativeElement.getAttribute("data-unrelatedAttr"),
+		); // This output `"Hi there!"`
+	}
+}
+
+bootstrapApplication(AppComponent);
