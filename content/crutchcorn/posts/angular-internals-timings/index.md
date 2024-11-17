@@ -10,7 +10,31 @@
 }
 ---
 
-First, let's talk about what an `LView` and `TView` is in relation to the internals of the Angular codebase:
+All production Angular codebases, using [signals](/posts/what-are-signals) or not, have to manage [side effects](/posts/ffg-fundamentals-side-effects) in one way or another.
+
+In modern Angular projects using signals, that comes in flavor of two APIs:
+
+- `effect`
+- `afterRenderEffect`
+
+And in older Angular projects, this comes via lifecycle methods:
+
+- `ngOnInit`
+- `ngOnChanges`
+- `ngOnDestroy`
+- `ngDoCheck`
+- `ngAfterContentInit`
+- `ngAfterContentChecked`
+- `ngAfterViewInit`
+- `ngAfterViewChecked`
+
+However, both of these methods of effect handling come with one major similarity; they both integrate into a component's lifecycle in one way or another.
+
+When does `ngOnChanges` run in comparison to `afterRenderEffect`? Why does `ngDoCheck` seem to run more often than `ngOnInit`?
+
+While the answer to these can look simple on the surface, let's dive into Angular's source code to figure out _why_ they run when they do.
+
+To start this though, we need to understand a bit of terminology about Angular's internal source code.
 
 # Angular Internals Aside
 
