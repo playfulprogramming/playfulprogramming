@@ -2957,7 +2957,7 @@ class App {
   constructor() {
     effect(() => {
       const _rerunWhenThisIsUpdated = this.num();
-      // This should be using a `ref`. More on that in a future chapter
+      // This should be using a `viewChild`. More on that in a future chapter
       const el = document.querySelector('#number');
       const b = el?.getBoundingClientRect();
       if (!b) return;
@@ -2980,6 +2980,30 @@ However, if we look at the output, we'll see that it points instead at the secon
 This is because `effect` is executing before the component has written the updated values to the DOM. This means that instead of reading `1000`, it's reading `100` and then drawing _that_ value.
 
 Once we migrate this to an `afterRenderEffect`, which runs _after_ the component has updated the DOM so that `el` is defined when we read the value, it works as-expected:
+
+```angular-ts
+import {afterRenderEffect} from "@angular/core";
+
+@Component({
+	// ...
+})
+class App {
+  // ...
+
+  constructor() {
+    afterRenderEffect(() => {
+      const _rerunWhenThisIsUpdated = this.num();
+      // This should be using a `viewChild`. More on that in a future chapter
+      const el = document.querySelector('#number');
+      const b = el?.getBoundingClientRect();
+      if (!b) return;
+      this.bounding.set(b);
+    });
+  }
+}
+```
+
+
 
 ![An uptick symbol correctly facing the 1 in a number of 1000 painted in the DOM](./dom_measure_uselayout_effect.png)
 
@@ -3607,7 +3631,7 @@ function DarkModeToggle() {
 ```angular-ts
 @Component({
 	selector: "dark-mode-toggle",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; gap: 1rem">
 			<label style="display: inline-flex; flex-direction: column">
@@ -3615,8 +3639,8 @@ function DarkModeToggle() {
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'light'"
-					(change)="setExplicitTheme('light')"
+					[checked]="explicitTheme() === 'light'"
+					(change)="explicitTheme.set('light')"
 				/>
 			</label>
 			<label style="display: inline-flex; flex-direction: column">
@@ -3624,8 +3648,8 @@ function DarkModeToggle() {
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'inherit'"
-					(change)="setExplicitTheme('inherit')"
+					[checked]="explicitTheme() === 'inherit'"
+					(change)="explicitTheme.set('inherit')"
 				/>
 			</label>
 			<label style="display: inline-flex; flex-direction: column">
@@ -3633,19 +3657,15 @@ function DarkModeToggle() {
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'dark'"
-					(change)="setExplicitTheme('dark')"
+					[checked]="explicitTheme() === 'dark'"
+					(change)="explicitTheme.set('dark')"
 				/>
 			</label>
 		</div>
 	`,
 })
 class DarkModeToggleComponent {
-	explicitTheme = "inherit";
-
-	setExplicitTheme(val: string) {
-		this.explicitTheme = val;
-	}
+	explicitTheme = signal("inherit");
 }
 ```
 
@@ -3741,22 +3761,23 @@ import { Component, ViewEncapsulation } from "@angular/core";
 
 @Component({
 	selector: "dark-mode-toggle",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	// ...
 })
 class DarkModeToggleComponent {
 	explicitTheme = "inherit";
 
-	setExplicitTheme(val: string) {
-		this.explicitTheme = val;
 
-		document.documentElement.className = val;
+	constructor() {
+		effect(() => {
+			document.documentElement.className = val;
+        });
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DarkModeToggleComponent],
 	// This allows our CSS to be global, rather than limited to the component
 	encapsulation: ViewEncapsulation.None,
@@ -3890,39 +3911,38 @@ function DarkModeToggle() {
 ```angular-ts
 @Component({
 	selector: "dark-mode-toggle",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	// ...
 })
 class DarkModeToggleComponent implements OnInit, OnDestroy {
-	explicitTheme = "inherit";
+	explicitTheme = signal("inherit");
 
 	isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-	osTheme = this.isOSDark.matches ? "dark" : "light";
-
 	// Remember, this has to be an arrow function, not a method
 	changeOSTheme = () => {
-		this.setExplicitTheme(this.isOSDark.matches ? "dark" : "light");
+		this.explicitTheme.set(this.isOSDark.matches ? "dark" : "light");
 	};
 
-	ngOnInit() {
-		this.isOSDark.addEventListener("change", this.changeOSTheme);
-	}
 
-	ngOnDestroy() {
-		this.isOSDark.removeEventListener("change", this.changeOSTheme);
-	}
+	constructor() {
+		effect((onCleanup) => {
+			this.isOSDark.addEventListener("change", this.changeOSTheme);
+			onCleanup(() => {
+				this.isOSDark.removeEventListener("change", this.changeOSTheme);
+			});
+		});
+		
+		
+		effect(() => {
+			if (this.explicitTheme() === "implicit") {
+				document.documentElement.className = this.explicitTheme();
+				return;
+			}
 
-	setExplicitTheme(val: string) {
-		this.explicitTheme = val;
-
-		if (val === "implicit") {
-			document.documentElement.className = val;
-			return;
-		}
-
-		document.documentElement.className = val;
-	}
+			document.documentElement.className = this.explicitTheme();
+		});
+    }
 }
 ```
 
@@ -4087,7 +4107,7 @@ function App() {
 ```angular-ts {37,59}
 @Component({
 	selector: "dark-mode-toggle",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; gap: 1rem">
 			<label style="display: inline-flex; flex-direction: column">
@@ -4095,8 +4115,8 @@ function App() {
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'light'"
-					(change)="setExplicitTheme('light')"
+					[checked]="explicitTheme() === 'light'"
+					(change)="explicitTheme.set('light')"
 				/>
 			</label>
 			<label style="display: inline-flex; flex-direction: column">
@@ -4104,8 +4124,8 @@ function App() {
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'inherit'"
-					(change)="setExplicitTheme('inherit')"
+					[checked]="explicitTheme() === 'inherit'"
+					(change)="explicitTheme.set('inherit')"
 				/>
 			</label>
 			<label style="display: inline-flex; flex-direction: column">
@@ -4113,50 +4133,48 @@ function App() {
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'dark'"
-					(change)="setExplicitTheme('dark')"
+					[checked]="explicitTheme() === 'dark'"
+					(change)="explicitTheme.set('dark')"
 				/>
 			</label>
 		</div>
 	`,
 })
-class DarkModeToggleComponent implements OnInit, OnDestroy {
-	explicitTheme = localStorage.getItem("theme") || "inherit";
+class DarkModeToggleComponent {
+	explicitTheme = signal(localStorage.getItem("theme") || "inherit");
 
 	isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-	osTheme = this.isOSDark.matches ? "dark" : "light";
-
 	// Remember, this has to be an arrow function, not a method
 	changeOSTheme = () => {
-		this.setExplicitTheme(this.isOSDark.matches ? "dark" : "light");
+		this.explicitTheme.set(this.isOSDark.matches ? "dark" : "light");
 	};
 
-	ngOnInit() {
-		this.isOSDark.addEventListener("change", this.changeOSTheme);
-	}
+	constructor() {
+		effect(() => {
+			localStorage.setItem("theme", this.explicitTheme());
+		});
 
-	ngOnDestroy() {
-		this.isOSDark.removeEventListener("change", this.changeOSTheme);
-	}
+		effect(() => {
+			if (this.explicitTheme() === "implicit") {
+				document.documentElement.className = this.explicitTheme();
+				return;
+			}
 
-	setExplicitTheme(val: string) {
-		this.explicitTheme = val;
+			document.documentElement.className = this.explicitTheme();
+		});
 
-		localStorage.setItem("theme", val);
-
-		if (val === "implicit") {
-			document.documentElement.className = val;
-			return;
-		}
-
-		document.documentElement.className = val;
+		effect((onCleanup) => {
+			this.isOSDark.addEventListener("change", this.changeOSTheme);
+			onCleanup(() => {
+				this.isOSDark.removeEventListener("change", this.changeOSTheme);
+			});
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [DarkModeToggleComponent],
 	// This allows our CSS to be global
 	encapsulation: ViewEncapsulation.None,
@@ -4173,6 +4191,7 @@ class DarkModeToggleComponent implements OnInit, OnDestroy {
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<dark-mode-toggle />

@@ -46,7 +46,7 @@ class App {
 	constructor() {
 		effect(() => {
 			const _rerunWhenThisIsUpdated = this.num();
-			// This should be using a `ref`. More on that in a future chapter
+			// This should be using a `viewChild`. More on that in a future chapter
 			const el = document.querySelector("#number");
 			const b = el?.getBoundingClientRect();
 			if (!b) return;
