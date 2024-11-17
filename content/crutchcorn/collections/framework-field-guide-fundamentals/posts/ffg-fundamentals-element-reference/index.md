@@ -536,9 +536,9 @@ Update that value and ba-da-bing ba-da-boom, everything's up and running!
 <iframe data-frame-title="Angular ViewChild - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-view-child-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
-### Adding an Event Listener Using `@ViewChild` {#adding-event-listener-viewchild}
+### Adding an Event Listener Using `viewChild` {#adding-event-listener-viewchild}
 
-Now that we know how to use `ViewChild`, we can add an `addEventListener` and `removeEventListener` to manually bind a `button`'s `click` event:
+Now that we know how to use `viewChild`, we can add an `addEventListener` and `removeEventListener` to manually bind a `button`'s `click` event:
 
 ```angular-ts
 @Component({
@@ -689,22 +689,24 @@ function App() {
 
 ## Angular
 
-Just as there is a `ViewChild` to gain access to a single underlying HTML element, you can also use a `ViewChildren` to access more than one or more template elements using similar APIs.
+Just as there is a `viewChild` to gain access to a single underlying HTML element, you can also use a `viewChildren` to access more than one or more template elements using similar APIs.
 
-Using `ViewChildren`, we can access in-template variables (prefixed with `#`) to `scrollIntoView` the first and last elements.
+Using `viewChildren`, we can access in-template variables (prefixed with `#`) to `scrollIntoView` the first and last elements.
 
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="scrollToTop()">Scroll to top</button>
 			<ul style="height: 100px; overflow: scroll">
 				@for (message of messages; track message) {
-					<!-- Create a new template variable called listItem -->
+                    <!-- Create a new template variable called listItem -->
 					<!-- for each item in the `messages` array -->
-					<li #listItem>{{ message }}</li>
+					<li #listItem>
+						{{ message }}
+					</li>
 				}
 			</ul>
 			<button (click)="scrollToBottom()">Scroll to bottom</button>
@@ -713,14 +715,14 @@ Using `ViewChildren`, we can access in-template variables (prefixed with `#`) to
 })
 class AppComponent {
 	// Reference the template variable `listItem`
-	@ViewChildren("listItem") els!: QueryList<ElementRef<HTMLElement>>;
+	els = viewChildren("listItem", { read: ElementRef<HTMLElement> });
 
 	scrollToTop() {
-		this.els.get(0)!.nativeElement.scrollIntoView();
+		this.els()[0]!.nativeElement.scrollIntoView();
 	}
 
 	scrollToBottom() {
-		this.els.get(this.els.length - 1)!.nativeElement.scrollIntoView();
+		this.els()[this.els().length - 1]!.nativeElement.scrollIntoView();
 	}
 
 	messages = [
@@ -921,29 +923,23 @@ Additionally, we'll use `ViewChild` to track the `contextMenu` element and `.foc
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div (contextmenu)="open($event)">Right click on me!</div>
 		</div>
-		@if (isOpen) {
+		@if (isOpen()) {
 			<div
 				tabIndex="0"
 				#contextMenu
-				[style]="
-					'
-		  position: fixed;
-		  top: ' +
-					mouseBounds.y +
-					'px;
-		  left: ' +
-					mouseBounds.x +
-					'px;
-		  background: white;
-		  border: 1px solid black;
-		  border-radius: 16px;
-		  padding: 1rem;
-		'
+				style="
+      position: fixed;
+      top: {{ mouseBounds().y }}px;
+      left: {{ mouseBounds().x }}px;
+      background: white;
+      border: 1px solid black;
+      border-radius: 16px;
+      padding: 1rem;
 				"
 			>
 				<button (click)="close()">X</button>
@@ -952,46 +948,47 @@ Additionally, we'll use `ViewChild` to track the `contextMenu` element and `.foc
 		}
 	`,
 })
-class AppComponent implements AfterViewInit, OnDestroy {
-	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;
+class AppComponent {
+	contextMenu = viewChild("contextMenu", { read: ElementRef<HTMLElement> });
 
-	isOpen = false;
+	isOpen = signal(false);
 
-	mouseBounds = {
+	mouseBounds = signal({
 		x: 0,
 		y: 0,
-	};
+	});
 
 	closeIfOutsideOfContext = (e: MouseEvent) => {
-		const contextMenuEl = this.contextMenu?.nativeElement;
+		const contextMenuEl = this.contextMenu()?.nativeElement;
 		if (!contextMenuEl) return;
 		const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
 		if (isClickInside) return;
-		this.isOpen = false;
+		this.isOpen.set(false);
 	};
 
-	ngAfterViewInit() {
-		document.addEventListener("click", this.closeIfOutsideOfContext);
-	}
-
-	ngOnDestroy() {
-		document.removeEventListener("click", this.closeIfOutsideOfContext);
+	constructor() {
+		afterRenderEffect((onCleanup) => {
+			document.addEventListener("click", this.closeIfOutsideOfContext);
+			onCleanup(() => {
+				document.removeEventListener("click", this.closeIfOutsideOfContext);
+			});
+		});
 	}
 
 	close() {
-		this.isOpen = false;
+		this.isOpen.set(false);
 	}
 
 	open(e: MouseEvent) {
 		e.preventDefault();
-		this.isOpen = true;
-		this.mouseBounds = {
+		this.isOpen.set(true);
+		this.mouseBounds.set({
 			x: e.clientX,
 			y: e.clientY,
-		};
+		});
 		// Wait until the element is rendered before focusing it
 		setTimeout(() => {
-			this.contextMenu.nativeElement.focus();
+			this.contextMenu()?.nativeElement.focus();
 		}, 0);
 	}
 }
@@ -1155,11 +1152,11 @@ function App() {
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="padding: 10rem">
 			<button #buttonRef (mouseover)="onMouseOver()">Send</button>
-			@if (tooltipMeta.show) {
+			@if (tooltipMeta().show) {
 				<div>
 					This will send an email to the recipients
 				</div>
@@ -1167,25 +1164,29 @@ function App() {
 		</div>
 	`,
 })
-class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
+class AppComponent {
+	buttonRef = viewChild.required("buttonRef", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	tooltipMeta = {
+	tooltipMeta = signal({
 		show: false,
-	};
+	});
 
 	mouseOverTimeout: any = null;
 
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
-			this.tooltipMeta = {
+			this.tooltipMeta.set({
 				show: true,
-			};
+			});
 		}, 1000);
 	}
 
-	ngOnDestroy() {
-		clearTimeout(this.mouseOverTimeout);
+	constructor() {
+		effect((onCleanup) => {
+			clearTimeout(this.mouseOverTimeout);
+		});
 	}
 }
 ```
@@ -1289,7 +1290,7 @@ function App() {
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="padding: 10rem">
 			<button
@@ -1299,7 +1300,7 @@ function App() {
 			>
 				Send
 			</button>
-			@if (tooltipMeta.show) {
+			@if (tooltipMeta().show) {
 				<div>
 					This will send an email to the recipients
 				</div>
@@ -1307,32 +1308,36 @@ function App() {
 		</div>
 	`,
 })
-class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
+class AppComponent {
+	buttonRef = viewChild.required("buttonRef", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	tooltipMeta = {
+	tooltipMeta = signal({
 		show: false,
-	};
+	});
 
 	mouseOverTimeout: any = null;
 
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
-			this.tooltipMeta = {
+			this.tooltipMeta.set({
 				show: true,
-			};
+			});
 		}, 1000);
 	}
 
 	onMouseLeave() {
-		this.tooltipMeta = {
+		this.tooltipMeta.set({
 			show: false,
-		};
+		});
 		clearTimeout(this.mouseOverTimeout);
 	}
 
-	ngOnDestroy() {
-		clearTimeout(this.mouseOverTimeout);
+	constructor() {
+		effect((onCleanup) => {
+			clearTimeout(this.mouseOverTimeout);
+		});
 	}
 }
 ```
@@ -1474,15 +1479,11 @@ function App() {
 	standalone: true,
 	template: `
 		<div style="padding: 10rem">
-			@if (tooltipMeta.show) {
+			@if (tooltipMeta().show) {
 				<div
-					[style]="
-						'
-			position: fixed;
-			top: ' +
-						(tooltipMeta.y - tooltipMeta.height - 8) +
-						'px;
-		  '
+                	style="
+        position: fixed;
+        top: {{ tooltipMeta().y - tooltipMeta().height - 8 }}px;
 					"
 				>
 					This will send an email to the recipients
@@ -1498,45 +1499,49 @@ function App() {
 		}
 	`,
 })
-class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
+class AppComponent {
+	buttonRef = viewChild.required("buttonRef", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	tooltipMeta = {
+	tooltipMeta = signal({
 		x: 0,
 		y: 0,
 		height: 0,
 		width: 0,
 		show: false,
-	};
+	});
 
 	mouseOverTimeout: any = null;
 
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
-			const bounding = this.buttonRef.nativeElement.getBoundingClientRect();
-			this.tooltipMeta = {
+			const bounding = this.buttonRef().nativeElement.getBoundingClientRect();
+			this.tooltipMeta.set({
 				x: bounding.x,
 				y: bounding.y,
 				height: bounding.height,
 				width: bounding.width,
 				show: true,
-			};
+			});
 		}, 1000);
 	}
 
 	onMouseLeave() {
-		this.tooltipMeta = {
+		this.tooltipMeta.set({
 			x: 0,
 			y: 0,
 			height: 0,
 			width: 0,
 			show: false,
-		};
+		});
 		clearTimeout(this.mouseOverTimeout);
 	}
 
-	ngOnDestroy() {
-		clearTimeout(this.mouseOverTimeout);
+	constructor() {
+		effect((onCleanup) => {
+			clearTimeout(this.mouseOverTimeout);
+		});
 	}
 }
 ```
@@ -1741,33 +1746,25 @@ function App() {
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="padding: 10rem">
-			@if (tooltipMeta.show) {
+			@if (tooltipMeta().show) {
 				<div
-					[style]="
-						'
-			display: flex;
-			overflow: visible;
-			justify-content: center;
-			width: ' +
-						tooltipMeta.width +
-						'px;
-			position: fixed;
-			top: ' +
-						(tooltipMeta.y - tooltipMeta.height - 8) +
-						'px;
-			left: ' +
-						tooltipMeta.x +
-						'px;
-		  '
+					style="
+        display: flex;
+        overflow: visible;
+        justify-content: center;
+        width: {{ tooltipMeta().width }}px;
+        position: fixed;
+        top: {{ tooltipMeta().y - tooltipMeta().height - 8 }}px;
+        left: {{ tooltipMeta().x }}px;
 					"
 				>
 					<div
 						style="
-			  white-space: nowrap;
-			"
+          white-space: nowrap;
+        "
 					>
 						This will send an email to the recipients
 					</div>
@@ -1783,45 +1780,49 @@ function App() {
 		</div>
 	`,
 })
-class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
+class AppComponent {
+	buttonRef = viewChild.required("buttonRef", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	tooltipMeta = {
+	tooltipMeta = signal({
 		x: 0,
 		y: 0,
 		height: 0,
 		width: 0,
 		show: false,
-	};
+	});
 
 	mouseOverTimeout: any = null;
 
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
-			const bounding = this.buttonRef.nativeElement.getBoundingClientRect();
-			this.tooltipMeta = {
+			const bounding = this.buttonRef().nativeElement.getBoundingClientRect();
+			this.tooltipMeta.set({
 				x: bounding.x,
 				y: bounding.y,
 				height: bounding.height,
 				width: bounding.width,
 				show: true,
-			};
+			});
 		}, 1000);
 	}
 
 	onMouseLeave() {
-		this.tooltipMeta = {
+		this.tooltipMeta.set({
 			x: 0,
 			y: 0,
 			height: 0,
 			width: 0,
 			show: false,
-		};
+		});
 		clearTimeout(this.mouseOverTimeout);
 	}
 
-	ngOnDestroy() {
-		clearTimeout(this.mouseOverTimeout);
+	constructor() {
+		effect((onCleanup) => {
+			clearTimeout(this.mouseOverTimeout);
+		});
 	}
 }
 ```
@@ -2049,51 +2050,43 @@ function App() {
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="padding: 10rem">
-			@if (tooltipMeta.show) {
+			@if (tooltipMeta().show) {
 				<div
-					[style]="
-						'
-			display: flex;
-			overflow: visible;
-			justify-content: center;
-			width: ' +
-						tooltipMeta.width +
-						'px;
-			position: fixed;
-			top: ' +
-						(tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8) +
-						'px;
-			left: ' +
-						tooltipMeta.x +
-						'px;
-		  '
+					style="
+        display: flex;
+        overflow: visible;
+        justify-content: center;
+        width: {{ tooltipMeta().width }}px;
+        position: fixed;
+        top: {{ tooltipMeta().y - tooltipMeta().height - 16 - 6 - 8 }}px;
+        left: {{ tooltipMeta().x }}px;
 					"
 				>
 					<div
 						style="
-			  white-space: nowrap;
-			  padding: 8px;
-			  background: #40627b;
-			  color: white;
-			  border-radius: 16px;
-			"
+          white-space: nowrap;
+          padding: 8px;
+          background: #40627b;
+          color: white;
+          border-radius: 16px;
+        "
 					>
 						This will send an email to the recipients
 					</div>
 					<div
 						style="
-			  height: 12px;
-			  width: 12px;
-			  transform: rotate(45deg) translateX(-50%);
-			  background: #40627b;
-			  bottom: calc(-6px - 4px);
-			  position: absolute;
-			  left: 50%;
-			  zIndex: -1;
-			"
+          height: 12px;
+          width: 12px;
+          transform: rotate(45deg) translateX(-50%);
+          background: #40627b;
+          bottom: calc(-6px - 4px);
+          position: absolute;
+          left: 50%;
+          zIndex: -1;
+        "
 					></div>
 				</div>
 			}
@@ -2107,45 +2100,49 @@ function App() {
 		</div>
 	`,
 })
-class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
+class AppComponent {
+	buttonRef = viewChild.required("buttonRef", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	tooltipMeta = {
+	tooltipMeta = signal({
 		x: 0,
 		y: 0,
 		height: 0,
 		width: 0,
 		show: false,
-	};
+	});
 
 	mouseOverTimeout: any = null;
 
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
-			const bounding = this.buttonRef.nativeElement.getBoundingClientRect();
-			this.tooltipMeta = {
+			const bounding = this.buttonRef().nativeElement.getBoundingClientRect();
+			this.tooltipMeta.set({
 				x: bounding.x,
 				y: bounding.y,
 				height: bounding.height,
 				width: bounding.width,
 				show: true,
-			};
+			});
 		}, 1000);
 	}
 
 	onMouseLeave() {
-		this.tooltipMeta = {
+		this.tooltipMeta.set({
 			x: 0,
 			y: 0,
 			height: 0,
 			width: 0,
 			show: false,
-		};
+		});
 		clearTimeout(this.mouseOverTimeout);
 	}
 
-	ngOnDestroy() {
-		clearTimeout(this.mouseOverTimeout);
+	constructor() {
+		effect((onCleanup) => {
+			clearTimeout(this.mouseOverTimeout);
+		});
 	}
 }
 ```

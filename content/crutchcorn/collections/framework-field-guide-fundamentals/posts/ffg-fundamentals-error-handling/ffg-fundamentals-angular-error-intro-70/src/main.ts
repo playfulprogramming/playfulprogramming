@@ -8,7 +8,6 @@ import {
 
 @Component({
 	selector: "app-root",
-	imports: [],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<h1>To-do items</h1>
