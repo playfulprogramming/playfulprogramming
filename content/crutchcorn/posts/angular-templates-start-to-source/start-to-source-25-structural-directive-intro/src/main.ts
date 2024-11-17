@@ -1,19 +1,37 @@
-import "./polyfills";
+import "zone.js";
+import { bootstrapApplication } from "@angular/platform-browser";
+import {
+	Component,
+	ViewContainerRef,
+	OnInit,
+	Input,
+	TemplateRef,
+	Directive,
+} from "@angular/core";
 
-import { enableProdMode } from "@angular/core";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+@Directive({
+	selector: "[renderThis]",
+	standalone: true,
+})
+export class RenderThisDirective implements OnInit {
+	constructor(
+		private templ: TemplateRef<any>,
+		private parentViewRef: ViewContainerRef,
+	) {}
 
-import { AppModule } from "./app/app.module";
+	ngOnInit(): void {
+		this.parentViewRef.createEmbeddedView(this.templ);
+	}
+}
 
-platformBrowserDynamic()
-	.bootstrapModule(AppModule)
-	.then((ref) => {
-		// Ensure Angular destroys itself on hot reloads.
-		if (window["ngRef"]) {
-			window["ngRef"].destroy();
-		}
-		window["ngRef"] = ref;
+@Component({
+	selector: "my-app",
+	standalone: true,
+	imports: [RenderThisDirective],
+	template: `
+		<p *renderThis>Rendering from <code>structural directive</code></p>
+	`,
+})
+export class AppComponent {}
 
-		// Otherwise, log the boot error
-	})
-	.catch((err) => console.error(err));
+bootstrapApplication(AppComponent);
