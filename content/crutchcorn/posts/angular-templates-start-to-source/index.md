@@ -1263,9 +1263,9 @@ export class RenderThisIfDirective {
 							private parentViewRef: ViewContainerRef) {
 	}
 
-	private _val: TemplateRef<any>;
+	private _val: boolean;
 
-	@Input() set renderThisIf(val: TemplateRef<any>) {
+	@Input() set renderThisIf(val: boolean) {
 		this._val = val;
 		this.update();
 	}
