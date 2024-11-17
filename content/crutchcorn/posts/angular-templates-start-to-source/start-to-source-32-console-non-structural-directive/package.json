@@ -1,5 +1,5 @@
 {
-	"name": "@unicorn-utterances/start-to-source-32-non-structural-directive",
+	"name": "@playfulprogramming/start-to-source-32-non-structural-directive",
 	"version": "0.0.0",
 	"scripts": {
 		"ng": "ng",
