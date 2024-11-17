@@ -1,19 +1,48 @@
-import "./polyfills";
+import "zone.js";
+import { bootstrapApplication } from "@angular/platform-browser";
+import {
+	Component,
+	ViewContainerRef,
+	OnInit,
+	Input,
+	TemplateRef,
+	Directive,
+} from "@angular/core";
 
-import { enableProdMode } from "@angular/core";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+@Directive({
+	selector: "[renderTheTemplate]",
+	standalone: true,
+})
+export class RenderTheTemplateDirective implements OnInit {
+	constructor(private parentViewRef: ViewContainerRef) {}
 
-import { AppModule } from "./app/app.module";
+	@Input() renderTheTemplate!: TemplateRef<any>;
+	@Input() renderTheTemplateContext!: Object;
 
-platformBrowserDynamic()
-	.bootstrapModule(AppModule)
-	.then((ref) => {
-		// Ensure Angular destroys itself on hot reloads.
-		if (window["ngRef"]) {
-			window["ngRef"].destroy();
-		}
-		window["ngRef"] = ref;
+	ngOnInit(): void {
+		this.parentViewRef.createEmbeddedView(
+			this.renderTheTemplate,
+			this.renderTheTemplateContext,
+		);
+	}
+}
 
-		// Otherwise, log the boot error
-	})
-	.catch((err) => console.error(err));
+@Component({
+	selector: "my-app",
+	standalone: true,
+	imports: [RenderTheTemplateDirective],
+	template: `
+		<ng-template
+			[renderTheTemplate]="template1"
+			[renderTheTemplateContext]="{ $implicit: 'Whoa 🤯' }"
+		></ng-template>
+		<ng-template #template1 let-message>
+			<p>
+				Testing from <code>template1</code>: <b>{{ message }}</b>
+			</p>
+		</ng-template>
+	`,
+})
+export class AppComponent {}
+
+bootstrapApplication(AppComponent);
