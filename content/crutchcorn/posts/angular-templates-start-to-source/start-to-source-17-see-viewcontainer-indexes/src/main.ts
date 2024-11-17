@@ -1,19 +1,46 @@
-import "./polyfills";
+import "zone.js";
+import { bootstrapApplication } from "@angular/platform-browser";
 
-import { enableProdMode } from "@angular/core";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import {
+	Component,
+	OnInit,
+	TemplateRef,
+	ViewChild,
+	ViewContainerRef,
+	EmbeddedViewRef,
+} from "@angular/core";
 
-import { AppModule } from "./app/app.module";
+@Component({
+	selector: "my-app",
+	standalone: true,
+	template: `
+		<ng-template #templ>
+			<ul>
+				<li>List Item 1</li>
+				<li>List Item 2</li>
+			</ul>
+		</ng-template>
+		<div #viewContainerRef class="testing"></div>
+	`,
+})
+export class AppComponent implements OnInit {
+	@ViewChild("viewContainerRef", { read: ViewContainerRef, static: true })
+	viewContainerRef!: ViewContainerRef;
+	@ViewChild("templ", { read: TemplateRef, static: true })
+	templ!: TemplateRef<any>;
 
-platformBrowserDynamic()
-	.bootstrapModule(AppModule)
-	.then((ref) => {
-		// Ensure Angular destroys itself on hot reloads.
-		if (window["ngRef"]) {
-			window["ngRef"].destroy();
+	ngOnInit() {
+		const embeddRef: EmbeddedViewRef<any> =
+			this.viewContainerRef.createEmbeddedView(this.templ);
+		const embeddIndex = this.viewContainerRef.indexOf(embeddRef);
+		console.log(embeddIndex);
+
+		for (let i = 0; i < this.viewContainerRef.length; i++) {
+			// This will complain about "Object too large to inspect."
+			// Just open your browser's developer tools to see the object consoled
+			console.log(this.viewContainerRef.get(i));
 		}
-		window["ngRef"] = ref;
+	}
+}
 
-		// Otherwise, log the boot error
-	})
-	.catch((err) => console.error(err));
+bootstrapApplication(AppComponent);
