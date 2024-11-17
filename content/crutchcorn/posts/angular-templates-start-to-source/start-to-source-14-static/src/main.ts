@@ -1,19 +1,23 @@
-import "./polyfills";
+import "zone.js";
+import { bootstrapApplication } from "@angular/platform-browser";
 
-import { enableProdMode } from "@angular/core";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { Component, TemplateRef, ViewChild } from "@angular/core";
+import { NgTemplateOutlet } from "@angular/common";
 
-import { AppModule } from "./app/app.module";
+@Component({
+	selector: "my-app",
+	standalone: true,
+	imports: [NgTemplateOutlet],
+	template: `
+		<div>
+			<p>Hello?</p>
+			<ng-template #helloThereMsg> Hello There! </ng-template>
+		</div>
+		<ng-template [ngTemplateOutlet]="realMsgVar"></ng-template>
+	`,
+})
+export class AppComponent {
+	@ViewChild("helloThereMsg", { static: true }) realMsgVar!: TemplateRef<any>;
+}
 
-platformBrowserDynamic()
-	.bootstrapModule(AppModule)
-	.then((ref) => {
-		// Ensure Angular destroys itself on hot reloads.
-		if (window["ngRef"]) {
-			window["ngRef"].destroy();
-		}
-		window["ngRef"] = ref;
-
-		// Otherwise, log the boot error
-	})
-	.catch((err) => console.error(err));
+bootstrapApplication(AppComponent);
