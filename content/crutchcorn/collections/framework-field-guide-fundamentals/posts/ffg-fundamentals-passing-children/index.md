@@ -78,16 +78,16 @@ const Container = () => {
 ```angular-ts
 @Component({
 	selector: "list-item",
-	standalone: true,
-	template: ` <li>{{ name }}</li> `,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: ` <li>{{ name() }}</li> `,
 })
 class ListItemComponent {
-	@Input() name!: string;
+	name = input.required<string>();
 }
 
 @Component({
 	selector: "app-list",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ListItemComponent],
 	template: `
 		<ul>
@@ -101,7 +101,7 @@ class ListComponent {}
 
 @Component({
 	selector: "app-container",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ListComponent],
 	template: `
 		<div>
@@ -220,34 +220,34 @@ const ToggleButtonList = () => {
 ```angular-ts
 @Component({
 	selector: "toggle-button",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(click)="togglePressed()"
 			[style]="
-				pressed
+				pressed()
 					? 'background-color: black; color: white;'
 					: 'background-color: white;color: black'
 			"
 			type="button"
-			[attr.aria-pressed]="pressed"
+			[attr.aria-pressed]="pressed()"
 		>
-			{{ text }}
+			{{ text() }}
 		</button>
 	`,
 })
 class ToggleButtonComponent {
-	@Input() text!: string;
-	pressed = false;
+	text = input.required<string>();
+	pressed = signal(false);
 	togglePressed() {
-		this.pressed = !this.pressed;
+		this.pressed.set(!this.pressed());
 	}
 }
 
 @Component({
 	selector: "toggle-button-list",
-	standalone: true,
 	imports: [ToggleButtonComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<toggle-button text="Hello world!" />
 		<toggle-button text="Hello other friends!" />
@@ -366,33 +366,33 @@ Angular has a special tag called `ng-content` that acts as a pass-through for al
 ```angular-ts
 @Component({
 	selector: "toggle-button",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(click)="togglePressed()"
 			[style]="
-				pressed
+				pressed()
 					? 'background-color: black; color: white;'
 					: 'background-color: white;color: black'
 			"
 			type="button"
-			[attr.aria-pressed]="pressed"
+			[attr.aria-pressed]="pressed()"
 		>
 			<ng-content />
 		</button>
 	`,
 })
 class ToggleButtonComponent {
-	pressed = false;
+	pressed = signal(false);
 	togglePressed() {
-		this.pressed = !this.pressed;
+		this.pressed.set(!this.pressed());
 	}
 }
 
 @Component({
 	selector: "toggle-button-list",
-	standalone: true,
 	imports: [ToggleButtonComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<toggle-button>
 			Hello <span style="font-weight: bold;">world</span>!
@@ -536,7 +536,7 @@ function RainbowExclamationMark() {
 ```angular-ts
 @Component({
 	selector: "rainbow-exclamation-mark",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <span>!</span> `,
 	// These styles will only apply to this component
 	styles: [
@@ -568,11 +568,15 @@ class RainbowExclamationMarkComponent {}
 
 @Component({
 	selector: "toggle-button-list",
-	standalone: true,
 	imports: [ToggleButtonComponent, RainbowExclamationMarkComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<toggle-button>
-			Hello @for (friend of friends; track friend) { <span>{{ friend }} </span> }!
+			Hello
+			@for (friend of friends; track friend) {
+				<span>{{ friend }} </span>
+			}
+			!
 		</toggle-button>
 		<toggle-button>
 			Hello other friends<rainbow-exclamation-mark />
@@ -736,38 +740,38 @@ function App() {
 ```angular-ts
 @Component({
 	selector: "dropdown-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(click)="toggle.emit()"
 			:aria-expanded="expanded"
 			aria-controls="dropdown-contents"
 		>
-			{{ expanded ? "V" : ">" }} <ng-content select="[header]" />
+			{{ expanded() ? "V" : ">" }} <ng-content select="[header]" />
 		</button>
-		<div id="dropdown-contents" role="region" [hidden]="!expanded">
+		<div id="dropdown-contents" role="region" [hidden]="!expanded()">
 			<ng-content />
 		</div>
 	`,
 })
 class DropdownComponent {
-	@Input() expanded!: boolean;
-	@Output() toggle = new EventEmitter();
+	expanded = input.required<boolean>();
+	toggle = output();
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [DropdownComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<dropdown-comp [expanded]="expanded" (toggle)="expanded = !expanded">
+		<dropdown-comp [expanded]="expanded()" (toggle)="expanded.set(!expanded())">
 			<ng-container header>Let's build this dropdown component</ng-container>
 			These tend to be useful for FAQ pages, hidden contents, and more!
 		</dropdown-comp>
 	`,
 })
 class AppComponent {
-	expanded = false;
+	expanded = signal(false);
 }
 ```
 
@@ -972,13 +976,13 @@ Angular is unlike the other frameworks covered in this book. For example, let's 
 ```angular-ts
 @Component({
 	selector: "file-item",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileDateComponent],
 	template: `
-		<tr [attr.aria-selected]="isSelected" (click)="selected.emit()">
+		<tr [attr.aria-selected]="isSelected()" (click)="selected.emit()">
 			<!-- Removed other children for readability -->
 			<td>
-				<a [href]="href" style="color: inherit">{{ fileName }}</a>
+				<a [href]="href()" style="color: inherit">{{ fileName() }}</a>
 			</td>
 		</tr>
 	`,
@@ -989,13 +993,15 @@ class FileComponent {
 
 @Component({
 	selector: "file-table-body",
-	standalone: true,
 	imports: [FileComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<tbody>
-			@for (file of filesArray; let i = $index; track file.id) {
-				<!-- Removed props for readability -->
-				<file-item />
+			@for (file of filesArray; track file.id; let i = $index) {
+				@if (!file.isFolder) {
+                    <!-- Removed props for readability -->
+                    <file-item />
+				}
 			}
 		</tbody>
 	`,
@@ -1006,8 +1012,8 @@ class FileTableBody {
 
 @Component({
 	selector: "file-table",
-	standalone: true,
 	imports: [FileTableBody],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<table style="border-spacing: 0;">
 			<file-table-body />
@@ -1092,7 +1098,7 @@ When you use a `selector` in Angular to create an element, that selector stays i
 ```angular-ts
 @Component({
 	selector: "list-item",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: "",
 })
 class ListItemComponent {}
@@ -1118,21 +1124,21 @@ Combined, this might look something like this:
 ```angular-ts
 @Component({
 	selector: "tr[file-item]",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		"(click)": "selected.emit()",
 		"[style]": `
-			isSelected ?
+			isSelected() ?
 				'background-color: blue; color: white' :
 				'background-color: white; color: blue'
 		`,
 	},
-	template: ` <td>{{ fileName }}</td> `,
+	template: ` <td>{{ fileName() }}</td> `,
 })
 class FileItemComponent {
-	@Input() fileName: string;
-	@Input() isSelected: boolean;
-	@Output() selected = new EventEmitter();
+	fileName = input.required<string>();
+	isSelected = input(false);
+	selected = output();
 }
 ```
 
@@ -1147,40 +1153,40 @@ Knowing how `host` and `selector` can properly work together, let's finally buil
 ```angular-ts
 @Component({
 	selector: "tr[file-item]",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileDateComponent],
 	host: {
-		"[attr.aria-selected]": "isSelected",
+		"[attr.aria-selected]": "isSelected()",
 		"(click)": "selected.emit()",
 		"[style]": `
-			isSelected ?
+			isSelected() ?
 				'background-color: blue; color: white' :
 				'background-color: white; color: blue'
 		`,
 	},
 	template: `
 		<td>
-			<a [href]="href" style="color: inherit">{{ fileName }}</a>
+			<a [href]="href()" style="color: inherit">{{ fileName() }}</a>
 		</td>
-		@if (isFolder) {
+		@if (isFolder()) {
 			<td>Type: Folder</td>
 		} else {
 			<td>Type: File</td>
 		}
 		<td>
-			@if (!isFolder) {
+			@if (!isFolder()) {
 				<file-date [inputDate]="inputDate" />
 			}
 		</td>
 	`,
 })
-class FileComponent implements OnInit, OnDestroy {
-	@Input() fileName!: string;
-	@Input() href!: string;
-	@Input() isSelected!: boolean;
-	@Input() isFolder!: boolean;
-	@Output() selected = new EventEmitter();
-	inputDate = new Date();
+class FileComponent {
+	fileName = input.required<string>();
+	href = input.required<string>();
+	isSelected = input(false);
+	isFolder = input(false);
+	selected = output();
+	inputDate = signal(new Date());
 
 	// ...
 }
@@ -1188,11 +1194,11 @@ class FileComponent implements OnInit, OnDestroy {
 // This was previously called "FileList"
 @Component({
 	selector: "tbody[file-table-body]",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileComponent],
 	template: `
 		@for (file of filesArray; let i = $index; track file.id) {
-			@if (!file.isFolder) {
+			@if (onlyShowFiles() ? !file.isFolder : true) {
 				<tr
 					file-item
 					[isSelected]="false"
@@ -1225,7 +1231,7 @@ class FileTableBodyComponent {
 // This is a new component
 @Component({
 	selector: "file-table",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileTableBody],
 	template: `
 		<table style="border-spacing: 0;">
@@ -1385,7 +1391,7 @@ const FileTable = () => {
 ```angular-ts
 @Component({
 	selector: "file-table-container",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<table
 			style="color: #3366FF; border: 2px solid #3366FF; border-spacing: 0; padding: 0.5rem"
@@ -1398,7 +1404,7 @@ class FileTableContainerComponent {}
 
 @Component({
 	selector: "file-table",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileTableContainerComponent, FileTableBody],
 	template: `
 		<file-table-container><tbody file-table-body /></file-table-container>
@@ -1408,6 +1414,7 @@ class FileTableComponent {}
 ```
 
 <!-- ::start:no-ebook -->
+
 <iframe data-frame-title="Angular File Table Container - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-file-table-container-59?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
@@ -1513,7 +1520,7 @@ const FileTable = () => {
 ```angular-ts
 @Component({
 	selector: "file-table-container",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<table
 			style="color: #3366FF; border: 2px solid #3366FF; border-spacing: 0; padding: 0.5rem"
@@ -1529,7 +1536,7 @@ class FileTableContainerComponent {}
 
 @Component({
 	selector: "file-table",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileTableContainerComponent, FileTableBodyComponent],
 	template: `
 		<file-table-container>
