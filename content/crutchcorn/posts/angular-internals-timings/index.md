@@ -38,6 +38,86 @@ To start this though, we need to understand a bit of terminology about Angular's
 
 # Angular Internals Aside
 
+In many of these code samples, we'll see two types show up repeatedly:
+
+- `TView`
+- `LView`
+
+> What are they?
+
+Well, while both `TView` and `LView` represent [Angular Views](/posts/angular-templates-start-to-source#components-are-directives), they differ in key areas.
+**TView**:
+
+-
+
+We can see this distinction between the two in their types inside Angular's source code.
+
+[Here's minified source for `TView`:](https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/interfaces/view.ts#L591-L849)
+
+```typescript
+export interface TView {
+	/**
+	 * Type of `TView` (`Root`|`Component`|`Embedded`).
+	 */
+	type: TViewType;
+
+	/**
+	 * This is a blueprint used to generate LView instances for this TView. Copying this
+	 * blueprint is faster than creating a new LView from scratch.
+	 */
+	blueprint: LView;
+
+	/**
+	 * The template function used to refresh the view of dynamically created views
+	 * and components. Will be null for inline views.
+	 */
+	template: ComponentTemplate<{}> | null;
+
+	// ...
+
+	/** Static data equivalent of LView.data[]. Contains TNodes, PipeDefInternal or TI18n. */
+	data: TData;
+
+	// ...
+}
+```
+
+[And the minified source for `LView`:](https://github.com/angular/angular/blob/92f30a749d676a290f5e173760ca29f0ff85ba8c/packages/core/src/render3/interfaces/view.ts#L98-L366)
+
+```typescript
+export interface LView<T = unknown> extends Array<any> {
+	/**
+	 * The node into which this `LView` is inserted.
+	 */
+	[HOST]: RElement | null;
+
+	/**
+	 * The static data for this view. We need a reference to this so we can easily walk up the
+	 * node tree in DI and get the TView.data array associated with a node (where the
+	 * directive defs are stored).
+	 */
+	readonly [TVIEW]: TView;
+
+	// ...
+
+	/** Renderer to be used for this view. */
+	[RENDERER]: Renderer;
+
+	// ...
+
+	/**
+	 * More flags for this view. See PreOrderHookFlags for more info.
+	 */
+	[PREORDER_HOOK_FLAGS]: PreOrderHookFlags;
+
+	// ...
+
+	[EFFECTS]: Set<ViewEffectNode> | null;
+
+	// ...
+}
+```
+
 > **GPT SAYS:**
 >
 > An LView and a TView are both internal data structures used in Angular's Ivy rendering engine to manage and render views. Here is a brief explanation of each and their differences:
