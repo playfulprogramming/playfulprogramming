@@ -1,19 +1,45 @@
-import "./polyfills";
+import "zone.js";
+import { bootstrapApplication } from "@angular/platform-browser";
 
-import { enableProdMode } from "@angular/core";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import {
+	Component,
+	ViewContainerRef,
+	OnInit,
+	Input,
+	TemplateRef,
+	Directive,
+} from "@angular/core";
 
-import { AppModule } from "./app/app.module";
-
-platformBrowserDynamic()
-	.bootstrapModule(AppModule)
-	.then((ref) => {
-		// Ensure Angular destroys itself on hot reloads.
-		if (window["ngRef"]) {
-			window["ngRef"].destroy();
+@Directive({
+	selector: "[consoleThing]",
+	standalone: true,
+})
+export class ConsoleThingDirective {
+	@Input() set consoleThing(val: string) {
+		if (this.warn) {
+			console.warn(val);
+			return;
 		}
-		window["ngRef"] = ref;
+		console.log(val);
+	}
 
-		// Otherwise, log the boot error
-	})
-	.catch((err) => console.error(err));
+	@Input() warn: boolean = false;
+}
+
+@Component({
+	selector: "my-app",
+	standalone: true,
+	imports: [ConsoleThingDirective],
+	template: `
+		<ng-template
+			[consoleThing]="
+				'This is a warning from the 👻 of code future, refactor this please'
+			"
+			[warn]="true"
+		></ng-template>
+		<p>Check the console</p>
+	`,
+})
+export class AppComponent {}
+
+bootstrapApplication(AppComponent);
