@@ -5,7 +5,6 @@ import {
 	Component,
 	ViewContainerRef,
 	OnInit,
-	Input,
 	TemplateRef,
 	Directive,
 } from "@angular/core";
@@ -36,6 +35,5 @@ export class RenderThisDirective implements OnInit {
 	`,
 })
 export class AppComponent {}
-
 
 bootstrapApplication(AppComponent);

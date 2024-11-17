@@ -1,19 +1,49 @@
-import "./polyfills";
+import "zone.js";
+import { bootstrapApplication } from "@angular/platform-browser";
 
-import { enableProdMode } from "@angular/core";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import {
+	Component,
+	ViewContainerRef,
+	OnInit,
+	Input,
+	TemplateRef,
+	Directive,
+} from "@angular/core";
+import { FormsModule } from "@angular/forms";
 
-import { AppModule } from "./app/app.module";
+@Directive({
+	selector: "[renderThisIf]",
+	standalone: true,
+})
+export class RenderThisIfDirective implements OnInit {
+	constructor(
+		private templ: TemplateRef<any>,
+		private parentViewRef: ViewContainerRef,
+	) {}
 
-platformBrowserDynamic()
-	.bootstrapModule(AppModule)
-	.then((ref) => {
-		// Ensure Angular destroys itself on hot reloads.
-		if (window["ngRef"]) {
-			window["ngRef"].destroy();
+	@Input() renderThisIf!: any;
+
+	ngOnInit(): void {
+		if (this.renderThisIf) {
+			this.parentViewRef.createEmbeddedView(this.templ);
 		}
-		window["ngRef"] = ref;
+	}
+}
 
-		// Otherwise, log the boot error
-	})
-	.catch((err) => console.error(err));
+@Component({
+	selector: "my-app",
+	standalone: true,
+	imports: [RenderThisIfDirective, FormsModule],
+	template: `
+		<label for="boolToggle">Toggle me!</label>
+		<input id="boolToggle" type="checkbox" [(ngModel)]="bool" />
+		<div *renderThisIf="bool">
+			<p>Test</p>
+		</div>
+	`,
+})
+export class AppComponent {
+	bool = false;
+}
+
+bootstrapApplication(AppComponent);
