@@ -12,7 +12,7 @@ import {
 	template: `
 		<h1>To-do items</h1>
 		<ul>
-			@for (item of priorityItems; track item) {
+			@for (item of priorityItems; track item.id) {
 				<li>{{ item.name }}</li>
 			}
 		</ul>

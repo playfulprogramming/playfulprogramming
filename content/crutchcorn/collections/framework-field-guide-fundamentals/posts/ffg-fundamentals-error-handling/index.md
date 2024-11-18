@@ -52,7 +52,7 @@ const App = () => {
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<h1>To-do items</h1>
 		<ul>
@@ -74,6 +74,7 @@ class AppComponent {
 ```
 
 <!-- ::start:no-ebook -->
+
 <iframe data-frame-title="Angular Error Intro - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-error-intro-70?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
@@ -146,7 +147,7 @@ const ErrorThrowingComponent = () => {
 ```angular-ts
 @Component({
 	selector: "error-throwing",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Hello, world!</p> `,
 })
 class ErrorThrowingComponent {
@@ -204,7 +205,7 @@ const EventErrorThrowingComponent = () => {
 ```angular-ts
 @Component({
 	selector: "error-throwing",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <button (click)="onClick()">Click me</button> `,
 })
 class ErrorThrowingComponent {
@@ -432,7 +433,7 @@ Despite errors thrown in a component's constructor preventing rendering:
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Hello, world!</p> `,
 })
 class AppComponent {
@@ -447,24 +448,27 @@ class AppComponent {
 <iframe data-frame-title="Angular Error in Constructor - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-error-in-constructor-76?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
-Errors thrown in any of Angular's other lifecycle methods will not prevent a component from rendering:
+Errors thrown in any of Angular's side effect APIs will not prevent a component from rendering:
 
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Hello, world!</p> `,
 })
-class AppComponent implements OnInit {
+class AppComponent {
 	// Will not prevent `Hello, world!` from showing
-	ngOnInit() {
-		throw new Error("Error in constructor");
+	constructor() {
+		effect(() => {
+			throw new Error("Error in constructor");
+		});
 	}
 }
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Errors in Lifecycles - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-errors-in-lifecycles-76?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Angular Errors in Effects - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-errors-in-lifecycles-76?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 <!-- ::end:no-ebook -->
 
 #### Vue
@@ -668,6 +672,8 @@ Angular uses its [dependency injection system](/posts/ffg-fundamentals-dependenc
 However, to provide the custom error handler service, you **must** provide it at the root of your application, meaning that you cannot simply provide it from your parent component.
 
 ```angular-ts
+import { ErrorHandler } from "@angular/core";
+
 class MyErrorHandler implements ErrorHandler {
 	handleError(error: unknown) {
 		// Do something with the error
@@ -689,21 +695,23 @@ Now that we've set up our `ErrorHandler` instance, we can test that it works usi
 ```angular-ts
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>Testing</p>`,
 })
-class ChildComponent implements OnInit {
-	ngOnInit() {
-		// This is an example of an error being thrown
-		throw new Error("Test");
+class ChildComponent {
+	constructor() {
+		effect(() => {
+			// This is an example of an error being thrown
+			throw new Error("Test");
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ChildComponent],
-	template: ` <child-comp /> `,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `<child-comp />`,
 })
 class AppComponent {}
 ```
@@ -864,26 +872,24 @@ Because a custom error handler is implemented using an Angular service, we can u
 From there, it's as simple as storing a Boolean when an error _is_ thrown and using that Boolean to render out a fallback UI when `true`.
 
 ```angular-ts
-import { Component, inject, ErrorHandler, OnInit } from "@angular/core";
-
 class MyErrorHandler implements ErrorHandler {
-	hadError = false;
+	hadError = signal(false);
 
 	handleError(error: unknown) {
 		console.log(error);
-		this.hadError = true;
+		this.hadError.set(true);
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ChildComponent],
 	template: `
-		@if (errorHandler.hadError) {
+		@if (errorHandler.hadError()) {
 			<h1>There was an error</h1>
 		}
-		@if (!errorHandler.hadError) {
+		@if (!errorHandler.hadError()) {
 			<child-comp />
 		}
 	`,
@@ -896,6 +902,7 @@ class AppComponent {
 ```
 
 <!-- ::start:no-ebook -->
+
 <iframe data-frame-title="Angular Fallback UI - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-fallback-ui-79?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
@@ -992,26 +999,28 @@ Rather than storing a Boolean when an error occurs, we can store [the error valu
 
 ```angular-ts
 class MyErrorHandler implements ErrorHandler {
-	error: unknown = null;
+	error = signal<unknown>(null);
 
 	handleError(error: unknown) {
 		console.log(error);
-		this.error = error;
+		this.error.set(error);
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (errorHandler.error) {
+		@if (errorHandler.error()) {
 			<div>
 				<h1>You got an error:</h1>
-				<pre style="white-space: pre-wrap"><code>{{ errorHandler.error }}</code></pre>
+				<pre
+					style="white-space: pre-wrap"
+				><code>{{ errorHandler.error() }}</code></pre>
 			</div>
 		}
-		@if (!errorHandler.error) {
+		@if (!errorHandler.error()) {
 			<child-comp />
 		}
 	`,
@@ -1133,49 +1142,52 @@ Upon rendering the sidebar, we're greeted with [a JavaScript `ReferenceError`](h
 ```angular-ts
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<!-- "isCollapsed" is a boolean! -->
+		<!-- "toggle" is an event emitter! -->
 		<!-- It's supposed to be "toggleCollapsed"! 😱 -->
-		@if (isCollapsed) {
-			<button (click)="collapsed()">Toggle</button>
+		@if (isCollapsed()) {
+			<button (click)="toggle()">Toggle</button>
 		}
-		@if (!isCollapsed) {
+		@if (!isCollapsed()) {
 			<div>
-				<button (click)="collapsed()">Toggle</button>
+				<button (click)="toggle()">Toggle</button>
 				<ul style="padding: 1rem">
 					<li>List item 1</li>
 					<li>List item 2</li>
 					<li>List item 3</li>
+					<li>List item 4</li>
+					<li>List item 5</li>
+					<li>List item 6</li>
 				</ul>
 			</div>
 		}
 	`,
 })
 class SidebarComponent {
-	@Output() toggle = new EventEmitter<boolean>();
-
 	// Notice the type cast to `any`
-	isCollapsed: any = false;
+	toggle: any = output<boolean>();
+
+	isCollapsed = signal(false);
 
 	setAndToggle(v: boolean) {
-		this.isCollapsed = v;
+		this.isCollapsed.set(v);
 		this.toggle.emit(v);
 	}
 
 	// ...
-
+	
 	toggleCollapsed() {
-		this.setAndToggle(!this.isCollapsed);
+		this.setAndToggle(!this.isCollapsed());
 	}
 }
 ```
 
-> You'll notice that we had to use TypeScript to tell our `isCollapsed` is type `any`. Without this change, TypeScript will correctly flag an error during build time that:
+> You'll notice that we had to use TypeScript to tell our `toggle` is type `any`. Without this change, TypeScript will correctly flag an error during build time that:
 >
 > ```
 > This expression is not callable.
-> Type 'Boolean' has no call signatures.
+> Type 'OutputEmitterRef<boolean>' has no call signatures.
 > ```
 
 ---
@@ -1183,7 +1195,7 @@ class SidebarComponent {
 Upon clicking the sidebar toggle, we're greeted with [a JavaScript `TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_function):
 
 ```javascript
-"Error: ctx_r4.isCollapsed is not a function";
+"Error: ctx_r4.toggle is not a function";
 ```
 
 ## Vue
@@ -1332,25 +1344,25 @@ const Root = () => {
 
 ```angular-ts
 class MyErrorHandler implements ErrorHandler {
-	error: any = null;
+	error = signal<any>(null);
 
 	handleError(error: unknown) {
 		console.log(error);
-		this.error = error;
+		this.error.set(error);
 	}
 }
 
 @Component({
 	selector: "error-catcher",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (errorHandler.error) {
+		@if (errorHandler.error()) {
 			<div>
 				<h1>You got an error:</h1>
-				<pre style="white-space: pre-wrap"><code>{{ errorHandler.error }}</code></pre>
+				<pre style="white-space: pre-wrap"><code>{{ errorHandler.error() }}</code></pre>
 			</div>
 		}
-		@if (!errorHandler.error) {
+		@if (!errorHandler.error()) {
 			<ng-content></ng-content>
 		}
 	`,
@@ -1361,7 +1373,7 @@ class ErrorCatcher {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [LayoutComponent, SidebarComponent, ErrorCatcher],
 	template: `
 		<error-catcher>
@@ -1369,7 +1381,7 @@ class ErrorCatcher {
 		</error-catcher>
 	`,
 })
-class AppComponent implements OnInit, OnDestroy {
+class AppComponent {
 	// ....
 }
 
@@ -1496,10 +1508,37 @@ class ErrorBoundary extends Component {
 ### Angular
 
 ```angular-ts
-@Pipe({ name: "errorHref", standalone: true })
-class ErrorHrefPipe implements PipeTransform {
-	transform(err: Error | null): string {
-		console.log({ err });
+@Component({
+	selector: "error-catcher",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		@if (errorHandler.error()) {
+			<div>
+				<h1>{{ errorHandler.error().name }}</h1>
+				<pre
+					style="white-space: pre-wrap"
+				><code>{{ errorHandler.error().message }}</code></pre>
+				<a [href]="errorHref()">Email us to report the bug</a>
+				<br />
+				<br />
+				<details>
+					<summary>Error stack</summary>
+					<pre
+						style="white-space: pre-wrap"
+					><code>{{ errorHandler.error().stack }}</code></pre>
+				</details>
+			</div>
+		}
+		@if (!errorHandler.error()) {
+			<ng-content></ng-content>
+		}
+	`,
+})
+class ErrorCatcher {
+	errorHandler = inject(ErrorHandler) as MyErrorHandler;
+
+	errorHref = computed(() => {
+		const err = this.errorHandler.error();
 		if (!err) return "";
 		const mailTo = "dev@example.com";
 		const header = "Bug Found";
@@ -1522,38 +1561,7 @@ class ErrorHrefPipe implements PipeTransform {
 		const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedMsg}`;
 
 		return href;
-	}
-}
-
-@Component({
-	selector: "error-catcher",
-	standalone: true,
-	imports: [ErrorHrefPipe],
-	template: `
-		@if (errorHandler.error) {
-			<div>
-				<h1>{{ errorHandler.error.name }}</h1>
-				<pre
-					style="white-space: pre-wrap"
-				><code>{{ errorHandler.error.message }}</code></pre>
-				<a [href]="errorHandler.error | errorHref">Email us to report the bug</a>
-				<br />
-				<br />
-				<details>
-					<summary>Error stack</summary>
-					<pre
-						style="white-space: pre-wrap"
-					><code>{{ errorHandler.error.stack }}</code></pre>
-				</details>
-			</div>
-		}
-		@if (!errorHandler.error) {
-			<ng-content></ng-content>
-		}
-	`,
-})
-class ErrorCatcher {
-	errorHandler = inject(ErrorHandler) as MyErrorHandler;
+	});
 }
 ```
 
