@@ -103,26 +103,20 @@ function App() {
 ```angular-ts
 @Component({
 	selector: "context-menu",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (isOpen) {
+		@if (isOpen()) {
 			<div
 				tabIndex="0"
 				#contextMenu
-				[style]="
-					'
-			position: fixed;
-			top: ' +
-					y +
-					'px;
-			left: ' +
-					x +
-					'px;
-			background: white;
-			border: 1px solid black;
-			border-radius: 16px;
-			padding: 1rem;
-		  '
+				style="
+		position: fixed;
+		top: {{ y() }}px;
+		left: {{ x() }}px;
+		background: white;
+		border: 1px solid black;
+		border-radius: 16px;
+		padding: 1rem;
 				"
 			>
 				<button (click)="close.emit()">X</button>
@@ -131,67 +125,70 @@ function App() {
 		}
 	`,
 })
-class ContextMenuComponent implements AfterViewInit, OnDestroy {
-	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;
+class ContextMenuComponent {
+	contextMenu = viewChild("contextMenu", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	@Input() isOpen!: boolean;
-	@Input() x!: number;
-	@Input() y!: number;
+	isOpen = input.required<boolean>();
+	x = input.required<number>();
+	y = input.required<number>();
 
-	@Output() close = new EventEmitter();
+	close = output();
 
 	closeIfOutsideOfContext = (e: MouseEvent) => {
-		const contextMenuEl = this.contextMenu?.nativeElement;
+		const contextMenuEl = this.contextMenu()?.nativeElement;
 		if (!contextMenuEl) return;
 		const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
 		if (isClickInside) return;
 		this.close.emit();
 	};
 
-	ngAfterViewInit() {
-		document.addEventListener("click", this.closeIfOutsideOfContext);
-	}
-
-	ngOnDestroy() {
-		document.removeEventListener("click", this.closeIfOutsideOfContext);
+	constructor() {
+		afterRenderEffect((onCleanup) => {
+			document.addEventListener("click", this.closeIfOutsideOfContext);
+			onCleanup(() => {
+				document.removeEventListener("click", this.closeIfOutsideOfContext);
+			});
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ContextMenuComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
 		</div>
 		<context-menu
 			(close)="close()"
-			[isOpen]="isOpen"
-			[x]="mouseBounds.x"
-			[y]="mouseBounds.y"
+			[isOpen]="isOpen()"
+			[x]="mouseBounds().x"
+			[y]="mouseBounds().y"
 		/>
 	`,
 })
 class AppComponent {
-	isOpen = false;
+	isOpen = signal(false);
 
-	mouseBounds = {
+	mouseBounds = signal({
 		x: 0,
 		y: 0,
-	};
+	});
 
 	close() {
-		this.isOpen = false;
+		this.isOpen.set(false);
 	}
 
 	open(e: MouseEvent) {
 		e.preventDefault();
-		this.isOpen = true;
-		this.mouseBounds = {
+		this.isOpen.set(true);
+		this.mouseBounds.set({
 			x: e.clientX,
 			y: e.clientY,
-		};
+		});
 	}
 }
 ```
@@ -586,14 +583,12 @@ useImperativeHandle(ref, () => someVal, [someVal]);
 
 ## Angular
 
-Just as we can use `ViewChild` to access an underlying DOM node, we can do the same thing with a component reference. In fact, we can use a template reference variable just like we would to access the DOM node.
+Just as we can use `viewChild` to access an underlying DOM node, we can do the same thing with a component reference. In fact, we can use a template reference variable just like we would to access the DOM node.
 
-```angular-ts {1,24,27}
-import { AfterViewInit, Component, ViewChild } from "@angular/core";
-
+```angular-ts {22,25-27}
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<div
 		style="height: 100px; width: 100px; background-color: red;"
 	></div>`,
@@ -601,21 +596,23 @@ import { AfterViewInit, Component, ViewChild } from "@angular/core";
 class ChildComponent {
 	pi = 3.14;
 	sayHi() {
-		alert("Hello, world");
+		console.log("Hello, world");
 	}
 }
 
 @Component({
 	selector: "parent-comp",
-	standalone: true,
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<child-comp #childVar />`,
 })
-class ParentComponent implements AfterViewInit {
-	@ViewChild("childVar") childComp!: ChildComponent;
+class ParentComponent {
+	childComp = viewChild.required("childVar", { read: ChildComponent });
 
-	ngAfterViewInit() {
-		console.log(this.childComp);
+	constructor() {
+		afterRenderEffect(() => {
+			console.log(this.childComp());
+		});
 	}
 }
 ```
@@ -641,18 +638,18 @@ This means that, as a result, we can also call the `sayHi` method:
 ```angular-ts
 @Component({
 	selector: "parent-comp",
-	standalone: true,
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button (click)="sayHiFromChild()">Say hi</button>
 		<child-comp #childVar />
 	`,
 })
 class ParentComponent {
-	@ViewChild("childVar") childComp!: ChildComponent;
+	childComp = viewChild.required("childVar", { read: ChildComponent });
 
 	sayHiFromChild() {
-		this.childComp.sayHi();
+		this.childComp().sayHi();
 	}
 }
 ```
@@ -878,12 +875,12 @@ function App() {
 
 ## Angular
 
-```angular-ts {7,15,23-25,39,48,69}
+```angular-ts {7,15,23-25,39,48-50,71}
 @Component({
 	selector: "context-menu",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (isOpen) {
+		@if (isOpen()) {
 		<!-- Attributes removed for brevity -->
 			<div #contextMenu>
 				<button (click)="close.emit()">X</button>
@@ -892,17 +889,17 @@ function App() {
 		}
 	`,
 })
-class ContextMenuComponent implements AfterViewInit, OnDestroy {
-	@ViewChild("contextMenu") contextMenu!: ElementRef<HTMLElement>;
+class ContextMenuComponent {
+	contextMenu = viewChild("contextMenu", { read: ElementRef<HTMLElement> });
 
-	@Input() isOpen!: boolean;
-	@Input() x!: number;
-	@Input() y!: number;
+	isOpen = input<boolean>();
+	x = input<number>();
+	y = input<number>();
 
-	@Output() close = new EventEmitter();
+	close = output();
 
 	focus() {
-		this.contextMenu?.nativeElement?.focus();
+		this.contextMenu()?.nativeElement?.focus();
 	}
 
 	// ...
@@ -910,8 +907,8 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ContextMenuComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="margin-top: 5rem; margin-left: 5rem">
 			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
@@ -919,35 +916,37 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 		<context-menu
 			#contextMenu
 			(close)="close()"
-			[isOpen]="isOpen"
-			[x]="mouseBounds.x"
-			[y]="mouseBounds.y"
+			[isOpen]="isOpen()"
+			[x]="mouseBounds().x"
+			[y]="mouseBounds().y"
 		/>
 	`,
 })
 class AppComponent {
-	@ViewChild("contextMenu") contextMenu!: ContextMenuComponent;
+	contextMenu = viewChild.required("contextMenu", {
+		read: ContextMenuComponent,
+	});
 
-	isOpen = false;
+	isOpen = signal(false);
 
-	mouseBounds = {
+	mouseBounds = signal({
 		x: 0,
 		y: 0,
-	};
+	});
 
 	close() {
-		this.isOpen = false;
+		this.isOpen.set(false);
 	}
 
 	open(e: MouseEvent) {
 		e.preventDefault();
-		this.isOpen = true;
-		this.mouseBounds = {
+		this.isOpen.set(true);
+		this.mouseBounds.set({
 			x: e.clientX,
 			y: e.clientY,
-		};
+		});
 		setTimeout(() => {
-			this.contextMenu.focus();
+			this.contextMenu().focus();
 		}, 0);
 	}
 }
@@ -1117,17 +1116,15 @@ const App = () => {
 ```angular-ts
 @Component({
 	selector: "app-layout",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
 			<div
-				[style]="
-					'width: ' +
-					sidebarWidth +
-					'px;' +
-					'height: 100vh;' +
-					'overflow-y: scroll;' +
-					'border-right: 2px solid #bfbfbf;'
+				style="
+					width: {{ sidebarWidth() }}px;
+					height: 100vh;
+					overflow-y: scroll;
+					border-right: 2px solid #bfbfbf;
 				"
 			>
 				<ng-content select="[sidebar]" />
@@ -1139,12 +1136,12 @@ const App = () => {
 	`,
 })
 class LayoutComponent {
-	@Input() sidebarWidth!: number;
+	sidebarWidth = input.required<number>();
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [LayoutComponent],
 	template: `
 		<app-layout [sidebarWidth]="150">
@@ -1276,12 +1273,12 @@ const App = () => {
 ```angular-ts
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (isCollapsed) {
+		@if (isCollapsed()) {
 			<button (click)="toggleCollapsed()">Toggle</button>
 		}
-		@if (!isCollapsed) {
+		@if (!isCollapsed()) {
 			<div>
 				<button (click)="toggleCollapsed()">Toggle</button>
 				<ul style="padding: 1rem">
@@ -1297,26 +1294,26 @@ const App = () => {
 	`,
 })
 class SidebarComponent {
-	@Output() toggle = new EventEmitter<boolean>();
+	toggle = output<boolean>();
 
-	isCollapsed = false;
+	isCollapsed = signal(false);
 
 	setAndToggle(v: boolean) {
-		this.isCollapsed = v;
+		this.isCollapsed.set(v);
 		this.toggle.emit(v);
 	}
 
 	toggleCollapsed() {
-		this.setAndToggle(!this.isCollapsed);
+		this.setAndToggle(!this.isCollapsed());
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [LayoutComponent, SidebarComponent],
 	template: `
-		<app-layout [sidebarWidth]="width">
+		<app-layout [sidebarWidth]="width()">
 			<app-sidebar sidebar (toggle)="onToggle($event)" />
 			<p style="padding: 1rem">Hi there!</p>
 		</app-layout>
@@ -1326,14 +1323,14 @@ class AppComponent {
 	collapsedWidth = 100;
 	expandedWidth = 150;
 
-	width = this.expandedWidth;
+	width = signal(this.expandedWidth);
 
 	onToggle(isCollapsed: boolean) {
 		if (isCollapsed) {
-			this.width = this.collapsedWidth;
+			this.width.set(this.collapsedWidth);
 			return;
 		}
-		this.width = this.expandedWidth;
+		this.width.set(this.expandedWidth);
 	}
 }
 ```
@@ -1546,12 +1543,12 @@ const App = () => {
 ```angular-ts
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (isCollapsed) {
+		@if (isCollapsed()) {
 			<button (click)="toggleCollapsed()">Toggle</button>
 		}
-		@if (!isCollapsed) {
+		@if (!isCollapsed()) {
 			<div>
 				<button (click)="toggleCollapsed()">Toggle</button>
 				<ul style="padding: 1rem">
@@ -1567,12 +1564,12 @@ const App = () => {
 	`,
 })
 class SidebarComponent {
-	@Output() toggle = new EventEmitter<boolean>();
+	toggle = output<boolean>();
 
-	isCollapsed = false;
+	isCollapsed = signal(false);
 
 	setAndToggle(v: boolean) {
-		this.isCollapsed = v;
+		this.isCollapsed.set(v);
 		this.toggle.emit(v);
 	}
 
@@ -1585,52 +1582,54 @@ class SidebarComponent {
 	}
 
 	toggleCollapsed() {
-		this.setAndToggle(!this.isCollapsed);
+		this.setAndToggle(!this.isCollapsed());
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [LayoutComponent, SidebarComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<app-layout [sidebarWidth]="width">
+		<app-layout [sidebarWidth]="width()">
 			<app-sidebar #sidebar sidebar (toggle)="onToggle($event)" />
 			<p style="padding: 1rem">Hi there!</p>
 		</app-layout>
 	`,
 })
-class AppComponent implements OnInit, OnDestroy {
-	@ViewChild("sidebar", { static: true }) sidebar!: SidebarComponent;
+class AppComponent {
+	sidebar = viewChild.required("sidebar", { read: SidebarComponent });
 
 	collapsedWidth = 100;
 	expandedWidth = 150;
 	widthToCollapseAt = 600;
 
-	width = this.expandedWidth;
+	width = signal(this.expandedWidth);
 
 	onToggle(isCollapsed: boolean) {
 		if (isCollapsed) {
-			this.width = this.collapsedWidth;
+			this.width.set(this.collapsedWidth);
 			return;
 		}
-		this.width = this.expandedWidth;
+		this.width.set(this.expandedWidth);
 	}
 
 	onResize = () => {
 		if (window.innerWidth < this.widthToCollapseAt) {
-			this.sidebar.collapse();
-		} else if (this.sidebar.isCollapsed) {
-			this.sidebar.expand();
+			this.sidebar().collapse();
+		} else if (this.sidebar().isCollapsed()) {
+			this.sidebar().expand();
 		}
 	};
 
-	ngOnInit() {
-		window.addEventListener("resize", this.onResize);
-	}
+	constructor() {
+		effect((onCleanup) => {
+			window.addEventListener("resize", this.onResize);
 
-	ngOnDestroy() {
-		window.removeEventListener("resize", this.onResize);
+			onCleanup(() => {
+				window.removeEventListener("resize", this.onResize);
+			});
+		});
 	}
 }
 ```
