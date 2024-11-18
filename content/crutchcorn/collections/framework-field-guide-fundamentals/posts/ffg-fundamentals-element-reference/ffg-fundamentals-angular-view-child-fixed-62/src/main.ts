@@ -1,9 +1,9 @@
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
-	afterRenderEffect,
 	Component,
 	ElementRef,
+	afterRenderEffect,
 	viewChild,
 	provideExperimentalZonelessChangeDetection,
 	ChangeDetectionStrategy,
@@ -12,18 +12,16 @@ import {
 @Component({
 	selector: "paragraph-tag",
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
-		@if (true) {
-			<p #pTag>Hello, world!</p>
-		}
-	`,
+	template: ` @if (true) {
+		<p #pTag>Hello, world!</p>
+	}`,
 })
 class RenderParagraphComponent {
 	pTag = viewChild.required("pTag", { read: ElementRef<HTMLElement> });
 
 	constructor() {
 		afterRenderEffect(() => {
-			console.log(this.pTag().nativeElement);
+			console.log(this.pTag());
 		});
 	}
 }

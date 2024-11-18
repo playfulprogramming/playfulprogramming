@@ -469,7 +469,10 @@ class RenderParagraphComponent {
 
 This works! If we look at our log, we see `{nativeElement: p}` in our console.
 
-// TODO: Add iframe
+
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular viewChild Basic - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-view-child-basic-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 ### `viewChild` Timings {#after-render-view-child}
 
@@ -499,7 +502,9 @@ class RenderParagraphComponent {
 
 Oh dear! This error is being thrown by the `.required` part of `viewChild`, telling us that `pTag` was not found by the time the value was read. Even if we remove `.required`, `pTag` is still `undefined` when `effect` is first ran.
 
-// TODO: Add iframe
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular viewChild Broken - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-view-child-broken-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
 
 > Why is that?
 
@@ -531,9 +536,9 @@ class RenderParagraphComponent {
 
 Update that value and ba-da-bing ba-da-boom, everything's up and running!
 
-// TODO: Add iframe
 
-<iframe data-frame-title="Angular ViewChild - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-view-child-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular viewChild Fixed - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-view-child-fixed-62?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 ### Adding an Event Listener Using `viewChild` {#adding-event-listener-viewchild}
