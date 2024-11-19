@@ -5,8 +5,8 @@
 	published: '2023-01-02T13:45:00.284Z',
 	tags: ['angular', 'javascript'],
 	license: 'cc-by-nc-sa-4',
-    collection: "Angular Zone.js Internals",
-    order: 1
+    collection: "Angular Internals",
+    order: 2
 }
 ---
 
