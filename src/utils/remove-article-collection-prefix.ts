@@ -2,7 +2,7 @@ import { PostInfo } from "types/PostInfo";
 import { CollectionInfo } from "types/CollectionInfo";
 
 export function getShortTitle(
-	post: PostInfo,
+	post: Pick<PostInfo, "title" | "collection">,
 	collection?: CollectionInfo,
 ): string {
 	const collectionTitle = collection?.title || post.collection || "";

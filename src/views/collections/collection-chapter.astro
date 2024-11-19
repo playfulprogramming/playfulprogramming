@@ -15,7 +15,10 @@ interface CollectionChapter {
 const { num, title, description, href, collection } =
 	Astro.props as CollectionChapter;
 const hrefProps = href ? getHrefContainerProps(href) : {};
-const shortTitle = getShortTitle({ title }, collection);
+const shortTitle = getShortTitle(
+	{ title, collection: collection.title },
+	collection,
+);
 ---
 
 <div class={styles.container} {...hrefProps}>
