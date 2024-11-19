@@ -1,8 +1,8 @@
 ---
 {
   title: "Angular Internals: Lifecycle Methods and Effect Timings",
-  description: "",
-  published: "2024-12-08T21:52:59.284Z",
+  description: "Let's dive into the timings for Angular's lifecycle methods and effect APIs. We'll even be reading a fair amount of Angular source code to explain it all.",
+  published: "2024-11-19T11:52:59.284Z",
   tags: ["angular", "javascript", "webdev"],
   license: "cc-by-4",
   order: 4,
