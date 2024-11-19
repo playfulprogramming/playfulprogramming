@@ -24,9 +24,9 @@ import { NgTemplateOutlet } from "@angular/common";
 			</thead>
 
 			<tbody>
-				@for (item of data; track item; let index = $index) {
+				@for (item of data(); track item; let index = $index) {
 					<ng-template
-						[ngTemplateOutlet]="body"
+						[ngTemplateOutlet]="body()"
 						[ngTemplateOutletContext]="{ rowI: index, value: item }"
 					/>
 				}
