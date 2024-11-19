@@ -1,8 +1,8 @@
 ---
 {
   title: "Angular 19: linkedSignal & Resource API",
-  description: "linkedSignal & Resource API!",
-  published: '2024-11-18T16:00:00.000Z',
+  description: "Let's learn about Angular19's linkedSignal & Resource APIs!",
+  published: '2024-11-19T16:00:00.000Z',
   tags: ["angular" , "javascript"],
   license: 'cc-by-4'
 }
