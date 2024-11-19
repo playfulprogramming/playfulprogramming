@@ -33,7 +33,7 @@ While this article is far from a comprehensive list of all template related APIs
 - `createEmbeddedView`
 - [Structural Directives](https://angular.dev/guide/directives/structural-directives) (such as `*ngIf`)
 
-By the end of this article, you'll not only have read some of Angular's source code ([as of 8.0.1](https://github.com/angular/angular/commit/e1f6d1538784eb87f7497bef27e3c313184c2d30)), but you should have a better understanding of how to implement many of these tools and how some of the APIs you use daily work under-the-hood.
+By the end of this article, you'll not only have read some of Angular's source code ([as of 19.0.0](https://github.com/angular/angular/commit/cdaa909da9fe7615f76aac8d9c14ae10f664e48f)), but you should have a better understanding of how to implement many of these tools and how some of the APIs you use daily work under-the-hood.
 
 It's going to be a long article, so please feel free to take breaks, grab a drink to enjoy while reading, pause to tinker with code, or anything in-between. Feedback is always welcomed and appreciated.
 
@@ -772,8 +772,6 @@ Because of this — when using the `ngDoCheck` — you're manually running the v
 
 That said, there might be times where having the value right off the bat from the `ngOnInit` might be useful. After all, if you're not embedding a view into a view, it would be extremely useful to be able to get the reference before the `ngAfterViewInit` and be able to avoid the fix mentioned above.
 
-> Before I go much further, I will remind readers that [the `static` prop was introduced in Angular 8](https://github.com/angular/angular/pull/28810); this section does not apply to `ViewChild`/`ContentChild` prior to that version
-
 Well, that can be controlled via the `static` prop! Before this example, I was defaulting to use `static: false` to avoid running into [the issue we covered in the last section](#change-detection), but you’re able to set this flag to `true` to get access to the template reference from within the `ngOnInit` lifecycle method:
 
 ```typescript
@@ -996,14 +994,20 @@ ngOnInit() {
 
 <iframe data-frame-title="Start To Source 20 Insert Template - StackBlitz" src="pfp-code:./start-to-source-20-insert-template?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-[And in fact, this is how the `createEmbeddedView` works internally](https://github.com/angular/angular/blob/e1f6d1538784eb87f7497bef27e3c313184c2d30/packages/core/src/view/refs.ts#L174):
+[And in fact, this is how the `createEmbeddedView` works internally](https://github.com/angular/angular/blob/cdaa909da9fe7615f76aac8d9c14ae10f664e48f/packages/core/src/linker/view_container_ref.ts#L417-L423):
 
 ```typescript
-// Source code directly from Angular as of 8.0.1
-createEmbeddedView<C>(templateRef: TemplateRef<C>, context?: C, index?: number):
-EmbeddedViewRef<C> {
-	const viewRef = templateRef.createEmbeddedView(context || <any>{});
-	this.insert(viewRef, index);
+// Source code directly from Angular as of 19.0.0
+function createEmbeddedView<C>(
+	// ...
+): EmbeddedViewRef<C> {
+	// ...
+	const viewRef = templateRef.createEmbeddedViewImpl(
+		context || <any>{},
+		injector,
+		dehydratedView,
+	);
+	this.insertImpl(viewRef, index, shouldAddViewToDom(this._hostTNode, dehydratedView));
 	return viewRef;
 }
 ```
@@ -1145,12 +1149,12 @@ export class AppComponent {}
 
 <iframe data-frame-title="Start To Source 24 Directive Outlet Alternative - StackBlitz" src="pfp-code:./start-to-source-24-directive-outlet-alternative?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-The nice part is that not only does it look like the directive from its usage, [but it's also not entirely dissimilar to how Angular writes the component internally](https://github.com/angular/angular/blob/e1f6d1538784eb87f7497bef27e3c313184c2d30/packages/common/src/directives/ng_template_outlet.ts#L35):
+The nice part is that not only does it look like the directive from its usage, [but it's also not entirely dissimilar to how Angular writes the component internally](https://github.com/angular/angular/blob/cdaa909da9fe7615f76aac8d9c14ae10f664e48f/packages/common/src/directives/ng_template_outlet.ts#L46):
 
 ```typescript
 // This is Angular source code as of 8.0.1 with some lines removed (but none modified otherwise).
 // The lines removed were some performance optimizations by comparing the previous view to the new one
-@Directive({selector: '[ngTemplateOutlet]'})
+@Directive({selector: '[ngTemplateOutlet]', standalone: true})
 export class NgTemplateOutlet implements OnChanges {
 	private _viewRef: EmbeddedViewRef<any>|null = null;
 
@@ -1322,10 +1326,10 @@ Here, we're using the `clear` method on the parent view ref to remove the previo
 
 While Angular goes for a more verbose pattern due to additional features available in their structural directive, the implementation is not too different from our own.
 
-[The following is the Angular source code for that directive](https://github.com/angular/angular/blob/e1f6d1538784eb87f7497bef27e3c313184c2d30/packages/common/src/directives/ng_if.ts#L151). To make it easier to explain with our current set of knowledge, there have been lines of code removed and a single conditional modified in a very minor way. Outside of these changes, this is largely unchanged.
+[The following is the Angular source code for that directive](https://github.com/angular/angular/blob/cdaa909da9fe7615f76aac8d9c14ae10f664e48f/packages/common/src/directives/ng_if.ts#L158). To make it easier to explain with our current set of knowledge, there have been lines of code removed and a single conditional modified in a very minor way. Outside of these changes, this is largely unchanged.
 
 ```typescript
-@Directive({selector: '[ngIf]'})
+@Directive({selector: '[ngIf]', standalone: true})
 export class NgIf {
 	private _context: NgIfContext = new NgIfContext();
 	private _thenTemplateRef: TemplateRef<NgIfContext>|null = null;
