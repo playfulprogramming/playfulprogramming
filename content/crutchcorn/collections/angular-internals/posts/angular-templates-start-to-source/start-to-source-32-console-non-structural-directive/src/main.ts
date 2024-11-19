@@ -12,7 +12,6 @@ import {
 
 @Directive({
 	selector: "[consoleThing]",
-	standalone: true,
 })
 export class ConsoleThingDirective {
 	@Input() set consoleThing(val: string) {
@@ -28,7 +27,6 @@ export class ConsoleThingDirective {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [ConsoleThingDirective],
 	template: `
 		<ng-template

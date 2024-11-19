@@ -6,7 +6,6 @@ import { NgIf } from "@angular/common";
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [NgIf],
 	template: `
 		<ng-template #falseTemp>

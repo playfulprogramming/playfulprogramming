@@ -12,7 +12,6 @@ import {
 
 @Component({
 	selector: "action-card",
-	standalone: true,
 	template: ` <div>This is a card</div> `,
 	styles: [
 		`
@@ -31,7 +30,6 @@ export class ActionCard {}
 
 @Component({
 	selector: "cards-list",
-	standalone: true,
 	template: ` <div><ng-content></ng-content></div> `,
 	styles: [
 		`
@@ -58,7 +56,6 @@ export class CardsList implements AfterViewInit {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [ActionCard, CardsList],
 	template: `
 		<cards-list>

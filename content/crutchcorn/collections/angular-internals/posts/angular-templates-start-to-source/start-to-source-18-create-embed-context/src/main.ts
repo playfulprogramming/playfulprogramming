@@ -14,7 +14,6 @@ import {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	template: `
 		<ng-template #templ let-i>
 			<li>List Item {{ i }}</li>

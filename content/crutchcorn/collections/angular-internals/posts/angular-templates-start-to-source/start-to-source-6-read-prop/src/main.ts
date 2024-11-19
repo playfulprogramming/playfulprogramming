@@ -11,7 +11,6 @@ import {
 
 @Component({
 	selector: "my-custom-component",
-	standalone: true,
 	template: `
 		<p>Check the console to see the inputs' values from the parent component</p>
 	`,
@@ -23,7 +22,6 @@ export class MyComponentComponent {
 @Component({
 	selector: "my-app",
 	imports: [MyComponentComponent],
-	standalone: true,
 	template: `
 		<my-custom-component
 			#myComponent

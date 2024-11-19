@@ -11,7 +11,6 @@ import {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	template: `
 		<ng-template #templ>
 			<ul>

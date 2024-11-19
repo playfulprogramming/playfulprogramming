@@ -11,7 +11,6 @@ import {
 
 @Directive({
 	selector: "[makePiglatin]",
-	standalone: true,
 })
 export class MakePigLatinDirective {
 	constructor(
@@ -28,7 +27,6 @@ export class MakePigLatinDirective {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [MakePigLatinDirective],
 	template: `
 		<p *makePiglatin="'This is a string'; let msg">

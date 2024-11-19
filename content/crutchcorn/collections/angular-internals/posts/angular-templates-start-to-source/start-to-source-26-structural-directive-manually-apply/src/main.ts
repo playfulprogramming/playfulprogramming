@@ -11,7 +11,6 @@ import {
 
 @Directive({
 	selector: "[renderThis]",
-	standalone: true,
 })
 export class RenderThisDirective implements OnInit {
 	constructor(
@@ -26,7 +25,6 @@ export class RenderThisDirective implements OnInit {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [RenderThisDirective],
 	template: `
 		<ng-template renderThis>

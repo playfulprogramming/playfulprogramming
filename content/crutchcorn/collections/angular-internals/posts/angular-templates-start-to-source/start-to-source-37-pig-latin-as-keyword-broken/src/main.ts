@@ -14,7 +14,6 @@ import { UpperCasePipe } from "@angular/common";
 
 @Directive({
 	selector: "[makePiglatin]",
-	standalone: true,
 })
 class MakePigLatinDirective implements OnInit {
 	constructor(
@@ -41,7 +40,6 @@ class MakePigLatinDirective implements OnInit {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [MakePigLatinDirective, UpperCasePipe],
 	template: `
 		<p

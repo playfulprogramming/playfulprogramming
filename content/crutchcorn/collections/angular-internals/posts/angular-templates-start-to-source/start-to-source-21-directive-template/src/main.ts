@@ -12,7 +12,6 @@ import {
 
 @Directive({
 	selector: "[renderTheTemplate]",
-	standalone: true,
 })
 export class RenderTheTemplateDirective implements OnInit {
 	@ContentChild(TemplateRef, { static: true }) templ!: TemplateRef<any>;
@@ -25,7 +24,6 @@ export class RenderTheTemplateDirective implements OnInit {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [RenderTheTemplateDirective],
 	template: `
 		<div renderTheTemplate>

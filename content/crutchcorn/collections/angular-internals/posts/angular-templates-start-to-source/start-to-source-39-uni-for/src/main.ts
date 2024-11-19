@@ -37,7 +37,6 @@ export class UniForOf<T> implements AfterViewInit {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [UniForOf, NgIf, AsyncPipe],
 	template: `
 		<p

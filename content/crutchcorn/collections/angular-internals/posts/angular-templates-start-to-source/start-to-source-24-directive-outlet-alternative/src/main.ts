@@ -11,7 +11,6 @@ import {
 
 @Directive({
 	selector: "[renderTheTemplate]",
-	standalone: true,
 })
 export class RenderTheTemplateDirective implements OnInit {
 	constructor(private parentViewRef: ViewContainerRef) {}
@@ -29,7 +28,6 @@ export class RenderTheTemplateDirective implements OnInit {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [RenderTheTemplateDirective],
 	template: `
 		<ng-template

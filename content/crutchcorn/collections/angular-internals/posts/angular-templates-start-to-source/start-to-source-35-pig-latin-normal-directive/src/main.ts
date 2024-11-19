@@ -12,7 +12,6 @@ import {
 
 @Directive({
 	selector: "[makePiglatin]",
-	standalone: true,
 })
 class MakePigLatinDirective implements OnInit {
 	constructor(
@@ -39,7 +38,6 @@ class MakePigLatinDirective implements OnInit {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [MakePigLatinDirective],
 	template: `
 		<ng-template

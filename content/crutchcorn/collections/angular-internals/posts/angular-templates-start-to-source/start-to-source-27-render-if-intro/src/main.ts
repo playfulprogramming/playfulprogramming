@@ -13,7 +13,6 @@ import { FormsModule } from "@angular/forms";
 
 @Directive({
 	selector: "[renderThisIf]",
-	standalone: true,
 })
 export class RenderThisIfDirective implements OnInit {
 	constructor(
@@ -32,7 +31,6 @@ export class RenderThisIfDirective implements OnInit {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [RenderThisIfDirective, FormsModule],
 	template: `
 		<label for="boolToggle">Toggle me!</label>

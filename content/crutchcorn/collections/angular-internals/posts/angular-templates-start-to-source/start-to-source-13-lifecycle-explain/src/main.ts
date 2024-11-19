@@ -12,7 +12,6 @@ import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [NgTemplateOutlet],
 	template: `
 		<ng-template #helloThereMsg>

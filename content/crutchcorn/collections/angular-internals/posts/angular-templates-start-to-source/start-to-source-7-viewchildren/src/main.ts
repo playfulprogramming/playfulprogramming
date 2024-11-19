@@ -11,7 +11,6 @@ import {
 
 @Component({
 	selector: "my-custom-component",
-	standalone: true,
 	template: ` <p>I am a my-custom-component!</p> `,
 })
 export class MyComponentComponent {
@@ -21,7 +20,6 @@ export class MyComponentComponent {
 @Component({
 	selector: "my-app",
 	imports: [MyComponentComponent],
-	standalone: true,
 	template: `
 		<div>
 			<p>Check the console to see that values of the two components</p>

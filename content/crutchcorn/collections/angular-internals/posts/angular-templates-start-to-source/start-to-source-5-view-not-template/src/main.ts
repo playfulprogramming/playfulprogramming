@@ -5,7 +5,6 @@ import { AfterViewInit, Component, Input, ViewChild } from "@angular/core";
 
 @Component({
 	selector: "my-custom-component",
-	standalone: true,
 	template: `
 		<p>Check the console to see the inputs' values from the parent component</p>
 	`,
@@ -16,7 +15,6 @@ export class MyComponentComponent {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [MyComponentComponent],
 	template: `
 		<my-custom-component

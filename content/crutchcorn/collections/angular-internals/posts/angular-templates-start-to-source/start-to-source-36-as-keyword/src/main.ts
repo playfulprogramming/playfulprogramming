@@ -6,7 +6,6 @@ import { NgIf, UpperCasePipe } from "@angular/common";
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [NgIf, UpperCasePipe],
 	template: `
 		<p *ngIf="message | uppercase as uppermessage">{{ uppermessage }}</p>

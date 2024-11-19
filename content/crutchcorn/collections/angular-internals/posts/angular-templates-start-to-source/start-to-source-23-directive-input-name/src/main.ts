@@ -12,7 +12,6 @@ import {
 
 @Directive({
 	selector: "[renderTheTemplate]",
-	standalone: true,
 })
 export class RenderTheTemplateDirective implements OnInit {
 	constructor(
@@ -31,7 +30,6 @@ export class RenderTheTemplateDirective implements OnInit {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [RenderTheTemplateDirective],
 	template: `
 		<ng-template [renderTheTemplate]="'Hi there!'" let-message>

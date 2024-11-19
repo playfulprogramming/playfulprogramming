@@ -13,7 +13,6 @@ import { FormsModule } from "@angular/forms";
 
 @Component({
 	selector: "my-custom-component",
-	standalone: true,
 	template: ` <p>My value is {{ numberProp }}</p> `,
 })
 export class MyComponentComponent {
@@ -24,7 +23,6 @@ export class MyComponentComponent {
 
 @Component({
 	selector: "my-app",
-	standalone: true,
 	imports: [MyComponentComponent, NgIf, FormsModule],
 	template: `
 		<p>The console should output the combination of all values below</p>
