@@ -4,6 +4,8 @@
   description: "Angular does a lot of the heavy lifting of building a web app for us. But how does it work under-the-hood? And how can we optimize our apps better?",
   tags: ["angular", "webdev", "javascript"],
   coverImg: "./cover.png",
+  socialImg:
+    "/custom-content/collections/angular-internals/angular_internals_social.png",
   published: "2024-11-19T13:45:00.284Z",
   buttons: [{ text: "Read now", url: "/posts/angular-templates-start-to-source" }],
 }
