@@ -428,6 +428,7 @@ for (const personId of [...people.keys()]) {
 	for (const postLocales of [...posts.values()]) {
 		const [post] = postLocales;
 		if (!post) continue;
+		if (post.noindex) continue;
 
 		for (const authorId of post.authors) {
 			const personLocales = people.get(authorId) || [];
