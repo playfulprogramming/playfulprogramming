@@ -11,7 +11,7 @@
 
 > **Warning:**
 >
-> This article talks in-depth about technical specifics of [the `provideExperimentalZonelessChangeDetection` experiment](https://angular.dev/api/core/provideExperimentalZonelessChangeDetection) present in Angular 18. The mechanisms discussed in this article are likely to change before this experiment is made production-ready.
+> This article talks in-depth about technical specifics of [the `provideExperimentalZonelessChangeDetection` experiment](https://angular.dev/api/core/provideExperimentalZonelessChangeDetection) present in Angular 18 and 19. The mechanisms discussed in this article are likely to change before this experiment is made production-ready.
 
 Recently [I was live on my Twitch stream coding away](https://twitch.tv/crutchcorn) until I got massively [nerd sniped](https://xkcd.com/356/) away from my discussion.
 

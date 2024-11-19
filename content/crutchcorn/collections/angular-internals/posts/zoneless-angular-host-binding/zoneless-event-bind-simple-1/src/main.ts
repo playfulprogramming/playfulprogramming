@@ -7,7 +7,6 @@ import {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<button (click)="add()">{{ count }}</button>`,
 })

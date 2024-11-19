@@ -9,7 +9,6 @@ import {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	// Must not be `OnPush` to demonstrate this behavior working
 	template: `<button #el>{{ count }}</button>`,
 })
