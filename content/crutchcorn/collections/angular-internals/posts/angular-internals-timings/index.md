@@ -5,7 +5,6 @@
   published: "2024-12-08T21:52:59.284Z",
   tags: ["angular", "javascript", "webdev"],
   license: "cc-by-4",
-  collection: "Angular Internals",
   order: 4,
 }
 ---

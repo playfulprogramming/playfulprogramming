@@ -6,7 +6,6 @@
     edited: '2024-11-19T22:12:03.284Z',
 	tags: ['angular', 'webdev'],
 	license: 'cc-by-nc-sa-4',
-    collection: "Angular Internals",
     order: 1
 }
 ---
