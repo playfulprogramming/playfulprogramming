@@ -32,6 +32,12 @@ const updatedSignal = linkedSignal({
 
 In this example, `updatedSignal` will always be five times the value of `sourceSignal` and will automatically adjust as `sourceSignal` changes.
 
+For more details about Angular `linkedSignal`, check out the official documentation:<a href="https://angular.dev/guide/signals/linked-signal">Angular linkedSignal Guide.</a> 
+
+
+
+
+
 ## Addressing Existing Challenges:
 
 Before the introduction of `linkedSignal`, developers faced difficulties in creating signals that were both dependent on other signals and writable. This often led to convoluted code structures and increased the potential for errors. By providing a straightforward method to create such signals, `linkedSignal` enhances code clarity and reduces the likelihood of bugs related to state management.
@@ -98,7 +104,14 @@ Status Tracking: Signals such as `status`, `error`, and `isLoading` allow develo
 
 Before the Resource API, developers had to manually handle multiple states (loading, success, error) for each HTTP request, which could lead to repetitive and error-prone code. The Resource API abstracts these concerns and offers a more declarative approach, reducing boilerplate code and improving the reliability of data fetching.
 
+For more details about Angular `Resource API`, check out the official documentation:<a href="https://angular.dev/guide/signals/resource">Async reactivity with resources.</a> 
+
+
 ## Conclusion
 
 Angular 19's introduction of `linkedSignal` and the `Resource API` significantly enhances the framework's capabilities for managing reactive state and handling asynchronous data. These features streamline complex tasks and help developers build more maintainable, performant applications. By utilizing these tools, developers can create cleaner, more efficient code while improving the overall user experience.
+
+### For more details, check out the official Angular documentation:  
+- [Angular linkedSignal Guide](https://angular.dev/guide/signals)  
+- [Angular Resource API](https://angular.dev/guide/signals#resource-api)
 
