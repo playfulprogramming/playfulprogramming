@@ -27,6 +27,10 @@
 		"RSS Feed": {
 			"icon": "rss",
 			"url": "/rss.xml"
+		},
+		"Youtube": {
+			"icon": "youtube",
+			"url": "https://www.youtube.com/@playful-programming"
 		}
 	},
 	"sponsors": [
