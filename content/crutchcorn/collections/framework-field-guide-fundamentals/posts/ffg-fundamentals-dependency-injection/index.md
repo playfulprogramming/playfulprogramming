@@ -198,7 +198,7 @@ We'll then use this token to create a `provider` that we pass to a component's `
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ChildComponent],
 	template: `<child-comp />`,
 	providers: [{ provide: WELCOME_MESSAGE_TOKEN, useValue: "Hello, world!" }],
@@ -215,13 +215,13 @@ import { inject } from "@angular/core";
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>{{ welcomeMsg }}</p>`,
 })
 class ChildComponent {
 	welcomeMsg: string = inject(WELCOME_MESSAGE_TOKEN);
 
-	ngOnInit() {
+	constructor() {
 		console.log(this.welcomeMsg);
 	}
 }
@@ -230,12 +230,6 @@ class ChildComponent {
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular DI Basic Values String - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-di-basic-values-string-82?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
-
-> Something worth mentioning when using the `inject` function is that you're unable to provide a `constructor` method to the `ChildComponent` class.
->
-> While this might sound like a heavy limitation, the `inject` function provides various capabilities (and modularity) that the `constructor` method alone does not provide.
-
-<!-- Editor's note: `inject` allows you to create sharable and exportable bits of code that can be reused elsewhere, whereas `@Inject` cannot be reused -->
 
 ## Vue
 
@@ -317,7 +311,7 @@ Because Angular's `useValue` accepts any arbitrary value, we can pass it an obje
 ```angular-ts {4,16}
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>{{ welcomeMsg.message }}</p>`,
 })
 class ChildComponent {
@@ -326,7 +320,7 @@ class ChildComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ChildComponent],
 	template: `<child-comp />`,
 	providers: [
@@ -363,7 +357,7 @@ Here, we're telling Angular to treat our `InjectedValue` class as a `InjectionTo
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ChildComponent],
 	providers: [InjectedValue],
 	template: `<child-comp />`,
@@ -376,13 +370,13 @@ Now that our `InjectedValue` is a known type, we can remove our explicit type de
 ```angular-ts
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<div>{{ injectedValue.message }}</div>`,
 })
-class ChildComponent implements OnInit {
+class ChildComponent {
 	injectedValue = inject(InjectedValue);
 
-	ngOnInit() {
+	constructor() {
 		console.log(this.injectedValue);
 	}
 }
@@ -478,13 +472,13 @@ Because we've marked our `InjectedValue` class as an `Injectable`, we can have t
 ```angular-ts
 @Injectable()
 class InjectedValue {
-	message = "Initial value";
+	message = signal("Initial value");
 }
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
-	template: `<p>{{ injectedValue.message }}</p>`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `<p>{{ injectedValue.message() }}</p>`,
 })
 class ChildComponent {
 	injectedValue = inject(InjectedValue);
@@ -492,7 +486,7 @@ class ChildComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ChildComponent],
 	providers: [InjectedValue],
 	template: `
@@ -505,7 +499,7 @@ class AppComponent {
 	injectedValue = inject(InjectedValue);
 
 	updateMessage() {
-		this.injectedValue.message = "Updated value";
+		this.injectedValue.message.set("Updated value");
 	}
 }
 ```
@@ -820,16 +814,16 @@ Because we can inject a whole class instance into a child component, we can use 
 ```angular-ts
 @Injectable()
 class InjectedValue {
-	message = "Hello, world";
+	message = signal("Hello, world");
 	// `this` is referring to the `InjectedValue` instance
 	changeMessage(val: string) {
-		this.message = val;
+		this.message.set(val);
 	}
 }
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>{{ injectedValue.message }}</div>
 		<button (click)="changeMessage()">Change message</button>
@@ -847,7 +841,7 @@ class ChildComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ChildComponent],
 	providers: [InjectedValue],
 	template: `<child-comp />`,
@@ -954,7 +948,7 @@ class InjectedValue {
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>{{ injectedValue.message }}</p>`,
 })
 class ChildComponent {
@@ -963,7 +957,7 @@ class ChildComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ChildComponent],
 	providers: [InjectedValue],
 	template: `<child-comp />`,
@@ -976,7 +970,7 @@ However, if we remove the `providers` from `ParentComponent` to test our applica
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ChildComponent],
 	template: `<child-comp />`,
 })
@@ -1006,7 +1000,7 @@ class InjectedValue {
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (injectedValue) {
 			<div>{{ injectedValue.message }}</div>
@@ -1016,10 +1010,10 @@ class InjectedValue {
 		}
 	`,
 })
-class ChildComponent implements OnInit {
+class ChildComponent {
 	injectedValue = inject(InjectedValue, { optional: true });
 
-	ngOnInit() {
+	constructor() {
 		// undefined
 		console.log(this.injectedValue);
 	}
@@ -1027,14 +1021,14 @@ class ChildComponent implements OnInit {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ChildComponent],
 	template: `<child-comp />`,
 })
 class ParentComponent {}
 ```
 
-Now, we get no error when `injectedValue` is not provided. Instead, we get a value of `null`, which we can guard against using `ngIf` inside our template.
+Now, we get no error when `injectedValue` is not provided. Instead, we get a value of `null`, which we can guard against using `@if` inside our template.
 
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Optional Injected Vals - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-optional-injected-vals-86?template=node&embed=1&file=src%2Fmain.ts"></iframe>
@@ -1119,28 +1113,14 @@ When an `inject` function is marked as `{optional: true}`, the default value (wh
 As such, we can use [JavaScript's built-in "OR" operator (`||`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR) to default to a different value as our default:
 
 ```angular-ts
-@Injectable()
-class InjectedValue {
-	message = "Initial value";
-}
-
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>{{ injectedValue.message }}</p>`,
 })
 class ChildComponent {
-	injectedValue = inject(InjectedValue) || { message: "Default Value" };
+	injectedValue = inject(InjectedValue, { optional: true }) || { message: "Default Value" };
 }
-
-@Component({
-	selector: "app-root",
-	standalone: true,
-	imports: [ChildComponent],
-	providers: [InjectedValue],
-	template: ` <child-comp /> `,
-})
-class ParentComponent {}
 ```
 
 <!-- ::start:no-ebook -->
@@ -1324,13 +1304,13 @@ class InjectedValue {
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<div>{{ injectedValue.message }}</div>`,
 })
-class ChildComponent implements OnInit {
+class ChildComponent {
 	injectedValue = inject(InjectedValue);
 
-	ngOnInit() {
+	constructor() {
 		// This will include the `message` property, alongside
 		// any other methods and properties on the class instance
 		console.log(this.injectedValue);
@@ -1339,7 +1319,7 @@ class ChildComponent implements OnInit {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ChildComponent],
 	template: `<child-comp />`,
 })
@@ -1502,7 +1482,7 @@ class NameValue {
 
 @Component({
 	selector: "great-grand-child",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>Name: {{ nameValue.name }}</p>`,
 })
 class GreatGrandChildComponent {
@@ -1511,7 +1491,7 @@ class GreatGrandChildComponent {
 
 @Component({
 	selector: "grand-child",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	// Notice the new provider here, it will supplement the `App` injected value
 	// for all child components of `grand-child`
 	providers: [{ provide: NameValue, useValue: { name: "Kevin" } }],
@@ -1522,7 +1502,7 @@ class GrandChildComponent {}
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [GrandChildComponent],
 	template: `
 		<p>Name: {{ nameValue.name }}</p>
@@ -1535,7 +1515,7 @@ class ChildComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [{ provide: NameValue, useValue: { name: "Corbin" } }],
 	imports: [ChildComponent],
 	template: `<child-comp />`,
@@ -1704,7 +1684,7 @@ class FavFoodValue {
 
 @Component({
 	selector: "great-grand-child",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<p>Name: {{ nameValue.name }}</p>
 		<p>Favorite food: {{ favFoodValue.favFood }}</p>
@@ -1721,7 +1701,7 @@ class GreatGrandChildComponent {
 
 @Component({
 	selector: "grand-child",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [{ provide: FavFoodValue, useValue: { age: "Ice Cream" } }],
 	imports: [GreatGrandChildComponent],
 	template: `<great-grand-child />`,
@@ -1730,7 +1710,7 @@ class GrandChildComponent {}
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [GrandChildComponent],
 	template: `<grand-child />`,
 })
@@ -1738,7 +1718,7 @@ class ChildComponent {}
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [{ provide: NameValue, useValue: { name: "Corbin" } }],
 	imports: [ChildComponent],
 	template: `<child-comp />`,
@@ -1927,7 +1907,7 @@ class UserValue {
 
 @Component({
 	selector: "great-grand-child",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Name: {{ user.name }}</p> `,
 })
 class GreatGrandChildComponent {
@@ -1938,7 +1918,7 @@ class GreatGrandChildComponent {
 
 @Component({
 	selector: "grand-child",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		{
 			provide: UserValue,
@@ -1952,7 +1932,7 @@ class GrandChildComponent {}
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [GrandChildComponent],
 	template: `<grand-child />`,
 })
@@ -1960,7 +1940,7 @@ class ChildComponent {}
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [{ provide: UserValue, useValue: { name: "Corbin Crutchley" } }],
 	imports: [ChildComponent],
 	template: `<child-comp />`,
@@ -2197,16 +2177,16 @@ function GreatGrandChild() {
 ```angular-ts
 @Injectable({ providedIn: "root" })
 class MessageValue {
-	greeting = "";
+	greeting = signal("");
 
 	changeGreeting(val: string) {
-		this.greeting = val;
+		this.greeting.set(val);
 	}
 }
 
 @Component({
 	selector: "great-grand-child",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<p>{{ messageValue.greeting }}, user!</p>
@@ -2229,7 +2209,7 @@ class GreatGrandChildComponent {
 
 @Injectable({ providedIn: "root" })
 class SparklyMessageValue {
-	greeting = "✨ Welcome 💯";
+	greeting = signal("✨ Welcome 💯");
 
 	// New ✨ sparkly ✨ functionality adds some fun! 💯
 	changeGreeting(newVal: string) {
@@ -2239,13 +2219,13 @@ class SparklyMessageValue {
 		if (!newVal.includes("💯")) {
 			newVal += "💯";
 		}
-		this.greeting = newVal;
+		this.greeting.set(newVal);
 	}
 }
 
 @Component({
 	selector: "grand-child",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		{
 			provide: MessageValue,
@@ -2260,7 +2240,7 @@ class GrandChildComponent {}
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [GrandChildComponent],
 	template: `<grand-child />`,
 })
@@ -2268,7 +2248,7 @@ class ChildComponent {}
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ChildComponent],
 	template: `<child-comp />`,
 })
@@ -2282,16 +2262,16 @@ class AppComponent {}
 ```angular-ts
 @Injectable({ providedIn: "root" })
 class MessageValue {
-	greeting = "";
+	greeting = signal("");
 
 	changeGreeting(val: string) {
-		this.greeting = val;
+		this.greeting.set(val);
 	}
 }
 
 @Component({
 	selector: "great-grand-child",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<p>{{ messageValue.greeting }}, user!</p>
@@ -2314,7 +2294,7 @@ class GreatGrandChildComponent {
 
 @Injectable({ providedIn: "root" })
 class SparklyMessageValue {
-	greeting = ":D Welcome :P";
+	greeting = signal(":D Welcome :P");
 
 	// New :D functionality adds some fun! :P
 	changeGreeting(newVal: string) {
@@ -2324,13 +2304,13 @@ class SparklyMessageValue {
 		if (!newVal.includes(":P")) {
 			newVal += ":P";
 		}
-		this.greeting = newVal;
+		this.greeting.set(newVal);
 	}
 }
 
 @Component({
 	selector: "grand-child",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		{
 			provide: MessageValue,
@@ -2345,7 +2325,7 @@ class GrandChildComponent {}
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [GrandChildComponent],
 	template: `<grand-child />`,
 })
@@ -2353,7 +2333,7 @@ class ChildComponent {}
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ChildComponent],
 	template: `<child-comp />`,
 })
@@ -2661,7 +2641,7 @@ import { FileListComponent } from "./file-list.component";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [LayoutComponent, SidebarComponent, FileListComponent],
 	template: `
 		<app-layout>
@@ -2679,7 +2659,7 @@ import { Component } from "@angular/core";
 
 @Component({
 	selector: "app-layout",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
 			<div
@@ -2706,7 +2686,7 @@ import { Component } from "@angular/core";
 
 @Component({
 	selector: "file-list",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="padding: 1rem">
 			<h1>Files</h1>
@@ -2722,7 +2702,7 @@ import { Component } from "@angular/core";
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="padding: 1rem">
 			<h1 style="font-size: 1.25rem">Directories</h1>
@@ -2904,15 +2884,15 @@ import { Component, Input } from "@angular/core";
 
 @Component({
 	selector: "file-item",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button style="display: block; width: 100%; margin-bottom: 1rem">
-			{{ name }}
+			{{ name() }}
 		</button>
 	`,
 })
 export class FileComponent {
-	@Input() name!: string;
+	name = input.required<string>();
 }
 ```
 
@@ -2925,8 +2905,8 @@ import { FileComponent } from "./file.component";
 
 @Component({
 	selector: "file-list",
-	standalone: true,
-	imports: [FileComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [FileComponent],
 	template: `
 		<div style="padding: 1rem">
 			<h1>Files</h1>
@@ -2961,7 +2941,7 @@ import { FileComponent } from "./file.component";
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileComponent],
 	template: `
 		<div style="padding: 1rem">
@@ -3327,26 +3307,20 @@ Just like we did with React, let's take our previous context menu and add in the
 ```angular-ts {48-57,68-71,75-88}
 @Component({
 	selector: "context-menu",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (isOpen && actions) {
 			<div
 				#contextMenu
 				tabIndex="0"
-				[style]="
-					'
-			position: fixed;
-			top: ' +
-					y +
-					'px;
-			left: ' +
-					x +
-					'px;
-			background: white;
-			border: 1px solid black;
-			border-radius: 16px;
-			padding: 1rem;
-		  '
+				style="
+        position: fixed;
+        top: {{ y() }}px;
+        left: {{ x() }}px;
+        background: white;
+        border: 1px solid black;
+        border-radius: 16px;
+        padding: 1rem;
 				"
 			>
 				<button (click)="close.emit(false)">X</button>
@@ -3363,14 +3337,14 @@ Just like we did with React, let's take our previous context menu and add in the
 		}
 	`,
 })
-export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
-	@ViewChild("contextMenu", { static: false }) contextMenuRef!: ElementRef;
-	@Input() isOpen!: boolean;
-	@Input() x!: number;
-	@Input() y!: number;
-	@Input() data!: any;
+export class ContextMenuComponent {
+	contextMenuRef = viewChild("contextMenu", { read: ElementRef });
+	isOpen = input.required<boolean>();
+	x = input.required<number>();
+	y = input.required<number>();
+	data = input.required<any>();
 
-	@Output() close = new EventEmitter<boolean>();
+	close = output<boolean>();
 
 	actions = [
 		{
@@ -3384,7 +3358,7 @@ export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 	];
 
 	closeIfOutside = (e: MouseEvent) => {
-		const contextMenuEl = this.contextMenuRef?.nativeElement;
+		const contextMenuEl = this.contextMenuRef()?.nativeElement;
 		if (!contextMenuEl) return;
 		const isClickInside = contextMenuEl.contains(e.target);
 		if (isClickInside) return;
@@ -3397,33 +3371,33 @@ export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
 		this.close.emit(false);
 	};
 
-	previousListener: null | (() => void) = null;
-
-	ngOnChanges(changes: SimpleChanges) {
-		if (changes["isOpen"].previousValue !== changes["isOpen"].currentValue) {
-			if (this.previousListener) {
-				this.previousListener();
-			}
+	constructor() {
+		let previousIsOpen = false;
+		effect((onCleanup) => {
+			const isSame = previousIsOpen === this.isOpen();
+			previousIsOpen = this.isOpen();
+			if (isSame) return;
 			// Inside a timeout to make sure the initial context menu does not close the menu
 			setTimeout(() => {
 				document.addEventListener("contextmenu", this.closeIfContextMenu);
 			}, 0);
 
-			this.previousListener = () =>
+			onCleanup(() => {
 				document.removeEventListener("contextmenu", this.closeIfContextMenu);
-		}
-	}
+			});
+		});
 
-	ngOnInit() {
-		document.addEventListener("click", this.closeIfOutside);
-	}
+		effect((onCleanup) => {
+			document.addEventListener("click", this.closeIfOutside);
 
-	ngOnDestroy() {
-		document.removeEventListener("click", this.closeIfOutside);
+			onCleanup(() => {
+				document.removeEventListener("click", this.closeIfOutside);
+			});
+		});
 	}
 
 	focusMenu() {
-		this.contextMenuRef.nativeElement.focus();
+		this.contextMenuRef()?.nativeElement.focus();
 	}
 }
 ```
@@ -3844,7 +3818,7 @@ function injectAndGetActions() {
 	selector: "context-menu",
 	// ...
 })
-export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
+export class ContextMenuComponent {
 	// ...
 
 	actions = injectAndGetActions();
@@ -3873,7 +3847,7 @@ function injectAndAssignActions(actions: any[]) {
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileComponent],
 	providers: [
 		{
@@ -3912,7 +3886,7 @@ function injectAndAssignActions(actions: any[]) {
 
 @Component({
 	selector: "file-list",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileComponent],
 	providers: [
 		{
@@ -4227,7 +4201,7 @@ export class SidebarComponent {
 	// ...
 })
 export class FileListComponent {
-	files = [
+	files = signal([
 		{
 			name: "Testing.wav",
 			id: 1,
@@ -4240,28 +4214,32 @@ export class FileListComponent {
 			name: "Other.md",
 			id: 3,
 		},
-	];
+	]);
 
 	getFileIndexById = (id: number) => {
-		return this.files.findIndex((file) => file.id === id);
+		return this.files().findIndex((file) => file.id === id);
 	};
 
 	onRename = (id: number) => {
 		const fileIndex = this.getFileIndexById(id)!;
-		const file = this.files[fileIndex];
+		const file = this.files()[fileIndex];
 		const newName = prompt(
 			`What do you want to rename the file ${file.name} to?`,
 		);
 		if (!newName) return;
-		this.files[fileIndex] = {
+		const newFiles = this.files();
+		newFiles[fileIndex] = {
 			...file,
 			name: newName,
 		};
+		this.files.set(newFiles);
 	};
 
 	onDelete = (id: number) => {
 		const fileIndex = this.getFileIndexById(id);
-		this.files.splice(fileIndex, 1);
+		const newFiles = this.files();
+		newFiles.splice(fileIndex, 1);
+		this.files.set(newFiles);
 	};
 
 	fileListActions = injectAndAssignActions([

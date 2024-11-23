@@ -18,13 +18,14 @@ class InjectedValue {
 	template: `<p>{{ injectedValue.message }}</p>`,
 })
 class ChildComponent {
-	injectedValue = inject(InjectedValue) || { message: "Default Value" };
+	injectedValue = inject(InjectedValue, { optional: true }) || {
+		message: "Default Value",
+	};
 }
 
 @Component({
 	selector: "app-root",
 	imports: [ChildComponent],
-	providers: [InjectedValue],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <child-comp /> `,
 })
