@@ -1,17 +1,5 @@
 import { CollectionInfo, PostInfo } from "types/index";
 
-export function getShortTitle(
-	post: PostInfo,
-	collection?: CollectionInfo,
-): string {
-	const collectionTitle = collection?.title || post.collection || "";
-	// if the post title starts with its collection title, remove it
-	if (post.title.startsWith(`${collectionTitle}: `))
-		return post.title.substring(collectionTitle.length + 2);
-
-	return post.title;
-}
-
 interface ActivePostMeta extends PostInfo {
 	shouldShowInitially: boolean;
 	isActive: boolean;

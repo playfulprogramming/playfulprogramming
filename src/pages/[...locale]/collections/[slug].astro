@@ -74,6 +74,7 @@ const collectionHtml = await getMarkdownHtml(collection);
 							return (
 								<li>
 									<CollectionChapter
+										collection={collection}
 										num={post.order}
 										title={post.title}
 										description={post.description}
@@ -88,6 +89,7 @@ const collectionHtml = await getMarkdownHtml(collection);
 							return (
 								<li>
 									<CollectionChapter
+										collection={collection}
 										num={post.order}
 										title={post.title}
 										description={post.description}

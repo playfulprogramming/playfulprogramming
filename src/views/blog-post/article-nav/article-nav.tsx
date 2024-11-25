@@ -2,7 +2,7 @@ import { PostInfo, CollectionInfo } from "types/index";
 import style from "./article-nav.module.scss";
 import arrow_left from "../../../icons/arrow_left.svg?raw";
 import arrow_right from "../../../icons/arrow_right.svg?raw";
-import { getShortTitle } from "../series/base";
+import { getShortTitle } from "../../../utils/remove-article-collection-prefix";
 import { getHrefContainerProps } from "utils/href-container-script";
 
 type ArticleNavItemProps = {
