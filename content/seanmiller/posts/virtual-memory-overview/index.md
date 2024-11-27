@@ -98,9 +98,9 @@ int main() {
 }
 ```
 
-Just so we understand what is going on here, I created a global vector pointer that I did not define. Therefore it is just on the stack represented as a '0'. When example1() is called it allocates memory for vec on the heap and instantiates a vector with all zeros. You can access the vector using the memory address on the stack. When I print out just "vec" it will print out the memory address of the location on the heap where it is stored, when I call *vec it then goes to that memory location on the heap. More on pointers in a later article.
+Just so we understand what is going on here, I created a global vector pointer that I did not define. Therefore it is just on the stack represented as a '0'. When **example1()** is called it allocates memory for vec on the heap and instantiates a vector with all zeros. You can access the vector using the memory address on the stack. When I print out just "vec" it will print out the memory address of the location on the heap where it is stored, when I call *vec it then goes to that memory location on the heap. **[To learn more about pointers, read this article](/posts/pointers-and-references-cpp)**.
 
-The other method, example2(), just creates a new local vector and sets vec equal to it. You'll see why this is problematic later on. When the program is run in the order example1() -> example2() everything will work fine. And here is the output:
+The other method, **example2()**, just creates a new local vector and sets vec equal to it. You'll see why this is problematic later on. When the program is run in the order **example1()** -> **example2()** everything will work fine. And here is the output:
 
 ```
 0
@@ -114,7 +114,7 @@ The other method, example2(), just creates a new local vector and sets vec equal
 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 ```
 
-**But**, when you call it in the other order, calling example2() first, this is what happens...
+**But**, when you call it in the other order, calling **example2()** first, this is what happens...
 
 ```
 0
