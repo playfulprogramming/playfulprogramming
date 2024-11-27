@@ -2,7 +2,7 @@
 {
   title: "Writing Modern JavaScript without a Bundler",
   description: "",
-  published: "2024-11-18T21:52:59.284Z",
+  published: "2024-11-27T21:52:59.284Z",
   tags: ["javascript", "webdev"],
   license: "cc-by-4",
 }
@@ -229,13 +229,20 @@ root.innerText = date;
 
 # Installing Libraries from NPM {#npm}
 
-While using a CDN can be convinient, it comes with a number of problems:
+While using a CDN can be convenient, it comes with a number of problems:
 
 - Reliance on someone else's uptime
 - Trusting a third-party's security to not replace modules later
 - IDE and tooling issues
 
 To sidestep this, it would be ideal for us to use the NPM registry to load our modules in our apps manually.
+
+> **Unfamiliar with NPM?:**
+> If you're new to web development, you may not know what NPM is.
+>
+> Thankfully, we have an article that explains it in detail!
+>
+> 📝 **[Webdev 101: How to use npm and Yarn](/posts/how-to-use-npm)**
 
 However, if we were to `npm install` normally, it would place our installs inside of `node_modules`. Instead, we need our installs to go into `src` so that our web server is able to reference those files using the public server URL.
 
