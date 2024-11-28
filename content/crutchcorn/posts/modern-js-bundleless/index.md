@@ -1,7 +1,7 @@
 ---
 {
   title: "Writing Modern JavaScript without a Bundler",
-  description: "",
+  description: "Let's explore how we can build a website using many of the conveniences of a Vite app while remaining buildless.",
   published: "2024-11-27T21:52:59.284Z",
   tags: ["javascript", "webdev"],
   license: "cc-by-4",
