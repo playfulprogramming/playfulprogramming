@@ -8,6 +8,7 @@ import mastodon from "src/icons/mastodon.svg?raw";
 import bluesky from "src/icons/bluesky.svg?raw";
 import facebook from "src/icons/facebook.svg?raw";
 import rss from "src/icons/rss.svg?raw";
+import youtube from "src/icons/youtube.svg?raw";
 
 const icons: Record<string, string> = {
 	discord,
@@ -17,6 +18,7 @@ const icons: Record<string, string> = {
 	bluesky,
 	facebook,
 	rss,
+	youtube,
 };
 
 export function Links() {

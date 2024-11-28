@@ -1,0 +1,11 @@
+{
+	"name": "@playfulprogramming/cdn",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"start": "browser-sync start --server \"src\" --watch --no-ui"
+	},
+	"devDependencies": {
+		"browser-sync": "^3.0.3"
+	}
+}
