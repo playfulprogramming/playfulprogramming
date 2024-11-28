@@ -1,0 +1,12 @@
+{
+	"name": "@playfulprogramming/importmap",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"start": "browser-sync start --server \"src\" --watch --no-ui"
+	},
+	"devDependencies": {
+		"browser-sync": "^3.0.3"
+	}
+}
