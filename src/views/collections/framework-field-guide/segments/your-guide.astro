@@ -2,6 +2,8 @@
 import { Picture } from "components/image/picture";
 import styles from "./your-guide.module.scss";
 import { getPersonById } from "utils/api";
+import YourGuideMetrics from "../components/your-guide-metrics.astro";
+import YourGuideTextContainer from "../components/your-guide-text-container.astro";
 ---
 
 <section class={styles.guideContainer} aria-labelledby="your-guide">
@@ -19,75 +21,6 @@ import { getPersonById } from "utils/api";
 		Hi, I'm <span class={styles.authorName}>Corbin Crutchley</span>, the author
 		of <span class={styles.seriesName}>The Framework Field Guide</span> 📒.
 	</p>
-	<div class={styles.guideTextContainer}>
-		<p class={`text-style-button ${styles.titleText}`}>
-			<span>Staff Engineer</span>
-			<span class={styles.titleDivider}>·</span>
-			<a
-				class={`text-style-button ${styles.titleLink}`}
-				href="https://stars.github.com/profiles/crutchcorn/">GitHub Star</a
-			>
-		</p>
-		<p class={`text-style-body-medium ${styles.guideText}`}>
-			With more than 8 years of web development experience and after getting to
-			know these frameworks from the inside out, the 'Framework Field Guide'
-			consists of knowledge I wish I had access to when I first started out.
-			<br />
-			<br />
-			The series will take you through all the necessary stages, no matter your level
-			of proficiency. My goal is to provide access to learning tools and support
-			for everyone, so they can go and build their vision.
-		</p>
-	</div>
-	<ul class={styles.metricsContainer} aria-label="Metrics about Corbin">
-		<li class={styles.metricItem} aria-label="70 blog posts">
-			<span class={`text-style-headline-4 ${styles.metricNumber}`}>70</span>
-			<br />
-			<span class={`text-style-body-small ${styles.metricName}`}
-				>Blog posts</span
-			>
-		</li>
-
-		<li class={styles.metricItem} aria-label="1,300 hours streamed">
-			<span class={`text-style-headline-4 ${styles.metricNumber}`}>1,300</span>
-			<br />
-			<span class={`text-style-body-small ${styles.metricName}`}
-				>Hours streamed</span
-			>
-		</li>
-
-		<li class={styles.metricItem} aria-label="19,000 GitHub contributions">
-			<span class={`text-style-headline-4 ${styles.metricNumber}`}>19K</span>
-			<br />
-			<span class={`text-style-body-small ${styles.metricName}`}
-				>GitHub contributions</span
-			>
-		</li>
-
-		<li class={styles.metricItem} aria-label="250,000 blog reads">
-			<span class={`text-style-headline-4 ${styles.metricNumber}`}>250K</span>
-			<br />
-			<span class={`text-style-body-small ${styles.metricName}`}
-				>Blog reads</span
-			>
-		</li>
-
-		<li class={styles.metricItem} aria-label="19,000,000 monthly NPM installs">
-			<span class={`text-style-headline-4 ${styles.metricNumber}`}>19M</span>
-			<br />
-			<span class={`text-style-body-small ${styles.metricName}`}
-				>Monthly NPM installs</span
-			>
-		</li>
-
-		<li class={styles.metricItem} aria-label="Infinity silly jokes made">
-			<span class={styles.metricNumberInfinityContainer}>
-				<span class={styles.metricNumberInfinity}>∞</span>
-			</span>
-			<br />
-			<span class={`text-style-body-small ${styles.metricName}`}
-				>Silly jokes made</span
-			>
-		</li>
-	</ul>
+	<YourGuideMetrics />
+	<YourGuideTextContainer />
 </section>

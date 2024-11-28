@@ -351,7 +351,7 @@ After the lexer has converted the code into a series of tokens (complete with me
 
 > A tree is a kind of memory structure that represents a hierarchy of information related to one another. While [we touched on this concept in our "Understanding the DOM" article](/posts/understanding-the-dom/), here's a quick chart from that article to show an example tree:
 >
-> ![](../understanding-the-dom/dom_tree.svg)
+> ![](../../../ljtech/collections/web-fundamentals/posts/understanding-the-dom/dom_tree.svg)
 >
 > Once a set of data is turned into a tree, the computer knows how to "walk" through this tree and utilize the data (and metadata of their relationships) to take actions. In this case, the tree that is created by the parser is traversed to compile the code into instruction sets.
 

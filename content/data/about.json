@@ -4,17 +4,21 @@
 			"icon": "discord",
 			"url": "https://discord.gg/FMcvc6T"
 		},
+		"X (Twitter)": {
+			"icon": "twitter",
+			"url": "https://x.com/playful_program"
+		},
 		"LinkedIn": {
 			"icon": "linkedin",
 			"url": "https://www.linkedin.com/company/playfulprogramming"
 		},
-		"Twitter": {
-			"icon": "twitter",
-			"url": "https://x.com/playful_program"
-		},
 		"Mastodon": {
 			"icon": "mastodon",
 			"url": "https://hachyderm.io/@playfulprogramming"
+		},
+		"Bluesky": {
+			"icon": "bluesky",
+			"url": "https://bsky.app/profile/playfulprogramming.com"
 		},
 		"Facebook": {
 			"icon": "facebook",
@@ -23,6 +27,10 @@
 		"RSS Feed": {
 			"icon": "rss",
 			"url": "/rss.xml"
+		},
+		"Youtube": {
+			"icon": "youtube",
+			"url": "https://www.youtube.com/@playful-programming"
 		}
 	},
 	"sponsors": [
@@ -35,6 +43,11 @@
 			"name": "OceanBit",
 			"logo": "/sponsors/oceanbit.svg",
 			"url": "https://oceanbit.dev/"
+		},
+		{
+			"name": "Orama",
+			"logo": "/sponsors/orama.svg",
+			"url": "https://orama.com/"
 		}
 	]
 }

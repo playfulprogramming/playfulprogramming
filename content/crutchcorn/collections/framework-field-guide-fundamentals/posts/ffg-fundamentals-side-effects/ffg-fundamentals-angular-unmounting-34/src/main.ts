@@ -2,7 +2,6 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, OnDestroy } from "@angular/core";
-import { NgIf } from "@angular/common";
 
 @Component({
 	selector: "cleanup-comp",
@@ -18,11 +17,13 @@ class CleanupComponent implements OnDestroy {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf, CleanupComponent],
+	imports: [CleanupComponent],
 	template: `
 		<div>
 			<button (click)="toggle()">Toggle</button>
-			<cleanup-comp *ngIf="show" />
+			@if (show) {
+				<cleanup-comp />
+			}
 		</div>
 	`,
 })

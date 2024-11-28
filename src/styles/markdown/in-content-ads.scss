@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 /**
  * We cannot use the "A D" word in the markup, otherwise it will be blocked by ad blockers.
@@ -57,6 +57,7 @@
 
 .in-content-image {
 	height: 152px;
+	z-index: 1;
 
 	@include from($tabletSmall) {
 		min-height: 152px;

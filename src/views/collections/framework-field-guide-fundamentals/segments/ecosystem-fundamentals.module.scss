@@ -1,5 +1,5 @@
-@import "src/tokens/index";
-@import "../../framework-field-guide/tokens/breakpoints";
+@use "src/tokens/index" as *;
+@use "../../framework-field-guide/tokens/breakpoints" as *;
 
 :root {
 	--sign-up-btn-gap: var(--spc-6x);

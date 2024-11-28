@@ -1,4 +1,5 @@
-@import "./vars";
+@use "sass:list";
+@use "vars";
 
 @function pxToRem($pxNum) {
 	@return #{calc($pxNum / 16)}rem;
@@ -7,7 +8,7 @@
 @mixin transition($properties) {
 	$transitions: ();
 	@each $prop in $properties {
-		$transitions: append($transitions, $prop $animStyle $animSpeed, comma);
+		$transitions: list.append($transitions, $prop vars.$animStyle vars.$animSpeed, comma);
 	}
 	transition: $transitions;
 }

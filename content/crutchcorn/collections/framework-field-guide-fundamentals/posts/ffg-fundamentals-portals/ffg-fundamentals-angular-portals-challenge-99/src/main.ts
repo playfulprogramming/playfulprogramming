@@ -12,7 +12,7 @@ import {
 	inject,
 	AfterViewInit,
 } from "@angular/core";
-import { NgIf } from "@angular/common";
+
 import { DomPortalOutlet, TemplatePortal } from "@angular/cdk/portal";
 
 @Injectable({
@@ -25,7 +25,7 @@ class PortalService {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [NgIf],
+	imports: [],
 	template: `
 		<div
 			style="

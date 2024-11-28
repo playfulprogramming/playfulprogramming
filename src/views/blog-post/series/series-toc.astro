@@ -3,9 +3,10 @@ import styles from "./series-toc.module.scss";
 import { PostInfo } from "types/index";
 
 import { Button } from "../../../components";
-import { findActivePost, getShortTitle } from "./base";
+import { findActivePost } from "./base";
 import { CollectionInfo } from "types/CollectionInfo";
 import { translate } from "../../../utils";
+import { getShortTitle } from "../../../utils/remove-article-collection-prefix";
 
 interface SeriesTocProps {
 	post: PostInfo;
@@ -39,7 +40,7 @@ const showMoreText = translate(
 					{collection ? (
 						<a
 							class={`text-style-headline-4 ${styles.articleTitle}`}
-							href={`/collections/${collection.slug}`}
+							href={`/collections/${collection.upToDateSlug ?? collection.slug}`}
 						>
 							{collection.title}
 						</a>

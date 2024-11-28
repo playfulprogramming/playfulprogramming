@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 :root {
 	--toc_header_padding-top: var(--site-spacing);
@@ -79,7 +79,9 @@
 	text-decoration: none;
 	min-height: var(--min-target-size_m);
 	border-radius: var(--corner-radius_l);
-	padding: var(--toc_item_padding-vertical) 0;
+	padding-top: var(--toc_item_padding-vertical);
+	padding-bottom: var(--toc_item_padding-vertical);
+	padding-right: var(--toc_item_padding-end);
 
 	@include transition(color background-color);
 }

@@ -1,3 +1,5 @@
+@use "src/styles/text-styles.scss";
+
 :root {
 	--tooltip_padding-vertical: var(--spc-3x);
 	--tooltip_padding-start: var(--spc-3x);
@@ -49,7 +51,7 @@
 		margin-top: var(--tooltip_desc-gap);
 
 		& > * {
-			@extend .text-style-body-small;
+			@extend .text-style-body-small !optional;
 		}
 
 		& > *:first-child {

@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 .header {
 	align-items: center;
@@ -16,10 +16,6 @@
 	}
 
 	@include from($desktopSmall) {
-		grid-template-columns: repeat(1, minmax(0, 1fr));
-	}
-
-	@include from($desktopLarge) {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 }

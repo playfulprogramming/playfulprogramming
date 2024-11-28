@@ -60,7 +60,6 @@ export function getPostsByCollection(
 	return [...posts.values()]
 		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
 		.filter((p) => p?.collection === collectionSlug)
-		.filter((p) => !p.noindex)
 		.sort((postA, postB) =>
 			Number(postA.order) > Number(postB.order) ? 1 : -1,
 		);
@@ -90,6 +89,7 @@ export function getCollectionsByLang(language: Languages): CollectionInfo[] {
 	return [...collections.values()]
 		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
 		.filter(isDefined)
+		.filter((p) => !p.noindex)
 		.sort(compareByPublished);
 }
 
@@ -101,6 +101,7 @@ export function getCollectionsByPerson(
 		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
 		.filter(isDefined)
 		.filter((c) => c.authors.includes(personId))
+		.filter((p) => !p.noindex)
 		.sort(compareByPublished);
 }
 

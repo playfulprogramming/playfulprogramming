@@ -67,7 +67,7 @@ export function getPictureUrls(options: GetPictureOptions): GetPictureUrls {
 		: [options.width];
 
 	const src =
-		typeof options.src === "object" ? options.src.src : options.src ?? 2000;
+		typeof options.src === "object" ? options.src.src : (options.src ?? 2000);
 
 	const urls: GetPictureUrls = {};
 

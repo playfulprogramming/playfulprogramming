@@ -17,6 +17,7 @@ export interface RawPersonInfo {
 		threads?: string;
 		youtube?: string;
 		cohost?: string;
+		bluesky?: string;
 	};
 	pronouns?: string;
 	profileImg: string;

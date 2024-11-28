@@ -11,7 +11,6 @@ import {
 	inject,
 } from "@angular/core";
 import { Portal, PortalModule, TemplatePortal } from "@angular/cdk/portal";
-import { NgIf } from "@angular/common";
 
 @Injectable({
 	providedIn: "root",
@@ -49,14 +48,13 @@ class ModalComponent {
 @Component({
 	selector: "app-root",
 	standalone: true,
-	imports: [PortalModule, ModalComponent, NgIf],
+	imports: [PortalModule, ModalComponent],
 	template: `
-		<div
-			style="height: 100px; width: 100px; border: 2px solid black;"
-			*ngIf="portalService.portal"
-		>
-			<ng-template [cdkPortalOutlet]="portalService.portal" />
-		</div>
+		@if (portalService.portal) {
+			<div style="height: 100px; width: 100px; border: 2px solid black;">
+				<ng-template [cdkPortalOutlet]="portalService.portal" />
+			</div>
+		}
 		<modal-comp />
 	`,
 })

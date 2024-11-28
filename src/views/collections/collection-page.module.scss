@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 :root {
 	--collection-page_banner_corner-radius: var(--corner-radius_l);
@@ -181,6 +181,10 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
+}
+
+.authorsList li + li {
+	margin-top: var(--spc-4x);
 }
 
 .authorContainer {

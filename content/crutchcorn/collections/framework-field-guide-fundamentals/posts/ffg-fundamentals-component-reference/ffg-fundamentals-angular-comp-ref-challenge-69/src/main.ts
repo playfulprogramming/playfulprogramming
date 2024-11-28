@@ -10,7 +10,6 @@ import {
 	Output,
 	ViewChild,
 } from "@angular/core";
-import { NgIf } from "@angular/common";
 
 @Component({
 	selector: "app-layout",
@@ -42,20 +41,24 @@ class LayoutComponent {
 @Component({
 	selector: "app-sidebar",
 	standalone: true,
-	imports: [NgIf],
+	imports: [],
 	template: `
-		<button *ngIf="isCollapsed" (click)="toggleCollapsed()">Toggle</button>
-		<div *ngIf="!isCollapsed">
+		@if (isCollapsed) {
 			<button (click)="toggleCollapsed()">Toggle</button>
-			<ul style="padding: 1rem">
-				<li>List item 1</li>
-				<li>List item 2</li>
-				<li>List item 3</li>
-				<li>List item 4</li>
-				<li>List item 5</li>
-				<li>List item 6</li>
-			</ul>
-		</div>
+		}
+		@if (!isCollapsed) {
+			<div>
+				<button (click)="toggleCollapsed()">Toggle</button>
+				<ul style="padding: 1rem">
+					<li>List item 1</li>
+					<li>List item 2</li>
+					<li>List item 3</li>
+					<li>List item 4</li>
+					<li>List item 5</li>
+					<li>List item 6</li>
+				</ul>
+			</div>
+		}
 	`,
 })
 class SidebarComponent {

@@ -2,12 +2,12 @@ import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component, ContentChild, Input, TemplateRef } from "@angular/core";
-import { NgFor, NgTemplateOutlet } from "@angular/common";
+import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
 	selector: "table-comp",
 	standalone: true,
-	imports: [NgFor, NgTemplateOutlet],
+	imports: [NgTemplateOutlet],
 	template: `
 		<table>
 			<thead>
@@ -18,11 +18,12 @@ import { NgFor, NgTemplateOutlet } from "@angular/common";
 			</thead>
 
 			<tbody>
-				<ng-template
-					*ngFor="let item of data; let index = index"
-					[ngTemplateOutlet]="body"
-					[ngTemplateOutletContext]="{ rowI: index, value: item }"
-				/>
+				@for (item of data; track item; let index = $index) {
+					<ng-template
+						[ngTemplateOutlet]="body"
+						[ngTemplateOutletContext]="{ rowI: index, value: item }"
+					/>
+				}
 			</tbody>
 		</table>
 	`,

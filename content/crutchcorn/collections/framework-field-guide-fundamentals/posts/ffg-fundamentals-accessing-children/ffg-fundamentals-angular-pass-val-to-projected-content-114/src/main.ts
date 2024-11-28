@@ -14,11 +14,12 @@ import {
 	template: `
 		<p>There are {{ children.length }} number of items in this array</p>
 		<ul>
-			<ng-template
-				*ngFor="let template of children; let i = index"
-				[ngTemplateOutlet]="template"
-				[ngTemplateOutletContext]="{ backgroundColor: i % 2 ? 'grey' : '' }"
-			></ng-template>
+			@for (template of children; track template; let i = $index) {
+				<ng-template
+					[ngTemplateOutlet]="template"
+					[ngTemplateOutletContext]="{ backgroundColor: i % 2 ? 'grey' : '' }"
+				></ng-template>
+			}
 		</ul>
 	`,
 })
@@ -34,13 +35,11 @@ class ParentListComponent {
 	imports: [ParentListComponent],
 	template: `
 		<parent-list>
-			<ng-template
-				#listItem
-				*ngFor="let item of list; let i = index"
-				let-backgroundColor="backgroundColor"
-			>
-				<li [style]="{ backgroundColor }">{{ i }} {{ item }}</li>
-			</ng-template>
+			@for (item of list; track item; let i = $index) {
+				<ng-template #listItem let-backgroundColor="backgroundColor">
+					<li [style]="{ backgroundColor }">{{ i }} {{ item }}</li>
+				</ng-template>
+			}
 		</parent-list>
 		<button (click)="addOne()">Add</button>
 	`,

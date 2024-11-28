@@ -1,16 +1,24 @@
 ---
 import styles from "./collection-chapter.module.scss";
 import { getHrefContainerProps } from "utils/href-container-script";
+import { CollectionInfo } from "../../types";
+import { getShortTitle } from "../../utils/remove-article-collection-prefix";
 
 interface CollectionChapter {
+	collection: CollectionInfo;
 	num: number;
 	title: string;
 	description: string;
 	href: string;
 }
 
-const { num, title, description, href } = Astro.props as CollectionChapter;
+const { num, title, description, href, collection } =
+	Astro.props as CollectionChapter;
 const hrefProps = href ? getHrefContainerProps(href) : {};
+const shortTitle = getShortTitle(
+	{ title, collection: collection.title },
+	collection,
+);
 ---
 
 <div class={styles.container} {...hrefProps}>
@@ -21,7 +29,7 @@ const hrefProps = href ? getHrefContainerProps(href) : {};
 			</p>
 		</div>
 		<h3 class={`text-style-headline-5 ${styles.title}`}>
-			{href ? <a href={href}>{title}</a> : title}
+			{href ? <a href={href}>{shortTitle}</a> : shortTitle}
 		</h3>
 	</div>
 	<p class={`text-style-body-large ${styles.description}`}>

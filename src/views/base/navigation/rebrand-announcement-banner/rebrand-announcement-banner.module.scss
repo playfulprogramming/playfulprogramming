@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index";
 
 .outerContainer {
 	padding: var(--site-spacing);

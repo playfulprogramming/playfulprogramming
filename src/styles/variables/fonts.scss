@@ -1,4 +1,4 @@
-@import "src/tokens/index";
+@use "src/tokens/index" as *;
 
 :root {
 	--pfp-font-family: "Figtree", "Arial", "Roboto", sans-serif;
