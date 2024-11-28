@@ -8,6 +8,9 @@
 }
 ---
 
+> *Note: Some of the embeds in this article are broken:*
+> We're currently investigating a bug with our StackBlitz embeds. Sorry for the inconvenience!
+
 Modern web development is awesome. We've never had a period of time where our tools enable us to move faster, ship less bugs, and make great web apps.
 
 But while tools like Vite and Webpack are extremely powerful and can provide a better user experience (UX), they can often feel like they're getting in the way of rapid prototyping.
