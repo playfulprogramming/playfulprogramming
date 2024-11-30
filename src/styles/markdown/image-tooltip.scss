@@ -1,0 +1,113 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--image-tooltip_padding-start: calc(var(--spc-2x) - var(--border-width_m));
+	--image-tooltip_padding-end: calc(var(--spc-4x) - var(--border-width_m));
+	--image-tooltip_padding-vertical: calc(var(--spc-2x) - var(--border-width_m));
+	--image-tooltip_offset: var(--corner-radius_m);
+	--image-tooltip_icon-size: var(--icon-size_dense);
+
+	--image-tooltip_gap: var(--spc-1x);
+	--image-tooltip_height: var(--min-target-size_m);
+	--image-tooltip_corner-radius: var(--corner-radius_circular);
+
+	--image-tooltip_focus-outline_width: var(--border-width_focus);
+	--image-tooltip_focus-outline_gap: var(--border-width_focus);
+	--image-tooltip_focus-outline_color: var(--focus-outline_primary);
+}
+
+.image-tooltip--zoom {
+	--image-tooltip_background-color: var(--background_primary);
+	--image-tooltip_foreground-color: var(--foreground_emphasis-high);
+	--image-tooltip_border-width: var(--border-width_m);
+	--image-tooltip_border-color: var(--primary_variant);
+
+	--image-tooltip_content_border-width: 0;
+	--image-tooltip_content_border-color: transparent;
+}
+
+.image-tooltip--link {
+	--image-tooltip_background-color: var(--primary_on-variant);
+	--image-tooltip_foreground-color: var(--background_primary);
+	--image-tooltip_border-width: var(--border-width_l);
+	--image-tooltip_border-color: var(--background_primary);
+
+	--image-tooltip_content_border-width: var(--border-width_l);
+	--image-tooltip_content_border-color: var(--primary_on-variant);
+}
+
+.image-tooltip {
+	display: block;
+	position: relative;
+	padding-top: calc(var(--image-tooltip_height)/2);
+	margin: var(--site-spacing) 0;
+
+	picture {
+		display: flex;
+		border-radius: var(--corner-radius_m);
+		overflow: hidden;
+		background-color: #fff;
+		will-change: background-color;
+		@include transition(background-color);
+
+		border: var(--image-tooltip_content_border-width) solid var(--image-tooltip_content_border-color);
+
+		img {
+			border-radius: 0 !important;
+			mix-blend-mode: multiply;
+		}
+	}
+}
+
+.image-tooltip__label {
+	position: absolute;
+	z-index: 1;
+	top: calc(0.5 * var(--image-tooltip_content_border-width));
+	left: var(--image-tooltip_offset);
+
+	display: flex;
+	align-items: center;
+	gap: var(--image-tooltip_gap);
+	padding-left: var(--image-tooltip_padding-start);
+	padding-right: var(--image-tooltip_padding-end);
+
+	background-color: var(--image-tooltip_background-color);
+	color: var(--image-tooltip_foreground-color);
+
+	min-height: var(--image-tooltip_height);
+	max-width: 80%;
+	border: var(--image-tooltip_border-width) solid var(--image-tooltip_border-color);
+	border-radius: var(--image-tooltip_corner-radius);
+
+	&> svg {
+		width: var(--image-tooltip_icon-size);
+		height: var(--image-tooltip_icon-size);
+		flex-shrink: 0;
+	}
+
+	&> span {
+		min-width: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
+.image-tooltip:hover {
+	.image-tooltip__label {
+		text-decoration: underline;
+	}
+
+	picture {
+		background-color: var(--primary_variant);
+	}
+}
+
+.image-tooltip:focus {
+	outline: none;
+
+	picture {
+		outline: var(--image-tooltip_focus-outline_width) solid var(--image-tooltip_focus-outline_color);
+		outline-offset: var(--image-tooltip_focus-outline_gap);
+	}
+}
