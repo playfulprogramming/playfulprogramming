@@ -45,7 +45,7 @@ places in the code base becomes a maintenance liability.
 # Improving the original
 
 Enter a kind of filter function template, that like the `devs_who_make_at_least()` function, returns a vector of
-pointers to the elements given, but using a provided predicate instead of a hard coded condition:
+[pointers](/posts/pointers-and-references-cpp) to the elements given, but using a provided predicate instead of a hard coded condition:
 
 ```cpp
 template <typename Container, typename Pred>

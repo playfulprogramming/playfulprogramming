@@ -8,7 +8,7 @@
 
 ![](./trompeloeil-logo.png)
 
-As previously [introduced]([/posts/introducing-trompeloeil-c-mocking.html),
+As previously [introduced](/posts/introducing-trompeloeil-c-mocking.html),
 the [Trompeloeil](https://github.com/rollbear/trompeloeil) C++ framework is a new mocking framework for C++14. If you're
 not at all familiar with [Trompeloeil](https://github.com/rollbear/trompeloeil), you may want to read
 the [introductory](/posts/introducing-trompeloeil-c-mocking.html) first.

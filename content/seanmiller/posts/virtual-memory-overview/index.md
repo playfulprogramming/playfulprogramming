@@ -47,7 +47,7 @@ Item bat = new Item();
 
 The heap is where you have to be the most careful because even after termination of the program, whatever you placed on the heap will still be there. This is what creates memory leaks, it's a good rule to know that whenever you call the **new** or **malloc()** keywords, you need an equal number of **delete** or **free()** keywords present.
 
-You will most likely use the heap when you want to create something with a higher scope, or if you want to access it dynamically. That means that your spot on the stack is a set size, but when you create something on the heap it can be any size that you want. The downside is that C uses pointers that sit on the stack in order to access the heap so it will end up being much slower.
+You will most likely use the heap when you want to create something with a higher scope, or if you want to access it dynamically. That means that your spot on the stack is a set size, but when you create something on the heap it can be any size that you want. The downside is that C uses [pointers](/posts/pointers-and-references-cpp) that sit on the stack in order to access the heap so it will end up being much slower.
 
 ## Putting it together
 
