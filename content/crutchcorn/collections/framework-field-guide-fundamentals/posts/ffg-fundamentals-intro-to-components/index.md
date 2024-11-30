@@ -325,7 +325,7 @@ bootstrapApplication(FileComponent);
 
 ## Vue
 
-Because Vue's components all live within dedicated `.vue` SFCs, we have to use two distinct files to render a basic Vue app. We start with our `App.vue` component:
+Because Vue's components all live within dedicated `.vue` SFCs, we have to use two distinct files to render a basic Vue app. We start with our `File.vue` component:
 
 ```vue
 <!-- File.vue -->
