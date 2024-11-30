@@ -12,7 +12,7 @@ const launch = await fs.readFile("src/icons/launch.svg", "utf8");
 const LaunchIcon = fromHtml(launch, { fragment: true }).children[0] as Element;
 LaunchIcon.properties["aria-hidden"] = "true";
 
-interface ImageTooltipProps {
+interface LinkPreviewProps {
 	type: "zoom" | "link";
 	label: string;
 	children: Node[];
@@ -20,13 +20,13 @@ interface ImageTooltipProps {
 }
 
 /** @jsxImportSource hastscript */
-export function ImageTooltip(props: ImageTooltipProps): Element {
+export function LinkPreview(props: LinkPreviewProps): Element {
 	return (
 		<a class={`image-tooltip image-tooltip--${props.type}`} {...props.anchorAttrs}>
-			<div class="image-tooltip__label text-style-button-regular">
+			<span class="image-tooltip__label text-style-button-regular">
 				{props.type === "zoom" ? FullscreenIcon : LaunchIcon}
 				<span>{props.label}</span>
-			</div>
+			</span>
 			{props.children}
 		</a>
 	) as never;

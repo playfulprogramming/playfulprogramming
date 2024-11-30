@@ -11,6 +11,8 @@
 
 This is regular text.
 
+[Writing Modern JavaScript without a Bundler](https://playfulprogramming.com/posts/modern-js-bundleless)
+
 # Single-level list
 
 - List without a nested `<p>` tag

@@ -34,7 +34,7 @@ import {
 	transformInContentAd,
 	transformTabs,
 } from "./components";
-import { rehypeImageTooltip } from "./image-tooltip/rehype-transform";
+import { rehypeLinkPreview } from "./link-preview/rehype-transform";
 
 const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
 
@@ -81,7 +81,7 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypeHints)
 			.use(rehypeTooltips)
 			.use(rehypeAstroImageMd)
-			.use(rehypeImageTooltip)
+			.use(rehypeLinkPreview)
 			.use(rehypeUnicornIFrameClickToRun, {
 				srcReplacements: [
 					(val: string, file: VFile) => {
