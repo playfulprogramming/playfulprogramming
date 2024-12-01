@@ -10,6 +10,12 @@ import { removePrefixLanguageFromPath, translate } from "utils/translations";
 import { SearchInput } from "components/input/input";
 import { SEARCH_QUERY_KEY } from "src/views/search/search";
 import RebrandAnnouncementBanner from "./rebrand-announcement-banner/rebrand-announcement-banner.astro";
+import {
+	SignedIn,
+	SignedOut,
+	UserButton,
+	SignInButton,
+} from "@clerk/astro/components";
 
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
 const isHome = path === "/";
@@ -114,6 +120,14 @@ const props = Astro.props as {
 					) : undefined
 				}
 				<DarkLightButton variant="iconOnly" class={style.themeToggleSmall} />
+				<SignedOut>
+					<SignInButton mode="modal" asChild={true}>
+						<Button>Sign in</Button>
+					</SignInButton>
+				</SignedOut>
+				<SignedIn>
+					<UserButton />
+				</SignedIn>
 			</div>
 		</nav>
 	</div>

@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import { EnumChangefreq as ChangeFreq } from "sitemap";
 import { siteUrl } from "./src/constants/site-config";
+import clerk from "@clerk/astro";
 import vercel from "@astrojs/vercel";
 import symlink from "symlink-dir";
 import * as path from "path";
@@ -70,6 +71,7 @@ export default defineConfig({
 			},
 		}),
 		astroIntegrationCopyGenerated(),
+		clerk(),
 	],
 	vite: {
 		optimizeDeps: {
