@@ -22,6 +22,7 @@ import {
 } from "utils/markdown/constants";
 import { RehypeFunctionComponent } from "../types";
 import { isElement } from "utils/markdown/unist-is-element";
+import { PAGE_HEIGHT, PAGE_WIDTH } from "build-scripts/social-previews/base";
 
 function getImagePath(url: URL) {
 	const hash = crypto.createHash("md5").update(url.toString()).digest("hex");
@@ -50,6 +51,8 @@ async function createLinkElement(anchorNode: Element) {
 			urls: {},
 			image: {
 				src: `https://playfulprogramming.com/generated/${postSlug}.twitter-preview.jpg`,
+				width: PAGE_WIDTH,
+				height: PAGE_HEIGHT,
 			},
 			sources: [],
 		};
