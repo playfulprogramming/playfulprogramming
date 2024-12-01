@@ -22,8 +22,8 @@ interface LinkPreviewProps {
 /** @jsxImportSource hastscript */
 export function LinkPreview(props: LinkPreviewProps): Element {
 	return (
-		<a class={`image-tooltip image-tooltip--${props.type}`} {...props.anchorAttrs}>
-			<span class="image-tooltip__label text-style-button-regular">
+		<a class={`anchored-tooltip anchored-tooltip--${props.type}`} {...props.anchorAttrs}>
+			<span class="anchored-tooltip__label text-style-button-regular">
 				{props.type === "zoom" ? FullscreenIcon : LaunchIcon}
 				<span>{props.label}</span>
 			</span>
