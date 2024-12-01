@@ -32,6 +32,7 @@ import {
 	rehypeTransformComponents,
 	transformFileTree,
 	transformInContentAd,
+	transformLinkPreview,
 	transformTabs,
 } from "./components";
 import { rehypeLinkPreview } from "./link-preview/rehype-transform";
@@ -113,6 +114,7 @@ export function createHtmlPlugins(unified: Processor) {
 				components: {
 					filetree: transformFileTree,
 					["in-content-ad"]: transformInContentAd,
+					["link-preview"]: transformLinkPreview,
 					["no-ebook"]: ({ children }) => children,
 					["only-ebook"]: () => [],
 					tabs: transformTabs,

@@ -1,13 +1,10 @@
 import { Root, Element } from "hast";
 import { Plugin } from "unified";
-import { find, Node } from "unist-util-find";
-import { SKIP, visit } from "unist-util-visit";
-import { LinkPreview } from "./link-preview";
+import { find } from "unist-util-find";
+import { visit } from "unist-util-visit";
+import { LinkPreview } from "../components/link-preview/link-preview";
 import { toString } from "hast-util-to-string";
-import { URL } from "url";
-
-const isElement = (e: Root | Element | Node | undefined): e is Element =>
-	e?.type == "element";
+import { isElement } from "../unist-is-element";
 
 function replacePictureElement(anchorNode: Element) {
 	const pictureIndex = anchorNode.children.findIndex(
@@ -22,81 +19,32 @@ function replacePictureElement(anchorNode: Element) {
 	// When given an <a><img/></a>, treat it as a link preview
 	imgNode.properties["data-nozoom"] = true;
 
+	const anchorText = toString(anchorNode);
+
 	const tooltip = LinkPreview({
 		type: "link",
-		label: anchorNode.properties.href + "",
-		children: anchorNode.children,
+		label: anchorText.length ? anchorText : anchorNode.properties.href + "",
+		children: [pictureNode],
 		anchorAttrs: anchorNode.properties,
 	});
 
 	Object.assign(anchorNode, tooltip);
 }
 
-function replaceLinkElement(anchorNode: Element) {
-	let url: URL;
-	try {
-		url = new URL(anchorNode.properties.href + "");
-	} catch (e) {
-		return;
-	}
-
-	let src: string | undefined;
-
-	if (url.hostname === "playfulprogramming.com") {
-		const path = /^\/posts\/([\w\-]+)/.exec(url.pathname);
-		if (!path) return;
-
-		const postSlug = path[1];
-		if (!postSlug) return;
-
-		src = `https://playfulprogramming.com/generated/${postSlug}.twitter-preview.jpg`;
-	}
-
-	if (!src) return;
-
-	const picture: Element = {
-		type: "element",
-		tagName: "picture",
-		properties: {},
-		children: [
-			{
-				type: "element",
-				tagName: "img",
-				properties: {
-					src,
-					alt: "",
-					["data-nozoom"]: "",
-				},
-				children: [],
-			},
-		],
-	};
-
-	const tooltip = LinkPreview({
-		type: "link",
-		label: toString(anchorNode),
-		children: [picture],
-		anchorAttrs: anchorNode.properties,
-	});
-
-	Object.assign(anchorNode, tooltip);
-}
-
+/**
+ * Transform image-wrapped links into a link preview component
+ * Expects: <a><picture><img/></picture></a> / [![](image.png)](url)
+ */
 export const rehypeLinkPreview: Plugin<[], Root> = () => {
 	return async (tree) => {
+		const promises: Array<Promise<void>> = [];
+
 		visit(tree, "element", (node: Element) => {
 			if (node.tagName === "a") {
 				replacePictureElement(node);
 			}
-
-			if (node.tagName === "p" && node.children.length === 1) {
-				const childNode = node.children[0];
-				if (isElement(childNode) && childNode.tagName === "a") {
-					replaceLinkElement(childNode);
-				}
-			}
-
-			return SKIP;
 		});
+
+		await Promise.all(promises);
 	};
 };
