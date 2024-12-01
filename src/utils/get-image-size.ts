@@ -10,7 +10,8 @@ export async function getImageSize(src: string, relativeDir: string) {
 	const metadata = await sharp(buffer).metadata();
 	const width = Number(metadata.width);
 	const height = Number(metadata.height);
-	if (!isFinite(width) || !isFinite(height)) return undefined;
+	const format = metadata.format;
+	if (!isFinite(width) || !isFinite(height) || !format) return undefined;
 
-	return { width, height };
+	return { width, height, format };
 }

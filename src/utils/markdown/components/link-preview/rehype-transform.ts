@@ -70,17 +70,25 @@ async function createLinkElement(anchorNode: Element) {
 		if (!body) return;
 
 		const imagePath = getImagePath(imageUrl);
-		const imageExt = path.extname(imageUrl.pathname);
+		let imageExt = path.extname(imageUrl.pathname);
 
 		const writeStream = fs.createWriteStream("public/" + imagePath + imageExt);
 		await stream.promises.finished(
 			stream.Readable.fromWeb(body as never).pipe(writeStream),
 		);
-
-		const src = "/" + imagePath + imageExt;
 		// src is an absolute path, so the second getImageSize arg is never used
-		const dimensions = await getImageSize(src, "");
+		const dimensions = await getImageSize("/" + imagePath + imageExt, "");
 		if (!dimensions) return;
+
+		// If the image is missing an extension, replace it with the format from sharp metadata
+		if (!imageExt) {
+			imageExt = `.${dimensions.format}`;
+			await fs.promises.rename(
+				"public/" + imagePath,
+				"public/" + imagePath + imageExt,
+			);
+		}
+
 		const imageRatio = dimensions.width / dimensions.height;
 
 		if (dimensions.height > IMAGE_MAX_HEIGHT) {
@@ -94,7 +102,7 @@ async function createLinkElement(anchorNode: Element) {
 		}
 
 		result = getPicture({
-			src,
+			src: "/" + imagePath + imageExt,
 			width: dimensions.width,
 			height: dimensions.height,
 			sizes: IMAGE_SIZES,
