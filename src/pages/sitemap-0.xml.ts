@@ -12,10 +12,6 @@ import { Languages } from "types/index";
 import { Readable } from "stream";
 import { siteUrl } from "constants/site-config";
 
-const About = (await import("./[...locale]/about.astro")) as unknown as {
-	getStaticPaths: () => Promise<Array<{ params: { locale?: Languages } }>>;
-};
-
 const sitemapDefaults: Pick<
 	SitemapItemLoose,
 	"lastmod" | "changefreq" | "priority"
@@ -46,8 +42,7 @@ export const GET = async () => {
 		});
 	}
 
-	const aboutPageLocales = (await About.getStaticPaths())
-		.map((page) => page.params.locale)
+	const aboutPageLocales = (await api.getLocaleForSitePage("about-us"))
 		.sort();
 	for (const locale of aboutPageLocales) {
 		entries.push({

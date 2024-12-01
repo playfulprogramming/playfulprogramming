@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getAllPosts, getPostBySlug } from "utils/api";
+import { getPostBySlug } from "utils/api";
 import path from "path";
 import { contentDirectory } from "utils/data";
 import fs from "fs/promises";
@@ -16,7 +16,22 @@ export async function findProjectDir(slug: string): Promise<string> {
 
 export const GET: APIRoute = async ({ params }) => {
 	const slug = String(params.slug);
-	const dir = await findProjectDir(slug);
+	let dir: string;
+	try {
+		dir = await findProjectDir(slug);
+	} catch (error) {
+		return new Response("Related post not found", { status: 404 });
+	}
+
+	try {
+		const stat = await fs.stat(dir);
+		if (!stat.isDirectory()) {
+			return new Response("Project not found", { status: 404 });
+		}
+	} catch (error) {
+		return new Response("Project not found", { status: 404 });
+	}
+
 	const files = await fs.readdir(dir, { recursive: true });
 	const zipFiles: Record<string, Buffer> = {};
 	for (const file of files) {
@@ -47,24 +62,3 @@ export const GET: APIRoute = async ({ params }) => {
 		},
 	});
 };
-
-export async function getStaticPaths() {
-	const projects = new Set<string>();
-
-	for (const post of getAllPosts()) {
-		const postDir = path.join(contentDirectory, post.path);
-		for (const entry of await fs.readdir(postDir, { withFileTypes: true })) {
-			if (entry.isDirectory()) {
-				if (entry.name.includes("_")) {
-					throw new Error(
-						`Project ID (${post.slug}/${entry.name}) must not contain an '_'.`,
-					);
-				}
-				const projectId = `${post.slug}_${entry.name}`;
-				projects.add(projectId);
-			}
-		}
-	}
-
-	return Array.from(projects).map((slug) => ({ params: { slug } }));
-}

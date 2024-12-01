@@ -1,3 +1,5 @@
+import { join } from "node:path";
+import {promises as fs} from "node:fs";
 import {
 	CollectionInfo,
 	PostInfo,
@@ -6,8 +8,9 @@ import {
 	PostVersion,
 } from "types/index";
 import { Languages } from "types/index";
-import { roles, people, posts, collections } from "./data";
+import { roles, people, posts, collections, contentDirectory } from "./data";
 import { isDefined } from "./is-defined";
+import { getLanguageFromFilename } from "./translations";
 
 function compareByDate(date1: string, date2: string): number {
 	return new Date(date1) > new Date(date2) ? -1 : 1;
@@ -136,4 +139,17 @@ export function getRoleById(
 ): RolesInfo | undefined {
 	// TODO: support role name translations
 	return roles.find((r) => r.id === roleId);
+}
+
+export async function getLocaleForSitePage(
+	page: string
+) {
+	const files = (await fs.readdir(join(contentDirectory, "site")))
+		.filter((filename) => filename.startsWith(page))
+		.map((filename) => ({
+			file: join(contentDirectory, "site", filename),
+			locale: getLanguageFromFilename(filename),
+		}));
+
+	return files.map((d) => d.locale);
 }

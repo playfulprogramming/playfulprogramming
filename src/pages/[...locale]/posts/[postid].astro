@@ -8,35 +8,22 @@ import { getMarkdownHtml } from "utils/markdown";
 import { isDefined } from "utils/is-defined";
 import { getPostImages } from "utils/hoof";
 
-export async function getStaticPaths() {
-	const posts = api.getAllPosts();
-
-	return posts.map((post) => {
-		return {
-			params: {
-				locale: post.locale !== "en" ? post.locale : undefined,
-				postid: post.slug,
-			},
-			props: {
-				slug: post.slug,
-				upToDateSlug: post.upToDateSlug,
-			},
-		};
-	});
-}
-
-const { slug, upToDateSlug } = Astro.props as {
-	slug: string;
-	upToDateSlug: string;
-};
-
 const params = Astro.params as {
 	locale: Languages;
 	postid: string;
 };
 
+const slug = params.postid;
+
 const locale = params.locale ?? "en";
 const post = api.getPostBySlug(slug, locale)!;
+
+const upToDateSlug = post?.upToDateSlug || undefined;
+
+if (!post) {
+	return Astro.redirect("/404");
+}
+
 const authors = post.authors
 	.map((personId) => api.getPersonById(personId, locale))
 	.filter(isDefined);
