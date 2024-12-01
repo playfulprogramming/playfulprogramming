@@ -6,6 +6,7 @@
 	gap: var(--section-gap);
 	margin: 0;
 	padding: 0;
+	padding-bottom: var(--spc-6x);
 	list-style-type: none;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(2, 1fr);
