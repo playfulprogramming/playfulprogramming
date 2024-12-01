@@ -11,7 +11,7 @@
 	--link-preview_focus-outline_width: var(--border-width_focus);
 	--link-preview_focus-outline_gap: var(--border-width_focus);
 	--link-preview_focus-outline_color: var(--focus-outline_primary);
-	--link-preview_focus_tint: var(--primary_variant);
+	--link-preview_focus_tint: var(--primary40_32);
 }
 
 .link-preview {
@@ -19,6 +19,8 @@
 	position: relative;
 	padding-top: var(--link-preview_padding-top);
 	margin: var(--site-spacing) 0;
+	line-height: 0;
+	-webkit-tap-highlight-color: transparent;
 
 	.anchored-tooltip {
 		position: absolute;
@@ -39,24 +41,16 @@
 		left: 0;
 		border: var(--link-preview_border_width) solid var(--link-preview_border_color);
 		border-radius: var(--link-preview_corner-radius);
+
+		@include transition(background-color);
 	}
 
 	picture {
-		display: flex;
-		border-radius: calc(var(--link-preview_corner-radius) - var(--link-preview_border_width) - var(--link-preview_border_gap));
-		overflow: hidden;
-		background-color: #fff;
-		will-change: background-color;
-		@include transition(background-color);
-
-		margin: calc(var(--link-preview_border_width) + var(--link-preview_border_gap));
-		position: relative;
-
-		// border: var(--link-preview_border_width) solid var(--link-preview_border_color);
-
+		display: contents;
 		img {
-			border-radius: 0 !important;
-			mix-blend-mode: multiply;
+			max-width: calc(100% - (var(--link-preview_border_width) + var(--link-preview_border_gap))*2);
+			margin: calc(var(--link-preview_border_width) + var(--link-preview_border_gap));
+			border-radius: calc(var(--link-preview_corner-radius) - var(--link-preview_border_width) - var(--link-preview_border_gap));
 		}
 	}
 }
@@ -66,7 +60,7 @@
 		text-decoration: underline;
 	}
 
-	picture {
+	&::after {
 		background-color: var(--link-preview_focus_tint);
 	}
 }
@@ -74,8 +68,8 @@
 .link-preview:focus-visible {
 	outline: none;
 
-	picture {
+	&::after {
 		outline: var(--link-preview_focus-outline_width) solid var(--link-preview_focus-outline_color);
-		outline-offset: calc(var(--link-preview_focus-outline_gap) + var(--link-preview_border_width) + var(--link-preview_border_gap));
+		outline-offset: calc(var(--link-preview_focus-outline_gap));
 	}
 }
