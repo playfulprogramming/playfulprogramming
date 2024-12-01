@@ -25,6 +25,9 @@
 	top: 0;
 	white-space: pre;
 	z-index: 1;
+	flex-wrap: wrap;
+	width: max-content;
+	max-width: 80vw;
 }
 
 .titleDivider {
