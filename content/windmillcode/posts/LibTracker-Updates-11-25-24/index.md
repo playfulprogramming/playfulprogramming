@@ -3,7 +3,7 @@
   title: "LibTracker Updates 11/25/24: Get to personally know your apps with this simple SBOM Tool",
   description: "Updates to the LibTracker Vscode Extension. Simplify dependency management with this simple SBOM tool",
   published: '2024-12-2',
-  tags: ["meta"],
+  tags: ["LibTracker","SBOM","DependencyManagement","SoftwareLicenses","SecurityVulnerabilities","VisualStudioCode","VSCodeExtensions","SoftwareDevelopment","OpenSource","SoftwareEngineering","ApplicationManagement","DevTools","GitIntegration","CVEInsights","SoftwareBillOfMaterials","DeveloperTools"],
   collection: "LibTracker",
   license: 'cc-by-4'
 }
