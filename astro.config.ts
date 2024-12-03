@@ -5,7 +5,7 @@ import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import { EnumChangefreq as ChangeFreq } from "sitemap";
 import { siteUrl } from "./src/constants/site-config";
-import vercel from "@astrojs/vercel/static";
+import vercel from "@astrojs/vercel";
 import symlink from "symlink-dir";
 import * as path from "path";
 import { languages } from "./src/constants/index";
