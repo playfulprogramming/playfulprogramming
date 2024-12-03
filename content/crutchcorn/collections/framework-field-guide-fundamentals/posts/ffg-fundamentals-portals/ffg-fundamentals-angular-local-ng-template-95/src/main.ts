@@ -1,13 +1,15 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
-	AfterViewInit,
 	Component,
 	TemplateRef,
-	ViewChild,
 	ViewContainerRef,
 	inject,
+	afterRenderEffect,
+	viewChild,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 import { PortalModule, TemplatePortal } from "@angular/cdk/portal";
 
@@ -15,30 +17,37 @@ import { PortalModule, TemplatePortal } from "@angular/cdk/portal";
 	selector: "app-root",
 	standalone: true,
 	imports: [PortalModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="height: 100px; width: 100px; border: 2px solid black;">
-			<ng-template [cdkPortalOutlet]="domPortal" />
+			@if (templatePortal()) {
+				<ng-template [cdkPortalOutlet]="templatePortal()" />
+			}
 		</div>
 		<ng-template #portalContent>Hello, this is a template portal</ng-template>
 	`,
 })
-class AppComponent implements AfterViewInit {
-	@ViewChild("portalContent") portalContent!: TemplateRef<unknown>;
+class AppComponent {
+	portalContent = viewChild.required("portalContent", {
+		read: TemplateRef<unknown>,
+	});
 
 	viewContainerRef = inject(ViewContainerRef);
-	domPortal!: TemplatePortal<any>;
+	templatePortal = signal<TemplatePortal | null>(null);
 
-	ngAfterViewInit() {
-		// This is to avoid an:
-		// "Expression has changed after it was checked"
-		// error when trying to set domPortal
-		setTimeout(() => {
-			this.domPortal = new TemplatePortal(
-				this.portalContent,
-				this.viewContainerRef,
+	constructor() {
+		afterRenderEffect((onCleanup) => {
+			this.templatePortal.set(
+				new TemplatePortal(this.portalContent(), this.viewContainerRef),
 			);
-		}, 0);
+
+			onCleanup(() => {
+				this.templatePortal()?.detach();
+			});
+		});
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

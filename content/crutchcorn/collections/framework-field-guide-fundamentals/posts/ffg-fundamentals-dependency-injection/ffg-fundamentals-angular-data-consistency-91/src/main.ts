@@ -1,6 +1,12 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Injectable, Component, inject, OnInit } from "@angular/core";
+import {
+	Injectable,
+	Component,
+	inject,
+	OnInit,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Injectable()
 class UserValue {
@@ -9,7 +15,7 @@ class UserValue {
 
 @Component({
 	selector: "great-grand-child",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Name: {{ user.name }}</p> `,
 })
 class GreatGrandChildComponent {
@@ -20,7 +26,6 @@ class GreatGrandChildComponent {
 
 @Component({
 	selector: "grand-child",
-	standalone: true,
 	providers: [
 		{
 			provide: UserValue,
@@ -28,25 +33,28 @@ class GreatGrandChildComponent {
 		},
 	],
 	imports: [GreatGrandChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<great-grand-child />`,
 })
 class GrandChildComponent {}
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
 	imports: [GrandChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<grand-child />`,
 })
 class ChildComponent {}
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	providers: [{ provide: UserValue, useValue: { name: "Corbin Crutchley" } }],
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<child-comp />`,
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

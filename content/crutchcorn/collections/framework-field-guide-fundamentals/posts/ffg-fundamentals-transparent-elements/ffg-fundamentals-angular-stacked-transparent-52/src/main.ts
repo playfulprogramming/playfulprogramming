@@ -1,11 +1,14 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-container>
 			<ng-container>
@@ -18,4 +21,6 @@ import { Component } from "@angular/core";
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

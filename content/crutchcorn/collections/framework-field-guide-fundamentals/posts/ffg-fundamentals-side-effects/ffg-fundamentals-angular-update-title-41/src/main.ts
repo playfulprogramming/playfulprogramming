@@ -1,11 +1,15 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import {
+	Component,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Component({
 	selector: "title-changer",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="updateTitle('Movies')">Movies</button>
@@ -16,11 +20,11 @@ import { Component } from "@angular/core";
 	`,
 })
 class TitleChangerComponent {
-	title = "Movies";
+	title = signal("Movies");
 
 	updateTitle(val: string) {
 		setTimeout(() => {
-			this.title = val;
+			this.title.set(val);
 			document.title = val;
 		}, 5000);
 	}
@@ -28,23 +32,25 @@ class TitleChangerComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [TitleChangerComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="toggle()">Toggle title changer</button>
-			@if (show) {
+			@if (show()) {
 				<title-changer />
 			}
 		</div>
 	`,
 })
 class AppComponent {
-	show = true;
+	show = signal(true);
 
 	toggle() {
-		this.show = !this.show;
+		this.show.set(!this.show());
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

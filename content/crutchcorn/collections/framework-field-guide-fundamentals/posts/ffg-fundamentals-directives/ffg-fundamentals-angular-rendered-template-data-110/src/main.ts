@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -7,10 +6,12 @@ import {
 	inject,
 	TemplateRef,
 	ViewContainerRef,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 function injectAndRenderTemplate() {
-	const templToRender = inject(TemplateRef<any>);
+	const templToRender = inject(TemplateRef);
 	const parentViewRef = inject(ViewContainerRef);
 
 	parentViewRef.createEmbeddedView(templToRender, {
@@ -21,16 +22,17 @@ function injectAndRenderTemplate() {
 
 @Directive({
 	selector: "[passBackground]",
-	standalone: true,
 })
 class PassBackgroundDirective {
-	template = injectAndRenderTemplate();
+	constructor() {
+		injectAndRenderTemplate();
+	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [PassBackgroundDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<ng-template passBackground let-backgroundColor="backgroundColor">
@@ -41,4 +43,6 @@ class PassBackgroundDirective {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

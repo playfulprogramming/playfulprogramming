@@ -1,39 +1,48 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, OnInit, Input } from "@angular/core";
+import {
+	Component,
+	signal,
+	effect,
+	input,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Component({
 	selector: "app-alert",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Showing alert...</p> `,
 })
-class AlertComponent implements OnInit {
-	@Input() alert!: () => void;
+class AlertComponent {
+	alert = input.required<() => void>();
 
-	ngOnInit() {
-		setTimeout(() => {
-			this.alert();
-		}, 1000);
+	constructor() {
+		effect(() => {
+			setTimeout(() => {
+				const alertFn = this.alert();
+				alertFn();
+			}, 1000);
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [AlertComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button (click)="toggle()">Toggle</button>
-		@if (show) {
+		@if (show()) {
 			<app-alert [alert]="alertUser" />
 		}
 	`,
 })
 class AppComponent {
-	show = false;
+	show = signal(false);
 
 	toggle() {
-		this.show = !this.show;
+		this.show.set(!this.show());
 	}
 
 	alertUser() {
@@ -41,4 +50,6 @@ class AppComponent {
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

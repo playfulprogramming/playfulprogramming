@@ -1,25 +1,29 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, Input } from "@angular/core";
+import {
+	Component,
+	input,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Component({
 	selector: "conditional-render",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<div>
-		@if (bool) {
+		@if (bool()) {
 			<p>Text here</p>
 		}
 	</div>`,
 })
 class ConditionalRenderComponent {
-	@Input() bool!: boolean;
+	bool = input.required<boolean>();
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ConditionalRenderComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<h1>Shown contents</h1>
@@ -31,4 +35,6 @@ class ConditionalRenderComponent {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

@@ -1,11 +1,16 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import {
+	Component,
+	input,
+	output,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Component({
 	selector: "file-action-buttons",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button (click)="delete.emit()">Delete</button>
 		<button (click)="copy.emit()">Copy</button>
@@ -20,18 +25,18 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 	],
 })
 class FileActionButtonsComponent {
-	@Output() delete = new EventEmitter();
-	@Output() copy = new EventEmitter();
-	@Output() favorite = new EventEmitter();
+	delete = output();
+	copy = output();
+	favorite = output();
 }
 
 @Component({
 	selector: "button-bar",
-	standalone: true,
 	imports: [FileActionButtonsComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; gap: 1rem">
-			@if (fileSelected) {
+			@if (fileSelected()) {
 				<file-action-buttons
 					(delete)="delete.emit()"
 					(copy)="copy.emit()"
@@ -43,18 +48,18 @@ class FileActionButtonsComponent {
 	`,
 })
 class ButtonBarComponent {
-	@Input() fileSelected!: boolean;
+	fileSelected = input.required<boolean>();
 
-	@Output() delete = new EventEmitter();
-	@Output() copy = new EventEmitter();
-	@Output() favorite = new EventEmitter();
-	@Output() settings = new EventEmitter();
+	delete = output();
+	copy = output();
+	favorite = output();
+	settings = output();
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ButtonBarComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button-bar
 			[fileSelected]="true"
@@ -71,4 +76,6 @@ class AppComponent {
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

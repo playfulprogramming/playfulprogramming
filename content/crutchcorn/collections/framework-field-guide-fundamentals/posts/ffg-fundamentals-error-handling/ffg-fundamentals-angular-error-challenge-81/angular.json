@@ -17,7 +17,7 @@
 							"base": "dist/demo-app"
 						},
 						"index": "src/index.html",
-						"polyfills": ["zone.js"],
+						"polyfills": [],
 						"tsConfig": "tsconfig.app.json",
 						"scripts": [],
 						"browser": "src/main.ts"

@@ -1,17 +1,21 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+	signal,
+} from "@angular/core";
 
 @Component({
 	selector: "word-list",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="addWord()">Add word</button>
 			<button (click)="removeFirst()">Remove first word</button>
 			<ul>
-				@for (word of words; track word) {
+				@for (word of words(); track word) {
 					<li>
 						{{ word.word }}
 						<input type="text" />
@@ -22,26 +26,19 @@ import { Component } from "@angular/core";
 	`,
 })
 class WordListComponent {
-	words: Word[] = [];
+	words = signal<Word[]>([]);
 
 	addWord() {
 		const newWord = getRandomWord();
 		// Remove ability for duplicate words
-		if (this.words.includes(newWord)) return;
-		this.words = [...this.words, newWord];
+		if (this.words().includes(newWord)) return;
+		this.words.set([...this.words(), newWord]);
 	}
 
 	removeFirst() {
 		const newWords: Word[] = [];
-		for (let i = 0; i < this.words.length; i++) {
-			if (i === 0) continue;
-			// We could just push `this.words[i]` without making a new object
-			// But when we do so the bug I'm hoping to showcase isn't visible.
-			// Further, this is commonplace to make a new object in a list to
-			// avoid accidental mutations
-			newWords.push({ ...this.words[i] });
-		}
-		this.words = newWords;
+		newWords.shift();
+		this.words.set(newWords);
 	}
 }
 
@@ -63,4 +60,6 @@ interface Word {
 	id: number;
 }
 
-bootstrapApplication(WordListComponent);
+bootstrapApplication(WordListComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

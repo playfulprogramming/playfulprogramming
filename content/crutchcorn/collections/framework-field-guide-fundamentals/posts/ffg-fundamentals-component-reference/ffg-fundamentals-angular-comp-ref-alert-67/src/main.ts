@@ -1,11 +1,15 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, ViewChild } from "@angular/core";
+import {
+	Component,
+	viewChild,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<div
 		style="height: 100px; width: 100px; background-color: red;"
 	></div>`,
@@ -19,19 +23,21 @@ class ChildComponent {
 
 @Component({
 	selector: "parent-comp",
-	standalone: true,
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button (click)="sayHiFromChild()">Say hi</button>
 		<child-comp #childVar />
 	`,
 })
 class ParentComponent {
-	@ViewChild("childVar") childComp!: ChildComponent;
+	childComp = viewChild.required("childVar", { read: ChildComponent });
 
 	sayHiFromChild() {
-		this.childComp.sayHi();
+		this.childComp().sayHi();
 	}
 }
 
-bootstrapApplication(ParentComponent);
+bootstrapApplication(ParentComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

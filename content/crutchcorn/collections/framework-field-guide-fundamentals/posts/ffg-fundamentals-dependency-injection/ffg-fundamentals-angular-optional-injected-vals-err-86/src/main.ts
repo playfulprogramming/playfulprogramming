@@ -1,6 +1,12 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Injectable, Component, inject, OnInit } from "@angular/core";
+import {
+	Injectable,
+	Component,
+	inject,
+	OnInit,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Injectable()
 class InjectedValue {
@@ -9,7 +15,7 @@ class InjectedValue {
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>{{ injectedValue.message }}</p>`,
 })
 class ChildComponent {
@@ -18,10 +24,12 @@ class ChildComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<child-comp />`,
 })
 class ParentComponent {}
 
-bootstrapApplication(ParentComponent);
+bootstrapApplication(ParentComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

@@ -1,11 +1,14 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, ElementRef, Directive } from "@angular/core";
+import {
+	Component,
+	Directive,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Directive({
 	selector: "[sayHi]",
-	standalone: true,
 })
 class LogElementDirective {
 	constructor() {
@@ -15,10 +18,12 @@ class LogElementDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [LogElementDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p sayHi>Hello, world</p> `,
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

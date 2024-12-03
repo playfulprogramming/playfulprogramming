@@ -1,12 +1,18 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
+import {
+	Component,
+	effect,
+	ElementRef,
+	signal,
+	viewChild,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
-	imports: [],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			style="
@@ -20,25 +26,17 @@ import { Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
 		<div
 			style="z-index: 1; position: relative; padding-left: 10rem; padding-top: 2rem"
 		>
-			@if (tooltipMeta.show) {
+			@if (tooltipMeta().show) {
 				<div
-					[style]="
-						'
+					style="
 				z-index: 9;
         display: flex;
         overflow: visible;
         justify-content: center;
-        width: ' +
-						tooltipMeta.width +
-						'px;
+        width: {{ tooltipMeta().width }}px;
         position: fixed;
-        top: ' +
-						(tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8) +
-						'px;
-        left: ' +
-						tooltipMeta.x +
-						'px;
-      '
+        top: {{ tooltipMeta().y - tooltipMeta().height - 16 - 6 - 8 }}px;
+        left: {{ tooltipMeta().x }}px;
 					"
 				>
 					<div
@@ -76,46 +74,54 @@ import { Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
 		</div>
 	`,
 })
-class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
+class AppComponent {
+	buttonRef = viewChild.required("buttonRef", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	tooltipMeta = {
+	tooltipMeta = signal({
 		x: 0,
 		y: 0,
 		height: 0,
 		width: 0,
 		show: false,
-	};
+	});
 
 	mouseOverTimeout: any = null;
 
+	constructor() {
+		effect((onCleanup) => {
+			onCleanup(() => {
+				clearTimeout(this.mouseOverTimeout);
+			});
+		});
+	}
+
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
-			const bounding = this.buttonRef.nativeElement.getBoundingClientRect();
-			this.tooltipMeta = {
+			const bounding = this.buttonRef().nativeElement.getBoundingClientRect();
+			this.tooltipMeta.set({
 				x: bounding.x,
 				y: bounding.y,
 				height: bounding.height,
 				width: bounding.width,
 				show: true,
-			};
+			});
 		}, 1000);
 	}
 
 	onMouseLeave() {
-		this.tooltipMeta = {
+		this.tooltipMeta.set({
 			x: 0,
 			y: 0,
 			height: 0,
 			width: 0,
 			show: false,
-		};
-		clearTimeout(this.mouseOverTimeout);
-	}
-
-	ngOnDestroy() {
+		});
 		clearTimeout(this.mouseOverTimeout);
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

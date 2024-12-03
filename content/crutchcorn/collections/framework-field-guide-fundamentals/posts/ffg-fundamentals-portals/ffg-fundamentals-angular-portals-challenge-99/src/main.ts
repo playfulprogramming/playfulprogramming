@@ -1,16 +1,17 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
 	Component,
 	ElementRef,
 	Injectable,
-	OnDestroy,
 	TemplateRef,
-	ViewChild,
 	ViewContainerRef,
 	inject,
-	AfterViewInit,
+	viewChild,
+	signal,
+	effect,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 import { DomPortalOutlet, TemplatePortal } from "@angular/cdk/portal";
@@ -24,8 +25,7 @@ class PortalService {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
-	imports: [],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			style="
@@ -41,23 +41,15 @@ class PortalService {
 		>
 			<ng-template #portalContent>
 				<div
-					[style]="
-						'
+					style="
 				z-index: 9;
         display: flex;
         overflow: visible;
         justify-content: center;
-        width: ' +
-						tooltipMeta.width +
-						'px;
+        width: {{ tooltipMeta().width }}px;
         position: fixed;
-        top: ' +
-						(tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8) +
-						'px;
-        left: ' +
-						tooltipMeta.x +
-						'px;
-      '
+        top: {{ tooltipMeta().y - tooltipMeta().height - 16 - 6 - 8 }}px;
+        left: {{ tooltipMeta().x }}px;
 					"
 				>
 					<div
@@ -96,54 +88,62 @@ class PortalService {
 		</div>
 	`,
 })
-class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
+class AppComponent {
+	buttonRef = viewChild.required("buttonRef", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	@ViewChild("portalContent") portalContent!: TemplateRef<unknown>;
+	portalContent = viewChild.required("portalContent", { read: TemplateRef });
 
 	viewContainerRef = inject(ViewContainerRef);
 	portalService = inject(PortalService);
 
-	tooltipMeta = {
+	tooltipMeta = signal({
 		x: 0,
 		y: 0,
 		height: 0,
 		width: 0,
-	};
+	});
 
 	mouseOverTimeout: any = null;
 
+	constructor() {
+		effect((onCleanup) => {
+			onCleanup(() => {
+				clearTimeout(this.mouseOverTimeout);
+			});
+		});
+	}
+
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
-			const bounding = this.buttonRef.nativeElement.getBoundingClientRect();
-			this.tooltipMeta = {
+			const bounding = this.buttonRef().nativeElement.getBoundingClientRect();
+			this.tooltipMeta.set({
 				x: bounding.x,
 				y: bounding.y,
 				height: bounding.height,
 				width: bounding.width,
-			};
+			});
 			this.portalService.outlet.attach(
-				new TemplatePortal(this.portalContent, this.viewContainerRef),
+				new TemplatePortal(this.portalContent(), this.viewContainerRef),
 			);
 		}, 1000);
 	}
 
 	onMouseLeave() {
-		this.tooltipMeta = {
+		this.tooltipMeta.set({
 			x: 0,
 			y: 0,
 			height: 0,
 			width: 0,
-		};
+		});
 		if (this.portalService.outlet.hasAttached()) {
 			this.portalService.outlet.detach();
 		}
 		clearTimeout(this.mouseOverTimeout);
 	}
-
-	ngOnDestroy() {
-		clearTimeout(this.mouseOverTimeout);
-	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});
