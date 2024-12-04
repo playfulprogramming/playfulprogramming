@@ -7,14 +7,14 @@
 	max-width: var(--max-width_xl);
 	margin: 0 auto;
 
-	&:where(:not([data-hide-left-sidebar])) {
+	&:where(:not([data-hide-left-sidebar="true"])) {
 		@include from($tabletLarge) {
 			grid-template-columns: 25% 1fr;
 		}
 	}
 
 	// in tablet view, when the sidebar is hidden, the "content" column needs to be centered
-	&[data-hide-left-sidebar] {
+	&[data-hide-left-sidebar="true"] {
 		@include until($desktopSmall) {
 			max-width: var(--max-width_m);
 		}
