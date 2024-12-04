@@ -35,7 +35,9 @@ const collectionPosts = post.collection
 
 const locales = post?.locales || [];
 
-const postHtml = await getMarkdownHtml(post);
+const user = await Astro.locals.currentUser();
+
+const postHtml = await getMarkdownHtml({ fileInfo: post, user });
 ---
 
 <Document size="xl">

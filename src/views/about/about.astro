@@ -30,10 +30,10 @@ const [content1, content2] = await Promise.all(
 		.toString()
 		.split("<!-- split -->")
 		.map((value) =>
-			getMarkdownHtml(
+			getMarkdownHtml({
 				fileInfo,
-				new VFile({ ...vfile, value }) as MarkdownVFile,
-			),
+				vfilePromise: new VFile({ ...vfile, value }) as MarkdownVFile,
+			}),
 		),
 );
 
