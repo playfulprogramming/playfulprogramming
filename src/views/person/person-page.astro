@@ -117,7 +117,7 @@ const postAuthors = new Map(
 
 	if (viewAllAchievementsButton) {
 		const hiddenAchievements: HTMLElement[] = Array.from(
-			document.querySelectorAll("[data-hide-initially]"),
+			document.querySelectorAll("[data-hide-initially='true']"),
 		);
 
 		let expanded = false;
