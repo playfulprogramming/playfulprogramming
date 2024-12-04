@@ -1,0 +1,40 @@
+---
+import style from "./snitip.module.scss";
+---
+
+<template id="snitip-template">
+	<div popover="manual" class={style.popover}>
+		<svg
+			id="snitip-arrow"
+			width="24"
+			height="14"
+			viewBox="0 0 24 14"
+			fill="none"
+			class={style.arrow}
+			data-placement="bottom"
+		>
+			<path
+				d="M 2 -1 L 11.2 11.6 C 11.6 12.1333 12.4 12.1333 12.8 11.6 L 22 -1 Z"
+				fill="var(--snitip_backgrond-color)"></path>
+			<path
+				d="M 2 -1 L 11.2 11.6 C 11.6 12.1333 12.4 12.1333 12.8 11.6 L 22 -1"
+				stroke="var(--snitip_border-color)"
+				stroke-width="var(--snitip_border-width)"></path>
+		</svg>
+		<div class={style.container}>
+			<h1 id="snitip-title"></h1>
+			<div id="snitip-body"></div>
+			<ul id="snitip-links"></ul>
+		</div>
+	</div>
+</template>
+
+<template id="snitip-link-template">
+	<li>
+		<a id="snitip-link"></a>
+	</li>
+</template>
+
+<script>
+	import "./snitip-script-impl";
+</script>

@@ -1,0 +1,97 @@
+:root {
+	--snitip_backgrond-color: var(--background_primary);
+	--snitip_corner-radius: var(--corner-radius_l);
+	--snitip_border-color: var(--primary_variant);
+	--snitip_border-width: var(--border-width_l);
+	--snitip_width: 480px;
+}
+
+:global(.snitip__link) {
+	text-decoration: none;
+	border-bottom: 0.2rem dotted currentColor;
+}
+
+:global(.snitip__button) {
+	color: var(--primary_default);
+}
+
+.popover {
+	margin: 0;
+	padding: 0;
+	background: none;
+	border: none;
+	overflow: visible;
+	width: min(90%, var(--snitip_width));
+}
+
+.arrow {
+	position: absolute;
+}
+
+.arrow[data-placement="top"] {
+	top: 100%;
+	transform: translateX(-50%);
+}
+
+.arrow[data-placement="bottom"] {
+	bottom: 100%;
+	transform: translateX(-50%) rotate(180deg);
+}
+
+.arrow[data-placement="left"] {
+	left: 100%;
+	transform: translateY(-50%) rotate(-90deg);
+}
+
+.arrow[data-placement="right"] {
+	right: 100%;
+	transform: translateY(-50%) rotate(90deg);
+}
+
+.container {
+	background-color: var(--snitip_backgrond-color);
+	color: black;
+	padding: 10px;
+	border-radius: var(--snitip_corner-radius);
+	box-shadow: var(--shadow_popup);
+
+	border: var(--snitip_border-width) solid var(--snitip_border-color);
+	margin: calc(-1 * var(--snitip_border-width));
+}
+
+
+.popover {
+	animation: fade-out .2s ease-out;
+}
+
+.popover:popover-open {
+	animation: fade-in .2s ease-in;
+}
+
+
+@keyframes fade-in {
+	0% {
+	  opacity: 0;
+	  transform: translateY(1rem);
+	}
+
+	100% {
+	  opacity: 1;
+	  transform: translateY(0);
+	}
+  }
+
+  @keyframes fade-out {
+	0% {
+	  opacity: 1;
+	  transform: translateY(0);
+	  /* display needed on the closing animation to keep the popover
+	  visible until the animation ends */
+	  display: block;
+	}
+
+	100% {
+	  opacity: 0;
+	  transform: translateY(1rem);
+	}
+  }
