@@ -30,7 +30,7 @@ function bindSnitip(template: HTMLElement, snitip: SnitipMetadata) {
 		)!;
 
 		anchorEl.href = link.href;
-		anchorEl.innerText = link.name;
+		anchorEl.appendChild(document.createTextNode(link.name));
 
 		linksEl.appendChild(linkEl);
 	}

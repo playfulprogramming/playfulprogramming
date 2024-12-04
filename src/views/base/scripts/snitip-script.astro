@@ -1,5 +1,6 @@
 ---
 import style from "./snitip.module.scss";
+import { Icon } from "astro-icon/components";
 ---
 
 <template id="snitip-template">
@@ -22,16 +23,18 @@ import style from "./snitip.module.scss";
 				stroke-width="var(--snitip_border-width)"></path>
 		</svg>
 		<div class={style.container}>
-			<h1 id="snitip-title"></h1>
-			<div id="snitip-body"></div>
-			<ul id="snitip-links"></ul>
+			<h1 id="snitip-title" class={style.title}></h1>
+			<div id="snitip-body" class={style.description}></div>
+			<ul id="snitip-links" class={style.links}></ul>
 		</div>
 	</div>
 </template>
 
 <template id="snitip-link-template">
 	<li>
-		<a id="snitip-link"></a>
+		<a id="snitip-link" class={style.links__item}>
+			<Icon width={18} height={18} name="link" />
+		</a>
 	</li>
 </template>
 
