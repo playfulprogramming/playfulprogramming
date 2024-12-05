@@ -21,7 +21,7 @@ interface RehypeUnicornIFrameClickToRunProps {
 }
 
 // default icon, used if a frame's favicon cannot be resolved
-const defaultPageIcon = "/link.png";
+const defaultPageIcon = "/icons/website.svg";
 
 function getIconPath(src: URL) {
 	return `generated/${src.hostname}.favicon`;
@@ -215,6 +215,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					src: String(src),
 					pageTitle: String(dataFrameTitle ?? "") || info.title || "",
 					pageIcon: info.iconFile,
+					pageIconFallback: defaultPageIcon,
 					propsToPreserve: JSON.stringify(propsToPreserve),
 				});
 
