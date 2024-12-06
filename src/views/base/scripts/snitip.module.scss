@@ -21,12 +21,10 @@
 }
 
 :global(.snitip__link) {
+	@extend .text-style-body-medium-bold;
+	color: var(--primary_default);
 	text-decoration: none;
 	border-bottom: 0.2rem dotted currentColor;
-}
-
-:global(.snitip__button) {
-	color: var(--primary_default);
 }
 
 .popover {

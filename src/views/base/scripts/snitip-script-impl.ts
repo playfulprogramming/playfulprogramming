@@ -65,6 +65,8 @@ function openSnitip(elements: SnitipElements) {
 
 	document.addEventListener("scroll", positionSnitip);
 	document.addEventListener("resize", positionSnitip);
+	document.addEventListener("mousedown", handleMousedown);
+	document.addEventListener("mousemove", handleMouseMove);
 }
 
 function closeSnitip() {
@@ -73,28 +75,73 @@ function closeSnitip() {
 
 	document.removeEventListener("scroll", positionSnitip);
 	document.removeEventListener("resize", positionSnitip);
+	document.removeEventListener("mousedown", handleMousedown);
+	document.removeEventListener("mousemove", handleMouseMove);
 }
 
-document.addEventListener("mousedown", (e) => {
+function handleMousedown(e: MouseEvent) {
 	if (snitip && snitip.popoverEl.contains(e.target as HTMLElement)) {
 		return;
 	}
 	closeSnitip();
-});
+}
+
+function handleMouseMove(e: MouseEvent) {
+	if (!snitip) return;
+
+	const triggerBox = snitip.triggerEl.getBoundingClientRect();
+	const popoverBox = snitip.popoverEl.getBoundingClientRect();
+
+	const isTrapezoid = isInsideTrapezoid(
+		e.x,
+		e.y,
+		triggerBox.left,
+		triggerBox.top,
+		triggerBox.right,
+		popoverBox.left,
+		popoverBox.top,
+		popoverBox.right,
+	);
+
+	const isPopover = snitip.popoverEl.matches(":hover");
+
+	if (!isTrapezoid && !isPopover) closeSnitip();
+}
+
+/**
+ * Assumptions:
+ * - The trapezoid has horizontal top/bottom sides
+ */
+function isInsideTrapezoid(
+	mouseX: number,
+	mouseY: number,
+	topLeft: number,
+	top: number,
+	topRight: number,
+	bottomLeft: number,
+	bottom: number,
+	bottomRight: number,
+) {
+	if (mouseY > Math.max(top, bottom)) return false;
+	if (mouseY < Math.min(top, bottom)) return false;
+
+	const mouseHeight = Math.abs(mouseY - top) / Math.abs(bottom - top);
+	const left = topLeft + (bottomLeft - topLeft) * mouseHeight;
+	const right = topRight + (bottomRight - topRight) * mouseHeight;
+	if (mouseX > Math.max(left, right)) return false;
+	if (mouseX < Math.min(left, right)) return false;
+
+	return true;
+}
 
 const triggerEls = Array.from(
 	document.querySelectorAll<HTMLElement>("[data-snitip]"),
 );
 
 for (const triggerEl of triggerEls) {
-	const explicitSnitipBtn = triggerEl.querySelector(
-		`[role="button"]`,
-	) as HTMLElement;
-
 	let popoverEl: HTMLElement | null = null;
 	let popoverArrowEl: HTMLElement | null = null;
 
-	// eslint-disable-next-line no-inner-declarations
 	function show() {
 		if (!popoverEl || !popoverArrowEl) {
 			const popover = snitipTemplateEl.content.cloneNode(true)
@@ -113,9 +160,8 @@ for (const triggerEl of triggerEls) {
 	}
 
 	triggerEl.addEventListener("mouseover", show);
-	triggerEl.addEventListener("mouseout", closeSnitip);
 
-	explicitSnitipBtn.addEventListener("keydown", (e) => {
+	triggerEl.addEventListener("keydown", (e) => {
 		if (e.code === "Enter" || e.code === "Space") {
 			e.preventDefault();
 			show();
