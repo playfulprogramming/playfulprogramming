@@ -1,21 +1,34 @@
 import { Element, Root } from "hast";
 import { fromHtml } from "hast-util-from-html";
 import { find } from "unist-util-find";
+import { LRUCache } from "lru-cache";
 
-const pageHtmlMap = new Map<string, Promise<Root | null>>();
+export async function fetchAsBrowser(input: string | URL, init?: RequestInit) {
+	const response = await fetch(input, {
+		...init,
+		headers: {
+			"User-Agent":
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+			"Accept-Language": "en",
+			...init?.headers,
+		},
+	});
+	const isSuccess = `${response.status}`.startsWith("2");
+	if (!isSuccess)
+		throw new Error(`Request ${input} returned an error: ${response.status}`);
+	return response;
+}
+
+const pageHtmlCache = new LRUCache<string, Promise<Root | null>>({
+	max: 50,
+});
 
 export function fetchPageHtml(src: string): Promise<Root | null> {
-	if (pageHtmlMap.has(src)) return pageHtmlMap.get(src)!;
+	if (pageHtmlCache.has(src)) return pageHtmlCache.get(src)!;
 
 	const promise = (async () => {
-		const srcHTML = await fetch(src, {
-			headers: {
-				"User-Agent":
-					"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
-				"Accept-Language": "en",
-			},
-		})
-			.then((r) => (r.status === 200 ? r.text() : undefined))
+		const srcHTML = await fetchAsBrowser(src)
+			.then(async (r) => await r.text())
 			.catch(() => null);
 
 		// if fetch fails...
@@ -26,7 +39,7 @@ export function fetchPageHtml(src: string): Promise<Root | null> {
 		return srcHast;
 	})();
 
-	pageHtmlMap.set(src, promise);
+	pageHtmlCache.set(src, promise);
 	return promise;
 }
 
