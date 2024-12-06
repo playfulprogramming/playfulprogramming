@@ -18,13 +18,14 @@ import {
 	fetchPageHtml,
 	getPageTitle,
 } from "utils/fetch-page-html";
+import { LRUCache } from "lru-cache";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
 }
 
 // default icon, used if a frame's favicon cannot be resolved
-const defaultPageIcon = "/link.png";
+const defaultPageIcon = "/icons/website.svg";
 
 function getIconPath(src: URL) {
 	return `generated/${src.hostname}.favicon`;
@@ -32,22 +33,28 @@ function getIconPath(src: URL) {
 
 // Cache the fetch *promises* - so that only one request per manifest/icon is processed,
 //   and multiple fetchPageInfo() calls can await the same icon
-const pageIconMap = new Map<string, Promise<string>>();
+const pageIconCache = new LRUCache<string, Promise<string>>({
+	max: 50,
+});
+
 function fetchPageIcon(src: URL, srcHast: Root): Promise<string> {
-	if (pageIconMap.has(src.hostname)) return pageIconMap.get(src.hostname)!;
+	if (pageIconCache.has(src.hostname)) return pageIconCache.get(src.hostname)!;
 
 	const promise = (async () => {
 		const iconPath = getIconPath(src);
-		const iconDir = await fs.promises
-			.readdir(path.dirname(iconPath))
+		const iconDir = path.dirname("public/" + iconPath);
+		await fs.promises.mkdir(iconDir, { recursive: true });
+
+		const existingIconFiles = await fs.promises
+			.readdir(iconDir)
 			.catch(() => []);
 
 		// If an icon has already been downloaded for the origin (in a previous build)
-		const existingIconFile = iconDir.find((file) =>
+		const existingIconFile = existingIconFiles.find((file) =>
 			file.startsWith(path.basename(iconPath)),
 		);
 		if (existingIconFile) {
-			return path.join(path.dirname(iconPath), existingIconFile);
+			return iconDir.replace(/^public/, "") + "/" + existingIconFile;
 		}
 
 		// <link rel="manifest" href="/manifest.json">
@@ -141,10 +148,13 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<string> {
 		return "/" + iconPath + iconExt;
 	})()
 		// if an error is thrown, or response is null, use the default page icon
-		.catch(() => null)
+		.catch((e) => {
+			console.error("[rehypeIFrameClickToRun]", e);
+			return null;
+		})
 		.then((p) => p || defaultPageIcon);
 
-	pageIconMap.set(src.hostname, promise);
+	pageIconCache.set(src.hostname, promise);
 	return promise;
 }
 
@@ -215,6 +225,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					src: String(src),
 					pageTitle: String(dataFrameTitle ?? "") || info.title || "",
 					pageIcon: info.iconFile,
+					pageIconFallback: defaultPageIcon,
 					propsToPreserve: JSON.stringify(propsToPreserve),
 				});
 
