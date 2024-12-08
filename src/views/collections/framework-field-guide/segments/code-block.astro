@@ -14,19 +14,19 @@ const vfileData: MarkdownVFile["data"] = {
 	headingsWithIds: [],
 };
 
-const { html } = await getMarkdownHtml(
-	{
+const { html } = await getMarkdownHtml({
+	fileInfo: {
 		kind: "page",
 		file: "",
 	},
-	Promise.resolve(
+	vfilePromise: Promise.resolve(
 		new VFile({
 			value: index,
 			path: new URL(indexPath, "http://localhost").pathname,
 			data: vfileData,
 		}) as MarkdownVFile,
 	),
-);
+});
 ---
 
 <section class={styles.blockContainer} aria-labelledby="code-block">

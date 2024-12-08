@@ -27,7 +27,7 @@ const authors = collection.authors.map(
 	(authorId) => api.getPersonById(authorId, locale)!,
 );
 
-const collectionHtml = await getMarkdownHtml(collection);
+const collectionHtml = await getMarkdownHtml({ fileInfo: collection });
 ---
 
 <Document size="l">
