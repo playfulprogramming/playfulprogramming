@@ -29,16 +29,47 @@ Regardless of the tool you have selected, you should be able to access the `dock
 We can use this `docker` utility to create a container for ColdFusion using the following command:
 
 ```shell
-docker container create -p 8500:8500 -p 7071:7071 -p 45564:45564 -p 8122:8122 -e acceptEULA=YES -e password=YOUR_PASSWORD_HERE -v LOCAL_PATH_HERE:/app adobecoldfusion/coldfusion:latest
+docker container create --name coldfusion -p 8500:8500 -p 7071:7071 -p 45564:45564 -p 8122:8122 -e acceptEULA=YES -e password=YOUR_PASSWORD_HERE -v LOCAL_PATH_HERE:/app adobecoldfusion/coldfusion:latest
 ```
-
-Where `YOUR_PASSWORD_HERE` is the password for the admin account you'll use to configure the ColdFusion dashboard and `LOCAL_PATH_HERE` is an empty folder you'll use to upload files to your ColdFusion instance.
 
 <details>
 <summary>Example Command</summary>
 
 ```shell
-docker container create -p 8500:8500 -p 7071:7071 -p 45564:45564 -p 8122:8122 -e acceptEULA=YES -e password=ColdFusion123 -v C:\Users\crutchcorn\git\ColdFusion\webroot:/app adobecoldfusion/coldfusion:latest
+docker container create --name coldfusion -p 8500:8500 -p 7071:7071 -p 45564:45564 -p 8122:8122 -e acceptEULA=YES -e password=ColdFusion123 -v C:\Users\crutchcorn\git\ColdFusion\webroot:/app adobecoldfusion/coldfusion:latest
 ```
 
 </details>
+
+![Terminal output of the CLI command showing a created container](./docker-run.png)
+
+This command:
+
+- Names the created container `coldfusion`
+- Forwards four ports needed for ColdFusion from the container to the host operating system
+- Accepts the EULA for ColdFusion
+- Sets `YOUR_PASSWORD_HERE` as the password for the admin account you'll use to configure the ColdFusion dashboard 
+- Exposes the host machine's `LOCAL_PATH_HERE` folder as an empty folder you'll use to upload files to your ColdFusion instance.
+
+------
+
+Now that we have our container created, we can start it using the command:
+
+```shell
+docker start coldfusion
+```
+
+# Looking at the ColdFusion Dashboard
+
+# Uploading Files
+
+```html
+<!-- index.cfm -->
+<cfscript>
+function testStuff(){
+    writeOutput(NOW());
+}
+
+testStuff();
+</cfscript>
+```
