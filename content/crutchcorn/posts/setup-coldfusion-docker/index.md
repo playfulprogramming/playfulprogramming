@@ -83,6 +83,25 @@ This will show the rest of the dashboard for you to configure ColdFusion with:
 
 # Visual Studio Code
 
+To use ColdFusion with Visual Studio Code (VSCode), we'll:
+
+- [Install VSCode from their site](https://code.visualstudio.com/)
+- [Install Java 18 from their site](https://www.oracle.com/java/technologies/downloads/)
+- [Set the `JAVA_HOME` environmental variable](https://helpx.adobe.com/coldfusion/coldfusion-builder-extension-for-visual-studio-code/get-started-coldfusion-builder-extension-visual-studio-code.html)
+- [Install the "Adobe ColdFusion Builder" extension](https://marketplace.visualstudio.com/items?itemName=com-adobe-coldfusion.adobe-cfml-lsp)
+
+![The ColdFusion Builder extension in VSCode](./coldfusion_extension.png)
+
+Once this is configured, we should see the "Cf" logo in our VSCode's sidebar:
+
+![The Adobe ColdFusion Builder extension sidebar opened](./vsc_sidebar.png)
+
+------
+
+Once the extension is installed, we'll press "`Add Server`" to add a reference to our local ColdFusion Docker installation:
+
+
+
 # Uploading Files
 
 ```html
