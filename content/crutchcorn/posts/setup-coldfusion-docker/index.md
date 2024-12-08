@@ -59,7 +59,29 @@ Now that we have our container created, we can start it using the command:
 docker start coldfusion
 ```
 
+> You can configure much more on the ColdFusion container. To do this, [please follow the ColdFusion docs for Docker Images](https://helpx.adobe.com/coldfusion/using/docker-images-coldfusion.html)
+
 # Looking at the ColdFusion Dashboard
+
+Once the container is started you can go to [`localhost:8050`](https://localhost:8050) to see a directory listing of the ColdFusion server:
+
+![A directory list of files in a web browser](./dir_listing.png)
+
+While this isn't overly helpful on its own, it tells you that ColdFusion is running properly.
+
+From there, you can access [http://localhost:8500/CFIDE/administrator/](http://localhost:8500/CFIDE/administrator/) to get to the admin portal.
+
+// TODO: Add image of dashboard login
+
+On this screen, you'll type in the password you passed to the `docker create` command earlier.
+
+This will show the rest of the dashboard for you to configure ColdFusion with:
+
+// TODO: Add image of dashboard
+
+> While you can deep-dive into configuring ColdFusion, we'll leave the settings all as defaults for now.
+
+# Visual Studio Code
 
 # Uploading Files
 
