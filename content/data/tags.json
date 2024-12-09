@@ -36,6 +36,11 @@
 		"image": "/stickers/chrome.svg",
 		"shownWithBranding": false
 	},
+	"cloudfusion": {
+		"displayName": "Adobe CloudFusion",
+		"image": "/stickers/cloudfusion.svg",
+		"shownWithBranding": false
+	},
 	"computer science": {
 		"displayName": "Computer Science",
 		"emoji": "🖥️"
