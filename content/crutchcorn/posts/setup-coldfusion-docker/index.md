@@ -104,6 +104,8 @@ Once the extension is installed, we'll press "`Add Server`" to add a reference t
 
 # Uploading Files
 
+To run your first program with ColdFusion, let's add an `index.cfm` file to the root of the folder we referenced in our `docker create` command:
+
 ```html
 <!-- index.cfm -->
 <cfscript>
@@ -114,3 +116,10 @@ function testStuff(){
 testStuff();
 </cfscript>
 ```
+
+Then reload [`localhost:8050`](https://localhost:8050) to see the current date displayed to the server.
+
+TODO: Show preview of screen
+
+> **Hint:**
+> Make sure to open the `LOCAL_PATH_HERE` folder in VSCode so you can see the syntax highlighting applied properly!
