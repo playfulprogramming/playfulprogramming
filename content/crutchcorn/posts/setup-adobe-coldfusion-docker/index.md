@@ -1,14 +1,14 @@
 ---
 {
-    title: "Setup ColdFusion in Docker",
-    description: "",
-    published: '2024-12-12T20:12:03.284Z',
+    title: "Setup Adobe ColdFusion in Docker",
+    description: "Adobe ColdFusion can feel daunting to set up. Luckily for us, there's an easy method of getting up and running using Docker. Let's explore that option!",
+    published: '2025-03-01T20:12:03.284Z',
     tags: ['coldfusion'],
     license: 'cc-by-4'
 }
 ---
 
-[Adobe ColdFusion](https://www.adobe.com/products/coldfusion-family.html) is having a comeback moment of sorts. While many associate the language with its time in the 90s, it has been seeing growth and continual improvements in the past few years.
+[Adobe ColdFusion](https://www.adobe.com/products/coldfusion-family.html) just saw it's newest release hit the scene: ColdFusion 2025. This release continues a trend that's been occuring for the past few years; encouraging growth and continual improvements.
 
 One area where ColdFusion has seen intense growth is in local developer experience.
 
@@ -126,7 +126,19 @@ Once verified, we can press "Finish" and see the following:
 
 ## Opening a workspace
 
+To start working on our ColdFusion project, we'll need to click on `Create Project` in the ColdFusion Builder extension:
 
+![](./create_project.png)
+
+This will prompt you to create a name for the workspace - we'll call ours "Webroot":
+
+![](./name_of_space.png)
+
+Finally, it will ask you to select a folder. Select the path we originally passed to Docker (`LOCAL_PATH_HERE`).
+
+Once this is done, it will open the folder you selected in VSCode and generate a few required files for you:
+
+![The files generated for you in a list](./workspace.png)
 
 # Uploading Files
 
@@ -145,7 +157,7 @@ testStuff();
 
 Then reload [`localhost:8050`](https://localhost:8050) to see the current date displayed to the server.
 
-TODO: Show preview of screen
+![The timestamp showing in the browser from ColdFusion](./local_cfm.png)
 
 > **Hint:**
 > Make sure to open the `LOCAL_PATH_HERE` folder in VSCode so you can see the syntax highlighting applied properly!
