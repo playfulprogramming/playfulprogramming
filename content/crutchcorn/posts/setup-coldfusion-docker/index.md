@@ -71,15 +71,15 @@ While this isn't overly helpful on its own, it tells you that ColdFusion is runn
 
 From there, you can access [http://localhost:8500/CFIDE/administrator/](http://localhost:8500/CFIDE/administrator/) to get to the admin portal.
 
-// TODO: Add image of dashboard login
+![The login screen to ColdFusion's admin dashboard](./cf_login.png)
 
 On this screen, you'll type in the password you passed to the `docker create` command earlier.
 
 This will show the rest of the dashboard for you to configure ColdFusion with:
 
-// TODO: Add image of dashboard
+![A dashboard of options you can use to configure your ColdFusion installation](./cf_dash.png)
 
-> While you can deep-dive into configuring ColdFusion, we'll leave the settings all as defaults for now.
+> While you can deep-dive into configuring ColdFusion, we'll leave the settings all as defaults for now. [For more information on configuring ColdFusion, refer to the official docs](https://helpx.adobe.com/coldfusion/configuring-administering/using-the-coldfusion-administrator.html)
 
 # Visual Studio Code
 
@@ -96,9 +96,35 @@ Once this is configured, we should see the "Cf" logo in our VSCode's sidebar:
 
 ![The Adobe ColdFusion Builder extension sidebar opened](./vsc_sidebar.png)
 
-------
+## Adding a server
 
 Once the extension is installed, we'll press "`Add Server`" to add a reference to our local ColdFusion Docker installation:
+
+![A setup wizard to add a server with many tabs to configure](./add_server_blank.png)
+
+While this might look daunting at first, the only things we'll need to configure are:
+
+- Server Name: A nickname for our server
+- Host Name: Set it to `localhost`
+- `WebServer Port`: Set it to `8500`
+- Application Server: Leave it as "CF+Tomcat Bundle"
+- RDS User Name: Set it to `admin`
+- RDS Password: Set it to the password we passed to the Docker container (`YOUR_PASSWORD_HERE`)
+- Type: Set to "`Is Remote`"
+
+Once completed, our "General Settings" page should look like this:
+
+![The create server form with the settings mentioned above filled in](./add_server_filled.png)
+
+We can verify that the setup is done properly by pressing `Test Connection`. If successful, we'll see a prompt that "Test connection was successful":
+
+![](./test_conn.png)
+
+Once verified, we can press "Finish" and see the following:
+
+![A prompt saying "ColdFusion server is added successfully"](./vsc_added_successfully.png)
+
+## Opening a workspace
 
 
 
