@@ -25,13 +25,12 @@ header {
 	border-bottom: 1px solid transparent;
 	&[data-sticky="pinned"] {
 		border-bottom: 1px solid var(--background_disabled);
+		background-color: var(--background_primary);
 	}
 
 	top: -0.1px;
 	position: sticky;
 	z-index: 2;
-	background-color: var(--background_primary);
-	@include transition(background-color);
 }
 
 .header {
