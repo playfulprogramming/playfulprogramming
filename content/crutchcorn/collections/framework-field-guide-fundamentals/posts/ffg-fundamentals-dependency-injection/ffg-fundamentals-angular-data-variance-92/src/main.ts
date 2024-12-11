@@ -1,25 +1,31 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Injectable, Component, inject, OnInit } from "@angular/core";
+import {
+	Injectable,
+	Component,
+	inject,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Injectable({ providedIn: "root" })
 class MessageValue {
-	greeting = "";
+	greeting = signal("");
 
 	changeGreeting(val: string) {
-		this.greeting = val;
+		this.greeting.set(val);
 	}
 }
 
 @Component({
 	selector: "great-grand-child",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
-			<p>{{ messageValue.greeting }}, user!</p>
+			<p>{{ messageValue.greeting() }}, user!</p>
 			<label>
 				<div>Set a new greeting</div>
-				<input [value]="messageValue.greeting" (input)="changeVal($event)" />
+				<input [value]="messageValue.greeting()" (input)="changeVal($event)" />
 			</label>
 		</div>
 	`,
@@ -34,7 +40,7 @@ class GreatGrandChildComponent {
 
 @Injectable({ providedIn: "root" })
 class SparklyMessageValue {
-	greeting = "✨ Welcome 💯";
+	greeting = signal("✨ Welcome 💯");
 
 	// New ✨ sparkly ✨ functionality adds some fun! 💯
 	changeGreeting(newVal: string) {
@@ -44,13 +50,12 @@ class SparklyMessageValue {
 		if (!newVal.includes("💯")) {
 			newVal += "💯";
 		}
-		this.greeting = newVal;
+		this.greeting.set(newVal);
 	}
 }
 
 @Component({
 	selector: "grand-child",
-	standalone: true,
 	providers: [
 		{
 			provide: MessageValue,
@@ -59,24 +64,27 @@ class SparklyMessageValue {
 		},
 	],
 	imports: [GreatGrandChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<great-grand-child />`,
 })
 class GrandChildComponent {}
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
 	imports: [GrandChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<grand-child />`,
 })
 class ChildComponent {}
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<child-comp />`,
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

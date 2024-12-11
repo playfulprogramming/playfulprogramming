@@ -1,9 +1,13 @@
 // layout.component.ts
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Component({
 	selector: "app-layout",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
 			<div

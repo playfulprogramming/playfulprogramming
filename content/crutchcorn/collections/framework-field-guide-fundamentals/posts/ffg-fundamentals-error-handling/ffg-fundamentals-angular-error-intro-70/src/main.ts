@@ -1,16 +1,18 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
-	imports: [],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<h1>To-do items</h1>
 		<ul>
-			@for (item of priorityItems; track item) {
+			@for (item of priorityItems; track item.id) {
 				<li>{{ item.name }}</li>
 			}
 		</ul>
@@ -26,4 +28,6 @@ class AppComponent {
 	priorityItems = this.items.filter((item: any) => item.item.priority === 1);
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

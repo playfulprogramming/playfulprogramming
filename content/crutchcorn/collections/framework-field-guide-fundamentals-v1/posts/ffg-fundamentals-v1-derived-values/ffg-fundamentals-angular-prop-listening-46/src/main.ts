@@ -74,7 +74,7 @@ class FileDateComponent implements OnChanges {
 			"December",
 		];
 		const monthStr = months[inputDate.getMonth()];
-		const dateSuffixStr = this.dateSuffix(inputDate.getDate());
+		const dateSuffixStr = dateSuffix(inputDate.getDate());
 		const yearNum = inputDate.getFullYear();
 		return monthStr + " " + dateSuffixStr + "," + yearNum;
 	}

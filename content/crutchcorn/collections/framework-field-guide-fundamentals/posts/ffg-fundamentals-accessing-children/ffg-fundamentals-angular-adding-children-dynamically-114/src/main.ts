@@ -1,22 +1,23 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
 	Component,
-	ContentChildren,
-	QueryList,
+	contentChildren,
+	signal,
 	TemplateRef,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
 	selector: "parent-list",
-	standalone: true,
 	imports: [NgTemplateOutlet],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<p>There are {{ children.length }} number of items in this array</p>
+		<p>There are {{ children().length }} number of items in this array</p>
 		<ul>
-			@for (child of children; track child) {
+			@for (child of children(); track child) {
 				<li>
 					<ng-template [ngTemplateOutlet]="child" />
 				</li>
@@ -25,16 +26,16 @@ import { NgTemplateOutlet } from "@angular/common";
 	`,
 })
 class ParentListComponent {
-	@ContentChildren("listItem") children!: QueryList<TemplateRef<any>>;
+	children = contentChildren<TemplateRef<any>>("listItem");
 }
 
 @Component({
-	standalone: true,
 	imports: [ParentListComponent],
 	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<parent-list>
-			@for (item of list; track item; let i = $index) {
+			@for (item of list(); track item; let i = $index) {
 				<ng-template #listItem>
 					<span>{{ i }} {{ item }}</span>
 				</ng-template>
@@ -44,12 +45,14 @@ class ParentListComponent {
 	`,
 })
 class AppComponent {
-	list = [1, 42, 13];
+	list = signal([1, 42, 13]);
 
 	addOne() {
 		const randomNum = Math.floor(Math.random() * 100);
-		this.list.push(randomNum);
+		this.list.set([...this.list(), randomNum]);
 	}
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

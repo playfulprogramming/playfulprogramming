@@ -12,6 +12,6 @@
   published: "2024-03-11T13:45:00.284Z",
   buttons: [],
   pageLayout: "none",
-  version: "v1.1"
+  version: "v2"
 }
 ---

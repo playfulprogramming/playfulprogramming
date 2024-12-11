@@ -1,6 +1,11 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { InjectionToken, Component, inject } from "@angular/core";
+import {
+	InjectionToken,
+	Component,
+	inject,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 const WELCOME_MESSAGE_TOKEN = new InjectionToken<{ message: string }>(
 	"WELCOME_MESSAGE",
@@ -8,7 +13,7 @@ const WELCOME_MESSAGE_TOKEN = new InjectionToken<{ message: string }>(
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>{{ welcomeMsg.message }}</p>`,
 })
 class ChildComponent {
@@ -17,8 +22,8 @@ class ChildComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ChildComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<child-comp />`,
 	providers: [
 		{ provide: WELCOME_MESSAGE_TOKEN, useValue: { message: "Hello, world!" } },
@@ -26,4 +31,6 @@ class ChildComponent {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

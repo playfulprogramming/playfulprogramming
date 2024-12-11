@@ -1,11 +1,15 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import {
+	Component,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Component({
 	selector: "delete-modal",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<div class="modal-container">
@@ -26,7 +30,7 @@ class ModalComponent {}
 
 @Component({
 	selector: "delete-icon",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<svg viewBox="0 0 20 21">
 			<path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
@@ -42,7 +46,7 @@ class DeleteIconComponent {}
 
 @Component({
 	selector: "folder-icon",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<svg viewBox="0 0 20 16">
 			<path
@@ -56,15 +60,15 @@ class FolderIconComponent {}
 
 @Component({
 	selector: "footer-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <div class="footer-container">Copyright 2022</div> `,
 })
 class FooterComponent {}
 
 @Component({
 	selector: "body-comp",
-	standalone: true,
 	imports: [FolderIconComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ul class="list-container">
 			@for (fileIdx of files; track fileIdx) {
@@ -82,11 +86,11 @@ class BodyComponent {
 
 @Component({
 	selector: "header-comp",
-	standalone: true,
 	imports: [ModalComponent, FolderIconComponent, DeleteIconComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="header-container">
-			@if (shouldShowModal) {
+			@if (shouldShowModal()) {
 				<delete-modal />
 			}
 			<span class="icon-container">
@@ -101,17 +105,17 @@ class BodyComponent {
 	`,
 })
 class HeaderComponent {
-	shouldShowModal = false;
+	shouldShowModal = signal(false);
 
 	showModal() {
-		this.shouldShowModal = true;
+		this.shouldShowModal.set(true);
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [HeaderComponent, BodyComponent, FooterComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<header-comp />
@@ -122,4 +126,6 @@ class HeaderComponent {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

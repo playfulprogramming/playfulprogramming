@@ -1,36 +1,40 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, Input } from "@angular/core";
+import {
+	Component,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Component({
 	selector: "toggle-button",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			(click)="togglePressed()"
 			[style]="
-				pressed
+				pressed()
 					? 'background-color: black; color: white;'
 					: 'background-color: white;color: black'
 			"
 			type="button"
-			[attr.aria-pressed]="pressed"
+			[attr.aria-pressed]="pressed()"
 		>
 			<ng-content />
 		</button>
 	`,
 })
 class ToggleButtonComponent {
-	pressed = false;
+	pressed = signal(false);
 	togglePressed() {
-		this.pressed = !this.pressed;
+		this.pressed.set(!this.pressed());
 	}
 }
 
 @Component({
 	selector: "rainbow-exclamation-mark",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <span>!</span> `,
 	// These styles will only apply to this component
 	styles: [
@@ -62,8 +66,8 @@ class RainbowExclamationMarkComponent {}
 
 @Component({
 	selector: "toggle-button-list",
-	standalone: true,
 	imports: [ToggleButtonComponent, RainbowExclamationMarkComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<toggle-button>
 			Hello
@@ -83,10 +87,12 @@ class ToggleButtonListComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ToggleButtonListComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <toggle-button-list /> `,
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

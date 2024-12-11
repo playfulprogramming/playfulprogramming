@@ -1,35 +1,43 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Injectable, Component, inject, OnDestroy } from "@angular/core";
+import {
+	Injectable,
+	Component,
+	inject,
+	signal,
+	effect,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Injectable()
-class WindowSize implements OnDestroy {
-	height = 0;
-	width = 0;
+class WindowSize {
+	height = signal(0);
+	width = signal(0);
 
 	constructor() {
-		this.height = window.innerHeight;
-		this.width = window.innerWidth;
-		// In a component, we might add this in an `OnInit`, but `Injectable` classes only have `OnDestroy`
-		window.addEventListener("resize", this.onResize);
+		effect((onCleanup) => {
+			this.height.set(window.innerHeight);
+			this.width.set(window.innerWidth);
+			window.addEventListener("resize", this.onResize);
+			onCleanup(() => {
+				window.removeEventListener("resize", this.onResize);
+			});
+		});
 	}
 	onResize = () => {
-		this.height = window.innerHeight;
-		this.width = window.innerWidth;
+		this.height.set(window.innerHeight);
+		this.width.set(window.innerWidth);
 	};
-	ngOnDestroy() {
-		window.removeEventListener("resize", this.onResize);
-	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<p>
-			The window is {{ windowSize.height }}px high and {{ windowSize.width }}px
-			wide
+			The window is {{ windowSize.height() }}px high and
+			{{ windowSize.width() }}px wide
 		</p>
 	`,
 	providers: [WindowSize],
@@ -38,4 +46,6 @@ class AppComponent {
 	windowSize = inject(WindowSize);
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

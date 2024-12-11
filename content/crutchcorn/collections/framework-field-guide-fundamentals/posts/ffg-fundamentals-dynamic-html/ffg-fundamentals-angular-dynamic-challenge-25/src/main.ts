@@ -1,40 +1,46 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, Input, EventEmitter, Output } from "@angular/core";
+import {
+	Component,
+	signal,
+	output,
+	input,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Component({
 	selector: "expandable-dropdown",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="toggle.emit()">
-				{{ expanded ? "V" : ">" }}
-				{{ name }}
+				{{ expanded() ? "V" : ">" }}
+				{{ name() }}
 			</button>
-			@if (expanded) {
+			@if (expanded()) {
 				<div>More information here</div>
 			}
 		</div>
 	`,
 })
 class ExpandableDropdownComponent {
-	@Input() name!: string;
-	@Input() expanded!: boolean;
-	@Output() toggle = new EventEmitter();
+	name = input.required<string>();
+	expanded = input.required<boolean>();
+	toggle = output();
 }
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
 	imports: [ExpandableDropdownComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<h1>My Files</h1>
 			@for (cat of categories; track cat) {
 				<expandable-dropdown
 					[name]="cat"
-					[expanded]="expandedMap[cat]"
+					[expanded]="expandedMap()[cat]"
 					(toggle)="onToggle(cat)"
 				/>
 			}
@@ -51,10 +57,12 @@ class SidebarComponent {
 		"Invoices",
 	];
 
-	expandedMap = objFromCategories(this.categories);
+	expandedMap = signal(objFromCategories(this.categories));
 
 	onToggle(cat: string) {
-		this.expandedMap[cat] = !this.expandedMap[cat];
+		const newExtendedMap = this.expandedMap();
+		newExtendedMap[cat] = !newExtendedMap[cat];
+		this.expandedMap.set(newExtendedMap);
 	}
 }
 
@@ -66,4 +74,6 @@ function objFromCategories(categories: string[]) {
 	return obj;
 }
 
-bootstrapApplication(SidebarComponent);
+bootstrapApplication(SidebarComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

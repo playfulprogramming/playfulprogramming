@@ -1,26 +1,32 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, ContentChild, Input, TemplateRef } from "@angular/core";
+import {
+	Component,
+	contentChild,
+	input,
+	TemplateRef,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
 	selector: "table-comp",
-	standalone: true,
 	imports: [NgTemplateOutlet],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<table>
 			<thead>
 				<ng-template
-					[ngTemplateOutlet]="header"
-					[ngTemplateOutletContext]="{ length: data.length }"
+					[ngTemplateOutlet]="header()"
+					[ngTemplateOutletContext]="{ length: data().length }"
 				/>
 			</thead>
 
 			<tbody>
-				@for (item of data; track item; let index = $index) {
+				@for (item of data(); track item; let index = $index) {
 					<ng-template
-						[ngTemplateOutlet]="body"
+						[ngTemplateOutlet]="body()"
 						[ngTemplateOutletContext]="{ rowI: index, value: item }"
 					/>
 				}
@@ -29,16 +35,16 @@ import { NgTemplateOutlet } from "@angular/common";
 	`,
 })
 class TableComponent {
-	@ContentChild("header", { read: TemplateRef }) header!: TemplateRef<any>;
-	@ContentChild("body", { read: TemplateRef }) body!: TemplateRef<any>;
+	header = contentChild.required("header", { read: TemplateRef });
+	body = contentChild.required("body", { read: TemplateRef });
 
-	@Input() data!: any[];
+	data = input.required<any[]>();
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [TableComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<table-comp [data]="data">
 			<ng-template #header let-length="length">
@@ -77,4 +83,6 @@ class AppComponent {
 	];
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

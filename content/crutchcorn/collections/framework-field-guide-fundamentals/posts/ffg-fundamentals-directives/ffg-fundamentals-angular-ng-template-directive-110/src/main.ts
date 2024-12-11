@@ -1,11 +1,14 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Directive, Component } from "@angular/core";
+import {
+	Directive,
+	Component,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Directive({
 	selector: "[beOnTemplate]",
-	standalone: true,
 })
 class TemplateDirective {
 	constructor() {
@@ -15,10 +18,12 @@ class TemplateDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [TemplateDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <ng-template beOnTemplate><p>Hello, world</p></ng-template> `,
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});
