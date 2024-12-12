@@ -53,6 +53,9 @@ async function lookupUser(id: string) {
 		{
 			Promise.all(
 				messagesArr.map(async (message, idx, arr) => {
+					// Remove system messages like "Corbin pinned a message to this channel"
+					if ( message.system) return null;
+
 					const shouldGroupWithLastMessage =
 						idx > 0 &&
 						message.author.id === arr[idx - 1].author.id &&
@@ -79,12 +82,12 @@ async function lookupUser(id: string) {
 						count: reaction.count,
 					}));
 
-					const stickers = Array.from(
-						message.stickers.values(),
-					).map((sticker) => ({
-						name: sticker.name,
-						image: sticker.url
-					}));
+					const stickers = Array.from(message.stickers.values()).map(
+						(sticker) => ({
+							name: sticker.name,
+							image: sticker.url,
+						}),
+					);
 
 					return (
 						<li>
