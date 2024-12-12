@@ -20,6 +20,12 @@ const tokens = tokenizeMessage(content);
             const username = await lookupUserName(token.id);
             return <span style="background-color: lightblue; color: blue">@{username}</span>;
         }
+        if (token.type === "codeInline") {
+            return <code>{token.content}</code>;
+        }
+        if (token.type === "codeBlock") {
+            return <pre><code>{token.content}</code></pre>;
+        }
         return <img height="16" src={`https://cdn.discordapp.com/emojis/${token.id}.png`} alt={token.name}>;
     })
 }

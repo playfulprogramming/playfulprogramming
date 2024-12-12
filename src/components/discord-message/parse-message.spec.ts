@@ -67,4 +67,35 @@ describe('tokenizeMessage', () => {
     ];
     expect(tokenizeMessage(input)).toEqual(expected);
   });
+
+  it('should parse inline code samples', () => {
+    const input = 'This is `inline code` example';
+    const expected: Token[] = [
+      { type: 'text', content: 'This is ' },
+      { type: 'codeInline', content: 'inline code' },
+      { type: 'text', content: ' example' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should parse code blocks', () => {
+    const input = 'Here is a code block:\n```js\nlet x = 5;\n```';
+    const expected: Token[] = [
+      { type: 'text', content: 'Here is a code block:\n' },
+      { type: 'codeBlock', content: 'js\nlet x = 5;\n' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should handle mixed text, inline code, and code blocks', () => {
+    const input = 'Text `inline code` more text\n```js\nlet x = 5;\n``` end';
+    const expected: Token[] = [
+      { type: 'text', content: 'Text ' },
+      { type: 'codeInline', content: 'inline code' },
+      { type: 'text', content: ' more text\n' },
+      { type: 'codeBlock', content: 'js\nlet x = 5;\n' },
+      { type: 'text', content: ' end' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
 });
