@@ -1,0 +1,48 @@
+---
+import {
+	Client,
+	GatewayIntentBits,
+	TextChannel,
+	PermissionsBitField,
+} from "discord.js";
+
+// Create a new client instance
+const client = new Client({
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+	],
+});
+
+// Log in to Discord with your client's token
+await client.login(import.meta.env.DISCORD_TOKEN);
+
+// Replace 'YOUR_GUILD_ID' with your actual guild ID
+const guild = await client.guilds.fetch(import.meta.env.DISCORD_GUILD_ID);
+if (!guild) {
+	return Astro.redirect("/404");
+}
+
+const botMember = await guild.members.fetch(client.user!.id);
+if (
+	!botMember.permissions.has(PermissionsBitField.Flags.ViewChannel) ||
+	!botMember.permissions.has(PermissionsBitField.Flags.ReadMessageHistory)
+) {
+	return Astro.redirect("/404");
+}
+
+const channel = guild.channels.cache.find(
+	(ch) => ch.name === "webdev" && ch.isTextBased(),
+) as TextChannel;
+
+if (!channel) {
+	return Astro.redirect("/404");
+}
+
+const messages = await channel.messages.fetch({ limit: 10 });
+---
+
+<ul>
+	{messages.map((message) => <li>{message.content}</li>)}
+</ul>
