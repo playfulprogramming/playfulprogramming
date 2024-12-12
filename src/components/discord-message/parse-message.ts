@@ -9,6 +9,8 @@
  * @example <a:dancing_penguin:1013090009756209234> becomes <img src="https://cdn.discordapp.com/emojis/1013090009756209234.gif" alt="dancing_penguin">
  * - Migrate all mentions to a username based off of the following:
  * @example <@270063754576789504> becomes "@crutchcorn (Corbin Crutchley)"
+ * - Migrate all mentions of a role to a role name based off of:
+ * @example <@&910945073624129607> becomes "@modbots"
  * - Inline code samples should be wrapped in <code> tags
  * @example `let x = 5;` becomes <code>let x = 5;</code>
  * - Code blocks should be wrapped in <pre> tags
@@ -45,6 +47,7 @@ export type TokenTimestamp = {
   timestamp: number;
   format: string;
 };
+export type TokenRoleMention = { type: 'roleMention'; id: string };
 
 export type Token = 
   | TokenText
@@ -54,6 +57,7 @@ export type Token =
   | TokenCodeBlock
   | TokenChannel
   | TokenTimestamp
+  | TokenRoleMention
 
 type TokenParseResult = {
   token: Token;
@@ -122,6 +126,23 @@ function parseMention(input: string, startIndex: number): TokenParseResult | nul
   
   return {
     token: { type: 'mention', id: mentionId },
+    advanceBy: current - startIndex + 1
+  };
+}
+
+function parseRoleMention(input: string, startIndex: number): TokenParseResult | null {
+  if (input[startIndex] !== '<' || input[startIndex + 1] !== '@' || input[startIndex + 2] !== '&') return null;
+  
+  let current = startIndex + 3;
+  let roleId = '';
+  
+  while (current < input.length && input[current] !== '>') {
+    roleId += input[current];
+    current++;
+  }
+  
+  return {
+    token: { type: 'roleMention', id: roleId },
     advanceBy: current - startIndex + 1
   };
 }
@@ -216,7 +237,7 @@ export function tokenizeMessage(input: string): Token[] {
     }
   }
 
-  const parsers = [parseChannel, parseEmoji, parseMention, parseCodeBlock, parseInlineCode, parseTimestamp];
+  const parsers = [parseChannel, parseEmoji, parseRoleMention, parseMention, parseCodeBlock, parseInlineCode, parseTimestamp];
 
   while (current < input.length) {
     let parsed = false;

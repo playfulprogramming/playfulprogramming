@@ -49,6 +49,11 @@ async function lookupChannelName(id: string) {
 	const channel = await guild.channels.fetch(id);
 	return channel!.name;
 }
+
+async function lookupRoleName(id: string) {
+	const role = await guild.roles.fetch(id);
+	return role!.name;
+}
 ---
 
 <Document>
@@ -105,6 +110,7 @@ async function lookupChannelName(id: string) {
 								edited={!!message.editedTimestamp}
 								created={message.createdAt}
 								lookupUser={lookupUser}
+								lookupRoleName={lookupRoleName}
 								lookupChannelName={lookupChannelName}
 							/>
 						</li>

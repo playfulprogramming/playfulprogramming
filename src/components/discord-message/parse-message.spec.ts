@@ -222,4 +222,32 @@ describe('tokenizeMessage', () => {
       expect(tokenizeMessage(input)).toEqual(expected);
     }
   });
+
+  it('should parse Discord role mentions', () => {
+    const input = '<@&910945073624129607>';
+    const expected: Token[] = [{ type: 'roleMention', id: '910945073624129607' }];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should handle mixed text and role mentions', () => {
+    const input = 'Hello <@&910945073624129607> everyone';
+    const expected: Token[] = [
+      { type: 'text', content: 'Hello ' },
+      { type: 'roleMention', id: '910945073624129607' },
+      { type: 'text', content: ' everyone' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should handle mixed user mentions and role mentions', () => {
+    const input = 'Hey <@270063754576789504>, you have <@&910945073624129607> role';
+    const expected: Token[] = [
+      { type: 'text', content: 'Hey ' },
+      { type: 'mention', id: '270063754576789504' },
+      { type: 'text', content: ', you have ' },
+      { type: 'roleMention', id: '910945073624129607' },
+      { type: 'text', content: ' role' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
 });

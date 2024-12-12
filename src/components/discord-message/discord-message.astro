@@ -24,6 +24,7 @@ interface Sticker {
 interface Props {
 	content: string;
 	lookupUser: (id: string) => Promise<DiscordUser>;
+	lookupRoleName: (id: string) => Promise<string>;
 	lookupChannelName: (id: string) => Promise<string>;
 	author: DiscordUser;
 	// True if a single message is being displayed, false if multiple messages are being displayed from the same user, just like Discord
@@ -42,6 +43,7 @@ const {
 	edited,
 	created,
 	lookupUser,
+	lookupRoleName,
 	lookupChannelName,
 	includeHeader = true,
 } = Astro.props;
@@ -155,6 +157,15 @@ const tokens = tokenizeMessage(content);
 					return (
 						<span style="background-color: lightblue; color: blue">
 							@{mentionedUser.name}
+						</span>
+					);
+				}
+
+				if (token.type === "roleMention") {
+					const roleName = await lookupRoleName(token.id);
+					return (
+						<span style="background-color: lightblue; color: blue">
+							@{roleName}
 						</span>
 					);
 				}
