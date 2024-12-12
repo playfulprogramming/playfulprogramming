@@ -1,0 +1,27 @@
+---
+interface Props {
+	content: string;
+}
+
+const { content } = Astro.props;
+
+function getEmoteUrl(emoteId: string) {
+	return `https://cdn.discordapp.com/emojis/${emoteId}.png`;
+}
+
+/**
+ * Parse out all emotes from a message, and replace them with their image URLs
+ *
+ * @example <:shrugging:519267805871341568> becomes <img src="https://cdn.discordapp.com/emojis/519267805871341568.png" alt="shrugging">
+ */
+const emoteRegex = /<:(\w+):(\d+)>/g;
+const contentWithEmotes = content.replace(
+	emoteRegex,
+	(match, emoteName, emoteId) => {
+		const emoteUrl = getEmoteUrl(emoteId);
+		return `<img src="${emoteUrl}" alt="${emoteName}">`;
+	},
+);
+---
+
+<div set:html={contentWithEmotes} />

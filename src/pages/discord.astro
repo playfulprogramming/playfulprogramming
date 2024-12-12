@@ -1,6 +1,7 @@
 ---
-import { Client, GatewayIntentBits, TextChannel } from "discord.js";
+import { Client, discordSort, GatewayIntentBits, TextChannel } from "discord.js";
 import Document from "../layouts/document.astro";
+import DiscordMessage from "components/discord-message/discord-message.astro";
 
 // Create a new client instance
 const client = new Client({
@@ -8,6 +9,7 @@ const client = new Client({
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildEmojisAndStickers
 	],
 });
 
@@ -37,6 +39,6 @@ const messagesArr = Array.from(messagesCollection.values()).sort(
 
 <Document>
 	<ul>
-		{messagesArr.map((message) => <li>{message.content}</li>)}
+		{messagesArr.map((message) => <DiscordMessage content={message.content}/>)}
 	</ul>
 </Document>
