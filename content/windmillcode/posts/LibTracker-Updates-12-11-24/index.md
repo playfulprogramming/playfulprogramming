@@ -1,8 +1,8 @@
 ---
 {
-  title: "LibTracker Updates 12/10/24: Get to personally know your apps with this simple SBOM Tool",
+  title: "LibTracker Updates 12/11/24: Get to personally know your apps with this simple SBOM Tool",
   description: "Updates to the LibTracker Vscode Extension. Simplify dependency management with this simple SBOM tool",
-  published: '2024-12-10',
+  published: '2024-12-11',
   tags: ["LibTracker","SBOM","DependencyManagement","SoftwareLicenses","SecurityVulnerabilities","VisualStudioCode","VSCodeExtensions","SoftwareDevelopment","OpenSource","SoftwareEngineering","ApplicationManagement","DevTools","GitIntegration","CVEInsights","SoftwareBillOfMaterials","DeveloperTools"],
   collection: "LibTracker",
   license: 'cc-by-4'
@@ -18,6 +18,7 @@ Access it here: [LibTracker on VSCode Marketplace](https://marketplace.visualstu
 
 ### New Features in the Latest Release:
 - **Latest Stable Version**: We’ve added the ability to display both the latest version and the latest stable version of each dependency. This ensures you can make informed updates without risking app stability.
+- **Replace Action with Icons and Tooltips**: Replace actions with icons for real estate on the app detail page, complemented by tooltips for clarity.
 
 
 ### Upcoming Features:
@@ -25,7 +26,7 @@ Access it here: [LibTracker on VSCode Marketplace](https://marketplace.visualstu
   - Integration of CVE details for all dependencies and subdependencies.
   - Search functionality extended to include nested child rows.
   - Responsive design updates to allow a card-based layout for improved usability.
-- **Replace Action with Icons and Tooltips**: Replace actions with icons, complemented by tooltips for clarity.
+
 - **Recursion Exclusion List**: Add an exclusion list for recursion to manage directories and files efficiently.
 - **Workspace Folder Management**: Development depends on the VSCode API’s capability to support VSCode profiles.
 - **SBOM Generation**: Generate SBOM for projects and apps.
