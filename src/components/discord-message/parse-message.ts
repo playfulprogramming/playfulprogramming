@@ -18,6 +18,8 @@
  *     ```
  *     becomes
  *     <pre><code>let x = 5;</code></pre>
+ * - Migrate all mentions of a channel to a token based off the following:
+ * @example <#908771693156257802> becomes <a href="/channels/908771693156257802">#memes</a>
  * - All other text should be left as is, but escaped to prevent XSS
  */
 
@@ -35,6 +37,7 @@ export type TokenCodeBlock = {
   content: string;
   lang?: string;
 };
+export type TokenChannel = { type: 'channel'; id: string };
 
 export type Token = 
   | TokenText
@@ -42,6 +45,7 @@ export type Token =
   | TokenMention
   | TokenCodeInline
   | TokenCodeBlock
+  | TokenChannel
 
 export function tokenizeMessage(input: string): Token[] {
   const tokens: Token[] = [];
@@ -58,7 +62,23 @@ export function tokenizeMessage(input: string): Token[] {
   while (current < input.length) {
     const char = input[current];
 
-    if (char === '<' && (input[current + 1] === ':' || (input[current + 1] === 'a' && input[current + 2] === ':'))) {
+    if (char === '<' && input[current + 1] === '#') {
+      pushBuffer();
+      
+      // Skip '<#'
+      current += 2;
+      let channelId = '';
+      
+      // Read until '>'
+      while (current < input.length && input[current] !== '>') {
+        channelId += input[current];
+        current++;
+      }
+      
+      // Skip '>'
+      current++;
+      tokens.push({ type: 'channel', id: channelId });
+    } else if (char === '<' && (input[current + 1] === ':' || (input[current + 1] === 'a' && input[current + 2] === ':'))) {
       pushBuffer();
       
       // Check if animated

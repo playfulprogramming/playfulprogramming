@@ -159,4 +159,33 @@ describe('tokenizeMessage', () => {
     ];
     expect(tokenizeMessage(input)).toEqual(expected);
   });
+
+  it('should parse Discord channel mentions', () => {
+    const input = '<#908771693156257802>';
+    const expected: Token[] = [{ type: 'channel', id: '908771693156257802' }];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should handle mixed text and channel mentions', () => {
+    const input = 'Check out <#908771693156257802> for memes';
+    const expected: Token[] = [
+      { type: 'text', content: 'Check out ' },
+      { type: 'channel', id: '908771693156257802' },
+      { type: 'text', content: ' for memes' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should handle mixed mentions, channels, and emojis', () => {
+    const input = 'Hey <@270063754576789504>, check <#908771693156257802> <:smile:123>';
+    const expected: Token[] = [
+      { type: 'text', content: 'Hey ' },
+      { type: 'mention', id: '270063754576789504' },
+      { type: 'text', content: ', check ' },
+      { type: 'channel', id: '908771693156257802' },
+      { type: 'text', content: ' ' },
+      { type: 'emoji', name: 'smile', id: '123' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
 });

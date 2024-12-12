@@ -24,6 +24,7 @@ interface Sticker {
 interface Props {
 	content: string;
 	lookupUser: (id: string) => Promise<DiscordUser>;
+	lookupChannelName: (id: string) => Promise<string>;
 	author: DiscordUser;
 	// True if a single message is being displayed, false if multiple messages are being displayed from the same user, just like Discord
 	includeHeader: boolean;
@@ -41,6 +42,7 @@ const {
 	edited,
 	created,
 	lookupUser,
+	lookupChannelName,
 	includeHeader = true,
 } = Astro.props;
 
@@ -72,10 +74,10 @@ const tokens = tokenizeMessage(content);
 	}
 
 	.createdDate {
-		font-size: .75rem;
+		font-size: 0.75rem;
 		line-height: 1.375rem;
 		font-weight: 400;
-		margin-left: .25rem;
+		margin-left: 0.25rem;
 		vertical-align: baseline;
 	}
 
@@ -130,8 +132,12 @@ const tokens = tokenizeMessage(content);
 				/>
 
 				<h1 class="authorName">
-					<span  style={`color: ${author.roleColor}`}>{author.name}</span>
-					<span class="createdDate">{formatDiscordCreated(created)}</span>
+					<span style={`color: ${author.roleColor}`}>
+						{author.name}
+					</span>
+					<span class="createdDate">
+						{formatDiscordCreated(created)}
+					</span>
 				</h1>
 			</Fragment>
 		)
@@ -142,6 +148,7 @@ const tokens = tokenizeMessage(content);
 				if (token.type === "text") {
 					return token.content;
 				}
+
 				if (token.type === "mention") {
 					const mentionedUser = await lookupUser(token.id);
 					return (
@@ -150,9 +157,20 @@ const tokens = tokenizeMessage(content);
 						</span>
 					);
 				}
+
+				if (token.type === "channel") {
+					const channelName = await lookupChannelName(token.id);
+					return (
+						<span style="background-color: lightblue; color: blue">
+							#{channelName}
+						</span>
+					);
+				}
+
 				if (token.type === "codeInline") {
 					return <code>{token.content}</code>;
 				}
+
 				if (token.type === "codeBlock") {
 					const code = await codeToHtml(token.content, token.lang);
 					return <Fragment set:html={code} />;
@@ -166,22 +184,22 @@ const tokens = tokenizeMessage(content);
 							alt={token.name}
 						/>
 					);
+				} else if (token.type === "emoji") {
+					return (
+						<img
+							height="16"
+							src={`https://cdn.discordapp.com/emojis/${token.id}.png`}
+							alt={token.name}
+						/>
+					);
 				}
 
-				return (
-					<img
-						height="16"
-						src={`https://cdn.discordapp.com/emojis/${token.id}.png`}
-						alt={token.name}
-					/>
-				);
+				return null;
 			})
 		}
 		{
 			edited && (
-				<span style="color: gray; font-size: 0.75rem">
-					(Edited)
-				</span>
+				<span style="color: gray; font-size: 0.75rem">(Edited)</span>
 			)
 		}
 		{

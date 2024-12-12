@@ -44,6 +44,11 @@ async function lookupUser(id: string) {
 		roleColor: user.displayHexColor,
 	};
 }
+
+async function lookupChannelName(id: string) {
+	const channel = await guild.channels.fetch(id);
+	return channel!.name;
+}
 ---
 
 <Document>
@@ -96,10 +101,11 @@ async function lookupUser(id: string) {
 								content={message.content}
 								author={partialAuthor}
 								reactions={reactions}
-								lookupUser={lookupUser}
 								stickers={stickers}
 								edited={!!message.editedTimestamp}
 								created={message.createdAt}
+								lookupUser={lookupUser}
+								lookupChannelName={lookupChannelName}
 							/>
 						</li>
 					);
