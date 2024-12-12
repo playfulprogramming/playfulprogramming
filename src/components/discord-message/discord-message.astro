@@ -89,6 +89,17 @@ const tokens = tokenizeMessage(content);
 					const code = await codeToHtml(token.content, token.lang);
 					return <Fragment set:html={code} />;
 				}
+
+				if (token.type === "emoji" && token.animated) {
+					return (
+						<img
+							height="16"
+							src={`https://cdn.discordapp.com/emojis/${token.id}.gif`}
+							alt={token.name}
+						/>
+					);
+				}
+
 				return (
 					<img
 						height="16"
