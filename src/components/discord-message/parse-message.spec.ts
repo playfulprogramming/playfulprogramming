@@ -14,6 +14,27 @@ describe('tokenizeMessage', () => {
     expect(tokenizeMessage(input)).toEqual(expected);
   });
 
+  it('should parse animated Discord emoji', () => {
+    const input = '<a:dancing_penguin:1013090009756209234>';
+    const expected: Token[] = [{ 
+      type: 'emoji', 
+      name: 'dancing_penguin', 
+      id: '1013090009756209234',
+      animated: true 
+    }];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should handle mixed animated and static emojis', () => {
+    const input = '<a:dancing:123> text <:static:456>';
+    const expected: Token[] = [
+      { type: 'emoji', name: 'dancing', id: '123', animated: true },
+      { type: 'text', content: ' text ' },
+      { type: 'emoji', name: 'static', id: '456' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
   it('should handle mixed text and emoji', () => {
     const input = 'Hello <:shrugging:519267805871341568> world';
     const expected: Token[] = [

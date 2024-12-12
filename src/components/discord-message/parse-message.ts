@@ -6,6 +6,7 @@
  * Goals:
  * - Migrate all images based off of the following:
  * @example <:shrugging:519267805871341568> becomes <img src="https://cdn.discordapp.com/emojis/519267805871341568.png" alt="shrugging">
+ * @example <a:dancing_penguin:1013090009756209234> becomes <img src="https://cdn.discordapp.com/emojis/1013090009756209234.gif" alt="dancing_penguin">
  * - Migrate all mentions to a username based off of the following:
  * @example <@270063754576789504> becomes "@crutchcorn (Corbin Crutchley)"
  * - Inline code samples should be wrapped in <code> tags
@@ -21,7 +22,12 @@
  */
 
 export type TokenText = { type: 'text'; content: string };
-export type TokenEmoji = { type: 'emoji'; name: string; id: string };
+export type TokenEmoji = { 
+  type: 'emoji'; 
+  name: string; 
+  id: string;
+  animated?: boolean;
+};
 export type TokenMention = { type: 'mention'; id: string };
 export type TokenCodeInline = { type: 'codeInline'; content: string };
 export type TokenCodeBlock = { 
@@ -52,11 +58,14 @@ export function tokenizeMessage(input: string): Token[] {
   while (current < input.length) {
     const char = input[current];
 
-    if (char === '<' && input[current + 1] === ':') {
+    if (char === '<' && (input[current + 1] === ':' || (input[current + 1] === 'a' && input[current + 2] === ':'))) {
       pushBuffer();
       
-      // Skip '<:'
-      current += 2;
+      // Check if animated
+      const isAnimated = input[current + 1] === 'a';
+      
+      // Skip '<:' or '<a:'
+      current += isAnimated ? 3 : 2;
       let emojiName = '';
       
       // Read until ':'
@@ -77,7 +86,12 @@ export function tokenizeMessage(input: string): Token[] {
       
       // Skip '>'
       current++;
-      tokens.push({ type: 'emoji', name: emojiName, id: emojiId });
+      tokens.push({ 
+        type: 'emoji', 
+        name: emojiName, 
+        id: emojiId,
+        ...(isAnimated ? { animated: true } : {})
+      });
     } else if (char === '<' && input[current + 1] === '@') {
       pushBuffer();
       
