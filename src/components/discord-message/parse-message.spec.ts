@@ -82,7 +82,7 @@ describe('tokenizeMessage', () => {
     const input = 'Here is a code block:\n```js\nlet x = 5;\n```';
     const expected: Token[] = [
       { type: 'text', content: 'Here is a code block:\n' },
-      { type: 'codeBlock', content: 'js\nlet x = 5;\n' }
+      { type: 'codeBlock', content: 'let x = 5;\n', lang: "js" }
     ];
     expect(tokenizeMessage(input)).toEqual(expected);
   });
@@ -93,8 +93,32 @@ describe('tokenizeMessage', () => {
       { type: 'text', content: 'Text ' },
       { type: 'codeInline', content: 'inline code' },
       { type: 'text', content: ' more text\n' },
-      { type: 'codeBlock', content: 'js\nlet x = 5;\n' },
+      { type: 'codeBlock', content: 'let x = 5;\n', lang: 'js' },
       { type: 'text', content: ' end' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should handle code blocks with language', () => {
+    const input = '```js\nconsole.log(123)\n```';
+    const expected: Token[] = [
+      { type: 'codeBlock', content: 'console.log(123)\n', lang: 'js' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should preserve first line when it contains spaces or curly braces', () => {
+    const input = '```js {1}\nconsole.log(123)\n```';
+    const expected: Token[] = [
+      { type: 'codeBlock', content: 'js {1}\nconsole.log(123)\n' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should handle code blocks without language', () => {
+    const input = '```\nconsole.log(123)\n```';
+    const expected: Token[] = [
+      { type: 'codeBlock', content: 'console.log(123)\n' }
     ];
     expect(tokenizeMessage(input)).toEqual(expected);
   });

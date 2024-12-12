@@ -24,7 +24,11 @@ export type TokenText = { type: 'text'; content: string };
 export type TokenEmoji = { type: 'emoji'; name: string; id: string };
 export type TokenMention = { type: 'mention'; id: string };
 export type TokenCodeInline = { type: 'codeInline'; content: string };
-export type TokenCodeBlock = { type: 'codeBlock'; content: string };
+export type TokenCodeBlock = { 
+  type: 'codeBlock'; 
+  content: string;
+  lang?: string;
+};
 
 export type Token = 
   | TokenText
@@ -97,15 +101,36 @@ export function tokenizeMessage(input: string): Token[] {
       current += 3;
       let codeBlockContent = '';
       
+      // Get the first line
+      let firstLine = '';
+      while (current < input.length && input[current] !== '\n' && !(input[current] === '`' && input[current + 1] === '`' && input[current + 2] === '`')) {
+        firstLine += input[current];
+        current++;
+      }
+
+      // Skip newline if present
+      if (input[current] === '\n') {
+        current++;
+      }
+      
       // Read until '```'
       while (current < input.length && !(input[current] === '`' && input[current + 1] === '`' && input[current + 2] === '`')) {
         codeBlockContent += input[current];
         current++;
       }
-      
+
       // Skip '```'
       current += 3;
-      tokens.push({ type: 'codeBlock', content: codeBlockContent });
+
+      // Check if first line is a clean language identifier
+      const token: TokenCodeBlock = { type: 'codeBlock', content: codeBlockContent };
+      if (firstLine && !firstLine.trim().includes(' ')) {
+        token.lang = firstLine;
+      } else if (firstLine) {
+        token.content = firstLine + '\n' + codeBlockContent;
+      }
+
+      tokens.push(token);
     } else if (char === '`') {
       pushBuffer();
       
