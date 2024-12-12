@@ -79,6 +79,13 @@ async function lookupUser(id: string) {
 						count: reaction.count,
 					}));
 
+					const stickers = Array.from(
+						message.stickers.values(),
+					).map((sticker) => ({
+						name: sticker.name,
+						image: sticker.url
+					}));
+
 					return (
 						<li>
 							<DiscordMessage
@@ -87,6 +94,7 @@ async function lookupUser(id: string) {
 								author={partialAuthor}
 								reactions={reactions}
 								lookupUser={lookupUser}
+								stickers={stickers}
 							/>
 						</li>
 					);
