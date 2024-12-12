@@ -47,146 +47,159 @@ export type Token =
   | TokenCodeBlock
   | TokenChannel
 
+type TokenParseResult = {
+  token: Token;
+  advanceBy: number;
+};
+
+function parseChannel(input: string, startIndex: number): TokenParseResult | null {
+  if (input[startIndex] !== '<' || input[startIndex + 1] !== '#') return null;
+  
+  let current = startIndex + 2;
+  let channelId = '';
+  
+  while (current < input.length && input[current] !== '>') {
+    channelId += input[current];
+    current++;
+  }
+  
+  return {
+    token: { type: 'channel', id: channelId },
+    advanceBy: current - startIndex + 1
+  };
+}
+
+function parseEmoji(input: string, startIndex: number): TokenParseResult | null {
+  if (input[startIndex] !== '<') return null;
+  if (input[startIndex + 1] !== ':' && (input[startIndex + 1] !== 'a' || input[startIndex + 2] !== ':')) return null;
+
+  const isAnimated = input[startIndex + 1] === 'a';
+  let current = startIndex + (isAnimated ? 3 : 2);
+  let emojiName = '';
+  
+  while (current < input.length && input[current] !== ':') {
+    emojiName += input[current];
+    current++;
+  }
+  
+  current++;
+  let emojiId = '';
+  
+  while (current < input.length && input[current] !== '>') {
+    emojiId += input[current];
+    current++;
+  }
+  
+  return {
+    token: { 
+      type: 'emoji', 
+      name: emojiName, 
+      id: emojiId,
+      ...(isAnimated ? { animated: true } : {})
+    },
+    advanceBy: current - startIndex + 1
+  };
+}
+
+function parseMention(input: string, startIndex: number): TokenParseResult | null {
+  if (input[startIndex] !== '<' || input[startIndex + 1] !== '@') return null;
+  
+  let current = startIndex + 2;
+  let mentionId = '';
+  
+  while (current < input.length && input[current] !== '>') {
+    mentionId += input[current];
+    current++;
+  }
+  
+  return {
+    token: { type: 'mention', id: mentionId },
+    advanceBy: current - startIndex + 1
+  };
+}
+
+function parseCodeBlock(input: string, startIndex: number): TokenParseResult | null {
+  if (input.slice(startIndex, startIndex + 3) !== '```') return null;
+  
+  let current = startIndex + 3;
+  let firstLine = '';
+  while (current < input.length && input[current] !== '\n' && input.slice(current, current + 3) !== '```') {
+    firstLine += input[current];
+    current++;
+  }
+
+  if (input[current] === '\n') current++;
+  
+  let content = '';
+  while (current < input.length && input.slice(current, current + 3) !== '```') {
+    content += input[current];
+    current++;
+  }
+
+  const token: TokenCodeBlock = { type: 'codeBlock', content: content.replace(/\n$/, '') };
+  if (firstLine && !firstLine.trim().includes(' ')) {
+    token.lang = firstLine;
+  } else if (firstLine) {
+    token.content = firstLine + '\n' + token.content;
+  }
+
+  return {
+    token,
+    advanceBy: current - startIndex + 3
+  };
+}
+
+function parseInlineCode(input: string, startIndex: number): TokenParseResult | null {
+  if (input[startIndex] !== '`') return null;
+  
+  let current = startIndex + 1;
+  let content = '';
+  
+  while (current < input.length && input[current] !== '`') {
+    content += input[current];
+    current++;
+  }
+  
+  return {
+    token: { type: 'codeInline', content },
+    advanceBy: current - startIndex + 1
+  };
+}
+
 export function tokenizeMessage(input: string): Token[] {
   const tokens: Token[] = [];
   let current = 0;
-  let buffer = '';
+  let textBuffer = '';
 
-  function pushBuffer() {
-    if (buffer) {
-      tokens.push({ type: 'text', content: buffer });
-      buffer = '';
+  function pushTextBuffer() {
+    if (textBuffer) {
+      tokens.push({ type: 'text', content: textBuffer });
+      textBuffer = '';
     }
   }
+
+  const parsers = [parseChannel, parseEmoji, parseMention, parseCodeBlock, parseInlineCode];
 
   while (current < input.length) {
-    const char = input[current];
+    let parsed = false;
+    
+    for (const parser of parsers) {
+      const result = parser(input, current);
+      if (result) {
+        pushTextBuffer();
+        tokens.push(result.token);
+        current += result.advanceBy;
+        parsed = true;
+        break;
+      }
+    }
 
-    if (char === '<' && input[current + 1] === '#') {
-      pushBuffer();
-      
-      // Skip '<#'
-      current += 2;
-      let channelId = '';
-      
-      // Read until '>'
-      while (current < input.length && input[current] !== '>') {
-        channelId += input[current];
-        current++;
-      }
-      
-      // Skip '>'
-      current++;
-      tokens.push({ type: 'channel', id: channelId });
-    } else if (char === '<' && (input[current + 1] === ':' || (input[current + 1] === 'a' && input[current + 2] === ':'))) {
-      pushBuffer();
-      
-      // Check if animated
-      const isAnimated = input[current + 1] === 'a';
-      
-      // Skip '<:' or '<a:'
-      current += isAnimated ? 3 : 2;
-      let emojiName = '';
-      
-      // Read until ':'
-      while (current < input.length && input[current] !== ':') {
-        emojiName += input[current];
-        current++;
-      }
-      
-      // Skip ':'
-      current++;
-      let emojiId = '';
-      
-      // Read until '>'
-      while (current < input.length && input[current] !== '>') {
-        emojiId += input[current];
-        current++;
-      }
-      
-      // Skip '>'
-      current++;
-      tokens.push({ 
-        type: 'emoji', 
-        name: emojiName, 
-        id: emojiId,
-        ...(isAnimated ? { animated: true } : {})
-      });
-    } else if (char === '<' && input[current + 1] === '@') {
-      pushBuffer();
-      
-      // Skip '<@'
-      current += 2;
-      let mentionId = '';
-      
-      // Read until '>'
-      while (current < input.length && input[current] !== '>') {
-        mentionId += input[current];
-        current++;
-      }
-      
-      // Skip '>'
-      current++;
-      tokens.push({ type: 'mention', id: mentionId });
-    } else if (char === '`' && input[current + 1] === '`' && input[current + 2] === '`') {
-      pushBuffer();
-      
-      // Skip '```'
-      current += 3;
-      let codeBlockContent = '';
-      
-      // Get the first line
-      let firstLine = '';
-      while (current < input.length && input[current] !== '\n' && !(input[current] === '`' && input[current + 1] === '`' && input[current + 2] === '`')) {
-        firstLine += input[current];
-        current++;
-      }
-
-      // Skip newline if present
-      if (input[current] === '\n') {
-        current++;
-      }
-      
-      // Read until '```'
-      while (current < input.length && !(input[current] === '`' && input[current + 1] === '`' && input[current + 2] === '`')) {
-        codeBlockContent += input[current];
-        current++;
-      }
-
-      // Skip '```'
-      current += 3;
-
-      // Check if first line is a clean language identifier
-      const token: TokenCodeBlock = { type: 'codeBlock', content: codeBlockContent.replace(/\n$/, '') };
-      if (firstLine && !firstLine.trim().includes(' ')) {
-        token.lang = firstLine;
-      } else if (firstLine) {
-        token.content = firstLine + '\n' + token.content;
-      }
-
-      tokens.push(token);
-    } else if (char === '`') {
-      pushBuffer();
-      
-      // Skip '`'
-      current++;
-      let codeInlineContent = '';
-      
-      // Read until '`'
-      while (current < input.length && input[current] !== '`') {
-        codeInlineContent += input[current];
-        current++;
-      }
-      
-      // Skip '`'
-      current++;
-      tokens.push({ type: 'codeInline', content: codeInlineContent });
-    } else {
-      buffer += char;
+    if (!parsed) {
+      textBuffer += input[current];
       current++;
     }
   }
 
-  pushBuffer();
+  pushTextBuffer();
   return tokens;
 }
