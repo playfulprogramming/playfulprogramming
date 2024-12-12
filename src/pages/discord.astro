@@ -44,6 +44,6 @@ async function lookupUserName(id: string) {
 
 <Document>
 	<ul>
-		{messagesArr.map((message) => <DiscordMessage content={message.content} lookupUserName={lookupUserName}/>)}
+		{messagesArr.map((message) => <li><DiscordMessage content={message.content} lookupUserName={lookupUserName}/></li>)}
 	</ul>
 </Document>

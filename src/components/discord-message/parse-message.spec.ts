@@ -1,61 +1,70 @@
 import { describe, it, expect } from 'vitest';
-import { parseDiscordMessage } from './parse-message';
+import { tokenizeMessage, Token } from './parse-message';
 
-describe('parseDiscordMessage', () => {
-  const mockLookupUserName = async (id: string) => {
-    const users: { [key: string]: string } = {
-      '270063754576789504': 'crutchcorn (Corbin Crutchley)'
-    };
-    return users[id] || 'unknown';
-  };
-
-  it('should handle plain text', async () => {
+describe('tokenizeMessage', () => {
+  it('should handle plain text', () => {
     const input = 'Hello, world!';
-    expect(await parseDiscordMessage(input, { lookupUserName: mockLookupUserName })).toBe('Hello, world!');
+    const expected: Token[] = [{ type: 'text', content: 'Hello, world!' }];
+    expect(tokenizeMessage(input)).toEqual(expected);
   });
 
-  it('should parse Discord emoji', async () => {
+  it('should parse Discord emoji', () => {
     const input = '<:shrugging:519267805871341568>';
-    expect(await parseDiscordMessage(input, { lookupUserName: mockLookupUserName })).toBe(
-      '<img src="https://cdn.discordapp.com/emojis/519267805871341568.png" alt="shrugging">'
-    );
+    const expected: Token[] = [{ type: 'emoji', name: 'shrugging', id: '519267805871341568' }];
+    expect(tokenizeMessage(input)).toEqual(expected);
   });
 
-  it('should handle mixed text and emoji', async () => {
+  it('should handle mixed text and emoji', () => {
     const input = 'Hello <:shrugging:519267805871341568> world';
-    expect(await parseDiscordMessage(input, { lookupUserName: mockLookupUserName })).toBe(
-      'Hello <img src="https://cdn.discordapp.com/emojis/519267805871341568.png" alt="shrugging"> world'
-    );
+    const expected: Token[] = [
+      { type: 'text', content: 'Hello ' },
+      { type: 'emoji', name: 'shrugging', id: '519267805871341568' },
+      { type: 'text', content: ' world' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
   });
 
-  it('should escape HTML in text content', async () => {
+  it('should escape HTML in text content', () => {
     const input = 'Hello <script>alert("xss")</script>';
-    expect(await parseDiscordMessage(input, { lookupUserName: mockLookupUserName })).toBe(
-      'Hello &lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;'
-    );
+    const expected: Token[] = [{ type: 'text', content: 'Hello <script>alert("xss")</script>' }];
+    expect(tokenizeMessage(input)).toEqual(expected);
   });
 
-  it('should handle multiple emojis', async () => {
+  it('should handle multiple emojis', () => {
     const input = '<:emoji1:123> text <:emoji2:456>';
-    expect(await parseDiscordMessage(input, { lookupUserName: mockLookupUserName })).toBe(
-      '<img src="https://cdn.discordapp.com/emojis/123.png" alt="emoji1"> text <img src="https://cdn.discordapp.com/emojis/456.png" alt="emoji2">'
-    );
+    const expected: Token[] = [
+      { type: 'emoji', name: 'emoji1', id: '123' },
+      { type: 'text', content: ' text ' },
+      { type: 'emoji', name: 'emoji2', id: '456' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
   });
 
-  it('should parse Discord mentions', async () => {
+  it('should parse Discord mentions', () => {
     const input = '<@270063754576789504>';
-    expect(await parseDiscordMessage(input, { lookupUserName: mockLookupUserName })).toBe('@crutchcorn (Corbin Crutchley)');
+    const expected: Token[] = [{ type: 'mention', id: '270063754576789504' }];
+    expect(tokenizeMessage(input)).toEqual(expected);
   });
 
-  it('should handle mixed text and mentions', async () => {
+  it('should handle mixed text and mentions', () => {
     const input = 'Hello <@270063754576789504> world';
-    expect(await parseDiscordMessage(input, { lookupUserName: mockLookupUserName })).toBe('Hello @crutchcorn (Corbin Crutchley) world');
+    const expected: Token[] = [
+      { type: 'text', content: 'Hello ' },
+      { type: 'mention', id: '270063754576789504' },
+      { type: 'text', content: ' world' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
   });
 
-  it('should handle mixed text, emoji, and mentions', async () => {
+  it('should handle mixed text, emoji, and mentions', () => {
     const input = 'Hello <:shrugging:519267805871341568> <@270063754576789504> world';
-    expect(await parseDiscordMessage(input, { lookupUserName: mockLookupUserName })).toBe(
-      'Hello <img src="https://cdn.discordapp.com/emojis/519267805871341568.png" alt="shrugging"> @crutchcorn (Corbin Crutchley) world'
-    );
+    const expected: Token[] = [
+      { type: 'text', content: 'Hello ' },
+      { type: 'emoji', name: 'shrugging', id: '519267805871341568' },
+      { type: 'text', content: ' ' },
+      { type: 'mention', id: '270063754576789504' },
+      { type: 'text', content: ' world' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
   });
 });

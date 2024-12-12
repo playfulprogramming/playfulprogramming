@@ -1,5 +1,5 @@
 ---
-import { parseDiscordMessage } from './parse-message'
+import { tokenizeMessage } from './parse-message'
 
 interface Props {
     content: string
@@ -8,9 +8,18 @@ interface Props {
 
 const { content, lookupUserName } = Astro.props
 
-const message = parseDiscordMessage(content, {
-    lookupUserName
-});
+const tokens = tokenizeMessage(content);
 ---
 
-<div set:html={message}/>
+{
+    tokens.map(async token => {
+        if (token.type === 'text') {
+            return token.content;
+        }
+        if (token.type === 'mention') {
+            const username = await lookupUserName(token.id);
+            return <span style="background-color: lightblue; color: blue">@{username}</span>;
+        }
+        return <img height="16" src={`https://cdn.discordapp.com/emojis/${token.id}.png`} alt={token.name}>;
+    })
+}

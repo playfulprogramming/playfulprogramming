@@ -11,12 +11,16 @@
  * - All other text should be left as is, but escaped to prevent XSS
  */
 
-type Token = 
-  | { type: 'text'; content: string }
-  | { type: 'emoji'; name: string; id: string }
-  | { type: 'mention'; id: string };
+export type TokenText = { type: 'text'; content: string };
+export type TokenEmoji = { type: 'emoji'; name: string; id: string };
+export type TokenMention = { type: 'mention'; id: string };
 
-function tokenize(input: string): Token[] {
+export type Token = 
+  | TokenText
+  | TokenEmoji
+  | TokenMention
+
+export function tokenizeMessage(input: string): Token[] {
   const tokens: Token[] = [];
   let current = 0;
   let buffer = '';
@@ -81,33 +85,4 @@ function tokenize(input: string): Token[] {
 
   pushBuffer();
   return tokens;
-}
-
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-interface ParseDiscordMessageOptions {
-  lookupUserName: (id: string) => Promise<string>;
-}
-
-export async function parseDiscordMessage(message: string, {
-  lookupUserName
-}: ParseDiscordMessageOptions): Promise<string> {
-  const tokens = tokenize(message);
-  return (await Promise.all(tokens.map(async token => {
-    if (token.type === 'text') {
-      return escapeHtml(token.content);
-    }
-    if (token.type === 'mention') {
-      const username = await lookupUserName(token.id);
-      return `@${username}`;
-    }
-    return `<img src="https://cdn.discordapp.com/emojis/${token.id}.png" alt="${token.name}">`;
-  }))).join('');
 }
