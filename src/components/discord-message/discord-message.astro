@@ -1,34 +1,102 @@
 ---
-import { codeToHtml } from 'utils/markdown/shiki/rehype-transform';
-import { tokenizeMessage } from './parse-message'
+import { codeToHtml } from "utils/markdown/shiki/rehype-transform";
+import { tokenizeMessage } from "./parse-message";
 import "../../styles/shiki.scss";
 
-interface Props {
-    content: string
-    lookupUserName: (id: string) => Promise<string>
+interface DiscordUser {
+	name: string;
+	profilePhoto: string;
+	roleColor: string | null | undefined;
 }
 
-const { content, lookupUserName } = Astro.props
+interface Props {
+	content: string;
+	lookupUser: (id: string) => Promise<DiscordUser>;
+	author: DiscordUser;
+	// True if a single message is being displayed, false if multiple messages are being displayed from the same user, just like Discord
+	includeHeader: boolean;
+}
+
+const { content, author, lookupUser, includeHeader = true } = Astro.props;
 
 const tokens = tokenizeMessage(content);
 ---
 
-{
-    tokens.map(async token => {
-        if (token.type === 'text') {
-            return token.content;
-        }
-        if (token.type === 'mention') {
-            const username = await lookupUserName(token.id);
-            return <span style="background-color: lightblue; color: blue">@{username}</span>;
-        }
-        if (token.type === "codeInline") {
-            return <code>{token.content}</code>;
-        }
-        if (token.type === "codeBlock") {
-            const code = await codeToHtml(token.content, token.lang);
-            return <Fragment set:html={code}/>
-        }
-        return <img height="16" src={`https://cdn.discordapp.com/emojis/${token.id}.png`} alt={token.name}>;
-    })
-}
+<style>
+	.discordMsgContainer {
+		position: relative;
+	}
+	.profilePic {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+
+		position: absolute;
+		left: 16px;
+	}
+
+	.authorName {
+		position: relative;
+		left: calc(16px + 40px + 8px);
+		line-height: 1.375rem;
+		min-height: 1.375rem;
+		white-space: break-spaces;
+		word-wrap: pre-wrap;
+		font-size: 100%;
+		margin: 0;
+	}
+
+	.messageContents {
+        position: relative;
+        left: calc(16px + 40px + 8px);
+	}
+</style>
+
+<div class="discordMsgContainer" style={includeHeader ? "margin-top: 16px" : ""}>
+	{
+		includeHeader && (
+			<Fragment>
+				<img
+					class="profilePic"
+					src={author.profilePhoto}
+					alt={author.name}
+				/>
+
+				<h1 class="authorName" style={`color: ${author.roleColor}`}>
+					{author.name}
+				</h1>
+			</Fragment>
+		)
+	}
+	<div class="messageContents">
+		{
+			tokens.map(async (token) => {
+				if (token.type === "text") {
+					return token.content;
+				}
+				if (token.type === "mention") {
+					const mentionedUser = await lookupUser(token.id);
+					return (
+						<span style="background-color: lightblue; color: blue">
+							@{mentionedUser.name}
+						</span>
+					);
+				}
+				if (token.type === "codeInline") {
+					return <code>{token.content}</code>;
+				}
+				if (token.type === "codeBlock") {
+					const code = await codeToHtml(token.content, token.lang);
+					return <Fragment set:html={code} />;
+				}
+				return (
+					<img
+						height="16"
+						src={`https://cdn.discordapp.com/emojis/${token.id}.png`}
+						alt={token.name}
+					/>
+				);
+			})
+		}
+	</div>
+</div>

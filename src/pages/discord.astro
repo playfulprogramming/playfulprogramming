@@ -1,7 +1,13 @@
 ---
-import { Client, discordSort, GatewayIntentBits, TextChannel } from "discord.js";
+import {
+	Client,
+	discordSort,
+	GatewayIntentBits,
+	TextChannel,
+} from "discord.js";
 import Document from "../layouts/document.astro";
 import DiscordMessage from "components/discord-message/discord-message.astro";
+import { profile } from "console";
 
 // Create a new client instance
 const client = new Client({
@@ -9,7 +15,7 @@ const client = new Client({
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.MessageContent,
-		GatewayIntentBits.GuildEmojisAndStickers
+		GatewayIntentBits.GuildEmojisAndStickers,
 	],
 });
 
@@ -36,14 +42,32 @@ const messagesArr = Array.from(messagesCollection.values()).sort(
 	(a, b) => a.createdTimestamp - b.createdTimestamp,
 );
 
-async function lookupUserName(id: string) {
+async function lookupUser(id: string) {
 	const user = await guild.members.fetch(id);
-	return user.displayName;
+	return {
+		name: user.displayName,
+		profilePhoto: user.user.displayAvatarURL(),
+		roleColor: user.displayHexColor,
+	};
 }
 ---
 
 <Document>
-	<ul>
-		{messagesArr.map((message) => <li><DiscordMessage content={message.content} lookupUserName={lookupUserName}/></li>)}
+	<ul style="list-style: none; margin: 0 auto; padding: 1rem; max-width: 720px;">
+		{
+			messagesArr.map(async (message) => {
+				const partialAuthor = await lookupUser(message.author.id);
+				return (
+					<li>
+						<DiscordMessage
+							includeHeader={true}
+							content={message.content}
+							author={partialAuthor}
+							lookupUser={lookupUser}
+						/>
+					</li>
+				);
+			})
+		}
 	</ul>
 </Document>
