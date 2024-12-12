@@ -2,6 +2,7 @@
 import { codeToHtml } from "utils/markdown/shiki/rehype-transform";
 import { tokenizeMessage } from "./parse-message";
 import "../../styles/shiki.scss";
+import { formatDiscordCreated } from "./date-utils";
 
 interface DiscordUser {
 	name: string;
@@ -29,6 +30,7 @@ interface Props {
 	reactions: Reaction[];
 	stickers: Sticker[];
 	edited: boolean;
+	created: Date;
 }
 
 const {
@@ -37,6 +39,7 @@ const {
 	reactions,
 	stickers,
 	edited,
+	created,
 	lookupUser,
 	includeHeader = true,
 } = Astro.props;
@@ -66,6 +69,14 @@ const tokens = tokenizeMessage(content);
 		word-wrap: pre-wrap;
 		font-size: 100%;
 		margin: 0;
+	}
+
+	.createdDate {
+		font-size: .75rem;
+		line-height: 1.375rem;
+		font-weight: 400;
+		margin-left: .25rem;
+		vertical-align: baseline;
 	}
 
 	.messageContents {
@@ -118,8 +129,9 @@ const tokens = tokenizeMessage(content);
 					alt={author.name}
 				/>
 
-				<h1 class="authorName" style={`color: ${author.roleColor}`}>
-					{author.name}
+				<h1 class="authorName">
+					<span  style={`color: ${author.roleColor}`}>{author.name}</span>
+					<span class="createdDate">{formatDiscordCreated(created)}</span>
 				</h1>
 			</Fragment>
 		)

@@ -99,6 +99,7 @@ async function lookupUser(id: string) {
 								lookupUser={lookupUser}
 								stickers={stickers}
 								edited={!!message.editedTimestamp}
+								created={message.createdAt}
 							/>
 						</li>
 					);
