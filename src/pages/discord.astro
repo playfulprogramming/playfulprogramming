@@ -1,10 +1,6 @@
 ---
-import {
-	Client,
-	GatewayIntentBits,
-	TextChannel,
-	PermissionsBitField,
-} from "discord.js";
+import { Client, GatewayIntentBits, TextChannel } from "discord.js";
+import Document from "../layouts/document.astro";
 
 // Create a new client instance
 const client = new Client({
@@ -24,25 +20,23 @@ if (!guild) {
 	return Astro.redirect("/404");
 }
 
-const botMember = await guild.members.fetch(client.user!.id);
-if (
-	!botMember.permissions.has(PermissionsBitField.Flags.ViewChannel) ||
-	!botMember.permissions.has(PermissionsBitField.Flags.ReadMessageHistory)
-) {
-	return Astro.redirect("/404");
-}
-
-const channel = guild.channels.cache.find(
-	(ch) => ch.name === "webdev" && ch.isTextBased(),
+const channels = await guild.channels.fetch();
+const channel = Array.from(channels.values()).find(
+	(ch) => ch?.name === "webdev" && ch?.isTextBased(),
 ) as TextChannel;
 
 if (!channel) {
 	return Astro.redirect("/404");
 }
 
-const messages = await channel.messages.fetch({ limit: 10 });
+const messagesCollection = await channel.messages.fetch({ limit: 10 });
+const messagesArr = Array.from(messagesCollection.values()).sort(
+	(a, b) => a.createdTimestamp - b.createdTimestamp,
+);
 ---
 
-<ul>
-	{messages.map((message) => <li>{message.content}</li>)}
-</ul>
+<Document>
+	<ul>
+		{messagesArr.map((message) => <li>{message.content}</li>)}
+	</ul>
+</Document>
