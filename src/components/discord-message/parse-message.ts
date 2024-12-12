@@ -123,11 +123,11 @@ export function tokenizeMessage(input: string): Token[] {
       current += 3;
 
       // Check if first line is a clean language identifier
-      const token: TokenCodeBlock = { type: 'codeBlock', content: codeBlockContent };
+      const token: TokenCodeBlock = { type: 'codeBlock', content: codeBlockContent.replace(/\n$/, '') };
       if (firstLine && !firstLine.trim().includes(' ')) {
         token.lang = firstLine;
       } else if (firstLine) {
-        token.content = firstLine + '\n' + codeBlockContent;
+        token.content = firstLine + '\n' + token.content;
       }
 
       tokens.push(token);

@@ -1,5 +1,7 @@
 ---
+import { codeToHtml } from 'utils/markdown/shiki/rehype-transform';
 import { tokenizeMessage } from './parse-message'
+import "../../styles/shiki.scss";
 
 interface Props {
     content: string
@@ -24,7 +26,8 @@ const tokens = tokenizeMessage(content);
             return <code>{token.content}</code>;
         }
         if (token.type === "codeBlock") {
-            return <pre><code>{token.content}</code></pre>;
+            const code = await codeToHtml(token.content, token.lang);
+            return <Fragment set:html={code}/>
         }
         return <img height="16" src={`https://cdn.discordapp.com/emojis/${token.id}.png`} alt={token.name}>;
     })
