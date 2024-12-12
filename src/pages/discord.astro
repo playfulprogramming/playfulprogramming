@@ -35,10 +35,15 @@ const messagesCollection = await channel.messages.fetch({ limit: 10 });
 const messagesArr = Array.from(messagesCollection.values()).sort(
 	(a, b) => a.createdTimestamp - b.createdTimestamp,
 );
+
+async function lookupUserName(id: string) {
+	const user = await guild.members.fetch(id);
+	return user.displayName;
+}
 ---
 
 <Document>
 	<ul>
-		{messagesArr.map((message) => <DiscordMessage content={message.content}/>)}
+		{messagesArr.map((message) => <DiscordMessage content={message.content} lookupUserName={lookupUserName}/>)}
 	</ul>
 </Document>

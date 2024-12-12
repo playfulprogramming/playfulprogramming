@@ -3,11 +3,14 @@ import { parseDiscordMessage } from './parse-message'
 
 interface Props {
     content: string
+    lookupUserName: (id: string) => Promise<string>
 }
 
-const { content } = Astro.props
+const { content, lookupUserName } = Astro.props
 
-const message = parseDiscordMessage(content);
+const message = parseDiscordMessage(content, {
+    lookupUserName
+});
 ---
 
 <div set:html={message}/>

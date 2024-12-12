@@ -6,12 +6,15 @@
  * Goals:
  * - Migrate all images based off of the following:
  * @example <:shrugging:519267805871341568> becomes <img src="https://cdn.discordapp.com/emojis/519267805871341568.png" alt="shrugging">
+ * - Migrate all mentions to a username based off of the following:
+ * @example <@270063754576789504> becomes "@crutchcorn (Corbin Crutchley)"
  * - All other text should be left as is, but escaped to prevent XSS
  */
 
 type Token = 
   | { type: 'text'; content: string }
-  | { type: 'emoji'; name: string; id: string };
+  | { type: 'emoji'; name: string; id: string }
+  | { type: 'mention'; id: string };
 
 function tokenize(input: string): Token[] {
   const tokens: Token[] = [];
@@ -51,8 +54,25 @@ function tokenize(input: string): Token[] {
         current++;
       }
       
-      tokens.push({ type: 'emoji', name: emojiName, id: emojiId });
+      // Skip '>'
       current++;
+      tokens.push({ type: 'emoji', name: emojiName, id: emojiId });
+    } else if (char === '<' && input[current + 1] === '@') {
+      pushBuffer();
+      
+      // Skip '<@'
+      current += 2;
+      let mentionId = '';
+      
+      // Read until '>'
+      while (current < input.length && input[current] !== '>') {
+        mentionId += input[current];
+        current++;
+      }
+      
+      // Skip '>'
+      current++;
+      tokens.push({ type: 'mention', id: mentionId });
     } else {
       buffer += char;
       current++;
@@ -72,12 +92,22 @@ function escapeHtml(text: string): string {
     .replace(/'/g, "&#039;");
 }
 
-export function parseDiscordMessage(message: string): string {
+interface ParseDiscordMessageOptions {
+  lookupUserName: (id: string) => Promise<string>;
+}
+
+export async function parseDiscordMessage(message: string, {
+  lookupUserName
+}: ParseDiscordMessageOptions): Promise<string> {
   const tokens = tokenize(message);
-  return tokens.map(token => {
+  return (await Promise.all(tokens.map(async token => {
     if (token.type === 'text') {
       return escapeHtml(token.content);
     }
+    if (token.type === 'mention') {
+      const username = await lookupUserName(token.id);
+      return `@${username}`;
+    }
     return `<img src="https://cdn.discordapp.com/emojis/${token.id}.png" alt="${token.name}">`;
-  }).join('');
+  }))).join('');
 }
