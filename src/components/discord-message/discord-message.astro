@@ -9,15 +9,28 @@ interface DiscordUser {
 	roleColor: string | null | undefined;
 }
 
+interface Reaction {
+	name: string | null;
+	image: string | null;
+	count: number;
+}
+
 interface Props {
 	content: string;
 	lookupUser: (id: string) => Promise<DiscordUser>;
 	author: DiscordUser;
 	// True if a single message is being displayed, false if multiple messages are being displayed from the same user, just like Discord
 	includeHeader: boolean;
+	reactions: Reaction[];
 }
 
-const { content, author, lookupUser, includeHeader = true } = Astro.props;
+const {
+	content,
+	author,
+	reactions,
+	lookupUser,
+	includeHeader = true,
+} = Astro.props;
 
 const tokens = tokenizeMessage(content);
 ---
@@ -47,12 +60,38 @@ const tokens = tokenizeMessage(content);
 	}
 
 	.messageContents {
-        position: relative;
-        left: calc(16px + 40px + 8px);
+		position: relative;
+		left: calc(16px + 40px + 8px);
+	}
+
+	.reactionsBar {
+		position: relative;
+		left: calc(16px + 40px + 8px);
+		margin-top: .25rem;
+	}
+
+	.reactionItem {
+		display: inline-flex;
+		align-items: center;
+		padding: .125rem .375rem;
+		position: relative;
+		border: .0625rem solid transparent;
+		background-color: color-mix( in oklab, hsl(222.857 calc(1 * 5.833%) 52.941% / 0.16) 100%, hsl(241.1764705882353 100% 90% / 0.16) 50% );
+		border-color: color-mix( in oklab, hsl(0 calc(1 * 0%) 0% / 0.16) 100%, hsl(241.1764705882353 100% 90% / 0.16) 50% );
+		border-radius: .5rem;
+		margin-right: .25rem;
+		margin-bottom: .25rem;
+	}
+
+	.reactionCount { 
+		margin-left: .375rem;
 	}
 </style>
 
-<div class="discordMsgContainer" style={includeHeader ? "margin-top: 16px" : ""}>
+<div
+	class="discordMsgContainer"
+	style={includeHeader ? "margin-top: 16px" : ""}
+>
 	{
 		includeHeader && (
 			<Fragment>
@@ -110,4 +149,24 @@ const tokens = tokenizeMessage(content);
 			})
 		}
 	</div>
+	{
+		reactions.length > 0 && (
+			<div class="reactionsBar">
+				{reactions.map((reaction) => (
+					<span class="reactionItem">
+						{reaction.image ? (
+							<img
+								height="16"
+								src={reaction.image}
+								alt={reaction.name}
+							/>
+						) : (
+							<span>{reaction.name}</span>
+						)}
+						<span class="reactionCount">{reaction.count}</span>
+					</span>
+				))}
+			</div>
+		)
+	}
 </div>

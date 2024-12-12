@@ -1,9 +1,5 @@
 ---
-import {
-	Client,
-	GatewayIntentBits,
-	TextChannel,
-} from "discord.js";
+import { Client, GatewayIntentBits, TextChannel } from "discord.js";
 import Document from "../layouts/document.astro";
 import DiscordMessage from "components/discord-message/discord-message.astro";
 
@@ -51,23 +47,51 @@ async function lookupUser(id: string) {
 ---
 
 <Document>
-	<ul style="list-style: none; margin: 0 auto; padding: 1rem; max-width: 720px;">
+	<ul
+		style="list-style: none; margin: 0 auto; padding: 1rem; max-width: 720px;"
+	>
 		{
-			messagesArr.map(async (message, idx, arr) => {
-				const shouldGroupWithLastMessage =
-					idx > 0 && message.author.id === arr[idx - 1].author.id && (message.createdTimestamp - arr[idx - 1].createdTimestamp) < 60000;
-				const partialAuthor = await lookupUser(message.author.id);
-				return (
-					<li>
-						<DiscordMessage
-							includeHeader={!shouldGroupWithLastMessage}
-							content={message.content}
-							author={partialAuthor}
-							lookupUser={lookupUser}
-						/>
-					</li>
-				);
-			})
+			Promise.all(
+				messagesArr.map(async (message, idx, arr) => {
+					const shouldGroupWithLastMessage =
+						idx > 0 &&
+						message.author.id === arr[idx - 1].author.id &&
+						message.createdTimestamp -
+							arr[idx - 1].createdTimestamp <
+							60000;
+					const includeHeader = !shouldGroupWithLastMessage;
+					const partialAuthor = includeHeader
+						? await lookupUser(message.author.id)
+						: // Info is not needed, so we can remove an await here
+							{
+								name: "",
+								profilePhoto: "",
+								roleColor: "",
+							};
+
+					const reactions = Array.from(
+						message.reactions.cache.values(),
+					).map((reaction) => ({
+						name: reaction.emoji.name,
+						image: reaction.emoji.imageURL({
+							extension: reaction.emoji.animated ? "gif" : "png",
+						}),
+						count: reaction.count,
+					}));
+
+					return (
+						<li>
+							<DiscordMessage
+								includeHeader={includeHeader}
+								content={message.content}
+								author={partialAuthor}
+								reactions={reactions}
+								lookupUser={lookupUser}
+							/>
+						</li>
+					);
+				}),
+			)
 		}
 	</ul>
 </Document>
