@@ -55,12 +55,14 @@ async function lookupUser(id: string) {
 <Document>
 	<ul style="list-style: none; margin: 0 auto; padding: 1rem; max-width: 720px;">
 		{
-			messagesArr.map(async (message) => {
+			messagesArr.map(async (message, idx, arr) => {
+				const shouldGroupWithLastMessage =
+					idx > 0 && message.author.id === arr[idx - 1].author.id && (message.createdTimestamp - arr[idx - 1].createdTimestamp) < 60000;
 				const partialAuthor = await lookupUser(message.author.id);
 				return (
 					<li>
 						<DiscordMessage
-							includeHeader={true}
+							includeHeader={!shouldGroupWithLastMessage}
 							content={message.content}
 							author={partialAuthor}
 							lookupUser={lookupUser}
