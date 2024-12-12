@@ -188,4 +188,38 @@ describe('tokenizeMessage', () => {
     ];
     expect(tokenizeMessage(input)).toEqual(expected);
   });
+
+  it('should parse Discord timestamps', () => {
+    const input = '<t:1630368000:R>';
+    const expected: Token[] = [{ 
+      type: 'timestamp', 
+      timestamp: 1630368000,
+      format: 'R'
+    }];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should handle mixed text and timestamps', () => {
+    const input = 'Posted <t:1630368000:F> | Updated <t:1630468000:R>';
+    const expected: Token[] = [
+      { type: 'text', content: 'Posted ' },
+      { type: 'timestamp', timestamp: 1630368000, format: 'F' },
+      { type: 'text', content: ' | Updated ' },
+      { type: 'timestamp', timestamp: 1630468000, format: 'R' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should handle timestamps with different formats', () => {
+    const formats = ['t', 'T', 'd', 'D', 'f', 'F', 'R'];
+    for (const format of formats) {
+      const input = `<t:1630368000:${format}>`;
+      const expected: Token[] = [{ 
+        type: 'timestamp', 
+        timestamp: 1630368000,
+        format
+      }];
+      expect(tokenizeMessage(input)).toEqual(expected);
+    }
+  });
 });

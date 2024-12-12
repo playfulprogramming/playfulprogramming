@@ -2,7 +2,7 @@
 import { codeToHtml } from "utils/markdown/shiki/rehype-transform";
 import { tokenizeMessage } from "./parse-message";
 import "../../styles/shiki.scss";
-import { formatDiscordCreated } from "./date-utils";
+import { formatDiscordCreated, formatDiscordTimestamp } from "./date-utils";
 
 interface DiscordUser {
 	name: string;
@@ -84,6 +84,7 @@ const tokens = tokenizeMessage(content);
 	.messageContents {
 		position: relative;
 		left: calc(16px + 40px + 8px);
+		white-space: pre-line;
 	}
 
 	.reactionsBar {
@@ -163,6 +164,14 @@ const tokens = tokenizeMessage(content);
 					return (
 						<span style="background-color: lightblue; color: blue">
 							#{channelName}
+						</span>
+					);
+				}
+
+				if (token.type === "timestamp") {
+					return (
+						<span style="color: gray">
+							{formatDiscordTimestamp(token.timestamp, token.format)}
 						</span>
 					);
 				}

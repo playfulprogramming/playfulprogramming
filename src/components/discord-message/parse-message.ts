@@ -20,6 +20,8 @@
  *     <pre><code>let x = 5;</code></pre>
  * - Migrate all mentions of a channel to a token based off the following:
  * @example <#908771693156257802> becomes <a href="/channels/908771693156257802">#memes</a>
+ * - Handle Discord relative timestamps
+ * @example <t:1630368000:R> becomes "2 days ago" and <t:1630368000:F> becomes "09/30/2021"
  * - All other text should be left as is, but escaped to prevent XSS
  */
 
@@ -38,6 +40,11 @@ export type TokenCodeBlock = {
   lang?: string;
 };
 export type TokenChannel = { type: 'channel'; id: string };
+export type TokenTimestamp = { 
+  type: 'timestamp'; 
+  timestamp: number;
+  format: string;
+};
 
 export type Token = 
   | TokenText
@@ -46,6 +53,7 @@ export type Token =
   | TokenCodeInline
   | TokenCodeBlock
   | TokenChannel
+  | TokenTimestamp
 
 type TokenParseResult = {
   token: Token;
@@ -166,6 +174,36 @@ function parseInlineCode(input: string, startIndex: number): TokenParseResult | 
   };
 }
 
+function parseTimestamp(input: string, startIndex: number): TokenParseResult | null {
+  if (input[startIndex] !== '<' || input[startIndex + 1] !== 't' || input[startIndex + 2] !== ':') return null;
+  
+  let current = startIndex + 3;
+  let timestamp = '';
+  
+  while (current < input.length && input[current] !== ':') {
+    timestamp += input[current];
+    current++;
+  }
+  
+  // Skip ':'
+  current++;
+  let format = '';
+  
+  while (current < input.length && input[current] !== '>') {
+    format += input[current];
+    current++;
+  }
+  
+  return {
+    token: { 
+      type: 'timestamp', 
+      timestamp: parseInt(timestamp, 10),
+      format
+    },
+    advanceBy: current - startIndex + 1
+  };
+}
+
 export function tokenizeMessage(input: string): Token[] {
   const tokens: Token[] = [];
   let current = 0;
@@ -178,7 +216,7 @@ export function tokenizeMessage(input: string): Token[] {
     }
   }
 
-  const parsers = [parseChannel, parseEmoji, parseMention, parseCodeBlock, parseInlineCode];
+  const parsers = [parseChannel, parseEmoji, parseMention, parseCodeBlock, parseInlineCode, parseTimestamp];
 
   while (current < input.length) {
     let parsed = false;
