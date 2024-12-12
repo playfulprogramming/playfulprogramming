@@ -98,6 +98,7 @@ async function lookupUser(id: string) {
 								reactions={reactions}
 								lookupUser={lookupUser}
 								stickers={stickers}
+								edited={!!message.editedTimestamp}
 							/>
 						</li>
 					);

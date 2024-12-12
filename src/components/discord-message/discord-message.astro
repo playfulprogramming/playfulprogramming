@@ -28,6 +28,7 @@ interface Props {
 	includeHeader: boolean;
 	reactions: Reaction[];
 	stickers: Sticker[];
+	edited: boolean;
 }
 
 const {
@@ -35,6 +36,7 @@ const {
 	author,
 	reactions,
 	stickers,
+	edited,
 	lookupUser,
 	includeHeader = true,
 } = Astro.props;
@@ -162,6 +164,13 @@ const tokens = tokenizeMessage(content);
 					/>
 				);
 			})
+		}
+		{
+			edited && (
+				<span style="color: gray; font-size: 0.75rem">
+					(Edited)
+				</span>
+			)
 		}
 		{
 			stickers.length > 0 && (
