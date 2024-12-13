@@ -13,6 +13,7 @@ export interface IFramePlaceholderProps {
 	propsToPreserve: string;
 	pageTitle: string;
 	pageIcon: string;
+	pageIconFallback: string;
 }
 
 /** @jsxImportSource hastscript */
@@ -35,6 +36,9 @@ export function IFramePlaceholder({
 						decoding="async"
 						data-nozoom="true"
 						data-dont-round="true"
+						{...{
+							onerror: `this.src='${props.pageIconFallback}';this.onerror='';`,
+						}}
 					/>
 				</div>
 				<div class="embed__header__info">

@@ -49,7 +49,7 @@
 	position: relative;
 }
 
-.postContainer:not([data-is-last-visible]):not(:last-child)::after {
+.postContainer:not([data-is-last-visible="true"]):not(:last-child)::after {
 	position: absolute;
 	content: " ";
 	bottom: 0;
@@ -61,7 +61,7 @@
 	background: var(--outline);
 }
 
-.postContainer[data-should-hide] {
+.postContainer[data-should-hide="true"] {
 	display: none;
 }
 

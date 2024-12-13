@@ -101,7 +101,7 @@ const showMoreText = translate(
 >
 	const showMore = document.querySelector("#toggleAllButton");
 	const showHideChapters = Array.from(
-		document.querySelectorAll("[data-dont-show-initially]"),
+		document.querySelectorAll("[data-dont-show-initially='true']"),
 	);
 
 	let expanded = false;

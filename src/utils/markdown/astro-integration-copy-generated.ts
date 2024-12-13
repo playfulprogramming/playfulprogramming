@@ -4,6 +4,7 @@ import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const copyFiles = async (srcDir: string, destDir: string) => {
+	await fs.promises.mkdir(destDir, { recursive: true });
 	const readDir = await fs.promises.readdir(srcDir);
 
 	await Promise.all(
