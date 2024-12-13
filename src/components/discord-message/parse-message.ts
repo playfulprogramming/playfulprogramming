@@ -24,6 +24,8 @@
  * @example <#908771693156257802> becomes <a href="/channels/908771693156257802">#memes</a>
  * - Handle Discord relative timestamps
  * @example <t:1630368000:R> becomes "2 days ago" and <t:1630368000:F> becomes "09/30/2021"
+ * - Handle markdown-style headings up to level 3:
+ * @example # Heading 1 becomes <h1>Heading 1</h1>
  * - All other text should be left as is, but escaped to prevent XSS
  */
 
@@ -48,6 +50,11 @@ export type TokenTimestamp = {
   format: string;
 };
 export type TokenRoleMention = { type: 'roleMention'; id: string };
+export type TokenHeader = {
+  type: 'header';
+  content: string;
+  level: 1 | 2 | 3;
+};
 
 export type Token = 
   | TokenText
@@ -58,6 +65,7 @@ export type Token =
   | TokenChannel
   | TokenTimestamp
   | TokenRoleMention
+  | TokenHeader
 
 type TokenParseResult = {
   token: Token;
@@ -225,6 +233,43 @@ function parseTimestamp(input: string, startIndex: number): TokenParseResult | n
   };
 }
 
+function parseHeader(input: string, startIndex: number): TokenParseResult | null {
+  // Only parse at start of line or start of input
+  if (startIndex > 0 && input[startIndex - 1] !== '\n') return null;
+
+  let level = 0;
+  let current = startIndex;
+
+  // Count # symbols
+  while (current < input.length && input[current] === '#' && level < 4) {
+    level++;
+    current++;
+  }
+
+  // Only handle levels 1-3
+  if (level === 0 || level > 3) return null;
+
+  // Must have a space after #
+  if (input[current] !== ' ') return null;
+  current++;
+
+  let content = '';
+  // Capture until newline or end of input
+  while (current < input.length && input[current] !== '\n') {
+    content += input[current];
+    current++;
+  }
+
+  return {
+    token: {
+      type: 'header',
+      content: content.trim(),
+      level: level as 1 | 2 | 3
+    },
+    advanceBy: current - startIndex
+  };
+}
+
 export function tokenizeMessage(input: string): Token[] {
   const tokens: Token[] = [];
   let current = 0;
@@ -237,7 +282,7 @@ export function tokenizeMessage(input: string): Token[] {
     }
   }
 
-  const parsers = [parseChannel, parseEmoji, parseRoleMention, parseMention, parseCodeBlock, parseInlineCode, parseTimestamp];
+  const parsers = [parseHeader, parseChannel, parseEmoji, parseRoleMention, parseMention, parseCodeBlock, parseInlineCode, parseTimestamp];
 
   while (current < input.length) {
     let parsed = false;

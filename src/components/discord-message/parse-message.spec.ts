@@ -250,4 +250,33 @@ describe('tokenizeMessage', () => {
     ];
     expect(tokenizeMessage(input)).toEqual(expected);
   });
+
+  it ('should handle markdown header', () => {
+    const input = '# Header';
+    const expected: Token[] = [
+      { type: 'header', content: 'Header', level: 1 }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  })
+  
+  it ('should handle markdown headers', () => {
+    const input = '# Header\n## Subheader\n### Subsubheader';
+    const expected: Token[] = [
+      { type: 'header', content: 'Header', level: 1 },
+      { type: "text", content: "\n" },
+      { type: 'header', content: 'Subheader', level: 2 },
+      { type: "text", content: "\n" },
+      { type: 'header', content: 'Subsubheader', level: 3 }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  })
+
+  // Just the way Discord does it ¯\_(ツ)_/¯
+  it("Should not handle heading levels beyond 3", () => {
+    const input = '#### Beyond';
+    const expected: Token[] = [
+      { type: 'text', content: '#### Beyond' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  })
 });
