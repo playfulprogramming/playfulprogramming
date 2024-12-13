@@ -14,16 +14,29 @@ describe('tokenizeMessage', () => {
     expect(tokenizeMessage(input)).toEqual(expected);
   });
 
+  it('should parse not parse Discord emoji when non-numbers are used', () => {
+    const input = '<:shrugging:asdf>';
+    const expected: Token[] = [{ type: 'text', content: '<:shrugging:asdf>' }];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
   it('should parse animated Discord emoji', () => {
     const input = '<a:dancing_penguin:1013090009756209234>';
-    const expected: Token[] = [{ 
-      type: 'emoji', 
-      name: 'dancing_penguin', 
+    const expected: Token[] = [{
+      type: 'emoji',
+      name: 'dancing_penguin',
       id: '1013090009756209234',
-      animated: true 
+      animated: true
     }];
     expect(tokenizeMessage(input)).toEqual(expected);
   });
+
+  it('should parse not parse animated Discord emoji when non-numbers are used', () => {
+    const input = '<a:dancing_penguin:asdf>';
+    const expected: Token[] = [{ type: 'text', content: '<a:dancing_penguin:asdf>' }];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
 
   it('should handle mixed animated and static emojis', () => {
     const input = '<a:dancing:123> text <:static:456>';
@@ -64,6 +77,12 @@ describe('tokenizeMessage', () => {
   it('should parse Discord mentions', () => {
     const input = '<@270063754576789504>';
     const expected: Token[] = [{ type: 'mention', id: '270063754576789504' }];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  });
+
+  it('should not parse Discord mentions when a non-number makes it in', () => {
+    const input = '<@asdf>';
+    const expected: Token[] = [{ type: 'text', content: '<@asdf>' }];
     expect(tokenizeMessage(input)).toEqual(expected);
   });
 
@@ -191,8 +210,8 @@ describe('tokenizeMessage', () => {
 
   it('should parse Discord timestamps', () => {
     const input = '<t:1630368000:R>';
-    const expected: Token[] = [{ 
-      type: 'timestamp', 
+    const expected: Token[] = [{
+      type: 'timestamp',
       timestamp: 1630368000,
       format: 'R'
     }];
@@ -214,8 +233,8 @@ describe('tokenizeMessage', () => {
     const formats = ['t', 'T', 'd', 'D', 'f', 'F', 'R'];
     for (const format of formats) {
       const input = `<t:1630368000:${format}>`;
-      const expected: Token[] = [{ 
-        type: 'timestamp', 
+      const expected: Token[] = [{
+        type: 'timestamp',
         timestamp: 1630368000,
         format
       }];
@@ -251,15 +270,15 @@ describe('tokenizeMessage', () => {
     expect(tokenizeMessage(input)).toEqual(expected);
   });
 
-  it ('should handle markdown header', () => {
+  it('should handle markdown header', () => {
     const input = '# Header';
     const expected: Token[] = [
       { type: 'header', content: 'Header', level: 1 }
     ];
     expect(tokenizeMessage(input)).toEqual(expected);
   })
-  
-  it ('should handle markdown headers', () => {
+
+  it('should handle markdown headers', () => {
     const input = '# Header\n## Subheader\n### Subsubheader';
     const expected: Token[] = [
       { type: 'header', content: 'Header', level: 1 },
@@ -276,6 +295,22 @@ describe('tokenizeMessage', () => {
     const input = '#### Beyond';
     const expected: Token[] = [
       { type: 'text', content: '#### Beyond' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  })
+
+  it("Should not convert all hashes to headings when not at the start", () => {
+    const input = 'asdf #below';
+    const expected: Token[] = [
+      { type: 'text', content: 'asdf #below' }
+    ];
+    expect(tokenizeMessage(input)).toEqual(expected);
+  })
+
+  it("Should not convert channel names unless they're all numbers", () => {
+    const input = '<#below>';
+    const expected: Token[] = [
+      { type: 'text', content: '<#below>' }
     ];
     expect(tokenizeMessage(input)).toEqual(expected);
   })

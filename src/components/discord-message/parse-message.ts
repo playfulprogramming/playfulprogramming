@@ -72,6 +72,10 @@ type TokenParseResult = {
   advanceBy: number;
 };
 
+function isSnowflake(input: string): boolean {
+  return /^\d+$/.test(input);
+}
+
 function parseChannel(input: string, startIndex: number): TokenParseResult | null {
   if (input[startIndex] !== '<' || input[startIndex + 1] !== '#') return null;
   
@@ -82,6 +86,8 @@ function parseChannel(input: string, startIndex: number): TokenParseResult | nul
     channelId += input[current];
     current++;
   }
+  
+  if (!isSnowflake(channelId)) return null;
   
   return {
     token: { type: 'channel', id: channelId },
@@ -109,6 +115,8 @@ function parseEmoji(input: string, startIndex: number): TokenParseResult | null 
     emojiId += input[current];
     current++;
   }
+
+  if (!isSnowflake(emojiId)) return null;
   
   return {
     token: { 
@@ -131,6 +139,8 @@ function parseMention(input: string, startIndex: number): TokenParseResult | nul
     mentionId += input[current];
     current++;
   }
+
+  if (!isSnowflake(mentionId)) return null;
   
   return {
     token: { type: 'mention', id: mentionId },
@@ -149,6 +159,8 @@ function parseRoleMention(input: string, startIndex: number): TokenParseResult |
     current++;
   }
   
+  if (!isSnowflake(roleId)) return null;
+
   return {
     token: { type: 'roleMention', id: roleId },
     advanceBy: current - startIndex + 1
