@@ -111,13 +111,9 @@ const props = Astro.props as {
 				{
 					isHome ? (
 						<DarkLightButton variant="large" class={style.themeToggleLarge} />
-					) : (
-						<DarkLightButton
-							variant="iconOnly"
-							class={style.themeToggleSmall}
-						/>
-					)
+					) : undefined
 				}
+				<DarkLightButton variant="iconOnly" class={style.themeToggleSmall} />
 			</div>
 		</nav>
 	</div>

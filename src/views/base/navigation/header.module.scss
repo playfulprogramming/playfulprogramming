@@ -152,7 +152,7 @@ header {
 			display: flex;
 		}
 
-		.themeToggleLarge + .themeToggleSmall {
+		.themeToggleLarge ~ .themeToggleSmall {
 			display: none;
 		}
 	}
