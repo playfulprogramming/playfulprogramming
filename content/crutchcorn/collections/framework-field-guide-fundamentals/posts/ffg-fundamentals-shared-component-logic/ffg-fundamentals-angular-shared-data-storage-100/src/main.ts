@@ -1,18 +1,17 @@
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
-	Injectable,
 	Component,
-	inject,
 	provideExperimentalZonelessChangeDetection,
 	ChangeDetectionStrategy,
 } from "@angular/core";
 
-@Injectable()
-class WindowSize {
-	height = window.innerHeight;
-	width = window.innerWidth;
-}
+const useWindowSize = () => {
+	const height = window.innerHeight;
+	const width = window.innerWidth;
+
+	return { height, width };
+};
 
 @Component({
 	selector: "app-root",
@@ -23,10 +22,9 @@ class WindowSize {
 			wide
 		</p>
 	`,
-	providers: [WindowSize],
 })
 class AppComponent {
-	windowSize = inject(WindowSize);
+	windowSize = useWindowSize();
 }
 
 bootstrapApplication(AppComponent, {

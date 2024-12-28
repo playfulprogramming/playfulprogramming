@@ -35,7 +35,7 @@ The method of how this logic is shared between components differs from framework
 | Framework | Method Of Logic Sharing |
 | --------- | ----------------------- |
 | React     | Custom Hooks            |
-| Angular   | Services                |
+| Angular   | Signal Functions        |
 | Vue       | Compositions            |
 
 We'll spend the chapter talking about how to do all of this and see how we can apply these methods to production code.

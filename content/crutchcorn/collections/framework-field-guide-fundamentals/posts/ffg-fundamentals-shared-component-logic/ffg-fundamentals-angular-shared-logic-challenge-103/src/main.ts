@@ -8,6 +8,7 @@ import {
 	viewChild,
 	viewChildren,
 	signal,
+	Signal,
 	afterRenderEffect,
 	output,
 	input,
@@ -94,35 +95,30 @@ class ContextMenuComponent {
 	}
 }
 
-@Injectable()
-class BoundsContext {
-	bounds = signal({
+const useBounds = (contextOrigin: Signal<ElementRef>) => {
+	const bounds = signal({
 		height: 0,
 		width: 0,
 		x: 0,
 		y: 0,
 	});
 
-	contextOrigin!: () => ElementRef;
-
-	resizeListener = () => {
-		if (!this.contextOrigin) return;
-		this.bounds.set(this.contextOrigin().nativeElement.getBoundingClientRect());
+	const resizeListener = () => {
+		if (!contextOrigin()) return;
+		bounds.set(contextOrigin().nativeElement.getBoundingClientRect());
 	};
 
-	constructor() {
-		afterRenderEffect((onCleanup) => {
-			this.bounds.set(
-				this.contextOrigin().nativeElement.getBoundingClientRect(),
-			);
+	afterRenderEffect((onCleanup) => {
+		bounds.set(contextOrigin().nativeElement.getBoundingClientRect());
 
-			window.addEventListener("resize", this.resizeListener);
-			onCleanup(() => {
-				window.removeEventListener("resize", this.resizeListener);
-			});
+		window.addEventListener("resize", resizeListener);
+		onCleanup(() => {
+			window.removeEventListener("resize", resizeListener);
 		});
-	}
-}
+	});
+
+	return { bounds };
+};
 
 @Component({
 	selector: "app-root",
@@ -141,7 +137,6 @@ class BoundsContext {
 			></context-menu>
 		}
 	`,
-	providers: [BoundsContext],
 })
 class AppComponent {
 	contextOrigin = viewChild.required("contextOrigin", {
@@ -151,11 +146,9 @@ class AppComponent {
 
 	isOpen = signal(false);
 
-	boundsContext = inject(BoundsContext);
+	boundsContext = useBounds(this.contextOrigin);
 
 	constructor() {
-		this.boundsContext.contextOrigin = this.contextOrigin;
-
 		afterRenderEffect(() => {
 			this.contextMenu().forEach(() => {
 				const isLoaded = this?.contextMenu()[0];

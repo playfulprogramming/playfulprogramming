@@ -1,9 +1,7 @@
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
-	Injectable,
 	Component,
-	inject,
 	signal,
 	effect,
 	computed,
@@ -11,41 +9,42 @@ import {
 	ChangeDetectionStrategy,
 } from "@angular/core";
 
-@Injectable()
-class WindowSize {
-	height = signal(0);
-	width = signal(0);
+const useWindowSize = () => {
+	const height = signal(0);
+	const width = signal(0);
 
-	constructor() {
-		effect((onCleanup) => {
-			this.onResize();
-			window.addEventListener("resize", this.onResize);
-			onCleanup(() => {
-				window.removeEventListener("resize", this.onResize);
-			});
-		});
-	}
-
-	onResize = () => {
-		this.height.set(window.innerHeight);
-		this.width.set(window.innerWidth);
+	const onResize = () => {
+		height.set(window.innerHeight);
+		width.set(window.innerWidth);
 	};
-}
 
-@Injectable()
-class IsMobile {
-	windowSize = inject(WindowSize);
-	isMobile = computed(() => this.windowSize.width() <= 480);
-}
+	effect((onCleanup) => {
+		onResize();
+		window.addEventListener("resize", onResize);
+		onCleanup(() => {
+			window.removeEventListener("resize", onResize);
+		});
+	});
+
+	return {
+		height,
+		width,
+	};
+};
+
+const useIsMobile = () => {
+	const windowSize = useWindowSize();
+	const isMobile = computed(() => this.windowSize.width() <= 480);
+	return { isMobile };
+};
 
 @Component({
 	selector: "app-root",
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Is mobile? {{ isMobile.isMobile() }}</p> `,
-	providers: [WindowSize, IsMobile],
 })
 class AppComponent {
-	isMobile = inject(IsMobile);
+	isMobile = useIsMobile();
 }
 
 bootstrapApplication(AppComponent, {
