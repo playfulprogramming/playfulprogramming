@@ -32,7 +32,7 @@ const useWindowSize = () => {
 	};
 };
 
-const useIsMobile = () => {
+const useMobileCheck = () => {
 	const windowSize = useWindowSize();
 	const isMobile = computed(() => this.windowSize.width() <= 480);
 	return { isMobile };
@@ -41,10 +41,10 @@ const useIsMobile = () => {
 @Component({
 	selector: "app-root",
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: ` <p>Is mobile? {{ isMobile.isMobile() }}</p> `,
+	template: ` <p>Is mobile? {{ mobileCheck.isMobile() }}</p> `,
 })
 class AppComponent {
-	isMobile = useIsMobile();
+	mobileCheck = useMobileCheck();
 }
 
 bootstrapApplication(AppComponent, {

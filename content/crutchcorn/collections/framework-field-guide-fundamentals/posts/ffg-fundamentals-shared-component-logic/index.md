@@ -155,30 +155,32 @@ const useWindowSize = () => {
 
 ## Angular
 
-To share data setup between components in Angular, we'll create an instance of a class that can be provided by each consuming component.
+Signals enable intense levels of code-sharing between components. Not only can `signal`s be used outside of a component, but `effects` can be triggered and cleaned up from the calling parent even when wrapped in many levels of function nesting.
 
-Just as we covered [in the dependency injection chapter](/posts/ffg-fundamentals-dependency-injection#basic-values), we'll use `Injectable` to create a class that can be provided to a component instance.
+What does this look like in practice?
+
+Something like this:
 
 ```angular-ts
-@Injectable()
-class WindowSize {
-	height = window.innerHeight;
-	width = window.innerWidth;
-}
+const useWindowSize = () => {
+	const height = signal(window.innerHeight);
+	const width = signal(window.innerWidth);
+
+	return { height, width };
+};
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<p>
-			The window is {{ windowSize.height }}px high and {{ windowSize.width }}px
+			The window is {{ windowSize.height() }}px high and {{ windowSize.width() }}px
 			wide
 		</p>
 	`,
-	providers: [WindowSize],
 })
 class AppComponent {
-	windowSize = inject(WindowSize);
+	windowSize = useWindowSize();
 }
 ```
 
@@ -304,48 +306,44 @@ const App = () => {
 
 ## Angular
 
-While Angular can _technically_ [create a base component that shares its lifecycle with a consuming component](/posts/angular-extend-class), it's messy, fragile, and overall considered a malpractice.
-
-Instead, we can use a per-component injectable that uses its own `constructor` and `ngOnDestroy` lifecycle methods.
-
-> Technically `constructor` isn't strictly a lifecycle method, but `Injectable`s don't have access to `ngOnInit`; only `ngOnDestroy`.
->
-> The reason `Injectable`s don't have `ngOnInit` is because that method means something very specific under-the-hood, pertaining to UI data binding. Because an `Injectable` can't UI data bind, it has no need for `ngOnInit` and instead the `constructor` takes the role of setting up side effects.
+Now that we know we have access to all of the Signal-based APIs in functions called within a component, we can do powerful things with those APIs.
 
 ```angular-ts
-@Injectable()
-class WindowSize implements OnDestroy {
-	height = 0;
-	width = 0;
+const useWindow = () => {
+	const height = signal(0);
+	const width = signal(0);
 
-	constructor() {
-		this.height = window.innerHeight;
-		this.width = window.innerWidth;
-		// In a component, we might add this in an `OnInit`, but `Injectable` classes only have `OnDestroy`
-		window.addEventListener("resize", this.onResize);
-	}
-	onResize = () => {
-		this.height = window.innerHeight;
-		this.width = window.innerWidth;
+	const onResize = () => {
+		height.set(window.innerHeight);
+		width.set(window.innerWidth);
 	};
-	ngOnDestroy() {
-		window.removeEventListener("resize", this.onResize);
-	}
-}
+
+	effect((onCleanup) => {
+		height.set(window.innerHeight);
+		width.set(window.innerWidth);
+		window.addEventListener("resize", onResize);
+		onCleanup(() => {
+			window.removeEventListener("resize", onResize);
+		});
+	});
+
+	return {
+		height,
+		width,
+	};
+};
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<p>
-			The window is {{ windowSize.height }}px high and {{ windowSize.width }}px
-			wide
+			The window is {{ windowSize.height() }}px high and {{ windowSize.width() }}px wide
 		</p>
 	`,
-	providers: [WindowSize],
 })
 class AppComponent {
-	windowSize = inject(WindowSize);
+	windowSize = useWindow();
 }
 ```
 
@@ -476,83 +474,56 @@ const Component = () => {
 
 ## Angular
 
-Just as we can use dependency injection to provide an instance of our `WindowSize` class, we can use an instance of our provided `WindowSize` class inside a new `IsMobile` class that's also provided in a class.
-
-First, though, we need to provide a way to add behavior to our `onResize` class:
+Because `useWindowSize` before is a standard JavaScript function, we can call it from another Signal function to compose them together:
 
 ```angular-ts
-@Injectable()
-class WindowSize implements OnDestroy {
-	height = 0;
-	width = 0;
+const useWindowSize = () => {
+	const height = signal(0);
+	const width = signal(0);
 
-	// We'll overwrite this behavior in another service
-	_listener!: () => void | undefined;
-
-	constructor() {
-		this.onResize();
-		window.addEventListener("resize", this.onResize);
-	}
-
-	onResize = () => {
-		this.height = window.innerHeight;
-		this.width = window.innerWidth;
-		// We will call this "listener" function if it's present
-		if (this._listener) {
-			this._listener();
-		}
+	const onResize = () => {
+		height.set(window.innerHeight);
+		width.set(window.innerWidth);
 	};
 
-	ngOnDestroy() {
-		window.removeEventListener("resize", this.onResize);
-	}
-}
-```
+	effect((onCleanup) => {
+		onResize();
+		window.addEventListener("resize", onResize);
+		onCleanup(() => {
+			window.removeEventListener("resize", onResize);
+		});
+	});
 
-Now that we have this ability to tap into the `resize` event handler let's write our own `IsMobile` class:
+	return {
+		height,
+		width,
+	};
+};
+```
 
 ```angular-ts
-@Injectable()
-class IsMobile {
-	isMobile = false;
-
-	// We cannot use the `inject` function here, because we need to overwrite our `constructor` behavior
-	// and it's an either-or decision to use `constructor` or the `inject` function
-	constructor(private windowSize: WindowSize) {
-		windowSize._listener = () => {
-			if (windowSize.width <= 480) this.isMobile = true;
-			else this.isMobile = false;
-		};
-	}
-}
+const useMobileCheck = () => {
+	const windowSize = useWindowSize();
+	const isMobile = computed(() => this.windowSize.width() <= 480);
+	return { isMobile };
+};
 ```
-
-This allows us to have an `isMobile` field that we can access from our `AppComponent` class:
 
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
-	template: ` <p>Is mobile? {{ isMobile.isMobile }}</p> `,
-	providers: [WindowSize, IsMobile],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: ` <p>Is mobile? {{ mobileCheck.isMobile() }}</p> `,
 })
 class AppComponent {
-	isMobile = inject(IsMobile);
+	mobileCheck = useMobileCheck();
 }
 ```
 
 <!-- ::start:no-ebook -->
+
 <iframe data-frame-title="Angular Composing Logic - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-composing-logic-102?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
-
-Something worth mentioning is that we need to provide both `WindowSize` and `IsMobile`; otherwise, we'll get an error like so:
-
-```
-Error: R3InjectorError(AppModule)[WindowSize -> WindowSize -> WindowSize]:
-NullInjectorError: No provider for WindowSize!
-```
-
-> This process of creating an `isMobile` field would be a lot easier with [`RxJS`](https://rxjs.dev/), which is widely used amongst Angular apps. However, I'm holding off on teaching RxJS until [the second "Framework Field Guide" book, which covers the "Ecosystem" of the frameworks more in-depth.](https://framework.guide)
 
 ## Vue
 
@@ -677,87 +648,70 @@ const ContextMenu = forwardRef(({ x, y, onClose }, ref) => {
 
 ### Angular
 
-While we were able to use the `constructor` to set up our event listeners in previous code samples, we need to explicitly have a `setup` function in this code sample.
-
-This is because our `ViewChild` element reference isn't available until `AfterViewInit`, and isn't immediately accessible from `constructor`:
-
-<!-- Editor's note: This is true even with {static: true} -->
+Let's start by moving our "Outside click" behavior into a Signal function:
 
 ```angular-ts
-@Injectable()
-class CloseIfOutSideContext implements OnDestroy {
-	getCloseIfOutsideFunction = (
-		contextMenu: ElementRef<HTMLElement>,
-		close: EventEmitter<any>,
-	) => {
-		return (e: MouseEvent) => {
-			const contextMenuEl = contextMenu?.nativeElement;
+const useOutsideClick = (
+	contextMenu: Signal<ElementRef>,
+	onClose: () => void,
+) => {
+	afterRenderEffect((onCleanup) => {
+		const closeIfOutsideOfContext = (e: MouseEvent) => {
+			const contextMenuEl = contextMenu()?.nativeElement;
 			if (!contextMenuEl) return;
 			const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
 			if (isClickInside) return;
-			close.emit();
+			onClose();
 		};
-	};
 
-	setup(contextMenu: ElementRef<HTMLElement>, close: EventEmitter<any>) {
-		this.closeIfOutsideOfContext = this.getCloseIfOutsideFunction(
-			contextMenu,
-			close,
-		);
-		document.addEventListener("click", this.closeIfOutsideOfContext);
-	}
-
-	ngOnDestroy() {
-		document.removeEventListener("click", this.closeIfOutsideOfContext);
-		this.closeIfOutsideOfContext = () => {};
-	}
-
-	closeIfOutsideOfContext: (e: MouseEvent) => void = () => {};
-}
+		document.addEventListener("click", closeIfOutsideOfContext);
+		onCleanup(() => {
+			document.removeEventListener("click", closeIfOutsideOfContext);
+		});
+	});
+};
 ```
 
-Let's embed this service class in our `ContextMenu` component:
+That we can then use in our `ContextMenu` component:
 
 ```angular-ts
 @Component({
 	selector: "context-menu",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			#contextMenu
 			tabIndex="0"
 			[style]="{
 				position: 'fixed',
-				top: y + 20,
-				left: x + 20,
+				top: y() + 20,
+				left: x() + 20,
 				background: 'white',
 				border: '1px solid black',
 				borderRadius: 16,
-				padding: '1rem'
+				padding: '1rem',
 			}"
 		>
 			<button (click)="close.emit()">X</button>
 			This is a context menu
 		</div>
 	`,
-	providers: [CloseIfOutSideContext],
 })
-class ContextMenuComponent implements OnInit {
-	@ViewChild("contextMenu", { static: true })
-	contextMenu!: ElementRef<HTMLElement>;
+class ContextMenuComponent {
+	contextMenu = viewChild.required("contextMenu", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	@Input() x: number = 0;
-	@Input() y: number = 0;
-	@Output() close = new EventEmitter();
+	x = input(0);
+	y = input(0);
+	close = output();
 
-	closeIfOutside = inject(CloseIfOutSideContext);
-
-	ngOnInit() {
-		this.closeIfOutside.setup(this.contextMenu, this.close);
+	constructor() {
+		useOutsideClick(this.contextMenu, () => this.close.emit());
 	}
 
 	focus() {
-		this.contextMenu.nativeElement.focus();
+		this.contextMenu().nativeElement.focus();
 	}
 }
 ```
@@ -935,84 +889,83 @@ function App() {
 
 ### Angular
 
+Then we wrap this boundary getting logic into it's own function:
+
 ```angular-ts
-@Injectable()
-class BoundsContext implements OnDestroy {
-	bounds = {
+const useBounds = (contextOrigin: Signal<ElementRef>) => {
+	const bounds = signal({
 		height: 0,
 		width: 0,
 		x: 0,
 		y: 0,
+	});
+
+	const resizeListener = () => {
+		if (!contextOrigin()) return;
+		bounds.set(contextOrigin().nativeElement.getBoundingClientRect());
 	};
 
-	contextOrigin: ElementRef | undefined;
+	afterRenderEffect((onCleanup) => {
+		bounds.set(contextOrigin().nativeElement.getBoundingClientRect());
 
-	resizeListener = () => {
-		if (!this.contextOrigin) return;
-		this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
-	};
+		window.addEventListener("resize", resizeListener);
+		onCleanup(() => {
+			window.removeEventListener("resize", resizeListener);
+		});
+	});
 
-	setup(contextOrigin: ElementRef) {
-		this.bounds = contextOrigin.nativeElement.getBoundingClientRect();
-		this.contextOrigin = contextOrigin;
-
-		window.addEventListener("resize", this.resizeListener);
-	}
-
-	ngOnDestroy() {
-		window.removeEventListener("resize", this.resizeListener);
-		this.contextOrigin = undefined;
-	}
-}
+	return { bounds };
+};
 ```
 
-We can then use this service in our `AppComponent`:
+And call it into our `App` component:
 
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ContextMenuComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
 			<div #contextOrigin (contextmenu)="open($event)">Right click on me!</div>
 		</div>
-		@if (isOpen) {
+		@if (isOpen()) {
 			<context-menu
 				#contextMenu
-				[x]="boundsContext.bounds.x"
-				[y]="boundsContext.bounds.y"
+				[x]="boundsContext.bounds().x"
+				[y]="boundsContext.bounds().y"
 				(close)="close()"
 			/>
 		}
 	`,
-	providers: [BoundsContext],
 })
-class AppComponent implements AfterViewInit {
-	@ViewChild("contextOrigin")
-	contextOrigin!: ElementRef<HTMLElement>;
-	@ViewChildren("contextMenu") contextMenu!: QueryList<ContextMenuComponent>;
+class AppComponent {
+	contextOrigin = viewChild.required("contextOrigin", {
+		read: ElementRef<HTMLElement>,
+	});
+	contextMenu = viewChildren("contextMenu", { read: ContextMenuComponent });
 
-	isOpen = false;
+	isOpen = signal(false);
 
-	boundsContext = inject(BoundsContext);
+	boundsContext = useBounds(this.contextOrigin);
 
-	ngAfterViewInit() {
-		this.boundsContext.setup(this.contextOrigin);
-		this.contextMenu.changes.forEach(() => {
-			const isLoaded = this?.contextMenu?.first;
-			if (!isLoaded) return;
-			this.contextMenu.first.focus();
+	constructor() {
+		afterRenderEffect(() => {
+			this.contextMenu().forEach(() => {
+				const isLoaded = this?.contextMenu()[0];
+				if (!isLoaded) return;
+				this.contextMenu()[0].focus();
+			});
 		});
 	}
 
 	close() {
-		this.isOpen = false;
+		this.isOpen.set(false);
 	}
 
 	open(e: UIEvent) {
 		e.preventDefault();
-		this.isOpen = true;
+		this.isOpen.set(true);
 	}
 }
 ```

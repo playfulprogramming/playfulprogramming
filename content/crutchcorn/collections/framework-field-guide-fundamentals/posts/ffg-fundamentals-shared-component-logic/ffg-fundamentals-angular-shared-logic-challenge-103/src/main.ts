@@ -1,10 +1,8 @@
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
-	Injectable,
 	Component,
 	ElementRef,
-	inject,
 	viewChild,
 	viewChildren,
 	signal,
@@ -12,45 +10,29 @@ import {
 	afterRenderEffect,
 	output,
 	input,
-	OutputEmitterRef,
 	provideExperimentalZonelessChangeDetection,
 	ChangeDetectionStrategy,
 } from "@angular/core";
 
-@Injectable()
-class CloseIfOutSideContext {
-	getCloseIfOutsideFunction = (
-		contextMenu: ElementRef<HTMLElement>,
-		close: OutputEmitterRef<void>,
-	) => {
-		return (e: MouseEvent) => {
-			const contextMenuEl = contextMenu?.nativeElement;
+const useOutsideClick = (
+	contextMenu: Signal<ElementRef>,
+	onClose: () => void,
+) => {
+	afterRenderEffect((onCleanup) => {
+		const closeIfOutsideOfContext = (e: MouseEvent) => {
+			const contextMenuEl = contextMenu()?.nativeElement;
 			if (!contextMenuEl) return;
 			const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
 			if (isClickInside) return;
-			close.emit();
+			onClose();
 		};
-	};
 
-	contextMenu!: () => ElementRef;
-	close!: OutputEmitterRef<void>;
-
-	constructor() {
-		afterRenderEffect((onCleanup) => {
-			this.closeIfOutsideOfContext = this.getCloseIfOutsideFunction(
-				this.contextMenu(),
-				this.close,
-			);
-			document.addEventListener("click", this.closeIfOutsideOfContext);
-			onCleanup(() => {
-				document.removeEventListener("click", this.closeIfOutsideOfContext);
-				this.closeIfOutsideOfContext = () => {};
-			});
+		document.addEventListener("click", closeIfOutsideOfContext);
+		onCleanup(() => {
+			document.removeEventListener("click", closeIfOutsideOfContext);
 		});
-	}
-
-	closeIfOutsideOfContext: (e: MouseEvent) => void = () => {};
-}
+	});
+};
 
 @Component({
 	selector: "context-menu",
@@ -73,7 +55,6 @@ class CloseIfOutSideContext {
 			This is a context menu
 		</div>
 	`,
-	providers: [CloseIfOutSideContext],
 })
 class ContextMenuComponent {
 	contextMenu = viewChild.required("contextMenu", {
@@ -85,9 +66,7 @@ class ContextMenuComponent {
 	close = output();
 
 	constructor() {
-		const closeIfOutside = inject(CloseIfOutSideContext);
-		closeIfOutside.close = this.close;
-		closeIfOutside.contextMenu = this.contextMenu;
+		useOutsideClick(this.contextMenu, () => this.close.emit());
 	}
 
 	focus() {
@@ -134,7 +113,7 @@ const useBounds = (contextOrigin: Signal<ElementRef>) => {
 				[x]="boundsContext.bounds().x"
 				[y]="boundsContext.bounds().y"
 				(close)="close()"
-			></context-menu>
+			/>
 		}
 	`,
 })

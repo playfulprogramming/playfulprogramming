@@ -1,14 +1,15 @@
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
+	signal,
 	Component,
 	provideExperimentalZonelessChangeDetection,
 	ChangeDetectionStrategy,
 } from "@angular/core";
 
 const useWindowSize = () => {
-	const height = window.innerHeight;
-	const width = window.innerWidth;
+	const height = signal(window.innerHeight);
+	const width = signal(window.innerWidth);
 
 	return { height, width };
 };
@@ -18,8 +19,8 @@ const useWindowSize = () => {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<p>
-			The window is {{ windowSize.height }}px high and {{ windowSize.width }}px
-			wide
+			The window is {{ windowSize.height() }}px high and
+			{{ windowSize.width() }}px wide
 		</p>
 	`,
 })
