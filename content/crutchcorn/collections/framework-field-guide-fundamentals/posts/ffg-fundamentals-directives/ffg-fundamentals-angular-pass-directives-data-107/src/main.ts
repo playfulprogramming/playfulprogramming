@@ -17,7 +17,7 @@ import {
 class StyleBackgroundDirective {
 	styleBackground = input.required<string>();
 
-	el = inject(ElementRef<any>);
+	el = inject(ElementRef);
 
 	constructor() {
 		effect(() => {

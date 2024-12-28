@@ -8,7 +8,7 @@ import {
 	TemplateRef,
 	ViewContainerRef,
 	ViewEncapsulation,
-	afterRenderEffect,
+	effect,
 	input,
 	provideExperimentalZonelessChangeDetection,
 	ChangeDetectionStrategy,
@@ -64,7 +64,7 @@ class TooltipDirective {
 	};
 
 	constructor() {
-		afterRenderEffect((onCleanup) => {
+		effect((onCleanup) => {
 			this.tooltip().addEventListener("mouseenter", () => {
 				this.showTooltip();
 			});

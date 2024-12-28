@@ -10,7 +10,7 @@ import {
 } from "@angular/core";
 
 function injectElAndStyle() {
-	const el = inject(ElementRef<any>);
+	const el = inject(ElementRef);
 	el.nativeElement.style.background = "red";
 	return el;
 }

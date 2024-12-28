@@ -10,7 +10,7 @@ import {
 } from "@angular/core";
 
 function findAndLogTheElement() {
-	const el = inject(ElementRef<any>);
+	const el = inject(ElementRef);
 	// HTMLParagraphElement
 	console.log(el.nativeElement);
 	return el;

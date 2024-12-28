@@ -14,7 +14,7 @@ import {
 	selector: "[beOnTemplate]",
 })
 class TemplateDirective {
-	el = inject(ElementRef<any>);
+	el = inject(ElementRef);
 	constructor() {
 		effect(() => {
 			// This will log a "Comment"

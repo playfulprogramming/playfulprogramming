@@ -19,7 +19,7 @@ class StyleBackgroundDirective {
 	g = input.required<number>();
 	b = input.required<number>();
 
-	el = inject(ElementRef<any>);
+	el = inject(ElementRef);
 
 	constructor() {
 		effect(() => {

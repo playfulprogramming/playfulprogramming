@@ -29,7 +29,7 @@ class Color {
 class StyleBackgroundDirective {
 	styleBackground = input.required<Color>();
 
-	el = inject(ElementRef<any>);
+	el = inject(ElementRef);
 
 	constructor() {
 		effect(() => {

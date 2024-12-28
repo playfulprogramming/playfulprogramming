@@ -14,7 +14,7 @@ import {
 	selector: "[focusElement]",
 })
 class StyleBackgroundDirective {
-	el = inject(ElementRef<any>);
+	el = inject(ElementRef);
 
 	constructor() {
 		afterRenderEffect(() => {
