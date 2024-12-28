@@ -61,7 +61,7 @@ const Modal = () => {
 ```angular-ts
 @Component({
 	selector: "delete-modal",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<div class="modal-container">
@@ -298,7 +298,7 @@ const FolderIcon = () => {
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [HeaderComponent, BodyComponent, FooterComponent],
 	template: `
 		<div>
@@ -314,7 +314,7 @@ class AppComponent {}
 ```angular-ts
 @Component({
 	selector: "header-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FolderIconComponent, DeleteIconComponent],
 	template: `
 		<div class="header-container">
@@ -335,7 +335,7 @@ class HeaderComponent {}
 ```angular-ts
 @Component({
 	selector: "body-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FolderIconComponent],
 	template: `
 		<ul class="list-container">
@@ -356,7 +356,7 @@ class BodyComponent {
 ```angular-ts
 @Component({
 	selector: "footer-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <div class="footer-container">Copyright 2022</div> `,
 })
 class FooterComponent {}
@@ -367,7 +367,7 @@ class FooterComponent {}
 ```angular-ts
 @Component({
 	selector: "folder-icon",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<svg viewBox="0 0 20 16">
 			<path
@@ -383,7 +383,7 @@ class FolderIconComponent {}
 ```angular-ts
 @Component({
 	selector: "delete-icon",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<svg viewBox="0 0 20 21">
 			<path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
@@ -405,7 +405,7 @@ class DeleteIconComponent {}
 ```angular-ts
 @Component({
 	selector: "folder-icon",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<svg viewBox="0 0 20 16">
             <!-- ... -->
@@ -418,7 +418,7 @@ class FolderIconComponent {}
 ```angular-ts
 @Component({
 	selector: "delete-icon",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<svg viewBox="0 0 20 21">
 			<!-- ... -->
@@ -701,11 +701,11 @@ const Header = () => {
 ```angular-ts
 @Component({
 	selector: "header-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ModalComponent, FolderIconComponent, DeleteIconComponent],
 	template: `
 		<div class="header-container">
-			@if (shouldShowModal)
+			@if (shouldShowModal())
 				<delete-modal />
 			}
 			<span class="icon-container">
@@ -720,10 +720,10 @@ const Header = () => {
 	`,
 })
 class HeaderComponent {
-	shouldShowModal = false;
+	shouldShowModal = signal(false);
 
 	showModal() {
-		this.shouldShowModal = true;
+		this.shouldShowModal.set(true);
 	}
 }
 ```
@@ -916,27 +916,32 @@ import { PortalModule, DomPortal } from "@angular/cdk/portal";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [PortalModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="height: 100px; width: 100px; border: 2px solid black;">
-			<ng-template [cdkPortalOutlet]="domPortal" />
+			@if (domPortal()) {
+				<ng-template [cdkPortalOutlet]="domPortal()" />
+			}
 		</div>
 		<div #portalContent>Hello world!</div>
 	`,
 })
-class AppComponent implements AfterViewInit {
-	@ViewChild("portalContent") portalContent!: ElementRef<HTMLElement>;
+class AppComponent {
+	portalContent = viewChild.required("portalContent", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	domPortal!: DomPortal<any>;
+	domPortal = signal<DomPortal<any> | null>(null);
 
-	ngAfterViewInit() {
-		// This is to avoid an:
-		// "Expression has changed after it was checked"
-		// error when trying to set domPortal
-		setTimeout(() => {
-			this.domPortal = new DomPortal(this.portalContent);
-		}, 0);
+	constructor() {
+		afterRenderEffect((onCleanup) => {
+			this.domPortal.set(new DomPortal(this.portalContent()));
+
+			onCleanup(() => {
+				this.domPortal()?.detach();
+			});
+		});
 	}
 }
 ```
@@ -957,17 +962,9 @@ This `domPortal` is then assigned to a `[cdkPortalOutlet]` input. This input is 
 
 This `cdkPortalOutlet` is where the captured HTML is then projected into.
 
-> Our code here uses a `setTimeout` to avoid an error of "Expression has changed after it was checked."
->
-> The reason for this occurring is quite complex (and out of scope), but you can read about it more with the following resources:
->
-> - [Official Angular video explaining "Expression has changed"](https://angular.dev/errors/NG0100)
-> - [Everything you need to know about the `ExpressionChangedAfterItHasBeenCheckedError` error](https://indepth.dev/posts/1001/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error)
-> - [Angular Debugging "Expression has changed after it was checked": Simple Explanation (and Fix)](https://blog.angular-university.io/angular-debugging/)
-
 ### Rendering `ng-template` {#rendering-ng-template}
 
-Because we're using a `div` to act as the parent element of the portal's contents, there might be a flash of the `div` on screen before our `ngAfterViewInit` occurs. This flash happens because a `div` is an HTML element that renders its contents on the screen, and then our `ngAfterViewInit` goes back and removes the `div` from the DOM.
+Because we're using a `div` to act as the parent element of the portal's contents, there might be a flash of the `div` on screen before our `afterRenderEffect` occurs. This flash happens because a `div` is an HTML element that renders its contents on the screen, and then our `afterRenderEffect` goes back and removes the `div` from the DOM.
 
 As such, we may want to use an `ng-template`, which does not render to the DOM in the first place:
 
@@ -978,29 +975,34 @@ import { PortalModule, TemplatePortal } from "@angular/cdk/portal";
 	selector: "app-root",
 	standalone: true,
 	imports: [PortalModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="height: 100px; width: 100px; border: 2px solid black;">
-			<ng-template [cdkPortalOutlet]="domPortal" />
+			@if (templatePortal()) {
+				<ng-template [cdkPortalOutlet]="templatePortal()" />
+			}
 		</div>
 		<ng-template #portalContent>Hello, this is a template portal</ng-template>
 	`,
 })
-class AppComponent implements AfterViewInit {
-	@ViewChild("portalContent") portalContent!: TemplateRef<unknown>;
+class AppComponent {
+	portalContent = viewChild.required("portalContent", {
+		read: TemplateRef<unknown>,
+	});
 
 	viewContainerRef = inject(ViewContainerRef);
-	domPortal!: TemplatePortal<any>;
+	templatePortal = signal<TemplatePortal | null>(null);
 
-	ngAfterViewInit() {
-		// This is to avoid an:
-		// "Expression has changed after it was checked"
-		// error when trying to set domPortal
-		setTimeout(() => {
-			this.domPortal = new TemplatePortal(
-				this.portalContent,
-				this.viewContainerRef,
+	constructor() {
+		afterRenderEffect((onCleanup) => {
+			this.templatePortal.set(
+				new TemplatePortal(this.portalContent(), this.viewContainerRef),
 			);
-		}, 0);
+
+			onCleanup(() => {
+				this.templatePortal()?.detach();
+			});
+		});
 	}
 }
 ```
@@ -1104,43 +1106,42 @@ import { Portal, PortalModule, TemplatePortal } from "@angular/cdk/portal";
 	providedIn: "root",
 })
 class PortalService {
-	portal: Portal<any> | null = null;
+	portal = signal<Portal<any> | null>(null);
 }
 
 @Component({
 	selector: "modal-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <ng-template #portalContent>Hello, world!</ng-template> `,
 })
 class ModalComponent {
 	@ViewChild("portalContent") portalContent!: TemplateRef<unknown>;
 
 	viewContainerRef = inject(ViewContainerRef);
-	domPortal!: TemplatePortal<any>;
 
 	portalService = inject(PortalService);
 
-	ngAfterViewInit() {
-		// This is to avoid an:
-		// "Expression has changed after it was checked"
-		// error when trying to set domPortal
-		setTimeout(() => {
-			this.portalService.portal = new TemplatePortal(
-				this.portalContent,
-				this.viewContainerRef,
+	constructor() {
+		afterRenderEffect((onCleanup) => {
+			this.portalService.portal.set(
+				new TemplatePortal(this.portalContent, this.viewContainerRef),
 			);
+
+			onCleanup(() => {
+				this.portalService.portal()?.detach();
+			});
 		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [PortalModule, ModalComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (portalService.portal) {
+		@if (portalService.portal()) {
 			<div style="height: 100px; width: 100px; border: 2px solid black;">
-				<ng-template [cdkPortalOutlet]="portalService.portal" />
+				<ng-template [cdkPortalOutlet]="portalService.portal()" />
 			</div>
 		}
 		<modal-comp />
@@ -1299,37 +1300,33 @@ class PortalService {
 
 @Component({
 	selector: "modal-comp",
-	standalone: true,
-	template: ` <ng-template #portalContent>Test</ng-template> `,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: ` <ng-template #portalContent>Hello, world!</ng-template> `,
 })
-class ModalComponent implements OnDestroy {
-	@ViewChild("portalContent") portalContent!: TemplateRef<unknown>;
+class ModalComponent {
+	portalContent = viewChild.required("portalContent", { read: TemplateRef });
 
 	viewContainerRef = inject(ViewContainerRef);
-	domPortal!: TemplatePortal<any>;
 
 	portalService = inject(PortalService);
 
-	ngAfterViewInit() {
-		// This is to avoid an:
-		// "Expression has changed after it was checked"
-		// error when trying to set domPortal
-		setTimeout(() => {
+	constructor() {
+		afterRenderEffect((onCleanup) => {
 			this.portalService.outlet.attach(
-				new TemplatePortal(this.portalContent, this.viewContainerRef),
+				new TemplatePortal(this.portalContent(), this.viewContainerRef),
 			);
-		});
-	}
 
-	ngOnDestroy() {
-		this.portalService.outlet.detach();
+			onCleanup(() => {
+				this.portalService.outlet.detach();
+			});
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ModalComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<!-- Even though it's rendered first, it shows up last because it's being appended to <body> -->
 		<modal-comp />
@@ -1552,7 +1549,7 @@ class PortalService {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			style="
@@ -1568,23 +1565,15 @@ class PortalService {
 		>
 			<ng-template #portalContent>
 				<div
-					[style]="
-						'
+					style="
 				z-index: 9;
         display: flex;
         overflow: visible;
         justify-content: center;
-        width: ' +
-						tooltipMeta.width +
-						'px;
+        width: {{ tooltipMeta().width }}px;
         position: fixed;
-        top: ' +
-						(tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8) +
-						'px;
-        left: ' +
-						tooltipMeta.x +
-						'px;
-      '
+        top: {{ tooltipMeta().y - tooltipMeta().height - 16 - 6 - 8 }}px;
+        left: {{ tooltipMeta().x }}px;
 					"
 				>
 					<div
@@ -1623,52 +1612,58 @@ class PortalService {
 		</div>
 	`,
 })
-class AppComponent implements OnDestroy {
-	@ViewChild("buttonRef") buttonRef!: ElementRef<HTMLElement>;
+class AppComponent {
+	buttonRef = viewChild.required("buttonRef", {
+		read: ElementRef<HTMLElement>,
+	});
 
-	@ViewChild("portalContent") portalContent!: TemplateRef<unknown>;
+	portalContent = viewChild.required("portalContent", { read: TemplateRef });
 
 	viewContainerRef = inject(ViewContainerRef);
 	portalService = inject(PortalService);
 
-	tooltipMeta = {
+	tooltipMeta = signal({
 		x: 0,
 		y: 0,
 		height: 0,
 		width: 0,
-	};
+	});
 
 	mouseOverTimeout: any = null;
 
+	constructor() {
+		effect((onCleanup) => {
+			onCleanup(() => {
+				clearTimeout(this.mouseOverTimeout);
+			});
+		});
+	}
+
 	onMouseOver() {
 		this.mouseOverTimeout = setTimeout(() => {
-			const bounding = this.buttonRef.nativeElement.getBoundingClientRect();
-			this.tooltipMeta = {
+			const bounding = this.buttonRef().nativeElement.getBoundingClientRect();
+			this.tooltipMeta.set({
 				x: bounding.x,
 				y: bounding.y,
 				height: bounding.height,
 				width: bounding.width,
-			};
+			});
 			this.portalService.outlet.attach(
-				new TemplatePortal(this.portalContent, this.viewContainerRef),
+				new TemplatePortal(this.portalContent(), this.viewContainerRef),
 			);
 		}, 1000);
 	}
 
 	onMouseLeave() {
-		this.tooltipMeta = {
+		this.tooltipMeta.set({
 			x: 0,
 			y: 0,
 			height: 0,
 			width: 0,
-		};
+		});
 		if (this.portalService.outlet.hasAttached()) {
 			this.portalService.outlet.detach();
 		}
-		clearTimeout(this.mouseOverTimeout);
-	}
-
-	ngOnDestroy() {
 		clearTimeout(this.mouseOverTimeout);
 	}
 }
