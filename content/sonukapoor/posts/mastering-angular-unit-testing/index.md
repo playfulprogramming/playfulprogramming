@@ -37,7 +37,7 @@ To make sure you can concentrate on the code that has to be tested, you must pro
 
 ### Disadvantages of not mocking
 
-- You will be using the real implementation and are forced to mock all of its properties, methods, etc. You will end up in a rabbit hole, where you are suddenly mocking classes that several layer down the dependency tree.
+- You will be using the real implementation and are forced to mock all of its properties, methods, etc. You will end up in a rabbit hole, where you are suddenly mocking classes that are several layers down the dependency tree.
 - You will have to declare the nested components and provide all of its dependencies
 - It takes longer for your tests to execute since the complete dependency tree must be resolved first.
 - The state of your tests might not be correct.
