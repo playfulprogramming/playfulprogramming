@@ -136,7 +136,7 @@ Some other useful properties that you may need to use in your tests from the ATL
 
 ### Setting providers
 
-Use the [componentProviders](https://testing-library.com/docs/angular-testing-library/api#providers) to set the providers for your component.
+Use the [componentProviders](https://testing-library.com/docs/angular-testing-library/api/#componentproviders) to set the providers for your component. If you need to set the providers at the module level, consider using the [providers](https://testing-library.com/docs/angular-testing-library/api/#providers) instead.
 
 ### Set @Input/@Output
 
