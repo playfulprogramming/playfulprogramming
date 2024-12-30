@@ -7,24 +7,17 @@
 }
 ---
 
-One of the most common types of front-end applications that I've seen in my career can be classified as some form of "Form wrapper". Whether it's a payment form, a user-submitted tracking form, or anything of the like - these pages exist in almost every app I've ever seen.
-
-What's more, even in less obvious "form wrapper" style pages, you'll always need a way to track a user's input for usage in some kind of processing.
-
-To do this, React, Angular, and Vue all have a few tools at their disposal.
-
-We've been working on a files app up to this point in a fairly simplistic manner of getting files listed for the user. However, many modern file apps (such as Dropbox and Google Drive) allow you to share files with others.
-
-Let's create a form that the user can fill out to add a new user to their existing files.
+// TODO: Write
 
 # One-way Form Bindings
 
 One common and easy way to assign a value to form elements - like a text input - is to simply listen for value changes (using events) on the element and assign those changes back to a bound input value.
 
-```typescript
+```angular-ts
 @Component({
-  selector: 'form-comp',
-  template: `
+	selector: 'form-comp',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
     <form (submit)="onSubmit($event)">
 	  	<input type="text" (change)="onChange($event)" [value]="usersName"/>
       <button type="submit">Submit</button>
@@ -32,19 +25,21 @@ One common and easy way to assign a value to form elements - like a text input -
   `,
 })
 export class FormComponent {
-  usersName = '';
+	usersName = '';
 
-  onChange(e: { target: HTMLInputElement }) {
-    this.usersName = e.target.value;
-  }
+	onChange(e: Event) {
+		const input = e.target as HTMLInputElement;
+		this.usersName = input.value;
+	}
 
-  onSubmit(e: Event) {
-    e.preventDefault();
-    console.log(this.usersName);
-  }
+	onSubmit(e: Event) {
+		e.preventDefault();
+		console.log(this.usersName);
+	}
 }
 ```
 
+// TODO: add iframe for one-way-form-binding-1
 
 While this works as-is, it can get complex when too many inputs are present. For each input, you need:
 
@@ -56,9 +51,9 @@ Let's try to simplify this by removing the first step.
 
 # Two-way form bindings
 
-One method for removing the input change listener is by using two-way variable bindings. When your framework supports this, you don't need to assign a function for change listening. Simply pass a variable and watch the value change as you type!
+One method for removing the input change listener is by using two-way variable bindings. By using this, you don't need to assign a function for change listening. Simply pass a variable and watch the value change as you type!
 
-If you recall from our earlier introduction to components, Angular's syntax to bind to an attribute or property is `[bindName]`. Similarly, the syntax to bind to a DOM event or component output is `(bindName)`.
+If you recall from earlier, Angular's syntax to bind to an attribute or property is `[bindName]`. Similarly, the syntax to bind to a DOM event or component output is `(bindName)`.
 
 Well, if we combine them together, we can sync all of an event's values to and from an Angular variable with a handy shorthand:
 ```typescript
@@ -67,14 +62,18 @@ Well, if we combine them together, we can sync all of an event's values to and f
 
 > Remember to not flip the `[]` and `()` symbols! It's important to make sure that the square brackets go on the outside of the bind.
 >
-> Luckily, there's a mnemonic device to remember this operator order - This syntax is colloquially known as a ["banana in a box", even in Angular's source code itself](https://github.com/angular/angular/blob/3ecf93020ce06b9b8621f0c83126cb3d584d4181/packages/compiler/src/render3/r3_template_transform.ts#L41)!
+> Luckily, there's a mnemonic device to remember this operator order - This syntax is colloquially known as a ["banana in a box", even in Angular's source code itself](https://github.com/angular/angular/blob/f8d22a9ba4e426f14f9c7fd608e1ad752cd44eb5/packages/compiler/src/render3/r3_template_transform.ts#L50)!
 
-For our simple example of binding a `value`, we can use the `bindName` of `ngModel`, which is standard on most input elements.
+For our simple example of binding a `value`, we can use the `bindName` of `ngModel`, which is standard on most input elements through the `FromsModule`:
 
-```typescript {4,10}
+```angular-ts {4,10}
+import {FormsModule} from "@angular/forms";
+
 @Component({
-  selector: 'form-comp',
-  template: `
+	selector: 'form-comp',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [FormsModule],
+	template: `
     <form (submit)="onSubmit($event)">
 	  <input type="text" [(ngModel)]="usersName" name="input"/>
       <button type="submit">Submit</button>
@@ -82,33 +81,24 @@ For our simple example of binding a `value`, we can use the `bindName` of `ngMod
   `,
 })
 export class FormComponent {
-  usersName = '';
+	usersName = '';
 
-  onSubmit(e: Event) {
-    e.preventDefault();
-    console.log(this.usersName);
-  }
+	onSubmit(e: Event) {
+		e.preventDefault();
+		console.log(this.usersName);
+	}
 }
 ```
 
-However, when you first use this, you may run into an error:
-
-> Type 'Event' is not assignable to type 'string'.
-
-This is because we need to import the `FormsModule` in our closest `NgModule` to use `ngModel` bindings
-
-```typescript {2,6}
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-
-@NgModule({
-  imports: [BrowserModule, FormsModule],
-  declarations: [AppComponent, FormComponent],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
-```
+> Don't forget to add `FormsModule` to the `imports` array in your component. If you forget it, you'll see the following error:
+>
+> ```shell
+> ✘ [ERROR] NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'. [plugin angular-compiler]
+> 
+>     src/main.ts:15:22:
+>       15 │     <input type="text" [(ngModel)]="usersName" name="input"/>
+>          ╵                        ~~~~~~~~~~~~~~~~~~~~~~~
+> ```
 
 While these methods of two-way binding help mitigate some problems, there's still one big problem: Your data is no longer consolidated. This means that if you submit a form and want to, say, pass the form's data to your server, you'll need to:
 
@@ -123,33 +113,20 @@ There's a better way.
 
 Reactive forms are a way for you to keep all of your form data inside of a single variable when it comes time to submit a form. There are also multiple enhancements to this method, such as data validation and array handling.
 
-Let's take a look at how we can use reactive forms in our frameworks, then touch on the additional features afterward.
-
-As opposed to the other two frameworks, which require utilizing an external library for reactive forms, Angular has them baked in as a priority feature of the framework.
+As opposed to the other frameworks, which require utilizing an external library for reactive forms, Angular has them baked in as a priority feature of the framework.
 
 To utilize them, we first need to import the `ReactiveFormsModule`, which allows us to have a more fully-featured API as opposed to `FormsModule`'s `[(ngModel)]`.
 
-```typescript {2,5}
-import { Component, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-@NgModule({
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule],
-  declarations: [AppComponent, FormComponent],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
-```
-
 Now, we can create a new instance of a class called `FormControl` to act as a form item that we can then bind to a `[formControl]` in order to have two-way event and value input sync. 
 
-```typescript {0,6,12}
-import { FormControl } from '@angular/forms';
+```angular-ts {0,6,12}
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
-  selector: 'form-comp',
-  template: `
+	selector: 'form-comp',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [ReactiveFormsModule],
+	template: `
     <form (submit)="onSubmit($event)">
 	  <input type="text" [formControl]="nameControl"/>
       <button type="submit">Submit</button>
@@ -157,20 +134,22 @@ import { FormControl } from '@angular/forms';
   `,
 })
 export class FormComponent {
-  nameControl = new FormControl('');
+	nameControl = new FormControl('');
 
-  onSubmit(e) {
-    e.preventDefault();
-    console.log(this.nameControl.value);
-  }
+	onSubmit(e: Event) {
+		e.preventDefault();
+		console.log(this.nameControl.value);
+	}
 }
 ```
 
 We aren't simply bound to input events to update this value, however; we can even manually update the value of the `FormControl` from JavaScript-land:
 
-```typescript {14}
+```angular-ts {14}
 @Component({
   selector: 'form-comp',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ReactiveFormsModule],
   template: `
     <form (submit)="onSubmit($event)">
       <input type="text" [formControl]="nameControl"/>
@@ -186,23 +165,27 @@ export class FormComponent {
     this.nameControl.patchValue('Corbin Crutchley');
   }
 
-  onSubmit(e) {
+  onSubmit(e: Event) {
     e.preventDefault();
     console.log(this.nameControl.value);
   }
 }
 ```
 
+// TODO: add iframe for reactive-forms-3
+
 ### Form Groups
 
 While a basic `FormControl` creation is useful for demonstration purposes, it doesn't truly demonstrate the full power of reactive forms. Namely, when there are multiple inputs, your `form` can act as the source of truth through a new `FormGroup` class instance:
 
-```typescript {0,5,9,23-26,30}
-import { FormGroup, FormControl } from '@angular/forms';
+```angular-ts {0,5,9,23-26,30}
+import {ReactiveFormsModule,  FormGroup, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'form-comp',
-  template: `
+	selector: 'form-comp',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [ReactiveFormsModule],
+	template: `
     <form (submit)="onSubmit($event)" [formGroup]="mainForm">
     <div>
       <label>
@@ -221,23 +204,25 @@ import { FormGroup, FormControl } from '@angular/forms';
   `,
 })
 export class FormComponent {
-  mainForm = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-  });
+	mainForm = new FormGroup({
+		name: new FormControl(''),
+		email: new FormControl(''),
+	});
 
-  onSubmit(e) {
-    e.preventDefault();
-    console.log(this.mainForm.value);
-  }
+	onSubmit(e: Event) {
+		e.preventDefault();
+		console.log(this.mainForm.value);
+	}
 }
 ```
+
+// TODO: Add iframe for form-groups-4
 
 ### Form Builder
 
 You're also able to utilize a shorthand `fb` provided by Angular to remove duplicate calls to `FormControl` and `FormGroup`, respectively.
 
-```typescript
+```angular-ts
 import {
   FormGroup,
   FormControl,
@@ -330,7 +315,7 @@ In addition to the existing field states, a form may also contain the following 
 
 Here's an interactive playground that you can use to play around with each of the different input states.
 
-```typescript
+```angular-ts
 @Component({
   selector: 'my-app',
   template: `
@@ -437,7 +422,7 @@ To do this, we'll need to rely on the ability to add in an array of a form.
 
 Instead of a dedicated component for rendering lists like with React's Formik, Angular allows you to simply `ngFor` and use `formGroupName` in association with `formArrayName` and `formControlName` to access the specific `FormControl` and `FormGroup` for a user's information.
 
-```typescript
+```angular-ts
 @Component({
   selector: 'my-app',
   template: `
@@ -530,7 +515,7 @@ And promised there was some nebulous benefit for doing so later? Well, now it's 
 
 Let's write a simple validator function to check when the field is filled or not. If it's not filled, we can return a string to display to the user that "This field is required".
 
-```typescript
+```angular-ts
 import {
   FormsModule,
   FormBuilder,
@@ -586,7 +571,7 @@ class AppComponent {
 
 Luckily for us, just like [Angular's Pipes](/posts/derived-values), Angular provides some built-in validators for us to use. For example, we can replace our implementation with Angular's built-in `Validators.required` version.
 
-```typescript
+```angular-ts
 import {
   FormsModule,
   FormBuilder,
@@ -628,25 +613,6 @@ class AppComponent {
 }
 ```
 
-One concept that's introduced with form validation -- especially forms with groups -- is the idea of an object's "shape". You can think of this as the "type" of information an object might contain. For example:
-
-```javascript
-const obj1 = {name: "Corbin", id: 2}
-const obj2 = {name: "Kevin", id: 3}
-```
-
-Would be considered to have the same "shape" since they contain the same keys, and each of the keys contains the same type of value. However, the following objects would have divergent shapes due to differing keys:
-
-
-```javascript
-const obj3 = {name: "Corbin", favFood: "Ice Cream"}
-const obj4 = {name: "Kevin", id: 3}
-```
-
-Likewise, another concept that's introduced here is the concept of a "schema". A schema is simply a blueprint for how data should be represented.
-
-A schema defines what an object's shape and input values _should_ look like, as opposed to what the user may input.
-
 
 ## Validation Types
 
@@ -659,7 +625,7 @@ Marking a field as required is far from the only type of form validation. While 
 
 Here's a playground where we demonstrate a form that validates all of those examples:
 
-```typescript
+```angular-ts
 import {
   FormsModule,
   FormBuilder,
@@ -768,7 +734,7 @@ While there are many other types of user input elements, let's focus on just one
 
 Since Angular uses the `input` element directly, it's trivial to implement a checkbox without much thought. In addition, our specific use-case of creating a terms and conditions toggle is something that [the built-in validator `requiredTrue`](https://angular.io/api/forms/Validators#requiredtrue) can make trivial.
 
-```typescript
+```angular-ts
 @Component({
   selector: 'my-app',
   template: `
