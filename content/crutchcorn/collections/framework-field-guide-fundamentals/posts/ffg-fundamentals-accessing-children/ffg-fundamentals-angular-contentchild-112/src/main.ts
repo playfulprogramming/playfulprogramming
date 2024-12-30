@@ -4,7 +4,7 @@ import {
 	Component,
 	ElementRef,
 	contentChild,
-	afterRenderEffect,
+	effect,
 	provideExperimentalZonelessChangeDetection,
 	ChangeDetectionStrategy,
 } from "@angular/core";
@@ -18,7 +18,7 @@ class ParentListComponent {
 	child = contentChild.required<ElementRef<HTMLElement>>("childItem");
 
 	constructor() {
-		afterRenderEffect(() => {
+		effect(() => {
 			console.log(this.child().nativeElement); // This is an HTMLElement
 		});
 	}

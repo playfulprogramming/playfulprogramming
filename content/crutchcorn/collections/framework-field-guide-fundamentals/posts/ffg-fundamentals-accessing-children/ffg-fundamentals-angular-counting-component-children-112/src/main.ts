@@ -3,7 +3,7 @@ import { bootstrapApplication } from "@angular/platform-browser";
 import {
 	Component,
 	contentChildren,
-	afterRenderEffect,
+	effect,
 	provideExperimentalZonelessChangeDetection,
 	ChangeDetectionStrategy,
 } from "@angular/core";
@@ -22,7 +22,7 @@ class ParentListComponent {
 	children = contentChildren<HTMLElement>("listItem");
 
 	constructor() {
-		afterRenderEffect(() => {
+		effect(() => {
 			console.log(this.children());
 		});
 	}
