@@ -220,18 +220,15 @@ export class FormComponent {
 
 ### Form Builder
 
-You're also able to utilize a shorthand `fb` provided by Angular to remove duplicate calls to `FormControl` and `FormGroup`, respectively.
+You're also able to utilize a shorthand `fb` provided by Angular to remove duplicate calls to `FormControl` and `FormGroup`, respectively using [Angular's Dependency Injection](/posts/ffg-fundamentals-dependency-injection):
 
 ```angular-ts
-import {
-  FormGroup,
-  FormControl,
-  FormBuilder,
-} from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'form-comp',
-  template: `
+	selector: 'form-comp',
+	imports: [ReactiveFormsModule],
+	template: `
     <form (submit)="onSubmit($event)" [formGroup]="mainForm">
     <div>
       <label>
@@ -250,140 +247,124 @@ import {
   `,
 })
 export class FormComponent {
-  mainForm = this.fb.group({
-    name: '',
-    // This doesn't mean to make `favoriteFood` an array
-    // It just allows us to add more information about this
-    // Input in the future.
-    // We'll see it's usage in the next section
-    email: [''],
-  });
+	fb = inject(FormBuilder);
 
-  constructor(private fb: FormBuilder) {}
+	mainForm = this.fb.group({
+		name: '',
+		// This doesn't mean to make `email` an array
+		// It just allows us to add more information about this
+		// Input in the future.
+		// We'll see it's usage in the next section
+		email: [''],
+	});
 
-  onSubmit(e) {
-    e.preventDefault();
-    console.log(this.mainForm.value);
-  }
+	onSubmit(e: Event) {
+		e.preventDefault();
+		console.log(this.mainForm.value);
+	}
 }
 ```
 
-> Under the hood, this uses Angular's [Dependency Injection system, which we'll touch on in a future chapter.](// TODO: Add link)
+// TODO: add iframe for form-builder-5
 
 ## Input States {#input-states}
 
-As we mentioned earlier, reactive forms have more features than the simple two-way (or even one-way) input binding!
-
-One feature that's added with reactive forms is the concept of an input's state. An input can have many different states:
-
-- "Touched" - When the user has interacted with a given field, even if they haven't input anything
-  - Clicking on the input
-  - Tabbing through an input
-  - Typing data into input
-- "Pristine" - The user has not yet input data into the field
-  - Comes before "touching" said field if the user has not interacted with it in any way
-  - Comes between "touched" and "dirty" when the user has "touched" the field but has not put data in
-- "Dirty"  - When the user has input data into the field
-  - Comes after "touching" said field
-  - Opposite of "pristine"
-- "Disabled" - Inputs that the user should not be able to add values into
-
-While some of these states are mutually exclusive, an input may have more than one of these states active at a time. For example, a field that the user has typed into has both "dirty" and "touched" states applied at the same time.
-
-These states can then be used to apply different styling or logic to each of the input's associated elements. For example, a field that is `required && touched && pristine`, meaning that the user has clicked on the field, not input data into the field, but the field requires a user's input. In this instance, an implementation might show a `"This field is required"` error message.
-
-> The method of displaying this error message is part of a much larger discussion of [field validation, which we'll touch on in a different section in this chapter](#form-validation).
-
-In addition to the form's fields having these possible states applied, many of them apply to the `form` itself.
-
-For example, when the user "touches" a field for the first time, they're also "touching" the form itself. You can use this information to do something like:
-
-```javascript
-// This is pseudocode and likely won't work with any framework unconfigured
-if (!form.touched) {
-	alert("You must put data into the form first!")
-    return;
-}
-```
-
-In addition to the existing field states, a form may also contain the following states:
-
-- "Submitted" - When the user has submitted a form
-- "Pending" - When a user has submitted a form while the form is currently doing something
-  - Comes after the "submitted" state
-  - Submitting data to the server
+// TODO: Write stuff about input states
 
 Here's an interactive playground that you can use to play around with each of the different input states.
 
 ```angular-ts
 @Component({
-  selector: 'my-app',
+  selector: 'form-comp',
+  imports: [ReactiveFormsModule],
   template: `
-  <div>
-    <h1>Friend List</h1>
-    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
-    <div>
-      <label>
-        Name
-        <input type="text" formControlName="name"/>
-      </label>
-      <p *ngIf="mainForm.controls.name.untouched">
-        Field has not been touched
-      </p>
-      <p *ngIf="mainForm.controls.name.touched">
-        Field has been touched
-      </p>
-      <p *ngIf="mainForm.controls.name.dirty">
-        Field is dirty
-      </p>
-      <p *ngIf="mainForm.controls.name.pristine">
-        Field is pristine
-      </p>
-    </div>
-    <div>
-      <label>
-        Disabled field
-        <input type="text" formControlName="email"/>
-      </label>
-    </div>
-    <button type="submit">Submit</button>
-    <p *ngIf="mainForm.untouched">
-      Form has not been touched
-    </p>
-    <p *ngIf="mainForm.touched">
-      Form has been touched
-    </p>
-    <p *ngIf="mainForm.dirty">
-      Form is dirty
-    </p>
-    <p *ngIf="mainForm.pristine">
-      Form is pristine
-    </p>
-    <p *ngIf="mainForm.dirty">
-      Form is dirty
-    </p>
-    <p *ngIf="submitted">
-      Form is submitted
-    </p>
-    <p *ngIf="pending">
-      Form is pending
-    </p>
-    </form>
-  </div>
+      <div>
+          <h1>Friend List</h1>
+          <form (submit)="onSubmit($event)" [formGroup]="mainForm">
+              <div>
+                  <label>
+                      Name
+                      <input type="text" formControlName="name"/>
+                  </label>
+                  @if (mainForm.controls.name.untouched) {
+                      <p>
+                          Field has not been touched
+                      </p>
+                  }
+                  @if (mainForm.controls.name.touched) {
+                      <p>
+                          Field has been touched
+                      </p>
+                  }
+                  @if (mainForm.controls.name.dirty) {
+                      <p>
+                          Field is dirty
+                      </p>
+                  }
+                  @if (mainForm.controls.name.pristine) {
+                      <p>
+                          Field is pristine
+                      </p>
+                  }
+              </div>
+              <div>
+                  <label>
+                      Disabled field
+                      <input type="text" formControlName="email"/>
+                  </label>
+              </div>
+              <button type="submit">Submit</button>
+              @if (mainForm.untouched) {
+                  <p>
+                      Form has not been touched
+                  </p>
+              }
+              @if (mainForm.touched) {
+                  <p>
+                      Form has been touched
+                  </p>
+              }
+              @if (mainForm.dirty) {
+                  <p>
+                      Form is dirty
+                  </p>
+              }
+              @if (mainForm.pristine) {
+                  <p>
+                      Form is pristine
+                  </p>
+              }
+              @if (mainForm.dirty) {
+                  <p>
+                      Form is dirty
+                  </p>
+              }
+              @if (submitted) {
+                  <p>
+                      Form is submitted
+                  </p>
+              }
+              @if (pending) {
+                  <p>
+                      Form is pending
+                  </p>
+              }
+          </form>
+      </div>
   `,
 })
-class AppComponent {
-  constructor(private fb: FormBuilder) {}
+class FormComponent {
+  fb = inject(FormBuilder);
 
   mainForm = this.fb.group({
     name: [''],
-    email: [{ value: '', disabled: true }],
+    email: [{value: '', disabled: true}],
   });
 
   submitted = false;
   pending = false;
 
-  onSubmit(e) {
+  onSubmit(e: Event) {
     this.submitted = true;
     this.pending = true;
     e.preventDefault();
@@ -393,91 +374,78 @@ class AppComponent {
   }
 
   // Pretend this is calling to a server
-  sendToServer(formData) {
+  sendToServer(formData: object) {
     // Wait 4 seconds, then resolve promise
     return new Promise((resolve) => setTimeout(() => resolve(0), 4000));
   }
 }
 ```
 
-Additional to form states, a reactive form also adds the following features into a form: 
-
-- Form groups - A collection of fields (or sub-fields) that create a grouping
-- [Form arrays](#form-arrays) - A collection of fields in a list
-- [Validation - making sure an input's value aligns with a set of rules.](#form-validation)
-	- "Is input a valid email"
-	- Required fits into this category
-
-Let's start by taking a look at form arrays.
+// TODO: add iframe for  input-states-6
 
 # Form Arrays {#form-arrays}
 
-The example we set off to build at the start of the chapter was a method of sharing a file with a selection of users. 
-
-While we've built a primitive version of this that allows us to share a file with a single user, let's expand that behavior to allow us to share a file with any number of users.
-
-To do this, we'll need to rely on the ability to add in an array of a form.
-
-## Angular
-
-Instead of a dedicated component for rendering lists like with React's Formik, Angular allows you to simply `ngFor` and use `formGroupName` in association with `formArrayName` and `formControlName` to access the specific `FormControl` and `FormGroup` for a user's information.
+// TODO: Write something
 
 ```angular-ts
 @Component({
-  selector: 'my-app',
-  template: `
-  <div>
-    <h1>Friend List</h1>
-    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
-    <div formArrayName="users">
-    <div *ngFor="let item of arr.controls; let i = index;" [formGroupName]="i">
-      <label>
-        Name
-        <input type="text" formControlName="name"/>
-      </label>
-      <button type="button" (click)="removeUser(i)">Remove User</button>
-    </div>
-    </div>
-    <button type="button" (click)="addUser()">Add user</button>
-    <button type="submit">Submit</button>
-    </form>
-  </div>
-  `,
+	selector: "form-comp",
+	imports: [ReactiveFormsModule],
+	template: `
+		<div>
+			<h1>Friend List</h1>
+			<form (submit)="onSubmit($event)" [formGroup]="mainForm">
+				<div formArrayName="users">
+					@for (item of arr.controls; let i = $index; track item) {
+						<div [formGroupName]="i">
+							<label>
+								Name
+								<input type="text" formControlName="name" />
+							</label>
+							<button type="button" (click)="removeUser(i)">Remove User</button>
+						</div>
+					}
+				</div>
+				<button type="button" (click)="addUser()">Add user</button>
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+	`,
 })
-class AppComponent {
-  constructor(private fb: FormBuilder) {}
+class FormComponent {
+	fb = inject(FormBuilder);
 
-  id = 0;
+	id = 0;
 
-  mainForm = this.fb.group({
-    // This could also be written using `new FormArray([`
-    users: this.fb.array([this.fb.group({ id: ++this.id, name: '' })]),
-  });
+	mainForm = this.fb.group({
+		// This could also be written using `new FormArray([`
+		users: this.fb.array([this.fb.group({ id: ++this.id, name: "" })]),
+	});
 
-  addUser() {
-    this.arr.push(
-      // This could also be written as `new FormGroup({`
-      this.fb.group({
-        id: ++this.id,
-        name: '',
-      })
-    );
-  }
+	addUser() {
+		this.arr.push(
+			// This could also be written as `new FormGroup({`
+			this.fb.group({
+				id: ++this.id,
+				name: "",
+			}),
+		);
+	}
 
-  removeUser(i) {
-    this.arr.removeAt(i);
-  }
+	removeUser(i: number) {
+		this.arr.removeAt(i);
+	}
 
-  // Required cast to FormArray. Otherwise, TypeScript will assume it
-  // to be a `FormControl` and won't have `push` or `removeAt` methods.
-  get arr(): FormArray {
-    return this.mainForm.get('users') as FormArray;
-  }
+	// Required cast to FormArray. Otherwise, TypeScript will assume it
+	// to be a `FormControl` and won't have `push` or `removeAt` methods.
+	get arr(): FormArray {
+		return this.mainForm.get("users") as FormArray;
+	}
 
-  onSubmit(e) {
-    e.preventDefault();
-    console.log(this.mainForm.value);
-  }
+	onSubmit(e: Event) {
+		e.preventDefault();
+		console.log(this.mainForm.value);
+	}
 }
 ```
 
