@@ -45,7 +45,7 @@ function onSubmit(values) {
 
 // TODO: Add iframe to simple-form-1
 
-## Input States {#input-states}
+# Input States {#input-states}
 
 `VForm` and `VField` also have the ability to access the component's inner state using [`v-slot`](/posts/ffg-fundamentals-accessing-children#passing-values-to-projected-content). This enables us to access if a form or field is:
 
@@ -195,7 +195,7 @@ function required(value) {
 
 // TODO:  add iframe for form-validation-4
 
-### Complex Data Schema
+## Complex Data Schema
 
 Instead of writing our own functions to validate user input, let's instead use a library that can do that validation for us.
 
@@ -372,4 +372,8 @@ function onSubmit(values) {
 
 # Conclusion
 
-// TODO: Write a conclusion
+Hopefully this has been helpful to see into VeeValidate's usage.
+
+If you liked this and want to learn more Vue for free, you might want to check out [my book series titled "The Framework Field Guide", which teaches React, Angular, and Vue all at once for free.](https://framework.guide)
+
+Take care!
