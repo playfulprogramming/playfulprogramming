@@ -15,7 +15,7 @@ import {
 class ChildComponent {
 	constructor() {
 		effect(() => {
-			console.log("I am rendering");
+			console.log("I am initialized");
 		});
 	}
 }

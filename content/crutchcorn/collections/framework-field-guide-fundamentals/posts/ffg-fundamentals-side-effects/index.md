@@ -342,7 +342,7 @@ import { useEffect } from "react";
 const Child = () => {
 	// Pass a function that React will run for you
 	useEffect(() => {
-		console.log("I am rendering");
+		console.log("I am initialized");
 		// Pass an array of items to track changes of
 	}, []);
 
@@ -375,7 +375,7 @@ import { Component, ChangeDetectionStrategy, effect } from "@angular/core";
 class ChildComponent {
 	constructor() {
 		effect(() => {
-			console.log("I am rendering");
+			console.log("I am initialized");
 		})
 	}
 }
@@ -399,7 +399,7 @@ Let's start by taking a look at Vue's lifecycle method of handling a side effect
 import { onMounted } from "vue";
 
 onMounted(() => {
-	console.log("I am rendering");
+	console.log("I am initialized");
 });
 </script>
 
@@ -424,7 +424,7 @@ Just like how React has a non-lifecycle method of running side effect, so too do
 import { watchEffect } from "vue";
 
 watchEffect(() => {
-	console.log("I am rendering");
+	console.log("I am initialized");
 });
 </script>
 
@@ -2267,7 +2267,7 @@ So, if you have the following code:
 let i = 0;
 const App = () => {
 	useEffect(() => {
-		alert(`I am rendering. Counter: ${++i}`);
+		alert(`I am initialized. Counter: ${++i}`);
 	}, []);
 
 	// ...
@@ -2282,12 +2282,12 @@ createRoot(document.getElementById("root")).render(
 
 You'd see two `alert`s when the component renders:
 
-1. `I am rendering. Counter: 1`
-2. `I am rendering. Counter: 2`
+1. `I am initialized. Counter: 1`
+2. `I am initialized. Counter: 2`
 
 However, if you disable `StrictMode` your output will be:
 
-1. `I am rendering. Counter: 1`
+1. `I am initialized. Counter: 1`
 
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="React Ensure Cleanup - StackBlitz" src="pfp-code:./ffg-fundamentals-react-ensure-cleanup-37?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
