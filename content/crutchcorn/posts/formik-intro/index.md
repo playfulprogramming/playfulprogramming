@@ -63,7 +63,7 @@ const FormComponent = () => {
 };
 ```
 
-// TODO: Add iframe for basic-form-1
+<iframe data-frame-title="Basic Form - StackBlitz" src="pfp-code:./basic-form-1?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
 # `<Formik/>` Component 
 
@@ -154,7 +154,7 @@ const FormComponent = () => {
 };
 ```
 
-// TODO: Add iframe for formik-component-2
+<iframe data-frame-title="Formik Component - StackBlitz" src="pfp-code:./formik-component-2?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
 > Keep in mind that the `Field` and `Form` components will not work when using `useFormik`. This is because of underlying implementation details that [rely on React's Dependency Injection](/posts/ffg-fundamentals-dependency-injection). Instead, you'd have to pass `onChange` and `onSubmit`, respectively, to `input` and `form` HTML elements, as we demonstrated before.
 
@@ -215,7 +215,7 @@ function sendToServer(formData) {
 }
 ```
 
-// TODO: Add iframe for input-states-3
+<iframe data-frame-title="Input States - StackBlitz" src="pfp-code:./input-states-3?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
 # Form Arrays {#form-arrays}
 
@@ -275,7 +275,7 @@ export const FriendList = () => (
 
 Because we're now using an array, we need a unique ID for each user. This is why, for each implementation, there's an `id` field. [We then use this `id` field to identify which user is which to the framework](/posts/ffg-fundamentals-dynamic-html#keys).
 
-// TODO: Add iframe for form-arrays-4
+<iframe data-frame-title="Form Arrays - StackBlitz" src="pfp-code:./form-arrays-4?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
 # Form Validation {#form-validation}
 
@@ -307,7 +307,7 @@ const FormComp = () => {
 };
 ```
 
-// TODO: Add iframe for form-validation-5
+<iframe data-frame-title="Form Validation - StackBlitz" src="pfp-code:./form-validation-5?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
 ## Complex Data Schema
 
@@ -355,7 +355,7 @@ const FormComponent = () => {
 };
 ```
 
-// TODO: Add iframe for complex-data-schema-6
+<iframe data-frame-title="Complex Data Schema - StackBlitz" src="pfp-code:./complex-data-schema-6?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
 While Yup will generate an error message based on the expected and received data types, we're also able to customize the error message ourselves:
 
@@ -446,7 +446,7 @@ const FormComponent = () => {
 };
 ```
 
-// TODO: Add iframe for validation-types-7
+<iframe data-frame-title="Validation Types - StackBlitz" src="pfp-code:./validation-types-7?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
 # Non-Text Form Fields
 
@@ -491,7 +491,7 @@ const FormComponent = () => {
 
 > Something worth mentioning in terms of validation is how Formik integrates with Yup; we can't simply mark our `termsAndConditions` field as `required`. Instead, we have to tell `yup` that it has to be `oneOf([true])` to enforce the checkbox to be `true`.
 
-// TODO: Add iframe for non-text-form-fields-8
+<iframe data-frame-title="Non-Text Form Fields - StackBlitz" src="pfp-code:./non-text-form-fields-8?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
 # Conclusion
 
