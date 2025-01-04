@@ -43,7 +43,7 @@ function onSubmit(values) {
 
 > Here, we'll use the `import {Something as SomethingElse}` syntax in order to avoid namespace collision (where two things are named the same, and the compiler has challenges figuring out which is which) with [HTML's default `form` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form).
 
-// TODO: Add iframe to simple-form-1
+<iframe data-frame-title="Simple Form - StackBlitz" src="pfp-code:./simple-form-1?template=node&embed=1&file=src%2FFormComp.vue"></iframe>
 
 # Input States {#input-states}
 
@@ -104,7 +104,7 @@ function sendToServer(formData) {
 </template>
 ```
 
-// TODO: Add iframe for input-states-2
+<iframe data-frame-title="Input States - StackBlitz" src="pfp-code:./input-states-2?template=node&embed=1&file=src%2FFormComp.vue"></iframe>
 
 # Form Arrays {#form-arrays}
 
@@ -150,7 +150,7 @@ function onSubmit(values) {
 
 Our usage of `key-path` with the `id` to track which user is which is worth highlighting here. Because we're now using an array, we need a unique ID for each user, [otherwise we might run into issues with Vue's ability to figure out which user is which when adding a new field](/posts/ffg-fundamentals-dynamic-html#keys).
 
-// TODO: Add iframe for form-arrays-3
+<iframe data-frame-title="Form Arrays - StackBlitz" src="pfp-code:./form-arrays-3?template=node&embed=1&file=src%2FFormComp.vue"></iframe>
 
 # Form Validation {#form-validation}
 
@@ -193,7 +193,7 @@ function required(value) {
 </template>
 ```
 
-// TODO:  add iframe for form-validation-4
+<iframe data-frame-title="Form Validation - StackBlitz" src="pfp-code:./form-validation-4?template=node&embed=1&file=src%2FFormComp.vue"></iframe>
 
 ## Complex Data Schema
 
@@ -235,7 +235,7 @@ function onSubmit(values) {
 </template>
 ```
 
-// TODO: Add iframe for complex-data-schema-5
+<iframe data-frame-title="Complex Data Schema - StackBlitz" src="pfp-code:./complex-data-schema-5?template=node&embed=1&file=src%2FFormComp.vue"></iframe>
 
 By default, Yup will attempt to figure out the error message it should show based on the schema and the user's input. However, we're able to change the error message displayed by Yup with the following:
 
@@ -324,7 +324,7 @@ function onSubmit(values) {
 </template>
 ```
 
-// TODO: Add iframe for  validation-types-6
+<iframe data-frame-title="Validation Types - StackBlitz" src="pfp-code:./validation-types-6?template=node&embed=1&file=src%2FFormComp.vue"></iframe>
 
 # Non-Text Form Fields
 
@@ -368,7 +368,7 @@ function onSubmit(values) {
 </template>
 ```
 
-// TODO: Add iframe for non-text-form-fields-7
+<iframe data-frame-title="Non-Text Form Fields - StackBlitz" src="pfp-code:./non-text-form-fields-7?template=node&embed=1&file=src%2FFormComp.vue"></iframe>
 
 # Conclusion
 
