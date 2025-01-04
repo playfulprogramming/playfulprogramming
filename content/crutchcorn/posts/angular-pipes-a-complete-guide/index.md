@@ -1,8 +1,8 @@
 ---
 {
   title: "Angular Pipes: A Complete Guide",
-  description: "",
-  published: "2024-12-11T12:05:00.000Z",
+  description: "Angular Pipes are a core part of the framework. They allow you to derive state via a function called in the template. How does this work? Let's dive in!",
+  published: "2025-01-06T12:05:00.000Z",
   authors: ["crutchcorn"],
   tags: ["angular", "webdev"],
 }
