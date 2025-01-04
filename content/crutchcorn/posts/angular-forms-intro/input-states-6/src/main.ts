@@ -11,6 +11,7 @@ import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
 @Component({
 	selector: "form-comp",
 	imports: [ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<h1>Friend List</h1>

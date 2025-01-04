@@ -7,7 +7,9 @@
 }
 ---
 
-// TODO: Write
+Forms are the building blocks for many applications written in Angular. Given's Angular's all-in-one solution, it's no wonder that there's a plethora of options available to Angular developers when it comes to forms; right out of the box!
+
+Let's explore those options in a quick guide on Angular's Forms solutions.
 
 # One-way Form Bindings
 
@@ -89,6 +91,8 @@ export class FormComponent {
 	}
 }
 ```
+
+// TODO: add iframe for two-way-form-binding-2
 
 > Don't forget to add `FormsModule` to the `imports` array in your component. If you forget it, you'll see the following error:
 >
@@ -174,7 +178,7 @@ export class FormComponent {
 
 // TODO: add iframe for reactive-forms-3
 
-### Form Groups
+## Form Groups
 
 While a basic `FormControl` creation is useful for demonstration purposes, it doesn't truly demonstrate the full power of reactive forms. Namely, when there are multiple inputs, your `form` can act as the source of truth through a new `FormGroup` class instance:
 
@@ -183,8 +187,8 @@ import {ReactiveFormsModule,  FormGroup, FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'form-comp',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
     <form (submit)="onSubmit($event)" [formGroup]="mainForm">
     <div>
@@ -218,7 +222,7 @@ export class FormComponent {
 
 // TODO: Add iframe for form-groups-4
 
-### Form Builder
+## Form Builder
 
 You're also able to utilize a shorthand `fb` provided by Angular to remove duplicate calls to `FormControl` and `FormGroup`, respectively using [Angular's Dependency Injection](/posts/ffg-fundamentals-dependency-injection):
 
@@ -228,6 +232,7 @@ import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 @Component({
 	selector: 'form-comp',
 	imports: [ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
     <form (submit)="onSubmit($event)" [formGroup]="mainForm">
     <div>
@@ -269,7 +274,11 @@ export class FormComponent {
 
 ## Input States {#input-states}
 
-// TODO: Write stuff about input states
+When dealing with form fields, it's valuable to have metadata about the fields' state itself. These metadata states include:
+
+- Touched: When a user has tabbed or clicked into a field but not yet typed
+- Dirty: If the user has typed a value into the field
+- Pristine: The opposite of "dirty" - if the user has not typed information into the field
 
 Here's an interactive playground that you can use to play around with each of the different input states.
 
@@ -277,6 +286,7 @@ Here's an interactive playground that you can use to play around with each of th
 @Component({
   selector: 'form-comp',
   imports: [ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
       <div>
           <h1>Friend List</h1>
@@ -385,12 +395,15 @@ class FormComponent {
 
 # Form Arrays {#form-arrays}
 
-// TODO: Write something
+Not all forms have a static list of items; this is where a need for an array of items might come into play.
+
+Let's build out an example of a form that tracks a list of users:
 
 ```angular-ts
 @Component({
 	selector: "form-comp",
 	imports: [ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<h1>Friend List</h1>
@@ -449,19 +462,13 @@ class FormComponent {
 }
 ```
 
-Because we're now using an array, we need a unique ID for each user. This is why, for each implementation, there's an `id` field. We then use this `id` field to identify which user is which to the framework, [just like we've done before for loops in HTML](/posts/dynamic-html).
+// TODO: Add iframe for form-arrays-7
+
+Because we're now using an array, we need a unique ID for each user. This is why, for each implementation, there's an `id` field. We then use this `id` field to identify which user is which to the framework.
 
 
 
 # Form Validation {#form-validation}
-
-After adding in form arrays to your share dialog, you sit down, ready to work on the next task. Suddenly, an email slides in from your issues tracker: Dang it - you missed a requirement.
-
-Namely, we need to make sure that the user has actually typed in the user's name before moving forward.
-
-Let's see if we can't mark the name field as "required" and show an error when the user tries to submit a form without inputting a name.
-
-> To focus on form validation, let's temporarily remove the array requirement and limit our scope just to the form validation.
 
 You know how earlier we switch our `fb.group` command from:
 
@@ -481,106 +488,109 @@ mainForm = this.fb.group({
 
 And promised there was some nebulous benefit for doing so later? Well, now it's time to introduce the "why". When a `FormControl` is passed an array with a second value, that value is treated as a validator function.
 
+Validation is when we confirm that the user's inputs match what we expect them to be for a form to be considered "valid".
+
 Let's write a simple validator function to check when the field is filled or not. If it's not filled, we can return a string to display to the user that "This field is required".
 
 ```angular-ts
 import {
-  FormsModule,
-  FormBuilder,
-  ReactiveFormsModule,
-  AbstractControl,
-  ValidationErrors,
-} from '@angular/forms';
+	FormBuilder,
+	ReactiveFormsModule,
+	AbstractControl,
+	ValidationErrors,
+} from "@angular/forms";
 
 export function requiredValidator(
-  control: AbstractControl
+	control: AbstractControl,
 ): ValidationErrors | null {
-  const noVal = !control.value;
-  return noVal ? { required: 'This field is required' } : null;
+	const noVal = !control.value;
+	return noVal ? { required: "This field is required" } : null;
 }
 
 @Component({
-  selector: 'my-app',
-  template: `
-  <div>
-    <h1>Friend List</h1>
-    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
-    <label>
-      Name
-      <input type="text" formControlName="name"/>
-    </label>
+	selector: "form-comp",
+	imports: [ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div>
+			<h1>Friend List</h1>
+			<form (submit)="onSubmit($event)" [formGroup]="mainForm">
+				<label>
+					Name
+					<input type="text" formControlName="name" />
+				</label>
 
-
-    <div *ngIf="mainForm.touched && mainForm.controls.name.errors?.['required']">
-    Name is required.
-    </div>
-    <button type="submit">Submit</button>
-    </form>
-  </div>
-  `,
+				@if (mainForm.controls.name.errors?.["required"]) {
+					<div>Name is required.</div>
+				}
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+	`,
 })
-class AppComponent {
-  constructor(private fb: FormBuilder) {}
+class FormComponent {
+	fb = inject(FormBuilder);
 
-  mainForm = this.fb.group({
-    name: ['', requiredValidator],
-  });
+	mainForm = this.fb.group({
+		name: ["", requiredValidator],
+	});
 
-  onSubmit(e) {
-    e.preventDefault();
-    console.log(this.mainForm.value);
-  }
+	onSubmit(e: Event) {
+		e.preventDefault();
+		console.log(this.mainForm.value);
+	}
 }
 ```
 
+// TODO: Add iframe for form-validation-8
 
+## Built-In Validators
 
-### Built-In Validators
-
-Luckily for us, just like [Angular's Pipes](/posts/derived-values), Angular provides some built-in validators for us to use. For example, we can replace our implementation with Angular's built-in `Validators.required` version.
+Luckily for us, just like [Angular's Pipes](/posts/angular-pipes-a-complete-guide), Angular provides some built-in validators for us to use. For example, we can replace our implementation with Angular's built-in `Validators.required` version.
 
 ```angular-ts
 import {
-  FormsModule,
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
+	FormBuilder,
+	ReactiveFormsModule,
+	Validators,
+} from "@angular/forms";
 
 @Component({
-  selector: 'my-app',
-  template: `
-  <div>
-    <h1>Friend List</h1>
-    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
-    <label>
-      Name
-      <input type="text" formControlName="name"/>
-    </label>
+	selector: "form-comp",
+	imports: [ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div>
+			<h1>Friend List</h1>
+			<form (submit)="onSubmit($event)" [formGroup]="mainForm">
+				<label>
+					Name
+					<input type="text" formControlName="name" />
+				</label>
 
-
-    <div *ngIf="mainForm.touched && mainForm.controls.name.errors?.['required']">
-    Name is required.
-    </div>
-    <button type="submit">Submit</button>
-    </form>
-  </div>
-  `,
+				@if (mainForm.controls.name.errors?.["required"]) {
+					<div>Name is required.</div>
+				}
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+	`,
 })
-class AppComponent {
-  constructor(private fb: FormBuilder) {}
+class FormComponent {
+	fb = inject(FormBuilder);
 
-  mainForm = this.fb.group({
-    name: ['', Validators.required],
-  });
+	mainForm = this.fb.group({
+		name: ["", Validators.required],
+	});
 
-  onSubmit(e) {
-    e.preventDefault();
-    console.log(this.mainForm.value);
-  }
+	onSubmit(e: Event) {
+		e.preventDefault();
+		console.log(this.mainForm.value);
+	}
 }
 ```
 
+// TODO: Add iframe for built-in-validators-9
 
 ## Validation Types
 
@@ -595,102 +605,103 @@ Here's a playground where we demonstrate a form that validates all of those exam
 
 ```angular-ts
 import {
-  FormsModule,
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-  ValidationErrors,
-  AbstractControl,
-} from '@angular/forms';
+	FormBuilder,
+	ReactiveFormsModule,
+	Validators,
+	ValidationErrors,
+	AbstractControl,
+} from "@angular/forms";
 
 // Angular does not provide a built-in validator for matching two `FormControl` values,
 // so we have to build our own
-function matchValues(
-  matchTo: string
-): (AbstractControl) => ValidationErrors | null {
-  return (control: AbstractControl): ValidationErrors | null => {
-    // Get "parent" of control, AKA the "form" itself AKA a "FormGroup"
-    return !!control.parent &&
-      !!control.parent.value &&
-      control.value === control.parent.controls[matchTo].value
-      ? null
-      : { isNotMatching: true };
-  };
+function matchValues(matchTo: string) {
+	return (control: AbstractControl): ValidationErrors | null => {
+		// Get "parent" of control, AKA the "form" itself AKA a "FormGroup"
+		return !!control.parent &&
+			!!control.parent.value &&
+			control.value === (control.parent.controls[matchTo as never] as {value: string})?.value
+			? null
+			: { isNotMatching: true };
+	};
 }
 
 @Component({
-  selector: 'my-app',
-  template: `
-  <div>
-    <h1>Friend List</h1>
-    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
-    <div>
-      <label>
-        Minimum Length String (3)
-        <input type="text" formControlName="minLenStr"/>
-      </label>
-    </div>
-    <div *ngIf="mainForm.controls.minLenStr.errors?.minlength">
-      Expected a length of at least 3
-    </div>
-    <div>
-      <label>
-        Maximum Length String (3)
-        <input type="text" formControlName="maxLenStr"/>
-      </label>
-    </div>
-    <div *ngIf="mainForm.controls.maxLenStr.errors?.maxlength">
-      Expected a length of at most 3
-    </div>
-    <div>
-      <label>
-        Regex
-        <input type="text" formControlName="regex"/>
-      </label>
-    </div>
-    <div *ngIf="mainForm.controls.regex.errors?.pattern">
-      Expected the input to match the regex: /hello|hi/i
-    </div>
-    <div>
-      <label>
-        Password
-        <input type="text" formControlName="pass"/>
-      </label>
-    </div>
-    <div>
-      <label>
-        Password Confirm
-        <input type="text" formControlName="confirm"/>
-      </label>
-    </div>
-    <div *ngIf="mainForm.controls.confirm.errors?.isNotMatching">
-      Expected password to match confirm
-    </div>
-    <button type="submit">Submit</button>
-    </form>
-  </div>
-  `,
+	selector: "form-comp",
+	imports: [ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div>
+			<h1>Friend List</h1>
+			<form (submit)="onSubmit($event)" [formGroup]="mainForm">
+				<div>
+					<label>
+						Minimum Length String (3)
+						<input type="text" formControlName="minLenStr" />
+					</label>
+				</div>
+				@if (mainForm.controls.minLenStr.errors?.['minlength']) {
+					<div>Expected a length of at least 3</div>
+				}
+				<div>
+					<label>
+						Maximum Length String (3)
+						<input type="text" formControlName="maxLenStr" />
+					</label>
+				</div>
+				@if (mainForm.controls.maxLenStr.errors?.['maxlength']) {
+					<div>Expected a length of at most 3</div>
+				}
+				<div>
+					<label>
+						Regex
+						<input type="text" formControlName="regex" />
+					</label>
+				</div>
+				@if (mainForm.controls.regex.errors?.['pattern']) {
+					<div>Expected the input to match the regex: /hello|hi/i</div>
+				}
+				<div>
+					<label>
+						Password
+						<input type="text" formControlName="pass" />
+					</label>
+				</div>
+				<div>
+					<label>
+						Password Confirm
+						<input type="text" formControlName="confirm" />
+					</label>
+				</div>
+				@if (mainForm.controls.confirm.errors?.['isNotMatching']) {
+					<div>Expected password to match confirm</div>
+				}
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+	`,
 })
-class AppComponent {
-  constructor(private fb: FormBuilder) {}
+class FormComponent {
+	fb = inject(FormBuilder);
 
-  mainForm = this.fb.group(
-    {
-      minLenStr: ['', Validators.minLength(3)],
-      maxLenStr: ['', Validators.maxLength(3)],
-      regex: ['', Validators.pattern(/hello|hi/i)],
-      pass: [''],
-      confirm: ['', matchValues('pass')],
-    },
-    { validators: [] }
-  );
+	mainForm = this.fb.group(
+		{
+			minLenStr: ["", Validators.minLength(3)],
+			maxLenStr: ["", Validators.maxLength(3)],
+			regex: ["", Validators.pattern(/hello|hi/i)],
+			pass: [""],
+			confirm: ["", matchValues("pass")],
+		},
+		{ validators: [] },
+	);
 
-  onSubmit(e) {
-    e.preventDefault();
-    console.log(this.mainForm.value);
-  }
+	onSubmit(e: Event) {
+		e.preventDefault();
+		console.log(this.mainForm.value);
+	}
 }
 ```
+
+// TODO: Add iframe for validation-types-10
 
 # Non-Text Form Fields
 
@@ -704,34 +715,36 @@ Since Angular uses the `input` element directly, it's trivial to implement a che
 
 ```angular-ts
 @Component({
-  selector: 'my-app',
-  template: `
-  <div>
-    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
-    <div>
-      <label>
-        Terms and Conditions
-        <input type="checkbox" formControlName="termsAndConditions"/>
-      </label>
-    </div>
-    <div *ngIf="mainForm.controls.termsAndConditions.errors?.required">
-      You must accept the terms and conditions
-    </div>
-    <button type="submit">Submit</button>
-    </form>
-  </div>
-  `,
+	selector: "form-comp",
+	imports: [ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div>
+			<form (submit)="onSubmit($event)" [formGroup]="mainForm">
+				<div>
+					<label>
+						Terms and Conditions
+						<input type="checkbox" formControlName="termsAndConditions" />
+					</label>
+				</div>
+				@if (mainForm.controls.termsAndConditions.errors?.["required"]) {
+					<div>You must accept the terms and conditions</div>
+				}
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+	`,
 })
-class AppComponent {
-  constructor(private fb: FormBuilder) {}
+class FormComponent {
+	fb = inject(FormBuilder);
 
-  mainForm = this.fb.group({
-    termsAndConditions: ['', Validators.requiredTrue],
-  });
+	mainForm = this.fb.group({
+		termsAndConditions: ["", Validators.requiredTrue],
+	});
 
-  onSubmit(e) {
-    e.preventDefault();
-    console.log(this.mainForm.value);
-  }
+	onSubmit(e: Event) {
+		e.preventDefault();
+		console.log(this.mainForm.value);
+	}
 }
 ```
