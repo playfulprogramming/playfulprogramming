@@ -2,7 +2,7 @@
 {
   title: "Dependency Injection",
   description: "Passing around props suck. They're repetitive, get out of sync, and are easy to forget to pass. What if there was a better way to pass data between different parts of your app?",
-  published: "2024-03-11T12:11:00.000Z",
+  published: "2024-09-30T12:11:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],

@@ -2,7 +2,7 @@
 {
   title: "Side Effects",
   description: 'Some call them "lifecycle methods", others "effect handlers". However you spin it, they both handle side effects in your apps. How can we leverage them better?',
-  published: "2024-03-11T12:04:00.000Z",
+  published: "2024-09-30T12:04:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],

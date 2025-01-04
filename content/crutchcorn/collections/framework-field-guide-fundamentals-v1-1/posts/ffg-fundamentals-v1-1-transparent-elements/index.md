@@ -2,7 +2,7 @@
 {
   title: "Transparent Elements",
   description: "There are specific instances where you may want to have a wrapper element in a framework that renders to nothing in the DOM. This is how.",
-  published: "2024-03-11T12:06:00.000Z",
+  published: "2024-09-30T12:06:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],

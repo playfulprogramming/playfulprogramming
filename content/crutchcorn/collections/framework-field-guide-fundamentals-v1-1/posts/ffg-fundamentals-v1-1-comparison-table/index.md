@@ -2,7 +2,7 @@
 {
   title: "Framework Comparison Table",
   description: "Let's compare and contrast React, Angular, and Vue's APIs all in one place.",
-  published: "2024-03-11T12:16:00.000Z",
+  published: "2024-09-30T12:16:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],

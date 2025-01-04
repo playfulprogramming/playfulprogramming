@@ -2,7 +2,7 @@
 {
   title: "Preface",
   description: "Learning web development is a vital skill in a software engineer's toolbox. Let's talk about why you should learn it and what this book will cover.",
-  published: "2024-03-11T12:01:00.000Z",
+  published: "2024-09-30T12:01:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
