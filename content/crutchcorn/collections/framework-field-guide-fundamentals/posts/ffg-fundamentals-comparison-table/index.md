@@ -20,56 +20,56 @@ We've looked at a lot of APIs in this series! Here's a cheatsheet for all the AP
 
 <div class="table-overflow">
 
-| React                                                              | Angular                                                                         | Vue                                                                                 | Notes & Link                                                                                                            |
-|--------------------------------------------------------------------|---------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| `function Comp() {}`                                               | `@Component() class Comp {}`                                                    | `Comp.vue` SFC file                                                                 | [Creates a component.](/posts/ffg-fundamentals-intro-to-components#parts-of-app)                                        |
-| `createRoot(el).render(<Comp/>)`                                   | `bootstrapApplication(Component)`                                               | `createApp(Comp).mount('el')`                                                       | [Renders the component.](/posts/ffg-fundamentals-intro-to-components#rendering-app)                                     |
-| Component function body                                            | Class instance properties and methods                                           | `<script setup>`                                                                    | [Where your JavaScript code goes.](/posts/ffg-fundamentals-intro-to-components#logic)                                   |
-| `useEffect` with empty array                                       | `ngOnInit`                                                                      | `onMounted`                                                                         | [Side effect on component mount.](/posts/ffg-fundamentals-intro-to-components#side-effects)                             |
-| `<p>{val}</p>`                                                     | `<p>{{val}}</p>`                                                                | `<p>{{val}}</p>`                                                                    | [Interpolate `val` into your template. This live-updates.](/posts/ffg-fundamentals-intro-to-components#display)         |
-| `useState`                                                         | Class properties                                                                | `ref`                                                                               | [State in a component.](/posts/ffg-fundamentals-intro-to-components#reactivity)                                         |
-| `<div attr={val}>`                                                 | `<div [attr.attr]="val">`                                                       | `<div v-bind:attr="val">` **or** `<div :attr="val">`                                | [Attribute binding to an element. This live-updates.](/posts/ffg-fundamentals-intro-to-components#attr-binding)         |
-| `function Comp(props) {}`                                          | `@Input()`                                                                      | `defineProps(['prop'])`                                                             | [Component input definition.](/posts/ffg-fundamentals-intro-to-components#inputs)                                       |
-| `<div prop={val}>`                                                 | `<div [prop]="val">`                                                            | `<div v-bind:prop="val">` **or** `<div :prop="val">`                                | [Component input passing](/posts/ffg-fundamentals-intro-to-components#inputs)                                           |
-| `<div onEvent={fn}>`                                               | `<div (event)="fn()">`                                                          | `<div v-on:event="fn()">` **or** `<div @event="fn()">`                              | [DOM event binding](/posts/ffg-fundamentals-intro-to-components#event-binding)                                          |
-| Pass a function as component property.                             | `@Output()`                                                                     | `defineEmits(['output'])`                                                           | [Component output definition.](/posts/ffg-fundamentals-intro-to-components#outputs)                                     |
-| `{bool && <div>}`                                                  | `@if (bool) {<div>}`                                                            | `<div v-if="bool">`                                                                 | [Conditional render an element.](/posts/ffg-fundamentals-dynamic-html#conditional-rendering)                            |
-| `{bool ? <div/> : <div/>}`                                         | `@else {}`                                                                      | `<div v-else>`                                                                      | [Conditionally render with an "else" clause.](/posts/ffg-fundamentals-dynamic-html#conditional-branch)                  |
-| Multiple conditionals with different values.                       | `@else if (other) {}` **or** `@switch` & `@case`                                | `<div v-else-if="other">`                                                           | [Conditional render with multiple "else" clauses.](/posts/ffg-fundamentals-dynamic-html#expanded-branches)              |
-| `{list.map(item => <div></div>)}`                                  | `@for (item of list) {<div>}`                                                   | `<div v-for="item in list">`                                                        | [Rendering a list.](/posts/ffg-fundamentals-dynamic-html#rendering-lists)                                               |
-| `{list.map((item, idx) => <div></div>)}`                           | `@for (item of list; let idx = $index) {<div>}`                                 | `<div v-for="(item, idx) in list">`                                                 | [Get an index in a list render.](/posts/ffg-fundamentals-dynamic-html#rendering-lists)                                  |
-| `<div key={item.id}>`                                              | `@for (item of list; track item.id) {<div>}`                                    | `<div :key="item.id">`                                                              | [Using a key to distinguish element in a list.](/posts/ffg-fundamentals-dynamic-html#keys)                              |
-| `<div key={item.id}>`                                              | N/A                                                                             | `<div :key="item.id">`                                                              | [Using a key as a render hint.](/posts/ffg-fundamentals-dynamic-html#keys-as-hints)                                     |
-| Return function from a `useEffect` with an empty dependency array. | `ngOnDestroy`                                                                   | `onUnmounted` **or** `watchEffect` cleanup function **or** `watch` cleanup function | [Side effect cleanup on component unmount.](/posts/ffg-fundamentals-side-effects#unmounting)                            |
-| `<StrictMode>`                                                     | N/A                                                                             | N/A                                                                                 | [API to ensure side effect cleanup](/posts/ffg-fundamentals-side-effects#ensuring-effect-cleanup)                       |
-| `useEffect` with no second argument                                | N/A                                                                             | `onUpdated`                                                                         | [Listen for re-renders.](/posts/ffg-fundamentals-side-effects#re-renders)                                               |
-| `useEffect` with an array of values to track                       | Trigger side effect on mutation function                                        | `watch` **or** `watchEffect`                                                        | [In-component data change side effects.](/posts/ffg-fundamentals-side-effects#in-comp-prop-side-effect)                 |
-| `useLayoutEffect` to run before paint                              | N/A due to lack of VDOM                                                         | `watch` with `{immediate: true}` and/or `{flush: "post"}`                           | [Render/paint/commit phase tracking](/posts/ffg-fundamentals-side-effects#rendering-committing-painting)                |
-| `useRef`                                                           | `ngZone.runOutsideAngular`                                                      | `let` variable mutation                                                             | [Change data without a re-render](/posts/ffg-fundamentals-side-effects#changing-data-without-rendering)                 |
-| `useEffect` with `useRef` of previous value                        | `ngOnChanges`                                                                   | `watch` with old and new value arguments                                            | [Listen for component property changes](/posts/ffg-fundamentals-derived-values#prop-listening)                          |
-| `useMemo`                                                          | `@Pipe()`                                                                       | `computed`                                                                          | [Property-based computed values](/posts/ffg-fundamentals-derived-values#computed-values)                                |
-| `<Fragment>` **or** `<></>`                                        | `<ng-container>`                                                                | `<template>`                                                                        | [Transparent elements](/posts/ffg-fundamentals-transparent-elements)                                                    |
-| `children` property with a JSX value                               | `<ng-content>`                                                                  | `<slot>`                                                                            | [Children injection site](/posts/ffg-fundamentals-passing-children#passing-basic-children)                              |
-| Named properties with a JSX value                                  | `<ng-content select="name">`                                                    | `<slot name="name" />`                                                              | [Named children injection site](/posts/ffg-fundamentals-passing-children#named-children)                                |
-| `const refName = useRef()` & `<div ref={refName}>`                 | `@ViewChild()`                                                                  | `const refName = ref()` & `<div ref="refName">`                                     | [Element reference that doesn't trigger reactive change](/posts/ffg-fundamentals-element-reference#basic-el-references) |
-| `<div ref={fn}>`                                                   | `@ViewChild()` with `ngAfterViewInit`                                           | `<div :ref="fn">`                                                                   | [Element reference that triggers reactive change](/posts/ffg-fundamentals-element-reference#basic-el-references)        |
-| `useRef([])` & `<div ref={el => ref.current[i] = el}>`             | `@ViewChildren()`                                                               | `ref([])` & `ref="refName"`                                                         | [Array of element references](/posts/ffg-fundamentals-element-reference#array-of-elements)                              |
-| `forwardRef`                                                       | N/A                                                                             | N/A                                                                                 | [Allow access to a custom component](/posts/ffg-fundamentals-component-reference#introducing-component-reference)       |
-| `useImperativeHandle`                                              | All methods and properties from the referenced component are exposed by default | `defineExpose`                                                                      | [Allow access to component's internals](/posts/ffg-fundamentals-component-reference#introducing-component-reference)    |
-| `componentDidCatch`                                                | `ErrorHandler`                                                                  | `onErrorCaptured`                                                                   | [Log an error](/posts/ffg-fundamentals-error-handling#logging-errors)                                                   |
-| `getDerivedStateFromError`                                         | `ErrorHandler` + parent state                                                   | `onErrorCaptured` + `ref`                                                           | [Display an error](/posts/ffg-fundamentals-error-handling#displaying-the-error)                                         |
-| `createContext`                                                    | `InjectionToken` **or** `Injectable`                                            | N/A                                                                                 | [Dependency injection context creation](/posts/ffg-fundamentals-dependency-injection#basic-values)                      |
-| `Context.Provider`                                                 | `providers` array on class                                                      | `provide`                                                                           | [Dependency injection data provider](/posts/ffg-fundamentals-dependency-injection#basic-values)                         |
-| `useContext`                                                       | `inject`                                                                        | `inject`                                                                            | [Dependency injection data injection](/posts/ffg-fundamentals-dependency-injection#basic-values)                        |
-| Enabled by default                                                 | `inject(SomeVal, {optional: true})`                                             | Enabled by default                                                                  | [Optional injected values](/posts/ffg-fundamentals-dependency-injection#optional-injected-values)                       |
-| `Context.Provider` in root component                               | `@Injectable({ providedIn: "root" })`                                           | `provide` in root component                                                         | [App-wide providers](/posts/ffg-fundamentals-dependency-injection#app-wide-providers)                                   |
-| `createPortal(<div/>, el)`                                         | `DomPortal` **or** `TemplatePortal` & `cdkPortalOutlet`                         | `<Teleport to="body">`                                                              | [Portal contents to other DOM location](/posts/ffg-fundamentals-portals)                                                |
-| Custom Hooks                                                       | Services                                                                        | Compositions                                                                        | [Logic sharing between components](/posts/ffg-fundamentals-shared-component-logic)                                      |
-| N/A                                                                | `@Directive()`                                                                  | Object with special properties                                                      | [Directives](/posts/ffg-fundamentals-directives)                                                                        |
-| `children` property and single value passed                        | `@ContentChild()`                                                               | N/A                                                                                 | [Access a reference to a single projected child](/posts/ffg-fundamentals-accessing-children)                            |
-| `Children.toArray(children)`                                       | `@ContentChildren()`                                                            | N/A                                                                                 | [Access a reference to projected children](/posts/ffg-fundamentals-accessing-children)                                  |
-| `Children.count(children)`                                         | `@ContentChildren()` & `length` property                                        | N/A                                                                                 | [Count projected children](/posts/ffg-fundamentals-accessing-children#counting-comp-children)                           |
-| `children(val)`                                                    | `ng-template` & Template Context                                                | `<template>` & `v-slot`                                                             | [Pass values to projected children](/posts/ffg-fundamentals-accessing-children#passing-values-to-projected-content)     |
+| React                                                        | Angular                                                      | Vue                                                          | Notes & Link                                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `function Comp() {}`                                         | `@Component() class Comp {}`                                 | `Comp.vue` SFC file                                          | [Creates a component.](/posts/ffg-fundamentals-intro-to-components#parts-of-app) |
+| `createRoot(el).render(<Comp/>)`                             | `bootstrapApplication(Component)`                            | `createApp(Comp).mount('el')`                                | [Renders the component.](/posts/ffg-fundamentals-intro-to-components#rendering-app) |
+| Component function body                                      | Class instance properties and methods                        | `<script setup>`                                             | [Where your JavaScript code goes.](/posts/ffg-fundamentals-intro-to-components#logic) |
+| `useEffect` with empty array                                 | `effect` with no child signals                               | `onMounted`                                                  | [Side effect on component mount.](/posts/ffg-fundamentals-intro-to-components#side-effects) |
+| `<p>{val}</p>`                                               | `<p>{{val}}</p>`                                             | `<p>{{val}}</p>`                                             | [Interpolate `val` into your template. This live-updates.](/posts/ffg-fundamentals-intro-to-components#display) |
+| `useState`                                                   | `signal`                                                     | `ref`                                                        | [State in a component.](/posts/ffg-fundamentals-intro-to-components#reactivity) |
+| `<div attr={val}>`                                           | `<div [attr.attr]="val">`                                    | `<div v-bind:attr="val">` **or** `<div :attr="val">`         | [Attribute binding to an element. This live-updates.](/posts/ffg-fundamentals-intro-to-components#attr-binding) |
+| `function Comp(props) {}`                                    | `input()`                                                    | `defineProps(['prop'])`                                      | [Component input definition.](/posts/ffg-fundamentals-intro-to-components#inputs) |
+| `<div prop={val}>`                                           | `<div [prop]="val">`                                         | `<div v-bind:prop="val">` **or** `<div :prop="val">`         | [Component input passing](/posts/ffg-fundamentals-intro-to-components#inputs) |
+| `<div onEvent={fn}>`                                         | `<div (event)="fn()">`                                       | `<div v-on:event="fn()">` **or** `<div @event="fn()">`       | [DOM event binding](/posts/ffg-fundamentals-intro-to-components#event-binding) |
+| Pass a function as component property.                       | `output()`                                                   | `defineEmits(['output'])`                                    | [Component output definition.](/posts/ffg-fundamentals-intro-to-components#outputs) |
+| `{bool && <div>}`                                            | `@if (bool) {<div>}`                                         | `<div v-if="bool">`                                          | [Conditional render an element.](/posts/ffg-fundamentals-dynamic-html#conditional-rendering) |
+| `{bool ? <div/> : <div/>}`                                   | `@else {}`                                                   | `<div v-else>`                                               | [Conditionally render with an "else" clause.](/posts/ffg-fundamentals-dynamic-html#conditional-branch) |
+| Multiple conditionals with different values.                 | `@else if (other) {}` **or** `@switch` & `@case`             | `<div v-else-if="other">`                                    | [Conditional render with multiple "else" clauses.](/posts/ffg-fundamentals-dynamic-html#expanded-branches) |
+| `{list.map(item => <div></div>)}`                            | `@for (item of list) {<div>}`                                | `<div v-for="item in list">`                                 | [Rendering a list.](/posts/ffg-fundamentals-dynamic-html#rendering-lists) |
+| `{list.map((item, idx) => <div></div>)}`                     | `@for (item of list; let idx = $index) {<div>}`              | `<div v-for="(item, idx) in list">`                          | [Get an index in a list render.](/posts/ffg-fundamentals-dynamic-html#rendering-lists) |
+| `<div key={item.id}>`                                        | `@for (item of list; track item.id) {<div>}`                 | `<div :key="item.id">`                                       | [Using a key to distinguish element in a list.](/posts/ffg-fundamentals-dynamic-html#keys) |
+| `<div key={item.id}>`                                        | N/A                                                          | `<div :key="item.id">`                                       | [Using a key as a render hint.](/posts/ffg-fundamentals-dynamic-html#keys-as-hints) |
+| Return function from a `useEffect` with an empty dependency array. | `effect` cleanup function                                    | `onUnmounted` **or** `watchEffect` cleanup function **or** `watch` cleanup function | [Side effect cleanup on component unmount.](/posts/ffg-fundamentals-side-effects#unmounting) |
+| `<StrictMode>`                                               | N/A                                                          | N/A                                                          | [API to ensure side effect cleanup](/posts/ffg-fundamentals-side-effects#ensuring-effect-cleanup) |
+| `useEffect` with no second argument                          | N/A                                                          | `onUpdated`                                                  | [Listen for re-renders.](/posts/ffg-fundamentals-side-effects#re-renders) |
+| `useEffect` with an array of values to track                 | `effect`                                                     | `watch` **or** `watchEffect`                                 | [In-component data change side effects.](/posts/ffg-fundamentals-side-effects#in-comp-prop-side-effect) |
+| `useLayoutEffect` to run before paint                        | N/A due to lack of VDOM                                      | `watch` with `{immediate: true}` and/or `{flush: "post"}`    | [Render/paint/commit phase tracking](/posts/ffg-fundamentals-side-effects#rendering-committing-painting) |
+| `useRef`                                                     | Class property mutation                                      | `let` variable mutation                                      | [Change data without a re-render](/posts/ffg-fundamentals-side-effects#changing-data-without-rendering) |
+| `useEffect` with `useRef` of previous value                  | `effect` with class property of previous value               | `watch` with old and new value arguments                     | [Listen for component property changes](/posts/ffg-fundamentals-derived-values#prop-listening) |
+| `useMemo`                                                    | `computed`                                                   | `computed`                                                   | [Property-based computed values](/posts/ffg-fundamentals-derived-values#computed-values) |
+| `<Fragment>` **or** `<></>`                                  | `<ng-container>`                                             | `<template>`                                                 | [Transparent elements](/posts/ffg-fundamentals-transparent-elements) |
+| `children` property with a JSX value                         | `<ng-content>`                                               | `<slot>`                                                     | [Children injection site](/posts/ffg-fundamentals-passing-children#passing-basic-children) |
+| Named properties with a JSX value                            | `<ng-content select="name">`                                 | `<slot name="name" />`                                       | [Named children injection site](/posts/ffg-fundamentals-passing-children#named-children) |
+| `const refName = useRef()` & `<div ref={refName}>`           | `viewChild()`                                                | `const refName = ref()` & `<div ref="refName">`              | [Element reference that doesn't trigger reactive change](/posts/ffg-fundamentals-element-reference#basic-el-references) |
+| `<div ref={fn}>`                                             | `viewChild()` with `afterRenderEffect`                       | `<div :ref="fn">`                                            | [Element reference that triggers reactive change](/posts/ffg-fundamentals-element-reference#basic-el-references) |
+| `useRef([])` & `<div ref={el => ref.current[i] = el}>`       | `viewChildren()`                                             | `ref([])` & `ref="refName"`                                  | [Array of element references](/posts/ffg-fundamentals-element-reference#array-of-elements) |
+| `forwardRef`                                                 | N/A                                                          | N/A                                                          | [Allow access to a custom component](/posts/ffg-fundamentals-component-reference#introducing-component-reference) |
+| `useImperativeHandle`                                        | All methods and properties from the referenced component are exposed by default | `defineExpose`                                               | [Allow access to component's internals](/posts/ffg-fundamentals-component-reference#introducing-component-reference) |
+| `componentDidCatch`                                          | `ErrorHandler`                                               | `onErrorCaptured`                                            | [Log an error](/posts/ffg-fundamentals-error-handling#logging-errors) |
+| `getDerivedStateFromError`                                   | `ErrorHandler` + parent state                                | `onErrorCaptured` + `ref`                                    | [Display an error](/posts/ffg-fundamentals-error-handling#displaying-the-error) |
+| `createContext`                                              | `InjectionToken` **or** `Injectable`                         | N/A                                                          | [Dependency injection context creation](/posts/ffg-fundamentals-dependency-injection#basic-values) |
+| `Context.Provider`                                           | `providers` array on class                                   | `provide`                                                    | [Dependency injection data provider](/posts/ffg-fundamentals-dependency-injection#basic-values) |
+| `useContext`                                                 | `inject`                                                     | `inject`                                                     | [Dependency injection data injection](/posts/ffg-fundamentals-dependency-injection#basic-values) |
+| Enabled by default                                           | `inject(SomeVal, {optional: true})`                          | Enabled by default                                           | [Optional injected values](/posts/ffg-fundamentals-dependency-injection#optional-injected-values) |
+| `Context.Provider` in root component                         | `@Injectable({ providedIn: "root" })`                        | `provide` in root component                                  | [App-wide providers](/posts/ffg-fundamentals-dependency-injection#app-wide-providers) |
+| `createPortal(<div/>, el)`                                   | `DomPortal` **or** `TemplatePortal` & `cdkPortalOutlet`      | `<Teleport to="body">`                                       | [Portal contents to other DOM location](/posts/ffg-fundamentals-portals) |
+| Custom Hooks                                                 | Signal Functions                                             | Compositions                                                 | [Logic sharing between components](/posts/ffg-fundamentals-shared-component-logic) |
+| N/A                                                          | `@Directive()`                                               | Object with special properties                               | [Directives](/posts/ffg-fundamentals-directives)             |
+| `children` property and single value passed                  | `contentChild()`                                             | N/A                                                          | [Access a reference to a single projected child](/posts/ffg-fundamentals-accessing-children) |
+| `Children.toArray(children)`                                 | `contentChildren()`                                          | N/A                                                          | [Access a reference to projected children](/posts/ffg-fundamentals-accessing-children) |
+| `Children.count(children)`                                   | `contentChildren()` & `length` property                      | N/A                                                          | [Count projected children](/posts/ffg-fundamentals-accessing-children#counting-comp-children) |
+| `children(val)`                                              | `ng-template` & Template Context                             | `<template>` & `v-slot`                                      | [Pass values to projected children](/posts/ffg-fundamentals-accessing-children#passing-values-to-projected-content) |
 
 </div>
 
@@ -131,7 +131,7 @@ We've looked at a lot of APIs in this series! Here's a cheatsheet for all the AP
 
 <tr>
 <td><code>useEffect</code> with empty array</td>
-<td><code>ngOnInit</code></td>
+<td><code>effect</code> with no child signals</td>
 <td><code>onMounted</code></td>
 </tr>
 <tr>
@@ -160,7 +160,7 @@ live-updates.</a
 
 <tr>
 <td><code>useState</code></td>
-<td>Class properties</td>
+<td><code>signal</code></td>
 <td><code>ref</code></td>
 </tr>
 <tr>
@@ -191,7 +191,7 @@ live-updates.</a
 
 <tr>
 <td><code>function Comp(props) {}</code></td>
-<td><code>@Input()</code></td>
+<td><code>input()</code></td>
 <td><code>defineProps(['prop'])</code></td>
 </tr>
 <tr>
@@ -239,7 +239,7 @@ live-updates.</a
 
 <tr>
 <td>Pass a function as component property.</td>
-<td><code>@Output()</code></td>
+<td><code>output()</code></td>
 <td><code>defineEmits(['output'])</code></td>
 </tr>
 <tr>
@@ -356,7 +356,7 @@ live-updates.</a
 Return function from a <code>useEffect</code> with an empty dependency
 array.
 </td>
-<td><code>ngOnDestroy</code></td>
+<td><code>effect</code> cleanup function</td>
 <td>
 <code>onUnmounted</code> <strong>or</strong>
 <code>watchEffect</code> cleanup function <strong>or</strong>
@@ -402,7 +402,7 @@ array.
 
 <tr>
 <td><code>useEffect</code> with an array of values to track</td>
-<td>Trigger side effect on mutation function</td>
+<td><code>effect</code></td>
 <td><code>watch</code> <strong>or</strong> <code>watchEffect</code></td>
 </tr>
 <tr>
@@ -434,7 +434,7 @@ href="/posts/ffg-fundamentals-side-effects#rendering-committing-painting"
 
 <tr>
 <td><code>useRef</code></td>
-<td><code>ngZone.runOutsideAngular</code></td>
+<td>Class property mutation</td>
 <td><code>let</code> variable mutation</td>
 </tr>
 <tr>
@@ -449,7 +449,7 @@ href="/posts/ffg-fundamentals-side-effects#changing-data-without-rendering"
 
 <tr>
 <td><code>useEffect</code> with <code>useRef</code> of previous value</td>
-<td><code>ngOnChanges</code></td>
+<td><code>effect</code> with class property of previous value</td>
 <td><code>watch</code> with old and new value arguments</td>
 </tr>
 <tr>
@@ -463,7 +463,7 @@ href="/posts/ffg-fundamentals-side-effects#changing-data-without-rendering"
 
 <tr>
 <td><code>useMemo</code></td>
-<td><code>@Pipe()</code></td>
+<td><code>computed</code></td>
 <td><code>computed</code></td>
 </tr>
 <tr>
@@ -526,7 +526,7 @@ href="/posts/ffg-fundamentals-passing-children#passing-basic-children"
 <code>const refName = useRef()</code> &#x26;
 <code>&#x3C;div ref={refName}></code>
 </td>
-<td><code>@ViewChild()</code></td>
+<td><code>viewChild()</code></td>
 <td>
 <code>const refName = ref()</code> &#x26;
 <code>&#x3C;div ref="refName"></code>
@@ -543,7 +543,7 @@ href="/posts/ffg-fundamentals-passing-children#passing-basic-children"
 
 <tr>
 <td><code>&#x3C;div ref={fn}></code></td>
-<td><code>@ViewChild()</code> with <code>ngAfterViewInit</code></td>
+<td><code>viewChild()</code> with <code>afterRenderEffect</code></td>
 <td><code>&#x3C;div :ref="fn"></code></td>
 </tr>
 <tr>
@@ -560,7 +560,7 @@ href="/posts/ffg-fundamentals-passing-children#passing-basic-children"
 <code>useRef([])</code> &#x26;
 <code>&#x3C;div ref={el => ref.current[i] = el}></code>
 </td>
-<td><code>@ViewChildren()</code></td>
+<td><code>viewChildren()</code></td>
 <td><code>ref([])</code> &#x26; <code>ref="refName"</code></td>
 </tr>
 <tr>
@@ -726,7 +726,7 @@ href="/posts/ffg-fundamentals-dependency-injection#app-wide-providers"
 
 <tr>
 <td>Custom Hooks</td>
-<td>Services</td>
+<td>Signal Functions</td>
 <td>Compositions</td>
 </tr>
 <tr>
@@ -751,7 +751,7 @@ href="/posts/ffg-fundamentals-dependency-injection#app-wide-providers"
 </tr>
 <tr>
 <td><code>children</code> property and single value passed</td>
-<td><code>@ContentChild()</code></td>
+<td><code>contentChild()</code></td>
 <td>N/A</td>
 </tr>
 <tr>
@@ -765,7 +765,7 @@ href="/posts/ffg-fundamentals-dependency-injection#app-wide-providers"
 
 <tr>
 <td><code>Children.toArray(children)</code></td>
-<td><code>@ContentChildren()</code></td>
+<td><code>contentChildren()</code></td>
 <td>N/A</td>
 </tr>
 <tr>
@@ -780,7 +780,7 @@ href="/posts/ffg-fundamentals-dependency-injection#app-wide-providers"
 <tr>
 <td><code>Children.count(children)</code></td>
 <td>
-<code>@ContentChildren()</code> &#x26; <code>length</code> property
+<code>contentChildren()</code> &#x26; <code>length</code> property
 </td>
 <td>N/A</td>
 </tr>
