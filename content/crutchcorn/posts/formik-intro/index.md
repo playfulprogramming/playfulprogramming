@@ -1,15 +1,15 @@
 ---
 {
     title: "Intro to Formik",
-    description: "",
+    description: "Learn how to streamline form handling in React with this popular library, featuring easy validation, state management, and submission handling.",
     published: '2025-01-01T22:12:03.284Z',
     tags: ["react", "javascript", "webdev"]
 }
 ---
 
-Because of React's minimalist API philosophy, React does not have anything equivocal to Angular's reactive forms. Instead, it relies on the ecosystem of libraries to support this functionality.
+React is a powerful library for building user interfaces, but it doesn't come with a built-in way to handle forms. While there are many libraries that can help supplement this issue, it can be difficult to know which one to choose.
 
-Luckily, there's a similar tool that's both widely used and highly capable: [Formik](https://formik.org/).
+One such option for form handling is [Formik](https://formik.org/) comes in. Formik is a popular library that simplifies form handling in React, providing a set of tools to manage form state, validation, and submission.
 
 Here's what a basic form might look like in Formik:
 
@@ -495,4 +495,8 @@ const FormComponent = () => {
 
 # Conclusion
 
-// TODO: Write
+Formik is a powerful library that simplifies form handling in React. From basic form setup to complex validation and array handling, Formik provides a comprehensive set of tools to manage form state, validation, and submission. Whether you prefer using hooks or components, Formik has you covered.
+
+If you enjoyed this article, you might also like [my book series "The Framework Field Guide" that teaches React, Angular, and Vue for free.](https://framework.guide)
+
+Happy coding!
