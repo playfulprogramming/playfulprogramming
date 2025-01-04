@@ -309,7 +309,7 @@ const FormComp = () => {
 
 // TODO: Add iframe for form-validation-5
 
-### Complex Data Schema
+## Complex Data Schema
 
 Formik's `validate` function passing works quite well for basic usage. That said, let's introduce a better way to do form validation that scales a little better when dealing with more complex data.
 
