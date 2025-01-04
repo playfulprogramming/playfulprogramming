@@ -6,40 +6,35 @@ import {
 	ChangeDetectionStrategy,
 	inject,
 } from "@angular/core";
-import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
+
+import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 
 @Component({
 	selector: "form-comp",
 	imports: [ReactiveFormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<form (submit)="onSubmit($event)" [formGroup]="mainForm">
-			<div>
+		<div>
+			<h1>Friend List</h1>
+			<form (submit)="onSubmit($event)" [formGroup]="mainForm">
 				<label>
 					Name
 					<input type="text" formControlName="name" />
 				</label>
-			</div>
-			<div>
-				<label>
-					Email
-					<input type="text" formControlName="email" />
-				</label>
-			</div>
-			<button type="submit">Submit</button>
-		</form>
+
+				@if (mainForm.controls.name.errors?.["required"]) {
+					<div>Name is required.</div>
+				}
+				<button type="submit">Submit</button>
+			</form>
+		</div>
 	`,
 })
-export class FormComponent {
+class FormComponent {
 	fb = inject(FormBuilder);
 
 	mainForm = this.fb.group({
-		name: "",
-		// This doesn't mean to make `email` an array
-		// It just allows us to add more information about this
-		// Input in the future.
-		// We'll see it's usage in the next section
-		email: [""],
+		name: ["", Validators.required],
 	});
 
 	onSubmit(e: Event) {

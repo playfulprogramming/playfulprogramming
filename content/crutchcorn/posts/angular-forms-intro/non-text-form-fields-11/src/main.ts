@@ -6,40 +6,35 @@ import {
 	ChangeDetectionStrategy,
 	inject,
 } from "@angular/core";
-import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
+
+import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 
 @Component({
 	selector: "form-comp",
 	imports: [ReactiveFormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<form (submit)="onSubmit($event)" [formGroup]="mainForm">
-			<div>
-				<label>
-					Name
-					<input type="text" formControlName="name" />
-				</label>
-			</div>
-			<div>
-				<label>
-					Email
-					<input type="text" formControlName="email" />
-				</label>
-			</div>
-			<button type="submit">Submit</button>
-		</form>
+		<div>
+			<form (submit)="onSubmit($event)" [formGroup]="mainForm">
+				<div>
+					<label>
+						Terms and Conditions
+						<input type="checkbox" formControlName="termsAndConditions" />
+					</label>
+				</div>
+				@if (mainForm.controls.termsAndConditions.errors?.["required"]) {
+					<div>You must accept the terms and conditions</div>
+				}
+				<button type="submit">Submit</button>
+			</form>
+		</div>
 	`,
 })
-export class FormComponent {
+class FormComponent {
 	fb = inject(FormBuilder);
 
 	mainForm = this.fb.group({
-		name: "",
-		// This doesn't mean to make `email` an array
-		// It just allows us to add more information about this
-		// Input in the future.
-		// We'll see it's usage in the next section
-		email: [""],
+		termsAndConditions: ["", Validators.requiredTrue],
 	});
 
 	onSubmit(e: Event) {
