@@ -747,3 +747,13 @@ class FormComponent {
 	}
 }
 ```
+
+# Conclusion
+
+This has been a quick look at Angular's official forms solution.
+
+Want to learn more of Angular's APIs and how to properly leverage them?
+
+Check out my book series called ["The Framework Field Guide", which teaches React, Angular, and Vue all at once for free - start to end](https://framework.guide).
+
+Until next time!
