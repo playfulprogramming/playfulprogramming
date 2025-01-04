@@ -16,7 +16,7 @@ const isHome = path === "/";
 const isAbout = /^\/about\/?/.test(path);
 const isJoinUs = /^\/join-us\/?/.test(path);
 const isSearch = /^\/search\/?/.test(path);
-const isRebrandPost = /^\/posts\/rebrand-to-playful-programming\/?/.test(path);
+// const isRebrandPost = /^\/posts\/rebrand-to-playful-programming\/?/.test(path);
 
 const props = Astro.props as {
 	size: undefined | "l" | "xl";
@@ -117,5 +117,5 @@ const props = Astro.props as {
 			</div>
 		</nav>
 	</div>
-	{!isRebrandPost && <RebrandAnnouncementBanner size={props.size} />}
+	<!--{!isRebrandPost && <RebrandAnnouncementBanner size={props.size} />}-->
 </header>
