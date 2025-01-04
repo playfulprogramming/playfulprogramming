@@ -2979,7 +2979,7 @@ However, if we look at the output, we'll see that it points instead at the secon
 
 This is because `effect` is executing before the component has written the updated values to the DOM. This means that instead of reading `1000`, it's reading `100` and then drawing _that_ value.
 
-Once we migrate this to an `afterRenderEffect`, which runs _after_ the component has updated the DOM so that `el` is defined when we read the value, it works as-expected:
+Once we migrate this to an `afterRenderEffect`, which runs _after_ the app has updated the DOM so that `el` is defined when we read the value, it works as-expected:
 
 ```angular-ts
 import {afterRenderEffect} from "@angular/core";
