@@ -2,7 +2,7 @@
 {
   title: "Accessing Children",
   description: "Oftentimes, when passing children to a component, you want a way to programmatically access that passed data. Let's learn how to do that in React, Angular, and Vue.",
-  published: "2024-03-11T12:15:00.000Z",
+  published: "2025-01-06T12:15:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],

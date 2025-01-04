@@ -2,7 +2,7 @@
 {
   title: "Derived Values",
   description: "Often in application development, you'll want to base one variable's value off of another. There are a few ways of doing this - some easier than others.",
-  published: "2024-03-11T12:05:00.000Z",
+  published: "2025-01-06T12:05:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],

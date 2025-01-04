@@ -9,7 +9,7 @@
     "/custom-content/collections/framework-field-guide-fundamentals/framework_field_guide_fundamentals_social.png",
   type: "book",
   tags: ["react", "angular", "vue"],
-  published: "2024-03-11T13:45:00.284Z",
+  published: "2025-01-06T13:45:00.284Z",
   buttons: [],
   pageLayout: "none",
   version: "v2"

@@ -2,7 +2,7 @@
 {
   title: "Passing Children",
   description: "Just like HTML nodes have parents and children, so too do framework components. Let's learn how React, Angular, and Vue allow you to pass children to your components.",
-  published: "2024-03-11T12:07:00.000Z",
+  published: "2025-01-06T12:07:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],

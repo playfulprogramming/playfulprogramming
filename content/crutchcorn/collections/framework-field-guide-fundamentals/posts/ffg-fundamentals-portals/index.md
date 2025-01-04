@@ -2,7 +2,7 @@
 {
   title: "Portals",
   description: "When building an app in React, Angular, or Vue, you'll often find that overlapping components can become a real problem. Rendering order can be confusing; let's fix that with portals.",
-  published: "2024-03-11T12:12:00.000Z",
+  published: "2025-01-06T12:12:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],

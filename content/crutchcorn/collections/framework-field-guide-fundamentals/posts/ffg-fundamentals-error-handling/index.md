@@ -2,7 +2,7 @@
 {
   title: "Error Handling",
   description: "Bug are a constant in development. How can we make error handling lead to a nicer user experience when they occur in React, Angular, and Vue?",
-  published: "2024-03-11T12:10:00.000Z",
+  published: "2025-01-06T12:10:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
