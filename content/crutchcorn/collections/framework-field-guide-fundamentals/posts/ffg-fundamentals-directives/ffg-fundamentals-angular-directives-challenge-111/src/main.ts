@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -6,12 +5,13 @@ import {
 	Component,
 	inject,
 	Injectable,
-	Input,
-	OnDestroy,
 	TemplateRef,
 	ViewContainerRef,
 	ViewEncapsulation,
-	AfterViewInit,
+	effect,
+	input,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 import { DomPortal, DomPortalOutlet } from "@angular/cdk/portal";
 
@@ -19,39 +19,23 @@ import { DomPortal, DomPortalOutlet } from "@angular/cdk/portal";
 	providedIn: "root",
 })
 class PortalService {
-	outlet = new DomPortalOutlet(
-		document.querySelector("body")!,
-		undefined,
-		undefined,
-		undefined,
-		document,
-	);
+	outlet = new DomPortalOutlet(document.querySelector("body")!);
 }
 
 @Directive({
 	selector: "[tooltip]",
-	standalone: true,
 })
-class TooltipDirective implements AfterViewInit, OnDestroy {
-	@Input("tooltip") tooltipBase!: HTMLElement;
+class TooltipDirective {
+	tooltip = input.required<HTMLElement>();
 	viewContainerRef = inject(ViewContainerRef);
-	templToRender = inject(TemplateRef<any>);
+	templToRender = inject(TemplateRef);
 
 	portalService = inject(PortalService);
-
-	ngAfterViewInit() {
-		this.tooltipBase.addEventListener("mouseenter", () => {
-			this.showTooltip();
-		});
-		this.tooltipBase.addEventListener("mouseleave", () => {
-			this.hideTooltip();
-		});
-	}
 
 	el: HTMLElement | null = null;
 
 	showTooltip = () => {
-		const { left, bottom } = this.tooltipBase.getBoundingClientRect();
+		const { left, bottom } = this.tooltip().getBoundingClientRect();
 
 		const viewRef = this.viewContainerRef.createEmbeddedView(
 			this.templToRender,
@@ -79,15 +63,26 @@ class TooltipDirective implements AfterViewInit, OnDestroy {
 		this.el?.remove();
 	};
 
-	ngOnDestroy() {
-		this.hideTooltip();
+	constructor() {
+		effect((onCleanup) => {
+			this.tooltip().addEventListener("mouseenter", () => {
+				this.showTooltip();
+			});
+			this.tooltip().addEventListener("mouseleave", () => {
+				this.hideTooltip();
+			});
+
+			onCleanup(() => {
+				this.hideTooltip();
+			});
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [TooltipDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button #tooltipBase>Hover me</button>
@@ -110,4 +105,6 @@ class TooltipDirective implements AfterViewInit, OnDestroy {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

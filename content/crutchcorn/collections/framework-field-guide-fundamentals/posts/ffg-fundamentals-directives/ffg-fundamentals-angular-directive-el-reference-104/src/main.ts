@@ -1,10 +1,16 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, inject, ElementRef, Directive } from "@angular/core";
+import {
+	Component,
+	inject,
+	ElementRef,
+	Directive,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 function findAndLogTheElement() {
-	const el = inject(ElementRef<any>);
+	const el = inject(ElementRef);
 	// HTMLParagraphElement
 	console.log(el.nativeElement);
 	return el;
@@ -12,7 +18,6 @@ function findAndLogTheElement() {
 
 @Directive({
 	selector: "[sayHi]",
-	standalone: true,
 })
 class LogElementDirective {
 	el = findAndLogTheElement();
@@ -20,10 +25,12 @@ class LogElementDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [LogElementDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p sayHi>Hello, world</p> `,
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});
