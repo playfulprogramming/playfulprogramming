@@ -12,7 +12,7 @@
 <summary>What tools are we learning in this chapter?</summary>
 Styling is a highly contested space in web development. Surely, no matter what tools I select there will always be someone with a different perspective on which tools I should have written about.
 
-Just to name a few, here's some of the styling tools we're not talking about in this chapter:
+Just to name a few, here's some of the styling tools we're **not** talking about in this chapter:
 
 - [Styled Components](https://styled-components.com/)
 - [StyleX](https://stylexjs.com/)
