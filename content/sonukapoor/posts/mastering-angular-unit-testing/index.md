@@ -2,7 +2,7 @@
 {
   title: "Mastering Angular Unit Testing: Best Practices and Tools",
   description: "In this article, I’ll share the insights and experiences I’ve gained over the years with unit testing in Angular, along with the best practices I’ve adopted along the way.",
-  published: '2024-12-12',
+  published: '2025-01-10',
   tags: ["angular", "jest", "mocks", "javascript"],
   license: 'cc-by-nc-sa-4'
 }
