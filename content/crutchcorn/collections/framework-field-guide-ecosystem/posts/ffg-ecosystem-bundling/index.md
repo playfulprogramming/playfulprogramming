@@ -2,7 +2,7 @@
 {
     title: "Bundling",
     description: "",
-    published: '2025-01-01T22:12:03.284Z',
+    published: '2025-06-01T22:12:03.284Z',
     tags: ["react", "angular", "vue", "webdev"],
     order: 1
 }
