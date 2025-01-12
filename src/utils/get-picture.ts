@@ -45,7 +45,7 @@ const isDev = Boolean(import.meta.env?.DEV);
 
 const cloudName = process.env.PUBLIC_CLOUDINARY_CLOUD_NAME;
 if (!isDev && !cloudName)
-	throw Error("missing public variable CLOUDINARY_CLOUD_NAME");
+	console.error("missing public variable CLOUDINARY_CLOUD_NAME");
 
 function getSource(src: string, width: number, getFormat: string) {
 	if (isDev) {
