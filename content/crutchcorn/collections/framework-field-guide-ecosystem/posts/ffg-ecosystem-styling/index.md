@@ -464,7 +464,23 @@ Or maybe you want to have border width of a specific pixel value:
 
 You're able to truly make Tailwind your own.
 
-// TODO: Add iframe to play with
+<!-- ::start:no-ebook -->
+<!-- ::start:tabs -->
+
+#### React
+
+<iframe data-frame-title="React Tailwind Image - StackBlitz" src="pfp-code:./ffg-ecosystem-react-tailwind-img-10?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+#### Angular
+
+<iframe data-frame-title="Angular Tailwind Image - StackBlitz" src="pfp-code:./ffg-ecosystem-angular-tailwind-img-10?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+#### Vue
+
+<iframe data-frame-title="Vue Tailwind Image - StackBlitz" src="pfp-code:./ffg-ecosystem-vue-tailwind-img-10?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<!-- ::end:tabs -->
+<!-- ::end:no-ebook -->
 
 # Scoped CSS
 
@@ -499,7 +515,7 @@ To do this, we just need to add `.module.css` to the name of any CSS file:
     color: #3366FF;
     background: rgba(102, 148, 255, 0.1);
     padding: 8px;
-    flex-grow: 1;
+    display: flex;
 }
 ```
 
@@ -507,9 +523,9 @@ Then we'll import the CSS in our JSX file and use the name of the class as a pro
 
 ```jsx
 // App.jsx
-import style from './app.module.css';
+import style from './search-box.module.css';
 
-export function SearchBox() {
+function SearchBox() {
   return <div className={style.container}>
 	<SearchIcon/>
   </div>
@@ -532,7 +548,7 @@ This will then generate the following markup and styling for us:
 
 This transformation of the class name will ensure that each CSS file has its own scope that's different from another.
 
-// TODO: Add iframe
+<iframe data-frame-title="React Scoped CSS - StackBlitz" src="pfp-code:./ffg-ecosystem-react-scoped-css-11?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Angular
 
@@ -550,7 +566,7 @@ In Angular, we're able to use styles relative to the component by using either t
         color: #3366FF;
         background: rgba(102, 148, 255, 0.1);
         padding: 8px;
-        flex-grow: 1;
+	    display: flex;
     }
  `,
   ],
@@ -578,14 +594,14 @@ Will generate the following CSS and Markup:
     color: #3366FF;
     background: rgba(102, 148, 255, 0.1);
     padding: 8px;
-    flex-grow: 1;
+    display: flex;
 }
 </style>
 ```
 
 This means that if we have two different components, each with their own `.title` CSS class; each will be isolated in their styling relative to their parent component.
 
-// TODO: Add iframe
+<iframe data-frame-title="Angular Scoped CSS - StackBlitz" src="pfp-code:./ffg-ecosystem-angular-scoped-css-11?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Local and Global Styling
 
@@ -607,7 +623,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
         color: #3366FF;
         background: rgba(102, 148, 255, 0.1);
         padding: 8px;
-        flex-grow: 1;
+        display: flex;
     }
  `,
   ],
@@ -623,7 +639,7 @@ export class SearchBox {}
 
 > It's worth mentioning that `encapsulation` will affect _all_ of a component's `styles` and `styleUrls`. There's no way to customize the encapsulation for each of them individually.
 
-// TODO: Add iframe
+<iframe data-frame-title="Angular Scoped CSS Global - StackBlitz" src="pfp-code:./ffg-ecosystem-angular-scoped-global-11?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Vue
 
@@ -653,7 +669,7 @@ import SearchIcon from "./SearchIcon.vue"
     color: #3366FF;
     background: rgba(102, 148, 255, 0.1);
     padding: 8px;
-    flex-grow: 1;
+    display: flex;
 }
 </style>
 ```
@@ -671,12 +687,12 @@ This will output the following markup and styling:
     color: #3366FF;
     background: rgba(102, 148, 255, 0.1);
     padding: 8px;
-    flex-grow: 1;
+    display: flex;
 }
 </style>
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Vue Scoped CSS - StackBlitz" src="pfp-code:./ffg-ecosystem-vue-scoped-css-11?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 #### Local and Global Styling
 
@@ -712,13 +728,13 @@ Or have two `<style>` tags; one scoped and one global:
 </style>
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Vue Scoped CSS Global - StackBlitz" src="pfp-code:./ffg-ecosystem-vue-scoped-global-11?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### CSS Modules
 
 CSS modules is an alternative way to structure your CSS in a scoped way. It transforms the class selectors using JS names for classes instead of a raw string.
 
-To do this in Vue SFC components, we'll use `<style module>` and the `useCssModule` composible:
+To do this in Vue SFC components, we'll use `<style module>` and the `useCssModule` composable:
 
 ```vue
 <script setup>
@@ -740,7 +756,7 @@ const style = useCssModule();
     color: #3366FF;
     background: rgba(102, 148, 255, 0.1);
     padding: 8px;
-    flex-grow: 1;
+    display: flex;
 }
 </style>
 ```
@@ -758,16 +774,16 @@ This will transform the class name itself, rather than adding any attributes to 
     color: #3366FF;
     background: rgba(102, 148, 255, 0.1);
     padding: 8px;
-    flex-grow: 1;
+    display: flex;
 }
 </style>
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Vue CSS Modules - StackBlitz" src="pfp-code:./ffg-ecosystem-vue-css-modules-11?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 <!-- ::end:tabs -->
 
-<!-- Editor's note: Should we talk about `::ng-deep` (Angular) and `:deep` (Vue)? -->
+<!-- TODO: Talk about `::ng-deep` (Angular) and `:deep` (Vue) now that Angular's is un-deprecated -->
 
 # Sass
 
