@@ -783,7 +783,45 @@ This will transform the class name itself, rather than adding any attributes to 
 
 <!-- ::end:tabs -->
 
-<!-- TODO: Talk about `::ng-deep` (Angular) and `:deep` (Vue) now that Angular's is un-deprecated -->
+## Deep CSS
+
+While scoping is an invaluable way to regulate your CSS in larger apps, you can often find yourself looking for an escape hatch when looking for ways to style child components.
+
+For example, let's say that I have a list of cards that I want to change the colors of the title:
+
+![TODO: Write alt](./deep_example.png)
+
+```html
+<ul>
+	<li class="red-card"><card/></li>
+	<li class="blue-card"><card/></li>
+	<li class="green-card"><card/></li>
+</ul>
+```
+
+We could move the styling for the header into an input prop or move the card styling out to the parent component entirely, but this comes with challenges of their own.
+
+Instead, what if we could keep our component's scoped styling but tell a specific bit of CSS to "inject" itself into the scope of any child components underneith?
+
+Luckily for us, we can!
+
+<!-- ::start:tabs -->
+
+### React
+
+// `:global`
+
+### Angular
+
+// `::ng-deep`
+
+// Mention depreciation warning undeprecating
+
+### Vue
+
+// Mention `:deep`
+
+<!-- ::end:tabs -->
 
 # Sass
 
