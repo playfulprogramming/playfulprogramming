@@ -1,31 +1,33 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
 	Component,
-	AfterContentInit,
-	ContentChild,
 	ElementRef,
+	contentChild,
+	effect,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "parent-list",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<ng-content></ng-content>`,
 })
-class ParentListComponent implements AfterContentInit {
-	@ContentChild("childItem") child!: ElementRef<HTMLElement>;
+class ParentListComponent {
+	child = contentChild.required<ElementRef<HTMLElement>>("childItem");
 
-	// This cannot be replaced with an `OnInit`, otherwise `children` is empty. We'll explain soon.
-	ngAfterContentInit() {
-		console.log(this.child.nativeElement); // This is an HTMLElement
+	constructor() {
+		effect(() => {
+			console.log(this.child().nativeElement); // This is an HTMLElement
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ParentListComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<parent-list>
 			<p #childItem>Hello, world!</p>
@@ -34,4 +36,6 @@ class ParentListComponent implements AfterContentInit {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

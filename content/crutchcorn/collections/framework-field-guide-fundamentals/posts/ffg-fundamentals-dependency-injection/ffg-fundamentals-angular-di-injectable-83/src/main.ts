@@ -1,6 +1,12 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Injectable, Component, inject, OnInit } from "@angular/core";
+import {
+	Injectable,
+	Component,
+	inject,
+	OnInit,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Injectable()
 class InjectedValue {
@@ -9,24 +15,26 @@ class InjectedValue {
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<div>{{ injectedValue.message }}</div>`,
 })
-class ChildComponent implements OnInit {
+class ChildComponent {
 	injectedValue = inject(InjectedValue);
 
-	ngOnInit() {
+	constructor() {
 		console.log(this.injectedValue);
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ChildComponent],
 	providers: [InjectedValue],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<child-comp />`,
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

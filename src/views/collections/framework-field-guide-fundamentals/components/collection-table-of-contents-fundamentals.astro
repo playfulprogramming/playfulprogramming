@@ -56,20 +56,20 @@ const maxChapterToShow = 10;
 	<script is:inline>
 		let shown = false;
 
-		const lastChild = document.querySelector("[data-is-last-visible]");
+		const lastChild = document.querySelector("[data-is-last-visible='true']");
 
 		function toggleChapterList() {
-			const els = [...document.querySelectorAll("[data-should-hide]")];
+			const els = [...document.querySelectorAll("[data-should-hide='true']")];
 			if (!shown) {
 				els.forEach((el) => (el.style.display = "block"));
 				document.querySelector("#show-button").style.display = "none";
 				document.querySelector("#hide-button").style.display = "inline-block";
-				lastChild.removeAttribute("data-is-last-visible");
+				lastChild.setAttribute("data-is-last-visible", "false");
 			} else {
 				els.forEach((el) => (el.style.display = "none"));
 				document.querySelector("#hide-button").style.display = "none";
 				document.querySelector("#show-button").style.display = "inline-block";
-				lastChild.setAttribute("data-is-last-visible", "");
+				lastChild.setAttribute("data-is-last-visible", "true");
 			}
 
 			shown = !shown;

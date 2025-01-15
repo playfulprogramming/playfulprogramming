@@ -1,21 +1,27 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Injectable, Component, inject, OnInit } from "@angular/core";
+import {
+	Injectable,
+	Component,
+	inject,
+	signal,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 @Injectable()
 class InjectedValue {
-	message = "Hello, world";
+	message = signal("Hello, world");
 	// `this` is referring to the `InjectedValue` instance
 	changeMessage(val: string) {
-		this.message = val;
+		this.message.set(val);
 	}
 }
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div>{{ injectedValue.message }}</div>
+		<div>{{ injectedValue.message() }}</div>
 		<button (click)="changeMessage()">Change message</button>
 	`,
 })
@@ -31,11 +37,13 @@ class ChildComponent {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ChildComponent],
 	providers: [InjectedValue],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<child-comp />`,
 })
 class ParentComponent {}
 
-bootstrapApplication(ParentComponent);
+bootstrapApplication(ParentComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

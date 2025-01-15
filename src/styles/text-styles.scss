@@ -1,4 +1,4 @@
-@use "src/tokens/index";
+@use "src/tokens/index" as *;
 
 @font-face {
 	font-family: "Figtree";
@@ -37,6 +37,12 @@
 
 :root {
 	font-family: var(--pfp-font-family);
+
+	// Prevent long text from overflowing if there are no acceptable break points
+	// (this is necessary as Chrome/etc have different text wrap behavior)
+	// https://github.com/playfulprogramming/playfulprogramming/issues/1213
+	// https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap
+	overflow-wrap: break-word;
 }
 
 :where(.text-style-headline-1) {

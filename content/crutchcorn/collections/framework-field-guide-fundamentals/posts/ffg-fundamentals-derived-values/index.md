@@ -2,13 +2,13 @@
 {
   title: "Derived Values",
   description: "Often in application development, you'll want to base one variable's value off of another. There are a few ways of doing this - some easier than others.",
-  published: "2024-03-11T12:05:00.000Z",
+  published: "2025-01-06T12:05:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 5,
   collection: "framework-field-guide-fundamentals",
-  version: "v1.1",
+  version: "v2",
 }
 ---
 
@@ -30,25 +30,23 @@ const FileDate = ({ inputDate }) => {
 # Angular
 
 ```angular-ts
-import { Component, OnInit } from "@angular/core";
-
 @Component({
 	selector: "file-date",
-	standalone: true,
-	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `<span [attr.aria-label]="labelText()">{{ dateStr() }}</span>`,
 })
-class FileDateComponent implements OnInit {
-	@Input() inputDate!: Date;
+class FileDateComponent {
+	inputDate = input.required<Date>();
 
-	dateStr = "";
-	labelText = "";
+	dateStr = signal("");
+	labelText = signal("");
 
-	ngOnInit() {
-		this.dateStr = this.formatDate(this.inputDate);
-		this.labelText = this.formatReadableDate(this.inputDate);
+	constructor() {
+		afterRender(() => {
+			this.dateStr.set(formatDate(this.inputDate()));
+			this.labelText.set(formatReadableDate(this.inputDate()));
+		});
 	}
-
-	// ...
 }
 ```
 
@@ -115,36 +113,37 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 ```angular-ts
 @Component({
 	selector: "file-item",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FileDateComponent],
 	template: `
 		<!-- ... -->
 		<!-- This may not show the most up-to-date 'formatDate' or 'formatReadableDate' -->
-		@if (!isFolder) {
-			<file-date [inputDate]="inputDate" />
+		@if (!isFolder()) {
+			<file-date [inputDate]="inputDate()" />
 		}
 		<!-- ... -->
 	`,
 })
-class FileComponent implements OnInit, OnDestroy {
+class FileComponent {
 	// ...
-	inputDate = new Date();
-	interval: any = null;
+	inputDate = signal(new Date());
 
-	ngOnInit() {
-		// Check if it's a new day every 10 minutes
-		this.interval = setInterval(
-			() => {
-				const newDate = new Date();
-				if (this.inputDate.getDate() === newDate.getDate()) return;
-				this.inputDate = newDate;
-			},
-			10 * 60 * 1000,
-		);
-	}
+	constructor() {
+		effect((onCleanup) => {
+			// Check if it's a new day every 10 minutes
+			const interval = setInterval(
+				() => {
+					const newDate = new Date();
+					if (this.inputDate().getDate() === newDate.getDate()) return;
+					this.inputDate.set(newDate);
+				},
+				10 * 60 * 1000,
+			);
 
-	ngOnDestroy() {
-		clearInterval(this.interval);
+			onCleanup(() => {
+				clearInterval(interval);
+			});
+		});
 	}
 }
 ```
@@ -232,37 +231,27 @@ const FileDate = ({ inputDate }) => {
 
 ## Angular
 
-While we didn't touch on this lifecycle method in our previous chapter, Angular has a lifecycle method specifically for when a component's props change: `ngOnChanges`.
-
-We can use this new lifecycle method to update the value of a component's state based off of the parent's props:
-
-```angular-ts {1,8,14-24}
-import { Component, OnChanges, SimpleChanges } from "@angular/core";
-
+```angular-ts {13-19}
 @Component({
 	selector: "file-date",
-	standalone: true,
-	template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `<span [attr.aria-label]="labelText()">{{ dateStr() }}</span>`,
 })
-class FileDateComponent implements OnChanges {
-	@Input() inputDate: Date;
+class FileDateComponent {
+	inputDate = input.required<Date>();
 
-	dateStr = "";
-	labelText = "";
+	dateStr = signal("");
+	labelText = signal("");
 
-	// Notice that we no longer need `ngOnInit`
-	ngOnChanges(changes: SimpleChanges) {
+	constructor() {
 		/**
-		 * ngOnChanges runs for EVERY prop change. As such, we can
-		 * restrict the recalculation to only when `inputDate` changes
+		 * effect runs for EVERY change of signals read in the effect
 		 */
-		if (changes["inputDate"]) {
-			this.dateStr = this.formatDate(this.inputDate);
-			this.labelText = this.formatReadableDate(this.inputDate);
-		}
+		effect(() => {
+			this.dateStr.set(formatDate(this.inputDate()));
+			this.labelText.set(formatReadableDate(this.inputDate()));
+		});
 	}
-
-	// ...
 }
 ```
 
@@ -372,115 +361,35 @@ const AddComp = ({ baseNum, addNum }) => {
 
 ## Angular
 
-To solve the derived value problem without recomputing the values manually, Angular introduces the concept of a "pipe" into the mix of things. The idea is that a pipe runs over an input (or series of inputs), just like React's `useMemo`.
+Angular is able to derive state from a signal using a function to transform the signal being read and a `computed` method:
 
-```angular-ts
-import { Pipe, PipeTransform } from "@angular/core";
+```angular-ts {1,15-16}
+import { Component, input, computed, ChangeDetectionStrategy } from "@angular/core";
 
-@Pipe({ name: "formatDate", standalone: true })
-class FormatDatePipe implements PipeTransform {
-	transform(value: Date): string {
-		return formatDate(value);
-	}
-}
-
-@Pipe({ name: "formatReadableDate", standalone: true })
-class FormatReadableDatePipe implements PipeTransform {
-	transform(value: Date): string {
-		return formatReadableDate(value);
-	}
-}
-```
-
-You may then use these pipes in your components directly inside the template.
-
-```angular-ts
 @Component({
 	selector: "file-date",
-	standalone: true,
-	imports: [FormatReadableDatePipe, FormatDatePipe],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<span [attr.aria-label]="inputDate | formatReadableDate">
-			{{ inputDate | formatDate }}
+		<span [attr.aria-label]="labelText()">
+			{{ dateStr() }}
 		</span>
 	`,
 })
 class FileDateComponent {
-	@Input() inputDate!: Date;
+	inputDate = input.required<Date>();
+
+	dateStr = computed(() => formatDate(this.inputDate()));
+	labelText = computed(() => formatReadableDate(this.inputDate()));
 }
 ```
 
 <!-- ::start:no-ebook -->
+
 <iframe data-frame-title="Angular Computed Values - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-computed-values-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 <!-- ::end:no-ebook -->
 
-### Multiple Input Pipes {#multi-input-pipes}
-
-You may notice the similarities between pipes and functions. After all, pipes are effectively functions you're able to call in your template. Much like functions, they're not limited to a single input property, either.
-
-Let's add a second input to see if the `formatDate` pipe should return a readable date or not.
-
-```angular-ts
-@Pipe({ name: "formatDate", standalone: true })
-class FormatDatePipe implements PipeTransform {
-	// `dateFormat` is an optional argument. If left empty, will simply `formatDate`
-	transform(value: Date, dateFormat?: string): string {
-		// Stands for "Long format month, day of month, year"
-		if (dateFormat === "MMMM d, Y") return formatReadableDate(value);
-		return formatDate(value);
-	}
-}
-```
-
-Then, we can use it in our template while passing a second argument:
-
-```angular-ts
-@Component({
-	selector: "file-date",
-	standalone: true,
-	imports: [FormatDatePipe],
-	template: `
-		<span [attr.aria-label]="inputDate | formatDate: 'MMMM d, Y'">
-			{{ inputDate | formatDate }}
-		</span>
-	`,
-})
-class FileDateComponent {
-	@Input() inputDate: Date;
-}
-```
-
-<!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Multi Input Pipes - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-multi-input-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
-
-### Built-In Pipes {#built-in-pipes}
-
-Luckily, Angular's all-in-one methodology means that there's a slew of pipes that the Angular team has written for us. One such pipe is actually a date formatting pipe. We can remove our own implementation in favor of one built right into Angular!
-
-To use the built-in pipes, we need to import them from `CommonModule` into the component. In this case, the pipe we're looking to use is called [`DatePipe`](https://angular.dev/api/common/DatePipe). This provided date pipe is, expectedly, called `date` when used in the template and can be used like so:
-
-```angular-ts
-import { DatePipe } from "@angular/common";
-
-@Component({
-	selector: "file-date",
-	standalone: true,
-	imports: [DatePipe],
-	template: `
-		<span [attr.aria-label]="inputDate | date: 'MMMM d, Y'">
-			{{ inputDate | date }}
-		</span>
-	`,
-})
-class FileDateComponent {
-	@Input() inputDate!: Date;
-}
-```
-
-<!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Built-In Pipes - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-built-in-pipes-47?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
+> Angular has another method of deriving state called "Pipes". You can learn all about Angular pipes in our ["Complete guide to Angular pipes" article](/posts/angular-pipes-a-complete-guide).
 
 ## Vue
 
@@ -558,36 +467,78 @@ const CountAndDoubleComp = () => {
 ## Angular
 
 ```angular-ts
-@Pipe({ name: "doubleNum", standalone: true })
-class DoubleNumPipe implements PipeTransform {
-	transform(value: number): number {
-		return value * 2;
-	}
-}
-
 @Component({
 	selector: "count-and-double",
-	standalone: true,
-	imports: [DoubleNumPipe],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
-			<p>{{ number }}</p>
-			<p>{{ number | doubleNum }}</p>
+			<p>{{ number() }}</p>
+			<p>{{ doubleNum() }}</p>
 			<button (click)="addOne()">Add one</button>
 		</div>
 	`,
 })
 class CountAndDoubleComponent {
-	number = 0;
+	number = signal(0);
+	doubleNum = computed(() => this.number() * 2);
 
 	addOne() {
-		this.number++;
+		this.number.set(this.number() + 1);
 	}
 }
 ```
 
 <!-- ::start:no-ebook -->
+
 <iframe data-frame-title="Angular Non-Prop Derived - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-non-prop-derived-48?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
+
+### Writable Derived State {#linked-signal}
+
+What if we wanted to have a bit of derived state that you can write temporary updates to that get reset when you update the base signal?
+
+Luckily for us, we can do this using Angular's `linkedSignal`: 
+
+```angular-ts
+import {
+  Component,
+  ChangeDetectionStrategy,
+  linkedSignal,
+  signal,
+} from '@angular/core';
+
+@Component({
+  selector: 'count-and-double',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div>
+      <p>{{ number() }}</p>
+      <button (click)="addOne()">Add one</button>
+      <p>{{ doubleNum() }}</p>
+      <button (click)="addOneToDouble()">Add one</button>
+    </div>
+  `,
+})
+class CountAndDoubleComponent {
+  number = signal(0);
+  doubleNum = linkedSignal(() => this.number() * 2);
+
+  addOne() {
+    this.number.set(this.number() + 1);
+  }
+
+  addOneToDouble() {
+    this.doubleNum.set(this.doubleNum() + 1);
+  }
+}
+```
+
+Now we can add `1` to `doubleNum()` any time we want, but when we update `number()` it resets `doubleNum()` to the calculated value of `number() * 2`.
+
+<!-- ::start:no-ebook -->
+
+<iframe data-frame-title="Angular linkedSignal - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-linked-signal-48?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
 <!-- ::end:no-ebook -->
 
 ## Vue
@@ -695,33 +646,31 @@ function formatBytes(bytes) {
 ## Angular
 
 ```angular-ts
-@Pipe({ name: "formatBytes", standalone: true })
-class FormatBytesPipe implements PipeTransform {
-	kilobyte = 1024;
-	megabyte = this.kilobyte * 1024;
-	gigabyte = this.megabyte * 1024;
+const kilobyte = 1024;
+const megabyte = kilobyte * 1024;
+const gigabyte = megabyte * 1024;
 
-	transform(bytes: number): string {
-		if (bytes < this.kilobyte) {
-			return `${bytes} B`;
-		} else if (bytes < this.megabyte) {
-			return `${Math.floor(bytes / this.kilobyte)} KB`;
-		} else if (bytes < this.gigabyte) {
-			return `${Math.floor(bytes / this.megabyte)} MB`;
-		} else {
-			return `${Math.floor(bytes / this.gigabyte)} GB`;
-		}
+function formatBytes(bytes: number) {
+	if (bytes < kilobyte) {
+		return `${bytes} B`;
+	} else if (bytes < megabyte) {
+		return `${Math.floor(bytes / kilobyte)} KB`;
+	} else if (bytes < gigabyte) {
+		return `${Math.floor(bytes / megabyte)} MB`;
+	} else {
+		return `${Math.floor(bytes / gigabyte)} GB`;
 	}
 }
 
 @Component({
 	selector: "display-size",
-	standalone: true,
-	imports: [FormatBytesPipe],
-	template: `<p>{{ bytes | formatBytes }}</p>`,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `<p>{{ readableBytes() }}</p>`,
 })
 class DisplaySizeComponent {
-	@Input() bytes!: number;
+	bytes = input.required<number>();
+
+	readableBytes = computed(() => formatBytes(this.bytes()));
 }
 ```
 

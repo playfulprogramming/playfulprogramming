@@ -1,33 +1,30 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
 	Component,
+	computed,
+	effect,
 	ErrorHandler,
-	EventEmitter,
 	inject,
-	Input,
-	OnDestroy,
-	OnInit,
-	Output,
-	Pipe,
-	PipeTransform,
-	ViewChild,
+	input,
+	output,
+	signal,
+	viewChild,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "app-layout",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
 			<div
-				[style]="
-					'width: ' +
-					sidebarWidth +
-					'px;' +
-					'height: 100vh;' +
-					'overflow-y: scroll;' +
-					'border-right: 2px solid #bfbfbf;'
+				style="
+					width: {{ sidebarWidth() }}px;
+					height: 100vh;
+					overflow-y: scroll;
+					border-right: 2px solid #bfbfbf;
 				"
 			>
 				<ng-content select="[sidebar]" />
@@ -39,22 +36,21 @@ import {
 	`,
 })
 class LayoutComponent {
-	@Input() sidebarWidth!: number;
+	sidebarWidth = input.required<number>();
 }
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
-	imports: [],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<!-- "isCollapsed" is a boolean! -->
+		<!-- "toggle" is an event emitter! -->
 		<!-- It's supposed to be "toggleCollapsed"! 😱 -->
-		@if (isCollapsed) {
-			<button (click)="isCollapsed()">Toggle</button>
+		@if (isCollapsed()) {
+			<button (click)="toggle()">Toggle</button>
 		}
-		@if (!isCollapsed) {
+		@if (!isCollapsed()) {
 			<div>
-				<button (click)="isCollapsed()">Toggle</button>
+				<button (click)="toggle()">Toggle</button>
 				<ul style="padding: 1rem">
 					<li>List item 1</li>
 					<li>List item 2</li>
@@ -68,13 +64,13 @@ class LayoutComponent {
 	`,
 })
 class SidebarComponent {
-	@Output() toggle = new EventEmitter<boolean>();
-
 	// Notice the type cast to `any`
-	isCollapsed: any = false;
+	toggle: any = output<boolean>();
+
+	isCollapsed = signal(false);
 
 	setAndToggle(v: boolean) {
-		this.isCollapsed = v;
+		this.isCollapsed.set(v);
 		this.toggle.emit(v);
 	}
 
@@ -87,23 +83,50 @@ class SidebarComponent {
 	}
 
 	toggleCollapsed() {
-		this.setAndToggle(!this.isCollapsed);
+		this.setAndToggle(!this.isCollapsed());
 	}
 }
 
 class MyErrorHandler implements ErrorHandler {
-	error: any = null;
+	error = signal<any>(null);
 
 	handleError(error: unknown) {
 		console.log(error);
-		this.error = error;
+		this.error.set(error);
 	}
 }
 
-@Pipe({ name: "errorHref", standalone: true })
-class ErrorHrefPipe implements PipeTransform {
-	transform(err: Error | null): string {
-		console.log({ err });
+@Component({
+	selector: "error-catcher",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		@if (errorHandler.error()) {
+			<div>
+				<h1>{{ errorHandler.error().name }}</h1>
+				<pre
+					style="white-space: pre-wrap"
+				><code>{{ errorHandler.error().message }}</code></pre>
+				<a [href]="errorHref()">Email us to report the bug</a>
+				<br />
+				<br />
+				<details>
+					<summary>Error stack</summary>
+					<pre
+						style="white-space: pre-wrap"
+					><code>{{ errorHandler.error().stack }}</code></pre>
+				</details>
+			</div>
+		}
+		@if (!errorHandler.error()) {
+			<ng-content></ng-content>
+		}
+	`,
+})
+class ErrorCatcher {
+	errorHandler = inject(ErrorHandler) as MyErrorHandler;
+
+	errorHref = computed(() => {
+		const err = this.errorHandler.error();
 		if (!err) return "";
 		const mailTo = "dev@example.com";
 		const header = "Bug Found";
@@ -126,86 +149,54 @@ class ErrorHrefPipe implements PipeTransform {
 		const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedMsg}`;
 
 		return href;
-	}
-}
-
-@Component({
-	selector: "error-catcher",
-	standalone: true,
-	imports: [ErrorHrefPipe],
-	template: `
-		@if (errorHandler.error) {
-			<div>
-				<h1>{{ errorHandler.error.name }}</h1>
-				<pre
-					style="white-space: pre-wrap"
-				><code>{{ errorHandler.error.message }}</code></pre>
-				<a [href]="errorHandler.error | errorHref"
-					>Email us to report the bug</a
-				>
-				<br />
-				<br />
-				<details>
-					<summary>Error stack</summary>
-					<pre
-						style="white-space: pre-wrap"
-					><code>{{ errorHandler.error.stack }}</code></pre>
-				</details>
-			</div>
-		}
-		@if (!errorHandler.error) {
-			<ng-content></ng-content>
-		}
-	`,
-})
-class ErrorCatcher {
-	errorHandler = inject(ErrorHandler) as MyErrorHandler;
+	});
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [LayoutComponent, SidebarComponent, ErrorCatcher],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<error-catcher>
-			<app-layout [sidebarWidth]="width">
+			<app-layout [sidebarWidth]="width()">
 				<app-sidebar #sidebar sidebar (toggle)="onToggle($event)" />
 				<p style="padding: 1rem">Hi there!</p>
 			</app-layout>
 		</error-catcher>
 	`,
 })
-class AppComponent implements OnInit, OnDestroy {
-	@ViewChild("sidebar", { static: true }) sidebar!: SidebarComponent;
+class AppComponent {
+	sidebar = viewChild.required("sidebar", { read: SidebarComponent });
 
 	collapsedWidth = 100;
 	expandedWidth = 150;
 	widthToCollapseAt = 600;
 
-	width = this.expandedWidth;
+	width = signal(this.expandedWidth);
 
 	onToggle(isCollapsed: boolean) {
 		if (isCollapsed) {
-			this.width = this.collapsedWidth;
+			this.width.set(this.collapsedWidth);
 			return;
 		}
-		this.width = this.expandedWidth;
+		this.width.set(this.expandedWidth);
 	}
 
 	onResize = () => {
 		if (window.innerWidth < this.widthToCollapseAt) {
-			this.sidebar.collapse();
-		} else if (this.sidebar.isCollapsed) {
-			this.sidebar.expand();
+			this.sidebar().collapse();
+		} else if (this.sidebar().isCollapsed()) {
+			this.sidebar().expand();
 		}
 	};
 
-	ngOnInit() {
-		window.addEventListener("resize", this.onResize);
-	}
-
-	ngOnDestroy() {
-		window.removeEventListener("resize", this.onResize);
+	constructor() {
+		effect((onCleanup) => {
+			window.addEventListener("resize", this.onResize);
+			onCleanup(() => {
+				window.removeEventListener("resize", this.onResize);
+			});
+		});
 	}
 }
 

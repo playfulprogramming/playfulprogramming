@@ -1,11 +1,10 @@
-import { defineConfig, AstroUserConfig } from "astro/config";
-
+import { defineConfig } from "astro/config";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import { EnumChangefreq as ChangeFreq } from "sitemap";
 import { siteUrl } from "./src/constants/site-config";
-import vercel from "@astrojs/vercel/static";
+import vercel from "@astrojs/vercel";
 import symlink from "symlink-dir";
 import * as path from "path";
 import { languages } from "./src/constants/index";
@@ -13,6 +12,7 @@ import { fileToOpenGraphConverter } from "./src/utils/translations";
 import { posts, collections } from "./src/utils/data";
 import { SUPPORTED_IMAGE_SIZES } from "./src/utils/get-picture";
 import { astroIntegrationCopyGenerated } from "./src/utils/markdown/astro-integration-copy-generated";
+import { AstroUserConfig } from "astro";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 

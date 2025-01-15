@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -7,9 +6,11 @@ import {
 	inject,
 	TemplateRef,
 	ViewContainerRef,
-	OnChanges,
-	Input,
 	EmbeddedViewRef,
+	input,
+	effect,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 const flags: Record<string, boolean> = {
@@ -19,31 +20,32 @@ const flags: Record<string, boolean> = {
 
 @Directive({
 	selector: "[featureFlag]",
-	standalone: true,
 })
-class FeatureFlagDirective implements OnChanges {
-	@Input() featureFlag!: string;
+class FeatureFlagDirective {
+	featureFlag = input.required<string>();
 
-	templToRender = inject(TemplateRef<any>);
+	templToRender = inject(TemplateRef);
 	parentViewRef = inject(ViewContainerRef);
 
 	embeddedView: EmbeddedViewRef<any> | null = null;
 
-	ngOnChanges() {
-		if (flags[this.featureFlag]) {
-			this.embeddedView = this.parentViewRef.createEmbeddedView(
-				this.templToRender,
-			);
-		} else if (this.embeddedView) {
-			this.embeddedView.destroy();
-		}
+	constructor() {
+		effect(() => {
+			if (flags[this.featureFlag()]) {
+				this.embeddedView = this.parentViewRef.createEmbeddedView(
+					this.templToRender,
+				);
+			} else if (this.embeddedView) {
+				this.embeddedView.destroy();
+			}
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [FeatureFlagDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button *featureFlag="'addToCartButton'">Add to cart</button>
@@ -55,4 +57,6 @@ class FeatureFlagDirective implements OnChanges {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});
