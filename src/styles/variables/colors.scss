@@ -20,7 +20,9 @@
 	--neutral95_72: rgba(229, 244, 255, 0.72);
 	--neutral95_48: rgba(229, 244, 255, 0.48);
 	--neutral95_12: rgba(229, 244, 255, 0.12);
+
 	--primary10: rgba(0, 30, 46, 1);
+	--primary15: rgba(0, 41, 62, 1);
 	--primary20: rgba(0, 52, 77, 1);
 	--primary30: rgba(0, 76, 109, 1);
 	--primary40: rgba(0, 101, 144, 1);
@@ -36,7 +38,10 @@
 	--primary80_16: rgba(135, 206, 255, 0.16);
 	--primary90: rgba(200, 230, 255, 1);
 	--primary95: rgba(229, 242, 255, 1);
+	--primary99: rgba(242, 248, 255, 1);
+
 	--secondary10: rgba(56, 0, 55, 1);
+	--secondary15: rgba(68, 7, 66, 1);
 	--secondary20: rgba(83, 19, 80, 1);
 	--secondary30: rgba(109, 44, 105, 1);
 	--secondary40: rgba(140, 69, 133, 1);
@@ -52,7 +57,29 @@
 	--secondary80_16: rgba(255, 173, 243, 0.16);
 	--secondary90: rgba(255, 214, 245, 1);
 	--secondary95: rgba(255, 235, 247, 1);
+	--secondary99: rgba(255, 245, 251);
+	
+	--positive10: rgba(0, 33, 16, 1);
+	--positive15: rgba(0, 45, 23, 1);
+	--positive20: rgba(0, 57, 31, 1);
+	--positive30: rgba(0, 82, 47, 1);
+	--positive40: rgba(0, 109, 63, 1);
+	--positive40_64: rgba(0, 109, 63, 0.64);
+	--positive40_32: rgba(0, 109, 63, 0.32);
+	--positive40_16: rgba(0, 109, 63, 0.16);
+	--positive50: rgba(38, 135, 85, 1);
+	--positive60: rgba(69, 162, 109, 1);
+	--positive70: rgba(97, 189, 134, 1);
+	--positive80: rgba(125, 217, 159, 1);
+	--positive80_64: rgba(125, 217, 159, 0.64);
+	--positive80_32: rgba(125, 217, 159, 0.32);
+	--positive80_16: rgba(125, 217, 159, 0.16);
+	--positive90: rgba(166, 243, 193, 1);
+	--positive95: rgba(193, 255, 212, 1);
+	--positive99: rgba(229, 255, 238, 1);
+
 	--error10: rgba(65, 0, 2, 1);
+	--error15: rgba(85, 0, 3, 1);
 	--error20: rgba(105, 0, 5, 1);
 	--error30: rgba(147, 0, 10, 1);
 	--error40: rgba(186, 26, 26, 1);
@@ -68,4 +95,5 @@
 	--error80_16: rgba(255, 180, 171, 0.16);
 	--error90: rgba(255, 218, 214, 1);
 	--error95: rgba(255, 237, 234, 1);
+	--error99: rgba(255, 245, 245, 1);
 }
