@@ -1,6 +1,6 @@
-const buildMode = process.env.BUILD_ENV || "production";
+const buildMode = import.meta.env.BUILD_ENV || "production";
 const siteUrl = (() => {
-	let siteUrl = process.env.SITE_URL || process.env.VERCEL_URL || "";
+	let siteUrl = import.meta.env.SITE_URL || import.meta.env.VERCEL_URL || "";
 
 	if (siteUrl && !siteUrl.startsWith("http")) siteUrl = `https://${siteUrl}`;
 
