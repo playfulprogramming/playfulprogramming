@@ -48,14 +48,21 @@ function positionSnitip() {
 	const minLeft = 0;
 	const maxLeft = postBodyRect.right - snitipRect.width;
 
-	const top = snitipTriggerRect.top + snitipTriggerRect.height + 20;
 	const left = Math.max(
 		minLeft,
 		Math.min(maxLeft, triggerCenter - snitipRect.width / 2),
 	);
+
+	const isCloseToBottom =
+		snitipTriggerRect.bottom + 20 + snitipRect.height > window.innerHeight;
+	const top = isCloseToBottom
+		? snitipTriggerRect.top - 20 - snitipRect.height
+		: snitipTriggerRect.bottom + 20;
+
 	snitip.popoverEl.style.top = `${top}px`;
 	snitip.popoverEl.style.left = `${left}px`;
 	snitip.popoverArrowEl.style.left = `${triggerCenter - left}px`;
+	snitip.popoverArrowEl.dataset.placement = isCloseToBottom ? "top" : "bottom";
 }
 
 function openSnitip(elements: SnitipElements) {
@@ -92,16 +99,31 @@ function handleMouseMove(e: MouseEvent) {
 	const triggerBox = snitip.triggerEl.getBoundingClientRect();
 	const popoverBox = snitip.popoverEl.getBoundingClientRect();
 
-	const isTrapezoid = isInsideTrapezoid(
-		e.x,
-		e.y,
-		triggerBox.left,
-		triggerBox.top,
-		triggerBox.right,
-		popoverBox.left,
-		popoverBox.top,
-		popoverBox.right,
-	);
+	let isTrapezoid: boolean;
+	if (popoverBox.top > triggerBox.top) {
+		// if the popover is below the trigger element
+		isTrapezoid = isInsideTrapezoid(
+			e.x,
+			e.y,
+			triggerBox.left,
+			triggerBox.top,
+			triggerBox.right,
+			popoverBox.left,
+			popoverBox.top,
+			popoverBox.right,
+		);
+	} else {
+		isTrapezoid = isInsideTrapezoid(
+			e.x,
+			e.y,
+			triggerBox.left,
+			triggerBox.bottom,
+			triggerBox.right,
+			popoverBox.left,
+			popoverBox.bottom,
+			popoverBox.right,
+		);
+	}
 
 	const isPopover = snitip.popoverEl.matches(":hover");
 
