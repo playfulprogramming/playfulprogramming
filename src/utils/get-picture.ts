@@ -43,8 +43,10 @@ function getSupportedWidth(width: number) {
 
 const isDev = Boolean(import.meta.env?.DEV);
 
-const cloudName = process.env.PUBLIC_CLOUDINARY_CLOUD_NAME;
-if (!isDev && !cloudName)
+const PUBLIC_CLOUDINARY_CLOUD_NAME = import.meta.env
+	.PUBLIC_CLOUDINARY_CLOUD_NAME;
+
+if (!isDev && !PUBLIC_CLOUDINARY_CLOUD_NAME)
 	console.error("missing public variable CLOUDINARY_CLOUD_NAME");
 
 function getSource(src: string, width: number, getFormat: string) {
@@ -58,7 +60,7 @@ function getSource(src: string, width: number, getFormat: string) {
 	} else {
 		// If in production use cloudinary's fetch
 		const domainUrl = new URL(src, siteUrl);
-		return `https://res.cloudinary.com/${cloudName}/image/fetch/w_${width},f_${getFormat},q_auto/${encodeURIComponent(domainUrl.toString())}`;
+		return `https://res.cloudinary.com/${PUBLIC_CLOUDINARY_CLOUD_NAME}/image/fetch/w_${width},f_${getFormat},q_auto/${encodeURIComponent(domainUrl.toString())}`;
 	}
 }
 
