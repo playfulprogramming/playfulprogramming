@@ -67,7 +67,7 @@
 		"@types/node": "^20.17.14",
 		"@typescript-eslint/eslint-plugin": "^8.20.0",
 		"@typescript-eslint/parser": "^8.20.0",
-		"@vercel/node": "^3.2.29",
+		"@vercel/node": "^5.0.2",
 		"astro": "^5.1.7",
 		"astro-eslint-parser": "^1.1.0",
 		"astro-icon": "^1.1.5",
