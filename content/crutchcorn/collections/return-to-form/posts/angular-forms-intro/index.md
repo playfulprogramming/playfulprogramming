@@ -2,8 +2,9 @@
 {
     title: "Intro to Angular Forms",
     description: "Learn the basics of Angular Forms! Explore different approaches to build dynamic, user-friendly forms with ease.",
-    published: '2025-01-01T22:12:03.284Z',
-    tags: ["angular", "javascript", "webdev"]
+    published: '2025-01-20T22:12:03.284Z',
+    tags: ["angular", "javascript", "webdev"],
+    order: 1
 }
 ---
 
