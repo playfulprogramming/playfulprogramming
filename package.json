@@ -109,8 +109,8 @@
 		"preact-render-to-string": "^6.5.13",
 		"prettier": "^3.4.2",
 		"prettier-plugin-astro": "^0.14.1",
-		"react": "npm:@preact/compat@17.1.2",
-		"react-dom": "npm:@preact/compat@17.1.2",
+		"react": "npm:@preact/compat@18.3.1",
+		"react-dom": "npm:@preact/compat@18.3.1",
 		"rehype-parse": "9.0.1",
 		"rehype-raw": "^7.0.0",
 		"rehype-slug-custom-id": "^2.0.0",
@@ -154,8 +154,8 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"react": "npm:@preact/compat@17.1.2",
-			"react-dom": "npm:@preact/compat@17.1.2"
+			"react": "npm:@preact/compat@18.3.1",
+			"react-dom": "npm:@preact/compat@18.3.1"
 		}
 	}
 }
