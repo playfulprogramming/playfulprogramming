@@ -64,15 +64,13 @@ const postAuthors = new Map(
 	>
 		{
 			collections.map((collection) => (
-				<li>
-					<CollectionCard
-						collection={collection}
-						authors={collection.authors
-							.map((id) => api.getPersonById(id, collection.locale))
-							.filter(isDefined)}
-						headingTag="h3"
-					/>
-				</li>
+				<CollectionCard
+					collection={collection}
+					authors={collection.authors
+						.map((id) => api.getPersonById(id, collection.locale))
+						.filter(isDefined)}
+					headingTag="h3"
+				/>
 			))
 		}
 	</ul>
