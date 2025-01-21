@@ -25,8 +25,8 @@ export interface GetPictureOptions {
 
 export interface GetPictureResult {
 	urls: GetPictureUrls;
-	image: JSX.HTMLAttributes<HTMLImageElement>;
-	sources: JSX.HTMLAttributes<HTMLSourceElement>[];
+	image: JSX.ImgHTMLAttributes;
+	sources: JSX.SourceHTMLAttributes[];
 }
 
 export const SUPPORTED_IMAGE_SIZES = [
