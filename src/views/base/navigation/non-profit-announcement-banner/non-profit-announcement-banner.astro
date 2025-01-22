@@ -1,5 +1,5 @@
 ---
-import style from "./rebrand-announcement-banner.module.scss";
+import style from "./non-profit-announcement-banner.module.scss";
 import { Button, IconOnlyButton } from "../../../../components";
 import close from "../../../../icons/close.svg?raw";
 import { getHrefContainerProps } from "../../../../utils/href-container-script";
@@ -11,8 +11,8 @@ const props = Astro.props as {
 
 <div
 	style="display: none; max-height: 0px; overflow: hidden"
-	id="uu-pfp-rebrand-banner"
-	{...getHrefContainerProps(`/posts/rebrand-to-playful-programming`)}
+	id="uu-pfp-non-profit-banner"
+	{...getHrefContainerProps(`/posts/playful-programming-non-profit`)}
 >
 	<div
 		class={`${style.outerContainer}  ${
@@ -22,13 +22,13 @@ const props = Astro.props as {
 		<div class={style.innerContainer}>
 			<div class={style.textContainer}>
 				<p class={`text-style-body-large`}>
-					<span class={`text-style-headline-6`}>Unicorn Utterances</span> is now
-					<span class={`text-style-headline-6`}>Playful Programming</span>!
+					<span class={`text-style-headline-6`}>Playful Programming</span> is now
+					<span class={`text-style-headline-6`}>a non-profit</span>!
 				</p>
 				<Button
 					class={style.button}
 					tag="a"
-					href="/posts/rebrand-to-playful-programming">Learn more</Button
+					href="/posts/playful-programming-non-profit">Learn more</Button
 				>
 			</div>
 			<IconOnlyButton
@@ -36,7 +36,7 @@ const props = Astro.props as {
 				aria-label="Close this announcement"
 				tag="button"
 				type="button"
-				id="close-rebrand-banner"
+				id="close-non-profit-banner"
 				class={style.closeButton}
 			>
 				<div
@@ -50,13 +50,13 @@ const props = Astro.props as {
 
 <script>
 	const closeButton = document.querySelector(
-		"#close-rebrand-banner",
+		"#close-non-profit-banner",
 	) as HTMLElement;
 	const banner = document.querySelector(
-		"#uu-pfp-rebrand-banner",
+		"#uu-pfp-non-profit-banner",
 	) as HTMLElement;
 
-	const isBannerClosedKey = "uu-pfp-rebrand-banner-closed";
+	const isBannerClosedKey = "uu-pfp-non-profit-banner-closed";
 	const hasSeenBannerAnimateKey = "has-seen-banner-animate";
 	const isClosed = localStorage.getItem(isBannerClosedKey);
 	const hasSeenBannerAnimate = localStorage.getItem(hasSeenBannerAnimateKey);
