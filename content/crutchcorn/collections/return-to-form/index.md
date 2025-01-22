@@ -8,11 +8,6 @@
   buttons: [{ text: "Read now", url: "/posts/angular-forms-intro" }],
   chapterList: [
     {
-      order: '2',
-      title: "Intro to Formik",
-      description: "Coming January 22nd!",
-    },
-    {
       order: '3',
       title: "Intro to VeeValidate",
       description: "Coming January 24th!",
