@@ -16,7 +16,7 @@
 	pronouns: "they/them",
 	profileImg: "./crutchcorn.png",
 	color: "#ba68c8",
-	roles: ["devops", "developer", "author", "community"],
+	roles: ["devops", "developer", "author", "community", "board"],
 	achievements: ["messages-1000", "partner"]
 }
 ---

@@ -11,6 +11,6 @@
 	pronouns: "he/him",
 	profileImg: "./obibaratt.jpg",
 	color: "#FF3300",
-	roles: ["developer", "author"],
+	roles: ["developer", "author", "board"],
 }
 ---
