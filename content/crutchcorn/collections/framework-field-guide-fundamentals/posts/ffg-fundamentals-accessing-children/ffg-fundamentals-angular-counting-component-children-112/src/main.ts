@@ -1,35 +1,37 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
 	Component,
-	AfterContentInit,
-	ContentChildren,
-	QueryList,
+	contentChildren,
+	effect,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "parent-list",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<p>There are {{ children.length }} number of items in this array</p>
+		<p>There are {{ children().length }} number of items in this array</p>
 		<ul>
 			<ng-content></ng-content>
 		</ul>
 	`,
 })
-class ParentListComponent implements AfterContentInit {
-	@ContentChildren("listItem") children!: QueryList<HTMLElement>;
+class ParentListComponent {
+	children = contentChildren<HTMLElement>("listItem");
 
-	ngAfterContentInit() {
-		console.log(this.children);
+	constructor() {
+		effect(() => {
+			console.log(this.children());
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ParentListComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<parent-list>
 			<li #listItem>Item 1</li>
@@ -40,4 +42,6 @@ class ParentListComponent implements AfterContentInit {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

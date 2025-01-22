@@ -1,57 +1,52 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Injectable, Component, inject, OnDestroy } from "@angular/core";
+import {
+	Component,
+	signal,
+	effect,
+	computed,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
-@Injectable()
-class WindowSize implements OnDestroy {
-	height = 0;
-	width = 0;
+const useWindowSize = () => {
+	const height = signal(0);
+	const width = signal(0);
 
-	// We'll overwrite this behavior in another service
-	_listener!: () => void | undefined;
-
-	constructor() {
-		this.onResize();
-		window.addEventListener("resize", this.onResize);
-	}
-
-	onResize = () => {
-		this.height = window.innerHeight;
-		this.width = window.innerWidth;
-		// We will call this "listener" function if it's present
-		if (this._listener) {
-			this._listener();
-		}
+	const onResize = () => {
+		height.set(window.innerHeight);
+		width.set(window.innerWidth);
 	};
 
-	ngOnDestroy() {
-		window.removeEventListener("resize", this.onResize);
-	}
-}
+	effect((onCleanup) => {
+		onResize();
+		window.addEventListener("resize", onResize);
+		onCleanup(() => {
+			window.removeEventListener("resize", onResize);
+		});
+	});
 
-@Injectable()
-class IsMobile {
-	isMobile = false;
+	return {
+		height,
+		width,
+	};
+};
 
-	// We cannot use the `inject` function here, because we need to overwrite our `constructor` behavior
-	// and it's an either-or decision to use `constructor` or the `inject` function
-	constructor(private windowSize: WindowSize) {
-		windowSize._listener = () => {
-			if (windowSize.width <= 480) this.isMobile = true;
-			else this.isMobile = false;
-		};
-	}
-}
+const useMobileCheck = () => {
+	const windowSize = useWindowSize();
+	const isMobile = computed(() => this.windowSize.width() <= 480);
+	return { isMobile };
+};
 
 @Component({
 	selector: "app-root",
-	standalone: true,
-	template: ` <p>Is mobile? {{ isMobile.isMobile }}</p> `,
-	providers: [WindowSize, IsMobile],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: ` <p>Is mobile? {{ mobileCheck.isMobile() }}</p> `,
 })
 class AppComponent {
-	isMobile = inject(IsMobile);
+	mobileCheck = useMobileCheck();
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

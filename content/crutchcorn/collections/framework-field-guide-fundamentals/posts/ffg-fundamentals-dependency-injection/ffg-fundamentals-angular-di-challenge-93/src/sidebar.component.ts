@@ -1,5 +1,11 @@
 // sidebar.component.ts
-import { Component, inject, Injectable } from "@angular/core";
+import {
+	Component,
+	inject,
+	Injectable,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 import { ActionTypes } from "./context";
 
 import { FileComponent } from "./file.component";
@@ -17,7 +23,6 @@ function injectAndAssignActions(actions: any[]) {
 
 @Component({
 	selector: "app-sidebar",
-	standalone: true,
 	imports: [FileComponent],
 	providers: [
 		{
@@ -25,6 +30,7 @@ function injectAndAssignActions(actions: any[]) {
 			useClass: SidebarDirectories,
 		},
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="padding: 1rem">
 			<h1 style="font-size: 1.25rem">Directories</h1>

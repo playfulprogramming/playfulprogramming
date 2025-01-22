@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const Child = () => {
 	// Pass a function that React will run for you
 	useEffect(() => {
-		console.log("I am rendering");
+		console.log("I am initialized");
 		// Pass an array of items to track changes of
 	}, []);
 

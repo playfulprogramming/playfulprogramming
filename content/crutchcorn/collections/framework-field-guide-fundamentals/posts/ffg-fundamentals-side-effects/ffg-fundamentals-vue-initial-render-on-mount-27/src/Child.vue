@@ -3,7 +3,7 @@
 import { onMounted } from "vue";
 
 onMounted(() => {
-	console.log("I am rendering");
+	console.log("I am initialized");
 });
 </script>
 

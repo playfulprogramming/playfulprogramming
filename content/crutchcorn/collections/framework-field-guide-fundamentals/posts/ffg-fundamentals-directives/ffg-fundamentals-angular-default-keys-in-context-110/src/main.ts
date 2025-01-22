@@ -1,13 +1,16 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [NgTemplateOutlet],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-template #templ let-name>{{ name }}</ng-template>
 		<div
@@ -18,4 +21,6 @@ import { NgTemplateOutlet } from "@angular/common";
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

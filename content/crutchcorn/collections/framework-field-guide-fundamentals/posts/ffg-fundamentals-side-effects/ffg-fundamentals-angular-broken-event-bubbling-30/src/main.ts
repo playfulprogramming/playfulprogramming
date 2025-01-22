@@ -1,11 +1,10 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import { Component } from "@angular/core";
 
 @Component({
 	selector: "window-size",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<!-- This code doesn't work, we'll explain why soon -->
 		<div (resize)="resizeHandler()">
@@ -24,4 +23,6 @@ class WindowSizeComponent {
 	}
 }
 
-bootstrapApplication(WindowSizeComponent);
+bootstrapApplication(WindowSizeComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});
