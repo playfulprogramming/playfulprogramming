@@ -2,8 +2,9 @@
 {
     title: "Intro to Formik",
     description: "Learn how to streamline form handling in React with this popular library, featuring easy validation, state management, and submission handling.",
-    published: '2025-01-01T22:12:03.284Z',
-    tags: ["react", "javascript", "webdev"]
+    published: '2025-01-22',
+    tags: ["react", "javascript", "webdev"],
+    order: 2
 }
 ---
 
