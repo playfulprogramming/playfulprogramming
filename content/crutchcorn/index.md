@@ -17,6 +17,7 @@
 	profileImg: "./crutchcorn.png",
 	color: "#ba68c8",
 	roles: ["devops", "developer", "author", "community", "board"],
-	achievements: ["messages-1000", "partner"]
+	achievements: ["messages-1000", "partner"],
+    boardRoles: ["Executive Director"]
 }
 ---

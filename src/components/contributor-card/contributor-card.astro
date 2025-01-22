@@ -1,25 +1,35 @@
 ---
 import style from "./contributor-card.module.scss";
-import { PersonInfo } from "pfp-types";
-import { Picture } from "components/image/picture";
-import { Button } from "components/index";
-import { translate } from "src/utils/translations";
-import { getHrefContainerProps } from "utils/href-container-script";
+import { PersonInfo } from "../../types";
+import { Picture } from "../image/picture";
+import { Button } from "../index";
+import { translate } from "../../utils/translations";
+import { getHrefContainerProps } from "../../utils/href-container-script";
 import allRoles from "../../../content/data/roles.json";
-import { tabletSmall } from "src/tokens/breakpoints";
+import { tabletSmall } from "../../tokens/breakpoints";
 
 interface CardProps {
 	person: PersonInfo;
+	overrides?: {
+		roles?: string[];
+		isPartner?: boolean;
+	};
 }
 
-const { person } = Astro.props as CardProps;
+const { person, overrides } = Astro.props as CardProps;
 const personHref = `/people/${person.id}`;
 
-const roles = person.roles.map(
-	(role) => allRoles.find((r) => r.id === role)!.prettyname,
-);
+const roles =
+	overrides?.roles === undefined
+		? person.roles.map(
+				(role) => allRoles.find((r) => r.id === role)!.prettyname,
+			)
+		: overrides.roles;
 
-const isPartner = person.achievements.includes("partner");
+const isPartner =
+	overrides?.isPartner === undefined
+		? person.achievements.includes("partner")
+		: overrides.isPartner;
 ---
 
 <li class={style.card} {...getHrefContainerProps(personHref)}>

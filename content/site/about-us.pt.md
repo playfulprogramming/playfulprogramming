@@ -18,6 +18,14 @@ Como já foi mencionado antes, nós também temos um Discord onde falamos sobre 
 
 ---
 
+## Who are we? {#board}
+
+While the broader Playful Programming project is comprised from [many wonderful contributors](/join-us#contributors), the non-profit corporation of Playful Programming currently has seven board members, who are listed below:
+
+<!-- split -->
+
+---
+
 ## Princípios de Ética {#ethics}
 
 Não queremos acabar num lugar onde o nosso conteúdo educacional, a nossa experiência,

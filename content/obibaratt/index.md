@@ -12,5 +12,6 @@
 	profileImg: "./obibaratt.jpg",
 	color: "#FF3300",
 	roles: ["developer", "author", "board"],
+    boardRoles: ["Treasurer"]
 }
 ---

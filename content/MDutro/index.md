@@ -11,6 +11,7 @@
 	profileImg: "./mdutro.jpg",
 	color: "#7C4DFF",
 	roles: ["developer", "author", "community", "board"],
-	achievements: ["messages-1000"]
+	achievements: ["messages-1000"],
+    boardRoles: ["Secretary"]
 }
 ---

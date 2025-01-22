@@ -22,8 +22,11 @@ export interface RawPersonInfo {
 	pronouns?: string;
 	profileImg: string;
 	color?: string;
+	// Raw id of the roles
 	roles?: Array<string>;
 	achievements?: string[];
+	// Pretty name for the role
+	boardRoles?: Array<string>;
 }
 
 export interface PersonInfo extends Required<RawPersonInfo> {
