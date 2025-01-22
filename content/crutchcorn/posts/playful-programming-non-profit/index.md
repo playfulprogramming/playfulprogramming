@@ -100,7 +100,7 @@ Hey all, I'm Corbin Crutchley; Playful Programming Co-Founder, GitHub Star, and 
 
 <img alt="" src="../../../fennifith/fennifith.jpg" height="300"/>
 
-// TODO: Add bio
+Hi, I'm James Fenn! I'm a Backend Engineer by profession, and the other co-founder of Playful Programming. I enjoy all kinds of programming, music production, Minecraft modding, and recently baking cookies!
 
 ## Jess Temporal
 
