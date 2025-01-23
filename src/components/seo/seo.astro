@@ -4,7 +4,6 @@ import {
 	getPrefixLanguageFromPath,
 	removePrefixLanguageFromPath,
 } from "utils/translations";
-import Analytics from "./analytics.astro";
 import Article from "./article.astro";
 import Book from "./book.astro";
 import Locale from "./locale.astro";
@@ -78,7 +77,6 @@ const currentPath = removeTrailingSlash(
 	noindex ? <meta name="robots" content="noindex, nofollow" /> : null
 }
 
-<Analytics />
 <Twitter
 	title={title}
 	metaDescription={metaDescription}
