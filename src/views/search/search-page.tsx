@@ -395,15 +395,13 @@ export function SearchPageBase() {
 									className={style.collectionsGrid}
 								>
 									{data.collections.map((collection) => (
-										<li>
-											<CollectionCard
-												collection={collection}
-												authors={collection.authors
-													.map((id) => peopleMap.get(id + ""))
-													.filter(isDefined)}
-												headingTag="h3"
-											/>
-										</li>
+										<CollectionCard
+											collection={collection}
+											authors={collection.authors
+												.map((id) => peopleMap.get(id + ""))
+												.filter(isDefined)}
+											headingTag="h3"
+										/>
 									))}
 								</ul>
 							</Fragment>
