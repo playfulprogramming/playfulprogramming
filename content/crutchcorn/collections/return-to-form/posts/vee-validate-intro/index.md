@@ -2,8 +2,9 @@
 {
     title: "Intro to VeeValidate",
     description: "Learn how to simplify form validation in Vue.js with this powerful library, featuring seamless integration and customizable rules.",
-    published: '2025-01-01T22:12:03.284Z',
-    tags: ["vue", "javascript", "webdev"]
+    published: '2025-01-24',
+    tags: ["vue", "javascript", "webdev"],
+    order: 3
 }
 ---
 

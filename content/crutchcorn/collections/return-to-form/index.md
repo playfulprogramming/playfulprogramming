@@ -5,14 +5,7 @@
   tags: ["webdev"],
   coverImg: "./cover.png",
   published: "2025-01-21",
-  buttons: [{ text: "Read now", url: "/posts/angular-forms-intro" }],
-  chapterList: [
-    {
-      order: '3',
-      title: "Intro to VeeValidate",
-      description: "Coming January 24th!",
-    },
-  ],
+  buttons: [{ text: "Read now", url: "/posts/angular-forms-intro" }]
 }
 ---
 
