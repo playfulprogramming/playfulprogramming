@@ -2,13 +2,13 @@
 {
   title: "Directives",
   description: "If components are a way to share JS logic between multiple, composable DOM nodes; directives are a way to assign logic to any single DOM node.",
-  published: "2024-03-11T12:14:00.000Z",
+  published: "2025-01-06T12:14:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 14,
   collection: "framework-field-guide-fundamentals",
-  version: "v1.1",
+  version: "v2",
 }
 ---
 
@@ -67,7 +67,6 @@ import { Component, ElementRef, Directive } from "@angular/core";
 
 @Directive({
 	selector: "[sayHi]",
-	standalone: true,
 })
 class LogElementDirective {
 	constructor() {
@@ -77,8 +76,8 @@ class LogElementDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [LogElementDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p sayHi>Hello, world</p> `,
 })
 class AppComponent {}
@@ -99,21 +98,34 @@ It's frequently more helpful to get a reference to the element that the attribut
 ```angular-ts
 @Directive({
 	selector: "[logElement]",
-	standalone: true,
 })
 class LogElementDirective {
 	// el.nativeElement is a reference to the HTMLParagraphElement
-	el = inject(ElementRef<any>);
+	el = inject(ElementRef);
 }
 ```
 
-But oh no! Our directive no longer uses the `constructor` function, which means that our `console.log` no longer runs. This is because you can no longer use a constructor function when using the inject keyword.
+But oh no! Our directive no longer uses the `constructor` function, which means that our `console.log` no longer runs. While we could fix this by adding a `constructor` after our `el`:
 
-To fix this, we can extract our `inject` into a function that we can call from within our directive's class body:
+```angular-ts
+@Directive({
+  selector: '[styleBackground]',
+})
+class StyleBackgroundDirective {
+  el = inject(ElementRef);
+
+  constructor() {
+	// HTMLParagraphElement
+	console.log(this.el.nativeElement);
+  }
+}
+```
+
+We can also extract our `inject` into a function that we can call from within our directive's class body:
 
 ```angular-ts
 function findAndLogTheElement() {
-	const el = inject(ElementRef<any>);
+	const el = inject(ElementRef);
 	// HTMLParagraphElement
 	console.log(el.nativeElement);
 	return el;
@@ -152,6 +164,7 @@ const vSayHi = {
 ```
 
 <!-- ::start:no-ebook -->
+
 <iframe data-frame-title="Vue What is a Directive? - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-what-is-a-directive-104?template=node&embed=1&file=src%2FApp.vue"></iframe>
 <!-- ::end:no-ebook -->
 
@@ -219,14 +232,13 @@ const App = () => {
 
 ```angular-ts
 function injectElAndStyle() {
-	const el = inject(ElementRef<any>);
+	const el = inject(ElementRef);
 	el.nativeElement.style.background = "red";
 	return el;
 }
 
 @Directive({
 	selector: "[styleBackground]",
-	standalone: true,
 })
 class StyleBackgroundDirective {
 	el = injectElAndStyle();
@@ -234,8 +246,8 @@ class StyleBackgroundDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [StyleBackgroundDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <button styleBackground>Hello, world</button> `,
 })
 class AppComponent {}
@@ -323,25 +335,26 @@ const App = () => {
 
 ## Angular
 
-Angular uses the same `implements` implementation for classes to use lifecycle methods in directives as it does components.
+Angular allows you to use the same `effect` and `afterRenderEffect` APIs in directives as it does components.
 
 ```angular-ts
 @Directive({
 	selector: "[focusElement]",
-	standalone: true,
 })
-class StyleBackgroundDirective implements OnInit {
-	el = inject(ElementRef<any>);
+class StyleBackgroundDirective {
+	el = inject(ElementRef);
 
-	ngOnInit() {
-		this.el.nativeElement.focus();
+	constructor() {
+		afterRenderEffect(() => {
+			this.el.nativeElement.focus();
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [StyleBackgroundDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <button focusElement>Hello, world</button> `,
 })
 class AppComponent {}
@@ -412,7 +425,7 @@ const App = () => {
 
 ## Angular
 
-To pass a value to an Angular directive, we can use the `@Input` directive, which is the same as a component.
+To pass a value to an Angular directive, we can use the `input` method, which is the same as a component.
 
 However, one way that a directive's inputs differ from a component's is that you need to prepend the `selector` value as the `Input` variable name, like so:
 
@@ -421,22 +434,23 @@ However, one way that a directive's inputs differ from a component's is that you
 ```angular-ts
 @Directive({
 	selector: "[styleBackground]",
-	standalone: true,
 })
-class StyleBackgroundDirective implements OnInit {
-	@Input() styleBackground!: string;
+class StyleBackgroundDirective {
+	styleBackground = input.required<string>();
 
-	el = inject(ElementRef<any>);
+	el = inject(ElementRef);
 
-	ngOnInit() {
-		this.el.nativeElement.style.background = this.styleBackground;
+	constructor() {
+		effect(() => {
+			this.el.nativeElement.style.background = this.styleBackground();
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [StyleBackgroundDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <button styleBackground="#FFAEAE">Hello, world</button> `,
 })
 class AppComponent {}
@@ -542,24 +556,24 @@ class Color {
 
 @Directive({
 	selector: "[styleBackground]",
-	standalone: true,
 })
-class StyleBackgroundDirective implements OnInit {
-	@Input() styleBackground!: Color;
+class StyleBackgroundDirective {
+	styleBackground = input.required<Color>();
 
-	el = inject(ElementRef<any>);
+	el = inject(ElementRef);
 
-	ngOnInit() {
-		const color = this.styleBackground;
-		this.el.nativeElement.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
+	constructor() {
+		effect(() => {
+			const color = this.styleBackground();
+			this.el.nativeElement.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-
-	standalone: true,
 	imports: [StyleBackgroundDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <button [styleBackground]="color">Hello, world</button> `,
 })
 class AppComponent {
@@ -646,24 +660,25 @@ In reality, you can name an input anything you'd like, but then you need to have
 ```angular-ts
 @Directive({
 	selector: "[styleBackground]",
-	standalone: true,
 })
-class StyleBackgroundDirective implements OnInit {
-	@Input() r!: number;
-	@Input() g!: number;
-	@Input() b!: number;
+class StyleBackgroundDirective {
+	r = input.required<number>();
+	g = input.required<number>();
+	b = input.required<number>();
 
-	el = inject(ElementRef<any>);
+	el = inject(ElementRef);
 
-	ngOnInit() {
-		this.el.nativeElement.style.background = `rgb(${this.r}, ${this.g}, ${this.b})`;
+	constructor() {
+		effect(() => {
+			this.el.nativeElement.style.background = `rgb(${this.r()}, ${this.g()}, ${this.b()})`;
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [StyleBackgroundDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button styleBackground [r]="255" [g]="174" [b]="174">Hello, world</button>
 	`,
@@ -845,7 +860,7 @@ import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [NgTemplateOutlet],
 	template: `
 		<ng-template #templ let-name="name">
@@ -904,7 +919,7 @@ To solve this, we can pass a "default" key called `$implicit` and bind it like s
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [NgTemplateOutlet],
 	template: `
 		<ng-template #templ let-name>{{ name }}</ng-template>
@@ -928,7 +943,6 @@ While we've been using `inject` in directives to gain access to the directive's 
 ```angular-ts
 @Directive({
 	selector: "[beOnTemplate]",
-	standalone: true,
 })
 class TemplateDirective {
 	constructor() {
@@ -938,7 +952,7 @@ class TemplateDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [TemplateDirective],
 	template: ` <ng-template beOnTemplate><p>Hello, world</p></ng-template> `,
 })
@@ -958,20 +972,21 @@ Well, there's a hint if we try to access the underlying HTML element using `Elem
 ```angular-ts
 @Directive({
 	selector: "[beOnTemplate]",
-	standalone: true,
 })
-class TemplateDirective implements OnInit {
-	el = inject(ElementRef<any>);
-	ngOnInit() {
-		// This will log a "Comment"
-		console.log(this.el.nativeElement);
+class TemplateDirective {
+	el = inject(ElementRef);
+	constructor() {
+		effect(() => {
+			// This will log a "Comment"
+			console.log(this.el.nativeElement);
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [TemplateDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <ng-template beOnTemplate><p>Hello, world</p></ng-template> `,
 })
 class AppComponent {}
@@ -1004,16 +1019,17 @@ function injectTemplateAndLog() {
 
 @Directive({
 	selector: "[item]",
-	standalone: true,
 })
 class ItemDirective {
-	_template = injectTemplateAndLog();
+	constructor() {
+		injectTemplateAndLog();
+	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ItemDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<ng-template item>
@@ -1131,7 +1147,7 @@ This means that this code:
 ```angular-ts
 @Component({
 	selector: "list-comp",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ul>
 			<li>Say hi</li>
@@ -1143,7 +1159,7 @@ class ListComp {}
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ListComp],
 	template: `
 		<div>
@@ -1179,7 +1195,6 @@ function injectAndRenderTemplate() {
 
 @Directive({
 	selector: "[passBackground]",
-	standalone: true,
 })
 class PassBackgroundDirective {
 	template = injectAndRenderTemplate();
@@ -1187,7 +1202,7 @@ class PassBackgroundDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [PassBackgroundDirective],
 	template: `
 		<div>
@@ -1223,7 +1238,6 @@ function injectAndRenderTemplate() {
 
 @Directive({
 	selector: "[passBackground]",
-	standalone: true,
 })
 class PassBackgroundDirective {
 	template = injectAndRenderTemplate();
@@ -1231,7 +1245,7 @@ class PassBackgroundDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [PassBackgroundDirective],
 	template: `
 		<div>
@@ -1279,7 +1293,7 @@ Knowing this, we can take our previous code and convert it to a structural direc
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [PassBackgroundDirective],
 	template: `
 		<div *passBackground="let backgroundColor = backgroundColor">
@@ -1308,31 +1322,32 @@ const flags: Record<string, boolean> = {
 
 @Directive({
 	selector: "[featureFlag]",
-	standalone: true,
 })
-class FeatureFlagDirective implements OnChanges {
-	@Input() featureFlag!: string;
+class FeatureFlagDirective {
+	featureFlag = input.required<string>();
 
-	templToRender = inject(TemplateRef<any>);
+	templToRender = inject(TemplateRef);
 	parentViewRef = inject(ViewContainerRef);
 
 	embeddedView: EmbeddedViewRef<any> | null = null;
 
-	ngOnChanges() {
-		if (flags[this.featureFlag]) {
-			this.embeddedView = this.parentViewRef.createEmbeddedView(
-				this.templToRender,
-			);
-		} else if (this.embeddedView) {
-			this.embeddedView.destroy();
-		}
+	constructor() {
+		effect(() => {
+			if (flags[this.featureFlag()]) {
+				this.embeddedView = this.parentViewRef.createEmbeddedView(
+					this.templToRender,
+				);
+			} else if (this.embeddedView) {
+				this.embeddedView.destroy();
+			}
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [FeatureFlagDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button *featureFlag="'addToCartButton'">Add to cart</button>
@@ -1540,26 +1555,16 @@ Our API will eventually look like this:
 
 However, to get this to work, we need to use [Angular CDK's DOMPortal](https://material.angular.io/cdk/portal/api#DomPortal) instead of our previously known `TemplatePortal`, so that we can teleport the `div` itself to `body` and add properties to the `div` when we do so.
 
-We'll build out a custom PortalService that uses a `DomPortalOutlet` to enable this:
+We'll build out a custom `PortalService` that uses a `DomPortalOutlet` to enable this:
 
 ```angular-ts
 @Injectable({
 	providedIn: "root",
 })
 class PortalService {
-	outlet = new DomPortalOutlet(
-		document.querySelector("body")!,
-		undefined,
-		undefined,
-		undefined,
-		document,
-	);
+	outlet = new DomPortalOutlet(document.querySelector("body")!);
 }
 ```
-
-> This code sample has a few peculiar `undefined`s here. This is because Angular will otherwise not work as intended without them.
->
-> The order of the properties in `DomPortalOutlet` will likely change in the future allowing `document` to be passed first, but has not yet at the time of writing.
 
 Then, we can bind to the `DomPortalOutput` by creating a `DOMPortal` like so:
 
@@ -1584,40 +1589,36 @@ Let's put it all together like so:
 ```angular-ts
 @Directive({
 	selector: "[tooltip]",
-	standalone: true,
 })
-class TooltipDirective implements AfterViewInit, OnDestroy {
-	@Input("tooltip") tooltipBase!: HTMLElement;
+class TooltipDirective {
+	tooltip = input.required<HTMLElement>();
 	viewContainerRef = inject(ViewContainerRef);
-	templToRender = inject(TemplateRef<any>);
+	templToRender = inject(TemplateRef);
 
 	portalService = inject(PortalService);
-
-	ngAfterViewInit() {
-		this.tooltipBase.addEventListener("mouseenter", () => {
-			this.showTooltip();
-		});
-		this.tooltipBase.addEventListener("mouseleave", () => {
-			this.hideTooltip();
-		});
-	}
 
 	el: HTMLElement | null = null;
 
 	showTooltip = () => {
-		const { left, bottom } = this.tooltipBase.getBoundingClientRect();
+		const { left, bottom } = this.tooltip().getBoundingClientRect();
 
 		const viewRef = this.viewContainerRef.createEmbeddedView(
 			this.templToRender,
 		);
 
+		// We need to access the `div` itself to attach to a DomPortal; this is how you do that.
 		this.el = viewRef.rootNodes[0] as HTMLElement;
+
+		// Now that we have the element reference, we can add a class and style properties
 		this.el.classList.add("tooltip");
 		this.el.style.left = `${left}px`;
 		this.el.style.top = `${bottom}px`;
 
 		setTimeout(() => {
-			this.portalService.outlet.attach(new DomPortal(this.el));
+			this.portalService.outlet.attach(
+				// DOMPortal allows us to attach a DOM element to the portal
+				new DomPortal(this.el),
+			);
 		});
 	};
 
@@ -1627,15 +1628,26 @@ class TooltipDirective implements AfterViewInit, OnDestroy {
 		this.el?.remove();
 	};
 
-	ngOnDestroy() {
-		this.hideTooltip();
+	constructor() {
+		effect((onCleanup) => {
+			this.tooltip().addEventListener("mouseenter", () => {
+				this.showTooltip();
+			});
+			this.tooltip().addEventListener("mouseleave", () => {
+				this.hideTooltip();
+			});
+
+			onCleanup(() => {
+				this.hideTooltip();
+			});
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [TooltipDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button #tooltipBase>Hover me</button>

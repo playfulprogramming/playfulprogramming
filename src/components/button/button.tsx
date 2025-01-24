@@ -1,8 +1,16 @@
 import { JSXNode, PropsWithChildren } from "../types";
 import { JSX } from "preact";
-import { ForwardedRef, forwardRef } from "preact/compat";
+import { ForwardedRef, forwardRef, ReactElement, Ref } from "preact/compat";
 
-type AllowedTags = "a" | "button" | "span" | "div";
+export type AllowedTags = "a" | "button" | "span" | "div";
+
+type AllowedJSXElements<Tag extends AllowedTags> = Tag extends "a"
+	? JSX.AnchorHTMLAttributes
+	: Tag extends "div"
+		? JSX.HTMLAttributes<HTMLDivElement>
+		: Tag extends "span"
+			? JSX.HTMLAttributes<HTMLSpanElement>
+			: JSX.ButtonHTMLAttributes;
 
 type AllowedElements<Tag extends AllowedTags> = Tag extends "a"
 	? HTMLAnchorElement
@@ -12,7 +20,7 @@ type AllowedElements<Tag extends AllowedTags> = Tag extends "a"
 			? HTMLSpanElement
 			: HTMLButtonElement;
 
-type ButtonProps<Tag extends AllowedTags> = PropsWithChildren<
+export type ButtonProps<Tag extends AllowedTags> = PropsWithChildren<
 	{
 		tag?: Tag;
 		class?: string;
@@ -25,7 +33,7 @@ type ButtonProps<Tag extends AllowedTags> = PropsWithChildren<
 			| "secondary-emphasized"
 			| "primary"
 			| "secondary";
-	} & JSX.HTMLAttributes<AllowedElements<Tag>>
+	} & AllowedJSXElements<Tag>
 >;
 
 const ButtonWrapper = forwardRef<
@@ -70,7 +78,9 @@ const ButtonWrapper = forwardRef<
 			</Wrapper>
 		);
 	},
-);
+) as <Tag extends AllowedTags = "a">(
+	props: ButtonProps<Tag> & { ref?: Ref<Tag> },
+) => ReactElement;
 
 export const Button = forwardRef<
 	AllowedElements<AllowedTags> | null,
@@ -80,10 +90,12 @@ export const Button = forwardRef<
 		<ButtonWrapper
 			{...props}
 			class={`text-style-button-regular regular ${className}`}
-			ref={ref}
+			ref={ref as never}
 		/>
 	);
-});
+}) as <Tag extends AllowedTags = "a">(
+	props: ButtonProps<Tag> & { ref?: Ref<Tag> },
+) => ReactElement;
 
 export const LargeButton = forwardRef<
 	AllowedElements<AllowedTags> | null,
@@ -93,10 +105,12 @@ export const LargeButton = forwardRef<
 		<ButtonWrapper
 			{...props}
 			class={`text-style-button-large large ${className}`}
-			ref={ref}
+			ref={ref as never}
 		/>
 	);
-});
+}) as <Tag extends AllowedTags = "a">(
+	props: ButtonProps<Tag> & { ref?: Ref<Tag> },
+) => ReactElement;
 
 type IconOnlyButtonProps<T extends AllowedTags = "a"> = Omit<
 	ButtonProps<T>,
@@ -108,23 +122,35 @@ export const IconOnlyButton = forwardRef<
 	IconOnlyButtonProps<AllowedTags>
 >(({ class: className = "", children, ...props }, ref) => {
 	return (
-		<ButtonWrapper {...props} class={`iconOnly regular ${className}`} ref={ref}>
+		<ButtonWrapper
+			{...props}
+			class={`iconOnly regular ${className}`}
+			ref={ref as never}
+		>
 			<div class="iconOnlyButtonIcon" aria-hidden="true">
 				{children}
 			</div>
 		</ButtonWrapper>
 	);
-});
+}) as <Tag extends AllowedTags = "a">(
+	props: ButtonProps<Tag> & { ref?: Ref<Tag> },
+) => ReactElement;
 
 export const LargeIconOnlyButton = forwardRef<
 	AllowedElements<AllowedTags> | null,
 	IconOnlyButtonProps<AllowedTags>
 >(({ class: className = "", children, ...props }, ref) => {
 	return (
-		<ButtonWrapper {...props} class={`iconOnly large ${className}`} ref={ref}>
+		<ButtonWrapper
+			{...props}
+			class={`iconOnly large ${className}`}
+			ref={ref as never}
+		>
 			<div class="iconOnlyButtonIcon" aria-hidden="true">
 				{children}
 			</div>
 		</ButtonWrapper>
 	);
-});
+}) as <Tag extends AllowedTags = "a">(
+	props: ButtonProps<Tag> & { ref?: Ref<Tag> },
+) => ReactElement;

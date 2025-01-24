@@ -2,7 +2,9 @@
 import { Picture } from "components/image/picture";
 import SignupForm from "../components/signup-form.astro";
 import Discord from "../icons/discord.astro";
-import Twitter from "../icons/twitter.astro";
+import X from "../icons/x.astro";
+import LinkedIn from "../icons/linkedin.astro";
+import BlueSky from "../icons/bluesky.astro";
 import styles from "./sign-up.module.scss";
 import { getPersonById } from "utils/api";
 ---
@@ -47,12 +49,28 @@ import { getPersonById } from "utils/api";
 		</div>
 		<div class={styles.buttonContainer}>
 			<a
-				class={`ffg-button-base ${styles.twitterButton}`}
-				href="https://twitter.com/crutchcorn"
-				aria-label="Twitter"
+				class={`ffg-button-base ${styles.blueSkyButton}`}
+				href="https://bsky.app/profile/crutchcorn.dev"
+				aria-label="BlueSky"
 				target="_blank"
 			>
-				<Twitter aria-hidden={true} />
+				<BlueSky aria-hidden={true} />
+			</a>
+			<a
+				class={`ffg-button-base ${styles.linkedInButton}`}
+				href="https://www.linkedin.com/in/corbincrutchley/"
+				aria-label="LinkedIn"
+				target="_blank"
+			>
+				<LinkedIn aria-hidden={true} />
+			</a>
+			<a
+				class={`ffg-button-base ${styles.twitterButton}`}
+				href="https://x.com/crutchcorn"
+				aria-label="X (Formerly Twitter)"
+				target="_blank"
+			>
+				<X aria-hidden={true} />
 			</a>
 			<a
 				class={`ffg-button-base ${styles.discordButton}`}

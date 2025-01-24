@@ -1,13 +1,17 @@
 // App.component.ts
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 import { LayoutComponent } from "./layout.component";
 import { SidebarComponent } from "./sidebar.component";
 import { FileListComponent } from "./file-list.component";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [LayoutComponent, SidebarComponent, FileListComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<app-layout>
 			<app-sidebar sidebar />

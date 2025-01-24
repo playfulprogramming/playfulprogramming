@@ -1,17 +1,22 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Component, inject, ElementRef, Directive } from "@angular/core";
+import {
+	Component,
+	inject,
+	ElementRef,
+	Directive,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
 function injectElAndStyle() {
-	const el = inject(ElementRef<any>);
+	const el = inject(ElementRef);
 	el.nativeElement.style.background = "red";
 	return el;
 }
 
 @Directive({
 	selector: "[styleBackground]",
-	standalone: true,
 })
 class StyleBackgroundDirective {
 	el = injectElAndStyle();
@@ -19,10 +24,12 @@ class StyleBackgroundDirective {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [StyleBackgroundDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <button styleBackground>Hello, world</button> `,
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});
