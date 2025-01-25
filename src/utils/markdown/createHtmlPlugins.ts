@@ -81,10 +81,11 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypeTooltips)
 			.use(rehypeAstroImageMd)
 			.use(rehypeUnicornIFrameClickToRun, {
-				srcReplacements: [
+				replacements: [
+					// PFP code
 					(val: string, file: VFile) => {
 						const iFrameUrl = new URL(val);
-						if (!iFrameUrl.protocol.startsWith("pfp-code:")) return val;
+						if (!iFrameUrl.protocol.startsWith("pfp-code:")) return {};
 
 						const contentDir = dirname(file.path);
 						const fullPath = resolve(contentDir, iFrameUrl.pathname);
@@ -101,9 +102,11 @@ export function createHtmlPlugins(unified: Processor) {
 						const q = iFrameUrl.search;
 						const repoPath = siteMetadata.repoPath;
 						const provider = `stackblitz.com/github`;
-						return `
+						return {
+							src: `
 								https://${provider}/${repoPath}/tree/${currentBranch}/${urlRelativePath}${q}
-							`.trim();
+							`.trim(),
+						};
 					},
 				],
 			})

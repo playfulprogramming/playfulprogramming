@@ -17,7 +17,17 @@ import { fetchPageHtml, getPageTitle } from "utils/fetch-page-html";
 import { LRUCache } from "lru-cache";
 
 interface RehypeUnicornIFrameClickToRunProps {
-	srcReplacements?: Array<(val: string, root: VFile) => string>;
+	replacements?: Array<
+		(
+			val: string,
+			root: VFile,
+		) => {
+			src?: string;
+			bgImg?: string;
+			btnColor?: string;
+			btnIconColor?: string;
+		}
+	>;
 }
 
 // default icon, used if a frame's favicon cannot be resolved
@@ -175,7 +185,7 @@ export async function fetchPageInfo(src: string): Promise<PageInfo | null> {
 export const rehypeUnicornIFrameClickToRun: Plugin<
 	[RehypeUnicornIFrameClickToRunProps | never],
 	Root
-> = ({ srcReplacements = [], ...props }) => {
+> = ({ replacements = [], ...props }) => {
 	return async (tree, file) => {
 		const iframeNodes: Element[] = [];
 		visit(tree, "element", (node: Element) => {
@@ -196,8 +206,12 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					...propsToPreserve
 				} = iframeNode.properties;
 
-				for (const replacement of srcReplacements) {
-					src = replacement(src!.toString(), file);
+				for (const replacement of replacements) {
+					const replacementData = replacement(src!.toString(), file);
+
+					if (replacementData.src) {
+						src = replacementData.src;
+					}
 				}
 
 				width = width ?? EMBED_SIZE.w;
