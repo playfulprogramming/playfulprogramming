@@ -25,6 +25,7 @@ export const iFrameClickToRun = () => {
 			}
 			iframe.style.width = parent.style.width;
 			iframe.style.height = parent.style.height;
+			iframe.style.aspectRatio = parent.style.aspectRatio;
 			parent.replaceWith(iframe);
 		});
 	});

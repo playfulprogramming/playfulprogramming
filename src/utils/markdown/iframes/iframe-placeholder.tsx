@@ -9,6 +9,8 @@ const play = await fs.readFile("src/icons/play.svg", "utf8");
 export interface IFramePlaceholderProps {
 	width: string;
 	height: string;
+	background: string | null;
+	aspectRatio : number | null;
 	src: string;
 	propsToPreserve: string;
 	pageTitle: string;
@@ -20,6 +22,8 @@ export interface IFramePlaceholderProps {
 export function IFramePlaceholder({
 	height,
 	width,
+	background,
+	aspectRatio,
 	propsToPreserve,
 	...props
 }: IFramePlaceholderProps): Element {
@@ -70,7 +74,11 @@ export function IFramePlaceholder({
 				class="embed__placeholder"
 				data-iframeurl={props.src}
 				data-iframeprops={propsToPreserve}
-				style={`height: ${Number(height) ? `${height}px` : height};`}
+				style={`
+					${!aspectRatio && height ? "height: " + (Number(height) ? height + 'px' : height) + ";" : ""}
+					${background ? 'background-image: url("' + background + '");' : ""}
+					${aspectRatio ? 'aspect-ratio:' + aspectRatio + ';' : ""}
+				`}
 			>
 				<button class="button regular primary-emphasized text-style-button-regular">
 					<div aria-hidden="true" class="buttonIcon">

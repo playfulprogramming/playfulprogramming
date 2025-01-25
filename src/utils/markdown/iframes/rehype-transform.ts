@@ -21,12 +21,13 @@ interface RehypeUnicornIFrameClickToRunProps {
 		(
 			val: string,
 			root: VFile,
-		) => {
+		) => Promise<{
 			src?: string;
 			bgImg?: string;
 			btnColor?: string;
 			btnIconColor?: string;
-		}
+			aspectRatio?: number;
+		}>
 	>;
 }
 
@@ -206,11 +207,20 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					...propsToPreserve
 				} = iframeNode.properties;
 
+				let background: string | null = null;
+				let aspectRatio: number | null = null;
+
 				for (const replacement of replacements) {
-					const replacementData = replacement(src!.toString(), file);
+					const replacementData = await replacement(src!.toString(), file);
 
 					if (replacementData.src) {
 						src = replacementData.src;
+					}
+					if (replacementData.bgImg) {
+						background = replacementData.bgImg;
+					}
+					if (replacementData.aspectRatio) {
+						aspectRatio = replacementData.aspectRatio;
 					}
 				}
 
@@ -226,6 +236,8 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				const iframeReplacement = IFramePlaceholder({
 					width: width.toString(),
 					height: height.toString(),
+					background: background,
+					aspectRatio: aspectRatio,
 					src: String(src),
 					pageTitle: String(dataFrameTitle ?? "") || info.title || "",
 					pageIcon: info.iconFile,

@@ -83,7 +83,7 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypeUnicornIFrameClickToRun, {
 				replacements: [
 					// PFP code
-					(val: string, file: VFile) => {
+					async (val: string, file: VFile) => {
 						const iFrameUrl = new URL(val);
 						if (!iFrameUrl.protocol.startsWith("pfp-code:")) return {};
 
@@ -107,6 +107,49 @@ export function createHtmlPlugins(unified: Processor) {
 								https://${provider}/${repoPath}/tree/${currentBranch}/${urlRelativePath}${q}
 							`.trim(),
 						};
+					},
+
+					// Youtube embed
+					async (val) => {
+						const iFrameUrl = new URL(val);
+						if (
+							iFrameUrl.hostname !== "youtube.com" &&
+							iFrameUrl.hostname !== "www.youtube.com" &&
+							iFrameUrl.hostname !== "youtu.be"
+						) {
+							return {};
+						}
+
+						interface YouTubeLookup {
+							url: string;
+							version: string;
+							thumbnail_height: number;
+							provider_name: "YouTube";
+							thumbnail_width: number;
+							width: number;
+							title: string;
+							author_name: string;
+							thumbnail_url: string;
+							author_url: string;
+							html: string;
+							type: "video";
+							height: number;
+							provider_url: string;
+						}
+
+						const json = await fetch(
+							`https://noembed.com/embed?dataType=json&url=${encodeURIComponent(val)}`,
+						)
+							.then((r) => {
+								if (r.status !== 200) return null;
+								return r.json() as Promise<YouTubeLookup>;
+							})
+							.catch(() => null);
+						if (!json) {
+							return {};
+						}
+
+						return { src: val, bgImg: json.thumbnail_url, aspectRatio: 16 / 9 };
 					},
 				],
 			})

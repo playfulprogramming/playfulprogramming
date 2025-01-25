@@ -98,6 +98,9 @@
 
 	&__placeholder {
 		background-color: var(--embed_iframe_background-color);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
 		border: var(--embed-iframe_border-width) solid
 			var(--embed_iframe_border_color);
 		border-radius: var(--embed-iframe_corner-radius);
