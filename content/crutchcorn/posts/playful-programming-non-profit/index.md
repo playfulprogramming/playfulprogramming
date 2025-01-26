@@ -112,7 +112,7 @@ Jessica Temporal is a Senior Developer Advocate at Auth0 and co-founder of the f
 
 <img alt="" src="../../../MDutro/mdutro.jpg" height="300"/>
 
-// TODO: Add bio
+Micah is a backend developer with a passion for public service and a Linux enthusiast who loves old Thinkpads. He serves as the Infrastructure Engineer at The Contingent and his two children allow him to live in their house in Portland, Oregon.
 
 ## Obi Barett
 
