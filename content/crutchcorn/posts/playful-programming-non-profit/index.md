@@ -62,7 +62,7 @@ Going alphabetically, we have seven board members:
 
 - [Adeyemi "Ade" Ritchards](/people/whatade)
 - [Corbin Crutchley](/people/crutchcorn)
-- Jacob Walker
+- [Jacob Walker](/people/jacobjwalker)
 - [James Fenn](/people/fennifith)
 - [Jessica "Jess" Temporal](/people/jtemporal)
 - [Micah Dutro](/people/MDutro)
@@ -92,7 +92,7 @@ Hey all, I'm Corbin Crutchley; Playful Programming Co-Founder, GitHub Star, and 
 
 ## Jacob Walker
 
-// TODO: Add image
+<img alt="" src="../../../jacobjwalker/walker.jpg" height="300"/>
 
 // TODO: Add bio
 
