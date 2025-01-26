@@ -28,6 +28,8 @@ This is why we're moving towards a more accountable system of governance. Now, n
 
 # What does this mean?
 
+![TODO: Write alt](./whats_changing.png)
+
 When we say we're a "California Non-Profit", what we mean is that we're a **California Public Benefit Corporation**.
 
 A Public Benefit Corporation is a type of legal entity that incorporates us, helps us to structure our organization in a more balanced way, and gives us legal protection.
@@ -55,6 +57,8 @@ The three ***required*** officers are:
 3. Treasurer: responsible for financial records
 
 # Who's involved?
+
+![TODO: Write alt](./whos_involved.png)
 
 I'm beyond elated to share our board with you all; it's filled with many industry titans and some of the downright best humans I've ever had the pleasure of interacting with.
 
@@ -135,6 +139,8 @@ Beyond our non-profit goals, we have **huge** plans for 2025 and after. While th
 There's even more that we have in the works that we're not yet ready to share publicly.
 
 # How you can help
+
+![TODO: Write alt](./help.png)
 
 If you're interested in helping, we have a myriad of ways you can get involved.
 
