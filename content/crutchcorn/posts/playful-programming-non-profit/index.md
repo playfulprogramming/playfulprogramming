@@ -193,6 +193,8 @@ While we've landed many projects we're proud of, we're not done yet. Along our l
 
 I don't know about you, but I'm beyond excited to see what the future holds.
 
+![A spaceship launching into space](./launch.png)
+
 See you among the stars,
 
 \- Corbin Crutchley, Executive Director of Playful Programming  
