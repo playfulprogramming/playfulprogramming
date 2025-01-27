@@ -1,7 +1,7 @@
 ---
 {
     title: "Announcing Playful Programming's Non-Profit Status",
-    description: "",
+    description: "Playful Programming is becoming a formal non-profit! Let's talk about the who, the what, and the why behind the decision.",
     published: '2025-01-27T20:12:03.284Z',
     tags: ['announcements'],
     license: 'cc-by-4'
@@ -28,7 +28,7 @@ This is why we're moving towards a more accountable system of governance. Now, n
 
 # What does this mean?
 
-![TODO: Write alt](./whats_changing.png)
+![A blank clipboard with a pencil](./whats_changing.png)
 
 When we say we're a "California Non-Profit", what we mean is that we're a **California Public Benefit Corporation**.
 
@@ -58,7 +58,7 @@ The three ***required*** officers are:
 
 # Who's involved?
 
-![TODO: Write alt](./whos_involved.png)
+![A pin board showing a list of printed photos with unicorns on each pin connected by a string](./whos_involved.png)
 
 I'm beyond elated to share our board with you all; it's filled with many industry titans and some of the downright best humans I've ever had the pleasure of interacting with.
 
@@ -98,7 +98,7 @@ Hey all, I'm Corbin Crutchley; Playful Programming Co-Founder, GitHub Star, and 
 
 <img alt="" src="../../../jacobjwalker/walker.jpg" height="300"/>
 
-// TODO: Add bio
+My parents got a computer when I was about 10, and told me not to touch it... That is what got me here.
 
 ## James Fenn
 
@@ -126,6 +126,8 @@ Obi is a software engineer building businesses, communities, and the ecosystems 
 
 # What's next?
 
+![A unicorn in a lab coat with a computer monitor and science-y beakers on the desk](./whats_next.png)
+
 As we grow our non-profit further than it is today, we have a lot ahead of us. From aiming towards 501(c)(3) status to refining our policies and procedures, it's going to be a fun and wild ride getting everything set up.
 
 Beyond our non-profit goals, we have **huge** plans for 2025 and after. While there's some stuff we're able to talk about:
@@ -140,7 +142,7 @@ There's even more that we have in the works that we're not yet ready to share pu
 
 # How you can help
 
-![TODO: Write alt](./help.png)
+![Two unicorn hoofs high-fiving](./help.png)
 
 If you're interested in helping, we have a myriad of ways you can get involved.
 
