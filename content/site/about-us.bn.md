@@ -18,6 +18,14 @@
 
 ---
 
+## Who are we? {#board}
+
+While the broader Playful Programming project is comprised from [many wonderful contributors](/join-us#contributors), the non-profit corporation of Playful Programming currently has seven board members, who are listed below:
+
+<!-- split -->
+
+---
+
 ## নীতিশাস্ত্রের বিবৃতি {#ethics}
 
 আমরা কখনই এমন জায়গায় যেতে চাই না যেখানে আমাদের শিক্ষাগত বিষয়বস্তু, অভিজ্ঞতা বা সম্প্রদায়ের আর্থিক প্রভাব বা সম্প্রদায়ের সম্ভাব্য ক্ষতিকারক সদস্যদের দ্বারা আপস করা হয়। যেমন, আমরা বাস্তবায়ন করেছি [অবদানকারী চুক্তি](https://www.contributor-covenant.org/) আমাদের [আচরণবিধি হিসাবে](https://github.com/playfulprogramming/playfulprogramming/blob/master/CODE_OF_CONDUCT.md) এই মান বজায় রাখা.

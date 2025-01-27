@@ -34,6 +34,7 @@ export const MockPerson: PersonInfo = {
 		height: 200,
 		width: 200,
 	},
+	boardRoles: [],
 };
 
 export const MockPersonTwo: PersonInfo = {
@@ -69,4 +70,5 @@ export const MockPersonTwo: PersonInfo = {
 		height: 200,
 		width: 200,
 	},
+	boardRoles: [],
 };
