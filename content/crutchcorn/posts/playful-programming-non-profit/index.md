@@ -10,7 +10,7 @@
 
 It's true; after many years as operating without a formal organization backing our efforts: **Playful Programming is now a California Non-Profit.**
 
-// TODO: Graphic from Ed
+![A pair of scissors cutting a ribbon](./non-profit.png)
 
 # Why are we doing this?
 
