@@ -215,14 +215,15 @@ A `tabindex` value of `0` allows a user to tab to an element, regardless of elem
 // TODO: Write
 
 
-
-
-
 > While it may seem initially intuitive to add `tabindex="0"` to each heading on the site to make navigation to each major section of the site, be careful in doing so.
 >
 > Most screen readers and accessibility technologies already provide a way to rapidly jump from heading to heading with nothing more than their keyboard. As a result, adding `tabindex="0"` to headings can be a duplicate effort to tab past and make things worse than they were before.
 >
 > [To learn more about acceptable usage of `tabindex`, check out this article by the A11Y Project](https://www.a11yproject.com/posts/how-to-use-the-tabindex-attribute/#scrollable-overflow-containers).
+
+## Positive `tabindex`
+
+// TODO: Write "NO, don't do"
 
 # Element Reference `focus()`
 
