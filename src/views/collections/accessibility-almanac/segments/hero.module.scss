@@ -1,5 +1,5 @@
-@import "../../framework-field-guide/tokens/utils";
-@import "../../framework-field-guide/tokens/breakpoints.scss";
+@use "../../framework-field-guide/tokens/utils" as *;
+@use "../../framework-field-guide/tokens/breakpoints.scss" as *;
 
 .heroContainer {
   padding: 1rem;
