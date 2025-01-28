@@ -1,0 +1,101 @@
+---
+import styles from "./what-you-need.module.scss";
+import BookSvg from "../../framework-field-guide/icons/book.astro";
+import ToolsSvg from "../../framework-field-guide/icons/tools.astro";
+---
+
+<section class={styles.whatYouNeedContainer}>
+	<h2 class={`text-style-headline-1 ${styles.whatYoullNeedText}`}>
+		What you'll need
+	</h2>
+	<div class={styles.gridContainer}>
+		<div class={styles.gridItemContainer}>
+			<div class={`text-style-body-medium-bold ${styles.gridItem}`}>
+				<BookSvg aria-hidden={true} />
+				<span> Basic knowledge of CSS and JavaScript</span>
+			</div>
+			<div class={styles.helpfulLinkContainer}>
+				<p
+					class={`text-style-button ${styles.helpfulLinkGeneric} ${styles.helpfulLinks}`}
+				>
+					Helpful Links
+				</p>
+				<ul class={styles.helpfulLinksList}>
+					<li>
+						<a
+							class={`text-style-button ${styles.helpfulLinkGeneric}`}
+							target="_blank"
+							href="/posts/css-fundamentals"
+							><span class={styles.helpfulLinkLink}>The basics of CSS</span></a
+						>
+					</li>
+
+					<li>
+						<a
+							class={`text-style-button ${styles.helpfulLinkGeneric}`}
+							target="_blank"
+							href="/posts/understanding-the-dom"
+						>
+							<span class={styles.helpfulLinkLink}>How HTML works</span>
+						</a>
+					</li>
+
+					<li>
+						<a
+							class={`text-style-button ${styles.helpfulLinkGeneric}`}
+							target="_blank"
+							rel="nofollow noopener noreferrer"
+							href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Introduction"
+						>
+							<span class={styles.helpfulLinkLink}>A guide to JavaScript</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class={styles.gridItemContainer}>
+			<div class={`text-style-body-medium-bold ${styles.gridItem}`}>
+				<ToolsSvg aria-hidden={true} />
+				<span>An IDE that supports your framework of choice</span>
+			</div>
+			<div class={styles.helpfulLinkContainer}>
+				<p
+					class={`text-style-button ${styles.helpfulLinkGeneric} ${styles.helpfulLinks}`}
+				>
+					Helpful Links
+				</p>
+				<ul class={styles.helpfulLinksList}>
+					<li>
+						<a
+							class={`text-style-button ${styles.helpfulLinkGeneric}`}
+							href="/posts/how-to-use-npm"
+							target="_blank"
+						>
+							<span class={styles.helpfulLinkLink}>How to use NPM and Node</span
+							>
+						</a>
+					</li>
+					<li>
+						<a
+							class={`text-style-button ${styles.helpfulLinkGeneric}`}
+							href="https://code.visualstudio.com/docs/introvideos/basics"
+							target="_blank"
+							rel="nofollow noopener noreferrer"
+						>
+							<span class={styles.helpfulLinkLink}>How to use VSCode</span>
+						</a>
+					</li>
+					<li>
+						<a
+							class={`text-style-button ${styles.helpfulLinkGeneric}`}
+							href="/posts/web-framework-quickstart-guide"
+							target="_blank"
+						>
+							<span class={styles.helpfulLinkLink}>Code templates</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
