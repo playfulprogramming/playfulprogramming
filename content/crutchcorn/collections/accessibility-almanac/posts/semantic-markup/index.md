@@ -4,8 +4,7 @@
     description: "",
     published: '2026-01-01T22:12:03.284Z',
     tags: ['webdev', 'accessibility'],
-    order: 2,
-    collection: "accessibility-almanac"
+    order: 2
 }
 ---
 
@@ -39,7 +38,7 @@ While this may show the contents on screen, it's not the most readable code ther
 
 See, the HTML specification gives us a wide range of HTML elements we can use, each with their own meaning and intent behind them.
 
-A `ul` is an `unordered list`, while a `li` is a `list item`.
+> A `ul` is an `unordered list`, while a `li` is a `list item`.
 
 Not only does this help codebase readability, it helps immensely with accessibility and UX. For example, compare and contrast the two versions of HTML without any added CSS or JavaScript.
 

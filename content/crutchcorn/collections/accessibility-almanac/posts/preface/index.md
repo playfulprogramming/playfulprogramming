@@ -5,8 +5,7 @@
     published: '2026-01-01T22:12:03.284Z',
     tags: ['webdev', 'accessibility'],
     attached: [],
-    order: 1,
-    collection: "accessibility-almanac"
+    order: 1
 }
 ---
 
