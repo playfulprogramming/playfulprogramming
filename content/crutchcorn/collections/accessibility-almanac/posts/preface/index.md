@@ -2,7 +2,7 @@
 {
     title: "Preface",
     description: "",
-    published: '2025-01-01T22:12:03.284Z',
+    published: '2026-01-01T22:12:03.284Z',
     tags: ['webdev', 'accessibility'],
     attached: [],
     order: 1,
