@@ -138,7 +138,7 @@ Well, there's some major points I'd like to speak to:
 3) You may have a legal requirement to be accessible.
 4) Being accessible is the right thing to do.
 
-## 1. Accessibility leads to more users, and even more funds
+## Accessibility leads to more users, and even more funds
 
 If you build something, isn't there a certain draw to having as many people engage with it as possible?
 
@@ -154,7 +154,7 @@ Likewise, word of mouth can make a massive impact to custom success and growth. 
 
 Given all of this; It's no surprise that the classic verbiage of a product's success isn't "Gate away as many users as you can". Rather, a wise business person will make their doors as open as possible to new customers.
 
-## 2. Accessibility enhances the user experience for everyone
+## Accessibility enhances the user experience for everyone
 
 Are you sighted? Have you ever stepped outside from a dark interior to the bright outdoors and been unable to see momentarily?
 
@@ -203,7 +203,7 @@ Similarly, even if you're not disabled in any way, you may still take advantage 
 
 By making sure that your apps are accessible, you're making sure your users are being respected and taken care of, regardless of scenario.
 
-## 3. You may have a legal requirement to be accessible
+## You may have a legal requirement to be accessible
 
 Not only do you make money by making your tools accessible, but you may likely save money by dodging legal action against your company.
 
@@ -223,10 +223,24 @@ In the U.S. alone, there have been a wide range of cases where these laws have b
 
 From [Hilton being forced to pay a civil penalty of $50,000](https://www.justice.gov/opa/pr/justice-department-reaches-agreement-hilton-worldwide-inc-over-ada-violations-hilton-hotels), to [H&R Block paying a combined $145,000 to plaintiffs and civil penalties](https://www.justice.gov/opa/pr/justice-department-enters-consent-decree-national-tax-preparer-hr-block-requiring), to [a case brought against Target yielding $3.7 million dollars awarded to the plaintiffs](https://www.courtlistener.com/docket/4165835/214/national-federation-of-the-blind-v-target-corporation/), there are a swath of cases that have come forth in favor of ensuring an accessible web for all.
 
-## 4. Accessibility is the right thing to do
+## Accessibility is the right thing to do
 
 While the other points make for good business sense, ensuring our tools and products are accessible for as many people as possible is a moral imperative. 
 
 Unfair challenges against a specific group of people - intentional or not - impose frustration, heartache, and pain for those users. Even small pitfalls in their experience, which others may not have to deal with, add up to an immense mental toll, as users go from application to application and face similar difficulties. 
 
 Building products for human beings requires empathy, something best shown by fixing issues and enabling inclusion; all of which is within our capabilities as engineers.
+
+# How can I make my apps accessible?
+
+Making apps more accessible isn't a one-size fits all solution. While some may sell one-click solutions, such as "accessibility overlays", I can confidently say that at best they're snake-oil and at worst they can do more harm than doing nothing at all.
+
+> What am I to do instead?
+
+As with any other aspect of engineering, making sites available to more users in more friendly ways requires us to learn a bit about the structure of applications, the underlying APIs, and how to leverage them best.
+
+This resource aims to help you learn these tools and methods and apply them as you see fit.
+
+## What we're not learning
+
+Before we dive into 
