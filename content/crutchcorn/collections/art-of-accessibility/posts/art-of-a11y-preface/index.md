@@ -314,3 +314,19 @@ Let's refocus ourselves back onto **what we will be learning**:
   - Managing focus states
   - Styling focus behavior
   - Adding keyboard shortcuts
+- Handling mouse input
+  - Supporting different mouse events
+  - Accessible scroll animations
+  - Different cursor pointers
+- Interacting with dynamic content
+  - Animation support
+  - How to read live events out loud
+- Building interactive components
+  - Popovers
+  - Dialogs
+- Utilizing tooling
+  - Manual testing
+  - Debugging
+  - Automated testing
+
+Let's dive in!
