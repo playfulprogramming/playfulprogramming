@@ -3,7 +3,7 @@ import Barebones from "src/layouts/barebones.astro";
 
 import SEO from "src/components/seo/seo.astro";
 import Header from "src/views/collections/framework-field-guide/segments/header.astro";
-import Hero from "../../../views/collections/accessibility-almanac/segments/hero.astro";
+import Hero from "../../../views/collections/art-of-accessibility/segments/hero.astro";
 import { getPersonById } from "../../../utils/api";
 import { getPostsByCollection } from "../../../utils/api";
 
@@ -19,23 +19,23 @@ import "../../../views/collections/framework-field-guide/styles/svg-layers.css";
 import "../../../views/collections/framework-field-guide/tokens/forms.scss";
 import "../../../views/collections/framework-field-guide/tokens/sign-up.scss";
 
-import "../../../views/collections/accessibility-almanac/tokens/colors.scss";
-import "../../../views/collections/accessibility-almanac/styles/global-a11y.css";
-import Rest from "../../../views/collections/accessibility-almanac/segments/rest.astro";
+import "../../../views/collections/art-of-accessibility/tokens/colors.scss";
+import "../../../views/collections/art-of-accessibility/styles/global-a11y.css";
+import Rest from "../../../views/collections/art-of-accessibility/segments/rest.astro";
 import CollectionTableOfContents from "../../../views/collections/framework-field-guide-fundamentals/components/collection-table-of-contents-fundamentals.astro";
 
-const chapterList = getPostsByCollection("accessibility-almanac", "en");
+const chapterList = getPostsByCollection("art-of-accessibility", "en");
 ---
 
 <Barebones>
 	<SEO
 		slot="head"
-		title={"The Accessibility Almanac"}
+		title={"The Art of Accessibility"}
 		description={"Learn accessibility for modern web applications."}
 		peopleData={[getPersonById("crutchcorn", "en")]}
 		publishedTime={"2025-01-01T13:45:00.284Z"}
 		type={"book"}
-		shareImage={"/custom-content/collections/accessibility-almanac/accessibility_almanac_social.png"}
+		shareImage={"/custom-content/collections/art-of-accessibility/art_of_accessibility_social.png"}
 	/>
 	<Header />
 	<main>

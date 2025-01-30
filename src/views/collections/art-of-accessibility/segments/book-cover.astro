@@ -9,13 +9,17 @@ import { Floor } from "../cover-layers/floor";
 ---
 
 <style is:global>
-    .accessibility-book-cover .background-repeat-layer {
-        grid-template-columns: 1fr auto 1fr !important;
-    }
+	.accessibility-book-cover .background-repeat-layer {
+		grid-template-columns: 1fr auto 1fr !important;
+	}
 </style>
 
 <BookCoverContainer class="accessibility-book-cover">
-	<BookCoverLayer moveOnScrollBy={0.3} name="cityscape" class="background-repeat-layer">
+	<BookCoverLayer
+		moveOnScrollBy={0.3}
+		name="cityscape"
+		class="background-repeat-layer"
+	>
 		<div slot="left"></div>
 		<div slot="center" style="height: 100%; width: 100vw !important">
 			<Cityscape client:load />
