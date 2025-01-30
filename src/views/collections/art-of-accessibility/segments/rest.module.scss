@@ -3,12 +3,6 @@
   color: white;
 }
 
-.innerContainer {
-  max-width: var(--max-width_small);
-  margin: 0 auto;
-  text-align: center;
-}
-
 :global(.book-section) {
   --outline_focused: white;
 }

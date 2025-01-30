@@ -8,7 +8,6 @@ const shuffle = <T extends ReadonlyArray<unknown>>(arr: T): T =>
 
 const MAX_DURATION = 56000 * 2;
 const MIN_DURATION = 56000;
-const ROWS = 3;
 const TAGS_PER_ROW = 10;
 
 export type TagList = Readonly<FixedArray<string, 30>>;
@@ -16,18 +15,22 @@ export type TagList = Readonly<FixedArray<string, 30>>;
 interface ChipGroupProps {
 	tags: TagList;
 	ariaLabel: string;
+	rows?: number;
 }
 
-const { tags, ariaLabel } = Astro.props as ChipGroupProps;
+const { tags, ariaLabel, rows } = Astro.props as ChipGroupProps;
+const ROWS = rows ?? 3;
 const SHUFFLED_TAGS = shuffle(tags);
 const tagTable = [...new Array(ROWS)].map((_, i) =>
 	SHUFFLED_TAGS.slice(TAGS_PER_ROW * i, TAGS_PER_ROW * (i + 1)),
 );
+
+const uniqueTags = Array.from(new Set(tagTable.flat()));
 ---
 
 <div class="chip-group-container">
 	<ul aria-label={ariaLabel} class="srOnly">
-		{tags.map((tag) => <li>{tag}</li>)}
+		{uniqueTags.map((tag) => <li>{tag}</li>)}
 	</ul>
 	<ul class="tag-list" aria-hidden={true}>
 		{
