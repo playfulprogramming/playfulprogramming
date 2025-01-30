@@ -1,6 +1,16 @@
 @use "src/tokens/index" as *;
 @use "../text-styles.scss";
 
+
+html.dark,
+body.dark,
+.darkTheme {
+	&,
+	& ::backdrop {
+		--invertOnDarkOnly: invert(1);
+	}
+}
+
 :where(a) {
 	color: var(--primary_default);
 }
