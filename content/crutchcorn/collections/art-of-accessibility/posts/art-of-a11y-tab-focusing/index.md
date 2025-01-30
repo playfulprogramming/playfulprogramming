@@ -1,7 +1,7 @@
 ---
 {
     title: "Tab Focusing",
-    description: "",
+    description: "TODO: Change",
     published: '2026-01-01T22:12:03.284Z',
     tags: ['webdev', 'accessibility'],
     order: 4
