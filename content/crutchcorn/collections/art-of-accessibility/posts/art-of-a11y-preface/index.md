@@ -243,4 +243,17 @@ This resource aims to help you learn these tools and methods and apply them as y
 
 ## What we're not learning
 
-Before we dive into 
+Before we dive into the contents of this book, I'm a firm believer that it's just as important to know what we _won't_ be covering as it is what we _will_ be learning.
+
+In "The Art of Accessibility", we _will not_ be learning the following:
+
+- How to graphically design things
+- How to navigate corporate systems to solve accessibility problems
+- General programming guidance
+
+While there is absolutely value to each of these, removing them from our prevue enables us to stay focused on the implementation details of common in-app accessibility patterns. There's one last thing:
+
+**This book is far from everything there is to know about accessibility**. You should use this book as a jumping off point for further research and improvement, not as the de-facto guide of making a site or app accessible.
+
+## Content outline
+
