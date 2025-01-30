@@ -175,27 +175,27 @@ As [Microsoft's Inclusive Toolkit](https://download.microsoft.com/download/b/0/d
 	</tr>
 	<tr>
 		<th scope="row">Touch</th>
-		<td><img src="./one_arm.svg" style="height: 200px"/><br/>One arm</td>
-		<td><img src="./arm_injury.svg" style="height: 200px"/><br/>Arm injury</td>
-		<td><img src="./new_parent.svg" style="height: 200px"/><br/>New parent</td>
+		<td><img role="img" alt="Someone with one arm" src="./one_arm.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>One arm</td>
+		<td><img role="img" alt="Someone with an arm in a sling" src="./arm_injury.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>Arm injury</td>
+		<td><img role="img" alt="Someone holding a baby" src="./new_parent.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>New parent</td>
 	</tr>
 	<tr>
 		<th scope="row">Sight</th>
-		<td><img src="./blind.svg" style="height: 200px"/><br/>Blind</td>
-		<td><img src="./cataract.svg" style="height: 200px"/><br/>Cataract</td>
-		<td><img src="./distracted_driver.svg" style="height: 200px"/><br/>Distracted driver</td>
+		<td><img role="img" alt="Someone wearing dark eyewear with a dog and a cane" src="./blind.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>Blind</td>
+		<td><img role="img" alt="Someone with eye protection and a cane" src="./cataract.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>Cataract</td>
+		<td><img role="img" alt="Someone driving a car with their head turned" src="./distracted_driver.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>Distracted driver</td>
 	</tr>
 	<tr>
 		<th scope="row">Hearing</th>
-		<td><img src="./deaf.svg" style="height: 200px"/><br/>Deaf</td>
-		<td><img src="./ear_infection.svg" style="height: 200px"/><br/>Ear infection</td>
-		<td><img src="./bartender.svg" style="height: 200px"/><br/>Bartender</td>
+		<td><img role="img" alt="Someone standing" src="./deaf.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>Deaf</td>
+		<td><img role="img" alt="Someone standing with their ear highlighted" src="./ear_infection.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>Ear infection</td>
+		<td><img role="img" alt="Someone with a drink shaker and sound waves aimed at their head" src="./bartender.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>Bartender</td>
 	</tr>
 	<tr>
 		<th scope="row">Speaking</th>
-		<td><img src="./non_verbal.svg" style="height: 200px"/><br/>Non-verbal</td>
-		<td><img src="./laryngitis.svg" style="height: 200px"/><br/>Laryngitis</td>
-		<td><img src="./heavy_accent.svg" style="height: 200px"/><br/>Heavy accent</td>
+		<td><img role="img" alt="Someone standing" src="./non_verbal.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>Non-verbal</td>
+		<td><img role="img" alt="Someone standing" src="./laryngitis.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>Laryngitis</td>
+		<td><img role="img" alt="Someone standing in viking gear" src="./heavy_accent.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>Heavy accent</td>
 	</tr>
 </table>
 
