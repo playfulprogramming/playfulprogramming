@@ -164,7 +164,7 @@ If so, you've experienced a situational disability; one that an applications wit
 
 That bar example? A vibration motor could help you notice receiving a phone call.
 
-As [Microsoft's Inclusive Toolkit](https://download.microsoft.com/download/b/0/d/b0d4bf87-09ce-4417-8f28-d60703d672ed/inclusive_toolkit_manual_final.pdf) points out, there are a myriad of these scenarios that could lead someone to use assistive technologies. Here's a few they were able to mention in the toolkit specifically:
+As [Microsoft's Inclusive Design group](https://inclusive.microsoft.design/) points out, there are a myriad of these scenarios that could lead someone to use assistive technologies. Here's a few they were able to mention in the toolkit specifically:
 
 <table>
 	<tr>
@@ -198,6 +198,7 @@ As [Microsoft's Inclusive Toolkit](https://download.microsoft.com/download/b/0/d
 		<td><img role="img" alt="Someone standing in viking gear" src="./heavy_accent.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>Heavy accent</td>
 	</tr>
 </table>
+> [Graphics courtesy of Microsoft via their Inclusive Toolkit PDF](https://download.microsoft.com/download/b/0/d/b0d4bf87-09ce-4417-8f28-d60703d672ed/inclusive_toolkit_manual_final.pdf).
 
 Similarly, even if you're not disabled in any way, you may still take advantage of accessibility features. Take keyboard navigation, for example; many power users of their machines don't take their fingers off of their keyboard row for many reasons.
 
@@ -223,13 +224,48 @@ In the U.S. alone, there have been a wide range of cases where these laws have b
 
 From [Hilton being forced to pay a civil penalty of $50,000](https://www.justice.gov/opa/pr/justice-department-reaches-agreement-hilton-worldwide-inc-over-ada-violations-hilton-hotels), to [H&R Block paying a combined $145,000 to plaintiffs and civil penalties](https://www.justice.gov/opa/pr/justice-department-enters-consent-decree-national-tax-preparer-hr-block-requiring), to [a case brought against Target yielding $3.7 million dollars awarded to the plaintiffs](https://www.courtlistener.com/docket/4165835/214/national-federation-of-the-blind-v-target-corporation/), there are a swath of cases that have come forth in favor of ensuring an accessible web for all.
 
-## Accessibility is the right thing to do
+# Who determines what's accessible?
 
-While the other points make for good business sense, ensuring our tools and products are accessible for as many people as possible is a moral imperative. 
+Accessibility is an component of user experience (UX) design. While some avenues of UX feel standardized today, ask 30 people how they want their interfaces to behave and you might get 30 different answers.
 
-Unfair challenges against a specific group of people - intentional or not - impose frustration, heartache, and pain for those users. Even small pitfalls in their experience, which others may not have to deal with, add up to an immense mental toll, as users go from application to application and face similar difficulties. 
+This isn't to say that it's a _total_ free-for-all, however. Even visual elements of apps can be tested to demonstrate better or worse outcomes consistently through user research.
 
-Building products for human beings requires empathy, something best shown by fixing issues and enabling inclusion; all of which is within our capabilities as engineers.
+While larger organizations may host their own user research at broad scales to figure out what's optimal, 
+
+Luckily for all of us, there's a standards body that aims to bring much of this user research to a generalized consensus via the **["Web Accessibility Initiative" (WAI)](https://www.w3.org/WAI/)** from **["The World Wide Web Consortium" (W3C)](https://www.w3.org/)**.
+
+You may know the work of the W3C as the stewards of the HTML and CSS standards through the HTML Working Group (HTMLWG) and CSS Working Group (CSSWG) respectively.
+
+However, you may not be familiar with their work in the accessibility space which is conducted through the WIA group. WIA is comprised of accessibility experts and professionals, organizations representing people with disabilities, policy makers, and more. Together, they publish the "Web Content Accessibility Guidelines" (WGAC), which acts as the de-facto guidelines for what makes a project more or less accessible.
+
+The WGAC guidelines may see revisions and improvements through different version numbers - for example, this book aims to conform to the guidance of WCAG 2.2 - but the general goal remains consistent: Help developers and organizations figure out what the best practices are for their apps' UX.
+
+## Different levels of compliance
+
+Humans come in many shapes and sizes, both literally as well as metaphorically. This diversity allows us to have fresh perspectives and ideas that innovate in every facet of life, but it also introduces a high level of permutations in which a user is able to interact with our software.
+
+Similarly, this variation of engagement allows all walks of life to interface with their machines; from newcomers who might hover over every icon to see its meaning, to skilled hackers skipping entire interaction types by never lifting their fingers from their keyboard.
+
+But this variety doesn't come for free. For each unique combination of user behavior, we need to:
+
+- Implement the baseline functionality's needs
+- Test our software against it
+- Edge-case against and fix bugs
+
+And more.
+
+How can we prioritize which features of accessibility we should start on? How can we balance effort against the impact a set of functionality will provide?
+
+Intro: **WCAG Conformance Levels**.
+
+WCAG Conformance Levels are broken into three different categories:
+
+- **A**: The most basic level of WCAG conformance comprising of a set of guidelines to follow. Without these guidelines met, many of your users may face a barrier preventing them from interacting with your work.
+  - EG: Descriptive text for images for non-sighted users, keyboard navigation, and accessible forms.
+- **AA**: Includes all of "A" level rules. May impact the "look and feel" of the site, but provides additional value to all users.
+  - EG: Basic color contrast for visually impaired users, text resizing support, headings level structure.
+- **AAA**: The highest level of WCAG conformance which includes all of "A" and "AA" level rules as well as its own. May furtherly constrain the "look and feel" of the site, but provides the most value to many users.
+  - EG: More rigorous contrast requirements, sign language for live video.
 
 # How can I make my apps accessible?
 
@@ -257,3 +293,25 @@ While there is absolutely value to each of these, removing them from our prevue 
 
 ## Content outline
 
+Let's refocus ourselves back onto **what we will be learning**:
+
+<!-- // TODO: add links to chapters as they are written --> 
+
+- What "Semantic markup" is
+  - Why you shouldn't use `div`s everywhere
+  - What "Accessible Rich Internet Applications" (ARIA) attributes are
+  - How to use `roles` responsibly
+- How to manage text properly
+  - AA vs AAA contrast differences
+  - Allow user-managed text scaling
+  - Managing heading maps properly
+  - Enabling component tag overrides
+- Making `input` labels more accessible
+  - Implicit and explicit element association
+  - Problems with placeholders
+  - Using "Universally Unique Identifier"s (UUID)
+- Managing focus states
+  - Styling focus behavior
+  - Explicit `tabindex` controls
+  - Using `HTMLElement.focus()`
+- TODO: Write more
