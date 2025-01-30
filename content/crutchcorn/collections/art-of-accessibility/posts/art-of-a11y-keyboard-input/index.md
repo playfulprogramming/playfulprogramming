@@ -1,6 +1,6 @@
 ---
 {
-    title: "Tab Focusing",
+    title: "Keyboard Input",
     description: "TODO: Change",
     published: '2026-01-01T22:12:03.284Z',
     tags: ['webdev', 'accessibility'],
@@ -8,13 +8,25 @@
 }
 ---
 
+# Keyboard Shortcuts
+
+// TODO: `del` to remove file
+
+## Multi-key shortcuts
+
+// TODO: Ctrl + S
+
+// TODO: "Going above and beyond": Adding global shortcuts and cheat-sheets
+
+# Focus Management
+
 We've discussed before how imperative it is to enable your users to be able to navigate your site using their keyboard alone. To do this, we need to make sure that they can properly <kbd>Tab</kbd> throughout the elements on your screen.
 
 But how does the user know what element is focused? How does the browser know which element to focus next? How can we build a nicer user experience using insights to the previous two questions? 
 
 Let's answer each of these questions, starting with...
 
-# Outline Styles
+## Outline Styles
 
 Let's try an experiment.
 
@@ -37,7 +49,7 @@ This is a common "trick" used by many engineers in order to avoid having the blu
 
 This is why the accessibility community has been fairly prescriptive with usage of `outline`: "Never use `outline: none` unless you know what you're doing."
 
-## Creating custom outline states
+### Creating custom outline states
 
 Just because the rule of thumb is to not use `outline: none` without good cause doesn't mean we can't ever customize our focus outline. While the browser's default focus outline is typically a blue outline, what if our page has primarily green colors as part of its brand and we wanted our focus states to match?
 
@@ -155,7 +167,7 @@ Let's see if it's fixed the issue with our button annnnd...
 
 It has! 🎉 Hooray!
 
-# `tabindex` Handling
+## `tabindex` Handling
 
 Let's loop back to the core theme of this chapter: Keyboard navigation is key for accessibility on your site. 
 
@@ -221,11 +233,11 @@ A `tabindex` value of `0` allows a user to tab to an element, regardless of elem
 >
 > [To learn more about acceptable usage of `tabindex`, check out this article by the A11Y Project](https://www.a11yproject.com/posts/how-to-use-the-tabindex-attribute/#scrollable-overflow-containers).
 
-## Positive `tabindex`
+### Positive `tabindex`
 
 // TODO: Write "NO, don't do"
 
-# Element Reference `focus()`
+## Element Reference `focus()`
 
 // TODO: Use `ref` to `focus` an element
 
