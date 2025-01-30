@@ -22,7 +22,8 @@ import "../../../views/collections/framework-field-guide/tokens/sign-up.scss";
 import "../../../views/collections/art-of-accessibility/tokens/colors.scss";
 import "../../../views/collections/art-of-accessibility/styles/global-a11y.css";
 import Rest from "../../../views/collections/art-of-accessibility/segments/rest.astro";
-import Contents from "../../../views/collections/art-of-accessibility/segments/contents.astro";
+import TopContents from "../../../views/collections/art-of-accessibility/segments/top-contents.astro";
+import BottomContents from "../../../views/collections/art-of-accessibility/segments/bottom-contents.astro";
 import CollectionTableOfContents from "../../../views/collections/framework-field-guide-fundamentals/components/collection-table-of-contents-fundamentals.astro";
 
 const collection = getCollectionBySlug("art-of-accessibility", "en");
@@ -43,15 +44,13 @@ const chapterList = getPostsByCollection("art-of-accessibility", "en");
 	<main>
 		<Hero />
 		<Rest>
-			<Contents />
+			<TopContents />
 			<CollectionTableOfContents
 				chaptersToShow={5}
 				chapterList={collection!.chapterList}
 				posts={chapterList}
 			/>
-			<p class="text-style-body-large-bold section-disclaimer">
-				*This book’s contents are subject to change
-			</p>
+			<BottomContents />
 		</Rest>
 	</main>
 </Barebones>
