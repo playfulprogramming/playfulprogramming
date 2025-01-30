@@ -175,27 +175,27 @@ As [Microsoft's Inclusive Toolkit](https://download.microsoft.com/download/b/0/d
 	</tr>
 	<tr>
 		<th scope="row">Touch</th>
-		<td><img src="./one_arm.png" style="height: 200px"/><br/>One arm</td>
-		<td><img src="./arm_injury.png" style="height: 200px"/><br/>Arm injury</td>
-		<td><img src="./new_parent.png" style="height: 200px"/><br/>New parent</td>
+		<td><img src="./one_arm.svg" style="height: 200px"/><br/>One arm</td>
+		<td><img src="./arm_injury.svg" style="height: 200px"/><br/>Arm injury</td>
+		<td><img src="./new_parent.svg" style="height: 200px"/><br/>New parent</td>
 	</tr>
 	<tr>
 		<th scope="row">Sight</th>
-		<td><img src="./blind.png" style="height: 200px"/><br/>Blind</td>
-		<td><img src="./cataract.png" style="height: 200px"/><br/>Cataract</td>
-		<td><img src="./distracted_driver.png" style="height: 200px"/><br/>Distracted driver</td>
+		<td><img src="./blind.svg" style="height: 200px"/><br/>Blind</td>
+		<td><img src="./cataract.svg" style="height: 200px"/><br/>Cataract</td>
+		<td><img src="./distracted_driver.svg" style="height: 200px"/><br/>Distracted driver</td>
 	</tr>
 	<tr>
 		<th scope="row">Hearing</th>
-		<td><img src="./deaf.png" style="height: 200px"/><br/>Deaf</td>
-		<td><img src="./ear_infection.png" style="height: 200px"/><br/>Ear infection</td>
-		<td><img src="./bartender.png" style="height: 200px"/><br/>Bartender</td>
+		<td><img src="./deaf.svg" style="height: 200px"/><br/>Deaf</td>
+		<td><img src="./ear_infection.svg" style="height: 200px"/><br/>Ear infection</td>
+		<td><img src="./bartender.svg" style="height: 200px"/><br/>Bartender</td>
 	</tr>
 	<tr>
 		<th scope="row">Speaking</th>
-		<td><img src="./non_verbal.png" style="height: 200px"/><br/>Non-verbal</td>
-		<td><img src="./laryngitis.png" style="height: 200px"/><br/>Laryngitis</td>
-		<td><img src="./heavy_accent.png" style="height: 200px"/><br/>Heavy accent</td>
+		<td><img src="./non_verbal.svg" style="height: 200px"/><br/>Non-verbal</td>
+		<td><img src="./laryngitis.svg" style="height: 200px"/><br/>Laryngitis</td>
+		<td><img src="./heavy_accent.svg" style="height: 200px"/><br/>Heavy accent</td>
 	</tr>
 </table>
 
