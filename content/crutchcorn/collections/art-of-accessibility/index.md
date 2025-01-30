@@ -1,12 +1,12 @@
 ---
 {
-  title: "The Accessibility Almanac",
+  title: "The Art of Accessibility",
   description:
     "Learn accessibility for modern web applications.",
   coverImg:
-    "/custom-content/collections/accessibility-almanac/cover.png",
+    "/custom-content/collections/art-of-accessibility/cover.png",
   socialImg:
-    "/custom-content/collections/framework-field-guide-fundamentals/framework_field_guide_fundamentals_social.png",
+    "/custom-content/collections/art-of-accessibility/art_of_accessibility_social.png",
   type: "book",
   tags: ["webdev", "accessibility"],
   published: "2026-01-01T13:45:00.284Z",
