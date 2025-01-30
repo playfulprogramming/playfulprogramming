@@ -231,9 +231,9 @@ A `tabindex` value of `0` allows a user to tab to an element, regardless of elem
 
 # Adding in Keyboard Interactions to Our Tab Component
 
-Let's [think back to the tab component we built in the "Semantic Markup" chapter](/posts/semantic-markup). 
+Let's [think back to the tab component we built in the "Semantic Markup" chapter](/posts/art-of-a11y-semantic-markup). 
 
-![// TODO: Write alt](../semantic-markup/styled_tabs.png)
+![// TODO: Write alt](../art-of-a11y-semantic-markup/styled_tabs.png)
 
 <!-- tabs:start -->
 
