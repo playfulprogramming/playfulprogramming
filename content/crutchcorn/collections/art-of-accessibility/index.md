@@ -12,5 +12,12 @@
   published: "2026-01-01T13:45:00.284Z",
   buttons: [],
   pageLayout: "none",
+  chapterList: [
+    {
+      order: '?',
+      title: "Coming soon...",
+      description: "",
+    },
+  ],
 }
 ---

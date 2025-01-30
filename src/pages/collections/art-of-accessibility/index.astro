@@ -4,7 +4,7 @@ import Barebones from "src/layouts/barebones.astro";
 import SEO from "src/components/seo/seo.astro";
 import Header from "src/views/collections/framework-field-guide/segments/header.astro";
 import Hero from "../../../views/collections/art-of-accessibility/segments/hero.astro";
-import { getPersonById } from "../../../utils/api";
+import { getCollectionBySlug, getPersonById } from "../../../utils/api";
 import { getPostsByCollection } from "../../../utils/api";
 
 import "../../../views/collections/framework-field-guide/fonts/plus-jakarta-sans.css";
@@ -24,6 +24,7 @@ import "../../../views/collections/art-of-accessibility/styles/global-a11y.css";
 import Rest from "../../../views/collections/art-of-accessibility/segments/rest.astro";
 import CollectionTableOfContents from "../../../views/collections/framework-field-guide-fundamentals/components/collection-table-of-contents-fundamentals.astro";
 
+const collection = getCollectionBySlug("art-of-accessibility", "en");
 const chapterList = getPostsByCollection("art-of-accessibility", "en");
 ---
 
@@ -41,7 +42,11 @@ const chapterList = getPostsByCollection("art-of-accessibility", "en");
 	<main>
 		<Hero />
 		<Rest>
-			<CollectionTableOfContents posts={chapterList} />
+			<CollectionTableOfContents
+				chaptersToShow={5}
+				chapterList={collection!.chapterList}
+				posts={chapterList}
+			/>
 		</Rest>
 	</main>
 </Barebones>

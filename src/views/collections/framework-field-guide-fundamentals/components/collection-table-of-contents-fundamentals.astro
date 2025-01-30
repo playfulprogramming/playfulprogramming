@@ -1,14 +1,18 @@
 ---
 import { PostInfo } from "../../../../types/PostInfo";
 import styles from "./collection-table-of-contents-fundamentals.module.scss";
+import { ChapterList } from "../../../../types";
 
 interface CollectionTableOfContentsProps {
 	posts: PostInfo[];
+	chapterList?: ChapterList[];
+	chaptersToShow?: number;
 }
 
-const { posts } = Astro.props as CollectionTableOfContentsProps;
+const { posts, chapterList, chaptersToShow } =
+	Astro.props as CollectionTableOfContentsProps;
 
-const maxChapterToShow = 10;
+const maxChapterToShow = chaptersToShow ?? 10;
 ---
 
 <section class={styles.chaptersContainer}>
@@ -52,6 +56,36 @@ const maxChapterToShow = 10;
 					);
 				})
 		}
+		{
+			chapterList &&
+				chapterList.map((post, _i) => {
+					const i = (posts?.length ?? 0) + _i;
+					const shouldHideInitially = i >= maxChapterToShow;
+					const isLastVisible = i === maxChapterToShow - 1;
+					const isNumber = /\d/.test(post.order);
+					return (
+						<li
+							class={styles.postContainer}
+							data-is-last-visible={isLastVisible}
+							data-should-hide={shouldHideInitially}
+						>
+							<p class={styles.listItem}>
+								<span
+									class={`text-style-body-large-bold ${styles.numberIndicator}`}
+								>
+									{post.order}
+								</span>
+								<span class={`text-style-body-large-bold ${styles.numberDot}`}>
+									{isNumber ? "." : " "}
+								</span>
+								<span class={`text-style-body-large-bold ${styles.postTitle}`}>
+									{post.title}
+								</span>
+							</p>
+						</li>
+					);
+				})
+		}
 	</ul>
 	<script is:inline>
 		let shown = false;
@@ -81,14 +115,14 @@ const maxChapterToShow = 10;
 			class="text-style-button ffg-button-base ffg-small-button ffg-outlined-button"
 			style="display: inline-block"
 			onclick="toggleChapterList();"
-			>Show all {posts.length} chapters
+			>Show all {(posts?.length ?? 0) + (chapterList?.length ?? 0)} chapters
 		</button>
 		<button
 			id="hide-button"
 			class="text-style-button ffg-button-base ffg-small-button ffg-outlined-button"
 			style="display: none"
 			onclick="toggleChapterList();"
-			>Only show 10 chapters
+			>Only show {maxChapterToShow} chapters
 		</button>
 	</div>
 </section>
