@@ -310,8 +310,7 @@ Let's refocus ourselves back onto **what we will be learning**:
   - Implicit and explicit element association
   - Problems with placeholders
   - Using "Universally Unique Identifier"s (UUID)
-- Managing focus states
+- Handling keyboard input
+  - Managing focus states
   - Styling focus behavior
-  - Explicit `tabindex` controls
-  - Using `HTMLElement.focus()`
-- TODO: Write more
+  - Adding keyboard shortcuts
