@@ -18,9 +18,9 @@ Como já foi mencionado antes, nós também temos um Discord onde falamos sobre 
 
 ---
 
-## Who are we? {#board}
+## Quem somos nós? {#board}
 
-While the broader Playful Programming project is comprised from [many wonderful contributors](/join-us#contributors), the non-profit corporation of Playful Programming currently has seven board members, who are listed below:
+Enquanto o projeto Playful Programming é composto de [vários contribuidores incríveis](/join-us#contributors), a corporação sem fins lucrativos de Playful Programming atualmente contém sete membros de conselho, que estão listados abaixo:
 
 <!-- split -->
 
