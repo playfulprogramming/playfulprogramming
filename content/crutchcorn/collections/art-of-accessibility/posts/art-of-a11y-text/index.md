@@ -93,11 +93,32 @@ This, in turn, is exposed to our site's CSS through [the `prefers-contrast` medi
 }
 ```
 
-### Contract Detection Demo
+-----
 
-// TODO: Write code sample
+We can even use JavaScript to detect this media query from inside of our runtime code:
 
-​	
+```javascript
+// Use JS to detect the user's preference for contrast
+const mediaQuery = window.matchMedia("(prefers-contrast: more)");
+
+function changeText(matches) {
+	if (matches) {
+		el.textContent = "The user prefers more contrast";
+	} else {
+		el.textContent = "The user has not specified a preference for contrast";
+	}
+}
+
+// To check the initial value:
+changeText(mediaQuery.matches);
+
+// To listen for changes:
+mediaQuery.addEventListener("change", (e) => {
+	changeText(e.matches);
+});
+```
+
+<iframe data-frame-title="HTML CSS Detection - StackBlitz" src="pfp-code:./art-of-a11y-html-contrast-detection-2?embed=1&file=src/main.js" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 -------------
 
