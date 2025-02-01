@@ -238,9 +238,9 @@ Luckily for all of us, there's a standards body that aims to bring much of this 
 
 You may know the work of the W3C as the stewards of the HTML and CSS standards through the HTML Working Group (HTMLWG) and CSS Working Group (CSSWG) respectively.
 
-However, you may not be familiar with their work in the accessibility space which is conducted through the WIA group. WIA is comprised of accessibility experts and professionals, organizations representing people with disabilities, policy makers, and more. Together, they publish the "Web Content Accessibility Guidelines" (WGAC), which acts as the de-facto guidelines for what makes a project more or less accessible.
+However, you may not be familiar with their work in the accessibility space which is conducted through the WIA group. WIA is comprised of accessibility experts and professionals, organizations representing people with disabilities, policy makers, and more. Together, they publish the **"Web Content Accessibility Guidelines" (WCAG)**, which acts as the de-facto guidelines for what makes a project more or less accessible.
 
-The WGAC guidelines may see revisions and improvements through different version numbers - for example, this book aims to conform to the guidance of WCAG 2.2 - but the general goal remains consistent: Help developers and organizations figure out what the best practices are for their apps' UX.
+The WCAG guidelines may see revisions and improvements through different version numbers - for example, this book aims to conform to the guidance of WCAG 2.2 - but the general goal remains consistent: Help developers and organizations figure out what the best practices are for their apps' UX.
 
 ## Different levels of compliance
 
