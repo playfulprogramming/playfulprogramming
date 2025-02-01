@@ -170,13 +170,31 @@ Here, we're using `rem` to tell our `<p>` element that "regardless of the size o
 
 > While [we have a guide that explains `em` and `rem` in more depth](https://playfulprogramming.com/posts/web-fundamentals-css), the gist of it is that `em` should be used when you want to position an element's `font-size` relative to its parent, while `rem` should be used for any absolute value of `font-size`.
 
+
+
+Keep in mind that any kind of user-facing font resizing will break if you set a `font-size` `px` value on and of the following CSS selectors:
+
+- `:root`
+- `html`
+- `body`
+
+To preserve user-facing font-sizing, you should be keeping all font-values as either `rem` or, in specific usages, `em`.
+
+
 ## Browser Behaviors
 
 > Why does this matter? `px` seems to work fine to me.
 
 Let's do an experiment:
 
-// TODO: Show browser resizing controls and show this page again
+- Open your browser
+- Find your settings
+  - [In Chrome, this is a deep-link to the right page](chrome://settings/appearance)
+  - [In Firefox, this is a link to your settings](about:preferences)
+- Change your font size to either "Very large" (Chrome) or "72" (Firefox)
+  - ![TODO: Add alt](./firefox_font_settings.png)
+  - ![TODO: Add alt](./chrome_font_settings.png)
+- Come back to this page and see how the following text sizes change
 
 ----
 
@@ -188,17 +206,33 @@ Let's do an experiment:
 
 ----
 
-
-
-<br/><br/><br/><br/><br/>
-
-
+> If the top and bottom font sizes are the same, try changing the `Font size` again, but this time to the lowest setting. Does it look different then?
 
 Imagine being stuck with the earlier `This is very small text` font size for every page you land on. If you're using `px` for font sizing, that's exactly how many of your users will end up feeling.
 
+By default, _most_ browsers have their `font-size` set to roughly `16px`, so if it helps you to think about relative sizing; you can approximate your `rem` values as multiplications of that `font-size` value (where `1.25rem` is ~`20px`).
 
+### OS Behaviors
 
--------------
+This text sizing behavior doesn't _just_ occur on desktop, nor does it only occur in the browser. Many users will have this text resizing behavior occur because they set it up during the initial configuration of their phone's set up:
+
+<div style="display: flex; justify-content: space-around">
+    <figure>
+		<img src="./ios_text_size.png"/>            
+        <figcaption>
+            iOS font size settings screen
+        </figcaption>
+    </figure>
+    <figure>
+        <img src="./android_text_size.png"/>
+        <figcaption>
+            Android font size settings screen
+        </figcaption>
+    </figure>
+</div>
+
+In fact, this may be the most common way your user is establishing their font sizes for your site usage.
+
 
 -------------
 
