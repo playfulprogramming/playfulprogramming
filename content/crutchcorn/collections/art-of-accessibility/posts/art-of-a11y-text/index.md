@@ -70,9 +70,55 @@ Or manually, using various tools such as [WebAIM's Color Contrast Checker](https
 
 ![TODO: Write alt](./webaim_checker.png)
 
-- Color contrast
-  - AA vs AAA
-    - [Detection](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast)
+## CSS Detection
+
+When comparing AA to AAA compliance, a common qualm lodged against AAA is that its contrast requirements feel too constrictive for a site's "look and feel" compared to AA's easier compliance ratios.
+
+Luckily, there are ways we can have both!
+
+Users are able to opt into an operating system's "high contrast" mode, which will notify the browser to follow in suit.
+
+![TODO: Write alt](./windows_11_high_contrast.png)
+
+// TODO: Get the high contrast mode screenshot from macOS
+
+This, in turn, is exposed to our site's CSS through [the `prefers-contrast` media query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast) :
+
+```css
+@media (prefers-contrast: more) {
+  .contrast {
+    color: black;
+    background: #f0efef;
+  }
+}
+```
+
+### Contract Detection Demo
+
+// TODO: Write code sample
+
+​	
+
+-------------
+
+-------------
+
+-------------
+
+-------------
+
+-------------
+
+-------------
+
+-------------
+
+-------------
+
+-------------
+
+
+
 - `rem` vs `px`
   - Show browser resizing	
   - Usage with `vh` and such
