@@ -247,7 +247,7 @@ Let's [think back to the tab component we built in the "Semantic Markup" chapter
 
 ![// TODO: Write alt](../art-of-a11y-semantic-markup/styled_tabs.png)
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -398,7 +398,7 @@ function setActiveTab(val) {
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 While this component's _markup_ might be fairly accessible, as a whole it's missing a few things.
 
@@ -465,7 +465,7 @@ Lastly, let's clamp the users navigation input. This means both that:
 
 Alright! Let's get to coding:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -695,4 +695,4 @@ function onKeyDown(i) {
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
