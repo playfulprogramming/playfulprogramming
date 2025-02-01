@@ -143,22 +143,32 @@ Combined, these steps will output the expected DOM results.
 
 # Angular, the tree
 
-> Within the static structure of a view, you can have "containers" - places where other views can be inserted and removed. They're represented in the static structure by an anchor node (usually a comment node).
+The compiler isn't the only trick Angular has up its sleeve to get things working as we'd expect, though. Angular also creates a tree to represent our DOM nodes:
+
+![TODO: Write alt](../../collections/angular-internals/posts/angular-templates-start-to-source/hierarchy_tree_example.svg)
+
+Here, a `View Container` represents any place where elements can be dynamically added or removed.
+
+> [You can learn more about Views, View Containers, and templates in this article I wrote a while back](https://playfulprogramming.com/posts/angular-templates-start-to-source).
+
+These View Containers are often represented in the DOM by using an anchor node (typically a [`Comment` node](https://developer.mozilla.org/en-US/docs/Web/API/Comment)) and help facilitate Angular's instruction set to manipulate surrounding elements.
+
+Two other examples where this occurs are:
+
+- Control flow syntax blocks (like `@for` and `@if`)
+- Structural directives (`*ngElementNameOutlet`)
+
+# Angular, the runtime
+
+By now, it might be clear that Angular's runtime - while technically impressive and sound - is minimal after the compiler's done with its job.
+
+To handwave a bit (or maybe more than "a bit"); Angular handles a flag to tell the runtime when to update the DOM in a given `render flag` stage, it executes the relevant component functions, then your UI is updated.
+
+This is all to say _"Angular has minimal control over how to create or update original DOM structures once it's hit the browser"_. Once it's past the compilation stage, **the most Angular is capable of doing is creating a single DOM node that's not part of the existing template blueprint function** from the compiler output.
+
+> This is partially how Angular is able to keep such slim and expedient runtimes; it has lower required overhead because it doesn't need to handle arbitrary DOM manipulation and can rely on persistent blueprints of your template to execute as needed.
 >
-> So `@for` for example declares a container into which one or more instances of a repeated view will be inserted
->
-> Which gives the mystical `ViewContainerRef` its name - a reference to a container for views 🙂
+> This is also why the Angular team has been hesitant to roll out JSX as an authoring format for Angular; it's not a good fit as JSX's templating is intended to allow for dynamic transformation at runtime.
 
-https://playfulprogramming.com/posts/angular-templates-start-to-source
+In order for there to be some kind of `as` casting API akin to an imaginary API of `*ngElementNameOutlet="tag"`, we'd need a more expressive runtime component to Angular; which would instantly lead to heavy bloat in our bundles, extended initial JavaScript parsing time, and more.
 
-# Angular, the developer experience
-
-How does something like `*ngComponentOutlet` work in this model, then? And how would that differ from, say, creating `View` instances from some kind of `*ngElementNameOutlet`?
-
-> "Why can't a ViewContainer be created for something like `*ngElementNameOutlet` as well?" 
-
-To which my mind replied: "Because then you'd have to have some kind of runtime-level framework to handle any child updates and such; which is exactly what you ran into
-
-And that's inherently at odds with a compile-time optimized framework which Angular aims to be
-
-Because the _structure_ of my props passed to the children can change, requiring bindings to be refreshed, children to reconcile, et al ala React
