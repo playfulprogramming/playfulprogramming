@@ -120,6 +120,84 @@ mediaQuery.addEventListener("change", (e) => {
 
 <iframe data-frame-title="HTML CSS Detection - StackBlitz" src="pfp-code:./art-of-a11y-html-contrast-detection-2?embed=1&file=src/main.js" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
+# Text Size
+
+Let's do a similar demo to the one above. Can you read this?
+
+<p style="font-size: 0.5rem">This is very small text</p>
+
+> There is text above this that says "This is very small text".
+
+How about this?
+
+<p style="font-size: 0.5rem; filter: blur(2px)">This is very small text</p>
+
+> The same text is now blurred.
+
+Probably not? Alright! Now how about _this_ one?
+
+<p style="font-size: 3rem; filter: blur(2px)">This is large text</p>
+
+> It now says "This is large text"!
+
+This demonstrates how important text sizing is for so many of our users. 
+
+## `rem` vs `px` Values
+
+In web development, we often use `px` to represent sizing of things. `1px` _roughly_ means `1 pixel`, which works fine for many things on the web.
+
+Want an image to be a certain size? `px` is fine.
+
+Want to add some padding to your header? `px` is probably fine.
+
+Want to set the size of a font to be larger or smaller than the default? `px` is.... **not** fine.
+
+> Wait, what?
+
+Yes, my dear reader; with very few exceptions your font sizes should not be based on `px` values, but rather utilize an `rem` value instead.
+
+`rem` stands for `root em`. See, `em` is another CSS unit that roughly means "Relative to the parent element's font-size."
+
+```html
+<p style="font-size: 1.25rem">
+    This is a paragraph that is going to contain some code:
+    <br/>
+    <code style="font-size: 0.9em">console.log("test")</code>
+</p>
+```
+
+Here, we're using `rem` to tell our `<p>` element that "regardless of the size of the parent elements, size it 1.25 times the user's default font size" and that the `<code>` element should be "0.9 times the size of the `<p>` element's `font-size`".
+
+> While [we have a guide that explains `em` and `rem` in more depth](https://playfulprogramming.com/posts/web-fundamentals-css), the gist of it is that `em` should be used when you want to position an element's `font-size` relative to its parent, while `rem` should be used for any absolute value of `font-size`.
+
+## Browser Behaviors
+
+> Why does this matter? `px` seems to work fine to me.
+
+Let's do an experiment:
+
+// TODO: Show browser resizing controls and show this page again
+
+----
+
+<p style="font-size: 16px">This text size will always be 16px</p>
+
+-----
+
+<p style="font-size: 1rem">This text size will change based on the user's preferences</p>
+
+----
+
+
+
+<br/><br/><br/><br/><br/>
+
+
+
+Imagine being stuck with the earlier `This is very small text` font size for every page you land on. If you're using `px` for font sizing, that's exactly how many of your users will end up feeling.
+
+
+
 -------------
 
 -------------
