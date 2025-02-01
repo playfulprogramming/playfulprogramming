@@ -233,31 +233,19 @@ This text sizing behavior doesn't _just_ occur on desktop, nor does it only occu
 
 In fact, this may be the most common way your user is establishing their font sizes for your site usage.
 
+## Dynamic Font Sizes
 
--------------
+// TODO: https://developer.mozilla.org/en-US/docs/Web/CSS/clamp
 
--------------
+// TODO: https://developer.mozilla.org/en-US/docs/Web/CSS/max
 
--------------
+// TODO: https://developer.mozilla.org/en-US/docs/Web/CSS/min
 
--------------
+# Heading Maps
 
--------------
+- Only one `h1` on page (at the top)
 
--------------
-
--------------
-
--------------
-
-
-
-- `rem` vs `px`
-  - Show browser resizing	
-  - Usage with `vh` and such
-- Heading map
-  - Only one `h1` on page (at the top)
-  - Only descend one level at a time
-  - [CODE] how to handle `as` casting of inner component types per-framework
-    - Show the TypeScript types
+- Only descend one level at a time
+- [CODE] how to handle `as` casting of inner component types per-framework
+  - Show the TypeScript types
 

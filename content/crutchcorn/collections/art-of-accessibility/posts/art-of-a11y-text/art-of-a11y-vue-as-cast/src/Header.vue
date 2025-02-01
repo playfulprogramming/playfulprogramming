@@ -1,4 +1,5 @@
 <!-- Header.vue -->
+<!-- Suffers from https://github.com/vuejs/language-tools/issues/5159 -->
 <script setup lang="ts" generic="T extends keyof HTMLElementTagNameMap = 'h1'">
 const props = defineProps<
 	Partial<HTMLElementTagNameMap[T]> & {
