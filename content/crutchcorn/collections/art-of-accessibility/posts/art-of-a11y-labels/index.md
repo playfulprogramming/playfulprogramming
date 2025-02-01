@@ -351,7 +351,7 @@ Here's an incomplete list of attributes that use this same pattern of an explici
 
 Let's take this knowledge of linking elements together and create a `TextInput` component in our frameworks. Let's start by utilizing implicit element association:
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ### React
 
@@ -440,7 +440,7 @@ import TextInput from "./TextInput.vue";
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Our form now works!
 
@@ -457,7 +457,7 @@ Let's add in some minor styling and add in the ability to pass an error message.
 
 > Remember, we need to explicitly define an `id` for the component now that we want to link multiple elements together!
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 #### React
 
@@ -600,7 +600,7 @@ import TextInput from "./TextInput.vue";
 </script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 Now we can see our form with a warning about an invalid email. It looks something like this when an invalid email is entered:
 
@@ -613,6 +613,7 @@ Now we can see our form with a warning about an invalid email. It looks somethin
 .errormessage {
   color: red;
 }</style></form>
+
 ---
 
 ### Generating Unique IDs Automatically using UUIDv4 
@@ -633,6 +634,163 @@ While it would be nice to remove the requirement to pass a custom `id`, we need 
 
 
 
-<!-- UUIDv4 -->
+<!-- ::start:tabs -->
 
 
+```jsx
+// TextInput.jsx
+import {v4 as uuidv4} from 'uuid';
+
+export const TextInput = ({ label, type, id, error }) => {
+  const [uuid] = useState(uuidv4());
+   
+  const realId = id || uuid;
+    
+  return (
+    <>
+      <label for={realId} class="label">
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        aria-invalid={!!error}
+        aria-errormessage={id + '-error'}
+      />
+      <p class="errormessage" id={realId + '-error'}>
+        {error}
+      </p>
+      <style
+        children={`
+      .label {
+        margin-right: 1rem;
+      }
+      
+      .errormessage {
+        color: red;
+      }
+      `}
+      />
+    </>
+  );
+};
+```
+
+```jsx
+import {TextInput} from './TextInput';
+
+export const App = () => {
+  return (
+    <form>
+      <TextInput label="Email" id="email" error="Invalid email" />
+      <TextInput label="Password" type="password" />
+      <button type="submit">Login</button>
+    </form>
+  );
+};
+```
+
+### Angular
+
+```typescript
+// TextInput.component.ts
+import { v4 as uuidv4 } from 'uuid';
+
+@Component({
+  selector: 'text-input',
+  template: `
+  <label [for]="id" class="label">
+    {{ label }}
+  </label>
+  <input [id]="id" [type]="type" [attr.aria-invalid]="!!error" [attr.aria-errormessage]="id + '-error'" />
+  <p class="errormessage" [id]="id + '-error'">{{ error }}</p>
+  
+  <style>
+  .label {
+    margin-right: 1rem;
+  }
+
+  .errormessage {
+    color: red;
+  }
+  </style>
+  `,
+})
+export class TextInputComponent {
+  @Input() label: string;
+  @Input() id?: string = uuidv4();
+  @Input() type?: string;
+  @Input() error?: string;
+}
+```
+
+```typescript
+// app.component.ts
+@Component({
+  selector: 'my-app',
+  template: `
+    <form>
+          <text-input label="Email" id="email" error="Invalid email"></text-input>
+          <text-input label="Password" type="password"></text-input>
+          <button type="submit">Login</button>
+      </form>
+  `,
+})
+export class AppComponent {}
+```
+
+### Vue
+
+```vue
+<!-- TextInput.vue -->
+<template>
+  <label :for="props.id" class="label">
+    {{ props.label }}
+  </label>
+  <input 
+    :id="props.id" 
+    :type="props.type" 
+    :aria-invalid="!!props.error" 
+    :aria-errormessage="realId + '-error'"
+  />
+  <p class="errormessage" :id="realId + '-error'">{{ props.error }}</p>
+</template>
+
+<script setup>
+import {computed} from 'vue';
+import { v4 as uuidv4 } from 'uuid';
+
+const props = defineProps(['label', 'type', 'id', 'error'])
+
+const uuid = uuidv4();
+    
+const realId = computed(() => props.id || uuid);
+</script>
+
+<style>
+.label {
+  margin-right: 1rem;
+}
+
+.errormessage {
+  color: red;
+}
+</style>
+```
+
+```vue
+<!-- App.vue -->
+<form>
+    <TextInput label="Email" id="email" error="Invalid email" />
+    <TextInput label="Password" type="password" />
+    <button type="submit">Login</button>
+</form>
+
+<script setup>
+import TextInput from "./TextInput.vue";
+</script>
+```
+
+<!-- ::end:tabs -->
+
+Here, we can see that we can choose to pass an `id` if we really want to pass one, but it's no longer a required field, as it was before.
