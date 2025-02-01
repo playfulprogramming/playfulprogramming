@@ -30,7 +30,7 @@ function Header<const T extends ElementType = "h1">({
 
 const App = () => {
 	return (
-		<Header as="h1" id={"test"}>
+		<Header as="h2" id={"test"}>
 			Hello, world!
 		</Header>
 	);
