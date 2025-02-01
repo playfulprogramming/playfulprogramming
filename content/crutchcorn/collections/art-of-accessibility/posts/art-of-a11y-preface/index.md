@@ -114,6 +114,8 @@ A screen reader is one of many examples of assistive technologies, but is far fr
 - Vibration motors, for non-visual alerts
 - Buttons, for those with limited mobility ([one such workflow is demonstrated by this Apple ad](https://www.youtube.com/watch?v=XB4cjbYywqg))
 
+// TODO: Add unlisted link on my channel about the Apple ad "Sady", it's been removed from YouTube
+
 > How does accessibility pertain to React, Angular, and Vue?
 
 Like every other aspect of application development; you don't get perfect results without putting in the effort to making sure that aspect of your app works well.

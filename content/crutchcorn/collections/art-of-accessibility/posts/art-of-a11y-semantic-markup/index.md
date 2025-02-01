@@ -158,7 +158,7 @@ Here, the `role` enables us to tell the user that there is a list of tabs, `aria
 >
 > We'll build an interactive version of this `tab` component using React, Angular, and Vue later in this chapter that handles these things.
 
-While `role` is imperative in its usage here, it can lead to subpar or even actively hostile user experiences for assistive technologies.
+While `role` is imperative in its usage here, it _can_ lead to subpar or even actively hostile user experiences for assistive technologies.
 
 This is because, using `role`, you have the ability to tell HTML that one element should be reflected to the end-user as an entirely different element, without actually providing any of the expected functionality.
 
@@ -206,13 +206,13 @@ This is why it's often **highly discouraged to use `role` in place of an HTML el
 
 Now that we've seen a few examples of accessible, but non-interactive, markup let's see what we can do to breath life into these UI components using a framework.
 
-Namely, I want to demonstrate how we can build our own accessible tab component using aria attributes.
+Namely, I want to demonstrate how we can build our own accessible tab component using aria attributes:
 
-
+![// TODO: Write alt](./styled_tabs.png)
 
 Let's start by reusing our markup from the previous section, and adding in some JavaScript to make the tabs interactive.
 
-<!-- tabs:start -->
+<!-- ::start:tabs -->
 
 ## React
 
@@ -265,16 +265,17 @@ const App = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
   <div>
     <ul role="tablist">
       <li
         role="tab"
         id="javascript-tab"
-        [attr.aria-selected]="activeTab === 'javascript'"
+        [attr.aria-selected]="activeTab() === 'javascript'"
         aria-controls="javascript-panel"
         (click)="setActiveTab('javascript')"
       >
@@ -283,7 +284,7 @@ const App = () => {
       <li
         role="tab"
         id="python-tab"
-        [attr.aria-selected]="activeTab === 'python'"
+        [attr.aria-selected]="activeTab() === 'python'"
         aria-controls="python-panel"
         (click)="setActiveTab('python')"
       >
@@ -294,7 +295,7 @@ const App = () => {
       role="tabpanel"
       id="javascript-panel"
       aria-labelledby="javascript-tab"
-      [hidden]="activeTab !== 'javascript'"
+      [hidden]="activeTab() !== 'javascript'"
     >
       <code>console.log("Hello, world!");</code>
     </div>
@@ -302,7 +303,7 @@ const App = () => {
       role="tabpanel"
       id="python-panel"
       aria-labelledby="python-tab"
-      [hidden]="activeTab !== 'python'"
+      [hidden]="activeTab() !== 'python'"
     >
       <code>print("Hello, world!")</code>
     </div>
@@ -310,10 +311,10 @@ const App = () => {
   `,
 })
 export class AppComponent {
-  activeTab = 'javascript';
+  activeTab = signal('javascript');
 
   setActiveTab(val: string) {
-    this.activeTab = val;
+    this.activeTab.set(val);
   }
 }
 ```
@@ -321,6 +322,16 @@ export class AppComponent {
 ## Vue
 
 ```vue
+<script setup>
+  import { ref } from 'vue'
+
+  const activeTab = ref('javascript')
+
+  function setActiveTab(val) {
+    activeTab.value = val
+  }
+</script>
+
 <template>
   <div>
     <ul role="tablist">
@@ -351,19 +362,9 @@ export class AppComponent {
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-const activeTab = ref('javascript')
-
-function setActiveTab(val) {
-  activeTab.value = val
-}
-</script>
 ```
 
-<!-- tabs:end -->
+<!-- ::end:tabs -->
 
 
 
@@ -376,6 +377,9 @@ function setActiveTab(val) {
 Well, it's not the prettiest UI visually, but we can verify it's functionality by clicking on the `JavaScript` or `Python` text in order to show the `console.log` or `print` statements respectively.
 
 Now all we need to do is add a bit of CSS...
+
+<details>
+<summary>The required CSS for the tab component</summary>
 
 ```css
 /* index.css */
@@ -415,9 +419,27 @@ Now all we need to do is add a bit of CSS...
 }
 ```
 
+</details>
+
 And tada! 🎉 (For real this time.)
 
 ![// TODO: Write alt](./styled_tabs.png)
 
-Now these are some tabs we can work with.
+<!-- ::start:tabs -->
+
+## React
+
+<iframe data-frame-title="React Tab Component - StackBlitz" src="pfp-code:./art-of-a11y-react-tab-comp-1?embed=1&file=src/main.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+## Angular
+
+<iframe data-frame-title="Angular Tab Component - StackBlitz" src="pfp-code:./art-of-a11y-angular-tab-comp-1?embed=1&file=src/app/main.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+## Vue
+
+<iframe data-frame-title="Vue Tab Component - StackBlitz" src="pfp-code:./art-of-a11y-vue-tab-comp-1?embed=1&file=src/App.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<!-- ::end:tabs -->
+
+Now _these_ are some tabs we can work with.
 
