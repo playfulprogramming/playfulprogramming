@@ -70,7 +70,7 @@ Notice that our form doesn't indicate which text input is for which field; neith
 
 ----
 
-<form style="display: flex; gap: 1rem;">
+<form onsubmit="event.preventDefault()" style="display: flex; gap: 1rem;">
 	<div style="display: flex; flex-direction: column;">
         <p>Username</p>
         <input name="username" type="text"/>
@@ -123,7 +123,7 @@ Luckily, when dealing with `input`s, there's an easy way to link a text input to
 
 ---
 
-<form>
+<form onsubmit="event.preventDefault()">
 	<label>
         Username
         <input name="username" type="text"/>
@@ -157,7 +157,7 @@ Don't like the inline styling of the labels? No problem. Mix them with a [block-
 
 ----
 
-<form style="display: flex; gap: 1rem;">
+<form style="display: flex; gap: 1rem;" onsubmit="event.preventDefault()">
 	<label style="display: flex; flex-direction: column;">
         <div>Username</div>
         <input name="username" type="text"/>
@@ -179,7 +179,7 @@ Whenever the topic of element association comes up, I regularly get asked the fo
 
 It's a valid question, given that it's been adopted as a broadly utilized pattern for many forms in recent years. Additionally, at least visually, it seems like placeholders provide a similar level of information as labels might.
 
-<form style="display: flex; gap: 1rem;" aria-hidden="true">
+<form style="display: flex; gap: 1rem;" aria-hidden="true" onsubmit="event.preventDefault()">
     <input placeholder="Username" name="username" type="text"/>
     <input placeholder="password" type="password"/>
     <button type="submit">Login</button>
@@ -444,11 +444,12 @@ import TextInput from "./TextInput.vue";
 
 Our form now works!
 
-<form>
+<form onsubmit="event.preventDefault()">
   <label>Email <input /></label>
   <label>Password <input type="password" /></label>
   <button type="submit">Login</button>
 </form>
+
 It's not the prettiest form in the world, but it's functional!
 
 ### Explicit Label Input Component
@@ -606,7 +607,7 @@ Now we can see our form with a warning about an invalid email. It looks somethin
 
 ----
 
-<form><label for="email" class="label">Email</label><input id="email" aria-invalid="true" aria-errormessage="email-error"><p class="errormessage" id="email-error">Invalid email</p><label for="password" class="label">Password</label><input id="password" type="password" aria-invalid="false" aria-errormessage="password-error"><p class="errormessage" id="password-error"></p><button type="submit">Login</button><style>
+<form onsubmit="event.preventDefault()"><label for="email" class="label">Email</label><input id="email" aria-invalid="true" aria-errormessage="email-error"><p class="errormessage" id="email-error">Invalid email</p><label for="password" class="label">Password</label><input id="password" type="password" aria-invalid="false" aria-errormessage="password-error"><p class="errormessage" id="password-error"></p><button type="submit">Login</button><style>
 .label {
   margin-right: 1rem;
 }
