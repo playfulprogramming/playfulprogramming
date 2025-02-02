@@ -235,11 +235,71 @@ In fact, this may be the most common way your user is establishing their font si
 
 ## Dynamic Font Sizes
 
-// TODO: https://developer.mozilla.org/en-US/docs/Web/CSS/clamp
+In some designs, it can be a fun addon to scale a header's visual size with the viewport of the window; Typically to get the width of the text to more closely align with the edges of the screen for visual flair.
 
-// TODO: https://developer.mozilla.org/en-US/docs/Web/CSS/max
+This can be done using the `vw` or even `vh` CSS units.
 
-// TODO: https://developer.mozilla.org/en-US/docs/Web/CSS/min
+----
+
+<p style="font-size: 2vw; line-height: 2.5vw">Each character on this line takes up 2% of screen width</p>
+
+<p style="font-size: 2vh; line-height: 2.5vh">Each character on this line takes up 2% of screen height</p>
+
+----
+
+> This works, but on some smaller screen sizes, the text is unreadably small. Likewise, large screens have the text far too big.
+
+Well, to solve this, we can use CSS' `min()` to fix the first problem:
+
+```css
+p {
+	font-size: min(12px, 2vw);
+}
+```
+
+Or even CSS' `max` to fix the second problem:
+
+```css
+p {
+	font-size: max(2vw, 36px);
+}
+```
+
+And even mix-n-match them:
+
+```css
+p {
+	font-size: max(12px, min(2vw, 36px);
+}
+```
+
+There's even a `clamp` utility to shorthand the `max`/`min` combination usage from above:
+
+```css
+p {
+	font-size: clamp(12px, 2vw, 36px);
+}
+```
+
+----
+
+> But how do we do this without ruining the user's ability to change their font size at the upper and lower ends of allowed font scaling?
+
+Great question!
+
+To support user-resizable mins and maxes on dynamically sized fonts, we can use `rem` instead of `px` in our `min()`, `max()`, and `clamp()` usages:
+
+```css
+p {
+	font-size: clamp(0.75rem, 2vw, 2.25rem);
+}
+```
+
+----
+
+<p style="font-size: clamp(0.75rem, 2vw, 2.25rem); line-height: clamp(1rem, 2.5vw, 2.5rem)">Each character on this line takes up 2% of screen width but has a min and max <code>rem</code> value</p>
+
+-----
 
 # Heading Maps
 
@@ -249,3 +309,124 @@ In fact, this may be the most common way your user is establishing their font si
 - [CODE] how to handle `as` casting of inner component types per-framework
   - Show the TypeScript types
 
+
+
+## Cast one heading as another
+
+<!-- ::start:tabs -->
+
+### React
+
+```jsx
+function Header({ as, children, ...props }) {
+    const Heading = as || "h1";
+    return (<Heading {...props} style={{ color: "darkred" }}>
+            {children}
+        </Heading>);
+}
+const App = () => {
+    return (<Header as="h2" id={"test"}>
+            Hello, world!
+        </Header>);
+};
+```
+
+#### TypeScript
+
+```tsx
+import {
+	ComponentPropsWithoutRef,
+	ElementType,
+	PropsWithChildren,
+} from "react";
+
+type PolymorphicProps<E extends ElementType> = PropsWithChildren<
+	ComponentPropsWithoutRef<E> & {
+		as?: E;
+	}
+>;
+
+type HeaderProps<T extends ElementType = "h1"> = PolymorphicProps<T> & {
+	as?: T;
+};
+
+function Header<const T extends ElementType = "h1">({
+	as,
+	children,
+	...props
+}: HeaderProps<T>) {
+	const Heading = as || "h1";
+	return (
+		<Heading {...props} style={{ color: "darkred" }}>
+			{children}
+		</Heading>
+	);
+}
+
+const App = () => {
+	return (
+		<Header as="h2" id={"test"}>
+			Hello, world!
+		</Header>
+	);
+};
+```
+
+### Angular
+
+Not possible, outlined here: /posts/angular-why-no-template-casting
+
+### Vue
+
+```vue
+<!-- Header.vue -->
+<script setup>
+const props = defineProps(["as"]);
+
+const Component = props.as || "h1";
+</script>
+
+<template>
+	<component :is="Component" v-bind="props" style="color: darkred">
+		<slot />
+	</component>
+</template>
+```
+
+```vue
+<!-- App.vue -->
+<script setup lang="ts">
+import Header from "./Header.vue";
+</script>
+
+<template>
+  <Header as="h2">
+    Testing
+  </Header>
+</template>
+```
+
+#### TypeScript
+
+```vue
+<!-- Header.vue -->
+<script setup lang="ts" generic="T extends keyof HTMLElementTagNameMap = 'h1'">
+const props = defineProps<
+	Partial<HTMLElementTagNameMap[T]> & {
+		as?: T;
+	}
+>();
+
+const Component = props.as || "h1";
+</script>
+
+<template>
+	<component :is="Component" v-bind="props" style="color: darkred">
+		<slot />
+	</component>
+</template>
+```
+
+> There's a small bug preventing this from working today: https://github.com/vuejs/language-tools/issues/5159
+
+<!-- ::end:tabs -->
