@@ -4,7 +4,7 @@
   description: 
     "Two-Factor Authentication is a security feature that adds an extra layer of protection to your online accounts.",
   published: "2021-11-23",
-  tags: ["AI", "Artificial Intelligence", "Art", "Software Devleopment", "opinion"],
+  tags: ["ai", "computer science", "opinion"],
   license: "cc-by-4",
   originalLink: "https://medium.com/@jessi_leeann/is-ai-stealing-from-you-14239d8a1228"
 }
