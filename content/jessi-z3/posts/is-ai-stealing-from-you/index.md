@@ -2,7 +2,7 @@
 {
   title: "Is AI Stealing from You?",
   description: 
-    "Two-Factor Authentication is a security feature that adds an extra layer of protection to your online accounts.",
+    "Artificial intelligence has access to information available on the internet, including people's work.",
   published: "2021-11-23",
   tags: ["ai", "computer science", "opinion"],
   license: "cc-by-4",
