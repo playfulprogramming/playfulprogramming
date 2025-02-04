@@ -29,6 +29,10 @@ export interface SearchQuery {
 	filterTags: string[];
 	filterAuthors: string[];
 	sort: SortType;
+	postsOffset?: number;
+	collectionsOffset?: number;
+	postsLimit?: number;
+	collectionsLimit?: number;
 }
 
 const defaultQuery: SearchQuery = {
