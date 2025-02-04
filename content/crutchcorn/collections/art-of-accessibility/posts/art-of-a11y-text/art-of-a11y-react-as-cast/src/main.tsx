@@ -6,9 +6,7 @@ import {
 } from "react";
 
 type PolymorphicProps<E extends ElementType> = PropsWithChildren<
-	ComponentPropsWithoutRef<E> & {
-		as?: E;
-	}
+	ComponentPropsWithoutRef<E>
 >;
 
 type HeaderProps<T extends ElementType = "h1"> = PolymorphicProps<T> & {

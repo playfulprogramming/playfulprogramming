@@ -80,7 +80,7 @@ Users are able to opt into an operating system's "high contrast" mode, which wil
 
 ![TODO: Write alt](./windows_11_high_contrast.png)
 
-// TODO: Get the high contrast mode screenshot from macOS
+![TODO: Write alt](./mac_os_high_contrast.png)
 
 This, in turn, is exposed to our site's CSS through [the `prefers-contrast` media query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast) :
 
@@ -301,8 +301,44 @@ p {
 
 -----
 
-# Heading Maps
+# Headings
 
+When talking about text, it's only natural that heading would come into the conversation.
+
+In HTML, we have 6 levels of headings:
+
+- <p class="text-style-headline-1"><code>h1</code></p>
+- <p class="text-style-headline-2"><code>h2</code></p>
+- <p class="text-style-headline-3"><code>h3</code></p>
+- <p class="text-style-headline-4"><code>h4</code></p>
+- <p class="text-style-headline-5"><code>h5</code></p>
+- <p class="text-style-headline-6"><code>h6</code></p>
+
+Each of these heading levels represents a new segment of the site with information to all users about how to scan and navigate a page's contents.
+
+
+
+## Screen Readers
+
+Here's one such example of a screen reader - Voiceover built into macOS - navigating [our home page](/) via their "rotor" feature, which lists all headings:
+
+<video src="./macos_voiceover_heading_navigation.mp4" title="TODO: Write alt"></video>
+
+
+### Screen Reader Cheat Sheet
+
+| Screen Reader | Command                                                      | Shortcut                                                |
+| :------------ | :----------------------------------------------------------- | ------------------------------------------------------- |
+| Voiceover     | Show heading list (via the Voiceover rotor in the demo above) | <kbd>Command (⌘)</kbd> + <kbd>Ctrl</kbd> + <kbd>U</kbd> |
+| NVDA          | Go to next heading                                           | <kbd>H</kbd>                                            |
+| NVDA          | Go to next heading of level [1-6]                            | <kbd>1</kbd> - <kbd>6</kbd>                             |
+| NVDA          | List all headings                                            | <kbd>Insert</kbd> + <kbd>F7</kbd>                       |
+
+----
+
+------
+
+- `aria-describedby` with `<section>`
 - Only one `h1` on page (at the top)
 
 - Only descend one level at a time
@@ -341,9 +377,7 @@ import {
 } from "react";
 
 type PolymorphicProps<E extends ElementType> = PropsWithChildren<
-	ComponentPropsWithoutRef<E> & {
-		as?: E;
-	}
+	ComponentPropsWithoutRef<E>
 >;
 
 type HeaderProps<T extends ElementType = "h1"> = PolymorphicProps<T> & {
