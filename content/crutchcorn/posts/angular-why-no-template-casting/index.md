@@ -172,3 +172,30 @@ This is all to say _"Angular has minimal control over how to create or update or
 
 In order for there to be some kind of `as` casting API akin to an imaginary API of `*ngElementNameOutlet="tag"`, we'd need a more expressive runtime component to Angular; which would instantly lead to heavy bloat in our bundles, extended initial JavaScript parsing time, and more.
 
+# Angular casting, the workaround
+
+While Angular doesn't have a one-to-one API with React and Vue's `as` type cast, it does have the ability to attach component behavior onto different elements.
+
+Because [Angular uses host elements instead of transparent elements](https://playfulprogramming.com/posts/angular-templates-dont-work-how-you-think), we can tell Angular's selector to use an attribute to lookup rather than a new HTML tag:
+
+```angular-ts
+@Component({
+	selector: `a[our-button], button[our-button]`,
+	template: `<ng-content></ng-content>`
+})
+class OurButton {
+}
+
+@Component({
+	selector: "app-root",
+	template: `
+		<a our-button href="oceanbit.dev">This looks like a button, but is a link</a>
+	`
+})
+class App {
+}
+```
+
+<iframe data-frame-title="Attribute Selector - StackBlitz" src="pfp-code:./attribute-selector-1?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+
+This means that we can customize the child elements and add functionality to our `a` or `button` tags that use the `our-button` attribute.
