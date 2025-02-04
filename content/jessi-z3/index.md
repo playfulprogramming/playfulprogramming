@@ -10,7 +10,7 @@
 		linkedIn: "jessi-zimmerman-21039610a"
 	},
 	pronouns: "she/her",
-	profileImg: "./Jessi.tiff",
+	profileImg: "./jessi.png",
 	color: "#fc03be",
 	roles: ["author"]
 }

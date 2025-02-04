@@ -3,16 +3,14 @@
   title: "Is AI Stealing from You?",
   description: 
     "Artificial intelligence has access to information available on the internet, including people's work.",
-  published: "2021-11-23",
+  published: "2025-02-05",
   tags: ["ai", "computer science", "opinion"],
   license: "cc-by-4",
   originalLink: "https://medium.com/@jessi_leeann/is-ai-stealing-from-you-14239d8a1228"
 }
 ---
 
-# Is AI Stealing from You?
-
-![](./1*qVOXOZ07u5b1ESvM4yfxyg.jpg)
+![](./cover.jpg)
 
 Have you ever seen Silicon Valley? On the show, a gentleman develops an app that determines whether a picture is a hot dog or not. This is an example of machine learning. Stay with me here.
 
