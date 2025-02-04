@@ -96,56 +96,70 @@ function addMerge(
 export async function searchForTerm(
 	{ postClient, collectionClient }: SearchContext,
 	query: SearchQuery,
-	signal: AbortSignal
-  ) {
+	signal: AbortSignal,
+) {
 	const term = query.searchQuery === "*" ? "" : query.searchQuery;
-	const sortBy: SortByClauseUnion | undefined = query.sort === "relevance"
-	  ? (term.length > 0 ? undefined : { property: "publishedTimestamp", order: "desc" })
-	  : { property: "publishedTimestamp", order: query.sort === "newest" ? "desc" : "asc" };
-  
+	const sortBy: SortByClauseUnion | undefined =
+		query.sort === "relevance"
+			? term.length > 0
+				? undefined
+				: { property: "publishedTimestamp", order: "desc" }
+			: {
+					property: "publishedTimestamp",
+					order: query.sort === "newest" ? "desc" : "asc",
+				};
+
+	// Schema should be passed to `search` method when:
+	// https://github.com/askorama/oramacloud-client-javascript/pull/35
+	// is working. Does not seem tp be reflected in the type definitions at present,
 	const postSearchPromise: Promise<Nullable<Results<PostDocument>>> =
-	  postClient.search(
+		postClient.search(
+			{
+				term,
+				limit: query.postsLimit ?? 6, // Default to 6 if not specified
+				offset: query.postsOffset ?? 0, // Default to 0 if not specified
+				sortBy,
+				where: {
+					tags: query.filterTags.length ? query.filterTags : undefined,
+					authors: query.filterAuthors.length ? query.filterAuthors : undefined,
+				},
+				facets: {
+					tags: { limit: 50 },
+					authors: { limit: 50 },
+				},
+			},
+			{
+				debounce: 0,
+				abortController: { signal } as never as AbortController,
+				//TODO: This does nothing yet:
+				// https://github.com/askorama/oramacloud-client-javascript/pull/34
+				// abortSignal: signal,
+			},
+		);
+
+	const collectionSearchPromise: Promise<
+		Nullable<Results<CollectionDocument>>
+	> = collectionClient.search(
 		{
-		  term,
-		  limit: query.postsLimit ?? 6, // Default to 6 if not specified
-		  offset: query.postsOffset ?? 0, // Default to 0 if not specified
-		  sortBy,
-		  where: {
-			tags: query.filterTags.length ? query.filterTags : undefined,
-			authors: query.filterAuthors.length ? query.filterAuthors : undefined,
-		  },
-		  facets: {
-			tags: { limit: 50 },
-			authors: { limit: 50 },
-		  },
+			term,
+			limit: query.collectionsLimit ?? 4, // Default to 4 if not specified
+			offset: query.collectionsOffset ?? 0, // Default to 0 if not specified
+			sortBy,
+			where: {
+				tags: query.filterTags.length ? query.filterTags : undefined,
+				authors: query.filterAuthors.length ? query.filterAuthors : undefined,
+			},
+			facets: {
+				tags: { limit: 50 },
+				authors: { limit: 50 },
+			},
 		},
 		{
-		  debounce: 0,
-		  abortController: { signal } as never as AbortController,
+			debounce: 0,
+			abortController: { signal } as never as AbortController,
+			// abortSignal: signal,
 		},
-	  );
-  
-	const collectionSearchPromise: Promise<Nullable<Results<CollectionDocument>>> = 
-	  collectionClient.search(
-		{
-		  term,
-		  limit: query.collectionsLimit ?? 4, // Default to 4 if not specified
-		  offset: query.collectionsOffset ?? 0, // Default to 0 if not specified
-		  sortBy,
-		  where: {
-			tags: query.filterTags.length ? query.filterTags : undefined,
-			authors: query.filterAuthors.length ? query.filterAuthors : undefined,
-		  },
-		  facets: {
-			tags: { limit: 50 },
-			authors: { limit: 50 },
-		  },
-		},
-		{
-		  debounce: 0,
-		  abortController: { signal } as never as AbortController,
-		},
-	  );
+	);
 
 	const [postSearch, collectionSearch] = await Promise.all([
 		postSearchPromise,
