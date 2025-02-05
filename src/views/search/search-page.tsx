@@ -188,9 +188,12 @@ export function SearchPageBase() {
 	);
 
 	// if searchh term has more than a certain number of words, then use hybrid mode Orama search for smart/AI searching capabilities
-	const isHybridSearch =
-		query.searchQuery?.split(" ")?.filter((t) => t.trim() !== "")?.length >=
-		ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD;
+	const isHybridSearch = useMemo(
+		() =>
+			query.searchQuery?.split(" ")?.filter((t) => t.trim() !== "")?.length >=
+			ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+		[query.searchQuery],
+	);
 
 	const isError = isErrorPeople || isErrorData;
 
