@@ -16,79 +16,14 @@ While I'm a huge fan of Angular at heart, I've often used React at my day jobs. 
 
 This `<OurButton/>` component is able to expose an internal `"button"` tag when nothing is passed, but transform into any other `as` element when the property is passed.
 
-What's cooler is that the other attributes from the `as` original element (like `<a>`'s `href` above) can be type-safe using some TypeScript magic.
+What's cooler is that the other attributes from the `as` original element (like `<a>`'s `href` above) can be type-safe using some TypeScript magic:
 
-You can implement it in Vue, too!
-
-<!-- ::start:tabs -->
-
-# React
-
-```tsx
-import {
-	ComponentPropsWithoutRef,
-	ElementType,
-	PropsWithChildren,
-} from "react";
-
-type PolymorphicProps<E extends ElementType> = PropsWithChildren<
-	ComponentPropsWithoutRef<E> & {
-		as?: E;
-	}
->;
-
-type OurButtonProps<T extends ElementType = "h1"> = PolymorphicProps<T> & {
-	as?: T;
-};
-
-function OurButton<const T extends ElementType = "button">({
-	as,
-	children,
-	...props
-}: OurButtonProps<T>) {
-	const Button = as || "button";
-	return (
-		<Button {...props}>
-			{children}
-		</Button>
-	);
-}
-
-// Usage
-<OurButton as="a" href="oceanbit.dev">
-    This looks like a button, but is a link
-</OurButton>
+```jsx
+<OurButton as="button" href="oceanbit.dev">This is a button!</OurButton>
+//                     ^ `href` is not allowed on type "button"
 ```
 
-# Vue
-
-```vue
-<!-- OurButton.vue -->
-<script setup lang="ts" generic="T extends keyof HTMLElementTagNameMap = 'button'">
-const props = defineProps<
-	Partial<HTMLElementTagNameMap[NoInfer<T>]> & {
-		as?: T;
-	}
->();
-
-const Component = props.as || "button";
-</script>
-
-<template>
-	<component :is="Component" v-bind="props">
-		<slot />
-	</component>
-</template>
-```
-
-```html
-<!-- Usage -->
-<OurButton as="a" href="oceanbit.dev">
-    This looks like a button, but is a link
-</OurButton>
-```
-
-<!-- ::end:tabs -->
+This is supported in both [React](/posts/react-as-prop) as well as [Vue](/posts/vue-as-prop)!
 
 > Cool! How do you do that in Angular?
 
