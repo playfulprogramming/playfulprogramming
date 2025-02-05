@@ -8,7 +8,7 @@
 }
 ---
 
-Forms are the building blocks for many applications written in Angular. Given's Angular's all-in-one solution, it's no wonder that there's a plethora of options available to Angular developers when it comes to forms; right out of the box!
+Forms are the building blocks for many applications written in Angular. Given Angular's all-in-one solution, it's no wonder that there are a plethora of options available to Angular developers when it comes to forms right out of the box!
 
 Let's explore those options in a quick guide on Angular's Forms solutions.
 
@@ -56,7 +56,7 @@ Let's try to simplify this by removing the first step.
 
 One method for removing the input change listener is by using two-way variable bindings. By using this, you don't need to assign a function for change listening. Simply pass a variable and watch the value change as you type!
 
-If you recall from earlier, Angular's syntax to bind to an attribute or property is `[bindName]`. Similarly, the syntax to bind to a DOM event or component output is `(bindName)`.
+If you recall from earlier, Angular's syntax for binding to an attribute or property is `[bindName]`. Similarly, the syntax to bind to a DOM event or component output is `(bindName)`.
 
 Well, if we combine them together, we can sync all of an event's values to and from an Angular variable with a handy shorthand:
 ```typescript
@@ -67,7 +67,7 @@ Well, if we combine them together, we can sync all of an event's values to and f
 >
 > Luckily, there's a mnemonic device to remember this operator order - This syntax is colloquially known as a ["banana in a box", even in Angular's source code itself](https://github.com/angular/angular/blob/f8d22a9ba4e426f14f9c7fd608e1ad752cd44eb5/packages/compiler/src/render3/r3_template_transform.ts#L50)!
 
-For our simple example of binding a `value`, we can use the `bindName` of `ngModel`, which is standard on most input elements through the `FromsModule`:
+For our simple example of binding a `value`, we can use the `bindName` of `ngModel`, which is standard on most input elements through the `FormsModule`:
 
 ```angular-ts {4,10}
 import {FormsModule} from "@angular/forms";
@@ -122,7 +122,7 @@ As opposed to the other frameworks, which require utilizing an external library 
 
 To utilize them, we first need to import the `ReactiveFormsModule`, which allows us to have a more fully-featured API as opposed to `FormsModule`'s `[(ngModel)]`.
 
-Now, we can create a new instance of a class called `FormControl` to act as a form item that we can then bind to a `[formControl]` in order to have two-way event and value input sync. 
+Now, we can create a new instance of a class called `FormControl` to act as a form item that we can then bind to a `[formControl]` in order to have a two-way event and value input sync. 
 
 ```angular-ts {0,6,12}
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
@@ -470,7 +470,7 @@ Because we're now using an array, we need a unique ID for each user. This is why
 
 # Form Validation {#form-validation}
 
-You know how earlier we switch our `fb.group` command from:
+You know how earlier we switched our `fb.group` command from:
 
 ```typescript
 mainForm = this.fb.group({
