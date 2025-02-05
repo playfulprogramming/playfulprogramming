@@ -3,6 +3,10 @@
 		"displayName": "Accessibility",
 		"emoji": "♿"
 	},
+	"ai": {
+		"displayName": "Artificial Intelligence (AI)",
+		"emoji": "🤖"
+	},
 	"android": {
 		"displayName": "Android",
 		"image": "/stickers/android.svg",
