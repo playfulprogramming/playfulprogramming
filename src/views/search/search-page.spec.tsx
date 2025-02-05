@@ -130,9 +130,7 @@ function mockClients(fn: (searchStr: string) => FnReply): SearchContext {
 	return { postClient, collectionClient };
 }
 
-function mockPeopleIndex(
-	people: PersonInfo[],
-) {
+function mockPeopleIndex(people: PersonInfo[]) {
 	server.use(
 		http.get(`*/searchFilters.json`, async () => {
 			return HttpResponse.json({
@@ -144,7 +142,7 @@ function mockPeopleIndex(
 						image: "/stickers/angular.svg",
 						shownWithBranding: true,
 						totalPostCount: 32,
-					}
+					},
 				],
 			});
 		}),
@@ -189,7 +187,9 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByText, getByTestId } = render(<SearchPage mockClients={clients} />);
+		const { getByText, getByTestId } = render(
+			<SearchPage mockClients={clients} />,
+		);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockPost.title);
 		await user.type(searchInput, "{enter}");
@@ -205,7 +205,9 @@ describe("Search page", () => {
 			collections: [MockCollection],
 		}));
 
-		const { getByText, getByTestId } = render(<SearchPage mockClients={clients} />);
+		const { getByText, getByTestId } = render(
+			<SearchPage mockClients={clients} />,
+		);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockCollection.title);
 		await user.type(searchInput, "{enter}");
@@ -216,8 +218,12 @@ describe("Search page", () => {
 
 	test("Should show error screen when 500", async () => {
 		mockPeopleIndex([]);
-		const clients = mockClients(() => { throw "oops"; });
-		const { getByText, getByTestId } = render(<SearchPage mockClients={clients} />);
+		const clients = mockClients(() => {
+			throw "oops";
+		});
+		const { getByText, getByTestId } = render(
+			<SearchPage mockClients={clients} />,
+		);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockPost.title);
 		await user.type(searchInput, "{enter}");
@@ -237,7 +243,9 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByText, getByTestId } = render(<SearchPage mockClients={clients} />);
+		const { getByText, getByTestId } = render(
+			<SearchPage mockClients={clients} />,
+		);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "Asdfasdfasdf");
 		await user.type(searchInput, "{enter}");
@@ -256,7 +264,9 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByTestId, queryByTestId } = render(<SearchPage mockClients={clients} />);
+		const { getByTestId, queryByTestId } = render(
+			<SearchPage mockClients={clients} />,
+		);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockPost.title);
 		await user.type(searchInput, "{enter}");
@@ -275,7 +285,9 @@ describe("Search page", () => {
 			collections: [MockCollection],
 		}));
 
-		const { getByTestId, queryByTestId } = render(<SearchPage mockClients={clients} />);
+		const { getByTestId, queryByTestId } = render(
+			<SearchPage mockClients={clients} />,
+		);
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockCollection.title);
 		await user.type(searchInput, "{enter}");
@@ -299,7 +311,9 @@ describe("Search page", () => {
 			authors: {},
 		}));
 
-		const { getByTestId, queryByTestId, getByText } = render(<SearchPage mockClients={clients} />);
+		const { getByTestId, queryByTestId, getByText } = render(
+			<SearchPage mockClients={clients} />,
+		);
 
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "*");
@@ -339,7 +353,9 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByTestId, getByText, queryByTestId } = render(<SearchPage mockClients={clients} />);
+		const { getByTestId, getByText, queryByTestId } = render(
+			<SearchPage mockClients={clients} />,
+		);
 
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "*");
@@ -429,7 +445,7 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledTimes(1)
+			expect(clients.postClient.search).toHaveBeenCalledTimes(1),
 		);
 
 		const container = getByTestId("sort-order-group-sidebar");
@@ -442,12 +458,13 @@ describe("Search page", () => {
 		await user.selectOptions(select, "newest");
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledTimes(2)
+			expect(clients.postClient.search).toHaveBeenCalledTimes(2),
 		);
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
 				limit: 6,
+				mode: "fulltext",
 				offset: 0,
 				sortBy: {
 					property: "publishedTimestamp",
@@ -465,12 +482,13 @@ describe("Search page", () => {
 		await user.selectOptions(select, "oldest");
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledTimes(3)
+			expect(clients.postClient.search).toHaveBeenCalledTimes(3),
 		);
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
 				limit: 6,
+				mode: "fulltext",
 				offset: 0,
 				sortBy: {
 					property: "publishedTimestamp",
@@ -517,7 +535,7 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledTimes(1)
+			expect(clients.postClient.search).toHaveBeenCalledTimes(1),
 		);
 
 		const container = getByTestId("sort-order-group-topbar");
@@ -530,12 +548,13 @@ describe("Search page", () => {
 		user.selectOptions(select, "newest");
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledTimes(2)
+			expect(clients.postClient.search).toHaveBeenCalledTimes(2),
 		);
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
 				limit: 6,
+				mode: "fulltext",
 				offset: 0,
 				sortBy: {
 					property: "publishedTimestamp",
@@ -553,12 +572,13 @@ describe("Search page", () => {
 		user.selectOptions(select, "oldest");
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledTimes(3)
+			expect(clients.postClient.search).toHaveBeenCalledTimes(3),
 		);
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
 				limit: 6,
+				mode: "fulltext",
 				offset: 0,
 				sortBy: {
 					property: "publishedTimestamp",
@@ -606,12 +626,13 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledOnce()
+			expect(clients.postClient.search).toHaveBeenCalledOnce(),
 		);
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
 				limit: 6,
+				mode: "fulltext",
 				offset: 0,
 				sortBy: {
 					property: "publishedTimestamp",
@@ -636,12 +657,13 @@ describe("Search page", () => {
 		await user.click(page2);
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledTimes(2)
+			expect(clients.postClient.search).toHaveBeenCalledTimes(2),
 		);
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
 				limit: 6,
+				mode: "fulltext",
 				offset: 6,
 				sortBy: {
 					order: "desc",
@@ -762,13 +784,14 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledOnce()
+			expect(clients.postClient.search).toHaveBeenCalledOnce(),
 		);
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
 				limit: 6,
 				offset: 0,
+				mode: "fulltext",
 				sortBy: {
 					property: "publishedTimestamp",
 					order: "desc",
@@ -797,12 +820,13 @@ describe("Search page", () => {
 
 		// Invokes the expected post query
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledTimes(2)
+			expect(clients.postClient.search).toHaveBeenCalledTimes(2),
 		);
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
 				limit: 6,
+				mode: "fulltext",
 				offset: 0,
 				sortBy: {
 					property: "publishedTimestamp",
@@ -952,11 +976,12 @@ describe("Search page", () => {
 		expect(searchInput).toHaveValue("blog");
 
 		// Invokes the expected post query
-		expect(clients.postClient.search).toHaveBeenCalledOnce()
+		expect(clients.postClient.search).toHaveBeenCalledOnce();
 		expect(clients.postClient.search).toHaveBeenCalledWith(
 			{
 				term: "blog",
 				limit: 6,
+				mode: "fulltext",
 				offset: 6,
 				sortBy: {
 					property: "publishedTimestamp",
@@ -972,11 +997,12 @@ describe("Search page", () => {
 		);
 
 		// Invokes the expected collections query
-		expect(clients.collectionClient.search).toHaveBeenCalledOnce()
+		expect(clients.collectionClient.search).toHaveBeenCalledOnce();
 		expect(clients.collectionClient.search).toHaveBeenCalledWith(
 			{
 				term: "blog",
 				limit: 4,
+				mode: "fulltext",
 				offset: 4,
 				sortBy: {
 					property: "publishedTimestamp",
@@ -1019,7 +1045,9 @@ describe("Search page", () => {
 			authors: { [MockPerson.id]: 1 },
 		}));
 
-		var { getByTestId, getByText } = render(<SearchPage mockClients={clients} />);
+		var { getByTestId, getByText } = render(
+			<SearchPage mockClients={clients} />,
+		);
 
 		var searchInput = getByTestId("search-input");
 		await user.type(searchInput, "*");
@@ -1045,7 +1073,9 @@ describe("Search page", () => {
 		cleanup();
 
 		// Re-render
-		var { getByTestId, getByText } = render(<SearchPage mockClients={clients} />);
+		var { getByTestId, getByText } = render(
+			<SearchPage mockClients={clients} />,
+		);
 
 		var searchInput = getByTestId("search-input");
 		await user.type(searchInput, "*");
@@ -1194,10 +1224,12 @@ describe("Search page", () => {
 
 		window.location.assign(`?${searchQuery}`);
 
-		const { getByTestId, getByText } = render(<SearchPage mockClients={clients} />);
+		const { getByTestId, getByText } = render(
+			<SearchPage mockClients={clients} />,
+		);
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledOnce()
+			expect(clients.postClient.search).toHaveBeenCalledOnce(),
 		);
 
 		await waitFor(() => expect(getByText("Ten blog post")).toBeInTheDocument());
@@ -1209,23 +1241,27 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledTimes(2)
+			expect(clients.postClient.search).toHaveBeenCalledTimes(2),
 		);
 
-		expect(clients.postClient.search).toHaveBeenLastCalledWith({
-			term: "blogother",
-			limit: 6,
-			offset: 0,
-			sortBy: {
-				property: "publishedTimestamp",
-				order: "asc",
+		expect(clients.postClient.search).toHaveBeenLastCalledWith(
+			{
+				term: "blogother",
+				limit: 6,
+				mode: "fulltext",
+				offset: 0,
+				sortBy: {
+					property: "publishedTimestamp",
+					order: "asc",
+				},
+				where: {
+					authors: ["joe"],
+					tags: ["angular"],
+				},
+				facets: expect.anything(),
 			},
-			where: {
-				authors: ["joe"],
-				tags: ["angular"],
-			},
-			facets: expect.anything(),
-		}, expect.anything());
+			expect.anything(),
+		);
 
 		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
 
@@ -1371,7 +1407,9 @@ describe("Search page", () => {
 
 		window.location.assign(`?${searchQuery}`);
 
-		const { getByTestId, getByText } = render(<SearchPage mockClients={clients} />);
+		const { getByTestId, getByText } = render(
+			<SearchPage mockClients={clients} />,
+		);
 
 		await waitFor(() => expect(getByText("Ten blog post")).toBeInTheDocument());
 
@@ -1401,21 +1439,26 @@ describe("Search page", () => {
 			authors: {},
 		}));
 
-		const { getByTestId, getByText } = render(<SearchPage mockClients={clients} />);
+		const { getByTestId, getByText } = render(
+			<SearchPage mockClients={clients} />,
+		);
 
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, "blog");
 
-		await waitFor(() => {
-			expect(window.location.search).toBe("?q=blog");
-			expect(getByText("No results found...")).toBeInTheDocument();
-		}, { timeout: 1500 });
+		await waitFor(
+			() => {
+				expect(window.location.search).toBe("?q=blog");
+				expect(getByText("No results found...")).toBeInTheDocument();
+			},
+			{ timeout: 1500 },
+		);
 
 		await user.type(searchInput, "other");
 
-		await waitFor(() =>
-			expect(window.location.search).toBe("?q=blogother")
-		, { timeout: 1500 });
+		await waitFor(() => expect(window.location.search).toBe("?q=blogother"), {
+			timeout: 1500,
+		});
 
 		history.back();
 		expect(window.location.search).toBe("?q=blog");
