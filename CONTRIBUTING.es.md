@@ -158,7 +158,7 @@ Como referencia, los códigos que corresponden a cada idioma, los puedes consult
 
 ## Encontrar un código de idioma
 
-Cada código de idioma dentro de [`/content/data/languages.json`](./content/data/languages.json) es formado de dos letras en minúscula. Si incluye una región, agrega un guion seguido de otras dos letras en minúscula. Por ejemplo, el código para el francés es `fr` - para referirse al dialecto del francés que se habla en Canadá, el código será `fr-ca`.
+Cada código de idioma dentro de [`/content/data/languages.json`](./content/data/languages.json) está formado por dos letras en minúscula. Si incluye una región, agrega un guion seguido de otras dos letras en minúscula. Por ejemplo, el código para el francés es `fr` - para referirse al dialecto del francés que se habla en Canadá, el código será `fr-ca`.
 
 > Por favor usa `-` en lugar de `_` en los formatos ISO de la región del idioma. En lugar de `fr_ca`, deberá ser `fr-ca`.
 
