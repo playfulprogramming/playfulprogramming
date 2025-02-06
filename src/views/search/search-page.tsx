@@ -36,6 +36,8 @@ import {
 	DisplayContentType,
 	SortType,
 	SearchFiltersData,
+	COLLECTIONS_PAGE_KEY,
+	POSTS_PAGE_KEY,
 } from "./search";
 import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
@@ -44,7 +46,7 @@ import { SearchFooter } from "./components/search-footer";
 import { ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD } from "./constants";
 
 const MAX_POSTS_PER_PAGE = 6;
-const MAX_COLLECTIONS_PER_PAGE = 4;
+const MAX_COLLECTIONS_PER_PAGE = 6;
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -94,13 +96,14 @@ export function SearchPageBase() {
 	const resultsHeading = useRef<HTMLDivElement | null>(null);
 
 	const setSearch = useCallback(
-		(str: string) => setQuery({ searchQuery: str, searchPage: 1 }),
+		(str: string) =>
+			setQuery({ searchQuery: str, postsPage: 1, collectionsPage: 1 }),
 		[setQuery],
 	);
 
 	const onManualSubmit = useCallback(
 		(str: string) => {
-			setQuery({ searchQuery: str, searchPage: 1 });
+			setQuery({ searchQuery: str, postsPage: 1, collectionsPage: 1 });
 			resultsHeading.current?.focus();
 		},
 		[setQuery],
@@ -141,6 +144,7 @@ export function SearchPageBase() {
 			// Analytics go brr
 			plausible &&
 				plausible("search", { props: { searchVal: query.searchQuery } });
+
 			return searchForTerm(query, signal);
 		},
 		[searchForTerm],
@@ -216,7 +220,8 @@ export function SearchPageBase() {
 		(authors: string[]) => {
 			setQuery({
 				filterAuthors: authors,
-				searchPage: 1,
+				postsPage: 1,
+				collectionsPage: 1, // Reset both page counters when changing filters
 			});
 		},
 		[setQuery],
@@ -226,7 +231,8 @@ export function SearchPageBase() {
 		(tags: string[]) => {
 			setQuery({
 				filterTags: tags,
-				searchPage: 1,
+				postsPage: 1,
+				collectionsPage: 1, // Reset both page counters when changing filters
 			});
 		},
 		[setQuery],
@@ -236,7 +242,8 @@ export function SearchPageBase() {
 		(display: DisplayContentType) => {
 			setQuery({
 				display: display,
-				searchPage: 1,
+				postsPage: 1,
+				collectionsPage: 1, // Reset both page counters when changing filters
 			});
 		},
 		[setQuery],
@@ -247,6 +254,7 @@ export function SearchPageBase() {
 	}, [people.people]);
 
 	const showArticles = query.display === "all" || query.display === "articles";
+
 	const showCollections =
 		query.display === "all" || query.display === "collections";
 
@@ -254,24 +262,26 @@ export function SearchPageBase() {
 		(sort: SortType) => {
 			setQuery({
 				sort: sort,
-				searchPage: 1,
+				postsPage: 1,
+				collectionsPage: 1, // Reset both page counters when changing filters
 			});
 		},
 		[setQuery],
 	);
 
-	// Calculate pagination for both posts and collections
-	const postsPageCount = Math.ceil(data.totalPosts / MAX_POSTS_PER_PAGE);
-	const collectionsPageCount = Math.ceil(
-		data.totalCollections / MAX_COLLECTIONS_PER_PAGE,
-	);
-
 	/**
 	 * Calculate the last page based on the number of posts.
 	 */
-	const lastPage = Math.max(
-		showArticles ? postsPageCount : 0,
-		showCollections ? collectionsPageCount : 0,
+	const lastPage = useMemo(
+		() => Math.ceil(data.totalPosts / MAX_POSTS_PER_PAGE),
+		[data.totalPosts],
+	);
+	/**
+	 * // Add separate pagination components for posts and collections
+	 */
+	const lastCollectionsPage = useMemo(
+		() => Math.ceil(data.totalCollections / MAX_COLLECTIONS_PER_PAGE),
+		[data.totalCollections],
 	);
 
 	/**
@@ -285,6 +295,7 @@ export function SearchPageBase() {
 	}, []);
 
 	const headerHeight = size.height;
+
 	const [isFilterDialogOpen, setFilterIsDialogOpen] = useState(false);
 
 	const noResults =
@@ -298,6 +309,8 @@ export function SearchPageBase() {
 				data.collections.length === 0));
 
 	const numberOfCollections = showCollections ? data.totalCollections : 0;
+
+	const numberOfPosts = showArticles ? data.totalPosts : 0;
 
 	return (
 		<main
@@ -432,7 +445,6 @@ export function SearchPageBase() {
 								>
 									{data.collections.map((collection) => (
 										<CollectionCard
-											key={collection.slug}
 											collection={collection}
 											authors={collection.authors
 												.map((id) => peopleMap.get(id + ""))
@@ -441,30 +453,31 @@ export function SearchPageBase() {
 										/>
 									))}
 								</ul>
-								{data.totalCollections > MAX_COLLECTIONS_PER_PAGE && (
+								{!isHybridSearch && (
 									<Pagination
-										testId="collection-pagination"
+										testId="collections-pagination"
 										softNavigate={(_href, pageNum) => {
 											window.scrollTo(0, 0);
 											setQuery({
-												searchPage: pageNum,
+												collectionsPage: pageNum,
 											});
 										}}
 										page={{
-											currentPage: query.searchPage,
-											lastPage: collectionsPageCount,
+											currentPage: query.collectionsPage,
+											lastPage: lastCollectionsPage,
 										}}
 										getPageHref={(pageNum) => {
 											const pageParams = new URLSearchParams(
 												window.location.search,
 											);
-											pageParams.set(SEARCH_PAGE_KEY, pageNum.toString());
+											pageParams.set(COLLECTIONS_PAGE_KEY, pageNum.toString());
 											return `${window.location.pathname}?${pageParams.toString()}`;
 										}}
 									/>
 								)}
 							</Fragment>
 						)}
+
 					{enabled &&
 						!isContentLoading &&
 						showArticles &&
@@ -482,30 +495,32 @@ export function SearchPageBase() {
 									postAuthors={peopleMap}
 									postHeadingTag="h3"
 								/>
-								<Pagination
-									testId="pagination"
-									softNavigate={(_href, pageNum) => {
-										window.scrollTo(0, 0);
-										setQuery({
-											searchPage: pageNum,
-										});
-									}}
-									page={{
-										currentPage: query.searchPage,
-										lastPage: postsPageCount,
-									}}
-									getPageHref={(pageNum) => {
-										const pageParams = new URLSearchParams(
-											window.location.search,
-										);
-										pageParams.set(SEARCH_PAGE_KEY, pageNum.toString());
-										return `${window.location.pathname
+								{!isHybridSearch && (
+									<Pagination
+										testId="posts-pagination"
+										softNavigate={(_href, pageNum) => {
+											window.scrollTo(0, 0);
+											setQuery({
+												postsPage: pageNum,
+											});
+										}}
+										page={{
+											currentPage: query.postsPage,
+											lastPage: lastPage,
+										}}
+										getPageHref={(pageNum) => {
+											const pageParams = new URLSearchParams(
+												window.location.search,
+											);
+											pageParams.set(POSTS_PAGE_KEY, pageNum.toString());
+											return `${
+												window.location.pathname
 											}?${pageParams.toString()}`;
-									}}
-								/>
+										}}
+									/>
+								)}
 							</Fragment>
 						)}
-
 					{enabled && !isContentLoading && !noResults && (
 						<SearchFooter duration={data.duration} />
 					)}

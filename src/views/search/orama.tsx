@@ -14,6 +14,9 @@ import {
 	ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
 } from "./constants";
 
+const MAX_POSTS_PER_PAGE = 6;
+const MAX_COLLECTIONS_PER_PAGE = 6;
+
 const postSchema = {
 	slug: "string",
 	tags: "enum[]",
@@ -101,25 +104,10 @@ export async function searchForTerm(
 ) {
 	const term =
 		query.searchQuery?.trim() === "*" ? "" : query.searchQuery.trim();
-	const mode =
-		term.split(" ").filter((t) => t.trim() !== "").length >=
-		ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD
-			? "hybrid"
-			: "fulltext";
-
-	let sortBy: SortByClauseUnion | undefined;
-
-	if (query.sort === "relevance") {
-		// When term is empty (returning all results), there is no "relevance" to sort by - so this defaults to a sort by newest
-		if (term.length === 0) {
-			sortBy = { property: "publishedTimestamp", order: "desc" };
-		}
-	} else {
-		sortBy = {
-			property: "publishedTimestamp",
-			order: query.sort === "newest" ? "desc" : "asc",
-		};
-	}
+	
+	const sortBy: SortByClauseUnion | undefined = query.sort === "relevance"
+	? (term.length > 0 ? undefined : { property: "publishedTimestamp", order: "desc" })
+	: { property: "publishedTimestamp", order: query.sort === "newest" ? "desc" : "asc" };
 
 	// Schema should be passed to `search` method when:
 	// https://github.com/askorama/oramacloud-client-javascript/pull/35
@@ -128,23 +116,27 @@ export async function searchForTerm(
 		postClient.search(
 			{
 				term,
-				limit: query.postsLimit ?? 6, // Default to 6 if not specified
-				offset: query.postsOffset ?? 0, // Default to 0 if not specified
+				limit: MAX_POSTS_PER_PAGE,
+				offset: (query.postsPage - 1) * MAX_POSTS_PER_PAGE,
 				sortBy,
 				where: {
 					tags: query.filterTags.length ? query.filterTags : undefined,
 					authors: query.filterAuthors.length ? query.filterAuthors : undefined,
 				},
 				facets: {
-					tags: { limit: 50 },
-					authors: { limit: 50 },
+					tags: {
+						limit: 50,
+					},
+					authors: {
+						limit: 50,
+					},
 				},
 			},
 			{
 				debounce: 0,
 				abortController: { signal } as never as AbortController,
-				//TODO: This does nothing yet:
-				// https://github.com/askorama/oramacloud-client-javascript/pull/34
+				// // TODO: This does nothing yet:
+				// // https://github.com/askorama/oramacloud-client-javascript/pull/34
 				// abortSignal: signal,
 			},
 		);
@@ -154,16 +146,20 @@ export async function searchForTerm(
 	> = collectionClient.search(
 		{
 			term,
-			limit: query.collectionsLimit ?? 4, // Default to 4 if not specified
-			offset: query.collectionsOffset ?? 0, // Default to 0 if not specified
+			limit: MAX_COLLECTIONS_PER_PAGE,
+			offset: (query.collectionsPage - 1) * MAX_COLLECTIONS_PER_PAGE,
 			sortBy,
 			where: {
 				tags: query.filterTags.length ? query.filterTags : undefined,
 				authors: query.filterAuthors.length ? query.filterAuthors : undefined,
 			},
 			facets: {
-				tags: { limit: 50 },
-				authors: { limit: 50 },
+				tags: {
+					limit: 50,
+				},
+				authors: {
+					limit: 50,
+				},
 			},
 		},
 		{
