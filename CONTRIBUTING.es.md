@@ -1,7 +1,7 @@
-Como comunidad le damos la bienvenida a cualquiera que desee escribir y enviar publicaciones al blog de Playful Programming. En este documento revisaremos los pasos necesarios para crear una nueva publicación, y después enviarla a PP como una *pull request* o solicitud para incorporar cambios.
+Como comunidad le damos la bienvenida a cualquiera que desee escribir y enviar publicaciones al blog de Playful Programming. En este documento revisaremos los pasos necesarios para crear una nueva publicación, y después enviarla a PP como un *pull request* o solicitud para incorporar cambios.
 
 > [!NOTE]
-> Para un tutorial más general sobre cómo contribuir a un proyecto con GitHub podrías revisar la guía ["Primeras contribuciones"](https://github.com/firstcontributions/first-contributions/blob/main/translations/README.mx.md) antes de seguir leyendo esta página.
+> Para un tutorial más general sobre cómo contribuir a un proyecto con GitHub porfavot revisar la guía ["Primeras contribuciones"](https://github.com/firstcontributions/first-contributions/blob/main/translations/README.mx.md) antes de seguir leyendo esta página.
 
 Algunos puntos a tomar en cuenta cuando escribas tu artículo:
 - ¡Sé incluyente! En PP apoyamos a los desarrolladores de todos los niveles de experiencia - no excluyamos a los novatos ni desanimemos a los lectores que desean aprender algo nuevo.
@@ -40,9 +40,9 @@ Veamos un ejemplo de cómo se vería tu archivo `index.md`:
   // "description" es una biografia corta que se mostrará en tu página de perfil
   description: "Programador Haskell, escritor de fanfictions, un unicornio omnisciente.",
 
-  // Tus usuarios de redes sociales pueden incluir "twitter", "github", "gitlab",
+  // Tus nombres de usuario en redes sociales. Puedes incluir cuentas de "twitter", "github", "gitlab",
   // "linkedIn", "twitch", "dribbble", "mastodon", "threads", "youtube",
-  // "bluesky", y "cohost", además de un "website" que ¡puede ser lo que quieras!
+  // "bluesky", y "cohost", además de un "website" que puede ser un enlace a lo que quieras!
   socials: {
     mastodon: "https://hachyderm.io/@playfulprogramming",
     github: "playfulprogramming",
@@ -97,13 +97,13 @@ Cuando escribas tu publicación, necesitarás incluir metadatos en el *frontmatt
 <details>
   <summary><strong>Propiedades opcionales</strong></summary>
 
-  Existen algunas propiedades extra que *podrías* incluir en el frontmatter de tu publicación, pero que no son necesarias:
+  Existen algunas propiedades de sobra que son possibles incluir *como opcion* en el frontmatter de tu publicación, pero que no son necesarias:
 
   - `authors: ["autor1", "autor2"]` se puede usar para especificar de forma manual los ID's de los autores de una publicación en caso de que la publicación tenga varios autores.
   - `edited: "2023-10-21"` sirve para especificar la fecha en la que hiciste la "última actualización" de tu publicación en caso de que realices modificaciones.
   - `collection: "Mi genial serie de artículos"` tratará a un grupo de publicaciones como una serie en caso de que todas tengan el mismo texto `collection` configurado.
   - `order: 0` reordenará las publicaciones de una colección de acuerdo con el valor que proporciones. Esto no tendrá efecto a menos que la publicación se encuentre dentro de una colección.
-  - `originalLink: "https://example.com"` especifica una URL externa que sirva como fuente para tu publicación. ¡Es importante especificar este valor si estás republicando algo que tengas escrito en otro blog!
+  - `originalLink: "https://example.com"` especifica un enlace externo que sirve como fuente para tu publicación. ¡Es importante especificar este valor si estás republicando algo que tengas escrito en otro blog!
 
 </details>
 
@@ -142,7 +142,7 @@ Los vídeos también se pueden incrustar con la siguiente sintaxis:
 <video src="./ios_vs_android.mp4" title="Una comparación de cómo se aplica el espaciado de texto en iOS y Android"></video>
 ```
 
-> Cuando sea posible, los elementos `<video>` deberán elegirse por sobre los archivos `.gif` u otras imágenes animadas en tus publicaciones. Esto es por motivos de accesibilidad - los vídeos dan más control a los usuarios acerca de cuándo y cómo es que la animación se reproduce.
+> Cuando sea posible, los elementos `<video>` deberán elegirse por sobre los archivos `.gif` o otras imágenes animadas en tus publicaciones. Esto es por motivos de accesibilidad - los vídeos dan más control a los usuarios acerca de cuándo y cómo es que la animación se reproduce.
 
 # Traducir una publicación del blog
 
@@ -150,15 +150,15 @@ Si quires agregar una traducción, primero asegúrate de crear un [Archivo de da
 
 Para crear un archivo de traduccción para una publicación, copia su archivo `index.md` y renómbralo a `index.(lenguaje).md`, donde `(lenguaje)` es el idioma al que traduces la publicación. Por ejemplo, una traducción al `fr` (francés) podría ser nombrada `index.fr.md`. El contenido dentro de este archivo puede ser traducido a su idioma respectivo.
 
-> Si fuera necesario traducir cualquiera de las imágenes usadas en la publicación, estas deberán ser nombradas de forma similar - por ejemplo, una traducción de `dom_tree.svg` deberá ser nombrada `dom_tree.fr.svg`.
+> Si es necesario traducir cualquiera de las imágenes usadas en la publicación, estas deberán ser nombradas de forma similar - por ejemplo, una traducción de `dom_tree.svg` deberá ser nombrada `dom_tree.fr.svg`.
 >
 > Cualquier enlace a esas imágenes deberá ser actualizado en el archivo `index.fr.md` de la publicación para que apunte a la imagen traducida.
 
-Como referencia, los códigos de cada idioma los puedes consultar en el archivo [`/content/data/languages.json`](./content/data/languages.json) - si el idioma que quieres usar no se encuentra tal vez sea necesario que lo agregues.
+Como referencia, los códigos que corresponden a cada idioma los puedes consultar en el archivo [`/content/data/languages.json`](./content/data/languages.json) - si el idioma que quieres usar no se encuentra tal vez sea necesario que lo agregues.
 
 ## Encontrar un código de idioma
 
-Cada código de idioma dentro de [`/content/data/languages.json`](./content/data/languages.json) debería estar formado de dos letras en minúscula. Si incluye una región, agrega un guion seguido de otras dos letras en minúscula. Por ejemplo, el código para el francés es `fr` - para referirse al dialecto del francés que se habla en Canadá, el código será `fr-ca`.
+Cada código de idioma dentro de [`/content/data/languages.json`](./content/data/languages.json) es formado de dos letras en minúscula. Si incluye una región, agrega un guion seguido de otras dos letras en minúscula. Por ejemplo, el código para el francés es `fr` - para referirse al dialecto del francés que se habla en Canadá, el código será `fr-ca`.
 
 > Por favor usa `-` en lugar de `_` en los formatos ISO de la región del idioma. En lugar de `fr_ca`, deberá ser `fr-ca`.
 
@@ -168,8 +168,8 @@ Consulta la lista [Wikipedia: List of ISO 639-1 codes](https://en.wikipedia.org/
 
 Una vez que hayas hecho todos los cambios, [crea una Pull Request](https://docs.github.com/es/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) para agregar tu publicación al sitio.
 
-- Abre una [nueva Pull Request](https://github.com/playfulprogramming/playfulprogramming/compare) desde tu *fork* (bifurcación).
-- Revisa que todos tus archivos estén dentro de la Pull Request, y que estos estén siendo combinados a la rama principal o `main`.
+- Abre un [nueva Pull Request](https://github.com/playfulprogramming/playfulprogramming/compare) desde tu *fork* (bifurcación).
+- Revisa que todos tus archivos estén dentro de el Pull Request, y que estos estén siendo combinados a la rama principal o `main`.
 - Crea el PR y espera a que quien mantiene el sitio lo revise.
 - Una vez combinada (*merged*), ¡tu publicación será visible en el sitio!
 
