@@ -41,6 +41,7 @@ import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
 import { OramaClientProvider, useOramaSearch } from "./orama";
 import { SearchFooter } from "./components/search-footer";
+import { ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD } from "./constants";
 
 const MAX_POSTS_PER_PAGE = 6;
 const MAX_COLLECTIONS_PER_PAGE = 4;
@@ -140,21 +141,7 @@ export function SearchPageBase() {
 			// Analytics go brr
 			plausible &&
 				plausible("search", { props: { searchVal: query.searchQuery } });
-
-			const postsOffset = (query.searchPage - 1) * MAX_POSTS_PER_PAGE;
-			const collectionsOffset =
-				(query.searchPage - 1) * MAX_COLLECTIONS_PER_PAGE;
-
-			return searchForTerm(
-				{
-					...query,
-					postsOffset,
-					collectionsOffset,
-					postsLimit: MAX_POSTS_PER_PAGE,
-					collectionsLimit: MAX_COLLECTIONS_PER_PAGE,
-				},
-				signal,
-			);
+			return searchForTerm(query, signal);
 		},
 		[searchForTerm],
 	);
@@ -188,16 +175,24 @@ export function SearchPageBase() {
 	const tagCounts = usePersistedEmptyRef(
 		isWildcardSearch
 			? Object.fromEntries(
-				people.tags.map((tag) => [tag.id, tag.totalPostCount]),
-			)
+					people.tags.map((tag) => [tag.id, tag.totalPostCount]),
+				)
 			: data.tags,
 	);
 	const authorCounts = usePersistedEmptyRef(
 		isWildcardSearch
 			? Object.fromEntries(
-				people.people.map((person) => [person.id, person.totalPostCount]),
-			)
+					people.people.map((person) => [person.id, person.totalPostCount]),
+				)
 			: data.authors,
+	);
+
+	// if searchh term has more than a certain number of words, then use hybrid mode Orama search for smart/AI searching capabilities
+	const isHybridSearch = useMemo(
+		() =>
+			query.searchQuery?.split(" ")?.filter((t) => t.trim() !== "")?.length >=
+			ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+		[query.searchQuery],
 	);
 
 	const isError = isErrorPeople || isErrorData;
@@ -303,7 +298,6 @@ export function SearchPageBase() {
 				data.collections.length === 0));
 
 	const numberOfCollections = showCollections ? data.totalCollections : 0;
-	const numberOfPosts = showArticles ? data.totalPosts : 0;
 
 	return (
 		<main
@@ -335,6 +329,7 @@ export function SearchPageBase() {
 					overflow: "clip",
 				}}
 				searchString={query.searchQuery}
+				isHybridSearch={isHybridSearch}
 			/>
 			<div className={style.mainContents}>
 				<SearchTopbar

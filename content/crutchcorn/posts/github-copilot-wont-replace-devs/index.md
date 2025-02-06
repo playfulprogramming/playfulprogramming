@@ -3,7 +3,7 @@
     title: "GitHub Copilot is Amazing - It Won't Replace Developers",
     description: "GitHub Copilot is an amazing tool that I think will drastically improve the way that I code. But it won't replace me. Here's why.",
     published: '2021-10-04T22:12:03.284Z',
-    tags: ['opinion', 'tools', 'copilot'],
+    tags: ['opinion', 'ai', 'copilot'],
     license: 'cc-by-nc-sa-4'
 }
 ---

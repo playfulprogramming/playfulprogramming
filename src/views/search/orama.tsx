@@ -11,6 +11,7 @@ import {
 	ORAMA_COLLECTIONS_ENDPOINT,
 	ORAMA_POSTS_API_KEY,
 	ORAMA_POSTS_ENDPOINT,
+	ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
 } from "./constants";
 
 const postSchema = {
@@ -98,16 +99,27 @@ export async function searchForTerm(
 	query: SearchQuery,
 	signal: AbortSignal,
 ) {
-	const term = query.searchQuery === "*" ? "" : query.searchQuery;
-	const sortBy: SortByClauseUnion | undefined =
-		query.sort === "relevance"
-			? term.length > 0
-				? undefined
-				: { property: "publishedTimestamp", order: "desc" }
-			: {
-					property: "publishedTimestamp",
-					order: query.sort === "newest" ? "desc" : "asc",
-				};
+	const term =
+		query.searchQuery?.trim() === "*" ? "" : query.searchQuery.trim();
+	const mode =
+		term.split(" ").filter((t) => t.trim() !== "").length >=
+		ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD
+			? "hybrid"
+			: "fulltext";
+
+	let sortBy: SortByClauseUnion | undefined;
+
+	if (query.sort === "relevance") {
+		// When term is empty (returning all results), there is no "relevance" to sort by - so this defaults to a sort by newest
+		if (term.length === 0) {
+			sortBy = { property: "publishedTimestamp", order: "desc" };
+		}
+	} else {
+		sortBy = {
+			property: "publishedTimestamp",
+			order: query.sort === "newest" ? "desc" : "asc",
+		};
+	}
 
 	// Schema should be passed to `search` method when:
 	// https://github.com/askorama/oramacloud-client-javascript/pull/35
