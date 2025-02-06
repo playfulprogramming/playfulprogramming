@@ -1,7 +1,7 @@
 Como comunidad le damos la bienvenida a cualquiera que desee escribir y enviar publicaciones al blog de Playful Programming. En este documento revisaremos los pasos necesarios para crear una nueva publicación, y después enviarla a PP como un *pull request* o solicitud para incorporar cambios.
 
 > [!NOTE]
-> Para un tutorial más general sobre cómo contribuir a un proyecto con GitHub porfavot revisar la guía ["Primeras contribuciones"](https://github.com/firstcontributions/first-contributions/blob/main/translations/README.mx.md) antes de seguir leyendo esta página.
+> Para un tutorial más general sobre cómo contribuir a un proyecto con GitHub porfavor revisar la guía ["Primeras contribuciones"](https://github.com/firstcontributions/first-contributions/blob/main/translations/README.mx.md) antes de seguir leyendo esta página.
 
 Algunos puntos a tomar en cuenta cuando escribas tu artículo:
 - ¡Sé incluyente! En PP apoyamos a los desarrolladores de todos los niveles de experiencia - no excluyamos a los novatos ni desanimemos a los lectores que desean aprender algo nuevo.
