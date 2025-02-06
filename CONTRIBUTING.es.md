@@ -97,7 +97,7 @@ Cuando escribas tu publicación, necesitarás incluir metadatos en el *frontmatt
 <details>
   <summary><strong>Propiedades opcionales</strong></summary>
 
-  Existen algunas propiedades de sobra que son possibles incluir *como opcion* en el frontmatter de tu publicación, pero que no son necesarias:
+  Existen algunas propiedades adicionales que *podrías* incluir en el frontmatter de tu publicación, pero que no son necesarias:
 
   - `authors: ["autor1", "autor2"]` se puede usar para especificar de forma manual los ID's de los autores de una publicación en caso de que la publicación tenga varios autores.
   - `edited: "2023-10-21"` sirve para especificar la fecha en la que hiciste la "última actualización" de tu publicación en caso de que realices modificaciones.
