@@ -142,7 +142,7 @@ Los vídeos también se pueden incrustar con la siguiente sintaxis:
 <video src="./ios_vs_android.mp4" title="Una comparación de cómo se aplica el espaciado de texto en iOS y Android"></video>
 ```
 
-> Cuando sea posible, los elementos `<video>` deberán elegirse por sobre los archivos `.gif` o otras imágenes animadas en tus publicaciones. Esto es por motivos de accesibilidad - los vídeos dan más control a los usuarios acerca de cuándo y cómo es que la animación se reproduce.
+> Cuando sea posible, los elementos `<video>` deberán elegirse por sobre los archivos `.gif` u otras imágenes animadas en tus publicaciones. Esto es por motivos de accesibilidad - los vídeos dan más control a los usuarios acerca de cuándo y cómo es que la animación se reproduce.
 
 # Traducir una publicación del blog
 
