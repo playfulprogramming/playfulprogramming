@@ -169,7 +169,7 @@ Consulta la lista [Wikipedia: List of ISO 639-1 codes](https://en.wikipedia.org/
 Una vez que hayas hecho todos los cambios, [crea una Pull Request](https://docs.github.com/es/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) para agregar tu publicación al sitio.
 
 - Abre un [nueva Pull Request](https://github.com/playfulprogramming/playfulprogramming/compare) desde tu *fork* (bifurcación).
-- Revisa que todos tus archivos estén dentro de el Pull Request, y que estos estén siendo combinados a la rama principal o `main`.
+- Revisa que todos tus archivos estén dentro del Pull Request, y que estos estén siendo combinados a la rama principal o `main`.
 - Crea el PR y espera a que quien mantiene el sitio lo revise.
 - Una vez combinada (*merged*), ¡tu publicación será visible en el sitio!
 
