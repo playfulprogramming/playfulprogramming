@@ -172,10 +172,6 @@ This is when someone opens a PR, receives some feedback, and then disappears for
 
 We sometimes see contributors delete their PR and create a new one when they receive feedback. It's like throwing away your essay and starting a new one because your teacher suggested some edits! Instead, you can just update your existing PR - it keeps all the context and discussion in one place.
 
-### The "What's Happening?" Ping
-
-This is when contributors comment "any updates?" every few days on their PR. While we absolutely understand the excitement to get your code merged, remember that our reviewers are volunteers who often have full-time jobs. They're like teachers grading homework - they need time to give thoughtful feedback!
-
 ### The "Surprise Package" PR
 
 Sometimes folks submit PRs without opening an issue first or discussing the change. It's like cooking a surprise meal for someone without checking if they have any dietary restrictions! While we appreciate the initiative, it's usually better to discuss bigger changes first to make sure they align with our project's direction.
