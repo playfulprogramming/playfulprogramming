@@ -154,7 +154,7 @@ Para crear un archivo de traduccción para una publicación, copia su archivo `i
 >
 > Cualquier enlace a esas imágenes deberá ser actualizado en el archivo `index.fr.md` de la publicación para que apunte a la imagen traducida.
 
-Como referencia, los códigos que corresponden a cada idioma los puedes consultar en el archivo [`/content/data/languages.json`](./content/data/languages.json) - si el idioma que quieres usar no se encuentra tal vez sea necesario que lo agregues.
+Como referencia, los códigos que corresponden a cada idioma, los puedes consultar en el archivo [`/content/data/languages.json`](./content/data/languages.json) - si el idioma que quieres usar no se encuentra tal vez sea necesario que lo agregues.
 
 ## Encontrar un código de idioma
 
