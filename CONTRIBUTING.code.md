@@ -56,7 +56,7 @@ If any of these terms sound unfamiliar, don't worry! Here's what they mean:
 
 ### Making Changes
 
-🌟 **Pro Tip**: Small, incremental commits are better than large ones. Sometimes we might stumble down a rabbit hole.
+🌟 **Pro Tip**: Small, incremental commits are better than large ones. Sometimes we might stumble down a rabbit hole we have no clue how to come out of.
 This approach makes it so that you can easily revert to the "last known working" state of your changes.
 
 When you want to make changes:
@@ -115,11 +115,13 @@ We review all contributions to maintain quality and consistency. Here's what you
 
 ### Code Style and Formatting
 
-We use Prettier to maintain consistent code formatting across the project. This takes the hassle out of styling decisions - no more debates about tabs vs spaces! 
+We use Prettier to maintain consistent code formatting across the project. This takes the hassle out of styling decisions - no more debates about tabs vs spaces!
 
 Here's what you need to know:
 
 1. Always run `npm run format` before submitting your PR. This ensures your code follows our formatting standards.
+    - This should be done automatically, but it does not hurt to make sure.
+
 2. If you're using VS Code (our recommended editor), you can install the Prettier extension and set it to "Format on Save". This way, your code will always be formatted correctly as you work.
 
 Beyond formatting, here are some style guidelines we follow:
