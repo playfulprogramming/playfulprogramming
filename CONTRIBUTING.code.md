@@ -111,10 +111,10 @@ When you want to make changes:
    git commit -m "Describe what you changed here"
    ```
 
-🌟 **Pro Tip**: Prefer adding individual files  to commits over using `git add .`. Here's why:
+🌟 **Pro Tip**: Prefer adding individual files and changes to commits over using `git add .`. Here's why:
 
 - Our "working memory" pales in comparison to that of our machines...Often times, we might make changes to files and not mean to include them in a commit.
-- Adding individual files ensures you don't accidentally add unintended changes.
+- Adding individual files (or changes) ensures you don't accidentally add unintended changes.
 
 3. Push your changes to your fork.
 
@@ -155,7 +155,7 @@ We review all contributions to maintain quality and consistency. Here's what you
 
 - There is an actual human being on the other side of the screen who is simply trying to help. Keep your discussions focused possible and your critiques constructive.
 - Most important of all, remember to abide by the "golden rule":
-  
+
 ##### **Treat others the way you'd like to be treated, always be kind!**
 
 ## Best Practices
@@ -244,7 +244,7 @@ Remember: We've all been there! These situations are so common that we thought t
    - Some tickets available [here](https://github.com/orgs/playfulprogramming/projects/8)
 4. Graphics & Design
    - Lead by Eduardo Pratti
-   - Some ticket available [here](https://github.com/orgs/playfulprogramming/projects/10/views/1)
+   - Some tickets available [here](https://github.com/orgs/playfulprogramming/projects/10/views/1)
 
 ## Getting Help
 
