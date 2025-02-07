@@ -53,6 +53,8 @@ https://strapi.io/blog/git-based-vs-api-first-cms
 
 # What other options have you explored?
 
+From most in-depth researched to least researched:
+
 ## Decap CMS
 
 In conversations we've been considering building the CMS entirely in-house, as https://decapcms.org/ doesn't completely satisfy this use case and there are a lot of custom-built behaviors for e.g. tabs/iframes and the remark/rehype plugins.
@@ -142,20 +144,41 @@ https://keystatic.com/
 - No ability to save output to files instead of `db` tables/schema
 - No support for non-approved authors
 
+## Ghost CMS
+
+**Pros**:
+
+- MIT Licensed
+
+**Cons**:
+
+- Using [a very old version of Ember for most of its frontend](https://github.com/TryGhost/Ghost/issues/21692)
+- Not Git-based
+- No external user permissions
+
 
 
 ## Payload CMS
 
+**Pros**:
+
+- MIT Licensed
+
+**Cons**:
+
 - Not Git-based
 - Permissions issues
-
-## Ghost CMS
 
 
 
 ## Strapi
 
+**Cons**:
+
+- [Questionable OSS license](https://github.com/strapi/strapi/blob/develop/LICENSE)
+  - Changes license based on folder you're in, includes important parts of the codebase
 - Not Git-based
+- Permissions issues
 
 
 
