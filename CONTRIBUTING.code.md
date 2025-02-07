@@ -1,8 +1,12 @@
 # Contributing Code
 
-Welcome to our code contribution guide! First off, thank you for considering contributing to our project. Whether you're fixing a typo in our documentation or implementing a new feature, your help makes this community better for everyone.
+Welcome to our code contribution guide!
 
-This guide will walk you through the process of contributing code to our project. Don't worry if you're new to this – we've all been there! We'll explain everything step by step.
+First off, thank you for considering contributing to our project. Whether you're fixing a typo in our documentation or implementing a new feature, your help makes this community better for everyone.
+
+This guide will walk you through the process of contributing code to our project. Don't worry if you're new to this – we've all been there!
+
+We'll explain everything step by step.
 
 ## Before You Start
 
@@ -28,7 +32,8 @@ Below are some helpful guides for learning how to fork and clone a repository:
 3. Install Node.js if you haven't already (we recommend the LTS version)
 4. Install PNPM (our package manager)
    - `npm install -g pnpm`
-   - If this fails, you might have to preface the command with sudo, `sudo npm install -g pnpm`
+   - If this fails, you might have to preface the command with sudo to run it with administrative privileges:
+      - `sudo npm install -g pnpm`
 5. Install the project dependencies by running `pnpm install` in your terminal
 
 Once you have everything installed, you'll have access to several helpful commands to make development easier. Here are the most important ones you'll use:
@@ -55,39 +60,67 @@ A typical development workflow looks like this:
 
 ## Glossary
 
-If any of these terms sound unfamiliar, don't worry! Here's what they mean:
+If any of these terms sound unfamiliar, don't worry! Here's are some useful terms to know:
 
 - **Fork**: Think of this as making your own copy of our project on GitHub. It's like copying a Google Doc to edit it.
 - **Clone**: This means downloading the code to your computer so you can work on it.
-- **Package**: An external tool or library
-- **Dependencies**: These are the tools and libraries our project needs to run.
-- **Package Manager**: A tool (like pnpm or npm) used to manage a project's dependencies.
+- **Package**: A grouping of code that, composing an external tool or library.
+- **Dependencies**: These are the tools and libraries (packages) our project needs to run.
+- **Package Manager**: A tool (like pnpm or npm) used to manage (add, remove or update) a project's dependencies.
+- **Commit**: A "snapshot" of your code at a specific point in time.
+- **Patch**: A set of specific changes that can be applied to a codebase.
 
 ### Making Changes
 
-🌟 **Pro Tip**: Small, incremental commits are better than large ones. Sometimes we might stumble down a rabbit hole we have no clue how to come out of.
-This approach makes it so that you can easily revert to the "last known working" state of your changes.
+🌟 **Pro Tip**: Small, incremental commits are better than large ones. Here's why:
+
+- We've all stumbled down "rabbit holes" while working on something, having no clue how to come out of them. Don't "code yourself into a corner".
+- Small, frequent commits mean you can easily revert to the "last known working" state of your changes, without losing too much of your progress.
 
 When you want to make changes:
 
 1. Create a new branch for your changes. Think of this as creating a new draft version that won't affect the main project until it's ready.
 
-```bash
-git checkout -b your-branch-name
-```
+   ```bash
+   git checkout -b your-branch-name
+   ```
 
 2. Make your changes and commit them. A commit is like saving a document, but with a message explaining what you changed.
 
-```bash
-git add .
-git commit -m "Describe what you changed here"
-```
+- To add specific changes in previously committed files (recommended):
+
+   ```bash
+   git add -p
+   <This will open a "patch" view>
+   git commit -m "Describe what you changed here"
+   ```
+
+  - [Here](https://millerb.co.uk/2021/11/16/git-add-patch.html) is a guide describing the `-p` option and how to use it in more detail.
+
+- To add changes in a one or more files:
+
+   ```bash
+   git add file1 file2 file3
+   git commit -m "Describe what you changed here"
+   ```
+
+- To add all changes to a commit:
+
+   ```bash
+   git add .
+   git commit -m "Describe what you changed here"
+   ```
+
+🌟 **Pro Tip**: Prefer adding individual files  to commits over using `git add .`. Here's why:
+
+- Our "working memory" pales in comparison to that of our machines...Often times, we might make changes to files and not mean to include them in a commit.
+- Adding individual files ensures you don't accidentally add unintended changes.
 
 3. Push your changes to your fork.
 
-```bash
-git push origin your-branch-name
-```
+   ```bash
+   git push origin your-branch-name
+   ```
 
 ## Creating a Pull Request (PR)
 
@@ -118,7 +151,12 @@ We review all contributions to maintain quality and consistency. Here's what you
    - Make the requested changes in the same PR
    - Push your updates to the same branch
 
-🌟 **Pro Tip**: Disagreeing with proposed changes is perfectly fine! Being rude or disrespectful is not. Always remember, there is an actual human being on the other side of the screen who is just trying to help. Always keep your discussions as focused as possible and your critiques constructive. Most importantly, always be kind!
+🌟 **Pro Tip**: Disagreeing with proposed changes is perfectly fine! **Being rude or disrespectful is not**. Please remember:
+
+- There is an actual human being on the other side of the screen who is simply trying to help. Keep your discussions focused possible and your critiques constructive.
+- Most important of all, remember to abide by the "golden rule":
+  
+##### **Treat others the way you'd like to be treated, always be kind!**
 
 ## Best Practices
 
@@ -128,7 +166,7 @@ We use Prettier to maintain consistent code formatting across the project. This 
 
 Here's what you need to know:
 
-1. Always run `npm run format` before submitting your PR. This ensures your code follows our formatting standards.
+1. Always run `pnpm run format` before submitting your PR. This ensures your code follows our formatting standards.
     - This should be done automatically, but it does not hurt to make sure.
 
 2. If you're using VS Code (our recommended editor), you can install the Prettier extension and set it to "Format on Save". This way, your code will always be formatted correctly as you work.
@@ -221,8 +259,10 @@ Stuck? No problem! Here's how to get help:
 
 Remember: There are no silly questions! We were all beginners once, and we're here to help each other learn and grow.
 
-## Thank You!
+## Thank You
 
-Every contribution helps make our community better. Thank you for taking the time to contribute! If you have suggestions for improving this guide, feel free to open a PR for that too.
+Thank you for taking the time to contribute! Every contribution helps make our community better.
+
+If you have suggestions for improving this guide, feel free to open a PR for that too.
 
 Happy coding! 🎉
