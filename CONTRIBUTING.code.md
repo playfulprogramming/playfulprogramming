@@ -153,7 +153,7 @@ We review all contributions to maintain quality and consistency. Here's what you
 
 🌟 **Pro Tip**: Disagreeing with proposed changes is perfectly fine! **Being rude or disrespectful is not**. Please remember:
 
-- There is an actual human being on the other side of the screen who is simply trying to help. Keep your discussions focused possible and your critiques constructive.
+- There is an actual human being on the other side of the screen who is simply trying to help. Keep your discussions focused and your critiques constructive.
 - Most important of all, remember to abide by the "golden rule":
 
 ##### **Treat others the way you'd like to be treated, always be kind!**
