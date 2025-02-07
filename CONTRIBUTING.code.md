@@ -40,6 +40,8 @@ Once you have everything installed, you'll have access to several helpful comman
 
 - `npm test`: Runs our test suite to make sure everything is working correctly.
 
+## Example workflow
+
 A typical development workflow looks like this:
 
 1. Start the development server with `npm run dev`
