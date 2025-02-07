@@ -50,6 +50,8 @@ A typical development workflow looks like this:
 4. Run `npm run lint:fix` to catch and fix any potential issues
 5. Commit your changes and create a PR
 
+## Glossary
+
 If any of these terms sound unfamiliar, don't worry! Here's what they mean:
 
 - **Fork**: Think of this as making your own copy of our project on GitHub. It's like copying a Google Doc to edit it.
