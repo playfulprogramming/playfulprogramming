@@ -43,10 +43,8 @@ import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
 import { OramaClientProvider, useOramaSearch } from "./orama";
 import { SearchFooter } from "./components/search-footer";
-import { ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD } from "./constants";
+import { MAX_COLLECTIONS_PER_PAGE, MAX_POSTS_PER_PAGE, ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD } from "./constants";
 
-const MAX_POSTS_PER_PAGE = 6;
-const MAX_COLLECTIONS_PER_PAGE = 6;
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();

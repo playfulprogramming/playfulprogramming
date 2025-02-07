@@ -12,10 +12,9 @@ import {
 	ORAMA_POSTS_API_KEY,
 	ORAMA_POSTS_ENDPOINT,
 	ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+	MAX_POSTS_PER_PAGE,
+	MAX_COLLECTIONS_PER_PAGE,
 } from "./constants";
-
-const MAX_POSTS_PER_PAGE = 6;
-const MAX_COLLECTIONS_PER_PAGE = 6;
 
 const postSchema = {
 	slug: "string",
@@ -104,10 +103,25 @@ export async function searchForTerm(
 ) {
 	const term =
 		query.searchQuery?.trim() === "*" ? "" : query.searchQuery.trim();
-	
-	const sortBy: SortByClauseUnion | undefined = query.sort === "relevance"
-	? (term.length > 0 ? undefined : { property: "publishedTimestamp", order: "desc" })
-	: { property: "publishedTimestamp", order: query.sort === "newest" ? "desc" : "asc" };
+	const mode =
+		term.split(" ").filter((t) => t.trim() !== "").length >=
+		ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD
+			? "hybrid"
+			: "fulltext";
+
+	let sortBy: SortByClauseUnion | undefined;
+
+	if (query.sort === "relevance") {
+		// When term is empty (returning all results), there is no "relevance" to sort by - so this defaults to a sort by newest
+		if (term.length === 0) {
+			sortBy = { property: "publishedTimestamp", order: "desc" };
+		}
+	} else {
+		sortBy = {
+			property: "publishedTimestamp",
+			order: query.sort === "newest" ? "desc" : "asc",
+		};
+	}
 
 	// Schema should be passed to `search` method when:
 	// https://github.com/askorama/oramacloud-client-javascript/pull/35
@@ -118,6 +132,7 @@ export async function searchForTerm(
 				term,
 				limit: MAX_POSTS_PER_PAGE,
 				offset: (query.postsPage - 1) * MAX_POSTS_PER_PAGE,
+				mode,
 				sortBy,
 				where: {
 					tags: query.filterTags.length ? query.filterTags : undefined,
@@ -148,6 +163,7 @@ export async function searchForTerm(
 			term,
 			limit: MAX_COLLECTIONS_PER_PAGE,
 			offset: (query.collectionsPage - 1) * MAX_COLLECTIONS_PER_PAGE,
+			mode,
 			sortBy,
 			where: {
 				tags: query.filterTags.length ? query.filterTags : undefined,
