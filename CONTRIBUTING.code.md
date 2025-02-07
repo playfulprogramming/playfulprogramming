@@ -18,8 +18,8 @@ You'll need to know how to fork and clone a Git repository, if you don't, no wor
 
 Below are some helpful guides for learning how to fork and clone a repository:
 
-- Forking[https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo]
-- Cloning[https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository]
+- [Forking](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
+- [Cloning](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
 
 ### Setting Up Your Development Environment
 
