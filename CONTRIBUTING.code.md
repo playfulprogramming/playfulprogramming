@@ -26,28 +26,31 @@ Below are some helpful guides for learning how to fork and clone a repository:
 1. Fork the repository to your GitHub account
 2. Clone your fork to your local machine
 3. Install Node.js if you haven't already (we recommend the LTS version)
-4. Install the project dependencies by running `npm install` in your terminal
+4. Install PNPM (our package manager)
+   - `npm install -g pnpm`
+   - If this fails, you might have to preface the command with sudo, `sudo npm install -g pnpm`
+5. Install the project dependencies by running `pnpm install` in your terminal
 
 Once you have everything installed, you'll have access to several helpful commands to make development easier. Here are the most important ones you'll use:
 
-- `npm run dev`: Starts the development server. This is what you'll use most often while working on changes. It gives you a live preview of the site that updates as you make changes.
+- `pnpm run dev`: Starts the development server. This is what you'll use most often while working on changes. It gives you a live preview of the site that updates as you make changes.
 
-- `npm run format`: Automatically formats all your code using Prettier. Think of this as tidying up your room - it makes everything neat and consistent! Always run this before submitting your changes.
+- `pnpm run format`: Automatically formats all your code using Prettier. Think of this as tidying up your room - it makes everything neat and consistent! Always run this before submitting your changes.
 
-- `npm run lint`: Checks your code for potential problems. If it finds any issues, it will let you know what they are and how to fix them.
+- `pnpm run lint`: Checks your code for potential problems. If it finds any issues, it will let you know what they are and how to fix them.
 
-- `npm run lint:fix`: Like `lint`, but it will automatically fix any problems it can. For more complex issues, you might need to fix them manually.
+- `pnpm run lint:fix`: Like `lint`, but it will automatically fix any problems it can. For more complex issues, you might need to fix them manually.
 
-- `npm test`: Runs our test suite to make sure everything is working correctly.
+- `pnpm test`: Runs our test suite to make sure everything is working correctly.
 
 ## Example workflow
 
 A typical development workflow looks like this:
 
-1. Start the development server with `npm run dev`
+1. Start the development server with `pnpm run dev`
 2. Make your changes while watching the live preview
-3. Run `npm run format` to tidy up your code (though if you set up VS Code as described above, you might not need this step!)
-4. Run `npm run lint:fix` to catch and fix any potential issues
+3. Run `pnpm run format` to tidy up your code (though if you set up VS Code as described above, you might not need this step!)
+4. Run `pnpm run lint:fix` to catch and fix any potential issues
 5. Commit your changes and create a PR
 
 ## Glossary
@@ -56,7 +59,9 @@ If any of these terms sound unfamiliar, don't worry! Here's what they mean:
 
 - **Fork**: Think of this as making your own copy of our project on GitHub. It's like copying a Google Doc to edit it.
 - **Clone**: This means downloading the code to your computer so you can work on it.
+- **Package**: An external tool or library
 - **Dependencies**: These are the tools and libraries our project needs to run.
+- **Package Manager**: A tool (like pnpm or npm) used to manage a project's dependencies.
 
 ### Making Changes
 
@@ -187,6 +192,21 @@ If you haven't heard back from anyone for about a week, feel free to ask for an 
 Sometimes folks submit PRs without opening an issue first or discussing the change. It's like cooking a surprise meal for someone without checking if they have any dietary restrictions! While we appreciate the initiative, it's usually better to discuss bigger changes first to make sure they align with our project's direction.
 
 Remember: We've all been there! These situations are so common that we thought they deserved their own section in this guide. The key is to learn from them and keep contributing. 😊
+
+## What to contribute?
+
+1. Content (article) Creation
+   - Led by `@crutchcorn` (Corbin Crutchley)
+   - Some ideas [here](https://github.com/orgs/playfulprogramming/projects/1/views/1)
+2. Frontend Development
+   - Led by `@crutchcorn` (Corbin Crutchley)
+   - Some tickets available [here](https://github.com/orgs/playfulprogramming/projects/6)
+3. Backend Development
+   - Led by `@fennifith` (James Fenn)
+   - Some tickets available [here](https://github.com/orgs/playfulprogramming/projects/8)
+4. Graphics & Design
+   - Lead by Eduardo Pratti
+   - Some ticket available [here](https://github.com/orgs/playfulprogramming/projects/10/views/1)
 
 ## Getting Help
 
