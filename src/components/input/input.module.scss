@@ -57,7 +57,9 @@
 		solid var(--form-field_outline_color_focused);
 	box-shadow: 0 0 0
 		calc(
-			var(--form-field_outline_width_focused) - var(--form-field_outline_width) +
+			var(--form-field_outline_width_focused) - var(
+					--form-field_outline_width
+				) +
 				var(--form-field_halo_width)
 		)
 		var(--form-field_halo_color);
