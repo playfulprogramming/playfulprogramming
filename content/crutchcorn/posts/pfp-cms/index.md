@@ -181,19 +181,74 @@ https://keystatic.com/
 
 # What are you building?
 
+## Pre-work
+
+- [x] Research and write-up post on CMS alternatives
+- [ ] Research and write-up post on rich-text editors
+- [ ] Research and write-up post on event sync systems
+
+## `v0`
+
+**Does not include an actual CMS editing experience yet**.
+
+### BE Work
+
+- Handle DB + Git mirroring of blog posts
+  - Migration script to populate S3 from repo
+    - This implies a one-off, but long-term we want to have a bi-directional sync for any events
+    - "If a post has been updated in Git, replace the post in the database"
+
+- Able to build Playful Programming website
+- Pull markdown contents of Playful site from DB through an API
+- Migrate social media embed to worker script
+
+### FE Work
+
+- Convert Playful to SSR
+  - [WIP PR](https://github.com/playfulprogramming/playfulprogramming/pull/1236)
+
+- Add a caching layer to Astro's markdown processing
+
+### PM Work
+
+This is prep work to get us ready for the `v1` steps.
+
+- User-flows for end-user CMS interaction
+  - Account creation
+  - Post creation
+  - Post updates
+  - Post deletion
+  - Post revision creation
+  - Post revision reversion
+  - Post approval
+
 ## `v1`
 
-- Drafts (in git) are *indexed* in a db (postgres or mysql or whatever TBD)
-- Either: 
-  - Keep a CRDT in the db (with Redis cache?) for persistence
-  - Store CRDT for active "editor sessions" in Redis -> commit to local git once closed?
-- Intermittently push updates to an upstream github repository/fork
-- Pulling updates to draft/edited posts from the repo back into currently-drafted posts
-- Live in-CMS preview
+**Start of being able to use the CMS to write new posts**
+
+### BE Work
+
+- Add authentication/authorization for GH accounts
 - Creating a PR (from local git to GitHub) through GH sign-in
+- Add CRUD endpoints for markdown editor
 
-## `v2`
+### FE Work
 
+- Live in-CMS preview
+- Initial Markdown Editor
+- Login flow
+  - [WIP PR](https://github.com/playfulprogramming/playfulprogramming/pull/1218)
+
+### Design Work
+
+- UI Design and specs
+
+
+## `v2` and beyond
+
+**Additional nice-to-have features**
+
+- Component support in rich text editor
 - Multi-user editing
 - UI for feedback comments
 - Editing existing posts by pulling them from the repo
