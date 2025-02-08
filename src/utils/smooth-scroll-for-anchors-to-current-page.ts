@@ -1,16 +1,11 @@
-export const enableFootnoteSmoothScroll = () => {
+export const enableSmoothScrollForAnchorsToCurrentPage = () => {
 	const prefersReducedMotion =
 		window.matchMedia &&
 		window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-	const footnoteRef = Array.from(
-		document.querySelectorAll("[data-footnote-ref]"),
-	);
-	const footnoteBackref = Array.from(
-		document.querySelectorAll("a.data-footnote-backref"),
-	);
-
-	for (const el of [...footnoteRef, ...footnoteBackref]) {
+	const els = Array.from(document.querySelectorAll(`.post-body a[href^="#"]`));
+	console.log(els);
+	for (const el of els) {
 		el.addEventListener("click", (e: Event) => {
 			e.preventDefault();
 
@@ -25,8 +20,6 @@ export const enableFootnoteSmoothScroll = () => {
 			});
 
 			window.history.replaceState(null, "", href);
-
-			return false;
 		});
 	}
 };
