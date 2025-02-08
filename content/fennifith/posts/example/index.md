@@ -11,6 +11,16 @@
 
 This is regular text.
 
+# Footnote on paragraph text
+
+Cool text[^coolFootnote]
+
+[^coolFootnote]: well actually
+
+# Link to another part of the page
+
+<a id="cool-id🦦🦦🦦" href="#welcome🦀🦀🦀">See you later</a>
+
 # Single-level list
 
 - List without a nested `<p>` tag
@@ -156,3 +166,8 @@ This is regular text.
 # Heading `with a code snippet` inside of it
 
 # Heading [with a link](https://example.com) inside of it
+
+# Thanks for taking the trip down here
+
+<a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>
+
