@@ -9,73 +9,71 @@
 }
 ---
 
-// TODO: Write
+Today, to write an article for Playful Programming, [you have to make a pull-request against our codebase with valid markdown](https://github.com/playfulprogramming/playfulprogramming/blob/main/CONTRIBUTING.md#writing-a-new-post). 
+
+Put frankly, this isn't very accessible for many folks. Even if you are familiar with Git, there's something to be said about having a nice GUI experience that requires less work than making a pull request, committing, and more.
+
+Made worse, while we support [custom components](https://github.com/playfulprogramming/playfulprogramming/blob/main/FEATURES.md), their syntax can be hard to remember and there's no clear indication until build-time that the syntax for them is correct.
+
+To solve this, we're building our own CMS to improve our post authoring experience.
 
 # Why build your own CMS?!
 
+> Whoa whoa whoa. Building a CMS is a huge endeavor. There's a ton of good CMSes out there. Why build your own?
+
+While, yes, there are many good picks for a CMS; we've found that none quite fit the bill for us (more on that soon).
+
+Here's what we're primarily looking for and why:
+
 - Git-first (Git as source of truth)
+  - We never want to vendor-lock-in any of our authors to our platform. This means that their data has to be publicly visible in case something ever happens to our relationship.
 - Markdown-first (no MDX or others)
-- Custom components support
-- Support non-approved authors
+  - Likewise, we want to keep our contents markdown-compliant so you're able to copy+paste contents from Playful to another platform and retain the core contents (sans custom components).
+- Custom components support.
+  - Making our posts interactive and fun is one of the main objectives of Playful Programming.
+
+- Support non-approved authors.
+  - We can't have a strict allow-list of who we want to write for us; we want to open it up to anyone to join us.
+
 - Require approval before publishing
+  - We don't want to allow trolls or drastically increase the amount of required moderation needed for what's on the site. 
 
-Here's a rough flow chart of the planned functionality:
+While most of this can be done fairly easily with Git-first CMSes, we also have some other requirements we want to add in the future as well:
 
-```mermaid
-flowchart TD
-    CreatePost["User creates a draft post"] --> DB[("Database")]
-    DB --> EditPost["User edits their post"] & PublishPost["User publishes their post"]
-    EditPost --> WriteDB("Write to Database")
-    WriteDB --> DB & SyncFork("Sync updates with the GitHub fork/branch")
-    SyncFork --> HasFork{"Does the user have a fork yet?"}
-    HasFork -- No --> CreateFork("Fork the unicorn-utterances repo with a branch matching the post slug")
-    CreateFork --> PushFork("Merge changes and push")
-    HasFork -- Yes --> PushFork
-    ForkUpdated["User pushes manual changes to their fork"] -- "<span style=color:>GitHub sends a webhook event</span>" --> SyncFork
-    LeftComments["Someone leaves a comment on a PR"] -- "<span style=color:>GitHub sends a webhook event</span>" --> SyncComments("Sync comments from any active pull requests")
-    SyncComments --> DB
-    PublishPost --> CreatePR("Create a pull request")
+- Multiplayer
+- Offline editing
 
-     CreatePost:::action
-     EditPost:::action
-     PublishPost:::action
-     ForkUpdated:::action
-     LeftComments:::action
-    classDef action stroke-width:4px
-    classDef dashed stroke-dasharray:5 5
-```
+Which are more commonly found in API-first CMSes.
 
+We want the best of both worlds.
 
-
-We want the best of both worlds:
-
-https://strapi.io/blog/git-based-vs-api-first-cms
+> You can [read more about the differences between Git-first and API-first CMSes in this article](https://strapi.io/blog/git-based-vs-api-first-cms).
 
 # What other options have you explored?
 
-From most in-depth researched to least researched:
+We aren't kicking off our project without looking into other tools. Let's look at some of the other CMSes we've looked into from most in-depth researched to the options we researched the least:
 
 ## Decap CMS
 
-In conversations we've been considering building the CMS entirely in-house, as https://decapcms.org/ doesn't completely satisfy this use case and there are a lot of custom-built behaviors for e.g. tabs/iframes and the remark/rehype plugins.
+Previously called Netlify CMS, Decap CMS fits the bill for most of the things we've looked at.
 
-> https://github.com/playfulprogramming/playfulprogramming/compare/main...decap-cms
+Not only does it support Git-based markdown content, but it has a feature called ["open-authoring" - a Git-based way to allow third-party authors](https://decapcms.org/docs/open-authoring/).
 
-https://decapcms.org/docs/open-authoring/
+We got so far into looking into Decap CMS that [we previewed it in a branch off of our website.](https://github.com/playfulprogramming/playfulprogramming/compare/main...decap-cms)
 
+-----------
 
+However, it's not all perfect. Namely, Decap CMS doesn't seem to have good support for custom-components; especially not using the same Markdown-comment-style syntax we'd like to use.
 
-- Custom components aren't using the same MD syntax as we'd like for portability
+> While it's clear that no solution is going to fit your bill 100%, maybe Decap would be a good base to fork from? It's [MIT](LINK TO THEIR REPO) after all.
 
-While it's clear that no solution is going to fit our bill 100%, maybe Decap would be a good base to fork from? It's [MIT](LINK TO THEIR REPO) after all.
-
-Well, no.
+Well, after looking into it, no.
 
 All of their main components (GH interop, Local Git stuff, FE, et al) appear to be at least 2 years old
 
 The FE is not the most modern (JS, not TS, Emotion, Redux **4**, et al)
 
-And while the frontend seems sorta big (15K LOC at a SUPER rough glance), the BE comparitively doesn't:
+And while the frontend seems sorta big (15K LOC at a **super** rough glance), the BE comparatively doesn't:
 
 - 4K for their GH interop
 - 1.5K for other Git glue
@@ -97,7 +95,6 @@ https://tina.io/
 - UI relies heavily on "see what you edit"; good for sites - not for blogs.
 - Uses MDX for custom components
 - Doesn't allow external authors
-- Makes heavy usage of `isomorphic-git`, which has known issues with larger repos given lots of history
 - No CRDT usage
 
 
@@ -203,9 +200,35 @@ https://keystatic.com/
 - Offline support: https://docs.yjs.dev/ecosystem/database-provider/y-indexeddb
 - Stored draft editor history: https://docs.yjs.dev/api/undo-manager
 
-# Implementation Notes
+# How will it work?
 
-// TODO: Move these to the GH repo
+Here's a rough flow chart of the planned functionality:
+
+```mermaid
+flowchart TD
+    CreatePost["User creates a draft post"] --> DB[("Database")]
+    DB --> EditPost["User edits their post"] & PublishPost["User publishes their post"]
+    EditPost --> WriteDB("Write to Database")
+    WriteDB --> DB & SyncFork("Sync updates with the GitHub fork/branch")
+    SyncFork --> HasFork{"Does the user have a fork yet?"}
+    HasFork -- No --> CreateFork("Fork the playful-programming repo with a branch matching the post slug")
+    CreateFork --> PushFork("Merge changes and push")
+    HasFork -- Yes --> PushFork
+    ForkUpdated["User pushes manual changes to their fork"] -- "<span style=color:>GitHub sends a webhook event</span>" --> SyncFork
+    LeftComments["Someone leaves a comment on a PR"] -- "<span style=color:>GitHub sends a webhook event</span>" --> SyncComments("Sync comments from any active pull requests")
+    SyncComments --> DB
+    PublishPost --> CreatePR("Create a pull request")
+
+     CreatePost:::action
+     EditPost:::action
+     PublishPost:::action
+     ForkUpdated:::action
+     LeftComments:::action
+    classDef action stroke-width:4px
+    classDef dashed stroke-dasharray:5 5
+```
+
+-------
 
 - Decided to explore https://docs.yjs.dev/ as a CRDT/merge implementation - https://github.com/y-crdt/y-crdt is its wasm/rust port vs. https://automerge.org/
 - Using a CRDT only for active "editor sessions" and storing one copy (+ syncing to git) might be preferable? The use-cases where the *server* would need to interact with the CRDT itself would be minimal. In which case I believe it could be client-only?
