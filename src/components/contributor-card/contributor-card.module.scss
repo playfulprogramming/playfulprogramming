@@ -41,7 +41,8 @@
 	picture {
 		display: flex;
 		height: calc(
-			var(--contributor_avatar_size) + var(--contributor_avatar_border_width) - var(
+			var(--contributor_avatar_size) +
+				var(--contributor_avatar_border_width) - var(
 					--contributor_container-offset
 				)
 		);
