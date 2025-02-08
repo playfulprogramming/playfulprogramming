@@ -235,3 +235,81 @@ flowchart TD
 - If a git update occurs in the upstream GitHub repo, it can simply overwrite the local draft - assuming it was previously up to date with the repo. (i.e. its revision history would be saved)
 - If a git update occurs from upstream when an editor session is active, there could be a prompt on the client(similar interactions in vscode/intellij when the filesystem changes with an open editor)
 - TBD: I still think that placing revisions in local git repos when on the CMS is unnecessary. These could be stored in a database (with revisions) and synced with the remote (github). This could take advantage of search indexing, reliability of database transactions, consolidated backups, etc.
+
+------
+
+# Potential Sequence Diagram
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+    "actorTextColor": "#000000",
+    "messageTextColor": "#000000",
+    "noteTextColor": "#000000",
+    "lineColor": "#444444"
+}}}%%
+sequenceDiagram
+    participant Client
+    participant Backend
+    participant YServer as Y-Sweet Server
+    participant S3 as S3 Storage
+    participant Git as Git Repository
+
+    %% Document initialization and metadata setup
+    rect rgb(179,196,217)
+        Note over Client,Git: Document Initialization
+        Client->>Backend: Create new document
+        Backend->>Git: Create fork & branch & PR
+        Git-->>Backend: Fork/Branch/PR info
+        Backend->>Git: Initial commit
+        Git-->>Backend: Commit hash
+        Backend->>YServer: Create document with metadata:<br/>- fork_id<br/>- branch_name<br/>- pr_number<br/>- initial_commit<br/>- revision_history: [initial_commit]
+        YServer->>S3: Initialize document
+        Backend-->>Client: Document ready
+    end
+
+    %% Publishing new revision with history tracking
+    rect rgb(217,204,187)
+        Note over Client,Git: Publishing Revision
+        Client->>Backend: Publish revision
+        Backend->>YServer: Get current state
+        YServer-->>Backend: Return document & metadata
+        Backend->>Git: Commit to branch
+        alt Commit Succeeds
+            Git-->>Backend: New commit hash
+            Backend->>YServer: Update document metadata:<br/>- latest_revision_commit<br/>- revision_history: [...previous, new_commit]
+            Backend-->>Client: Publish successful
+        end
+    end
+
+    %% Reverting to previous revision
+    rect rgb(208,187,217)
+        Note over Client,Git: Revision Reversion
+        Client->>Backend: Request revert to specific revision
+        Backend->>YServer: Get document metadata
+        YServer-->>Backend: Return metadata with revision history
+        Backend->>Git: Verify commit exists in history
+        Git-->>Backend: Confirm commit
+        Backend->>Git: Create revert commit
+        Git-->>Backend: Revert commit hash
+        Backend->>YServer: Get content from specified revision
+        YServer-->>Backend: Return historical content
+        Backend->>YServer: Update document state & metadata:<br/>- latest_revision_commit: revert_commit<br/>- revision_history: [...previous, revert_commit]
+        Backend-->>Client: Revert successful
+        Note over Client,Git: Document now reflects<br/>historical revision state
+    end
+
+    %% PR approval flow
+    rect rgb(187,217,204)
+        Note over Client,Git: PR Approval
+        Client->>Backend: Submit for approval
+        Backend->>Git: Update PR
+        alt PR approved
+            Backend->>Git: Merge PR to main
+            alt Merge Succeeds
+                Git-->>Backend: Merge commit hash
+                Backend->>YServer: Update document metadata:<br/>- pr_status: merged<br/>- merge_commit<br/>- revision_history: [...previous, merge_commit]
+                Backend-->>Client: Notify approval & merge
+            end
+        end
+    end
+```
