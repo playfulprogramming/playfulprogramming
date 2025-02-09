@@ -32,6 +32,8 @@ export const rehypeTransformComponents: Plugin<
 	Root
 > = ({ components }) => {
 	return (tree, vfile) => {
+		vfile.data = vfile.data || {};
+
 		visit(tree, { type: "comment" }, (node, index, parent) => {
 			if (index === undefined || !parent) return;
 			// ` ::start:in-content-ad title="Hello world" `
