@@ -1,10 +1,10 @@
 import type * as hast from "hast";
 import { VFile } from "vfile";
 
-export type RehypeFunctionProps = {
+export type RehypeFunctionProps<TAttributes = Record<string, string>> = {
 	vfile: VFile;
 	node: hast.Node;
-	attributes: Record<string, string>;
+	attributes: TAttributes;
 	children: hast.Node[];
 };
 
