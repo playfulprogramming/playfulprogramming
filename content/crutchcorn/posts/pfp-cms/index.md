@@ -197,6 +197,7 @@ https://keystatic.com/
   - Migration script to populate S3 from repo
     - This implies a one-off, but long-term we want to have a bi-directional sync for any events
     - "If a post has been updated in Git, replace the post in the database"
+    - We should persist any indexable metadata and relations (posts-authors, posts-tags, collections, etc) in the Postgres DB, whereas the post content (markdown) itself (as well as any attachments) can be placed in object storage
 
 - Able to build Playful Programming website
 - Pull markdown contents of Playful site from DB through an API
