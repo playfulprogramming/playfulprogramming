@@ -6,6 +6,7 @@ import { Chip } from "components/index";
 import dayjs from "dayjs";
 import { buildSearchQuery } from "../../search/search";
 import { translate } from "utils/translations";
+import { ArticleRevisionDropdown } from "../article-revisions/article-revisions";
 
 interface PostTitleHeaderProps {
 	post: PostInfo;
@@ -30,7 +31,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 			<div class={style.date}>
 				<div class={style.date__published}>
 					<Icon width={24} height={24} name="date" aria-hidden="true" />
-					<p class="text-style-button-regular">{publishedStr}</p>
+					<ArticleRevisionDropdown />
 				</div>
 
 				{
