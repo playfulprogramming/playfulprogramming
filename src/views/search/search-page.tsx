@@ -453,7 +453,7 @@ export function SearchPageBase() {
 								</ul>
 								{!isHybridSearch && (
 									<Pagination
-										testId="collections-pagination"
+									testId="collections-pagination"
 										softNavigate={(_href, pageNum) => {
 											window.scrollTo(0, 0);
 											setQuery({
@@ -495,7 +495,7 @@ export function SearchPageBase() {
 								/>
 								{!isHybridSearch && (
 									<Pagination
-										testId="posts-pagination"
+										testId="pagination"
 										softNavigate={(_href, pageNum) => {
 											window.scrollTo(0, 0);
 											setQuery({
