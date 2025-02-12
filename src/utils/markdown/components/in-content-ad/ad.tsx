@@ -9,7 +9,7 @@ export interface InContentAdProps {
 }
 
 /** @jsxImportSource hastscript */
-export function InContentAd(props: InContentAdProps): Element {
+export default function InContentAd(props: InContentAdProps): Element {
 	const {
 		["button-text"]: buttonText,
 		["button-href"]: buttonHref,

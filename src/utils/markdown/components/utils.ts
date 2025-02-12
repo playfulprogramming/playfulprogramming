@@ -13,11 +13,13 @@ export async function getHastScriptCompFunction(
 ): Promise<(...props: unknown[]) => unknown> {
 	const outFsFileName = inputFileName + ".tmp.js";
 
-	const { errors } = await esbuild.build({
+	const { errors, outputFiles, warnings } = await esbuild.build({
 		jsxImportSource: "hastscript",
 		outfile: outFsFileName,
 		entryPoints: [inputFileName],
 	});
+
+	console.log({ outputFiles, errors, warnings });
 
 	if (errors.length) {
 		console.error(errors);
@@ -25,10 +27,15 @@ export async function getHastScriptCompFunction(
 	}
 
 	const { default: output } = await import(
+		/* @vite-ignore */
 		pathToFileURL(outFsFileName).toString()
 	);
 
-	fs.unlinkSync(outFsFileName);
+	if (!output) {
+		throw new Error("No default export found in the component file");
+	}
+
+	await fs.promises.unlink(outFsFileName);
 
 	return output;
 }

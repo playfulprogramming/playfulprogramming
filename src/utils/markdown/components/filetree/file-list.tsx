@@ -127,7 +127,7 @@ function FileListList({ items }: FileListProps) {
 	) as never;
 }
 
-export function FileList({ items }: FileListProps): Element {
+export default function FileList({ items }: FileListProps): Element {
 	return (
 		<div className="docs-file-tree-container">
 			<div class="docs-file-tree">{FileListList({ items })}</div>
