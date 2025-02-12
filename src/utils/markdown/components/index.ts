@@ -1,5 +1,14 @@
+import { fileTree } from "./filetree";
+import { inContentAd } from "./in-content-ad";
+import { tabs } from "./tabs";
+
 export * from "./types";
-export * from "./rehype-transform";
-export * from "./filetree/rehype-transform";
-export * from "./in-content-ad/rehype-transform";
-export * from "./tabs/rehype-transform";
+export * from "./tabs";
+
+export const components = {
+	filetree: fileTree,
+	["in-content-ad"]: inContentAd,
+	["no-ebook"]: ({ children }) => children,
+	["only-ebook"]: () => [],
+	tabs: tabs,
+};

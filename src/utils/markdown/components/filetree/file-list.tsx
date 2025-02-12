@@ -1,4 +1,3 @@
-/** @jsxRuntime automatic */
 import { Element } from "hast";
 import type { Child as HChild } from "hastscript";
 import { fromHtml } from "hast-util-from-html";
@@ -50,7 +49,6 @@ interface FileProps {
 	item: File;
 }
 
-/** @jsxImportSource hastscript */
 function File({ item }: FileProps) {
 	return (
 		<>
@@ -77,7 +75,6 @@ interface DirectoryProps {
 	item: Directory;
 }
 
-/** @jsxImportSource hastscript */
 function Directory({ item }: DirectoryProps) {
 	return (
 		<details open={item.openByDefault} class="docs-file-tree-directory-details">
@@ -107,7 +104,6 @@ interface FileListProps {
 	items: Array<Directory | File>;
 }
 
-/** @jsxImportSource hastscript */
 function FileListList({ items }: FileListProps) {
 	const isDirectory = (item: Directory | File): item is Directory => {
 		return (item as Directory).isDirectory;
@@ -131,7 +127,6 @@ function FileListList({ items }: FileListProps) {
 	) as never;
 }
 
-/** @jsxImportSource hastscript */
 export function FileList({ items }: FileListProps): Element {
 	return (
 		<div className="docs-file-tree-container">

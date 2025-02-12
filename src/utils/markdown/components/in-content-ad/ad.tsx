@@ -1,7 +1,7 @@
 /** @jsxRuntime automatic */
 import { Element } from "hast";
 
-interface InContentAdProps {
+export interface InContentAdProps {
 	title: string;
 	body: string;
 	["button-text"]: string;

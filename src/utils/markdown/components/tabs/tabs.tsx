@@ -1,4 +1,3 @@
-/** @jsxRuntime automatic */
 import classNames from "classnames";
 import { Node, Element } from "hast";
 
@@ -11,13 +10,12 @@ export interface TabInfo {
 	headers: string[];
 }
 
-interface TabsProps {
+export interface TabsProps {
 	tabs: TabInfo[];
 	isSmall: boolean;
 }
 
-/** @jsxImportSource hastscript */
-export function Tabs({ tabs, isSmall }: TabsProps): Element {
+export default function Tabs({ tabs, isSmall }: TabsProps): Element {
 	return (
 		<div class={classNames("tabs", isSmall && "tabs-small")}>
 			<ul role="tablist" class="tabs__tab-list">
