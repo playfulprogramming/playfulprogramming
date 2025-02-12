@@ -31,7 +31,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 			<div class={style.date}>
 				<div class={style.date__published}>
 					<Icon width={24} height={24} name="date" aria-hidden="true" />
-					<ArticleRevisionDropdown />
+					<ArticleRevisionDropdown client:load />
 				</div>
 
 				{
