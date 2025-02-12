@@ -23,7 +23,7 @@ import type { Child as HChild } from "hastscript";
 import { Element } from "hast";
 import { visit } from "unist-util-visit";
 import JSON5 from "json5";
-import { FileList, Directory, File } from "./file-list";
+import { Directory, File } from "./file-list";
 import { RehypeFunctionProps } from "../types";
 import { logError } from "utils/markdown/logger";
 
@@ -172,5 +172,5 @@ export const transformFileTree = ({
 
 	traverseUl(list, items);
 
-	return FileList({ items });
+	return { items };
 };
