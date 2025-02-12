@@ -50,3 +50,6 @@ export type TransformFn<TProps, TReturn> = (
 export type Prettify<T> = {
 	[K in keyof T]: T[K];
 } & {};
+
+export type CreateComponentReturn<TProps, TReturn> =
+	RuntimeComponentParts<TReturn> & BuildtimeComponentParts<TProps, TReturn>;

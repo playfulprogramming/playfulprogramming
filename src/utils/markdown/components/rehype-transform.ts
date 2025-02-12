@@ -1,14 +1,18 @@
 import { visit } from "unist-util-visit";
 import { is } from "unist-util-is";
-import { Root, Parent, Element } from "hast";
+import { Root, Parent, Element, Doctype, ElementContent } from "hast";
 import { unified, Plugin } from "unified";
-import { RehypeFunctionComponent } from "./types";
+import { CreateComponentReturn } from "./types";
 import rehypeParse from "rehype-parse";
 import { logError } from "../logger";
 import { VFile } from "vfile";
+import { getHastScriptCompFunction } from "utils/markdown/components/utils";
 
 type RehypeComponentsProps = {
-	components: Record<string, RehypeFunctionComponent>;
+	components: Record<
+		string,
+		CreateComponentReturn<Record<string, string>, unknown>
+	>;
 };
 
 const unifiedRehype = unified().use(rehypeParse, { fragment: true });
@@ -31,11 +35,26 @@ export const rehypeTransformComponents: Plugin<
 	[RehypeComponentsProps],
 	Root
 > = ({ components }) => {
-	return (tree, vfile) => {
+	return async (tree, vfile) => {
 		vfile.data = vfile.data || {};
+
+		const nodeSkipMap = new WeakMap<Root | Element, number[]>();
+
+		const replacementMetas = [] as Array<{
+			node: Root | Doctype | ElementContent;
+			index: number;
+			parent: Root | Element;
+			component: CreateComponentReturn<Record<string, string>, unknown>;
+			replacementProps: unknown;
+			isRanged: boolean;
+			indexEnd: number;
+		}>;
 
 		visit(tree, { type: "comment" }, (node, index, parent) => {
 			if (index === undefined || !parent) return;
+
+			if (nodeSkipMap.get(parent)?.includes(index)) return;
+
 			// ` ::start:in-content-ad title="Hello world" `
 			const value = String((node as { value?: string }).value).trim();
 			if (!value.startsWith(COMPONENT_PREFIX)) return;
@@ -90,8 +109,13 @@ export const rehypeTransformComponents: Plugin<
 				}
 			}
 
+			nodeSkipMap.set(parent, nodeSkipMap.get(parent) || []);
+			for (let i = index; i <= indexEnd; i++) {
+				nodeSkipMap.get(parent)?.push(i);
+			}
+
 			// Create the component nodes
-			const replacement = component({
+			const replacementProps = component.transform({
 				vfile,
 				node,
 				attributes: Object.fromEntries<string>(
@@ -104,31 +128,61 @@ export const rehypeTransformComponents: Plugin<
 				children: parent.children.slice(index + 1, indexEnd),
 			});
 
-			const replacementArray =
-				replacement instanceof Array ? replacement : [replacement];
-			// Replace child nodes (including comments) with the replacement component
-			parent.children.splice(
+			replacementMetas.push({
+				node,
 				index,
-				isRanged ? indexEnd - index + 1 : 1,
-				...(replacement ? (replacementArray as never) : []),
-			);
-
-			// Recursively transform the children
-			// This allows for nested components like ebook only content in tabs
-			replacementArray.forEach((replacement) => {
-				if (!isNodeParent(replacement)) return;
-				replacement?.children?.map((child) => {
-					const tree = { type: "root", children: [child] } as Root;
-					(
-						rehypeTransformComponents as (
-							props: RehypeComponentsProps,
-						) => (tree: Root, vfile: VFile) => void
-					)({ components })(tree, vfile);
-					return tree;
-				});
+				parent,
+				component,
+				replacementProps,
+				isRanged,
+				indexEnd,
 			});
 
 			return;
 		});
+
+		await Promise.all(
+			replacementMetas.map(
+				async ({
+					node,
+					index,
+					parent,
+					component,
+					replacementProps,
+					isRanged,
+					indexEnd,
+				}) => {
+					const replacementFn = await getHastScriptCompFunction(
+						component.componentFSPath,
+					);
+
+					const replacement = replacementFn(replacementProps);
+
+					const replacementArray =
+						replacement instanceof Array ? replacement : [replacement];
+					// Replace child nodes (including comments) with the replacement component
+					parent.children.splice(
+						index,
+						isRanged ? indexEnd - index + 1 : 1,
+						...(replacement ? (replacementArray as never) : []),
+					);
+
+					// Recursively transform the children
+					// This allows for nested components like ebook only content in tabs
+					replacementArray.forEach((replacement) => {
+						if (!isNodeParent(replacement)) return;
+						replacement?.children?.map((child) => {
+							const tree = { type: "root", children: [child] } as Root;
+							(
+								rehypeTransformComponents as (
+									props: RehypeComponentsProps,
+								) => (tree: Root, vfile: VFile) => void
+							)({ components })(tree, vfile);
+							return tree;
+						});
+					});
+				},
+			),
+		);
 	};
 };

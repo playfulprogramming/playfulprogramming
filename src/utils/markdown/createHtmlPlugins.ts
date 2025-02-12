@@ -28,12 +28,7 @@ import { rehypeShikiUU } from "./shiki/rehype-transform";
 import rehypeStringify from "rehype-stringify";
 import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
-import {
-	rehypeTransformComponents,
-	transformFileTree,
-	transformInContentAd,
-	transformTabs,
-} from "./components";
+import { htmlComponents, rehypeTransformComponents } from "./components";
 
 const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
 
@@ -108,13 +103,7 @@ export function createHtmlPlugins(unified: Processor) {
 				],
 			})
 			.use(rehypeTransformComponents, {
-				components: {
-					filetree: transformFileTree,
-					["in-content-ad"]: transformInContentAd,
-					["no-ebook"]: ({ children }) => children,
-					["only-ebook"]: () => [],
-					tabs: transformTabs,
-				},
+				components: htmlComponents,
 			})
 			.use(rehypePlayfulElementMap)
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements

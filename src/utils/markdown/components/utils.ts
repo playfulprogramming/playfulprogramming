@@ -3,6 +3,7 @@ import { pathToFileURL } from "url";
 import fs from "fs";
 import {
 	BuildtimeComponentParts,
+	CreateComponentReturn,
 	Prettify,
 	RuntimeComponentParts,
 } from "./types";
@@ -39,8 +40,7 @@ export function createComponent<TProps>() {
 		return {
 			withRuntime(parts: RuntimeComponentParts<TReturn>) {
 				return Object.assign({}, parts, buildComps) as Prettify<
-					RuntimeComponentParts<TReturn> &
-						BuildtimeComponentParts<TProps, TReturn>
+					CreateComponentReturn<TProps, TReturn>
 				>;
 			},
 		};
