@@ -17,6 +17,10 @@ export async function getHastScriptCompFunction(
 		jsxImportSource: "hastscript",
 		outfile: outFsFileName,
 		entryPoints: [inputFileName],
+		bundle: true,
+		minify: false,
+		format: "esm",
+		packages: "external",
 	});
 
 	if (warnings.length) {
