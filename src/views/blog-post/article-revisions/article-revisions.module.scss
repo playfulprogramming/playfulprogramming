@@ -1,3 +1,67 @@
-.test {
-	background-color: green;
+@use "src/tokens/index" as *;
+
+:root {
+	--date-dropdown_padding-vertical: var(--spc-1x);
+	--date-dropdown_padding-horizontal: var(--spc-2x);
+	--date-dropdown_gap: var(--spc-1x);
+	--date-dropdown_corner-radius: var(--corner-radius_s);
+
+	--date-dropdown_arrow-size: 1rem;
+
+	--date-dropdown_foreground-color: var(--secondary_on-variant);
+	--date-dropdown_tag-color: var(--secondary_default);
+	--date-dropdown_background-color: var(--background_secondary);
+	--date-dropdown_background-color_focused: var(--background_focus);
+	--date-dropdown_state_hovered: var(--surface_secondary_emphasis-low);
+	--date-dropdown_state_pressed: var(--surface_secondary_emphasis-high);
+
+	--date-dropdown_border-width: var(--border-width_s);
+	--date-dropdown_border-color: var(--secondary_variant);
+	--date-dropdown_border-color_hovered: var(--secondary);
+	--date-dropdown_border-color_pressed: var(--secondary);
+
+	--date-dropdown_focus-outline_width: var(--border-width_focus);
+	--date-dropdown_focus-outline_color: var(--focus-outline_secondary);
+}
+
+.button {
+	padding: var(--date-dropdown_padding-vertical)
+		var(--date-dropdown_padding-horizontal);
+	background-color: var(--date-dropdown_background-color);
+	border: var(--date-dropdown_border-width) solid
+		var(--date-dropdown_border-color);
+	border-radius: var(--date-dropdown_corner-radius);
+	display: flex;
+	gap: var(--date-dropdown_gap);
+	align-items: center;
+	font-family: var(--pfp-font-family);
+	font-weight: var(--weight_semibold);
+	font-size: var(--button_regular_font-size);
+	line-height: var(--button_regular_line-height);
+	cursor: pointer;
+
+	.date {
+		color: var(--date-dropdown_foreground-color);
+	}
+
+	.dot {
+		color: var(--date-dropdown_tag-color);
+	}
+
+	.version {
+		color: var(--date-dropdown_tag-color);
+	}
+
+	.down {
+		display: inline-block;
+		height: var(--date-dropdown_arrow-size);
+		width: var(--date-dropdown_arrow-size);
+		svg {
+			color: var(--date-dropdown_foreground-color);
+			height: 100%;
+			width: 100%;
+			margin: unset;
+			padding: unset;
+		}
+	}
 }
