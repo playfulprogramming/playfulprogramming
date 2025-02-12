@@ -1,7 +1,13 @@
 /**
  * Types that will live in a shared type file.
  */
-import { RehypeFunctionProps } from "utils/markdown/components/types";
+import path from "path";
+import { RehypeFunctionProps } from "./types";
+import { CounterCompProps } from "./test.fs";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 interface RehypeSetupProps<TAttributes = Record<string, string>> {
 	// Must be serializable, which should be true, as it originates from HTML attributes
@@ -27,7 +33,8 @@ interface BuildtimeComponentParts<TProps, TReturn> {
 
 interface RuntimeComponentParts<T> {
 	// This is the markup for the component that will be rendered
-	component: (props: T) => unknown;
+	// Must be a string so we can transform the JSX and then dynamically `import` it from the same path (so `import`s work)
+	componentFSPath: string;
 	// This script is run when the component is mounted, but also when a blog post is displayed that has the component
 	// It is lazily-initialized, so if a blog post does not have the component, this script will not be run
 	// This lazy-initialization works by parsing the JS itself into a string, then saving it to a `public/scripts` path during build time
@@ -35,28 +42,37 @@ interface RuntimeComponentParts<T> {
 	setup: (props: RehypeSetupProps<T>) => void;
 	// Only used in the CMS, when a component is removed dynamically
 	takedown: (props: RehypeTakedownProps<T>) => void;
-};
+}
 
-type TransformFn<TProps, TReturn> = (props: RehypeFunctionProps<TProps>) => Promise<TReturn>;
+type TransformFn<TProps, TReturn> = (
+	props: RehypeFunctionProps<TProps>,
+) => Promise<TReturn>;
 
 type Prettify<T> = {
 	[K in keyof T]: T[K];
 } & {};
 
 function createComponent<TProps>() {
-	const getRuntimeBuilder = function <TReturn>(buildComps: BuildtimeComponentParts<TProps, TReturn>) {
+	const getRuntimeBuilder = function <TReturn>(
+		buildComps: BuildtimeComponentParts<TProps, TReturn>,
+	) {
 		return {
 			withRuntime(parts: RuntimeComponentParts<TReturn>) {
-				return Object.assign({}, parts, buildComps) as Prettify<RuntimeComponentParts<TReturn> & BuildtimeComponentParts<TProps, TReturn>>;
-			}
-		}
-	}
+				return Object.assign({}, parts, buildComps) as Prettify<
+					RuntimeComponentParts<TReturn> &
+						BuildtimeComponentParts<TProps, TReturn>
+				>;
+			},
+		};
+	};
 
 	const initialBuilder = {
-		withBuildTime<TReturn>(buildComps: BuildtimeComponentParts<TProps, TReturn>) {
+		withBuildTime<TReturn>(
+			buildComps: BuildtimeComponentParts<TProps, TReturn>,
+		) {
 			return getRuntimeBuilder(buildComps);
-		}
-	}
+		},
+	};
 
 	return initialBuilder;
 }
@@ -83,14 +99,14 @@ interface CounterProps {
 const counter = createComponent<CounterProps>()
 	.withBuildTime({
 		transform: async (props) => {
-			return { count: props.attributes?.["initialCount"] ?? 0 };
-		}
+			return {
+				count: props.attributes?.["initialCount"] ?? 0,
+			} satisfies CounterCompProps;
+		},
 	})
 	.withRuntime({
 		// Dynamically transform the JSX to HyperScript (Static build) or React.createElement (CMS build) via Recma
-		component: (props) => {
-			return <button>The count is {props.count}</button>;
-		},
+		componentFSPath: path.resolve(__dirname, "test.fs.tsx"),
 		setup: (props) => {
 			window.compInfo[props.uniqueId] = window.compInfo[props.uniqueId] ?? {};
 			const compInfoObj = window.compInfo[props.uniqueId];
@@ -102,7 +118,7 @@ const counter = createComponent<CounterProps>()
 		},
 		takedown: (props) => {
 			delete window.compInfo[props.uniqueId];
-		}
+		},
 	});
 
 export default {
