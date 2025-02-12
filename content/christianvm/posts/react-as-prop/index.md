@@ -2,7 +2,7 @@
 {
   title: 'React "as" Prop Using TypeScript',
   description: 'Learn how to type the "as" prop in React to dynamically change the rendered HTML tag.',
-  published: "2025-02-02",
+  published: "2025-02-12",
   tags: ["react", "typescript"],
   originalLink: "https://www.christianvm.dev/blog/react-as-prop"
 }
