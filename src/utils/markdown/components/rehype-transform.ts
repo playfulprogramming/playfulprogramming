@@ -12,13 +12,13 @@ import {
 } from "utils/markdown/components/utils";
 import { MarkdownVFile } from "utils/markdown/types";
 
-type RehypeComponentsProps = {
+export interface RehypeComponentsProps {
 	components: Record<
 		string,
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		CreateComponentReturn<any, any>
 	>;
-};
+}
 
 const unifiedRehype = unified().use(rehypeParse, { fragment: true });
 
@@ -41,7 +41,6 @@ export const rehypeTransformComponents: Plugin<
 	Root
 > = ({ components }) => {
 	return async (tree, vfile) => {
-		debugger;
 		vfile.data = vfile.data || {};
 		vfile.data.usedComponents = vfile.data.usedComponents || {};
 
@@ -185,29 +184,30 @@ export const rehypeTransformComponents: Plugin<
 
 					const replacementArray =
 						replacement instanceof Array ? replacement : [replacement];
+
+					// Recursively transform the children
+					// This allows for nested components like ebook only content in tabs
+					await Promise.all(
+						replacementArray.map(async (replacement) => {
+							if (!isNodeParent(replacement)) return;
+							await (
+								rehypeTransformComponents as (
+									props: RehypeComponentsProps,
+								) => (tree: Root, vfile: VFile) => void
+							)({ components })(replacement as Root, vfile);
+						}),
+					);
+
 					// Replace child nodes (including comments) with the replacement component
 					parent.children.splice(
 						index,
 						isRanged ? indexEnd - index + 1 : 1,
 						...(replacement ? (replacementArray as never) : []),
 					);
-
-					// Recursively transform the children
-					// This allows for nested components like ebook only content in tabs
-					replacementArray.forEach((replacement) => {
-						if (!isNodeParent(replacement)) return;
-						replacement?.children?.map((child) => {
-							const tree = { type: "root", children: [child] } as Root;
-							(
-								rehypeTransformComponents as (
-									props: RehypeComponentsProps,
-								) => (tree: Root, vfile: VFile) => void
-							)({ components })(tree, vfile);
-							return tree;
-						});
-					});
 				},
 			),
 		]);
+
+		return tree;
 	};
 };
