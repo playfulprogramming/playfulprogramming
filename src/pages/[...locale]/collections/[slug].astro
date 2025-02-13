@@ -26,12 +26,6 @@ export async function getStaticPaths() {
 		});
 }
 
-interface CollectionProps {
-	Content: MarkdownInstance<never>["Content"];
-}
-
-const { Content } = Astro.props as CollectionProps;
-
 const params = Astro.params as {
 	locale?: Languages;
 	slug: string;

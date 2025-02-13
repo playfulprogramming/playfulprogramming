@@ -23,4 +23,5 @@ export const epubComponents = {
 	...commonComponents,
 	["no-ebook"]: removeContent,
 	["only-ebook"]: keepContent,
+	tabs: keepContent,
 };

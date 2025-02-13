@@ -9,5 +9,5 @@ export const keepContent = createComponent<Record<string, never>>()
 		transform: ({ children }) => ({ children }),
 	})
 	.withRuntime({
-		componentFSPath: resolve(__dirname, "remove-content.tsx"),
+		componentFSPath: resolve(__dirname, "keep-content.tsx"),
 	});
