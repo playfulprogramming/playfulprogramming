@@ -43,6 +43,7 @@ export const rehypeTransformComponents: Plugin<
 > = ({ components, nodeSkipMap: _nodeSkipMap }) => {
 	return async (tree, vfile) => {
 		vfile.data = vfile.data || {};
+		vfile.data.usedComponents = vfile.data.usedComponents || {};
 
 		const nodeSkipMap = _nodeSkipMap ?? new WeakMap<Root | Element, number[]>();
 

@@ -98,8 +98,8 @@ export async function getHastScriptCompFunction(
 }
 
 export function getComponentScriptPath(componentName: string) {
-	const serverRelativePath = `/public/scripts/${componentName}.js`;
-	const fsAbsolutePath = resolve(rootDir, "." + serverRelativePath);
+	const serverRelativePath = `/scripts/${componentName}.js`;
+	const fsAbsolutePath = resolve(rootDir, "./public" + serverRelativePath);
 
 	return {
 		serverRelativePath,
