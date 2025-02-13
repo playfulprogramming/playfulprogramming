@@ -27,6 +27,7 @@ import RelatedPosts from "components/related-posts/related-posts.astro";
 import { LargeButton } from "../../components/button/button";
 
 import styles from "./blog-post.module.scss";
+import { getComponentScriptPath } from "../../utils/markdown/components/utils";
 
 export interface Props {
 	post: PostInfo;
@@ -36,6 +37,7 @@ export interface Props {
 	collectionPosts?: PostInfo[];
 	license?: LicenseInfo;
 	postHtml: string;
+	usedComponents: Record<string, boolean>;
 }
 
 const {
@@ -46,9 +48,16 @@ const {
 	collection,
 	collectionPosts,
 	license,
+	usedComponents,
 } = Astro.props;
 
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${post.path}/index.md`;
+
+const scriptServerPaths = Object.keys(usedComponents).reduce((prev, key) => {
+	if (!usedComponents[key]) return prev;
+	prev.push(getComponentScriptPath(key).serverRelativePath);
+	return prev;
+}, [] as string[]);
 ---
 
 <script>
@@ -56,10 +65,15 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 
 	mediumZoom(".post-body img:not([data-nozoom])");
 </script>
-<script>
-	import { enableTabs } from "../../utils/markdown/components/tabs/tabs-script";
-	enableTabs();
-</script>
+
+{
+	scriptServerPaths.map((scriptServerPath) => (
+		<script define:vars={{ scriptServerPath }}>
+			import(`${scriptServerPath}`);
+		</script>
+	))
+}
+
 <script>
 	import { enableShikiTabindex } from "../../utils/markdown/shiki/shiki-tabindex-script";
 	enableShikiTabindex();
