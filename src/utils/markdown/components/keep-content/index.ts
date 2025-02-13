@@ -1,13 +1,10 @@
-import { createComponent } from "../utils";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { COMPONENT_FOLDER, createComponent } from "../utils";
+import { resolve } from "node:path";
 
 export const keepContent = createComponent<Record<string, never>>()
 	.withBuildTime({
 		transform: ({ children }) => ({ children }),
 	})
 	.withRuntime({
-		componentFSPath: resolve(__dirname, "keep-content.tsx"),
+		componentFSPath: resolve(COMPONENT_FOLDER, "./keep-content/keep-content.tsx"),
 	});

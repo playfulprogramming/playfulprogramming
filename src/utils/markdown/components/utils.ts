@@ -1,5 +1,5 @@
-import { dirname, resolve, basename } from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { resolve, basename } from "node:path";
+import { pathToFileURL } from "node:url";
 import { promises as fs } from "node:fs";
 
 import esbuild from "esbuild";
@@ -11,9 +11,7 @@ import {
 	RuntimeComponentParts,
 } from "./types";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const rootDir = resolve(__dirname, "../../../../");
+const rootDir = process.cwd();
 
 const tmpDir = resolve(rootDir, "./md-tmp");
 
@@ -169,3 +167,5 @@ export function createComponent<TProps>() {
 
 	return initialBuilder;
 }
+
+export const COMPONENT_FOLDER = resolve(rootDir, "./src/utils/markdown/components");

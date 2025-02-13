@@ -18,7 +18,6 @@ type RehypeComponentsProps = {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		CreateComponentReturn<any, any>
 	>;
-	nodeSkipMap?: WeakMap<Root | Element, number[]>;
 };
 
 const unifiedRehype = unified().use(rehypeParse, { fragment: true });
@@ -40,12 +39,16 @@ const isNodeElement = (node: unknown): node is Element =>
 export const rehypeTransformComponents: Plugin<
 	[RehypeComponentsProps],
 	Root
-> = ({ components, nodeSkipMap: _nodeSkipMap }) => {
+> = ({ components }) => {
 	return async (tree, vfile) => {
+		debugger;
 		vfile.data = vfile.data || {};
 		vfile.data.usedComponents = vfile.data.usedComponents || {};
 
-		const nodeSkipMap = _nodeSkipMap ?? new WeakMap<Root | Element, number[]>();
+		const nodesToSkip = new WeakMap<
+			Root | Doctype | ElementContent,
+			number[]
+		>();
 
 		const replacementMetas = [] as Array<{
 			node: Root | Doctype | ElementContent;
@@ -61,7 +64,12 @@ export const rehypeTransformComponents: Plugin<
 		visit(tree, { type: "comment" }, (node, index, parent) => {
 			if (index === undefined || !parent) return;
 
-			if (nodeSkipMap.get(parent)?.includes(index)) return;
+			if (nodesToSkip.has(parent)) {
+				const skipIndices = nodesToSkip.get(parent);
+				if (skipIndices?.includes(index)) {
+					return;
+				}
+			}
 
 			// ` ::start:in-content-ad title="Hello world" `
 			const value = String((node as { value?: string }).value).trim();
@@ -118,9 +126,12 @@ export const rehypeTransformComponents: Plugin<
 				}
 			}
 
-			nodeSkipMap.set(parent, nodeSkipMap.get(parent) || []);
-			for (let i = index; i <= indexEnd; i++) {
-				nodeSkipMap.get(parent)?.push(i);
+			// Skip the ranged nodes
+			if (indexEnd > 0) {
+				nodesToSkip.set(parent, [
+					...(nodesToSkip.get(parent) ?? []),
+					...Array.from({ length: indexEnd - index + 1 }, (_, i) => index + i),
+				]);
 			}
 
 			// Create the component nodes
@@ -191,7 +202,7 @@ export const rehypeTransformComponents: Plugin<
 								rehypeTransformComponents as (
 									props: RehypeComponentsProps,
 								) => (tree: Root, vfile: VFile) => void
-							)({ components, nodeSkipMap })(tree, vfile);
+							)({ components })(tree, vfile);
 							return tree;
 						});
 					});

@@ -1,14 +1,11 @@
-import { createComponent } from "../utils";
+import { COMPONENT_FOLDER, createComponent } from "../utils";
 import { transformFileTree } from "./rehype-transform";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { resolve } from "node:path";
 
 export const fileTree = createComponent<Record<string, never>>()
 	.withBuildTime({
 		transform: transformFileTree,
 	})
 	.withRuntime({
-		componentFSPath: resolve(__dirname, "file-list.tsx"),
+		componentFSPath: resolve(COMPONENT_FOLDER, "./filetree/file-list.tsx"),
 	});

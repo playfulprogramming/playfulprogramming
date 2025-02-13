@@ -1,13 +1,10 @@
-import { createComponent } from "../utils";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { COMPONENT_FOLDER, createComponent } from "../utils";
+import { resolve } from "node:path";
 
 export const removeContent = createComponent<Record<string, never>>()
 	.withBuildTime({
 		transform: () => ({}),
 	})
 	.withRuntime({
-		componentFSPath: resolve(__dirname, "remove-content.tsx"),
+		componentFSPath: resolve(COMPONENT_FOLDER, "./remove-content/remove-content.tsx"),
 	});
