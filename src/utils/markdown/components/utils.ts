@@ -1,6 +1,6 @@
 import { resolve, basename } from "node:path";
 import { pathToFileURL } from "node:url";
-import { promises as fs } from "node:fs";
+import { promises as fs, existsSync } from "node:fs";
 
 import esbuild from "esbuild";
 
@@ -51,30 +51,32 @@ export async function getHastScriptCompFunction(
 	const fileName = basename(inputFileName);
 	const outFsFileName = resolve(tmpDir, fileName + ".tmp.js");
 
-	const { errors, warnings } = await esbuild.build({
-		jsx: "automatic",
-		tsconfigRaw: {
-			compilerOptions: {
-				jsx: "react-jsx",
-				jsxImportSource: "hastscript",
+	if (!existsSync(outFsFileName)) {
+		const { errors, warnings } = await esbuild.build({
+			jsx: "automatic",
+			tsconfigRaw: {
+				compilerOptions: {
+					jsx: "react-jsx",
+					jsxImportSource: "hastscript",
+				},
 			},
-		},
-		jsxImportSource: "hastscript",
-		outfile: outFsFileName,
-		entryPoints: [inputFileName],
-		bundle: true,
-		minify: false,
-		format: "esm",
-		packages: "external",
-	});
+			jsxImportSource: "hastscript",
+			outfile: outFsFileName,
+			entryPoints: [inputFileName],
+			bundle: true,
+			minify: false,
+			format: "esm",
+			packages: "external",
+		});
 
-	if (warnings.length) {
-		console.warn(warnings);
-	}
+		if (warnings.length) {
+			console.warn(warnings);
+		}
 
-	if (errors.length) {
-		console.error(errors);
-		process.exit(1);
+		if (errors.length) {
+			console.error(errors);
+			process.exit(1);
+		}
 	}
 
 	const { default: output } = await import(
@@ -83,7 +85,9 @@ export async function getHastScriptCompFunction(
 	);
 
 	if (!output) {
-		throw new Error("No default export found in the component file");
+		throw new Error(
+			"No default export found in the component file for " + fileName,
+		);
 	}
 
 	if (typeof output !== "function") {
@@ -118,6 +122,11 @@ export async function saveComponentScript(
 
 	const tmpFilePath = resolve(tmpDir, componentName + ".tmp.js");
 
+	if (existsSync(fsAbsolutePath)) {
+		// No sense in re-writing the file if it's the same
+		return true;
+	}
+
 	await fs.writeFile(tmpFilePath, setupFnStr, "utf8");
 
 	const { errors, warnings } = await esbuild.build({
@@ -139,7 +148,10 @@ export async function saveComponentScript(
 		process.exit(1);
 	}
 
-	await fs.unlink(tmpFilePath);
+	/**
+	 * We can't unlink the file even here because this might be parallelized, so
+	 * the file may still be in use.
+	 */
 
 	return true;
 }
@@ -168,4 +180,7 @@ export function createComponent<TProps>() {
 	return initialBuilder;
 }
 
-export const COMPONENT_FOLDER = resolve(rootDir, "./src/utils/markdown/components");
+export const COMPONENT_FOLDER = resolve(
+	rootDir,
+	"./src/utils/markdown/components",
+);
