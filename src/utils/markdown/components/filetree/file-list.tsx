@@ -53,7 +53,7 @@ function File({ item }: FileProps) {
 	return (
 		<>
 			<span
-				className={`docs-file-tree-file-name-and-icon ${
+				class={`docs-file-tree-file-name-and-icon ${
 					item.isHighlighted ? "highlighted" : ""
 				} text-style-body-small`}
 			>
@@ -80,7 +80,7 @@ function Directory({ item }: DirectoryProps) {
 		<details open={item.openByDefault} class="docs-file-tree-directory-details">
 			<summary class="docs-file-tree-directory-summary">
 				<span
-					className={`docs-file-tree-directory-name-and-icon ${
+					class={`docs-file-tree-directory-name-and-icon ${
 						item.isHighlighted ? "highlighted" : ""
 					} text-style-body-small-bold`}
 				>
@@ -110,10 +110,10 @@ function FileListList({ items }: FileListProps) {
 	};
 
 	return (
-		<ul className="docs-file-tree-list">
+		<ul class="docs-file-tree-list">
 			{items.map((item) => (
 				<li
-					className={
+					class={
 						item.isDirectory
 							? "docs-file-tree-directory-li"
 							: "docs-file-tree-file-li"
@@ -129,7 +129,7 @@ function FileListList({ items }: FileListProps) {
 
 export default function FileList({ items }: FileListProps): Element {
 	return (
-		<div className="docs-file-tree-container">
+		<div class="docs-file-tree-container">
 			<div class="docs-file-tree">{FileListList({ items })}</div>
 		</div>
 	) as never;

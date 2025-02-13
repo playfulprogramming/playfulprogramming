@@ -11,8 +11,10 @@ import { getHastScriptCompFunction } from "utils/markdown/components/utils";
 type RehypeComponentsProps = {
 	components: Record<
 		string,
-		CreateComponentReturn<Record<string, string>, unknown>
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		CreateComponentReturn<any, any>
 	>;
+	nodeSkipMap?: WeakMap<Root | Element, number[]>;
 };
 
 const unifiedRehype = unified().use(rehypeParse, { fragment: true });
@@ -34,11 +36,11 @@ const isNodeElement = (node: unknown): node is Element =>
 export const rehypeTransformComponents: Plugin<
 	[RehypeComponentsProps],
 	Root
-> = ({ components }) => {
+> = ({ components, nodeSkipMap: _nodeSkipMap }) => {
 	return async (tree, vfile) => {
 		vfile.data = vfile.data || {};
 
-		const nodeSkipMap = new WeakMap<Root | Element, number[]>();
+		const nodeSkipMap = _nodeSkipMap ?? new WeakMap<Root | Element, number[]>();
 
 		const replacementMetas = [] as Array<{
 			node: Root | Doctype | ElementContent;
@@ -177,7 +179,7 @@ export const rehypeTransformComponents: Plugin<
 								rehypeTransformComponents as (
 									props: RehypeComponentsProps,
 								) => (tree: Root, vfile: VFile) => void
-							)({ components })(tree, vfile);
+							)({ components, nodeSkipMap })(tree, vfile);
 							return tree;
 						});
 					});

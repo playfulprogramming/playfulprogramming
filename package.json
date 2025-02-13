@@ -20,7 +20,6 @@
 	},
 	"packageManager": "pnpm@9.4.0",
 	"scripts": {
-		"run-test": "tsx ./test.ts",
 		"debug": "env-cmd -f ./src/environments/debug.env astro dev --experimental-integrations",
 		"dev": "env-cmd -f ./src/environments/dev.env astro dev --experimental-integrations",
 		"start": "astro dev --experimental-integrations",
