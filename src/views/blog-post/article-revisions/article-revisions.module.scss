@@ -22,6 +22,26 @@
 
 	--date-dropdown_focus-outline_width: var(--border-width_focus);
 	--date-dropdown_focus-outline_color: var(--focus-outline_secondary);
+
+	--popup_min-width: 240px;
+	--popup_popover_version_foregrouund_color: #21333f80;
+
+	// POPUP STYLES ==> taken from src/components/select/select.module.scss
+	--popup_corner-radius: var(--corner-radius_m);
+	--popup_padding: var(--spc-2x);
+	--popup_background-color: var(--background_primary);
+	--popup_item_background-color_selected: var(--surface_primary_emphasis-low);
+
+	--popup_item_padding: var(--spc-2x);
+	--popup_item_label_padding: var(--spc-1x);
+	--popup_item_min-height: var(--min-target-size_m);
+	--popup_item_corner-radius: calc(
+		var(--popup_corner-radius) - var(--popup_padding)
+	);
+	--popup_item_label_color: var(--foreground_emphasis-high);
+	--popup_item_version_color: var(--foreground_disabled);
+	--popup_item_version_selected_color: var(--foreground_emphasis-medium);
+	--popup_item_background-color_hovered: var(--surface_primary_emphasis-medium);
 }
 
 .button {
@@ -38,7 +58,27 @@
 	font-weight: var(--weight_semibold);
 	font-size: var(--button_regular_font-size);
 	line-height: var(--button_regular_line-height);
+	@include transition(background-color);
+	@include transition(border);
 	cursor: pointer;
+
+	&:hover {
+		background-color: var(--date-dropdown_state_hovered);
+		border-color: var(--date-dropdown_border-color_hovered);
+	}
+
+	&:focus {
+		outline: 4px solid #8c4585;
+		background-color: #fff;
+
+		.date {
+			color: #531350;
+		}
+
+		.down {
+			transform: rotate(180deg);
+		}
+	}
 
 	.date {
 		color: var(--date-dropdown_foreground-color);
@@ -56,12 +96,75 @@
 		display: inline-block;
 		height: var(--date-dropdown_arrow-size);
 		width: var(--date-dropdown_arrow-size);
+		@include transition(transform);
+		transition-duration: 0.5s; // Override the duration for all properties
+		transition-property: transform;
 		svg {
 			color: var(--date-dropdown_foreground-color);
 			height: 100%;
 			width: 100%;
 			margin: unset;
 			padding: unset;
+		}
+	}
+}
+
+.popover {
+	position: absolute;
+	list-style: none;
+	margin: 0;
+	border-radius: var(--popup_corner-radius);
+	padding: var(--popup_padding);
+	background: var(--popup_background-color);
+	box-shadow: var(--shadow_popup);
+	border: var(--border-width_s) solid var(--background_disabled);
+	min-width: var(--popup_min-width);
+
+	.item {
+		background: unset;
+		border: unset;
+		outline: none;
+		display: flex;
+		align-items: center;
+		// gap: var(--popup_item_gap);
+		align-items: center;
+		min-height: var(--popup_item_min-height);
+		min-width: var(--popup_min-width);
+
+		&.selected {
+			a {
+				background-color: var(--popup_item_background-color_selected);
+			}
+
+			.version {
+				color: var(--popup_item_version_selected_color);
+			}
+		}
+
+		a {
+			padding: var(--popup_item_padding);
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+			text-decoration: none;
+			border-radius: var(--popup_item_corner-radius);
+
+			letter-spacing: 0%;
+			font-weight: var(--weight_semibold);
+			font-size: var(--button_regular_font-size);
+			line-height: var(--button_regular_line-height);
+
+			&:hover {
+				background-color: var(--popup_item_background-color_hovered);
+			}
+
+			.date {
+				color: var(--popup_item_label_color);
+			}
+
+			.version {
+				color: var(--popup_item_version_color);
+			}
 		}
 	}
 }
