@@ -4,10 +4,10 @@ import { getMarkdownVFile } from "./getMarkdownVFile";
 import { MarkdownFileInfo, MarkdownVFile } from "./types";
 import { createHtmlPlugins } from "./createHtmlPlugins";
 
-export type MarkdownHtml = {
-	headingsWithIds: PostHeadingInfo[];
+export interface MarkdownHtml {
+	data: MarkdownVFile["data"];
 	html: string;
-};
+}
 
 const unifiedChain = unified();
 createHtmlPlugins(unifiedChain);
@@ -24,7 +24,7 @@ export async function getMarkdownHtml(
 	});
 
 	return {
-		headingsWithIds: vfile.data.headingsWithIds,
+		data: vfile.data,
 		html: result.toString(),
 	};
 }

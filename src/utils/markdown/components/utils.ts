@@ -1,5 +1,6 @@
 import { dirname, resolve, basename } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { promises as fs } from "node:fs";
 
 import esbuild from "esbuild";
 
@@ -11,7 +12,10 @@ import {
 } from "./types";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const tmpDir = resolve(__dirname, "../../../../md-tmp");
+
+const rootDir = resolve(__dirname, "../../../../");
+
+const tmpDir = resolve(rootDir, "./md-tmp");
 
 /**
  * This is getting the `export default`'d function from a `.tsx` file
@@ -91,6 +95,55 @@ export async function getHastScriptCompFunction(
 	}
 
 	return output;
+}
+
+export function getComponentScriptPath(componentName: string) {
+	const serverRelativePath = `/public/scripts/${componentName}.js`;
+	const fsAbsolutePath = resolve(rootDir, "." + serverRelativePath);
+
+	return {
+		serverRelativePath,
+		fsAbsolutePath,
+	};
+}
+
+export async function saveComponentScript(
+	componentName: string,
+	component: CreateComponentReturn<Record<string, string>, unknown>,
+) {
+	// "Did not write anything"
+	if (!component.setup) return false;
+	// Bundle with ESBuild
+	const { fsAbsolutePath } = getComponentScriptPath(componentName);
+
+	const setupFnStr = `var __fn = ${component.setup?.toString()}; __fn();`;
+
+	const tmpFilePath = resolve(tmpDir, componentName + ".tmp.js");
+
+	await fs.writeFile(tmpFilePath, setupFnStr, "utf8");
+
+	const { errors, warnings } = await esbuild.build({
+		outfile: fsAbsolutePath,
+		entryPoints: [tmpFilePath],
+		bundle: true,
+		minify: true,
+		format: "esm",
+		// `node_modules` doesn't exist on the browser
+		packages: "bundle",
+	});
+
+	if (warnings.length) {
+		console.warn(warnings);
+	}
+
+	if (errors.length) {
+		console.error(errors);
+		process.exit(1);
+	}
+
+	await fs.unlink(tmpFilePath);
+
+	return true;
 }
 
 export function createComponent<TProps>() {

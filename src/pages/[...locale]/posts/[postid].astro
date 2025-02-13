@@ -69,7 +69,8 @@ const postHtml = await getMarkdownHtml(post);
 	<BlogPost
 		post={post}
 		postHtml={postHtml.html}
-		postHeadings={postHtml.headingsWithIds}
+		postHeadings={postHtml.data.headingsWithIds}
+		usedComponents={postHtml.data.usedComponents}
 		authors={authors}
 		collection={collection}
 		collectionPosts={collectionPosts}

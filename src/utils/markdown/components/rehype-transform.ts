@@ -6,7 +6,11 @@ import { CreateComponentReturn } from "./types";
 import rehypeParse from "rehype-parse";
 import { logError } from "../logger";
 import { VFile } from "vfile";
-import { getHastScriptCompFunction } from "utils/markdown/components/utils";
+import {
+	getHastScriptCompFunction,
+	saveComponentScript,
+} from "utils/markdown/components/utils";
+import { MarkdownVFile } from "utils/markdown/types";
 
 type RehypeComponentsProps = {
 	components: Record<
@@ -50,6 +54,7 @@ export const rehypeTransformComponents: Plugin<
 			replacementProps: unknown;
 			isRanged: boolean;
 			indexEnd: number;
+			componentName: string;
 		}>;
 
 		visit(tree, { type: "comment" }, (node, index, parent) => {
@@ -76,7 +81,8 @@ export const rehypeTransformComponents: Plugin<
 			}
 
 			// Find the component matching the given tag
-			const component = components[componentNode.tagName];
+			const componentName = componentNode.tagName;
+			const component = components[componentName];
 			if (!component) {
 				logError(
 					vfile,
@@ -135,6 +141,7 @@ export const rehypeTransformComponents: Plugin<
 				index,
 				parent,
 				component,
+				componentName,
 				replacementProps,
 				isRanged,
 				indexEnd,
@@ -143,10 +150,14 @@ export const rehypeTransformComponents: Plugin<
 			return;
 		});
 
-		await Promise.all(
-			replacementMetas.map(
+		await Promise.all([
+			...replacementMetas.map(async ({ componentName, component }) => {
+				const hasScript = await saveComponentScript(componentName, component);
+				if (!hasScript) return;
+				(vfile as MarkdownVFile).data.usedComponents[componentName] = true;
+			}),
+			...replacementMetas.map(
 				async ({
-					node,
 					index,
 					parent,
 					component,
@@ -185,6 +196,6 @@ export const rehypeTransformComponents: Plugin<
 					});
 				},
 			),
-		);
+		]);
 	};
 };
