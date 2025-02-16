@@ -1,0 +1,25 @@
+{
+  "name": "ffg-ecosystem-react-file-routing",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "dev": "vite --port=3001",
+    "build": "vite build",
+    "serve": "vite preview",
+    "start": "vite"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@tanstack/router-plugin": "^1.105.0",
+    "@vitejs/plugin-react": "^4.3.2",
+    "vite": "^6.0.3"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "^1.105.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
