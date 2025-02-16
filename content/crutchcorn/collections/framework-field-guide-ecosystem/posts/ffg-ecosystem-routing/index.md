@@ -10,8 +10,14 @@
 
 <details>
 <summary>What tools are we learning in this chapter?</summary>
-Forms, being widely used parts of many apps, have many options available to build with.
-Hi
+
+- TanStack Router
+- TanStack Start
+- Vue Router
+- Nuxt.js
+- Angular Router
+- Analog.js
+
 </details>
 
 // TODO: Talk about intro
