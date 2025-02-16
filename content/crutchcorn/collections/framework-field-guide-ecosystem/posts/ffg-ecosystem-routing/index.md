@@ -23,16 +23,18 @@ Hi
 
 CSR
 
-
-# Client-side data
-
-`loaders`
-
-
-
 ## Dynamic paths
 
 `/route/:prop`
+
+### 404 Pages
+
+How to handle not found page
+
+## Client-side data
+
+`loaders`
+
 
 
 
