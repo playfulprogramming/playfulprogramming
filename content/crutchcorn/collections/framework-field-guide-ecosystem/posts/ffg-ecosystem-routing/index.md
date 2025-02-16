@@ -36,6 +36,14 @@ CSR
 
 How to handle not found page
 
+
+
+React: https://tanstack.com/router/v1/docs/framework/react/guide/not-found-errors
+
+Angular: https://angular.dev/guide/routing/router-tutorial#adding-a-404-page
+
+
+
 ## Client-side data
 
 `loaders`
