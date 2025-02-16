@@ -12,7 +12,6 @@
 <summary>What tools are we learning in this chapter?</summary>
 Forms, being widely used parts of many apps, have many options available to build with.
 Hi
-
 </details>
 
 // TODO: Talk about intro
