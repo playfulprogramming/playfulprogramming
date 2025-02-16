@@ -46,7 +46,22 @@ Angular: https://angular.dev/guide/routing/router-tutorial#adding-a-404-page
 
 ## Client-side data
 
-`loaders`
+// TODO: Show fetching on page request itself
+
+Vue Router: `useRoute` + `watch`
+
+Nuxt: `useAsyncData`
+
+
+
+### Loaders
+
+// TODO: Loaders
+
+- Angular: Route Resolvers
+- Vue Router: https://uvr.esm.is/data-loaders/#installation 
+
+- Nuxt: Plugin from Vue Router
 
 
 
