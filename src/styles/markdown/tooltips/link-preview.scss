@@ -49,6 +49,7 @@
 		display: contents;
 		img {
 			max-width: calc(100% - (var(--link-preview_border_width) + var(--link-preview_border_gap))*2);
+			height: auto;
 			margin: calc(var(--link-preview_border_width) + var(--link-preview_border_gap));
 			border-radius: var(--link-preview_corner-radius) !important;
 		}
