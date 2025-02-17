@@ -8,7 +8,8 @@ type ChipProps = PropsWithChildren<{
 	class?: string;
 	className?: string;
 }> &
-	JSX.HTMLAttributes<HTMLButtonElement & HTMLAnchorElement>;
+	JSX.ButtonHTMLAttributes &
+	JSX.AnchorHTMLAttributes;
 
 export const Chip = forwardRef<HTMLElement, ChipProps>(
 	({ children, tag, class: classClass, className, ...props }, ref) => {

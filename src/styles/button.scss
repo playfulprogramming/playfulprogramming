@@ -97,6 +97,7 @@
 }
 
 .button {
+	height: fit-content;
 	border-radius: var(--corner-radius_circular);
 
 	display: flex;

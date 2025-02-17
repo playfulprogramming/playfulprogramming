@@ -13,7 +13,7 @@
   pronouns: "she/her",
   profileImg: "./profile-jt.jpg",
   color: "#ef5f17",
-  roles: [],
+  roles: ["board"],
   achievements: ["partner"]
 }
 ---

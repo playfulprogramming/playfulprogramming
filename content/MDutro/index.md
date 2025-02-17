@@ -10,7 +10,8 @@
 	pronouns: "he/him",
 	profileImg: "./mdutro.jpg",
 	color: "#7C4DFF",
-	roles: ["developer", "author", "community"],
-	achievements: ["messages-1000"]
+	roles: ["developer", "author", "community", "board"],
+	achievements: ["messages-1000"],
+    boardRoles: ["Secretary"]
 }
 ---

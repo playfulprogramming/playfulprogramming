@@ -11,9 +11,9 @@
 	--filesystem_outer_padding: var(--spc-2x);
 	--filesystem_inner_background-color: var(--background_focus);
 	--filesystem_inner_corner-radius: calc(
-		var(--filesystem_outer_corner-radius) - var(--filesystem_outer_padding) - var(
-				--filesystem_border_width
-			)
+		var(--filesystem_outer_corner-radius) - var(
+				--filesystem_outer_padding
+			) - var(--filesystem_border_width)
 	);
 	--filesystem_inner_padding: var(--spc-2x);
 	--filesystem_border_width: var(--border-width_l);
@@ -65,7 +65,8 @@
 
 	// Tokens for the level inset dividers
 	--filesystem_item_inset_margin-start: calc(
-		var(--half-icon) + var(--filesystem_item_container_padding-start) - max(
+		var(--half-icon) +
+			var(--filesystem_item_container_padding-start) - max(
 				1px,
 				var(--half-divider)
 			)

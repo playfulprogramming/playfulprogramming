@@ -21,6 +21,7 @@ export const rehypeShikiUU: [
 			// supports "[!code highlight]" transforms to add a .highlight class
 			transformerNotationHighlight({
 				classActiveLine: "highlight",
+				matchAlgorithm: "v3",
 			}),
 			// supports "``` {1,3-4}" transforms to add a .highlight class
 			transformerMetaHighlight({
