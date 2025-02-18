@@ -1,7 +1,7 @@
 /** @jsxRuntime automatic */
 import { Element } from "hast";
 
-interface InContentAdProps {
+export interface InContentAdProps {
 	title: string;
 	body: string;
 	["button-text"]: string;
@@ -9,7 +9,7 @@ interface InContentAdProps {
 }
 
 /** @jsxImportSource hastscript */
-export function InContentAd(props: InContentAdProps): Element {
+export default function InContentAd(props: InContentAdProps): Element {
 	const {
 		["button-text"]: buttonText,
 		["button-href"]: buttonHref,
