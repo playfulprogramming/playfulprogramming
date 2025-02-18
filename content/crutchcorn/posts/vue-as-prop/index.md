@@ -2,7 +2,7 @@
 {
   title: 'Vue "as" Prop using TypeScript',
   description: "Vue can dynamically change a rendered HTML tag using a special syntax. Let's learn how to use it with TypeScript.",
-  published: "2025-02-10",
+  published: "2025-02-18",
   tags: ["vue", "typescript", "webdev"],
   license: "cc-by-4",
 }
