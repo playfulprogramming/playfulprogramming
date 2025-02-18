@@ -55,7 +55,7 @@ We aren't kicking off our project without looking into other tools. Let's look a
 
 ## Decap CMS
 
-Previously called Netlify CMS, Decap CMS fits the bill for most of the things we've looked at.
+Previously called Netlify CMS, [Decap CMS](https://decapcms.org/) fits the bill for most of the things we've looked at.
 
 Not only does it support Git-based markdown content, but it has a feature called ["open-authoring" - a Git-based way to allow third-party authors](https://decapcms.org/docs/open-authoring/).
 
@@ -71,7 +71,7 @@ Well, after looking into it, no.
 
 All of their main components (GH interop, Local Git stuff, FE, et al) appear to be at least 2 years old
 
-The FE is not the most modern (JS, not TS, Emotion, Redux **4**, et al)
+The FE is not the most modern (JS, not TS, Emotion CSS, Redux **4**, et al)
 
 And while the frontend seems sorta big (15K LOC at a **super** rough glance), the BE comparatively doesn't:
 
@@ -81,7 +81,7 @@ And while the frontend seems sorta big (15K LOC at a **super** rough glance), th
 
 ## Tina CMS
 
-https://tina.io/
+Another common Git CMS option is [Tina CMS](https://tina.io/).
 
 **Pros**:
 
@@ -97,19 +97,19 @@ https://tina.io/
 - Doesn't allow external authors
 - No CRDT usage
 
-
-
 Given how heavily we'd need to rework the frontend to match our blog-first needs, we'd probably start from scratch.
 
 The primary part of the backend, despite having lots of good, is only about 9k LOC and doesn't include much of the infrastructure for features we'd want to add or even have for `v1`.
 
 ## Keystatic
 
+Another Git-based CMS is [Keystatic](https://keystatic.com/).
+
 **Pros**:
 
 - Git-based
 - MIT Licensed
-- Support for both MDX and ???
+- Support for both MDX and Markdoc
 - Incredibly up-to-date and polished codebase
 - Good UI
   - Doesn't matter - we'd reskin it for our needs
@@ -121,11 +121,11 @@ The primary part of the backend, despite having lots of good, is only about 9k L
 - No backend
   - This makes the `fork our repo from our singleton CMS instance` is a no-go
 
-https://keystatic.com/
-
 
 
 ## Keystone
+
+Made from the same folks at Keystatic, [Keystone](https://keystonejs.com/) is an API-based CMS.
 
 **Pros**:
 
@@ -143,6 +143,8 @@ https://keystatic.com/
 
 ## Ghost CMS
 
+[Ghost](https://ghost.org/) is a CMS platform that's open-source.
+
 **Pros**:
 
 - MIT Licensed
@@ -153,39 +155,43 @@ https://keystatic.com/
 - Not Git-based
 - No external user permissions
 
-
-
 ## Payload CMS
+
+[Payload CMS](https://payloadcms.com/) is an API-driven CMS.
 
 **Pros**:
 
 - MIT Licensed
+- Very flexible
 
 **Cons**:
 
 - Not Git-based
-- Permissions issues
-
-
+- No external user permissions
+- Marketing implies it's highly tied to Next.js
 
 ## Strapi
+
+[Strapi](https://strapi.io/) is a headless API-driven CMS.
 
 **Cons**:
 
 - [Questionable OSS license](https://github.com/strapi/strapi/blob/develop/LICENSE)
   - Changes license based on folder you're in, includes important parts of the codebase
 - Not Git-based
-- Permissions issues
+- No external user permissions
 
 
 
 # What are you building?
 
+Given our inability to find a CMS that fits our needs, let's look at a roadmap of what we're intending to develop.
+
 ## Pre-work
 
-- [x] Research and write-up post on CMS alternatives
-- [ ] Research and write-up post on rich-text editors
-- [ ] Research and write-up post on event sync systems
+- [x] Research and write-up post on CMS alternatives (this post)
+- [ ] [Research and write-up post on rich-text editors](https://github.com/playfulprogramming/playfulprogramming/issues/1302)
+- [ ] [Research and write-up post on event sync systems](https://github.com/playfulprogramming/hoof/issues/10)
 
 ## `v0`
 
@@ -284,17 +290,7 @@ flowchart TD
     classDef dashed stroke-dasharray:5 5
 ```
 
--------
-
-- Decided to explore https://docs.yjs.dev/ as a CRDT/merge implementation - https://github.com/y-crdt/y-crdt is its wasm/rust port vs. https://automerge.org/
-- Using a CRDT only for active "editor sessions" and storing one copy (+ syncing to git) might be preferable? The use-cases where the *server* would need to interact with the CRDT itself would be minimal. In which case I believe it could be client-only?
-- If a git update occurs in the upstream GitHub repo, it can simply overwrite the local draft - assuming it was previously up to date with the repo. (i.e. its revision history would be saved)
-- If a git update occurs from upstream when an editor session is active, there could be a prompt on the client(similar interactions in vscode/intellij when the filesystem changes with an open editor)
-- TBD: I still think that placing revisions in local git repos when on the CMS is unnecessary. These could be stored in a database (with revisions) and synced with the remote (github). This could take advantage of search indexing, reliability of database transactions, consolidated backups, etc.
-
-------
-
-# Potential Sequence Diagram
+## Potential Sequence Diagram
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {
@@ -369,3 +365,11 @@ sequenceDiagram
         end
     end
 ```
+
+## Other Implementation Notes
+
+- Decided to explore https://docs.yjs.dev/ as a CRDT/merge implementation - https://github.com/y-crdt/y-crdt is its wasm/rust port vs. https://automerge.org/
+- Using a CRDT only for active "editor sessions" and storing one copy (+ syncing to git) might be preferable? The use-cases where the *server* would need to interact with the CRDT itself would be minimal. In which case I believe it could be client-only?
+- If a git update occurs in the upstream GitHub repo, it can simply overwrite the local draft - assuming it was previously up to date with the repo. (i.e. its revision history would be saved)
+- If a git update occurs from upstream when an editor session is active, there could be a prompt on the client(similar interactions in vscode/intellij when the filesystem changes with an open editor)
+- TBD: I still think that placing revisions in local git repos when on the CMS is unnecessary. These could be stored in a database (with revisions) and synced with the remote (github). This could take advantage of search indexing, reliability of database transactions, consolidated backups, etc.
