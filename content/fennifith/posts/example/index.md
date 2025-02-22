@@ -17,6 +17,14 @@ Cool text[^coolFootnote]
 
 [^coolFootnote]: well actually
 
+# Adjacent Footnotes Shouldn't overlap
+
+Pretend this is something very thought provoking[^1][^2]
+
+[^1]: Footnotes are great right? I can throw all the tangents my brain cooks up while writing
+
+[^2]: Rust is a must 🦀🦀🦀
+
 # Link to another part of the page
 
 <a id="cool-id🦦🦦🦦" href="#welcome🦀🦀🦀">See you later</a>
