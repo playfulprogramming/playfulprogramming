@@ -1,5 +1,6 @@
 ---
 import PostTitleHeader from "./post-title-header/post-title-header.astro";
+import TableOfContentsMobile from "./table-of-contents/mobile/table-of-contents-mobile.astro";
 import TableOfContents from "./table-of-contents/table-of-contents.astro";
 import MailingList from "../../components/mailing-list/mailing-list.astro";
 import TranslationsHeader from "../base/translations/translations-header.astro";
@@ -80,6 +81,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 
 <main>
 	<BlogPostLayout hideLeftSidebar={!postHeadings.length}>
+		<TableOfContentsMobile slot="mobile-menu" headingsWithId={postHeadings} />
 		<PostTitleHeader slot="header" post={post} authors={authors}>
 			{
 				post.collection ? (
