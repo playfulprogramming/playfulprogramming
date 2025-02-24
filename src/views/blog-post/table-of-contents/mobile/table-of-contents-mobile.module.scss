@@ -1,0 +1,268 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--toc-header_background-color: var(--background_primary);
+	--toc_header_padding-top: var(--site-spacing);
+	--toc_header_padding-horizontal:  var(--site-spacing);
+	--toc_header_padding-vertical: calc(var(--site-spacing) - var(--spc-2x));
+
+
+	--toc_header_padding-bottom: var(--spc-4x);
+	--toc_header_gap: var(--site-spacing);
+
+	--toc_list_padding-horizontal: var(--spc-4x);
+
+	--toc_item_min-height: var(--min-target-size_m);
+	--toc_item_padding-start: var(--spc-4x);
+	--toc_item_padding-end: var(--spc-4x);
+	--toc_item_padding-vertical: var(--spc-2x);
+
+	--toc_sub-item_padding-start: var(--spc-3x);
+	--toc_sub-item_dot_margin-end: var(--spc-3x);
+	--toc_sub-item_dot_size: 1rem;
+
+	--toc_label_color: var(--foreground_emphasis-medium);
+	--toc_label_color_selected: var(--foreground_emphasis-high);
+
+	--toc_item_background-color_hovered: var(--surface_primary_emphasis-medium);
+	--toc_item_background-color_pressed: var(--surface_primary_emphasis-high);
+	--toc_item_background-color_selected: var(--surface_primary_emphasis-low);
+	--toc_item_background-color_focused: var(--background_focus);
+
+	--toc_subheading-dot_color: var(--primary_default);
+
+	--toc_focus-outline_color: var(--focus-outline_primary);
+	--toc_focus-outline_width: var(--border-width_focus);
+
+	--toc_divider_width: var(--border-width_s);
+	// --background_disabled applied to background
+	--toc_divider_color: #cddbe7;
+
+	--toc_arrow_color: var(--foreground_emphasis-high);
+	--toc_arrow_color_selected: var(--primary);
+
+	@include until($tabletLarge) {
+		--toc_list_padding-horizontal: var(--spc-2x);
+	}
+
+	
+	@include until($mobile) {
+		--toc_list_padding-horizontal: 0px;
+
+		--toc_header_padding-top: 0px;
+		--toc_header_padding-horizontal: var(--site-spacing);
+		--toc_header_padding-bottom: 0px;
+	}
+
+}
+
+.container {
+	@include darkTheme() {
+		--toc_divider_color: #253e4c;
+	}
+}
+
+.container {
+	position: sticky;
+	top: 0;
+	padding-bottom: var(--site-spacing);
+}
+
+.tocTitle {
+	//z-index: 1;
+	//position: sticky;
+	width: 100%;
+	background-color: var(--toc-header_background-color);
+	margin: 0;
+	padding: var(--toc_header_padding-vertical) var(--toc_header_padding-horizontal);
+
+	//border-top: 1px solid var(--background_disabled);
+	border-bottom: 1px solid var(--background_disabled);
+	display: flex;
+	align-items: center;
+    justify-content: space-between;
+
+}
+
+
+
+
+.tocTitleOffset {
+	height: var(--toc_header_padding-top);
+}
+
+
+.tableList {
+	list-style: none;
+	margin: 0;
+	padding: 0 var(--toc_list_padding-horizontal);
+	max-height: calc(100vh - (var(--header_logo_size) + var(--header_padding-vertical)*2 + 1px));
+	overflow: auto;
+}
+
+.tocListHidden {
+	display: none;
+}
+
+.tableListItem > a {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	min-height: var(--min-target-size_m);
+	border-radius: var(--corner-radius_l);
+	padding-top: var(--toc_item_padding-vertical);
+	padding-bottom: var(--toc_item_padding-vertical);
+	padding-right: var(--toc_item_padding-end);
+
+	@include transition(color background-color);
+}
+
+.tableListItem > a:focus-visible {
+	outline: 4px solid var(--toc_focus-outline_color);
+	background: var(--toc_item_background-color_focused);
+}
+
+.tableListItem:not(.depth2) > a {
+	padding: var(--toc_item_padding-vertical) var(--toc_item_padding-end)
+		var(--toc_item_padding-vertical) var(--toc_item_padding-start);
+}
+
+.tableListItem:hover > a {
+	background: var(--toc_item_background-color_hovered);
+}
+
+.tableListItem:active > a {
+	background: var(--toc_item_background-color_pressed);
+}
+
+.tableListItemLinkInner {
+	color: var(--foreground_emphasis-medium);
+	pointer-events: none;
+}
+
+.tableListItem:hover > a > *,
+:global(.toc-is-active) .tableListItemLinkInner {
+	color: var(--foreground_emphasis-high);
+}
+
+.depth1 {
+}
+
+.depth2 > a > * {
+	margin-left: calc(
+		var(--toc_sub-item_dot_size) + var(--toc_sub-item_dot_margin-end) +
+			var(--toc_sub-item_padding-start)
+	);
+	position: relative;
+}
+
+/* Line */
+.depth2 > a:focus > *::before {
+	border: none !important;
+}
+
+.depth2:not(:global(.toc-is-active)):not(:hover):not(:active)
+	> a:not(:focus-visible)
+	> *::before {
+	content: " ";
+	background: var(--toc_divider_color);
+	height: 100%;
+	width: 2px;
+	position: absolute;
+	left: calc(
+		-2px - var(--toc_sub-item_padding-start) - calc(
+				var(--toc_sub-item_dot_size) / 2
+			)
+	);
+	top: 0;
+}
+
+/* Extended line */
+@supports selector(:has(*)) {
+	.depth2:not(:global(.toc-is-active)):not(:hover):not(:active):not(
+			:has(:focus-visible)
+		)
+		+ .depth2:not(:global(.toc-is-active)):not(:hover):not(:active):not(
+			:has(:focus-visible)
+		)
+		> a
+		> *::before {
+		content: " ";
+		background: var(--toc_divider_color);
+		height: calc(100% + var(--toc_item_min-height));
+		width: 2px;
+		position: absolute;
+		left: calc(
+			-2px - var(--toc_sub-item_padding-start) - calc(
+					var(--toc_sub-item_dot_size) / 2
+				)
+		);
+		bottom: 0;
+		top: unset;
+	}
+}
+@supports not selector(:has(*)) {
+	.depth2:not(:global(.toc-is-active)):not(:hover):not(:active):not(
+			:focus-within
+		)
+		+ .depth2:not(:global(.toc-is-active)):not(:hover):not(:active):not(
+			:focus-within
+		)
+		> a
+		> *::before {
+		content: " ";
+		background: var(--toc_divider_color);
+		height: calc(100% + var(--toc_item_min-height));
+		width: 2px;
+		position: absolute;
+		left: calc(
+			-2px - var(--toc_sub-item_padding-start) - calc(
+					var(--toc_sub-item_dot_size) / 2
+				)
+		);
+		bottom: 0;
+		top: unset;
+	}
+}
+
+/* Arrow */
+.depth2:global(.toc-is-active):not(:hover) > a > *::before {
+	content: " ";
+	/* Mask applied to use the background color on */
+	background-color: var(--toc_subheading-dot_color);
+	mask: url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="Arrow"><path id="Vector 31" d="M5 8H15M15 8L11 4M15 8L11 12" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>');
+	mask-position: center;
+	mask-repeat: no-repeat;
+	mask-size: var(--toc_sub-item_dot_size);
+	height: 100%;
+	width: var(--toc_sub-item_dot_size);
+	position: absolute;
+	left: calc(
+		0px - var(--toc_sub-item_padding-start) - calc(var(--toc_sub-item_dot_size))
+	);
+	top: 0;
+}
+
+/* Dot */
+.depth2:hover > a > *::before {
+	content: " ";
+	/* Mask applied to use the background color on */
+	background-color: var(--toc_subheading-dot_color);
+	mask: url('data:image/svg+xml;utf8,<svg width="4" height="4" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg"><circle id="Dot" cx="2" cy="2" r="2" fill="black"/></svg>');
+	mask-position: center;
+	mask-repeat: no-repeat;
+	mask-size: 0.25rem;
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 100%;
+	width: var(--toc_sub-item_dot_size);
+	position: absolute;
+	left: calc(
+		0px - var(--toc_sub-item_padding-start) - calc(var(--toc_sub-item_dot_size))
+	);
+	top: 0;
+}
+
+:global(.toc-is-active) > a {
+	background: var(--surface_primary_emphasis-low);
+}
