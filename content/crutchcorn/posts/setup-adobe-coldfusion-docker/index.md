@@ -61,7 +61,7 @@ docker start coldfusion
 
 > You can configure much more on the ColdFusion container. To do this, [please follow the ColdFusion docs for Docker Images](https://helpx.adobe.com/coldfusion/using/docker-images-coldfusion.html)
 
-# Looking at the ColdFusion Dashboard
+# Looking at the ColdFusion dashboard
 
 Once the container is started you can go to [`localhost:8050`](https://localhost:8050) to see a directory listing of the ColdFusion server:
 
@@ -81,7 +81,7 @@ This will show the rest of the dashboard for you to configure ColdFusion with:
 
 > While you can deep-dive into configuring ColdFusion, we'll leave the settings all as defaults for now. [For more information on configuring ColdFusion, refer to the official docs](https://helpx.adobe.com/coldfusion/configuring-administering/using-the-coldfusion-administrator.html)
 
-# Visual Studio Code
+# Setting up Visual Studio Code
 
 To use ColdFusion with Visual Studio Code (VSCode), we'll:
 
@@ -140,7 +140,7 @@ Once this is done, it will open the folder you selected in VSCode and generate a
 
 ![The files generated for you in a list](./workspace.png)
 
-# Uploading Files
+# Uploading files
 
 To run your first program with ColdFusion, let's add an `index.cfm` file to the root of the folder we referenced in our `docker create` command:
 
