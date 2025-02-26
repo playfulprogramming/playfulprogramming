@@ -2,13 +2,13 @@
 {
     title: "Setup Adobe ColdFusion in Docker",
     description: "Adobe ColdFusion can feel daunting to set up. Luckily for us, there's an easy method of getting up and running using Docker. Let's explore that option!",
-    published: '2025-03-01T20:12:03.284Z',
+    published: '2025-02-26',
     tags: ['coldfusion'],
     license: 'cc-by-4'
 }
 ---
 
-[Adobe ColdFusion](https://www.adobe.com/products/coldfusion-family.html) just saw it's newest release hit the scene: ColdFusion 2025. This release continues a trend that's been occuring for the past few years; encouraging growth and continual improvements.
+[Adobe ColdFusion](https://www.adobe.com/products/coldfusion-family.html) just saw it's newest release hit the scene: [ColdFusion 2025](https://helpx.adobe.com/coldfusion/using/whats-new.html). This release continues a trend that's been occuring for the past few years; encouraging growth and continual improvements.
 
 One area where ColdFusion has seen intense growth is in local developer experience.
 
