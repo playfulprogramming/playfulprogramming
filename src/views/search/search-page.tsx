@@ -43,8 +43,11 @@ import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
 import { OramaClientProvider, useOramaSearch } from "./orama";
 import { SearchFooter } from "./components/search-footer";
-import { MAX_COLLECTIONS_PER_PAGE, MAX_POSTS_PER_PAGE, ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD } from "./constants";
-
+import {
+	MAX_COLLECTIONS_PER_PAGE,
+	MAX_POSTS_PER_PAGE,
+	ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+} from "./constants";
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -453,7 +456,7 @@ export function SearchPageBase() {
 								</ul>
 								{!isHybridSearch && (
 									<Pagination
-									testId="collections-pagination"
+										testId="collections-pagination"
 										softNavigate={(_href, pageNum) => {
 											window.scrollTo(0, 0);
 											setQuery({
