@@ -91,7 +91,7 @@
 	margin-right: var(--collection-card_author_padding-right);
 	margin-left: var(--collection-card_author_padding-left);
 
-	&> :global(.button) {
+	& > :global(.button) {
 		align-self: flex-end;
 	}
 }

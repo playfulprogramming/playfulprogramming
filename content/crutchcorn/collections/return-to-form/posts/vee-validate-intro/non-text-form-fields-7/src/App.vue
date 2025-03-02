@@ -3,5 +3,5 @@ import FormComp from "./FormComp.vue";
 </script>
 
 <template>
-  <FormComp/>
+	<FormComp />
 </template>
