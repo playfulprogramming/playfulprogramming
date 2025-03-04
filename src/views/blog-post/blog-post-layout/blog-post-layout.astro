@@ -8,10 +8,14 @@ interface BlogPostLayoutProps {
 const { hideLeftSidebar } = Astro.props as BlogPostLayoutProps;
 ---
 
-<article class={style.container} data-hide-left-sidebar={hideLeftSidebar}>
-	<div class={style.mobileMenu}>
-		<slot name="mobile-menu" />
-	</div>
+<div class={style.mobileMenu}>
+	<slot name="mobile-menu" />
+</div>
+<article
+	id="main-page-contents"
+	class={style.container}
+	data-hide-left-sidebar={hideLeftSidebar}
+>
 	<div class={style.header}>
 		<slot name="header" />
 	</div>

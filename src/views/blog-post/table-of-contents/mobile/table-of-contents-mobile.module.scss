@@ -56,16 +56,19 @@
 
 }
 
-.container {
+.mobileTocContainer {
+
 	@include darkTheme() {
 		--toc_divider_color: #253e4c;
 	}
-}
 
-.container {
 	position: sticky;
 	top: 0;
 	padding-bottom: var(--site-spacing);
+
+
+
+
 }
 
 .tocTitle {
@@ -74,34 +77,35 @@
 	width: 100%;
 	background-color: var(--toc-header_background-color);
 	margin: 0;
-	padding: var(--toc_header_padding-vertical) var(--toc_header_padding-horizontal);
+	padding: 0 var(--toc_header_padding-horizontal);
 
 	//border-top: 1px solid var(--background_disabled);
 	border-bottom: 1px solid var(--background_disabled);
 	display: flex;
 	align-items: center;
-    justify-content: space-between;
+	justify-content: space-between;
 
 }
-
-
-
-
-.tocTitleOffset {
-	height: var(--toc_header_padding-top);
-}
-
 
 .tableList {
+	background-color: var(--toc-header_background-color);
 	list-style: none;
 	margin: 0;
 	padding: 0 var(--toc_list_padding-horizontal);
-	max-height: calc(100vh - (var(--header_logo_size) + var(--header_padding-vertical)*2 + 1px));
+	max-height: calc(100vh - ((var(--header_logo_size) + var(--header_padding-vertical) *2 ) ) - ( 1.5rem + (16.0 * 2px)));
 	overflow: auto;
+	transition: max-height 0.50s;
+
 }
 
+
+
 .tocListHidden {
-	display: none;
+	max-height: 0px;
+}
+
+.tocMobileOpenMainBody {
+	overflow: hidden;
 }
 
 .tableListItem > a {
