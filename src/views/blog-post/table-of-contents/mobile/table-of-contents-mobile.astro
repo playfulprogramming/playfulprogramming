@@ -23,51 +23,27 @@ const headingsToDisplay = headings
 	.filter((headingInfo) => headingInfo.depth <= 2);
 
 const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
-
-const tocMobileMenuCollapsed = styles.tocMobileMenuCollapsed;
-const tocMobileOpenMainBody = styles.tocMobileOpenMainBody;
 ---
 
 <aside
 	id="mobile-table-of-contents"
+	data-mobile-table-of-contents-menu
 	class={`${styles.mobileTocContainer} ${styles.tocMobileMenuCollapsed}`}
 	aria-labelledby="table-of-contents-heading"
 >
 	<div class={styles.tocTitle}>
-		<h2 id="table-of-contents-heading" class={`text-style-headline-5 `}>
-			Table of Contents
-		</h2>
-		<IconOnlyButton id="toggleMenuExpanded" tag="button">
+		<h2 data-mobile-table-of-contents-menu-header>Table of Contents</h2>
+		<IconOnlyButton
+			id="toggleMenuExpanded"
+			data-mobile-table-of-contents-toggle-button
+			tag="button"
+		>
 			<Icon class={styles.mobileTocOpenIcon} name="chevron_down" />
 			<Icon class={styles.mobileTocCloseIcon} name="close" />
 		</IconOnlyButton>
 	</div>
-	<script define:vars={{ tocMobileOpenMainBody, tocMobileMenuCollapsed }}>
-		const toggleMenuExpanded = () => {
-			const mobileToc = document.getElementById("mobile-table-of-contents");
-			mobileToc.classList.toggle(tocMobileMenuCollapsed);
-
-			const mainBody = document.getElementsByTagName("body")[0];
-			mainBody.classList.toggle(tocMobileOpenMainBody);
-
-			const mobileMenuCollapsed = mobileToc.classList.contains(
-				tocMobileMenuCollapsed,
-			);
-
-			const mainPageContents = document.getElementById("main-page-contents");
-			mainPageContents.inert = !mobileMenuCollapsed;
-
-			const mobileTocList = document.getElementById("mobileTocList");
-			mobileTocList.inert = mobileMenuCollapsed;
-		};
-
-		document
-			.getElementById("toggleMenuExpanded")
-			.addEventListener("click", function () {
-				toggleMenuExpanded();
-			});
-	</script>
 	<ol
+		data-mobile-table-of-contents-menu-list
 		class={`${styles.tableList} ${styles.tocListHidden}`}
 		role="list"
 		id="mobileTocList"
@@ -96,6 +72,10 @@ const tocMobileOpenMainBody = styles.tocMobileOpenMainBody;
 		}
 	</ol>
 </aside>
+<script>
+	import { setupMobileTableOfContentsToggle } from "./table-of-contents-mobile";
+	setupMobileTableOfContentsToggle();
+</script>
 <HeadingIntersectionObserverScript
 	headingsToDisplaySlugs={headingsToDisplaySlugs}
 />

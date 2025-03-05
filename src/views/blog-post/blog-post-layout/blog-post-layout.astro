@@ -12,9 +12,9 @@ const { hideLeftSidebar } = Astro.props as BlogPostLayoutProps;
 	<slot name="mobile-menu" />
 </div>
 <article
-	id="main-page-contents"
-	class={style.container}
+	data-article-page-contents
 	data-hide-left-sidebar={hideLeftSidebar}
+	class={style.container}
 >
 	<div class={style.header}>
 		<slot name="header" />
