@@ -22,10 +22,10 @@ header {
 }
 
 .headerBorder {
+	background-color: var(--background_primary);
 	border-bottom: 1px solid transparent;
 	&[data-sticky="pinned"] {
 		border-bottom: 1px solid var(--background_disabled);
-		background-color: var(--background_primary);
 	}
 
 	top: -0.1px;
