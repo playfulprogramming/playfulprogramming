@@ -24,7 +24,7 @@ const { headingsToDisplaySlugs } = Astro.props as {
 		const tocListContainer = tocListRef.parentElement!.parentElement!;
 
 		const linkRefs: LinkRef[] = [
-			...(document.querySelectorAll(
+			...(tocListRef.querySelectorAll(
 				'[data-headingitem="true"]',
 			) as never as HTMLLIElement[]),
 		].map((li) => ({
