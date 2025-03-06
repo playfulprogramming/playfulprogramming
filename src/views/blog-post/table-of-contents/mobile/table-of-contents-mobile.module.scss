@@ -10,6 +10,7 @@
 	--toc_header_padding-bottom: var(--spc-4x);
 	--toc_header_gap: var(--site-spacing);
 
+	--toc_list_padding-vertival: var(--site-spacing);
 	--toc_list_padding-horizontal: var(--spc-4x);
 
 	--toc_item_min-height: var(--min-target-size_m);
@@ -50,6 +51,7 @@
 		--toc_list_padding-horizontal: 0px;
 
 		--toc_header_padding-top: 0px;
+
 		--toc_header_padding-horizontal: var(--site-spacing);
 		--toc_header_padding-bottom: 0px;
 	}
@@ -62,25 +64,28 @@
 		--toc_divider_color: #253e4c;
 	}
 
-	position: sticky;
 	top: 0;
-	padding-bottom: var(--site-spacing);
-
+	max-height: calc(100vh - ((var(--header_logo_size) + var(--header_padding-vertical) *2 ) ) );
 
 	.tocTitle {
+
 	
-		//z-index: 1;
-		//position: sticky;
 		width: 100%;
 		background-color: var(--toc-header_background-color);
 		margin: 0;
 		padding: 0 var(--toc_header_padding-horizontal);
 	
-		//border-top: 1px solid var(--background_disabled);
 		border-bottom: 1px solid var(--background_disabled);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+
+		h4 {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			width: 90%;
+		}
 
 		button {
 			.mobileTocOpenIcon { display: none; }
@@ -94,7 +99,7 @@
 		background-color: var(--toc-header_background-color);
 		list-style: none;
 		margin: 0;
-		padding: 0 var(--toc_list_padding-horizontal);
+		padding: var(--toc_list_padding-vertival) var(--toc_list_padding-horizontal);
 		max-height: calc(100vh - ((var(--header_logo_size) + var(--header_padding-vertical) *2 ) ) - ( 1.5rem + (16.0 * 2px)));
 		overflow: auto;
 		transition: max-height 0.50s;
@@ -112,6 +117,7 @@
 
 		.tableList {
 			max-height: 0px;
+			padding: 0;
 		}
 	}
 
