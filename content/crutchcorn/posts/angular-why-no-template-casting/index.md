@@ -2,7 +2,7 @@
 {
 	title: "Why Can't Angular Cast An Element to Another?",
 	description: "",
-	published: '2025-12-01T13:45:00.284Z',
+	published: '2025-03-06',
 	tags: ['angular', 'webdev', 'javascript'],
 	license: 'cc-by-nc-sa-4'
 }
