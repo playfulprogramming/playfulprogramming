@@ -48,15 +48,24 @@ export const setupMobileTableOfContentsToggle = () => {
 		_toggleMobileMenuInert();
 	};
 
-	const setMenuHeaderText = (newText: string) => {
-		if (mobileTableOfContentsMenuHeaderText) {
-			mobileTableOfContentsMenuHeaderText.innerText = newText;
-		}
+	const scrollPageToMenuItem = (anchor: HTMLAnchorElement) => {
+		if (!anchor) return;
+		const href = anchor.getAttribute("href");
+		if (!href) return;
+		const heading = document.getElementById(href.slice(1));
+		if (!heading) return;
+
+		heading?.scrollIntoView({
+			block: "center",
+			behavior: "auto",
+		});
 	};
 
 	const handleMenuItemClick = (event) => {
+		event.preventDefault();
+
 		toggleMenuExpanded();
-		setMenuHeaderText(event.target.textContent);
+		scrollPageToMenuItem(event.target);
 	};
 
 	mobileTableOfContentsMenuToggleButton?.addEventListener(
