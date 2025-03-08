@@ -74,8 +74,7 @@
 		background-color: var(--toc-header_background-color);
 		margin: 0;
 		padding: 0 var(--toc_header_padding-horizontal);
-	
-		border-bottom: 1px solid var(--background_disabled);
+		outline: 1px solid var(--background_disabled);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -100,9 +99,9 @@
 		list-style: none;
 		margin: 0;
 		padding: var(--toc_list_padding-vertival) var(--toc_list_padding-horizontal);
-		max-height: calc(100vh - ((var(--header_logo_size) + var(--header_padding-vertical) *2 ) ) - ( 1.5rem + (16.0 * 2px)));
+		height: calc(100vh - ((var(--header_logo_size) + var(--header_padding-vertical) *2 ) ) - ( 1.5rem + (16.0 * 2px)));
 		overflow: auto;
-		transition: max-height 0.50s;
+		transition: height 0.50s;
 	
 	}
 
@@ -116,7 +115,7 @@
 		}
 
 		.tableList {
-			max-height: 0px;
+			height: 0px;
 			padding: 0;
 		}
 	}
