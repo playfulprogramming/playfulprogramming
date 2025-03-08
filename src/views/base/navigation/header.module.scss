@@ -31,6 +31,13 @@ header {
 	top: -0.1px;
 	position: sticky;
 	z-index: 2;
+
+	@include until($tabletLarge) {
+		&[data-mobile_table_of_contents_present="true"] {
+			border: none; 
+		}
+	}
+
 }
 
 .header {

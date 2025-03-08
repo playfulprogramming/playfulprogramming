@@ -90,7 +90,7 @@
 
 .mobileMenu {
 	$headerSize: calc(
-		var(--header_logo_size) + var(--header_padding-vertical) * 2 + 1px
+		var(--header_logo_size) + var(--header_padding-vertical) * 2
 	);
 	top: $headerSize;
 	grid-row: 1;
