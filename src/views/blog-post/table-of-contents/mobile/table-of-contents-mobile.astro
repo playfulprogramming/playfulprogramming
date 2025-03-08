@@ -27,7 +27,6 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 
 <aside
 	id="mobile-table-of-contents"
-	data-sticky-observer
 	data-mobile-table-of-contents-menu
 	class={`${styles.mobileTocContainer} ${styles.tocMobileMenuCollapsed}`}
 	aria-labelledby="table-of-contents-heading"
@@ -73,6 +72,14 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 		}
 	</ol>
 </aside>
+
+<script>
+	const target = document.getElementById("header-bar");
+	if (target) {
+		target.dataset.mobile_table_of_contents_present = "true";
+	}
+</script>
+
 <MobileHeadingIntersectionObserverScript
 	headingsToDisplaySlugs={headingsToDisplaySlugs}
 />
