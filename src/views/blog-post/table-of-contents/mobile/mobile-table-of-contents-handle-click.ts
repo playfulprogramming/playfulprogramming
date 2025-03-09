@@ -1,6 +1,6 @@
 import styles from "./table-of-contents-mobile.module.scss";
 
-export const setupMobileTableOfContentsToggle = () => {
+export const setupMobileTableOfContentsHandleClick = () => {
 	const mainBody = document.getElementsByTagName("body")[0];
 	const mainPageContents = document.querySelector<HTMLElement>(
 		"[data-article-page-contents]",
