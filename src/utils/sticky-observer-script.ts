@@ -7,15 +7,18 @@
  * script to activate.
  */
 export const enableStickyObserver = () => {
-	const observer = new IntersectionObserver(
-		([e]) => {
-			(e.target as HTMLElement).dataset.sticky =
-				e.intersectionRatio < 1 ? "pinned" : "";
-		},
-		{ threshold: [1] },
-	);
-
 	document
-		.querySelectorAll("[data-sticky-observer]")
-		.forEach((e) => observer.observe(e));
+		.querySelectorAll<HTMLElement>("[data-sticky-observer]")
+		.forEach((el: HTMLElement) => {
+			new IntersectionObserver(
+				([e]) => {
+					(e.target as HTMLElement).dataset.sticky =
+						e.intersectionRatio < 1 ? "pinned" : "";
+				},
+				{
+					threshold: [1],
+					rootMargin: 0 - parseInt(getComputedStyle(el).top) + "px",
+				},
+			).observe(el);
+		});
 };
