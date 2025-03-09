@@ -1,0 +1,48 @@
+---
+const { tableOfContentsDefaultText } = Astro.props as {
+	tableOfContentsDefaultText: string;
+};
+---
+
+<script define:vars={{ tableOfContentsDefaultText }}>
+	window.tableOfContentsDefaultText = tableOfContentsDefaultText;
+</script>
+
+<script>
+	const postTitleHeader = document.getElementById("post-title-header");
+	const tableOfContentsDefaultText = (window as any).tableOfContentsDefaultText;
+
+	const mobileTableOfContentsMenuHeaderText =
+		document.querySelector<HTMLElement>(
+			"[data-mobile-table-of-contents-menu-header]",
+		);
+
+	const setMenuHeaderText = (newText: string) => {
+		if (mobileTableOfContentsMenuHeaderText && newText) {
+			mobileTableOfContentsMenuHeaderText.innerText = newText;
+		}
+	};
+
+	const handlePostTitleIntersectionObserver = (
+		intersectionEventEntries: IntersectionObserverEntry[],
+	) => {
+		console.log("title scroll observer fired");
+		intersectionEventEntries.forEach((entry) => {
+			if (entry.boundingClientRect.top > 0) {
+				setMenuHeaderText(tableOfContentsDefaultText);
+			}
+		});
+	};
+
+	const postTitleIntersectionObserver = new IntersectionObserver(
+		handlePostTitleIntersectionObserver,
+		{
+			rootMargin: "0px",
+			threshold: 1,
+		},
+	);
+
+	if (postTitleHeader) {
+		postTitleIntersectionObserver.observe(postTitleHeader);
+	}
+</script>

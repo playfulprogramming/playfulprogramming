@@ -23,8 +23,6 @@ const { headingsToDisplaySlugs } = Astro.props as {
 	const tocListRef: HTMLOListElement =
 		document.querySelector("#mobileTocList")!;
 
-	const postTitleHeader = document.getElementById("post-title-header");
-
 	const linkRefs: LinkRef[] = [
 		...(tocListRef.querySelectorAll(
 			'[data-headingitem="true"]',
@@ -91,26 +89,4 @@ const { headingsToDisplaySlugs } = Astro.props as {
 		.forEach((heading) => {
 			observer.observe(heading);
 		});
-
-	const handlePostTitleIntersectionObserver = (
-		intersectionEventEntries: IntersectionObserverEntry[],
-	) => {
-		intersectionEventEntries.forEach((entry) => {
-			if (entry.boundingClientRect.top > 0) {
-				setMenuHeaderText("Table of Contents");
-			}
-		});
-	};
-
-	const postTitleIntersectionObserver = new IntersectionObserver(
-		handlePostTitleIntersectionObserver,
-		{
-			rootMargin: "0px",
-			threshold: 1,
-		},
-	);
-
-	if (postTitleHeader) {
-		postTitleIntersectionObserver.observe(postTitleHeader);
-	}
 </script>
