@@ -1,8 +1,8 @@
 ---
 {
-  title: 'JavaScript Holes and Tolls (on performance)',
-  description: "Compiler optimizations that you shouldn't worry about but are cool",
-  published: '2025-02-21T00:00:00.000Z',
+  title: 'JavaScript Holes and Tolls (On Performance)',
+  description: "Compiler optimizations that you shouldn't worry about but are cool.",
+  published: '2025-03-11',
   tags: ['chrome', 'javascript'],
   originalLink: 'https://jacobasper.com/blog/javascript-holes-and-tolls/'
 }
@@ -20,19 +20,19 @@ const array = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
 
 If you said "Obviously, the first is written in such a way that v8 cannot perform certain optimizations due to `array` being holey" then you are a big nerd[^touchGrass] or you read ahead in the article. That's weird, how did you have that specific of an answer ready in such a short time???
 
-[^touchGrass]: This is for you. Please go outside. The sun misses you ![Grass with dew on it](./touchGrass.webp)
+[^touchGrass]: This is for you. Please go outside. The sun misses you. ![Grass with dew on it](./touchGrass.webp)
 
-If you said it's purely stylistic, then you are safely only a medium sized nerd and probably touch grass at least once a month
+If you said it's purely stylistic, then you are safely only a medium sized nerd and probably touch grass at least once a month.
 
 ---
 
-**Huge disclaimer—everything I say will be specific to V8, and I do not work on the engine, so take everything with a grain of salt**
+**Huge disclaimer—everything I say will be specific to V8, and I do not work on the engine, so take everything with a grain of salt.**
 
 ## What's going on here?
 
 Note that I've truncated the debug output for brevity. I recommend messing around with the full output if you have some free time!
 
-Let's look at the less optimal approach
+Let's look at the less optimal approach.
 
 ```js
 d8> %DebugPrint(Array(10).fill(10));
@@ -48,7 +48,7 @@ DebugPrint: 0x13e600288601: [JSArray]
 [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 ```
 
-The elements kind is `HOLEY_SMI_ELEMENTS` here, meaning the engine marked this array as potentially missing elements. Here, an array with holes is created and then filled. You may think it should be packed again, but once an array is holey, there's no going back
+The elements kind is `HOLEY_SMI_ELEMENTS` here, meaning the engine marked this array as potentially missing elements. Here, an array with holes is created and then filled. You may think it should be packed again, but once an array is holey, there's no going back.
 
 Now what about the latter option?
 
@@ -66,11 +66,11 @@ DebugPrint: 0x3d3700288655: [JSArray]
 [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 ```
 
-This array has an elements kind of `PACKED_SMI_ELEMENTS`, so v8 can perform some optimizations now that it knows there aren't any missing elements
+This array has an elements kind of `PACKED_SMI_ELEMENTS`, so v8 can perform some optimizations now that it knows there aren't any missing elements.
 
-I'd expect that packed arrays are stored as—well—arrays, and holey arrays are likely stored as hashmaps
+I'd expect that packed arrays are stored as—well—arrays, and holey arrays are likely stored as hashmaps.
 
-Note that it _is_ possible to make a packed array of a certain length without using a literal. For example, the following are all packed
+Note that it _is_ possible to make a packed array of a certain length without using a literal. For example, the following are all packed:
 
 ```js
 Array.from({ length: 10 }, () => 10); // PACKED_SMI_ELEMENTS
@@ -84,9 +84,9 @@ for (let i = 0; i < 10; i++) {
 
 ## What is a hole?
 
-JavaScript is fun, so arrays don't actually need to have values in them. No, they're not `undefined`—they are holes
+JavaScript is fun, so arrays don't actually need to have values in them. No, they're not `undefined`—they are holes.
 
-Here is an array of holes, note `<the_hole_value>`
+Here is an array of holes, note `<the_hole_value>`.
 
 ```js
 d8> %DebugPrint(Array(10))
@@ -100,7 +100,7 @@ DebugPrint: 0x3d370028aa6d: [JSArray]
 [, , , , , , , , , ]
 ```
 
-And here is an array of `undefined`
+And here is an array of `undefined`.
 
 ```js
 d8> %DebugPrint([undefined, undefined])
@@ -115,9 +115,9 @@ DebugPrint: 0x350400288605: [JSArray]
 [undefined, undefined]
 ```
 
-An array with `undefined` has values and is considered packed, while holes, well, are empty
+An array with `undefined` has values and is considered packed, while holes, well, are empty.
 
-You can't hold a hole in a variable—as far as I know, these are unique to arrays. If you try to access a hole, the value returned will be coerced to undefined
+You can't hold a hole in a variable—as far as I know, these are unique to arrays. If you try to access a hole, the value returned will be coerced to undefined.
 
 ```js
 Array(10)[0]; // undefined
@@ -129,7 +129,7 @@ How else can we make a hole besides the `Array` constructor?
 
 #### `delete`
 
-`delete` creates a hole instead of shifting elements
+`delete` creates a hole instead of shifting elements.
 
 ```js
 const arr = [1, 2, 3];
@@ -143,7 +143,7 @@ arr.splice(1, 1); // arr is now [1, 3]
 
 #### `Array.prototype.length`
 
-Setting an array's length will create holes
+Setting an array's length will create holes.
 
 ```js
 const arr = [];
@@ -182,7 +182,7 @@ DebugPrint: 0x38c002885ed: [JSArray]
 [0, , , , , 5]
 ```
 
-This happens even if you assign to `arr[arr.length]`, though it stays packed
+This happens even if you assign to `arr[arr.length]`, though it stays packed.
 
 ```js
 d8> %DebugPrint(array)
@@ -199,27 +199,25 @@ DebugPrint: 0xdb50028a651: [JSArray]
 [0, 5]
 ```
 
-#### copyWithin
+#### `copyWithin`
 
 ```js
 [, , 1, 2].copyWithin(2); // [, , , ]
 ```
 
-Remember that in the logs, there is no trailing comma, so this is still 4 long
+Remember that in the logs, there is no trailing comma, so this is still 4 long.
 
 ---
 
-If you ever feel like typing `[,,,,,,]`, I don't know, take a walk or something. Get some help
-
-You know what. I will tell my dog and they will be very sad and cry
+If you ever feel like typing `[,,,,,,]`, I don't know, take a walk or something. You know what. I will tell my dog and they will be very sad and cry.
 
 ![a sad puppy wearing a sweatshirt thinking please don't use holey arrays](./sadPuppy.webp)
 
-Alright, now that we have that out of the way, let's get it moving, I have a slushy to drink
+Alright, now that we have that out of the way, let's get it moving, I have a slushy to drink.
 
 ### How do JavaScript constructs interact with holes?
 
-The array returned by `splice` is empty
+The array returned by `splice` is empty.
 
 ```js
 const y = [, , , ,];
@@ -227,13 +225,13 @@ y.splice(1, 1); // []
 // y is now [, , ]
 ```
 
-`sort` always moves holes to the end
+`sort` always moves holes to the end.
 
 ```js
 [, , 1, 5, 1, ,].sort(); // [1, 1, 5, , , ]
 ```
 
-Here's a variety of interactions with holes—some ignore them, some remove them, some replace them with undefined. The MDN describes much of this behavior, however, holey and packed arrays are described as "sparse" and "dense" respectively
+Here's a variety of interactions with holes—some ignore them, some remove them, some replace them with undefined. The MDN describes much of this behavior, however, holey and packed arrays are described as "sparse" and "dense" respectively.
 
 ```js
 [, ,].length; // 2
@@ -251,33 +249,33 @@ Here's a variety of interactions with holes—some ignore them, some remove them
 
 ## Not all packed arrays are made equal
 
-Beyond packed and unpacked arrays, arrays can be optimized based on their elements' types
+Beyond packed and unpacked arrays, arrays can be optimized based on their elements' types.
 
 ```js
 Array.from({ length: 10 }, () => 10); // PACKED_SMI_ELEMENTS
 Array.from({ length: 10 }).fill(10); // PACKED_ELEMENTS
 ```
 
-These seem equivalent, but the second option is suboptimal. `SMI` stands for "small integer," and `ELEMENTS` is a generic element
+These seem equivalent, but the second option is suboptimal. `SMI` stands for "small integer," and `ELEMENTS` is a generic element.
 
-Since it lacks a `mapFn`, the second array is filled with `undefined`, demoting the array to `PACKED_ELEMENTS`. Like how an unpacked array can never become packed again, the more generic `ELEMENTS` can never become the more specific `SMI`. Filling a `PACKED_ELEMENTS` array does not transition it to `PACKED_SMI_ELEMENTS`
+Since it lacks a `mapFn`, the second array is filled with `undefined`, demoting the array to `PACKED_ELEMENTS`. Like how an unpacked array can never become packed again, the more generic `ELEMENTS` can never become the more specific `SMI`. Filling a `PACKED_ELEMENTS` array does not transition it to `PACKED_SMI_ELEMENTS`.
 
 Long story short, create your arrays as specifically as you can, so the engine can help you out the most!
 
-## What if I have holey arrays in my code right now?!?
+## What if I have holey arrays in my code right now?!
 
-I wouldn't worry about it too much. It probably affects readability somewhat, but if you really need to save a few instructions here and there, you'll have profiled and know what to do
+I wouldn't worry about it too much. It probably affects readability somewhat, but if you really need to save a few instructions here and there, you'll have profiled and know what to do.
 
-It's fun to know, and you can avoid using the array constructor, but most times it shouldn't matter enough for you to care
+It's fun to know, and you can avoid using the array constructor, but most times it shouldn't matter enough for you to care.
 
-## Where did you learn all this stuff you have a humongous brain
+## "Where did you learn all this stuff; you have a humongous brain!"
 
 Well I'm flattered by the complement, but I'm standing on the shoulders of giants. I learned most of this from the MDN and [Mathias' blog on elements kinds on the v8 blog](https://v8.dev/blog/elements-kinds)! They even mention [how to run the d8 compiler and see this debug output yourself!](https://v8.dev/blog/elements-kinds#debugging)
 
-I pretty often am asked about things like the time complexity or performance characteristics of defining arrays in certain ways. While you absolutely do not need to know about internals to write most algorithms—the point of time complexity is estimation after all—I never shy away from a good rabbit hole to dive into some source code or read a nice technical article. There's nothing better than someone saying "x works like y" and sending over some source code that says "x works like y in Chrome but not Firefox and only on Friday afternoons"
+I pretty often am asked about things like the time complexity or performance characteristics of defining arrays in certain ways. While you absolutely do not need to know about internals to write most algorithms—the point of time complexity is estimation after all—I never shy away from a good rabbit hole to dive into some source code or read a nice technical article. There's nothing better than someone saying "x works like y" and sending over some source code that says "x works like y in Chrome but not Firefox and only on Friday afternoons".
 
 ---
 
-I made a goal to write this blog in under 2 hours since I'm very talented at going on tangents. I set a stopwatch and went at it. Did I hit my goal? Nope, but I did stop adding new content at 2 hours, and then took a final hour to edit, so I'd call this a success
+I made a goal to write this blog in under 2 hours since I'm very talented at going on tangents. I set a stopwatch and went at it. Did I hit my goal? Nope, but I did stop adding new content at 2 hours, and then took a final hour to edit, so I'd call this a success.
 
-I did not accidentally make a list of every iterable in the JavaScript library then get overwhelmed and not release the article this time 😅. I definitely don't have a backlog of like 10 half written blogs. Trust me
+I did not accidentally make a list of every iterable in the JavaScript library then get overwhelmed and not release the article this time 😅. I definitely don't have a backlog of like 10 half written blogs, trust me.
