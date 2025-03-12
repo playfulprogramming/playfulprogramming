@@ -23,8 +23,8 @@ import type { Child as HChild } from "hastscript";
 import { Element } from "hast";
 import { visit } from "unist-util-visit";
 import JSON5 from "json5";
-import { FileList, Directory, File } from "./file-list";
-import { RehypeFunctionComponent } from "../types";
+import { Directory, File } from "./file-list";
+import { RehypeFunctionProps } from "../types";
 import { logError } from "utils/markdown/logger";
 
 interface DirectoryMetadata {
@@ -152,11 +152,11 @@ function traverseUl(listNode: Element, listItems: Array<Directory | File>) {
 	}
 }
 
-export const transformFileTree: RehypeFunctionComponent = ({
+export const transformFileTree = ({
 	vfile,
 	node,
 	children,
-}) => {
+}: RehypeFunctionProps<Record<string, never>>) => {
 	if (children.length === 0) return;
 
 	const items: Array<Directory | File> = [];
@@ -172,5 +172,5 @@ export const transformFileTree: RehypeFunctionComponent = ({
 
 	traverseUl(list, items);
 
-	return FileList({ items });
+	return { items };
 };
