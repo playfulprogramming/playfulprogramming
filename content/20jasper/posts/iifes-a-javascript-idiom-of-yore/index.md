@@ -191,7 +191,7 @@ const activity = do {
 };
 ```
 
-This would be especially convenient for JSX! I always find myself wanting a midpoint between a separate function and piles of ternaries. [Check the proposal for more examples](^doExpression)!
+This would be especially convenient for JSX! I always find myself wanting a midpoint between a separate function and piles of ternaries. [Check the proposal for more examples](https://github.com/tc39/proposal-do-expressions)!
 
 ---
 
