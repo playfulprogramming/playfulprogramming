@@ -26,7 +26,6 @@ const { tableOfContentsDefaultText } = Astro.props as {
 	const handlePostTitleIntersectionObserver = (
 		intersectionEventEntries: IntersectionObserverEntry[],
 	) => {
-		console.log("title scroll observer fired");
 		intersectionEventEntries.forEach((entry) => {
 			if (entry.boundingClientRect.top > 0) {
 				setMenuHeaderText(tableOfContentsDefaultText);

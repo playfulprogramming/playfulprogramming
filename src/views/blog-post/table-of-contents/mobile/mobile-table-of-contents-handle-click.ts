@@ -9,10 +9,7 @@ export const setupMobileTableOfContentsHandleClick = () => {
 	const mobileTableOfContentsMenu = document.querySelector<HTMLElement>(
 		"[data-mobile-table-of-contents-menu]",
 	);
-	const mobileTableOfContentsMenuHeaderText =
-		document.querySelector<HTMLElement>(
-			"[data-mobile-table-of-contents-menu-header]",
-		);
+
 	const mobileTableOfContentsMenuList = document.querySelector<HTMLElement>(
 		"[data-mobile-table-of-contents-menu-list]",
 	);
@@ -61,11 +58,11 @@ export const setupMobileTableOfContentsHandleClick = () => {
 		});
 	};
 
-	const handleMenuItemClick = (event) => {
+	const handleMenuItemClick = (event: MouseEvent) => {
 		event.preventDefault();
 
 		toggleMenuExpanded();
-		scrollPageToMenuItem(event.target);
+		scrollPageToMenuItem(event.target as HTMLAnchorElement);
 	};
 
 	mobileTableOfContentsMenuToggleButton?.addEventListener(
