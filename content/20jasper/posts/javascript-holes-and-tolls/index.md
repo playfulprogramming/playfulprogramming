@@ -160,7 +160,7 @@ The last comma in an array literal is a trailing comma and the logs _don't_ have
 
 #### Assigning beyond the length of the array
 
-Beyond some holes in between , this will add extra holes after the new element!
+Beyond some holes in between, this will add extra holes after the new element!
 
 ```js
 d8> const arr = [0]
@@ -270,7 +270,7 @@ It's fun to know, and you can avoid using the array constructor, but most times 
 
 ## "Where did you learn all this stuff; you have a humongous brain!"
 
-Well I'm flattered by the complement, but I'm standing on the shoulders of giants. I learned most of this from the MDN and [Mathias' blog on elements kinds on the v8 blog](https://v8.dev/blog/elements-kinds)! They even mention [how to run the d8 compiler and see this debug output yourself!](https://v8.dev/blog/elements-kinds#debugging)
+Well I'm flattered by the compliment, but I'm standing on the shoulders of giants. I learned most of this from the MDN and [Mathias' blog on elements kinds on the v8 blog](https://v8.dev/blog/elements-kinds)! They even mention [how to run the d8 compiler and see this debug output yourself!](https://v8.dev/blog/elements-kinds#debugging)
 
 I pretty often am asked about things like the time complexity or performance characteristics of defining arrays in certain ways. While you absolutely do not need to know about internals to write most algorithms—the point of time complexity is estimation after all—I never shy away from a good rabbit hole to dive into some source code or read a nice technical article. There's nothing better than someone saying "x works like y" and sending over some source code that says "x works like y in Chrome but not Firefox and only on Friday afternoons".
 
