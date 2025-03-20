@@ -81,7 +81,14 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 
 <main>
 	<BlogPostLayout hideLeftSidebar={!postHeadings.length}>
-		<TableOfContentsMobile slot="mobile-menu" headingsWithId={postHeadings} />
+		{
+			postHeadings?.length > 0 && (
+				<TableOfContentsMobile
+					slot="mobile-menu"
+					headingsWithId={postHeadings}
+				/>
+			)
+		}
 		<PostTitleHeader slot="header" post={post} authors={authors}>
 			{
 				post.collection ? (
