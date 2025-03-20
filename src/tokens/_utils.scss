@@ -8,7 +8,11 @@
 @mixin transition($properties) {
 	$transitions: ();
 	@each $prop in $properties {
-		$transitions: list.append($transitions, $prop vars.$animStyle vars.$animSpeed, comma);
+		$transitions: list.append(
+			$transitions,
+			$prop vars.$animStyle vars.$animSpeed,
+			comma
+		);
 	}
 	transition: $transitions;
 }

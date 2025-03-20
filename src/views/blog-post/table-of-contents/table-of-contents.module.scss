@@ -139,8 +139,9 @@
 	width: 2px;
 	position: absolute;
 	left: calc(
-		-2px - var(--toc_sub-item_padding-start) - calc(var(--toc_sub-item_dot_size) /
-					2)
+		-2px - var(--toc_sub-item_padding-start) - calc(
+				var(--toc_sub-item_dot_size) / 2
+			)
 	);
 	top: 0;
 }
@@ -161,9 +162,9 @@
 		width: 2px;
 		position: absolute;
 		left: calc(
-			-2px - var(--toc_sub-item_padding-start) - calc(var(
-							--toc_sub-item_dot_size
-						) / 2)
+			-2px - var(--toc_sub-item_padding-start) - calc(
+					var(--toc_sub-item_dot_size) / 2
+				)
 		);
 		bottom: 0;
 		top: unset;
@@ -184,9 +185,9 @@
 		width: 2px;
 		position: absolute;
 		left: calc(
-			-2px - var(--toc_sub-item_padding-start) - calc(var(
-							--toc_sub-item_dot_size
-						) / 2)
+			-2px - var(--toc_sub-item_padding-start) - calc(
+					var(--toc_sub-item_dot_size) / 2
+				)
 		);
 		bottom: 0;
 		top: unset;

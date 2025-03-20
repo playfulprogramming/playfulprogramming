@@ -108,7 +108,9 @@ body {
 	padding-top: calc(var(--section-ver-padding) * 1.5);
 	padding-right: var(--section-hor-padding);
 	padding-left: var(--section-hor-padding);
-	padding-bottom: calc(var(--section-ver-padding) + calc(var(--readNowButtonHeight) / 2));
+	padding-bottom: calc(
+		var(--section-ver-padding) + calc(var(--readNowButtonHeight) / 2)
+	);
 	border: 3px dotted var(--outline);
 	border-radius: var(--corner-radius-2x);
 }
