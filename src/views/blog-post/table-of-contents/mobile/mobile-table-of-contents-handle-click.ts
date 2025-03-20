@@ -10,14 +10,13 @@ export const setupMobileTableOfContentsHandleClick = () => {
 		"[data-mobile-table-of-contents-menu]",
 	);
 
+	const mobileTableOfContentsMenuHeader = document.querySelector<HTMLElement>(
+		"[data-mobile-table-of-contents-menu-header-bar]",
+	);
+
 	const mobileTableOfContentsMenuList = document.querySelector<HTMLElement>(
 		"[data-mobile-table-of-contents-menu-list]",
 	);
-
-	const mobileTableOfContentsMenuToggleButton =
-		document.querySelector<HTMLButtonElement>(
-			"[data-mobile-table-of-contents-toggle-button]",
-		);
 
 	const mobileTableOfContentsMenuListItems =
 		mobileTableOfContentsMenuList?.querySelectorAll<HTMLLinkElement>("a");
@@ -65,7 +64,7 @@ export const setupMobileTableOfContentsHandleClick = () => {
 		scrollPageToMenuItem(event.target as HTMLAnchorElement);
 	};
 
-	mobileTableOfContentsMenuToggleButton?.addEventListener(
+	mobileTableOfContentsMenuHeader?.addEventListener(
 		"click",
 		toggleMenuExpanded,
 	);

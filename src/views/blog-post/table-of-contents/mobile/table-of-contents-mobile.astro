@@ -33,7 +33,7 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 	class={`${styles.mobileTocContainer} ${styles.tocMobileMenuCollapsed}`}
 	aria-labelledby="table-of-contents-heading"
 >
-	<div class={styles.tocTitle}>
+	<div class={styles.tocTitle} data-mobile-table-of-contents-menu-header-bar>
 		<h4 data-mobile-table-of-contents-menu-header>
 			{translate(Astro, "title.table_of_contents")}
 		</h4>
