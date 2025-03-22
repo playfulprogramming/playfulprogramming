@@ -87,3 +87,18 @@
 		opacity: 1;
 	}
 }
+
+.mobileMenu {
+	$headerSize: calc(
+		var(--header_logo_size) + var(--header_padding-vertical) * 2
+	);
+	top: $headerSize;
+	grid-row: 1;
+	grid-column: 1 / 3;
+	align-self: start;
+	position: sticky;
+	z-index: 2;
+	@include from($tabletLarge) {
+		display: none;
+	}
+} 

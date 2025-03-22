@@ -1,0 +1,92 @@
+---
+const { headingsToDisplaySlugs } = Astro.props as {
+	headingsToDisplaySlugs: Array<string>;
+};
+---
+
+<script define:vars={{ headingsToDisplaySlugs }}>
+	window.headingsToDisplaySlugsMobile = headingsToDisplaySlugs;
+</script>
+
+<script>
+	type LinkRef = {
+		li: HTMLLIElement;
+		anchor: HTMLAnchorElement;
+		id: string;
+		textContent: string | null;
+	};
+
+	const mobileTableOfContentsMenuHeaderText =
+		document.querySelector<HTMLElement>(
+			"[data-mobile-table-of-contents-menu-header]",
+		);
+	const tocListRef: HTMLOListElement =
+		document.querySelector("#mobileTocList")!;
+
+	const linkRefs: LinkRef[] = [
+		...(tocListRef.querySelectorAll(
+			'[data-headingitem="true"]',
+		) as never as HTMLLIElement[]),
+	].map((li) => ({
+		li,
+		anchor: li.firstElementChild as HTMLAnchorElement,
+		id: li.firstElementChild!.getAttribute("href")!.slice(1),
+		textContent: li.textContent,
+	}));
+
+	let activeLinkId: string = linkRefs[0]?.id || "";
+
+	const setMenuHeaderText = (newText: string | null) => {
+		if (mobileTableOfContentsMenuHeaderText && newText) {
+			mobileTableOfContentsMenuHeaderText.innerText = newText;
+		}
+	};
+
+	const handleObserver = (entries: any) => {
+		// find the first link that matches a visible heading
+
+		for (const linkRef of linkRefs) {
+			// find any heading entry that corresponds to the linkRef
+			const entry = entries.find(
+				(entry: any) => entry.target.getAttribute("id") === linkRef.id,
+			);
+
+			// determine if the link should be active
+			if (entry && entry.isIntersecting && entry.intersectionRatio >= 1) {
+				setMenuHeaderText(linkRef.textContent);
+				linkRef.li.classList.add("toc-is-active");
+				activeLinkId = linkRef.id;
+
+				tocListRef.scrollTo({
+					top: Math.max(0, linkRef.li.offsetTop - linkRef.li.offsetHeight * 2),
+					behavior: "auto",
+				});
+				break;
+			}
+		}
+
+		// remove visible class from any links that are *not* the most recently selected heading
+		for (const linkRef of linkRefs) {
+			if (linkRef.id != activeLinkId)
+				linkRef.li.classList.remove("toc-is-active");
+		}
+	};
+
+	const observer = new IntersectionObserver(handleObserver, {
+		rootMargin: "0px",
+		threshold: 1,
+	});
+
+	// use headingsToDisplaySlugs prop to observe all heading elements on the page
+	const headingsEls: HTMLElement[] = (
+		window as any
+	).headingsToDisplaySlugsMobile.map((headingToDisplay: string) => {
+		return document.getElementById(headingToDisplay);
+	});
+
+	headingsEls
+		.filter((a) => a)
+		.forEach((heading) => {
+			observer.observe(heading);
+		});
+</script>
