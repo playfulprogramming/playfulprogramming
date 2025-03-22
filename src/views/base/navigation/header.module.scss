@@ -27,7 +27,7 @@ header {
 		border-bottom: 1px solid var(--background_disabled);
 	}
 	background-color: var(--background_primary);
-	top: -1px;
+	top: 0px;
 	position: sticky;
 	z-index: 2;
 	transition: border-bottom 0.5s ease;
