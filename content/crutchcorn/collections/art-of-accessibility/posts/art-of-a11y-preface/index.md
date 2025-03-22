@@ -9,7 +9,7 @@
 }
 ---
 
-As application developers, our job is to make sure that people have a good experience with the apps we build; While performance and stability make up part of that story, a user's experience (or, UX) is made up of multiple different aspects of their interactions with the app. 
+As application developers, our job is to make sure that people have a good experience with the apps we build. While performance and stability make up part of that story, a user's experience (or, UX) is made up of multiple different aspects of their interactions with the app. 
 
 One of the crucial aspects of UX is the ability to interact with the ability to have information presented in a way that's easily digestible.
 
@@ -62,7 +62,7 @@ Compare this button, with harsh edges and three different colors, against a butt
 
  <button aria-label="A large button with dark a rounded purple background, white 'buy now' text, and a shadow"  style=" height: 9rem; font-size: 4rem; border: medium none; border-radius: 1rem; padding: 0rem 4rem; background: rgb(98, 0, 238); color: rgb(255, 255, 255); box-shadow: 0px 0.75rem 0.25rem -0.5rem rgba(0, 0, 0, 0.2), 0px 0.5rem 0.5rem 0px rgba(0, 0, 0, 0.14), 0px 0.25rem 1.25rem 0px rgba(0, 0, 0, 0.12); " > Buy Now </button>
 
-This button is more rounded, has a drop shadow, and matches Google's designs.
+This button is more rounded, has a drop shadow, and matches Google's design language.
 
 Between the three buttons, which one do you want to use on your page?
 
@@ -96,7 +96,9 @@ Consider the following button:
 
 <button>Go home</button>
 
-This button might be read by a screen-reader as "Button, Go home". Meanwhile, this list of items:
+This button might be read by a screen-reader as "Button, Go home". 
+
+Meanwhile, this list of items:
 
 - Ice Cream
 - Pizza
@@ -148,13 +150,13 @@ There's an appeal to having your work appreciated by an audience, especially for
 
 Worried about the bottom line? Accessibility helps here, too.
 
-Keep in mind, any user is potentially a paying user. By widening the pool of users that are able to utilize your application, you're enabling the ability for these users to pay for your services.
+Keep in mind any user is potentially a paying user. By widening the pool of users that are able to utilize your application, you're enabling the ability for these users to pay for your services.
 
-If I, the end user, aren't able to make the most of your services, why would I pay for them?
+If I, the end user, am not able to make the most of your services, why would I pay for them?
 
 Likewise, word of mouth can make a massive impact to custom success and growth. I'm much more likely to use a product that has universally glowing reviews as opposed to one that has a range of usability issues.
 
-Given all of this; It's no surprise that the classic verbiage of a product's success isn't "Gate away as many users as you can". Rather, a wise business person will make their doors as open as possible to new customers.
+Given all of this, it's no surprise that the classic verbiage of a product's success isn't "Gate away as many users as you can". Rather, a wise business person will make their doors as open as possible to new customers.
 
 ## Accessibility enhances the user experience for everyone
 
@@ -162,9 +164,9 @@ Are you sighted? Have you ever stepped outside from a dark interior to the brigh
 
 Maybe you're able to hear, but have been in a loud club where you were unable to hear your phone ring?
 
-If so, you've experienced a situational disability; one that an applications with considerations for accessibility could have helped with.
+If so, you've experienced a situational disability; one that an application with considerations for accessibility could have helped with.
 
-That bar example? A vibration motor could help you notice receiving a phone call.
+That club example? A vibration motor could help you notice receiving a phone call.
 
 As [Microsoft's Inclusive Design group](https://inclusive.microsoft.design/) points out, there are a myriad of these scenarios that could lead someone to use assistive technologies. Here's a few they were able to mention in the toolkit specifically:
 
@@ -200,9 +202,10 @@ As [Microsoft's Inclusive Design group](https://inclusive.microsoft.design/) poi
 		<td><img role="img" alt="Someone standing in viking gear" src="./heavy_accent.svg" style="height: 200px; filter: var(--invertOnDarkOnly);"/><br/>Heavy accent</td>
 	</tr>
 </table>
+
 > [Graphics courtesy of Microsoft via their Inclusive Toolkit PDF](https://download.microsoft.com/download/b/0/d/b0d4bf87-09ce-4417-8f28-d60703d672ed/inclusive_toolkit_manual_final.pdf).
 
-Similarly, even if you're not disabled in any way, you may still take advantage of accessibility features. Take keyboard navigation, for example; many power users of their machines don't take their fingers off of their keyboard row for many reasons.
+Similarly, even if you're not disabled in any way, you may still take advantage of accessibility features. Take keyboard navigation, for example: many power users of their machines don't take their fingers off of their keyboard row for many reasons.
 
 By making sure that your apps are accessible, you're making sure your users are being respected and taken care of, regardless of scenario.
 
@@ -232,7 +235,7 @@ Accessibility is an component of user experience (UX) design. While some avenues
 
 This isn't to say that it's a _total_ free-for-all, however. Even visual elements of apps can be tested to demonstrate better or worse outcomes consistently through user research.
 
-While larger organizations may host their own user research at broad scales to figure out what's optimal, 
+While larger organizations may host their own user research at broad scales to figure out what's optimal, this is often too expensive for smaller teams to perform.
 
 Luckily for all of us, there's a standards body that aims to bring much of this user research to a generalized consensus via the **["Web Accessibility Initiative" (WAI)](https://www.w3.org/WAI/)** from **["The World Wide Web Consortium" (W3C)](https://www.w3.org/)**.
 
@@ -240,7 +243,7 @@ You may know the work of the W3C as the stewards of the HTML and CSS standards t
 
 However, you may not be familiar with their work in the accessibility space which is conducted through the WIA group. WIA is comprised of accessibility experts and professionals, organizations representing people with disabilities, policy makers, and more. Together, they publish the **"Web Content Accessibility Guidelines" (WCAG)**, which acts as the de-facto guidelines for what makes a project more or less accessible.
 
-The WCAG guidelines may see revisions and improvements through different version numbers - for example, this book aims to conform to the guidance of WCAG 2.2 - but the general goal remains consistent: Help developers and organizations figure out what the best practices are for their apps' UX.
+The WCAG guidelines may see revisions and improvements through different version numbers; for example, this book aims to conform to the guidance of WCAG 2.2, but the general goal remains consistent: Help developers and organizations figure out what the best practices are for their apps' UX.
 
 ## Different levels of compliance
 
@@ -299,7 +302,7 @@ Let's refocus ourselves back onto **what we will be learning**:
 
 <!-- // TODO: add links to chapters as they are written --> 
 
-- What "Semantic markup" is
+- [**What "Semantic markup" is**](/posts/art-of-a11y-semantic-markup)
   - Why you shouldn't use `div`s everywhere
   - What "Accessible Rich Internet Applications" (ARIA) attributes are
   - How to use `roles` responsibly
