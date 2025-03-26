@@ -1,6 +1,6 @@
 ---
 {
-    title: "Preface",
+    title: "The Art of Accessibility: Preface",
     description: "When building a product, your users will come from many walks of life. How do you support them all? Answer: Accessibility. Let's dive in and learn more.",
     published: '2025-04-02T22:12:03.284Z',
     tags: ['webdev', 'accessibility'],

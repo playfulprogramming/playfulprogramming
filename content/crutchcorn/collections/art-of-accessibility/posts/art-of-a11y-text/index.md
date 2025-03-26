@@ -1,6 +1,6 @@
 ---
 {
-    title: "Text",
+    title: "The Art of Accessibility: Text",
     description: "Text makes up most of our apps. Lets make sure that our app's text is legible and able to be accessed through assistive technologies like screen readers.",
     published: '2025-04-02T22:12:03.284Z',
     tags: ['webdev', 'accessibility'],
