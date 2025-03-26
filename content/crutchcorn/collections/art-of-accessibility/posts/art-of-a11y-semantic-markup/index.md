@@ -8,9 +8,7 @@
 }
 ---
 
-# Semantic HTML
-
-You ever look through a codebase and just see a sea of `div`s as far as the eye can see?
+Have you ever look through a codebase and just see a sea of `div`s as far as the eye can see?
 
 ```html
 <div>
@@ -77,6 +75,55 @@ This is because the browser knows what a `button` is, and will apply default sty
 Similarly, a screen-reader doesn't know that our first `<div class="todos">` was a list, and as such wouldn't indicate to the user that it has a list of items, or how many items are in the list. By using an `ul`, it will do all of that for us, without any additional code on our end.
 
 These HTML elements are not just supported in `.html` files; **React, Angular, and Vue support all valid HTML elements.**
+
+> **Note:**
+> There's a **lot** of HTML elements supported by the latest HTML specification. To find the right element for the job, it's often worthwhile  to explore the [HTML elements list from MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) until you're familiar with the list.
+
+# Page Structure
+
+While individual elements like `button` or `ul` provide context on a micro-level, there's also a broader understanding of a page's layout you can convey to the user via proper semantic markup.
+
+Take a homepage like ours:
+
+// TODO: Add image of the homepage alone
+
+When the user is able to see the page, they might typically break it down into different visual components like so:
+
+// TODO: Add image breaking down the landmarks
+
+Similarly, we can convey the same structure of our page more programmatically using semantic markup.
+
+Instead of:
+
+```html
+<div class="header"></div>
+<div class="main-contents">
+    <div class="top-section"></div>
+    <div class="recent-articles-section"></div>
+</div>
+```
+
+Our markup should instead be:
+
+```html
+<header></header>
+<main>
+    <section class="top"></section>
+    <section class="recent-articles"></section>
+</main>
+```
+
+These structure-based elements, often called "landmark elements", help non-sighted users navigate the page better and even provides a good SEO boost to your site.
+
+## Landmark elements and their meaning
+
+- `<header>`: The header of a site, consistent between different pages.
+- `<nav>`: The navigation elements of a site.
+- `<main>`: The main contents of a site.
+- `<section>`: A grouping of related items, most often with an associated heading.
+- `<article>`: A group of related items with all the relevant context contained within.
+- `<aside>`: A tangential item to the main contents on a page.
+- `<footer>`: The footer of a site, consistent between different pages.
 
 # ARIA
 
@@ -195,12 +242,6 @@ While you could create a partially analogous `button` element using a `div`:
 Notice that the fake "button" here doesn't appear to "press" down? There's no styling to indicate when the user is hovered over the "button", nor is there any visual indication when the user is hovered over the "button" with their mouse.
 
 This is why it's often **highly discouraged to use `role` in place of an HTML element with an implicit `role` enabled**; they simply don't have feature parity without a substantial amount of work and expertise.
-
-
-
----
-
-
 
 # Building a tab component with ARIA
 
