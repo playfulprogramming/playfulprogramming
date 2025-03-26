@@ -316,9 +316,11 @@ In HTML, we have 6 levels of headings:
 
 Each of these heading levels represents a new segment of the site with information to all users about how to scan and navigate a page's contents.
 
-
+While headings might seem fairly straightforward at first, they have a bit more depth than you might expect at first.
 
 ## Screen Readers
+
+When talking about headings
 
 Here's one such example of a screen reader - Voiceover built into macOS - navigating [our home page](/) via their "rotor" feature, which lists all headings:
 
@@ -334,133 +336,79 @@ Here's one such example of a screen reader - Voiceover built into macOS - naviga
 | NVDA          | Go to next heading of level [1-6]                            | <kbd>1</kbd> - <kbd>6</kbd>                             |
 | NVDA          | List all headings                                            | <kbd>Insert</kbd> + <kbd>F7</kbd>                       |
 
+// TODO: Add more
+
+## Heading order
+
+Because headings are often used to orient users on a page, it's important that we structure them in ways that make sense at a quick "glance". This is where heading order becomes very important.
+
+Many of the rules around the order of headings come from how we naturally count. Let's explore two different rules that resonate with this natural counting method.
+
+### One `h1` per page
+
+While most programmers might disagree, ask most people to count to `10` and they'd likely start at `1`.
+
+Similarly, you want to make sure that each of your pages has an `h1` at the top of the page:
+
+```html
+<!-- This is good! -->
+<h1>Search page</h1>
+<!-- ... -->
+<h2>Collections</h2>
+<!-- ... -->
+<h2>Posts</h2>
+<!-- ... -->
+```
+
+However, while other heading levels can be repeated without any concern, **`h1`s are expected to be uniquely added only once per page**, to allow the rest of the page's structure to be defined by an `h1`:
+
+```html
+<!-- This is bad -->
+<!-- "Collections" and "Posts" shoud be h2s -->
+<h1>Search page</h1>
+<!-- ... -->
+<h1>Collections</h1>
+<!-- ... -->
+<h1>Posts</h1>
+<!-- ... -->
+```
+
+### Descending heading orders
+
+If we asked our imaginary population to count to `10` again, we'd find that most folks are likely to assume an increment of one counting up: `1`, `2`, `3`, and so on.
+
+After all, it would be atypical for someone to go from `2` to `4` when counting upwards, right?
+
+The same applies for headings: **Headings are expected to be added in a descending order of `1` level of depth at a time**.
+
+For example:
+
+```html
+<h2>Heading two</h2>
+<!-- Good! Went from 2 to 3 -->
+<h3>Heading three</h3>
+<!-- Bad! Missing an `h4` -->
+<h5>Heading three</h5>
+```
+
+However, while you should only count heading levels down by `1` at a time, you can jump back up the count by any number you'd like:
+
+``` html
+<!-- This is all allowed -->
+<h2>Heading two</h2>
+<h3>Heading three</h3>
+<h4>Heading four</h4>
+<h2>Heading five</h2>
+```
+
+
+
 ----
 
 ------
 
 - `aria-describedby` with `<section>`
-- Only one `h1` on page (at the top)
-
-- Only descend one level at a time
 - [CODE] how to handle `as` casting of inner component types per-framework
   - Show the TypeScript types
 
 
-
-## Cast one heading as another
-
-<!-- ::start:tabs -->
-
-### React
-
-```jsx
-function Header({ as, children, ...props }) {
-    const Heading = as || "h1";
-    return (<Heading {...props} style={{ color: "darkred" }}>
-            {children}
-        </Heading>);
-}
-const App = () => {
-    return (<Header as="h2" id={"test"}>
-            Hello, world!
-        </Header>);
-};
-```
-
-#### TypeScript
-
-```tsx
-import {
-	ComponentPropsWithoutRef,
-	ElementType,
-	PropsWithChildren,
-} from "react";
-
-type PolymorphicProps<E extends ElementType> = PropsWithChildren<
-	ComponentPropsWithoutRef<E>
->;
-
-type HeaderProps<T extends ElementType = "h1"> = PolymorphicProps<T> & {
-	as?: T;
-};
-
-function Header<const T extends ElementType = "h1">({
-	as,
-	children,
-	...props
-}: HeaderProps<T>) {
-	const Heading = as || "h1";
-	return (
-		<Heading {...props} style={{ color: "darkred" }}>
-			{children}
-		</Heading>
-	);
-}
-
-const App = () => {
-	return (
-		<Header as="h2" id={"test"}>
-			Hello, world!
-		</Header>
-	);
-};
-```
-
-### Angular
-
-Not possible, outlined here: /posts/angular-why-no-template-casting
-
-### Vue
-
-```vue
-<!-- Header.vue -->
-<script setup>
-const props = defineProps(["as"]);
-
-const Component = props.as || "h1";
-</script>
-
-<template>
-	<component :is="Component" v-bind="props" style="color: darkred">
-		<slot />
-	</component>
-</template>
-```
-
-```vue
-<!-- App.vue -->
-<script setup lang="ts">
-import Header from "./Header.vue";
-</script>
-
-<template>
-  <Header as="h2">
-    Testing
-  </Header>
-</template>
-```
-
-#### TypeScript
-
-```vue
-<!-- Header.vue -->
-<script setup lang="ts" generic="T extends keyof HTMLElementTagNameMap = 'h1'">
-const props = defineProps<
-	Partial<HTMLElementTagNameMap[T]> & {
-		as?: T;
-	}
->();
-
-const Component = props.as || "h1";
-</script>
-
-<template>
-	<component :is="Component" v-bind="props" style="color: darkred">
-		<slot />
-	</component>
-</template>
-```
-
-> There's a small bug preventing this from working today: https://github.com/vuejs/language-tools/issues/5159
-
-<!-- ::end:tabs -->
