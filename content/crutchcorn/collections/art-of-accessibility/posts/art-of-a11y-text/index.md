@@ -68,7 +68,7 @@ const CONTRAST_RATIO = (L1 + 0.05) / (L2 + 0.05)
 
 Or manually, using various tools such as [WebAIM's Color Contrast Checker](https://webaim.org/resources/contrastchecker/):
 
-![TODO: Write alt](./webaim_checker.png)
+![A contrast checker UI showing the contrast between a blue and a black color](./webaim_checker.png)
 
 ## CSS Detection
 
@@ -78,9 +78,9 @@ Luckily, there are ways we can have both!
 
 Users are able to opt into an operating system's "high contrast" mode, which will notify the browser to follow in suit.
 
-![TODO: Write alt](./windows_11_high_contrast.png)
+![Windows 11's "Contrast themes" showing the different styling of high-contrast modes](./windows_11_high_contrast.png)
 
-![TODO: Write alt](./mac_os_high_contrast.png)
+![macOS configured to show "increased contrast" with more defined borders and outlines](./mac_os_high_contrast.png)
 
 This, in turn, is exposed to our site's CSS through [the `prefers-contrast` media query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast) :
 
@@ -192,11 +192,13 @@ Let's do an experiment:
   - [In Chrome, this is a deep-link to the right page](chrome://settings/appearance)
   - [In Firefox, this is a link to your settings](about:preferences)
 - Change your font size to either "Very large" (Chrome) or "72" (Firefox)
-  - ![TODO: Add alt](./firefox_font_settings.png)
-  - ![TODO: Add alt](./chrome_font_settings.png)
+  - ![Firefox showing the font setting as "72"](./firefox_font_settings.png)
+  - ![Chrome showing the font size as "very large"](./chrome_font_settings.png)
 - Come back to this page and see how the following text sizes change
 
 ----
+
+
 
 <p style="font-size: 16px">This text size will always be 16px</p>
 
@@ -324,7 +326,7 @@ Headings help structure the page for your users. Not only can they provide visua
 
 Here's one such example of a screen reader - Voiceover built into macOS - navigating [our home page](/) via their "rotor" feature, which lists all headings:
 
-<video src="./macos_voiceover_heading_navigation.mp4" title="TODO: Write alt"></video>
+<video src="./macos_voiceover_heading_navigation.mp4" title="The macOS voiceover shows a list of headings to the user and allows them to quickly navigate a table of headings"></video>
 
 ### Screen Reader Cheat Sheet
 
@@ -411,7 +413,7 @@ When working with content that has a distinct grouping of information, it may be
 
 Alas, this isn't true! Take the following example:
 
-![TODO: Write alt](./headphones_mockup.png)
+![A headphone sales marketing page with a description, features list, and customer reviews](./headphones_mockup.png)
 
 This mockup might be naïvely marked up as such:
 
