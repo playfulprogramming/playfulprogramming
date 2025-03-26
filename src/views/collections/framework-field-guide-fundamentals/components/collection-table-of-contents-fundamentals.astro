@@ -4,12 +4,13 @@ import styles from "./collection-table-of-contents-fundamentals.module.scss";
 import { ChapterList } from "../../../../types";
 
 interface CollectionTableOfContentsProps {
+	title?: string;
 	posts: PostInfo[];
 	chapterList?: ChapterList[];
 	chaptersToShow?: number;
 }
 
-const { posts, chapterList, chaptersToShow } =
+const { title, posts, chapterList, chaptersToShow } =
 	Astro.props as CollectionTableOfContentsProps;
 
 const maxChapterToShow = chaptersToShow ?? 10;
@@ -20,7 +21,7 @@ const maxChapterToShow = chaptersToShow ?? 10;
 		id="chapter-listing-heading"
 		class={`text-style-headline-1 ${styles.chaptersTitle}`}
 	>
-		Chapters
+		{title ? title : "Chapters"}
 	</h2>
 	<ul aria-describedby="chapter-listing-heading" class={styles.chapterList}>
 		{
@@ -81,6 +82,13 @@ const maxChapterToShow = chaptersToShow ?? 10;
 								<span class={`text-style-body-large-bold ${styles.postTitle}`}>
 									{post.title}
 								</span>
+								{post.description ? (
+									<span
+										class={`text-style-button ffg-button-base ffg-small-button ffg-outlined-button ${styles.noOutlineButton} ${styles.noHoverButton}`}
+									>
+										{post.description}
+									</span>
+								) : null}
 							</p>
 						</li>
 					);

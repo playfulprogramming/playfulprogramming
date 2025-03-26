@@ -8,16 +8,41 @@
   socialImg:
     "/custom-content/collections/art-of-accessibility/art_of_accessibility_social.png",
   type: "book",
-  tags: ["webdev", "accessibility"],
+  tags: [ "webdev", "accessibility" ],
   published: "2026-01-01T13:45:00.284Z",
-  buttons: [],
+  buttons: [ ],
   pageLayout: "none",
   chapterList: [
     {
-      order: '?',
-      title: "Coming soon...",
-      description: "",
+      order: 4,
+      title: "Labels",
+      description: "Coming soon..."
     },
+    {
+      order: 5,
+      title: "Keyboard Input",
+      description: "Coming soon..." 
+    },
+    {
+      order: 6,
+      title: "Mouse Input",
+      description: "Coming soon..." 
+    },
+    {
+      order: 7,
+      title: "Dynamic Content",
+      description: "Coming soon..." 
+    },
+    {
+      order: 8,
+      title: "Interactive Components",
+      description: "Coming soon..." 
+    },
+    {
+      order: 9,
+      title: "Tooling",
+      description: "Coming soon..." 
+    }
   ],
 }
 ---
