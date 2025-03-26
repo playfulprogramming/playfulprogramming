@@ -320,7 +320,7 @@ While headings might seem fairly straightforward at first, they have a bit more 
 
 ## Screen Readers
 
-When talking about headings
+When talking about headings // TODO: Finish this
 
 Here's one such example of a screen reader - Voiceover built into macOS - navigating [our home page](/) via their "rotor" feature, which lists all headings:
 
@@ -401,14 +401,128 @@ However, while you should only count heading levels down by `1` at a time, you c
 <h2>Heading five</h2>
 ```
 
+## Content Grouping
+
+When working with content that has a distinct grouping of information, it may be tempting to assume that the user can simply use headings to distinguish different parts of the site.
+
+Alas, this isn't true! Take the following example:
+
+// TODO: Product review mockup
+
+```html
+<h1>Super Gadget Pro</h1>
+<img src="gadget.jpg" alt="A description about what the Super Gadget Pro is">
+<h2>Description</h2>
+<p>Detailed description...</p>
+<h2>Features</h2>
+<ul><li>Feature A</li><li>Feature B</li></ul>
+<h2>Customer Reviews</h2>
+<p>Review 1 text...</p>
+<p>Review 2 text...</p>
+```
+
+This is where `<article>` and `<section>`s come into play. 
 
 
-----
 
-------
+```html
+<h1>Super Gadget Pro</h1>
+<main>
+  <img src="gadget.jpg" alt="A description about what the Super Gadget Pro is">
 
-- `aria-describedby` with `<section>`
-- [CODE] how to handle `as` casting of inner component types per-framework
-  - Show the TypeScript types
+  <section aria-label="Product Description"> <p>Detailed description...</p>
+  </section>
 
+  <section aria-labelledby="features-heading">
+    <h2 id="features-heading">Features</h2>
+    <ul><li>Feature A</li><li>Feature B</li></ul>
+  </section>
 
+  <section aria-labelledby="reviews-heading">
+    <h2 id="reviews-heading">Customer Reviews</h2>
+    <ul>
+        <li><article>Review 1 text...</article></li>
+        <li><article>Review 2 text...</article></li>
+      </ul>
+  </section>
+</main>
+```
+
+- Sections should almost always have a heading as the first child
+- `<section>` elements are generic while `<aside>`s are good for tangents and `<article>`s are great for content that can stand on its own without additional context needed.
+
+# Invisible Text
+
+Headings can be invisible, 
+
+```css
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+```
+
+**Do**:
+
+- Use invisible text to convey information to the user that might only be visual otherwise:
+
+    ```html
+    <span>
+        <span aria-hidden="true">★★★★☆</span>
+        <span class="visually-hidden"> Rating: 4 out of 5 stars</span>
+    </span>
+    ```
+
+    ```html
+    <button>
+        <span class="visually-hidden">Settings</span>
+        <svg aria-hidden="true">...</svg>
+    </button>
+    ```
+
+    > **Tip:**
+    >
+    > You may even want to add in a tooltip when the user is focused or hovered on a visual-only element to display this text as well.
+
+- Use invisible text to expand one-off acronyms that aren't articulated elsewhere on the page:
+
+    ```html
+    <span>
+    	$99
+        <span aria-hidden="true">/mo</span>
+        <span class="visually-hidden"> per month</span>
+    </span>
+    ```
+
+    > **Tip:**
+    >
+    > If you're using an acronym more than once on a page, it's better to define it once up front and shrink it for all other instances:
+    >
+    > ```
+    > Accessibility (A11Y) is cool! We love A11Y!
+    > ```
+
+**Don't**:
+
+- Convey textual information only to screen-reader users:
+
+    ```html
+    <!-- Don't do this -->
+    <!-- Instead, expand the visual text -->
+    Read More <span class="visually-hidden"> about Accessible Design Principles</span>
+    ```
+    
+    ```html
+    <!-- Don't do this -->
+    <!-- Instead, expand the visual text -->
+    <span class="required-field-indicator">*<span class="visually-hidden"> Required</span></span>
+    ```
+    
+    
