@@ -85,11 +85,11 @@ While individual elements like `button` or `ul` provide context on a micro-level
 
 Take a homepage like ours:
 
-// TODO: Add image of the homepage alone
+![TODO: Write alt](./before_landmark_outlines.png)
 
 When the user is able to see the page, they might typically break it down into different visual components like so:
 
-// TODO: Add image breaking down the landmarks
+![TODO: Write alt](./landmark_outlines.png)
 
 Similarly, we can convey the same structure of our page more programmatically using semantic markup.
 

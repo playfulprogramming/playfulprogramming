@@ -407,7 +407,7 @@ When working with content that has a distinct grouping of information, it may be
 
 Alas, this isn't true! Take the following example:
 
-// TODO: Product review mockup
+![TODO: Write alt](./headphones_mockup.png)
 
 ```html
 <h1>Super Gadget Pro</h1>
