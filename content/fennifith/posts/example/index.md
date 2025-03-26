@@ -11,6 +11,22 @@
 
 This is regular text.
 
+# Tooltips
+
+> **Note:**
+> This is a test of what a note looks like
+
+> **What:**
+> This is ANOTHER one?
+> 
+> ```typescript
+> console.log("With code, even!")
+> ```
+
+> **Too many:**
+> Dude, c'mon
+> > With an inner one - huh??
+
 # Footnote on paragraph text
 
 Cool text[^coolFootnote]
