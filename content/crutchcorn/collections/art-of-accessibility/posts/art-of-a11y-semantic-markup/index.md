@@ -1,8 +1,8 @@
 ---
 {
     title: "Semantic Markup",
-    description: "TODO: Change",
-    published: '2026-01-01T22:12:03.284Z',
+    description: "When talking about web accessibility, the story starts and ends with semantic markup. Let's learn what that means and how to leverage it in our apps.",
+    published: '2025-04-02T22:12:03.284Z',
     tags: ['webdev', 'accessibility'],
     order: 2
 }
@@ -85,11 +85,11 @@ While individual elements like `button` or `ul` provide context on a micro-level
 
 Take a homepage like ours:
 
-![TODO: Write alt](./before_landmark_outlines.png)
+![The Playful Programming homepage with a header, top section and recent articles section](./before_landmark_outlines.png)
 
 When the user is able to see the page, they might typically break it down into different visual components like so:
 
-![TODO: Write alt](./landmark_outlines.png)
+![The same homepage as before but with each distinct landmark highlighted: Header, Main, and two Sections](./landmark_outlines.png)
 
 Similarly, we can convey the same structure of our page more programmatically using semantic markup.
 
@@ -129,7 +129,7 @@ These structure-based elements, often called "landmark elements", help non-sight
 
 Sometimes we have custom UI requirements. Like, _really_ custom UI requirements. We may want a dropdown that also has the ability to filter results as the user types.
 
-![// TODO: Write alt](./dropdown_combobox.png)
+![A user input of "C" added to a dropdown of states filtered down to "California", "Colorado", and "Connecticut"](./dropdown_combobox.png)
 
 While some of this component has clear analogs in HTML elements:
 
@@ -249,7 +249,7 @@ Now that we've seen a few examples of accessible, but non-interactive, markup le
 
 Namely, I want to demonstrate how we can build our own accessible tab component using aria attributes:
 
-![// TODO: Write alt](./styled_tabs.png)
+![Two tabs of "JavaScript" and "Python" with JavaScript selected and a console.log inside](./styled_tabs.png)
 
 Let's start by reusing our markup from the previous section, and adding in some JavaScript to make the tabs interactive.
 
@@ -411,7 +411,7 @@ export class AppComponent {
 
 > 🎉 Tad-whoa. 😵‍💫
 
-![// TODO: Write alt](./unstyled_tabs.png)
+![Two bullet points of the languages with a console.log below](./unstyled_tabs.png)
 
 > Are we sure this worked?
 
@@ -464,7 +464,7 @@ Now all we need to do is add a bit of CSS...
 
 And tada! 🎉 (For real this time.)
 
-![// TODO: Write alt](./styled_tabs.png)
+![The correct tab styling as outlined before](./styled_tabs.png)
 
 <!-- ::start:tabs -->
 
