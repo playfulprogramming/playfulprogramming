@@ -1,7 +1,7 @@
 ---
 {
 	title: 'IIFEs — a JavaScript Idiom of Yore',
-	published: '2025-03-13',
+	published: '2025-03-26',
 	description: 'IIFEs were very useful back in the day, but modern JavaScript has made them irrelevant',
   tags: ['javascript'],
   originalLink: 'https://jacobasper.com/blog/iifes-a-javascript-idiom-of-yore/'
