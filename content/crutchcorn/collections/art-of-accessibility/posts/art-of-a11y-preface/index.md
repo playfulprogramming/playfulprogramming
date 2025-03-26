@@ -1,7 +1,7 @@
 ---
 {
     title: "Preface",
-    description: "TODO: Change",
+    description: "When building a product, your users will come from many walks of life. How do you support them all? Answer: Accessibility. Let's dive in and learn more.",
     published: '2026-01-01T22:12:03.284Z',
     tags: ['webdev', 'accessibility'],
     attached: [],
@@ -114,9 +114,7 @@ A screen reader is one of many examples of assistive technologies, but is far fr
 - [Closed captioning](https://en.wikipedia.org/wiki/Closed_captioning)
 - [Text-to-Speech](https://en.wikipedia.org/wiki/Speech_synthesis)
 - Vibration motors, for non-visual alerts
-- Buttons, for those with limited mobility ([one such workflow is demonstrated by this Apple ad](https://www.youtube.com/watch?v=XB4cjbYywqg))
-
-// TODO: Add unlisted link on my channel about the Apple ad "Sady", it's been removed from YouTube
+- Buttons, for those with limited mobility ([one such workflow is demonstrated by this Apple ad](https://archive.org/details/accessibility-feature-cc-us-20161018_1920x1080h))
 
 > How does accessibility pertain to React, Angular, and Vue?
 
@@ -150,13 +148,11 @@ There's an appeal to having your work appreciated by an audience, especially for
 
 Worried about the bottom line? Accessibility helps here, too.
 
-Keep in mind any user is potentially a paying user. By widening the pool of users that are able to utilize your application, you're enabling the ability for these users to pay for your services.
+[It is estimated that 1.3 billion people worldwide are disabled.](https://www.who.int/news-room/fact-sheets/detail/disability-and-health) This results in a 16% estimation of the worlds population. This means that 1 in 6 people worldwide have a disability.
 
-If I, the end user, am not able to make the most of your services, why would I pay for them?
+Any of these users are potential customers for you. By widening the pool of users that are able to utilize your application, you're enabling the ability for these users to pay for your services.
 
-Likewise, word of mouth can make a massive impact to custom success and growth. I'm much more likely to use a product that has universally glowing reviews as opposed to one that has a range of usability issues.
-
-Given all of this, it's no surprise that the classic verbiage of a product's success isn't "Gate away as many users as you can". Rather, a wise business person will make their doors as open as possible to new customers.
+The disabled community will spend money if your product/brand is accessible. That, in turn, will cause for word of your product, app, or brand to be spread throughout the disabled community.
 
 ## Accessibility enhances the user experience for everyone
 
@@ -300,17 +296,14 @@ While there is absolutely value to each of these, removing them from our prevue 
 
 Let's refocus ourselves back onto **what we will be learning**:
 
-<!-- // TODO: add links to chapters as they are written --> 
-
-- [**What "Semantic markup" is**](/posts/art-of-a11y-semantic-markup)
+- [What "Semantic markup" is](/posts/art-of-a11y-semantic-markup)
   - Why you shouldn't use `div`s everywhere
   - What "Accessible Rich Internet Applications" (ARIA) attributes are
   - How to use `roles` responsibly
-- How to manage text properly
+- [How to manage text properly](/posts/art-of-a11y-text)
   - AA vs AAA contrast differences
   - Allow user-managed text scaling
   - Managing heading maps properly
-  - Enabling component tag overrides
 - Making `input` labels more accessible
   - Implicit and explicit element association
   - Problems with placeholders
