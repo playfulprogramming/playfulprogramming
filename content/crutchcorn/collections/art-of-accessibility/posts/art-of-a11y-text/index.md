@@ -320,23 +320,27 @@ While headings might seem fairly straightforward at first, they have a bit more 
 
 ## Screen Readers
 
-When talking about headings // TODO: Finish this
+Headings help structure the page for your users. Not only can they provide visual structure to a page with the font size, but they can report to a scree-reader to help quickly navigate through a page as well.
 
 Here's one such example of a screen reader - Voiceover built into macOS - navigating [our home page](/) via their "rotor" feature, which lists all headings:
 
 <video src="./macos_voiceover_heading_navigation.mp4" title="TODO: Write alt"></video>
 
-
 ### Screen Reader Cheat Sheet
 
-| Screen Reader | Command                                                      | Shortcut                                                |
-| :------------ | :----------------------------------------------------------- | ------------------------------------------------------- |
-| Voiceover     | Show heading list (via the Voiceover rotor in the demo above) | <kbd>Command (⌘)</kbd> + <kbd>Ctrl</kbd> + <kbd>U</kbd> |
-| NVDA          | Go to next heading                                           | <kbd>H</kbd>                                            |
-| NVDA          | Go to next heading of level [1-6]                            | <kbd>1</kbd> - <kbd>6</kbd>                             |
-| NVDA          | List all headings                                            | <kbd>Insert</kbd> + <kbd>F7</kbd>                       |
+Here's a list of screen reader commands related to headings in [Voiceover](https://support.apple.com/guide/voiceover/welcome/mac), [NVDA](https://www.nvaccess.org/download/), and [JAWS](https://www.freedomscientific.com/products/software/jaws/):
 
-// TODO: Add more
+| Screen Reader | Command                                                      | Shortcut                                                     |
+| :------------ | :----------------------------------------------------------- | ------------------------------------------------------------ |
+| Voiceover     | Show heading list (via the Voiceover rotor in the demo above) | <kbd>Command (⌘)</kbd> + <kbd>Ctrl</kbd> + <kbd>U</kbd>      |
+| Voiceover     | Go to next heading                                           | <kbd>Command (⌘)</kbd> + <kbd>Ctrl</kbd> + <kbd>H</kbd>      |
+| Voiceover     | Go to previous heading                                       | <kbd>Command (⌘)</kbd> + <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd> |
+| NVDA          | Go to next heading                                           | <kbd>H</kbd>                                                 |
+| NVDA          | Go to next heading of level [1-6]                            | <kbd>1</kbd> - <kbd>6</kbd>                                  |
+| NVDA          | List all headings                                            | <kbd>Insert</kbd> + <kbd>F7</kbd>                            |
+| JAWS          | Go to next heading                                           | <kbd>H</kbd>                                                 |
+| JAWS          | List all headings                                            | <kbd>Insert</kbd> + <kbd>F6</kbd>                            |
+| JAWS          | Go to next heading of level [1-6]                            | <kbd>1</kbd> - <kbd>6</kbd>                                  |
 
 ## Heading order
 
@@ -409,51 +413,72 @@ Alas, this isn't true! Take the following example:
 
 ![TODO: Write alt](./headphones_mockup.png)
 
+This mockup might be naïvely marked up as such:
+
 ```html
-<h1>Super Gadget Pro</h1>
-<img src="gadget.jpg" alt="A description about what the Super Gadget Pro is">
-<h2>Description</h2>
-<p>Detailed description...</p>
+<h1>EchoFlow X1</h1>
+<img src="headphone.jpg" alt="Black headphones with 'EchoFlow X' written on the earcup.">
+<h2 class="visually-hidden">Description</h2>
+<p>The EchoFlow X1 is the world's first...</p>
 <h2>Features</h2>
-<ul><li>Feature A</li><li>Feature B</li></ul>
+<ul>
+    <li>Infinite Playback</li>
+    <li>Adaptive Sound</li>
+</ul>
 <h2>Customer Reviews</h2>
-<p>Review 1 text...</p>
-<p>Review 2 text...</p>
+<p>Mind blowing! It's like...</p>
+<p>A game-changer for music...</p>
 ```
 
-This is where `<article>` and `<section>`s come into play. 
+But this introduces a problem: Where does one part of the app stop and another part begin?
 
-
+This is where `<section>` tags come into play. Let's change our markup to the following:
 
 ```html
-<h1>Super Gadget Pro</h1>
+<h1>EchoFlow X1</h1>
 <main>
-  <img src="gadget.jpg" alt="A description about what the Super Gadget Pro is">
+  <img src="headphone.jpg" alt="Black headphones with 'EchoFlow X' written on the earcup.">
 
-  <section aria-label="Product Description"> <p>Detailed description...</p>
+  <section>
+    <h2 class="visually-hidden">Description</h2>
+    <p>The EchoFlow X1 is the world's first...</p>
   </section>
 
-  <section aria-labelledby="features-heading">
-    <h2 id="features-heading">Features</h2>
-    <ul><li>Feature A</li><li>Feature B</li></ul>
-  </section>
-
-  <section aria-labelledby="reviews-heading">
-    <h2 id="reviews-heading">Customer Reviews</h2>
+  <section>
+    <h2>Features</h2>
     <ul>
-        <li><article>Review 1 text...</article></li>
-        <li><article>Review 2 text...</article></li>
+        <li>Infinite Playback</li>
+        <li>Adaptive Sound</li>
+  	</ul>
+  </section>
+
+  <section>
+    <h2>Customer Reviews</h2>
+    <ul>
+        <li>Mind blowing! It's like...</li>
+        <li>A game-changer for music...</li>
       </ul>
   </section>
 </main>
 ```
 
-- Sections should almost always have a heading as the first child
-- `<section>` elements are generic while `<aside>`s are good for tangents and `<article>`s are great for content that can stand on its own without additional context needed.
+Now it's more clear which headings belong to which sections.
+
+>  **Keep in mind:**
+>
+> Sections should almost always have a heading as the first child; otherwise it's challenging to figure out what a given section is intended to do.
 
 # Invisible Text
 
-Headings can be invisible, 
+In our previous code sample, you may have noticed that we had the following:
+
+```html
+<h2 class="visually-hidden">Description</h2>
+```
+
+> What is that class doing?
+
+Well, as the name suggests, `visually-hidden` is a custom class that allows you to keep text accessible by screen-readers and programmatic access, but hidden visually:
 
 ```css
 .visually-hidden {
@@ -468,6 +493,12 @@ Headings can be invisible,
   border: 0;
 }
 ```
+
+> Why would we want to have a heading that's visually hidden?
+
+Good question! In the example we showed earlier, it allows for further clarity in the `<section>` to have an associated header.
+
+Let's take a look at some common "do" and "do not"s with visually hidden text.
 
 **Do**:
 
@@ -509,7 +540,7 @@ Headings can be invisible,
     > Accessibility (A11Y) is cool! We love A11Y!
     > ```
 
-**Don't**:
+**Do not**:
 
 - Convey textual information only to screen-reader users:
 
