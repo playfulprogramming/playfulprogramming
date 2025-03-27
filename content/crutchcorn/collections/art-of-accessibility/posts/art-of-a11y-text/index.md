@@ -172,7 +172,7 @@ Here, we're using `rem` to tell our `<p>` element that "regardless of the size o
 
 
 
-Keep in mind that any kind of user-facing font resizing will break if you set a `font-size` `px` value on and of the following CSS selectors:
+Keep in mind that any kind of user-facing font resizing will break if you set a `font-size` property to a `px` value on any of the following CSS selectors:
 
 - `:root`
 - `html`
@@ -190,7 +190,7 @@ Let's do an experiment:
 - Open your browser
 - Find your settings
   - [In Chrome, this is a deep-link to the right page](chrome://settings/appearance)
-  - [In Firefox, this is a link to your settings](about:preferences)
+  - In Firefox, this is a link to your settings: `about:preferences` - you'll need to copy-paste this into your URL 
 - Change your font size to either "Very large" (Chrome) or "72" (Firefox)
   - ![Firefox showing the font setting as "72"](./firefox_font_settings.png)
   - ![Chrome showing the font size as "very large"](./chrome_font_settings.png)

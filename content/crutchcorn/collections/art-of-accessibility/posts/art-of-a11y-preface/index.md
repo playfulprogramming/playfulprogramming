@@ -103,7 +103,7 @@ Meanwhile, this list of items:
 - Ice Cream
 - Pizza
 
-Might read out as "List of 2 items." when the user has the list focused. Then, upon pressing <kbd>Tab</kbd>, it might read "Item one, Ice Cream".
+Might read out as "List of 2 items." when the user has the list focused. Then, upon focusing the next element, it might read "Item one, Ice Cream".
 
 ---
 
