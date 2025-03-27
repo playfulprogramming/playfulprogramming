@@ -322,7 +322,7 @@ While headings might seem fairly straightforward at first, they have a bit more 
 
 ## Screen Readers
 
-Headings help structure the page for your users. Not only can they provide visual structure to a page with the font size, but they can report to a scree-reader to help quickly navigate through a page as well.
+Headings help structure the page for your users. Not only can they provide visual structure to a page with the font size, but they can report to a screen-reader to help quickly navigate through a page as well.
 
 Here's one such example of a screen reader - Voiceover built into macOS - navigating [our home page](/) via their "rotor" feature, which lists all headings:
 

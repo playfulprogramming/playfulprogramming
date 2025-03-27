@@ -288,7 +288,7 @@ In "The Art of Accessibility", we _will not_ be learning the following:
 - How to navigate corporate systems to solve accessibility problems
 - General programming guidance
 
-While there is absolutely value to each of these, removing them from our prevue enables us to stay focused on the implementation details of common in-app accessibility patterns. There's one last thing:
+While there is absolutely value to each of these, removing them from our purview enables us to stay focused on the implementation details of common in-app accessibility patterns. There's one last thing:
 
 **This book is far from everything there is to know about accessibility**. You should use this book as a jumping off point for further research and improvement, not as the de-facto guide of making a site or app accessible.
 
