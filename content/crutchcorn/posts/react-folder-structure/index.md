@@ -31,6 +31,8 @@ The gist of LRS is that each layer of your application should be able to live in
 
 Before diving into LRS itself, there's a few concepts I want to explain in-depth first. Let's dive in and try to understand the mindset I approach building React apps in.
 
+> Understand the concepts at play? Skip ahead to the filesystem example for a quick glance.
+
 ## Defining "Smart" vs "Dumb" Component
 
 Even in React's early days, you may have heard of "Smart" and "Dumb" components. They're so predominant in React's ecosystem in part thank to [this article by Dan Abramov that popularized them back even as far as 2015](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
@@ -171,107 +173,103 @@ While many versions of the "Smart" vs "Dumb" component arguments have different 
     > - Feature flags specific to the UI's presentation
 
 - "Dumb" components *should* not care how data is loaded, changed, or accessed
+
+    ```
+    // TODO: Write this example
+    ```
+
 - "Smart" components _should_ not have any markup and **must** not contain any styling
 
-
+    ```
+    // TODO: Write this example
+    ```
 
 ## Defining Utilities vs Services
 
 https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/
 
+
+
+## Understanding filename sensitivities
+
+kebab-case thanks to NTFS/Windows support
+
+
+
 # Suggested Technologies
 
+This section is much more opinionated than the rest of the article.
+
+## Logic Testing
+
+https://kentcdodds.com/blog/write-tests
+
+Vitest Browser Mode + Testing Library + React Testing Library; no using https://github.com/testing-library/react-hooks-testing-library 
+
+## UI Testing
+
+https://storybook.js.org/
+
+## Styling
+
+Anything that allows you to extract your styling to a dedicated file. 
+
+Ideally CSS/SCSS Modules, Vanilla Extract, or similar. Even Tailwind can work, so long as you extract your classes to a string template literal in a different file
 
 
 
-
-# Introducing Layered React Structure (LRS)
+# Introducing Layered React Structure (LRS) {#lrs}
 
 Now that we've gotten that out of the way, let's finally outline what LRS is all about.
-
-Say we have the following files and folders in the `src` directory:
-
-- `assets`
-	- Where non-code assets, such as images and fonts, live
-- `components`
-	- Where "dumb" components go to live when they're utilized in more than one location
-- `constants`
-	- Where non-logic hard-coded values live
-	- Any hardcoded value should be broken out to a variable, once a variable is used in more than one file, go ahead
-	  and extract it to a variable
-	- [Theme values](https://styled-components.com/docs/advanced#theming) and programmatic app config files should live
-	  here
-- `hooks`
-	- Where all non-UI React-specific reusable logic lives
-	- React-specific re-usable logic that's longer than 20 lines of code long should live here
-- `services`
-	- Where all I/O code logic lives
-- `types`
-	- Where non-JS TypeScript types and interfaces live
-	- TypeScript types that aren't specific to a given component and are used in more than 3 components should be moved
-	  here
-- `utils`
-	- Where non-React JS/TS reusable logic lives
-	- Non-React re-usable logic that's longer than 10 lines of code long should live here
-- `views`
-	- Our folder directory to contain views within our app also known as "pages", "screens", or "routes"
-	- Any "view" may contain the following files/folders:
-		- `components` - The view-specific components. These must all be presentational components
-		- `[name].styles.tsx` - The styling for the `.ui.tsx` file
-		- `[name].ui.tsx` - The presentational component for the view, contains all layout for a view
-		- `[name].view.tsx` - The "smart" component for the view, contains all network and buisness logic
-- `app.tsx`
-	- Our component entry point. May contain some providers but not much more
-
-> All non-source code configuration files, such as `.storybook` or `.eslintrc.json` files must live outside of the `src`
-> folder.
-
-### Full Filesystem Example
 
 <!-- ::start:filetree -->
 
 - `src/`
-	- `assets/`
+	- `assets/{open: false}` Where non-code assets, such as images and fonts, live
 		- `logo.png`
-	- `components/`
+	- `components/` Where "dumb" components go
 		- `button/`
-			- `button.styles.ts`
-			- `button.stories.ts`
-			- `button.spec.tsx`
+			- `button.modules.scss`
+			- `button.stories.ts` The storybook file for the component
+			- `button.spec.tsx` The optional unit test file for the component
 			- `button.tsx`
 			- `index.ts`
-		- `input/`
-			- `input.styles.ts`
+		- `input/{open: false}`
+			- `input.modules.scss`
+			- `input.tsx`
 			- `index.ts`
-	- `constants/`
+	- `constants/{open: false}` Where non-logic hard-coded values live
 		- `theme.ts`
 		- `index.ts`
-	- `hooks/`
+	- `hooks/{open: false}` Where all non-UI React-specific reusable logic lives
 		- `use-android-permissions.ts`
 		- `index.ts`
-	- `services/`
+	- `services/{open: false}` Where all I/O code logic lives
 		- `people.ts`
 		- `index.ts`
-	- `types/`
+	- `types/{open: false}` Where non-JS TypeScript types and interfaces live
 		- `svg.d.ts`
 		- `address.ts`
 		- `index.ts`
-	- `utils/`
+	- `utils/{open: false}` Where non-React JS reusable logic lives
 		- `helpers.ts`
 		- `index.ts`
-	- `views/`
+	- `views/` Our folder directory to contain views within our app. Also known as "pages", "screens", or "routes"
 		- `homescreen/`
-			- `components/`
+			- `components/{open: false}` The view-specific components. These must all be presentational components
 				- `homescreen-list/`
-					- `homescreen-list.styles.ts`
+					- `homescreen-list.module.scss`
 					- `homescreen.tsx`
 					- `index.ts`
-			- `homescreen.spec.tsx`
-			- `homescreen.stories.tsx`
-			- `homescreen.styles.ts`
-			- `homescreen.ui.tsx`
-			- `homescreen.view.tsx`
+			- `homescreen.spec.tsx` The integration test for the `.view.tsx` file
+			- `homescreen.stories.tsx` The optional storybook file for the `.ui.tsx` file
+			- `homescreen.module.scss` The styling for the `.ui.tsx` file
+			- `homescreen.ui.tsx` The presentational component for the view, contains all layout for a view
+			- `homescreen.view.tsx` The "smart" component for the view, contains all network and buisness logic
 			- `index.ts`
-	- `app.tsx`
+	- `app.tsx` Our component entry point. May contain some providers but not much more
 
 <!-- ::end:filetree -->
+
+> All non-source code configuration files, such as `.storybook` or `.eslintrc.json` files must live outside of the `src`
+> folder.
