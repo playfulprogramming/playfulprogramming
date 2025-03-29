@@ -1,12 +1,25 @@
 ---
 {
-  title: "How to organize your React folder structure",
+  title: "Scale Your Project with Layered React Structure",
   description: "",
   published: '2025-06-01T20:12:03.284Z',
   tags: [ 'react', 'webdev', 'opinion' ],
   license: 'cc-by-4'
 }
 ---
+
+> **Preface:**
+>
+> When I first started web development, I worked on an Angular 2 project. In Angular there's a [strong, opinionated, and reasonably laid out style guide](https://angular.dev/style-guide) that outlines how you should structure your project. Combined with a list of official tools that built on top of the core, well written Angular apps can feel very consistent from one app to another.
+>
+> Imagine my surprise when my next work project was in React and I learned how there's few official libraries relevant to most app authors and no codified style guide to reference. This feeling never truly left even after a few React projects under my belt so, when I started working on my own (now defunct) multi-year-long application, I was determined to solve this problem.
+>
+> This article outlines the solution I came up with after years of experimentation and has been refined after years of production usage after said experimentation.
+
+This article proposes a method of laying out your React project called "**Layered React Structure**", or "**LRS**" for short.
+
+It enables 
+
 
 
 We have the following whitelist of files and folders in the `src` directory:
@@ -19,7 +32,7 @@ We have the following whitelist of files and folders in the `src` directory:
 	- Where non-logic hard-coded values live
 	- Any hardcoded value should be broken out to a variable, once a variable is used in more than one file, go ahead
 	  and extract it to a variable
-	- [Theme values](https://styled-components.com/docs/advanced#theming) and programatic app config files should live
+	- [Theme values](https://styled-components.com/docs/advanced#theming) and programmatic app config files should live
 	  here
 - `hooks`
 	- Where all non-UI React-specific reusable logic lives
@@ -41,7 +54,7 @@ We have the following whitelist of files and folders in the `src` directory:
 		- `[name].ui.tsx` - The presentational component for the view, contains all layout for a view
 		- `[name].view.tsx` - The "smart" component for the view, contains all network and buisness logic
 - `app.tsx`
-	- Our component entrypoint. May contain some providers but not much more
+	- Our component entry point. May contain some providers but not much more
 
 > All non-source code configuration files, such as `.storybook` or `.eslintrc.json` files must live outside of the `src`
 > folder.
