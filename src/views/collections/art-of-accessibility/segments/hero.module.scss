@@ -1,0 +1,124 @@
+@use "../../framework-field-guide/tokens/utils" as *;
+@use "../../framework-field-guide/tokens/breakpoints.scss" as *;
+
+.heroContainer {
+	padding: 1rem;
+	padding-top: 2.75rem;
+
+	@include from($desktop) {
+		padding-top: 7rem;
+	}
+}
+
+.titleContainer {
+	max-width: 100%;
+	box-sizing: border-box;
+	border: 4px solid var(--title);
+	width: fit-content;
+	border-radius: var(--spc-3x);
+	position: relative;
+	padding-top: calc((2.75rem / 2) + var(--spc-1x));
+	padding-bottom: calc((2.75rem / 2) + var(--spc-1x));
+	padding-right: var(--spc-1x);
+	padding-left: var(--spc-1x);
+	margin: 0 auto;
+	margin-top: calc(2.75rem / 2);
+	margin-bottom: calc(2.75rem / 2);
+
+	@include from($desktop) {
+		padding-top: calc((5rem / 2) + var(--spc-3x));
+		padding-bottom: calc((5rem / 2) + var(--spc-3x));
+		padding-right: var(--spc-3x);
+		padding-left: var(--spc-3x);
+	}
+}
+
+.title {
+	color: var(--title);
+	text-transform: uppercase !important;
+	margin: 0;
+	display: contents;
+}
+
+.titleFirst {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
+	background: var(--sky);
+	padding-left: 1rem;
+	padding-right: 1rem;
+
+	@include from($desktop) {
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+}
+
+.titleMiddle {
+	z-index: 1;
+	position: relative;
+	display: block;
+}
+
+.titleMiddleHidden {
+	opacity: 0;
+	padding-right: var(--spc-6x);
+	padding-left: var(--spc-6x);
+}
+
+.titleMiddleShown {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%) translateX(-50%);
+	left: 50%;
+}
+
+.titleLast {
+	position: absolute;
+	bottom: 0;
+	transform: translateY(50%) translateX(-50%);
+	left: 50%;
+	background: var(--sky);
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+
+	@include from($desktop) {
+		padding-left: 3rem;
+		padding-right: 3rem;
+	}
+}
+
+.readNowContainer {
+	padding: var(--spc-1x) var(--section-hor-padding);
+	max-width: var(--max-width_small);
+	margin-left: auto;
+	margin-right: auto;
+
+	@include from($desktop) {
+		padding-top: var(--spc-3x);
+	}
+}
+
+.readNowText {
+	color: var(--title);
+	white-space: pre-line;
+	text-align: center;
+	margin: 0;
+}
+
+.ffgWord {
+	color: black;
+	position: relative;
+	border-radius: var(--spc-1x);
+}
+
+.buttonContainer {
+	display: flex;
+	justify-content: center;
+	margin-top: var(--spc-2x);
+
+	@include from($desktop) {
+		margin-top: var(--spc-4x);
+	}
+}
