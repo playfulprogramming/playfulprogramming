@@ -269,7 +269,7 @@ WCAG Conformance Levels are broken into three different categories:
 
 # How can I make my apps accessible?
 
-Making apps more accessible isn't a one-size fits all solution. While some may sell one-click solutions, such as "accessibility overlays", I can confidently say that at best they're snake-oil and at worst they can do more harm than doing nothing at all.
+Making apps more accessible isn't a one-size fits all solution. While some may sell one-click solutions, such as "accessibility overlays", I can confidently say that [at best they're snake-oil and at worst they can do more harm than doing nothing at all](https://overlayfactsheet.com/).
 
 > What am I to do instead?
 
