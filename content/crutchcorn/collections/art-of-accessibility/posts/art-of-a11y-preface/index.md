@@ -78,18 +78,17 @@ One area which many developers have work to do is "Accessibility".
 
 # What is accessibility?
 
-Put simply, accessibility is the idea that your apps should be usable and enjoyable to as many people as possible. For some, this means that your app is easy to think through - there aren't three buttons that all have the same icon and do different things.
+Put simply, accessibility is the idea that your apps should be usable and enjoyable to as many people as possible. For some people using your app, they need your app to be easy to understand - there aren't three buttons that all have the same icon and do different things.
 
-For others, however, it means supporting keyboard-only usage of your app for those that cannot use the mouse, supporting screen-readers for blind users, and enabling other forms of assistive tech.
+However, for others, they may not be able to use a mouse and need your app to support keyboard-only usage, they may be blind and need screen-readers support, or they may need your app to enable them to use other forms of assistive tech.
 
 > What's a screen-reader? What's "assistive tech"?
 
-A screen reader is a form of assistive technologies that allow users with a myriad of capabilities to use their computers.
+A screen reader is a form of assistive technology that allows visually impaired users to use their computers.
 
-Consider; If you can't see the screen many use to access their emails, how can you still do so?
+Consider: If you can't see your screen to read your emails, how else could you read them?
 
-The answer? A screen-reader, which reads the contents of the screen out loud, and a keyboard to navigate through the page using <kbd>Tab</kbd>.
-
+The answer? Well one way is to use a screen-reader, which reads the contents of the screen out loud. You could even use a keyboard to navigate through the your emails using keys like <kbd>Tab</kbd>.
 ---
 
 Consider the following button:
@@ -107,7 +106,7 @@ Might read out as "List of 2 items." when the user has the list focused. Then, u
 
 ---
 
-A screen reader is one of many examples of assistive technologies, but is far from alone in a wide array of assistive technologies. A small list of assistive tech might include:
+A screen reader is one of many examples of assistive technologies, and is far from alone in a wide array of assistive technologies. A small list of assistive tech might include:
 
 - [Braille displays](https://en.wikipedia.org/wiki/Refreshable_braille_display)
 - [Screen readers](https://en.wikipedia.org/wiki/Screen_reader)
@@ -156,7 +155,7 @@ The disabled community will spend money if your product/brand is accessible. Tha
 
 ## Accessibility enhances the user experience for everyone
 
-Are you sighted? Have you ever stepped outside from a dark interior to the bright outdoors and been unable to see momentarily?
+If you are sighted, have you ever stepped outside from a dark interior to the bright outdoors and been unable to see momentarily?
 
 Maybe you're able to hear, but have been in a loud club where you were unable to hear your phone ring?
 
