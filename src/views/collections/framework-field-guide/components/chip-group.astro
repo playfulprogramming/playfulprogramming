@@ -1,6 +1,12 @@
 ---
 import { FixedArray } from "../../../../types/ArrayLike";
 import InfiniteLoopSlider from "./infinite-loop-slider.astro";
+
+import "./chip-group.scss";
+
+import playIcon from "../icons/play.svg?raw";
+import pauseIcon from "../icons/pause.svg?raw";
+
 const random = (min: number, max: number) =>
 	Math.floor(Math.random() * (max - min)) + min;
 const shuffle = <T extends ReadonlyArray<unknown>>(arr: T): T =>
@@ -28,7 +34,7 @@ const tagTable = [...new Array(ROWS)].map((_, i) =>
 const uniqueTags = Array.from(new Set(tagTable.flat()));
 ---
 
-<div class="chip-group-container">
+<div data-chip-group-container class="chip-group-container">
 	<ul aria-label={ariaLabel} class="srOnly">
 		{uniqueTags.map((tag) => <li>{tag}</li>)}
 	</ul>
@@ -50,79 +56,35 @@ const uniqueTags = Array.from(new Set(tagTable.flat()));
 		}
 	</ul>
 	<div class="fade"></div>
+	<button
+		class="text-style-button ffg-button-base ffg-big-button ffg-filled-button chip-group-pause-button-container"
+		data-chip-group-pause-btn
+	>
+		<span class="pause" aria-label="Pause motion" set:html={pauseIcon} />
+		<span class="play" aria-label="Resume motion" set:html={playIcon} />
+	</button>
 </div>
-<style is:global>
-	.chip-group-container {
-		position: relative;
-		margin: 0 auto;
-		width: 100%;
-		max-width: var(--max-width_large);
-	}
 
-	.tag-list {
-		width: 100%;
-		display: flex;
-		flex-shrink: 0;
-		flex-direction: column;
-		gap: var(--chip-group-gap) 0;
-		position: relative;
-		padding: 1.5rem 0;
-		overflow: hidden;
-		margin: 0;
-		list-style: none;
-	}
+<script>
+	const buttons = Array.from(
+		document.querySelectorAll(
+			"[data-chip-group-pause-btn]",
+		) as unknown as HTMLElement[],
+	).filter((el) => !el.dataset.isBound);
 
-	.tag-list:hover .loop-slider .inner {
-		animation-play-state: paused;
-	}
+	const containers = Array.from(
+		document.querySelectorAll(
+			"[data-chip-group-container]",
+		) as unknown as HTMLElement[],
+	);
 
-	.tag-list:hover .loop-slider .inner {
-		animation-play-state: paused;
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.tag-list .loop-slider .inner {
-			animation-play-state: paused;
-		}
-	}
-
-	.tag {
-		color: var(--chip-foreground);
-		background-color: var(--chip-background);
-		border-radius: var(--corner-radius-circular);
-		padding: var(--chip-ver-padding) var(--chip-hor-padding);
-		/* Must used margin-right instead of gap for the loop to be smooth */
-		margin-right: var(--chip-group-gap);
-		white-space: nowrap;
-		/* Animations */
-		transition:
-			background-color var(--color-transition-time) var(--color-transition-ease),
-			color var(--color-transition-time) var(--color-transition-ease);
-		will-change: background-color, color;
-	}
-
-	.fade {
-		pointer-events: none;
-		background: var(--section-background);
-		mask-image: linear-gradient(
-			90deg,
-			black,
-			transparent 30%,
-			transparent 70%,
-			black
-		);
-		-webkit-mask-image: linear-gradient(
-			90deg,
-			black,
-			transparent 30%,
-			transparent 70%,
-			black
-		);
-		position: absolute;
-		inset: -1px;
-		/* Animations */
-		transition: background var(--color-transition-time)
-			var(--color-transition-ease);
-		will-change: background;
-	}
-</style>
+	buttons.forEach((button) => {
+		button.dataset.isBound = "true";
+		button.addEventListener("click", (event) => {
+			event.stopPropagation();
+			containers.forEach((container) => {
+				container.dataset.paused = String(container.dataset.paused !== "true");
+			});
+		});
+	});
+</script>
