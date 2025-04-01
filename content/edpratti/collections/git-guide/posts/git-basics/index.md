@@ -206,10 +206,12 @@ An example of a commit would be as such:
 It contains, by default:
 
 - **An author**
-  - This is most commonly taken from the initial config when installing Git, but can be set per repository as well as overriden per commit.
-- **A timestamp**
+  - This is most commonly taken from the initial config when installing Git, but can be set per repository as well as overriden per commit. It can display your email address as well.
 - **A commit message**
   - This is a mandatory part of every commit. You cannot commit without adding a message. If you attempt to commit without a message, you'll be given an interface in which to write a message. If that step fails, the commit will be aborted.
+- **A timestamp**
+- **A SHA-1 hash**
+  - This is an identifier, unique to every commit.
 
 > Now that we know how they're displayed, how do we create them?
 
@@ -237,6 +239,16 @@ To account for this behavior, you may want to only stage elements right before c
 
 It is! The `git add` command is designed for granular control of changes. Most commonly, we can completely skip this step if the nature of the file changes you're performing are not wide reaching.
 
+## Unstaging files
+
+We can easily do the reverse and `restore` files from Staging that we no longer want to commit to our repository.
+
+```bash
+git restore filename.ext
+```
+
+Simple as that. 
+
 We can, also, ignore files!
 
 ## Ignoring files
@@ -263,15 +275,106 @@ We can perform a commit with the following command:
 git commit -m "Your commit message here"
 ```
 
-Continuously committing changes will save them accordingly in a commit history, or a `git log`. An example of a theoretical commit history UI would be the following:
+> *How do I push these to a repository?*
 
-<img src="./git_commit_history.svg" alt="An example of a multiple commits in a timeline." style="border-radius: var(--corner-radius_xl)" />
+We'll learn more about this in the **[Push](#push)** section of this article.
 
-We will learn how to publish these commits in the later sections of this article!
+## Blame & diff
 
-# Navigating through commits
+<!--TO-DO: EXPAND-->
 
-<!-- EXPAND THIS -->
+---
+
+Continuously committing changes will save them accordingly in a commit history, or a `git log`. 
+
+# Git Log
+
+A git log is where all your commits live. It's also called a commit history.
+
+In our terminal, we can type:
+
+```bash
+git log
+```
+
+And our output would be, for example:
+
+```bash
+commit 3f1e1b9a3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r
+Author: John Smith <john.smith@example.com>
+Date:   Sat Mar 22 16:47:36 2025 -0300
+
+    Formatting changes
+
+commit 2e4d6c8f0a1b3c5d7e9f0a1b2c3d4e5f6g7h8i9j
+Author: John Smith <john.smith@example.com>
+Date:   Sat Mar 22 15:12:18 2025 -0300
+
+    Added new article section
+
+commit 1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t
+Author: John Smith <john.smith@example.com>
+Date:   Fri Mar 21 09:30:33 2025 -0300
+
+    Initial commit
+```
+
+An example of a theoretical commit history UI would be the following:
+
+<img src="./git_log_ui.svg" alt="An example of a multiple commits in a timeline." style="background-color: var(--background_primary-bright); border-radius: var(--corner-radius_xl)" />
+
+## Navigating in time
+
+Branches are not the only thing you can `checkout` to; we can also **checkout to commits**, which is how we can navigate through our repository history!
+
+To perform that, we must use `git checkout` as well as the SHA-1 hash that is the unique identifier for that commit.
+
+```bash
+git checkout 1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t
+
+# We will be transported to the "Initial commit"
+# from our earlier example.
+```
+
+When we checkout to a commit, we're actually moving through time, to whenever that commit was submitted. Our "placement" in time corresponds to the `HEAD`.
+
+## HEAD
+
+The `HEAD` tells us where we're currently at on a particular branch. By default, `HEAD` will always go to the latest commit on a branch.
+
+In our previous UI example, we were checked out to `main`, so our `HEAD` is on the last commit of the `main` branch. Sounds simple, right?
+
+**But what happens when we checkout to a commit?** Let's checkout to a previous commit and see what is shown to us.
+
+<img src="./git_log_ui_detached_past.svg" alt="An example of a multiple commits in a timeline." style="background-color: var(--background_primary-bright); border-radius: var(--corner-radius_xl)" />
+
+> Now our `HEAD` is detached. But... what does that mean?
+
+### Detached HEAD
+
+When you checkout to a commit and the `HEAD` detaches, you are taken out of whatever branch you were currently in. In our example, the UI faded all other commits, because in this state, we're no longer connected to any of them.
+
+If we were to stage changes and make commits in this state, our commits would not go onto any branch, and would instead be loose inside the repository, becoming inconsequential.
+
+> *There are uses for detached commits, but they're a more advanced topic which we'll cover in a future chapter.*
+
+***So, what happens if we checkout to the latest commit of branch we were in? Will that re-attach the `HEAD`?***
+
+<img src="./git_log_ui_detached_present.svg" alt="An example of a multiple commits in a timeline." style="background-color: var(--background_primary-bright); border-radius: var(--corner-radius_xl)" />
+
+### It will not.
+
+This is because being checked out to a commit, regardless of which commit, will disconnect you from a branch. 
+
+In order to restore your connection to a branch, you must `git checkout <branch-name>` back to it.
+
+```bash
+git checkout main
+```
+
+<img src="./git_log_ui.svg" alt="An example of a multiple commits in a timeline." style="background-color: var(--background_primary-bright); border-radius: var(--corner-radius_xl)" />
+
+Now you're back to the latest commit, and the `HEAD` is reattached. The rest of the commits, even if they're from other branches, are now restored, because you're within the context of the Git tree.
 
 ---
 
@@ -338,13 +441,31 @@ PRs - as they're called, for short — are the way developers collaborate. Platf
 
 GitHub will automatically suggest submitting a PR when it detects any of your branches are ahead of the `main` branch.
 
-```
-ADD GRAPHIC FOR THIS
-```
+<img src="./github_pr_suggestion.svg" alt="Image of GitHub's banner letting users know a branch has been updated recently, and suggesting a Pull Request." style="border-radius: var(--corner-radius_xl)" />
 
 ## Submitting a pull request
 
-<!-- TO-DO: ADD TUTORIAL AND EXPLANATION -->
+![Image of a GitHub page showing the Pull Request UI.](./github_pr_ui.png)
+
+> *Image taken from the [official documentation](https://docs.github.com/articles/creating-a-pull-request).*
+
+
+adasd
+ada
+d
+ad
+ad
+ad
+a
+da
+d
+da
+d
+ad
+as
+das
+a
+
 
 ---
 
@@ -352,7 +473,7 @@ But let's say you have a particular codebase that you'd like to modify or contri
 
 ## Forks
 
-A fork is an independent copy of a repository that can be modified independently from its original source, but can [pull](#pull) from it whenever they are out of sync.
+A fork is a copy of a repository that can be modified independently from its original source, but can [pull](#pull) from it whenever they are out of sync.
 
 > **Forks are not a native Git feature:**
 > Many platforms such as GitHub and GitLab offer this as a feature as it became a very common and easy way to collaborate.
@@ -367,12 +488,10 @@ Once this is selected, you'll have a fork of the original repository under your 
 
 GitHub will automatically track the difference between both repositories and let you know how many commits behind or in front of the original repository you are.
 
-```
-ADD GRAPHIC FOR THIS
-```
+<img src="./github_fork_status.svg" alt="Image of GitHub's banner letting users know how far away or ahead of the original repository a fork is." style="border-radius: var(--corner-radius_xl)" />
 
 ## Creating a PR from a fork
 
-<!-- TO-DO: ADD TUTORIAL AND EXPLANATION -->
+<img src="./github_fork_pr.svg" alt="Image of GitHub's banner letting users know how far away or ahead of the original repository a fork is." style="border-radius: var(--corner-radius_xl)" />
 
 ---
