@@ -208,13 +208,15 @@ By making sure that your apps are accessible, you're making sure your users are 
 
 Not only do you make money by making your tools accessible, but you may likely save money by dodging legal action against your company.
 
-See, there are a wide range of businesses that have a legal obligation to be accessible. 
+See, many organizations have a legal obligation to be accessible. Chances are especially great if your organization interfaces with the public.
 
-Do government contracts? If those government contracts are in the U.S, they're often subject to [Section 508](https://www.section508.gov/manage/laws-and-policies/) compliance. 
+In the U.S., the [Americans with Disabilities Act (ADA)](https://www.ada.gov/resources/web-guidance/) can be applied to applications from governments and business that serve the public, including customer portals and retail.
+
+And if your business does government contracts? Government contracts in the U.S., for instance, are often subject to [Section 508](https://www.section508.gov/manage/laws-and-policies/) compliance.
 
 Maybe you're in the United Kingdom? You may have to comply with [The Equality Act of 2010](https://www.legislation.gov.uk/ukpga/2010/15/contents).
 
-These laws are regulations are not only applicable in English speaking countries, either; [there is a wide range of countries that have legal requirements for applications to be accessible.](https://www.w3.org/WAI/policies/)
+These types of laws and regulations are not only applicable in English speaking countries, either; [the list of legal requirements for web accessibility is long](https://www.w3.org/WAI/policies/), and growing, like the [European Accessibility Act that goes into effect later this year](https://accessible-eu-centre.ec.europa.eu/content-corner/news/eaa-comes-effect-june-2025-are-you-ready-2025-01-31_en).
 
 ### Legal Repercussions
 

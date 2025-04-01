@@ -77,7 +77,7 @@ Similarly, a screen-reader doesn't know that our first `<div class="todos">` was
 These HTML elements are not just supported in `.html` files; **React, Angular, and Vue support all valid HTML elements.**
 
 > **Note:**
-> There's a **lot** of HTML elements supported by the latest HTML specification. To find the right element for the job, it's often worthwhile  to explore the [HTML elements list from MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) until you're familiar with the list.
+> There are a **lot** of HTML elements supported by the latest HTML specification. To find the right element for the job, it may be worthwhile to explore the [HTML elements list from MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) until you're familiar with the list.
 
 # Page Structure
 
@@ -96,6 +96,7 @@ Similarly, we can convey the same structure of our page more programmatically us
 Instead of:
 
 ```html
+<!-- Inaccessible, do not use -->
 <div class="header"></div>
 <div class="main-contents">
     <div class="top-section"></div>
@@ -211,7 +212,7 @@ This is because, using `role`, you have the ability to tell HTML that one elemen
 
 To explain this more, let's look at how an HTML `button` works.
 
-When you create an HTML element like `button`, the browser implicitly assigns it a`role` internally, regardless of if you assigned one or not.
+When you create an HTML element like `button`, the browser implicitly assigns it a `role` internally, regardless of if you assigned one or not.
 
 In this case:
 
@@ -228,6 +229,7 @@ Not quite.
 While you could create a partially analogous `button` element using a `div`:
 
 ```html
+<!-- Inaccessible, do not use -->
 <div tabindex="0" role="button">Save</div>
 ```
 
