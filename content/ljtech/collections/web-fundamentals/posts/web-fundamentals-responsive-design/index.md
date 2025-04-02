@@ -6,7 +6,7 @@
   tags: ["css", "html", "design"],
   license: "cc-by-4",
   authors: ["edpratti"],
-  order: 6
+  order: 7
 }
 
 ---
