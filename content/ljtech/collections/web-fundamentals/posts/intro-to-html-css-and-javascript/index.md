@@ -7,7 +7,7 @@
 	tags: ['html', 'css', 'javascript'],
   	authors: ["MDutro"],
 	license: 'publicdomain-zero-1',
-  	order: 0
+  	order: 1
 }
 ---
 
