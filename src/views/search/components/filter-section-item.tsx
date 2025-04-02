@@ -10,6 +10,7 @@ interface FilterSectionItemProps {
 	label: string;
 	count: number;
 	selected: boolean;
+	isHybridSearch: boolean;
 	onChange: () => void;
 }
 
@@ -18,6 +19,7 @@ export const FilterSectionItem = ({
 	label,
 	count,
 	selected,
+	isHybridSearch,
 	onChange,
 }: FilterSectionItemProps) => {
 	const props = {
@@ -64,14 +66,16 @@ export const FilterSectionItem = ({
 						<span className={`text-style-body-small-bold ${style.label}`}>
 							{label}
 						</span>
-						<span
-							className={`text-style-body-small-bold ${style.count}`}
-							aria-label={`${count} post${count > 1 ? "s" : ""}`}
-						>
-							<span className="visually-hidden"> - </span>
-							{count}
-							<span className="visually-hidden"> articles</span>
-						</span>
+						{!isHybridSearch && (
+							<span
+								className={`text-style-body-small-bold ${style.count}`}
+								aria-label={`${count} post${count > 1 ? "s" : ""}`}
+							>
+								<span className="visually-hidden"> - </span>
+								{count}
+								<span className="visually-hidden"> articles</span>
+							</span>
+						)}
 						{children}
 						<VisuallyHidden>
 							<input {...inputProps} {...focusProps} ref={ref} />

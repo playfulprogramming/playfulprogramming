@@ -7,7 +7,7 @@ export const GET = async () => {
 		.getPeopleByLang("en")
 		.filter((person) => person.totalPostCount > 0);
 
-	const posts = api.getAllPosts();
+	const posts = api.getPostsByLang("en");
 
 	const tags = Object.entries(tagsObj).map(([tag, value]) => {
 		return {

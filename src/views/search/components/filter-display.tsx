@@ -12,8 +12,8 @@ import { ExtendedTag, ExtendedUnicorn } from "./types";
 const tagsMap: Map<string, TagInfo> = new Map(Object.entries(tagsObj));
 
 interface FilterDisplayProps {
-	tagCounts: Record<string, number>,
-	authorCounts: Record<string, number>,
+	tagCounts: Record<string, number>;
+	authorCounts: Record<string, number>;
 	peopleMap: Map<string, PersonInfo>;
 	selectedTags: string[];
 	setSelectedTags: (tags: string[]) => void;
@@ -23,6 +23,7 @@ interface FilterDisplayProps {
 	setSort: (sortBy: SortType) => void;
 	desktopStyle?: CSSProperties;
 	isFilterDialogOpen: boolean;
+	isHybridSearch: boolean;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
 	searchString: string;
 	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
@@ -41,6 +42,7 @@ export const FilterDisplay = ({
 	setSelectedTags,
 	desktopStyle,
 	isFilterDialogOpen,
+	isHybridSearch,
 	setFilterIsDialogOpen,
 	searchString,
 	setContentToDisplay,
@@ -49,37 +51,39 @@ export const FilterDisplay = ({
 	const tags: ExtendedTag[] = useMemo(() => {
 		const totalEntries = {
 			// Ensure that selected tags are included in the filter list
-			...Object.fromEntries(
-				selectedTags.map(tag => [tag, 0])
-			),
+			...Object.fromEntries(selectedTags.map((tag) => [tag, 0])),
 			...tagCounts,
 		};
 
 		return Object.entries(totalEntries)
 			.sort(([a], [b]) => a.localeCompare(b))
-			.map(([tag, count]) => ({
-				tag,
-				numPosts: count,
-				...tagsMap.get(tag),
-			}) satisfies Partial<ExtendedTag>)
-			.filter((a): a is ExtendedTag => !!(a.displayName));
+			.map(
+				([tag, count]) =>
+					({
+						tag,
+						numPosts: count,
+						...tagsMap.get(tag),
+					}) satisfies Partial<ExtendedTag>,
+			)
+			.filter((a): a is ExtendedTag => !!a.displayName);
 	}, [tagCounts]);
 
 	const authors: ExtendedUnicorn[] = useMemo(() => {
 		const totalEntries = {
 			// Ensure that selected authors are included in the filter list
-			...Object.fromEntries(
-				selectedAuthorIds.map(author => [author, 0])
-			),
+			...Object.fromEntries(selectedAuthorIds.map((author) => [author, 0])),
 			...authorCounts,
 		};
 
 		return Object.entries(totalEntries)
-			.map(([author, count]) => ({
-				numPosts: count,
-				...peopleMap.get(author),
-			}) satisfies Partial<ExtendedUnicorn>)
-			.filter((a): a is ExtendedUnicorn => !!(a.name))
+			.map(
+				([author, count]) =>
+					({
+						numPosts: count,
+						...peopleMap.get(author),
+					}) satisfies Partial<ExtendedUnicorn>,
+			)
+			.filter((a): a is ExtendedUnicorn => !!a.name)
 			.sort((a, b) => a.name.localeCompare(b.name));
 	}, [authorCounts, peopleMap]);
 
@@ -120,6 +124,7 @@ export const FilterDisplay = ({
 				authors={authors}
 				selectedAuthorIds={selectedAuthorIds}
 				selectedTags={selectedTags}
+				isHybridSearch={isHybridSearch}
 			/>
 		);
 	}
@@ -140,6 +145,7 @@ export const FilterDisplay = ({
 			searchString={searchString}
 			setContentToDisplay={setContentToDisplay}
 			contentToDisplay={contentToDisplay}
+			isHybridSearch={isHybridSearch}
 		/>
 	);
 };
