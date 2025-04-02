@@ -1,4 +1,3 @@
-/** @jsxRuntime automatic */
 import { Element } from "hast";
 import type { Child as HChild } from "hastscript";
 import { fromHtml } from "hast-util-from-html";
@@ -50,12 +49,11 @@ interface FileProps {
 	item: File;
 }
 
-/** @jsxImportSource hastscript */
 function File({ item }: FileProps) {
 	return (
 		<>
 			<span
-				className={`docs-file-tree-file-name-and-icon ${
+				class={`docs-file-tree-file-name-and-icon ${
 					item.isHighlighted ? "highlighted" : ""
 				} text-style-body-small`}
 			>
@@ -77,13 +75,12 @@ interface DirectoryProps {
 	item: Directory;
 }
 
-/** @jsxImportSource hastscript */
 function Directory({ item }: DirectoryProps) {
 	return (
 		<details open={item.openByDefault} class="docs-file-tree-directory-details">
 			<summary class="docs-file-tree-directory-summary">
 				<span
-					className={`docs-file-tree-directory-name-and-icon ${
+					class={`docs-file-tree-directory-name-and-icon ${
 						item.isHighlighted ? "highlighted" : ""
 					} text-style-body-small-bold`}
 				>
@@ -107,17 +104,16 @@ interface FileListProps {
 	items: Array<Directory | File>;
 }
 
-/** @jsxImportSource hastscript */
 function FileListList({ items }: FileListProps) {
 	const isDirectory = (item: Directory | File): item is Directory => {
 		return (item as Directory).isDirectory;
 	};
 
 	return (
-		<ul className="docs-file-tree-list">
+		<ul class="docs-file-tree-list">
 			{items.map((item) => (
 				<li
-					className={
+					class={
 						item.isDirectory
 							? "docs-file-tree-directory-li"
 							: "docs-file-tree-file-li"
@@ -131,10 +127,9 @@ function FileListList({ items }: FileListProps) {
 	) as never;
 }
 
-/** @jsxImportSource hastscript */
-export function FileList({ items }: FileListProps): Element {
+export default function FileList({ items }: FileListProps): Element {
 	return (
-		<div className="docs-file-tree-container">
+		<div class="docs-file-tree-container">
 			<div class="docs-file-tree">{FileListList({ items })}</div>
 		</div>
 	) as never;
