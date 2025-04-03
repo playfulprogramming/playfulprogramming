@@ -53,7 +53,7 @@ interface FileProps {
 /** @jsxImportSource hastscript */
 function File({ item }: FileProps) {
 	return (
-		<>
+		<div class="docs-file-tree-file-container">
 			<span
 				className={`docs-file-tree-file-name-and-icon ${
 					item.isHighlighted ? "highlighted" : ""
@@ -69,7 +69,7 @@ function File({ item }: FileProps) {
 					{item.comment}
 				</span>
 			) : null}
-		</>
+		</div>
 	) as never;
 }
 
