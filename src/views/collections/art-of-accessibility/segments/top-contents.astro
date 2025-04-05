@@ -1,0 +1,48 @@
+---
+import ChipGroup, {
+	TagList,
+} from "../../framework-field-guide/components/chip-group.astro";
+import "../../framework-field-guide/components/shared-section-styling.scss";
+import "./top-contents.module.scss";
+
+const tags: TagList = [
+	"Focus state",
+	"Color contrast",
+	"Keyboard navigation",
+	"Screen readers",
+	"Form labels",
+	"Semantic HTML",
+	"ARIA",
+	"Accessibility tree",
+	"WCAG",
+	"Mouse events",
+	"Braille displays",
+	"Text-to-speech",
+	"Inclusive design",
+	"Live regions",
+	"Popover API",
+	"Dialog Elements",
+] as unknown as TagList;
+---
+
+<h2 id="accessibility-sub-title" class={`text-style-headline-3 book-title`}>
+	Modern apps should be accessible
+</h2>
+<p class={`text-style-body-large book-bio`}>
+	<a
+		style="color: white; position: relative"
+		href="https://www.who.int/news-room/fact-sheets/detail/disability-and-health"
+		>One in six people worldwide experience serious disability</a
+	>.
+	<br />
+	<br />
+	Ignore that fact and your applications' growth will stagger. Accept it and every
+	one of your users, disability or no, will thank you.
+	<br />
+	<br />
+	This book will provide guidance on how to best ensure your modern web applications
+	are inclusive and accessible; all while using cutting edge web-tech.
+</p>
+<div class="section-chip-group-container" data-no-max-width>
+	<ChipGroup tags={tags} rows={1} />
+</div>
