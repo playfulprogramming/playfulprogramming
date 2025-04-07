@@ -223,9 +223,49 @@ While many versions of the "Smart" vs "Dumb" component arguments have different 
 
 ## Defining Utilities vs Services
 
-https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/
+In 2015 Promises were introduced into JavaScript. While they were a good solution to the problem of [the Christmas tree callback problem](https://playfulprogramming.com/posts/async-and-promises#Callbacks), they weren't intuitive to use until `async` and `await` were implemented in the ecosystem around 2017.
 
+```javascript
+function main() {
+  return sleep(1)
+  	.then(() => {
+      console.log("One second has passed");
+      return sleep(1);    
+	  })
+  	.then(() => {
+	    console.log("Two seconds have passed");  
+	  })
+}
 
+// vs
+
+async function main() {
+  await sleep(1);
+  console.log("One second has passed");
+  await sleep(1);
+  console.log("Two seconds have passed");
+}
+```
+
+> Want to learn more about `async`/`await` and promises in JavaScript? [Check out my article on the topic.](/posts/async-and-promises)
+
+One challenge with the introduction of the `async` and `await` API in JavaScript is that you now need to effectively [color-code your functions between asyncronous code and syncronous code.](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)
+
+While the author of the article linked above sees this developer color-coding as a bad thing, I once again lean into the paradigm shift and understand the benefits and downsides of each color of code: sync and async.
+
+After all, while syncronous code _can_ introduce a side-effect like so:
+
+![A pure function is allowed to mutate state from within its local environment, while a side effect changes data outside its own environment](../../collections/framework-field-guide-fundamentals/posts/ffg-fundamentals-side-effects/pure-vs-side-effect.png)
+
+It's important to remember that this can be sidestepped and most sync functions can be made pure.
+
+Async functions, on the other hand, are inherently effect-ful; a result of being commonly used to interact with I/O.
+
+> [Learn more about side-effects and their relationship to React in this chapter of my free book.](/posts/ffg-fundamentals-side-effects#whats-a-side-effect)
+
+As such, I find it valuable to make a distinction between our utilities that are syncronous and those which are asyncronous.
+
+As a result, I call syncronous utilities **utils** while I call similar asyncronous functions **services**.
 
 ## Understanding filename sensitivities
 
