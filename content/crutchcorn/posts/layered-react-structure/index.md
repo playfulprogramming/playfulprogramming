@@ -394,7 +394,7 @@ While looking through that list, you may have wondered why I suggested using [Vi
 
 Well, while there's a number of reasons I'd go with Vitest over Jest the biggest one is a single feature:
 
-[Vitest's browser mode](https://vitest.dev/guide/browser/)
+[**Vitest's browser mode**](https://vitest.dev/guide/browser/)
 
 ![A Chrome instance showing a testing UI](./browser_vitest.png)
 
@@ -402,7 +402,7 @@ See, while Testing Library and MSW allow you to focus on the user-experience in 
 
 With Vitest browser mode, you run your tests in a real browser quickly; making debugging much easier.
 
-## UI Testing
+## UI Testing {#storybook}
 
 While the idea of vendoring your own UI library may sound unappealing and unproductive early on, I've found that it quickly becomes a reality for all production apps, regardless of original intent.
 
@@ -440,17 +440,19 @@ export const Primary: Story = {
 };
 ```
 
-## Styling
+## Styling {#styling}
 
-Anything that allows you to extract your styling to a dedicated file. 
+Less of a tooling suggestion and more of a holdover from my days working with Angular; **I suggest keeping your styling in a different file as your markup**.
 
-Ideally CSS/SCSS Modules, Vanilla Extract, or similar. Even Tailwind can work, so long as you extract your classes to a string template literal in a different file
+This can be done with, ideally, [**CSS/SCSS Modules**](https://css-tricks.com/css-modules-part-1-need/), [**Vanilla Extract**](https://vanilla-extract.style/), or similar. However, even [**Tailwind**](https://tailwindcss.com/) can work, so long as you extract your classes to a string template literal in a different file.
 
-
+The reason for this is that by splitting it out, you're able to keep files more cleanly organized, small, and composable as-needed.
 
 # Introducing Layered React Structure (LRS) {#lrs}
 
-Now that we've gotten that out of the way, let's finally outline what LRS is all about.
+Now that we've gotten our pre-requisites out of the way, let's finally outline what LRS is all about.
+
+Here's an example of LRS in action: 
 
 <!-- ::start:filetree -->
 
@@ -501,5 +503,35 @@ Now that we've gotten that out of the way, let's finally outline what LRS is all
 
 <!-- ::end:filetree -->
 
-> All non-source code configuration files, such as `.storybook` or `.eslintrc.json` files must live outside of the `src`
+> In LRS, all non-source code configuration files, such as `.storybook` or `.eslintrc.json` files must live outside of the `src`
 > folder.
+
+## On Shared Code
+
+You may notice that in LRS we tend to have many root directories for different purposes. However, it should be noted that these same folders can (and should) exist inside of a given `view` folder as well:
+
+<!-- ::start:filetree -->
+
+- `views/`
+	- `homescreen/`
+		- `components/{open: false}`
+			- `...`
+		- `utils/{open: false}`
+			- `...`
+		- `services/{open: false}`
+			- `...`
+		- `homescreen.ui.tsx`
+		- `homescreen.view.tsx`
+		- `...`
+
+<!-- ::end:filetree -->
+
+This enables you to feature-scope a given set of `utils` and `services`, while keeping the root directory for any `utils`, `services`, `components`, and other tools that are used in more than one screen.
+
+## On Sub-pages
+
+// Talk about programmatic routing and keeping a flat directory structure
+
+## On File-based Routing
+
+// Talk about Astro, Next.js, and TanStack Router/Start
