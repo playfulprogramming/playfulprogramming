@@ -390,7 +390,17 @@ This setup enables you to validate actual user bahevior rather than testing impl
 
 ## Test Runner {#vitest}
 
-https://vitest.dev/guide/browser/
+While looking through that list, you may have wondered why I suggested using [Vitest](http://vitest.dev/) rather than [Jest](https://jestjs.io/).
+
+Well, while there's a number of reasons I'd go with Vitest over Jest the biggest one is a single feature:
+
+[Vitest's browser mode](https://vitest.dev/guide/browser/)
+
+![A Chrome instance showing a testing UI](./browser_vitest.png)
+
+See, while Testing Library and MSW allow you to focus on the user-experience in your tests, using something like [JSDom](https://github.com/jsdom/jsdom) - common in Jest UI testing - makes debugging those tests much harder since you're not using a real browser.
+
+With Vitest browser mode, you run your tests in a real browser quickly; making debugging much easier.
 
 ## UI Testing
 
