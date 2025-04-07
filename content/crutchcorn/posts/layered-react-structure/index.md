@@ -269,9 +269,42 @@ As a result, I call syncronous utilities **utils** while I call similar asyncron
 
 ## Understanding filename sensitivities
 
-kebab-case thanks to NTFS/Windows support
+Very quickly, let's go over how computers handle files:
 
+When you write a program that needs to read a file, it will call down to your operating system's kernel - a bit of code meant to bridge your machine's hardware and software at the lowest level.
 
+// TODO: Show stack of hardware -> Kernel -> OS
+
+This kernel call to write a file will communicate both with your computer's disk drivers and the file structure of the files on the disk.
+
+The structure of the files - often called a **filesystem** - is established by your operating system when you format the disk (either manually or during the operating system's install). Different operating systems have different default filesystems:
+
+| OS      | Default Filesystem                |
+| ------- | --------------------------------- |
+| Windows | New Technology File System (NTFS) |
+| macOS   | Apple File System (APFS)          |
+| Linux   | Fourth extended filesystem (EXT4) |
+
+Each of these filesystems come with their own pros and cons, but one distinction between them rises above others for web developers: *filename case sensativity*.
+
+Take the following two file names:
+
+<!-- ::start:filetree -->
+
+- `test.txt`
+- `tEsT.txt`
+
+<!-- ::end:filetree -->
+
+While Windows and macOS treat these two files as the same by default, EXT4 - and therefore most Linux installs - does not have the ability to.
+
+This means that on Linux instances you can literally have both of the files exist in the same folder.
+
+> It's worth mentioning that [APFS can be configured to be case-sensitive](https://support.apple.com/lv-lv/guide/disk-utility/dsku19ed921c/mac) and even [modern Windows can enable case-sensativity in some folders through a manual command](https://learn.microsoft.com/en-us/windows/wsl/case-sensitivity).
+>
+> That said, it's generally understood that most machines will not establish these settings for you out of the box.
+
+As a result, I strongly suggest that you keep _all_ files **lowercased** and in a `kebob-case` naming convention to ensure that files aren't mixed up between your Linux environments and your macOS/Windows developers; which can be challenging to debug between CI/CD and local systems.
 
 # Suggested Technologies
 
