@@ -27,13 +27,13 @@ The gist of LRS is that each layer of your application should be able to live in
 - Allow developers and stakeholders to more rapidly iterate on UI
 - Avoid bike-shedding of where code should live, once adopted
 
-# Pre-requisite Concepts
+# Pre-requisite Concepts {#concepts}
 
 Before diving into LRS itself, there's a few concepts I want to explain in-depth first. Let's dive in and try to understand the mindset I approach building React apps in.
 
-> Understand the concepts at play? Skip ahead to the filesystem example for a quick glance.
+> Understand the concepts at play? [Skip ahead to the filesystem example](#lrs) for a quick glance.
 
-## Defining "Smart" vs "Dumb" Component
+## Defining "Smart" vs "Dumb" Component {#smart-dumb-comps}
 
 Even in React's early days, you may have heard of "Smart" and "Dumb" components. They're so predominant in React's ecosystem in part thank to [this article by Dan Abramov that popularized them back even as far as 2015](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
 
@@ -92,7 +92,7 @@ function LoadingIndicator() {
 }
 ```
 
-### "Smart" vs "Dumb" rules of thumb
+### "Smart" vs "Dumb" rules of thumb {#smart-dumb-thumbs}
 
 While many versions of the "Smart" vs "Dumb" component arguments have different rules, here's some general rules of thumb I follow with my component types; I generally suggest these guidelines be followed to ensure LRS is used correctly.
 
@@ -221,7 +221,7 @@ While many versions of the "Smart" vs "Dumb" component arguments have different 
     }
     ```
 
-## Defining Utilities vs Services
+## Defining Utilities vs Services {#utils-vs-services}
 
 In 2015 Promises were introduced into JavaScript. While they were a good solution to the problem of [the Christmas tree callback problem](https://playfulprogramming.com/posts/async-and-promises#Callbacks), they weren't intuitive to use until `async` and `await` were implemented in the ecosystem around 2017.
 
@@ -267,7 +267,7 @@ As such, I find it valuable to make a distinction between our utilities that are
 
 As a result, I call syncronous utilities **utils** while I call similar asyncronous functions **services**.
 
-## Understanding filename sensitivities
+## Understanding filename sensitivities {#case-sensativity}
 
 Very quickly, let's go over how computers handle files:
 
@@ -308,13 +308,89 @@ As a result, I strongly suggest that you keep _all_ files **lowercased** and in 
 
 # Suggested Technologies
 
-This section is much more opinionated than the rest of the article.
+> **Note:**
+>
+> This section is much more opinionated than the rest of the article. While I stand by these suggestions, it's very possible to implement a sufficiently well-structured React app using LRS without these specific tools.
 
-## Logic Testing
+Before we finally dive into the filesystem example, I want to explore some of the tools I typically suggest to use alongside LRS.
 
-https://kentcdodds.com/blog/write-tests
+## Logic Testing {#testing-library}
 
-Vitest Browser Mode + Testing Library + React Testing Library; no using https://github.com/testing-library/react-hooks-testing-library 
+If you've been in the React world for long, you're likely to know the works of [Kent C Dodds](https://kentcdodds.com/). He's a prolific educator, creating [Epic React](https://www.epicreact.dev/), [Epic Web](https://www.epicweb.dev/), and [Testing JavaScript](https://www.testingjavascript.com/) courses, to name a few.
+
+One of his most popular articles, titled ["Write tests. Not too many. Mostly integration."](https://kentcdodds.com/blog/write-tests), walks through why you'd want to prioritize writing integration tests using his "Testing Trophy":
+
+![Shapes from top to bottom: End to end (triangle), Integration (hexagon), Unit (trapezoid), and Static (trapezoid)](./testing_trophy.jpeg)
+
+Through most of Kent's writings about tests, he typically reaches for a tool called ["Testing Library"](https://testing-library.com/); a suite of tools that enable better integration testing approaches in your frontend projects.
+
+
+It's here that, Kent shows another side of himself as well; a well regarded webdev tooling creator. See, [Kent is the original author of "Testing Library".](https://kentcdodds.com/blog/introducing-the-react-testing-library)
+
+While today Testing Library includes adapters for many frameworks, **I suggest using the following tools for your React testing suite**:
+
+- [Vitest](http://vitest.dev/)
+- [DOM Testing Library](https://testing-library.com/docs/dom-testing-library/intro)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [User Event](https://testing-library.com/docs/user-event/intro)
+- [Jest DOM](https://github.com/testing-library/jest-dom)
+  - Supports [Vitest](http://vitest.dev/) as well
+- [MSW](https://mswjs.io/)
+
+> **Warning:**
+>
+> While you _can_ test React Hooks independently from your code using [React Hooks Testing Library](https://github.com/testing-library/react-hooks-testing-library), I strongly suggest staying away from it. Not only has maintainance on the project been stiffled, but it encourages bad testing practices for most applications.
+
+With this, you can write tests that follow user behavior like so:
+
+```tsx
+import { describe, expect, it, afterEach, beforeAll } from "vitest";
+
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from '@testing-library/user-event'
+
+import { http } from "msw";
+import { setupWorker } from 'msw/browser'
+
+import { PeopleView } from "./people.view";
+import { createPersonHobbiesUrl } from "../../services/people";
+
+const user = userEvent.setup();
+const worker = setupWorker()
+
+beforeAll(() => worker.start());
+
+afterEach(() => worker.resetHandlers());
+
+describe("PeopleView", () => {
+    it("Should allow the user to add a hobby to their person", async () => {
+        worker.use(http.post(createPersonHobbiesUrl, () => HttpResponse.json({
+            hobbies: [{
+                id: "0",
+                name: "Go to the gym"
+            }]
+        }))
+
+        render(<PeopleView />)
+
+        expect(screen.getByText("There are no hobbies")).toBeInTheDocument();
+
+        await user.type(screen.getByLabelText("New hobby name"), "Do something fun");
+
+        await user.click(screen.getByText("Add hobby"));
+
+        await waitFor(() => expect(screen.getByText("Go to the gym")).toBeInTheDocument())
+    })
+})
+```
+
+This setup enables you to validate actual user bahevior rather than testing implementation details.
+
+> Want to learn more about best testing practices? [See our article for 5 suggestions to write the best tests you can.](https://playfulprogramming.com/posts/five-suggestions-for-simpler-tests)
+
+## Test Runner {#vitest}
+
+https://vitest.dev/guide/browser/
 
 ## UI Testing
 
