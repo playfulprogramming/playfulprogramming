@@ -528,10 +528,19 @@ You may notice that in LRS we tend to have many root directories for different p
 
 This enables you to feature-scope a given set of `utils` and `services`, while keeping the root directory for any `utils`, `services`, `components`, and other tools that are used in more than one screen.
 
-## On Sub-pages
-
-// Talk about programmatic routing and keeping a flat directory structure
-
 ## On File-based Routing
 
-// Talk about Astro, Next.js, and TanStack Router/Start
+> The idea of `views` seems nice, but I work in [Next.js](https://nextjs.org/)/[TanStack Router](https://tanstack.com/router/latest) where I need to keep my routes in a specific folder - how do I handle that?
+
+Luckily, there's a simple solution: Make your `pages`/`app` directory a shell for the `views` folder:
+
+```tsx
+// app/page.tsx
+import {Homescreen} from "../views/homescreen/homescreen.view";
+
+export default function HomescreenPage() {
+  return <Homescreen/>
+}
+```
+
+That's all you need to add! 😄
