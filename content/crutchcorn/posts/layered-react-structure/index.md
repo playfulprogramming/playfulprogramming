@@ -404,7 +404,41 @@ With Vitest browser mode, you run your tests in a real browser quickly; making d
 
 ## UI Testing
 
-https://storybook.js.org/
+While the idea of vendoring your own UI library may sound unappealing and unproductive early on, I've found that it quickly becomes a reality for all production apps, regardless of original intent.
+
+This doesn't mean that you write all of your UI components from scratch; maybe you use a UI library like [MUI](https://mui.com/) or [Ant Design](https://ant.design/), but in the end you _will_ end up with your own set of in-house re-useable components.
+
+![A preview of a theme picker for Ant Design](./ant_design_themes.png)
+
+Despite the down-ladden tone I've used in the last two paragraphs, I think this is great news for you! Knowing what will come enables you to prepare for it. Further, having a consistent set of components allows you to document and enforce more consistency in your apps.
+
+However, the problem comes when you don't have documentation or a good reference of what UI components are available to you as a developer on the team.
+
+**This is why I suggest using [Storybook](https://storybook.js.org/) for all of your shared components**. It allows you to have a centralized view of your UI elements and document them as-needed as you grow and scale:
+
+![A preview of Adobe's Spectrum UI system in Storybook](./adobe_storybook.png)
+
+Luckily, Storybook is simple to use. Here's an example Storybook story file for React:
+
+```tsx
+import type { Meta, StoryObj } from '@storybook/react';
+
+import { Button } from './Button';
+
+const meta: Meta<typeof Button> = {
+  component: Button,
+};
+
+export default meta;
+type Story = StoryObj<typeof Button>;
+
+export const Primary: Story = {
+  args: {
+    primary: true,
+    label: 'Button',
+  },
+};
+```
 
 ## Styling
 
