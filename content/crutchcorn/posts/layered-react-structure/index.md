@@ -174,14 +174,51 @@ While many versions of the "Smart" vs "Dumb" component arguments have different 
 
 - "Dumb" components *should* not care how data is loaded, changed, or accessed
 
-    ```
-    // TODO: Write this example
+    ```jsx
+    // DON'T DO THIS
+    function ToggleDisplay({displayInfo}) {
+      const [open, setOpen] = displayInfo;
+      
+      // ...
+    }
+    
+    // Your implementation should not be so tied to the parent's data structure
+    function App() {
+      const displayInfo = useState(false);
+      return <ToggleDisplay displayInfo={displayInfo}/>
+    }
+    
+    // ---------------------------------------------------------------------------------
+    
+    // Instead, pass individual data items to be more modular and less opinionated
+    function ToggleDisplay({open, toggle}) {  
+      // ...
+    }
+    
+    // Your implementation should not be so tied to the parent's data structure
+    function App() {
+      const [open, setOpen] = useState(false);
+      return <ToggleDisplay open={open} toggle={() => setOpen(!open)}/>
+    }
+    
     ```
 
 - "Smart" components _should_ not have any markup and **must** not contain any styling
 
-    ```
-    // TODO: Write this example
+    ```jsx
+    // DO NOT DO THIS
+    function App() {
+    	return <div style={{minHeight: '100vh'}}>
+      	{/* ... */}
+      </div>
+    }
+    
+    // Instead, break out styling to dedicated files
+    function App() {
+      return <Layout>
+      	{/* ... */} 
+      </Layout>
+    }
     ```
 
 ## Defining Utilities vs Services
