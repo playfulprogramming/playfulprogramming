@@ -1,8 +1,8 @@
 ---
 {
   title: "Scale Your Project with Layered React Structure",
-  description: "",
-  published: '2025-06-01T20:12:03.284Z',
+  description: "Learn how to scale your React project using Layered React Structure (LRS). Take your app from small-time to enterprise grade by organizing your code better.",
+  published: '2025-04-09T20:12:03.284Z',
   tags: [ 'react', 'webdev', 'opinion' ],
   license: 'cc-by-4'
 }
@@ -368,7 +368,7 @@ Here's an example of LRS in action:
 
 > What's a `storybook`? What should I use for testing? What about my UI components?
 
-#### Don't worry!
+<p class="text-style-headline-4">Don't worry!</p>
 
 Some of you may have already gotten used to React or have knowledge of the same issues I've discussed and addressed, as well as the tools used with LSR. 
 
@@ -567,4 +567,18 @@ The reason for this is that by splitting it out, you're able to keep files more 
 
 # Conclusion
 
-<!-- CORBIN NEEDS TO COMPLETE THE ARTICLE!!!! -->
+I know that many of you will look through this layout and assume that this was trivial knowledge to come up with. After all, after putting this into place I found some alternatives like [Bulletproof React](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md) that outlines similar.
+
+But I didn't start with Bulletproof React or any other baseline - most of this was came up with on-the-fly during rapid prototype implementation after seeing some challenges in other React codebases I'd worked in. It was only through experimentation, trial and error, and experience that I came to the patterns outlined here.
+
+Despite the long road to a short story, I'm grateful to've thought of this pattern. After all, [Steve Jobs himself said in 1998](https://www.bbc.com/news/world-us-canada-15195448):
+
+> That's been one of my mantras - focus and simplicity. Simple can be harder than complex: you have to work hard to get your thinking clean to make it simple. But it's worth it in the end because once you get there, you can move mountains.
+
+Hopefully this has been helpful to you and your teams after reading through this, however.
+
+And hey, if you liked this writing style, check out [my totally free and in-depth book on React, Angular, and Vue](https://framework.guide):
+
+[![The Framework Field Guide: A free and practical way to learn Angular, React & Vue all at once](./ffg_preview.png)](https://framework.guide)
+
+Until next time!
