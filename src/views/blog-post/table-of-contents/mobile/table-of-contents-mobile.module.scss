@@ -58,6 +58,11 @@
 
 }
 
+
+.tocMobileOpenMainBody {
+	overflow: hidden;
+}
+
 .mobileTocContainer {
 
 	@include darkTheme() {
@@ -119,10 +124,6 @@
 			height: 0px;
 			padding: 0;
 		}
-	}
-
-	.tocMobileOpenMainBody {
-		overflow: hidden;
 	}
 	
 	.tableListItem > a {
