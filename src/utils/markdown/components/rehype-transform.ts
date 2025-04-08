@@ -1,15 +1,24 @@
 import { visit } from "unist-util-visit";
 import { is } from "unist-util-is";
-import { Root, Parent, Element } from "hast";
+import { Root, Parent, Element, Doctype, ElementContent } from "hast";
 import { unified, Plugin } from "unified";
-import { RehypeFunctionComponent } from "./types";
+import { CreateComponentReturn } from "./types";
 import rehypeParse from "rehype-parse";
 import { logError } from "../logger";
 import { VFile } from "vfile";
+import {
+	getHastScriptCompFunction,
+	saveComponentScript,
+} from "utils/markdown/components/utils";
+import { MarkdownVFile } from "utils/markdown/types";
 
-type RehypeComponentsProps = {
-	components: Record<string, RehypeFunctionComponent>;
-};
+export interface RehypeComponentsProps {
+	components: Record<
+		string,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		CreateComponentReturn<any, any>
+	>;
+}
 
 const unifiedRehype = unified().use(rehypeParse, { fragment: true });
 
@@ -31,9 +40,36 @@ export const rehypeTransformComponents: Plugin<
 	[RehypeComponentsProps],
 	Root
 > = ({ components }) => {
-	return (tree, vfile) => {
+	return async (tree, vfile) => {
+		vfile.data = vfile.data || {};
+		vfile.data.usedComponents = vfile.data.usedComponents || {};
+
+		const nodesToSkip = new WeakMap<
+			Root | Doctype | ElementContent,
+			number[]
+		>();
+
+		const replacementMetas = [] as Array<{
+			node: Root | Doctype | ElementContent;
+			index: number;
+			parent: Root | Element;
+			component: CreateComponentReturn<Record<string, string>, unknown>;
+			replacementProps: unknown;
+			isRanged: boolean;
+			indexEnd: number;
+			componentName: string;
+		}>;
+
 		visit(tree, { type: "comment" }, (node, index, parent) => {
 			if (index === undefined || !parent) return;
+
+			if (nodesToSkip.has(parent)) {
+				const skipIndices = nodesToSkip.get(parent);
+				if (skipIndices?.includes(index)) {
+					return;
+				}
+			}
+
 			// ` ::start:in-content-ad title="Hello world" `
 			const value = String((node as { value?: string }).value).trim();
 			if (!value.startsWith(COMPONENT_PREFIX)) return;
@@ -53,7 +89,8 @@ export const rehypeTransformComponents: Plugin<
 			}
 
 			// Find the component matching the given tag
-			const component = components[componentNode.tagName];
+			const componentName = componentNode.tagName;
+			const component = components[componentName];
 			if (!component) {
 				logError(
 					vfile,
@@ -88,8 +125,16 @@ export const rehypeTransformComponents: Plugin<
 				}
 			}
 
+			// Skip the ranged nodes
+			if (indexEnd > 0) {
+				nodesToSkip.set(parent, [
+					...(nodesToSkip.get(parent) ?? []),
+					...Array.from({ length: indexEnd - index + 1 }, (_, i) => index + i),
+				]);
+			}
+
 			// Create the component nodes
-			const replacement = component({
+			const replacementProps = component.transform({
 				vfile,
 				node,
 				attributes: Object.fromEntries<string>(
@@ -102,31 +147,67 @@ export const rehypeTransformComponents: Plugin<
 				children: parent.children.slice(index + 1, indexEnd),
 			});
 
-			const replacementArray =
-				replacement instanceof Array ? replacement : [replacement];
-			// Replace child nodes (including comments) with the replacement component
-			parent.children.splice(
+			replacementMetas.push({
+				node,
 				index,
-				isRanged ? indexEnd - index + 1 : 1,
-				...(replacement ? (replacementArray as never) : []),
-			);
-
-			// Recursively transform the children
-			// This allows for nested components like ebook only content in tabs
-			replacementArray.forEach((replacement) => {
-				if (!isNodeParent(replacement)) return;
-				replacement?.children?.map((child) => {
-					const tree = { type: "root", children: [child] } as Root;
-					(
-						rehypeTransformComponents as (
-							props: RehypeComponentsProps,
-						) => (tree: Root, vfile: VFile) => void
-					)({ components })(tree, vfile);
-					return tree;
-				});
+				parent,
+				component,
+				componentName,
+				replacementProps,
+				isRanged,
+				indexEnd,
 			});
 
 			return;
 		});
+
+		await Promise.all([
+			...replacementMetas.map(async ({ componentName, component }) => {
+				const hasScript = await saveComponentScript(componentName, component);
+				if (!hasScript) return;
+				(vfile as MarkdownVFile).data.usedComponents[componentName] = true;
+			}),
+			...replacementMetas.map(
+				async ({
+					index,
+					parent,
+					component,
+					replacementProps,
+					isRanged,
+					indexEnd,
+				}) => {
+					const replacementFn = await getHastScriptCompFunction(
+						component.componentFSPath,
+					);
+
+					const replacement = replacementFn(replacementProps);
+
+					const replacementArray =
+						replacement instanceof Array ? replacement : [replacement];
+
+					// Recursively transform the children
+					// This allows for nested components like ebook only content in tabs
+					await Promise.all(
+						replacementArray.map(async (replacement) => {
+							if (!isNodeParent(replacement)) return;
+							await (
+								rehypeTransformComponents as (
+									props: RehypeComponentsProps,
+								) => (tree: Root, vfile: VFile) => void
+							)({ components })(replacement as Root, vfile);
+						}),
+					);
+
+					// Replace child nodes (including comments) with the replacement component
+					parent.children.splice(
+						index,
+						isRanged ? indexEnd - index + 1 : 1,
+						...(replacement ? (replacementArray as never) : []),
+					);
+				},
+			),
+		]);
+
+		return tree;
 	};
 };

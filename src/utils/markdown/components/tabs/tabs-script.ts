@@ -1,5 +1,3 @@
-const LOCAL_STORAGE_KEY = "tabs-selection";
-
 type TabEntry = Map<
 	string,
 	{
@@ -9,6 +7,8 @@ type TabEntry = Map<
 >;
 
 export const enableTabs = () => {
+	const LOCAL_STORAGE_KEY = "tabs-selection";
+
 	// Array of all TabName->Element mappings in tab sets
 	const tabEntries: TabEntry[] = [];
 

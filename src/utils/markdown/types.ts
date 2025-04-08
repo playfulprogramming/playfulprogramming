@@ -13,6 +13,7 @@ export interface MarkdownVFile extends VFile {
 		kind: MarkdownKind;
 		file: string;
 		headingsWithIds: PostHeadingInfo[];
+		usedComponents: Record<string, boolean>;
 	};
 }
 
