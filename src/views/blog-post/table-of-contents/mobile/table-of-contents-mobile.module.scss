@@ -100,15 +100,16 @@
 	}
 	
 	.tableList {
-	
+		position: absolute;
+		width: 100%;
 		background-color: var(--toc-mobile-header_background-color);
 		list-style: none;
 		margin: 0;
 		padding: var(--toc-mobile_list_padding-vertival) var(--toc-mobile_list_padding-horizontal);
 		height: calc(100vh - ((var(--header_logo_size) + var(--header_padding-vertical) *2 ) ) - ( 1.5rem + (16.0 * 2px)));
+		clip-path: inset(0);
 		overflow: auto;
-		transition: height 0.50s;
-	
+		transition: clip-path 0.50s;
 	}
 
 	&.tocMobileMenuCollapsed {
@@ -121,8 +122,7 @@
 		}
 
 		.tableList {
-			height: 0px;
-			padding: 0;
+			clip-path: inset(0 0 100% 0);
 		}
 	}
 	
