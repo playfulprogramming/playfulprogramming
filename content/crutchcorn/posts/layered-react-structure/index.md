@@ -306,13 +306,131 @@ This means that on Linux instances you can literally have both of the files exis
 
 As a result, I strongly suggest that you keep _all_ files **lowercased** and in a `kebob-case` naming convention to ensure that files aren't mixed up between your Linux environments and your macOS/Windows developers; which can be challenging to debug between CI/CD and local systems.
 
-# Suggested Technologies
+---
+
+# Introducing Layered React Structure (LRS) {#lrs}
+
+Now that we've gotten the tiny details out of the way, let's finally outline what LRS is all about.
+
+Here's an example of LRS in action: 
+
+<!-- ::start:filetree -->
+
+- `src/`
+	- `assets/{open: false}` Where non-code assets, such as images and fonts, live
+		- `logo.png`
+	- `components/` Where "dumb" components go
+		- `button/`
+			- `button.modules.scss`
+			- `button.stories.ts` The storybook file for the component
+			- `button.spec.tsx` The optional unit test file for the component
+			- `button.tsx`
+			- `index.ts`
+		- `input/{open: false}`
+			- `input.modules.scss`
+			- `input.tsx`
+			- `index.ts`
+	- `constants/{open: false}` Where non-logic hard-coded values live
+		- `theme.ts`
+		- `index.ts`
+	- `hooks/{open: false}` Where all non-UI React-specific reusable logic lives
+		- `use-android-permissions.ts`
+		- `index.ts`
+	- `services/{open: false}` Where all I/O code logic lives
+		- `people.ts`
+		- `index.ts`
+	- `types/{open: false}` Where non-JS TypeScript types and interfaces live
+		- `svg.d.ts`
+		- `address.ts`
+		- `index.ts`
+	- `utils/{open: false}` Where non-React JS reusable logic lives
+		- `helpers.ts`
+		- `index.ts`
+	- `views/` Our folder directory to contain views within our app. Also known as "pages", "screens", or "routes"
+		- `homescreen/`
+			- `components/{open: false}` The view-specific components. These must all be presentational components
+				- `homescreen-list/`
+					- `homescreen-list.module.scss`
+					- `homescreen.tsx`
+					- `index.ts`
+			- `homescreen.spec.tsx` The integration test for the `.view.tsx` file
+			- `homescreen.stories.tsx` The optional storybook file for the `.ui.tsx` file
+			- `homescreen.module.scss` The styling for the `.ui.tsx` file
+			- `homescreen.ui.tsx` The presentational component for the view, contains all layout for a view
+			- `homescreen.view.tsx` The "smart" component for the view, contains all network and buisness logic
+			- `index.ts`
+	- `app.tsx` Our component entry point. May contain some providers but not much more
+
+<!-- ::end:filetree -->
+
+> In LRS, all non-source code configuration files, such as `.storybook` or `.eslintrc.json` files must live outside of the `src`
+> folder.
+
+> What's a `storybook`? What should I use for testing? What about my UI components?
+
+#### Don't worry!
+
+Some of you may have already gotten used to React or have knowledge of the same issues I've discussed and addressed, as well as the tools used with LSR. 
+
+***For those who haven't***, now that we've shown the full structure of LSR, let's dive a bit deeper into why it works the way it does.
+
+In the following paragraphs, we'll get to learn more about the tools used in our configuration.
+
+- [**Shared Code with LRS**](#shared-code)
+- [**File-based Routing with LRS**](#filebased-routing)
+- [**What to use with LRS**](#lrs-tools)
+  - Testing:
+    - [**Logic Testing**](#testing-library)
+    - [**Test Runner**](#vitest)
+  - UI:
+    - [**UI Testing**](#storybook)
+    - [**UI Styling**](#styling)
+
+## LRS: Shared Code {#shared-code}
+
+You may notice that in LRS we tend to have many root directories for different purposes. However, it should be noted that these same folders can (and should) exist inside of a given `view` folder as well:
+
+<!-- ::start:filetree -->
+
+- `views/`
+	- `homescreen/`
+		- `components/{open: false}`
+			- `...`
+		- `utils/{open: false}`
+			- `...`
+		- `services/{open: false}`
+			- `...`
+		- `homescreen.ui.tsx`
+		- `homescreen.view.tsx`
+		- `...`
+
+<!-- ::end:filetree -->
+
+This enables you to feature-scope a given set of `utils` and `services`, while keeping the root directory for any `utils`, `services`, `components`, and other tools that are used in more than one screen.
+
+## LRS: File-based Routing {#filebased-routing}
+
+> The idea of `views` seems nice, but I work in [Next.js](https://nextjs.org/)/[TanStack Router](https://tanstack.com/router/latest) where I need to keep my routes in a specific folder - how do I handle that?
+
+Luckily, there's a simple solution: Make your `pages`/`app` directory a shell for the `views` folder:
+
+```tsx
+// app/page.tsx
+import {Homescreen} from "../views/homescreen/homescreen.view";
+
+export default function HomescreenPage() {
+  return <Homescreen/>
+}
+```
+
+That's all you need to add! 😄
+
+# What to use with LRS {#lrs-tools}
+
+Let's explore some of the tools I typically suggest to use alongside LRS. These are libraries that either help you save time or make your development pipeline more efficient.
 
 > **Note:**
->
 > This section is much more opinionated than the rest of the article. While I stand by these suggestions, it's very possible to implement a sufficiently well-structured React app using LRS without these specific tools.
-
-Before we finally dive into the filesystem example, I want to explore some of the tools I typically suggest to use alongside LRS.
 
 ## Logic Testing {#testing-library}
 
@@ -323,7 +441,6 @@ One of his most popular articles, titled ["Write tests. Not too many. Mostly int
 ![Shapes from top to bottom: End to end (triangle), Integration (hexagon), Unit (trapezoid), and Static (trapezoid)](./testing_trophy.jpeg)
 
 Through most of Kent's writings about tests, he typically reaches for a tool called ["Testing Library"](https://testing-library.com/); a suite of tools that enable better integration testing approaches in your frontend projects.
-
 
 It's here that, Kent shows another side of himself as well; a well regarded webdev tooling creator. See, [Kent is the original author of "Testing Library".](https://kentcdodds.com/blog/introducing-the-react-testing-library)
 
@@ -384,7 +501,7 @@ describe("PeopleView", () => {
 })
 ```
 
-This setup enables you to validate actual user bahevior rather than testing implementation details.
+This setup enables you to validate actual user behavior rather than testing implementation details.
 
 > Want to learn more about best testing practices? [See our article for 5 suggestions to write the best tests you can.](https://playfulprogramming.com/posts/five-suggestions-for-simpler-tests)
 
@@ -448,99 +565,6 @@ This can be done with, ideally, [**CSS/SCSS Modules**](https://css-tricks.com/cs
 
 The reason for this is that by splitting it out, you're able to keep files more cleanly organized, small, and composable as-needed.
 
-# Introducing Layered React Structure (LRS) {#lrs}
+# Conclusion
 
-Now that we've gotten our pre-requisites out of the way, let's finally outline what LRS is all about.
-
-Here's an example of LRS in action: 
-
-<!-- ::start:filetree -->
-
-- `src/`
-	- `assets/{open: false}` Where non-code assets, such as images and fonts, live
-		- `logo.png`
-	- `components/` Where "dumb" components go
-		- `button/`
-			- `button.modules.scss`
-			- `button.stories.ts` The storybook file for the component
-			- `button.spec.tsx` The optional unit test file for the component
-			- `button.tsx`
-			- `index.ts`
-		- `input/{open: false}`
-			- `input.modules.scss`
-			- `input.tsx`
-			- `index.ts`
-	- `constants/{open: false}` Where non-logic hard-coded values live
-		- `theme.ts`
-		- `index.ts`
-	- `hooks/{open: false}` Where all non-UI React-specific reusable logic lives
-		- `use-android-permissions.ts`
-		- `index.ts`
-	- `services/{open: false}` Where all I/O code logic lives
-		- `people.ts`
-		- `index.ts`
-	- `types/{open: false}` Where non-JS TypeScript types and interfaces live
-		- `svg.d.ts`
-		- `address.ts`
-		- `index.ts`
-	- `utils/{open: false}` Where non-React JS reusable logic lives
-		- `helpers.ts`
-		- `index.ts`
-	- `views/` Our folder directory to contain views within our app. Also known as "pages", "screens", or "routes"
-		- `homescreen/`
-			- `components/{open: false}` The view-specific components. These must all be presentational components
-				- `homescreen-list/`
-					- `homescreen-list.module.scss`
-					- `homescreen.tsx`
-					- `index.ts`
-			- `homescreen.spec.tsx` The integration test for the `.view.tsx` file
-			- `homescreen.stories.tsx` The optional storybook file for the `.ui.tsx` file
-			- `homescreen.module.scss` The styling for the `.ui.tsx` file
-			- `homescreen.ui.tsx` The presentational component for the view, contains all layout for a view
-			- `homescreen.view.tsx` The "smart" component for the view, contains all network and buisness logic
-			- `index.ts`
-	- `app.tsx` Our component entry point. May contain some providers but not much more
-
-<!-- ::end:filetree -->
-
-> In LRS, all non-source code configuration files, such as `.storybook` or `.eslintrc.json` files must live outside of the `src`
-> folder.
-
-## On Shared Code
-
-You may notice that in LRS we tend to have many root directories for different purposes. However, it should be noted that these same folders can (and should) exist inside of a given `view` folder as well:
-
-<!-- ::start:filetree -->
-
-- `views/`
-	- `homescreen/`
-		- `components/{open: false}`
-			- `...`
-		- `utils/{open: false}`
-			- `...`
-		- `services/{open: false}`
-			- `...`
-		- `homescreen.ui.tsx`
-		- `homescreen.view.tsx`
-		- `...`
-
-<!-- ::end:filetree -->
-
-This enables you to feature-scope a given set of `utils` and `services`, while keeping the root directory for any `utils`, `services`, `components`, and other tools that are used in more than one screen.
-
-## On File-based Routing
-
-> The idea of `views` seems nice, but I work in [Next.js](https://nextjs.org/)/[TanStack Router](https://tanstack.com/router/latest) where I need to keep my routes in a specific folder - how do I handle that?
-
-Luckily, there's a simple solution: Make your `pages`/`app` directory a shell for the `views` folder:
-
-```tsx
-// app/page.tsx
-import {Homescreen} from "../views/homescreen/homescreen.view";
-
-export default function HomescreenPage() {
-  return <Homescreen/>
-}
-```
-
-That's all you need to add! 😄
+<!-- CORBIN NEEDS TO COMPLETE THE ARTICLE!!!! -->
