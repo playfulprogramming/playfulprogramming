@@ -129,7 +129,7 @@ While many versions of the "Smart" vs "Dumb" component arguments have different 
         return <>
         	{/* ... */}
         	<button onClick={() => setIsEditDialogOpen(true)}>Edit</button>
-        	{/* This modal contains buisness logic for editing a user */}
+        	{/* This modal contains business logic for editing a user */}
     	    {isEditDialogOpen && <EditUserDialog user={user}/>}
     	</>
     }
@@ -249,11 +249,11 @@ async function main() {
 
 > Want to learn more about `async`/`await` and promises in JavaScript? [Check out my article on the topic.](/posts/async-and-promises)
 
-One challenge with the introduction of the `async` and `await` API in JavaScript is that you now need to effectively [color-code your functions between asyncronous code and syncronous code.](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)
+One challenge with the introduction of the `async` and `await` API in JavaScript is that you now need to effectively [color-code your functions between asynchronous code and synchronous code.](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)
 
 While the author of the article linked above sees this developer color-coding as a bad thing, I once again lean into the paradigm shift and understand the benefits and downsides of each color of code: sync and async.
 
-After all, while syncronous code _can_ introduce a side-effect like so:
+After all, while synchronous code _can_ introduce a side-effect like so:
 
 ![A pure function is allowed to mutate state from within its local environment, while a side effect changes data outside its own environment](../../collections/framework-field-guide-fundamentals/posts/ffg-fundamentals-side-effects/pure-vs-side-effect.png)
 
@@ -263,11 +263,11 @@ Async functions, on the other hand, are inherently effect-ful; a result of being
 
 > [Learn more about side-effects and their relationship to React in this chapter of my free book.](/posts/ffg-fundamentals-side-effects#whats-a-side-effect)
 
-As such, I find it valuable to make a distinction between our utilities that are syncronous and those which are asyncronous.
+As such, I find it valuable to make a distinction between our utilities that are synchronous and those which are asynchronous.
 
-As a result, I call syncronous utilities **utils** while I call similar asyncronous functions **services**.
+As a result, I call synchronous utilities **utils** while I call similar asynchronous functions **services**.
 
-## Understanding filename sensitivities {#case-sensativity}
+## Understanding filename sensitivities {#case-sensitivity}
 
 Very quickly, let's go over how computers handle files:
 
@@ -285,7 +285,7 @@ The structure of the files - often called a **filesystem** - is established by y
 | macOS   | Apple File System (APFS)          |
 | Linux   | Fourth extended filesystem (EXT4) |
 
-Each of these filesystems come with their own pros and cons, but one distinction between them rises above others for web developers: *filename case sensativity*.
+Each of these filesystems come with their own pros and cons, but one distinction between them rises above others for web developers: *filename case sensitivity*.
 
 Take the following two file names:
 
@@ -300,7 +300,7 @@ While Windows and macOS treat these two files as the same by default, EXT4 - and
 
 This means that on Linux instances you can literally have both of the files exist in the same folder.
 
-> It's worth mentioning that [APFS can be configured to be case-sensitive](https://support.apple.com/lv-lv/guide/disk-utility/dsku19ed921c/mac) and even [modern Windows can enable case-sensativity in some folders through a manual command](https://learn.microsoft.com/en-us/windows/wsl/case-sensitivity).
+> It's worth mentioning that [APFS can be configured to be case-sensitive](https://support.apple.com/lv-lv/guide/disk-utility/dsku19ed921c/mac) and even [modern Windows can enable case-sensitivity in some folders through a manual command](https://learn.microsoft.com/en-us/windows/wsl/case-sensitivity).
 >
 > That said, it's generally understood that most machines will not establish these settings for you out of the box.
 
@@ -456,7 +456,7 @@ While today Testing Library includes adapters for many frameworks, **I suggest u
 
 > **Warning:**
 >
-> While you _can_ test React Hooks independently from your code using [React Hooks Testing Library](https://github.com/testing-library/react-hooks-testing-library), I strongly suggest staying away from it. Not only has maintainance on the project been stiffled, but it encourages bad testing practices for most applications.
+> While you _can_ test React Hooks independently from your code using [React Hooks Testing Library](https://github.com/testing-library/react-hooks-testing-library), I strongly suggest staying away from it. Not only has maintenance on the project been stifled, but it encourages bad testing practices for most applications.
 
 With this, you can write tests that follow user behavior like so:
 
@@ -527,7 +527,7 @@ This doesn't mean that you write all of your UI components from scratch; maybe y
 
 ![A preview of a theme picker for Ant Design](./ant_design_themes.png)
 
-Despite the down-ladden tone I've used in the last two paragraphs, I think this is great news for you! Knowing what will come enables you to prepare for it. Further, having a consistent set of components allows you to document and enforce more consistency in your apps.
+Despite the down-laden tone I've used in the last two paragraphs, I think this is great news for you! Knowing what will come enables you to prepare for it. Further, having a consistent set of components allows you to document and enforce more consistency in your apps.
 
 However, the problem comes when you don't have documentation or a good reference of what UI components are available to you as a developer on the team.
 
