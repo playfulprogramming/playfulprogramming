@@ -273,7 +273,7 @@ Very quickly, let's go over how computers handle files:
 
 When you write a program that needs to read a file, it will call down to your operating system's kernel - a bit of code meant to bridge your machine's hardware and software at the lowest level.
 
-![Hardware integrates into the OS which is made up of a Kernel and Userland](./os_stack.png)
+![Hardware integrates into the OS which is made up of a Kernel and Userland](./os_stack.svg)
 
 This kernel call to write a file will communicate both with your computer's disk drivers and the file structure of the files on the disk.
 
@@ -357,7 +357,7 @@ Here's an example of LRS in action:
 			- `homescreen.stories.tsx` The optional storybook file for the `.ui.tsx` file
 			- `homescreen.module.scss` The styling for the `.ui.tsx` file
 			- `homescreen.ui.tsx` The presentational component for the view, contains all layout for a view
-			- `homescreen.view.tsx` The "smart" component for the view, contains all network and buisness logic
+			- `homescreen.view.tsx` The "smart" component for the view, contains all network and business logic
 			- `index.ts`
 	- `app.tsx` Our component entry point. May contain some providers but not much more
 
