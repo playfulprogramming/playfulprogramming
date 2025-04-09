@@ -7,8 +7,14 @@
     socialImg:
     "/custom-content/collections/web-fundamentals/web_fundamentals_social.png",
     tags: ["css", "design", "html"],
-    published: "2025-03-22",
-    buttons: [{ text: "Read now", url: "/posts/web-fundamentals-html" }]
+    published: "2025-04-16",
+    buttons: [{ text: "Read now", url: "/posts/git-basics" }],
+    chapterList:
+    [{
+      order: 2,
+      title: "Git: Into the Weeds",
+      description: "Coming soon..."
+    }]
 }
 ---
 

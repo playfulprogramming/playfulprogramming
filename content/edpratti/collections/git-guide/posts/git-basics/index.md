@@ -1,8 +1,8 @@
 ---
 {
-	title: "Git Basics",
+	title: "Git: The Basics",
 	description: "In our first chapter, we tackle the most common aspects of git and explain how they work in tandem with one another.",
-	published: "2025-03-22",
+	published: "2025-04-16",
 	tags: ["git"],
 	license: "cc-by-nc-sa-4",
 	order: 1
@@ -607,7 +607,7 @@ There is also another way of merging branches: Rebase.
 Unlike `git merge`, rebasing will not perform a merge commit. Instead, it will simply move all commits from one branch **on top** of another, maintaining only a single branch in the Git history.
 
 > **Future chapters will expand on this!:**
-> We'll learn a lot more about merging and rebase in the following chapters of this collection.
+> We'll learn a lot more about **merging** and **rebase** in the following chapters of this collection.
 > We still have not tackled conflicts and how to resolve them, as well as many other issues you may run into with Git management!
 
 ---
@@ -675,10 +675,10 @@ Our work is just beginning. In our next chapter we'll learn a lot more about Git
 
 As a baseline, this is what you can expect:
 
-- Git Reset
-- Git Revert
+- Git `reset`
+- Git `revert`
+- Git conflicts
 - Cherry-picking
-- Git Conflicts
 - Submodules
 
-<!-- TO-DO -->
+**See you then!**
