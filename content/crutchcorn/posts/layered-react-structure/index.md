@@ -12,7 +12,7 @@
 >
 > When I first started web development, I worked on an Angular 2 project. In Angular there's a [strong, opinionated, and reasonably laid out style guide](https://angular.dev/style-guide) that outlines how you should structure your project. Combined with a list of official tools that built on top of the core, well written Angular apps can feel very consistent from one app to another.
 >
-> Imagine my surprise when my next work project was in React and I learned how there's few official libraries relevant to most app authors and no codified style guide to reference. This feeling never truly left even after a few React projects under my belt so, when I started working on my own (now defunct) multi-year-long application, I was determined to solve this problem.
+> Imagine my surprise when my next work project was in React and I learned how there's few official libraries relevant to most app authors and no codified style guide to reference. This feeling never truly left, even after a few React projects under my belt, so when I started working on my own (now defunct) multi-year-long application, I was determined to solve this problem.
 >
 > This article outlines the solution I came up with after years of experimentation and has been refined after years of production usage after said experimentation.
 
@@ -35,7 +35,7 @@ Before diving into LRS itself, there's a few concepts I want to explain in-depth
 
 ## Defining "Smart" vs "Dumb" Component {#smart-dumb-comps}
 
-Even in React's early days, you may have heard of "Smart" and "Dumb" components. They're so predominant in React's ecosystem in part thank to [this article by Dan Abramov that popularized them back even as far as 2015](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
+Even in React's early days, you may have heard of "Smart" and "Dumb" components. They're so predominant in React's ecosystem in part thanks to [this article by Dan Abramov that popularized them back even as far as 2015](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
 
 > **Other names:**
 >
@@ -569,7 +569,7 @@ The reason for this is that by splitting it out, you're able to keep files more 
 
 I know that many of you will look through this layout and assume that this was trivial knowledge to come up with. After all, after putting this into place I found some alternatives like [Bulletproof React](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md) that outlines similar.
 
-But I didn't start with Bulletproof React or any other baseline - most of this was came up with on-the-fly during rapid prototype implementation after seeing some challenges in other React codebases I'd worked in. It was only through experimentation, trial and error, and experience that I came to the patterns outlined here.
+But I didn't start with Bulletproof React or any other baseline - most of this was come up with on-the-fly during rapid prototype implementation after seeing some challenges in other React codebases I'd worked in. It was only through experimentation, trial and error, and experience that I came to the patterns outlined here.
 
 Despite the long road to a short story, I'm grateful to've thought of this pattern. After all, [Steve Jobs himself said in 1998](https://www.bbc.com/news/world-us-canada-15195448):
 
