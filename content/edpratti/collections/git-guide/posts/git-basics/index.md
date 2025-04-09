@@ -33,7 +33,7 @@ Git will only track changes inside repositories with a valid `.git` folder.
 
 ## Locals and remotes
 
-<img src="./git_add_remote.svg" alt="A diagram of a remote repository and a local repository." style="background-color: var(--background_primary-bright); border: var(--border-width_s) solid var(--background_disabled); border-radius: var(--corner-radius_xl)">
+<img src="./git_local_and_remotes.svg" alt="A diagram of a remote repository and a local repository." style="background-color: var(--background_primary-bright); border: var(--border-width_s) solid var(--background_disabled); border-radius: var(--corner-radius_xl)">
 
 There are two types of repositories — local and remote. A **local** repository is a repository that has not been published online and can only be modified within the machine it is copied onto.
 
@@ -84,7 +84,7 @@ We can add a remote repository with the following commands.
 git remote add origin https://github.com/username/repo.git
 ```
 
-<img src="./git_remote_add.svg" alt="A diagram of a remote repository being created. The graphic says that the remote is currently untracked." style="background-color: var(--background_focus); border: var(--border-width_s) solid var(--background_disabled); border-radius: var(--corner-radius_xl)">
+<img src="./git_add_remote.svg" alt="A diagram of a remote repository being created. The graphic says that the remote is currently untracked." style="background-color: var(--background_primary-bright); border: var(--border-width_s) solid var(--background_disabled); border-radius: var(--corner-radius_xl)">
 
 ```bash
 # Renames the branch from 'master' to 'main'
@@ -96,7 +96,7 @@ git branch -M main
 git push -u origin main
 ```
 
-<img src="./git_push_u.svg" alt="A diagram of a remote repository being created. The graphic says that the remote is currently untracked." style="background-color: var(--background_focus); border: var(--border-width_s) solid var(--background_disabled); border-radius: var(--corner-radius_xl)">
+<img src="./git_link_remote.svg" alt="A diagram of a local and remote being linked together." style="background-color: var(--background_primary-bright); border: var(--border-width_s) solid var(--background_disabled); border-radius: var(--corner-radius_xl)">
 
 ## Cloning a remote repository
 
@@ -272,10 +272,9 @@ To account for this behavior, you may want to only stage elements right before c
 It doesn't have to be! The `git add` command is designed for granular control of changes, but most commonly, we can completely skip this step by adding a `.`.
 
 ```bash
+# Git will stage all file changes
 git add .
 ```
-
-This will stage all file changes.
 
 ## Unstaging files
 
@@ -312,6 +311,18 @@ git ignore filename.ext
 ```
 
 **From this point onwards, that specific file will never be added to staging or a commit unless we manually open the `.gitignore` file in a text editor and remove the specific entry.**
+
+We can also ignore whole folders!
+
+```bash
+git ignore folder-name/
+```
+
+Or ignore a certain file from a certain folder, by specifying both the folder and the filename.
+
+```bash
+git ignore folder-name/filename.ext
+```
 
 And with that out of the way, we can create a commit!
 
@@ -454,7 +465,7 @@ When you perform a `git blame` on our description text, it would wield something
 git blame tagline.txt
 ```
 
-**Ouput:**
+**Output:**
 
 ```bash
 d4e5f6g (Eduardo Pratti    2025-04-05 10:32:45 -0400  1) Practice programming with magically majestic methods
@@ -528,6 +539,8 @@ This is not an exhaustive list, and in a later chapter of this series, we'll lea
 git fetch
 ```
 
+<img src="./git_fetch.svg" alt="A diagram of a fetch, where a remote repository refreshes and displays newer commits in comparison to the local repository." style="background-color: var(--background_primary-bright); border: var(--border-width_s) solid var(--background_disabled); border-radius: var(--corner-radius_xl)" />
+
 The `git fetch` command simply fetches and displays the latest commits from the remote branch that are ahead of your current local branch.
 
 > **Note:**
@@ -547,7 +560,7 @@ git pull
 
 The command `git pull`, like `git fetch`, will also fetch the latest commits from the respective remote branch. 
 
-However, instead of stopping there, it will instantly initiate a `git merge`, effectively downloading and applying newer commits onto your local branch.
+However, instead of stopping there, it will instantly initiate a `git merge`, downloading and applying commits onto your local branch if they're missing from it.
 
 ***This is a very common action, as it's the command you'll use when you want to update your local branch.***
 
@@ -565,9 +578,39 @@ Pushing is the way to publish your changes from the local repository back to the
 
 `git push` will send all of *your commits* — this is important, as it **will not** include staged files — back to the remote repository.
 
-Just like with `git pull`, it will also `git merge` them with the commits already in the remote repository.
+This will not `git merge` your commits to the remote repository, however.
 
-### Collaborating with branches
+# Merge
+
+Like the name implies, `git merge` will try to combine all commits safely, assuming they do not conflict with one another.
+
+```bash
+git merge feature
+```
+
+<img src="./git_merge.svg" alt="A diagram of a merge, where the feature branch is merged with the main." style="background-color: var(--background_primary-bright); border: var(--border-width_s) solid var(--background_disabled); border-radius: var(--corner-radius_xl)" />
+
+Merging will create a **merge commit** like shown in the image above. This will pull and push all changes from both branches into one single commit.
+
+## Fast-forward Merging
+
+<!-- TO-DO -->
+
+---
+
+There is also another way of merging branches: Rebase.
+
+# Rebase
+
+<img src="./git_rebase.svg" alt="A diagram of a rebase, where the feature's commits are moved on top of main." style="background-color: var(--background_primary-bright); border: var(--border-width_s) solid var(--background_disabled); border-radius: var(--corner-radius_xl)" />
+
+Unlike `git merge`, rebasing will not perform a merge commit. Instead, it will simply move all commits from one branch **on top** of another, maintaining only a single branch in the Git history.
+
+> **Future chapters will expand on this!:**
+> We'll learn a lot more about merging and rebase in the following chapters of this collection.
+> We still have not tackled conflicts and how to resolve them, as well as many other issues you may run into with Git management!
+
+---
 
 When collaborating with others, it's important to make sure you're coding safely; in a way that does not force breaking changes to other concurrent modifications.
 
@@ -625,3 +668,17 @@ When creating a pull request from a fork, you're able to choose which repository
 > In terms of operations, fork PRs are essentially the exact same as regular PRs, and have the same limitations.
 
 ---
+
+# What to expect from the next chapter
+
+Our work is just beginning. In our next chapter we'll learn a lot more about Git, but we'll also expand on what we've learned in this one!
+
+As a baseline, this is what you can expect:
+
+- Git Reset
+- Git Revert
+- Cherry-picking
+- Git Conflicts
+- Submodules
+
+<!-- TO-DO -->
