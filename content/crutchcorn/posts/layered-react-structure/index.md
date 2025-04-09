@@ -58,20 +58,20 @@ Without recapping his article entirely, here's the base concept:
 // This is an example of a "smart" component
 function UserTable() {
 	const {data, error, isLoading} = useQuery(/* ... */)
-    
+
     useEffect(() => {
 		if (!error) return;
         logError(error);
     }, [error])
-    
+
     if (isLoading) {
         return <LoadingIndicator/>
     }
-    
+
     if (error) {
 		return <ErrorScreen error={error}/>;
     }
-    
+
     return (
     	/* ... */
     )
@@ -84,7 +84,7 @@ function UserTable() {
 // This is an example of a "dumb" component
 function LoadingIndicator() {
 	return <>
-        <p>Loading...</p>    	
+        <p>Loading...</p>
     	<svg class="spinner">
             {/* ...*/}
         </svg>
@@ -125,7 +125,7 @@ While many versions of the "Smart" vs "Dumb" component arguments have different 
     function UserListItem({user}) {
         /* ... */
         const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-        
+
         return <>
         	{/* ... */}
         	<button onClick={() => setIsEditDialogOpen(true)}>Edit</button>
@@ -133,7 +133,7 @@ While many versions of the "Smart" vs "Dumb" component arguments have different 
     	    {isEditDialogOpen && <EditUserDialog user={user}/>}
     	</>
     }
-    
+
     // Instead, try moving state up to the parent:
     function UserListItem({user, openUserDialog}) {
         /* ... */
@@ -150,15 +150,15 @@ While many versions of the "Smart" vs "Dumb" component arguments have different 
     // DO NOT DO THIS
     function ProfileInformation() {
     	const user = use(UserData);
-        
+
         return <>
         	<p>User's name: {user.name}</p>
         	{/* ... */}
         <>
     }
-    
+
     // Instead, move application developers up and pass them down
-    function ProfileInformation({user}) {    
+    function ProfileInformation({user}) {
         return <>
         	<p>User's name: {user.name}</p>
         	{/* ... */}
@@ -178,29 +178,29 @@ While many versions of the "Smart" vs "Dumb" component arguments have different 
     // DON'T DO THIS
     function ToggleDisplay({displayInfo}) {
       const [open, setOpen] = displayInfo;
-      
+
       // ...
     }
-    
+
     // Your implementation should not be so tied to the parent's data structure
     function App() {
       const displayInfo = useState(false);
       return <ToggleDisplay displayInfo={displayInfo}/>
     }
-    
+
     // ---------------------------------------------------------------------------------
-    
+
     // Instead, pass individual data items to be more modular and less opinionated
-    function ToggleDisplay({open, toggle}) {  
+    function ToggleDisplay({open, toggle}) {
       // ...
     }
-    
+
     // Your implementation should not be so tied to the parent's data structure
     function App() {
       const [open, setOpen] = useState(false);
       return <ToggleDisplay open={open} toggle={() => setOpen(!open)}/>
     }
-    
+
     ```
 
 - "Smart" components _should_ not have any markup and **must** not contain any styling
@@ -212,11 +212,11 @@ While many versions of the "Smart" vs "Dumb" component arguments have different 
       	{/* ... */}
       </div>
     }
-    
+
     // Instead, break out styling to dedicated files
     function App() {
       return <Layout>
-      	{/* ... */} 
+      	{/* ... */}
       </Layout>
     }
     ```
@@ -230,10 +230,10 @@ function main() {
   return sleep(1)
   	.then(() => {
       console.log("One second has passed");
-      return sleep(1);    
+      return sleep(1);
 	  })
   	.then(() => {
-	    console.log("Two seconds have passed");  
+	    console.log("Two seconds have passed");
 	  })
 }
 
@@ -312,7 +312,7 @@ As a result, I strongly suggest that you keep _all_ files **lowercased** and in 
 
 Now that we've gotten the tiny details out of the way, let's finally outline what LRS is all about.
 
-Here's an example of LRS in action: 
+Here's an example of LRS in action:
 
 <!-- ::start:filetree -->
 
@@ -370,7 +370,7 @@ Here's an example of LRS in action:
 
 <p class="text-style-headline-4">Don't worry!</p>
 
-Some of you may have already gotten used to React or have knowledge of the same issues I've discussed and addressed, as well as the tools used with LSR. 
+Some of you may have already gotten used to React or have knowledge of the same issues I've discussed and addressed, as well as the tools used with LSR.
 
 ***For those who haven't***, now that we've shown the full structure of LSR, let's dive a bit deeper into why it works the way it does.
 
