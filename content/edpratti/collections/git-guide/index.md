@@ -3,9 +3,9 @@
     title: "Git: A Guide to Greatness",
     description:
     "Git is a version control system that is used to build the vast majority of software that we use every day. In this collection, we'll learn everything there is to know so you can manage your changes in a clean, organized and efficient way.",
-    coverImg: "/custom-content/collections/web-fundamentals/cover.png",
+    coverImg: "./cover.png",
     socialImg:
-    "/custom-content/collections/web-fundamentals/web_fundamentals_social.png",
+    "/custom-content/collections/git_guide/git_guide_cover.png",
     tags: ["css", "design", "html"],
     published: "2025-04-16",
     buttons: [{ text: "Read now", url: "/posts/git-basics" }],
