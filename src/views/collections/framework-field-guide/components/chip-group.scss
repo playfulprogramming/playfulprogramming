@@ -1,0 +1,132 @@
+@use "../tokens/utils" as *;
+@use "../tokens/breakpoints.scss" as *;
+
+.chip-group-container {
+	position: relative;
+	margin: 0 auto;
+	width: 100%;
+	max-width: var(--max-width_large);
+}
+
+.tag-list {
+	width: 100%;
+	display: flex;
+	flex-shrink: 0;
+	flex-direction: column;
+	gap: var(--chip-group-gap) 0;
+	position: relative;
+	padding: 1.5rem 0;
+	overflow: hidden;
+	margin: 0;
+	list-style: none;
+}
+
+.tag-list:hover .loop-slider .inner {
+	animation-play-state: paused;
+}
+
+.tag-list:hover .loop-slider .inner {
+	animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tag-list .loop-slider .inner {
+		animation-play-state: paused;
+	}
+}
+
+.tag {
+	color: var(--chip-foreground);
+	background-color: var(--chip-background);
+	border-radius: var(--corner-radius-circular);
+	padding: var(--chip-ver-padding) var(--chip-hor-padding);
+	/* Must used margin-right instead of gap for the loop to be smooth */
+	margin-right: var(--chip-group-gap);
+	white-space: nowrap;
+	/* Animations */
+	transition:
+		background-color var(--color-transition-time) var(--color-transition-ease),
+		color var(--color-transition-time) var(--color-transition-ease);
+	will-change: background-color, color;
+}
+
+.fade {
+	pointer-events: none;
+	background: var(--section-background);
+	mask-image: linear-gradient(
+		90deg,
+		black,
+		transparent 30%,
+		transparent 70%,
+		black
+	);
+	-webkit-mask-image: linear-gradient(
+		90deg,
+		black,
+		transparent 30%,
+		transparent 70%,
+		black
+	);
+	position: absolute;
+	inset: -1px;
+	/* Animations */
+	transition: background var(--color-transition-time)
+		var(--color-transition-ease);
+	will-change: background;
+}
+
+.chip-group-pause-button-container {
+	position: absolute;
+	right: var(--section-hor-padding);
+	bottom: 0;
+	padding: 0 !important;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 56px;
+	width: 56px;
+	background: var(
+		--chip-group-pause-button-color,
+		var(--btn-background_filled)
+	);
+
+	.pause,
+	.play {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	svg {
+		width: auto;
+		height: 24px;
+		fill: currentColor;
+	}
+
+	@include from($tablet) {
+		height: 72px;
+		width: 72px;
+
+		svg {
+			height: 36px;
+		}
+	}
+}
+
+.chip-group-pause-button-container .play {
+	display: none;
+}
+
+.chip-group-container[data-paused="true"] {
+	.tag-list .loop-slider .inner {
+		animation-play-state: paused;
+	}
+
+	.chip-group-pause-button-container .play {
+		display: flex;
+	}
+
+	.chip-group-pause-button-container .pause {
+		display: none;
+	}
+}

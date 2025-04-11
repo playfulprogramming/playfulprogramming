@@ -100,27 +100,25 @@ table:has(tr:nth-child(4)) thead {
 	box-shadow: inset 100vw 100vh 0 var(--table_background-color);
 }
 
-thead {
+th {
 	@extend .text-style-body-medium-bold;
 	color: var(--table_header_label-color);
 
-	th {
-		padding: var(--table_header_padding);
-		text-align: left;
+	padding: var(--table_header_padding);
+	text-align: left;
 
-		position: relative;
+	position: relative;
 
-		&:not(:last-child)::after {
-			content: "";
-			display: block;
-			position: absolute;
-			top: 50%;
-			right: 0;
-			background-color: var(--table_header_divider_color);
-			width: 1px;
-			height: var(--p_medium_line-height);
-			transform: translateY(-50%);
-		}
+	&:not(:last-child)::after {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 50%;
+		right: 0;
+		background-color: var(--table_header_divider_color);
+		width: 1px;
+		height: var(--p_medium_line-height);
+		transform: translateY(-50%);
 	}
 }
 

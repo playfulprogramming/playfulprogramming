@@ -1,0 +1,60 @@
+---
+import BookCoverContainer from "../../framework-field-guide/components/book-cover-container.astro";
+import BookCoverLayer from "../../framework-field-guide/components/book-cover-layer.astro";
+import { Cityscape } from "../cover-layers/cityscape";
+import { Cafe } from "../cover-layers/cafe";
+import { BlindMan } from "../cover-layers/blind-man";
+import SafeArea from "../cover-layers/safe-area.astro";
+import { Floor } from "../cover-layers/floor";
+---
+
+<style is:global>
+	.accessibility-book-cover .background-repeat-layer {
+		grid-template-columns: 1fr auto 1fr !important;
+	}
+</style>
+
+<BookCoverContainer class="accessibility-book-cover">
+	<BookCoverLayer
+		moveOnScrollBy={0.3}
+		name="cityscape"
+		class="background-repeat-layer"
+	>
+		<div slot="left"></div>
+		<div slot="center" style="height: 100%; width: 100vw !important">
+			<Cityscape client:load />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+	<BookCoverLayer name="floor" class="background-repeat-layer">
+		<div slot="left"></div>
+		<div slot="center" style="height: 100%; width: 100vw !important">
+			<Floor client:load />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+	<BookCoverLayer name="left-repeat" class="background-repeat-layer">
+		<div slot="left"></div>
+		<div
+			slot="center"
+			style="max-width: min(var(--max-width_small),100vw,100vh); width: 100vw;"
+		>
+			<SafeArea />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+	<BookCoverLayer name="cafe">
+		<div slot="left"></div>
+		<div slot="center">
+			<Cafe />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+	<BookCoverLayer moveOnScrollBy={-0.1} name="blind-man">
+		<div slot="left"></div>
+		<div slot="center">
+			<BlindMan />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+</BookCoverContainer>

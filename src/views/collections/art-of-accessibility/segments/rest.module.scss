@@ -1,0 +1,8 @@
+.container {
+  background: var(--floor);
+  color: white;
+}
+
+:global(.book-section) {
+  --outline_focused: white;
+}
