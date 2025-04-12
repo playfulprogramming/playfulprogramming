@@ -1,0 +1,25 @@
+---
+import "../../framework-field-guide/components/shared-section-styling.scss";
+import FundamentalsBookCover from "../../framework-field-guide/segments/fundamentals-book-cover.astro";
+import WhatYouNeed from "../components/what-you-need.astro";
+import WhatYoullLearn from "../components/what-youll-learn.astro";
+import CollectionTableOfContents from "../components/collection-table-of-contents-fundamentals.astro";
+import { getPostsByCollection } from "../../../../utils/api";
+
+const chapterList = getPostsByCollection(
+	"framework-field-guide-fundamentals",
+	"en",
+);
+---
+
+<section data-change-color-to="fund">
+	<FundamentalsBookCover />
+
+	<div class="class-book-1">
+		<div class={`book-section`} style="background: var(--section-background);">
+			<WhatYouNeed />
+			<CollectionTableOfContents posts={chapterList} />
+			<WhatYoullLearn />
+		</div>
+	</div>
+</section>

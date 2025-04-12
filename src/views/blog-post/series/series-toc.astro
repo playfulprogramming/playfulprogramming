@@ -1,0 +1,124 @@
+---
+import styles from "./series-toc.module.scss";
+import { PostInfo } from "types/index";
+
+import { Button } from "../../../components";
+import { findActivePost } from "./base";
+import { CollectionInfo } from "types/CollectionInfo";
+import { translate } from "../../../utils";
+import { getShortTitle } from "../../../utils/remove-article-collection-prefix";
+
+interface SeriesTocProps {
+	post: PostInfo;
+	postSeries: PostInfo[];
+	collection?: CollectionInfo;
+}
+
+const { post, postSeries, collection } = Astro.props as SeriesTocProps;
+
+const activePostsMeta = findActivePost(post, postSeries);
+
+const showMoreText = translate(
+	Astro,
+	"action.view_all_chapters",
+	"" + activePostsMeta.length,
+);
+---
+
+<div class={styles.seriesTableOfContent}>
+	<div class={styles.seriesHeader}>
+		{
+			(
+				<h2
+					class={styles.titleContainer}
+					id="series-header"
+					data-no-heading-link
+				>
+					<span class={`text-style-body-medium-bold ${styles.partOfSeries}`}>
+						This article is part of a series:
+					</span>
+					{collection ? (
+						<a
+							class={`text-style-headline-4 ${styles.articleTitle}`}
+							href={`/collections/${collection.upToDateSlug ?? collection.slug}`}
+						>
+							{collection.title}
+						</a>
+					) : (
+						<span class={`text-style-headline-4 ${styles.articleTitle}`}>
+							{post.collection}
+						</span>
+					)}
+				</h2>
+			)
+		}
+	</div>
+	<div class={styles.contentsContainer}>
+		<ol
+			aria-labelledby="series-header"
+			role="list"
+			class={styles.listContainer}
+		>
+			{
+				activePostsMeta.length !== 0 ? (
+					<>
+						{activePostsMeta.map((seriesPost) => (
+							<li
+								class={styles.navigationItemOuter}
+								data-dont-show-initially={!seriesPost.shouldShowInitially}
+							>
+								<a
+									href={`/posts/${seriesPost.slug}`}
+									class={`text-style-body-large-bold ${styles.navigationItem}`}
+									data-is-active={seriesPost.isActive}
+								>
+									Part {seriesPost.order}:{" "}
+									{getShortTitle(seriesPost, collection)}
+								</a>
+							</li>
+						))}
+					</>
+				) : null
+			}
+		</ol>
+		{
+			activePostsMeta.length >= 4 ? (
+				<div class={styles.buttonContainer}>
+					<Button id="toggleAllButton" tag="button">
+						{showMoreText}
+					</Button>
+				</div>
+			) : null
+		}
+	</div>
+</div>
+
+<script
+	define:vars={{
+		showMoreText: showMoreText,
+		showLessText: translate(Astro, "action.view_less_chapters"),
+	}}
+>
+	const showMore = document.querySelector("#toggleAllButton");
+	const showHideChapters = Array.from(
+		document.querySelectorAll("[data-dont-show-initially='true']"),
+	);
+
+	let expanded = false;
+
+	showMore &&
+		showMore.addEventListener("click", () => {
+			if (!expanded) {
+				showHideChapters.forEach((chapter) => {
+					chapter.style.display = "block";
+				});
+				showMore.children[0].innerText = showLessText;
+			} else {
+				showHideChapters.forEach((chapter) => {
+					chapter.style.display = "none";
+				});
+				showMore.children[0].innerText = showMoreText;
+			}
+			expanded = !expanded;
+		});
+</script>

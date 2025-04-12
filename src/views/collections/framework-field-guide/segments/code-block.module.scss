@@ -1,0 +1,17 @@
+.blockContainer {
+	max-width: var(--max-width_small);
+	margin: 0 auto;
+	padding: var(--section-ver-padding) var(--section-hor-padding);
+}
+
+.sectionTitle {
+	text-align: center;
+	margin: 0;
+	color: var(--on-dark-emphasis-high);
+}
+
+.sectionContent {
+	text-align: center;
+	margin: var(--spc-1x) 0 var(--section-gap) 0;
+	color: var(--on-dark-emphasis-medium);
+}

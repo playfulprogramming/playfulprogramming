@@ -1,0 +1,16 @@
+.spaceBottom {
+	margin-bottom: 1rem;
+}
+
+.colorBox {
+	margin-left: 0.5rem;
+	min-height: 25px;
+	min-width: 100px;
+	text-align: center;
+	display: flex;
+	font-weight: bold;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid #3c3c3c;
+	border-radius: 8px;
+}

@@ -1,0 +1,53 @@
+{
+	"links": {
+		"Discord": {
+			"icon": "discord",
+			"url": "https://discord.gg/FMcvc6T"
+		},
+		"X (Twitter)": {
+			"icon": "twitter",
+			"url": "https://x.com/playful_program"
+		},
+		"LinkedIn": {
+			"icon": "linkedin",
+			"url": "https://www.linkedin.com/company/playfulprogramming"
+		},
+		"Mastodon": {
+			"icon": "mastodon",
+			"url": "https://hachyderm.io/@playfulprogramming"
+		},
+		"Bluesky": {
+			"icon": "bluesky",
+			"url": "https://bsky.app/profile/playfulprogramming.com"
+		},
+		"Facebook": {
+			"icon": "facebook",
+			"url": "https://www.facebook.com/Playful-Programming-104838014459905"
+		},
+		"RSS Feed": {
+			"icon": "rss",
+			"url": "/rss.xml"
+		},
+		"Youtube": {
+			"icon": "youtube",
+			"url": "https://www.youtube.com/@playful-programming"
+		}
+	},
+	"sponsors": [
+		{
+			"name": "The Polyglot Developer",
+			"logo": "/sponsors/the-polyglot-developer.svg",
+			"url": "https://www.thepolyglotdeveloper.com/"
+		},
+		{
+			"name": "OceanBit",
+			"logo": "/sponsors/oceanbit.svg",
+			"url": "https://oceanbit.dev/"
+		},
+		{
+			"name": "Orama",
+			"logo": "/sponsors/orama.svg",
+			"url": "https://orama.com/"
+		}
+	]
+}

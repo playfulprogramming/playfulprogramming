@@ -1,0 +1,91 @@
+@use "src/tokens/index" as *;
+
+.banner {
+	display: flex;
+	justify-content: center;
+
+	svg {
+		width: var(--max-width_s);
+		height: auto;
+	}
+}
+
+.aboutBody {
+	max-width: var(--max-width_m);
+	margin: 0 auto;
+
+	padding: var(--site-spacing) 0;
+
+	@include from($tabletLarge) {
+		padding: var(--site-spacing);
+	}
+}
+
+.aboutBody :global(.links) {
+	display: flex;
+	gap: var(--spc-4x);
+	flex-wrap: wrap;
+
+	list-style-type: none;
+	padding: 0;
+}
+
+.aboutBody :global(.sponsors) {
+	display: grid;
+	grid-template-columns: repeat(1, minmax(0, 1fr));
+	gap: var(--spc-4x);
+
+	list-style-type: none;
+	padding: 0;
+
+	@include from($mobile) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	a {
+		display: flex;
+		align-items: center;
+		width: auto;
+		aspect-ratio: 3;
+
+		background-color: #fff;
+		border-radius: var(--corner-radius_m);
+		overflow: clip;
+	}
+
+	img {
+		width: 100%;
+		object-fit: contain;
+	}
+}
+
+.licenses {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--site-spacing);
+	padding: var(--site-spacing) 0;
+
+	list-style-type: none;
+
+	@include from($tabletSmall) {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	@include from($tabletLarge) {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+.peopleContainer {
+	display: grid;
+	grid-template-columns: repeat(1, minmax(0, 1fr));
+	gap: var(--site-spacing);
+
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	@include from($tabletSmall) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}

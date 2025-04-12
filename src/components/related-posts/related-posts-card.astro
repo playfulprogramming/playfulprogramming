@@ -1,0 +1,31 @@
+---
+import style from "./related-posts-card.module.scss";
+import { getHrefContainerProps } from "utils/href-container-script";
+import { PersonInfo } from "../../types/PersonInfo";
+
+interface RelatedPostsCardProps {
+	title: string;
+	slug: string;
+	authors: PersonInfo[];
+}
+
+const { title, slug, authors } = Astro.props as RelatedPostsCardProps;
+---
+
+<li {...getHrefContainerProps(`/posts/${slug}`)} class={style.container}>
+	<a
+		href={`/posts/${slug}`}
+		class={`text-style-body-medium-bold ${style.articleTitle}`}
+		>{title}
+	</a>
+
+	<span class={`text-style-body-small-bold ${style.authorsList}`}>
+		{
+			authors.map((author, i) => (
+				<a href={`/people/${author.id}`} class={style.authorName}>
+					{[author.name, i + 1 < authors.length ? "," : ""]}
+				</a>
+			))
+		}
+	</span>
+</li>

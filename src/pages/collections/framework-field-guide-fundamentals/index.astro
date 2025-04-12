@@ -1,0 +1,56 @@
+---
+import Barebones from "src/layouts/barebones.astro";
+
+import "../../../views/collections/framework-field-guide/fonts/plus-jakarta-sans.css";
+import "../../../views/collections/framework-field-guide/fonts/changa-one.css";
+import "../../../views/collections/framework-field-guide/tokens/adventure.scss";
+import "../../../views/collections/framework-field-guide/tokens/buttons.scss";
+import "../../../views/collections/framework-field-guide/tokens/colors.scss";
+import "../../../views/collections/framework-field-guide/tokens/book-sections.scss";
+import "../../../views/collections/framework-field-guide/tokens/dimensions.scss";
+import "../../../views/collections/framework-field-guide/tokens/text-styles.scss";
+import "../../../views/collections/framework-field-guide/tokens/themes.scss";
+import "../../../views/collections/framework-field-guide/styles/global-ffg.css";
+import "../../../views/collections/framework-field-guide/styles/buttons.css";
+import "../../../views/collections/framework-field-guide/styles/focus.css";
+import "../../../views/collections/framework-field-guide/styles/svg-layers.css";
+import "../../../views/collections/framework-field-guide/tokens/forms.scss";
+import "../../../views/collections/framework-field-guide/tokens/sign-up.scss";
+
+import SEO from "src/components/seo/seo.astro";
+import Header from "src/views/collections/framework-field-guide/segments/header.astro";
+import Hero from "../../../views/collections/framework-field-guide-fundamentals/segments/hero-fundamentals.astro";
+import Fundamentals from "../../../views/collections/framework-field-guide-fundamentals/segments/fundamentals-fundamentals.astro";
+import Ecosystem from "../../../views/collections/framework-field-guide-fundamentals/segments/ecosystem-fundamentals.astro";
+import { getPersonById } from "../../../utils/api";
+---
+
+<Barebones>
+	<SEO
+		slot="head"
+		title={"The Framework Field Guide  - Fundamentals"}
+		description={"A practical and free way to teach Angular, React, and Vue all at once, so you can choose the right tool for the job and learn the underlying concepts in depth."}
+		peopleData={[getPersonById("crutchcorn", "en")]}
+		publishedTime={"2022-12-01T13:45:00.284Z"}
+		type={"book"}
+		shareImage={"/custom-content/collections/framework-field-guide-fundamentals/framework_field_guide_fundamentals_social.png"}
+	/>
+	<Header />
+	<main>
+		<Hero />
+		<Fundamentals />
+		<Ecosystem />
+	</main>
+</Barebones>
+<script>
+	import { enableColorChangeListeners } from "../../../views/collections/framework-field-guide/scripts/color-change-listener";
+	enableColorChangeListeners();
+</script>
+<script>
+	import { enableTabs } from "../../../utils/markdown/components/tabs/tabs-script";
+	enableTabs();
+</script>
+<script>
+	import { enableParallaxScrolling } from "../../../views/collections/framework-field-guide/scripts/parallax-scrolling";
+	enableParallaxScrolling();
+</script>

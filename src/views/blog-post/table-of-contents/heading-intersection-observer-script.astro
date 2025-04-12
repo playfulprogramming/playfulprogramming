@@ -1,0 +1,162 @@
+---
+const { headingsToDisplaySlugs } = Astro.props as {
+	headingsToDisplaySlugs: Array<string>;
+};
+---
+
+<script define:vars={{ headingsToDisplaySlugs }}>
+	window.headingsToDisplaySlugs = headingsToDisplaySlugs;
+</script>
+
+<script>
+	type LinkRef = {
+		li: HTMLLIElement;
+		anchor: HTMLAnchorElement;
+		id: string;
+	};
+
+	window.onload = () => {
+		const prefersReducedMotion = window.matchMedia
+			? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+			: false;
+
+		const tocListRef: HTMLOListElement = document.querySelector("#tocList")!;
+		const tocListContainer = tocListRef.parentElement!.parentElement!;
+
+		const linkRefs: LinkRef[] = [
+			...(document.querySelectorAll(
+				'[data-headingitem="true"]',
+			) as never as HTMLLIElement[]),
+		].map((li) => ({
+			li,
+			anchor: li.firstElementChild as HTMLAnchorElement,
+			id: li.firstElementChild!.getAttribute("href")!.slice(1),
+		}));
+
+		// return whether an element is currently visible within a scrolling container
+		function isVisibleInContainer(
+			container: HTMLElement,
+			child: HTMLElement,
+		): boolean {
+			// child element is above the lowest point of the container...
+			return (
+				container.scrollTop + container.offsetHeight >
+					child.offsetTop + child.offsetHeight &&
+				// child element is below the highest point of the container...
+				container.scrollTop < child.offsetTop
+			);
+		}
+
+		// smooth-scroll to a heading when clicked
+		function handleAnchorClick(e: Event) {
+			e.preventDefault();
+			const anchor = e.target as HTMLAnchorElement;
+			if (!anchor) return;
+			const li = anchor.parentElement as HTMLLIElement;
+			if (!li) return;
+			const href = anchor.getAttribute("href");
+			if (!href) return;
+			const heading = document.getElementById(href.slice(1));
+			if (!heading) return;
+			const isLiVisible = isVisibleInContainer(tocListContainer, li);
+
+			/*
+			This needs to check that both the active and clicked ToC entries
+			are visible within the scroll container before performing a smooth
+			scroll to the clicked heading.
+
+			Otherwise, since the IntersectionObserver receives continual updates
+			during a smooth scroll (which there is no way to detect), the ToC will
+			interrupt the page scroll, since (most) browsers cannot smooth scroll
+			two containers at once.
+			*/
+			const activeLi = tocListContainer.querySelector(
+				".toc-is-active",
+			) as HTMLLIElement;
+			const isActiveVisible =
+				!activeLi || isVisibleInContainer(tocListContainer, activeLi);
+
+			heading?.scrollIntoView({
+				block: "center",
+				// only use smooth scrolling if the heading is currently within the TOC scroll area
+				behavior:
+					prefersReducedMotion || !(activeLi && isActiveVisible && isLiVisible)
+						? "auto"
+						: "smooth",
+			});
+
+			// update the "location.hash" for the selected heading
+			// - must be `replaceState`, as setting `location.hash` directly results in a page scroll
+			window.history.replaceState(null, "", anchor.getAttribute("href"));
+
+			return false;
+		}
+
+		for (const { anchor } of linkRefs) {
+			anchor.addEventListener("click", handleAnchorClick);
+		}
+
+		let activeLinkId: string = linkRefs[0]?.id || "";
+
+		const handleObserver = (entries: any) => {
+			// find the first link that matches a visible heading
+			for (const linkRef of linkRefs) {
+				// find any heading entry that corresponds to the linkRef
+				const entry = entries.find(
+					(entry: any) => entry.target.getAttribute("id") === linkRef.id,
+				);
+
+				// determine if the link should be active
+				if (entry && entry.isIntersecting && entry.intersectionRatio >= 1) {
+					linkRef.li.classList.add("toc-is-active");
+					activeLinkId = linkRef.id;
+
+					// if the selected link is beyond the visible area of the container...
+					if (
+						// the user hasn't requested reduced motion...
+						!prefersReducedMotion &&
+						tocListContainer &&
+						// the link is not currently visible in the container..
+						!isVisibleInContainer(tocListContainer, linkRef.li)
+					) {
+						// ...then scroll to center the link in the container
+						tocListContainer.scrollTo({
+							top: Math.max(
+								0,
+								linkRef.li.offsetTop +
+									linkRef.li.offsetHeight -
+									tocListContainer.offsetHeight / 2,
+							),
+							behavior: "smooth",
+						});
+					}
+					break;
+				}
+			}
+
+			// remove visible class from any links that are *not* the most recently selected heading
+			for (const linkRef of linkRefs) {
+				if (linkRef.id != activeLinkId)
+					linkRef.li.classList.remove("toc-is-active");
+			}
+		};
+
+		const observer = new IntersectionObserver(handleObserver, {
+			rootMargin: "0px",
+			threshold: 1,
+		});
+
+		// use headingsToDisplaySlugs prop to observe all heading elements on the page
+		const headingsEls: HTMLElement[] = (
+			window as any
+		).headingsToDisplaySlugs.map((headingToDisplay: string) => {
+			return document.getElementById(headingToDisplay);
+		});
+
+		headingsEls
+			.filter((a) => a)
+			.forEach((heading) => {
+				observer.observe(heading);
+			});
+	};
+</script>

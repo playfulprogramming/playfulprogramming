@@ -1,0 +1,127 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--collection-card_corner-radius: var(--corner-radius_xl);
+
+	--collection-card_author_padding-top: var(--spc-3x);
+	--collection-card_author_padding-bottom: var(--spc-4x);
+	--collection-card_author_padding-left: var(--spc-5x);
+	--collection-card_author_padding-right: var(--spc-4x);
+	--collection-card_author_gap: var(--spc-2x);
+
+	--collection-card_content_padding-left: var(--spc-4x);
+	--collection-card_content_padding-right: var(--spc-6x);
+	--collection-card_content_padding-top: var(--spc-4x);
+	--collection-card_content_gap: var(--spc-4x);
+	--collection-card_title_padding-bottom: var(--spc-2x);
+	--collection-card_title_max-lines: 3;
+
+	--collection-card_banner_offset: var(--collection-card_content_gap);
+	--collection-card_banner_corner-radius: var(--corner-radius_m);
+
+	--collection-card_background-color: var(--surface_primary_emphasis-none);
+	--collection-card_text-color: var(--foreground_emphasis-high);
+
+	@include from($desktopSmall) {
+		--collection-card_content_padding-top: var(--spc-4x);
+		--collection-card_content_gap: var(--spc-6x);
+	}
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	border-radius: var(--collection-card_corner-radius);
+	background-color: var(--collection-card_background-color);
+	color: var(--collection-card_text-color);
+	margin-top: var(--collection-card_banner_offset);
+}
+
+.coverImg {
+	border-radius: var(--collection-card_banner_corner-radius);
+	box-shadow: var(--shadow_sticker);
+	margin-right: var(--collection-card_content_gap);
+	margin-top: calc(0px - var(--collection-card_banner_offset));
+
+	display: flex;
+	flex-shrink: 0;
+	overflow: hidden;
+	align-self: flex-start;
+
+	&:where(img),
+	& img {
+		object-fit: cover;
+	}
+
+	& img {
+		image-rendering: pixelated;
+	}
+}
+
+.topRow {
+	flex-grow: 1;
+	display: flex;
+	margin-left: var(--collection-card_content_padding-left);
+	margin-right: var(--collection-card_content_padding-right);
+
+	& > div {
+		// prevent div from expanding beyond container size due to text overflow
+		min-width: 0;
+	}
+}
+
+.title {
+	margin-top: var(--collection-card_content_padding-top);
+	margin-bottom: var(--collection-card_title_padding-bottom);
+}
+
+.title,
+.description {
+	// prevents text overflow when the container is smaller than a single word (issue #620)
+	// - this otherwise has no effect, since the container can always expand vertically
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.bottomRow {
+	display: flex;
+	gap: var(--collection-card_author_gap);
+	margin-bottom: var(--collection-card_author_padding-bottom);
+	margin-top: var(--collection-card_author_padding-top);
+	margin-right: var(--collection-card_author_padding-right);
+	margin-left: var(--collection-card_author_padding-left);
+
+	& > :global(.button) {
+		align-self: flex-end;
+	}
+}
+
+.authorList {
+	flex-grow: 1;
+	display: flex;
+	gap: var(--collection-card_author_gap);
+	align-items: center;
+}
+
+.authorListItem {
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	gap: var(--collection-card_author_gap);
+	color: var(--collection-card_text-color);
+}
+
+.authorImage {
+	display: flex;
+	img {
+		border-radius: var(--corner-radius_circular);
+		height: var(--icon-size_regular);
+		width: var(--icon-size_regular);
+	}
+}
+
+.forwardIcon,
+.forwardIcon svg {
+	height: 100%;
+	width: 100%;
+}

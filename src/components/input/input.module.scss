@@ -1,0 +1,239 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--form-label_padding: var(--spc-2x);
+	--form-field_padding-horizontal: var(--spc-3x);
+	--form-field_padding-vertical: var(--spc-2x);
+	--form-field_min-height: var(--min-target-size_m);
+
+	--form-field_outline_width: var(--border-width_s);
+	--form-field_outline_width_focused: var(--border-width_m);
+	--form-field_halo_width: var(--border-width_focus);
+
+	--form-label_color: var(--foreground_emphasis-high);
+	--form-label_color_disabled: var(--foreground_disabled);
+
+	--form-field_background: var(--surface_primary_emphasis-none);
+	--form-field_background_hovered: var(--surface_primary_emphasis-low);
+	--form-field_background_focused: var(--background_focus);
+	--form-field_background_error: var(--background_error);
+	--form-field_background_disabled: var(--background_disabled);
+
+	--form-field_outline_color: var(--foreground_disabled);
+	--form-field_outline_color_hovered: var(--foreground_emphasis-medium);
+	--form-field_outline_color_focused: var(--secondary_default);
+	--form-field_outline_color_error: var(--error_default);
+	--form-field_outline_color_disabled: var(--background_disabled);
+
+	--form-field_halo_color: var(--secondary_variant);
+	--form-field_halo_color_error: var(--error_variant);
+}
+
+.input {
+	min-height: var(--form-field_min-height);
+	padding: var(--form-field_padding-vertical)
+		var(--form-field_padding-horizontal);
+	border: var(--form-field_outline_width) solid var(--form-field_outline_color);
+	border-radius: 8px;
+	background: var(--form-field_background);
+	color: var(--foreground_emphasis-high);
+	margin: 0;
+}
+
+.input:hover {
+	border: var(--form-field_outline_width) solid
+		var(--form-field_outline_color_hovered);
+	background: var(--form-field_background_hovered);
+}
+
+.input:focus-within {
+	// keep the border width the same size in all states, to avoid layout shift
+	border: var(--form-field_outline_width) solid
+		var(--form-field_outline_color_focused);
+	// only use outline for the :focus-within state, for visibility in high-contrast themes
+	outline: calc(
+			var(--form-field_outline_width_focused) - var(--form-field_outline_width)
+		)
+		solid var(--form-field_outline_color_focused);
+	box-shadow: 0 0 0
+		calc(
+			var(--form-field_outline_width_focused) - var(
+					--form-field_outline_width
+				) +
+				var(--form-field_halo_width)
+		)
+		var(--form-field_halo_color);
+	background: var(--form-field_background_focused);
+}
+
+.input:disabled,
+.input.disabled {
+	background: var(--form-field_background_disabled);
+	border: var(--form-field_outline_width) solid
+		var(--form-field_outline_color_disabled);
+}
+
+.input::placeholder {
+	color: var(--foreground_disabled);
+}
+
+.input input:-webkit-autofill,
+.input input:-webkit-autofill:hover,
+.input input:-webkit-autofill:focus,
+.input input:-webkit-autofill:active {
+	color: var(--foreground_emphasis-high);
+	caret-color: var(--foreground_emphasis-high);
+	-webkit-text-fill-color: var(--foreground_emphasis-high);
+	-webkit-box-shadow: 0 0 0 var(--form-field_min-height)
+		var(--form-field_background_focused) inset;
+}
+
+.labelContainer {
+	display: flex;
+	flex-direction: column;
+}
+
+.label {
+	color: var(--foreground_emphasis-high);
+	padding: var(--spc-1x) var(--spc-2x) var(--spc-1x) var(--spc-1x);
+}
+
+:root {
+	--search-form-field_padding-right: var(--spc-6x);
+	--search-form-field_padding-vertical: var(--spc-4x);
+
+	--search-form_icon-size: var(--icon-size_regular);
+	--search-form_icon-color: var(--foreground_emphasis-high);
+	--search-form_icon-color_disabled: var(--foreground_disabled);
+
+	--search-form-hint_color: var(--foreground_disabled);
+
+	.searchContainer.dense {
+		--search-form-field_padding-right: var(--spc-4x);
+		--search-form-field_padding-vertical: var(--spc-2x);
+		--search-form_icon-size: var(--icon-size_dense);
+	}
+}
+
+.searchContainer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	flex-wrap: nowrap;
+	padding: 0 !important;
+	position: relative;
+	border-radius: var(--corner-radius_circular);
+}
+
+.searchIconContainer {
+	aspect-ratio: 1 / 1;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+	color: var(--search-form_icon-color);
+	pointer-events: none;
+}
+
+.searchIconContainer > svg {
+	height: var(--search-form_icon-size);
+	width: var(--search-form_icon-size);
+}
+
+.searchInput {
+	all: unset;
+	text-align: left;
+	flex-grow: 1;
+	min-width: 0;
+	border-radius: var(--corner-radius_circular);
+
+	padding-left: max(
+		var(--search-form_icon-size),
+		calc(
+			var(--p_medium_line-height) +
+				calc(var(--search-form-field_padding-vertical) * 2)
+		)
+	);
+	padding-top: var(--search-form-field_padding-vertical);
+	padding-bottom: var(--search-form-field_padding-vertical);
+	padding-right: var(--search-form-field_padding-right);
+
+	// hide default IE search 'clear' button
+	&::-ms-clear,
+	&::-ms-reveal {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+
+	// hide default webkit/chrome search 'clear' button
+	// https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-search-cancel-button
+	&::-webkit-search-decoration,
+	&::-webkit-search-cancel-button,
+	&::-webkit-search-results-button,
+	&::-webkit-search-results-decoration {
+		display: none;
+		-webkit-appearance: none;
+		appearance: none;
+	}
+}
+
+.searchInput::placeholder {
+	color: var(--foreground_disabled);
+}
+
+.searchInput.disableSearchIcon {
+	padding-left: var(--search-form-field_padding-right) !important;
+}
+
+.searchContainer:focus-within .searchInput {
+	padding-right: calc(
+		max(
+			var(--icon-size_regular),
+			calc(
+				var(--p_medium_line-height) +
+					calc(var(--search-form-field_padding-vertical) * 2)
+			)
+		)
+	);
+}
+
+.clearButtonContainer {
+	aspect-ratio: 1 / 1;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	right: 0;
+	top: 0;
+	pointer-events: none;
+}
+
+.searchContainer:focus-within .clearButtonContainer {
+	pointer-events: auto;
+}
+
+.searchContainer .clearButton {
+	display: none;
+	position: absolute;
+}
+
+.searchContainer.dense .clearButton {
+	min-height: calc(100% - var(--spc-2x)) !important;
+	min-width: calc(100% - var(--spc-2x)) !important;
+	padding: 0 !important;
+}
+
+.closeButtonContainer,
+.closeButtonContainer > svg {
+	height: 100%;
+	width: 100%;
+}
+
+.searchContainer:focus-within .clearButton {
+	display: flex;
+}

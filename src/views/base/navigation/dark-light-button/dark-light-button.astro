@@ -1,0 +1,61 @@
+---
+import { Icon } from "astro-icon/components";
+import { Button, IconOnlyButton } from "components/index";
+import { translate } from "utils/translations";
+
+const props = Astro.props as {
+	variant: "iconOnly" | "large";
+	class?: string;
+};
+---
+
+{
+	props.variant === "iconOnly" ? (
+		<IconOnlyButton
+			tag="button"
+			data-theme-toggle
+			aria-pressed="false"
+			aria-label={translate(Astro, "label.dark_mode")}
+			class={props.class}
+		>
+			<Icon
+				name="dark_mode"
+				style="width: 100%; height: 100%;"
+				data-theme-toggle-icon="dark"
+			/>
+			<Icon
+				name="light_mode"
+				style="width: 100%; height: 100%;"
+				data-theme-toggle-icon="light"
+				style="display: none;"
+			/>
+		</IconOnlyButton>
+	) : (
+		<Button
+			tag="button"
+			data-theme-toggle
+			aria-pressed="false"
+			aria-label={translate(Astro, "label.dark_mode")}
+			class={props.class}
+		>
+			<Icon
+				slot="leftIcon"
+				name="dark_mode"
+				style="width: 100%; height: 100%;"
+				data-theme-toggle-icon="dark"
+			/>
+			<Icon
+				slot="leftIcon"
+				name="light_mode"
+				style="width: 100%; height: 100%;"
+				data-theme-toggle-icon="light"
+				style="display: none;"
+			/>
+			{translate(Astro, "action.switch_theme")}
+		</Button>
+	)
+}
+<script>
+	import { themeToggle } from "./theme-toggle";
+	themeToggle();
+</script>

@@ -1,0 +1,142 @@
+---
+import styles from "./what-youll-learn.module.scss";
+---
+
+<section class={styles.sectionContainer}>
+	<h2 class={`book-bio text-style-headline-1 ${styles.sectionTitle}`}>
+		What you'll learn
+	</h2>
+
+	<ul class={`${styles.stepCardContainer}`}>
+		<li class={`${styles.stepCard}`}>
+			<h2 class={`text-style-headline-5 ${styles.cardTitle}`}>
+				<span class={`text-style-headline-2 ${styles.cardNumber}`}>1</span>
+				Write your first components
+			</h2>
+			<p class={`text-style-body-large ${styles.description}`}>
+				Get your introduction to components - learn what they are and why
+				they're useful.
+			</p>
+			<ul class={`${styles.stepCardItems}`}>
+				<li>
+					<a
+						href="/posts/ffg-fundamentals-intro-to-components"
+						class={`${styles.stepCardItemBullet} text-style-button`}
+					>
+						Component Basics
+					</a>
+				</li>
+				<li>
+					<a
+						href="/posts/ffg-fundamentals-dynamic-html"
+						class={`${styles.stepCardItemBullet} text-style-button`}
+					>
+						Dynamic HTML
+					</a>
+				</li>
+				<li>
+					<a
+						href="/posts/ffg-fundamentals-side-effects"
+						class={`${styles.stepCardItemBullet} text-style-button`}
+					>
+						Side Effects
+					</a>
+				</li>
+				<li>
+					<a
+						href="/posts/ffg-fundamentals-derived-values"
+						class={`${styles.stepCardItemBullet} text-style-button`}
+					>
+						Derived values
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class={`${styles.stepCard}`}>
+			<h2 class={`text-style-headline-5 ${styles.cardTitle}`}>
+				<span class={`text-style-headline-2 ${styles.cardNumber}`}>2</span>
+				Create your application's flow
+			</h2>
+			<p class={`text-style-body-large ${styles.description}`}>
+				Polish your application's interactions and improve the user experience.
+			</p>
+			<ul class={`${styles.stepCardItems}`}>
+				<li>
+					<a
+						href="/posts/ffg-fundamentals-passing-children"
+						class={`${styles.stepCardItemBullet} text-style-button`}
+					>
+						Passing Children
+					</a>
+				</li>
+				<li>
+					<a
+						href="/posts/ffg-fundamentals-element-reference"
+						class={`${styles.stepCardItemBullet} text-style-button`}
+					>
+						Element Reference
+					</a>
+				</li>
+				<li>
+					<a
+						href="/posts/ffg-fundamentals-component-reference"
+						class={`${styles.stepCardItemBullet} text-style-button`}
+					>
+						Component Reference
+					</a>
+				</li>
+				<li>
+					<a
+						href="/posts/ffg-fundamentals-error-handling"
+						class={`${styles.stepCardItemBullet} text-style-button`}
+					>
+						Error Handling
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class={`${styles.stepCard}`}>
+			<h2 class={`text-style-headline-5 ${styles.cardTitle}`}>
+				<span class={`text-style-headline-2 ${styles.cardNumber}`}>3</span>
+				Share logic between components
+			</h2>
+			<p class={`text-style-body-large ${styles.description}`}>
+				Sharing code between components unlocks new potential to scale your app.
+			</p>
+			<ul class={`${styles.stepCardItems}`}>
+				<li>
+					<a
+						href="/posts/ffg-fundamentals-dependency-injection"
+						class={`${styles.stepCardItemBullet} text-style-button`}
+					>
+						Dependency Injection
+					</a>
+				</li>
+				<li>
+					<a
+						href="/posts/ffg-fundamentals-shared-component-logic"
+						class={`${styles.stepCardItemBullet} text-style-button`}
+					>
+						Shared Logic
+					</a>
+				</li>
+				<li>
+					<a
+						href="/posts/ffg-fundamentals-directives"
+						class={`${styles.stepCardItemBullet} text-style-button`}
+					>
+						Directives
+					</a>
+				</li>
+				<li>
+					<a
+						href="/posts/ffg-fundamentals-accessing-children"
+						class={`${styles.stepCardItemBullet} text-style-button`}
+					>
+						Accessing Children
+					</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</section>

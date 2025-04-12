@@ -1,0 +1,144 @@
+---
+import { siteMetadata, siteUrl } from "constants/site-config";
+import {
+	getPrefixLanguageFromPath,
+	removePrefixLanguageFromPath,
+} from "utils/translations";
+import Article from "./article.astro";
+import Book from "./book.astro";
+import Locale from "./locale.astro";
+import OpenGraph from "./open-graph.astro";
+import Profile from "./profile.astro";
+import { SEOProps } from "./shared";
+import Twitter from "./twitter.astro";
+
+const {
+	description = "",
+	title,
+	keywords,
+	canonical,
+	type,
+	peopleData,
+	publishedTime,
+	editedTime,
+	isbn,
+	providedLangs,
+	shareImage,
+	noindex,
+} = Astro.props as SEOProps;
+
+const lang = getPrefixLanguageFromPath(Astro.url.pathname);
+const pathName = removePrefixLanguageFromPath(Astro.url.pathname);
+
+const metaDescription = description || siteMetadata.description;
+const metaKeywords = keywords ? keywords.join(",") : siteMetadata.keywords;
+const metaImage = `${siteUrl}${shareImage ?? "/share-banner.png"}`;
+
+const ogType = type ?? "blog";
+
+const socialPerson = peopleData?.find((uni) => uni.socials);
+const uniTwitter =
+	socialPerson && socialPerson.socials && socialPerson.socials.twitter;
+
+const removeTrailingSlash = (str: string) =>
+	str.endsWith("/") ? str.slice(0, -1) : str;
+
+const currentPath = removeTrailingSlash(
+	siteMetadata.siteUrl + (pathName || ""),
+);
+---
+
+<title>
+	{title ? `${title} | ${siteMetadata.title}` : siteMetadata.title}
+</title>
+<>
+	{
+		canonical ? (
+			<link rel="canonical" href={canonical} />
+		) : (
+			<link rel="canonical" href={currentPath} />
+		)
+	}
+</>
+<meta property="name" content={siteMetadata.title} />
+<meta name="description" content={metaDescription} />
+<meta property="keywords" content={metaKeywords} />
+<link
+	rel="preload"
+	href="/fonts/Figtree/Figtree-VariableFont_wght.ttf"
+	as="font"
+	type="font/ttf"
+	crossorigin
+/>
+
+{
+	// If the page is non-indexed, exclude it from any search results with the "robots" tag
+	// https://developers.google.com/search/docs/crawling-indexing/block-indexing
+	noindex ? <meta name="robots" content="noindex, nofollow" /> : null
+}
+
+<Twitter
+	title={title}
+	metaDescription={metaDescription}
+	siteMetadata={siteMetadata}
+	metaImage={metaImage}
+	peopleData={peopleData}
+	uniTwitter={uniTwitter}
+	type={type}
+/>
+<OpenGraph
+	currentPath={currentPath}
+	siteMetadata={siteMetadata}
+	title={title}
+	lang={lang}
+	providedLangs={providedLangs}
+	metaDescription={metaDescription}
+	metaImage={metaImage}
+	ogType={ogType}
+/>
+<Locale
+	providedLangs={providedLangs}
+	siteMetadata={siteMetadata}
+	pathName={pathName}
+/>
+<link
+	rel="alternate"
+	href={`${siteUrl}/atom.xml`}
+	type="application/atom+xml"
+	title={`${siteMetadata.title} | Atom Feed`}
+/>
+<link
+	rel="alternate"
+	href={`${siteUrl}/rss.xml`}
+	type="application/rss+xml"
+	title={`${siteMetadata.title} | RSS Feed`}
+/>
+<link
+	rel="alternate"
+	href={`${siteUrl}/feed.json`}
+	type="application/json"
+	title={`${siteMetadata.title} | JSON Feed`}
+/>
+<>
+	{
+		type === "article" && (
+			<Article
+				keywords={keywords}
+				editedTime={editedTime}
+				publishedTime={publishedTime}
+				peopleData={peopleData}
+			/>
+		)
+	}
+</>
+<>
+	{
+		type === "book" && (
+			<Book publishedTime={publishedTime} peopleData={peopleData} isbn={isbn} />
+		)
+	}
+</>
+<>
+	{type === "profile" && <Profile peopleData={peopleData} />}
+</>
+<slot />

@@ -1,0 +1,44 @@
+---
+import { getMarkdownHtml } from "../../../../utils/markdown";
+import "../../../../styles/shiki.scss";
+import "./code-block.scss";
+import styles from "./code-block.module.scss";
+// `nmd` files are markdown files that can be imported and used as strings
+// Without this, Astro's tranform takes over and the markdown is not accessible, even with `?raw`
+// Will report a bug on this soon enough
+import index from "../code-block/index.nmd?raw";
+import indexPath from "../code-block/index.nmd?url";
+import { VFile } from "vfile";
+import { MarkdownVFile } from "utils/markdown/types";
+
+const vfileData: MarkdownVFile["data"] = {
+	kind: "page",
+	file: "",
+	headingsWithIds: [],
+};
+
+const { html } = await getMarkdownHtml(
+	{
+		kind: "page",
+		file: "",
+	},
+	Promise.resolve(
+		new VFile({
+			value: index,
+			path: new URL(indexPath, "http://localhost").pathname,
+			data: vfileData,
+		}) as MarkdownVFile,
+	),
+);
+---
+
+<section class={styles.blockContainer} aria-labelledby="code-block">
+	<h2 id="code-block" class={`text-style-headline-4 ${styles.sectionTitle}`}>
+		Don't want to learn all three? No problem!
+	</h2>
+	<p class={`text-style-body-large ${styles.sectionContent}`}>
+		You can easily select a single framework and use this series to learn it
+		front-and-back.
+	</p>
+	<div class="darkTheme dark" set:html={html} />
+</section>

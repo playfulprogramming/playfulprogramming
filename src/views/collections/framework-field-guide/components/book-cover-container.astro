@@ -1,0 +1,26 @@
+---
+interface BookCoverContainerProps {
+	class?: string;
+}
+
+const { class: className } = Astro.props as BookCoverContainerProps;
+---
+
+<div class={`bookCoverContainer ${className ? className : ""}`}>
+	<slot />
+</div>
+
+<style>
+	.bookCoverContainer {
+		max-height: min(var(--max-width_small), 100vw);
+		height: 100vh;
+		position: relative;
+		z-index: -1;
+		/* Just to be safe */
+		margin-bottom: -4px;
+		/* Animations */
+		transition: background-color var(--color-transition-time)
+			var(--color-transition-ease);
+		will-change: transition;
+	}
+</style>

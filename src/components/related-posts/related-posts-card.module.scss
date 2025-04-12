@@ -1,0 +1,55 @@
+@use "src/tokens/index" as *;
+
+.container {
+	display: flex;
+	padding: var(--spc-4x);
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--spc-1x);
+	border-radius: var(--corner-radius_m);
+	text-decoration: none;
+	margin: 0;
+
+	@include transition(background-color);
+}
+
+.container:hover {
+	background-color: var(--surface_primary_emphasis-low);
+}
+
+.container:active {
+	background-color: var(--surface_primary_emphasis-low);
+	outline: var(--spc-1x) solid var(--surface_primary_emphasis-high);
+}
+
+@supports selector(:has(*)) {
+	.container:has(:focus-visible) {
+		outline: var(--spc-1x) solid var(--focus-outline_primary);
+		background: var(--background_focus);
+	}
+}
+
+@supports not selector(:has(*)) {
+	.container:focus-within {
+		outline: var(--spc-1x) solid var(--focus-outline_primary);
+		background: var(--background_focus);
+	}
+}
+
+.articleTitle {
+	color: var(--foreground_emphasis-high);
+	text-decoration: none;
+}
+
+.authorsList {
+	color: var(--primary_default);
+}
+
+.authorName {
+	text-decoration: none;
+}
+
+.authorName:hover,
+.authorName:focus {
+	text-decoration: underline;
+}

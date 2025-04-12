@@ -1,0 +1,37 @@
+---
+import { PostInfo } from "../../types";
+import style from "./related-posts.module.scss";
+import RelatedPostsCard from "./related-posts-card.astro";
+import * as api from "utils/api";
+import { getSuggestedArticles } from "utils/get-suggested-articles";
+import { isDefined } from "utils/is-defined";
+
+interface RelatedPostsProps {
+	post: PostInfo;
+	headingId: string;
+}
+
+const { post, headingId } = Astro.props as RelatedPostsProps;
+const suggestedArticles = getSuggestedArticles(post);
+
+function getPostAuthors(post: PostInfo) {
+	return post.authors
+		.map((personId) => api.getPersonById(personId, post.locale))
+		.filter(isDefined);
+}
+---
+
+<h2 id={headingId} class={`text-style-headline-5 ${style.relatedPostsHeader}`}>
+	Related posts
+</h2>
+<ul class={style.suggestedPostList}>
+	{
+		suggestedArticles.map((suggestedPost) => (
+			<RelatedPostsCard
+				title={suggestedPost.title}
+				slug={suggestedPost.slug}
+				authors={getPostAuthors(suggestedPost)}
+			/>
+		))
+	}
+</ul>

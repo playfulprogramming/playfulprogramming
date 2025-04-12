@@ -1,0 +1,40 @@
+---
+import layoutStyles from "../../../../components/layout/layout.module.scss";
+import { Icon } from "astro-icon/components";
+
+/**
+ * The reason this component exists is so that we can avoid importing the DarkMode logic and styles from the FFG page.
+ *
+ * When we add light mode support to this page, we can migrate back to using the normal `Layout` component.
+ */
+---
+
+<header
+	class={layoutStyles.header}
+	style="position: relative;background: transparent;"
+	aria-label={"Toolbar for primary action buttons"}
+>
+	<div class={layoutStyles.headerInsideContainer}>
+		<!-- We cannot put this in a conditional, a bug in Astro preventing us? -->
+		<script>
+			import { backButtonListener } from "../../../../components/layout/backbtn";
+			backButtonListener();
+		</script>
+		<button
+			id="backbtn"
+			class={`${layoutStyles.backBtn} baseBtn`}
+			aria-label="Go back"
+		>
+			<Icon height={36} width={36} name="arrow_left" />
+		</button>
+		<div class={layoutStyles.iconList}>
+			<a
+				href="https://discord.gg/FMcvc6T"
+				class={`${layoutStyles.discordBtn} baseBtn`}
+				aria-label="Join the Discord"
+			>
+				<Icon height={36} width={36} name="discord" />
+			</a>
+		</div>
+	</div>
+</header>

@@ -1,0 +1,33 @@
+---
+import { SEOProps } from "./shared";
+
+type Props = Pick<
+	SEOProps,
+	"editedTime" | "publishedTime" | "keywords" | "peopleData"
+>;
+const { keywords, editedTime, publishedTime, peopleData } =
+	Astro.props as Props;
+const author = peopleData?.map((uni) => uni.name).join(",");
+---
+
+<>
+	{
+		keywords?.length
+			? keywords.map((keyword) => (
+					<meta property="article:tag" content={keyword} />
+				))
+			: null
+	}
+</>
+<meta property="article:section" content="Technology" />
+{author && <meta property="article:author" content={author} />}
+<>
+	{editedTime && <meta property="article:modified_time" content={editedTime} />}
+</>
+<>
+	{
+		publishedTime && (
+			<meta property="article:published_time" content={publishedTime} />
+		)
+	}
+</>

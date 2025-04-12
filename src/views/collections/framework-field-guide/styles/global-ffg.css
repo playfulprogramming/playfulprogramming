@@ -1,0 +1,65 @@
+body {
+	background: var(--backgroundColor);
+	margin: 0;
+	padding: 0;
+}
+
+/* Borrowed from FFG's global styling */
+
+:root {
+	--animSpeed: 200ms;
+	--animStyle: ease-in-out;
+	--darkPrimary: #153e67;
+	--cardRadius: 8px;
+	--cardActiveBackground: #ebf6fc;
+	--cardActiveBoxShadow: 0px 2px 4px rgba(11, 37, 104, 0.27),
+		inset 0px 1px 0px #ffffff;
+}
+
+.baseBtn {
+	cursor: pointer;
+}
+
+.baseBtn,
+.btnLike {
+	appearance: none;
+	text-decoration: none;
+	background: none;
+	border: none;
+	transition:
+		background var(--animSpeed) var(--animStyle),
+		box-shadow var(--animSpeed) var(--animStyle),
+		border-color var(--animSpeed) var(--animStyle),
+		color var(--animStyle) var(--animSpeed);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-shrink: 0;
+	border-radius: var(--cardRadius);
+	font-size: 1rem;
+	padding: 4px 8px;
+	color: var(--darkPrimary);
+}
+
+.baseBtn:hover {
+	background: var(--cardActiveBackground);
+	border-color: transparent;
+	box-shadow: var(--cardActiveBoxShadow);
+	color: var(--btn-background_filled);
+}
+
+.baseBtn svg,
+.btnLike svg {
+	height: 32px;
+	width: 32px;
+	flex-shrink: 0;
+}
+
+.srOnly {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+	clip: rect(1px, 1px, 1px, 1px);
+}

@@ -1,0 +1,133 @@
+@use "src/tokens/index" as *;
+@use "src/styles/text-styles.scss";
+
+:root {
+	--embed_header_padding: var(--spc-4x);
+	--embed_header_gap: var(--spc-2x);
+	--embed_corner-radius: var(--corner-radius_l);
+
+	--embed-iframe_margin: calc(var(--embed_header_padding) / 2);
+	--embed-iframe_corner-radius: calc(
+		var(--embed_corner-radius) - var(--embed-iframe_margin)
+	);
+	--embed-iframe_border-width: var(--border-width_s);
+
+	--embed_background-color: var(--surface_primary_emphasis-none);
+	--embed_favicon_container_size: var(--min-target-size_m);
+	--embed_favicon_container_background-color: var(
+		--surface_primary_emphasis-low
+	);
+	--embed_favicon_icon-size: var(--icon-size_regular);
+	--embed_favicon_icon_color: var(--primary_on-variant);
+	--embed_iframe_background-color: var(--surface_primary_emphasis-low);
+	--embed_iframe_border_color: var(--foreground_disabled);
+
+	@include from($desktopSmall) {
+		--embed_corner-radius: var(--corner-radius_xl);
+	}
+}
+
+.embed {
+	display: flex;
+	flex-direction: column;
+	border-radius: var(--embed_corner-radius);
+	background-color: var(--embed_background-color);
+	margin: var(--site-spacing) 0;
+
+	&__header {
+		display: flex;
+		align-items: center;
+		padding: var(--embed_header_padding);
+		gap: var(--embed_header_gap);
+
+		&__favicon {
+			display: inline-flex;
+			align-items: center;
+			width: var(--embed_favicon_container_size);
+			height: var(--embed_favicon_container_size);
+			flex-shrink: 0;
+			padding: calc(
+				(var(--embed_favicon_container_size) - var(--embed_favicon_icon-size)) /
+					2
+			);
+
+			background-color: var(--embed_favicon_container_background-color);
+			border-radius: 50%;
+
+			& picture,
+			& img {
+				width: var(--embed_favicon_icon-size);
+				height: var(--embed_favicon_icon-size);
+			}
+		}
+
+		&__info {
+			flex: 1;
+			min-width: 0;
+
+			& > p {
+				@extend .text-style-body-medium-bold;
+				margin: 0 !important;
+			}
+
+			& > a {
+				@extend .text-style-body-small-bold;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+
+				display: block;
+			}
+		}
+
+		& .button {
+			.innerText {
+				display: block;
+			}
+
+			@include until($tabletSmall) {
+				// cannot @extend classes in a media query, so the button padding needs to be set manually here
+				padding: var(--btn_regular_padding-vertical);
+
+				.innerText {
+					display: none;
+				}
+			}
+		}
+	}
+
+	&__placeholder {
+		background-color: var(--embed_iframe_background-color);
+		border: var(--embed-iframe_border-width) solid
+			var(--embed_iframe_border_color);
+		border-radius: var(--embed-iframe_corner-radius);
+		margin: var(--embed-iframe_margin);
+
+		position: relative;
+
+		&:not(:first-child) {
+			margin-top: 0;
+		}
+
+		& > .button {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+
+	& > iframe {
+		box-sizing: border-box;
+		display: block;
+		border: var(--embed-iframe_border-width) solid
+			var(--embed_iframe_border_color);
+		border-radius: var(--embed-iframe_corner-radius);
+		margin: var(--embed-iframe_margin);
+		overflow: hidden;
+
+		&:not(:first-child) {
+			margin-top: 0;
+		}
+	}
+}

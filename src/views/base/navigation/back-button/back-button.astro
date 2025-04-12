@@ -1,0 +1,21 @@
+---
+import { Icon } from "astro-icon/components";
+import { IconOnlyButton } from "components/index";
+import { translate } from "utils/translations";
+
+const { class: className } = Astro.props as { class?: string };
+---
+
+<IconOnlyButton
+	tag="button"
+	id="backbtn"
+	class={`${className}`}
+	aria-label={translate(Astro, "action.go_back")}
+>
+	<Icon style="width: 100%; height: 100%;" name="arrow_left" />
+</IconOnlyButton>
+
+<script>
+	import { backButtonListener } from "./back-button";
+	backButtonListener();
+</script>

@@ -1,0 +1,35 @@
+---
+import Document from "../layouts/document.astro";
+import SEO from "components/seo/seo.astro";
+import PageCard from "components/page-card/page-card.astro";
+
+import neutralUnicorn from "../assets/unicorn_neutral.svg";
+import { LargeButton } from "../components";
+
+const locale = "en";
+---
+
+<Document lang={locale}>
+	<SEO title="Confirm Your Email" slot="head" pathName={`/confirm`} />
+
+	<main class="confirmMain">
+		<PageCard
+			imageSrc={neutralUnicorn.src}
+			imageAlt="A slightly smiling Unicorn"
+			title="Just one more thing..."
+			description="Thank you for subscribing. You will need to check your inbox and confirm your subscription."
+		>
+			<LargeButton href="/" slot="button" variant="primary">
+				Go back home
+			</LargeButton>
+		</PageCard>
+	</main>
+</Document>
+
+<style lang="scss">
+	.confirmMain {
+		display: flex;
+		padding: var(--site-spacing);
+		justify-content: center;
+	}
+</style>

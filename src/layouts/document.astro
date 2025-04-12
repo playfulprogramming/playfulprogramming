@@ -1,0 +1,29 @@
+---
+import BlockingThemeChangerScript from "../page-components/layouts/blocking-theme-changer-script.astro";
+import "../global.scss";
+import Barebones from "./barebones.astro";
+import Header from "src/views/base/navigation/header.astro";
+import { getPrefixLanguageFromPath } from "utils/translations";
+
+const lang = getPrefixLanguageFromPath(Astro.url.pathname);
+
+const props = Astro.props as {
+	size: undefined | "l" | "xl";
+};
+---
+
+<Barebones lang={lang}>
+	<slot slot="head" name="head" />
+	<BlockingThemeChangerScript />
+	<Header size={props.size} />
+	<slot />
+	<slot name="post-body" />
+
+	<script>
+		import "src/utils/href-container-script";
+	</script>
+	<script>
+		import { enableStickyScrollListener } from "src/utils/sticky-scroll-script";
+		enableStickyScrollListener();
+	</script>
+</Barebones>

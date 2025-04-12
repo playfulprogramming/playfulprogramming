@@ -1,0 +1,52 @@
+* {
+	font-family: Figtree;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	height: 100vh;
+	background-color: #e5f2ff;
+}
+
+#dog-grid {
+	display: grid;
+	gap: 24px;
+	padding: 24px;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	opacity: 0.5;
+}
+
+.dog-card {
+	display: flex;
+	flex-direction: column;
+	padding: 16px;
+	border-radius: 24px;
+	border: 3px solid #87ceff;
+	transition: width 0.25s ease;
+}
+
+.dog-card > img {
+	aspect-ratio: 1;
+	object-fit: cover;
+	border-radius: 8px;
+	margin-bottom: 16px;
+}
+
+button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 99px;
+	font-weight: 700;
+	background-color: rgba(200, 230, 255, 1);
+	transition: width 0.25s ease;
+}
+
+button:hover {
+	transition-duration: 0.1s;
+	background-color: rgba(135, 206, 255, 1);
+}

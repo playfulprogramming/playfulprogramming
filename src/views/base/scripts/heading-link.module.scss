@@ -1,0 +1,178 @@
+@use "src/tokens/index" as *;
+@use "src/styles/text-styles";
+
+:root {
+	--heading-link_padding-vertical: calc(var(--spc-1x) / 2);
+	--heading-link_padding-start: var(--spc-2x);
+	--heading-link_padding-end: var(--spc-3x);
+	--heading-link_gap: var(--spc-1x);
+
+	--heading-link_border-color: var(--secondary_variant);
+	--heading-link_border-color_copied: var(--secondary_default);
+	--heading-link_border-width: 1px;
+
+	--heading-link_background: var(--background_secondary);
+	--heading-link_background_copied: var(--secondary_variant);
+	--heading-link_color: var(--secondary_on-variant);
+
+	--heading-link_icon-color: var(--secondary_default);
+	--heading-link_icon-color_copied: var(--secondary_on-variant);
+
+	--heading-link_outline-color: var(--focus-outline_secondary);
+	--heading-link_outline-width: var(--border-width_focus);
+}
+
+.headingLinkContainer {
+	all: unset;
+	position: absolute;
+	top: 0;
+	left: calc(-1 * var(--heading-link_padding-start));
+
+	transform: translateY(-100%);
+	padding-bottom: var(--spc-1x);
+
+	display: block;
+	outline: 0 !important;
+
+	pointer-events: none;
+}
+
+.headingLink {
+	@extend .text-style-button-regular;
+
+	padding: var(--heading-link_padding-vertical) 0;
+	padding-left: var(--heading-link_padding-start);
+	padding-right: var(--heading-link_padding-end);
+
+	background-color: var(--heading-link_background);
+	color: var(--heading-link_color);
+	text-decoration: none;
+
+	border: var(--heading-link_border-width) solid
+		var(--heading-link_border-color);
+	border-radius: calc(
+		var(--heading-link_border-width) + var(--heading-link_padding-vertical) +
+			var(--icon-size_dense) / 2
+	);
+
+	box-shadow: var(--shadow_sticker);
+
+	@include transition(transform opacity border-color background-color);
+	transform: translateY(50%);
+	opacity: 0;
+
+	span:not([hidden]) {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: var(--heading-link_gap);
+	}
+}
+
+[data-heading-anchor="copied"] .headingLink {
+	border-color: var(--heading-link_border-color_copied);
+	background-color: var(--heading-link_background_copied);
+
+	.icon {
+		color: var(--heading-link_icon-color_copied);
+	}
+}
+
+:global(.heading-linked):hover .headingLinkContainer,
+.headingLinkContainer:hover,
+.headingLinkContainer:focus,
+.headingLinkContainer:focus-visible,
+.headingLinkContainer[data-heading-anchor="copied"] {
+	pointer-events: unset;
+
+	.headingLink {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+// If the heading contains an <a> which is hovered,
+// click will follow the anchor href, so the "Copy link"
+// button should not be displayed
+@supports selector(:has(*)) {
+	:global(.heading-linked):has(a:hover, a:focus-visible) {
+		.headingLink {
+			opacity: 0 !important;
+		}
+	}
+}
+
+.headingLinkContainer:focus-visible .headingLink {
+	outline: var(--heading-link_outline-width) solid
+		var(--heading-link_outline-color);
+}
+
+.icon {
+	color: var(--heading-link_icon-color);
+
+	display: flex;
+	align-items: center;
+
+	padding: var(--icon-size-dense-padding);
+	height: var(--icon-size_dense);
+	width: var(--icon-size_dense);
+
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+:root {
+	--heading_background_focus: var(--background_focus);
+	--heading_background_corner-radius: var(--spc-2x);
+	--heading_background_padding: var(--spc-1x);
+
+	--heading_background_outline-color: var(--focus-outline_secondary);
+	--heading_background_outline-width: var(--border-width_focus);
+}
+
+@supports selector(:has(*)) {
+	:global(.heading-linked):hover,
+	:global(.heading-linked):focus-within,
+	:global(.heading-linked):has(.headingLinkContainer:hover) {
+		// The underline should not be applied if an inner <a> is focused
+		// as clicking will follow the link, not interact with the heading
+		&:not(:has(a:hover, a:focus-visible)) {
+			text-decoration: underline;
+		}
+	}
+
+	:global(.heading-linked):has(.headingLinkContainer:focus-visible) {
+		& > span {
+			border-radius: calc(
+				var(--heading_background_corner-radius) - var(
+						--heading_background_padding
+					)
+			);
+			outline: var(--heading_background_outline-width) solid
+				var(--heading_background_outline-color);
+			outline-offset: var(--heading_background_padding);
+		}
+	}
+}
+
+@supports not selector(:has(*)) {
+	:global(.heading-linked):hover,
+	:global(.heading-linked):focus-within {
+		text-decoration: underline;
+	}
+
+	:global(.heading-linked):focus-within {
+		& > span {
+			border-radius: calc(
+				var(--heading_background_corner-radius) - var(
+						--heading_background_padding
+					)
+			);
+			outline: var(--heading_background_outline-width) solid
+				var(--heading_background_outline-color);
+			outline-offset: var(--heading_background_padding);
+		}
+	}
+}

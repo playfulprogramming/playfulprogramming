@@ -1,0 +1,91 @@
+---
+import BigFilledButton from "../components/big-filled-button.astro";
+import BigOutlinedButton from "../components/big-outlined-button.astro";
+import ChipGroup, { TagList } from "../components/chip-group.astro";
+import SectionMetric from "../components/section-metric.astro";
+import "../components/shared-section-styling.scss";
+import FundamentalsBookCover from "./fundamentals-book-cover.astro";
+
+const tags: TagList = [
+	"What is a component?",
+	"Component relationships",
+	"Lifecycle methods",
+	"Dynamic HTML",
+	"Attribute binding",
+	"Rendering",
+	"Un-rendering",
+	"Prop listening",
+	"Derived values",
+	"Element reference",
+	"Component reference",
+	"Dependency injection",
+	"Custom hooks",
+	"Error handling",
+	"Accessibility (A11Y)",
+	"Forms and data binding",
+	"DOM updating",
+	"React",
+	"Angular",
+	"Vue",
+	"Live updating values",
+	"Inputs",
+	"Outputs",
+	"Event bindings",
+	"Directives",
+	"Portals",
+	"Side effects",
+	"Event bubbling",
+	"Pipes",
+	"Custom hooks",
+] as const;
+---
+
+<section data-change-color-to="fund" aria-labelledby="fundamentals-title">
+	<FundamentalsBookCover />
+	<div class="class-book-1">
+		<div class="book-section" style="background: var(--section-background);">
+			<h2 id="fundamentals-title" class={`text-style-display-1 book-title`}>
+				Fundamentals
+			</h2>
+			<p class={`text-style-headline-4 book-subtitle`}>
+				Learn how to build apps using these frameworks
+			</p>
+			<p class={`text-style-body-large book-bio`}>
+				React, Angular, and Vue have exploded in popularity within the past few
+				years, but to use these frameworks, you need to understand a collection
+				of core concepts and framework-specific syntax.<br /><br />This book
+				introduces these core concepts and prepares you to write original code
+				using these frameworks.
+			</p>
+			<div class="book-ctas">
+				<BigFilledButton href="/collections/framework-field-guide-fundamentals">
+					Read now
+				</BigFilledButton>
+				<BigOutlinedButton
+					href="#your-guide"
+					onclick="event.preventDefault();var title=document.getElementById('why-learn-all-three');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
+				>
+					Learn more
+				</BigOutlinedButton>
+			</div>
+			<div class="section-metrics-main-container" data-no-horiz-pad>
+				<p class="srOnly">This book has:</p>
+				<SectionMetric
+					ariaLabel="95,000 words"
+					numberStr="95K"
+					subtitle="words"
+					asterisk={false}
+				/>
+				<SectionMetric
+					ariaLabel="16 chapters"
+					numberStr="16"
+					subtitle="chapters"
+					asterisk={false}
+				/>
+			</div>
+			<div class="section-chip-group-container" data-no-max-width>
+				<ChipGroup tags={tags} ariaLabel="Subjects taught in Fundamentals" />
+			</div>
+		</div>
+	</div>
+</section>

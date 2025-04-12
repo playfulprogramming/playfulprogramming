@@ -1,0 +1,159 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--header_padding-horizontal: var(--site-spacing);
+	--header_padding-vertical: calc(var(--site-spacing) - var(--spc-2x));
+	--header_logo_size: 48px;
+	--header_logo_gap: var(--spc-1x);
+	--header_logo_padding-end: var(--site-spacing);
+	--header_button-gap: calc(var(--site-spacing) / 2);
+	--header_end-items_max-width: var(--max-width_xxs);
+
+	@include from($desktopSmall) {
+		--header_end-items_max-width: calc(
+			var(--max-width_l) / 2 - var(--site-spacing) * 1.5
+		);
+		--header_logo_size: 56px;
+	}
+}
+
+header {
+	display: contents;
+}
+
+.headerBorder {
+	border-bottom: 1px solid transparent;
+	&[data-sticky="pinned"] {
+		border-bottom: 1px solid var(--background_disabled);
+	}
+	background-color: var(--background_primary);
+	top: 0px;
+	position: sticky;
+	z-index: 2;
+	transition: border-bottom 0.5s ease;
+}
+
+.header {
+	padding: var(--header_padding-vertical) var(--header_padding-horizontal);
+	margin: 0 auto;
+	max-width: var(--max-width_l);
+
+	&_xl {
+		max-width: var(--max-width_xl);
+	}
+}
+
+.backButton {
+	margin-right: var(--header_button-gap);
+
+	@include from($tabletSmall) {
+		display: none !important;
+	}
+}
+
+.logo {
+	text-decoration: none;
+
+	img {
+		width: var(--header_logo_size);
+		height: var(--header_logo_size);
+		filter: var(--shadow_sticker_drop_shadow);
+	}
+
+	span {
+		margin-left: var(--spc-1x);
+		margin-right: var(--header_logo_padding-end);
+		line-height: 125%;
+
+		color: var(--primary_default);
+
+		display: none;
+
+		@include from($tabletSmall) {
+			display: block;
+		}
+	}
+}
+
+.nav {
+	gap: var(--header_button-gap);
+	flex-grow: 1;
+
+	a:global(.button) {
+		background: transparent;
+	}
+
+	display: none;
+
+	@include from($tabletSmall) {
+		display: flex;
+	}
+}
+
+.icons {
+	gap: var(--header_button-gap);
+
+	justify-content: flex-end;
+	flex-grow: 1;
+
+	@include from($tabletSmall) {
+		flex-grow: 0;
+		max-width: var(--header_end-items_max-width);
+	}
+
+	> :global(.button) {
+		flex-shrink: 0;
+	}
+
+	.discordLarge {
+		display: none;
+	}
+
+	.searchLarge {
+		display: none;
+		width: 100vw;
+		min-width: 0;
+	}
+
+	.themeToggleLarge {
+		display: none;
+	}
+
+	@include from($tabletLarge) {
+		.searchSmall {
+			display: none;
+		}
+
+		.searchLarge {
+			display: block;
+		}
+
+		// if the search input is omitted (the discord button is the first child),
+		// then it should be expanded on the $tabletLarge breakpoint
+		.discordLarge:first-child + .discordSmall {
+			display: none;
+		}
+
+		.discordLarge:first-child {
+			display: flex;
+		}
+	}
+
+	@include from($desktopSmall) {
+		.discordSmall {
+			display: none;
+		}
+
+		.discordLarge {
+			display: flex;
+		}
+
+		.themeToggleLarge {
+			display: flex;
+		}
+
+		.themeToggleLarge ~ .themeToggleSmall {
+			display: none;
+		}
+	}
+}

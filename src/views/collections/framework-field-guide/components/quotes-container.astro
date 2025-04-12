@@ -1,0 +1,73 @@
+---
+import styles from "./quotes-container.module.scss";
+---
+
+<div class={styles.quotesAndButtonsContainer}>
+	<div
+		id="quotes-hidden-overflow-container"
+		style={{ height: "900px", overflow: "hidden" }}
+	>
+		<ul class={styles.quotesContainer}>
+			<slot />
+		</ul>
+	</div>
+	<div class={styles.showMoreLessContainer}>
+		<div class={styles.fullHeightSizer}>
+			<button
+				id="show-less-quotes-btn"
+				aria-hidden={true}
+				tabindex={-1}
+				style={{ opacity: 0, zIndex: -1 }}
+				aria-expanded={true}
+				class={`text-style-button ffg-button-base ffg-small-button ffg-filled-button ${styles.showLessButton}`}
+				>Show less</button
+			>
+		</div>
+	</div>
+	<div class={styles.quotesScrim} id="quotes-scrim"></div>
+	<button
+		id="show-more-quotes-btn"
+		style={{ opacity: 1, zIndex: 2 }}
+		aria-expanded={false}
+		class={`text-style-button ffg-button-base ffg-small-button ffg-filled-button ${styles.showMoreButton}`}
+		>Show more</button
+	>
+</div>
+<script>
+	const quotesScrim = document.getElementById("quotes-scrim")!;
+	const quotesContainer = document.getElementById(
+		"quotes-hidden-overflow-container",
+	)!;
+	const showMoreBtn = document.getElementById("show-more-quotes-btn")!;
+	const showLessBtn = document.getElementById("show-less-quotes-btn")!;
+
+	const hideElement = (el: HTMLElement) => {
+		el.style.opacity = "0";
+		el.style.zIndex = "-1";
+		el.ariaHidden = "true";
+		el.tabIndex = -1;
+	};
+
+	const showElement = (el: HTMLElement) => {
+		el.style.opacity = "1";
+		el.style.zIndex = "2";
+		el.ariaHidden = "false";
+		el.tabIndex = 0;
+	};
+
+	showMoreBtn.onclick = () => {
+		quotesContainer.style.height = "unset";
+		hideElement(showMoreBtn);
+		showElement(showLessBtn);
+		quotesScrim.style.display = "none";
+		showLessBtn.focus();
+	};
+
+	showLessBtn.onclick = () => {
+		quotesContainer.style.height = "900px";
+		hideElement(showLessBtn);
+		showElement(showMoreBtn);
+		quotesScrim.style.display = "block";
+		showMoreBtn.focus();
+	};
+</script>

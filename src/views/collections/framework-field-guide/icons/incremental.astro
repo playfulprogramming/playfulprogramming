@@ -1,0 +1,33 @@
+---
+const { class: className, ...props } =
+	Astro.props as astroHTML.JSX.SVGAttributes;
+---
+
+<svg
+	width="24"
+	height="24"
+	viewBox="0 0 24 24"
+	fill="none"
+	xmlns="http://www.w3.org/2000/svg"
+	{...props}
+	class={`${className || ""} nofill`}
+>
+	<path
+		fill-rule="evenodd"
+		clip-rule="evenodd"
+		d="M5 1.5C5 1.22386 5.22386 1 5.5 1H6.5C6.77614 1 7 1.22386 7 1.5V2H13V1.5C13 1.22386 13.2239 1 13.5 1H14.5C14.7761 1 15 1.22386 15 1.5V2H16C16.5523 2 17 2.44772 17 3V8H18V7.5C18 7.22386 18.2239 7 18.5 7H19.5C19.7761 7 20 7.22386 20 7.5V8H21C21.5523 8 22 8.44772 22 9V16H17V22H3V15C3 14.4477 3.44772 14 4 14H5V13.5C5 13.2239 5.22386 13 5.5 13H6.5C6.77614 13 7 13.2239 7 13.5V14H8V10H3V3C3 2.44772 3.44772 2 4 2H5V1.5ZM15 8V4H5V8H15ZM10 10V14H20V10H10ZM15 16V20H5V16H15Z"
+		fill="url(#paint0_linear_431_546)"></path>
+	<defs>
+		<linearGradient
+			id="paint0_linear_431_546"
+			x1="9.57083"
+			y1="22"
+			x2="18.9224"
+			y2="22"
+			gradientUnits="userSpaceOnUse"
+		>
+			<stop stop-color="#FFAA00"></stop>
+			<stop offset="1" stop-color="#FFD500"></stop>
+		</linearGradient>
+	</defs>
+</svg>

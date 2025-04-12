@@ -1,0 +1,123 @@
+---
+import SEO from "src/components/seo/seo.astro";
+import Document from "src/layouts/document.astro";
+import { MarkdownInstance } from "astro";
+import * as api from "utils/api";
+import CollectionPage from "src/views/collections/collection-page.astro";
+import CollectionChapter from "src/views/collections/collection-chapter.astro";
+import { SubHeader } from "src/components/subheader/subheader";
+import { translate } from "utils/translations";
+import { Languages } from "types/index";
+import { getMarkdownHtml } from "utils/markdown";
+
+export async function getStaticPaths() {
+	const collections = api.getAllCollections();
+
+	return collections
+		.filter((collection) => collection.pageLayout !== "none")
+		.map((collection) => {
+			return {
+				params: {
+					locale: collection.locale !== "en" ? collection.locale : undefined,
+					slug: collection.slug,
+				},
+				props: {},
+			};
+		});
+}
+
+interface CollectionProps {
+	Content: MarkdownInstance<never>["Content"];
+}
+
+const { Content } = Astro.props as CollectionProps;
+
+const params = Astro.params as {
+	locale?: Languages;
+	slug: string;
+};
+
+const locale = params.locale || "en";
+const collection = api.getCollectionBySlug(params.slug, locale)!;
+const collectionPosts = api.getPostsByCollection(params.slug, locale);
+const authors = collection.authors.map(
+	(authorId) => api.getPersonById(authorId, locale)!,
+);
+
+const collectionHtml = await getMarkdownHtml(collection);
+---
+
+<Document size="l">
+	<SEO
+		slot="head"
+		title={collection.title}
+		description={collection.description}
+		peopleData={authors}
+		publishedTime={collection.published}
+		type={collection.type}
+		shareImage={collection.socialImg ||
+			collection.coverImgMeta.relativeServerPath}
+		providedLangs={collection.locales}
+	/>
+	<main>
+		<CollectionPage
+			collection={collection}
+			collectionHtml={collectionHtml.html}
+			authors={authors}
+		/>
+		<section class="collection-post-list-container">
+			<div class="collection-post-list">
+				<SubHeader tag="h2" text={translate(Astro, "desc.chapter_listing")} />
+				<ol>
+					{
+						(collectionPosts ?? []).map((post) => {
+							return (
+								<li>
+									<CollectionChapter
+										collection={collection}
+										num={post.order}
+										title={post.title}
+										description={post.description}
+										href={`/posts/${post.slug}`}
+									/>
+								</li>
+							);
+						})
+					}
+					{
+						(collection?.chapterList ?? []).map((post) => {
+							return (
+								<li>
+									<CollectionChapter
+										collection={collection}
+										num={post.order}
+										title={post.title}
+										description={post.description}
+									/>
+								</li>
+							);
+						})
+					}
+				</ol>
+			</div>
+		</section>
+	</main>
+</Document>
+
+<style>
+	.collection-post-list-container {
+		background: var(--surface_primary_emphasis-none);
+	}
+
+	.collection-post-list {
+		max-width: var(--max-width_m);
+		margin: 0 auto;
+		padding: 0 var(--site-spacing) var(--site-spacing);
+	}
+
+	.collection-post-list ol {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+</style>

@@ -1,0 +1,125 @@
+---
+import { FixedArray } from "../../../../types/ArrayLike";
+import InfiniteLoopSlider from "./infinite-loop-slider.astro";
+const random = (min: number, max: number) =>
+	Math.floor(Math.random() * (max - min)) + min;
+const shuffle = <T extends ReadonlyArray<unknown>>(arr: T): T =>
+	[...arr].sort(() => 0.5 - Math.random()) as never as T;
+
+const MAX_DURATION = 56000 * 2;
+const MIN_DURATION = 56000;
+const ROWS = 3;
+const TAGS_PER_ROW = 10;
+
+export type TagList = Readonly<FixedArray<string, 30>>;
+
+interface ChipGroupProps {
+	tags: TagList;
+	ariaLabel: string;
+}
+
+const { tags, ariaLabel } = Astro.props as ChipGroupProps;
+const SHUFFLED_TAGS = shuffle(tags);
+const tagTable = [...new Array(ROWS)].map((_, i) =>
+	SHUFFLED_TAGS.slice(TAGS_PER_ROW * i, TAGS_PER_ROW * (i + 1)),
+);
+---
+
+<div class="chip-group-container">
+	<ul aria-label={ariaLabel} class="srOnly">
+		{tags.map((tag) => <li>{tag}</li>)}
+	</ul>
+	<ul class="tag-list" aria-hidden={true}>
+		{
+			tagTable.map((_, i) => (
+				<InfiniteLoopSlider
+					duration={random(MIN_DURATION, MAX_DURATION)}
+					reverse={i % 2}
+				>
+					{tagTable[i].map((tag) => (
+						<li class="text-style-body-medium-bold tag">{tag}</li>
+					))}
+					{tagTable[i].map((tag) => (
+						<li class="text-style-body-medium-bold tag">{tag}</li>
+					))}
+				</InfiniteLoopSlider>
+			))
+		}
+	</ul>
+	<div class="fade"></div>
+</div>
+<style is:global>
+	.chip-group-container {
+		position: relative;
+		margin: 0 auto;
+		width: 100%;
+		max-width: var(--max-width_large);
+	}
+
+	.tag-list {
+		width: 100%;
+		display: flex;
+		flex-shrink: 0;
+		flex-direction: column;
+		gap: var(--chip-group-gap) 0;
+		position: relative;
+		padding: 1.5rem 0;
+		overflow: hidden;
+		margin: 0;
+		list-style: none;
+	}
+
+	.tag-list:hover .loop-slider .inner {
+		animation-play-state: paused;
+	}
+
+	.tag-list:hover .loop-slider .inner {
+		animation-play-state: paused;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.tag-list .loop-slider .inner {
+			animation-play-state: paused;
+		}
+	}
+
+	.tag {
+		color: var(--chip-foreground);
+		background-color: var(--chip-background);
+		border-radius: var(--corner-radius-circular);
+		padding: var(--chip-ver-padding) var(--chip-hor-padding);
+		/* Must used margin-right instead of gap for the loop to be smooth */
+		margin-right: var(--chip-group-gap);
+		white-space: nowrap;
+		/* Animations */
+		transition:
+			background-color var(--color-transition-time) var(--color-transition-ease),
+			color var(--color-transition-time) var(--color-transition-ease);
+		will-change: background-color, color;
+	}
+
+	.fade {
+		pointer-events: none;
+		background: var(--section-background);
+		mask-image: linear-gradient(
+			90deg,
+			black,
+			transparent 30%,
+			transparent 70%,
+			black
+		);
+		-webkit-mask-image: linear-gradient(
+			90deg,
+			black,
+			transparent 30%,
+			transparent 70%,
+			black
+		);
+		position: absolute;
+		inset: -1px;
+		/* Animations */
+		transition: background var(--color-transition-time)
+			var(--color-transition-ease);
+		will-change: background;
+	}
+</style>

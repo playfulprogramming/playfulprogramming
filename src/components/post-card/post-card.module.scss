@@ -1,0 +1,234 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--card_padding: var(--spc-4x);
+	--card_border-width: var(--border-width_xl);
+	--card_corner-radius: var(--corner-radius_l);
+
+	/* This layout contains
+    the author,
+    ** the date and the word count.
+    */
+	--card_detail-container_gap: var(--spc-1x);
+	--card_detail-container_padding-vertical: var(--spc-2x);
+
+	/* Prominent cards have bigger spacing */
+	--card_detail-container-padding-vertical_prominent: var(--spc-3x);
+
+	/* Items in the details layout */
+	--card_detail-row_gap: var(--spc-1x);
+	--card_detail-row_icon_size: var(--icon-size_dense);
+
+	--card_tags_gap: var(--chip-gap);
+	--card_tags_padding-top: var(--spc-4x);
+
+	--card_border-color: var(--surface_primary_emphasis-low);
+	--card_border-color_hovered: var(--transparent);
+	--card_border-color_pressed: var(--surface_primary_emphasis-high);
+	--card_border-color_focused: var(--focus-outline_primary);
+
+	--card_title_color: var(--foreground_emphasis-high);
+	--card_snippet_color: var(--foreground_emphasis-medium);
+	--card_detail-row_details_color: var(--foreground_emphasis-high);
+	--card_detail-row_icon_color: var(--foreground_disabled);
+	--card_detail-row_dot_color: var(--foreground_disabled);
+
+	--card_background-color: var(--transparent);
+	--card_background-color_hovered: var(--surface_primary_emphasis-low);
+	--card_background-color_pressed: var(--surface_primary_emphasis-low);
+	--card_background-color_focused: var(--background_focus);
+
+	@include from($desktopSmall) {
+		--card_padding: var(--spc-6x);
+		--card_corner-radius: var(--corner-radius_xl);
+
+		--card_detail-container_gap: var(--spc-2x);
+		--card_detail-container_padding-vertical: var(--spc-3x);
+
+		/* Prominent cards have bigger spacing */
+		--card_detail-container_padding-vertical_prominent: var(--spc-4x);
+	}
+}
+
+.postBase {
+	border-radius: var(--card_corner-radius);
+	border: var(--card_border-width) solid var(--card_border-color);
+	background: var(--card_background-color);
+	overflow: hidden;
+
+	@include transition(background-color border-color);
+}
+
+.postBase:hover {
+	border-color: var(--card_border-color_hovered);
+	background: var(--card_background-color_hovered);
+}
+
+.postBase:active {
+	border-color: var(--card_border-color_pressed);
+	background: var(--card_background-color_pressed);
+}
+
+@supports selector(:has(*)) {
+	.postBase:has(:focus-visible) {
+		border-color: var(--card_border-color_focused);
+		background: var(--card_background-color_focused);
+	}
+}
+
+@supports not selector(:has(*)) {
+	.postBase:focus-within {
+		border-color: var(--card_border-color_focused);
+		background: var(--card_background-color_focused);
+	}
+}
+
+.postContainer {
+	padding: var(--card_padding);
+}
+
+.postHeaderBase {
+	color: var(--card_title_color);
+	margin: 0;
+	text-decoration: none;
+}
+
+.postHeaderBase > * {
+	margin: 0;
+}
+
+.postDataContainer {
+	padding: var(--card_detail-container_padding-vertical) 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--card_detail-container_gap);
+}
+
+.authorList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: var(--card_detail-row_gap);
+}
+
+.authorName {
+	margin: 0;
+	text-decoration: none;
+}
+
+.authorName:hover,
+.authorName:focus {
+	text-decoration: underline;
+}
+
+.authorListContainer {
+	display: flex;
+	flex-direction: row;
+	gap: var(--card_detail-row_gap);
+	align-items: center;
+}
+
+.cardIcon {
+	padding: var(--icon-size-dense-padding);
+	color: var(--card_detail-row_icon_color);
+	height: var(--card_detail-row_icon_size);
+	width: var(--card_detail-row_icon_size);
+	flex-shrink: 0;
+}
+
+.cardIcon > svg {
+	height: 100%;
+	width: 100%;
+}
+
+.dateAndWordCount {
+	display: flex;
+	flex-direction: row;
+	gap: var(--card_detail-row_gap);
+	align-items: flex-start;
+	margin: 0;
+}
+
+.publishedDate {
+	margin: 0;
+	color: var(--card_detail-row_details_color);
+}
+
+.separatorDot {
+	margin: 0 var(--card_detail-row_gap);
+	color: var(--card_detail-row_dot_color);
+}
+
+.wordCount {
+	margin: 0;
+	color: var(--card_detail-row_details_color);
+}
+
+.description {
+	margin: 0;
+	color: var(--card_snippet_color);
+}
+
+.cardList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: var(--card_tags_gap);
+	margin-top: var(--card_tags_padding-top);
+}
+
+.spacer {
+	height: 1px;
+	flex-grow: 1;
+}
+
+.extendedPostContainer,
+.regularPostContainer {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+}
+
+.extendedPostImageContainer {
+	height: 1px;
+	min-height: 192px;
+	flex-grow: 1;
+	width: 100%;
+	position: relative;
+	mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1), transparent 100%);
+	-webkit-mask-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		from(rgba(0, 0, 0, 1)),
+		to(transparent)
+	);
+	-webkit-mask-image: linear-gradient(
+		180deg,
+		rgba(0, 0, 0, 1),
+		transparent 100%
+	);
+	mask-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		from(rgba(0, 0, 0, 1)),
+		to(transparent)
+	);
+	mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1), transparent 100%);
+	background-color: var(--primary_variant);
+}
+
+.extendedPostImage {
+	mix-blend-mode: overlay;
+	filter: invert(1);
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}

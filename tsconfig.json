@@ -1,0 +1,35 @@
+{
+	"compilerOptions": {
+		// Enable top-level await, and other modern ESM features.
+		"target": "ESNext",
+		"module": "ESNext",
+		// Enable node-style module resolution, for things like npm package imports.
+		"moduleResolution": "bundler",
+		// Enable JSON imports.
+		"resolveJsonModule": true,
+		// Enable stricter transpilation for better output.
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"strict": true,
+		"noEmit": true,
+		"jsx": "react-jsx",
+		"skipLibCheck": true,
+		"jsxImportSource": "preact",
+		"allowSyntheticDefaultImports": true,
+		"lib": ["DOM"],
+		"baseUrl": ".",
+		"paths": {
+			"constants/*": ["./src/constants/*"],
+			"pfp-constants": ["./src/constants"],
+			"types/*": ["./src/types/*"],
+			"pfp-types": ["./src/types"],
+			"components/*": ["./src/components/*"],
+			"utils/*": ["./src/utils/*"],
+			"pfp-utils": ["./src/utils"],
+			"assets/*": ["./src/assets/*"]
+		},
+		"types": ["@testing-library/jest-dom"]
+	},
+	"include": [".astro/types.d.ts", ".astro/icon.d.ts", "**/*"],
+	"exclude": ["dist", "content"]
+}

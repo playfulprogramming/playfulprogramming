@@ -1,0 +1,6 @@
+content
+content/**
+.ignored_*
+people-profile-pic-map.ts
+generated/
+*.epub

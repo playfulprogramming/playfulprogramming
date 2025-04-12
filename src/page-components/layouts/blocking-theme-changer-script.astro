@@ -1,0 +1,68 @@
+---
+import * as Terser from "terser";
+
+import {
+	COLOR_MODE_STORAGE_KEY,
+	THEME_COLOR_DARK,
+	THEME_COLOR_LIGHT,
+} from "../../constants";
+
+/**
+ * Much of this code deals with dark mode. It's ripped straight from:
+ * @see https://joshwcomeau.com/gatsby/dark-mode/
+ *
+ * Huge thanks to Josh for outlining how to do this
+ */
+/**
+ * DARK MODE CODE
+ *
+ * Prevents the "flash" of light mode
+ */
+/**
+ * Trust me, I know that it looks like we're reading entries from an emoji
+ * but what's really happening is that this function is being converted to a
+ * string, then mutated by "MagicScriptTag" in order to add in dynamic code
+ * into that string. This way, we're able to avoid duplicating
+ */
+function setColorsByTheme() {
+	const mql = window.matchMedia("(prefers-color-scheme: dark)");
+	const prefersDarkFromMQ = mql.matches;
+	const prefersDarkFromLocalStorage = localStorage.getItem(
+		"COLOR_MODE_STORAGE_KEY",
+	);
+
+	let colorMode = "light";
+
+	const hasUsedToggle = typeof prefersDarkFromLocalStorage === "string";
+
+	if (hasUsedToggle) {
+		colorMode = prefersDarkFromLocalStorage;
+	} else {
+		colorMode = prefersDarkFromMQ ? "dark" : "light";
+	}
+
+	let root = document.documentElement;
+
+	// TODO: migrate to `classList`
+	root.className = colorMode;
+
+	// update the meta theme-color attribute(s) based on the user preference
+	const bgColor =
+		colorMode === "light" ? "THEME_COLOR_LIGHT" : "THEME_COLOR_DARK";
+	// this needs to update both meta tags so that it applies regardless of prefers-color-scheme
+	document
+		.querySelectorAll("meta[name='theme-color']")
+		.forEach((el) => el.setAttribute("content", bgColor));
+}
+
+const boundFn = String(setColorsByTheme)
+	.replace("COLOR_MODE_STORAGE_KEY", COLOR_MODE_STORAGE_KEY)
+	.replace("THEME_COLOR_LIGHT", THEME_COLOR_LIGHT)
+	.replace("THEME_COLOR_DARK", THEME_COLOR_DARK);
+
+let calledFunction = `(${boundFn})()`;
+
+calledFunction = (await Terser.minify(calledFunction)).code!;
+---
+
+<script set:html={calledFunction} />

@@ -1,0 +1,270 @@
+@use "src/tokens/index" as *;
+
+// These styles are applied globally because they need to be used outside of the
+// src/components/button.tsx, where the isolated modular CSS isn't possible
+// (e.g. in markdown/remark compilation, for iframe click-to-run elements)
+
+:root {
+	// Large button for Mobile
+	--btn_large_padding-horizontal: var(--spc-4x);
+	--btn_large_padding-vertical: var(--spc-3x);
+	--btn_large_min-height: var(--min-target-size_l);
+	--btn_large_icon_size_default: var(--icon-size_dense);
+	--btn_large_icon_size_padding: var(--icon-size-dense-padding);
+	--btn_large_icon_size_icon-only: var(--icon-size_regular);
+	--btn_large_label_padding-horizontal: var(--spc-2x);
+
+	// Regular button for Mobile
+	--btn_regular_padding-horizontal: var(--spc-3x);
+	--btn_regular_padding-vertical: var(--spc-2x);
+	--btn_regular_min-height: var(--min-target-size_s);
+	--btn_regular_icon_size_default: var(--icon-size_dense);
+	--btn_regular_icon_size_icon-only: var(--icon-size_dense);
+	--btn_regular_icon_size_padding: var(--icon-size-dense-padding);
+	--btn_regular_label_padding-horizontal: var(--spc-1x);
+
+	// Colors: Primary buttons
+	--btn_primary_background-color_default: var(--surface_primary_emphasis-low);
+	--btn_primary_background-color_default_hovered: var(
+		--surface_primary_emphasis-medium
+	);
+	--btn_primary_background-color_default_pressed: var(
+		--surface_primary_emphasis-high
+	);
+	--btn_primary_foreground-color_default: var(--primary_on-variant);
+
+	--btn_primary_background-color_emphasized: var(--primary_high-contrast);
+	--btn_primary_background-color_emphasized_hovered: var(
+		--primary_high-contrast_hovered
+	);
+	--btn_primary_background-color_emphasized_pressed: var(
+		--primary_high-contrast_pressed
+	);
+	--btn_primary_foreground-color_emphasized: var(--background_primary);
+
+	--btn_primary_focus-outline_width: var(--border-width_focus);
+	--btn_primary_focus-outline_gap: var(--border-width_focus);
+	--btn_primary_focus-oultine_color: var(--focus-outline_primary);
+
+	// Colors: Secondary buttons
+	--btn_secondary_background-color_default: var(
+		--surface_secondary_emphasis-low
+	);
+	--btn_secondary_background-color_default_hovered: var(
+		--surface_secondary_emphasis-medium
+	);
+	--btn_secondary_background-color_default_pressed: var(
+		--surface_secondary_emphasis-high
+	);
+	--btn_secondary_foreground-color_default: var(--secondary_on-variant);
+
+	--btn_secondary_background-color_emphasized: var(--secondary_high-contrast);
+	--btn_secondary_background-color_emphasized_hovered: var(
+		--secondary_high-contrast_hovered
+	);
+	--btn_secondary_background-color_emphasized_pressed: var(
+		--secondary_high-contrast_pressed
+	);
+	--btn_secondary_foreground-color_emphasized: var(--background_secondary);
+
+	--btn_secondary_focus-outline_width: var(--border-width_focus);
+	--btn_secondary_focus-outline_gap: var(--border-width_focus);
+	--btn_secondary_focus-oultine_color: var(--focus-outline_secondary);
+
+	// Colors: Disabled buttons
+	--btn_disabled_background-color: var(--background_disabled);
+	--btn_disabled_foreground-color: var(--foreground_disabled);
+
+	@include from($desktopSmall) {
+		// Large button for Desktop
+		--btn_large_padding-horizontal: var(--spc-6x);
+		--btn_large_padding-vertical: var(--spc-4x);
+		--btn_large_min-height: var(--min-target-size_xl);
+		--btn_large_icon_size_default: var(--icon-size_regular);
+		--btn_large_icon_size_icon-only: var(--icon-size_regular);
+		--btn_large_icon_size_padding: 0px;
+		--btn_large_label_padding-horizontal: var(--spc-2x);
+
+		// Regular button for Desktop
+		--btn_regular_padding-horizontal: var(--spc-3x);
+		--btn_regular_padding-vertical: var(--spc-2x);
+		--btn_regular_min-height: var(--min-target-size_m);
+		--btn_regular_icon_size_default: var(--icon-size_dense);
+		--btn_regular_icon_size_icon-only: var(--icon-size_dense);
+		--btn_regular_icon_size_padding: var(--icon-size-dense-padding);
+		--btn_regular_label_padding-horizontal: var(--spc-2x);
+	}
+}
+
+.button {
+	height: fit-content;
+	border-radius: var(--corner-radius_circular);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	white-space: nowrap;
+	text-decoration: none;
+	border: none;
+	cursor: pointer;
+	box-sizing: border-box;
+	outline: none;
+
+	@include transition(color background-color);
+}
+
+.button.regular {
+	padding: var(--btn_regular_padding-vertical)
+		var(--btn_regular_padding-horizontal);
+	min-height: var(--btn_regular_min-height);
+
+	.innerText {
+		padding: 0 var(--btn_regular_label_padding-horizontal);
+	}
+}
+
+.button.large {
+	padding: var(--btn_large_padding-vertical) var(--btn_large_padding-horizontal);
+	min-height: var(--btn_large_min-height);
+
+	.innerText {
+		padding: 0 var(--btn_large_label_padding-horizontal);
+	}
+}
+
+.button.regular.iconOnly {
+	padding: var(--btn_regular_padding-vertical);
+	min-width: var(--btn_regular_min-height);
+
+	.innerText {
+		padding: 0;
+	}
+}
+
+.button.large.iconOnly {
+	padding: var(--btn_large_padding-vertical);
+	min-width: var(--btn_regular_min-height);
+
+	.innerText {
+		padding: 0;
+	}
+}
+
+.buttonIcon svg,
+.iconOnlyButtonIcon svg {
+	width: 100%;
+	height: 100%;
+}
+
+.button.regular .buttonIcon {
+	padding: var(--btn_regular_icon_size_padding);
+	height: var(--btn_regular_icon_size_default);
+	width: var(--btn_regular_icon_size_default);
+}
+
+.button.large .buttonIcon {
+	padding: var(--btn_large_icon_size_padding);
+	height: var(--btn_large_icon_size_default);
+	width: var(--btn_large_icon_size_default);
+}
+
+.button.regular .iconOnlyButtonIcon {
+	padding: var(--btn_regular_icon_size_padding);
+	height: var(--btn_regular_icon_size_icon-only);
+	width: var(--btn_regular_icon_size_icon-only);
+}
+
+.button.large .iconOnlyButtonIcon {
+	padding: var(--btn_large_icon_size_padding);
+	height: var(--btn_large_icon_size_icon-only);
+	width: var(--btn_large_icon_size_icon-only);
+}
+
+.button.primary-emphasized {
+	background-color: var(--btn_primary_background-color_emphasized);
+	color: var(--btn_primary_foreground-color_emphasized);
+
+	&:hover {
+		background-color: var(--btn_primary_background-color_emphasized_hovered);
+	}
+
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
+		outline: var(--btn_primary_focus-outline_width) solid
+			var(--btn_primary_focus-oultine_color);
+		outline-offset: var(--btn_primary_focus-outline_gap);
+	}
+
+	&:active {
+		background-color: var(--btn_primary_background-color_emphasized_pressed);
+	}
+}
+
+.button.secondary-emphasized {
+	background-color: var(--btn_secondary_background-color_emphasized);
+	color: var(--btn_secondary_foreground-color_emphasized);
+
+	&:hover {
+		background-color: var(--btn_secondary_background-color_emphasized_hovered);
+	}
+
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
+		outline: var(--btn_secondary_focus-outline_width) solid
+			var(--btn_secondary_focus-oultine_color);
+		outline-offset: var(--btn_secondary_focus-outline_gap);
+	}
+
+	&:active {
+		background-color: var(--btn_secondary_background-color_emphasized_pressed);
+	}
+}
+
+.button.primary {
+	background-color: var(--btn_primary_background-color_default);
+	color: var(--btn_primary_foreground-color_default);
+
+	&:hover {
+		background-color: var(--btn_primary_background-color_default_hovered);
+	}
+
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
+		outline: var(--btn_primary_focus-outline_width) solid
+			var(--btn_primary_focus-oultine_color);
+		outline-offset: var(--btn_primary_focus-outline_gap);
+	}
+
+	&:active {
+		background-color: var(--btn_primary_background-color_default_pressed);
+	}
+}
+
+.button.secondary {
+	background-color: var(--btn_secondary_background-color_default);
+	color: var(--btn_secondary_foreground-color_default);
+
+	&:hover {
+		background-color: var(--btn_secondary_background-color_default_hovered);
+	}
+
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
+		outline: var(--btn_secondary_focus-outline_width) solid
+			var(--btn_secondary_focus-oultine_color);
+		outline-offset: var(--btn_secondary_focus-outline_gap);
+	}
+
+	&:active {
+		background-color: var(--btn_secondary_background-color_default_pressed);
+	}
+}
+
+.button[disabled],
+.button[aria-disabled="true"]:not([data-not-actually-disabled="true"]) {
+	text-decoration: none;
+	pointer-events: none;
+	background-color: var(--btn_disabled_background-color);
+	color: var(--btn_disabled_foreground-color);
+}

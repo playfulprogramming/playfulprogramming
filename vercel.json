@@ -1,0 +1,56 @@
+{
+	"cleanUrls": true,
+	"redirects": [
+		{
+			"source": "/authors/crutchcorn/",
+			"destination": "/people/crutchcorn",
+			"permanent": true
+		},
+		{
+			"source": "/unicorns/",
+			"destination": "/about",
+			"permanent": false
+		},
+		{
+			"source": "/people/",
+			"destination": "/about",
+			"permanent": false
+		},
+		{
+			"source": "/posts/",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/unicorns/:id",
+			"destination": "/people/:id",
+			"permanent": true
+		},
+		{
+			"source": "/posts/what-is-use-form-state-and-status",
+			"destination": "/posts/what-is-use-action-state-and-form-status",
+			"permanent": true
+		}
+	],
+	"rewrites": [
+		{
+			"source": "/areyoumyuser/js/script.js",
+			"destination": "https://plausible.io/js/script.outbound-links.local.js"
+		},
+		{
+			"source": "/areyoumyuser/api/event",
+			"destination": "https://plausible.io/api/event"
+		}
+	],
+	"headers": [
+		{
+			"source": "/(.*).(ttf|woff2)",
+			"headers": [
+				{
+					"key": "Cache-Control",
+					"value": "public, max-age=31536000, immutable"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,124 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--nav-btn_min-size: var(--min-target-size_m);
+	--nav-btn_corner-radius: var(--corner-radius_s);
+
+	--nav-btn_background-color: var(--surface_primary_emphasis-low);
+	--nav-btn_background-color_hovered: var(--surface_primary_emphasis-medium);
+	--nav-btn_background-color_pressed: var(--surface_primary_emphasis-high);
+	--nav-btn_background-color_focused: var(--background_focus);
+	--nav-btn_background-color_disabled: var(--background_disabled);
+
+	--nav-btn_background-color_selected: var(--primary_default);
+	--nav-btn_background-color_selected_hovered: var(
+		--primary_high-contrast_hovered
+	);
+	--nav-btn_background-color_selected_pressed: var(--primary_high-contrast);
+
+	--nav-btn_foreground-color: var(--foreground_emphasis-high);
+	--nav-btn_foreground-color_selected: var(--primary_on-default);
+	--nav-btn_foreground-color_disabled: var(--foreground_disabled);
+
+	--nav-btn_focus-outline_color: var(--focus-outline_primary);
+	--nav-btn_focus-outline_width: var(--border-width_focus);
+
+	--nav-btn_selected-outline_color: var(--primary_variant);
+	--nav-btn_selected-outline_width: var(--border-width_focus);
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	gap: var(--spc-2x);
+	margin: var(--spc-6x) 0;
+	padding: 0;
+	list-style: none;
+}
+
+.paginationItemExtra {
+	display: none;
+
+	@include from($tabletSmall) {
+		display: block;
+	}
+}
+
+.paginationButton {
+	border: none;
+	text-decoration: none;
+	outline: none;
+
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	min-height: var(--nav-btn_min-size);
+	min-width: var(--nav-btn_min-size);
+	background-color: var(--nav-btn_background-color);
+	color: var(--nav-btn_foreground-color);
+	border-radius: var(--nav-btn_corner-radius);
+
+	@include transition(color background-color);
+}
+
+.paginationButton:hover {
+	background-color: var(--nav-btn_background-color_hovered);
+	color: var(--nav-btn_foreground-color);
+}
+
+.paginationButton:active {
+	background-color: var(--nav-btn_background-color_pressed);
+	color: var(--nav-btn_foreground-color);
+}
+
+.paginationButton.selected {
+	background-color: var(--nav-btn_background-color_selected);
+	color: var(--nav-btn_foreground-color_selected);
+
+	&:hover {
+		background-color: var(--nav-btn_background-color_selected_hovered);
+	}
+
+	&:active {
+		background-color: var(--nav-btn_background-color_selected_pressed);
+	}
+}
+
+// if "extendPageButton" is used, the element must have *both* :focus-visible and [data-focus-visible="true"]
+// - this prevents the focus outline from being shown on click
+.paginationButton:focus-visible:not(
+		.extendPageButton:not([data-focus-visible="true"])
+	) {
+	color: var(--nav-btn_foreground-color);
+	background-color: var(--nav-btn_background-color_focused);
+	outline: solid var(--nav-btn_focus-outline_color)
+		var(--nav-btn_focus-outline_width);
+	outline-offset: calc(
+		-1 * var(--nav-btn_focus-outline_width) + 0.5px
+	); // the "0.5px" here prevents aliasing overlap around the border-radius...
+	box-sizing: border-box;
+}
+
+.paginationButton:disabled,
+.paginationButton[aria-disabled="true"] {
+	background-color: var(--nav-btn_background-color_disabled);
+	color: var(--nav-btn_foreground-color_disabled);
+}
+
+.extendPageButton[aria-expanded="true"] {
+	background-color: var(--nav-btn_background-color_selected);
+	color: var(--nav-btn_foreground-color_selected);
+	outline: solid var(--nav-btn_selected-outline_color)
+		var(--nav-btn_selected-outline_width);
+	outline-offset: calc(
+		-1 * var(--nav-btn_selected-outline_width) + 0.5px
+	); // the "0.5px" here prevents aliasing overlap around the border-radius...
+	box-sizing: border-box;
+}
+
+.paginationIconButton :global(svg) {
+	padding: var(--icon-size-dense-padding);
+	height: var(--icon-size_dense);
+	width: var(--icon-size_dense);
+}

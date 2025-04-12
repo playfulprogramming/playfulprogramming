@@ -1,0 +1,38 @@
+---
+const { class: className, ...props } =
+	Astro.props as astroHTML.JSX.SVGAttributes;
+---
+
+<svg
+	width="24"
+	height="24"
+	viewBox="0 0 24 24"
+	fill="none"
+	xmlns="http://www.w3.org/2000/svg"
+	{...props}
+	class={`${className || ""} nofill`}
+>
+	<g clip-path="url(#clip0_532_1700)">
+		<path
+			fill-rule="evenodd"
+			clip-rule="evenodd"
+			d="M15 2.99843L17 4.99843L15.5 6.49843L16.2929 7.29133L9.29283 14.293C8.90235 14.6835 8.90242 15.3167 9.29299 15.7072C9.68355 16.0977 10.3167 16.0976 10.7072 15.707L17.7071 8.70554L18.5 9.49843L20 7.99843V9.99843L21 10.9984L24 7.99843L23 6.99843H21L22 5.99843L19 2.99842C17.8954 1.89386 16.1046 1.89386 15 2.99843ZM17 13V14V19.5C17 20.3284 16.3284 21 15.5 21H4.5C3.67157 21 3 20.3284 3 19.5V13H0L10 3L13.5 6.5L12.0858 7.91421L10 5.82843L5 10.8284V19H15V15L17 13Z"
+			fill="url(#paint0_linear_532_1700)"></path>
+	</g>
+	<defs>
+		<linearGradient
+			id="paint0_linear_532_1700"
+			x1="8.3"
+			y1="21"
+			x2="20.1125"
+			y2="21"
+			gradientUnits="userSpaceOnUse"
+		>
+			<stop stop-color="#FFAA00"></stop>
+			<stop offset="1" stop-color="#FFD500"></stop>
+		</linearGradient>
+		<clipPath id="clip0_532_1700">
+			<rect width="24" height="24" fill="white"></rect>
+		</clipPath>
+	</defs>
+</svg>

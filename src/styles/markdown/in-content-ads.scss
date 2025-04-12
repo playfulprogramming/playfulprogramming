@@ -1,0 +1,115 @@
+@use "src/tokens/index" as *;
+
+/**
+ * We cannot use the "A D" word in the markup, otherwise it will be blocked by ad blockers.
+ */
+.in-content-banner-container {
+	background: var(--surface_secondary_emphasis-low);
+	border-radius: var(--corner-radius_l);
+	overflow: hidden;
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: 1fr 1fr;
+
+	@include from($tabletSmall) {
+		grid-template-columns: 2fr 1fr;
+		grid-template-rows: auto;
+	}
+
+	@include from($desktopSmall) {
+		border-radius: var(--corner-radius_xl);
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto;
+	}
+}
+
+.in-content-banner-contents {
+	padding: var(--spc-6x);
+	grid-row: 2;
+	grid-column: 1;
+
+	@include from($tabletSmall) {
+		grid-column: 1;
+		grid-row: 1;
+		width: 200%;
+		max-width: var(--max-width_xs);
+	}
+}
+
+.in-content-image-container {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	grid-row: 1;
+	grid-column: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--spc-6x);
+
+	@include from($tabletSmall) {
+		grid-column: 2;
+		grid-row: 1;
+		justify-content: flex-end;
+		padding: 0;
+	}
+}
+
+.in-content-image {
+	height: 152px;
+	z-index: 1;
+
+	@include from($tabletSmall) {
+		min-height: 152px;
+		height: calc(100% - calc(var(--spc-6x) * 2));
+		margin-right: var(--spc-6x);
+	}
+}
+
+.in-content-image-bg {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	mask-image: linear-gradient(
+		0deg,
+		rgba(0, 0, 0, 0) 0%,
+		rgba(0, 0, 0, 0.12) 100%
+	);
+
+	@include from($tabletSmall) {
+		mask-image: linear-gradient(
+			90deg,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 0.12) 100%
+		);
+	}
+}
+
+.in-content-image-inner-bg {
+	height: 200%;
+	width: 150%;
+	background-image: url("/patterns/dots-grid.svg");
+	background-repeat: repeat;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%) rotate(30deg);
+}
+
+.in-content-banner-title {
+	margin: 0 !important;
+	margin-bottom: var(--spc-1x) !important;
+	color: var(--foreground_emphasis-high) !important;
+}
+
+.in-content-banner-description {
+	margin: 0 !important;
+	color: var(--foreground_emphasis-medium) !important;
+	margin-bottom: var(--spc-6x) !important;
+}
+
+.in-content-banner-button {
+	display: inline-flex;
+}

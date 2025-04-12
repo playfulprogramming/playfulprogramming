@@ -1,0 +1,47 @@
+name: Content Suggestion
+description: A suggestion for a new article/post about a technical topic
+title: "[Proposed Post]: "
+labels:
+  - blog post
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        > This is a proposed article to be written (by anyone) for Playful Programming.
+        If this topic seems interesting to you and you'd like to
+        write it, just leave a comment saying so and let us know what we can do
+        to help.
+  - type: input
+    attributes:
+      label: "Proposed topic title:"
+      description: What is the proposed title of the article?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "Topic description:"
+      description: A description of the content you'd like to see written
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: "Link to existing draft:"
+      description: >-
+        This is an optional link to an existing draft if work on this content
+        has already begun,
+  - type: input
+    attributes:
+      label: "Part of series:"
+      description: >-
+        If this article is proposed to be part of a article series, what should
+        said series be called?
+  - type: textarea
+    attributes:
+      label: Resources
+      description: >-
+        Resources used to research this topic for those that might not know
+        already
+  - type: textarea
+    attributes:
+      label: Other Notes
+      description: Anything else you'd like to add about this potential article

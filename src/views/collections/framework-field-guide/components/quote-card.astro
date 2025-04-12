@@ -1,0 +1,45 @@
+---
+import { Picture } from "components/image/picture";
+import styles from "./quote-card.module.scss";
+
+interface Props {
+	avatarSrc: string;
+	quote: string;
+	personLink: string;
+	personTitle: string;
+	personName: string;
+}
+
+const { avatarSrc, quote, personTitle, personName, personLink } =
+	Astro.props as Props;
+---
+
+<li class={styles.quoteCardContainerLi}>
+	<article class={styles.quoteCardContainer} role="group" aria-label="Quote">
+		<blockquote class={`text-style-body-medium ${styles.quoteText}`}>
+			{quote}
+		</blockquote>
+		<div class={styles.personDetailsContainer}>
+			<Picture
+				imgAttrs={{ class: styles.personAvatar }}
+				src={avatarSrc}
+				alt=""
+				width={40}
+				height={40}
+			/>
+			<div class={styles.personTextContainer}>
+				<a
+					href={personLink}
+					class={`text-style-body-small-bold ${styles.personName}`}
+					target="_blank"
+					aria-label={`${personName}, opens a new tab`}
+				>
+					{personName}
+				</a>
+				<p class={`text-style-body-small ${styles.personTitle}`}>
+					{personTitle}
+				</p>
+			</div>
+		</div>
+	</article>
+</li>

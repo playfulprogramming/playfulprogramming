@@ -1,0 +1,167 @@
+---
+import PostTitleHeader from "./post-title-header/post-title-header.astro";
+import TableOfContents from "./table-of-contents/table-of-contents.astro";
+import MailingList from "../../components/mailing-list/mailing-list.astro";
+import TranslationsHeader from "../base/translations/translations-header.astro";
+import BlogPostLayout from "./blog-post-layout/blog-post-layout.astro";
+import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
+import { Icon } from "astro-icon/components";
+
+import type { MarkdownInstance } from "astro";
+import {
+	CollectionInfo,
+	LicenseInfo,
+	PostInfo,
+	PostHeadingInfo,
+	PersonInfo,
+} from "types/index";
+
+import { siteMetadata } from "constants/site-config";
+import "../../styles/shiki.scss";
+import "../../styles/markdown/tabs.scss";
+import "../../styles/markdown/in-content-ads.scss";
+import "../../styles/convertkit.scss";
+import SeriesToC from "./series/series-toc.astro";
+import { ArticleNav } from "./article-nav/article-nav";
+import RelatedPosts from "components/related-posts/related-posts.astro";
+import { LargeButton } from "../../components/button/button";
+
+import styles from "./blog-post.module.scss";
+
+export interface Props {
+	post: PostInfo;
+	postHeadings: PostHeadingInfo[];
+	authors: PersonInfo[];
+	collection?: CollectionInfo;
+	collectionPosts?: PostInfo[];
+	license?: LicenseInfo;
+	postHtml: string;
+}
+
+const {
+	postHtml,
+	post,
+	postHeadings,
+	authors,
+	collection,
+	collectionPosts,
+	license,
+} = Astro.props;
+
+const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${post.path}/index.md`;
+---
+
+<script>
+	import mediumZoom from "medium-zoom";
+
+	mediumZoom(".post-body img:not([data-nozoom])");
+</script>
+<script>
+	import { enableTabs } from "../../utils/markdown/components/tabs/tabs-script";
+	enableTabs();
+</script>
+<script>
+	import { enableShikiTabindex } from "../../utils/markdown/shiki/shiki-tabindex-script";
+	enableShikiTabindex();
+</script>
+<script>
+	import { enableStickyScrollListener } from "../../utils/sticky-scroll-script";
+	enableStickyScrollListener();
+</script>
+<script>
+	import { iFrameClickToRun } from "../../utils/markdown/iframes/iframe-script";
+	iFrameClickToRun();
+</script>
+<script>
+	import { enableSmoothScrollForAnchorsToCurrentPage } from "../../utils/smooth-scroll-for-anchors-to-current-page";
+	enableSmoothScrollForAnchorsToCurrentPage();
+</script>
+<HeadingLinkScript />
+
+<main>
+	<BlogPostLayout hideLeftSidebar={!postHeadings.length}>
+		<PostTitleHeader slot="header" post={post} authors={authors}>
+			{
+				post.collection ? (
+					<SeriesToC
+						post={post}
+						postSeries={collectionPosts}
+						collection={collection}
+					/>
+				) : null
+			}
+			{
+				post.locales && post.locales.length > 1 ? (
+					<TranslationsHeader locales={post.locales} />
+				) : null
+			}
+		</PostTitleHeader>
+		{
+			postHeadings?.length ? (
+				<TableOfContents slot="left" headingsWithId={postHeadings} />
+			) : null
+		}
+		<section
+			class="post-body"
+			data-testid="post-body-div"
+			aria-labelledby="blog-post-contents"
+		>
+			<h2 id="blog-post-contents" class="visually-hidden" data-no-heading-link>
+				Post contents
+			</h2>
+			<div set:html={postHtml} />
+			{
+				collectionPosts?.length ? (
+					<ArticleNav
+						post={post}
+						collection={collection}
+						collectionPosts={collectionPosts}
+					/>
+				) : null
+			}
+		</section>
+		<aside slot="right" aria-labelledby="related-posts-heading">
+			<RelatedPosts post={post} headingId="related-posts-heading" />
+		</aside>
+		<footer role="contentinfo" class={styles.footer}>
+			{
+				license ? (
+					<a
+						aria-label={`Post licensed with ${license.displayName}`}
+						href={license.explainLink}
+						class={styles.licenseImageContainer}
+					>
+						<img
+							class={styles.licenseImage}
+							src={license.footerImg}
+							alt={license.licenceType}
+						/>
+					</a>
+				) : null
+			}
+			<MailingList />
+			<div class={styles.buttonsContainer}>
+				<LargeButton tag="a" href={GHLink} variant="primary">
+					<Icon
+						slot="leftIcon"
+						style="width: 100%; height: 100%;"
+						name="github"
+					/>
+					View this post on GitHub
+				</LargeButton>
+				<LargeButton
+					tag="a"
+					href="https://discord.gg/FMcvc6T"
+					variant="primary-emphasized"
+				>
+					<Icon
+						slot="leftIcon"
+						style="width: 100%; height: 100%;"
+						name="discord"
+					/>
+					Join our Discord server
+				</LargeButton>
+			</div>
+		</footer>
+	</BlogPostLayout>
+</main>

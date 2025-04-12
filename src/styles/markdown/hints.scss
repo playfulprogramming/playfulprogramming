@@ -1,0 +1,143 @@
+@use "src/tokens/index" as *;
+
+:root {
+	// Padding and gap must be consistent to maintain visual balance
+	--hint-container_padding: var(--spc-1x);
+	--hint-container_gap: var(--hint-container-padding);
+
+	--hint-container_corner-radius_collapsed: var(--corner-radius_circular);
+	--hint-container_corner-radius_expanded: var(--corner-radius_m);
+
+	// We calculate the content radius off of two tokens so they update accordingly if any of the values is changed
+	--hint-content_corner-radius: calc(
+		var(--hint-container_corner-radius_expanded) - var(--hint-container_padding)
+	);
+	--hint-content_background-color: var(--background_primary);
+	--hint-content_padding: var(--spc-4x);
+
+	--hint-header_padding-vertical: var(--spc-1x);
+	--hint-header_padding-start: var(--spc-1x);
+	--hint-header_padding-end: var(--spc-3x);
+
+	--hint-header_gap: var(--spc-2x);
+
+	--hint-container_background-color: var(--surface_primary_emphasis-low);
+	--hint-container_background-color_hovered: var(
+		--surface_primary_emphasis-medium
+	);
+	--hint-container_background-color_pressed: var(
+		--surface_primary_emphasis-high
+	);
+	--hint-container_background-color_focused: var(--background_focus);
+
+	--hint-container_foreground-color: var(--foreground_emphasis-high);
+
+	--hint_focus-outline_color: var(--focus-outline_primary);
+	--hint_focus-outline_width: var(--border-width_focus);
+
+	@include from($desktopSmall) {
+		--hint-header_padding-vertical: var(--spc-2x);
+		--hint-header_padding-start: var(--spc-2x);
+		--hint-header_padding-end: var(--spc-4x);
+
+		--hint-container_corner-radius_expanded: var(--corner-radius_l);
+	}
+}
+
+// <details> appears to invisibly reset the box-sizing to "content-box"
+// for all its descendants... so we set it back to border-box here.
+details > * {
+	box-sizing: border-box;
+}
+
+.hint {
+	margin: var(--site-spacing) 0;
+
+	& > .hint__container {
+		display: inline-block;
+		overflow: hidden;
+		max-width: 100%;
+
+		// The <details> should expand to width: 100% if it contains a full-width
+		// element, such as an iframe or codeblock, as this does not happen
+		// automatically.
+		&[open]:has(pre, .embed, .docs-file-tree-container) {
+			width: 100%;
+		}
+
+		border-radius: var(--hint-container_corner-radius_collapsed);
+		&[open] {
+			border-radius: var(--hint-container_corner-radius_expanded);
+		}
+
+		&[open] > .hint__title > svg {
+			transform: rotateZ(180deg);
+		}
+
+		& > .hint__title {
+			&::marker {
+				content: "";
+			}
+
+			display: flex;
+			align-items: center;
+			gap: var(--hint-header_gap);
+
+			color: var(--hint-container_foreground-color);
+			margin: var(--hint-container_padding);
+			padding-top: var(--hint-header_padding-vertical);
+			padding-bottom: var(--hint-header_padding-vertical);
+			padding-left: var(--hint-header_padding-start);
+			padding-right: var(--hint-header_padding-end);
+
+			outline: none !important;
+		}
+
+		& > .hint__content {
+			margin: var(--hint-container_padding);
+			background-color: var(--hint-content_background-color);
+			border-radius: var(--hint-content_corner-radius);
+			padding: var(--hint-content_padding);
+
+			@include transition(background-color);
+
+			& > *:first-child {
+				margin-top: 0;
+			}
+
+			& > *:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		background-color: var(--hint-container_background-color);
+		@include transition(background-color);
+
+		&:hover {
+			background-color: var(--hint-container_background-color_hovered);
+		}
+
+		&:active {
+			background-color: var(--hint-container_background-color_pressed);
+		}
+
+		@supports selector(:has(*)) {
+			&:has(.hint__title:focus-visible) {
+				background-color: var(--hint-container_background-color_focused);
+				outline: var(--hint_focus-outline_width) solid
+					var(--hint_focus-outline_color);
+			}
+		}
+
+		// for Firefox (and some older browsers) :has is not supported, so :focus-within is the only way
+		// to get the focus state on the parent
+		// - this will incorrectly show the focus state during/after click events even if focus indication is not necessary
+		@supports not selector(:has(*)) {
+			&:focus-within {
+				background-color: var(--hint-container_background-color_focused);
+				outline: var(--hint_focus-outline_width) solid
+					var(--hint_focus-outline_color);
+			}
+		}
+	}
+}

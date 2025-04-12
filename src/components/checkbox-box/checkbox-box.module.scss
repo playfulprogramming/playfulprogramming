@@ -1,0 +1,139 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--animTiming: 300ms ease-in-out;
+
+	--checkbox_size: 24px;
+	--checkbox_border_width: var(--border-width_m);
+
+	--checkbox_on_container_size: 24px;
+	--checkbox_on_container_corner-radius: 6px;
+	--checkbox_on_container_color_default: var(--primary_variant);
+	--checkbox_on_container_color_hovered: var(--primary_variant);
+	--checkbox_on_container_color_pressed: var(--primary_variant);
+	--checkbox_on_container_color_disabled: var(--background_disabled);
+
+	--checkbox_on_border_color_default: var(--transparent);
+	--checkbox_on_border_color_hovered: var(--primary_default);
+	--checkbox_on_border_color_pressed: var(--primary_on-variant);
+	--checkbox_on_border_color_disabled: var(--transparent);
+
+	--checkbox_on_checkmark_color_default: var(--primary_on-variant);
+	--checkbox_on_checkmark_color_disabled: var(--foreground_disabled);
+
+	--checkbox_off_container_size: 18px;
+	--checkbox_off_container_corner-radius: 4px;
+	--checkbox_off_container_color_default: var(--transparent);
+	--checkbox_off_container_color_hovered: var(
+		--surface_primary_emphasis-medium
+	);
+	--checkbox_off_container_color_pressed: var(--primary_variant);
+	--checkbox_off_container_color_disabled: var(--background_disabled);
+
+	--checkbox_off_border_color_default: var(--foreground_disabled);
+	--checkbox_off_border_color_hovered: var(--primary_default);
+	--checkbox_off_border_color_pressed: var(--primary_on-variant);
+	--checkbox_off_border_color_disabled: var(--background_disabled);
+}
+
+.outerContainer {
+	height: var(--checkbox_size);
+	width: var(--checkbox_size);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+
+	// prevents the user from selecting nodes inside the checkbox, which causes
+	// strange behavior when the state is changed (possibly caused by the browser
+	// re-evaluating the selection when the checkbox is re-rendered)
+	// https://github.com/playfulprogramming/playfulprogramming/issues/652
+	user-select: none;
+}
+
+.boxContainer {
+	height: var(--checkbox_off_container_size);
+	width: var(--checkbox_off_container_size);
+	transition:
+		height var(--animTiming),
+		width var(--animTiming),
+		border var(--animTiming),
+		border-radius var(--animTiming);
+	border-radius: var(--checkbox_off_container_corner-radius);
+	border-width: var(--checkbox_border_width);
+	border-style: solid;
+	border-color: var(--checkbox_off_border_color_default);
+	background: var(--checkbox_off_container_color_default);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.boxContainer .dot,
+.boxContainer .checkmark {
+	height: 100%;
+	width: 100%;
+}
+
+.boxContainer .dot {
+	display: none;
+}
+
+.boxContainer svg {
+	color: var(--checkbox_on_checkmark_color_default);
+	height: 100%;
+	width: 100%;
+}
+
+.boxContainer.disabled svg {
+	color: var(--checkbox_on_checkmark_color_disabled);
+}
+
+.container:not(:active) .boxContainer.checked {
+	height: var(--checkbox_on_container_size);
+	width: var(--checkbox_on_container_size);
+	border-radius: var(--checkbox_on_container_corner-radius);
+}
+
+.boxContainer.checked {
+	border-color: var(--checkbox_on_border_color_default);
+	background: var(--checkbox_on_container_color_default);
+}
+
+.container:hover .boxContainer {
+	background: var(--checkbox_off_container_color_hovered);
+	border-color: var(--checkbox_off_border_color_hovered);
+}
+
+.container:hover .boxContainer.checked {
+	background: var(--checkbox_on_container_color_hovered);
+	border-color: var(--checkbox_on_border_color_hovered);
+}
+
+.container:active .boxContainer {
+	background: var(--checkbox_off_container_color_pressed);
+	border-color: var(--checkbox_off_border_color_pressed);
+}
+
+.container:active .checkmark {
+	display: none;
+}
+
+.container:active .dot {
+	display: block;
+}
+
+.container:active .boxContainer.checked {
+	background: var(--checkbox_on_container_color_pressed);
+	border-color: var(--checkbox_on_border_color_pressed);
+}
+
+.boxContainer.disabled {
+	background: var(--checkbox_off_container_color_disabled) !important;
+	border-color: var(--checkbox_off_border_color_disabled) !important;
+}
+
+.boxContainer.checked.disabled {
+	background: var(--checkbox_on_container_color_disabled) !important;
+	border-color: var(--checkbox_on_border_color_disabled) !important;
+}

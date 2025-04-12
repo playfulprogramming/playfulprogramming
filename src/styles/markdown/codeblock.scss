@@ -1,0 +1,38 @@
+@use "src/tokens/index" as *;
+@use "src/styles/text-styles";
+
+:root {
+	--code-block_padding: var(--spc-2x);
+	--code-block_corner-radius: var(--corner-radius_l);
+	--code-block_inner-corner-radius: calc(
+		var(--code-block_corner-radius) - var(--code-block_padding) - var(
+				--code-block_border_width
+			)
+	);
+
+	--code-block_header_gap: var(--spc-4x);
+	--code-block_header_min-height: var(--min-target-size_xl);
+	--code-block_header_title_margin-horizontal: var(--spc-3x);
+	--code-block_header_title_color: var(--foreground_emphasis-high);
+	--code-block_background-color: var(--background_primary);
+	--code-block_inner_background-color: var(--background_focus);
+	--code-block_border_color: var(--primary_variant);
+	--code-block_border_width: var(--border-width_l);
+}
+
+pre.shiki,
+pre:not([class]) {
+	margin: var(--site-spacing) 0;
+	padding: var(--code-block_padding);
+
+	// needs to override the inline `style=""` background that shiki applies
+	background-color: var(--code-block_background-color) !important;
+	border-radius: var(--code-block_corner-radius);
+	border: var(--code-block_border_width) solid var(--code-block_border_color);
+
+	& > code {
+		border-radius: var(--code-block_inner-corner-radius);
+		background-color: var(--code-block_inner_background-color);
+		--shiki-dark-bg: var(--code-block_inner_background-color) !important;
+	}
+}

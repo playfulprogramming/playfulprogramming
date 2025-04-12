@@ -1,0 +1,9 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "preact",
+		"outDir": "build-scripts/social-previews/dist"
+	},
+	"include": ["build-scripts/social-previews/layouts/*.tsx"]
+}

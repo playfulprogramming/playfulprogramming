@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<link href="stylesheet.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<div
+			style="
+				display: flex;
+				background-color: #e5f2ff;
+				justify-content: center;
+				align-items: center;
+				padding-top: 24px;
+			"
+		>
+			<button id="refresh-btn">
+				<div id="loading-spinner">
+					<svg width="24" height="24" viewBox="0 0 24 24">
+						<style>
+							.spinner-svg {
+								transform-origin: center;
+								animation: spinner_KYSC 0.75s infinite linear;
+							}
+							@keyframes spinner_KYSC {
+								100% {
+									transform: rotate(360deg);
+								}
+							}
+						</style>
+						<path
+							d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"
+							class="spinner-svg"
+						/>
+					</svg>
+				</div>
+				<p id="refresh-btn-label">Fetch dogs</p>
+			</button>
+		</div>
+		<div id="dog-grid"></div>
+
+		<script src="script.js"></script>
+	</body>
+</html>

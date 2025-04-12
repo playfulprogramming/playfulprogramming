@@ -1,0 +1,127 @@
+@use "sass:math";
+@use "./tokens/index" as *;
+@use "./styles/variables/border_widths";
+@use "./styles/variables/colors";
+@use "./styles/variables/corner_radius";
+@use "./styles/variables/fonts";
+@use "./styles/variables/icons";
+@use "./styles/variables/max_widths";
+@use "./styles/variables/shadows";
+@use "./styles/variables/spacing";
+@use "./styles/variables/target_sizes";
+@use "./styles/variables/themes";
+
+@use "./styles/text-styles";
+@use "./styles/button";
+@use "./styles/container";
+@use "./styles/post-body";
+@use "./styles/utilities";
+
+:root {
+	scrollbar-gutter: stable;
+	scrollbar-color: var(--focus-outline_primary) transparent;
+	transition: scrollbar-color $animStyle $animSpeed;
+
+	box-sizing: border-box;
+}
+
+* {
+	box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	code[class*="language-"] {
+		font-size: inherit;
+	}
+}
+
+:focus {
+	outline-color: var(--focus-outline_primary);
+}
+
+//without this all <button>s have bad outline colors in firefox
+:focus::-moz-focus-inner {
+	padding: 0; //prevent weirdness just in case
+	border-color: var(--focus-outline_primary);
+}
+
+*::-webkit-scrollbar {
+	width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+	background-color: transparent;
+	border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: var(--focus-outline_primary);
+}
+
+body {
+	background-color: var(--background_primary);
+	margin: 0;
+	padding: 0;
+	color: var(--foreground_emphasis-high);
+	transition:
+		color $animStyle $animSpeed,
+		background-color $animStyle $animSpeed;
+}
+
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+	z-index: 999;
+}
+
+.medium-zoom-overlay {
+	background: var(--background_primary) !important;
+}
+
+/* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
+.visually-hidden {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+	clip: rect(1px, 1px, 1px, 1px);
+}
+
+.visually-hidden a:focus,
+.visually-hidden input:focus,
+.visually-hidden button:focus {
+	position: static;
+	width: auto;
+	height: auto;
+}
+
+img.circleImg,
+.circleImg img {
+	flex-shrink: 0;
+	flex-grow: 0;
+	border-radius: 50%;
+}
+
+.dark .hide-on-dark {
+	display: none;
+}
+
+.light .show-on-dark {
+	display: none;
+}
+
+// use currentColor for fill on astro-icon svgs
+svg[astro-icon]:not(.strokeicon):not(.nofill) {
+	@include transition(fill);
+	fill: currentColor;
+
+	* {
+		fill: inherit;
+	}
+}

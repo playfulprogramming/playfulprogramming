@@ -1,0 +1,77 @@
+---
+import Document from "src/layouts/document.astro";
+import SEO from "components/seo/seo.astro";
+import { Languages } from "types/index";
+import BlogPost from "src/views/blog-post/blog-post.astro";
+import * as api from "utils/api";
+import { getMarkdownHtml } from "utils/markdown";
+import { isDefined } from "utils/is-defined";
+
+export async function getStaticPaths() {
+	const posts = api.getAllPosts();
+
+	return posts.map((post) => {
+		return {
+			params: {
+				locale: post.locale !== "en" ? post.locale : undefined,
+				postid: post.slug,
+			},
+			props: {
+				slug: post.slug,
+			},
+		};
+	});
+}
+
+const { slug } = Astro.props as {
+	slug: string;
+};
+
+const params = Astro.params as {
+	locale: Languages;
+	postid: string;
+};
+
+const locale = params.locale ?? "en";
+const post = api.getPostBySlug(slug, locale)!;
+const authors = post.authors
+	.map((personId) => api.getPersonById(personId, locale))
+	.filter(isDefined);
+
+// these need to be separate; multiple posts *can* be in a collection without having a collection entry
+const collection = post.collection
+	? api.getCollectionBySlug(post.collection, locale)
+	: undefined;
+const collectionPosts = post.collection
+	? api.getPostsByCollection(post.collection, locale)
+	: undefined;
+
+const locales = post?.locales || [];
+
+const postHtml = await getMarkdownHtml(post);
+---
+
+<Document size="xl">
+	<SEO
+		slot="head"
+		title={post.title}
+		description={post.description}
+		peopleData={authors}
+		publishedTime={post.published}
+		editedTime={post.edited}
+		keywords={post.tags}
+		type="article"
+		canonical={post.originalLink}
+		providedLangs={locales}
+		shareImage={post.socialImg}
+		noindex={post.noindex}
+	/>
+	<BlogPost
+		post={post}
+		postHtml={postHtml.html}
+		postHeadings={postHtml.headingsWithIds}
+		authors={authors}
+		collection={collection}
+		collectionPosts={collectionPosts}
+	/>
+</Document>

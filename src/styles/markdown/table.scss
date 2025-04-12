@@ -1,0 +1,182 @@
+@use "src/tokens/index" as *;
+@use "src/styles/text-styles.scss";
+
+:root {
+	--table_padding-horizontal: var(--spc-1x);
+	--table_padding-bottom: var(--spc-1x);
+	--table_corner-radius: var(--spc-4x);
+
+	--table_header_padding: var(--spc-3x);
+	--table_grid-wrapper_cell-gap: var(--border-width_s);
+	--table_grid-wrapper_corner-radius: calc(
+		var(--table_corner-radius) - var(--table_padding-horizontal)
+	);
+	--table_cell_padding-horizontal: var(--spc-3x);
+	--table_cell_padding-vertical: var(--spc-2x);
+
+	--table_background-color: var(--primary40);
+	--table_grid-wrapper_border_color: var(--background_primary);
+	--table_grid-wrapper_background-color: var(--background_primary);
+
+	--table_header_label-color: var(--primary95);
+	--table_header_divider_color: var(--primary50);
+	--table_cell-alternate_background-color: var(--surface_primary_emphasis-low);
+	--table_cell_background-color: var(--surface_primary_emphasis-none);
+	--table_cell_background-color_hovered: var(--surface_primary_emphasis-medium);
+	--table_cell_background-color_pressed: var(--surface_primary_emphasis-high);
+	--table_cell_label-color: var(--foreground_emphasis-high);
+}
+
+tbody tr:first-child {
+	td:first-child {
+		border-top-left-radius: var(--table_grid-wrapper_corner-radius);
+	}
+
+	td:last-child {
+		border-top-right-radius: var(--table_grid-wrapper_corner-radius);
+	}
+}
+
+tbody tr:last-child {
+	td:first-child {
+		border-bottom-left-radius: var(--table_grid-wrapper_corner-radius);
+	}
+
+	td:last-child {
+		border-bottom-right-radius: var(--table_grid-wrapper_corner-radius);
+	}
+}
+
+.table-container {
+	max-width: 100%;
+	width: max-content;
+	margin: var(--site-spacing) 0;
+
+	border-radius: var(--table_corner-radius);
+	padding: 0 var(--table_padding-horizontal);
+	padding-bottom: var(--table_padding-bottom);
+
+	background-color: var(--table_background-color);
+}
+
+.table-overflow {
+	@include until(560px) {
+		.table-container {
+			overflow-y: auto;
+			width: 100%;
+		}
+
+		table:has(tr:nth-child(4)) thead {
+			top: 0 !important;
+		}
+	}
+}
+
+table {
+	border-collapse: collapse;
+
+	@include until($tabletLarge) {
+		ul {
+			padding: 0;
+			list-style: none;
+		}
+	}
+
+	& {
+		border-radius: var(--table_grid-wrapper_corner-radius);
+		overflow: clip;
+	}
+}
+
+// Only use a sticky header on tables with 4+ rows
+table:has(tr:nth-child(4)) thead {
+	position: sticky;
+	// this should be -1px for the IntersectionObserver in utils/markdown/tables-script.ts to pick up the `position: sticky` state
+	$headerSize: calc(var(--header_padding-vertical) * 2 + 1px);
+	top: $headerSize;
+
+	// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
+	// and renders with the thead element, rather than being held in place by the table layout (which is an issue with `position: sticky`)
+	box-shadow: inset 100vw 100vh 0 var(--table_background-color);
+}
+
+thead {
+	@extend .text-style-body-medium-bold;
+	color: var(--table_header_label-color);
+
+	th {
+		padding: var(--table_header_padding);
+		text-align: left;
+
+		position: relative;
+
+		&:not(:last-child)::after {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: 0;
+			background-color: var(--table_header_divider_color);
+			width: 1px;
+			height: var(--p_medium_line-height);
+			transform: translateY(-50%);
+		}
+	}
+}
+
+tbody {
+	@extend .text-style-body-medium;
+
+	color: var(--table_cell_label-color);
+	border-radius: var(--table_grid-wrapper_corner-radius);
+
+	td {
+		padding: var(--table_cell_padding-vertical)
+			var(--table_cell_padding-horizontal);
+		background: linear-gradient(
+				var(--table_cell_background-color),
+				var(--table_cell_background-color)
+			),
+			linear-gradient(
+				var(--table_grid-wrapper_background-color),
+				var(--table_grid-wrapper_background-color)
+			);
+
+		border: var(--table_grid-wrapper_cell-gap) solid
+			var(--table_grid-wrapper_background-color);
+	}
+
+	tr:nth-child(even) {
+		td {
+			background: linear-gradient(
+					var(--table_cell-alternate_background-color),
+					var(--table_cell-alternate_background-color)
+				),
+				linear-gradient(
+					var(--table_grid-wrapper_background-color),
+					var(--table_grid-wrapper_background-color)
+				);
+		}
+	}
+
+	td:first-child {
+		border-left-width: 0;
+	}
+
+	td:last-child {
+		border-right-width: 0;
+	}
+
+	tr:first-child td {
+		border-top-width: 0;
+	}
+
+	tr:last-child td {
+		border-bottom-width: 0;
+	}
+}
+
+th > code,
+td > code {
+	word-break: break-word;
+}

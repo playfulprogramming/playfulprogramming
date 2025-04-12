@@ -1,0 +1,26 @@
+---
+import { Picture } from "components/image/picture";
+import styles from "./your-guide.module.scss";
+import { getPersonById } from "utils/api";
+import YourGuideMetrics from "../components/your-guide-metrics.astro";
+import YourGuideTextContainer from "../components/your-guide-text-container.astro";
+---
+
+<section class={styles.guideContainer} aria-labelledby="your-guide">
+	<h2 class={`text-style-headline-2 ${styles.sectionTitle}`} id="your-guide">
+		Your guide for the trip
+	</h2>
+	<Picture
+		imgAttrs={{ class: styles.guidePicture }}
+		alt=""
+		src={getPersonById("crutchcorn", "en")!.profileImgMeta.relativeServerPath}
+		width={96}
+		height={96}
+	/>
+	<p class={`text-style-headline-3 ${styles.authorIntro}`}>
+		Hi, I'm <span class={styles.authorName}>Corbin Crutchley</span>, the author
+		of <span class={styles.seriesName}>The Framework Field Guide</span> 📒.
+	</p>
+	<YourGuideMetrics />
+	<YourGuideTextContainer />
+</section>

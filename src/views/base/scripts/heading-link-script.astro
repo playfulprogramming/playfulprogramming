@@ -1,0 +1,96 @@
+---
+import { Icon } from "astro-icon/components";
+import style from "./heading-link.module.scss";
+---
+
+<template id="heading-link-template">
+	<button class={style.headingLinkContainer} data-heading-anchor="copy">
+		<div class={style.headingLink}>
+			<span data-heading-link="copy">
+				<div class={style.icon} aria-hidden>
+					<Icon name="link" />
+				</div>
+				Copy link
+			</span>
+			<span aria-live="polite">
+				<span data-heading-link="copied" hidden>
+					<div class={style.icon} aria-hidden>
+						<Icon name="checkmark" />
+					</div>
+					Link copied!
+				</span>
+			</span>
+		</div>
+	</button>
+</template>
+
+<script>
+	window.addEventListener("load", () => {
+		const template = document.querySelector(
+			"#heading-link-template",
+		) as HTMLTemplateElement;
+
+		function handleClick(e: Event) {
+			if ((e.target as HTMLElement).tagName === "A") {
+				return;
+			}
+
+			const target = e.currentTarget as HTMLElement;
+			const headingAnchorEl = target.hasAttribute("data-heading-anchor")
+				? target
+				: target.querySelector("[data-heading-anchor]");
+
+			if (!headingAnchorEl) return;
+
+			const href = headingAnchorEl.getAttribute("data-heading-href");
+			if (!href) return;
+			navigator.clipboard.writeText(href);
+
+			const copyEl = headingAnchorEl.querySelector(
+				"[data-heading-link='copy']",
+			)!;
+			const copiedEl = headingAnchorEl.querySelector(
+				"[data-heading-link='copied']",
+			)!;
+
+			headingAnchorEl.setAttribute("data-heading-anchor", "copied");
+			copyEl.setAttribute("hidden", "true");
+			copiedEl.removeAttribute("hidden");
+
+			setTimeout((_) => {
+				headingAnchorEl.setAttribute("data-heading-anchor", "copy");
+				copyEl.removeAttribute("hidden");
+				copiedEl.setAttribute("hidden", "true");
+			}, 1000);
+
+			e.preventDefault();
+		}
+
+		document
+			.querySelector(".post-body")
+			?.querySelectorAll<HTMLElement>("h1, h2, h3, h4, h5, h6")
+			?.forEach((headingEl) => {
+				// ensure that each heading has an ID, and doesn't have a "data-no-heading-link" attr
+				if (!headingEl.matches("[id]:not([data-no-heading-link])")) return;
+
+				// add the click listener
+				headingEl.addEventListener("click", handleClick);
+				headingEl.classList.add("heading-linked");
+
+				// copy the permalink button template
+				const templateClone = template.content.cloneNode(true) as HTMLElement;
+
+				// set href/label attributes on the template
+				const anchorEl = templateClone.querySelector("button")!;
+				anchorEl.addEventListener("click", handleClick);
+				const href = new URL(`#${headingEl.id}`, location.href);
+				anchorEl.setAttribute("data-heading-href", href.toString());
+				anchorEl.setAttribute(
+					"aria-label",
+					`Copy permalink for "${headingEl.innerText}"`,
+				);
+
+				headingEl.appendChild(templateClone);
+			});
+	});
+</script>

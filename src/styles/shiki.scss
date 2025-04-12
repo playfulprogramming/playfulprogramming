@@ -1,0 +1,117 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--shiki_padding: 12px;
+}
+
+// Prevents the --shiki variables from inheriting
+// (otherwise all nested spans apply the same background as its parent)
+.shiki * {
+	--shiki-dark: initial;
+	--shiki-dark-bg: initial;
+}
+.shiki {
+	@include darkTheme {
+		color: var(--shiki-dark) !important;
+	}
+}
+.shiki span {
+	@include darkTheme {
+		color: var(--shiki-dark) !important;
+		background-color: var(--shiki-dark-bg) !important;
+	}
+}
+
+/*
+Code blocks structurally look like:
+
+<pre class='shiki [themes]'>
+	<code>
+		<span class="line">const id = "1";</span>
+		<span class="line highlight">console.log(id + 1);</span>
+	</code>
+</pre>
+*/
+
+/*
+ * This code handles line of code counting
+ */
+pre code {
+	counter-reset: step;
+	counter-increment: step 0;
+
+	display: block;
+	position: relative;
+	padding-left: 2.5rem;
+	tab-size: 4;
+
+	/* Important to allow the code to move horizontally; */
+	overflow-x: auto;
+	position: relative;
+
+	/* Give it some space to breathe */
+	padding-top: var(--shiki_padding);
+	padding-bottom: var(--shiki_padding);
+
+	font-size: 0.9rem;
+	font-family: var(--pfp-font-family-code);
+	-webkit-overflow-scrolling: touch;
+}
+
+pre code .line::before {
+	content: counter(step);
+	counter-increment: step;
+
+	// These must be position: absolute; to avoid contributing
+	// to the tab indent size within the code block.
+	// Otherwise, the first tab is offset by the width of the line counter,
+	// leading to inconsistent tab alignment.
+	position: absolute;
+	left: var(--shiki_padding);
+	width: 1rem;
+	display: inline-block;
+	text-align: right;
+	color: var(--foreground_disabled);
+}
+
+pre code .line.highlight::before {
+	color: var(--foreground_emphasis-medium);
+}
+
+pre.shiki code {
+	white-space: normal;
+}
+
+pre.shiki {
+	overflow-x: auto;
+}
+
+pre.shiki .line {
+	// must be the same value as used for line-height
+	min-height: 1.7em;
+	padding: 0 var(--shiki_padding);
+	display: block;
+	white-space: pre;
+}
+
+/**
+ * When [!code highlight] is used, add borders/background to each line
+ */
+pre.shiki .line.highlight {
+	font-weight: bold;
+	background-color: var(--surface_primary_emphasis-none);
+	--shiki-dark-bg: var(--surface_primary_emphasis-none);
+}
+
+pre.shiki .line:not(.highlight) + .line.highlight,
+pre.shiki .line:first-child.highlight {
+	border-top: 2px dashed var(--primary_default);
+}
+
+pre.shiki .line.highlight + .line:not(.highlight) {
+	border-top: 2px dashed var(--primary_default);
+}
+
+pre.shiki .line:last-child.highlight {
+	border-bottom: 2px dashed var(--primary_default);
+}

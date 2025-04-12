@@ -1,0 +1,59 @@
+---
+import styles from "./table-of-contents.module.scss";
+import classnames from "classnames";
+import { PostHeadingInfo } from "types/index";
+import HeadingIntersectionObserverScript from "./heading-intersection-observer-script.astro";
+
+interface TableOfContentsProps {
+	headingsWithId: PostHeadingInfo[];
+}
+
+const { headingsWithId } = Astro.props as TableOfContentsProps;
+
+const headings = headingsWithId?.length ? headingsWithId : [];
+
+// get the "minimum" depth of heading used in the post (e.g. if the post only uses h2 and h3 -> minDepth=1)
+const minDepth = Math.min(...headings.map((h) => h.depth));
+
+// offset the heading depths by minDepth, so they always start at 1
+const headingsToDisplay = headings
+	.map((h) => Object.assign({}, h, { depth: h.depth - minDepth + 1 }))
+	.filter((headingInfo) => headingInfo.depth <= 2);
+
+const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
+---
+
+<aside class={styles.container} aria-labelledby="table-of-contents-heading">
+	<h2
+		id="table-of-contents-heading"
+		class={`text-style-headline-5 ${styles.tocTitle}`}
+	>
+		Table of Contents
+	</h2>
+	<ol class={styles.tableList} role="list" id="tocList">
+		{
+			headingsToDisplay.map((headingInfo, i) => {
+				const liClassNames = classnames(styles.tableListItem, {
+					[styles.depth1]: headingInfo.depth === 1,
+					[styles.depth2]: headingInfo.depth === 2,
+					["toc-is-active"]: i === 0,
+				});
+				return (
+					<li class={liClassNames} data-headingitem="true">
+						<a
+							class={`text-style-button-regular`}
+							href={`#${headingInfo.slug}`}
+						>
+							<span class={styles.tableListItemLinkInner}>
+								{headingInfo.value}
+							</span>
+						</a>
+					</li>
+				);
+			})
+		}
+	</ol>
+</aside>
+<HeadingIntersectionObserverScript
+	headingsToDisplaySlugs={headingsToDisplaySlugs}
+/>

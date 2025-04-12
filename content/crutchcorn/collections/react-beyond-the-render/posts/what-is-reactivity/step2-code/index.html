@@ -1,0 +1,22 @@
+<main>
+	<button id="add-button">Count: 0</button>
+	<ul id="list"></ul>
+</main>
+<script>
+	let count = 0;
+
+	const listEl = document.querySelector("#list");
+
+	function makeListItem(innerText) {
+		const li = document.createElement("li");
+		li.innerText = innerText;
+		listEl.append(li);
+	}
+
+	const addBtn = document.querySelector("#add-button");
+	addBtn.addEventListener("click", () => {
+		count++;
+		addBtn.innerText = `Count: ${count}`;
+		makeListItem(`List item: ${count}`);
+	});
+</script>

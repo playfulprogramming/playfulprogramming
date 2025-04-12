@@ -1,0 +1,40 @@
+<main>
+	<button id="add-button">Add one to: 0</button>
+	<button id="remove-button">Remove one from: 0</button>
+	<ul id="list"></ul>
+</main>
+<script>
+	let count = 0;
+
+	const listEl = document.querySelector("#list");
+
+	function makeListItem(innerText) {
+		const li = document.createElement("li");
+		li.innerText = innerText;
+		listEl.append(li);
+	}
+
+	function removeListItem() {
+		listEl.lastChild.remove();
+	}
+
+	const addBtn = document.querySelector("#add-button");
+	const removeBtn = document.querySelector("#remove-button");
+
+	function updateBtnTexts() {
+		addBtn.innerText = `Add one to: ${count}`;
+		removeBtn.innerText = `Remove one from: ${count}`;
+	}
+
+	addBtn.addEventListener("click", () => {
+		count++;
+		updateBtnTexts();
+		makeListItem(`List item: ${count}`);
+	});
+
+	removeBtn.addEventListener("click", () => {
+		count--;
+		updateBtnTexts();
+		removeListItem();
+	});
+</script>

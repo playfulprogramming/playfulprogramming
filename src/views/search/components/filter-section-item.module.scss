@@ -1,0 +1,89 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--search-page_filter_list_item_padding-vertical: var(--spc-2x);
+	--search-page_filter_list_item_padding-start: var(--spc-3x);
+	--search-page_filter_list_item_padding-end: var(--spc-3x);
+	--search-page_filter_list_item_icon-size: var(--icon-size_regular);
+	--search-page_filter_list_item_gap: var(--spc-2x);
+
+	--search-page_filter_list_item_label_color: var(--foreground_emphasis-high);
+	--search-page_filter_list_item_count_color: var(--foreground_disabled);
+
+	--search-page_filter_list_item_background-color_hovered: var(
+		--surface_primary_emphasis-low
+	);
+	--search-page_filter_list_item_background-color_pressed: var(
+		--surface_primary_emphasis-medium
+	);
+	--search-page_filter_list_item_background-color_selected: var(
+		--surface_primary_emphasis-none
+	);
+	--search-page_filter_list_item_background-color_focused: var(
+		--background_focus
+	);
+
+	--search-page_filter_list_item_focus-outline_color: var(
+		--focus-outline_primary
+	);
+	--search-page_filter_list_item_focus-outline_width: var(--border-width_focus);
+}
+
+.containerLabel {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: var(--search-page_filter_list_item_gap);
+	padding: var(--search-page_filter_list_item_padding-vertical)
+		var(--search-page_filter_list_item_padding-start)
+		var(--search-page_filter_list_item_padding-vertical)
+		var(--search-page_filter_list_item_padding-end);
+}
+
+.iconContainer {
+	height: var(--search-page_filter_list_item_icon-size);
+	width: var(--search-page_filter_list_item_icon-size);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.label {
+	margin-right: auto;
+	color: var(--search-page_filter_list_item_label_color);
+}
+
+.count {
+	color: var(--search-page_filter_list_item_count_color);
+	flex-shrink: 0;
+}
+
+.containerLabel.selected {
+	background-color: var(
+		--search-page_filter_list_item_background-color_selected
+	);
+}
+
+.containerLabel:hover {
+	background-color: var(
+		--search-page_filter_list_item_background-color_hovered
+	);
+}
+
+.containerLabel:active {
+	background-color: var(
+		--search-page_filter_list_item_background-color_pressed
+	);
+}
+
+.containerLabel[data-focus-visible="true"] {
+	background-color: var(
+		--search-page_filter_list_item_background-color_focused
+	);
+	outline: var(--search-page_filter_list_item_focus-outline_width) solid
+		var(--search-page_filter_list_item_focus-outline_color);
+	outline-offset: calc(
+		-1 * var(--search-page_filter_list_item_focus-outline_width)
+	);
+}

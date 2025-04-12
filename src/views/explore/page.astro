@@ -1,0 +1,41 @@
+---
+import { Languages, PostInfo } from "types/index";
+import { PostCardGrid } from "src/components/post-card/post-card-grid";
+import { Pagination } from "components/pagination/pagination";
+import type { Page } from "astro";
+import * as api from "utils/api";
+import { isDefined } from "utils/is-defined";
+
+export interface PageProps {
+	posts: PostInfo[];
+	page: Pick<Page, "currentPage" | "lastPage">;
+	locale: Languages;
+}
+
+const { posts, page, locale } = Astro.props as PageProps;
+
+const postAuthors = new Map(
+	[...new Set(posts.flatMap((p) => p.authors))]
+		.map((id) => api.getPersonById(id, locale))
+		.filter(isDefined)
+		.map((u) => [u.id, u]),
+);
+---
+
+<h1 class="visually-hidden">Posts</h1>
+
+<PostCardGrid
+	expanded={true}
+	aria-label="List of posts"
+	postsToDisplay={posts}
+	postAuthors={postAuthors}
+/>
+
+{
+	/* We shouldn't pass the whole "page" object here, as this generates a huge JSON attribute for hydration */
+}
+<Pagination
+	page={{ currentPage: page.currentPage, lastPage: page.lastPage }}
+	rootURL="/page/"
+	client:load
+/>

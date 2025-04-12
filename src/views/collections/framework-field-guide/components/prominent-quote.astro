@@ -1,0 +1,48 @@
+---
+import { Picture } from "components/image/picture";
+import styles from "./prominent-quote.module.scss";
+import type { ImageMetadata } from "astro";
+
+interface QuoteCardProps {
+	avatarSrc: string | Promise<{ default: ImageMetadata }>;
+	quote: string;
+	personLink: string;
+	personTitle: string;
+	personName: string;
+}
+
+const { avatarSrc, quote, personLink, personTitle, personName } =
+	Astro.props as QuoteCardProps;
+
+const src =
+	typeof avatarSrc === "string" ? avatarSrc : (await avatarSrc).default;
+---
+
+<figure class={styles.quoteContainer}>
+	<blockquote class={`text-style-body-large ${styles.quoteText}`}>
+		{quote}
+	</blockquote>
+	<Picture
+		imgAttrs={{ class: styles.quoteAvatar }}
+		alt=""
+		src={src}
+		width={96}
+		height={96}
+		formats={["avif", "webp", "png"]}
+	/>
+	<figcaption>
+		<div>
+			<a
+				href={personLink}
+				class={`text-style-body-medium-bold ${styles.quotePersonName}`}
+				target="_blank"
+				aria-label={`${personName}, opens a new tab`}
+			>
+				{personName}
+			</a>
+		</div>
+		<p class={`text-style-body-medium ${styles.quotePersonTitle}`}>
+			{personTitle}
+		</p>
+	</figcaption>
+</figure>

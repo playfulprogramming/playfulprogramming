@@ -1,0 +1,52 @@
+@use "src/tokens/index" as *;
+
+.backBtn {
+	border-radius: 50% !important;
+	height: 40px;
+	width: 40px;
+	padding: 0 !important;
+	position: relative;
+}
+
+.backBtn svg {
+	height: 30px;
+	width: 30px;
+}
+
+.discordBtn {
+	position: relative;
+}
+
+.iconList {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.iconList > * {
+	margin-left: 1rem;
+}
+
+.header {
+	padding: 0.5rem;
+	position: sticky;
+	top: 0;
+	z-index: 9;
+	transition: all 300ms ease-in-out;
+	@include until(1020px) {
+		background: var(--backgroundColor);
+	}
+}
+
+.headerInsideContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	max-width: 1500px;
+	padding: 0 15px;
+	margin: 0 auto;
+}
+
+.horizCenter {
+	margin-left: auto;
+	margin-right: auto;
+}

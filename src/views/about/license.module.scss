@@ -1,0 +1,179 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--license_padding-horizontal: var(--spc-4x);
+	--license_padding-vertical: var(--spc-3x);
+	--license_gap: var(--spc-4x);
+	--license_icon-size: var(--icon-size_regular);
+	--license_background-color: var(--surface_primary_emphasis-none);
+	--license_background-color_hovered: var(--surface_primary_emphasis-low);
+	--license_background-color_pressed: var(--surface_primary_emphasis-medium);
+	--license-background-color_focused: var(--background_focus);
+	--license_corner-radius: var(--corner-radius_m);
+}
+
+.license {
+	display: flex;
+	align-items: center;
+	gap: var(--license_gap);
+	padding: var(--license_padding-vertical) var(--license_padding-horizontal);
+
+	background-color: var(--license_background-color);
+	border-radius: var(--license_corner-radius);
+
+	.info {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.icon {
+		max-width: var(--license_icon-size);
+		height: var(--license_icon-size);
+		aspect-ratio: 1 / 1;
+		flex-shrink: 0;
+		flex-grow: 0;
+		filter: var(--shadow_sticker_drop_shadow);
+	}
+
+	.viewButton {
+		all: unset;
+		color: var(--primary_default);
+	}
+
+	&:hover .viewButton,
+	&:active .viewButton {
+		text-decoration: underline;
+	}
+
+	@include transition(background-color outline);
+
+	&:hover {
+		background-color: var(--surface_primary_emphasis-low);
+	}
+
+	&:active {
+		background-color: var(--license_background-color_pressed);
+	}
+
+	@supports selector(:has(*)) {
+		&:has(:focus-visible) {
+			background-color: var(--license-background-color_focused);
+			outline: var(--border-width_focus) solid var(--focus-outline_primary);
+
+			.viewButton {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	@supports not selector(:has(*)) {
+		&:focus-within {
+			background-color: var(--license-background-color_focused);
+			outline: var(--border-width_focus) solid var(--focus-outline_primary);
+
+			.viewButton {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+:root {
+	--license-modal_header_padding-horizontal: var(--site-spacing);
+	--license-modal_header_padding-vertical: var(--site-spacing);
+	--license-modal_padding-horizontal: var(--site-spacing);
+	--license-modal_padding-bottom: var(--site-spacing);
+	--license-modal_button-gap: var(--spc-4x);
+	--license-modal_corner-radius: var(--corner-radius_l);
+	--license-modal_background: var(--background_primary);
+
+	--license-modal_icon-size: 96px;
+	--license-modal_icon-gap: var(--spc-4x);
+
+	@include from($tabletSmall) {
+		--license-modal_corner-radius: calc(var(--site-spacing) * 2);
+		--license-modal_max-width: var(--max-width_s);
+	}
+}
+
+.licenseDialog {
+	background: var(--license-modal_background);
+	padding: 0;
+	border-radius: var(--license-modal_corner-radius);
+	max-width: var(--license-modal_max-width);
+	width: calc(100% - var(--site-spacing) * 2);
+	border: none;
+
+	display: flex;
+	flex-direction: column;
+	overflow: clip;
+
+	.form {
+		padding: 0 var(--license-modal_padding-horizontal)
+			var(--license-modal_padding-bottom);
+
+		overflow-y: auto;
+		overscroll-behavior: contain;
+	}
+
+	.titleContainer {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: var(--license-modal_button-gap);
+
+		padding: var(--license-modal_header_padding-vertical)
+			calc(
+				var(--license-modal_header_padding-horizontal) - var(
+						--license-modal_padding-horizontal
+					)
+			);
+	}
+
+	.title {
+		color: var(--foreground_emphasis-high);
+		margin: 0;
+	}
+
+	.body {
+		color: var(--foreground_emphasis-high);
+		position: relative;
+	}
+
+	.iconLarge {
+		position: absolute;
+		max-width: var(--license-modal_icon-size);
+		height: var(--license-modal_icon-size);
+		filter: var(--shadow_sticker_drop_shadow);
+	}
+
+	:global(.post-body) {
+		display: grid;
+		grid-template-columns:
+			calc(var(--license-modal_icon-size) + var(--license-modal_icon-gap))
+			1fr;
+		grid-template-rows: minmax(var(--license-modal_icon-size), auto) repeat(
+				10,
+				auto
+			);
+		align-items: center;
+
+		& > *:first-child {
+			grid-column: 2;
+			margin: var(--spc-2x) 0;
+		}
+
+		& > *:not(:first-child) {
+			grid-column: 1 / span 2;
+			margin-bottom: 0;
+		}
+	}
+}
+
+.licenseDialog::backdrop {
+	background-color: rgba(0, 0, 0, 0.32);
+
+	@include darkTheme {
+		background-color: rgba(0, 0, 0, 0.72);
+	}
+}

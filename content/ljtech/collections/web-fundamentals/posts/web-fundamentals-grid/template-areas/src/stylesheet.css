@@ -1,0 +1,37 @@
+body {
+	margin: 16px;
+}
+
+.grid-container {
+	display: grid;
+	grid-template-areas:
+		"heading heading heading"
+		"content content sidebar"
+		"content content sidebar";
+	gap: 16px;
+	height: 376px;
+}
+
+.item-a {
+	grid-area: heading;
+	background-color: #8194a2;
+}
+
+.item-b {
+	grid-area: content;
+	background-color: #3399d1;
+}
+
+.item-c {
+	grid-area: sidebar;
+	background-color: #c577bb;
+}
+
+.grid-container div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1rem;
+	padding: 2rem;
+	color: white;
+}

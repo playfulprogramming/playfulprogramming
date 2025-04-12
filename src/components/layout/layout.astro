@@ -1,0 +1,58 @@
+---
+import layoutStyles from "./layout.module.scss";
+import DarkLightButton from "src/views/base/navigation/dark-light-button/dark-light-button.astro";
+import { Icon } from "astro-icon/components";
+
+// const { back } = useHistory();
+
+const rootPath = `/`;
+
+const isBase = Astro.url.pathname === rootPath;
+
+interface LayoutProps {
+	disableThemeToggle?: boolean;
+}
+
+const { disableThemeToggle } = Astro.props as LayoutProps;
+---
+
+<div class={layoutStyles.horizCenter}>
+	<header
+		class={layoutStyles.header}
+		aria-label={"Toolbar for primary action buttons"}
+	>
+		<div class={layoutStyles.headerInsideContainer}>
+			<!-- We cannot put this in a conditional, a bug in Astro preventing us? -->
+			<script>
+				import { backButtonListener } from "./backbtn";
+				backButtonListener();
+			</script>
+			{
+				!isBase ? (
+					<>
+						<button
+							id="backbtn"
+							class={`${layoutStyles.backBtn} baseBtn`}
+							aria-label="Go back"
+						>
+							<Icon height={36} width={36} name="arrow_left" />
+						</button>
+					</>
+				) : (
+					<div />
+				)
+			}
+			<div class={layoutStyles.iconList}>
+				<a
+					href="https://discord.gg/FMcvc6T"
+					class={`${layoutStyles.discordBtn} baseBtn`}
+					aria-label="Join the Discord"
+				>
+					<Icon height={36} width={36} name="discord" />
+				</a>
+				{!disableThemeToggle && <DarkLightButton />}
+			</div>
+		</div>
+	</header>
+	<slot />
+</div>

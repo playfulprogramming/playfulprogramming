@@ -1,0 +1,110 @@
+@use "src/tokens/index" as *;
+@use "../../framework-field-guide/tokens/breakpoints" as *;
+
+:root {
+	--step-num-size: calc((56px / 16) * 1rem);
+	--step-num-offset: calc(var(--step-num-size) / 2);
+
+	--spc-step-card: var(--spc-2x);
+
+	--detail-item-padding-ver: var(--spc-1x);
+	--detail-item-padding-start: var(--spc-1x);
+	--detail-item-padding-end: var(--spc-2x);
+	--detail-item-chevron-size: 24px;
+
+	@include from($desktop) {
+		--spc-step-card: var(--spc-3x);
+	}
+}
+
+.sectionContainer {
+	padding: var(--section-ver-padding) var(--section-hor-padding) !important;
+	text-align: left;
+	max-width: var(--max-width_large) !important;
+}
+
+.sectionTitle {
+	margin: 0;
+	text-align: center;
+	color: var(--on-dark-emphasis-high);
+	padding-bottom: var(--section-ver-padding);
+}
+
+.stepCardContainer {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+	gap: var(--section-hor-padding);
+
+	@include from($desktop) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.stepCard {
+	position: relative;
+	border-style: solid;
+	border-color: var(--outline);
+	border-width: var(--grid-item-border-width);
+	border-radius: var(--grid-item-corner-radius);
+	padding-top: var(--spc-6x);
+	padding-bottom: var(--spc-step-card);
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	gap: var(--spc-step-card);
+}
+
+.cardTitle {
+	position: relative;
+	padding-left: var(--spc-6x);
+	color: var(--on-dark-emphasis-high);
+	margin: 0;
+}
+
+.cardNumber {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	padding: var(--spc-2x) 0;
+	background: var(--section-background);
+}
+
+.description {
+	margin: 0;
+	padding: 0 var(--spc-6x);
+	color: var(--on-dark-emphasis-medium);
+}
+
+.stepCardItems {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.stepCardItemBullet {
+	padding: var(--spc-1x) var(--spc-2x) var(--spc-1x) var(--spc-1x);
+	color: var(--on-dark-emphasis-high);
+	display: flex;
+	align-items: center;
+	margin: 0;
+	text-decoration: underline !important;
+	position: relative;
+	border-radius: var(--corner-radius-circular);
+}
+
+.stepCardItemBullet::before {
+	content: " ";
+	display: inline-block;
+	height: var(--detail-item-chevron-size);
+	width: var(--detail-item-chevron-size);
+	padding: 2px;
+	box-sizing: border-box;
+	background-image: url("../../framework-field-guide/icons/arrow.svg");
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-right: var(--spc-2x);
+}

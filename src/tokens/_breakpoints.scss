@@ -1,0 +1,18 @@
+// Update breakpoints.ts when updating this file
+$desktopLarge: 1920px;
+$desktopSmall: 1280px;
+$tabletLarge: 960px;
+$tabletSmall: 640px;
+$mobile: 400px;
+
+@mixin until($breakpoint) {
+	@media screen and (max-width: $breakpoint) {
+		@content;
+	}
+}
+
+@mixin from($breakpoint) {
+	@media screen and (min-width: ($breakpoint + 1)) {
+		@content;
+	}
+}

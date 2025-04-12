@@ -1,0 +1,43 @@
+:root {
+	--spc-1x: 8px;
+	--spc-2x: 16px;
+	--spc-3x: 24px;
+	--spc-4x: 32px;
+	--spc-5x: 40px;
+	--spc-6x: 48px;
+
+	/* MAX WIDTHS */
+	--max-width_xsmall: 640px;
+	--max-width_small: 960px;
+	--max-width_large: 1280px;
+
+	/* BORDER WIDTH */
+
+	--border-1x: 1px;
+	--border-2x: 2px;
+	--border-3x: 3px;
+	--border-4x: 4px;
+
+	/* AVATARS */
+
+	--avatar-size_huge: 96px;
+	--avatar-size_large: 72px;
+	--avatar-size_medium: 40px;
+	--avatar-size_small: 24px;
+
+	/* CORNER RADIUS */
+
+	--corner-radius-1x: 8px;
+	--corner-radius-2x: 16px;
+	--corner-radius-3x: 24px;
+	--corner-radius-4x: 32px;
+	--corner-radius-5x: 40px;
+	--corner-radius-6x: 48px;
+	--corner-radius-circular: 999999px;
+	--corner-radius-circle: 50%;
+
+	/* FOCUS */
+
+	--focus-border_gap: 4px;
+	--focus-border_width: var(--border-4x);
+}

@@ -1,0 +1,45 @@
+---
+import { Languages } from "types/index";
+import {
+	removePrefixLanguageFromPath,
+	fileToOpenGraphConverter,
+} from "utils/translations";
+
+type Props = {
+	providedLangs?: Languages[];
+	pathName: string;
+	siteMetadata: { siteUrl: string };
+};
+
+const { providedLangs, siteMetadata, pathName } = Astro.props as Props;
+
+const defaultLocale = "en";
+
+const removeTrailingSlash = (str: string) =>
+	str.endsWith("/") ? str.slice(0, -1) : str;
+---
+
+<link
+	rel="alternate"
+	href={removeTrailingSlash(
+		siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || ""),
+	)}
+	hreflang="x-default"
+/>
+<>
+	{
+		providedLangs?.length
+			? providedLangs.map((locale) => (
+					<link
+						rel="alternate"
+						href={removeTrailingSlash(
+							siteMetadata.siteUrl +
+								(locale === defaultLocale ? "" : `/${locale}`) +
+								removePrefixLanguageFromPath(pathName || ""),
+						)}
+						hreflang={fileToOpenGraphConverter(locale)}
+					/>
+				))
+			: null
+	}
+</>

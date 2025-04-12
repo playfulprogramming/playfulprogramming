@@ -1,0 +1,111 @@
+---
+import style from "./post-title-header.module.scss";
+import { PostInfo, PersonInfo } from "types/index";
+import { Icon } from "astro-icon/components";
+import { Chip } from "components/index";
+import dayjs from "dayjs";
+import { buildSearchQuery } from "../../search/search";
+import { translate } from "utils/translations";
+
+interface PostTitleHeaderProps {
+	post: PostInfo;
+	authors: PersonInfo[];
+}
+const { post, authors } = Astro.props as PostTitleHeaderProps;
+const { title, tags } = post;
+
+const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
+const editedStr = post.edited && dayjs(post.edited).format("MMMM D, YYYY");
+
+const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
+---
+
+<section aria-labelledby="post-title-header">
+	<div class={style.container}>
+		<h1 id="post-title-header" class={`text-style-headline-1 ${style.title}`}>
+			{title}
+		</h1>
+
+		<div class={style.details}>
+			<div class={style.date}>
+				<div class={style.date__published}>
+					<Icon width={24} height={24} name="date" aria-hidden="true" />
+					<p class="text-style-button-regular">{publishedStr}</p>
+				</div>
+
+				{
+					editedStr && editedStr !== publishedStr ? (
+						<p class={`text-style-button-regular ${style.date__edited}`}>
+							Last updated: {editedStr}
+						</p>
+					) : null
+				}
+			</div>
+
+			<div class={style.authors}>
+				<Icon width={24} height={24} name="authors" aria-hidden="true" />
+				<ul aria-label="Post authors" role="list" class={style.authors__list}>
+					{
+						authors.map((author, i) => (
+							<li class="text-style-button-regular">
+								<a href={`/people/${author.id}`}>
+									{[author.name, i + 1 < authors.length ? "," : ""]}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<div class={style.wordCount}>
+				<Icon width={24} height={24} name="words" aria-hidden="true" />
+				<p class="text-style-button-regular">
+					{
+						translate(
+							Astro,
+							"title.n_words",
+							post.wordCount.toLocaleString("en"),
+						)
+					}
+				</p>
+			</div>
+
+			{
+				post.originalLink ? (
+					<div class={style.originalLink}>
+						<Icon width={24} height={24} name="website" aria-hidden="true" />
+						<p class="text-style-button-regular">
+							{translate(Astro, "desc.original_link")}
+							<a
+								href={post.originalLink}
+								target="_blank"
+								rel="nofollow noopener noreferrer"
+							>
+								{originalLinkStr}
+							</a>
+						</p>
+					</div>
+				) : null
+			}
+		</div>
+
+		<ul aria-label="Post tags" role="list" class={style.tags}>
+			{
+				tags?.map((tag) => (
+					<li>
+						<Chip
+							href={`/search?${buildSearchQuery({
+								searchQuery: "*",
+								filterTags: [tag],
+							})}`}
+						>
+							{tag}
+						</Chip>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+
+	<slot />
+</section>

@@ -1,0 +1,256 @@
+---
+import styles from "./what-do-i-get.module.scss";
+import { weightedRandom } from "../utils/weighted-random";
+
+const ghActivityLevels = [0, 1, 2, 3];
+
+const newcomerWeights = [0.6, 0.3, 0.1, 0.0];
+const midlevelWeights = [0.3, 0.4, 0.1, 0.1];
+const professionalWeights = [0.175, 0.2, 0.3, 0.33];
+
+const newcomerActivityLevel = weightedRandom(ghActivityLevels, newcomerWeights);
+
+const midlevelActivityLevel = weightedRandom(ghActivityLevels, midlevelWeights);
+
+const professionalActivityLevel = weightedRandom(
+	ghActivityLevels,
+	professionalWeights,
+);
+
+const generateCalendar = (activityLevel: () => number) => {
+	let calendar = [] as number[][];
+	for (let dayI = 0; dayI < 7; dayI++) {
+		calendar[dayI] = [];
+		for (let weekI = 0; weekI < 52; weekI++) {
+			calendar[dayI][weekI] = activityLevel();
+		}
+	}
+	return calendar;
+};
+
+const newcomerCalendar = generateCalendar(newcomerActivityLevel);
+
+const midlevelCalendar = generateCalendar(midlevelActivityLevel);
+
+const professionalCalendar = generateCalendar(professionalActivityLevel);
+---
+
+<section class={styles.container} aria-labelledby="what-do-i-get">
+	<h2
+		id="what-do-i-get"
+		class={`text-style-headline-2 ${styles.headerContainer}`}
+	>
+		<span class={styles.headerTop}>What can I get out of</span>
+		<span class={styles.headerBottom}>The Framework Field Guide?</span>
+	</h2>
+
+	<div
+		class={styles.toggleListContainer}
+		id="experience-level-toggle-container"
+		data-selected-index="1"
+	>
+		<fieldset class={`${styles.toggleListContainerInner} ${styles.fieldset}`}>
+			<legend class="srOnly">What's your experience level?</legend>
+			<div class={styles.checkboxContainer}>
+				<input
+					aria-controls="what-do-i-get-text"
+					class={`srOnly ${styles.checkBox}`}
+					name="learnLevel"
+					type="radio"
+					id="newcomer-checkbox"
+					value="newcomer"
+					checked
+				/>
+				<label for="newcomer-checkbox" class="text-style-body-medium"
+					>Newcomer</label
+				>
+			</div>
+			<div class={styles.checkboxContainer}>
+				<input
+					aria-controls="what-do-i-get-text"
+					class={`srOnly ${styles.checkBox}`}
+					name="learnLevel"
+					type="radio"
+					id="midlevel-checkbox"
+					value="mid-level"
+				/>
+				<label for="midlevel-checkbox" class="text-style-body-medium"
+					>Mid-level</label
+				>
+			</div>
+			<div class={styles.checkboxContainer}>
+				<input
+					aria-controls="what-do-i-get-text"
+					class={`srOnly ${styles.checkBox}`}
+					name="learnLevel"
+					type="radio"
+					id="professional-checkbox"
+					value="professional"
+				/>
+				<label for="professional-checkbox" class="text-style-body-medium"
+					>Professional</label
+				>
+			</div>
+		</fieldset>
+		<div
+			aria-hidden="true"
+			class={`${styles.toggleListContainerInner} ${styles.highlightedContainer}`}
+		>
+			<div class={styles.checkboxContainer}>
+				<input
+					class={`srOnly ${styles.checkBox}`}
+					disabled
+					tabindex="-1"
+					type="radio"
+					value="newcomer"
+					checked
+				/>
+				<label class="text-style-body-medium">Newcomer</label>
+			</div>
+			<div class={styles.checkboxContainer}>
+				<input
+					class={`srOnly ${styles.checkBox}`}
+					disabled
+					tabindex="-1"
+					type="radio"
+					value="mid-level"
+				/>
+				<label class="text-style-body-medium">Mid-level</label>
+			</div>
+			<div class={styles.checkboxContainer}>
+				<input
+					class={`srOnly ${styles.checkBox}`}
+					disabled
+					tabindex="-1"
+					type="radio"
+					value="professional"
+				/>
+				<label class="text-style-body-medium">Professional</label>
+			</div>
+		</div>
+	</div>
+
+	<div class={styles.calendarContainer} aria-hidden="true">
+		<div class={styles.calendar} id="contribution-graph">
+			{
+				newcomerCalendar.map((week, weekI) => {
+					return (
+						<div
+							class={styles.week}
+							data-identity="week"
+							data-identity-num={weekI}
+						>
+							{week.map((day, dayI) => {
+								return (
+									<div
+										data-identity="day"
+										data-identity-num={dayI}
+										class={`${styles.day}`}
+										data-activity-level={day}
+									/>
+								);
+							})}
+						</div>
+					);
+				})
+			}
+		</div>
+	</div>
+
+	<p
+		id="what-do-i-get-text"
+		class={styles.explainerText}
+		role="region"
+		aria-live="polite"
+	>
+		<span id="what-do-i-get-newcomer-text" class={`text-style-body-large`}>
+			The Framework Field Guide provides step-by-step learning for three
+			different frameworks, starting from the fundamentals. It's a great
+			resource for those new to web development who want to learn without being
+			pigeon-holed into one piece of tech.
+		</span>
+		<span
+			id="what-do-i-get-mid-level-text"
+			style="display: none"
+			class={`text-style-body-large`}
+		>
+			The Framework Field Guide is an in-depth collection of resources that
+			doesn't hold back. It helps answer everything from "What is a pure
+			function?" to "how can I write my own VDOM?". It's perfect for those who
+			have some experience but are missing pieces of the puzzle.
+		</span>
+		<span
+			id="what-do-i-get-professional-text"
+			style="display: none"
+			class={`text-style-body-large`}
+		>
+			The Framework Field Guide takes you step-by-step to writing your own VDOM,
+			understanding reconciliation, and more. It's a great resource for
+			JavaScript pros who want to understand the internals of their tools to
+			make drastic improvements to their product's UX.
+		</span>
+	</p>
+</section>
+
+<script
+	define:vars={{ newcomerCalendar, midlevelCalendar, professionalCalendar }}
+>
+	const calendar = document.querySelector(`#contribution-graph`);
+
+	function fillCalendarWith(calendarArrArr) {
+		calendarArrArr.forEach((week, weekI) => {
+			const weekEl = calendar.querySelector(
+				`[data-identity="week"][data-identity-num="${weekI}"]`,
+			);
+			week.forEach((day, dayI) => {
+				const dayEl = weekEl.querySelector(
+					`[data-identity="day"][data-identity-num="${dayI}"]`,
+				);
+				dayEl.dataset.activityLevel = day.toString();
+			});
+		});
+	}
+
+	// TODO: Replace this all with `:has` when supported in Firefox
+	const experienceLevelToggleContainer = document.querySelector(
+		`#experience-level-toggle-container`,
+	);
+
+	const newcomerCheckbox = document.querySelector(`#newcomer-checkbox`);
+	const midlevelCheckbox = document.querySelector(`#midlevel-checkbox`);
+	const professionalCheckbox = document.querySelector(`#professional-checkbox`);
+
+	const newcomerEls = [document.querySelector(`#what-do-i-get-newcomer-text`)];
+	const midlevelEls = [document.querySelector(`#what-do-i-get-mid-level-text`)];
+	const professionalEls = [
+		document.querySelector(`#what-do-i-get-professional-text`),
+	];
+
+	newcomerCheckbox.addEventListener("input", () => {
+		if (newcomerCheckbox.checked) {
+			newcomerEls.forEach((el) => (el.style.display = "block"));
+			midlevelEls.forEach((el) => (el.style.display = "none"));
+			professionalEls.forEach((el) => (el.style.display = "none"));
+			experienceLevelToggleContainer.dataset.selectedIndex = "1";
+			fillCalendarWith(newcomerCalendar);
+		}
+	});
+	midlevelCheckbox.addEventListener("input", () => {
+		if (midlevelCheckbox.checked) {
+			newcomerEls.forEach((el) => (el.style.display = "none"));
+			midlevelEls.forEach((el) => (el.style.display = "block"));
+			professionalEls.forEach((el) => (el.style.display = "none"));
+			experienceLevelToggleContainer.dataset.selectedIndex = "2";
+			fillCalendarWith(midlevelCalendar);
+		}
+	});
+	professionalCheckbox.addEventListener("input", () => {
+		if (professionalCheckbox.checked) {
+			newcomerEls.forEach((el) => (el.style.display = "none"));
+			midlevelEls.forEach((el) => (el.style.display = "none"));
+			professionalEls.forEach((el) => (el.style.display = "block"));
+			experienceLevelToggleContainer.dataset.selectedIndex = "3";
+			fillCalendarWith(professionalCalendar);
+		}
+	});
+</script>

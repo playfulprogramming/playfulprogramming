@@ -1,0 +1,133 @@
+---
+import { CollectionInfo, PersonInfo } from "../../types";
+import { Picture } from "components/image/picture";
+import { LargeButton, Button } from "components/button/button";
+import { translate } from "src/utils/translations";
+import { getHrefContainerProps } from "utils/href-container-script";
+
+import "../../styles/post-body.scss";
+import "../../styles/markdown/tabs.scss";
+import "../../styles/shiki.scss";
+import "../../styles/convertkit.scss";
+
+import styles from "./collection-page.module.scss";
+import { desktopSmall } from "src/tokens/breakpoints";
+
+interface Props {
+	collection: CollectionInfo;
+	collectionHtml: string;
+	authors: PersonInfo[];
+}
+
+const { collection, collectionHtml, authors } = Astro.props as Props;
+
+const coverImgAspectRatio =
+	collection.coverImgMeta.width / collection.coverImgMeta.height;
+// adjust the image width to ensure its height=720px
+// (i.e. it shouldn't get upscaled/downscaled with `object-fit: cover`)
+const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
+---
+
+<section class={styles.collectionPageContainer}>
+	<div class={styles.collectionPageInnerContainer}>
+		<div class={styles.coverImage}>
+			<Picture
+				alt=""
+				src={collection.coverImgMeta.relativeServerPath}
+				width={coverImgWidth}
+				height={720}
+				sizes={{
+					360: { maxWidth: desktopSmall },
+				}}
+				loading="eager"
+			/>
+		</div>
+		<div class={styles.titleAndDescContainer}>
+			<h1 class={`text-style-headline-1 ${styles.title}`}>
+				{collection.title}
+			</h1>
+			<p class={`text-style-headline-6 ${styles.description}`}>
+				{collection.description}
+			</p>
+		</div>
+		<div class={styles.contentContainer}>
+			<div class={`post-body ${styles.content}`} set:html={collectionHtml} />
+			<div class={styles.buttonContainer}>
+				{
+					collection.buttons?.map((button, i) => (
+						<LargeButton
+							tag="a"
+							href={button.url}
+							variant={i === 0 ? "primary-emphasized" : "primary"}
+						>
+							{button.text}
+						</LargeButton>
+					))
+				}
+			</div>
+			<ul
+				class={styles.authorsList}
+				role="list"
+				aria-label="Collection authors"
+			>
+				{
+					authors.map((author) => {
+						const href = `/people/${author.id}`;
+						return (
+							<li
+								class={styles.authorContainer}
+								{...getHrefContainerProps(href)}
+							>
+								<div
+									class={styles.authorImage}
+									style={{ borderColor: author.color }}
+								>
+									<Picture
+										src={author.profileImgMeta.relativeServerPath}
+										width={48}
+										height={48}
+										alt=""
+									/>
+								</div>
+								<div class={styles.authorMetaData}>
+									<p class={`text-style-body-large-bold ${styles.authorName}`}>
+										{author.name}
+									</p>
+									<p class="text-style-body-large">
+										<span
+											class={`text-style-body-medium-bold ${styles.authorArticles}`}
+										>
+											{translate(
+												Astro,
+												"title.n_articles",
+												author.totalPostCount.toLocaleString("en"),
+											)}
+										</span>
+										<span class={styles.authorMetaSeperatorDot}>•</span>
+										<span
+											class={`text-style-body-medium-bold ${styles.authorWordCount}`}
+										>
+											{translate(
+												Astro,
+												"title.n_words",
+												author.totalWordCount.toLocaleString("en"),
+											)}
+										</span>
+									</p>
+								</div>
+								<Button tag="a" href={href} class={styles.viewProfileBtn}>
+									{translate(Astro, "action.view_profile")}
+								</Button>
+								<div
+									class={`text-style-body-medium ${styles.authorDescription}`}
+								>
+									{author.description}
+								</div>
+							</li>
+						);
+					})
+				}
+			</ul>
+		</div>
+	</div>
+</section>

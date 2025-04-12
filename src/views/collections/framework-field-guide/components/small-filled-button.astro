@@ -1,0 +1,13 @@
+---
+const { class: className, ...props } =
+	Astro.props as astroHTML.JSX.LinkHTMLAttributes;
+---
+
+<a
+	{...props}
+	class={`text-style-button ffg-button-base ffg-small-button ffg-filled-button ${
+		className ? className : ""
+	}`}
+>
+	<slot />
+</a>

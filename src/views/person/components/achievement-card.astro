@@ -1,0 +1,19 @@
+---
+import styles from "./achievements.module.scss";
+import { AchievementsInfo } from "../../../types/AchievementsInfo";
+
+interface AchievementsProps {
+	achievement: AchievementsInfo;
+}
+
+const { achievement } = Astro.props as AchievementsProps;
+---
+
+<div class={styles.container}>
+	<h3 class={`text-style-body-medium-bold ${styles.name}`}>
+		{achievement.name}
+	</h3>
+	<p class={`text-style-body-small ${styles.description}`}>
+		{achievement.body}
+	</p>
+</div>

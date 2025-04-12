@@ -1,0 +1,102 @@
+---
+import styles from "./hero.module.scss";
+import LeftTitleSpark from "../components/left-title-spark.astro";
+import RightTitleSpark from "../components/right-title-spark.astro";
+import BigFilledButton from "../components/big-filled-button.astro";
+import SmallFilledButton from "../components/small-filled-button.astro";
+import SmallOutlinedButton from "../components/small-outlined-button.astro";
+import Sun from "../cover-layers/fundamentals/sun.astro";
+---
+
+<section class={`class-book-1 class-book-hero`} aria-labelledby="hero-title">
+	<div class={`book-section ${styles.heroContainer}`}>
+		<div class={styles.sunContainerContainer} data-move-on-scroll-by="0.2">
+			<div>
+				<Sun />
+			</div>
+		</div>
+		<p class={`text-style-body-medium-bold ${styles.introducing}`}>
+			Introducing
+		</p>
+		<div class={styles.titleContainer} data-no-max-width>
+			<div></div>
+			<div class={styles.sparkContainer}><LeftTitleSpark /></div>
+			<h1 id="hero-title" class={`text-style-headline-1 ${styles.seriesTitle}`}>
+				The Framework Field Guide
+			</h1>
+			<div class={styles.sparkContainer}><RightTitleSpark /></div>
+			<div></div>
+		</div>
+		<p class={`text-style-headline-5 ${styles.explainer}`}>
+			A practical way to learn <span class={styles.frameworkName}>Angular</span
+			>, <span class={styles.frameworkName}>React</span> &
+			<span class={styles.frameworkName}>Vue</span> all at once
+		</p>
+		<ul class={styles.booksContainer}>
+			<li class={styles.bookItemContainer}>
+				<article role="group" aria-label="Book">
+					<p class={`text-style-body-large-bold ${styles.bookPart}`}>Book 1</p>
+					<p class={`text-style-headline-4 ${styles.bookPartName}`}>
+						Fundamentals
+					</p>
+					<SmallFilledButton
+						href="/collections/framework-field-guide-fundamentals"
+					>
+						Read now
+					</SmallFilledButton>
+					<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
+						Now featuring Angular signals!
+					</p>
+				</article>
+				<div class={styles.heroLine}></div>
+			</li>
+			<li class={styles.bookItemContainer}>
+				<article role="group" aria-label="Book">
+					<p class={`text-style-body-large-bold ${styles.bookPart}`}>Book 2</p>
+					<p class={`text-style-headline-4 ${styles.bookPartName}`}>
+						Ecosystem
+					</p>
+					<SmallOutlinedButton
+						href="#ecosystem-title"
+						onclick="event.preventDefault();var title=document.getElementById('ecosystem-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+					>
+						Learn more
+					</SmallOutlinedButton>
+					<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
+						Coming soon
+					</p>
+				</article>
+			</li>
+			<li class={styles.bookItemContainer}>
+				<article role="group" aria-label="Book">
+					<p class={`text-style-body-large-bold ${styles.bookPart}`}>Book 3</p>
+					<p class={`text-style-headline-4 ${styles.bookPartName}`}>
+						Internals
+					</p>
+					<SmallOutlinedButton
+						href="#internals-title"
+						onclick="event.preventDefault();var title=document.getElementById('internals-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+					>
+						Learn more
+					</SmallOutlinedButton>
+					<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
+						Coming 2025
+					</p>
+					<div class={styles.heroLineBottomHider}></div>
+				</article>
+			</li>
+		</ul>
+		<p class={`text-style-headline-2 ${styles.readyToStart}`}>
+			<span class={styles.lighterBlue}>Ready to start your journey,</span> entirely
+			for free<span class={styles.lighterBlue}>?</span>
+		</p>
+		<BigFilledButton
+			href="#why-free"
+			data-no-horiz-pad
+			class={styles.whyFreeBtn}
+			onclick="event.preventDefault();window.location.hash='why-free-story';setTimeout(() => {var title=document.getElementById('why-free-story');title.scrollIntoView({behavior: 'smooth', block: 'center'})}, 100)"
+		>
+			Learn why we made it free
+		</BigFilledButton>
+	</div>
+</section>

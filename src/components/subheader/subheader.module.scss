@@ -1,0 +1,21 @@
+:root {
+	--subheader_padding-top: calc(var(--site-spacing) + var(--spc-4x));
+	--subheader_padding-bottom: var(--spc-4x);
+	--subheader_gap: var(--spc-4x);
+
+	--subheader_label_color: var(--foreground_emphasis-high);
+}
+
+.container {
+	padding-top: var(--subheader_padding-top);
+	padding-bottom: var(--subheader_padding-bottom);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: var(--subheader_gap);
+}
+
+.heading {
+	color: var(--subheader_label_color);
+	margin: 0;
+}

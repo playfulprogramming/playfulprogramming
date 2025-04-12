@@ -1,0 +1,91 @@
+---
+import { THEME_COLOR_DARK, THEME_COLOR_LIGHT } from "constants/theme";
+import { Languages } from "types/index";
+
+/**
+ * For our super custom pages that don't require the global styling of the rest of UU, such as FFG's pages.
+ */
+
+interface DocumentProps {
+	lang?: Languages;
+}
+
+let { lang } = Astro.props as DocumentProps;
+lang ??= "en";
+---
+
+<html lang={lang} class="light">
+	<head>
+		<meta name="viewport" content="width=device-width" />
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.ico" />
+		<link rel="manifest" href="/manifest.json" />
+		<meta
+			name="theme-color"
+			media="(prefers-color-scheme: light)"
+			content={THEME_COLOR_LIGHT}
+		/>
+		<meta
+			name="theme-color"
+			media="(prefers-color-scheme: dark)"
+			content={THEME_COLOR_DARK}
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="48x48"
+			href="/icons/icon-48x48.png?v=2a"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="72x72"
+			href="/icons/icon-72x72.png?v=2a"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="96x96"
+			href="/icons/icon-96x96.png?v=2a"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="144x144"
+			href="/icons/icon-144x144.png?v=2a"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="192x192"
+			href="/icons/icon-192x192.png?v=2a"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="256x256"
+			href="/icons/icon-256x256.png?v=2a"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="384x384"
+			href="/icons/icon-384x384.png?v=2a"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="512x512"
+			href="/icons/icon-512x512.png?v=2a"
+		/>
+		<script defer src="/uninstall-sw.js" is:inline></script>
+		<script
+			defer
+			data-domain="playfulprogramming.com"
+			src="/areyoumyuser/js/script.js"
+			data-api="/areyoumyuser/api/event"></script>
+		<script is:inline>
+			window.plausible =
+				window.plausible ||
+				function () {
+					(window.plausible.q = window.plausible.q || []).push(arguments);
+				};
+		</script>
+		<slot name="head" />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

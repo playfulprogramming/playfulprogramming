@@ -1,0 +1,168 @@
+---
+import styles from "./profile-section.module.scss";
+import { Picture as UUPicture } from "components/index";
+import { PersonInfo } from "types/index";
+import { Icon } from "astro-icon/components";
+import * as api from "utils/api";
+import { isDefined } from "utils/is-defined";
+import { desktopSmall, tabletSmall } from "src/tokens/breakpoints";
+
+interface ProfileSectionProps {
+	person: PersonInfo;
+}
+
+const { person } = Astro.props as ProfileSectionProps;
+
+const iconSize = 20;
+
+interface SocialInfo {
+	icon: string;
+	name: string;
+	href: (socials: PersonInfo["socials"]) => string | undefined;
+}
+
+const socials: SocialInfo[] = [
+	{
+		icon: "website",
+		name: "Website",
+		href: (s) => s.website,
+	},
+	{
+		icon: "github",
+		name: "GitHub",
+		href: (s) => s.github && `https://github.com/${s.github}`,
+	},
+	{
+		icon: "gitlab",
+		name: "GitLab",
+		href: (s) => s.gitlab && `https://gitlab.com/${s.gitlab}`,
+	},
+	{
+		icon: "twitter",
+		name: "Twitter",
+		href: (s) => s.twitter && `https://twitter.com/${s.twitter}`,
+	},
+	{
+		icon: "twitch",
+		name: "Twitch",
+		href: (s) => s.twitch && `https://www.twitch.tv/${s.twitch}`,
+	},
+	{
+		icon: "dribbble",
+		name: "Dribbble",
+		href: (s) => s.dribbble && `https://dribbble.com/${s.dribbble}`,
+	},
+	{
+		icon: "linkedin",
+		name: "LinkedIn",
+		href: (s) => s.linkedIn && `https://www.linkedin.com/in/${s.linkedIn}`,
+	},
+	{
+		icon: "mastodon",
+		name: "Mastodon",
+		href: (s) => s.mastodon,
+	},
+	{
+		icon: "threads",
+		name: "Threads",
+		href: (s) => s.threads && `https://www.threads.net/${s.threads}`,
+	},
+	{
+		icon: "youtube",
+		name: "YouTube",
+		href: (s) => s.youtube && s.youtube,
+	},
+	{
+		icon: "cohost",
+		name: "Cohost",
+		href: (s) => s.cohost && `https://cohost.org/${s.cohost}`,
+	},
+	{
+		icon: "bluesky",
+		name: "Bluesky",
+		href: (s) => s.bluesky,
+	},
+];
+
+const roles = person.roles
+	.map((roleId) => api.getRoleById(roleId, person.locale))
+	.filter(isDefined);
+---
+
+<section class={styles.container}>
+	<div class={styles.cardContainer}>
+		<div class={styles.nameAndDesc}>
+			<UUPicture
+				src={person.profileImgMeta.relativeServerPath}
+				width={192}
+				height={192}
+				sizes={{
+					96: { maxWidth: tabletSmall },
+					128: { maxWidth: desktopSmall },
+				}}
+				alt=""
+				class={styles.authorImage}
+			/>
+			<div>
+				<div class={styles.nameAndPronouns}>
+					<h1 class={`text-style-headline-4 ${styles.name}`}>{person.name}</h1>
+					{
+						person.pronouns && (
+							<h2 class={`text-style-body-medium-bold ${styles.pronouns}`}>
+								{person.pronouns}
+							</h2>
+						)
+					}
+				</div>
+				<p class={`text-style-body-medium ${styles.bio}`}>
+					{person.description}
+				</p>
+			</div>
+		</div>
+		<ul
+			class={styles.socialLinkContainer}
+			role="list"
+			aria-label={`${person.name} social media links`}
+		>
+			{
+				socials.map((social) => {
+					const href = social.href(person.socials);
+					if (!href) return [];
+					return (
+						<li>
+							<a
+								rel="me"
+								href={href}
+								class={`text-style-button-regular ${styles.socialLink}`}
+							>
+								<Icon
+									width={iconSize}
+									height={iconSize}
+									name={social.icon as never}
+									class={styles.linkIcon}
+								/>
+								{social.name}
+							</a>
+						</li>
+					);
+				})
+			}
+		</ul>
+		<ul class={styles.rolesList} role="list" aria-label="Contributor roles">
+			{
+				roles.map((role) => (
+					<li class={styles.role}>
+						<img
+							src={`/stickers/role_${role.id}.svg`}
+							alt=""
+							class={`${styles.rolePic}`}
+						/>
+						<span class={`text-style-body-small-bold ${styles.roleName}`}>
+							{role.prettyname}
+						</span>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>

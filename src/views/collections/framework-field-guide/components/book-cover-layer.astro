@@ -1,0 +1,48 @@
+---
+interface BookCoverLayerProps {
+	class?: string;
+	moveOnScrollBy?: number;
+	name?: string;
+}
+
+const {
+	class: className,
+	moveOnScrollBy,
+	name,
+} = Astro.props as BookCoverLayerProps;
+---
+
+<div
+	data-layer-name={name}
+	data-move-on-scroll-by={moveOnScrollBy}
+	class={`bookCoverLayer ${className}`}
+>
+	<slot name="left" />
+	<slot name="center" />
+	<slot name="right" />
+</div>
+
+<style>
+	.bookCoverLayer {
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		overflow: hidden;
+	}
+
+	.bookCoverLayer > :global(div) {
+		display: flex;
+		justify-content: flex-end;
+		flex-direction: column;
+	}
+
+	.bookCoverLayer :global(svg:not([data-repeated="true"])) {
+		max-height: min(var(--max-width_small), 100vw, 100vh);
+		height: fit-content;
+		width: 100%;
+	}
+</style>

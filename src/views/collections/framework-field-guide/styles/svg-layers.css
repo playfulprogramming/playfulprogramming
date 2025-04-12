@@ -1,0 +1,22 @@
+[data-move-on-scroll-by] {
+	will-change: transform;
+}
+
+.repeat-background-container {
+	width: 100%;
+	overflow: hidden;
+	display: flex;
+	flex-wrap: nowrap;
+	height: 100%;
+}
+
+.repeat-background-svg-container {
+	height: 100%;
+	aspect-ratio: var(--svgAspectRatio);
+}
+
+.repeat-background-svg-container > svg *,
+svg.colorTransitionSVG * {
+	transition: fill var(--color-transition-time) var(--color-transition-ease);
+	will-change: transition;
+}

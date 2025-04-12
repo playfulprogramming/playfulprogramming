@@ -1,0 +1,42 @@
+---
+import Document from "../layouts/document.astro";
+import SEO from "components/seo/seo.astro";
+import PageCard from "components/page-card/page-card.astro";
+
+import sadUnicorn from "../assets/unicorn_sad.svg";
+import { LargeButton } from "../components";
+
+const locale = "en";
+---
+
+<Document lang={locale}>
+	<SEO slot="head" title="404: Not Found" />
+	<main class="missingMain">
+		<PageCard
+			imageSrc={sadUnicorn.src}
+			imageAlt="A crying Unicorn"
+			title="We couldn’t find what you were looking for..."
+			description="We don't quite understand where you're trying to go! We're really sorry about this! Maybe the URL has a typo in it or we've configured something wrong!"
+			numberOfButtons={2}
+		>
+			<LargeButton href="/" slot="button" variant="primary">
+				Go back home
+			</LargeButton>
+			<LargeButton
+				href="https://discord.gg/FMcvc6T"
+				slot="second-button"
+				variant="secondary"
+			>
+				Report an issue
+			</LargeButton>
+		</PageCard>
+	</main>
+</Document>
+
+<style lang="scss">
+	.missingMain {
+		display: flex;
+		padding: var(--site-spacing);
+		justify-content: center;
+	}
+</style>

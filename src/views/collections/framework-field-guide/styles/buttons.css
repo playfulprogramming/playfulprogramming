@@ -1,0 +1,51 @@
+.ffg-button-base {
+	border-radius: var(--btn-corner-radius);
+	position: relative;
+	user-select: none;
+	-webkit-user-select: none;
+	display: inline-block;
+	border-style: solid;
+	transition:
+		color var(--btn-state-transition-duration)
+			var(--btn-state-transition-easing),
+		background var(--btn-state-transition-duration)
+			var(--btn-state-transition-easing);
+}
+
+.ffg-big-button {
+	padding: var(--btn-ver-padding_large) var(--btn-hor-padding_large);
+	border-width: var(--btn-border-width_large);
+}
+
+.ffg-small-button {
+	padding: var(--btn-ver-padding_small) var(--btn-hor-padding_small);
+	border-width: var(--btn-border-width_small);
+}
+
+.ffg-outlined-button {
+	background: transparent;
+	color: var(--btn-foreground_outlined);
+	border-color: var(--btn-border);
+}
+
+.ffg-outlined-button:hover {
+	background: var(--btn-state-hovered_outlined);
+}
+
+.ffg-outlined-button:active {
+	background: var(--btn-state-pressed_outlined);
+}
+
+.ffg-filled-button {
+	background: var(--btn-background_filled);
+	color: var(--btn-foreground_filled);
+	border-color: transparent;
+}
+
+.ffg-filled-button:hover {
+	background: var(--btn-state-hovered_filled);
+}
+
+.ffg-filled-button:active {
+	background: var(--btn-state-pressed_filled);
+}

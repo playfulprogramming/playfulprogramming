@@ -1,0 +1,5 @@
+# Our custom PNPM settings
+.pnpm
+src/vendor/*
+!src/vendor/.gitkeep
+src/vendor_bundled/

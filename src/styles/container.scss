@@ -1,0 +1,8 @@
+@use "src/tokens/index" as *;
+
+.container {
+	margin: 0 auto;
+	padding: 0 var(--site-spacing);
+
+	max-width: var(--max-width_l);
+}

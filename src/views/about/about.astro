@@ -1,0 +1,144 @@
+---
+import style from "./about.module.scss";
+import "../../styles/shiki.scss";
+import * as data from "src/utils/data";
+import { translate } from "src/utils/translations";
+import TranslationsHeader from "src/views/base/translations/translations-header.astro";
+import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
+import { License } from "./license";
+import BannerSvg from "./banner-svg.astro";
+import * as api from "utils/api";
+import { Languages } from "types/index";
+import { VFile } from "vfile";
+import { getMarkdownHtml } from "utils/markdown";
+import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
+import { MarkdownFileInfo, MarkdownVFile } from "utils/markdown/types";
+import { Links } from "./components";
+import ContributorCard from "../../components/contributor-card/contributor-card.astro";
+
+interface Props {
+	locales: Languages[];
+	locale: Languages;
+	file: string;
+}
+
+const { locales, locale, file } = Astro.props as Props;
+const fileInfo: MarkdownFileInfo = { kind: "page", file };
+const vfile = await getMarkdownVFile(fileInfo);
+
+const [content1, content2, content3] = await Promise.all(
+	vfile.value
+		.toString()
+		.split("<!-- split -->")
+		.map((value) =>
+			getMarkdownHtml(
+				fileInfo,
+				new VFile({ ...vfile, value }) as MarkdownVFile,
+			),
+		),
+);
+
+let people = api.getPeopleByLang(locale);
+
+// Sort people to see if "partner" is in the title, otherwise sort by name
+people = people
+	.filter((person) => person.roles.includes("board"))
+	.sort((a, b) => {
+		return a.name.localeCompare(b.name);
+	});
+
+const tags = [
+	...[...data.tags.values()]
+		.filter((tag) => !!tag.image && !!tag.explainerHtml)
+		// prevent duplicates when images are used with multiple tags
+		.reduce((map, entry) => {
+			if (!map.has(entry.image)) {
+				map.set(entry.image, entry);
+			}
+			return map;
+		}, new Map())
+		.values(),
+];
+---
+
+<main class="container">
+	<h1 class="visually-hidden">About Us</h1>
+	<div class={style.banner}>
+		<BannerSvg />
+	</div>
+	<div class={`${style.aboutBody} post-body`}>
+		<TranslationsHeader locales={locales} />
+		<div set:html={content1.html} />
+		<Links />
+		<div set:html={content2.html} />
+		<ul class={style.peopleContainer} role="list">
+			{
+				people.map((person) => (
+					<ContributorCard
+						overrides={{
+							isPartner: false,
+							roles: ["Board Member", ...(person.boardRoles ?? [])],
+						}}
+						person={person}
+					/>
+				))
+			}
+		</ul>
+		<div set:html={content3.html} />
+		<hr />
+
+		<h2 id="licenses">
+			<span>{translate(Astro, "title.licenses")}</span>
+		</h2>
+
+		<ul class={style.licenses} role="list" aria-labelledby="licenses">
+			{
+				tags.map((tag) => (
+					<li>
+						<License
+							client:visible
+							name={tag.displayName}
+							explainerHtml={tag.explainerHtml}
+							image={tag.image}
+							action={
+								tag.explainerType === "license"
+									? translate(Astro, "action.view_license")
+									: translate(Astro, "action.view_attribution")
+							}
+							actionLabel={
+								tag.explainerType === "license"
+									? translate(Astro, "label.view_license_for", tag.displayName)
+									: translate(
+											Astro,
+											"label.view_attribution_for",
+											tag.displayName,
+										)
+							}
+						/>
+					</li>
+				))
+			}
+		</ul>
+
+		<p>
+			{translate(Astro, "desc.licenses_request_removal")}
+			<a id="email-licenses" href="#">
+				<noscript>JavaScript required</noscript>
+			</a>
+			<script>
+				{
+					const a: HTMLAnchorElement =
+						document.querySelector("#email-licenses")!;
+					// This is base64 for UU's contact email, to prevent automated page crawlers from finding it
+					a.href =
+						"mailto:" +
+						(a.innerText = atob(
+							"bGljZW5zaW5nQHBsYXlmdWxwcm9ncmFtbWluZy5jb20=",
+						));
+				}
+			</script>
+		</p>
+	</div>
+</main>
+
+<HeadingLinkScript />

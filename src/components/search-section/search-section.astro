@@ -1,0 +1,56 @@
+---
+import { Chip } from "../chip/chip";
+import { translate } from "utils/translations";
+import style from "./search-section.module.scss";
+import * as data from "utils/data";
+import { SearchInput } from "../input/input";
+import { IconOnlyButton } from "../button/button";
+import { Icon } from "astro-icon/components";
+import { SEARCH_QUERY_KEY, buildSearchQuery } from "src/views/search/search";
+
+const tagsToDisplay = [...data.tags.entries()]
+	.sort(() => 0.5 - Math.random())
+	.slice(0, 8);
+---
+
+<section class={style.container}>
+	<h2 class={`text-style-headline-4 ${style.title}`}>
+		{translate(Astro, "title.looking_for_more")}
+	</h2>
+	<p class={`text-style-body-medium ${style.description}`}>
+		{translate(Astro, "desc.looking_for_more")}
+	</p>
+
+	<form class={style.searchbarRow} method="get" action="/search">
+		<SearchInput name={SEARCH_QUERY_KEY} class={style.searchbar} />
+		<IconOnlyButton
+			tag="button"
+			type="submit"
+			class={style.searchButton}
+			aria-label={translate(Astro, "title.search")}
+		>
+			<Icon style="width: 100%; height: 100%;" name="arrow_right" />
+		</IconOnlyButton>
+	</form>
+
+	<ul
+		class="unlist-inline gap-2 text-center"
+		aria-label="Post tags"
+		role="list"
+	>
+		{
+			tagsToDisplay.map((tag) => (
+				<li>
+					<Chip
+						href={`/search?${buildSearchQuery({
+							searchQuery: "*",
+							filterTags: [tag[0]],
+						})}`}
+					>
+						{tag[1].displayName}
+					</Chip>
+				</li>
+			))
+		}
+	</ul>
+</section>

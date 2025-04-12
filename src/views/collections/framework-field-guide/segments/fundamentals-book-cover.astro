@@ -1,0 +1,71 @@
+---
+import BookCoverContainer from "../components/book-cover-container.astro";
+import BookCoverLayer from "../components/book-cover-layer.astro";
+import { GroundAndManSvg } from "../cover-layers/fundamentals/ground_and_man";
+import { SignGroundReflection } from "../cover-layers/fundamentals/sign_ground_reflection";
+import { Trees } from "../cover-layers/fundamentals/trees";
+import { Mountains } from "../cover-layers/fundamentals/mountains";
+import { BackgroundRepeat } from "../cover-layers/fundamentals/background_repeat";
+import SafeArea from "../cover-layers/fundamentals/safe-area.astro";
+---
+
+<style is:global>
+	.fundamentals-book-cover .background-repeat-layer {
+		grid-template-columns: 1fr auto 1fr !important;
+	}
+</style>
+
+<BookCoverContainer class="fundamentals-book-cover">
+	<BookCoverLayer moveOnScrollBy={0.3} name="mountains">
+		<div slot="left"></div>
+		<div slot="center" style="height: 100%; width: 100vw !important">
+			<Mountains client:load />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+	<BookCoverLayer moveOnScrollBy={0.2} name="trees">
+		<div slot="left"></div>
+		<div slot="center" style="height: 100%; width: 100vw !important">
+			<Trees client:load />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+	<BookCoverLayer
+		moveOnScrollBy={0.1}
+		name="right-repeat"
+		class="background-repeat-layer"
+	>
+		<div slot="left"></div>
+		<div
+			slot="center"
+			style="max-width: min(var(--max-width_small),100vw,100vh); width: 100vw;"
+		>
+			<SafeArea />
+		</div>
+		<div slot="right"><BackgroundRepeat client:load /></div>
+	</BookCoverLayer>
+	<BookCoverLayer name="left-repeat" class="background-repeat-layer">
+		<div slot="left"><BackgroundRepeat client:load /></div>
+		<div
+			slot="center"
+			style="max-width: min(var(--max-width_small),100vw,100vh); width: 100vw;"
+		>
+			<SafeArea />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+	<BookCoverLayer moveOnScrollBy={0.1} name="sign-ground">
+		<div slot="left"></div>
+		<div slot="center">
+			<SignGroundReflection />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+	<BookCoverLayer name="hiker">
+		<div slot="left"></div>
+		<div slot="center">
+			<GroundAndManSvg />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+</BookCoverContainer>

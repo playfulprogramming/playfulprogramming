@@ -1,0 +1,65 @@
+@use "src/tokens/index" as *;
+
+.header {
+	align-items: center;
+	position: relative;
+}
+
+.buttons {
+	gap: var(--spc-4x) var(--spc-6x);
+	padding: var(--spc-4x) 0;
+	display: grid;
+	grid-template-columns: repeat(1, minmax(0, 1fr));
+
+	@include from($tabletLarge) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	@include from($desktopSmall) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.bannerLogo {
+	height: 128px;
+	display: block;
+	position: absolute;
+	top: calc(-1 * var(--site-spacing));
+	left: calc(-1 * var(--site-spacing));
+	right: calc(-1 * var(--site-spacing));
+	z-index: -1;
+}
+
+.title {
+	margin-bottom: 0;
+}
+
+.desc {
+	margin: var(--spc-4x) 0;
+}
+
+.title,
+.desc {
+	@include transition(text-shadow);
+	text-shadow:
+		0 0 5px var(--background_primary),
+		0 0 6px var(--background_primary),
+		0 0 8px var(--background_primary),
+		0 0 8px var(--background_primary);
+}
+
+@include from($desktopSmall) {
+	.header {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--site-spacing);
+	}
+
+	.bannerLogo {
+		all: unset;
+		position: relative;
+		height: 100%;
+		width: 100%;
+		min-height: 424px;
+	}
+}

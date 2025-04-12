@@ -1,0 +1,128 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--filter-modal_header_padding-horizontal: calc(
+		var(--site-spacing) + var(--spc-2x)
+	);
+	--filter-modal_header_padding-vertical: calc(
+		var(--site-spacing) + var(--spc-2x)
+	);
+	--filter-modal_padding-horizontal: var(--site-spacing);
+	--filter-modal_padding-bottom: var(--site-spacing);
+	--filter-modal_gap: var(--site-spacing);
+	--filter-modal_button-gap: var(--spc-4x);
+	--filter-modal_corner-radius: var(--corner-radius_l);
+
+	@include from($tabletSmall) {
+		--filter-modal_corner-radius: calc(var(--site-spacing) * 2);
+		--filter-modal_header_padding-horizontal: var(--site-spacing);
+		--filter-modal_header_padding-vertical: var(--site-spacing);
+		--filter-modal_max-width: var(--max-width_s);
+	}
+}
+
+.dialog {
+	background: var(--background_primary);
+	padding: 0 var(--filter-modal_padding-horizontal)
+		var(--filter-modal_padding-bottom);
+	border-radius: var(--filter-modal_corner-radius);
+	max-width: var(--filter-modal_max-width);
+	width: calc(100% - var(--site-spacing) * 2);
+	height: 80vh;
+	border: none;
+	// this should be overflow: clip; to prevent the browser scrolling within the element when a filter checkbox is focused:
+	// https://stackoverflow.com/q/75419337
+	// https://github.com/playfulprogramming/playfulprogramming/issues/653
+	overflow: clip;
+}
+
+.dialog::backdrop {
+	background-color: rgba(0, 0, 0, 0.32);
+
+	@include darkTheme {
+		background-color: rgba(0, 0, 0, 0.72);
+	}
+}
+
+.dialog * {
+	overscroll-behavior: contain;
+}
+
+.dialogForm {
+	height: 100%;
+}
+
+.dialogTitleContainer {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	margin: var(--filter-modal_header_padding-vertical)
+		calc(
+			var(--filter-modal_header_padding-horizontal) - var(
+					--filter-modal_padding-horizontal
+				)
+		);
+}
+
+.dialogTitle {
+	margin: 0;
+	color: var(--foreground_emphasis-high);
+	flex-grow: 1;
+}
+
+.mobileDialogContainer {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.mobileButtonsContainer {
+	display: flex;
+	gap: var(--filter-modal_button-gap);
+}
+
+.mobileButton {
+	flex-basis: 50%;
+}
+
+.mobileAuthorList {
+	margin-top: var(--filter-modal_gap);
+	margin-bottom: var(--filter-modal_gap);
+}
+
+.authorIcon img {
+	border-radius: 50%;
+	height: 100%;
+	width: 100%;
+}
+
+.tabletDialogContainer {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.filterSelectionContainer {
+	height: 1px;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: row;
+	gap: var(--filter-modal_gap);
+}
+
+.filterSelection {
+	flex-basis: 50%;
+	flex-direction: column;
+	display: flex;
+}
+
+.closeButton {
+	margin-right: var(--filter-modal_header_padding-horizontal);
+}
+
+.closeIcon,
+.closeIcon svg {
+	height: 100%;
+	width: 100%;
+}
