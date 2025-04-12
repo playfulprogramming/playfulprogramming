@@ -1,8 +1,8 @@
 import { getHeaderNodeId, slugs } from "rehype-slug-custom-id";
 import { Element, Node, Parent, Text } from "hast";
-import { TabInfo, Tabs } from "./tabs";
+import { TabInfo } from "./tabs";
 import { toString } from "hast-util-to-string";
-import { RehypeFunctionComponent } from "../types";
+import { RehypeFunctionProps } from "../types";
 
 const isNodeHeading = (n: Element) =>
 	n.type === "element" && /h[1-6]/.exec(n.tagName);
@@ -63,7 +63,9 @@ const getApproxLineCount = (nodes: Node[], inParagraph?: boolean): number => {
 	return lines;
 };
 
-export const transformTabs: RehypeFunctionComponent = ({ children }) => {
+export const transformTabs = ({
+	children,
+}: RehypeFunctionProps<Record<string, never>>) => {
 	let sectionStarted = false;
 	const largestSize = findLargestHeading(children as Element[]);
 	const tabs: TabInfo[] = [];
@@ -115,10 +117,8 @@ export const transformTabs: RehypeFunctionComponent = ({ children }) => {
 		// the max difference between tab heights must be under 15 lines
 		Math.max(...tabHeights) - Math.min(...tabHeights) <= 15;
 
-	return [
-		Tabs({
-			tabs,
-			isSmall,
-		}),
-	];
+	return {
+		tabs,
+		isSmall,
+	};
 };
