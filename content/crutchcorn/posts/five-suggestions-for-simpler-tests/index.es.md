@@ -125,8 +125,8 @@ Asi que ahora la pregunta es: ¿cómo generamos grandes porciones de datos sin t
 
 Todavía puede hacerlo programáticamente como lo hicimos antes, simplemente tienes que guardarlo en un archivo separado. Por ejemplo:
 ```javascript
- const faker = require('faker')
- const fs = require('fs')
+ const faker = require('faker');
+ const fs = require('fs');
 
  const generatePerson = () => ({
   nombre: faker.name.findName(),
@@ -136,7 +136,7 @@ Todavía puede hacerlo programáticamente como lo hicimos antes, simplemente tie
 
 const data = Array.from({length: 20}, () => generatePerson());
 
-const filas = JSON.stringify(genRows(20), null, 2)
+const filas = JSON.stringify(data, null, 2);
 
 fs.writeFileSync('datos_de_prueba.js', `module.exports = ${rows}`);
 ```
@@ -160,7 +160,7 @@ it('renderiza el contenido apropiadamente', () => {
 	expect(screen.getByText('964.170.7677')).toBeInTheDocument();
 
 	// Expect page 2 person not to be on screen
-	expect(screen.getByText(Joe Hardell)).not.toBeInTheDocument();
+	expect(screen.getByText('Joe Hardell')).not.toBeInTheDocument();
 	expect(screen.getByText('2010/03/10')).not.toBeInTheDocument();
 	expect(screen.getByText('783.879.9253')).not.toBeInTheDocument();
 })
@@ -171,14 +171,14 @@ Pero cuando miras a los tests que están fallando o están dando errores, los me
 Alternativamente, sugiero que los separes en 2 tests distintos:
 
 ```javascript
-it(renderiza todas las columnas', () => {
+it('renderiza todas las columnas', () => {
 	expect(screen.getByText('Jadyn Larson')).toBeInTheDocument();
 	expect(screen.getByText('2020/01/14')).toBeInTheDocument();
 	expect(screen.getByText('964.170.7677')).toBeInTheDocument();
 })
 
 it('no renderiza ninguna persona de pagina 2 en pagina 1', () => {
-	expect(screen.getByText(Joe Hardell)).not.toBeInTheDocument();
+	expect(screen.getByText('Joe Hardell')).not.toBeInTheDocument();
 	expect(screen.getByText('2010/03/10')).not.toBeInTheDocument();
 	expect(screen.getByText('783.879.9253')).not.toBeInTheDocument();
 })
@@ -193,14 +193,14 @@ También argumentaría que merece la pena el tiempo añadido a cambio de tests q
 Hay incluso otra ventaja que nos trae separar los tests que todavía no he mencionado: te deja disminuir la cantidad de lógica que tienes en otros tests. Vamos a ver el ejemplo anterior:
 
 ```javascript
-it(renderiza todas las columnas', () => {
+it('renderiza todas las columnas', () => {
 	expect(screen.getByText('Jadyn Larson')).toBeInTheDocument();
 	expect(screen.getByText('2020/01/14')).toBeInTheDocument();
 	expect(screen.getByText('964.170.7677')).toBeInTheDocument();
 })
 
 it('no renderiza ninguna persona de pagina 2 en pagina 1', () => {
-	expect(screen.getByText(Joe Hardell)).not.toBeInTheDocument();
+	expect(screen.getByText('Joe Hardell')).not.toBeInTheDocument();
 	expect(screen.getByText('2010/03/10')).not.toBeInTheDocument();
 	expect(screen.getByText('783.879.9253')).not.toBeInTheDocument();
 })
@@ -224,7 +224,7 @@ it('mostrar todos los usuarios', () => {
 	expect(screen.getByText('2020/01/14')).toBeInTheDocument();
 	expect(screen.getByText('964.170.7677')).toBeInTheDocument();
 
-	expect(screen.getByText(Joe Hardell)).toBeInTheDocument();
+	expect(screen.getByText('Joe Hardell')).toBeInTheDocument();
 	expect(screen.getByText('2010/03/10')).toBeInTheDocument();
 	expect(screen.getByText('783.879.9253')).toBeInTheDocument();
 })
@@ -244,7 +244,7 @@ it('mostrar todos los usuarios', () => {
 	expect(screen.getByText('Jadyn Larson')).toBeInTheDocument();
 
 	// Que se muestre la ultima persona
-	expect(screen.getByText(Joe Hardell)).toBeInTheDocument();
+	expect(screen.getByText('Joe Hardell')).toBeInTheDocument();
 })
 ```
 
@@ -266,7 +266,7 @@ it("renderizados", async () => {
   );
 
   expect(getByText("Cargando componente...")).toBeInTheDocument();
-  waitForElement(() => expect(getByText(“Element”)).toBeInTheDocument());
+  waitForElement(() => expect(getByText("Element")).toBeInTheDocument());
   expect(getByText("Nombre")).toBeInTheDocument();
 });
 ```
@@ -321,9 +321,9 @@ it("se muestra sin datos", async () => {
 });
 
 it("se muestra con datos", async () => {
-  const { findByText, getByText } = render(<RenderComponenteConectado usuario={ nombre: ‘Nombre’ } />);
+  const { findByText, getByText } = render(<RenderComponenteConectado usuario={ nombre: 'Nombre' } />);
 
-  expect(getByText(“Elemento”)).toBeInTheDocument();
+  expect(getByText("Elemento")).toBeInTheDocument();
   expect(getByText("Nombre")).toBeInTheDocument();
 });
 ```
