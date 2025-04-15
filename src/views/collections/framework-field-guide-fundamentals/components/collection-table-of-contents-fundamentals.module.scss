@@ -43,6 +43,7 @@
 	color: var(--on-dark-emphasis-high);
 	text-decoration: none;
 	padding: var(--chapter-item-padding-ver) 0;
+	margin: 0;
 }
 
 .postContainer {
@@ -83,6 +84,10 @@
 	margin-left: auto;
 	border: none !important;
 	flex-shrink: 0;
+}
+
+.noHoverButton:hover {
+	background: unset;
 }
 
 .buttonContainer {
