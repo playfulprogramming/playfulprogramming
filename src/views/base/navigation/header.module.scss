@@ -30,7 +30,7 @@ header {
 	background-color: var(--background_primary);
 	top: 0px;
 	position: sticky;
-	z-index: 2;
+	z-index: 3;
 	transition: border-bottom 0.5s ease;
 
 	@include until($tabletLarge) {

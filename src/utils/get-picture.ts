@@ -1,6 +1,6 @@
 import type { JSX } from "preact";
 import type { ImageMetadata } from "astro";
-import { siteUrl } from "../constants/site-config";
+import { siteUrl, cloudinaryCloudName } from "../constants/site-config";
 
 export interface GetPictureSizes {
 	[size: number]: {
@@ -43,10 +43,7 @@ function getSupportedWidth(width: number) {
 
 const isDev = Boolean(import.meta.env?.DEV);
 
-const PUBLIC_CLOUDINARY_CLOUD_NAME = import.meta.env
-	.PUBLIC_CLOUDINARY_CLOUD_NAME;
-
-if (!isDev && !PUBLIC_CLOUDINARY_CLOUD_NAME)
+if (!isDev && !cloudinaryCloudName)
 	console.error("missing public variable CLOUDINARY_CLOUD_NAME");
 
 function getSource(src: string, width: number, getFormat: string) {
@@ -60,7 +57,7 @@ function getSource(src: string, width: number, getFormat: string) {
 	} else {
 		// If in production use cloudinary's fetch
 		const domainUrl = new URL(src, siteUrl);
-		return `https://res.cloudinary.com/${PUBLIC_CLOUDINARY_CLOUD_NAME}/image/fetch/w_${width},f_${getFormat},q_auto/${encodeURIComponent(domainUrl.toString())}`;
+		return `https://res.cloudinary.com/${cloudinaryCloudName}/image/fetch/w_${width},f_${getFormat},q_auto/${encodeURIComponent(domainUrl.toString())}`;
 	}
 }
 
