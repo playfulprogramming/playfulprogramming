@@ -2,7 +2,7 @@
 {
 	title: "Git: The Basics",
 	description: "In our first chapter, we tackle the most common aspects of git and explain how they work in tandem with one another.",
-	published: "2025-04-16",
+	published: "2025-04-23",
 	tags: ["git"],
 	license: "cc-by-nc-sa-4",
 	order: 1
