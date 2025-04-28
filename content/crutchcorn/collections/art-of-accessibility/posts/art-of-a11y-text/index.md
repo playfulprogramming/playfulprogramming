@@ -78,6 +78,13 @@ Luckily, there are ways we can have both!
 
 Users are able to opt into an operating system's "high contrast" mode, which will notify the browser to follow in suit.
 
+> **Disclaimer:**
+> Just because a user is able to opt into high contrast mode through their OS, doesn't mean that it's the only way to set up high contrast. Many users will have their own custom high-contrast themes that they set up for themselves.
+> 
+> For this reason, it's not enough to just check for high-contrast mode in your CSS, but rather we should use this high-contrast check as a default for a toggle that the user can use to turn on or off high-contrast mode regardless of their OS settings.
+>
+> Think of it like a "dark mode" toggle; just because a user has dark mode on in their OS doesn't mean they want it on for your site.
+
 ![Windows 11's "Contrast themes" showing the different styling of high-contrast modes](./windows_11_high_contrast.png)
 
 ![macOS configured to show "increased contrast" with more defined borders and outlines](./mac_os_high_contrast.png)
@@ -95,7 +102,7 @@ This, in turn, is exposed to our site's CSS through [the `prefers-contrast` medi
 
 -----
 
-We can even use JavaScript to detect this media query from inside of our runtime code:
+We can even use JavaScript to detect this media query from inside our runtime code:
 
 ```javascript
 // Use JS to detect the user's preference for contrast
