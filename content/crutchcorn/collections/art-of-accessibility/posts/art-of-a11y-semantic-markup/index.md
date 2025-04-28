@@ -213,7 +213,7 @@ Likewise, the `aria-controls` attribute tells the assistive technology which ele
 </ul>
 ```
 
-> This is an wildly incomplete example of an "Editable Combobox with Autocomplete" UI component. A more complete example of such a component [can be found on the W3C's website](https://www.w3.org/WAI/ARIA/apg/example-index/combobox/combobox-autocomplete-list), though even they admit their example is for demonstration purposes only.
+> This is a wildly incomplete example of a "Select-only Combobox" UI component. A more complete example of such a component [can be found on the W3C's website](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/), though even they admit their example is for demonstration purposes only.
 >
 > This component in particular has significantly more nuance than you might assume, and as such is an extremely tricky component to implement properly. If you're looking to add one to your production site, make sure you do sufficient user testing before shipping to your generalized end-users.
 
@@ -221,9 +221,17 @@ While a complete list of these ARIA attributes are out of the scope of this book
 
 ## ARIA Roles
 
-While ARIA attributes can be a massive boon to accessibility, there's an attribute that we should proceed with immense caution when using; `role`.
+> What if we need an accessible UI pattern that HTML doesn't provide with native elements?
 
-The `role` attribute allows us to signal the an element maps to a select list of UI components. For example, if we had a list of tabs, our markup _might_ look something like:
+This is where an attribute comes into play that we should proceed to use with immense caution; `role`.
+
+The `role` attribute allows us to tell the browser that an element should be treated as a different element than it actually is, including some elements that HTML itself doesn't provide.
+
+For example, say we wanted to provide the user tabs in their UI:
+
+![Two tabs of "JavaScript" and "Python" with JavaScript selected and a console.log inside](./styled_tabs.png)
+
+This is a common UI pattern that HTML doesn't provide a native element for. As a result, our markup _might_ look something like:
 
 ```html
 <div>
@@ -258,6 +266,8 @@ This is because, using `role`, you have the ability to tell HTML that one elemen
 
 To explain this more, let's look at how an HTML `button` works.
 
+### Defaulted HTML Roles
+
 When you create an HTML element like `button`, the browser implicitly assigns it a `role` internally, regardless of if you assigned one or not.
 
 In this case:
@@ -288,6 +298,8 @@ While you could create a partially analogous `button` element using a `div`:
 ---
 
 Notice that the fake "button" here doesn't appear to "press" down? There's no styling to indicate when the user is hovered over the "button", nor is there any visual indication when the user is hovered over the "button" with their mouse.
+
+Not only that, but if we go to add a `click` event to the `div`, it won't work when the user presses the `Enter` or `Space` keys, which is the expected behavior of a button.
 
 This is why it's often **highly discouraged to use `role` in place of an HTML element with an implicit `role` enabled**; they simply don't have feature parity without a substantial amount of work and expertise.
 
