@@ -2,7 +2,7 @@
 {
     title: "Semantic Markup",
     description: "When talking about web accessibility, the story starts and ends with semantic markup. Let's learn what that means and how to leverage it in our apps.",
-    published: '2025-04-02T22:12:03.284Z',
+    published: '2025-04-30T22:12:03.284Z',
     tags: ['webdev', 'accessibility'],
     order: 2
 }
@@ -73,6 +73,10 @@ Notice how, by default, the correct HTML tags show bullet points next to the lis
 This is because the browser knows what a `button` is, and will apply default styling and behavior to the element, that you can then overwrite if need be. Without this information, it doesn't know how to handle a `div` in any special kind of way.
 
 Similarly, a screen-reader doesn't know that our first `<div class="todos">` was a list, and as such wouldn't indicate to the user that it has a list of items, or how many items are in the list. By using an `ul`, it will do all of that for us, without any additional code on our end.
+
+We can see a before and after of this in action using the macOS voiceover screen-reader:
+
+<video src="./semantic_voiceover.mp4" title="The macOS voiceover screen-reader shows the before and after demo of the semantic markup"></video>
 
 These HTML elements are not just supported in `.html` files; **React, Angular, and Vue support all valid HTML elements.**
 
