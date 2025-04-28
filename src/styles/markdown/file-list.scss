@@ -127,7 +127,7 @@
 	height: 100%;
 }
 
-.docs-file-tree-directory-summary {
+.docs-file-tree-directory-summary, .docs-file-tree-file-container {
 	display: flex;
 	align-items: center;
 }
@@ -250,6 +250,6 @@
 	width: 1px;
 	flex-grow: 1;
 	margin: 0;
-	padding: 0 var(--filesystem_item_annotation_padding-horizontal);
+	padding: var(--filesystem_item_container_padding-vertical) var(--filesystem_item_annotation_padding-horizontal);
 	color: var(--filesystem_item_annotation_label_color);
 }

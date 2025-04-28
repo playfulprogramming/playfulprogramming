@@ -20,52 +20,33 @@ body.dark,
 }
 
 .post-body {
+
 	h1:not([class]) {
 		@extend .text-style-headline-1;
-		margin: 0 auto;
-		margin-top: var(--h1_block-padding-top);
-		margin-bottom: var(--h1_block-padding-bottom);
 	}
 
 	h2:not([class]) {
 		@extend .text-style-headline-2;
-		margin: 0 auto;
-		margin-top: var(--h2_block-padding-top);
-		margin-bottom: var(--h2_block-padding-bottom);
 	}
 
 	h3:not([class]) {
 		@extend .text-style-headline-3;
-		margin: 0 auto;
-		margin-top: var(--h3_block-padding-top);
-		margin-bottom: var(--h3_block-padding-bottom);
 	}
 
 	h4:not([class]) {
 		@extend .text-style-headline-4;
-		margin: 0 auto;
-		margin-top: var(--h4_block-padding-top);
-		margin-bottom: var(--h4_block-padding-bottom);
 	}
 
 	h5:not([class]) {
 		@extend .text-style-headline-5;
-		margin: 0 auto;
-		margin-top: var(--h5_block-padding-top);
-		margin-bottom: var(--h5_block-padding-bottom);
 	}
 
 	h6:not([class]) {
 		@extend .text-style-headline-6;
-		margin: 0 auto;
-		margin-top: var(--h6_block-padding-top);
-		margin-bottom: var(--h6_block-padding-bottom);
 	}
 
 	p:not([class]) {
 		@extend .text-style-body-large;
-		margin-top: var(--p_block-padding-vertical);
-		margin-bottom: var(--p_block-padding-vertical);
 	}
 
 	color: var(--foreground_emphasis-high);
@@ -82,7 +63,44 @@ body.dark,
 	.text-style-headline-5,
 	h6,
 	.text-style-headline-6 {
+		margin-block-start: 0rem;
+		margin-block-end: 0rem;
 		color: var(--foreground_emphasis-high);
+	}
+
+	.text-style-headline-1 {
+		margin-top: var(--h1_block-padding-top);
+		margin-bottom: var(--h1_block-padding-bottom);
+	}
+
+	.text-style-headline-2 {
+		margin-top: var(--h2_block-padding-top);
+		margin-bottom: var(--h2_block-padding-bottom);
+	}
+
+	.text-style-headline-3 {
+		margin-top: var(--h3_block-padding-top);
+		margin-bottom: var(--h3_block-padding-bottom);
+	}
+
+	.text-style-headline-4 {
+		margin-top: var(--h4_block-padding-top);
+		margin-bottom: var(--h4_block-padding-bottom);
+	}
+
+	.text-style-headline-5 {
+		margin-top: var(--h5_block-padding-top);
+		margin-bottom: var(--h5_block-padding-bottom);
+	}
+
+	.text-style-headline-6 {
+		margin-top: var(--h6_block-padding-top);
+		margin-bottom: var(--h6_block-padding-bottom);
+	}
+
+	.text-style-body-large {
+		margin-top: var(--p_block-padding-vertical);
+		margin-bottom: var(--p_block-padding-vertical);
 	}
 
 	picture {
