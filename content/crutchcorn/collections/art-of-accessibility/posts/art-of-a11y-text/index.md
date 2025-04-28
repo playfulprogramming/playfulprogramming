@@ -72,7 +72,7 @@ Or manually, using various tools such as [WebAIM's Color Contrast Checker](https
 
 ## CSS Detection
 
-When comparing AA to AAA compliance, a common qualm lodged against AAA is that its contrast requirements feel too constrictive for a site's "look and feel" compared to AA's easier compliance ratios.
+When comparing the AA and AAA conformance levels, a common qualm lodged against AAA is that its contrast requirements feel too constrictive for a site's "look and feel" compared to AA's easier lower minimum ratios.
 
 Luckily, there are ways we can have both!
 
