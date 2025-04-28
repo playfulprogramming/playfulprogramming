@@ -7,13 +7,13 @@ const tabList = [
 		id: "javascript-tab",
 		label: "JavaScript",
 		panelId: "javascript-panel",
-		content: <code>console.log("Hello, world!");</code>,
+		content: `console.log("Hello, world!");`,
 	},
 	{
 		id: "python-tab",
 		label: "Python",
 		panelId: "python-panel",
-		content: <code>print("Hello, world!")</code>,
+		content: `print("Hello, world!")`,
 	},
 ];
 
@@ -45,12 +45,12 @@ const App = () => {
 					break;
 
 				case "Home":
-					setActiveTabIndex(0);
+					setActiveTabIndex((_) => 0);
 					preventDefault = true;
 					break;
 
 				case "End":
-					setActiveTabIndex((v) => v.length - 1);
+					setActiveTabIndex((_) => tabList.length - 1);
 					preventDefault = true;
 					break;
 
@@ -90,9 +90,9 @@ const App = () => {
 					role="tabpanel"
 					id={tab.panelId}
 					aria-labelledby={tab.id}
-					hidden={index !== activeTabIndex}
+					style={{ display: index !== activeTabIndex ? "none" : "block" }}
 				>
-					{tab.content}
+					<code>{tab.content}</code>
 				</div>
 			))}
 		</div>
