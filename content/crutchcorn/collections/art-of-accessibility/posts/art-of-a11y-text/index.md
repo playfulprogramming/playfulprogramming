@@ -434,45 +434,41 @@ This mockup might be naïvely marked up as such:
 
 But this introduces a problem: Where does one part of the app stop and another part begin?
 
-This is where `<section>` tags come into play. Let's change our markup to the following:
+This is where our landmark tags come into play. Let's change our markup to the following:
 
 ```html
 <h1>EchoFlow X1</h1>
 <main>
   <img src="headphone.jpg" alt="Black headphones with 'EchoFlow X' written on the earcup.">
+  <p>The EchoFlow X1 is the world's first...</p>
 
-  <section>
-    <h2 class="visually-hidden">Description</h2>
-    <p>The EchoFlow X1 is the world's first...</p>
-  </section>
-
-  <section>
+  <article>
     <h2>Features</h2>
     <ul>
         <li>Infinite Playback</li>
         <li>Adaptive Sound</li>
   	</ul>
-  </section>
+  </article>
 
-  <section>
+  <article>
     <h2>Customer Reviews</h2>
     <ul>
         <li>Mind blowing! It's like...</li>
         <li>A game-changer for music...</li>
       </ul>
-  </section>
+  </article>
 </main>
 ```
 
 Now it's more clear which headings belong to which sections.
 
->  **Keep in mind:**
+>  **A rule of thumb:**
 >
-> Sections should almost always have a heading as the first child; otherwise it's challenging to figure out what a given section is intended to do.
+> Grouping of elements through a landmark should typically have a heading as the first child; otherwise it's challenging to figure out what a given section is intended to do.
 
 # Invisible Text
 
-In our previous code sample, you may have noticed that we had the following:
+In some projects, you may find code akin to such:
 
 ```html
 <h2 class="visually-hidden">Description</h2>
