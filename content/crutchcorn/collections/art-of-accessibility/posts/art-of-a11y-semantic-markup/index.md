@@ -311,56 +311,63 @@ Namely, I want to demonstrate how we can build our own accessible tab component 
 
 ![Two tabs of "JavaScript" and "Python" with JavaScript selected and a console.log inside](./styled_tabs.png)
 
-Let's start by reusing our markup from the previous section, and adding in some JavaScript to make the tabs interactive.
+## Tabs Markup
+
+Let's start by reusing our markup from the previous section and binding the `aria` attributes to the correct reactive values.
 
 <!-- ::start:tabs -->
 
 ## React
 
 ```jsx
-const App = () => {
-  const [activeTab, setActiveTab] = useState('javascript');
+const tabList = [
+	{
+		id: "javascript-tab",
+		label: "JavaScript",
+		panelId: "javascript-panel",
+		content: `console.log("Hello, world!");`,
+	},
+	{
+		id: "python-tab",
+		label: "Python",
+		panelId: "python-panel",
+		content: `print("Hello, world!")`,
+	},
+];
 
-  return (
-    <div>
-      <ul role="tablist">
-        <li
-          role="tab"
-          id="javascript-tab"
-          aria-selected={activeTab === 'javascript'}
-          aria-controls="javascript-panel"
-          onClick={() => setActiveTab('javascript')}
-        >
-          JavaScript
-        </li>
-        <li
-          role="tab"
-          id="python-tab"
-          aria-selected={activeTab === 'python'}
-          aria-controls="python-panel"
-          onClick={() => setActiveTab('python')}
-        >
-          Python
-        </li>
-      </ul>
-      <div
-        role="tabpanel"
-        id="javascript-panel"
-        aria-labelledby="javascript-tab"
-        hidden={activeTab !== 'javascript'}
-      >
-        <code>console.log("Hello, world!");</code>
-      </div>
-      <div
-        role="tabpanel"
-        id="python-panel"
-        aria-labelledby="python-tab"
-        hidden={activeTab !== 'python'}
-      >
-        <code>print("Hello, world!")</code>
-      </div>
-    </div>
-  );
+const App = () => {
+	const [activeTabIndex, setActiveTabIndex] = useState(0);
+
+	return (
+		<div>
+			<ul role="tablist">
+				{tabList.map((tab, index) => (
+					<li
+						key={tab.id}
+						role="tab"
+						id={tab.id}
+						tabIndex={index === activeTabIndex ? 0 : -1}
+						aria-selected={index === activeTabIndex}
+						aria-controls={tab.panelId}
+						onClick={() => setActiveTabIndex((_) => index)}
+					>
+						{tab.label}
+					</li>
+				))}
+			</ul>
+			{tabList.map((tab, index) => (
+				<div
+					key={tab.panelId}
+					role="tabpanel"
+					id={tab.panelId}
+					aria-labelledby={tab.id}
+					style={{ display: index !== activeTabIndex ? "none" : "block" }}
+				>
+					<code>{tab.content}</code>
+				</div>
+			))}
+		</div>
+	);
 };
 ```
 
@@ -368,106 +375,130 @@ const App = () => {
 
 ```angular-ts
 @Component({
-  selector: 'app-root',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-  <div>
-    <ul role="tablist">
-      <li
-        role="tab"
-        id="javascript-tab"
-        [attr.aria-selected]="activeTab() === 'javascript'"
-        aria-controls="javascript-panel"
-        (click)="setActiveTab('javascript')"
-      >
-        JavaScript
-      </li>
-      <li
-        role="tab"
-        id="python-tab"
-        [attr.aria-selected]="activeTab() === 'python'"
-        aria-controls="python-panel"
-        (click)="setActiveTab('python')"
-      >
-        Python
-      </li>
-    </ul>
-    <div
-      role="tabpanel"
-      id="javascript-panel"
-      aria-labelledby="javascript-tab"
-      [hidden]="activeTab() !== 'javascript'"
-    >
-      <code>console.log("Hello, world!");</code>
-    </div>
-    <div
-      role="tabpanel"
-      id="python-panel"
-      aria-labelledby="python-tab"
-      [hidden]="activeTab() !== 'python'"
-    >
-      <code>print("Hello, world!")</code>
-    </div>
-  </div>
-  `,
+	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div>
+			<ul role="tablist">
+				@for (tab of tabList; let index = $index; track tab.id) {
+					<li
+						role="tab"
+						[attr.id]="tab.id"
+						[attr.tabIndex]="index === activeTabIndex() ? 0 : -1"
+						[attr.aria-selected]="index === activeTabIndex()"
+						[attr.aria-controls]="tab.panelId"
+						(click)="setActiveTabIndex(index)"
+					>
+						{{ tab.label }}
+					</li>
+				}
+			</ul>
+			@for (tab of tabList; let index = $index; track tab.panelId) {
+				<div
+					role="tabpanel"
+					[attr.id]="tab.panelId"
+					[attr.aria-labelledby]="tab.id"
+					[style]="
+						'display: ' + (index !== activeTabIndex() ? 'none' : 'block')
+					"
+				>
+					<code>
+						{{ tab.content }}
+					</code>
+				</div>
+			}
+		</div>
+	`,
 })
 export class AppComponent {
-  activeTab = signal('javascript');
+	activeTabIndex = signal(0);
 
-  setActiveTab(val: string) {
-    this.activeTab.set(val);
-  }
+	setActiveTabIndex(val: number) {
+		this.activeTabIndex.set(val);
+	}
+
+	tabList = [
+		{
+			id: "javascript-tab",
+			label: "JavaScript",
+			panelId: "javascript-panel",
+			content: `console.log("Hello, world!");`,
+		},
+		{
+			id: "python-tab",
+			label: "Python",
+			panelId: "python-panel",
+			content: `print("Hello, world!")`,
+		},
+	];
 }
 ```
 
 ## Vue
 
 ```vue
+<!-- App.vue -->
 <script setup>
-  import { ref } from 'vue'
+import { ref } from "vue";
 
-  const activeTab = ref('javascript')
+const tabList = [
+	{
+		id: "javascript-tab",
+		label: "JavaScript",
+		panelId: "javascript-panel",
+		content: `console.log("Hello, world!");`,
+	},
+	{
+		id: "python-tab",
+		label: "Python",
+		panelId: "python-panel",
+		content: `print("Hello, world!")`,
+	},
+];
 
-  function setActiveTab(val) {
-    activeTab.value = val
-  }
+const activeTabIndex = ref(0);
+
+function setActiveTabIndex(val) {
+	activeTabIndex.value = val;
+}
 </script>
 
 <template>
-  <div>
-    <ul role="tablist">
-      <li
-        role="tab"
-        id="javascript-tab"
-        :aria-selected="activeTab === 'javascript'"
-        aria-controls="javascript-panel"
-        @click="setActiveTab('javascript')"
-      >
-        JavaScript
-      </li>
-      <li
-        role="tab"
-        id="python-tab"
-        :aria-selected="activeTab === 'python'"
-        aria-controls="python-panel"
-        @click="setActiveTab('python')"
-      >
-        Python
-      </li>
-    </ul>
-    <div role="tabpanel" id="javascript-panel" aria-labelledby="javascript-tab" :hidden="activeTab !== 'javascript'">
-      <code>console.log("Hello, world!");</code>
-    </div>
-    <div role="tabpanel" id="python-panel" aria-labelledby="python-tab" :hidden="activeTab !== 'python'">
-      <code>print("Hello, world!")</code>
-    </div>
-  </div>
+	<div>
+		<ul role="tablist">
+			<li
+				v-for="(tab, index) in tabList"
+				:key="tab.id"
+				role="tab"
+				:id="tab.id"
+				:tabIndex="index === activeTabIndex ? 0 : -1"
+				:aria-selected="index === activeTabIndex"
+				:aria-controls="tab.panelId"
+				@click="setActiveTabIndex(index)"
+			>
+				{{ tab.label }}
+			</li>
+		</ul>
+		<div
+			v-for="(tab, index) in tabList"
+			:key="tab.panelId"
+			role="tabpanel"
+			:id="tab.panelId"
+			:aria-labelledby="tab.id"
+			:style="'display: ' + (index !== activeTabIndex ? 'none' : 'block')"
+		>
+			<code>
+				{{ tab.content }}
+			</code>
+		</div>
+	</div>
 </template>
+
 ```
 
 <!-- ::end:tabs -->
 
-
+## Tabs Styling
 
 > 🎉 Tad-whoa. 😵‍💫
 
@@ -477,7 +508,7 @@ export class AppComponent {
 
 Well, it's not the prettiest UI visually, but we can verify it's functionality by clicking on the `JavaScript` or `Python` text in order to show the `console.log` or `print` statements respectively.
 
-Now all we need to do is add a bit of CSS...
+To fix the styling logic, we need to add some styling to the mix...
 
 <details>
 <summary>The required CSS for the tab component</summary>
@@ -522,9 +553,302 @@ Now all we need to do is add a bit of CSS...
 
 </details>
 
-And tada! 🎉 (For real this time.)
+And tada - the tabs look correct!
 
 ![The correct tab styling as outlined before](./styled_tabs.png)
+
+## Tabs Interactivity
+
+This looks correct, but we have a huge problem; the `tab` component is not keyboard accessible. There's no way for a user to navigate between the different tabs using their keyboard.
+
+To solve this, [we'll follow the W3C's ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) to add keyboard navigation to our component with the following key bindings:
+
+| Key Binding           | Action                                                                           |
+|:----------------------|:---------------------------------------------------------------------------------|
+| <kbd>ArrowRight</kbd> | Move focus to the next tab. If on the last tab, move focus to the first tab.     |
+| <kbd>ArrowLeft</kbd>  | Move focus to the previous tab. If on the first tab, move focus to the last tab. |
+| <kbd>Home</kbd>       | Move focus to the first tab.                                                     |
+| <kbd>End</kbd>        | Move focus to the last tab.                                                      |
+
+To do this, we need to add a `keypress` listener to our `tab` elements:
+
+<!-- ::start:tabs -->
+
+## React
+
+```jsx
+const App = () => {
+	const [activeTabIndex, _setActiveTabIndex] = useState(0);
+
+	const setActiveTabIndex = useCallback((indexFn) => {
+		_setActiveTabIndex((v) => {
+			const newIndex = normalizeCount(indexFn(v), tabList.length);
+			const target = document.getElementById(tabList[newIndex].id);
+			target.focus();
+			return newIndex;
+		});
+	}, []);
+
+	const onKeydown = useCallback(
+		(event) => {
+			let preventDefault = false;
+
+			switch (event.key) {
+				case "ArrowLeft":
+					setActiveTabIndex((v) => v - 1);
+					preventDefault = true;
+					break;
+
+				case "ArrowRight":
+					setActiveTabIndex((v) => v + 1);
+					preventDefault = true;
+					break;
+
+				case "Home":
+					setActiveTabIndex((_) => 0);
+					preventDefault = true;
+					break;
+
+				case "End":
+					setActiveTabIndex((_) => tabList.length - 1);
+					preventDefault = true;
+					break;
+
+				default:
+					break;
+			}
+
+			if (preventDefault) {
+				event.stopPropagation();
+				event.preventDefault();
+			}
+		},
+		[setActiveTabIndex],
+	);
+
+	return (
+		<div>
+			<ul role="tablist">
+				{tabList.map((tab, index) => (
+					<li
+						key={tab.id}
+						role="tab"
+						id={tab.id}
+						tabIndex={index === activeTabIndex ? 0 : -1}
+						aria-selected={index === activeTabIndex}
+						aria-controls={tab.panelId}
+						onClick={() => setActiveTabIndex((_) => index)}
+						onKeyDown={onKeydown}
+					>
+						{tab.label}
+					</li>
+				))}
+			</ul>
+			{tabList.map((tab, index) => (
+				<div
+					key={tab.panelId}
+					role="tabpanel"
+					id={tab.panelId}
+					aria-labelledby={tab.id}
+					style={{ display: index !== activeTabIndex ? "none" : "block" }}
+				>
+					<code>{tab.content}</code>
+				</div>
+			))}
+		</div>
+	);
+};
+
+function normalizeCount(index, max) {
+	if (index < 0) {
+		return max - 1;
+	}
+
+	if (index >= max) {
+		return 0;
+	}
+
+	return index;
+}
+```
+
+## Angular
+
+```angular-ts
+@Component({
+	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div>
+			<ul role="tablist">
+				@for (tab of tabList; let index = $index; track tab.id) {
+					<li
+						role="tab"
+						[attr.id]="tab.id"
+						[attr.tabIndex]="index === activeTabIndex() ? 0 : -1"
+						[attr.aria-selected]="index === activeTabIndex()"
+						[attr.aria-controls]="tab.panelId"
+						(click)="setActiveTabIndex(index)"
+						(keydown)="onKeyDown($event)"
+					>
+						{{ tab.label }}
+					</li>
+				}
+			</ul>
+			<!-- ... -->
+		</div>
+	`,
+})
+export class AppComponent {
+	activeTabIndex = signal(0);
+
+	setActiveTabIndex(val: number) {
+		const normalizedIndex = normalizeCount(val, this.tabList.length);
+		this.activeTabIndex.set(normalizedIndex);
+		const target = document.getElementById(this.tabList[normalizedIndex].id);
+		target?.focus();
+	}
+
+	onKeyDown(event: KeyboardEvent) {
+		let preventDefault = false;
+
+		switch (event.key) {
+			case "ArrowLeft":
+				this.setActiveTabIndex(this.activeTabIndex() - 1);
+				preventDefault = true;
+				break;
+
+			case "ArrowRight":
+				this.setActiveTabIndex(this.activeTabIndex() + 1);
+				preventDefault = true;
+				break;
+
+			case "Home":
+				this.setActiveTabIndex(0);
+				preventDefault = true;
+				break;
+
+			case "End":
+				this.setActiveTabIndex(this.tabList.length - 1);
+				preventDefault = true;
+				break;
+
+			default:
+				break;
+		}
+
+		if (preventDefault) {
+			event.stopPropagation();
+			event.preventDefault();
+		}
+	}
+
+	// ...
+}
+
+function normalizeCount(index: number, max: number) {
+	if (index < 0) {
+		return max - 1;
+	}
+
+	if (index >= max) {
+		return 0;
+	}
+
+	return index;
+}
+```
+
+## Vue
+
+```vue
+<!-- App.vue -->
+<script setup>
+import { ref } from "vue";
+
+// ...
+
+const activeTabIndex = ref(0);
+
+function setActiveTabIndex(val) {
+	const normalizedIndex = normalizeCount(val, tabList.length);
+	activeTabIndex.value = normalizedIndex;
+	const target = document.getElementById(tabList[normalizedIndex].id);
+	target?.focus();
+}
+
+function onKeyDown(event) {
+	let preventDefault = false;
+
+	switch (event.key) {
+		case "ArrowLeft":
+			setActiveTabIndex(activeTabIndex.value - 1);
+			preventDefault = true;
+			break;
+
+		case "ArrowRight":
+			setActiveTabIndex(activeTabIndex.value + 1);
+			preventDefault = true;
+			break;
+
+		case "Home":
+			setActiveTabIndex(0);
+			preventDefault = true;
+			break;
+
+		case "End":
+			setActiveTabIndex(tabList.length - 1);
+			preventDefault = true;
+			break;
+
+		default:
+			break;
+	}
+
+	if (preventDefault) {
+		event.stopPropagation();
+		event.preventDefault();
+	}
+}
+
+function normalizeCount(index, max) {
+	if (index < 0) {
+		return max - 1;
+	}
+
+	if (index >= max) {
+		return 0;
+	}
+
+	return index;
+}
+</script>
+
+<template>
+	<div>
+		<ul role="tablist">
+			<li
+				v-for="(tab, index) in tabList"
+				:key="tab.id"
+				role="tab"
+				:id="tab.id"
+				:tabIndex="index === activeTabIndex ? 0 : -1"
+				:aria-selected="index === activeTabIndex"
+				:aria-controls="tab.panelId"
+				@click="setActiveTabIndex(index)"
+				@keydown="onKeyDown($event)"
+			>
+				{{ tab.label }}
+			</li>
+		</ul>
+		<!-- ... -->
+	</div>
+</template>
+```
+
+<!-- ::end:tabs -->
+
+Yay, we did it! 🎉 (For real this time.)
 
 <!-- ::start:tabs -->
 
