@@ -513,22 +513,27 @@ Let's take a look at some common "do" and "do not"s with visually hidden text.
     </span>
     ```
 
-    ```html
-    <button>
-        <span class="visually-hidden">Settings</span>
-        <svg aria-hidden="true">...</svg>
-    </button>
-    ```
-
     > **Tip:**
     >
     > You may even want to add in a tooltip when the user is focused or hovered on a visual-only element to display this text as well.
 
-- Use invisible text to expand one-off acronyms that aren't articulated elsewhere on the page:
+    ```html
+    <button>
+        <svg aria-hidden="true">...</svg>
+        <span class="visually-hidden">Settings</span>
+    </button>
+    ```
+
+    > **Note:**
+    > When dealing with SVGs, you may want to use the SVG `<title>` element instead. [See this guide from Deque for more nuance on the topic](https://www.deque.com/blog/creating-accessible-svgs/).
+
+**Do not**:
+
+- Use invisible text to override pronunciation of screen-readers
 
     ```html
     <span>
-    	$99
+        $99
         <span aria-hidden="true">/mo</span>
         <span class="visually-hidden"> per month</span>
     </span>
@@ -536,13 +541,13 @@ Let's take a look at some common "do" and "do not"s with visually hidden text.
 
     > **Tip:**
     >
-    > If you're using an acronym more than once on a page, it's better to define it once up front and shrink it for all other instances:
+    > Instead, if you're using an acronym more than once on a page, it's better to define it once up front and shrink it for all other instances:
     >
     > ```
     > Accessibility (A11Y) is cool! We love A11Y!
     > ```
-
-**Do not**:
+    > 
+    > [You can read more about this rule of thumb on Adrian Roselli's blog post on the topic](https://adrianroselli.com/2023/04/dont-override-screen-reader-pronunciation.html)
 
 - Convey textual information only to screen-reader users:
 
