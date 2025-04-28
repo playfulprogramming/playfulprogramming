@@ -328,7 +328,7 @@ Here's one such example of a screen reader - Voiceover built into macOS - naviga
 
 <video src="./macos_voiceover_heading_navigation.mp4" title="The macOS voiceover shows a list of headings to the user and allows them to quickly navigate a table of headings"></video>
 
-### Screen Reader Cheat Sheet
+### Headings Screen Reader Cheat Sheet
 
 Here's a list of screen reader commands related to headings in [Voiceover](https://support.apple.com/guide/voiceover/welcome/mac), [NVDA](https://www.nvaccess.org/download/), and [JAWS](https://www.freedomscientific.com/products/software/jaws/):
 

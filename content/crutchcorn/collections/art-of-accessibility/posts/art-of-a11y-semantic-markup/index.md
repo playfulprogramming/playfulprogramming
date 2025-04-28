@@ -130,6 +130,48 @@ These structure-based elements, often called "landmark elements", help non-sight
 - `<aside>`: A tangential item to the main contents on a page.
 - `<footer>`: The footer of a site, consistent between different pages.
 
+## Landmarks and screen readers
+
+Landmark elements are a great way to help users navigate your site; while sighted users can see the page structure, non-sighted users need to rely on screen readers to help them navigate the page.
+
+This can be done in a number of ways, including Voiceover's "Rotor" feature, which allows users to quickly navigate between different landmarks on the page:
+
+<video src="./landmark_rotor.mp4" title="Voiceover's rotor feature, which allows users to quickly navigate between different landmarks on the page"></video>
+
+### A note on `<section>` elements and screen readers
+
+While `<section>` elements are a great way to group related items together and keep semantic meaning, they don't always act as a landmark element.
+
+[It's only when an `aria-label` attribute - something we'll cover soon - is added to a `<section>` does it act like a landmark element. Without this, they're treated no differently than `div`s.](https://www.scottohara.me/blog/2021/07/16/section.html)
+
+Check the difference between how a screen-reader treats a `<section>` with an `aria-label` and one without:
+
+<video src="./section_voiceover.mp4" title="Voiceover reading out the section with and without an aria-label differently"></video>
+
+> While this may lead you to assume a `<section>` without a label is useless, it does have its place as a semantic element.
+> 
+> If nothing else, a `<section>` provides information to your team that a given bit of markup is a section of the page, and not just a random `div` with a class name.
+
+> **Warning:**
+> After learning this, you may be tempted to add `aria-label` attributes to all of your `<section>` elements; **do not do this**.
+> 
+> Not only do these kinds of labels typically end up duplicative with the heading of the section, they can also lead to confusion for screen reader users.
+> 
+> [We'll learn more about how to structure a page with headings in the next chapter all about Text.](/posts/art-of-a11y-text)
+
+## Landmarks Screen Reader Cheat Sheet
+
+Here's a list of screen reader commands related to landmarks in [Voiceover](https://support.apple.com/guide/voiceover/welcome/mac), [NVDA](https://www.nvaccess.org/download/), and [JAWS](https://www.freedomscientific.com/products/software/jaws/):
+
+| Screen Reader | Command                                                        | Shortcut                                                |
+|:--------------|:---------------------------------------------------------------|---------------------------------------------------------|
+| Voiceover     | Show landmark list (via the Voiceover rotor in the demo above) | <kbd>Command (⌘)</kbd> + <kbd>Ctrl</kbd> + <kbd>U</kbd> |
+| NVDA          | Show a list of all elements, including landmarks               | <kbd>Insert</kbd> + <kbd>F7</kbd>                       |
+| NVDA          | Go to next landmark                                            | <kbd>D</kbd>                                            |
+| JAWS          | Show a list of all elements, including landmarks               | <kbd>Insert</kbd> + <kbd>F3</kbd>                       |
+| JAWS          | Go to next landmark                                            | <kbd>R</kbd>                                            |
+| JAWS          | Go to the main content region                                  | <kbd>Q</kbd>                                            |
+
 # ARIA
 
 Sometimes we have custom UI requirements. Like, _really_ custom UI requirements. We may want a dropdown that also has the ability to filter results as the user types.
