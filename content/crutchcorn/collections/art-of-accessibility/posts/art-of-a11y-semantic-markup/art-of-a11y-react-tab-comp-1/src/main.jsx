@@ -1,50 +1,114 @@
 import { createRoot } from "react-dom/client";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import "./main.module.css";
 
+const tabList = [
+	{
+		id: "javascript-tab",
+		label: "JavaScript",
+		panelId: "javascript-panel",
+		content: <code>console.log("Hello, world!");</code>,
+	},
+	{
+		id: "python-tab",
+		label: "Python",
+		panelId: "python-panel",
+		content: <code>print("Hello, world!")</code>,
+	},
+];
+
 const App = () => {
-	const [activeTab, setActiveTab] = useState("javascript");
+	const [activeTabIndex, _setActiveTabIndex] = useState(0);
+
+	const setActiveTabIndex = useCallback((indexFn) => {
+		_setActiveTabIndex((v) => {
+			const newIndex = normalizeCount(indexFn(v), tabList.length);
+			const target = document.getElementById(tabList[newIndex].id);
+			target.focus();
+			return newIndex;
+		});
+	}, []);
+
+	const onKeydown = useCallback(
+		(event) => {
+			let preventDefault = false;
+
+			switch (event.key) {
+				case "ArrowLeft":
+					setActiveTabIndex((v) => v - 1);
+					preventDefault = true;
+					break;
+
+				case "ArrowRight":
+					setActiveTabIndex((v) => v + 1);
+					preventDefault = true;
+					break;
+
+				case "Home":
+					setActiveTabIndex(0);
+					preventDefault = true;
+					break;
+
+				case "End":
+					setActiveTabIndex((v) => v.length - 1);
+					preventDefault = true;
+					break;
+
+				default:
+					break;
+			}
+
+			if (preventDefault) {
+				event.stopPropagation();
+				event.preventDefault();
+			}
+		},
+		[setActiveTabIndex],
+	);
 
 	return (
 		<div>
 			<ul role="tablist">
-				<li
-					role="tab"
-					id="javascript-tab"
-					aria-selected={activeTab === "javascript"}
-					aria-controls="javascript-panel"
-					onClick={() => setActiveTab("javascript")}
-				>
-					JavaScript
-				</li>
-				<li
-					role="tab"
-					id="python-tab"
-					aria-selected={activeTab === "python"}
-					aria-controls="python-panel"
-					onClick={() => setActiveTab("python")}
-				>
-					Python
-				</li>
+				{tabList.map((tab, index) => (
+					<li
+						key={tab.id}
+						role="tab"
+						id={tab.id}
+						tabIndex={index === activeTabIndex ? 0 : -1}
+						aria-selected={index === activeTabIndex}
+						aria-controls={tab.panelId}
+						onClick={() => setActiveTabIndex((_) => index)}
+						onKeyDown={onKeydown}
+					>
+						{tab.label}
+					</li>
+				))}
 			</ul>
-			<div
-				role="tabpanel"
-				id="javascript-panel"
-				aria-labelledby="javascript-tab"
-				hidden={activeTab !== "javascript"}
-			>
-				<code>console.log("Hello, world!");</code>
-			</div>
-			<div
-				role="tabpanel"
-				id="python-panel"
-				aria-labelledby="python-tab"
-				hidden={activeTab !== "python"}
-			>
-				<code>print("Hello, world!")</code>
-			</div>
+			{tabList.map((tab, index) => (
+				<div
+					key={tab.panelId}
+					role="tabpanel"
+					id={tab.panelId}
+					aria-labelledby={tab.id}
+					hidden={index !== activeTabIndex}
+				>
+					{tab.content}
+				</div>
+			))}
 		</div>
 	);
 };
+
+function normalizeCount(index, max) {
+	if (index < 0) {
+		return max - 1;
+	}
+
+	if (index >= max) {
+		return 0;
+	}
+
+	return index;
+}
 
 createRoot(document.getElementById("root")).render(<App />);
