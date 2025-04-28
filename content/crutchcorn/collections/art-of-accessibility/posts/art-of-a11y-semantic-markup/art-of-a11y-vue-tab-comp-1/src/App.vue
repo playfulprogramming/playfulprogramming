@@ -2,10 +2,74 @@
 <script setup>
 import { ref } from "vue";
 
-const activeTab = ref("javascript");
+const tabList = [
+	{
+		id: "javascript-tab",
+		label: "JavaScript",
+		panelId: "javascript-panel",
+		content: `console.log("Hello, world!");`,
+	},
+	{
+		id: "python-tab",
+		label: "Python",
+		panelId: "python-panel",
+		content: `print("Hello, world!")`,
+	},
+];
 
-function setActiveTab(val) {
-	activeTab.value = val;
+const activeTabIndex = ref(0);
+
+function setActiveTabIndex(val) {
+	const normalizedIndex = normalizeCount(val, tabList.length);
+	activeTabIndex.value = normalizedIndex;
+	const target = document.getElementById(tabList[normalizedIndex].id);
+	target?.focus();
+}
+
+function onKeyDown(event) {
+	let preventDefault = false;
+
+	switch (event.key) {
+		case "ArrowLeft":
+			setActiveTabIndex(activeTabIndex.value - 1);
+			preventDefault = true;
+			break;
+
+		case "ArrowRight":
+			setActiveTabIndex(activeTabIndex.value + 1);
+			preventDefault = true;
+			break;
+
+		case "Home":
+			setActiveTabIndex(0);
+			preventDefault = true;
+			break;
+
+		case "End":
+			setActiveTabIndex(tabList.length - 1);
+			preventDefault = true;
+			break;
+
+		default:
+			break;
+	}
+
+	if (preventDefault) {
+		event.stopPropagation();
+		event.preventDefault();
+	}
+}
+
+function normalizeCount(index, max) {
+	if (index < 0) {
+		return max - 1;
+	}
+
+	if (index >= max) {
+		return 0;
+	}
+
+	return index;
 }
 </script>
 
@@ -13,39 +77,30 @@ function setActiveTab(val) {
 	<div>
 		<ul role="tablist">
 			<li
+				v-for="(tab, index) in tabList"
+				:key="tab.id"
 				role="tab"
-				id="javascript-tab"
-				:aria-selected="activeTab === 'javascript'"
-				aria-controls="javascript-panel"
-				@click="setActiveTab('javascript')"
+				:id="tab.id"
+				:tabIndex="index === activeTabIndex ? 0 : -1"
+				:aria-selected="index === activeTabIndex"
+				:aria-controls="tab.panelId"
+				@click="setActiveTabIndex(index)"
+				@keydown="onKeyDown($event)"
 			>
-				JavaScript
-			</li>
-			<li
-				role="tab"
-				id="python-tab"
-				:aria-selected="activeTab === 'python'"
-				aria-controls="python-panel"
-				@click="setActiveTab('python')"
-			>
-				Python
+				{{ tab.label }}
 			</li>
 		</ul>
 		<div
+			v-for="(tab, index) in tabList"
+			:key="tab.panelId"
 			role="tabpanel"
-			id="javascript-panel"
-			aria-labelledby="javascript-tab"
-			:hidden="activeTab !== 'javascript'"
+			:id="tab.panelId"
+			:aria-labelledby="tab.id"
+			:style="'display: ' + (index !== activeTabIndex ? 'none' : 'block')"
 		>
-			<code>console.log("Hello, world!");</code>
-		</div>
-		<div
-			role="tabpanel"
-			id="python-panel"
-			aria-labelledby="python-tab"
-			:hidden="activeTab !== 'python'"
-		>
-			<code>print("Hello, world!")</code>
+			<code>
+				{{ tab.content }}
+			</code>
 		</div>
 	</div>
 </template>
@@ -65,6 +120,14 @@ function setActiveTab(val) {
 	border: solid black;
 	border-width: 2px 2px 0 2px;
 	border-radius: 1rem 1rem 0 0;
+}
+
+[role="tab"]:focus-visible {
+	outline: none;
+	box-shadow:
+		0 0 0 2px #000,
+		0 0 0 4px #fff,
+		0 0 0 6px #000;
 }
 
 [role="tab"]:hover {
