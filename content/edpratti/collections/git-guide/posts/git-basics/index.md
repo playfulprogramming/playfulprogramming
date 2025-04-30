@@ -2,7 +2,7 @@
 {
 	title: "Git: The Basics",
 	description: "In our first chapter, we tackle the most common aspects of git and explain how they work in tandem with one another.",
-	published: "2025-04-16",
+	published: "2025-04-23",
 	tags: ["git"],
 	license: "cc-by-nc-sa-4",
 	order: 1
@@ -594,7 +594,13 @@ Merging will create a **merge commit** like shown in the image above. This will 
 
 ## Fast-forward Merging
 
-<!-- TO-DO -->
+There is an instance where a merge commit is not created, and that is called a **fast-forward merge**.
+
+A fast-forward merge occurs when the branch being merged contains all of the commits of the target branch; in other words, it must be ahead of the target branch and have no divergences.
+
+In those situations, instead of creating a merge commit, the newer commits will simply be placed on top of the target branch, with no further actions being required of the user.
+
+<img src="./fast-forward-merge.svg" alt="A diagram of fast-forward merge, where commits were just transplanted onto the main branch instead of creating a merge commit." style="background-color: var(--background_primary-bright); border: var(--border-width_s) solid var(--background_disabled); border-radius: var(--corner-radius_xl)" />
 
 ---
 

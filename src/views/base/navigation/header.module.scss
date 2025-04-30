@@ -22,15 +22,22 @@ header {
 }
 
 .headerBorder {
+	background-color: var(--background_primary);
 	border-bottom: 1px solid transparent;
 	&[data-sticky="pinned"] {
 		border-bottom: 1px solid var(--background_disabled);
 	}
 	background-color: var(--background_primary);
-	top: -1px;
+	top: 0px;
 	position: sticky;
-	z-index: 2;
+	z-index: 3;
 	transition: border-bottom 0.5s ease;
+
+	@include until($tabletLarge) {
+		&[data-mobile_table_of_contents_present="true"] {
+			border: none; 
+		}
+	}
 }
 
 .header {

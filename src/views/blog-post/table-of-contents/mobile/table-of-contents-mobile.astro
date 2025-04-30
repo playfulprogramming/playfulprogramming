@@ -1,0 +1,97 @@
+---
+import styles from "./table-of-contents-mobile.module.scss";
+import classnames from "classnames";
+import { translate } from "utils/translations";
+import { PostHeadingInfo } from "types/index";
+import { IconOnlyButton } from "components/button/button";
+import { Icon } from "astro-icon/components";
+import MobileHeadingIntersectionObserverScript from "./mobile-heading-intersection-observer-script.astro";
+import MobileTableOfContentsTitleScrollObserver from "./mobile-table-of-contents-title-scroll-observer.astro";
+
+interface TableOfContentsProps {
+	headingsWithId: PostHeadingInfo[];
+}
+
+const { headingsWithId } = Astro.props as TableOfContentsProps;
+
+const headings = headingsWithId?.length ? headingsWithId : [];
+
+// get the "minimum" depth of heading used in the post (e.g. if the post only uses h2 and h3 -> minDepth=1)
+const minDepth = Math.min(...headings.map((h) => h.depth));
+
+// offset the heading depths by minDepth, so they always start at 1
+const headingsToDisplay = headings
+	.map((h) => Object.assign({}, h, { depth: h.depth - minDepth + 1 }))
+	.filter((headingInfo) => headingInfo.depth <= 2);
+
+const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
+---
+
+<aside
+	id="mobile-table-of-contents"
+	data-mobile-table-of-contents-menu
+	class={`${styles.mobileTocContainer} ${styles.tocMobileMenuCollapsed}`}
+	aria-labelledby="table-of-contents-heading"
+>
+	<div class={styles.tocTitle} data-mobile-table-of-contents-menu-header-bar>
+		<h4 data-mobile-table-of-contents-menu-header>
+			{translate(Astro, "title.table_of_contents")}
+		</h4>
+		<IconOnlyButton
+			id="toggleMenuExpanded"
+			data-mobile-table-of-contents-toggle-button
+			tag="button"
+		>
+			<Icon class={styles.mobileTocOpenIcon} name="chevron_down" />
+			<Icon class={styles.mobileTocCloseIcon} name="close" />
+		</IconOnlyButton>
+	</div>
+	<ol
+		data-mobile-table-of-contents-menu-list
+		class={`${styles.tableList} ${styles.tocListHidden}`}
+		role="list"
+		id="mobileTocList"
+		inert
+	>
+		{
+			headingsToDisplay.map((headingInfo, i) => {
+				const liClassNames = classnames(styles.tableListItem, {
+					[styles.depth1]: headingInfo.depth === 1,
+					[styles.depth2]: headingInfo.depth === 2,
+					["toc-is-active"]: i === 0,
+				});
+				return (
+					<li class={liClassNames} data-headingitem="true">
+						<a
+							class={`text-style-button-regular`}
+							href={`#${headingInfo.slug}`}
+						>
+							<span class={styles.tableListItemLinkInner}>
+								{headingInfo.value}
+							</span>
+						</a>
+					</li>
+				);
+			})
+		}
+	</ol>
+</aside>
+
+<script>
+	const target = document.getElementById("header-bar");
+	if (target) {
+		target.dataset.mobile_table_of_contents_present = "true";
+	}
+</script>
+
+<MobileHeadingIntersectionObserverScript
+	headingsToDisplaySlugs={headingsToDisplaySlugs}
+/>
+<MobileTableOfContentsTitleScrollObserver
+	tableOfContentsDefaultText={translate(Astro, "title.table_of_contents")}
+/>
+
+<script>
+	import { setupMobileTableOfContentsHandleClick } from "./mobile-table-of-contents-handle-click";
+	setupMobileTableOfContentsHandleClick();
+</script>

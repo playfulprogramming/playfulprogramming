@@ -7,7 +7,7 @@
     socialImg:
     "/custom-content/collections/git_guide/git_guide_cover.png",
     tags: ["css", "design", "html"],
-    published: "2025-04-16",
+    published: "2025-04-23",
     buttons: [{ text: "Read now", url: "/posts/git-basics" }],
     chapterList:
     [{

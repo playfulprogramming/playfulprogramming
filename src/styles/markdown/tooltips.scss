@@ -23,7 +23,7 @@
 
 	border-radius: var(--tooltip_corner-radius);
 
-	margin: var(--site-spacing) 0;
+	margin: var(--site-spacing) 0 !important;
 	padding: var(--tooltip_padding-vertical) 0;
 	padding-left: var(--tooltip_padding-start);
 	padding-right: var(--tooltip_padding-end);
@@ -42,7 +42,7 @@
 
 		& > p {
 			@extend .text-style-body-medium-bold;
-			margin: 0;
+			margin: 0 !important;
 		}
 	}
 
@@ -55,11 +55,11 @@
 		}
 
 		& > *:first-child {
-			margin-top: 0;
+			margin-top: 0 !important;
 		}
 
 		& > *:last-child {
-			margin-bottom: 0;
+			margin-bottom: 0 !important;
 		}
 	}
 }

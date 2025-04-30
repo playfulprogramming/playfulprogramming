@@ -67,7 +67,7 @@
 
 			& > p {
 				@extend .text-style-body-medium-bold;
-				margin: 0;
+				margin: 0 !important;
 			}
 
 			& > a {
