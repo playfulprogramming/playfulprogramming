@@ -426,16 +426,17 @@ export const App = () => {
 // TextInput.component.ts
 @Component({
     selector: "text-input",
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
     	<label>
-    		{{label}}
-    		<input [type]="type" />
+    		{{label()}}
+    		<input [type]="type()" />
     	</label>
     `
 })
 class TextInputComponent {
-    @Input() label: string;
-    @Input() type?: string;
+	label = input.required<string>();
+	type = input<string>();
 }
 ```
 
@@ -458,29 +459,29 @@ export class AppComponent {}
 
 ```vue
 <!-- TextInput.vue -->
+<script setup>
+const props = defineProps(['label', 'type']);
+</script>
+
 <template>
 	<label>
     	{{props.label}}
         <input :type="props.type"/>
     </label>
 </template>
-
-<script setup>
-const props = defineProps(['label', 'type']);
-</script>
 ```
 
 ```vue
 <!-- App.vue -->
+<script setup>
+import TextInput from "./TextInput.vue";
+</script>
+
 <form>
     <TextInput label="Email"/>
     <TextInput label="Password" type="password"/>
     <button type="submit">Login</button>
 </form>
-
-<script setup>
-import TextInput from "./TextInput.vue";
-</script>
 ```
 
 <!-- ::end:tabs -->
@@ -511,12 +512,27 @@ Let's add in some minor styling and add in the ability to pass an error message.
 
 #### React
 
+```css
+/* TextInput.module.css */
+.label {
+	margin-right: 1rem;
+}
+
+.errormessage {
+	color: red;
+}
+```
+
+
+
 ```jsx
 // TextInput.jsx
+import styles from "./TextInput.module.css";
+
 export const TextInput = ({ label, type, id, error }) => {
   return (
     <>
-      <label for={id} class="label">
+      <label for={id} className={styles.label}>
         {label}
       </label>
       <input
@@ -525,20 +541,9 @@ export const TextInput = ({ label, type, id, error }) => {
         aria-invalid={!!error}
         aria-errormessage={id + '-error'}
       />
-      <p class="errormessage" id={id + '-error'}>
+      <p className={styles.errormessage} id={id + '-error'}>
         {error}
       </p>
-      <style
-        children={`
-      .label {
-        margin-right: 1rem;
-      }
-      
-      .errormessage {
-        color: red;
-      }
-      `}
-      />
     </>
   );
 };
@@ -563,30 +568,36 @@ export const App = () => {
 ```typescript
 // TextInput.component.ts
 @Component({
-  selector: 'text-input',
-  template: `
-  <label [for]="id" class="label">
-    {{ label }}
-  </label>
-  <input [id]="id" [type]="type" [attr.aria-invalid]="!!error" [attr.aria-errormessage]="id + '-error'" />
-  <p class="errormessage" [id]="id + '-error'">{{ error }}</p>
-  
-  <style>
-  .label {
-    margin-right: 1rem;
-  }
-
-  .errormessage {
-    color: red;
-  }
-  </style>
-  `,
+	selector: "text-input",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<label [for]="id()" class="label">
+			{{ label() }}
+		</label>
+		<input
+			[id]="id()"
+			[type]="type()"
+			[attr.aria-invalid]="!!error()"
+			[attr.aria-errormessage]="id() + '-error'"
+		/>
+		<p class="errormessage" [id]="id() + '-error'">{{ error() }}</p>
+	`,
+	styles: [
+		`
+			.label {
+				margin-right: 1rem;
+			}
+			.errormessage {
+				color: red;
+			}
+		`,
+	],
 })
 export class TextInputComponent {
-  @Input() label: string;
-  @Input() id: string;
-  @Input() type?: string;
-  @Input() error?: string;
+	label = input.required<string>();
+	id = input.required<string>();
+	type = input<string>();
+	error = input<string>();
 }
 ```
 
@@ -609,6 +620,10 @@ export class AppComponent {}
 
 ```vue
 <!-- TextInput.vue -->
+<script setup>
+const props = defineProps(['label', 'type', 'id', 'error'])
+</script>
+
 <template>
   <label :for="props.id" class="label">
     {{ props.label }}
@@ -622,11 +637,7 @@ export class AppComponent {}
   <p class="errormessage" :id="props.id + '-error'">{{ props.error }}</p>
 </template>
 
-<script setup>
-const props = defineProps(['label', 'type', 'id', 'error'])
-</script>
-
-<style>
+<style scoped>
 .label {
   margin-right: 1rem;
 }
@@ -639,15 +650,15 @@ const props = defineProps(['label', 'type', 'id', 'error'])
 
 ```vue
 <!-- App.vue -->
+<script setup>
+import TextInput from "./TextInput.vue";
+</script>
+
 <form>
     <TextInput label="Email" id="email" error="Invalid email" />
     <TextInput label="Password" type="password" id="password" />
     <button type="submit">Login</button>
 </form>
-
-<script setup>
-import TextInput from "./TextInput.vue";
-</script>
 ```
 
 <!-- ::end:tabs -->
@@ -656,13 +667,14 @@ Now we can see our form with a warning about an invalid email. It looks somethin
 
 ----
 
-<form onsubmit="event.preventDefault()"><label for="email" class="label">Email</label><input id="email" aria-invalid="true" aria-errormessage="email-error"><p class="errormessage" id="email-error">Invalid email</p><label for="password" class="label">Password</label><input id="password" type="password" aria-invalid="false" aria-errormessage="password-error"><p class="errormessage" id="password-error"></p><button type="submit">Login</button><style>
-.label {
+<form class="__form_error_example_1" onsubmit="event.preventDefault()"><label for="email" class="label">Email</label><input id="email" aria-invalid="true" aria-errormessage="email-error"><p class="errormessage" id="email-error">Invalid email</p><label for="password" class="label">Password</label><input id="password" type="password" aria-invalid="false" aria-errormessage="password-error"><p class="errormessage" id="password-error"></p><button type="submit">Login</button><style>
+.__form_error_example_1 .label {
   margin-right: 1rem;
 }
-.errormessage {
+.__form_error_example_1 .errormessage {
   color: red;
 }</style></form>
+
 
 ---
 
@@ -676,7 +688,9 @@ While it would be nice to remove the requirement to pass a custom `id`, we need 
 
 #### What's an UUID?
 
+While [I've written in depth about UUIDs before](/posts/what-are-uuids), the gist of "What is a UUID" is "They're a method of generating unique IDs for items using a specific algorithm, designated by a 'version' of UUID used to generate the ID".
 
+For our purposes, we'll be using a [UUIDv4](/posts/what-are-uuids#UUIDv4) to generate truly unique IDs for each DOM element we want to associate.
 
 
 
@@ -687,48 +701,35 @@ While it would be nice to remove the requirement to pass a custom `id`, we need 
 <!-- ::start:tabs -->
 
 
-```jsx
+```jsx {5}
 // TextInput.jsx
 import {v4 as uuidv4} from 'uuid';
 
 export const TextInput = ({ label, type, id, error }) => {
-  const [uuid] = useState(uuidv4());
-   
-  const realId = id || uuid;
-    
-  return (
-    <>
-      <label for={realId} class="label">
-        {label}
-      </label>
-      <input
-        id={id}
-        type={type}
-        aria-invalid={!!error}
-        aria-errormessage={id + '-error'}
-      />
-      <p class="errormessage" id={realId + '-error'}>
-        {error}
-      </p>
-      <style
-        children={`
-      .label {
-        margin-right: 1rem;
-      }
-      
-      .errormessage {
-        color: red;
-      }
-      `}
-      />
-    </>
-  );
+	const [uuid] = useState(uuidv4());
+
+	const realId = id || uuid;
+
+	return (
+		<>
+			<label for={realId} className={styles.label}>
+				{label}
+			</label>
+			<input
+				id={id}
+				type={type}
+				aria-invalid={!!error}
+				aria-errormessage={id + "-error"}
+			/>
+			<p className={styles.errormessage} id={realId + "-error"}>
+				{error}
+			</p>
+		</>
+	);
 };
 ```
 
 ```jsx
-import {TextInput} from './TextInput';
-
 export const App = () => {
   return (
     <form>
@@ -740,59 +741,79 @@ export const App = () => {
 };
 ```
 
+<iframe data-frame-title="React Input Component - StackBlitz" src="pfp-code:./art-of-a11y-react-input-comp-3?embed=1&file=src/main.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 ### Angular
 
-```typescript
-// TextInput.component.ts
-import { v4 as uuidv4 } from 'uuid';
-
+```typescript {29}
 @Component({
-  selector: 'text-input',
-  template: `
-  <label [for]="id" class="label">
-    {{ label }}
-  </label>
-  <input [id]="id" [type]="type" [attr.aria-invalid]="!!error" [attr.aria-errormessage]="id + '-error'" />
-  <p class="errormessage" [id]="id + '-error'">{{ error }}</p>
-  
-  <style>
-  .label {
-    margin-right: 1rem;
-  }
-
-  .errormessage {
-    color: red;
-  }
-  </style>
-  `,
+	selector: "text-input",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<label [for]="id()" class="label">
+			{{ label() }}
+		</label>
+		<input
+			[id]="id()"
+			[type]="type()"
+			[attr.aria-invalid]="!!error()"
+			[attr.aria-errormessage]="id() + '-error'"
+		/>
+		<p class="errormessage" [id]="id() + '-error'">{{ error() }}</p>
+	`,
+	styles: [
+		`
+			.label {
+				margin-right: 1rem;
+			}
+			.errormessage {
+				color: red;
+			}
+		`,
+	],
 })
 export class TextInputComponent {
-  @Input() label: string;
-  @Input() id?: string = uuidv4();
-  @Input() type?: string;
-  @Input() error?: string;
+	label = input.required<string>();
+	id = input(uuidv4());
+	type = input<string>();
+	error = input<string>();
 }
 ```
 
 ```typescript
 // app.component.ts
 @Component({
-  selector: 'my-app',
-  template: `
-    <form>
-          <text-input label="Email" id="email" error="Invalid email"></text-input>
-          <text-input label="Password" type="password"></text-input>
-          <button type="submit">Login</button>
-      </form>
-  `,
+	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [TextInputComponent],
+	template: `
+		<form>
+			<text-input label="Email" id="email" error="Invalid email"></text-input>
+			<text-input label="Password" type="password"></text-input>
+			<button type="submit">Login</button>
+		</form>
+	`,
 })
 export class AppComponent {}
 ```
 
+<iframe data-frame-title="Angular Input Component - StackBlitz" src="pfp-code:./art-of-a11y-angular-input-comp-3?embed=1&file=src/main.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 ### Vue
 
-```vue
+```vue {8-10}
 <!-- TextInput.vue -->
+<script setup>
+import {computed} from 'vue';
+import { v4 as uuidv4 } from 'uuid';
+
+const props = defineProps(['label', 'type', 'id', 'error'])
+
+const uuid = uuidv4();
+    
+const realId = computed(() => props.id || uuid);
+</script>
+
 <template>
   <label :for="props.id" class="label">
     {{ props.label }}
@@ -806,18 +827,7 @@ export class AppComponent {}
   <p class="errormessage" :id="realId + '-error'">{{ props.error }}</p>
 </template>
 
-<script setup>
-import {computed} from 'vue';
-import { v4 as uuidv4 } from 'uuid';
-
-const props = defineProps(['label', 'type', 'id', 'error'])
-
-const uuid = uuidv4();
-    
-const realId = computed(() => props.id || uuid);
-</script>
-
-<style>
+<style scoped>
 .label {
   margin-right: 1rem;
 }
@@ -830,16 +840,20 @@ const realId = computed(() => props.id || uuid);
 
 ```vue
 <!-- App.vue -->
-<form>
-    <TextInput label="Email" id="email" error="Invalid email" />
-    <TextInput label="Password" type="password" />
-    <button type="submit">Login</button>
-</form>
-
 <script setup>
 import TextInput from "./TextInput.vue";
 </script>
+
+<template>
+    <form>
+        <TextInput label="Email" id="email" error="Invalid email" />
+        <TextInput label="Password" type="password" />
+        <button type="submit">Login</button>
+    </form>
+</template>
 ```
+
+<iframe data-frame-title="Vue Input Component - StackBlitz" src="pfp-code:./art-of-a11y-vue-input-comp-3?embed=1&file=src/App.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 <!-- ::end:tabs -->
 
