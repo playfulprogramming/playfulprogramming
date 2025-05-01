@@ -1,8 +1,8 @@
 ---
 {
-    title: "Labels",
-    description: "TODO: Change",
-    published: '2026-01-01T22:12:03.284Z',
+    title: "The Art of Accessibility: Labels",
+    description: "Forms and how we label them make up a large part of our apps, let's take a cursory glance at how we can make them more accessible.",
+    published: '2025-05-07T22:12:03.284Z',
     tags: ['webdev', 'accessibility'],
     order: 4
 }
