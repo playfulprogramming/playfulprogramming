@@ -8,8 +8,6 @@
 }
 ---
 
-# Element Association
-
 In the last section, we showed some markup that looked like this:
 ```html
 <!-- ... -->
@@ -25,7 +23,7 @@ JavaScript
 <!-- ... -->
 ```
 
-While we shortly explained in the last section that `aria-controls` is looking for a `role="tabpanel"` with the same `id` as the attribute's value we never fully explained _why_. 
+While we shortly explained in the last section that `aria-controls` is looking for a `role="tabpanel"` with the same `id` as the attribute's value we never fully explained _why_.
 
 The reason we're doing this is to link two seemingly unrelated HTML elements together, so that assistive technologies are able to provide this information to the user.
 
@@ -111,7 +109,7 @@ Because of this semantic ambiguity, there are two different ways of linking elem
 
 Let's start with "implicit element association" and go from there.
 
-## Implicit Element Association
+# Implicit Element Association
 
 Luckily, when dealing with `input`s, there's an easy way to link a text input to a text label: simply wrap your `input` in a `label` element:
 
@@ -250,7 +248,7 @@ Want to read more? Here are a few resources that explore the problems with place
 
 - [Placeholders in Form Fields Are Harmful - Nielsen Norman Group](https://www.nngroup.com/articles/form-design-placeholders/)
 
-## Explicit Element Association
+# Explicit Element Association
 
 > If `<label>` is able to link an `<input>` and label text together, why don't we always do this?
 
@@ -334,7 +332,7 @@ We can apply this explicit element association to our entire table, which solves
 </table>
 ```
 
-### Non-`for` Usage
+## Non-`for` Usage
 
 While a `label`'s `for` field can be important to link a `label` and an `input` together, there's other examples of explicit element association that can be important for application development.
 
@@ -390,13 +388,13 @@ Here's an incomplete list of attributes that use this same pattern of an explici
 - [`aria-errormessage`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage)
 - [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)
 
-## Creating an Input Component
+# Creating an Input Component
 
 Let's take this knowledge of linking elements together and create a `TextInput` component in our frameworks. Let's start by utilizing implicit element association:
 
 <!-- ::start:tabs -->
 
-### React
+## React
 
 ```jsx
 // TextInput.jsx
@@ -420,7 +418,7 @@ export const App = () => {
 }
 ```
 
-### Angular
+## Angular
 
 ```typescript
 // TextInput.component.ts
@@ -455,7 +453,7 @@ class TextInputComponent {
 export class AppComponent {}
 ```
 
-### Vue
+## Vue
 
 ```vue
 <!-- TextInput.vue -->
@@ -502,7 +500,7 @@ Our form now works!
 
 It's not the prettiest form in the world, but it's functional!
 
-### Explicit Label Input Component
+## Explicit Label Input Component
 
 Let's add in some minor styling and add in the ability to pass an error message.
 
@@ -510,7 +508,7 @@ Let's add in some minor styling and add in the ability to pass an error message.
 
 <!-- ::start:tabs -->
 
-#### React
+### React
 
 ```css
 /* TextInput.module.css */
@@ -563,7 +561,7 @@ export const App = () => {
 };
 ```
 
-#### Angular
+### Angular
 
 ```typescript
 // TextInput.component.ts
@@ -616,7 +614,7 @@ export class TextInputComponent {
 export class AppComponent {}
 ```
 
-#### Vue
+### Vue
 
 ```vue
 <!-- TextInput.vue -->
@@ -678,7 +676,7 @@ Now we can see our form with a warning about an invalid email. It looks somethin
 
 ---
 
-### Generating Unique IDs Automatically using UUIDv4 
+## Generating Unique IDs Automatically using UUIDv4 
 
 Our forms above are pretty functional now, but there's a small developer experience headache associated with our new `TextInput` form: You are _required_ to define an unique `id` manually for each field.
 
@@ -686,20 +684,31 @@ While this isn't a problem for small forms, as your application grows this can b
 
 While it would be nice to remove the requirement to pass a custom `id`, we need to have one present in our input to link the `label`, error `span`, and `input` together. Luckily for us, computers have had a fairly reliable way of generating a unique IDs in the form of **UUIDs**.
 
-#### What's an UUID?
+> What are UUIDs?
 
 While [I've written in depth about UUIDs before](/posts/what-are-uuids), the gist of "What is a UUID" is "They're a method of generating unique IDs for items using a specific algorithm, designated by a 'version' of UUID used to generate the ID".
 
 For our purposes, we'll be using a [UUIDv4](/posts/what-are-uuids#UUIDv4) to generate truly unique IDs for each DOM element we want to associate.
 
+Since there's not a method for generating UUIDs as part of JavaScript's core APIs, let's install a `uuid` package to do this for us:
 
+```
+npm install uuid
+```
 
+Now that we have the ability to generate UUIDv4s using:
 
+```javascript
+import {v4 as uuidv4} from 'uuid';
 
+uuidv4();
+```
 
+Let's look at how we can integrate this into our `TextInput` component:
 
 <!-- ::start:tabs -->
 
+### React
 
 ```jsx {5}
 // TextInput.jsx
