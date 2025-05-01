@@ -8,12 +8,20 @@ interface CollectionTableOfContentsProps {
 	posts: PostInfo[];
 	chapterList?: ChapterList[];
 	chaptersToShow?: number;
+	postPrefixToRemove?: string;
 }
 
-const { title, posts, chapterList, chaptersToShow } =
+const { title, posts, chapterList, chaptersToShow, postPrefixToRemove } =
 	Astro.props as CollectionTableOfContentsProps;
 
 const maxChapterToShow = chaptersToShow ?? 10;
+
+function removeTitlePrefix(title: string) {
+	if (postPrefixToRemove && title.startsWith(postPrefixToRemove)) {
+		return title.slice(postPrefixToRemove.length);
+	}
+	return title;
+}
 ---
 
 <section class={styles.chaptersContainer}>
@@ -45,7 +53,7 @@ const maxChapterToShow = chaptersToShow ?? 10;
 									.
 								</span>
 								<span class={`text-style-body-large-bold ${styles.postTitle}`}>
-									{post.title}
+									{removeTitlePrefix(post.title)}
 								</span>
 								<span
 									class={`text-style-button ffg-button-base ffg-small-button ffg-outlined-button ${styles.noOutlineButton}`}
@@ -80,7 +88,7 @@ const maxChapterToShow = chaptersToShow ?? 10;
 									{isNumber ? "." : " "}
 								</span>
 								<span class={`text-style-body-large-bold ${styles.postTitle}`}>
-									{post.title}
+									{removeTitlePrefix(post.title)}
 								</span>
 								{post.description ? (
 									<span
