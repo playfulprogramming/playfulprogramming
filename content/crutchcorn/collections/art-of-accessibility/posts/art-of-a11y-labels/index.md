@@ -32,6 +32,7 @@ The reason we're doing this is to link two seemingly unrelated HTML elements tog
 Let's say that you have an HTML login form like so:
 
 ```html
+<!-- DO NOT DO THIS, IT IS INACCESSIBLE -->
 <form>
     <input name="username" type="text"/>
     <input name="password" type="password"/>
@@ -42,6 +43,7 @@ Let's say that you have an HTML login form like so:
 By default, this will look like the following:
 
 ----
+
 
 <form>
     <input name="username" type="text"/>
@@ -55,16 +57,19 @@ By default, this will look like the following:
 Notice that our form doesn't indicate which text input is for which field; neither to sighted or blind users. Let's change that and make a visual label for our inputs:
 
 ```html
+<!-- DO NOT DO THIS, IT IS INACCESSIBLE -->
 <form style="display: flex; gap: 1rem;">
 	<div style="display: flex; flex-direction: column;">
-        <p>Username</p>
+        <p style="margin: 0;">Username</p>
         <input name="username" type="text"/>
 	</div>
 	<div style="display: flex; flex-direction: column;">
-        <p>Password</p>
+        <p style="margin: 0;">Password</p>
 	    <input name="password" type="password"/>
     </div>
-    <button type="submit">Login</button>
+    <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+	    <button type="submit">Login</button>
+    </div>
 </form>	
 ```
 
@@ -72,15 +77,18 @@ Notice that our form doesn't indicate which text input is for which field; neith
 
 <form onsubmit="event.preventDefault()" style="display: flex; gap: 1rem;">
 	<div style="display: flex; flex-direction: column;">
-        <p>Username</p>
+        <p style="margin: 0;">Username</p>
         <input name="username" type="text"/>
 	</div>
 	<div style="display: flex; flex-direction: column;">
-        <p>Password</p>
+        <p style="margin: 0;">Password</p>
 	    <input name="password" type="password"/>
     </div>
-    <button type="submit">Login</button>
+    <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+        <button type="submit">Login</button>
+    </div>
 </form>	
+
 
 ---
 
@@ -139,51 +147,85 @@ Luckily, when dealing with `input`s, there's an easy way to link a text input to
 
 This allows screen-readers to associate elements together and read out "Text input, username" when the user has the first text input focused.
 
-Don't like the inline styling of the labels? No problem. Mix them with a [block-level element](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements), such as a `div`, to have them take up the full width and allow you to style them a bit more:
+## Label Styling Considerations
+
+Don't like the inline styling of the labels? No problem. You can style `<label>` elements like any other. In this case, we'll leverage the previously used flex styling to make the labels appear above the inputs:
 
 ```html
 <form style="display: flex; gap: 1rem;">
 	<label style="display: flex; flex-direction: column;">
-        <div>Username</div>
+        <span>Username</span>
         <input name="username" type="text"/>
 	</label>
 	<label style="display: flex; flex-direction: column;">
-        <div>Password</div>
+        <span>Password</span>
 	    <input name="password" type="password"/>
     </label>
-    <button type="submit">Login</button>
-</form>	
+    <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+        <button type="submit">Login</button>
+    </div>
+</form>
 ```
 
 ----
 
 <form style="display: flex; gap: 1rem;" onsubmit="event.preventDefault()">
 	<label style="display: flex; flex-direction: column;">
-        <div>Username</div>
+        <span>Username</span>
         <input name="username" type="text"/>
 	</label>
 	<label style="display: flex; flex-direction: column;">
-        <div>Password</div>
+        <span>Password</span>
 	    <input name="password" type="password"/>
     </label>
-    <button type="submit">Login</button>
+    <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+        <button type="submit">Login</button>
+    </div>
 </form>	
+
 
 ---
 
-### Why You Shouldn't Use Placeholders
+It's worth noting, however, that while `<span>` tags are absolutely welcomed and allowed to be used in a `<label>`, there are some restrictions on the elements you can have as child tags.
+
+Only tags that are considered [phrasing content](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Content_categories#phrasing_content) are allowed; otherwise a screen-reader may not properly handle the text inside.
+
+This mean that while **the following incomplete list of elements are allowed**:
+- `<b>`
+- `<em>`
+- `<i>`
+- `<span>`
+- `<strong>`
+
+**The rest of HTML elements are not allowed**, like:
+
+- `<p>`
+- `<h1>` through `<h6>`s
+- `<article>`s, `<nav>`s, and other landmark elements
+- Other `<label>`s
+- Any other `<input>` elements than the one you want labelled
+  - One label per input only!
+
+
+# Why You Shouldn't Use Placeholders
 
 Whenever the topic of element association comes up, I regularly get asked the following:
 
 > Why don't you just use placeholders in an element?
 
-It's a valid question, given that it's been adopted as a broadly utilized pattern for many forms in recent years. Additionally, at least visually, it seems like placeholders provide a similar level of information as labels might.
+It's a valid question, given that it's been adopted as a broadly utilized pattern for many forms in recent years. Additionally — at least visually — it seems like placeholders provide a similar level of information as labels might.
+
+---
+
 
 <form style="display: flex; gap: 1rem;" aria-hidden="true" onsubmit="event.preventDefault()">
     <input placeholder="Username" name="username" type="text"/>
     <input placeholder="password" type="password"/>
     <button type="submit">Login</button>
 </form>
+
+
+----
 
 Despite their popularity, **placeholders have been widely seen as a harmful U.X. pattern for inputs by accessibility experts**. Some of the issues with placeholders these experts cite are:
 
@@ -210,7 +252,7 @@ Want to read more? Here are a few resources that explore the problems with place
 
 ## Explicit Element Association
 
-> If `label` is able to link an `input` and a label together, why don't we always do this?
+> If `<label>` is able to link an `<input>` and label text together, why don't we always do this?
 
 Well, while you're able to place `div`s and other elements inside of a `label` element, let's say that you want to provide the following style, where your labels and inputs are in a table side-by-side:
 
@@ -238,6 +280,7 @@ Well, while you're able to place `div`s and other elements inside of a `label` e
 Doing this with the implicit element association _might_ be possible, but would be very challenging to do properly. Instead, let's use a `table` element to layout the labels and elements:
 
 ```html
+<!-- DO NOT DO THIS, IT IS INACCESSIBLE -->
 <table>
     <tbody>
         <tr>
