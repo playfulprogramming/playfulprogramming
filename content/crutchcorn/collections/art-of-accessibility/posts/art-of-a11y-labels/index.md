@@ -487,11 +487,17 @@ import TextInput from "./TextInput.vue";
 
 Our form now works!
 
+----
+
+
 <form onsubmit="event.preventDefault()">
   <label>Email <input /></label>
   <label>Password <input type="password" /></label>
   <button type="submit">Login</button>
 </form>
+
+
+----
 
 It's not the prettiest form in the world, but it's functional!
 
