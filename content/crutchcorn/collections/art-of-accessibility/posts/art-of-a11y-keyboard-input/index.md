@@ -22,16 +22,6 @@ While the first was the topic of the chapter and the second is a form of expecte
 
 Let's go back and explain the fundamentals of what we wrote in that example.
 
-# Keyboard Shortcuts
-
-// TODO: `del` to remove file
-
-## Multi-key shortcuts
-
-// TODO: Ctrl + S
-
-// TODO: "Going above and beyond": Adding global shortcuts and cheat-sheets
-
 # Focus Management
 
 We've discussed before how imperative it is to enable your users to be able to navigate your site using their keyboard alone. To do this, we need to make sure that they can properly <kbd>Tab</kbd> throughout the elements on your screen.
@@ -45,6 +35,8 @@ Let's answer each of these questions, starting with...
 Let's try an experiment.
 
 Given the following image, what is currently focused?
+
+// TODO: Replace these images
 
 ![A table of contents of the series of The Accessibility Almanac with the Part 3 focused with the browser's default focus ring](./focused_chapters.png)
 
@@ -61,7 +53,7 @@ outline: none;
 
 This is a common "trick" used by many engineers in order to avoid having the blue glow around elements when focused. But here's the thing; if you don't have that glow, how will you know if your element is focused or not?
 
-This is why the accessibility community has been fairly prescriptive with usage of `outline`: "Never use `outline: none` unless you know what you're doing."
+This is why the accessibility community has been fairly prescriptive with usage of `outline`: **"Never use `outline: none` unless you know what you're doing."**
 
 ### Creating custom outline states
 
@@ -92,6 +84,9 @@ a {
 
 We can check this against a link element to verify that we have a focus indicator when the user has the element tabbed to.
 
+---
+
+
 <div>
 <div class="green-test-1">
 <a href="#">This is a link</a>
@@ -114,7 +109,13 @@ outline-offset: 4px;
 </style>
 </div>
 
+
+---
+
 Awesome! We know have a focus ring that has our page's branding colors applied! Now let's apply this focus ring to a button:
+
+---
+
 
 <div>
 <div class="green-test-2">
@@ -139,6 +140,8 @@ Awesome! We know have a focus ring that has our page's branding colors applied! 
 </div>
 
 
+---
+
 Everything looks good, but... Wait... Why is the focus ring visible when the user is clicking on the button with a mouse? That's not how the browser default focus indicator works!
 
 That's correct. To solve this problem. we need not eleminate the custom outline, but instead we can replace our `:focus` psuedo-selector with [a `:focus-visible` selector](https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible):
@@ -155,6 +158,9 @@ That's correct. To solve this problem. we need not eleminate the custom outline,
 This CSS state selector enables you to customize the behavior when the browser would typically show a focus ring by default.
 
 Let's see if it's fixed the issue with our button annnnd...
+
+---
+
 
 <div>
 <div class="green-test-3">
@@ -179,11 +185,11 @@ Let's see if it's fixed the issue with our button annnnd...
 </div>
 
 
+---
+
 It has! 🎉 Hooray!
 
 ## `tabindex` Handling
-
-Let's loop back to the core theme of this chapter: Keyboard navigation is key for accessibility on your site. 
 
 One easy to conceptualize way to make your site navigable via a keyboard is by making sure all interactive elements are able to be tabbed into. Some elements are marked as "tab-able" by the browser without any extra effort:
 
@@ -196,62 +202,232 @@ One easy to conceptualize way to make your site navigable via a keyboard is by m
 
 While the browser does a good job at marking most relevant elements, some applications have more unique requirements.
 
-For example, let's say you're building a document reader:
+For example, let's look at our tabs example from before:
 
-<!-- Add mockup like this https://www.a11yproject.com/img/posts/how-to-use-the-tabindex-attribute/scrollable-overflow-container.png -->
+![The same two tabs of "JavaScript" and "Python" from before](../art-of-a11y-semantic-markup/styled_tabs.png)
 
-Let's build out the CSS for this:
+While tabbing through the different tabs might not be _too_ bad if you only have a single instance of tab groupings and only two tabs per group; this problem grows exponentially as you add more tabs and tab groups to a page.
 
-```css
-.documentReader {
-    box-sizing: inherit;
-    max-width: 300px;
-    max-height: 150px;
-    overflow: scroll;
-    border: 4px solid black;
-    margin: 1rem auto;
-}
-```
+As a result, if we took the naïve approach of having each tab being its own `<button>`, the user would have to tab through each tab one-by-one:
+
+----
 
 
-
-<div style="box-sizing: inherit;max-width: 300px;max-height: 150px;overflow: scroll;border: 4px solid black;margin: 1rem auto;">
-Cupcake ipsum dolor sit amet cake dessert. Liquorice cake candy canes I love sesame snaps marshmallow lollipop I love croissant. Bonbon soufflé gingerbread macaroon tart tootsie roll. Macaroon donut caramels cookie gummi bears. I love liquorice jelly toffee fruitcake. Chupa chups oat cake gummies chocolate cake jelly beans sweet soufflé. Jelly cotton candy sweet danish gingerbread cake candy. Pudding gummies I love I love cake I love fruitcake. Gummies I love marshmallow dessert gummies. Lemon drops I love croissant cotton candy tart. Shortbread tootsie roll dessert gummies I love chupa chups topping. Muffin cookie halvah chocolate cake lollipop sweet roll I love fruitcake. Gingerbread dessert icing marshmallow bear claw. Cake I love wafer dragée powder gummi bears wafer chocolate bar.
-Candy jelly donut sesame snaps biscuit liquorice dragée. Macaroon pie gummies chocolate bonbon lollipop sugar plum. I love gummies toffee cotton candy soufflé. Pie danish muffin donut croissant lollipop marzipan shortbread. I love powder cake I love marshmallow dessert lemon drops. Lollipop candy canes pie dragée sugar plum wafer danish sweet lemon drops. Fruitcake pie sesame snaps wafer bear claw lemon drops macaroon dragée. Pastry pie dragée sweet roll cupcake lollipop gummies. Powder danish I love powder I love carrot cake. Sesame snaps sesame snaps I love I love apple pie cake icing dragée cupcake. Fruitcake icing pastry cotton candy macaroon pie sugar plum cotton candy apple pie. Bear claw bear claw I love shortbread cheesecake tiramisu. Chupa chups gummi bears wafer jujubes I love gummi bears dragée.
-Apple pie marshmallow gummies I love pie. I love croissant apple pie oat cake jelly-o toffee soufflé ice cream lollipop. Shortbread tiramisu sugar plum dessert toffee I love brownie oat cake ice cream. I love icing I love cake fruitcake I love. Gummi bears cake pudding cheesecake bear claw fruitcake. Ice cream I love cookie candy I love topping. I love chocolate cake jelly-o sweet cake caramels jelly candy canes sweet. Marzipan sesame snaps I love wafer candy caramels marshmallow jelly beans sweet roll. Gummi bears sweet roll oat cake bear claw gummies candy canes. Pie tart gummi bears oat cake candy canes I love caramels. Icing marshmallow icing candy canes cupcake muffin. Candy canes toffee bear claw I love shortbread ice cream I love pastry.
-Chocolate I love sugar plum sesame snaps liquorice bonbon lemon drops macaroon. Donut gummi bears oat cake fruitcake cake croissant biscuit oat cake cake. Caramels chupa chups toffee brownie lollipop I love lollipop toffee cake. Halvah jelly-o cookie soufflé bear claw caramels. Candy sugar plum cake dessert jelly-o. Carrot cake cake caramels pie brownie liquorice tart fruitcake. Pudding I love I love candy canes icing I love chocolate shortbread oat cake. Toffee I love candy muffin I love apple pie wafer dragée. Jujubes fruitcake marzipan topping ice cream dessert jelly-o cake. Caramels sesame snaps carrot cake croissant oat cake. Candy chocolate I love chupa chups toffee shortbread. Cheesecake jelly beans oat cake lemon drops caramels dessert brownie pudding jelly-o.
-Pudding bear claw liquorice powder tiramisu chocolate bar I love pastry. Oat cake cake gummies dessert gummi bears chupa chups jelly beans donut I love. Liquorice dessert chupa chups powder donut chocolate I love I love. Macaroon oat cake candy canes gummies marzipan. Cupcake I love marshmallow jelly-o pudding I love toffee ice cream croissant. Biscuit pie wafer I love pudding jelly cotton candy biscuit I love. Cupcake cake brownie jelly beans marshmallow powder chocolate bar dragée cake. Caramels marzipan brownie dessert fruitcake. Topping chocolate toffee icing chocolate. Sesame snaps apple pie cotton candy sweet jelly beans. Jelly-o I love gummi bears lollipop I love cake tiramisu sesame snaps soufflé. Cake bear claw marzipan chupa chups tart. Powder ice cream caramels gingerbread soufflé toffee jelly-o. Sweet tart shortbread cookie lemon drops sweet biscuit I love apple pie.
+<div class="__tab_example_1">
+<div class="tablist">
+<button class="tab selected">
+JavaScript
+</button>
+<button class="tab">
+Python
+</button>
 </div>
+<div class="tabpanel">
+<code>console.log("Hello, world!");</code>
+</div>
+</div>
+<style>
+.__tab_example_1 button {
+all:unset;
+}
+.__tab_example_1 code {
+all:unset !important;
+font-family: monospace !important;
+}
+.__tab_example_1 .tablist {
+margin: 0;
+padding: 0; 
+display: flex;
+gap: 0.25rem;
+}
+.__tab_example_1 .tab {
+background:white;
+display: inline-block;
+padding: 1rem;
+border: solid black;
+border-width: 2px 2px 0 2px;
+border-radius: 1rem 1rem 0 0;
+}
+.__tab_example_1 .tab:focus-visible {
+	outline: none;
+	box-shadow:
+		0 0 0 2px #000,
+		0 0 0 4px #fff,
+		0 0 0 6px #000;
+}
+.__tab_example_1 .tab:hover {
+background: #d3d3d3;
+}
+.__tab_example_1 .tab:active {
+background: #878787;
+}
+.__tab_example_1 .tab.selected {
+background: black;
+color: white;
+}
+.__tab_example_1 .tabpanel {
+background:white;
+border: solid black;
+border-width: 2px;
+padding: 1rem;
+border-radius: 0 1rem 1rem 1rem;
+}
+</style>
 
-This CSS allows the user to scroll with a mouse through the contents of the document, but alas there's a problem:
+> This is a demonstration of an inaccessible tab panel. Try to use it without using your mouse. It's intended to be non-functional, but even with that constraint, moving through each tab on a <kbd>Tab</kbd> keypress is obnoxious.
 
-How are keyboard-only users supposed to scroll through the document? If they could focus on it, they could use the up and down arrow keys to navigate through the document, but `div`s are not focusable by default.
+---
 
-The good news is that we have the ability to **make the typically unfocusable `div` focusable _in order to enable keyboard navigation_** of the document. The solution? `tabindex`.
+> So how do we solve this problem?
 
+Well, ideally we'd have the flexibility to control the flow the user takes when they hit <kbd>Tab</kbd> and add additional keyboard controls to ensure the user has the ability to move using the left and right arrow keys.
 
-While [the `tabindex` has more nuance to it than this](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex), you can think of `tabindex` as a way of manually adding or removing the ability to tab to an HTML element.
+> Well, let's focus on the tab flow control — how do we do that?
 
-// TODO: Write
+The answer? `tabindex`.
 
-A `tabindex` value of `0` allows a user to tab to an element, regardless of element type. Meanwhile, a `tabindex` value of `-1` disables the ability to tab to an otherwise tab-able element.
+While [the `tabindex` attribute has more nuance to it than this](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex), you can think of `tabindex` as a way of manually adding or removing the ability to tab to an HTML element.
+
+See, a `tabindex` value of `0` allows a user to tab to an element, regardless of element type. Meanwhile, a `tabindex` value of `-1` disables the ability to tab to an otherwise tab-able element.
 
 > A negative `tabindex` value also provides us a way to `focus` an element using JavaScript, but more on that later... 🤫
 
-// TODO: Write
+So, if we change our markup from:
+
+```html
+<!-- THIS IS INACCESSIBLE MARKUP FOR DEMONSTRATION PURPOSES ONLY -->
+<div class="tabgroup">
+    <div class="tablist">
+        <button class="tab selected">JavaScript</button>
+        <button class="tab">Python</button>
+    </div>
+    <div class="tabpanel">
+        <code>console.log("Hello, world!");</code>
+    </div>
+</div>
+```
+
+And add `tabindex` of `-1` or `0` depending on if the tab is selected or not:
+
+```html
+<!-- THIS IS STILL INACCESSIBLE MARKUP FOR DEMONSTRATION PURPOSES ONLY -->
+<div class="tabgroup">
+    <div class="tablist">
+        <button tabindex="0" class="tab selected">JavaScript</button>
+        <button tabindex="-1" class="tab">Python</button>
+    </div>
+    <div class="tabpanel">
+        <code>console.log("Hello, world!");</code>
+    </div>
+</div>
+```
+
+We can see the `selected` button is able to be tabbed to, while the other button is not:
+
+---
 
 
-> While it may seem initially intuitive to add `tabindex="0"` to each heading on the site to make navigation to each major section of the site, be careful in doing so.
->
-> Most screen readers and accessibility technologies already provide a way to rapidly jump from heading to heading with nothing more than their keyboard. As a result, adding `tabindex="0"` to headings can be a duplicate effort to tab past and make things worse than they were before.
->
-> [To learn more about acceptable usage of `tabindex`, check out this article by the A11Y Project](https://www.a11yproject.com/posts/how-to-use-the-tabindex-attribute/#scrollable-overflow-containers).
+
+<div class="__tab_example_2">
+<div class="tablist">
+<button tabindex="0" class="tab selected">
+JavaScript
+</button>
+<button  tabindex="1" class="tab">
+Python
+</button>
+</div>
+<div class="tabpanel">
+<code>console.log("Hello, world!");</code>
+</div>
+</div>
+<style>
+.__tab_example_2 button {
+all:unset;
+}
+.__tab_example_2 code {
+all:unset !important;
+font-family: monospace !important;
+}
+.__tab_example_2 .tablist {
+margin: 0;
+padding: 0; 
+display: flex;
+gap: 0.25rem;
+}
+.__tab_example_2 .tab {
+background:white;
+display: inline-block;
+padding: 1rem;
+border: solid black;
+border-width: 2px 2px 0 2px;
+border-radius: 1rem 1rem 0 0;
+}
+.__tab_example_2 .tab:focus-visible {
+	outline: none;
+	box-shadow:
+		0 0 0 2px #000,
+		0 0 0 4px #fff,
+		0 0 0 6px #000;
+}
+.__tab_example_2 .tab:hover {
+background: #d3d3d3;
+}
+.__tab_example_2 .tab:active {
+background: #878787;
+}
+.__tab_example_2 .tab.selected {
+background: black;
+color: white;
+}
+.__tab_example_2 .tabpanel {
+background:white;
+border: solid black;
+border-width: 2px;
+padding: 1rem;
+border-radius: 0 1rem 1rem 1rem;
+}
+</style>
+
+
+> This is a demonstration of an non-functional inaccessible tab panel. This time, only one tab is focusable through the <kbd>Tab</kbd> key.
+
+---
+
+### When to not use `tabindex`
+
+While it may seem initially intuitive to add `tabindex="0"` to many elements on your site, be careful in doing so.
+
+One place I've seen aspiring accessible engineers add errant tabindexes is to make it "convinient" for users to navigate to common 
+
+Most screen readers and accessibility technologies already provide a way to rapidly jump from heading to heading with nothing more than their keyboard. As a result, adding `tabindex="0"` to headings can be a duplicate effort to tab past and make things worse than they were before.
 
 ### Positive `tabindex`
 
-// TODO: Write "NO, don't do"
+> To add a preemptive disclaimer: **You should never use `tabindex="n"` where `n` is a positive number. `tabindex="1"` and above cause substantial problems for your users' ability to understand how to navigate your site**.
+> 
+> Now that's out of the way; Let's learn what positive tab indexes do and why they're so harmful. 
 
 ## Element Reference `focus()`
 
 // TODO: Use `ref` to `focus` an element
 
+# Keyboard Shortcuts
+
+
+
+## Element default shortcuts
+
+// TODO: Label + checkbox to toggle checkbox on `Enter`
+
+## Element-specific Shortcuts
+
+// TODO: `Up` and `Down` to navigate list
+
+## Global Shortcuts
+
+// TODO: `Esc` to dropdown
+
+## Multi-key shortcuts
+
+// TODO: `Ctrl` + `A` to select all
