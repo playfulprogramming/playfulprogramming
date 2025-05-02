@@ -3,6 +3,10 @@
 		"displayName": "Accessibility",
 		"emoji": "♿"
 	},
+	"ai": {
+		"displayName": "Artificial Intelligence (AI)",
+		"emoji": "🤖"
+	},
 	"android": {
 		"displayName": "Android",
 		"image": "/stickers/android.svg",
@@ -34,6 +38,11 @@
 	"chrome": {
 		"displayName": "Chrome",
 		"image": "/stickers/chrome.svg",
+		"shownWithBranding": false
+	},
+	"coldfusion": {
+		"displayName": "Adobe ColdFusion",
+		"image": "/stickers/coldfusion.svg",
 		"shownWithBranding": false
 	},
 	"computer science": {

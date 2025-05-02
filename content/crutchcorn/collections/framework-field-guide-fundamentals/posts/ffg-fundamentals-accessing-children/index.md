@@ -2,13 +2,13 @@
 {
   title: "Accessing Children",
   description: "Oftentimes, when passing children to a component, you want a way to programmatically access that passed data. Let's learn how to do that in React, Angular, and Vue.",
-  published: "2024-03-11T12:15:00.000Z",
+  published: "2025-01-06T12:15:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 15,
   collection: "framework-field-guide-fundamentals",
-  version: "v1.1",
+  version: "v2",
 }
 ---
 
@@ -129,36 +129,38 @@ In [our "Element Reference" chapter, we talked about how you're able to assign a
 <div #templVar></div>
 ```
 
-In our previous example, we used them to conditionally render content using `ngIf`, but these template tags aren't simply useful in `ngIf` usage. We can also use them in a myriad of programmatic queries, such as [`ContentChild`](https://angular.dev/api/core/ContentChild).
+In our previous example, we used them to access a template variable within a component's template. Well, we can also use them to access tags from a child's template as well, by using [`contentChild`](https://angular.dev/api/core/contentChild).
 
-`ContentChild` is a way to query the projected content within [`ng-content`](/posts/ffg-fundamentals-passing-children) from JavaScript.
+`contentChild` is a way to query the projected content within [`ng-content`](/posts/ffg-fundamentals-passing-children) from JavaScript.
 
 ```angular-ts
 import {
 	Component,
-	AfterContentInit,
-	ContentChild,
 	ElementRef,
+	contentChild,
+	effect,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "parent-list",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<ng-content></ng-content>`,
 })
-class ParentListComponent implements AfterContentInit {
-	@ContentChild("childItem") child!: ElementRef<HTMLElement>;
+class ParentListComponent {
+	child = contentChild.required<ElementRef<HTMLElement>>("childItem");
 
-	// This cannot be replaced with an `OnInit`, otherwise `children` is empty. We'll explain soon.
-	ngAfterContentInit() {
-		console.log(this.child.nativeElement); // This is an HTMLElement
+	constructor() {
+		effect(() => {
+			console.log(this.child().nativeElement); // This is an HTMLElement
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ParentListComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<parent-list>
 			<p #childItem>Hello, world!</p>
@@ -172,84 +174,50 @@ class AppComponent {}
 <iframe data-frame-title="Angular ContentChild - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-contentchild-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
-Here, we're querying for the template tag `childItem` within the project content by using [the `ContentChild` decorator](https://angular.dev/api/core/ContentChild).
+Here, we're querying for the template tag `childItem` within the project content by using [the `contentChild` signal API](https://angular.dev/api/core/contentChild).
 
 `ContentChild` then returns [a TypeScript generic type](/posts/typescript-type-generics) of `ElementRef`.
 
 `ElementRef` is a type that has a single property called `nativeElement` containing the [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) in question.
 
-### `ngAfterContentInit` Detects Child Initialization {#ngaftercontentinit-detects-child-init}
-
-If you were looking at the last code sample and wondered:
-
-> "What is `ngAfterContentInit` and why are we using it in place of `ngOnInit`?"
-
-Then you're asking the right questions!
-
-See, if we replace our usage of `ngAfterContentInit` with a `ngOnInit`, then we get `undefined` in place of `this.child`:
-
-```angular-ts
-@Component({
-	selector: "parent-list",
-	standalone: true,
-	template: ` <ng-content></ng-content> `,
-})
-class ParentListComponent implements OnInit {
-	@ContentChild("childItem") child!: ElementRef<HTMLElement>;
-
-	ngOnInit() {
-		console.log(this.child); // This is `undefined`
-	}
-}
-```
-
-<!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Why ngAfterContentInit? - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-why-ngaftercontentinit-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
-<!-- ::end:no-ebook -->
-
-This is because while `ngOnInit` runs after the component has rendered, it has not yet received any values within `ng-content`; this is where `ngAfterContentInit` comes into play. This lifecycle method runs once `ng-content` has received the values, which we can then use as a sign that `ContentChild` has finished its query.
-
-This can be solved by either:
-
-- Using `ngAfterContentInit` if the content is dynamic
-- [Using `{static: true}` on the `ContentChild` decorator if the content is static](/posts/ffg-fundamentals-element-reference#using-static-true)
-
 ### Handle Multiple Children with `ContentChildren` {#content-children-access-multiple}
 
-While `ContentChild` is useful for querying against a single item being projected, what if we wanted to query against multiple items being projected?
+While `contentChild` is useful for querying against a single item being projected, what if we wanted to query against multiple items being projected?
 
-This is where [`ContentChildren`](https://angular.dev/api/core/ContentChildren) comes into play:
+This is where [`contentChildren`](https://angular.dev/api/core/contentChildren) comes into play:
 
 ```angular-ts
 import {
 	Component,
-	AfterContentInit,
-	ContentChildren,
-	QueryList,
+	contentChildren,
+	effect,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Component({
 	selector: "parent-list",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<p>There are {{ children.length }} number of items in this array</p>
+		<p>There are {{ children().length }} number of items in this array</p>
 		<ul>
 			<ng-content></ng-content>
 		</ul>
 	`,
 })
-class ParentListComponent implements AfterContentInit {
-	@ContentChildren("listItem") children!: QueryList<HTMLElement>;
+class ParentListComponent {
+	children = contentChildren<HTMLElement>("listItem");
 
-	ngAfterContentInit() {
-		console.log(this.children);
+	constructor() {
+		effect(() => {
+			console.log(this.children());
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ParentListComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<parent-list>
 			<li #listItem>Item 1</li>
@@ -265,7 +233,7 @@ class AppComponent {}
 <iframe data-frame-title="Angular Counting Component Children - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-counting-component-children-112?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
-`ContentChildren` returns an array-like [`QueryList`](https://angular.dev/api/core/QueryList) generic type. You can then access the properties of `children` inside of the template itself, like what we're doing with `children.length`.
+`contentChildren` returns an array of the accessed children. You can then access the properties of `children` inside of the template itself, like what we're doing with `children().length`.
 
 ## Vue
 
@@ -375,34 +343,34 @@ const App = () => {
 
 ## Angular
 
-Since Angular's `ContentChildren` gives us an `HTMLElement` reference when using our template variables on `HTMLElements`, we're not able to wrap those elements easily.
+Since Angular's `contentChildren` gives us an `HTMLElement` reference when using our template variables on `HTMLElements`, we're not able to wrap those elements easily.
 
-Instead, let's change our elements to `ng-template`s and render them in an `ngFor`, [similarly to what we did in our "Directives" chapter](/posts/ffg-fundamentals-directives#using-viewcontainer-to-render-a-template):
+Instead, let's change our elements to `ng-template`s and render them in an `@for`, [similarly to what we did in our "Directives" chapter](/posts/ffg-fundamentals-directives#using-viewcontainer-to-render-a-template):
 
 ```angular-ts
 @Component({
 	selector: "parent-list",
-	standalone: true,
 	imports: [NgTemplateOutlet],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<p>There are {{ children.length }} number of items in this array</p>
+		<p>There are {{ children().length }} number of items in this array</p>
 		<ul>
-			@for (child of children; track child) {
+			@for (child of children(); track child) {
 				<li>
-					<ng-template [ngTemplateOutlet]="child"></ng-template>
+					<ng-template [ngTemplateOutlet]="child" />
 				</li>
 			}
 		</ul>
 	`,
 })
 class ParentListComponent {
-	@ContentChildren("listItem") children!: QueryList<TemplateRef<any>>;
+	children = contentChildren<TemplateRef<any>>("listItem");
 }
 
 @Component({
-	standalone: true,
 	imports: [ParentListComponent],
 	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<parent-list>
 			<ng-template #listItem>
@@ -421,6 +389,7 @@ class AppComponent {}
 ```
 
 <!-- ::start:no-ebook -->
+
 <iframe data-frame-title="Angular Children in Loop - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-children-in-loop-113?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
@@ -486,30 +455,30 @@ const App = () => {
 ```angular-ts
 @Component({
 	selector: "parent-list",
-	standalone: true,
 	imports: [NgTemplateOutlet],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<p>There are {{ children.length }} number of items in this array</p>
+		<p>There are {{ children().length }} number of items in this array</p>
 		<ul>
-			@for (child of children; track child) {
+			@for (child of children(); track child) {
 				<li>
-					<ng-template [ngTemplateOutlet]="child"></ng-template>
+					<ng-template [ngTemplateOutlet]="child" />
 				</li>
 			}
 		</ul>
 	`,
 })
 class ParentListComponent {
-	@ContentChildren("listItem") children!: QueryList<TemplateRef<any>>;
+	children = contentChildren<TemplateRef<any>>("listItem");
 }
 
 @Component({
-	standalone: true,
 	imports: [ParentListComponent],
 	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<parent-list>
-			@for (item of list; track item; let i = $index) {
+			@for (item of list(); track item; let i = $index) {
 				<ng-template #listItem>
 					<span>{{ i }} {{ item }}</span>
 				</ng-template>
@@ -519,11 +488,11 @@ class ParentListComponent {
 	`,
 })
 class AppComponent {
-	list = [1, 42, 13];
+	list = signal([1, 42, 13]);
 
 	addOne() {
 		const randomNum = Math.floor(Math.random() * 100);
-		this.list.push(randomNum);
+		this.list.set([...this.list(), randomNum]);
 	}
 }
 ```
@@ -691,16 +660,16 @@ const App = () => {
 
 ## Angular
 
-Let's use the [ability to pass values to an ngTemplate using context](/posts/ffg-fundamentals-directives#passing-data-to-ng-template) to provide the background color to the passed template to our `ParentList` component:
+Let's use the [ability to pass values to an `ngTemplate` using context](/posts/ffg-fundamentals-directives#passing-data-to-ng-template) to provide the background color to the passed template to our `ParentList` component:
 
 ```angular-ts
 @Component({
 	selector: "parent-list",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<p>There are {{ children.length }} number of items in this array</p>
+		<p>There are {{ children().length }} number of items in this array</p>
 		<ul>
-			@for (let template of children; track template; let i = $index) {
+			@for (template of children(); track template; let i = $index) {
 				<ng-template
 					[ngTemplateOutlet]="template"
 					[ngTemplateOutletContext]="{ backgroundColor: i % 2 ? 'grey' : '' }"
@@ -710,18 +679,16 @@ Let's use the [ability to pass values to an ngTemplate using context](/posts/ffg
 	`,
 })
 class ParentListComponent {
-	@ContentChildren("listItem", { read: TemplateRef }) children: QueryList<
-		TemplateRef<any>
-	>;
+	children = contentChildren("listItem", { read: TemplateRef });
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ParentListComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<parent-list>
-			@for (item of list; track item; let i = $index) {
+			@for (item of list(); track item; let i = $index) {
 				<ng-template #listItem let-backgroundColor="backgroundColor">
 					<li [style]="{ backgroundColor }">{{ i }} {{ item }}</li>
 				</ng-template>
@@ -731,11 +698,11 @@ class ParentListComponent {
 	`,
 })
 class AppComponent {
-	list = [1, 42, 13];
+	list = signal([1, 42, 13]);
 
 	addOne() {
 		const randomNum = Math.floor(Math.random() * 100);
-		this.list.push(randomNum);
+		this.list.set([this.list(), ...randomNum]);
 	}
 }
 ```
@@ -911,21 +878,21 @@ function App() {
 ```angular-ts
 @Component({
 	selector: "table-comp",
-	standalone: true,
 	imports: [NgTemplateOutlet],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<table>
 			<thead>
 				<ng-template
-					[ngTemplateOutlet]="header"
-					[ngTemplateOutletContext]="{ length: data.length }"
+					[ngTemplateOutlet]="header()"
+					[ngTemplateOutletContext]="{ length: data().length }"
 				/>
 			</thead>
 
 			<tbody>
-				@for (item of data; track item; let index = index) {
+				@for (item of data(); track item; let index = $index) {
 					<ng-template
-						[ngTemplateOutlet]="body"
+						[ngTemplateOutlet]="body()"
 						[ngTemplateOutletContext]="{ rowI: index, value: item }"
 					/>
 				}
@@ -934,16 +901,16 @@ function App() {
 	`,
 })
 class TableComponent {
-	@ContentChild("header", { read: TemplateRef }) header!: TemplateRef<any>;
-	@ContentChild("body", { read: TemplateRef }) body!: TemplateRef<any>;
+	header = contentChild.required("header", { read: TemplateRef });
+	body = contentChild.required("body", { read: TemplateRef });
 
-	@Input() data!: any[];
+	data = input.required<any[]>();
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [TableComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<table-comp [data]="data">
 			<ng-template #header let-length="length">

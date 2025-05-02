@@ -1,0 +1,84 @@
+---
+import style from "./contributor-card.module.scss";
+import { PersonInfo } from "../../types";
+import { Picture } from "../image/picture";
+import { Button } from "../index";
+import { translate } from "../../utils/translations";
+import { getHrefContainerProps } from "../../utils/href-container-script";
+import allRoles from "../../../content/data/roles.json";
+import { tabletSmall } from "../../tokens/breakpoints";
+
+interface CardProps {
+	person: PersonInfo;
+	overrides?: {
+		roles?: string[];
+		isPartner?: boolean;
+	};
+}
+
+const { person, overrides } = Astro.props as CardProps;
+const personHref = `/people/${person.id}`;
+
+const roles =
+	overrides?.roles === undefined
+		? person.roles.map(
+				(role) => allRoles.find((r) => r.id === role)!.prettyname,
+			)
+		: overrides.roles;
+
+const isPartner =
+	overrides?.isPartner === undefined
+		? person.achievements.includes("partner")
+		: overrides.isPartner;
+---
+
+<li class={style.card} {...getHrefContainerProps(personHref)}>
+	<Picture
+		alt=""
+		width={96}
+		height={96}
+		sizes={{
+			80: { maxWidth: tabletSmall },
+		}}
+		imgAttrs={{
+			class: style.avatar,
+			"data-dont-round": "true",
+		}}
+		src={person.profileImgMeta.relativeServerPath}
+	/>
+
+	<div class={style.info}>
+		<span class={`${style.name} text-style-body-large-bold`}>
+			{person.name}
+			{
+				isPartner && (
+					<span class={`text-style-body-small-bold ${style.partnerLabel}`}>
+						<img width="16" height="16" src="/flair/bowtie.svg" alt="" />
+						Partner
+					</span>
+				)
+			}
+		</span>
+		<ul
+			class={`${style.roles} text-style-body-small`}
+			aria-label={translate(Astro, "desc.person_roles")}
+			role="list"
+		>
+			{
+				roles.map((role, i, arr) => (
+					<li role="listitem">
+						{[role, i < arr.length - 1 && <span aria-hidden="true">, </span>]}
+					</li>
+				))
+			}
+		</ul>
+	</div>
+
+	<Button
+		class={style.button}
+		href={personHref}
+		aria-label={translate(Astro, "label.view_profile_for", person.name)}
+	>
+		{translate(Astro, "action.view_profile")}
+	</Button>
+</li>

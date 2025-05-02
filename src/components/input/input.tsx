@@ -1,12 +1,16 @@
 import style from "./input.module.scss";
-import { ComponentProps, ComponentType, Fragment, JSX } from "preact";
+import { Fragment, JSX } from "preact";
 import search from "../../icons/search.svg?raw";
 import close from "../../icons/close.svg?raw";
-import { IconOnlyButton } from "components/button/button";
-import { HTMLAttributes } from "preact/compat";
+import {
+	IconOnlyButton,
+	ButtonProps,
+	AllowedTags,
+} from "components/button/button";
 import { useRandomId } from "utils/preact/useId";
+import { ReactElement, Ref } from "preact/compat";
 
-interface InputProps extends HTMLAttributes<HTMLInputElement> {
+interface InputProps extends JSX.InputHTMLAttributes {
 	label?: string;
 	containerClass?: string;
 }
@@ -42,11 +46,13 @@ export function Input({
 	);
 }
 
-const IconOnlyButtonButOnClick = IconOnlyButton as never as ComponentType<
-	ComponentProps<typeof IconOnlyButton> & {
+const IconOnlyButtonButOnClick = IconOnlyButton as never as <
+	Tag extends AllowedTags = "a",
+>(
+	props: ButtonProps<Tag> & { ref?: Ref<Tag> } & {
 		onclick?: string;
-	}
->;
+	},
+) => ReactElement;
 
 interface SearchInputProps {
 	variant?: "default" | "dense";

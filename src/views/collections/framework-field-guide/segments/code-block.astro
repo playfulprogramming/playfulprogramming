@@ -3,8 +3,11 @@ import { getMarkdownHtml } from "../../../../utils/markdown";
 import "../../../../styles/shiki.scss";
 import "./code-block.scss";
 import styles from "./code-block.module.scss";
-import index from "../code-block/index.md?raw";
-import indexPath from "../code-block/index.md?url";
+// `nmd` files are markdown files that can be imported and used as strings
+// Without this, Astro's tranform takes over and the markdown is not accessible, even with `?raw`
+// Will report a bug on this soon enough
+import index from "../code-block/index.nmd?raw";
+import indexPath from "../code-block/index.nmd?url";
 import { VFile } from "vfile";
 import { MarkdownVFile } from "utils/markdown/types";
 

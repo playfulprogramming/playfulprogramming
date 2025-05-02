@@ -24,7 +24,7 @@ export const CollectionCard = ({
 	const coverImgWidth = Math.max(160, Math.ceil(240 * coverImgAspectRatio));
 
 	return (
-		<div className={style.container}>
+		<li className={style.container}>
 			<div className={style.topRow}>
 				<UUPicture
 					src={collection.coverImgMeta.relativeServerPath}
@@ -79,6 +79,6 @@ export const CollectionCard = ({
 					)}
 				</Button>
 			</div>
-		</div>
+		</li>
 	);
 };

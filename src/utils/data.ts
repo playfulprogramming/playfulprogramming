@@ -111,6 +111,7 @@ async function readPerson(personPath: string): Promise<PersonInfo[]> {
 			color: "",
 			roles: [],
 			achievements: [],
+			boardRoles: [],
 			...frontmatter,
 			kind: "person",
 			id: personId,

@@ -24,6 +24,7 @@ interface FilterSidebar {
 	searchString: string;
 	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
 	contentToDisplay: "all" | "articles" | "collections";
+	isHybridSearch: boolean;
 }
 
 export const FilterSidebar = ({
@@ -41,6 +42,7 @@ export const FilterSidebar = ({
 	searchString,
 	setContentToDisplay,
 	contentToDisplay,
+	isHybridSearch,
 }: FilterSidebar) => {
 	const hideSearchbar = !searchString;
 	return (
@@ -93,6 +95,7 @@ export const FilterSidebar = ({
 							label={tag?.displayName ?? tag.tag}
 							selected={selectedTags.includes(tag.tag)}
 							onChange={() => onTagsChange(tag.tag)}
+							isHybridSearch={isHybridSearch}
 						/>
 					);
 				})}
@@ -119,6 +122,7 @@ export const FilterSidebar = ({
 							label={author.name}
 							selected={selectedAuthorIds.includes(author.id)}
 							onChange={() => onSelectedAuthorChange(author.id)}
+							isHybridSearch={isHybridSearch}
 						/>
 					);
 				})}

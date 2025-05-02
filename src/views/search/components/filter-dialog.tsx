@@ -21,6 +21,7 @@ interface FilterDialogProps {
 	authors: ExtendedUnicorn[];
 	selectedAuthorIds: string[];
 	selectedTags: string[];
+	isHybridSearch: boolean;
 }
 
 interface FilterDialogInner
@@ -42,6 +43,7 @@ const FilterDialogMobile = ({
 	onTagsChange,
 	selectedTags,
 	selectedAuthorIds,
+	isHybridSearch,
 }: FilterDialogInner) => {
 	return (
 		<div class={styles.mobileDialogContainer}>
@@ -71,6 +73,7 @@ const FilterDialogMobile = ({
 							label={tag?.displayName ?? tag.tag}
 							selected={selectedTags.includes(tag.tag)}
 							onChange={() => onTagsChange(tag.tag)}
+							isHybridSearch={isHybridSearch}
 						/>
 					);
 				})}
@@ -97,6 +100,7 @@ const FilterDialogMobile = ({
 							label={author.name}
 							selected={selectedAuthorIds.includes(author.id)}
 							onChange={() => onSelectedAuthorChange(author.id)}
+							isHybridSearch={isHybridSearch}
 						/>
 					);
 				})}
@@ -132,6 +136,7 @@ const FilterDialogSmallTablet = ({
 	onTagsChange,
 	selectedTags,
 	selectedAuthorIds,
+	isHybridSearch,
 }: FilterDialogInner) => {
 	return (
 		<div class={styles.tabletDialogContainer}>
@@ -177,6 +182,7 @@ const FilterDialogSmallTablet = ({
 									label={tag?.displayName ?? tag.tag}
 									selected={selectedTags.includes(tag.tag)}
 									onChange={() => onTagsChange(tag.tag)}
+									isHybridSearch={isHybridSearch}
 								/>
 							);
 						})}
@@ -204,6 +210,7 @@ const FilterDialogSmallTablet = ({
 									label={author.name}
 									selected={selectedAuthorIds.includes(author.id)}
 									onChange={() => onSelectedAuthorChange(author.id)}
+									isHybridSearch={isHybridSearch}
 								/>
 							);
 						})}
@@ -221,6 +228,7 @@ export const FilterDialog = ({
 	authors,
 	selectedAuthorIds: selectedParentAuthorIds,
 	selectedTags: selectedParentTags,
+	isHybridSearch,
 }: FilterDialogProps) => {
 	/**
 	 * Inner state
@@ -310,6 +318,7 @@ export const FilterDialog = ({
 				setSelectedAuthorIds={setSelectedAuthorIds}
 				onSelectedAuthorChange={onSelectedAuthorChange}
 				onTagsChange={onTagsChange}
+				isHybridSearch={isHybridSearch}
 			/>
 		</Dialog>
 	);

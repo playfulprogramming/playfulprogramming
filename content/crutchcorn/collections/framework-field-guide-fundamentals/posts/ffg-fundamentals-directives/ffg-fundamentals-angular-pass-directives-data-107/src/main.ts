@@ -1,4 +1,3 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
@@ -6,30 +5,35 @@ import {
 	inject,
 	ElementRef,
 	Directive,
-	OnInit,
-	Input,
+	effect,
+	input,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 @Directive({
 	selector: "[styleBackground]",
-	standalone: true,
 })
-class StyleBackgroundDirective implements OnInit {
-	@Input() styleBackground!: string;
+class StyleBackgroundDirective {
+	styleBackground = input.required<string>();
 
-	el = inject(ElementRef<any>);
+	el = inject(ElementRef);
 
-	ngOnInit() {
-		this.el.nativeElement.style.background = this.styleBackground;
+	constructor() {
+		effect(() => {
+			this.el.nativeElement.style.background = this.styleBackground();
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [StyleBackgroundDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <button styleBackground="#FFAEAE">Hello, world</button> `,
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

@@ -36,13 +36,18 @@ import {
 	DisplayContentType,
 	SortType,
 	SearchFiltersData,
+	COLLECTIONS_PAGE_KEY,
+	POSTS_PAGE_KEY,
 } from "./search";
 import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
 import { OramaClientProvider, useOramaSearch } from "./orama";
 import { SearchFooter } from "./components/search-footer";
-
-const MAX_POSTS_PER_PAGE = 6;
+import {
+	MAX_COLLECTIONS_PER_PAGE,
+	MAX_POSTS_PER_PAGE,
+	ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+} from "./constants";
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -57,14 +62,12 @@ function usePersistedEmptyRef<T extends object>(value: T) {
 }
 
 const fetchSearchFilters = async ({ signal }: { signal: AbortSignal }) => {
-	return fetch("/searchFilters.json", { signal, method: "GET" }).then(
-		(res) => {
-			if (!res.ok) {
-				return res.text().then((text) => Promise.reject(text));
-			}
-			return res.json() as Promise<SearchFiltersData>;
-		},
-	);
+	return fetch("/searchFilters.json", { signal, method: "GET" }).then((res) => {
+		if (!res.ok) {
+			return res.text().then((text) => Promise.reject(text));
+		}
+		return res.json() as Promise<SearchFiltersData>;
+	});
 };
 
 export function SearchPageBase() {
@@ -73,28 +76,35 @@ export function SearchPageBase() {
 		deserializeParams,
 	);
 
-	const setQuery = useCallback((newQuery: Partial<SearchQuery>) => {
-		const queryToSet = {
-			...query,
-			...newQuery,
-		};
+	const setQuery = useCallback(
+		(newQuery: Partial<SearchQuery>) => {
+			const queryToSet = {
+				...query,
+				...newQuery,
+			};
 
-		if (queryToSet.searchQuery.length == 0) {
-			// Remove tags and authors when no value is present
-			queryToSet.filterTags = [];
-			queryToSet.filterAuthors = [];
-		}
+			if (queryToSet.searchQuery.length == 0) {
+				// Remove tags and authors when no value is present
+				queryToSet.filterTags = [];
+				queryToSet.filterAuthors = [];
+			}
 
-		setQueryState(queryToSet);
-	}, [query, setQueryState]);
+			setQueryState(queryToSet);
+		},
+		[query, setQueryState],
+	);
 
 	const resultsHeading = useRef<HTMLDivElement | null>(null);
 
-	const setSearch = useCallback((str: string) => setQuery({ searchQuery: str, searchPage: 1 }), [setQuery]);
+	const setSearch = useCallback(
+		(str: string) =>
+			setQuery({ searchQuery: str, postsPage: 1, collectionsPage: 1 }),
+		[setQuery],
+	);
 
 	const onManualSubmit = useCallback(
 		(str: string) => {
-			setQuery({ searchQuery: str, searchPage: 1 });
+			setQuery({ searchQuery: str, postsPage: 1, collectionsPage: 1 });
 			resultsHeading.current?.focus();
 		},
 		[setQuery],
@@ -124,13 +134,22 @@ export function SearchPageBase() {
 	});
 
 	const { searchForTerm } = useOramaSearch();
-	const fetchSearchQuery = useCallback(({ signal, queryKey: [_, query] }: { signal: AbortSignal, queryKey: [string, SearchQuery]}) => {
-		// Analytics go brr
-		plausible &&
-			plausible("search", { props: { searchVal: query.searchQuery } });
+	const fetchSearchQuery = useCallback(
+		({
+			signal,
+			queryKey: [_, query],
+		}: {
+			signal: AbortSignal;
+			queryKey: [string, SearchQuery];
+		}) => {
+			// Analytics go brr
+			plausible &&
+				plausible("search", { props: { searchVal: query.searchQuery } });
 
-		return searchForTerm(query, signal);
-	}, [searchForTerm]);
+			return searchForTerm(query, signal);
+		},
+		[searchForTerm],
+	);
 
 	const {
 		isLoading: isLoadingData,
@@ -158,8 +177,28 @@ export function SearchPageBase() {
 
 	const isWildcardSearch = query.searchQuery === "*";
 	// If the search is a wildcard, we want to use *every* tag/person filter (the search API returns a limited amount)
-	const tagCounts = usePersistedEmptyRef(isWildcardSearch ? Object.fromEntries(people.tags.map(tag => [tag.id, tag.totalPostCount])) : data.tags);
-	const authorCounts = usePersistedEmptyRef(isWildcardSearch ? Object.fromEntries(people.people.map(person => [person.id, person.totalPostCount])) : data.authors);
+	const tagCounts = usePersistedEmptyRef(
+		isWildcardSearch
+			? Object.fromEntries(
+					people.tags.map((tag) => [tag.id, tag.totalPostCount]),
+				)
+			: data.tags,
+	);
+	const authorCounts = usePersistedEmptyRef(
+		isWildcardSearch
+			? Object.fromEntries(
+					people.people.map((person) => [person.id, person.totalPostCount]),
+				)
+			: data.authors,
+	);
+
+	// if searchh term has more than a certain number of words, then use hybrid mode Orama search for smart/AI searching capabilities
+	const isHybridSearch = useMemo(
+		() =>
+			query.searchQuery?.split(" ")?.filter((t) => t.trim() !== "")?.length >=
+			ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+		[query.searchQuery],
+	);
 
 	const isError = isErrorPeople || isErrorData;
 
@@ -182,7 +221,8 @@ export function SearchPageBase() {
 		(authors: string[]) => {
 			setQuery({
 				filterAuthors: authors,
-				searchPage: 1, // reset to page 1
+				postsPage: 1,
+				collectionsPage: 1, // Reset both page counters when changing filters
 			});
 		},
 		[setQuery],
@@ -192,7 +232,8 @@ export function SearchPageBase() {
 		(tags: string[]) => {
 			setQuery({
 				filterTags: tags,
-				searchPage: 1, // reset to page 1
+				postsPage: 1,
+				collectionsPage: 1, // Reset both page counters when changing filters
 			});
 		},
 		[setQuery],
@@ -202,7 +243,8 @@ export function SearchPageBase() {
 		(display: DisplayContentType) => {
 			setQuery({
 				display: display,
-				searchPage: 1, // reset to page 1
+				postsPage: 1,
+				collectionsPage: 1, // Reset both page counters when changing filters
 			});
 		},
 		[setQuery],
@@ -221,7 +263,8 @@ export function SearchPageBase() {
 		(sort: SortType) => {
 			setQuery({
 				sort: sort,
-				searchPage: 1, // reset to page 1
+				postsPage: 1,
+				collectionsPage: 1, // Reset both page counters when changing filters
 			});
 		},
 		[setQuery],
@@ -233,6 +276,13 @@ export function SearchPageBase() {
 	const lastPage = useMemo(
 		() => Math.ceil(data.totalPosts / MAX_POSTS_PER_PAGE),
 		[data.totalPosts],
+	);
+	/**
+	 * // Add separate pagination components for posts and collections
+	 */
+	const lastCollectionsPage = useMemo(
+		() => Math.ceil(data.totalCollections / MAX_COLLECTIONS_PER_PAGE),
+		[data.totalCollections],
 	);
 
 	/**
@@ -253,22 +303,21 @@ export function SearchPageBase() {
 		enabled &&
 		!isContentLoading &&
 		((data.posts.length === 0 && showArticles && !showCollections) ||
-			(data.collections.length === 0 &&
-				showCollections &&
-				!showArticles) ||
+			(data.collections.length === 0 && showCollections && !showArticles) ||
 			(showCollections &&
 				showArticles &&
 				data.posts.length === 0 &&
 				data.collections.length === 0));
 
-	const numberOfCollections = showCollections
-		? data.totalCollections
-		: 0;
+	const numberOfCollections = showCollections ? data.totalCollections : 0;
 
 	const numberOfPosts = showArticles ? data.totalPosts : 0;
 
 	return (
-		<main className={style.fullPageContainer} data-hide-sidebar={!query.searchQuery}>
+		<main
+			className={style.fullPageContainer}
+			data-hide-sidebar={!query.searchQuery}
+		>
 			<h1 className={"visually-hidden"}>Search</h1>
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
@@ -294,6 +343,7 @@ export function SearchPageBase() {
 					overflow: "clip",
 				}}
 				searchString={query.searchQuery}
+				isHybridSearch={isHybridSearch}
 			/>
 			<div className={style.mainContents}>
 				<SearchTopbar
@@ -395,19 +445,40 @@ export function SearchPageBase() {
 									className={style.collectionsGrid}
 								>
 									{data.collections.map((collection) => (
-										<li>
-											<CollectionCard
-												collection={collection}
-												authors={collection.authors
-													.map((id) => peopleMap.get(id + ""))
-													.filter(isDefined)}
-												headingTag="h3"
-											/>
-										</li>
+										<CollectionCard
+											collection={collection}
+											authors={collection.authors
+												.map((id) => peopleMap.get(id + ""))
+												.filter(isDefined)}
+											headingTag="h3"
+										/>
 									))}
 								</ul>
+								{!isHybridSearch && (
+									<Pagination
+										testId="collections-pagination"
+										softNavigate={(_href, pageNum) => {
+											window.scrollTo(0, 0);
+											setQuery({
+												collectionsPage: pageNum,
+											});
+										}}
+										page={{
+											currentPage: query.collectionsPage,
+											lastPage: lastCollectionsPage,
+										}}
+										getPageHref={(pageNum) => {
+											const pageParams = new URLSearchParams(
+												window.location.search,
+											);
+											pageParams.set(COLLECTIONS_PAGE_KEY, pageNum.toString());
+											return `${window.location.pathname}?${pageParams.toString()}`;
+										}}
+									/>
+								)}
 							</Fragment>
 						)}
+
 					{enabled &&
 						!isContentLoading &&
 						showArticles &&
@@ -425,31 +496,32 @@ export function SearchPageBase() {
 									postAuthors={peopleMap}
 									postHeadingTag="h3"
 								/>
-								<Pagination
-									testId="pagination"
-									softNavigate={(_href, pageNum) => {
-										window.scrollTo(0, 0);
-										setQuery({
-											searchPage: pageNum,
-										});
-									}}
-									page={{
-										currentPage: query.searchPage,
-										lastPage: lastPage,
-									}}
-									getPageHref={(pageNum) => {
-										const pageParams = new URLSearchParams(
-											window.location.search,
-										);
-										pageParams.set(SEARCH_PAGE_KEY, pageNum.toString());
-										return `${
-											window.location.pathname
-										}?${pageParams.toString()}`;
-									}}
-								/>
+								{!isHybridSearch && (
+									<Pagination
+										testId="pagination"
+										softNavigate={(_href, pageNum) => {
+											window.scrollTo(0, 0);
+											setQuery({
+												postsPage: pageNum,
+											});
+										}}
+										page={{
+											currentPage: query.postsPage,
+											lastPage: lastPage,
+										}}
+										getPageHref={(pageNum) => {
+											const pageParams = new URLSearchParams(
+												window.location.search,
+											);
+											pageParams.set(POSTS_PAGE_KEY, pageNum.toString());
+											return `${
+												window.location.pathname
+											}?${pageParams.toString()}`;
+										}}
+									/>
+								)}
 							</Fragment>
 						)}
-
 					{enabled && !isContentLoading && !noResults && (
 						<SearchFooter duration={data.duration} />
 					)}

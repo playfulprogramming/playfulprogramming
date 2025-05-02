@@ -18,6 +18,14 @@ As mentioned previously, we also have a Discord where we chat tech, help out wit
 
 ---
 
+## Who are we? {#board}
+
+While the broader Playful Programming project is comprised from [many wonderful contributors](/join-us#contributors), the non-profit corporation of Playful Programming currently has seven board members, who are listed below:
+
+<!-- split -->
+
+---
+
 ## Statement of Ethics {#ethics}
 
 We never want to end up in a place where our educational content, experience, or community is compromised by either financial sway or potentially harmful members of the community. As such, we've implemented the [Contributor Covenant](https://www.contributor-covenant.org/) as our [code of conduct](https://github.com/playfulprogramming/playfulprogramming/blob/master/CODE_OF_CONDUCT.md) to uphold these values.
