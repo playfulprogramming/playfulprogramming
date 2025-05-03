@@ -9,7 +9,7 @@
 }
 ---
 
-As application developers, our job is to make sure that people have a good experience with the apps we build. While performance and stability make up part of that story, a user's experience (or, UX) is made up of multiple different aspects of their interactions with the app. 
+As application developers, our job is to make sure that people have a good experience with the apps we build. While performance and stability make up part of that story, a user's experience (or, UX) is made up of multiple different aspects of their interactions with the app.
 
 One of the crucial aspects of UX is the ability to interact with the ability to have information presented in a way that's easily digestible.
 
@@ -95,7 +95,7 @@ Consider the following button:
 
 <button>Go home</button>
 
-This button might be read by a screen-reader as "Button, Go home". 
+This button might be read by a screen-reader as "Button, Go home".
 
 Meanwhile, this list of items:
 
