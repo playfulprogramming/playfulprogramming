@@ -42,6 +42,7 @@ function openSnitip(elements: SnitipElements) {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore "source" is used for keyboard navigation: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/showPopover
 	elements.popoverEl.showPopover({ source: elements.triggerEl });
+	elements.popoverEl.focus({ preventScroll: true });
 }
 
 function closeSnitip() {
@@ -61,6 +62,7 @@ function handleSnitipOpened(
 
 	document.addEventListener("scroll", positionSnitip, { passive: true });
 	document.addEventListener("resize", positionSnitip, { passive: true });
+	document.addEventListener("focusout", handleFocusOut);
 
 	// If the snitip is opened by mouseover, then close it if the mouse leaves the area
 	if (source === "mouseover") {
@@ -113,6 +115,15 @@ function handleMouseMove(e: MouseEvent) {
 	if (!isTrapezoid && !isHover && !isFocus) closeSnitip();
 }
 
+function handleFocusOut() {
+	// setTimeout ensures that activeElement is changed
+	setTimeout(() => {
+		// If the focused element is outside of the snitip, close it!
+		const isFocus = snitip?.popoverEl.contains(document.activeElement);
+		if (!isFocus) closeSnitip();
+	}, 0);
+}
+
 /**
  * Assumptions:
  * - The trapezoid has horizontal top/bottom sides
@@ -152,7 +163,7 @@ for (const triggerEl of triggerEls) {
 		popoverArrowEl,
 	};
 
-	triggerEl.addEventListener("mouseover", (e) => {
+	triggerEl.addEventListener("mouseover", () => {
 		openSnitip(snitipElements);
 		handleSnitipOpened(snitipElements, "mouseover");
 	});

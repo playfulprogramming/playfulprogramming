@@ -20,7 +20,7 @@ export function SnitipLink(props: LinkProps): Element {
 			id={"snitip-" + props.id}
 			popovertarget={"snitip-popover-" + props.id}
 			popovertargetaction="show"
-			class="snitip__link"
+			class="snitip__link a"
 		>
 			{props.children}
 		</button>

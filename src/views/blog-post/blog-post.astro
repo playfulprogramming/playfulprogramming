@@ -73,7 +73,6 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 	enableSmoothScrollForAnchorsToCurrentPage();
 </script>
 <HeadingLinkScript />
-<SnitipScript snitips={postData.snitips} />
 
 <main>
 	<BlogPostLayout hideLeftSidebar={!postData.headingsWithIds.length}>
@@ -127,6 +126,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 					/>
 				) : null
 			}
+			<SnitipScript snitips={postData.snitips} />
 		</section>
 		<aside slot="right" aria-labelledby="related-posts-heading">
 			<RelatedPosts post={post} headingId="related-posts-heading" />

@@ -155,7 +155,7 @@ body.dark,
 		text-decoration: underline;
 	}
 
-	a:focus-visible:not([class]) {
+	a:focus-visible:not([class]), .a:focus-visible {
 		// adding +0.5px to each value converted to rem to ensure that it is
 		// the expected size when aliasing rounds it down to a px value
 		outline: pxToRem(3.5) solid var(--focus-outline_primary);

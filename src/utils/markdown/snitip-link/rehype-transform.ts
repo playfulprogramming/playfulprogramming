@@ -41,7 +41,6 @@ export const rehypeSnitipLinks: Plugin<[], Root> = () => {
 
 				parent.children[index] = SnitipLink({
 					id: snitipId,
-					snitip,
 					children: node.children,
 				});
 
