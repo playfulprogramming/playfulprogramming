@@ -4,6 +4,7 @@ interface SnitipElements {
 	triggerEl: HTMLElement;
 	popoverEl: HTMLElement;
 	popoverArrowEl: HTMLElement;
+	closeEl: HTMLButtonElement;
 }
 
 let snitip: SnitipElements | undefined;
@@ -55,7 +56,10 @@ function handleSnitipOpened(
 	elements: SnitipElements,
 	source: "mouseover" | "keydown",
 ) {
-	if (snitip === elements) return;
+	if (snitip === elements) {
+		positionSnitip();
+		return;
+	}
 	snitip = elements;
 	positionSnitip();
 
@@ -69,7 +73,7 @@ function handleSnitipOpened(
 	}
 
 	if (source === "keydown") {
-		elements.popoverEl.focus({ preventScroll: true });
+		elements.closeEl.focus({ preventScroll: true });
 	}
 }
 
@@ -160,10 +164,12 @@ const triggerEls = Array.from(
 for (const triggerEl of triggerEls) {
 	const popoverEl = triggerEl.popoverTargetElement as HTMLElement;
 	const popoverArrowEl = popoverEl.querySelector<HTMLElement>("#snitip-arrow")!;
+	const closeEl = popoverEl.querySelector<HTMLButtonElement>("#snitip-close")!;
 	const snitipElements: SnitipElements = {
 		triggerEl,
 		popoverEl,
 		popoverArrowEl,
+		closeEl,
 	};
 
 	triggerEl.addEventListener("mouseover", () => {
@@ -185,6 +191,8 @@ for (const triggerEl of triggerEls) {
 			handleSnitipClosed();
 		}
 	});
+
+	closeEl.addEventListener("click", closeSnitip);
 
 	if (triggerEl.matches(":target")) {
 		openSnitip(snitipElements);

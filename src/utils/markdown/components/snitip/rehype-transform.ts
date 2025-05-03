@@ -4,8 +4,9 @@ import { Element } from "hast";
 import { RehypeFunctionComponent } from "../types";
 import { logError } from "utils/markdown/logger";
 import { SnitipLink, SnitipMetadata } from "types/SnitipInfo";
-import { getPictureUrls } from "utils/get-picture";
 import { MarkdownVFile } from "utils/markdown/types";
+import { TagInfo } from "types/TagInfo";
+import { getTagById } from "utils/api";
 
 const isNodeElement = (node: unknown): node is Element =>
 	(typeof node === "object" &&
@@ -68,13 +69,26 @@ export const transformSnitip: RehypeFunctionComponent = ({
 		}
 	}
 
+	const tags = new Map<string, TagInfo>();
+	if (attributes.tags) {
+		for (const tag of attributes.tags.split(",")) {
+			const tagInfo = getTagById(tag);
+			if (!tagInfo) {
+				logError(vfile, node, `Tag '${tag}' does not exist!`);
+				continue;
+			}
+
+			tags.set(tag, tagInfo);
+		}
+	}
+
 	const snitip: SnitipMetadata = {
 		href: snitipHref,
 		icon: imageEl?.properties?.src?.toString(),
 		title,
 		content: toHtml(contents as never),
 		links,
-		tags: attributes.tags ? attributes.tags.split(",") : [],
+		tags,
 	};
 
 	(vfile as MarkdownVFile).data.snitips.set(snitipId, snitip);
