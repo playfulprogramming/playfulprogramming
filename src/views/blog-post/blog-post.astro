@@ -9,14 +9,7 @@ import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import SnitipScript from "../base/scripts/snitip-script.astro";
 import { Icon } from "astro-icon/components";
 
-import type { MarkdownInstance } from "astro";
-import {
-	CollectionInfo,
-	LicenseInfo,
-	PostInfo,
-	PostHeadingInfo,
-	PersonInfo,
-} from "types/index";
+import { CollectionInfo, LicenseInfo, PostInfo, PersonInfo } from "types/index";
 
 import { siteMetadata } from "constants/site-config";
 import "../../styles/shiki.scss";
@@ -29,10 +22,11 @@ import RelatedPosts from "components/related-posts/related-posts.astro";
 import { LargeButton } from "../../components/button/button";
 
 import styles from "./blog-post.module.scss";
+import { MarkdownVFile } from "utils/markdown/types";
 
 export interface Props {
 	post: PostInfo;
-	postHeadings: PostHeadingInfo[];
+	postData: MarkdownVFile["data"];
 	authors: PersonInfo[];
 	collection?: CollectionInfo;
 	collectionPosts?: PostInfo[];
@@ -43,7 +37,7 @@ export interface Props {
 const {
 	postHtml,
 	post,
-	postHeadings,
+	postData,
 	authors,
 	collection,
 	collectionPosts,
@@ -79,15 +73,15 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 	enableSmoothScrollForAnchorsToCurrentPage();
 </script>
 <HeadingLinkScript />
-<SnitipScript />
+<SnitipScript snitips={postData.snitips} />
 
 <main>
-	<BlogPostLayout hideLeftSidebar={!postHeadings.length}>
+	<BlogPostLayout hideLeftSidebar={!postData.headingsWithIds.length}>
 		{
-			postHeadings?.length > 0 && (
+			postData.headingsWithIds?.length > 0 && (
 				<TableOfContentsMobile
 					slot="mobile-menu"
-					headingsWithId={postHeadings}
+					headingsWithId={postData.headingsWithIds}
 				/>
 			)
 		}
@@ -108,8 +102,11 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 			}
 		</PostTitleHeader>
 		{
-			postHeadings?.length ? (
-				<TableOfContents slot="left" headingsWithId={postHeadings} />
+			postData.headingsWithIds?.length ? (
+				<TableOfContents
+					slot="left"
+					headingsWithId={postData.headingsWithIds}
+				/>
 			) : null
 		}
 		<section

@@ -1,7 +1,3 @@
-import { SnitipMetadata } from "types/SnitipInfo";
-
-const snitipTemplateEl =
-	document.querySelector<HTMLTemplateElement>("#snitip-template")!;
 const postBodyEl = document.querySelector<HTMLElement>(".post-body")!;
 
 interface SnitipElements {
@@ -12,35 +8,12 @@ interface SnitipElements {
 
 let snitip: SnitipElements | undefined;
 
-function bindSnitip(template: HTMLElement, snitip: SnitipMetadata) {
-	const titleEl = template.querySelector<HTMLElement>("#snitip-title")!;
-	const bodyEl = template.querySelector<HTMLElement>("#snitip-body")!;
-	const linksEl = template.querySelector<HTMLElement>("#snitip-links")!;
-
-	titleEl.innerText = snitip.title;
-	bodyEl.innerHTML = snitip.content;
-
-	for (const link of snitip.links) {
-		const linkTemplate = document.querySelector<HTMLTemplateElement>(
-			"#snitip-link-template",
-		)!;
-		const linkEl = linkTemplate.content.cloneNode(true).firstChild!;
-		const anchorEl = (linkEl as HTMLElement).querySelector<HTMLAnchorElement>(
-			"#snitip-link",
-		)!;
-
-		anchorEl.href = link.href;
-		anchorEl.appendChild(document.createTextNode(link.name));
-
-		linksEl.appendChild(linkEl);
-	}
-}
-
 function positionSnitip() {
 	if (!snitip) return;
 
 	const snitipTriggerRect = snitip.triggerEl.getBoundingClientRect();
-	const triggerCenter = snitipTriggerRect.left + snitipTriggerRect.width / 2;
+	const triggerCenter =
+		snitip.triggerEl.offsetLeft + snitip.triggerEl.offsetWidth / 2;
 
 	const postBodyRect = postBodyEl.getBoundingClientRect();
 
@@ -56,8 +29,8 @@ function positionSnitip() {
 	const isCloseToBottom =
 		snitipTriggerRect.bottom + 20 + snitipRect.height > window.innerHeight;
 	const top = isCloseToBottom
-		? snitipTriggerRect.top - 20 - snitipRect.height
-		: snitipTriggerRect.bottom + 20;
+		? snitip.triggerEl.offsetTop - 20 - snitipRect.height
+		: snitip.triggerEl.offsetTop + snitip.triggerEl.offsetHeight + 20;
 
 	snitip.popoverEl.style.top = `${top}px`;
 	snitip.popoverEl.style.left = `${left}px`;
@@ -66,31 +39,40 @@ function positionSnitip() {
 }
 
 function openSnitip(elements: SnitipElements) {
-	snitip = elements;
-	snitip.popoverEl.showPopover();
-	positionSnitip();
-
-	document.addEventListener("scroll", positionSnitip);
-	document.addEventListener("resize", positionSnitip);
-	document.addEventListener("mousedown", handleMousedown);
-	document.addEventListener("mousemove", handleMouseMove);
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore "source" is used for keyboard navigation: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/showPopover
+	elements.popoverEl.showPopover({ source: elements.triggerEl });
 }
 
 function closeSnitip() {
 	snitip?.popoverEl?.hidePopover();
 	snitip = undefined;
 
-	document.removeEventListener("scroll", positionSnitip);
-	document.removeEventListener("resize", positionSnitip);
-	document.removeEventListener("mousedown", handleMousedown);
-	document.removeEventListener("mousemove", handleMouseMove);
+	handleSnitipClosed();
 }
 
-function handleMousedown(e: MouseEvent) {
-	if (snitip && snitip.popoverEl.contains(e.target as HTMLElement)) {
-		return;
+function handleSnitipOpened(
+	elements: SnitipElements,
+	source: "mouseover" | "keydown",
+) {
+	if (snitip === elements) return;
+	snitip = elements;
+	positionSnitip();
+
+	document.addEventListener("scroll", positionSnitip, { passive: true });
+	document.addEventListener("resize", positionSnitip, { passive: true });
+
+	// If the snitip is opened by mouseover, then close it if the mouse leaves the area
+	if (source === "mouseover") {
+		document.addEventListener("mousemove", handleMouseMove);
 	}
-	closeSnitip();
+}
+
+function handleSnitipClosed() {
+	snitip = undefined;
+	document.removeEventListener("scroll", positionSnitip);
+	document.removeEventListener("resize", positionSnitip);
+	document.removeEventListener("mousemove", handleMouseMove);
 }
 
 function handleMouseMove(e: MouseEvent) {
@@ -125,9 +107,10 @@ function handleMouseMove(e: MouseEvent) {
 		);
 	}
 
-	const isPopover = snitip.popoverEl.matches(":hover");
+	const isHover = snitip.popoverEl.matches(":hover");
+	const isFocus = snitip.popoverEl.contains(document.activeElement);
 
-	if (!isTrapezoid && !isPopover) closeSnitip();
+	if (!isTrapezoid && !isHover && !isFocus) closeSnitip();
 }
 
 /**
@@ -157,36 +140,33 @@ function isInsideTrapezoid(
 }
 
 const triggerEls = Array.from(
-	document.querySelectorAll<HTMLElement>("[data-snitip]"),
+	document.querySelectorAll<HTMLButtonElement>(".snitip__link"),
 );
 
 for (const triggerEl of triggerEls) {
-	let popoverEl: HTMLElement | null = null;
-	let popoverArrowEl: HTMLElement | null = null;
+	const popoverEl = triggerEl.popoverTargetElement as HTMLElement;
+	const popoverArrowEl = popoverEl.querySelector<HTMLElement>("#snitip-arrow")!;
+	const snitipElements: SnitipElements = {
+		triggerEl,
+		popoverEl,
+		popoverArrowEl,
+	};
 
-	function show() {
-		if (!popoverEl || !popoverArrowEl) {
-			const popover = snitipTemplateEl.content.cloneNode(true)
-				.firstChild as HTMLElement;
-			const snitipMetadata = JSON.parse(
-				triggerEl.dataset.snitip + "",
-			) as SnitipMetadata;
-			bindSnitip(popover, snitipMetadata);
+	triggerEl.addEventListener("mouseover", (e) => {
+		openSnitip(snitipElements);
+		handleSnitipOpened(snitipElements, "mouseover");
+	});
 
-			document.body.appendChild(popover);
-			popoverEl = popover;
-			popoverArrowEl = popover.querySelector("#snitip-arrow")!;
-		}
-
-		openSnitip({ triggerEl, popoverEl, popoverArrowEl });
-	}
-
-	triggerEl.addEventListener("mouseover", show);
-
-	triggerEl.addEventListener("keydown", (e) => {
-		if (e.code === "Enter" || e.code === "Space") {
-			e.preventDefault();
-			show();
+	popoverEl.addEventListener("toggle", (e) => {
+		const event = e as ToggleEvent;
+		if (event.newState == "open") {
+			handleSnitipOpened(snitipElements, "keydown");
+		} else {
+			handleSnitipClosed();
 		}
 	});
+
+	if (triggerEl.matches(":target")) {
+		openSnitip(snitipElements);
+	}
 }
