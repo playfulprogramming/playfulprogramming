@@ -11,6 +11,7 @@
 
 	--snitip_title_margin-bottom: var(--spc-3x);
 	--snitip_title_gap: var(--spc-2x);
+	--snitip_title_color: var(--foreground_emphasis-high);
 
 	--snitip_description_color: var(--foreground_emphasis-medium);
 
@@ -22,8 +23,11 @@
 
 :global(.snitip__link) {
 	@extend .text-style-body-medium-bold;
+	display: inline;
+	padding: 0;
+	background: none;
 	color: var(--primary_default);
-	text-decoration: none;
+	border: none;
 	border-bottom: 0.2rem dotted currentColor;
 }
 
@@ -74,6 +78,7 @@
 
 	.title {
 		@extend .text-style-headline-6;
+		color: var(--snitip_title_color);
 
 		margin: 0;
 		margin-bottom: var(--snitip_title_margin-bottom);
