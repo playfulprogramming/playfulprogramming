@@ -228,7 +228,7 @@ From [Hilton being forced to pay a civil penalty of $50,000](https://www.justice
 
 # Who determines what's accessible?
 
-Accessibility is an component of user experience (UX) design. While some avenues of UX feel standardized today, ask 30 people how they want their interfaces to behave and you might get 30 different answers.
+Accessibility is a component of user experience (UX) design. While some avenues of UX feel standardized today, ask 30 people how they want their interfaces to behave and you might get 30 different answers.
 
 This isn't to say that it's a _total_ free-for-all, however. Even visual elements of apps can be tested to demonstrate better or worse outcomes consistently through user research.
 
