@@ -42,7 +42,6 @@ function openSnitip(elements: SnitipElements) {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore "source" is used for keyboard navigation: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/showPopover
 	elements.popoverEl.showPopover({ source: elements.triggerEl });
-	elements.popoverEl.focus({ preventScroll: true });
 }
 
 function closeSnitip() {
@@ -67,6 +66,10 @@ function handleSnitipOpened(
 	// If the snitip is opened by mouseover, then close it if the mouse leaves the area
 	if (source === "mouseover") {
 		document.addEventListener("mousemove", handleMouseMove);
+	}
+
+	if (source === "keydown") {
+		elements.popoverEl.focus({ preventScroll: true });
 	}
 }
 
@@ -166,6 +169,12 @@ for (const triggerEl of triggerEls) {
 	triggerEl.addEventListener("mouseover", () => {
 		openSnitip(snitipElements);
 		handleSnitipOpened(snitipElements, "mouseover");
+	});
+
+	triggerEl.addEventListener("click", () => {
+		// Rebind listeners for keydown (so that mousemove is unbound and the popup is focused)
+		handleSnitipClosed();
+		handleSnitipOpened(snitipElements, "keydown");
 	});
 
 	popoverEl.addEventListener("toggle", (e) => {
