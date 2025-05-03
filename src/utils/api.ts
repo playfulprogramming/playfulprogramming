@@ -1,6 +1,12 @@
-import { CollectionInfo, PostInfo, RolesInfo, PersonInfo } from "types/index";
+import {
+	CollectionInfo,
+	PostInfo,
+	RolesInfo,
+	PersonInfo,
+	TagInfo,
+} from "types/index";
 import { Languages } from "types/index";
-import { roles, people, posts, collections } from "./data";
+import { roles, people, posts, collections, tags } from "./data";
 import { isDefined } from "./is-defined";
 
 function compareByDate(date1: string, date2: string): number {
@@ -111,4 +117,8 @@ export function getRoleById(
 ): RolesInfo | undefined {
 	// TODO: support role name translations
 	return roles.find((r) => r.id === roleId);
+}
+
+export function getTagById(tagId: string): TagInfo | undefined {
+	return tags.get(tagId);
 }

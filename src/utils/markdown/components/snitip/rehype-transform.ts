@@ -74,7 +74,7 @@ export const transformSnitip: RehypeFunctionComponent = ({
 		title,
 		content: toHtml(contents as never),
 		links,
-		tags: [],
+		tags: attributes.tags ? attributes.tags.split(",") : [],
 	};
 
 	(vfile as MarkdownVFile).data.snitips.set(snitipId, snitip);

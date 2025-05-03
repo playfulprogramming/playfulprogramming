@@ -230,6 +230,14 @@ NodeJS is not a **programming language** unto itself, but rather another compone
 - [Node.js - Run JavaScript Everywhere](https://nodejs.org/en)
 <!-- ::end:snitip -->
 
+This snitip contains [references to multiple tags](pfp-snitip:#programming).
+
+<!-- ::start:snitip id="programming" tags="java,nodejs,testing" -->
+## Programming
+
+Computers are bad
+<!-- ::end:snitip -->
+
 # Thanks for taking the trip down here
 
 <a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>

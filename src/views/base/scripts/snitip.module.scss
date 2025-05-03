@@ -19,6 +19,9 @@
 	--snitip_link-container_gap: var(--spc-2x);
 	--snitip_link-icon_color: var(--foreground_disabled);
 	--snitip_link-icon_margin: var(--spc-2x);
+
+	--snitip_search-tag_margin-top: var(--spc-4x);
+	--snitip_search-tag_gap: var(--spc-2x);
 }
 
 :global(.snitip__link) {
@@ -125,6 +128,17 @@
 		svg {
 			color: var(--snitip_link-icon_color);
 		}
+	}
+
+	.tags {
+		list-style-type: none;
+		margin: 0;
+		margin-top: var(--snitip_search-tag_margin-top);
+		padding: 0;
+
+		display: flex;
+		flex-direction: row;
+		gap: var(--snitip_search-tag_gap);
 	}
 }
 

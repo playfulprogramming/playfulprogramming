@@ -2,6 +2,9 @@
 import { SnitipMetadata } from "types/SnitipInfo";
 import style from "./snitip.module.scss";
 import { Icon } from "astro-icon/components";
+import { Chip } from "components/index";
+import { buildSearchQuery } from "src/views/search/search";
+import { getTagById } from "src/utils/api";
 
 interface Props {
 	snitips: Map<string, SnitipMetadata>;
@@ -35,15 +38,45 @@ const snitips = Astro.props.snitips;
 			<div class={style.container}>
 				<h1 class={style.title}>{snitip.title}</h1>
 				<div class={style.description} set:html={snitip.content} />
-				<ul class={style.links}>
-					{snitip.links.map((link) => (
+				{snitip.links.length ? (
+					<ul class={style.links}>
+						{snitip.links.map((link) => (
+							<li>
+								<a class={`${style.links__item} a`} href={link.href}>
+									<Icon width={18} height={18} name="link" />
+									{link.name}
+								</a>
+							</li>
+						))}
+					</ul>
+				) : (
+					[]
+				)}
+				<ul class={style.tags}>
+					{snitip.tags.length ? (
+						snitip.tags.map((tag) => (
+							<li>
+								<Chip
+									tag="a"
+									href={"/search?" + buildSearchQuery({ filterTags: [tag] })}
+								>
+									{getTagById(tag)!.displayName}
+								</Chip>
+							</li>
+						))
+					) : (
 						<li>
-							<a class={`${style.links__item} a`} href={link.href}>
-								<Icon width={18} height={18} name="link" />
-								{link.name}
-							</a>
+							<Chip
+								tag="a"
+								href={
+									"/search?" + buildSearchQuery({ searchQuery: snitip.title })
+								}
+							>
+								<Icon name="search" />
+								Search for &lsquo;{snitip.title}&rsquo;
+							</Chip>
 						</li>
-					))}
+					)}
 				</ul>
 			</div>
 		</div>
