@@ -9,6 +9,12 @@ interface SnitipElements {
 
 let snitip: SnitipElements | undefined;
 
+let scrollTimeout: NodeJS.Timeout;
+function handleScroll() {
+	clearTimeout(scrollTimeout);
+	scrollTimeout = setTimeout(positionSnitip, 20);
+}
+
 function positionSnitip() {
 	if (!snitip) return;
 
@@ -63,8 +69,8 @@ function handleSnitipOpened(
 	snitip = elements;
 	positionSnitip();
 
-	document.addEventListener("scroll", positionSnitip, { passive: true });
-	document.addEventListener("resize", positionSnitip, { passive: true });
+	document.addEventListener("scroll", handleScroll, { passive: true });
+	window.addEventListener("resize", positionSnitip, { passive: true });
 	document.addEventListener("focusout", handleFocusOut);
 
 	// If the snitip is opened by mouseover, then close it if the mouse leaves the area
@@ -79,8 +85,8 @@ function handleSnitipOpened(
 
 function handleSnitipClosed() {
 	snitip = undefined;
-	document.removeEventListener("scroll", positionSnitip);
-	document.removeEventListener("resize", positionSnitip);
+	document.removeEventListener("scroll", handleScroll);
+	window.removeEventListener("resize", positionSnitip);
 	document.removeEventListener("mousemove", handleMouseMove);
 }
 
