@@ -82,6 +82,7 @@ export const transformSnitip: RehypeFunctionComponent = ({
 	}
 
 	const snitip: SnitipInfo = {
+		id: snitipId,
 		icon: imageEl?.properties?.src?.toString(),
 		title,
 		content: toHtml(contents as never),

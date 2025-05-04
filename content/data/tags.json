@@ -210,7 +210,7 @@
 		"displayName": "Static Site Generation (SSG)"
 	},
 	"ssr": {
-		"displayName": "Static Site Rendering (SSR)"
+		"displayName": "Server-Side Rendering (SSR)"
 	},
 	"testing": {
 		"displayName": "Testing",

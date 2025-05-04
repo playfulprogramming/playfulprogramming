@@ -84,6 +84,7 @@
 
 .containerTitle {
 	display: flex;
+	align-items: center;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	gap: var(--snitip_title_gap);

@@ -8,6 +8,7 @@ export interface RawSnitipInfo {
 }
 
 export interface SnitipInfo extends RawSnitipInfo {
+	id: string;
 	content: string;
 	tagsMeta: Map<string, TagInfo>;
 }

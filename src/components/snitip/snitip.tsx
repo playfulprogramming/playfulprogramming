@@ -8,25 +8,23 @@ import { Chip } from "components/chip/chip";
 import { HTMLAttributes } from "preact/compat";
 import { IconOnlyButton } from "components/button/button";
 
-interface SnitipProps extends HTMLAttributes<HTMLDivElement> {
+export interface SnitipProps extends HTMLAttributes<HTMLDivElement> {
 	snitip: SnitipInfo;
+	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+	includeSearchTags?: boolean;
 }
 
-export function SnitipContent({ snitip }: SnitipProps) {
+export function SnitipContent({
+	snitip,
+	headingTag: HeadingTag = "h1",
+	includeSearchTags = true
+}: SnitipProps) {
 	return <>
-		<IconOnlyButton
-			id="snitip-close"
-			tag="button"
-			aria-label={"Close"}
-			class={style.closeButton}
-		>
-			<div dangerouslySetInnerHTML={{ __html: iconClose }}></div>
-		</IconOnlyButton>
 		<div class={style.containerTitle}>
 			{snitip.icon ? (
 				<img class={style.icon} src={snitip.icon} loading="lazy" decoding="async" data-nozoom />
 			) : null}
-			<h1 class={style.title}>{snitip.title}</h1>
+			<HeadingTag class={style.title}>{snitip.title}</HeadingTag>
 		</div>
 		<div class={style.containerBody}>
 			<div
@@ -51,36 +49,43 @@ export function SnitipContent({ snitip }: SnitipProps) {
 			) : (
 				[]
 			)}
-			<ul class={style.tags}>
-				{snitip.tagsMeta.size ? (
-					[...snitip.tagsMeta.entries()].map(([tag, tagInfo]) => (
+			{includeSearchTags ? (
+				<ul class={style.tags}>
+					{snitip.tagsMeta.size ? (
+						[...snitip.tagsMeta.entries()].map(([tag, tagInfo]) => (
+							<li>
+								<Chip
+									tag="a"
+									href={"/search?" + buildSearchQuery({ searchQuery: '*', filterTags: [tag] })}
+								>
+									<div
+										aria-hidden
+										class={style.tags__icon}
+										dangerouslySetInnerHTML={{ __html: iconSearch }}
+									/>
+									{tagInfo.displayName}
+								</Chip>
+							</li>
+						))
+					) : (
 						<li>
 							<Chip
 								tag="a"
-								href={"/search?" + buildSearchQuery({ searchQuery: '*', filterTags: [tag] })}
+								href={
+									"/search?" + buildSearchQuery({ searchQuery: snitip.title })
+								}
 							>
-								{tagInfo.displayName}
+								<div
+									aria-hidden
+									class={style.tags__icon}
+									dangerouslySetInnerHTML={{ __html: iconSearch }}
+								/>
+								Search for &lsquo;{snitip.title}&rsquo;
 							</Chip>
 						</li>
-					))
-				) : (
-					<li>
-						<Chip
-							tag="a"
-							href={
-								"/search?" + buildSearchQuery({ searchQuery: snitip.title })
-							}
-						>
-							<div
-								aria-hidden
-								class={style.tags__icon}
-								dangerouslySetInnerHTML={{ __html: iconSearch }}
-							/>
-							Search for &lsquo;{snitip.title}&rsquo;
-						</Chip>
-					</li>
-				)}
-			</ul>
+					)}
+				</ul>
+			) : null}
 		</div>
 	</>;
 }
@@ -108,6 +113,14 @@ export function SnitipPopover({ snitip, ...extra }: SnitipProps) {
 				/>
 			</svg>
 			<div class={style.popover__content}>
+				<IconOnlyButton
+					id="snitip-close"
+					tag="button"
+					aria-label={"Close"}
+					class={style.closeButton}
+				>
+					<div dangerouslySetInnerHTML={{ __html: iconClose }}></div>
+				</IconOnlyButton>
 				<SnitipContent snitip={snitip} />
 			</div>
 		</div>

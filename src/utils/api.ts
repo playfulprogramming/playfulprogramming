@@ -124,6 +124,10 @@ export function getTagById(tagId: string): TagInfo | undefined {
 	return tags.get(tagId);
 }
 
+export function getSnitips(): SnitipInfo[] {
+	return [...snitips.values()];
+}
+
 export function getSnitipById(snitipId: string): SnitipInfo | undefined {
 	return snitips.get(snitipId);
 }
