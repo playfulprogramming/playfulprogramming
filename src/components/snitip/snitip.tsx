@@ -23,6 +23,9 @@ export function SnitipContent({ snitip }: SnitipProps) {
 			<div dangerouslySetInnerHTML={{ __html: iconClose }}></div>
 		</IconOnlyButton>
 		<div class={style.containerTitle}>
+			{snitip.icon ? (
+				<img class={style.icon} src={snitip.icon} loading="lazy" decoding="async" data-nozoom />
+			) : null}
 			<h1 class={style.title}>{snitip.title}</h1>
 		</div>
 		<div class={style.containerBody}>

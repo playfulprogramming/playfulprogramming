@@ -13,6 +13,9 @@
 	--snitip_max-width: var(--max-width_xs);
 	--snitip_padding: var(--spc-6x);
 
+	--snitip_sticker_size: var(--icon-size_regular);
+	--snitip_sticker_shadow: var(--shadow_sticker_drop_shadow);
+
 	--snitip_title_color: var(--foreground_emphasis-high);
 	--snitip_title_padding-bottom: var(--spc-3x);
 	--snitip_title_gap: var(--spc-2x);
@@ -87,6 +90,12 @@
 
 	padding: var(--snitip_padding);
 	padding-bottom: var(--snitip_title_padding-bottom);
+
+	.icon {
+		width: var(--snitip_sticker_size);
+		height: var(--snitip_sticker_size);
+		filter: var(--snitip_sticker_shadow);
+	}
 
 	.title {
 		@extend .text-style-headline-6;

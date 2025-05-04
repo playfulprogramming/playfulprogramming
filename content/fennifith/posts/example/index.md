@@ -238,7 +238,7 @@ This snitip contains [references to multiple tags](pfp-snitip:#programming).
 Computers are bad
 <!-- ::end:snitip -->
 
-This is a referece to [a global tag](pfp-snitip:#java)!
+This is a referece to [a global tag](pfp-snitip:#javascript)!
 
 # Thanks for taking the trip down here
 
