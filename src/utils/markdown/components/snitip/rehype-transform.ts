@@ -3,7 +3,7 @@ import { toHtml } from "hast-util-to-html";
 import { Element } from "hast";
 import { RehypeFunctionComponent } from "../types";
 import { logError } from "utils/markdown/logger";
-import { SnitipLink, SnitipMetadata } from "types/SnitipInfo";
+import { SnitipLink, SnitipInfo } from "types/SnitipInfo";
 import { MarkdownVFile } from "utils/markdown/types";
 import { TagInfo } from "types/TagInfo";
 import { getTagById } from "utils/api";
@@ -22,7 +22,6 @@ export const transformSnitip: RehypeFunctionComponent = ({
 	attributes,
 }) => {
 	const snitipId = attributes["id"];
-	const snitipHref = attributes["href"];
 	if (!snitipId) {
 		logError(vfile, node, "Snitip must have an id!");
 		return;
@@ -69,7 +68,7 @@ export const transformSnitip: RehypeFunctionComponent = ({
 		}
 	}
 
-	const tags = new Map<string, TagInfo>();
+	const tagsMeta = new Map<string, TagInfo>();
 	if (attributes.tags) {
 		for (const tag of attributes.tags.split(",")) {
 			const tagInfo = getTagById(tag);
@@ -78,17 +77,17 @@ export const transformSnitip: RehypeFunctionComponent = ({
 				continue;
 			}
 
-			tags.set(tag, tagInfo);
+			tagsMeta.set(tag, tagInfo);
 		}
 	}
 
-	const snitip: SnitipMetadata = {
-		href: snitipHref,
+	const snitip: SnitipInfo = {
 		icon: imageEl?.properties?.src?.toString(),
 		title,
 		content: toHtml(contents as never),
 		links,
-		tags,
+		tags: [...tagsMeta.keys()],
+		tagsMeta,
 	};
 
 	(vfile as MarkdownVFile).data.snitips.set(snitipId, snitip);

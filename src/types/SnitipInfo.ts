@@ -1,12 +1,15 @@
 import { TagInfo } from "./TagInfo";
 
-export interface SnitipMetadata {
-	href?: string;
+export interface RawSnitipInfo {
 	icon?: string;
 	title: string;
-	content: string;
 	links: SnitipLink[];
-	tags: Map<string, TagInfo>;
+	tags: string[];
+}
+
+export interface SnitipInfo extends RawSnitipInfo {
+	content: string;
+	tagsMeta: Map<string, TagInfo>;
 }
 
 export interface SnitipLink {

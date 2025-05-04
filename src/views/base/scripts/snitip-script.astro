@@ -1,9 +1,9 @@
 ---
-import { SnitipMetadata } from "types/SnitipInfo";
+import { SnitipInfo } from "types/SnitipInfo";
 import { SnitipPopover } from "components/snitip/snitip";
 
 interface Props {
-	snitips: Map<string, SnitipMetadata>;
+	snitips: Map<string, SnitipInfo>;
 }
 
 const snitips = Astro.props.snitips;

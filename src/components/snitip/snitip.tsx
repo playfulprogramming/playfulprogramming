@@ -1,4 +1,4 @@
-import { SnitipMetadata } from "types/SnitipInfo";
+import { SnitipInfo } from "types/SnitipInfo";
 import style from "./snitip.module.scss";
 import { buildSearchQuery } from "src/views/search/search";
 import iconLink from "src/icons/link.svg?raw";
@@ -9,7 +9,7 @@ import { HTMLAttributes } from "preact/compat";
 import { IconOnlyButton } from "components/button/button";
 
 interface SnitipProps extends HTMLAttributes<HTMLDivElement> {
-	snitip: SnitipMetadata;
+	snitip: SnitipInfo;
 }
 
 export function SnitipContent({ snitip }: SnitipProps) {
@@ -49,12 +49,12 @@ export function SnitipContent({ snitip }: SnitipProps) {
 				[]
 			)}
 			<ul class={style.tags}>
-				{snitip.tags.size ? (
-					[...snitip.tags.entries()].map(([tag, tagInfo]) => (
+				{snitip.tagsMeta.size ? (
+					[...snitip.tagsMeta.entries()].map(([tag, tagInfo]) => (
 						<li>
 							<Chip
 								tag="a"
-								href={"/search?" + buildSearchQuery({ filterTags: [tag] })}
+								href={"/search?" + buildSearchQuery({ searchQuery: '*', filterTags: [tag] })}
 							>
 								{tagInfo.displayName}
 							</Chip>

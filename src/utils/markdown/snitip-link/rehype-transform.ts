@@ -3,9 +3,10 @@ import { SKIP, visit } from "unist-util-visit";
 import { Plugin } from "unified";
 import { Element } from "hast";
 import { SnitipLink } from "./SnitipLink";
-import { SnitipMetadata } from "types/SnitipInfo";
+import { SnitipInfo } from "types/SnitipInfo";
 import { MarkdownVFile } from "../types";
 import { logError } from "../logger";
+import { getSnitipById } from "utils/api";
 
 export const rehypeSnitipLinks: Plugin<[], Root> = () => {
 	return (tree, vfile) => {
@@ -25,11 +26,20 @@ export const rehypeSnitipLinks: Plugin<[], Root> = () => {
 				const snitipType = href[11];
 				const snitipId = href.substring(12);
 
-				let snitip: SnitipMetadata | undefined;
+				let snitip: SnitipInfo | undefined;
 				if (snitipType === "#") {
 					snitip = (vfile as MarkdownVFile).data.snitips.get(snitipId);
 				}
 
+				// If the snitip is not found in the document, try to resolve a global snitip
+				if (!snitip) {
+					snitip = getSnitipById(snitipId);
+					if (snitip) {
+						(vfile as MarkdownVFile).data.snitips.set(snitipId, snitip);
+					}
+				}
+
+				// If the snitip is not found anywhere, error
 				if (!snitip) {
 					logError(
 						vfile,

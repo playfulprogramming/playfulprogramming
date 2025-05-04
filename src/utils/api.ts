@@ -4,9 +4,10 @@ import {
 	RolesInfo,
 	PersonInfo,
 	TagInfo,
+	SnitipInfo,
 } from "types/index";
 import { Languages } from "types/index";
-import { roles, people, posts, collections, tags } from "./data";
+import { roles, people, posts, collections, tags, snitips } from "./data";
 import { isDefined } from "./is-defined";
 
 function compareByDate(date1: string, date2: string): number {
@@ -121,4 +122,8 @@ export function getRoleById(
 
 export function getTagById(tagId: string): TagInfo | undefined {
 	return tags.get(tagId);
+}
+
+export function getSnitipById(snitipId: string): SnitipInfo | undefined {
+	return snitips.get(snitipId);
 }

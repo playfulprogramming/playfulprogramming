@@ -6,6 +6,8 @@ import {
 	CollectionInfo,
 	TagInfo,
 	RawPersonInfo,
+	SnitipInfo,
+	RawSnitipInfo,
 } from "types/index";
 import * as fs from "fs/promises";
 import path, { join } from "path";
@@ -39,7 +41,7 @@ const tags = new Map<string, TagInfo>();
 // This needs to use a minimal version of our unified chain,
 // as we can't import `createRehypePlugins` through an Astro
 // file due to the hastscript JSX
-const tagExplainerParser = unified()
+const minimalParser = unified()
 	.use(remarkParse, { fragment: true } as never)
 	.use(remarkToRehype, { allowDangerousHtml: true })
 	.use(rehypePlayfulElementMap)
@@ -71,7 +73,7 @@ for (const [key, tag] of Object.entries(tagsRaw)) {
 	}
 
 	const explainerHtml = explainer
-		? (await tagExplainerParser.process(explainer)).toString()
+		? (await minimalParser.process(explainer)).toString()
 		: undefined;
 
 	tags.set(key, {
@@ -79,6 +81,33 @@ for (const [key, tag] of Object.entries(tagsRaw)) {
 		explainerType,
 		...tag,
 	});
+}
+
+const snitips = new Map<string, SnitipInfo>();
+const snitipsDirectory = join(process.cwd(), "content/data/snitips");
+for (const file of (await fs.readdir(snitipsDirectory)).filter(isNotJunk)) {
+	const snitipId = file.split(".")[0];
+	const filePath = join(snitipsDirectory, file);
+	const fileContents = await fs.readFile(filePath, "utf-8");
+	const { data: frontmatter, content } = matter(fileContents);
+
+	const snitipHtml = (await minimalParser.process(content)).toString();
+	const tagsMeta = new Map();
+	for (const tag of frontmatter.tags) {
+		const tagMeta = tags.get(tag);
+		if (!tagMeta) {
+			console.error(`${filePath}: Tag '${tag} does not exist!`);
+			continue;
+		}
+		tagsMeta.set(tag, tagMeta);
+	}
+
+	const snitip: SnitipInfo = {
+		...(frontmatter as RawSnitipInfo),
+		tagsMeta,
+		content: snitipHtml,
+	};
+	snitips.set(snitipId, snitip);
 }
 
 async function readPerson(personPath: string): Promise<PersonInfo[]> {
@@ -452,4 +481,5 @@ export {
 	collections,
 	posts,
 	tags,
+	snitips,
 };
