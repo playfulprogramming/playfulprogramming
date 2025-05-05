@@ -69,3 +69,6 @@ Object.defineProperties(globalThis, {
 		},
 	},
 });
+
+window.scroll = () => {};
+window.scrollTo = () => {};
