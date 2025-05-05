@@ -13,12 +13,21 @@
 	display: inline-flex;
 	align-items: center;
 	gap: var(--snitip_trigger_gap);
-	padding: 0;
-	background: none;
 	color: var(--snitip_trigger_color);
-	border: none;
-	outline: none !important;
 	cursor: pointer;
+}
+
+.snitip-trigger__text {
+	border-bottom: 0.2rem dotted currentColor;
+}
+
+.snitip-trigger__button {
+	display: flex;
+	border: none;
+	background: none;
+	padding: 0;
+	color: inherit;
+	outline: none !important;
 	position: relative;
 
 	&:focus-visible {
@@ -30,28 +39,24 @@
 	}
 }
 
-.snitip-trigger__text {
-	border-bottom: 0.2rem dotted currentColor;
-}
-
 .snitip-trigger__icon {
 	width: var(--p_medium_font-size);
 	height: var(--p_medium_font-size);
 }
 
-.snitip-trigger__tooltip {
+.snitip-trigger__popup {
 	position: absolute;
-	bottom: calc(-0.5 * var(--snitip_focus-outline_width));
-	left: calc(100% - var(--p_medium_font-size)/2);
+	bottom: calc(100% + var(--snitip_focus-outline_width) + var(--snitip_trigger_gap)*2);
+	left: 50%;
 	width: max-content;
 
 	transform: translate(-50%, 50%);
 	opacity: 0;
 }
 
-.snitip-trigger:focus-visible {
-	&:not([data-snitip-trigger="open"]) {
-		.snitip-trigger__tooltip {
+.snitip-trigger:not([data-snitip-trigger-state="open"]) {
+	.snitip-trigger__button:focus-visible {
+		.snitip-trigger__popup {
 			transform: translate(-50%, 0);
 			opacity: 1;
 		}

@@ -1,8 +1,8 @@
 ---
 import { SnitipInfo } from "types/SnitipInfo";
 import { SnitipPopover } from "components/snitip/snitip";
-import { Tooltip } from "components/tooltip/tooltip";
 import "./snitip-trigger.scss";
+import "components/inline-popup/inline-popup.scss";
 
 interface Props {
 	snitips: Map<string, SnitipInfo>;
@@ -10,10 +10,6 @@ interface Props {
 
 const snitips = Astro.props.snitips;
 ---
-
-<template id="snitip-trigger-tooltip">
-	<Tooltip class="snitip-trigger__tooltip">Open tooltip</Tooltip>
-</template>
 
 {
 	[...snitips.entries()].map(([id, snitip]) => (

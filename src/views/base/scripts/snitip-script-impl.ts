@@ -168,7 +168,9 @@ const triggerEls = Array.from(
 );
 
 for (const triggerEl of triggerEls) {
-	const popoverEl = triggerEl.popoverTargetElement as HTMLElement;
+	const popoverEl = document.querySelector<HTMLElement>(
+		"#" + triggerEl.dataset.snitipTrigger,
+	)!;
 	const popoverArrowEl = popoverEl.querySelector<HTMLElement>("#snitip-arrow")!;
 	const closeEl = popoverEl.querySelector<HTMLButtonElement>("#snitip-close")!;
 	const snitipElements: SnitipElements = {
@@ -185,13 +187,15 @@ for (const triggerEl of triggerEls) {
 
 	triggerEl.addEventListener("click", () => {
 		// Rebind listeners for keydown (so that mousemove is unbound and the popup is focused)
-		handleSnitipClosed();
-		handleSnitipOpened(snitipElements, "keydown");
+		// handleSnitipClosed();
+		// handleSnitipOpened(snitipElements, "keydown");
+
+		openSnitip(snitipElements);
 	});
 
 	popoverEl.addEventListener("toggle", (e) => {
 		const event = e as ToggleEvent;
-		triggerEl.dataset.snitipTrigger = event.newState;
+		triggerEl.dataset.snitipTriggerState = event.newState;
 		if (event.newState == "open") {
 			handleSnitipOpened(snitipElements, "keydown");
 		} else {

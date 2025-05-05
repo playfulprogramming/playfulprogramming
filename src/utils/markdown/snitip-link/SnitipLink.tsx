@@ -16,19 +16,24 @@ InfoIcon.properties["class"] = "snitip-trigger__icon";
 
 /** @jsxImportSource hastscript */
 export function SnitipLink(props: LinkProps): Element {
+	const popoverId = "snitip-popover-" + props.id;
 	return (
-		<button
+		<span
 			id={"snitip-" + props.id}
-			popovertarget={"snitip-popover-" + props.id}
-			popovertargetaction="show"
 			class="snitip-trigger a"
-			data-snitip-trigger
+			data-snitip-trigger={popoverId}
 		>
-			<div class="snitip-trigger__tooltip tooltip">
-				Open tooltip
-			</div>
 			<span class="snitip-trigger__text">{props.children}</span>
-			{InfoIcon}
-		</button>
+			<button
+				class="snitip-trigger__button"
+				popovertarget={popoverId}
+				popovertargetaction="show"
+			>
+				<div class="snitip-trigger__popup inline-popup">
+					<span class="inline-popup__content">Open tooltip</span>
+				</div>
+				{InfoIcon}
+			</button>
+		</span>
 	) as never;
 }
