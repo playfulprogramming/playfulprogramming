@@ -57,12 +57,14 @@ export function SnitipContent({
 								<Chip
 									tag="a"
 									href={"/search?" + buildSearchQuery({ searchQuery: '*', filterTags: [tag] })}
+									icon={
+										<div
+											aria-hidden
+											class={style.tags__icon}
+											dangerouslySetInnerHTML={{ __html: iconSearch }}
+										/>
+									}
 								>
-									<div
-										aria-hidden
-										class={style.tags__icon}
-										dangerouslySetInnerHTML={{ __html: iconSearch }}
-									/>
 									{tagInfo.displayName}
 								</Chip>
 							</li>
@@ -74,12 +76,14 @@ export function SnitipContent({
 								href={
 									"/search?" + buildSearchQuery({ searchQuery: snitip.title })
 								}
+								icon={
+									<div
+										aria-hidden
+										class={style.tags__icon}
+										dangerouslySetInnerHTML={{ __html: iconSearch }}
+									/>
+								}
 							>
-								<div
-									aria-hidden
-									class={style.tags__icon}
-									dangerouslySetInnerHTML={{ __html: iconSearch }}
-								/>
 								Search for &lsquo;{snitip.title}&rsquo;
 							</Chip>
 						</li>

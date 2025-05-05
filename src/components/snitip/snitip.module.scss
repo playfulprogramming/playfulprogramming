@@ -1,8 +1,6 @@
 @use "src/styles/text-styles";
 
 :root {
-	--snitip_trigger_color: var(--primary_default);
-
 	--snitip_close-btn_margin: var(--spc-2x);
 
 	--snitip_corner-radius: var(--corner-radius_xl);
@@ -29,16 +27,6 @@
 
 	--snitip_search-tag_margin-top: var(--spc-4x);
 	--snitip_search-tag_gap: var(--spc-2x);
-}
-
-:global(.snitip__link) {
-	@extend .text-style-body-medium-bold;
-	display: inline;
-	padding: 0;
-	background: none;
-	color: var(--snitip_trigger_color);
-	border: none;
-	border-bottom: 0.2rem dotted currentColor;
 }
 
 .popover {

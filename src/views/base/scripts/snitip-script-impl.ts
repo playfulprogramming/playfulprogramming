@@ -164,7 +164,7 @@ function isInsideTrapezoid(
 }
 
 const triggerEls = Array.from(
-	document.querySelectorAll<HTMLButtonElement>(".snitip__link"),
+	document.querySelectorAll<HTMLButtonElement>("[data-snitip-trigger]"),
 );
 
 for (const triggerEl of triggerEls) {
@@ -178,10 +178,10 @@ for (const triggerEl of triggerEls) {
 		closeEl,
 	};
 
-	triggerEl.addEventListener("mouseover", () => {
+	/*triggerEl.addEventListener("mouseover", () => {
 		openSnitip(snitipElements);
 		handleSnitipOpened(snitipElements, "mouseover");
-	});
+	});*/
 
 	triggerEl.addEventListener("click", () => {
 		// Rebind listeners for keydown (so that mousemove is unbound and the popup is focused)
@@ -191,6 +191,7 @@ for (const triggerEl of triggerEls) {
 
 	popoverEl.addEventListener("toggle", (e) => {
 		const event = e as ToggleEvent;
+		triggerEl.dataset.snitipTrigger = event.newState;
 		if (event.newState == "open") {
 			handleSnitipOpened(snitipElements, "keydown");
 		} else {

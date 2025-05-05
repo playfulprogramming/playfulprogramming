@@ -1,0 +1,67 @@
+@use "src/tokens/index" as *;
+@use "src/styles/text-styles";
+
+:root {
+	--tooltip_padding-vertical: calc(var(--spc-1x) / 2);
+	--tooltip_padding-horizontal: var(--spc-2x);
+	--tooltip_gap: var(--spc-1x);
+
+	--tooltip_content_padding-horizontal: var(--spc-1x);
+
+	--tooltip_border-color: var(--secondary_variant);
+	--tooltip_border-width: 1px;
+
+	--tooltip_background: var(--background_secondary);
+	--tooltip_color: var(--secondary_on-variant);
+
+	--tooltip_icon-color: var(--secondary_default);
+	--tooltip_icon-color_copied: var(--secondary_on-variant);
+}
+
+.tooltip {
+	@extend .text-style-button-regular;
+
+	padding: var(--tooltip_padding-vertical) var(--tooltip_padding-horizontal);
+
+	background-color: var(--tooltip_background);
+	color: var(--tooltip_color);
+	text-decoration: none;
+
+	border: var(--tooltip_border-width) solid
+		var(--tooltip_border-color);
+	border-radius: calc(
+		var(--tooltip_border-width) + var(--tooltip_padding-vertical) +
+			var(--icon-size_dense) / 2
+	);
+
+	box-shadow: var(--shadow_sticker);
+
+	@include transition(transform opacity border-color background-color);
+
+	span:not([hidden]) {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: var(--tooltip_gap);
+	}
+}
+
+.tooltip__content {
+	padding: 0 var(--tooltip_content_padding-horizontal);
+}
+
+.tooltip__icon {
+	color: var(--tooltip_icon-color);
+
+	display: flex;
+	align-items: center;
+
+	padding: var(--icon-size-dense-padding);
+	height: var(--icon-size_dense);
+	width: var(--icon-size_dense);
+
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+}
