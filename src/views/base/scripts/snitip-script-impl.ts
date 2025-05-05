@@ -53,8 +53,6 @@ function openSnitip(elements: SnitipElements) {
 
 function closeSnitip() {
 	snitip?.popoverEl?.hidePopover();
-	snitip = undefined;
-
 	handleSnitipClosed();
 }
 
@@ -180,17 +178,21 @@ for (const triggerEl of triggerEls) {
 		closeEl,
 	};
 
-	/*triggerEl.addEventListener("mouseover", () => {
+	triggerEl.addEventListener("mouseover", () => {
+		if (snitip) return;
+		popoverEl.popover = "manual";
 		openSnitip(snitipElements);
 		handleSnitipOpened(snitipElements, "mouseover");
-	});*/
+	});
 
 	triggerEl.addEventListener("click", () => {
 		// Rebind listeners for keydown (so that mousemove is unbound and the popup is focused)
-		// handleSnitipClosed();
-		// handleSnitipOpened(snitipElements, "keydown");
+		handleSnitipClosed();
+		handleSnitipOpened(snitipElements, "keydown");
 
-		openSnitip(snitipElements);
+		if (!snitip) {
+			openSnitip(snitipElements);
+		}
 	});
 
 	popoverEl.addEventListener("toggle", (e) => {
@@ -199,6 +201,7 @@ for (const triggerEl of triggerEls) {
 		if (event.newState == "open") {
 			handleSnitipOpened(snitipElements, "keydown");
 		} else {
+			popoverEl.popover = "auto";
 			handleSnitipClosed();
 		}
 	});
