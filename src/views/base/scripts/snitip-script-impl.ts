@@ -52,8 +52,10 @@ function openSnitip(elements: SnitipElements) {
 }
 
 function closeSnitip() {
-	snitip?.popoverEl?.hidePopover();
-	handleSnitipClosed();
+	if (snitip) {
+		snitip.popoverEl.hidePopover();
+		handleSnitipClosed(snitip);
+	}
 }
 
 function handleSnitipOpened(
@@ -81,11 +83,14 @@ function handleSnitipOpened(
 	}
 }
 
-function handleSnitipClosed() {
-	snitip = undefined;
-	document.removeEventListener("scroll", handleScroll);
-	window.removeEventListener("resize", positionSnitip);
-	document.removeEventListener("mousemove", handleMouseMove);
+function handleSnitipClosed(elements: SnitipElements) {
+	if (snitip === elements) {
+		snitip = undefined;
+		document.removeEventListener("scroll", handleScroll);
+		window.removeEventListener("resize", positionSnitip);
+		document.removeEventListener("mousemove", handleMouseMove);
+		document.removeEventListener("focusout", handleFocusOut);
+	}
 }
 
 function handleMouseMove(e: MouseEvent) {
@@ -187,7 +192,7 @@ for (const triggerEl of triggerEls) {
 
 	triggerEl.addEventListener("click", () => {
 		// Rebind listeners for keydown (so that mousemove is unbound and the popup is focused)
-		handleSnitipClosed();
+		handleSnitipClosed(snitipElements);
 		handleSnitipOpened(snitipElements, "keydown");
 
 		if (!snitip) {
@@ -202,7 +207,7 @@ for (const triggerEl of triggerEls) {
 			handleSnitipOpened(snitipElements, "keydown");
 		} else {
 			popoverEl.popover = "auto";
-			handleSnitipClosed();
+			handleSnitipClosed(snitipElements);
 		}
 	});
 
