@@ -2,6 +2,7 @@ const postBodyEl = document.querySelector<HTMLElement>(".post-body")!;
 
 interface SnitipElements {
 	triggerEl: HTMLElement;
+	triggerButtonEl: HTMLButtonElement;
 	popoverEl: HTMLElement;
 	popoverArrowEl: HTMLElement;
 	closeEl: HTMLButtonElement;
@@ -48,24 +49,27 @@ function positionSnitip() {
 function openSnitip(elements: SnitipElements) {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore "source" is used for keyboard navigation: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/showPopover
-	elements.popoverEl.showPopover({ source: elements.triggerEl });
+	elements.popoverEl.showPopover({ source: elements.triggerButtonEl });
 }
 
-function closeSnitip() {
-	if (snitip) {
-		snitip.popoverEl.hidePopover();
-		handleSnitipClosed(snitip);
-	}
+function closeSnitip(elements: SnitipElements) {
+	elements.popoverEl.hidePopover();
+	handleSnitipClosed(elements);
 }
 
 function handleSnitipOpened(
 	elements: SnitipElements,
-	source: "mouseover" | "keydown",
+	source: "mouse" | "focus" | "click",
 ) {
 	if (snitip === elements) {
 		positionSnitip();
 		return;
 	}
+
+	if (snitip && snitip !== elements) {
+		closeSnitip(snitip);
+	}
+
 	snitip = elements;
 	positionSnitip();
 
@@ -74,11 +78,11 @@ function handleSnitipOpened(
 	document.addEventListener("focusout", handleFocusOut);
 
 	// If the snitip is opened by mouseover, then close it if the mouse leaves the area
-	if (source === "mouseover") {
+	if (source === "mouse") {
 		document.addEventListener("mousemove", handleMouseMove);
 	}
 
-	if (source === "keydown") {
+	if (source === "focus") {
 		elements.closeEl.focus({ preventScroll: true });
 	}
 }
@@ -93,18 +97,46 @@ function handleSnitipClosed(elements: SnitipElements) {
 	}
 }
 
+const POPOVER_BOX_EXPAND_PX = 20;
+
 function handleMouseMove(e: MouseEvent) {
 	if (!snitip) return;
 
-	const triggerBox = snitip.triggerEl.getBoundingClientRect();
-	const popoverBox = snitip.popoverEl.getBoundingClientRect();
+	const isInside = isInsideSnitip(e.x, e.y, snitip);
+	const isFocus = snitip.popoverEl.contains(document.activeElement);
+
+	if (!isInside && !isFocus) closeSnitip(snitip);
+}
+
+function handleFocusOut() {
+	// setTimeout ensures that activeElement is changed
+	setTimeout(() => {
+		// If the focused element is outside of the snitip, close it!
+		const isFocus = snitip?.popoverEl.contains(document.activeElement);
+		if (!isFocus && snitip) closeSnitip(snitip);
+	}, 0);
+}
+
+function isInsideSnitip(
+	mouseX: number,
+	mouseY: number,
+	elements: SnitipElements,
+): boolean {
+	const triggerBox = elements.triggerEl.getBoundingClientRect();
+	const popoverBoxInitial = elements.popoverEl.getBoundingClientRect();
+	const popoverBox = new DOMRect(
+		popoverBoxInitial.x - POPOVER_BOX_EXPAND_PX,
+		popoverBoxInitial.y - POPOVER_BOX_EXPAND_PX,
+		popoverBoxInitial.width + POPOVER_BOX_EXPAND_PX * 2,
+		popoverBoxInitial.height + POPOVER_BOX_EXPAND_PX * 2,
+	);
 
 	let isTrapezoid: boolean;
 	if (popoverBox.top > triggerBox.top) {
 		// if the popover is below the trigger element
 		isTrapezoid = isInsideTrapezoid(
-			e.x,
-			e.y,
+			mouseX,
+			mouseY,
 			triggerBox.left,
 			triggerBox.top,
 			triggerBox.right,
@@ -114,8 +146,8 @@ function handleMouseMove(e: MouseEvent) {
 		);
 	} else {
 		isTrapezoid = isInsideTrapezoid(
-			e.x,
-			e.y,
+			mouseX,
+			mouseY,
 			triggerBox.left,
 			triggerBox.bottom,
 			triggerBox.right,
@@ -125,19 +157,12 @@ function handleMouseMove(e: MouseEvent) {
 		);
 	}
 
-	const isHover = snitip.popoverEl.matches(":hover");
-	const isFocus = snitip.popoverEl.contains(document.activeElement);
-
-	if (!isTrapezoid && !isHover && !isFocus) closeSnitip();
-}
-
-function handleFocusOut() {
-	// setTimeout ensures that activeElement is changed
-	setTimeout(() => {
-		// If the focused element is outside of the snitip, close it!
-		const isFocus = snitip?.popoverEl.contains(document.activeElement);
-		if (!isFocus) closeSnitip();
-	}, 0);
+	const isHover =
+		mouseX > popoverBox.left &&
+		mouseX < popoverBox.right &&
+		mouseY > popoverBox.top &&
+		mouseY < popoverBox.bottom;
+	return isTrapezoid || isHover;
 }
 
 /**
@@ -170,7 +195,12 @@ const triggerEls = Array.from(
 	document.querySelectorAll<HTMLButtonElement>("[data-snitip-trigger]"),
 );
 
+let mouseEnterTimeout: NodeJS.Timeout;
+
 for (const triggerEl of triggerEls) {
+	const triggerButtonEl = triggerEl.querySelector<HTMLButtonElement>(
+		"button[popovertarget]",
+	)!;
 	const popoverEl = document.querySelector<HTMLElement>(
 		"#" + triggerEl.dataset.snitipTrigger,
 	)!;
@@ -178,42 +208,55 @@ for (const triggerEl of triggerEls) {
 	const closeEl = popoverEl.querySelector<HTMLButtonElement>("#snitip-close")!;
 	const snitipElements: SnitipElements = {
 		triggerEl,
+		triggerButtonEl,
 		popoverEl,
 		popoverArrowEl,
 		closeEl,
 	};
 
-	triggerEl.addEventListener("mouseover", () => {
-		if (snitip) return;
-		popoverEl.popover = "manual";
-		openSnitip(snitipElements);
-		handleSnitipOpened(snitipElements, "mouseover");
+	triggerEl.addEventListener("mouseenter", () => {
+		clearTimeout(mouseEnterTimeout);
+		mouseEnterTimeout = setTimeout(() => {
+			if (snitip) return;
+			openSnitip(snitipElements);
+			handleSnitipOpened(snitipElements, "mouse");
+		}, 500);
 	});
 
-	triggerEl.addEventListener("click", () => {
-		// Rebind listeners for keydown (so that mousemove is unbound and the popup is focused)
-		handleSnitipClosed(snitipElements);
-		handleSnitipOpened(snitipElements, "keydown");
+	triggerEl.addEventListener("mouseleave", () => {
+		clearTimeout(mouseEnterTimeout);
+	});
 
-		if (!snitip) {
+	let isTriggerElClickEvent = false;
+	triggerEl.addEventListener("click", () => {
+		const isOpen = snitip === snitipElements;
+		if (!isOpen) {
 			openSnitip(snitipElements);
 		}
+
+		// Remove the mousemove listener so the snitip can no longer be dismissed by movement
+		document.removeEventListener("mousemove", handleMouseMove);
+
+		// Keep track of click events so that toggles can be cancelled if the trigger is clicked
+		isTriggerElClickEvent = true;
+		setTimeout(() => (isTriggerElClickEvent = false), 0);
 	});
 
 	popoverEl.addEventListener("toggle", (e) => {
 		const event = e as ToggleEvent;
 		triggerEl.dataset.snitipTriggerState = event.newState;
 		if (event.newState == "open") {
-			handleSnitipOpened(snitipElements, "keydown");
-		} else {
+			handleSnitipOpened(snitipElements, "focus");
+		} else if (event.newState == "closed" && event.oldState != "closed") {
 			popoverEl.popover = "auto";
 			handleSnitipClosed(snitipElements);
+
+			// If the popover was closed by clicking on the trigger link, re-open it again
+			if (isTriggerElClickEvent) {
+				openSnitip(snitipElements);
+			}
 		}
 	});
 
-	closeEl.addEventListener("click", closeSnitip);
-
-	if (triggerEl.matches(":target")) {
-		openSnitip(snitipElements);
-	}
+	closeEl.addEventListener("click", () => closeSnitip(snitipElements));
 }
