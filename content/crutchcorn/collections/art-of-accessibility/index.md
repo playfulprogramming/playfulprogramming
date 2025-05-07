@@ -9,15 +9,10 @@
     "/custom-content/collections/art-of-accessibility/art_of_accessibility_social.png",
   type: "book",
   tags: [ "webdev", "accessibility" ],
-  published: "2026-01-01T13:45:00.284Z",
+  published: "2025-04-30T13:45:00.284Z",
   buttons: [ ],
   pageLayout: "none",
   chapterList: [
-    {
-      order: 4,
-      title: "Labels",
-      description: "Coming soon..."
-    },
     {
       order: 5,
       title: "Keyboard Input",
