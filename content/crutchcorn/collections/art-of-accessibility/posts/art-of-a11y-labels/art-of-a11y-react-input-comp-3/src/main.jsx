@@ -1,10 +1,9 @@
 import { createRoot } from "react-dom/client";
-import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useId } from "react";
 import styles from "./main.module.css";
 
 export const TextInput = ({ label, type, id, error }) => {
-	const [uuid] = useState(uuidv4());
+	const _id = useId();
 
 	const realId = id || uuid;
 

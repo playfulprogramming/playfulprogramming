@@ -676,33 +676,13 @@ Now we can see our form with a warning about an invalid email. It looks somethin
 
 ---
 
-## Generating Unique IDs Automatically using UUIDv4 
+## Generating Unique IDs Automatically 
 
 Our forms above are pretty functional now, but there's a small developer experience headache associated with our new `TextInput` form: You are _required_ to define an unique `id` manually for each field.
 
 While this isn't a problem for small forms, as your application grows this can be quite a headache remembering all of the used `id`s for new forms.
 
-While it would be nice to remove the requirement to pass a custom `id`, we need to have one present in our input to link the `label`, error `span`, and `input` together. Luckily for us, computers have had a fairly reliable way of generating a unique IDs in the form of **UUIDs**.
-
-> What are UUIDs?
-
-While [I've written in depth about UUIDs before](/posts/what-are-uuids), the gist of "What is a UUID" is "They're a method of generating unique IDs for items using a specific algorithm, designated by a 'version' of UUID used to generate the ID".
-
-For our purposes, we'll be using a [UUIDv4](/posts/what-are-uuids#UUIDv4) to generate truly unique IDs for each DOM element we want to associate.
-
-Since there's not a method for generating UUIDs as part of JavaScript's core APIs, let's install a `uuid` package to do this for us:
-
-```
-npm install uuid
-```
-
-Now that we have the ability to generate UUIDv4s using:
-
-```javascript
-import {v4 as uuidv4} from 'uuid';
-
-uuidv4();
-```
+While it would be nice to remove the requirement to pass a custom `id`, we need to have one present in our input to link the `label`, error `span`, and `input` together. Luckily for us, most of these frameworks have had a fairly reliable way of generating a unique IDs.
 
 Let's look at how we can integrate this into our `TextInput` component:
 
@@ -710,14 +690,16 @@ Let's look at how we can integrate this into our `TextInput` component:
 
 ### React
 
+Since React 18, there's been a way to generate unique IDs via the `useId` hook:
+
 ```jsx {5}
 // TextInput.jsx
-import {v4 as uuidv4} from 'uuid';
+import {useId} from "react";
 
 export const TextInput = ({ label, type, id, error }) => {
-	const [uuid] = useState(uuidv4());
+	const _id = useId();
 
-	const realId = id || uuid;
+	const realId = id || _id;
 
 	return (
 		<>
@@ -753,6 +735,32 @@ export const App = () => {
 <iframe data-frame-title="React Input Component - StackBlitz" src="pfp-code:./art-of-a11y-react-input-comp-3?embed=1&file=src/main.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Angular
+
+While Angular doesn't have a built-in way to generate unique IDs, we can still build out this functionality by using **UUIDs**.
+
+> What are UUIDs?
+
+While [I've written in depth about UUIDs before](/posts/what-are-uuids), the gist of "What is a UUID" is "They're a method of generating unique IDs for items using a specific algorithm, designated by a 'version' of UUID used to generate the ID".
+
+For our purposes, we'll be using a [UUIDv4](/posts/what-are-uuids#UUIDv4) to generate truly unique IDs for each DOM element we want to associate.
+
+Since there's not a method for generating UUIDs as part of JavaScript's core APIs, let's install a `uuid` package to do this for us:
+
+```
+npm install uuid
+```
+
+Now that we have the ability to generate UUIDv4s using:
+
+```javascript
+import {v4 as uuidv4} from 'uuid';
+
+uuidv4();
+```
+
+-----
+
+Let's integrate this package into our Angular component:
 
 ```typescript {29}
 @Component({
@@ -810,17 +818,18 @@ export class AppComponent {}
 
 ### Vue
 
+Since Vue 3.5, we can generate a unique ID using `useId`:
+
 ```vue {8-10}
 <!-- TextInput.vue -->
 <script setup>
-import {computed} from 'vue';
-import { v4 as uuidv4 } from 'uuid';
+import {computed, useId} from 'vue';
 
 const props = defineProps(['label', 'type', 'id', 'error'])
 
-const uuid = uuidv4();
+const _id = useId();
     
-const realId = computed(() => props.id || uuid);
+const realId = computed(() => props.id || _id);
 </script>
 
 <template>
