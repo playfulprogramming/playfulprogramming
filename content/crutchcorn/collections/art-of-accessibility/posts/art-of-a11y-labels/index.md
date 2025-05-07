@@ -230,7 +230,8 @@ Despite their popularity, **placeholders have been widely seen as a harmful U.X.
 - **Inadequate color contrast for placeholders**
 - **Confusion if a placeholder is pre-filled data or not**
 - **Confusion when the user has the input focused due to disappearing hints**
-- **Inability for the browser to automatically translate the placeholde**r (using services like Google Translate)
+- **Inability for the browser to automatically translate the placeholder** (using services like Google Translate)
+- **Hints are not visible when the user has text input, making it harder to see validation requirements**
 
 Not only that, but [many screen readers handle the placeholder attribute inconsistently from one-another](https://www.davidmacd.com/blog/is-placeholder-accessible-label.html).
 
