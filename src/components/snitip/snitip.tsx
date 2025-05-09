@@ -117,6 +117,7 @@ export function SnitipPopover({ snitip, ...extra }: SnitipProps) {
 				/>
 			</svg>
 			<div class={style.popover__content}>
+				<span id="snitip-focus-sentinel-start" role="none" tabindex={0} />
 				<IconOnlyButton
 					id="snitip-close"
 					tag="button"
@@ -126,6 +127,7 @@ export function SnitipPopover({ snitip, ...extra }: SnitipProps) {
 					<div dangerouslySetInnerHTML={{ __html: iconClose }}></div>
 				</IconOnlyButton>
 				<SnitipContent snitip={snitip} />
+				<span id="snitip-focus-sentinel-end" role="none" tabindex={0} />
 			</div>
 		</div>
 	);

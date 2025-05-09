@@ -318,4 +318,32 @@ for (const triggerEl of triggerEls) {
 		passive: true,
 	});
 	window.addEventListener("resize", handleDialogScroll, { passive: true });
+
+	// On Firefox, the tab order defines the popover where it is placed in the document, rather than inserting it
+	// after the trigger button.
+	// These "focus sentinels" capture focus at the start/end of the popover to prevent the focus jump that would
+	// otherwise occur.
+	const focusSentinelStart = popoverEl.querySelector<HTMLElement>(
+		"#snitip-focus-sentinel-start",
+	)!;
+	const focusSentinelEnd = popoverEl.querySelector<HTMLElement>(
+		"#snitip-focus-sentinel-end",
+	)!;
+
+	if (CSS.supports("anchor-name", "--test")) {
+		// Assumption: If the browser supports anchoring, then it should also support the "source" property
+		// passed to showPopover(), which eliminates the need for focus sentinels
+		// https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/showPopover#source
+		focusSentinelStart.remove();
+		focusSentinelEnd.remove();
+	} else {
+		// If either sentinel is activated, focus should move to the trigger button
+		// (which will also close the popover)
+		focusSentinelStart.addEventListener("focus", () => {
+			triggerButtonEl.focus();
+		});
+		focusSentinelEnd.addEventListener("focus", () => {
+			triggerButtonEl.focus();
+		});
+	}
 }
