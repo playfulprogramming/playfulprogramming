@@ -2,9 +2,11 @@
 import type { Element, ElementContent } from "hast";
 import { fromHtml } from "hast-util-from-html";
 import { promises as fs } from "fs";
+import { SnitipInfo } from "types/SnitipInfo";
 
 interface LinkProps {
 	id: string,
+	snitip: SnitipInfo,
 	children: ElementContent[];
 }
 
@@ -28,6 +30,7 @@ export function SnitipLink(props: LinkProps): Element {
 				class="snitip-trigger__button"
 				popovertarget={popoverId}
 				popovertargetaction="show"
+				aria-label={`Open tooltip for "${props.snitip.title}"`}
 			>
 				<div class="snitip-trigger__popup inline-popup">
 					<span class="inline-popup__content">Open tooltip</span>
