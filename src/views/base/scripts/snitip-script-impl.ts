@@ -108,12 +108,13 @@ function handleMouseMove(e: MouseEvent) {
 	if (!isInside && !isFocus) closeSnitip(snitip);
 }
 
-function handleFocusOut() {
+function handleFocusOut(e: FocusEvent) {
 	// setTimeout ensures that activeElement is changed
 	setTimeout(() => {
 		// If the focused element is outside of the snitip, close it!
 		const isFocus = snitip?.popoverEl.contains(document.activeElement);
-		if (!isFocus && snitip) closeSnitip(snitip);
+		const isTriggerFocus = snitip?.triggerEl?.matches(":active");
+		if (!isFocus && !isTriggerFocus && snitip) closeSnitip(snitip);
 	}, 0);
 }
 
@@ -227,19 +228,14 @@ for (const triggerEl of triggerEls) {
 		clearTimeout(mouseEnterTimeout);
 	});
 
-	let isTriggerElClickEvent = false;
 	triggerEl.addEventListener("click", () => {
-		const isOpen = snitip === snitipElements;
-		if (!isOpen) {
-			openSnitip(snitipElements);
-		}
+		openSnitip(snitipElements);
+
+		snitip = undefined;
+		handleSnitipOpened(snitipElements, "focus");
 
 		// Remove the mousemove listener so the snitip can no longer be dismissed by movement
 		document.removeEventListener("mousemove", handleMouseMove);
-
-		// Keep track of click events so that toggles can be cancelled if the trigger is clicked
-		isTriggerElClickEvent = true;
-		setTimeout(() => (isTriggerElClickEvent = false), 0);
 	});
 
 	popoverEl.addEventListener("toggle", (e) => {
@@ -250,11 +246,6 @@ for (const triggerEl of triggerEls) {
 		} else if (event.newState == "closed" && event.oldState != "closed") {
 			popoverEl.popover = "auto";
 			handleSnitipClosed(snitipElements);
-
-			// If the popover was closed by clicking on the trigger link, re-open it again
-			if (isTriggerElClickEvent) {
-				openSnitip(snitipElements);
-			}
 		}
 	});
 
