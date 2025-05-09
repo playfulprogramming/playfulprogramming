@@ -1,6 +1,7 @@
 ---
 import { SnitipInfo } from "types/SnitipInfo";
 import { SnitipPopover } from "components/snitip/snitip";
+import { SnitipDialog } from "components/snitip/snitip-dialog";
 import "./snitip-trigger.scss";
 import "components/inline-popup/inline-popup.scss";
 
@@ -13,7 +14,10 @@ const snitips = Astro.props.snitips;
 
 {
 	[...snitips.entries()].map(([id, snitip]) => (
-		<SnitipPopover id={`snitip-popover-${id}`} snitip={snitip} />
+		<Fragment>
+			<SnitipPopover id={`snitip-popover-${id}`} snitip={snitip} />
+			<SnitipDialog id={`snitip-dialog-${id}`} snitip={snitip} />
+		</Fragment>
 	))
 }
 

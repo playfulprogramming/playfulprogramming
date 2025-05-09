@@ -21,7 +21,7 @@ export function SnitipLink(props: LinkProps): Element {
 		<span
 			id={"snitip-" + props.id}
 			class="snitip-trigger a"
-			data-snitip-trigger={popoverId}
+			data-snitip-trigger={props.id}
 		>
 			<span class="snitip-trigger__text">{props.children}</span>
 			<button

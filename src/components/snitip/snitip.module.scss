@@ -1,4 +1,5 @@
 @use "src/styles/text-styles";
+@use "src/tokens/index" as *;
 
 :root {
 	--snitip_close-btn_margin: var(--spc-2x);
@@ -27,6 +28,10 @@
 
 	--snitip_search-tag_margin-top: var(--spc-4x);
 	--snitip_search-tag_gap: var(--spc-2x);
+
+	--snitip-modal_corner-radius: var(--corner-radius_xl);
+	--snitip-modal_background: var(--background_primary);
+	--snitip-modal_max-width: var(--max-width_s);
 }
 
 .popover {
@@ -68,6 +73,7 @@
 	position: absolute;
 	top: var(--snitip_close-btn_margin);
 	right: var(--snitip_close-btn_margin);
+	z-index: 1;
 }
 
 .containerTitle {
@@ -100,11 +106,11 @@
 	.description {
 		color: var(--snitip_description_color);
 
-		&> :first-child {
+		& > :first-child {
 			margin-top: 0;
 		}
 
-		&> :last-child {
+		& > :last-child {
 			margin-bottom: 0;
 		}
 	}
@@ -156,7 +162,7 @@
 }
 
 .popover {
-	animation: fade-out .2s ease-out;
+	animation: fade-out 0.2s ease-out;
 }
 
 .popover__content {
@@ -169,33 +175,90 @@
 }
 
 .popover:popover-open {
-	animation: fade-in .2s ease-in;
+	animation: fade-in 0.2s ease-in;
 }
-
 
 @keyframes fade-in {
 	0% {
-	  opacity: 0;
-	  transform: translateY(1rem);
+		opacity: 0;
+		transform: translateY(1rem);
 	}
 
 	100% {
-	  opacity: 1;
-	  transform: translateY(0);
+		opacity: 1;
+		transform: translateY(0);
 	}
-  }
+}
 
-  @keyframes fade-out {
+@keyframes fade-in-backdrop {
 	0% {
-	  opacity: 1;
-	  transform: translateY(0);
-	  /* display needed on the closing animation to keep the popover
-	  visible until the animation ends */
-	  display: block;
+		opacity: 0;
 	}
 
 	100% {
-	  opacity: 0;
-	  transform: translateY(1rem);
+		opacity: 1;
 	}
-  }
+}
+
+@keyframes fade-out {
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+		/* display needed on the closing animation to keep the popover
+	  visible until the animation ends */
+		display: block;
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateY(1rem);
+	}
+}
+
+.dialog {
+	background: var(--snitip-modal_background);
+	padding: 0;
+	border: var(--snitip_border-width) solid var(--snitip_border-color);
+	border-radius: var(--snitip-modal_corner-radius);
+	max-width: var(--snitip-modal_max-width);
+	width: calc(100% - var(--site-spacing) * 2);
+
+	flex-direction: column;
+	overflow: clip;
+
+	animation: fade-out 0.2s ease-out;
+
+	&[open] {
+		display: flex;
+		animation: fade-in 0.2s ease-in;
+	}
+
+	&[open]::backdrop {
+		animation: fade-in-backdrop 0.2s ease-in forwards;
+	}
+
+	.form {
+		overflow-y: auto;
+		overscroll-behavior: contain;
+	}
+
+	.containerTitle {
+		position: sticky;
+		top: 0;
+		background: var(--snitip-modal_background);
+		border-bottom: 1px solid transparent;
+		transition: border-bottom 0.5s ease;
+	}
+
+	&[data-scrolled=true] .containerTitle {
+		border-bottom: 1px solid var(--background_disabled);
+	}
+
+	&::backdrop {
+		background-color: rgba(0, 0, 0, 0.32);
+
+		@include darkTheme {
+			background-color: rgba(0, 0, 0, 0.72);
+		}
+	}
+}

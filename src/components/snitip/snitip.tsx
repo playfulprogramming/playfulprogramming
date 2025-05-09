@@ -24,7 +24,7 @@ export function SnitipContent({
 			{snitip.icon ? (
 				<img class={style.icon} src={snitip.icon} loading="lazy" decoding="async" data-nozoom />
 			) : null}
-			<HeadingTag class={style.title}>{snitip.title}</HeadingTag>
+			<HeadingTag class={`${style.title} text-style-headline-6`}>{snitip.title}</HeadingTag>
 		</div>
 		<div class={style.containerBody}>
 			<div

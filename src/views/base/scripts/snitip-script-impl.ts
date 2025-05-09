@@ -1,3 +1,9 @@
+import { tabletLarge } from "src/tokens/breakpoints";
+
+const popoverBreakpoint = window.matchMedia(
+	`screen and (min-width: ${tabletLarge + 1}px)`,
+);
+
 const postBodyEl = document.querySelector<HTMLElement>(".post-body")!;
 
 interface SnitipElements {
@@ -5,7 +11,8 @@ interface SnitipElements {
 	triggerButtonEl: HTMLButtonElement;
 	popoverEl: HTMLElement;
 	popoverArrowEl: HTMLElement;
-	closeEl: HTMLButtonElement;
+	popoverCloseEl: HTMLButtonElement;
+	dialogEl: HTMLDialogElement;
 }
 
 let snitip: SnitipElements | undefined;
@@ -46,14 +53,23 @@ function positionSnitip() {
 	snitip.popoverArrowEl.dataset.placement = isCloseToBottom ? "top" : "bottom";
 }
 
-function openSnitip(elements: SnitipElements) {
-	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-	// @ts-ignore "source" is used for keyboard navigation: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/showPopover
-	elements.popoverEl.showPopover({ source: elements.triggerButtonEl });
+function openSnitip(
+	elements: SnitipElements,
+	source: "mouse" | "focus" | "click",
+) {
+	// If the popover breakpoint is valid, open it
+	if (popoverBreakpoint.matches) {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore "source" is used for keyboard navigation: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/showPopover
+		elements.popoverEl.showPopover({ source: elements.triggerButtonEl });
+		handleSnitipOpened(elements, source);
+	} else if (source != "mouse") {
+		// Otherwise, show the snitip modal instead
+		elements.dialogEl.showModal();
+	}
 }
 
 function closeSnitip(elements: SnitipElements) {
-	console.trace("CLOSE");
 	elements.popoverEl.hidePopover();
 	handleSnitipClosed(elements);
 }
@@ -84,7 +100,7 @@ function handleSnitipOpened(
 	}
 
 	if (source === "focus") {
-		elements.closeEl.focus({ preventScroll: true });
+		elements.popoverCloseEl.focus({ preventScroll: true });
 	}
 }
 
@@ -97,6 +113,18 @@ function handleSnitipClosed(elements: SnitipElements) {
 		document.removeEventListener("focusout", handleFocusOut);
 	}
 }
+
+popoverBreakpoint.addEventListener("change", () => {
+	if (popoverBreakpoint.matches) {
+		// If a snitip dialog is open, close it!
+		document
+			.querySelector<HTMLDialogElement>("dialog[open][id^=snitip-dialog]")
+			?.close();
+	} else {
+		// If there is a snitip popup visible, close it!
+		if (snitip) closeSnitip(snitip);
+	}
+});
 
 const POPOVER_BOX_EXPAND_PX = 20;
 
@@ -205,24 +233,29 @@ for (const triggerEl of triggerEls) {
 		"button[popovertarget]",
 	)!;
 	const popoverEl = document.querySelector<HTMLElement>(
-		"#" + triggerEl.dataset.snitipTrigger,
+		"#snitip-popover-" + triggerEl.dataset.snitipTrigger,
 	)!;
 	const popoverArrowEl = popoverEl.querySelector<HTMLElement>("#snitip-arrow")!;
-	const closeEl = popoverEl.querySelector<HTMLButtonElement>("#snitip-close")!;
+	const popoverCloseEl =
+		popoverEl.querySelector<HTMLButtonElement>("#snitip-close")!;
+	const dialogEl = document.querySelector<HTMLDialogElement>(
+		"#snitip-dialog-" + triggerEl.dataset.snitipTrigger,
+	)!;
+	const dialogFormEl = dialogEl.querySelector("form")!;
 	const snitipElements: SnitipElements = {
 		triggerEl,
 		triggerButtonEl,
 		popoverEl,
 		popoverArrowEl,
-		closeEl,
+		popoverCloseEl,
+		dialogEl,
 	};
 
 	triggerEl.addEventListener("mouseenter", () => {
 		clearTimeout(mouseEnterTimeout);
 		mouseEnterTimeout = setTimeout(() => {
 			if (snitip) return;
-			openSnitip(snitipElements);
-			handleSnitipOpened(snitipElements, "mouse");
+			openSnitip(snitipElements, "mouse");
 		}, 500);
 	});
 
@@ -231,13 +264,23 @@ for (const triggerEl of triggerEls) {
 	});
 
 	triggerEl.addEventListener("click", () => {
-		openSnitip(snitipElements);
-
 		snitip = undefined;
-		handleSnitipOpened(snitipElements, "focus");
+		openSnitip(snitipElements, "focus");
 
 		// Remove the mousemove listener so the snitip can no longer be dismissed by movement
 		document.removeEventListener("mousemove", handleMouseMove);
+	});
+
+	popoverEl.addEventListener("beforetoggle", (e) => {
+		const event = e as ToggleEvent;
+		// Prevent the popover from being opened when the breakpoint doesn't match
+		if (
+			event.newState == "open" &&
+			event.cancelable &&
+			!popoverBreakpoint.matches
+		) {
+			event.preventDefault();
+		}
 	});
 
 	popoverEl.addEventListener("toggle", (e) => {
@@ -251,5 +294,28 @@ for (const triggerEl of triggerEls) {
 		}
 	});
 
-	closeEl.addEventListener("click", () => closeSnitip(snitipElements));
+	popoverCloseEl.addEventListener("click", () => closeSnitip(snitipElements));
+
+	// If the closedBy attribute isn't supported, we need to manually handle a light dismiss action
+	// https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore Missing DOM types
+	if (typeof dialogEl.closedBy == "undefined") {
+		dialogEl.addEventListener("click", (e) => {
+			// If the dialog backdrop is clicked, close it!
+			if (e.target == dialogEl) {
+				dialogEl.close();
+			}
+		});
+	}
+
+	// Set [data-scrolled=true] if the dialog is scrolled so that the sticky heading border can show
+	function handleDialogScroll() {
+		dialogEl.dataset.scrolled = String(dialogFormEl.scrollTop > 0);
+	}
+
+	dialogFormEl.addEventListener("scroll", handleDialogScroll, {
+		passive: true,
+	});
+	window.addEventListener("resize", handleDialogScroll, { passive: true });
 }
