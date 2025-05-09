@@ -53,6 +53,7 @@ function openSnitip(elements: SnitipElements) {
 }
 
 function closeSnitip(elements: SnitipElements) {
+	console.trace("CLOSE");
 	elements.popoverEl.hidePopover();
 	handleSnitipClosed(elements);
 }
@@ -108,13 +109,14 @@ function handleMouseMove(e: MouseEvent) {
 	if (!isInside && !isFocus) closeSnitip(snitip);
 }
 
-function handleFocusOut(e: FocusEvent) {
+function handleFocusOut() {
 	// setTimeout ensures that activeElement is changed
 	setTimeout(() => {
 		// If the focused element is outside of the snitip, close it!
+		const isBody = document.activeElement == document.body;
 		const isFocus = snitip?.popoverEl.contains(document.activeElement);
 		const isTriggerFocus = snitip?.triggerEl?.matches(":active");
-		if (!isFocus && !isTriggerFocus && snitip) closeSnitip(snitip);
+		if (!isBody && !isFocus && !isTriggerFocus && snitip) closeSnitip(snitip);
 	}, 0);
 }
 
