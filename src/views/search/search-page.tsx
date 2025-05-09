@@ -449,6 +449,8 @@ export function SearchPageBase() {
 					{enabled &&
 						!isContentLoading &&
 						!noResults &&
+						query.collectionsPage == 1 &&
+						query.postsPage == 1 &&
 						Boolean(snitips.length) && (
 							<div class={style.snitipsContainer}>
 								<h2 id="snitips-header" class="visually-hidden">Tags</h2>
