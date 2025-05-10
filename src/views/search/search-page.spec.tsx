@@ -466,7 +466,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 4,
+				limit: 8,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -490,7 +490,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 4,
+				limit: 8,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -556,7 +556,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 4,
+				limit: 8,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -580,7 +580,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 4,
+				limit: 8,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -634,7 +634,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 4,
+				limit: 8,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -665,9 +665,9 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 4,
+				limit: 8,
 				mode: "fulltext",
-				offset: 4 * (2 - 1),
+				offset: 8 * (2 - 1),
 				sortBy: {
 					order: "desc",
 					property: "publishedTimestamp",
@@ -792,7 +792,7 @@ describe("Search page", () => {
 			expect(clients.postClient.search).toHaveBeenLastCalledWith(
 				{
 					term: "",
-					limit: 4,
+					limit: 8,
 					offset: 0,
 					mode: "fulltext",
 					sortBy: {
@@ -821,7 +821,7 @@ describe("Search page", () => {
 			expect(clients.postClient.search).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					term: "",
-					limit: 4,
+					limit: 8,
 					offset: 0, // Should reset to first page
 					where: {
 						authors: [MockPerson.id],
@@ -957,8 +957,7 @@ describe("Search page", () => {
 
 		const searchQuery = buildSearchQuery({
 			searchQuery: "blog",
-			postsPage: 2,
-			collectionsPage: 1,
+			page: 2,
 			display: "articles",
 			filterTags: ["angular"],
 			filterAuthors: [MockPerson.id],
@@ -978,9 +977,9 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenCalledWith(
 			{
 				term: "blog",
-				limit: 4,
+				limit: 8,
 				mode: "fulltext",
-				offset: 4 * (2 - 1),
+				offset: 8,
 				sortBy: {
 					property: "publishedTimestamp",
 					order: "asc",
@@ -1001,7 +1000,7 @@ describe("Search page", () => {
 				term: "blog",
 				limit: 4,
 				mode: "fulltext",
-				offset: 0,
+				offset: 4,
 				sortBy: {
 					property: "publishedTimestamp",
 					order: "asc",
@@ -1213,8 +1212,7 @@ describe("Search page", () => {
 
 		const searchQuery = buildSearchQuery({
 			searchQuery: "blog",
-			postsPage: 2,
-			collectionsPage: 1,
+			page: 2,
 			display: "articles",
 			filterTags: ["angular"],
 			filterAuthors: [MockPerson.id],
@@ -1246,7 +1244,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "blogother",
-				limit: 4,
+				limit: 8,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -1397,8 +1395,7 @@ describe("Search page", () => {
 
 		const searchQuery = buildSearchQuery({
 			searchQuery: "blog",
-			postsPage: 2,
-			collectionsPage: 1,
+			page: 2,
 			display: "articles",
 			filterTags: ["angular"],
 			filterAuthors: [MockPerson.id],
@@ -1520,7 +1517,7 @@ describe("Search page", () => {
 			expect(getByText("Collection Four")).toBeInTheDocument();
 		});
 
-		const container = await findByTestId("collections-pagination");
+		const container = await findByTestId("pagination");
 		const page2 = await findByTextFrom(container, "2");
 
 		// Click to second page
@@ -1550,7 +1547,7 @@ describe("Search page", () => {
 
 		// Verify URL updated with correct collection page
 		await waitFor(() => {
-			expect(window.location.search).toContain("collectionsPage=2");
+			expect(window.location.search).toContain("page=2");
 		});
 
 		// Verify second page collections are visible
@@ -1558,7 +1555,7 @@ describe("Search page", () => {
 		expect(getByText("Collection Eight")).toBeInTheDocument();
 	});
 
-	test("Collection pagination should be independent from post pagination", async () => {
+	test("Collection pagination should match post pagination", async () => {
 		mockPeopleIndex([]);
 		const clients = mockClients(() => ({
 			posts: [
@@ -1595,27 +1592,21 @@ describe("Search page", () => {
 			expect(getByText("Collection One")).toBeInTheDocument();
 		});
 
-		// Navigate posts to page 2
+		// Navigate to page 2
 		const postPagination = await findByTestId("pagination");
 		const postPage2 = await findByTextFrom(postPagination, "2");
 		await user.click(postPage2);
 
-		// Navigate collections to page 2
-		const collectionPagination = await findByTestId("collections-pagination");
-		const collectionPage2 = await findByTextFrom(collectionPagination, "2");
-		await user.click(collectionPage2);
-
-		// Verify both pagination states are maintained in URL
+		// Verify that the pagination state is maintained in URL
 		await waitFor(() => {
-			expect(window.location.search).toContain("postsPage=2");
-			expect(window.location.search).toContain("collectionsPage=2");
+			expect(window.location.search).toContain("page=2");
 		});
 
 		// Verify correct API calls were made
 		await waitFor(() => {
 			expect(clients.postClient.search).toHaveBeenLastCalledWith(
 				expect.objectContaining({
-					offset: 4, // Page 2 for posts
+					offset: 8, // Page 2 for posts
 				}),
 				expect.anything(),
 			);
