@@ -69,14 +69,11 @@ export const SearchTopbar = ({
 		[setSearchInput, setSearchDebounced],
 	);
 
-	return (
-		<section
+	return <>
+		<section 
 			className={style.topBar}
 			style={{
-				position: "sticky",
-				zIndex: 9,
-				marginTop: -2,
-				top: `${headerHeight - 2}px`,
+				["--topbar-header-height"]: `${headerHeight}px`,
 			}}
 		>
 			<form
@@ -111,8 +108,9 @@ export const SearchTopbar = ({
 				/>
 			</form>
 			<div className={style.bigScreenContainer} />
-			<div className={style.smallScreenContainer}>
-				<div class={`${style.divider} ${style.topDivider}`} />
+		</section>
+		<div className={style.smallScreenContainer}>
+		<div className={`${style.divider} ${style.topDivider}`} />
 				<div className={`${style.divider} ${style.middleDivider}`} />
 				<RadioButtonGroup
 					className={style.contentToDisplayGroup}
@@ -167,6 +165,5 @@ export const SearchTopbar = ({
 					></span>
 				</IconOnlyButton>
 			</div>
-		</section>
-	);
+		</>;
 };

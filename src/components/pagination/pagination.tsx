@@ -69,6 +69,7 @@ export const Pagination = ({
 	page,
 	rootURL = "./",
 	class: className = "",
+	divClass: divClassName,
 	id = "post-list-pagination",
 	getPageHref = (pageNum: number) => `${rootURL}${pageNum}`,
 	softNavigate,
@@ -85,6 +86,7 @@ export const Pagination = ({
 				role="navigation"
 				aria-label="Pagination Navigation"
 				data-testid={testId}
+				className={divClassName}
 			>
 				<ul id={id} className={`${styles.pagination} ${className}`}>
 					<li className={`${styles.paginationItem}`}>

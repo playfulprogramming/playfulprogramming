@@ -471,6 +471,7 @@ export function SearchPageBase() {
 						(Boolean(data.posts.length) || Boolean(data.collections.length)) &&
 						!isHybridSearch && (
 							<Pagination
+								divClass={style.pagination}
 								testId="pagination"
 								softNavigate={(_href, pageNum) => {
 									window.scrollTo(0, 0);
