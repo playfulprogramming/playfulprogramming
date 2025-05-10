@@ -157,7 +157,7 @@ function SearchPage(props: { mockClients: SearchContext }) {
 	return (
 		<SearchClient.Provider value={props.mockClients}>
 			<QueryClientProvider client={queryClient}>
-				<SearchPageBase />
+				<SearchPageBase siteTitle="Site Title" />
 			</QueryClientProvider>
 		</SearchClient.Provider>
 	);

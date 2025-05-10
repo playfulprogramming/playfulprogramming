@@ -70,10 +70,18 @@ const fetchSearchFilters = async ({ signal }: { signal: AbortSignal }) => {
 	});
 };
 
-export function SearchPageBase() {
+export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const [query, setQueryState] = useSearchParams<SearchQuery>(
 		serializeParams,
 		deserializeParams,
+		(query): string => {
+			if (query.searchQuery === "*") {
+				return `Search all | ${siteTitle}`;
+			} else if (query.searchQuery) {
+				return `${query.searchQuery} | ${siteTitle}`;
+			}
+			return `Search | ${siteTitle}`;
+		}
 	);
 
 	const setQuery = useCallback(
@@ -533,11 +541,14 @@ export function SearchPageBase() {
 
 const queryClient = new QueryClient();
 
-export default function SearchPage() {
+interface RootSearchPageProps {
+	siteTitle: string;
+}
+export default function SearchPage({ siteTitle }: RootSearchPageProps) {
 	return (
 		<OramaClientProvider>
 			<QueryClientProvider client={queryClient}>
-				<SearchPageBase />
+				<SearchPageBase siteTitle={siteTitle} />
 			</QueryClientProvider>
 		</OramaClientProvider>
 	);
