@@ -7,12 +7,13 @@ type ChipProps = PropsWithChildren<{
 	tag?: "a" | "button";
 	class?: string;
 	className?: string;
+	icon?: JSX.Element;
 }> &
 	JSX.ButtonHTMLAttributes &
 	JSX.AnchorHTMLAttributes;
 
 export const Chip = forwardRef<HTMLElement, ChipProps>(
-	({ children, tag, class: classClass, className, ...props }, ref) => {
+	({ children, tag, icon, class: classClass, className, ...props }, ref) => {
 		const Wrapper = tag ?? "a";
 		return (
 			<Wrapper
@@ -22,6 +23,7 @@ export const Chip = forwardRef<HTMLElement, ChipProps>(
 					className ?? ""
 				}`}
 			>
+				{icon}
 				<span class={`${style.chip_content}`}>{children}</span>
 			</Wrapper>
 		);
