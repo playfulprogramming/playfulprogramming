@@ -3,6 +3,7 @@ import type { Element, ElementContent } from "hast";
 import { fromHtml } from "hast-util-from-html";
 import { promises as fs } from "fs";
 import { SnitipInfo } from "types/SnitipInfo";
+import { v4 as uuidv4 } from "uuid";
 
 interface LinkProps {
 	id: string,
@@ -18,7 +19,7 @@ InfoIcon.properties["class"] = "snitip-trigger__icon";
 
 /** @jsxImportSource hastscript */
 export function SnitipLink(props: LinkProps): Element {
-	const popoverId = "snitip-popover-" + props.id;
+	const popoverId = "snitip-popover-" + uuidv4();
 	return (
 		<span
 			id={"snitip-" + props.id}

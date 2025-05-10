@@ -232,9 +232,17 @@ for (const triggerEl of triggerEls) {
 	const triggerButtonEl = triggerEl.querySelector<HTMLButtonElement>(
 		"button[popovertarget]",
 	)!;
-	const popoverEl = document.querySelector<HTMLElement>(
-		"#snitip-popover-" + triggerEl.dataset.snitipTrigger,
+
+	// Immediately clone the popover template so that it follows the trigger element
+	const templateEl = document.querySelector<HTMLTemplateElement>(
+		"#snitip-popover-template-" + triggerEl.dataset.snitipTrigger,
 	)!;
+	const popoverEl = (
+		templateEl.content.cloneNode(true) as HTMLElement
+	).querySelector<HTMLElement>("[popover]")!;
+	popoverEl.id = triggerButtonEl.getAttribute("popovertarget")!;
+	triggerEl.after(popoverEl);
+
 	const popoverArrowEl = popoverEl.querySelector<HTMLElement>("#snitip-arrow")!;
 	const popoverCloseEl =
 		popoverEl.querySelector<HTMLButtonElement>("#snitip-close")!;
@@ -318,32 +326,4 @@ for (const triggerEl of triggerEls) {
 		passive: true,
 	});
 	window.addEventListener("resize", handleDialogScroll, { passive: true });
-
-	// On Firefox, the tab order defines the popover where it is placed in the document, rather than inserting it
-	// after the trigger button.
-	// These "focus sentinels" capture focus at the start/end of the popover to prevent the focus jump that would
-	// otherwise occur.
-	const focusSentinelStart = popoverEl.querySelector<HTMLElement>(
-		"#snitip-focus-sentinel-start",
-	)!;
-	const focusSentinelEnd = popoverEl.querySelector<HTMLElement>(
-		"#snitip-focus-sentinel-end",
-	)!;
-
-	if (CSS.supports("anchor-name", "--test")) {
-		// Assumption: If the browser supports anchoring, then it should also support the "source" property
-		// passed to showPopover(), which eliminates the need for focus sentinels
-		// https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/showPopover#source
-		focusSentinelStart.remove();
-		focusSentinelEnd.remove();
-	} else {
-		// If either sentinel is activated, focus should move to the trigger button
-		// (which will also close the popover)
-		focusSentinelStart.addEventListener("focus", () => {
-			triggerButtonEl.focus();
-		});
-		focusSentinelEnd.addEventListener("focus", () => {
-			triggerButtonEl.focus();
-		});
-	}
 }

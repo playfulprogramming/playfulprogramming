@@ -15,7 +15,9 @@ const snitips = Astro.props.snitips;
 {
 	[...snitips.entries()].map(([id, snitip]) => (
 		<Fragment>
-			<SnitipPopover id={`snitip-popover-${id}`} snitip={snitip} />
+			<template id={`snitip-popover-template-${id}`}>
+				<SnitipPopover snitip={snitip} />
+			</template>
 			<SnitipDialog id={`snitip-dialog-${id}`} snitip={snitip} />
 		</Fragment>
 	))
