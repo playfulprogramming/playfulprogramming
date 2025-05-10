@@ -69,9 +69,15 @@ body {
 
 .seriesTitle {
 	margin-top: var(--spc-1x);
-	margin-bottom: var(--section-ver-padding);
+	margin-bottom: calc(var(--section-ver-padding) * 2);
 	color: var(--on-light-emphasis-high);
 	padding: 0 var(--section-hor-padding);
+}
+
+@include until($tablet) {
+	.seriesTitle {
+		margin-bottom: calc(var(--section-ver-padding) * 3);
+	}
 }
 
 .ffgDescription {
@@ -99,13 +105,61 @@ body {
 .readNowContainer {
 	position: relative;
 	box-sizing: border-box;
-	padding: var(--section-ver-padding) var(--section-hor-padding)
-		calc(var(--section-ver-padding) + calc(var(--readNowButtonHeight) / 2))
-		var(--section-hor-padding);
+	padding-top: calc(var(--section-ver-padding) * 1.5);
+	padding-right: var(--section-hor-padding);
+	padding-left: var(--section-hor-padding);
+	padding-bottom: calc(
+		var(--section-ver-padding) + calc(var(--readNowButtonHeight) / 2)
+	);
 	border: 3px dotted var(--outline);
 	border-radius: var(--corner-radius-2x);
 }
 
+@include until($tablet) {
+	.readNowContainer {
+		padding-top: calc(var(--section-ver-padding) * 3);
+	}
+}
+
 .readNowSection {
 	padding: var(--spc-6x) var(--section-hor-padding);
+}
+
+.ribbonContainer {
+	position: absolute;
+	top: -1rem;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+}
+
+.leftRibbon {
+	width: 4.75rem;
+	position: absolute;
+	transform: scaleX(-1) translateX(100%);
+	left: 1.5rem;
+	top: 1.5rem;
+}
+
+.ribbonText {
+	margin: 0;
+	color: var(--on-light-emphasis-medium);
+	background: var(--fund-050);
+	text-transform: uppercase;
+	z-index: 1;
+	box-sizing: border-box;
+	padding: 1.25rem;
+	min-height: 4rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 800 !important;
+}
+
+.rightRibbon {
+	width: 4.75rem;
+	position: absolute;
+	transform: translateX(100%);
+	right: 1.5rem;
+	top: 1.5rem;
 }

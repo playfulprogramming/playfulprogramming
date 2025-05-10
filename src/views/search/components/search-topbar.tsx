@@ -42,7 +42,8 @@ export const SearchTopbar = ({
 	const [searchInput, setSearchInput] = useState(search);
 
 	// When the query is changed from input events, we want to debounce callbacks so that it doesn't result in one fetch() per keypress.
-	const { callback: setSearchDebounced, cancel: cancelSetSearchDebounced } = useDebouncedCallback(setSearch, 500, [setSearch]);
+	const { callback: setSearchDebounced, cancel: cancelSetSearchDebounced } =
+		useDebouncedCallback(setSearch, 500, [setSearch]);
 
 	// If the searchQuery is changed for external reasons (history or onSubmit), update the input & cancel any pending setSearch calls.
 	useEffect(() => {
@@ -50,17 +51,23 @@ export const SearchTopbar = ({
 		cancelSetSearchDebounced();
 	}, [search]);
 
-	const handleBlur = useCallback((e: FocusEvent) => {
-		const newVal = (e.target as HTMLInputElement).value;
-		setSearchInput(newVal);
-		onBlur(newVal);
-	}, [setSearchInput, onBlur]);
+	const handleBlur = useCallback(
+		(e: FocusEvent) => {
+			const newVal = (e.target as HTMLInputElement).value;
+			setSearchInput(newVal);
+			onBlur(newVal);
+		},
+		[setSearchInput, onBlur],
+	);
 
-	const handleInput = useCallback((e: InputEvent) => {
-		const newVal = (e.target as HTMLInputElement).value;
-		setSearchInput(newVal);
-		setSearchDebounced(newVal);
-	}, [setSearchInput, setSearchDebounced]);
+	const handleInput = useCallback(
+		(e: InputEvent) => {
+			const newVal = (e.target as HTMLInputElement).value;
+			setSearchInput(newVal);
+			setSearchDebounced(newVal);
+		},
+		[setSearchInput, setSearchDebounced],
+	);
 
 	return (
 		<section

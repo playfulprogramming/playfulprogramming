@@ -1,13 +1,12 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 import {
 	Directive,
 	Component,
-	OnInit,
-	Input,
 	inject,
 	TemplateRef,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
 } from "@angular/core";
 
 function injectTemplateAndLog() {
@@ -18,16 +17,17 @@ function injectTemplateAndLog() {
 
 @Directive({
 	selector: "[item]",
-	standalone: true,
 })
 class ItemDirective {
-	_template = injectTemplateAndLog();
+	constructor() {
+		injectTemplateAndLog();
+	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [ItemDirective],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<ng-template item>
@@ -38,4 +38,6 @@ class ItemDirective {
 })
 class AppComponent {}
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

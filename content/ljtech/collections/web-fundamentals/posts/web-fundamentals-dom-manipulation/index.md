@@ -6,7 +6,7 @@
   tags: ["css", "html", "design"],
   license: "cc-by-4",
   authors: ["obibaratt", "edpratti"],
-  order: 9
+  order: 10
 }
 
 ---
@@ -266,6 +266,11 @@ async function fetchRandomImage() {
 ```
 
 Notice that we've entirely replaced the `.then(data => {})` blocks. With `async`, those aren't necessary.
+
+> **Learn more about `await` and `async`:**
+> If you'd like to learn more about data fetching, we have an article for you!
+>
+> 📝 [**Explaining Promises, Async, and Await in JavaScript**](/posts/async-and-promises)
 
 ---
 

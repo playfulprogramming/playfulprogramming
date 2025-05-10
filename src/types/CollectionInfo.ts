@@ -1,5 +1,11 @@
 import { Languages } from "types/index";
 
+export interface ChapterList {
+	title: string;
+	description: string;
+	order: string;
+}
+
 export interface RawCollectionInfo {
 	title: string;
 	description: string;
@@ -15,11 +21,7 @@ export interface RawCollectionInfo {
 	version?: string;
 	upToDateSlug?: string;
 	buttons?: Array<{ text: string; url: string }>;
-	chapterList?: Array<{
-		title: string;
-		description: string;
-		order: string;
-	}>;
+	chapterList?: ChapterList[];
 }
 
 export interface CollectionInfo extends RawCollectionInfo {

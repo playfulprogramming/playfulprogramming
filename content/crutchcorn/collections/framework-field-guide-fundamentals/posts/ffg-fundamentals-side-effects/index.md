@@ -2,13 +2,13 @@
 {
   title: "Side Effects",
   description: 'Some call them "lifecycle methods", others "effect handlers". However you spin it, they both handle side effects in your apps. How can we leverage them better?',
-  published: "2024-03-11T12:04:00.000Z",
+  published: "2025-01-06T12:04:00.000Z",
   authors: ["crutchcorn"],
   tags: ["react", "angular", "vue", "webdev"],
   attached: [],
   order: 4,
   collection: "framework-field-guide-fundamentals",
-  version: "v1.1",
+  version: "v2",
 }
 ---
 
@@ -172,7 +172,7 @@ const Comp = () => {
 ```angular-ts
 @Component({
 	selector: "comp-comp",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <button (click)="sayHi()">Say hello</button> `,
 })
 class CompComponent {
@@ -258,15 +258,15 @@ const Parent = () => {
 ```angular-ts
 @Component({
 	selector: "child-comp",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: "<p>I am the child</p>",
 })
 class ChildComponent {}
 
 @Component({
 	selector: "parent-comp",
-	standalone: true,
-	imports: [ChildComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [ChildComponent],
 	template: `
 		<div>
 			<button (click)="setShowChild()">Toggle Child</button>
@@ -277,9 +277,9 @@ class ChildComponent {}
 	`,
 })
 class ParentComponent {
-	showChild = true;
+	showChild = signal(true);
 	setShowChild() {
-		this.showChild = !this.showChild;
+		this.showChild.set(!this.showChild());
 	}
 }
 ```
@@ -342,7 +342,7 @@ import { useEffect } from "react";
 const Child = () => {
 	// Pass a function that React will run for you
 	useEffect(() => {
-		console.log("I am rendering");
+		console.log("I am initialized");
 		// Pass an array of items to track changes of
 	}, []);
 
@@ -362,20 +362,21 @@ We mentioned earlier that there is another hook used to handle side effects: `us
 
 ## Angular
 
-To execute code during an initial render of a component, Angular uses a method called `ngOnInit`.
-This function is specially named so that Angular can call it on your behalf during the "rendered" lifecycle event:
+In Angular, there are two main methods to trigger a side effect from a component: `effect` and `afterRenderEffect`. While we'll touch on `afterRenderEffect` later, `effect`s are created on the constructor of a component, which in this instance is called when the component first mounts:
 
 ```angular-ts
-import { Component, OnInit } from "@angular/core";
+import { Component, ChangeDetectionStrategy, effect } from "@angular/core";
 
 @Component({
 	selector: "child-comp",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: "<p>I am the child</p>",
 })
-class ChildComponent implements OnInit {
-	ngOnInit() {
-		console.log("I am rendering");
+class ChildComponent {
+	constructor() {
+		effect(() => {
+			console.log("I am initialized");
+		})
 	}
 }
 ```
@@ -383,10 +384,6 @@ class ChildComponent implements OnInit {
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Initial Render onInit - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-initial-render-on-init-27?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
-
-All of Angular's lifecycle methods are prepended with `ng` and add `implements` to your component class.
-
-This `implements` clause helps TypeScript figure out which methods have which properties and throws an error when the related method is not included in the class.
 
 ## Vue
 
@@ -402,7 +399,7 @@ Let's start by taking a look at Vue's lifecycle method of handling a side effect
 import { onMounted } from "vue";
 
 onMounted(() => {
-	console.log("I am rendering");
+	console.log("I am initialized");
 });
 </script>
 
@@ -427,7 +424,7 @@ Just like how React has a non-lifecycle method of running side effect, so too do
 import { watchEffect } from "vue";
 
 watchEffect(() => {
-	console.log("I am rendering");
+	console.log("I am initialized");
 });
 </script>
 
@@ -483,7 +480,7 @@ const WindowSize = () => {
 ```angular-ts
 @Component({
 	selector: "window-size",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<p>Height: {{ height }}</p>
@@ -564,10 +561,10 @@ const WindowSize = () => {
 
 ## Angular
 
-```angular-ts {14-23}
+```angular-ts {15-25}
 @Component({
 	selector: "window-size",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<p>Height: {{ height }}</p>
@@ -575,7 +572,7 @@ const WindowSize = () => {
 		</div>
 	`,
 })
-class WindowSizeComponent implements OnInit {
+class WindowSizeComponent {
 	height = window.innerHeight;
 	width = window.innerWidth;
 
@@ -584,9 +581,11 @@ class WindowSizeComponent implements OnInit {
 		this.width = window.innerWidth;
 	};
 
-	ngOnInit() {
-		// This code will cause a memory leak, more on that soon
-		window.addEventListener("resize", this.resizeHandler);
+	constructor() {
+        // This code will cause a memory leak, more on that soon
+		effect(() => {
+            window.addEventListener("resize", this.resizeHandler);		
+		})
 	}
 }
 ```
@@ -679,19 +678,19 @@ const WindowSize = () => {
 	template: `
 		<!-- This code doesn't work, we'll explain why soon -->
 		<div (resize)="resizeHandler()">
-			<p>Height: {{ height }}</p>
-			<p>Width: {{ width }}</p>
+			<p>Height: {{ height() }}</p>
+			<p>Width: {{ width() }}</p>
 		</div>
 	`,
 })
 class WindowSizeComponent {
-	height = window.innerHeight;
-	width = window.innerWidth;
+	height = signal(window.innerHeight);
+	width = signal(window.innerWidth);
 
 	resizeHandler() {
-		this.height = window.innerHeight;
-		this.width = window.innerWidth;
-	}
+		this.height.set(window.innerHeight);
+		this.width.set(window.innerWidth);
+    }
 }
 ```
 
@@ -867,16 +866,18 @@ function prefixZero(number) {
 @Component({
 	selector: "clock-comp",
 	standalone: true,
-	template: ` <p role="timer">Time is: {{ time }}</p> `,
+	template: ` <p role="timer">Time is: {{ time() }}</p> `,
 })
 class ClockComponent implements OnInit {
-	time = formatDate(new Date());
+	time = signal(formatDate(new Date()));
 
-	ngOnInit() {
-		setInterval(() => {
-			console.log("I am updating the time");
-			this.time = formatDate(new Date());
-		}, 1000);
+	constructor() {
+		effect(() => {
+            setInterval(() => {
+                console.log("I am updating the time");
+                this.time.set(formatDate(new Date()));
+            }, 1000);
+        });
 	}
 }
 
@@ -976,22 +977,22 @@ function App() {
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ClockComponent],
 	template: `
 		<div>
 			<button (click)="setShowClock(!showClock)">Toggle clock</button>
-			@if (showClock) {
+			@if (showClock()) {
 				<clock-comp />
 			}
 		</div>
 	`,
 })
 class AppComponent {
-	showClock = true;
+	showClock = signal(true);
 
 	setShowClock(val: boolean) {
-		this.showClock = val;
+		this.showClock.set(val);
 	}
 }
 ```
@@ -1127,7 +1128,7 @@ function App() {
 ```angular-ts
 @Component({
 	selector: "alarm-screen",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<p>Time to wake up!</p>
@@ -1136,55 +1137,56 @@ function App() {
 		</div>
 	`,
 })
-class AlarmScreenComponent implements OnInit {
-	@Output() snooze = new EventEmitter();
-	@Output() disable = new EventEmitter();
+class AlarmScreenComponent {
+	snooze = output();
+	disable = output();
 
-	ngOnInit() {
-		setTimeout(() => {
-			// Automatically snooze the alarm
-			// after 10 seconds of inactivity
-			// In production this would be 10 minutes
-			this.snooze.emit();
-		}, 10 * 1000);
+	constructor() {
+		effect(() => {
+			setTimeout(() => {
+				// Automatically snooze the alarm
+				// after 10 seconds of inactivity
+				// In production, this would be 10 minutes
+				this.snooze.emit();
+			}, 10 * 1000);
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [AlarmScreenComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (!timerEnabled) {
+		@if (!timerEnabled()) {
 			<p>There is no timer</p>
-		} @else if (secondsLeft === 0) {
-			<alarm-screen
-				(snooze)="snooze()"
-				(disable)="disable()"
-			/>
+		} @else if (secondsLeft() === 0) {
+			<alarm-screen (snooze)="snooze()" (disable)="disable()" />
 		} @else {
-			<p>{{ secondsLeft }} seconds left in timer</p>
+			<p>{{ secondsLeft() }} seconds left in timer</p>
 		}
 	`,
 })
-class AppComponent implements OnInit {
-	secondsLeft = 5;
-	timerEnabled = true;
+class AppComponent {
+	secondsLeft = signal(5);
+	timerEnabled = signal(true);
 
-	ngOnInit() {
-		setInterval(() => {
-			if (this.secondsLeft === 0) return;
-			this.secondsLeft = this.secondsLeft - 1;
-		}, 1000);
+	constructor() {
+		effect(() => {
+			setInterval(() => {
+				if (this.secondsLeft() === 0) return;
+				this.secondsLeft.set(this.secondsLeft() - 1);
+			}, 1000);
+		});
 	}
 
 	snooze() {
 		// In production, this would add 5 minutes, not 5 seconds
-		this.secondsLeft = this.secondsLeft + 5;
+		this.secondsLeft.set(this.secondsLeft() + 5);
 	}
 
 	disable() {
-		this.timerEnabled = false;
+		this.timerEnabled.set(false);
 	}
 }
 ```
@@ -1397,25 +1399,25 @@ function App() {
 
 ### Angular
 
-When we add a mounted lifecycle to Angular, we:
+Every effect you use in Angular allows you to have an associated "cleanup" phase.
 
-- Import `OnInit`
-- Add `OnInit` to the component's `implements` keyword
-- Add `ngOnInit` method to the component
+This cleanup phase runs before any subsequent executions of the `effect` (more on that soon) **and** when a component is removed from the component tree.
 
-To add an unmounted lifecycle method to an Angular component, we do the same steps as above, but with `OnDestroy` instead:
+This means that we can use `effect`'s `onCleanup` registration to run when a component unmounts:
 
 ```angular-ts
-import { Component, OnDestroy } from "@angular/core";
-
 @Component({
 	selector: "cleanup-comp",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>Unmount me to see an alert</p>`,
 })
-class CleanupComponent implements OnDestroy {
-	ngOnDestroy() {
-		alert("I am cleaning up");
+class CleanupComponent {
+	constructor() {
+		effect(onCleanup => {
+			onCleanup(() => {
+				alert("I am cleaning up");
+			})
+		})
 	}
 }
 ```
@@ -1429,48 +1431,48 @@ Let's apply this new lifecycle method to our code sample previously:
 ```angular-ts
 @Component({
 	selector: "alarm-screen",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	// ...
 })
-class AlarmScreenComponent implements OnInit, OnDestroy {
+class AlarmScreenComponent {
 	// ...
 
-	timeout: number | undefined = undefined;
+	constructor() {
+		effect((onCleanup) => {
+            const timeout = setTimeout(() => {
+                if (this.secondsLeft() === 0) return;
+                this.secondsLeft.set(this.secondsLeft() - 1);
+            }, 1000);		
 
-	ngOnInit() {
-		this.timeout = setTimeout(() => {
-			if (this.secondsLeft === 0) return;
-			this.secondsLeft = this.secondsLeft - 1;
-		}, 1000);
-	}
-
-	ngOnDestroy() {
-		clearTimeout(this.timeout);
-	}
+            onCleanup(() => {
+                clearTimeout(this.timeout);
+            });	
+		})
+    }
 
 	// ...
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	// ...
 })
 class AppComponent implements OnInit, OnDestroy {
 	// ...
 
-	interval: number | undefined = undefined;
-
-	ngOnInit() {
-		this.interval = setInterval(() => {
-			if (this.secondsLeft === 0) return;
-			this.secondsLeft = this.secondsLeft - 1;
-		}, 1000);
-	}
-
-	ngOnDestroy() {
-		clearInterval(this.interval);
-	}
+	constructor() {
+		effect((onCleanup) => {
+            const interval = setInterval(() => {
+                if (this.secondsLeft() === 0) return;
+                this.secondsLeft.set(this.secondsLeft() - 1);
+            }, 1000);
+            
+            onCleanip(() => {
+	            clearInterval(this.interval);
+            })
+        })
+    }
 
 	// ...
 }
@@ -1684,40 +1686,42 @@ However, **this is not the same thing as emitting an event in Angular or Vue**. 
 ```angular-ts
 @Component({
 	selector: "app-alert",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Showing alert...</p> `,
 })
-class AlertComponent implements OnInit {
-	@Output() alert = new EventEmitter();
+class AlertComponent {
+	alert = output();
 
-	ngOnInit() {
-		// Notice that we don't clean up this side effect
-		setTimeout(() => {
-			this.alert.emit();
-		}, 1000);
+	constructor() {
+		effect(() => {
+            // Notice that we don't clean up this side effect
+            setTimeout(() => {
+                this.alert.emit();
+            }, 1000);
+		})
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [AlertComponent],
 	template: `
 		<div>
 			<!-- Try clicking and unclicking quickly -->
 			<button (click)="toggle()">Toggle</button>
 			<!-- Binding to an event -->
-			@if (show) {
+			@if (show()) {
 				<app-alert (alert)="alertUser()" />
 			}
 		</div>
 	`,
 })
 class AppComponent {
-	show = false;
+	show = signal(false);
 
 	toggle() {
-		this.show = !this.show;
+		this.show.set(!this.show());
 	}
 
 	alertUser() {
@@ -1810,8 +1814,8 @@ const Comp = () => {
 
 ```angular-ts {7}
 @Component({
-	standalone: true,
 	selector: "app-comp",
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<p>Hello, world</p>`,
 })
 class CompComponent {
@@ -1855,9 +1859,9 @@ const App = () => {
 
 ```angular-ts {7-10}
 @Component({
-	standalone: true,
-	imports: [CompComponent],
 	selector: "app-root",
+    changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [CompComponent],
 	template: `
 		<div>
 			<!-- One: -->
@@ -1890,8 +1894,7 @@ import Comp from "./Comp.vue";
 
 <!-- ::end:tabs -->
 
-Each of the individual `Comp` usages generates a component _instance_. These instances have their own separate memory usage, which
-allows you to control the state from them both independently of one another.
+Each of the individual `Comp` usages generates a component _instance_. These instances have their own separate memory usage, which allows you to control the state from them both independently of one another.
 
 Moreover, though, because each component instance has its own connection to the framework root instance,
 it can do some cleanup of event listeners when an instance is detached without impacting other instances:
@@ -1948,35 +1951,38 @@ const App = () => {
 ```angular-ts
 @Component({
 	selector: "app-alert",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <p>Showing alert...</p> `,
 })
-class AlertComponent implements OnInit {
-	@Input() alert!: () => void;
+class AlertComponent {
+	alert = input<() => void>();
 
-	ngOnInit() {
-		setTimeout(() => {
-			this.alert();
-		}, 1000);
+	constructor() {
+		effect(() => {
+            setTimeout(() => {
+                const alertFn = this.alert();
+                alertFn();
+            }, 1000);
+		})
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [AlertComponent],
 	template: `
 		<button (click)="toggle()">Toggle</button>
-		@if (show) {
+		@if (show()) {
 			<app-alert [alert]="alertUser" />
 		}
 	`,
 })
 class AppComponent {
-	show = false;
+	show = signal(false);
 
 	toggle() {
-		this.show = !this.show;
+		this.show.set(!this.show());
 	}
 
 	alertUser() {
@@ -2117,30 +2123,32 @@ const WindowSize = () => {
 ```angular-ts
 @Component({
 	selector: "window-size",
-	standalone: true,
-	template: `
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
 		<div>
-			<p>Height: {{ height }}</p>
-			<p>Width: {{ width }}</p>
+			<p>Height: {{ height() }}</p>
+			<p>Width: {{ width() }}</p>
 		</div>
 	`,
 })
-class WindowSizeComponent implements OnInit, OnDestroy {
-	height = window.innerHeight;
-	width = window.innerWidth;
+class WindowSizeComponent {
+	height = signal(window.innerHeight);
+	width = signal(window.innerWidth);
 
 	// This must be an arrow function, see below for more
 	resizeHandler = () => {
-		this.height = window.innerHeight;
-		this.width = window.innerWidth;
+		this.height.set(window.innerHeight);
+		this.width.set(window.innerWidth);
 	};
 
-	ngOnInit() {
-		window.addEventListener("resize", this.resizeHandler);
-	}
+	constructor() {
+		effect(onCleanup => {
+			window.addEventListener("resize", this.resizeHandler)		
 
-	ngOnDestroy() {
-		window.removeEventListener("resize", this.resizeHandler);
+			onCleanup(() => {
+				window.removeEventListener("resize", this.resizeHandler);			
+			})
+		})
 	}
 }
 ```
@@ -2259,7 +2267,7 @@ So, if you have the following code:
 let i = 0;
 const App = () => {
 	useEffect(() => {
-		alert(`I am rendering. Counter: ${++i}`);
+		alert(`I am initialized. Counter: ${++i}`);
 	}, []);
 
 	// ...
@@ -2274,12 +2282,12 @@ createRoot(document.getElementById("root")).render(
 
 You'd see two `alert`s when the component renders:
 
-1. `I am rendering. Counter: 1`
-2. `I am rendering. Counter: 2`
+1. `I am initialized. Counter: 1`
+2. `I am initialized. Counter: 2`
 
 However, if you disable `StrictMode` your output will be:
 
-1. `I am rendering. Counter: 1`
+1. `I am initialized. Counter: 1`
 
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="React Ensure Cleanup - StackBlitz" src="pfp-code:./ffg-fundamentals-react-ensure-cleanup-37?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
@@ -2291,11 +2299,11 @@ If you have code that does not work with `StrictMode`, this is most likely the c
 
 ### Angular
 
-Angular does not have any special behaviors with `OnInit` to force component cleanup. React, however, does.
+Angular does not have any special behaviors with `effect` to force component cleanup. React, however, does.
 
 ### Vue
 
-Vue does not have any special behaviors with `OnInit` to force component cleanup. React, however, does.
+Vue does not have any special behaviors with `onMounted` or `watchEffect` to force component cleanup. React, however, does.
 
 <!-- ::end:tabs -->
 
@@ -2382,8 +2390,6 @@ Angular does not have a lifecycle method specifically for when a component re-re
 
 This isn't to say that Angular components don't re-draw the DOM — we've already demonstrated that it's able to live-refresh the DOM when data changes — just that Angular doesn't provide a lifecycle for detecting when it does.
 
-To answer "why" this occurs is a much longer topic, [which I've written about in a dedicated blog post](/posts/angular-internals-zonejs). In the meantime, feel free to see how the other two frameworks work as a reference to what you might expect elsewhere.
-
 ## Vue
 
 ```vue {3,11-13}
@@ -2447,18 +2453,18 @@ const App = () => {
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
-			<button (click)="title = 'Movies'">Movies</button>
-			<button (click)="title = 'Music'">Music</button>
-			<button (click)="title = 'Documents'">Documents</button>
-			<p>{{ title }}</p>
+			<button (click)="title.set('Movies')">Movies</button>
+			<button (click)="title.set('Music')">Music</button>
+			<button (click)="title.set('Documents')">Documents</button>
+			<p>{{ title() }}</p>
 		</div>
 	`,
 })
 class AppComponent {
-	title = "Movies";
+	title = signal("Movies");
 }
 ```
 
@@ -2584,36 +2590,70 @@ useEffect(() => {
 
 ## Angular
 
-_Today_, Angular does not include a method for tracking internal state changes. However, a future version of Angular will introduce the concept of ["Signals"](https://angular.dev/guide/signals), which will allow us to watch changes made to a variable, regardless of where the state change comes from.
+I mentioned earlier in this chapter that `effect` is able to run more than once. This occurs when you have a signal being read inside of the `effect`:
 
-Instead, we'll have to use a `setTitle` function that calls the variable mutation as well as sets the `document.title` as a side effect:
+```typescript
+// Will rerun whenever `signalVar` is changed
+effect(() => {
+	const val = signalVar();
+	console.log(val);
+})
+```
+
+Knowing this, we can track the usage of `title` as a signal like so:
 
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
-			<button (click)="title = setTitles('Movies')">Movies</button>
-			<button (click)="title = setTitles('Music')">Music</button>
-			<button (click)="title = setTitles('Documents')">Documents</button>
-			<p>{{ title }}</p>
+			<button (click)="title.set('Movies')">Movies</button>
+			<button (click)="title.set('Music')">Music</button>
+			<button (click)="title.set('Documents')">Documents</button>
+			<p>{{ title() }}</p>
 		</div>
 	`,
 })
 class AppComponent {
-	setTitles(val: string) {
-		document.title = val;
-		return val;
-	}
+	title = signal("Movies");
 
-	title = this.setTitles("Movies");
+	constructor() {
+		// effect will re-run whenever `this.title` is updated
+		effect(() => {
+			document.title = this.title();
+
+			// Adding an alert so that it's easier to see when the effect runs
+			alert(`The title is now ${this.title()}`);
+		});
+	}
 }
 ```
 
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular In-Component Side Effects - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-in-component-side-effects-39?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
+
+### Untracking Signals {#untracked-signal}
+
+> If effects re-run based on signals that are read, what if I wanted to read a signal without triggering an `effect` run?
+
+Good question! Luckily, Angular can do this using the `untracked` method:
+
+```typescript
+import {signal, effect, untracked} from "@angular/core";
+
+const count = signal(0);
+
+effect(() => {
+	const untrackedCount = untracked(count);
+	// Will only run once
+	console.log(untrackedCount);
+})
+
+// Will not trigger the `effect`
+count.set(1);
+```
 
 ## Vue
 
@@ -2873,7 +2913,105 @@ While the initial value is set to `10` with an arrow pointing to the `1`, if we 
 
 ## Angular
 
-Because Angular does not use a virtual DOM, it does not have a method to detect specific parts of the reconciliation process.
+While Angular does not use a virtual DOM, it does have an API that executes outside the timeline of a normal `effect`: `afterRenderEffect`.
+
+Take the following code for example:
+
+```angular-ts
+@Component({
+  selector: 'app-root',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div>
+      <input
+        type="number"
+        [value]="num()"
+        (input)="num.set($any($event.target).valueAsNumber)"
+      />
+      <div style="display: flex; justify-content: flex-end">
+        <h1 id="number" style="display: inline-block">
+          {{ num() }}
+        </h1>
+      </div>
+      <h1
+        style="position: absolute; left: {{ bounding().left }}px; top: {{
+          bounding().top + bounding().height
+        }}px"
+      >
+        ^
+      </h1>
+    </div>
+  `,
+})
+class App {
+  num = signal(10);
+
+  bounding = signal({
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    height: 0,
+  });
+
+  constructor() {
+    effect(() => {
+      const _rerunWhenThisIsUpdated = this.num();
+      // This should be using a `viewChild`. More on that in a future chapter
+      const el = document.querySelector('#number');
+      const b = el?.getBoundingClientRect();
+      if (!b) return;
+      this.bounding.set(b);
+    });
+  }
+}
+```
+
+Here, we're trying to read the `#number` element whenever the `num()` signal changes to draw a `^` symbol at the start of the number.
+
+However, if we look at the output, we'll see that it points instead at the second number, not the start:
+
+![An uptick symbol incorrectly facing the first zero in a number of 1000 painted in the DOM](./broken_dom_measure_uselayout_effect.png)
+
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Broken Rendering, Committing, Painting - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-committing-painting-broken-40?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
+
+This is because `effect` is executing before the component has written the updated values to the DOM. This means that instead of reading `1000`, it's reading `100` and then drawing _that_ value.
+
+Once we migrate this to an `afterRenderEffect`, which runs _after_ the app has updated the DOM so that `el` is defined when we read the value, it works as-expected:
+
+```angular-ts
+import {afterRenderEffect} from "@angular/core";
+
+@Component({
+	// ...
+})
+class App {
+  // ...
+
+  constructor() {
+    afterRenderEffect(() => {
+      const _rerunWhenThisIsUpdated = this.num();
+      // This should be using a `viewChild`. More on that in a future chapter
+      const el = document.querySelector('#number');
+      const b = el?.getBoundingClientRect();
+      if (!b) return;
+      this.bounding.set(b);
+    });
+  }
+}
+```
+
+
+
+![An uptick symbol correctly facing the 1 in a number of 1000 painted in the DOM](./dom_measure_uselayout_effect.png)
+
+<!-- ::start:no-ebook -->
+<iframe data-frame-title="Angular Rendering, Committing, Painting - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-committing-painting-40?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<!-- ::end:no-ebook -->
+
+> Want to learn more about Angular's internal timing of `effect` vs `afterRenderEffect`? [Check out our article on the topic to have a deep dive on the topic](/posts/angular-internals-timings).
 
 ## Vue
 
@@ -2990,7 +3128,7 @@ const TitleChanger = () => {
 ```angular-ts
 @Component({
 	selector: "title-changer",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="updateTitle('Movies')">Movies</button>
@@ -3000,12 +3138,12 @@ const TitleChanger = () => {
 		</div>
 	`,
 })
-export class TitleChangerComponent {
-	title = "Movies";
+class TitleChangerComponent {
+	title = signal("Movies");
 
 	updateTitle(val: string) {
 		setTimeout(() => {
-			this.title = val;
+			this.title.set(val);
 			document.title = val;
 		}, 5000);
 	}
@@ -3096,31 +3234,37 @@ const TitleChanger = () => {
 ```angular-ts
 @Component({
 	selector: "title-changer",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="updateTitle('Movies')">Movies</button>
 			<button (click)="updateTitle('Music')">Music</button>
 			<button (click)="updateTitle('Documents')">Documents</button>
-			<p>{{ title }}</p>
+			<p>{{ title() }}</p>
 		</div>
 	`,
 })
-export class TitleChangerComponent implements OnDestroy {
-	title = "Movies";
+class TitleChangerComponent {
+	title = signal("Movies");
 
-	timeoutExpire: any = null;
+	timeoutExpire = signal<any>(null);
 
 	updateTitle(val: string) {
-		clearTimeout(this.timeoutExpire);
-		this.timeoutExpire = setTimeout(() => {
-			this.title = val;
-			document.title = val;
-		}, 5000);
+		clearTimeout(this.timeoutExpire());
+		this.timeoutExpire.set(
+			setTimeout(() => {
+				this.title.set(val);
+				document.title = val;
+			}, 5000),
+		);
 	}
 
-	ngOnDestroy() {
-		clearTimeout(this.timeoutExpire);
+	constructor() {
+		effect((onCleanup) => {
+			onCleanup(() => {
+				clearTimeout(this.timeoutExpire());
+			});
+		});
 	}
 }
 ```
@@ -3313,53 +3457,40 @@ Here, the timestamp display will never update until you press the `button`. Even
 
 ## Angular
 
-> While writing this book, dear reader, I had a few goals. One of those goals was to not introduce an API without first explaining it. I am about to break this rule for the only time I'm aware of in this book. Please forgive me.
+To avoid a re-render while persisting a value in Angular, we can mutate a class property without using a `signal`:
 
-[While the internals of how Angular is able to detect changes in values are complex](/posts/angular-internals-zonejs), the simple answer is "It uses some magic in something called [Zone.js](/posts/angular-internals-zonejs) to automatically detect when you change a value."
-
-To sidestep this detection from Zone.js in Angular, you can tell the framework to run something "outside of Angular."
-
-To do this, we need to use ["Dependency Injection"](/posts/ffg-fundamentals-dependency-injection) to access Angular's internal `NgZone` reference and use the `runOutsideAngular` method:
-
-```angular-ts {1,20-22,32-34}
-import { Component, NgZone, OnDestroy, inject } from "@angular/core";
-
+```angular-ts {16,19,20-23,29}
 @Component({
 	selector: "title-changer",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<button (click)="updateTitle('Movies')">Movies</button>
 			<button (click)="updateTitle('Music')">Music</button>
 			<button (click)="updateTitle('Documents')">Documents</button>
-			<p>{{ title }}</p>
+			<p>{{ title() }}</p>
 		</div>
 	`,
 })
-export class TitleChangerComponent implements OnDestroy {
-	title = "Movies";
+class TitleChangerComponent {
+	title = signal("Movies");
 
 	timeoutExpire: any = null;
 
-	// This is using "Dependency Injection" (chapter 11)
-	// To access Angular's internals and expose them to you
-	ngZone = inject(NgZone);
-
 	updateTitle(val: string) {
 		clearTimeout(this.timeoutExpire);
-		// Do not run this in runOutsideAngular, otherwise `title` will never update
-		const expire = setTimeout(() => {
-			this.title = val;
+		this.timeoutExpire = setTimeout(() => {
+			this.title.set(val);
 			document.title = val;
 		}, 5000);
-
-		this.ngZone.runOutsideAngular(() => {
-			this.timeoutExpire = expire;
-		});
 	}
 
-	ngOnDestroy() {
-		clearTimeout(this.timeoutExpire);
+	constructor() {
+		effect((onCleanup) => {
+			onCleanup(() => {
+				clearTimeout(this.timeoutExpire);
+			});
+		});
 	}
 }
 ```
@@ -3367,8 +3498,6 @@ export class TitleChangerComponent implements OnDestroy {
 <!-- ::start:no-ebook -->
 <iframe data-frame-title="Angular Mutable Update Title - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-mutable-update-title-43?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
-
-> If `inject` seems magic to you, it might as well be. To explore how dependency injection works under-the-hood, [check out chapter 11, which explores the topic](/posts/ffg-fundamentals-dependency-injection).
 
 ## Vue
 
@@ -3421,7 +3550,7 @@ Let's take a look visually at how each framework calls the relevant APIs we've t
 
 ## Angular
 
-![When a component renders, it will trigger ngOnInit. Then, when a prop changes, it triggers ngOnChanges. Finally, when it unrenders, it will call ngOnDestroy.](./angular_lifecycles.png)
+![On the main loop, the component is created, which calls effect's first run. Then, the component renders, which calls the first run of afterRenderEffect. Then, the component has rendered and can re-render (more on that soon). Then, when the component unrenders, effect cleans up, and then afterRenderEffect cleans up. During re-renders, the VDOM updates occur, which calls the previous effect cleanup, and then the effect again. Then, the DOM updates which triggers the previous afterRenderEffect cleanup and the new afterRenderEffect.](./angular_signals.png)
 
 ## Vue
 
@@ -3502,7 +3631,7 @@ function DarkModeToggle() {
 ```angular-ts
 @Component({
 	selector: "dark-mode-toggle",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; gap: 1rem">
 			<label style="display: inline-flex; flex-direction: column">
@@ -3510,8 +3639,8 @@ function DarkModeToggle() {
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'light'"
-					(change)="setExplicitTheme('light')"
+					[checked]="explicitTheme() === 'light'"
+					(change)="explicitTheme.set('light')"
 				/>
 			</label>
 			<label style="display: inline-flex; flex-direction: column">
@@ -3519,8 +3648,8 @@ function DarkModeToggle() {
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'inherit'"
-					(change)="setExplicitTheme('inherit')"
+					[checked]="explicitTheme() === 'inherit'"
+					(change)="explicitTheme.set('inherit')"
 				/>
 			</label>
 			<label style="display: inline-flex; flex-direction: column">
@@ -3528,19 +3657,15 @@ function DarkModeToggle() {
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'dark'"
-					(change)="setExplicitTheme('dark')"
+					[checked]="explicitTheme() === 'dark'"
+					(change)="explicitTheme.set('dark')"
 				/>
 			</label>
 		</div>
 	`,
 })
 class DarkModeToggleComponent {
-	explicitTheme = "inherit";
-
-	setExplicitTheme(val: string) {
-		this.explicitTheme = val;
-	}
+	explicitTheme = signal("inherit");
 }
 ```
 
@@ -3636,22 +3761,23 @@ import { Component, ViewEncapsulation } from "@angular/core";
 
 @Component({
 	selector: "dark-mode-toggle",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	// ...
 })
 class DarkModeToggleComponent {
 	explicitTheme = "inherit";
 
-	setExplicitTheme(val: string) {
-		this.explicitTheme = val;
 
-		document.documentElement.className = val;
+	constructor() {
+		effect(() => {
+			document.documentElement.className = val;
+        });
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DarkModeToggleComponent],
 	// This allows our CSS to be global, rather than limited to the component
 	encapsulation: ViewEncapsulation.None,
@@ -3785,39 +3911,38 @@ function DarkModeToggle() {
 ```angular-ts
 @Component({
 	selector: "dark-mode-toggle",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	// ...
 })
 class DarkModeToggleComponent implements OnInit, OnDestroy {
-	explicitTheme = "inherit";
+	explicitTheme = signal("inherit");
 
 	isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-	osTheme = this.isOSDark.matches ? "dark" : "light";
-
 	// Remember, this has to be an arrow function, not a method
 	changeOSTheme = () => {
-		this.setExplicitTheme(this.isOSDark.matches ? "dark" : "light");
+		this.explicitTheme.set(this.isOSDark.matches ? "dark" : "light");
 	};
 
-	ngOnInit() {
-		this.isOSDark.addEventListener("change", this.changeOSTheme);
-	}
 
-	ngOnDestroy() {
-		this.isOSDark.removeEventListener("change", this.changeOSTheme);
-	}
+	constructor() {
+		effect((onCleanup) => {
+			this.isOSDark.addEventListener("change", this.changeOSTheme);
+			onCleanup(() => {
+				this.isOSDark.removeEventListener("change", this.changeOSTheme);
+			});
+		});
+		
+		
+		effect(() => {
+			if (this.explicitTheme() === "implicit") {
+				document.documentElement.className = this.explicitTheme();
+				return;
+			}
 
-	setExplicitTheme(val: string) {
-		this.explicitTheme = val;
-
-		if (val === "implicit") {
-			document.documentElement.className = val;
-			return;
-		}
-
-		document.documentElement.className = val;
-	}
+			document.documentElement.className = this.explicitTheme();
+		});
+    }
 }
 ```
 
@@ -3982,7 +4107,7 @@ function App() {
 ```angular-ts {37,59}
 @Component({
 	selector: "dark-mode-toggle",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div style="display: flex; gap: 1rem">
 			<label style="display: inline-flex; flex-direction: column">
@@ -3990,8 +4115,8 @@ function App() {
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'light'"
-					(change)="setExplicitTheme('light')"
+					[checked]="explicitTheme() === 'light'"
+					(change)="explicitTheme.set('light')"
 				/>
 			</label>
 			<label style="display: inline-flex; flex-direction: column">
@@ -3999,8 +4124,8 @@ function App() {
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'inherit'"
-					(change)="setExplicitTheme('inherit')"
+					[checked]="explicitTheme() === 'inherit'"
+					(change)="explicitTheme.set('inherit')"
 				/>
 			</label>
 			<label style="display: inline-flex; flex-direction: column">
@@ -4008,50 +4133,48 @@ function App() {
 				<input
 					name="theme"
 					type="radio"
-					[checked]="explicitTheme === 'dark'"
-					(change)="setExplicitTheme('dark')"
+					[checked]="explicitTheme() === 'dark'"
+					(change)="explicitTheme.set('dark')"
 				/>
 			</label>
 		</div>
 	`,
 })
-class DarkModeToggleComponent implements OnInit, OnDestroy {
-	explicitTheme = localStorage.getItem("theme") || "inherit";
+class DarkModeToggleComponent {
+	explicitTheme = signal(localStorage.getItem("theme") || "inherit");
 
 	isOSDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-	osTheme = this.isOSDark.matches ? "dark" : "light";
-
 	// Remember, this has to be an arrow function, not a method
 	changeOSTheme = () => {
-		this.setExplicitTheme(this.isOSDark.matches ? "dark" : "light");
+		this.explicitTheme.set(this.isOSDark.matches ? "dark" : "light");
 	};
 
-	ngOnInit() {
-		this.isOSDark.addEventListener("change", this.changeOSTheme);
-	}
+	constructor() {
+		effect(() => {
+			localStorage.setItem("theme", this.explicitTheme());
+		});
 
-	ngOnDestroy() {
-		this.isOSDark.removeEventListener("change", this.changeOSTheme);
-	}
+		effect(() => {
+			if (this.explicitTheme() === "implicit") {
+				document.documentElement.className = this.explicitTheme();
+				return;
+			}
 
-	setExplicitTheme(val: string) {
-		this.explicitTheme = val;
+			document.documentElement.className = this.explicitTheme();
+		});
 
-		localStorage.setItem("theme", val);
-
-		if (val === "implicit") {
-			document.documentElement.className = val;
-			return;
-		}
-
-		document.documentElement.className = val;
+		effect((onCleanup) => {
+			this.isOSDark.addEventListener("change", this.changeOSTheme);
+			onCleanup(() => {
+				this.isOSDark.removeEventListener("change", this.changeOSTheme);
+			});
+		});
 	}
 }
 
 @Component({
 	selector: "app-root",
-	standalone: true,
 	imports: [DarkModeToggleComponent],
 	// This allows our CSS to be global
 	encapsulation: ViewEncapsulation.None,
@@ -4068,6 +4191,7 @@ class DarkModeToggleComponent implements OnInit, OnDestroy {
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div>
 			<dark-mode-toggle />

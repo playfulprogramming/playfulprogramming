@@ -2,6 +2,7 @@
 import styles from "./hero-fundamentals.module.scss";
 import Sun from "../../framework-field-guide/cover-layers/fundamentals/sun.astro";
 import BigFilledButton from "../../framework-field-guide/components/big-filled-button.astro";
+import ribbon from "../assets/ribbon.svg";
 ---
 
 <section class={`class-book-1 class-book-hero`}>
@@ -17,6 +18,11 @@ import BigFilledButton from "../../framework-field-guide/components/big-filled-b
 			</p>
 			<h1 class={`text-style-display-1 ${styles.seriesTitle}`}>Fundamentals</h1>
 			<div class={styles.readNowContainer}>
+				<div class={styles.ribbonContainer}>
+					<img src={ribbon.src} alt="" class={styles.leftRibbon} />
+					<p class={`${styles.ribbonText} text-style-button`}>Second edition</p>
+					<img src={ribbon.src} alt="" class={styles.rightRibbon} />
+				</div>
 				<p class={`text-style-headline-6 ${styles.ffgDescription}`}>
 					This is part one of the <a
 						href="/collections/framework-field-guide"

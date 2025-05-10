@@ -1,27 +1,33 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 
-import { Injectable, Component, inject } from "@angular/core";
+import {
+	signal,
+	Component,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 
-@Injectable()
-class WindowSize {
-	height = window.innerHeight;
-	width = window.innerWidth;
-}
+const useWindowSize = () => {
+	const height = signal(window.innerHeight);
+	const width = signal(window.innerWidth);
+
+	return { height, width };
+};
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<p>
-			The window is {{ windowSize.height }}px high and {{ windowSize.width }}px
-			wide
+			The window is {{ windowSize.height() }}px high and
+			{{ windowSize.width() }}px wide
 		</p>
 	`,
-	providers: [WindowSize],
 })
 class AppComponent {
-	windowSize = inject(WindowSize);
+	windowSize = useWindowSize();
 }
 
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});
