@@ -9,21 +9,21 @@
 }
 ---
 
-Writing tests is a part of programming and the skills that allow for good test writing are deviant from the typical programming skillset. This isn't to say that programming and writing tests are entirely separated from one another, but that writing tests requires a different mindset when approaching them. One of the primary differences between most programming and writing tests is that it tends to benefit your application by writing simpler tests.
+Writing tests is a part of programming and the skills that allow for good test writing are deviant from the typical programming skillset. This isn't to say that programming and writing tests are entirely separate from one another, but that writing tests requires a different mindset when approaching them. One of the primary differences between most programming and writing tests is that it tends to benefit your application by writing simpler tests.
 
-We’ve collected five methods for simplifying your tests while making them easier to write, understand, and debug.
+We've collected five methods for simplifying your tests while making them easier to write, understand, and debug.
 
 You may notice that our code samples use various libraries from [the Testing Library suite of libraries](https://testing-library.com/). This is because we feel that these testing methodologies mesh well with the user-centric testing that the library encourages.
 
 > Keep in mind that Jest (and furthermore, Testing Library) is not exclusive to 
 > any specific framework or toolset. This article is meant just as general advice for testing.
 >
-> That said if you're looking to include Jest and Testing Library into your Angular app,
+> That said, if you're looking to include Jest and Testing Library into your Angular app,
 > but don't know where to start, [we wrote a guide on how to do just that](/posts/writing-better-angular-tests/)
 
 # Don't Include Application Logic in Tests {#dont-include-logic}
 
-I'd like to make a confession: I love metaprogramming. Whether it's typings, complex libraries, babel plugins, it's all joyous for me to write.
+I'd like to make a confession: I love metaprogramming. Whether it's typings, complex libraries, babel plugins — it's all joyous for me to write.
 
 The problem that I face is that I find it's often not joyous for others to read (or debug, for that matter). This is especially pronounced in my testing: when I don't keep things simple my tests tend to suffer.
 
@@ -43,12 +43,12 @@ const rows = [{
 	// ... A collection of objects that contains a name, phone number, and date of birth
 }]
 
-  rows.forEach((row, index) => {
-      const domRow = screen.getByTestId(`row-${index}`);
-      expect(getByText(domRow,row.name)).toBeInTheDocument();
-      expect(getByText(domRow, moment(row.dob).format(formatDate))).toBeInTheDocument();
-      expect(getByText(domRow, row.phone)).toBeInTheDocument();
-    });
+rows.forEach((row, index) => {
+  const domRow = screen.getByTestId(`row-${index}`);
+  expect(getByText(domRow,row.name)).toBeInTheDocument();
+  expect(getByText(domRow, moment(row.dob).format(formatDate))).toBeInTheDocument();
+  expect(getByText(domRow, row.phone)).toBeInTheDocument();
+});
 ```
 
 While this code is relatively easy to read through, it's not immediately clear what content we're looking to see on-screen.
@@ -79,7 +79,7 @@ This code is much more repetitive, and it's not the perfect code example (we'll 
 
 When bringing up this point to a coworker, they reminded me of the expression "Write code for your audience." In this case, your audience is Junior developers on your team working on debugging why a test is failing, QA engineers who might not be familiar with your programming language, and yourself when in the middle of deploying something integral to production when your tests unexpectedly fail. Each of these scenarios directly benefits from simpler, easier to parse, less utility-driven tests.
 
-Furthermore, there's another advantage to writing code simpler: Error messages. When using `for` loops, when an error is thrown, it's not known what piece of data is not rendering. You only know that _something_ isn't being rendered, but not what data, in particular, is missing. If I dropped the third row in its entirety, the error message in the `for` loop will not indicate what row was throwing the error. However, removing them from the for loop, it will immediately be clear which row, in particular, is throwing the error.
+Furthermore, there's another advantage to writing code simpler: Error messages. When using `for` loops, when an error is thrown, it's not known which piece of data is not rendering. You only know that _something_ isn't being rendered, but not what data, in particular, is missing. If I dropped the third row in its entirety, the error message in the `for` loop would not indicate which row was throwing the error. However, removing them from the `for` loop will immediately make it clear which row, in particular, is throwing the error.
 
 # Hardcode Your Testing Data {#hardcode-data}
 
@@ -118,17 +118,17 @@ expect(screen.getByText('2020/01/14')).toBeInTheDocument();
 expect(screen.getByText('964.170.7677')).toBeInTheDocument();
 ```
 
-The second test has some other advantages that might not seem immediately clear. For one, not only is it readable and more debuggable exactly _what_ isn't showing on the screen, but when you remove your code one step further away from implementation, it might highlight bugs with said implementation. For example, you notice that we were using `moment` in the first code sample. Since we're hardcoding data in the second code sample, if there's a bug in how we display our dates, then it'll be picked up whereas it might not be found when using `moment`.
+The second test has some other advantages that might not seem immediately clear. For one, not only is it readable and more debuggable exactly _what_ isn't showing on the screen, but when you remove your code one step further away from implementation, it might highlight bugs with said implementation. For example, you notice that we were using `moment` in the first code sample. Since we're hardcoding data in the second code sample, if there's a bug in how we display our dates, then it'll be picked up, whereas it might not be found when using `moment`.
 
 This leads to another rationale for hardcoding data and simplifying tests in general: Debugging code sucks, debugging testing code doubly so. When you hardcode data, the worst a bug can get is a mistyped string. When not using hardcoded data, there could be any number of bugs in the implementation of the runtime randomization.
 
-So, the question remains, how do you generate large quantities of random data without manually writing them in?
+So, the question remains: How do you generate large quantities of random data without manually writing them in?
 
 Well, you're able to do them programmatically just as you did before. You just want to do so once on your local development machine and commit it as its own file. For example, if you save the following file to a JS file:
 
 ```javascript
- const faker = require('faker')
- const fs = require('fs')
+ const faker = require('faker');
+ const fs = require('fs');
 
  const generatePerson = () => ({
   name: faker.name.findName(),
@@ -138,16 +138,16 @@ Well, you're able to do them programmatically just as you did before. You just w
 
 const data = Array.from({length: 20}, () => generatePerson());
 
-const rows = JSON.stringify(genRows(20), null, 2)
+const rows = JSON.stringify(data, null, 2);
 
 fs.writeFileSync('mock_data.js', `module.exports = ${rows}`);
 ```
 
-You can then run `const mockData = require('./mock_data.js')` inside of your test file. Now, you should be able to hardcode your data, knowing what the first, second, and third index are.
+You can then run `const mockData = require('./mock_data.js')` inside your test file. Now, you should be able to hardcode your data, knowing what the first, second, and third indices are.
 
 # Keep Tests Focused {#seperate-tests}
 
-While working on tests, it can be easy to group together actions into a single test. For example, let's say we want to test our table component for the following behaviors:
+While working on tests, it can be easy to group actions into a single test. For example, let's say we want to test our table component for the following behaviors:
 
 
 Shows all of the column data on users
@@ -171,7 +171,7 @@ it('should render content properly', () => {
 
 However, when you look at your failing tests, the message that's displayed is vague and harder to debug. Furthermore, it clutters your tests and makes your intentions less clear.
 
-I would alternatively suggest separating them out and displaying them as two separate tests:
+I would alternatively suggest separating them and displaying them as two separate tests:
 
 ```javascript
 it('should render all columns of data', () => {
@@ -189,7 +189,8 @@ it('should not render people from page 2 when page 1 is focused', () => {
 
 While this may cause slower tests as a result of duplicating the `render` function's actions, it's worth mentioning that most of these tests should run in milliseconds, making the extended time minimally impact you.
 
-Even further, I would argue that the extended time is worth the offset of having clearer, more scope restricted tests. These tests will assist with debugging and maintainability of your tests.
+Even further, I would argue that the extended time is worth the offset of having clearer, more scope-restricted tests. These tests will assist with debugging and maintainability of your tests.
+
 # Don't Duplicate What You're Testing  {#dont-duplicate}
 
 There's yet another advantage of keeping your tests separated by `it` blocks that I haven't mentioned yet: It frees you to reduce the amount of logic you include in the next test. Let's take the code example from before:
@@ -212,7 +213,7 @@ While this test seems reasonable at first, I would prose that the tests contain 
 
 This might be a bad example. Maybe you want to demonstrate that all of your columns are un-rendering properly. Fair enough! Let's take a look at another example.
 
-Let's say that I want to make sure that when my table has pagination disabled that we want to see every single person in the table. We could write our tests one of two ways:
+Let's say that I want to make sure that when my table has pagination disabled, we want to see every single person in the table. We could write our tests in one of two ways:
 
 ```javascript
 it('should render all columns of data', () => {
@@ -253,11 +254,11 @@ it('should render all of the users', () => {
 
 In this example, I would prefer the second test. It's closer to how I would manually check if all of the data was rendered, and it reduces the size of my tests. We already know that the columns are all being rendered, why not trust your first test and separate what logic you're testing for the next test? This makes debugging easier as well. If your phone number column isn't rendering, it will only fail one test, not two. This makes it easier to pinpoint what's gone wrong and how to fix it.
 
-Ultimately, when writing tests, a good rule to follow is "They should read like simple instructions that can be run, tested, and understood by a person with no technical knowledge"
+Ultimately, when writing tests, a good rule to follow is "They should read like simple instructions that can be run, tested, and understood by a person with no technical knowledge."
 
-# Don’t Include Network Logic in Your Render Tests  {#seperate-network-logic}
+# Don't Include Network Logic in Your Render Tests  {#seperate-network-logic}
 
-Let's say in a component we want to include some logic to implement some social features. We’ll follow all the best practices and have a wonderful looking app with GraphQL using ApolloGraphQL as our integration layer so we don’t need to import a bunch of APIs and can hide them behind our server. Now we’re writing out tests and we have a _ton_ of mocked network data services and mock providers. Why do we need all of this for our render?
+Let's say in a component we want to include some logic to implement some social features. We'll follow all the best practices and have a wonderful-looking app with GraphQL using Apollo GraphQL as our integration layer, so we don't need to import a bunch of APIs and can hide them behind our server. Now we're writing out tests and we have a _ton_ of mocked network data services and mock providers. Why do we need all of this for our render?
 
 ```javascript
 // ConnectedComponent.spec.tsx
@@ -269,12 +270,12 @@ it("renders", async () => {
   );
 
   expect(getByText("Loading component...")).toBeInTheDocument();
-  waitForElement(() => expect(getByText(“Element”)).toBeInTheDocument());
+  waitForElement(() => expect(getByText("Element")).toBeInTheDocument());
   expect(getByText("FirstName")).toBeInTheDocument();
 });
 ```
 
-We have a `MockedProvider`, `mocks`, extra logic for loading states, and then finally what our tests really care about with how things get rendered to the screen. We’ve taken our wonderful, strong tests and made them fragile and dependent on this specific implementation. How do we make it so that if we swap out our data layer we can make sure our tests and components will still work just fine with minimal updates?
+We have a `MockedProvider`, `mocks`, extra logic for loading states, and then finally what our tests really care about with how things get rendered to the screen. We've taken our wonderful, strong tests and made them fragile and dependent on this specific implementation. How do we make it so that if we swap out our data layer we can make sure our tests and components will still work just fine with minimal updates?
 
 Thankfully the answer to that is pretty easy. Taking a cursory glance at our component we see a data layer and some logic for the data layer.
 
@@ -282,16 +283,16 @@ Thankfully the answer to that is pretty easy. Taking a cursory glance at our com
 // ConnectedComponent.tsx
 export default () => {
   const { data } = userQueryHook();
-  const { user } = data?.user; 
-  
+  const { user } = data?.user;
+
   return !user
     ? <span>Loading component…</span>
     : <><span>Element</span><span>{user.first}</span></>
 ```
 
-Here the component will mount into the DOM and then go and fetch some user data to store in the state. This isn’t necessarily a bad thing. It does mean that the tests would need a way to test the component and the network layer logic.
+Here the component will mount into the DOM and then go and fetch some user data to store in the state. This isn't necessarily a bad thing. It does mean that the tests would need a way to test the component and the network layer logic.
 
-We don’t want our tests doing that as now our component and the test is directly tied into how the exact component was implemented and is closer to an integration test instead of a unit test in regards to what we render. Instead, we need to remove that logic so that the component can just render. We can do this in several ways, but the easiest and fastest method with a simple component like this one is to extract the data fetch to a layer higher and simply receive the data as a prop.
+We don't want our tests doing that as now our component and the test is directly tied into how the exact component was implemented and is closer to an integration test instead of a unit test in regards to what we render. Instead, we need to remove that logic so that the component can just render. We can do this in several ways, but the easiest and fastest method with a simple component like this one is to extract the data fetch to a layer higher and simply receive the data as a prop.
 
 ```javascript
 // ConnectedComponentRender.tsx
@@ -306,13 +307,13 @@ export default ({ user }:{ user: UserType }) => {
 // ConnectedComponent.tsx
 export default () => {
   const { data } = userQueryHook();
-  const { user } = data?.user; 
+  const { user } = data?.user;
 
   return <ConnectedComponentRender user={ user } />
 }
 ```
 
-Now the tests for the rendered component look much simpler
+Now the tests for the rendered component look much simpler.
 
 ```javascript
 // ConnectedComponent.spec.tsx
@@ -323,9 +324,9 @@ it("renders without data", async () => {
 });
 
 it("renders with data", async () => {
-  const { findByText, getByText } = render(<ConnectedComponentRender user={ first: ‘FirstName’ } />);
+  const { findByText, getByText } = render(<ConnectedComponentRender user={ first: 'FirstName' } />);
 
-  expect(getByText(“Element”)).toBeInTheDocument();
+  expect(getByText("Element")).toBeInTheDocument();
   expect(getByText("FirstName")).toBeInTheDocument();
 });
 ```
@@ -338,4 +339,4 @@ When using large amounts of network data that you'd like to mock, be sure to [ha
 
 Using these methods, tests can be simplified, often made faster, and typically shorten the length of a testing file. While this may sound straightforward on a surface level, writing tests is a skill that's grown like any other. Practice encourages growth, so don't be discouraged if your tests aren't as straightforward as you'd like to first.
 
-If you have any questions about testing, or maybe have a test you're unsure how to simplify, be sure to join [our Discord Server](https://discord.gg/FMcvc6T). We engage in tons of engineering discussions there and even live pair-program solutions when able. 
+If you have any questions about testing, or maybe have a test you're unsure how to simplify, be sure to join [our Discord Server](https://discord.gg/FMcvc6T). We engage in tons of engineering discussions there and even live pair-program solutions when able.
