@@ -2,6 +2,7 @@ name: Deploy Search Index
 
 on:
   push:
+    branches: [main]
 
 env:
   CI: true
@@ -22,7 +23,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --ignore-scripts
 
       - name: Deploy Index
         env:
