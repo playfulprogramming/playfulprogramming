@@ -1,8 +1,10 @@
-export const ORAMA_POSTS_ENDPOINT =
-	"https://cloud.orama.run/v1/indexes/playful-programming-p9lpvl";
+export const ORAMA_POSTS_INDEX = "playful-programming-p9lpvl"; // TODO: update to v2 index
+export const ORAMA_POSTS_INDEX_ID = "we6n7imrhjp1t09e4lgiuazp";
+export const ORAMA_POSTS_ENDPOINT = `https://cloud.orama.run/v1/indexes/${ORAMA_POSTS_INDEX}`;
 export const ORAMA_POSTS_API_KEY = "OLeHrFPWLR0alSSZkMiq4tokMZZNEbDL";
-export const ORAMA_COLLECTIONS_ENDPOINT =
-	"https://cloud.orama.run/v1/indexes/playful-programming-collections-oksaw0";
+export const ORAMA_COLLECTIONS_INDEX = "playful-programming-collections-oksaw0"; // TODO: update to v2 index
+export const ORAMA_COLLECTIONS_INDEX_ID = "fwj1juwsjd6uzu2pqj9u1s9h";
+export const ORAMA_COLLECTIONS_ENDPOINT = `https://cloud.orama.run/v1/indexes/${ORAMA_COLLECTIONS_INDEX}`;
 export const ORAMA_COLLECTIONS_API_KEY = "yxsPLU2kjhAjjNxTUQ4F6c3bF9eXUSNJ";
 export const ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD = 3;
 export const MAX_POSTS_PER_PAGE = 4;
