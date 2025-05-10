@@ -6,9 +6,7 @@ import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
 import { getExcerpt } from "utils/markdown/get-excerpt";
 import matter from "gray-matter";
 import {
-	ORAMA_COLLECTIONS_INDEX,
 	ORAMA_COLLECTIONS_INDEX_ID,
-	ORAMA_POSTS_INDEX,
 	ORAMA_POSTS_INDEX_ID,
 } from "src/views/search/constants";
 
@@ -34,25 +32,42 @@ interface ExtendedCollectionInfo extends CollectionInfo {
 
 async function deployPosts(posts: ExtendedPostInfo[]) {
 	const index = oramaCloudManager.index(ORAMA_POSTS_INDEX_ID);
-	console.log(`Uploading ${posts.length} posts to ${ORAMA_POSTS_INDEX}...`);
-	await index.snapshot(posts);
-	console.log(`Deploying ${ORAMA_POSTS_INDEX}...`);
-	await index.deploy();
-	console.log(`Index ${ORAMA_POSTS_INDEX} is deployed!`);
+	console.log(`Uploading ${posts.length} posts to ${ORAMA_POSTS_INDEX_ID}...`);
+	const isSnapshot = await index.snapshot(posts);
+	if (!isSnapshot) {
+		throw new Error("Unable to upload posts.");
+	}
+
+	console.log(`Deploying ${ORAMA_POSTS_INDEX_ID}...`);
+	const isDeployed = await index.deploy();
+	if (!isDeployed) {
+		throw new Error("Unable to deploy posts.");
+	}
+
+	console.log(`Index ${ORAMA_POSTS_INDEX_ID} is deployed!`);
 }
 
 async function deployCollections(collections: ExtendedCollectionInfo[]) {
 	const index = oramaCloudManager.index(ORAMA_COLLECTIONS_INDEX_ID);
+
 	console.log(
-		`Uploading ${collections.length} collections to ${ORAMA_COLLECTIONS_INDEX}...`,
+		`Uploading ${collections.length} collections to ${ORAMA_COLLECTIONS_INDEX_ID}...`,
 	);
-	await index.snapshot(collections);
-	console.log(`Deploying ${ORAMA_COLLECTIONS_INDEX}...`);
-	await index.deploy();
-	console.log(`Index ${ORAMA_COLLECTIONS_INDEX} is deployed!`);
+	const isSnapshot = await index.snapshot(collections);
+	if (!isSnapshot) {
+		throw new Error("Unable to upload collections.");
+	}
+
+	console.log(`Deploying ${ORAMA_COLLECTIONS_INDEX_ID}...`);
+	const isDeployed = await index.deploy();
+	if (!isDeployed) {
+		throw new Error("Unable to deploy collections.");
+	}
+
+	console.log(`Index ${ORAMA_COLLECTIONS_INDEX_ID} is deployed!`);
 }
 
-const posts = Promise.all(
+const posts = await Promise.all(
 	api.getPostsByLang("en").map(async (post) => {
 		// Include complete post content as the excerpt
 		const vfile = await getMarkdownVFile(post);
@@ -75,7 +90,7 @@ const posts = Promise.all(
 	}),
 );
 
-posts.then((posts) => deployPosts(posts));
+await deployPosts(posts);
 
 const collections = api.getCollectionsByLang("en").map((collection) => {
 	const chapters = api.getPostsByCollection(collection.slug, "en");
@@ -98,4 +113,4 @@ const collections = api.getCollectionsByLang("en").map((collection) => {
 	} satisfies ExtendedCollectionInfo;
 });
 
-deployCollections(collections);
+await deployCollections(collections);
