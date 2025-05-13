@@ -77,12 +77,6 @@ export default defineConfig({
 		},
 	},
 	vite: {
-		server: {
-			headers: {
-				["Cross-Origin-Embedder-Policy"]: "require-corp",
-				["Cross-Origin-Opener-Policy"]: "same-origin",
-			},
-		},
 		optimizeDeps: {
 			exclude: ["msw", "msw/node", "sharp"],
 		},
