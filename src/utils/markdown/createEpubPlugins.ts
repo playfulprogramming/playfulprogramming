@@ -41,6 +41,7 @@ export function createEpubPlugins(unified: Processor) {
 			.use(rehypeMakeHrefPathsAbsolute)
 			.use(rehypeTransformComponents, {
 				components: {
+					["code-embed"]: ({ children }) => children,
 					filetree: ({ children }) => children,
 					["in-content-ad"]: ({ children }) => children,
 					["link-preview"]: ({ children }) => children,

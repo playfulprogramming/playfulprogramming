@@ -1,0 +1,129 @@
+/** @jsxRuntime automatic */
+import { Node, Element } from "hast";
+import { fromHtml } from "hast-util-from-html";
+import fs from "fs/promises";
+import { v4 as uuidv4 } from "uuid";
+
+const play = await fs.readFile("src/icons/play.svg", "utf8");
+const PlayIcon = fromHtml(play, { fragment: true }).children[0] as Element;
+
+const edit = await fs.readFile("src/icons/edit.svg", "utf8");
+const EditIcon = fromHtml(edit, { fragment: true }).children[0] as Element;
+
+const refresh = await fs.readFile("src/icons/refresh.svg", "utf8");
+const RefreshIcon = fromHtml(refresh, { fragment: true })
+	.children[0] as Element;
+
+interface CodeEmbedProps {
+	driver: string;
+	title?: string;
+	language?: string;
+	editUrl?: string;
+	snippets: { text: string; line: number }[];
+	children: Node[];
+	height?: string;
+
+	projectZip?: string;
+
+	address?: string;
+	staticUrl?: string;
+}
+
+/** @jsxImportSource hastscript */
+function CodeEmbedAddressBar(props: { address: string }) {
+	const id = uuidv4();
+	return (
+		<form id="code-embed-address" class="code-embed__address">
+			<label class="visually-hidden" for={`code-embed-input-${id}`}>
+				Address
+			</label>
+			<input
+				id={`code-embed-input-${id}`}
+				class="text-style-body-medium"
+				name="address"
+				type="url"
+				value={props.address}
+			/>
+			<button
+				aria-label="Reload"
+				class="button iconOnly regular primary text-style-button-regular"
+			>
+				<div aria-hidden="true" class="iconOnlyButtonIcon">
+					{RefreshIcon}
+				</div>
+			</button>
+		</form>
+	);
+}
+
+/** @jsxImportSource hastscript */
+export function CodeEmbed(props: CodeEmbedProps): Element {
+	return (
+		<div
+			class="code-embed"
+			data-code-embed={props.driver}
+			data-project-zip={props.projectZip}
+			style={{
+				["--code-embed_preview_height"]: props.height ? Number(props.height) + 'px' : "350px",
+			}}
+		>
+			{props.title ? (
+				<div class="code-embed__title">
+					<h3 class="text-style-body-medium-bold">{props.title}</h3>
+					{props.editUrl ? (
+						<a
+							href={props.editUrl}
+							class="button regular primary text-style-button-regular"
+						>
+							<div aria-hidden="true" class="buttonIcon">
+								{EditIcon}
+							</div>
+							<span class="innerText">Edit</span>
+						</a>
+					) : null}
+				</div>
+			) : null}
+			{props.snippets.map((snippet) => (
+				<div
+					style={`--codeblock-line-start: ${snippet.line - 1}`}
+					class="code-embed__snippet"
+				>
+					<pre class="shiki">
+						<code class={props.language ? `language-${props.language}` : ""}>
+							{snippet.text}
+						</code>
+					</pre>
+				</div>
+			))}
+			{props.children.length > 0 ? (
+				<div class="code-embed__content">{props.children}</div>
+			) : null}
+			{props.projectZip ? (
+				<>
+					{CodeEmbedAddressBar({
+						address: props.address ?? "http://localhost/",
+					})}
+					<div class="code-embed__preview">
+						<button
+							id="code-embed-run-preview"
+							class="button regular primary-emphasized text-style-button-regular code-embed__preview__button"
+						>
+							<div aria-hidden="true" class="buttonIcon">
+								{PlayIcon}
+							</div>
+							<div class="innerText">Run</div>
+						</button>
+					</div>
+				</>
+			) : null}
+			{props.driver == "static" && props.address ? (
+				<>
+					{CodeEmbedAddressBar({ address: props.address })}
+					<div class="code-embed__preview">
+						<iframe src={props.staticUrl} />
+					</div>
+				</>
+			) : null}
+		</div>
+	) as never;
+}

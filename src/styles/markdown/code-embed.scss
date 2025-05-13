@@ -1,0 +1,92 @@
+:root {
+	--code-embed_border-radius: var(--corner-radius_l);
+	--code-embed_border-color: var(--primary_variant);
+	--code-embed_border-width: var(--border-width_l);
+	--code-embed_padding: var(--spc-2x);
+
+	--code-embed_address_background: var(--surface_primary_emphasis-low);
+	--code-embed_address_border-radius: var(--corner-radius_m);
+	--code-embed_address_padding: var(--spc-3x);
+	--code-embed_address_color: var(--foreground_emphasis-medium);
+
+	--code-embed_preview_min-height: 50px;
+	--code-embed_preview_max-height: 500px;
+	--code-embed_preview_background: var(--surface_primary_emphasis-low);
+	--code-embed_preview_border-radius: var(--corner-radius_m);
+}
+
+.code-embed {
+	display: flex;
+	flex-direction: column;
+	gap: var(--code-embed_padding);
+
+	border: var(--code-embed_border-width) solid var(--code-embed_border-color);
+	border-radius: var(--code-embed_border-radius);
+	padding: var(--code-embed_padding);
+	margin: var(--site-spacing) 0;
+
+	&> pre.shiki, &__snippet > pre.shiki {
+		padding: 0;
+		margin: 0;
+		border: none;
+		border-radius: var(--code-embed_preview_border-radius);
+	}
+}
+
+.code-embed .code-embed__title {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding-left: var(--code-embed_padding);
+
+	&> *:first-child {
+		flex-grow: 1;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	&> * {
+		margin: 0;
+	}
+}
+
+.code-embed__address {
+	display: flex;
+	flex-direction: row;
+	margin: var(--code-embed_padding) 0;
+	gap: var(--code-embed_padding);
+
+	input {
+		flex-grow: 1;
+		background-color: var(--code-embed_address_background);
+		border: none;
+		border-radius: var(--code-embed_address_border-radius);
+		padding: 0 var(--code-embed_address_padding);
+		color: var(--code-embed_address_color);
+	}
+}
+
+.code-embed__preview {
+	height: var(--code-embed_preview_height, 300px);
+	min-height: var(--code-embed_preview_min-height);
+	max-height: var(--code-embed_preview_max-height);
+	position: relative;
+	background-color: var(--code-embed_preview_background);
+	border-radius: var(--code-embed_preview_border-radius);
+	overflow: clip;
+
+	&__button {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+	}
+
+	iframe {
+		border: none;
+		width: 100%;
+		height: 100%;
+		background: white;
+	}
+}

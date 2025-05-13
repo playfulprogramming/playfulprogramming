@@ -216,6 +216,16 @@ Pretend this is something very thought provoking[^1][^2]
 [Example Title ![](/share-banner.png)](https://example.com)
 # Heading [with a link](https://example.com) inside of it
 
+# Code Embeds
+
+<!-- ::code-embed title="1-inaccessible.html as a static embed" driver="static" project="example-a11y-form" file="1-inaccessible.html" lines="9-14" height="50" -->
+
+<!-- ::code-embed title="1-inaccessible.html in a webcontainer" project="example-a11y-form" file="1-inaccessible.html" lines="9-14" preview-url="1-inaccessible.html" -->
+
+<!-- ::code-embed title="2-visual-labels.html in the same webcontainer" project="example-a11y-form" file="2-visual-labels.html" lines="9-22" preview-url="2-visual-labels.html" -->
+
+<!-- ::code-embed title="React webcontainer" project="example-react" file="src/App.jsx" lines="3-12" -->
+
 # Thanks for taking the trip down here
 
 <a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>
