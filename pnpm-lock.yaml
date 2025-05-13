@@ -65,8 +65,8 @@ importers:
         specifier: ^8.1.2
         version: 8.1.2
       '@orama/orama':
-        specifier: ^3.0.5
-        version: 3.0.5
+        specifier: ^3.1.6
+        version: 3.1.6
       '@react-types/shared':
         specifier: ^3.27.0
         version: 3.27.0(@preact/compat@18.3.1(preact@10.25.4))
@@ -1277,8 +1277,8 @@ packages:
   '@orama/cuid2@2.2.3':
     resolution: {integrity: sha512-Lcak3chblMejdlSHgYU2lS2cdOhDpU6vkfIJH4m+YKvqQyLqs1bB8+w6NT1MG5bO12NUK2GFc34Mn2xshMIQ1g==}
 
-  '@orama/orama@3.0.5':
-    resolution: {integrity: sha512-0cQT/yzRrGCYemggH9Hz2gs7spdWJOqbKCdIRY/f4YkLEyodLMs0B9UXkikoFfLX3Gf2Pcduktlolv34cw79Yw==}
+  '@orama/orama@3.1.6':
+    resolution: {integrity: sha512-qtSrqCqRU93SjEBedz987tvWao1YQSELjBhGkHYGVP7Dg0lBWP6d+uZEIt5gxTAYio/YWWlhivmRABvRfPLmnQ==}
     engines: {node: '>= 16.0.0'}
 
   '@oramacloud/client@2.1.4':
@@ -7634,12 +7634,12 @@ snapshots:
     dependencies:
       '@noble/hashes': 1.7.1
 
-  '@orama/orama@3.0.5': {}
+  '@orama/orama@3.1.6': {}
 
   '@oramacloud/client@2.1.4':
     dependencies:
       '@orama/cuid2': 2.2.3
-      '@orama/orama': 3.0.5
+      '@orama/orama': 3.1.6
       lodash: 4.17.21
 
   '@oslojs/encoding@1.1.0': {}
