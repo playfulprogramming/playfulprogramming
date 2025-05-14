@@ -4,10 +4,23 @@
 	--code-embed_border-width: var(--border-width_l);
 	--code-embed_padding: var(--spc-2x);
 
+	--code-embed_address_outline_width: var(--border-width_s);
+	--code-embed_address_outline_width_focused: var(--border-width_m);
+	--code-embed_address_halo_width: var(--border-width_focus);
+	--code-embed_address_halo_color: var(--secondary_variant);
+
 	--code-embed_address_background: var(--surface_primary_emphasis-low);
+	--code-embed_address_background_hovered: var(--surface_primary_emphasis-low);
+	--code-embed_address_background_focused: var(--background_focus);
 	--code-embed_address_border-radius: var(--corner-radius_m);
 	--code-embed_address_padding: var(--spc-3x);
 	--code-embed_address_color: var(--foreground_emphasis-medium);
+	--code-embed_address_input_color: var(--foreground_emphasis-high);
+	--code-embed_address_outline_color: var(--surface_primary_emphasis-low);
+	--code-embed_address_outline_color_hovered: var(--foreground_emphasis-medium);
+	--code-embed_address_outline_color_focused: var(--secondary_default);
+	--code-embed_address_outline_width: var(--border-width_s);
+	--code-embed_address_outline_width_focused: var(--border-width_m);
 
 	--code-embed_preview_min-height: 50px;
 	--code-embed_preview_max-height: 500px;
@@ -51,19 +64,71 @@
 	}
 }
 
+.code-embed__content {
+	padding: var(--code-embed_padding);
+
+	&> :first-child {
+		margin-top: 0 !important;
+	}
+
+	&> :last-child {
+		margin-bottom: 0 !important;
+	}
+}
+
 .code-embed__address {
 	display: flex;
 	flex-direction: row;
 	margin: var(--code-embed_padding) 0;
 	gap: var(--code-embed_padding);
 
-	input {
+	&__input {
 		flex-grow: 1;
 		background-color: var(--code-embed_address_background);
-		border: none;
+		border: var(--code-embed_address_outline_width) solid var(--code-embed_address_outline_color);
 		border-radius: var(--code-embed_address_border-radius);
 		padding: 0 var(--code-embed_address_padding);
 		color: var(--code-embed_address_color);
+
+		display: inline-flex;
+		align-items: center;
+
+		&:hover {
+			background-color: var(--code-embed_address_background_hovered);
+			border-color: var(--code-embed_address_outline_color_hovered);
+		}
+
+		&:focus-within {
+			background-color: var(--code-embed_address_background_focused);
+			border-color: var(--code-embed_address_outline_color_focused);
+
+			// only use outline for the :focus-within state, for visibility in high-contrast themes
+			outline: calc(
+					var(--code-embed_address_outline_width_focused) - var(--code-embed_address_outline_width)
+				)
+				solid var(--code-embed_address_outline_color_focused);
+
+			box-shadow: 0 0 0
+				calc(
+					var(--code-embed_address_outline_width_focused) - var(--code-embed_address_outline_width) +
+						var(--code-embed_address_halo_width)
+				)
+				var(--code-embed_address_halo_color);
+		}
+
+		&::before {
+			content: attr(data-prefix);
+		}
+
+		input {
+			border: none;
+			background: none;
+			outline: none;
+			padding: 0;
+			height: 100%;
+			flex-grow: 1;
+			color: var(--code-embed_address_input_color);
+		}
 	}
 }
 
@@ -75,6 +140,74 @@
 	background-color: var(--code-embed_preview_background);
 	border-radius: var(--code-embed_preview_border-radius);
 	overflow: clip;
+
+	.code-embed__loader {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+
+		max-width: 80%;
+		width: 350px;
+
+		display: flex;
+		flex-direction: column;
+
+		ol {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		li {
+			display: flex;
+			align-items: center;
+			gap: var(--spc-2x);
+		}
+
+		@each $step in download, install, start {
+			&[data-step=#{$step}] .step-#{$step} ~ li {
+				.icon-loading, .icon-done { display: none }
+			}
+
+			&[data-step=#{$step}] .step-#{$step} {
+				.icon-pending, .icon-done { display: none }
+			}
+
+			&[data-step=#{$step}] li:not(.step-#{$step} ~ li, .step-#{$step}) {
+				.icon-pending, .icon-loading { display: none }
+			}
+		}
+
+		.icon-done {
+			color: var(--positive_default);
+		}
+
+		.icon-pending {
+			color: var(--primary_default);
+		}
+
+		.icon-loading {
+			color: var(--primary_default);
+			animation-name: spin;
+			animation-duration: .5s;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+		}
+
+		@keyframes spin {
+			from {transform:rotate(0deg);}
+			to {transform:rotate(360deg);}
+		}
+
+		&__console {
+			font-size: 0.875rem;
+			line-height: 1rem;
+			height: 1rem;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
 
 	&__button {
 		position: absolute;

@@ -25,26 +25,28 @@ interface CodeEmbedProps {
 
 	projectZip?: string;
 
+	addressPrefix?: string;
 	address?: string;
 	staticUrl?: string;
 }
 
 /** @jsxImportSource hastscript */
-function CodeEmbedAddressBar(props: { address: string }) {
+function CodeEmbedAddressBar(props: { prefix: string, address: string }) {
 	const id = uuidv4();
 	return (
 		<form id="code-embed-address" class="code-embed__address">
-			<label class="visually-hidden" for={`code-embed-input-${id}`}>
-				Address
+			<label for={`code-embed-input-${id}`} class="text-style-body-medium code-embed__address__input" data-prefix={props.prefix}>
+				<span class="visually-hidden">Address</span>
+				<input
+					id={`code-embed-input-${id}`}
+					name="address"
+					type="text"
+					value={props.address}
+				/>
 			</label>
-			<input
-				id={`code-embed-input-${id}`}
-				class="text-style-body-medium"
-				name="address"
-				type="url"
-				value={props.address}
-			/>
 			<button
+				id="code-embed-reload-preview"
+				type="button"
 				aria-label="Reload"
 				class="button iconOnly regular primary text-style-button-regular"
 			>
@@ -69,7 +71,7 @@ export function CodeEmbed(props: CodeEmbedProps): Element {
 		>
 			{props.title ? (
 				<div class="code-embed__title">
-					<h3 class="text-style-body-medium-bold">{props.title}</h3>
+					<p class="text-style-body-medium-bold">{props.title}</p>
 					{props.editUrl ? (
 						<a
 							href={props.editUrl}
@@ -101,9 +103,10 @@ export function CodeEmbed(props: CodeEmbedProps): Element {
 			{props.projectZip ? (
 				<>
 					{CodeEmbedAddressBar({
-						address: props.address ?? "http://localhost/",
+						prefix: props.addressPrefix ?? "",
+						address: props.address ?? "",
 					})}
-					<div class="code-embed__preview">
+					<div id="code-embed-preview-container" class="code-embed__preview">
 						<button
 							id="code-embed-run-preview"
 							class="button regular primary-emphasized text-style-button-regular code-embed__preview__button"
@@ -116,10 +119,10 @@ export function CodeEmbed(props: CodeEmbedProps): Element {
 					</div>
 				</>
 			) : null}
-			{props.driver == "static" && props.address ? (
+			{props.driver == "static" && props.staticUrl ? (
 				<>
-					{CodeEmbedAddressBar({ address: props.address })}
-					<div class="code-embed__preview">
+					{CodeEmbedAddressBar({ prefix: props.addressPrefix ?? "", address: props.address ?? "" })}
+					<div id="code-embed-preview-container" class="code-embed__preview">
 						<iframe src={props.staticUrl} />
 					</div>
 				</>

@@ -218,7 +218,9 @@ Pretend this is something very thought provoking[^1][^2]
 
 # Code Embeds
 
-<!-- ::code-embed title="1-inaccessible.html as a static embed" driver="static" project="example-a11y-form" file="1-inaccessible.html" lines="9-14" height="50" -->
+<!-- ::start:code-embed title="1-inaccessible.html as a static embed" driver="static" project="example-a11y-form" file="1-inaccessible.html" lines="9-14" height="80" -->
+This is some static hosted content:
+<!-- ::end:code-embed -->
 
 <!-- ::code-embed title="1-inaccessible.html in a webcontainer" project="example-a11y-form" file="1-inaccessible.html" lines="9-14" preview-url="1-inaccessible.html" -->
 

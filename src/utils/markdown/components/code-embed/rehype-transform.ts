@@ -74,7 +74,11 @@ async function createStaticEmbed({
 		editUrl: getStackblitzUrl(relative(vfile.cwd, projectDir), { file }),
 		language: extname(file).substring(1),
 		snippets: await getFileSnippets({ vfile, node, attributes, children }),
-		address: new URL(file, "http://localhost").toString(),
+		addressPrefix: new URL(
+			file.split("/").at(-1) ?? "",
+			"http://localhost",
+		).toString(),
+		address: "",
 		staticUrl: "/" + join(relative(vfile.cwd, projectDir), file),
 		children,
 	});
@@ -105,18 +109,14 @@ async function createWebcontainerEmbed({
 		language: extname(file).substring(1),
 		snippets: await getFileSnippets({ vfile, node, attributes, children }),
 		projectZip,
-		address: new URL(
-			attributes["preview-url"] ?? "",
-			"http://localhost",
-		).toString(),
+		addressPrefix: "http://localhost/",
+		address: attributes["preview-url"] ?? "",
 		children,
 	});
 }
 
 export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 	const driver = props.attributes.driver ?? "webcontainer";
-
-	// TODO: calculate heading level?
 
 	if (driver == "static") {
 		return await createStaticEmbed(props);
