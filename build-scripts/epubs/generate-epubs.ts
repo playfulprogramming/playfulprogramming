@@ -16,8 +16,8 @@ import {
 	rehypeReferencePage,
 	collectionMetaRecord,
 } from "utils/markdown/reference-page/rehype-reference-page";
-import { escapeHtml, fetchPageHtml, getPageTitle } from "utils/fetch-page-html";
 import { rehypeRemoveCollectionLinks } from "utils/markdown/rehype-remove-collection-links";
+import { getUrlMetadata } from "utils/hoof/get-url-metadata";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -28,6 +28,15 @@ interface GetReferencePageMarkdownOptions {
 	collectionPosts: PostInfo[];
 }
 
+function escapeHtml(unsafe: string) {
+	return unsafe
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;");
+}
+
 async function getReferencePageHtml({
 	collection,
 	collectionPosts,
@@ -36,17 +45,16 @@ async function getReferencePageHtml({
 
 	const links = await Promise.all(
 		collectionMeta?.links?.map(async (link) => {
-			const srcHast = await fetchPageHtml(link.originalHref);
-			if (!srcHast)
-				return {
-					...link,
-					title: link.originalText,
-				};
+			const metadata = await getUrlMetadata(link.originalHref).catch(
+				() => undefined,
+			);
+			if (!metadata) {
+				console.error("Failed to fetch metadata for collection link", { link });
+			}
 
-			const title = getPageTitle(srcHast);
 			return {
 				...link,
-				title: title ?? link.originalText,
+				title: metadata?.title ?? link.originalText,
 			};
 		}) ?? [],
 	);

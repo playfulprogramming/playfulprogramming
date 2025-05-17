@@ -1,24 +1,18 @@
-import { HOOF_URL } from "./constants";
 import { setTimeout } from "node:timers/promises";
-
-interface UrlMetadataRequest {
-	url: string;
-}
+import { client } from "./client";
 
 interface UrlMetadataResponse {
 	title?: string;
-	icon?: string;
-	banner?: string;
-}
-
-async function getUrlMetadataTask(url: string): Promise<Response> {
-	return await fetch(`${HOOF_URL}/tasks/url-metadata`, {
-		method: "POST",
-		headers: {
-			["Content-Type"]: "application/json",
-		},
-		body: JSON.stringify({ url } satisfies UrlMetadataRequest),
-	});
+	icon?: {
+		src: string;
+		width?: number;
+		height?: number;
+	};
+	banner?: {
+		src: string;
+		width?: number;
+		height?: number;
+	};
 }
 
 export async function getUrlMetadata(
@@ -27,19 +21,23 @@ export async function getUrlMetadata(
 	for (let retries = 0; retries < 10; retries++) {
 		await setTimeout(Math.pow(retries, 2) * 1000);
 
-		const result = await getUrlMetadataTask(url);
+		const { data, response } = await client.POST("/tasks/url-metadata", {
+			body: { url },
+		});
 
-		if (result.status === 200) {
-			return await result.json();
+		if (data && response.status === 200) {
+			return data;
 		}
 
-		if (result.status !== 202) {
-			const error = `Error ${result.status} fetching url: '${url}'`;
+		if (response.status !== 202) {
+			const error = `Error ${response.status} fetching url: '${url}'`;
 			console.error(error);
 			throw new Error(error);
 		}
 
-		console.log(`Retry ${retries}, waiting for metadata for: ${url}`);
+		if (retries > 2) {
+			console.warn(`Waiting for URL metadata (retry ${retries})`, { url });
+		}
 	}
 
 	throw Error(`Waited too long for url metadata: '${url}'`);

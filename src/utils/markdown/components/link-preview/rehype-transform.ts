@@ -3,21 +3,49 @@ import { find } from "unist-util-find";
 import { LinkPreview } from "./link-preview";
 import { toString } from "hast-util-to-string";
 import { URL } from "url";
-import { Picture } from "../../picture/picture";
 import { RehypeFunctionComponent } from "../types";
 import { isElement } from "utils/markdown/unist-is-element";
-import { fetchPreviewForUrl } from "./fetchPreviewForUrl";
+import { logError } from "utils/markdown/logger";
+import { getUrlMetadata } from "utils/hoof/get-url-metadata";
+import { Picture } from "utils/markdown/picture/picture";
+import { GetPictureResult } from "utils/get-picture";
 
-async function createLinkElement(anchorNode: Element) {
+export const transformLinkPreview: RehypeFunctionComponent = async ({
+	vfile,
+	node,
+	children,
+}) => {
+	const paragraphNode = children.filter(isElement).at(0);
+	if (!paragraphNode) return;
+	const anchorNode = find<Element>(paragraphNode, {
+		type: "element",
+		tagName: "a",
+	});
+	if (!anchorNode) return;
+
 	let url: URL;
 	try {
 		url = new URL(anchorNode.properties.href + "");
 	} catch (e) {
-		return;
+		logError(vfile, node, "HREF is not a valid URL!");
+		return anchorNode;
 	}
 
-	const result = await fetchPreviewForUrl(url);
-	if (!result) return;
+	const metadata = await getUrlMetadata(url.toString()).catch((e) => {
+		logError(vfile, node, "Could not fetch URL metadata!", e);
+		return undefined;
+	});
+
+	if (!metadata || !metadata.banner) {
+		logError(vfile, node, "Could not fetch URL metadata!");
+		return anchorNode;
+	}
+
+	const result: GetPictureResult = {
+		urls: {},
+		image: metadata.banner,
+		sources: [],
+	};
 
 	const picture = Picture({
 		result,
@@ -31,16 +59,4 @@ async function createLinkElement(anchorNode: Element) {
 		children: [picture],
 		anchorAttrs: anchorNode.properties,
 	});
-}
-
-export const transformLinkPreview: RehypeFunctionComponent = ({ children }) => {
-	const paragraphNode = children.filter(isElement).at(0);
-	if (!paragraphNode) return;
-	const anchorNode = find<Element>(paragraphNode, {
-		type: "element",
-		tagName: "a",
-	});
-	if (!anchorNode) return;
-
-	return createLinkElement(anchorNode);
 };

@@ -41,3 +41,5 @@ export const siteMetadata = {
 };
 
 export const cloudinaryCloudName = env("PUBLIC_CLOUDINARY_CLOUD_NAME");
+
+export const hoofUrl = env("HOOF_URL") || "https://hoof.playfulprogramming.com";
