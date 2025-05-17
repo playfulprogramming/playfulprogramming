@@ -11,9 +11,9 @@
 	--filesystem_outer_padding: var(--spc-2x);
 	--filesystem_inner_background-color: var(--background_focus);
 	--filesystem_inner_corner-radius: calc(
-		var(--filesystem_outer_corner-radius) - var(--filesystem_outer_padding) - var(
-				--filesystem_border_width
-			)
+		var(--filesystem_outer_corner-radius) - var(
+				--filesystem_outer_padding
+			) - var(--filesystem_border_width)
 	);
 	--filesystem_inner_padding: var(--spc-2x);
 	--filesystem_border_width: var(--border-width_l);
@@ -65,7 +65,8 @@
 
 	// Tokens for the level inset dividers
 	--filesystem_item_inset_margin-start: calc(
-		var(--half-icon) + var(--filesystem_item_container_padding-start) - max(
+		var(--half-icon) +
+			var(--filesystem_item_container_padding-start) - max(
 				1px,
 				var(--half-divider)
 			)
@@ -126,7 +127,7 @@
 	height: 100%;
 }
 
-.docs-file-tree-directory-summary {
+.docs-file-tree-directory-summary, .docs-file-tree-file-container {
 	display: flex;
 	align-items: center;
 }
@@ -249,6 +250,6 @@
 	width: 1px;
 	flex-grow: 1;
 	margin: 0;
-	padding: 0 var(--filesystem_item_annotation_padding-horizontal);
+	padding: var(--filesystem_item_container_padding-vertical) var(--filesystem_item_annotation_padding-horizontal);
 	color: var(--filesystem_item_annotation_label_color);
 }

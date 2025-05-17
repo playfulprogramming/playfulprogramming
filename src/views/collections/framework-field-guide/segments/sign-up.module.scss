@@ -112,7 +112,9 @@
 }
 
 .twitterButton,
-.discordButton {
+.discordButton,
+.blueSkyButton,
+.linkedInButton {
 	display: inline-flex !important;
 	border: none !important;
 	justify-content: center;
@@ -121,7 +123,9 @@
 }
 
 .twitterButton > svg,
-.discordButton > svg {
+.discordButton > svg,
+.blueSkyButton > svg,
+.linkedInButton > svg {
 	height: var(--social-btn-icon-size);
 	width: var(--social-btn-icon-size);
 }
@@ -156,4 +160,28 @@
 
 .discordButton:active {
 	background: var(--discord-btn-color_pressed);
+}
+
+.blueSkyButton {
+	background: #0085ff;
+}
+
+.blueSkyButton:hover {
+	background: #0077e6;
+}
+
+.blueSkyButton:active {
+	background: #0066cc;
+}
+
+.linkedInButton {
+	background: #0a66c2;
+}
+
+.linkedInButton:hover {
+	background: #0a5ba9;
+}
+
+.linkedInButton:active {
+	background: #094f91;
 }

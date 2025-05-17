@@ -1,10 +1,13 @@
-import "zone.js";
-import { Component } from "@angular/core";
+import {
+	Component,
+	provideExperimentalZonelessChangeDetection,
+	ChangeDetectionStrategy,
+} from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 
 @Component({
 	selector: "file-date",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<span>12/03/21</span>`,
 })
 class FileDateComponent {
@@ -13,4 +16,6 @@ class FileDateComponent {
 	}/${new Date().getDate()}/${new Date().getFullYear()}`;
 }
 
-bootstrapApplication(FileDateComponent);
+bootstrapApplication(FileDateComponent, {
+	providers: [provideExperimentalZonelessChangeDetection()],
+});

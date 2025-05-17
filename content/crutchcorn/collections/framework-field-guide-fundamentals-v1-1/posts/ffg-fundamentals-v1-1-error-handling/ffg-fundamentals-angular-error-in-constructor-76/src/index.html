@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<title>Angular Error in Constructor - Example #76 - FFG Fundamentals</title>
+	</head>
+	<body>
+		<app-root></app-root>
+		<sub class="fadeIn"
+			>You don't see anything here because Angular is erroring out</sub
+		>
+	</body>
+</html>
+
+<style>
+	.fadeIn {
+		opacity: 0;
+		animation-duration: 1s;
+		animation-delay: 2s;
+		animation-name: fadeIn;
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+</style>

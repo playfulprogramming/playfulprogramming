@@ -1,6 +1,14 @@
-const buildMode = process.env.BUILD_ENV || "production";
-const siteUrl = (() => {
-	let siteUrl = process.env.SITE_URL || process.env.VERCEL_URL || "";
+function env<K extends keyof NodeJS.ProcessEnv>(name: K): NodeJS.ProcessEnv[K] {
+	if (typeof import.meta.env !== "undefined") {
+		return import.meta.env[name];
+	} else {
+		return process.env[name];
+	}
+}
+
+export const buildMode = env("BUILD_ENV") || "production";
+export const siteUrl = (() => {
+	let siteUrl = env("SITE_URL") || env("VERCEL_URL") || "";
 
 	if (siteUrl && !siteUrl.startsWith("http")) siteUrl = `https://${siteUrl}`;
 
@@ -19,15 +27,9 @@ const siteUrl = (() => {
 })();
 
 // To set for Twitch player embedding in blog posts
-let parent = new URL(siteUrl).host;
+export const parent = new URL(siteUrl).hostname;
 
-// Twitch embed throws error with strings like 'localhost:3000', but
-// those persist with `new URL().host`
-if (parent.startsWith("localhost")) {
-	parent = "localhost";
-}
-
-const siteMetadata = {
+export const siteMetadata = {
 	title: `Playful Programming`,
 	description: `Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions`,
 	siteUrl,
@@ -38,4 +40,4 @@ const siteMetadata = {
 	twitterHandle: "@playful_program",
 };
 
-export { parent, siteUrl, buildMode, siteMetadata };
+export const cloudinaryCloudName = env("PUBLIC_CLOUDINARY_CLOUD_NAME");

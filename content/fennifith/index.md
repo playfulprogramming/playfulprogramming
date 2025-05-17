@@ -14,7 +14,8 @@
 	pronouns: "he/him",
 	profileImg: "./fennifith.jpg",
 	color: "#0091EA",
-	roles: ["developer", "author", "community"],
-	achievements: ["messages-500", "partner"]
+	roles: ["developer", "author", "community", "board"],
+	achievements: ["messages-500", "partner"],
+    boardRoles: ["Chairperson"]
 }
 ---

@@ -1,10 +1,9 @@
 ---
 import { Picture } from "components/image/picture";
 import styles from "./quote-card.module.scss";
-import type { ImageMetadata } from "astro";
 
 interface Props {
-	avatarSrc: string | Promise<{ default: ImageMetadata }>;
+	avatarSrc: string;
 	quote: string;
 	personLink: string;
 	personTitle: string;
@@ -13,9 +12,6 @@ interface Props {
 
 const { avatarSrc, quote, personTitle, personName, personLink } =
 	Astro.props as Props;
-
-const src =
-	typeof avatarSrc === "string" ? avatarSrc : (await avatarSrc).default;
 ---
 
 <li class={styles.quoteCardContainerLi}>
@@ -26,7 +22,7 @@ const src =
 		<div class={styles.personDetailsContainer}>
 			<Picture
 				imgAttrs={{ class: styles.personAvatar }}
-				src={src}
+				src={avatarSrc}
 				alt=""
 				width={40}
 				height={40}

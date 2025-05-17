@@ -98,7 +98,8 @@
 				position: absolute;
 				content: "•";
 				left: calc(
-					-0.5 * var(--article-header_details_icon_size) + -1 * var(--article-header_details_icon_margin-end)
+					-0.5 * var(--article-header_details_icon_size) + -1 *
+						var(--article-header_details_icon_margin-end)
 				);
 				transform: translateX(-50%);
 
