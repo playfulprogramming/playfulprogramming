@@ -9,6 +9,7 @@ import { SubHeader } from "src/components/subheader/subheader";
 import { translate } from "utils/translations";
 import { Languages } from "types/index";
 import { getMarkdownHtml } from "utils/markdown";
+import { LocalPost, ExternalPost } from "src/types/CollectionInfo";
 
 export async function getStaticPaths() {
 	const collections = api.getAllCollections();
@@ -45,6 +46,12 @@ const authors = collection.authors.map(
 );
 
 const collectionHtml = await getMarkdownHtml(collection);
+
+const isLocalPost = (
+	chapter: LocalPost | ExternalPost,
+): chapter is LocalPost => {
+	return (chapter as LocalPost).post !== undefined;
+};
 ---
 
 <Document size="l">
@@ -85,14 +92,32 @@ const collectionHtml = await getMarkdownHtml(collection);
 						})
 					}
 					{
-						(collection?.chapterList ?? []).map((post) => {
+						(collection?.chapterList ?? []).map((post, i) => {
+							let title: string;
+							let link: string;
+							let description: string;
+							let externalLink = false;
+
+							if (isLocalPost(post)) {
+								const postData = api.getPostBySlug(post.post, locale);
+								title = postData?.title || "No title";
+								description = postData?.description || "No description";
+								link = post?.post ? `/posts/${post.post}` : "#";
+							} else {
+								title = post.title;
+								description = post.description;
+								link = post.url;
+								externalLink = true;
+							}
 							return (
 								<li>
 									<CollectionChapter
 										collection={collection}
-										num={post.order}
-										title={post.title}
-										description={post.description}
+										num={i + 1}
+										title={title}
+										href={link}
+										description={description}
+										externalLink={externalLink}
 									/>
 								</li>
 							);
