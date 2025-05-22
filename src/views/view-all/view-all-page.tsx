@@ -1,5 +1,5 @@
 import type { Page } from "astro";
-import style from "./page.module.scss";
+import style from "./view-all-page.module.scss";
 import { PostCardGrid } from "src/components/post-card/post-card-grid";
 import { Pagination } from "components/pagination/pagination";
 
