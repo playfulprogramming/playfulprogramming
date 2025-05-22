@@ -1,0 +1,34 @@
+@use "src/tokens/index" as *;
+
+.fullPageContainer {
+	max-width: var(--max-width_xl);
+	margin: 0 auto;
+
+	transition: 300ms grid-template-columns ease-in-out;
+
+	@include from($tabletLarge) {
+		display: grid;
+		grid-template-columns: var(--search-page_filter_sidebar_width) 1fr;
+
+		&[data-hide-sidebar="true"] {
+			grid-template-columns: 0 1fr;
+		}
+	}
+}
+
+.mainContents {
+	margin: 0 auto;
+	width: 100%;
+	max-width: var(--max-width_l);
+	display: flex;
+	flex-direction: column;
+	/* Guestimation */
+	min-height: 80vh;
+}
+
+.mainContentsInner {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 0 var(--site-spacing) var(--site-spacing) var(--site-spacing);
+}
