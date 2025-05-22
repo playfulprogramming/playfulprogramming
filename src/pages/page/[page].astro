@@ -1,6 +1,6 @@
 ---
 import Document from "../../layouts/document.astro";
-import PageView from "src/views/explore/page.astro";
+import PageView from "src/views/view-all/page.astro";
 import { getPostsByLang } from "utils/api";
 import { PostInfo } from "types/index";
 import SEO from "components/seo/seo.astro";
@@ -24,7 +24,5 @@ const SEODescription = `Browse all posts on Playful Programming, page ${pageInde
 
 <Document>
 	<SEO slot="head" title={SEOTitle} description={SEODescription} />
-	<main class="container">
-		<PageView posts={page.data} page={page} />
-	</main>
+	<PageView posts={page.data} page={page} />
 </Document>
