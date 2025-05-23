@@ -25,7 +25,9 @@ export function PostCardGrid({
 					.map((id) => postAuthors.get(id))
 					.filter(isDefined);
 
-				return expanded && post.bannerImg ? (
+				const pageIndex = i % 8;
+
+				return expanded && post.bannerImg && (pageIndex == 0 || pageIndex == 4) ? (
 					<PostCardExpanded
 						class={style.expanded}
 						post={post}

@@ -29,7 +29,7 @@ export interface PostInfo extends RawPostInfo {
 	locale: Languages;
 	publishedMeta: string;
 	editedMeta?: string;
-	socialImg: string;
+	socialImg?: string;
 	bannerImg?: string;
 	wordCount: number;
 }

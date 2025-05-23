@@ -40,6 +40,53 @@ export interface paths {
 		patch?: never;
 		trace?: never;
 	};
+	"/tasks/post-images": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		/** @description Generate static images for a post, to be used for social media metadata / post list banners. */
+		post: {
+			parameters: {
+				query?: never;
+				header?: never;
+				path?: never;
+				cookie?: never;
+			};
+			requestBody: {
+				content: {
+					"application/json": {
+						slug: string;
+						author: string;
+						path: string;
+					};
+				};
+			};
+			responses: {
+				/** @description Task complete */
+				200: {
+					headers: {
+						[name: string]: unknown;
+					};
+					content: {
+						"application/json": {
+							banner: string;
+							linkPreview: string;
+						};
+					};
+				};
+			};
+		};
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	"/tasks/url-metadata": {
 		parameters: {
 			query?: never;
@@ -49,6 +96,7 @@ export interface paths {
 		};
 		get?: never;
 		put?: never;
+		/** @description Fetch and cache metadata for a given URL, including the page title, icon, and banner image. */
 		post: {
 			parameters: {
 				query?: never;
@@ -84,15 +132,6 @@ export interface paths {
 								height?: number;
 							};
 						};
-					};
-				};
-				/** @description Task created */
-				202: {
-					headers: {
-						[name: string]: unknown;
-					};
-					content: {
-						"application/json": Record<string, never>;
 					};
 				};
 			};

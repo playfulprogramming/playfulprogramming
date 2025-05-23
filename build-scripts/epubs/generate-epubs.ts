@@ -49,7 +49,10 @@ async function getReferencePageHtml({
 				() => undefined,
 			);
 			if (!metadata) {
-				console.error("Failed to fetch metadata for collection link", { link });
+				console.error(
+					"Failed to fetch metadata for collection link",
+					link.originalHref,
+				);
 			}
 
 			return {
