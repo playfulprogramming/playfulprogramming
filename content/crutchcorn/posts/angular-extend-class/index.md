@@ -434,7 +434,7 @@ abstract class BaseComponent implements OnInit, OnDestroy {
 
 ## `@Injectable` is an alternative of an abstract class {#injectable}
 
-[Since Angular 10 you can now use `@Injectable` to declare your `BaseComponent` instead](https://angular.io/guide/migration-injectable). This sidesteps the problem of having to mark a component `class` as abstract because even without it `Injectable`s do not need to be declared in a module:
+[Since Angular 10 you can now use `@Injectable` to declare your `BaseComponent` instead](https://angular.dev/api/core/Injectable). This sidesteps the problem of having to mark a component `class` as abstract because even without it `Injectable`s do not need to be declared in a module:
 
 ```typescript
 @Injectable()
@@ -968,7 +968,7 @@ class WindowSizeService implements OnDestroy {
 
 This is a much more straightforward setup process that's much more Angular-ific!
 
-As an added benifit, we now can utilize an [`AsyncPipe`](https://angular.io/api/common/AsyncPipe) in order to listen for changes on the `size$` observable:
+As an added benifit, we now can utilize an [`AsyncPipe`](https://angular.dev/api/common/AsyncPipe) in order to listen for changes on the `size$` observable:
 
 ```typescript
 @Component({

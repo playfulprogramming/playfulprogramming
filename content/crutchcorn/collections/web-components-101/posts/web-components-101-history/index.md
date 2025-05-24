@@ -122,7 +122,7 @@ Later, with the [acquisition of DoubleClick](https://www.nytimes.com/2007/04/14/
 
 With Angular.js continuing to grow within Google, it’s no surprise that they continued researching in-JavaScript HTML bindings.
 
-On this topic, Alex Russel - then a Senior Staff Engineer at Google, working on the web platform team - [gave a talk at the Fronteers conference](https://fronteers.nl/congres/2011/sessions/web-components-and-model-driven-views-alex-russell).
+On this topic, Alex Russel - then a Senior Staff Engineer at Google, working on the web platform team - [gave a talk at the Fronteers conference](https://vimeo.com/channels/fronteers11/33430613).
 
 In this talk, he introduces a host of libraries that allow building custom elements with experimental new APIs.
 
@@ -205,7 +205,7 @@ Whew! That’s a lot to take in. Let’s see it all from a thousand foot view:
   - [Angular.js made open-source](https://web.archive.org/web/20100413141437/http://getangular.com/)
 
 - 2011:
-  - [MDV (Polymer predecessor) introduced at a conference](https://fronteers.nl/congres/2011/sessions/web-components-and-model-driven-views-alex-russell)
+  - [MDV (Polymer predecessor) introduced at a conference](https://vimeo.com/channels/fronteers11/33430613)
 
 - 2013:
   - [Working draft spec for Web Components (v0) released](https://web.archive.org/web/20130608123733/http://www.w3.org/TR/custom-elements/)

@@ -10,9 +10,9 @@
 
 One of Angular's greatest strengths over its contemporaries like React or Vue is that it's a framework. What does this mean in the practical sense? Well, because you're providing the defaults for everything right out-of-the-box, you have a set of guard rails to follow when architecting new things. A set of baseline rules for things to follow, so to speak.
 
-One such guard rail comes in the form of the `@angular/forms` package. If you've used Angular for long, you're doubtlessly familiar with [the `[(ngModel)]` method of two-way data binding in the UI](https://angular.io/guide/forms#two-way-data-binding-with-ngmodel). Seemingly all native elements have support for this feature (so long as you have `FormsModule` imported in your module).
+One such guard rail comes in the form of the `@angular/forms` package. If you've used Angular for long, you're doubtlessly familiar with [the `[(ngModel)]` method of two-way data binding in the UI](https://angular.dev/guide/forms#setup-in-template-driven-forms). Seemingly all native elements have support for this feature (so long as you have `FormsModule` imported in your module).
 
-More than that, if you want more powerful functionality, such as disabling an entire form of fields, tracking a collection of fields in a form, and doing basic data validation, [you can utilize Angular Reactive Forms' `[formControl]`](https://angular.io/guide/reactive-forms#adding-a-basic-form-control) and do all of that and more.
+More than that, if you want more powerful functionality, such as disabling an entire form of fields, tracking a collection of fields in a form, and doing basic data validation, [you can utilize Angular Reactive Forms' `[formControl]`](https://angular.dev/guide/forms#setup-in-reactive-forms) and do all of that and more.
 
 These features are hugely helpful when dealing with complex form logic throughout your application. Luckily for us, they're not just exclusive to native elements - we can implement this functionality into our own form!
 
@@ -74,7 +74,7 @@ Now, this component is far from feature complete. There's no way to `disable` th
 
 # ControlValueAccessor {#intro-concept}
 
-Most of the expected form functionality will come as a complement of [the `ControlValueAccessor` interface](https://angular.io/api/forms/ControlValueAccessor). Much like you implement `ngOnInit` by implementing class methods, you do the same with ControlValueAccessor to gain functionality for form components.
+Most of the expected form functionality will come as a complement of [the `ControlValueAccessor` interface](https://angular.dev/api/forms/ControlValueAccessor). Much like you implement `ngOnInit` by implementing class methods, you do the same with ControlValueAccessor to gain functionality for form components.
 
 The methods you need to implement are the following:
 
@@ -307,7 +307,7 @@ If done properly, you should see something like this:
 
 # Form Control Classes
 
-Angular CSS masters might point to [classes that's applied to inputs when various state changes are made](https://angular.io/api/forms/NgControlStatus#css-classes-applied).
+Angular CSS masters might point to [classes that's applied to inputs when various state changes are made](https://angular.dev/api/forms/NgControlStatus#css-classes-applied).
 
 These classes include:
 
@@ -321,7 +321,7 @@ They reflect states so that you can update the visuals in CSS to reflect them. W
 
 # Gain Access To Form Control Errors {#form-control-errors}
 
-Something you'll notice that wasn't implemented in the `ControlValueAccessor` implementation is support for checking whether validators are applied. If you're a well-versed Angular Form-ite, you'll recall the ability to [validate forms using validators appended to `FormControl`s](https://angular.io/guide/form-validation). Although a niche situation — since most validation happens at the page level, not the component level — wouldn't it be nice to check when a form is valid or not directly from the component to which the form is attached?
+Something you'll notice that wasn't implemented in the `ControlValueAccessor` implementation is support for checking whether validators are applied. If you're a well-versed Angular Form-ite, you'll recall the ability to [validate forms using validators appended to `FormControl`s](https://angular.dev/guide/forms/form-validation#built-in-validator-functions). Although a niche situation — since most validation happens at the page level, not the component level — wouldn't it be nice to check when a form is valid or not directly from the component to which the form is attached?
 
 Well, thanks to Angular's DI system, we can do just that!
 
@@ -359,7 +359,7 @@ export class ExampleInputComponent implements ControlValueAccessor, AfterContent
 }
 ```
 
-In this code sample, we're using [the `@Self` decorator](https://angular.io/api/core/Self) to tell the dependency injection system that "this component _itself_ should have been provided a `formControl` or `formControlName`". However, we want the component to work even when `FormModule` isn't being used, so we allow the dependency injection to return `null` if nothing's passed by utilizing [the `@Optional` decorator](https://angular.io/api/core/Optional).
+In this code sample, we're using [the `@Self` decorator](https://angular.dev/api/core/Self) to tell the dependency injection system that "this component _itself_ should have been provided a `formControl` or `formControlName`". However, we want the component to work even when `FormModule` isn't being used, so we allow the dependency injection to return `null` if nothing's passed by utilizing [the `@Optional` decorator](https://angular.dev/api/core/Optional).
 
 Now that you have the `ngControl`, you can access the `formControl` by using `ngControl.control`.
 
@@ -373,7 +373,7 @@ ngOnInit() {
 }
 ```
 
-You have [a ton of different props you're able to access for the control's metadata](https://angular.io/api/forms/NgControl). For example, if you want to check when errors are present, you can do the following:
+You have [a ton of different props you're able to access for the control's metadata](https://angular.dev/api/forms/NgControl). For example, if you want to check when errors are present, you can do the following:
 
 ```typescript
 get errors() {
@@ -410,7 +410,7 @@ export class AppComponent  {
 <iframe data-frame-title="Angular Value Accessor Dep Inject - StackBlitz" src="pfp-code:./angular-value-accessor-dep-inject?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 
-Not only do you have [a wide range of Angular-built validators at your disposal](https://angular.io/api/forms/Validators), but you're even able to [make your own validator](https://angular.io/api/forms/Validator)!
+Not only do you have [a wide range of Angular-built validators at your disposal](https://angular.dev/api/forms/Validators), but you're even able to [make your own validator](https://angular.dev/api/forms/Validator)!
 
 # Conclusion {#conclusion}
 

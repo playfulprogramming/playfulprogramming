@@ -1,4 +1,4 @@
-function env(name: keyof ImportMetaEnv): string | undefined {
+function env<K extends keyof NodeJS.ProcessEnv>(name: K): NodeJS.ProcessEnv[K] {
 	if (typeof import.meta.env !== "undefined") {
 		return import.meta.env[name];
 	} else {
