@@ -148,7 +148,7 @@ You'll see that neither `Before` nor `After` renders anymore. Why is that?
 
 # Why does this happen?
 
-If we take a step back for a moment and [look at how Angular's compiler works](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549), you'll learn that Angular takes a component template like this:
+If we take a step back for a moment and [look at how Angular's compiler works](https://blog.angular.dev/how-the-angular-compiler-works-42111f9d2549), you'll learn that Angular takes a component template like this:
 
 ```typescript
 @Component({
@@ -199,7 +199,7 @@ AppCmp.ɵcmp = i0.ɵɵdefineComponent({
     }], null, null); })();
 ```
 
-> [This code is taken from the Angular Blog on how the Angular compiler works.](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549)
+> [This code is taken from the Angular Blog on how the Angular compiler works.](https://blog.angular.dev/how-the-angular-compiler-works-42111f9d2549)
 
 Let's take this compiler knowledge and apply it to our code. This means that some code like the folllowing:
 
@@ -316,7 +316,7 @@ This is why we can see elements rendered _before_ our `throw-an-error` component
 
 # Why we need a fix
 
-If you've been a developer in the Angular space for a while, you'll know about [the Angular `ErrorHandler` API](https://angular.io/api/core/ErrorHandler), which allows you to log and otherwise keep track of the errors thrown in your app.
+If you've been a developer in the Angular space for a while, you'll know about [the Angular `ErrorHandler` API](https://angular.dev/api/core/ErrorHandler), which allows you to log and otherwise keep track of the errors thrown in your app.
 
 It's hugely useful if you need a global mechanism for tracking errors to a third-party, like [Sentry](https://sentry.io/).
 
@@ -528,11 +528,11 @@ If these issues are a deal-breaker for you, like they are for me, let's explore 
 
 # The long-term fix
 
-If you've been following the Angular developer-experience closely, you'll know that [the Angular team is aiming to add New Control Flow primitives into the framework](https://blog.angular.io/meet-angulars-new-control-flow-a02c6eee7843). These new control flow primitives are meant to:
+If you've been following the Angular developer-experience closely, you'll know that [the Angular team is aiming to add New Control Flow primitives into the framework](https://blog.angular.dev/meet-angulars-new-control-flow-a02c6eee7843). These new control flow primitives are meant to:
 
 - Make the core of Angular's output smaller
 - Make adding new functionality to the core, of Angular easier
-- Interop better with [Angular's upcoming signals API](https://angular.io/guide/signals)
+- Interop better with [Angular's upcoming signals API](https://angular.dev/guide/signals)
 
 They look something like this:
 
