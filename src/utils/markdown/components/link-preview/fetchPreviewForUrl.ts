@@ -64,11 +64,14 @@ async function fetchPreviewForUrlInternal(
 		let imageExt = path.extname(imageUrl.pathname);
 
 		const writeStream = fs.createWriteStream("public/" + imagePath + imageExt);
-		await stream.promises.finished(
-			stream.Readable.fromWeb(body as never).pipe(writeStream),
-		);
+		await stream.promises
+			.finished(stream.Readable.fromWeb(body as never).pipe(writeStream))
+			.catch();
 		// src is an absolute path, so the second getImageSize arg is never used
-		const dimensions = await getImageSize("/" + imagePath + imageExt, "");
+		const dimensions = await getImageSize(
+			"/" + imagePath + imageExt,
+			"",
+		).catch();
 		if (!dimensions) return;
 
 		// If the image is missing an extension, replace it with the format from sharp metadata
@@ -76,7 +79,7 @@ async function fetchPreviewForUrlInternal(
 			imageExt = `.${dimensions.format}`;
 			await fs.promises
 				.rename("public/" + imagePath, "public/" + imagePath + imageExt)
-				.catch(() => {});
+				.catch();
 		}
 
 		const imageRatio = dimensions.width / dimensions.height;

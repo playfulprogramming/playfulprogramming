@@ -57,6 +57,13 @@ tbody tr:last-child {
 	padding-bottom: var(--table_padding-bottom);
 
 	background-color: var(--table_background-color);
+
+	// If there is no heading row, apply padding-top
+	@supports selector(:has(tbody)) {
+		&:not(:has(thead)) {
+			padding-top: var(--table_padding-bottom);
+		}
+	}
 }
 
 .table-overflow {

@@ -8,7 +8,7 @@
 }
 ---
 
-If you've ever used something like [Gatsby](https://www.gatsbyjs.org/) or [NuxtJS](https://nuxtjs.org/), you may already be familiar with Static Site Generation (SSG). If not, here's a quick rundown: You're able to export a React application to simple HTML and CSS during a build-step. This export means that (in some cases), you can disable JavaScript and still navigate your website as if you'd had it enabled. It also often means much faster time-to-interactive times, as you no longer have to run your JavaScript to render your HTML and CSS.
+If you've ever used something like [Gatsby](https://www.gatsbyjs.com/) or [NuxtJS](https://nuxtjs.org/), you may already be familiar with Static Site Generation (SSG). If not, here's a quick rundown: You're able to export a React application to simple HTML and CSS during a build-step. This export means that (in some cases), you can disable JavaScript and still navigate your website as if you'd had it enabled. It also often means much faster time-to-interactive times, as you no longer have to run your JavaScript to render your HTML and CSS.
 
 For a long time, React and Vue have had all of the SSG fun... Until now. 
 
@@ -372,7 +372,7 @@ And that'll give us what we're looking for:
 
 ## Final Blog List {#scully-avail-routes}
 
-We can cleanup the code a bit by using [the Angular `async` pipe](https://angular.io/api/common/AsyncPipe):
+We can cleanup the code a bit by using [the Angular `async` pipe](https://angular.dev/api/common/AsyncPipe):
 
 ```typescript
 // blog.component.ts
@@ -420,7 +420,7 @@ While this isn't a pretty blog, it is a functional one! Now you're able to list 
 
 But what happens if you want to display metadata about a post on the post page itself? Surely being able to list the author metadata in the post would be useful as well, right?
 
-Right you are! Using [RxJS' `combineLatest` function](https://rxjs.dev/api/index/function/combineLatest) and [the `ActivatedRoute`'s `params` property](https://angular.io/api/router/ActivatedRoute#params) (alongside [the RxJS `pluck` opperator](https://rxjs.dev/api/operators/pluck) to make things a bit easier for ourselves), we're able to quickly grab a post's metadata from the post page itself.
+Right you are! Using [RxJS' `combineLatest` function](https://rxjs.dev/api/index/function/combineLatest) and [the `ActivatedRoute`'s `params` property](https://angular.dev/api/router/ActivatedRoute#params) (alongside [the RxJS `pluck` opperator](https://rxjs.dev/api/operators/pluck) to make things a bit easier for ourselves), we're able to quickly grab a post's metadata from the post page itself.
 
 ```typescript
 // blog-post.component.ts
