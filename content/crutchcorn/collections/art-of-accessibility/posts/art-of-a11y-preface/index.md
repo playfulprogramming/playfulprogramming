@@ -9,11 +9,11 @@
 }
 ---
 
-As application developers, our job is to make sure that people have a good experience with the apps we build. While performance and stability make up part of that story, a user's experience (or, UX) is made up of multiple different aspects of their interactions with the app. 
+As application developers, our job is to make sure that people have a good experience with the apps we build. While performance and stability make up part of that story, a user's experience (or, UX) is made up of multiple different aspects of their interactions with the app.
 
-One of the crucial aspects of UX is the ability to interact with the ability to have information presented in a way that's easily digestible.
+One of the crucial aspects of UX is presenting information in a way that's easily digestible.
 
-There's multiple ways to think about this; some UX rules are objective while others are much more subjective.
+There's multiple ways to think about this; some UX rules are objective while others are more subjective.
 
 Here's an example of what I'm talking about:
 
@@ -37,7 +37,7 @@ Now, take this button:
 
 <button aria-label="A large button with dark blue border, dark green 'buy now' text, and light red text" style="background: #ffabab; border: 2rem solid #082450; color: #213224; font-size: 4rem;" > Buy Now </button>
 
-This button works, [has good contrast](https://playfulprogramming.com/posts/intro-to-web-accessibility#contrast), but might confuse some users whether it's a button or not.
+This button works, and [has good contrast](https://playfulprogramming.com/posts/intro-to-web-accessibility#contrast), but might confuse some users whether it's a button or not.
 
 Compare this button, with harsh edges and three different colors, against a button from Google's Material Design:
 
@@ -78,7 +78,7 @@ One area which many developers have work to do is "Accessibility".
 
 # What is accessibility?
 
-Put simply, accessibility is the idea that your apps should be usable and enjoyable to as many people as possible. For some people using your app, they need your app to be easy to understand - there aren't three buttons that all have the same icon and do different things.
+Put simply, accessibility is the idea that your apps should be usable and enjoyable to as many people as possible. Your app should be easy to understand. For example, there shouldn't be three buttons that all have the same icon and do different things.
 
 However, for others, they may not be able to use a mouse and need your app to support keyboard-only usage, they may be blind and need screen-readers support, or they may need your app to enable them to use other forms of assistive tech.
 
@@ -95,7 +95,7 @@ Consider the following button:
 
 <button>Go home</button>
 
-This button might be read by a screen-reader as "Button, Go home". 
+This button might be read by a screen-reader as "Button, Go home".
 
 Meanwhile, this list of items:
 
@@ -208,7 +208,7 @@ By making sure that your apps are accessible, you're making sure your users are 
 
 Not only do you make money by making your tools accessible, but you may likely save money by dodging legal action against your company.
 
-See, many organizations have a legal obligation to be accessible. Chances are especially great if your organization interfaces with the public.
+Many organizations have a legal obligation to be accessible. Chances are especially high if your organization interfaces with the public.
 
 In the U.S., the [Americans with Disabilities Act (ADA)](https://www.ada.gov/resources/web-guidance/) can be applied to applications from governments and business that serve the public, including customer portals and retail.
 
@@ -228,7 +228,7 @@ From [Hilton being forced to pay a civil penalty of $50,000](https://www.justice
 
 # Who determines what's accessible?
 
-Accessibility is an component of user experience (UX) design. While some avenues of UX feel standardized today, ask 30 people how they want their interfaces to behave and you might get 30 different answers.
+Accessibility is a component of user experience (UX) design. While some avenues of UX feel standardized today, ask 30 people how they want their interfaces to behave and you might get 30 different answers.
 
 This isn't to say that it's a _total_ free-for-all, however. Even visual elements of apps can be tested to demonstrate better or worse outcomes consistently through user research.
 
@@ -256,7 +256,7 @@ But this variety doesn't come for free. For each unique combination of user beha
 
 And more.
 
-How can we prioritize which features of accessibility we should start on? How can we balance effort against the impact a set of functionality will provide?
+How do we prioritize which features of accessibility we should start on? How do we balance effort against the impact a set of functionality will provide?
 
 Intro: **WCAG Conformance Levels**.
 
@@ -281,7 +281,7 @@ This resource aims to help you learn these tools and methods and apply them as y
 
 ## What we're not learning
 
-Before we dive into the contents of this book, I'm a firm believer that it's just as important to know what we _won't_ be covering as it is what we _will_ be learning.
+Before we dive into the contents of this book, I'm a firm believer that it's just as important to know what we _won't_ be covering as it is to know what we _will_ be covering.
 
 In "The Art of Accessibility", we _will not_ be learning the following:
 
