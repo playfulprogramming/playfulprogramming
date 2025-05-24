@@ -1553,7 +1553,7 @@ Our API will eventually look like this:
 <div *tooltip="tooltipBase">This is a tooltip</div>
 ```
 
-However, to get this to work, we need to use [Angular CDK's DOMPortal](https://material.angular.io/cdk/portal/api#DomPortal) instead of our previously known `TemplatePortal`, so that we can teleport the `div` itself to `body` and add properties to the `div` when we do so.
+However, to get this to work, we need to use [Angular CDK's DOMPortal](https://material.angular.dev/cdk/portal/api#DomPortal) instead of our previously known `TemplatePortal`, so that we can teleport the `div` itself to `body` and add properties to the `div` when we do so.
 
 We'll build out a custom `PortalService` that uses a `DomPortalOutlet` to enable this:
 
