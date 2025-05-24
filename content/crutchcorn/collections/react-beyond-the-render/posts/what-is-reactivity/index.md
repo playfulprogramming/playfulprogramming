@@ -292,7 +292,7 @@ For example, here's what each of the frameworks utilize under-the-hood:
 | Framework | Reactivity Method                                            | Rendering Method                                             |
 | --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | React     | [Explicit Function Calls](https://twitter.com/crutchcorn/status/1527059716907487232) | [VDOM](/posts/unraveling-the-magic-of-the-virtual-dom)       |
-| Angular   | [Zone.js](/posts/angular-internals-zonejs)                   | [Incremental DOM](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549) |
+| Angular   | [Zone.js](/posts/angular-internals-zonejs)                   | [Incremental DOM](https://blog.angular.dev/how-the-angular-compiler-works-42111f9d2549) |
 | Vue       | [Proxies](https://vuejs.org/guide/extras/reactivity-in-depth.html) | [VDOM](/posts/unraveling-the-magic-of-the-virtual-dom)       |
 
 > This is real nerd hours, don't feel bad if this just looks like gibberish to you right now.

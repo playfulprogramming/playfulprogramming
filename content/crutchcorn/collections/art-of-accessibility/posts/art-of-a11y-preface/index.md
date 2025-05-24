@@ -37,7 +37,7 @@ Now, take this button:
 
 <button aria-label="A large button with dark blue border, dark green 'buy now' text, and light red text" style="background: #ffabab; border: 2rem solid #082450; color: #213224; font-size: 4rem;" > Buy Now </button>
 
-This button works, [has good contrast](https://unicorn-utterances.com/posts/intro-to-web-accessability#contrast), but might confuse some users whether it's a button or not.
+This button works, [has good contrast](https://playfulprogramming.com/posts/intro-to-web-accessibility#contrast), but might confuse some users whether it's a button or not.
 
 Compare this button, with harsh edges and three different colors, against a button from Google's Material Design:
 

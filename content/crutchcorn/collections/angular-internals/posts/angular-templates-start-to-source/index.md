@@ -39,7 +39,7 @@ It's going to be a long article, so please feel free to take breaks, grab a drin
 
 Sound like a fun time? Let's goooo! 🏃🌈
 
-> The contents of this post was also presented in a talk under the same name. You can [find the slides here](/content/blog/angular-templates-start-to-source/slides.pptx) or a live recording of that talk given by the post's author [on our YouTube channel](https://www.youtube.com/watch?v=7AilTMFPxqQ).
+> The contents of this post was also presented in a talk under the same name. You can [find the slides here](./slides.pptx) or a live recording of that talk given by the post's author [on our YouTube channel](https://www.youtube.com/watch?v=7AilTMFPxqQ).
 
 <!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
 

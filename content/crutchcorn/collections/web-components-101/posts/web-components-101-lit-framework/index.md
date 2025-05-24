@@ -490,7 +490,7 @@ class FormElement extends LitElement {
 
 Now that we have a form that contains an array, an important question arises: how do we iterate through an array in order to create individual elements for a list?
 
-Well, while [React has `Array.map](https://reactjs.org/docs/lists-and-keys.html)` and [Vue has `v-for`](https://v3.vuejs.org/guide/list.html#mapping-an-array-to-elements-with-v-for), Lit uses a `repeat` function. Here’s an example:
+Well, while [React has `Array.map](https://reactjs.org/docs/lists-and-keys.html)` and [Vue has `v-for`](https://vuejs.org/guide/essentials/list.html), Lit uses a `repeat` function. Here’s an example:
 
 ```javascript
 class TodoElement extends LitElement {
