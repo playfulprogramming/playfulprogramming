@@ -1,7 +1,7 @@
 ---
 {
 	title: "React: Consistent by Design",
-	description: "",
+	description: "TODO: Write this",
 	published: '2025-07-01T05:12:03.284Z',
 	tags: ['react', 'javascript', 'webdev'],
 	license: 'cc-by-nc-sa-4'
@@ -80,7 +80,58 @@ This was a huge optimization that allowed for much more performant React applica
 
 # Error Components
 
-// TODO: Talk about how this set up the pattern for throwing upward in the VDOM to introduce state to the parent
+Now that we had a component tree, there was a bit of a challenge.
+
+See, because of the nature of the VDOM, whenever a component threw an error it would crash the entire React tree.
+
+![TODO: Write alt](./without_err.png)
+
+However, because components are laid out hierarchically, we can establish a boundary between a component that might potentially throw an error and the rest of the application state.
+
+![TODO: Write alt](./with_err.png)
+
+Not only does this work with single nodes, but because components are grouped by their parents we can remove a group of impacted nodes at once by wrapping them in a shared `ErrorBoundary`:
+
+```jsx
+import React, { useState } from 'react';
+
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError(error) {
+        return { hasError: true };
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return <h1>Something went wrong.</h1>;
+        }
+
+        return this.props.children; 
+    }
+}
+
+function App() {
+    return (
+        <div>
+            {/* When an error is thrown in the ErrorBoundary, it will catch it, remove all child nodes, and render the fallback UI */}
+            <ErrorBoundary>
+                <ErrorCounter />
+                <OtherCounter />
+            </ErrorBoundary>
+            {/* However, these nodes will be left unaffected */}
+            <ul>
+                <li>Item 1</li>
+            </ul>
+        </div>
+    );
+}
+```
+
+![TODO: Write alt](./error_bubble_group.png)
 
 # Hooks
 
