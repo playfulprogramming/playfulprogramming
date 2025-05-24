@@ -16,11 +16,67 @@ While things may get fairly technical, I'll make sure to keep things relatively 
 
 # JSX
 
-// TODO: Talk about the representation of the DOM, and how consolidating it into your templating enables lots of flexibility
+Even in the earliest days of React, the idea of representing your HTML code in a JavaScript file was established.
+
+This provided a large amount of flexibility for the early framework; not only did it enable the ability to sidestep custom
+template tags for things like conditional rendering logic and loops, but it was fun to work with and allowed fast iteration of
+UI code.
+
+This meant that code that might've otherwise looked like this:
+
+```html
+<div>
+    <!-- This is psuedo-syntax of a theoretical framework's template code -->
+    <some-tag data-if="someVar"></some-tag>
+    <some-item-tag data-for="let someItem of someList"></some-item-tag>
+</div>
+```
+
+It could instead look like this:
+
+```jsx
+<div>
+	{someVar && <some-tag/>}
+	{someList.map(someItem => <some-item-tag/>)}
+</div>
+```
+
+This also enables the template to JavaScript transform to stay extremely lightweight.
+
+Instead of having to rely on some kind of HTML to JavaScript compiler, the tags of the JSX are able to be trivially transformed to JavaScript functions:
+
+```jsx
+// The following JSX
+function App() {
+	return <ul role="list"><li>Test</li></ul>
+}
+
+// Turns into a straightforward transform to function calls to run on the browser
+function App() {
+	return React.createElement("ul", {
+		role: 'list'
+    }, [
+			React.createElement("li", {}, [
+				"Test"
+            ])
+    ]);
+}
+```
 
 # The Virtual DOM (VDOM)
 
-// TODO: Talk about how the decision to make JSX a representation of DOM led to a need for the VDOM
+While JSX allowed for lots of flexibility, it meant that templates that needed [reactivity](/posts/what-is-reactivity) required
+a re-execution of all template nodes to construct [the DOM](/posts/understanding-the-dom) with new values.
+
+![TODO: Write alt](./without_vdom.png)
+
+To solve this, the team used a concept of a "virtual DOM" (VDOM). This VDOM was a copy of the browser's DOM stored in JavaScript; When React constructed a node in the DOM, it made a copy into its own copy of the DOM.
+
+Then, when a given component needed to update the DOM, it would check against this VDOM and only localize the re-render to the specific node.
+
+![TODO: Write alt](./with_vdom.png)
+
+This was a huge optimization that allowed for much more performant React applications to scale outward.
 
 # Error Components
 
@@ -44,7 +100,12 @@ While things may get fairly technical, I'll make sure to keep things relatively 
 
 # JSX over the wire
 
-// TODO: Talk about Next.js' pre-RSC SSR story and how shipping VDOM state enabled
+/
+Even in the earliest days of React the idea of representing your HTML code in a JavaScript file was established.
+
+
+
+/ TODO: Talk about Next.js' pre-RSC SSR story and how shipping VDOM state enabled
 // TODO: Talk about how this is powered by a similar boundary system as Suspense (only between loading states and not) 
 
 # Async components
