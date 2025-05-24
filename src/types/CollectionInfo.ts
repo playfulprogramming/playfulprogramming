@@ -6,6 +6,16 @@ export interface ChapterList {
 	order: string;
 }
 
+export interface ExternalPost {
+	title: string;
+	url: string;
+	description: string;
+}
+
+export interface LocalPost {
+	post: string;
+}
+
 export interface RawCollectionInfo {
 	title: string;
 	description: string;
@@ -21,7 +31,7 @@ export interface RawCollectionInfo {
 	version?: string;
 	upToDateSlug?: string;
 	buttons?: Array<{ text: string; url: string }>;
-	chapterList?: ChapterList[];
+	chapterList?: Array<ExternalPost | LocalPost>;
 }
 
 export interface CollectionInfo extends RawCollectionInfo {

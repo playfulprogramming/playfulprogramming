@@ -10,10 +10,17 @@ interface CollectionChapter {
 	title: string;
 	description: string;
 	href: string;
+	externalLink?: boolean;
 }
 
-const { num, title, description, href, collection } =
-	Astro.props as CollectionChapter;
+const {
+	num,
+	title,
+	description,
+	href,
+	collection,
+	externalLink = false,
+} = Astro.props as CollectionChapter;
 const hrefProps = href ? getHrefContainerProps(href) : {};
 const shortTitle = getShortTitle(
 	{ title, collection: collection.title },
@@ -29,7 +36,15 @@ const shortTitle = getShortTitle(
 			</p>
 		</div>
 		<h3 class={`text-style-headline-5 ${styles.title}`}>
-			{href ? <a href={href}>{shortTitle}</a> : shortTitle}
+			{
+				href ? (
+					<a href={href} target={externalLink ? "_blank" : "_self"}>
+						{shortTitle}
+					</a>
+				) : (
+					shortTitle
+				)
+			}
 		</h3>
 	</div>
 	<p class={`text-style-body-large ${styles.description}`}>
