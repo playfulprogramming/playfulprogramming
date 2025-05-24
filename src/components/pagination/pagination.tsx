@@ -52,11 +52,7 @@ function PaginationButton({
 function PaginationMenuWrapper(
 	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">,
 ) {
-	const [shouldRender, setShouldRender] = useState(false);
-
-	useEffect(() => {
-		setShouldRender(true);
-	});
+	const shouldRender = typeof process === "undefined";
 
 	// if this is a static render, this still needs to return an <li> node so that
 	// it hydrates in the correct order
