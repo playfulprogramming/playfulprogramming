@@ -295,7 +295,7 @@ export class ChangeMessageElement extends LitElement {
 
 This reactivity comes with its own set of limitations. While numbers and strings are able to be set fairly trivially, objects (and by extension arrays) are a different story.
 
-This is because, in order for Lit to know what properties to update in render, an object must have a different reference value from one to another. [This is just how React and other frameworks detect changes in state as well.](https://www.coletiv.com/blog/dangers-of-using-objects-in-useState-and-useEffect-ReactJS-hooks/)
+This is because, in order for Lit to know what properties to update in render, an object must have a different reference value from one to another. [This is just how React and other frameworks detect changes in state as well.](http://web.archive.org/web/20220912101404/https://www.coletiv.com/blog/dangers-of-using-objects-in-useState-and-useEffect-ReactJS-hooks/)
 
 ```javascript
 export class FormElement extends LitElement {
