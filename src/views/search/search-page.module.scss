@@ -37,6 +37,10 @@
 	padding: 0 var(--site-spacing) var(--site-spacing) var(--site-spacing);
 }
 
+.snitipsContainer {
+	padding-top: var(--site-spacing);
+}
+
 .collectionsGrid {
 	display: grid;
 	gap: var(--site-spacing);

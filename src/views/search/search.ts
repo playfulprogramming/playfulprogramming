@@ -1,4 +1,5 @@
 import { PersonInfo } from "types/PersonInfo";
+import { SnitipInfo } from "types/SnitipInfo";
 import { TagInfo } from "types/TagInfo";
 
 export const SEARCH_QUERY_KEY = "q";
@@ -22,6 +23,7 @@ export interface TagFilterInfo extends TagInfo {
 export interface SearchFiltersData {
 	people: PersonInfo[];
 	tags: TagFilterInfo[];
+	snitips: SnitipInfo[];
 }
 
 export interface SearchQuery {
