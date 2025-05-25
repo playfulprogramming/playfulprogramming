@@ -8,7 +8,7 @@ import {
 	RawPersonInfo,
 } from "types/index";
 import * as fs from "fs/promises";
-import path, { join } from "path";
+import path, { join, relative } from "path";
 import { isNotJunk as baseIsNotJunk } from "junk";
 import { getImageSize } from "../utils/get-image-size";
 import { resolvePath } from "./url-paths";
@@ -26,6 +26,7 @@ import aboutRaw from "../../content/data/about.json";
 import rolesRaw from "../../content/data/roles.json";
 import licensesRaw from "../../content/data/licenses.json";
 import tagsRaw from "../../content/data/tags.json";
+import { getPostImages } from "./hoof";
 
 function isNotJunk(name: string): boolean {
 	// Ignore VSCode and JetBrains project files
@@ -307,6 +308,15 @@ async function readPost(
 			}
 		});
 
+		const postImages = await getPostImages({
+			slug,
+			author: frontmatter.authors?.at(0) ?? fallbackInfo.authors[0],
+			path: relative(process.cwd(), filePath),
+		}).catch((e) => {
+			console.error(e);
+			return undefined;
+		});
+
 		postObjects.push({
 			...fallbackInfo,
 			...frontmatter,
@@ -325,7 +335,8 @@ async function readPost(
 				dayjs(frontmatter.published).format("MMMM D, YYYY"),
 			editedMeta:
 				frontmatter.edited && dayjs(frontmatter.edited).format("MMMM D, YYYY"),
-			socialImg: `/generated/${slug}.twitter-preview.jpg`,
+			bannerImg: postImages?.banner,
+			socialImg: postImages?.linkPreview,
 		});
 	}
 
@@ -359,70 +370,55 @@ for (const personId of [...people.keys()]) {
 }
 
 const posts = new Map<string, PostInfo[]>();
-for (const collection of [...collections.values()]) {
-	const postsDirectory = join(
-		contentDirectory,
-		collection[0].authors[0],
-		"collections",
-		collection[0].slug,
-		"posts",
-	);
+await Promise.all(
+	[...collections.values()].map(async (collection) => {
+		const postsDirectory = join(
+			contentDirectory,
+			collection[0].authors[0],
+			"collections",
+			collection[0].slug,
+			"posts",
+		);
 
-	const slugs = (await fs.readdir(postsDirectory).catch((_) => [])).filter(
-		isNotJunk,
-	);
+		const slugs = (await fs.readdir(postsDirectory).catch((_) => [])).filter(
+			isNotJunk,
+		);
 
-	for (const slug of slugs) {
-		const postPath = join(postsDirectory, slug);
-		posts.set(
-			slug,
-			await readPost(postPath, {
-				authors: collection[0].authors,
-				collection: collection[0].slug,
+		await Promise.all(
+			slugs.map(async (slug) => {
+				const postPath = join(postsDirectory, slug);
+				posts.set(
+					slug,
+					await readPost(postPath, {
+						authors: collection[0].authors,
+						collection: collection[0].slug,
+					}),
+				);
 			}),
 		);
-	}
-}
-for (const personId of [...people.keys()]) {
-	const postsDirectory = join(contentDirectory, personId, "posts");
+	}),
+);
+await Promise.all(
+	[...people.keys()].map(async (personId) => {
+		const postsDirectory = join(contentDirectory, personId, "posts");
 
-	const slugs = (await fs.readdir(postsDirectory).catch((_) => [])).filter(
-		isNotJunk,
-	);
+		const slugs = (await fs.readdir(postsDirectory).catch((_) => [])).filter(
+			isNotJunk,
+		);
 
-	for (const slug of slugs) {
-		const postPath = join(postsDirectory, slug);
-		posts.set(
-			slug,
-			await readPost(postPath, {
-				authors: [personId],
+		await Promise.all(
+			slugs.map(async (slug) => {
+				const postPath = join(postsDirectory, slug);
+				posts.set(
+					slug,
+					await readPost(postPath, {
+						authors: [personId],
+					}),
+				);
 			}),
 		);
-	}
-}
-
-{
-	// sort posts by date in descending order
-	const sortedPosts = [...posts.values()].sort((post1, post2) => {
-		const date1 = new Date(post1[0].published);
-		const date2 = new Date(post2[0].published);
-		return date1 > date2 ? -1 : 1;
-	});
-
-	// calculate whether each post should have a banner image
-	for (let i = 0; i < sortedPosts.length; i++) {
-		const post = sortedPosts[i];
-		// index of the post on its page (assuming the page is paginated by 8)
-		const pageIndex = i % 8;
-		// if the post is at index 0 or 4, it should have a banner
-		if (pageIndex === 0 || pageIndex === 4) {
-			for (const localePost of post) {
-				// TODO: support per-locale banner images?
-				localePost.bannerImg = `/generated/${localePost.slug}.banner.jpg`;
-			}
-		}
-	}
-}
+	}),
+);
 
 {
 	// sum the totalWordCount and totalPostCount for each person object
