@@ -57,8 +57,13 @@ export interface paths {
 				path?: never;
 				cookie?: never;
 			};
-			requestBody: {
+			requestBody?: {
 				content: {
+					/** @example {
+					 *       "slug": "example",
+					 *       "author": "fennifith",
+					 *       "path": "content/fennifith/posts/example/index.md"
+					 *     } */
 					"application/json": {
 						slug: string;
 						author: string;
@@ -106,6 +111,9 @@ export interface paths {
 			};
 			requestBody: {
 				content: {
+					/** @example {
+					 *       "url": "https://playfulprogramming.com"
+					 *     } */
 					"application/json": {
 						/** Format: uri */
 						url: string;
@@ -131,6 +139,7 @@ export interface paths {
 								width?: number;
 								height?: number;
 							};
+							error: boolean;
 						};
 					};
 				};

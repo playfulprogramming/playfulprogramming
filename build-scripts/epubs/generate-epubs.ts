@@ -48,7 +48,7 @@ async function getReferencePageHtml({
 			const metadata = await getUrlMetadata(link.originalHref).catch(
 				() => undefined,
 			);
-			if (!metadata) {
+			if (!metadata || metadata.error) {
 				console.error(
 					"Failed to fetch metadata for collection link",
 					link.originalHref,

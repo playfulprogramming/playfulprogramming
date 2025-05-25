@@ -12,6 +12,7 @@ interface UrlMetadataResponse {
 		width?: number;
 		height?: number;
 	};
+	error: boolean;
 }
 
 export async function getUrlMetadata(
