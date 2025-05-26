@@ -222,6 +222,17 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 		}
 	}, [errorData]);
 
+	useEffect(() => {
+		const searchContainer = document.querySelector(
+			"#search-container",
+		) as HTMLElement;
+		if (query.searchQuery) {
+			searchContainer.setAttribute("data-hide-sidebar", "false");
+		} else {
+			searchContainer.setAttribute("data-hide-sidebar", "true");
+		}
+	}, [query.searchQuery]);
+
 	const isContentLoading =
 		isLoadingData || isFetchingData || isLoadingPeople || isFetchingPeople;
 
