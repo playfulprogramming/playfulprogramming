@@ -1,5 +1,4 @@
 ---
-import style from "../views/search/search-page.module.scss";
 import SearchPage from "../views/search/search-page";
 import Document from "../layouts/document.astro";
 import SEO from "../components/seo/seo.astro";
@@ -12,7 +11,7 @@ import { siteMetadata } from "constants/site-config";
 		description="Find your favorite articles and collections on Playful Programming easier than ever!"
 		slot="head"
 	/>
-	<main class={style.fullPageContainer} id="search-container">
+	<main>
 		<h1 class="visually-hidden">Search</h1>
 		<SearchPage client:only="preact" siteTitle={siteMetadata.title} />
 	</main>

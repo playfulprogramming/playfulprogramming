@@ -222,17 +222,6 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 		}
 	}, [errorData]);
 
-	useEffect(() => {
-		const searchContainer = document.querySelector(
-			"#search-container",
-		) as HTMLElement;
-		if (query.searchQuery) {
-			searchContainer.setAttribute("data-hide-sidebar", "false");
-		} else {
-			searchContainer.setAttribute("data-hide-sidebar", "true");
-		}
-	}, [query.searchQuery]);
-
 	const isContentLoading =
 		isLoadingData || isFetchingData || isLoadingPeople || isFetchingPeople;
 
@@ -333,7 +322,10 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const numberOfPosts = showArticles ? data.totalPosts : 0;
 
 	return (
-		<>
+		<div
+			className={style.fullPageContainer}
+			data-hide-sidebar={!query.searchQuery}
+		>
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
 				setFilterIsDialogOpen={setFilterIsDialogOpen}
@@ -542,7 +534,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 					)}
 				</section>
 			</div>
-		</>
+		</div>
 	);
 }
 
