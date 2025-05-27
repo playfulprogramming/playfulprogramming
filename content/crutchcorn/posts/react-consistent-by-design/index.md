@@ -471,6 +471,16 @@ Regardless of if a hook is custom or imported from React, regardless of when a h
 
 // TODO: Talk about useEffect and the need for a more 1:1 mapped system for effect cleanup
 
+## Hooks + the VDOM
+
+// TODO: Talk about how hooks are stored in a per-component basis using a [linked list](https://github.com/facebook/react/blob/c0464aedb16b1c970d717651bba8d1c66c578729/packages/react-reconciler/src/ReactFiberHooks.js#L192-L198) internally, linking back to the main thesis
+
+
+
+https://github.com/facebook/react/blob/c0464aedb16b1c970d717651bba8d1c66c578729/packages/react-reconciler/src/ReactFiberHooks.js#L261-L266
+
+
+
 # `<StrictMode>` Effect Changes
 
 // TODO: Talk about how this is consistent with Hooks, despite the perceived changeup
