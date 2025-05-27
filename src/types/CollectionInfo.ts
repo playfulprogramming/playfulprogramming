@@ -2,8 +2,8 @@ import { Languages } from "types/index";
 
 export interface ExternalPost {
 	title: string;
-	url: string;
-	description: string;
+	url?: string;
+	description?: string;
 }
 
 export interface LocalPost {
