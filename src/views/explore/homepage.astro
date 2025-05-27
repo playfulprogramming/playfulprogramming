@@ -31,7 +31,10 @@ const postAuthors = new Map(
 <Hero />
 <section>
 	<SubHeader tag="h2" text="Recent articles" id="posts-header">
-		<Button href="/page/1" aria-labelledby="posts-header">
+		<Button
+			href={`/search?${buildSearchQuery({ searchQuery: "*", display: "articles" })}`}
+			aria-labelledby="posts-header"
+		>
 			{translate(Astro, "action.view_all")}
 		</Button>
 	</SubHeader>
