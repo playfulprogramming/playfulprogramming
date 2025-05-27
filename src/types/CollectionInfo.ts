@@ -1,11 +1,5 @@
 import { Languages } from "types/index";
 
-export interface ChapterList {
-	title: string;
-	description: string;
-	order: string;
-}
-
 export interface ExternalPost {
 	title: string;
 	url: string;
