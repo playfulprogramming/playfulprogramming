@@ -1,4 +1,5 @@
 ---
+import style from "../views/search/search-page.module.scss";
 import SearchPage from "../views/search/search-page";
 import Document from "../layouts/document.astro";
 import SEO from "../components/seo/seo.astro";
@@ -13,6 +14,11 @@ import { siteMetadata } from "constants/site-config";
 	/>
 	<main>
 		<h1 class="visually-hidden">Search</h1>
+		<noscript>
+			<h3 class={style.centerHeader}>
+				JavaScript needs to be enabled to use this page
+			</h3>
+		</noscript>
 		<SearchPage client:only="preact" siteTitle={siteMetadata.title} />
 	</main>
 </Document>
