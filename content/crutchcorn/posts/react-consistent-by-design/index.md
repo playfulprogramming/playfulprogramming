@@ -333,6 +333,74 @@ This is why **Hooks** were introduced into React.
 
 # Introducing Hooks
 
+React's Hooks were introduced in React 16.8. With them, the baseline for future React features was established.
+
+While previous ["smart" components](/posts/layered-react-structure#smart-dumb-comps) were written using classes and special methods and properties to manage state and [side effects](/posts/ffg-fundamentals-side-effects):
+
+```jsx
+class WindowSize extends React.Component {
+  state = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  }; 
+
+  handleResize = () => {
+    this.setState({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  render() {
+    // ...
+  }
+}
+```
+
+WIth hooks, all of your components - both "smart" and "dumb" - could be written with functions and specially imported functions:
+
+```jsx
+function WindowSize() {
+	const [size, setSize] = React.useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  })
+  
+  const {height, width} = size;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    window.addEventListener('resize', this.handleResize);
+
+    return () => window.removeEventListener('resize', this.handleResize);
+  }, []);
+
+  return (
+  	// ...
+  )
+}
+```
+
+This had a number of benefits, the biggest of which going back to the concept of composition.
+
+## Hook Composition
+
+
+
 
 
 // TODO: Talk about the composition of hooks, how they're more similar to components in that way
