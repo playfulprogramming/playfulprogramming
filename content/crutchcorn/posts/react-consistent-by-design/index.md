@@ -399,12 +399,76 @@ This had a number of benefits, the biggest of which going back to the concept of
 
 ## Hook Composition
 
+Whereas with class components the convention for composition (say that 10 times fast!) was higher-ordered components, hooks have.... 🥁
 
+Other hooks. 😐
 
+This might sound obvious, but its this obvious-nature that allows for Hook's superpowers, both current and future.
 
+Let's look at a custom `useWindowSize` hook:
 
-// TODO: Talk about the composition of hooks, how they're more similar to components in that way
-// TODO: Talk about the rules of React and how it helps keeps components pure
+```javascript
+function useWindowSize() {
+	const [size, setSize] = React.useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  })
+  
+  const {height, width} = size;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    window.addEventListener('resize', this.handleResize);
+
+    return () => window.removeEventListener('resize', this.handleResize);
+  }, []);
+
+	return {height, width}
+}
+```
+
+> **Note:**
+> Notice how we had to change very little code from the `WindowSize` component itself; this flavor of logic composition allows us to avoid changing much of the code between the intial authoring and the rewrite to abstract this logic out to a custom hook.
+
+This custom hook can then be reused in as many function components as we'd like:
+
+```jsx
+function MyComponent() {
+	const {height, width} = useWindowSize();
+		
+  return (
+    <div>
+      The window width is: {windowWidth}
+      <br />
+      The window height is: {windowHeight}
+    </div>
+  )
+}
+```
+
+## Rules of Hooks
+
+This doesn't mean that authoring your own custom hooks is a free-for-all, however. All hooks follow a consistent set of rules:
+
+- All hooks are functions
+- The function names must start with `use`
+- [Hooks cannot be called conditionally](https://react.dev/reference/rules/rules-of-hooks)
+- They must be called at the top-level of a component
+- [Dynamic usage of hooks is not allowed](https://react.dev/reference/rules/react-calls-components-and-hooks#dont-dynamically-use-hooks)
+- [Properties passed to hooks must not be mutated](https://react.dev/reference/rules/components-and-hooks-must-be-pure#return-values-and-arguments-to-hooks-are-immutable)
+
+Regardless of if a hook is custom or imported from React, regardless of when a hook was introduced, whether from the start with `useState` or much later with [the `useActionState` hook](https://playfulprogramming.com/posts/what-is-use-action-state-and-form-status), these rules are to be followed.
+
+// TODO: Show demo of allowed and disallowed hook usage
+
+## Effects
+
 // TODO: Talk about useEffect and the need for a more 1:1 mapped system for effect cleanup
 
 # `<StrictMode>` Effect Changes
