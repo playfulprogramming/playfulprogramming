@@ -277,6 +277,8 @@ To solve this, many apps and libraries reached for a pattern called "**Higher or
 
 ## Higher ordered Components (HoC)
 
+With higher-ordered components, you're able to avoid requiring your users to have `super` calls across their codebase and instead recieve arguments from the base class as `props` to the extending class:
+
 ```jsx
 const withWindowSize = (WrappedComponent) => {
   return class WithWindowSize extends React.Component {
@@ -323,11 +325,11 @@ class MyComponentBase extends React.Component {
 const MyComponent = withWindowSize(MyComponentBase);
 ```
 
+Prior to hooks, this was the state-of-the-art when it came to component logic reuse in React.
 
+Unfortunately, this required knowledge of what `props` to expect from the parent component, was challenging to allow [TypeScript](/posts/introduction-to-typescript) and other type-checker usage, and ultimately felt like an addon pattern rather than a clean, built-in composition pattern from React itself.
 
-
-
-
+This is why **Hooks** were introduced into React.
 
 # Introducing Hooks
 
