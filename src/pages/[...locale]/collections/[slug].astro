@@ -8,8 +8,8 @@ import CollectionChapter from "src/views/collections/collection-chapter.astro";
 import { SubHeader } from "src/components/subheader/subheader";
 import { translate } from "utils/translations";
 import { Languages } from "types/index";
-import { getMarkdownHtml } from "utils/markdown";
 import { LocalPost, ExternalPost } from "src/types/CollectionInfo";
+import { getMarkdownHtml } from "utils/markdown";
 
 export async function getStaticPaths() {
 	const collections = api.getAllCollections();
@@ -29,6 +29,14 @@ export async function getStaticPaths() {
 
 interface CollectionProps {
 	Content: MarkdownInstance<never>["Content"];
+}
+
+interface CollectionChapterData {
+	num?: number;
+	title: string;
+	description: string;
+	href: string;
+	externalLink: boolean;
 }
 
 const { Content } = Astro.props as CollectionProps;
@@ -52,6 +60,45 @@ const isLocalPost = (
 ): chapter is LocalPost => {
 	return (chapter as LocalPost).post !== undefined;
 };
+
+let collectionData: Array<CollectionChapterData> = [];
+
+if (collection?.chapterList?.length) {
+	collectionData = collection?.chapterList.map((post, i) => {
+		let title: string;
+		let href: string;
+		let description: string;
+		let externalLink = false;
+		if (isLocalPost(post)) {
+			const postData = api.getPostBySlug(post.post, locale);
+			title = postData?.title || "No title";
+			description = postData?.description || "No description";
+			href = post?.post ? `/posts/${post.post}` : "#";
+		} else {
+			title = post.title;
+			description = post.description || "";
+			href = post.url || "#";
+			externalLink = true;
+		}
+		return {
+			num: i + 1,
+			title,
+			description,
+			href,
+			externalLink,
+		};
+	});
+} else if (collectionPosts?.length) {
+	collectionData = collectionPosts.map(
+		({ order, title, description, slug }, i) => ({
+			num: order,
+			title,
+			description,
+			href: `/posts/${slug}`,
+			externalLink: false,
+		}),
+	);
+}
 ---
 
 <Document size="l">
@@ -77,51 +124,22 @@ const isLocalPost = (
 				<SubHeader tag="h2" text={translate(Astro, "desc.chapter_listing")} />
 				<ol>
 					{
-						(collectionPosts ?? []).map((post) => {
-							return (
-								<li>
-									<CollectionChapter
-										collection={collection}
-										num={post.order}
-										title={post.title}
-										description={post.description}
-										href={`/posts/${post.slug}`}
-									/>
-								</li>
-							);
-						})
-					}
-					{
-						(collection?.chapterList ?? []).map((post, i) => {
-							let title: string;
-							let link: string;
-							let description: string;
-							let externalLink = false;
-
-							if (isLocalPost(post)) {
-								const postData = api.getPostBySlug(post.post, locale);
-								title = postData?.title || "No title";
-								description = postData?.description || "No description";
-								link = post?.post ? `/posts/${post.post}` : "#";
-							} else {
-								title = post.title;
-								description = post.description;
-								link = post.url;
-								externalLink = true;
-							}
-							return (
-								<li>
-									<CollectionChapter
-										collection={collection}
-										num={i + 1}
-										title={title}
-										href={link}
-										description={description}
-										externalLink={externalLink}
-									/>
-								</li>
-							);
-						})
+						collectionData.map(
+							({ num, title, href, description, externalLink = null }) => {
+								return (
+									<li>
+										<CollectionChapter
+											collection={collection}
+											num={num}
+											title={title}
+											href={href}
+											description={description}
+											externalLink={externalLink}
+										/>
+									</li>
+								);
+							},
+						)
 					}
 				</ol>
 			</div>
