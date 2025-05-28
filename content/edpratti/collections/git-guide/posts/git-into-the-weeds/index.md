@@ -199,7 +199,7 @@ git submodule update --init
 ```
 
 > The `--init` is an obligatory flag, which initializes the submodules.
-> We can also add the`--recursive` flag, which ensures that any nested submodules are also fetched properly.
+> We can also add the `--recursive` flag, which ensures that any nested submodules are also fetched properly.
 
 ## Updating a submodule
 
