@@ -94,7 +94,7 @@ A mixed reset undoes a commit and also unstages changes, but maintains edits in 
 
 A hard reset, as the name implies, completely nullifies all changes and removes any trace of them from the repository. ***This cannot be undone, so it's incredibly important to be careful about when to use this command.***
 
-> **Within the context of a Git GUI, the commits would simply disappear.:**
+> **Within the context of a Git GUI, it would be like going back in time, with none of the changes or files that were created.:**
 
 ---
 
@@ -114,7 +114,16 @@ There are situations where a partiular change may cause conflicts. This can be t
 <img src="./git_conflict_modified.svg" alt="A commit history showing branches modifying the same lines, resulting in a git merge conflict." style="background-color: var(--background_primary-bright); border: var(--border-width_s) solid var(--background_disabled); border-radius: var(--corner-radius_xl)">
 
 > **This is classified as a `content` conflict.:**
-> Git will insert conflict markers within the file as opposed to simply showing a conflict.
+> Git will insert conflict markers ***inside the file*** as opposed to simply showing a conflict.
+> ```bash
+> <<<<<<< HEAD
+> Changes from the current branch
+> =======
+> Changes from the other branch
+> >>>>>>> branch-name
+> ```
+> The user will then need to manually pick and edit which changes to keep and which to discard.
+
 
 **There are also other types of conflicts, like the following:**
 
@@ -158,7 +167,7 @@ git commit -m "Add MaterialUI as a submodule"
 <!-- ::start:filetree -->
 - `docs/`
 - `libs/`
-  - `material-ui/`
+  - **`material-ui/`**
 - `src/`
 - `tests/`
 - `README.md`
@@ -233,8 +242,13 @@ git commit -m "Updating MaterialUI"
 
 Submodules can create very complex repository structures, so it's important to understand when they are needed. For most situations, developers have moved on to package managers, which are friendlier to manage than submodules. In fact, the example we've shown today — MaterialUI - is actually available as a package!
 
-We have a great article on setting up NPM and Yarn. [**You can read it by clicking here**](/posts/how-to-use-npm). 
+> **Introduction to NPM:**
+> We have a great article on setting up NPM and Yarn. [**You can read it by clicking here**](/posts/how-to-use-npm). 
 
 ---
 
-<!-- TO-DO: Add conclusion -->
+# What to expect next
+
+In our next chapter, or perhaps chapters, we'll approach more advanced topics, like Git `reflog`, `gc`, `fsck` and the `.git` folder.
+
+#### We'll see you then!
