@@ -198,10 +198,16 @@ There are different ways of updating submodules. Git allows you to either update
 
 ### Updating all submodules
 
-To update all modules, we can run the essentially the same command, but we do not need to navigate to the submodule path. By performing it in the 
+To update all modules, we can run the essentially the same command, but we do not need to navigate to the submodule path. By performing it in the root repository, we can update all the submodules.
 
 ```bash
 git submodule update --remote --merge
+```
+
+Don't forget to stage these changes!
+
+```bash
+git add .
 ```
 
 ### Updating a specific submodule
