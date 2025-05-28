@@ -251,4 +251,4 @@ Submodules can create very complex repository structures, so it's important to u
 
 In our next chapter, or perhaps chapters, we'll approach more advanced topics, like Git `reflog`, `gc`, `fsck` and the `.git` folder.
 
-#### We'll see you then!
+**We'll see you then!**
