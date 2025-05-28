@@ -2,7 +2,7 @@
 {
 	title: "Git: Into the Weeds",
 	description: "In our second chapter, we expand on the topics we've discussed and talk about the bothersome and tricky portions of Git!",
-	published: "2025-05-16",
+	published: "2025-05-28",
 	tags: ["git"],
 	license: "cc-by-nc-sa-4",
 	order: 2
