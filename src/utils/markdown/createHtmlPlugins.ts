@@ -22,8 +22,6 @@ import { rehypeHeaderClass } from "./rehype-header-class";
 import { Processor } from "unified";
 import { dirname, relative, resolve } from "path";
 import type { VFile } from "vfile";
-import { siteMetadata } from "../../constants/site-config";
-import branch from "git-branch";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
 import rehypeStringify from "rehype-stringify";
 import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta";
@@ -36,8 +34,8 @@ import {
 	transformTabs,
 } from "./components";
 import { rehypeLinkPreview } from "./link-preview/rehype-transform";
-
-const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
+import { transformCodeEmbed } from "./components/code-embed/rehype-transform";
+import { getStackblitzUrl } from "./components/code-embed/getStackblitzUrl";
 
 const remarkEmbedderDefault =
 	(remarkEmbedder as never as { default: typeof remarkEmbedder }).default ??
@@ -101,17 +99,16 @@ export function createHtmlPlugins(unified: Processor) {
 							urlRelativePath = urlRelativePath.slice(1);
 						}
 
-						const q = iFrameUrl.search;
-						const repoPath = siteMetadata.repoPath;
-						const provider = `stackblitz.com/github`;
-						return `
-								https://${provider}/${repoPath}/tree/${currentBranch}/${urlRelativePath}${q}
-							`.trim();
+						return getStackblitzUrl(urlRelativePath, {
+							embed: "1",
+							file: iFrameUrl.searchParams.get("file") || undefined,
+						});
 					},
 				],
 			})
 			.use(rehypeTransformComponents, {
 				components: {
+					["code-embed"]: transformCodeEmbed,
 					filetree: transformFileTree,
 					["in-content-ad"]: transformInContentAd,
 					["link-preview"]: transformLinkPreview,

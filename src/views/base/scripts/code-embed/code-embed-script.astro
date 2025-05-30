@@ -1,0 +1,38 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<template id="webcontainer-loader">
+	<div id="code-embed-loader" class="code-embed__loader" data-step="download">
+		<ol>
+			<li class="step-download">
+				<Icon class="icon-pending" name="dot" />
+				<Icon class="icon-loading" name="loading" />
+				<Icon class="icon-done" name="checkmark" />
+				<span class="text-style-body-medium-bold"> Downloading sources </span>
+			</li>
+			<li class="step-install">
+				<Icon class="icon-pending" name="dot" />
+				<Icon class="icon-loading" name="loading" />
+				<Icon class="icon-done" name="checkmark" />
+				<span class="text-style-body-medium-bold">
+					Installing dependencies
+				</span>
+			</li>
+			<li class="step-start">
+				<Icon class="icon-pending" name="dot" />
+				<Icon class="icon-loading" name="loading" />
+				<Icon class="icon-done" name="checkmark" />
+				<span class="text-style-body-medium-bold"> Starting up </span>
+			</li>
+		</ol>
+		<span
+			id="code-embed-loader-console"
+			class="code-embed__loader__console text-style-code"></span>
+	</div>
+</template>
+
+<script>
+	import "./static-script";
+	import "./webcontainer-script";
+</script>
