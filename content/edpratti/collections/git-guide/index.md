@@ -8,13 +8,7 @@
     "/custom-content/collections/git_guide/git_guide_cover.png",
     tags: ["css", "design", "html"],
     published: "2025-04-23",
-    buttons: [{ text: "Read now", url: "/posts/git-basics" }],
-    chapterList:
-    [{
-      order: 2,
-      title: "Git: Into the Weeds",
-      description: "Coming soon..."
-    }]
+    buttons: [{ text: "Read now", url: "/posts/git-basics" }]
 }
 ---
 

@@ -13,7 +13,7 @@ You’re about to release your new Angular web app. It’s a photo  sharing site
 
 ## Component Checks
 
-The most basic way to restrict a user’s access to any given page is to use  logic that will run at the load time of the component and redirect the  user if needed. Given [Angular’s lifecycle hooks](https://angular.io/guide/lifecycle-hooks), we can use `ngOnInit` in order to do so.
+The most basic way to restrict a user’s access to any given page is to use  logic that will run at the load time of the component and redirect the  user if needed. Given [Angular’s lifecycle hooks](https://angular.dev/guide/components/lifecycle), we can use `ngOnInit` in order to do so.
 
 ```javascript
 import {Component, OnInit} from '@angular/core';
@@ -46,7 +46,7 @@ This works perfectly fine if  there’s a single route you’d like to restrict 
 
 ## Introducing: Route Guards
 
-In essence, a route guard is simply a check to tell if you’re allowed to view a page or not. It can be added to any route using `canActivate` (a fairly verbose property, I’d say) with a custom interface that follows [Angular’s CanActivate API](https://angular.io/api/router/CanActivate). The most simplistic example of a router guard is as follows:
+In essence, a route guard is simply a check to tell if you’re allowed to view a page or not. It can be added to any route using `canActivate` (a fairly verbose property, I’d say) with a custom interface that follows [Angular’s CanActivate API](https://angular.dev/api/router/CanActivate). The most simplistic example of a router guard is as follows:
 
 ```javascript
 // route.guard.ts
@@ -122,7 +122,7 @@ When I first learned about this, I thought it was the coolest thing in the  worl
 
 This isn’t too bad alone - but when you have  hundreds of routes on a large scale project, this easily becomes  unmanageable. I also had times when I wanted to add additional security  to a route’s children, for example a dashboard page that included some  admin routes that I wanted to lock down. This is where child guards come into play.
 
-Child guards do exactly what you think they would. They add an additional guard for children. They use a similar API as `canActivate`, and the reference to that API can be found [here](https://angular.io/api/router/CanActivateChild). So, if I were to add the following guard to my child routes:
+Child guards do exactly what you think they would. They add an additional guard for children. They use a similar API as `canActivate`, and the reference to that API can be found [here](https://angular.dev/api/router/CanActivateChild). So, if I were to add the following guard to my child routes:
 
 ```javascript
 import {Injectable} from '@angular/core';
@@ -211,7 +211,7 @@ canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot)
 }
 ```
 
-Because the first argument to `canActivateChild` is an `ActivatedRouteSnapshot`, you can grab [any of the methods or properties from the API](https://angular.io/api/router/ActivatedRouteSnapshot) from the routes that are currently being called. However, something  you’ll probably want to keep in mind is that this will occur once for  every single child route being called.
+Because the first argument to `canActivateChild` is an `ActivatedRouteSnapshot`, you can grab [any of the methods or properties from the API](https://angular.dev/api/router/ActivatedRouteSnapshot) from the routes that are currently being called. However, something  you’ll probably want to keep in mind is that this will occur once for  every single child route being called.
 
 ## Lazy Loading
 
@@ -219,7 +219,7 @@ Because lazy loading using `loadChildren` is still considered a child route, all
 
 ### Can Load
 
-The [API for canLoad](https://angular.io/api/router/CanLoad) looks very similar to what we’ve seen before with `canActivate` and `canActivateChild`.
+The [API for canLoad](https://angular.dev/api/router/CanLoad) looks very similar to what we’ve seen before with `canActivate` and `canActivateChild`.
 
 ```javascript
 import {Injectable} from '@angular/core';
@@ -276,4 +276,4 @@ The answer? `canLoad` runs first. Before `AuthenticationGuard` and before `Autho
 
 ## Wrap Up
 
-Just like anything else, an Angular Router Guard is a tool. It has many uses that are really only restricted by how you’re able to utilize that  tool. You’re able to do service calls, logic changes, and more in order  to restrict access to a page. However, it’s not a one-tool-fits-all  solution. There will be times that a [resolver](https://angular.io/api/router/Resolve) might be able to help better, or sometimes even component logic might  fit your use-case better. That being said, Guards are incredibly helpful when the time comes to use them
+Just like anything else, an Angular Router Guard is a tool. It has many uses that are really only restricted by how you’re able to utilize that  tool. You’re able to do service calls, logic changes, and more in order  to restrict access to a page. However, it’s not a one-tool-fits-all  solution. There will be times that a [resolver](https://angular.dev/api/router/Resolve) might be able to help better, or sometimes even component logic might  fit your use-case better. That being said, Guards are incredibly helpful when the time comes to use them
