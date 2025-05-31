@@ -518,13 +518,57 @@ function DisallowedHooksUsage() {
 
 - As a result, [side effects need a good way to cleanup, otherwise your application will suffer from bugs and memory leaks.](/posts/ffg-fundamentals-side-effects#cleaning-event-listeners)
 
+Following this thought process, we can see how React's `useEffect` hook enables us to follow better side effect cleanup patterns.
+
+Let's look at how classes handled side effects:
+
+```jsx
+class Listener extends React.Component {
+  // Requires us to register a method on the `this` boundary
+  // to reference in both places
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  // There may be many lines between the mount and unmount
+    
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  // Methods added to `window` via `addEventListener` needed to use
+  // arrow functions, as otherwise `this` would be bound to `window`.
+  handleResize = () => {
+    // ...
+  }
+}
+```
+
+> **Note:**
+>
+> Confused about why `this` would be `window` when `handleResize` isn't an arrow function?
+>
+> We cover this and more in [our article covering the `this` keyword in JavaScript.](/posts/javascript-bind-usage)
+
+Compare this to how side effects are registered and cleaned up using `useEffect`:
+
+```jsx
+function Listener() {
+	useEffect(() => {
+		// Method colocated next to the listeners
+        const handleResize = () => {
+			// ...
+		}
+		window.addEventListener('resize', handleResize);
+        // Cleanup in same scope as the effect
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+    
+    // ...
+}
+```
 
 
-
-
-
-
-// TODO: Talk about useEffect and the need for a more 1:1 mapped system for effect cleanup
 
 ## Hooks + the VDOM
 
@@ -539,6 +583,8 @@ https://github.com/facebook/react/blob/c0464aedb16b1c970d717651bba8d1c66c578729/
 # `<StrictMode>` Effect Changes
 
 // TODO: Talk about how this is consistent with Hooks, despite the perceived changeup
+
+// TODO: Talk about idempotency
 
 
 
