@@ -20,6 +20,7 @@ import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
 import { rehypeTransformComponents } from "./components";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
+import { transformCodeEmbedEpub } from "./components/code-embed/rehype-transform";
 
 export function createEpubPlugins(unified: Processor) {
 	return (
@@ -41,7 +42,7 @@ export function createEpubPlugins(unified: Processor) {
 			.use(rehypeMakeHrefPathsAbsolute)
 			.use(rehypeTransformComponents, {
 				components: {
-					["code-embed"]: ({ children }) => children,
+					["code-embed"]: transformCodeEmbedEpub,
 					filetree: ({ children }) => children,
 					["in-content-ad"]: ({ children }) => children,
 					["link-preview"]: ({ children }) => children,

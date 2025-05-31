@@ -130,3 +130,20 @@ export function CodeEmbed(props: CodeEmbedProps): Element {
 		</div>
 	) as never;
 }
+
+/** @jsxImportSource hastscript */
+export function CodeEmbedEpub(props: Pick<CodeEmbedProps, "title" | "editUrl" | "snippets" | "language" | "children">): Element {
+	return <>
+			{props.snippets.map((snippet) => (
+				<pre class="shiki">
+					<code class={props.language ? `language-${props.language}` : ""}>
+						{snippet.text}
+					</code>
+				</pre>
+			))}
+			{props.children}
+			{props.title && props.editUrl ? (
+				<p><a href={props.editUrl}>{props.title}</a></p>
+			) : null}
+	</> as never;
+}

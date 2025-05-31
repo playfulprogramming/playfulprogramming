@@ -1,11 +1,10 @@
 import { RehypeFunctionComponent, RehypeFunctionProps } from "../types";
 import { fetchProjectZip } from "./fetchProjectZip";
 import { basename, dirname, extname, join, relative, resolve } from "path";
-import { CodeEmbed } from "./code-embed";
+import { CodeEmbed, CodeEmbedEpub } from "./code-embed";
 import fs from "fs/promises";
 import { getStackblitzUrl } from "./getStackblitzUrl";
 import { logError } from "utils/markdown/logger";
-import { VFile } from "vfile";
 
 async function getFileSnippets({
 	vfile,
@@ -131,4 +130,29 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 	} else {
 		logError(props.vfile, props.node, `Unrecognized embed driver '${driver}'`);
 	}
+};
+
+export const transformCodeEmbedEpub: RehypeFunctionComponent = async ({
+	vfile,
+	node,
+	attributes,
+	children,
+}) => {
+	const project = attributes.project;
+	const file = attributes.file;
+
+	if (!project || !file) {
+		logError(vfile, node, "Attributes 'project' and 'file' must be defined!");
+		return undefined;
+	}
+
+	const projectDir = resolve(dirname(vfile.path), project);
+
+	return CodeEmbedEpub({
+		title: attributes.title ?? basename(file),
+		editUrl: getStackblitzUrl(relative(vfile.cwd, projectDir), { file }),
+		language: extname(file).substring(1),
+		snippets: await getFileSnippets({ vfile, node, attributes, children }),
+		children,
+	});
 };
