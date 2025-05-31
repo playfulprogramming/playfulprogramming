@@ -365,7 +365,7 @@ class WindowSize extends React.Component {
 }
 ```
 
-WIth hooks, all of your components - both "smart" and "dumb" - could be written with functions and specially imported functions:
+With hooks, all of your components - both "smart" and "dumb" - could be written with functions and specially imported functions:
 
 ```jsx
 function WindowSize() {
@@ -465,9 +465,64 @@ This doesn't mean that authoring your own custom hooks is a free-for-all, howeve
 
 Regardless of if a hook is custom or imported from React, regardless of when a hook was introduced, whether from the start with `useState` or much later with [the `useActionState` hook](https://playfulprogramming.com/posts/what-is-use-action-state-and-form-status), these rules are to be followed.
 
-// TODO: Show demo of allowed and disallowed hook usage
+```jsx
+// ✅ Allowed usages
+function AllowedHooksUsage() {
+	const [val, setVal] = React.useState(0);
+	const {height, width} = useWindowSize();
+	
+	return <>{/* ... */}</>
+}
 
-## Effects
+// ❌ Dis-allowed usages
+function DisallowedHooksUsage() {
+	const obj = {};
+    
+    useObj(obj);
+    
+    // Not allowed to mutate objects after being passed to a hook
+    obj.key = (obj.key ?? 0) + 1;    
+    
+    if (bool) {
+		const [val, setVal] = React.useState(0);        
+    }
+
+    if (other) {
+        return null;
+    }
+    
+    // While otherwise valid, can't be after a return
+    const {height, width} = useWindowSize();
+	
+    for (let i = 0; i++; i < 10) {
+        const ref = React.useRef();
+    }
+    
+	return <>{/* ... */}</>
+}
+```
+
+> These rules enforced here are present due to thoughtful design of how to enable React to own dataflow more. [We'll learn more about what this means in our Hooks + the VDOM section](#TODO_ADD).
+
+## Side Effects
+
+[I could talk about side effects in programming for hours](/posts/ffg-fundamentals-side-effects). As a short recap of an introductory view of effects:
+
+- A "side effect" is the idea of mutating state from some external boundary.
+
+  ![A pure function is allowed to mutate state from within its local environment, while a side effect changes data outside its own environment](../../collections/framework-field-guide-fundamentals/posts/ffg-fundamentals-side-effects/pure-vs-side-effect.png)
+
+- As a result of this, all I/O is a "side effect" since the user is external to the system executing the code
+
+- Most I/O requires some flavor of cleanup: either to stop listening for user input or to reset state set during an output before the next iteration
+
+- As a result, [side effects need a good way to cleanup, otherwise your application will suffer from bugs and memory leaks.](/posts/ffg-fundamentals-side-effects#cleaning-event-listeners)
+
+
+
+
+
+
 
 // TODO: Talk about useEffect and the need for a more 1:1 mapped system for effect cleanup
 
@@ -485,15 +540,74 @@ https://github.com/facebook/react/blob/c0464aedb16b1c970d717651bba8d1c66c578729/
 
 // TODO: Talk about how this is consistent with Hooks, despite the perceived changeup
 
+
+
 # Suspense Boundaries & `use`
 
-// TODO: Talk about how `use` throwing up, required state to be lifted up (consistent with messaging from React for years)
+// TODO: Talk about how `use` throwing upwards, required state to be lifted up (consistent with messaging from React for years)
 // TODO: Talk about waterfalling
 // TODO: Talk about how this introduced the ideas of boundaries in the VDOM
 
+## Error Boundaries & `use`
+
+// TODO: Talk about how rendering itself is a side effect
+
+// TODO: Talk about how if a promise passed to `use` rejects, it will open an error boundary
+
+Something often missed is how updating the screen (called "rendering" in the context of React) is itself a form of a side effect. After all, 
+
+```jsx
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+
+function Load({ promise }) {
+  const data = React.use(promise);
+
+  return <p>Success</p>;
+}
+
+function App() {
+  const promise = React.useMemo(
+    () =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject();
+        }, 1000);
+      }),
+    []
+  );
+
+  return (
+    <div>
+      {/* When an error is thrown in the ErrorBoundary, it will catch it, remove all child nodes, and render the fallback UI */}
+      <ErrorBoundary>
+        <React.Suspense fallback={<p>Loading..</p>}>
+          <Load promise={promise} />
+        </React.Suspense>
+      </ErrorBoundary>
+    </div>
+  );
+}
+```
+
 # JSX over the wire
 
-/
 Even in the earliest days of React the idea of representing your HTML code in a JavaScript file was established.
 
 
@@ -508,3 +622,7 @@ Even in the earliest days of React the idea of representing your HTML code in a 
 # `<Activity>`
 
 // TODO: Talk about how we can lean into the VDOM state system to allow for preserving state between unrenders and re-renders
+
+# React Compiler
+
+// TODO: Talk about how allowing React to control the dataflow of components and strict rules around said dataflow allows a compiler to optimize things further
