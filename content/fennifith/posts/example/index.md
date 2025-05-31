@@ -224,7 +224,7 @@ This is some static hosted content:
 
 <!-- ::code-embed title="1-inaccessible.html in a webcontainer" project="example-a11y-form" file="1-inaccessible.html" lines="9-14" preview-url="1-inaccessible.html" -->
 
-<!-- ::code-embed title="2-visual-labels.html in the same webcontainer" project="example-a11y-form" file="2-visual-labels.html" lines="9-22" preview-url="2-visual-labels.html" -->
+<!-- ::code-embed title="2-visual-labels.html in the same webcontainer" project="example-a11y-form" file="2-visual-labels.html" lines="4-6,9-22" preview-url="2-visual-labels.html" -->
 
 <!-- ::code-embed title="React webcontainer" project="example-react" file="src/App.jsx" lines="3-12" -->
 
