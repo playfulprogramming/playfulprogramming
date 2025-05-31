@@ -14,6 +14,7 @@ interface EmbedElements {
 	reloadButtonEl: HTMLButtonElement;
 
 	runButtonEl: HTMLButtonElement;
+	errorEl: HTMLElement;
 	loaderEl: HTMLElement;
 	loaderConsoleEl: HTMLElement;
 	previewContainerEl: HTMLElement;
@@ -34,7 +35,7 @@ async function createWebContainer(): Promise<WebContainer> {
 	// This should only run once!
 	const i = (webContainerInstance = await WebContainer.boot());
 
-	i.on("server-ready", (port, url) => {
+	i.on("server-ready", (_port: number, url: string) => {
 		if (currentEmbed) {
 			currentEmbed.processUrl = url;
 			currentEmbed.elements.forEach((els) => {
@@ -44,6 +45,14 @@ async function createWebContainer(): Promise<WebContainer> {
 				els.previewContainerEl.replaceChildren(els.iframeEl);
 			});
 		}
+	});
+
+	i.on("error", (error: { message: string }) => {
+		console.error("WebContainer:", error.message);
+	});
+
+	i.on("preview-message", (message: object) => {
+		console.info(message);
 	});
 
 	return i;
@@ -71,22 +80,7 @@ function createConsoleStream(command: string) {
 	});
 }
 
-async function runEmbed(embed: EmbedInstance) {
-	if (currentEmbed === embed) {
-		// If the embed is already active, do nothing
-		return;
-	}
-
-	if (currentEmbed) {
-		// If a different embed is active, stop it and replace with this one
-		currentEmbed.process?.kill();
-		currentEmbed.elements.forEach((els) => {
-			els.iframeEl.replaceWith(els.runButtonEl);
-		});
-	}
-
-	currentEmbed = embed;
-
+async function runEmbedInternal(embed: EmbedInstance) {
 	embed.elements.forEach((els) => {
 		els.loaderConsoleEl.innerText = "";
 		els.previewContainerEl.replaceChildren(els.loaderEl);
@@ -138,7 +132,36 @@ async function runEmbed(embed: EmbedInstance) {
 
 	console.log("npm run start...");
 	embed.process = await i.spawn("npm", ["run", "start"]);
-	embed.process.output.pipeTo(createConsoleStream("npm run start"));
+	embed.process?.output.pipeTo(createConsoleStream("npm run start"));
+}
+
+async function runEmbed(embed: EmbedInstance) {
+	if (currentEmbed === embed) {
+		// If the embed is already active, do nothing
+		return;
+	}
+
+	if (currentEmbed) {
+		// If a different embed is active, stop it and replace with this one
+		currentEmbed.process?.kill();
+		currentEmbed.elements.forEach((els) => {
+			els.iframeEl.replaceWith(els.runButtonEl);
+		});
+	}
+
+	currentEmbed = embed;
+
+	try {
+		await runEmbedInternal(embed);
+	} catch (e) {
+		console.error(e);
+
+		// If an error is thrown, catch it and unset currentEmbed
+		currentEmbed.elements.forEach((els) => {
+			els.previewContainerEl.replaceChildren(els.errorEl);
+		});
+		currentEmbed = undefined;
+	}
 }
 
 const loaderTemplateEl = document.querySelector<HTMLTemplateElement>(
@@ -173,9 +196,11 @@ for (const containerEl of Array.from(
 		continue;
 	}
 
-	const loaderEl = (
-		loaderTemplateEl.content.cloneNode(true) as HTMLElement
-	).querySelector<HTMLElement>("#code-embed-loader")!;
+	const loaderContent = loaderTemplateEl.content.cloneNode(true) as HTMLElement;
+	const errorEl =
+		loaderContent.querySelector<HTMLElement>("#code-embed-error")!;
+	const loaderEl =
+		loaderContent.querySelector<HTMLElement>("#code-embed-loader")!;
 	const loaderConsoleEl = loaderEl.querySelector<HTMLElement>(
 		"#code-embed-loader-console",
 	)!;
@@ -197,6 +222,7 @@ for (const containerEl of Array.from(
 		formEl,
 		addressEl,
 		previewContainerEl,
+		errorEl,
 		loaderEl,
 		loaderConsoleEl,
 	};

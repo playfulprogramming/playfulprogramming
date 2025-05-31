@@ -1,8 +1,32 @@
 ---
 import { Icon } from "astro-icon/components";
+import sadUnicorn from "../../../../assets/unicorn_sad.svg";
 ---
 
 <template id="webcontainer-loader">
+	<div id="code-embed-error" class="code-embed__error">
+		<img
+			class="code-embed__error__image"
+			src={sadUnicorn.src}
+			width={120}
+			height={120}
+		/>
+		<p class="code-embed__error__heading text-style-headline-3">Oh no!</p>
+		<p class="code-embed__error__message">
+			This project failed to load. Try using the "Edit" button, or switch to
+			<a href="https://webcontainers.io/guides/browser-support"
+				>a supported browser</a
+			>.
+		</p>
+		<div class="code-embed__error__buttons">
+			<a
+				class="button regular secondary text-style-button-regular"
+				href="https://github.com/playfulprogramming/playfulprogramming/issues"
+			>
+				<span class="innerText">Report an issue</span>
+			</a>
+		</div>
+	</div>
 	<div id="code-embed-loader" class="code-embed__loader" data-step="download">
 		<ol>
 			<li class="step-download">

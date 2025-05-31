@@ -141,6 +141,41 @@
 	border-radius: var(--code-embed_preview_border-radius);
 	overflow: clip;
 
+	.code-embed__error {
+		display: grid;
+		grid-template-columns: min-content 1fr;
+		padding: var(--spc-8x);
+		height: 100%;
+		align-content: center;
+		gap: var(--spc-4x);
+		max-width: 80%;
+		margin: 0 auto;
+
+		&__image {
+			grid-row: 1 / 4;
+			grid-column: 1 / 1;
+			align-self: center;
+		}
+
+		&__heading {
+			margin: 0;
+			grid-column: 2 / 2;
+			grid-row: 1 / 1;
+		}
+
+		&__message {
+			margin: 0;
+			grid-column: 2 / 2;
+			grid-row: 2 / 2;
+		}
+
+		&__buttons {
+			display: flex;
+			grid-column: 2 / 2;
+			grid-row: 3 / 3;
+		}
+	}
+
 	.code-embed__loader {
 		position: absolute;
 		top: 50%;
