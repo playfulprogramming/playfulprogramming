@@ -8,7 +8,15 @@
 }
 ---
 
-React isn't a frontend framework: It's a web framework. While this distinction might seem narrow, the impact of it enables a shift in how your mental model of React that explains many of their design systems from day one.
+I've often heard qualms from the broader developer community lamenting the perceived shift in React towards the backend.
+
+But here's the thing; React isn't a frontend framework, it's a web framework. While this distinction might seem narrow, the impact of it enables a shift in how your mental model of React that explains many of their design systems from day one.
+
+> **Semantics:**
+>
+> Many, including the React team themselves, call React a "library". While there's validity there, I gesture towards the ever expanding set of primitives - which now include data fetching and error handling - as evidence for my usage of the term "framework".
+
+Moreover, I'd argue that **React has been aiming in this direction for many many years and its "movement towards the backend" has been a natural evolution of patterns established from day one of the framework.** In fact, I'd go even further and say that: **React today has had an incredibly consistent set of architectural designs, spanning from the server-side to the client-side.**
 
 In this article, we'll explore the concepts React has introduced along the way and potentially build out a new mental model for the framework as we go. 
 
@@ -571,6 +579,12 @@ function Listener() {
 
 
 ## Hooks + the VDOM
+
+I hear you, React-Senior-Team-Lead-a-tron:
+
+> This is all recap for me. How does this pertain to your thesis of React's consistency?
+
+
 
 // TODO: Talk about how hooks are stored in a per-component basis using a [linked list](https://github.com/facebook/react/blob/c0464aedb16b1c970d717651bba8d1c66c578729/packages/react-reconciler/src/ReactFiberHooks.js#L192-L198) internally, linking back to the main thesis
 
