@@ -81,7 +81,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 				return `${query.searchQuery} | ${siteTitle}`;
 			}
 			return `Search | ${siteTitle}`;
-		}
+		},
 	);
 
 	const setQuery = useCallback(
@@ -322,11 +322,10 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const numberOfPosts = showArticles ? data.totalPosts : 0;
 
 	return (
-		<main
+		<div
 			className={style.fullPageContainer}
 			data-hide-sidebar={!query.searchQuery}
 		>
-			<h1 className={"visually-hidden"}>Search</h1>
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
 				setFilterIsDialogOpen={setFilterIsDialogOpen}
@@ -535,7 +534,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 					)}
 				</section>
 			</div>
-		</main>
+		</div>
 	);
 }
 
