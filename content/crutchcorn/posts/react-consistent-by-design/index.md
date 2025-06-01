@@ -584,13 +584,203 @@ I hear you, React-Senior-Team-Lead-a-tron:
 
 > This is all recap for me. How does this pertain to your thesis of React's consistency?
 
+Well, while it may be obvious that React Hooks were a shift in how we author components, what may not have been obvious was the back-work that led to being able to implement Hooks.
+
+See, to make this magic works, Hooks doesn't just *work alongside* the VDOM, the method of persisting data in a component from a function **requires** the VDOM.
+
+After all, React doesn't transform a function component in any way, so how does `useState` persist its value internally?
+
+Were we to try this without `useState`, we'd notice quickly how this behavior differs from a normal JavaScript function:
+
+``` jsx
+function Test() {
+  const a = 1;
+  console.log(a);
+  a++;
+}
+
+Test() // 1
+Test() // 1
+Test() // 1
+```
+
+While the naïve implementation — one often shared by the React team to simplify the explanation of this problem — is to store the values of a given hook using an index of an array:
+
+```jsx
+// Global reference to current component
+let currentComponent = null;
+
+// Component class to hold hook state array
+class Component {
+  constructor() {
+    this.state = [];
+    this.currentHookIndex = 0;
+  }
+
+  render(renderFn) {
+    // Reset state for this render
+    currentComponent = this;
+    
+    // Reset hook index for this render
+    this.currentHookIndex = 0;
+    
+    // Call the component function
+    const result = renderFn();
+    
+    return result;
+  }
+}
+
+function useState(init) {
+    const component = currentComponent;
+    const idx = component.currentHookIndex;
+    
+    component.state[idx] = component.state[idx] ?? {val: init};
+    
+    // Increment for next hook call
+    component.currentHookIndex++;
+
+    return [
+        component.state[idx].val,
+        (data => component.state[idx].val = data)
+    ]
+}
+
+function Test() {
+    const [data, setData] = useState(1);
+
+    console.log(data);
+
+    setData(data + 1)
+}
+
+// Create component and run renders
+const component = new Component();
+
+component.render(Test); // 1
+component.render(Test); // 2
+component.render(Test); // 3
+```
+
+> **Further reading:**
+>
+> I mentioned that the React team communicates that the values of a hook are stored in an array. While this isn't quite right, the way they've communicated that has been an incredibly valuable teaching tool.
+>
+> I'd highly recommend reading [Swyx's "Getting Closure on React Hooks" article](https://www.swyx.io/hooks) or [Dan Abramov's "Why Do React Hooks Rely on Call Order?"](https://overreacted.io/why-do-hooks-rely-on-call-order/) to dive in deeper.
+
+
+
 
 
 // TODO: Talk about how hooks are stored in a per-component basis using a [linked list](https://github.com/facebook/react/blob/c0464aedb16b1c970d717651bba8d1c66c578729/packages/react-reconciler/src/ReactFiberHooks.js#L192-L198) internally, linking back to the main thesis
 
 
 
+```javascript
+// Linked list node for each hook
+class Hook {
+  constructor() {
+    this.state = null;
+    this.next = null;
+  }
+}
+
+// Global state to simulate React's internals
+let currentComponent = null;
+let workInProgressHook = null;
+
+// Component class to hold hook linked list
+class Component {
+  constructor() {
+    this.hooks = null; // Head of the linked list
+  }
+
+  render(renderFn) {
+    // Set up for this component's render
+    currentComponent = this;
+    workInProgressHook = this.hooks;
+    
+    // Call the component function
+    const result = renderFn();
+    
+    // Clean up
+    currentComponent = null;
+    workInProgressHook = null;
+    
+    return result;
+  }
+}
+
+// useState implementation using linked list
+function useState(initialState) {
+  let hook;
+  
+  if (workInProgressHook === null) {
+    // Create new hook and add to linked list
+    hook = new Hook();
+    hook.state = initialState;
+    
+    // Find end of list and append, or set as first hook
+    if (currentComponent.hooks === null) {
+      currentComponent.hooks = hook;
+    } else {
+      let lastHook = currentComponent.hooks;
+      while (lastHook.next !== null) {
+        lastHook = lastHook.next;
+      }
+      lastHook.next = hook;
+    }
+  } else {
+    // Use existing hook from linked list
+    hook = workInProgressHook;
+  }
+  
+  // Move to next hook for subsequent useState calls
+  workInProgressHook = hook.next;
+  
+  const setState = (newState) => {
+    hook.state = newState;
+  };
+  
+  return [hook.state, setState];
+}
+
+function MyComponent() {
+  const [count, setCount] = useState(1);
+
+  console.log(count);
+
+  setCount(count + 1);
+}
+
+const component = new Component();
+
+component.render(MyComponent); // 1
+component.render(MyComponent); // 2
+component.render(MyComponent); // 3
+```
+
+
+
+
+
 https://github.com/facebook/react/blob/c0464aedb16b1c970d717651bba8d1c66c578729/packages/react-reconciler/src/ReactFiberHooks.js#L261-L266
+
+
+
+### React Fiber
+
+
+
+https://legacy.reactjs.org/blog/2017/09/26/react-v16.0.html#new-core-architecture
+
+https://engineering.fb.com/2017/09/26/web/react-16-a-look-inside-an-api-compatible-rewrite-of-our-frontend-ui-library/
+
+https://blog.openreplay.com/react-fiber-explained/
+
+https://blog.logrocket.com/deep-dive-react-fiber/
+
+https://github.com/acdlite/react-fiber-architecture?tab=readme-ov-file
 
 
 
