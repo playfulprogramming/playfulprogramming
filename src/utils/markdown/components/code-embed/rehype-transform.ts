@@ -12,22 +12,28 @@ async function getFileSnippets({
 	attributes,
 }: RehypeFunctionProps): Promise<{ line: number; text: string }[]> {
 	const project = attributes.project!;
-	const file = attributes.file!;
-
 	const projectDir = resolve(dirname(vfile.path), project);
 
-	const filePath = resolve(projectDir, file);
-	const fileStat = await fs.stat(filePath).catch(() => undefined);
-	if (!fileStat || !fileStat.isFile()) {
-		logError(vfile, node, `File ${file} does not exist in ${project}!`);
-		return [];
+	const filePaths: string[] = [];
+	for (const file of String(attributes.file).split(",")) {
+		const filePath = resolve(projectDir, file);
+		const fileStat = await fs.stat(filePath).catch(() => undefined);
+		if (!fileStat || !fileStat.isFile()) {
+			logError(vfile, node, `File ${file} does not exist in ${project}!`);
+			return [];
+		}
+
+		filePaths.push(filePath);
 	}
 
-	const fileLines = (await fs.readFile(filePath, "utf-8")).split("\n");
 	const fileSnippets = [];
-	const lines = attributes.lines ?? `1-${fileLines.length}`;
+	const lines = attributes.lines?.split(",") ?? [];
 
-	for (const snippetLines of lines.split(",")) {
+	for (let i = 0; i < Math.max(filePaths.length, lines.length); i++) {
+		const filePath = filePaths[i] ?? filePaths.at(-1);
+		const fileLines = (await fs.readFile(filePath, "utf-8")).split("\n");
+		const snippetLines = lines[i] || `1-${fileLines.length}`;
+
 		const [start, end = start] = snippetLines.split("-");
 		const snippet = [];
 		for (let i = Number(start) - 1; i < Number(end); i++) {
