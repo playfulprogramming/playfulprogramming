@@ -105,7 +105,7 @@
 	margin-bottom: 0;
 }
 
-.tabs__tab-panel__inner > *:not(pre, .embed, .docs-file-tree-container) {
+.tabs__tab-panel__inner > *:not(pre, .embed, .code-embed, .docs-file-tree-container) {
 	&:first-child {
 		margin-top: var(--tab-content_margin);
 	}

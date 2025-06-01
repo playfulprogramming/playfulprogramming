@@ -130,9 +130,20 @@ async function runEmbedInternal(embed: EmbedInstance) {
 		els.loaderEl.dataset.step = "start";
 	});
 
-	console.log("npm run start...");
-	embed.process = await i.spawn("npm", ["run", "start"]);
-	embed.process?.output.pipeTo(createConsoleStream("npm run start"));
+	let script = "start";
+	if ("package.json" in contents) {
+		const packageJson = JSON.parse(
+			new TextDecoder().decode(contents["package.json"]),
+		);
+		script =
+			["start", "dev", "watch", "preview", "server", "serve"].find(
+				(name) => name in packageJson.scripts,
+			) ?? script;
+	}
+
+	console.log(`npm run ${script}...`);
+	embed.process = await i.spawn("npm", ["run", script]);
+	embed.process?.output.pipeTo(createConsoleStream(`npm run ${script}`));
 }
 
 async function runEmbed(embed: EmbedInstance) {

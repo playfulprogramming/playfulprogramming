@@ -1,6 +1,13 @@
 import { visit } from "unist-util-visit";
 import { is } from "unist-util-is";
-import { Root, Parent, Element, ElementContent } from "hast";
+import {
+	Root,
+	Parent,
+	Element,
+	ElementContent,
+	Comment,
+	RootContent,
+} from "hast";
 import { unified, Plugin } from "unified";
 import { RehypeFunctionComponent } from "./types";
 import rehypeParse from "rehype-parse";
@@ -18,6 +25,14 @@ const COMPONENT_PREFIX = "::";
 const START_PREFIX = "::start:";
 const END_PREFIX = "::end:";
 
+const isNodeComment = (node: unknown): node is Comment =>
+	!!(
+		typeof node === "object" &&
+		node &&
+		"type" in node &&
+		node.type === "comment"
+	);
+
 const isNodeParent = (node: unknown): node is Parent =>
 	!!(typeof node === "object" && node && "children" in node);
 
@@ -34,11 +49,11 @@ export const rehypeTransformComponents: Plugin<
 > = ({ components }) => {
 	const promises: Array<Promise<void>> = [];
 
-	return async (tree, vfile) => {
-		visit(tree, { type: "comment" }, (node, index, parent) => {
+	async function transform(tree: Root, vfile: VFile) {
+		visit(tree, isNodeComment, (node, index, parent) => {
 			if (index === undefined || !parent) return;
 			// ` ::start:in-content-ad title="Hello world" `
-			const value = String((node as { value?: string }).value).trim();
+			const value = String(node.value).trim();
 			if (!value.startsWith(COMPONENT_PREFIX)) return;
 
 			const isRanged = value.startsWith(START_PREFIX);
@@ -107,6 +122,18 @@ export const rehypeTransformComponents: Plugin<
 			// Once async processing completes, replace the temporary component with the actual result
 			promises.push(
 				(async () => {
+					let transformedChildren: RootContent[];
+					{
+						// Recursively transform the children
+						// This allows for nested components like ebook only content in tabs
+						const tree = {
+							type: "root",
+							children: [...componentChildren],
+						} as Root;
+						await transform(tree, vfile);
+						transformedChildren = tree.children;
+					}
+
 					const replacement = await component({
 						vfile,
 						node,
@@ -116,7 +143,7 @@ export const rehypeTransformComponents: Plugin<
 								String(value),
 							]),
 						),
-						children: componentChildren,
+						children: transformedChildren,
 					});
 
 					// Find the current index of the replacement stub (it might have moved!)
@@ -130,19 +157,6 @@ export const rehypeTransformComponents: Plugin<
 						1,
 						...(replacementArray as never[]),
 					);
-
-					// Recursively transform the children
-					// This allows for nested components like ebook only content in tabs
-					if (!isNodeParent(replacement)) return;
-					replacement?.children?.map((child) => {
-						const tree = { type: "root", children: [child] } as Root;
-						(
-							rehypeTransformComponents as (
-								props: RehypeComponentsProps,
-							) => (tree: Root, vfile: VFile) => void
-						)({ components })(tree, vfile);
-						return tree;
-					});
 				})(),
 			);
 
@@ -150,5 +164,7 @@ export const rehypeTransformComponents: Plugin<
 		});
 
 		await Promise.all(promises);
-	};
+	}
+
+	return transform;
 };
