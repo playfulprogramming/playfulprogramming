@@ -83,6 +83,7 @@
 	gap: var(--code-embed_padding);
 
 	&__input {
+		min-width: 0;
 		flex-grow: 1;
 		background-color: var(--code-embed_address_background);
 		border: var(--code-embed_address_outline_width) solid var(--code-embed_address_outline_color);
@@ -118,6 +119,10 @@
 
 		&::before {
 			content: attr(data-prefix);
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			flex-shrink: 1;
 		}
 
 		input {
@@ -126,6 +131,8 @@
 			outline: none;
 			padding: 0;
 			height: 100%;
+			width: 0;
+			flex-basis: min-content;
 			flex-grow: 1;
 			color: var(--code-embed_address_input_color);
 			font-family: inherit;
