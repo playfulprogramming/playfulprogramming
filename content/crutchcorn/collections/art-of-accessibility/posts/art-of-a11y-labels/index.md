@@ -37,7 +37,7 @@ By default, this will look like the following:
 
 Notice that our form doesn't indicate which text input is for which field; neither to sighted or blind users. Let's change that and make a visual label for our inputs:
 
-<!-- ::code-embed title="Inaccessible - visual labels" driver="static" project="art-of-a11y-html-examples-3" file="2-inaccessible-with-visual-labels.html" lines="9-21" height="120" -->
+<!-- ::code-embed title="Inaccessible - visual labels" driver="static" project="art-of-a11y-html-examples-3" file="2-inaccessible-with-visual-labels.html" lines="9-22" height="120" -->
 
 Now the fields visually _look_ like they're labelled, but we've just introduced a critical accessibility issue into our app: Assistive technologies do not indicate which label belongs to which field.
 
@@ -258,7 +258,7 @@ Let's take this knowledge of linking elements together and create a `TextInput` 
 
 ## Angular
 
-<!-- ::code-embed title="Angular - Implicit Association" project="art-of-a11y-angular-input-implicit-3" file="src/TextInput.component.ts,src/app.component.ts" lines="7-21,4-17" -->
+<!-- ::code-embed title="Angular - Implicit Association" project="art-of-a11y-angular-input-implicit-3" file="src/TextInput.component.ts,src/app.component.ts" lines="3-17,4-17" -->
 
 ## Vue
 
@@ -290,7 +290,7 @@ Now we can see our form with a warning about an invalid email. It looks somethin
 
 ### Angular
 
-<!-- ::start:code-embed title="Angular - Explicit Label Input" project="art-of-a11y-angular-input-comp-3" file="src/TextInput.component.ts,src/app.component.ts" lines="7-39,4-17" -->
+<!-- ::start:code-embed title="Angular - Explicit Label Input" project="art-of-a11y-angular-input-comp-3" file="src/TextInput.component.ts,src/app.component.ts" lines="3-35,4-17" -->
 
 Now we can see our form with a warning about an invalid email. It looks something like this when an invalid email is entered:
 
@@ -352,7 +352,7 @@ uuidv4();
 
 Let's integrate this package into our Angular component:
 
-<!-- ::code-embed title="Angular - Generated Input IDs" project="art-of-a11y-angular-input-uuid-3" file="src/TextInput.component.ts,src/app.component.ts" lines="6-40,4-17" -->
+<!-- ::code-embed title="Angular - Generated Input IDs" project="art-of-a11y-angular-input-uuid-3" file="src/TextInput.component.ts,src/app.component.ts" lines="4-37,4-17" -->
 
 ### Vue
 

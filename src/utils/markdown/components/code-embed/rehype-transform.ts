@@ -38,6 +38,14 @@ async function getFileSnippets({
 		const [start, end = start] = snippetLines.split("-");
 		const snippet = [];
 		for (let i = Number(start) - 1; i < Number(end); i++) {
+			if (!(i in fileLines)) {
+				logError(
+					vfile,
+					node,
+					`Range ${snippetLines} is beyond ${filePath}: 1-${fileLines.length}`,
+				);
+				break;
+			}
 			snippet.push(fileLines[i]);
 		}
 
