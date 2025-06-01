@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>HTML Form - Inaccessible Placeholders</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+	</head>
+	<body>
+		<!-- DO NOT DO THIS, IT IS INACCESSIBLE -->
+		<form style="display: flex; gap: 1rem;">
+			<input placeholder="Username" name="username" type="text"/>
+			<input placeholder="password" type="password"/>
+			<button type="submit">Login</button>
+		</form>
+	</body>
+</html>

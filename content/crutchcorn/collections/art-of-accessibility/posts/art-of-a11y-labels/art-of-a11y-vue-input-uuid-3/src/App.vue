@@ -5,8 +5,8 @@ import TextInput from "./TextInput.vue";
 
 <template>
 	<form>
-		<TextInput label="Email" id="email" error="Invalid email" />
-		<TextInput label="Password" id="password" type="password" />
+		<TextInput label="Email" error="Invalid email" />
+		<TextInput label="Password" type="password" />
 		<button type="submit">Login</button>
 	</form>
 </template>

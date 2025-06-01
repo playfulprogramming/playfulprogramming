@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>HTML Form - Implicit Element Association (Styled)</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+	</head>
+	<body>
+		<form style="display: flex; gap: 1rem;">
+			<label style="display: flex; flex-direction: column;">
+				<span>Username</span>
+				<input name="username" type="text"/>
+			</label>
+			<label style="display: flex; flex-direction: column;">
+				<span>Password</span>
+				<input name="password" type="password"/>
+			</label>
+			<div style="display: flex; flex-direction: column; justify-content: flex-end;">
+				<button type="submit">Login</button>
+			</div>
+		</form>
+	</body>
+</html>

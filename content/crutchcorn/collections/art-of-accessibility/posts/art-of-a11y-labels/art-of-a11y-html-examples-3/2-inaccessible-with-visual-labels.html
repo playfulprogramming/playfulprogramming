@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>HTML Form - Inaccessible</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+	</head>
+	<body>
+		<!-- DO NOT DO THIS, IT IS INACCESSIBLE -->
+		<form style="display: flex; gap: 1rem;">
+			<div style="display: flex; flex-direction: column;">
+				<p style="margin: 0;">Username</p>
+				<input name="username" type="text"/>
+			</div>
+			<div style="display: flex; flex-direction: column;">
+				<p style="margin: 0;">Password</p>
+				<input name="password" type="password"/>
+			</div>
+			<div style="display: flex; flex-direction: column; justify-content: flex-end;">
+				<button type="submit">Login</button>
+			</div>
+		</form>
+	</body>
+</html>
