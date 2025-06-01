@@ -144,6 +144,10 @@ async function runEmbedInternal(embed: EmbedInstance) {
 	console.log(`npm run ${script}...`);
 	embed.process = await i.spawn("npm", ["run", script]);
 	embed.process?.output.pipeTo(createConsoleStream(`npm run ${script}`));
+
+	const exitCode = await embed.process?.exit;
+	if (exitCode != 0 && currentEmbed === embed)
+		throw new Error(`npm run ${script}: Exited with ${exitCode}`);
 }
 
 async function runEmbed(embed: EmbedInstance) {
@@ -156,7 +160,7 @@ async function runEmbed(embed: EmbedInstance) {
 		// If a different embed is active, stop it and replace with this one
 		currentEmbed.process?.kill();
 		currentEmbed.elements.forEach((els) => {
-			els.iframeEl.replaceWith(els.runButtonEl);
+			els.previewContainerEl.replaceChildren(els.runButtonEl);
 		});
 	}
 
@@ -168,7 +172,7 @@ async function runEmbed(embed: EmbedInstance) {
 		console.error(e);
 
 		// If an error is thrown, catch it and unset currentEmbed
-		currentEmbed.elements.forEach((els) => {
+		embed.elements.forEach((els) => {
 			els.previewContainerEl.replaceChildren(els.errorEl);
 		});
 		currentEmbed = undefined;

@@ -8,6 +8,8 @@ async function fetchProjectZipInternal(dir: string): Promise<string> {
 	const files = await fs.readdir(dir, { recursive: true });
 	const zipFiles: Record<string, Buffer> = {};
 	for (const file of files) {
+		if (file.startsWith("node_modules/")) continue;
+
 		const absoluteFile = join(dir, file);
 		const stat = await fs.stat(absoluteFile);
 		if (stat.isFile()) {

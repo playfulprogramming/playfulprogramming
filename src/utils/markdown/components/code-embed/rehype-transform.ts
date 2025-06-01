@@ -33,6 +33,7 @@ async function getFileSnippets({
 		const filePath = filePaths[i] ?? filePaths.at(-1);
 		const fileLines = (await fs.readFile(filePath, "utf-8")).split("\n");
 		const snippetLines = lines[i] || `1-${fileLines.length}`;
+		if (snippetLines === "off") continue;
 
 		const [start, end = start] = snippetLines.split("-");
 		const snippet = [];
