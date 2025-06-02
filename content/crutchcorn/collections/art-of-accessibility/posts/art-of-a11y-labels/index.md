@@ -258,7 +258,7 @@ Let's take this knowledge of linking elements together and create a `TextInput` 
 
 ## Angular
 
-<!-- ::code-embed title="Angular - Implicit Association" project="art-of-a11y-angular-input-implicit-3" file="src/TextInput.component.ts,src/app.component.ts" lines="3-17,4-17" -->
+<!-- ::code-embed title="Angular - Implicit Association" project="art-of-a11y-angular-input-implicit-3" file="src/TextInput.component.ts,src/app.component.ts" lines="3-17,4-17" language="angular-ts,angular-ts" -->
 
 ## Vue
 
@@ -290,7 +290,7 @@ Now we can see our form with a warning about an invalid email. It looks somethin
 
 ### Angular
 
-<!-- ::start:code-embed title="Angular - Explicit Label Input" project="art-of-a11y-angular-input-comp-3" file="src/TextInput.component.ts,src/app.component.ts" lines="3-35,4-17" -->
+<!-- ::start:code-embed title="Angular - Explicit Label Input" project="art-of-a11y-angular-input-comp-3" file="src/TextInput.component.ts,src/app.component.ts" lines="3-35,4-17" language="angular-ts,angular-ts" -->
 
 Now we can see our form with a warning about an invalid email. It looks something like this when an invalid email is entered:
 
@@ -352,7 +352,7 @@ uuidv4();
 
 Let's integrate this package into our Angular component:
 
-<!-- ::code-embed title="Angular - Generated Input IDs" project="art-of-a11y-angular-input-uuid-3" file="src/TextInput.component.ts,src/app.component.ts" lines="4-37,4-17" -->
+<!-- ::code-embed title="Angular - Generated Input IDs" project="art-of-a11y-angular-input-uuid-3" file="src/TextInput.component.ts,src/app.component.ts" lines="4-37,4-17" language="angular-ts,angular-ts" -->
 
 ### Vue
 

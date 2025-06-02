@@ -14,12 +14,17 @@ const refresh = await fs.readFile("src/icons/refresh.svg", "utf8");
 const RefreshIcon = fromHtml(refresh, { fragment: true })
 	.children[0] as Element;
 
+export interface CodeSnippetProps {
+	line: number;
+	text: string;
+	language: string;
+}
+
 interface CodeEmbedProps {
 	driver: string;
 	title?: string;
-	language?: string;
 	editUrl?: string;
-	snippets: { text: string; line: number }[];
+	snippets: CodeSnippetProps[];
 	children: Node[];
 	height?: string;
 
@@ -91,7 +96,7 @@ export function CodeEmbed(props: CodeEmbedProps): Element {
 					class="code-embed__snippet"
 				>
 					<pre class="shiki">
-						<code class={props.language ? `language-${props.language}` : ""}>
+						<code class={snippet.language ? `language-${snippet.language}` : ""}>
 							{snippet.text}
 						</code>
 					</pre>
@@ -132,11 +137,11 @@ export function CodeEmbed(props: CodeEmbedProps): Element {
 }
 
 /** @jsxImportSource hastscript */
-export function CodeEmbedEpub(props: Pick<CodeEmbedProps, "title" | "editUrl" | "snippets" | "language" | "children">): Element {
+export function CodeEmbedEpub(props: Pick<CodeEmbedProps, "title" | "editUrl" | "snippets" | "children">): Element {
 	return <>
 			{props.snippets.map((snippet) => (
 				<pre class="shiki">
-					<code class={props.language ? `language-${props.language}` : ""}>
+					<code class={snippet.language ? `language-${snippet.language}` : ""}>
 						{snippet.text}
 					</code>
 				</pre>

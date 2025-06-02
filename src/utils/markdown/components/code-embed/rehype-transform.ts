@@ -1,7 +1,7 @@
 import { RehypeFunctionComponent, RehypeFunctionProps } from "../types";
 import { fetchProjectZip } from "./fetchProjectZip";
 import { basename, dirname, extname, join, relative, resolve } from "path";
-import { CodeEmbed, CodeEmbedEpub } from "./code-embed";
+import { type CodeSnippetProps, CodeEmbed, CodeEmbedEpub } from "./code-embed";
 import fs from "fs/promises";
 import { getStackblitzUrl } from "./getStackblitzUrl";
 import { logError } from "utils/markdown/logger";
@@ -10,7 +10,7 @@ async function getFileSnippets({
 	vfile,
 	node,
 	attributes,
-}: RehypeFunctionProps): Promise<{ line: number; text: string }[]> {
+}: RehypeFunctionProps): Promise<CodeSnippetProps[]> {
 	const project = attributes.project!;
 	const projectDir = resolve(dirname(vfile.path), project);
 
@@ -28,6 +28,7 @@ async function getFileSnippets({
 
 	const fileSnippets = [];
 	const lines = attributes.lines?.split(",") ?? [];
+	const languages = attributes.language?.split(",") ?? [];
 
 	for (let i = 0; i < Math.max(filePaths.length, lines.length); i++) {
 		const filePath = filePaths[i] ?? filePaths.at(-1);
@@ -59,6 +60,7 @@ async function getFileSnippets({
 		fileSnippets.push({
 			line: Number(start),
 			text: snippet.join("\n"),
+			language: languages[i] ?? extname(filePath).substring(1),
 		});
 	}
 
@@ -86,13 +88,12 @@ async function createStaticEmbed({
 		height: attributes.height,
 		title: attributes.title ?? basename(file),
 		editUrl: getStackblitzUrl(relative(vfile.cwd, projectDir), { file }),
-		language: extname(file).substring(1),
 		snippets: await getFileSnippets({ vfile, node, attributes, children }),
 		addressPrefix: new URL(
 			file.split("/").at(-1) ?? "",
 			"http://localhost",
 		).toString(),
-		address: "",
+		address: attributes["preview-url"] ?? "",
 		staticUrl: "/" + join(relative(vfile.cwd, projectDir), file),
 		children,
 	});
@@ -120,7 +121,6 @@ async function createWebcontainerEmbed({
 		height: attributes.height,
 		title: attributes.title ?? basename(file),
 		editUrl: getStackblitzUrl(relative(vfile.cwd, projectDir), { file }),
-		language: extname(file).substring(1),
 		snippets: await getFileSnippets({ vfile, node, attributes, children }),
 		projectZip,
 		addressPrefix: "http://localhost/",
@@ -166,7 +166,6 @@ export const transformCodeEmbedEpub: RehypeFunctionComponent = async ({
 	return CodeEmbedEpub({
 		title: attributes.title ?? basename(file),
 		editUrl: getStackblitzUrl(relative(vfile.cwd, projectDir), { file }),
-		language: extname(file).substring(1),
 		snippets: await getFileSnippets({ vfile, node, attributes, children }),
 		children,
 	});
