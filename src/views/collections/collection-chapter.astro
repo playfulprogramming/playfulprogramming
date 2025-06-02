@@ -4,12 +4,12 @@ import { getHrefContainerProps } from "utils/href-container-script";
 import { CollectionInfo } from "../../types";
 import { getShortTitle } from "../../utils/remove-article-collection-prefix";
 
-interface CollectionChapter {
+export interface Props {
 	collection: CollectionInfo;
 	num: number;
 	title: string;
 	description: string;
-	href: string;
+	href?: string;
 	externalLink?: boolean;
 }
 
@@ -20,7 +20,7 @@ const {
 	href,
 	collection,
 	externalLink = false,
-} = Astro.props as CollectionChapter;
+} = Astro.props as Props;
 const hrefProps = href ? getHrefContainerProps(href) : {};
 const shortTitle = getShortTitle(
 	{ title, collection: collection.title },
