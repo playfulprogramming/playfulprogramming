@@ -61,23 +61,23 @@ const isLocalPost = (
 	return (chapter as LocalPost).post !== undefined;
 };
 
-let collectionData: Array<CollectionChapterData> = [];
+let collectionData: Array<Parameters<typeof CollectionChapter>[0]> = [];
 
 if (collection?.chapterList?.length) {
 	collectionData = collection?.chapterList.map((post, i) => {
 		let title: string;
-		let href: string;
+		let href: string | undefined;
 		let description: string;
 		let externalLink = false;
 		if (isLocalPost(post)) {
 			const postData = api.getPostBySlug(post.post, locale);
 			title = postData?.title || "No title";
 			description = postData?.description || "No description";
-			href = post?.post ? `/posts/${post.post}` : "#";
+			href = post?.post ? `/posts/${post.post}` : undefined;
 		} else {
 			title = post.title;
 			description = post.description || "";
-			href = post.url || "#";
+			href = post.url;
 			externalLink = true;
 		}
 		return {
@@ -86,16 +86,18 @@ if (collection?.chapterList?.length) {
 			description,
 			href,
 			externalLink,
+			collection,
 		};
 	});
 } else if (collectionPosts?.length) {
 	collectionData = collectionPosts.map(
 		({ order, title, description, slug }, i) => ({
-			num: order,
+			num: order || i + 1,
 			title,
 			description,
 			href: `/posts/${slug}`,
 			externalLink: false,
+			collection,
 		}),
 	);
 }
@@ -124,22 +126,13 @@ if (collection?.chapterList?.length) {
 				<SubHeader tag="h2" text={translate(Astro, "desc.chapter_listing")} />
 				<ol>
 					{
-						collectionData.map(
-							({ num, title, href, description, externalLink = null }) => {
-								return (
-									<li>
-										<CollectionChapter
-											collection={collection}
-											num={num}
-											title={title}
-											href={href}
-											description={description}
-											externalLink={externalLink}
-										/>
-									</li>
-								);
-							},
-						)
+						collectionData.map((props) => {
+							return (
+								<li>
+									<CollectionChapter {...props} />
+								</li>
+							);
+						})
 					}
 				</ol>
 			</div>
