@@ -15,9 +15,9 @@ import { siteMetadata } from "constants/site-config";
 	<main>
 		<h1 class="visually-hidden">Search</h1>
 		<noscript>
-			<h3 class={style.centerHeader}>
+			<p class={`text-style-headline-3 ${style.centerHeader}`}>
 				JavaScript needs to be enabled to use this page
-			</h3>
+			</p>
 		</noscript>
 		<SearchPage client:only="preact" siteTitle={siteMetadata.title} />
 	</main>
