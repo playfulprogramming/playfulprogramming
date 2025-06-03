@@ -1,11 +1,10 @@
-import { PostHeadingInfo } from "types/PostInfo";
 import { unified } from "unified";
 import { getMarkdownVFile } from "./getMarkdownVFile";
 import { MarkdownFileInfo, MarkdownVFile } from "./types";
 import { createHtmlPlugins } from "./createHtmlPlugins";
 
 export type MarkdownHtml = {
-	headingsWithIds: PostHeadingInfo[];
+	data: MarkdownVFile["data"];
 	html: string;
 };
 
@@ -24,7 +23,7 @@ export async function getMarkdownHtml(
 	});
 
 	return {
-		headingsWithIds: vfile.data.headingsWithIds,
+		data: vfile.data,
 		html: result.toString(),
 	};
 }
