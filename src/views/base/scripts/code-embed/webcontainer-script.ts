@@ -188,6 +188,7 @@ const loaderTemplateEl = document.querySelector<HTMLTemplateElement>(
 for (const containerEl of Array.from(
 	document.querySelectorAll<HTMLElement>("[data-code-embed=webcontainer]"),
 )) {
+	const codeEmbedTitle = containerEl.dataset.codeEmbedTitle!;
 	const projectZipUrl = containerEl.dataset.projectZip!;
 	const runButtonEl = containerEl.querySelector<HTMLButtonElement>(
 		"#code-embed-run-preview",
@@ -195,7 +196,10 @@ for (const containerEl of Array.from(
 	const reloadButtonEl = containerEl.querySelector<HTMLButtonElement>(
 		"#code-embed-reload-preview",
 	)!;
+
 	let iframeEl = document.createElement("iframe");
+	iframeEl.title = codeEmbedTitle;
+
 	const formEl = containerEl.querySelector<HTMLFormElement>(
 		"#code-embed-address",
 	)!;
@@ -252,6 +256,7 @@ for (const containerEl of Array.from(
 
 	function replaceIframe(newSrc: string) {
 		const newIframeEl = document.createElement("iframe");
+		newIframeEl.title = codeEmbedTitle;
 		newIframeEl.src = newSrc;
 
 		iframeEl.replaceWith(newIframeEl);

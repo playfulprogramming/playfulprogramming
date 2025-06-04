@@ -69,6 +69,7 @@ export function CodeEmbed(props: CodeEmbedProps): Element {
 		<div
 			class="code-embed"
 			data-code-embed={props.driver}
+			data-code-embed-title={`Example: ${props.title}`}
 			data-project-zip={props.projectZip}
 			style={{
 				["--code-embed_preview_height"]: props.height ? Number(props.height) + 'px' : "350px",
@@ -128,7 +129,7 @@ export function CodeEmbed(props: CodeEmbedProps): Element {
 				<>
 					{CodeEmbedAddressBar({ prefix: props.addressPrefix ?? "", address: props.address ?? "" })}
 					<div id="code-embed-preview-container" class="code-embed__preview">
-						<iframe src={props.staticUrl} />
+						<iframe title={`Example: ${props.title}`} src={props.staticUrl} />
 					</div>
 				</>
 			) : null}
