@@ -94,14 +94,10 @@
 }
 
 .tabs__tab-panel__inner > *:first-child {
-	border-top-right-radius: var(--tabbed-wrapper_corner-radius_inner);
-	border-top-left-radius: var(--tabbed-wrapper_corner-radius_inner);
 	margin-top: 0;
 }
 
 .tabs__tab-panel__inner > *:last-child {
-	border-bottom-right-radius: var(--tabbed-wrapper_corner-radius_inner);
-	border-bottom-left-radius: var(--tabbed-wrapper_corner-radius_inner);
 	margin-bottom: 0;
 }
 

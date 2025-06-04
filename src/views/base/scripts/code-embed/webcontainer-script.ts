@@ -16,6 +16,7 @@ interface EmbedElements {
 	runButtonEl: HTMLButtonElement;
 	errorEl: HTMLElement;
 	loaderEl: HTMLElement;
+	loaderCommandEl: HTMLElement;
 	loaderConsoleEl: HTMLElement;
 	previewContainerEl: HTMLElement;
 	iframeEl: HTMLIFrameElement;
@@ -71,8 +72,9 @@ function createConsoleStream(command: string) {
 				.trim();
 			if (consoleText) {
 				console.log(consoleText);
-				const message = `(${command}) ${consoleText.replace(/[\r\n].*$/, "")}`;
+				const message = consoleText.replace(/[\r\n].*$/, "");
 				currentEmbed?.elements.forEach((els) => {
+					els.loaderCommandEl.innerText = command;
 					els.loaderConsoleEl.innerText = message;
 				});
 			}
@@ -216,6 +218,9 @@ for (const containerEl of Array.from(
 		loaderContent.querySelector<HTMLElement>("#code-embed-error")!;
 	const loaderEl =
 		loaderContent.querySelector<HTMLElement>("#code-embed-loader")!;
+	const loaderCommandEl = loaderEl.querySelector<HTMLElement>(
+		"#code-embed-loader-command",
+	)!;
 	const loaderConsoleEl = loaderEl.querySelector<HTMLElement>(
 		"#code-embed-loader-console",
 	)!;
@@ -239,6 +244,7 @@ for (const containerEl of Array.from(
 		previewContainerEl,
 		errorEl,
 		loaderEl,
+		loaderCommandEl,
 		loaderConsoleEl,
 	};
 
