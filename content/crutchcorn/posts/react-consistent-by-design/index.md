@@ -726,8 +726,6 @@ See, this internal `Component` class isn't just an idea I came up with; it's mor
 
 ### React Fiber
 
-
-
 https://legacy.reactjs.org/blog/2017/09/26/react-v16.0.html#new-core-architecture
 
 https://engineering.fb.com/2017/09/26/web/react-16-a-look-inside-an-api-compatible-rewrite-of-our-frontend-ui-library/
@@ -742,9 +740,36 @@ https://github.com/acdlite/react-fiber-architecture?tab=readme-ov-file
 
 # `<StrictMode>` Effect Changes
 
-// TODO: Talk about how this is consistent with Hooks, despite the perceived changeup
+When React 18 was released, many were suprised to find that various parts of their apps seemingly broke out of nowhere, but only in dev mode. I even wrote an article at the time explaining the phenomenon called ["Why React 18 Broke Your App"](/posts/why-react-18-broke-your-app).
 
-// TODO: Talk about idempotency
+What _actually_ had happened is that [React intentionally introduced a change](https://github.com/reactwg/react-18/discussions/19) to the dev-only helper `<StrictMode>` component that was included in most React app templates.
+
+Previously, [`<StrictMode>` was mostly used to warn developers when a deprecated API or lifecycle was being used](https://legacy.reactjs.org/blog/2018/03/29/react-v-16-3.html#strictmode-component).
+
+Now `<StrictMode>` is mostly known for the following:
+
+```jsx
+function App() {
+	useEffect(() => {
+		// Runs twice on dev with StrictMode, once on prod
+		console.log("Mounted");
+	}, []);
+  
+  return <>{/* ... */}</>
+}
+```
+
+> Why was this change made?
+
+The simple answer to this question is that the React team wanted to ensure that you were [cleaning up side effects in your components to avoid memory leaks and bugs.](/posts/ffg-fundamentals-side-effects#ensuring-effect-cleanup).
+
+But the longer answer is that they wanted to keep component rendering behavior idempotent.
+
+### Idempotence
+
+If you haven't heard of idempotence the concept is simple:
+
+
 
 
 
