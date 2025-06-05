@@ -46,6 +46,7 @@ pre code {
 	tab-size: 4;
 
 	overflow-x: hidden;
+	white-space: pre-wrap;
 	position: relative;
 
 	/* Give it some space to breathe */
@@ -77,10 +78,6 @@ pre code .line.highlight::before {
 	color: var(--foreground_emphasis-medium);
 }
 
-pre.shiki code {
-	white-space: normal;
-}
-
 pre.shiki {
 	overflow-x: auto;
 }
@@ -90,7 +87,6 @@ pre.shiki .line {
 	min-height: 1.7em;
 	padding: 0 var(--shiki_padding);
 	display: block;
-	white-space: pre-wrap;
 }
 
 /**
