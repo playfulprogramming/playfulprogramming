@@ -118,14 +118,6 @@
 				var(--code-embed_address_halo_color);
 		}
 
-		&::before {
-			content: attr(data-prefix);
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			flex-shrink: 1;
-		}
-
 		input {
 			border: none;
 			background: none;

@@ -283,18 +283,27 @@ for (const containerEl of Array.from(
 		}
 	});
 
-	formEl.addEventListener("submit", (e) => {
-		e.preventDefault();
-		runEmbed(embedInstance);
-
+	function handleSubmitAddress() {
 		if (embedInstance.processUrl) {
 			const newSrc = modifyPreviewUrl(
 				embedInstance.processUrl,
 				addressEl.value,
 			);
-			replaceIframe(newSrc);
+			updateServerUrl(elements, newSrc);
+
+			if (newSrc != iframeEl.src) {
+				replaceIframe(newSrc);
+			}
 		}
+	}
+
+	formEl.addEventListener("submit", (e) => {
+		e.preventDefault();
+		runEmbed(embedInstance);
+		handleSubmitAddress();
 	});
+
+	addressEl.addEventListener("blur", handleSubmitAddress);
 
 	function bindIframeEvents() {
 		// If the iframe is navigated, modify the address bar to reflect the new URL
@@ -322,7 +331,7 @@ function modifyPreviewUrl(previewUrl: string, addressUrl: string) {
 // Given the webcontainer URL, shorten the hostname for display purposes
 function updateServerUrl(elements: EmbedElements, url: string) {
 	const serverUrl = new URL(url);
-	elements.addressEl.value = serverUrl
-		.toString()
-		.substring(serverUrl.protocol.length + serverUrl.hostname.length + 3);
+	serverUrl.hostname = "localhost";
+	serverUrl.port = "";
+	elements.addressEl.value = serverUrl.toString();
 }

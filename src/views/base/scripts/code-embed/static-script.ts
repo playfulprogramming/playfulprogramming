@@ -15,6 +15,7 @@ for (const containerEl of Array.from(
 	)!;
 	let iframeEl = previewContainerEl.querySelector<HTMLIFrameElement>("iframe")!;
 	const previewUrl = iframeEl.src;
+	const addressUrl = addressEl.value;
 
 	function replaceIframe(newSrc: string) {
 		const newIframeEl = document.createElement("iframe");
@@ -33,24 +34,41 @@ for (const containerEl of Array.from(
 		replaceIframe(newSrc);
 	});
 
+	function handleSubmitAddress() {
+		const newSrc = modifyPreviewUrl(previewUrl, addressEl.value);
+		updateAddressUrl(newSrc);
+
+		if (newSrc != iframeEl.src) {
+			replaceIframe(newSrc);
+		}
+	}
+
 	formEl.addEventListener("submit", (e) => {
 		e.preventDefault();
-
-		const newSrc = modifyPreviewUrl(previewUrl, addressEl.value);
-		replaceIframe(newSrc);
+		handleSubmitAddress();
 	});
+
+	addressEl.addEventListener("blur", handleSubmitAddress);
 
 	function bindIframeEvents() {
 		// If the iframe is navigated, modify the address bar to reflect the new URL
 		iframeEl.addEventListener("load", () => {
 			if (iframeEl.src) {
-				const url = new URL(iframeEl.src);
-				addressEl.value = url.search + url.hash;
+				updateAddressUrl(iframeEl.src);
 			}
 		});
 	}
 
 	bindIframeEvents();
+
+	function updateAddressUrl(src: string) {
+		const url = new URL(src);
+		const address = new URL(addressUrl);
+		url.hostname = "localhost";
+		url.port = "";
+		url.pathname = address.pathname;
+		addressEl.value = url.toString();
+	}
 }
 
 // Given the base static URL, modify it with any changes made in the address bar

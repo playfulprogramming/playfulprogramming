@@ -40,13 +40,13 @@ function CodeEmbedAddressBar(props: { prefix: string, address: string }) {
 	const id = uuidv4();
 	return (
 		<form id="code-embed-address" class="code-embed__address" autocomplete="off">
-			<label for={`code-embed-input-${id}`} class="text-style-body-medium code-embed__address__input" data-prefix={props.prefix}>
+			<label for={`code-embed-input-${id}`} class="text-style-body-medium code-embed__address__input">
 				<span class="visually-hidden">Address</span>
 				<input
 					id={`code-embed-input-${id}`}
 					name="address"
 					type="text"
-					value={props.address}
+					value={props.prefix + props.address}
 				/>
 			</label>
 			<button
