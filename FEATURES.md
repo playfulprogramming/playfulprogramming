@@ -135,18 +135,6 @@ We make this iframe lazy-loaded by default and force the user to click to run th
 
 We also lookup the websites favicon and use it as the icon for the iframe.
 
-#### Code Samples
-
-We support loading full code projects into iframes via [StackBlitz projects](https://stackblitz.com/). This is useful for showing off code samples in a live environment.
-
-To start, create a full project into a sub-folder of the markdown file. Then, add the following code block to the markdown file:
-
-```markdown
-<iframe data-frame-title="React Transparent Files Before - StackBlitz" src="pfp-code:./my-folder"></iframe>
-```
-
-We pass all URL parameters to the StackBlitz project, so you can use them to customize the project.
-
 ### Summary Blocks
 
 ![](./assets/detail-summary.png)
@@ -163,6 +151,29 @@ Summary blocks are a way to show a summary of a section of content. They are use
 ## Components
 
 Like MDX, Playful Programming supports the use of components in markdown files. Unlike MDX, we use a different syntax to define components and do not use React or JSX.
+
+### Code Embed
+
+![](./assets/code-embed.png)
+
+We support loading **static HTML** and **web/Node.JS** projects into iframes via [StackBlitz WebContainers](https://webcontainers.io/). This is useful for showing off code samples in a live environment.
+
+To start, create a full project into a sub-folder of the markdown file. Then, add the following code block to the markdown file:
+
+```markdown
+<!-- ::code-embed project="art-of-a11y-html-examples-3" file="src/main.ts" -->
+```
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `driver`  | `static` or `webcontainer` | Whether to show the iframe as a static embed or WebContainer preview. Defaults to `webcontainer`. |
+| `project` | string | The name of the subfolder that the project is stored in. |
+| `title`   | string | The title of the code embed (defaults to the file name) |
+| `file`    | string[] (comma-separated) | The file(s) to embed as code snippets above the preview panel. |
+| `lines`   | string[] (comma-separated) | A range of lines (e.g. `"5-8"`) to embed from the file, or `"off"` to hide the code snippet entirely. |
+| `language` | string[] (comma-separated) | The language of the code snippet(s) to use for syntax highlighting. Defaults to the file extension. |
+| `preview-url` | string | A subpath, query, or fragment to append to the base URL of the preview. This will prefill the address input above the preview panel. |
+| `height`  | number | The height of the preview panel. |
 
 ### Filetree
 
