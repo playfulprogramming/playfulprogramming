@@ -8,18 +8,10 @@ import BlogPostLayout from "./blog-post-layout/blog-post-layout.astro";
 import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import { Icon } from "astro-icon/components";
 
-import type { MarkdownInstance } from "astro";
-import {
-	CollectionInfo,
-	LicenseInfo,
-	PostInfo,
-	PostHeadingInfo,
-	PersonInfo,
-} from "types/index";
+import { CollectionInfo, LicenseInfo, PostInfo, PersonInfo } from "types/index";
 
 import { siteMetadata } from "constants/site-config";
 import "../../styles/shiki.scss";
-import "../../styles/markdown/tabs.scss";
 import "../../styles/markdown/in-content-ads.scss";
 import "../../styles/convertkit.scss";
 import SeriesToC from "./series/series-toc.astro";
@@ -28,27 +20,22 @@ import RelatedPosts from "components/related-posts/related-posts.astro";
 import { LargeButton } from "../../components/button/button";
 
 import styles from "./blog-post.module.scss";
+import { MarkdownHtml } from "utils/markdown";
+import Content from "utils/markdown/components/content.astro";
 
 export interface Props {
 	post: PostInfo;
-	postHeadings: PostHeadingInfo[];
 	authors: PersonInfo[];
 	collection?: CollectionInfo;
 	collectionPosts?: PostInfo[];
 	license?: LicenseInfo;
-	postHtml: string;
+	postHtml: MarkdownHtml;
 }
 
-const {
-	postHtml,
-	post,
-	postHeadings,
-	authors,
-	collection,
-	collectionPosts,
-	license,
-} = Astro.props;
+const { postHtml, post, authors, collection, collectionPosts, license } =
+	Astro.props;
 
+const postHeadings = postHtml.headingsWithIds;
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${post.path}/index.md`;
 ---
 
@@ -56,10 +43,6 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 	import mediumZoom from "medium-zoom";
 
 	mediumZoom(".post-body img:not([data-nozoom])");
-</script>
-<script>
-	import { enableTabs } from "../../utils/markdown/components/tabs/tabs-script";
-	enableTabs();
 </script>
 <script>
 	import { enableShikiTabindex } from "../../utils/markdown/shiki/shiki-tabindex-script";
@@ -118,7 +101,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 			<h2 id="blog-post-contents" class="visually-hidden" data-no-heading-link>
 				Post contents
 			</h2>
-			<div set:html={postHtml} />
+			<Content content={postHtml.content} />
 			{
 				collectionPosts?.length ? (
 					<ArticleNav

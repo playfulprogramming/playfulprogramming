@@ -39,16 +39,6 @@ export function createEpubPlugins(unified: Processor) {
 			.use(rehypeFixTwoSlashXHTML)
 			.use(rehypeMakeImagePathsAbsolute)
 			.use(rehypeMakeHrefPathsAbsolute)
-			.use(rehypeTransformComponents, {
-				components: {
-					filetree: ({ children }) => children,
-					["in-content-ad"]: ({ children }) => children,
-					["link-preview"]: ({ children }) => children,
-					["no-ebook"]: () => [],
-					["only-ebook"]: ({ children }) => children,
-					tabs: ({ children }) => children,
-				},
-			})
 			.use(rehypeExpandDetailsAndSummary)
 			.use(rehypeSlug as never, {
 				maintainCase: true,
@@ -57,7 +47,26 @@ export function createEpubPlugins(unified: Processor) {
 			})
 			.use(...rehypeShikiUU)
 			.use(rehypePostShikiTransform)
-			// Voids: [] is required for epub generation, and causes little/no harm for non-epub usage
+			.use(rehypeTransformComponents, {
+				components: {
+					filetree: ({ children, processComponents }) =>
+						processComponents(children),
+					["in-content-ad"]: ({ children, processComponents }) =>
+						processComponents(children),
+					["link-preview"]: ({ children, processComponents }) =>
+						processComponents(children),
+					["no-ebook"]: () => [],
+					["only-ebook"]: ({ children, processComponents }) =>
+						processComponents(children),
+					tabs: ({ children, processComponents }) =>
+						processComponents(children),
+				},
+				htmlOptions: {
+					allowDangerousHtml: true,
+					// Voids: [] is required for epub generation, and causes little/no harm for non-epub usage
+					voids: [],
+				},
+			})
 			.use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
 	);
 }

@@ -1,0 +1,21 @@
+---
+import { components, Node } from "utils/markdown/components/components";
+
+export interface Props {
+	content: Node[];
+}
+
+const content = Astro.props.content;
+---
+
+{
+	content.map((node) => {
+		if (node.type === "html") {
+			return <Fragment set:html={node.innerHtml} />;
+		} else if (node.type === "component") {
+			const Component = components[node.component];
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			return <Component {...(node.props as any)} />;
+		}
+	})
+}

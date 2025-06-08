@@ -25,17 +25,14 @@ import type { VFile } from "vfile";
 import { siteMetadata } from "../../constants/site-config";
 import branch from "git-branch";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
-import rehypeStringify from "rehype-stringify";
 import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
+import { rehypeLinkPreview } from "./link-preview/rehype-transform";
 import {
+	rehypePluginComponents,
 	rehypeTransformComponents,
-	transformFileTree,
-	transformInContentAd,
-	transformLinkPreview,
 	transformTabs,
 } from "./components";
-import { rehypeLinkPreview } from "./link-preview/rehype-transform";
 
 const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
 
@@ -110,16 +107,6 @@ export function createHtmlPlugins(unified: Processor) {
 					},
 				],
 			})
-			.use(rehypeTransformComponents, {
-				components: {
-					filetree: transformFileTree,
-					["in-content-ad"]: transformInContentAd,
-					["link-preview"]: transformLinkPreview,
-					["no-ebook"]: ({ children }) => children,
-					["only-ebook"]: () => [],
-					tabs: transformTabs,
-				},
-			})
 			.use(rehypePlayfulElementMap)
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)
@@ -135,6 +122,15 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypeCodeblockMeta)
 			.use(...rehypeShikiUU)
 			.use(rehypePostShikiTransform)
-			.use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
+			.use(rehypeTransformComponents, {
+				components: {
+					tabs: transformTabs,
+				},
+				htmlOptions: {
+					allowDangerousHtml: true,
+					voids: [],
+				},
+			})
+			.use(rehypePluginComponents)
 	);
 }

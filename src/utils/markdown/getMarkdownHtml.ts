@@ -3,10 +3,11 @@ import { unified } from "unified";
 import { getMarkdownVFile } from "./getMarkdownVFile";
 import { MarkdownFileInfo, MarkdownVFile } from "./types";
 import { createHtmlPlugins } from "./createHtmlPlugins";
+import * as components from "./components";
 
 export type MarkdownHtml = {
 	headingsWithIds: PostHeadingInfo[];
-	html: string;
+	content: components.Node[];
 };
 
 const unifiedChain = unified();
@@ -25,6 +26,6 @@ export async function getMarkdownHtml(
 
 	return {
 		headingsWithIds: vfile.data.headingsWithIds,
-		html: result.toString(),
+		content: await result.result,
 	};
 }

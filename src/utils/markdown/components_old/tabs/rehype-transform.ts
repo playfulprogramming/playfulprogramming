@@ -1,9 +1,8 @@
 import { getHeaderNodeId, slugs } from "rehype-slug-custom-id";
 import { Element, Node, Parent, Text } from "hast";
+import { TabInfo, Tabs } from "./tabs";
 import { toString } from "hast-util-to-string";
 import { RehypeFunctionComponent } from "../types";
-import { TabInfo } from "./types";
-import { createComponent } from "../components";
 
 const isNodeHeading = (n: Element) =>
 	n.type === "element" && /h[1-6]/.exec(n.tagName);
@@ -64,13 +63,10 @@ const getApproxLineCount = (nodes: Node[], inParagraph?: boolean): number => {
 	return lines;
 };
 
-export const transformTabs: RehypeFunctionComponent = async ({
-	children,
-	processComponents,
-}) => {
+export const transformTabs: RehypeFunctionComponent = ({ children }) => {
 	let sectionStarted = false;
 	const largestSize = findLargestHeading(children as Element[]);
-	const tabs: Array<Omit<TabInfo, "contents"> & { contents: Node[] }> = [];
+	const tabs: TabInfo[] = [];
 
 	for (const localNode of children as Element[]) {
 		if (!sectionStarted && !isNodeLargestHeading(localNode, largestSize)) {
@@ -111,19 +107,16 @@ export const transformTabs: RehypeFunctionComponent = async ({
 		tabs.at(-1)?.contents?.push(localNode);
 	}
 
-	const tabsProp = await Promise.all(
-		tabs.map(async (tab) => {
-			const contents = await processComponents(tab.contents);
-			return {
-				...tab,
-				contents,
-			};
-		}),
-	);
+	// Determine if the set of tabs should use a constant height (via the "tabs-small" class)
+	const tabHeights = tabs.map(({ contents }) => getApproxLineCount(contents));
+	const isSmall =
+		// all tabs must be <= 30 approx. lines (less than the height of most desktop viewports)
+		Math.max(...tabHeights) <= 30 &&
+		// the max difference between tab heights must be under 15 lines
+		Math.max(...tabHeights) - Math.min(...tabHeights) <= 15;
 
-	return [
-		createComponent("tabs", {
-			tabs: tabsProp,
-		}),
-	];
+	return Tabs({
+		tabs,
+		isSmall,
+	});
 };

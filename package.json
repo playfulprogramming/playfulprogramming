@@ -87,6 +87,7 @@
 		"hast-util-from-html": "^2.0.3",
 		"hast-util-has-property": "^3.0.0",
 		"hast-util-heading-rank": "^3.0.0",
+		"hast-util-to-html": "^9.0.5",
 		"hast-util-to-string": "^3.0.1",
 		"hastscript": "^9.0.0",
 		"html-escaper": "^3.0.3",
