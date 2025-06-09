@@ -1,53 +1,26 @@
 ---
 import Content from "../content.astro";
 import { TabInfo } from "./types";
-import "./tabs.scss";
+import { Tabs as PreactTabs, TabsItem } from "components/tabs/tabs-signal";
 
 export interface Props {
 	tabs: TabInfo[];
 }
 
 const tabs = Astro.props.tabs;
+const tabsId = tabs
+	.map((t) => t.slug)
+	.sort()
+	.join(":");
+const tabsInfo = tabs.map(({ slug, name }) => ({ slug, name }));
 ---
 
-<div class="tabs">
-	<ul role="tablist" class="tabs__tab-list">
-		{
-			tabs.map(({ slug, name, headers }, index) => (
-				<li
-					id={`tab-${index}`}
-					role="tab"
-					class="tabs__tab text-style-body-medium-bold"
-					data-tabname={slug}
-					data-headers={JSON.stringify(headers)}
-					aria-selected={index === 0}
-					aria-controls={`panel-${index}`}
-					tabindex={index === 0 ? 0 : -1}
-				>
-					{name}
-				</li>
-			))
-		}
-	</ul>
+<PreactTabs id={tabsId} tabs={tabsInfo} client:load>
 	{
-		tabs.map(({ contents }, index) => (
-			<div
-				id={`panel-${index}`}
-				role="tabpanel"
-				class="tabs__tab-panel"
-				tabindex={0}
-				aria-labelledby={`tab-${index}`}
-				aria-hidden={index === 0 ? undefined : true}
-			>
-				<div class="tabs__tab-panel__inner">
-					<Content content={contents} />
-				</div>
-			</div>
+		tabs.map((tab) => (
+			<TabsItem id={tabsId} tabs={tabsInfo} slug={tab.slug} client:load>
+				<Content content={tab.contents} />
+			</TabsItem>
 		))
 	}
-</div>
-
-<script>
-	import { enableTabs } from "./tabs-script";
-	enableTabs();
-</script>
+</PreactTabs>

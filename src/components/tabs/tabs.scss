@@ -54,6 +54,7 @@
 	padding: var(--tab_padding-vertical) var(--tab_padding-horizontal);
 	color: var(--tab_foreground-color);
 	user-select: none;
+	@include transition(background-color);
 }
 
 .tabs__tab[aria-selected="true"],
@@ -93,19 +94,18 @@
 	overflow: visible;
 }
 
-.tabs__tab-panel__inner > *:first-child {
-	border-top-right-radius: var(--tabbed-wrapper_corner-radius_inner);
-	border-top-left-radius: var(--tabbed-wrapper_corner-radius_inner);
+.tabs__tab-panel__inner > *:first-child,
+.tabs__tab-panel__inner > astro-slot > *:first-child {
 	margin-top: 0;
 }
 
-.tabs__tab-panel__inner > *:last-child {
-	border-bottom-right-radius: var(--tabbed-wrapper_corner-radius_inner);
-	border-bottom-left-radius: var(--tabbed-wrapper_corner-radius_inner);
+.tabs__tab-panel__inner > *:last-child,
+.tabs__tab-panel__inner > astro-slot > *:last-child {
 	margin-bottom: 0;
 }
 
-.tabs__tab-panel__inner > *:not(pre, .embed, .docs-file-tree-container) {
+.tabs__tab-panel__inner > *:not(pre, .embed, .docs-file-tree-container),
+.tabs__tab-panel__inner > astro-slot > *:not(pre, .embed, .docs-file-tree-container) {
 	&:first-child {
 		margin-top: var(--tab-content_margin);
 	}

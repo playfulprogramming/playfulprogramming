@@ -2,7 +2,7 @@ import { Root, Element } from "hast";
 import { Plugin } from "unified";
 import { find } from "unist-util-find";
 import { visit } from "unist-util-visit";
-import { LinkPreview } from "../.components_old/link-preview/link-preview";
+import { LinkPreview } from "../components_old/link-preview/link-preview";
 import { toString } from "hast-util-to-string";
 import { isElement } from "../unist-is-element";
 

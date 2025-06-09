@@ -15,6 +15,9 @@ importers:
       '@oramacloud/client':
         specifier: ^2.1.4
         version: 2.1.4
+      '@preact/signals':
+        specifier: ^2.2.0
+        version: 2.2.0(preact@10.25.4)
       '@tanstack/react-query':
         specifier: ^5.64.2
         version: 5.65.0(@preact/compat@18.3.1(preact@10.25.4))
@@ -1385,13 +1388,13 @@ packages:
       '@babel/core': 7.x
       vite: 2.x || 3.x || 4.x || 5.x
 
-  '@preact/signals-core@1.8.0':
-    resolution: {integrity: sha512-OBvUsRZqNmjzCZXWLxkZfhcgT+Fk8DDcT/8vD6a1xhDemodyy87UJRJfASMuSD8FaAIeGgGm85ydXhm7lr4fyA==}
+  '@preact/signals-core@1.9.0':
+    resolution: {integrity: sha512-uUgFHJLWxb33rfCtb1g+1e3Rg7Jl5EALhGTHlQ5Y0w37OF+fdidYdYEE6crbpUOYDOjlmelIWf0ulXr1ggfUkg==}
 
-  '@preact/signals@2.0.1':
-    resolution: {integrity: sha512-f9p/utMgttPb9bJ+UgRBkTDZ9uQiZfX1/gV3pXGWz+yGNQj8MrnG55Xo8MAG4IHcb5UXQO6tvt9ZlsM4A2j+Rw==}
+  '@preact/signals@2.2.0':
+    resolution: {integrity: sha512-P3KPcEYyVk9Wiwfw68QQzRpPkt0H+zjfH3X4AaGCDlc86GuRBYFGiAxT1nC5F5qlsVIEmjNJ9yVYe7C91z3L+g==}
     peerDependencies:
-      preact: 10.x
+      preact: '>= 10.25.0'
 
   '@prefresh/babel-plugin@0.5.1':
     resolution: {integrity: sha512-uG3jGEAysxWoyG3XkYfjYHgaySFrSsaEb4GagLzYaxlydbuREtaX+FTxuIidp241RaLl85XoHg9Ej6E4+V1pcg==}
@@ -6713,7 +6716,7 @@ snapshots:
       '@babel/plugin-transform-react-jsx': 7.25.9(@babel/core@7.26.7)
       '@babel/plugin-transform-react-jsx-development': 7.25.9(@babel/core@7.26.7)
       '@preact/preset-vite': 2.8.2(@babel/core@7.26.7)(preact@10.25.4)(vite@6.0.11(@types/node@22.10.10)(sass@1.83.4)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
-      '@preact/signals': 2.0.1(preact@10.25.4)
+      '@preact/signals': 2.2.0(preact@10.25.4)
       babel-plugin-transform-hook-names: 1.0.2(@babel/core@7.26.7)
       preact: 10.25.4
       preact-render-to-string: 6.5.13(preact@10.25.4)
@@ -7728,11 +7731,11 @@ snapshots:
       - preact
       - supports-color
 
-  '@preact/signals-core@1.8.0': {}
+  '@preact/signals-core@1.9.0': {}
 
-  '@preact/signals@2.0.1(preact@10.25.4)':
+  '@preact/signals@2.2.0(preact@10.25.4)':
     dependencies:
-      '@preact/signals-core': 1.8.0
+      '@preact/signals-core': 1.9.0
       preact: 10.25.4
 
   '@prefresh/babel-plugin@0.5.1': {}
