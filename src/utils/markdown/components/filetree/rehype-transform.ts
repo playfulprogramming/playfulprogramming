@@ -20,12 +20,14 @@
  */
 import { toString } from "hast-util-to-string";
 import type { Child as HChild } from "hastscript";
-import { Element } from "hast";
+import { Element, ElementContent } from "hast";
 import { visit } from "unist-util-visit";
 import JSON5 from "json5";
-import { FileList, Directory, File } from "./file-list";
 import { RehypeFunctionComponent } from "../types";
 import { logError } from "utils/markdown/logger";
+import type { Directory, File } from "components/file-list/file-list";
+import { createComponent } from "../components";
+import { toHtml } from "hast-util-to-html";
 
 interface DirectoryMetadata {
 	open?: boolean;
@@ -74,11 +76,14 @@ function traverseUl(listNode: Element, listItems: Array<Directory | File>) {
 			}
 		});
 
-		const comment: HChild[] = [];
+		const comment: ElementContent[] = [];
 		if (firstChild.type === "text") {
 			const [filename, ...fragments] = firstChild.value.split(" ");
 			firstChild.value = filename;
-			comment.push(fragments.join(" "));
+			comment.push({
+				type: "text",
+				value: fragments.join(" "),
+			});
 		}
 		const subTreeIndex = otherChildren.findIndex(
 			(child) => child.type === "element" && child.tagName === "ul",
@@ -118,7 +123,7 @@ function traverseUl(listNode: Element, listItems: Array<Directory | File>) {
 				isDirectory: false,
 				name: toString(firstChild as never),
 				filetype: fileExtension,
-				comment,
+				commentHtml: toHtml(comment),
 				isHighlighted,
 				isPlaceholder,
 				...(metadata as object),
@@ -132,7 +137,7 @@ function traverseUl(listNode: Element, listItems: Array<Directory | File>) {
 			name: toString(firstChild as never),
 			isHighlighted,
 			items: dirItems,
-			comment,
+			commentHtml: toHtml(comment),
 			// Overwritten by `metadata.openByDefault` if it exists
 			openByDefault: metadata?.open ?? hasContents,
 		});
@@ -172,5 +177,5 @@ export const transformFileTree: RehypeFunctionComponent = ({
 
 	traverseUl(list, items);
 
-	return FileList({ items });
+	return [createComponent("FileList", { items })];
 };

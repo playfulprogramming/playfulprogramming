@@ -31,7 +31,12 @@ import { rehypeLinkPreview } from "./link-preview/rehype-transform";
 import {
 	rehypePluginComponents,
 	rehypeTransformComponents,
+	transformFileTree,
+	transformInContentAd,
+	transformLinkPreview,
+	transformNoop,
 	transformTabs,
+	transformVoid,
 } from "./components";
 
 const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
@@ -124,6 +129,11 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypePostShikiTransform)
 			.use(rehypeTransformComponents, {
 				components: {
+					filetree: transformFileTree,
+					"in-content-ad": transformInContentAd,
+					"link-preview": transformLinkPreview,
+					"no-ebook": transformNoop,
+					"only-ebook": transformVoid,
 					tabs: transformTabs,
 				},
 				htmlOptions: {

@@ -14,7 +14,7 @@
 	--link-preview_focus_tint: var(--primary40_32);
 }
 
-.link-preview {
+.linkPreview {
 	display: block flow-root;
 	position: relative;
 	padding-top: var(--link-preview_padding-top);
@@ -22,7 +22,7 @@
 	line-height: 0;
 	-webkit-tap-highlight-color: transparent;
 
-	.anchored-tooltip {
+	.anchoredTooltip {
 		position: absolute;
 		z-index: 2;
 		top: calc(var(--link-preview_padding-top) + var(--link-preview_border_width) + var(--link-preview_border_gap));
@@ -56,8 +56,8 @@
 	}
 }
 
-.link-preview:hover {
-	.anchored-tooltip {
+.linkPreview:hover {
+	.anchoredTooltip {
 		text-decoration: underline;
 	}
 
@@ -66,7 +66,7 @@
 	}
 }
 
-.link-preview:focus-visible {
+.linkPreview:focus-visible {
 	outline: none;
 
 	&::after {

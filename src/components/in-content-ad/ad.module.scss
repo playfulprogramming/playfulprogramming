@@ -3,7 +3,7 @@
 /**
  * We cannot use the "A D" word in the markup, otherwise it will be blocked by ad blockers.
  */
-.in-content-banner-container {
+.inContentBannerContainer {
 	background: var(--surface_secondary_emphasis-low);
 	border-radius: var(--corner-radius_l);
 	overflow: hidden;
@@ -23,7 +23,7 @@
 	}
 }
 
-.in-content-banner-contents {
+.inContentBannerContents {
 	padding: var(--spc-6x);
 	grid-row: 2;
 	grid-column: 1;
@@ -36,7 +36,7 @@
 	}
 }
 
-.in-content-image-container {
+.inContentImageContainer {
 	height: 100%;
 	width: 100%;
 	position: relative;
@@ -55,7 +55,7 @@
 	}
 }
 
-.in-content-image {
+.inContentImage {
 	height: 152px;
 	z-index: 1;
 
@@ -66,7 +66,7 @@
 	}
 }
 
-.in-content-image-bg {
+.inContentImageBg {
 	height: 100%;
 	width: 100%;
 	position: absolute;
@@ -87,7 +87,7 @@
 	}
 }
 
-.in-content-image-inner-bg {
+.inContentImageInnerBg {
 	height: 200%;
 	width: 150%;
 	background-image: url("/patterns/dots-grid.svg");
@@ -98,18 +98,18 @@
 	transform: translateX(-50%) translateY(-50%) rotate(30deg);
 }
 
-.in-content-banner-title {
+.title {
 	margin: 0 !important;
 	margin-bottom: var(--spc-1x) !important;
 	color: var(--foreground_emphasis-high) !important;
 }
 
-.in-content-banner-description {
+.description {
 	margin: 0 !important;
 	color: var(--foreground_emphasis-medium) !important;
 	margin-bottom: var(--spc-6x) !important;
 }
 
-.in-content-banner-button {
+.button {
 	display: inline-flex;
 }

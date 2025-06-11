@@ -18,7 +18,11 @@ import { Processor } from "unified";
 import rehypeStringify from "rehype-stringify";
 import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
-import { rehypeTransformComponents } from "./components";
+import {
+	rehypeTransformComponents,
+	transformNoop,
+	transformVoid,
+} from "./components";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
 
 export function createEpubPlugins(unified: Processor) {
@@ -49,17 +53,12 @@ export function createEpubPlugins(unified: Processor) {
 			.use(rehypePostShikiTransform)
 			.use(rehypeTransformComponents, {
 				components: {
-					filetree: ({ children, processComponents }) =>
-						processComponents(children),
-					["in-content-ad"]: ({ children, processComponents }) =>
-						processComponents(children),
-					["link-preview"]: ({ children, processComponents }) =>
-						processComponents(children),
-					["no-ebook"]: () => [],
-					["only-ebook"]: ({ children, processComponents }) =>
-						processComponents(children),
-					tabs: ({ children, processComponents }) =>
-						processComponents(children),
+					filetree: transformNoop,
+					["in-content-ad"]: transformNoop,
+					["link-preview"]: transformNoop,
+					["no-ebook"]: transformVoid,
+					["only-ebook"]: transformNoop,
+					tabs: transformNoop,
 				},
 				htmlOptions: {
 					allowDangerousHtml: true,

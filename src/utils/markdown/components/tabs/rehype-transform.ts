@@ -122,7 +122,7 @@ export const transformTabs: RehypeFunctionComponent = async ({
 	);
 
 	return [
-		createComponent("tabs", {
+		createComponent("Tabs", {
 			tabs: tabsProp,
 		}),
 	];

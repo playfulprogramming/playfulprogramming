@@ -1,4 +1,7 @@
 import type * as hast from "hast";
+import FileList from "./filetree/file-list.astro";
+import InContentAd from "./in-content-ad/in-content-ad.astro";
+import LinkPreview from "./link-preview/link-preview.astro";
 import Tabs from "./tabs/tabs.astro";
 
 export interface HtmlNode extends hast.Node {
@@ -15,13 +18,16 @@ export interface ComponentNode<Props = object> extends hast.Node {
 export type Node = HtmlNode | ComponentNode;
 
 export const components = {
-	tabs: Tabs,
+	FileList,
+	InContentAd,
+	LinkPreview,
+	Tabs,
 } as const;
 
-export function createComponent<
-	Key extends keyof typeof components,
-	Props = Parameters<(typeof components)[Key]>[0],
->(key: Key, props: Props): ComponentNode<Props> {
+export function createComponent<Key extends keyof typeof components>(
+	key: Key,
+	props: Parameters<(typeof components)[Key]>[0],
+): ComponentNode<Parameters<(typeof components)[Key]>[0]> {
 	return {
 		type: "component",
 		component: key,

@@ -18,19 +18,19 @@
 	--anchored-tooltip_focus_outline_color: var(--focus-outline_primary);
 }
 
-.anchored-tooltip--zoom {
+.anchoredTooltip[data-style=primary] {
 	--anchored-tooltip_background-color: var(--background_primary);
 	--anchored-tooltip_foreground-color: var(--foreground_emphasis-high);
 	--anchored-tooltip_border-color: var(--primary_variant);
 }
 
-.anchored-tooltip--link {
+.anchoredTooltip[data-style=variant] {
 	--anchored-tooltip_background-color: var(--primary_on-variant);
 	--anchored-tooltip_foreground-color: var(--background_primary);
 	--anchored-tooltip_border-color: var(--background_primary);
 }
 
-.anchored-tooltip {
+.anchoredTooltip {
 	display: flex;
 	align-items: center;
 	gap: var(--anchored-tooltip_gap);
@@ -64,8 +64,8 @@
 	}
 }
 
-.anchored-tooltip:focus-visible,
-:focus-visible > .anchored-tooltip {
+.anchoredTooltip:focus-visible,
+:global(:focus-visible) > .anchoredTooltip {
 	background-color: var(--anchored-tooltip_background-color_focus);
 	color: var(--anchored-tooltip_foreground-color_focus);
 	outline: var(--anchored-tooltip_focus_outline_width) solid var(--anchored-tooltip_focus_outline_color);
