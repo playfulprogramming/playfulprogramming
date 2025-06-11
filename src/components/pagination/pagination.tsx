@@ -52,11 +52,7 @@ function PaginationButton({
 function PaginationMenuWrapper(
 	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">,
 ) {
-	const [shouldRender, setShouldRender] = useState(false);
-
-	useEffect(() => {
-		setShouldRender(true);
-	});
+	const shouldRender = typeof process === "undefined";
 
 	// if this is a static render, this still needs to return an <li> node so that
 	// it hydrates in the correct order
@@ -69,6 +65,7 @@ export const Pagination = ({
 	page,
 	rootURL = "./",
 	class: className = "",
+	divClass: divClassName,
 	id = "post-list-pagination",
 	getPageHref = (pageNum: number) => `${rootURL}${pageNum}`,
 	softNavigate,
@@ -85,6 +82,7 @@ export const Pagination = ({
 				role="navigation"
 				aria-label="Pagination Navigation"
 				data-testid={testId}
+				className={divClassName}
 			>
 				<ul id={id} className={`${styles.pagination} ${className}`}>
 					<li className={`${styles.paginationItem}`}>
