@@ -15,11 +15,11 @@ import {
 } from "./rehype-absolute-paths";
 import { rehypeFixTwoSlashXHTML } from "./rehype-fix-twoslash-xhtml";
 import { Processor } from "unified";
-import rehypeStringify from "rehype-stringify";
 import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
 import {
 	rehypeTransformComponents,
+	rehypeStringifyComponents,
 	transformNoop,
 	transformVoid,
 } from "./components";
@@ -66,6 +66,6 @@ export function createEpubPlugins(unified: Processor) {
 					voids: [],
 				},
 			})
-			.use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
+			.use(rehypeStringifyComponents)
 	);
 }

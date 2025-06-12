@@ -1,4 +1,5 @@
 export * from "./rehype-plugin-components";
+export * from "./rehype-stringify-components";
 export * from "./rehype-transform-components";
 export * from "./filetree/rehype-transform";
 export * from "./in-content-ad/rehype-transform";
