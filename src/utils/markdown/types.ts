@@ -13,7 +13,7 @@ export interface MarkdownVFile extends VFile {
 	data: {
 		kind: MarkdownKind;
 		file: string;
-		frontmatter: MarkdownFileInfo;
+		frontmatter?: MarkdownFileInfo;
 		frontmatterData?: object;
 		headingsWithIds: PostHeadingInfo[];
 		collectionLinks?: CollectionLinks[];
