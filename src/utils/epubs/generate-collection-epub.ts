@@ -1,15 +1,10 @@
-import { dirname, resolve } from "path";
+import path from "path";
 import { promises as fs } from "fs";
-import { fileURLToPath } from "url";
 import emojiRegexFn from "emoji-regex";
 import { EPub, defaultAllowedAttributes } from "@lesjoursfr/html-to-epub";
 import { unified } from "unified";
 import { CollectionInfo, PostInfo } from "types/index";
-import {
-	getCollectionsByLang,
-	getPostsByCollection,
-	getPersonById,
-} from "utils/api";
+import { getPersonById } from "utils/api";
 import { createEpubPlugins } from "utils/markdown/createEpubPlugins";
 import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
 import {
@@ -18,8 +13,8 @@ import {
 } from "utils/markdown/reference-page/rehype-reference-page";
 import { escapeHtml, fetchPageHtml, getPageTitle } from "utils/fetch-page-html";
 import { rehypeRemoveCollectionLinks } from "utils/markdown/rehype-remove-collection-links";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import epubCss from "./epub.css?raw";
+import { tmpdir } from "os";
 
 const emojiRegex = emojiRegexFn();
 
@@ -87,19 +82,6 @@ ${chapterMetaLinks
 `.trim();
 }
 
-interface GenerateReferencePageHTMLOptions {
-	markdown: string;
-	unifiedChain: ReturnType<typeof createEpubPlugins>;
-}
-
-async function generateReferencePageHTML({
-	markdown,
-	unifiedChain,
-}: GenerateReferencePageHTMLOptions) {
-	const result = await unifiedChain.process(markdown);
-	return result.toString();
-}
-
 interface GenerateEpubHTMLOptions {
 	post: PostInfo;
 	unifiedChain: ReturnType<typeof createEpubPlugins>;
@@ -134,11 +116,13 @@ async function generateEpubHTML({
 
 type EpubOptions = ConstructorParameters<typeof EPub>[0];
 
-async function generateCollectionEPub(
+export async function generateCollectionEPub(
 	collection: CollectionInfo,
 	collectionPosts: PostInfo[],
-	fileLocation: string,
-) {
+): Promise<ArrayBuffer> {
+	const fileTmpDir = await fs.mkdtemp(tmpdir() + path.sep + "pfp-collection-");
+	const fileLocation = path.join(fileTmpDir, `${collection.slug}.epub`);
+
 	const authors = collection.authors
 		.map((id) => getPersonById(id, collection.locale)?.name)
 		.filter((name): name is string => !!name);
@@ -182,27 +166,16 @@ async function generateCollectionEPub(
 			publisher: "Playful Programming",
 			cover: collection.coverImgMeta.absoluteFSPath,
 			allowedAttributes: [...defaultAllowedAttributes, "start", "colSpan"],
-			css: await fs.readFile(resolve(__dirname, "./epub.css"), "utf-8"),
+			css: epubCss,
 			// fonts: ['/path/to/Merriweather.ttf'],
-			lang: "en",
+			lang: collection.locale,
 			content: contents,
 		} as Partial<EpubOptions> as EpubOptions,
 		fileLocation,
 	);
 
 	await epub.render();
-}
-
-for (const collection of getCollectionsByLang("en")) {
-	// This should return a sorted list of posts in the correct order
-	const collectionPosts = getPostsByCollection(
-		collection.slug,
-		collection.locale,
-	);
-
-	generateCollectionEPub(
-		collection,
-		collectionPosts,
-		resolve(process.cwd(), `public/${collection.slug}.epub`),
-	);
+	const buffer = await fs.readFile(fileLocation);
+	await fs.rm(fileTmpDir, { recursive: true, force: true });
+	return buffer;
 }
