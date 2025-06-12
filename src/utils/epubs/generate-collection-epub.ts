@@ -7,12 +7,8 @@ import { CollectionInfo, PostInfo } from "types/index";
 import { getPersonById } from "utils/api";
 import { createEpubPlugins } from "utils/markdown/createEpubPlugins";
 import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
-import {
-	rehypeReferencePage,
-	collectionMetaRecord,
-} from "utils/markdown/reference-page/rehype-reference-page";
+import { CollectionLinks } from "utils/markdown/reference-page/rehype-reference-page";
 import { escapeHtml, fetchPageHtml, getPageTitle } from "utils/fetch-page-html";
-import { rehypeRemoveCollectionLinks } from "utils/markdown/rehype-remove-collection-links";
 import epubCss from "./epub.css?raw";
 import { tmpdir } from "os";
 
@@ -21,16 +17,16 @@ const emojiRegex = emojiRegexFn();
 interface GetReferencePageMarkdownOptions {
 	collection: CollectionInfo;
 	collectionPosts: PostInfo[];
+	collectionLinks: CollectionLinks[];
 }
 
 async function getReferencePageHtml({
 	collection,
 	collectionPosts,
+	collectionLinks,
 }: GetReferencePageMarkdownOptions) {
-	const collectionMeta = collectionMetaRecord.get(collection.slug);
-
 	const links = await Promise.all(
-		collectionMeta?.links?.map(async (link) => {
+		collectionLinks.map(async (link) => {
 			const srcHast = await fetchPageHtml(link.originalHref);
 			if (!srcHast)
 				return {
@@ -84,14 +80,17 @@ ${chapterMetaLinks
 
 interface GenerateEpubHTMLOptions {
 	post: PostInfo;
+	collectionLinks: CollectionLinks[];
 	unifiedChain: ReturnType<typeof createEpubPlugins>;
 }
 
 async function generateEpubHTML({
 	post,
+	collectionLinks,
 	unifiedChain,
 }: GenerateEpubHTMLOptions) {
 	const vfile = await getMarkdownVFile(post);
+	vfile.data.collectionLinks = collectionLinks;
 
 	// Replace our Prettier useTabs with two spaces for ebook consistency
 	let contents = vfile.value.toString();
@@ -116,6 +115,8 @@ async function generateEpubHTML({
 
 type EpubOptions = ConstructorParameters<typeof EPub>[0];
 
+const unifiedChain = createEpubPlugins(unified());
+
 export async function generateCollectionEPub(
 	collection: CollectionInfo,
 	collectionPosts: PostInfo[],
@@ -129,29 +130,21 @@ export async function generateCollectionEPub(
 
 	const referenceTitle = "References";
 
-	const unifiedChain = createEpubPlugins(unified())
-		.use(rehypeRemoveCollectionLinks, {
-			collection,
-		})
-		.use(rehypeReferencePage, {
-			collection,
-			collectionPosts,
-			referenceTitle,
-		});
-
 	const contents: Array<{ title: string; data: string }> = [];
+	const collectionLinks: CollectionLinks[] = [];
 
 	// We cannot use `Promise.all` here because we need to keep the order for the link transform to work
 	for (const post of collectionPosts) {
 		contents.push({
 			title: post.title,
-			data: await generateEpubHTML({ post, unifiedChain }),
+			data: await generateEpubHTML({ post, collectionLinks, unifiedChain }),
 		});
 	}
 
 	const referencePageHTML = await getReferencePageHtml({
 		collection,
 		collectionPosts,
+		collectionLinks,
 	});
 
 	contents.push({

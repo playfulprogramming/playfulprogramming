@@ -24,6 +24,9 @@ import {
 	transformVoid,
 } from "./components";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
+import rehypeStringify from "rehype-stringify";
+import { rehypeRemoveCollectionLinks } from "./rehype-remove-collection-links";
+import { rehypeReferencePage } from "./reference-page/rehype-reference-page";
 
 export function createEpubPlugins(unified: Processor) {
 	return (
@@ -51,6 +54,8 @@ export function createEpubPlugins(unified: Processor) {
 			})
 			.use(...rehypeShikiUU)
 			.use(rehypePostShikiTransform)
+			.use(rehypeRemoveCollectionLinks)
+			.use(rehypeReferencePage, { referenceTitle: "References" })
 			.use(rehypeTransformComponents, {
 				components: {
 					filetree: transformNoop,
