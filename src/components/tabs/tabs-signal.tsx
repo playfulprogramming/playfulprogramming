@@ -1,35 +1,32 @@
 import { JSXNode } from "components/types";
 import { signal } from "@preact/signals";
 import { Tabs as InnerTabs, TabsItem as InnerTabsItem } from "./tabs";
-import { useEffect } from "preact/hooks";
 
 const LOCAL_STORAGE_KEY = "tabs-selection";
 
-const selectedTabs = signal<Record<string, string>>({});
-
-let loadLocalStorage = () => {
-	loadLocalStorage = () => {};
-
+function loadLocalStorage() {
 	if (typeof localStorage === "undefined") {
-		return;
+		return {};
 	}
 
 	const tabsJson = localStorage.getItem(LOCAL_STORAGE_KEY);
-	if (!tabsJson) return;
+	if (!tabsJson) return {};
 
 	let tabs: unknown;
 	try {
 		tabs = JSON.parse(tabsJson);
 	} catch (e) {
-		return;
+		return {};
 	}
 
 	if (tabs && typeof tabs === "object") {
-		selectedTabs.value = tabs as Record<string, string>;
+		return tabs as Record<string, string>;
 	} else {
-		return;
+		return {};
 	}
 }
+
+const selectedTabs = signal<Record<string, string>>(loadLocalStorage());
 
 interface TabInfo {
 	slug: string;
@@ -44,10 +41,6 @@ interface TabsProps {
 
 export function Tabs({ id, tabs, children }: TabsProps) {
 	const selectedTab = selectedTabs.value[id] ?? tabs[0]?.slug;
-
-	useEffect(() => {
-		loadLocalStorage();
-	}, []);
 
 	function setSelectedTab(tab: string) {
 		const newSelectedTabs = {
