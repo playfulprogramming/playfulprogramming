@@ -840,7 +840,7 @@ In this instance, [without moving the state out of dialog](/posts/master-react-u
 
 The answer? JavaScript Portals.
 
-[React has `createPortal`](https://reactjs.org/docs/portals.html), [Angular has the CDK Portal API](https://material.angular.io/cdk/portal/overview), and [Vue has their `<Teleport>` component](https://vuejs.org/guide/built-ins/teleport.html).
+[React has `createPortal`](https://reactjs.org/docs/portals.html), [Angular has the CDK Portal API](https://material.angular.dev/cdk/portal/overview), and [Vue has their `<Teleport>` component](https://vuejs.org/guide/built-ins/teleport.html).
 
 Want to learn more about how React, Angular, and Vue solve this problem? [Check out my upcoming book called "The Framework Field Guide", which teaches all three frameworks at the same time; Portals included.](https://framework.guide)
 

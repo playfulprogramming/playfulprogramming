@@ -866,7 +866,7 @@ You'll notice that we're then displaying the return of `createPortal` - `portal`
 
 ## Angular
 
-While the other frameworks have something akin to a portal system built into their frameworks' core, Angular does not. Instead, the Angular team maintains a library called [the "Angular CDK"](https://cdk.angular.io) to have shared UI code for utilities such as portals.
+While the other frameworks have something akin to a portal system built into their frameworks' core, Angular does not. Instead, the Angular team maintains a library called [the "Angular CDK"](https://material.angular.dev/cdk/categories) to have shared UI code for utilities such as portals.
 
 Before we can talk about the Angular CDK, however, we have to talk about an Angular feature called "templates".
 

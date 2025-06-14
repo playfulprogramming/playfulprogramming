@@ -99,7 +99,7 @@ This step-by-step explanation will have us explore:
 
 # How Angular's template compiler works {#template-compiler}
 
-Earlier last year, the Angular team published a blog post titled ["How the Angular Compiler Works"](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549). In it, they demonstrated how the `NGC` compiler takes the following code:
+Earlier last year, the Angular team published a blog post titled ["How the Angular Compiler Works"](https://blog.angular.dev/how-the-angular-compiler-works-42111f9d2549). In it, they demonstrated how the `NGC` compiler takes the following code:
 
 ```typescript
 import {Component} from '@angular/core';
@@ -405,7 +405,7 @@ detectChanges(): void {
 
 ##  Calling Change Detection Manually {#manual-cd}
 
-Let's use [Angular's `NgZone`'s `runOutsideOfAngular`](https://angular.io/api/core/NgZone#runOutsideAngular) to run some code outside of Angular's typical change detection:
+Let's use [Angular's `NgZone`'s `runOutsideOfAngular`](https://angular.dev/api/core/NgZone#runOutsideAngular) to run some code outside of Angular's typical change detection:
 
 ```typescript
 import { ApplicationRef, Component, NgZone } from '@angular/core';
@@ -472,9 +472,9 @@ This `detectChanges` then calls the `refreshView` call that we saw earlier. That
 
 > Assuming you've done your research and `detectChanges` _really_ is what calls our component to `Update`, what within Angular calls `detectChanges` itself?
 
-Well, Angular has a global instance of your application that's spun up during your application's initialization (either via [`bootstrapModule`](https://angular.io/api/core/PlatformRef#bootstrapModule) or [`bootstrapApplication`](https://angular.io/api/platform-browser/bootstrapApplication)) called [`ApplicationRef`](https://angular.io/api/core/ApplicationRef). This `ApplicationRef` contains methods and metadata Angular needs to keep about your application as a whole in order to operate.
+Well, Angular has a global instance of your application that's spun up during your application's initialization (either via [`bootstrapModule`](https://angular.dev/api/core/PlatformRef#bootstrapModule) or [`bootstrapApplication`](https://angular.dev/api/platform-browser/bootstrapApplication)) called [`ApplicationRef`](https://angular.dev/api/core/ApplicationRef). This `ApplicationRef` contains methods and metadata Angular needs to keep about your application as a whole in order to operate.
 
-Within this `ApplicationRef` is [a method called `tick`](https://angular.io/api/core/ApplicationRef#tick). This method is, more or less (more on this soon), called after the application has detected the user has made an interaction with the app; when everything has calmed down.
+Within this `ApplicationRef` is [a method called `tick`](https://angular.dev/api/core/ApplicationRef#tick). This method is, more or less (more on this soon), called after the application has detected the user has made an interaction with the app; when everything has calmed down.
 
 Angular calls this `tick` method because, since the user has interacted with some part of the webpage, the application _might_ need to re-render to show updated information from said interaction.
 
