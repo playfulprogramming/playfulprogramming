@@ -13,7 +13,7 @@ export type RehypeFunctionProps = {
 	node: hast.Node;
 	attributes: Record<string, string>;
 	children: hast.Node[];
-	processComponents: (tree: hast.Node[]) => Promise<components.Node[]>;
+	processComponents: (tree: hast.Node[]) => MaybePromise<components.Node[]>;
 };
 
 export type RehypeFunctionComponent = (

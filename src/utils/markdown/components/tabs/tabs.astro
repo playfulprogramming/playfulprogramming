@@ -15,10 +15,10 @@ const tabsId = tabs
 const tabsInfo = tabs.map(({ slug, name }) => ({ slug, name }));
 ---
 
-<PreactTabs id={tabsId} tabs={tabsInfo} client:load>
+<PreactTabs id={tabsId} tabs={tabsInfo} client:visible>
 	{
 		tabs.map((tab) => (
-			<TabsItem id={tabsId} tabs={tabsInfo} slug={tab.slug} client:load>
+			<TabsItem id={tabsId} tabs={tabsInfo} slug={tab.slug} client:visible>
 				<Content content={tab.contents} />
 			</TabsItem>
 		))

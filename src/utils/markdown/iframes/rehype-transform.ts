@@ -7,7 +7,6 @@ import { visit } from "unist-util-visit";
 import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants";
 import { find } from "unist-util-find";
 import { getLargestManifestIcon } from "../../get-largest-manifest-icon";
-import { IFramePlaceholder } from "./iframe-placeholder";
 import * as path from "path";
 import * as fs from "fs";
 import * as stream from "stream";
@@ -19,6 +18,8 @@ import {
 	getPageTitle,
 } from "utils/fetch-page-html";
 import { LRUCache } from "lru-cache";
+import { createComponent } from "../components";
+import { logError } from "../logger";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
@@ -185,11 +186,17 @@ export async function fetchPageInfo(src: string): Promise<PageInfo | null> {
 export const rehypeUnicornIFrameClickToRun: Plugin<
 	[RehypeUnicornIFrameClickToRunProps | never],
 	Root
-> = ({ srcReplacements = [], ...props }) => {
+> = ({ srcReplacements = [] }) => {
 	return async (tree, file) => {
 		const iframeNodes: Element[] = [];
-		visit(tree, "element", (node: Element) => {
+		visit(tree, "element", (node: Element, _, parent) => {
+			if (!parent) return;
 			if (node.tagName === "iframe") {
+				if (parent !== tree) {
+					logError(file, node, "Cannot process a nested iframe!");
+					return;
+				}
+
 				iframeNodes.push(node);
 			}
 		});
@@ -212,24 +219,34 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 
 				width = width ?? EMBED_SIZE.w;
 				height = height ?? EMBED_SIZE.h;
-				const info: PageInfo = (await fetchPageInfo(src!.toString()).catch(
-					() => null,
-				)) || { iconFile: defaultPageIcon };
+				const info: PageInfo | null = await fetchPageInfo(
+					src!.toString(),
+				).catch(() => null);
 
 				const [, heightPx] = /^([0-9]+)(px)?$/.exec(height + "") || [];
 				if (Number(heightPx) < EMBED_MIN_HEIGHT) height = EMBED_MIN_HEIGHT;
 
-				const iframeReplacement = IFramePlaceholder({
-					width: width.toString(),
-					height: height.toString(),
-					src: String(src),
-					pageTitle: String(dataFrameTitle ?? "") || info.title || "",
-					pageIcon: info.iconFile,
-					pageIconFallback: defaultPageIcon,
-					propsToPreserve: JSON.stringify(propsToPreserve),
-				});
-
-				Object.assign(iframeNode, iframeReplacement);
+				const index = tree.children.indexOf(iframeNode);
+				if (index == -1) return;
+				tree.children.splice(
+					index,
+					1,
+					createComponent("IframePlaceholder", {
+						width: width.toString(),
+						height: height.toString(),
+						src: String(src),
+						pageTitle: String(dataFrameTitle ?? "") || info?.title || "",
+						pageIcon: info?.iconFile,
+						iframeAttrs: Object.fromEntries(
+							Object.entries(propsToPreserve).map(([key, value]) => [
+								key,
+								// Handle array props per hast spec:
+								// @see https://github.com/syntax-tree/hast#propertyvalue
+								Array.isArray(value) ? value.join(" ") : String(value),
+							]),
+						),
+					}) as never,
+				);
 			}),
 		);
 	};

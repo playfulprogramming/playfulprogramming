@@ -34,6 +34,14 @@ const isNodeElement = (node: unknown): node is Element =>
 		node["type"] === "element") ??
 	false;
 
+const isNodeComponent = (node: unknown): node is components.ComponentNode =>
+	!!(
+		typeof node === "object" &&
+		node &&
+		"type" in node &&
+		node["type"] === "component"
+	);
+
 export const rehypeTransformComponents: Plugin<[RehypeComponentsProps], Root> =
 	function ({ components, htmlOptions }) {
 		async function processComponents(tree: Root, vfile: VFile) {
@@ -45,6 +53,16 @@ export const rehypeTransformComponents: Plugin<[RehypeComponentsProps], Root> =
 
 			for (let index = 0; index < tree.children.length; index++) {
 				const node = tree.children[index];
+
+				if (isNodeComponent(node)) {
+					results.push({
+						start: index,
+						end: index + 1,
+						replacement: [node],
+					});
+					continue;
+				}
+
 				if (!isNodeComment(node)) continue;
 				const parent = tree;
 

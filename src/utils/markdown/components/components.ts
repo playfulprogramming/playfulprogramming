@@ -3,6 +3,7 @@ import FileList from "./filetree/file-list.astro";
 import InContentAd from "./in-content-ad/in-content-ad.astro";
 import LinkPreview from "./link-preview/link-preview.astro";
 import Tabs from "./tabs/tabs.astro";
+import IframePlaceholder from "../iframes/iframe-placeholder.astro";
 
 export interface HtmlNode extends hast.Node {
 	type: "html";
@@ -22,6 +23,7 @@ export const components = {
 	InContentAd,
 	LinkPreview,
 	Tabs,
+	IframePlaceholder,
 } as const;
 
 export function createComponent<Key extends keyof typeof components>(
