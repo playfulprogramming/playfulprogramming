@@ -8,7 +8,7 @@ import * as path from "path";
 import * as fs from "fs";
 import * as stream from "stream";
 import * as crypto from "crypto";
-import { getPicture, GetPictureResult } from "utils/get-picture";
+import { GetPictureOptions } from "utils/get-picture";
 import { getImageSize } from "utils/get-image-size";
 import {
 	IMAGE_MAX_HEIGHT,
@@ -24,8 +24,8 @@ function getImagePath(url: URL) {
 
 async function fetchPreviewForUrlInternal(
 	url: URL,
-): Promise<GetPictureResult | undefined> {
-	let result: GetPictureResult | undefined;
+): Promise<GetPictureOptions | undefined> {
+	let result: GetPictureOptions | undefined;
 
 	if (url.hostname === "playfulprogramming.com") {
 		// If the url refers to another blog post, use its .twitter-preview image
@@ -36,13 +36,9 @@ async function fetchPreviewForUrlInternal(
 		if (!postSlug) return;
 
 		result = {
-			urls: {},
-			image: {
-				src: `https://playfulprogramming.com/generated/${postSlug}.twitter-preview.jpg`,
-				width: PAGE_WIDTH,
-				height: PAGE_HEIGHT,
-			},
-			sources: [],
+			src: `https://playfulprogramming.com/generated/${postSlug}.twitter-preview.jpg`,
+			width: PAGE_WIDTH,
+			height: PAGE_HEIGHT,
 		};
 	} else {
 		// Otherwise, try to parse an opengraph image from the link
@@ -94,12 +90,12 @@ async function fetchPreviewForUrlInternal(
 			dimensions.height = Math.floor(IMAGE_MAX_WIDTH / imageRatio);
 		}
 
-		result = getPicture({
+		result = {
 			src: "/" + imagePath + imageExt,
 			width: dimensions.width,
 			height: dimensions.height,
 			sizes: IMAGE_SIZES,
-		});
+		};
 	}
 
 	return result;
@@ -107,11 +103,11 @@ async function fetchPreviewForUrlInternal(
 
 // Store promises and ensure that only one promise per url runs at a time
 // (this prevents race conditions when the same URL is requested in parallel, which otherwise throws a file error)
-const promisesMap = new Map<URL, Promise<GetPictureResult | undefined>>();
+const promisesMap = new Map<URL, Promise<GetPictureOptions | undefined>>();
 
 export function fetchPreviewForUrl(
 	url: URL,
-): Promise<GetPictureResult | undefined> {
+): Promise<GetPictureOptions | undefined> {
 	const existingPromise = promisesMap.get(url);
 	if (existingPromise != null) return existingPromise;
 	const newPromise = fetchPreviewForUrlInternal(url);

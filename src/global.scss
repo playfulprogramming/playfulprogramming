@@ -29,6 +29,12 @@
 	box-sizing: inherit;
 }
 
+// <details> appears to invisibly reset the box-sizing to "content-box"
+// for all its descendants... so we set it back to border-box here.
+details > * {
+	box-sizing: border-box;
+}
+
 h1,
 h2,
 h3,
