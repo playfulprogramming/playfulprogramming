@@ -37,4 +37,4 @@ const blockingTabsHydrationScript = `(${blockingTabsHydration})()`;
 const minifiedScript = (await Terser.minify(blockingTabsHydrationScript)).code!;
 ---
 
-<script set:html={minifiedScript} />
+<script is:inline set:html={minifiedScript} />

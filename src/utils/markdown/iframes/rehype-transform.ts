@@ -203,7 +203,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				if (!parent) return;
 				if (parent !== tree && !isComponentElement(parent)) {
 					logError(file, node, "Cannot process a nested iframe!");
-					return;
+					throw new Error();
 				}
 
 				iframeNodes.push({ parent, node });

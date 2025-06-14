@@ -20,7 +20,6 @@ import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
 import {
 	rehypeTransformComponents,
-	rehypeStringifyComponents,
 	transformNoop,
 	transformVoid,
 	rehypeParseComponents,

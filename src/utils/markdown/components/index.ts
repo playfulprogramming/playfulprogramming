@@ -1,6 +1,5 @@
 export * from "./rehype-parse-components";
 export * from "./rehype-plugin-components";
-export * from "./rehype-stringify-components";
 export * from "./rehype-transform-components";
 export * from "./rehype-validate-components";
 export * from "./hint/rehype-transform";

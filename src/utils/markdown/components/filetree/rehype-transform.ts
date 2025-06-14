@@ -19,7 +19,6 @@
  * <!-- filetree:end -->
  */
 import { toString } from "hast-util-to-string";
-import type { Child as HChild } from "hastscript";
 import { Element, ElementContent } from "hast";
 import { visit } from "unist-util-visit";
 import JSON5 from "json5";
