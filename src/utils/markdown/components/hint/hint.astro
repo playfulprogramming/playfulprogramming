@@ -1,0 +1,14 @@
+---
+import { Hint as PreactHint } from "components/hint/hint";
+import { PlayfulNode } from "../components";
+import Content from "../content.astro";
+
+export interface Props {
+	title: string;
+	content: PlayfulNode[];
+}
+---
+
+<PreactHint title={Astro.props.title}>
+	<Content content={Astro.props.content} />
+</PreactHint>

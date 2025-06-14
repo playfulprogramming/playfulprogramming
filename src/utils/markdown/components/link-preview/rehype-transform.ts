@@ -1,39 +1,16 @@
 import { Element } from "hast";
 import { find } from "unist-util-find";
-import { LinkPreview } from "./link-preview";
 import { toString } from "hast-util-to-string";
 import { URL } from "url";
-import { Picture } from "../../picture/picture";
 import { RehypeFunctionComponent } from "../types";
 import { isElement } from "utils/markdown/unist-is-element";
 import { fetchPreviewForUrl } from "./fetchPreviewForUrl";
+import { createComponent } from "../components";
 
-async function createLinkElement(anchorNode: Element) {
-	let url: URL;
-	try {
-		url = new URL(anchorNode.properties.href + "");
-	} catch (e) {
-		return;
-	}
-
-	const result = await fetchPreviewForUrl(url);
-	if (!result) return;
-
-	const picture = Picture({
-		result,
-		noZoom: true,
-		imgAttrs: {},
-	});
-
-	return LinkPreview({
-		type: "link",
-		label: toString(anchorNode),
-		children: [picture],
-		anchorAttrs: anchorNode.properties,
-	});
-}
-
-export const transformLinkPreview: RehypeFunctionComponent = ({ children }) => {
+export const transformLinkPreview: RehypeFunctionComponent = async ({
+	children,
+	processComponents,
+}) => {
 	const paragraphNode = children.filter(isElement).at(0);
 	if (!paragraphNode) return;
 	const anchorNode = find<Element>(paragraphNode, {
@@ -42,5 +19,28 @@ export const transformLinkPreview: RehypeFunctionComponent = ({ children }) => {
 	});
 	if (!anchorNode) return;
 
-	return createLinkElement(anchorNode);
+	let url: URL;
+	try {
+		url = new URL(anchorNode.properties.href + "");
+	} catch (e) {
+		return;
+	}
+
+	const pictureNode = find<Element>(anchorNode, {
+		type: "element",
+		tagName: "picture",
+	});
+	const result = pictureNode ? undefined : await fetchPreviewForUrl(url);
+	if (!pictureNode && !result) return;
+
+	return [
+		createComponent("LinkPreview", {
+			type: "link",
+			label: toString(anchorNode) || url.toString(),
+			href: url.toString(),
+			picture: result,
+			alt: "",
+			children: pictureNode ? await processComponents([pictureNode]) : [],
+		}),
+	];
 };

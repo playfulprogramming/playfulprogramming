@@ -1,0 +1,10 @@
+---
+import {
+	IFramePlaceholder as PreactIFramePlaceholder,
+	IFramePlaceholderProps,
+} from "components/iframe-placeholder/iframe-placeholder";
+
+export type Props = IFramePlaceholderProps;
+---
+
+<PreactIFramePlaceholder {...Astro.props} client:visible />

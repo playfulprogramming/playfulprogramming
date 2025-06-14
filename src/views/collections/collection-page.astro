@@ -6,16 +6,17 @@ import { translate } from "src/utils/translations";
 import { getHrefContainerProps } from "utils/href-container-script";
 
 import "../../styles/post-body.scss";
-import "../../styles/markdown/tabs.scss";
 import "../../styles/shiki.scss";
 import "../../styles/convertkit.scss";
 
 import styles from "./collection-page.module.scss";
 import { desktopSmall } from "src/tokens/breakpoints";
+import { MarkdownHtml } from "utils/markdown";
+import Content from "utils/markdown/components/content.astro";
 
 interface Props {
 	collection: CollectionInfo;
-	collectionHtml: string;
+	collectionHtml: MarkdownHtml;
 	authors: PersonInfo[];
 }
 
@@ -51,7 +52,9 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 			</p>
 		</div>
 		<div class={styles.contentContainer}>
-			<div class={`post-body ${styles.content}`} set:html={collectionHtml} />
+			<div class={`post-body ${styles.content}`}>
+				<Content content={collectionHtml.content} />
+			</div>
 			<div class={styles.buttonContainer}>
 				{
 					collection.buttons?.map((button, i) => (

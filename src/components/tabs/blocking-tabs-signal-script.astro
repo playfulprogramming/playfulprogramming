@@ -1,0 +1,40 @@
+---
+import * as Terser from "terser";
+
+/**
+ * Preact needs to hydrate before any client-side changes can take effect
+ * - which means the page jumps around when the tabs update to reflect localStorage
+ *
+ * This script runs pre-hydration, so that any SSR'd tab components will reflect
+ * localStorage as early as possible.
+ */
+function blockingTabsHydration() {
+	const tabs = JSON.parse(localStorage.getItem("tabs-selection") ?? "{}");
+
+	for (const [id, selection] of Object.entries(tabs)) {
+		const labelId = `tabs-label::${id}::${selection}`;
+		const panelId = `tabs-panel::${id}::${selection}`;
+		const labelEls = document.querySelectorAll(`[id^="tabs-label::${id}::"]`);
+		const panelEls = document.querySelectorAll(`[id^="tabs-panel::${id}::"]`);
+		console.log({ labelId, panelId, labelEls, panelEls });
+
+		labelEls.forEach((e) => {
+			e.setAttribute("aria-selected", String(e.id == labelId));
+			e.setAttribute("tabindex", String(e.id == labelId ? 0 : -1));
+		});
+
+		panelEls.forEach((e) => {
+			if (e.id == panelId) {
+				e.removeAttribute("aria-hidden");
+			} else {
+				e.setAttribute("aria-hidden", "true");
+			}
+		});
+	}
+}
+
+const blockingTabsHydrationScript = `(${blockingTabsHydration})()`;
+const minifiedScript = (await Terser.minify(blockingTabsHydrationScript)).code!;
+---
+
+<script set:html={minifiedScript} />

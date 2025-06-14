@@ -1,0 +1,122 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--tabbed-wrapper_padding: var(--spc-2x);
+	--tabbed-wrapper_corner-radius_inner: var(--spc-5x);
+	--tabbed-wrapper_corner-radius_outer: var(--spc-7x);
+
+	--tabbed-wrapper_background-color: var(--surface_primary_emphasis-none);
+
+	--tab_min-size: var(--min-target-size_m);
+	--tab_padding-horizontal: var(--spc-5x);
+	--tab_padding-vertical: var(--spc-2x);
+	--tab_corner-radius: var(--tabbed-wrapper_corner-radius_inner);
+
+	--tab_background-color_hovered: var(--surface_primary_emphasis-low);
+	--tab_background-color_pressed: var(--surface_primary_emphasis-high);
+	--tab_background-color_selected: var(--surface_primary_emphasis-medium);
+	--tab_background-color_focused: var(--background_focus);
+
+	--tab_foreground-color: var(--foreground_emphasis-medium);
+	--tab_foreground-color_selected: (--foreground_emphasis-high);
+
+	--tab_focus-outline_width: var(--border-width_focus);
+	--tab_focus-outline_color: var(--focus-outline_primary);
+
+	--tab-content_margin: var(--spc-3x);
+}
+
+.tabs {
+	// This prevents the browser from choosing a scroll anchor within
+	// a tab container - which can cause page jumps when the selected
+	// tab is changed
+	overflow-anchor: none;
+	margin: var(--site-spacing) 0;
+}
+
+.tabs__tab-list {
+	margin: 0 !important;
+	list-style: none;
+	display: inline-flex;
+	border-radius: var(--tabbed-wrapper_corner-radius_outer)
+		var(--tabbed-wrapper_corner-radius_outer) 0 0;
+	padding: var(--tabbed-wrapper_padding) var(--tabbed-wrapper_padding) 0
+		var(--tabbed-wrapper_padding);
+	background-color: var(--tabbed-wrapper_background-color);
+}
+
+.tabs__tab {
+	border-radius: var(--tab_corner-radius);
+	min-height: var(--tab_min-size);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--tab_padding-vertical) var(--tab_padding-horizontal);
+	color: var(--tab_foreground-color);
+	user-select: none;
+	@include transition(background-color);
+}
+
+.tabs__tab[aria-selected="true"],
+.tabs__tab[aria-selected=""] {
+	background-color: var(--tab_background-color_selected);
+	color: var(--tab_foreground-color_selected);
+}
+
+.tabs__tab:hover {
+	background-color: var(--tab_background-color_hovered);
+}
+
+.tabs__tab:active {
+	background-color: var(--tab_background-color_pressed);
+}
+
+.tabs__tab:focus-visible {
+	outline: var(--tab_focus-outline_width) solid var(--tab_focus-outline_color);
+	background-color: var(--tab_background-color_focused);
+}
+
+.tabs__tab-panel {
+	padding: var(--tabbed-wrapper_padding);
+	border-radius: 0 var(--tabbed-wrapper_corner-radius_outer)
+		var(--tabbed-wrapper_corner-radius_outer)
+		var(--tabbed-wrapper_corner-radius_outer);
+	background-color: var(--tabbed-wrapper_background-color);
+}
+
+.tabs__tab-panel[aria-hidden="true"],
+.tabs__tab-panel[aria-hidden=""] {
+	display: none;
+}
+
+.tabs__tab-panel__inner {
+	border-radius: var(--tabbed-wrapper_corner-radius_inner);
+	overflow: visible;
+}
+
+.tabs__tab-panel__inner > *:first-child,
+.tabs__tab-panel__inner > astro-slot > *:first-child,
+.tabs__tab-panel__inner > astro-slot > astro-island:first-child > * {
+	margin-top: 0;
+}
+
+.tabs__tab-panel__inner > *:last-child,
+.tabs__tab-panel__inner > astro-slot > *:last-child,
+.tabs__tab-panel__inner > astro-slot > astro-island:last-child > * {
+	margin-bottom: 0;
+}
+
+.tabs__tab-panel__inner > *:not(astro-island, astro-slot, .markdownCollapsePadding, pre),
+.tabs__tab-panel__inner > astro-slot > *:not(astro-island, astro-slot, .markdownCollapsePadding, pre),
+.tabs__tab-panel__inner > astro-slot > astro-island > *:not(astro-island, astro-slot, .markdownCollapsePadding, pre) {
+	&:first-child {
+		margin-top: var(--tab-content_margin);
+	}
+
+	&:last-child {
+		margin-bottom: var(--tab-content_margin);
+	}
+
+	margin-left: var(--tab-content_margin) !important;
+	margin-right: var(--tab-content_margin) !important;
+}
