@@ -7,7 +7,7 @@ import * as components from "./components";
 
 export type MarkdownHtml = {
 	headingsWithIds: PostHeadingInfo[];
-	content: components.Node[];
+	content: components.PlayfulNode[];
 };
 
 const unifiedChain = unified();

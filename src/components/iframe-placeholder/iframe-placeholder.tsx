@@ -26,7 +26,7 @@ export function IFramePlaceholder({
 	const [frameVisible, setFrameVisible] = useState(false);
 
 	return (
-		<div class={`${style.embed} tabsCollapsePadding`}>
+		<div class={`${style.embed} markdownCollapsePadding`}>
 			<div class={style.header}>
 				<div class={style.favicon}>
 					{!pageIconError && props.pageIcon ? (

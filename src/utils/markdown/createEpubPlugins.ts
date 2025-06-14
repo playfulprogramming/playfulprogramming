@@ -22,9 +22,9 @@ import {
 	rehypeStringifyComponents,
 	transformNoop,
 	transformVoid,
+	rehypeParseComponents,
 } from "./components";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
-import rehypeStringify from "rehype-stringify";
 import { rehypeRemoveCollectionLinks } from "./rehype-remove-collection-links";
 import { rehypeReferencePage } from "./reference-page/rehype-reference-page";
 
@@ -42,6 +42,7 @@ export function createEpubPlugins(unified: Processor) {
 			.use(rehypeUnwrapImages)
 			// This is required to handle unsafe HTML embedded into Markdown
 			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] } as never)
+			.use(rehypeParseComponents)
 			// When generating an epub, any relative paths need to be made absolute
 			.use(rehypeFixTwoSlashXHTML)
 			.use(rehypeMakeImagePathsAbsolute)

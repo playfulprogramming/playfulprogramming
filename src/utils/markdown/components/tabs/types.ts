@@ -1,9 +1,9 @@
-import { Node } from "../components";
+import { PlayfulNode } from "../components";
 
 export interface TabInfo {
 	slug: string;
 	name: string;
-	contents: Node[];
+	contents: PlayfulNode[];
 
 	// array of header slugs that are inside the header contents, for URL hash behavior
 	headers: string[];

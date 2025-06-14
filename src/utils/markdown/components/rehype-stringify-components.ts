@@ -4,7 +4,7 @@ import * as components from "./components";
 
 export const rehypeStringifyComponents: Plugin<[], Root, string> = function () {
 	function processComponents(tree: Root) {
-		const nodes = tree.children as unknown as components.Node[];
+		const nodes = tree.children as unknown as components.PlayfulNode[];
 		const html = nodes
 			// only used for epub, so we only need to stringify html nodes... for now
 			.map((node) => (node.type === "html" ? node.innerHtml : ""))

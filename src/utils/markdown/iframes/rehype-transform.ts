@@ -18,7 +18,11 @@ import {
 	getPageTitle,
 } from "utils/fetch-page-html";
 import { LRUCache } from "lru-cache";
-import { createComponent } from "../components";
+import {
+	ComponentElement,
+	createComponent,
+	isComponentElement,
+} from "../components";
 import { logError } from "../logger";
 
 interface RehypeUnicornIFrameClickToRunProps {
@@ -188,21 +192,26 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 	Root
 > = ({ srcReplacements = [] }) => {
 	return async (tree, file) => {
-		const iframeNodes: Element[] = [];
-		visit(tree, "element", (node: Element, _, parent) => {
-			if (!parent) return;
-			if (node.tagName === "iframe") {
-				if (parent !== tree) {
+		const iframeNodes: {
+			parent: ComponentElement | Root;
+			node: Element;
+		}[] = [];
+		visit(
+			tree,
+			{ type: "element", tagName: "iframe" },
+			(node: Element, _, parent) => {
+				if (!parent) return;
+				if (parent !== tree && !isComponentElement(parent)) {
 					logError(file, node, "Cannot process a nested iframe!");
 					return;
 				}
 
-				iframeNodes.push(node);
-			}
-		});
+				iframeNodes.push({ parent, node });
+			},
+		);
 
 		await Promise.all(
-			iframeNodes.map(async (iframeNode) => {
+			iframeNodes.map(async ({ parent, node }) => {
 				let {
 					height,
 					width,
@@ -211,7 +220,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					dataFrameTitle,
 					// eslint-disable-next-line prefer-const
 					...propsToPreserve
-				} = iframeNode.properties;
+				} = node.properties;
 
 				for (const replacement of srcReplacements) {
 					src = replacement(src!.toString(), file);
@@ -226,9 +235,9 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				const [, heightPx] = /^([0-9]+)(px)?$/.exec(height + "") || [];
 				if (Number(heightPx) < EMBED_MIN_HEIGHT) height = EMBED_MIN_HEIGHT;
 
-				const index = tree.children.indexOf(iframeNode);
+				const index = parent.children.indexOf(node);
 				if (index == -1) return;
-				tree.children.splice(
+				parent.children.splice(
 					index,
 					1,
 					createComponent("IframePlaceholder", {

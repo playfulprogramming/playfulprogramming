@@ -13,7 +13,6 @@ import remarkToRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
 import { rehypeTooltips } from "./tooltips/rehype-transform";
-import { rehypeHints } from "./hints/rehype-transform";
 import { rehypeAstroImageMd } from "./picture/rehype-transform";
 import { rehypePlayfulElementMap } from "./rehype-playful-element-map";
 import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
@@ -29,8 +28,12 @@ import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
 import { rehypeLinkPreview } from "./link-preview/rehype-transform";
 import {
+	rehypeDetailsElement,
+	rehypeParseComponents,
 	rehypePluginComponents,
 	rehypeTransformComponents,
+	rehypeValidateComponents,
+	transformDetails,
 	transformFileTree,
 	transformInContentAd,
 	transformLinkPreview,
@@ -71,6 +74,7 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypeUnwrapImages)
 			// This is required to handle unsafe HTML embedded into Markdown
 			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] })
+			.use(rehypeParseComponents)
 			// Do not add the tabs before the slug. We rely on some of the heading
 			// logic in order to do some of the subheading logic
 			.use(rehypeSlug as never, {
@@ -81,10 +85,10 @@ export function createHtmlPlugins(unified: Processor) {
 			/**
 			 * Insert custom HTML generation code here
 			 */
-			.use(rehypeHints)
 			.use(rehypeTooltips)
 			.use(rehypeAstroImageMd)
 			.use(rehypeLinkPreview)
+			.use(rehypeDetailsElement)
 			.use(rehypeUnicornIFrameClickToRun, {
 				srcReplacements: [
 					(val: string, file: VFile) => {
@@ -127,9 +131,11 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypeCodeblockMeta)
 			.use(...rehypeShikiUU)
 			.use(rehypePostShikiTransform)
+			.use(rehypeValidateComponents)
 			.use(rehypeTransformComponents, {
 				components: {
 					filetree: transformFileTree,
+					hint: transformDetails,
 					"in-content-ad": transformInContentAd,
 					"link-preview": transformLinkPreview,
 					"no-ebook": transformNoop,

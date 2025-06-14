@@ -1,7 +1,7 @@
 ---
 import { GetPictureOptions } from "utils/get-picture";
 import { LinkPreview as PreactLinkPreview } from "components/tooltips/link-preview";
-import { Node } from "../components";
+import { PlayfulNode } from "../components";
 import Content from "../content.astro";
 
 export interface Props {
@@ -10,7 +10,7 @@ export interface Props {
 	href: string;
 	picture?: GetPictureOptions;
 	alt: string;
-	children: Node[];
+	children: PlayfulNode[];
 }
 
 const props = Astro.props;
