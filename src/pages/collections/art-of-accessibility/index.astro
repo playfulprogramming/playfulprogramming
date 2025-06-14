@@ -26,8 +26,34 @@ import TopContents from "../../../views/collections/art-of-accessibility/segment
 import BottomContents from "../../../views/collections/art-of-accessibility/segments/bottom-contents.astro";
 import CollectionTableOfContents from "../../../views/collections/framework-field-guide-fundamentals/components/collection-table-of-contents-fundamentals.astro";
 
-const collection = getCollectionBySlug("art-of-accessibility", "en");
 const chapterList = getPostsByCollection("art-of-accessibility", "en");
+const comingSoon = [
+	{
+		order: 5,
+		title: "Keyboard Input",
+		description: "Coming soon...",
+	},
+	{
+		order: 6,
+		title: "Mouse Input",
+		description: "Coming soon...",
+	},
+	{
+		order: 7,
+		title: "Dynamic Content",
+		description: "Coming soon...",
+	},
+	{
+		order: 8,
+		title: "Interactive Components",
+		description: "Coming soon...",
+	},
+	{
+		order: 9,
+		title: "Tooling",
+		description: "Coming soon...",
+	},
+];
 ---
 
 <Barebones>
@@ -48,7 +74,7 @@ const chapterList = getPostsByCollection("art-of-accessibility", "en");
 			<CollectionTableOfContents
 				title="Chapters*"
 				chaptersToShow={5}
-				chapterList={collection!.chapterList}
+				chapterList={comingSoon}
 				posts={chapterList}
 				postPrefixToRemove="The Art of Accessibility: "
 			/>
