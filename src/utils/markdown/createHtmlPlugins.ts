@@ -117,21 +117,12 @@ export function createHtmlPlugins(unified: Processor) {
 				],
 			})
 			.use(rehypePlayfulElementMap)
-			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
-			.use(rehypeHeaderText)
-			.use(rehypeHeaderClass, {
-				// the page starts at h3 (under {title} -> "Post content")
-				depth: 2,
-				// visually, headings should start at h2-h6
-				className: (depth: number) =>
-					`text-style-headline-${Math.min(depth + 1, 6)}`,
-			})
+			.use(rehypeValidateComponents)
 			// Shiki is the last plugin before stringify, to avoid performance issues
 			// with node traversal (shiki creates A LOT of element nodes)
 			.use(rehypeCodeblockMeta)
 			.use(...rehypeShikiUU)
 			.use(rehypePostShikiTransform)
-			.use(rehypeValidateComponents)
 			.use(rehypeTransformComponents, {
 				components: {
 					filetree: transformFileTree,
@@ -147,6 +138,20 @@ export function createHtmlPlugins(unified: Processor) {
 					voids: [],
 				},
 			})
-			.use(rehypePluginComponents)
+			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
+			.use(rehypeHeaderText)
+			.use(rehypeHeaderClass, {
+				// the page starts at h3 (under {title} -> "Post content")
+				depth: 2,
+				// visually, headings should start at h2-h6
+				className: (depth: number) =>
+					`text-style-headline-${Math.min(depth + 1, 6)}`,
+			})
+			.use(rehypePluginComponents, {
+				htmlOptions: {
+					allowDangerousHtml: true,
+					voids: [],
+				},
+			})
 	);
 }

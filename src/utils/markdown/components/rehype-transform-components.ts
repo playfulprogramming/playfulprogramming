@@ -3,8 +3,9 @@ import { Plugin } from "unified";
 import { RehypeFunctionComponent } from "./types";
 import { logError } from "../logger";
 import { VFile } from "vfile";
-import { PlayfulNode, isComponentNode } from "./components";
-import { toHtml, Options as HtmlOptions } from "hast-util-to-html";
+import { isComponentNode } from "./components";
+import { compileToPlayfulNodes } from "./rehype-plugin-components";
+import { Options as HtmlOptions } from "hast-util-to-html";
 import {
 	ComponentElement,
 	isComponentElement,
@@ -52,46 +53,28 @@ export const rehypeTransformComponents: Plugin<
 				node,
 				attributes: node.data.attributes,
 				children: node.children,
-				processComponents: (tree) =>
-					processComponents(
-						{ type: "root", children: tree as hast.RootContent[] },
-						vfile,
-					),
+				processComponents: async (tree) => {
+					const root: hast.Root = {
+						type: "root",
+						children: tree as hast.RootContent[],
+					};
+					await processComponents(root, vfile);
+					return compileToPlayfulNodes(root, { htmlOptions });
+				},
 			});
 
 			results.push({ index, node, replacement });
 		}
 
-		const nodes: PlayfulNode[] = [];
-		for (const [result, index] of results.map((r, i) => [r, i] as const)) {
-			const preStart = (results[index - 1]?.index ?? -1) + 1;
-			const preEnd = result.index - 1;
-			if (preEnd - preStart > 0) {
-				nodes.push({
-					type: "html",
-					innerHtml: toHtml(tree.children.slice(preStart, preEnd), htmlOptions),
-				});
-			}
-
-			const replacement = await result.replacement;
-			if (replacement) nodes.push(...replacement);
+		for (const result of results) {
+			const replacementNodes = await result.replacement;
+			const index = tree.children.indexOf(result.node);
+			if (index == -1) continue;
+			tree.children.splice(index, 1, ...((replacementNodes ?? []) as never[]));
 		}
-
-		if ((results.at(-1)?.index ?? -1) + 1 < tree.children.length) {
-			const postStart = (results.at(-1)?.index ?? -1) + 1;
-			const postEnd = tree.children.length;
-			nodes.push({
-				type: "html",
-				innerHtml: toHtml(tree.children.slice(postStart, postEnd), htmlOptions),
-			});
-		}
-
-		return nodes;
 	}
 
 	return async (tree, vfile) => {
-		const children = await processComponents(tree, vfile);
-		tree.children.splice(0, tree.children.length);
-		tree.children.push(...(children as unknown as hast.RootContent[]));
+		await processComponents(tree, vfile);
 	};
 };

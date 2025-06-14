@@ -1,6 +1,4 @@
 import { RehypeFunctionComponent } from "./types";
 
-export const transformNoop: RehypeFunctionComponent = ({
-	children,
-	processComponents,
-}) => processComponents(children);
+export const transformNoop: RehypeFunctionComponent = ({ children }) =>
+	children;

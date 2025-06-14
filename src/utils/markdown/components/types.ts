@@ -20,4 +20,4 @@ export type RehypeFunctionProps = {
 
 export type RehypeFunctionComponent = (
 	props: RehypeFunctionProps,
-) => MaybePromise<Array<components.PlayfulNode> | undefined>;
+) => MaybePromise<Array<components.PlayfulNode | hast.Node> | undefined>;
