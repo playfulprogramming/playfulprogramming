@@ -5,6 +5,7 @@ import { useState } from "preact/hooks";
 import LaunchIcon from "src/icons/launch.svg?raw";
 import PlayIcon from "src/icons/play.svg?raw";
 import FallbackPageIcon from "src/icons/website.svg?raw";
+import style from "./iframe-placeholder.module.scss";
 
 export interface IFramePlaceholderProps {
 	width: string;
@@ -25,9 +26,9 @@ export function IFramePlaceholder({
 	const [frameVisible, setFrameVisible] = useState(false);
 
 	return (
-		<div class="embed">
-			<div class="embed__header">
-				<div class="embed__header__favicon">
+		<div class={`${style.embed} tabsCollapsePadding`}>
+			<div class={style.header}>
+				<div class={style.favicon}>
 					{!pageIconError && props.pageIcon ? (
 						<img
 							src={props.pageIcon}
@@ -44,7 +45,7 @@ export function IFramePlaceholder({
 						<RawSvg icon={FallbackPageIcon} aria-hidden />
 					)}
 				</div>
-				<div class="embed__header__info">
+				<div class={style.headerInfo}>
 					<p>
 						<span class="visually-hidden">An embedded webpage:</span>
 						{props.pageTitle}
@@ -58,6 +59,7 @@ export function IFramePlaceholder({
 					</a>
 				</div>
 				<Button
+					class={style.headerButton}
 					href={props.src}
 					rel="nofollow noopener noreferrer"
 					target="_blank"
@@ -68,10 +70,11 @@ export function IFramePlaceholder({
 			</div>
 			{!frameVisible ? (
 				<div
-					class="embed__placeholder"
+					class={style.placeholder}
 					style={`height: ${Number(height) ? `${height}px` : height};`}
 				>
 					<Button
+						class={style.placeholderButton}
 						tag="button"
 						variant="primary-emphasized"
 						leftIcon={<RawSvg icon={PlayIcon} />}
@@ -81,7 +84,12 @@ export function IFramePlaceholder({
 					</Button>
 				</div>
 			) : (
-				<iframe {...iframeAttrs} width={width} height={height} src={props.src} loading="lazy" />
+				<iframe
+					{...iframeAttrs}
+					style={`height: ${Number(height) ? `${height}px` : height};`}
+					src={props.src}
+					loading="lazy"
+				/>
 			)}
 		</div>
 	);

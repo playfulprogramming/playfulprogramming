@@ -95,17 +95,20 @@
 }
 
 .tabs__tab-panel__inner > *:first-child,
-.tabs__tab-panel__inner > astro-slot > *:first-child {
+.tabs__tab-panel__inner > astro-slot > *:first-child,
+.tabs__tab-panel__inner > astro-slot > astro-island:first-child > * {
 	margin-top: 0;
 }
 
 .tabs__tab-panel__inner > *:last-child,
-.tabs__tab-panel__inner > astro-slot > *:last-child {
+.tabs__tab-panel__inner > astro-slot > *:last-child,
+.tabs__tab-panel__inner > astro-slot > astro-island:last-child > * {
 	margin-bottom: 0;
 }
 
-.tabs__tab-panel__inner > *:not(pre, .embed, .docs-file-tree-container),
-.tabs__tab-panel__inner > astro-slot > *:not(pre, .embed, .docs-file-tree-container) {
+.tabs__tab-panel__inner > *:not(astro-island, astro-slot, .tabsCollapsePadding, pre),
+.tabs__tab-panel__inner > astro-slot > *:not(astro-island, astro-slot, .tabsCollapsePadding, pre),
+.tabs__tab-panel__inner > astro-slot > astro-island > *:not(astro-island, astro-slot, .tabsCollapsePadding, pre) {
 	&:first-child {
 		margin-top: var(--tab-content_margin);
 	}

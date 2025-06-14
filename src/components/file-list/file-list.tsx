@@ -97,7 +97,7 @@ function FileListList({ items }: FileListProps) {
 
 export function FileList({ items }: FileListProps) {
 	return (
-		<div class={style.fileTreeContainer}>
+		<div class={`${style.fileTreeContainer} tabsCollapsePadding`}>
 			<div class={style.fileTree}>{FileListList({ items })}</div>
 		</div>
 	);
