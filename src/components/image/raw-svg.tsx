@@ -6,13 +6,13 @@ interface RawSvgProps extends HTMLAttributes<SVGElement> {
 }
 
 // when running in SSR, use jsdom - otherwise, use the browser API
-const DOMParserConstructor =
-	typeof DOMParser !== "undefined"
-		? DOMParser
-		: await (async () => {
-				const { JSDOM } = await import("jsdom");
-				return new JSDOM().window.DOMParser;
-			})();
+let DOMParserConstructor: typeof DOMParser;
+if (import.meta.env.SSR) {
+	const { JSDOM } = await import("jsdom");
+	DOMParserConstructor = new JSDOM().window.DOMParser;
+} else {
+	DOMParserConstructor = DOMParser;
+}
 
 export function RawSvg({ icon, ref, ...props }: RawSvgProps) {
 	const [attributes, innerHtml] = useMemo(() => {
