@@ -1,5 +1,5 @@
 import { getHeaderNodeId, slugs } from "rehype-slug-custom-id";
-import { Element, Node, Parent, Text } from "hast";
+import { Element, Node } from "hast";
 import { toString } from "hast-util-to-string";
 import { RehypeFunctionComponent } from "../types";
 import { TabInfo } from "./types";
@@ -20,49 +20,6 @@ const findLargestHeading = (nodes: Element[]) => {
 
 const isNodeLargestHeading = (n: Element, largestSize: number) =>
 	isNodeHeading(n) && parseInt(n.tagName.substring(1), 10) === largestSize;
-
-const getApproxLineCount = (nodes: Node[], inParagraph?: boolean): number => {
-	let lines = 0;
-
-	for (const n of nodes) {
-		const isInParagraph =
-			inParagraph || (n.type === "element" && (n as Element).tagName === "p");
-
-		// recurse through child nodes
-		if ("children" in n) {
-			lines += getApproxLineCount(
-				(n as Parent).children as Node[],
-				isInParagraph,
-			);
-		}
-		// assume that any div/p/br causes a line break
-		if (
-			n.type === "element" &&
-			["div", "p", "br"].includes((n as Element).tagName)
-		)
-			lines++;
-		// include the number of line breaks in a codeblock
-		if (n.type === "element" && (n as Element).tagName === "code")
-			lines += toString(n as never).split("\n").length;
-		// assume that any image or embed could add ~20 lines
-		if (
-			n.type === "element" &&
-			["picture", "img", "svg", "iframe", "video"].includes(
-				(n as Element).tagName,
-			)
-		)
-			lines += 20;
-		// approximate line wraps in <p> tag, assuming ~100 chars per line
-		if (
-			isInParagraph &&
-			n.type === "text" &&
-			typeof (n as Text).value === "string"
-		)
-			lines += Math.floor((n as Text).value.length / 100);
-	}
-
-	return lines;
-};
 
 export const transformTabs: RehypeFunctionComponent = async ({
 	children,
