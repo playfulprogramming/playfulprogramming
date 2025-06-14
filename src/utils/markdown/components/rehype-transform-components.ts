@@ -3,9 +3,7 @@ import { Plugin } from "unified";
 import { RehypeFunctionComponent } from "./types";
 import { logError } from "../logger";
 import { VFile } from "vfile";
-import { isComponentNode } from "./components";
-import { compileToPlayfulNodes } from "./rehype-plugin-components";
-import { Options as HtmlOptions } from "hast-util-to-html";
+import { isComponentNode, PlayfulNode, PlayfulRoot } from "./components";
 import {
 	ComponentElement,
 	isComponentElement,
@@ -13,17 +11,16 @@ import {
 
 type RehypeComponentsProps = {
 	components: Record<string, RehypeFunctionComponent>;
-	htmlOptions: HtmlOptions;
 };
 
 export const rehypeTransformComponents: Plugin<
 	[RehypeComponentsProps],
 	hast.Root
-> = function ({ components, htmlOptions }) {
-	async function processComponents(tree: hast.Root, vfile: VFile) {
+> = function ({ components }) {
+	async function transformComponents(tree: PlayfulRoot, vfile: VFile) {
 		const results: Array<{
 			index: number;
-			node: ComponentElement;
+			node: ComponentElement | PlayfulNode;
 			replacement: ReturnType<RehypeFunctionComponent>;
 		}> = [];
 
@@ -45,22 +42,20 @@ export const rehypeTransformComponents: Plugin<
 					node,
 					`Unknown markdown component ${node.properties.name}`,
 				);
-				continue;
+				throw new Error();
 			}
+
+			// Transform the child components first!
+			await transformComponents(
+				{ type: "root", children: node.children },
+				vfile,
+			);
 
 			const replacement = component({
 				vfile,
 				node,
 				attributes: node.data.attributes,
 				children: node.children,
-				processComponents: async (tree) => {
-					const root: hast.Root = {
-						type: "root",
-						children: tree as hast.RootContent[],
-					};
-					await processComponents(root, vfile);
-					return compileToPlayfulNodes(root, { htmlOptions });
-				},
 			});
 
 			results.push({ index, node, replacement });
@@ -69,12 +64,16 @@ export const rehypeTransformComponents: Plugin<
 		for (const result of results) {
 			const replacementNodes = await result.replacement;
 			const index = tree.children.indexOf(result.node);
-			if (index == -1) continue;
+			if (index == -1) {
+				logError(vfile, result.node, `Unable to find node replacement!`);
+				throw new Error();
+			}
+
 			tree.children.splice(index, 1, ...((replacementNodes ?? []) as never[]));
 		}
 	}
 
 	return async (tree, vfile) => {
-		await processComponents(tree, vfile);
+		await transformComponents(tree, vfile);
 	};
 };

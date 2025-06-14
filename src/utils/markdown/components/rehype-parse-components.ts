@@ -28,7 +28,7 @@ export function isComponentElement(node: unknown): node is ComponentElement {
 		"type" in node &&
 		node.type === "element" &&
 		"tagName" in node &&
-		node.tagName == "playful-component"
+		node.tagName === "playful-component"
 	);
 }
 
@@ -56,7 +56,6 @@ export const rehypeParseComponents: Plugin<[], hast.Root> = function () {
 			const node = tree.children[index];
 
 			if (!isNodeComment(node)) continue;
-			const parent = tree;
 
 			// ` ::start:in-content-ad title="Hello world" `
 			const value = String(node.value).trim();
@@ -79,8 +78,8 @@ export const rehypeParseComponents: Plugin<[], hast.Root> = function () {
 			// If the component is ranged, find the index of its end tag
 			let indexEnd = 0;
 			if (isRanged) {
-				for (let i = index + 1; i < parent.children.length; i++) {
-					const nodeEnd = parent.children[i];
+				for (let i = index + 1; i < tree.children.length; i++) {
+					const nodeEnd = tree.children[i];
 					if (
 						is(nodeEnd, {
 							type: "comment",
@@ -102,7 +101,7 @@ export const rehypeParseComponents: Plugin<[], hast.Root> = function () {
 			}
 
 			// Fetch all nodes between the ranged comments (if indexEnd=0, this will be an empty array)
-			const componentChildren = parent.children.slice(index + 1, indexEnd);
+			const componentChildren = tree.children.slice(index + 1, indexEnd);
 			const parsedComponentChildren = parseComponents(
 				{ type: "root", children: componentChildren as hast.RootContent[] },
 				vfile,

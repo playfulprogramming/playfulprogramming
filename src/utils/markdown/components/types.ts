@@ -12,10 +12,7 @@ export type RehypeFunctionProps = {
 	vfile: VFile;
 	node: hast.Node;
 	attributes: Record<string, string>;
-	children: hast.Node[];
-	processComponents: (
-		tree: hast.Node[],
-	) => MaybePromise<components.PlayfulNode[]>;
+	children: components.ComponentNode["children"];
 };
 
 export type RehypeFunctionComponent = (

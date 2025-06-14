@@ -47,12 +47,14 @@ export const rehypeDetailsElement: Plugin<[], Root> = () => {
 export const transformDetails: RehypeFunctionComponent = async ({
 	attributes,
 	children,
-	processComponents,
 }) => {
 	return [
-		createComponent("Hint", {
-			title: String(attributes.title),
-			content: await processComponents(children),
-		}),
+		createComponent(
+			"Hint",
+			{
+				title: String(attributes.title),
+			},
+			children,
+		),
 	];
 };

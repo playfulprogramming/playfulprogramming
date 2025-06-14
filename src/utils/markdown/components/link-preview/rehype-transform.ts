@@ -9,7 +9,6 @@ import { createComponent } from "../components";
 
 export const transformLinkPreview: RehypeFunctionComponent = async ({
 	children,
-	processComponents,
 }) => {
 	const paragraphNode = children.filter(isElement).at(0);
 	if (!paragraphNode) return;
@@ -34,13 +33,16 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 	if (!pictureNode && !result) return;
 
 	return [
-		createComponent("LinkPreview", {
-			type: "link",
-			label: toString(anchorNode) || url.toString(),
-			href: url.toString(),
-			picture: result,
-			alt: "",
-			children: pictureNode ? await processComponents([pictureNode]) : [],
-		}),
+		createComponent(
+			"LinkPreview",
+			{
+				type: "link",
+				label: toString(anchorNode) || url.toString(),
+				href: url.toString(),
+				picture: result,
+				alt: "",
+			},
+			pictureNode ? [pictureNode] : [],
+		),
 	];
 };

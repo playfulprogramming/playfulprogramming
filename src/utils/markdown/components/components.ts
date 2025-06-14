@@ -6,6 +6,11 @@ import Tabs from "./tabs/tabs.astro";
 import IframePlaceholder from "../iframes/iframe-placeholder.astro";
 import Hint from "./hint/hint.astro";
 
+export interface PlayfulRoot {
+	type: "root";
+	children: (PlayfulNode | hast.RootContent)[];
+}
+
 export interface HtmlNode extends hast.Node {
 	type: "html";
 	innerHtml: string;
@@ -14,10 +19,11 @@ export interface HtmlNode extends hast.Node {
 export interface ComponentNode<Props = object> extends hast.Node {
 	type: "component";
 	component: keyof typeof components;
-	props: Props;
+	props: Omit<Props, "children">;
+	children: (PlayfulNode | hast.ElementContent)[];
 }
 
-export type PlayfulNode = HtmlNode | ComponentNode;
+export type PlayfulNode = PlayfulRoot | HtmlNode | ComponentNode;
 
 export function isComponentNode(node: unknown): node is ComponentNode {
 	return !!(
@@ -25,6 +31,15 @@ export function isComponentNode(node: unknown): node is ComponentNode {
 		typeof node === "object" &&
 		"type" in node &&
 		node.type === "component"
+	);
+}
+
+export function isHtmlNode(node: unknown): node is HtmlNode {
+	return !!(
+		node &&
+		typeof node === "object" &&
+		"type" in node &&
+		node.type === "html"
 	);
 }
 
@@ -39,11 +54,13 @@ export const components = {
 
 export function createComponent<Key extends keyof typeof components>(
 	key: Key,
-	props: Parameters<(typeof components)[Key]>[0],
+	props: Omit<Parameters<(typeof components)[Key]>[0], "children">,
+	children?: ComponentNode["children"],
 ): ComponentNode<Parameters<(typeof components)[Key]>[0]> {
 	return {
 		type: "component",
 		component: key,
 		props: props,
+		children: children ?? [],
 	};
 }

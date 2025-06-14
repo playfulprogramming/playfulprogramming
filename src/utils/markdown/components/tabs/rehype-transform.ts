@@ -1,9 +1,9 @@
 import { getHeaderNodeId, slugs } from "rehype-slug-custom-id";
-import { Element, Node } from "hast";
+import { Element } from "hast";
 import { toString } from "hast-util-to-string";
 import { RehypeFunctionComponent } from "../types";
 import { TabInfo } from "./types";
-import { createComponent } from "../components";
+import { createComponent, PlayfulRoot } from "../components";
 
 const isNodeHeading = (n: Element) =>
 	n.type === "element" && /h[1-6]/.exec(n.tagName);
@@ -21,13 +21,11 @@ const findLargestHeading = (nodes: Element[]) => {
 const isNodeLargestHeading = (n: Element, largestSize: number) =>
 	isNodeHeading(n) && parseInt(n.tagName.substring(1), 10) === largestSize;
 
-export const transformTabs: RehypeFunctionComponent = async ({
-	children,
-	processComponents,
-}) => {
+export const transformTabs: RehypeFunctionComponent = async ({ children }) => {
 	let sectionStarted = false;
 	const largestSize = findLargestHeading(children as Element[]);
-	const tabs: Array<Omit<TabInfo, "contents"> & { contents: Node[] }> = [];
+	const tabs: Array<TabInfo> = [];
+	const tabsChildren: PlayfulRoot[] = [];
 
 	for (const localNode of children as Element[]) {
 		if (!sectionStarted && !isNodeLargestHeading(localNode, largestSize)) {
@@ -46,8 +44,11 @@ export const transformTabs: RehypeFunctionComponent = async ({
 			tabs.push({
 				slug: headerSlug,
 				name: toString(localNode as never),
-				contents: [],
 				headers: [],
+			});
+			tabsChildren.push({
+				type: "root",
+				children: [],
 			});
 
 			continue;
@@ -65,22 +66,8 @@ export const transformTabs: RehypeFunctionComponent = async ({
 		}
 
 		// Otherwise, append the node as tab content
-		tabs.at(-1)?.contents?.push(localNode);
+		tabsChildren.at(-1)?.children?.push(localNode);
 	}
 
-	const tabsProp = await Promise.all(
-		tabs.map(async (tab) => {
-			const contents = await processComponents(tab.contents);
-			return {
-				...tab,
-				contents,
-			};
-		}),
-	);
-
-	return [
-		createComponent("Tabs", {
-			tabs: tabsProp,
-		}),
-	];
+	return [createComponent("Tabs", { tabs }, tabsChildren)];
 };

@@ -1,21 +1,29 @@
 ---
-import { components, PlayfulNode } from "utils/markdown/components/components";
+import {
+	components,
+	ComponentNode,
+	isHtmlNode,
+	isComponentNode,
+} from "utils/markdown/components/components";
+import { isRoot } from "../unist-is-element";
 
 export interface Props {
-	content: PlayfulNode[];
+	content: ComponentNode["children"];
 }
 
 const content = Astro.props.content;
 ---
 
 {
-	content.map((node) => {
-		if (node.type === "html") {
+	content?.map((node) => {
+		if (isHtmlNode(node)) {
 			return <Fragment set:html={node.innerHtml} />;
-		} else if (node.type === "component") {
+		} else if (isComponentNode(node)) {
 			const Component = components[node.component];
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			return <Component {...(node.props as any)} />;
+			return <Component children={node.children} {...(node.props as any)} />;
+		} else if (isRoot(node)) {
+			return <Astro.self content={node.children as never[]} />;
 		}
 	})
 }
