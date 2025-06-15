@@ -65,7 +65,7 @@ With the `container` class being defined in CSS like so:
 
 This works out pretty well for some basic styling!
 
-![TODO: Add alt](./header_basic_css_demo.png)
+![A plain white "LOGO" and "SETTINGS" text items on opposite ends of the bounding box with a border on the bottom](./header_basic_css_demo.png)
 
 Now let's build out the search box:
 
@@ -78,7 +78,7 @@ Now let's build out the search box:
 ```css
 /* search-box.css */
 .container {
-	border-radius: 8px;
+    border-radius: 8px;
     color: #3366FF;
     background: rgba(102, 148, 255, 0.1);
     padding: 8px;
@@ -86,7 +86,7 @@ Now let's build out the search box:
 }
 ```
 
-![TODO: Add alt](./search_box.png)
+![The icon is now blue with the background being a very light opacity blue](./search_box.png)
 
 Now let's import both of these CSS files into the same HTML file:
 
@@ -97,7 +97,7 @@ Now let's import both of these CSS files into the same HTML file:
 
 Annnnd:
 
-![TODO: Add alt](./header_searchbox_merge.png)
+![The header and search box both have blue text and background](./header_searchbox_merge.png)
 
 Oh dear... It seems like the styling for the header has impacted the search box and vice-versa.
 
@@ -113,7 +113,7 @@ One way to solve this problem of scoping in CSS relies on no external tooling th
 
 BEM stands for "Box Element Modifier" and helps you establish scoping through uniquely named classes that are "namespaced" based on where on the screen they exist.
 
-![TODO: Write alt](./bem.png)
+![You might break up the page using different headers, elements, and modifiers](./bem.png)
 
 The example we demonstrated scoping problems within has two "boxes":
 
@@ -232,21 +232,21 @@ Our example from before might look something like this:
 <div class="rounded-lg p-8 grow bg-blue-50 text-blue-800"></div>
 ```
 
-![TODO: Add alt](./search_box.png)
+![The box is now a light blue background with dark blue text](./search_box.png)
 
 While Tailwind doesn't solve the cluttered markup challenges with hand-rolling your own utility classes, it comes with some additional benefits over utility classes:
 
 - Ease of training. If someone's used Tailwind before, they know how to use it and what class names to use. Moreover, the Tailwind docs are very very polished.
 
-  ![TODO: Add alt](./tailwind_docs.png)
+  ![Some visual docs complete with highlighted examples of what Tailwind code looks like](./tailwind_docs.png)
 
 - Pre-built styling tokens. No need to figure out what `padding-lg` or `padding-xl` should be; Tailwind ships with a strong color pallet and sane defaults out-of-the-box for you to use as your design system base.
 
-  ![TODO: Add alt](./tailwind_colors.png)
+  ![A color palette from Tailwind present in their docs](./tailwind_colors.png)
 
 - IDE support. From color previews to class name auto-completion, Tailwind has many integrations with most IDEs you'd want to use. 
 
-  ![TODO: Add alt](./tailwind_ide.png)
+  ![A dropdown of Tailwind classes with the associated colors next to each](./tailwind_ide.png)
 
 ### Install Tailwind
 
@@ -433,7 +433,7 @@ export class App {}
 
 Once you preview the component, it should look like this:
 
-![TODO: Add alt](./tailwind_join_our_discord.png)
+![A purple-ish "Join our Discord" button](./tailwind_join_our_discord.png)
 
 ### Tailwind Compilation
 
@@ -447,7 +447,7 @@ This is why we had to add a list of files (via regex) to our `tailwind.config.js
 
 This means that if you don't have any Tailwind classes in your code, only the prerequisite CSS generated will be included:
 
-![TODO: Add alt](./tailwind_base_size.png) 
+![A ".css" file of 5kB being generated from Vite](./tailwind_base_size.png) 
 
 > You're even able to shrink this prerequisite CSS down if you'd like. We can customize our `src/style.css` file to only include the prerequisites we need for our project. 
 >
@@ -800,7 +800,7 @@ While scoping is an invaluable way to regulate your CSS in larger apps, you can 
 
 For example, let's say that I have a list of cards that I want to change the colors of the title:
 
-![TODO: Write alt](./deep_example.png)
+![Three cards with different color headings](./deep_example.png)
 
 ```html
 <ul>
@@ -820,17 +820,17 @@ Luckily for us, we can!
 
 ### React
 
-// `:global`
+// TODO: `:global`
 
 ### Angular
 
-// `::ng-deep`
+// TODO: `::ng-deep`
 
 // Mention depreciation warning undeprecating
 
 ### Vue
 
-// Mention `:deep`
+// TODO: Mention `:deep`
 
 <!-- ::end:tabs -->
 
@@ -876,7 +876,7 @@ However, just like JavaScript, you can accidentally ship a variable that's not d
 }
 ```
 
-![TODO: Add alt](./token_chain.png)
+![Color values are the base value which has a derived semantic token, which can lead to component tokens. But if the component token is mis-typed then it will not set the styling properly](./token_chain.png)
 
 This lack of variable definition will not throw an error either at build time or runtime, making it exceedingly hard to catch or debug in many instances.
 
@@ -1480,7 +1480,7 @@ The upsides of CSS-in-JS are abundant and useful:
 
 If these statements are true, why then are the download trends for traditional CSS-in-JS libraries (such as but not exclusive to Emotion CSS) trending downwards?
 
-![TODO: Write alt](./emotion_download_trends.png)
+![NPM downloads for Emotion have dropped heavily from 2023 to 2025](./emotion_download_trends.png)
 
 Well, there's also a lot of downsides to CSS-in-JS libraries. Let's zoom out and evaluate each of the major concerns with traditional CSS-in-JS libraries:
 
@@ -1491,11 +1491,11 @@ Well, there's also a lot of downsides to CSS-in-JS libraries. Let's zoom out and
 
 When building HTML files without JavaScript, you might have a `<style>` tag in your `<head>` element. This is the most ideal solution, because it enables the CSS to be parsed alongside your HTML. This simul-parsing allows your CSS to display at the same time as your HTML, just like you'd expect:
 
-![TODO: Write alt](../../../../posts/why-is-css-in-js-slow/html_css_handling.png)
+![Your markup layout has a <head> component with a <style> element inside. This leads to waterfall where: Your HTML is parsed, CSS in HTML <head> is detected, then the CSS is parsed, and finally the CSS & HTML are displayed](../../../../posts/why-is-css-in-js-slow/html_css_handling.png)
 
 However, when you use CSS-in-JS, you're adding a chain of pre-processing that needs to occur before the CSS can display:
 
-![TODO: Write alt](../../../../posts/why-is-css-in-js-slow/framework_css_in_js_handling.png)
+![Your markup layout has a <body> component with a bundle.js file inside. THis bundle generates an <App/> component which generates the styling markup. This leads to waterfall where: Your HTML is parsed, the HTML is displayed, the JS in the HTML <body> is detected, the JS is parsed, the HTML & JS is displayed (without <App/> at this point), the framework's JS starts up, the <App/> markup is displayed, which generated CSS-in-JS, and then finally the CSS is parsed, and the CSS & HTML is displayed](../../../../posts/why-is-css-in-js-slow/framework_css_in_js_handling.png)
 
 > Look at that complexity increase as you add in CSS-in-JS solutions!
 
@@ -1513,11 +1513,11 @@ This issue of FOUC is made even worse when we introduce static apps into the mix
 
 Unless you've specifically opted into static behavior, your React, Angular, and Vue apps are all "client-side rendered" (CSR). This means that you ship a hyper minimal HTML bundle and a more expressive JavaScript bundle to generate the intended HTML on the user's machine:
 
-![TODO: Write alt](../../../react-beyond-the-render/posts/what-is-ssr-and-ssg/csr.svg)
+![The server sends out React code which generates the HTML on the user's machine](../../../react-beyond-the-render/posts/what-is-ssr-and-ssg/csr.svg)
 
 However, if we wanted to ship the full HTML bundle to the user, say to improve SEO, we might do that using "server-side rendering" (SSR):
 
-![TODO: Write alt](../../../react-beyond-the-render/posts/what-is-ssr-and-ssg/ssr.svg)
+![The server generates the HTML on the backend, which is then shipped to the client via SSR framework code](../../../react-beyond-the-render/posts/what-is-ssr-and-ssg/ssr.svg)
 
 > You can learn more about SSR and SSG apps in [our article which introduces the concepts.](/posts/what-is-ssr-and-ssg)
 
@@ -1535,7 +1535,7 @@ Indeed, dear reader! See, while some CSS-in-JS solutions rely on a JavaScript ru
 
 These CSS-in-JS solutions are able to fix their performance problems because they use "statistical analysis" to extract and compile the CSS from inside of your JavaScript files into dedicated CSS files ahead-of-the-time.
 
-![TODO: Write alt](./stylesheet_extract.svg)
+![The app.js file has a bit of it extracted to generate the stylesheet.css file](./stylesheet_extract.svg)
 
 
 
@@ -1547,7 +1547,7 @@ Think of statistical analysis as a scan through your codebase looking for dedica
 
 This `app_generated.js` file is the same as before, but with a different bit of code injecting the CSS file into the place you originally had CSS:
 
-![TODO: Write alt](./scan_keywords.svg)
+![The JS file is scanned for keywords and is extracted](./scan_keywords.svg)
 
 -------
 
