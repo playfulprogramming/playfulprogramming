@@ -4,8 +4,8 @@
 		"start": "tsc && sass src && servor src"
 	},
 	"dependencies": {
+		"sass": "^1.89.2",
 		"servor": "^4.0.2",
-		"sass": "^1.75.0",
-		"typescript": "^5.4.5"
+		"typescript": "^5.8.3"
 	}
 }
