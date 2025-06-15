@@ -23,6 +23,8 @@
 		"@angular/build": "^20.0.2",
 		"@angular/cli": "^20.0.2",
 		"@angular/compiler-cli": "^20.0.0",
+		"@tailwindcss/postcss": "^4.1.10",
+		"postcss": "^8.5.5",
 		"typescript": "~5.8.2"
 	}
 }
