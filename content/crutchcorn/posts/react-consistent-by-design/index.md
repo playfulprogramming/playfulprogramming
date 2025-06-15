@@ -767,7 +767,35 @@ But the longer answer is that they wanted to keep component rendering behavior i
 
 ### Idempotence
 
-If you haven't heard of idempotence the concept is simple:
+To explain idempotence let's use an analogy and then dive into the real deal.
+
+Pretend you're working a factory line and you've been given a task: Press a button to drop an empty box from a chute above you onto a conveyor belt to move the boxes into a packaging machine. This machine will place an item in the box and seal it up for you.
+
+// TODO: Include a visual of this
+
+However, you've been warned by your supervisor: Don't press the button a second time until the first box has been fully packaged. If you do so, the second box will jam the conveyor belt as the machine in the middle of packaging the first box.
+
+// TODO: Include a visual of this
+
+An **idempotent** button would behave differently: It would only trigger the box to enter the factory line once the previous box had gone through the machine, **regardless of how many times you pressed the button**.
+
+// TODO: Include a visual of this
+
+----
+
+> What does this analogy have to do with React rendering and `useEffect`?
+
+Well, let's consider the following code:
+
+```
+function FeatureComp() {
+	useEffect(() => {
+	
+	}, []);
+}
+```
+
+
 
 
 
