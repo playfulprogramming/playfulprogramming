@@ -46,7 +46,8 @@
 	border-color: var(--outline);
 	border-width: var(--grid-item-border-width);
 	border-radius: var(--grid-item-corner-radius);
-	padding: var(--grid-item-padding_top) var(--grid-item-padding_horizontal) var(--grid-item-padding_bottom);
+	padding: var(--grid-item-padding_top) var(--grid-item-padding_horizontal)
+		var(--grid-item-padding_bottom);
 	color: var(--on-dark-emphasis-high);
 }
 
@@ -54,7 +55,8 @@
 	position: absolute;
 	left: 50%;
 	background: var(--section-background);
-	transition: background var(--color-transition-time) var(--color-transition-ease);
+	transition: background var(--color-transition-time)
+		var(--color-transition-ease);
 	padding-left: var(--grid-icon-padding);
 	padding-right: var(--grid-icon-padding);
 	height: var(--grid-icon-size) !important;
@@ -102,7 +104,7 @@
 	width: var(--article-link-icon-size);
 	padding: 2px;
 	box-sizing: border-box;
-	background-image: url("../../framework-field-guide/icons/link.svg");
+	background-image: url("../icons/link.svg");
 	background-repeat: no-repeat;
 	background-position: center center;
 	margin-right: var(--spc-2x);
@@ -116,7 +118,7 @@
 .helpfulLinkLink::before {
 	position: absolute;
 	bottom: -2px;
-	content: ' ';
+	content: " ";
 	width: 100%;
 	height: 2px;
 	left: 0;
