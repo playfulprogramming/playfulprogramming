@@ -216,6 +216,30 @@ Pretend this is something very thought provoking[^1][^2]
 [Example Title ![](/share-banner.png)](https://example.com)
 # Heading [with a link](https://example.com) inside of it
 
+# Snitip
+
+Here's a cool sentence that talks about [Node](pfp-snitip:#nodejs)!
+
+<!-- ::start:snitip id="nodejs" -->
+## NodeJS
+
+I'd like to inform you that what you're referring to as _NodeJS_ is actually _ECMAScript + NodeJS_, or "ECMA Node" for short.
+
+NodeJS is not a **programming language** unto itself, but rather another component of a fully functioning [JavaScript](https://javascript.info) system made useful by the ECMA standards, ecosystem, and vital components comprising a full JavaScript runtime as defined by the OpenJS Foundation.
+
+- [Node.js - Run JavaScript Everywhere](https://nodejs.org/en)
+<!-- ::end:snitip -->
+
+This snitip contains [references to multiple tags](pfp-snitip:#programming).
+
+<!-- ::start:snitip id="programming" tags="java,nodejs,testing" -->
+## Programming
+
+Computers are bad
+<!-- ::end:snitip -->
+
+This is a referece to [a global tag](pfp-snitip:#javascript)!
+
 # Thanks for taking the trip down here
 
 <a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>

@@ -29,7 +29,6 @@ import sadUnicorn from "../../assets/unicorn_sad.svg";
 import happyUnicorn from "../../assets/unicorn_happy.svg";
 import scaredUnicorn from "../../assets/unicorn_scared.svg";
 import {
-	SEARCH_PAGE_KEY,
 	SearchQuery,
 	serializeParams,
 	deserializeParams,
@@ -48,6 +47,7 @@ import {
 	MAX_POSTS_PER_PAGE,
 	ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
 } from "./constants";
+import { SnitipCardGrid } from "components/snitip/snitip-card";
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -124,17 +124,18 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const enabled = !!query.searchQuery;
 
 	const {
-		isLoading: isLoadingPeople,
-		isFetching: isFetchingPeople,
-		isError: isErrorPeople,
-		error: errorPeople,
-		data: people,
+		isLoading: isLoadingFilters,
+		isFetching: isFetchingFilters,
+		isError: isErrorFilters,
+		error: errorFilters,
+		data: searchFilters,
 	} = useQuery({
 		queryFn: fetchSearchFilters,
 		queryKey: ["people"],
 		initialData: {
 			people: [],
 			tags: [],
+			snitips: [],
 		} as SearchFiltersData,
 		refetchOnWindowFocus: false,
 		retry: false,
@@ -151,8 +152,9 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 			queryKey: [string, SearchQuery];
 		}) => {
 			// Analytics go brr
-			plausible &&
+			if (plausible) {
 				plausible("search", { props: { searchVal: query.searchQuery } });
+			}
 
 			return searchForTerm(query, signal);
 		},
@@ -188,14 +190,14 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const tagCounts = usePersistedEmptyRef(
 		isWildcardSearch
 			? Object.fromEntries(
-					people.tags.map((tag) => [tag.id, tag.totalPostCount]),
+					searchFilters.tags.map((tag) => [tag.id, tag.totalPostCount]),
 				)
 			: data.tags,
 	);
 	const authorCounts = usePersistedEmptyRef(
 		isWildcardSearch
 			? Object.fromEntries(
-					people.people.map((person) => [person.id, person.totalPostCount]),
+					searchFilters.people.map((person) => [person.id, person.totalPostCount]),
 				)
 			: data.authors,
 	);
@@ -208,13 +210,13 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 		[query.searchQuery],
 	);
 
-	const isError = isErrorPeople || isErrorData;
+	const isError = isErrorFilters || isErrorData;
 
 	useEffect(() => {
-		if (errorPeople) {
-			console.error("There was an error", { error: errorPeople });
+		if (errorFilters) {
+			console.error("There was an error", { error: errorFilters });
 		}
-	}, [errorPeople]);
+	}, [errorFilters]);
 
 	useEffect(() => {
 		if (errorData) {
@@ -223,7 +225,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	}, [errorData]);
 
 	const isContentLoading =
-		isLoadingData || isFetchingData || isLoadingPeople || isFetchingPeople;
+		isLoadingData || isFetchingData || isLoadingFilters || isFetchingFilters;
 
 	const setSelectedPeople = useCallback(
 		(authors: string[]) => {
@@ -259,8 +261,8 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	);
 
 	const peopleMap = useMemo(() => {
-		return new Map(people.people.map((person) => [person.id, person]));
-	}, [people.people]);
+		return new Map(searchFilters.people.map((person) => [person.id, person]));
+	}, [searchFilters.people]);
 
 	const showArticles = query.display === "all" || query.display === "articles";
 
@@ -320,6 +322,22 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const numberOfCollections = showCollections ? data.totalCollections : 0;
 
 	const numberOfPosts = showArticles ? data.totalPosts : 0;
+
+	const snitips = useMemo(() => {
+		// Find all snitips that are selected by tags in the query
+		const snitips = searchFilters.snitips.filter((snitip) => query.filterTags.some((tag) => snitip.tags.includes(tag)));
+		// Get the snitip that has the most returned documents
+		let maxSnitip = null;
+		let maxCount = -1;
+		for (const snitip of snitips) {
+			const count = tagCounts[snitip.id] ?? 0;
+			if (count > maxCount) {
+				maxSnitip = snitip;
+				maxCount = count;
+			}
+		}
+		return maxSnitip ? [maxSnitip] : [];
+	}, [searchFilters.snitips, query.filterTags, tagCounts]);
 
 	return (
 		<div
@@ -435,6 +453,21 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 							}
 						/>
 					)}
+					{enabled &&
+						!isContentLoading &&
+						!noResults &&
+						query.collectionsPage == 1 &&
+						query.postsPage == 1 &&
+						Boolean(snitips.length) && (
+							<div class={style.snitipsContainer}>
+								<h2 id="snitips-header" class="visually-hidden">Tags</h2>
+								<SnitipCardGrid
+									snitips={snitips}
+									headingTag="h3"
+									aria-labelledby="snitips-header"
+								/>
+							</div>
+						)}
 					{enabled &&
 						!isContentLoading &&
 						showCollections &&

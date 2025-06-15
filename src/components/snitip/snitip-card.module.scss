@@ -1,0 +1,26 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--snitip-card_background: var(--surface_primary_emphasis-none);
+	--snitip-card_corner-radius: var(--corner-radius_xl);
+}
+
+.snitipCard {
+	background-color: var(--snitip-card_background);
+	border-radius: var(--snitip-card_corner-radius);
+}
+
+.list {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+
+	display: grid;
+	grid-template-columns: repeat(1, minmax(0, 1fr));
+	gap: var(--site-spacing);
+
+	@include from($tabletLarge) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+

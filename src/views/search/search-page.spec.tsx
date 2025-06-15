@@ -22,7 +22,7 @@ import { MockCanonicalPost, MockPost } from "../../../__mocks__/data/mock-post";
 import userEvent from "@testing-library/user-event";
 import { MockCollection } from "../../../__mocks__/data/mock-collection";
 import { MockPerson, MockPersonTwo } from "../../../__mocks__/data/mock-person";
-import { buildSearchQuery } from "src/views/search/search";
+import { buildSearchQuery, SearchFiltersData } from "src/views/search/search";
 import { PersonInfo } from "types/PersonInfo";
 import { PostInfo } from "types/PostInfo";
 import { CollectionInfo } from "types/CollectionInfo";
@@ -147,7 +147,8 @@ function mockPeopleIndex(people: PersonInfo[]) {
 						totalPostCount: 32,
 					},
 				],
-			});
+				snitips: [],
+			} satisfies SearchFiltersData);
 		}),
 	);
 }

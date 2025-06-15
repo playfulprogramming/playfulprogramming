@@ -17,6 +17,8 @@ export const GET = async () => {
 		} satisfies TagFilterInfo;
 	});
 
-	const response = { people, tags } satisfies SearchFiltersData;
+	const snitips = api.getSnitips();
+
+	const response = { people, tags, snitips } satisfies SearchFiltersData;
 	return new Response(JSON.stringify(response));
 };
