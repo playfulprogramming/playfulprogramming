@@ -297,20 +297,20 @@ And add the files to the ESLint configuration from earlier:
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import pluginReact from "eslint-plugin-react";
+import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
-  {
-      files: ["**/*.{js,mjs,cjs,jsx}"],
-      languageOptions: { globals: globals.browser },
-      settings: { react: { version: "detect" } }
-  },
-  pluginJs.configs.recommended,
-  pluginReact.configs.flat.recommended,
+	{
+		files: ["**/*.{js,mjs,cjs,jsx}"],
+		languageOptions: { globals: globals.browser },
+		settings: { react: { version: "detect" } },
+	},
+	pluginJs.configs.recommended,
+	pluginReact.configs.flat.recommended,
+	pluginReact.configs.flat['jsx-runtime'],
+	reactHooks.configs['recommended-latest'],
 ];
 ```
-
-// TODO: ADD REACT HOOKS RULES WHEN FLAT CONFIG IS SUPPORTED:
-// https://github.com/facebook/react/issues/28313
 
 Now we can check this buggy code against the Rules of React Hooks linting configuration:
 
@@ -396,23 +396,22 @@ This will:
 - Treat inline templates in Angular components as HTML files
 - Add the recommended configuration of Angular's HTML ESLint rules
 
-Once this is present, we can check it's working by throwing some buggy Angular code at it:
+Once this is present, we can check it's working by throwing some deprecated Angular code at it:
 
 ```angular-ts
-import { Component } from "@angular/core";
-
-// This is buggy code that ESLint will catch with Angular plugins configured
 @Component({
 	selector: "app-root",
 	standalone: true,
-	template: "<p>Hello, world!</p>"
+	template: "<p>Hello, world!</p>",
 })
 export class AppThing {
+	// This is deprecated code that ESLint will catch with Angular plugins configured
+	constructor(@Inject(ChangeDetectorRef) private cd: ChangeDetectorRef) {}
 }
 ```
 
 > ```
-> ESLint: Component class names should end with one of these suffixes: "Component" (https:// angular. dev/ style-guide#style-02-03)(@angular-eslint/ component-class-suffix)
+> ESLint: Prefer using the inject() function over constructor parameter injection. Use Angular's migration schematic to automatically refactor: ng generate @angular/core:inject
 > ```
 
 <iframe data-frame-title="Angular ESLint - StackBlitz" src="pfp-code:./ffg-ecosystem-angular-eslint-7?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>

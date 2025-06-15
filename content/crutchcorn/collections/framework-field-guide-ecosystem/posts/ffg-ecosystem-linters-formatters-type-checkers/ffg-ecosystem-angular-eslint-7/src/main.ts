@@ -1,13 +1,21 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Component } from "@angular/core";
+import {
+	ChangeDetectorRef,
+	Component,
+	Inject,
+	provideZonelessChangeDetection,
+} from "@angular/core";
 
-// This is buggy code that ESLint will catch with Angular plugins configured
 @Component({
 	selector: "app-root",
 	standalone: true,
 	template: "<p>Hello, world!</p>",
 })
-export class AppThing {}
+export class AppThing {
+	// This is deprecated code that ESLint will catch with Angular plugins configured
+	constructor(@Inject(ChangeDetectorRef) private cd: ChangeDetectorRef) {}
+}
 
-void bootstrapApplication(AppThing);
+void bootstrapApplication(AppThing, {
+	providers: [provideZonelessChangeDetection()],
+});
