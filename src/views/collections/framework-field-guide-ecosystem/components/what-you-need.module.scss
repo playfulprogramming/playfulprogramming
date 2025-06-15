@@ -24,16 +24,6 @@
 	flex-direction: column;
 	flex-wrap: nowrap;
 	gap: var(--section-hor-padding);
-
-	@include from($desktop) {
-		flex-direction: row;
-	}
-}
-
-.gridItemContainer {
-	@include from($desktop) {
-		flex-basis: 50%;
-	}
 }
 
 .gridItem {
