@@ -1,6 +1,9 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Component, ViewEncapsulation } from "@angular/core";
+import {
+	Component,
+	provideZonelessChangeDetection,
+	ViewEncapsulation,
+} from "@angular/core";
 import { SearchIcon } from "./search-icon";
 
 @Component({
@@ -35,4 +38,6 @@ export class SearchBox {}
 })
 export class App {}
 
-void bootstrapApplication(App);
+void bootstrapApplication(App, {
+	providers: [provideZonelessChangeDetection()],
+});

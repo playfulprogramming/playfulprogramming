@@ -1,7 +1,9 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Component, input } from "@angular/core";
-import { SearchIcon } from "./search-icon";
+import {
+	Component,
+	input,
+	provideZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "app-card",
@@ -20,8 +22,8 @@ import { SearchIcon } from "./search-icon";
 				padding: 16px;
 				margin: 16px;
 			}
-		`
-	]
+		`,
+	],
 })
 export class Card {
 	title = input.required<string>();
@@ -35,13 +37,13 @@ export class Card {
 	template: `
 		<ul>
 			<li class="red-card">
-				<app-card title="Red Card" description="Description 1"/>
+				<app-card title="Red Card" description="Description 1" />
 			</li>
 			<li class="blue-card">
-				<app-card title="Blue Card" description="Description 2"/>
+				<app-card title="Blue Card" description="Description 2" />
 			</li>
 			<li class="green-card">
-				<app-card title="Green Card" description="Description 3"/>
+				<app-card title="Green Card" description="Description 3" />
 			</li>
 		</ul>
 	`,
@@ -51,7 +53,7 @@ export class Card {
 				display: flex;
 				list-style: none;
 			}
-				
+
 			.red-card ::ng-deep [data-title] {
 				color: red;
 			}
@@ -63,9 +65,11 @@ export class Card {
 			.green-card ::ng-deep [data-title] {
 				color: green;
 			}
-		`
-	]
+		`,
+	],
 })
 export class App {}
 
-void bootstrapApplication(App);
+void bootstrapApplication(App, {
+	providers: [provideZonelessChangeDetection()],
+});

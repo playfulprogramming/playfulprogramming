@@ -1,6 +1,5 @@
-import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Component } from "@angular/core";
+import { Component, provideZonelessChangeDetection } from "@angular/core";
 
 @Component({
 	selector: "app-root",
@@ -15,4 +14,6 @@ import { Component } from "@angular/core";
 })
 export class App {}
 
-void bootstrapApplication(App);
+void bootstrapApplication(App, {
+	providers: [provideZonelessChangeDetection()],
+});
