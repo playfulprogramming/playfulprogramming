@@ -253,33 +253,14 @@ While Tailwind doesn't solve the cluttered markup challenges with hand-rolling y
 To install Tailwind, start by using your package manager to install the required packages:
 
 ```shell
-npm install -D tailwindcss postcss autoprefixer
-```
-
-Then, create a `tailwind.config.js` file:
-
-```javascript
-// tailwind.config.js
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-    content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx,html,vue}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
+npm install -D tailwindcss
 ```
 
 Next, create a CSS file:
 
 ```css
 /* src/styles.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 ```
 
 Finally, you'll configure Tailwind to integrate with your bundler:
@@ -288,21 +269,26 @@ Finally, you'll configure Tailwind to integrate with your bundler:
 
 #### React
 
-To enable Tailwind in your React Vite project, you'll use Vite's built-in support for [PostCSS](https://postcss.org/https://postcss.org/). PostCSS is a CSS transformer that powers Tailwind's compilation of your CSS. (more on this later)
+To enable Tailwind in your React Vite project, you'll need to add a Vite plugin for TailwindCSS:
 
-Let's start by configuring the PostCSS configuration:
-
-```javascript
-// postcss.config.js
-export default {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
+```shell
+npm install -D @tailwindcss/vite
 ```
 
-Finally we'll import our `src/styles.css` file into Vite's entry point of `index.html`:
+Then we'll add this to our Vite configuration:
+
+```javascript
+// vite.config.js
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+});
+```
+
+Finally, we'll import our `src/styles.css` file into Vite's entry point of `index.html`:
 
 ```html {7}
 <!doctype html>
@@ -322,24 +308,49 @@ Finally we'll import our `src/styles.css` file into Vite's entry point of `index
 
 #### Angular
 
-Since the Angular CLI supports Tailwind out-of-the-box, we don't need to do any additional configuration steps.
+Since the Angular CLI supports [PostCSS](https://postcss.org/https://postcss.org/) out-of-the-box, we can leverage it to add Tailwind.
 
-So long as your `angular.json` file references the `src/style.css` file we added earlier, you should be off to the races!
+> PostCSS is a CSS transformer that powers Tailwind's compilation of your CSS. (more on this later)
+
+To start, install the required packages:
+
+```shell
+npm install -D tailwindcss @tailwindcss/postcss postcss
+```
+
+Then, create a `.postcssrc.json` file and place the Tailwind plugin inside:
+
+```json
+{
+  "plugins": {
+    "@tailwindcss/postcss": {}
+  }
+}
+```
+
+Now, so long as your `angular.json` file references the `src/style.css` file we added earlier, you should be off to the races!
 
 #### Vue
 
-Just like React, we'll use [PostCSS](https://postcss.org/https://postcss.org/), the CSS transformer that powers Tailwind's compilation of your CSS, to add Tailwind to our Vue app.
+Just like React, we'll use a Vite plugin to add Tailwind to our Vue app.
 
-Add the PostCSS configuration:
+Install the package:
+
+```shell
+npm install -D @tailwindcss/vite
+```
+
+Add it to the Vite configuration:
 
 ```javascript
-// postcss.config.js
-export default {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
+// vite.config.js
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [vue(), tailwindcss()],
+});
 ```
 
 And import our `src/styles.css` file into Vite's `index.html`:
