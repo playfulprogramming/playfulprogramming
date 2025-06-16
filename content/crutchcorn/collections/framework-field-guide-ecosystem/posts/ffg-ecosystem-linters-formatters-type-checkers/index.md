@@ -1,7 +1,7 @@
 ---
 {
     title: "Linters, Formatters, and Type-Checkers",
-    description: "",
+    description: "Learn about the tools that help you write better code, including ESLint, Prettier, and TypeScript.",
     published: '2025-06-01T22:12:03.284Z',
     tags: ["react", "angular", "vue", "webdev"],
     order: 2

@@ -1,7 +1,7 @@
 ---
 {
     title: "Bundling",
-    description: "",
+    description: "Bundling is the process of taking your source code and transforming it into a format that can be run in the browser. Let's learn more about it and how to apply it.",
     published: '2025-06-01T22:12:03.284Z',
     tags: ["react", "angular", "vue", "webdev"],
     order: 1
