@@ -12,7 +12,6 @@ import oembedTransformer from "@remark-embedder/transformer-oembed";
 import remarkToRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
-import { rehypeTooltips } from "./tooltips/rehype-transform";
 import { rehypeAstroImageMd } from "./picture/rehype-transform";
 import { rehypePlayfulElementMap } from "./rehype-playful-element-map";
 import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
@@ -26,9 +25,10 @@ import branch from "git-branch";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
 import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
-import { rehypeLinkPreview } from "./link-preview/rehype-transform";
 import {
 	rehypeDetailsElement,
+	rehypeLinkPreview,
+	rehypeTooltips,
 	rehypeParseComponents,
 	rehypePluginComponents,
 	rehypeTransformComponents,

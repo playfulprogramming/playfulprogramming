@@ -1,0 +1,21 @@
+---
+import { Tooltip as PreactTooltip } from "components/tooltips/tooltip";
+import { ComponentNode } from "../components";
+import Content from "../content.astro";
+
+export interface Props {
+	icon: "info" | "warning";
+	title: string;
+	children: ComponentNode["children"];
+}
+---
+
+{
+	Astro.props.children.length ? (
+		<PreactTooltip icon={Astro.props.icon} title={Astro.props.title}>
+			<Content content={Astro.props.children} />
+		</PreactTooltip>
+	) : (
+		<PreactTooltip icon={Astro.props.icon} title={Astro.props.title} />
+	)
+}

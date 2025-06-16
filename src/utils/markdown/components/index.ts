@@ -7,6 +7,7 @@ export * from "./filetree/rehype-transform";
 export * from "./in-content-ad/rehype-transform";
 export * from "./link-preview/rehype-transform";
 export * from "./tabs/rehype-transform";
+export * from "./tooltip/rehype-transform";
 export * from "./components";
 export * from "./transformNoop";
 export * from "./transformVoid";

@@ -1,9 +1,9 @@
-import { Root } from "hast";
+import * as hast from "hast";
 import { visit } from "unist-util-visit";
 import { Plugin } from "unified";
-import { Element } from "hast";
-import { Tooltip } from "./tooltips";
 import { toString } from "hast-util-to-string";
+import { createComponent } from "../components";
+import { trimElements } from "utils/markdown/unist-trim-elements";
 
 /**
  * Plugin to create interactive/styled hint elements from the following structure:
@@ -18,9 +18,9 @@ import { toString } from "hast-util-to-string";
  *  <p><em>{title}:</em> ...</p>
  * </blockquote>
  */
-export const rehypeTooltips: Plugin<[], Root> = () => {
+export const rehypeTooltips: Plugin<[], hast.Root> = () => {
 	return (tree) => {
-		visit(tree, "element", (node: Element, index, parent) => {
+		visit(tree, "element", (node, index, parent) => {
 			if (node.tagName !== "blockquote") return;
 
 			const firstParagraph = node.children.find((e) => e.type === "element");
@@ -42,12 +42,18 @@ export const rehypeTooltips: Plugin<[], Root> = () => {
 			// remove `firstText` from children nodes
 			firstParagraph.children.splice(0, 1);
 
+			// Trim empty nodes from the start/end of the node
+			trimElements(node.children);
+
 			if (parent?.children && index !== undefined) {
-				parent.children[index] = Tooltip({
-					icon: firstText.tagName === "em" ? "warning" : "info",
-					title: toString(firstText as never).replace(/:$/, ""),
-					children: node.children,
-				});
+				parent.children[index] = createComponent(
+					"Tooltip",
+					{
+						icon: firstText.tagName === "em" ? "warning" : "info",
+						title: toString(firstText as never).replace(/:$/, ""),
+					},
+					node.children,
+				) as never;
 			}
 		});
 	};

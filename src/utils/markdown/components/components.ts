@@ -5,6 +5,7 @@ import LinkPreview from "./link-preview/link-preview.astro";
 import Tabs from "./tabs/tabs.astro";
 import IframePlaceholder from "../iframes/iframe-placeholder.astro";
 import Hint from "./hint/hint.astro";
+import Tooltip from "./tooltip/tooltip.astro";
 
 export interface PlayfulRoot {
 	type: "root";
@@ -48,6 +49,7 @@ export const components = {
 	InContentAd,
 	LinkPreview,
 	Tabs,
+	Tooltip,
 	IframePlaceholder,
 	Hint,
 } as const;
