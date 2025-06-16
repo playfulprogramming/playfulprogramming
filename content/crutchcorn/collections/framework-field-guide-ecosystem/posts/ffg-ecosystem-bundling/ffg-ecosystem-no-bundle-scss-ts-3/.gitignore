@@ -3,3 +3,4 @@ node_modules/
 .vscode/
 src/*.css
 src/*.js
+src/*.map
