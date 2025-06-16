@@ -1,3 +1,3 @@
 <template>
-  <p class="blue">This is blue text from another component</p>
+	<p class="blue">This is blue text from another component</p>
 </template>

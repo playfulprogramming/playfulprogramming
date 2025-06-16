@@ -1,10 +1,10 @@
 ---
 {
-    title: "Styling",
-    description: "",
-    published: '2025-06-01T22:12:03.284Z',
-    tags: ["react", "angular", "vue", "webdev"],
-    order: 3
+  title: "Styling",
+  description: "",
+  published: "2025-06-01T22:12:03.284Z",
+  tags: ["react", "angular", "vue", "webdev"],
+  order: 3,
 }
 ---
 
@@ -22,7 +22,7 @@ Just to name a few, here's some of the styling tools we're **not** talking about
 
 Given the broad range and number of tools we aren't looking at, what tools _are_ we going to be learning about? Well, in addition to a few built-in browser techniques, we'll touch on:
 
-- [Tailwind](https://tailwindcss.com/) for its ubiquitous adoption among utility class libraries (nearly 10M downloads a week on NPM) 
+- [Tailwind](https://tailwindcss.com/) for its ubiquitous adoption among utility class libraries (nearly 10M downloads a week on NPM)
 - [CSS Modules](https://github.com/css-modules/css-modules) for its close-to-bare CSS and invisible usage
 - [SCSS](https://sass-lang.com/) for its broad adoption (13M downloads a week on NPM) and ability to compile complex styling to raw CSS
 - [Emotion](https://emotion.sh/) for its framework agnostic approach to runtime CSS-in-JS
@@ -42,24 +42,24 @@ Our markup might look something like this:
 
 ```jsx
 <header class="container">
-	<LogoIcon/>
-	<SearchBar/>
-	<SettingsCog/>
-	<ProfilePicture/>
+	<LogoIcon />
+	<SearchBar />
+	<SettingsCog />
+	<ProfilePicture />
 </header>
 ```
 
 With the `container` class being defined in CSS like so:
 
-``` css
+```css
 /* header.css */
 .container {
-    display: flex;
-    padding: 8px 24px;
-    align-items: center;
-    gap: 32px;
-    border-bottom: 2px solid #F5F8FF;
-    background: #FFF;
+	display: flex;
+	padding: 8px 24px;
+	align-items: center;
+	gap: 32px;
+	border-bottom: 2px solid #f5f8ff;
+	background: #fff;
 }
 ```
 
@@ -71,18 +71,18 @@ Now let's build out the search box:
 
 ```html
 <div class="container">
-	<SearchIcon/>
+	<SearchIcon />
 </div>
 ```
 
 ```css
 /* search-box.css */
 .container {
-    border-radius: 8px;
-    color: #3366FF;
-    background: rgba(102, 148, 255, 0.1);
-    padding: 8px;
-    flex-grow: 1;
+	border-radius: 8px;
+	color: #3366ff;
+	background: rgba(102, 148, 255, 0.1);
+	padding: 8px;
+	flex-grow: 1;
 }
 ```
 
@@ -91,8 +91,8 @@ Now let's build out the search box:
 Now let's import both of these CSS files into the same HTML file:
 
 ```html
-<link rel="stylesheet" href="header.css">
-<link rel="stylesheet" href="search-box.css">
+<link rel="stylesheet" href="header.css" />
+<link rel="stylesheet" href="search-box.css" />
 ```
 
 Annnnd:
@@ -101,7 +101,7 @@ Annnnd:
 
 Oh dear... It seems like the styling for the header has impacted the search box and vice-versa.
 
------
+---
 
 This merging of styling is occurring because `container` is the same CSS identifier between the search box container and the header container; despite being in two different CSS files.
 
@@ -117,30 +117,34 @@ BEM stands for "Box Element Modifier" and helps you establish scoping through un
 
 The example we demonstrated scoping problems within has two "boxes":
 
-1) The header
-2) The search box
+1. The header
+2. The search box
 
 As such, the container for these elements might be called:
 
 ```css
-.header {}
+.header {
+}
 
-.search-box {}
+.search-box {
+}
 ```
 
------
+---
 
 The "Elements" part of BEM is then referring to the elements within each "Box".
 
 For example, both the header and the search box have icons inside. We would then prefix the "Box" name and then the name of the "Element":
 
 ```css
-.header__icon {}
+.header__icon {
+}
 
-.search-box__icon {}
+.search-box__icon {
+}
 ```
 
-------
+---
 
 Finally, we have "Modifiers" to complete the "BEM" acronym.
 
@@ -149,12 +153,14 @@ For example, we might want to have two different colors of icons we support; sha
 To do this, we'll prefix the name of the "Box" followed by what the "Modifier" does:
 
 ```css
-.header--blue {}
+.header--blue {
+}
 
-.search-box--grey {}
+.search-box--grey {
+}
 ```
 
-------
+---
 
 BEM is a viable alternative for large-scale codebases if you follow its conventions well enough. Many people swear by its utility and ability to leverage the platform itself to solve the scoping problem.
 
@@ -172,13 +178,13 @@ This means that instead of something like this:
 <div class="search-container"></div>
 
 <style>
-.search-container {
-	border-radius: 8px;
-    color: #3366FF;
-    background: rgba(102, 148, 255, 0.1);
-    padding: 8px;
-    flex-grow: 1;
-}
+	.search-container {
+		border-radius: 8px;
+		color: #3366ff;
+		background: rgba(102, 148, 255, 0.1);
+		padding: 8px;
+		flex-grow: 1;
+	}
 </style>
 ```
 
@@ -188,22 +194,22 @@ We could instead break these CSS rules into modular reusable classes:
 <div class="rounded-md padding-md grow blue-on-blue"></div>
 
 <style>
-.rounded-md {
-	border-radius: 8px;
-}
+	.rounded-md {
+		border-radius: 8px;
+	}
 
-.padding-md {
-	padding: 8px;
-}
+	.padding-md {
+		padding: 8px;
+	}
 
-.grow {
-    flex-grow: 1;
-}
+	.grow {
+		flex-grow: 1;
+	}
 
-.blue-on-blue {
-    color: #3366FF;
-    background: rgba(102, 148, 255, 0.1);
-}
+	.blue-on-blue {
+		color: #3366ff;
+		background: rgba(102, 148, 255, 0.1);
+	}
 </style>
 ```
 
@@ -244,7 +250,7 @@ While Tailwind doesn't solve the cluttered markup challenges with hand-rolling y
 
   ![A color palette from Tailwind present in their docs](./tailwind_colors.png)
 
-- IDE support. From color previews to class name auto-completion, Tailwind has many integrations with most IDEs you'd want to use. 
+- IDE support. From color previews to class name auto-completion, Tailwind has many integrations with most IDEs you'd want to use.
 
   ![A dropdown of Tailwind classes with the associated colors next to each](./tailwind_ide.png)
 
@@ -284,7 +290,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+	plugins: [react(), tailwindcss()],
 });
 ```
 
@@ -293,16 +299,16 @@ Finally, we'll import our `src/styles.css` file into Vite's entry point of `inde
 ```html {7}
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-    <link rel="stylesheet" href="/src/style.css" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vite + React</title>
+		<link rel="stylesheet" href="/src/style.css" />
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/main.jsx"></script>
+	</body>
 </html>
 ```
 
@@ -322,9 +328,9 @@ Then, create a `.postcssrc.json` file and place the Tailwind plugin inside:
 
 ```json
 {
-  "plugins": {
-    "@tailwindcss/postcss": {}
-  }
+	"plugins": {
+		"@tailwindcss/postcss": {}
+	}
 }
 ```
 
@@ -349,7 +355,7 @@ import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [vue(), tailwindcss()],
+	plugins: [vue(), tailwindcss()],
 });
 ```
 
@@ -358,16 +364,16 @@ And import our `src/styles.css` file into Vite's `index.html`:
 ```html {7}
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Vue</title>
-    <link rel="stylesheet" href="/src/style.css" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vite + Vue</title>
+		<link rel="stylesheet" href="/src/style.css" />
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/main.js"></script>
+	</body>
 </html>
 ```
 
@@ -382,14 +388,14 @@ To make sure that Tailwind is properly configured, we can add it to our root com
 ```jsx
 const App = () => {
 	return (
-      <a
-        className="bg-indigo-600 text-white py-2 px-4 rounded-md"
-        href="https://discord.gg/FMcvc6T"
-      >
-        Join our Discord
-      </a>
-	)
-}
+		<a
+			className="bg-indigo-600 text-white py-2 px-4 rounded-md"
+			href="https://discord.gg/FMcvc6T"
+		>
+			Join our Discord
+		</a>
+	);
+};
 ```
 
 <iframe data-frame-title="React Tailwind - StackBlitz" src="pfp-code:./ffg-ecosystem-react-tailwind-9?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
@@ -418,12 +424,12 @@ export class App {}
 
 ```vue
 <template>
-  <a
-    className="bg-indigo-600 text-white py-2 px-4 rounded-md"
-    href="https://discord.gg/FMcvc6T"
-  >
-    Join our Discord
-  </a>
+	<a
+		className="bg-indigo-600 text-white py-2 px-4 rounded-md"
+		href="https://discord.gg/FMcvc6T"
+	>
+		Join our Discord
+	</a>
 </template>
 ```
 
@@ -447,9 +453,9 @@ This is why we had to add a list of files (via regex) to our `tailwind.config.js
 
 This means that if you don't have any Tailwind classes in your code, only the prerequisite CSS generated will be included:
 
-![A ".css" file of 5kB being generated from Vite](./tailwind_base_size.png) 
+![A ".css" file of 5kB being generated from Vite](./tailwind_base_size.png)
 
-> You're even able to shrink this prerequisite CSS down if you'd like. We can customize our `src/style.css` file to only include the prerequisites we need for our project. 
+> You're even able to shrink this prerequisite CSS down if you'd like. We can customize our `src/style.css` file to only include the prerequisites we need for our project.
 >
 > To demonstrate this, you can remove all of the `@tailwind` imports and you'll end up with `0kb` of CSS when you aren't using any Tailwind classes.
 
@@ -459,16 +465,24 @@ Because of Tailwind's "compile based on your code" strategy, it's able to have a
 
 Say you want to blur an image:
 
- ```html
- <img class="[filter:blur(4px)]" src="/unicorn.png" alt="A blurry cartoon unicorn in a bowtie"/>
- ```
+```html
+<img
+	class="[filter:blur(4px)]"
+	src="/unicorn.png"
+	alt="A blurry cartoon unicorn in a bowtie"
+/>
+```
 
 <img src="./unicorn.png" alt="A blurry cartoon unicorn in a bowtie" style="filter: blur(4px);" />
 
 Or maybe you want to have border width of a specific pixel value:
 
 ```html
-<img class="rounded-full border-sky-200 border-[12px]" src="/unicorn.png" alt="A cartoon unicorn in a bowtie with a light blue rounded border"/>
+<img
+	class="rounded-full border-sky-200 border-[12px]"
+	src="/unicorn.png"
+	alt="A cartoon unicorn in a bowtie with a light blue rounded border"
+/>
 ```
 
 <img src="./unicorn.png" alt="A cartoon unicorn in a bowtie with a light blue rounded border" style="border-radius: 9999px; border-color: rgb(186 230 253); border-width: 12px; border-style: solid" />
@@ -501,10 +515,12 @@ Well, what if each CSS file had their own auto-scoping pre-applied?
 
 ```css
 /* file-one.css */
-.container {}
+.container {
+}
 
 /* When used, is transformed to */
-.FILE_ONE_6591_container {}
+.FILE_ONE_6591_container {
+}
 
 /* To preserve uniqueness against other CSS files */
 ```
@@ -515,7 +531,7 @@ Luckily for us, each framework has a solution to this problem.
 
 ## React
 
-To automatically scope our CSS in our React application we'll rely on Vite's built-in support for [CSS Modules](https://github.com/css-modules/css-modules). 
+To automatically scope our CSS in our React application we'll rely on Vite's built-in support for [CSS Modules](https://github.com/css-modules/css-modules).
 
 To do this, we just need to add `.module.css` to the name of any CSS file:
 
@@ -523,23 +539,25 @@ To do this, we just need to add `.module.css` to the name of any CSS file:
 /* search-box.module.css */
 .container {
 	border-radius: 8px;
-    color: #3366FF;
-    background: rgba(102, 148, 255, 0.1);
-    padding: 8px;
-    display: flex;
+	color: #3366ff;
+	background: rgba(102, 148, 255, 0.1);
+	padding: 8px;
+	display: flex;
 }
 ```
 
-Then we'll import the CSS in our JSX file and use the name of the class as a property on the imported object: 
+Then we'll import the CSS in our JSX file and use the name of the class as a property on the imported object:
 
 ```jsx
 // App.jsx
-import style from './search-box.module.css';
+import style from "./search-box.module.css";
 
 function SearchBox() {
-  return <div className={style.container}>
-	<SearchIcon/>
-  </div>
+	return (
+		<div className={style.container}>
+			<SearchIcon />
+		</div>
+	);
 }
 ```
 
@@ -549,11 +567,11 @@ This will then generate the following markup and styling for us:
 <h1 class="_title_q98e2_3">The Framework Field Guide</h1>
 
 <style>
-._title_q98e2_3 {
-    font-weight: bold;
-    text-decoration: underline;
-    font-size: 2rem;
-}
+	._title_q98e2_3 {
+		font-weight: bold;
+		text-decoration: underline;
+		font-size: 2rem;
+	}
 </style>
 ```
 
@@ -594,19 +612,19 @@ Will generate the following CSS and Markup:
 
 ```html
 <app-root _nghost-ng-c118366096="">
-    <div _ngcontent-ng-c118366096="" class="container">
-        <!-- ... -->
-    </div>
+	<div _ngcontent-ng-c118366096="" class="container">
+		<!-- ... -->
+	</div>
 </app-root>
 
 <style>
-.container[_ngcontent-ng-c118366096] {
-    border-radius: 8px;
-    color: #3366FF;
-    background: rgba(102, 148, 255, 0.1);
-    padding: 8px;
-    display: flex;
-}
+	.container[_ngcontent-ng-c118366096] {
+		border-radius: 8px;
+		color: #3366ff;
+		background: rgba(102, 148, 255, 0.1);
+		padding: 8px;
+		display: flex;
+	}
 </style>
 ```
 
@@ -618,7 +636,7 @@ This means that if we have two different components, each with their own `.title
 
 Say you have a root `App` component that you want to disable the CSS scoping; This would enable the styles of `App` to act as global styles for your app.
 
- Angular supports doing this by changing the `encapsulation` property in the `@Component` decorator:
+Angular supports doing this by changing the `encapsulation` property in the `@Component` decorator:
 
 ```angular-ts {18}
 import { Component, ViewEncapsulation } from '@angular/core';
@@ -656,8 +674,8 @@ export class SearchBox {}
 
 Like Angular, Vue's SFC component format has scoped CSS as a feature built-in. There's two ways to do so in Vue:
 
-1) Using the `scoped` attribute - which uses PostCSS to add a prefix to the styled elements automatically
-2) Using the `module` attribute - which compiles down to [CSS Modules](https://github.com/css-modules/css-modules)
+1. Using the `scoped` attribute - which uses PostCSS to add a prefix to the styled elements automatically
+2. Using the `module` attribute - which compiles down to [CSS Modules](https://github.com/css-modules/css-modules)
 
 ### `scoped` Attribute
 
@@ -665,22 +683,22 @@ To scope your CSS in a Vue SFC, you can add the `scoped` attribute to your `<sty
 
 ```vue
 <script setup>
-import SearchIcon from "./SearchIcon.vue"
+import SearchIcon from "./SearchIcon.vue";
 </script>
 
 <template>
 	<div class="container">
-	    <SearchIcon/>
+		<SearchIcon />
 	</div>
 </template>
 
 <style scoped>
 .container {
-    border-radius: 8px;
-    color: #3366FF;
-    background: rgba(102, 148, 255, 0.1);
-    padding: 8px;
-    display: flex;
+	border-radius: 8px;
+	color: #3366ff;
+	background: rgba(102, 148, 255, 0.1);
+	padding: 8px;
+	display: flex;
 }
 </style>
 ```
@@ -693,13 +711,13 @@ This will output the following markup and styling:
 </div>
 
 <style>
-.container[data-v-7a7a37b1] {
-    border-radius: 8px;
-    color: #3366FF;
-    background: rgba(102, 148, 255, 0.1);
-    padding: 8px;
-    display: flex;
-}
+	.container[data-v-7a7a37b1] {
+		border-radius: 8px;
+		color: #3366ff;
+		background: rgba(102, 148, 255, 0.1);
+		padding: 8px;
+		display: flex;
+	}
 </style>
 ```
 
@@ -749,25 +767,25 @@ To do this in Vue SFC components, we'll use `<style module>` and the `useCssModu
 
 ```vue
 <script setup>
-import { useCssModule } from 'vue';
+import { useCssModule } from "vue";
 import SearchIcon from "./SearchIcon.vue";
 
 const style = useCssModule();
 </script>
 
 <template>
-  	<div :class="style.container">
-    	<SearchIcon/>
+	<div :class="style.container">
+		<SearchIcon />
 	</div>
 </template>
 
 <style module>
 .container {
-    border-radius: 8px;
-    color: #3366FF;
-    background: rgba(102, 148, 255, 0.1);
-    padding: 8px;
-    display: flex;
+	border-radius: 8px;
+	color: #3366ff;
+	background: rgba(102, 148, 255, 0.1);
+	padding: 8px;
+	display: flex;
 }
 </style>
 ```
@@ -780,13 +798,13 @@ This will transform the class name itself, rather than adding any attributes to 
 </div>
 
 <style>
-._container_1nd3v_2 {
-    border-radius: 8px;
-    color: #3366FF;
-    background: rgba(102, 148, 255, 0.1);
-    padding: 8px;
-    display: flex;
-}
+	._container_1nd3v_2 {
+		border-radius: 8px;
+		color: #3366ff;
+		background: rgba(102, 148, 255, 0.1);
+		padding: 8px;
+		display: flex;
+	}
 </style>
 ```
 
@@ -804,9 +822,9 @@ For example, let's say that I have a list of cards that I want to change the col
 
 ```html
 <ul>
-	<li class="red-card"><card/></li>
-	<li class="blue-card"><card/></li>
-	<li class="green-card"><card/></li>
+	<li class="red-card"><card /></li>
+	<li class="blue-card"><card /></li>
+	<li class="green-card"><card /></li>
 </ul>
 ```
 
@@ -905,19 +923,19 @@ To make a selector global in a scoped Vue `<style>` component, we can wrap it in
 ```vue
 <!--- App.vue -->
 <script setup>
-import Card from "./Card.vue"
+import Card from "./Card.vue";
 </script>
 
 <template>
 	<ul>
 		<li class="red-card">
-			<Card title="Red Card" description="Description 1"/>
+			<Card title="Red Card" description="Description 1" />
 		</li>
 		<li class="blue-card">
-			<Card title="Blue Card" description="Description 2"/>
+			<Card title="Blue Card" description="Description 2" />
 		</li>
 		<li class="green-card">
-			<Card title="Green Card" description="Description 3"/>
+			<Card title="Green Card" description="Description 3" />
 		</li>
 	</ul>
 </template>
@@ -955,16 +973,16 @@ CSS variables, in particular, have made large-scale CSS organization much easier
 ```css
 :root {
 	/* You'd ideally want other colors in here as well */
-   --blue-50: #F5F8FF;
-   --blue-100: #D6E4FF;
-   --blue-200: #AFC9FD;
-   --blue-300: #88AEFC;
-   --blue-400: #6694FF;
-   --blue-500: #3366FF;
-   --blue-600: #1942E6;
-   --blue-700: #0F2CBD;
-   --blue-800: #082096;
-   --blue-900: #031677;
+	--blue-50: #f5f8ff;
+	--blue-100: #d6e4ff;
+	--blue-200: #afc9fd;
+	--blue-300: #88aefc;
+	--blue-400: #6694ff;
+	--blue-500: #3366ff;
+	--blue-600: #1942e6;
+	--blue-700: #0f2cbd;
+	--blue-800: #082096;
+	--blue-900: #031677;
 }
 ```
 
@@ -983,7 +1001,7 @@ However, just like JavaScript, you can accidentally ship a variable that's not d
 ```css
 .container {
 	/* Notice the typo of `heder` instead of `header` */
-  /* Because of this typo, no `background-color` will be defined for this class */
+	/* Because of this typo, no `background-color` will be defined for this class */
 	background-color: var(--search-bg-defaultt);
 }
 ```
@@ -1013,11 +1031,11 @@ Similarly, CSS has a slew of subset languages which compile down to CSS. One suc
 >
 >    ```scss
 >    .container {
->        border-radius: 8px;
->        color: #3366FF;
->        background: rgba(102, 148, 255, 0.1);
->        padding: 8px;
->        flex-grow: 1;
+>    	border-radius: 8px;
+>    	color: #3366ff;
+>    	background: rgba(102, 148, 255, 0.1);
+>    	padding: 8px;
+>    	flex-grow: 1;
 >    }
 >    ```
 >
@@ -1052,7 +1070,7 @@ When using Vite, we can use Sass alongside CSS modules by naming our files in a 
 /* app.module.scss */
 
 /* This is the syntax for a SCSS variable. More on that soon */
-$blue_400: #6694FF;
+$blue_400: #6694ff;
 
 .container {
 	background-color: $blue_400;
@@ -1060,7 +1078,7 @@ $blue_400: #6694FF;
 }
 ```
 
-````jsx
+```jsx
 import style from "./app.module.scss";
 
 export function App() {
@@ -1070,7 +1088,7 @@ export function App() {
 		</div>
 	);
 }
-````
+```
 
 <iframe data-frame-title="React SCSS - StackBlitz" src="pfp-code:./ffg-ecosystem-react-sass-13?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
@@ -1082,11 +1100,11 @@ With the package installed, we can use `styleUrl` to link to a dedicated `.scss`
 /* app.scss */
 
 /* This is the syntax for a SCSS variable. More on that soon */
-$blue_400: #6694FF;
+$blue_400: #6694ff;
 
 .container {
-    background-color: $blue_400;
-  	padding: 1rem;
+	background-color: $blue_400;
+	padding: 1rem;
 }
 ```
 
@@ -1109,7 +1127,7 @@ export class App {}
 
 #### Inline SCSS Support
 
-This doesn't work out of the box, however, with inline styles. For example, if you try to add SCSS code into the  `styles` property in your `@Component` decorator:
+This doesn't work out of the box, however, with inline styles. For example, if you try to add SCSS code into the `styles` property in your `@Component` decorator:
 
 ```angular-ts
 @Component({
@@ -1147,33 +1165,33 @@ You'll be greeted with this error:
 
 To solve this, we'll need to modify our `angular.json` file.
 
-``` json
+```json
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
-    "your-app": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "//": "...",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:application",
-          "options": {
-            "//": "...",
-            "inlineStyleLanguage": "scss"
-          },
-          "//": "..."
-         },
-        "//": "..."
-      }
-    }
-  }
+	"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+	"version": 1,
+	"newProjectRoot": "projects",
+	"projects": {
+		"your-app": {
+			"projectType": "application",
+			"schematics": {
+				"@schematics/angular:component": {
+					"style": "scss"
+				}
+			},
+			"//": "...",
+			"architect": {
+				"build": {
+					"builder": "@angular-devkit/build-angular:application",
+					"options": {
+						"//": "...",
+						"inlineStyleLanguage": "scss"
+					},
+					"//": "..."
+				},
+				"//": "..."
+			}
+		}
+	}
 }
 ```
 
@@ -1187,24 +1205,24 @@ Once this is done, our inline styles will be treated as if they were inside of a
 
 SCSS works seamlessly with SFC components. To enable this integration, we'll add `lang="scss"` to our `<style>` tag:
 
-``` vue
+```vue
 <script setup>
-import SearchIcon from "./SearchIcon.vue"
+import SearchIcon from "./SearchIcon.vue";
 </script>
 
 <template>
 	<div class="container">
-	    <SearchIcon/>
+		<SearchIcon />
 	</div>
 </template>
 
 <style lang="scss">
 /* This is the syntax for a SCSS variable. More on that soon */
-$blue_400: #6694FF;
+$blue_400: #6694ff;
 
 .container {
-    background-color: $blue_400;
-  	padding: 1rem;
+	background-color: $blue_400;
+	padding: 1rem;
 }
 </style>
 ```
@@ -1215,68 +1233,66 @@ This works with the `scoped` and `module` attributes as well:
 
 ```vue
 <script setup>
-import SearchIcon from "./SearchIcon.vue"
+import SearchIcon from "./SearchIcon.vue";
 </script>
 
 <template>
 	<div class="container">
-	    <SearchIcon/>
+		<SearchIcon />
 	</div>
 </template>
 
 <style scoped lang="scss">
-$blue_400: #6694FF;
+$blue_400: #6694ff;
 
 .container {
-    background-color: $blue_400;
-  	padding: 1rem;
+	background-color: $blue_400;
+	padding: 1rem;
 }
 </style>
 ```
 
 ```vue
 <script setup>
-import { useCssModule } from 'vue';
-import SearchIcon from "./SearchIcon.vue"
+import { useCssModule } from "vue";
+import SearchIcon from "./SearchIcon.vue";
 
-    const style = useCssModule();
+const style = useCssModule();
 </script>
 
 <template>
 	<div :class="style.container">
-	    <SearchIcon/>
+		<SearchIcon />
 	</div>
 </template>
 
 <style module lang="scss">
-$blue_400: #6694FF;
+$blue_400: #6694ff;
 
 .container {
-    background-color: $blue_400;
-  	padding: 1rem;
+	background-color: $blue_400;
+	padding: 1rem;
 }
 </style>
 ```
 
 <!-- ::end:tabs -->
 
-
-
 ## Compile-time variables
 
 Let's look at that typo example from before, but this time use SCSS variables rather than CSS variables:
 
 ```scss
-$header_color: #2A3751;
+$header_color: #2a3751;
 
 .title {
-  color: $heder_color;
+	color: $heder_color;
 }
 ```
 
 While before the only indication of a typo was the styling not applying, now we have a proper error exposed to us when we try to build the app:
 
-``` 
+```
 Undefined variable.
   ╷
 4 │   color: $heder_color;
@@ -1284,7 +1300,6 @@ Undefined variable.
   ╵
   - 4:10  root stylesheet
 ```
-
 
 ### Media Query Variables
 
@@ -1301,12 +1316,12 @@ See, CSS variables are unable to be used inside of media queries at this time:
 
 However, because SCSS variables compile to vanilla CSS, we _can_ do something like this:
 
-````scss
+```scss
 $mobile: 860px;
 @media screen and (min-width: $mobile) {
 	/* ... */
 }
-````
+```
 
 This makes enabling consistent media queries much easier to handle.
 
@@ -1320,12 +1335,12 @@ We could, for example, change the opacity of a color:
 
 ```scss
 p {
-  color: transparentize(#FFF, 0.5);
+	color: transparentize(#fff, 0.5);
 }
 
 /* Outputs: */
 p {
-  color: rgba(255, 255, 255, 0.5);
+	color: rgba(255, 255, 255, 0.5);
 }
 ```
 
@@ -1333,12 +1348,12 @@ Do math operations:
 
 ```scss
 .header {
-  font-size: #{round(2.2)}rem;
+	font-size: #{round(2.2)}rem;
 }
 
 /* Outputs: */
 .header {
-  font-size: 2rem;
+	font-size: 2rem;
 }
 ```
 
@@ -1360,11 +1375,11 @@ We can even write our own Sass functions like so:
 
 ```scss
 @function getFavoriteColor() {
-    @return purple;
+	@return purple;
 }
 
 .purple-bg {
-    background-color: getFavoriteColor();
+	background-color: getFavoriteColor();
 }
 ```
 
@@ -1377,38 +1392,38 @@ Just like any other language, Sass has the ability to do conditional statements.
 ```scss
 // Given a single color, get white or black, depending on what's more readable
 @function getReadableColor($color) {
-    @if (lightness($color) > 50%) {
-        @return #000;
-    } @else {
-        @return #fff;
-    }
+	@if (lightness($color) > 50%) {
+		@return #000;
+	} @else {
+		@return #fff;
+	}
 }
 
 .red-text {
-    padding: 1rem;
-    font-size: 1.5rem;
-    background-color: darkred;
-    /* White */
-    color: getReadableColor(darkred);
+	padding: 1rem;
+	font-size: 1.5rem;
+	background-color: darkred;
+	/* White */
+	color: getReadableColor(darkred);
 }
 ```
 
 <p style="padding: 1rem; font-size: 1.5rem; background-color: darkred; color: white;">Testing 123</p>
 
-Likewise, we can even use lists and loops in Sass to generate a collection of items to use later: 
+Likewise, we can even use lists and loops in Sass to generate a collection of items to use later:
 
 ```scss
 // Given a single color, return an array of 10 colors that are lighter than the original color.
 @function getGradient($color) {
-  $colors: ();
-  @for $i from 1 through 10 {
-    $colors: append($colors, lighten($color, $i * 10%), comma);
-  }
-  @return linear-gradient(to right, $colors);
+	$colors: ();
+	@for $i from 1 through 10 {
+		$colors: append($colors, lighten($color, $i * 10%), comma);
+	}
+	@return linear-gradient(to right, $colors);
 }
 
 .gradient {
-  background: getGradient(darkred);
+	background: getGradient(darkred);
 }
 ```
 
@@ -1425,20 +1440,20 @@ Well, in Sass, these CSS-rule functions are called "Mixins" and can be used like
 
 ```scss
 @mixin text-color($color) {
-  padding: 1rem;
-  font-size: 1.5rem;
-  background-color: $color;
-  color: getReadableColor(darkred);
+	padding: 1rem;
+	font-size: 1.5rem;
+	background-color: $color;
+	color: getReadableColor(darkred);
 }
 
 .red-bg {
-  @include text-color(darkred);
+	@include text-color(darkred);
 }
 ```
 
 # CSS-in-JS
 
-Sass is a cool technology that's been used in codebases for many years now. However, isn't it unfortunate that we have to learn _yet another_ language to have features like the ones offered by Sass? 
+Sass is a cool technology that's been used in codebases for many years now. However, isn't it unfortunate that we have to learn _yet another_ language to have features like the ones offered by Sass?
 
 > It's not enough to learn TypeScript, JavaScript, HTML, and CSS; now we have to learn Sass' extensions as well?
 
@@ -1449,21 +1464,21 @@ Instead of having to utilize a new language, what if we could write CSS tokens, 
 Well, with [Emotion](https://emotion.sh/docs/introduction) - we can!
 
 ```jsx
-import { css } from '@emotion/css'
+import { css } from "@emotion/css";
 
-const headerColor = '#2A3751'
+const headerColor = "#2A3751";
 
 render(
-  <h1
-    className={css`
-      color: ${headerColor};
-      font-size: 2rem;
-      text-decoration: underline;
-   `}
-  >
-    I am a title
-  </h1>
-)
+	<h1
+		className={css`
+			color: ${headerColor};
+			font-size: 2rem;
+			text-decoration: underline;
+		`}
+	>
+		I am a title
+	</h1>,
+);
 ```
 
 By using this pattern, we're able to have all of the features outlined from Sass represented in a language we're more familiar with.
@@ -1521,18 +1536,18 @@ npm i @emotion/styled @emotion/react
 Now let's see usage of this API:
 
 ```jsx
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
-const headerColor = '#2A3751';
+const headerColor = "#2A3751";
 
 const H1 = styled.h1`
-  color: ${headerColor};
-  font-size: 2rem;
-  text-decoration: underline;
+	color: ${headerColor};
+	font-size: 2rem;
+	text-decoration: underline;
 `;
 
 export function App() {
-  return <H1>I am a heading</H1>;
+	return <H1>I am a heading</H1>;
 }
 ```
 
@@ -1571,19 +1586,19 @@ Let's use Emotion with Vue! To do this, we'll have a `css` template literal in o
 
 ```vue
 <script setup>
-import { css } from '@emotion/css';
+import { css } from "@emotion/css";
 
-const headerColor = '#2A3751';
+const headerColor = "#2A3751";
 
 const styles = css`
-  color: ${headerColor};
-  font-size: 2rem;
-  text-decoration: underline;
+	color: ${headerColor};
+	font-size: 2rem;
+	text-decoration: underline;
 `;
 </script>
 
 <template>
-  <h1 :class="styles">I am a heading</h1>
+	<h1 :class="styles">I am a heading</h1>
 </template>
 ```
 
@@ -1658,9 +1673,7 @@ These CSS-in-JS solutions are able to fix their performance problems because the
 
 ![The app.js file has a bit of it extracted to generate the stylesheet.css file](./stylesheet_extract.svg)
 
-
-
---------
+---
 
 > What is statistical analysis?
 
@@ -1670,7 +1683,7 @@ This `app_generated.js` file is the same as before, but with a different bit of 
 
 ![The JS file is scanned for keywords and is extracted](./scan_keywords.svg)
 
--------
+---
 
 One such compiled CSS-in-JS library is called "PandaCSS". Its API allows us to take code like this:
 
@@ -1713,9 +1726,9 @@ export class App {
 <script setup lang="ts">
 import { css } from "../styled-system/css";
 </script>
- 
+
 <template>
-  <div :class="css({ bg: 'red.400', height: 'screen', width: 'screen'  })"></div>
+	<div :class="css({ bg: 'red.400', height: 'screen', width: 'screen' })"></div>
 </template>
 ```
 
@@ -1726,24 +1739,24 @@ And transform it into this:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <style>
-        .bg_red\.400 {
-            background: var(--colors-red-400);
-        }
-          
-        .w_screen {
-            width: 100vw;
-        }
-          
-        .h_screen {
-            height: 100vh;
-        }
-        </style>
-    </head>
-    <body>
-        <!-- ... -->
-    </body>
+	<head>
+		<style>
+			.bg_red\.400 {
+				background: var(--colors-red-400);
+			}
+
+			.w_screen {
+				width: 100vw;
+			}
+
+			.h_screen {
+				height: 100vh;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- ... -->
+	</body>
 </html>
 ```
 
@@ -1752,9 +1765,9 @@ And transform it into this:
 ## React
 
 ```jsx
-// App.jsx 
+// App.jsx
 export function App() {
-  return <div className="bg_red.400 h_screen w_screen" />
+	return <div className="bg_red.400 h_screen w_screen" />;
 }
 ```
 
@@ -1781,7 +1794,7 @@ export class App {
 
 ```vue
 <template>
-  <div class="bg_red.400 h_screen w_screen"></div>
+	<div class="bg_red.400 h_screen w_screen"></div>
 </template>
 ```
 
@@ -1803,9 +1816,9 @@ Create a file called `postcss.config.json` in Angular so that PostCSS knows to r
 
 ```json
 {
-  "plugins": {
-    "@pandacss/dev/postcss": {}
-  }
+	"plugins": {
+		"@pandacss/dev/postcss": {}
+	}
 }
 ```
 
@@ -1813,30 +1826,30 @@ Or in React / Vue using Vite we'll need to change the file to `postcss.config.js
 
 ```javascript
 export default {
-  "plugins": {
-    "@pandacss/dev/postcss": {}
-  }
-}
+	plugins: {
+		"@pandacss/dev/postcss": {},
+	},
+};
 ```
 
 Then you'll want to configure a `panda.config.ts` file:
 
 ```typescript
-import { defineConfig } from "@pandacss/dev"
- 
+import { defineConfig } from "@pandacss/dev";
+
 export default defineConfig({
- // Whether to use css reset
- preflight: true,
- 
- // Where to look for your css declarations
- include: ['./src/**/*.{js,jsx,ts,tsx,vue,html}'],
- 
- // Files to exclude
- exclude: [],
- 
- // The output directory for your css system
- outdir: "styled-system",
-})
+	// Whether to use css reset
+	preflight: true,
+
+	// Where to look for your css declarations
+	include: ["./src/**/*.{js,jsx,ts,tsx,vue,html}"],
+
+	// Files to exclude
+	exclude: [],
+
+	// The output directory for your css system
+	outdir: "styled-system",
+});
 ```
 
 Add the following to your global `.css` file:

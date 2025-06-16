@@ -2,12 +2,12 @@
 // eslint.config.mjs
 
 import pluginJs from "@eslint/js";
-import pluginTs from 'typescript-eslint';
-import pluginAngular from 'angular-eslint';
+import pluginTs from "typescript-eslint";
+import pluginAngular from "angular-eslint";
 
 export default pluginTs.config(
 	{
-		files: ['**/*.ts'],
+		files: ["**/*.ts"],
 		extends: [
 			pluginJs.configs.recommended,
 			...pluginTs.configs.recommendedTypeChecked,
@@ -23,9 +23,7 @@ export default pluginTs.config(
 		processor: pluginAngular.processInlineTemplates,
 	},
 	{
-		files: ['**/*.html'],
-		extends: [
-			...pluginAngular.configs.templateRecommended,
-		]
+		files: ["**/*.html"],
+		extends: [...pluginAngular.configs.templateRecommended],
 	},
 );

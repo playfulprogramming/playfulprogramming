@@ -1,17 +1,17 @@
 <script setup>
-import Card from "./Card.vue"
+import Card from "./Card.vue";
 </script>
 
 <template>
 	<ul>
 		<li class="red-card">
-			<Card title="Red Card" description="Description 1"/>
+			<Card title="Red Card" description="Description 1" />
 		</li>
 		<li class="blue-card">
-			<Card title="Blue Card" description="Description 2"/>
+			<Card title="Blue Card" description="Description 2" />
 		</li>
 		<li class="green-card">
-			<Card title="Green Card" description="Description 3"/>
+			<Card title="Green Card" description="Description 3" />
 		</li>
 	</ul>
 </template>

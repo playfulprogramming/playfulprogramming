@@ -1,16 +1,16 @@
 <script setup>
-import SearchIcon from "./SearchIcon.vue"
+import SearchIcon from "./SearchIcon.vue";
 </script>
 
 <template>
 	<div class="container">
-		<SearchIcon/>
+		<SearchIcon />
 	</div>
 </template>
 
 <style lang="scss">
 /* This is the syntax for a SCSS variable. More on that soon */
-$blue_400: #6694FF;
+$blue_400: #6694ff;
 
 .container {
 	background-color: $blue_400;

@@ -1,11 +1,11 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
-const headerColor = '#2A3751';
+const headerColor = "#2A3751";
 
 const H1 = styled.h1`
-  color: ${headerColor};
-  font-size: 2rem;
-  text-decoration: underline;
+	color: ${headerColor};
+	font-size: 2rem;
+	text-decoration: underline;
 `;
 
 export function App() {

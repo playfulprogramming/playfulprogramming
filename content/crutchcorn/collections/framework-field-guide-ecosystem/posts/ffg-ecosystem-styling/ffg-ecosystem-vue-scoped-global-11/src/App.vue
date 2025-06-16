@@ -4,7 +4,7 @@ import Child from "./Child.vue";
 
 <template>
 	<p class="blue">This is blue text</p>
-  <p class="red">This is red text</p>
+	<p class="red">This is red text</p>
 	<Child />
 </template>
 

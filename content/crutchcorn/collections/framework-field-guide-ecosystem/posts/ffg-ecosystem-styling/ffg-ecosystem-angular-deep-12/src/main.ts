@@ -3,7 +3,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	input,
-	provideZonelessChangeDetection
+	provideZonelessChangeDetection,
 } from "@angular/core";
 
 @Component({

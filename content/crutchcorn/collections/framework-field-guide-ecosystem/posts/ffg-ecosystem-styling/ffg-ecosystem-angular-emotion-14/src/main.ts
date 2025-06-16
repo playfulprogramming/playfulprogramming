@@ -1,5 +1,9 @@
 import { bootstrapApplication } from "@angular/platform-browser";
-import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	provideZonelessChangeDetection,
+} from "@angular/core";
 import { css } from "@emotion/css";
 
 @Component({
