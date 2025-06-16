@@ -1207,7 +1207,7 @@ $blue_400: #6694FF;
 </style>
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Vue SCSS - StackBlitz" src="pfp-code:./ffg-ecosystem-vue-sass-13?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 This works with the `scoped` and `module` attributes as well:
 
@@ -1483,25 +1483,26 @@ Now let's integrate it with our framework of choice:
 So here's the funny thing: The above code sample is actually using React and Emotion together:
 
 ```jsx
-import { css } from '@emotion/css'
+import { css } from "@emotion/css";
 
-const headerColor = '#2A3751'
+const headerColor = "#2A3751";
 
-function App() {
-  return (<h1
-    className={css`
-      color: ${headerColor};
-      font-size: 2rem;
-	  text-decoration: underline;
-    `}
-  >
-    I am a title
-  </h1>
-  )
+export function App() {
+	return (
+		<h1
+			className={css`
+				color: ${headerColor};
+				font-size: 2rem;
+				text-decoration: underline;
+			`}
+		>
+			I am a title
+		</h1>
+	);
 }
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="React Emotion - StackBlitz" src="pfp-code:./ffg-ecosystem-react-emotion-14?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 This is valid code that we can use and extend as we see fit. However, that's not all; Emotion has another API available for React applications.
 
@@ -1533,7 +1534,7 @@ export function App() {
 }
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="React Emotion Styled - StackBlitz" src="pfp-code:./ffg-ecosystem-react-emotion-styled-14?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Angular
 
@@ -1560,7 +1561,7 @@ export class App {
 }
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Angular Emotion - StackBlitz" src="pfp-code:./ffg-ecosystem-angular-emotion-14?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Vue
 
@@ -1584,7 +1585,7 @@ const styles = css`
 </template>
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Vue Emotion - StackBlitz" src="pfp-code:./ffg-ecosystem-vue-emotion-14?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 <!-- ::end:tabs -->
 
