@@ -133,10 +133,6 @@ export function createHtmlPlugins(unified: Processor) {
 					"only-ebook": transformVoid,
 					tabs: transformTabs,
 				},
-				htmlOptions: {
-					allowDangerousHtml: true,
-					voids: [],
-				},
 			})
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)

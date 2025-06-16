@@ -66,11 +66,6 @@ export function createEpubPlugins(unified: Processor) {
 					["only-ebook"]: transformNoop,
 					tabs: transformNoop,
 				},
-				htmlOptions: {
-					allowDangerousHtml: true,
-					// Voids: [] is required for epub generation, and causes little/no harm for non-epub usage
-					voids: [],
-				},
 			})
 			.use(rehypeStringify)
 	);
