@@ -820,17 +820,129 @@ Luckily for us, we can!
 
 ### React
 
-// TODO: `:global`
+React is able to bypass the scoping inside of a CSS module file by prefixing `:global` to a selector, like so:
+
+```css
+/* App.module.css */
+ul {
+	display: flex;
+	list-style: none;
+}
+
+.redCard :global [data-title] {
+	color: red;
+}
+
+.blueCard :global [data-title] {
+	color: blue;
+}
+
+.greenCard :global [data-title] {
+	color: green;
+}
+```
+
+Here, we're saying that the scoped `.redCard` class has a global selector of `[data-title]`, for example.
+
+<iframe data-frame-title="React Deep CSS - StackBlitz" src="pfp-code:./ffg-ecosystem-react-deep-12?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Angular
 
-// TODO: `::ng-deep`
+Just like React's `:global` selector, Angular has had the `::ng-deep` selector to find a global path in our otherwise scoped CSS:
 
-// Mention depreciation warning undeprecating
+```angular-ts
+@Component({
+	selector: "app-root",
+	standalone: true,
+	imports: [Card],
+	template: `
+		<ul>
+			<li class="red-card">
+				<app-card title="Red Card" description="Description 1" />
+			</li>
+			<li class="blue-card">
+				<app-card title="Blue Card" description="Description 2" />
+			</li>
+			<li class="green-card">
+				<app-card title="Green Card" description="Description 3" />
+			</li>
+		</ul>
+	`,
+	styles: [
+		`
+			ul {
+				display: flex;
+				list-style: none;
+			}
+
+			.red-card ::ng-deep [data-title] {
+				color: red;
+			}
+
+			.blue-card ::ng-deep [data-title] {
+				color: blue;
+			}
+
+			.green-card ::ng-deep [data-title] {
+				color: green;
+			}
+		`,
+	],
+})
+export class App {}
+```
+
+> **Note**:
+>
+> `::ng-deep` was originally deprecated in Angular v7, but was officially undeprecated in Angular 18.
+
+<iframe data-frame-title="Angular Deep CSS - StackBlitz" src="pfp-code:./ffg-ecosystem-angular-deep-12?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Vue
 
-// TODO: Mention `:deep`
+To make a selector global in a scoped Vue `<style>` component, we can wrap it in the `:deep` function from Vue:
+
+```vue
+<!--- App.vue -->
+<script setup>
+import Card from "./Card.vue"
+</script>
+
+<template>
+	<ul>
+		<li class="red-card">
+			<Card title="Red Card" description="Description 1"/>
+		</li>
+		<li class="blue-card">
+			<Card title="Blue Card" description="Description 2"/>
+		</li>
+		<li class="green-card">
+			<Card title="Green Card" description="Description 3"/>
+		</li>
+	</ul>
+</template>
+
+<style scoped>
+ul {
+	display: flex;
+	list-style: none;
+}
+
+.red-card :deep([data-title]) {
+	color: red;
+}
+
+.blue-card :deep([data-title]) {
+	color: blue;
+}
+
+.green-card :deep([data-title]) {
+	color: green;
+}
+</style>
+```
+
+<iframe data-frame-title="Vue Deep CSS - StackBlitz" src="pfp-code:./ffg-ecosystem-vue-deep-12?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 <!-- ::end:tabs -->
 
