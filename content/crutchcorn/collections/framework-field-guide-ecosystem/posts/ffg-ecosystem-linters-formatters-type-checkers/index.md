@@ -401,7 +401,7 @@ Once this is present, we can check it's working by throwing some deprecated Angu
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 	template: "<p>Hello, world!</p>",
 })
 export class AppThing {

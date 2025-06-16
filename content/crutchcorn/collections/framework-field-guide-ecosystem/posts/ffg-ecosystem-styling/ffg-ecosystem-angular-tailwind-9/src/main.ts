@@ -1,9 +1,13 @@
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Component, provideZonelessChangeDetection } from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	provideZonelessChangeDetection,
+} from "@angular/core";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<a
 			class="bg-indigo-600 text-white py-2 px-4 rounded-md"

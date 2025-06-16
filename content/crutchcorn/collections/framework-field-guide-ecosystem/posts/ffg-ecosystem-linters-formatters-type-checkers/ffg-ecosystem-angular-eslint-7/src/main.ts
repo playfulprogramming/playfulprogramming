@@ -1,5 +1,6 @@
 import { bootstrapApplication } from "@angular/platform-browser";
 import {
+	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
 	Inject,
@@ -8,7 +9,7 @@ import {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: "<p>Hello, world!</p>",
 })
 export class AppThing {

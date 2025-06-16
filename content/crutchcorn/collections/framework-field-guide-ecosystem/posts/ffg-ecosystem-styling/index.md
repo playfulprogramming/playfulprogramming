@@ -399,7 +399,7 @@ const App = () => {
 ```angular-ts
 @Component({
   selector: "app-root",
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
       <a
         class="bg-indigo-600 text-white py-2 px-4 rounded-md"
@@ -568,7 +568,7 @@ In Angular, we're able to use styles relative to the component by using either t
 ```angular-ts
 @Component({
   selector: 'search-box',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SearchIcon],
   styles: [
     `
@@ -625,7 +625,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'search-box',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SearchIcon],
   styles: [
     `
@@ -853,7 +853,7 @@ Just like React's `:global` selector, Angular has had the `::ng-deep` selector t
 ```angular-ts
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [Card],
 	template: `
 		<ul>
@@ -1094,6 +1094,7 @@ $blue_400: #6694FF;
 @Component({
   selector: 'app-root',
   imports: [SearchIcon],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app.scss',
   template: `
  	<div class="container">
@@ -1114,6 +1115,7 @@ This doesn't work out of the box, however, with inline styles. For example, if y
 @Component({
   selector: 'app-root',
   imports: [SearchIcon],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
 $blue_400: #6694FF;
@@ -1545,7 +1547,7 @@ import { css } from '@emotion/css';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h1 [class]="styles">I am a heading</h1>
   `,
@@ -1695,7 +1697,7 @@ import { css } from '../styled-system/css';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [class]="redBg"></div>
   `,
@@ -1763,7 +1765,7 @@ export function App() {
 ```angular-ts
 @Component({
   selector: 'app-root',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [class]="redBg"></div>
   `,

@@ -1,13 +1,14 @@
 import { bootstrapApplication } from "@angular/platform-browser";
 import {
+	ChangeDetectionStrategy,
 	Component,
 	input,
-	provideZonelessChangeDetection,
+	provideZonelessChangeDetection
 } from "@angular/core";
 
 @Component({
 	selector: "app-card",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="card">
 			<h2 data-title>{{ title() }}</h2>
@@ -32,7 +33,7 @@ export class Card {
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [Card],
 	template: `
 		<ul>

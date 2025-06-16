@@ -1,10 +1,14 @@
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Component, provideZonelessChangeDetection } from "@angular/core";
+import {
+	ChangeDetectionStrategy,
+	Component,
+	provideZonelessChangeDetection,
+} from "@angular/core";
 import { SearchIcon } from "./search-icon";
 
 @Component({
 	selector: "search-box",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [SearchIcon],
 	styles: [
 		`
@@ -27,7 +31,7 @@ export class SearchBox {}
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [SearchBox],
 	template: ` <search-box /> `,
 })

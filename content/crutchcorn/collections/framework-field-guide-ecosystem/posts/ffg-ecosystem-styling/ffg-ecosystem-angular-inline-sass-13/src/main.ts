@@ -1,9 +1,9 @@
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Component, provideZonelessChangeDetection } from "@angular/core";
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from "@angular/core";
 
 @Component({
 	selector: "search-icon",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<svg
 		width="26"
 		height="27"
@@ -21,6 +21,7 @@ export class SearchIcon {}
 
 @Component({
 	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [SearchIcon],
 	styles: [
 		`

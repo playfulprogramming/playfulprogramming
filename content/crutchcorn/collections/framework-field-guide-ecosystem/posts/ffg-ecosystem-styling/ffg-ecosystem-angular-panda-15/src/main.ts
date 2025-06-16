@@ -1,10 +1,10 @@
 import { bootstrapApplication } from "@angular/platform-browser";
-import { Component, provideZonelessChangeDetection } from "@angular/core";
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from "@angular/core";
 import { css } from "../styled-system/css";
 
 @Component({
 	selector: "app-root",
-	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ` <div [class]="redBg"></div> `,
 })
 export class App {
