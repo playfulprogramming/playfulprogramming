@@ -43,7 +43,7 @@ export const transformTabs: RehypeFunctionComponent = async ({ children }) => {
 
 			tabs.push({
 				slug: headerSlug,
-				name: toString(localNode as never),
+				name: toString(localNode),
 				headers: [],
 			});
 			tabsChildren.push({

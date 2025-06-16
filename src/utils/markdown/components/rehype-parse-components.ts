@@ -4,33 +4,13 @@ import { unified, Plugin } from "unified";
 import rehypeParse from "rehype-parse";
 import { logError } from "../logger";
 import { VFile } from "vfile";
+import { ComponentMarkupNode, PlayfulNode, PlayfulRoot } from "./components";
 
 const unifiedRehype = unified().use(rehypeParse, { fragment: true });
 
 const COMPONENT_PREFIX = "::";
 const START_PREFIX = "::start:";
 const END_PREFIX = "::end:";
-
-export type ComponentElement = hast.Element & {
-	tagName: "playful-component";
-	properties: hast.Properties & {
-		name: string;
-	};
-	data: hast.ElementData & {
-		attributes: Record<string, string>;
-	};
-};
-
-export function isComponentElement(node: unknown): node is ComponentElement {
-	return !!(
-		typeof node === "object" &&
-		node &&
-		"type" in node &&
-		node.type === "element" &&
-		"tagName" in node &&
-		node.tagName === "playful-component"
-	);
-}
 
 const isNodeComment = (node: unknown): node is hast.Comment =>
 	!!(
@@ -47,11 +27,11 @@ const isNodeElement = (node: unknown): node is hast.Element =>
 		node["type"] === "element") ??
 	false;
 
-export const rehypeParseComponents: Plugin<[], hast.Root> = function () {
+export const rehypeParseComponents: Plugin<[], PlayfulRoot> = function () {
 	function parseComponents(
-		tree: hast.Root,
+		tree: PlayfulRoot,
 		vfile: VFile,
-	): hast.ElementContent[] {
+	): (PlayfulNode | hast.ElementContent)[] {
 		for (let index = 0; index < tree.children.length; index++) {
 			const node = tree.children[index];
 
@@ -103,26 +83,20 @@ export const rehypeParseComponents: Plugin<[], hast.Root> = function () {
 			// Fetch all nodes between the ranged comments (if indexEnd=0, this will be an empty array)
 			const componentChildren = tree.children.slice(index + 1, indexEnd);
 			const parsedComponentChildren = parseComponents(
-				{ type: "root", children: componentChildren as hast.RootContent[] },
+				{ type: "root", children: componentChildren },
 				vfile,
 			);
 
-			const replacement: ComponentElement = {
-				type: "element",
-				tagName: "playful-component",
+			const replacement: ComponentMarkupNode = {
+				type: "playful-component-markup",
 				position: node.position,
-				properties: {
-					name: componentNode.tagName,
-				},
-				data: {
-					position: {},
-					attributes: Object.fromEntries(
-						Object.entries(componentNode.properties).map(([key, value]) => [
-							key,
-							Array.isArray(value) ? value.join(" ") : String(value),
-						]),
-					),
-				},
+				component: componentNode.tagName,
+				attributes: Object.fromEntries(
+					Object.entries(componentNode.properties).map(([key, value]) => [
+						key,
+						Array.isArray(value) ? value.join(" ") : String(value),
+					]),
+				),
 				children: parsedComponentChildren,
 			};
 
@@ -133,7 +107,7 @@ export const rehypeParseComponents: Plugin<[], hast.Root> = function () {
 			);
 		}
 
-		return tree.children as hast.ElementContent[];
+		return tree.children;
 	}
 
 	return async (tree, vfile) => {

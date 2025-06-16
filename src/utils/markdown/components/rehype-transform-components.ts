@@ -1,13 +1,13 @@
-import * as hast from "hast";
 import { Plugin } from "unified";
 import { RehypeFunctionComponent } from "./types";
 import { logError } from "../logger";
 import { VFile } from "vfile";
-import { isComponentNode, PlayfulNode, PlayfulRoot } from "./components";
 import {
-	ComponentElement,
-	isComponentElement,
-} from "./rehype-parse-components";
+	isComponentMarkup,
+	isComponentNode,
+	PlayfulNode,
+	PlayfulRoot,
+} from "./components";
 
 type RehypeComponentsProps = {
 	components: Record<string, RehypeFunctionComponent>;
@@ -15,12 +15,12 @@ type RehypeComponentsProps = {
 
 export const rehypeTransformComponents: Plugin<
 	[RehypeComponentsProps],
-	hast.Root
+	PlayfulRoot
 > = function ({ components }) {
 	async function transformComponents(tree: PlayfulRoot, vfile: VFile) {
 		const results: Array<{
 			index: number;
-			node: ComponentElement | PlayfulNode;
+			node: PlayfulNode;
 			replacement: ReturnType<RehypeFunctionComponent>;
 		}> = [];
 
@@ -32,16 +32,12 @@ export const rehypeTransformComponents: Plugin<
 				continue;
 			}
 
-			if (!isComponentElement(node)) continue;
+			if (!isComponentMarkup(node)) continue;
 
 			// Find the component matching the given tag
-			const component = components[node.properties.name];
+			const component = components[node.component];
 			if (!component) {
-				logError(
-					vfile,
-					node,
-					`Unknown markdown component ${node.properties.name}`,
-				);
+				logError(vfile, node, `Unknown markdown component ${node.component}`);
 				throw new Error();
 			}
 
@@ -54,7 +50,7 @@ export const rehypeTransformComponents: Plugin<
 			const replacement = component({
 				vfile,
 				node,
-				attributes: node.data.attributes,
+				attributes: node.attributes,
 				children: node.children,
 			});
 
@@ -69,7 +65,7 @@ export const rehypeTransformComponents: Plugin<
 				throw new Error();
 			}
 
-			tree.children.splice(index, 1, ...((replacementNodes ?? []) as never[]));
+			tree.children.splice(index, 1, ...(replacementNodes ?? []));
 		}
 	}
 

@@ -1,39 +1,37 @@
-import { Root } from "hast";
+import * as hast from "hast";
 import { Plugin } from "unified";
 import { find } from "unist-util-find";
-import {
-	ComponentElement,
-	isComponentElement,
-} from "../rehype-parse-components";
 import { visit } from "unist-util-visit";
 import { toString } from "hast-util-to-string";
 import { RehypeFunctionComponent } from "../types";
-import { createComponent } from "../components";
+import {
+	ComponentMarkupNode,
+	createComponent,
+	PlayfulRoot,
+} from "../components";
+import { isValidComponentParent } from "../rehype-validate-components";
 
-export const rehypeDetailsElement: Plugin<[], Root> = () => {
+export const rehypeDetailsElement: Plugin<[], PlayfulRoot> = () => {
 	return (tree, _) => {
 		visit(
 			tree,
 			{ type: "element", tagName: "details" },
 			(node, index, parent) => {
 				if (typeof index === "undefined") return;
-				if (parent !== tree && !isComponentElement(parent)) return;
+				if (!isValidComponentParent(parent)) return;
 
-				const summary = find(node, { type: "element", tagName: "summary" });
+				const summary = find<hast.Element>(node, {
+					type: "element",
+					tagName: "summary",
+				});
 				if (!summary) return;
 
-				const replacement: ComponentElement = {
-					type: "element",
-					tagName: "playful-component",
+				const replacement: ComponentMarkupNode = {
+					type: "playful-component-markup",
 					position: node.position,
-					properties: {
-						name: "hint",
-					},
-					data: {
-						position: {},
-						attributes: {
-							title: toString(summary as never),
-						},
+					component: "hint",
+					attributes: {
+						title: toString(summary),
 					},
 					children: node.children.filter((child) => child !== summary),
 				};

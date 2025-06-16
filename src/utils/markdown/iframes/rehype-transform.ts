@@ -19,9 +19,9 @@ import {
 } from "utils/fetch-page-html";
 import { LRUCache } from "lru-cache";
 import {
-	ComponentElement,
+	ComponentMarkupNode,
 	createComponent,
-	isComponentElement,
+	isComponentMarkup,
 } from "../components";
 import { logError } from "../logger";
 
@@ -193,7 +193,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 > = ({ srcReplacements = [] }) => {
 	return async (tree, file) => {
 		const iframeNodes: {
-			parent: ComponentElement | Root;
+			parent: ComponentMarkupNode | Root;
 			node: Element;
 		}[] = [];
 		visit(
@@ -201,7 +201,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 			{ type: "element", tagName: "iframe" },
 			(node: Element, _, parent) => {
 				if (!parent) return;
-				if (parent !== tree && !isComponentElement(parent)) {
+				if (parent !== tree && !isComponentMarkup(parent)) {
 					logError(file, node, "Cannot process a nested iframe!");
 					throw new Error();
 				}

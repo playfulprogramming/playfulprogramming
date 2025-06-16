@@ -9,7 +9,7 @@ import Tooltip from "./tooltip/tooltip.astro";
 
 export interface PlayfulRoot {
 	type: "root";
-	children: (PlayfulNode | hast.RootContent)[];
+	children: (PlayfulNode | hast.ElementContent)[];
 }
 
 export interface HtmlNode extends hast.Node {
@@ -17,21 +17,41 @@ export interface HtmlNode extends hast.Node {
 	innerHtml: string;
 }
 
+export interface ComponentMarkupNode extends hast.Node {
+	type: "playful-component-markup";
+	component: string;
+	attributes: Record<string, string>;
+	children: (PlayfulNode | hast.ElementContent)[];
+}
+
 export interface ComponentNode<Props = object> extends hast.Node {
-	type: "component";
+	type: "playful-component";
 	component: keyof typeof components;
 	props: Omit<Props, "children">;
 	children: (PlayfulNode | hast.ElementContent)[];
 }
 
-export type PlayfulNode = PlayfulRoot | HtmlNode | ComponentNode;
+export type PlayfulNode =
+	| PlayfulRoot
+	| HtmlNode
+	| ComponentNode
+	| ComponentMarkupNode;
 
 export function isComponentNode(node: unknown): node is ComponentNode {
 	return !!(
 		node &&
 		typeof node === "object" &&
 		"type" in node &&
-		node.type === "component"
+		node.type === "playful-component"
+	);
+}
+
+export function isComponentMarkup(node: unknown): node is ComponentMarkupNode {
+	return !!(
+		typeof node === "object" &&
+		node &&
+		"type" in node &&
+		node.type === "playful-component-markup"
 	);
 }
 
@@ -60,7 +80,7 @@ export function createComponent<Key extends keyof typeof components>(
 	children?: ComponentNode["children"],
 ): ComponentNode<Parameters<(typeof components)[Key]>[0]> {
 	return {
-		type: "component",
+		type: "playful-component",
 		component: key,
 		props: props,
 		children: children ?? [],

@@ -1,19 +1,22 @@
-import { Root, Element } from "hast";
+import { Element } from "hast";
 import { find } from "unist-util-find";
 import { toString } from "hast-util-to-string";
 import { URL } from "url";
 import { RehypeFunctionComponent } from "../types";
 import { isElement } from "utils/markdown/unist-is-element";
 import { fetchPreviewForUrl } from "./fetchPreviewForUrl";
-import { createComponent } from "../components";
+import {
+	ComponentMarkupNode,
+	createComponent,
+	PlayfulRoot,
+} from "../components";
 import { Plugin } from "unified";
-import { ComponentElement } from "../rehype-parse-components";
 
 /**
  * Transform image-wrapped links into a link preview component
  * Expects: <a><picture><img/></picture></a> / [![](image.png)](url)
  */
-export const rehypeLinkPreview: Plugin<[], Root> = () => {
+export const rehypeLinkPreview: Plugin<[], PlayfulRoot> = () => {
 	return (tree, _) => {
 		for (let i = 0; i < tree.children.length; i++) {
 			const element = tree.children[i];
@@ -26,17 +29,11 @@ export const rehypeLinkPreview: Plugin<[], Root> = () => {
 			});
 			if (!pictureNode) continue;
 
-			const replacement: ComponentElement = {
-				type: "element",
-				tagName: "playful-component",
+			const replacement: ComponentMarkupNode = {
+				type: "playful-component-markup",
 				position: element.position,
-				properties: {
-					name: "link-preview",
-				},
-				data: {
-					position: {},
-					attributes: {},
-				},
+				component: "link-preview",
+				attributes: {},
 				children: [element],
 			};
 

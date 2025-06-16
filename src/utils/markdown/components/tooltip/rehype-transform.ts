@@ -1,9 +1,9 @@
-import * as hast from "hast";
-import { SKIP, visit } from "unist-util-visit";
+import { visit } from "unist-util-visit";
 import { Plugin } from "unified";
 import { toString } from "hast-util-to-string";
-import { createComponent } from "../components";
+import { createComponent, PlayfulRoot } from "../components";
 import { trimElements } from "utils/markdown/unist-trim-elements";
+import { isValidComponentParent } from "../rehype-validate-components";
 
 /**
  * Plugin to create interactive/styled hint elements from the following structure:
@@ -18,10 +18,10 @@ import { trimElements } from "utils/markdown/unist-trim-elements";
  *  <p><em>{title}:</em> ...</p>
  * </blockquote>
  */
-export const rehypeTooltips: Plugin<[], hast.Root> = () => {
+export const rehypeTooltips: Plugin<[], PlayfulRoot> = () => {
 	return (tree) => {
 		visit(tree, "element", (node, index, parent) => {
-			if (node.tagName !== "blockquote") return SKIP;
+			if (!isValidComponentParent(parent)) return;
 
 			const firstParagraph = node.children.find((e) => e.type === "element");
 			if (
@@ -34,7 +34,7 @@ export const rehypeTooltips: Plugin<[], hast.Root> = () => {
 				!(
 					firstText?.type === "element" &&
 					["strong", "em"].includes(firstText.tagName) &&
-					toString(firstText as never).endsWith(":")
+					toString(firstText).endsWith(":")
 				)
 			)
 				return;
@@ -50,10 +50,10 @@ export const rehypeTooltips: Plugin<[], hast.Root> = () => {
 					"Tooltip",
 					{
 						icon: firstText.tagName === "em" ? "warning" : "info",
-						title: toString(firstText as never).replace(/:$/, ""),
+						title: toString(firstText).replace(/:$/, ""),
 					},
 					node.children,
-				) as never;
+				);
 			}
 		});
 	};
