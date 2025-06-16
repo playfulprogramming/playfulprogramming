@@ -19,13 +19,10 @@ export async function getMarkdownHtml(
 ): Promise<MarkdownHtml> {
 	const vfile = await vfilePromise;
 
-	const result = await unifiedChain.process(vfile).catch((err) => {
-		console.error(`Failed to parse markdown file ${vfile.path}:\n`, err);
-		return err.toString();
-	});
+	const result = await unifiedChain.process(vfile);
 
 	return {
 		headingsWithIds: vfile.data.headingsWithIds,
-		content: await result.result,
+		content: (await result.result) as components.PlayfulNode[],
 	};
 }

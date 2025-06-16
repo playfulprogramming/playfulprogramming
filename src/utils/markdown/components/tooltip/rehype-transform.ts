@@ -1,5 +1,5 @@
 import * as hast from "hast";
-import { visit } from "unist-util-visit";
+import { SKIP, visit } from "unist-util-visit";
 import { Plugin } from "unified";
 import { toString } from "hast-util-to-string";
 import { createComponent } from "../components";
@@ -21,7 +21,7 @@ import { trimElements } from "utils/markdown/unist-trim-elements";
 export const rehypeTooltips: Plugin<[], hast.Root> = () => {
 	return (tree) => {
 		visit(tree, "element", (node, index, parent) => {
-			if (node.tagName !== "blockquote") return;
+			if (node.tagName !== "blockquote") return SKIP;
 
 			const firstParagraph = node.children.find((e) => e.type === "element");
 			if (
