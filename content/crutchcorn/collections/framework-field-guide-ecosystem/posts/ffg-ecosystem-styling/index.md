@@ -1677,10 +1677,14 @@ One such compiled CSS-in-JS library is called "PandaCSS". Its API allows us to t
 ## React
 
 ```jsx
-import { css } from '../styled-system/css'
- 
+import { css } from "../styled-system/css";
+
 export function App() {
-  return <div className={css({ bg: 'red.400' })} />
+	return (
+		<div
+			className={css({ bg: "red.400", height: "screen", width: "screen" })}
+		/>
+	);
 }
 ```
 
@@ -1697,7 +1701,7 @@ import { css } from '../styled-system/css';
   `,
 })
 export class App {
-  redBg = css({ bg: 'red.400' });
+	redBg = css({ bg: "red.400", height: "screen", width: "screen" });
 }
 ```
 
@@ -1709,7 +1713,7 @@ import { css } from "../styled-system/css";
 </script>
  
 <template>
-  <div :class="css({ bg: 'red.400' })"></div>
+  <div :class="css({ bg: 'red.400', height: 'screen', width: 'screen'  })"></div>
 </template>
 ```
 
@@ -1724,6 +1728,14 @@ And transform it into this:
         <style>
         .bg_red\.400 {
             background: var(--colors-red-400);
+        }
+          
+        .w_screen {
+            width: 100vw;
+        }
+          
+        .h_screen {
+            height: 100vh;
         }
         </style>
     </head>
@@ -1740,11 +1752,11 @@ And transform it into this:
 ```jsx
 // App.jsx 
 export function App() {
-  return <div className="bg_red.400" />
+  return <div className="bg_red.400 h_screen w_screen" />
 }
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="React Panda - StackBlitz" src="pfp-code:./ffg-ecosystem-react-panda-15?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Angular
 
@@ -1757,21 +1769,21 @@ export function App() {
   `,
 })
 export class App {
-  redBg = "bg_red.400";
+  redBg = "bg_red.400 h_screen w_screen";
 }
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Angular Panda - StackBlitz" src="pfp-code:./ffg-ecosystem-angular-panda-15?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Vue
 
 ```vue
 <template>
-  <div class="bg_red.400"></div>
+  <div class="bg_red.400 h_screen w_screen"></div>
 </template>
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Vue Panda - StackBlitz" src="pfp-code:./ffg-ecosystem-vue-panda-15?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 <!-- ::end:tabs -->
 
@@ -1785,10 +1797,20 @@ To begin, install the dependencies using your package manager:
 npm install --save-dev @pandacss/dev postcss
 ```
 
-Create a file called `postcss.config.json` so that PostCSS knows to run PandaCSS:
+Create a file called `postcss.config.json` in Angular so that PostCSS knows to run PandaCSS:
 
 ```json
 {
+  "plugins": {
+    "@pandacss/dev/postcss": {}
+  }
+}
+```
+
+Or in React / Vue using Vite we'll need to change the file to `postcss.config.js`:
+
+```javascript
+export default {
   "plugins": {
     "@pandacss/dev/postcss": {}
   }
@@ -1805,7 +1827,7 @@ export default defineConfig({
  preflight: true,
  
  // Where to look for your css declarations
- include: ['./src/**/*.{js,jsx,ts,tsx,vue}'],
+ include: ['./src/**/*.{js,jsx,ts,tsx,vue,html}'],
  
  // Files to exclude
  exclude: [],
