@@ -1,0 +1,45 @@
+import { bootstrapApplication } from "@angular/platform-browser";
+import { Component, provideZonelessChangeDetection } from "@angular/core";
+
+@Component({
+	selector: "search-icon",
+	standalone: true,
+	template: `<svg
+		width="26"
+		height="27"
+		viewBox="0 0 26 27"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			d="M18.75 17H17.565L17.145 16.595C18.945 14.495 19.875 11.63 19.365 8.58496C18.66 4.41496 15.18 1.08496 10.98 0.574962C4.63496 -0.205038 -0.705038 5.13496 0.0749618 11.48C0.584962 15.68 3.91496 19.16 8.08496 19.865C11.13 20.375 13.995 19.445 16.095 17.645L16.5 18.065V19.25L22.875 25.625C23.49 26.24 24.495 26.24 25.11 25.625C25.725 25.01 25.725 24.005 25.11 23.39L18.75 17ZM9.74996 17C6.01496 17 2.99996 13.985 2.99996 10.25C2.99996 6.51496 6.01496 3.49996 9.74996 3.49996C13.485 3.49996 16.5 6.51496 16.5 10.25C16.5 13.985 13.485 17 9.74996 17Z"
+			fill="white"
+		/>
+	</svg> `,
+})
+export class SearchIcon {}
+
+@Component({
+	selector: "app-root",
+	imports: [SearchIcon],
+	styles: [
+		`
+			$blue_400: #6694ff;
+
+			.container {
+				background-color: $blue_400;
+				padding: 1rem;
+			}
+		`,
+	],
+	template: `
+		<div class="container">
+			<search-icon />
+		</div>
+	`,
+})
+export class App {}
+
+void bootstrapApplication(App, {
+	providers: [provideZonelessChangeDetection()],
+});

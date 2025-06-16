@@ -983,7 +983,7 @@ However, just like JavaScript, you can accidentally ship a variable that's not d
 ```css
 .container {
 	/* Notice the typo of `heder` instead of `header` */
-    /* Because of this typo, no `background-color` will be defined for this class */
+  /* Because of this typo, no `background-color` will be defined for this class */
 	background-color: var(--search-bg-defaultt);
 }
 ```
@@ -1055,43 +1055,46 @@ When using Vite, we can use Sass alongside CSS modules by naming our files in a 
 $blue_400: #6694FF;
 
 .container {
-    background-color: $blue_400;
+	background-color: $blue_400;
+	padding: 1rem;
 }
 ```
 
 ````jsx
-import style from "./app.module.scss"
+import style from "./app.module.scss";
 
 export function App() {
-	return <div className={style.container}>
-        <SearchIcon/>
-      </div>
+	return (
+		<div className={style.container}>
+			<SearchIcon />
+		</div>
+	);
 }
 ````
 
-// TODO: Add iframe
+<iframe data-frame-title="React SCSS - StackBlitz" src="pfp-code:./ffg-ecosystem-react-sass-13?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Angular
 
 With the package installed, we can use `styleUrl` to link to a dedicated `.scss` file, like so:
 
 ```scss
-/* app.module.scss */
+/* app.scss */
 
 /* This is the syntax for a SCSS variable. More on that soon */
 $blue_400: #6694FF;
 
 .container {
     background-color: $blue_400;
+  	padding: 1rem;
 }
 ```
 
 ```angular-ts
 @Component({
-  selector: 'search-box',
-  standalone: true,
+  selector: 'app-root',
   imports: [SearchIcon],
-  styleUrl: './app.component.scss',
+  styleUrl: './app.scss',
   template: `
  	<div class="container">
         <search-icon/>
@@ -1101,7 +1104,7 @@ $blue_400: #6694FF;
 export class App {}
 ```
 
-// TODO: Add iframe
+<iframe data-frame-title="Angular SCSS - StackBlitz" src="pfp-code:./ffg-ecosystem-angular-sass-13?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 #### Inline SCSS Support
 
@@ -1109,8 +1112,7 @@ This doesn't work out of the box, however, with inline styles. For example, if y
 
 ```angular-ts
 @Component({
-  selector: 'search-box',
-  standalone: true,
+  selector: 'app-root',
   imports: [SearchIcon],
   styles: [
     `
@@ -1118,6 +1120,7 @@ $blue_400: #6694FF;
 
 .container {
     background-color: $blue_400;
+    padding: 1rem;
 }
 `,
   ],
@@ -1176,7 +1179,7 @@ To solve this, we'll need to modify our `angular.json` file.
 
 Once this is done, our inline styles will be treated as if they were inside of a `.scss` file.
 
-// TODO: Add iframe
+<iframe data-frame-title="Angular Inline SCSS - StackBlitz" src="pfp-code:./ffg-ecosystem-angular-inline-sass-13?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Vue
 
@@ -1199,6 +1202,7 @@ $blue_400: #6694FF;
 
 .container {
     background-color: $blue_400;
+  	padding: 1rem;
 }
 </style>
 ```
@@ -1223,6 +1227,7 @@ $blue_400: #6694FF;
 
 .container {
     background-color: $blue_400;
+  	padding: 1rem;
 }
 </style>
 ```
@@ -1246,6 +1251,7 @@ $blue_400: #6694FF;
 
 .container {
     background-color: $blue_400;
+  	padding: 1rem;
 }
 </style>
 ```
