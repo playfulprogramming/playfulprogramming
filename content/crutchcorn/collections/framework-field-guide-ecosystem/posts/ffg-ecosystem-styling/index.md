@@ -489,8 +489,9 @@ Or maybe you want to have border width of a specific pixel value:
 
 You're able to truly make Tailwind your own.
 
-<!-- ::start:no-ebook -->
 <!-- ::start:tabs -->
+
+<!-- ::start:no-ebook -->
 
 #### React
 
@@ -504,8 +505,9 @@ You're able to truly make Tailwind your own.
 
 <iframe data-frame-title="Vue Tailwind Image - StackBlitz" src="pfp-code:./ffg-ecosystem-vue-tailwind-img-10?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-<!-- ::end:tabs -->
 <!-- ::end:no-ebook -->
+
+<!-- ::end:tabs -->
 
 # Scoped CSS
 
