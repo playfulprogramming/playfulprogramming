@@ -408,13 +408,48 @@ Most screen readers and accessibility technologies already provide a way to rapi
 > 
 > Now that's out of the way; Let's learn what positive tab indexes do and why they're so harmful. 
 
+A positive `tabindex` allows you to mark an element as having tab priority over other elements and define a manual tab order.
+
+Say we had the following markup:
+
+```html
+<!-- DO NOT DO THIS, POSITIVE TABINDEXES ARE EXTREMELY INACCESSIBLE -->
+<button tabindex="3">3</button>
+<button tabindex="1">1</button>
+<button tabindex="2">2</button>
+```
+
+When the user went to change their focused element via <kbd>Tab</kbd>, it would focus on the `<button>` element for `3`, then `2`, then `1`.
+
+----
+
+> Why is this harmful?
+
+Well, there are two **major** problems with this approach:
+
+1) It breaks the natural tab flow order, making it unclear what element should be focused next based on the visuals
+2) Positive tab indexes take priority over **any** other non-`tabindex`'d elements
+
+So, if we had:
+
+```html
+<ul>
+	<!-- List of 10 focusable card elements -->
+</ul>
+<button tabindex="1">Next page</button>
+```
+
+It would skip the user through the entire page to get to the `"Next page"` button and only go through the card elements on subsequent <kbd>Tab</kbd>s.
+
+To solve this, you'd need to assign a `tabindex` to each element and track the posisiton manually. Not only would this become a nasty game of cat and mouse where you end up adding a single positive `tabindex` property in one part of your app, but it indicates that something went **horribly wrong** to lead to this point.
+
 ## Element Reference `focus()`
 
-// TODO: Use `ref` to `focus` an element
+// TODO: Use `ref` to `focus` an element with `tabindex="-1"`
 
 # Keyboard Shortcuts
 
-
+// TODO: Write
 
 ## Element default shortcuts
 
