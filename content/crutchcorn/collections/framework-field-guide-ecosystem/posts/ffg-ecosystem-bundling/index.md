@@ -16,13 +16,13 @@ There are many good options out there for bundling today:
 - [Rspack](https://www.rspack.dev/)
 - [Turbopack](https://turbo.build/pack)
 
-While each come with their own pros and cons, we're instead going to be focusing on [Vite](https://vitejs.dev/). Here's why:
+While each comes with their own pros and cons, we're instead going to be focusing on [Vite](https://vitejs.dev/). Here's why:
 
 - Vite is the suggested bundler for Vue apps and is maintained by many of the Vue maintainers
 - Vite is used by Angular's tooling to host a development server (more on that soon)
 - Vite is widely adopted by modern React applications
 - The configurability of the other tools _can_ be more complex in many instances
-- Due to Vite's popularity, there's a lot of learning resources out there and plugins available to you immediately
+- Due to Vite's popularity, there are a lot of learning resources out there and plugins available to you immediately
 - There is an ongoing effort to migrate Vite's core ([Rollup](https://rollupjs.org/)) to Rust (under the name [Rolldown](https://rolldown.rs/)), meaning that your Vite apps will get much faster to bundle in the future
 
 Without further ado, let's get to the meat of the chapter.
@@ -31,9 +31,9 @@ Without further ado, let's get to the meat of the chapter.
 
 When working with websites written with nothing more than HTML, CSS, and JavaScript, it can be challenging to keep all of your code organized and consolidated.
 
-Not sure what I mean? Let's build a small `index.html` file to demonstate.
+Not sure what I mean? Let's build a small `index.html` file to demonstrate.
 
-This `index.html` file will contains a button and a count of how many times the button was pressed:
+This `index.html` file will contain a button and a count of how many times the button was pressed:
 
 ```html
 <!doctype html>
@@ -49,7 +49,7 @@ This `index.html` file will contains a button and a count of how many times the 
 </html>
 ```
 
-Naturally, this code won't function without some JavaScript, so let's add in some logic:
+Naturally, this code won't function without any JavaScript, so let's add in some logic:
 
 ```html
 <!doctype html>
@@ -120,7 +120,7 @@ Finally, we'll sprinkle in some styling to make it look nicer:
 
 <iframe data-frame-title="No Bundle - StackBlitz" src="pfp-code:./ffg-ecosystem-no-bundle-1?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-Notice how our `index.html` file went from a quickly glanceable 11 lines of code into a somewhat sprawling 40?
+Notice how our `index.html` file went from quickly glanceable 11 lines of code into a somewhat sprawling 40?
 
 # Splitting files using web standards
 
@@ -182,7 +182,7 @@ Notice how our files are now separated by concerns? One file for templating, ano
 
 ----------
 
-Now let's say that we want to use [TypeScript](https://www.typescriptlang.org/) and [SCSS](https://sass-lang.com/) (two languages that compile to JavaScript and CSS, respectively) in our website.
+Now let's say that we want to use [TypeScript](https://www.typescriptlang.org/) and [SCSS](https://sass-lang.com/) (two languages that compile to JavaScript and CSS, respectively) on our website.
 
 ```scss
 /* style.scss */
@@ -310,9 +310,9 @@ You may be asking yourself:
 
 > What is a bundler and what can it do?
 
-In short, a bundler is responsible for a wide array of actions that helps you manage your codebase and make it ready to others to consume.
+In short, a bundler is responsible for a wide array of actions that helps you manage your codebase and make it ready for others to consume.
 
-See, among other things, a bundler is responsible for making sure that code which doesn't natively run on the browser (say, TypeScript, SCSS, and others) are transformed to the relevant transformed code which can.
+See, among other things, a bundler is responsible for making sure that code which doesn't natively run on the browser (say, TypeScript, SCSS, and others) is transformed to the relevant transformed code which can.
 
 Take a basic website, for example:
 
@@ -358,14 +358,14 @@ While we've hinted at some of what a bundler is capable of, that's only the star
 4) Automatically remove unused code from the output to make things faster and smaller
    - This step is called "Tree-shaking"
 5) Merge multiple files that rely on one another into a single file so that HTTP doesn't have to make multiple round-trips to download everything
-6) Optimize the code for size, making harder for humans to read but faster to download
+6) Optimize the code for size, making it harder for humans to read but faster to download
    - This step is called "minification"
 
 While each of these steps may call a different tool under-the-hood, most bundlers nowadays do a good job at abstracting away those nuances for many use-cases.
 
 As such, you typically either do not need to modify a bundler's behavior beyond a couple of configuration options, if even.
 
-> This isn't to say that you can never modify a bundler's behavior, just be aware that when you do so, there tends to be seldom resources out there to explain what to do to fix things when they go awry. Thar be dragons. 🐉
+> This isn't to say that you can never modify a bundler's behavior; just be aware that when you do so, there tends to be seldom resources out there to explain what to do to fix things when they go awry. Thar be dragons. 🐉
 
 
 
@@ -379,7 +379,7 @@ Let's take a look at an example of a bundling pipeline for each of the framework
 
 ## React
 
-Let's start by assuming that we  have the following TypeScript-based React component:
+Let's start by assuming that we have the following TypeScript-based React component:
 
 ```tsx
 // App.tsx
@@ -543,7 +543,7 @@ var AppComponent = /*#__PURE__*/_createClass(function AppComponent() {
 });
 ```
 
-> This code is broadly not intended to be read by application developer. Instead, it's the output of a step known as "transpilation" that converts newer JS syntax into older JS syntax so your code can run on older browsers.
+> This code is broadly not intended to be read by an application developer. Instead, it's the output of a step known as "transpilation" that converts newer JS syntax into older JS syntax so your code can run on older browsers.
 
 Then, the code might be minified to shorten the code's length:
 
@@ -671,7 +671,7 @@ As we mentioned at the start of the article, while there are many options for bu
 
 ## React
 
-To start a project with React and Vite, we'll use the `create-vite` NPM package to configure Vite with a plugin to support React's JSX syntax. This can be ran via the `npm create` command:
+To start a project with React and Vite, we'll use the `create-vite` NPM package to configure Vite with a plugin to support React's JSX syntax. This can be run via the `npm create` command:
 
 ```shell
 npm create vite@latest
@@ -723,7 +723,7 @@ Now when you modify `src/App.jsx` (or `src/App.tsx` if you selected TypeScript) 
 
 ## Angular
 
-Angular, being an "everything, including the kitchen sink" framework has an official solution to the bundling solution.
+Angular, being an "everything, including the kitchen sink" framework, has an official solution to the bundling solution.
 
 This solution can be found in the shape of [the Angular CLI](https://angular.io/cli), which uses [Vite](https://vitejs.dev/) (and Vite's dependency, [ESBuild](https://esbuild.github.io/)) under-the-hood.
 
@@ -751,7 +751,7 @@ Then, it will ask if you want to use an extension of CSS, like Sass or Less, tha
 
 Finally, it will ask you if you'd like to use Server-Side Rendering (SSR) or Static Site Generation (SSG). We'll learn more about what those are in future chapters, but for now type "N" for no and hit "Enter":
 
-![A prompt with "Do you want to enable Server-Side Rendering (SSR) and Static Site Generation (SSG/Prerendering)?"](./ng-new-ssr.png)
+![A prompt with "Do you want to enable Server-Side Rendering (SSR) and Static Site Generation (SSG/Pre-rendering)?"](./ng-new-ssr.png)
 
 This will then start the project generation from the built-in template:
 
@@ -791,7 +791,7 @@ This will prompt you for a project name:
 
 ![A CLI prompt for "Project name" with the title "VUe.js - The Progressive JavaScript Framework"](./create-vue-new.png)
 
-This will then begin a series of prompts of specific features you might want in your Vue app:
+This will then begin a series of prompts for specific features you might want in your Vue app:
 
 ![Prompts for TypeScript, JSX, Vue Router, Pinia, Vitest, End-to-End testing, and ESLint](./create-vue-new-options.png)
 
