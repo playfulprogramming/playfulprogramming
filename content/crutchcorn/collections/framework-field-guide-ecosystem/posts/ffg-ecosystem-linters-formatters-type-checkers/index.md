@@ -469,7 +469,7 @@ Formatting and linting your code both require a deeper understanding of your cod
 
 > [We spoke about this transformation of source code to AST in my article "How computers speak"](/posts/how-computers-speak).
 
-It might be tempting to hear about how these two tools have similar internals to understand your code and think "Oh, sweet, we can reduce two tools into one." In fact, many that have had this thought often try to merge their linter and formatter into one command.
+It might be tempting to hear about how these two tools have similar internals to understand your code and think, "Oh, sweet, we can reduce two tools into one." In fact, many that have had this thought often try to merge their linter and formatter into one command.
 
 In fact, there exist plugins to combine ESLint and Prettier:
 

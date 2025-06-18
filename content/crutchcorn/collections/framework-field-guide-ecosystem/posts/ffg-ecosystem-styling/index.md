@@ -12,7 +12,7 @@
 <summary>What tools are we learning in this chapter?</summary>
 Styling is a highly contested space in web development. Surely, no matter what tools I select there will always be someone with a different perspective on which tools I should have written about.
 
-Just to name a few, here's some of the styling tools we're **not** talking about in this chapter:
+Just to name a few, here are some of the styling tools we're **not** talking about in this chapter:
 
 - [Styled Components](https://styled-components.com/)
 - [StyleX](https://stylexjs.com/)
@@ -24,15 +24,15 @@ Given the broad range and number of tools we aren't looking at, what tools _are_
 
 - [Tailwind](https://tailwindcss.com/) for its ubiquitous adoption among utility class libraries (nearly 10M downloads a week on NPM)
 - [CSS Modules](https://github.com/css-modules/css-modules) for its close-to-bare CSS and invisible usage
-- [SCSS](https://sass-lang.com/) for its broad adoption (13M downloads a week on NPM) and ability to compile complex styling to raw CSS
-- [Emotion](https://emotion.sh/) for its framework agnostic approach to runtime CSS-in-JS
-- [Panda CSS](https://panda-css.com/) for its framework agnostic approach to compiled away CSS-in-JS
+- [SCSS](https://sass-lang.com/) for its broad adoption (13M downloads a week on NPM) and the ability to compile complex styling to raw CSS
+- [Emotion](https://emotion.sh/) for its framework-agnostic approach to runtime CSS-in-JS
+- [Panda CSS](https://panda-css.com/) for its framework-agnostic approach to compile away CSS-in-JS
 
 Let's get into it.
 
 </details>
 
-CSS is awesome. It's also used in every web app out there; which makes sense given that it's one of the three core languages of the web: HTML, CSS, and JavaScript.
+CSS is awesome. It's also used in every web app out there, which makes sense given that it's one of the three core languages of the web: HTML, CSS, and JavaScript.
 
 If we wanted to, for example, build the header bar of this mockup:
 
@@ -99,17 +99,17 @@ Annnnd:
 
 ![The header and search box both have blue text and background](./header_searchbox_merge.png)
 
-Oh dear... It seems like the styling for the header has impacted the search box and vice-versa.
+Oh, dear... It seems like the styling for the header has impacted the search box and vice versa.
 
 ---
 
 This merging of styling is occurring because `container` is the same CSS identifier between the search box container and the header container; despite being in two different CSS files.
 
-This problem is known as "scoping", and is a problem that gets worse the larger your codebase gets; it's hard to keep track of every preexisting class name that's been used.
+This problem is known as "scoping," and is a problem that gets worse the larger your codebase gets; it's hard to keep track of every preexisting class name that's been used.
 
 # BEM Classes
 
-One way to solve this problem of scoping in CSS relies on no external tooling than a self-motivated convention. This solution is called "BEM Classes".
+One way to solve this problem of scoping in CSS relies on no external tooling than a self-motivated convention. This solution is called "BEM Classes."
 
 BEM stands for "Box Element Modifier" and helps you establish scoping through uniquely named classes that are "namespaced" based on where on the screen they exist.
 
@@ -132,7 +132,7 @@ As such, the container for these elements might be called:
 
 ---
 
-The "Elements" part of BEM is then referring to the elements within each "Box".
+The "Elements" part of BEM is then referring to the elements within each "Box."
 
 For example, both the header and the search box have icons inside. We would then prefix the "Box" name and then the name of the "Element":
 
@@ -162,7 +162,7 @@ To do this, we'll prefix the name of the "Box" followed by what the "Modifier" d
 
 ---
 
-BEM is a viable alternative for large-scale codebases if you follow its conventions well enough. Many people swear by its utility and ability to leverage the platform itself to solve the scoping problem.
+BEM is a viable alternative for large-scale codebases if you follow its conventions well enough. Many people swear by its utility and the ability to leverage the platform itself to solve the scoping problem.
 
 However, for some, even the need to remember what "Box" names have already been used can lead to confusion and other levels of scoping problems.
 
@@ -213,7 +213,7 @@ We could instead break these CSS rules into modular reusable classes:
 </style>
 ```
 
-This means that instead of having one-off classes that are utilized on a case by case basis, we have global classes that are reused across the entire application.
+This means that instead of having one-off classes that are used on a case-by-case basis, we have global classes that are reused across the entire application.
 
 This comes with a few added benefits:
 
@@ -221,7 +221,7 @@ This comes with a few added benefits:
 - Less duplicated CSS shipped
 - Easier to visualize styling from markup
 
-But also has its own downfalls:
+But it also has its own downfalls:
 
 - You have to figure out naming for every class; consistency can be challenging
 - Your markup ends up cluttered with complex styles represented by many classes
@@ -230,7 +230,7 @@ But also has its own downfalls:
 
 When the topic of utility classes comes up, Tailwind is not far behind.
 
-Tailwind is a CSS framework that ships with all of the utility classes you could ever need. Just like rolling your own utility classes, Tailwind's are able to be applied to any element and reused globally.
+Tailwind is a CSS framework that ships with all the utility classes you could ever need. Just like rolling your own utility classes, Tailwind's classes can be applied to any element and reused globally.
 
 Our example from before might look something like this:
 
@@ -242,7 +242,7 @@ Our example from before might look something like this:
 
 While Tailwind doesn't solve the cluttered markup challenges with hand-rolling your own utility classes, it comes with some additional benefits over utility classes:
 
-- Ease of training. If someone's used Tailwind before, they know how to use it and what class names to use. Moreover, the Tailwind docs are very very polished.
+- Ease of training. If someone's used Tailwind before, they know how to use it and what class names to use. Moreover, the Tailwind docs are very, _very_ polished.
 
   ![Some visual docs complete with highlighted examples of what Tailwind code looks like](./tailwind_docs.png)
 
@@ -445,7 +445,7 @@ Once you preview the component, it should look like this:
 
 You might wonder:
 
-> With **so many** utility classes in Tailwind, if I use it the download size of my CSS must be huge!
+> With **so many** utility classes in Tailwind, if I use it, the download size of my CSS must be huge!
 
 Not so! See, when Tailwind generates the CSS for your application, it only adds in the classes you actually use within your templates.
 
@@ -457,7 +457,7 @@ This means that if you don't have any Tailwind classes in your code, only the pr
 
 > You're even able to shrink this prerequisite CSS down if you'd like. We can customize our `src/style.css` file to only include the prerequisites we need for our project.
 >
-> To demonstrate this, you can remove all of the `@tailwind` imports and you'll end up with `0kb` of CSS when you aren't using any Tailwind classes.
+> To demonstrate this, you can remove all of the `@tailwind` imports, and you'll end up with `0kb` of CSS when you aren't using any Tailwind classes.
 
 ### Dynamic Classes using Tailwind
 
@@ -475,7 +475,7 @@ Say you want to blur an image:
 
 <img src="./unicorn.png" alt="A blurry cartoon unicorn in a bowtie" style="filter: blur(4px);" />
 
-Or maybe you want to have border width of a specific pixel value:
+Or maybe you want to have a border width of a specific pixel value:
 
 ```html
 <img
@@ -513,7 +513,7 @@ You're able to truly make Tailwind your own.
 
 But not everyone wants to use utility classes for their solutions. For many, they just want to reuse their existing CSS knowledge with selectors and all just with the scoping problem solved for them.
 
-Well, what if each CSS file had their own auto-scoping pre-applied?
+Well, what if each CSS file had its own auto-scoping pre-applied?
 
 ```css
 /* file-one.css */
@@ -533,7 +533,7 @@ Luckily for us, each framework has a solution to this problem.
 
 ## React
 
-To automatically scope our CSS in our React application we'll rely on Vite's built-in support for [CSS Modules](https://github.com/css-modules/css-modules).
+To automatically scope our CSS in our React application, we'll rely on Vite's built-in support for [CSS Modules](https://github.com/css-modules/css-modules).
 
 To do this, we just need to add `.module.css` to the name of any CSS file:
 
@@ -674,7 +674,7 @@ export class SearchBox {}
 
 ## Vue
 
-Like Angular, Vue's SFC component format has scoped CSS as a feature built-in. There's two ways to do so in Vue:
+Like Angular, Vue's SFC component format has scoped CSS as a feature built-in. There are two ways to do so in Vue:
 
 1. Using the `scoped` attribute - which uses PostCSS to add a prefix to the styled elements automatically
 2. Using the `module` attribute - which compiles down to [CSS Modules](https://github.com/css-modules/css-modules)
@@ -763,7 +763,7 @@ Or have two `<style>` tags; one scoped and one global:
 
 ### CSS Modules
 
-CSS modules is an alternative way to structure your CSS in a scoped way. It transforms the class selectors using JS names for classes instead of a raw string.
+CSS modules are an alternative way to structure your CSS in a scoped way. It transforms the class selectors using JS names for classes instead of a raw string.
 
 To do this in Vue SFC components, we'll use `<style module>` and the `useCssModule` composable:
 
@@ -832,7 +832,7 @@ For example, let's say that I have a list of cards that I want to change the col
 
 We could move the styling for the header into an input prop or move the card styling out to the parent component entirely, but this comes with challenges of their own.
 
-Instead, what if we could keep our component's scoped styling but tell a specific bit of CSS to "inject" itself into the scope of any child components underneith?
+Instead, what if we could keep our component's scoped styling but tell a specific bit of CSS to "inject" itself into the scope of any child components underneath?
 
 Luckily for us, we can!
 
@@ -840,7 +840,7 @@ Luckily for us, we can!
 
 ### React
 
-React is able to bypass the scoping inside of a CSS module file by prefixing `:global` to a selector, like so:
+React is able to bypass the scoping inside a CSS module file by prefixing `:global` to a selector, like so:
 
 ```css
 /* App.module.css */
@@ -1012,7 +1012,7 @@ However, just like JavaScript, you can accidentally ship a variable that's not d
 
 This lack of variable definition will not throw an error either at build time or runtime, making it exceedingly hard to catch or debug in many instances.
 
-[As we learned in our last chapter](/posts/ffg-ecosystem-linters-formatters-type-checkers), one common solution to this type of problem in JavaScript is to introduce TypeScript which can check for many of these mistakes at build time. TypeScript then compiles down to JavaScript which can run in your bowser.
+[As we learned in our last chapter](/posts/ffg-ecosystem-linters-formatters-type-checkers), one common solution to this type of problem in JavaScript is to introduce TypeScript, which can check for many of these mistakes at build time. TypeScript then compiles down to JavaScript, which can run in your bowser.
 
 Similarly, CSS has a slew of subset languages which compile down to CSS. One such language is "[Syntactically Awesome Style Sheets](https://sass-lang.com/)", or "Sass" for short.
 
@@ -1054,7 +1054,7 @@ And so much more.
 
 ## Install Sass
 
-To install Sass you'll use your package manager:
+To install Sass, you'll use your package manager:
 
 ```shell
 npm install -D sass
@@ -1197,9 +1197,9 @@ To solve this, we'll need to modify our `angular.json` file.
 }
 ```
 
-> This file can historically be very long, so we've omitted most of it. Just make sure that these keys are set.
+> This file can historically be very long, so we've omitted most of it. Make sure that these keys are set.
 
-Once this is done, our inline styles will be treated as if they were inside of a `.scss` file.
+Once this is done, our inline styles will be treated as if they were inside a `.scss` file.
 
 <iframe data-frame-title="Angular Inline SCSS - StackBlitz" src="pfp-code:./ffg-ecosystem-angular-inline-sass-13?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
@@ -1307,7 +1307,7 @@ Undefined variable.
 
 More than its utility in preventing typos, Sass variables are amazing when it comes to making media queries more consistent.
 
-See, CSS variables are unable to be used inside of media queries at this time:
+See, CSS variables are unable to be used inside media queries at this time:
 
 ```css
 /* This is not valid CSS */
@@ -1365,9 +1365,9 @@ And much more.
 >
 > It's worth mentioning that even CSS has a few "functions" of its own:
 >
-> `calc()`, `sin()`, `cos()`, `rotate()`, `opacity()`, and more exist to transform your CSS without SCSS' functions.
+> `calc()`, `sin()`, `cos()`, `rotate()`, `opacity()` exist to transform your CSS without SCSS' functions.
 >
-> You can even use these CSS functions inside of SCSS functions.
+> You can even use these CSS functions inside SCSS functions.
 >
 > [Learn more about CSS functions on MDN.](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions)
 
@@ -1389,7 +1389,7 @@ While this particular demo isn't very helpful, we'll explore how we can make mor
 
 ## Loops and conditional statements
 
-Just like any other language, Sass has the ability to do conditional statements. This can be useful when, say, you want a function to change its behavior based on a given set of inputs:
+Just like any other language, Sass can do conditional statements. This can be useful when, say, you want a function to change its behavior based on a given set of inputs:
 
 ```scss
 // Given a single color, get white or black, depending on what's more readable
@@ -1461,7 +1461,7 @@ Sass is a cool technology that's been used in codebases for many years now. Howe
 
 This was some of the thoughts that went into building what we're talking about in this section: CSS-in-JS solutions.
 
-Instead of having to utilize a new language, what if we could write CSS tokens, functions, and more using JavaScript and TypeScript as the extensions?
+Instead of having to use a new language, what if we could write CSS tokens, functions, and more using JavaScript and TypeScript as the extensions?
 
 Well, with [Emotion](https://emotion.sh/docs/introduction) - we can!
 
@@ -1483,7 +1483,7 @@ render(
 );
 ```
 
-By using this pattern, we're able to have all of the features outlined from Sass represented in a language we're more familiar with.
+By using this pattern, we're able to have all the features outlined from Sass represented in a language we're more familiar with.
 
 ## Installing Emotion
 
@@ -1535,7 +1535,7 @@ This is possible, but we first need to install these modules:
 npm i @emotion/styled @emotion/react
 ```
 
-Now let's see usage of this API:
+Now let's see the usage of this API:
 
 ```jsx
 import styled from "@emotion/styled";
@@ -1620,14 +1620,14 @@ If these statements are true, why then are the download trends for traditional C
 
 ![NPM downloads for Emotion have dropped heavily from 2023 to 2025](./emotion_download_trends.png)
 
-Well, there's also a lot of downsides to CSS-in-JS libraries. Let's zoom out and evaluate each of the major concerns with traditional CSS-in-JS libraries:
+Well, there are also a lot of downsides to CSS-in-JS libraries. Let's zoom out and evaluate each of the major concerns with traditional CSS-in-JS libraries:
 
 - Performance concerns
 - Issues in static apps
 
 ### Performance Concerns
 
-When building HTML files without JavaScript, you might have a `<style>` tag in your `<head>` element. This is the most ideal solution, because it enables the CSS to be parsed alongside your HTML. This simul-parsing allows your CSS to display at the same time as your HTML, just like you'd expect:
+When building HTML files without JavaScript, you might have a `<style>` tag in your `<head>` element. This is the most ideal solution because it enables the CSS to be parsed alongside your HTML. This simul-parsing allows your CSS to display at the same time as your HTML, just like you'd expect:
 
 ![Your markup layout has a <head> component with a <style> element inside. This leads to waterfall where: Your HTML is parsed, CSS in HTML <head> is detected, then the CSS is parsed, and finally the CSS & HTML are displayed](../../../../posts/why-is-css-in-js-slow/html_css_handling.png)
 
@@ -1637,7 +1637,7 @@ However, when you use CSS-in-JS, you're adding a chain of pre-processing that ne
 
 > Look at that complexity increase as you add in CSS-in-JS solutions!
 
-While the details of that pipeline aren't necessarily important at the moment, it's important to note that it's caused because we've moved the execution and parsing of our CSS _into_ JavaScript; making it harder for the browser to pre-emptively execute things.
+While the details of that pipeline aren't necessarily important at the moment, it _is_ important to note that this complexity increase has been caused because we've moved the execution and parsing of our CSS _into_ JavaScript. This movement of parsing and execution makes it harder for the browser to pre-emptively execute things.
 
 This isn't a premature optimization to think about this kind of thing, either! It can impact your user in real-world ways like a "Flash Of Unstyled Content" (FOUC) where it displays your markup before the styling has a chance to load. Imagine we want some content on the screen to be hidden on initial load using `display: none`; that might not occur due to this FOUC.
 
@@ -1657,7 +1657,7 @@ However, if we wanted to ship the full HTML bundle to the user, say to improve S
 
 ![The server generates the HTML on the backend, which is then shipped to the client via SSR framework code](../../../react-beyond-the-render/posts/what-is-ssr-and-ssg/ssr.svg)
 
-> You can learn more about SSR and SSG apps in [our article which introduces the concepts.](/posts/what-is-ssr-and-ssg)
+> You can learn more about SSR and SSG apps in [our article, which introduces the concepts.](/posts/what-is-ssr-and-ssg)
 
 However, especially in the context of CSS-in-JS apps, this can cause problems with initial layout. Because of the way the server executes the JavaScript required to generate the styles for your app, it may not properly hydrate the styling before your markup lands on the user's machine.
 
@@ -1669,9 +1669,9 @@ So! We now know that CSS-in-JS, while great for developer experience (DX), has p
 
 > Is there any way we can get the DX wins of CSS-in-JS while retaining the performance of other CSS solutions?
 
-Indeed, dear reader! See, while some CSS-in-JS solutions rely on a JavaScript runtime on the user's machine to generate styles for us, others are able to generate the required CSS on the developer's machine; sidestepping problems with performance.
+Indeed, dear reader! See, while some CSS-in-JS solutions rely on a JavaScript runtime on the user's machine to generate styles for us, others are able to generate the required CSS on the developer's machine, sidestepping problems with performance.
 
-These CSS-in-JS solutions are able to fix their performance problems because they use "statistical analysis" to extract and compile the CSS from inside of your JavaScript files into dedicated CSS files ahead-of-the-time.
+These CSS-in-JS solutions are able to fix their performance problems because they use "statistical analysis" to extract and compile the CSS from the inside of your JavaScript files into dedicated CSS files ahead-of-the-time.
 
 ![The app.js file has a bit of it extracted to generate the stylesheet.css file](./stylesheet_extract.svg)
 
@@ -1679,7 +1679,7 @@ These CSS-in-JS solutions are able to fix their performance problems because the
 
 > What is statistical analysis?
 
-Think of statistical analysis as a scan through your codebase looking for dedicated keywords. In our case, the compiled CSS-in-JS library looks for code it recognizes in `app.js`. When it detects code it recognizes as "CSS", it moves it into a brand new **`app_generated.css`** and a fresh variant of `app.js` called **`app_generated.js`**.
+Think of statistical analysis as a scan through your codebase looking for dedicated keywords. In our case, the compiled CSS-in-JS library looks for code it recognizes in `app.js`. When it detects code it recognizes as "CSS," it moves it into a brand new **`app_generated.css`** and a fresh variant of `app.js` called **`app_generated.js`**.
 
 This `app_generated.js` file is the same as before, but with a different bit of code injecting the CSS file into the place you originally had CSS:
 
@@ -1687,7 +1687,7 @@ This `app_generated.js` file is the same as before, but with a different bit of 
 
 ---
 
-One such compiled CSS-in-JS library is called "PandaCSS". Its API allows us to take code like this:
+One such compiled CSS-in-JS library is called "PandaCSS." Its API allows us to take code like this:
 
 <!-- ::start:tabs -->
 
