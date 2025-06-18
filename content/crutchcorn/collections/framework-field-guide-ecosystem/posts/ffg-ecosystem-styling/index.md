@@ -2,7 +2,7 @@
 {
   title: "Styling",
   description: "Styling your web application comes in many flavors. Let's explore the different approaches you can take in your projects.",
-  published: "2025-06-01T22:12:03.284Z",
+  published: "2025-06-18T22:12:03.284Z",
   tags: ["react", "angular", "vue", "webdev"],
   order: 3,
 }
