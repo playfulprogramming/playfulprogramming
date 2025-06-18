@@ -1,0 +1,97 @@
+@use "src/tokens/index" as *;
+@use "../../framework-field-guide/tokens/breakpoints" as *;
+
+:root {
+	--chapter-item-padding-ver: var(--spc-2x);
+	--spc-num: 3rem;
+	--spc-dot: 1.5rem;
+
+	--divider-inset-start: calc(var(--spc-num) + var(--spc-dot));
+	--divider-inset-end: var(--spc-4x);
+	--divider-border-width: var(--border-1x);
+
+	@include from($desktop) {
+		--chapter-item-padding-ver: var(--spc-1x);
+	}
+}
+
+.chapterList {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.chaptersContainer {
+	padding: var(--section-ver-padding) var(--section-hor-padding) !important;
+}
+
+.chaptersTitle {
+	margin: 0;
+	margin-bottom: var(--section-ver-padding);
+	color: var(--on-dark-emphasis-high);
+}
+
+.postTitle {
+	text-align: left;
+}
+
+.listItem {
+	border-radius: var(--corner-radius-circular);
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	color: var(--on-dark-emphasis-high);
+	text-decoration: none;
+	padding: var(--chapter-item-padding-ver) 0;
+	margin: 0;
+}
+
+.postContainer {
+	position: relative;
+}
+
+.postContainer:not([data-is-last-visible="true"]):not(:last-child)::after {
+	position: absolute;
+	content: " ";
+	bottom: 0;
+	left: 0;
+	width: calc(100% - var(--divider-inset-end) - var(--divider-inset-start));
+	margin-right: var(--divider-inset-end);
+	margin-left: var(--divider-inset-start);
+	height: var(--border-1x);
+	background: var(--outline);
+}
+
+.postContainer[data-should-hide="true"] {
+	display: none;
+}
+
+.numberIndicator {
+	width: var(--spc-num);
+	text-align: right;
+	margin: 0;
+	flex-shrink: 0;
+}
+
+.numberDot {
+	width: var(--spc-dot);
+	text-align: left;
+	margin: 0;
+	flex-shrink: 0;
+}
+
+.noOutlineButton {
+	margin-left: auto;
+	border: none !important;
+	flex-shrink: 0;
+}
+
+.noHoverButton:hover {
+	background: unset;
+}
+
+.buttonContainer {
+	text-align: left;
+	padding: var(--chapter-item-padding-ver) 0;
+	padding-left: calc(var(--divider-inset-start) - var(--btn-hor-padding_small));
+}

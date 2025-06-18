@@ -1,0 +1,149 @@
+---
+import { PostInfo } from "../../../../types/PostInfo";
+import styles from "./collection-table-of-contents-ecosystem.module.scss";
+
+interface ChapterList {
+	title: string;
+	description: string;
+	order: string;
+}
+
+interface CollectionTableOfContentsProps {
+	title?: string;
+	posts: PostInfo[];
+	chapterList?: ChapterList[];
+	chaptersToShow?: number;
+	postPrefixToRemove?: string;
+}
+
+const { title, posts, chapterList, chaptersToShow, postPrefixToRemove } =
+	Astro.props as CollectionTableOfContentsProps;
+
+const maxChapterToShow = chaptersToShow ?? 10;
+
+function removeTitlePrefix(title: string) {
+	if (postPrefixToRemove && title.startsWith(postPrefixToRemove)) {
+		return title.slice(postPrefixToRemove.length);
+	}
+	return title;
+}
+---
+
+<section class={styles.chaptersContainer}>
+	<h2
+		id="chapter-listing-heading"
+		class={`text-style-headline-1 ${styles.chaptersTitle}`}
+	>
+		{title ? title : "Chapters"}
+	</h2>
+	<ul aria-describedby="chapter-listing-heading" class={styles.chapterList}>
+		{
+			posts &&
+			posts.map((post, i) => {
+				const shouldHideInitially = i >= maxChapterToShow;
+				const isLastVisible = i === maxChapterToShow - 1;
+				return (
+					<li
+						class={styles.postContainer}
+						data-is-last-visible={isLastVisible}
+						data-should-hide={shouldHideInitially}
+					>
+						<a href={"/posts/" + post.slug} class={styles.listItem}>
+								<span
+									class={`text-style-body-large-bold ${styles.numberIndicator}`}
+								>
+									{post.order}
+								</span>
+							<span class={`text-style-body-large-bold ${styles.numberDot}`}>
+									.
+								</span>
+							<span class={`text-style-body-large-bold ${styles.postTitle}`}>
+									{removeTitlePrefix(post.title)}
+								</span>
+							<span
+								class={`text-style-button ffg-button-base ffg-small-button ffg-outlined-button ${styles.noOutlineButton}`}
+							>
+									View Chapter
+								</span>
+						</a>
+					</li>
+				);
+			})
+		}
+		{
+			chapterList &&
+			chapterList.map((post, _i) => {
+				const i = (posts?.length ?? 0) + _i;
+				const shouldHideInitially = i >= maxChapterToShow;
+				const isLastVisible = i === maxChapterToShow - 1;
+				const isNumber = /\d/.test(post.order);
+				return (
+					<li
+						class={styles.postContainer}
+						data-is-last-visible={isLastVisible}
+						data-should-hide={shouldHideInitially}
+					>
+						<p class={styles.listItem}>
+								<span
+									class={`text-style-body-large-bold ${styles.numberIndicator}`}
+								>
+									{post.order}
+								</span>
+							<span class={`text-style-body-large-bold ${styles.numberDot}`}>
+									{isNumber ? "." : " "}
+								</span>
+							<span class={`text-style-body-large-bold ${styles.postTitle}`}>
+									{removeTitlePrefix(post.title)}
+								</span>
+							{post.description ? (
+								<span
+									class={`text-style-button ffg-button-base ffg-small-button ffg-outlined-button ${styles.noOutlineButton} ${styles.noHoverButton}`}
+								>
+										{post.description}
+									</span>
+							) : null}
+						</p>
+					</li>
+				);
+			})
+		}
+	</ul>
+	<script is:inline>
+		let shown = false;
+
+		const lastChild = document.querySelector("[data-is-last-visible='true']");
+
+		function toggleChapterList() {
+			const els = [...document.querySelectorAll("[data-should-hide='true']")];
+			if (!shown) {
+				els.forEach((el) => (el.style.display = "block"));
+				document.querySelector("#show-button").style.display = "none";
+				document.querySelector("#hide-button").style.display = "inline-block";
+				lastChild.setAttribute("data-is-last-visible", "false");
+			} else {
+				els.forEach((el) => (el.style.display = "none"));
+				document.querySelector("#hide-button").style.display = "none";
+				document.querySelector("#show-button").style.display = "inline-block";
+				lastChild.setAttribute("data-is-last-visible", "true");
+			}
+
+			shown = !shown;
+		}
+	</script>
+	<div class={styles.buttonContainer}>
+		<button
+			id="show-button"
+			class="text-style-button ffg-button-base ffg-small-button ffg-outlined-button"
+			style="display: inline-block"
+			onclick="toggleChapterList();"
+		>Show all {(posts?.length ?? 0) + (chapterList?.length ?? 0)} chapters
+		</button>
+		<button
+			id="hide-button"
+			class="text-style-button ffg-button-base ffg-small-button ffg-outlined-button"
+			style="display: none"
+			onclick="toggleChapterList();"
+		>Only show {maxChapterToShow} chapters
+		</button>
+	</div>
+</section>
