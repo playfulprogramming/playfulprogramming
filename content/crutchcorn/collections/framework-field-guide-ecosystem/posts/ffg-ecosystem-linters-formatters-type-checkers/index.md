@@ -11,7 +11,7 @@
 <details>
 <summary>What tools are we learning in this chapter?</summary>
 
-While there's a few other options in the linting, formatting, and type-checking space:
+While there are a few other options in the linting, formatting, and type-checking space:
 
 - [Biome](https://biomejs.dev/)
 - [Oxlint](https://oxc.rs/docs/guide/usage/linter.html)
@@ -19,7 +19,7 @@ While there's a few other options in the linting, formatting, and type-checking 
 
 We'll instead be learning about [ESLint](https://eslint.org/), [Prettier](https://prettier.io/), and [TypeScript](https://www.typescriptlang.org/). Let's talk about why:
 
-- ESLint is the de-facto linting solution for JavaScript projects, being downloaded nearly 500 million times a months on npm.
+- ESLint is the de-facto linting solution for JavaScript projects, being downloaded nearly 500 million times a month on npm.
 - [ESLint is working on becoming language agnostic.](https://eslint.org/blog/2024/07/whats-coming-next-for-eslint/) I suspect this will lead to growth of ESLint outside of JavaScript projects.
 - Prettier is also adopted almost as well as ESLint, just barely shy of ESLint's downloads a month.
 - Prettier is a strongly opinionated formatting solution with many edge cases covered. This means that we can spend less time configuring our tooling and allow the defaults to handle highly debated scenarios for us.
@@ -27,7 +27,7 @@ We'll instead be learning about [ESLint](https://eslint.org/), [Prettier](https:
 
 > In our article, we'll use Prettier and ESLint separately from one-another. While there _are_ ways to glue them together to run Prettier _from_ ESLint (or even use ESLint as a Prettier replacement) [this practice should be avoided. We'll explore why later on.](#formatting-vs-linting)
 
-With this covered - Let's dive in!
+With this covered — Let's dive in!
 
 </details>
 
@@ -59,7 +59,7 @@ It would be swell if we were able to automatically have code formatted like the 
 
 ------
 
-What's more, this code is **also** semantically valid, but will throw an error at runtime:
+What's more, this code is **also** semantically valid but will throw an error at runtime:
 
 ```javascript
 // This will throw an error, as the loop will never exit
@@ -113,7 +113,7 @@ function test(arg) {
 }
 ```
 
-Most coding languages have a community or an official code formatter. In the JavaScript ecosystem, that tool is more often than not "Prettier".
+Most coding languages have a community or an official code formatter. In the JavaScript ecosystem, that tool is more often than not "Prettier."
 
 To install Prettier, we can update our `package.json` using our package manager of choice:
 
@@ -142,15 +142,15 @@ Once the package is installed, you can run `npm run format` on any repository wi
 
 There's a humorous story amongst developers that goes something like:
 
-> There's an organizational committee for the construction of a powerplant. The committee has all of the research required for the powerplant and the blueprints laid out in front of them. They talk for a bit about it and, after 15 minutes, come to the agreement that the powerplant can be moved forward with and developed.
+> There's an organizational committee for the construction of a power plant. The committee has all the research required for the power plant and the blueprints laid out in front of them. They talk for a bit about it and, after 15 minutes, come to the agreement that the power plant can be moved forward with and developed.
 >
 > But then they get to talking about the employee bike shed. It'll make the lives of the employees better, yes, but _what color should the shed be_? They spend an hour talking about which color the shed should be and finally land on a nice shade of brown.
 
-This story demonstrates how, without proper guidance and prioritization, insignificant issues (like the color of a shed) can triumph over more significant problems; like how to fund and organize the development of a powerplant.
+This story demonstrates how, without proper guidance and prioritization, insignificant issues (like the color of a shed) can triumph over more significant problems, like how to fund and organize the development of a power plant.
 
-![A powerplant has a cost of 20 million dollars and a talk time of 15 minutes. The bike shed has a cost of $2,000 dollars and a talk time of 1 hour](./bike_shedding_visual.png)
+![A power plant has a cost of 20 million dollars and a talk time of 15 minutes. The bike shed has a cost of $2,000 dollars and a talk time of 1 hour](./bike_shedding_visual.png)
 
-> This story is often attributed with the ["Law of triviality"](https://en.wikipedia.org/wiki/Law_of_triviality), which states "people within an organization commonly give disproportionate weight to trivial issues."
+> This story is often attributed to the ["Law of triviality"](https://en.wikipedia.org/wiki/Law_of_triviality), which states "people within an organization commonly give disproportionate weight to trivial issues."
 
 This story has led to the term "bike-shedding" to refer to any argument that follows the law of triviality.
 
@@ -160,7 +160,7 @@ As you can imagine, many developers have very strong preferences for coding styl
 
 By having a strongly opinionated tool like Prettier to establish the code conventions for you, you're able to sidestep many of these time-wasting arguments in favor of something built-in.
 
-It's for this reason that, while Prettier can be configured fairly modularly, I suggest keeping most if not all of the defaults of Prettier.
+It's for this reason that, while Prettier can be configured fairly modularly, I suggest keeping most if not all the defaults of Prettier.
 
 ## Reducing Merge Conflicts
 
@@ -170,9 +170,9 @@ When using tools like [Git](https://git-scm.com/), it's common to store a differ
 
 ![A snapshot of code that shows the diff of "{body: feed.rss2()}" to "new Response(feed.rss2())"](./rss_diff.png)
 
-This is fundamental to how many code backup and versioning solutions work; they track a before and after of each line of code.
+This is fundamental to how many code backup and versioning solutions work; they track the before and after for each line of code.
 
-Because it tracks the difference in each line of code, it can sometimes figure out when a change is smaller, like the example above; but other times it's only able to see "enough changed in this line that I don't recognize anything from the previous change".
+Because it tracks the difference in each line of code, it can sometimes figure out when a change is smaller, like the example above; but other times it's only able to see "enough changed in this line that I don't recognize anything from the previous change."
 
 This inability to recognize differences makes it much harder to visually identify what's specifically changed between versions of the codebase.
 
@@ -212,9 +212,9 @@ Worse than the difficulties visually seeing code changes; this same problem make
 
 # Linters
 
-While formatting is important to a well-organized codebase; it doesn't directly find bugs in your codebase.
+While formatting is important to a well-organized codebase, it doesn't directly find bugs in your codebase.
 
-Instead, this responsibility often comes down to a bit of tooling that evaluates your source code and detects common mistakes and patterns to avoid. This bit of tooling is called a "linter".
+Instead, this responsibility often comes down to a bit of tooling that evaluates your source code and detects common mistakes and patterns to avoid. This bit of tooling is called a "linter."
 
 For example, we might have a bit of code that looks like this:
 
@@ -277,7 +277,7 @@ We get the previously mentioned error shown in our IDE:
 
 ## Adapt ESLint to your tools
 
-While ESLint without many configuration changes will find many issues it can be made even more utilitarian when you inform it on what tools you use in your project.
+While ESLint without many configuration changes will find many issues, it can be made even more utilitarian when you inform it on what tools you use in your project.
 
 For example, if you use a framework like React that supports JSX syntax, you can add a plugin for ESLint to detect common issues in JSX codebases.
 
@@ -463,13 +463,13 @@ export let msg = 'Hello!'
 
 # Formatting vs Linting {#formatting-vs-linting}
 
-Formatting and linting your code both require deeper understanding of your codebase than "it is some text". This deeper understanding comes from the transformation of your source code into an abstract syntax tree (AST):
+Formatting and linting your code both require a deeper understanding of your codebase than "it is some text." This deeper understanding comes from the transformation of your source code into an abstract syntax tree (AST):
 
 ![Some JavaScript broken down into tokens, which are then placed inside of the proper context of a JSON object representing the code and its metadata](../../../../posts/how-computers-speak/ast_1.svg)
 
 > [We spoke about this transformation of source code to AST in my article "How computers speak"](/posts/how-computers-speak).
 
-It might be tempting to hear about how these two tools have similar internals to understand your code and think "Oh, sweet, we can reduce two tools into one" and try to merge your linter and formatter into one command.
+It might be tempting to hear about how these two tools have similar internals to understand your code and think "Oh, sweet, we can reduce two tools into one." In fact, many that have had this thought often try to merge their linter and formatter into one command.
 
 In fact, there exist plugins to combine ESLint and Prettier:
 
@@ -484,7 +484,7 @@ However, while this might seem appealing at first, it's not a good idea to mix-n
 
 These tools are not generally suggested by either [the ESLint team](https://eslint.org/blog/2023/10/deprecating-formatting-rules/) or [the Prettier team](https://prettier.io/docs/en/integrating-with-linters.html) because they:
 
-- Bring heavy maintenance burden to both teams to support this workflow
+- Bring a heavy maintenance burden to both teams to support this workflow
 - Introduce performance headaches for those that integrate Prettier into ESLint.
 
 Consider the following:
@@ -518,7 +518,7 @@ someValue = "Hello, world";
 
 Moreover, JavaScript is also ["weakly typed"](https://en.wikipedia.org/wiki/Strong_and_weak_typing), which means that a mismatch in typings can cause an implicit type cast in many operations.
 
-In layman's terms, this means that if you try to add a number and a string together:
+In layperson's terms, this means that if you try to add a number and a string together:
 
 ``` javascript
 123 + "456";
@@ -588,7 +588,7 @@ Then place a configuration file for TypeScript in `tsconfig.json`:
 
 This tells our code that it should:
 
-- Target the latest version of JavaScript (officially called "ECMAScript", which is shortened to "ES" here).
+- Target the latest version of JavaScript (officially called "ECMAScript," which is shortened to "ES" here).
 - Strictly enforce our types.
 - Output type-removed JavaScript to the `dist` directory.
 
@@ -694,7 +694,7 @@ function App() {
 
 ### Angular
 
-TypeScript is required to use Angular. If you've installed Angular and have it running, you have TypeScript running as well. As such, I won't be including instructions to include TypeScript in your Angular project; since they are (in terms of installation) one in the same.
+TypeScript is required to use Angular. If you've installed Angular and have it running, you have TypeScript running as well. As such, I won't be including instructions to include TypeScript in your Angular project; since they are (in terms of installation) one and the same.
 
 ### Vue
 
@@ -819,7 +819,7 @@ Once again, the ability to use Angular with TypeScript is required. This means t
 
 #### Vue
 
-Because we don't care about Vue's `index.vue.js` file, we want to tell `vue-tsc` that "We don't want to generate the JS files; only type-check to make sure everything is type-checked before building the project". We can do that by updating our `package.json`'s `script` properties:
+Because we don't care about Vue's `index.vue.js` file, we want to tell `vue-tsc` that "We don't want to generate the JS files; only type-check to make sure everything is type-checked before building the project." We can do that by updating our `package.json`'s `script` properties:
 
 ```json
 "scripts": {
