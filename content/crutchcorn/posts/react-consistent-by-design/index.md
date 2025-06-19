@@ -919,21 +919,81 @@ What serendipity, then, that the data fetching solution that would come many yea
 
 Here's how it works:
 
+- Create a stable reference to a promise in a parent component
+- Pass the promise to a child component via props
+- Utilize the new `use` hook to recieve the data from the promise
 
+```jsx
+function Child({promise}) {
+  const data = use(promise);
+  return <p>{data}</p>
+}
 
+function App() {
+  // useMemo is needed here, otherwise it will generate a new promise
+  // for each render and cause an infinite loop
+  const promise = useMemo(() => fakeFetch());
+  
+  return <Child promise={promise}/>
+}
 
+const fakeFetch = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(1000);
+    }, 1000);
+  });
+}
+```
 
+This is awesome! This code will run but, uh...
 
+// TODO: Add iframe
 
+Oh, there's no loading state... Now if only we had a mechanism in React already to handle loading state...
 
+👀
 
+```jsx
+function Child({promise}) {
+  const data = use(promise);
+  return <p>{data}</p>
+}
 
+function App() {
+  const promise = useMemo(() => fakeFetch());
+  
+  return (
+    // This acts as our loading state for the promise above
+    <Suspense fallback={<p>Loading...</p>}>
+      <Child promise={promise}/>
+	  </Suspense>
+  )
+}
 
+const fakeFetch = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(1000);
+    }, 1000);
+  });
+}
+```
 
+// TODO: Add iframe
 
-// TODO: Talk about how `use` throwing upwards, required state to be lifted up (consistent with messaging from React for years)
-// TODO: Talk about waterfalling
-// TODO: Talk about how this introduced the ideas of boundaries in the VDOM
+> How does this work?
+
+Well, as hinted at before, [the `use` hook interacts with the VDOM to "throw" the promise up to the nearest suspense boundary to show the loading state](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md). This throw upwards does two things for us:
+
+1) Re-enforces the concepts we've already learned in regards to data moving up the VDOM tree
+2) Helps solve waterfalling and real-world user experience problems
+
+## Waterfalls & `use`
+
+// TODO: Talk about how waterfalls work and show visuals of how network requests can stack on one another to cause problems
+
+// TODO: Talk about how the boundaries of `use` enable better use UX crafting by deciding what needs to have loading state and what doesn't - refer to Dev's talk
 
 ## Error Boundaries & `use`
 
@@ -1005,6 +1065,8 @@ Even in the earliest days of React the idea of representing your HTML code in a 
 # Async components
 
 // TODO: Talk about how, once we have a loading pattern and a designation between the client and server, it enables a lot of cool data loading mechanisms
+
+// TODO: Talk about the server-only `cache` API
 
 # `<Activity>`
 
