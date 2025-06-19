@@ -37,6 +37,7 @@ import SignUp from "src/views/collections/framework-field-guide/segments/sign-up
 import WhyLearnAllThree from "src/views/collections/framework-field-guide/segments/why-learn-all-three.astro";
 import WhatDoIGet from "src/views/collections/framework-field-guide/segments/what-do-i-get.astro";
 import { getPersonById } from "utils/api";
+import BlockingTabsSignalScript from "components/tabs/blocking-tabs-signal-script.astro";
 ---
 
 <Barebones>
@@ -75,3 +76,4 @@ import { getPersonById } from "utils/api";
 	import { enableParallaxScrolling } from "../../../views/collections/framework-field-guide/scripts/parallax-scrolling";
 	enableParallaxScrolling();
 </script>
+<BlockingTabsSignalScript />
