@@ -787,19 +787,51 @@ An **idempotent** button would behave differently: It would only trigger the box
 
 Well, let's consider the following code:
 
-```
-function FeatureComp() {
+```jsx
+function BoxAddition() {
 	useEffect(() => {
-	
+		window.addBox();
 	}, []);
+  
+  return null;
 }
 ```
 
+Let's consider each render of "BoxAddition" to be akin to pressing the button on the factory line. If we want to show 10 `BoxAddition`s, then we should have 10 boxes coming down the pipeline.
 
+But the global box count should remain consistent if we then render and unrender the `BoxAddition` component. With the code above, this doesn't happen. This means that if we do something like:
 
+```jsx
+function CheckBoxAddsOnce() {
+  const [bool, setBool] = useState(true);
+  
+  useEffect(() => {
+    setInterval(() => setBool(v => !v), 0);
+    setInterval(() => setBool(v => !v), 100);
+    setInterval(() => setBool(v => !v), 200);
+  })
 
+  if (bool) return null;
+  return <BoxAddition></BoxAddition>
+}
+```
 
+Because of this, the `BoxAddition` component wouldn't be considered idempotent; its behavior causes inconsistencies depending on how many times it's been rendered. This aligns with how the button could be considered idempotent **only if** the button doesn't cause inconsistencies depending on how many times it's been pressed.
 
+To fix this, we'd need some kind of cleanup on our `BoxAddition` component:
+
+```jsx
+function BoxAddition() {
+	useEffect(() => {
+		window.addBox();
+		return () => window.removeBox();
+	}, []);
+  
+  return null;
+}
+```
+
+These problematic behaviors on a non-idempotent component is why `StrictMode` was changed to enforce this behavior.
 
 # Suspense Boundaries & `use`
 
