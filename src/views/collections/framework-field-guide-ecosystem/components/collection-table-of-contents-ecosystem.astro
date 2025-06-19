@@ -39,73 +39,73 @@ function removeTitlePrefix(title: string) {
 	<ul aria-describedby="chapter-listing-heading" class={styles.chapterList}>
 		{
 			posts &&
-			posts.map((post, i) => {
-				const shouldHideInitially = i >= maxChapterToShow;
-				const isLastVisible = i === maxChapterToShow - 1;
-				return (
-					<li
-						class={styles.postContainer}
-						data-is-last-visible={isLastVisible}
-						data-should-hide={shouldHideInitially}
-					>
-						<a href={"/posts/" + post.slug} class={styles.listItem}>
+				posts.map((post, i) => {
+					const shouldHideInitially = i >= maxChapterToShow;
+					const isLastVisible = i === maxChapterToShow - 1;
+					return (
+						<li
+							class={styles.postContainer}
+							data-is-last-visible={isLastVisible}
+							data-should-hide={shouldHideInitially}
+						>
+							<a href={"/posts/" + post.slug} class={styles.listItem}>
 								<span
 									class={`text-style-body-large-bold ${styles.numberIndicator}`}
 								>
 									{post.order}
 								</span>
-							<span class={`text-style-body-large-bold ${styles.numberDot}`}>
+								<span class={`text-style-body-large-bold ${styles.numberDot}`}>
 									.
 								</span>
-							<span class={`text-style-body-large-bold ${styles.postTitle}`}>
+								<span class={`text-style-body-large-bold ${styles.postTitle}`}>
 									{removeTitlePrefix(post.title)}
 								</span>
-							<span
-								class={`text-style-button ffg-button-base ffg-small-button ffg-outlined-button ${styles.noOutlineButton}`}
-							>
+								<span
+									class={`text-style-button ffg-button-base ffg-small-button ffg-outlined-button ${styles.noOutlineButton}`}
+								>
 									View Chapter
 								</span>
-						</a>
-					</li>
-				);
-			})
+							</a>
+						</li>
+					);
+				})
 		}
 		{
 			chapterList &&
-			chapterList.map((post, _i) => {
-				const i = (posts?.length ?? 0) + _i;
-				const shouldHideInitially = i >= maxChapterToShow;
-				const isLastVisible = i === maxChapterToShow - 1;
-				const isNumber = /\d/.test(post.order);
-				return (
-					<li
-						class={styles.postContainer}
-						data-is-last-visible={isLastVisible}
-						data-should-hide={shouldHideInitially}
-					>
-						<p class={styles.listItem}>
+				chapterList.map((post, _i) => {
+					const i = (posts?.length ?? 0) + _i;
+					const shouldHideInitially = i >= maxChapterToShow;
+					const isLastVisible = i === maxChapterToShow - 1;
+					const isNumber = /\d/.test(post.order);
+					return (
+						<li
+							class={styles.postContainer}
+							data-is-last-visible={isLastVisible}
+							data-should-hide={shouldHideInitially}
+						>
+							<p class={styles.listItem}>
 								<span
 									class={`text-style-body-large-bold ${styles.numberIndicator}`}
 								>
 									{post.order}
 								</span>
-							<span class={`text-style-body-large-bold ${styles.numberDot}`}>
+								<span class={`text-style-body-large-bold ${styles.numberDot}`}>
 									{isNumber ? "." : " "}
 								</span>
-							<span class={`text-style-body-large-bold ${styles.postTitle}`}>
+								<span class={`text-style-body-large-bold ${styles.postTitle}`}>
 									{removeTitlePrefix(post.title)}
 								</span>
-							{post.description ? (
-								<span
-									class={`text-style-button ffg-button-base ffg-small-button ffg-outlined-button ${styles.noOutlineButton} ${styles.noHoverButton}`}
-								>
+								{post.description ? (
+									<span
+										class={`text-style-button ffg-button-base ffg-small-button ${styles.noOutlineButton}`}
+									>
 										{post.description}
 									</span>
-							) : null}
-						</p>
-					</li>
-				);
-			})
+								) : null}
+							</p>
+						</li>
+					);
+				})
 		}
 	</ul>
 	<script is:inline>
@@ -136,14 +136,14 @@ function removeTitlePrefix(title: string) {
 			class="text-style-button ffg-button-base ffg-small-button ffg-outlined-button"
 			style="display: inline-block"
 			onclick="toggleChapterList();"
-		>Show all {(posts?.length ?? 0) + (chapterList?.length ?? 0)} chapters
+			>Show all {(posts?.length ?? 0) + (chapterList?.length ?? 0)} chapters
 		</button>
 		<button
 			id="hide-button"
 			class="text-style-button ffg-button-base ffg-small-button ffg-outlined-button"
 			style="display: none"
 			onclick="toggleChapterList();"
-		>Only show {maxChapterToShow} chapters
+			>Only show {maxChapterToShow} chapters
 		</button>
 	</div>
 </section>
