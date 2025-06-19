@@ -23,7 +23,7 @@ const content = Astro.props.content;
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			return <Component children={node.children} {...(node.props as any)} />;
 		} else if (isRoot(node)) {
-			return <Astro.self content={node.children as never[]} />;
+			return <Astro.self content={node.children} />;
 		}
 	})
 }
