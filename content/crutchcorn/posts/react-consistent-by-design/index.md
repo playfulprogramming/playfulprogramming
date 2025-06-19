@@ -833,7 +833,103 @@ function BoxAddition() {
 
 These problematic behaviors on a non-idempotent component is why `StrictMode` was changed to enforce this behavior.
 
-# Suspense Boundaries & `use`
+# Lazy Components
+
+In our story thus far, we've managed to make it to "React 18" and the changes it brought; But before we look forward, we must look back. Let's rewind back to 2018 with [React 16.6](https://legacy.reactjs.org/blog/2018/10/23/react-v-16-6.html).
+
+It's there that they introduced us to the concept of lazy loading components:
+
+```jsx
+import React, {lazy, Suspense} from 'react';
+const LargeBundleComponent = lazy(() => import('./LargeBundleComponent'));
+
+function MyComponent() {
+  return (
+    <LargeBundleComponent />
+  );
+}
+```
+
+Lazy loading components enable React to tree-shake away the bundled code relevant to only the imported component such that the `lazy` wrapped component code wouldn't be imported into the browser until the component was rendered:
+
+// TODO: Show image of treeshaken code not appearing until the loaded component appears.
+
+This enabled further usage of the VDOM as a representation of complex state by loading in a component and its associated code over the network (in this case `LargeBundleComponent`).
+
+## Suspense Boundaries
+
+> But wait, if the component is being loaded over the network that means there's latency involved. What does the user see when the component is being loaded?
+
+This is where `Suspense` boundaries come into play. Introduced at [JSConf Iceland 2018](https://legacy.reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html), `Suspense` allowed you to handle loading states in your UI as a fallback during high latency scenarios - like a `lazy` component mentioned above:
+
+```jsx
+import React, {lazy, Suspense} from 'react';
+const LargeBundleComponent = lazy(() => import('./LargeBundleComponent'));
+
+function MyComponent() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LargeBundleComponent />
+    </Suspense>
+  );
+}
+```
+
+Just like the `ErrorBoundary` component API was able to handle upward sent errors, the `Suspense` component API handled upward sent loading mechanisms; allowing even more flexibility with how and where the VDOM handled asynchronous effects.
+
+This stacked well with other problems you might face with loading states like how to handle multiple async sibling components:
+
+``` jsx
+import React, {lazy, Suspense} from 'react';
+const LargeBundleComponent = lazy(() => import('./LargeBundleComponent'));
+const AnotherLargeComponent = lazy(() => import('./AnotherLargeComponent'));
+
+function MyComponent() {
+  return (
+    // Only resolves once both components are loaded
+    <Suspense fallback={<div>Loading...</div>}>
+      <LargeBundleComponent />
+      <AnotherLargeComponent />
+    </Suspense>
+  );
+}
+
+// OR
+
+function MyOtherComponent() {
+  return (
+    // Show two loading states for each
+    <Suspense fallback={<div>Loading...</div>}>
+      <LargeBundleComponent />
+    </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <AnotherLargeComponent />
+    </Suspense>
+  );
+}
+```
+
+But that's not all `Suspense` was promised to do for us... There were hints even in its introduction that it would eventually lead to data fetching primitives in React...
+
+# Data fetching & the `use` API
+
+For as long as I can remember, the React team has provided guidance to "lift state" in your components to avoid headaches with data sharing. [They turned it into an official docs page in 2017](https://web.archive.org/web/20180128174149/https://reactjs.org/docs/lifting-state-up.html) and [Dan even referenced this problem in a GitHub comment from 2015](https://github.com/facebook/react/issues/4595#issuecomment-129786951).
+
+What serendipity, then, that the data fetching solution that would come many years later should rely on this lifted state philosophy?
+
+Here's how it works:
+
+
+
+
+
+
+
+
+
+
+
+
 
 // TODO: Talk about how `use` throwing upwards, required state to be lifted up (consistent with messaging from React for years)
 // TODO: Talk about waterfalling
