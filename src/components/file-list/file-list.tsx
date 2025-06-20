@@ -76,7 +76,7 @@ function Directory({ item }: DirectoryProps) {
 			</summary>
 			{FileListList({ items: item.items })}
 		</details>
-	) as never;
+	);
 }
 
 interface FileListProps {

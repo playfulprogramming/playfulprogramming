@@ -254,7 +254,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 								Array.isArray(value) ? value.join(" ") : String(value),
 							]),
 						),
-					}) as never,
+					}),
 				);
 			}),
 		);
