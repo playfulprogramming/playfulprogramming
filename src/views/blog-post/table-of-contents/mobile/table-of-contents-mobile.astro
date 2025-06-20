@@ -34,7 +34,10 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 	aria-labelledby="table-of-contents-heading"
 >
 	<div class={styles.tocTitle} data-mobile-table-of-contents-menu-header-bar>
-		<h4 data-mobile-table-of-contents-menu-header>
+		<h4
+			data-mobile-table-of-contents-menu-header
+			class="text-style-body-large-bold"
+		>
 			{translate(Astro, "title.table_of_contents")}
 		</h4>
 		<IconOnlyButton
