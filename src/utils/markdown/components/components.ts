@@ -77,12 +77,12 @@ export const components = {
 export function createComponent<Key extends keyof typeof components>(
 	key: Key,
 	props: Omit<Parameters<(typeof components)[Key]>[0], "children">,
-	children?: ComponentNode["children"],
+	children: ComponentNode["children"] = [],
 ): ComponentNode<Parameters<(typeof components)[Key]>[0]> {
 	return {
 		type: "playful-component",
 		component: key,
-		props: props,
-		children: children ?? [],
+		props,
+		children,
 	};
 }
