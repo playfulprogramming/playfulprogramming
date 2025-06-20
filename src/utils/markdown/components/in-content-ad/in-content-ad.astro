@@ -1,0 +1,12 @@
+---
+import { InContentAd as PreactInContentAd } from "components/in-content-ad/ad";
+
+export interface Props {
+	title: string;
+	body: string;
+	["button-text"]: string;
+	["button-href"]: string;
+}
+---
+
+<PreactInContentAd {...Astro.props} />

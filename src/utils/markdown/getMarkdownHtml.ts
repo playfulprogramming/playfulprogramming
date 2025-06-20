@@ -3,10 +3,11 @@ import { unified } from "unified";
 import { getMarkdownVFile } from "./getMarkdownVFile";
 import { MarkdownFileInfo, MarkdownVFile } from "./types";
 import { createHtmlPlugins } from "./createHtmlPlugins";
+import * as components from "./components";
 
 export type MarkdownHtml = {
 	headingsWithIds: PostHeadingInfo[];
-	html: string;
+	content: components.PlayfulNode[];
 };
 
 const unifiedChain = unified();
@@ -18,13 +19,10 @@ export async function getMarkdownHtml(
 ): Promise<MarkdownHtml> {
 	const vfile = await vfilePromise;
 
-	const result = await unifiedChain.process(vfile).catch((err) => {
-		console.error(`Failed to parse markdown file ${vfile.path}:\n`, err);
-		return err.toString();
-	});
+	const result = await unifiedChain.process(vfile);
 
 	return {
 		headingsWithIds: vfile.data.headingsWithIds,
-		html: result.toString(),
+		content: (await result.result) as components.PlayfulNode[],
 	};
 }

@@ -4,7 +4,6 @@ export const enableSmoothScrollForAnchorsToCurrentPage = () => {
 		window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 	const els = Array.from(document.querySelectorAll(`.post-body a[href^="#"]`));
-	console.log(els);
 	for (const el of els) {
 		el.addEventListener("click", (e: Event) => {
 			e.preventDefault();

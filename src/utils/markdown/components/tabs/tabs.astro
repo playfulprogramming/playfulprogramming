@@ -1,0 +1,28 @@
+---
+import { ComponentNode } from "../components";
+import Content from "../content.astro";
+import { TabInfo } from "./types";
+import { Tabs as PreactTabs, TabsItem } from "components/tabs/tabs-signal";
+
+export interface Props {
+	tabs: TabInfo[];
+	children: ComponentNode["children"];
+}
+
+const tabs = Astro.props.tabs;
+const tabsId = tabs
+	.map((t) => t.slug)
+	.sort()
+	.join(":");
+const tabsInfo = tabs.map(({ slug, name }) => ({ slug, name }));
+---
+
+<PreactTabs id={tabsId} tabs={tabsInfo} client:load>
+	{
+		tabs.map((tab, i) => (
+			<TabsItem id={tabsId} tabs={tabsInfo} slug={tab.slug} client:load>
+				<Content content={[Astro.props.children![i]]} />
+			</TabsItem>
+		))
+	}
+</PreactTabs>

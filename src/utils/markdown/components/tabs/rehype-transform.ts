@@ -1,8 +1,9 @@
 import { getHeaderNodeId, slugs } from "rehype-slug-custom-id";
-import { Element, Node, Parent, Text } from "hast";
-import { TabInfo, Tabs } from "./tabs";
+import { Element } from "hast";
 import { toString } from "hast-util-to-string";
 import { RehypeFunctionComponent } from "../types";
+import { TabInfo } from "./types";
+import { createComponent, PlayfulRoot } from "../components";
 
 const isNodeHeading = (n: Element) =>
 	n.type === "element" && /h[1-6]/.exec(n.tagName);
@@ -20,53 +21,11 @@ const findLargestHeading = (nodes: Element[]) => {
 const isNodeLargestHeading = (n: Element, largestSize: number) =>
 	isNodeHeading(n) && parseInt(n.tagName.substring(1), 10) === largestSize;
 
-const getApproxLineCount = (nodes: Node[], inParagraph?: boolean): number => {
-	let lines = 0;
-
-	for (const n of nodes) {
-		const isInParagraph =
-			inParagraph || (n.type === "element" && (n as Element).tagName === "p");
-
-		// recurse through child nodes
-		if ("children" in n) {
-			lines += getApproxLineCount(
-				(n as Parent).children as Node[],
-				isInParagraph,
-			);
-		}
-		// assume that any div/p/br causes a line break
-		if (
-			n.type === "element" &&
-			["div", "p", "br"].includes((n as Element).tagName)
-		)
-			lines++;
-		// include the number of line breaks in a codeblock
-		if (n.type === "element" && (n as Element).tagName === "code")
-			lines += toString(n as never).split("\n").length;
-		// assume that any image or embed could add ~20 lines
-		if (
-			n.type === "element" &&
-			["picture", "img", "svg", "iframe", "video"].includes(
-				(n as Element).tagName,
-			)
-		)
-			lines += 20;
-		// approximate line wraps in <p> tag, assuming ~100 chars per line
-		if (
-			isInParagraph &&
-			n.type === "text" &&
-			typeof (n as Text).value === "string"
-		)
-			lines += Math.floor((n as Text).value.length / 100);
-	}
-
-	return lines;
-};
-
-export const transformTabs: RehypeFunctionComponent = ({ children }) => {
+export const transformTabs: RehypeFunctionComponent = async ({ children }) => {
 	let sectionStarted = false;
 	const largestSize = findLargestHeading(children as Element[]);
-	const tabs: TabInfo[] = [];
+	const tabs: Array<TabInfo> = [];
+	const tabsChildren: PlayfulRoot[] = [];
 
 	for (const localNode of children as Element[]) {
 		if (!sectionStarted && !isNodeLargestHeading(localNode, largestSize)) {
@@ -84,9 +43,12 @@ export const transformTabs: RehypeFunctionComponent = ({ children }) => {
 
 			tabs.push({
 				slug: headerSlug,
-				name: toString(localNode as never),
-				contents: [],
+				name: toString(localNode),
 				headers: [],
+			});
+			tabsChildren.push({
+				type: "root",
+				children: [],
 			});
 
 			continue;
@@ -104,19 +66,8 @@ export const transformTabs: RehypeFunctionComponent = ({ children }) => {
 		}
 
 		// Otherwise, append the node as tab content
-		tabs.at(-1)?.contents?.push(localNode);
+		tabsChildren.at(-1)?.children?.push(localNode);
 	}
 
-	// Determine if the set of tabs should use a constant height (via the "tabs-small" class)
-	const tabHeights = tabs.map(({ contents }) => getApproxLineCount(contents));
-	const isSmall =
-		// all tabs must be <= 30 approx. lines (less than the height of most desktop viewports)
-		Math.max(...tabHeights) <= 30 &&
-		// the max difference between tab heights must be under 15 lines
-		Math.max(...tabHeights) - Math.min(...tabHeights) <= 15;
-
-	return Tabs({
-		tabs,
-		isSmall,
-	});
+	return [createComponent("Tabs", { tabs }, tabsChildren)];
 };
