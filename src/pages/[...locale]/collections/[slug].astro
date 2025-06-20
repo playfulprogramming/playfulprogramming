@@ -1,7 +1,6 @@
 ---
 import SEO from "src/components/seo/seo.astro";
 import Document from "src/layouts/document.astro";
-import { MarkdownInstance } from "astro";
 import * as api from "utils/api";
 import CollectionPage from "src/views/collections/collection-page.astro";
 import CollectionChapter from "src/views/collections/collection-chapter.astro";
@@ -26,20 +25,6 @@ export async function getStaticPaths() {
 			};
 		});
 }
-
-interface CollectionProps {
-	Content: MarkdownInstance<never>["Content"];
-}
-
-interface CollectionChapterData {
-	num?: number;
-	title: string;
-	description: string;
-	href: string;
-	externalLink: boolean;
-}
-
-const { Content } = Astro.props as CollectionProps;
 
 const params = Astro.params as {
 	locale?: Languages;
