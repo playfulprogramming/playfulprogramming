@@ -18,8 +18,15 @@ import { Processor } from "unified";
 import rehypeStringify from "rehype-stringify";
 import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
-import { rehypeTransformComponents } from "./components";
+import {
+	rehypeTransformComponents,
+	transformNoop,
+	transformVoid,
+	rehypeParseComponents,
+} from "./components";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
+import { rehypeRemoveCollectionLinks } from "./rehype-remove-collection-links";
+import { rehypeReferencePage } from "./reference-page/rehype-reference-page";
 
 export function createEpubPlugins(unified: Processor) {
 	return (
@@ -35,20 +42,11 @@ export function createEpubPlugins(unified: Processor) {
 			.use(rehypeUnwrapImages)
 			// This is required to handle unsafe HTML embedded into Markdown
 			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] } as never)
+			.use(rehypeParseComponents)
 			// When generating an epub, any relative paths need to be made absolute
 			.use(rehypeFixTwoSlashXHTML)
 			.use(rehypeMakeImagePathsAbsolute)
 			.use(rehypeMakeHrefPathsAbsolute)
-			.use(rehypeTransformComponents, {
-				components: {
-					filetree: ({ children }) => children,
-					["in-content-ad"]: ({ children }) => children,
-					["link-preview"]: ({ children }) => children,
-					["no-ebook"]: () => [],
-					["only-ebook"]: ({ children }) => children,
-					tabs: ({ children }) => children,
-				},
-			})
 			.use(rehypeExpandDetailsAndSummary)
 			.use(rehypeSlug as never, {
 				maintainCase: true,
@@ -57,7 +55,18 @@ export function createEpubPlugins(unified: Processor) {
 			})
 			.use(...rehypeShikiUU)
 			.use(rehypePostShikiTransform)
-			// Voids: [] is required for epub generation, and causes little/no harm for non-epub usage
-			.use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
+			.use(rehypeRemoveCollectionLinks)
+			.use(rehypeReferencePage, { referenceTitle: "References" })
+			.use(rehypeTransformComponents, {
+				components: {
+					filetree: transformNoop,
+					["in-content-ad"]: transformNoop,
+					["link-preview"]: transformNoop,
+					["no-ebook"]: transformVoid,
+					["only-ebook"]: transformNoop,
+					tabs: transformNoop,
+				},
+			})
+			.use(rehypeStringify)
 	);
 }

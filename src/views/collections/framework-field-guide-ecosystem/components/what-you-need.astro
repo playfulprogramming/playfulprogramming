@@ -1,0 +1,57 @@
+---
+import styles from "./what-you-need.module.scss";
+import BookSvg from "../../framework-field-guide/icons/book.astro";
+import ToolsSvg from "../../framework-field-guide/icons/tools.astro";
+---
+
+<section class={styles.whatYouNeedContainer}>
+	<h2 class={`text-style-headline-1 ${styles.whatYoullNeedText}`}>
+		What you'll need
+	</h2>
+	<div class={styles.gridContainer}>
+		<div class={styles.gridItemContainer}>
+			<div class={`text-style-body-medium-bold ${styles.gridItem}`}>
+				<BookSvg aria-hidden={true} />
+				<span> A strong foundation of your chosen framework</span>
+			</div>
+			<div class={styles.helpfulLinkContainer}>
+				<p
+					class={`text-style-button ${styles.helpfulLinkGeneric} ${styles.helpfulLinks}`}
+				>
+					Helpful Links
+				</p>
+				<ul class={styles.helpfulLinksList}>
+					<li>
+						<a
+							class={`text-style-button ${styles.helpfulLinkGeneric}`}
+							target="_blank"
+							href="/collections/web-fundamentals"
+							><span class={styles.helpfulLinkLink}
+								>Foundations of Web Development</span
+							></a
+						>
+					</li>
+					<li>
+						<a
+							class={`text-style-button ${styles.helpfulLinkGeneric}`}
+							target="_blank"
+							href="/collections/framework-field-guide-fundamentals"
+							><span class={styles.helpfulLinkLink}
+								>The basics of React, Angular, and Vue</span
+							></a
+						>
+					</li>
+					<li>
+						<a
+							class={`text-style-button ${styles.helpfulLinkGeneric}`}
+							target="_blank"
+							href="/collections/git-guide"
+							><span class={styles.helpfulLinkLink}>An introduction to Git</span
+							></a
+						>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>

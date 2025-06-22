@@ -1,24 +1,21 @@
 import { Root } from "hast";
 import { Plugin } from "unified";
-import { CollectionInfo } from "types/CollectionInfo";
-import { RawPostInfo } from "types/PostInfo";
+import { PostInfo } from "types/PostInfo";
 import { visit } from "unist-util-visit";
-import { getPostsByCollection } from "utils/api";
-
-interface RehypeRemoveCollectionLinksOptions {
-	collection: CollectionInfo;
-}
+import * as api from "utils/api";
+import { MarkdownVFile } from "./types";
 
 function normalizeUrl(url: string) {
 	return url.endsWith("/") ? url.slice(0, -1) : url;
 }
 
-export const rehypeRemoveCollectionLinks: Plugin<
-	[RehypeRemoveCollectionLinksOptions],
-	Root
-> = ({ collection }) => {
-	const posts = getPostsByCollection(collection.slug, "en");
-	return (tree) => {
+export const rehypeRemoveCollectionLinks: Plugin<[], Root> = () => {
+	return (tree, vfile) => {
+		const post = (vfile as MarkdownVFile).data.frontmatter as PostInfo;
+		const posts = post.collection
+			? api.getPostsByCollection(post.collection, "en")
+			: [];
+
 		visit(tree, "element", (node, index, parent) => {
 			if (node.tagName !== "a") {
 				return;

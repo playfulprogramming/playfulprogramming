@@ -1,5 +1,6 @@
 import { VFile } from "vfile";
 import { PostHeadingInfo } from "types/PostInfo";
+import { CollectionLinks } from "./reference-page/rehype-reference-page";
 
 export type MarkdownKind = "post" | "collection" | "unicorn" | "page";
 
@@ -14,7 +15,10 @@ export interface MarkdownVFile extends VFile {
 		kind: MarkdownKind;
 		file: string;
 		slug?: string;
+		frontmatter?: MarkdownFileInfo;
+		frontmatterData?: object;
 		headingsWithIds: PostHeadingInfo[];
+		collectionLinks?: CollectionLinks[];
 	};
 }
 

@@ -60,6 +60,7 @@
 		"@types/git-branch": "^2.0.5",
 		"@types/hast": "^3.0.4",
 		"@types/html-escaper": "^3.0.0",
+		"@types/jsdom": "^21.1.7",
 		"@types/mdast": "^4.0.3",
 		"@types/node": "^22.10.7",
 		"@typescript-eslint/eslint-plugin": "^8.21.0",
@@ -83,6 +84,7 @@
 		"hast-util-from-html": "^2.0.3",
 		"hast-util-has-property": "^3.0.0",
 		"hast-util-heading-rank": "^3.0.0",
+		"hast-util-to-html": "^9.0.5",
 		"hast-util-to-string": "^3.0.1",
 		"hastscript": "^9.0.0",
 		"html-escaper": "^3.0.3",
@@ -139,6 +141,7 @@
 	},
 	"dependencies": {
 		"@oramacloud/client": "^2.1.4",
+		"@preact/signals": "^2.2.0",
 		"@tanstack/react-query": "^5.64.2",
 		"medium-zoom": "^1.0.8",
 		"openapi-fetch": "^0.14.0",

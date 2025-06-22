@@ -1,0 +1,11 @@
+{
+	"name": "@ffg-ecosystem/no-bundle-scss-ts-3",
+	"scripts": {
+		"start": "tsc && sass src && servor src"
+	},
+	"dependencies": {
+		"sass": "^1.89.2",
+		"servor": "^4.0.2",
+		"typescript": "^5.8.3"
+	}
+}
