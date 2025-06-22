@@ -47,7 +47,7 @@
 		"@astrojs/vercel": "^8.0.2",
 		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^9.18.0",
-		"@lesjoursfr/html-to-epub": "^4.4.2",
+		"@lesjoursfr/html-to-epub": "^4.5.1",
 		"@octokit/graphql": "^8.1.2",
 		"@orama/orama": "^3.1.6",
 		"@react-types/shared": "^3.27.0",
