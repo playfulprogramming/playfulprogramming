@@ -724,20 +724,6 @@ component.render(Test); // 3
 
 See, this internal `Component` class isn't just an idea I came up with; it's more representative of how state is stored in a VDOM node in React. When React decides it's time to render a given component, it pulls up the Hook state from the node.
 
-### React Fiber
-
-https://legacy.reactjs.org/blog/2017/09/26/react-v16.0.html#new-core-architecture
-
-https://engineering.fb.com/2017/09/26/web/react-16-a-look-inside-an-api-compatible-rewrite-of-our-frontend-ui-library/
-
-https://blog.openreplay.com/react-fiber-explained/
-
-https://blog.logrocket.com/deep-dive-react-fiber/
-
-https://github.com/acdlite/react-fiber-architecture?tab=readme-ov-file
-
-
-
 # `<StrictMode>` Effect Changes
 
 When React 18 was released, many were suprised to find that various parts of their apps seemingly broke out of nowhere, but only in dev mode. I even wrote an article at the time explaining the phenomenon called ["Why React 18 Broke Your App"](/posts/why-react-18-broke-your-app).
@@ -771,15 +757,15 @@ To explain idempotence let's use an analogy and then dive into the real deal.
 
 Pretend you're working a factory line and you've been given a task: Press a button to drop an empty box from a chute above you onto a conveyor belt to move the boxes into a packaging machine. This machine will place an item in the box and seal it up for you.
 
-// TODO: Include a visual of this
+![TODO: Write alt](./empty_boxes.png)
+
+![TODO: Write alt](./one_box.png)
 
 However, you've been warned by your supervisor: Don't press the button a second time until the first box has been fully packaged. If you do so, the second box will jam the conveyor belt as the machine in the middle of packaging the first box.
 
-// TODO: Include a visual of this
+![TODO: Write alt](./two_boxes.png)
 
 An **idempotent** button would behave differently: It would only trigger the box to enter the factory line once the previous box had gone through the machine, **regardless of how many times you pressed the button**.
-
-// TODO: Include a visual of this
 
 ----
 
@@ -832,6 +818,32 @@ function BoxAddition() {
 ```
 
 These problematic behaviors on a non-idempotent component is why `StrictMode` was changed to enforce this behavior.
+
+# React Fiber, Concurrent Features, and more
+
+A major reason this kind of data fetching is possible in React is thanks to the rewrite of the renderering pipeline colloquially called "Fiber".
+
+
+
+// TODO: Write this please
+
+https://legacy.reactjs.org/blog/2017/09/26/react-v16.0.html#new-core-architecture
+
+https://engineering.fb.com/2017/09/26/web/react-16-a-look-inside-an-api-compatible-rewrite-of-our-frontend-ui-library/
+
+https://blog.openreplay.com/react-fiber-explained/
+
+https://blog.logrocket.com/deep-dive-react-fiber/
+
+https://github.com/acdlite/react-fiber-architecture?tab=readme-ov-file
+
+
+
+// TODO: Talk about `useTransition`
+
+// TODO: Talk about how this builds into `useOptimistic` and `useDeferredValue`
+
+// TODO: iFrame example
 
 # Lazy Components
 
@@ -913,9 +925,7 @@ But that's not all `Suspense` was promised to do for us... There were hints even
 
 # Data fetching & the `use` API
 
-For as long as I can remember, the React team has provided guidance to "lift state" in your components to avoid headaches with data sharing. [They turned it into an official docs page in 2017](https://web.archive.org/web/20180128174149/https://reactjs.org/docs/lifting-state-up.html) and [Dan even referenced this problem in a GitHub comment from 2015](https://github.com/facebook/react/issues/4595#issuecomment-129786951).
-
-What serendipity, then, that the data fetching solution that would come many years later should rely on this lifted state philosophy?
+// TODO: Talk about data fetching intro.
 
 Here's how it works:
 
@@ -1052,6 +1062,18 @@ function App() {
   );
 }
 ```
+
+## `use` and React's Design
+
+For as long as I can remember, the React team has provided guidance to "lift state" in your components to avoid headaches with data sharing. [They turned it into an official docs page in 2017](https://web.archive.org/web/20180128174149/https://reactjs.org/docs/lifting-state-up.html) and [Dan even referenced this problem in a GitHub comment from 2015](https://github.com/facebook/react/issues/4595#issuecomment-129786951).
+
+What serendipity, then, that the data fetching solution that would come many years later should rely on this lifted state philosophy?
+
+While this alone could be taken as proof of React's vision reaching far into the future, there's another major piece of evidence that the `use` API - in one form or another - was planned years prior: the work done on React's Fiber reconciliation.
+
+// TODO: Talk about how the Fiber rewrite of 2016 and how the ability to halt/pause execution 
+
+// TODO: Reference this: https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md
 
 # JSX over the wire
 
