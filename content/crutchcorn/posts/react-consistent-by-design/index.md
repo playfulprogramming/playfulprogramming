@@ -1035,7 +1035,7 @@ But that's not all `Suspense` was promised to do for us... There were hints even
 
 # Data fetching & the `use` API
 
-// TODO: Talk about data fetching intro.
+[React 19](https://react.dev/blog/2024/12/05/react-19#new-feature-use) added an incredible addition to usage on the Suspense APIs: Data fetching.
 
 Here's how it works:
 
@@ -1102,9 +1102,7 @@ const fakeFetch = () => {
 
 // TODO: Add iframe
 
-> How does this work?
-
-Well, as hinted at before, [the `use` hook interacts with the VDOM to "throw" the promise up to the nearest suspense boundary to show the loading state](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md). This throw upwards does two things for us:
+As we can see, using `use` forces us to raise our data fetching to a parent component. This does two things for us:
 
 1) Re-enforces the concepts we've already learned in regards to data moving up the VDOM tree
 2) Helps solve waterfalling and real-world user experience problems
@@ -1114,6 +1112,12 @@ Well, as hinted at before, [the `use` hook interacts with the VDOM to "throw" th
 // TODO: Talk about how waterfalls work and show visuals of how network requests can stack on one another to cause problems
 
 // TODO: Talk about how the boundaries of `use` enable better use UX crafting by deciding what needs to have loading state and what doesn't - refer to Dev's talk
+
+![TODO: Write alt](./with_waterfall.png)
+
+![TODO: Write alt](./with_parallel.png)
+
+
 
 ## Error Boundaries & `use`
 
@@ -1184,6 +1188,10 @@ While this alone could be taken as proof of React's vision reaching far into the
 // TODO: Talk about how the Fiber rewrite of 2016 and how the ability to halt/pause execution 
 
 // TODO: Reference this: https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md
+
+[The `use` hook interacts with the VDOM to "throw" the promise up to the nearest suspense boundary to show the loading state](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md).
+
+// TODO: Edit above
 
 # JSX over the wire
 
