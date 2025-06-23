@@ -821,35 +821,45 @@ These problematic behaviors on a non-idempotent component is why `StrictMode` wa
 
 # React Fiber, Concurrent Features, and more
 
-A major reason this kind of data fetching is possible in React is thanks to the rewrite of the renderering pipeline colloquially called "Fiber".
+In our story thus far, we've managed to make it to "React 18" and the changes it brought; But before we look forward, we must look back. Let's rewind back to 2016. At [ReactNext 2016, Andrew Clark gave a talk titled "What's Next for React"](https://www.youtube.com/watch?v=aV1271hd9ew). In it, he shares how the team has been working on an experiment called "Fiber".
+
+> **Notice that?**
+>
+> In Andrew's talk, he references posts from **2014** about what React had planned - it's remarkably similar to the endevors they published with Fiber! More on that soon.
+
+Despite Andrew's warnings that "this experiment might not work", we can [fast forward to 2017 with the release of React 16](https://legacy.reactjs.org/blog/2017/09/26/react-v16.0.html#new-core-architecture) and see that it was released as the new stable engine of React. It was even one of the few React releases to get [a blog post on Facebook's engineering blog](https://engineering.fb.com/2017/09/26/web/react-16-a-look-inside-an-api-compatible-rewrite-of-our-frontend-ui-library/).
+
+While I'll leave the nuances of how Fiber works [in this GitHub repo by Andrew](https://github.com/acdlite/react-fiber-architecture), the broad idea is that it enabled React to:
+
+- Pause work and come back to it later.
+- Assign priority to different types of work.
+- Reuse previously completed work.
+- Abort work if it's no longer needed.
+
+> This list is taken directly from [Andrew's GitHub explainer](https://github.com/acdlite/react-fiber-architecture).
+
+So what does this mean for users? While the React team could articulate some justification for these changes, the most direct answer came in the form of the React 18 release.
+
+It's in that release that React introduced a slew of new APIs they called "concurrent features":
+
+- `useTransition`
+- `useOptimistic`
+- `useDefferedValue`
+- `startTransition`
+
+These features build on top of the work done back in Fiber and allow us to more directly interface with the new rendering behaviors.
+
+Let's look at one of these APIs to understand what it does better: `useTransition`.
+
+## `useTransition`
 
 
 
-// TODO: Write this please
-
-https://legacy.reactjs.org/blog/2017/09/26/react-v16.0.html#new-core-architecture
-
-https://engineering.fb.com/2017/09/26/web/react-16-a-look-inside-an-api-compatible-rewrite-of-our-frontend-ui-library/
-
-https://blog.openreplay.com/react-fiber-explained/
-
-https://blog.logrocket.com/deep-dive-react-fiber/
-
-https://github.com/acdlite/react-fiber-architecture?tab=readme-ov-file
-
-
-
-// TODO: Talk about `useTransition`
-
-// TODO: Talk about how this builds into `useOptimistic` and `useDeferredValue`
-
-// TODO: iFrame example
+// TODO: iframe the example
 
 # Lazy Components
 
-In our story thus far, we've managed to make it to "React 18" and the changes it brought; But before we look forward, we must look back. Let's rewind back to 2018 with [React 16.6](https://legacy.reactjs.org/blog/2018/10/23/react-v-16-6.html).
-
-It's there that they introduced us to the concept of lazy loading components:
+In [React 16.6](https://legacy.reactjs.org/blog/2018/10/23/react-v-16-6.html), the React team introduced us to the concept of lazy loading components:
 
 ```jsx
 import React, {lazy, Suspense} from 'react';
