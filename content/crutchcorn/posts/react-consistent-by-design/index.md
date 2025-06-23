@@ -968,7 +968,13 @@ function MyComponent() {
 
 Lazy loading components enable React to tree-shake away the bundled code relevant to only the imported component such that the `lazy` wrapped component code wouldn't be imported into the browser until the component was rendered:
 
-// TODO: Show image of treeshaken code not appearing until the loaded component appears.
+![TODO: Write alt](./page_without_lazy_loading.png)
+
+![TODO: Write alt](./page_with_lazy_loading.png)
+
+> **Further reading:**
+>
+> Confused by what a "bundle" is in this context? Worry not! [I've written a guide to bundling (the process of generating a bundle) in React inside of my free book "Framework Field Guide: Ecosystem"](posts/ffg-ecosystem-bundling).
 
 This enabled further usage of the VDOM as a representation of complex state by loading in a component and its associated code over the network (in this case `LargeBundleComponent`).
 
