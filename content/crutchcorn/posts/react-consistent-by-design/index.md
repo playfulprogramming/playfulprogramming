@@ -1102,6 +1102,8 @@ const fakeFetch = () => {
 
 // TODO: Add iframe
 
+![TODO: Write alt](./how_use_works.png)
+
 As we can see, using `use` forces us to raise our data fetching to a parent component. This does two things for us:
 
 1) Re-enforces the concepts we've already learned in regards to data moving up the VDOM tree
@@ -1452,12 +1454,47 @@ Knowing what we know now about how `use` works internally, I think it's safe to 
 
 # JSX over the wire
 
-Even in the earliest days of React the idea of representing your HTML code in a JavaScript file was established.
+Server-side rendering, as a practice, has been around for... Well, as long as the web. To write your template in one language and compile it into the primitives the web understands (HTML, CSS, JS) is the core model for everything from Wordpress, Ruby on Rails, and - yes - React server-side solutions such as Next.js.
+
+> **Further reading:**
+>
+> Unfamiliar with what server-side rendering is? [Check out our guide on SSR in React.](/posts/what-is-ssr-and-ssg#ssr)
+
+But just because Next.js was doing server-side rendering doesn't mean that React itself had strong primitives for the story.
+
+See, from [Next.js' inception in 2016](https://github.com/vercel/next.js/releases/tag/1.0.0) all the way until [Next's adoption of React Server Components in 2023](https://nextjs.org/blog/next-13-4#nextjs-app-router), Next.js had a problem: React would re-render every component from the server once it hit the client.
 
 
 
-/ TODO: Talk about Next.js' pre-RSC SSR story and how shipping VDOM state enabled
-// TODO: Talk about how this is powered by a similar boundary system as Suspense (only between loading states and not) 
+![The developer ships SSR and framework code to the server, which produces HTML. This HTML/CSS is then sent to the user machine where it re-initializes on the client's browser](../../collections/react-beyond-the-render/posts/what-are-react-server-components/ssr_slowdown.svg)
+
+It wasn't until React 19 when RSCs were made stable that Next.js had a clear solution for this problem.
+
+> **Historical note:**
+>
+> Next.js 13.4 (May 4th, 2023) was released before React 19's stable release (December 5th, 2024). While React 19 stabilized the APIs for RSCs, [Next.js' "app router" relied on an experimental version of React dubbed at the time "18.3.0-canary"](https://github.com/vercel/next.js/commit/d543fd19db19d506f7155dd649f8b2462b1404a7). This version, not to be confused with [the stable `18.3` version](https://github.com/facebook/react/blob/main/CHANGELOG.md#1830-april-25-2024) acted as [the undocumented early releases for React 19](https://x.com/lubieowoce/status/1784579444302045315).
+>
+> This meant that, until React 19 was marked as stable, whenever you used Next.js' app router your code was being remapped to React 19 canary releases.
+>
+> While this led to short-term stability headaches for some app router users, this enabled React and other vendors - like Vercel who makes Next.js - to cooperate on the RSC APIs. And no, [Vercel did not take over React](https://blog.isquaredsoftware.com/2025/06/react-community-2025/#concern-vercel-next-and-react).
+
+See, RSCs enabled React to have a different execution path for client and server code. This execution path allowed the client to intelligently skip over the reconciliation process for nodes that didn't require additional work from what the server had sent:
+
+
+![The developer authors JSX with distinct client and server components. These components are ALL rendered on the server, but only the client components are re-rendered on the client](../../collections/react-beyond-the-render/posts/what-are-react-server-components/react-server-components.svg)
+
+
+
+---
+
+To get this to work, however, it required many building blocks of React to come together:
+
+- The VDOM's ability to display a mirrored representation of the browser's document while remaining runtime agnostic.
+- React's idempotency guarantees to avoid untintentional behavior between client and server.
+- Fiber's ability to bail out of work on already-completed nodes.
+- The ability to establish boundaries within the VDOM; whether it be for errors, loading states, or client/server distinctions.
+
+
 
 # Async components
 
