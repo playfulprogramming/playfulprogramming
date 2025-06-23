@@ -853,7 +853,101 @@ Let's look at one of these APIs to understand what it does better: `useTransitio
 
 ## `useTransition`
 
+Let's assume that we have a large list of elements we want to mirror some user inputted text onto:
 
+```jsx
+// An artificially slow component to render the list.
+// In a real app, this might be a complex chart or a large data grid.
+const SlowList = ({ text }) => {
+  // We use useMemo to only re-calculate the list when the text changes.
+  const items = useMemo(() => {
+    // This is an artificially expensive calculation to simulate a slow render.
+    // We are creating a large list and performing some work for each item.
+    let list = [];
+    for (let i = 0; i < 20000; i++) {
+        list.push(`Item ${i} - includes '${text}'`);
+    }
+    return list.filter(item => item.toLowerCase().includes(text.toLowerCase()));
+  }, [text]);
+
+  return (
+    <ul>
+      {items.map((item, index) => (
+        <li key={index}>{item}</div>
+      ))}
+    </ul>
+  );
+};
+```
+
+Intuitively, we might pass our controlled input state to this `SlowList` element:
+
+```jsx
+const LegacyDemo = () => {
+  const [inputText, setInputText] = useState("");
+  const [filterTerm, setFilterTerm] = useState("");
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setInputText(value);
+    // This state update causes an immediate, blocking re-render of the SlowList component.
+    setFilterTerm(value);
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={inputText}
+        onChange={handleChange}
+        placeholder="Type here to filter..."
+      />
+      <SlowList text={filterTerm} />
+    </div>
+  );
+};
+```
+
+However, if we do this, we'll find that when the user types it will lag the input box as the list re-renders:
+
+<video src="./legacy_demo.mp4" title="TODO: Write alt"></video>
+
+This occurs because the rendering of the list takes longer than the user can type each individual character. To solve this, we'd need a way to tell React to defer updates to the list in favor of the changes to the input element. Luckily for us, this is what Fiber was written to enable. We can interface with Fiber to fix this using the `useTransition` API:
+
+```jsx {7-14}
+const LegacyDemo = () => {
+  const [inputText, setInputText] = useState("");
+  const [filterTerm, setFilterTerm] = useState("");
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    // The input text updates immediately - this is an urgent update.
+    setInputText(value);
+
+    // We wrap the slow state update in startTransition.
+    // React now knows this update is non-urgent and can be interrupted.
+    startTransition(() => {
+      setFilterTerm(value);
+    });
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={inputText}
+        onChange={handleChange}
+        placeholder="Type here to filter..."
+      />
+      <SlowList text={filterTerm} />
+    </div>
+  );
+};
+```
+
+This change now results in a smoother text update experience:
+
+<video src="./concurrent_demo.mp4" title="TODO: Write alt"></video>
 
 // TODO: iframe the example
 

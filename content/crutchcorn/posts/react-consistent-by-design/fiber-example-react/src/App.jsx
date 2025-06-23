@@ -2,9 +2,8 @@ import { useState, useTransition, useMemo } from 'react';
 
 // --- Helper Components ---
 
-// A single item in our list.
 const ListItem = ({ children }) => (
-  <div className="p-2 border-b border-gray-700 text-gray-300">{children}</div>
+  <li className="p-2 border-b border-gray-700 text-gray-300">{children}</li>
 );
 
 // An artificially slow component to render the list.
@@ -16,17 +15,17 @@ const SlowList = ({ text }) => {
     // We are creating a large list and performing some work for each item.
     let list = [];
     for (let i = 0; i < 20000; i++) {
-        list.push(`Item ${i} - includes '${text}'`);
+      list.push(`Item ${i} - includes '${text}'`);
     }
     return list.filter(item => item.toLowerCase().includes(text.toLowerCase()));
   }, [text]);
 
   return (
-    <div className="h-64 overflow-y-scroll border border-gray-600 rounded-lg bg-gray-800/50 mt-4">
+    <ul className="h-64 overflow-y-scroll border border-gray-600 rounded-lg bg-gray-800/50 mt-4 list-none p-0 m-0">
       {items.map((item, index) => (
         <ListItem key={index}>{item}</ListItem>
       ))}
-    </div>
+    </ul>
   );
 };
 
@@ -119,27 +118,30 @@ export default function App() {
           <p className="text-gray-400 mt-2">Comparing Legacy (Blocking) vs. Concurrent (Non-Blocking) UI Updates</p>
         </header>
 
-        <div className="flex justify-center mb-8 space-x-4">
-          <button
-            onClick={() => setMode('legacy')}
-            className={`px-6 py-2 rounded-full font-semibold transition-all duration-200 ${mode === 'legacy' ? 'bg-amber-500 text-gray-900' : 'bg-gray-700 hover:bg-gray-600'}`}
-          >
-            Legacy Demo
-          </button>
-          <button
-            onClick={() => setMode('concurrent')}
-            className={`px-6 py-2 rounded-full font-semibold transition-all duration-200 ${mode === 'concurrent' ? 'bg-cyan-500 text-gray-900' : 'bg-gray-700 hover:bg-gray-600'}`}
-          >
-            Concurrent Demo
-          </button>
-        </div>
+        <main>
 
-        <main className="bg-gray-800 p-6 rounded-xl shadow-2xl">
-          {mode === 'legacy' ? <LegacyDemo /> : <ConcurrentDemo />}
+          <div className="flex justify-center mb-8 space-x-4">
+            <button
+              onClick={() => setMode('legacy')}
+              className={`px-6 py-2 rounded-full font-semibold transition-all duration-200 ${mode === 'legacy' ? 'bg-amber-500 text-gray-900' : 'bg-gray-700 hover:bg-gray-600'}`}
+            >
+              Legacy Demo
+            </button>
+            <button
+              onClick={() => setMode('concurrent')}
+              className={`px-6 py-2 rounded-full font-semibold transition-all duration-200 ${mode === 'concurrent' ? 'bg-cyan-500 text-gray-900' : 'bg-gray-700 hover:bg-gray-600'}`}
+            >
+              Concurrent Demo
+            </button>
+          </div>
+
+          <div className="bg-gray-800 p-6 rounded-xl shadow-2xl">
+            {mode === 'legacy' ? <LegacyDemo /> : <ConcurrentDemo />}
+          </div>
         </main>
 
         <footer className="text-center mt-8 text-gray-500">
-            <p>Built to demonstrate the benefits of async rendering in React 18+.</p>
+          <p>Built to demonstrate the benefits of async rendering in React 18+.</p>
         </footer>
       </div>
     </div>
