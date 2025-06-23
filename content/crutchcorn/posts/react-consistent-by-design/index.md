@@ -1107,17 +1107,269 @@ As we can see, using `use` forces us to raise our data fetching to a parent comp
 1) Re-enforces the concepts we've already learned in regards to data moving up the VDOM tree
 2) Helps solve waterfalling and real-world user experience problems
 
-## Waterfalls & `use`
+> **Further reading**:
+>
+> If `use`'s API still feels foreign to you, I might recommend reading through [my series on React 19 features, including the `use` API](/posts/what-is-react-suspense-and-async-rendering#What-is-the-React-use-Hook) 
 
-// TODO: Talk about how waterfalls work and show visuals of how network requests can stack on one another to cause problems
+## Advantages of `use`
 
-// TODO: Talk about how the boundaries of `use` enable better use UX crafting by deciding what needs to have loading state and what doesn't - refer to Dev's talk
+> But Corbin, data fetching mechanisms have existed in React for some time! What makes `use` different?
+
+Well, dear reader, while `use` is the newest kid on the block for data fetching in React its API has two main advantages:
+
+1) It forces you to raise your fetching logic, helping avoid waterfall data fetching
+2) It makes consolidating multiple loading states together becomes much more trivial
+
+I've talked about the concept of raising data fetching too much at this point to not dive in further; let's do that.
+
+Let's use this code sample as an example of a problematic data fetching pattern:
+
+```jsx
+// DO NOT USE THIS CODE IN PRODUCTION, IT IS INEFFECIENT - more on that soon
+import { useState, useEffect } from 'react';
+
+// Child component that fetches posts after receiving userId
+function UserPosts({ userId }) {
+  const { data: posts, loading, error } = useFetch(userId ? `/users/${userId}/posts` : null);
+
+  if (loading) return <div>Loading posts...</div>;
+  if (error) return <div>Error loading posts: {error}</div>;
+
+  return (
+    <div>
+      <h3>Posts</h3>
+      {posts?.map(post => (
+        <div key={post.id} style={{ marginBottom: '1rem', padding: '1rem', border: '1px solid #ccc' }}>
+          <h4>{post.title}</h4>
+          <p>{post.content}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Parent component that fetches user profile first
+function UserProfile({ userId }) {
+  const { data: profile, loading, error } = useFetch(`/users/${userId}/profile`);
+
+  if (loading) return <div>Loading profile...</div>;
+  if (error) return <div>Error loading profile: {error}</div>;
+
+  return (
+    <div>
+      <h2>User Profile</h2>
+      <div style={{ marginBottom: '2rem', padding: '1rem', border: '2px solid #333' }}>
+        <h3>{profile.name}</h3>
+        <p>Email: {profile.email}</p>
+        <p>Bio: {profile.bio}</p>
+      </div>
+      
+      {/* Posts component only renders after profile is loaded */}
+      <UserPosts userId={userId} />
+    </div>
+  );
+}
+
+// Main component
+export default function App() {
+  return (
+    <div style={{ padding: '2rem' }}>
+      <h1>Waterfall Requests Example</h1>
+      <UserProfile userId="123" />
+    </div>
+  );
+}
+```
+
+<details>
+<summary>Code for <code>useFetcher</code></summary>
+
+
+```jsx
+// This is wildly incomplete; you should use something like TanStack Query for real-world applications
+function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!url) return;
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Failed to fetch data');
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url]);
+
+  return { data, loading, error };
+}
+```
+
+</details>
+
+> I don't see the problem with this code?
+
+Well, while this code is syntatically correct, its got a major flaw hidden within: The data fetches in a waterfall pattern. The user's blog posts can't load until the profile is finished loading:
 
 ![TODO: Write alt](./with_waterfall.png)
 
+Compare and contrast to a refactored version of this app to use the `use` API:
+
+```jsx
+import { use, Suspense } from 'react';
+
+// Child component that uses the use API
+function UserPosts({ postsPromise }) {
+  const posts = use(postsPromise);
+
+  return (
+    <div>
+      <h3>Posts</h3>
+      {posts?.map(post => (
+        <div key={post.id} style={{ marginBottom: '1rem', padding: '1rem', border: '1px solid #ccc' }}>
+          <h4>{post.title}</h4>
+          <p>{post.content}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Parent component that uses the use API
+function UserProfile({ profilePromise, children }) {
+  const profile = use(profilePromise);
+
+  return (
+    <div>
+      <h2>User Profile</h2>
+      <div style={{ marginBottom: '2rem', padding: '1rem', border: '2px solid #333' }}>
+        <h3>{profile.name}</h3>
+        <p>Email: {profile.email}</p>
+        <p>Bio: {profile.bio}</p>
+      </div>
+      
+      {children}
+    </div>
+  );
+}
+
+// Main component that creates promises and uses Suspense
+export default function App() {
+  const userId = "123";
+  const profilePromise = useMemo(() => fetchData(`/users/${userId}/profile`), [userId]);
+  const postsPromise = useMemo(() => fetchData(`/users/${userId}/posts`), [userId]);
+
+  return (
+    <div style={{ padding: '2rem' }}>
+      <Suspense fallback={<div>Loading profile...</div>}>
+        <UserProfile profilePromise={profilePromise}>
+          <Suspense fallback={<div>Loading posts...</div>}>
+            <UserPosts postsPromise={postsPromise} />
+          </Suspense>
+        </UserProfile>
+      </Suspense>
+    </div>
+  );
+}
+
+// Helper function to create fetch promises
+function fetchData(url) {
+  return fetch(url).then(response => {
+    if (!response.ok) throw new Error('Failed to fetch data');
+    return response.json();
+  });
+}
+```
+
+Here, we can see that we managed to make our API calls in parallel, cutting down the time until the app is finally ready:
+
 ![TODO: Write alt](./with_parallel.png)
 
+### Consolidated Loading States
 
+> But wait! You can raise your data fetching using your `useFetcher` as well!
+
+Quite astute! You can indeed!
+
+Let's do that here:
+
+```jsx
+import { useState, useEffect } from 'react';
+
+// Child component that receives posts as props
+function UserPosts({ posts, loading, error }) {
+  if (loading) return <div>Loading posts...</div>;
+  if (error) return <div>Error loading posts: {error}</div>;
+
+  return (
+    <div>
+      <h3>Posts</h3>
+      {posts?.map(post => (
+        <div key={post.id} style={{ marginBottom: '1rem', padding: '1rem', border: '1px solid #ccc' }}>
+          <h4>{post.title}</h4>
+          <p>{post.content}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Parent component that receives profile as props
+function UserProfile({ profile, loading, error, children }) {
+  if (loading) return <div>Loading profile...</div>;
+  if (error) return <div>Error loading profile: {error}</div>;
+
+  return (
+    <div>
+      <h2>User Profile</h2>
+      <div style={{ marginBottom: '2rem', padding: '1rem', border: '2px solid #333' }}>
+        <h3>{profile.name}</h3>
+        <p>Email: {profile.email}</p>
+        <p>Bio: {profile.bio}</p>
+      </div>
+      
+      {children}
+    </div>
+  );
+}
+
+// Main component that fetches both resources in parallel
+export default function App() {
+  const userId = "123";
+  const { data: profile, loading: profileLoading, error: profileError } = useFetch(`/users/${userId}/profile`);
+  const { data: posts, loading: postsLoading, error: postsError } = useFetch(`/users/${userId}/posts`);
+
+  return (
+    <div style={{ padding: '2rem' }}>
+      <UserProfile profile={profile} loading={profileLoading} error={profileError}>
+        <UserPosts posts={posts} loading={postsLoading} error={postsError} />
+      </UserProfile>
+    </div>
+  );
+}
+```
+
+This works reasonably well, but now we've introduced a new problem: Loading states are tied more closely to the implementation of our `useFetcher` API.
+
+Not only are a lot of props passed around, but if we wanted to have one loading state instead of two distinct ones, it would require us to do some decently sized refactor work.
+
+-----
+
+With the `use` API, this is solved by allowing the user to move their `Suspense` component usage to anywhere above the `use` API and have the rest handled by React itself.
+
+> **Further reading:**
+> Looking to understand how `use` is able to impart better loading pattern behaviors in your apps? [Take a look at my buddy Dev's talk from Stir Trek 2025](https://www.youtube.com/watch?v=N1wSVaUdV_U).
 
 ## Error Boundaries & `use`
 
