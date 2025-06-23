@@ -1373,11 +1373,11 @@ With the `use` API, this is solved by allowing the user to move their `Suspense`
 
 ## Error Boundaries & `use`
 
-// TODO: Talk about how rendering itself is a side effect
+Something often missed is how updating the screen (called "rendering" in the context of React) is itself a form of a side effect. After all, if all I/O is considered a "side effect", then surely the most predominant form of "output" (updating the screen) is a side effect!
 
-// TODO: Talk about how if a promise passed to `use` rejects, it will open an error boundary
+This is true! So true, in fact, that the same mechanism we used earlier (error boundary components) are able to be reused for data fetching errors.
 
-Something often missed is how updating the screen (called "rendering" in the context of React) is itself a form of a side effect. After all, 
+As we can see from this example, our `ErrorBoundary` component will catch all rejected promises passed to the `use` API:
 
 ```jsx
 class ErrorBoundary extends React.Component {
@@ -1437,13 +1437,18 @@ What serendipity, then, that the data fetching solution that would come many yea
 
 While this alone could be taken as proof of React's vision reaching far into the future, there's another major piece of evidence that the `use` API - in one form or another - was planned years prior: the work done on React's Fiber reconciliation.
 
-// TODO: Talk about how the Fiber rewrite of 2016 and how the ability to halt/pause execution 
+If we go back to [our section on React Fiber](#TODO_LINK_INTERNALLY), we can see that two of the rationales for the restructuring was to enable React to:
 
-// TODO: Reference this: https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md
+> - Pause work and come back to it later.
+> - Reuse previously completed work.
 
-[The `use` hook interacts with the VDOM to "throw" the promise up to the nearest suspense boundary to show the loading state](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md).
+Well, let's look at how `use` works internally. According to [the RFC the React team introduced for `use`]( https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md):
 
-// TODO: Edit above
+> If a promise passed to `use` hasn't finished loading, `use` suspends the component's execution by throwing an exception. When the promise finally resolves, React will replay the component's render.
+
+> The first thing React will try is to check if the promise was read previously, either by a different `use` call or a different render attempt. If so, React can reuse the result from last time, synchronously, without suspending.
+
+Knowing what we know now about how `use` works internally, I think it's safe to say that `use` wouldn't be able to function the way it does today without the Fiber rewrite's prerequisite capacities.
 
 # JSX over the wire
 
