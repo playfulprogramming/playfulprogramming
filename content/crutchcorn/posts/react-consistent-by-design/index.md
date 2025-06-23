@@ -1506,11 +1506,47 @@ To get this to work, however, it required many building blocks of React to come 
 - Fiber's ability to bail out of work on already-completed nodes.
 - The ability to establish boundaries within the VDOM; whether it be for errors, loading states, or client/server distinctions.
 
-# Async components
+# Async components, server actions, and beyond
+
+While RSC's ability to serialize JSX and send it over the wire is undoubtedly cool, it's not the only superpower that RSC has.
+
+Since we finally had an officiated way of operating React on the server, the React team expanded their focus beyond the client-side experience of React and introduced methods of sending and receiving data from the server. These methods came in the form of two new APIs: Async Components and React Server Actions.
+
+## Async components
+
+[While the React team ultimately decided against using `await` on the client for nuanced technical reasoning](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md#why-cant-client-components-be-async-functions); there's nothing to prevent, say, a backend from the same. As such, this is all it takes to load data from a server component:
+
+```jsx
+async function UserProfile({userId}) {
+  const data = await getUserFromDb(userId);
+  
+  return <UserProfileClient data={data}/>
+}
+```
+
+That's right! No wrapping our `await` in a cache (after all, the server component doesn't re-run after initial execution) and no special wrapper around server-specific code.
+
+> **Further reading:**
+>
+> If you want to learn more in-depth information about async components in React, [our React Suspense and Async Rendering guide covers everything you'd need to know.](/posts/what-is-react-suspense-and-async-rendering)
+
+## Server actions
+
+/posts/what-are-react-server-actions
+
+
 
 // TODO: Talk about how, once we have a loading pattern and a designation between the client and server, it enables a lot of cool data loading mechanisms
 
 // TODO: Talk about the server-only `cache` API
+
+## Beyond
+
+// TODO: Talk about serializing state like promises
+
+// TODO: https://x.com/crutchcorn/status/1754174851936629225
+
+// TODO: https://x.com/gs_porto/status/1754568585551200337
 
 # `<Activity>`
 
