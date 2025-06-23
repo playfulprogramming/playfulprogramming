@@ -1483,7 +1483,19 @@ See, RSCs enabled React to have a different execution path for client and server
 
 ![The developer authors JSX with distinct client and server components. These components are ALL rendered on the server, but only the client components are re-rendered on the client](../../collections/react-beyond-the-render/posts/what-are-react-server-components/react-server-components.svg)
 
+This optimization of avoiding re-rendering server-only components is done by:
 
+- Implementing a distinction between components that need to be interactive on the client ([`"use client"`](https://react.dev/reference/rsc/use-client)) and server-only components (the default for components authored without `"use client"`)
+- Serializing the state of the VDOM on the server
+- Sending the serialized state to the client alongside the hydrated HTML
+- Intelligently injesting the server-sent VDOM on the client
+
+> **Further reading:**
+>
+> The concept of JSX over the wire is a complex one. Some learning resources I'd suggest following to understand them better:
+>
+> - ["JSX Over The Wire" by Dan Abramov](https://overreacted.io/jsx-over-the-wire/)
+> - ["And Now You Understand React Server Components" by Kent C Dodds](https://www.youtube.com/watch?v=B4wr-kDdBAs)
 
 ---
 
@@ -1493,8 +1505,6 @@ To get this to work, however, it required many building blocks of React to come 
 - React's idempotency guarantees to avoid untintentional behavior between client and server.
 - Fiber's ability to bail out of work on already-completed nodes.
 - The ability to establish boundaries within the VDOM; whether it be for errors, loading states, or client/server distinctions.
-
-
 
 # Async components
 
