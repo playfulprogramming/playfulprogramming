@@ -1,0 +1,16 @@
+html {
+		font-size: 16px;
+	}
+	
+	body {
+		font-size: 1rem; /* 16px */
+		line-height: 1.5; /* computed height: 24px (1.5 * 16px) */
+	}
+	
+	h1 {
+		font-size: 4rem; /* computed height: 96px (1.5 * 64px) */
+	}
+	
+	p {
+		font-size: 2rem; /* computed height: 48px (1.5 * 32px) */
+	}
