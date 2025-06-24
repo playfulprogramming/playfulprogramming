@@ -118,4 +118,52 @@ Further reading: https://www.w3.org/WAI/WCAG22/Understanding/text-spacing
 
 This is not fancy. This is not super smart. This is a very simple and straightforward methodology to handle a facet of what should be a very simple and straightforward thing: Displaying text. I hope all of you reading this understand it and will go out there and feel confident that the text on your site is readable for all viewers!
 
-[A line height theme template for unitless values for TW including font-sizes]
+```js
+// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {
+      // Define a custom font size scale with associated unitless line heights
+      fontSize: {
+        // Base font size for body text
+        'base': ['1rem', { lineHeight: '1.5' }], // 16px font, 1.5 (unitless) line-height = 24px
+
+        // Larger font sizes for headings, etc.
+        'lg': ['1.125rem', { lineHeight: '1.5' }], // 18px font, 1.5 line-height = 27px
+        'xl': ['1.25rem', { lineHeight: '1.5' }],  // 20px font, 1.5 line-height = 30px
+        '2xl': ['1.5rem', { lineHeight: '1.4' }],   // 24px font, 1.4 line-height = 33.6px (slightly tighter for larger headings)
+        '3xl': ['1.875rem', { lineHeight: '1.35' }], // 30px font, 1.35 line-height = 40.5px
+        '4xl': ['2.25rem', { lineHeight: '1.3' }],  // 36px font, 1.3 line-height = 46.8px
+        '5xl': ['3rem', { lineHeight: '1.25' }],    // 48px font, 1.25 line-height = 60px
+        '6xl': ['3.75rem', { lineHeight: '1.2' }],  // 60px font, 1.2 line-height = 72px
+        '7xl': ['4.5rem', { lineHeight: '1.15' }],  // 72px font, 1.15 line-height = 82.8px
+        '8xl': ['6rem', { lineHeight: '1.1' }],     // 96px font, 1.1 line-height = 105.6px
+        '9xl': ['8rem', { lineHeight: '1' }],       // 128px font, 1.0 line-height = 128px (very tight, for very large display text)
+      },
+
+      // Define a line-height scale consisting only of unitless values
+      // This allows for explicit line-height control when fontSize doesn't provide enough granularity.
+      lineHeight: {
+        'none': '1',       // Equivalent to 1.0
+        'tight': '1.15',   // A bit tighter than default
+        'snug': '1.25',    // Slightly snug
+        'normal': '1.5',   // Recommended for body text
+        'relaxed': '1.75', // More relaxed
+        'loose': '2',      // Double-spaced
+        // Custom values, e.g., for specific design needs
+        '1.2': '1.2',
+        '1.3': '1.3',
+        '1.4': '1.4',
+        '1.6': '1.6',
+        '1.8': '1.8',
+      }
+    },
+  },
+  plugins: [],
+}
+```
