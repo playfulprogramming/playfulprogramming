@@ -1,0 +1,100 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.title {
+  text-align: center;
+  color: #1da1f2;
+  margin-bottom: 30px;
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+.postsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.postCard {
+  border: 1px solid #e1e8ed;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.authorName {
+  font-weight: bold;
+  font-size: 0.9375rem;
+}
+
+.userDetails {
+  color: #657786;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.postContent {
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  margin-bottom: 4px;
+  color: #14171a;
+}
+
+.likeForm {
+  margin: 0;
+}
+
+.likeButton {
+  background: none;
+  border: none;
+  color: #657786;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  padding: 8px 12px;
+  border-radius: 20px;
+  transition: all 0.2s;
+}
+
+.likeButton:hover {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.likeIcon {
+  font-size: 1rem;
+}
+
+.likeCount {
+  font-weight: 500;
+}
+
+.emptyState {
+  text-align: center;
+  color: #657786;
+  font-size: 1rem;
+  margin-top: 40px;
+}

@@ -1532,9 +1532,86 @@ That's right! No wrapping our `await` in a cache (after all, the server componen
 
 ## Server actions
 
-/posts/what-are-react-server-actions
+```jsx
+import { redirect } from 'next/navigation'
+import { getAllPosts, likePost } from '../services/posts.js';
+import { formatDate } from '../utils/formatDate.js';
+import styles from './page.module.css';
 
+// Server action for liking posts
+async function handleLikePost(formData) {
+  'use server';
 
+  const postId = formData.get('postId');
+  const userId = formData.get('userId') || 'anonymous-user'; // Simple user simulation
+
+    await likePost(postId, userId);
+    // Reload the page to reflect changes
+    redirect("/")
+}
+
+export default async function Home() {
+  const posts = await getAllPosts();
+
+  return (
+    <form action={handleLikePost}>
+      <input type="hidden" name="postId" value={post[0].id} />
+      <input type="hidden" name="userId" value="anonymous-user" />
+      <button type="submit">
+        {post.likes} likes
+      </button>
+    </form>
+  );
+}
+
+```
+
+// TODO: Iframe server-actions
+
+// TODO: point out problems with this being a required refresh of the page
+
+```jsx
+'use client';
+
+import { useActionState } from 'react';
+import { handleLikePost } from '../services/posts.js';
+import { formatDate } from '../utils/dates.js';
+import styles from './page.module.css';
+
+const userId = 'anonymous-user'; // Simulated user ID for likes
+
+export default function Post({ post }) {
+  const [state, action, isPending] = useActionState(handleLikePost, {
+    postId: post.id,
+    liked: !post.likedBy.includes(userId),
+    totalLikes: post.likes
+  });
+
+  return (
+      <form action={action} className={styles.likeForm}>
+        <input type="hidden" name="postId" value={post.id} />
+        <input type="hidden" name="userId" value={userId} />
+        <button type="submit" disabled={isPending}>
+          {state.totalLikes} likes
+        </button>
+      </form>
+  );
+}
+```
+
+```jsx
+// Server action for liking posts
+// This cannot live in a `"use client"` file for security purposes
+export async function handleLikePost(_prevState, formData) {
+	"use server"
+  const postId = formData.get('postId');
+  const userId = formData.get('userId') || 'anonymous-user';
+
+  return await likePost(postId, userId);
+}
+```
+
+// TODO: Iframe server-actions-state
 
 // TODO: Talk about how, once we have a loading pattern and a designation between the client and server, it enables a lot of cool data loading mechanisms
 
