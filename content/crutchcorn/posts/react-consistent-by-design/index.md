@@ -22,7 +22,49 @@ In this article, we'll explore the concepts React has introduced along the way a
 
 While things may get fairly technical, I'll make sure to keep things relatively beginner-friendly and even leverage visuals as much as possible. Let's dive in.
 
-# The problems of markup
+# The first days of React
+
+The year is 2011; Facebook has a problem. They've got an in-house framework, "[BoltJS](https://web.archive.org/web/20130608154901/http://shaneosullivan.github.io/boltjs/intro.html)" that they're using in-house on their "ads" team. It's _working_, but there's problems in the code. While ~90% of the problems on the ads product can be written in Bolt, there's instances in the project that the team has had to eject from their own framework and use less declaractive solutions.
+
+While this isn't a problem to tackle instantly, it poses a new set of problems for the rampantly growing team at Facebook; 10% applied across a large group quickly becomes a problem in consistency, training, and overall developer experience. Left unchecked, this will inevitably impact their ability to ship as quickly as they'd like.
+
+The problems with BoltJS didn't sit right with one of the members of the ads team - Jordan Walke; few programming paradigms did. In a community interview, Jordan would outline:
+
+> Even as I was first learning how to program, the old MVC style of programming with data binding and mutation just never felt right to me, even when I didn't have the technical terminology to describe things like "mutation", or "functional programming".
+
+> My code would usually look really weird to other people [...]. For the longest time I just assumed "welp, I guess I'm just a weird programmer". Then I finally took a course on programming language fundamentals [...] and I finally had some basic terminology to be able describe how I wanted to build applications.
+
+So Jordan began to experiment with his own solutions to many of the problems he perceived Bolt and other frameworks had at the time. This experimentation began life as a personal project of "[FaxJS](https://github.com/jordwalke/FaxJs)". FaxJS would go on to be shortly renamed to "FBolt" (Functional Bolt) before making its way to being called "React". A small team begins developing around the virgining tool.
+
+------
+
+Fast-forward to 2012; Facebook is doing great. So well, in fact, that they've just [aquired Instagram for one billion dollars](https://archive.nytimes.com/dealbook.nytimes.com/2012/04/09/facebook-buys-instagram-for-1-billion/).
+
+Instagram has a mobile app for Android and iOS, but no web presence. The new team at Facebok is tasked with building out their solution to this problem, but with a constraint of their new parent company: Use one of our existing tech stacks to do so.
+
+After some time evaluating both Bolt and React the team makes a decision; they're going to be the first production codebase to use React.
+
+The team quickly realizes they have something special on their hands; they're shipping quickly, performance seems to be handled well, and the developers love working in their newfound system. A group begins conversations around open-sourcing the project, even from early days.
+
+But now thet have a new problem: Facebook now has two solutions for browser rendering between the incombant Bolt and the up-and-coming React.
+
+The teams of both sit down, discuss heavily, and realize the challenge expands past their wheelhouse. [Facebook's IPO is down](https://en.wikipedia.org/wiki/Initial_public_offering_of_Facebook#Subsequent_days) and the ads product was their big money maker; the very team that had just recently moved a large project to use Bolt. It would take them four months to mirgate to React; no new features in that time.
+
+Just when it looked like an impossibility for React's adoption inside Facebook, the CTO came into the picture: ["Make the right technical choice, and make the right long term choice — and if there are short term consequences, I’ll back you up. If you need months to do a rewrite, do it."](https://x.com/schrep/status/1625917218809868288)
+
+------
+
+The React migration of the ads platform was another win for the team as they saw similar successes as the Instagram adoption.
+
+As 2013 came in, the team that had been pushing for React's open-sourcing would become more and more prevelant in conversation. Eventually they would win the internal battle. Finally, after all that time, React was ready to open-source: [At JSConfUS 2013, Tom Occhino and Jordan Walke publicly announced the project alongside the release of code and docs.](https://www.youtube.com/watch?v=GW0rj4sNH2w)
+
+So what did the React team introduce? What new concepts and ideas were at play?
+
+> **Further reading:**
+>
+> Eager to learn more of React's early history? Check out [the official blog post outlining much of the technical history of React](https://legacy.reactjs.org/blog/2016/09/28/our-first-50000-stars.html), or maybe [the React Documentary from CultRepo](https://www.youtube.com/watch?v=8pDqJVdNa44)
+
+## The problems of markup
 
 Even in the earliest days of React, the idea of representing your HTML code in a JavaScript file was established.
 
@@ -71,7 +113,29 @@ function App() {
 }
 ```
 
-# Making markup reactive
+// TODO: Talk about why JSX was not well received. Seperation of concerns not being languages but instead being feature-based
+
+// TODO: Talk about challenges with making templating strict and making templating JS-first: https://www.youtube.com/watch?v=x7cQ3mrcKaY
+
+
+## Resembling state over all points in time
+
+// TODO: Talk about reactivity /posts/what-is-reactivity
+
+// TODO: Show code from other frameworks that had problems with binding state manually
+
+// TODO: Talk about how you don't have to bind state manually if you just "re-render all of the things".
+
+
+// TODO: Talk about the re-render all the things aligns well with Jordan's initial vision for FP paradigms, given immutable data
+
+
+
+
+
+## Making markup reactive
+
+// TODO: Add https://calendar.perfplanet.com/2013/diff/
 
 While JSX allowed for lots of flexibility, it meant that templates that needed [reactivity](/posts/what-is-reactivity) required
 a re-execution of all template nodes to construct [the DOM](/posts/understanding-the-dom) with new values.
@@ -86,60 +150,7 @@ Then, when a given component needed to update the DOM, it would check against th
 
 This was a huge optimization that allowed for much more performant React applications to scale outward.
 
-# Solving error handling
 
-Now that we had a component tree, there was a bit of a challenge.
-
-See, because of the nature of the VDOM, whenever a component threw an error it would crash the entire React tree.
-
-![TODO: Write alt](./without_err.png)
-
-However, because components are laid out hierarchically, we can establish a boundary between a component that might potentially throw an error and the rest of the application state.
-
-![TODO: Write alt](./with_err.png)
-
-Not only does this work with single nodes, but because components are grouped by their parents we can remove a group of impacted nodes at once by wrapping them in a shared `ErrorBoundary`:
-
-```jsx
-import React, { useState } from 'react';
-
-class ErrorBoundary extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { hasError: false };
-    }
-
-    static getDerivedStateFromError(error) {
-        return { hasError: true };
-    }
-
-    render() {
-        if (this.state.hasError) {
-            return <h1>Something went wrong.</h1>;
-        }
-
-        return this.props.children; 
-    }
-}
-
-function App() {
-    return (
-        <div>
-            {/* When an error is thrown in the ErrorBoundary, it will catch it, remove all child nodes, and render the fallback UI */}
-            <ErrorBoundary>
-                <ErrorCounter />
-                <OtherCounter />
-            </ErrorBoundary>
-            {/* However, these nodes will be left unaffected */}
-            <ul>
-                <li>Item 1</li>
-            </ul>
-        </div>
-    );
-}
-```
-
-![TODO: Write alt](./error_bubble_group.png)
 
 # Early developer experience
 
@@ -819,6 +830,12 @@ function BoxAddition() {
 
 These problematic behaviors on a non-idempotent component is why `StrictMode` was changed to enforce this behavior.
 
+// TODO: "Idempotency is so important to React, in fact, that it was mentioned as a core design decision in the second ever talk about React from the Facebook team: https://youtu.be/x7cQ3mrcKaY?si=I_fB-AZckPFB0MM8&t=1046"
+
+
+
+
+
 # React Fiber, Concurrent Features, and more
 
 In our story thus far, we've managed to make it to "React 18" and the changes it brought; But before we look forward, we must look back. Let's rewind back to 2016. At [ReactNext 2016, Andrew Clark gave a talk titled "What's Next for React"](https://www.youtube.com/watch?v=aV1271hd9ew). In it, he shares how the team has been working on an experiment called "Fiber".
@@ -848,6 +865,155 @@ It's in that release that React introduced a slew of new APIs they called "concu
 - `startTransition`
 
 These features build on top of the work done back in Fiber and allow us to more directly interface with the new rendering behaviors.
+
+
+
+## Solving error handling
+
+// TODO: Add mention that this was introduced in React 16: https://legacy.reactjs.org/blog/2017/07/26/error-handling-in-react-16.html and updated in React 16.6: https://legacy.reactjs.org/docs/react-component.html#static-getderivedstatefromerror
+
+Now that we had a component tree, there was a bit of a challenge.
+
+// TODO: Talk about how Fiber's ability to abort work no longer needed was a pre-requisite for error boundaries
+
+See, because of the nature of the VDOM, whenever a component threw an error it would crash the entire React tree.
+
+![TODO: Write alt](./without_err.png)
+
+However, because components are laid out hierarchically, we can establish a boundary between a component that might potentially throw an error and the rest of the application state.
+
+![TODO: Write alt](./with_err.png)
+
+Not only does this work with single nodes, but because components are grouped by their parents we can remove a group of impacted nodes at once by wrapping them in a shared `ErrorBoundary`:
+
+```jsx
+import React, { useState } from 'react';
+
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError(error) {
+        return { hasError: true };
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return <h1>Something went wrong.</h1>;
+        }
+
+        return this.props.children; 
+    }
+}
+
+function App() {
+    return (
+        <div>
+            {/* When an error is thrown in the ErrorBoundary, it will catch it, remove all child nodes, and render the fallback UI */}
+            <ErrorBoundary>
+                <ErrorCounter />
+                <OtherCounter />
+            </ErrorBoundary>
+            {/* However, these nodes will be left unaffected */}
+            <ul>
+                <li>Item 1</li>
+            </ul>
+        </div>
+    );
+}
+```
+
+![TODO: Write alt](./error_bubble_group.png)
+
+
+
+
+
+## Lazy Components
+
+In [React 16.6](https://legacy.reactjs.org/blog/2018/10/23/react-v-16-6.html), the React team introduced us to the concept of lazy loading components:
+
+```jsx
+import React, {lazy, Suspense} from 'react';
+const LargeBundleComponent = lazy(() => import('./LargeBundleComponent'));
+
+function MyComponent() {
+  return (
+    <LargeBundleComponent />
+  );
+}
+```
+
+Lazy loading components enable React to tree-shake away the bundled code relevant to only the imported component such that the `lazy` wrapped component code wouldn't be imported into the browser until the component was rendered:
+
+![TODO: Write alt](./page_without_lazy_loading.png)
+
+![TODO: Write alt](./page_with_lazy_loading.png)
+
+> **Further reading:**
+>
+> Confused by what a "bundle" is in this context? Worry not! [I've written a guide to bundling (the process of generating a bundle) in React inside of my free book "Framework Field Guide: Ecosystem"](posts/ffg-ecosystem-bundling).
+
+This enabled further usage of the VDOM as a representation of complex state by loading in a component and its associated code over the network (in this case `LargeBundleComponent`).
+
+## Suspense Boundaries
+
+> But wait, if the component is being loaded over the network that means there's latency involved. What does the user see when the component is being loaded?
+
+This is where `Suspense` boundaries come into play. Introduced at [JSConf Iceland 2018](https://legacy.reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html), `Suspense` allowed you to handle loading states in your UI as a fallback during high latency scenarios - like a `lazy` component mentioned above:
+
+```jsx
+import React, {lazy, Suspense} from 'react';
+const LargeBundleComponent = lazy(() => import('./LargeBundleComponent'));
+
+function MyComponent() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LargeBundleComponent />
+    </Suspense>
+  );
+}
+```
+
+Just like the `ErrorBoundary` component API was able to handle upward sent errors, the `Suspense` component API handled upward sent loading mechanisms; allowing even more flexibility with how and where the VDOM handled asynchronous effects.
+
+This stacked well with other problems you might face with loading states like how to handle multiple async sibling components:
+
+``` jsx
+import React, {lazy, Suspense} from 'react';
+const LargeBundleComponent = lazy(() => import('./LargeBundleComponent'));
+const AnotherLargeComponent = lazy(() => import('./AnotherLargeComponent'));
+
+function MyComponent() {
+  return (
+    // Only resolves once both components are loaded
+    <Suspense fallback={<div>Loading...</div>}>
+      <LargeBundleComponent />
+      <AnotherLargeComponent />
+    </Suspense>
+  );
+}
+
+// OR
+
+function MyOtherComponent() {
+  return (
+    // Show two loading states for each
+    <Suspense fallback={<div>Loading...</div>}>
+      <LargeBundleComponent />
+    </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <AnotherLargeComponent />
+    </Suspense>
+  );
+}
+```
+
+But that's not all `Suspense` was promised to do for us... There were hints even in its introduction that it would eventually lead to data fetching primitives in React...
+
+// TODO: find transition to `useTransition` somehow
 
 Let's look at one of these APIs to understand what it does better: `useTransition`.
 
@@ -950,88 +1116,6 @@ This change now results in a smoother text update experience:
 <video src="./concurrent_demo.mp4" title="TODO: Write alt"></video>
 
 // TODO: iframe the example
-
-# Lazy Components
-
-In [React 16.6](https://legacy.reactjs.org/blog/2018/10/23/react-v-16-6.html), the React team introduced us to the concept of lazy loading components:
-
-```jsx
-import React, {lazy, Suspense} from 'react';
-const LargeBundleComponent = lazy(() => import('./LargeBundleComponent'));
-
-function MyComponent() {
-  return (
-    <LargeBundleComponent />
-  );
-}
-```
-
-Lazy loading components enable React to tree-shake away the bundled code relevant to only the imported component such that the `lazy` wrapped component code wouldn't be imported into the browser until the component was rendered:
-
-![TODO: Write alt](./page_without_lazy_loading.png)
-
-![TODO: Write alt](./page_with_lazy_loading.png)
-
-> **Further reading:**
->
-> Confused by what a "bundle" is in this context? Worry not! [I've written a guide to bundling (the process of generating a bundle) in React inside of my free book "Framework Field Guide: Ecosystem"](posts/ffg-ecosystem-bundling).
-
-This enabled further usage of the VDOM as a representation of complex state by loading in a component and its associated code over the network (in this case `LargeBundleComponent`).
-
-## Suspense Boundaries
-
-> But wait, if the component is being loaded over the network that means there's latency involved. What does the user see when the component is being loaded?
-
-This is where `Suspense` boundaries come into play. Introduced at [JSConf Iceland 2018](https://legacy.reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html), `Suspense` allowed you to handle loading states in your UI as a fallback during high latency scenarios - like a `lazy` component mentioned above:
-
-```jsx
-import React, {lazy, Suspense} from 'react';
-const LargeBundleComponent = lazy(() => import('./LargeBundleComponent'));
-
-function MyComponent() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <LargeBundleComponent />
-    </Suspense>
-  );
-}
-```
-
-Just like the `ErrorBoundary` component API was able to handle upward sent errors, the `Suspense` component API handled upward sent loading mechanisms; allowing even more flexibility with how and where the VDOM handled asynchronous effects.
-
-This stacked well with other problems you might face with loading states like how to handle multiple async sibling components:
-
-``` jsx
-import React, {lazy, Suspense} from 'react';
-const LargeBundleComponent = lazy(() => import('./LargeBundleComponent'));
-const AnotherLargeComponent = lazy(() => import('./AnotherLargeComponent'));
-
-function MyComponent() {
-  return (
-    // Only resolves once both components are loaded
-    <Suspense fallback={<div>Loading...</div>}>
-      <LargeBundleComponent />
-      <AnotherLargeComponent />
-    </Suspense>
-  );
-}
-
-// OR
-
-function MyOtherComponent() {
-  return (
-    // Show two loading states for each
-    <Suspense fallback={<div>Loading...</div>}>
-      <LargeBundleComponent />
-    </Suspense>
-    <Suspense fallback={<div>Loading...</div>}>
-      <AnotherLargeComponent />
-    </Suspense>
-  );
-}
-```
-
-But that's not all `Suspense` was promised to do for us... There were hints even in its introduction that it would eventually lead to data fetching primitives in React...
 
 # Data fetching & the `use` API
 
@@ -1452,7 +1536,7 @@ Well, let's look at how `use` works internally. According to [the RFC the React 
 
 Knowing what we know now about how `use` works internally, I think it's safe to say that `use` wouldn't be able to function the way it does today without the Fiber rewrite's prerequisite capacities.
 
-# JSX over the wire
+# A "move" to the server
 
 Server-side rendering, as a practice, has been around for... Well, as long as the web. To write your template in one language and compile it into the primitives the web understands (HTML, CSS, JS) is the core model for everything from Wordpress, Ruby on Rails, and - yes - React server-side solutions such as Next.js.
 
@@ -1461,6 +1545,12 @@ Server-side rendering, as a practice, has been around for... Well, as long as th
 > Unfamiliar with what server-side rendering is? [Check out our guide on SSR in React.](/posts/what-is-ssr-and-ssg#ssr)
 
 But just because Next.js was doing server-side rendering doesn't mean that React itself had strong primitives for the story.
+
+// TODO: Rethink how to communicate this section. React's server-story was introduced in 0.4 (the second ever public release) according to this: https://youtu.be/x7cQ3mrcKaY?si=fok8zye6pIPMCPjL&t=1572
+
+> And no, [Vercel did not take over React](https://blog.isquaredsoftware.com/2025/06/react-community-2025/#concern-vercel-next-and-react).
+
+## JSX over the wire
 
 See, from [Next.js' inception in 2016](https://github.com/vercel/next.js/releases/tag/1.0.0) all the way until [Next's adoption of React Server Components in 2023](https://nextjs.org/blog/next-13-4#nextjs-app-router), Next.js had a problem: React would re-render every component from the server once it hit the client.
 
@@ -1476,7 +1566,7 @@ It wasn't until React 19 when RSCs were made stable that Next.js had a clear sol
 >
 > This meant that, until React 19 was marked as stable, whenever you used Next.js' app router your code was being remapped to React 19 canary releases.
 >
-> While this led to short-term stability headaches for some app router users, this enabled React and other vendors - like Vercel who makes Next.js - to cooperate on the RSC APIs. And no, [Vercel did not take over React](https://blog.isquaredsoftware.com/2025/06/react-community-2025/#concern-vercel-next-and-react).
+> While this led to short-term stability headaches for some app router users, this enabled React and other vendors - like Vercel who makes Next.js - to cooperate on the RSC APIs.
 
 See, RSCs enabled React to have a different execution path for client and server code. This execution path allowed the client to intelligently skip over the reconciliation process for nodes that didn't require additional work from what the server had sent:
 
@@ -1506,13 +1596,13 @@ To get this to work, however, it required many building blocks of React to come 
 - Fiber's ability to bail out of work on already-completed nodes.
 - The ability to establish boundaries within the VDOM; whether it be for errors, loading states, or client/server distinctions.
 
-# Async components, server actions, and beyond
+## Async components, server actions, and beyond
 
 While RSC's ability to serialize JSX and send it over the wire is undoubtedly cool, it's not the only superpower that RSC has.
 
 Since we finally had an officiated way of operating React on the server, the React team expanded their focus beyond the client-side experience of React and introduced methods of sending and receiving data from the server. These methods came in the form of two new APIs: Async Components and React Server Actions.
 
-## Async components
+### Async components
 
 [While the React team ultimately decided against using `await` on the client for nuanced technical reasoning](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md#why-cant-client-components-be-async-functions); there's nothing to prevent, say, a backend from the same. As such, this is all it takes to load data from a server component:
 
@@ -1530,7 +1620,7 @@ That's right! No wrapping our `await` in a cache (after all, the server componen
 >
 > If you want to learn more in-depth information about async components in React, [our React Suspense and Async Rendering guide covers everything you'd need to know.](/posts/what-is-react-suspense-and-async-rendering)
 
-## Server actions
+### Server actions
 
 Async components may have solved the problem of data going from the server to the client, but it only solved it in one way.
 
@@ -1641,10 +1731,12 @@ export async function handleLikePost(_prevState, formData) {
 
 // TODO: https://x.com/gs_porto/status/1754568585551200337
 
-# `<Activity>`
+# React's future 
+
+## `<Activity>`
 
 // TODO: Talk about how we can lean into the VDOM state system to allow for preserving state between unrenders and re-renders
 
-# React Compiler
+## React Compiler
 
 // TODO: Talk about how allowing React to control the dataflow of components and strict rules around said dataflow allows a compiler to optimize things further
