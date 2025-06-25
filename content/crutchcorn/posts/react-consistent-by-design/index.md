@@ -219,11 +219,11 @@ And this data isn't static, either! Click the button to trigger the state change
 
 ## Making markup reactive
 
-// TODO: Add https://calendar.perfplanet.com/2013/diff/
-
-While JSX allowed for lots of flexibility, it meant that templates that needed [reactivity](/posts/what-is-reactivity) required a re-execution of all template nodes to construct [the DOM](/posts/understanding-the-dom) with new values.
+While JSX allowed for lots of flexibility, it meant that templates required a re-execution of all template nodes to construct [the DOM](/posts/understanding-the-dom) with new values.
 
 ![TODO: Write alt](./without_vdom.png)
+
+While smaller scale applications wouldn't likely run into challenges with this approach, large DOM trees would incur massive performance implications as a result of this decision.
 
 To solve this, the team used a concept of a "virtual DOM" (VDOM). This VDOM was a copy of the browser's DOM stored in JavaScript; When React constructed a node in the DOM, it made a copy into its own copy of the DOM.
 
@@ -233,7 +233,9 @@ Then, when a given component needed to update the DOM, it would check against th
 
 This was a huge optimization that allowed for much more performant React applications to scale outward.
 
+Internally, this worked by introducing a diffing stage to the "reconciliation" step of React. It's worth mentioning that [even early React builds had optimized much of the diffing process of the VDOM](https://calendar.perfplanet.com/2013/diff/).
 
+![The same DOM tree as before is mirrored both in React's VDOM but in the browser's DOM as well](../../collections/react-beyond-the-render/posts/what-is-reconciliation-and-the-vdom/diff-commit.svg)
 
 # Early developer experience
 
