@@ -4,10 +4,18 @@ import { debounce } from "utils/debounce";
 export function useSearchParams<T>(
 	serialize: (params: T) => URLSearchParams,
 	deserialize: (params: URLSearchParams) => T,
+	getPageTitle?: (params: T) => string,
 ): [T, (newState: T) => void] {
 	const [urlParams, setUrlParams] = useState<URLSearchParams>(
 		() => new URL(window.location.href).searchParams,
 	);
+
+	useEffect(() => {
+		if (getPageTitle) {
+			// Set the title from the initial params when the page is first loaded
+			document.title = getPageTitle(deserialize(urlParams));
+		}
+	}, []);
 
 	const pushHistoryState = useMemo(() => {
 		// Debounce any calls to pushState to avoid spamming the history API
@@ -21,6 +29,10 @@ export function useSearchParams<T>(
 
 				if (currentUrl != newUrl) {
 					window.history.pushState({}, "", newUrl);
+					if (getPageTitle) {
+						// When a new history state is pushed, update tht title so that the new history entry is accurate
+						document.title = getPageTitle(deserialize(urlParams));
+					}
 				}
 			},
 			500,

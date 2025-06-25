@@ -7,14 +7,23 @@ import { visit } from "unist-util-visit";
 import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants";
 import { find } from "unist-util-find";
 import { getLargestManifestIcon } from "../../get-largest-manifest-icon";
-import { IFramePlaceholder } from "./iframe-placeholder";
 import * as path from "path";
 import * as fs from "fs";
 import * as stream from "stream";
 import sharp from "sharp";
 import * as svgo from "svgo";
-import { fetchPageHtml, getPageTitle } from "utils/fetch-page-html";
+import {
+	fetchAsBrowser,
+	fetchPageHtml,
+	getPageTitle,
+} from "utils/fetch-page-html";
 import { LRUCache } from "lru-cache";
+import {
+	ComponentMarkupNode,
+	createComponent,
+	isComponentMarkup,
+} from "../components";
+import { logError } from "../logger";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
@@ -67,8 +76,8 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<string> {
 			const manifestRelativeURL = String(manifestPath.properties.href);
 			const fullManifestURL = new URL(manifestRelativeURL, src).href;
 
-			const manifest = await fetch(fullManifestURL)
-				.then((r) => r.status === 200 && r.json())
+			const manifest = await fetchAsBrowser(fullManifestURL)
+				.then((r) => r.json())
 				.catch(() => null);
 
 			if (manifest) {
@@ -110,7 +119,11 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<string> {
 
 		// If it's an SVG, pipe directly to the output dir
 		if (iconExt === ".svg") {
-			const svg = await fetch(iconHref).then((r) => r.text());
+			const svg = await fetchAsBrowser(iconHref)
+				.then((r) => r.text())
+				.catch(() => null);
+
+			if (!svg) return null;
 			const optimizedSvg = svgo.optimize(svg, { multipass: true });
 			await fs.promises.writeFile(
 				"public/" + iconPath + iconExt,
@@ -125,7 +138,9 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<string> {
 				fs.mkdirSync(dir, { recursive: true });
 			}
 			const writeStream = fs.createWriteStream("public/" + iconPath + iconExt);
-			const { body } = await fetch(iconHref);
+			const body = await fetchAsBrowser(iconHref)
+				.then((r) => r.body)
+				.catch(() => null);
 			if (!body) return null;
 			const transformer = sharp().resize(24, 24);
 			await stream.promises.finished(
@@ -175,17 +190,28 @@ export async function fetchPageInfo(src: string): Promise<PageInfo | null> {
 export const rehypeUnicornIFrameClickToRun: Plugin<
 	[RehypeUnicornIFrameClickToRunProps | never],
 	Root
-> = ({ srcReplacements = [], ...props }) => {
+> = ({ srcReplacements = [] }) => {
 	return async (tree, file) => {
-		const iframeNodes: Element[] = [];
-		visit(tree, "element", (node: Element) => {
-			if (node.tagName === "iframe") {
-				iframeNodes.push(node);
-			}
-		});
+		const iframeNodes: {
+			parent: ComponentMarkupNode | Root;
+			node: Element;
+		}[] = [];
+		visit(
+			tree,
+			{ type: "element", tagName: "iframe" },
+			(node: Element, _, parent) => {
+				if (!parent) return;
+				if (parent !== tree && !isComponentMarkup(parent)) {
+					logError(file, node, "Cannot process a nested iframe!");
+					throw new Error();
+				}
+
+				iframeNodes.push({ parent, node });
+			},
+		);
 
 		await Promise.all(
-			iframeNodes.map(async (iframeNode) => {
+			iframeNodes.map(async ({ parent, node }) => {
 				let {
 					height,
 					width,
@@ -194,7 +220,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					dataFrameTitle,
 					// eslint-disable-next-line prefer-const
 					...propsToPreserve
-				} = iframeNode.properties;
+				} = node.properties;
 
 				for (const replacement of srcReplacements) {
 					src = replacement(src!.toString(), file);
@@ -202,24 +228,34 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 
 				width = width ?? EMBED_SIZE.w;
 				height = height ?? EMBED_SIZE.h;
-				const info: PageInfo = (await fetchPageInfo(src!.toString()).catch(
-					() => null,
-				)) || { iconFile: defaultPageIcon };
+				const info: PageInfo | null = await fetchPageInfo(
+					src!.toString(),
+				).catch(() => null);
 
 				const [, heightPx] = /^([0-9]+)(px)?$/.exec(height + "") || [];
 				if (Number(heightPx) < EMBED_MIN_HEIGHT) height = EMBED_MIN_HEIGHT;
 
-				const iframeReplacement = IFramePlaceholder({
-					width: width.toString(),
-					height: height.toString(),
-					src: String(src),
-					pageTitle: String(dataFrameTitle ?? "") || info.title || "",
-					pageIcon: info.iconFile,
-					pageIconFallback: defaultPageIcon,
-					propsToPreserve: JSON.stringify(propsToPreserve),
-				});
-
-				Object.assign(iframeNode, iframeReplacement);
+				const index = parent.children.indexOf(node);
+				if (index == -1) return;
+				parent.children.splice(
+					index,
+					1,
+					createComponent("IframePlaceholder", {
+						width: width.toString(),
+						height: height.toString(),
+						src: String(src),
+						pageTitle: String(dataFrameTitle ?? "") || info?.title || "",
+						pageIcon: info?.iconFile,
+						iframeAttrs: Object.fromEntries(
+							Object.entries(propsToPreserve).map(([key, value]) => [
+								key,
+								// Handle array props per hast spec:
+								// @see https://github.com/syntax-tree/hast#propertyvalue
+								Array.isArray(value) ? value.join(" ") : String(value),
+							]),
+						),
+					}),
+				);
 			}),
 		);
 	};

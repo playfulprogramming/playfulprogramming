@@ -12,6 +12,8 @@ import {
 	ORAMA_POSTS_API_KEY,
 	ORAMA_POSTS_ENDPOINT,
 	ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+	MAX_POSTS_PER_PAGE,
+	MAX_COLLECTIONS_PER_PAGE,
 } from "./constants";
 
 const postSchema = {
@@ -128,9 +130,9 @@ export async function searchForTerm(
 		postClient.search(
 			{
 				term,
+				limit: MAX_POSTS_PER_PAGE,
+				offset: (query.postsPage - 1) * MAX_POSTS_PER_PAGE,
 				mode,
-				limit: 6,
-				offset: 6 * (query.searchPage - 1),
 				sortBy,
 				where: {
 					tags: query.filterTags.length ? query.filterTags : undefined,
@@ -159,9 +161,9 @@ export async function searchForTerm(
 	> = collectionClient.search(
 		{
 			term,
+			limit: MAX_COLLECTIONS_PER_PAGE,
+			offset: (query.collectionsPage - 1) * MAX_COLLECTIONS_PER_PAGE,
 			mode,
-			limit: 4,
-			offset: 4 * (query.searchPage - 1),
 			sortBy,
 			where: {
 				tags: query.filterTags.length ? query.filterTags : undefined,

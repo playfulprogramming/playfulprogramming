@@ -1,0 +1,42 @@
+---
+import BookCover from "./book-cover.astro";
+import style from "./hero.module.scss";
+import BigFilledButton from "../../framework-field-guide/components/big-filled-button.astro";
+---
+
+<section aria-labelledby="book-title">
+	<div class={style.heroContainer}>
+		<div class={style.titleContainer}>
+			<h1 id="book-title" class={`text-style-headline-2 ${style.title}`}>
+				<span class={style.titleFirst}>The</span>
+				<span class={style.titleMiddle}>
+					<span aria-hidden="true" class={style.titleMiddleHidden}
+						>Accessibility</span
+					>
+					<span class={style.titleMiddleShown}>Art of</span>
+				</span>
+				<span class={style.titleLast}>Accessibility</span>
+			</h1>
+		</div>
+
+		<div class={style.readNowContainer}>
+			<p class={`text-style-headline-6 ${style.readNowText}`}>
+				A modern way to learn the best accessibility practices for your React,
+				Angular, and Vue applications. A companion piece to the <a
+					href="/collections/framework-field-guide"
+					class={style.ffgWord}>Framework Field Guide</a
+				>
+			</p>
+		</div>
+
+		<div class={style.buttonContainer}>
+			<BigFilledButton
+				href="#chapter-listing-heading"
+				onclick='event.preventDefault();var title=document.getElementById("chapter-listing-heading");title.scrollIntoView({behavior: "smooth", block: "start"});'
+			>
+				Read now
+			</BigFilledButton>
+		</div>
+	</div>
+	<BookCover />
+</section>

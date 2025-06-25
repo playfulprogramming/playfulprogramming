@@ -45,8 +45,8 @@ pre code {
 	padding-left: 2.5rem;
 	tab-size: 4;
 
-	/* Important to allow the code to move horizontally; */
-	overflow-x: auto;
+	overflow-x: hidden;
+	white-space: pre-wrap;
 	position: relative;
 
 	/* Give it some space to breathe */
@@ -55,7 +55,6 @@ pre code {
 
 	font-size: 0.9rem;
 	font-family: var(--pfp-font-family-code);
-	-webkit-overflow-scrolling: touch;
 }
 
 pre code .line::before {
@@ -72,14 +71,11 @@ pre code .line::before {
 	display: inline-block;
 	text-align: right;
 	color: var(--foreground_disabled);
+	white-space: pre;
 }
 
 pre code .line.highlight::before {
 	color: var(--foreground_emphasis-medium);
-}
-
-pre.shiki code {
-	white-space: normal;
 }
 
 pre.shiki {
@@ -91,7 +87,6 @@ pre.shiki .line {
 	min-height: 1.7em;
 	padding: 0 var(--shiki_padding);
 	display: block;
-	white-space: pre;
 }
 
 /**

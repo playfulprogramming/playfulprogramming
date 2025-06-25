@@ -1,0 +1,9 @@
+{
+	"name": "@ffg-ecosystem/no-bundle-1",
+	"scripts": {
+		"start": "servor --reload src"
+	},
+	"devDependencies": {
+		"servor": "^4.0.2"
+	}
+}

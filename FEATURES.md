@@ -214,6 +214,22 @@ We support the following properties:
 - `button-text`: The text of the button
 - `button-href`: The URL that the button links to
 
+### Link Previews
+
+Link previews embed the opengraph image of a link into a blog post. These can be added with:
+
+```markdown
+<!-- ::start:link-preview -->
+[Playful Programming GitHub](https://github.com/playfulprogramming/playfulprogramming)
+<!-- ::end:link-preview -->
+```
+
+These can also be created manually by wrapping an image inside a link, optionally with a title:
+
+```markdown
+[Example Title ![](./link-preview.png)](https://example.com)
+```
+
 ### Tabs
 
 Tabs are a way to organize content in a tabbed interface. They are useful for organizing content that is related but not necessarily sequential.
@@ -306,7 +322,7 @@ We support the following properties on a post:
   - Must match [one of these](./content/data/tags.json) tags.
 - `license`: A string of what license to attribute the post to
   - Must match [one of these](./content/data/licenses.json) license IDs.
-- `description`: The description of the article 
+- `description`: The description of the article
   - Without this present, one will auto-generate for you based on the first ~160 characters of the post
 - `edited`: When an article was edited last
   - Optional.
@@ -340,9 +356,9 @@ We support the following properties on a post:
 - `type`: The type of collection it is
   - `"book"` - Used for SEO
   - Nothing (defualt) - Unused
-- `pageLayout`: 
+- `pageLayout`:
   - `"none"` - Do not auto-generate a page for this collection
-    - Useful for custom pages like The Framework Field Guide 
+    - Useful for custom pages like The Framework Field Guide
   - Nothing (defualt) - auto-generate a page for the collection
 - `customChaptersText`: The custom text to be used in the "A part of a series" text
 - `tags`: A list of related tags
@@ -351,8 +367,8 @@ We support the following properties on a post:
   - Must be an ISO timestamp of `YYYY-MM-DD`
 - `buttons`: A list of buttons to show on the auto-generated page
   - Must be an array of `{text: string, url: string}`
-- `chapterList`: A list of extra chapters to include in addition to the auto-discovered ones
-  - Must be an array of `{title: string;description: string;order: string;}`
+- `chapterList`: A list of chapters to display on the collection
+  - Must be an array of `{title: string; url: string; description: string}` or `{post: string}`
 - `noindex`: Should the collection be hidden from the site's list view, `sitemap`, and search?
   - Useful for draft or archived content
 - `upToDateSlug`: The latest published version of the collection
