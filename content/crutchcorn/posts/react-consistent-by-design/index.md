@@ -66,15 +66,14 @@ So what did the React team introduce? What new concepts and ideas were at play?
 
 ## The problems of markup
 
-Even in the earliest days of React, the idea of representing your HTML code in a JavaScript file was established.
+[Even in the earliest days of React, the idea of representing your HTML code in a JavaScript file was established.](https://www.youtube.com/watch?v=x7cQ3mrcKaY)
 
-This provided a large amount of flexibility for the early framework; not only did it enable the ability to sidestep custom
-template tags for things like conditional rendering logic and loops, but it was fun to work with and allowed fast iteration of
-UI code.
+This provided a large amount of flexibility for the early framework; not only did it enable the ability to sidestep custom template tags for things like conditional rendering logic and loops, but it was fun to work with and allowed fast iteration of UI code.
 
 This meant that code that might've otherwise looked like this:
 
 ```html
+<!-- This code is expected to live in another file or be a static string of some kind -->
 <div>
     <!-- This is psuedo-syntax of a theoretical framework's template code -->
     <some-tag data-if="someVar"></some-tag>
@@ -85,15 +84,19 @@ This meant that code that might've otherwise looked like this:
 It could instead look like this:
 
 ```jsx
-<div>
+const data = <div>
 	{someVar && <some-tag/>}
 	{someList.map(someItem => <some-item-tag/>)}
 </div>
 ```
 
-This also enables the template to JavaScript transform to stay extremely lightweight.
+This came with some major benefits:
 
-Instead of having to rely on some kind of HTML to JavaScript compiler, the tags of the JSX are able to be trivially transformed to JavaScript functions:
+- Template compilation could occur before runtime - allowing errors to be caught earlier in the development lifecycle
+- Since JSX was not a string, it had better XSS protections out of the box without having to require a specific API to do so
+- Reuse of JavaScript for flow-control; no need to reinvent the expressiveness of JavaScript in another string-based language
+
+The API for JSX also enabled the "template to JavaScript" transform to stay extremely lightweight. Instead of having to rely on some kind of HTML to JavaScript compiler, the tags of the JSX are able to be trivially transformed to JavaScript functions:
 
 ```jsx
 // The following JSX
@@ -108,14 +111,12 @@ function App() {
     }, [
 			React.createElement("li", {}, [
 				"Test"
-            ])
+      ])
     ]);
 }
 ```
 
-// TODO: Talk about why JSX was not well received. Seperation of concerns not being languages but instead being feature-based
-
-// TODO: Talk about challenges with making templating strict and making templating JS-first: https://www.youtube.com/watch?v=x7cQ3mrcKaY
+This also meant that even across code transforms the line of code an error was thrown could map one-to-one with the final output ran in the browser; great for debugging!
 
 
 ## Resembling state over all points in time
