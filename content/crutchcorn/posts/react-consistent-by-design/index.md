@@ -1532,6 +1532,12 @@ That's right! No wrapping our `await` in a cache (after all, the server componen
 
 ## Server actions
 
+Async components may have solved the problem of data going from the server to the client, but it only solved it in one way.
+
+We still needed a way to send data to the server; this would come in the flavor of "server actions".
+
+To define a server action, we'd combine [the `"use server"` directive](https://react.dev/reference/rsc/use-server) and [the new React `action` property on vanilla HTML `<form>` elements](https://react.dev/reference/react-dom/components/form):
+
 ```jsx
 import { redirect } from 'next/navigation'
 import { getAllPosts, likePost } from '../services/posts.js';
@@ -1567,6 +1573,16 @@ export default async function Home() {
 ```
 
 // TODO: Iframe server-actions
+
+----
+
+Under-the-hood, this relied on [the browser's own built in `action` API](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#action). While React's version of this API allowed functions to be passed, the browser API expects a URL of the backend endpoint to be called with the relevant `formData`.
+
+And because this is a server component (due to the lack of `"use client"`), this server action will work the same regardless of if the user has JavaScript enabled in their browser or not.
+
+We can see how the browser's built-in capabilities helped inform the API for server actions - enabling more functionality than if the React team had scaffolided their own solution without this consideration.
+
+## Bi-directional Server State
 
 // TODO: point out problems with this being a required refresh of the page
 
