@@ -1190,9 +1190,15 @@ This change now results in a smoother text update experience:
 
 // TODO: iframe the example
 
-# Data fetching & the `use` API
+# The big play: First-class data fetching
 
-[React 19](https://react.dev/blog/2024/12/05/react-19#new-feature-use) added an incredible addition to usage on the Suspense APIs: Data fetching.
+The Fiber was a massive boon to React's future, no doubt. But it felt like everything that came before [React 19](https://react.dev/blog/2024/12/05/react-19#new-feature-use) was building towards something bigger; some way to leverage all of the experience that the React team had been preparing for after all this time.
+
+While there's a few APIs that one could assume I'm talking about, the one I have in my mind is data fetching.
+
+See, even externally to the work on Fiber, there'd been hints it was coming. For as long as I can remember, the React team had provided guidance to "lift state" in your components to avoid headaches with data sharing. [They turned it into an official docs page in 2017](https://web.archive.org/web/20180128174149/https://reactjs.org/docs/lifting-state-up.html) and [Dan even referenced this problem in a GitHub comment from 2015](https://github.com/facebook/react/issues/4595#issuecomment-129786951).
+
+This "lifted state" is how their data fetching APIs would eventually work in React 19; using the new `use` API and the existing `Suspense` API.
 
 Here's how it works:
 
@@ -1259,9 +1265,21 @@ const fakeFetch = () => {
 
 // TODO: Add iframe
 
+Let's take a moment to look at how `use` works internally. According to [the RFC the React team introduced for `use`]( https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md):
+
+> If a promise passed to `use` hasn't finished loading, `use` suspends the component's execution by throwing an exception. When the promise finally resolves, React will replay the component's render.
+
+> The first thing React will try is to check if the promise was read previously, either by a different `use` call or a different render attempt. If so, React can reuse the result from last time, synchronously, without suspending.
+
 ![TODO: Write alt](./how_use_works.png)
 
-As we can see, using `use` forces us to raise our data fetching to a parent component. This does two things for us:
+> **Tie it back to our thesis:**
+>
+> Knowing what we know now about how `use` works internally, I think it's safe to say that `use` wouldn't be able to function the way it does today without the Fiber rewrite's prerequisite capacities. The ability to "suspend" a subtree of nodes in order to wait for data to fetching is almost identical to the stated goals of Fiber from day one.
+
+------
+
+And as we can see, using `use` forces us to raise our data fetching to a parent component. This does two things for us:
 
 1) Re-enforces the concepts we've already learned in regards to data moving up the VDOM tree
 2) Helps solve waterfalling and real-world user experience problems
@@ -1270,9 +1288,9 @@ As we can see, using `use` forces us to raise our data fetching to a parent comp
 >
 > If `use`'s API still feels foreign to you, I might recommend reading through [my series on React 19 features, including the `use` API](/posts/what-is-react-suspense-and-async-rendering#What-is-the-React-use-Hook) 
 
-## Advantages of `use`
+## Advantages of React's approach
 
-> But Corbin, data fetching mechanisms have existed in React for some time! What makes `use` different?
+> But Corbin, unofficial data fetching mechanisms have existed in React for some time! What makes `use` different?
 
 Well, dear reader, while `use` is the newest kid on the block for data fetching in React its API has two main advantages:
 
@@ -1455,7 +1473,7 @@ Here, we can see that we managed to make our API calls in parallel, cutting down
 
 ![TODO: Write alt](./with_parallel.png)
 
-### Consolidated Loading States
+### Consolidating loading states
 
 > But wait! You can raise your data fetching using your `useFetcher` as well!
 
@@ -1530,7 +1548,7 @@ With the `use` API, this is solved by allowing the user to move their `Suspense`
 > **Further reading:**
 > Looking to understand how `use` is able to impart better loading pattern behaviors in your apps? [Take a look at my buddy Dev's talk from Stir Trek 2025](https://www.youtube.com/watch?v=N1wSVaUdV_U).
 
-## Error Boundaries & `use`
+## Merging the old and the new: Error handling and data fetching
 
 Something often missed is how updating the screen (called "rendering" in the context of React) is itself a form of a side effect. After all, if all I/O is considered a "side effect", then surely the most predominant form of "output" (updating the screen) is a side effect!
 
@@ -1588,27 +1606,6 @@ function App() {
 }
 ```
 
-## `use` and React's Design
-
-For as long as I can remember, the React team has provided guidance to "lift state" in your components to avoid headaches with data sharing. [They turned it into an official docs page in 2017](https://web.archive.org/web/20180128174149/https://reactjs.org/docs/lifting-state-up.html) and [Dan even referenced this problem in a GitHub comment from 2015](https://github.com/facebook/react/issues/4595#issuecomment-129786951).
-
-What serendipity, then, that the data fetching solution that would come many years later should rely on this lifted state philosophy?
-
-While this alone could be taken as proof of React's vision reaching far into the future, there's another major piece of evidence that the `use` API - in one form or another - was planned years prior: the work done on React's Fiber reconciliation.
-
-If we go back to [our section on React Fiber](#TODO_LINK_INTERNALLY), we can see that two of the rationales for the restructuring was to enable React to:
-
-> - Pause work and come back to it later.
-> - Reuse previously completed work.
-
-Well, let's look at how `use` works internally. According to [the RFC the React team introduced for `use`]( https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md):
-
-> If a promise passed to `use` hasn't finished loading, `use` suspends the component's execution by throwing an exception. When the promise finally resolves, React will replay the component's render.
-
-> The first thing React will try is to check if the promise was read previously, either by a different `use` call or a different render attempt. If so, React can reuse the result from last time, synchronously, without suspending.
-
-Knowing what we know now about how `use` works internally, I think it's safe to say that `use` wouldn't be able to function the way it does today without the Fiber rewrite's prerequisite capacities.
-
 # A "move" to the server
 
 Server-side rendering, as a practice, has been around for... Well, as long as the web. To write your template in one language and compile it into the primitives the web understands (HTML, CSS, JS) is the core model for everything from Wordpress, Ruby on Rails, and - yes - React server-side solutions such as Next.js.
@@ -1623,7 +1620,9 @@ But just because Next.js was doing server-side rendering doesn't mean that React
 
 > And no, [Vercel did not take over React](https://blog.isquaredsoftware.com/2025/06/react-community-2025/#concern-vercel-next-and-react).
 
-## JSX over the wire
+## Solving the two-computers problems
+
+// TODO: Rewrite this to mention Dan's two computers problem
 
 See, from [Next.js' inception in 2016](https://github.com/vercel/next.js/releases/tag/1.0.0) all the way until [Next's adoption of React Server Components in 2023](https://nextjs.org/blog/next-13-4#nextjs-app-router), Next.js had a problem: React would re-render every component from the server once it hit the client.
 
