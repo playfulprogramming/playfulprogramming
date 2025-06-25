@@ -820,7 +820,7 @@ component.render(Test); // 3
 
 See, this internal `Component` class isn't just an idea I came up with; it's more representative of how state is stored in a VDOM node in React. When React decides it's time to render a given component, it pulls up the Hook state from the node.
 
-# Solving React's consistency problems
+## Solving React's consistency problems
 
 When React 18 was released, many were suprised to find that various parts of their apps seemingly broke out of nowhere, but only in dev mode. I even wrote an article at the time explaining the phenomenon called ["Why React 18 Broke Your App"](/posts/why-react-18-broke-your-app).
 
@@ -847,7 +847,7 @@ The simple answer to this question is that the React team wanted to ensure that 
 
 But the longer answer is that they wanted to keep component rendering behavior idempotent.
 
-### The inner workings of consistency: Idempotence
+-------
 
 To explain idempotence let's use an analogy and then dive into the real deal.
 
@@ -915,13 +915,9 @@ function BoxAddition() {
 
 These problematic behaviors on a non-idempotent component is why `StrictMode` was changed to enforce this behavior.
 
-// TODO: "Idempotency is so important to React, in fact, that it was mentioned as a core design decision in the second ever talk about React from the Facebook team: https://youtu.be/x7cQ3mrcKaY?si=I_fB-AZckPFB0MM8&t=1046"
+And this wasn't some bolted-on idea after React 18 or something; Idempotency is so important to React, in fact, that [it was mentioned as a core design decision in the second ever talk about React from the Facebook team](https://youtu.be/x7cQ3mrcKaY?si=I_fB-AZckPFB0MM8&t=1046).
 
-
-
-
-
-# React Fiber, Concurrent Features, and more
+# Leveraging the VDOM's full potential
 
 In our story thus far, we've managed to make it to "React 18" and the changes it brought; But before we look forward, we must look back. Let's rewind back to 2016. At [ReactNext 2016, Andrew Clark gave a talk titled "What's Next for React"](https://www.youtube.com/watch?v=aV1271hd9ew). In it, he shares how the team has been working on an experiment called "Fiber".
 
@@ -940,26 +936,11 @@ While I'll leave the nuances of how Fiber works [in this GitHub repo by Andrew]
 
 > This list is taken directly from [Andrew's GitHub explainer](https://github.com/acdlite/react-fiber-architecture).
 
-So what does this mean for users? While the React team could articulate some justification for these changes, the most direct answer came in the form of the React 18 release.
-
-It's in that release that React introduced a slew of new APIs they called "concurrent features":
-
-- `useTransition`
-- `useOptimistic`
-- `useDefferedValue`
-- `startTransition`
-
-These features build on top of the work done back in Fiber and allow us to more directly interface with the new rendering behaviors.
-
-
+These abilities unblocked a slew of features and set the stage for the future.
 
 ## Solving error handling
 
-// TODO: Add mention that this was introduced in React 16: https://legacy.reactjs.org/blog/2017/07/26/error-handling-in-react-16.html and updated in React 16.6: https://legacy.reactjs.org/docs/react-component.html#static-getderivedstatefromerror
-
-Now that we had a component tree, there was a bit of a challenge.
-
-// TODO: Talk about how Fiber's ability to abort work no longer needed was a pre-requisite for error boundaries
+[The first feature that Fiber unblocked in the React 16 release was error handling.](https://legacy.reactjs.org/blog/2017/07/26/error-handling-in-react-16.html) Getting [a revamped updated in React 16.6](https://legacy.reactjs.org/docs/react-component.html#static-getderivedstatefromerror), this solved a long-standing problem with React apps.
 
 See, because of the nature of the VDOM, whenever a component threw an error it would crash the entire React tree.
 
@@ -1012,13 +993,11 @@ function App() {
 
 ![TODO: Write alt](./error_bubble_group.png)
 
+This work would not have been possible without the ability to abort work in Fiber's new reconciliation pipeline.
 
+## Solving bundle splitting
 
-
-
-## Lazy Components
-
-In [React 16.6](https://legacy.reactjs.org/blog/2018/10/23/react-v-16-6.html), the React team introduced us to the concept of lazy loading components:
+But error handling updates weren't the only thing [introduced in React 16.6](https://legacy.reactjs.org/blog/2018/10/23/react-v-16-6.html); it was here that the React team introduced us to the concept of lazy loading components:
 
 ```jsx
 import React, {lazy, Suspense} from 'react';
@@ -1043,7 +1022,7 @@ Lazy loading components enable React to tree-shake away the bundled code relevan
 
 This enabled further usage of the VDOM as a representation of complex state by loading in a component and its associated code over the network (in this case `LargeBundleComponent`).
 
-## Suspense Boundaries
+## Solving loading states
 
 > But wait, if the component is being loaded over the network that means there's latency involved. What does the user see when the component is being loaded?
 
@@ -1096,13 +1075,22 @@ function MyOtherComponent() {
 }
 ```
 
-But that's not all `Suspense` was promised to do for us... There were hints even in its introduction that it would eventually lead to data fetching primitives in React...
+While there were hints that `Suspense` would eventually lead to other features - like data fetching maybe? 👀 - I want to wrap up the work Fiber did for React's future.
 
-// TODO: find transition to `useTransition` somehow
+## Exploring concurrency
 
-Let's look at one of these APIs to understand what it does better: `useTransition`.
+While the React's Fiber rewrite enabled a number of features, it was difficult to explain many of the concepts leveraged without abstract examples. It wasn't until React 18 that we saw a slew of new APIs introduced that would allow us to more directly interface with the new rendering behaviors.
 
-## `useTransition`
+These new APIs were called "concurrent features" and included the following APIs:
+
+- `useTransition`
+- `useOptimistic`
+- `useDefferedValue`
+- `startTransition`
+
+Let's dive into `startTransition` and see where it leads us.
+
+-----
 
 Let's assume that we have a large list of elements we want to mirror some user inputted text onto:
 
