@@ -1608,29 +1608,27 @@ function App() {
 
 # A "move" to the server
 
-Server-side rendering, as a practice, has been around for... Well, as long as the web. To write your template in one language and compile it into the primitives the web understands (HTML, CSS, JS) is the core model for everything from Wordpress, Ruby on Rails, and - yes - React server-side solutions such as Next.js.
+Server-side rendering, as a practice, has been around for... Well, as long as the web. To write your template in one language and compile it into the primitives the web understands (HTML, CSS, JS) is the core model for everything from Wordpress, Ruby on Rails, and - yes - React server-side solutions.
 
 > **Further reading:**
 >
 > Unfamiliar with what server-side rendering is? [Check out our guide on SSR in React.](/posts/what-is-ssr-and-ssg#ssr)
 
-But just because Next.js was doing server-side rendering doesn't mean that React itself had strong primitives for the story.
+In fact, while there were more out-of-the box solutions that streamlined React's SSR usage — like [Next.js in 2016](https://github.com/vercel/next.js/releases/tag/1.0.0) — [React has had the ability to server-side render all the way back in its second-ever public release of 0.4.](https://youtu.be/x7cQ3mrcKaY?si=fok8zye6pIPMCPjL&t=1572)
 
-// TODO: Rethink how to communicate this section. React's server-story was introduced in 0.4 (the second ever public release) according to this: https://youtu.be/x7cQ3mrcKaY?si=fok8zye6pIPMCPjL&t=1572
+Despite this early adoption of SSR, however, React's support for server-centric coding seems to have sparked some controversy in recent years, largely in part due to [the React team's relationship with Vercel](https://blog.isquaredsoftware.com/2025/06/react-community-2025/#concern-vercel-next-and-react).
 
-> And no, [Vercel did not take over React](https://blog.isquaredsoftware.com/2025/06/react-community-2025/#concern-vercel-next-and-react).
+Given this, let's explore how even React's server support has deeply nested roots into React's history and previously built featureset.
 
 ## Solving the two-computers problems
 
-// TODO: Rewrite this to mention Dan's two computers problem
-
-See, from [Next.js' inception in 2016](https://github.com/vercel/next.js/releases/tag/1.0.0) all the way until [Next's adoption of React Server Components in 2023](https://nextjs.org/blog/next-13-4#nextjs-app-router), Next.js had a problem: React would re-render every component from the server once it hit the client.
+From React's 0.4 release all the way until [React's announcement of the then experimental "React Server Components"](https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html), server-side rendering in React led to a problem: React would re-render every component from the server once it hit the client.
 
 
 
 ![The developer ships SSR and framework code to the server, which produces HTML. This HTML/CSS is then sent to the user machine where it re-initializes on the client's browser](../../collections/react-beyond-the-render/posts/what-are-react-server-components/ssr_slowdown.svg)
 
-It wasn't until React 19 when RSCs were made stable that Next.js had a clear solution for this problem.
+It wasn't until [Next's adoption of React Server Components in 2023](https://nextjs.org/blog/next-13-4#nextjs-app-router) (and later with React 19 when RSCs were made stable) that we had a clear solution for this problem.
 
 > **Historical note:**
 >
@@ -1668,13 +1666,15 @@ To get this to work, however, it required many building blocks of React to come 
 - Fiber's ability to bail out of work on already-completed nodes.
 - The ability to establish boundaries within the VDOM; whether it be for errors, loading states, or client/server distinctions.
 
-## Async components, server actions, and beyond
+Discussions around server-fetching aren't new to React, either. Even the earliest prototypes of FaxJS (Jordan Walke's initial prototype of React) cited [Facebook's own server-side renderer — XHP](https://www.facebook.com/notes/10158791323777200/) — as inspiration.
 
-While RSC's ability to serialize JSX and send it over the wire is undoubtedly cool, it's not the only superpower that RSC has.
+-------
+
+But while RSC's ability to serialize JSX and send it over the wire is undoubtedly cool, it's not the only superpower that RSC has.
 
 Since we finally had an officiated way of operating React on the server, the React team expanded their focus beyond the client-side experience of React and introduced methods of sending and receiving data from the server. These methods came in the form of two new APIs: Async Components and React Server Actions.
 
-### Async components
+## Loading server data
 
 [While the React team ultimately decided against using `await` on the client for nuanced technical reasoning](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md#why-cant-client-components-be-async-functions); there's nothing to prevent, say, a backend from the same. As such, this is all it takes to load data from a server component:
 
@@ -1692,7 +1692,7 @@ That's right! No wrapping our `await` in a cache (after all, the server componen
 >
 > If you want to learn more in-depth information about async components in React, [our React Suspense and Async Rendering guide covers everything you'd need to know.](/posts/what-is-react-suspense-and-async-rendering)
 
-### Server actions
+## Sending data to the server
 
 Async components may have solved the problem of data going from the server to the client, but it only solved it in one way.
 
@@ -1744,7 +1744,7 @@ And because this is a server component (due to the lack of `"use client"`), this
 
 We can see how the browser's built-in capabilities helped inform the API for server actions - enabling more functionality than if the React team had scaffolided their own solution without this consideration.
 
-## Bi-directional Server State
+## Handling bi-directional server state
 
 // TODO: point out problems with this being a required refresh of the page
 
