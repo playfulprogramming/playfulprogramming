@@ -118,28 +118,110 @@ function App() {
 
 This also meant that even across code transforms the line of code an error was thrown could map one-to-one with the final output ran in the browser; great for debugging!
 
-
 ## Resembling state over all points in time
 
-// TODO: Talk about reactivity /posts/what-is-reactivity
+Before React there was Backbone.js. Let's look at a simple counter component:
 
-// TODO: Show code from other frameworks that had problems with binding state manually
+```html
+<!-- index.html, shortened for brevity -->
+<div id="counter-app"></div>
 
-// TODO: Talk about how you don't have to bind state manually if you just "re-render all of the things".
+<script type="text/template" id="counter-template">
+    <p>Count: <%= count %></p>
+    <button>Add 1</button>
+</script>
 
+<script>
+/* app.js */
+$(function() {
+    var CounterModel = Backbone.Model.extend({
+        defaults: {
+            count: 0
+        }
+    });
 
-// TODO: Talk about the re-render all the things aligns well with Jordan's initial vision for FP paradigms, given immutable data
+    var CounterView = Backbone.View.extend({
+        el: '#counter-app',
+        template: _.template($('#counter-template').html()),
+        events: {
+            'click button': 'increment'
+        },
+        initialize: function() {
+            this.listenTo(this.model, 'change', this.render);
+            this.render();
+        },
+        render: function() {
+            var html = this.template(this.model.toJSON());
+            this.$el.html(html);
+            return this;
+        },
+        increment: function() {
+            var currentCount = this.model.get('count');
+            this.model.set('count', currentCount + 1);
+        }
+    });
 
+    var counterModel = new CounterModel();
+    new CounterView({ model: counterModel });
+});
+</script>
+```
 
+Here, we're doing a number of things:
 
+- Reading the initial template from a script tag containing a string representing our template
+- Defining the data model of the component to be used in the template
 
+- Manually binding to events and reconstructing the template to HTML on request
+
+This is _okay_, but due to the manual nature of the "Counter" event/data sync, it's easy to accidentally decouple something that's not intended to be decoupled.
+
+Compare this an equivalent React's counter from the era:
+
+```html
+<div id="root"></div>
+
+<script type="text/babel">
+    var Counter = React.createClass({
+        getInitialState: function() {
+            return {
+                count: 0
+            };
+        },
+        increment: function() {
+            this.setState({
+                count: this.state.count + 1
+            });
+        },
+        render: function() {
+            return (
+                <div>
+                    <p>Count: {this.state.count}</p>
+                    <button onClick={this.increment}>
+                        Add 1
+                    </button>
+                </div>
+            );
+        }
+    });
+
+    ReactDOM.render(<Counter />, document.getElementById('root'));
+</script>
+```
+
+While `this.setState` is in a way an explicit update to the template, a major shift has occured between Backbone.js:
+
+**The template in React's `render` method isn't just the initial template for the component; it's the template used across time**. 
+
+In pragmatic terms, this means that we do not need to track what component is being rendered and where when updating app data. In philosophical terms, this can be viewed as a ["reconciliation"](/posts/what-is-reconciliation-and-the-vdom) process rather than a "mutation" of the DOM. This idea comes straight from Jordan's learnings from the functional programming world where data must always be [immutable](/posts/new-post-mutable-vs-immutable).
+
+And this data isn't static, either! Click the button to trigger the state change of `count` and your `render` funtion will execute immediately; giving you a quick and convinient method of [reactivity](/posts/what-is-reactivity).
 
 ## Making markup reactive
 
 // TODO: Add https://calendar.perfplanet.com/2013/diff/
 
-While JSX allowed for lots of flexibility, it meant that templates that needed [reactivity](/posts/what-is-reactivity) required
-a re-execution of all template nodes to construct [the DOM](/posts/understanding-the-dom) with new values.
+While JSX allowed for lots of flexibility, it meant that templates that needed [reactivity](/posts/what-is-reactivity) required a re-execution of all template nodes to construct [the DOM](/posts/understanding-the-dom) with new values.
 
 ![TODO: Write alt](./without_vdom.png)
 
