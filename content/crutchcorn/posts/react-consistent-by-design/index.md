@@ -22,7 +22,7 @@ In this article, we'll explore the concepts React has introduced along the way a
 
 While things may get fairly technical, I'll make sure to keep things relatively beginner-friendly and even leverage visuals as much as possible. Let's dive in.
 
-# JSX
+# The problems of markup
 
 Even in the earliest days of React, the idea of representing your HTML code in a JavaScript file was established.
 
@@ -71,7 +71,7 @@ function App() {
 }
 ```
 
-# The Virtual DOM (VDOM)
+# Making markup reactive
 
 While JSX allowed for lots of flexibility, it meant that templates that needed [reactivity](/posts/what-is-reactivity) required
 a re-execution of all template nodes to construct [the DOM](/posts/understanding-the-dom) with new values.
@@ -86,7 +86,7 @@ Then, when a given component needed to update the DOM, it would check against th
 
 This was a huge optimization that allowed for much more performant React applications to scale outward.
 
-# Error Components
+# Solving error handling
 
 Now that we had a component tree, there was a bit of a challenge.
 
@@ -141,7 +141,7 @@ function App() {
 
 ![TODO: Write alt](./error_bubble_group.png)
 
-# Component Composition
+# Early developer experience
 
 Coming into 2018, React had a bit of a problem to solve: A class-based component's internal logic was extremely challenging to compose.
 
@@ -215,7 +215,7 @@ This `WindowSize` component gets the size of the browser window, stores it in `s
 
 Now let's say that we want to reuse this logic between components. If you've studied Object-Oriented Programming - where classes come from - you'll realize that there's a good way to do so: [**Class inheritence**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain).
 
-## Class components inheritence
+## The intuitive short-term solution
 
 Without changing the code for `WindowSize` components, we can use [the `extends` keyword](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/extends) in JavaScript to allow a new class to inherit methods and properties from another class.
 
@@ -283,7 +283,7 @@ However, miss a `super()` call or anything between, and you'll end up with behav
 
 To solve this, many apps and libraries reached for a pattern called "**Higher ordered Components**" (HoC).
 
-## Higher ordered Components (HoC)
+## The adopted community solution
 
 With higher-ordered components, you're able to avoid requiring your users to have `super` calls across their codebase and instead recieve arguments from the base class as `props` to the extending class:
 
@@ -339,7 +339,7 @@ Unfortunately, this required knowledge of what `props` to expect from the parent
 
 This is why **Hooks** were introduced into React.
 
-# Introducing Hooks
+# Maturing the developer experience
 
 React's Hooks were introduced in React 16.8. With them, the baseline for future React features was established.
 
@@ -405,7 +405,7 @@ function WindowSize() {
 
 This had a number of benefits, the biggest of which going back to the concept of composition.
 
-## Hook Composition
+## Adopting components' strengths in the logic layer
 
 Whereas with class components the convention for composition (say that 10 times fast!) was higher-ordered components, hooks have.... 🥁
 
@@ -460,7 +460,7 @@ function MyComponent() {
 }
 ```
 
-## Rules of Hooks
+## Enforcing rules for consistency
 
 This doesn't mean that authoring your own custom hooks is a free-for-all, however. All hooks follow a consistent set of rules:
 
@@ -512,7 +512,7 @@ function DisallowedHooksUsage() {
 
 > These rules enforced here are present due to thoughtful design of how to enable React to own dataflow more. [We'll learn more about what this means in our Hooks + the VDOM section](#TODO_ADD).
 
-## Side Effects
+## Continuing consistency in I/O handling
 
 [I could talk about side effects in programming for hours](/posts/ffg-fundamentals-side-effects). As a short recap of an introductory view of effects:
 
@@ -578,7 +578,7 @@ function Listener() {
 
 
 
-## Hooks + the VDOM
+## Bringing it back to markup
 
 I hear you, React-Senior-Team-Lead-a-tron:
 
@@ -724,7 +724,7 @@ component.render(Test); // 3
 
 See, this internal `Component` class isn't just an idea I came up with; it's more representative of how state is stored in a VDOM node in React. When React decides it's time to render a given component, it pulls up the Hook state from the node.
 
-# `<StrictMode>` Effect Changes
+# Solving React's consistency problems
 
 When React 18 was released, many were suprised to find that various parts of their apps seemingly broke out of nowhere, but only in dev mode. I even wrote an article at the time explaining the phenomenon called ["Why React 18 Broke Your App"](/posts/why-react-18-broke-your-app).
 
@@ -751,7 +751,7 @@ The simple answer to this question is that the React team wanted to ensure that 
 
 But the longer answer is that they wanted to keep component rendering behavior idempotent.
 
-### Idempotence
+### The inner workings of consistency: Idempotence
 
 To explain idempotence let's use an analogy and then dive into the real deal.
 
