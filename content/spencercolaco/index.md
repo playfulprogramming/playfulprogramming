@@ -13,7 +13,7 @@
     twitch: "dolcebruh"
   },
   pronouns: "he/him",
-  profileImg: "./profile.png",
+  profileImg: "./profile.jpg",
   roles: ["author"]
 }
 ---
