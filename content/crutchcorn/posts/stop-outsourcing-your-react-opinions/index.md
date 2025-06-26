@@ -8,17 +8,41 @@
 }
 ---
 
-Even since its inception, React has had a bumpy road in regards to its public perception. In its earliest days, JSX was found to be confusing and breaking well-established "best practices". In the era of Hooks, some found its design decisions limiting compared to class components. And of course there's been pushback from many about React's newfound attention to the backend.
+Look, I get it. Tech content creators are fun. But seriously, you've **got** to stop letting others think for you.
 
-Consistently, the React team has faced feedback that their goalposts have "shifted".
+I've heard it all over the years:
 
-But I'm here to counteract this argument. Over my time with the framework, I've found that the React team — while not infallible — has been remarkably consistent with their objectives and stated paths forward.
+> Separations of concerns doesn't work with JSX
 
-I'd go so far as to say that **React's history isn't a series of unrelated updates, but a single, coherent story**. Each feature, from JSX to Server Components, is simply the next logical chapter written from that same consistent blueprint.
+> Hooks are so fragile that they don't even allow conditional usage
+
+> React changes every year; way to fatigue the ecosystem
+
+> StrictMode breaks my app because React doesn't work right
+
+> Vercel took over React to build RSC to sell more servers 
+
+> React's so slow it needs a compiler to behave properly
+
+And I'll be honest, it's not really their faults. Hot takes are part of the game - you're actively incentivized to get content out as quickly as possible in that world. The faster you are, the more clicks you get, the more money it generates.
+
+In ["Thinking, Fast and Slow"](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow), this kind of "fast thinking" is almost automatic; purely driven by emotion and mentally easy-to-reach experience.
+
+But let's zoom out for a moment. Why _would_ Facebook allow React to be sabotaged by a third party? Surely they have the funds to out-bid _Vercel_ for their top talent. When did your parents last hear about Vercel? Now when did they last share a picture from Facebook with you? There's just inherent economies of scale going on here, like wha-....
+
+You know what? No. That's my own version of "fast thinking". There's little there to rebuttle the arguments above.
+
+Let's meet somewhere in the middle, then;
+
+**React can absolutely be validly criticized, but to do so we should take a closer look at the decisionmaking matrix the team has employed while building out React over the past ten plus years**.
+
+Because here's my thing: I think that **a majority of hot takes about React are wrong** and stem from kneejerk reactions that don't take the broader scope of things into mind.
+
+In fact, I'll go further:
+
+Whether or not you agree with the tradeoffs that were made made, **React's decisionmaking has been remarkably consistent and broadly has your best interests in mind**.
 
 To present my case, we'll explore the concepts React has introduced along the way and potentially build out a new mental model for the framework as we go.
-
-While things may get fairly technical, I'll make sure to keep things relatively beginner-friendly and even leverage visuals as much as possible. Let's dive in.
 
 # The first days of React
 
