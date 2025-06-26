@@ -8,17 +8,15 @@
 }
 ---
 
-I've often heard qualms from the broader developer community lamenting the perceived shift in React towards the backend.
+Even since its inception, React has had a bumpy road in regards to its public perception. In its earliest days, JSX was found to be confusing and breaking well-established "best practices". In the era of Hooks, some found its design decisions limiting compared to class components. And of course there's been pushback from many about React's newfound attention to the backend.
 
-But here's the thing; React isn't a frontend framework, it's a web framework. While this distinction might seem narrow, the impact of it enables a shift in how your mental model of React that explains many of their design systems from day one.
+Consistently, the React team has faced feedback that their goalposts have "shifted".
 
-> **Semantics:**
->
-> Many, including the React team themselves, call React a "library". While there's validity there, I gesture towards the ever expanding set of primitives - which now include data fetching and error handling - as evidence for my usage of the term "framework".
+But I'm here to counteract this argument. Over my time with the framework, I've found that the React team — while not infallible — has been remarkably consistent with their objectives and stated paths forward.
 
-Moreover, I'd argue that **React has been aiming in this direction for many many years and its "movement towards the backend" has been a natural evolution of patterns established from day one of the framework.** In fact, I'd go even further and say that: **React today has had an incredibly consistent set of architectural designs, spanning from the server-side to the client-side.**
+I'd go so far as to say that **all features in modern React stem from the same consistent blueprint laid out from day one**.
 
-In this article, we'll explore the concepts React has introduced along the way and potentially build out a new mental model for the framework as we go. 
+To present my case, we'll explore the concepts React has introduced along the way and potentially build out a new mental model for the framework as we go.
 
 While things may get fairly technical, I'll make sure to keep things relatively beginner-friendly and even leverage visuals as much as possible. Let's dive in.
 
