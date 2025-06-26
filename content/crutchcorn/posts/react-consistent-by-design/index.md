@@ -14,7 +14,7 @@ Consistently, the React team has faced feedback that their goalposts have "shift
 
 But I'm here to counteract this argument. Over my time with the framework, I've found that the React team — while not infallible — has been remarkably consistent with their objectives and stated paths forward.
 
-I'd go so far as to say that **all features in modern React stem from the same consistent blueprint laid out from day one**.
+I'd go so far as to say that **React's history isn't a series of unrelated updates, but a single, coherent story**. Each feature, from JSX to Server Components, is simply the next logical chapter written from that same consistent blueprint.
 
 To present my case, we'll explore the concepts React has introduced along the way and potentially build out a new mental model for the framework as we go.
 
