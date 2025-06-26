@@ -28,11 +28,7 @@ And I'll be honest, it's not really their faults. Hot takes are part of the game
 
 In ["Thinking, Fast and Slow"](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow), this kind of "fast thinking" is almost automatic; purely driven by emotion and mentally easy-to-reach experience.
 
-But let's zoom out for a moment. Why _would_ Facebook allow React to be sabotaged by a third party? Surely they have the funds to out-bid _Vercel_ for their top talent. When did your parents last hear about Vercel? Now when did they last share a picture from Facebook with you? There's just inherent economies of scale going on here, like wha-....
-
-You know what? No. That's my own version of "fast thinking". There's little there to rebuttle the arguments above.
-
-Let's meet somewhere in the middle, then;
+But c'mon, we're adults, surely we can take our time to digest the work being done for us and try to understand a different perspective?
 
 **React can absolutely be validly criticized, but to do so we should take a closer look at the decisionmaking matrix the team has employed while building out React over the past ten plus years**.
 
