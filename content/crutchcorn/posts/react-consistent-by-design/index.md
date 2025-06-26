@@ -1690,6 +1690,11 @@ That's right! No wrapping our `await` in a cache (after all, the server componen
 >
 > If you want to learn more in-depth information about async components in React, [our React Suspense and Async Rendering guide covers everything you'd need to know.](/posts/what-is-react-suspense-and-async-rendering)
 
+This ability to `await` in a component at all was only enabled by the React's past decisions:
+
+- The VDOM to represent state on the server rather than relying on a browser's DOM
+- Fiber's ability to pause, halt, error and 
+
 ## Sending data to the server
 
 Async components may have solved the problem of data going from the server to the client, but it only solved it in one way.
@@ -1744,7 +1749,9 @@ We can see how the browser's built-in capabilities helped inform the API for ser
 
 ## Handling bi-directional server state
 
-// TODO: point out problems with this being a required refresh of the page
+While it's cool that we can now send and receive data from the server, this introduces a new problem; To get the results of an action updated we're hard-refreshing the page. This goes against React's defaulted behavior of not refreshing the page to get a reactive result.
+
+So let's fix that by using [React's `useActionState` hook](/posts/what-is-use-action-state-and-form-status) to get a reactive value from the server:
 
 ```jsx
 'use client';
