@@ -1,9 +1,9 @@
 ---
 {
-	title: "React: Consistent by Design",
+	title: "Stop Outsourcing Your React Opinions",
 	description: "TODO: Write this",
-	published: '2025-07-01T05:12:03.284Z',
-	tags: ['react', 'javascript', 'webdev'],
+	published: '2025-08-01T05:12:03.284Z',
+	tags: ['react', 'javascript', 'webdev', 'opinion'],
 	license: 'cc-by-nc-sa-4'
 }
 ---
