@@ -38,6 +38,8 @@ const authors = post.authors
 	.map((personId) => api.getPersonById(personId, locale))
 	.filter(isDefined);
 
+const versions = api.getPostVersionsBySlug(slug, locale);
+
 // these need to be separate; multiple posts *can* be in a collection without having a collection entry
 const collection = post.collection
 	? api.getCollectionBySlug(post.collection, locale)
@@ -70,6 +72,7 @@ const postHtml = await getMarkdownHtml(post);
 		post={post}
 		postHtml={postHtml}
 		authors={authors}
+		versions={versions}
 		collection={collection}
 		collectionPosts={collectionPosts}
 	/>
