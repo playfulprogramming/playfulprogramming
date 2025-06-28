@@ -16,6 +16,8 @@ I've heard it all over the years:
 
 > Class-components can't compose
 
+> Hooks should have had a 1:1 mapping with class component's lifecycle methods
+
 > It's silly that function components re-run the function itself
 
 > Hooks are so fragile that they don't even allow conditional usage
@@ -142,7 +144,7 @@ This also meant that even across code transforms the line of code an error was t
 
 But these improvements didn't make for a smooth ship for the React team. As metioned earlier, JSX came heavily criticized, for one reason predominantly...
 
-### "Seperation of concerns" doesn't mean what you think it means
+### "Separation of concerns" doesn't mean what you think it means
 
 > Separation of concerns is a pretty core tenant of CS. React just seems wrongity wrong wrong wrong. #jsconf
 
@@ -611,7 +613,13 @@ function WindowSize() {
 }
 ```
 
-This had a number of benefits, the biggest of which going back to the concept of composition.
+This came with a number of criticms;
+
+- Migrating from class-based components was harder because of a lack of lifecycle methods
+- Effects became harder to manage because the whole component would re-render instead of "just" the `render` method
+- Hooks came with their own rules that many found obnoxious
+
+But despite these criticisms this had a number of benefits, the biggest of which going back to the concept of composition.
 
 ## Adopting components' strengths in the logic layer
 
@@ -667,58 +675,6 @@ function MyComponent() {
   )
 }
 ```
-
-## Enforcing rules for consistency
-
-This doesn't mean that authoring your own custom hooks is a free-for-all, however. All hooks follow a consistent set of rules:
-
-- All hooks are functions
-- The function names must start with `use`
-- [Hooks cannot be called conditionally](https://react.dev/reference/rules/rules-of-hooks)
-- They must be called at the top-level of a component
-- [Dynamic usage of hooks is not allowed](https://react.dev/reference/rules/react-calls-components-and-hooks#dont-dynamically-use-hooks)
-- [Properties passed to hooks must not be mutated](https://react.dev/reference/rules/components-and-hooks-must-be-pure#return-values-and-arguments-to-hooks-are-immutable)
-
-Regardless of if a hook is custom or imported from React, regardless of when a hook was introduced, whether from the start with `useState` or much later with [the `useActionState` hook](https://playfulprogramming.com/posts/what-is-use-action-state-and-form-status), these rules are to be followed.
-
-```jsx
-// ✅ Allowed usages
-function AllowedHooksUsage() {
-	const [val, setVal] = React.useState(0);
-	const {height, width} = useWindowSize();
-	
-	return <>{/* ... */}</>
-}
-
-// ❌ Dis-allowed usages
-function DisallowedHooksUsage() {
-	const obj = {};
-    
-    useObj(obj);
-    
-    // Not allowed to mutate objects after being passed to a hook
-    obj.key = (obj.key ?? 0) + 1;    
-    
-    if (bool) {
-		const [val, setVal] = React.useState(0);        
-    }
-
-    if (other) {
-        return null;
-    }
-    
-    // While otherwise valid, can't be after a return
-    const {height, width} = useWindowSize();
-	
-    for (let i = 0; i++; i < 10) {
-        const ref = React.useRef();
-    }
-    
-	return <>{/* ... */}</>
-}
-```
-
-> These rules enforced here are present due to thoughtful design of how to enable React to own dataflow more. [We'll learn more about what this means in our Hooks + the VDOM section](#TODO_ADD).
 
 ## Continuing consistency in I/O handling
 
@@ -784,17 +740,162 @@ function Listener() {
 }
 ```
 
+This is a major reason why React never introduced a 1:1 mapping of the old class-component lifecycle to function components; They enabled superior handling of effect management and cleanup.
 
+Now if only we could have a way to force this cleanup...
+
+## Solving React's consistency problems
+
+[When React 18 was released](https://react.dev/blog/2022/03/29/react-v18#new-strict-mode-behaviors), many were suprised to find that various parts of their apps seemingly broke out of nowhere, but only in dev mode. I even wrote an article at the time explaining the phenomenon called ["Why React 18 Broke Your App"](/posts/why-react-18-broke-your-app).
+
+What _actually_ had happened is that [React intentionally introduced a change](https://github.com/reactwg/react-18/discussions/19) to the dev-only helper `<StrictMode>` component that was included in most React app templates.
+
+Previously, [`<StrictMode>` was mostly used to warn developers when a deprecated API or lifecycle was being used](https://legacy.reactjs.org/blog/2018/03/29/react-v-16-3.html#strictmode-component).
+
+Now `<StrictMode>` is mostly known for the following:
+
+```jsx
+function App() {
+	useEffect(() => {
+		// Runs twice on dev with StrictMode, once on prod
+		console.log("Mounted");
+	}, []);
+  
+  return <>{/* ... */}</>
+}
+```
+
+> Why was this change made?
+
+The simple answer to this question is that the React team wanted to ensure that you were [cleaning up side effects in your components to avoid memory leaks and bugs.](/posts/ffg-fundamentals-side-effects#ensuring-effect-cleanup).
+
+But the longer answer is that they wanted to keep component rendering behavior idempotent.
+
+-------
+
+To explain idempotence let's use an analogy and then dive into the real deal.
+
+Pretend you're working a factory line and you've been given a task: Press a button to drop an empty box from a chute above you onto a conveyor belt to move the boxes into a packaging machine. This machine will place an item in the box and seal it up for you.
+
+![TODO: Write alt](./empty_boxes.png)
+
+![TODO: Write alt](./one_box.png)
+
+However, you've been warned by your supervisor: Don't press the button a second time until the first box has been fully packaged. If you do so, the second box will jam the conveyor belt as the machine in the middle of packaging the first box.
+
+![TODO: Write alt](./two_boxes.png)
+
+An **idempotent** button would behave differently: It would only trigger the box to enter the factory line once the previous box had gone through the machine, **regardless of how many times you pressed the button**.
+
+----
+
+> What does this analogy have to do with React rendering and `useEffect`?
+
+Well, let's consider the following code:
+
+```jsx
+function BoxAddition() {
+	useEffect(() => {
+		window.addBox();
+	}, []);
+  
+  return null;
+}
+```
+
+Let's consider each render of "BoxAddition" to be akin to pressing the button on the factory line. If we want to show 10 `BoxAddition`s, then we should have 10 boxes coming down the pipeline.
+
+But the global box count should remain consistent if we then render and unrender the `BoxAddition` component. With the code above, this doesn't happen. This means that if we do something like:
+
+```jsx
+function CheckBoxAddsOnce() {
+  const [bool, setBool] = useState(true);
+  
+  useEffect(() => {
+    setInterval(() => setBool(v => !v), 0);
+    setInterval(() => setBool(v => !v), 100);
+    setInterval(() => setBool(v => !v), 200);
+  })
+
+  if (bool) return null;
+  return <BoxAddition></BoxAddition>
+}
+```
+
+Because of this, the `BoxAddition` component wouldn't be considered idempotent; its behavior causes inconsistencies depending on how many times it's been rendered. This aligns with how the button could be considered idempotent **only if** the button doesn't cause inconsistencies depending on how many times it's been pressed.
+
+To fix this, we'd need some kind of cleanup on our `BoxAddition` component:
+
+```jsx
+function BoxAddition() {
+	useEffect(() => {
+		window.addBox();
+		return () => window.removeBox();
+	}, []);
+  
+  return null;
+}
+```
+
+These problematic behaviors on a non-idempotent component is why `StrictMode` was changed to enforce this behavior.
+
+And this wasn't some bolted-on idea after React 18 or something; Idempotency is so important to React, in fact, that [it was mentioned as a core design decision in the second ever talk about React from the Facebook team](https://youtu.be/x7cQ3mrcKaY?si=I_fB-AZckPFB0MM8&t=1046).
+
+## Enforcing rules for consistency
+
+This doesn't mean that authoring your own custom hooks is a free-for-all, however. All hooks follow a consistent set of rules:
+
+- All hooks are functions
+- The function names must start with `use`
+- [Hooks cannot be called conditionally](https://react.dev/reference/rules/rules-of-hooks)
+- They must be called at the top-level of a component
+- [Dynamic usage of hooks is not allowed](https://react.dev/reference/rules/react-calls-components-and-hooks#dont-dynamically-use-hooks)
+- [Properties passed to hooks must not be mutated](https://react.dev/reference/rules/components-and-hooks-must-be-pure#return-values-and-arguments-to-hooks-are-immutable)
+
+Regardless of if a hook is custom or imported from React, regardless of when a hook was introduced, whether from the start with `useState` or much later with [the `useActionState` hook](https://playfulprogramming.com/posts/what-is-use-action-state-and-form-status), these rules are to be followed.
+
+```jsx
+// ✅ Allowed usages
+function AllowedHooksUsage() {
+	const [val, setVal] = React.useState(0);
+	const {height, width} = useWindowSize();
+	
+	return <>{/* ... */}</>
+}
+
+// ❌ Dis-allowed usages
+function DisallowedHooksUsage() {
+	const obj = {};
+    
+    useObj(obj);
+    
+    // Not allowed to mutate objects after being passed to a hook
+    obj.key = (obj.key ?? 0) + 1;    
+    
+    if (bool) {
+		const [val, setVal] = React.useState(0);        
+    }
+
+    if (other) {
+        return null;
+    }
+    
+    // While otherwise valid, can't be after a return
+    const {height, width} = useWindowSize();
+	
+    for (let i = 0; i++; i < 10) {
+        const ref = React.useRef();
+    }
+    
+	return <>{/* ... */}</>
+}
+```
+
+Many found these rules frustrating, but they were present for a good reason: It was required so that React's VDOM could reach its full potential...
 
 ## Bringing it back to markup
 
-I hear you, React-Senior-Team-Lead-a-tron:
-
-> This is all recap for me. How does this pertain to your thesis of React's consistency?
-
-Well, while it may be obvious that React Hooks were a shift in how we author components, what may not have been obvious was the back-work that led to being able to implement Hooks.
-
-See, to make this magic works, Hooks doesn't just *work alongside* the VDOM, the method of persisting data in a component from a function **requires** the VDOM.
+Before we dive into how the rules of Hooks helped enable React's future, let's first explore the internals of React Hooks and understand the code behind them.
 
 After all, React doesn't transform a function component in any way, so how does `useState` persist its value internally?
 
@@ -811,6 +912,8 @@ Test() // 1
 Test() // 1
 Test() // 1
 ```
+
+See, to make the magic of a function remembering state to work, Hooks don't just *work alongside* the VDOM, the method of persisting data in a component from a function **requires** the VDOM.
 
 Here's one way we could persist state using a naïve implementation of hooks storage using an array:
 
@@ -932,104 +1035,10 @@ component.render(Test); // 3
 
 See, this internal `Component` class isn't just an idea I came up with; it's more representative of how state is stored in a VDOM node in React. When React decides it's time to render a given component, it pulls up the Hook state from the node.
 
-## Solving React's consistency problems
+Now if only there was an explaination of _why_ this was needed...
 
-When React 18 was released, many were suprised to find that various parts of their apps seemingly broke out of nowhere, but only in dev mode. I even wrote an article at the time explaining the phenomenon called ["Why React 18 Broke Your App"](/posts/why-react-18-broke-your-app).
 
-What _actually_ had happened is that [React intentionally introduced a change](https://github.com/reactwg/react-18/discussions/19) to the dev-only helper `<StrictMode>` component that was included in most React app templates.
-
-Previously, [`<StrictMode>` was mostly used to warn developers when a deprecated API or lifecycle was being used](https://legacy.reactjs.org/blog/2018/03/29/react-v-16-3.html#strictmode-component).
-
-Now `<StrictMode>` is mostly known for the following:
-
-```jsx
-function App() {
-	useEffect(() => {
-		// Runs twice on dev with StrictMode, once on prod
-		console.log("Mounted");
-	}, []);
-  
-  return <>{/* ... */}</>
-}
-```
-
-> Why was this change made?
-
-The simple answer to this question is that the React team wanted to ensure that you were [cleaning up side effects in your components to avoid memory leaks and bugs.](/posts/ffg-fundamentals-side-effects#ensuring-effect-cleanup).
-
-But the longer answer is that they wanted to keep component rendering behavior idempotent.
-
--------
-
-To explain idempotence let's use an analogy and then dive into the real deal.
-
-Pretend you're working a factory line and you've been given a task: Press a button to drop an empty box from a chute above you onto a conveyor belt to move the boxes into a packaging machine. This machine will place an item in the box and seal it up for you.
-
-![TODO: Write alt](./empty_boxes.png)
-
-![TODO: Write alt](./one_box.png)
-
-However, you've been warned by your supervisor: Don't press the button a second time until the first box has been fully packaged. If you do so, the second box will jam the conveyor belt as the machine in the middle of packaging the first box.
-
-![TODO: Write alt](./two_boxes.png)
-
-An **idempotent** button would behave differently: It would only trigger the box to enter the factory line once the previous box had gone through the machine, **regardless of how many times you pressed the button**.
-
-----
-
-> What does this analogy have to do with React rendering and `useEffect`?
-
-Well, let's consider the following code:
-
-```jsx
-function BoxAddition() {
-	useEffect(() => {
-		window.addBox();
-	}, []);
-  
-  return null;
-}
-```
-
-Let's consider each render of "BoxAddition" to be akin to pressing the button on the factory line. If we want to show 10 `BoxAddition`s, then we should have 10 boxes coming down the pipeline.
-
-But the global box count should remain consistent if we then render and unrender the `BoxAddition` component. With the code above, this doesn't happen. This means that if we do something like:
-
-```jsx
-function CheckBoxAddsOnce() {
-  const [bool, setBool] = useState(true);
-  
-  useEffect(() => {
-    setInterval(() => setBool(v => !v), 0);
-    setInterval(() => setBool(v => !v), 100);
-    setInterval(() => setBool(v => !v), 200);
-  })
-
-  if (bool) return null;
-  return <BoxAddition></BoxAddition>
-}
-```
-
-Because of this, the `BoxAddition` component wouldn't be considered idempotent; its behavior causes inconsistencies depending on how many times it's been rendered. This aligns with how the button could be considered idempotent **only if** the button doesn't cause inconsistencies depending on how many times it's been pressed.
-
-To fix this, we'd need some kind of cleanup on our `BoxAddition` component:
-
-```jsx
-function BoxAddition() {
-	useEffect(() => {
-		window.addBox();
-		return () => window.removeBox();
-	}, []);
-  
-  return null;
-}
-```
-
-These problematic behaviors on a non-idempotent component is why `StrictMode` was changed to enforce this behavior.
-
-And this wasn't some bolted-on idea after React 18 or something; Idempotency is so important to React, in fact, that [it was mentioned as a core design decision in the second ever talk about React from the Facebook team](https://youtu.be/x7cQ3mrcKaY?si=I_fB-AZckPFB0MM8&t=1046).
-
-# Leveraging the VDOM's full potential
+# Leveraging the VDOM's full potential {#fiber}
 
 In our story thus far, we've managed to make it to "React 18" and the changes it brought; But before we look forward, we must look back. Let's rewind back to 2016. At [ReactNext 2016, Andrew Clark gave a talk titled "What's Next for React"](https://www.youtube.com/watch?v=aV1271hd9ew). In it, he shares how the team has been working on an experiment called "Fiber".
 
@@ -1048,7 +1057,7 @@ While I'll leave the nuances of how Fiber works [in this GitHub repo by Andrew]
 
 > This list is taken directly from [Andrew's GitHub explainer](https://github.com/acdlite/react-fiber-architecture).
 
-These abilities unblocked a slew of features and set the stage for the future.
+These abilities required Hooks to operate with the limits they have today, but unblocked a slew of features and set the stage for the future...
 
 ## Solving error handling
 
