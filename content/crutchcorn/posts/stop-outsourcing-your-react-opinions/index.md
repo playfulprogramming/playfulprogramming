@@ -76,11 +76,11 @@ The React migration of the ads platform was another win for the team as they saw
 
 As 2013 came in, the team that had been pushing for React's open-sourcing would become more and more prevelant in conversation. Eventually they would win the internal battle. Finally, after all that time, React was ready to open-source: [At JSConfUS 2013, Tom Occhino and Jordan Walke publicly announced the project alongside the release of code and docs.](https://www.youtube.com/watch?v=GW0rj4sNH2w)
 
-So what did the React team introduce? What new concepts and ideas were at play?
-
 > **Further reading:**
 >
 > Eager to learn more of React's early history? Check out [the official blog post outlining much of the technical history of React](https://legacy.reactjs.org/blog/2016/09/28/our-first-50000-stars.html), or maybe [the React Documentary from CultRepo](https://www.youtube.com/watch?v=8pDqJVdNa44)
+
+Even then, the first release of React was [heavily criticized](https://news.ycombinator.com/item?id=5789055). Amongst the concerns? Their newly introduced method of writing markup: JSX.
 
 ## The problems of markup
 
@@ -135,6 +135,60 @@ function App() {
 ```
 
 This also meant that even across code transforms the line of code an error was thrown could map one-to-one with the final output ran in the browser; great for debugging!
+
+### "Seperation of concerns" doesn't mean what you think it means
+
+> Separation of concerns is a pretty core tenant of CS. React just seems wrongity wrong wrong wrong. #jsconf
+
+\- [A Twitter post from 2013 about React's introduction](https://x.com/nickcrohn/status/339855304160329728).
+
+They weren't alone. One of the common cries against JSX was the idea that it broke "separation of concerns". See, most projects broke apart their code based on the language and type of code that was being used early on:
+
+<!-- ::start:filetree -->
+
+- `src/`
+    - `html/`
+        - `button.html`
+        - `card.html`
+        - `dropdown.html`
+    - `css/`
+        - `button.css`
+        - `card.css`
+        - `dropdown.css`
+    - `js/`
+        - `button.js`
+        - `card.js`
+        - `dropdown.js`
+    
+
+<!-- ::end:filetree -->
+
+But here's the thing: This is an abitrary distinction between different parts of the code. Using this system, it quickly becomes a challenge to track down related code.
+
+Instead, the React team proposed (and most modern codebases continue to back) that you should instead split your code based on features:
+
+<!-- ::start:filetree -->
+
+- `src/`
+    - `button/`
+        - `button.html`
+        - `button.css`
+        - `button.js`
+    - `card/`
+        - `card.html`
+        - `card.css`
+        - `card.js`
+    - `dropdown/`
+        - `dropdown.html`
+        - `dropdown.css`
+        - `dropdown.js`
+
+<!-- ::end:filetree -->
+
+By doing so, it becomes much easier to follow the pattern of code and aligns more closely with the ideal React code structure.
+
+> **Further reading**:
+> Want to learn the best way to structure your React projects? [I outlined my philosophy more in the "Layered React Structure" (LRS) system.](/posts/layered-react-structure)
 
 ## Resembling state over all points in time
 
@@ -1638,6 +1692,8 @@ Despite this early adoption of SSR, however, React's support for server-centric 
 
 Given this, let's explore how even React's server support has deeply nested roots into React's history and previously built featureset.
 
+// TODO: Talk about how RSCs were discussed internally at Facebook as early as 2016: https://youtu.be/Fctw7WjmxpU?si=vepJN5ctLoQ38cyf&t=67
+
 ## Solving the two-computers problems
 
 From React's 0.4 release all the way until [React's announcement of the then experimental "React Server Components"](https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html), server-side rendering in React led to a problem: React would re-render every component from the server once it hit the client.
@@ -1827,6 +1883,8 @@ export async function handleLikePost(_prevState, formData) {
 // TODO: https://x.com/crutchcorn/status/1754174851936629225
 
 // TODO: https://x.com/gs_porto/status/1754568585551200337
+
+// TODO: Talk about Next.js PPR
 
 # React's future 
 
