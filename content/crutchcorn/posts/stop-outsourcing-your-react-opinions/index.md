@@ -14,6 +14,10 @@ I've heard it all over the years:
 
 > Separations of concerns doesn't work with JSX
 
+> Class-components can't compose
+
+> It's silly that function components re-run the function itself
+
 > Hooks are so fragile that they don't even allow conditional usage
 
 > React changes every year; way to fatigue the ecosystem
@@ -135,6 +139,8 @@ function App() {
 ```
 
 This also meant that even across code transforms the line of code an error was thrown could map one-to-one with the final output ran in the browser; great for debugging!
+
+But these improvements didn't make for a smooth ship for the React team. As metioned earlier, JSX came heavily criticized, for one reason predominantly...
 
 ### "Seperation of concerns" doesn't mean what you think it means
 
@@ -289,6 +295,8 @@ In pragmatic terms, this means that we do not need to track what component is be
 
 And this data isn't static, either! Click the button to trigger the state change of `count` and your `render` funtion will execute immediately; giving you a quick and convinient method of [reactivity](/posts/what-is-reactivity).
 
+But this idea of "render everything for every state change" came with it's own set of difficulties...
+
 ## Making markup reactive
 
 While JSX allowed for lots of flexibility, it meant that templates required a re-execution of all template nodes to construct [the DOM](/posts/understanding-the-dom) with new values.
@@ -309,13 +317,13 @@ Internally, this worked by introducing a diffing stage to the "reconciliation" s
 
 ![The same DOM tree as before is mirrored both in React's VDOM but in the browser's DOM as well](../../collections/react-beyond-the-render/posts/what-is-reconciliation-and-the-vdom/diff-commit.svg)
 
+> **Further reading**:
+>
+> Want to learn more about the reconciliation process? [Here's a resource I wrote to explain the process more in-depth](/posts/ffg-fundamentals-side-effects#rendering-committing-painting).
+
 # Early developer experience
 
-Coming into 2018, React had a bit of a problem to solve: A class-based component's internal logic was extremely challenging to compose.
-
-> **Note:**
->
-> Remember, hooks were not part of the framework yet.
+React launched in 2013 with the concept of class-based components; Hooks wouldn't be released until 2019. But class-based components themselves, were not universally loved.
 
 See, a core tennant of components is that they're able to compose; meaning that **we can build a new component from existing components**:
 
@@ -505,11 +513,43 @@ Prior to hooks, this was the state-of-the-art when it came to component logic re
 
 Unfortunately, this required knowledge of what `props` to expect from the parent component, was challenging to allow [TypeScript](/posts/introduction-to-typescript) and other type-checker usage, and ultimately felt like an addon pattern rather than a clean, built-in composition pattern from React itself.
 
-This is why **Hooks** were introduced into React.
+While there were ways around this, it was clear that class-based components needed an alternative...
+
+## Early alterantives to class-components
+
+[In 2015, React 0.14 was released.](https://legacy.reactjs.org/blog/2015/10/07/react-v0.14.html#stateless-function-components) This release brought an alternative to class-based components: Function components.
+
+See, class components were described by the React team as "a render function with an added state container". What if we just removed the state container but kept the render function?
+
+This meant that we could take this:
+
+```jsx
+var Aquarium = React.createClass({
+  render: function() {
+  	var fish = getFish(this.props.species);
+	  return <Tank>{fish}</Tank>;
+  }
+});
+```
+
+And simplify it to this:
+
+```jsx
+var Aquarium = (props) => {
+  var fish = getFish(props.species);
+  return <Tank>{fish}</Tank>;
+};
+```
+
+This was cleaner in many ways, but came with a major caveat: Function components couldn't contain their own state.
+
+This limited its functionality in real-world codebases and, to help avoid a split in code usage, many decided to stick with class-based components for all of their components.
+
+It wouldn't be until much later when this problem would be solved...
 
 # Maturing the developer experience
 
-React's Hooks were introduced in React 16.8. With them, the baseline for future React features was established.
+[React's Hooks were introduced in React 16.8](/blog/2019/02/06/react-v16.8.0.html). With them, a solution to the stateless function components were solved and the baseline for future React features was established.
 
 While previous ["smart" components](/posts/layered-react-structure#smart-dumb-comps) were written using classes and special methods and properties to manage state and [side effects](/posts/ffg-fundamentals-side-effects):
 
@@ -1686,7 +1726,7 @@ Server-side rendering, as a practice, has been around for... Well, as long as th
 >
 > Unfamiliar with what server-side rendering is? [Check out our guide on SSR in React.](/posts/what-is-ssr-and-ssg#ssr)
 
-In fact, while there were more out-of-the box solutions that streamlined React's SSR usage — like [Next.js in 2016](https://github.com/vercel/next.js/releases/tag/1.0.0) — [React has had the ability to server-side render all the way back in its second-ever public release of 0.4.](https://youtu.be/x7cQ3mrcKaY?si=fok8zye6pIPMCPjL&t=1572)
+In fact, while there were more out-of-the box solutions that streamlined React's SSR usage — like [Next.js in 2016](https://github.com/vercel/next.js/releases/tag/1.0.0) — [React has had the ability to server-side render all the way back in its second-ever public release of 0.4.](https://legacy.reactjs.org/blog/2013/07/17/react-v0-4-0.html#react). It was even highlighted [how to use React and Rails together](https://legacy.reactjs.org/blog/2013/07/30/use-react-and-jsx-in-ruby-on-rails.html) and [even in Python](https://legacy.reactjs.org/blog/2013/08/19/use-react-and-jsx-in-python-applications.html) on React's official blog shortly after.
 
 Despite this early adoption of SSR, however, React's support for server-centric coding seems to have sparked some controversy in recent years, largely in part due to [the React team's relationship with Vercel](https://blog.isquaredsoftware.com/2025/06/react-community-2025/#concern-vercel-next-and-react).
 
