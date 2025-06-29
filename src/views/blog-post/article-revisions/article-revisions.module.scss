@@ -58,7 +58,6 @@
 	font-weight: var(--weight_semibold);
 	font-size: var(--button_regular_font-size);
 	line-height: var(--button_regular_line-height);
-	anchor-name: --postVersionButton;
 	@include transition(background-color);
 	@include transition(border);
 	cursor: pointer;
