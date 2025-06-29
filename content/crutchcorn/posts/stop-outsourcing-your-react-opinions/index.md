@@ -1,10 +1,10 @@
 ---
 {
-	title: "Stop Outsourcing Your React Opinions",
-	description: "TODO: Write this",
-	published: '2025-08-01T05:12:03.284Z',
-	tags: ['react', 'javascript', 'webdev', 'opinion'],
-	license: 'cc-by-nc-sa-4'
+  title: "Stop Outsourcing Your React Opinions",
+  description: "TODO: Write this",
+  published: "2025-08-01T05:12:03.284Z",
+  tags: ["react", "javascript", "webdev", "opinion"],
+  license: "cc-by-nc-sa-4",
 }
 ---
 
@@ -26,7 +26,7 @@ I've heard it all over the years:
 
 > StrictMode breaks my app because React doesn't work right
 
-> Vercel took over React to build RSC to sell more servers 
+> Vercel took over React to build RSC to sell more servers
 
 > React's so slow it needs a compiler to behave properly
 
@@ -62,7 +62,7 @@ The problems with BoltJS didn't sit right with one of the members of the ads tea
 
 So Jordan began to experiment with his own solutions to many of the problems he perceived Bolt and other frameworks had at the time. This experimentation began life as a personal project of "[FaxJS](https://github.com/jordwalke/FaxJs)". FaxJS would go on to be shortly renamed to "FBolt" (Functional Bolt) before making its way to being called "React." A small team begins developing around the virgining tool.
 
-------
+---
 
 Fast-forward to 2012; Facebook is doing great. So well, in fact, that they've just [acquired Instagram for one billion dollars](https://archive.nytimes.com/dealbook.nytimes.com/2012/04/09/facebook-buys-instagram-for-1-billion/).
 
@@ -78,7 +78,7 @@ The teams of both sit down, discuss heavily, and realize the challenge expands p
 
 Just when it looked like an impossibility for React's adoption inside Facebook, the CTO came into the picture: ["Make the right technical choice, and make the right long-term choice — and if there are short-term consequences, I’ll back you up. If you need months to do a rewrite, do it."](https://x.com/schrep/status/1625917218809868288)
 
-------
+---
 
 The React migration of the ads platform was another win for the team as they saw similar successes as the Instagram adoption.
 
@@ -101,19 +101,23 @@ This meant that code that might've otherwise looked like this:
 ```html
 <!-- This code is expected to live in another file or be a static string of some kind -->
 <div>
-    <!-- This is pseudo-syntax of a theoretical framework's template code -->
-    <some-tag data-if="someVar"></some-tag>
-    <some-item-tag data-for="let someItem of someList"></some-item-tag>
+	<!-- This is pseudo-syntax of a theoretical framework's template code -->
+	<some-tag data-if="someVar"></some-tag>
+	<some-item-tag data-for="let someItem of someList"></some-item-tag>
 </div>
 ```
 
 It could instead look like this:
 
 ```jsx
-const data = <div>
-	{someVar && <some-tag/>}
-	{someList.map(someItem => <some-item-tag/>)}
-</div>
+const data = (
+	<div>
+		{someVar && <some-tag />}
+		{someList.map((someItem) => (
+			<some-item-tag />
+		))}
+	</div>
+);
 ```
 
 This came with some major benefits:
@@ -127,18 +131,22 @@ The API for JSX also enabled the "template to JavaScript" transform to stay extr
 ```jsx
 // The following JSX
 function App() {
-	return <ul role="list"><li>Test</li></ul>
+	return (
+		<ul role="list">
+			<li>Test</li>
+		</ul>
+	);
 }
 
 // Turns into a straightforward transform to function calls to run on the browser
 function App() {
-	return React.createElement("ul", {
-		role: 'list'
-    }, [
-			React.createElement("li", {}, [
-				"Test"
-      ])
-    ]);
+	return React.createElement(
+		"ul",
+		{
+			role: "list",
+		},
+		[React.createElement("li", {}, ["Test"])],
+	);
 }
 ```
 
@@ -157,19 +165,18 @@ They weren't alone. One of the common cries against JSX was the idea that it bro
 <!-- ::start:filetree -->
 
 - `src/`
-    - `html/`
-        - `button.html`
-        - `card.html`
-        - `dropdown.html`
-    - `css/`
-        - `button.css`
-        - `card.css`
-        - `dropdown.css`
-    - `js/`
-        - `button.js`
-        - `card.js`
-        - `dropdown.js`
-    
+  - `html/`
+    - `button.html`
+    - `card.html`
+    - `dropdown.html`
+  - `css/`
+    - `button.css`
+    - `card.css`
+    - `dropdown.css`
+  - `js/`
+    - `button.js`
+    - `card.js`
+    - `dropdown.js`
 
 <!-- ::end:filetree -->
 
@@ -180,18 +187,18 @@ Instead, the React team proposed (and most modern codebases continue to back) th
 <!-- ::start:filetree -->
 
 - `src/`
-    - `button/`
-        - `button.html`
-        - `button.css`
-        - `button.js`
-    - `card/`
-        - `card.html`
-        - `card.css`
-        - `card.js`
-    - `dropdown/`
-        - `dropdown.html`
-        - `dropdown.css`
-        - `dropdown.js`
+  - `button/`
+    - `button.html`
+    - `button.css`
+    - `button.js`
+  - `card/`
+    - `card.html`
+    - `card.css`
+    - `card.js`
+  - `dropdown/`
+    - `dropdown.html`
+    - `dropdown.css`
+    - `dropdown.js`
 
 <!-- ::end:filetree -->
 
@@ -209,43 +216,43 @@ Before React there was Backbone.js. Let's look at a simple counter component:
 <div id="counter-app"></div>
 
 <script type="text/template" id="counter-template">
-    <p>Count: <%= count %></p>
-    <button>Add 1</button>
+	<p>Count: <%= count %></p>
+	<button>Add 1</button>
 </script>
 
 <script>
-/* app.js */
-$(function() {
-    var CounterModel = Backbone.Model.extend({
-        defaults: {
-            count: 0
-        }
-    });
+	/* app.js */
+	$(function () {
+		var CounterModel = Backbone.Model.extend({
+			defaults: {
+				count: 0,
+			},
+		});
 
-    var CounterView = Backbone.View.extend({
-        el: '#counter-app',
-        template: _.template($('#counter-template').html()),
-        events: {
-            'click button': 'increment'
-        },
-        initialize: function() {
-            this.listenTo(this.model, 'change', this.render);
-            this.render();
-        },
-        render: function() {
-            var html = this.template(this.model.toJSON());
-            this.$el.html(html);
-            return this;
-        },
-        increment: function() {
-            var currentCount = this.model.get('count');
-            this.model.set('count', currentCount + 1);
-        }
-    });
+		var CounterView = Backbone.View.extend({
+			el: "#counter-app",
+			template: _.template($("#counter-template").html()),
+			events: {
+				"click button": "increment",
+			},
+			initialize: function () {
+				this.listenTo(this.model, "change", this.render);
+				this.render();
+			},
+			render: function () {
+				var html = this.template(this.model.toJSON());
+				this.$el.html(html);
+				return this;
+			},
+			increment: function () {
+				var currentCount = this.model.get("count");
+				this.model.set("count", currentCount + 1);
+			},
+		});
 
-    var counterModel = new CounterModel();
-    new CounterView({ model: counterModel });
-});
+		var counterModel = new CounterModel();
+		new CounterView({ model: counterModel });
+	});
 </script>
 ```
 
@@ -264,36 +271,34 @@ Compare this to an equivalent React's counter from the era:
 <div id="root"></div>
 
 <script type="text/babel">
-    var Counter = React.createClass({
-        getInitialState: function() {
-            return {
-                count: 0
-            };
-        },
-        increment: function() {
-            this.setState({
-                count: this.state.count + 1
-            });
-        },
-        render: function() {
-            return (
-                <div>
-                    <p>Count: {this.state.count}</p>
-                    <button onClick={this.increment}>
-                        Add 1
-                    </button>
-                </div>
-            );
-        }
-    });
+	var Counter = React.createClass({
+		getInitialState: function () {
+			return {
+				count: 0,
+			};
+		},
+		increment: function () {
+			this.setState({
+				count: this.state.count + 1,
+			});
+		},
+		render: function () {
+			return (
+				<div>
+					<p>Count: {this.state.count}</p>
+					<button onClick={this.increment}>Add 1</button>
+				</div>
+			);
+		},
+	});
 
-    ReactDOM.render(<Counter />, document.getElementById('root'));
+	ReactDOM.render(<Counter />, document.getElementById("root"));
 </script>
 ```
 
 While `this.setState` is in a way an explicit update to the template, a major shift has occurred between Backbone.js:
 
-**The template in React's `render` method isn't just the initial template for the component; it's the template used across time**. 
+**The template in React's `render` method isn't just the initial template for the component; it's the template used across time**.
 
 In pragmatic terms, this means that we do not need to track what component is being rendered and where when updating app data. In philosophical terms, this can be viewed as a ["reconciliation"](/posts/what-is-reconciliation-and-the-vdom) process rather than a "mutation" of the DOM. This idea comes straight from Jordan's learnings from the functional programming world where data must always be [immutable](/posts/new-post-mutable-vs-immutable).
 
@@ -334,28 +339,28 @@ See, a core tenant of components is that they're able to compose; meaning that *
 ```jsx
 // Existing components
 class Button extends React.Component {
-    // ...
+	// ...
 }
 
 class Title extends React.Component {
-    // ...
+	// ...
 }
 
 class Surface extends React.Component {
-    // ...
+	// ...
 }
 
 // Can be reused and merged into a
 // newly created broader component
 class Card extends React.Component {
-  render() {
-    return (
-      <Surface>
-        <Title/>
-        <Button/>
-      </Surface>
-    )
-  }
+	render() {
+		return (
+			<Surface>
+				<Title />
+				<Button />
+			</Surface>
+		);
+	}
 }
 ```
 
@@ -365,29 +370,29 @@ Take the following example:
 
 ```jsx
 class WindowSize extends React.Component {
-  state = {
-    width: window.innerWidth,
-    height: window.innerHeight,
-  }; 
+	state = {
+		width: window.innerWidth,
+		height: window.innerHeight,
+	};
 
-  handleResize = () => {
-    this.setState({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-  }
+	handleResize = () => {
+		this.setState({
+			width: window.innerWidth,
+			height: window.innerHeight,
+		});
+	};
 
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-  }
+	componentDidMount() {
+		window.addEventListener("resize", this.handleResize);
+	}
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
+	componentWillUnmount() {
+		window.removeEventListener("resize", this.handleResize);
+	}
 
-  render() {
-    // ...
-  }
+	render() {
+		// ...
+	}
 }
 ```
 
@@ -401,17 +406,17 @@ Without changing the code for `WindowSize` components, we can use [the `extends`
 
 ```jsx
 class MyComponent extends WindowSize {
-  render() {
-    const { windowWidth, windowHeight } = this.state;
+	render() {
+		const { windowWidth, windowHeight } = this.state;
 
-    return (
-      <div>
-        The window width is: {windowWidth}
-        <br />
-        The window height is: {windowHeight}
-      </div>
-    );
-  }
+		return (
+			<div>
+				The window width is: {windowWidth}
+				<br />
+				The window height is: {windowHeight}
+			</div>
+		);
+	}
 }
 ```
 
@@ -419,43 +424,43 @@ While this simple example works, it's certainly not without its downsides. This 
 
 ```jsx
 class MyComponent extends WindowSize {
-  state = {
-    // Required with a base class
-    ...this.state,
-    counter: 0,
-  };
+	state = {
+		// Required with a base class
+		...this.state,
+		counter: 0,
+	};
 
-  intervalId = null;
-  
-  componentDidMount() {
-    // Required with a base class
-    super.componentDidMount();
+	intervalId = null;
 
-    this.intervalId = setInterval(() => {
-      this.setState(prevState => ({ counter: prevState.counter + 1 }));
-    }, 1000);
-  }
+	componentDidMount() {
+		// Required with a base class
+		super.componentDidMount();
 
-  componentWillUnmount() {
-    // Required with a base class
-    super.componentWillUnmount();
+		this.intervalId = setInterval(() => {
+			this.setState((prevState) => ({ counter: prevState.counter + 1 }));
+		}, 1000);
+	}
 
-    clearInterval(this.intervalId);
-  }
+	componentWillUnmount() {
+		// Required with a base class
+		super.componentWillUnmount();
 
-  render() {
-    const { windowWidth, windowHeight, counter } = this.state;
+		clearInterval(this.intervalId);
+	}
 
-    return (
-      <div>
-        The window width is: {windowWidth}
-        <br />
-        The window height is: {windowHeight}
-        <br />
-        The counter is: {counter}
-      </div>
-    )
-  }
+	render() {
+		const { windowWidth, windowHeight, counter } = this.state;
+
+		return (
+			<div>
+				The window width is: {windowWidth}
+				<br />
+				The window height is: {windowHeight}
+				<br />
+				The counter is: {counter}
+			</div>
+		);
+	}
 }
 ```
 
@@ -469,45 +474,51 @@ With higher-ordered components, you're able to avoid requiring your users to hav
 
 ```jsx
 const withWindowSize = (WrappedComponent) => {
-  return class WithWindowSize extends React.Component {
-    state = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
+	return class WithWindowSize extends React.Component {
+		state = {
+			width: window.innerWidth,
+			height: window.innerHeight,
+		};
 
-    handleResize = () => {
-      this.setState({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
+		handleResize = () => {
+			this.setState({
+				width: window.innerWidth,
+				height: window.innerHeight,
+			});
+		};
 
-    componentDidMount() {
-      window.addEventListener('resize', this.handleResize);
-    }
+		componentDidMount() {
+			window.addEventListener("resize", this.handleResize);
+		}
 
-    componentWillUnmount() {
-      window.removeEventListener('resize', this.handleResize);
-    }
+		componentWillUnmount() {
+			window.removeEventListener("resize", this.handleResize);
+		}
 
-    render() {
-      return <WrappedComponent {...this.props} windowWidth={this.state.width} windowHeight={this.state.height} />;
-    }
-  }
-}
+		render() {
+			return (
+				<WrappedComponent
+					{...this.props}
+					windowWidth={this.state.width}
+					windowHeight={this.state.height}
+				/>
+			);
+		}
+	};
+};
 
 class MyComponentBase extends React.Component {
-  render() {
-    const { windowWidth, windowHeight } = this.props;
+	render() {
+		const { windowWidth, windowHeight } = this.props;
 
-    return (
-      <div>
-        The window width is: {windowWidth}
-        <br />
-        The window height is: {windowHeight}
-      </div>
-    );
-  }
+		return (
+			<div>
+				The window width is: {windowWidth}
+				<br />
+				The window height is: {windowHeight}
+			</div>
+		);
+	}
 }
 
 const MyComponent = withWindowSize(MyComponentBase);
@@ -529,10 +540,10 @@ This meant that we could take this:
 
 ```jsx
 var Aquarium = React.createClass({
-  render: function() {
-  	var fish = getFish(this.props.species);
-	  return <Tank>{fish}</Tank>;
-  }
+	render: function () {
+		var fish = getFish(this.props.species);
+		return <Tank>{fish}</Tank>;
+	},
 });
 ```
 
@@ -540,8 +551,8 @@ And simplify it to this:
 
 ```jsx
 var Aquarium = (props) => {
-  var fish = getFish(props.species);
-  return <Tank>{fish}</Tank>;
+	var fish = getFish(props.species);
+	return <Tank>{fish}</Tank>;
 };
 ```
 
@@ -559,29 +570,29 @@ While previous ["smart" components](/posts/layered-react-structure#smart-dumb-co
 
 ```jsx
 class WindowSize extends React.Component {
-  state = {
-    width: window.innerWidth,
-    height: window.innerHeight,
-  }; 
+	state = {
+		width: window.innerWidth,
+		height: window.innerHeight,
+	};
 
-  handleResize = () => {
-    this.setState({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-  }
+	handleResize = () => {
+		this.setState({
+			width: window.innerWidth,
+			height: window.innerHeight,
+		});
+	};
 
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-  }
+	componentDidMount() {
+		window.addEventListener("resize", this.handleResize);
+	}
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
+	componentWillUnmount() {
+		window.removeEventListener("resize", this.handleResize);
+	}
 
-  render() {
-    // ...
-  }
+	render() {
+		// ...
+	}
 }
 ```
 
@@ -593,7 +604,7 @@ function WindowSize() {
     width: window.innerWidth,
     height: window.innerHeight,
   })
-  
+
   const {height, width} = size;
 
   useEffect(() => {
@@ -636,26 +647,26 @@ Let's look at a custom `useWindowSize` hook:
 ```javascript
 function useWindowSize() {
 	const [size, setSize] = React.useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  })
-  
-  const {height, width} = size;
+		width: window.innerWidth,
+		height: window.innerHeight,
+	});
 
-  useEffect(() => {
-    const handleResize = () => {
-      setSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
+	const { height, width } = size;
 
-    window.addEventListener('resize', this.handleResize);
+	useEffect(() => {
+		const handleResize = () => {
+			setSize({
+				width: window.innerWidth,
+				height: window.innerHeight,
+			});
+		};
 
-    return () => window.removeEventListener('resize', this.handleResize);
-  }, []);
+		window.addEventListener("resize", this.handleResize);
 
-	return {height, width}
+		return () => window.removeEventListener("resize", this.handleResize);
+	}, []);
+
+	return { height, width };
 }
 ```
 
@@ -666,15 +677,15 @@ This custom hook can then be reused in as many function components as we'd like:
 
 ```jsx
 function MyComponent() {
-	const {height, width} = useWindowSize();
-		
-  return (
-    <div>
-      The window width is: {windowWidth}
-      <br />
-      The window height is: {windowHeight}
-    </div>
-  )
+	const { height, width } = useWindowSize();
+
+	return (
+		<div>
+			The window width is: {windowWidth}
+			<br />
+			The window height is: {windowHeight}
+		</div>
+	);
 }
 ```
 
@@ -698,23 +709,23 @@ Let's look at how classes handled side effects:
 
 ```jsx
 class Listener extends React.Component {
-  // Requires us to register a method on the `this` boundary
-  // to reference in both places
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-  }
+	// Requires us to register a method on the `this` boundary
+	// to reference in both places
+	componentDidMount() {
+		window.addEventListener("resize", this.handleResize);
+	}
 
-  // There may be many lines between the mount and unmount
-    
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
+	// There may be many lines between the mount and unmount
 
-  // Methods added to `window` via `addEventListener` needed to use
-  // arrow functions, as otherwise `this` would be bound to `window`.
-  handleResize = () => {
-    // ...
-  }
+	componentWillUnmount() {
+		window.removeEventListener("resize", this.handleResize);
+	}
+
+	// Methods added to `window` via `addEventListener` needed to use
+	// arrow functions, as otherwise `this` would be bound to `window`.
+	handleResize = () => {
+		// ...
+	};
 }
 ```
 
@@ -730,15 +741,15 @@ Compare this to how side effects are registered and cleaned up using `useEffect`
 function Listener() {
 	useEffect(() => {
 		// Method colocated next to the listeners
-        const handleResize = () => {
+		const handleResize = () => {
 			// ...
-		}
-		window.addEventListener('resize', handleResize);
-        // Cleanup in same scope as the effect
-		return () => window.removeEventListener('resize', handleResize);
+		};
+		window.addEventListener("resize", handleResize);
+		// Cleanup in same scope as the effect
+		return () => window.removeEventListener("resize", handleResize);
 	}, []);
-    
-    // ...
+
+	// ...
 }
 ```
 
@@ -762,8 +773,8 @@ function App() {
 		// Runs twice on dev with StrictMode, once on prod
 		console.log("Mounted");
 	}, []);
-  
-  return <>{/* ... */}</>
+
+	return <>{/* ... */}</>;
 }
 ```
 
@@ -773,7 +784,7 @@ The simple answer to this question is that the React team wanted to ensure that 
 
 But the longer answer is that they wanted to keep component rendering behavior idempotent.
 
--------
+---
 
 To explain idempotence, let's use an analogy and then dive into the real deal.
 
@@ -789,7 +800,7 @@ However, you've been warned by your supervisor: Don't press the button a second 
 
 An **idempotent** button would behave differently: It would only trigger the box to enter the factory line once the previous box had gone through the machine, **regardless of how many times you pressed the button**.
 
-----
+---
 
 > What does this analogy have to do with React rendering and `useEffect`?
 
@@ -800,8 +811,8 @@ function BoxAddition() {
 	useEffect(() => {
 		window.addBox();
 	}, []);
-  
-  return null;
+
+	return null;
 }
 ```
 
@@ -811,16 +822,16 @@ But the global box count should remain consistent if we then render and unrender
 
 ```jsx
 function CheckBoxAddsOnce() {
-  const [bool, setBool] = useState(true);
-  
-  useEffect(() => {
-    setInterval(() => setBool(v => !v), 0);
-    setInterval(() => setBool(v => !v), 100);
-    setInterval(() => setBool(v => !v), 200);
-  })
+	const [bool, setBool] = useState(true);
 
-  if (bool) return null;
-  return <BoxAddition></BoxAddition>
+	useEffect(() => {
+		setInterval(() => setBool((v) => !v), 0);
+		setInterval(() => setBool((v) => !v), 100);
+		setInterval(() => setBool((v) => !v), 200);
+	});
+
+	if (bool) return null;
+	return <BoxAddition></BoxAddition>;
 }
 ```
 
@@ -834,8 +845,8 @@ function BoxAddition() {
 		window.addBox();
 		return () => window.removeBox();
 	}, []);
-  
-  return null;
+
+	return null;
 }
 ```
 
@@ -860,36 +871,36 @@ Regardless of if a hook is custom or imported from React, regardless of when a h
 // ✅ Allowed usages
 function AllowedHooksUsage() {
 	const [val, setVal] = React.useState(0);
-	const {height, width} = useWindowSize();
-	
-	return <>{/* ... */}</>
+	const { height, width } = useWindowSize();
+
+	return <>{/* ... */}</>;
 }
 
 // ❌ Dis-allowed usages
 function DisallowedHooksUsage() {
 	const obj = {};
-    
-    useObj(obj);
-    
-    // Not allowed to mutate objects after being passed to a hook
-    obj.key = (obj.key ?? 0) + 1;    
-    
-    if (bool) {
-		const [val, setVal] = React.useState(0);        
-    }
 
-    if (other) {
-        return null;
-    }
-    
-    // While otherwise valid, can't be after a return
-    const {height, width} = useWindowSize();
-	
-    for (let i = 0; i++; i < 10) {
-        const ref = React.useRef();
-    }
-    
-	return <>{/* ... */}</>
+	useObj(obj);
+
+	// Not allowed to mutate objects after being passed to a hook
+	obj.key = (obj.key ?? 0) + 1;
+
+	if (bool) {
+		const [val, setVal] = React.useState(0);
+	}
+
+	if (other) {
+		return null;
+	}
+
+	// While otherwise valid, can't be after a return
+	const { height, width } = useWindowSize();
+
+	for (let i = 0; i++; i < 10) {
+		const ref = React.useRef();
+	}
+
+	return <>{/* ... */}</>;
 }
 ```
 
@@ -903,19 +914,19 @@ After all, React doesn't transform a function component in any way, so how does 
 
 Were we to try this without `useState`, we'd notice quickly how this behavior differs from a normal JavaScript function:
 
-``` jsx
+```jsx
 function Test() {
-  const a = 1;
-  console.log(a);
-  a++;
+	const a = 1;
+	console.log(a);
+	a++;
 }
 
-Test() // 1
-Test() // 1
-Test() // 1
+Test(); // 1
+Test(); // 1
+Test(); // 1
 ```
 
-See, to make the magic of a function remembering state to work, Hooks don't just *work alongside* the VDOM, the method of persisting data in a component from a function **requires** the VDOM.
+See, to make the magic of a function remembering state to work, Hooks don't just _work alongside_ the VDOM, the method of persisting data in a component from a function **requires** the VDOM.
 
 Here's one way we could persist state using a naïve implementation of hooks storage using an array:
 
@@ -930,29 +941,27 @@ const state = [];
 let idx = 0;
 
 function useState(init) {
-    state[idx] = state[idx] ?? {val: init};
+	state[idx] = state[idx] ?? { val: init };
 
-    return [
-        state[idx].val,
-        (data => state[idx].val = data)
-    ]
+	return [state[idx].val, (data) => (state[idx].val = data)];
 }
 
 function Test() {
-    const [data, setData] = useState(1);
+	const [data, setData] = useState(1);
 
-    console.log(data);
+	console.log(data);
 
-    setData(data + 1)
+	setData(data + 1);
 }
 
-Test() // 1
-Test() // 2
-Test() // 3
+Test(); // 1
+Test(); // 2
+Test(); // 3
 ```
+
 While it may seem silly to use an array to store a Hook's state in a component, this is exactly how the React team teaches early insider knowledge about Hooks publicly:
 
-- [Swyx's "Getting Closure on React Hooks" article](https://www.swyx.io/hooks) 
+- [Swyx's "Getting Closure on React Hooks" article](https://www.swyx.io/hooks)
 - [Dan Abramov's "Why Do React Hooks Rely on Call Order?"](https://overreacted.io/why-do-hooks-rely-on-call-order/)
 
 > **Aside:**
@@ -968,7 +977,7 @@ While it may seem silly to use an array to store a Hook's state in a component, 
 > 	if (bool) useState("some"); // Idx 1
 > 	useState("val"); // Idx 2
 > }
-> 
+>
 > // Second render
 > let bool = false;
 > function App() {
@@ -985,46 +994,46 @@ let currentComponent = null;
 
 // Component class to hold hook state array
 class Component {
-  constructor() {
-    this.state = [];
-    this.currentHookIndex = 0;
-  }
+	constructor() {
+		this.state = [];
+		this.currentHookIndex = 0;
+	}
 
-  render(renderFn) {
-    // Reset state for this render
-    currentComponent = this;
-    
-    // Reset hook index for this render
-    this.currentHookIndex = 0;
-    
-    // Call the component function
-    const result = renderFn();
-    
-    return result;
-  }
+	render(renderFn) {
+		// Reset state for this render
+		currentComponent = this;
+
+		// Reset hook index for this render
+		this.currentHookIndex = 0;
+
+		// Call the component function
+		const result = renderFn();
+
+		return result;
+	}
 }
 
 function useState(init) {
-    const component = currentComponent;
-    const idx = component.currentHookIndex;
-    
-    component.state[idx] = component.state[idx] ?? {val: init};
-    
-    // Increment for next hook call
-    component.currentHookIndex++;
+	const component = currentComponent;
+	const idx = component.currentHookIndex;
 
-    return [
-        component.state[idx].val,
-        (data => component.state[idx].val = data)
-    ]
+	component.state[idx] = component.state[idx] ?? { val: init };
+
+	// Increment for next hook call
+	component.currentHookIndex++;
+
+	return [
+		component.state[idx].val,
+		(data) => (component.state[idx].val = data),
+	];
 }
 
 function Test() {
-    const [data, setData] = useState(1);
+	const [data, setData] = useState(1);
 
-    console.log(data);
+	console.log(data);
 
-    setData(data + 1)
+	setData(data + 1);
 }
 
 // Create component and run renders
@@ -1079,41 +1088,41 @@ However, because components are laid out hierarchically, we can establish a boun
 Not only does this work with single nodes, but because components are grouped by their parents we can remove a group of impacted nodes at once by wrapping them in a shared `ErrorBoundary`:
 
 ```jsx
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 class ErrorBoundary extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { hasError: false };
-    }
+	constructor(props) {
+		super(props);
+		this.state = { hasError: false };
+	}
 
-    static getDerivedStateFromError(error) {
-        return { hasError: true };
-    }
+	static getDerivedStateFromError(error) {
+		return { hasError: true };
+	}
 
-    render() {
-        if (this.state.hasError) {
-            return <h1>Something went wrong.</h1>;
-        }
+	render() {
+		if (this.state.hasError) {
+			return <h1>Something went wrong.</h1>;
+		}
 
-        return this.props.children; 
-    }
+		return this.props.children;
+	}
 }
 
 function App() {
-    return (
-        <div>
-            {/* When an error is thrown in the ErrorBoundary, it will catch it, remove all child nodes, and render the fallback UI */}
-            <ErrorBoundary>
-                <ErrorCounter />
-                <OtherCounter />
-            </ErrorBoundary>
-            {/* However, these nodes will be left unaffected */}
-            <ul>
-                <li>Item 1</li>
-            </ul>
-        </div>
-    );
+	return (
+		<div>
+			{/* When an error is thrown in the ErrorBoundary, it will catch it, remove all child nodes, and render the fallback UI */}
+			<ErrorBoundary>
+				<ErrorCounter />
+				<OtherCounter />
+			</ErrorBoundary>
+			{/* However, these nodes will be left unaffected */}
+			<ul>
+				<li>Item 1</li>
+			</ul>
+		</div>
+	);
 }
 ```
 
@@ -1126,13 +1135,11 @@ This work would not have been possible without the ability to abort work in Fibe
 But error handling updates weren't the only thing [introduced in React 16.6](https://legacy.reactjs.org/blog/2018/10/23/react-v-16-6.html); it was here that the React team introduced us to the concept of lazy loading components:
 
 ```jsx
-import React, {lazy, Suspense} from 'react';
-const LargeBundleComponent = lazy(() => import('./LargeBundleComponent'));
+import React, { lazy, Suspense } from "react";
+const LargeBundleComponent = lazy(() => import("./LargeBundleComponent"));
 
 function MyComponent() {
-  return (
-    <LargeBundleComponent />
-  );
+	return <LargeBundleComponent />;
 }
 ```
 
@@ -1155,15 +1162,15 @@ This enabled further usage of the VDOM as a representation of complex state by l
 This is where `Suspense` boundaries come into play. Introduced at [JSConf Iceland 2018](https://legacy.reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html), `Suspense` allowed you to handle loading states in your UI as a fallback during high-latency scenarios - like a `lazy` component mentioned above:
 
 ```jsx
-import React, {lazy, Suspense} from 'react';
-const LargeBundleComponent = lazy(() => import('./LargeBundleComponent'));
+import React, { lazy, Suspense } from "react";
+const LargeBundleComponent = lazy(() => import("./LargeBundleComponent"));
 
 function MyComponent() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <LargeBundleComponent />
-    </Suspense>
-  );
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<LargeBundleComponent />
+		</Suspense>
+	);
 }
 ```
 
@@ -1171,7 +1178,7 @@ Just like the `ErrorBoundary` component API was able to handle upward sent error
 
 This stacked well with other problems you might face with loading states like how to handle multiple async sibling components:
 
-``` jsx
+```jsx
 import React, {lazy, Suspense} from 'react';
 const LargeBundleComponent = lazy(() => import('./LargeBundleComponent'));
 const AnotherLargeComponent = lazy(() => import('./AnotherLargeComponent'));
@@ -1216,7 +1223,7 @@ These new APIs were called "concurrent features" and included the following APIs
 
 Let's dive into `startTransition` and see where it leads us.
 
------
+---
 
 Let's assume that we have a large list of elements we want to mirror some user-input text onto:
 
@@ -1249,27 +1256,27 @@ Intuitively, we might pass our controlled input state to this `SlowList` element
 
 ```jsx
 const LegacyDemo = () => {
-  const [inputText, setInputText] = useState("");
-  const [filterTerm, setFilterTerm] = useState("");
+	const [inputText, setInputText] = useState("");
+	const [filterTerm, setFilterTerm] = useState("");
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setInputText(value);
-    // This state update causes an immediate, blocking re-render of the SlowList component.
-    setFilterTerm(value);
-  };
+	const handleChange = (e) => {
+		const value = e.target.value;
+		setInputText(value);
+		// This state update causes an immediate, blocking re-render of the SlowList component.
+		setFilterTerm(value);
+	};
 
-  return (
-    <div>
-      <input
-        type="text"
-        value={inputText}
-        onChange={handleChange}
-        placeholder="Type here to filter..."
-      />
-      <SlowList text={filterTerm} />
-    </div>
-  );
+	return (
+		<div>
+			<input
+				type="text"
+				value={inputText}
+				onChange={handleChange}
+				placeholder="Type here to filter..."
+			/>
+			<SlowList text={filterTerm} />
+		</div>
+	);
 };
 ```
 
@@ -1281,32 +1288,32 @@ This occurs because the rendering of the list takes longer than the user can typ
 
 ```jsx {7-14}
 const LegacyDemo = () => {
-  const [inputText, setInputText] = useState("");
-  const [filterTerm, setFilterTerm] = useState("");
+	const [inputText, setInputText] = useState("");
+	const [filterTerm, setFilterTerm] = useState("");
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    // The input text updates immediately - this is an urgent update.
-    setInputText(value);
+	const handleChange = (e) => {
+		const value = e.target.value;
+		// The input text updates immediately - this is an urgent update.
+		setInputText(value);
 
-    // We wrap the slow state update in startTransition.
-    // React now knows this update is non-urgent and can be interrupted.
-    startTransition(() => {
-      setFilterTerm(value);
-    });
-  };
+		// We wrap the slow state update in startTransition.
+		// React now knows this update is non-urgent and can be interrupted.
+		startTransition(() => {
+			setFilterTerm(value);
+		});
+	};
 
-  return (
-    <div>
-      <input
-        type="text"
-        value={inputText}
-        onChange={handleChange}
-        placeholder="Type here to filter..."
-      />
-      <SlowList text={filterTerm} />
-    </div>
-  );
+	return (
+		<div>
+			<input
+				type="text"
+				value={inputText}
+				onChange={handleChange}
+				placeholder="Type here to filter..."
+			/>
+			<SlowList text={filterTerm} />
+		</div>
+	);
 };
 ```
 
@@ -1331,67 +1338,37 @@ Here's how it works:
 - Create a stable reference to a promise in a parent component
 - Pass the promise to a child component via props
 - Utilize the new `use` hook to receive the data from the promise
+- Reuse the `Suspense` component to handle the loading state of the promise
 
 ```jsx
-function Child({promise}) {
-  const data = use(promise);
-  return <p>{data}</p>
+function Child({ promise }) {
+	const data = use(promise);
+	return <p>{data}</p>;
 }
 
 function App() {
-  // useMemo is needed here, otherwise it will generate a new promise
-  // for each render and cause an infinite loop
-  const promise = useMemo(() => fakeFetch());
-  
-  return <Child promise={promise}/>
+	const promise = useMemo(() => fakeFetch(), []);
+
+	return (
+		// This acts as our loading state for the promise above
+		<Suspense fallback={<p>Loading...</p>}>
+			<Child promise={promise} />
+		</Suspense>
+	);
 }
 
 const fakeFetch = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(1000);
-    }, 1000);
-  });
-}
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(1000);
+		}, 1000);
+	});
+};
 ```
 
-This is awesome! This code will run, but, uh...
+<iframe data-frame-title="use Data Fetching - StackBlitz" src="pfp-code:./fuse-data-fetching?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
-// TODO: Add iframe
-
-Oh, there's no loading state... Now if only we had a mechanism in React already to handle loading state...
-
-👀
-
-```jsx
-function Child({promise}) {
-  const data = use(promise);
-  return <p>{data}</p>
-}
-
-function App() {
-  const promise = useMemo(() => fakeFetch());
-  
-  return (
-    // This acts as our loading state for the promise above
-    <Suspense fallback={<p>Loading...</p>}>
-      <Child promise={promise}/>
-	  </Suspense>
-  )
-}
-
-const fakeFetch = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(1000);
-    }, 1000);
-  });
-}
-```
-
-// TODO: Add iframe
-
-Let's take a moment to look at how `use` works internally. According to [the RFC the React team introduced for `use`]( https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md):
+Let's take a moment to look at how `use` works internally. According to [the RFC the React team introduced for `use`](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md):
 
 > If a promise passed to `use` hasn't finished loading, `use` suspends the component's execution by throwing an exception. When the promise finally resolves, React will replay the component's render.
 
@@ -1403,16 +1380,16 @@ Let's take a moment to look at how `use` works internally. According to [the RFC
 >
 > Knowing what we know now about how `use` works internally, I think it's safe to say that `use` wouldn't be able to function the way it does today without the Fiber rewrite's prerequisite capacities. The ability to "suspend" a subtree of nodes to wait for data to fetch is almost identical to the stated goals of Fiber from day one.
 
-------
+---
 
 And as we can see, using `use` forces us to raise our data fetching to a parent component. This does two things for us:
 
-1) Re-enforces the concepts we've already learned in regard to data moving up the VDOM tree
-2) Helps solve waterfalling and real-world user experience problems
+1. Re-enforces the concepts we've already learned in regard to data moving up the VDOM tree
+2. Helps solve waterfalling and real-world user experience problems
 
 > **Further reading**:
 >
-> If `use`'s API still feels foreign to you, I might recommend reading through [my series on React 19 features, including the `use` API](/posts/what-is-react-suspense-and-async-rendering#What-is-the-React-use-Hook) 
+> If `use`'s API still feels foreign to you, I might recommend reading through [my series on React 19 features, including the `use` API](/posts/what-is-react-suspense-and-async-rendering#What-is-the-React-use-Hook)
 
 ## Advantages of React's approach
 
@@ -1420,8 +1397,8 @@ And as we can see, using `use` forces us to raise our data fetching to a parent 
 
 Well, dear reader, while `use` is the newest kid on the block for data fetching in React its API has two main advantages:
 
-1) It forces you to raise your fetching logic, helping avoid waterfall data fetching
-2) It makes consolidating multiple loading states together become much more trivial
+1. It forces you to raise your fetching logic, helping avoid waterfall data fetching
+2. It makes consolidating multiple loading states together become much more trivial
 
 I've talked about the concept of raising data fetching too much at this point to not dive in further; let's do that.
 
@@ -1429,93 +1406,113 @@ Let's use this code sample as an example of a problematic data fetching pattern:
 
 ```jsx
 // DO NOT USE THIS CODE IN PRODUCTION, IT IS INEFFECIENT - more on that soon
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 // Child component that fetches posts after receiving userId
 function UserPosts({ userId }) {
-  const { data: posts, loading, error } = useFetch(userId ? `/users/${userId}/posts` : null);
+	const {
+		data: posts,
+		loading,
+		error,
+	} = useFetch(userId ? `/users/${userId}/posts` : null);
 
-  if (loading) return <div>Loading posts...</div>;
-  if (error) return <div>Error loading posts: {error}</div>;
+	if (loading) return <div>Loading posts...</div>;
+	if (error) return <div>Error loading posts: {error}</div>;
 
-  return (
-    <div>
-      <h3>Posts</h3>
-      {posts?.map(post => (
-        <div key={post.id} style={{ marginBottom: '1rem', padding: '1rem', border: '1px solid #ccc' }}>
-          <h4>{post.title}</h4>
-          <p>{post.content}</p>
-        </div>
-      ))}
-    </div>
-  );
+	return (
+		<div>
+			<h3>Posts</h3>
+			{posts?.map((post) => (
+				<div
+					key={post.id}
+					style={{
+						marginBottom: "1rem",
+						padding: "1rem",
+						border: "1px solid #ccc",
+					}}
+				>
+					<h4>{post.title}</h4>
+					<p>{post.content}</p>
+				</div>
+			))}
+		</div>
+	);
 }
 
 // Parent component that fetches user profile first
 function UserProfile({ userId }) {
-  const { data: profile, loading, error } = useFetch(`/users/${userId}/profile`);
+	const {
+		data: profile,
+		loading,
+		error,
+	} = useFetch(`/users/${userId}/profile`);
 
-  if (loading) return <div>Loading profile...</div>;
-  if (error) return <div>Error loading profile: {error}</div>;
+	if (loading) return <div>Loading profile...</div>;
+	if (error) return <div>Error loading profile: {error}</div>;
 
-  return (
-    <div>
-      <h2>User Profile</h2>
-      <div style={{ marginBottom: '2rem', padding: '1rem', border: '2px solid #333' }}>
-        <h3>{profile.name}</h3>
-        <p>Email: {profile.email}</p>
-        <p>Bio: {profile.bio}</p>
-      </div>
-      
-      {/* Posts component only renders after profile is loaded */}
-      <UserPosts userId={userId} />
-    </div>
-  );
+	return (
+		<div>
+			<h2>User Profile</h2>
+			<div
+				style={{
+					marginBottom: "2rem",
+					padding: "1rem",
+					border: "2px solid #333",
+				}}
+			>
+				<h3>{profile.name}</h3>
+				<p>Email: {profile.email}</p>
+				<p>Bio: {profile.bio}</p>
+			</div>
+
+			{/* Posts component only renders after profile is loaded */}
+			<UserPosts userId={userId} />
+		</div>
+	);
 }
 
 // Main component
 export default function App() {
-  return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Waterfall Requests Example</h1>
-      <UserProfile userId="123" />
-    </div>
-  );
+	return (
+		<div style={{ padding: "2rem" }}>
+			<h1>Waterfall Requests Example</h1>
+			<UserProfile userId="123" />
+		</div>
+	);
 }
 ```
 
 <details>
 <summary>Code for <code>useFetcher</code></summary>
 
-
 ```jsx
 // This is wildly incomplete; you should use something like TanStack Query for real-world applications
 function useFetch(url) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+	const [data, setData] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (!url) return;
+	useEffect(() => {
+		if (!url) return;
 
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('Failed to fetch data');
-        const result = await response.json();
-        setData(result);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+		const fetchData = async () => {
+			try {
+				setLoading(true);
+				const response = await fetch(url);
+				if (!response.ok) throw new Error("Failed to fetch data");
+				const result = await response.json();
+				setData(result);
+			} catch (err) {
+				setError(err.message);
+			} finally {
+				setLoading(false);
+			}
+		};
 
-    fetchData();
-  }, [url]);
+		fetchData();
+	}, [url]);
 
-  return { data, loading, error };
+	return { data, loading, error };
 }
 ```
 
@@ -1530,68 +1527,87 @@ Well, while this code is syntactically correct, it's got a major flaw hidden wit
 Compare and contrast to a refactored version of this app to use the `use` API:
 
 ```jsx
-import { use, Suspense } from 'react';
+import { use, Suspense } from "react";
 
 // Child component that uses the use API
 function UserPosts({ postsPromise }) {
-  const posts = use(postsPromise);
+	const posts = use(postsPromise);
 
-  return (
-    <div>
-      <h3>Posts</h3>
-      {posts?.map(post => (
-        <div key={post.id} style={{ marginBottom: '1rem', padding: '1rem', border: '1px solid #ccc' }}>
-          <h4>{post.title}</h4>
-          <p>{post.content}</p>
-        </div>
-      ))}
-    </div>
-  );
+	return (
+		<div>
+			<h3>Posts</h3>
+			{posts?.map((post) => (
+				<div
+					key={post.id}
+					style={{
+						marginBottom: "1rem",
+						padding: "1rem",
+						border: "1px solid #ccc",
+					}}
+				>
+					<h4>{post.title}</h4>
+					<p>{post.content}</p>
+				</div>
+			))}
+		</div>
+	);
 }
 
 // Parent component that uses the use API
 function UserProfile({ profilePromise, children }) {
-  const profile = use(profilePromise);
+	const profile = use(profilePromise);
 
-  return (
-    <div>
-      <h2>User Profile</h2>
-      <div style={{ marginBottom: '2rem', padding: '1rem', border: '2px solid #333' }}>
-        <h3>{profile.name}</h3>
-        <p>Email: {profile.email}</p>
-        <p>Bio: {profile.bio}</p>
-      </div>
-      
-      {children}
-    </div>
-  );
+	return (
+		<div>
+			<h2>User Profile</h2>
+			<div
+				style={{
+					marginBottom: "2rem",
+					padding: "1rem",
+					border: "2px solid #333",
+				}}
+			>
+				<h3>{profile.name}</h3>
+				<p>Email: {profile.email}</p>
+				<p>Bio: {profile.bio}</p>
+			</div>
+
+			{children}
+		</div>
+	);
 }
 
 // Main component that creates promises and uses Suspense
 export default function App() {
-  const userId = "123";
-  const profilePromise = useMemo(() => fetchData(`/users/${userId}/profile`), [userId]);
-  const postsPromise = useMemo(() => fetchData(`/users/${userId}/posts`), [userId]);
+	const userId = "123";
+	const profilePromise = useMemo(
+		() => fetchData(`/users/${userId}/profile`),
+		[userId],
+	);
+	const postsPromise = useMemo(
+		() => fetchData(`/users/${userId}/posts`),
+		[userId],
+	);
 
-  return (
-    <div style={{ padding: '2rem' }}>
-      <Suspense fallback={<div>Loading profile...</div>}>
-        <UserProfile profilePromise={profilePromise}>
-          <Suspense fallback={<div>Loading posts...</div>}>
-            <UserPosts postsPromise={postsPromise} />
-          </Suspense>
-        </UserProfile>
-      </Suspense>
-    </div>
-  );
+	return (
+		<div style={{ padding: "2rem" }}>
+			<Suspense fallback={<div>Loading profile...</div>}>
+				<UserProfile profilePromise={profilePromise}>
+					<Suspense fallback={<div>Loading posts...</div>}>
+						<UserPosts postsPromise={postsPromise} />
+					</Suspense>
+				</UserProfile>
+			</Suspense>
+		</div>
+	);
 }
 
 // Helper function to create fetch promises
 function fetchData(url) {
-  return fetch(url).then(response => {
-    if (!response.ok) throw new Error('Failed to fetch data');
-    return response.json();
-  });
+	return fetch(url).then((response) => {
+		if (!response.ok) throw new Error("Failed to fetch data");
+		return response.json();
+	});
 }
 ```
 
@@ -1608,58 +1624,83 @@ Quite astute! You can indeed!
 Let's do that here:
 
 ```jsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 // Child component that receives posts as props
 function UserPosts({ posts, loading, error }) {
-  if (loading) return <div>Loading posts...</div>;
-  if (error) return <div>Error loading posts: {error}</div>;
+	if (loading) return <div>Loading posts...</div>;
+	if (error) return <div>Error loading posts: {error}</div>;
 
-  return (
-    <div>
-      <h3>Posts</h3>
-      {posts?.map(post => (
-        <div key={post.id} style={{ marginBottom: '1rem', padding: '1rem', border: '1px solid #ccc' }}>
-          <h4>{post.title}</h4>
-          <p>{post.content}</p>
-        </div>
-      ))}
-    </div>
-  );
+	return (
+		<div>
+			<h3>Posts</h3>
+			{posts?.map((post) => (
+				<div
+					key={post.id}
+					style={{
+						marginBottom: "1rem",
+						padding: "1rem",
+						border: "1px solid #ccc",
+					}}
+				>
+					<h4>{post.title}</h4>
+					<p>{post.content}</p>
+				</div>
+			))}
+		</div>
+	);
 }
 
 // Parent component that receives profile as props
 function UserProfile({ profile, loading, error, children }) {
-  if (loading) return <div>Loading profile...</div>;
-  if (error) return <div>Error loading profile: {error}</div>;
+	if (loading) return <div>Loading profile...</div>;
+	if (error) return <div>Error loading profile: {error}</div>;
 
-  return (
-    <div>
-      <h2>User Profile</h2>
-      <div style={{ marginBottom: '2rem', padding: '1rem', border: '2px solid #333' }}>
-        <h3>{profile.name}</h3>
-        <p>Email: {profile.email}</p>
-        <p>Bio: {profile.bio}</p>
-      </div>
-      
-      {children}
-    </div>
-  );
+	return (
+		<div>
+			<h2>User Profile</h2>
+			<div
+				style={{
+					marginBottom: "2rem",
+					padding: "1rem",
+					border: "2px solid #333",
+				}}
+			>
+				<h3>{profile.name}</h3>
+				<p>Email: {profile.email}</p>
+				<p>Bio: {profile.bio}</p>
+			</div>
+
+			{children}
+		</div>
+	);
 }
 
 // Main component that fetches both resources in parallel
 export default function App() {
-  const userId = "123";
-  const { data: profile, loading: profileLoading, error: profileError } = useFetch(`/users/${userId}/profile`);
-  const { data: posts, loading: postsLoading, error: postsError } = useFetch(`/users/${userId}/posts`);
+	const userId = "123";
+	const {
+		data: profile,
+		loading: profileLoading,
+		error: profileError,
+	} = useFetch(`/users/${userId}/profile`);
+	const {
+		data: posts,
+		loading: postsLoading,
+		error: postsError,
+	} = useFetch(`/users/${userId}/posts`);
 
-  return (
-    <div style={{ padding: '2rem' }}>
-      <UserProfile profile={profile} loading={profileLoading} error={profileError}>
-        <UserPosts posts={posts} loading={postsLoading} error={postsError} />
-      </UserProfile>
-    </div>
-  );
+	return (
+		<div style={{ padding: "2rem" }}>
+			<UserProfile
+				profile={profile}
+				loading={profileLoading}
+				error={profileError}
+			>
+				<UserPosts posts={posts} loading={postsLoading} error={postsError} />
+			</UserProfile>
+		</div>
+	);
 }
 ```
 
@@ -1667,7 +1708,7 @@ This works reasonably well, but now we've introduced a new problem: Loading stat
 
 Not only are a lot of props passed around, but if we wanted to have one loading state instead of two distinct ones, it would require us to do some decently sized refactor work.
 
------
+---
 
 With the `use` API, this is solved by allowing the user to move their `Suspense` component usage to anywhere above the `use` API and have the rest handled by React itself.
 
@@ -1684,51 +1725,51 @@ As we can see from this example, our `ErrorBoundary` component will catch all re
 
 ```jsx
 class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
+	constructor(props) {
+		super(props);
+		this.state = { hasError: false };
+	}
 
-  static getDerivedStateFromError(error) {
-    return { hasError: true };
-  }
+	static getDerivedStateFromError(error) {
+		return { hasError: true };
+	}
 
-  render() {
-    if (this.state.hasError) {
-      return <h1>Something went wrong.</h1>;
-    }
+	render() {
+		if (this.state.hasError) {
+			return <h1>Something went wrong.</h1>;
+		}
 
-    return this.props.children;
-  }
+		return this.props.children;
+	}
 }
 
 function Load({ promise }) {
-  const data = React.use(promise);
+	const data = React.use(promise);
 
-  return <p>Success</p>;
+	return <p>Success</p>;
 }
 
 function App() {
-  const promise = React.useMemo(
-    () =>
-      new Promise((resolve, reject) => {
-        setTimeout(() => {
-          reject();
-        }, 1000);
-      }),
-    []
-  );
+	const promise = React.useMemo(
+		() =>
+			new Promise((resolve, reject) => {
+				setTimeout(() => {
+					reject();
+				}, 1000);
+			}),
+		[],
+	);
 
-  return (
-    <div>
-      {/* When an error is thrown in the ErrorBoundary, it will catch it, remove all child nodes, and render the fallback UI */}
-      <ErrorBoundary>
-        <React.Suspense fallback={<p>Loading..</p>}>
-          <Load promise={promise} />
-        </React.Suspense>
-      </ErrorBoundary>
-    </div>
-  );
+	return (
+		<div>
+			{/* When an error is thrown in the ErrorBoundary, it will catch it, remove all child nodes, and render the fallback UI */}
+			<ErrorBoundary>
+				<React.Suspense fallback={<p>Loading..</p>}>
+					<Load promise={promise} />
+				</React.Suspense>
+			</ErrorBoundary>
+		</div>
+	);
 }
 ```
 
@@ -1746,20 +1787,18 @@ Despite this early adoption of SSR, however, React's support for server-centric 
 
 But the idea that Vercel has "taken over" React is silly for a few reasons:
 
-1) You can still use React just as well using client-side rendering in 2025 as 2013.
-2) The server-side story of React predates Vercel's (then called [ZEIT](https://github.com/zeit)) founding (and therefore, Next.js) by many years. 
+1. You can still use React just as well using client-side rendering in 2025 as 2013.
+2. The server-side story of React predates Vercel's (then called [ZEIT](https://github.com/zeit)) founding (and therefore, Next.js) by many years.
    - [ZEIT was founded in 2015](https://www.infoworld.com/article/2334531/vercel-netlify-and-the-new-era-of-serverless-paas.html#vercel-a-cdn-for-front-end-developers) and [React's SSR usage](https://github.com/petehunt/react-server-rendering-example/tree/c2e6093a0868fb9f22d4f73e3538b6dde73957f9) predates it being open-sourced.
-3) Even the earliest prototypes of FaxJS (Jordan Walke's initial prototype of React) cited [Facebook's own server-side renderer — XHP](https://www.facebook.com/notes/10158791323777200/) — as inspiration.
+3. Even the earliest prototypes of FaxJS (Jordan Walke's initial prototype of React) cited [Facebook's own server-side renderer — XHP](https://www.facebook.com/notes/10158791323777200/) — as inspiration.
    - Fun fact; XHP, itself was inspired by [a JavaScript XML interop story called "ECMAScript for XML", or "E4X"](https://en.wikipedia.org/wiki/ECMAScript_for_XML).
-4) [RSCs had been discussed internally at Facebook since 2016 with an internal document titled "What comes after GraphQL"](https://youtu.be/Fctw7WjmxpU?si=vepJN5ctLoQ38cyf&t=67)
+4. [RSCs had been discussed internally at Facebook since 2016 with an internal document titled "What comes after GraphQL"](https://youtu.be/Fctw7WjmxpU?si=vepJN5ctLoQ38cyf&t=67)
 
 Now that we've gotten that out of the way, let's explore how even React's server support has deeply nested roots into React's history and previously built feature set.
 
 ## Solving the "two computers" problems
 
 From React's 0.4 release all the way until [React's announcement of the then experimental "React Server Components"](https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html), server-side rendering in React led to a problem: React would re-render every component from the server once it hit the client.
-
-
 
 ![The developer ships SSR and framework code to the server, which produces HTML. This HTML/CSS is then sent to the user machine where it re-initializes on the client's browser](../../collections/react-beyond-the-render/posts/what-are-react-server-components/ssr_slowdown.svg)
 
@@ -1774,7 +1813,6 @@ It wasn't until [Next's adoption of React Server Components in 2023](https://nex
 > While this led to short-term stability headaches for some app router users, this enabled React and other vendors — like Vercel who makes Next.js — to cooperate on the RSC APIs.
 
 See, RSCs enabled React to have a different execution path for client and server code. This execution path allowed the client to intelligently skip over the reconciliation process for nodes that didn't require additional work from what the server had sent:
-
 
 ![The developer authors JSX with distinct client and server components. These components are ALL rendered on the server, but only the client components are re-rendered on the client](../../collections/react-beyond-the-render/posts/what-are-react-server-components/react-server-components.svg)
 
@@ -1801,7 +1839,7 @@ To get this to work, however, it required many building blocks of React to come 
 - Fiber's ability to bail out of work on already-completed nodes.
 - The ability to establish boundaries within the VDOM; whether it be for errors, loading states, or client/server distinctions.
 
--------
+---
 
 But while RSC's ability to serialize JSX and send it over the wire is undoubtedly cool, it's not the only superpower that RSC has.
 
@@ -1812,10 +1850,10 @@ Since we finally had an officiated way of operating React on the server, the Rea
 [While the React team ultimately decided against using `await` on the client for nuanced technical reasoning](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md#why-cant-client-components-be-async-functions); there's nothing to prevent, say, a backend from the same. As such, this is all it takes to load data from a server component:
 
 ```jsx
-async function UserProfile({userId}) {
-  const data = await getUserFromDb(userId);
-  
-  return <UserProfileClient data={data}/>
+async function UserProfile({ userId }) {
+	const data = await getUserFromDb(userId);
+
+	return <UserProfileClient data={data} />;
 }
 ```
 
@@ -1839,42 +1877,39 @@ We still needed a way to send data to the server; this would come in the flavor 
 To define a server action, we'd combine [the `"use server"` directive](https://react.dev/reference/rsc/use-server) and [the new React `action` property on vanilla HTML `<form>` elements](https://react.dev/reference/react-dom/components/form):
 
 ```jsx
-import { redirect } from 'next/navigation'
-import { getAllPosts, likePost } from '../services/posts.js';
-import { formatDate } from '../utils/formatDate.js';
-import styles from './page.module.css';
+import { redirect } from "next/navigation";
+import { getAllPosts, likePost } from "../services/posts.js";
+import { formatDate } from "../utils/formatDate.js";
+import styles from "./page.module.css";
 
 // Server action for liking posts
 async function handleLikePost(formData) {
-  'use server';
+	"use server";
 
-  const postId = formData.get('postId');
-  const userId = formData.get('userId') || 'anonymous-user'; // Simple user simulation
+	const postId = formData.get("postId");
+	const userId = formData.get("userId") || "anonymous-user"; // Simple user simulation
 
-    await likePost(postId, userId);
-    // Reload the page to reflect changes
-    redirect("/")
+	await likePost(postId, userId);
+	// Reload the page to reflect changes
+	redirect("/");
 }
 
 export default async function Home() {
-  const posts = await getAllPosts();
+	const posts = await getAllPosts();
 
-  return (
-    <form action={handleLikePost}>
-      <input type="hidden" name="postId" value={post[0].id} />
-      <input type="hidden" name="userId" value="anonymous-user" />
-      <button type="submit">
-        {post.likes} likes
-      </button>
-    </form>
-  );
+	return (
+		<form action={handleLikePost}>
+			<input type="hidden" name="postId" value={post[0].id} />
+			<input type="hidden" name="userId" value="anonymous-user" />
+			<button type="submit">{post.likes} likes</button>
+		</form>
+	);
 }
-
 ```
 
 <iframe data-frame-title="Server Actions - StackBlitz" src="pfp-code:./server-actions?template=node&embed=1&file=src%2Fapp%2Fpage.jsx"></iframe>
 
-----
+---
 
 Under-the-hood, this relied on [the browser's own built in `action` API](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#action). While React's version of this API allowed functions to be passed, the browser API expects a URL of the backend endpoint to be called with the relevant `formData`.
 
@@ -1889,31 +1924,31 @@ While it's cool that we can now send and receive data from the server, this intr
 So let's fix that by using [React's `useActionState` hook](/posts/what-is-use-action-state-and-form-status) to get a reactive value from the server:
 
 ```jsx
-'use client';
+"use client";
 
-import { useActionState } from 'react';
-import { handleLikePost } from '../services/posts.js';
-import { formatDate } from '../utils/dates.js';
-import styles from './page.module.css';
+import { useActionState } from "react";
+import { handleLikePost } from "../services/posts.js";
+import { formatDate } from "../utils/dates.js";
+import styles from "./page.module.css";
 
-const userId = 'anonymous-user'; // Simulated user ID for likes
+const userId = "anonymous-user"; // Simulated user ID for likes
 
 export default function Post({ post }) {
-  const [state, action, isPending] = useActionState(handleLikePost, {
-    postId: post.id,
-    liked: !post.likedBy.includes(userId),
-    totalLikes: post.likes
-  });
+	const [state, action, isPending] = useActionState(handleLikePost, {
+		postId: post.id,
+		liked: !post.likedBy.includes(userId),
+		totalLikes: post.likes,
+	});
 
-  return (
-      <form action={action} className={styles.likeForm}>
-        <input type="hidden" name="postId" value={post.id} />
-        <input type="hidden" name="userId" value={userId} />
-        <button type="submit" disabled={isPending}>
-          {state.totalLikes} likes
-        </button>
-      </form>
-  );
+	return (
+		<form action={action} className={styles.likeForm}>
+			<input type="hidden" name="postId" value={post.id} />
+			<input type="hidden" name="userId" value={userId} />
+			<button type="submit" disabled={isPending}>
+				{state.totalLikes} likes
+			</button>
+		</form>
+	);
 }
 ```
 
@@ -1921,11 +1956,11 @@ export default function Post({ post }) {
 // Server action for liking posts
 // This cannot live in a `"use client"` file for security purposes
 export async function handleLikePost(_prevState, formData) {
-	"use server"
-  const postId = formData.get('postId');
-  const userId = formData.get('userId') || 'anonymous-user';
+	"use server";
+	const postId = formData.get("postId");
+	const userId = formData.get("userId") || "anonymous-user";
 
-  return await likePost(postId, userId);
+	return await likePost(postId, userId);
 }
 ```
 
@@ -1933,46 +1968,46 @@ export async function handleLikePost(_prevState, formData) {
 
 ## Interweaving client and server concepts
 
-OK, as a short break, can I show you something cool? 
+OK, as a short break, can I show you something cool?
 
 ```jsx
-import {Suspense} from "react";
+import { Suspense } from "react";
 
 // Simulate an async data fetching function
 function fetchUser() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({name: "Corbin Crutchley"});
-    }, 2000);
-  });
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve({ name: "Corbin Crutchley" });
+		}, 2000);
+	});
 }
 
 // Race the passed promise against a timeout of 1 second
 function race(promise) {
-  return Promise.any([
-    promise,
-    new Promise((resolve) => setTimeout(() => resolve(), 1000))
-  ])
+	return Promise.any([
+		promise,
+		new Promise((resolve) => setTimeout(() => resolve(), 1000)),
+	]);
 }
 
-async function UserDisplay({promise}) {
-  const user = await promise;
-  return <div>{user.name}</div>;
+async function UserDisplay({ promise }) {
+	const user = await promise;
+	return <div>{user.name}</div>;
 }
 
 export default async function Page() {
-  // Start fetching user data
-  const userPromise = fetchUser();
+	// Start fetching user data
+	const userPromise = fetchUser();
 
-  // If the user data takes longer than 1 second, we will not wait for it
-  // and instead render a fallback UI.
-  await race(userPromise);
+	// If the user data takes longer than 1 second, we will not wait for it
+	// and instead render a fallback UI.
+	await race(userPromise);
 
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <UserDisplay promise={userPromise} />
-    </Suspense>
-  );
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<UserDisplay promise={userPromise} />
+		</Suspense>
+	);
 }
 ```
 
@@ -2019,35 +2054,28 @@ Here's how it works:
 - React then removes the relevant DOM nodes while retaining the state of the children in the VDOM when the children are `'hidden'`
 
 ```jsx
-import { unstable_Activity as Activity, useState } from 'react';
+import { unstable_Activity as Activity, useState } from "react";
 
 function Counter() {
-  const [count, setCount] = useState(0);
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Count: {count}
-    </button>
-  );
+	const [count, setCount] = useState(0);
+	return <button onClick={() => setCount(count + 1)}>Count: {count}</button>;
 }
 
 export default function App() {
-  const [hideCount, setHideCount] = useState(false);
-  return (
-    <>
-      <button onClick={() => setHideCount(v => !v)}>
-        Toggle Count
-      </button>
-      <br/>
-      <Activity mode={hideCount ? 'hidden' : 'visible'}>
-        <Counter />
-      </Activity>
-    </>
-  );
+	const [hideCount, setHideCount] = useState(false);
+	return (
+		<>
+			<button onClick={() => setHideCount((v) => !v)}>Toggle Count</button>
+			<br />
+			<Activity mode={hideCount ? "hidden" : "visible"}>
+				<Counter />
+			</Activity>
+		</>
+	);
 }
 ```
 
 <iframe data-frame-title="Activity - StackBlitz" src="pfp-code:./activity-example?template=node&embed=1&file=src%2FApp.jsx"></iframe>
-
 
 ![TODO: Add alt](./before_activity.png)
 
@@ -2087,10 +2115,10 @@ And it's not like React is the only framework with required performance optimiza
 
 Great! That's fine! Look, the goal of this article was two-fold:
 
-1) Force you to rethink critical opinions you may have held about React for a while
-2) Teach you enough to help inform your opinions with additional context I feel most have missed
+1. Force you to rethink critical opinions you may have held about React for a while
+2. Teach you enough to help inform your opinions with additional context I feel most have missed
 
-I never said React was unable to be validly criticized. Hell, it's not even my favorite web framework! 
+I never said React was unable to be validly criticized. Hell, it's not even my favorite web framework!
 
 But even with that said, I **do** stand by my belief that:
 
@@ -2100,7 +2128,7 @@ But even with that said, I **do** stand by my belief that:
 
 And if I've managed to convince even a small subsection of readers on _some_ of these facts, then I've done my job well enough.
 
-----
+---
 
 Still wanting more, somehow??
 
