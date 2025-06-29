@@ -2057,15 +2057,31 @@ export default function App() {
 
 This is particularly useful in applications where you need to hide some of the UI; like apps with tabbed content or specific routing.
 
-## React Compiler
+## Optimizing code automatically
 
 How appropriate that we'd leave arguably the biggest feature in React's development until the end of the article.
 
-// TODO: Talk about how allowing React to control the dataflow of components and strict rules around said dataflow allows a compiler to optimize things further
+You may know it by now; maybe you don't. React is getting a compiler to optimize your code using memoizations and other techniques.
 
-// TODO: Talk about Prepack: https://prepack.io being a precursor to React Compiler
+![TODO: Write alt](./compiler.png)
 
-// TODO: Talk about this: https://www.youtube.com/live/N54FZtNvk_A?si=88VN1KKb61YkPwDi&t=2318
+> The output code may look like nonsense to you or I, but it's much faster to your machine.
+
+This compilation requires that your code strictly follow the rules of React Hooks, behaves well with StrictMode, and broadly follows any other React rules that have been outlined in [their ESLint rules](https://react.dev/learn/react-compiler#installing-eslint-plugin-react-compiler).
+
+This move has shown [huge improvements for large-scale projects](https://youtu.be/lyEKhv8-3n0?si=4oUjrIoztcW-X70C&t=3296), but has also come with criticisms.
+
+Once again though, the criticisms often come with a misunderstanding of React's history and stated goals.
+
+See, the React Compiler wasn't the first JavaScript compiler project Facebook has undertook: [as far back as 2017](https://github.com/facebookarchive/prepack/releases/tag/v0.2.6) Facebook was working on ["Prepack"](https://prepack.io/), a generalized JavaScript compiler to take code and try to resolve as much logic as it could ahead-of-time:
+
+![TODO: Write alt](./prepack.png)
+
+While this project never left the experimental phase, it was clear that Facebook's engineering teams were considering this kind of route years ahead of the curve.
+
+In face, [in an interview with Dominic Gannaway, an ex-React core team member](https://www.youtube.com/live/N54FZtNvk_A?t=2318s), he outlined that the history of investigations around the React Compiler _predate Hooks_. Yes, that's right, the rules of Hooks were not just created for the code at the time, but were a massive future-think from the team to enable functionalities like the current React Compiler.
+
+And it's not like React is the only framework with required performance optimizations. Between [Angular's `runOutsideAngular` from its Zone.js days](posts/angular-internals-zonejs) to [its modern `OnPush` detection strategies](https://angular.dev/best-practices/skipping-subtrees), [Vue's `v-memo` and `v-once`](https://angular.dev/best-practices/skipping-subtrees), [Lit's `shouldUpdate`](https://lit.dev/docs/components/lifecycle/#shouldupdate), and even [Solid.js' `createMemo`](https://docs.solidjs.com/reference/basic-reactivity/create-memo), it's clear that there's no silver bullet to performance, regardless of [reactivity mechanism](/posts/what-is-reactivity).
 
 # Takeaways
 
