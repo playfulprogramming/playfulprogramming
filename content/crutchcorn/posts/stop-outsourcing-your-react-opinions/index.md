@@ -1,6 +1,6 @@
 ---
 {
-	title: "Stop Outsourcing Your React Opinions",
+	title: "Stop Outsourcing Your React Opinions",
 	description: "TODO: Write this",
 	published: '2025-08-01T05:12:03.284Z',
 	tags: ['react', 'javascript', 'webdev', 'opinion'],
@@ -12,7 +12,7 @@ Look, I get it. Tech content creators are fun. But seriously, you've **got** to 
 
 I've heard it all over the years:
 
-> Separations of concerns doesn't work with JSX
+> Separations of concerns don't work with JSX
 
 > Class-components can't compose
 
@@ -30,59 +30,59 @@ I've heard it all over the years:
 
 > React's so slow it needs a compiler to behave properly
 
-These takes? Yeah, they're wrong. Maybe some flavor of them have enough nuance to get close to being right, but if you're being shilled a take like this from Theo or Prime? Unlikely.
+These takes? Yeah, they're wrong. Maybe some flavor of them has enough nuances to get close to being right, but if you're being shilled a take like this from Theo or Prime? Unlikely.
 
-I'll be honest, it's not really their faults. Hot takes are part of the game - you're actively incentivized to get content out as quickly as possible in that world. The faster you are, the more clicks you get, the more money it generates.
+I'll be honest, it's not really their fault. Hot takes are part of the game — you're actively incentivized to get content out as quickly as possible in that world. The faster you are, the more clicks you get, the more money it generates.
 
 In ["Thinking, Fast and Slow"](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow), this kind of "fast thinking" is almost automatic; purely driven by emotion and mentally easy-to-reach experience.
 
 But c'mon, we're adults, surely we can take our time to digest the work being done for us and try to understand a different perspective?
 
-**React can absolutely be validly criticized, but to do so we should take a closer look at the decisionmaking matrix the team has employed while building out React over the past ten plus years**.
+**React can absolutely be validly criticized, but to do so we should take a closer look at the decision-making matrix the team has employed while building out React over the past ten plus years**.
 
 Because here's my thing: I think that **a majority of hot takes about React are wrong** and stem from kneejerk reactions that don't take the broader scope of things into mind.
 
 In fact, I'll go further:
 
-Whether or not you agree with the tradeoffs that were made made, **React's decisionmaking has been remarkably consistent and broadly has your best interests in mind**.
+Whether or not you agree with the tradeoffs that were made, **React's decision-making has been remarkably consistent and broadly has your best interests in mind**.
 
 To present my case, we'll explore the concepts React has introduced along the way and potentially build out a new mental model for the framework as we go.
 
 # The first days of React
 
-The year is 2011; Facebook has a problem. They've got an in-house framework, "[BoltJS](https://web.archive.org/web/20130608154901/http://shaneosullivan.github.io/boltjs/intro.html)" that they're using in-house on their "ads" team. It's _working_, but there's problems in the code. While ~90% of the problems on the ads product can be written in Bolt, there's instances in the project that the team has had to eject from their own framework and use less declaractive solutions.
+The year is 2011; Facebook has a problem. They've got an in-house framework, "[BoltJS](https://web.archive.org/web/20130608154901/http://shaneosullivan.github.io/boltjs/intro.html)" that they're using in-house on their "ads" team. It's _working_, but there are problems in the code. While ~90% of the problems on the ads product can be written in Bolt, there are instances in the project that the team has had to eject from their own framework and use less declarative solutions.
 
 While this isn't a problem to tackle instantly, it poses a new set of problems for the rampantly growing team at Facebook; 10% applied across a large group quickly becomes a problem in consistency, training, and overall developer experience. Left unchecked, this will inevitably impact their ability to ship as quickly as they'd like.
 
-The problems with BoltJS didn't sit right with one of the members of the ads team - Jordan Walke; few programming paradigms did. In a community interview, Jordan would outline:
+The problems with BoltJS didn't sit right with one of the members of the ads team — Jordan Walke; few programming paradigms did. In a community interview, Jordan would outline:
 
 > Even as I was first learning how to program, the old MVC style of programming with data binding and mutation just never felt right to me, even when I didn't have the technical terminology to describe things like "mutation", or "functional programming".
 
-> My code would usually look really weird to other people [...]. For the longest time I just assumed "welp, I guess I'm just a weird programmer". Then I finally took a course on programming language fundamentals [...] and I finally had some basic terminology to be able describe how I wanted to build applications.
+> My code would usually look really weird to other people [...]. For the longest time I just assumed "welp, I guess I'm just a weird programmer". Then I finally took a course on programming language fundamentals [...] and I finally had some basic terminology to be able [to] describe how I wanted to build applications.
 
-So Jordan began to experiment with his own solutions to many of the problems he perceived Bolt and other frameworks had at the time. This experimentation began life as a personal project of "[FaxJS](https://github.com/jordwalke/FaxJs)". FaxJS would go on to be shortly renamed to "FBolt" (Functional Bolt) before making its way to being called "React". A small team begins developing around the virgining tool.
+So Jordan began to experiment with his own solutions to many of the problems he perceived Bolt and other frameworks had at the time. This experimentation began life as a personal project of "[FaxJS](https://github.com/jordwalke/FaxJs)". FaxJS would go on to be shortly renamed to "FBolt" (Functional Bolt) before making its way to being called "React." A small team begins developing around the virgining tool.
 
 ------
 
-Fast-forward to 2012; Facebook is doing great. So well, in fact, that they've just [aquired Instagram for one billion dollars](https://archive.nytimes.com/dealbook.nytimes.com/2012/04/09/facebook-buys-instagram-for-1-billion/).
+Fast-forward to 2012; Facebook is doing great. So well, in fact, that they've just [acquired Instagram for one billion dollars](https://archive.nytimes.com/dealbook.nytimes.com/2012/04/09/facebook-buys-instagram-for-1-billion/).
 
-Instagram has a mobile app for Android and iOS, but no web presence. The new team at Facebok is tasked with building out their solution to this problem, but with a constraint of their new parent company: Use one of our existing tech stacks to do so.
+Instagram has a mobile app for Android and iOS, but no web presence. The new team at Facebook is tasked with building out their solution to this problem, but with a constraint of their new parent company: Use one of our existing tech stacks to do so.
 
-After some time evaluating both Bolt and React the team makes a decision; they're going to be the first production codebase to use React.
+After some time evaluating both Bolt and React, the team makes a decision; they're going to be the first production codebase to use React.
 
 The team quickly realizes they have something special on their hands; they're shipping quickly, performance seems to be handled well, and the developers love working in their newfound system. A group begins conversations around open-sourcing the project, even from early days.
 
-But now thet have a new problem: Facebook now has two solutions for browser rendering between the incombant Bolt and the up-and-coming React.
+But now they have a new problem: Facebook now has two solutions for browser rendering between the incumbent Bolt and the up-and-coming React.
 
-The teams of both sit down, discuss heavily, and realize the challenge expands past their wheelhouse. [Facebook's IPO is down](https://en.wikipedia.org/wiki/Initial_public_offering_of_Facebook#Subsequent_days) and the ads product was their big money maker; the very team that had just recently moved a large project to use Bolt. It would take them four months to mirgate to React; no new features in that time.
+The teams of both sit down, discuss heavily, and realize the challenge expands past their wheelhouse. [Facebook's IPO is down](https://en.wikipedia.org/wiki/Initial_public_offering_of_Facebook#Subsequent_days) and the ads product was their big moneymaker; the very team that had just recently moved a large project to use Bolt. It would take them four months to migrate to React; no new features in that time.
 
-Just when it looked like an impossibility for React's adoption inside Facebook, the CTO came into the picture: ["Make the right technical choice, and make the right long term choice — and if there are short term consequences, I’ll back you up. If you need months to do a rewrite, do it."](https://x.com/schrep/status/1625917218809868288)
+Just when it looked like an impossibility for React's adoption inside Facebook, the CTO came into the picture: ["Make the right technical choice, and make the right long-term choice — and if there are short-term consequences, I’ll back you up. If you need months to do a rewrite, do it."](https://x.com/schrep/status/1625917218809868288)
 
 ------
 
 The React migration of the ads platform was another win for the team as they saw similar successes as the Instagram adoption.
 
-As 2013 came in, the team that had been pushing for React's open-sourcing would become more and more prevelant in conversation. Eventually they would win the internal battle. Finally, after all that time, React was ready to open-source: [At JSConfUS 2013, Tom Occhino and Jordan Walke publicly announced the project alongside the release of code and docs.](https://www.youtube.com/watch?v=GW0rj4sNH2w)
+As 2013 came in, the team that had been pushing for React's open-sourcing would become more and more prevalent in conversation. Eventually they would win the internal battle. Finally, after all that time, React was ready to open-source: [At JSConfUS 2013, Tom Occhino and Jordan Walke publicly announced the project alongside the release of code and docs.](https://www.youtube.com/watch?v=GW0rj4sNH2w)
 
 > **Further reading:**
 >
@@ -118,7 +118,7 @@ const data = <div>
 
 This came with some major benefits:
 
-- Template compilation could occur before runtime - allowing errors to be caught earlier in the development lifecycle
+- Template compilation could occur before runtime — allowing errors to be caught earlier in the development lifecycle
 - Since JSX was not a string, it had better XSS protections out of the box without having to require a specific API to do so
 - Reuse of JavaScript for flow-control; no need to reinvent the expressiveness of JavaScript in another string-based language
 
@@ -142,9 +142,9 @@ function App() {
 }
 ```
 
-This also meant that even across code transforms the line of code an error was thrown could map one-to-one with the final output ran in the browser; great for debugging!
+This also meant that even across code transforms the line of code, an error was thrown could map one-to-one with the final output ran in the browser; great for debugging!
 
-But these improvements didn't make for a smooth ship for the React team. As metioned earlier, JSX came heavily criticized, for one reason predominantly...
+But these improvements didn't make for a smooth ship for the React team. As mentioned earlier, JSX came heavily criticized, for one reason predominantly...
 
 ### "Separation of concerns" doesn't mean what you think it means
 
@@ -152,7 +152,7 @@ But these improvements didn't make for a smooth ship for the React team. As meti
 
 \- [A Twitter post from 2013 about React's introduction](https://x.com/nickcrohn/status/339855304160329728).
 
-They weren't alone. One of the common cries against JSX was the idea that it broke "separation of concerns". See, most projects broke apart their code based on the language and type of code that was being used early on:
+They weren't alone. One of the common cries against JSX was the idea that it broke "separation of concerns." See, most projects broke apart their code based on the language and type of code that was being used early on:
 
 <!-- ::start:filetree -->
 
@@ -173,7 +173,7 @@ They weren't alone. One of the common cries against JSX was the idea that it bro
 
 <!-- ::end:filetree -->
 
-But here's the thing: This is an abitrary distinction between different parts of the code. Using this system, it quickly becomes a challenge to track down related code.
+But here's the thing: This is an arbitrary distinction between different parts of the code. Using this system, it quickly becomes a challenge to track down related code.
 
 Instead, the React team proposed (and most modern codebases continue to back) that you should instead split your code based on features:
 
@@ -200,7 +200,7 @@ By doing so, it becomes much easier to follow the pattern of code and aligns mor
 > **Further reading**:
 > Want to learn the best way to structure your React projects? [I outlined my philosophy more in the "Layered React Structure" (LRS) system.](/posts/layered-react-structure)
 
-## Resembling state over all points in time
+## Resembling state over all points in time
 
 Before React there was Backbone.js. Let's look at a simple counter component:
 
@@ -256,9 +256,9 @@ Here, we're doing a number of things:
 
 - Manually binding to events and reconstructing the template to HTML on request
 
-This is _okay_, but due to the manual nature of the "Counter" event/data sync, it's easy to accidentally decouple something that's not intended to be decoupled.
+This is _okay_, but due to the manual nature of the "Counter" event/data sync, it's easy to accidentally decouple something not intended to be decoupled.
 
-Compare this an equivalent React's counter from the era:
+Compare this to an equivalent React's counter from the era:
 
 ```html
 <div id="root"></div>
@@ -291,15 +291,15 @@ Compare this an equivalent React's counter from the era:
 </script>
 ```
 
-While `this.setState` is in a way an explicit update to the template, a major shift has occured between Backbone.js:
+While `this.setState` is in a way an explicit update to the template, a major shift has occurred between Backbone.js:
 
 **The template in React's `render` method isn't just the initial template for the component; it's the template used across time**. 
 
 In pragmatic terms, this means that we do not need to track what component is being rendered and where when updating app data. In philosophical terms, this can be viewed as a ["reconciliation"](/posts/what-is-reconciliation-and-the-vdom) process rather than a "mutation" of the DOM. This idea comes straight from Jordan's learnings from the functional programming world where data must always be [immutable](/posts/new-post-mutable-vs-immutable).
 
-And this data isn't static, either! Click the button to trigger the state change of `count` and your `render` funtion will execute immediately; giving you a quick and convinient method of [reactivity](/posts/what-is-reactivity).
+And this data isn't static, either! Click the button to trigger the state change of `count` and your `render` function will execute immediately; giving you a quick and convenient method of [reactivity](/posts/what-is-reactivity).
 
-But this idea of "render everything for every state change" came with it's own set of difficulties...
+But this idea of "render everything for every state change" came with its own set of difficulties...
 
 ## Making markup reactive
 
@@ -393,7 +393,7 @@ class WindowSize extends React.Component {
 
 This `WindowSize` component gets the size of the browser window, stores it in `state`, and triggers a re-render of the component when this occurs.
 
-Now let's say that we want to reuse this logic between components. If you've studied Object-Oriented Programming - where classes come from - you'll realize that there's a good way to do so: [**Class inheritence**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain).
+Now let's say that we want to reuse this logic between components. If you've studied Object-Oriented Programming - where classes come from — you'll realize that there's a good way to do so: [**Class inheritance**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain).
 
 ## The intuitive short-term solution
 
@@ -465,7 +465,7 @@ To solve this, many apps and libraries reached for a pattern called "**Higher or
 
 ## The adopted community solution
 
-With higher-ordered components, you're able to avoid requiring your users to have `super` calls across their codebase and instead recieve arguments from the base class as `props` to the extending class:
+With higher-ordered components, you're able to avoid requiring your users to have `super` calls across their codebase and instead receive arguments from the base class as `props` to the extending class:
 
 ```jsx
 const withWindowSize = (WrappedComponent) => {
@@ -519,11 +519,11 @@ Unfortunately, this required knowledge of what `props` to expect from the parent
 
 While there were ways around this, it was clear that class-based components needed an alternative...
 
-## Early alterantives to class-components
+## Early alternatives to class-components
 
 [In 2015, React 0.14 was released.](https://legacy.reactjs.org/blog/2015/10/07/react-v0.14.html#stateless-function-components) This release brought an alternative to class-based components: Function components.
 
-See, class components were described by the React team as "a render function with an added state container". What if we just removed the state container but kept the render function?
+See, class components were described by the React team as "a render function with an added state container." What if we just removed the state container but kept the render function?
 
 This meant that we could take this:
 
@@ -553,7 +553,7 @@ It wouldn't be until much later when this problem would be solved...
 
 # Maturing the developer experience
 
-[React's Hooks were introduced in React 16.8](/blog/2019/02/06/react-v16.8.0.html). With them, a solution to the stateless function components were solved and the baseline for future React features was established.
+[React's Hooks were introduced in React 16.8](/blog/2019/02/06/react-v16.8.0.html). With them, a solution to the stateless function components was solved and the baseline for future React features was established.
 
 While previous ["smart" components](/posts/layered-react-structure#smart-dumb-comps) were written using classes and special methods and properties to manage state and [side effects](/posts/ffg-fundamentals-side-effects):
 
@@ -615,17 +615,17 @@ function WindowSize() {
 }
 ```
 
-This came with a number of criticms;
+This came with a number of criticisms;
 
 - Migrating from class-based components was harder because of a lack of lifecycle methods
 - Effects became harder to manage because the whole component would re-render instead of "just" the `render` method
 - Hooks came with their own rules that many found obnoxious
 
-But despite these criticisms this had a number of benefits, the biggest of which going back to the concept of composition.
+But despite this, it had a number of benefits, the biggest of which going back to the concept of composition.
 
 ## Adopting components' strengths in the logic layer
 
-Whereas with class components the convention for composition (say that 10 times fast!) was higher-ordered components, hooks have.... 🥁
+Whereas with class components the convention for composition (say that 10 times fast!) was higher-ordered components, hooks have... 🥁
 
 Other hooks. 😐
 
@@ -660,7 +660,7 @@ function useWindowSize() {
 ```
 
 > **Note:**
-> Notice how we had to change very little code from the `WindowSize` component itself; this flavor of logic composition allows us to avoid changing much of the code between the intial authoring and the rewrite to abstract this logic out to a custom hook.
+> Notice how we had to change very little code from the `WindowSize` component itself; this flavor of logic composition allows us to avoid changing much of the code between the initial authoring and the rewrite to abstract this logic out to a custom hook.
 
 This custom hook can then be reused in as many function components as we'd like:
 
@@ -680,7 +680,7 @@ function MyComponent() {
 
 ## Continuing consistency in I/O handling
 
-[I could talk about side effects in programming for hours](/posts/ffg-fundamentals-side-effects). As a short recap of an introductory view of effects:
+[I could talk about side effects in programming for hours](/posts/ffg-fundamentals-side-effects). As a short recap of effects at a high level:
 
 - A "side effect" is the idea of mutating state from some external boundary.
 
@@ -690,7 +690,7 @@ function MyComponent() {
 
 - Most I/O requires some flavor of cleanup: either to stop listening for user input or to reset state set during an output before the next iteration
 
-- As a result, [side effects need a good way to cleanup, otherwise your application will suffer from bugs and memory leaks.](/posts/ffg-fundamentals-side-effects#cleaning-event-listeners)
+- As a result, [side effects need a good way to cleanup; otherwise your application will suffer from bugs and memory leaks.](/posts/ffg-fundamentals-side-effects#cleaning-event-listeners)
 
 Following this thought process, we can see how React's `useEffect` hook enables us to follow better side effect cleanup patterns.
 
@@ -748,7 +748,7 @@ Now if only we could have a way to force this cleanup...
 
 ## Solving React's consistency problems
 
-[When React 18 was released](https://react.dev/blog/2022/03/29/react-v18#new-strict-mode-behaviors), many were suprised to find that various parts of their apps seemingly broke out of nowhere, but only in dev mode. I even wrote an article at the time explaining the phenomenon called ["Why React 18 Broke Your App"](/posts/why-react-18-broke-your-app).
+[When React 18 was released](https://react.dev/blog/2022/03/29/react-v18#new-strict-mode-behaviors), many were surprised to find that various parts of their apps seemingly broke out of nowhere, but only in dev mode. I even wrote an article at the time explaining the phenomenon called ["Why React 18 Broke Your App"](/posts/why-react-18-broke-your-app).
 
 What _actually_ had happened is that [React intentionally introduced a change](https://github.com/reactwg/react-18/discussions/19) to the dev-only helper `<StrictMode>` component that was included in most React app templates.
 
@@ -775,9 +775,9 @@ But the longer answer is that they wanted to keep component rendering behavior i
 
 -------
 
-To explain idempotence let's use an analogy and then dive into the real deal.
+To explain idempotence, let's use an analogy and then dive into the real deal.
 
-Pretend you're working a factory line and you've been given a task: Press a button to drop an empty box from a chute above you onto a conveyor belt to move the boxes into a packaging machine. This machine will place an item in the box and seal it up for you.
+Pretend you're working a factory line, and you've been given a task: Press a button to drop an empty box from a chute above you onto a conveyor belt to move the boxes into a packaging machine. This machine will place an item in the box and seal it up for you.
 
 ![TODO: Write alt](./empty_boxes.png)
 
@@ -957,7 +957,7 @@ While it may seem silly to use an array to store a Hook's state in a component, 
 
 > **Aside:**
 >
-> It's because a Hook's state is stored in an array - or, in reality, a linked list - that explains why you can't conditionally call a hook, by the way.
+> It's because a Hook's state is stored in an array — or, in reality, a linked list — that explains why you can't conditionally call a hook, by the way.
 >
 > If you were to conditionally call a hook, it would shift the index:
 >
@@ -1037,20 +1037,19 @@ component.render(Test); // 3
 
 See, this internal `Component` class isn't just an idea I came up with; it's more representative of how state is stored in a VDOM node in React. When React decides it's time to render a given component, it pulls up the Hook state from the node.
 
-Now if only there was an explaination of _why_ this was needed...
-
+Now if only there was an explanation of _why_ this was needed...
 
 # Leveraging the VDOM's full potential {#fiber}
 
-In our story thus far, we've managed to make it to "React 18" and the changes it brought; But before we look forward, we must look back. Let's rewind back to 2016. At [ReactNext 2016, Andrew Clark gave a talk titled "What's Next for React"](https://www.youtube.com/watch?v=aV1271hd9ew). In it, he shares how the team has been working on an experiment called "Fiber".
+In our story thus far, we've managed to make it to "React 18" and the changes it brought; But before we look forward, we must look back. Let's rewind back to 2016. At [ReactNext 2016, Andrew Clark gave a talk titled "What's Next for React"](https://www.youtube.com/watch?v=aV1271hd9ew). In it, he shares how the team has been working on an experiment called "Fiber."
 
 > **Notice that?**
 >
-> In Andrew's talk, he references posts from **2014** about what React had planned - it's remarkably similar to the endevors they published with Fiber! More on that soon.
+> In Andrew's talk, he references posts from **2014** about what React had planned — it's remarkably similar to the endeavors they published with Fiber! More on that soon.
 
-Despite Andrew's warnings that "this experiment might not work", we can [fast forward to 2017 with the release of React 16](https://legacy.reactjs.org/blog/2017/09/26/react-v16.0.html#new-core-architecture) and see that it was released as the new stable engine of React. It was even one of the few React releases to get [a blog post on Facebook's engineering blog](https://engineering.fb.com/2017/09/26/web/react-16-a-look-inside-an-api-compatible-rewrite-of-our-frontend-ui-library/).
+Despite Andrew's warnings that "this experiment might not work," we can [fast-forward to 2017 with the release of React 16](https://legacy.reactjs.org/blog/2017/09/26/react-v16.0.html#new-core-architecture) and see that it was released as the new stable engine of React. It was even one of the few React releases to get [a blog post on Facebook's engineering blog](https://engineering.fb.com/2017/09/26/web/react-16-a-look-inside-an-api-compatible-rewrite-of-our-frontend-ui-library/).
 
-While I'll leave the nuances of how Fiber works [in this GitHub repo by Andrew](https://github.com/acdlite/react-fiber-architecture), the broad idea is that it enabled React to:
+While I'll leave the nuances of how Fiber works [in this GitHub repo by Andrew](https://github.com/acdlite/react-fiber-architecture), the broad idea is that it enabled React to:
 
 - Pause work and come back to it later.
 - Assign priority to different types of work.
@@ -1067,9 +1066,9 @@ These abilities required Hooks to operate with the limits they have today, but u
 
 ## Solving error handling
 
-[The first feature that Fiber unblocked in the React 16 release was error handling.](https://legacy.reactjs.org/blog/2017/07/26/error-handling-in-react-16.html) Getting [a revamped updated in React 16.6](https://legacy.reactjs.org/docs/react-component.html#static-getderivedstatefromerror), this solved a long-standing problem with React apps.
+[The first feature that Fiber unblocked in the React 16 release was error handling.](https://legacy.reactjs.org/blog/2017/07/26/error-handling-in-react-16.html) Getting [a revamp in React 16.6](https://legacy.reactjs.org/docs/react-component.html#static-getderivedstatefromerror), built-in error handling solved a long-standing problem with React apps.
 
-See, because of the nature of the VDOM, whenever a component threw an error it would crash the entire React tree.
+See, because of the nature of the VDOM, whenever a component threw an error, it would crash the entire React tree.
 
 ![TODO: Write alt](./without_err.png)
 
@@ -1145,15 +1144,15 @@ Lazy loading components enable React to tree-shake away the bundled code relevan
 
 > **Further reading:**
 >
-> Confused by what a "bundle" is in this context? Worry not! [I've written a guide to bundling (the process of generating a bundle) in React inside of my free book "Framework Field Guide: Ecosystem"](posts/ffg-ecosystem-bundling).
+> Confused by what a "bundle" is in this context? Worry not! [I've written a guide to bundling (the process of generating a bundle) in React inside my free book "Framework Field Guide: Ecosystem"](posts/ffg-ecosystem-bundling).
 
 This enabled further usage of the VDOM as a representation of complex state by loading in a component and its associated code over the network (in this case `LargeBundleComponent`).
 
 ## Solving loading states
 
-> But wait, if the component is being loaded over the network that means there's latency involved. What does the user see when the component is being loaded?
+> But wait, if the component is being loaded over the network, that means there's latency involved. What does the user see when the component is being loaded?
 
-This is where `Suspense` boundaries come into play. Introduced at [JSConf Iceland 2018](https://legacy.reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html), `Suspense` allowed you to handle loading states in your UI as a fallback during high latency scenarios - like a `lazy` component mentioned above:
+This is where `Suspense` boundaries come into play. Introduced at [JSConf Iceland 2018](https://legacy.reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html), `Suspense` allowed you to handle loading states in your UI as a fallback during high-latency scenarios - like a `lazy` component mentioned above:
 
 ```jsx
 import React, {lazy, Suspense} from 'react';
@@ -1202,11 +1201,11 @@ function MyOtherComponent() {
 }
 ```
 
-While there were hints that `Suspense` would eventually lead to other features - like data fetching maybe? 👀 - I want to wrap up the work Fiber did for React's future.
+While there were hints that `Suspense` would eventually lead to other features — like data fetching maybe? 👀 — I want to wrap up the work Fiber did for React's future.
 
 ## Exploring concurrency
 
-While the React's Fiber rewrite enabled a number of features, it was difficult to explain many of the concepts leveraged without abstract examples. It wasn't until React 18 that we saw a slew of new APIs introduced that would allow us to more directly interface with the new rendering behaviors.
+While the React's Fiber rewrite enabled a number of features, it was challenging to explain many of the concepts leveraged without abstract examples. It wasn't until React 18 that we saw a slew of new APIs introduced that would allow us to more directly interface with the new rendering behaviors.
 
 These new APIs were called "concurrent features" and included the following APIs:
 
@@ -1219,7 +1218,7 @@ Let's dive into `startTransition` and see where it leads us.
 
 -----
 
-Let's assume that we have a large list of elements we want to mirror some user inputted text onto:
+Let's assume that we have a large list of elements we want to mirror some user-input text onto:
 
 ```jsx
 // An artificially slow component to render the list.
@@ -1274,7 +1273,7 @@ const LegacyDemo = () => {
 };
 ```
 
-However, if we do this, we'll find that when the user types it will lag the input box as the list re-renders:
+However, if we do this, we'll find that when the user types, it will lag the input box as the list re-renders:
 
 <video src="./legacy_demo.mp4" title="TODO: Write alt"></video>
 
@@ -1321,9 +1320,9 @@ This change now results in a smoother text update experience:
 
 The Fiber was a massive boon to React's future, no doubt. But it felt like everything that came before [React 19](https://react.dev/blog/2024/12/05/react-19#new-feature-use) was building towards something bigger; some way to leverage all of the experience that the React team had been preparing for after all this time.
 
-While there's a few APIs that one could assume I'm talking about, the one I have in my mind is data fetching.
+While there are a few APIs that one could assume I'm talking about, the one I have in my mind is data fetching.
 
-See, even externally to the work on Fiber, there'd been hints it was coming. For as long as I can remember, the React team had provided guidance to "lift state" in your components to avoid headaches with data sharing. [They turned it into an official docs page in 2017](https://web.archive.org/web/20180128174149/https://reactjs.org/docs/lifting-state-up.html) and [Dan even referenced this problem in a GitHub comment from 2015](https://github.com/facebook/react/issues/4595#issuecomment-129786951).
+See, even externally to the work on Fiber, there had been hints it was coming. For as long as I can remember, the React team had provided guidance to "lift state" in your components to avoid headaches with data sharing. [They turned it into an official docs page in 2017](https://web.archive.org/web/20180128174149/https://reactjs.org/docs/lifting-state-up.html) and [Dan even referenced this problem in a GitHub comment from 2015](https://github.com/facebook/react/issues/4595#issuecomment-129786951).
 
 This "lifted state" is how their data fetching APIs would eventually work in React 19; using the new `use` API and the existing `Suspense` API.
 
@@ -1331,7 +1330,7 @@ Here's how it works:
 
 - Create a stable reference to a promise in a parent component
 - Pass the promise to a child component via props
-- Utilize the new `use` hook to recieve the data from the promise
+- Utilize the new `use` hook to receive the data from the promise
 
 ```jsx
 function Child({promise}) {
@@ -1402,13 +1401,13 @@ Let's take a moment to look at how `use` works internally. According to [the RFC
 
 > **Fiber enables yet another feature:**
 >
-> Knowing what we know now about how `use` works internally, I think it's safe to say that `use` wouldn't be able to function the way it does today without the Fiber rewrite's prerequisite capacities. The ability to "suspend" a subtree of nodes in order to wait for data to fetching is almost identical to the stated goals of Fiber from day one.
+> Knowing what we know now about how `use` works internally, I think it's safe to say that `use` wouldn't be able to function the way it does today without the Fiber rewrite's prerequisite capacities. The ability to "suspend" a subtree of nodes to wait for data to fetch is almost identical to the stated goals of Fiber from day one.
 
 ------
 
 And as we can see, using `use` forces us to raise our data fetching to a parent component. This does two things for us:
 
-1) Re-enforces the concepts we've already learned in regards to data moving up the VDOM tree
+1) Re-enforces the concepts we've already learned in regard to data moving up the VDOM tree
 2) Helps solve waterfalling and real-world user experience problems
 
 > **Further reading**:
@@ -1422,7 +1421,7 @@ And as we can see, using `use` forces us to raise our data fetching to a parent 
 Well, dear reader, while `use` is the newest kid on the block for data fetching in React its API has two main advantages:
 
 1) It forces you to raise your fetching logic, helping avoid waterfall data fetching
-2) It makes consolidating multiple loading states together becomes much more trivial
+2) It makes consolidating multiple loading states together become much more trivial
 
 I've talked about the concept of raising data fetching too much at this point to not dive in further; let's do that.
 
@@ -1524,7 +1523,7 @@ function useFetch(url) {
 
 > I don't see the problem with this code?
 
-Well, while this code is syntatically correct, its got a major flaw hidden within: The data fetches in a waterfall pattern. The user's blog posts can't load until the profile is finished loading:
+Well, while this code is syntactically correct, it's got a major flaw hidden within: The data fetches in a waterfall pattern. The user's blog posts can't load until the profile is finished loading:
 
 ![TODO: Write alt](./with_waterfall.png)
 
@@ -1677,9 +1676,9 @@ With the `use` API, this is solved by allowing the user to move their `Suspense`
 
 ## Merging the old and the new: Error handling and data fetching
 
-Something often missed is how updating the screen (called "rendering" in the context of React) is itself a form of a side effect. After all, if all I/O is considered a "side effect", then surely the most predominant form of "output" (updating the screen) is a side effect!
+Something often missed is how updating the screen (called "rendering" in the context of React) is itself a form of a side effect. After all, if all I/O is considered a "side effect," then surely the most predominant form of "output" (updating the screen) is a side effect!
 
-This is true! So true, in fact, that the same mechanism we used earlier (error boundary components) are able to be reused for data fetching errors.
+This is true! So true, in fact, that the same mechanism we used earlier (error boundary components) is able to be reused for data fetching errors.
 
 As we can see from this example, our `ErrorBoundary` component will catch all rejected promises passed to the `use` API:
 
@@ -1735,24 +1734,24 @@ function App() {
 
 # A "move" to the server
 
-Server-side rendering, as a practice, has been around for... Well, as long as the web. To write your template in one language and compile it into the primitives the web understands (HTML, CSS, JS) is the core model for everything from Wordpress, Ruby on Rails, and - yes - React server-side solutions.
+Server-side rendering, as a practice, has been around for... Well, as long as the web. To write your template in one language and compile it into the primitives the web understands (HTML, CSS, JS) is the core model for everything from WordPress, Ruby on Rails, and — yes — React server-side solutions.
 
 > **Further reading:**
 >
 > Unfamiliar with what server-side rendering is? [Check out our guide on SSR in React.](/posts/what-is-ssr-and-ssg#ssr)
 
-In fact, while there were more out-of-the box solutions that streamlined React's SSR usage — like [Next.js in 2016](https://github.com/vercel/next.js/releases/tag/1.0.0) — [React has had the ability to server-side render all the way back in its second-ever public release of 0.4.](https://legacy.reactjs.org/blog/2013/07/17/react-v0-4-0.html#react). It was even highlighted [how to use React and Rails together](https://legacy.reactjs.org/blog/2013/07/30/use-react-and-jsx-in-ruby-on-rails.html) and [even in Python](https://legacy.reactjs.org/blog/2013/08/19/use-react-and-jsx-in-python-applications.html) on React's official blog shortly after.
+In fact, while there were more out-of-the-box solutions that streamlined React's SSR usage — like [Next.js in 2016](https://github.com/vercel/next.js/releases/tag/1.0.0) — [React has had the ability to server-side render all the way back in its second-ever public release of 0.4.](https://legacy.reactjs.org/blog/2013/07/17/react-v0-4-0.html#react). It was even highlighted [how to use React and Rails together](https://legacy.reactjs.org/blog/2013/07/30/use-react-and-jsx-in-ruby-on-rails.html) and [even in Python](https://legacy.reactjs.org/blog/2013/08/19/use-react-and-jsx-in-python-applications.html) on React's official blog shortly after.
 
 Despite this early adoption of SSR, however, React's support for server-centric coding seems to have sparked some controversy in recent years, largely in part due to [the React team's relationship with Vercel](https://blog.isquaredsoftware.com/2025/06/react-community-2025/#concern-vercel-next-and-react).
 
 But the idea that Vercel has "taken over" React is silly for a few reasons:
 
-1) You can still use React just as well using client-side rendering in 2025 as 2013.
+1) You can still use React just as well using client-side rendering in 2025 as 2013.
 2) The server-side story of React predates Vercel's (then called [ZEIT](https://github.com/zeit)) founding (and therefore, Next.js) by many years. 
    - [ZEIT was founded in 2015](https://www.infoworld.com/article/2334531/vercel-netlify-and-the-new-era-of-serverless-paas.html#vercel-a-cdn-for-front-end-developers) and [React's SSR usage](https://github.com/petehunt/react-server-rendering-example/tree/c2e6093a0868fb9f22d4f73e3538b6dde73957f9) predates it being open-sourced.
 3) Even the earliest prototypes of FaxJS (Jordan Walke's initial prototype of React) cited [Facebook's own server-side renderer — XHP](https://www.facebook.com/notes/10158791323777200/) — as inspiration.
-   - Fun fact; XHP, itself, was inspired from [a JavaScript XML interop story called "ECMAScript for XML", or "E4X"](https://en.wikipedia.org/wiki/ECMAScript_for_XML).
-4) [RSCs were discussed internally at Facebook since 2016 with an internal document titled "What comes after GraphQL"](https://youtu.be/Fctw7WjmxpU?si=vepJN5ctLoQ38cyf&t=67)
+   - Fun fact; XHP, itself was inspired by [a JavaScript XML interop story called "ECMAScript for XML", or "E4X"](https://en.wikipedia.org/wiki/ECMAScript_for_XML).
+4) [RSCs had been discussed internally at Facebook since 2016 with an internal document titled "What comes after GraphQL"](https://youtu.be/Fctw7WjmxpU?si=vepJN5ctLoQ38cyf&t=67)
 
 Now that we've gotten that out of the way, let's explore how even React's server support has deeply nested roots into React's history and previously built feature set.
 
@@ -1772,7 +1771,7 @@ It wasn't until [Next's adoption of React Server Components in 2023](https://nex
 >
 > This meant that, until React 19 was marked as stable, whenever you used Next.js' app router your code was being remapped to React 19 canary releases.
 >
-> While this led to short-term stability headaches for some app router users, this enabled React and other vendors - like Vercel who makes Next.js - to cooperate on the RSC APIs.
+> While this led to short-term stability headaches for some app router users, this enabled React and other vendors — like Vercel who makes Next.js — to cooperate on the RSC APIs.
 
 See, RSCs enabled React to have a different execution path for client and server code. This execution path allowed the client to intelligently skip over the reconciliation process for nodes that didn't require additional work from what the server had sent:
 
@@ -1784,7 +1783,7 @@ This optimization of avoiding re-rendering server-only components is done by:
 - Implementing a distinction between components that need to be interactive on the client ([`"use client"`](https://react.dev/reference/rsc/use-client)) and server-only components (the default for components authored without `"use client"`)
 - Serializing the state of the VDOM on the server
 - Sending the serialized state to the client alongside the hydrated HTML
-- Intelligently injesting the server-sent VDOM on the client
+- Intelligently ingesting the server-sent VDOM on the client
 
 > **Further reading:**
 >
@@ -1798,7 +1797,7 @@ This optimization of avoiding re-rendering server-only components is done by:
 To get this to work, however, it required many building blocks of React to come together:
 
 - The VDOM's ability to display a mirrored representation of the browser's document while remaining runtime agnostic.
-- React's idempotency guarantees to avoid untintentional behavior between client and server.
+- React's idempotency guarantees to avoid unintentional behavior between client and server.
 - Fiber's ability to bail out of work on already-completed nodes.
 - The ability to establish boundaries within the VDOM; whether it be for errors, loading states, or client/server distinctions.
 
@@ -1829,13 +1828,13 @@ That's right! No wrapping our `await` in a cache (after all, the server componen
 This ability to `await` in a component at all was only enabled by the React's past decisions:
 
 - The VDOM to represent state on the server rather than relying on a browser's DOM
-- Fiber's ability to pause, halt, error and prioritize work
+- Fiber's ability to pause, halt, error, and prioritize work
 
 ## Sending data to the server
 
 Async components may have solved the problem of data going from the server to the client, but it only solved it in one way.
 
-We still needed a way to send data to the server; this would come in the flavor of "server actions".
+We still needed a way to send data to the server; this would come in the flavor of "server actions."
 
 To define a server action, we'd combine [the `"use server"` directive](https://react.dev/reference/rsc/use-server) and [the new React `action` property on vanilla HTML `<form>` elements](https://react.dev/reference/react-dom/components/form):
 
@@ -1881,7 +1880,7 @@ Under-the-hood, this relied on [the browser's own built in `action` API](https:/
 
 And because this is a server component (due to the lack of `"use client"`), this server action will work the same regardless of if the user has JavaScript enabled in their browser or not.
 
-We can see how the browser's built-in capabilities helped inform the API for server actions - enabling more functionality than if the React team had scaffolided their own solution without this consideration.
+We can see how the browser's built-in capabilities helped inform the API for server actions — enabling more functionality than if the React team had scaffolded their own solution without this consideration.
 
 ## Handling bi-directional server state
 
@@ -1985,17 +1984,17 @@ Not only do React's client and server APIs marry in this code sample, but even t
 
 Pretty cool, right?
 
-Alright alright, back to the feature showcase.
+Alright, alright, back to the feature showcase.
 
 ## Beyond basic SSR
 
 OK, while there's a bunch of other features to showcase between React and the server, like [the `cache` API](/posts/explaining-reacts-cache-function), I instead want to talk about a feature that's _not_ part of React's core: Next.js' partial pre-rendering API.
 
-What if I told you that, without touching any of your SSR-focused React code, that you could shorten the time it took for your React app to ship to the client?
+What if I told you that, without touching any of your SSR-focused React code that you could shorten the time it took for your React app to ship to the client?
 
 Well, this is what [Next.js' "Partial Pre-rendering" (PPR)](https://nextjs.org/docs/app/getting-started/partial-prerendering) promises to deliver on.
 
-The way that it works is that Next.js will detect the static content in a given route, cache the results of the static content, and then deliver it in parallel to the computation of the dynamic content on subsequent involkations:
+The way that it works is that Next.js will detect the static content in a given route, cache the results of the static content, and then deliver it in parallel to the computation of the dynamic content on subsequent invocations:
 
 ![TODO: Write](./ppr.png)
 
@@ -2007,7 +2006,7 @@ So why am I talking about a Next-specific feature in a React-only article? Well,
 
 # React's future
 
-While we've covered everything released that's stable as of the release of this article, there's still more we know about React's future that I'd like to talk about, since I think they help continue the story of React's consistency and willingness to improve your experiences with it through decisions made in the past.
+While we've covered everything released that's stable as of the release of this article, there's still more we know about React's future that I'd like to talk about. I think they help continue the story of React's consistency and willingness to improve your experiences with it through decisions made in the past.
 
 ## Preserving off-screen state in the VDOM
 
@@ -2055,13 +2054,13 @@ export default function App() {
 
 ![TODO: Add alt](./after_activity.png)
 
-This is particularly useful in applications where you need to hide some of the UI; like apps with tabbed content or specific routing.
+This is particularly useful in applications where you need to hide some of the UI, like apps with tabbed content or specific routing.
 
 ## Optimizing code automatically
 
 How appropriate that we'd leave arguably the biggest feature in React's development until the end of the article.
 
-You may know it by now; maybe you don't. React is getting a compiler to optimize your code using memoizations and other techniques.
+You may know it by now; maybe you don't. React is getting a compiler to optimize your code using memoization and other techniques.
 
 ![TODO: Write alt](./compiler.png)
 
@@ -2071,15 +2070,15 @@ This compilation requires that your code strictly follow the rules of React Hook
 
 This move has shown [huge improvements for large-scale projects](https://youtu.be/lyEKhv8-3n0?si=4oUjrIoztcW-X70C&t=3296), but has also come with criticisms.
 
-Once again though, the criticisms often come with a misunderstanding of React's history and stated goals.
+Once again, though, the criticisms often come with a misunderstanding of React's history and stated goals.
 
-See, the React Compiler wasn't the first JavaScript compiler project Facebook has undertook: [as far back as 2017](https://github.com/facebookarchive/prepack/releases/tag/v0.2.6) Facebook was working on ["Prepack"](https://prepack.io/), a generalized JavaScript compiler to take code and try to resolve as much logic as it could ahead-of-time:
+See, the React Compiler wasn't the first JavaScript compiler project Facebook has undertaken: [as far back as 2017](https://github.com/facebookarchive/prepack/releases/tag/v0.2.6) Facebook was working on ["Prepack"](https://prepack.io/), a generalized JavaScript compiler to take code and try to resolve as much logic as it could ahead-of-time:
 
 ![TODO: Write alt](./prepack.png)
 
 While this project never left the experimental phase, it was clear that Facebook's engineering teams were considering this kind of route years ahead of the curve.
 
-In face, [in an interview with Dominic Gannaway, an ex-React core team member](https://www.youtube.com/live/N54FZtNvk_A?t=2318s), he outlined that the history of investigations around the React Compiler _predate Hooks_. Yes, that's right, the rules of Hooks were not just created for the code at the time, but were a massive future-think from the team to enable functionalities like the current React Compiler.
+In face, [in an interview with Dominic Gannaway, an ex-React core team member](https://www.youtube.com/live/N54FZtNvk_A?t=2318s), he outlined that the history of investigations around the React Compiler _predates Hooks_. Yes, that's right, the rules of Hooks were not just created for the code at the time, but were a massive future-think from the team to enable functionalities like the current React Compiler.
 
 And it's not like React is the only framework with required performance optimizations. Between [Angular's `runOutsideAngular` from its Zone.js days](posts/angular-internals-zonejs) to [its modern `OnPush` detection strategies](https://angular.dev/best-practices/skipping-subtrees), [Vue's `v-memo` and `v-once`](https://angular.dev/best-practices/skipping-subtrees), [Lit's `shouldUpdate`](https://lit.dev/docs/components/lifecycle/#shouldupdate), and even [Solid.js' `createMemo`](https://docs.solidjs.com/reference/basic-reactivity/create-memo), it's clear that there's no silver bullet to performance, regardless of [reactivity mechanism](/posts/what-is-reactivity).
 
@@ -2089,7 +2088,7 @@ And it's not like React is the only framework with required performance optimiza
 
 Great! That's fine! Look, the goal of this article was two-fold:
 
-1) Force you to rethink criticial opinions you may have held about React for a while
+1) Force you to rethink critical opinions you may have held about React for a while
 2) Teach you enough to help inform your opinions with additional context I feel most have missed
 
 I never said React was unable to be validly criticized. Hell, it's not even my favorite web framework! 
@@ -2100,7 +2099,7 @@ But even with that said, I **do** stand by my belief that:
 - They have the best interest of their users at heart
 - The future of React remains bright as they enter into a new era for the tool
 
-And if I've managed to convince even a small subsection of readers on _some_ of these facts then I've done my job well enough.
+And if I've managed to convince even a small subsection of readers on _some_ of these facts, then I've done my job well enough.
 
 ----
 
