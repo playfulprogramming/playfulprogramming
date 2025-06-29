@@ -1,6 +1,6 @@
 ---
 import style from "./post-title-header.module.scss";
-import { PostInfo, PersonInfo } from "types/index";
+import { PostInfo, PersonInfo, PostVersion } from "types/index";
 import { Icon } from "astro-icon/components";
 import { Chip } from "components/index";
 import dayjs from "dayjs";
@@ -10,9 +10,10 @@ import { ArticleRevisionDropdown } from "../article-revisions/article-revisions"
 
 interface PostTitleHeaderProps {
 	post: PostInfo;
+	versions: PostVersion[];
 	authors: PersonInfo[];
 }
-const { post, authors } = Astro.props as PostTitleHeaderProps;
+const { post, versions, authors } = Astro.props as PostTitleHeaderProps;
 const { title, tags } = post;
 
 const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
@@ -31,7 +32,17 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 			<div class={style.date}>
 				<div class={style.date__published}>
 					<Icon width={24} height={24} name="date" aria-hidden="true" />
-					<ArticleRevisionDropdown client:load />
+					{
+						versions.length ? (
+							<ArticleRevisionDropdown
+								client:load
+								versions={versions}
+								post={post}
+							/>
+						) : (
+							<p class="text-style-button-regular">{publishedStr}</p>
+						)
+					}
 				</div>
 
 				{
