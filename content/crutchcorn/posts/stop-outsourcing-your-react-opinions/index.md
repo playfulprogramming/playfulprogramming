@@ -101,7 +101,7 @@ This meant that code that might've otherwise looked like this:
 ```html
 <!-- This code is expected to live in another file or be a static string of some kind -->
 <div>
-    <!-- This is psuedo-syntax of a theoretical framework's template code -->
+    <!-- This is pseudo-syntax of a theoretical framework's template code -->
     <some-tag data-if="someVar"></some-tag>
     <some-item-tag data-for="let someItem of someList"></some-item-tag>
 </div>
@@ -327,9 +327,9 @@ Internally, this worked by introducing a diffing stage to the "reconciliation" s
 
 # Early developer experience
 
-React launched in 2013 with the concept of class-based components; Hooks wouldn't be released until 2019. But class-based components themselves, were not universally loved.
+React launched in 2013 with the concept of class-based components; Hooks wouldn't be released until 2019. But class-based components themselves were not universally loved.
 
-See, a core tennant of components is that they're able to compose; meaning that **we can build a new component from existing components**:
+See, a core tenant of components is that they're able to compose; meaning that **we can build a new component from existing components**:
 
 ```jsx
 // Existing components
@@ -629,7 +629,7 @@ Whereas with class components the convention for composition (say that 10 times 
 
 Other hooks. 😐
 
-This might sound obvious, but its this obvious-nature that allows for Hook's superpowers, both current and future.
+This might sound obvious, but it's this obvious-nature that allows for Hook's superpowers, both current and future.
 
 Let's look at a custom `useWindowSize` hook:
 
@@ -690,7 +690,7 @@ function MyComponent() {
 
 - Most I/O requires some flavor of cleanup: either to stop listening for user input or to reset state set during an output before the next iteration
 
-- As a result, [side effects need a good way to cleanup; otherwise your application will suffer from bugs and memory leaks.](/posts/ffg-fundamentals-side-effects#cleaning-event-listeners)
+- As a result, [side effects need a good way to clean up; otherwise your application will suffer from bugs and memory leaks.](/posts/ffg-fundamentals-side-effects#cleaning-event-listeners)
 
 Following this thought process, we can see how React's `useEffect` hook enables us to follow better side effect cleanup patterns.
 
@@ -769,7 +769,7 @@ function App() {
 
 > Why was this change made?
 
-The simple answer to this question is that the React team wanted to ensure that you were [cleaning up side effects in your components to avoid memory leaks and bugs.](/posts/ffg-fundamentals-side-effects#ensuring-effect-cleanup).
+The simple answer to this question is that the React team wanted to ensure that you were [cleaning up side effects in your components to avoid memory leaks and bugs.](/posts/ffg-fundamentals-side-effects#ensuring-effect-cleanup)
 
 But the longer answer is that they wanted to keep component rendering behavior idempotent.
 
@@ -839,7 +839,7 @@ function BoxAddition() {
 }
 ```
 
-These problematic behaviors on a non-idempotent component is why `StrictMode` was changed to enforce this behavior.
+These problematic behaviors on a non-idempotent component are why `StrictMode` was changed to enforce this behavior.
 
 And this wasn't some bolted-on idea after React 18 or something; Idempotency is so important to React, in fact, that [it was mentioned as a core design decision in the second ever talk about React from the Facebook team](https://youtu.be/x7cQ3mrcKaY?si=I_fB-AZckPFB0MM8&t=1046).
 
@@ -1355,7 +1355,7 @@ const fakeFetch = () => {
 }
 ```
 
-This is awesome! This code will run but, uh...
+This is awesome! This code will run, but, uh...
 
 // TODO: Add iframe
 
@@ -1740,7 +1740,7 @@ Server-side rendering, as a practice, has been around for... Well, as long as th
 >
 > Unfamiliar with what server-side rendering is? [Check out our guide on SSR in React.](/posts/what-is-ssr-and-ssg#ssr)
 
-In fact, while there were more out-of-the-box solutions that streamlined React's SSR usage — like [Next.js in 2016](https://github.com/vercel/next.js/releases/tag/1.0.0) — [React has had the ability to server-side render all the way back in its second-ever public release of 0.4.](https://legacy.reactjs.org/blog/2013/07/17/react-v0-4-0.html#react). It was even highlighted [how to use React and Rails together](https://legacy.reactjs.org/blog/2013/07/30/use-react-and-jsx-in-ruby-on-rails.html) and [even in Python](https://legacy.reactjs.org/blog/2013/08/19/use-react-and-jsx-in-python-applications.html) on React's official blog shortly after.
+In fact, while there were more out-of-the-box solutions that streamlined React's SSR usage — like [Next.js in 2016](https://github.com/vercel/next.js/releases/tag/1.0.0) — [React has had the ability to server-side render all the way back in its second-ever public release of 0.4.](https://legacy.reactjs.org/blog/2013/07/17/react-v0-4-0.html#react) It was even highlighted [how to use React and Rails together](https://legacy.reactjs.org/blog/2013/07/30/use-react-and-jsx-in-ruby-on-rails.html) and [even in Python](https://legacy.reactjs.org/blog/2013/08/19/use-react-and-jsx-in-python-applications.html) on React's official blog shortly after.
 
 Despite this early adoption of SSR, however, React's support for server-centric coding seems to have sparked some controversy in recent years, largely in part due to [the React team's relationship with Vercel](https://blog.isquaredsoftware.com/2025/06/react-community-2025/#concern-vercel-next-and-react).
 
@@ -1755,7 +1755,7 @@ But the idea that Vercel has "taken over" React is silly for a few reasons:
 
 Now that we've gotten that out of the way, let's explore how even React's server support has deeply nested roots into React's history and previously built feature set.
 
-## Solving the two-computers problems
+## Solving the "two computers" problems
 
 From React's 0.4 release all the way until [React's announcement of the then experimental "React Server Components"](https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html), server-side rendering in React led to a problem: React would re-render every component from the server once it hit the client.
 
@@ -1769,7 +1769,7 @@ It wasn't until [Next's adoption of React Server Components in 2023](https://nex
 >
 > Next.js 13.4 (May 4th, 2023) was released before React 19's stable release (December 5th, 2024). While React 19 stabilized the APIs for RSCs, [Next.js' "app router" relied on an experimental version of React dubbed at the time "18.3.0-canary"](https://github.com/vercel/next.js/commit/d543fd19db19d506f7155dd649f8b2462b1404a7). This version, not to be confused with [the stable `18.3` version](https://github.com/facebook/react/blob/main/CHANGELOG.md#1830-april-25-2024) acted as [the undocumented early releases for React 19](https://x.com/lubieowoce/status/1784579444302045315).
 >
-> This meant that, until React 19 was marked as stable, whenever you used Next.js' app router your code was being remapped to React 19 canary releases.
+> This meant that, until React 19 was marked as stable, whenever you used Next.js' app router, your code was being remapped to React 19 canary releases.
 >
 > While this led to short-term stability headaches for some app router users, this enabled React and other vendors — like Vercel who makes Next.js — to cooperate on the RSC APIs.
 
@@ -1787,7 +1787,7 @@ This optimization of avoiding re-rendering server-only components is done by:
 
 > **Further reading:**
 >
-> The concept of JSX over the wire is a complex one. Some learning resources I'd suggest following to understand them better:
+> The concept of JSX over the wire is complex. Here are some learning resources I'd suggest following to understand them better:
 >
 > - ["JSX Over The Wire" by Dan Abramov](https://overreacted.io/jsx-over-the-wire/)
 > - ["And Now You Understand React Server Components" by Kent C Dodds](https://www.youtube.com/watch?v=B4wr-kDdBAs)
@@ -1882,9 +1882,9 @@ And because this is a server component (due to the lack of `"use client"`), this
 
 We can see how the browser's built-in capabilities helped inform the API for server actions — enabling more functionality than if the React team had scaffolded their own solution without this consideration.
 
-## Handling bi-directional server state
+## Handling bidirectional server state
 
-While it's cool that we can now send and receive data from the server, this introduces a new problem; To get the results of an action updated we're hard-refreshing the page. This goes against React's defaulted behavior of not refreshing the page to get a reactive result.
+While it's cool that we can now send and receive data from the server, this introduces a new problem; To get the results of an action updated, we're hard-refreshing the page. This goes against React's defaulted behavior of not refreshing the page to get a reactive result.
 
 So let's fix that by using [React's `useActionState` hook](/posts/what-is-use-action-state-and-form-status) to get a reactive value from the server:
 
@@ -2002,7 +2002,7 @@ The way that it works is that Next.js will detect the static content in a given 
 >
 > [Debla over on YouTube has a fantastic video explaining PPR in-depth.](https://www.youtube.com/watch?v=MTcPrTIBkpA)
 
-So why am I talking about a Next-specific feature in a React-only article? Well, it's proof at how React's decision to mark client and server boundaries has played out well since its inception; this feature wouldn't work if it weren't for the distinction from the code of which code is static and which is dynamic.
+So why am I talking about a Next-specific feature in a React-only article? Well, it's proof of how React's decision to mark client and server boundaries has played out well since its inception; this feature wouldn't work if it weren't for the distinction from the code of which code is static and which is dynamic.
 
 # React's future
 
@@ -2064,7 +2064,7 @@ You may know it by now; maybe you don't. React is getting a compiler to optimize
 
 ![TODO: Write alt](./compiler.png)
 
-> The output code may look like nonsense to you or I, but it's much faster to your machine.
+> The output code may look like nonsense to you or me, but it's much faster to your machine.
 
 This compilation requires that your code strictly follow the rules of React Hooks, behaves well with StrictMode, and broadly follows any other React rules that have been outlined in [their ESLint rules](https://react.dev/learn/react-compiler#installing-eslint-plugin-react-compiler).
 
