@@ -58,6 +58,7 @@
 	font-weight: var(--weight_semibold);
 	font-size: var(--button_regular_font-size);
 	line-height: var(--button_regular_line-height);
+	anchor-name: --postVersionButton;
 	@include transition(background-color);
 	@include transition(border);
 	cursor: pointer;
@@ -119,6 +120,9 @@
 	box-shadow: var(--shadow_popup);
 	border: var(--border-width_s) solid var(--background_disabled);
 	min-width: var(--popup_min-width);
+	top: calc(anchor(bottom) + 8px);
+	left: calc(anchor(start) - 12px);
+	position-visibility: anchors-visible;
 
 	.item {
 		background: unset;
