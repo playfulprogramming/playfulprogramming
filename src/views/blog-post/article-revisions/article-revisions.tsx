@@ -2,30 +2,36 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import style from "./article-revisions.module.scss";
 import down from "src/icons/chevron_down.svg?raw";
 import { debounce } from "utils/debounce";
+import { PostInfo, PostVersion } from "types/PostInfo";
 
 interface PopOverLocation {
 	x: number;
 	y: number;
 }
 
-// TRIED GETTING VARIABLE HERE
-if (typeof window !== "undefined") {
-	const spacing_2x = getComputedStyle(document.documentElement)
-		.getPropertyValue("--spc_2x")
-		.trim();
-	console.log("spacing_2x", spacing_2x);
+interface ArticleRevisionDropdownProps {
+	post: PostInfo;
+	versions: PostVersion[];
 }
 
-const tempData = [
-	{ date: "October 19, 2024", version: "v3" },
-	{ date: "September 22, 2022", version: "v2", selected: true },
-	{ date: "February 10, 2022", version: "v1" },
-];
-
-export function ArticleRevisionDropdown() {
+export function ArticleRevisionDropdown({
+	post,
+	versions,
+}: ArticleRevisionDropdownProps) {
+	const { slug, publishedMeta, version } = post;
 	const buttonRef = useRef<HTMLButtonElement>(null);
-	const date = "September 22, 2022";
-	const version = "v2";
+
+	const currentPostVersion = versions.filter(({ href }) => href === slug);
+
+	const date = currentPostVersion.length
+		? currentPostVersion[0]["publishedMeta"]
+		: publishedMeta;
+
+	const buttonVersion = currentPostVersion.length
+		? currentPostVersion[0]["version"]
+		: version
+			? version
+			: "";
 
 	// TODO: This should be a CSS defined value
 	const SPACING = 8;
@@ -82,27 +88,27 @@ export function ArticleRevisionDropdown() {
 				ref={buttonRef}
 			>
 				<span class={style.date}>{date}</span>
-				<span class={style.dot}>•</span>
-				<span class={style.version}>{version}</span>
+				<span class={style.dot}>{buttonVersion ? "•" : ""}</span>
+				<span class={style.version}>{buttonVersion}</span>
 				<span
 					class={style.down}
 					dangerouslySetInnerHTML={{ __html: down }}
 				></span>
 			</button>
-			{tempData.length && (
+			{versions.length && (
 				<ul
 					id="article-version-popover"
 					popover
 					class={style.popover}
 					style={{ left: `${popOverXY.x}px`, top: `${popOverXY.y}px` }}
 				>
-					{tempData.map(({ date, version, selected }, i) => (
+					{versions.map(({ href, publishedMeta, version }, i) => (
 						<li
-							class={`${style.item} ${selected ? style.selected : ""}`}
+							class={`${style.item} ${slug === href ? style.selected : ""}`}
 							key={i}
 						>
-							<a href="#1">
-								<span class={style.date}>{date}</span>
+							<a href={href}>
+								<span class={style.date}>{publishedMeta}</span>
 								<span class={style.version}>{version}</span>
 							</a>
 						</li>
