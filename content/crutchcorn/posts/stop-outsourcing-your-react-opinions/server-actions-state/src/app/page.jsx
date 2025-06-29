@@ -1,5 +1,5 @@
 import { getAllPosts } from '../services/posts.js';
-import Post from './Post.js';
+import Post from './Post.jsx';
 import styles from './page.module.css';
 
 export default async function Home() {

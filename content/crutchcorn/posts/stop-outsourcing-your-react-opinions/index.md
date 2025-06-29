@@ -1314,7 +1314,7 @@ This change now results in a smoother text update experience:
 
 <video src="./concurrent_demo.mp4" title="TODO: Write alt"></video>
 
-// TODO: iframe the example
+<iframe data-frame-title="Concurrent Demo - StackBlitz" src="pfp-code:./fiber-example-react?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
 # The big play: First-class data fetching
 
@@ -1872,7 +1872,7 @@ export default async function Home() {
 
 ```
 
-// TODO: Iframe server-actions
+<iframe data-frame-title="Server Actions - StackBlitz" src="pfp-code:./server-actions?template=node&embed=1&file=src%2Fapp%2Fpage.jsx"></iframe>
 
 ----
 
@@ -1929,7 +1929,7 @@ export async function handleLikePost(_prevState, formData) {
 }
 ```
 
-// TODO: Iframe server-actions-state
+<iframe data-frame-title="Server Actions State - StackBlitz" src="pfp-code:./server-actions-state?template=node&embed=1&file=src%2Fapp%2Fpage.jsx"></iframe>
 
 ## Interweaving client and server concepts
 
@@ -1976,7 +1976,7 @@ export default async function Page() {
 }
 ```
 
-// TODO: iframe `server-race`
+<iframe data-frame-title="Server Race - StackBlitz" src="pfp-code:./server-race?template=node&embed=1&file=src%2Fapp%2Fpage.jsx"></iframe>
 
 This, to me, is the single code sample that demonstrates the long-term play React has had on both the server and client. Not only do we get to use previously client-only APIs like `Suspense` to handle data loading, but we're able to leverage the existing powers of JavaScript's promise handling like `Promise.any` and `await` using the new server paradigm.
 
@@ -2046,8 +2046,7 @@ export default function App() {
 }
 ```
 
-// TODO: Add iframe activity-example
-
+<iframe data-frame-title="Activity - StackBlitz" src="pfp-code:./activity-example?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
 
 ![TODO: Add alt](./before_activity.png)
