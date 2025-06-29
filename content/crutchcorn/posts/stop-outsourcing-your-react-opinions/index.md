@@ -1985,15 +1985,23 @@ Pretty cool, right?
 
 Alright alright, back to the feature showcase.
 
-## Beyond
+## Beyond basic SSR
 
-https://playfulprogramming.com/posts/explaining-reacts-cache-function
+OK, while there's a bunch of other features to showcase between React and the server, like [the `cache` API](/posts/explaining-reacts-cache-function), I instead want to talk about a feature that's _not_ part of React's core: Next.js' partial pre-rendering API.
 
+What if I told you that, without touching any of your SSR-focused React code, that you could shorten the time it took for your React app to ship to the client?
 
+Well, this is what [Next.js' "Partial Pre-rendering" (PPR)](https://nextjs.org/docs/app/getting-started/partial-prerendering) promises to deliver on.
 
-// TODO: Talk about the server-only `cache` API
+The way that it works is that Next.js will detect the static content in a given route, cache the results of the static content, and then deliver it in parallel to the computation of the dynamic content on subsequent involkations:
 
-// TODO: Talk about Next.js PPR
+![TODO: Write](./ppr.png)
+
+> **Further reading:**
+>
+> [Debla over on YouTube has a fantastic video explaining PPR in-depth.](https://www.youtube.com/watch?v=MTcPrTIBkpA)
+
+So why am I talking about a Next-specific feature in a React-only article? Well, it's proof at how React's decision to mark client and server boundaries has played out well since its inception; this feature wouldn't work if it weren't for the distinction from the code of which code is static and which is dynamic.
 
 # React's future 
 
