@@ -615,9 +615,9 @@ function WindowSize() {
       });
     }
 
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener('resize', this.handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -1197,7 +1197,7 @@ function MyComponent() {
 
 function MyOtherComponent() {
   return (
-    // Show two loading states for each
+    // Show a loading state per component
     <Suspense fallback={<div>Loading...</div>}>
       <LargeBundleComponent />
     </Suspense>
