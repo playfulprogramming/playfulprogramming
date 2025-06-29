@@ -1059,6 +1059,10 @@ While I'll leave the nuances of how Fiber works [in this GitHub repo by Andrew]
 
 These abilities required Hooks to operate with the limits they have today, but unblocked a slew of features and set the stage for the future...
 
+> **Further reading:**
+>
+> Are you a visual learner and want to understand Fiber better? [Take a look at Lin Clark's intro to Fiber talk from React Conf 2017](https://www.youtube.com/watch?v=ZCuYPiUIONs). It's incredibly in-depth and well-explained.
+
 ## Solving error handling
 
 [The first feature that Fiber unblocked in the React 16 release was error handling.](https://legacy.reactjs.org/blog/2017/07/26/error-handling-in-react-16.html) Getting [a revamped updated in React 16.6](https://legacy.reactjs.org/docs/react-component.html#static-getderivedstatefromerror), this solved a long-standing problem with React apps.
@@ -1206,7 +1210,7 @@ These new APIs were called "concurrent features" and included the following APIs
 
 - `useTransition`
 - `useOptimistic`
-- `useDefferedValue`
+- `useDeferedValue`
 - `startTransition`
 
 Let's dive into `startTransition` and see where it leads us.
@@ -1394,7 +1398,7 @@ Let's take a moment to look at how `use` works internally. According to [the RFC
 
 ![TODO: Write alt](./how_use_works.png)
 
-> **Tie it back to our thesis:**
+> **Fiber enables yet another feature:**
 >
 > Knowing what we know now about how `use` works internally, I think it's safe to say that `use` wouldn't be able to function the way it does today without the Fiber rewrite's prerequisite capacities. The ability to "suspend" a subtree of nodes in order to wait for data to fetching is almost identical to the stated goals of Fiber from day one.
 
@@ -1739,9 +1743,16 @@ In fact, while there were more out-of-the box solutions that streamlined React's
 
 Despite this early adoption of SSR, however, React's support for server-centric coding seems to have sparked some controversy in recent years, largely in part due to [the React team's relationship with Vercel](https://blog.isquaredsoftware.com/2025/06/react-community-2025/#concern-vercel-next-and-react).
 
-Given this, let's explore how even React's server support has deeply nested roots into React's history and previously built featureset.
+But the idea that Vercel has "taken over" React is silly for a few reasons:
 
-// TODO: Talk about how RSCs were discussed internally at Facebook as early as 2016: https://youtu.be/Fctw7WjmxpU?si=vepJN5ctLoQ38cyf&t=67
+1) You can still use React just as well using client-side rendering in 2025 as 2013.
+2) The server-side story of React predates Vercel's (then called [ZEIT](https://github.com/zeit)) founding (and therefore, Next.js) by many years. 
+   - [ZEIT was founded in 2015](https://www.infoworld.com/article/2334531/vercel-netlify-and-the-new-era-of-serverless-paas.html#vercel-a-cdn-for-front-end-developers) and [React's SSR usage](https://github.com/petehunt/react-server-rendering-example/tree/c2e6093a0868fb9f22d4f73e3538b6dde73957f9) predates it being open-sourced.
+3) Even the earliest prototypes of FaxJS (Jordan Walke's initial prototype of React) cited [Facebook's own server-side renderer — XHP](https://www.facebook.com/notes/10158791323777200/) — as inspiration.
+   - Fun fact; XHP, itself, was inspired from [a JavaScript XML interop story called "ECMAScript for XML", or "E4X"](https://en.wikipedia.org/wiki/ECMAScript_for_XML).
+4) [RSCs were discussed internally at Facebook since 2016 with an internal document titled "What comes after GraphQL"](https://youtu.be/Fctw7WjmxpU?si=vepJN5ctLoQ38cyf&t=67)
+
+Now that we've gotten that out of the way, let's explore how even React's server support has deeply nested roots into React's history and previously built feature set.
 
 ## Solving the two-computers problems
 
@@ -1789,13 +1800,11 @@ To get this to work, however, it required many building blocks of React to come 
 - Fiber's ability to bail out of work on already-completed nodes.
 - The ability to establish boundaries within the VDOM; whether it be for errors, loading states, or client/server distinctions.
 
-Discussions around server-fetching aren't new to React, either. Even the earliest prototypes of FaxJS (Jordan Walke's initial prototype of React) cited [Facebook's own server-side renderer — XHP](https://www.facebook.com/notes/10158791323777200/) — as inspiration.
-
 -------
 
 But while RSC's ability to serialize JSX and send it over the wire is undoubtedly cool, it's not the only superpower that RSC has.
 
-Since we finally had an officiated way of operating React on the server, the React team expanded their focus beyond the client-side experience of React and introduced methods of sending and receiving data from the server. These methods came in the form of two new APIs: Async Components and React Server Actions.
+Since we finally had an officiated way of operating React on the server, the React team expanded their focus beyond the client-side experience of React and introduced methods of sending and receiving data from the server...
 
 ## Loading server data
 
@@ -1813,12 +1822,12 @@ That's right! No wrapping our `await` in a cache (after all, the server componen
 
 > **Further reading:**
 >
-> If you want to learn more in-depth information about async components in React, [our React Suspense and Async Rendering guide covers everything you'd need to know.](/posts/what-is-react-suspense-and-async-rendering)
+> If you want to learn more in-depth information about async components in React, [my React Suspense and Async Rendering guide covers everything you'd need to know.](/posts/what-is-react-suspense-and-async-rendering)
 
 This ability to `await` in a component at all was only enabled by the React's past decisions:
 
 - The VDOM to represent state on the server rather than relying on a browser's DOM
-- Fiber's ability to pause, halt, error and 
+- Fiber's ability to pause, halt, error and prioritize work
 
 ## Sending data to the server
 
@@ -1921,17 +1930,68 @@ export async function handleLikePost(_prevState, formData) {
 
 // TODO: Iframe server-actions-state
 
-// TODO: Talk about how, once we have a loading pattern and a designation between the client and server, it enables a lot of cool data loading mechanisms
+## Interweaving client and server concepts
 
-// TODO: Talk about the server-only `cache` API
+OK, as a short break, can I show you something cool? 
+
+```jsx
+import {Suspense} from "react";
+
+// Simulate an async data fetching function
+function fetchUser() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({name: "Corbin Crutchley"});
+    }, 2000);
+  });
+}
+
+// Race the passed promise against a timeout of 1 second
+function race(promise) {
+  return Promise.any([
+    promise,
+    new Promise((resolve) => setTimeout(() => resolve(), 1000))
+  ])
+}
+
+async function UserDisplay({promise}) {
+  const user = await promise;
+  return <div>{user.name}</div>;
+}
+
+export default async function Page() {
+  // Start fetching user data
+  const userPromise = fetchUser();
+
+  // If the user data takes longer than 1 second, we will not wait for it
+  // and instead render a fallback UI.
+  await race(userPromise);
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <UserDisplay promise={userPromise} />
+    </Suspense>
+  );
+}
+```
+
+// TODO: iframe `server-race`
+
+This, to me, is the single code sample that demonstrates the long-term play React has had on both the server and client. Not only do we get to use previously client-only APIs like `Suspense` to handle data loading, but we're able to leverage the existing powers of JavaScript's promise handling like `Promise.any` and `await` using the new server paradigm.
+
+Not only do React's client and server APIs marry in this code sample, but even the ideas behind JSX-over-the-wire are on full display here: We're _[serializing](https://playfulprogramming.com/posts/intro-to-web-components-vanilla-js#Serializability) a promise to send over the wire_. **Conditionally**.
+
+Pretty cool, right?
+
+Alright alright, back to the feature showcase.
 
 ## Beyond
 
-// TODO: Talk about serializing state like promises
+https://playfulprogramming.com/posts/explaining-reacts-cache-function
 
-// TODO: https://x.com/crutchcorn/status/1754174851936629225
 
-// TODO: https://x.com/gs_porto/status/1754568585551200337
+
+// TODO: Talk about the server-only `cache` API
 
 // TODO: Talk about Next.js PPR
 
@@ -1944,3 +2004,7 @@ export async function handleLikePost(_prevState, formData) {
 ## React Compiler
 
 // TODO: Talk about how allowing React to control the dataflow of components and strict rules around said dataflow allows a compiler to optimize things further
+
+// TODO: Talk about Prepack: https://prepack.io being a precursor to React Compiler
+
+// TODO: Talk about this: https://www.youtube.com/live/N54FZtNvk_A?si=88VN1KKb61YkPwDi&t=2318
