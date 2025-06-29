@@ -2085,3 +2085,31 @@ And it's not like React is the only framework with required performance optimiza
 
 # Takeaways
 
+> I read this whole thing and I still don't agree!
+
+Great! That's fine! Look, the goal of this article was two-fold:
+
+1) Force you to rethink criticial opinions you may have held about React for a while
+2) Teach you enough to help inform your opinions with additional context I feel most have missed
+
+I never said React was unable to be validly criticized. Hell, it's not even my favorite web framework! 
+
+But even with that said, I **do** stand by my belief that:
+
+- The React team has remained the most consistent of any web framework I've ever heard of
+- They have the best interest of their users at heart
+- The future of React remains bright as they enter into a new era for the tool
+
+And if I've managed to convince even a small subsection of readers on _some_ of these facts then I've done my job well enough.
+
+----
+
+Still wanting more, somehow??
+
+Well, I've written a free book series teaching React, Angular, and Vue all at once:
+
+<!-- ::start:link-preview -->
+
+[The Framework Field Guide](https://framework.guide)
+
+<!-- ::end:link-preview -->
