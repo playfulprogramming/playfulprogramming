@@ -77,7 +77,7 @@ export function getPostVersionsBySlug(
 ): PostVersion[] {
 	return [...posts.values()]
 		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
-		.filter((p) => p?.upToDateSlug === slug)
+		.filter((p) => p?.upToDateSlug === slug || p.slug === slug)
 		.sort(compareByPublished)
 		.map(({ locale, publishedMeta, slug, version }) => ({
 			href: locale === "en" ? `/posts/${slug}` : `/${locale}/posts/${slug}`,

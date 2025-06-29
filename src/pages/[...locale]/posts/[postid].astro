@@ -18,13 +18,15 @@ export async function getStaticPaths() {
 			},
 			props: {
 				slug: post.slug,
+				upToDateSlug: post.upToDateSlug,
 			},
 		};
 	});
 }
 
-const { slug } = Astro.props as {
+const { slug, upToDateSlug } = Astro.props as {
 	slug: string;
+	upToDateSlug: string;
 };
 
 const params = Astro.params as {
@@ -38,7 +40,8 @@ const authors = post.authors
 	.map((personId) => api.getPersonById(personId, locale))
 	.filter(isDefined);
 
-const versions = api.getPostVersionsBySlug(slug, locale);
+// the most recent version of a post does not have an upToDateSlug; also we have to use the upToDateSlug of an old version to fetch the other versions of said post
+const versions = api.getPostVersionsBySlug(upToDateSlug || slug, locale);
 
 // these need to be separate; multiple posts *can* be in a collection without having a collection entry
 const collection = post.collection
