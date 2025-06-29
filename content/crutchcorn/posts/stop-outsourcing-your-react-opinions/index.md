@@ -30,7 +30,9 @@ I've heard it all over the years:
 
 > React's so slow it needs a compiler to behave properly
 
-And I'll be honest, it's not really their faults. Hot takes are part of the game - you're actively incentivized to get content out as quickly as possible in that world. The faster you are, the more clicks you get, the more money it generates.
+These takes? Yeah, they're wrong. Maybe some flavor of them have enough nuance to get close to being right, but if you're being shilled a take like this from Theo or Prime? Unlikely.
+
+I'll be honest, it's not really their faults. Hot takes are part of the game - you're actively incentivized to get content out as quickly as possible in that world. The faster you are, the more clicks you get, the more money it generates.
 
 In ["Thinking, Fast and Slow"](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow), this kind of "fast thinking" is almost automatic; purely driven by emotion and mentally easy-to-reach experience.
 
@@ -2003,16 +2005,67 @@ The way that it works is that Next.js will detect the static content in a given 
 
 So why am I talking about a Next-specific feature in a React-only article? Well, it's proof at how React's decision to mark client and server boundaries has played out well since its inception; this feature wouldn't work if it weren't for the distinction from the code of which code is static and which is dynamic.
 
-# React's future 
+# React's future
 
-## `<Activity>`
+While we've covered everything released that's stable as of the release of this article, there's still more we know about React's future that I'd like to talk about, since I think they help continue the story of React's consistency and willingness to improve your experiences with it through decisions made in the past.
 
-// TODO: Talk about how we can lean into the VDOM state system to allow for preserving state between unrenders and re-renders
+## Preserving off-screen state in the VDOM
+
+While still experimental, [the `<Activity>` API](https://react.dev/reference/react/Activity) is another feature that leans into the VDOM and provides value that would be challenging or otherwise impossible without other React APIs at play.
+
+Here's how it works:
+
+- You pass a component with state as the child of the `<Activity>` component
+- You use the `mode` property on `<Activity>` to mark it as `'visible'` or `'hidden'`
+- React then removes the relevant DOM nodes while retaining the state of the children in the VDOM when the children are `'hidden'`
+
+```jsx
+import { unstable_Activity as Activity, useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  );
+}
+
+export default function App() {
+  const [hideCount, setHideCount] = useState(false);
+  return (
+    <>
+      <button onClick={() => setHideCount(v => !v)}>
+        Toggle Count
+      </button>
+      <br/>
+      <Activity mode={hideCount ? 'hidden' : 'visible'}>
+        <Counter />
+      </Activity>
+    </>
+  );
+}
+```
+
+// TODO: Add iframe activity-example
+
+
+
+![TODO: Add alt](./before_activity.png)
+
+![TODO: Add alt](./after_activity.png)
+
+This is particularly useful in applications where you need to hide some of the UI; like apps with tabbed content or specific routing.
 
 ## React Compiler
+
+How appropriate that we'd leave arguably the biggest feature in React's development until the end of the article.
 
 // TODO: Talk about how allowing React to control the dataflow of components and strict rules around said dataflow allows a compiler to optimize things further
 
 // TODO: Talk about Prepack: https://prepack.io being a precursor to React Compiler
 
 // TODO: Talk about this: https://www.youtube.com/live/N54FZtNvk_A?si=88VN1KKb61YkPwDi&t=2318
+
+# Takeaways
+
