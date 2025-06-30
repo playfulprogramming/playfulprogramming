@@ -8,9 +8,29 @@
 }
 ---
 
-// TODO: Write intro
+[React](https://react.dev/) is a strange web development framework. I've found that many of their APIs require a specific mindset to use them properly; why is that?
 
-# The first days of React
+I had this very same question myself for years and years of using React until one day, something clicked. A culmination of years of listening to the React core team's communication mixed with observations of the tools' natural evolution finally made sense.
+
+Today, I'd like to share the story behind React that made the library finally make sense to me. This story takes two directions at the same time: One of a historical nature and one derived purely from the code itself. 
+
+Why bifurcate this story? Well, I think for most of us, it's easy to assume that React's API surface area was developed piecemeal over time without a centralized theme. But by approaching the library from its origin and exploring the ideas set out by the React team from that time until today, we'll see that isn't quite the case.
+
+Because here's my main thesis I'd like set forth along this story: **React has been incredibly consistent in its API design ever since its earliest days**. And this consistency leads to a particular mental model you can adopt to quickly become a 10x developer in React.
+
+Along the way, we'll cover:
+
+- [The foundation of React; Its history, JSX, and the VDOM](#react-history-intro).
+- [Early component authoring; Class components and its usage at the time](#class-components).
+- [The introduction to hooks and how it changed React](#hooks)
+- [How a rewrite of React changed everything](#fiber)
+- [Why React's data fetching model looks like it does today](#use)
+- [React's "move" to the server](#ssr)
+- [The near-term future of React's APIs](#future)
+
+Without further ado, let's dive in!
+
+# The first days of React {#react-history-intro}
 
 The year is 2011; Facebook has a problem. They've got an in-house framework, "[BoltJS](https://web.archive.org/web/20130608154901/http://shaneosullivan.github.io/boltjs/intro.html)" that they're using in-house on their "ads" team. It's _working_, but there are problems in the code. While ~90% of the problems on the ads product can be written in Bolt, there are instances in the project that the team has had to eject from their own framework and use less declarative solutions.
 
@@ -292,7 +312,7 @@ Internally, this worked by introducing a diffing stage to the "reconciliation" s
 >
 > Want to learn more about the reconciliation process? [Here's a resource I wrote to explain the process more in-depth](/posts/ffg-fundamentals-side-effects#rendering-committing-painting).
 
-# Early developer experience
+# Early developer experience {#class-components}
 
 React launched in 2013 with the concept of class-based components; Hooks wouldn't be released until 2019. But class-based components themselves were not universally loved.
 
@@ -524,7 +544,7 @@ This limited its functionality in real-world codebases and, to help avoid a spli
 
 It wouldn't be until much later when this problem would be solved...
 
-# Maturing the developer experience
+# Maturing the developer experience {#hooks}
 
 [React's Hooks were introduced in React 16.8](/blog/2019/02/06/react-v16.8.0.html). With them, a solution to the stateless function components was solved and the baseline for future React features was established.
 
@@ -1285,7 +1305,7 @@ This change now results in a smoother text update experience:
 
 <iframe data-frame-title="Concurrent Demo - StackBlitz" src="pfp-code:./fiber-example-react?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
-# The big play: First-class data fetching
+# The big play: First-class data fetching {#use}
 
 The Fiber was a massive boon to React's future, no doubt. But it felt like everything that came before [React 19](https://react.dev/blog/2024/12/05/react-19#new-feature-use) was building towards something bigger; some way to leverage all of the experience that the React team had been preparing for after all this time.
 
@@ -1735,7 +1755,7 @@ function App() {
 }
 ```
 
-# A "move" to the server
+# A "move" to the server {#ssr}
 
 Server-side rendering, as a practice, has been around for... Well, as long as the web. To write your template in one language and compile it into the primitives the web understands (HTML, CSS, JS) is the core model for everything from WordPress, Ruby on Rails, and — yes — React server-side solutions.
 
@@ -2001,7 +2021,7 @@ The way that it works is that Next.js will detect the static content in a given 
 
 So why am I talking about a Next-specific feature in a React-only article? Well, it's proof of how React's decision to mark client and server boundaries has played out well since its inception; this feature wouldn't work if it weren't for the distinction from the code of which code is static and which is dynamic.
 
-# React's future
+# React's future {#future}
 
 While we've covered everything released that's stable as of the release of this article, there's still more we know about React's future that I'd like to talk about. I think they help continue the story of React's consistency and willingness to improve your experiences with it through decisions made in the past.
 
