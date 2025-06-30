@@ -70,7 +70,7 @@ As 2013 came in, the team that had been pushing for React's open-sourcing would 
 >
 > Eager to learn more of React's early history? Check out [the official blog post outlining much of the technical history of React](https://legacy.reactjs.org/blog/2016/09/28/our-first-50000-stars.html), or maybe [the React Documentary from CultRepo](https://www.youtube.com/watch?v=8pDqJVdNa44)
 
-Even then, the first release of React was [heavily criticized](https://news.ycombinator.com/item?id=5789055). Amongst the concerns? Their newly introduced method of writing markup: JSX.
+Let's explore what the team introduced at that time...
 
 ## The problems of markup
 
@@ -134,15 +134,9 @@ function App() {
 
 This also meant that even across code transforms the line of code, an error was thrown could map one-to-one with the final output ran in the browser; great for debugging!
 
-But these improvements didn't make for a smooth ship for the React team. As mentioned earlier, JSX came heavily criticized, for one reason predominantly...
-
 ### "Separation of concerns" doesn't mean what you think it means
 
-> Separation of concerns is a pretty core tenant of CS. React just seems wrongity wrong wrong wrong. #jsconf
-
-\- [A Twitter post from 2013 about React's introduction](https://x.com/nickcrohn/status/339855304160329728).
-
-They weren't alone. One of the common cries against JSX was the idea that it broke "separation of concerns." See, most projects broke apart their code based on the language and type of code that was being used early on:
+One of the common cries against JSX was the idea that it broke "separation of concerns." See, most projects broke apart their code based on the language and type of code that was being used early on:
 
 <!-- ::start:filetree -->
 
@@ -286,8 +280,6 @@ In pragmatic terms, this means that we do not need to track what component is be
 
 And this data isn't static, either! Click the button to trigger the state change of `count` and your `render` function will execute immediately; giving you a quick and convenient method of [reactivity](/posts/what-is-reactivity).
 
-But this idea of "render everything for every state change" came with its own set of difficulties...
-
 ## Making markup reactive
 
 While JSX allowed for lots of flexibility, it meant that templates required a re-execution of all template nodes to construct [the DOM](/posts/understanding-the-dom) with new values.
@@ -314,7 +306,7 @@ Internally, this worked by introducing a diffing stage to the "reconciliation" s
 
 # Early developer experience {#class-components}
 
-React launched in 2013 with the concept of class-based components; Hooks wouldn't be released until 2019. But class-based components themselves were not universally loved.
+React launched in 2013 with the concept of class-based components; Hooks wouldn't be released until 2019. This was great, as it allowed for modulization of your code, but came with its own problems.
 
 See, a core tenant of components is that they're able to compose; meaning that **we can build a new component from existing components**:
 
@@ -510,8 +502,6 @@ Prior to hooks, this was the state-of-the-art when it came to component logic re
 
 Unfortunately, this required knowledge of what `props` to expect from the parent component, was challenging to allow [TypeScript](/posts/introduction-to-typescript) and other type-checker usage, and ultimately felt like an addon pattern rather than a clean, built-in composition pattern from React itself.
 
-While there were ways around this, it was clear that class-based components needed an alternative...
-
 ## Early alternatives to class-components
 
 [In 2015, React 0.14 was released.](https://legacy.reactjs.org/blog/2015/10/07/react-v0.14.html#stateless-function-components) This release brought an alternative to class-based components: Function components.
@@ -541,8 +531,6 @@ var Aquarium = (props) => {
 This was cleaner in many ways, but came with a major caveat: Function components couldn't contain their own state.
 
 This limited its functionality in real-world codebases and, to help avoid a split in code usage, many decided to stick with class-based components for all of their components.
-
-It wouldn't be until much later when this problem would be solved...
 
 # Maturing the developer experience {#hooks}
 
@@ -608,13 +596,7 @@ function WindowSize() {
 }
 ```
 
-This came with a number of criticisms;
-
-- Migrating from class-based components was harder because of a lack of lifecycle methods
-- Effects became harder to manage because the whole component would re-render instead of "just" the `render` method
-- Hooks came with their own rules that many found obnoxious
-
-But despite this, it had a number of benefits, the biggest of which going back to the concept of composition.
+This change in API had a number of benefits, the biggest of which going back to the concept of composition.
 
 ## Adopting components' strengths in the logic layer
 
@@ -736,8 +718,6 @@ function Listener() {
 ```
 
 This is a major reason why React never introduced a 1:1 mapping of the old class-component lifecycle to function components; They enabled superior handling of effect management and cleanup.
-
-Now if only we could have a way to force this cleanup...
 
 ## Solving React's consistency problems
 
@@ -886,149 +866,7 @@ function DisallowedHooksUsage() {
 }
 ```
 
-Many found these rules frustrating, but they were present for a good reason: It was required so that React's VDOM could reach its full potential...
-
-## Bringing it back to markup
-
-Before we dive into how the rules of Hooks helped enable React's future, let's first explore the internals of React Hooks and understand the code behind them.
-
-After all, React doesn't transform a function component in any way, so how does `useState` persist its value internally?
-
-Were we to try this without `useState`, we'd notice quickly how this behavior differs from a normal JavaScript function:
-
-```jsx
-function Test() {
-	const a = 1;
-	console.log(a);
-	a++;
-}
-
-Test(); // 1
-Test(); // 1
-Test(); // 1
-```
-
-See, to make the magic of a function remembering state to work, Hooks don't just _work alongside_ the VDOM, the method of persisting data in a component from a function **requires** the VDOM.
-
-Here's one way we could persist state using a naïve implementation of hooks storage using an array:
-
-```javascript
-const state = [];
-
-/**
- * React "increments" this internally
- * for each hook it runs into.
- * We won't for now, for simplicity.
- */
-let idx = 0;
-
-function useState(init) {
-	state[idx] = state[idx] ?? { val: init };
-
-	return [state[idx].val, (data) => (state[idx].val = data)];
-}
-
-function Test() {
-	const [data, setData] = useState(1);
-
-	console.log(data);
-
-	setData(data + 1);
-}
-
-Test(); // 1
-Test(); // 2
-Test(); // 3
-```
-
-While it may seem silly to use an array to store a Hook's state in a component, this is exactly how the React team teaches early insider knowledge about Hooks publicly:
-
-- [Swyx's "Getting Closure on React Hooks" article](https://www.swyx.io/hooks)
-- [Dan Abramov's "Why Do React Hooks Rely on Call Order?"](https://overreacted.io/why-do-hooks-rely-on-call-order/)
-
-> **Aside:**
->
-> It's because a Hook's state is stored in an array — or, in reality, a linked list — that explains why you can't conditionally call a hook, by the way.
->
-> If you were to conditionally call a hook, it would shift the index:
->
-> ```javascript
-> // First render
-> let bool = true;
-> function App() {
-> 	if (bool) useState("some"); // Idx 1
-> 	useState("val"); // Idx 2
-> }
->
-> // Second render
-> let bool = false;
-> function App() {
-> 	if (bool) useState("some"); // Skipped
-> 	useState("val"); // Idx 1 - recieves the "some" val from prior hook
-> }
-> ```
-
-Let's expand this idea out a bit and store the array state in an abstract representation of the component via an internal `Component` class:
-
-```jsx
-// Global reference to current component
-let currentComponent = null;
-
-// Component class to hold hook state array
-class Component {
-	constructor() {
-		this.state = [];
-		this.currentHookIndex = 0;
-	}
-
-	render(renderFn) {
-		// Reset state for this render
-		currentComponent = this;
-
-		// Reset hook index for this render
-		this.currentHookIndex = 0;
-
-		// Call the component function
-		const result = renderFn();
-
-		return result;
-	}
-}
-
-function useState(init) {
-	const component = currentComponent;
-	const idx = component.currentHookIndex;
-
-	component.state[idx] = component.state[idx] ?? { val: init };
-
-	// Increment for next hook call
-	component.currentHookIndex++;
-
-	return [
-		component.state[idx].val,
-		(data) => (component.state[idx].val = data),
-	];
-}
-
-function Test() {
-	const [data, setData] = useState(1);
-
-	console.log(data);
-
-	setData(data + 1);
-}
-
-// Create component and run renders
-const component = new Component();
-
-component.render(Test); // 1
-component.render(Test); // 2
-component.render(Test); // 3
-```
-
-See, this internal `Component` class isn't just an idea I came up with; it's more representative of how state is stored in a VDOM node in React. When React decides it's time to render a given component, it pulls up the Hook state from the node.
-
-Now if only there was an explanation of _why_ this was needed...
+Let's explore why these rules were put in place.
 
 # Leveraging the VDOM's full potential {#fiber}
 
@@ -1049,7 +887,7 @@ While I'll leave the nuances of how Fiber works [in this GitHub repo by Andrew](
 
 > This list is taken directly from [Andrew's GitHub explainer](https://github.com/acdlite/react-fiber-architecture).
 
-These abilities required Hooks to operate with the limits they have today, but unblocked a slew of features and set the stage for the future...
+These abilities required Hooks to operate with the limits they have today, but unblocked a slew of features and set the stage for the future.
 
 > **Further reading:**
 >
@@ -1765,18 +1603,7 @@ Server-side rendering, as a practice, has been around for... Well, as long as th
 
 In fact, while there were more out-of-the-box solutions that streamlined React's SSR usage — like [Next.js in 2016](https://github.com/vercel/next.js/releases/tag/1.0.0) — [React has had the ability to server-side render all the way back in its second-ever public release of 0.4.](https://legacy.reactjs.org/blog/2013/07/17/react-v0-4-0.html#react) It was even highlighted [how to use React and Rails together](https://legacy.reactjs.org/blog/2013/07/30/use-react-and-jsx-in-ruby-on-rails.html) and [even in Python](https://legacy.reactjs.org/blog/2013/08/19/use-react-and-jsx-in-python-applications.html) on React's official blog shortly after.
 
-Despite this early adoption of SSR, however, React's support for server-centric coding seems to have sparked some controversy in recent years, largely in part due to [the React team's relationship with Vercel](https://blog.isquaredsoftware.com/2025/06/react-community-2025/#concern-vercel-next-and-react).
-
-But the idea that Vercel has "taken over" React is silly for a few reasons:
-
-1. You can still use React just as well using client-side rendering in 2025 as 2013.
-2. The server-side story of React predates Vercel's (then called [ZEIT](https://github.com/zeit)) founding (and therefore, Next.js) by many years.
-   - [ZEIT was founded in 2015](https://www.infoworld.com/article/2334531/vercel-netlify-and-the-new-era-of-serverless-paas.html#vercel-a-cdn-for-front-end-developers) and [React's SSR usage](https://github.com/petehunt/react-server-rendering-example/tree/c2e6093a0868fb9f22d4f73e3538b6dde73957f9) predates it being open-sourced.
-3. Even the earliest prototypes of FaxJS (Jordan Walke's initial prototype of React) cited [Facebook's own server-side renderer — XHP](https://www.facebook.com/notes/10158791323777200/) — as inspiration.
-   - Fun fact; XHP, itself was inspired by [a JavaScript XML interop story called "ECMAScript for XML", or "E4X"](https://en.wikipedia.org/wiki/ECMAScript_for_XML).
-4. [RSCs had been discussed internally at Facebook since 2016 with an internal document titled "What comes after GraphQL"](https://youtu.be/Fctw7WjmxpU?si=vepJN5ctLoQ38cyf&t=67)
-
-Now that we've gotten that out of the way, let's explore how even React's server support has deeply nested roots into React's history and previously built feature set.
+Given this, let's explore how even React's server support has deeply nested roots into React's history and previously built feature set.
 
 ## Solving the "two computers" problems
 
