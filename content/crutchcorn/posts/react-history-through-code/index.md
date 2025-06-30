@@ -1,6 +1,6 @@
 ---
 {
-  title: "Stop Outsourcing Your React Opinions",
+  title: "The History of React Through Code",
   description: "TODO: Write this",
   published: "2025-08-01T05:12:03.284Z",
   tags: ["react", "javascript", "webdev", "opinion"],
@@ -8,45 +8,7 @@
 }
 ---
 
-Look, I get it. Tech content creators are fun. But seriously, you've **got** to stop letting others think for you.
-
-I've heard it all over the years:
-
-> Separations of concerns don't work with JSX
-
-> Class-components can't compose
-
-> Hooks should have had a 1:1 mapping with class component's lifecycle methods
-
-> It's silly that function components re-run the function itself
-
-> Hooks are so fragile that they don't even allow conditional usage
-
-> React changes every year; way to fatigue the ecosystem
-
-> StrictMode breaks my app because React doesn't work right
-
-> Vercel took over React to build RSC to sell more servers
-
-> React's so slow it needs a compiler to behave properly
-
-These takes? Yeah, they're wrong. Maybe some flavor of them has enough nuances to get close to being right, but if you're being shilled a take like this from Theo or Prime? Unlikely.
-
-I'll be honest, it's not really their fault. Hot takes are part of the game — you're actively incentivized to get content out as quickly as possible in that world. The faster you are, the more clicks you get, the more money it generates.
-
-In ["Thinking, Fast and Slow"](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow), this kind of "fast thinking" is almost automatic; purely driven by emotion and mentally easy-to-reach experience.
-
-But c'mon, we're adults, surely we can take our time to digest the work being done for us and try to understand a different perspective?
-
-**React can absolutely be validly criticized, but to do so we should take a closer look at the decision-making matrix the team has employed while building out React over the past ten plus years**.
-
-Because here's my thing: I think that **a majority of hot takes about React are wrong** and stem from kneejerk reactions that don't take the broader scope of things into mind.
-
-In fact, I'll go further:
-
-Whether or not you agree with the tradeoffs that were made, **React's decision-making has been remarkably consistent and broadly has your best interests in mind**.
-
-To present my case, we'll explore the concepts React has introduced along the way and potentially build out a new mental model for the framework as we go.
+// TODO: Write intro
 
 # The first days of React
 
@@ -2111,24 +2073,9 @@ And it's not like React is the only framework with required performance optimiza
 
 # Takeaways
 
-> I read this whole thing and I still don't agree!
+// TODO: Write outro
 
-Great! That's fine! Look, the goal of this article was two-fold:
-
-1. Force you to rethink critical opinions you may have held about React for a while
-2. Teach you enough to help inform your opinions with additional context I feel most have missed
-
-I never said React was unable to be validly criticized. Hell, it's not even my favorite web framework!
-
-But even with that said, I **do** stand by my belief that:
-
-- The React team has remained the most consistent of any web framework I've ever heard of
-- They have the best interest of their users at heart
-- The future of React remains bright as they enter into a new era for the tool
-
-And if I've managed to convince even a small subsection of readers on _some_ of these facts, then I've done my job well enough.
-
----
+----
 
 Still wanting more, somehow??
 
