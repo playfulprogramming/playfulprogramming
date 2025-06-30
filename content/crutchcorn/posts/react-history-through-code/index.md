@@ -1775,61 +1775,6 @@ export async function handleLikePost(_prevState, formData) {
 
 <iframe data-frame-title="Server Actions State - StackBlitz" src="pfp-code:./server-actions-state?template=node&embed=1&file=src%2Fapp%2Fpage.jsx"></iframe>
 
-## Interweaving client and server concepts
-
-OK, as a short break, can I show you something cool?
-
-```jsx
-import { Suspense } from "react";
-
-// Simulate an async data fetching function
-function fetchUser() {
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve({ name: "Corbin Crutchley" });
-		}, 2000);
-	});
-}
-
-// Race the passed promise against a timeout of 1 second
-function race(promise) {
-	return Promise.any([
-		promise,
-		new Promise((resolve) => setTimeout(() => resolve(), 1000)),
-	]);
-}
-
-async function UserDisplay({ promise }) {
-	const user = await promise;
-	return <div>{user.name}</div>;
-}
-
-export default async function Page() {
-	// Start fetching user data
-	const userPromise = fetchUser();
-
-	// If the user data takes longer than 1 second, we will not wait for it
-	// and instead render a fallback UI.
-	await race(userPromise);
-
-	return (
-		<Suspense fallback={<div>Loading...</div>}>
-			<UserDisplay promise={userPromise} />
-		</Suspense>
-	);
-}
-```
-
-<iframe data-frame-title="Server Race - StackBlitz" src="pfp-code:./server-race?template=node&embed=1&file=src%2Fapp%2Fpage.jsx"></iframe>
-
-This, to me, is the single code sample that demonstrates the long-term play React has had on both the server and client. Not only do we get to use previously client-only APIs like `Suspense` to handle data loading, but we're able to leverage the existing powers of JavaScript's promise handling like `Promise.any` and `await` using the new server paradigm.
-
-Not only do React's client and server APIs marry in this code sample, but even the ideas behind JSX-over-the-wire are on full display here: We're _[serializing](https://playfulprogramming.com/posts/intro-to-web-components-vanilla-js#Serializability) a promise to send over the wire_. **Conditionally**.
-
-Pretty cool, right?
-
-Alright, alright, back to the feature showcase.
-
 ## Beyond basic SSR
 
 OK, while there's a bunch of other features to showcase between React and the server, like [the `cache` API](/posts/explaining-reacts-cache-function), I instead want to talk about a feature that's _not_ part of React's core: Next.js' partial pre-rendering API.
@@ -1904,9 +1849,7 @@ You may know it by now; maybe you don't. React is getting a compiler to optimize
 
 This compilation requires that your code strictly follow the rules of React Hooks, behaves well with StrictMode, and broadly follows any other React rules that have been outlined in [their ESLint rules](https://react.dev/learn/react-compiler#installing-eslint-plugin-react-compiler).
 
-This move has shown [huge improvements for large-scale projects](https://youtu.be/lyEKhv8-3n0?si=4oUjrIoztcW-X70C&t=3296), but has also come with criticisms.
-
-Once again, though, the criticisms often come with a misunderstanding of React's history and stated goals.
+This move has shown [huge improvements for large-scale projects](https://youtu.be/lyEKhv8-3n0?si=4oUjrIoztcW-X70C&t=3296), but its core concepts aren't entirely new for React.
 
 See, the React Compiler wasn't the first JavaScript compiler project Facebook has undertaken: [as far back as 2017](https://github.com/facebookarchive/prepack/releases/tag/v0.2.6) Facebook was working on ["Prepack"](https://prepack.io/), a generalized JavaScript compiler to take code and try to resolve as much logic as it could ahead-of-time:
 
