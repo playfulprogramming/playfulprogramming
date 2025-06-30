@@ -58,8 +58,7 @@
 	font-weight: var(--weight_semibold);
 	font-size: var(--button_regular_font-size);
 	line-height: var(--button_regular_line-height);
-	@include transition(background-color);
-	@include transition(border);
+	@include transition(background-color border);
 	cursor: pointer;
 
 	&:hover {
@@ -68,12 +67,9 @@
 	}
 
 	&:focus {
-		outline: 4px solid #8c4585;
-		background-color: #fff;
-
-		.date {
-			color: #531350;
-		}
+		outline: var(--date-dropdown_focus-outline_width) solid
+			var(--date-dropdown_focus-outline_color);
+		background-color: var(--date-dropdown_background-color_focused);
 
 		.down {
 			transform: rotate(180deg);
