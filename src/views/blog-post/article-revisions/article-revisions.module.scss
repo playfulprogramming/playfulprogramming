@@ -115,9 +115,12 @@
 	box-shadow: var(--shadow_popup);
 	border: var(--border-width_s) solid var(--background_disabled);
 	min-width: var(--popup_min-width);
-	top: calc(anchor(bottom) + 8px);
-	left: calc(anchor(start) - 12px);
-	position-visibility: anchors-visible;
+
+	&.anchored {
+		top: calc(anchor(bottom) + 8px);
+		left: calc(anchor(start) - 12px);
+		position-visibility: anchors-visible;
+	}
 
 	.item {
 		background: unset;
