@@ -365,7 +365,7 @@ While each of these steps may call a different tool under-the-hood, most bundler
 
 As such, you typically either do not need to modify a bundler's behavior beyond a couple of configuration options, if even.
 
-> This isn't to say that you can never modify a bundler's behavior; just be aware that when you do so, there tends to be seldom resources out there to explain what to do to fix things when they go awry. Thar be dragons. 🐉
+> This isn't to say that you can never modify a bundler's behavior; just be aware that when you do so, there tends to be seldom resources out there to explain what to do to fix things when they go away. Thar be dragons. 🐉
 
 
 
