@@ -22,7 +22,7 @@ export function ArticleRevisionDropdown({
 	const { slug, publishedMeta, version } = post;
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
-	const currentPostVersion = versions.filter(({ href }) => href === slug);
+	const currentPostVersion = versions.filter(({ href }) => href.endsWith(slug));
 
 	const date = currentPostVersion.length
 		? currentPostVersion[0]["publishedMeta"]
@@ -108,7 +108,7 @@ export function ArticleRevisionDropdown({
 					{versions.map(({ href, publishedMeta, version }, i) => (
 						<Option
 							key={i}
-							isSelected={href === slug}
+							isSelected={href.endsWith(slug)}
 							text={publishedMeta}
 							icon={version}
 						/>
@@ -124,7 +124,7 @@ export function ArticleRevisionDropdown({
 					>
 						{versions.map(({ href, publishedMeta, version }, i) => (
 							<li
-								class={`${style.item} ${slug === href ? style.selected : ""}`}
+								class={`${style.item} ${href.endsWith(slug) ? style.selected : ""}`}
 								key={i}
 							>
 								<a href={href}>
