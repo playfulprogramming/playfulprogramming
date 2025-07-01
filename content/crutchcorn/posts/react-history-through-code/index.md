@@ -1863,16 +1863,23 @@ And it's not like React is the only framework with required performance optimiza
 
 # Takeaways
 
-// TODO: Write outro
+As we've learned about React's development through the years, a clear pattern emerges. The story of React is one built on a core philosophy that has matured in a number of ways over time.
+
+Not only do the React teams' actions indicate a long-term thought process applied pragmatically through unwavering support of features new and old, but the vision of React seems, to me at least, that they've kept a wholistic view of the library's usage along all this time.
+
+Whether we're talking about the virtual DOM, Hooks, or even RSCs, it's clear that React has stuck to these ideals. Put another way, no React feature exists in a vacuum.
+
+It's this consistency and commitment to improvement that makes it clear that the React team has our best interests in mind.
 
 ----
 
-Still wanting more, somehow??
+Still hungry for more React learnings?
 
-Well, I've written a free book series teaching React, Angular, and Vue all at once:
+Well, I've written a free book series teaching React, Angular, and Vue all at once that might spark your interest:
 
 <!-- ::start:link-preview -->
 
 [The Framework Field Guide](https://framework.guide)
 
 <!-- ::end:link-preview -->
+
