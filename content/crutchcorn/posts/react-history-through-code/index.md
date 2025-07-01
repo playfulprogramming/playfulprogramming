@@ -2,8 +2,8 @@
 {
   title: "The History of React Through Code",
   description: "Learn React's history using pragmatic code samples and deep dives. This journey reveals the consistent design in React's APIs stemming from the very beginning.",
-  published: "2025-08-01T05:12:03.284Z",
-  tags: ["react", "javascript", "webdev", "opinion"],
+  published: "2025-07-09T05:12:03.284Z",
+  tags: ["react", "javascript", "webdev"],
   license: "cc-by-nc-sa-4",
 }
 ---
@@ -12,7 +12,7 @@
 
 I had this very same question myself for years and years of using React until one day, something clicked. A culmination of years of listening to the React core team's communication mixed with observations of the tools' natural evolution finally made sense.
 
-Today, I'd like to share the story behind React that made the library finally make sense to me. This story takes two directions at the same time: One of a historical nature and one derived purely from the code itself. 
+Today I'd like to share the story behind React that made the library finally make sense to me. This story takes two directions at the same time: One of a historical nature and one derived purely from the code itself. 
 
 Why bifurcate this story? Well, I think for most of us, it's easy to assume that React's API surface area was developed piecemeal over time without a centralized theme. But by approaching the library from its origin and exploring the ideas set out by the React team from that time until today, we'll see that isn't quite the case.
 
@@ -1865,7 +1865,7 @@ And it's not like React is the only framework with required performance optimiza
 
 As we've learned about React's development through the years, a clear pattern emerges. The story of React is one built on a core philosophy that has matured in a number of ways over time.
 
-Not only do the React teams' actions indicate a long-term thought process applied pragmatically through unwavering support of features new and old, but the vision of React seems, to me at least, that they've kept a wholistic view of the library's usage along all this time.
+Not only do the React teams' actions indicate a long-term thought process applied pragmatically through unwavering support of features new and old. However, the vision of React seems to me at least that they've kept a holistic view of the library's usage along all this time.
 
 Whether we're talking about the virtual DOM, Hooks, or even RSCs, it's clear that React has stuck to these ideals. Put another way, no React feature exists in a vacuum.
 
@@ -1873,7 +1873,7 @@ It's this consistency and commitment to improvement that makes it clear that the
 
 ----
 
-Still hungry for more React learnings?
+Still hungry for more React learning?
 
 Well, I've written a free book series teaching React, Angular, and Vue all at once that might spark your interest:
 
