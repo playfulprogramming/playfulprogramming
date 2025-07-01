@@ -1,3 +1,4 @@
+import { setTimeout } from "timers/promises";
 import { client } from "./client";
 
 interface UrlMetadataResponse {
@@ -18,14 +19,27 @@ interface UrlMetadataResponse {
 export async function getUrlMetadata(
 	url: string,
 ): Promise<UrlMetadataResponse> {
-	const { data, response } = await client.POST("/tasks/url-metadata", {
-		body: { url },
-	});
+	for (let retries = 0; retries < 10; retries++) {
+		await setTimeout(Math.pow(retries, 2) * 1000);
 
-	if (data && response.status === 200) {
-		return data;
+		const { data, response } = await client.POST("/tasks/url-metadata", {
+			body: { url },
+		});
+
+		if (data && response.status === 200) {
+			return data;
+		}
+
+		if (response.status !== 201) {
+			const error = `Error ${response.status} fetching url metadata: '${url}'`;
+			console.error(error);
+			throw new Error(error);
+		}
+
+		if (retries > 2) {
+			console.warn(`Waiting for url metadata (retry ${retries})`, { url });
+		}
 	}
 
-	const error = `Error ${response.status} fetching url: '${url}'`;
-	throw new Error(error);
+	throw new Error(`Waited too long for url metadata: '${url}'`);
 }

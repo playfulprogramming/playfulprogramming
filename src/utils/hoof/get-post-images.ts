@@ -1,3 +1,4 @@
+import { setTimeout } from "timers/promises";
 import { client } from "./client";
 
 interface PostImagesRequest {
@@ -14,14 +15,29 @@ interface PostImagesResponse {
 export async function getPostImages(
 	request: PostImagesRequest,
 ): Promise<PostImagesResponse> {
-	const { data, response } = await client.POST("/tasks/post-images", {
-		body: request,
-	});
+	for (let retries = 0; retries < 10; retries++) {
+		await setTimeout(Math.pow(retries, 2) * 1000);
 
-	if (data && response.status === 200) {
-		return data;
+		const { data, response } = await client.POST("/tasks/post-images", {
+			body: request,
+		});
+
+		if (data && response.status === 200) {
+			return data;
+		}
+
+		if (response.status !== 201) {
+			const error = `Error ${response.status} fetching post image: '${request.slug}'`;
+			console.error(error);
+			throw new Error(error);
+		}
+
+		if (retries > 2) {
+			console.warn(`Waiting for post image (retry ${retries})`, {
+				slug: request.slug,
+			});
+		}
 	}
 
-	const error = `Error ${response.status} fetching post images: '${request.slug}'`;
-	throw new Error(error);
+	throw new Error(`Waited too long for post image: '${request.slug}'`);
 }

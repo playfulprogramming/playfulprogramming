@@ -18,7 +18,6 @@ export const MockPost: PostInfo = {
 	file: "path/index.md",
 	path: "path",
 	wordCount: 10000,
-	socialImg: "img.png",
 };
 
 export const MockMultiAuthorPost: PostInfo = {
@@ -39,7 +38,6 @@ export const MockMultiAuthorPost: PostInfo = {
 	file: "path/index.md",
 	path: "path",
 	wordCount: 100000,
-	socialImg: "img.png",
 };
 
 export const MockMuliLanguagePost: PostInfo = {
@@ -60,7 +58,6 @@ export const MockMuliLanguagePost: PostInfo = {
 	file: "path/index.md",
 	path: "path",
 	wordCount: 100000,
-	socialImg: "img.png",
 };
 
 export const MockCanonicalPost: PostInfo = {
@@ -82,5 +79,4 @@ export const MockCanonicalPost: PostInfo = {
 	file: "path/index.md",
 	path: "path",
 	wordCount: 100000,
-	socialImg: "img.png",
 };

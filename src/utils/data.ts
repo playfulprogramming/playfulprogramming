@@ -8,7 +8,7 @@ import {
 	RawPersonInfo,
 } from "types/index";
 import * as fs from "fs/promises";
-import path, { join, relative } from "path";
+import path, { join } from "path";
 import { isNotJunk as baseIsNotJunk } from "junk";
 import { getImageSize } from "../utils/get-image-size";
 import { resolvePath } from "./url-paths";
@@ -26,7 +26,6 @@ import aboutRaw from "../../content/data/about.json";
 import rolesRaw from "../../content/data/roles.json";
 import licensesRaw from "../../content/data/licenses.json";
 import tagsRaw from "../../content/data/tags.json";
-import { getPostImages } from "./hoof";
 
 function isNotJunk(name: string): boolean {
 	// Ignore VSCode and JetBrains project files
@@ -308,15 +307,6 @@ async function readPost(
 			}
 		});
 
-		const postImages = await getPostImages({
-			slug,
-			author: frontmatter.authors?.at(0) ?? fallbackInfo.authors[0],
-			path: relative(process.cwd(), filePath),
-		}).catch((e) => {
-			console.error(e);
-			return undefined;
-		});
-
 		postObjects.push({
 			...fallbackInfo,
 			...frontmatter,
@@ -335,8 +325,6 @@ async function readPost(
 				dayjs(frontmatter.published).format("MMMM D, YYYY"),
 			editedMeta:
 				frontmatter.edited && dayjs(frontmatter.edited).format("MMMM D, YYYY"),
-			bannerImg: postImages?.banner,
-			socialImg: postImages?.linkPreview,
 		});
 	}
 
