@@ -8,7 +8,11 @@
 }
 ---
 
-// TODO: Write intro
+In my article ["The History of React Through Code"](/posts/react-history-through-code), I talked a lot about how [the rules of React Hooks were introduced so that it could interact correctly with the previous "Fiber" rewrite](/posts/react-history-through-code#Enforcing-rules-for-consistency).
+
+I'd like to think that I did a sufficient job explaining how this limitation led to more features in React and eventually even performance improvements through [the React Compiler](/posts/react-history-through-code#Optimizing-code-automatically) since React was able to store the state of a function relative to its parent component...
+
+But wait, how does _that_, like, **work**?
 
 # An Array-Focused Intro to Hooks
 
@@ -90,9 +94,9 @@ While it may seem silly to use an array to store a Hook's state in a component, 
 
 # Component-focused state
 
-// TODO: Talk about how the "increment" isn't a slight of hand, either but based on how the VDOM works
+Now that suffices as a high-level explaination, but let's expand this idea out a bit. After all, `"React "increments" this internally for each hook it runs into."`? That's a bit vague.
 
-Let's expand this idea out a bit and store the array state in an abstract representation of the component via an internal `Component` class:
+Let's try to implement this using the array storage system we came up with earlier, but instead lean into the VDOM's component tracking. This will allow us to store the array state in an abstract representation of the component via an internal `Component` class:
 
 ```jsx
 // Global reference to current component
@@ -154,9 +158,38 @@ See, this internal `Component` class isn't just an idea I came up with; it's mor
 
 # A rework to linked lists
 
-// TODO: Write
+But wait, if we look at [React's source code for a Hook's state](https://github.com/facebook/react/blob/c0464aedb16b1c970d717651bba8d1c66c578729/packages/react-reconciler/src/ReactFiberHooks.js#L192-L198):
 
-In reality, Hooks are implemented using a linked list.
+```typescript
+export type Hook = {
+  memoizedState: any,
+  baseState: any,
+  baseQueue: Update<any, any> | null,
+  queue: any,
+  next: Hook | null,
+};
+```
+
+We'll see that there's stuff we'd expect, but then a reference to the `next` Hook in the chain...
+
+> Wait, Hooks are actually implemented internally using a linked list??
+
+That's right!
+
+In fact, we can even see that [React stores a global reference of the current Hook being processed](https://github.com/facebook/react/blob/c0464aedb16b1c970d717651bba8d1c66c578729/packages/react-reconciler/src/ReactFiberHooks.js#L261-L266):
+
+```typescript
+// Hooks are stored as a linked list on the fiber's memoizedState field. The
+// current hook list is the list that belongs to the current fiber. The
+// work-in-progress hook list is a new list that will be added to the
+// work-in-progress fiber.
+let currentHook: Hook | null = null;
+let workInProgressHook: Hook | null = null;
+```
+
+----
+
+Knowing this, let's modify our implementation to track a component's Hook using a linked list:
 
 ```javascript
 // Linked list node for each hook
@@ -243,7 +276,3 @@ component.render(MyComponent); // 3
 ```
 
 
-
-https://github.com/facebook/react/blob/c0464aedb16b1c970d717651bba8d1c66c578729/packages/react-reconciler/src/ReactFiberHooks.js#L193-L198
-
-https://github.com/facebook/react/blob/c0464aedb16b1c970d717651bba8d1c66c578729/packages/react-reconciler/src/ReactFiberHooks.js#L261-L266
