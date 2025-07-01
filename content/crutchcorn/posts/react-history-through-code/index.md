@@ -284,7 +284,7 @@ And this data isn't static, either! Click the button to trigger the state change
 
 While JSX allowed for lots of flexibility, it meant that templates required a re-execution of all template nodes to construct [the DOM](/posts/understanding-the-dom) with new values.
 
-![TODO: Write alt](./without_vdom.png)
+![Without a VDOM, React will re-render all components present](./without_vdom.png)
 
 While smaller scale applications wouldn't likely run into challenges with this approach, large DOM trees would incur massive performance implications as a result of this decision.
 
@@ -292,13 +292,13 @@ To solve this, the team used a concept of a "virtual DOM" (VDOM). This VDOM was 
 
 Then, when a given component needed to update the DOM, it would check against this VDOM and only localize the re-render to the specific node.
 
-![TODO: Write alt](./with_vdom.png)
+![With a VDOM, React can localize the re-render to only the impacted component subtree](./with_vdom.png)
 
 This was a huge optimization that allowed for much more performant React applications to scale outward.
 
 Internally, this worked by introducing a diffing stage to the "reconciliation" step of React. It's worth mentioning that [even early React builds had optimized much of the diffing process of the VDOM](https://calendar.perfplanet.com/2013/diff/).
 
-![The same DOM tree as before is mirrored both in React's VDOM but in the browser's DOM as well](../../collections/react-beyond-the-render/posts/what-is-reconciliation-and-the-vdom/diff-commit.svg)
+![React handles a state change, which triggers a VDOM diff. This diff will lead to a pre-commit update of the VDOM, which is then commited to the DOM itself](../../collections/react-beyond-the-render/posts/what-is-reconciliation-and-the-vdom/diff-commit.svg)
 
 > **Further reading**:
 >
@@ -752,13 +752,13 @@ To explain idempotence, let's use an analogy and then dive into the real deal.
 
 Pretend you're working a factory line, and you've been given a task: Press a button to drop an empty box from a chute above you onto a conveyor belt to move the boxes into a packaging machine. This machine will place an item in the box and seal it up for you.
 
-![TODO: Write alt](./empty_boxes.png)
+![An empty factory line with a button and a shoot above the conveyer belt](./empty_boxes.png)
 
-![TODO: Write alt](./one_box.png)
+![Pressing the button will drop a box from the shute and onto the conveyer belt](./one_box.png)
 
 However, you've been warned by your supervisor: Don't press the button a second time until the first box has been fully packaged. If you do so, the second box will jam the conveyor belt as the machine in the middle of packaging the first box.
 
-![TODO: Write alt](./two_boxes.png)
+![Pressing the button on a non-idempotent system twice drops a second box too early and it jams the system](./two_boxes.png)
 
 An **idempotent** button would behave differently: It would only trigger the box to enter the factory line once the previous box had gone through the machine, **regardless of how many times you pressed the button**.
 
@@ -899,11 +899,11 @@ These abilities required Hooks to operate with the limits they have today, but u
 
 See, because of the nature of the VDOM, whenever a component threw an error, it would crash the entire React tree.
 
-![TODO: Write alt](./without_err.png)
+![Without error boundaries, a component at a leaf node can crash the entire application through a bubbled error event](./without_err.png)
 
 However, because components are laid out hierarchically, we can establish a boundary between a component that might potentially throw an error and the rest of the application state.
 
-![TODO: Write alt](./with_err.png)
+![With an error boundary, an error event can only bubble as high as the nearest error boundary. This protects the app itself from crashing](./with_err.png)
 
 Not only does this work with single nodes, but because components are grouped by their parents we can remove a group of impacted nodes at once by wrapping them in a shared `ErrorBoundary`:
 
@@ -946,7 +946,7 @@ function App() {
 }
 ```
 
-![TODO: Write alt](./error_bubble_group.png)
+![If the error boundary has multiple children, all child nodes will be removed on a caught error](./error_bubble_group.png)
 
 This work would not have been possible without the ability to abort work in Fiber's new reconciliation pipeline.
 
@@ -965,9 +965,9 @@ function MyComponent() {
 
 Lazy loading components enable React to tree-shake away the bundled code relevant to only the imported component such that the `lazy` wrapped component code wouldn't be imported into the browser until the component was rendered:
 
-![TODO: Write alt](./page_without_lazy_loading.png)
+![A page without lazy loading will see all code, used or unused alike, bundled into a single JS file](./page_without_lazy_loading.png)
 
-![TODO: Write alt](./page_with_lazy_loading.png)
+![A page with lazy loading will only load rendered components' code. If a component is not loaded, the code will not be pulled into the browser. If there is shared code between components, it will be de-duplicated into a shared bundle only loaded once regardless of how many components are rendered after-the-fact.](./page_with_lazy_loading.png)
 
 > **Further reading:**
 >
@@ -1102,7 +1102,7 @@ const LegacyDemo = () => {
 
 However, if we do this, we'll find that when the user types, it will lag the input box as the list re-renders:
 
-<video src="./legacy_demo.mp4" title="TODO: Write alt"></video>
+<video src="./legacy_demo.mp4" title="When using the blocking behavior, typing too quickly will lag the entire UI including the text input box"></video>
 
 This occurs because the rendering of the list takes longer than the user can type each individual character. To solve this, we'd need a way to tell React to defer updates to the list in favor of the changes to the input element. Luckily for us, this is what Fiber was written to enable. We can interface with Fiber to fix this using the `useTransition` API:
 
@@ -1139,7 +1139,7 @@ const LegacyDemo = () => {
 
 This change now results in a smoother text update experience:
 
-<video src="./concurrent_demo.mp4" title="TODO: Write alt"></video>
+<video src="./concurrent_demo.mp4" title="When using the concurrent behavior, typing too quickly will only lag the deprioritized UI; not the text input box"></video>
 
 <iframe data-frame-title="Concurrent Demo - StackBlitz" src="pfp-code:./fiber-example-react?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
@@ -1194,7 +1194,7 @@ Let's take a moment to look at how `use` works internally. According to [the RFC
 
 > The first thing React will try is to check if the promise was read previously, either by a different `use` call or a different render attempt. If so, React can reuse the result from last time, synchronously, without suspending.
 
-![TODO: Write alt](./how_use_works.png)
+![A parent component passes a promise down to the child which is wrapped in a Suspense component. The "use" hook then throws the promise to the suspense boundary and, when it resolves, resumes again on the child](./how_use_works.png)
 
 > **Fiber enables yet another feature:**
 >
@@ -1342,7 +1342,7 @@ function useFetch(url) {
 
 Well, while this code is syntactically correct, it's got a major flaw hidden within: The data fetches in a waterfall pattern. The user's blog posts can't load until the profile is finished loading:
 
-![TODO: Write alt](./with_waterfall.png)
+![Waterfall data fetching will see three network requests wait for the previous to finish. This means that if each takes 100ms then it will finish the last request after 300ms](./with_waterfall.png)
 
 Compare and contrast to a refactored version of this app to use the `use` API:
 
@@ -1433,7 +1433,7 @@ function fetchData(url) {
 
 Here, we can see that we managed to make our API calls in parallel, cutting down the time until the app is finally ready:
 
-![TODO: Write alt](./with_parallel.png)
+![Parallel data fetching will see two of the three network requests run at the same time. This means that if each takes 100ms then it will finish the last request after only 200ms](./with_parallel.png)
 
 ### Consolidating loading states
 
@@ -1785,7 +1785,7 @@ Well, this is what [Next.js' "Partial Pre-rendering" (PPR)](https://nextjs.org/d
 
 The way that it works is that Next.js will detect the static content in a given route, cache the results of the static content, and then deliver it in parallel to the computation of the dynamic content on subsequent invocations:
 
-![TODO: Write](./ppr.png)
+![Before partial pre-rendering you'd render and compute static and dynamic content for each request before sending the response. After PPR, you'd start render and computing the dynamic content at the same time as getting the static content from cache. This means that you can start sending the partial server response as soon as the cached data comes in and finish sending that same response once the dynamic content is ready](./ppr.png)
 
 > **Further reading:**
 >
@@ -1831,9 +1831,9 @@ export default function App() {
 
 <iframe data-frame-title="Activity - StackBlitz" src="pfp-code:./activity-example?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
-![TODO: Add alt](./before_activity.png)
+![Before the activity API the VDOM would mirror the DOM. When something is removed from the DOM it would require you removing it from the VDOM as well](./before_activity.png)
 
-![TODO: Add alt](./after_activity.png)
+![After the activity API, you can mark a VDOM node as "hidden", removing it from the DOM itself but keeping the state. Then marking it as "visible" later would change the DOM to re-show the contents](./after_activity.png)
 
 This is particularly useful in applications where you need to hide some of the UI, like apps with tabbed content or specific routing.
 
@@ -1843,7 +1843,7 @@ How appropriate that we'd leave arguably the biggest feature in React's developm
 
 You may know it by now; maybe you don't. React is getting a compiler to optimize your code using memoization and other techniques.
 
-![TODO: Write alt](./compiler.png)
+![Basic React code output to complex but still syntactically correct JavaScript code with more caching usage](./compiler.png)
 
 > The output code may look like nonsense to you or me, but it's much faster to your machine.
 
@@ -1853,7 +1853,7 @@ This move has shown [huge improvements for large-scale projects](https://youtu.b
 
 See, the React Compiler wasn't the first JavaScript compiler project Facebook has undertaken: [as far back as 2017](https://github.com/facebookarchive/prepack/releases/tag/v0.2.6) Facebook was working on ["Prepack"](https://prepack.io/), a generalized JavaScript compiler to take code and try to resolve as much logic as it could ahead-of-time:
 
-![TODO: Write alt](./prepack.png)
+![A fibonacci code call compiled away to a static "55" result number](./prepack.png)
 
 While this project never left the experimental phase, it was clear that Facebook's engineering teams were considering this kind of route years ahead of the curve.
 
