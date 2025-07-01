@@ -1,7 +1,7 @@
 ---
 {
 	title: "Let's Write React Hooks From Scratch",
-	description: "",
+	description: "Ever wondered how React's hooks function under-the-hood? Let's write our own implementation and find out together.",
 	published: '2025-08-09T05:12:03.284Z',
 	tags: ['react', 'javascript', 'webdev'],
 	license: 'cc-by-nc-sa-4'
@@ -275,4 +275,16 @@ component.render(MyComponent); // 2
 component.render(MyComponent); // 3
 ```
 
+# Conclusion
 
+Hopefully this has been helpful to explore the internals of React Hooks and their storage in a function.
+
+Want to now learn how to _leverage_ React's Hooks effectively in your applications and even how to write your own version of React from scratch?
+
+Well, I've written a free book series teaching React, Angular, and Vue all at once that goes from newcomer at the start to framework author by the end of it. Take a look:
+
+<!-- ::start:link-preview -->
+
+[The Framework Field Guide](https://framework.guide)
+
+<!-- ::end:link-preview -->
