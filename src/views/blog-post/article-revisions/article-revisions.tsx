@@ -3,6 +3,7 @@ import style from "./article-revisions.module.scss";
 import down from "src/icons/chevron_down.svg?raw";
 import { debounce } from "utils/debounce";
 import { PostInfo, PostVersion } from "types/PostInfo";
+import { Option } from "components/select/basic-option";
 
 interface PopOverLocation {
 	x: number;
@@ -105,15 +106,12 @@ export function ArticleRevisionDropdown({
 					class={`${style.popover} ${style.anchored}`}
 				>
 					{versions.map(({ href, publishedMeta, version }, i) => (
-						<li
-							class={`${style.item} ${slug === href ? style.selected : ""}`}
+						<Option
 							key={i}
-						>
-							<a href={href}>
-								<span class={style.date}>{publishedMeta}</span>
-								<span class={style.version}>{version}</span>
-							</a>
-						</li>
+							isSelected={href === slug}
+							text={publishedMeta}
+							icon={version}
+						/>
 					))}
 				</ul>
 			) : (
