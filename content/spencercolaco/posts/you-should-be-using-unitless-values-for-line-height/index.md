@@ -52,7 +52,7 @@ You may already know rem values for font sizes are preferred so your app’s fon
 </body>
 ```
 
-<iframe data-frame-title="Bad example of line height - StackBlitz" src="pfp-code:./line-height-bad-example?template=node&embed=1&file=src%2FApp.tsx"></iframe>
+<iframe data-frame-title="Bad example of line height - StackBlitz" src="pfp-code:./line-height-bad-example?template=node&embed=1&file=src%2Findex.html"></iframe>
 
 As you can see, the computed line height for the `p` and `h1` is inherited from `body` which is calculated based on the `user agent` font size therefore too small and an accessibility violation.
 
@@ -96,7 +96,7 @@ Let's try unitless:
 </body>
 ```
 
-<iframe data-frame-title="Good example of line height - StackBlitz" src="pfp-code:./line-height-good-example?template=node&embed=1&file=src%2FApp.tsx"></iframe>
+<iframe data-frame-title="Good example of line height - StackBlitz" src="pfp-code:./line-height-good-example?template=node&embed=1&file=src%2Findex.html"></iframe>
 
 Ah, much better! The only thing we changed was `line-height: 1.5rem` to `line-height: 1.5`
 
