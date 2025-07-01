@@ -1,7 +1,7 @@
 ---
 {
   title: "The History of React Through Code",
-  description: "TODO: Write this",
+  description: "Learn React's history using pragmatic code samples and deep dives. This journey reveals the consistent design in React's APIs stemming from the very beginning.",
   published: "2025-08-01T05:12:03.284Z",
   tags: ["react", "javascript", "webdev", "opinion"],
   license: "cc-by-nc-sa-4",
