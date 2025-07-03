@@ -106,12 +106,19 @@ export function ArticleRevisionDropdown({
 					class={`${style.popover} ${style.anchored}`}
 				>
 					{versions.map(({ href, publishedMeta, version }, i) => (
-						<Option
-							key={i}
-							isSelected={href.endsWith(slug)}
-							text={publishedMeta}
-							icon={version}
-						/>
+						<Option key={i}>
+							<a
+								class={`${style.item} ${href.endsWith(slug) ? style.selected : ""}`}
+								href={href}
+							>
+								<span class={`text-style-button-regular ${style.date}`}>
+									{publishedMeta}
+								</span>
+								<span class={`text-style-button-regular ${style.version}`}>
+									{version}
+								</span>
+							</a>
+						</Option>
 					))}
 				</ul>
 			) : (
@@ -123,15 +130,19 @@ export function ArticleRevisionDropdown({
 						style={{ left: `${popOverXY.x}px`, top: `${popOverXY.y}px` }}
 					>
 						{versions.map(({ href, publishedMeta, version }, i) => (
-							<li
-								class={`${style.item} ${href.endsWith(slug) ? style.selected : ""}`}
-								key={i}
-							>
-								<a href={href}>
-									<span class={style.date}>{publishedMeta}</span>
-									<span class={style.version}>{version}</span>
+							<Option key={i}>
+								<a
+									class={`${style.item} ${href.endsWith(slug) ? style.selected : ""}`}
+									href={href}
+								>
+									<span class={`text-style-button-regular ${style.date}`}>
+										{publishedMeta}
+									</span>
+									<span class={`text-style-button-regular ${style.version}`}>
+										{version}
+									</span>
 								</a>
-							</li>
+							</Option>
 						))}
 					</ul>
 				)
