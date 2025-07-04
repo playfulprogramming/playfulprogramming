@@ -171,4 +171,10 @@
 		height: var(--border-width_s);
 		background: var(--background_disabled);
 	}
+
+	.changelog {
+		display: flex;
+		padding: var(--popup_inner_padding);
+		letter-spacing: 0.14px;
+	}
 }

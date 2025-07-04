@@ -112,7 +112,14 @@ export function ArticleRevisionDropdown({
 						</a>
 					</Option>
 				))}
-				<hr class={style.divider} />
+				<Option>
+					<hr class={style.divider} />
+				</Option>
+				<Option>
+					<a class={style.changelog} href="#">
+						<span class="text-style-button-regular">View Changelog</span>
+					</a>
+				</Option>
 			</ul>
 		</div>
 	);
