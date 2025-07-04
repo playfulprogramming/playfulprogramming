@@ -28,6 +28,7 @@
 
 	// POPUP STYLES ==> taken from src/components/select/select.module.scss
 	--popup_corner-radius: var(--corner-radius_m);
+	--popup_top_offset: var(--spc-2x);
 	--popup_padding: var(--spc-2x);
 	--popup_background-color: var(--background_primary);
 	--popup_item_background-color_selected: var(--surface_primary_emphasis-low);
@@ -117,7 +118,7 @@
 	min-width: var(--popup_min-width);
 
 	&.anchored {
-		top: calc(anchor(bottom) + 8px);
+		top: calc(anchor(bottom) + var(--popup_top_offset));
 		left: calc(anchor(start) - 12px);
 		position-visibility: anchors-visible;
 	}
