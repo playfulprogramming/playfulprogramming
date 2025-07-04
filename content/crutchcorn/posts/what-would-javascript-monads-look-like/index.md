@@ -18,8 +18,29 @@ Not having much Haskell experience, this made me wonder "What does first-class s
 
 # Exploring Haskell and Scala Monad support
 
+Let's start by outlining the concept of a `Maybe` or `Option` monad: They're meant to indicate that a monad _may_ contain data or otherwise contain "nothing".
+
+Say we wanted to do something like:
+
+```javascript
+const foo: Maybe<string>;
+const bar: Maybe<string>;
+
+if (foo.isEmpty()) {
+  return Nothing;
+}
+
+if (bar.isEmpty()) {
+  return Nothing;
+}
+
+return foo + bar;
+```
+
+In Haskell, this would look like the following:
+
 ```haskell
--- Define the Maybe values, similar to Scala's Option
+-- Define the Maybe values
 maybeFoo :: Maybe String
 maybeFoo = Just "foo"
 
@@ -36,6 +57,8 @@ foobar = do
 -- The value of 'foobar' will be: Just "foobar"
 ```
 
+Meanwhile, the Scala version would look like:
+
 ```scala
 // Scala example for combining Options
 val maybeFoo: Option[String] = Some("foo")
@@ -48,69 +71,40 @@ val foobar = for {
 // Result is Some("foobar")
 ```
 
+In both of these languages, the `<-` syntax indicates that we're unwrapping the value from a `Maybe`/`Option` monad and combining them if neither value is empty.
 
+This is what first-class monad support looks like in a language; it's [syntactic sugar](https://en.m.wikipedia.org/wiki/Syntactic_sugar) that makes the chaining unwrapping operations look like simple, imperative code.
 
 # Proposing a syntax for Monads in JS
 
-
+Given this, let's take a look at what a potential syntax for Monads in JS might look like:
 
 ```javascript
 // Psuedocode with do monad for Maybe
-
-// Assume we have functions that safely return a Maybe
-// e.g., getProfile(user) returns Some(user.profile) or None
-function getStreet(user) {
+function getFoobar() {
   do monad Maybe {
-    const foo = unwrap maybeFoo();      // Unwraps the profile or stops if None
-    const bar = unwrap maybeBar();   // Unwraps the address or stops if None
-    return foo + bar; // Automatically wrapped in Some(street)
+    const foo = unwrap maybeFoo();   // Unwraps maybeFoo or stops if None
+    const bar = unwrap maybeBar();   // Unwraps maybeBar or stops if None
+    return foo + bar; // Automatically wrapped in Some(foobar)
   }
 }
 
 // Usage:
-const streetMaybe = getStreet(user); // Returns Some("123 Main St") or None
+const foobarMaybe = getFoobar(); // Returns Some("foobar") or None
 
 // We can then safely get the value
-console.log(streetMaybe.getOrElse("Street not available"));
+console.log(foobarMaybe.getOrElse(""));
 ```
 
-// TODO: Write
-
-
-
-
-
-
-
-Here's what pseudocode for first-class monad support in JavaScript might look like, often referred to as "do-notation" or "for-comprehension":
-
-```javascript
-// Pseudocode for first-class monad support
-async function getUserAndPosts() {
-  // The 'do' keyword would signal the start of a monadic chain.
-  // The 'monad' keyword would specify the type of monad (e.g., Promise, Maybe, etc.).
-  do monad Promise {
-    // Each line 'unwraps' the value from the monad.
-    const user = unwrap getUserById(123);
-    const posts = unwrap getPostsForUser(user.id);
-    const comments = unwrap getCommentsForFirstPost(posts[0].id);
-
-    // The final value is automatically wrapped in the monad type (a Promise in this case).
-    return { ...user, posts, comments };
-  }
-}
-```
+This proposed syntax comes with the following features:
 
 *   **`do` Keyword**: This would initiate a monadic block, telling the JavaScript engine to treat the following code in a special way for handling a specific monad.
     
 *   **Monad Type Specification**: You would declare which monad you're working with (e.g., `Promise`, an `Option`/`Maybe` type, etc.).
     
-*   **Automatic Unwrapping**: Inside the block, you'd interact with the values directly (`user`, `posts`) without needing to call `.then()` or `.flatMap()`. The syntax would handle the unwrapping of the value from its monadic container.
-    
 *   **Implicit Chaining**: The language would automatically chain the operations, passing the result of one line as input to the next, while handling the monadic context (like the asynchronous nature of a Promise or the null-checking of a Maybe).
     
 *   **Automatic Wrapping of Return Value**: The final `return` value is automatically placed back into the context of the monad you are working with.
-    
 
 This syntax would allow developers to write code that looks more imperative and is easier to read, while still benefiting from the powerful composition and error-handling features of monads. It abstracts away the boilerplate of manually chaining function calls.
 
@@ -158,58 +152,26 @@ Excellent question! The `do monad` syntax is powerful because it can be applied 
 
 * * *
 
-## Handling Nullable Values with `Maybe`
+## Handling async operations with `Promises`
 
-The **`Maybe`** monad is a classic functional programming tool for dealing with values that might be `null` or `undefined`. It elegantly avoids long chains of `if (x != null)` checks. A `Maybe` is an object that is either a `Some(value)` or a `None`.
-
-----
-
-Imagine you have a nested object and you want to get a deeply nested property. In standard JavaScript, this can lead to a fragile chain of property access or verbose null checks.
+// TODO: Write this and link back to previous monad article
 
 ```javascript
-// Typical JS to avoid "cannot read property of null" errors
-let user = {
-  profile: {
-    address: {
-      street: "123 Main St"
-    }
-  }
-};
+// Pseudocode for first-class monad support
+async function getUserAndPosts() {
+  // The 'do' keyword would signal the start of a monadic chain.
+  // The 'monad' keyword would specify the type of monad (e.g., Promise, Maybe, etc.).
+  do monad Promise {
+    // Each line 'unwraps' the value from the monad.
+    const user = unwrap getUserById(123);
+    const posts = unwrap getPostsForUser(user.id);
+    const comments = unwrap getCommentsForFirstPost(posts[0].id);
 
-let street;
-if (user && user.profile && user.profile.address) {
-  street = user.profile.address.street;
-} else {
-  street = "Street not available";
-}
-```
-
-----
-
-With `do monad` for `Maybe`, you can write this as a clean, sequential block. If any step results in a `None` (a null value), the entire computation stops and returns `None` automatically.
-
-```javascript
-// Psuedocode with do monad for Maybe
-
-// Assume we have functions that safely return a Maybe
-// e.g., getProfile(user) returns Some(user.profile) or None
-function getStreet(user) {
-  do monad Maybe {
-    const profile = unwrap getProfile(user);      // Unwraps the profile or stops if None
-    const address = unwrap getAddress(profile);   // Unwraps the address or stops if None
-    const street  = unwrap getStreetName(address);// Unwraps the street or stops if None
-    return street; // Automatically wrapped in Some(street)
+    // The final value is automatically wrapped in the monad type (a Promise in this case).
+    return { ...user, posts, comments };
   }
 }
-
-// Usage:
-const streetMaybe = getStreet(user); // Returns Some("123 Main St") or None
-
-// We can then safely get the value
-console.log(streetMaybe.getOrElse("Street not available"));
 ```
-
-* * *
 
 ## Composable List Operations with `Array` (List Monad)
 
