@@ -3,6 +3,7 @@ import style from "./article-revisions.module.scss";
 import down from "src/icons/chevron_down.svg?raw";
 import { debounce } from "utils/debounce";
 import { PostInfo, PostVersion } from "types/PostInfo";
+import { siteMetadata } from "constants/site-config";
 import { Option } from "components/select/basic-option";
 
 interface PopOverLocation {
@@ -33,6 +34,8 @@ export function ArticleRevisionDropdown({
 		: version
 			? version
 			: "";
+
+	const postHistory = `https://github.com/${siteMetadata.repoPath}/commits/main/content/${post.path}/index.md`;
 
 	// TODO: This should be a CSS defined value
 	const SPACING = 8;
@@ -116,7 +119,7 @@ export function ArticleRevisionDropdown({
 					<hr class={style.divider} />
 				</Option>
 				<Option>
-					<a class={style.changelog} href="#">
+					<a class={style.changelog} href={postHistory} target="_blank">
 						<span class="text-style-button-regular">View Changelog</span>
 					</a>
 				</Option>
