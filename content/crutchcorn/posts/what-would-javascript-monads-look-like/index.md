@@ -8,13 +8,13 @@
 }
 ---
 
-// TODO: Reference this: https://rmarcus.info/blog/2016/12/14/monads.html
+Recently, [in our Discord's book club](https://discord.gg/FMcvc6T), we read [an awesome article by Ryan Marcus called "No, really, what's a monad?"](https://rmarcus.info/blog/2016/12/14/monads.html)
 
-// TODO: Rewrite this all
+This article tracked well in my mind, but led to some confusion towards the end. To quote the article:
 
-While the provided article doesn't explicitly mention a lack of first-class monad support in JavaScript, it's a common observation among functional programmers. First-class support for monads would mean having dedicated syntax in the language to make working with them more seamless and less verbose.
+> Hopefully you have now gained at least a little sympathy for the Haskell purist who laments JavaScript’s lack of 1st class support for monads.
 
-Currently in JavaScript, you might see monadic operations chained together using methods like `.then()` for Promises (which are a type of monad) or `.flatMap()` for arrays. First-class support would provide a more direct and readable way to handle these sequential operations.
+Not having much Haskell experience, this made me wonder "What does first-class support for monads _even look like_?"
 
 # Proposing a syntax for Monads in JS
 
