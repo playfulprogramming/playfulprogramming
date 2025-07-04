@@ -188,18 +188,36 @@ result2.then(console.log); // 20
 
 Put another way: if you take a plain value, wrap it, and then chain it, the result is the same as just applying the function to the plain value directly.
 
----
+Think of it as multiplying `1` to a number; it doesn't change the value of the number.
 
-Likewise, the "**Right Identity**" law states that two nested promises don't double-nest a value:
+----
+
+Likewise, the "**Right Identity**" law states that chaining the wrapping function over a monad doesn't change the outcome:
 
 ```javascript
-const promise = Promise.resolve(Promise.resolve(1))
-
-// Unwrap it to prove one level of depth
-promise.then(v => v === 1) // true
+const originalPromise = Promise.resolve(1);
+// These two are equivalent:
+const result1 = originalPromise;
+const result2 = originalPromise.then(Promise.resolve);
 ```
 
-Once again, outlined differently: if you have a monadic value and you chain it with the wrapping function, you get the same monadic value back. It's like adding zero in arithmetic—it doesn't change the result.
+Once again, outlined differently: if you have a monadic value and you chain it with the wrapping function, you get the same monadic value back.
+
+Think of it as multiplying `1` to a number; it _still_ doesn't change the value of the number.
+
+> **Right identity confusion:**
+>
+> Those deeply familiar with JavaScript may know that:
+>
+> ```javascript
+> Promise.resolve(Promise.resolve(1))
+> ```
+>
+> Unwraps to a single `Promise` containing `1`; This to say, multiple promises unwrap to a single level.
+>
+> While this _can_ be helpful in some circumstances, it's not a property inherent to Monads. In fact, Monads should generally not auto-flatten like this.
+>
+> The "Right Identity" law does not pertain to this behavior. Instead, it speaks to the ability for a monad chain to apply itself without transforming the inner value.
 
 # Conclusion
 
