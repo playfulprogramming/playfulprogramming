@@ -37,21 +37,11 @@ export function ArticleRevisionDropdown({
 	// TODO: This should be a CSS defined value
 	const SPACING = 8;
 
-	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 	const [supportsAnchors, setSupportsAnchors] = useState<boolean>(false);
 	const [popOverXY, setPopOverXY] = useState<PopOverLocation>({
 		x: 0,
 		y: 0,
 	});
-
-	const togglePopover = () => {
-		setIsPopoverOpen(!isPopoverOpen);
-
-		// Remove focus if popover is being closed
-		if (isPopoverOpen && buttonRef.current) {
-			buttonRef.current.blur();
-		}
-	};
 
 	useEffect(() => {
 		setSupportsAnchors(CSS.supports("top: anchor(bottom)"));
@@ -87,7 +77,6 @@ export function ArticleRevisionDropdown({
 				class={style.button}
 				type="button"
 				popovertarget="article-version-popover"
-				onClick={supportsAnchors ? () => {} : togglePopover}
 				ref={supportsAnchors ? undefined : buttonRef}
 			>
 				<span class={style.date}>{date}</span>
