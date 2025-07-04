@@ -88,7 +88,7 @@ export function ArticleRevisionDropdown({
 				type="button"
 				popovertarget="article-version-popover"
 				onClick={supportsAnchors ? () => {} : togglePopover}
-				ref={buttonRef}
+				ref={supportsAnchors ? undefined : buttonRef}
 			>
 				<span class={style.date}>{date}</span>
 				<span class={style.dot}>{buttonVersion ? "•" : ""}</span>
@@ -98,52 +98,32 @@ export function ArticleRevisionDropdown({
 					dangerouslySetInnerHTML={{ __html: down }}
 				></span>
 			</button>
-			{supportsAnchors ? (
-				<ul
-					id="article-version-popover"
-					popover
-					class={`${style.popover} ${style.anchored}`}
-				>
-					{versions.map(({ href, publishedMeta, version }, i) => (
-						<Option key={i}>
-							<a
-								class={`${style.item} ${href.endsWith(slug) ? style.selected : ""}`}
-								href={href}
-							>
-								<span class={`text-style-button-regular ${style.date}`}>
-									{publishedMeta}
-								</span>
-								<span class={`text-style-button-regular ${style.version}`}>
-									{version}
-								</span>
-							</a>
-						</Option>
-					))}
-				</ul>
-			) : (
-				<ul
-					id="article-version-popover"
-					popover
-					class={style.popover}
-					style={{ left: `${popOverXY.x}px`, top: `${popOverXY.y}px` }}
-				>
-					{versions.map(({ href, publishedMeta, version }, i) => (
-						<Option key={i}>
-							<a
-								class={`${style.item} ${href.endsWith(slug) ? style.selected : ""}`}
-								href={href}
-							>
-								<span class={`text-style-button-regular ${style.date}`}>
-									{publishedMeta}
-								</span>
-								<span class={`text-style-button-regular ${style.version}`}>
-									{version}
-								</span>
-							</a>
-						</Option>
-					))}
-				</ul>
-			)}
+			<ul
+				id="article-version-popover"
+				popover
+				class={`${style.popover} ${supportsAnchors ? style.anchored : ""}`}
+				style={
+					supportsAnchors
+						? ""
+						: { left: `${popOverXY.x}px`, top: `${popOverXY.y}px` }
+				}
+			>
+				{versions.map(({ href, publishedMeta, version }, i) => (
+					<Option key={i}>
+						<a
+							class={`${style.item} ${href.endsWith(slug) ? style.selected : ""}`}
+							href={href}
+						>
+							<span class={`text-style-button-regular ${style.date}`}>
+								{publishedMeta}
+							</span>
+							<span class={`text-style-button-regular ${style.version}`}>
+								{version}
+							</span>
+						</a>
+					</Option>
+				))}
+			</ul>
 		</div>
 	);
 }
