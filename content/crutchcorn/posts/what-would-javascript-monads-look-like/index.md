@@ -82,6 +82,8 @@ Given this, let's take a look at what a potential syntax for Monads in JS might 
 ```javascript
 // Psuedocode with do monad for Maybe
 function getFoobar() {
+  // The 'do' keyword would signal the start of a monadic chain.
+  // The 'monad' keyword would specify the type of monad (e.g., Promise, Maybe, etc.).
   do monad Maybe {
     const foo = unwrap maybeFoo();   // Unwraps maybeFoo or stops if None
     const bar = unwrap maybeBar();   // Unwraps maybeBar or stops if None
@@ -106,119 +108,68 @@ This proposed syntax comes with the following features:
     
 *   **Automatic Wrapping of Return Value**: The final `return` value is automatically placed back into the context of the monad you are working with.
 
-This syntax would allow developers to write code that looks more imperative and is easier to read, while still benefiting from the powerful composition and error-handling features of monads. It abstracts away the boilerplate of manually chaining function calls.
+This syntax should allow us to explore monads further in a language and syntax we're more familiar with.
 
-## Using the function
+> **Standards, standards, standards:**
+>
+> I'm not _literally_ proposing we add this to JavaScript itself with this exact syntax. I can already see a number of downsides myself, like the ability to interop between different monad types.
+>
+> Instead, in the next section, we'll explore other options the JavaScript ecosystem has used to add the benefits of Monads into our apps and what those benefits even are.
 
->  Let's expand this; how would you use this pseudo-coded \`getUserAndPosts\` elsewhere?
+# Handling async operations with `Promises`
 
-Of course. Since our pseudocoded `getUserAndPosts` function was defined with `do monad Promise`, it returns a `Promise`. You would use it just like any other `Promise`\-returning function in JavaScript.
+Because the `Maybe` type isn't built-in to JavaScript, it can be hard to picture its usage intuitively. Let's explore another option we could use with the proposed `do monad` syntax.
 
-The key takeaway is that the first-class monad support (`do` notation) simplifies the _implementation_ of the function, but it doesn't change how you consume its result from the outside.
+In [our last article about monads](/posts/monads-explained-in-js), we predominantly used promises as an example of a monad.
 
-* * *
-
-The cleanest way to use the function is with `async/await`. This allows you to "unwrap" the promised value in a way that looks synchronous and is highly readable.
-
-```javascript
-// Define an async function to call our monadic function
-async function displayUserData() {
-  console.log("Fetching user data...");
-  try {
-    // We 'await' the result, just like any other Promise.
-    const combinedData = await getUserAndPosts();
-
-    // Now 'combinedData' is the resolved object with user, posts, and comments.
-    console.log("--- User Details ---");
-    console.log(`Name: ${combinedData.name}`);
-    console.log(`Posts: ${combinedData.posts.length}`);
-    console.log(`Comments on first post: ${combinedData.comments.length}`);
-
-  } catch (error) {
-    // If any step inside getUserAndPosts failed, the promise would reject.
-    console.error("Failed to fetch user data:", error);
-  }
-}
-
-// Call our main function
-displayUserData();
-```
-
-# Other examples
-
-> Got it. What are some other examples of \`do monad\` that would be relevant?
-
-Excellent question! The `do monad` syntax is powerful because it can be applied to any monadic structure, not just `Promise`. Here are a couple of other highly relevant examples where this pseudocode would dramatically simplify common programming tasks.
-
-* * *
-
-## Handling async operations with `Promises`
-
-// TODO: Write this and link back to previous monad article
+As a result, promises would make a natural alternative to `await` when using promises:
 
 ```javascript
-// Pseudocode for first-class monad support
-async function getUserAndPosts() {
-  // The 'do' keyword would signal the start of a monadic chain.
-  // The 'monad' keyword would specify the type of monad (e.g., Promise, Maybe, etc.).
+function getUserAndPosts() {
   do monad Promise {
-    // Each line 'unwraps' the value from the monad.
     const user = unwrap getUserById(123);
     const posts = unwrap getPostsForUser(user.id);
     const comments = unwrap getCommentsForFirstPost(posts[0].id);
 
-    // The final value is automatically wrapped in the monad type (a Promise in this case).
-    return { ...user, posts, comments };
-  }
-}
-```
-
-## Composable List Operations with `Array` (List Monad)
-
-Arrays can be treated as monads where the monadic operation (`flatMap`) allows you to take an element, perform a computation that returns a new array, and then flatten the resulting array of arrays. This is useful for things like generating all possible combinations of items.
-
----
-
-Let's say you want to find every possible pairing of developers and programming languages from two separate lists. The traditional way involves nested loops.
-
-```javascript
-const developers = ["Alice", "Bob"];
-const languages = ["Python", "JavaScript", "Rust"];
-let pairings = [];
-
-for (const dev of developers) {
-  for (const lang of languages) {
-    pairings.push(`${dev} codes in ${lang}`);
-  }
-}
-// pairings => ["Alice codes in Python", "Alice codes in JavaScript", ...]
-```
-
-----
-
-The `Array` monad sees this as a composition. The `do` notation abstracts away the nested looping, making it look like a simple sequence.
-
-```javascript
-// Psuedocode with do monad for Array
-function generatePairings() {
-  do monad Array {
-    const dev = unwrap developers;   // Iterates through 'developers'
-    const lang = unwrap languages; // Iterates through 'languages' for each developer
-    return `${dev} codes in ${lang}`; // Collects each string into a final flat array
+    return { user, posts, comments };
   }
 }
 
-const pairings = generatePairings();
-console.log(pairings);
+// Usage
+async function displayUserData() {
+  // We 'await' the result, just like any other Promise.
+  const { user, posts, comments } = await getUserAndPosts();
+  // ...
+}
 ```
-
-In this case, the `await` keyword conceptually means "for each item in the array...". The `do monad` block understands that it needs to run the second line for _every_ item produced by the first line, and then collect all the final `return` values into a single, flattened array.
 
 # Building our own monad type
 
-> What might a psuedo-syntax look like to create a type for \`do monad\` to work; like \`Array\`?
+> How would we build out a monad to handle the new `unwrap` type?
 
-To make a type compatible with the `do monad` construct, it needs to follow a specific interface. This interface must define how to **wrap** a value into the monad and how to **chain** operations on it (the `bind` or `flatMap` function).
+To make a type compatible with the `do monad` construct, it needs to follow a specific interface. This interface must define how to **wrap** a value into the monad and how to **chain** operations on it.
+
+This is explained more in-depth [in the article we referenced at the start](https://rmarcus.info/blog/2016/12/14/monads.html), but this kind of `wrap` and `chain` combination is how you might define a monad more formally:
+
+```typescript
+type Monad<T> = { value: T };
+
+declare function bind<A, B>(m: Monad<A>, fn: (value: A) => Monad<B>): Monad<B>;
+declare function wrap<A>(value: A): Monad<A>;
+
+declare const aValue: unknown;
+declare const aMonad: Monad<unknown>;
+declare function aTransform(value: unknown): Monad<unknown>;
+declare function otherTransform(value: unknown): Monad<unknown>;
+
+const left = bind(wrap(aValue), aTransform) === aTransform(aValue);
+const right = bind(aMonad, wrap) === aMonad;
+const associativity =
+	bind(bind(aMonad, aTransform), otherTransform) ===
+	bind(aMonad, (x) => bind(aTransform(x), otherTransform));
+```
+
+> It's more than okay if the above was confusing to you. Finish up the article, read some other resources, and come back to it; it may make more sense then.
 
 We can define this interface using a special, well-known `Symbol` in our pseudo-syntax. Let's call it `Symbol.monad`. A type would implement this symbol to tell the `do monad` machinery how to work with it.
 
@@ -230,36 +181,36 @@ A type would need to provide an object for `[Symbol.monad]` that contains two ke
     
 2.  **`bind(monadicValue, function)`**: A function that takes an existing monadic value (e.g., an array, a promise) and a function that returns a new monadic value. It's responsible for "unwrapping" the value, passing it to the function, and handling the result. This is the core of chaining.
 
-## Example 1: Defining `Array` as a Monad
+## Example 1: Defining `Promise` as a Monad
 
-Here's how `Array` would implement this interface in our pseudo-syntax.
+Here's how `Promise` would implement this interface in our pseudo-syntax.
 
 ```javascript
-// Add the monad interface implementation to the Array prototype
-Array.prototype[Symbol.monad] = {
+// Psuedo-code showing how the Promise object could be extended
+// to support the `do monad` syntax.
+Promise[Symbol.monad] = {
   /**
-   * `wrap` for an Array simply puts the value into a new array.
-   * @param {*} value - The value to wrap.
-   * @returns {Array} - An array containing just the value.
+   * `wrap` for a Promise takes a value and returns a promise
+   * that is already resolved with that value.
+   * This is identical to `Promise.resolve()`.
    */
   wrap: function(value) {
-    return [value];
+    return Promise.resolve(value);
   },
 
   /**
-   * `bind` for an Array is its `flatMap` method. It applies a function
-   * to each element and flattens the resulting array of arrays.
-   * @param {Array} arr - The array to operate on.
-   * @param {Function} func - A function that takes an element and returns a new array.
-   * @returns {Array} - The new, flattened array.
+   * `bind` for a Promise is its `then()` method. It takes an
+   * existing promise, waits for it to resolve, and then
+   * passes the unwrapped value to the next function.
    */
-  bind: function(arr, func) {
-    return arr.flatMap(func);
+  bind: function(promiseInstance, func) {
+    // The .then() method naturally handles the chaining.
+    return promiseInstance.then(func);
   }
 };
 ```
 
-With this definition, the `do monad Array` block would know exactly how to handle the `unwrap` keyword; it would use `Array.prototype[Symbol.monad].bind`.
+With this definition, the `do monad Promise` block would know exactly how to handle the `unwrap` keyword; it would use `Promise.prototype[Symbol.monad].bind`.
 
 * * *
 
@@ -323,12 +274,12 @@ Let's look at what the system does behind the scenes.
 Your code is clean and looks sequential.
 
 ```javascript
-// Psuedocode using 'do monad' and 'unwrap'
-function getStreet(user) {
-  do monad Maybe {
-    const profile = unwrap getProfile(user);
-    const address = unwrap getAddress(profile);
-    return address.street; // For simplicity, we get the street directly
+// Psuedocode using 'do monad' for Promises
+function getUserAndPosts() {
+  do monad Promise {
+    const user = unwrap getUserById(123);
+    const posts = unwrap getPostsForUser(user.id);
+    return posts; // Simplified for this example
   }
 }
 ```
@@ -338,18 +289,27 @@ function getStreet(user) {
 The system converts this into a chain of `bind` calls. The rest of the code after each `unwrap` becomes the function passed _to_ `bind`.
 
 ```javascript
-// The above code desugars into this nested structure:
-function getStreet(user) {
-  const MaybeMonad = Maybe[Symbol.monad];
+// The above code desugars into this nested promise chain:
+function getUserAndPosts() {
+  const PromiseMonad = Promise[Symbol.monad];
 
-  // The first 'unwrap' becomes the outer 'bind' call
-  return MaybeMonad.bind(getProfile(user), function (profile) {
+  // The first 'unwrap' becomes the outer 'then()' call
+  return PromiseMonad.bind(getUserById(123), function (user) {
 
-    // The second 'unwrap' becomes an inner 'bind' call
-    return MaybeMonad.bind(getAddress(profile), function (address) {
+    // The second 'unwrap' becomes an inner 'then()' call
+    return PromiseMonad.bind(getPostsForUser(user.id), function (posts) {
 
-      // The final 'return' uses 'wrap' to put the value back in the monad
-      return MaybeMonad.wrap(address.street);
+      // The final 'return' uses 'wrap' to put the value back in a Promise
+      return PromiseMonad.wrap(posts);
+    });
+  });
+}
+
+// Using the direct implementation, this is equivalent to:
+function getUserAndPostsEquivalent() {
+  return getUserById(123).then(user => {
+    return getPostsForUser(user.id).then(posts => {
+      return Promise.resolve(posts);
     });
   });
 }
