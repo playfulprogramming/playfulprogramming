@@ -1,7 +1,7 @@
 ---
 {
     title: "What would Monads in JavaScript look like?",
-    description: "",
+    description: "TODO: Write this",
     published: '2026-01-01T10:12:03.284Z',
     tags: ['javascript', 'computer science'],
     license: 'cc-by-4'
@@ -303,3 +303,7 @@ function getUserAndPosts() {
 ```
 
 In short, **`unwrap` is a shortcut for a `bind` operation**. It’s what makes it possible to take a deeply nested chain of operations and write it as a flat, readable sequence.
+
+# Conclusion
+
+// TODO: Write this
