@@ -147,7 +147,7 @@ async function displayUserData() {
 
 > How would we build out a monad to handle the new `unwrap` type?
 
-To make a type compatible with the `do monad` construct, it needs to follow a specific interface. This interface must define how to **wrap** a value into the monad and how to **chain** operations on it.
+To make a type compatible with the `do monad` construct, it needs to follow a specific interface. This interface must define how to **wrap** a value into the monad and how to **chain**, or **bind**, operations on it.
 
 This is explained more in-depth [in the article we referenced at the start](https://rmarcus.info/blog/2016/12/14/monads.html), but this kind of `wrap` and `chain` combination is how you might define a monad more formally:
 
@@ -171,15 +171,15 @@ const associativity =
 
 > It's more than okay if the above was confusing to you. Finish up the article, read some other resources, and come back to it; it may make more sense then.
 
-We can define this interface using a special, well-known `Symbol` in our pseudo-syntax. Let's call it `Symbol.monad`. A type would implement this symbol to tell the `do monad` machinery how to work with it.
+We can define this interface using a special, well-known [`Symbol`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) in our pseudo-syntax. [This is how iterators are defined in JavaScript, after all](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator). Let's call it `Symbol.monad`. A type would implement this symbol to tell the `do monad` machinery how to work with it.
 
 ----
 
-A type would need to provide an object for `[Symbol.monad]` that contains two key functions:
+Now let's look at the two functions that we'll need to implement on `[Symbol.monad]`:
 
-1.  **`wrap(value)`**: A function that takes a plain value and wraps it into the monadic container. This is also known as `return` or `pure`.
+1.  **`wrap(value)`**: A function that takes a plain value and wraps it into the monadic container.
     
-2.  **`bind(monadicValue, function)`**: A function that takes an existing monadic value (e.g., an array, a promise) and a function that returns a new monadic value. It's responsible for "unwrapping" the value, passing it to the function, and handling the result. This is the core of chaining.
+2.  **`bind(monadicValue, function)`**: A function that takes an existing monadic value and a function that returns a new monadic value. It's responsible for "unwrapping" the value, passing it to the function, and handling the result. This is the core of chaining.
 
 ## Example 1: Defining `Promise` as a Monad
 
@@ -257,21 +257,17 @@ class None extends Maybe { /* ... */ }
 
 # How it works
 
-> So when I call \`unwrap\`, what code is that calling?
+> So when I call `unwrap`, what code is that calling?
 
 When you call `unwrap`, you are executing the **`bind`** function from your type's `[Symbol.monad]` implementation.
 
 The `do monad` block is essentially "syntactic sugar" that transforms your linear-looking code into a series of nested `bind` calls.
 
------
-
-The `unwrap` keyword tells the system to take the monadic value on its right and use the `bind` function to chain it with the _rest of the code in the block_.
-
 Let's look at what the system does behind the scenes.
 
 -----
 
-Your code is clean and looks sequential.
+The following psuedocode:
 
 ```javascript
 // Psuedocode using 'do monad' for Promises
@@ -286,7 +282,7 @@ function getUserAndPosts() {
 
 -----
 
-The system converts this into a chain of `bind` calls. The rest of the code after each `unwrap` becomes the function passed _to_ `bind`.
+Is then transformed to the following:
 
 ```javascript
 // The above code desugars into this nested promise chain:
@@ -301,15 +297,6 @@ function getUserAndPosts() {
 
       // The final 'return' uses 'wrap' to put the value back in a Promise
       return PromiseMonad.wrap(posts);
-    });
-  });
-}
-
-// Using the direct implementation, this is equivalent to:
-function getUserAndPostsEquivalent() {
-  return getUserById(123).then(user => {
-    return getPostsForUser(user.id).then(posts => {
-      return Promise.resolve(posts);
     });
   });
 }
