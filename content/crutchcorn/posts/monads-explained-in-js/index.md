@@ -174,9 +174,9 @@ a().then(b).then(c)
 >
 > But this is an important distinction: _The associativity rule doesn't mean the functions inside the chain are swappable; it means the **structure of the chain itself** is._
 
-# The Left Identity Law
+# The Left and Right Identity Laws
 
-The "Left Identity" law states that wrapping & immediately unwrapping a monad has no effect:
+The "**Left Identity**" law states that wrapping & immediately unwrapping a monad has no effect:
 
 ```javascript
 const f = (x) => Promise.resolve(x);
@@ -186,13 +186,25 @@ result1.then(console.log); // 20
 result2.then(console.log); // 20
 ```
 
-----
+Put another way: if you take a plain value, wrap it, and then chain it, the result is the same as just applying the function to the plain value directly.
 
-# The Right Identity Law
+---
 
-Likewise, the "Right Identity" law states that two nested promises don't double-nest a value:
+Likewise, the "**Right Identity**" law states that two nested promises don't double-nest a value:
 
 ```javascript
-Promise.resolve(Promise.resolve(1)).then(v => v === 1) // true
+const promise = Promise.resolve(Promise.resolve(1))
+
+// Unwrap it to prove one level of depth
+promise.then(v => v === 1) // true
 ```
 
+Once again, outlined differently: if you have a monadic value and you chain it with the wrapping function, you get the same monadic value back. It's like adding zero in arithmetic—it doesn't change the result.
+
+# Conclusion
+
+Hopefully this has been a helpful introduction to monads in JavaScript. I plan on doing more with monads, including the "why" behind them and where you might gain benefits from using them in your own projects.
+
+Until next time!
+
+\- Corbin C.
