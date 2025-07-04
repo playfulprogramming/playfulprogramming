@@ -34,17 +34,15 @@ export function ArticleRevisionDropdown({
 			? version
 			: "";
 
-	const supportsAnchors = CSS.supports("top: anchor(bottom)");
-
 	// TODO: This should be a CSS defined value
 	const SPACING = 8;
 
+	const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
+	const [supportsAnchors, setSupportsAnchors] = useState<boolean>(false);
 	const [popOverXY, setPopOverXY] = useState<PopOverLocation>({
 		x: 0,
 		y: 0,
 	});
-
-	const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
 	const togglePopover = () => {
 		setIsPopoverOpen(!isPopoverOpen);
@@ -56,6 +54,7 @@ export function ArticleRevisionDropdown({
 	};
 
 	useEffect(() => {
+		setSupportsAnchors(CSS.supports("top: anchor(bottom)"));
 		if (buttonRef.current) {
 			const buttonRect = buttonRef.current.getBoundingClientRect();
 			const x = buttonRect.left - 12;
@@ -122,30 +121,28 @@ export function ArticleRevisionDropdown({
 					))}
 				</ul>
 			) : (
-				isPopoverOpen && (
-					<ul
-						id="article-version-popover"
-						popover
-						class={style.popover}
-						style={{ left: `${popOverXY.x}px`, top: `${popOverXY.y}px` }}
-					>
-						{versions.map(({ href, publishedMeta, version }, i) => (
-							<Option key={i}>
-								<a
-									class={`${style.item} ${href.endsWith(slug) ? style.selected : ""}`}
-									href={href}
-								>
-									<span class={`text-style-button-regular ${style.date}`}>
-										{publishedMeta}
-									</span>
-									<span class={`text-style-button-regular ${style.version}`}>
-										{version}
-									</span>
-								</a>
-							</Option>
-						))}
-					</ul>
-				)
+				<ul
+					id="article-version-popover"
+					popover
+					class={style.popover}
+					style={{ left: `${popOverXY.x}px`, top: `${popOverXY.y}px` }}
+				>
+					{versions.map(({ href, publishedMeta, version }, i) => (
+						<Option key={i}>
+							<a
+								class={`${style.item} ${href.endsWith(slug) ? style.selected : ""}`}
+								href={href}
+							>
+								<span class={`text-style-button-regular ${style.date}`}>
+									{publishedMeta}
+								</span>
+								<span class={`text-style-button-regular ${style.version}`}>
+									{version}
+								</span>
+							</a>
+						</Option>
+					))}
+				</ul>
 			)}
 		</div>
 	);
