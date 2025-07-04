@@ -16,7 +16,71 @@ This article tracked well in my mind, but led to some confusion towards the end.
 
 Not having much Haskell experience, this made me wonder "What does first-class support for monads _even look like_?"
 
+# Exploring Haskell and Scala Monad support
+
+```haskell
+-- Define the Maybe values, similar to Scala's Option
+maybeFoo :: Maybe String
+maybeFoo = Just "foo"
+
+maybeBar :: Maybe String
+maybeBar = Just "bar"
+
+-- Use a 'do' block to combine them
+foobar :: Maybe String
+foobar = do
+  foo <- maybeFoo
+  bar <- maybeBar
+  return (foo ++ bar)
+
+-- The value of 'foobar' will be: Just "foobar"
+```
+
+```scala
+// Scala example for combining Options
+val maybeFoo: Option[String] = Some("foo")
+val maybeBar: Option[String] = Some("bar")
+
+val foobar = for {
+  foo <- maybeFoo
+  bar <- maybeBar
+} yield foo + bar
+// Result is Some("foobar")
+```
+
+
+
 # Proposing a syntax for Monads in JS
+
+
+
+```javascript
+// Psuedocode with do monad for Maybe
+
+// Assume we have functions that safely return a Maybe
+// e.g., getProfile(user) returns Some(user.profile) or None
+function getStreet(user) {
+  do monad Maybe {
+    const foo = unwrap maybeFoo();      // Unwraps the profile or stops if None
+    const bar = unwrap maybeBar();   // Unwraps the address or stops if None
+    return foo + bar; // Automatically wrapped in Some(street)
+  }
+}
+
+// Usage:
+const streetMaybe = getStreet(user); // Returns Some("123 Main St") or None
+
+// We can then safely get the value
+console.log(streetMaybe.getOrElse("Street not available"));
+```
+
+// TODO: Write
+
+
+
+
+
+
 
 Here's what pseudocode for first-class monad support in JavaScript might look like, often referred to as "do-notation" or "for-comprehension":
 
