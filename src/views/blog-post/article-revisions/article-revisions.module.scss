@@ -24,7 +24,6 @@
 	--date-dropdown_focus-outline_color: var(--focus-outline_secondary);
 
 	--popup_min-width: 240px;
-	--popup_popover_version_foregrouund_color: #21333f80;
 
 	// POPUP STYLES ==> taken from src/components/select/select.module.scss
 	--popup_corner-radius: var(--corner-radius_m);
@@ -33,7 +32,7 @@
 	--popup_background-color: var(--background_primary);
 	--popup_item_background-color_selected: var(--surface_primary_emphasis-low);
 
-	--popup_item_padding: var(--spc-2x);
+	--popup_inner_padding: var(--spc-2x);
 	--popup_item_label_padding: var(--spc-1x);
 	--popup_item_min-height: var(--min-target-size_m);
 	--popup_item_corner-radius: calc(
@@ -129,7 +128,7 @@
 		outline: none;
 		display: flex;
 		align-items: center;
-		padding: var(--popup_item_padding);
+		padding: var(--popup_inner_padding);
 		justify-content: space-between;
 		width: 100%;
 		text-decoration: none;
@@ -164,5 +163,12 @@
 			color: var(--popup_item_version_color);
 			letter-spacing: 0.14px;
 		}
+	}
+
+	.divider {
+		margin: var(--popup_inner_padding);
+		border: none;
+		height: var(--border-width_s);
+		background: var(--background_disabled);
 	}
 }

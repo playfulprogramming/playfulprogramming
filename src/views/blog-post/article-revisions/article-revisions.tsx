@@ -112,6 +112,7 @@ export function ArticleRevisionDropdown({
 						</a>
 					</Option>
 				))}
+				<hr class={style.divider} />
 			</ul>
 		</div>
 	);
