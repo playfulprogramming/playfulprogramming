@@ -35,7 +35,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 					{
 						versions.length > 1 ? (
 							<ArticleRevisionDropdown
-								client:only="preact"
+								client:load
 								versions={versions}
 								post={post}
 							/>
