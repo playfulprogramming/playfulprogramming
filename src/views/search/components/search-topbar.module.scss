@@ -28,6 +28,14 @@
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
+
+	position: sticky;
+	z-index: 9;
+	top: 0;
+
+	@include from($tabletLarge) {
+		top: var(--topbar-header-height);
+	}
 }
 
 .searchbarRow {
@@ -38,16 +46,11 @@
 	padding-left: var(--search-page_search-header_padding-horizontal);
 	padding-right: var(--search-page_search-header_padding-horizontal);
 	padding-top: var(--search-page_search-header_padding-vertical);
-	padding-bottom: var(--search-page_search-header_gap);
 
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	gap: var(--search-page_search-header_gap);
-
-	@include from($tabletLarge) {
-		padding-bottom: 0;
-	}
 }
 
 .searchbar {
@@ -79,11 +82,9 @@
 }
 
 .bigScreenContainer {
-	display: none;
 	@include transition(background);
 
-	@include from($tabletLarge) {
-		z-index: 1;
+	z-index: 1;
 		display: block;
 		height: var(--search-page_search-header_padding-vertical);
 		-webkit-mask-image: linear-gradient(
@@ -93,7 +94,6 @@
 		);
 		mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 		background: var(--background_primary);
-	}
 }
 
 .topDivider {
