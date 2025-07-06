@@ -79,8 +79,10 @@ export function ArticleRevisionDropdown({
 			<button
 				class={style.button}
 				type="button"
-				popovertarget="article-version-popover"
+				popovertarget="article-versions-list"
 				ref={supportsAnchors ? undefined : buttonRef}
+				aria-controls="article-versions-list"
+				aria-haspopup="menu"
 			>
 				<span class={style.date}>{date}</span>
 				<span class={style.dot}>{buttonVersion ? "•" : ""}</span>
@@ -91,7 +93,7 @@ export function ArticleRevisionDropdown({
 				></span>
 			</button>
 			<ul
-				id="article-version-popover"
+				id="article-versions-list"
 				popover
 				class={`${style.popover} ${supportsAnchors ? style.anchored : ""}`}
 				style={
@@ -104,6 +106,7 @@ export function ArticleRevisionDropdown({
 					<Option key={i}>
 						<a
 							class={`${style.item} ${href.endsWith(slug) ? style.selected : ""}`}
+							aria-current={href.endsWith(slug) ? "page" : undefined}
 							href={href}
 						>
 							<span class={`text-style-button-regular ${style.date}`}>
