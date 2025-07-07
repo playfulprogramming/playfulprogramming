@@ -659,7 +659,7 @@ function MyComponent() {
 
 - A "side effect" is the idea of mutating state from some external boundary.
 
-  ![A pure function is allowed to mutate state from within its local environment, while a side effect changes data outside its own environment](../../collections/framework-field-guide-fundamentals/posts/ffg-fundamentals-side-effects/pure-vs-side-effect.svg)
+  ![A pure function is allowed to mutate state from within its local environment, while a side effect changes data outside its own environment](../../collections/framework-field-guide-fundamentals/posts/ffg-fundamentals-side-effects/pure-vs-side-effect.png)
 
 - As a result of this, all I/O is a "side effect" since the user is external to the system executing the code
 
