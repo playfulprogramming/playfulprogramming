@@ -1541,7 +1541,7 @@ Something often missed is how updating the screen (called "rendering" in the con
 
 This is true! So true, in fact, that the same mechanism we used earlier (error boundary components) is able to be reused for data fetching errors.
 
-As we can see from this example, our `ErrorBoundary` component will catch all rejected promises passed to the `use` API:
+As we can see from this example, our `ErrorBoundary` component will catch all rejected promises' data passed to the `use` API:
 
 ```jsx
 class ErrorBoundary extends React.Component {
@@ -1592,6 +1592,8 @@ function App() {
 	);
 }
 ```
+
+![A parent component passes a promise down to the child which is wrapped in a Suspense component and an error boundary. The "use" hook then throws the promise to the suspense boundary and, when it throws an error, the error's value is thrown to the error boundary](./how_use_works_failure.svg)
 
 # A "move" to the server {#ssr}
 
