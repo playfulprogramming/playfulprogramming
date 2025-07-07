@@ -284,7 +284,7 @@ And this data isn't static, either! Click the button to trigger the state change
 
 While JSX allowed for lots of flexibility, it meant that templates required a re-execution of all template nodes to construct [the DOM](/posts/understanding-the-dom) with new values.
 
-![Without a VDOM, React will re-render all components present](./without_vdom.png)
+![Without a VDOM, React will re-render all components present](./without_vdom.svg)
 
 While smaller scale applications wouldn't likely run into challenges with this approach, large DOM trees would incur massive performance implications as a result of this decision.
 
@@ -292,7 +292,7 @@ To solve this, the team used a concept of a "virtual DOM" (VDOM). This VDOM was 
 
 Then, when a given component needed to update the DOM, it would check against this VDOM and only localize the re-render to the specific node.
 
-![With a VDOM, React can localize the re-render to only the impacted component subtree](./with_vdom.png)
+![With a VDOM, React can localize the re-render to only the impacted component subtree](./with_vdom.svg)
 
 This was a huge optimization that allowed for much more performant React applications to scale outward.
 
@@ -659,7 +659,7 @@ function MyComponent() {
 
 - A "side effect" is the idea of mutating state from some external boundary.
 
-  ![A pure function is allowed to mutate state from within its local environment, while a side effect changes data outside its own environment](../../collections/framework-field-guide-fundamentals/posts/ffg-fundamentals-side-effects/pure-vs-side-effect.png)
+  ![A pure function is allowed to mutate state from within its local environment, while a side effect changes data outside its own environment](../../collections/framework-field-guide-fundamentals/posts/ffg-fundamentals-side-effects/pure-vs-side-effect.svg)
 
 - As a result of this, all I/O is a "side effect" since the user is external to the system executing the code
 
@@ -899,11 +899,11 @@ These abilities required Hooks to operate with the limits they have today, but u
 
 See, because of the nature of the VDOM, whenever a component threw an error, it would crash the entire React tree.
 
-![Without error boundaries, a component at a leaf node can crash the entire application through a bubbled error event](./without_err.png)
+![Without error boundaries, a component at a leaf node can crash the entire application through a bubbled error event](./without_err.svg)
 
 However, because components are laid out hierarchically, we can establish a boundary between a component that might potentially throw an error and the rest of the application state.
 
-![With an error boundary, an error event can only bubble as high as the nearest error boundary. This protects the app itself from crashing](./with_err.png)
+![With an error boundary, an error event can only bubble as high as the nearest error boundary. This protects the app itself from crashing](./with_err.svg)
 
 Not only does this work with single nodes, but because components are grouped by their parents we can remove a group of impacted nodes at once by wrapping them in a shared `ErrorBoundary`:
 
@@ -946,7 +946,7 @@ function App() {
 }
 ```
 
-![If the error boundary has multiple children, all child nodes will be removed on a caught error](./error_bubble_group.png)
+![If the error boundary has multiple children, all child nodes will be removed on a caught error](./error_bubble_group.svg)
 
 This work would not have been possible without the ability to abort work in Fiber's new reconciliation pipeline.
 
@@ -965,9 +965,9 @@ function MyComponent() {
 
 Lazy loading components enable React to tree-shake away the bundled code relevant to only the imported component such that the `lazy` wrapped component code wouldn't be imported into the browser until the component was rendered:
 
-![A page without lazy loading will see all code, used or unused alike, bundled into a single JS file](./page_without_lazy_loading.png)
+![A page without lazy loading will see all code, used or unused alike, bundled into a single JS file](./page_without_lazy_loading.svg)
 
-![A page with lazy loading will only load rendered components' code. If a component is not loaded, the code will not be pulled into the browser. If there is shared code between components, it will be de-duplicated into a shared bundle only loaded once regardless of how many components are rendered after-the-fact.](./page_with_lazy_loading.png)
+![A page with lazy loading will only load rendered components' code. If a component is not loaded, the code will not be pulled into the browser. If there is shared code between components, it will be de-duplicated into a shared bundle only loaded once regardless of how many components are rendered after-the-fact.](./page_with_lazy_loading.svg)
 
 > **Further reading:**
 >
@@ -1194,7 +1194,7 @@ Let's take a moment to look at how `use` works internally. According to [the RFC
 
 > The first thing React will try is to check if the promise was read previously, either by a different `use` call or a different render attempt. If so, React can reuse the result from last time, synchronously, without suspending.
 
-![A parent component passes a promise down to the child which is wrapped in a Suspense component. The "use" hook then throws the promise to the suspense boundary and, when it resolves, resumes again on the child](./how_use_works.png)
+![A parent component passes a promise down to the child which is wrapped in a Suspense component. The "use" hook then throws the promise to the suspense boundary and, when it resolves, resumes again on the child](./how_use_works_success.svg)
 
 > **Fiber enables yet another feature:**
 >
@@ -1342,7 +1342,7 @@ function useFetch(url) {
 
 Well, while this code is syntactically correct, it's got a major flaw hidden within: The data fetches in a waterfall pattern. The user's blog posts can't load until the profile is finished loading:
 
-![Waterfall data fetching will see three network requests wait for the previous to finish. This means that if each takes 100ms then it will finish the last request after 300ms](./with_waterfall.png)
+![Waterfall data fetching will see three network requests wait for the previous to finish. This means that if each takes 100ms then it will finish the last request after 300ms](./with_waterfall.svg)
 
 Compare and contrast to a refactored version of this app to use the `use` API:
 
@@ -1433,7 +1433,7 @@ function fetchData(url) {
 
 Here, we can see that we managed to make our API calls in parallel, cutting down the time until the app is finally ready:
 
-![Parallel data fetching will see two of the three network requests run at the same time. This means that if each takes 100ms then it will finish the last request after only 200ms](./with_parallel.png)
+![Parallel data fetching will see two of the three network requests run at the same time. This means that if each takes 100ms then it will finish the last request after only 200ms](./with_parallel.svg)
 
 ### Consolidating loading states
 
@@ -1785,7 +1785,7 @@ Well, this is what [Next.js' "Partial Pre-rendering" (PPR)](https://nextjs.org/d
 
 The way that it works is that Next.js will detect the static content in a given route, cache the results of the static content, and then deliver it in parallel to the computation of the dynamic content on subsequent invocations:
 
-![Before partial pre-rendering you'd render and compute static and dynamic content for each request before sending the response. After PPR, you'd start render and computing the dynamic content at the same time as getting the static content from cache. This means that you can start sending the partial server response as soon as the cached data comes in and finish sending that same response once the dynamic content is ready](./ppr.png)
+![Before partial pre-rendering you'd render and compute static and dynamic content for each request before sending the response. After PPR, you'd start render and computing the dynamic content at the same time as getting the static content from cache. This means that you can start sending the partial server response as soon as the cached data comes in and finish sending that same response once the dynamic content is ready](./ppr.svg)
 
 > **Further reading:**
 >
@@ -1831,9 +1831,9 @@ export default function App() {
 
 <iframe data-frame-title="Activity - StackBlitz" src="pfp-code:./activity-example?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
-![Before the activity API the VDOM would mirror the DOM. When something is removed from the DOM it would require you removing it from the VDOM as well](./before_activity.png)
+![Before the activity API the VDOM would mirror the DOM. When something is removed from the DOM it would require you removing it from the VDOM as well](./before_activity.svg)
 
-![After the activity API, you can mark a VDOM node as "hidden", removing it from the DOM itself but keeping the state. Then marking it as "visible" later would change the DOM to re-show the contents](./after_activity.png)
+![After the activity API, you can mark a VDOM node as "hidden", removing it from the DOM itself but keeping the state. Then marking it as "visible" later would change the DOM to re-show the contents](./after_activity.svg)
 
 This is particularly useful in applications where you need to hide some of the UI, like apps with tabbed content or specific routing.
 
