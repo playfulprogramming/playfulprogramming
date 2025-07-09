@@ -42,7 +42,7 @@ The problems with BoltJS didn't sit right with one of the members of the ads tea
 
 > My code would usually look really weird to other people [...]. For the longest time I just assumed "welp, I guess I'm just a weird programmer". Then I finally took a course on programming language fundamentals [...] and I finally had some basic terminology to be able [to] describe how I wanted to build applications.
 
-So Jordan began to experiment with his own solutions to many of the problems he perceived Bolt and other frameworks had at the time. This experimentation began life as a personal project of "[FaxJS](https://github.com/jordwalke/FaxJs)". FaxJS would go on to be shortly renamed to "FBolt" (Functional Bolt) before making its way to being called "React." A small team begins developing around the virgining tool.
+So Jordan began to experiment with his own solutions to many of the problems he perceived Bolt and other frameworks had at the time. This experimentation began life as a personal project of "[FaxJS](https://github.com/jordwalke/FaxJs)". FaxJS would go on to be shortly renamed to "FBolt" (Functional Bolt) before making its way to being called "React." A small team begins developing around the burgeoning tool.
 
 ---
 
