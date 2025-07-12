@@ -7,6 +7,7 @@ import * as api from "utils/api";
 import { getMarkdownHtml } from "utils/markdown";
 import { isDefined } from "utils/is-defined";
 import { getPostImages } from "utils/hoof";
+import { relative } from "path";
 
 export async function getStaticPaths() {
 	const posts = api.getAllPosts();
@@ -53,7 +54,7 @@ const postHtml = await getMarkdownHtml(post);
 const postImages = await getPostImages({
 	slug: post.slug,
 	author: post.authors[0],
-	path: post.path,
+	path: relative(process.cwd(), post.file),
 });
 ---
 
