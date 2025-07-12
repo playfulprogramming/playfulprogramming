@@ -1,9 +1,10 @@
 import { Element, Root } from "hast";
 import { isURL } from "../url-paths";
 import { visit } from "unist-util-visit";
-import { dirname, join } from "path";
+import { dirname, join, relative } from "path";
 import { Plugin } from "unified";
 import { VFile } from "vfile";
+import { isMarkdownVFile } from "./types";
 
 export const rehypeMakeImagePathsAbsolute: Plugin<[], Root> = () => {
 	return (tree: Root, file: VFile) => {
@@ -30,7 +31,12 @@ export const rehypeMakeImagePathsAbsolute: Plugin<[], Root> = () => {
 };
 
 export const rehypeMakeHrefPathsAbsolute: Plugin<[], Root> = () => {
-	return (tree) => {
+	return (tree, vfile) => {
+		let path = "";
+		if (isMarkdownVFile(vfile)) {
+			const file = relative(process.cwd(), vfile.data.file);
+			path = dirname(file) + "/";
+		}
 		function aVisitor(node: Element) {
 			if (node.tagName === "a") {
 				const href = node.properties!.href as string;
@@ -39,7 +45,7 @@ export const rehypeMakeHrefPathsAbsolute: Plugin<[], Root> = () => {
 				}
 				node.properties!.href = new URL(
 					href,
-					"https://playfulprogramming.com",
+					"https://playfulprogramming.com/" + path,
 				).toString();
 			}
 		}
