@@ -41,6 +41,7 @@ import {
 	transformTabs,
 	transformVoid,
 } from "./components";
+import { rehypeRelativePaths } from "./rehype-relative-paths";
 
 const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
 
@@ -74,6 +75,7 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypeUnwrapImages)
 			// This is required to handle unsafe HTML embedded into Markdown
 			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] })
+			.use(rehypeRelativePaths)
 			.use(rehypeParseComponents)
 			// Do not add the tabs before the slug. We rely on some of the heading
 			// logic in order to do some of the subheading logic
