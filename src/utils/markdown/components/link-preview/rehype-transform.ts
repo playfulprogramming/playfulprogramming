@@ -4,13 +4,13 @@ import { toString } from "hast-util-to-string";
 import { URL } from "url";
 import { RehypeFunctionComponent } from "../types";
 import { isElement } from "utils/markdown/unist-is-element";
-import { fetchPreviewForUrl } from "./fetchPreviewForUrl";
 import {
 	ComponentMarkupNode,
 	createComponent,
 	PlayfulRoot,
 } from "../components";
 import { Plugin } from "unified";
+import { getUrlMetadata } from "utils/hoof";
 
 /**
  * Transform image-wrapped links into a link preview component
@@ -64,7 +64,9 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 		type: "element",
 		tagName: "picture",
 	});
-	const result = pictureNode ? undefined : await fetchPreviewForUrl(url);
+	const result = pictureNode
+		? undefined
+		: (await getUrlMetadata(url.toString()))?.banner;
 	if (!pictureNode && !result) return;
 
 	return [

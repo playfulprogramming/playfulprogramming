@@ -7,8 +7,8 @@ import { CollectionInfo, PostInfo } from "types/index";
 import { getPersonById } from "utils/api";
 import { createEpubPlugins } from "utils/markdown/createEpubPlugins";
 import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
+import { getUrlMetadata } from "utils/hoof/get-url-metadata";
 import { CollectionLinks } from "utils/markdown/reference-page/rehype-reference-page";
-import { escapeHtml, fetchPageHtml, getPageTitle } from "utils/fetch-page-html";
 import epubCss from "./epub.css?raw";
 import { tmpdir } from "os";
 
@@ -20,6 +20,15 @@ interface GetReferencePageMarkdownOptions {
 	collectionLinks: CollectionLinks[];
 }
 
+function escapeHtml(unsafe: string) {
+	return unsafe
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;");
+}
+
 async function getReferencePageHtml({
 	collection,
 	collectionPosts,
@@ -27,17 +36,19 @@ async function getReferencePageHtml({
 }: GetReferencePageMarkdownOptions) {
 	const links = await Promise.all(
 		collectionLinks.map(async (link) => {
-			const srcHast = await fetchPageHtml(link.originalHref);
-			if (!srcHast)
-				return {
-					...link,
-					title: link.originalText,
-				};
+			const metadata = await getUrlMetadata(link.originalHref).catch(
+				() => undefined,
+			);
+			if (!metadata || metadata.error) {
+				console.error(
+					"Failed to fetch metadata for collection link",
+					link.originalHref,
+				);
+			}
 
-			const title = getPageTitle(srcHast);
 			return {
 				...link,
-				title: title ?? link.originalText,
+				title: metadata?.title ?? link.originalText,
 			};
 		}) ?? [],
 	);
