@@ -971,7 +971,7 @@ Lazy loading components enable React to tree-shake away the bundled code relevan
 
 > **Further reading:**
 >
-> Confused by what a "bundle" is in this context? Worry not! [I've written a guide to bundling (the process of generating a bundle) in React inside my free book "Framework Field Guide: Ecosystem"](posts/ffg-ecosystem-bundling).
+> Confused by what a "bundle" is in this context? Worry not! [I've written a guide to bundling (the process of generating a bundle) in React inside my free book "Framework Field Guide: Ecosystem"](/posts/ffg-ecosystem-bundling).
 
 This enabled further usage of the VDOM as a representation of complex state by loading in a component and its associated code over the network (in this case `LargeBundleComponent`).
 
@@ -1861,7 +1861,7 @@ While this project never left the experimental phase, it was clear that Facebook
 
 In face, [in an interview with Dominic Gannaway, an ex-React core team member](https://www.youtube.com/live/N54FZtNvk_A?t=2318s), he outlined that the history of investigations around the React Compiler _predates Hooks_. Yes, that's right, the rules of Hooks were not just created for the code at the time, but were a massive future-think from the team to enable functionalities like the current React Compiler.
 
-And it's not like React is the only framework with required performance optimizations. Between [Angular's `runOutsideAngular` from its Zone.js days](posts/angular-internals-zonejs) to [its modern `OnPush` detection strategies](https://angular.dev/best-practices/skipping-subtrees), [Vue's `v-memo` and `v-once`](https://angular.dev/best-practices/skipping-subtrees), [Lit's `shouldUpdate`](https://lit.dev/docs/components/lifecycle/#shouldupdate), and even [Solid.js' `createMemo`](https://docs.solidjs.com/reference/basic-reactivity/create-memo), it's clear that there's no silver bullet to performance, regardless of [reactivity mechanism](/posts/what-is-reactivity).
+And it's not like React is the only framework with required performance optimizations. Between [Angular's `runOutsideAngular` from its Zone.js days](/posts/angular-internals-zonejs) to [its modern `OnPush` detection strategies](https://angular.dev/best-practices/skipping-subtrees), [Vue's `v-memo` and `v-once`](https://angular.dev/best-practices/skipping-subtrees), [Lit's `shouldUpdate`](https://lit.dev/docs/components/lifecycle/#shouldupdate), and even [Solid.js' `createMemo`](https://docs.solidjs.com/reference/basic-reactivity/create-memo), it's clear that there's no silver bullet to performance, regardless of [reactivity mechanism](/posts/what-is-reactivity).
 
 # Takeaways
 
