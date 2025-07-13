@@ -59,7 +59,7 @@ The problem is that, when not using semantic elements, the user is not given the
 
 It's important to understand that semantic elements are best practice for a reason, and accessibility should always be a priority. If you'd like to learn more, we have a fantastic post going over web accessibility.
 
-> #### **[Intro to accessibility](./intro-to-web-accessibility)**
+> #### **[Intro to accessibility](/posts/intro-to-web-accessibility)**
 > Accessibility allows as many people to use your product as possible. That, in turn, generates more profit. Here's how to improve it on web.
 
 Now let's dive into the elements, shall we?

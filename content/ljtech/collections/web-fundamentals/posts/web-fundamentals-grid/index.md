@@ -191,7 +191,7 @@ In those situations, you can specify the size of auto generated cells.
 
 # Alignment 
 
-Adding `display: grid` to a container will cause any immediate descendants to become grid items. Similar to **[flexbox](./web-fundamentals-flexbox)**, we can use placement methods to help align, justify, and space grid items inside the container.
+Adding `display: grid` to a container will cause any immediate descendants to become grid items. Similar to **[flexbox](/posts/web-fundamentals-flexbox)**, we can use placement methods to help align, justify, and space grid items inside the container.
 
 
 ## Using `place-items`
