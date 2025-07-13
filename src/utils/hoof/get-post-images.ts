@@ -1,5 +1,6 @@
 import { setTimeout } from "timers/promises";
 import { client } from "./client";
+import { isSocketError } from "./isSocketError";
 
 interface PostImagesRequest {
 	slug: string;
@@ -18,9 +19,21 @@ export async function getPostImages(
 	for (let retries = 0; retries < 10; retries++) {
 		await setTimeout(Math.pow(retries, 2) * 1000);
 
-		const { data, response } = await client.POST("/tasks/post-images", {
-			body: request,
-		});
+		const req = await client
+			.POST("/tasks/post-images", {
+				body: request,
+			})
+			.catch((e) => ({ exception: e }) as const);
+
+		if ("exception" in req) {
+			if (isSocketError(req.exception)) {
+				continue;
+			} else {
+				throw req.exception;
+			}
+		}
+
+		const { data, response } = req;
 
 		if (data && response.status === 200) {
 			return data;
