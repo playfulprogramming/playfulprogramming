@@ -17,7 +17,7 @@ Just to name a few, here are some of the styling tools we're **not** talking abo
 - [Styled Components](https://styled-components.com/)
 - [StyleX](https://stylexjs.com/)
 - [UnoCSS](https://unocss.dev/)
-- [Vanilla Extract](vanilla-extract.style/)
+- [Vanilla Extract](https://vanilla-extract.style/)
 - [Less](https://lesscss.org/)
 
 Given the broad range and number of tools we aren't looking at, what tools _are_ we going to be learning about? Well, in addition to a few built-in browser techniques, we'll touch on:
@@ -314,7 +314,7 @@ Finally, we'll import our `src/styles.css` file into Vite's entry point of `inde
 
 #### Angular
 
-Since the Angular CLI supports [PostCSS](https://postcss.org/https://postcss.org/) out-of-the-box, we can leverage it to add Tailwind.
+Since the Angular CLI supports [PostCSS](https://postcss.org/) out-of-the-box, we can leverage it to add Tailwind.
 
 > PostCSS is a CSS transformer that powers Tailwind's compilation of your CSS. (more on this later)
 

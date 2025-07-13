@@ -16,7 +16,7 @@ There are many good options out there for bundling today:
 - [Rspack](https://www.rspack.dev/)
 - [Turbopack](https://turbo.build/pack)
 
-While each comes with their own pros and cons, we're instead going to be focusing on [Vite](https://vitejs.dev/). Here's why:
+While each comes with their own pros and cons, we're instead going to be focusing on [Vite](https://vite.dev/). Here's why:
 
 - Vite is the suggested bundler for Vue apps and is maintained by many of the Vue maintainers
 - Vite is used by Angular's tooling to host a development server (more on that soon)
@@ -665,7 +665,7 @@ And finally, this `App` component might be bundled with other code to create the
 
 Let's take our knowledge of bundlers out of theoretical land and move onto implementing them in an app with our chosen framework.
 
-As we mentioned at the start of the article, while there are many options for bundlers these days, we'll be using [Vite](https://vitejs.dev/) for its ubiquitous usage and simplicity of setup.
+As we mentioned at the start of the article, while there are many options for bundlers these days, we'll be using [Vite](https://vite.dev/) for its ubiquitous usage and simplicity of setup.
 
 <!-- ::start:tabs -->
 
@@ -725,7 +725,7 @@ Now when you modify `src/App.jsx` (or `src/App.tsx` if you selected TypeScript) 
 
 Angular, being an "everything, including the kitchen sink" framework, has an official solution to the bundling solution.
 
-This solution can be found in the shape of [the Angular CLI](https://angular.io/cli), which uses [Vite](https://vitejs.dev/) (and Vite's dependency, [ESBuild](https://esbuild.github.io/)) under-the-hood.
+This solution can be found in the shape of [the Angular CLI](https://angular.io/cli), which uses [Vite](https://vite.dev/) (and Vite's dependency, [ESBuild](https://esbuild.github.io/)) under-the-hood.
 
 ------
 
@@ -776,7 +776,7 @@ Now, by modifying the source code in `src`, you're able to see the browser conte
 
 To spin up a fresh Vue project, you have two options:
 
-- The [`create-vite`](https://vitejs.dev/guide/#scaffolding-your-first-vite-project) NPM package
+- The [`create-vite`](https://vite.dev/guide/#scaffolding-your-first-vite-project) NPM package
 - The [`create-vue`](https://github.com/vuejs/create-vue) NPM package
 
 The while we've been using something akin to the more minimal output from `create-vite` in the first book, the official recommendation for spinning up a new Vue project is _actually_ the `create-vue` package, as it includes more built-in functionality that most production apps can leverage.
