@@ -29,13 +29,13 @@ This is a reasonably straightforward flow once you get the hang of it. Let's tak
 
 # Client Side Rendering {#csr}
 
-While you may not be familiar with this term, you're more than likely familiar with how you'd implement one of these; After all, this is the default when building an Angular, React, or Vue site. Let's use a React site as an example. When you build a typical React SPA without utilizing a framework like NextJS or Gatsby, you'd:
+While you may not be familiar with this term, you're more than likely familiar with how you'd implement one of these; After all, this is the default when building an Angular, React, or Vue site. Let's use a React site as an example. When you build a typical React SPA without utilizing a framework like NextJS or Gatsby:
 
-1) You build the React code
-2) You put it on a server
-3) The client downloads the React code from the server
-4) The React code runs and generates the HTML/CSS on the client's computer
-5) The user **then** sees the content on screen after React runs
+1) You build the React code.
+2) You put it on a server.
+3) The client downloads the React code from the server.
+4) The React code runs and generates the HTML/CSS on the client's computer.
+5) The user **then** sees the content on screen after React runs.
 
 ![A diagram explaining how the steps above would flow](./csr.svg)
 
