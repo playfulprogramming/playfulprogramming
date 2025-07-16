@@ -74,7 +74,7 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 					</p>
 					<SmallOutlinedButton
 						href="#internals-title"
-						onclick="event.preventDefault();var title=document.getElementById('internals-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+						data-scroll-block="center"
 					>
 						Learn more
 					</SmallOutlinedButton>
@@ -93,7 +93,7 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 			href="#why-free"
 			data-no-horiz-pad
 			class={styles.whyFreeBtn}
-			onclick="event.preventDefault();window.location.hash='why-free-story';setTimeout(() => {var title=document.getElementById('why-free-story');title.scrollIntoView({behavior: 'smooth', block: 'center'})}, 100)"
+			data-scroll-block="center"
 		>
 			Learn why we made it free
 		</BigFilledButton>

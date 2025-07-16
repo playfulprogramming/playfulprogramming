@@ -4,7 +4,7 @@ const { headingsToDisplaySlugs } = Astro.props as {
 };
 ---
 
-<script define:vars={{ headingsToDisplaySlugs }}>
+<script is:inline define:vars={{ headingsToDisplaySlugs }}>
 	window.headingsToDisplaySlugsMobile = headingsToDisplaySlugs;
 </script>
 

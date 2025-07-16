@@ -3,18 +3,21 @@ export const enableSmoothScrollForAnchorsToCurrentPage = () => {
 		window.matchMedia &&
 		window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-	const els = Array.from(document.querySelectorAll(`.post-body a[href^="#"]`));
+	const els = Array.from(document.querySelectorAll(`a[href^="#"]`));
 	for (const el of els) {
 		el.addEventListener("click", (e: Event) => {
-			e.preventDefault();
-
 			const href = (e.target as HTMLAnchorElement | null)?.getAttribute("href");
 			if (!href) return;
 			const target = document.querySelector(href);
 			if (!target) return;
+			const block =
+				((e.target as HTMLAnchorElement | null)?.getAttribute(
+					"data-scroll-block",
+				) as ScrollLogicalPosition) ?? "center";
 
+			e.preventDefault();
 			target.scrollIntoView({
-				block: "center",
+				block,
 				behavior: prefersReducedMotion ? "auto" : "smooth",
 			});
 

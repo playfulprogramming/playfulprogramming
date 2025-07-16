@@ -29,7 +29,6 @@ import sadUnicorn from "../../assets/unicorn_sad.svg";
 import happyUnicorn from "../../assets/unicorn_happy.svg";
 import scaredUnicorn from "../../assets/unicorn_scared.svg";
 import {
-	SEARCH_PAGE_KEY,
 	SearchQuery,
 	serializeParams,
 	deserializeParams,
@@ -63,9 +62,9 @@ function usePersistedEmptyRef<T extends object>(value: T) {
 }
 
 const fetchSearchFilters = async ({ signal }: { signal: AbortSignal }) => {
-	return fetch("/searchFilters.json", { signal, method: "GET" }).then((res) => {
+	return fetch("/searchFilters.json", { signal, method: "GET" }).then(async (res) => {
 		if (!res.ok) {
-			return res.text().then((text) => Promise.reject(text));
+			return Promise.reject(await res.text());
 		}
 		return res.json() as Promise<SearchFiltersData>;
 	});
