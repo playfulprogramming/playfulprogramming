@@ -32,7 +32,7 @@
 			"permanent": true
 		},
 		{
-			"source": "page/:num",
+			"source": "/page/:num",
 			"destination": "/search",
 			"permanent": true
 		}
