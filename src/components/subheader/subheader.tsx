@@ -1,6 +1,5 @@
 import { PropsWithOptionalChildren } from "components/types";
 import styles from "./subheader.module.scss";
-import { createElement } from "preact";
 import { HTMLAttributes } from "preact/compat";
 
 type SubHeaderProps = PropsWithOptionalChildren<{

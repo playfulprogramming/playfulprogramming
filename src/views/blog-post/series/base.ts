@@ -1,4 +1,4 @@
-import { CollectionInfo, PostInfo } from "types/index";
+import { PostInfo } from "types/index";
 
 interface ActivePostMeta extends PostInfo {
 	shouldShowInitially: boolean;

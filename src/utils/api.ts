@@ -107,7 +107,7 @@ export function getCollectionsByPerson(
 
 export function getRoleById(
 	roleId: string,
-	language: Languages,
+	_language: Languages,
 ): RolesInfo | undefined {
 	// TODO: support role name translations
 	return roles.find((r) => r.id === roleId);

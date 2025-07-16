@@ -32,7 +32,7 @@ import BigFilledButton from "../../framework-field-guide/components/big-filled-b
 		<div class={style.buttonContainer}>
 			<BigFilledButton
 				href="#chapter-listing-heading"
-				onclick='event.preventDefault();var title=document.getElementById("chapter-listing-heading");title.scrollIntoView({behavior: "smooth", block: "start"});'
+				data-scroll-block="start"
 			>
 				Read now
 			</BigFilledButton>

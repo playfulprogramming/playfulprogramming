@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "preact/hooks";
+import { useCallback, useMemo } from "preact/hooks";
 
 interface FilterStateParams {
 	tags: string[];
