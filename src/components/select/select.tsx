@@ -11,7 +11,6 @@ import {
 	usePopover,
 	AriaPopoverProps,
 	useButton,
-	useFocusVisible,
 	useFocusRing,
 } from "react-aria";
 import { PropsWithChildren } from "preact/compat";
@@ -246,7 +245,7 @@ interface OptionProps {
 
 export function Option({ item, state }: OptionProps) {
 	const ref = useRef<HTMLLIElement>(null);
-	const { optionProps, isDisabled, isSelected, isFocusVisible } = useOption(
+	const { optionProps, isSelected, isFocusVisible } = useOption(
 		{
 			key: item.key,
 		},

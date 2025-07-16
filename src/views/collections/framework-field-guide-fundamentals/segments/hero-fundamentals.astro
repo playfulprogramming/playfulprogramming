@@ -33,7 +33,7 @@ import ribbon from "../assets/ribbon.svg";
 				<div class={`${styles.buttonReadNow}`}>
 					<BigFilledButton
 						href="#chapter-listing-heading"
-						onclick='event.preventDefault();var title=document.getElementById("chapter-listing-heading");title.scrollIntoView({behavior: "smooth", block: "start"});'
+						data-scroll-block="start"
 					>
 						Read now
 					</BigFilledButton>

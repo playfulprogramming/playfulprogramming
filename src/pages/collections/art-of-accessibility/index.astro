@@ -4,7 +4,7 @@ import Barebones from "src/layouts/barebones.astro";
 import SEO from "src/components/seo/seo.astro";
 import Header from "src/views/collections/framework-field-guide/segments/header.astro";
 import Hero from "../../../views/collections/art-of-accessibility/segments/hero.astro";
-import { getCollectionBySlug, getPersonById } from "../../../utils/api";
+import { getPersonById } from "../../../utils/api";
 import { getPostsByCollection } from "../../../utils/api";
 
 import "../../../views/collections/framework-field-guide/fonts/plus-jakarta-sans.css";
@@ -82,6 +82,10 @@ const comingSoon = [
 		</Rest>
 	</main>
 </Barebones>
+<script>
+	import { enableSmoothScrollForAnchorsToCurrentPage } from "utils/smooth-scroll-for-anchors-to-current-page";
+	enableSmoothScrollForAnchorsToCurrentPage();
+</script>
 <script>
 	import { enableParallaxScrolling } from "../../../views/collections/framework-field-guide/scripts/parallax-scrolling";
 	enableParallaxScrolling();
