@@ -48,3 +48,9 @@ export interface CollectionInfo extends RawCollectionInfo {
 		width: number;
 	};
 }
+
+export interface SearchCollectionInfo extends CollectionInfo {
+	excerpt: string;
+	searchMeta: string;
+	publishedTimestamp: number;
+}

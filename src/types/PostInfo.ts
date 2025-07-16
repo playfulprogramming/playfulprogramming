@@ -32,6 +32,12 @@ export interface PostInfo extends RawPostInfo {
 	wordCount: number;
 }
 
+export interface SearchPostInfo extends PostInfo {
+	banner?: string;
+	searchMeta: string;
+	publishedTimestamp: number;
+}
+
 export interface PostHeadingInfo {
 	// Title value
 	value: string;

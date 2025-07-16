@@ -28,7 +28,7 @@ export function PostCardGrid({
 
 				const pageIndex = i % 8;
 
-				return expanded && post.bannerImg && (pageIndex == 0 || pageIndex == 4) ? (
+				return expanded && post.banner && (pageIndex == 0 || pageIndex == 4) ? (
 					<PostCardExpanded
 						class={style.expanded}
 						post={post}

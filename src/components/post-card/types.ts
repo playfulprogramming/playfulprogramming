@@ -1,3 +1,3 @@
-import { PostInfo } from "types/PostInfo";
+import { PostInfo, SearchPostInfo } from "types/PostInfo";
 
-export type PostInfoWithBanner = PostInfo & { bannerImg?: string };
+export type PostInfoWithBanner = PostInfo & Pick<SearchPostInfo, "banner">;

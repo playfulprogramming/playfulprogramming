@@ -99,7 +99,7 @@ export const PostCardExpanded = ({
 				<img
 					loading={imageLoading}
 					className={style.extendedPostImage}
-					src={post.bannerImg}
+					src={post.banner}
 					alt=""
 				/>
 			</div>
