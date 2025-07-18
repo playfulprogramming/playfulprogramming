@@ -123,7 +123,7 @@ export function createHtmlPlugins(unified: Processor) {
 			// Shiki is the last plugin before stringify, to avoid performance issues
 			// with node traversal (shiki creates A LOT of element nodes)
 			.use(rehypeCodeblockMeta)
-			.use(...rehypeShikiUU)
+			.use(rehypeShikiUU)
 			.use(rehypePostShikiTransform)
 			.use(rehypeTransformComponents, {
 				components: {
