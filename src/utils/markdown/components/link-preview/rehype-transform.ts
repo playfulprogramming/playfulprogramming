@@ -4,13 +4,14 @@ import { toString } from "hast-util-to-string";
 import { URL } from "url";
 import { RehypeFunctionComponent } from "../types";
 import { isElement } from "utils/markdown/unist-is-element";
-import { fetchPreviewForUrl } from "./fetchPreviewForUrl";
 import {
 	ComponentMarkupNode,
 	createComponent,
 	PlayfulRoot,
 } from "../components";
 import { Plugin } from "unified";
+import { getUrlMetadata } from "utils/hoof";
+import { logError } from "utils/markdown/logger";
 
 /**
  * Transform image-wrapped links into a link preview component
@@ -43,20 +44,29 @@ export const rehypeLinkPreview: Plugin<[], PlayfulRoot> = () => {
 };
 
 export const transformLinkPreview: RehypeFunctionComponent = async ({
+	vfile,
 	children,
+	node,
 }) => {
 	const paragraphNode = children.filter(isElement).at(0);
-	if (!paragraphNode) return;
+	if (!paragraphNode) {
+		logError(vfile, node, "Missing link preview contents");
+		return;
+	}
 	const anchorNode = find<Element>(paragraphNode, {
 		type: "element",
 		tagName: "a",
 	});
-	if (!anchorNode) return;
+	if (!anchorNode) {
+		logError(vfile, paragraphNode, "Missing a link element");
+		return;
+	}
 
 	let url: URL;
 	try {
 		url = new URL(anchorNode.properties.href + "");
 	} catch (e) {
+		logError(vfile, anchorNode, "Malformatted URL");
 		return;
 	}
 
@@ -64,8 +74,13 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 		type: "element",
 		tagName: "picture",
 	});
-	const result = pictureNode ? undefined : await fetchPreviewForUrl(url);
-	if (!pictureNode && !result) return;
+	const result = pictureNode
+		? undefined
+		: (await getUrlMetadata(url.toString()))?.banner;
+	if (!pictureNode && !result) {
+		logError(vfile, anchorNode, "Link preview could not find a banner image.");
+		return;
+	}
 
 	return [
 		createComponent(

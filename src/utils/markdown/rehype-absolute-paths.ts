@@ -4,6 +4,7 @@ import { visit } from "unist-util-visit";
 import { dirname, join } from "path";
 import { Plugin } from "unified";
 import { VFile } from "vfile";
+import { MarkdownVFile } from "./types";
 
 export const rehypeMakeImagePathsAbsolute: Plugin<[], Root> = () => {
 	return (tree: Root, file: VFile) => {
@@ -30,17 +31,31 @@ export const rehypeMakeImagePathsAbsolute: Plugin<[], Root> = () => {
 };
 
 export const rehypeMakeHrefPathsAbsolute: Plugin<[], Root> = () => {
-	return (tree) => {
+	return (tree, vfile) => {
+		const kind = (vfile as MarkdownVFile).data.kind;
+		const slug = (vfile as MarkdownVFile).data.slug;
 		function aVisitor(node: Element) {
 			if (node.tagName === "a") {
 				const href = node.properties!.href as string;
 				if (href.startsWith("#")) {
 					return;
 				}
-				node.properties!.href = new URL(
-					href,
-					"https://playfulprogramming.com",
-				).toString();
+				if (kind === "post") {
+					node.properties!.href = new URL(
+						href,
+						`https://playfulprogramming.com/posts/${slug}`,
+					).toString();
+				} else if (kind === "collection") {
+					node.properties!.href = new URL(
+						href,
+						`https://playfulprogramming.com/collections/${slug}`,
+					).toString();
+				} else {
+					node.properties!.href = new URL(
+						href,
+						"https://playfulprogramming.com",
+					).toString();
+				}
 			}
 		}
 		visit(tree, "element", aVisitor);

@@ -7,12 +7,14 @@ export type MarkdownKind = "post" | "collection" | "unicorn" | "page";
 export type MarkdownFileInfo = {
 	kind: MarkdownKind;
 	file: string;
+	slug?: string;
 };
 
 export interface MarkdownVFile extends VFile {
 	data: {
 		kind: MarkdownKind;
 		file: string;
+		slug?: string;
 		frontmatter?: MarkdownFileInfo;
 		frontmatterData?: object;
 		headingsWithIds: PostHeadingInfo[];

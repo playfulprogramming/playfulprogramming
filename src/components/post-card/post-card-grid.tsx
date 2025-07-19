@@ -1,11 +1,12 @@
 import style from "./post-card-grid.module.scss";
 import { PostCard, PostCardExpanded } from "./post-card";
-import { PostInfo, PersonInfo } from "types/index";
+import { PersonInfo } from "types/index";
 import { HTMLAttributes } from "preact/compat";
 import { isDefined } from "utils/is-defined";
+import { PostInfoWithBanner } from "./types";
 
 export interface PostGridProps extends HTMLAttributes<HTMLUListElement> {
-	postsToDisplay: PostInfo[];
+	postsToDisplay: PostInfoWithBanner[];
 	postAuthors: Map<string, PersonInfo>;
 	postHeadingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	expanded?: boolean;
@@ -25,7 +26,9 @@ export function PostCardGrid({
 					.map((id) => postAuthors.get(id))
 					.filter(isDefined);
 
-				return expanded && post.bannerImg ? (
+				const pageIndex = i % 8;
+
+				return expanded && post.banner && (pageIndex == 0 || pageIndex == 4) ? (
 					<PostCardExpanded
 						class={style.expanded}
 						post={post}
