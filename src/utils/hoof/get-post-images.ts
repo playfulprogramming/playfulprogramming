@@ -1,21 +1,27 @@
 import { setTimeout } from "timers/promises";
 import { client } from "./client";
 import { isSocketError } from "./isSocketError";
-
-interface PostImagesRequest {
-	slug: string;
-	author: string;
-	path: string;
-}
+import { PostInfo } from "types/PostInfo";
+import { relative } from "path";
+import fs from "fs/promises";
+import { createHash } from "crypto";
 
 interface PostImagesResponse {
-	banner: string;
-	linkPreview: string;
+	banner: string | null;
+	linkPreview: string | null;
 }
 
 export async function getPostImages(
-	request: PostImagesRequest,
+	post: Pick<PostInfo, "slug" | "authors" | "file">,
 ): Promise<PostImagesResponse> {
+	const indexRaw = await fs.readFile(post.file, "utf-8");
+	const request = {
+		slug: post.slug,
+		author: post.authors[0],
+		path: relative(process.cwd(), post.file),
+		indexMd5: createHash("md5").update(indexRaw).digest("hex"),
+	};
+
 	for (let retries = 0; retries < 10; retries++) {
 		await setTimeout(Math.pow(retries, 2) * 1000);
 

@@ -10,7 +10,6 @@ import {
 	ORAMA_POSTS_INDEX_ID,
 } from "src/views/search/constants";
 import { getPostImages } from "utils/hoof";
-import { relative } from "path";
 
 if (!process.env.ORAMA_PRIVATE_API_KEY) {
 	console.error("ORAMA_PRIVATE_API_KEY is not defined in the environment!");
@@ -72,18 +71,14 @@ const posts = await Promise.all(
 			.flatMap((set) => Array.from(set))
 			.join(" ");
 
-		const postImages = await getPostImages({
-			slug: post.slug,
-			author: post.authors[0],
-			path: relative(process.cwd(), post.file),
-		}).catch((e) => {
+		const postImages = await getPostImages(post).catch((e) => {
 			console.error(e);
 			return undefined;
 		});
 
 		return {
 			...post,
-			banner: postImages?.banner,
+			banner: postImages?.banner || undefined,
 			excerpt,
 			searchMeta,
 			publishedTimestamp: new Date(post.published).getTime(),

@@ -12,6 +12,8 @@ import Profile from "./profile.astro";
 import { SEOProps } from "./shared";
 import Twitter from "./twitter.astro";
 
+export type Props = SEOProps;
+
 const {
 	description = "",
 	title,
@@ -25,7 +27,7 @@ const {
 	providedLangs,
 	shareImage,
 	noindex,
-} = Astro.props as SEOProps;
+} = Astro.props;
 
 const lang = getPrefixLanguageFromPath(Astro.url.pathname);
 const pathName = removePrefixLanguageFromPath(Astro.url.pathname);
