@@ -76,7 +76,10 @@ const posts = await Promise.all(
 			slug: post.slug,
 			author: post.authors[0],
 			path: relative(process.cwd(), post.file),
-		}).catch(() => undefined);
+		}).catch((e) => {
+			console.error(e);
+			return undefined;
+		});
 
 		return {
 			...post,
