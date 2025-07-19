@@ -134,12 +134,14 @@ export interface paths {
 					/** @example {
 					 *       "slug": "example",
 					 *       "author": "fennifith",
-					 *       "path": "content/fennifith/posts/example/index.md"
+					 *       "path": "content/fennifith/posts/example/index.md",
+					 *       "indexMd5": "6cd3556deb0da54bca060b4c39479839"
 					 *     } */
 					"application/json": {
 						slug: string;
 						author: string;
 						path: string;
+						indexMd5: string;
 					};
 				};
 			};
@@ -151,8 +153,8 @@ export interface paths {
 					};
 					content: {
 						"application/json": {
-							banner: string;
-							linkPreview: string;
+							banner?: string;
+							linkPreview?: string;
 						};
 					};
 				};

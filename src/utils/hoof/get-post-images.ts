@@ -7,8 +7,8 @@ import fs from "fs/promises";
 import { createHash } from "crypto";
 
 interface PostImagesResponse {
-	banner: string | null;
-	linkPreview: string | null;
+	banner?: string;
+	linkPreview?: string;
 }
 
 export async function getPostImages(

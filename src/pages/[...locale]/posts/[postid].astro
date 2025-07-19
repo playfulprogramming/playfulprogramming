@@ -68,7 +68,7 @@ const postImages = await getPostImages(post).catch((e) => {
 		type="article"
 		canonical={post.originalLink}
 		providedLangs={locales}
-		shareImage={postImages?.linkPreview || undefined}
+		shareImage={postImages?.linkPreview}
 		noindex={post.noindex}
 	/>
 	<BlogPost
