@@ -40,6 +40,78 @@ export interface paths {
 		patch?: never;
 		trace?: never;
 	};
+	"/health/postgres": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/** Healthcheck - Postgres */
+		get: {
+			parameters: {
+				query?: never;
+				header?: never;
+				path?: never;
+				cookie?: never;
+			};
+			requestBody?: never;
+			responses: {
+				/** @description Successful response */
+				200: {
+					headers: {
+						[name: string]: unknown;
+					};
+					content: {
+						"text/plain": string;
+					};
+				};
+			};
+		};
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	"/health/redis": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/** Healthcheck - Redis */
+		get: {
+			parameters: {
+				query?: never;
+				header?: never;
+				path?: never;
+				cookie?: never;
+			};
+			requestBody?: never;
+			responses: {
+				/** @description Successful response */
+				200: {
+					headers: {
+						[name: string]: unknown;
+					};
+					content: {
+						"text/plain": string;
+					};
+				};
+			};
+		};
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	"/tasks/post-images": {
 		parameters: {
 			query?: never;
