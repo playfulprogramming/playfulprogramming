@@ -11,6 +11,7 @@ import { getUrlMetadata } from "utils/hoof/get-url-metadata";
 import { CollectionLinks } from "utils/markdown/reference-page/rehype-reference-page";
 import epubCss from "./epub.css?raw";
 import { tmpdir } from "os";
+import asyncPool from "tiny-async-pool";
 
 const emojiRegex = emojiRegexFn();
 
@@ -34,29 +35,34 @@ async function getReferencePageHtml({
 	collectionPosts,
 	collectionLinks,
 }: GetReferencePageMarkdownOptions) {
-	const links = await Promise.all(
-		collectionLinks.map(async (link) => {
-			const metadata = await getUrlMetadata(link.originalHref).catch(
-				() => undefined,
-			);
-			if (!metadata || metadata.error) {
-				console.error(
-					"Failed to fetch metadata for collection link",
-					link.originalHref,
-				);
-			}
+	const metadataPromises = asyncPool(8, collectionLinks, async (link) => {
+		const metadata = await getUrlMetadata(link.originalHref).catch((e) => {
+			console.error(e);
+			return undefined;
+		});
 
-			return {
-				...link,
-				title: metadata?.title ?? link.originalText,
-			};
-		}) ?? [],
-	);
+		if (metadata?.error) {
+			console.error(
+				"Failed to fetch metadata for collection link",
+				link.originalHref,
+			);
+		}
+
+		return {
+			originalHref: link.originalHref,
+			title: metadata?.title,
+		};
+	});
+
+	const linkTitles: Record<string, string | undefined> = {};
+	for await (const metadata of metadataPromises) {
+		linkTitles[metadata.originalHref] = metadata.title;
+	}
 
 	return `
 ${collectionPosts
 	.map((chapter) => {
-		const chapterMetaLinks = links.filter(
+		const chapterMetaLinks = collectionLinks.filter(
 			(link) => link.associatedChapterOrder === chapter.order,
 		);
 
@@ -76,7 +82,7 @@ ${collectionPosts
 ${chapterMetaLinks
 	.map((link) => {
 		return `
-<li style="white-space: pre-line; margin-top: 2rem; margin-bottom: 2rem;">${escapeHtml(link.title.trim())}:
+<li style="white-space: pre-line; margin-top: 2rem; margin-bottom: 2rem;">${escapeHtml((linkTitles[link.originalHref] ?? link.originalText).trim())}:
 
 <a href="${link.originalHref.trim()}">${link.originalHref.trim()}</a></li>
 `.trim();
