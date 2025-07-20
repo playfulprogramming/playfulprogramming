@@ -9,11 +9,11 @@ const rootPath = `/`;
 
 const isBase = Astro.url.pathname === rootPath;
 
-interface LayoutProps {
+export interface Props {
 	disableThemeToggle?: boolean;
 }
 
-const { disableThemeToggle } = Astro.props as LayoutProps;
+const { disableThemeToggle } = Astro.props;
 ---
 
 <div class={layoutStyles.horizCenter}>

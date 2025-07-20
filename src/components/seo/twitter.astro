@@ -1,7 +1,7 @@
 ---
 import { SEOProps } from "./shared";
 
-type Props = Pick<SEOProps, "title" | "peopleData" | "type"> & {
+export type Props = Pick<SEOProps, "title" | "peopleData" | "type"> & {
 	metaDescription: string;
 	metaImage: string;
 	siteMetadata: { twitterHandle: string };
@@ -16,7 +16,7 @@ const {
 	peopleData,
 	uniTwitter,
 	type,
-} = Astro.props as Props;
+} = Astro.props;
 ---
 
 {/* Twitter SEO */}

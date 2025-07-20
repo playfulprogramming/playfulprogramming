@@ -5,13 +5,13 @@ import {
 	fileToOpenGraphConverter,
 } from "utils/translations";
 
-type Props = {
+export type Props = {
 	providedLangs?: Languages[];
 	pathName: string;
 	siteMetadata: { siteUrl: string };
 };
 
-const { providedLangs, siteMetadata, pathName } = Astro.props as Props;
+const { providedLangs, siteMetadata, pathName } = Astro.props;
 
 const defaultLocale = "en";
 
