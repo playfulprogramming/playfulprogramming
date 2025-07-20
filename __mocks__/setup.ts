@@ -21,6 +21,8 @@ window.history.back = () => {
 	window.location.assign(history[history.length - 1]);
 };
 
+window.scrollTo = vi.fn(() => {});
+
 // https://github.com/jsdom/jsdom/issues/3294
 
 HTMLDialogElement.prototype.show = vi.fn(function mock(

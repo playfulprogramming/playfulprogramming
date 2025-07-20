@@ -11,7 +11,7 @@ export const SEARCH_PAGE_KEY = "page";
 
 export type SortType = "relevance" | "newest" | "oldest";
 
-export type DisplayContentType = "all" | "articles" | "collections";
+export type DisplayContentType = "articles" | "collections";
 
 export interface TagFilterInfo extends TagInfo {
 	id: string;
@@ -35,7 +35,7 @@ export interface SearchQuery {
 const defaultQuery: SearchQuery = {
 	searchQuery: "",
 	page: 1,
-	display: "all",
+	display: "articles",
 	filterTags: [],
 	filterAuthors: [],
 	sort: "relevance",

@@ -5,7 +5,7 @@ import { FilterSection } from "./filter-section";
 import { FilterSectionItem } from "./filter-section-item";
 import { Picture as UUPicture } from "components/image/picture";
 import { ExtendedTag, ExtendedUnicorn } from "./types";
-import { SortType } from "src/views/search/search";
+import { DisplayContentType, SortType } from "src/views/search/search";
 import { DEFAULT_TAG_EMOJI } from "./constants";
 import { FilterSidebarControls } from "./filter-sidebar-controls";
 import { FilterState } from "../use-filter-state";
@@ -18,9 +18,11 @@ interface FilterSidebar {
 	authors: ExtendedUnicorn[];
 	filterState: FilterState;
 	searchString: string;
-	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
-	contentToDisplay: "all" | "articles" | "collections";
+	setContentToDisplay: (content: DisplayContentType) => void;
+	contentToDisplay: DisplayContentType;
 	isHybridSearch: boolean;
+	numberOfPosts: number | null;
+	numberOfCollections: number | null;
 }
 
 export const FilterSidebar = ({
@@ -34,6 +36,8 @@ export const FilterSidebar = ({
 	setContentToDisplay,
 	contentToDisplay,
 	isHybridSearch,
+	numberOfPosts,
+	numberOfCollections,
 }: FilterSidebar) => {
 	const hideSearchbar = !searchString;
 	return (
@@ -61,6 +65,8 @@ export const FilterSidebar = ({
 				setSort={setSort}
 				setContentToDisplay={setContentToDisplay}
 				contentToDisplay={contentToDisplay}
+				numberOfPosts={numberOfPosts}
+				numberOfCollections={numberOfCollections}
 			/>
 			<FilterSection
 				title={"Tag"}

@@ -1,7 +1,7 @@
 @use "src/tokens/index" as *;
 
 :root {
-	--search-page_results-count_padding-top: var(--site-spacing);
+	--search-page_results-count_padding: var(--site-spacing);
 	--search-page_results-count_margin: var(--spc-2x);
 	--search-page_results-count_icon-size: var(--icon-size_dense);
 
@@ -16,7 +16,7 @@
 	display: flex;
 	align-items: center;
 	gap: var(--search-page_results-count_margin);
-	margin-top: var(--search-page_results-count_padding-top);
+	margin: var(--search-page_results-count_padding) 0;
 }
 
 .icon {

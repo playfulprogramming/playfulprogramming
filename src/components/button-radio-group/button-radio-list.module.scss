@@ -1,0 +1,62 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--radio-list-button_min-height: var(--min-target-size_m);
+	--radio-list-button_padding-start: var(--spc-4x);
+	--radio-list-button_padding-end: var(--spc-4x);
+	--radio-list-button_padding-vertical: var(--spc-2x);
+	--radio-list-button_gap: var(--spc-2x);
+
+	--radio-list-button_label_color: var(--foreground_emphasis-medium);
+	--radio-list-button_label_color_selected: var(--foreground_emphasis-high);
+
+	--radio-list-button_background-color_hovered: var(--surface_primary_emphasis-medium);
+	--radio-list-button_background-color_pressed: var(--surface_primary_emphasis-high);
+	--radio-list-button_background-color_selected: var(--surface_primary_emphasis-low);
+	--radio-list-button_background-color_focused: var(--background_focus);
+
+	--radio-list-button_focus-outline_color: var(--focus-outline_primary);
+	--radio-list-button_focus-outline_width: var(--border-width_focus);
+}
+
+.radioListButton {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	min-height: var(--min-target-size_m);
+	border-radius: var(--corner-radius_l);
+	padding-top: var(--radio-list-button_padding-vertical);
+	padding-bottom: var(--radio-list-button_padding-vertical);
+	padding-left: var(--radio-list-button_padding-start);
+	padding-right: var(--radio-list-button_padding-end);
+	gap: var(--radio-list-button_gap);
+	color: var(--radio-list-button_label_color);
+
+	@include transition(color background-color);
+}
+
+.radioListButton[data-selected="true"] {
+	color: var(--radio-list-button_label_color_selected);
+	background-color: var(--radio-list-button_background-color_selected);
+}
+
+.radioListButton:hover {
+	background: var(--radio-list-button_background-color_hovered);
+}
+
+.radioListButton:active {
+	background: var(--radio-list-button_background-color_pressed);
+}
+
+.radioListButton[data-focus-visible="true"] {
+	outline: 4px solid var(--radio-list-button_focus-outline_color);
+	background: var(--radio-list-button_background-color_focused);
+}
+
+.leftIcon, .rightIcon {
+	display: inline-flex;
+}
+
+.rightIcon {
+	margin-left: auto;
+}

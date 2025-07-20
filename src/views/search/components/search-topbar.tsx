@@ -8,7 +8,7 @@ import {
 	RadioButton,
 	RadioButtonGroup,
 } from "components/button-radio-group/button-radio-group";
-import { SortType } from "src/views/search/search";
+import { DisplayContentType, SortType } from "src/views/search/search";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import { useDebouncedCallback } from "../use-debounced-value";
 
@@ -17,8 +17,8 @@ interface SearchTopbarProps {
 	onBlur: (search: string) => void;
 	search: string;
 	setSearch: (search: string) => void;
-	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
-	contentToDisplay: "all" | "articles" | "collections";
+	setContentToDisplay: (content: DisplayContentType) => void;
+	contentToDisplay: DisplayContentType;
 	sort: SortType;
 	setSort: (sortBy: SortType) => void;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
@@ -69,59 +69,61 @@ export const SearchTopbar = ({
 		[setSearchInput, setSearchDebounced],
 	);
 
-	return <>
-		<section 
-			className={style.topBar}
-			style={{
-				["--topbar-header-height"]: `${headerHeight}px`,
-			}}
-		>
-			<form
-				role="search"
-				aria-label="Search our content"
-				className={style.searchbarRow}
-				onSubmit={(e) => {
-					e.preventDefault();
-					onSubmit(searchInput);
+	return (
+		<>
+			<section
+				className={style.topBar}
+				style={{
+					["--topbar-header-height"]: `${headerHeight}px`,
 				}}
 			>
-				<SearchInput
-					id="search-bar"
-					data-testid="search-input"
-					aria-description={"Results will update as you type"}
-					class={style.searchbar}
-					usedInPreact={true}
-					value={searchInput}
-					onBlur={handleBlur}
-					onInput={handleInput}
-				/>
-				<LargeButton class={style.searchTextButton} tag="button" type="submit">
-					Search
-				</LargeButton>
-				<IconOnlyButton
-					class={style.searchIconButton}
-					tag="button"
-					type="submit"
-					aria-label="Search"
-					dangerouslySetInnerHTML={{ __html: forward }}
-					children={[]}
-				/>
-			</form>
-			<div className={style.bigScreenContainer} />
-		</section>
-		<div className={style.smallScreenContainer}>
-		<div className={`${style.divider} ${style.topDivider}`} />
+				<form
+					role="search"
+					aria-label="Search our content"
+					className={style.searchbarRow}
+					onSubmit={(e) => {
+						e.preventDefault();
+						onSubmit(searchInput);
+					}}
+				>
+					<SearchInput
+						id="search-bar"
+						data-testid="search-input"
+						aria-description={"Results will update as you type"}
+						class={style.searchbar}
+						usedInPreact={true}
+						value={searchInput}
+						onBlur={handleBlur}
+						onInput={handleInput}
+					/>
+					<LargeButton
+						class={style.searchTextButton}
+						tag="button"
+						type="submit"
+					>
+						Search
+					</LargeButton>
+					<IconOnlyButton
+						class={style.searchIconButton}
+						tag="button"
+						type="submit"
+						aria-label="Search"
+						dangerouslySetInnerHTML={{ __html: forward }}
+						children={[]}
+					/>
+				</form>
+				<div className={style.bigScreenContainer} />
+			</section>
+			<div className={style.smallScreenContainer}>
+				<div className={`${style.divider} ${style.topDivider}`} />
 				<div className={`${style.divider} ${style.middleDivider}`} />
 				<RadioButtonGroup
 					className={style.contentToDisplayGroup}
 					testId={"content-to-display-group-topbar"}
 					value={contentToDisplay}
 					label={"Content to display"}
-					onChange={(val) => setContentToDisplay(val as "all")}
+					onChange={(val) => setContentToDisplay(val as DisplayContentType)}
 				>
-					<RadioButton aria-label={"All"} value={"all"}>
-						All
-					</RadioButton>
 					<RadioButton value={"articles"}>Articles</RadioButton>
 					<RadioButton value={"collections"}>Collections</RadioButton>
 				</RadioButtonGroup>
@@ -165,5 +167,6 @@ export const SearchTopbar = ({
 					></span>
 				</IconOnlyButton>
 			</div>
-		</>;
+		</>
+	);
 };
