@@ -1,0 +1,255 @@
+@use "src/tokens/index" as *;
+
+:root {
+	// Utility tokens
+	--half-icon: calc(var(--filesystem_item_icon_size) / 2);
+	--half-divider: calc(var(--filesystem_item_inset_divider_width) / 2);
+
+	// Main container
+	--filesystem_outer_background-color: var(--background_primary);
+	--filesystem_outer_corner-radius: var(--corner-radius_l);
+	--filesystem_outer_padding: var(--spc-2x);
+	--filesystem_inner_background-color: var(--background_focus);
+	--filesystem_inner_corner-radius: calc(
+		var(--filesystem_outer_corner-radius) - var(
+				--filesystem_outer_padding
+			) - var(--filesystem_border_width)
+	);
+	--filesystem_inner_padding: var(--spc-2x);
+	--filesystem_border_width: var(--border-width_l);
+	--filesystem_border_color: var(--primary_variant);
+
+	// Tokens for items
+	--filesystem_item_container_padding-start: var(--spc-1x);
+	--filesystem_item_container_padding-end: var(--spc-4x);
+	--filesystem_item_container_padding-vertical: var(--spc-1x);
+	--filesystem_item_container_title_margin-start: var(--spc-1x);
+	--filesystem_item_container_min-height: var(--min-target-size_s);
+	--filesystem_item_icon_size: var(--icon-size_dense);
+
+	--filesystem_item_annotation_padding-horizontal: var(--spc-2x);
+	--filesystem_item_annotation_label_color: var(--foreground_emphasis-medium);
+
+	// Colors for folders
+	--filesystem_item_folder_container_color: var(--transparent);
+	--filesystem_item_folder_container_color_hovered: var(
+		--surface_secondary_emphasis-low
+	);
+	--filesystem_item_folder_container_color_pressed: var(
+		--surface_secondary_emphasis-medium
+	);
+	--filesystem_item_folder_container_color_focused: var(--background_focus);
+	--filesystem_item_folder_container_corner-radius: var(
+		--corner-radius_circular
+	);
+	--filesystem_item_folder_icon-arrow_color: var(--secondary_on-variant);
+	--filesystem_item_folder_icon-folder_color: var(--secondary_default);
+	--filesystem_item_folder_label_color: var(--secondary_on-variant);
+	--filesystem_item_folder_focus-outline_width: var(--border-width_focus);
+	--filesystem_item_folder_focus-outline_color: var(--focus-outline_secondary);
+	--filesystem_item_folder_highlight_border_width: var(--border-width_s);
+	--filesystem_item_folder_highlight_border_color: var(--secondary_default);
+	--filesystem_item_folder_highlight_background-color: var(
+		--surface_secondary_emphasis-low
+	);
+
+	// Colors for files
+	--filesystem_item_file_icon_color: var(--primary_default);
+	--filesystem_item_file_container_corner-radius: var(--corner-radius_s);
+	--filesystem_item_file_label_color: var(--foreground_emphasis-high);
+	--filesystem_item_file_highlight_border_width: var(--border-width_s);
+	--filesystem_item_file_highlight_border_color: var(--primary_default);
+	--filesystem_item_file_highlight_background-color: var(
+		--surface_primary_emphasis-low
+	);
+
+	// Tokens for the level inset dividers
+	--filesystem_item_inset_margin-start: calc(
+		var(--half-icon) +
+			var(--filesystem_item_container_padding-start) - max(
+				1px,
+				var(--half-divider)
+			)
+	);
+	--filesystem_item_inset_margin-end: calc(
+		var(--half-icon) - var(--filesystem_item_container_padding-start) - max(
+				1px,
+				var(--half-divider)
+			)
+	);
+	--filesystem_item_inset_divider_width: var(--border-width_s);
+	--filesystem_item_inset_divider_color: var(--background_disabled);
+}
+
+.fileTreeContainer {
+	border: var(--filesystem_border_width) solid var(--filesystem_border_color);
+	border-radius: var(--filesystem_outer_corner-radius);
+	padding: var(--filesystem_outer_padding);
+	background-color: var(--filesystem_outer_background-color);
+}
+
+.fileTree {
+	border-radius: var(--filesystem_inner_corner-radius);
+	padding: var(--filesystem_inner_padding);
+	background-color: var(--filesystem_inner_background-color);
+}
+
+.fileTree > .fileTreeList::before {
+	display: none !important;
+}
+
+.fileTree > .fileTreeList {
+	list-style: none;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.fileTreeList {
+	list-style: none;
+	margin: 0 !important;
+	padding: 0 !important;
+	margin-left: calc(
+		var(--filesystem_item_inset_margin-end) +
+			var(--filesystem_item_inset_margin-start) +
+			var(--filesystem_item_inset_divider_width)
+	) !important;
+	position: relative;
+}
+
+.fileTreeList::before {
+	content: " ";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: calc(0px - var(--filesystem_item_inset_margin-end));
+	width: var(--filesystem_item_inset_divider_width);
+	background-color: var(--filesystem_item_inset_divider_color);
+	height: 100%;
+}
+
+.directorySummary, .docs-file-tree-file-container {
+	display: flex;
+	align-items: center;
+}
+
+.directoryNameAndIcon,
+.fileNameAndIcon {
+	display: flex;
+	align-items: center;
+	@include transition(background-color);
+}
+
+.directoryNameAndIcon *,
+.fileNameAndIcon * {
+	font-size: inherit !important;
+	line-height: inherit !important;
+	font-weight: inherit !important;
+}
+
+.directoryDetails[open]
+	> .directorySummary
+	> .directoryNameAndIcon::before {
+	transform: rotate(90deg);
+	transform-origin: center;
+}
+
+.directoryNameAndIcon::before {
+	display: block;
+	height: var(--filesystem_item_icon_size);
+	width: var(--filesystem_item_icon_size);
+	mask-position: center center !important;
+	mask-repeat: no-repeat !important;
+	mask-size: contain;
+	background: var(--filesystem_item_folder_icon-folder_color);
+	content: " ";
+	mask: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.96967 14.0303C6.67678 13.7374 6.67678 13.2626 6.96967 12.9697L10.9393 9L6.96967 5.03033C6.67678 4.73744 6.67678 4.26256 6.96967 3.96967C7.26256 3.67678 7.73744 3.67678 8.03033 3.96967L12 7.93934C12.5858 8.52513 12.5858 9.47487 12 10.0607L8.03033 14.0303C7.73744 14.3232 7.26256 14.3232 6.96967 14.0303Z" fill="%23380037"/></svg>');
+}
+
+.fileNameAndIcon,
+.directoryNameAndIcon {
+	padding: var(--filesystem_item_container_padding-vertical)
+		var(--filesystem_item_container_padding-end)
+		var(--filesystem_item_container_padding-vertical)
+		var(--filesystem_item_container_padding-start);
+	min-height: calc(
+		var(--filesystem_item_container_min-height) - calc(
+				var(--filesystem_item_container_padding-vertical) * 2
+			)
+	);
+	display: inline-flex !important;
+	align-items: center;
+}
+
+.directoryNameAndIcon {
+	border-radius: var(--filesystem_item_folder_container_corner-radius);
+}
+
+.fileNameAndIcon {
+	border-radius: var(--filesystem_item_file_container_corner-radius);
+}
+
+.fileIcon,
+.directoryIcon {
+	display: inline-block;
+	height: var(--filesystem_item_icon_size);
+	width: var(--filesystem_item_icon_size);
+	margin-right: var(--filesystem_item_container_title_margin-start);
+}
+
+.directoryIcon {
+	padding: var(--icon-size-dense-padding);
+}
+
+.fileIcon > svg,
+.directoryIcon > svg {
+	height: 100%;
+	width: 100%;
+}
+
+.fileIcon > svg {
+	fill: var(--filesystem_item_file_icon_color);
+}
+
+.directoryIcon > svg {
+	fill: var(--filesystem_item_folder_icon-folder_color);
+}
+
+.fileNameAndIcon[data-highlighted=true] {
+	background-color: var(--filesystem_item_file_highlight_background-color);
+	border: var(--filesystem_item_file_highlight_border_width) solid
+		var(--filesystem_item_file_highlight_border_color);
+}
+
+.directoryNameAndIcon[data-highlighted=true] {
+	background-color: var(--filesystem_item_folder_highlight_background-color);
+	border: var(--filesystem_item_file_highlight_border_width) solid
+		var(--filesystem_item_folder_highlight_border_color);
+}
+
+.directorySummary:focus-visible {
+	outline: none;
+
+	& > .directoryNameAndIcon {
+		background-color: var(--filesystem_item_folder_focus-background_color);
+		outline: var(--filesystem_item_folder_focus-outline_width) solid
+			var(--filesystem_item_folder_focus-outline_color);
+	}
+}
+
+.directorySummary:hover
+	.directoryNameAndIcon {
+	background-color: var(--filesystem_item_folder_container_color_hovered);
+}
+
+.directorySummary:active
+	.directoryNameAndIcon {
+	background-color: var(--filesystem_item_folder_container_color_pressed);
+}
+
+.comment {
+	width: 1px;
+	flex-grow: 1;
+	margin: 0;
+	padding: var(--filesystem_item_container_padding-vertical) var(--filesystem_item_annotation_padding-horizontal);
+	color: var(--filesystem_item_annotation_label_color);
+}

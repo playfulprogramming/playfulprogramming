@@ -24,7 +24,7 @@ function isFrontMatterNode(node: any): node is FrontMatterNode {
  */
 export const remarkProcessFrontmatter: Plugin<[], Root> = () => {
 	return (tree, vfile) => {
-		visit(tree, { type: "frontmatter" }, (node, index, parent) => {
+		visit(tree, { type: "frontmatter" }, (_, index, parent) => {
 			if (index === undefined || !parent) return;
 			const frontmatter: unknown = parent.children.splice(index, 1)[0];
 			vfile.data = vfile.data || {};

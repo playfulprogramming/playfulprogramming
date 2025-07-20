@@ -809,8 +809,7 @@ describe("Search page", () => {
 			);
 		});
 
-		const container = await findByTestId("pagination");
-		const authorContainer = getByTestId("author-filter-section-sidebar");
+		const authorContainer = await findByTestId("author-filter-section-sidebar");
 		const author = await findByTextFrom(authorContainer, MockPerson.name);
 
 		// Apply author filter

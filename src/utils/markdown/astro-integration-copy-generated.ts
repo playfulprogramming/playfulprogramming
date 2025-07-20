@@ -45,6 +45,9 @@ export const astroIntegrationCopyGenerated = (): AstroIntegration => {
 			"astro:build:done": async ({ dir }) => {
 				const srcDir = path.resolve("public/generated");
 				const destDir = path.resolve(fileURLToPath(dir), "generated");
+				if (!fs.existsSync(destDir)) {
+					await fs.promises.mkdir(destDir);
+				}
 				await copyFiles(srcDir, destDir);
 			},
 		},

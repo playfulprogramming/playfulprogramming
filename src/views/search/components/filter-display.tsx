@@ -8,6 +8,7 @@ import { FilterSidebar } from "./filter-sidebar";
 import tagsObj from "../../../../content/data/tags.json";
 import { SortType } from "src/views/search/search";
 import { ExtendedTag, ExtendedUnicorn } from "./types";
+import { FilterState } from "../use-filter-state";
 
 const tagsMap: Map<string, TagInfo> = new Map(Object.entries(tagsObj));
 
@@ -15,10 +16,7 @@ interface FilterDisplayProps {
 	tagCounts: Record<string, number>;
 	authorCounts: Record<string, number>;
 	peopleMap: Map<string, PersonInfo>;
-	selectedTags: string[];
-	setSelectedTags: (tags: string[]) => void;
-	selectedAuthorIds: string[];
-	setSelectedAuthorIds: (authors: string[]) => void;
+	filterState: FilterState,
 	sort: SortType;
 	setSort: (sortBy: SortType) => void;
 	desktopStyle?: CSSProperties;
@@ -36,10 +34,7 @@ export const FilterDisplay = ({
 	peopleMap,
 	sort,
 	setSort,
-	selectedAuthorIds,
-	selectedTags,
-	setSelectedAuthorIds,
-	setSelectedTags,
+	filterState,
 	desktopStyle,
 	isFilterDialogOpen,
 	isHybridSearch,
@@ -51,7 +46,7 @@ export const FilterDisplay = ({
 	const tags: ExtendedTag[] = useMemo(() => {
 		const totalEntries = {
 			// Ensure that selected tags are included in the filter list
-			...Object.fromEntries(selectedTags.map((tag) => [tag, 0])),
+			...Object.fromEntries(filterState.tags.map((tag) => [tag, 0])),
 			...tagCounts,
 		};
 
@@ -71,7 +66,7 @@ export const FilterDisplay = ({
 	const authors: ExtendedUnicorn[] = useMemo(() => {
 		const totalEntries = {
 			// Ensure that selected authors are included in the filter list
-			...Object.fromEntries(selectedAuthorIds.map((author) => [author, 0])),
+			...Object.fromEntries(filterState.authors.map((author) => [author, 0])),
 			...authorCounts,
 		};
 
@@ -87,24 +82,6 @@ export const FilterDisplay = ({
 			.sort((a, b) => a.name.localeCompare(b.name));
 	}, [authorCounts, peopleMap]);
 
-	const onSelectedAuthorChange = (id: string) => {
-		const isPresent = selectedAuthorIds.includes(id);
-		if (isPresent) {
-			setSelectedAuthorIds(selectedAuthorIds.filter((author) => author !== id));
-		} else {
-			setSelectedAuthorIds([...selectedAuthorIds, id]);
-		}
-	};
-
-	const onTagsChange = (id: string) => {
-		const isPresent = selectedTags.includes(id);
-		if (isPresent) {
-			setSelectedTags(selectedTags.filter((tag) => tag !== id));
-		} else {
-			setSelectedTags([...selectedTags, id]);
-		}
-	};
-
 	const windowSize = useWindowSize();
 
 	const shouldShowDialog = windowSize.width <= tabletLarge;
@@ -114,16 +91,15 @@ export const FilterDisplay = ({
 			<FilterDialog
 				isOpen={isFilterDialogOpen}
 				onClose={(props) => {
-					const { selectedAuthorIds: innerAuthorIds, selectedTags: innerTags } =
-						props;
-					setSelectedAuthorIds(innerAuthorIds);
-					setSelectedTags(innerTags);
+					filterState.setFilters({
+						tags: props.selectedTags,
+						authors: props.selectedAuthorIds,
+					});
 					setFilterIsDialogOpen(false);
 				}}
 				tags={tags}
 				authors={authors}
-				selectedAuthorIds={selectedAuthorIds}
-				selectedTags={selectedTags}
+				filterState={filterState}
 				isHybridSearch={isHybridSearch}
 			/>
 		);
@@ -133,15 +109,10 @@ export const FilterDisplay = ({
 		<FilterSidebar
 			sort={sort}
 			setSort={setSort}
-			selectedAuthorIds={selectedAuthorIds}
-			selectedTags={selectedTags}
-			setSelectedAuthorIds={setSelectedAuthorIds}
-			setSelectedTags={setSelectedTags}
 			desktopStyle={desktopStyle}
 			tags={tags}
 			authors={authors}
-			onSelectedAuthorChange={onSelectedAuthorChange}
-			onTagsChange={onTagsChange}
+			filterState={filterState}
 			searchString={searchString}
 			setContentToDisplay={setContentToDisplay}
 			contentToDisplay={contentToDisplay}

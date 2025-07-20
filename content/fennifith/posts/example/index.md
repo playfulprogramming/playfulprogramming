@@ -119,8 +119,7 @@ Pretend this is something very thought provoking[^1][^2]
 	OwO
   </details>
 
-- <iframe src="https://stackblitz.com/edit/angular-unicorns-text-input?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-  List item 3
+- List item 3
 
 - List item 4
 
@@ -136,8 +135,7 @@ Pretend this is something very thought provoking[^1][^2]
 	 OwO
    </details>
 
-3. <iframe src="https://stackblitz.com/edit/angular-unicorns-text-input?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-   List item 3
+3. List item 3
 
 4. List item 4
 
@@ -192,6 +190,12 @@ Pretend this is something very thought provoking[^1][^2]
 ## Heading `with a code snippet` inside of it
 
 ## Heading [with a link](https://example.com) inside of it
+
+# IFrames
+
+<iframe src="https://stackblitz.com/edit/angular-unicorns-text-input?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<iframe src="https://stackblitz.com/edit/angular-unicorns-text-input?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Link Previews
 

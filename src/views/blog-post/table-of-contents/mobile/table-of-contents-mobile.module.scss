@@ -3,9 +3,10 @@
 :root {
 	--toc-mobile-header_background-color: var(--background_primary);
 	--toc-mobile_header_padding-top: var(--site-spacing);
-	--toc-mobile_header_padding-horizontal:  var(--site-spacing);
-	--toc-mobile_header_padding-vertical: calc(var(--site-spacing) - var(--spc-2x));
-
+	--toc-mobile_header_padding-horizontal: var(--site-spacing);
+	--toc-mobile_header_padding-vertical: calc(
+		var(--site-spacing)
+	);
 
 	--toc-mobile_header_padding-bottom: var(--spc-4x);
 	--toc-mobile_header_gap: var(--site-spacing);
@@ -25,9 +26,15 @@
 	--toc-mobile_label_color: var(--foreground_emphasis-medium);
 	--toc-mobile_label_color_selected: var(--foreground_emphasis-high);
 
-	--toc-mobile_item_background-color_hovered: var(--surface_primary_emphasis-medium);
-	--toc-mobile_item_background-color_pressed: var(--surface_primary_emphasis-high);
-	--toc-mobile_item_background-color_selected: var(--surface_primary_emphasis-low);
+	--toc-mobile_item_background-color_hovered: var(
+		--surface_primary_emphasis-medium
+	);
+	--toc-mobile_item_background-color_pressed: var(
+		--surface_primary_emphasis-high
+	);
+	--toc-mobile_item_background-color_selected: var(
+		--surface_primary_emphasis-low
+	);
 	--toc-mobile_item_background-color_focused: var(--background_focus);
 
 	--toc-mobile_subheading-dot_color: var(--primary_default);
@@ -44,9 +51,11 @@
 
 	@include until($tabletLarge) {
 		--toc-mobile_list_padding-horizontal: var(--spc-2x);
+
+		// override ---page_header-height when the mobile ToC is active so that sticky components know where the header ends
+		--page_header-height: calc(var(--header_logo_size) + var(--header_padding-vertical) * 2 + 1px + var(--toc-mobile_header_padding-vertical) * 2 + 1.5rem);
 	}
 
-	
 	@include until($mobile) {
 		--toc-mobile_list_padding-horizontal: 0px;
 
@@ -55,26 +64,23 @@
 		--toc-mobile_header_padding-horizontal: var(--site-spacing);
 		--toc-mobile_header_padding-bottom: 0px;
 	}
-
 }
-
 
 .tocMobileOpenMainBody {
 	overflow: hidden;
 }
 
 .mobileTocContainer {
-
 	@include darkTheme() {
 		--toc-mobile_divider_color: #253e4c;
 	}
 
 	top: 0;
-	max-height: calc(100vh - ((var(--header_logo_size) + var(--header_padding-vertical) *2 ) ) );
+	max-height: calc(
+		100vh - ((var(--header_logo_size) + var(--header_padding-vertical) * 2))
+	);
 
 	.tocTitle {
-
-	
 		width: 100%;
 		background-color: var(--toc-mobile-header_background-color);
 		margin: 0;
@@ -86,38 +92,51 @@
 		justify-content: space-between;
 
 		h4 {
+			flex-grow: 1;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
-			width: 90%;
+			margin: var(--toc-mobile_header_padding-vertical) 0;
 		}
 
 		button {
-			.mobileTocOpenIcon { display: none; }
-			.mobileTocCloseIcon { display: inline;  }
+			flex-shrink: 0;
+
+			.mobileTocOpenIcon {
+				display: none;
+			}
+			.mobileTocCloseIcon {
+				display: inline;
+			}
 		}
-	
 	}
-	
+
 	.tableList {
 		position: absolute;
 		width: 100%;
 		background-color: var(--toc-mobile-header_background-color);
 		list-style: none;
 		margin: 0;
-		padding: var(--toc-mobile_list_padding-vertival) var(--toc-mobile_list_padding-horizontal);
-		height: calc(100vh - ((var(--header_logo_size) + var(--header_padding-vertical) *2 ) ) - ( 1.5rem + (16.0 * 2px)));
+		padding: var(--toc-mobile_list_padding-vertival)
+			var(--toc-mobile_list_padding-horizontal);
+		height: calc(
+			100vh - ((var(--header_logo_size) + var(--header_padding-vertical) * 2)) -
+				(1.5rem + (16 * 2px))
+		);
 		clip-path: inset(0);
 		overflow: auto;
-		transition: clip-path 0.50s;
+		transition: clip-path 0.5s;
 	}
 
 	&.tocMobileMenuCollapsed {
-
 		.tocTitle {
 			button {
-				.mobileTocOpenIcon { display: inline; }
-				.mobileTocCloseIcon { display: none;  }
+				.mobileTocOpenIcon {
+					display: inline;
+				}
+				.mobileTocCloseIcon {
+					display: none;
+				}
 			}
 		}
 
@@ -125,7 +144,7 @@
 			clip-path: inset(0 0 100% 0);
 		}
 	}
-	
+
 	.tableListItem > a {
 		display: flex;
 		align-items: center;
@@ -135,54 +154,56 @@
 		padding-top: var(--toc-mobile_item_padding-vertical);
 		padding-bottom: var(--toc-mobile_item_padding-vertical);
 		padding-right: var(--toc-mobile_item_padding-end);
-	
+
 		@include transition(color background-color);
 	}
-	
+
 	.tableListItem > a:focus-visible {
 		outline: 4px solid var(--toc-mobile_focus-outline_color);
 		background: var(--toc-mobile_item_background-color_focused);
 	}
-	
+
 	.tableListItem:not(.depth2) > a {
-		padding: var(--toc-mobile_item_padding-vertical) var(--toc-mobile_item_padding-end)
-			var(--toc-mobile_item_padding-vertical) var(--toc-mobile_item_padding-start);
+		padding: var(--toc-mobile_item_padding-vertical)
+			var(--toc-mobile_item_padding-end) var(--toc-mobile_item_padding-vertical)
+			var(--toc-mobile_item_padding-start);
 	}
-	
+
 	.tableListItem:hover > a {
 		background: var(--toc-mobile_item_background-color_hovered);
 	}
-	
+
 	.tableListItem:active > a {
 		background: var(--toc-mobile_item_background-color_pressed);
 	}
-	
+
 	.tableListItemLinkInner {
 		color: var(--foreground_emphasis-medium);
 		pointer-events: none;
 	}
-	
+
 	.tableListItem:hover > a > *,
 	:global(.toc-is-active) .tableListItemLinkInner {
 		color: var(--foreground_emphasis-high);
 	}
-	
+
 	.depth1 {
 	}
-	
+
 	.depth2 > a > * {
 		margin-left: calc(
-			var(--toc-mobile_sub-item_dot_size) + var(--toc-mobile_sub-item_dot_margin-end) +
+			var(--toc-mobile_sub-item_dot_size) +
+				var(--toc-mobile_sub-item_dot_margin-end) +
 				var(--toc-mobile_sub-item_padding-start)
 		);
 		position: relative;
 	}
-	
+
 	/* Line */
 	.depth2 > a:focus > *::before {
 		border: none !important;
 	}
-	
+
 	.depth2:not(:global(.toc-is-active)):not(:hover):not(:active)
 		> a:not(:focus-visible)
 		> *::before {
@@ -198,7 +219,7 @@
 		);
 		top: 0;
 	}
-	
+
 	/* Extended line */
 	@supports selector(:has(*)) {
 		.depth2:not(:global(.toc-is-active)):not(:hover):not(:active):not(
@@ -246,7 +267,7 @@
 			top: unset;
 		}
 	}
-	
+
 	/* Arrow */
 	.depth2:global(.toc-is-active):not(:hover) > a > *::before {
 		content: " ";
@@ -260,11 +281,13 @@
 		width: var(--toc-mobile_sub-item_dot_size);
 		position: absolute;
 		left: calc(
-			0px - var(--toc-mobile_sub-item_padding-start) - calc(var(--toc-mobile_sub-item_dot_size))
+			0px - var(--toc-mobile_sub-item_padding-start) - calc(
+					var(--toc-mobile_sub-item_dot_size)
+				)
 		);
 		top: 0;
 	}
-	
+
 	/* Dot */
 	.depth2:hover > a > *::before {
 		content: " ";
@@ -280,16 +303,14 @@
 		width: var(--toc-mobile_sub-item_dot_size);
 		position: absolute;
 		left: calc(
-			0px - var(--toc-mobile_sub-item_padding-start) - calc(var(--toc-mobile_sub-item_dot_size))
+			0px - var(--toc-mobile_sub-item_padding-start) - calc(
+					var(--toc-mobile_sub-item_dot_size)
+				)
 		);
 		top: 0;
 	}
-	
+
 	:global(.toc-is-active) > a {
 		background: var(--surface_primary_emphasis-low);
 	}
-	
-
 }
-
-

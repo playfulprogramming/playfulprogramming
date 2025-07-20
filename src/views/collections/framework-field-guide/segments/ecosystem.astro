@@ -1,5 +1,6 @@
 ---
 import BigFilledButton from "../components/big-filled-button.astro";
+import BigOutlinedButton from "../components/big-outlined-button.astro";
 import ChipGroup, { TagList } from "../components/chip-group.astro";
 import SectionMetric from "../components/section-metric.astro";
 import "../components/shared-section-styling.scss";
@@ -24,15 +25,15 @@ const tags: TagList = [
 	"End-to-End testing",
 	"Vite",
 	"RxJS",
-	"NextJS",
+	"TanStack Start",
 	"Redux",
-	"Pinia",
+	"NativeScript",
 	"MSW",
 	"Testing Library",
-	"Webpack",
+	"Nuxt",
 	"Angular CLI",
-	"Create React App (CRA)",
-	"Styled Components",
+	"Analog.js",
+	"Storybook",
 	"Flamegraphs",
 	"Bundling",
 	"Compilers",
@@ -57,22 +58,24 @@ const tags: TagList = [
 				performant, stable, and easier to maintain.
 			</p>
 			<div class="book-ctas">
-				<BigFilledButton
-					href="#signup-form"
-					onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
-				>
-					Sign up for updates
+				<BigFilledButton href="/collections/framework-field-guide-ecosystem">
+					Read now
 				</BigFilledButton>
-				<!-- <BigOutlinedButton>Learn more</BigOutlinedButton> -->
+				<BigOutlinedButton
+					href="#why-learn-all-three"
+					data-scroll-block="start"
+				>
+					Learn more
+				</BigOutlinedButton>
 			</div>
 			<p class={`text-style-body-large-bold book-coming-soon`}>
-				Coming soon — in production now!
+				In public early access preview now!
 			</p>
 			<div class="section-metrics-main-container" data-no-horiz-pad>
 				<p class="srOnly">This book has:</p>
 				<SectionMetric
-					ariaLabel={"12* chapters"}
-					numberStr="12"
+					ariaLabel={"13* chapters"}
+					numberStr="13"
 					subtitle="chapters"
 					asterisk={true}
 				/>

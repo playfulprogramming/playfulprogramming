@@ -11,7 +11,7 @@ interface FilterSectionItemProps {
 	count: number;
 	selected: boolean;
 	isHybridSearch: boolean;
-	onChange: () => void;
+	onChange: (selected: boolean) => void;
 }
 
 export const FilterSectionItem = ({

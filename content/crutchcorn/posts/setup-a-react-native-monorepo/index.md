@@ -385,9 +385,9 @@ While our IDE isn't showing any errors, if we attempt to consume our library in 
 
 To transform these source files, we need to configure a "Bundler" to take our source code files and turn them into compiled files to be used by our apps.
 
-While we could theoretically use any other bundler, I find that [Vite](https://vitejs.dev/) is the easiest to configure and provides the nicest developer experience out-of-the-box.
+While we could theoretically use any other bundler, I find that [Vite](https://vite.dev/) is the easiest to configure and provides the nicest developer experience out-of-the-box.
 
-Using [Vite's React plugin](https://github.com/vitejs/vite-plugin-react) and [Vite's library mode](https://vitejs.dev/guide/build.html#library-mode), we can easily generate `.js` files for our source code. Combined with [`vite-plugin-dts`](https://www.npmjs.com/package/vite-plugin-dts), we can even generate `.d.ts` files for TypeScript to get our typings as well.
+Using [Vite's React plugin](https://github.com/vitejs/vite-plugin-react) and [Vite's library mode](https://vite.dev/guide/build.html#library-mode), we can easily generate `.js` files for our source code. Combined with [`vite-plugin-dts`](https://www.npmjs.com/package/vite-plugin-dts), we can even generate `.d.ts` files for TypeScript to get our typings as well.
 
 Here's what an example `vite.config.ts` file - placed in `/packages/shared-elements/` - might look like:
 

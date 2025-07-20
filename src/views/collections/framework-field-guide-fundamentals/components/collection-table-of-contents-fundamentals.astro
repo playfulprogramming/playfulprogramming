@@ -1,7 +1,12 @@
 ---
 import { PostInfo } from "../../../../types/PostInfo";
 import styles from "./collection-table-of-contents-fundamentals.module.scss";
-import { ChapterList } from "../../../../types";
+
+interface ChapterList {
+	title: string;
+	description: string;
+	order: string;
+}
 
 interface CollectionTableOfContentsProps {
 	title?: string;

@@ -46,6 +46,7 @@ import {
 	MAX_POSTS_PER_PAGE,
 	ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
 } from "./constants";
+import { useFilterState } from "./use-filter-state";
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -60,9 +61,9 @@ function usePersistedEmptyRef<T extends object>(value: T) {
 }
 
 const fetchSearchFilters = async ({ signal }: { signal: AbortSignal }) => {
-	return fetch("/searchFilters.json", { signal, method: "GET" }).then((res) => {
+	return fetch("/searchFilters.json", { signal, method: "GET" }).then(async (res) => {
 		if (!res.ok) {
-			return res.text().then((text) => Promise.reject(text));
+			return Promise.reject(await res.text());
 		}
 		return res.json() as Promise<SearchFiltersData>;
 	});
@@ -79,7 +80,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 				return `${query.searchQuery} | ${siteTitle}`;
 			}
 			return `Search | ${siteTitle}`;
-		}
+		},
 	);
 
 	const setQuery = useCallback(
@@ -148,8 +149,9 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 			queryKey: [string, SearchQuery];
 		}) => {
 			// Analytics go brr
-			plausible &&
+			if (plausible) {
 				plausible("search", { props: { searchVal: query.searchQuery } });
+			}
 
 			return searchForTerm(query, signal);
 		},
@@ -222,25 +224,38 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const isContentLoading =
 		isLoadingData || isFetchingData || isLoadingPeople || isFetchingPeople;
 
-	const setSelectedPeople = useCallback(
-		(authors: string[]) => {
-			setQuery({
-				filterAuthors: authors,
-				page: 1, // Reset both page counters when changing filters
-			});
-		},
-		[setQuery],
-	);
-
-	const setSelectedTags = useCallback(
-		(tags: string[]) => {
-			setQuery({
-				filterTags: tags,
-				page: 1, // Reset both page counters when changing filters
-			});
-		},
-		[setQuery],
-	);
+	const filterState = useFilterState({
+		tags: query.filterTags,
+		authors: query.filterAuthors,
+		setTags: useCallback(
+			(tags: string[]) => {
+				setQuery({
+					filterTags: tags,
+					page: 1, // Reset both page counters when changing filters
+				});
+			},
+			[setQuery],
+		),
+		setAuthors: useCallback(
+			(authors: string[]) => {
+				setQuery({
+					filterAuthors: authors,
+					page: 1, // Reset both page counters when changing filters
+				});
+			},
+			[setQuery],
+		),
+		setFilters: useCallback(
+			(filters: Record<"tags" | "authors", string[]>) => {
+				setQuery({
+					filterTags: filters.tags,
+					filterAuthors: filters.authors,
+					page: 1, // Reset both page counters when changing filters
+				});
+			},
+			[setQuery],
+		),
+	});
 
 	const setContentToDisplay = useCallback(
 		(display: DisplayContentType) => {
@@ -312,21 +327,17 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const numberOfPosts = showArticles ? data.totalPosts : 0;
 
 	return (
-		<main
+		<div
 			className={style.fullPageContainer}
 			data-hide-sidebar={!query.searchQuery}
 		>
-			<h1 className={"visually-hidden"}>Search</h1>
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
 				setFilterIsDialogOpen={setFilterIsDialogOpen}
 				tagCounts={tagCounts}
 				authorCounts={authorCounts}
 				peopleMap={peopleMap}
-				selectedTags={query.filterTags}
-				setSelectedTags={setSelectedTags}
-				selectedAuthorIds={query.filterAuthors}
-				setSelectedAuthorIds={setSelectedPeople}
+				filterState={filterState}
 				sort={query.sort}
 				setSort={setSort}
 				setContentToDisplay={setContentToDisplay}
@@ -505,7 +516,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 					)}
 				</section>
 			</div>
-		</main>
+		</div>
 	);
 }
 

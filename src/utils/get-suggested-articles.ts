@@ -1,4 +1,4 @@
-import { PostInfo, Languages } from "types/index";
+import { PostInfo } from "types/index";
 import { getPostsByLang } from "./api";
 
 /**

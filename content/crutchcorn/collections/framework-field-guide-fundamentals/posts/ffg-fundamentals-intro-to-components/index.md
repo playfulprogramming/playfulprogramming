@@ -376,7 +376,7 @@ createApp(File).mount("#root");
 
 Once a component is rendered, you can do a lot more with it!
 
-For example, just like [nodes in the DOM]() have relationships, so too can components.
+For example, just like nodes in the DOM have relationships, so too can components.
 
 # Children, Siblings, and More, Oh My! {#relationships}
 
