@@ -1,6 +1,6 @@
 import { CloudManager } from "@oramacloud/client";
 import * as api from "utils/api";
-import type { SearchPostInfo } from "types/PostInfo";
+import type { PostInfo, SearchPostInfo } from "types/PostInfo";
 import type { SearchCollectionInfo } from "types/CollectionInfo";
 import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
 import { getExcerpt } from "utils/markdown/get-excerpt";
@@ -10,6 +10,7 @@ import {
 	ORAMA_POSTS_INDEX_ID,
 } from "src/views/search/constants";
 import { getPostImages } from "utils/hoof";
+import asyncPool from "tiny-async-pool";
 
 if (!process.env.ORAMA_PRIVATE_API_KEY) {
 	console.error("ORAMA_PRIVATE_API_KEY is not defined in the environment!");
@@ -57,34 +58,39 @@ async function deployCollections(collections: SearchCollectionInfo[]) {
 	console.log(`Index ${ORAMA_COLLECTIONS_INDEX_ID} is deployed!`);
 }
 
-const posts = await Promise.all(
-	api.getPostsByLang("en").map(async (post) => {
-		// Include complete post content as the excerpt
-		const vfile = await getMarkdownVFile(post);
-		const vfileContent = matter(vfile.value.toString()).content;
-		const excerpt = getExcerpt(vfileContent, undefined);
-		// Collect searchable author info (name, social media handles, etc)
-		const searchMeta = post.authors
-			.map((id) => api.getPersonById(id, "en"))
-			.filter((a) => !!a)
-			.map((a) => new Set([a.id, a.name, ...Object.values(a.socials)]))
-			.flatMap((set) => Array.from(set))
-			.join(" ");
+async function processPost(post: PostInfo): Promise<SearchPostInfo> {
+	// Include complete post content as the excerpt
+	const vfile = await getMarkdownVFile(post);
+	const vfileContent = matter(vfile.value.toString()).content;
+	const excerpt = getExcerpt(vfileContent, undefined);
+	// Collect searchable author info (name, social media handles, etc)
+	const searchMeta = post.authors
+		.map((id) => api.getPersonById(id, "en"))
+		.filter((a) => !!a)
+		.map((a) => new Set([a.id, a.name, ...Object.values(a.socials)]))
+		.flatMap((set) => Array.from(set))
+		.join(" ");
 
-		const postImages = await getPostImages(post).catch((e) => {
-			console.error(e);
-			return undefined;
-		});
+	const postImages = await getPostImages(post).catch((e) => {
+		console.error(e);
+		return undefined;
+	});
 
-		return {
-			...post,
-			banner: postImages?.banner || undefined,
-			excerpt,
-			searchMeta,
-			publishedTimestamp: new Date(post.published).getTime(),
-		} satisfies SearchPostInfo;
-	}),
-);
+	console.debug("Indexed post", post.slug);
+
+	return {
+		...post,
+		banner: postImages?.banner || undefined,
+		excerpt,
+		searchMeta,
+		publishedTimestamp: new Date(post.published).getTime(),
+	};
+}
+
+const posts: SearchPostInfo[] = [];
+for await (const post of asyncPool(8, api.getPostsByLang("en"), processPost)) {
+	posts.push(post);
+}
 
 await deployPosts(posts);
 
@@ -100,6 +106,8 @@ const collections = api.getCollectionsByLang("en").map((collection) => {
 		.map((a) => new Set([a.id, a.name, ...Object.values(a.socials)]))
 		.flatMap((set) => Array.from(set))
 		.join(" ");
+
+	console.debug("Indexed collection", collection.slug);
 
 	return {
 		...collection,
