@@ -1,32 +1,22 @@
 ---
-import { SEOProps } from "./shared";
+import { PersonInfo } from "types/PersonInfo";
 
-export type Props = Pick<
-	SEOProps,
-	"editedTime" | "publishedTime" | "keywords" | "peopleData"
->;
+export interface Props {
+	editedTime?: string;
+	publishedTime?: string;
+	keywords?: string[];
+	peopleData?: PersonInfo[];
+}
 const { keywords, editedTime, publishedTime, peopleData } = Astro.props;
-const author = peopleData?.map((uni) => uni.name).join(",");
+const author = peopleData?.map((uni) => uni.name)?.join(",");
 ---
 
-<>
-	{
-		keywords?.length
-			? keywords.map((keyword) => (
-					<meta property="article:tag" content={keyword} />
-				))
-			: null
-	}
-</>
+{keywords?.map((keyword) => <meta property="article:tag" content={keyword} />)}
 <meta property="article:section" content="Technology" />
 {author && <meta property="article:author" content={author} />}
-<>
-	{editedTime && <meta property="article:modified_time" content={editedTime} />}
-</>
-<>
-	{
-		publishedTime && (
-			<meta property="article:published_time" content={publishedTime} />
-		)
-	}
-</>
+{editedTime && <meta property="article:modified_time" content={editedTime} />}
+{
+	publishedTime && (
+		<meta property="article:published_time" content={publishedTime} />
+	)
+}
