@@ -55,7 +55,7 @@ export function createEpubPlugins(unified: Processor) {
 				removeAccents: true,
 				enableCustomId: true,
 			})
-			.use(...rehypeShikiUU)
+			.use(rehypeShikiUU)
 			.use(rehypePostShikiTransform)
 			.use(rehypeRemoveCollectionLinks)
 			.use(rehypeReferencePage, { referenceTitle: "References" })
