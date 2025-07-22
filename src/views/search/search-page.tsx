@@ -494,6 +494,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 									postsToDisplay={data.posts}
 									postAuthors={peopleMap}
 									postHeadingTag="h3"
+									expanded
 								/>
 							</Fragment>
 						)}

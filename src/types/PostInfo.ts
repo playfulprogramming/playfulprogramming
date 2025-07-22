@@ -29,9 +29,13 @@ export interface PostInfo extends RawPostInfo {
 	locale: Languages;
 	publishedMeta: string;
 	editedMeta?: string;
-	socialImg: string;
-	bannerImg?: string;
 	wordCount: number;
+}
+
+export interface SearchPostInfo extends PostInfo {
+	banner?: string;
+	searchMeta: string;
+	publishedTimestamp: number;
 }
 
 export interface PostHeadingInfo {

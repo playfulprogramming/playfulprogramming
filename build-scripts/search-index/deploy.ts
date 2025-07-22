@@ -1,7 +1,7 @@
 import { CloudManager } from "@oramacloud/client";
 import * as api from "utils/api";
-import { PostInfo } from "types/PostInfo";
-import { CollectionInfo } from "types/CollectionInfo";
+import type { PostInfo, SearchPostInfo } from "types/PostInfo";
+import type { SearchCollectionInfo } from "types/CollectionInfo";
 import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
 import { getExcerpt } from "utils/markdown/get-excerpt";
 import matter from "gray-matter";
@@ -9,6 +9,8 @@ import {
 	ORAMA_COLLECTIONS_INDEX_ID,
 	ORAMA_POSTS_INDEX_ID,
 } from "src/views/search/constants";
+import { getPostImages } from "utils/hoof";
+import asyncPool from "tiny-async-pool";
 
 if (!process.env.ORAMA_PRIVATE_API_KEY) {
 	console.error("ORAMA_PRIVATE_API_KEY is not defined in the environment!");
@@ -19,18 +21,7 @@ const oramaCloudManager = new CloudManager({
 	api_key: process.env.ORAMA_PRIVATE_API_KEY,
 });
 
-interface ExtendedPostInfo extends PostInfo {
-	searchMeta: string;
-	publishedTimestamp: number;
-}
-
-interface ExtendedCollectionInfo extends CollectionInfo {
-	excerpt: string;
-	searchMeta: string;
-	publishedTimestamp: number;
-}
-
-async function deployPosts(posts: ExtendedPostInfo[]) {
+async function deployPosts(posts: SearchPostInfo[]) {
 	const index = oramaCloudManager.index(ORAMA_POSTS_INDEX_ID);
 	console.log(`Uploading ${posts.length} posts to ${ORAMA_POSTS_INDEX_ID}...`);
 	const isSnapshot = await index.snapshot(posts);
@@ -47,7 +38,7 @@ async function deployPosts(posts: ExtendedPostInfo[]) {
 	console.log(`Index ${ORAMA_POSTS_INDEX_ID} is deployed!`);
 }
 
-async function deployCollections(collections: ExtendedCollectionInfo[]) {
+async function deployCollections(collections: SearchCollectionInfo[]) {
 	const index = oramaCloudManager.index(ORAMA_COLLECTIONS_INDEX_ID);
 
 	console.log(
@@ -67,28 +58,39 @@ async function deployCollections(collections: ExtendedCollectionInfo[]) {
 	console.log(`Index ${ORAMA_COLLECTIONS_INDEX_ID} is deployed!`);
 }
 
-const posts = await Promise.all(
-	api.getPostsByLang("en").map(async (post) => {
-		// Include complete post content as the excerpt
-		const vfile = await getMarkdownVFile(post);
-		const vfileContent = matter(vfile.value.toString()).content;
-		const excerpt = getExcerpt(vfileContent, undefined);
-		// Collect searchable author info (name, social media handles, etc)
-		const searchMeta = post.authors
-			.map((id) => api.getPersonById(id, "en"))
-			.filter((a) => !!a)
-			.map((a) => new Set([a.id, a.name, ...Object.values(a.socials)]))
-			.flatMap((set) => Array.from(set))
-			.join(" ");
+async function processPost(post: PostInfo): Promise<SearchPostInfo> {
+	// Include complete post content as the excerpt
+	const vfile = await getMarkdownVFile(post);
+	const vfileContent = matter(vfile.value.toString()).content;
+	const excerpt = getExcerpt(vfileContent, undefined);
+	// Collect searchable author info (name, social media handles, etc)
+	const searchMeta = post.authors
+		.map((id) => api.getPersonById(id, "en"))
+		.filter((a) => !!a)
+		.map((a) => new Set([a.id, a.name, ...Object.values(a.socials)]))
+		.flatMap((set) => Array.from(set))
+		.join(" ");
 
-		return {
-			...post,
-			excerpt,
-			searchMeta,
-			publishedTimestamp: new Date(post.published).getTime(),
-		} satisfies ExtendedPostInfo;
-	}),
-);
+	const postImages = await getPostImages(post).catch((e) => {
+		console.error(e);
+		return undefined;
+	});
+
+	console.debug("Indexed post", post.slug);
+
+	return {
+		...post,
+		banner: postImages?.banner || undefined,
+		excerpt,
+		searchMeta,
+		publishedTimestamp: new Date(post.published).getTime(),
+	};
+}
+
+const posts: SearchPostInfo[] = [];
+for await (const post of asyncPool(8, api.getPostsByLang("en"), processPost)) {
+	posts.push(post);
+}
 
 await deployPosts(posts);
 
@@ -105,12 +107,14 @@ const collections = api.getCollectionsByLang("en").map((collection) => {
 		.flatMap((set) => Array.from(set))
 		.join(" ");
 
+	console.debug("Indexed collection", collection.slug);
+
 	return {
 		...collection,
 		excerpt,
 		searchMeta,
 		publishedTimestamp: new Date(collection.published).getTime(),
-	} satisfies ExtendedCollectionInfo;
+	} satisfies SearchCollectionInfo;
 });
 
 await deployCollections(collections);

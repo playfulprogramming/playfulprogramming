@@ -57,6 +57,10 @@ export const rehypeReferencePage: Plugin<
 			}
 			const { href, ...linkProps } = node.properties as Record<string, string>;
 
+			if (!href.startsWith("https:")) {
+				return;
+			}
+
 			const existingLink = links.find((link) => link.originalHref === href);
 
 			// We've already seen this link before

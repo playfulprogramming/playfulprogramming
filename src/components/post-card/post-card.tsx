@@ -1,14 +1,15 @@
 import style from "./post-card.module.scss";
-import { PostInfo, PersonInfo } from "types/index";
+import { PersonInfo } from "types/index";
 import { Chip } from "components/index";
 import date from "src/icons/date.svg?raw";
 import authorsSvg from "src/icons/authors.svg?raw";
 import { getHrefContainerProps } from "utils/href-container-script";
 import { buildSearchQuery } from "src/views/search/search";
+import { PostInfoWithBanner } from "./types";
 
 interface PostCardProps {
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-	post: PostInfo;
+	post: PostInfoWithBanner;
 	authors: Pick<PersonInfo, "id" | "name">[];
 	class?: string;
 }
@@ -98,7 +99,7 @@ export const PostCardExpanded = ({
 				<img
 					loading={imageLoading}
 					className={style.extendedPostImage}
-					src={post.bannerImg}
+					src={post.banner}
 					alt=""
 				/>
 			</div>

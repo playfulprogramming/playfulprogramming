@@ -12,6 +12,8 @@ import Profile from "./profile.astro";
 import { SEOProps } from "./shared";
 import Twitter from "./twitter.astro";
 
+export type Props = SEOProps;
+
 const {
 	description = "",
 	title,
@@ -25,14 +27,17 @@ const {
 	providedLangs,
 	shareImage,
 	noindex,
-} = Astro.props as SEOProps;
+} = Astro.props;
 
 const lang = getPrefixLanguageFromPath(Astro.url.pathname);
 const pathName = removePrefixLanguageFromPath(Astro.url.pathname);
 
 const metaDescription = description || siteMetadata.description;
 const metaKeywords = keywords ? keywords.join(",") : siteMetadata.keywords;
-const metaImage = `${siteUrl}${shareImage ?? "/share-banner.png"}`;
+const metaImage = new URL(
+	shareImage ?? "/share-banner.png",
+	siteUrl,
+).toString();
 
 const ogType = type ?? "blog";
 

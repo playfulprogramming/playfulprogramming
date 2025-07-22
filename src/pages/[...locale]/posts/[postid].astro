@@ -6,6 +6,7 @@ import BlogPost from "src/views/blog-post/blog-post.astro";
 import * as api from "utils/api";
 import { getMarkdownHtml } from "utils/markdown";
 import { isDefined } from "utils/is-defined";
+import { getPostImages } from "utils/hoof";
 
 export async function getStaticPaths() {
 	const posts = api.getAllPosts();
@@ -49,6 +50,10 @@ const collectionPosts = post.collection
 const locales = post?.locales || [];
 
 const postHtml = await getMarkdownHtml(post);
+const postImages = await getPostImages(post).catch((e) => {
+	console.error(e);
+	return undefined;
+});
 ---
 
 <Document size="xl">
@@ -63,7 +68,7 @@ const postHtml = await getMarkdownHtml(post);
 		type="article"
 		canonical={post.originalLink}
 		providedLangs={locales}
-		shareImage={post.socialImg}
+		shareImage={postImages?.linkPreview}
 		noindex={post.noindex}
 	/>
 	<BlogPost
