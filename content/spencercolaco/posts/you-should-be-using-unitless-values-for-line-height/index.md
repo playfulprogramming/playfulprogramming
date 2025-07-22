@@ -2,7 +2,7 @@
 {
   title: "You should be using unitless values for line-height",
   description: "I've seen every value in the book used to set line-height values in CSS. This is why you should just use unitless.",
-  published: '2025-06-24',
+  published: '2025-07-21',
   tags: ["css", "webdev"],
   license: 'cc-by-4'
 }
