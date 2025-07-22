@@ -4,8 +4,8 @@ import style from "./search-result-count.module.scss";
 import { forwardRef } from "preact/compat";
 
 interface SearchResultCountProps {
-	numberOfPosts: number;
-	numberOfCollections: number;
+	numberOfPosts?: number;
+	numberOfCollections?: number;
 }
 
 export const SearchResultCount = forwardRef<
@@ -14,13 +14,13 @@ export const SearchResultCount = forwardRef<
 >(({ numberOfPosts, numberOfCollections }, ref) => {
 	const language = useMemo(() => {
 		let languageStr = "";
-		if (numberOfPosts > 0) {
+		if (numberOfPosts && numberOfPosts > 0) {
 			languageStr += `${numberOfPosts} post`;
 			if (numberOfPosts > 1) {
 				languageStr += "s";
 			}
 		}
-		if (numberOfCollections > 0) {
+		if (numberOfCollections && numberOfCollections > 0) {
 			if (languageStr !== "") {
 				languageStr += " and ";
 			}

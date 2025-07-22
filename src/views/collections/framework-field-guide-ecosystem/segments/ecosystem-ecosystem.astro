@@ -4,7 +4,10 @@ import EcosystemBookCover from "../../framework-field-guide/segments/ecosystem-b
 import WhatYouNeed from "../components/what-you-need.astro";
 import CollectionTableOfContents from "../components/collection-table-of-contents-ecosystem.astro";
 import BottomContents from "./bottom-contents.astro";
-import { getCollectionBySlug, getPostsByCollection } from "../../../../utils/api";
+import {
+	getCollectionBySlug,
+	getPostsByCollection,
+} from "../../../../utils/api";
 
 const collection = getCollectionBySlug("framework-field-guide-ecosystem", "en");
 
@@ -18,7 +21,10 @@ const chapterList = getPostsByCollection(
 	<EcosystemBookCover />
 
 	<div class="class-book-2">
-		<div class={`book-section`} style="background: var(--section-background); color: var(--on-dark-emphasis-high)">
+		<div
+			class={`book-section`}
+			style="background: var(--section-background); color: var(--on-dark-emphasis-high)"
+		>
 			<WhatYouNeed />
 			<CollectionTableOfContents
 				title="Chapters*"

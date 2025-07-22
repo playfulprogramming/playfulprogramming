@@ -131,7 +131,7 @@ export async function searchForTerm(
 			{
 				term,
 				limit: MAX_POSTS_PER_PAGE,
-				offset: (query.postsPage - 1) * MAX_POSTS_PER_PAGE,
+				offset: (query.page - 1) * MAX_POSTS_PER_PAGE,
 				mode,
 				sortBy,
 				where: {
@@ -162,7 +162,7 @@ export async function searchForTerm(
 		{
 			term,
 			limit: MAX_COLLECTIONS_PER_PAGE,
-			offset: (query.collectionsPage - 1) * MAX_COLLECTIONS_PER_PAGE,
+			offset: (query.page - 1) * MAX_COLLECTIONS_PER_PAGE,
 			mode,
 			sortBy,
 			where: {

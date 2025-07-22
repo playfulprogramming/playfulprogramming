@@ -6,7 +6,7 @@ import { tabletLarge } from "../../../tokens/breakpoints";
 import { FilterDialog } from "./filter-dialog";
 import { FilterSidebar } from "./filter-sidebar";
 import tagsObj from "../../../../content/data/tags.json";
-import { SortType } from "src/views/search/search";
+import { DisplayContentType, SortType } from "src/views/search/search";
 import { ExtendedTag, ExtendedUnicorn } from "./types";
 import { FilterState } from "../use-filter-state";
 
@@ -24,8 +24,10 @@ interface FilterDisplayProps {
 	isHybridSearch: boolean;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
 	searchString: string;
-	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
-	contentToDisplay: "all" | "articles" | "collections";
+	setContentToDisplay: (content: DisplayContentType) => void;
+	contentToDisplay: DisplayContentType;
+	numberOfPosts: number | null;
+	numberOfCollections: number | null;
 }
 
 export const FilterDisplay = ({
@@ -42,6 +44,8 @@ export const FilterDisplay = ({
 	searchString,
 	setContentToDisplay,
 	contentToDisplay,
+	numberOfPosts,
+	numberOfCollections,
 }: FilterDisplayProps) => {
 	const tags: ExtendedTag[] = useMemo(() => {
 		const totalEntries = {
@@ -117,6 +121,8 @@ export const FilterDisplay = ({
 			setContentToDisplay={setContentToDisplay}
 			contentToDisplay={contentToDisplay}
 			isHybridSearch={isHybridSearch}
+			numberOfPosts={numberOfPosts}
+			numberOfCollections={numberOfCollections}
 		/>
 	);
 };

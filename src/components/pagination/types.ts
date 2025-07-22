@@ -14,6 +14,7 @@ export interface PaginationButtonProps {
 export interface PaginationProps {
 	page: PageInfo;
 	class?: string;
+	divClass?: string;
 	id?: string;
 	rootURL?: string;
 	getPageHref?: (pageNum: number) => string;

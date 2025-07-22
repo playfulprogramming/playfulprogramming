@@ -1,7 +1,12 @@
 @use "src/tokens/index" as *;
 
-:global(#header-bar[data-sticky="pinned"]) {
-	border-bottom: none !important;
+:global(#header-bar) {
+	position: static !important;
+	border: none !important;
+
+	@include from($tabletLarge) {
+		position: sticky !important;
+	}
 }
 
 .fullPageContainer {
@@ -169,4 +174,11 @@
 		opacity: 100%;
 		transform: translateY(0);
 	}
+}
+
+.pagination {
+	position: sticky;
+	bottom: 0;
+	background-color: var(--background_primary);
+	mask-image: linear-gradient(to bottom, transparent, black var(--spc-4x));
 }

@@ -18,8 +18,7 @@
 		var(--search-page_filter_list_controls_padding-vertical)
 		var(--search-page_filter_list_controls_padding-start);
 
-	// TODO: Token?
-	border-radius: var(--corner-radius_l);
+	border-radius: 100vmax;
 	border: var(--search-page_filter_list_divider_width) solid
 		var(--search-page_filter_list_divider_color);
 }

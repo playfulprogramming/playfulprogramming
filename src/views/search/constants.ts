@@ -7,5 +7,5 @@ export const ORAMA_COLLECTIONS_ENDPOINT =
 	"https://cloud.orama.run/v1/indexes/playful-programming-collections-nryx88";
 export const ORAMA_COLLECTIONS_API_KEY = "D53wGypticY3iA02eNzYFNiq0xAxprZ3";
 export const ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD = 3;
-export const MAX_POSTS_PER_PAGE = 4;
-export const MAX_COLLECTIONS_PER_PAGE = 4;
+export const MAX_POSTS_PER_PAGE = 10;
+export const MAX_COLLECTIONS_PER_PAGE = 10;
