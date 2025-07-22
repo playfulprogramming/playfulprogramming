@@ -29,6 +29,7 @@ import { CollectionInfo } from "types/CollectionInfo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SearchClient, SearchContext } from "./orama";
 import { ClientSearchParams, OramaClient } from "@oramacloud/client";
+import { MAX_COLLECTIONS_PER_PAGE, MAX_POSTS_PER_PAGE } from "./constants";
 
 const user = userEvent.setup();
 
@@ -471,7 +472,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 10,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -495,7 +496,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 10,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -561,7 +562,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 10,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -585,7 +586,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 10,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -639,7 +640,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 10,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -670,9 +671,9 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 10,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
-				offset: 10 * (2 - 1),
+				offset: MAX_POSTS_PER_PAGE * (2 - 1),
 				sortBy: {
 					order: "desc",
 					property: "publishedTimestamp",
@@ -797,7 +798,7 @@ describe("Search page", () => {
 			expect(clients.postClient.search).toHaveBeenLastCalledWith(
 				{
 					term: "",
-					limit: 10,
+					limit: MAX_POSTS_PER_PAGE,
 					offset: 0,
 					mode: "fulltext",
 					sortBy: {
@@ -825,7 +826,7 @@ describe("Search page", () => {
 			expect(clients.postClient.search).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					term: "",
-					limit: 10,
+					limit: MAX_POSTS_PER_PAGE,
 					offset: 0, // Should reset to first page
 					where: {
 						authors: [MockPerson.id],
@@ -981,9 +982,9 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenCalledWith(
 			{
 				term: "blog",
-				limit: 10,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
-				offset: 10,
+				offset: MAX_POSTS_PER_PAGE,
 				sortBy: {
 					property: "publishedTimestamp",
 					order: "asc",
@@ -1002,9 +1003,9 @@ describe("Search page", () => {
 		expect(clients.collectionClient.search).toHaveBeenCalledWith(
 			{
 				term: "blog",
-				limit: 10,
+				limit: MAX_COLLECTIONS_PER_PAGE,
 				mode: "fulltext",
-				offset: 10,
+				offset: MAX_COLLECTIONS_PER_PAGE,
 				sortBy: {
 					property: "publishedTimestamp",
 					order: "asc",
@@ -1248,7 +1249,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "blogother",
-				limit: 10,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -1503,7 +1504,7 @@ describe("Search page", () => {
 			expect(clients.collectionClient.search).toHaveBeenCalledWith(
 				{
 					term: "",
-					limit: 10,
+					limit: MAX_COLLECTIONS_PER_PAGE,
 					mode: "fulltext",
 					offset: 0,
 					sortBy: {
@@ -1537,9 +1538,9 @@ describe("Search page", () => {
 			expect(clients.collectionClient.search).toHaveBeenCalledWith(
 				{
 					term: "",
-					limit: 10,
+					limit: MAX_COLLECTIONS_PER_PAGE,
 					mode: "fulltext",
-					offset: 10,
+					offset: MAX_COLLECTIONS_PER_PAGE,
 					sortBy: {
 						property: "publishedTimestamp",
 						order: "desc",
