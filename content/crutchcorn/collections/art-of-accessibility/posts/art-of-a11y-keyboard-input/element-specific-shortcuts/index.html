@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <style>
+      .focusable-item:focus {
+        outline: 2px solid blue;
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li tabindex="0" class="focusable-item" data-index="1">One</li>
+      <li tabindex="-1" class="focusable-item" data-index="2">Two</li>
+      <li tabindex="-1" class="focusable-item" data-index="3">Three</li>
+    </ul>
+    <script>
+        const items = document.querySelectorAll('.focusable-item');
+        items.forEach(item => {
+          item.addEventListener('keydown', (event) => {
+            let index = parseInt(item.getAttribute('data-index'), 10);
+            if (event.key === 'Up' || event.key === 'ArrowUp') {
+              event.preventDefault();
+              index = index === 1 ? 1 : index - 1;
+            } else if (event.key === 'Down' || event.key === 'ArrowDown') {
+              event.preventDefault();
+              index = index === items.length ? items.length : index + 1;
+            }
+            document.querySelector(`.focusable-item[data-index="${index}"]`).focus();
+          });
+        });
+    </script>
+  </body>
+</html>

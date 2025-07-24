@@ -400,7 +400,7 @@ While it may seem initially intuitive to add `tabindex="0"` to many elements on 
 
 One place I've seen aspiring accessible engineers add errant tabindexes is to make it "convinient" for users to navigate to common 
 
-Most screen readers and accessibility technologies already provide a way to rapidly jump from heading to heading with nothing more than their keyboard. As a result, adding `tabindex="0"` to headings can be a duplicate effort to tab past and make things worse than they were before.
+Most screen readers and accessibility technologies already provide a way to rapidly jump from heading to heading with nothing more than their keyboard. As a result, **adding `tabindex="0"` to headings can be a duplicate effort to tab past and make things worse than they were before**.
 
 ### Positive `tabindex`
 
@@ -458,6 +458,31 @@ To solve this, you'd need to assign a `tabindex` to each element and track the p
 ## Element-specific Shortcuts
 
 // TODO: `Up` and `Down` to navigate list
+
+```html
+<ul>
+  <li tabindex="0" class="focusable-item" data-index="1">One</li>
+  <li tabindex="-1" class="focusable-item" data-index="2">Two</li>
+  <li tabindex="-1" class="focusable-item" data-index="3">Three</li>
+</ul>
+
+<script>
+    const items = document.querySelectorAll('.focusable-item');
+    items.forEach(item => {
+      item.addEventListener('keydown', (event) => {
+        let index = parseInt(item.getAttribute('data-index'), 10);
+        if (event.key === 'Up' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          index = index === 1 ? 1 : index - 1;
+        } else if (event.key === 'Down' || event.key === 'ArrowDown') {
+          event.preventDefault();
+          index = index === items.length ? items.length : index + 1;
+        }
+        document.querySelector(`.focusable-item[data-index="${index}"]`).focus();
+      });
+    });
+</script>
+```
 
 ## Global Shortcuts
 
