@@ -445,7 +445,40 @@ To solve this, you'd need to assign a `tabindex` to each element and track the p
 
 ## Element Reference `focus()`
 
-// TODO: Use `ref` to `focus` an element with `tabindex="-1"`
+Earlier, we used `tabindex="-1"` to denote a component as being "unfocusable". While this is true for users, having `-1` as our `tabindex` opens a new work of possibilities: Programatic focusing.
+
+```html
+<!-- THIS IS STILL INACCESSIBLE MARKUP FOR DEMONSTRATION PURPOSES ONLY -->
+<div class="tabgroup">
+    <div class="tablist">
+        <button tabindex="0" class="tab selected">JavaScript</button>
+        <button tabindex="-1" class="tab">Python</button>
+    </div>
+    <div class="tabpanel">
+        <code>console.log("Hello, world!");</code>
+    </div>
+</div>
+```
+
+// TODO: Write this
+
+When used in combination with [element references in React, Angular, or Vue](), this code might look something like this:
+
+<!-- ::start:tabs -->
+
+### React
+
+// TODO: Write
+
+### Angular
+
+// TODO: Write
+
+### Vue
+
+// TODO: Write
+
+<!-- ::end:tabs -->
 
 # Keyboard Shortcuts
 
@@ -460,11 +493,11 @@ To solve this, you'd need to assign a `tabindex` to each element and track the p
 // TODO: `Up` and `Down` to navigate list
 
 ```html
-<ul>
-  <li tabindex="0" class="focusable-item" data-index="1">One</li>
-  <li tabindex="-1" class="focusable-item" data-index="2">Two</li>
-  <li tabindex="-1" class="focusable-item" data-index="3">Three</li>
-</ul>
+<ol>
+  <li tabindex="0" class="focusable-item" data-index="1">First item</li>
+  <li tabindex="-1" class="focusable-item" data-index="2">Second item</li>
+  <li tabindex="-1" class="focusable-item" data-index="3">Third item</li>
+</ol>
 
 <script>
     const items = document.querySelectorAll('.focusable-item');
@@ -486,8 +519,48 @@ To solve this, you'd need to assign a `tabindex` to each element and track the p
 
 ## Global Shortcuts
 
-// TODO: `Esc` to dropdown
+// TODO: `1 - 3` to select a specific element
+
+```html
+<ol>
+  <li tabindex="0" class="focusable-item" data-index="1">First item</li>
+  <li tabindex="-1" class="focusable-item" data-index="2">Second item</li>
+  <li tabindex="-1" class="focusable-item" data-index="3">Third item</li>
+</ol>
+<script>
+    document.addEventListener('keydown', (event) => {
+      const items = document.querySelectorAll('.focusable-item');
+      const index = parseInt(event.key, 10);
+      if (index >= 1 && index <= items.length) {
+        event.preventDefault();
+        items[index - 1].focus();
+      }
+    });
+</script>
+```
 
 ## Multi-key shortcuts
 
 // TODO: `Ctrl` + `A` to select all
+
+```html
+<ol>
+  <li class="selectable-item"><label><input type="checkbox" />First item</label></li>
+  <li class="selectable-item"><label><input type="checkbox" />Second item</label></li>
+  <li class="selectable-item"><label><input type="checkbox" />Third item</label></li>
+</ol>
+<script>
+  // Control + A to select all
+  document.addEventListener('keydown', (event) => {
+    if ((event.ctrlKey && event.key === 'a') || (event.metaKey && event.key === 'a')) {
+      event.preventDefault();
+      const items = document.querySelectorAll('.selectable-item');
+      items.forEach(item => {
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+      });
+    }
+  });
+</script>
+```
+
