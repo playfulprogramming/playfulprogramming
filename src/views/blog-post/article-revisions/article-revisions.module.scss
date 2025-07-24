@@ -123,35 +123,27 @@
 	}
 
 	.item {
-		background: unset;
-		border: unset;
-		outline: none;
+		// background: unset;
+		// border: unset;
+		// outline: none;
 		display: flex;
 		align-items: center;
-		padding: var(--popup_inner_padding);
+		// padding: var(--popup_inner_padding);
 		justify-content: space-between;
 		width: 100%;
 		text-decoration: none;
-		border-radius: var(--popup_item_corner-radius);
+		// border-radius: var(--popup_item_corner-radius);
 		// gap: var(--popup_item_gap);
 		align-items: center;
-		min-height: var(--popup_item_min-height);
+		// min-height: var(--popup_item_min-height);
 		min-width: var(--popup_min-width);
 
 		font-weight: var(--weight_semibold);
 		font-size: var(--button_regular_font-size);
 		line-height: var(--button_regular_line-height);
 
-		&.selected {
-			background-color: var(--popup_item_background-color_selected);
-
-			.version {
-				color: var(--popup_item_version_selected_color);
-			}
-		}
-
 		&:hover {
-			background-color: var(--popup_item_background-color_hovered);
+			// background-color: var(--popup_item_background-color_hovered);
 		}
 
 		.date {
@@ -160,6 +152,9 @@
 		}
 
 		.version {
+			&.selected {
+				color: var(--popup_item_version_selected_color);
+			}
 			color: var(--popup_item_version_color);
 			letter-spacing: 0.14px;
 		}
@@ -173,8 +168,13 @@
 	}
 
 	.changelog {
-		display: flex;
-		padding: var(--popup_inner_padding);
-		letter-spacing: 0.14px;
+		margin: 8px 8px 0;
+		a {
+			border-top: 1px solid var(--background_disabled);
+			display: flex;
+			padding: var(--popup_inner_padding) 0;
+			padding-top: calc(var(--popup_inner_padding) * 2);
+			letter-spacing: 0.14px;
+		}
 	}
 }

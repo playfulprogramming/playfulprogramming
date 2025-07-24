@@ -103,29 +103,28 @@ export function ArticleRevisionDropdown({
 				}
 			>
 				{versions.map(({ href, publishedMeta, version }, i) => (
-					<Option key={i}>
+					<Option key={i} isSelected={href.endsWith(slug)}>
 						<a
-							class={`${style.item} ${href.endsWith(slug) ? style.selected : ""}`}
+							class={style.item}
 							aria-current={href.endsWith(slug) ? "page" : undefined}
 							href={href}
 						>
 							<span class={`text-style-button-regular ${style.date}`}>
 								{publishedMeta}
 							</span>
-							<span class={`text-style-button-regular ${style.version}`}>
+							<span
+								class={`text-style-button-regular ${style.version} ${href.endsWith(slug) ? style.selected : ""}`}
+							>
 								{version}
 							</span>
 						</a>
 					</Option>
 				))}
-				<Option>
-					<hr class={style.divider} />
-				</Option>
-				<Option>
-					<a class={style.changelog} href={postHistory} target="_blank">
+				<li class={style.changelog}>
+					<a href={postHistory} target="_blank">
 						<span class="text-style-button-regular">View Changelog</span>
 					</a>
-				</Option>
+				</li>
 			</ul>
 		</div>
 	);
