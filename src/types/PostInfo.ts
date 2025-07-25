@@ -45,3 +45,9 @@ export interface PostHeadingInfo {
 	slug: string;
 	depth: number;
 }
+
+export interface PostVersion {
+	href: string;
+	version: PostInfo["version"];
+	publishedMeta: PostInfo["publishedMeta"];
+}
