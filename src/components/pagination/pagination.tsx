@@ -2,7 +2,6 @@ import styles from "./pagination.module.scss";
 import forward from "src/icons/arrow_right.svg?raw";
 import back from "src/icons/arrow_left.svg?raw";
 import { PaginationMenuAndPopover } from "components/pagination/pagination-popover";
-import { useEffect, useState } from "preact/hooks";
 import {
 	PaginationButtonProps,
 	PaginationProps,
