@@ -16,7 +16,6 @@ import {
 
 import style from "./search-page.module.scss";
 import { PostCardGrid } from "components/post-card/post-card-grid";
-import { SubHeader } from "components/subheader/subheader";
 import { Fragment } from "preact";
 import { CollectionCard } from "components/collection-card/collection-card";
 import { FilterDisplay } from "./components/filter-display";
