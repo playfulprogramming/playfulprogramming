@@ -246,7 +246,7 @@ While Tailwind doesn't solve the cluttered markup challenges with hand-rolling y
 
   ![Some visual docs complete with highlighted examples of what Tailwind code looks like](./tailwind_docs.png)
 
-- Pre-built styling tokens. No need to figure out what `padding-lg` or `padding-xl` should be; Tailwind ships with a strong color pallet and sane defaults out-of-the-box for you to use as your design system base.
+- Pre-built styling tokens. No need to figure out what `padding-lg` or `padding-xl` should be; Tailwind ships with a strong color palette and sane defaults out-of-the-box for you to use as your design system base.
 
   ![A color palette from Tailwind present in their docs](./tailwind_colors.png)
 
@@ -449,15 +449,13 @@ You might wonder:
 
 Not so! See, when Tailwind generates the CSS for your application, it only adds in the classes you actually use within your templates.
 
-This is why we had to add a list of files (via regex) to our `tailwind.config.js` file earlier: It's watching to see what classes to add to your CSS or not.
-
 This means that if you don't have any Tailwind classes in your code, only the prerequisite CSS generated will be included:
 
 ![A ".css" file of 5kB being generated from Vite](./tailwind_base_size.png)
 
 > You're even able to shrink this prerequisite CSS down if you'd like. We can customize our `src/style.css` file to only include the prerequisites we need for our project.
 >
-> To demonstrate this, you can remove all of the `@tailwind` imports, and you'll end up with `0kb` of CSS when you aren't using any Tailwind classes.
+> To demonstrate this, you can remove all of the `@import`s of Tailwind, and you'll end up with `0kb` of CSS when you aren't using any Tailwind classes.
 
 ### Dynamic Classes using Tailwind
 
