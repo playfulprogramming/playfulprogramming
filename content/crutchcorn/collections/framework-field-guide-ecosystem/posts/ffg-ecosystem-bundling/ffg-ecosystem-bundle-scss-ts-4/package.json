@@ -1,0 +1,11 @@
+{
+	"name": "@ffg-ecosystem/bundle-scss-ts-4",
+	"scripts": {
+		"start": "vite"
+	},
+	"devDependencies": {
+		"sass": "^1.89.2",
+		"typescript": "^5.8.3",
+		"vite": "^6.3.5"
+	}
+}

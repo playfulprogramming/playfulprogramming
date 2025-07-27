@@ -1,12 +1,13 @@
 import { Root, Node } from "hast";
 import { Plugin } from "unified";
-import { CollectionInfo } from "types/CollectionInfo";
 import { PostInfo, RawPostInfo } from "types/PostInfo";
 import { visit } from "unist-util-visit";
 import { toString } from "hast-util-to-string";
 import { SuperScriptLink } from "./link";
+import * as api from "utils/api";
+import { MarkdownVFile } from "../types";
 
-interface CollectionLinks {
+export interface CollectionLinks {
 	node: Node;
 	originalText: string;
 	originalHref: string;
@@ -21,16 +22,7 @@ interface CollectionLinks {
 	countWithinCollection: number;
 }
 
-interface CollectionMeta {
-	links: CollectionLinks[];
-	collectionMeta: CollectionInfo;
-}
-
-export const collectionMetaRecord = new Map<string, CollectionMeta>();
-
 interface RehypeReferencePageOptions {
-	collection: CollectionInfo;
-	collectionPosts: PostInfo[];
 	referenceTitle: string;
 }
 
@@ -40,30 +32,36 @@ interface RehypeReferencePageOptions {
 export const rehypeReferencePage: Plugin<
 	[RehypeReferencePageOptions],
 	Root
-> = ({ collection, collectionPosts, referenceTitle }) => {
-	const lastPost = collectionPosts[collectionPosts.length - 1];
-	const lastPostNumber = lastPost.order!;
+> = ({ referenceTitle }) => {
+	return (tree, vfile) => {
+		const post = (vfile as MarkdownVFile).data.frontmatter as PostInfo;
+		const collection = post.collection
+			? api.getCollectionBySlug(post.collection, "en")
+			: undefined;
+		const collectionPosts = post.collection
+			? api.getPostsByCollection(post.collection, "en")
+			: [];
+		if (!collection || !collectionPosts.length) return;
 
-	let linkCount = 0;
+		const lastPost = collectionPosts[collectionPosts.length - 1];
+		const lastPostNumber = lastPost.order!;
 
-	const links: CollectionLinks[] = [];
-	collectionMetaRecord.set(collection.slug, {
-		links,
-		collectionMeta: collection,
-	});
+		const links: CollectionLinks[] =
+			(vfile as MarkdownVFile).data.collectionLinks ?? [];
+		(vfile as MarkdownVFile).data.collectionLinks = links;
 
-	return (tree, file) => {
-		const rawPostInfo = file.data.frontmatterData as RawPostInfo;
+		const rawPostInfo = vfile.data.frontmatterData as RawPostInfo;
 		visit(tree, "element", (node, index, parent) => {
 			if (node.tagName !== "a") {
 				return;
 			}
 			const { href, ...linkProps } = node.properties as Record<string, string>;
 
-			const existingCollection = collectionMetaRecord.get(collection.slug);
-			const existingLink = existingCollection?.links.find(
-				(link) => link.originalHref === href,
-			);
+			if (!href.startsWith("https:")) {
+				return;
+			}
+
+			const existingLink = links.find((link) => link.originalHref === href);
 
 			// We've already seen this link before
 			if (existingLink) {
@@ -83,11 +81,11 @@ export const rehypeReferencePage: Plugin<
 			}
 
 			const nodeText = toString(node);
-			linkCount++;
+			const countWithinCollection = links.length + 1;
 			links.push({
 				node,
 				associatedChapterOrder: rawPostInfo.order!,
-				countWithinCollection: linkCount,
+				countWithinCollection,
 				originalHref: href,
 				originalText: nodeText,
 			});
@@ -99,7 +97,7 @@ export const rehypeReferencePage: Plugin<
 				parent.children[index] = SuperScriptLink({
 					href: newHref,
 					linkProps: linkProps,
-					superScriptNumber: linkCount,
+					superScriptNumber: countWithinCollection,
 					children: node.children,
 				});
 			}

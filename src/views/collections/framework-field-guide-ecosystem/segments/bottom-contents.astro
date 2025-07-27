@@ -1,0 +1,18 @@
+---
+import styles from "./bottom-contents.module.scss";
+import SignupForm from "../../framework-field-guide/components/signup-form.astro";
+---
+
+<p class="text-style-body-large-bold section-disclaimer">
+	*This book’s contents are subject to change
+</p>
+<hr class={`${styles.hr} ${styles.separator}`} data-no-max-width />
+<p class={`text-style-body-medium ${styles.slightOpacity}`}>
+	Want to get updates when new sections are released?
+</p>
+<p class={`text-style-headline-6`}>
+	Sign up for our newsletter to get updates on the book!
+</p>
+<div class={styles.signUpContainer}>
+	<SignupForm />
+</div>

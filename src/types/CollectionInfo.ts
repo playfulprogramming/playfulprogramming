@@ -1,9 +1,13 @@
 import { Languages } from "types/index";
 
-export interface ChapterList {
+export interface ExternalPost {
 	title: string;
-	description: string;
-	order: string;
+	url?: string;
+	description?: string;
+}
+
+export interface LocalPost {
+	post: string;
 }
 
 export interface RawCollectionInfo {
@@ -21,7 +25,7 @@ export interface RawCollectionInfo {
 	version?: string;
 	upToDateSlug?: string;
 	buttons?: Array<{ text: string; url: string }>;
-	chapterList?: ChapterList[];
+	chapterList?: Array<ExternalPost | LocalPost>;
 }
 
 export interface CollectionInfo extends RawCollectionInfo {
@@ -43,4 +47,10 @@ export interface CollectionInfo extends RawCollectionInfo {
 		height: number;
 		width: number;
 	};
+}
+
+export interface SearchCollectionInfo extends CollectionInfo {
+	excerpt: string;
+	searchMeta: string;
+	publishedTimestamp: number;
 }

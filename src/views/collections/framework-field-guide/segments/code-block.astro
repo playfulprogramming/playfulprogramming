@@ -10,6 +10,7 @@ import index from "../code-block/index.nmd?raw";
 import indexPath from "../code-block/index.nmd?url";
 import { VFile } from "vfile";
 import { MarkdownVFile } from "utils/markdown/types";
+import Content from "utils/markdown/components/content.astro";
 
 const vfileData: MarkdownVFile["data"] = {
 	kind: "page",
@@ -17,7 +18,7 @@ const vfileData: MarkdownVFile["data"] = {
 	headingsWithIds: [],
 };
 
-const { html } = await getMarkdownHtml(
+const { content } = await getMarkdownHtml(
 	{
 		kind: "page",
 		file: "",
@@ -40,5 +41,7 @@ const { html } = await getMarkdownHtml(
 		You can easily select a single framework and use this series to learn it
 		front-and-back.
 	</p>
-	<div class="darkTheme dark" set:html={html} />
+	<div class="darkTheme dark">
+		<Content content={content} />
+	</div>
 </section>

@@ -12,8 +12,6 @@ import oembedTransformer from "@remark-embedder/transformer-oembed";
 import remarkToRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
-import { rehypeTooltips } from "./tooltips/rehype-transform";
-import { rehypeHints } from "./hints/rehype-transform";
 import { rehypeAstroImageMd } from "./picture/rehype-transform";
 import { rehypePlayfulElementMap } from "./rehype-playful-element-map";
 import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
@@ -23,19 +21,27 @@ import { Processor } from "unified";
 import { dirname, relative, resolve } from "path";
 import type { VFile } from "vfile";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
-import rehypeStringify from "rehype-stringify";
 import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
 import {
+	rehypeDetailsElement,
+	rehypeLinkPreview,
+	rehypeTooltips,
+	rehypeParseComponents,
+	rehypePluginComponents,
 	rehypeTransformComponents,
+	rehypeValidateComponents,
+	transformDetails,
 	transformFileTree,
 	transformInContentAd,
 	transformLinkPreview,
+	transformNoop,
 	transformTabs,
+	transformVoid,
 } from "./components";
-import { rehypeLinkPreview } from "./link-preview/rehype-transform";
 import { transformCodeEmbed } from "./components/code-embed/rehype-transform";
 import { getStackblitzUrl } from "./components/code-embed/getStackblitzUrl";
+import { rehypeRelativePaths } from "./rehype-relative-paths";
 
 const remarkEmbedderDefault =
 	(remarkEmbedder as never as { default: typeof remarkEmbedder }).default ??
@@ -67,6 +73,8 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypeUnwrapImages)
 			// This is required to handle unsafe HTML embedded into Markdown
 			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] })
+			.use(rehypeRelativePaths)
+			.use(rehypeParseComponents)
 			// Do not add the tabs before the slug. We rely on some of the heading
 			// logic in order to do some of the subheading logic
 			.use(rehypeSlug as never, {
@@ -77,10 +85,10 @@ export function createHtmlPlugins(unified: Processor) {
 			/**
 			 * Insert custom HTML generation code here
 			 */
-			.use(rehypeHints)
 			.use(rehypeTooltips)
 			.use(rehypeAstroImageMd)
 			.use(rehypeLinkPreview)
+			.use(rehypeDetailsElement)
 			.use(rehypeUnicornIFrameClickToRun, {
 				srcReplacements: [
 					(val: string, file: VFile) => {
@@ -106,18 +114,25 @@ export function createHtmlPlugins(unified: Processor) {
 					},
 				],
 			})
+			.use(rehypePlayfulElementMap)
+			.use(rehypeValidateComponents)
+			// Shiki is the last plugin before stringify, to avoid performance issues
+			// with node traversal (shiki creates A LOT of element nodes)
+			.use(rehypeCodeblockMeta)
+			.use(rehypeShikiUU)
+			.use(rehypePostShikiTransform)
 			.use(rehypeTransformComponents, {
 				components: {
 					["code-embed"]: transformCodeEmbed,
 					filetree: transformFileTree,
-					["in-content-ad"]: transformInContentAd,
-					["link-preview"]: transformLinkPreview,
-					["no-ebook"]: ({ children }) => children,
-					["only-ebook"]: () => [],
+					hint: transformDetails,
+					"in-content-ad": transformInContentAd,
+					"link-preview": transformLinkPreview,
+					"no-ebook": transformNoop,
+					"only-ebook": transformVoid,
 					tabs: transformTabs,
 				},
 			})
-			.use(rehypePlayfulElementMap)
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)
 			.use(rehypeHeaderClass, {
@@ -127,11 +142,11 @@ export function createHtmlPlugins(unified: Processor) {
 				className: (depth: number) =>
 					`text-style-headline-${Math.min(depth + 1, 6)}`,
 			})
-			// Shiki is the last plugin before stringify, to avoid performance issues
-			// with node traversal (shiki creates A LOT of element nodes)
-			.use(rehypeCodeblockMeta)
-			.use(...rehypeShikiUU)
-			.use(rehypePostShikiTransform)
-			.use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
+			.use(rehypePluginComponents, {
+				htmlOptions: {
+					allowDangerousHtml: true,
+					voids: [],
+				},
+			})
 	);
 }

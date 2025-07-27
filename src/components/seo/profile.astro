@@ -1,10 +1,16 @@
 ---
 import { SEOProps } from "./shared";
 
-type Props = Pick<SEOProps, "peopleData">;
-const { peopleData } = Astro.props as Props;
+export type Props = Pick<SEOProps, "peopleData">;
+const { peopleData } = Astro.props;
 ---
 
-<meta property="profile:firstName" content={peopleData![0].firstName} />
-<meta property="profile:lastName" content={peopleData![0].lastName} />
-<meta property="profile:username" content={peopleData![0].id} />
+{
+	peopleData?.length ? (
+		<>
+			<meta property="profile:firstName" content={peopleData[0].firstName} />
+			<meta property="profile:lastName" content={peopleData[0].lastName} />
+			<meta property="profile:username" content={peopleData[0].id} />
+		</>
+	) : undefined
+}

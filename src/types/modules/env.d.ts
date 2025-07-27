@@ -6,6 +6,7 @@ declare global {
 			SITE_URL?: string;
 			VERCEL_URL?: string;
 
+			HOOF_URL?: string;
 			GITHUB_TOKEN?: string;
 			PUBLIC_CLOUDINARY_CLOUD_NAME?: string;
 			ORAMA_PRIVATE_API_KEY?: string;

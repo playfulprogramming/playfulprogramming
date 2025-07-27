@@ -10,7 +10,7 @@
 }
 ---
 
-The [Vite Backend Integration guide](https://vitejs.dev/guide/backend-integration.html) is light on details; it asks the reader to consider using an existing integration. This isn't helpful when an integration doesn't yet exist, or when you want to develop your own integration for a traditional server-rendered web application. I wasn't able to find a complete integration guide, so I decided to write my own that shares what I've learned about bundling with Vite.
+The [Vite Backend Integration guide](https://vite.dev/guide/backend-integration.html) is light on details; it asks the reader to consider using an existing integration. This isn't helpful when an integration doesn't yet exist, or when you want to develop your own integration for a traditional server-rendered web application. I wasn't able to find a complete integration guide, so I decided to write my own that shares what I've learned about bundling with Vite.
 
 This guide will show you how to bundle assets with Vite and build a lightweight integration with a traditional backend framework. The guide will use Python & Flask because they are accessible tools for developers across multiple ecosystems. However, the concepts could be applied to Django, Gorilla Mux, WordPress themes, and countless other backend technologies. 
 
@@ -33,7 +33,7 @@ Vite's DevServer was designed from its inception to make local development chang
 
 Unlike Webpack, the Vite DevServer only compiles files when they are requested. It leverages [ES module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) imports, which allow JS files to import other files without needing to bundle them together during development. When one file changes, only that file needs to be re-compiled, and the rest can remain unchanged. Project files are compiled with [Rollup.js](https://rollupjs.org/). Third-party dependencies in `node_modules` are pre-compiled using the ultra-fast [esbuild](https://esbuild.github.io/) bundler for maximum speed, and they are cached until the dependency version changes. Vite also provides a client script for hot module reloading.
 
-Within the Vite config, there is a `root` option that specifies the directory where Vite will look for unprocessed assets. When running the Vite DevServer, almost every file in the `root` directory is URL-accessible by its unprocessed filename (see [blocked files](https://vitejs.dev/config/server-options.html#server-fs-deny)). For example, `{root}/src/main.ts` would be URL accessible at `http://localhost:5173/src/main.ts`, and it would return the compiled JS file. However, this does not mean that every file in the `root` directory will be included in the production bundle (more on this in the [next section](#the-vite-bundler)).
+Within the Vite config, there is a `root` option that specifies the directory where Vite will look for unprocessed assets. When running the Vite DevServer, almost every file in the `root` directory is URL-accessible by its unprocessed filename (see [blocked files](https://vite.dev/config/server-options.html#server-fs-deny)). For example, `{root}/src/main.ts` would be URL accessible at `http://localhost:5173/src/main.ts`, and it would return the compiled JS file. However, this does not mean that every file in the `root` directory will be included in the production bundle (more on this in the [next section](#the-vite-bundler)).
 
 Another interesting quirk of the Vite DevServer is _when_ and _how_ the compiling of an asset happens. Let's say the following Sass file exists at `{root}/example.scss` in a Vite project:
 
@@ -100,7 +100,7 @@ Not all files in the `root` directory will be bundled. For a file to be included
 2. The file is included directly or transitively by an entry point.
 3. The file is in the `{root}/public/` directory (however, our integration will disable this feature).
 
-An **entry point** is a top-level file in a bundle that will have an associated output file in the build. Vite allows multiple entry points in a project. An entry point can be an HTML file, a JavaScript file, a TypeScript file, an Scss file, or another supported file type that's listed on [Vite's Features page](https://vitejs.dev/guide/features.html).
+An **entry point** is a top-level file in a bundle that will have an associated output file in the build. Vite allows multiple entry points in a project. An entry point can be an HTML file, a JavaScript file, a TypeScript file, an Scss file, or another supported file type that's listed on [Vite's Features page](https://vite.dev/guide/features.html).
 
 During the build phase, Vite will ensure that all files referenced by an entry point (such as JS, CSS, and images) will be bundled. In our integration, the entry points will be styles and scripts.
 
@@ -124,7 +124,7 @@ Our integration will _not_ use the module preload polyfill (more info [here](htt
 
 ## Scaffolding the project
 
-Create a new Vite project using the `vanilla-ts` template (you can find other template options in [Vite's Getting Started guide](https://vitejs.dev/guide/#scaffolding-your-first-vite-project)).
+Create a new Vite project using the `vanilla-ts` template (you can find other template options in [Vite's Getting Started guide](https://vite.dev/guide/#scaffolding-your-first-vite-project)).
 
 ```sh
 npm create vite@latest vite-flask-integration -- \

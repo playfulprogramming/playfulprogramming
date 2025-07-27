@@ -385,7 +385,7 @@ React Server Actions not only make it easier to call data from the server from t
 For example, assume you're building a payment form:
 ![A payment form with card information and more](./shadcn_payment.png)
 
-> This payment card graphic comes from [`shadcn/ui`'s examples](https://ui.shadcn.com/examples/cards)
+> This payment card graphic comes from [`shadcn/ui`'s examples](https://ui.shadcn.com/)
 
 You want this payment form to be bulletproof. Any user having to attempt a re-purchase will likely not return to your site; leading to lost sales.
 

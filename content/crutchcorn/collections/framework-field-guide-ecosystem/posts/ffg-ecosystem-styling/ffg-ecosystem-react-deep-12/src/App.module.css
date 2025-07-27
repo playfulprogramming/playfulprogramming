@@ -1,0 +1,16 @@
+ul {
+	display: flex;
+	list-style: none;
+}
+
+.redCard :global [data-title] {
+	color: red;
+}
+
+.blueCard :global [data-title] {
+	color: blue;
+}
+
+.greenCard :global [data-title] {
+	color: green;
+}

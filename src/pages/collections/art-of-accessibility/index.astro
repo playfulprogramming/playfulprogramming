@@ -4,7 +4,7 @@ import Barebones from "src/layouts/barebones.astro";
 import SEO from "src/components/seo/seo.astro";
 import Header from "src/views/collections/framework-field-guide/segments/header.astro";
 import Hero from "../../../views/collections/art-of-accessibility/segments/hero.astro";
-import { getCollectionBySlug, getPersonById } from "../../../utils/api";
+import { getPersonById } from "../../../utils/api";
 import { getPostsByCollection } from "../../../utils/api";
 
 import "../../../views/collections/framework-field-guide/fonts/plus-jakarta-sans.css";
@@ -26,8 +26,34 @@ import TopContents from "../../../views/collections/art-of-accessibility/segment
 import BottomContents from "../../../views/collections/art-of-accessibility/segments/bottom-contents.astro";
 import CollectionTableOfContents from "../../../views/collections/framework-field-guide-fundamentals/components/collection-table-of-contents-fundamentals.astro";
 
-const collection = getCollectionBySlug("art-of-accessibility", "en");
 const chapterList = getPostsByCollection("art-of-accessibility", "en");
+const comingSoon = [
+	{
+		order: 5,
+		title: "Keyboard Input",
+		description: "Coming soon...",
+	},
+	{
+		order: 6,
+		title: "Mouse Input",
+		description: "Coming soon...",
+	},
+	{
+		order: 7,
+		title: "Dynamic Content",
+		description: "Coming soon...",
+	},
+	{
+		order: 8,
+		title: "Interactive Components",
+		description: "Coming soon...",
+	},
+	{
+		order: 9,
+		title: "Tooling",
+		description: "Coming soon...",
+	},
+];
 ---
 
 <Barebones>
@@ -35,7 +61,7 @@ const chapterList = getPostsByCollection("art-of-accessibility", "en");
 		slot="head"
 		title={"The Art of Accessibility"}
 		description={"Learn accessibility for modern web applications."}
-		peopleData={[getPersonById("crutchcorn", "en")]}
+		peopleData={[getPersonById("crutchcorn", "en")!]}
 		publishedTime={"2025-01-01T13:45:00.284Z"}
 		type={"book"}
 		shareImage={"/custom-content/collections/art-of-accessibility/art_of_accessibility_social.png"}
@@ -48,7 +74,7 @@ const chapterList = getPostsByCollection("art-of-accessibility", "en");
 			<CollectionTableOfContents
 				title="Chapters*"
 				chaptersToShow={5}
-				chapterList={collection!.chapterList}
+				chapterList={comingSoon}
 				posts={chapterList}
 				postPrefixToRemove="The Art of Accessibility: "
 			/>
@@ -56,6 +82,10 @@ const chapterList = getPostsByCollection("art-of-accessibility", "en");
 		</Rest>
 	</main>
 </Barebones>
+<script>
+	import { enableSmoothScrollForAnchorsToCurrentPage } from "utils/smooth-scroll-for-anchors-to-current-page";
+	enableSmoothScrollForAnchorsToCurrentPage();
+</script>
 <script>
 	import { enableParallaxScrolling } from "../../../views/collections/framework-field-guide/scripts/parallax-scrolling";
 	enableParallaxScrolling();

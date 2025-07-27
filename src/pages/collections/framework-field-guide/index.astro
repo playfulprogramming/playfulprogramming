@@ -37,15 +37,15 @@ import SignUp from "src/views/collections/framework-field-guide/segments/sign-up
 import WhyLearnAllThree from "src/views/collections/framework-field-guide/segments/why-learn-all-three.astro";
 import WhatDoIGet from "src/views/collections/framework-field-guide/segments/what-do-i-get.astro";
 import { getPersonById } from "utils/api";
+import BlockingTabsSignalScript from "components/tabs/blocking-tabs-signal-script.astro";
 ---
 
 <Barebones>
 	<SEO
 		slot="head"
-		pathName={`/collections/framework-field-guide`}
 		title={"The Framework Field Guide"}
 		description={"A practical and free way to teach Angular, React, and Vue all at once, so you can choose the right tool for the job and learn the underlying concepts in depth."}
-		peopleData={[getPersonById("crutchcorn", "en")]}
+		peopleData={[getPersonById("crutchcorn", "en")!]}
 		publishedTime={"2022-12-01T13:45:00.284Z"}
 		type={"book"}
 		shareImage={"/custom-content/collections/framework-field-guide/framework_field_guide_social.png"}
@@ -68,14 +68,15 @@ import { getPersonById } from "utils/api";
 	</main>
 </Barebones>
 <script>
-	import { enableColorChangeListeners } from "../../../views/collections/framework-field-guide/scripts/color-change-listener";
-	enableColorChangeListeners();
+	import { enableSmoothScrollForAnchorsToCurrentPage } from "utils/smooth-scroll-for-anchors-to-current-page";
+	enableSmoothScrollForAnchorsToCurrentPage();
 </script>
 <script>
-	import { enableTabs } from "../../../utils/markdown/components/tabs/tabs-script";
-	enableTabs();
+	import { enableColorChangeListeners } from "../../../views/collections/framework-field-guide/scripts/color-change-listener";
+	enableColorChangeListeners();
 </script>
 <script>
 	import { enableParallaxScrolling } from "../../../views/collections/framework-field-guide/scripts/parallax-scrolling";
 	enableParallaxScrolling();
 </script>
+<BlockingTabsSignalScript />

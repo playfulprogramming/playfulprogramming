@@ -7,15 +7,10 @@ import {
 	VisuallyHidden,
 } from "react-aria";
 import { Button } from "components/button/button";
-import { createContext, PropsWithChildren, useContext } from "preact/compat";
+import { PropsWithChildren, useContext } from "preact/compat";
 import { useRef } from "preact/hooks";
-import {
-	RadioGroupProps,
-	RadioGroupState,
-	useRadioGroupState,
-} from "react-stately";
-
-const RadioContext = createContext<RadioGroupState | null>(null);
+import { RadioGroupProps, useRadioGroupState } from "react-stately";
+import { RadioContext } from "./common";
 
 interface RadioButtonGroupProps extends PropsWithChildren<RadioGroupProps> {
 	class?: string;

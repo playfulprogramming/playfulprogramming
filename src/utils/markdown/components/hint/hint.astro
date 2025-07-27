@@ -1,0 +1,14 @@
+---
+import { Hint as PreactHint } from "components/hint/hint";
+import { ComponentNode } from "../components";
+import Content from "../content.astro";
+
+export interface Props {
+	title: string;
+	children: ComponentNode["children"];
+}
+---
+
+<PreactHint title={Astro.props.title}>
+	<Content content={Astro.props.children} />
+</PreactHint>

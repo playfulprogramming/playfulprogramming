@@ -24,7 +24,6 @@ const posts = api.getPostsByPerson(person.id, locale);
 		description={person.description}
 		peopleData={[person]}
 		type="profile"
-		pathName={`/people/${person.id}`}
 	/>
 	<main class="listViewContent">
 		<PersonPage person={person} posts={posts} />

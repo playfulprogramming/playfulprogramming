@@ -17,6 +17,8 @@ export async function getMarkdownVFile(
 	const vfileData: MarkdownVFile["data"] = {
 		kind: data.kind,
 		file: data.file,
+		slug: data.slug,
+		frontmatter: data,
 		headingsWithIds: [],
 	};
 	return new VFile({

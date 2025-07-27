@@ -7,6 +7,14 @@ export default defineConfig({
 		setupFiles: ["__mocks__/setup.ts"],
 		globals: true,
 		environment: "jsdom",
+		exclude: [
+			"**/content/**",
+			"**/node_modules/**",
+			"**/dist/**",
+			"**/cypress/**",
+			"**/.{idea,git,cache,output,temp}/**",
+			"**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build,eslint,prettier}.config.*",
+		],
 	},
 	resolve: {
 		alias: {

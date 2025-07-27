@@ -1,0 +1,5 @@
+node_modules/
+.idea/
+.vscode/
+src/*.css
+src/*.js

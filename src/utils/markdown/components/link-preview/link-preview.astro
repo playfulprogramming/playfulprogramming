@@ -1,0 +1,26 @@
+---
+import { LinkPreview as PreactLinkPreview } from "components/tooltips/link-preview";
+import { PlayfulNode } from "../components";
+import Content from "../content.astro";
+
+export interface Props {
+	type: "zoom" | "link";
+	label: string;
+	href: string;
+	picture?: { src: string; width?: number; height?: number };
+	alt: string;
+	children: PlayfulNode[];
+}
+
+const props = Astro.props;
+---
+
+<PreactLinkPreview
+	type={props.type}
+	label={props.label}
+	href={props.href}
+	alt={props.alt}
+>
+	{props.picture && <img {...props.picture} alt="" data-nozoom />}
+	{props.children && <Content content={props.children} />}
+</PreactLinkPreview>

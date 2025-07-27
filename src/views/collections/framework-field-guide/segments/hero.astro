@@ -56,14 +56,13 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 					<p class={`text-style-headline-4 ${styles.bookPartName}`}>
 						Ecosystem
 					</p>
-					<SmallOutlinedButton
-						href="#ecosystem-title"
-						onclick="event.preventDefault();var title=document.getElementById('ecosystem-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+					<SmallFilledButton
+						href="/collections/framework-field-guide-ecosystem"
 					>
-						Learn more
-					</SmallOutlinedButton>
+						Read now
+					</SmallFilledButton>
 					<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
-						Coming soon
+						In public early access
 					</p>
 				</article>
 			</li>
@@ -75,12 +74,12 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 					</p>
 					<SmallOutlinedButton
 						href="#internals-title"
-						onclick="event.preventDefault();var title=document.getElementById('internals-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+						data-scroll-block="center"
 					>
 						Learn more
 					</SmallOutlinedButton>
 					<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
-						Coming 2025
+						Coming in the future
 					</p>
 					<div class={styles.heroLineBottomHider}></div>
 				</article>
@@ -94,7 +93,7 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 			href="#why-free"
 			data-no-horiz-pad
 			class={styles.whyFreeBtn}
-			onclick="event.preventDefault();window.location.hash='why-free-story';setTimeout(() => {var title=document.getElementById('why-free-story');title.scrollIntoView({behavior: 'smooth', block: 'center'})}, 100)"
+			data-scroll-block="center"
 		>
 			Learn why we made it free
 		</BigFilledButton>

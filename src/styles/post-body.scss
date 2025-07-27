@@ -1,14 +1,8 @@
 // Do not rearrange this order. `base` needs to come first
 @use "src/styles/markdown/base";
 
-@use "src/styles/markdown/tooltips/anchored-tooltip";
-@use "src/styles/markdown/tooltips/link-preview";
 @use "src/styles/markdown/blockquote";
 @use "src/styles/markdown/code-embed";
 @use "src/styles/markdown/codeblock";
-@use "src/styles/markdown/embed";
-@use "src/styles/markdown/hints";
 @use "src/styles/markdown/lists";
 @use "src/styles/markdown/table";
-@use "src/styles/markdown/tooltips";
-@use "src/styles/markdown/file-list";

@@ -65,4 +65,4 @@ let calledFunction = `(${boundFn})()`;
 calledFunction = (await Terser.minify(calledFunction)).code!;
 ---
 
-<script set:html={calledFunction} />
+<script is:inline set:html={calledFunction} />

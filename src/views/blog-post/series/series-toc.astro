@@ -23,6 +23,7 @@ const showMoreText = translate(
 	"action.view_all_chapters",
 	"" + activePostsMeta.length,
 );
+const showLessText = translate(Astro, "action.view_less_chapters");
 ---
 
 <div class={styles.seriesTableOfContent}>
@@ -84,7 +85,12 @@ const showMoreText = translate(
 		{
 			activePostsMeta.length >= 4 ? (
 				<div class={styles.buttonContainer}>
-					<Button id="toggleAllButton" tag="button">
+					<Button
+						id="toggleAllButton"
+						tag="button"
+						data-show-more-text={showMoreText}
+						data-show-less-text={showLessText}
+					>
 						{showMoreText}
 					</Button>
 				</div>
@@ -93,32 +99,28 @@ const showMoreText = translate(
 	</div>
 </div>
 
-<script
-	define:vars={{
-		showMoreText: showMoreText,
-		showLessText: translate(Astro, "action.view_less_chapters"),
-	}}
->
-	const showMore = document.querySelector("#toggleAllButton");
+<script>
+	const toggleButton =
+		document.querySelector<HTMLButtonElement>("#toggleAllButton")!;
+	const toggleButtonLabel = toggleButton.children[0] as HTMLElement;
 	const showHideChapters = Array.from(
-		document.querySelectorAll("[data-dont-show-initially='true']"),
+		document.querySelectorAll<HTMLElement>("[data-dont-show-initially='true']"),
 	);
 
 	let expanded = false;
 
-	showMore &&
-		showMore.addEventListener("click", () => {
-			if (!expanded) {
-				showHideChapters.forEach((chapter) => {
-					chapter.style.display = "block";
-				});
-				showMore.children[0].innerText = showLessText;
-			} else {
-				showHideChapters.forEach((chapter) => {
-					chapter.style.display = "none";
-				});
-				showMore.children[0].innerText = showMoreText;
-			}
-			expanded = !expanded;
-		});
+	toggleButton.addEventListener("click", () => {
+		if (!expanded) {
+			showHideChapters.forEach((chapter) => {
+				chapter.style.display = "block";
+			});
+			toggleButtonLabel.innerText = toggleButton.dataset.showLessText!;
+		} else {
+			showHideChapters.forEach((chapter) => {
+				chapter.style.display = "none";
+			});
+			toggleButtonLabel.innerText = toggleButton.dataset.showMoreText!;
+		}
+		expanded = !expanded;
+	});
 </script>

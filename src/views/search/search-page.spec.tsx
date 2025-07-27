@@ -29,6 +29,7 @@ import { CollectionInfo } from "types/CollectionInfo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SearchClient, SearchContext } from "./orama";
 import { ClientSearchParams, OramaClient } from "@oramacloud/client";
+import { MAX_COLLECTIONS_PER_PAGE, MAX_POSTS_PER_PAGE } from "./constants";
 
 const user = userEvent.setup();
 
@@ -214,6 +215,11 @@ describe("Search page", () => {
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockCollection.title);
 		await user.type(searchInput, "{enter}");
+
+		const showGroupInput = getByTestId("show-group-sidebar");
+		const showGroupInputCollections = await findByTextFrom(showGroupInput, "Collections");
+		await user.click(showGroupInputCollections);
+
 		await waitFor(() =>
 			expect(getByText(MockCollection.title)).toBeInTheDocument(),
 		);
@@ -294,9 +300,11 @@ describe("Search page", () => {
 		const searchInput = getByTestId("search-input");
 		await user.type(searchInput, MockCollection.title);
 		await user.type(searchInput, "{enter}");
+
 		await waitFor(() =>
-			expect(getByTestId("collections-header")).toBeInTheDocument(),
+			expect(clients.postClient.search).toHaveBeenCalledTimes(1),
 		);
+
 		expect(queryByTestId("articles-header")).not.toBeInTheDocument();
 	});
 
@@ -385,7 +393,7 @@ describe("Search page", () => {
 			collections: [{ ...MockCollection, title: "One collection" }],
 		}));
 
-		const { getByTestId, getByText, queryByTestId } = render(
+		const { getByTestId, getByText, queryByText } = render(
 			<SearchPage mockClients={clients} />,
 		);
 
@@ -394,9 +402,7 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
-		await waitFor(() =>
-			expect(getByText("One collection")).toBeInTheDocument(),
-		);
+		expect(queryByText("One collection")).not.toBeInTheDocument();
 
 		const container = getByTestId("content-to-display-group-topbar");
 
@@ -405,7 +411,7 @@ describe("Search page", () => {
 		await user.click(articles);
 		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
 
-		expect(queryByTestId("One collection")).not.toBeInTheDocument();
+		expect(queryByText("One collection")).not.toBeInTheDocument();
 
 		const collections = await findByTextFrom(container, "Collections");
 
@@ -414,7 +420,7 @@ describe("Search page", () => {
 		await waitFor(() =>
 			expect(getByText("One collection")).toBeInTheDocument(),
 		);
-		expect(queryByTestId("One blog post")).not.toBeInTheDocument();
+		expect(queryByText("One blog post")).not.toBeInTheDocument();
 	});
 
 	test("Sort by date works on desktop radio group buttons", async () => {
@@ -466,7 +472,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 4,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -490,7 +496,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 4,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -556,7 +562,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 4,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -580,7 +586,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 4,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -634,7 +640,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 4,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -665,9 +671,9 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "",
-				limit: 4,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
-				offset: 4 * (2 - 1),
+				offset: MAX_POSTS_PER_PAGE * (2 - 1),
 				sortBy: {
 					order: "desc",
 					property: "publishedTimestamp",
@@ -680,7 +686,7 @@ describe("Search page", () => {
 			},
 			expect.anything(),
 		);
-		expect(getByText("Seven blog post")).toBeInTheDocument();
+		expect(getByText("Eleven blog post")).toBeInTheDocument();
 		expect(getByText("Twelve blog post")).toBeInTheDocument();
 	});
 
@@ -792,7 +798,7 @@ describe("Search page", () => {
 			expect(clients.postClient.search).toHaveBeenLastCalledWith(
 				{
 					term: "",
-					limit: 4,
+					limit: MAX_POSTS_PER_PAGE,
 					offset: 0,
 					mode: "fulltext",
 					sortBy: {
@@ -809,8 +815,7 @@ describe("Search page", () => {
 			);
 		});
 
-		const container = await findByTestId("pagination");
-		const authorContainer = getByTestId("author-filter-section-sidebar");
+		const authorContainer = await findByTestId("author-filter-section-sidebar");
 		const author = await findByTextFrom(authorContainer, MockPerson.name);
 
 		// Apply author filter
@@ -821,7 +826,7 @@ describe("Search page", () => {
 			expect(clients.postClient.search).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					term: "",
-					limit: 4,
+					limit: MAX_POSTS_PER_PAGE,
 					offset: 0, // Should reset to first page
 					where: {
 						authors: [MockPerson.id],
@@ -957,8 +962,7 @@ describe("Search page", () => {
 
 		const searchQuery = buildSearchQuery({
 			searchQuery: "blog",
-			postsPage: 2,
-			collectionsPage: 1,
+			page: 2,
 			display: "articles",
 			filterTags: ["angular"],
 			filterAuthors: [MockPerson.id],
@@ -978,9 +982,9 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenCalledWith(
 			{
 				term: "blog",
-				limit: 4,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
-				offset: 4 * (2 - 1),
+				offset: MAX_POSTS_PER_PAGE,
 				sortBy: {
 					property: "publishedTimestamp",
 					order: "asc",
@@ -999,9 +1003,9 @@ describe("Search page", () => {
 		expect(clients.collectionClient.search).toHaveBeenCalledWith(
 			{
 				term: "blog",
-				limit: 4,
+				limit: MAX_COLLECTIONS_PER_PAGE,
 				mode: "fulltext",
-				offset: 0,
+				offset: MAX_COLLECTIONS_PER_PAGE,
 				sortBy: {
 					property: "publishedTimestamp",
 					order: "asc",
@@ -1213,8 +1217,7 @@ describe("Search page", () => {
 
 		const searchQuery = buildSearchQuery({
 			searchQuery: "blog",
-			postsPage: 2,
-			collectionsPage: 1,
+			page: 2,
 			display: "articles",
 			filterTags: ["angular"],
 			filterAuthors: [MockPerson.id],
@@ -1246,7 +1249,7 @@ describe("Search page", () => {
 		expect(clients.postClient.search).toHaveBeenLastCalledWith(
 			{
 				term: "blogother",
-				limit: 4,
+				limit: MAX_POSTS_PER_PAGE,
 				mode: "fulltext",
 				offset: 0,
 				sortBy: {
@@ -1267,7 +1270,7 @@ describe("Search page", () => {
 		// Since the search URL is debounced, it might update a while after the search results are visible
 		await waitFor(() => {
 			expect(window.location.search).toEqual(
-				"?q=blogother&display=articles&filterTags=angular&filterAuthors=joe&sort=oldest",
+				"?q=blogother&filterTags=angular&filterAuthors=joe&sort=oldest",
 			);
 		});
 	});
@@ -1397,8 +1400,7 @@ describe("Search page", () => {
 
 		const searchQuery = buildSearchQuery({
 			searchQuery: "blog",
-			postsPage: 2,
-			collectionsPage: 1,
+			page: 2,
 			display: "articles",
 			filterTags: ["angular"],
 			filterAuthors: [MockPerson.id],
@@ -1424,7 +1426,7 @@ describe("Search page", () => {
 
 		// Since the search URL is debounced, it might update a while after the search results are visible
 		await waitFor(() => {
-			expect(window.location.search).toEqual("?display=articles&sort=oldest");
+			expect(window.location.search).toEqual("?sort=oldest");
 		});
 	});
 
@@ -1480,8 +1482,9 @@ describe("Search page", () => {
 				{ ...MockCollection, slug: `collection-8`, title: "Collection Eight" },
 				{ ...MockCollection, slug: `collection-9`, title: "Collection Nine" },
 				{ ...MockCollection, slug: `collection-10`, title: "Collection Ten" },
+				{ ...MockCollection, slug: `collection-11`, title: "Collection Eleven" },
 			],
-			totalCollections: 10,
+			totalCollections: 11,
 		}));
 
 		const { findByTestId, getByText, getByTestId } = render(
@@ -1492,12 +1495,16 @@ describe("Search page", () => {
 		await user.type(searchInput, "*");
 		await user.type(searchInput, "{enter}");
 
+		const showGroupInput = getByTestId("show-group-sidebar");
+		const showGroupInputCollections = await findByTextFrom(showGroupInput, "Collections");
+		await user.click(showGroupInputCollections);
+
 		// Verify initial collection client call
 		await waitFor(() =>
 			expect(clients.collectionClient.search).toHaveBeenCalledWith(
 				{
 					term: "",
-					limit: 4,
+					limit: MAX_COLLECTIONS_PER_PAGE,
 					mode: "fulltext",
 					offset: 0,
 					sortBy: {
@@ -1520,7 +1527,7 @@ describe("Search page", () => {
 			expect(getByText("Collection Four")).toBeInTheDocument();
 		});
 
-		const container = await findByTestId("collections-pagination");
+		const container = await findByTestId("pagination");
 		const page2 = await findByTextFrom(container, "2");
 
 		// Click to second page
@@ -1531,9 +1538,9 @@ describe("Search page", () => {
 			expect(clients.collectionClient.search).toHaveBeenCalledWith(
 				{
 					term: "",
-					limit: 4,
+					limit: MAX_COLLECTIONS_PER_PAGE,
 					mode: "fulltext",
-					offset: 4,
+					offset: MAX_COLLECTIONS_PER_PAGE,
 					sortBy: {
 						property: "publishedTimestamp",
 						order: "desc",
@@ -1550,82 +1557,10 @@ describe("Search page", () => {
 
 		// Verify URL updated with correct collection page
 		await waitFor(() => {
-			expect(window.location.search).toContain("collectionsPage=2");
+			expect(window.location.search).toContain("page=2");
 		});
 
 		// Verify second page collections are visible
-		expect(getByText("Collection Five")).toBeInTheDocument();
-		expect(getByText("Collection Eight")).toBeInTheDocument();
-	});
-
-	test("Collection pagination should be independent from post pagination", async () => {
-		mockPeopleIndex([]);
-		const clients = mockClients(() => ({
-			posts: [
-				{ ...MockPost, slug: `post-1`, title: "Post One" },
-				{ ...MockPost, slug: `post-2`, title: "Post Two" },
-				{ ...MockPost, slug: `post-3`, title: "Post Three" },
-				{ ...MockPost, slug: `post-4`, title: "Post Four" },
-				{ ...MockPost, slug: `post-5`, title: "Post Five" },
-				{ ...MockPost, slug: `post-6`, title: "Post Six" },
-				{ ...MockPost, slug: `post-7`, title: "Post Seven" },
-			],
-			totalPosts: 7,
-			collections: [
-				{ ...MockCollection, slug: `collection-1`, title: "Collection One" },
-				{ ...MockCollection, slug: `collection-2`, title: "Collection Two" },
-				{ ...MockCollection, slug: `collection-3`, title: "Collection Three" },
-				{ ...MockCollection, slug: `collection-4`, title: "Collection Four" },
-				{ ...MockCollection, slug: `collection-5`, title: "Collection Five" },
-			],
-			totalCollections: 5,
-		}));
-
-		const { findByTestId, getByText, getByTestId } = render(
-			<SearchPage mockClients={clients} />,
-		);
-
-		const searchInput = getByTestId("search-input");
-		await user.type(searchInput, "*");
-		await user.type(searchInput, "{enter}");
-
-		// Verify initial content is visible
-		await waitFor(() => {
-			expect(getByText("Post One")).toBeInTheDocument();
-			expect(getByText("Collection One")).toBeInTheDocument();
-		});
-
-		// Navigate posts to page 2
-		const postPagination = await findByTestId("pagination");
-		const postPage2 = await findByTextFrom(postPagination, "2");
-		await user.click(postPage2);
-
-		// Navigate collections to page 2
-		const collectionPagination = await findByTestId("collections-pagination");
-		const collectionPage2 = await findByTextFrom(collectionPagination, "2");
-		await user.click(collectionPage2);
-
-		// Verify both pagination states are maintained in URL
-		await waitFor(() => {
-			expect(window.location.search).toContain("postsPage=2");
-			expect(window.location.search).toContain("collectionsPage=2");
-		});
-
-		// Verify correct API calls were made
-		await waitFor(() => {
-			expect(clients.postClient.search).toHaveBeenLastCalledWith(
-				expect.objectContaining({
-					offset: 4, // Page 2 for posts
-				}),
-				expect.anything(),
-			);
-
-			expect(clients.collectionClient.search).toHaveBeenLastCalledWith(
-				expect.objectContaining({
-					offset: 4 * (2 - 1), // Page 2 for collections
-				}),
-				expect.anything(),
-			);
-		});
+		expect(getByText("Collection Eleven")).toBeInTheDocument();
 	});
 });
