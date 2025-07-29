@@ -1,172 +1,105 @@
-import { RehypeFunctionComponent, RehypeFunctionProps } from "../types";
-import { fetchProjectZip } from "./fetchProjectZip";
-import { basename, dirname, extname, join, relative, resolve } from "path";
-import { type CodeSnippetProps, CodeEmbed, CodeEmbedEpub } from "./code-embed";
+import { RehypeFunctionComponent } from "../types";
+import path from "path";
 import fs from "fs/promises";
 import { getStackblitzUrl } from "./getStackblitzUrl";
 import { logError } from "utils/markdown/logger";
+import { Plugin } from "unified";
+import {
+	ComponentMarkupNode,
+	createComponent,
+	PlayfulRoot,
+} from "../components";
+import { visit } from "unist-util-visit";
+import { Element } from "hast";
+import { runShiki } from "utils/markdown/shiki/shiki-pool";
+import { toHtml } from "hast-util-to-html";
 
-async function getFileSnippets({
-	vfile,
-	node,
-	attributes,
-}: RehypeFunctionProps): Promise<CodeSnippetProps[]> {
-	const project = attributes.project!;
-	const projectDir = resolve(dirname(vfile.path), project);
+/**
+ * Transforms pfp-code iframes into a "code-embed" component
+ * Expects: <iframe data-frame-title="Title" src="pfp-code:./project-slug?file=src%2Findex.ts"></iframe>
+ */
+export const rehypeCodeEmbed: Plugin<[], PlayfulRoot> = () => {
+	return (tree, vfile) => {
+		visit(
+			tree,
+			{ type: "element", tagName: "iframe" },
+			(node, index, parent) => {
+				if (index === undefined) return;
 
-	const filePaths: string[] = [];
-	for (const file of String(attributes.file).split(",")) {
-		const filePath = resolve(projectDir, file);
-		const fileStat = await fs.stat(filePath).catch(() => undefined);
-		if (!fileStat || !fileStat.isFile()) {
-			logError(vfile, node, `File ${file} does not exist in ${project}!`);
-			return [];
-		}
+				const src = String(node.properties.src);
 
-		filePaths.push(filePath);
-	}
+				if (!URL.canParse(src)) {
+					logError(vfile, node, `Cannot parse URL '${src}'`);
+					return;
+				}
 
-	const fileSnippets = [];
-	const lines = attributes.lines?.split(",") ?? [];
-	const languages = attributes.language?.split(",") ?? [];
+				const srcUrl = new URL(src);
+				if (srcUrl.protocol !== "pfp-code:") return;
 
-	for (let i = 0; i < Math.max(filePaths.length, lines.length); i++) {
-		const filePath = filePaths[i] ?? filePaths.at(-1);
-		const fileLines = (await fs.readFile(filePath, "utf-8")).split("\n");
-		const snippetLines = lines[i] || `1-${fileLines.length}`;
-		if (snippetLines === "off") continue;
+				const title = node.properties.dataFrameTitle?.toString();
+				const project = srcUrl.pathname.replace(/[\/.]/g, "");
+				const file = srcUrl.searchParams.get("file") ?? undefined;
 
-		const [start, end = start] = snippetLines.split("-");
-		const snippet = [];
-		for (let i = Number(start) - 1; i < Number(end); i++) {
-			if (!(i in fileLines)) {
-				logError(
-					vfile,
-					node,
-					`Range ${snippetLines} is beyond ${filePath}: 1-${fileLines.length}`,
-				);
-				break;
-			}
-			snippet.push(fileLines[i]);
-		}
+				const replacement: ComponentMarkupNode = {
+					type: "playful-component-markup",
+					position: node.position,
+					component: "code-embed",
+					attributes: {
+						project,
+						title,
+						file,
+					},
+					children: [],
+				};
 
-		const indentSize = Math.min(
-			...snippet.map((line) => /^[ \t]*/.exec(line)![0].length),
+				parent?.children.splice(index, 1, replacement);
+			},
 		);
-		for (const i in snippet) {
-			snippet[i] = snippet[i].substring(indentSize);
-		}
-
-		fileSnippets.push({
-			line: Number(start),
-			text: snippet.join("\n"),
-			language: languages[i] ?? extname(filePath).substring(1),
-		});
-	}
-
-	return fileSnippets;
-}
-
-async function createStaticEmbed({
-	vfile,
-	node,
-	attributes,
-	children,
-}: RehypeFunctionProps) {
-	const project = attributes.project;
-	const file = attributes.file;
-
-	if (!project || !file) {
-		logError(vfile, node, "Attributes 'project' and 'file' must be defined!");
-		return undefined;
-	}
-
-	const projectDir = resolve(dirname(vfile.path), project);
-
-	return CodeEmbed({
-		driver: "static",
-		height: attributes.height,
-		title: attributes.title ?? basename(file),
-		editUrl: getStackblitzUrl(relative(vfile.cwd, projectDir), { file }),
-		snippets: await getFileSnippets({ vfile, node, attributes, children }),
-		addressPrefix: new URL(
-			file.split("/").at(-1) ?? "",
-			"http://localhost",
-		).toString(),
-		address: attributes["preview-url"] ?? "",
-		staticUrl: "/" + join(relative(vfile.cwd, projectDir), file),
-		children,
-	});
-}
-
-async function createWebcontainerEmbed({
-	vfile,
-	node,
-	attributes,
-	children,
-}: RehypeFunctionProps) {
-	const project = attributes.project;
-	const file = attributes.file;
-
-	if (!project || !file) {
-		logError(vfile, node, "Attributes 'project' and 'file' must be defined!");
-		return undefined;
-	}
-
-	const projectDir = resolve(dirname(vfile.path), project);
-	const projectZip = await fetchProjectZip(projectDir);
-
-	return CodeEmbed({
-		driver: "webcontainer",
-		height: attributes.height,
-		title: attributes.title ?? basename(file),
-		editUrl: getStackblitzUrl(relative(vfile.cwd, projectDir), { file }),
-		snippets: await getFileSnippets({ vfile, node, attributes, children }),
-		projectZip,
-		addressPrefix: "http://localhost/",
-		address: attributes["preview-url"] ?? "",
-		children,
-	});
-}
-
-export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
-	const driver = props.attributes.driver ?? "webcontainer";
-
-	if (driver == "static") {
-		return await createStaticEmbed(props);
-	} else if (driver == "webcontainer") {
-		return await createWebcontainerEmbed(props);
-	} else if (driver == "none") {
-		return CodeEmbed({
-			driver: "none",
-			snippets: [],
-			children: props.children,
-		});
-	} else {
-		logError(props.vfile, props.node, `Unrecognized embed driver '${driver}'`);
-	}
+	};
 };
 
-export const transformCodeEmbedEpub: RehypeFunctionComponent = async ({
-	vfile,
-	node,
-	attributes,
-	children,
-}) => {
-	const project = attributes.project;
-	const file = attributes.file;
+export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
+	const file = props.attributes.file;
+	const project = props.attributes.project;
+	const projectDir = path.join(
+		path.relative(process.cwd(), props.vfile.path),
+		"..",
+		project,
+	);
+	const editUrl = getStackblitzUrl(projectDir, { file });
 
-	if (!project || !file) {
-		logError(vfile, node, "Attributes 'project' and 'file' must be defined!");
-		return undefined;
-	}
+	const fileContent = await fs.readFile(path.join(projectDir, file), "utf-8");
+	const element: Element = {
+		type: "element",
+		tagName: "pre",
+		properties: {},
+		children: [
+			{
+				type: "element",
+				tagName: "code",
+				properties: {
+					className: [`language-${path.extname(file).substring(1)}`],
+				},
+				children: [
+					{
+						type: "text",
+						value: fileContent,
+					},
+				],
+			},
+		],
+	};
 
-	const projectDir = resolve(dirname(vfile.path), project);
+	const shikiElement = await runShiki(element);
+	const shikiHtml = toHtml(shikiElement);
 
-	return CodeEmbedEpub({
-		title: attributes.title ?? basename(file),
-		editUrl: getStackblitzUrl(relative(vfile.cwd, projectDir), { file }),
-		snippets: await getFileSnippets({ vfile, node, attributes, children }),
-		children,
-	});
+	return [
+		createComponent("CodeEmbed", {
+			project,
+			title: props.attributes.title,
+			file,
+			codeHtml: shikiHtml,
+			editUrl,
+		}),
+	];
 };

@@ -24,13 +24,12 @@
 	--code-embed_address_outline_width: var(--border-width_s);
 	--code-embed_address_outline_width_focused: var(--border-width_m);
 
-	--code-embed_preview_min-height: 50px;
-	--code-embed_preview_max-height: 500px;
+	--code-embed_content_height: 450px;
 	--code-embed_preview_background: var(--surface_primary_emphasis-low);
 	--code-embed_preview_border-radius: calc(var(--code-embed_border-radius) - var(--code-embed_padding) - var(--code-embed_border-width));
 }
 
-.code-embed {
+.container {
 	display: flex;
 	flex-direction: column;
 	gap: var(--code-embed_padding);
@@ -39,16 +38,9 @@
 	border-radius: var(--code-embed_border-radius);
 	padding: var(--code-embed_padding);
 	margin: var(--site-spacing) 0;
-
-	&> pre.shiki, &__snippet > pre.shiki {
-		padding: 0;
-		margin: 0;
-		border: none;
-		border-radius: var(--code-embed_preview_border-radius);
-	}
 }
 
-.code-embed .code-embed__title {
+.title {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -66,19 +58,44 @@
 	}
 }
 
-.code-embed__content {
-	padding: var(--code-embed_padding);
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--code-embed_padding);
+	align-items: stretch;
+	height: var(--code-embed_content_height);
 
-	&> :first-child {
-		margin-top: 0 !important;
+	@include from($tabletSmall) {
+		flex-direction: row;
 	}
 
-	&> :last-child {
-		margin-bottom: 0 !important;
+	.content__code {
+		flex: 1 1;
+		overflow-y: auto;
+		border-radius: var(--code-embed_preview_border-radius);
+
+		& pre {
+			padding: 0;
+			margin: 0;
+			border: 0;
+			border-radius: 0;
+
+			&> code {
+				font-size: .8rem;
+  				line-height: 1rem;
+			}
+		}
+	}
+
+	.content__preview {
+		flex: 1 1;
+		display: flex;
+		flex-direction: column;
+		gap: var(--code-embed_padding);
 	}
 }
 
-.code-embed__address {
+.address {
 	display: flex;
 	flex-direction: row;
 	gap: var(--code-embed_padding);
@@ -134,14 +151,12 @@
 	}
 }
 
-.code-embed__preview {
-	height: var(--code-embed_preview_height, 300px);
-	min-height: var(--code-embed_preview_min-height);
-	max-height: var(--code-embed_preview_max-height);
+.preview {
 	position: relative;
 	background-color: var(--code-embed_preview_background);
 	border-radius: var(--code-embed_preview_border-radius);
 	overflow: clip;
+	height: 100%;
 
 	.code-embed__error {
 		height: 100%;
@@ -208,96 +223,6 @@
 		}
 	}
 
-	.code-embed__loader {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%,-50%);
-
-		max-width: 80%;
-		width: 80%;
-
-		display: flex;
-		flex-direction: column;
-
-		ol {
-			list-style-type: none;
-			background-color: var(--surface_primary_emphasis-medium);
-			border-radius: var(--corner-radius_xl);
-			padding: var(--spc-6x);
-		}
-
-		li {
-			display: flex;
-			align-items: center;
-			gap: var(--spc-2x);
-		}
-
-		@each $step in download, install, start {
-			&[data-step=#{$step}] .step-#{$step} ~ li {
-				.icon-loading, .icon-done { display: none }
-			}
-
-			&[data-step=#{$step}] .step-#{$step} {
-				.icon-pending, .icon-done { display: none }
-			}
-
-			&[data-step=#{$step}] li:not(.step-#{$step} ~ li, .step-#{$step}) {
-				.icon-pending, .icon-loading { display: none }
-			}
-		}
-
-		.icon-done {
-			color: var(--positive_default);
-		}
-
-		.icon-pending {
-			color: var(--primary_default);
-			animation-name: pulse;
-			animation-duration: .5s;
-			animation-direction: alternate;
-			animation-iteration-count: infinite;
-			animation-timing-function: linear;
-		}
-
-		.icon-loading {
-			color: var(--primary_default);
-			animation-name: spin;
-			animation-duration: .5s;
-			animation-iteration-count: infinite;
-			animation-timing-function: linear;
-		}
-
-		@keyframes spin {
-			from {transform:rotate(0deg);}
-			to {transform:rotate(360deg);}
-		}
-
-		@keyframes pulse {
-			from {opacity:.5;}
-			to {opacity:1;}
-		}
-
-		&__command, &__console {
-			line-height: 1rem;
-			height: 1rem;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			margin: var(--spc-1x) 0;
-			margin-left: calc(18px + var(--spc-2x));
-		}
-
-		&__command {
-			color: var(--primary_default);
-		}
-
-		&__console {
-			font-size: var(--p_medium_font-size);
-			color: var(--foreground_emphasis-medium);
-		}
-	}
-
 	&__button {
 		position: absolute;
 		top: 50%;
@@ -310,5 +235,81 @@
 		width: 100%;
 		height: 100%;
 		background: white;
+	}
+}
+
+.loader {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+
+	max-width: 80%;
+	width: 80%;
+
+	display: flex;
+	flex-direction: column;
+
+	ol {
+		list-style-type: none;
+		background-color: var(--surface_primary_emphasis-medium);
+		border-radius: var(--corner-radius_xl);
+		padding: var(--spc-6x);
+	}
+
+	li {
+		display: flex;
+		align-items: center;
+		gap: var(--spc-2x);
+	}
+
+	&__icon__done {
+		color: var(--positive_default);
+	}
+
+	&__icon__pending {
+		color: var(--primary_default);
+		animation-name: pulse;
+		animation-duration: .5s;
+		animation-direction: alternate;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+
+	&__icon__loading {
+		color: var(--primary_default);
+		animation-name: spin;
+		animation-duration: .5s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+
+	@keyframes spin {
+		from {transform:rotate(0deg);}
+		to {transform:rotate(360deg);}
+	}
+
+	@keyframes pulse {
+		from {opacity:.5;}
+		to {opacity:1;}
+	}
+
+	&__command, &__console {
+		line-height: 1rem;
+		height: 1rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin: var(--spc-1x) 0;
+		margin-left: calc(18px + var(--spc-2x));
+	}
+
+	&__command {
+		color: var(--primary_default);
+	}
+
+	&__console {
+		font-size: var(--p_medium_font-size);
+		color: var(--foreground_emphasis-medium);
 	}
 }

@@ -39,7 +39,10 @@ import {
 	transformTabs,
 	transformVoid,
 } from "./components";
-import { transformCodeEmbed } from "./components/code-embed/rehype-transform";
+import {
+	rehypeCodeEmbed,
+	transformCodeEmbed,
+} from "./components/code-embed/rehype-transform";
 import { getStackblitzUrl } from "./components/code-embed/getStackblitzUrl";
 import { rehypeRelativePaths } from "./rehype-relative-paths";
 
@@ -89,30 +92,9 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypeAstroImageMd)
 			.use(rehypeLinkPreview)
 			.use(rehypeDetailsElement)
+			.use(rehypeCodeEmbed)
 			.use(rehypeUnicornIFrameClickToRun, {
-				srcReplacements: [
-					(val: string, file: VFile) => {
-						const iFrameUrl = new URL(val);
-						if (!iFrameUrl.protocol.startsWith("pfp-code:")) return val;
-
-						const contentDir = dirname(file.path);
-						const fullPath = resolve(contentDir, iFrameUrl.pathname);
-
-						const fsRelativePath = relative(file.cwd, fullPath);
-
-						// Windows paths need to be converted to URLs
-						let urlRelativePath = fsRelativePath.replace(/\\/g, "/");
-
-						if (urlRelativePath.startsWith("/")) {
-							urlRelativePath = urlRelativePath.slice(1);
-						}
-
-						return getStackblitzUrl(urlRelativePath, {
-							embed: "1",
-							file: iFrameUrl.searchParams.get("file") || undefined,
-						});
-					},
-				],
+				srcReplacements: [],
 			})
 			.use(rehypePlayfulElementMap)
 			.use(rehypeValidateComponents)
