@@ -2,7 +2,7 @@
 {
 	title: "Let's Write React Hooks From Scratch",
 	description: "Ever wondered how React's hooks function under-the-hood? Let's write our own implementation and find out together.",
-	published: '2025-08-09T05:12:03.284Z',
+	published: '2025-07-29T05:12:03.284Z',
 	tags: ['react', 'javascript', 'webdev'],
 	license: 'cc-by-nc-sa-4'
 }
