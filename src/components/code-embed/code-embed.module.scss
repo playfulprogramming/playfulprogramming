@@ -69,10 +69,26 @@
 		flex-direction: row;
 	}
 
+	&> * {
+		min-width: 80px;
+		min-height: 40px;
+	}
+
 	.content__code {
-		flex: 1 1;
 		overflow-y: auto;
 		border-radius: var(--code-embed_preview_border-radius);
+
+		@include from($tabletSmall) {
+			resize: horizontal;
+			height: 100% !important;
+			width: 50%;
+		}
+
+		@include until($tabletSmall) {
+			resize: vertical;
+			height: 50%;
+			width: 100% !important;
+		}
 
 		& pre {
 			padding: 0;
