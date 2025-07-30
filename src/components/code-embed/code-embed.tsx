@@ -8,7 +8,8 @@ import { JSXNode, PropsWithChildren } from "components/types";
 import { RawSvg } from "components/image/raw-svg";
 import { Button, IconOnlyButton } from "components/button/button";
 import style from "./code-embed.module.scss";
-import { useId } from "preact/hooks";
+import { useCallback, useId } from "preact/hooks";
+import { ChangeEvent } from "preact/compat";
 
 interface ContainerProps {
 	title?: string;
@@ -47,8 +48,27 @@ interface AddressBarProps {
 export function AddressBar(props: AddressBarProps) {
 	const id = useId();
 
+	const handleSubmit = useCallback(
+		(e: Event) => {
+			e.preventDefault();
+			props.onSubmit(props.value);
+		},
+		[props.value, props.onSubmit],
+	);
+
+	const handleBlur = useCallback(() => {
+		props.onSubmit(props.value);
+	}, [props.value, props.onSubmit]);
+
+	const handleChange = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			props.onChange(e.currentTarget.value);
+		},
+		[props.onChange],
+	);
+
 	return (
-		<form class={style.address} autocomplete="off">
+		<form class={style.address} autocomplete="off" onSubmit={handleSubmit}>
 			<label
 				for={`code-embed-input-${id}`}
 				class={`text-style-body-medium ${style.address__input}`}
@@ -59,6 +79,8 @@ export function AddressBar(props: AddressBarProps) {
 					name="address"
 					type="text"
 					value={props.value}
+					onChange={handleChange}
+					onBlur={handleBlur}
 				/>
 			</label>
 			<IconOnlyButton

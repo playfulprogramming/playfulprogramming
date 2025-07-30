@@ -7,9 +7,28 @@ import {
 	PreviewFrame,
 	PreviewPlaceholder,
 } from "components/code-embed/code-embed";
-import { useCallback, useEffect, useRef, useState } from "preact/hooks";
+import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 import { $container, runEmbed } from "./webcontainer-script";
+
+// Given the base webcontainer URL, modify it with any changes made in the address bar
+function modifyProcessUrl(processUrl: string, addressUrl: string) {
+	const newUrl = new URL(addressUrl, "http://localhost");
+	const srcUrl = new URL(processUrl);
+	srcUrl.pathname = newUrl.pathname;
+	srcUrl.search = newUrl.search;
+	srcUrl.hash = newUrl.hash;
+
+	return srcUrl.toString();
+}
+
+// Given the webcontainer URL, shorten the hostname for display purposes
+function shortenProcessUrl(url: string): string {
+	const serverUrl = new URL(url);
+	serverUrl.hostname = "localhost";
+	serverUrl.port = "";
+	return serverUrl.toString();
+}
 
 export interface CodeEmbedProps {
 	project: string;
@@ -20,13 +39,39 @@ export interface CodeEmbedProps {
 }
 
 export function CodeEmbed(props: CodeEmbedProps) {
-	const [address, setAddress] = useState("http://localhost");
+	const [addressUrl, setAddressUrl] = useState("http://localhost/");
+	const [frameUrl, setFrameUrl] = useState(addressUrl);
 	const container = useStore($container);
 	const isCurrent = container.projectId == props.project;
 
 	const handleRunEmbed = useCallback(() => {
 		runEmbed(props.project, `/generated/projects/${props.project}.zip`);
 	}, [props.project]);
+
+	useEffect(() => {
+		if (container.processUrl != null) {
+			setFrameUrl(modifyProcessUrl(container.processUrl, addressUrl));
+		}
+	}, [container.processUrl]);
+
+	useEffect(() => {
+		setAddressUrl(shortenProcessUrl(frameUrl));
+	}, [frameUrl]);
+
+	const handleAddressChange = useCallback((value: string) => setAddressUrl(value), []);
+
+	const handleAddressSubmit = useCallback(() => {
+		if (container.processUrl) {
+			setFrameUrl(modifyProcessUrl(container.processUrl, addressUrl));
+		}
+	}, [container.processUrl, addressUrl]);
+
+	const handleAddressReset = useCallback(() => {
+		if (container.processUrl) {
+			setAddressUrl(shortenProcessUrl(container.processUrl));
+			setFrameUrl(container.processUrl);
+		}
+	}, [container.processUrl]);
 
 	return (
 		<Container title={props.title} editUrl={props.editUrl}>
@@ -35,10 +80,10 @@ export function CodeEmbed(props: CodeEmbedProps) {
 			</CodeContainer>
 			<PreviewContainer>
 				<AddressBar
-					value={address}
-					onChange={(value) => setAddress(value)}
-					onSubmit={() => {}}
-					onReload={() => {}}
+					value={addressUrl}
+					onChange={handleAddressChange}
+					onSubmit={handleAddressSubmit}
+					onReload={handleAddressReset}
 				/>
 				{isCurrent ? (
 					container.loading ? (
@@ -48,8 +93,8 @@ export function CodeEmbed(props: CodeEmbedProps) {
 							consoleOutput={container.consoleOutput}
 						/>
 					) : (
-						container.processUrl ? (
-							<PreviewFrame src={container.processUrl} />
+						frameUrl ? (
+							<PreviewFrame src={frameUrl} />
 						) : <span></span>
 					)
 				) : (
