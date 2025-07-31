@@ -29,15 +29,66 @@ The reason we're doing this is to link two seemingly unrelated HTML elements tog
 
 Let's say that you have an HTML login form like so:
 
-<!-- ::start:code-embed title="Inaccessible form" driver="static" project="art-of-a11y-html-examples-3" file="1-inaccessible.html" lines="9-14" height="120" -->
+```html
+<!-- DO NOT DO THIS, IT IS INACCESSIBLE -->
+<form>
+    <input name="username" type="text"/>
+    <input name="password" type="password"/>
+    <button type="submit">Login</button>
+</form>
+```
 
 By default, this will look like the following:
 
-<!-- ::end:code-embed -->
+----
+
+
+<form>
+    <input name="username" type="text"/>
+    <input name="password" type="password"/>
+    <button type="submit">Login</button>
+</form>
+
+
+----
 
 Notice that our form doesn't indicate which text input is for which field; neither to sighted or blind users. Let's change that and make a visual label for our inputs:
 
-<!-- ::code-embed title="Inaccessible - visual labels" driver="static" project="art-of-a11y-html-examples-3" file="2-inaccessible-with-visual-labels.html" lines="9-22" height="120" -->
+```html
+<!-- DO NOT DO THIS, IT IS INACCESSIBLE -->
+<form style="display: flex; gap: 1rem;">
+	<div style="display: flex; flex-direction: column;">
+        <p style="margin: 0;">Username</p>
+        <input name="username" type="text"/>
+	</div>
+	<div style="display: flex; flex-direction: column;">
+        <p style="margin: 0;">Password</p>
+	    <input name="password" type="password"/>
+    </div>
+    <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+	    <button type="submit">Login</button>
+    </div>
+</form>	
+```
+
+----
+
+<form onsubmit="event.preventDefault()" style="display: flex; gap: 1rem;">
+	<div style="display: flex; flex-direction: column;">
+        <p style="margin: 0;">Username</p>
+        <input name="username" type="text"/>
+	</div>
+	<div style="display: flex; flex-direction: column;">
+        <p style="margin: 0;">Password</p>
+	    <input name="password" type="password"/>
+    </div>
+    <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+        <button type="submit">Login</button>
+    </div>
+</form>	
+
+
+---
 
 Now the fields visually _look_ like they're labelled, but we've just introduced a critical accessibility issue into our app: Assistive technologies do not indicate which label belongs to which field.
 
@@ -62,7 +113,35 @@ Let's start with "implicit element association" and go from there.
 
 Luckily, when dealing with `input`s, there's an easy way to link a text input to a text label: simply wrap your `input` in a `label` element:
 
-<!-- ::code-embed title="Implicit Element Association" driver="static" project="art-of-a11y-html-examples-3" file="3-implicit-association.html" lines="9-19" height="120" -->
+```html
+<form>
+	<label>
+        Username
+        <input name="username" type="text"/>
+	</label>
+	<label>
+        Password
+	    <input name="password" type="password"/>
+    </label>
+    <button type="submit">Login</button>
+</form>	
+```
+
+---
+
+<form onsubmit="event.preventDefault()">
+	<label>
+        Username
+        <input name="username" type="text"/>
+	</label>
+	<label>
+        Password
+	    <input name="password" type="password"/>
+    </label>
+    <button type="submit">Login</button>
+</form>	
+
+---
 
 This allows screen-readers to associate elements together and read out "Text input, username" when the user has the first text input focused.
 
@@ -70,7 +149,40 @@ This allows screen-readers to associate elements together and read out "Text inp
 
 Don't like the inline styling of the labels? No problem. You can style `<label>` elements like any other. In this case, we'll leverage the previously used flex styling to make the labels appear above the inputs:
 
-<!-- ::code-embed title="Label Styling" driver="static" project="art-of-a11y-html-examples-3" file="4-implicit-association-styled.html" lines="9-21" height="120" -->
+```html
+<form style="display: flex; gap: 1rem;">
+	<label style="display: flex; flex-direction: column;">
+        <span>Username</span>
+        <input name="username" type="text"/>
+	</label>
+	<label style="display: flex; flex-direction: column;">
+        <span>Password</span>
+	    <input name="password" type="password"/>
+    </label>
+    <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+        <button type="submit">Login</button>
+    </div>
+</form>
+```
+
+----
+
+<form style="display: flex; gap: 1rem;" onsubmit="event.preventDefault()">
+	<label style="display: flex; flex-direction: column;">
+        <span>Username</span>
+        <input name="username" type="text"/>
+	</label>
+	<label style="display: flex; flex-direction: column;">
+        <span>Password</span>
+	    <input name="password" type="password"/>
+    </label>
+    <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+        <button type="submit">Login</button>
+    </div>
+</form>	
+
+
+---
 
 It's worth noting, however, that while `<span>` tags are absolutely welcomed and allowed to be used in a `<label>`, there are some restrictions on the elements you can have as child tags.
 
@@ -101,7 +213,17 @@ Whenever the topic of element association comes up, I regularly get asked the fo
 
 It's a valid question, given that it's been adopted as a broadly utilized pattern for many forms in recent years. Additionally — at least visually — it seems like placeholders provide a similar level of information as labels might.
 
-<!-- ::code-embed title="HTML form with placeholders" driver="static" project="art-of-a11y-html-examples-3" file="5-inaccessible-placeholders.html" lines="off" height="120" -->
+---
+
+
+<form style="display: flex; gap: 1rem;" aria-hidden="true" onsubmit="event.preventDefault()">
+    <input placeholder="Username" name="username" type="text"/>
+    <input placeholder="password" type="password"/>
+    <button type="submit">Login</button>
+</form>
+
+
+----
 
 Despite their popularity, **placeholders have been widely seen as a harmful U.X. pattern for inputs by accessibility experts**. Some of the issues with placeholders these experts cite are:
 
@@ -131,7 +253,26 @@ Want to read more? Here are a few resources that explore the problems with place
 
 Well, while you're able to place `div`s and other elements inside of a `label` element, let's say that you want to provide the following style, where your labels and inputs are in a table side-by-side:
 
-<!-- ::code-embed title="Explicit Element Association" driver="static" project="art-of-a11y-html-examples-3" file="6-explicit-association-table.html" lines="off" height="120" -->
+---
+
+<table>
+    <tbody>
+        <tr>
+            <td><label for="username-input">Username</label></td>
+            <td><input id="username-input" type="text"></td>
+        </tr>
+        <tr>
+            <td><label for="password-input">Password</label></td>
+            <td><input id="password-input" type="password"></td>
+        </tr>
+        <tr>
+            <td><label for="confirm-password-input">Confirm Password</label></td>
+            <td><input id="confirm-password-input" type="password"></td>
+        </tr>
+    </tbody>
+</table>
+
+----
 
 Doing this with the implicit element association _might_ be possible, but would be very challenging to do properly. Instead, let's use a `table` element to layout the labels and elements:
 
@@ -169,7 +310,7 @@ Then we can use this `id` value inside of a `for` attribute on our `label` eleme
 
 This links the two elements and behave exactly as if the `label` element was wrapping the `input` element.
 
-We can apply this explicit element association to our entire table, which solves our accessibility error:
+We can apply this explicit element association to our entire table, which solves our accessibility error: 
 
 ```html
 <table>
@@ -254,19 +395,107 @@ Let's take this knowledge of linking elements together and create a `TextInput` 
 
 ## React
 
-<!-- ::code-embed title="React - Implicit Association" project="art-of-a11y-react-input-implicit-3" file="src/TextInput.jsx,src/App.jsx" -->
+```jsx
+// TextInput.jsx
+export const TextInput = ({label, type}) => {
+	return <label>
+		{label}
+		<input type={type} />
+	</label>
+}
+```
+
+```jsx
+import {TextInput} from './TextInput';
+
+export const App = () => {
+	return <form>
+	    <TextInput label="Email"/>
+	    <TextInput label="Password" type="password"/>
+        <button type="submit">Login</button>
+    </form>
+}
+```
 
 ## Angular
 
-<!-- ::code-embed title="Angular - Implicit Association" project="art-of-a11y-angular-input-implicit-3" file="src/TextInput.component.ts,src/app.component.ts" lines="3-17,4-17" language="angular-ts,angular-ts" -->
+```typescript
+// TextInput.component.ts
+@Component({
+    selector: "text-input",
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
+    	<label>
+    		{{label()}}
+    		<input [type]="type()" />
+    	</label>
+    `
+})
+class TextInputComponent {
+	label = input.required<string>();
+	type = input<string>();
+}
+```
+
+```typescript
+// app.component.ts
+@Component({
+  selector: 'my-app',
+  template: `
+    <form>
+          <text-input label="Email"></text-input>
+          <text-input label="Password" type="password"></text-input>
+          <button type="submit">Login</button>
+      </form>
+  `,
+})
+export class AppComponent {}
+```
 
 ## Vue
 
-<!-- ::code-embed title="Vue - Implicit Association" project="art-of-a11y-vue-input-implicit-3" file="src/TextInput.vue,src/App.vue" -->
+```vue
+<!-- TextInput.vue -->
+<script setup>
+const props = defineProps(['label', 'type']);
+</script>
+
+<template>
+	<label>
+    	{{props.label}}
+        <input :type="props.type"/>
+    </label>
+</template>
+```
+
+```vue
+<!-- App.vue -->
+<script setup>
+import TextInput from "./TextInput.vue";
+</script>
+
+<form>
+    <TextInput label="Email"/>
+    <TextInput label="Password" type="password"/>
+    <button type="submit">Login</button>
+</form>
+```
 
 <!-- ::end:tabs -->
 
 Our form now works!
+
+----
+
+
+<form onsubmit="event.preventDefault()">
+  <label>Email <input /></label>
+  <label>Password <input type="password" /></label>
+  <button type="submit">Login</button>
+</form>
+
+
+----
 
 It's not the prettiest form in the world, but it's functional!
 
@@ -280,33 +509,173 @@ Let's add in some minor styling and add in the ability to pass an error message.
 
 ### React
 
-In React, instead of `for="id"`, the "for" attribute is actually named `htmlFor`! This is because it follows the [htmlFor DOM property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLabelElement/htmlFor), rather than the HTML attribute it corresponds to.
+```css
+/* TextInput.module.css */
+.label {
+	margin-right: 1rem;
+}
 
-<!-- ::start:code-embed title="React - Explicit Label Input" project="art-of-a11y-react-input-comp-3" file="src/TextInput.module.css,src/TextInput.jsx,src/App.jsx" -->
+.errormessage {
+	color: red;
+}
+```
 
-Now we can see our form with a warning about an invalid email. It looks something like this when an invalid email is entered:
 
-<!-- ::end:code-embed -->
+
+```jsx
+// TextInput.jsx
+import styles from "./TextInput.module.css";
+
+export const TextInput = ({ label, type, id, error }) => {
+  return (
+    <>
+      <label for={id} className={styles.label}>
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        aria-invalid={!!error}
+        aria-errormessage={id + '-error'}
+      />
+      <p className={styles.errormessage} id={id + '-error'}>
+        {error}
+      </p>
+    </>
+  );
+};
+```
+
+```jsx
+import {TextInput} from './TextInput';
+
+export const App = () => {
+  return (
+    <form>
+      <TextInput label="Email" id="email" error="Invalid email" />
+      <TextInput label="Password" type="password" id="password" />
+      <button type="submit">Login</button>
+    </form>
+  );
+};
+```
 
 ### Angular
 
-<!-- ::start:code-embed title="Angular - Explicit Label Input" project="art-of-a11y-angular-input-comp-3" file="src/TextInput.component.ts,src/app.component.ts" lines="3-35,4-17" language="angular-ts,angular-ts" -->
+```typescript
+// TextInput.component.ts
+@Component({
+	selector: "text-input",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<label [for]="id()" class="label">
+			{{ label() }}
+		</label>
+		<input
+			[id]="id()"
+			[type]="type()"
+			[attr.aria-invalid]="!!error()"
+			[attr.aria-errormessage]="id() + '-error'"
+		/>
+		<p class="errormessage" [id]="id() + '-error'">{{ error() }}</p>
+	`,
+	styles: [
+		`
+			.label {
+				margin-right: 1rem;
+			}
+			.errormessage {
+				color: red;
+			}
+		`,
+	],
+})
+export class TextInputComponent {
+	label = input.required<string>();
+	id = input.required<string>();
+	type = input<string>();
+	error = input<string>();
+}
+```
 
-Now we can see our form with a warning about an invalid email. It looks something like this when an invalid email is entered:
-
-<!-- ::end:code-embed -->
+```typescript
+// app.component.ts
+@Component({
+  selector: 'my-app',
+  template: `
+    <form>
+          <text-input label="Email" id="email" error="Invalid email"></text-input>
+          <text-input label="Password" type="password" id="password"></text-input>
+          <button type="submit">Login</button>
+      </form>
+  `,
+})
+export class AppComponent {}
+```
 
 ### Vue
 
-<!-- ::start:code-embed title="Vue - Explicit Label Input" project="art-of-a11y-vue-input-comp-3" file="src/TextInput.vue,src/App.vue" -->
+```vue
+<!-- TextInput.vue -->
+<script setup>
+const props = defineProps(['label', 'type', 'id', 'error'])
+</script>
 
-Now we can see our form with a warning about an invalid email. It looks something like this when an invalid email is entered:
+<template>
+  <label :for="props.id" class="label">
+    {{ props.label }}
+  </label>
+  <input 
+    :id="props.id" 
+    :type="props.type" 
+    :aria-invalid="!!props.error" 
+    :aria-errormessage="props.id + '-error'"
+  />
+  <p class="errormessage" :id="props.id + '-error'">{{ props.error }}</p>
+</template>
 
-<!-- ::end:code-embed -->
+<style scoped>
+.label {
+  margin-right: 1rem;
+}
+
+.errormessage {
+  color: red;
+}
+</style>
+```
+
+```vue
+<!-- App.vue -->
+<script setup>
+import TextInput from "./TextInput.vue";
+</script>
+
+<form>
+    <TextInput label="Email" id="email" error="Invalid email" />
+    <TextInput label="Password" type="password" id="password" />
+    <button type="submit">Login</button>
+</form>
+```
 
 <!-- ::end:tabs -->
 
-## Generating Unique IDs Automatically
+Now we can see our form with a warning about an invalid email. It looks something like this when an invalid email is entered:
+
+----
+
+<form class="__form_error_example_1" onsubmit="event.preventDefault()"><label for="email" class="label">Email</label><input id="email" aria-invalid="true" aria-errormessage="email-error"><p class="errormessage" id="email-error">Invalid email</p><label for="password" class="label">Password</label><input id="password" type="password" aria-invalid="false" aria-errormessage="password-error"><p class="errormessage" id="password-error"></p><button type="submit">Login</button><style>
+.__form_error_example_1 .label {
+  margin-right: 1rem;
+}
+.__form_error_example_1 .errormessage {
+  color: red;
+}</style></form>
+
+
+---
+
+## Generating Unique IDs Automatically 
 
 Our forms above are pretty functional now, but there's a small developer experience headache associated with our new `TextInput` form: You are _required_ to define an unique `id` manually for each field.
 
@@ -322,7 +691,47 @@ Let's look at how we can integrate this into our `TextInput` component:
 
 Since React 18, there's been a way to generate unique IDs via the `useId` hook:
 
-<!-- ::code-embed title="React - Generated Input IDs" project="art-of-a11y-react-input-uuid-3" file="src/TextInput.jsx,src/App.jsx" -->
+```jsx {5}
+// TextInput.jsx
+import {useId} from "react";
+
+export const TextInput = ({ label, type, id, error }) => {
+	const _id = useId();
+
+	const realId = id || _id;
+
+	return (
+		<>
+			<label for={realId} className={styles.label}>
+				{label}
+			</label>
+			<input
+				id={id}
+				type={type}
+				aria-invalid={!!error}
+				aria-errormessage={id + "-error"}
+			/>
+			<p className={styles.errormessage} id={realId + "-error"}>
+				{error}
+			</p>
+		</>
+	);
+};
+```
+
+```jsx
+export const App = () => {
+  return (
+    <form>
+      <TextInput label="Email" id="email" error="Invalid email" />
+      <TextInput label="Password" type="password" />
+      <button type="submit">Login</button>
+    </form>
+  );
+};
+```
+
+<iframe data-frame-title="React Input Component - StackBlitz" src="pfp-code:./art-of-a11y-react-input-comp-3?embed=1&file=src/main.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Angular
 
@@ -352,13 +761,116 @@ uuidv4();
 
 Let's integrate this package into our Angular component:
 
-<!-- ::code-embed title="Angular - Generated Input IDs" project="art-of-a11y-angular-input-uuid-3" file="src/TextInput.component.ts,src/app.component.ts" lines="4-37,4-17" language="angular-ts,angular-ts" -->
+```typescript {29}
+@Component({
+	selector: "text-input",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<label [for]="id()" class="label">
+			{{ label() }}
+		</label>
+		<input
+			[id]="id()"
+			[type]="type()"
+			[attr.aria-invalid]="!!error()"
+			[attr.aria-errormessage]="id() + '-error'"
+		/>
+		<p class="errormessage" [id]="id() + '-error'">{{ error() }}</p>
+	`,
+	styles: [
+		`
+			.label {
+				margin-right: 1rem;
+			}
+			.errormessage {
+				color: red;
+			}
+		`,
+	],
+})
+export class TextInputComponent {
+	label = input.required<string>();
+	id = input(uuidv4());
+	type = input<string>();
+	error = input<string>();
+}
+```
+
+```typescript
+// app.component.ts
+@Component({
+	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [TextInputComponent],
+	template: `
+		<form>
+			<text-input label="Email" id="email" error="Invalid email"></text-input>
+			<text-input label="Password" type="password"></text-input>
+			<button type="submit">Login</button>
+		</form>
+	`,
+})
+export class AppComponent {}
+```
+
+<iframe data-frame-title="Angular Input Component - StackBlitz" src="pfp-code:./art-of-a11y-angular-input-comp-3?embed=1&file=src/main.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Vue
 
 Since Vue 3.5, we can generate a unique ID using `useId`:
 
-<!-- ::code-embed title="Vue - Generated Input IDs" project="art-of-a11y-vue-input-uuid-3" file="src/TextInput.vue,src/App.vue" -->
+```vue {8-10}
+<!-- TextInput.vue -->
+<script setup>
+import {computed, useId} from 'vue';
+
+const props = defineProps(['label', 'type', 'id', 'error'])
+
+const _id = useId();
+    
+const realId = computed(() => props.id || _id);
+</script>
+
+<template>
+  <label :for="props.id" class="label">
+    {{ props.label }}
+  </label>
+  <input 
+    :id="props.id" 
+    :type="props.type" 
+    :aria-invalid="!!props.error" 
+    :aria-errormessage="realId + '-error'"
+  />
+  <p class="errormessage" :id="realId + '-error'">{{ props.error }}</p>
+</template>
+
+<style scoped>
+.label {
+  margin-right: 1rem;
+}
+
+.errormessage {
+  color: red;
+}
+</style>
+```
+
+```vue
+<!-- App.vue -->
+<script setup>
+import TextInput from "./TextInput.vue";
+</script>
+
+<template>
+    <form>
+        <TextInput label="Email" id="email" error="Invalid email" />
+        <TextInput label="Password" type="password" />
+        <button type="submit">Login</button>
+    </form>
+</template>
+```
+
+<iframe data-frame-title="Vue Input Component - StackBlitz" src="pfp-code:./art-of-a11y-vue-input-comp-3?embed=1&file=src/App.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 <!-- ::end:tabs -->
 
