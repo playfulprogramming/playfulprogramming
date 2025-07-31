@@ -4,10 +4,17 @@ import {
 	Container,
 	LoadingPlaceholder,
 	PreviewContainer,
+	PreviewError,
 	PreviewFrame,
 	PreviewPlaceholder,
 } from "components/code-embed/code-embed";
-import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
+import {
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 import { $container, runEmbed } from "./webcontainer-script";
 
@@ -50,15 +57,16 @@ export function CodeEmbed(props: CodeEmbedProps) {
 
 	useEffect(() => {
 		if (container.processUrl != null) {
-			setFrameUrl(modifyProcessUrl(container.processUrl, addressUrl));
+			const newFrameUrl = modifyProcessUrl(container.processUrl, addressUrl);
+			setAddressUrl(shortenProcessUrl(newFrameUrl));
+			setFrameUrl(newFrameUrl);
 		}
 	}, [container.processUrl]);
 
-	useEffect(() => {
-		setAddressUrl(shortenProcessUrl(frameUrl));
-	}, [frameUrl]);
-
-	const handleAddressChange = useCallback((value: string) => setAddressUrl(value), []);
+	const handleAddressChange = useCallback(
+		(value: string) => setAddressUrl(value),
+		[],
+	);
 
 	const handleAddressSubmit = useCallback(() => {
 		if (container.processUrl) {
@@ -73,6 +81,10 @@ export function CodeEmbed(props: CodeEmbedProps) {
 		}
 	}, [container.processUrl]);
 
+	const handleFrameLoad = useCallback((src: string) => {
+		setAddressUrl(shortenProcessUrl(src));
+	}, []);
+
 	return (
 		<Container title={props.title} editUrl={props.editUrl}>
 			<CodeContainer>
@@ -86,16 +98,16 @@ export function CodeEmbed(props: CodeEmbedProps) {
 					onReload={handleAddressReset}
 				/>
 				{isCurrent ? (
-					container.loading ? (
+					container.error ? (
+						<PreviewError />
+					) : container.processUrl && frameUrl != addressUrl ? (
+						<PreviewFrame src={frameUrl} onLoad={handleFrameLoad} />
+					) : (
 						<LoadingPlaceholder
 							loading={container.loading}
 							consoleProcess={container.consoleProcess}
 							consoleOutput={container.consoleOutput}
 						/>
-					) : (
-						frameUrl ? (
-							<PreviewFrame src={frameUrl} />
-						) : <span></span>
 					)
 				) : (
 					<PreviewPlaceholder onClick={handleRunEmbed} />

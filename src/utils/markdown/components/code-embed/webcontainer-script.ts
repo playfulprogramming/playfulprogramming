@@ -71,6 +71,8 @@ function createConsoleStream(command: string) {
 }
 
 async function runEmbedInternal(projectId: string, projectZipUrl: string) {
+	throw new Error("bad");
+
 	$container.set({
 		...$container.get(),
 		loading: "download",

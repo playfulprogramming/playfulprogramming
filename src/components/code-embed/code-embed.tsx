@@ -9,7 +9,7 @@ import { RawSvg } from "components/image/raw-svg";
 import { Button, IconOnlyButton } from "components/button/button";
 import style from "./code-embed.module.scss";
 import { useCallback, useId } from "preact/hooks";
-import { ChangeEvent } from "preact/compat";
+import { ChangeEvent, TargetedEvent } from "preact/compat";
 
 interface ContainerProps {
 	title?: string;
@@ -132,14 +132,14 @@ function LoadingStepIcon(props: { index: number; current: number }) {
 }
 
 interface LoadingPlaceholderProps {
-	loading: "download" | "install" | "start";
+	loading?: "download" | "install" | "start";
 	consoleProcess?: string;
 	consoleOutput?: string;
 }
 
 export function LoadingPlaceholder(props: LoadingPlaceholderProps) {
 	const steps = ["download", "install", "start"];
-	const current = steps.indexOf(props.loading);
+	const current = steps.indexOf(props.loading ?? "");
 
 	return (
 		<div class={style.preview}>
@@ -173,12 +173,43 @@ export function LoadingPlaceholder(props: LoadingPlaceholderProps) {
 
 interface PreviewFrameProps {
 	src: string;
+	onLoad(src: string): void;
 }
 
 export function PreviewFrame(props: PreviewFrameProps) {
+	const handleLoad = useCallback((e: TargetedEvent<HTMLIFrameElement>) => {
+		const src = e.currentTarget.src;
+		if (src) props.onLoad(src);
+	}, [props.onLoad]);
+
 	return (
 		<div class={style.preview}>
-			<iframe src={props.src} />
+			<iframe src={props.src} onLoad={handleLoad} />
 		</div>
 	);
+}
+
+export function PreviewError() {
+	return (
+		<div class={style.error}>
+			<div class={style.error__grid}>
+				<div class={style.error__background}></div>
+				<p class={`${style.error__heading} text-style-headline-3`}>Oh, no!</p>
+				<p class={`${style.error__message} text-style-body-large`}>
+					This project failed to load. Try using the Edit button, or switch to{" "}
+					<a href="https://webcontainers.io/guides/browser-support">a supported browser</a>.
+				</p>
+				<div class={style.error__buttons}>
+					<Button
+						tag="a"
+						href="https://github.com/playfulprogramming/playfulprogramming/issues"
+						target="_blank"
+						variant="secondary"
+					>
+						Report an issue
+					</Button>
+				</div>
+			</div>
+		</div>
+	)
 }
