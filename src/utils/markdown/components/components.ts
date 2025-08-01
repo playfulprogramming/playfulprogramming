@@ -21,7 +21,7 @@ export interface HtmlNode extends hast.Node {
 export interface ComponentMarkupNode extends hast.Node {
 	type: "playful-component-markup";
 	component: string;
-	attributes: Record<string, string | undefined>;
+	attributes: Record<string, string>;
 	children: (PlayfulNode | hast.ElementContent)[];
 }
 

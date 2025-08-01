@@ -18,8 +18,6 @@ import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
 import { rehypeHeaderText } from "./rehype-header-text";
 import { rehypeHeaderClass } from "./rehype-header-class";
 import { Processor } from "unified";
-import { dirname, relative, resolve } from "path";
-import type { VFile } from "vfile";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
 import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
@@ -43,7 +41,6 @@ import {
 	rehypeCodeEmbed,
 	transformCodeEmbed,
 } from "./components/code-embed/rehype-transform";
-import { getStackblitzUrl } from "./components/code-embed/getStackblitzUrl";
 import { rehypeRelativePaths } from "./rehype-relative-paths";
 
 const remarkEmbedderDefault =

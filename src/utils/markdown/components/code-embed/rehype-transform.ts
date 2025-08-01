@@ -37,9 +37,9 @@ export const rehypeCodeEmbed: Plugin<[], PlayfulRoot> = () => {
 				const srcUrl = new URL(src);
 				if (srcUrl.protocol !== "pfp-code:") return;
 
-				const title = node.properties.dataFrameTitle?.toString();
+				const title = node.properties.dataFrameTitle?.toString() ?? "";
 				const project = srcUrl.pathname.replace(/[\/.]/g, "");
-				const file = srcUrl.searchParams.get("file") ?? undefined;
+				const file = srcUrl.searchParams.get("file") ?? "";
 
 				const replacement: ComponentMarkupNode = {
 					type: "playful-component-markup",
