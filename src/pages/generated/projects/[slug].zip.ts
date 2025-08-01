@@ -1,21 +1,17 @@
 import type { APIRoute } from "astro";
-import { getAllPosts } from "utils/api";
+import { getAllPosts, getPostBySlug } from "utils/api";
 import path from "path";
 import { contentDirectory } from "utils/data";
 import fs from "fs/promises";
 import { zip } from "fflate";
 
 export async function findProjectDir(slug: string): Promise<string> {
-	for (const post of getAllPosts()) {
-		const postDir = path.join(contentDirectory, post.path);
-		for (const entry of await fs.readdir(postDir, { withFileTypes: true })) {
-			if (entry.isDirectory() && entry.name == slug) {
-				return path.join(postDir, entry.name);
-			}
-		}
-	}
+	const [postSlug, projectId] = slug.split("_");
+	const post = getPostBySlug(postSlug, "en");
+	if (!post) throw new Error(`Post ${postSlug} does not exist!`);
 
-	throw new Error(`Could not find a project with name '${slug}'.`);
+	const postDir = path.join(contentDirectory, post.path);
+	return path.join(postDir, projectId);
 }
 
 export const GET: APIRoute = async ({ params }) => {
@@ -53,16 +49,22 @@ export const GET: APIRoute = async ({ params }) => {
 };
 
 export async function getStaticPaths() {
-	const projects: Array<{ params: { slug: string } }> = [];
+	const projects = new Set<string>();
 
 	for (const post of getAllPosts()) {
 		const postDir = path.join(contentDirectory, post.path);
 		for (const entry of await fs.readdir(postDir, { withFileTypes: true })) {
 			if (entry.isDirectory()) {
-				projects.push({ params: { slug: entry.name } });
+				if (entry.name.includes("_")) {
+					throw new Error(
+						`Project ID (${post.slug}/${entry.name}) must not contain an '_'.`,
+					);
+				}
+				const projectId = `${post.slug}_${entry.name}`;
+				projects.add(projectId);
 			}
 		}
 	}
 
-	return projects;
+	return Array.from(projects).map((slug) => ({ params: { slug } }));
 }

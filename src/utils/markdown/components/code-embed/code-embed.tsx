@@ -38,7 +38,8 @@ function shortenProcessUrl(url: string): string {
 }
 
 export interface CodeEmbedProps {
-	project: string;
+	projectId: string;
+	projectZipUrl: string;
 	title: string;
 	file: string;
 	codeHtml?: string;
@@ -49,11 +50,11 @@ export function CodeEmbed(props: CodeEmbedProps) {
 	const [addressUrl, setAddressUrl] = useState("http://localhost/");
 	const [frameUrl, setFrameUrl] = useState(addressUrl);
 	const container = useStore($container);
-	const isCurrent = container.projectId == props.project;
+	const isCurrent = container.projectId == props.projectId;
 
 	const handleRunEmbed = useCallback(() => {
-		runEmbed(props.project, `/generated/projects/${props.project}.zip`);
-	}, [props.project]);
+		runEmbed(props.projectId, props.projectZipUrl);
+	}, [props.projectId]);
 
 	useEffect(() => {
 		if (container.processUrl != null) {

@@ -13,6 +13,7 @@ import { visit } from "unist-util-visit";
 import { Element } from "hast";
 import { runShiki } from "utils/markdown/shiki/shiki-pool";
 import { toHtml } from "hast-util-to-html";
+import { MarkdownVFile } from "utils/markdown/types";
 
 /**
  * Transforms pfp-code iframes into a "code-embed" component
@@ -58,17 +59,8 @@ export const rehypeCodeEmbed: Plugin<[], PlayfulRoot> = () => {
 	};
 };
 
-export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
-	const file = props.attributes.file;
-	const project = props.attributes.project;
-	const projectDir = path.join(
-		path.relative(process.cwd(), props.vfile.path),
-		"..",
-		project,
-	);
-	const editUrl = getStackblitzUrl(projectDir, { file });
-
-	const fileContent = await fs.readFile(path.join(projectDir, file), "utf-8");
+async function createCodeHtml(file: string): Promise<string> {
+	const fileContent = await fs.readFile(file, "utf-8");
 	const element: Element = {
 		type: "element",
 		tagName: "pre",
@@ -93,9 +85,45 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 	const shikiElement = await runShiki(element);
 	const shikiHtml = toHtml(shikiElement);
 
+	return shikiHtml;
+}
+
+export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
+	const file = props.attributes.file;
+	const project = props.attributes.project;
+	const projectDir = path.join(
+		path.relative(process.cwd(), props.vfile.path),
+		"..",
+		project,
+	);
+	const editUrl = getStackblitzUrl(projectDir, { file });
+
+	const shikiHtml = await createCodeHtml(path.join(projectDir, file)).catch(
+		(e) => {
+			logError(
+				props.vfile,
+				props.node,
+				`Cannot create code snippet for '${file}' in ${project}.`,
+				e,
+			);
+			return undefined;
+		},
+	);
+
+	const postSlug = (props.vfile as MarkdownVFile).data.slug;
+	if (!postSlug) {
+		logError(
+			props.vfile,
+			props.node,
+			"Cannot generate a code embed without the post slug!",
+		);
+		return [];
+	}
+
 	return [
 		createComponent("CodeEmbed", {
-			project,
+			projectId: project,
+			projectZipUrl: `/generated/projects/${postSlug}_${project}.zip`,
 			title: props.attributes.title,
 			file,
 			codeHtml: shikiHtml,
