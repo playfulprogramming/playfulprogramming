@@ -7,6 +7,7 @@ import CheckmarkIcon from "src/icons/checkmark.svg?raw";
 import { JSXNode, PropsWithChildren } from "components/types";
 import { RawSvg } from "components/image/raw-svg";
 import { Button, IconOnlyButton } from "components/button/button";
+import { File } from "components/file-list/file-list";
 import style from "./code-embed.module.scss";
 import { useCallback, useId } from "preact/hooks";
 import { ChangeEvent, TargetedEvent } from "preact/compat";
@@ -95,7 +96,20 @@ export function AddressBar(props: AddressBarProps) {
 }
 
 export function CodeContainer({ children }: PropsWithChildren) {
-	return <div class={style.content__code}>{children}</div>;
+	return (
+		<>
+			<div class={style.content__code}>
+				<File
+					name="src / main.js"
+					filetype="js"
+					isDirectory={false}
+					isPlaceholder={false}
+					isHighlighted={false}
+				/>
+				<div class={style.content__code__snippet}>{children}</div>
+			</div>
+		</>
+	);
 }
 
 export function PreviewContainer({ children }: PropsWithChildren) {
@@ -177,10 +191,13 @@ interface PreviewFrameProps {
 }
 
 export function PreviewFrame(props: PreviewFrameProps) {
-	const handleLoad = useCallback((e: TargetedEvent<HTMLIFrameElement>) => {
-		const src = e.currentTarget.src;
-		if (src) props.onLoad(src);
-	}, [props.onLoad]);
+	const handleLoad = useCallback(
+		(e: TargetedEvent<HTMLIFrameElement>) => {
+			const src = e.currentTarget.src;
+			if (src) props.onLoad(src);
+		},
+		[props.onLoad],
+	);
 
 	return (
 		<div class={style.preview}>
@@ -197,7 +214,10 @@ export function PreviewError() {
 				<p class={`${style.error__heading} text-style-headline-3`}>Oh, no!</p>
 				<p class={`${style.error__message} text-style-body-large`}>
 					This project failed to load. Try using the Edit button, or switch to{" "}
-					<a href="https://webcontainers.io/guides/browser-support">a supported browser</a>.
+					<a href="https://webcontainers.io/guides/browser-support">
+						a supported browser
+					</a>
+					.
 				</p>
 				<div class={style.error__buttons}>
 					<Button
@@ -211,5 +231,5 @@ export function PreviewError() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }

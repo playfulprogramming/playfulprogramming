@@ -63,20 +63,21 @@
 	flex-direction: column;
 	gap: var(--code-embed_padding);
 	align-items: stretch;
-	height: var(--code-embed_content_height);
+	height: calc(2*var(--code-embed_content_height));
 
 	@include from($tabletSmall) {
+		height: var(--code-embed_content_height);
 		flex-direction: row;
 	}
 
-	&> * {
+	.content__code, .content__preview {
 		min-width: 80px;
 		min-height: 40px;
 	}
 
 	.content__code {
-		overflow-y: auto;
-		border-radius: var(--code-embed_preview_border-radius);
+		display: flex;
+		flex-direction: column;
 
 		@include from($tabletSmall) {
 			resize: horizontal;
@@ -88,6 +89,12 @@
 			resize: vertical;
 			height: 50%;
 			width: 100% !important;
+		}
+
+		&__snippet {
+			overflow-y: auto;
+			border-radius: var(--code-embed_preview_border-radius);
+			flex-grow: 1;
 		}
 
 		& pre {
