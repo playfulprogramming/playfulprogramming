@@ -1,0 +1,12 @@
+:root {
+    --code-embed_file-picker_background: var(--background_primary);
+    --code-embed_file-picker_corner-radius: var(--corner-radius_m);
+}
+
+.dialog {
+    margin: 0;
+    height: 400px;
+    background: var(--code-embed_file-picker_background);
+    border-radius: var(--code-embed_file-picker_corner-radius);
+    color: var(--foreground_emphasis-high);
+}

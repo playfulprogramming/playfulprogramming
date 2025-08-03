@@ -1,6 +1,7 @@
 import { RawSvg } from "components/image/raw-svg";
 import { getIcon } from "./file-tree-icons";
 import style from "./file-list.module.scss";
+import { MutableRef } from "preact/hooks";
 
 const FolderIcon = `
 <svg viewBox="0 0 20 20">

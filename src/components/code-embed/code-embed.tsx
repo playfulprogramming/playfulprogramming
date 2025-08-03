@@ -7,10 +7,11 @@ import CheckmarkIcon from "src/icons/checkmark.svg?raw";
 import { JSXNode, PropsWithChildren } from "components/types";
 import { RawSvg } from "components/image/raw-svg";
 import { Button, IconOnlyButton } from "components/button/button";
-import { File } from "components/file-list/file-list";
 import style from "./code-embed.module.scss";
-import { useCallback, useId } from "preact/hooks";
+import { useCallback, useId, useMemo } from "preact/hooks";
 import { ChangeEvent, TargetedEvent } from "preact/compat";
+import { FilePicker } from "./file-picker";
+import { FileEntry } from "./types";
 
 interface ContainerProps {
 	title?: string;
@@ -95,20 +96,35 @@ export function AddressBar(props: AddressBarProps) {
 	);
 }
 
-export function CodeContainer({ children }: PropsWithChildren) {
+export interface CodeContainerProps {
+	file?: string;
+	onFileChange(file: string): void;
+	entries: Array<FileEntry>;
+}
+
+export function CodeContainer(props: CodeContainerProps) {
+	const file = useMemo(() => {
+		return props.file ?? props.entries.at(0)?.name ?? "";
+	}, [props.file, props.entries]);
+
+	const codeHtml = useMemo(() => {
+		return (
+			props.entries.find((entry) => entry.name === props.file)?.codeHtml ?? ""
+		);
+	}, [props.file, props.entries]);
+
 	return (
-		<>
-			<div class={style.content__code}>
-				<File
-					name="src / main.js"
-					filetype="js"
-					isDirectory={false}
-					isPlaceholder={false}
-					isHighlighted={false}
-				/>
-				<div class={style.content__code__snippet}>{children}</div>
-			</div>
-		</>
+		<div class={style.content__code}>
+			<FilePicker
+				file={file}
+				entries={props.entries}
+				onFileChange={props.onFileChange}
+			/>
+			<div
+				class={style.content__code__snippet}
+				dangerouslySetInnerHTML={{ __html: codeHtml }}
+			/>
+		</div>
 	);
 }
 

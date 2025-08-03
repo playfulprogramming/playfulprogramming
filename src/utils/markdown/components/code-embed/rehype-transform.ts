@@ -14,6 +14,7 @@ import { Element } from "hast";
 import { runShiki } from "utils/markdown/shiki/shiki-pool";
 import { toHtml } from "hast-util-to-html";
 import { MarkdownVFile } from "utils/markdown/types";
+import { FileEntry } from "components/code-embed/types";
 
 /**
  * Transforms pfp-code iframes into a "code-embed" component
@@ -98,17 +99,34 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 	);
 	const editUrl = getStackblitzUrl(projectDir, { file });
 
-	const shikiHtml = await createCodeHtml(path.join(projectDir, file)).catch(
-		(e) => {
-			logError(
-				props.vfile,
-				props.node,
-				`Cannot create code snippet for '${file}' in ${project}.`,
-				e,
+	const files: Array<FileEntry> = [];
+	for (const file of await fs.readdir(projectDir, {
+		withFileTypes: true,
+		recursive: true,
+	})) {
+		if (file.isFile()) {
+			const parent = path.relative(projectDir, file.parentPath);
+			const name = path.join(parent, file.name);
+
+			const codeHtml = await createCodeHtml(path.join(projectDir, name)).catch(
+				(e) => {
+					logError(
+						props.vfile,
+						props.node,
+						`Cannot create code snippet for '${name}' in ${project}.`,
+						e,
+					);
+					return "";
+				},
 			);
-			return undefined;
-		},
-	);
+
+			files.push({
+				name: path.join(parent, file.name),
+				filetype: path.extname(file.name).substring(1),
+				codeHtml,
+			});
+		}
+	}
 
 	const postSlug = (props.vfile as MarkdownVFile).data.slug;
 	if (!postSlug) {
@@ -126,7 +144,7 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 			projectZipUrl: `/generated/projects/${postSlug}_${project}.zip`,
 			title: props.attributes.title,
 			file,
-			codeHtml: shikiHtml,
+			files,
 			editUrl,
 		}),
 	];

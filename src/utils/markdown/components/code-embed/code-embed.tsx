@@ -15,6 +15,7 @@ import {
 } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 import { $container, runEmbed } from "./webcontainer-script";
+import { FileEntry } from "components/code-embed/types";
 
 // Given the base webcontainer URL, modify it with any changes made in the address bar
 function modifyProcessUrl(processUrl: string, addressUrl: string) {
@@ -40,7 +41,7 @@ export interface CodeEmbedProps {
 	projectZipUrl: string;
 	title: string;
 	file: string;
-	codeHtml?: string;
+	files: Array<FileEntry>;
 	editUrl?: string;
 }
 
@@ -84,11 +85,11 @@ export function CodeEmbed(props: CodeEmbedProps) {
 		setAddressUrl(shortenProcessUrl(src));
 	}, []);
 
+	const [selectedFile, setSelectedFile] = useState(props.file);
+
 	return (
 		<Container title={props.title} editUrl={props.editUrl}>
-			<CodeContainer>
-				<div dangerouslySetInnerHTML={{ __html: props.codeHtml ?? "" }} />
-			</CodeContainer>
+			<CodeContainer entries={props.files} file={selectedFile} onFileChange={setSelectedFile} />
 			<PreviewContainer>
 				<AddressBar
 					value={addressUrl}

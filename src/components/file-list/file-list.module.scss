@@ -182,10 +182,16 @@
 
 .directoryNameAndIcon {
 	border-radius: var(--filesystem_item_folder_container_corner-radius);
+	border: var(--filesystem_item_file_highlight_border_width) solid transparent;
 }
 
 .fileNameAndIcon {
 	border-radius: var(--filesystem_item_file_container_corner-radius);
+	border: var(--filesystem_item_file_highlight_border_width) solid transparent;
+}
+
+.fileContainer {
+	all: unset;
 }
 
 .fileIcon,
@@ -236,13 +242,23 @@
 	}
 }
 
+.fileContainer:focus-visible {
+	outline: none;
+
+	& > .fileNameAndIcon {
+		background-color: var(--filesystem_item_folder_focus-background_color);
+		outline: var(--filesystem_item_folder_focus-outline_width) solid
+			var(--filesystem_item_folder_focus-outline_color);
+	}
+}
+
 .directorySummary:hover
-	.directoryNameAndIcon {
+	.directoryNameAndIcon, .fileContainer:hover .fileNameAndIcon {
 	background-color: var(--filesystem_item_folder_container_color_hovered);
 }
 
 .directorySummary:active
-	.directoryNameAndIcon {
+	.directoryNameAndIcon, .fileContainer:active .fileNameAndIcon {
 	background-color: var(--filesystem_item_folder_container_color_pressed);
 }
 
