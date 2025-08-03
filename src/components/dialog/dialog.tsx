@@ -11,7 +11,7 @@ type DialogProps = PropsWithChildren<{
 	// (either the `open` prop changing, or the backdrop was clicked)
 	onClose: (returnValue?: string) => void;
 }> &
-	HTMLAttributes<HTMLDialogElement>;
+	Omit<HTMLAttributes<HTMLDialogElement>, "onClose">;
 
 export function Dialog({
 	open,
