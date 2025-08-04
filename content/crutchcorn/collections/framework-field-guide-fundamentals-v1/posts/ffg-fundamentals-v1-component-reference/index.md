@@ -875,7 +875,7 @@ function App() {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="React Focused Comp Ref - StackBlitz" src="pfp-code:./ffg-fundamentals-react-focused-comp-ref-68?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="React Focused Comp Ref - StackBlitz" src="pfp-code:./ffg-fundamentals-react-focused-comp-ref-68?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 <!-- ::end:no-ebook -->
 
 ## Angular

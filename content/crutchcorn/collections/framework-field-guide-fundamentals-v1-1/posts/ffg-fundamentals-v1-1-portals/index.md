@@ -1410,7 +1410,7 @@ The code we wrote previously for this challenge worked well, but it had a major 
 ### Vue
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Vue Portals Pre-Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-portals-pre-challenge-98?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Vue Portals Pre-Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-portals-pre-challenge-98?template=node&embed=1&file=src%2FApp.vue"></iframe>
 <!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->

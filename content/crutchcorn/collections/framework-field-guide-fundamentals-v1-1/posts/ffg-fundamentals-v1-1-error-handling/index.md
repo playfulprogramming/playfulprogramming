@@ -198,7 +198,7 @@ const EventErrorThrowingComponent = () => {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="React Event Error - StackBlitz" src="pfp-code:./ffg-fundamentals-react-event-error-72?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="React Event Error - StackBlitz" src="pfp-code:./ffg-fundamentals-react-event-error-72?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 <!-- ::end:no-ebook -->
 
 ## Angular

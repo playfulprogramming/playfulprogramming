@@ -520,7 +520,7 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Conditional Branches - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-conditional-branches-19?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Conditional Branches - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-conditional-branches-19?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 ## Vue
@@ -1007,7 +1007,7 @@ class FileListComponent {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Rendering Lists - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-lists-20?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Rendering Lists - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-lists-20?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 Inside our `@for`, `$index` may not seem like it is being defined; however, Angular declares it whenever you attempt to utilize `@for` under the hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
@@ -1251,7 +1251,7 @@ interface Word {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Unkeyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Unkeyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 ### Vue
@@ -1374,7 +1374,7 @@ class WordListComponent {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 Using a tracker without a property accessor (`track obj` vs `track obj.id`) is a way to opt-out of this behavior, as it will track the object reference (`===`) of the object in the array. This is useful when you don't have a unique identifier for each item in the array, but is highly discouraged due to the aforementioned performance and behavior benefits of having a unique identifier.
@@ -1749,7 +1749,7 @@ class FileListComponent {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Using It Together - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-using-it-together-24?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Using It Together - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-using-it-together-24?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 ## Vue
