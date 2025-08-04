@@ -98,12 +98,12 @@ async function createCodeHtml(file: string): Promise<string> {
 }
 
 export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
-	const file = props.attributes.file;
+	const selectedFiles = props.attributes.file.split(",");
 	const post = props.attributes.post;
 	const project = props.attributes.project;
 	const projectDir = props.attributes.projectDir;
 	const editUrl = getStackblitzUrl(path.relative(process.cwd(), projectDir), {
-		file,
+		file: selectedFiles.join(","),
 	});
 
 	const files: Array<FileEntry> = [];
@@ -135,12 +135,22 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 		}
 	}
 
+	for (const file of selectedFiles) {
+		if (files.every((entry) => entry.name != file)) {
+			logError(
+				props.vfile,
+				props.node,
+				`File '${selectedFiles}' does not exist in ${project}!`,
+			);
+		}
+	}
+
 	return [
 		createComponent("CodeEmbed", {
 			projectId: project,
 			projectZipUrl: `/generated/projects/${post}_${project}.zip`,
 			title: props.attributes.title,
-			file,
+			file: selectedFiles.at(0),
 			files,
 			editUrl,
 		}),
