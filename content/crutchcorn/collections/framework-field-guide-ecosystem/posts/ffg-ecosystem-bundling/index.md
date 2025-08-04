@@ -261,7 +261,7 @@ But by doing this, you'll lose:
   - You can re-introduce that, but you'll need another dependency for it
 - Only compiling the related files when you modify one of them
 
-<iframe data-frame-title="No Bundle SCSS/TS - StackBlitz" src="pfp-code:./ffg-ecosystem-no-bundle-scss-ts-3?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="No Bundle SCSS/TS - StackBlitz" src="pfp-code:./ffg-ecosystem-no-bundle-scss-ts-3?template=node&embed=1&file=src%2Findex.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 
 
