@@ -2414,7 +2414,7 @@ onUpdated(() => {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Vue Re-Render - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-re-render-38?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Re-Render - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-re-render-38?template=node&embed=1&file=src%2FReRenderListener.vue"></iframe>
 <!-- ::end:no-ebook -->
 
 Every time the `ReRenderListener` component updates the DOM with new changes, the `onUpdated` method will run.
@@ -3048,7 +3048,7 @@ watch(
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Vue Rendering, Committing, Painting Broken - StackBlitz" src="pfp-code:./ffg-fundamentals-react-rendering-committing-painting-broken-40?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Rendering, Committing, Painting Broken - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-rendering-committing-painting-broken-40?template=node&embed=1&file=src%2FApp.vue"></iframe>
 <!-- ::end:no-ebook -->
 
 Here, when we click any of the buttons to trigger a `title` change, you may notice that it shows the _previous_ value of the element's `innerText`. For example, when we press "Music", it shows the `innerText` of `Movies`, which was the previous value of `title`.

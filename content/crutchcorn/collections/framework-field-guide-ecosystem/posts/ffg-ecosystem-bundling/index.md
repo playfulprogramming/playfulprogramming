@@ -118,7 +118,7 @@ Finally, we'll sprinkle in some styling to make it look nicer:
 </html>
 ```
 
-<iframe data-frame-title="No Bundle - StackBlitz" src="pfp-code:./ffg-ecosystem-no-bundle-1?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="No Bundle - StackBlitz" src="pfp-code:./ffg-ecosystem-no-bundle-1?template=node&embed=1&file=src%2Findex.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Notice how our `index.html` file went from quickly glanceable 11 lines of code into a somewhat sprawling 40?
 
@@ -176,7 +176,7 @@ buttonEl.addEventListener("click", () => {
 }
 ```
 
-<iframe data-frame-title="Web Standard Imports - StackBlitz" src="pfp-code:./ffg-ecosystem-web-standard-imports-2?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Web Standard Imports - StackBlitz" src="pfp-code:./ffg-ecosystem-web-standard-imports-2?template=node&embed=1&file=src%2Findex.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Notice how our files are now separated by concerns? One file for templating, another for logic, and a final one for styling; all neat and organized.
 
@@ -261,7 +261,7 @@ But by doing this, you'll lose:
   - You can re-introduce that, but you'll need another dependency for it
 - Only compiling the related files when you modify one of them
 
-<iframe data-frame-title="No Bundle SCSS/TS - StackBlitz" src="pfp-code:./ffg-ecosystem-no-bundle-scss-ts-3?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="No Bundle SCSS/TS - StackBlitz" src="pfp-code:./ffg-ecosystem-no-bundle-scss-ts-3?template=node&embed=1&file=src%2Findex.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 
 
@@ -300,7 +300,7 @@ Alternatively, we could use a bundler, change two lines of code in our `index.ht
 }
 ```
 
-<iframe data-frame-title="Bundled SCSS/TS - StackBlitz" src="pfp-code:./ffg-ecosystem-bundle-scss-ts-4?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Bundled SCSS/TS - StackBlitz" src="pfp-code:./ffg-ecosystem-bundle-scss-ts-4?template=node&embed=1&file=index.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 This barely scratches the surface of the power and convenience of what a bundler can provide you.
 

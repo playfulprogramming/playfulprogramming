@@ -563,7 +563,7 @@ const { isMobile } = useMobileCheck();
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Vue Composing Logic - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-composing-logic-102?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Vue Composing Logic - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-composing-logic-102?template=node&embed=1&file=src%2FApp.vue"></iframe>
 <!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->
