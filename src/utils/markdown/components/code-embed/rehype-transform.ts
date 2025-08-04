@@ -13,7 +13,6 @@ import { visit } from "unist-util-visit";
 import { Element } from "hast";
 import { runShiki } from "utils/markdown/shiki/shiki-pool";
 import { toHtml } from "hast-util-to-html";
-import { MarkdownVFile } from "utils/markdown/types";
 import { FileEntry } from "components/code-embed/types";
 
 /**
@@ -39,7 +38,14 @@ export const rehypeCodeEmbed: Plugin<[], PlayfulRoot> = () => {
 				if (srcUrl.protocol !== "pfp-code:") return;
 
 				const title = node.properties.dataFrameTitle?.toString() ?? "";
-				const project = srcUrl.pathname.replace(/[\/.]/g, "");
+				const projectDir = path.resolve(
+					process.cwd(),
+					vfile.path,
+					"..",
+					srcUrl.pathname,
+				);
+				const post = path.basename(path.resolve(projectDir, ".."));
+				const project = path.basename(projectDir);
 				const file = srcUrl.searchParams.get("file") ?? "";
 
 				const replacement: ComponentMarkupNode = {
@@ -47,6 +53,8 @@ export const rehypeCodeEmbed: Plugin<[], PlayfulRoot> = () => {
 					position: node.position,
 					component: "code-embed",
 					attributes: {
+						projectDir,
+						post,
 						project,
 						title,
 						file,
@@ -91,12 +99,9 @@ async function createCodeHtml(file: string): Promise<string> {
 
 export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 	const file = props.attributes.file;
+	const post = props.attributes.post;
 	const project = props.attributes.project;
-	const projectDir = path.join(
-		path.relative(process.cwd(), props.vfile.path),
-		"..",
-		project,
-	);
+	const projectDir = props.attributes.projectDir;
 	const editUrl = getStackblitzUrl(projectDir, { file });
 
 	const files: Array<FileEntry> = [];
@@ -128,20 +133,10 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 		}
 	}
 
-	const postSlug = (props.vfile as MarkdownVFile).data.slug;
-	if (!postSlug) {
-		logError(
-			props.vfile,
-			props.node,
-			"Cannot generate a code embed without the post slug!",
-		);
-		return [];
-	}
-
 	return [
 		createComponent("CodeEmbed", {
 			projectId: project,
-			projectZipUrl: `/generated/projects/${postSlug}_${project}.zip`,
+			projectZipUrl: `/generated/projects/${post}_${project}.zip`,
 			title: props.attributes.title,
 			file,
 			files,
