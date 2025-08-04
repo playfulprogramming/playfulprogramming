@@ -40,7 +40,7 @@ export interface CodeEmbedProps {
 	projectId: string;
 	projectZipUrl: string;
 	title: string;
-	file: string;
+	file?: string;
 	files: Array<FileEntry>;
 	editUrl?: string;
 }
