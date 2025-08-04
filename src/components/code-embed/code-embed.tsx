@@ -115,11 +115,13 @@ export function CodeContainer(props: CodeContainerProps) {
 
 	return (
 		<div class={style.content__code}>
-			<FilePicker
-				file={file}
-				entries={props.entries}
-				onFileChange={props.onFileChange}
-			/>
+			<div class={style.content__code__filepicker}>
+				<FilePicker
+					file={file}
+					entries={props.entries}
+					onFileChange={props.onFileChange}
+				/>
+			</div>
 			<div
 				class={style.content__code__snippet}
 				dangerouslySetInnerHTML={{ __html: codeHtml }}

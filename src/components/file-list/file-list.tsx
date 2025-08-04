@@ -16,6 +16,7 @@ export interface FileProps {
 	isPlaceholder: boolean;
 	isHighlighted: boolean;
 	onClick?(): void;
+	autofocus?: boolean;
 }
 
 export interface DirectoryProps {
@@ -34,7 +35,7 @@ const isDirectory = (item: DirectoryProps | FileProps): item is DirectoryProps =
 export function File(props: FileProps) {
 	const Tag = props.onClick ? "button" : "div";
 	return (
-		<Tag class={style.fileContainer} onClick={props.onClick}>
+		<Tag class={style.fileContainer} onClick={props.onClick} autofocus={props.autofocus}>
 			<span
 				className={`${style.fileNameAndIcon} text-style-body-small`}
 				data-highlighted={props.isHighlighted}

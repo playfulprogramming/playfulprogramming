@@ -5,8 +5,13 @@
 
 .dialog {
     margin: 0;
-    height: 400px;
+    height: min(400px, 50vh);
     background: var(--code-embed_file-picker_background);
+    border: none;
     border-radius: var(--code-embed_file-picker_corner-radius);
     color: var(--foreground_emphasis-high);
+}
+
+.title {
+    margin: 0 0 var(--spc-4x) 0 !important;
 }

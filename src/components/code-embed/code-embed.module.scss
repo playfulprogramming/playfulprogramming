@@ -78,6 +78,7 @@
 	.content__code {
 		display: flex;
 		flex-direction: column;
+		gap: var(--code-embed_padding);
 
 		@include from($tabletSmall) {
 			resize: horizontal;
@@ -91,11 +92,16 @@
 			width: 100% !important;
 		}
 
+		&__filepicker {
+			display: flex;
+			align-items: center;
+			height: 40px;
+		}
+
 		&__snippet {
 			overflow-y: auto;
 			border-radius: var(--code-embed_preview_border-radius);
 			flex-grow: 1;
-			margin-top: var(--code-embed_padding);
 		}
 
 		& pre {

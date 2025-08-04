@@ -15,6 +15,20 @@ interface FilePickerProps {
 	onFileChange?(file: string): void;
 }
 
+function sortFileItems(files: Array<DirectoryProps | FileProps>) {
+	files.sort((a, b) => {
+		if (a.isDirectory != b.isDirectory)
+			return Number(b.isDirectory) - Number(a.isDirectory);
+		else return a.name.localeCompare(b.name);
+	});
+
+	for (const file of files) {
+		if (file.isDirectory) {
+			sortFileItems(file.items);
+		}
+	}
+}
+
 function buildFileItems(
 	props: FilePickerProps,
 ): Array<DirectoryProps | FileProps> {
@@ -41,18 +55,21 @@ function buildFileItems(
 		}
 
 		const name = parts.at(-1) ?? "";
+		const isSelected = entry.name == props.file;
 		fileArray.push({
 			name,
 			isDirectory: false,
 			filetype: entry.filetype,
 			isPlaceholder: false,
-			isHighlighted: entry.name == props.file,
+			isHighlighted: isSelected,
+			autofocus: isSelected,
 			onClick() {
 				props.onFileChange?.call(undefined, entry.name);
 			},
 		});
 	}
 
+	sortFileItems(files);
 	return files;
 }
 
@@ -77,8 +94,7 @@ export function FilePicker(props: FilePickerProps) {
 	const fileRef = useRef<HTMLDivElement>(null);
 	const [position, setPosition] = useState({ x: 0, y: 0, width: 0 });
 	const handleOpenDialog = useCallback(() => {
-		console.log(fileRef.current);
-		const fileRect = fileRef.current!.getBoundingClientRect();
+		const fileRect = fileRef.current!.parentElement!.getBoundingClientRect();
 		setPosition({
 			x: fileRect.left,
 			y: fileRect.top,
@@ -104,6 +120,7 @@ export function FilePicker(props: FilePickerProps) {
 				dialogClass={style.dialog}
 				style={{ top: position.y, left: position.x, width: position.width }}
 			>
+				<h1 class={`${style.title} text-style-headline-5`}>Files</h1>
 				<FileListList items={listItems} />
 			</Dialog>
 		</>
