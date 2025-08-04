@@ -102,7 +102,9 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 	const post = props.attributes.post;
 	const project = props.attributes.project;
 	const projectDir = props.attributes.projectDir;
-	const editUrl = getStackblitzUrl(projectDir, { file });
+	const editUrl = getStackblitzUrl(path.relative(process.cwd(), projectDir), {
+		file,
+	});
 
 	const files: Array<FileEntry> = [];
 	for (const file of await fs.readdir(projectDir, {
