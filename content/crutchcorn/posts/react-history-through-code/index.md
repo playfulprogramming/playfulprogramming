@@ -1186,7 +1186,7 @@ const fakeFetch = () => {
 };
 ```
 
-<iframe data-frame-title="use Data Fetching - StackBlitz" src="pfp-code:./fuse-data-fetching?template=node&embed=1&file=src%2FApp.jsx"></iframe>
+<iframe data-frame-title="use Data Fetching - StackBlitz" src="pfp-code:./use-data-fetching?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
 Let's take a moment to look at how `use` works internally. According to [the RFC the React team introduced for `use`](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md):
 
