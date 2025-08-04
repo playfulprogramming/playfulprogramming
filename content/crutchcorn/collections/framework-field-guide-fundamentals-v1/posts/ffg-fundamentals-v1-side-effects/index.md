@@ -2403,7 +2403,7 @@ onUpdated(() => {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Vue Re-Render - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-re-render-38?template=node&embed=1&file=src%2FApp.vue"></iframe>
+<iframe data-frame-title="Vue Re-Render - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-re-render-38?template=node&embed=1&file=src%2FReRenderListener.vue"></iframe>
 <!-- ::end:no-ebook -->
 
 Every time the `ReRenderListener` component updates the DOM with new changes, the `onUpdated` method will run.

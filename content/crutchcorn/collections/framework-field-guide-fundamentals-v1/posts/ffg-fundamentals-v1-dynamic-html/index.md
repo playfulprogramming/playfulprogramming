@@ -516,7 +516,7 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Conditional Branches - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-conditional-branches-19?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Conditional Branches - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-conditional-branches-19?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 Undoubtedly, you're looking at this snippet of code and wondering what `ng-template` is doing here.
@@ -997,7 +997,7 @@ class FileListComponent {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Rendering Lists - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-lists-20?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Rendering Lists - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-rendering-lists-20?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 Inside our `ngFor`, `index` may not seem like it is being defined; however, Angular declares it whenever you attempt to utilize `ngFor` under the hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
@@ -1216,7 +1216,7 @@ interface Word {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Unkeyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Unkeyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-unkeyed-demo-21?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 ### Vue
@@ -1344,7 +1344,7 @@ class WordListComponent {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Keyed Demo - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-keyed-demo-22?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 Another difference to the other frameworks is that while React and Vue have no default `key` behavior, Angular has a default `trackBy` function if one is not provided. If no `trackBy` is provided, the default will simply do strict equality (`===`) between the old item in the array and the new one to check if the item is the same.
@@ -1730,7 +1730,7 @@ class FileListComponent {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Angular Using It Together - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-using-it-together-24?template=node&embed=1&file=src%2Fmain."></iframe>
+<iframe data-frame-title="Angular Using It Together - StackBlitz" src="pfp-code:./ffg-fundamentals-angular-using-it-together-24?template=node&embed=1&file=src%2Fmain.ts"></iframe>
 <!-- ::end:no-ebook -->
 
 ## Vue
