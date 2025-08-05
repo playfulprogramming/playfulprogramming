@@ -94,40 +94,34 @@
 	background-color: var(--filesystem_inner_background-color);
 }
 
-.fileTree > .fileTreeList::before {
-	display: none !important;
-}
-
-.fileTree > .fileTreeList {
-	list-style: none;
-	margin: 0 !important;
-	padding: 0 !important;
-}
-
 .fileTreeList {
 	list-style: none;
 	margin: 0 !important;
 	padding: 0 !important;
-	margin-left: calc(
-		var(--filesystem_item_inset_margin-end) +
-			var(--filesystem_item_inset_margin-start) +
-			var(--filesystem_item_inset_divider_width)
-	) !important;
 	position: relative;
+
+	.fileTreeList {
+		margin-left: calc(
+			var(--filesystem_item_inset_margin-end) +
+				var(--filesystem_item_inset_margin-start) +
+				var(--filesystem_item_inset_divider_width)
+		) !important;
+	}
+
+	.fileTreeList::before {
+		content: " ";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: calc(0px - var(--filesystem_item_inset_margin-end));
+		width: var(--filesystem_item_inset_divider_width);
+		background-color: var(--filesystem_item_inset_divider_color);
+		height: 100%;
+	}
 }
 
-.fileTreeList::before {
-	content: " ";
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: calc(0px - var(--filesystem_item_inset_margin-end));
-	width: var(--filesystem_item_inset_divider_width);
-	background-color: var(--filesystem_item_inset_divider_color);
-	height: 100%;
-}
-
-.directorySummary, .docs-file-tree-file-container {
+.directorySummary,
+.docs-file-tree-file-container {
 	display: flex;
 	align-items: center;
 }
@@ -146,9 +140,7 @@
 	font-weight: inherit !important;
 }
 
-.directoryDetails[open]
-	> .directorySummary
-	> .directoryNameAndIcon::before {
+.directoryDetails[open] > .directorySummary > .directoryNameAndIcon::before {
 	transform: rotate(90deg);
 	transform-origin: center;
 }
@@ -182,10 +174,16 @@
 
 .directoryNameAndIcon {
 	border-radius: var(--filesystem_item_folder_container_corner-radius);
+	border: var(--filesystem_item_file_highlight_border_width) solid transparent;
 }
 
 .fileNameAndIcon {
 	border-radius: var(--filesystem_item_file_container_corner-radius);
+	border: var(--filesystem_item_file_highlight_border_width) solid transparent;
+}
+
+.fileContainer {
+	all: unset;
 }
 
 .fileIcon,
@@ -214,13 +212,13 @@
 	fill: var(--filesystem_item_folder_icon-folder_color);
 }
 
-.fileNameAndIcon[data-highlighted=true] {
+.fileNameAndIcon[data-highlighted="true"] {
 	background-color: var(--filesystem_item_file_highlight_background-color);
 	border: var(--filesystem_item_file_highlight_border_width) solid
 		var(--filesystem_item_file_highlight_border_color);
 }
 
-.directoryNameAndIcon[data-highlighted=true] {
+.directoryNameAndIcon[data-highlighted="true"] {
 	background-color: var(--filesystem_item_folder_highlight_background-color);
 	border: var(--filesystem_item_file_highlight_border_width) solid
 		var(--filesystem_item_folder_highlight_border_color);
@@ -236,13 +234,23 @@
 	}
 }
 
-.directorySummary:hover
-	.directoryNameAndIcon {
+.fileContainer:focus-visible {
+	outline: none;
+
+	& > .fileNameAndIcon {
+		background-color: var(--filesystem_item_folder_focus-background_color);
+		outline: var(--filesystem_item_folder_focus-outline_width) solid
+			var(--filesystem_item_folder_focus-outline_color);
+	}
+}
+
+.directorySummary:hover .directoryNameAndIcon,
+.fileContainer:hover .fileNameAndIcon {
 	background-color: var(--filesystem_item_folder_container_color_hovered);
 }
 
-.directorySummary:active
-	.directoryNameAndIcon {
+.directorySummary:active .directoryNameAndIcon,
+.fileContainer:active .fileNameAndIcon {
 	background-color: var(--filesystem_item_folder_container_color_pressed);
 }
 
@@ -250,6 +258,7 @@
 	width: 1px;
 	flex-grow: 1;
 	margin: 0;
-	padding: var(--filesystem_item_container_padding-vertical) var(--filesystem_item_annotation_padding-horizontal);
+	padding: var(--filesystem_item_container_padding-vertical)
+		var(--filesystem_item_annotation_padding-horizontal);
 	color: var(--filesystem_item_annotation_label_color);
 }

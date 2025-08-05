@@ -1,13 +1,6 @@
 <!-- TextInput.vue -->
 <script setup>
-import { computed } from "vue";
-import { v4 as uuidv4 } from "uuid";
-
 const props = defineProps(["label", "type", "id", "error"]);
-
-const uuid = uuidv4();
-
-const realId = computed(() => props.id || uuid);
 </script>
 
 <template>
@@ -18,9 +11,9 @@ const realId = computed(() => props.id || uuid);
 		:id="props.id"
 		:type="props.type"
 		:aria-invalid="!!props.error"
-		:aria-errormessage="realId + '-error'"
+		:aria-errormessage="props.id + '-error'"
 	/>
-	<p class="errormessage" :id="realId + '-error'">{{ props.error }}</p>
+	<p class="errormessage" :id="props.id + '-error'">{{ props.error }}</p>
 </template>
 
 <style scoped>
