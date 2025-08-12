@@ -2,7 +2,7 @@
 {
     title: "Monads explained in JavaScript",
     description: 'You may have heard of a "monad" in programming spheres, especially in regards to functional programming terminology. So what on earth even IS a monad?',
-    published: '2026-01-01T10:12:03.284Z',
+    published: '2025-08-11T10:12:03.284Z',
     tags: ['javascript', 'computer science'],
     license: 'cc-by-4'
 }
