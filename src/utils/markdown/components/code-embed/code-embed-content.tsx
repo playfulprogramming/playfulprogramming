@@ -41,16 +41,26 @@ async function codeToHtml(code: string, lang: string): Promise<string> {
 }
 
 export function CodeEmbedContent(props: CodeEmbedContentProps) {
-	const [codeHtml, setCodeHtml] = useState("");
+	const [codeHtml, setCodeHtml] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
-		setCodeHtml(`<pre class="shiki shiki-themes github-light github-dark"><code>${props.code}</code></pre>`);
+		setCodeHtml(undefined);
 		if (props.code.length < 10_000) {
-			codeToHtml(props.code, props.lang).then(setCodeHtml);
+			codeToHtml(props.code, props.lang).then(html => setCodeHtml(html));
 		}
 	}, [props.code, props.lang]);
 
-	return (
-		<div dangerouslySetInnerHTML={{ __html: codeHtml }}></div>
-	);
+	if (codeHtml) {
+		return (
+			<div dangerouslySetInnerHTML={{ __html: codeHtml }}></div>
+		);
+	} else {
+		return (
+			<div>
+				<pre class="shiki">
+					<code>{props.code}</code>
+				</pre>
+			</div>
+		);
+	}
 }
