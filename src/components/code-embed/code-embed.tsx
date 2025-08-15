@@ -96,7 +96,7 @@ export function AddressBar(props: AddressBarProps) {
 	);
 }
 
-export interface CodeContainerProps {
+export interface CodeContainerProps extends PropsWithChildren {
 	file?: string;
 	onFileChange(file: string): void;
 	entries: Array<FileEntry>;
@@ -105,12 +105,6 @@ export interface CodeContainerProps {
 export function CodeContainer(props: CodeContainerProps) {
 	const file = useMemo(() => {
 		return props.file ?? props.entries.at(0)?.name ?? "";
-	}, [props.file, props.entries]);
-
-	const codeHtml = useMemo(() => {
-		return (
-			props.entries.find((entry) => entry.name === props.file)?.codeHtml ?? ""
-		);
 	}, [props.file, props.entries]);
 
 	return (
@@ -122,10 +116,9 @@ export function CodeContainer(props: CodeContainerProps) {
 					onFileChange={props.onFileChange}
 				/>
 			</div>
-			<div
-				class={style.content__code__snippet}
-				dangerouslySetInnerHTML={{ __html: codeHtml }}
-			/>
+			<div class={style.content__code__snippet}>
+				{props.children}
+			</div>
 		</div>
 	);
 }

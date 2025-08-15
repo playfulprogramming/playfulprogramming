@@ -10,9 +10,6 @@ import {
 	PlayfulRoot,
 } from "../components";
 import { visit } from "unist-util-visit";
-import { Element } from "hast";
-import { runShiki } from "utils/markdown/shiki/shiki-pool";
-import { toHtml } from "hast-util-to-html";
 import { FileEntry } from "components/code-embed/types";
 
 /**
@@ -68,35 +65,6 @@ export const rehypeCodeEmbed: Plugin<[], PlayfulRoot> = () => {
 	};
 };
 
-async function createCodeHtml(file: string): Promise<string> {
-	const fileContent = await fs.readFile(file, "utf-8");
-	const element: Element = {
-		type: "element",
-		tagName: "pre",
-		properties: {},
-		children: [
-			{
-				type: "element",
-				tagName: "code",
-				properties: {
-					className: [`language-${path.extname(file).substring(1)}`],
-				},
-				children: [
-					{
-						type: "text",
-						value: fileContent,
-					},
-				],
-			},
-		],
-	};
-
-	const shikiElement = await runShiki(element);
-	const shikiHtml = toHtml(shikiElement);
-
-	return shikiHtml;
-}
-
 export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 	const selectedFiles = props.attributes.file.split(",");
 	const post = props.attributes.post;
@@ -114,23 +82,12 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 		if (file.isFile()) {
 			const parent = path.relative(projectDir, file.parentPath);
 			const name = path.join(parent, file.name);
-
-			const codeHtml = await createCodeHtml(path.join(projectDir, name)).catch(
-				(e) => {
-					logError(
-						props.vfile,
-						props.node,
-						`Cannot create code snippet for '${name}' in ${project}.`,
-						e,
-					);
-					return "";
-				},
-			);
+			const code = await fs.readFile(path.join(projectDir, name), "utf-8");
 
 			files.push({
 				name: path.join(parent, file.name),
 				filetype: path.extname(file.name).substring(1),
-				codeHtml,
+				code,
 			});
 		}
 	}
