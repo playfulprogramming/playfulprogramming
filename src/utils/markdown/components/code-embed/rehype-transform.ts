@@ -11,6 +11,7 @@ import {
 } from "../components";
 import { visit } from "unist-util-visit";
 import { FileEntry } from "components/code-embed/types";
+import { codeToHtml } from "./code-embed-shiki";
 
 /**
  * Transforms pfp-code iframes into a "code-embed" component
@@ -102,12 +103,19 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 		}
 	}
 
+	const file = selectedFiles.at(0);
+	const fileEntry = files.find((entry) => entry.name == file);
+	const fileHtml = fileEntry
+		? await codeToHtml(fileEntry.code, fileEntry.filetype)
+		: undefined;
+
 	return [
 		createComponent("CodeEmbed", {
 			projectId: project,
 			projectZipUrl: `/generated/projects/${post}_${project}.zip`,
 			title: props.attributes.title,
-			file: selectedFiles.at(0),
+			file,
+			fileHtml,
 			files,
 			editUrl,
 		}),

@@ -42,6 +42,7 @@ export interface CodeEmbedProps {
 	projectZipUrl: string;
 	title: string;
 	file?: string;
+	fileHtml?: string;
 	files: Array<FileEntry>;
 	editUrl?: string;
 }
@@ -92,7 +93,7 @@ export function CodeEmbed(props: CodeEmbedProps) {
 	return (
 		<Container title={props.title} editUrl={props.editUrl}>
 			<CodeContainer entries={props.files} file={selectedFile} onFileChange={setSelectedFile}>
-				{selectedFileContent ? <CodeEmbedContent code={selectedFileContent.code} lang={selectedFileContent.filetype} /> : ""}
+				{selectedFileContent ? <CodeEmbedContent code={selectedFileContent.code} lang={selectedFileContent.filetype} codeHtml={selectedFile == props.file ? props.fileHtml : undefined} /> : ""}
 			</CodeContainer>
 			<PreviewContainer>
 				<AddressBar
