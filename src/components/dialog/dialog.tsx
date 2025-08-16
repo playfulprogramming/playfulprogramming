@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "components/types";
 import { HTMLAttributes } from "preact/compat";
 import { useRef, useEffect, useCallback } from "preact/hooks";
+import style from "./dialog.module.scss";
 
 type DialogProps = PropsWithChildren<{
 	open: boolean;
@@ -57,7 +58,7 @@ export function Dialog({
 		<dialog
 			onClose={handleClose}
 			onClick={handleClick}
-			class={dialogClass}
+			class={`${style.dialog} ${dialogClass ?? ""}`}
 			ref={dialogRef}
 			{...props}
 		>
