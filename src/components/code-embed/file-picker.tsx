@@ -39,7 +39,7 @@ function buildFileItems(
 		let fileArray: typeof files = files;
 		for (const part of parts.slice(0, -1)) {
 			if (part) {
-				let existing = files.find((dir) => dir.name == part) as DirectoryProps;
+				let existing = fileArray.find((dir) => dir.name == part) as DirectoryProps;
 				if (!existing) {
 					existing = {
 						name: part,
