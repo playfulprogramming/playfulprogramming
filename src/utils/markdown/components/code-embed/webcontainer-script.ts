@@ -125,7 +125,7 @@ async function runEmbedInternal(projectId: string, projectZipUrl: string) {
 			new TextDecoder().decode(contents["package.json"]),
 		);
 		script =
-			["start", "dev", "watch", "preview", "server", "serve"].find(
+			["dev", "watch", "preview", "start", "server", "serve"].find(
 				(name) => name in packageJson.scripts,
 			) ?? script;
 	}
