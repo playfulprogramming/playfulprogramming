@@ -25,6 +25,7 @@
 		"start": "astro dev",
 		"build": "astro build",
 		"build:debug": "env-cmd -f ./src/environments/debug.env astro build",
+		"build:dev": "env-cmd -f ./src/environments/dev.env astro build",
 		"build-beta": "env-cmd -f ./src/environments/beta.env pnpm run build",
 		"preview": "astro preview",
 		"format": "prettier -w . --cache --plugin-search-dir=.",
