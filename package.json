@@ -22,11 +22,12 @@
 	"scripts": {
 		"debug": "env-cmd -f ./src/environments/debug.env astro dev",
 		"dev": "env-cmd -f ./src/environments/dev.env astro dev",
+		"dev:local": "env-cmd -f ./src/environments/local.env astro dev",
 		"start": "astro dev",
 		"build": "astro build",
 		"build:debug": "env-cmd -f ./src/environments/debug.env astro build",
-		"build:dev": "env-cmd -f ./src/environments/dev.env astro build",
 		"build-beta": "env-cmd -f ./src/environments/beta.env pnpm run build",
+		"build:local": "env-cmd -f ./src/environments/local.env astro build",
 		"preview": "astro preview",
 		"format": "prettier -w . --cache --plugin-search-dir=.",
 		"lint": "eslint \"src/**/*.{js,ts,astro}\" \"*.{js,ts}\"",
