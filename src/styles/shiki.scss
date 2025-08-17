@@ -78,10 +78,6 @@ pre code .line.highlight::before {
 	color: var(--foreground_emphasis-medium);
 }
 
-pre.shiki {
-	overflow-x: auto;
-}
-
 pre.shiki .line {
 	// must be the same value as used for line-height
 	min-height: 1.7em;

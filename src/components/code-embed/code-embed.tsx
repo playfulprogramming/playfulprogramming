@@ -93,6 +93,7 @@ export function AddressBar(props: AddressBarProps) {
 				/>
 			</label>
 			<IconOnlyButton
+				tag="button"
 				variant="primary"
 				aria-label="Reload"
 				onClick={props.onReload}
@@ -140,6 +141,7 @@ export function PreviewPlaceholder(props: PreviewPlaceholderProps) {
 	return (
 		<div class={style.preview}>
 			<Button
+				tag="button"
 				class={style.preview__button}
 				variant="primary-emphasized"
 				leftIcon={<RawSvg icon={PlayIcon} />}
