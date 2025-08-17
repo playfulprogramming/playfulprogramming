@@ -4,10 +4,19 @@ import {
 	File,
 	FileListList,
 } from "components/file-list/file-list";
-import { useCallback, useMemo, useRef, useState } from "preact/hooks";
+import {
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "preact/hooks";
 import { FileEntry } from "./types";
 import { Dialog } from "components/dialog/dialog";
 import style from "./file-picker.module.scss";
+import { IconOnlyButton } from "components/button/button";
+import CloseIcon from "src/icons/close.svg?raw";
+import { RawSvg } from "components/image/raw-svg";
 
 interface FilePickerProps {
 	entries: Array<FileEntry>;
@@ -39,7 +48,9 @@ function buildFileItems(
 		let fileArray: typeof files = files;
 		for (const part of parts.slice(0, -1)) {
 			if (part) {
-				let existing = fileArray.find((dir) => dir.name == part) as DirectoryProps;
+				let existing = fileArray.find(
+					(dir) => dir.name == part,
+				) as DirectoryProps;
 				if (!existing) {
 					existing = {
 						name: part,
@@ -92,16 +103,36 @@ export function FilePicker(props: FilePickerProps) {
 	}, [props.entries, props.file, handleFileChange]);
 
 	const fileRef = useRef<HTMLDivElement>(null);
-	const [position, setPosition] = useState({ x: 0, y: 0, width: 0 });
-	const handleOpenDialog = useCallback(() => {
-		const fileRect = fileRef.current!.parentElement!.getBoundingClientRect();
+	const [position, setPosition] = useState({
+		left: 0,
+		top: 0,
+		width: 0,
+		height: 0,
+	});
+	function handleResize() {
+		const fileRect = fileRef.current?.parentElement?.getBoundingClientRect();
+		if (!fileRect) return;
+		const height = Math.min(400, window.innerHeight * 0.5);
 		setPosition({
-			x: fileRect.left,
-			y: fileRect.top,
+			left: Math.max(
+				0,
+				Math.min(fileRect.left, window.innerWidth - fileRect.width),
+			),
+			top: Math.max(0, Math.min(fileRect.top, window.innerHeight - height)),
 			width: fileRect.width,
+			height,
 		});
+	}
+
+	const handleOpenDialog = useCallback(() => {
+		handleResize();
 		setOpen(true);
 	}, []);
+
+	useEffect(() => {
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	});
 
 	return (
 		<>
@@ -118,9 +149,23 @@ export function FilePicker(props: FilePickerProps) {
 				open={open}
 				onClose={() => setOpen(false)}
 				dialogClass={style.dialog}
-				style={{ top: position.y, left: position.x, width: position.width }}
+				style={Object.fromEntries(
+					Object.entries(position).map(([key, value]) => [
+						`--file-picker-${key}`,
+						`${Math.round(value)}px`,
+					]),
+				)}
 			>
-				<h1 class={`${style.title} text-style-headline-5`}>Files</h1>
+				<div class={style.header}>
+					<h1 class={`${style.title} text-style-headline-5`}>Files</h1>
+					<IconOnlyButton
+						tag="button"
+						class={style.closeButton}
+						aria-label="Close"
+					>
+						<RawSvg icon={CloseIcon} />
+					</IconOnlyButton>
+				</div>
 				<FileListList items={listItems} />
 			</Dialog>
 		</>

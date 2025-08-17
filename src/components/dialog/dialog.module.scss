@@ -1,3 +1,7 @@
+body:has(.dialog[open]) {
+	overflow: hidden;
+}
+
 .dialog {
 	animation: fade-out 0.2s ease-out;
 
