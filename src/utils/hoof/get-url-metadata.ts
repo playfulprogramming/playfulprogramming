@@ -20,15 +20,12 @@ interface UrlMetadataResponse {
 export async function getUrlMetadata(
 	url: string,
 ): Promise<UrlMetadataResponse> {
-	// Normalize branch to 'main' for cache hits
-	const normalizedUrl = url.replace(/\/tree\/[^\/]+\//, "/tree/main/");
-
 	for (let retries = 0; retries < 10; retries++) {
 		await setTimeout(Math.pow(retries, 2) * 1000);
 
 		const req = await client
 			.POST("/tasks/url-metadata", {
-				body: { url: normalizedUrl },
+				body: { url },
 			})
 			.catch((e) => ({ exception: e }) as const);
 
