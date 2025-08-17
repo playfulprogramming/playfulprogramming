@@ -4,7 +4,7 @@ import RefreshIcon from "src/icons/refresh.svg?raw";
 import DotIcon from "src/icons/dot.svg?raw";
 import LoadingIcon from "src/icons/loading.svg?raw";
 import CheckmarkIcon from "src/icons/checkmark.svg?raw";
-import { JSXNode, PropsWithChildren } from "components/types";
+import { PropsWithChildren } from "components/types";
 import { RawSvg } from "components/image/raw-svg";
 import { Button, IconOnlyButton } from "components/button/button";
 import style from "./code-embed.module.scss";
@@ -12,11 +12,14 @@ import { useCallback, useId, useMemo } from "preact/hooks";
 import { ChangeEvent, TargetedEvent } from "preact/compat";
 import { FilePicker } from "./file-picker";
 import { FileEntry } from "./types";
+import { ComponentChildren } from "preact";
+import { ResizeablePanels } from "./resizeable-panels";
 
 interface ContainerProps {
 	title?: string;
 	editUrl?: string;
-	children: JSXNode;
+	codePanel: ComponentChildren;
+	previewPanel: ComponentChildren;
 }
 
 export function Container(props: ContainerProps) {
@@ -35,7 +38,11 @@ export function Container(props: ContainerProps) {
 					</Button>
 				) : null}
 			</div>
-			<div class={style.content}>{props.children}</div>
+			<ResizeablePanels
+				panelHeight={450}
+				leftPanel={props.codePanel}
+				rightPanel={props.previewPanel}
+			/>
 		</div>
 	);
 }
@@ -116,9 +123,7 @@ export function CodeContainer(props: CodeContainerProps) {
 					onFileChange={props.onFileChange}
 				/>
 			</div>
-			<div class={style.content__code__snippet}>
-				{props.children}
-			</div>
+			<div class={style.content__code__snippet}>{props.children}</div>
 		</div>
 	);
 }

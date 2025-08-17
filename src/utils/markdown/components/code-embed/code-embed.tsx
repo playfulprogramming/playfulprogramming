@@ -8,11 +8,7 @@ import {
 	PreviewFrame,
 	PreviewPlaceholder,
 } from "components/code-embed/code-embed";
-import {
-	useCallback,
-	useEffect,
-	useState,
-} from "preact/hooks";
+import { useCallback, useEffect, useState } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 import { $container, runEmbed } from "./webcontainer-script";
 import { FileEntry } from "components/code-embed/types";
@@ -88,36 +84,56 @@ export function CodeEmbed(props: CodeEmbedProps) {
 	}, []);
 
 	const [selectedFile, setSelectedFile] = useState(props.file);
-	const selectedFileContent = props.files.find(file => file.name == selectedFile);
+	const selectedFileContent = props.files.find(
+		(file) => file.name == selectedFile,
+	);
 
 	return (
-		<Container title={props.title} editUrl={props.editUrl}>
-			<CodeContainer entries={props.files} file={selectedFile} onFileChange={setSelectedFile}>
-				{selectedFileContent ? <CodeEmbedContent code={selectedFileContent.code} lang={selectedFileContent.filetype} codeHtml={selectedFile == props.file ? props.fileHtml : undefined} /> : ""}
-			</CodeContainer>
-			<PreviewContainer>
-				<AddressBar
-					value={addressUrl}
-					onChange={handleAddressChange}
-					onSubmit={handleAddressSubmit}
-					onReload={handleAddressReset}
-				/>
-				{isCurrent ? (
-					container.error ? (
-						<PreviewError />
-					) : container.processUrl && frameUrl != addressUrl ? (
-						<PreviewFrame src={frameUrl} onLoad={handleFrameLoad} />
-					) : (
-						<LoadingPlaceholder
-							loading={container.loading}
-							consoleProcess={container.consoleProcess}
-							consoleOutput={container.consoleOutput}
+		<Container
+			title={props.title}
+			editUrl={props.editUrl}
+			codePanel={
+				<CodeContainer
+					entries={props.files}
+					file={selectedFile}
+					onFileChange={setSelectedFile}
+				>
+					{selectedFileContent ? (
+						<CodeEmbedContent
+							code={selectedFileContent.code}
+							lang={selectedFileContent.filetype}
+							codeHtml={selectedFile == props.file ? props.fileHtml : undefined}
 						/>
-					)
-				) : (
-					<PreviewPlaceholder onClick={handleRunEmbed} />
-				)}
-			</PreviewContainer>
-		</Container>
+					) : (
+						""
+					)}
+				</CodeContainer>
+			}
+			previewPanel={
+				<PreviewContainer>
+					<AddressBar
+						value={addressUrl}
+						onChange={handleAddressChange}
+						onSubmit={handleAddressSubmit}
+						onReload={handleAddressReset}
+					/>
+					{isCurrent ? (
+						container.error ? (
+							<PreviewError />
+						) : container.processUrl && frameUrl != addressUrl ? (
+							<PreviewFrame src={frameUrl} onLoad={handleFrameLoad} />
+						) : (
+							<LoadingPlaceholder
+								loading={container.loading}
+								consoleProcess={container.consoleProcess}
+								consoleOutput={container.consoleOutput}
+							/>
+						)
+					) : (
+						<PreviewPlaceholder onClick={handleRunEmbed} />
+					)}
+				</PreviewContainer>
+			}
+		/>
 	);
 }
