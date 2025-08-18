@@ -82,6 +82,7 @@
 		overflow-y: auto;
 		border-radius: var(--code-embed_preview_border-radius);
 		flex-grow: 1;
+		outline-offset: 1px;
 	}
 
 	& pre {

@@ -26,6 +26,7 @@ export async function codeToHtml(code: string, lang: string): Promise<string> {
 			light: "github-light",
 			dark: "github-dark",
 		},
+		tabindex: false,
 		transformers,
 		lang,
 	});
