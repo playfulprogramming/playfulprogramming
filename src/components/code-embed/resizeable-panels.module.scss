@@ -1,7 +1,8 @@
 @use "src/tokens/index" as *;
 
 :root {
-	--resizeable-panel_separator_background: var(--surface_primary_emphasis-high);
+	--resizeable-panel_separator_background: var(--surface_primary_emphasis-medium);
+	--resizeable-panel_separator_background_hovered: var(--surface_primary_emphasis-high);
 	--resizeable-panel_separator_background_focused: var(--background_focus);
 	--resizeable-panel_separator_outline_color_focused: var(
 		--focus-outline_primary
@@ -83,7 +84,7 @@
 		background-color: var(--resizeable-panel_separator_background);
 		border: var(--resizeable-panel_separator_border_width_focused) solid
 			transparent;
-		@include transition(width height);
+		@include transition(width height background-color);
 
 		@include from($tabletSmall) {
 			height: var(--resizeable-panel_icon_height);
@@ -100,6 +101,7 @@
 
 .separator:hover .separator__icon,
 .container[data-mouse-down="true"] .separator__icon {
+	background-color: var(--resizeable-panel_separator_background_hovered);
 	@include until($tabletSmall) {
 		width: var(--resizeable-panel_icon_height_active);
 	}
