@@ -1,8 +1,8 @@
 ---
 {
     title: "What would Monads in JavaScript look like?",
-    description: "TODO: Write this",
-    published: '2026-01-01T10:12:03.284Z',
+    description: "Some languages support monads with first-class syntax support. But what does that even mean? How would we support monads, in, say, JavaScript?",
+    published: '2025-08-18T10:12:03.284Z',
     tags: ['javascript', 'computer science'],
     license: 'cc-by-4'
 }
@@ -306,4 +306,10 @@ In short, **`unwrap` is a shortcut for a `bind` operation**. It’s what makes i
 
 # Conclusion
 
-// TODO: Write this
+Hopefully this has been a helpful look at what first-class support for Monads *could* look like in JavaScript.
+
+Admittedly, there's a number of flaws in this API around composition with other JavaScript features, but it demonstrates what I set out to teach well enough.
+
+What are your favorite languages that have first-class monad support? [Let us know in our Discord server](https://discord.gg/FMcvc6T).
+
+Until next time!
