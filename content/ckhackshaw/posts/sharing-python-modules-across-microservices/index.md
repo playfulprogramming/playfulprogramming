@@ -21,19 +21,21 @@ In this tutorial, we’ll look at:
 
 By the end of this tutorial, you will have a working set up like this:
 
-```
-my-project/
-├── shared/ # Shared module managed with Poetry
-│ ├── pyproject.toml
-│ └── shared/
-│   └── main.py
-├── apps/
-│ ├── app-one/ # Flask app with pip + Docker
-│ │ └── main.py
-│ └── app-one/ # Flask app with pip + Docker
-│   └── main.py
-└── docker-compose.yml
-```
+<!-- ::start:filetree -->
+  - `my-project/`
+    - `shared/` Shared module managed with Poetry
+      - `pyproject.toml`
+      - `shared/`
+        - `main.py`
+    - `apps/`
+      - `app-one/` Flask app with pip + Docker
+        - `Dockerfile`
+        - `main.py`
+      - `app-two/` Flask app with pip + Docker
+        - `Dockerfile`
+        - `main.py`
+    - `docker-compose.yml`
+<!-- ::end:filetree -->
 
 ## Platform
 
