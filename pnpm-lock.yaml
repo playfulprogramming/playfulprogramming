@@ -21,9 +21,6 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.64.2
         version: 5.65.0(@preact/compat@18.3.1(preact@10.25.4))
-      katex:
-        specifier: ^0.16.22
-        version: 0.16.22
       medium-zoom:
         specifier: ^1.0.8
         version: 1.1.0
@@ -39,12 +36,6 @@ importers:
       react-stately:
         specifier: ^3.35.0
         version: 3.35.0(@preact/compat@18.3.1(preact@10.25.4))
-      rehype-katex:
-        specifier: ^7.0.1
-        version: 7.0.1
-      remark-math:
-        specifier: ^6.0.0
-        version: 6.0.0
       uuid:
         specifier: ^11.0.5
         version: 11.0.5
@@ -217,6 +208,9 @@ importers:
       junk:
         specifier: ^4.0.1
         version: 4.0.1
+      katex:
+        specifier: ^0.16.22
+        version: 0.16.22
       kleur:
         specifier: ^4.1.5
         version: 4.1.5
@@ -253,6 +247,9 @@ importers:
       react-dom:
         specifier: npm:@preact/compat@18.3.1
         version: '@preact/compat@18.3.1(preact@10.25.4)'
+      rehype-katex:
+        specifier: ^7.0.1
+        version: 7.0.1
       rehype-parse:
         specifier: 9.0.1
         version: 9.0.1
@@ -274,6 +271,9 @@ importers:
       remark-gfm:
         specifier: ^4.0.0
         version: 4.0.0
+      remark-math:
+        specifier: ^6.0.0
+        version: 6.0.0
       remark-parse:
         specifier: ^11.0.0
         version: 11.0.0
