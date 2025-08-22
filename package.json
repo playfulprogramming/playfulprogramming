@@ -143,11 +143,14 @@
 		"@oramacloud/client": "^2.1.4",
 		"@preact/signals": "^2.2.0",
 		"@tanstack/react-query": "^5.64.2",
+		"katex": "^0.16.22",
 		"medium-zoom": "^1.0.8",
 		"openapi-fetch": "^0.14.0",
 		"preact": "10.25.4",
 		"react-aria": "^3.37.0",
 		"react-stately": "^3.35.0",
+		"rehype-katex": "^7.0.1",
+		"remark-math": "^6.0.0",
 		"uuid": "^11.0.5"
 	},
 	"pnpm": {
