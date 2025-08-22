@@ -1,4 +1,5 @@
 @use "src/tokens/index" as *;
+@use "src/components/select/popup.module";
 
 :root {
 	--date-dropdown_padding-vertical: var(--spc-1x);
@@ -23,25 +24,10 @@
 	--date-dropdown_focus-outline_width: var(--border-width_focus);
 	--date-dropdown_focus-outline_color: var(--focus-outline_secondary);
 
-	--popup_min-width: 240px;
-
-	// POPUP STYLES ==> taken from src/components/select/select.module.scss
-	--popup_corner-radius: var(--corner-radius_m);
-	--popup_top_offset: var(--spc-2x);
-	--popup_padding: var(--spc-2x);
-	--popup_background-color: var(--background_primary);
-	--popup_item_background-color_selected: var(--surface_primary_emphasis-low);
-
-	--popup_inner_padding: var(--spc-2x);
-	--popup_item_label_padding: var(--spc-1x);
-	--popup_item_min-height: var(--min-target-size_m);
-	--popup_item_corner-radius: calc(
-		var(--popup_corner-radius) - var(--popup_padding)
-	);
-	--popup_item_label_color: var(--foreground_emphasis-high);
 	--popup_item_version_color: var(--foreground_disabled);
 	--popup_item_version_selected_color: var(--foreground_emphasis-medium);
-	--popup_item_background-color_hovered: var(--surface_primary_emphasis-medium);
+
+	--popup_min-width: 240px;
 }
 
 .button {
@@ -107,13 +93,6 @@
 
 .popover {
 	position: absolute;
-	list-style: none;
-	margin: 0;
-	border-radius: var(--popup_corner-radius);
-	padding: var(--popup_padding);
-	background: var(--popup_background-color);
-	box-shadow: var(--shadow_popup);
-	border: var(--border-width_s) solid var(--background_disabled);
 	min-width: var(--popup_min-width);
 
 	&.anchored {
@@ -123,28 +102,17 @@
 	}
 
 	.item {
-		// background: unset;
-		// border: unset;
-		// outline: none;
 		display: flex;
 		align-items: center;
-		// padding: var(--popup_inner_padding);
 		justify-content: space-between;
 		width: 100%;
 		text-decoration: none;
-		// border-radius: var(--popup_item_corner-radius);
-		// gap: var(--popup_item_gap);
-		align-items: center;
-		// min-height: var(--popup_item_min-height);
 		min-width: var(--popup_min-width);
 
 		font-weight: var(--weight_semibold);
 		font-size: var(--button_regular_font-size);
 		line-height: var(--button_regular_line-height);
-
-		&:hover {
-			// background-color: var(--popup_item_background-color_hovered);
-		}
+		outline: none;
 
 		.date {
 			color: var(--popup_item_label_color);

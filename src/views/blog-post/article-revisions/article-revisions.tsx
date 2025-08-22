@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import style from "./article-revisions.module.scss";
+import listStyle from "components/select/select.module.scss";
 import down from "src/icons/chevron_down.svg?raw";
 import { debounce } from "utils/debounce";
 import { PostInfo, PostVersion } from "types/PostInfo";
@@ -95,7 +96,7 @@ export function ArticleRevisionDropdown({
 			<ul
 				id="article-versions-list"
 				popover
-				class={`${style.popover} ${supportsAnchors ? style.anchored : ""}`}
+				class={`${style.popover} ${listStyle.optionsList} ${supportsAnchors ? style.anchored : ""}`}
 				style={
 					supportsAnchors
 						? ""
