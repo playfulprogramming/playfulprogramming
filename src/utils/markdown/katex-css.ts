@@ -4,7 +4,7 @@ import { visit } from "unist-util-visit";
 import { MarkdownVFile } from "./types";
 
 /**
- * Sets the `math` property on the post if any KaTeX nodes are found.
+ * Sets `isKatexMathUsed` on post data if any KaTeX nodes are found
  */
 export const setMathProperty: Plugin<[], Root> = () => {
 	return (tree, vfile) => {
