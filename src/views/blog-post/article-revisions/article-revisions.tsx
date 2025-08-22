@@ -122,6 +122,7 @@ export function ArticleRevisionDropdown({
 					</Option>
 				))}
 				<li class={style.changelog}>
+					<hr />
 					<a href={postHistory} target="_blank">
 						<span class="text-style-button-regular">View Changelog</span>
 					</a>

@@ -136,13 +136,26 @@
 	}
 
 	.changelog {
-		margin: 8px 8px 0;
+		margin: 8px 0 0;
+
+		hr {
+			margin: 0 8px;
+			margin-bottom: var(--popup_inner_padding);
+			background: var(--background_disabled);
+			height: 1px;
+			border: none;
+		}
+
 		a {
-			border-top: 1px solid var(--background_disabled);
 			display: flex;
-			padding: var(--popup_inner_padding) 0;
-			padding-top: calc(var(--popup_inner_padding) * 2);
+			padding: var(--popup_inner_padding) 8px;
 			letter-spacing: 0.14px;
+			border-radius: var(--popup_item_corner-radius);
+		}
+
+		a:focus-visible {
+			background-color: var(--popup_item_background-color_focused);
+			outline: var(--border-width_focus) solid var(--focus-outline_primary);
 		}
 	}
 }
