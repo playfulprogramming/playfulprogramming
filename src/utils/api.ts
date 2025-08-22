@@ -1,4 +1,10 @@
-import { CollectionInfo, PostInfo, RolesInfo, PersonInfo } from "types/index";
+import {
+	CollectionInfo,
+	PostInfo,
+	RolesInfo,
+	PersonInfo,
+	PostVersion,
+} from "types/index";
 import { Languages } from "types/index";
 import { roles, people, posts, collections } from "./data";
 import { isDefined } from "./is-defined";
@@ -63,6 +69,21 @@ export function getPostsByCollection(
 		.sort((postA, postB) =>
 			Number(postA.order) > Number(postB.order) ? 1 : -1,
 		);
+}
+
+export function getPostVersionsBySlug(
+	slug: string,
+	language: Languages,
+): PostVersion[] {
+	return [...posts.values()]
+		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
+		.filter((p) => p?.upToDateSlug === slug || p.slug === slug)
+		.sort(compareByPublished)
+		.map(({ locale, publishedMeta, slug, version }) => ({
+			href: locale === "en" ? `/posts/${slug}` : `/${locale}/posts/${slug}`,
+			publishedMeta,
+			version,
+		}));
 }
 
 export function getPostsByPerson(
