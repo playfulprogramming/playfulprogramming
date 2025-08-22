@@ -2,7 +2,7 @@
 {
   title: 'It takes 26 yottabytes of RAM to typecheck a union of Safe Integers',
   description: "Sometimes `number` is good enough",
-  published: '2025-08-21',
+  published: '2025-08-22',
   tags: ['typescript', 'javascript'],
   originalLink: 'https://jacobasper.com/blog/it-takes-26-yottabytes-of-ram-to-typecheck-a-union-of-safe-integers/'
 }
@@ -51,7 +51,7 @@ Graphics Card	AMD Radeon RX 6600 (8 GB)
 
 ## Pretty graphs
 
-### File Creation
+### File Creation {#file-creation}
 
 I ran a Rust program that builds a string in memory then writes to the file system
 
@@ -91,21 +91,23 @@ Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\tim
 
 ### Typechecking
 
-#### Time
+#### Time {#time}
 
 Time is defined as wall clock time
 
 ![TSC typechecking time vs file size](./tsc-typechecking-time-vs-file-size.svg)
+
 69 MB takes around 4.5 hours and 2 MB takes around 4 seconds to typecheck with TSC
 
 I ran the TSC benchmarks until my computer gave out. I ran a benchmark for a union with around 17 million items (140 MB) and my computer restarted after around 24 hours both times. This may have been a good stopping point anyways—I'm not so dedicated that I'll not use my computer for a week+ 😅
 
 ![TSGO typechecking time vs file size](./tsgo-typechecking-time-vs-file-size.svg)
+
 TSGO is far faster for this very niche use case. The same 69 MB file takes around 17 seconds—almost 1000x faster! CPU was no longer the limiting factor here. I ran out of RAM once I needed more than 64 GB[^swap]
 
 [^swap]: I know I could have used swap to get more RAM, but I'd expect this to be very slow and heavily skew the numbers. After a 3 minute typecheck, who knows how slow it would get
 
-#### RAM
+#### RAM {#ram}
 
 RAM is physical RAM used by the process
 
@@ -119,7 +121,7 @@ We previously calculated that [a file with a SafeInteger union would be 315 ZB](
 
 TSGO would take around $$2.18\times10^{19}$$ MB, or 22 yottabytes due to its trend line of $$67.2x$$—a huge improvement!
 
-#### CPU
+#### CPU {#cpu}
 
 ![Average CPU core usage by file size](./average-cpu-core-usage-by-file-size.svg)
 
