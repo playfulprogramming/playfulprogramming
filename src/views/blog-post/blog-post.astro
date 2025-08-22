@@ -38,18 +38,9 @@ const { postHtml, post, authors, collection, collectionPosts, license } =
 
 const postHeadings = postHtml.headingsWithIds;
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${post.path}/index.md`;
-
-console.log("math", post.math);
 ---
 
-<!-- {post.math && (<KatexCss/>)} -->{
-	post.math && (
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
-		/>
-	)
-}
+{postHtml.isKatexMathUsed && <KatexCss />}
 
 <script>
 	import mediumZoom from "medium-zoom";

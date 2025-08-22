@@ -30,7 +30,6 @@ export interface PostInfo extends RawPostInfo {
 	publishedMeta: string;
 	editedMeta?: string;
 	wordCount: number;
-	math: boolean;
 }
 
 export interface SearchPostInfo extends PostInfo {
