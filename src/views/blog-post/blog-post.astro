@@ -22,6 +22,7 @@ import { LargeButton } from "../../components/button/button";
 import styles from "./blog-post.module.scss";
 import { MarkdownHtml } from "utils/markdown";
 import Content from "utils/markdown/components/content.astro";
+import KatexCss from "./katex.astro";
 
 export interface Props {
 	post: PostInfo;
@@ -38,6 +39,8 @@ const { postHtml, post, authors, collection, collectionPosts, license } =
 const postHeadings = postHtml.headingsWithIds;
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${post.path}/index.md`;
 ---
+
+{postHtml.isKatexMathUsed && <KatexCss />}
 
 <script>
 	import mediumZoom from "medium-zoom";

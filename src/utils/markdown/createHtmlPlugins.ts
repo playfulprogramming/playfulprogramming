@@ -42,6 +42,9 @@ import {
 	transformVoid,
 } from "./components";
 import { rehypeRelativePaths } from "./rehype-relative-paths";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import { setMathProperty } from "./katex-css";
 
 const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
 
@@ -79,11 +82,14 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypeParseComponents)
 			// Do not add the tabs before the slug. We rely on some of the heading
 			// logic in order to do some of the subheading logic
-			.use(rehypeSlug as never, {
+			.use(rehypeSlug, {
 				maintainCase: true,
 				removeAccents: true,
 				enableCustomId: true,
 			})
+			.use(remarkMath)
+			.use(rehypeKatex)
+			.use(setMathProperty)
 			/**
 			 * Insert custom HTML generation code here
 			 */
