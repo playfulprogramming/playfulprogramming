@@ -44,6 +44,7 @@ import {
 import { rehypeRelativePaths } from "./rehype-relative-paths";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import { setMathProperty } from "./katex-css";
 
 const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
 
@@ -88,6 +89,7 @@ export function createHtmlPlugins(unified: Processor) {
 			})
 			.use(remarkMath)
 			.use(rehypeKatex)
+			.use(setMathProperty)
 			/**
 			 * Insert custom HTML generation code here
 			 */

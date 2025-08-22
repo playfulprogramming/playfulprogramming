@@ -22,6 +22,7 @@ import { LargeButton } from "../../components/button/button";
 import styles from "./blog-post.module.scss";
 import { MarkdownHtml } from "utils/markdown";
 import Content from "utils/markdown/components/content.astro";
+import KatexCss from "./katex.astro";
 
 export interface Props {
 	post: PostInfo;
@@ -38,8 +39,17 @@ const { postHtml, post, authors, collection, collectionPosts, license } =
 const postHeadings = postHtml.headingsWithIds;
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${post.path}/index.md`;
 
-import "katex/dist/katex.min.css";
+console.log("math", post.math);
 ---
+
+<!-- {post.math && (<KatexCss/>)} -->{
+	post.math && (
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
+		/>
+	)
+}
 
 <script>
 	import mediumZoom from "medium-zoom";
