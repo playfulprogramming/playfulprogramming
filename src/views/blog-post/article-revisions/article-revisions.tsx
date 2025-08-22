@@ -17,6 +17,9 @@ interface ArticleRevisionDropdownProps {
 	versions: PostVersion[];
 }
 
+const supportsAnchors =
+	import.meta.env.SSR || CSS.supports("top: anchor(bottom)");
+
 export function ArticleRevisionDropdown({
 	post,
 	versions,
@@ -41,14 +44,12 @@ export function ArticleRevisionDropdown({
 	// TODO: This should be a CSS defined value
 	const SPACING = 8;
 
-	const [supportsAnchors, setSupportsAnchors] = useState<boolean>(false);
 	const [popOverXY, setPopOverXY] = useState<PopOverLocation>({
 		x: 0,
 		y: 0,
 	});
 
 	useEffect(() => {
-		setSupportsAnchors(CSS.supports("top: anchor(bottom)"));
 		if (buttonRef.current) {
 			const buttonRect = buttonRef.current.getBoundingClientRect();
 			const x = buttonRect.left - 12;
