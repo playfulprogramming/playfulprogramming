@@ -1,5 +1,7 @@
 import { PropsWithChildren } from "components/types";
+import { HTMLAttributes } from "preact/compat";
 import { useRef, useEffect, useCallback } from "preact/hooks";
+import style from "./dialog.module.scss";
 
 type DialogProps = PropsWithChildren<{
 	open: boolean;
@@ -9,9 +11,16 @@ type DialogProps = PropsWithChildren<{
 	// returnValue is undefined if the dialog was closed from "outside"
 	// (either the `open` prop changing, or the backdrop was clicked)
 	onClose: (returnValue?: string) => void;
-}>;
+}> &
+	Omit<HTMLAttributes<HTMLDialogElement>, "onClose">;
 
-export function Dialog(props: DialogProps) {
+export function Dialog({
+	open,
+	dialogClass,
+	formClass,
+	onClose,
+	...props
+}: DialogProps) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
 
 	// We can't use the open attribute because otherwise the
@@ -20,39 +29,40 @@ export function Dialog(props: DialogProps) {
 	// This will sync `props.open` with the dialog modal state
 	useEffect(() => {
 		if (dialogRef.current) {
-			if (props.open && !dialogRef.current.open) {
+			if (open && !dialogRef.current.open) {
 				// reset the return value when re-opening the dialog
 				dialogRef.current.returnValue = "";
 				dialogRef.current.showModal();
 			}
 
-			if (!props.open && dialogRef.current.open) dialogRef.current.close();
+			if (!open && dialogRef.current.open) dialogRef.current.close();
 		}
-	}, [dialogRef.current, props.open]);
+	}, [dialogRef.current, open]);
 
 	// When the dialog backdrop is clicked (target == <dialog>),
 	// call `props.onClose(undefined)`
 	const handleClick = useCallback(
 		(e: Event) => {
-			if (e.target === dialogRef.current) props.onClose();
+			if (e.target === dialogRef.current) onClose();
 		},
-		[dialogRef.current, props.onClose],
+		[dialogRef.current, onClose],
 	);
 
 	// When the dialog close event fires, call `props.onClose(v)`
 	// with the dialog's return value.
 	const handleClose = useCallback(() => {
-		props.onClose(dialogRef.current?.returnValue);
-	}, [dialogRef.current, props.onClose]);
+		onClose(dialogRef.current?.returnValue);
+	}, [dialogRef.current, onClose]);
 
 	return (
 		<dialog
 			onClose={handleClose}
 			onClick={handleClick}
-			class={props.dialogClass}
+			class={`${style.dialog} ${dialogClass ?? ""}`}
 			ref={dialogRef}
+			{...props}
 		>
-			<form method="dialog" class={props.formClass}>
+			<form method="dialog" class={formClass}>
 				{props.children}
 			</form>
 		</dialog>
