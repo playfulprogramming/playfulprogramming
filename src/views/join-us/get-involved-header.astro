@@ -178,6 +178,7 @@ const people = getPeopleByLang("en").map((person) => {
 			image.height = height;
 			image.loading = "eager";
 			image.decoding = "async";
+			image.crossOrigin = "anonymous";
 			image.src = url;
 
 			images.set(url, image);
