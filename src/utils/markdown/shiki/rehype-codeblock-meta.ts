@@ -26,19 +26,17 @@ export const rehypeCodeblockMeta: Plugin<[], Root> = () => {
 				// Codeblock metadata looks like: ```tsx {1,3-5}
 				// - we want to grab the "{1,3-5}"
 
-				const codeblock = node.position
-					? String(vfile.value).slice(
-							node.position!.start.offset,
-							node.position!.end.offset,
-						)
-					: undefined;
+				const codeblock = String(vfile.value).slice(
+					node.position!.start.offset,
+					node.position!.end.offset,
+				);
 
 				// Don't try to use regex here, it breaks things.
-				const metaStart = codeblock?.indexOf(" ") ?? -1;
-				const metaEnd = codeblock?.indexOf("\n") ?? -1;
+				const metaStart = codeblock.indexOf(" ");
+				const metaEnd = codeblock.indexOf("\n");
 				if (metaStart === -1 || metaEnd === -1 || metaEnd < metaStart) return;
 
-				const meta = codeblock?.slice(metaStart + 1, metaEnd).trim();
+				const meta = codeblock.slice(metaStart + 1, metaEnd).trim();
 
 				if (meta) {
 					(node.data ??= {} as never).meta = meta;

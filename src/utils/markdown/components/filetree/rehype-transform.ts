@@ -24,7 +24,7 @@ import { visit } from "unist-util-visit";
 import JSON5 from "json5";
 import { RehypeFunctionComponent } from "../types";
 import { logError } from "utils/markdown/logger";
-import type { DirectoryProps, FileProps } from "components/file-list/file-list";
+import type { Directory, File } from "components/file-list/file-list";
 import { createComponent } from "../components";
 import { toHtml } from "hast-util-to-html";
 
@@ -42,10 +42,7 @@ const isNodeElement = (node: unknown): node is Element =>
 		node["type"] === "element") ??
 	false;
 
-function traverseUl(
-	listNode: Element,
-	listItems: Array<DirectoryProps | FileProps>,
-) {
+function traverseUl(listNode: Element, listItems: Array<Directory | File>) {
 	if (listNode.children.length === 0) return;
 
 	for (const listItem of listNode.children) {
@@ -133,7 +130,7 @@ function traverseUl(
 			continue;
 		}
 
-		const dirItems: Array<FileProps | DirectoryProps> = [];
+		const dirItems: Array<File | Directory> = [];
 		listItems.push({
 			isDirectory: true,
 			name: toString(firstChild as never),
@@ -166,7 +163,7 @@ export const transformFileTree: RehypeFunctionComponent = ({
 }) => {
 	if (children.length === 0) return;
 
-	const items: Array<DirectoryProps | FileProps> = [];
+	const items: Array<Directory | File> = [];
 
 	const list = children.find(
 		(node) => isNodeElement(node) && node.tagName === "ul",

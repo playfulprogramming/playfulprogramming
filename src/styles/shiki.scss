@@ -38,7 +38,7 @@ Code blocks structurally look like:
  */
 pre code {
 	counter-reset: step;
-	counter-increment: step var(--codeblock-line-start, 0);
+	counter-increment: step 0;
 
 	display: block;
 	position: relative;
@@ -76,6 +76,10 @@ pre code .line::before {
 
 pre code .line.highlight::before {
 	color: var(--foreground_emphasis-medium);
+}
+
+pre.shiki {
+	overflow-x: auto;
 }
 
 pre.shiki .line {

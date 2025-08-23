@@ -1,5 +1,4 @@
 import type * as hast from "hast";
-import CodeEmbed from "./code-embed/code-embed.astro";
 import FileList from "./filetree/file-list.astro";
 import InContentAd from "./in-content-ad/in-content-ad.astro";
 import LinkPreview from "./link-preview/link-preview.astro";
@@ -66,7 +65,6 @@ export function isHtmlNode(node: unknown): node is HtmlNode {
 }
 
 export const components = {
-	CodeEmbed,
 	FileList,
 	InContentAd,
 	LinkPreview,

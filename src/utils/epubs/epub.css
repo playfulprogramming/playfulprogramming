@@ -16,7 +16,7 @@ pre {
 */
 code {
 	counter-reset: step;
-	counter-increment: step var(--codeblock-line-start, 0);
+	counter-increment: step 0;
 }
 
 code .line::before {
