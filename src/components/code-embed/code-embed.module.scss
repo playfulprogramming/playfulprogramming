@@ -46,6 +46,7 @@
 	border-radius: var(--code-embed_border-radius);
 	padding: var(--code-embed_padding);
 	margin: var(--site-spacing) 0;
+	overflow: hidden;
 }
 
 .title {
