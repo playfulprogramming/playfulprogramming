@@ -83,7 +83,7 @@ To start migrating a Next.js layout file from Next.js to Astro, you'll:
 
     In addition to the `_document` file, the Next.js application has a `_app.js` file that imports global styling via a CSS import:
 
-    ```jsx {3}
+    ```jsx {2}
     // pages/_app.js
     import '../styles/index.css'
     
@@ -94,7 +94,7 @@ To start migrating a Next.js layout file from Next.js to Astro, you'll:
 
     This CSS import can be moved to the Astro Layout component:
 
-    ```astro {1-5}
+    ```astro {3}
     ---
     // src/layouts/Layout.astro
     import '../styles/index.css'
