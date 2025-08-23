@@ -1,4 +1,6 @@
-function env<K extends keyof NodeJS.ProcessEnv>(name: K): NodeJS.ProcessEnv[K] {
+export function env<K extends keyof NodeJS.ProcessEnv>(
+	name: K,
+): NodeJS.ProcessEnv[K] {
 	if (typeof process !== "undefined") {
 		return process.env[name];
 	} else {
