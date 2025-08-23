@@ -12,8 +12,6 @@ const options: RehypeShikiOptions = {
 		light: "github-light",
 		dark: "github-dark",
 	},
-	// code blocks use wrapping and not scroll overview, so they don't need to be focusable
-	tabindex: false,
 	transformers: [
 		// supports "[!code highlight]" transforms to add a .highlight class
 		transformerNotationHighlight({
