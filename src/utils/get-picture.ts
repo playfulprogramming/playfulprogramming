@@ -47,8 +47,8 @@ if (!isDev && !cloudinaryCloudName)
 	console.error("missing public variable CLOUDINARY_CLOUD_NAME");
 
 function getSource(src: string, width: number, getFormat: string) {
-	if (isDev) {
-		// If the dev server is running, we can use the /_image endpoint
+	if (isDev || !cloudinaryCloudName) {
+		// If the dev server is running or cloudinary isn't configured, use the /_image endpoint
 		return `/_image?${new URLSearchParams({
 			href: src,
 			w: String(width),
