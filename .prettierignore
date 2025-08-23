@@ -4,6 +4,5 @@ package-lock.json
 *.md
 *.min.js
 pnpm-lock.yaml
-content/crutchcorn/posts/*/*/src/vendor/**
-content/crutchcorn/posts/*/*/src/vendor_bundled/**
-content/crutchcorn/collections/framework-field-guide-ecosystem/posts/ffg-ecosystem-linters-formatters-type-checkers/ffg-ecosystem-prettier-6/src/index.js
+content/*/posts/**
+content/*/collections/**
