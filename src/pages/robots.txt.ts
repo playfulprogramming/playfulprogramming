@@ -32,6 +32,9 @@ export const GET = () => {
 		body = `
 # *
 User-agent: *
+
+# Embedded content
+Disallow: /content
 ${noIndexPosts.length ? omitPosts : ""}
 ${noIndexCollection.length ? omitCollections : ""}
 Allow: /

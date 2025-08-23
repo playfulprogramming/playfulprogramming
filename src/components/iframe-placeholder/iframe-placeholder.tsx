@@ -37,6 +37,7 @@ export function IFramePlaceholder({
 							alt=""
 							loading="lazy"
 							decoding="async"
+							crossorigin="anonymous"
 							data-nozoom="true"
 							data-dont-round="true"
 							onError={() => setPageIconError(true)}
