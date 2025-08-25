@@ -2,7 +2,7 @@
 {
   title: 'It takes 26 yottabytes of RAM to typecheck a union of Safe Integers',
   description: "Sometimes `number` is good enough",
-  published: '2025-08-22',
+  published: '2025-08-25',
   tags: ['typescript', 'javascript'],
   originalLink: 'https://jacobasper.com/blog/it-takes-26-yottabytes-of-ram-to-typecheck-a-union-of-safe-integers/'
 }
