@@ -22,6 +22,7 @@ export function Picture(props: PictureProps): Element {
 				alt={props.alt}
 				loading="lazy"
 				decoding="async"
+				crossorigin="anonymous"
 				data-zoom-src={props.zoomSrc}
 				data-nozoom={props.noZoom}
 				{...props.imgAttrs}

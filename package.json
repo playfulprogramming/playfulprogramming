@@ -22,10 +22,12 @@
 	"scripts": {
 		"debug": "env-cmd -f ./src/environments/debug.env astro dev",
 		"dev": "env-cmd -f ./src/environments/dev.env astro dev",
+		"dev:local": "env-cmd -f ./src/environments/local.env astro dev",
 		"start": "astro dev",
 		"build": "astro build",
 		"build:debug": "env-cmd -f ./src/environments/debug.env astro build",
 		"build-beta": "env-cmd -f ./src/environments/beta.env pnpm run build",
+		"build:local": "env-cmd -f ./src/environments/local.env astro build",
 		"preview": "astro preview",
 		"format": "prettier -w . --cache --plugin-search-dir=.",
 		"lint": "eslint \"src/**/*.{js,ts,astro}\" \"*.{js,ts}\"",
@@ -143,10 +145,14 @@
 		"*.{js,ts,astro,jsx}": "prettier --write"
 	},
 	"dependencies": {
+		"@nanostores/preact": "^1.0.0",
 		"@oramacloud/client": "^2.1.4",
 		"@preact/signals": "^2.2.0",
 		"@tanstack/react-query": "^5.64.2",
+		"@webcontainer/api": "^1.6.1",
+		"fflate": "^0.8.2",
 		"medium-zoom": "^1.0.8",
+		"nanostores": "^1.0.1",
 		"openapi-fetch": "^0.14.0",
 		"preact": "10.25.4",
 		"react-aria": "^3.37.0",
