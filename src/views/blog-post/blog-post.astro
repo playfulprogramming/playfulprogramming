@@ -9,7 +9,13 @@ import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import BlockingTabsSignalScript from "components/tabs/blocking-tabs-signal-script.astro";
 import { Icon } from "astro-icon/components";
 
-import { CollectionInfo, LicenseInfo, PostInfo, PersonInfo } from "types/index";
+import {
+	CollectionInfo,
+	LicenseInfo,
+	PostInfo,
+	PersonInfo,
+	PostVersion,
+} from "types/index";
 
 import { siteMetadata } from "constants/site-config";
 import "../../styles/shiki.scss";
@@ -22,22 +28,33 @@ import { LargeButton } from "../../components/button/button";
 import styles from "./blog-post.module.scss";
 import { MarkdownHtml } from "utils/markdown";
 import Content from "utils/markdown/components/content.astro";
+import KatexCss from "./katex.astro";
 
 export interface Props {
 	post: PostInfo;
+	versions: PostVersion[];
 	authors: PersonInfo[];
 	collection?: CollectionInfo;
 	collectionPosts?: PostInfo[];
 	license?: LicenseInfo;
 	postHtml: MarkdownHtml;
 }
-
-const { postHtml, post, authors, collection, collectionPosts, license } =
-	Astro.props;
+// destructure versions below
+const {
+	postHtml,
+	post,
+	versions,
+	authors,
+	collection,
+	collectionPosts,
+	license,
+} = Astro.props;
 
 const postHeadings = postHtml.headingsWithIds;
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${post.path}/index.md`;
 ---
+
+{postHtml.isKatexMathUsed && <KatexCss />}
 
 <script>
 	import mediumZoom from "medium-zoom";
@@ -64,7 +81,12 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 				/>
 			)
 		}
-		<PostTitleHeader slot="header" post={post} authors={authors}>
+		<PostTitleHeader
+			slot="header"
+			post={post}
+			versions={versions}
+			authors={authors}
+		>
 			{
 				post.collection ? (
 					<SeriesToC

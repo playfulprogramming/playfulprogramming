@@ -220,6 +220,12 @@ Pretend this is something very thought provoking[^1][^2]
 [Example Title ![](/share-banner.png)](https://example.com)
 # Heading [with a link](https://example.com) inside of it
 
+# Katex is cool $$3\times3$$
+
+I found a trend line of $$\left(x\log_{10} x \cdot 16\right) + 101$$ was reasonable. A file containing a union of size 1 is 101 bytes
+
+Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\times10^{17}$$ MB, or 315 ZB
+
 # Thanks for taking the trip down here
 
 <a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>

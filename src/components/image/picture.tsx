@@ -30,7 +30,12 @@ export const Picture = ({
 			{pictureResult.sources.map((attrs) => (
 				<source {...attrs} />
 			))}
-			<img alt={alt} {...pictureResult.image} {...imgAttrs} />
+			<img
+				crossorigin="anonymous"
+				alt={alt}
+				{...pictureResult.image}
+				{...imgAttrs}
+			/>
 		</picture>
 	);
 };

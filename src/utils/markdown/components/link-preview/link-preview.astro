@@ -21,6 +21,10 @@ const props = Astro.props;
 	href={props.href}
 	alt={props.alt}
 >
-	{props.picture && <img {...props.picture} alt="" data-nozoom />}
+	{
+		props.picture && (
+			<img {...props.picture} crossorigin="anonymous" alt="" data-nozoom />
+		)
+	}
 	{props.children && <Content content={props.children} />}
 </PreactLinkPreview>

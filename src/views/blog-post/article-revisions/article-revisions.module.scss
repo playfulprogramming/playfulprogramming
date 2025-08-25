@@ -1,0 +1,161 @@
+@use "src/tokens/index" as *;
+@use "src/components/select/popup.module";
+
+:root {
+	--date-dropdown_padding-vertical: var(--spc-1x);
+	--date-dropdown_padding-horizontal: var(--spc-2x);
+	--date-dropdown_gap: var(--spc-1x);
+	--date-dropdown_corner-radius: var(--corner-radius_s);
+
+	--date-dropdown_arrow-size: 1rem;
+
+	--date-dropdown_foreground-color: var(--secondary_on-variant);
+	--date-dropdown_tag-color: var(--secondary_default);
+	--date-dropdown_background-color: var(--background_secondary);
+	--date-dropdown_background-color_focused: var(--background_focus);
+	--date-dropdown_state_hovered: var(--surface_secondary_emphasis-low);
+	--date-dropdown_state_pressed: var(--surface_secondary_emphasis-high);
+
+	--date-dropdown_border-width: var(--border-width_s);
+	--date-dropdown_border-color: var(--secondary_variant);
+	--date-dropdown_border-color_hovered: var(--secondary);
+	--date-dropdown_border-color_pressed: var(--secondary);
+
+	--date-dropdown_focus-outline_width: var(--border-width_focus);
+	--date-dropdown_focus-outline_color: var(--focus-outline_secondary);
+
+	--popup_item_version_color: var(--foreground_disabled);
+	--popup_item_version_selected_color: var(--foreground_emphasis-medium);
+
+	--popup_min-width: 240px;
+}
+
+.button {
+	padding: var(--date-dropdown_padding-vertical)
+		var(--date-dropdown_padding-horizontal);
+	background-color: var(--date-dropdown_background-color);
+	border: var(--date-dropdown_border-width) solid
+		var(--date-dropdown_border-color);
+	border-radius: var(--date-dropdown_corner-radius);
+	display: flex;
+	gap: var(--date-dropdown_gap);
+	align-items: center;
+	font-family: var(--pfp-font-family);
+	font-weight: var(--weight_semibold);
+	font-size: var(--button_regular_font-size);
+	line-height: var(--button_regular_line-height);
+	@include transition(background-color border);
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--date-dropdown_state_hovered);
+		border-color: var(--date-dropdown_border-color_hovered);
+	}
+
+	&:focus {
+		outline: var(--date-dropdown_focus-outline_width) solid
+			var(--date-dropdown_focus-outline_color);
+		background-color: var(--date-dropdown_background-color_focused);
+
+		.down {
+			transform: rotate(180deg);
+		}
+	}
+
+	.date {
+		color: var(--date-dropdown_foreground-color);
+	}
+
+	.dot {
+		color: var(--date-dropdown_tag-color);
+	}
+
+	.version {
+		color: var(--date-dropdown_tag-color);
+	}
+
+	.down {
+		display: inline-block;
+		height: var(--date-dropdown_arrow-size);
+		width: var(--date-dropdown_arrow-size);
+		@include transition(transform);
+		transition-duration: 0.5s; // Override the duration for all properties
+		transition-property: transform;
+		svg {
+			color: var(--date-dropdown_foreground-color);
+			height: 100%;
+			width: 100%;
+			margin: unset;
+			padding: unset;
+		}
+	}
+}
+
+.popover {
+	position: absolute;
+	min-width: var(--popup_min-width);
+
+	&.anchored {
+		top: calc(anchor(bottom) + var(--popup_top_offset));
+		left: calc(anchor(start) - 12px);
+		position-visibility: anchors-visible;
+	}
+
+	.item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		text-decoration: none;
+		min-width: var(--popup_min-width);
+
+		font-weight: var(--weight_semibold);
+		font-size: var(--button_regular_font-size);
+		line-height: var(--button_regular_line-height);
+		outline: none;
+
+		.date {
+			color: var(--popup_item_label_color);
+			letter-spacing: 0.14px;
+		}
+
+		.version {
+			&.selected {
+				color: var(--popup_item_version_selected_color);
+			}
+			color: var(--popup_item_version_color);
+			letter-spacing: 0.14px;
+		}
+	}
+
+	.divider {
+		margin: var(--popup_inner_padding);
+		border: none;
+		height: var(--border-width_s);
+		background: var(--background_disabled);
+	}
+
+	.changelog {
+		margin: 8px 0 0;
+
+		hr {
+			margin: 0 8px;
+			margin-bottom: var(--popup_inner_padding);
+			background: var(--background_disabled);
+			height: 1px;
+			border: none;
+		}
+
+		a {
+			display: flex;
+			padding: var(--popup_inner_padding) 8px;
+			letter-spacing: 0.14px;
+			border-radius: var(--popup_item_corner-radius);
+		}
+
+		a:focus-visible {
+			background-color: var(--popup_item_background-color_focused);
+			outline: var(--border-width_focus) solid var(--focus-outline_primary);
+		}
+	}
+}

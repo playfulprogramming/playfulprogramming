@@ -1,0 +1,40 @@
+@use "src/tokens/index" as *;
+
+:root {
+    --code-embed_file-picker_background: var(--background_primary);
+    --code-embed_file-picker_corner-radius: var(--corner-radius_l);
+    --code-embed_file-picker_max-width: var(--max-width_s);
+}
+
+.dialog {
+    background: var(--code-embed_file-picker_background);
+    border: none;
+    border-radius: var(--code-embed_file-picker_corner-radius);
+    color: var(--foreground_emphasis-high);
+    max-width: var(--code-embed_file-picker_max-width);
+    width: calc(100% - var(--site-spacing)*2);
+
+    @include from($tabletSmall) {
+        margin: 0;
+        top: var(--file-picker-top);
+        left: var(--file-picker-left);
+        width: var(--file-picker-width);
+        height: var(--file-picker-height);
+    }
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: var(--spc-4x);
+}
+
+.title {
+    margin: 0 !important;
+    flex-grow: 1;
+}
+
+.closeButton {
+    flex-shrink: 0;
+}

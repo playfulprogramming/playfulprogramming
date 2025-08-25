@@ -1,0 +1,58 @@
+body:has(.dialog[open]) {
+	overflow: hidden;
+}
+
+.dialog {
+	animation: fade-out 0.2s ease-out;
+
+	&[open] {
+		display: flex;
+		animation: fade-in 0.2s ease-in;
+	}
+
+	&::backdrop {
+		animation: fade-in-backdrop 0.2s ease-in forwards;
+	}
+
+	&> form {
+		height: 100%;
+		width: 100%;
+	}
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+		transform: translateY(1rem);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fade-in-backdrop {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes fade-out {
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+		/* display needed on the closing animation to keep the popover
+	  visible until the animation ends */
+		display: block;
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateY(1rem);
+	}
+}

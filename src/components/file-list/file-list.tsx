@@ -8,87 +8,82 @@ const FolderIcon = `
 </svg>
 `;
 
-export interface File {
+export interface FileProps {
 	name: string;
 	commentHtml?: string;
 	filetype: string;
 	isDirectory: false;
 	isPlaceholder: boolean;
 	isHighlighted: boolean;
+	onClick?(): void;
+	autofocus?: boolean;
 }
 
-export interface Directory {
+export interface DirectoryProps {
 	name: string;
 	commentHtml?: string;
 	isDirectory: true;
-	items: Array<Directory | File>;
+	items: Array<DirectoryProps | FileProps>;
 	openByDefault: boolean;
 	isHighlighted: boolean;
 }
 
-const isDirectory = (item: Directory | File): item is Directory => {
-	return (item as Directory).isDirectory;
+const isDirectory = (item: DirectoryProps | FileProps): item is DirectoryProps => {
+	return (item as DirectoryProps).isDirectory;
 };
 
-interface FileProps {
-	item: File;
-}
-
-function File({ item }: FileProps) {
+export function File(props: FileProps) {
+	const Tag = props.onClick ? "button" : "div";
 	return (
-		<div class={style.fileContainer}>
+		<Tag class={style.fileContainer} onClick={props.onClick} autofocus={props.autofocus}>
 			<span
 				className={`${style.fileNameAndIcon} text-style-body-small`}
-				data-highlighted={item.isHighlighted}
+				data-highlighted={props.isHighlighted}
 			>
 				<span class={style.fileIcon}>
-					{item.isPlaceholder ? null : <RawSvg icon={getIcon(item.name).svg} aria-hidden />}
+					{props.isPlaceholder ? null : <RawSvg icon={getIcon(props.name).svg} aria-hidden />}
 				</span>
-				{item.name}
+				{props.name}
 			</span>
-			{item.commentHtml && item.commentHtml.length ? (
-				<span class={`${style.comment} text-style-body-small`} dangerouslySetInnerHTML={{ __html: item.commentHtml }} />
+			{props.commentHtml && props.commentHtml.length ? (
+				<span class={`${style.comment} text-style-body-small`} dangerouslySetInnerHTML={{ __html: props.commentHtml }} />
 			) : null}
-		</div>
+		</Tag>
 	);
 }
 
-interface DirectoryProps {
-	item: Directory;
-}
-
-function Directory({ item }: DirectoryProps) {
+function Directory(props: DirectoryProps) {
 	return (
-		<details open={item.openByDefault} class={style.directoryDetails}>
+		<details open={props.openByDefault} class={style.directoryDetails}>
 			<summary class={style.directorySummary}>
 				<span
 					className={`${style.directoryNameAndIcon} text-style-body-small-bold`}
-					data-highlighted={item.isHighlighted}
+					data-highlighted={props.isHighlighted}
 				>
 					<span class={style.directoryIcon} aria-label="Directory">
 						<RawSvg icon={FolderIcon} aria-hidden />
 					</span>
-					{item.name}
+					{props.name}
 				</span>
-				{item.commentHtml && item.commentHtml.length ? (
-					<span class={`${style.comment} text-style-body-small`} dangerouslySetInnerHTML={{ __html: item.commentHtml }} />
+				{props.commentHtml && props.commentHtml.length ? (
+					<span class={`${style.comment} text-style-body-small`} dangerouslySetInnerHTML={{ __html: props.commentHtml }} />
 				) : null}
 			</summary>
-			{FileListList({ items: item.items })}
+			{FileListList({ items: props.items })}
 		</details>
 	);
 }
 
 interface FileListProps {
-	items: Array<Directory | File>;
+	items: Array<DirectoryProps | FileProps>;
 }
 
-function FileListList({ items }: FileListProps) {
+export function FileListList({ items }: FileListProps) {
 	return (
 		<ul class={style.fileTreeList}>
 			{items.map((item) => (
 				<li>
-					{isDirectory(item) ? Directory({ item }) : File({ item })}
+					{isDirectory(item) ? Directory(item) : File(item)}
 				</li>
 			))}
 		</ul>

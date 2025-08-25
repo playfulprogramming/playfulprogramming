@@ -98,6 +98,7 @@ export const PostCardExpanded = ({
 			<div className={style.extendedPostImageContainer}>
 				<img
 					loading={imageLoading}
+					crossorigin="anonymous"
 					className={style.extendedPostImage}
 					src={post.banner}
 					alt=""
