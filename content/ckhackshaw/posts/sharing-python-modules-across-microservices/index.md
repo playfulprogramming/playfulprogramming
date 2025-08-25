@@ -2,7 +2,7 @@
 {
   title: "Sharing Code Across Python Microservices with Poetry, Pip, and Docker",
   description: "When working on multiple Python projects within a microservices architectured solution, it makes sense to reuse code.",
-  published: '2025-08-19',
+  published: '2025-08-25',
   tags: ["python"],
   license: 'cc-by-4'
 }
