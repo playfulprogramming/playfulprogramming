@@ -19,6 +19,9 @@
 		"url": "git+https://github.com/playfulprogramming/playfulprogramming.git"
 	},
 	"packageManager": "pnpm@9.4.0",
+	"engines": {
+		"node": "22.x"
+	},
 	"scripts": {
 		"debug": "env-cmd -f ./src/environments/debug.env astro dev",
 		"dev": "env-cmd -f ./src/environments/dev.env astro dev",
