@@ -28,6 +28,10 @@ export function getAllCollections(): CollectionInfo[] {
 	return [...collections.values()].flatMap((locales) => locales);
 }
 
+export function getAllPeople(): PersonInfo[] {
+	return [...people.values()].flatMap((locales) => locales);
+}
+
 export function getPersonById(
 	id: string,
 	language: Languages,
