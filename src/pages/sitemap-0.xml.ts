@@ -9,9 +9,12 @@ import dayjs from "dayjs";
 import { PostInfo } from "types/PostInfo";
 import { CollectionInfo } from "types/CollectionInfo";
 import { Languages } from "types/index";
-import * as About from "./[...locale]/about.astro";
 import { Readable } from "stream";
 import { siteUrl } from "constants/site-config";
+
+const About = (await import("./[...locale]/about.astro")) as unknown as {
+	getStaticPaths: () => Promise<Array<{ params: { locale?: Languages } }>>;
+};
 
 const sitemapDefaults: Pick<
 	SitemapItemLoose,
@@ -58,7 +61,7 @@ export const GET = async () => {
 	}
 
 	for (const post of api.getAllPosts()) {
-		if (post.noindex || post.originalLink) continue;
+		if (post.noindex) continue;
 
 		const links =
 			post.locales.length > 1
