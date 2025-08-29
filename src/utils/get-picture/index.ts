@@ -1,7 +1,8 @@
 import type { JSX } from "preact";
 import type { ImageMetadata } from "astro";
-import { siteUrl } from "../constants/site-config";
-import { BUILD_MODE, PUBLIC_CLOUDINARY_CLOUD_NAME } from "astro:env/server";
+import { siteUrl } from "../../constants/site-config";
+import { BUILD_MODE, PUBLIC_CLOUDINARY_CLOUD_NAME } from "astro:env/client";
+import { SUPPORTED_IMAGE_SIZES } from "./constants";
 
 export interface GetPictureSizes {
 	[size: number]: {
@@ -29,10 +30,6 @@ export interface GetPictureResult {
 	image: JSX.ImgHTMLAttributes;
 	sources: JSX.SourceHTMLAttributes[];
 }
-
-export const SUPPORTED_IMAGE_SIZES = [
-	24, 48, 72, 96, 160, 192, 480, 512, 896, 1080, 1200,
-];
 
 function getSupportedWidth(width: number) {
 	// Find the closest supported image size for a given width

@@ -1,4 +1,4 @@
-import { SITE_URL, VERCEL_URL, BUILD_MODE } from "astro:env/server";
+import { BUILD_MODE, SITE_URL, VERCEL_URL } from "astro:env/client";
 
 export const buildMode = BUILD_MODE;
 export const siteUrl = (() => {
@@ -11,7 +11,7 @@ export const siteUrl = (() => {
 			case "production":
 				return "https://playfulprogramming.com";
 			case "development":
-				return "http://localhost:3000";
+				return "http://localhost:4321";
 			default:
 				return "https://beta.playfulprogramming.com";
 		}
