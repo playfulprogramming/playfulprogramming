@@ -1,16 +1,8 @@
-export function env<K extends keyof NodeJS.ProcessEnv>(
-	name: K,
-): NodeJS.ProcessEnv[K] {
-	if (typeof process !== "undefined") {
-		return process.env[name];
-	} else {
-		return import.meta.env[name];
-	}
-}
+import { BUILD_MODE, SITE_URL, VERCEL_URL } from "astro:env/client";
 
-export const buildMode = env("BUILD_ENV") || "production";
+export const buildMode = BUILD_MODE;
 export const siteUrl = (() => {
-	let siteUrl = env("SITE_URL") || env("VERCEL_URL") || "";
+	let siteUrl = SITE_URL || VERCEL_URL || "";
 
 	if (siteUrl && !siteUrl.startsWith("http")) siteUrl = `https://${siteUrl}`;
 
@@ -19,7 +11,7 @@ export const siteUrl = (() => {
 			case "production":
 				return "https://playfulprogramming.com";
 			case "development":
-				return "http://localhost:3000";
+				return "http://localhost:4321";
 			default:
 				return "https://beta.playfulprogramming.com";
 		}
@@ -41,7 +33,3 @@ export const siteMetadata = {
 		"programming,development,mobile,web,game,playful,software engineering,javascript,angular,react,computer science",
 	twitterHandle: "@playful_program",
 };
-
-export const cloudinaryCloudName = env("PUBLIC_CLOUDINARY_CLOUD_NAME");
-
-export const hoofUrl = env("HOOF_URL") || "https://hoof.playfulprogramming.com";
