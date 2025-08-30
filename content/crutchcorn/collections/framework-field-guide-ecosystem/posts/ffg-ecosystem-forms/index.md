@@ -61,9 +61,113 @@ inputEl.value = "Hello, world!";
 
 <iframe data-frame-title="Uncontrolled Forms" src="pfp-code:./ffg-ecosystem-uncontrolled-16?template=node&embed=1&file=src%2Findex.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
+We can use this ability to store values inside a DOM node alongside a set of other APIs — namely [the `<form>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form) — to build out a form without ever duplicating the value in JavaScript:
 
+````html
+<form>
+  <p>What is your name?</p>
+  <label>
+    Name:
+    <input id="name" />
+  </label>
+  <div style="margin-top: 1em">
+	  <button type="submit">Submit</button>
+  </div>
+</form>
+<script>
+  const form = document.querySelector("form");
+
+  const nameInput = document.querySelector("#name");
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    alert(`Hello, ${nameInput.value}!`);
+  });
+</script>
+````
+
+<iframe data-frame-title="Uncontrolled Form Submit" src="pfp-code:./ffg-ecosystem-uncontrolled-form-submit-17?template=node&embed=1&file=src%2Findex.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+## Uncontrolled Form Validation
+
+But storing the values is only half of the battle: What happens when we want to validate our users' input against a set of rules?
+
+Maybe the user must agree to legal terms to sign up for your service. How can you reject the user when they forget to select the checkbox? 
+
+Well, using [the browser's `setCustomValidity` API ](https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity) and [the `input` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/input_event) we can do just that:
+
+```html
+<form>
+  <p>Pretend that there is some legalese here.</p>
+  <label>
+    <span>Agree to the terms?</span>
+    <input id="agree" type="checkbox" />
+  </label>
+  <div style="margin-top: 1em">
+    <button type="submit">Submit</button>
+  </div>
+</form>
+<script>
+  const form = document.querySelector("form");
+  const agreeCheckbox = document.querySelector("#agree");
+
+  // Without this, the user will never be able to submit after a failed submission
+  agreeCheckbox.addEventListener('input', () => {
+    agreeCheckbox.setCustomValidity("");
+  })
+
+  form.addEventListener("submit", (event) => {
+    // Prevent the form from resetting the page
+    event.preventDefault();
+    if (!agreeCheckbox.checked) {
+      agreeCheckbox.setCustomValidity("You must agree to the terms.");
+      agreeCheckbox.reportValidity();
+      event.preventDefault();
+    } else {
+      agreeCheckbox.setCustomValidity("");
+      alert("You have successfully signed up for our service, whatever that is")
+    }
+  });
+</script>
+```
+
+<iframe data-frame-title="Uncontrolled Form Submit" src="pfp-code:./ffg-ecosystem-uncontrolled-validation-18?template=node&embed=1&file=src%2Findex.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+Now, when the user tries to submit the form without accepting, they'll be greeted with the following:
+
+![TODO: Write alt](./agree_to_terms.png)
+
+## Uncontrolled Frameworks
+
+
+
+Because this feature is built into the DOM with the ability to interface with it via JavaScript APIs, we can use these built-in APIs in our frameworks as well:
+
+<!-- ::start:tabs -->
+
+## React
+
+// TODO: Write
+
+## Angular
+
+// TODO: Write
+
+## Vue
+
+// TODO: Write
+
+
+
+<!-- ::end:tabs -->
+
+
+
+## Uncontrolled Downsides
 
 // TODO: Talk about how the DOM has its own state, but leads to a number of downsides
+
+// TODO: Talk about how validation usually has more stringent UX/UI requirements than the browser provides
 
 
 
