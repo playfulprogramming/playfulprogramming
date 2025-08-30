@@ -2,7 +2,7 @@
 {
     title: "Forms",
     description: "Forms are a core part of any application. Even when a single input, it can be tricky to manage where the state should live. Let's learn how to do so with React, Angular, and Vue.",
-    published: '2025-06-01T22:12:03.284Z',
+    published: '2026-01-01T22:12:03.284Z',
     tags: ["react", "angular", "vue", "webdev"],
     order: 4
 }
@@ -38,9 +38,34 @@ What's more, even in less obvious "form wrapper" style pages, you'll always need
 
 To do this, React, Angular, and Vue all have a few tools at their disposal.
 
-We've been working on a files app up to this point in a fairly simplistic manner of getting files listed for the user. However, many modern file apps (such as Dropbox and Google Drive) allow you to share files with others.
+# Uncontrolled Bindings
 
-Let's create a form that the user can fill out to add a new user to their existing files.
+While this book focuses on frontend frameworks, let's begin by covering the basics: What the browser supports by default without any additional tooling.
+
+See, the browser is able to store data inside a DOM node via properties:
+
+```javascript
+const soundEl = document.createElement('audio');
+// Set the initial time for the audio file to be 100 seconds into the file
+soundEl.currentTime = 100;
+```
+
+> Properties are not attributes. While attributes are strings stored in the DOM's markup, properties are in-memory values attributed to a given DOM node and can be non-string values.
+
+And like most parts of our UI, a form is a representation of data we want to visualize to our users:
+
+```javascript
+const inputEl = document.createElement('input');
+inputEl.value = "Hello, world!";
+```
+
+
+
+
+
+// TODO: Talk about how the DOM has its own state, but leads to a number of downsides
+
+
 
 # One-way Form Bindings
 
@@ -253,6 +278,8 @@ There's a better way.
 ## Validation Types
 
 // TODO: Talk about onChange vs onBlur vs onMount, et al
+
+// TODO: Talk about onDynamic
 
 ## Field Validation
 
