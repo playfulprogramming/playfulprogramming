@@ -32,7 +32,6 @@
 			if (!agreeCheckbox.checked) {
 				agreeCheckbox.setCustomValidity("You must agree to the terms.");
 				agreeCheckbox.reportValidity();
-				event.preventDefault();
 			} else {
 				agreeCheckbox.setCustomValidity("");
 				alert("You have successfully signed up for our service, whatever that is")

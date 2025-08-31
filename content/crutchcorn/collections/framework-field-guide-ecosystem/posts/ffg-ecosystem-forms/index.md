@@ -122,7 +122,6 @@ Well, using [the browser's `setCustomValidity` API ](https://developer.mozilla.o
     if (!agreeCheckbox.checked) {
       agreeCheckbox.setCustomValidity("You must agree to the terms.");
       agreeCheckbox.reportValidity();
-      event.preventDefault();
     } else {
       agreeCheckbox.setCustomValidity("");
       alert("You have successfully signed up for our service, whatever that is")
@@ -139,29 +138,131 @@ Now, when the user tries to submit the form without accepting, they'll be greete
 
 ## Uncontrolled Frameworks
 
-
-
-Because this feature is built into the DOM with the ability to interface with it via JavaScript APIs, we can use these built-in APIs in our frameworks as well:
+These features we've been using are built into the browser. Because of this, we can use these built-in APIs in our frameworks as well:
 
 <!-- ::start:tabs -->
 
 ## React
 
-// TODO: Write
+```jsx
+function App() {
+	const agreeCheckbox = useRef();
+
+	// This must be an `onChange` event, which differs from vanilla JS and other frameworks
+	const onAgreeChange = () => {
+		agreeCheckbox.current.setCustomValidity("");
+	}
+
+	const submit = (event) => {
+		event.preventDefault();
+		if (!agreeCheckbox.current.checked) {
+			agreeCheckbox.current.setCustomValidity("You must agree to the terms.");
+			agreeCheckbox.current.reportValidity();
+		} else {
+			agreeCheckbox.current.setCustomValidity("");
+			alert("You have successfully signed up for our service, whatever that is");
+		}
+	}
+
+	return (
+		<form onSubmit={submit}>
+			<p>Pretend that there is some legalese here.</p>
+			<label>
+				<span>Agree to the terms?</span>
+				<input ref={agreeCheckbox} onChange={onAgreeChange} type="checkbox" />
+			</label>
+			<div style={{ marginTop: "1em" }}>
+				<button type="submit">Submit</button>
+			</div>
+		</form>
+	)
+}
+```
 
 ## Angular
 
-// TODO: Write
+```angular-ts
+@Component({
+	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<form (submit)="submit($event)">
+			<p>Pretend that there is some legalese here.</p>
+			<label>
+				<span>Agree to the terms?</span>
+				<input #agreeCheckbox (input)="onAgreeChange()" type="checkbox" />
+			</label>
+			<div style="margin-top: 1em;">
+				<button type="submit">Submit</button>
+			</div>
+		</form>
+	`,
+})
+export class App {
+	agreeCheckbox = viewChild("agreeCheckbox", {read: ElementRef<HTMLInputElement>});
+
+	onAgreeChange() {
+		this.agreeCheckbox()?.nativeElement.setCustomValidity("");
+	}
+
+	submit(event: Event) {
+		event.preventDefault();
+		const checkbox = this.agreeCheckbox()?.nativeElement;
+		if (!checkbox) return;
+		if (!checkbox.checked) {
+			checkbox.setCustomValidity("You must agree to the terms.");
+			checkbox.reportValidity();
+		} else {
+			checkbox.setCustomValidity("");
+			alert("You have successfully signed up for our service, whatever that is");
+		}
+	}
+}
+```
 
 ## Vue
 
-// TODO: Write
+```vue
+<script setup>
+import { ref } from 'vue';
 
+const agreeCheckbox = ref(null);
 
+	const onAgreeChange = () => {
+		agreeCheckbox.value?.setCustomValidity("");
+	}
+
+	const submit = (event) => {
+		event.preventDefault();
+		const checkbox = agreeCheckbox.value;
+		if (!checkbox) return;
+		if (!checkbox.checked) {
+			checkbox.setCustomValidity("You must agree to the terms.");
+			checkbox.reportValidity();
+		} else {
+			checkbox.setCustomValidity("");
+			alert("You have successfully signed up for our service, whatever that is");
+		}
+	}
+</script>
+
+<template>
+		<form @submit="submit($event)">
+			<p>Pretend that there is some legalese here.</p>
+			<label>
+				<span>Agree to the terms?</span>
+				<input ref="agreeCheckbox" @input="onAgreeChange()" type="checkbox" />
+			</label>
+			<div style="margin-top: 1em;">
+				<button type="submit">Submit</button>
+			</div>
+		</form>
+</template>
+```
 
 <!-- ::end:tabs -->
 
-
+You'll notice that all of these components use [an element reference](/posts/ffg-fundamentals-element-reference) to track the element for the `input` event.
 
 ## Uncontrolled Downsides
 
