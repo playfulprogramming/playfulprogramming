@@ -142,7 +142,7 @@ These features we've been using are built into the browser. Because of this, we 
 
 <!-- ::start:tabs -->
 
-## React
+### React
 
 ```jsx
 function App() {
@@ -179,7 +179,7 @@ function App() {
 }
 ```
 
-## Angular
+### Angular
 
 ```angular-ts
 @Component({
@@ -220,7 +220,7 @@ export class App {
 }
 ```
 
-## Vue
+### Vue
 
 ```vue
 <script setup>
@@ -264,21 +264,160 @@ const agreeCheckbox = ref(null);
 
 You'll notice that all of these components use [an element reference](/posts/ffg-fundamentals-element-reference) to track the element for the `input` event.
 
+## Custom Error UX
+
+While `setCustomValidity` is the built-in method of valdiating fields, it's not always a perfect fit. For example, many companies may want their own UI to display field errors to their users to align with the user experience further.
+
+To do this, we can track the value of the field in JavaScript and use this value check to conditionally render error messages.
+
+<!-- ::start:tabs -->
+
+### React
+
+```jsx
+function App() {
+	const [checked, setChecked] = useState(false);
+	const [showError, setShowError] = useState(false);
+
+	// This must be an `onChange` event, which differs from vanilla JS and other frameworks
+	const onAgreeChange = (e) => {
+		setChecked(e.target.checked);
+		setShowError(false);
+	}
+
+	const submit = (event) => {
+		event.preventDefault();
+		if (!checked) {
+			setShowError(true);
+		} else {
+			setShowError(false);
+			alert("You have successfully signed up for our service, whatever that is");
+		}
+	}
+
+	return (
+		<form onSubmit={submit}>
+			<p>Pretend that there is some legalese here.</p>
+			<label>
+				<span>Agree to the terms?</span>
+				<input onChange={onAgreeChange} type="checkbox" />
+			</label>
+			{showError && !checked && <p style={{ color: "red" }}>You must agree to the terms.</p>}
+			<div style={{ marginTop: "1em" }}>
+				<button type="submit">Submit</button>
+			</div>
+		</form>
+	)
+}
+```
+
+### Angular
+
+```angular-ts
+@Component({
+	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<form (submit)="submit($event)">
+			<p>Pretend that there is some legalese here.</p>
+			<label>
+				<span>Agree to the terms?</span>
+				<input (input)="onAgreeChange($event)" type="checkbox" />
+			</label>
+			@if(showError()) {
+				<p style="color: red;">You must agree to the terms.</p>
+			}
+			<div style="margin-top: 1em;">
+				<button type="submit">Submit</button>
+			</div>
+		</form>
+	`,
+})
+export class App {
+	checked = signal(false);
+	showError = signal(false);
+
+	onAgreeChange(event: Event) {
+		const checkbox = event.target as HTMLInputElement;
+		this.checked.set(checkbox.checked);
+		this.showError.set(false);
+	}
+
+	submit(event: Event) {
+		event.preventDefault();
+		if (!this.checked()) {
+			this.showError.set(true);
+		} else {
+			this.showError.set(false);
+			alert("You have successfully signed up for our service, whatever that is");
+		}
+	}
+}
+```
+
+### Vue
+
+```vue
+<script setup>
+import { ref } from 'vue';
+
+const checked = ref(false);
+const showError = ref(false);
+
+const onAgreeChange = (e) => {
+	checked.value = e.target.checked;
+	showError.value = false;
+}
+
+const submit = (event) => {
+	event.preventDefault();
+	if (!checked.value) {
+		showError.value = true;
+	} else {
+		showError.value = false;
+		alert("You have successfully signed up for our service, whatever that is");
+	}
+}
+</script>
+
+<template>
+	<form @submit="submit($event)">
+		<p>Pretend that there is some legalese here.</p>
+		<label>
+			<span>Agree to the terms?</span>
+			<input ref="agreeCheckbox" @input="onAgreeChange($event)" type="checkbox" />
+		</label>
+		<p v-if="showError" style="color: red;">You must agree to the terms.</p>
+		<div style="margin-top: 1em;">
+			<button type="submit">Submit</button>
+		</div>
+	</form>
+</template>
+```
+
+<!-- ::end:tabs -->
+
 ## Uncontrolled Downsides
 
-// TODO: Talk about how the DOM has its own state, but leads to a number of downsides
+Using forms in the way we have been is close to how the browser's default behavior works, but comes with its own set of challenges when integrating with a framework in the day-to-day of form-building.
 
-// TODO: Talk about how validation usually has more stringent UX/UI requirements than the browser provides
+For example, assume we want to update a field value from a button 
+
+// TODO: Show how updating a value requires both a ref and an event listener for custom error UIs
 
 
 
-# One-way Form Bindings
+# Bound Form Values
+
+// TODO: Talk about duplicating values from the form in JS itself
+
+## One-way Form Bindings
 
 One common and easy way to assign a value to form elements - like a text input - is to simply listen for value changes (using events) on the element and assign those changes back to a bound input value.
 
 <!-- ::start:tabs -->
 
-## React
+### React
 
 ```jsx
 const FormComp = () => {
@@ -302,7 +441,7 @@ const FormComp = () => {
 }
 ```
 
-## Angular
+### Angular
 
 ```typescript
 @Component({
@@ -328,7 +467,7 @@ export class FormComponent {
 }
 ```
 
-## Vue
+### Vue
 
 ```vue
 <!-- FormComp.vue -->
@@ -366,19 +505,19 @@ While this works as-is, it can get complex when too many inputs are present. For
 
 Let's try to simplify this by removing the first step.
 
-# Two-way form bindings
+## Two-way form bindings
 
 One method for removing the input change listener is by using two-way variable bindings. When your framework supports this, you don't need to assign a function for change listening. Simply pass a variable and watch the value change as you type!
 
 <!-- ::start:tabs -->
 
-## React
+### React
 
 React doesn't have a way to do this and generally regards it as an anti-pattern even if it were possible. The reason they consider it an anti-pattern is because they strongly encourage utilizing [unidirectional data flow instead, which we'll learn about in a future chapter](// TODO: Add). The React team (and ecosystem) tend to prefer you stick to event bindings instead of a two-way form bind.
 
 However, we'll touch on another method of form binding that should be help address the verbosity of event bindings.
 
-## Angular
+### Angular
 
 If you recall from our earlier introduction to components, Angular's syntax to bind to an attribute or property is `[bindName]`. Similarly, the syntax to bind to a DOM event or component output is `(bindName)`.
 
@@ -432,7 +571,7 @@ import { FormsModule } from '@angular/forms';
 export class AppModule {}
 ```
 
-## Vue
+### Vue
 
 While Angular's two-way binding requires a special syntax, Vue instead relies on a custom element attribute called `v-model` to sync the variable to the element's value.
 
@@ -471,14 +610,6 @@ There's a better way.
 # Introducing Form Libraries
 
 // TODO: Cover initial values
-
-# Form Arrays
-
-// TODO: Talk about arrays and sub-objects, et al
-
-# Form Validation
-
-// TODO: Cover manual form validation here
 
 ## Validation Types
 
