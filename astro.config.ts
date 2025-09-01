@@ -9,16 +9,14 @@ import { AstroUserConfig } from "astro";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
-console.log({
-	SITE_URL: process.env.SITE_URL,
-	VERCEL_URL: process.env.VERCEL_URL,
-	VERCEL_BRANCH_URL: process.env.VERCEL_BRANCH_URL,
-});
-
 export default defineConfig({
+	// import.meta.env does not resolve to env variables in the config script!
+	// https://docs.astro.build/en/guides/environment-variables/#in-the-astro-config-file
 	site:
 		process.env.SITE_URL ??
-		process.env.VERCEL_URL ??
+		(process.env.VERCEL_URL
+			? `https://${process.env.VERCEL_URL}`
+			: undefined) ??
 		"https://playfulprogramming.com",
 	adapter: vercel({
 		// Uses Vercel's Image Optimization API: https://vercel.com/docs/image-optimization
