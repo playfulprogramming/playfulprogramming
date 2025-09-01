@@ -1,4 +1,6 @@
-import { parent } from "../../constants/site-config";
+import { siteUrl } from "constants/site-config";
+
+const parent = new URL(siteUrl).hostname;
 
 export const TwitchTransformer = {
 	name: "Twitch",

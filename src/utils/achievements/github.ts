@@ -1,12 +1,11 @@
 import { Octokit } from "octokit";
 import { GraphqlResponseError } from "@octokit/graphql";
 import { getPeopleByLang } from "utils/api";
-import { GITHUB_TOKEN } from "astro:env/server";
 
 const octokit =
-	typeof GITHUB_TOKEN !== "undefined"
+	typeof import.meta.env.GITHUB_TOKEN !== "undefined"
 		? new Octokit({
-				auth: GITHUB_TOKEN,
+				auth: import.meta.env.GITHUB_TOKEN,
 			})
 		: undefined;
 
