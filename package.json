@@ -23,7 +23,7 @@
 		"node": "22.x"
 	},
 	"scripts": {
-		"debug": "astro dev --mode debug",
+		"debug": "NODE_OPTIONS='--inspect-brk' astro dev --verbose",
 		"dev": "astro dev",
 		"dev:local": "astro dev --mode localhost",
 		"start": "astro dev",
