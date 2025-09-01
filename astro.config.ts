@@ -9,6 +9,12 @@ import { AstroUserConfig } from "astro";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
+console.log({
+	SITE_URL: import.meta.env.SITE_URL,
+	VERCEL_URL: import.meta.env.VERCEL_URL,
+	VERCEL_BRANCH_URL: import.meta.env.VERCEL_BRANCH_URL,
+});
+
 export default defineConfig({
 	site:
 		import.meta.env.SITE_URL ??
