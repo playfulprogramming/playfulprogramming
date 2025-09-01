@@ -10,15 +10,15 @@ import { AstroUserConfig } from "astro";
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
 console.log({
-	SITE_URL: import.meta.env.SITE_URL,
-	VERCEL_URL: import.meta.env.VERCEL_URL,
-	VERCEL_BRANCH_URL: import.meta.env.VERCEL_BRANCH_URL,
+	SITE_URL: process.env.SITE_URL,
+	VERCEL_URL: process.env.VERCEL_URL,
+	VERCEL_BRANCH_URL: process.env.VERCEL_BRANCH_URL,
 });
 
 export default defineConfig({
 	site:
-		import.meta.env.SITE_URL ??
-		import.meta.env.VERCEL_URL ??
+		process.env.SITE_URL ??
+		process.env.VERCEL_URL ??
 		"https://playfulprogramming.com",
 	adapter: vercel({
 		// Uses Vercel's Image Optimization API: https://vercel.com/docs/image-optimization
