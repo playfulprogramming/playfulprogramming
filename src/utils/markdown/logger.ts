@@ -11,7 +11,7 @@ export function logError(
 	node: hast.Node | mdast.Node,
 	...message: string[]
 ) {
-	if (process.env.CI) {
+	if (import.meta.env.CI) {
 		// In GitHub Actions, format an error message that can show up in a PR
 		// https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message
 		const meta = {

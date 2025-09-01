@@ -12,13 +12,13 @@ import {
 import { getPostImages } from "utils/hoof";
 import asyncPool from "tiny-async-pool";
 
-if (!process.env.ORAMA_PRIVATE_API_KEY) {
+if (!import.meta.env.ORAMA_PRIVATE_API_KEY) {
 	console.error("ORAMA_PRIVATE_API_KEY is not defined in the environment!");
 	process.exit(1);
 }
 
 const oramaCloudManager = new CloudManager({
-	api_key: process.env.ORAMA_PRIVATE_API_KEY,
+	api_key: import.meta.env.ORAMA_PRIVATE_API_KEY,
 });
 
 async function deployPosts(posts: SearchPostInfo[]) {

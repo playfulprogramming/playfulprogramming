@@ -3,9 +3,9 @@ import { GraphqlResponseError } from "@octokit/graphql";
 import { getPeopleByLang } from "utils/api";
 
 const octokit =
-	typeof process.env.GITHUB_TOKEN !== "undefined"
+	typeof import.meta.env.GITHUB_TOKEN !== "undefined"
 		? new Octokit({
-				auth: process.env.GITHUB_TOKEN,
+				auth: import.meta.env.GITHUB_TOKEN,
 			})
 		: undefined;
 
