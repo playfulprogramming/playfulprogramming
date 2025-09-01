@@ -1,4 +1,3 @@
-export const buildMode = import.meta.env.MODE as "development" | "production";
 export const siteUrl = import.meta.env.DEV
 	? "http://localhost:4321"
 	: import.meta.env.SITE;
