@@ -1,4 +1,4 @@
-import { buildMode, siteUrl } from "constants/site-config";
+import { siteUrl } from "constants/site-config";
 import { getAllPosts, getAllCollections } from "utils/api";
 import { PostInfo } from "types/PostInfo";
 import { CollectionInfo } from "types/CollectionInfo";
@@ -18,7 +18,7 @@ function buildCollectionUrl(collection: CollectionInfo) {
 
 export const GET = () => {
 	let body = "";
-	if (buildMode === "production") {
+	if (import.meta.env.ENABLE_DISCOVERABILITY) {
 		let omitPosts = `\n# No index posts\n`;
 		for (const post of noIndexPosts) {
 			omitPosts += `Disallow: ${buildPostUrl(post)}\n`;
