@@ -2,6 +2,7 @@ import type * as mdast from "mdast";
 import type * as hast from "hast";
 import { VFile } from "vfile";
 import * as kleur from "kleur/colors";
+import env from "constants/env";
 
 /**
  * A utility function for printing readable errors out of the hast/mdast nodes in a markdown file
@@ -11,7 +12,7 @@ export function logError(
 	node: hast.Node | mdast.Node,
 	...message: string[]
 ) {
-	if (import.meta.env.CI) {
+	if (env.CI) {
 		// In GitHub Actions, format an error message that can show up in a PR
 		// https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message
 		const meta = {

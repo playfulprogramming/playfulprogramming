@@ -1,6 +1,6 @@
-export const siteUrl = import.meta.env.DEV
-	? "http://localhost:4321"
-	: import.meta.env.SITE;
+import env from "./env";
+
+export const siteUrl = env.SITE_URL;
 
 export const siteMetadata = {
 	title: `Playful Programming`,

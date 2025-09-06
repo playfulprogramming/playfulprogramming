@@ -2,6 +2,7 @@ import type { JSX } from "preact";
 import type { ImageMetadata } from "astro";
 import { siteUrl } from "../../constants/site-config";
 import { SUPPORTED_IMAGE_SIZES } from "./constants";
+import env from "constants/env";
 
 export interface GetPictureSizes {
 	[size: number]: {
@@ -38,15 +39,12 @@ function getSupportedWidth(width: number) {
 	);
 }
 
-const isDev = import.meta.env.DEV;
-const cloudinaryName = import.meta.env.PUBLIC_CLOUDINARY_CLOUD_NAME;
-
-if (!isDev && !cloudinaryName) {
+if (!env.DEV && !env.PUBLIC_CLOUDINARY_CLOUD_NAME) {
 	throw new Error("missing env variable PUBLIC_CLOUDINARY_CLOUD_NAME");
 }
 
 function getSource(src: string, width: number, getFormat: string) {
-	if (isDev || !cloudinaryName) {
+	if (env.DEV || !env.PUBLIC_CLOUDINARY_CLOUD_NAME) {
 		// If the dev server is running or cloudinary isn't configured, use the /_image endpoint
 		return `/_image?${new URLSearchParams({
 			href: src,
@@ -56,7 +54,7 @@ function getSource(src: string, width: number, getFormat: string) {
 	} else {
 		// If in production use cloudinary's fetch
 		const domainUrl = new URL(src, siteUrl);
-		return `https://res.cloudinary.com/${cloudinaryName}/image/fetch/w_${width},f_${getFormat},q_auto/${encodeURIComponent(domainUrl.toString())}`;
+		return `https://res.cloudinary.com/${env.PUBLIC_CLOUDINARY_CLOUD_NAME}/image/fetch/w_${width},f_${getFormat},q_auto/${encodeURIComponent(domainUrl.toString())}`;
 	}
 }
 
