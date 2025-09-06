@@ -82,6 +82,17 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 		return;
 	}
 
+	if (pictureNode) {
+		// Prevent medium-zoom from applying to a picture tag, if present
+		const imgNode = find<Element>(pictureNode, {
+			type: "element",
+			tagName: "img",
+		});
+		if (imgNode) {
+			imgNode.properties["data-nozoom"] = true;
+		}
+	}
+
 	return [
 		createComponent(
 			"LinkPreview",

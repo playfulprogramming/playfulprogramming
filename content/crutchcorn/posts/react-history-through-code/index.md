@@ -1879,9 +1879,5 @@ Still hungry for more React learning?
 
 Well, I've written a free book series teaching React, Angular, and Vue all at once that might spark your interest:
 
-<!-- ::start:link-preview -->
-
-[The Framework Field Guide](https://framework.guide)
-
-<!-- ::end:link-preview -->
+[![The Framework Field Guide](/custom-content/collections/framework-field-guide/framework_field_guide_social.png)](https://framework.guide)
 
