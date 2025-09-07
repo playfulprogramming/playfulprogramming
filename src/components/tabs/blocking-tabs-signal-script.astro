@@ -16,7 +16,6 @@ function blockingTabsHydration() {
 		const panelId = `tabs-panel::${id}::${selection}`;
 		const labelEls = document.querySelectorAll(`[id^="tabs-label::${id}::"]`);
 		const panelEls = document.querySelectorAll(`[id^="tabs-panel::${id}::"]`);
-		console.log({ labelId, panelId, labelEls, panelEls });
 
 		labelEls.forEach((e) => {
 			e.setAttribute("aria-selected", String(e.id == labelId));
