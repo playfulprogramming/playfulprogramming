@@ -28,6 +28,10 @@ export function RawSvg({ icon, ref, ...props }: RawSvgProps) {
 	}, [icon]);
 
 	return (
-		<svg {...attributes} {...props} dangerouslySetInnerHTML={{ __html: innerHtml }} />
+		<svg
+			{...attributes}
+			{...props}
+			dangerouslySetInnerHTML={{ __html: innerHtml }}
+		/>
 	);
 }

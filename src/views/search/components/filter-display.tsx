@@ -16,7 +16,7 @@ interface FilterDisplayProps {
 	tagCounts: Record<string, number>;
 	authorCounts: Record<string, number>;
 	peopleMap: Map<string, PersonInfo>;
-	filterState: FilterState,
+	filterState: FilterState;
 	sort: SortType;
 	setSort: (sortBy: SortType) => void;
 	desktopStyle?: CSSProperties;

@@ -162,7 +162,9 @@ export function ResizeablePanels({
 			>
 				<div class={style.separator__icon} />
 			</div>
-			<div class={style.rightPanel} data-hidden={ariaValueNow > 85}>{rightPanel}</div>
+			<div class={style.rightPanel} data-hidden={ariaValueNow > 85}>
+				{rightPanel}
+			</div>
 		</div>
 	);
 }

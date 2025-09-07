@@ -49,8 +49,7 @@
 	height: var(--embed_favicon_container_size);
 	flex-shrink: 0;
 	padding: calc(
-		(var(--embed_favicon_container_size) - var(--embed_favicon_icon-size)) /
-			2
+		(var(--embed_favicon_container_size) - var(--embed_favicon_icon-size)) / 2
 	);
 
 	background-color: var(--embed_favicon_container_background-color);

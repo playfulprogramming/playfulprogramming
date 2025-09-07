@@ -1,8 +1,12 @@
 @use "src/tokens/index" as *;
 
 :root {
-	--resizeable-panel_separator_background: var(--surface_primary_emphasis-medium);
-	--resizeable-panel_separator_background_hovered: var(--surface_primary_emphasis-high);
+	--resizeable-panel_separator_background: var(
+		--surface_primary_emphasis-medium
+	);
+	--resizeable-panel_separator_background_hovered: var(
+		--surface_primary_emphasis-high
+	);
 	--resizeable-panel_separator_background_focused: var(--background_focus);
 	--resizeable-panel_separator_outline_color_focused: var(
 		--focus-outline_primary

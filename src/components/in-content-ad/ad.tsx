@@ -24,16 +24,15 @@ export function InContentAd(props: InContentAdProps) {
 	return (
 		<aside class={style.inContentBannerContainer}>
 			<div class={style.inContentBannerContents}>
-				<h2
-					data-no-heading-link
-					class={`${style.title} text-style-headline-5`}
-				>
+				<h2 data-no-heading-link class={`${style.title} text-style-headline-5`}>
 					{title}
 				</h2>
-				<p class={`${style.description} text-style-body-medium-bold`}>
-					{body}
-				</p>
-				<LargeButton class={style.button} variant="secondary-emphasized" href={buttonHref}>
+				<p class={`${style.description} text-style-body-medium-bold`}>{body}</p>
+				<LargeButton
+					class={style.button}
+					variant="secondary-emphasized"
+					href={buttonHref}
+				>
 					{buttonText}
 				</LargeButton>
 			</div>

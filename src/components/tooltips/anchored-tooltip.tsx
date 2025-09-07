@@ -11,7 +11,10 @@ interface AnchoredTooltipProps {
 
 export function AnchoredTooltip(props: AnchoredTooltipProps) {
 	return (
-		<span class={classNames(style.anchoredTooltip, props.class)} data-style={props.type}>
+		<span
+			class={classNames(style.anchoredTooltip, props.class)}
+			data-style={props.type}
+		>
 			{props.icon}
 			<span>{props.label}</span>
 		</span>

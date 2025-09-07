@@ -14,7 +14,7 @@ body:has(.dialog[open]) {
 		animation: fade-in-backdrop 0.2s ease-in forwards;
 	}
 
-	&> form {
+	& > form {
 		height: 100%;
 		width: 100%;
 	}

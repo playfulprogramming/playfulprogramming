@@ -18,13 +18,13 @@
 	--anchored-tooltip_focus_outline_color: var(--focus-outline_primary);
 }
 
-.anchoredTooltip[data-style=primary] {
+.anchoredTooltip[data-style="primary"] {
 	--anchored-tooltip_background-color: var(--background_primary);
 	--anchored-tooltip_foreground-color: var(--foreground_emphasis-high);
 	--anchored-tooltip_border-color: var(--primary_variant);
 }
 
-.anchoredTooltip[data-style=variant] {
+.anchoredTooltip[data-style="variant"] {
 	--anchored-tooltip_background-color: var(--primary_on-variant);
 	--anchored-tooltip_foreground-color: var(--background_primary);
 	--anchored-tooltip_border-color: var(--background_primary);
@@ -45,16 +45,17 @@
 
 	min-height: var(--anchored-tooltip_height);
 	max-width: 80%;
-	border: var(--anchored-tooltip_border-width) solid var(--anchored-tooltip_border-color);
+	border: var(--anchored-tooltip_border-width) solid
+		var(--anchored-tooltip_border-color);
 	border-radius: var(--anchored-tooltip_corner-radius);
 
-	&> svg {
+	& > svg {
 		width: var(--anchored-tooltip_icon-size);
 		height: var(--anchored-tooltip_icon-size);
 		flex-shrink: 0;
 	}
 
-	&> span {
+	& > span {
 		@extend .text-style-button-regular;
 
 		min-width: 0;
@@ -68,7 +69,8 @@
 :global(:focus-visible) > .anchoredTooltip {
 	background-color: var(--anchored-tooltip_background-color_focus);
 	color: var(--anchored-tooltip_foreground-color_focus);
-	outline: var(--anchored-tooltip_focus_outline_width) solid var(--anchored-tooltip_focus_outline_color);
+	outline: var(--anchored-tooltip_focus_outline_width) solid
+		var(--anchored-tooltip_focus_outline_color);
 	outline-offset: calc(-1 * var(--anchored-tooltip_border-width));
 	border-color: var(--anchored-tooltip_focus_outline_color);
 }

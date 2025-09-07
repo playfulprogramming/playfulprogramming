@@ -15,11 +15,21 @@ interface LinkPreviewProps {
 
 export function LinkPreview(props: LinkPreviewProps) {
 	return (
-		<a class={style.linkPreview} href={props.href} target="_blank" rel="nofollow noopener noreferrer">
+		<a
+			class={style.linkPreview}
+			href={props.href}
+			target="_blank"
+			rel="nofollow noopener noreferrer"
+		>
 			<AnchoredTooltip
 				type={props.type == "zoom" ? "primary" : "variant"}
 				label={props.label}
-				icon={<RawSvg icon={props.type == "zoom" ? FullscreenIcon : LaunchIcon} aria-hidden />}
+				icon={
+					<RawSvg
+						icon={props.type == "zoom" ? FullscreenIcon : LaunchIcon}
+						aria-hidden
+					/>
+				}
 				class={style.anchoredTooltip}
 			/>
 			{props.children}

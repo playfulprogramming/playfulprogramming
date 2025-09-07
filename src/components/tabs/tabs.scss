@@ -106,9 +106,15 @@
 	margin-bottom: 0;
 }
 
-.tabs__tab-panel__inner > *:not(astro-island, astro-slot, .markdownCollapsePadding, pre),
-.tabs__tab-panel__inner > astro-slot > *:not(astro-island, astro-slot, .markdownCollapsePadding, pre),
-.tabs__tab-panel__inner > astro-slot > astro-island > *:not(astro-island, astro-slot, .markdownCollapsePadding, pre) {
+.tabs__tab-panel__inner
+	> *:not(astro-island, astro-slot, .markdownCollapsePadding, pre),
+.tabs__tab-panel__inner
+	> astro-slot
+	> *:not(astro-island, astro-slot, .markdownCollapsePadding, pre),
+.tabs__tab-panel__inner
+	> astro-slot
+	> astro-island
+	> *:not(astro-island, astro-slot, .markdownCollapsePadding, pre) {
 	&:first-child {
 		margin-top: var(--tab-content_margin);
 	}

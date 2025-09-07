@@ -12,8 +12,8 @@ body {
 	--darkPrimary: #153e67;
 	--cardRadius: 8px;
 	--cardActiveBackground: #ebf6fc;
-	--cardActiveBoxShadow: 0px 2px 4px rgba(11, 37, 104, 0.27),
-		inset 0px 1px 0px #ffffff;
+	--cardActiveBoxShadow:
+		0px 2px 4px rgba(11, 37, 104, 0.27), inset 0px 1px 0px #ffffff;
 	--chip-group-pause-button-color: #001a42;
 }
 
