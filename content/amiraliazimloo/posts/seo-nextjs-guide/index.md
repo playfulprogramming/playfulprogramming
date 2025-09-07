@@ -2,7 +2,7 @@
 {
   title: "Quick SEO Guidelines for Your Next.js App",
   description: "A practical guide to optimizing SEO in your Next.js application.",
-  published: '2024-11-14T10:00:00.000Z',
+  published: '2025-09-08T10:00:00.000Z',
   tags: ['nextjs', 'react', 'webdev'],
   license: 'cc-by-nc-sa-4'
 }
@@ -60,7 +60,7 @@ This ensures your pages display correctly in Google search results and on platfo
 
 For dynamic or page-specific metadata, you can use the next/head component. This allows you to customize <title> and meta tags per page:
 
-```ts
+```tsx
 import Head from "next/head";
 
 export default function HomePage() {
@@ -90,7 +90,7 @@ This approach is particularly useful for blogs, e-commerce product pages, or lan
 
 Structured data helps search engines understand your content better and can enable rich snippets (star ratings, article previews, etc.) in search results.
 
-```ts
+```tsx
 <script
   type="application/ld+json"
   dangerouslySetInnerHTML={{
@@ -152,10 +152,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 ```
 2. Access your sitemap at:
 
-```ts
+```
 https://playfulprogramming.com/sitemap.xml
 ```
-You can also dynamically generate entries from your CMS or database so new content is automatically included.
+You can also dynamically generate entries from your CMS or database, so new content is automatically included.
 
 ## Robots
 
@@ -163,7 +163,7 @@ The `robots.txt` file guides search engine crawlers on which parts of your site 
 
 Example:
 
-```ts
+```
 User-agent: *
 Disallow: /admin/
 Allow: /
@@ -181,7 +181,7 @@ Optimized images improve both performance and SEO. Best practices:
 - Always provide descriptive `alt` attributes for accessibility and SEO.
 - Prefer modern formats (WebP/AVIF) and compress large files.
 
-```ts
+```tsx
 import Image from 'next/image';
 
 <Image
