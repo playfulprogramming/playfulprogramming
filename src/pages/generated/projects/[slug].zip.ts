@@ -41,7 +41,7 @@ export const GET: APIRoute = async ({ params }) => {
 		);
 	});
 
-	return new Response(zipBuffer, {
+	return new Response(zipBuffer as never, {
 		headers: {
 			"Content-Type": "application/zip",
 		},

@@ -18,16 +18,24 @@ interface TabsProps {
 // If overflow-anchor cannot be applied, tabs should scroll into view when clicked
 //   to prevent confusing content jumps
 const shouldScrollToTab = !(
-	typeof CSS !== "undefined" && CSS.supports && CSS.supports("overflow-anchor", "none")
+	typeof CSS !== "undefined" &&
+	CSS.supports &&
+	CSS.supports("overflow-anchor", "none")
 );
 
-export function Tabs({ id, tabs, children, selectedTab, setSelectedTab }: TabsProps) {
+export function Tabs({
+	id,
+	tabs,
+	children,
+	selectedTab,
+	setSelectedTab,
+}: TabsProps) {
 	const tabElsRef = useRef<Array<HTMLElement | null>>([]);
 
 	// Handle arrow navigation between tabs in the tab list
 	function handleKeydown(e: KeyboardEvent, slug: string) {
 		if (e.code === "ArrowRight" || e.code === "ArrowLeft") {
-			let tabIndex = tabs.findIndex(t => t.slug == slug);
+			let tabIndex = tabs.findIndex((t) => t.slug == slug);
 			if (e.code === "ArrowRight") {
 				// Move right
 				// Increase tab index, wrap by # of tabs
@@ -102,7 +110,9 @@ export function Tabs({ id, tabs, children, selectedTab, setSelectedTab }: TabsPr
 						tabIndex={selectedTab == slug ? 0 : -1}
 						onKeyDown={(e) => handleKeydown(e, slug)}
 						onClick={(e) => handleClick(e, slug)}
-						ref={el => tabElsRef.current[index] = el}
+						ref={(el) => {
+							tabElsRef.current[index] = el;
+						}}
 					>
 						{name}
 					</li>

@@ -187,5 +187,6 @@ export async function generateCollectionEPub(
 	await epub.render();
 	const buffer = await fs.readFile(fileLocation);
 	await fs.rm(fileTmpDir, { recursive: true, force: true });
-	return buffer;
+	// Convert to ArrayBuffer to be used in the response
+	return buffer as never;
 }
