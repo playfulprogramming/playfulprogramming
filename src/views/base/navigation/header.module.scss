@@ -35,7 +35,7 @@ header {
 
 	@include until($tabletLarge) {
 		&[data-mobile_table_of_contents_present="true"] {
-			border: none; 
+			border: none;
 		}
 	}
 }

@@ -28,25 +28,36 @@ export interface DirectoryProps {
 	isHighlighted: boolean;
 }
 
-const isDirectory = (item: DirectoryProps | FileProps): item is DirectoryProps => {
+const isDirectory = (
+	item: DirectoryProps | FileProps,
+): item is DirectoryProps => {
 	return (item as DirectoryProps).isDirectory;
 };
 
 export function File(props: FileProps) {
 	const Tag = props.onClick ? "button" : "div";
 	return (
-		<Tag class={style.fileContainer} onClick={props.onClick} autofocus={props.autofocus}>
+		<Tag
+			class={style.fileContainer}
+			onClick={props.onClick}
+			autofocus={props.autofocus}
+		>
 			<span
 				className={`${style.fileNameAndIcon} text-style-body-small`}
 				data-highlighted={props.isHighlighted}
 			>
 				<span class={style.fileIcon}>
-					{props.isPlaceholder ? null : <RawSvg icon={getIcon(props.name).svg} aria-hidden />}
+					{props.isPlaceholder ? null : (
+						<RawSvg icon={getIcon(props.name).svg} aria-hidden />
+					)}
 				</span>
 				{props.name}
 			</span>
 			{props.commentHtml && props.commentHtml.length ? (
-				<span class={`${style.comment} text-style-body-small`} dangerouslySetInnerHTML={{ __html: props.commentHtml }} />
+				<span
+					class={`${style.comment} text-style-body-small`}
+					dangerouslySetInnerHTML={{ __html: props.commentHtml }}
+				/>
 			) : null}
 		</Tag>
 	);
@@ -66,7 +77,10 @@ function Directory(props: DirectoryProps) {
 					{props.name}
 				</span>
 				{props.commentHtml && props.commentHtml.length ? (
-					<span class={`${style.comment} text-style-body-small`} dangerouslySetInnerHTML={{ __html: props.commentHtml }} />
+					<span
+						class={`${style.comment} text-style-body-small`}
+						dangerouslySetInnerHTML={{ __html: props.commentHtml }}
+					/>
 				) : null}
 			</summary>
 			{FileListList({ items: props.items })}
@@ -82,9 +96,7 @@ export function FileListList({ items }: FileListProps) {
 	return (
 		<ul class={style.fileTreeList}>
 			{items.map((item) => (
-				<li>
-					{isDirectory(item) ? Directory(item) : File(item)}
-				</li>
+				<li>{isDirectory(item) ? Directory(item) : File(item)}</li>
 			))}
 		</ul>
 	);

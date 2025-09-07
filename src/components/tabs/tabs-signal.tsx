@@ -72,12 +72,7 @@ export function TabsItem({ id, tabs, slug, children }: TabsItemProps) {
 	const selectedTab = selectedTabs.value[id] ?? tabs[0]?.slug;
 
 	return (
-		<InnerTabsItem
-			id={id}
-			tabs={tabs}
-			slug={slug}
-			selectedTab={selectedTab}
-		>
+		<InnerTabsItem id={id} tabs={tabs} slug={slug} selectedTab={selectedTab}>
 			{children}
 		</InnerTabsItem>
 	);

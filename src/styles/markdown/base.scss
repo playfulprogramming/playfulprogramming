@@ -2,7 +2,9 @@
 @use "../text-styles.scss";
 
 :root {
-	--page_header-height: calc(var(--header_logo_size) + var(--header_padding-vertical) * 2 + 1px);
+	--page_header-height: calc(
+		var(--header_logo_size) + var(--header_padding-vertical) * 2 + 1px
+	);
 }
 
 html.dark,
@@ -23,7 +25,6 @@ body.dark,
 }
 
 .post-body {
-
 	h1:not([class]) {
 		@extend .text-style-headline-1;
 	}
@@ -235,10 +236,10 @@ body.dark,
 	}
 
 	[data-footnote-ref]::after {
-		content: ']';
+		content: "]";
 	}
 
 	[data-footnote-ref]::before {
-		content: '[';
+		content: "[";
 	}
 }

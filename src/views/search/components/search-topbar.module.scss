@@ -85,15 +85,15 @@
 	@include transition(background);
 
 	z-index: 1;
-		display: block;
-		height: var(--search-page_search-header_padding-vertical);
-		-webkit-mask-image: linear-gradient(
-			to bottom,
-			rgba(0, 0, 0, 1),
-			rgba(0, 0, 0, 0)
-		);
-		mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-		background: var(--background_primary);
+	display: block;
+	height: var(--search-page_search-header_padding-vertical);
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 1),
+		rgba(0, 0, 0, 0)
+	);
+	mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+	background: var(--background_primary);
 }
 
 .topDivider {

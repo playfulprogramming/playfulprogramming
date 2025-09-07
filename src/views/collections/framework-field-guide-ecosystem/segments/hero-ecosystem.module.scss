@@ -44,7 +44,9 @@ body {
 	text-align: center;
 
 	// Font size + button vert padding * 2
-	--readNowButtonHeight: calc(1.125rem + calc(var(--btn-ver-padding_large) * 2));
+	--readNowButtonHeight: calc(
+		1.125rem + calc(var(--btn-ver-padding_large) * 2)
+	);
 	--outline-gap: var(--spc-2x);
 
 	@include from($desktop) {
@@ -97,7 +99,9 @@ body {
 .readNowContainer {
 	position: relative;
 	box-sizing: border-box;
-	padding: var(--section-ver-padding) var(--section-hor-padding) calc(var(--section-ver-padding) + calc(var(--readNowButtonHeight) / 2)) var(--section-hor-padding);
+	padding: var(--section-ver-padding) var(--section-hor-padding)
+		calc(var(--section-ver-padding) + calc(var(--readNowButtonHeight) / 2))
+		var(--section-hor-padding);
 	border: 3px dotted var(--outline);
 	border-radius: var(--corner-radius-2x);
 }

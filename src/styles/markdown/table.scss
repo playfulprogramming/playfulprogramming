@@ -136,7 +136,8 @@ tbody {
 	td {
 		padding: var(--table_cell_padding-vertical)
 			var(--table_cell_padding-horizontal);
-		background: linear-gradient(
+		background:
+			linear-gradient(
 				var(--table_cell_background-color),
 				var(--table_cell_background-color)
 			),
@@ -151,7 +152,8 @@ tbody {
 
 	tr:nth-child(even) {
 		td {
-			background: linear-gradient(
+			background:
+				linear-gradient(
 					var(--table_cell-alternate_background-color),
 					var(--table_cell-alternate_background-color)
 				),
