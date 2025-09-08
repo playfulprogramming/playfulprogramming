@@ -395,7 +395,7 @@ const submit = (event) => {
 		<p>Pretend that there is some legalese here.</p>
 		<label>
 			<span>Agree to the terms?</span>
-			<input ref="agreeCheckbox" @input="onAgreeChange($event)" type="checkbox" />
+			<input @input="onAgreeChange($event)" type="checkbox" />
 		</label>
 		<p v-if="showError" style="color: red;">You must agree to the terms.</p>
 		<div style="margin-top: 1em;">

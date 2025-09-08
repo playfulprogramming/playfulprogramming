@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
 
+const agreeCheckbox = ref(null);
+
 const checked = ref(false);
 const showError = ref(false);
 
@@ -18,6 +20,14 @@ const submit = (event) => {
 		alert("You have successfully signed up for our service, whatever that is");
 	}
 };
+
+const onAgreeClick = () => {
+	const el = agreeCheckbox.value;
+	if (!el) return;
+	el.checked = true;
+	const event = new Event("input");
+	el.dispatchEvent(event);
+};
 </script>
 
 <template>
@@ -25,9 +35,16 @@ const submit = (event) => {
 		<p>Pretend that there is some legalese here.</p>
 		<label>
 			<span>Agree to the terms?</span>
-			<input @input="onAgreeChange($event)" type="checkbox" />
+			<input
+				ref="agreeCheckbox"
+				@input="onAgreeChange($event)"
+				type="checkbox"
+			/>
 		</label>
-		<p v-if="showError" style="color: red">You must agree to the terms.</p>
+		<div v-if="showError">
+			<p style="color: red">You must agree to the terms.</p>
+			<button type="button" @click="onAgreeClick()">Agree</button>
+		</div>
 		<div style="margin-top: 1em">
 			<button type="submit">Submit</button>
 		</div>
