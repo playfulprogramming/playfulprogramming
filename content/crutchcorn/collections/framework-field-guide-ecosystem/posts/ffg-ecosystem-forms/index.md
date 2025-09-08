@@ -623,17 +623,26 @@ const onAgreeClick = () => {
 
 <!-- ::end:tabs -->
 
+Keep in mind that this problem compounds on itself. The more fields you have in a form, the more state and more events you need to use to keep track of it all.
 
+While there are tools to workaround this, uncontrolled fields tend to come with other downsides as well:
 
-
-
-// TODO: Show how updating a value requires both a ref and an event listener for custom error UIs
-
-
+- Debugging behavior
+- Complex conditional logic
+- Difficulties with validation
 
 # Bound Form Values
 
-// TODO: Talk about duplicating values from the form in JS itself
+> Knowing about the downsides of uncontrolled fields; what is the alternative?
+
+Well, the other method of handling form values is to use bound form values. This can be done in one of two ways:
+
+- One-way bindings
+- Two-way bindings
+
+While on-way form bindings have predominantly ubiquitous support in all frameworks, two-way data-bindings are often more convenient in specific circumstances in the tools that _do_ support it.
+
+Despite this lack of two-way binding support in some tools, let's take a look at both of them in practice.
 
 ## One-way Form Bindings
 
