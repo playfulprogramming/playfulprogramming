@@ -1,9 +1,6 @@
 import { useRef, useState } from "react";
 
 function App() {
-	/**
-	 * @type {React.RefObject<null | HTMLInputElement>}
-	 */
 	const checkboxRef = useRef(null);
 	const [checked, setChecked] = useState(false);
 	const [showError, setShowError] = useState(false);

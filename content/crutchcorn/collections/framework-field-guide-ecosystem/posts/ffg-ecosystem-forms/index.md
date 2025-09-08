@@ -409,11 +409,223 @@ const submit = (event) => {
 
 <!-- ::end:tabs -->
 
-## Uncontrolled Downsides
+## Uncontrolled Problems
 
 Using forms in the way we have been is close to how the browser's default behavior works, but comes with its own set of challenges when integrating with a framework in the day-to-day of form-building.
 
-For example, assume we want to update a field value from a button 
+Assume our UI team comes back with a new requirement: An additional `Agree` button if the user forgets to agree to the license agreement previously in the page.
+
+![TODO: Add alt](./second_agree.png)
+
+This button should:
+
+- Toggle the checkbox
+- Clear the error
+- Allow the user to submit
+
+By using uncontrolled form state, we quickly run into a problem: We must have many elements of state present to make this work.
+
+We'd need to store:
+
+- A reference to the underlying `<input/>` element
+- The `showError` boolean state
+- The `checked` state boolean
+
+Let's see what that looks like in our respective frameworks:
+
+<!-- ::start:tabs -->
+
+### React
+
+```jsx
+function App() {
+	const checkboxRef = useRef(null);
+	const [checked, setChecked] = useState(false);
+	const [showError, setShowError] = useState(false);
+
+	// This must be an `onChange` event, which differs from vanilla JS and other frameworks
+	const onAgreeChange = (e) => {
+		setChecked(e.target.checked);
+		setShowError(false);
+	};
+
+	const submit = (event) => {
+		event.preventDefault();
+		if (!checked) {
+			setShowError(true);
+		} else {
+			setShowError(false);
+			alert(
+				"You have successfully signed up for our service, whatever that is",
+			);
+		}
+	};
+
+	const onAgreeClick = () => {
+		if (!checkboxRef.current) return;
+		checkboxRef.current.checked = true;
+		// Trigger the change event manually
+		const event = new Event("input");
+		// Yes, really, this is needed for `e.target` to work in the handler
+		Object.defineProperty(event, "target", {
+			writable: false,
+			value: checkboxRef.current,
+		});
+		onAgreeChange(event);
+	};
+
+	return (
+		<form onSubmit={submit}>
+			<p>Pretend that there is some legalese here.</p>
+			<label>
+				<span>Agree to the terms?</span>
+				<input ref={checkboxRef} onChange={onAgreeChange} type="checkbox" />
+			</label>
+			{showError && !checked && (
+				<div>
+					<p style={{ color: "red" }}>You must agree to the terms.</p>
+					<button type="button" onClick={onAgreeClick}>
+						Agree
+					</button>
+				</div>
+			)}
+			<div style={{ marginTop: "1em" }}>
+				<button type="submit">Submit</button>
+			</div>
+		</form>
+	);
+}
+```
+
+// TODO: Add embed
+
+### Angular
+
+```angular-ts
+@Component({
+	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<form (submit)="submit($event)">
+			<p>Pretend that there is some legalese here.</p>
+			<label>
+				<span>Agree to the terms?</span>
+				<input #agreeCheckbox (input)="onAgreeChange($event)" type="checkbox" />
+			</label>
+			@if (showError()) {
+				<div>
+					<p style="color: red;">You must agree to the terms.</p>
+					<button type="button" (click)="onAgreeClick()">Agree</button>
+				</div>
+			}
+			<div style="margin-top: 1em;">
+				<button type="submit">Submit</button>
+			</div>
+		</form>
+	`,
+})
+export class App {
+	checked = signal(false);
+	showError = signal(false);
+
+	agreeCheckbox = viewChild("agreeCheckbox", {
+		read: ElementRef<HTMLInputElement>,
+	});
+
+	onAgreeChange(event: Event) {
+		const checkbox = event.target as HTMLInputElement;
+		this.checked.set(checkbox.checked);
+		this.showError.set(false);
+	}
+
+	submit(event: Event) {
+		event.preventDefault();
+		if (!this.checked()) {
+			this.showError.set(true);
+		} else {
+			this.showError.set(false);
+			alert(
+				"You have successfully signed up for our service, whatever that is",
+			);
+		}
+	}
+
+	onAgreeClick() {
+		const el = this.agreeCheckbox()?.nativeElement;
+		if (!el) return;
+		el.checked = true;
+		const event = new Event("input");
+		el.dispatchEvent(event);
+	}
+}
+```
+
+// TODO: Add embed
+
+### Vue
+
+```vue
+<script setup>
+import { ref } from "vue";
+
+const agreeCheckbox = ref(null);
+
+const checked = ref(false);
+const showError = ref(false);
+
+const onAgreeChange = (e) => {
+	checked.value = e.target.checked;
+	showError.value = false;
+};
+
+const submit = (event) => {
+	event.preventDefault();
+	if (!checked.value) {
+		showError.value = true;
+	} else {
+		showError.value = false;
+		alert("You have successfully signed up for our service, whatever that is");
+	}
+};
+
+const onAgreeClick = () => {
+	const el = agreeCheckbox.value;
+	if (!el) return;
+	el.checked = true;
+	const event = new Event("input");
+	el.dispatchEvent(event);
+};
+</script>
+
+<template>
+	<form @submit="submit($event)">
+		<p>Pretend that there is some legalese here.</p>
+		<label>
+			<span>Agree to the terms?</span>
+			<input
+				ref="agreeCheckbox"
+				@input="onAgreeChange($event)"
+				type="checkbox"
+			/>
+		</label>
+		<div v-if="showError">
+			<p style="color: red">You must agree to the terms.</p>
+			<button type="button" @click="onAgreeClick()">Agree</button>
+		</div>
+		<div style="margin-top: 1em">
+			<button type="submit">Submit</button>
+		</div>
+	</form>
+</template>
+```
+
+// TODO: Add embed
+
+<!-- ::end:tabs -->
+
+
+
+
 
 // TODO: Show how updating a value requires both a ref and an event listener for custom error UIs
 
