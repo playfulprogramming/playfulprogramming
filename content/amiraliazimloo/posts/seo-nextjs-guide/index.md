@@ -2,7 +2,7 @@
 {
   title: "Quick SEO Guidelines for Your Next.js App",
   description: "A practical guide to optimizing SEO in your Next.js application.",
-  published: '2025-09-08T10:00:00.000Z',
+  published: '2025-09-10T10:00:00.000Z',
   tags: ['nextjs', 'react', 'webdev'],
   license: 'cc-by-nc-sa-4'
 }
