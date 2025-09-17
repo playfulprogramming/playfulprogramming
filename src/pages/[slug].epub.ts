@@ -11,6 +11,10 @@ export const GET: APIRoute = async ({ params }) => {
 	const collection = getCollectionBySlug(slug, "en")!;
 	const collectionPosts = getPostsByCollection(slug, "en");
 
+	if (!collection) {
+		return new Response("Collection not found", { status: 404 });
+	}
+
 	const epub = await generateCollectionEPub(collection, collectionPosts);
 
 	return new Response(Buffer.from(epub), {
@@ -19,8 +23,3 @@ export const GET: APIRoute = async ({ params }) => {
 		},
 	});
 };
-
-export function getStaticPaths() {
-	const collections = getCollectionsByLang("en");
-	return collections.map((c) => ({ params: { slug: c.slug } }));
-}
