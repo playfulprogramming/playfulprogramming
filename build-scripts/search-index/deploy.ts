@@ -11,14 +11,16 @@ import {
 } from "src/views/search/constants";
 import { getPostImages } from "utils/hoof";
 import asyncPool from "tiny-async-pool";
+import env from "constants/env";
 
-if (!process.env.ORAMA_PRIVATE_API_KEY) {
+// The deploy script cannot use import.meta.env, as it runs through tsx
+if (!env.ORAMA_PRIVATE_API_KEY) {
 	console.error("ORAMA_PRIVATE_API_KEY is not defined in the environment!");
 	process.exit(1);
 }
 
 const oramaCloudManager = new CloudManager({
-	api_key: process.env.ORAMA_PRIVATE_API_KEY,
+	api_key: env.ORAMA_PRIVATE_API_KEY,
 });
 
 async function deployPosts(posts: SearchPostInfo[]) {

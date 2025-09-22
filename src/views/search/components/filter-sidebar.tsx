@@ -91,7 +91,9 @@ export const FilterSidebar = ({
 							}
 							label={tag?.displayName ?? tag.tag}
 							selected={filterState.tags.includes(tag.tag)}
-							onChange={(selected) => filterState.onTagChange(tag.tag, selected)}
+							onChange={(selected) =>
+								filterState.onTagChange(tag.tag, selected)
+							}
 							isHybridSearch={isHybridSearch}
 						/>
 					);
@@ -118,7 +120,9 @@ export const FilterSidebar = ({
 							}
 							label={author.name}
 							selected={filterState.authors.includes(author.id)}
-							onChange={(selected) => filterState.onAuthorChange(author.id, selected)}
+							onChange={(selected) =>
+								filterState.onAuthorChange(author.id, selected)
+							}
 							isHybridSearch={isHybridSearch}
 						/>
 					);

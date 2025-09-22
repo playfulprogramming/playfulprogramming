@@ -37,11 +37,9 @@ export const FilterSidebarControls = ({
 	numberOfPosts,
 	numberOfCollections,
 }: FilterSidebarControlsProps) => {
-	const postsLabel = usePersistedRef(
-		numberOfPosts?.toLocaleString()
-	);
+	const postsLabel = usePersistedRef(numberOfPosts?.toLocaleString());
 	const collectionsLabel = usePersistedRef(
-		numberOfCollections?.toLocaleString()
+		numberOfCollections?.toLocaleString(),
 	);
 	return (
 		<>

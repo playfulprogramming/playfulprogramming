@@ -75,9 +75,7 @@ import YourGuideTextContainerBack from "./your-guide-text-container-back.astro";
 		return match;
 	}
 
-	window.addEventListener("hashchange", () => {
-		checkToSeeIfHashMatches();
-	});
+	window.addEventListener("hashchange", checkToSeeIfHashMatches, false);
 
 	// Only scroll on the first load to make sure that we're loading the right part of the page
 	const hashMatch = checkToSeeIfHashMatches();

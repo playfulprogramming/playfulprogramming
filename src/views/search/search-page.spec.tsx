@@ -217,7 +217,10 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		const showGroupInput = getByTestId("show-group-sidebar");
-		const showGroupInputCollections = await findByTextFrom(showGroupInput, "Collections");
+		const showGroupInputCollections = await findByTextFrom(
+			showGroupInput,
+			"Collections",
+		);
 		await user.click(showGroupInputCollections);
 
 		await waitFor(() =>
@@ -1482,7 +1485,11 @@ describe("Search page", () => {
 				{ ...MockCollection, slug: `collection-8`, title: "Collection Eight" },
 				{ ...MockCollection, slug: `collection-9`, title: "Collection Nine" },
 				{ ...MockCollection, slug: `collection-10`, title: "Collection Ten" },
-				{ ...MockCollection, slug: `collection-11`, title: "Collection Eleven" },
+				{
+					...MockCollection,
+					slug: `collection-11`,
+					title: "Collection Eleven",
+				},
 			],
 			totalCollections: 11,
 		}));
@@ -1496,7 +1503,10 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		const showGroupInput = getByTestId("show-group-sidebar");
-		const showGroupInputCollections = await findByTextFrom(showGroupInput, "Collections");
+		const showGroupInputCollections = await findByTextFrom(
+			showGroupInput,
+			"Collections",
+		);
 		await user.click(showGroupInputCollections);
 
 		// Verify initial collection client call

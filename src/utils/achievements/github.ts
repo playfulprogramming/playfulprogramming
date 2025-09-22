@@ -1,11 +1,12 @@
 import { Octokit } from "octokit";
 import { GraphqlResponseError } from "@octokit/graphql";
 import { getPeopleByLang } from "utils/api";
+import env from "constants/env";
 
 const octokit =
-	typeof process.env.GITHUB_TOKEN !== "undefined"
+	typeof env.GITHUB_TOKEN !== "undefined"
 		? new Octokit({
-				auth: process.env.GITHUB_TOKEN,
+				auth: env.GITHUB_TOKEN,
 			})
 		: undefined;
 

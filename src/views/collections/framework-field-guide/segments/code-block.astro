@@ -3,11 +3,8 @@ import { getMarkdownHtml } from "../../../../utils/markdown";
 import "../../../../styles/shiki.scss";
 import "./code-block.scss";
 import styles from "./code-block.module.scss";
-// `nmd` files are markdown files that can be imported and used as strings
-// Without this, Astro's tranform takes over and the markdown is not accessible, even with `?raw`
-// Will report a bug on this soon enough
-import index from "../code-block/index.nmd?raw";
-import indexPath from "../code-block/index.nmd?url";
+import index from "../code-block/index.md?raw";
+import indexPath from "../code-block/index.md?url";
 import { VFile } from "vfile";
 import { MarkdownVFile } from "utils/markdown/types";
 import Content from "utils/markdown/components/content.astro";
@@ -33,7 +30,7 @@ const { content } = await getMarkdownHtml(
 );
 ---
 
-<section class={styles.blockContainer} aria-labelledby="code-block">
+<section class={`${styles.blockContainer} ffg-code-block-container`} aria-labelledby="code-block">
 	<h2 id="code-block" class={`text-style-headline-4 ${styles.sectionTitle}`}>
 		Don't want to learn all three? No problem!
 	</h2>

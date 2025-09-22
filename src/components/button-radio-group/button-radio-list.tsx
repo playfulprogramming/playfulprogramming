@@ -44,11 +44,15 @@ export function RadioListButton({
 				<input {...mergedProps} ref={ref} />
 			</VisuallyHidden>
 			{leftIcon && (
-				<div class={style.leftIcon} aria-hidden>{leftIcon}</div>
+				<div class={style.leftIcon} aria-hidden>
+					{leftIcon}
+				</div>
 			)}
 			{props.children}
 			{rightIcon && (
-				<div class={style.rightIcon} aria-hidden>{rightIcon}</div>
+				<div class={style.rightIcon} aria-hidden>
+					{rightIcon}
+				</div>
 			)}
 		</label>
 	);

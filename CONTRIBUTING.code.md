@@ -54,7 +54,7 @@ To test the interaction of the backend with the frontend you need to set up the 
 
 1. Clone or fork the hoof repository: `git clone https://github.com/playfulprogramming/hoof`
 2. Follow the hoof README to get your services running
-3. Double check your env variables in `src/environments/local.env`
+3. Double check your env variables in `.env.localhost`
 4. Use these to test locally:
    - Run `pnpm dev:local` to run dev with local environment variables
    - Run `pnpm build:local` to build with local environment variables

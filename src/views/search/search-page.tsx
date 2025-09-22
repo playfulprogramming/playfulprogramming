@@ -192,9 +192,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 				: Object.entries(data.tags);
 			const filteredTags = tags.filter(([_, count]) => count >= 3);
 
-			return Object.fromEntries(
-				filteredTags.length > 5 ? filteredTags : tags
-			);
+			return Object.fromEntries(filteredTags.length > 5 ? filteredTags : tags);
 		}, [isWildcardSearch, data.tags]),
 	);
 	const authorCounts = usePersistedEmptyRef(
@@ -380,12 +378,14 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 						aria-atomic="true"
 						className={style.passThru}
 					>
-						{!isContentLoading && showCollections && data.totalCollections > 0 && (
-							<SearchResultCount
-								ref={resultsHeading}
-								numberOfCollections={data.totalCollections}
-							/>
-						)}
+						{!isContentLoading &&
+							showCollections &&
+							data.totalCollections > 0 && (
+								<SearchResultCount
+									ref={resultsHeading}
+									numberOfCollections={data.totalCollections}
+								/>
+							)}
 						{!isContentLoading && showArticles && data.totalPosts > 0 && (
 							<SearchResultCount
 								ref={resultsHeading}

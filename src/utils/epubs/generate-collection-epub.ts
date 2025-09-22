@@ -137,7 +137,7 @@ const unifiedChain = createEpubPlugins(unified());
 export async function generateCollectionEPub(
 	collection: CollectionInfo,
 	collectionPosts: PostInfo[],
-): Promise<ArrayBuffer> {
+): Promise<Buffer> {
 	const fileTmpDir = await fs.mkdtemp(tmpdir() + path.sep + "pfp-collection-");
 	const fileLocation = path.join(fileTmpDir, `${collection.slug}.epub`);
 

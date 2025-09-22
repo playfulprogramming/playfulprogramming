@@ -1,10 +1,14 @@
 import createClient from "openapi-fetch";
 import type { paths } from "./schema";
-import { env, hoofUrl } from "../../constants/site-config";
+import env from "constants/env";
 
-const HOOF_AUTH_TOKEN = env("HOOF_AUTH_TOKEN");
+if (env.PROD && !env.HOOF_AUTH_TOKEN) {
+	throw new Error("Environment variable HOOF_AUTH_TOKEN is missing!");
+}
 
 export const client = createClient<paths>({
-	baseUrl: hoofUrl,
-	...(HOOF_AUTH_TOKEN && { headers: { "x-hoof-auth-token": HOOF_AUTH_TOKEN } }),
+	baseUrl: env.HOOF_URL ?? "https://hoof.playfulprogramming.com",
+	...(env.HOOF_AUTH_TOKEN && {
+		headers: { "x-hoof-auth-token": env.HOOF_AUTH_TOKEN },
+	}),
 });

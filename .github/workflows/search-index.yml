@@ -19,13 +19,15 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --ignore-scripts
 
       - name: Deploy Index
         env:
+          MODE: production
           ORAMA_PRIVATE_API_KEY: ${{ secrets.ORAMA_PRIVATE_API_KEY }}
+          HOOF_AUTH_TOKEN: ${{ secrets.HOOF_AUTH_TOKEN }}
         run: pnpm run search-index:deploy

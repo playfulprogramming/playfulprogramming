@@ -13,7 +13,7 @@ export const GET: APIRoute = async ({ params }) => {
 
 	const epub = await generateCollectionEPub(collection, collectionPosts);
 
-	return new Response(epub, {
+	return new Response(Buffer.from(epub), {
 		headers: {
 			"Content-Type": "application/epub+zip",
 		},
