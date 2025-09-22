@@ -2,7 +2,7 @@
 {
   title: "Let’s Be Specific: CSS Specificity Explained",
   description: "Struggling with stubborn CSS rules? Learn how specificity works so you can write styles that apply the way you want, every time",
-  published: '2025-09-01',
+  published: '2025-09-22',
   tags: ["css", "html", "design"],
   license: 'cc-by-4'
 }
