@@ -62,7 +62,7 @@ The `Carthage` folder, on the other hand, is similar to your `node_modules`. It'
 
 > You are not required to commit this folder to your repository, but you may wish to if you want to guarantee that the built versions of each dependency will always be accessible at a later date.
 
-For [my company](https://oceanbit.dev), we ultimately decided to follow the web's standard and not commit our `Carthage` folders. As such, we needed to add the following line to our project's `.gitignore` file:
+For my company, we ultimately decided to follow the web's standard and not commit our `Carthage` folders. As such, we needed to add the following line to our project's `.gitignore` file:
 
 ```
 ios/Carthage/Checkouts/

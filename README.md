@@ -17,7 +17,7 @@ This repository acts as the source code location for [the Playful Programming bl
 ## Sponsors
 
 <a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="https://playfulprogramming.com/sponsors/the-polyglot-developer.svg" width="300"/></a>
-<a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored"><img alt="OceanBit" src="https://playfulprogramming.com/sponsors/oceanbit.svg" width="300"/></a>
+<a href="https://orama.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="Orama" src="https://playfulprogramming.com/sponsors/orama.svg" width="300"/></a>
 
 [We disclose every sponsorship we share openly on GitHub](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed)
 
