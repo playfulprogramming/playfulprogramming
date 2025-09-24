@@ -18,8 +18,6 @@ Despite this, however, you might hear one of the following immediately following
 
 > Redux has too much boilerplate.
 
-> Signals are better for reactivity anyway.
-
 > Providing a store through context isn't needed.
 
 > You can just use React `useReducer` instead of Redux.
@@ -89,7 +87,7 @@ root.render(
 
 ```tsx
 /* Create store */
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, configureStore } from '@reduxjs/toolkit'
 
 const initialState = {
   value: 0,
@@ -158,6 +156,47 @@ root.render(
   </Provider>,
 )
 ```
+
+That's nearly 20 Lines Of Code (LOC) longer in the complete Redux example than the complete Jotai example!
+
+The difference is even more stark if we only look at the store creation.
+
+**Jotai:**
+
+```typescript
+const countAtom = atom(0)
+```
+
+**Redux:**
+
+```typescript
+const initialState = {
+  value: 0,
+}
+
+export const counterSlice = createSlice({
+  name: 'counter',
+  initialState,
+  reducers: {
+    increment: (state) => {
+      state.value += 1
+    },
+    decrement: (state) => {
+      state.value -= 1
+    },
+  },
+})
+
+const store = configureStore({
+  reducer: {
+    counter: counterSlice.reducer,
+  },
+})
+```
+
+This is where people seem to get their notion of Redux having too much boilerplate from.
+
+Now let's zoom out and evaluate what it's like to scale both of these projects.
 
 
 
