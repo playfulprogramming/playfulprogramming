@@ -11,7 +11,7 @@
 While I'm a huge fan of Angular at heart, I've often used React at my day jobs.  While working with React component libraries - either internal or external - you're likely to run into a pattern like so:
 
 ```jsx
-<OurButton as="a" href="oceanbit.dev">This looks like a button, but is a link</OurButton>
+<OurButton as="a" href="playfulprogramming.com">This looks like a button, but is a link</OurButton>
 ```
 
 This `<OurButton/>` component is able to expose an internal `"button"` tag when nothing is passed, but transform into any other `as` element when the property is passed.
@@ -19,7 +19,7 @@ This `<OurButton/>` component is able to expose an internal `"button"` tag when 
 What's cooler is that the other attributes from the `as` original element (like `<a>`'s `href` above) can be type-safe using some TypeScript magic:
 
 ```jsx
-<OurButton as="button" href="oceanbit.dev">This is a button!</OurButton>
+<OurButton as="button" href="playfulprogramming.com">This is a button!</OurButton>
 //                     ^ `href` is not allowed on type "button"
 ```
 
@@ -124,7 +124,7 @@ class OurButton {
 @Component({
 	selector: "app-root",
 	template: `
-		<a our-button href="oceanbit.dev">This looks like a button, but is a link</a>
+		<a our-button href="playfulprogramming.com">This looks like a button, but is a link</a>
 	`
 })
 class App {

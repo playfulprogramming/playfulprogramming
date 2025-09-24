@@ -38,7 +38,7 @@ After hours and hours of searching — no joke! — we landed on something that 
 
 Not only is it more directly linked to programming and software engineering, but it keeps our long-standing obsession with alliteration; all while keeping things fun and delightful for newcomers to discover us and feel welcomed.
 
-Secondly, we're often mistaken for a for-profit group. We're not. While we haven't yet decided to be an official non-profit, we're a volunteer based collective. As of today, all of the funds from Playful Programming have been sponsored either by myself (Corbin) or by my own consulting agency, [OceanBit](https://oceanbit.dev/).
+Secondly, we're often mistaken for a for-profit group. We're not. While we haven't yet decided to be an official non-profit, we're a volunteer based collective. As of today, I have sponsored all the funds from Playful Programming myself (Corbin).
 
 The problem is that, when people assume we're a company, they miss out on the fact that we're actively and consistently looking for contributors.
 

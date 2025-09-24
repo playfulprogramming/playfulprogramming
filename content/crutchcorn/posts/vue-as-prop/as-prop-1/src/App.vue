@@ -3,7 +3,7 @@ import OurButton from './OurButton.vue'
 </script>
 
 <template>
-  <OurButton as="a" href="https://oceanbit.dev">
+  <OurButton as="a" href="https://playfulprogramming.com">
   This looks like a button, but is a link
   </OurButton>
 </template>

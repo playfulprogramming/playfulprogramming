@@ -1262,8 +1262,6 @@ const App = () => {
 };
 ```
 
-> [This is actual source code pulled from one of my prior production React Native projects called GitShark](https://github.com/oceanbit/GitShark/blob/main/src/App.tsx#L156-L176).
-
 This code is colloquially called the "Provider Christmas Tree" because of its formatted structure.
 
 Despite looking ugly, this code is okay! If you _really_ want to break things up, take one step further in componentizing your codebase and move similar providers into their own `StyleProvider` component to help flatten this code:
