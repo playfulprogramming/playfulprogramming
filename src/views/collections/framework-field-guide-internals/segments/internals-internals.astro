@@ -4,7 +4,9 @@ import InternalsBookCover from "../../framework-field-guide/segments/internals-b
 import WhatYouNeed from "../components/what-you-need.astro";
 import WhatYoullLearn from "../components/what-youll-learn.astro";
 import CollectionTableOfContentsInternals from "../components/collection-table-of-contents-internals.astro";
-import { getPostsByCollection } from "../../../../utils/api";
+import { getCollectionBySlug, getPostsByCollection } from "../../../../utils/api";
+
+const collection = getCollectionBySlug("framework-field-guide-internals", "en");
 
 const chapterList = getPostsByCollection(
 	"framework-field-guide-internals",
@@ -16,9 +18,17 @@ const chapterList = getPostsByCollection(
 	<InternalsBookCover />
 
 	<div class="class-book-3">
-		<div class={`book-section`} style="background: var(--section-background);">
+		<div
+			class={`book-section`}
+			style="background: var(--section-background);"
+		>
 			<WhatYouNeed />
-			<CollectionTableOfContentsInternals posts={chapterList} />
+			<CollectionTableOfContentsInternals
+				title="Chapters*"
+				chaptersToShow={2}
+				chapterList={collection!.chapterList}
+				posts={chapterList}
+			/>
 			<WhatYoullLearn />
 		</div>
 	</div>
