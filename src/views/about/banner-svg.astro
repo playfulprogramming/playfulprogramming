@@ -1,8 +1,8 @@
 ---
-import { getImage } from "astro:assets";
 import { escape } from "html-escaper";
 import fs from "fs/promises";
 import { getPeopleByLang } from "utils/api";
+import { getPicture } from "utils/get-picture";
 
 const sticker_star = await fs.readFile(
 	"public/stickers/sticker_star.svg",
@@ -36,18 +36,25 @@ const personImages = await Promise.all(
 		// (i.e. it shouldn't get upscaled/downscaled with `object-fit: cover`)
 		const width = Math.max(size, Math.ceil(size * aspectRatio));
 
-		const image = await getImage({
+		const images = getPicture({
 			height: size,
 			width,
 			src: person.profileImgMeta.relativeServerPath,
-			format: "avif",
-		});
+		}).urls.avif;
+		if (!images)
+			throw new Error(
+				`Could not resolve picture for ${person.name} in banner-svg.astro.`,
+			);
 
-		if (!image.src) return "";
+		const image = images[width] ?? Object.values(images).at(0);
+		if (!image)
+			throw new Error(
+				`Could not find an appropriate image size in banner-svg.astro.`,
+			);
 
 		return `
 		<image class="bannerSvgImage" width="96" height="96" xlink:href="${escape(
-			image.src,
+			image,
 		)}" preserveAspectRatio="xMidYMid slice" transform="scale(0.0104167)"></image>
 	`.trim();
 	}),
