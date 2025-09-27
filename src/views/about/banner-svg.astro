@@ -55,7 +55,7 @@ const personImages = await Promise.all(
 		return `
 		<image class="bannerSvgImage" width="96" height="96" xlink:href="${escape(
 			image,
-		)}" preserveAspectRatio="xMidYMid slice" transform="scale(0.0104167)"></image>
+		)}" crossorigin="anonymous" preserveAspectRatio="xMidYMid slice" transform="scale(0.0104167)"></image>
 	`.trim();
 	}),
 );
