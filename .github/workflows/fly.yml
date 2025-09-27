@@ -18,6 +18,8 @@ jobs:
       - uses: actions/checkout@v5
       - uses: superfly/flyctl-actions/setup-flyctl@1.5
       - name: Deploy App
-        run: flyctl console --dockerfile Dockerfile.builder -C "/srv/deploy.sh" --env "FLY_API_TOKEN=$FLY_API_TOKEN"
+        run: flyctl deploy --remote-only --build-secret "GITHUB_TOKEN=$GITHUB_TOKEN" --build-secret "HOOF_AUTH_TOKEN=$HOOF_AUTH_TOKEN"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_WEB_DEPLOY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOOF_AUTH_TOKEN: ${{ secrets.HOOF_AUTH_TOKEN }}
