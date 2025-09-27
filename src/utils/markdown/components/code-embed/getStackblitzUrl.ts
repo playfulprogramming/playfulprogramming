@@ -1,3 +1,4 @@
+import env from "constants/env";
 import { siteMetadata } from "constants/site-config";
 import GitBranch from "git-branch";
 
@@ -6,7 +7,7 @@ type StackblitzOpts = {
 	file?: string;
 };
 
-const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await GitBranch());
+const currentBranch = env.GIT_COMMIT_REF ?? (await GitBranch());
 
 export function getStackblitzUrl(projectDir: string, opts: StackblitzOpts) {
 	if (projectDir.startsWith("/")) {

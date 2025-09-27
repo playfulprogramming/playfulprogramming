@@ -55,6 +55,7 @@
 		"@remark-embedder/transformer-oembed": "^5.0.1",
 		"@shikijs/rehype": "^3.12.2",
 		"@shikijs/transformers": "^3.12.2",
+		"@shikijs/themes": "^3.12.2",
 		"@testing-library/dom": "^10.4.1",
 		"@testing-library/jest-dom": "^6.8.0",
 		"@testing-library/preact": "^3.2.3",

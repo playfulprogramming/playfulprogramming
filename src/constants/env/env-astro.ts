@@ -8,7 +8,8 @@ export default {
 	SITE_URL: import.meta.env.DEV
 		? "http://localhost:4321"
 		: import.meta.env.SITE,
-	VERCEL_GIT_COMMIT_REF: import.meta.env.VERCEL_GIT_COMMIT_REF,
+	GIT_COMMIT_REF:
+		import.meta.env.GIT_COMMIT_REF ?? import.meta.env.VERCEL_GIT_COMMIT_REF,
 	ORAMA_PRIVATE_API_KEY: import.meta.env.ORAMA_PRIVATE_API_KEY,
 	GITHUB_TOKEN: import.meta.env.GITHUB_TOKEN,
 	HOOF_URL: import.meta.env.HOOF_URL ?? "https://hoof.playfulprogramming.com",
