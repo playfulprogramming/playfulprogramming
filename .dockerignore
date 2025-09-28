@@ -1,0 +1,6 @@
+.vercel
+.astro
+.vscode
+node_modules
+dist
+public/content

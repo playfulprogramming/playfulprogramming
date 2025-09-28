@@ -1,10 +1,8 @@
 import { defineConfig } from "astro/config";
 import preact from "@astrojs/preact";
 import icon from "astro-icon";
-import vercel from "@astrojs/vercel";
 import symlink from "symlink-dir";
 import * as path from "path";
-import { SUPPORTED_IMAGE_SIZES } from "./src/utils/get-picture/constants";
 import { AstroUserConfig } from "astro";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
@@ -18,16 +16,15 @@ export default defineConfig({
 			? `https://${process.env.VERCEL_URL}`
 			: undefined) ??
 		"https://playfulprogramming.com",
-	adapter: vercel({
-		// Uses Vercel's Image Optimization API: https://vercel.com/docs/image-optimization
-		imageService: true,
-		imagesConfig: {
-			sizes: SUPPORTED_IMAGE_SIZES,
-			domains: [],
-			formats: ["image/avif", "image/webp"],
+	output: "static",
+	image: {
+		service: {
+			entrypoint: "astro/assets/services/sharp",
+			config: {
+				limitInputPixels: false,
+			},
 		},
-		devImageService: "sharp",
-	}),
+	},
 	integrations: [icon(), preact({ compat: true })],
 	server: {
 		headers: {

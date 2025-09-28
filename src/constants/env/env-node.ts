@@ -6,7 +6,8 @@ export default {
 	PROD: process.env.MODE == "production",
 	DEV: process.env.MODE != "production",
 	SITE_URL: process.env.SITE_URL ?? "https://playfulprogramming.com",
-	VERCEL_GIT_COMMIT_REF: process.env.VERCEL_GIT_COMMIT_REF,
+	GIT_COMMIT_REF:
+		process.env.GIT_COMMIT_REF ?? process.env.VERCEL_GIT_COMMIT_REF,
 	ORAMA_PRIVATE_API_KEY: process.env.ORAMA_PRIVATE_API_KEY,
 	GITHUB_TOKEN: process.env.GITHUB_TOKEN,
 	HOOF_URL: process.env.HOOF_URL ?? "https://hoof.playfulprogramming.com",
