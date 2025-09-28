@@ -33,6 +33,7 @@ const titleId = "translations-header-title";
 				props.locales.sort().map((locale) => (
 					<li>
 						<a
+							lang={locale}
 							href={locale === "en" ? path : `/${locale}${path}`}
 							aria-current={locale === currentLocale ? "page" : undefined}
 							class="text-style-body-large-bold"
