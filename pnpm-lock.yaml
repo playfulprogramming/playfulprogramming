@@ -109,9 +109,6 @@ importers:
       '@types/hast':
         specifier: ^3.0.4
         version: 3.0.4
-      '@types/html-escaper':
-        specifier: ^3.0.4
-        version: 3.0.4
       '@types/jsdom':
         specifier: ^21.1.7
         version: 21.1.7
@@ -193,9 +190,6 @@ importers:
       hastscript:
         specifier: ^9.0.1
         version: 9.0.1
-      html-escaper:
-        specifier: ^3.0.3
-        version: 3.0.3
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -2214,9 +2208,6 @@ packages:
 
   '@types/hast@3.0.4':
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
-
-  '@types/html-escaper@3.0.4':
-    resolution: {integrity: sha512-UKSaMPMXXKnq1jDj74seVikfdq5pWvoXcIgOUbwYzHuAEGiv8/juom1i/MsWBF8boFSI0uHQCSZauzr5OYnnJA==}
 
   '@types/jsdom@21.1.7':
     resolution: {integrity: sha512-yOriVnggzrnQ3a9OKOCxaVuSug3w3/SbOj5i7VwXWZEyUNl3bLF9V3MfxGbZKuwqJOQyRfqXyROBB1CoZLFWzA==}
@@ -8530,8 +8521,6 @@ snapshots:
   '@types/hast@3.0.4':
     dependencies:
       '@types/unist': 3.0.3
-
-  '@types/html-escaper@3.0.4': {}
 
   '@types/jsdom@21.1.7':
     dependencies:

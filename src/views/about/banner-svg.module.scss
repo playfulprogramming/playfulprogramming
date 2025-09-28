@@ -1,0 +1,40 @@
+.banner {
+	width: 100%;
+	max-width: 640px;
+	aspect-ratio: 64 / 56;
+	position: relative;
+	mask-image: radial-gradient(circle at center, #fff 30%, #fff9 45%, #fff2 58%, #fff1 63%, #0000 68%);
+}
+
+.personImage {
+	display: contents;
+}
+
+.personImage img {
+	position: absolute;
+	left: calc(var(--x) - var(--r));
+	top: calc(var(--y) - (var(--r) * 640 / 560));
+	width: calc(var(--r) * 2);
+	height: calc(var(--r) * 2 * 640 / 560);
+
+	background-color: rgba(135, 206, 255, 0.2);
+	border-radius: 50%;
+	object-fit: cover;
+	aspect-ratio: 1;
+}
+
+.sticker {
+	position: absolute;
+	width: 5%;
+	height: 5%;
+}
+
+.sticker svg {
+	max-width: 100%;
+}
+
+.logo {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
