@@ -73,6 +73,7 @@ const positions: Array<{ x: number; y: number; r: number }> = [
 						style: `--x: ${(x * 100) / 640}%; --y: ${(y * 100) / 560}%; --r: ${r / 6.4}%;`,
 					}}
 					src={people[i].profileImgMeta.relativeServerPath}
+					loading="eager"
 					class={style.personImage}
 					alt=""
 				/>
