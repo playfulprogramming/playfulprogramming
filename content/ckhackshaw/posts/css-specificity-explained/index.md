@@ -209,7 +209,7 @@ To recap, when calculating specificity, each selector adds to one of three colum
   }
 </style>
 ```
-<details><summary>View answer</summary>0-2-1</details>
+<details><summary>View answer</summary>0-3-0</details>
 
 ```html
 <style>
