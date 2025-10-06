@@ -97,18 +97,15 @@ div {
 }
 
 .box-margin-styled {
-	background-color: var(--bg);
 	padding: 1rem;
 }
 
 .box-border-styled {
-	background-color: var(--border);
 	padding: 1rem;
 	border-radius: 3rem;
 }
 
 .box-padding-styled {
-	background-color: var(--bg);
 	border-radius: 2rem;
 	padding: 2rem;
 }
@@ -121,7 +118,6 @@ div {
 	display: flex;
 	gap: 0.5rem;
 	flex-direction: column;
-	background-color: transparent;
 	color: rgba(0, 0, 0, 1);
 }
 
