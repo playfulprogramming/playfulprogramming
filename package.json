@@ -151,9 +151,11 @@
 		"medium-zoom": "^1.0.8",
 		"nanostores": "^1.0.1",
 		"openapi-fetch": "^0.14.0",
+		"playwright": "^1.56.0",
 		"preact": "10.27.1",
 		"react-aria": "^3.43.1",
 		"react-stately": "^3.41.0",
+		"rehype-mermaid": "^3.0.0",
 		"uuid": "^12.0.0"
 	},
 	"pnpm": {

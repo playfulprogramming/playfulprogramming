@@ -45,6 +45,7 @@ import { rehypeRelativePaths } from "./rehype-relative-paths";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { setMathProperty } from "./katex-css";
+import rehypeMermaid from "rehype-mermaid";
 
 const remarkEmbedderDefault =
 	(remarkEmbedder as never as { default: typeof remarkEmbedder }).default ??
@@ -88,6 +89,7 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(remarkMath)
 			.use(rehypeKatex)
 			.use(setMathProperty)
+			.use(rehypeMermaid)
 			/**
 			 * Insert custom HTML generation code here
 			 */
