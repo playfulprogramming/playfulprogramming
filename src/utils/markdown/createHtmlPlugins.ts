@@ -89,7 +89,9 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(remarkMath)
 			.use(rehypeKatex)
 			.use(setMathProperty)
-			.use(rehypeMermaid)
+			.use(rehypeMermaid, {
+				strategy: "pre-mermaid",
+			})
 			/**
 			 * Insert custom HTML generation code here
 			 */
