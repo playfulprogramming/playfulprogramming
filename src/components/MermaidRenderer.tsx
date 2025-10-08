@@ -25,7 +25,7 @@ export default function MermaidRenderer() {
 
 	useEffect(() => {
 		const initMermaid = async () => {
-			console.log('dark theme: ', isDarkTheme);
+			// using the rgba values directly instead of the SCSS variables since mermaid doesn't seem to like SCSS variables
 			// dark theme colors
 			let primaryColor = 'rgba(229, 242, 255, 1)';
 			let secondaryColor = 'rgba(33, 51, 63, 1)';
@@ -37,6 +37,7 @@ export default function MermaidRenderer() {
 				primaryTextColor = 'rgba(33, 51, 63, 1)';
 				secondaryColor = 'rgba(229, 242, 255, 1)'
 			}
+			// mermaid docs link for color variables in case we need to change them in the future: https://mermaid.js.org/config/theming.html#theme-variables
 			mermaid.initialize({
 				startOnLoad: false,
 				theme: "base",
