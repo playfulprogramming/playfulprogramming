@@ -49,7 +49,13 @@ export default function MermaidRenderer() {
 					textColor: primaryTextColor,
 					loopTextColor: primaryTextColor,
 					noteBkgColor: "rgba(135, 206, 255, 0.32)",
-					noteTextColor: primaryTextColor
+					noteTextColor: primaryTextColor,
+					edgeLabelBackground: "rgba(135, 206, 255, 0.32)",
+					lineColor: primaryColor,
+					classText: secondaryColor,
+					titleColor: primaryTextColor,
+					fillType0: secondaryColor,
+					fillType1: "rgba(135, 206, 255, 0.32)"
 				},
 			});
 
