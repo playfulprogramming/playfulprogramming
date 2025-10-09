@@ -63,18 +63,18 @@ export default function MermaidRenderer() {
 			const elements = document.querySelectorAll<HTMLPreElement>(".mermaid");
 
 			for (const el of elements) {
-			const graph = el.dataset.graph;
-			if (!graph) continue;
-		
-			// Generate a unique ID for the rendered SVG so we can easily re-render when there is a theme change
-			const id = `m-${Math.random().toString(36).slice(2, 9)}`;
-		
-			try {
-				const { svg } = await mermaid.render(id, graph);
-				el.innerHTML = svg;
-			} catch (err) {
-				console.error("Mermaid render failed:", err);
-			}
+				const graph = el.dataset.graph;
+				if (!graph) continue;
+			
+				// Generate a unique ID for the rendered SVG so we can easily re-render when there is a theme change
+				const id = `m-${Math.random().toString(36).slice(2, 9)}`;
+			
+				try {
+					const { svg } = await mermaid.render(id, graph);
+					el.innerHTML = svg;
+				} catch (err) {
+					console.error("Mermaid render failed:", err);
+				}
 			}
 		}
 		initMermaid();
