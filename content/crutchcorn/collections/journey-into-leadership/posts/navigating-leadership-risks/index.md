@@ -31,7 +31,7 @@ Today though, it meant something more. I could improve my processes — and good
 
 - My team members reporting to me as people. Their interpersonal lives and their capacity to handle their own responsibilities within the org and beyond.
 - My management team. Their needs to succeed in their respective areas to drive growth in the organization as a whole.
-- Our business partners. Each of whom who wants to find their own rewards for working through things properly.
+- Our business partners. Each of whom wants to find their own rewards for working through things properly.
 - The customer. Understanding their needs and helping articulate business needs to our team.
 
 There was so much I could do to grow our efforts into something magical.
