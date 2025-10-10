@@ -17,7 +17,7 @@ See, I'm based out of Sacramento, a city two hours outside the Bay Area. Despite
 
 What emerged afterward were stuarts from the previous community that wanted to help rekindle what interest was left for a local tech scene. I was one such stuart; I've picked up the organization of meetups, administrate our cities' largest developer Slack, and regularly attend as many events as my calendar allows.
 
-We have since grown our community to exceed pre-pandemic attendance of many events. The group who's managed this are tight-knit and have been known to hang out individually outside of tech events.
+We have since grown our community to exceed pre-pandemic attendance of many events. The group who've managed this are tight-knit and have been known to hang out individually outside of tech events.
 
 ----
 
