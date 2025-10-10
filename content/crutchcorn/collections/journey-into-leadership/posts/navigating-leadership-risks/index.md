@@ -11,9 +11,9 @@
 
 "I did it! I can't believe that I did it!"
 
-After 10 years in the programming field — years of working through complex coding problems, managing teams, learning the project management process, groking the business problems to solve — I'd finally made it into a "VP" role. "VP of Software Engineering", nonetheless!
+After 10 years in the programming field — years of working through complex coding problems, managing teams, learning the project management process, groking the business problems to solve — I'd finally made it into a "VP" role. "VP of Software Engineering," nonetheless!
 
-The feeling was exhilarating. Sure, it came with the typical promotion benefits that yeilded a pay increase, but that's not what I was excited about.
+The feeling was exhilarating. Sure, it came with the typical promotion benefits that yielded a pay increase, but that's not what I was excited about.
 
 See, at this point in my career, I'd joined my fair share of teams. I'd seen what I thought worked and what didn't. I'd been laid off, survived layoffs, been responsible for declining metrics, and even managed teams that were able to ship months ahead of schedule.
 
@@ -23,7 +23,7 @@ And I had a northern star to pull it all off:
 
 "I believe in taking care of the people behind the screens"
 
-I'd taken on this mantra early on in my career; a differentiator that set my aside from other engineers looking to make the cut.
+I'd taken on this mantra early on in my career; a differentiator that set me aside from other engineers looking to make the cut.
 
 Back then, it meant more about my processes as an engineer: Documenting my code, leaving in-depth code reviews, making developer tools for our internal pipelines. The "people behind the screens" were my coworkers. My peers in the engineering workforce.
 
@@ -31,7 +31,7 @@ Today though, it meant something more. I could improve my processes — and good
 
 - My team members reporting to me as people. Their interpersonal lives and their capacity to handle their own responsibilities within the org and beyond.
 - My management team. Their needs to succeed in their respective areas to drive growth in the organization as a whole.
-- Our business partners. Each of which who wants to find their own rewards for working through things properly.
+- Our business partners. Each of whom who wants to find their own rewards for working through things properly.
 - The customer. Understanding their needs and helping articulate business needs to our team.
 
 There was so much I could do to grow our efforts into something magical.
@@ -60,11 +60,11 @@ But that same color that imposes risk also satisfies another constraint that led
 
 A well-maintained environment for the frog brought my friend joy; not only because of the visual appeal and entertainment but knowing that they were able to allow an ecosystem to thrive. Despite knowing the frog could escape and harm them, my roommate persisted; so too would I.
 
-It's this risk and reward that harpoons back to an early human experience. For us to survive as a species we'd need two vastly different kinds of people:
+It's this risk and reward that harpoons back to an early human experience. For us to survive as a species, we'd need two vastly different kinds of people:
 
 1) Those that would take risks and forerun their lived experiences through the lens of "new is good"
 2) Those that would learn from the dangers found by the first group and think "maybe for the best we stay the course"
 
-Neither is better than the other. While it's a common refrain to see the "new is good" as superior, that's not always the case. After all, the journey of human-kind is littered with stories of those fool-hearty enough to try eating a newly discovered food only to be met with a case of poisoning.
+Neither is better than the other. While it's a common refrain to see the "new is good" as superior, that's not always the case. After all, the journey of humankind is littered with stories of those foolhardy enough to try eating a newly discovered food only to be met with a case of poisoning.
 
 But for those of us that impulsively seek new experiences: The potential for new flavors and experiences are all one can think about when biting into something new.
