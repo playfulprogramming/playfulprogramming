@@ -27,7 +27,7 @@ I'd taken on this mantra early on in my career; a differentiator that set me asi
 
 Back then, it meant more about my processes as an engineer: Documenting my code, leaving in-depth code reviews, making developer tools for our internal pipelines. The "people behind the screens" were my coworkers. My peers in the engineering workforce.
 
-Today though, it meant something more. I could improve my processes — and goodness knows they'd be needed in the following months — but I could demonstrate this care in much more, such as:
+Today though, it meant something more. I could improve my processes — and goodness knows they'd be needed in the following months — but I could demonstrate this care in much more meaningful ways, such as:
 
 - My team members reporting to me as people. Their interpersonal lives and their capacity to handle their own responsibilities within the org and beyond.
 - My management team. Their needs to succeed in their respective areas to drive growth in the organization as a whole.
