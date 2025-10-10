@@ -14,9 +14,7 @@
       post: "the-power-of-showing-up",
     },
     {
-      order: 3,
-      title: "Fractional Leadership in Practice",
-      description: "Coming soon..."
+      post: "fractional-leadership-in-practice"
     },
     {
       order: 4,
