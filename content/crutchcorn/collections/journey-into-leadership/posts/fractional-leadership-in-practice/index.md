@@ -13,7 +13,7 @@
 
 I spoke with their CTO. I listened to their business needs. I pitched my vision of a potential solution. I won the contract.
 
-What ultimately swayed them wasn't the short-term gains, but the ability to have a stable environment which they could quickly iterate and experiment in order to scale their software in the long run. They had a lot of plans for their software, and their current codebase was complex, hard to debug or extend, and relied on niche software. As a result, the 3D project had many bugs present.
+What ultimately swayed them wasn't the short-term gains, but the ability to have a stable environment in which they could quickly iterate and experiment in order to scale their software in the long run. They had a lot of plans for their software, and their current codebase was complex, hard to debug or extend, and relied on niche software. As a result, the 3D project had many bugs present.
 
 In the end, we found ourselves looking at a 30-hour timebox to experiment with a version of their 3D software rebuilt into Unity. What's more, they wanted a gut check on the rest of their frontend codebase to understand the pros and cons of their decision-making. In many ways, this was less of a purely technical contract and more of a leadership contract. I was being asked to lead the technical direction of their 3D software, while also providing guidance on how to improve their frontend codebase.
 
