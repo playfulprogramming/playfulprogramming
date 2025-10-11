@@ -20,8 +20,8 @@ It was clear they needed someone to come in and help mitigate the problems set f
 I'm not sure about you, but this led me to face a number of questions at the time:
 
 1) Does this project _yet_ need another rewrite if the foundation is unstable?
-2) If I do initiate another rewrite, how can I manage to build out new features at the same with such a small team?
-3) Should I prioritize the development work or skills up-leveling of the junior engineers?
+2) If I do initiate another rewrite, how can I manage to build out new features at the same time with such a small team?
+3) Should I prioritize the development work or skill up-leveling of the junior engineers?
 
 In the end, I decided that the following answers made the most sense:
 
@@ -31,13 +31,13 @@ In the end, I decided that the following answers made the most sense:
 
 ------
 
-The thing about rewrites is that they're _expensive_. Not only is there downtime for your dev team while they work on the new codebase but in my time I've found that every project requires some level of work to be done in the old codebase during this time. If your older codebase doesn't see much usage, you may likely find a majority of your time being able to focus on the new product. However, if your existing infrastructure sees a bit of usage that you're unable to halt entirely, you're mandated to bifurcate your attention between the old and the new.
+The thing about rewrites is that they're _expensive_. Not only is there downtime for your dev team while they work on the new codebase, there's more. In my time I've found that every project requires some level of work to be done in the old codebase during the time of your rewrite. If your older codebase sees little usage, you may likely find a majority of your time being able to focus on the new product. However, if your existing infrastructure sees a bit of usage that you're unable to halt entirely, you're mandated to bifurcate your attention between the old and the new.
 
 This split attention may not be bad if you have enough resources to enable supporting both products, but at PDRT we joked about needing at least 5x our team's size the entire time I was there.
 
 While this might seem like an impossible task, there is a third option: Incremental migration.
 
-See, while restarting development may be prohibitively expensive, you can often convince management to allow cycles of "new" and "old" development. While this might sound like the same problem as before but with longer lead cycles, there's a trick: You don't split the "old" and "new" code into different codebases or even projects — you merge them into the same product.
+See, while restarting development may be prohibitively expensive, you can often convince management to allow cycles of "new" and "old" development. While this might sound like the same problem as before, but with longer lead cycles, there's a trick: You don't split the "old" and "new" code into different codebases or even projects — you merge them into the same product.
 
 This can be done in a number of ways:
 
@@ -46,22 +46,28 @@ This can be done in a number of ways:
 - Page-by-page tech stack switching.
 - Microservices.
 
-However it's done, as the new and old codebases communicate with one-another you can slowly phase out the old for the new while retaining the ability to switch back to older features as-needed.
+However you do it, as the new and old codebases communicate with one-another, you can slowly phase out the old for the new while retaining the ability to switch back to older features as-needed.
 
-Whether you're writing a website (where incremental migration is arguably the easiest conceptually due to shared language primitives), a low-level project (where Googling "FFI" might unlock some valuable insights for incremental migration) or a mobile app, I've found incremental migration to be the best option forward.
+Whether you're writing a:
+
+- Website (where incremental migration is arguably the easiest conceptually due to shared language primitives)
+- Low-level project (where googling "FFI" might unlock some valuable insights for incremental migration)
+- Mobile app
+
+I've found incremental migration to be the best option forward.
 
 -----
 
 Now that we had a strategy for how to solve problem #1, problem #2 crept up. After all, while incremental migration allowed for more time to be spent on the old codebase, there were still:
 
 - Requirements to have iOS and Android builds
-- The need to maintaining multiple variations of our mobile app for different clients
+- The need to maintain multiple variations of our mobile app for different clients
 - Asks to build out a website from our main client's mobile app
 - Growing needs for reusable components across multiple products
 
 To solve _this_, I realized that we could [alley-oop](https://en.wikipedia.org/wiki/Alley-oop) successes from our primary client's mobile app into many other projects: Reusing code as much as humanly possible.
 
-Now, while a single version of this app this could be done with entirely separate codebases:
+Now, while a single version of this app, this could be done with entirely separate codebases:
 
 <!-- ::start:filetree -->
 - `android_app/`
@@ -142,7 +148,7 @@ This meant that instead of requiring our frontend team to know a number of progr
 - HTML (web)
 - CSS (web)
 
-As well as any number of tooling built on top of each platform, we could reduce that to:
+As well as any amount of tooling built on top of each platform, we could reduce that to:
 
 - JavaScript (web)
 - TypeScript (web)
@@ -214,7 +220,7 @@ To solve _this_ problem, I borrowed a slightly different philosophy: Why use mul
             - `...`
 <!-- ::end:filetree -->
 
-This practice is used widely in larger organizations and is called a "monorepo". This idea might sound obtuse, but comes with a number of benefits:
+This practice is used widely in larger organizations and is called a "monorepo." This idea might sound obtuse, but comes with a number of benefits:
 
 - Single choke-point of communication
 
@@ -230,7 +236,7 @@ This practice is used widely in larger organizations and is called a "monorepo".
 
 - Better code sharing patterns
 
-It's that last point that really stuck out to us: What if you could take that `Card.tsx` file and use it verbatim across all of the projects?
+It's that last point that really stuck out to us: What if you could take that `Card.tsx` file and use it verbatim across all the projects?
 
 <!-- ::start:filetree -->
 - `./`
@@ -262,19 +268,19 @@ This meant that, pragmatically, we only had to maintain a single shared codebase
 
 -----
 
-Between the incremental migration and moving to a monorepo, we had out work cut out for us. Luckily, there was suddenly a huge influx of low-hanging fruit that needed addressing. I say "luckily", because its environments like that where I've found junior engineers to thrive.
+Between the incremental migration and moving to a monorepo, we had our work cut out for us. Luckily, there was suddenly a huge influx of low-hanging fruit that needed addressing. I say "luckily," because it's environments like that where I've found junior engineers to thrive.
 
-When provided an opportunity to teach: I took it. I held regular 1:1s to schedule time with them, did frequent "lunch and learn"s to train on the tooling we'd be adapting next, and even built out scaffolding for them to reference on their own time. They did exceptionally at these tasks; making sure to regularly check-in when needed, but otherwise forging their path into the belly of this beast we were set on conquering.
+When provided an opportunity to teach: I took it. I held regular 1:1s to schedule time with them, did frequent "lunch and learn"s to train on the tooling we'd be adapting next, and even built out scaffolding for them to reference on their own time. They did exceptionally at these tasks; making sure to regularly check in when needed, but otherwise forging their path into the belly of this beast we were set on conquering.
 
-> While I wish I could take all of the credit for that, it's truly their willingness to learn and execute that allowed us to move forward as quickly as we had. I was genuinely so impressed with their abilities and that's not just lip-service.
+> While I wish I could take all the credit for that, it's truly their willingness to learn and execute that allowed us to move forward as quickly as we had. I was genuinely so impressed with their abilities, and that's not just lip-service.
 
 This, alone, came with a number of lessons for myself:
 
 - It's extremely important to budget time for training.
 
-  While it's often easy to overlook the need to assign tasks for "do research", these often end up being the most important in the grand scheme of things. Doing so provides insights into what your team is doing in a given moment; without them your team may find themselves in an endless game of "task whackamole" where they feel the need to ignore training in favor of executing.
+  While it's often easy to overlook the need to assign tasks for "do research," these often end up being the most important in the grand scheme of things. Doing so provides insights into what your team is doing in a given moment; without them, your team may find themselves in an endless game of "task whackamole" where they feel the need to ignore training in favor of executing.
 
-- Having code to reference is intensely more helpful than speaking at a high-level about concepts.
+- Having code to reference is intensely more helpful than speaking at a high level about concepts.
 
   While this may not be universally true (some adapt to concepts faster than usage), I've seen time-and-time again how referential material is more helpful than spoken concepts. By having something to look back towards, your mentees can:
 
@@ -294,7 +300,7 @@ This, alone, came with a number of lessons for myself:
 
 The rewrite was completed within the first six months, the website within the first year, and the primary client's app saw an increase of usage by 350%.
 
-As it turns out, the app was being broadly replaced in-house by our client; not by tech but instead by more antiquated methodologies that slowed down their pipeline but was more reliable in the short term. While I don't have the insights into how things went for our client after-the-fact, I'd assume that it drastically improved their time-to-execution.
+As it turns out, the app was being broadly replaced in-house by our client; not by tech but instead by more antiquated methodologies that slowed down their pipeline but were more reliable in the short term. While I don't have the insights into how things went for our client after-the-fact, I'd assume that it drastically improved their time-to-execution.
 
 Within those months of delivery, I learned a lot:
 
