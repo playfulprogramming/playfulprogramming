@@ -5,15 +5,7 @@
   tags: ['leadership', 'opinion'],
   coverImg: "./cover.png",
   published: "2025-11-17T13:45:00.284Z",
-  buttons: [{ text: "Read now", url: "/posts/how-a-promotion-can-kill-a-career" }],
-  chapterList: [
-    { post: "how-a-promotion-can-kill-a-career" },
-    {
-      order: 2,
-      title: "Inheriting and Improving Bad Tech",
-      description: "Coming soon..."
-    }
-  ]
+  buttons: [{ text: "Read now", url: "/posts/how-a-promotion-can-kill-a-career" }]
 }
 ---
 
