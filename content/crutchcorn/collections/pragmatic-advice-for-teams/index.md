@@ -5,17 +5,7 @@
   tags: ['leadership', 'opinion'],
   coverImg: "./cover.png",
   published: "2025-12-01T13:45:00.284Z",
-  buttons: [{ text: "Read now", url: "/posts/tradeoffs-in-engineering-identities" }],
-  chapterList: [
-    {
-      post: "tradeoffs-in-engineering-identities"
-    },
-    {
-      order: 2,
-      title: "In-Person vs Remote Engineering Teams",
-      description: "Coming soon..."
-    }
-  ]
+  buttons: [{ text: "Read now", url: "/posts/tradeoffs-in-engineering-identities" }]
 }
 ---
  
