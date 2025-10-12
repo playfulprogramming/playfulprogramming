@@ -92,9 +92,11 @@ Why? Because if you only looked at my résumé on paper during this time, you'd 
 - Senior Engineer
 - Principal Engineer
 
-This alone is a major red flag to hiring managers and the sort; it indicates that there's something going on that doesn't fit the pattern for most employees. This isn't simply a promotion, it's a drastic increase in responsibility and expectation that usually only comes with time. I was extremely fortunate when PDRT ended up formalizing my title a few months after-the-fact as "Staff Engineer" instead; the recruiter messages had returned.
+This alone is a major red flag to hiring managers and the sort; it indicates that there's something going on that doesn't fit the pattern for most employees. This isn't simply a promotion, it's a drastic increase in responsibility and expectation that usually only comes with time.
 
-In fact, I may have made this same mistake when [proposing my VP role for my current role](/posts/negotiating-for-vp-role). However, there are some distinct differences between the two situations:
+Luckily for me, during a period of formalizing titles, the PDRT management realized the mistake they'd made in giving me such a prestigious title and reverted it later on to "Staff Engineer". While I complained to a few friends at the time, it ended up being a saving grace sent me way; the recruiter messages had returned.
+
+But did I truly learn from this story? Some may argue that I made the same mistake of asking for too high of a title too early on when [proposing my VP role for my current role](/posts/negotiating-for-vp-role). However, there are some distinct differences between the two situations:
 
 **2a) My titles have not historically lined up perfectly with my responsibilities**
 
