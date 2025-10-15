@@ -1,6 +1,6 @@
 ---
 {
-  title: "Building Effective Teams",
+  title: "Pragmatic Advice for Teams",
   description: "Practical guidance for engineering management and team building.",
   tags: ['leadership', 'opinion'],
   coverImg: "./cover.png",
