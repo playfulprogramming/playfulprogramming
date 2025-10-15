@@ -158,13 +158,13 @@ const ConditionalRender = ({ bool }) => {
 We're using React's `{}` JavaScript binding to add an [`AND` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND). This works by using Boolean logic of ["short-circuiting"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation). This means that if we have:
 
 ```javascript
-const val = true || {};
+const val = true && {};
 ```
 
 `val` will be set to `{}`, while if we have:
 
 ```javascript
-const val = false || {};
+const val = false && {};
 ```
 
 `val` will be set to `false`.
@@ -176,7 +176,7 @@ This means that these examples **will** render their contained values:
 ```jsx
 <div>{0}</div>
 <div>{"Hello"}</div>
-<div>{true || <Comp/>}</div>
+<div>{true && <Comp/>}</div>
 <div>{true}</div>
 // Renders as
 <div>0</div>
