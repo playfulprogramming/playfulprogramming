@@ -1,6 +1,6 @@
 ---
 {
-	title: "Autogenerate Changelogs and Manage Releases using Conventional Commit",
+	title: "Conventional Commits for Changelogs & Releases",
 	description: "Whether creating changelogs or just keeping track of git tags, releases matter. Learn how to automate your release process with conventional-commits!",
 	published: '2020-06-23T05:12:03.284Z',
 	tags: ['npm', 'javascript'],

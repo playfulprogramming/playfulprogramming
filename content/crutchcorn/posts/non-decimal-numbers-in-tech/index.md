@@ -1,6 +1,6 @@
 ---
 {
-  title: "How Binary and Hexadecimal Work: An introduction to non-decimal number systems",
+  title: "Binary & Hexadecimal: Intro to Non-Decimal Systems",
   description: "Learn how to convert decimal to binary and hexadecimal, how CSS colors are calculated, and how your computer interprets letters into binary.",
   published: "2019-11-07T05:12:03.284Z",
   tags: ["computer science"],
