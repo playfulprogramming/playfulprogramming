@@ -44,6 +44,7 @@ export const themeToggle = () => {
 		const newTheme = document.documentElement.className;
 		toggleButton(newTheme);
 		localStorage.setItem(COLOR_MODE_STORAGE_KEY, newTheme);
+		window.dispatchEvent(new Event("themeChanged"));
 	};
 
 	themeToggleBtns.forEach((el) => el.addEventListener("click", handleClick));

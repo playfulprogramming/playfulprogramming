@@ -29,6 +29,7 @@ import styles from "./blog-post.module.scss";
 import { MarkdownHtml } from "utils/markdown";
 import Content from "utils/markdown/components/content.astro";
 import KatexCss from "./katex.astro";
+import MermaidRenderer from "components/MermaidRenderer";
 
 export interface Props {
 	post: PostInfo;
@@ -116,6 +117,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 				Post contents
 			</h2>
 			<Content content={postHtml.content} />
+			<MermaidRenderer client:load />
 			{
 				collectionPosts?.length ? (
 					<ArticleNav
