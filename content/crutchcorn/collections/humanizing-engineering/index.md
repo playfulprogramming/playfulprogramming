@@ -5,20 +5,7 @@
   tags: ['leadership', 'opinion'],
   coverImg: "./cover.jpg",
   published: "2025-12-15T13:45:00.284Z",
-  buttons: [{ text: "Read now", url: "/posts/survivorship-bias" }],
-  chapterList: [
-    {
-      post: "survivorship-bias"
-    },
-    {
-      post: "career-inequalities"
-    },
-    {
-      order: 3,
-      title: "Trauma and Tech",
-      description: "Coming soon..."
-    }
-  ]
+  buttons: [{ text: "Read now", url: "/posts/survivorship-bias" }]
 }
 ---
 
