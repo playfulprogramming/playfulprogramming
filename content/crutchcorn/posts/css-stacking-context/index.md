@@ -1,6 +1,6 @@
 ---
 {
-    title: "Why is z-index not working?! - Explaining CSS Stacking Context",
+    title: "Why Z-Index Isn’t Working: CSS Stacking Contexts",
     description: "z-index is a CSS property that helps control the z-axis height of an element, but it often doesn't seem to work. Why is that? How does it REALLY work?",
     published: '2022-10-06T22:12:03.284Z',
     tags: ['webdev', 'css', 'html'],
