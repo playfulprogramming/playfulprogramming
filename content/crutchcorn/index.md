@@ -3,7 +3,7 @@
 	name: "Corbin Crutchley",
 	firstName: "Corbin",
 	lastName: "Crutchley",
-	description: "Corbin is a staff software engineer with a passion for helping others. 💜\nThey're focused on ensuring that learning is open and fun. 🦄\nThey blog, livestream, code, and more to reach those goals to help others! 💅",
+	description: "Corbin is a VP of Software Engineering with a passion for helping others. 💜\nThey're focused on ensuring that learning is open and fun. 🦄\nThey blog, livestream, code, and more to reach those goals to help others! 💅",
 	socials: {
 		twitter: "crutchcorn",
 		bluesky: "https://bsky.app/profile/crutchcorn.dev",
