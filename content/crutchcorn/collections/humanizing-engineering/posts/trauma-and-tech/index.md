@@ -74,16 +74,7 @@ But I never did; I got closer with the girl from that running group and even end
 
 -----
 
-Yes, there's a few things to take away from this early time:
-
--  The willingness to learn triumphing over the need for modern resources.
-- Being inquisitive and kind working well for my social life.
-- It can be easy to mistake passion for arrogance.
-- Follow the golden rule.
-
-But I don't tell these stories to extract weak commentary from them. Instead, I wanted to paint a picture of what was going on in my life externally during this time. From the outset, I was a happy child; capable of holding social engagements within reason and generally appeared to be happy most of the time.
-
-Internally, things were very different.
+From the outset, I was a happy child; capable of holding social engagements within reason and generally appeared to be happy most of the time. Internally, things were very different.
 
 See, there's a difference between mental state and mental wellbeing. While one can be in a good state of mind for a short period of time, it doesn't inherently mean that they're doing well longer-term. This was especially the case for me during these years, as you'll soon learn.
 
@@ -91,7 +82,7 @@ This is often called "masking" — where your external self is intentionally pre
 
 As an adult, this reminds me of [burnout](/posts/tradeoffs-in-engineering-identities#Speed-vs-consistency), where one can be feeling out for the count in terms of their productivity but may be on the verge of crashing into a lower sense of productivity.
 
-In both of these examples, you may end up masking to hide your internalized state from the world; our society often vilifies and punishes transparency around negative mental health. This transparency can be leveraged against you to paint you as "challenging to work with", "not producing good work", or even "bringing down the mood".
+In both of these examples, you may end up masking to hide your internalized state from the world or even yourself; our society often vilifies and punishes transparency around negative mental health. This transparency can be leveraged against you to paint you as "challenging to work with", "not producing good work", or even "bringing down the mood".
 
 # Trauma Surfaces
 
@@ -357,7 +348,7 @@ And these statistics don't disappear simply because I've become successful. Succ
 
 The 20x figure in particular resonates a warning sound in my mind; While my résumé is past the point where my education is a mitigating factor in hiring, my mental health is an ongoing concern.
 
-A little over a year ago, for example, I found myself on the absolute limits of what my support system could handle. I found myself in a psychosis episode where I felt needles embedded in the back of my head and was innately compelled to cut them out with a knife — despite better logical judgement.
+A little over a year ago, for example, I found myself on the absolute limits of what my support system could handle. These events occur extremely rarely these days — maybe but once in many years — medication has helped me find intense stability compared to my youth. That said, I found myself in a psychosis episode where I felt needles embedded in the back of my head and was innately compelled to cut them out with a knife — despite better logical judgement.
 
 Understandably, I found myself questioning whether or not I needed to re-enter the psychiatric ward for the second time in my life. Fortunately, the episode only lasted a day and never returned - but had it returned — even for a short while after that first day — I would have needed to abruptly leave my social and work obligations for a week at minimum.
 
@@ -385,8 +376,6 @@ Likewise, as an engineer, I've learned how a user experience is consistently mad
 And it's that kind of self-mandated empathy that has set me aside as an engineering voice on my teams.
 
 It's a cruel irony that the voices in my head started from such a "hyper-logical" place that I now rely more heavily on empathy as a guiding principle in my logically focused career. This isn't to say that this shift towards emotions over tech is a bad thing, however. It's enabled me to be better at paths in tech less walked down: Documentation, code review, API design, management style all benefit from this shift.
-
-Moreover, if I think of the folks I've worked with in my career, there's a consistent pattern at play; the most logical, "smartest" people on a team that lacked social skills would often cause disruptions to a project's [flow state](/posts/in_person_vs_remote_teams) more often than anyone else. I've only ever had a single employee I've made an HR complaint against, and it was due to this misalignment of empathy vs. logic.
 
 I think our society over indexes on the concept of logical thinking. When I was young, I wanted to be a "renaissance man" — the kind of person who could do anything and succeed in it well. This, for me at the time, meant a fixation on logical thinking and problem-solving. But as I've grown, [not only do I realize now that specialization is as valuable (if not more) than generalization](/posts/tradeoffs-in-engineering-identities), but that emotional intelligence serves as a core ingredient to that success.
 
