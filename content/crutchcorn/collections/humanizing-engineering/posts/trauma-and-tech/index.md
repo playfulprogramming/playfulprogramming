@@ -231,11 +231,11 @@ After discussions of my grades with faculty, my mom placed me in an independent 
 
 My grandfather died.
 
-I stayed with him for the entirety of the two weeks he was given. It was a devastating blow to my entire family; he acted much like the center stone of our family. Nobody that was lucky enough to have him in their life was left untouched by him.
+I stayed with him at my grandparent's house for the entirety of the two weeks he was given. It was a devastating blow to my entire family; he acted much like the center stone of our family. Nobody that was lucky enough to have him in their life was left untouched by him.
 
-My grandmother was left beside herself. I'd spend the night at their house and come out only to find her sitting at the kitchen table aimlessly staring at the wall. I'd join her at the table, and it would inevitably result in us both evaluating the textured vertical surface for ages. Eventually, the silence would break after one of us would start a thought aimed at the other. Maybe it was a small bit of logistical planning, maybe a memory of grandpa would surface, maybe we'd heard a noise from the neighboring street.
+My grandmother was left beside herself. I'd come out of the guest room only to find her sitting at the kitchen table aimlessly staring at the wall. I'd join her at the table, and it would inevitably result in us both evaluating the textured vertical surface for ages. Eventually, the silence would break after one of us would start a thought aimed at the other. Maybe it was a small bit of logistical planning, maybe a memory of grandpa would surface, maybe we'd heard a noise from the neighboring street.
 
-Regardless of topic, small comments would turn into long talks late into the night as we both processed our shared grief. Trauma is isolating, even in a crowd, but knowing that I could verbalize my feelings with a family member became critical to my eventual acceptance. I didn't know my grandmother well prior to this point; she was often working night shifts or would be asleep during many of my visits to recuperate. But in this time, we grew to know each other intently. While our sadness was prevalent, it brought us closer together. We remain extremely close today.
+Regardless of topic, small comments would turn into long talks late into the night as we both processed our shared grief. Trauma is isolating, even in a crowd. Feelings spoken among family shortened the emotional distance. I didn't know my grandmother well prior to this point; she was often working night shifts or would be asleep during many of my visits to recuperate. But in this time, we grew to know each other intently. While our sadness was prevalent, it brought us closer together. We remain extremely close today.
 
 At this time, school was the last thing on my mind. Unfortunately for me, that came with problems of its own. It wasn't long before my mom received a threatening letter from the new school; have your son begin attendance _or else_. 
 
@@ -388,7 +388,7 @@ It's a cruel irony that the voices in my head started from such a "hyper-logical
 
 Moreover, if I think of the folks I've worked with in my career, there's a consistent pattern at play; the most logical, "smartest" people on a team that lacked social skills would often cause disruptions to a project's [flow state](/posts/in_person_vs_remote_teams) more often than anyone else. I've only ever had a single employee I've made an HR complaint against, and it was due to this misalignment of empathy vs. logic.
 
-I think our society over indexes on the concept of logical thinking. When I was young, I wanted to be a "renaissance man" — the kind of person who could do anything and succeed in it well. This, for me at the time, meant a fixation on logical thinking and problem-solving. But as I've grown, [not only do I realize now that specialization is as valuable (if not more) than generalization](/posts/tradeoffs-in-engineering-identities), but that emotional intelligence is part of that success.
+I think our society over indexes on the concept of logical thinking. When I was young, I wanted to be a "renaissance man" — the kind of person who could do anything and succeed in it well. This, for me at the time, meant a fixation on logical thinking and problem-solving. But as I've grown, [not only do I realize now that specialization is as valuable (if not more) than generalization](/posts/tradeoffs-in-engineering-identities), but that emotional intelligence serves as a core ingredient to that success.
 
 ----
 
