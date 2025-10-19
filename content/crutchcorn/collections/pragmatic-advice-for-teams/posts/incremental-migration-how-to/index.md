@@ -18,37 +18,37 @@ But this leaves an open-ended question: How _do_ you incrementally migrate a cod
 
 
 
-- Gluing the old to the new
 
 
+# Core Concepts
 
-# Embedding Old into New
+## Feature Flags
 
-
-
-## A/B Delivery Systems
-
+- Allow the user to opt-out of new versions?
+- How to toggle them easily for developers and exposing that in dev only UIs
 - "Shadow launching": The old system handles the request, but a copy of the traffic is also sent to the new service. You can then compare the results, performance, and error rates without impacting users.
 
-## Reusing Routing
+## Versioning
+
+- Semver
+- Talk about how to expose this to users for debugging purposes
+
+## Invisible vs. Evident Changes
+
+- Good time to change UI? Or adopt individually?
+- Good time to introduce new features?
+- Testing methodologies?????
+
+
+
+# Application Splitting
+
+## Splitting by Route
 
 - Page-by-page on the FE
 - Route-by-route on the BE
 
-## Framework Interop
-
-- Nest.js <-> AdonisJS on the BE
-- React <-> Vue on the FE
-
-# On Versioning
-
-- Major / minor / patch
-
-Relevant?
-
-
-
-# Feature-by-Feature Migrations
+## Splitting by Feature
 
 - Microservices (BE)
 - iFrames (FE)
@@ -57,21 +57,18 @@ Relevant?
 
 
 
-# Invisible vs. Evident Switchovers 
-
-- Good time to change UI? Or adopt individually?
-- Good time to introduce new features?
-- Testing methodologies?????
-
-
-
-
-
-# Data Strategies
+# Data Migrations
 
 - Shared database between systems?
 - Communication layers between systems?
 - Data sync scripts?
 
-
 Remember, the FE can have data too
+
+
+
+# Framework Interop
+
+- Nest.js <-> AdonisJS on the BE
+- React <-> Vue on the FE
+
