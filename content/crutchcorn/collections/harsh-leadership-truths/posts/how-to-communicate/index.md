@@ -143,9 +143,24 @@ If you must have a synchronous call, you should broadly make sure that it:
 
 ## Synthesizing Summaries
 
-- Provide funnel point for long-running comms (a summary doc for threads and such)
+You start a thread right before lunch, a challenging topic has come up in your work and you're looking for an answer. You make sure you include all the right context, formatting, and the other goodies we've talked about. You leave for lunch. When you return:
 
-  
+![A Slack thread with 59 replies between two people](./slack_59.png)
+
+Oh dear. It seems like your team has a **lot** to say on the topic. But you've been out! Are you to read all 59 messages to catch up? What about the next person who wonders in?
+
+> **How to solve this:**
+>
+> Add a summary to long-running threads.
+
+Summaries are incredible ways of getting multiple ideas documented at once — retaining the context and nuance of it all — while removing much of the unnecessary chitter chatter.
+
+You can do this in a number of ways:
+
+1) Add a summary to the top message of a thread — pinning it if your app allows you to.
+2) Move off chat apps and into an RFC document, where you can comment and edit specific points and make multiple proposals.
+
+The second works particularly well if this decision you're debating has long-standing consequences. Having a point of reference for future folks is very advantageous in team comms.
 
 ## Default to Documentable Communication
 
