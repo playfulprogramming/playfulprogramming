@@ -113,12 +113,33 @@ That way, when someone says "About #1", you both know what you're talking about.
 
 # Engineering Your Team's Comms
 
+Simply structuring your messages won't solve issues in your teams' communication pipeline, however. Let's take a look at a few things that can be done to improve communications at a more systemic scale.
+
 ## Sync vs. Async
 
-- "This could have been an email" 
-- Provide [grading rubric](https://thismeetingcouldhavebeenanemail.org/) for when to make one or another
+We've all heard it before:  "This could have been an email."
 
+And you know what? Most of the time, that meeting probably _could_ have been one, too. Not only do long-toothed meetings take up time, but in an organization time is literally money (through hefty engineering salaries and the sorts). Consider the following:
 
+| Item                    | Value   |
+| ----------------------- | ------- |
+| Attendees               | 5       |
+| Average Salary          | $80,000 |
+| Duration (mins)         | 60      |
+| Per-meeting cost        | $192.31 |
+| Yearly cost (if weekly) | $10,000 |
+
+And that's for a _weekly_ meeting! When I first joined my company as VP, I was mortified to find that many of our team members were all joining a daily org-wide call that lasted upwards of an hour and half; you can imagine the cost that must've incurred over time!
+
+If you must have a synchronous call, you should broadly make sure that it:
+
+- Has a clear agenda
+- Requires all the attendees to be there
+- Has some level of time-sensitivity to it
+
+> **Grading Rubric:**
+>
+> [There's a handy grading rubric and cost calculator for your meetings available at "thismeetingcouldhavebeenanemail.org"](https://thismeetingcouldhavebeenanemail.org/). I don't know who made it, but it's glorious!
 
 ## Synthesizing Summaries
 
@@ -135,6 +156,8 @@ That way, when someone says "About #1", you both know what you're talking about.
 
 
 # Demonstrating Leadership
+
+The people on your teams are, first and foremost, people. It can be tricky to context switch between engineering work and soft skills at times. To help along that path, here are a few things that I like to keep in mind when chatting with my peers.
 
 ## Seek to Understand First 
 
