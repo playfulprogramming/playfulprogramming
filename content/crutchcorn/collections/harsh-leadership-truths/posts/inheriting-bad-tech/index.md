@@ -29,7 +29,7 @@ In the end, I decided that the following answers made the most sense:
 2) Immense code reuse.
 3) Yes. Both? Let's do both.
 
-------
+# Managing Migration Costs
 
 The thing about rewrites is that they're _expensive_. Not only is there downtime for your dev team while they work on the new codebase, there's more. In my time I've found that every project requires some level of work to be done in the old codebase during the time of your rewrite. If your older codebase sees little usage, you may likely find a majority of your time being able to focus on the new product. However, if your existing infrastructure sees a bit of usage that you're unable to halt entirely, you're mandated to bifurcate your attention between the old and the new.
 
@@ -56,7 +56,7 @@ Whether you're writing a:
 
 I've found incremental migration to be the best option forward.
 
------
+# Sharing Technologies
 
 Now that we had a strategy for how to solve problem #1, problem #2 crept up. After all, while incremental migration allowed for more time to be spent on the old codebase, there were still:
 
@@ -93,7 +93,7 @@ It's easy to see how this could get out of hand rather quickly after adding even
         - `Card.tsx`
         - `App.tsx`
         - `...`
-<!-- ::end:filetree -->
+        <!-- ::end:filetree -->
 
 This layout is made even more complicated by the need to maintain multiple variations of publishable apps on the respective app stores:
 
@@ -133,7 +133,7 @@ This layout is made even more complicated by the need to maintain multiple varia
         - `Card.tsx`
         - `App.tsx`
         - `...`
-<!-- ::end:filetree -->
+        <!-- ::end:filetree -->
 
 Clearly, we needed a way to reuse code between mobile apps; bonus points if it enabled code reuse from the website also. We resolved ourselves on using web-technologies with the ability to compile down to mobile views.
 
@@ -157,7 +157,7 @@ As well as any amount of tooling built on top of each platform, we could reduce 
 
 With a single toolkit across projects.
 
-----------
+# Sharing Codebases
 
 While this decision to use web technologies did a lot to help reduce our learning (and maintenance) curve:
 
@@ -182,7 +182,7 @@ While this decision to use web technologies did a lot to help reduce our learnin
         - `Card.tsx`
         - `App.tsx`
         - `...`
-<!-- ::end:filetree -->
+        <!-- ::end:filetree -->
 
 It did little to reduce the frequency of which we needed to copy+paste code between projects. Moreover, even if we could reasonably copy+paste code between projects to sync their states, it became challenging to know what was the most recent version of a given piece of code.
 
@@ -218,7 +218,7 @@ To solve _this_ problem, I borrowed a slightly different philosophy: Why use mul
             - `Card.tsx`
             - `App.tsx`
             - `...`
-<!-- ::end:filetree -->
+            <!-- ::end:filetree -->
 
 This practice is used widely in larger organizations and is called a "monorepo." This idea might sound obtuse, but comes with a number of benefits:
 
@@ -259,14 +259,14 @@ It's that last point that really stuck out to us: What if you could take that `C
         - `src/`
             - `App.tsx`
             - `...`
-<!-- ::end:filetree -->
+            <!-- ::end:filetree -->
 
 
 While this is technically possible with multiple distinct codebases, it's comparatively trivial with a monorepo!
 
 This meant that, pragmatically, we only had to maintain a single shared codebase with multiple adapters for their respective platforms and branding along the way; a huge win.
 
------
+# Mentoring Juniors
 
 Between the incremental migration and moving to a monorepo, we had our work cut out for us. Luckily, there was suddenly a huge influx of low-hanging fruit that needed addressing. I say "luckily," because it's environments like that where I've found junior engineers to thrive.
 
@@ -294,7 +294,7 @@ This, alone, came with a number of lessons for myself:
 
   This helped the juniors feel more empowered (and encouraged, even) to share their own knowledge, fact-check my work, and learn from it all.
 
-------
+# Results
 
 > "This is a good outline of the technical decision-making matrix, but what was the end result for the business?"
 
