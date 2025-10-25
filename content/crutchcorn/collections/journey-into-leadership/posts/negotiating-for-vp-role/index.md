@@ -33,7 +33,7 @@ I was nervous when I made my tentative proposal; "I think that's a number that w
 
 And with that, I was officially in the races for a VP role.
 
-------
+# Interviewing for the Role
 
 Leadership interviews are _weird_. They focus less on raw technical chops and more on how you'd handle given scenarios. It's a far cry from the kind of invasive leetcode questions that you either fervently love or hate. Maybe it's because I had already demonstrated many of my technical skills during the contracting phase, but I've heard similar from many of my leadership peers since.
 
@@ -61,7 +61,7 @@ It was a long-winded answer to my future CTO's question, but it came with a clos
 
 He seemed happy with this response. The next thing I knew, I was being offered the role.
 
------
+# Learned Lessons
 
 I learned a lot in this pipeline into becoming a VP:
 
