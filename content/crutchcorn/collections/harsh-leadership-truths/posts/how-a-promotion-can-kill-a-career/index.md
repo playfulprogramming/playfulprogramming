@@ -15,6 +15,10 @@ But while I was loosely interested in a comp increase, I was much more intereste
 
 See, when I was hired at the company, I was brought on at a "Senior" level. But now that we had another senior on the team that I was directly responsible for, I thought it was appropriate to be also moved up a level.
 
+I was elated when I found out that they had accepted my request - I was being given what I was asking for! But little did I know that this promotion and the title change it brought with it nearly killed my career.
+
+# Engineering Career Tracks {#career-tracks}
+
 See, relevant to this discussion, there are two predominant "tracks" of software engineering:
 
 1) Individual contributor (IC)
@@ -43,6 +47,8 @@ ICs are often more directly involved in the code while ELs are more management f
 
 > Of course, this is too clean of a chart to properly resemble the real-world. First, the IC and EL tracks overlap heavily in many instances, as it's more than possible to be a manager who still has coding tickets assigned to them. Additionally, the talents to good at either of these roles isn't a single set of skills.
 
+# Mistakes Made {#mistakes}
+
 When I made the request for a title change, I believe I made two grave mistakes:
 
 1) I asked for an IC title bump when I wanted to be an EL in the long-run.
@@ -52,7 +58,7 @@ Why do I view these as catastrophic problems? Well, while these are both easy mi
 
 ----
 
-**1) Asking for IC title instead of EL**
+## Mistake 1: Asking for IC title instead of EL {#mistake-1}
 
 I recall talking with PDRT's CTO about my career goals during my promotion ask. He wanted to know why I was seemingly more interested in a title raise than a pay increase.
 
@@ -78,7 +84,7 @@ This kind of "build an org-chart externally" isn't a theory, either. Many recrui
 
 ------
 
-**2) Asking for a dual-tier title bump**
+## Mistake 2: Asking for a dual-tier title bump {#mistake-2}
 
 While the first mistake was indeed a problem, it pales in comparison to the second mistake I made. This could have drastically halted or even killed my career.
 
@@ -96,9 +102,11 @@ This alone is a major red flag to hiring managers and the sort; it indicates tha
 
 Luckily for me, during a period of formalizing titles, the PDRT management realized the mistake they'd made in giving me such a prestigious title and reverted it later on to "Staff Engineer". While I complained to a few friends at the time, it ended up being a saving grace sent me way; the recruiter messages had returned.
 
+# Did I Repeat My Mistake?
+
 But did I truly learn from this story? Some may argue that I made the same mistake of asking for too high of a title too early on when [proposing my VP role for my current role](/posts/negotiating-for-vp-role). However, there are some distinct differences between the two situations:
 
-**2a) My titles have not historically lined up perfectly with my responsibilities**
+## Nuance 1: My titles have not historically lined up perfectly with my responsibilities {#nuance-1}
 
 I'm an example of how the on-paper work experience looks very different from one of a traditional VP. If you only look at my most recent five job titles for full-time work on paper leading up to my VP role, you'd see:
 
@@ -120,7 +128,7 @@ But what you'd be missing is additional context:
 
 While #5 may seem like a "gotcha" moment for those looking to discard my leadership experience, this _too_ ignores other context around my growth into leadership around this time: _I started (and continue) to act as the executive director for a non-profit_.
 
-**2b) I joined as a VP to a smaller company as we looked to scale**
+## Nuance 2: I joined as a VP to a smaller company as we looked to scale {#nuance-2}
 
 When my current company hired me as VP, it came with a huge bit of critical context: There were very few actual engineering employees at the organization.
 
@@ -132,7 +140,7 @@ From their position, it was an opportunity to take a chance on someone who'd led
 
 From my position, it was an opportunity to take a chance on a smaller organization who was scaling up and would provide me opportunities to learn and adapt to new environments. At worst, I could always scale back to an IC role that I was more comfortable with.
 
-----
+# Learnings {#learnings}
 
 While this overinflated title incident could have been detrimental, I was lucky enough to be able to walk away with some key learnings:
 
