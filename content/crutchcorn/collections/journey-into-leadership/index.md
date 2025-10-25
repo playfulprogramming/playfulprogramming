@@ -11,9 +11,7 @@
       post: "navigating-leadership-risks",
     },
     {
-      order: 2,
-      title: "The Power of Showing Up",
-      description: "Coming soon..."
+      post: "the-power-of-showing-up",
     },
     {
       order: 3,
