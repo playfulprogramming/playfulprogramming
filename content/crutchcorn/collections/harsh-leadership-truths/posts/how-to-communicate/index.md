@@ -164,11 +164,27 @@ The second works particularly well if this decision you're debating has long-sta
 
 ## Default to Documentable Communication
 
-- Default to public channels
+When working with teams, it's common to get direct messages asking questions about a particular piece of technology or some other decisionmaking that needs to occur.
 
-- Add transcription mention for sync chats
+This seems innocuous enough and almost certainly doesn't come with any malice, but can be problematic for a few reasons:
 
+- It insulates the information to a select few, making it harder to share this information to others if needed down the line.
+- Others who might be knowledgeable on the topic are not able to join into the conversation.
+- It inhibits the knowledge being accertained from transferring to bystandards, who might not think to ask the question otherwise.
 
+It's not isolated to messages, either. Asking to jump into a 1:1 call for a pair programming session, while helpful at times, means that others can't jump in and participate or learn from the experiences. Likewise, business or broader technical decisions made in those calls [are often lost](/posts/in_person_vs_remote_teams) or need to be reevalutated with fresh eyes at some point.
+
+To solve these problems, I often suggest that communication be made public by default. This means that all questions that are not explicitly more appropriate for private comms be made into messages or otherwise written forms of communnication that are indexed and able to be found trivially.
+
+This includes async calls, too; either hold them in a space where people can freely join if they'd like, take notes or use AI transcription to publish the recordings, or both!
+
+### Team Size Shyness
+
+This problem of defaulting to private comms is excaserbated when you only have larger group chats available to raise questions in; since many feel uncomfortable with feeling foolish or stupid. 
+
+To help mitigate this, create smaller environments that are still publicly viewable (and maybe even able to message in), but don't inherently advertise the group outside of those that need to be there.
+
+This is also partly a sign of broader cultural change that might need to occur to help others (especially juniors) find their voices. Reward speaking publicly when it otherwise might feel silly, don't impune "dumb" questions, and encourage regular active Q&A sessions. 
 
 # Demonstrating Leadership
 
