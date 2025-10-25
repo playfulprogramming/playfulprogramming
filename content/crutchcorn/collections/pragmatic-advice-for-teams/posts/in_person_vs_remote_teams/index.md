@@ -19,6 +19,8 @@ While they were able to talk shop with non-technical staff to understand the nua
 
 As a result, those that were more able and willing to attend casual in-office days would regularly have to fill me in after-the-fact about the conversations that took place. This became such a common occurrence with one of the juniors on my team that they quickly became the de-facto subject expert on many product features' designs. This helped them quickly accelerate their career into a "Senior" position thanks to visibility from upper management.
 
+# Organizational Documentation Needs
+
 This sounds like a slam-dunk argument in favor of in-office work on the surface, but to this day I remain committed to remote-first workplaces. See, a challenge with this method of office-first mentality is that things can quickly get lost. The fact that I, the frontend team lead with access to most documentation on the company, could not figure out certain product requirements without a conversation with our recently promoted senior engineer was indicative of this fact.
 
 This was fine for many things, but did mean that our product line was now contingent on their memory or note-taking abilities. On more than a few occasions, there would be a "What was that idea again?" question raised in a team chat met by a metaphorical glance over to the Senior to flip through their notes to answer.
@@ -41,7 +43,7 @@ Even when they're not in text-based environments, remote work wins again for doc
 
 For in-office work, this type of documentation ends up being extraordinarily costly. As a result, many organizations simply skimp on the effort and seem surprised when their metrics tell them that a "return to office" mandate would help increase communication flow and productivity.
 
------
+# Flow State
 
 Another advantage of remote work comes in the form of focus time. We can define "focus time" as blocks of time that someone is able to work through their tasks uninterrupted by notifications or meetings that might otherwise distract them from their task. As an engineer, this type of deep work time is critical for operations; the amount of thought that's required to get into one's mind for a given piece of code can be intensely time-sensitive.
 
@@ -55,7 +57,7 @@ Once you have all the context in mind, however, you're able to execute much fast
 
 Flow state often requires many hours of blocked off time to focus on a task. This kind of time _can_ be found during in-office work, but you're only ever a rogue colleague wanting to chit-chat away from being disturbed, breaking your thought process, and needing to re-enter the flow state. With remote work, you're in more control of what notifications can or cannot break through to interrupt this state.
 
----
+# Culture and Remote Work
 
 All of this doesn't mean that remote work is perfect, however. Not only can that added documentation add efforts to your team that might be challenging to navigate, but other struggles arise from remote-first work as well.
 
@@ -86,7 +88,7 @@ To solve this, I have a number of tricks up my sleeve:
 
 Remember, though, this kind of social activities should be optional; not everyone on your team is going to be there for the fun and games. Some may value their work time more stringently and want to enforce more strict work/life separation, and that's okay.
 
-------
+# Accountability Challenges
 
 While remote-enabled deep work is awesome, it can also limit the kind of peer accountability that in-office work enables. I have verbatim once heard remote workers at another org joke about rolling over from their bed to their desk for meetings only to return to a nap shortly after. 
 
@@ -94,7 +96,7 @@ Accountability can be important for many individuals' ability to act on their ex
 
 This one is more challenging to balance. I'm generally against monitoring software; they only work to instill distrust among team members and management, and the truly lazy will work hard to mitigate it anyway. So long as you're on top of team communication (both sync and async), you will broadly have a good idea of the progress within your team. If you're unclear on an individual's work ethics, check your board for their tickets and see if estimations make sense with how long tasks are taking for that team member. Your better judgment will go a long way here.
 
------
+# Takeaways
 
 So, what are the key takeaways from PDRT's in-office policies? For me, they'd be:
 
