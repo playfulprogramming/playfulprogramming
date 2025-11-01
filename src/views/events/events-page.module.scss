@@ -1,3 +1,14 @@
+@use "src/tokens/index" as *;
+
+:global(#header-bar) {
+	position: static !important;
+	border: none !important;
+
+	@include from($tabletLarge) {
+		position: sticky !important;
+	}
+}
+
 .container {
 	margin: 0 auto;
 	max-width: var(--max-width_l);
