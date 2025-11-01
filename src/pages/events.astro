@@ -1,0 +1,12 @@
+---
+import EventsPage from "../views/events/events-page";
+import Document from "../layouts/document.astro";
+import SEO from "../components/seo/seo.astro";
+---
+
+<Document lang={"en"} size="l">
+	<SEO title="Events" description="" slot="head" />
+	<main>
+		<EventsPage client:load />
+	</main>
+</Document>
