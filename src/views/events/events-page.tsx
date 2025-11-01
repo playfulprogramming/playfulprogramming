@@ -8,6 +8,7 @@ import {
 import { useElementSize } from "../../hooks/use-element-size";
 
 import filter from "src/icons/filter.svg?raw";
+import longWave from "../../../public/patterns/long_wave.svg?raw";
 import style from "./events-page.module.scss";
 
 type EventType = "all" | "online" | "in-person";
@@ -58,25 +59,38 @@ export default function SearchPageBase() {
 					overflow: "clip",
 				}}
 			>
-				<h1 className={`text-style-headline-1 ${style.eventsTitle}`}>Events</h1>
-				<div className={style.showButtonContainer}>
-					<div className={style.showTextContainer}>
-						<span
-							className={style.filterIconContainer}
-							dangerouslySetInnerHTML={{ __html: filter }}
-						></span>
-						<span className={`text-style-button-regular`}>Show:</span>
+				<div className={style.backgroundTop}>
+					<h1 className={`text-style-headline-1 ${style.eventsTitle}`}>
+						Events
+					</h1>
+					<div className={style.showButtonContainer}>
+						<div className={style.showTextContainer}>
+							<span
+								className={style.filterIconContainer}
+								dangerouslySetInnerHTML={{ __html: filter }}
+							></span>
+							<span className={`text-style-button-regular`}>Show:</span>
+						</div>
+						<RadioButtonGroup
+							className={style.eventTypesToShowGroup}
+							value={eventTypesToShow}
+							label={"Show:"}
+							onChange={(val) => setEventTypesToShow(val as EventType)}
+						>
+							<RadioButton value={"all"}>All Events</RadioButton>
+							<RadioButton value={"online"}>Online</RadioButton>
+							<RadioButton value={"in-person"}>In-person</RadioButton>
+						</RadioButtonGroup>
 					</div>
-					<RadioButtonGroup
-						className={style.eventTypesToShowGroup}
-						value={eventTypesToShow}
-						label={"Show:"}
-						onChange={(val) => setEventTypesToShow(val as EventType)}
-					>
-						<RadioButton value={"all"}>All Events</RadioButton>
-						<RadioButton value={"online"}>Online</RadioButton>
-						<RadioButton value={"in-person"}>In-person</RadioButton>
-					</RadioButtonGroup>
+				</div>
+				<div className={style.loopContainer}>
+					<div className={style.loop_line}>
+						<span className={style.longWaveSpan} dangerouslySetInnerHTML={{ __html: longWave }}></span>
+						<span className={style.longWaveSpan} dangerouslySetInnerHTML={{ __html: longWave }}></span>
+						<span className={style.longWaveSpan} dangerouslySetInnerHTML={{ __html: longWave }}></span>
+					</div>
+					<div className={style.loopFade} />
+					<div className={style.loopFadeRight} />
 				</div>
 			</div>
 			<div className={style.listsContainer}>
@@ -104,6 +118,7 @@ export default function SearchPageBase() {
 						</ul>
 					</div>
 				) : null}
+				<div style={{height: '200vh'}} />
 				{/*	TODO: Make empty state if neither is present */}
 			</div>
 		</div>
