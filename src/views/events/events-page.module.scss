@@ -9,10 +9,29 @@
 	align-items: center;
 	gap: calc(var(--site-spacing) * 2);
 	padding: var(--site-spacing);
+	justify-content: space-between;
 }
 
 .eventsTitle {
 	margin: 0;
+}
+
+.showButtonContainer {
+	display: flex;
+	gap: var(--site-spacing);
+	align-items: center;
+}
+
+.showTextContainer {
+	display: flex;
+	gap: var(--spc-2x);
+	align-items: center;
+	color: var(--foreground_emphasis-medium);
+}
+
+.filterIconContainer {
+	display: flex;
+	align-items: center;
 }
 
 .listsContainer {
