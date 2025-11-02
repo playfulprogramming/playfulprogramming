@@ -10,8 +10,48 @@ import { useElementSize } from "../../hooks/use-element-size";
 import filter from "src/icons/filter.svg?raw";
 import longWave from "../../../public/patterns/long_wave.svg?raw";
 import style from "./events-page.module.scss";
+import { useWindowSize } from "../../hooks/use-window-size";
+import { mobile } from "../../tokens/breakpoints";
+import {
+	Button,
+	ButtonContext,
+	ButtonProps,
+	Calendar,
+	CalendarCell,
+	CalendarGrid,
+	Heading,
+	useContextProps,
+} from "react-aria-components";
+import arrow_left from "../../icons/arrow_left.svg?raw";
+import arrow_right from "../../icons/arrow_right.svg?raw";
+import { IconOnlyButton } from "components/button/button";
+import { ForwardedRef, forwardRef } from "preact/compat";
+import { useButton } from "react-aria";
 
 type EventType = "all" | "online" | "in-person";
+
+const CustomButton = forwardRef(
+	(
+		props: ButtonProps & {
+			dangerouslySetInnerHTML: { __html: string };
+		},
+		ref: ForwardedRef<HTMLButtonElement>,
+	) => {
+		[props, ref] = useContextProps(props, ref, ButtonContext);
+
+		const { buttonProps } = useButton(props, ref);
+
+		return (
+			<IconOnlyButton
+				children={[]}
+				{...buttonProps}
+				dangerouslySetInnerHTML={props.dangerouslySetInnerHTML}
+				tag={"button"}
+				ref={ref as never}
+			/>
+		);
+	},
+);
 
 export default function SearchPageBase() {
 	const [eventTypesToShow, setEventTypesToShow] = useState("all" as EventType);
@@ -45,6 +85,10 @@ export default function SearchPageBase() {
 	}, []);
 
 	const headerHeight = size.height;
+
+	const windowSize = useWindowSize();
+
+	const isMobile = windowSize.width <= mobile;
 
 	return (
 		<div className={style.container}>
@@ -85,14 +129,55 @@ export default function SearchPageBase() {
 				</div>
 				<div className={style.loopContainer}>
 					<div className={style.loop_line}>
-						<span className={style.longWaveSpan} dangerouslySetInnerHTML={{ __html: longWave }}></span>
-						<span className={style.longWaveSpan} dangerouslySetInnerHTML={{ __html: longWave }}></span>
-						<span className={style.longWaveSpan} dangerouslySetInnerHTML={{ __html: longWave }}></span>
+						<span
+							className={style.longWaveSpan}
+							dangerouslySetInnerHTML={{ __html: longWave }}
+						></span>
+						<span
+							className={style.longWaveSpan}
+							dangerouslySetInnerHTML={{ __html: longWave }}
+						></span>
+						<span
+							className={style.longWaveSpan}
+							dangerouslySetInnerHTML={{ __html: longWave }}
+						></span>
 					</div>
 					<div className={style.loopFade} />
 					<div className={style.loopFadeRight} />
 				</div>
 			</div>
+			<Calendar
+				className={style.calendar}
+				aria-label="Events calendar"
+				visibleDuration={{ months: 3 }}
+			>
+				<header style={{ display: "flex", width: "100%" }}>
+					<CustomButton
+						slot="previous"
+						className={style.searchIconButton}
+						type="submit"
+						dangerouslySetInnerHTML={{ __html: arrow_left }}
+					/>
+					<Heading
+						style={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
+					/>
+					<CustomButton
+						slot="next"
+						className={style.searchIconButton}
+						type="submit"
+						dangerouslySetInnerHTML={{ __html: arrow_right }}
+					/>
+				</header>
+				<div style={{ display: "flex", gap: 30, overflow: "auto" }}>
+					<CalendarGrid>{(date) => <CalendarCell date={date} />}</CalendarGrid>
+					<CalendarGrid offset={{ months: 1 }}>
+						{(date) => <CalendarCell date={date} />}
+					</CalendarGrid>
+					<CalendarGrid offset={{ months: 2 }}>
+						{(date) => <CalendarCell date={date} />}
+					</CalendarGrid>
+				</div>
+			</Calendar>
 			<div className={style.listsContainer}>
 				{recurringEvents.length ? (
 					<div className={style.listContainer}>
@@ -118,7 +203,7 @@ export default function SearchPageBase() {
 						</ul>
 					</div>
 				) : null}
-				<div style={{height: '200vh'}} />
+				<div style={{ height: "200vh" }} />
 				{/*	TODO: Make empty state if neither is present */}
 			</div>
 		</div>
