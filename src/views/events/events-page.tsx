@@ -8,11 +8,9 @@ import {
 import { useElementSize } from "../../hooks/use-element-size";
 
 import filter from "src/icons/filter.svg?raw";
-import longWave from "../../../public/patterns/long_wave.svg?raw";
 import style from "./events-page.module.scss";
-import { useWindowSize } from "../../hooks/use-window-size";
-import { mobile } from "../../tokens/breakpoints";
-import { Calendar } from "./components/calendar";
+import { Calendar } from "./components/calendar/calendar";
+import { LongWave } from "./components/long-wave/long-wave";
 
 type EventType = "all" | "online" | "in-person";
 
@@ -86,24 +84,7 @@ export default function SearchPageBase() {
 						</RadioButtonGroup>
 					</div>
 				</div>
-				<div className={style.loopContainer}>
-					<div className={style.loop_line}>
-						<span
-							className={style.longWaveSpan}
-							dangerouslySetInnerHTML={{ __html: longWave }}
-						></span>
-						<span
-							className={style.longWaveSpan}
-							dangerouslySetInnerHTML={{ __html: longWave }}
-						></span>
-						<span
-							className={style.longWaveSpan}
-							dangerouslySetInnerHTML={{ __html: longWave }}
-						></span>
-					</div>
-					<div className={style.loopFade} />
-					<div className={style.loopFadeRight} />
-				</div>
+				<LongWave />
 			</div>
 			<Calendar />
 			<div className={style.listsContainer}>

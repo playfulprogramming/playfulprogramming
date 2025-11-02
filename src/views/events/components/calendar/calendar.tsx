@@ -15,29 +15,22 @@ import {
 	RangeCalendarStateContext,
 	useRenderProps,
 } from "react-aria-components";
-import arrow_left from "../../../icons/arrow_left.svg?raw";
-import arrow_right from "../../../icons/arrow_right.svg?raw";
+import arrow_left from "../../../../icons/arrow_left.svg?raw";
+import arrow_right from "../../../../icons/arrow_right.svg?raw";
 import { ForwardedRef, forwardRef } from "preact/compat";
 import {
-	AriaCalendarCellProps,
 	mergeProps,
 	useButton,
 	useCalendarCell,
 	useFocusRing,
 	useHover,
-	useLocale,
 } from "react-aria";
 import { IconOnlyButton } from "components/button/button";
 import style from "./calendar.module.scss";
-import { useWindowSize } from "../../../hooks/use-window-size";
-import { mobile, tabletLarge, tabletSmall } from "../../../tokens/breakpoints";
+import { useWindowSize } from "../../../../hooks/use-window-size";
+import { tabletLarge, tabletSmall } from "../../../../tokens/breakpoints";
 import { useContext, useMemo, useRef } from "preact/hooks";
-import {
-	CalendarDate,
-	isSameDay,
-	isSameMonth,
-	isToday,
-} from "@internationalized/date";
+import { CalendarDate, isToday } from "@internationalized/date";
 import { filterDOMProps } from "@react-aria/utils";
 // @ts-expect-error This is brittle and stupid and dumb
 import { hookData } from "@react-aria/calendar/dist/utils.mjs";
