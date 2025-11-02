@@ -3,7 +3,13 @@ import {
 	ButtonProps,
 	Calendar as AriaCalendar,
 	CalendarCell,
+	CalendarCellProps,
 	CalendarGrid,
+	CalendarGridBody,
+	CalendarGridHeader,
+	CalendarGridProps,
+	CalendarHeaderCell,
+	CalendarHeaderCellProps,
 	Heading,
 	useContextProps,
 } from "react-aria-components";
@@ -37,6 +43,35 @@ const CustomButton = forwardRef(
 	},
 );
 
+function CustomCalendarCell(props: CalendarCellProps) {
+	return (
+		<CalendarCell {...props}>
+			{({ formattedDate }) => (
+				<span className={style.calendarCell}>
+					<span className={style.innerCalendarCell}>{formattedDate}</span>
+				</span>
+			)}
+		</CalendarCell>
+	);
+}
+
+function CustomCalendarGrid(props: CalendarGridProps) {
+	return (
+		<CalendarGrid {...props} className={style.grid}>
+			<CalendarGridHeader>
+				{(day) => (
+					<CalendarHeaderCell className={style.calendarCell}>
+						<span className={style.innerCalendarCell}>{day}</span>
+					</CalendarHeaderCell>
+				)}
+			</CalendarGridHeader>
+			<CalendarGridBody>
+				{(date) => <CustomCalendarCell date={date} />}
+			</CalendarGridBody>
+		</CalendarGrid>
+	);
+}
+
 export function Calendar() {
 	return (
 		<AriaCalendar
@@ -44,31 +79,25 @@ export function Calendar() {
 			aria-label="Events calendar"
 			visibleDuration={{ months: 3 }}
 		>
-			<header style={{ display: "flex", width: "100%" }}>
+			<header className={style.calendarHeader}>
 				<CustomButton
 					slot="previous"
-					className={style.searchIconButton}
+					className={style.arrowButton}
 					type="submit"
 					dangerouslySetInnerHTML={{ __html: arrow_left }}
 				/>
-				<Heading
-					style={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
-				/>
+				<Heading className={style.calendarHeading} />
 				<CustomButton
 					slot="next"
-					className={style.searchIconButton}
+					className={style.arrowButton}
 					type="submit"
 					dangerouslySetInnerHTML={{ __html: arrow_right }}
 				/>
 			</header>
-			<div style={{ display: "flex", gap: 30, overflow: "auto" }}>
-				<CalendarGrid>{(date) => <CalendarCell date={date} />}</CalendarGrid>
-				<CalendarGrid offset={{ months: 1 }}>
-					{(date) => <CalendarCell date={date} />}
-				</CalendarGrid>
-				<CalendarGrid offset={{ months: 2 }}>
-					{(date) => <CalendarCell date={date} />}
-				</CalendarGrid>
+			<div className={style.gridContainer}>
+				<CustomCalendarGrid />
+				<CustomCalendarGrid offset={{ months: 1 }} />
+				<CustomCalendarGrid offset={{ months: 2 }} />
 			</div>
 		</AriaCalendar>
 	);

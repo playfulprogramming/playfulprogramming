@@ -1,63 +1,82 @@
 @use "src/tokens/index" as *;
 
-.calendar,
-.calendar * {
-	width: fit-content;
-	max-width: 100%;
-	color: var(--text-color);
+.calendar {
+	width: 100%;
+}
 
-	header {
-		display: flex;
-		align-items: center;
-		margin: 0 4px 0.4375rem 4px;
+.calendarHeader {
+	display: flex;
+	align-items: center;
+	margin: 0 4px 0.4375rem 4px;
+	width: 100%;
+}
 
-		.react-aria-Heading {
-			flex: 1;
-			margin: 0;
-			text-align: center;
-			font-size: 1.203125rem;
-		}
+.calendarHeading {
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+}
+
+.gridContainer {
+	display: flex;
+	overflow: auto;
+	justify-content: space-between;
+	width: 100%;
+	gap: calc(var(--site-spacing) / 2);
+}
+
+.grid {
+	flex-grow: 1;
+}
+
+.arrowButton {
+	flex-grow: 0;
+}
+
+.innerCalendarCell {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 2rem;
+	width: 2rem;
+	border-radius: 6px;
+}
+
+.calendarCell {
+	text-align: center;
+	cursor: default;
+	outline: none;
+	forced-color-adjust: none;
+
+	&[data-outside-month] {
+		display: none;
 	}
 
-	:global(.react-aria-CalendarCell) {
-		width: 2.00025rem;
-		line-height: 2.00025rem;
-		text-align: center;
-		border-radius: 6px;
-		cursor: default;
-		outline: none;
-		forced-color-adjust: none;
+	&[data-pressed] {
+		background: var(--gray-100);
+	}
 
-		&[data-outside-month] {
-			display: none;
-		}
+	&[data-focus-visible] {
+		outline: 2px solid var(--focus-ring-color);
+		outline-offset: 2px;
+	}
 
-		&[data-pressed] {
-			background: var(--gray-100);
-		}
+	&[data-selected] {
+		background: var(--highlight-background);
+		color: var(--highlight-foreground);
+	}
 
-		&[data-focus-visible] {
-			outline: 2px solid var(--focus-ring-color);
-			outline-offset: 2px;
-		}
+	&[data-disabled] {
+		color: var(--text-color-disabled);
+	}
 
-		&[data-selected] {
-			background: var(--highlight-background);
-			color: var(--highlight-foreground);
-		}
+	&[data-unavailable] {
+		text-decoration: line-through;
+		color: var(--invalid-color);
+	}
 
-		&[data-disabled] {
-			color: var(--text-color-disabled);
-		}
-
-		&[data-unavailable] {
-			text-decoration: line-through;
-			color: var(--invalid-color);
-		}
-
-		&[data-invalid] {
-			background: var(--invalid-color);
-			color: var(--highlight-foreground);
-		}
+	&[data-invalid] {
+		background: var(--invalid-color);
+		color: var(--highlight-foreground);
 	}
 }
