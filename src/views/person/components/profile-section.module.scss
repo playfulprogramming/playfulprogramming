@@ -11,7 +11,7 @@
 	--profile_gap: var(--spc-4x);
 
 	--profile_links_gap: var(--spc-4x);
-	--profile_links_icon_size: var(--icon-size_dense);
+	--profile_links_icon_size: var(--icon-size_default);
 	--profile_links_label_margin-start: 0.25rem;
 
 	--profile_roles_gap: var(--chip-gap);
@@ -128,7 +128,6 @@
 	margin-right: var(--spc-1x);
 	height: var(--profile_links_icon_size);
 	width: var(--profile_links_icon_size);
-	padding: var(--icon-size-dense-padding);
 }
 
 .rolesList {
