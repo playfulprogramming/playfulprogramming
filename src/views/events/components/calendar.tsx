@@ -2,8 +2,6 @@ import {
 	ButtonContext,
 	ButtonProps,
 	Calendar as AriaCalendar,
-	CalendarCell,
-	CalendarCellProps,
 	CalendarGrid,
 	CalendarGridBody,
 	CalendarGridHeader,
@@ -11,16 +9,40 @@ import {
 	CalendarHeaderCell,
 	Heading,
 	useContextProps,
+	CalendarState,
+	CalendarCellProps,
+	CalendarStateContext,
+	RangeCalendarStateContext,
+	useRenderProps,
 } from "react-aria-components";
 import arrow_left from "../../../icons/arrow_left.svg?raw";
 import arrow_right from "../../../icons/arrow_right.svg?raw";
 import { ForwardedRef, forwardRef } from "preact/compat";
-import { useButton } from "react-aria";
+import {
+	AriaCalendarCellProps,
+	mergeProps,
+	useButton,
+	useCalendarCell,
+	useFocusRing,
+	useHover,
+	useLocale,
+} from "react-aria";
 import { IconOnlyButton } from "components/button/button";
 import style from "./calendar.module.scss";
 import { useWindowSize } from "../../../hooks/use-window-size";
 import { mobile, tabletLarge, tabletSmall } from "../../../tokens/breakpoints";
-import { useMemo } from "preact/hooks";
+import { useContext, useMemo, useRef } from "preact/hooks";
+import {
+	CalendarDate,
+	isSameDay,
+	isSameMonth,
+	isToday,
+} from "@internationalized/date";
+import { filterDOMProps } from "@react-aria/utils";
+// @ts-expect-error This is brittle and stupid and dumb
+import { hookData as hookDataMJS } from "../../../../node_modules/@react-aria/calendar/dist/utils.mjs";
+// @ts-expect-error This is brittle and stupid and dumb
+import { hookData as hookDataModule } from "../../../../node_modules/@react-aria/calendar/dist/utils.module.js";
 
 const CustomButton = forwardRef(
 	(
@@ -45,13 +67,99 @@ const CustomButton = forwardRef(
 	},
 );
 
-function CustomCalendarCell(props: CalendarCellProps) {
+// TODO: Custom fork of the CalendarCell component from react-aria-components to
+// 	overwrite functionality for `value` to enable multiple dates being selected
+export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
+	{ date, ...otherProps }: CalendarCellProps,
+	ref: ForwardedRef<HTMLTableCellElement>,
+) {
+	const baseState: CalendarState = useContext(CalendarStateContext);
+	const state: CalendarState = useMemo(
+		() => ({
+			...baseState,
+			isSelected(date: CalendarDate): boolean {
+				return true;
+			},
+		}),
+		[baseState],
+	);
+	hookDataMJS.set(state, {});
+	hookDataModule.set(state, {});
+	const isOutsideMonth = false;
+	const istoday = isToday(date, state.timeZone);
+
+	const buttonRef = useRef<HTMLDivElement>(null);
+	const { cellProps, buttonProps, ...states } = useCalendarCell(
+		{ date, isOutsideMonth },
+		state,
+		buttonRef,
+	);
+
+	const { hoverProps, isHovered } = useHover({
+		...otherProps,
+		isDisabled: states.isDisabled,
+	});
+	let { focusProps, isFocusVisible } = useFocusRing();
+	isFocusVisible &&= states.isFocused;
+
+	const renderProps = useRenderProps({
+		...otherProps,
+		defaultChildren: states.formattedDate,
+		defaultClassName: "react-aria-CalendarCell",
+		values: {
+			date,
+			isHovered,
+			isOutsideMonth,
+			isFocusVisible,
+			isSelectionStart: false,
+			isSelectionEnd: false,
+			isToday: istoday,
+			...states,
+		},
+	});
+
+	const dataAttrs = {
+		"data-focused": states.isFocused || undefined,
+		"data-hovered": isHovered || undefined,
+		"data-pressed": states.isPressed || undefined,
+		"data-unavailable": states.isUnavailable || undefined,
+		"data-disabled": states.isDisabled || undefined,
+		"data-focus-visible": isFocusVisible || undefined,
+		"data-outside-visible-range": states.isOutsideVisibleRange || undefined,
+		"data-outside-month": isOutsideMonth || undefined,
+		"data-selected": states.isSelected || undefined,
+		"data-selection-start": undefined,
+		"data-selection-end": undefined,
+		"data-invalid": states.isInvalid || undefined,
+		"data-today": istoday || undefined,
+	};
+
+	const DOMProps = filterDOMProps(otherProps as never, { global: true });
+
 	return (
-		<CalendarCell {...props} className={style.calendarCell}>
+		<td {...cellProps} ref={ref}>
+			<div
+				{...(mergeProps(
+					DOMProps,
+					buttonProps,
+					focusProps,
+					hoverProps,
+					dataAttrs,
+					renderProps,
+				) as unknown as Record<string, never>)}
+				ref={buttonRef}
+			/>
+		</td>
+	);
+});
+
+function CustomCalendarCellWrapper(props: CalendarCellProps) {
+	return (
+		<CustomCalendarCell {...props} className={style.calendarCell}>
 			{({ formattedDate }) => (
 				<span className={style.innerCalendarCell}>{formattedDate}</span>
 			)}
-		</CalendarCell>
+		</CustomCalendarCell>
 	);
 }
 
@@ -66,7 +174,7 @@ function CustomCalendarGrid(props: CalendarGridProps) {
 				)}
 			</CalendarGridHeader>
 			<CalendarGridBody>
-				{(date) => <CustomCalendarCell date={date} />}
+				{(date) => <CustomCalendarCellWrapper date={date} />}
 			</CalendarGridBody>
 		</CalendarGrid>
 	);
