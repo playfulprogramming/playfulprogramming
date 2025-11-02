@@ -9,7 +9,6 @@ import {
 	CalendarGridHeader,
 	CalendarGridProps,
 	CalendarHeaderCell,
-	CalendarHeaderCellProps,
 	Heading,
 	useContextProps,
 } from "react-aria-components";
@@ -19,6 +18,9 @@ import { ForwardedRef, forwardRef } from "preact/compat";
 import { useButton } from "react-aria";
 import { IconOnlyButton } from "components/button/button";
 import style from "./calendar.module.scss";
+import { useWindowSize } from "../../../hooks/use-window-size";
+import { mobile, tabletLarge, tabletSmall } from "../../../tokens/breakpoints";
+import { useMemo } from "preact/hooks";
 
 const CustomButton = forwardRef(
 	(
@@ -45,11 +47,9 @@ const CustomButton = forwardRef(
 
 function CustomCalendarCell(props: CalendarCellProps) {
 	return (
-		<CalendarCell {...props}>
+		<CalendarCell {...props} className={style.calendarCell}>
 			{({ formattedDate }) => (
-				<span className={style.calendarCell}>
-					<span className={style.innerCalendarCell}>{formattedDate}</span>
-				</span>
+				<span className={style.innerCalendarCell}>{formattedDate}</span>
 			)}
 		</CalendarCell>
 	);
@@ -73,11 +73,26 @@ function CustomCalendarGrid(props: CalendarGridProps) {
 }
 
 export function Calendar() {
+	const windowSize = useWindowSize();
+
+	const isMobile = windowSize.width <= tabletSmall;
+	const isTablet = windowSize.width <= tabletLarge;
+
+	const visibleDuration = useMemo(() => {
+		if (isMobile) {
+			return { months: 1 };
+		}
+		if (isTablet) {
+			return { months: 2 };
+		}
+		return { months: 3 };
+	}, [isMobile, isTablet]);
+
 	return (
 		<AriaCalendar
 			className={style.calendar}
 			aria-label="Events calendar"
-			visibleDuration={{ months: 3 }}
+			visibleDuration={visibleDuration}
 		>
 			<header className={style.calendarHeader}>
 				<CustomButton
@@ -96,8 +111,8 @@ export function Calendar() {
 			</header>
 			<div className={style.gridContainer}>
 				<CustomCalendarGrid />
-				<CustomCalendarGrid offset={{ months: 1 }} />
-				<CustomCalendarGrid offset={{ months: 2 }} />
+				{isMobile ? null : <CustomCalendarGrid offset={{ months: 1 }} />}
+				{isTablet ? null : <CustomCalendarGrid offset={{ months: 2 }} />}
 			</div>
 		</AriaCalendar>
 	);

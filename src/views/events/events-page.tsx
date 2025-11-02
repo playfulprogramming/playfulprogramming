@@ -49,10 +49,6 @@ export default function SearchPageBase() {
 
 	const headerHeight = size.height;
 
-	const windowSize = useWindowSize();
-
-	const isMobile = windowSize.width <= mobile;
-
 	return (
 		<div className={style.container}>
 			<div

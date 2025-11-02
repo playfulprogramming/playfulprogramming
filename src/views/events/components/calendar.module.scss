@@ -39,7 +39,7 @@
 	justify-content: center;
 	height: 2rem;
 	width: 2rem;
-	border-radius: 6px;
+	border-radius: 99px;
 }
 
 .calendarCell {
@@ -52,31 +52,20 @@
 		display: none;
 	}
 
-	&[data-pressed] {
-		background: var(--gray-100);
+	&[data-selected] .innerCalendarCell {
+		background: var(--surface_secondary_emphasis-low);
+	}
+
+	&[data-hovered] .innerCalendarCell {
+		background: var(--surface_secondary_emphasis-medium);
+	}
+
+	&[data-pressed] .innerCalendarCell {
+		background: var(--surface_secondary_emphasis-high);
 	}
 
 	&[data-focus-visible] {
 		outline: 2px solid var(--focus-ring-color);
 		outline-offset: 2px;
-	}
-
-	&[data-selected] {
-		background: var(--highlight-background);
-		color: var(--highlight-foreground);
-	}
-
-	&[data-disabled] {
-		color: var(--text-color-disabled);
-	}
-
-	&[data-unavailable] {
-		text-decoration: line-through;
-		color: var(--invalid-color);
-	}
-
-	&[data-invalid] {
-		background: var(--invalid-color);
-		color: var(--highlight-foreground);
 	}
 }
