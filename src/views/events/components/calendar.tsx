@@ -40,9 +40,7 @@ import {
 } from "@internationalized/date";
 import { filterDOMProps } from "@react-aria/utils";
 // @ts-expect-error This is brittle and stupid and dumb
-import { hookData as hookDataMJS } from "../../../../node_modules/@react-aria/calendar/dist/utils.mjs";
-// @ts-expect-error This is brittle and stupid and dumb
-import { hookData as hookDataModule } from "../../../../node_modules/@react-aria/calendar/dist/utils.module.js";
+import { hookData } from "@react-aria/calendar/dist/utils.mjs";
 
 const CustomButton = forwardRef(
 	(
@@ -83,8 +81,7 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 		}),
 		[baseState],
 	);
-	hookDataMJS.set(state, {});
-	hookDataModule.set(state, {});
+	hookData.set(state, {});
 	const isOutsideMonth = false;
 	const istoday = isToday(date, state.timeZone);
 
