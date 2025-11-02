@@ -13,6 +13,7 @@ import {
 	CalendarCellProps,
 	CalendarStateContext,
 	useRenderProps,
+	CalendarCellRenderProps,
 } from "react-aria-components";
 import arrow_left from "../../../../icons/arrow_left.svg?raw";
 import arrow_right from "../../../../icons/arrow_right.svg?raw";
@@ -37,7 +38,9 @@ import {
 	isToday,
 } from "@internationalized/date";
 import { filterDOMProps } from "@react-aria/utils";
-// @ts-expect-error This is brittle and stupid and dumb
+// @ts-expect-error This enables us to reach into the private API of react-aria-components
+// 	and access the hookData map. It only works when Vite aliases this, as otherwise the bundle
+// 	will differ from the lookup table of the server and cause runtime bugs due to the mismatch.
 import { hookData } from "@react-aria/calendar/dist/utils.mjs";
 import { Event } from "../../types";
 import dayjs from "dayjs";
@@ -95,6 +98,7 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 		};
 	}, [baseState]);
 
+	// Do our best to preserve the base state's hook data when it is requested
 	const proxy = new Proxy(
 		{},
 		{
@@ -108,6 +112,8 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 		},
 	);
 
+	// This is required, since usually you're not supposed to mutate the base state
+	// as `hookData` is a WeakMap
 	hookData.set(state, proxy as never);
 
 	const isOutsideMonth = !isSameMonth(
@@ -127,6 +133,7 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 		...otherProps,
 		isDisabled: states.isDisabled,
 	});
+	// eslint-disable-next-line prefer-const
 	let { focusProps, isFocusVisible } = useFocusRing();
 	isFocusVisible &&= states.isFocused;
 
@@ -198,7 +205,7 @@ function CustomCalendarCellWrapper({
 			{...props}
 			className={style.calendarCell}
 		>
-			{({ formattedDate }) => (
+			{({ formattedDate }: CalendarCellRenderProps) => (
 				<span className={style.innerCalendarCell}>{formattedDate}</span>
 			)}
 		</CustomCalendarCell>
@@ -220,14 +227,14 @@ function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 	return (
 		<CalendarGrid {...props} className={style.grid}>
 			<CalendarGridHeader>
-				{(day) => (
+				{(day: CalendarDate) => (
 					<CalendarHeaderCell className={style.calendarCell}>
 						<span className={style.innerCalendarCell}>{day}</span>
 					</CalendarHeaderCell>
 				)}
 			</CalendarGridHeader>
 			<CalendarGridBody>
-				{(date) => (
+				{(date: CalendarDate) => (
 					<CustomCalendarCellWrapper
 						monthDate={monthDate}
 						events={events}
@@ -261,6 +268,9 @@ export function Calendar({ events }: CalendarProps) {
 		return { months: 3 };
 	}, [isMobile, isTablet]);
 
+	// If we do an SSR pass on this component, the timezone may mismatch the client,
+	// and as a result, cause SSR errors and therefore break many assumptions about
+	// how the calendar should work.
 	if (!isClient) return null;
 
 	return (
