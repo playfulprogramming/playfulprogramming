@@ -17,6 +17,7 @@ export interface EventBlock {
 	description?: string;
 	starts_at: Date;
 	ends_at: Date;
+	timezone: string;
 	location_description: string;
 	location_address?: string;
 	location_url?: string;

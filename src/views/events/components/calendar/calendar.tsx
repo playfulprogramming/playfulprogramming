@@ -12,7 +12,6 @@ import {
 	CalendarState,
 	CalendarCellProps,
 	CalendarStateContext,
-	RangeCalendarStateContext,
 	useRenderProps,
 } from "react-aria-components";
 import arrow_left from "../../../../icons/arrow_left.svg?raw";
@@ -30,10 +29,16 @@ import style from "./calendar.module.scss";
 import { useWindowSize } from "../../../../hooks/use-window-size";
 import { tabletLarge, tabletSmall } from "../../../../tokens/breakpoints";
 import { useContext, useMemo, useRef } from "preact/hooks";
-import { CalendarDate, isToday } from "@internationalized/date";
+import {
+	CalendarDate,
+	fromDate,
+	isSameDay,
+	isToday,
+} from "@internationalized/date";
 import { filterDOMProps } from "@react-aria/utils";
 // @ts-expect-error This is brittle and stupid and dumb
 import { hookData } from "@react-aria/calendar/dist/utils.mjs";
+import { Event } from "../../types";
 
 const CustomButton = forwardRef(
 	(
@@ -58,22 +63,36 @@ const CustomButton = forwardRef(
 	},
 );
 
+interface CustomCalendarCellProps extends CalendarCellProps {
+	events: Event[];
+}
+
 // TODO: Custom fork of the CalendarCell component from react-aria-components to
 // 	overwrite functionality for `value` to enable multiple dates being selected
 export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
-	{ date, ...otherProps }: CalendarCellProps,
+	{ date, events, ...otherProps }: CustomCalendarCellProps,
 	ref: ForwardedRef<HTMLTableCellElement>,
 ) {
 	const baseState: CalendarState = useContext(CalendarStateContext);
-	const state: CalendarState = useMemo(
-		() => ({
+	const state: CalendarState = useMemo(() => {
+		return {
 			...baseState,
 			isSelected(date: CalendarDate): boolean {
-				return true;
+				console.log(JSON.stringify({ date }));
+				// Wow, this is slow. I don't know how to optimize this much more
+				return events.some((event) =>
+					event.blocks.some(
+						(block) =>
+							isSameDay(
+								date,
+								fromDate(block.starts_at, "America/Los_Angeles"),
+							) ||
+							isSameDay(date, fromDate(block.ends_at, "America/Los_Angeles")),
+					),
+				);
 			},
-		}),
-		[baseState],
-	);
+		};
+	}, [baseState]);
 	hookData.set(state, {});
 	const isOutsideMonth = false;
 	const istoday = isToday(date, state.timeZone);
@@ -143,9 +162,20 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 	);
 });
 
-function CustomCalendarCellWrapper(props: CalendarCellProps) {
+interface CustomCalendarCellWrapperProps extends CalendarCellProps {
+	events: Event[];
+}
+
+function CustomCalendarCellWrapper({
+	events,
+	...props
+}: CustomCalendarCellWrapperProps) {
 	return (
-		<CustomCalendarCell {...props} className={style.calendarCell}>
+		<CustomCalendarCell
+			events={events}
+			{...props}
+			className={style.calendarCell}
+		>
 			{({ formattedDate }) => (
 				<span className={style.innerCalendarCell}>{formattedDate}</span>
 			)}
@@ -153,7 +183,11 @@ function CustomCalendarCellWrapper(props: CalendarCellProps) {
 	);
 }
 
-function CustomCalendarGrid(props: CalendarGridProps) {
+interface CustomCalendarGridProps extends CalendarGridProps {
+	events: Event[];
+}
+
+function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 	return (
 		<CalendarGrid {...props} className={style.grid}>
 			<CalendarGridHeader>
@@ -164,13 +198,17 @@ function CustomCalendarGrid(props: CalendarGridProps) {
 				)}
 			</CalendarGridHeader>
 			<CalendarGridBody>
-				{(date) => <CustomCalendarCellWrapper date={date} />}
+				{(date) => <CustomCalendarCellWrapper events={events} date={date} />}
 			</CalendarGridBody>
 		</CalendarGrid>
 	);
 }
 
-export function Calendar() {
+interface CalendarProps {
+	events: Event[];
+}
+
+export function Calendar({ events }: CalendarProps) {
 	const windowSize = useWindowSize();
 
 	const isMobile = windowSize.width <= tabletSmall;
@@ -208,9 +246,13 @@ export function Calendar() {
 				/>
 			</header>
 			<div className={style.gridContainer}>
-				<CustomCalendarGrid />
-				{isMobile ? null : <CustomCalendarGrid offset={{ months: 1 }} />}
-				{isTablet ? null : <CustomCalendarGrid offset={{ months: 2 }} />}
+				<CustomCalendarGrid events={events} />
+				{isMobile ? null : (
+					<CustomCalendarGrid events={events} offset={{ months: 1 }} />
+				)}
+				{isTablet ? null : (
+					<CustomCalendarGrid events={events} offset={{ months: 2 }} />
+				)}
 			</div>
 		</AriaCalendar>
 	);

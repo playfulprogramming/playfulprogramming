@@ -18,6 +18,7 @@ export const bookClubBlocks = [
 		location_description: "Dithering Part 1 — Introduction",
 		location_url: "https://visualrambling.space/dithering-part-1/",
 		presenters: [],
+		timezone: "America/Los_Angeles",
 	},
 ] satisfies EventBlock[];
 
