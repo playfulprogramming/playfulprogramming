@@ -41,6 +41,7 @@ import { filterDOMProps } from "@react-aria/utils";
 import { hookData } from "@react-aria/calendar/dist/utils.mjs";
 import { Event } from "../../types";
 import dayjs from "dayjs";
+import { useIsOnClient } from "../../../../hooks/use-is-on-client";
 
 const CustomButton = forwardRef(
 	(
@@ -243,6 +244,8 @@ interface CalendarProps {
 }
 
 export function Calendar({ events }: CalendarProps) {
+	const isClient = useIsOnClient();
+
 	const windowSize = useWindowSize();
 
 	const isMobile = windowSize.width <= tabletSmall;
@@ -257,6 +260,8 @@ export function Calendar({ events }: CalendarProps) {
 		}
 		return { months: 3 };
 	}, [isMobile, isTablet]);
+
+	if (!isClient) return null;
 
 	return (
 		<AriaCalendar
