@@ -33,12 +33,14 @@ import {
 	CalendarDate,
 	fromDate,
 	isSameDay,
+	isSameMonth,
 	isToday,
 } from "@internationalized/date";
 import { filterDOMProps } from "@react-aria/utils";
 // @ts-expect-error This is brittle and stupid and dumb
 import { hookData } from "@react-aria/calendar/dist/utils.mjs";
 import { Event } from "../../types";
+import dayjs from "dayjs";
 
 const CustomButton = forwardRef(
 	(
@@ -65,12 +67,14 @@ const CustomButton = forwardRef(
 
 interface CustomCalendarCellProps extends CalendarCellProps {
 	events: Event[];
+	// It's a long story
+	monthDate: Date;
 }
 
 // TODO: Custom fork of the CalendarCell component from react-aria-components to
 // 	overwrite functionality for `value` to enable multiple dates being selected
 export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
-	{ date, events, ...otherProps }: CustomCalendarCellProps,
+	{ date, events, monthDate, ...otherProps }: CustomCalendarCellProps,
 	ref: ForwardedRef<HTMLTableCellElement>,
 ) {
 	const baseState: CalendarState = useContext(CalendarStateContext);
@@ -78,23 +82,37 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 		return {
 			...baseState,
 			isSelected(date: CalendarDate): boolean {
-				console.log(JSON.stringify({ date }));
 				// Wow, this is slow. I don't know how to optimize this much more
 				return events.some((event) =>
 					event.blocks.some(
 						(block) =>
-							isSameDay(
-								date,
-								fromDate(block.starts_at, "America/Los_Angeles"),
-							) ||
-							isSameDay(date, fromDate(block.ends_at, "America/Los_Angeles")),
+							isSameDay(date, fromDate(block.starts_at, state.timeZone)) ||
+							isSameDay(date, fromDate(block.ends_at, state.timeZone)),
 					),
 				);
 			},
 		};
 	}, [baseState]);
-	hookData.set(state, {});
-	const isOutsideMonth = false;
+
+	const proxy = new Proxy(
+		{},
+		{
+			// When "get", mirror the base state
+			get: (target, prop) => {
+				const baseStateHookData = hookData.get(baseState) || {};
+				return baseStateHookData[prop as keyof typeof baseState];
+			},
+			// When "set", do nothing
+			set: () => false,
+		},
+	);
+
+	hookData.set(state, proxy as never);
+
+	const isOutsideMonth = !isSameMonth(
+		date,
+		fromDate(monthDate, state.timeZone),
+	);
 	const istoday = isToday(date, state.timeZone);
 
 	const buttonRef = useRef<HTMLDivElement>(null);
@@ -164,15 +182,18 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 
 interface CustomCalendarCellWrapperProps extends CalendarCellProps {
 	events: Event[];
+	monthDate: Date;
 }
 
 function CustomCalendarCellWrapper({
 	events,
+	monthDate,
 	...props
 }: CustomCalendarCellWrapperProps) {
 	return (
 		<CustomCalendarCell
 			events={events}
+			monthDate={monthDate}
 			{...props}
 			className={style.calendarCell}
 		>
@@ -188,6 +209,13 @@ interface CustomCalendarGridProps extends CalendarGridProps {
 }
 
 function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
+	const state: CalendarState = useContext(CalendarStateContext);
+
+	const monthDate = dayjs(state.visibleRange.start.toDate(state.timeZone))
+		.startOf("month")
+		.add(props.offset?.months ?? 0, "month")
+		.toDate();
+
 	return (
 		<CalendarGrid {...props} className={style.grid}>
 			<CalendarGridHeader>
@@ -198,7 +226,13 @@ function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 				)}
 			</CalendarGridHeader>
 			<CalendarGridBody>
-				{(date) => <CustomCalendarCellWrapper events={events} date={date} />}
+				{(date) => (
+					<CustomCalendarCellWrapper
+						monthDate={monthDate}
+						events={events}
+						date={date}
+					/>
+				)}
 			</CalendarGridBody>
 		</CalendarGrid>
 	);
