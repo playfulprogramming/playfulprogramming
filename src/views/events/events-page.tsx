@@ -71,22 +71,40 @@ function RecurringEventsCard({
 							{dayjs(latestEventBlockWithMetadata.starts_at).format(
 								"MMMM Do • h:mmA ",
 							)}
-							• <span className={style.nextEventText}>Next Event</span>
+							• <span className={style.nextEventText}>Next event</span>
 						</div>
 					) : null}
 					<p className={`text-style-body-small ${style.eventDescription}`}>
 						{event.description}
 					</p>
 				</div>
-				{latestEventBannerSrc ? (
-					<div>
-						<img
-							alt=""
-							height={100}
-							width={100}
-							crossOrigin="anonymous"
-							src={latestEventBannerSrc}
-						/>
+				{latestEventBlockWithMetadata?.location_description ? (
+					<div className={style.eventRightContainer}>
+						<h3 className={`text-style-body-medium-bold`}>Next event's info</h3>
+						<div className={style.nextEventInnerCard}>
+							{latestEventBannerSrc ? (
+								<img
+									alt=""
+									width={80}
+									crossOrigin="anonymous"
+									src={latestEventBannerSrc}
+									className={style.topicCardImage}
+								/>
+							) : null}
+							<div className={style.topicCardTextContainer}>
+								<p className={`text-style-body-small-bold`}>
+									{latestEventBlockWithMetadata.location_description}
+								</p>
+								{latestEventBlockWithMetadata?.location_url ? (
+									<a
+										className={`text-style-body-small ${style.topicLink}`}
+										href={latestEventBlockWithMetadata.location_url}
+									>
+										{latestEventBlockWithMetadata.location_url}
+									</a>
+								) : null}
+							</div>
+						</div>
 					</div>
 				) : null}
 			</div>

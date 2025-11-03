@@ -185,6 +185,7 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
+	gap: var(--spc-4x);
 }
 
 .eventLeftContainer {
@@ -215,4 +216,39 @@
 
 .nextEventText {
 	color: var(--foreground_emphasis-high);
+}
+
+.eventRightContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-4x);
+	padding-top: var(--spc-4x);
+	flex-grow: 1;
+}
+
+.nextEventInnerCard {
+	display: flex;
+	flex-direction: row;
+	gap: var(--spc-3x);
+	border-radius: var(--corner-radius_m);
+	background: var(--surface_primary_emphasis-none);
+	width: 100%;
+	padding: var(--spc-2x) var(--spc-4x) var(--spc-2x) var(--spc-2x);
+}
+
+.topicCardImage {
+	height: 100%;
+	object-fit: cover;
+	border-radius: var(--corner-radius_s);
+}
+
+.topicCardTextContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.topicLink {
+	color: var(--primary_default);
 }

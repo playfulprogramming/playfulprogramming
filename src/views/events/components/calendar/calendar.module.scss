@@ -18,7 +18,7 @@
 .calendarHeader {
 	display: flex;
 	align-items: center;
-	margin: 0 4px 0.4375rem 4px;
+	margin: 0 0 calc(var(--site-spacing) / 2) 0;
 	width: 100%;
 	background: var(--surface_primary_emphasis-none);
 	padding: var(--spc-2x);
@@ -106,7 +106,7 @@
 }
 
 .popupContents {
-  padding: var(--spc-2x);
+	padding: var(--spc-2x);
 }
 
 .popupDialog {
