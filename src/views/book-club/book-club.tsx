@@ -38,6 +38,28 @@ export default function EventsPage({
 		});
 	}, [eventBlocksWithMetadata]);
 
+	const { pastEventBlocks, currentEventBlock } = useMemo(() => {
+		const pastEventBlocks: EventBlockWithMetadata[] = [];
+		const now = new Date();
+
+		let currentEventIndex = -1;
+		for (let i = 0; i < sortedEventBlocks.length; i++) {
+			const block = sortedEventBlocks[i];
+			if (block.starts_at < now) {
+				pastEventBlocks.push(block);
+				continue;
+			}
+
+			// Because the events are sorted chronologically, we can do this safely
+			currentEventIndex = i;
+			break;
+		}
+
+		const currentEventBlock = sortedEventBlocks.slice(currentEventIndex);
+
+		return { pastEventBlocks, currentEventBlock };
+	}, [sortedEventBlocks]);
+
 	return (
 		<div className={style.container}>
 			<div
@@ -77,16 +99,33 @@ export default function EventsPage({
 				<LongWave />
 			</div>
 			<div className={style.listsContainer}>
-				<p>Testing</p>
 				<ul>
-					{sortedEventBlocks.map((block) => {
+					{currentEventBlock.map((block) => {
 						return (
 							<li key={block.slug}>
 								{dayjs(block.starts_at).format("dddd, MMM D")}
 								<br />
 								{block.title}
 								<br />
-								{block.description}
+								{block.location_url}
+								<br />
+								<br />
+							</li>
+						);
+					})}
+				</ul>
+				<h2>Archived</h2>
+				<ul>
+					{pastEventBlocks.map((block) => {
+						return (
+							<li key={block.slug}>
+								{dayjs(block.starts_at).format("dddd, MMM D")}
+								<br />
+								{block.title}
+								<br />
+								{block.location_url}
+								<br />
+								<br />
 							</li>
 						);
 					})}
