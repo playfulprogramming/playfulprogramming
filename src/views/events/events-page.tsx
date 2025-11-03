@@ -7,14 +7,60 @@ import {
 
 import { useElementSize } from "../../hooks/use-element-size";
 
-import filter from "src/icons/filter.svg?raw";
-import style from "./events-page.module.scss";
 import { Calendar } from "./components/calendar/calendar";
 import { LongWave } from "./components/long-wave/long-wave";
+import { EventBlock, Event } from "./types";
+import { UrlMetadataResponse } from "utils/hoof";
+import filter from "src/icons/filter.svg?raw";
+import style from "./events-page.module.scss";
 
 type EventType = "all" | "online" | "in-person";
 
-export default function SearchPageBase() {
+type LatestEventBlockLocationMetadataType = Record<
+	string,
+	EventBlock & {
+		location_metadata: UrlMetadataResponse;
+	}
+>;
+
+interface EventsCardProps {
+	event: Event;
+	latestEventBlockLocationMetadata: LatestEventBlockLocationMetadataType;
+}
+
+function EventsCard({
+	latestEventBlockLocationMetadata,
+	event,
+}: EventsCardProps) {
+	const latestEventBlockWithMetadata =
+		latestEventBlockLocationMetadata[event.slug];
+
+	if (!latestEventBlockWithMetadata) {
+		return null;
+	}
+
+	return (
+		<div>
+			{latestEventBlockWithMetadata.location_metadata.banner ? (
+				<img
+					alt=""
+					height={100}
+					width={100}
+					crossOrigin="anonymous"
+					src={latestEventBlockWithMetadata.location_metadata.banner.src}
+				/>
+			) : null}
+		</div>
+	);
+}
+
+interface EventsPageProps {
+	latestEventBlockLocationMetadata: LatestEventBlockLocationMetadataType;
+}
+
+export default function EventsPage({
+	latestEventBlockLocationMetadata,
+}: EventsPageProps) {
 	const [eventTypesToShow, setEventTypesToShow] = useState("all" as EventType);
 
 	const filteredEvents = useMemo(() => {
@@ -95,7 +141,15 @@ export default function SearchPageBase() {
 						</h2>
 						<ul className={style.list}>
 							{recurringEvents.map((event) => (
-								<li key={event.slug}>{event.title}</li>
+								<li key={event.slug}>
+									{event.title}
+									<EventsCard
+										event={event}
+										latestEventBlockLocationMetadata={
+											latestEventBlockLocationMetadata
+										}
+									/>
+								</li>
 							))}
 						</ul>
 					</div>
@@ -107,7 +161,15 @@ export default function SearchPageBase() {
 						</h2>
 						<ul className={style.list}>
 							{nonRecurringEvents.map((event) => (
-								<li key={event.slug}>{event.title}</li>
+								<li key={event.slug}>
+									{event.title}
+									<EventsCard
+										event={event}
+										latestEventBlockLocationMetadata={
+											latestEventBlockLocationMetadata
+										}
+									/>
+								</li>
 							))}
 						</ul>
 					</div>

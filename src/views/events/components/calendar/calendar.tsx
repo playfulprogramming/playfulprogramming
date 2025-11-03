@@ -103,7 +103,7 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 	const state: CalendarState = useMemo(() => {
 		return {
 			...baseState,
-			isSelected(date: CalendarDate): boolean {
+			isSelected(_date: CalendarDate): boolean {
 				return isSelected;
 			},
 		};

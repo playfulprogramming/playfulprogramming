@@ -2,11 +2,64 @@
 import EventsPage from "../views/events/events-page";
 import Document from "../layouts/document.astro";
 import SEO from "../components/seo/seo.astro";
+import { events } from "../views/events/constants";
+import { getUrlMetadata, UrlMetadataResponse } from "utils/hoof";
+import { EventBlock } from "../views/events/types";
+
+// We only need the latest event block location metadata to show on the list view
+// Record<EventSlug, EventBlockWithMetadata>
+const latestEventBlockLocationMetadata: Record<
+	string,
+	EventBlock & {
+		location_metadata: UrlMetadataResponse;
+	}
+> = {};
+
+// Do not use `Promise.all`, as the getUrlMetadata retry logic may break builds when parallelism is enabled
+for (const event of events) {
+	let nearestButNotPastEvent: EventBlock | null = null;
+	// Find the nearest but not past event for each event
+	for (const block of event.blocks) {
+		// If the block is in the past, skip it
+		if (block.starts_at < new Date()) {
+			continue;
+		}
+
+		// If there is no nearest but not past event, set it to the current block
+		if (!nearestButNotPastEvent) {
+			nearestButNotPastEvent = block;
+			continue;
+		}
+
+		// Otherwise, if there is a "nearest but not past" event, check if the current block is closer
+		if (nearestButNotPastEvent.starts_at > block.starts_at) {
+			nearestButNotPastEvent = block;
+			continue;
+		}
+	}
+
+	if (!nearestButNotPastEvent) {
+		continue;
+	}
+
+	const location_metadata = await getUrlMetadata(
+		nearestButNotPastEvent.location_url,
+	);
+
+	latestEventBlockLocationMetadata[event.slug] = {
+		...nearestButNotPastEvent,
+		location_metadata,
+	};
+}
 ---
 
 <Document lang={"en"} size="l">
+	<!-- TODO: Add description -->
 	<SEO title="Events" description="" slot="head" />
 	<main>
-		<EventsPage client:load />
+		<EventsPage
+			client:load
+			latestEventBlockLocationMetadata={latestEventBlockLocationMetadata}
+		/>
 	</main>
 </Document>
