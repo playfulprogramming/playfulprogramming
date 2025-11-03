@@ -286,28 +286,30 @@ function CalendarDayPopup({
 								if (!firstBlockOfDay) return null;
 
 								return (
-									<li
-										key={event.slug}
-										className={style.popupContentLineContainer}
-									>
-										<span className={style.popupContentLine}>
+									<li key={event.slug}>
+										<a
+											href={`/events/${event.slug}`}
+											className={style.popupContentLineContainer}
+										>
+											<span className={style.popupContentLine}>
+												<span
+													className={`text-style-body-small ${style.popupContentTime}`}
+												>
+													{dayjs(firstBlockOfDay.starts_at).format(
+														"hh:mm A",
+													)}{" "}
+												</span>
+												<span className={`text-style-body-small-bold`}>
+													{event.title}
+												</span>
+											</span>
 											<span
-												className={`text-style-body-small ${style.popupContentTime}`}
-											>
-												{dayjs(firstBlockOfDay.starts_at).format(
-													"hh:mm A",
-												)}{" "}
-											</span>
-											<span className={`text-style-body-small-bold`}>
-												{event.title}
-											</span>
-										</span>
-										<span
-											className={style.popupContentLineIcon}
-											dangerouslySetInnerHTML={{
-												__html: event.in_person ? author : wifi,
-											}}
-										/>
+												className={style.popupContentLineIcon}
+												dangerouslySetInnerHTML={{
+													__html: event.in_person ? author : wifi,
+												}}
+											/>
+										</a>
 									</li>
 								);
 							})}
