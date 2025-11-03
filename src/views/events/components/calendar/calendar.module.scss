@@ -106,7 +106,47 @@
 }
 
 .popupContents {
-	padding: var(--spc-2x);
+	padding: var(--spc-5x);
+	width: 256px;
+}
+
+.popupContentContainer {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spc-3x);
+}
+
+.popupContentLineContainer {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+
+.popupContentLine {
+	display: flex;
+	align-items: center;
+	gap: var(--spc-3x);
+}
+
+.popupContentLineIcon {
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popupContentTime {
+	color: var(--primary_default);
+	font-family: var(--pfp-font-family-code);
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 0;
+	text-align: center;
 }
 
 .popupDialog {

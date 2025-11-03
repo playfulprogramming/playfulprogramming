@@ -55,7 +55,7 @@ import { useReactAriaScrollGutterHack } from "../../../../hooks/useReactAriaScro
 import { OverlayTriggerState, useOverlayTriggerState } from "react-stately";
 import { DOMProps } from "@react-types/shared";
 import author from "src/icons/authors.svg?raw";
-import wifi from "src/icons/filter.svg?raw";
+import wifi from "src/icons/wifi.svg?raw";
 
 const CustomButton = forwardRef(
 	(
@@ -273,7 +273,7 @@ function CalendarDayPopup({
 						Events on this day
 					</h1>
 					<div className={style.popupContents}>
-						<ul role={"list"}>
+						<ul role={"list"} className={style.popupContentContainer}>
 							{eventsForDate.map((event) => {
 								const firstBlockOfDay = event.blocks.find((block) => {
 									return dayjs(date.toDate(state.timeZone)).isSame(
@@ -286,16 +286,24 @@ function CalendarDayPopup({
 								if (!firstBlockOfDay) return null;
 
 								return (
-									<li key={event.slug}>
-										<span>
-											<span>
+									<li
+										key={event.slug}
+										className={style.popupContentLineContainer}
+									>
+										<span className={style.popupContentLine}>
+											<span
+												className={`text-style-body-small ${style.popupContentTime}`}
+											>
 												{dayjs(firstBlockOfDay.starts_at).format(
 													"hh:mm A",
 												)}{" "}
 											</span>
-											{event.title}
+											<span className={`text-style-body-small-bold`}>
+												{event.title}
+											</span>
 										</span>
 										<span
+											className={style.popupContentLineIcon}
 											dangerouslySetInnerHTML={{
 												__html: event.in_person ? author : wifi,
 											}}
