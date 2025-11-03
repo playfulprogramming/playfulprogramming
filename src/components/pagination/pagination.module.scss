@@ -118,7 +118,6 @@
 }
 
 .paginationIconButton :global(svg) {
-	padding: var(--icon-size-dense-padding);
-	height: var(--icon-size_dense);
-	width: var(--icon-size_dense);
+	height: var(--icon-size_default);
+	width: var(--icon-size_default);
 }

@@ -4,7 +4,7 @@
 	--tooltip_padding-vertical: var(--spc-3x);
 	--tooltip_padding-start: var(--spc-3x);
 	--tooltip_padding-end: var(--spc-5x);
-	--tooltip_icon-size: var(--icon-size_dense);
+	--tooltip_icon-size: var(--icon-size_default);
 	--tooltip_icon-margin: var(--spc-2x);
 	--tooltip_icon-color: var(--primary_default);
 
@@ -35,7 +35,6 @@
 	gap: var(--tooltip_icon-margin);
 
 	& > svg {
-		padding: var(--icon-size-dense-padding);
 		width: var(--tooltip_icon-size);
 		height: var(--tooltip_icon-size);
 		color: var(--tooltip_icon-color);
