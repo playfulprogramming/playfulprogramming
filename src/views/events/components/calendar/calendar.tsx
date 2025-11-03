@@ -246,6 +246,32 @@ function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 	);
 }
 
+function CustomHeading() {
+	const state: CalendarState = useContext(CalendarStateContext);
+
+	const firstMonthName = dayjs(
+		state.visibleRange.start.toDate(state.timeZone),
+	).format("MMMM");
+	const lastMonthName = dayjs(
+		state.visibleRange.end.toDate(state.timeZone),
+	).format("MMMM");
+	const lastYearName = dayjs(
+		state.visibleRange.end.toDate(state.timeZone),
+	).format("YYYY");
+
+	return (
+		<h2
+			aria-hidden={true}
+			className={`_text-style-headline-6 ${style.calendarHeading}`}
+		>
+			{firstMonthName}{" "}
+			<span className={style.calendarHeadingDisabled}> to </span>{" "}
+			{lastMonthName}
+			<span className={style.calendarHeadingDisabled}> {lastYearName}</span>
+		</h2>
+	);
+}
+
 interface CalendarProps {
 	events: Event[];
 }
@@ -286,7 +312,7 @@ export function Calendar({ events }: CalendarProps) {
 					type="submit"
 					dangerouslySetInnerHTML={{ __html: arrow_left }}
 				/>
-				<Heading className={style.calendarHeading} />
+				<CustomHeading />
 				<CustomButton
 					slot="next"
 					className={style.arrowButton}

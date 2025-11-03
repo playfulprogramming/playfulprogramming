@@ -86,8 +86,8 @@ export default function SearchPageBase() {
 				</div>
 				<LongWave />
 			</div>
-			<Calendar events={filteredEvents} />
 			<div className={style.listsContainer}>
+				<Calendar events={filteredEvents} />
 				{recurringEvents.length ? (
 					<div className={style.listContainer}>
 						<h2 className={`text-style-headline-5 ${style.listHeading}`}>

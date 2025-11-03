@@ -9,12 +9,22 @@
 	align-items: center;
 	margin: 0 4px 0.4375rem 4px;
 	width: 100%;
+	background: var(--surface_primary_emphasis-none);
+	padding: var(--spc-2x);
+	border-radius: var(--corner-radius_circular);
 }
 
 .calendarHeading {
 	flex-grow: 1;
 	display: flex;
 	justify-content: center;
+	color: var(--foreground_emphasis-high);
+	margin: 0;
+}
+
+.calendarHeadingDisabled {
+	white-space: pre;
+	color: var(--foreground_disabled);
 }
 
 .gridContainer {
