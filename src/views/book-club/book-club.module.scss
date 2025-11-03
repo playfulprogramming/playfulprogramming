@@ -1,0 +1,60 @@
+@use "src/tokens/index" as *;
+
+:global(#header-bar) {
+	position: static !important;
+	border: none !important;
+
+	@include from($tabletLarge) {
+		position: sticky !important;
+	}
+}
+
+.container {
+	margin: 0 auto;
+	max-width: var(--max-width_l);
+}
+
+.titleContainer {
+	z-index: 2;
+}
+
+@include until($tabletLarge) {
+	.titleContainer {
+		top: 0 !important;
+	}
+}
+
+.backgroundTop {
+	padding: var(--site-spacing);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--site-spacing);
+	justify-content: space-between;
+	width: 100%;
+	background: var(--background_primary);
+}
+
+.eventChipContainer {
+	display: flex;
+	align-items: center;
+}
+
+.topText {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-2x);
+}
+
+.eventsTitle {
+	margin: 0;
+	display: flex;
+	gap: calc(var(--site-spacing) / 2);
+}
+
+.listsContainer {
+	padding: var(--site-spacing);
+	display: flex;
+	flex-direction: column;
+	gap: var(--site-spacing);
+}

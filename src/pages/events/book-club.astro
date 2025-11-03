@@ -1,0 +1,36 @@
+---
+import BookClub from "../../views/book-club/book-club";
+import Document from "../../layouts/document.astro";
+import SEO from "../../components/seo/seo.astro";
+import { events } from "../../views/events/constants";
+import { getUrlMetadata, UrlMetadataResponse } from "utils/hoof";
+import { Event, EventBlock } from "../../views/events/types";
+
+const event: Event = events.find((e) => e.slug === "book-club");
+
+interface EventBlockWithMetadata extends EventBlock {
+	location_metadata: UrlMetadataResponse;
+}
+
+const eventBlocksWithMetadata: EventBlockWithMetadata[] = [];
+
+// Do not use `Promise.all`, as the getUrlMetadata retry logic may break builds when parallelism is enabled
+for (const event of events) {
+	for (const block of event.blocks) {
+		const location_metadata = await getUrlMetadata(block.location_url);
+
+		eventBlocksWithMetadata.push({
+			...block,
+			location_metadata,
+		});
+	}
+}
+---
+
+<Document lang={"en"} size="l" disableDiscord>
+	<!-- TODO: Add description -->
+	<SEO title="Book Club" description="" slot="head" />
+	<main>
+		<BookClub eventBlocksWithMetadata={eventBlocksWithMetadata} />
+	</main>
+</Document>
