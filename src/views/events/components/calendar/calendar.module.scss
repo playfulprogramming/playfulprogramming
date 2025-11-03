@@ -1,5 +1,16 @@
 @use "../../../../tokens/index" as *;
 
+:root {
+	--calendar-popup_padding: var(--spc-6x);
+	--calendar-popup_gap: var(--spc-4x);
+	--calendar-popup_offset: var(--spc-8x);
+	--calendar-popup_corner-radius: var(--corner-radius_l);
+	--calendar-popup_border-width: var(--border-width_m);
+
+	--calendar-popup_background-color: var(--background_primary);
+	--calendar-popup_border-color: var(--primary_variant);
+}
+
 .calendar {
 	width: 100%;
 }
@@ -60,6 +71,8 @@
 	cursor: default;
 	outline: none;
 	forced-color-adjust: none;
+	display: flex;
+	justify-content: center;
 
 	&[data-outside-month] {
 		display: none;
@@ -81,4 +94,51 @@
 		outline: 2px solid var(--focus-ring-color);
 		outline-offset: 2px;
 	}
+}
+
+.popup {
+	background: var(--calendar-popup_background-color);
+	border: var(--calendar-popup_border-width) solid
+		var(--calendar-popup_border-color);
+	box-shadow: var(--shadow_popup);
+	min-width: 13.5rem;
+	border-radius: var(--calendar-popup_corner-radius);
+}
+
+.popupDialog {
+	outline: none;
+}
+
+.popupDialog[data-focus-visible="true"]:focus-visible {
+	outline: var(--border-width_focus) solid var(--focus-outline_primary);
+	border-radius: var(--calendar-popup_corner-radius);
+}
+
+.underlay {
+	position: fixed;
+	inset: 0;
+}
+
+.arrow {
+	position: absolute;
+}
+
+.arrow[data-placement="top"] {
+	top: 100%;
+	transform: translateX(-50%);
+}
+
+.arrow[data-placement="bottom"] {
+	bottom: 100%;
+	transform: translateX(-50%) rotate(180deg);
+}
+
+.arrow[data-placement="left"] {
+	left: 100%;
+	transform: translateY(-50%) rotate(-90deg);
+}
+
+.arrow[data-placement="right"] {
+	right: 100%;
+	transform: translateY(-50%) rotate(90deg);
 }

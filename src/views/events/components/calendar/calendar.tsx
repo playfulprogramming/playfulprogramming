@@ -19,17 +19,23 @@ import arrow_left from "../../../../icons/arrow_left.svg?raw";
 import arrow_right from "../../../../icons/arrow_right.svg?raw";
 import { ForwardedRef, forwardRef } from "preact/compat";
 import {
+	DismissButton,
 	mergeProps,
+	Overlay,
 	useButton,
 	useCalendarCell,
+	useDialog,
 	useFocusRing,
+	useFocusVisible,
 	useHover,
+	useOverlayTrigger,
+	usePopover,
 } from "react-aria";
 import { IconOnlyButton } from "components/button/button";
 import style from "./calendar.module.scss";
 import { useWindowSize } from "../../../../hooks/use-window-size";
 import { tabletLarge, tabletSmall } from "../../../../tokens/breakpoints";
-import { useContext, useMemo, useRef } from "preact/hooks";
+import { MutableRef, useContext, useMemo, useRef } from "preact/hooks";
 import {
 	CalendarDate,
 	fromDate,
@@ -42,9 +48,12 @@ import { filterDOMProps } from "@react-aria/utils";
 // 	and access the hookData map. It only works when Vite aliases this, as otherwise the bundle
 // 	will differ from the lookup table of the server and cause runtime bugs due to the mismatch.
 import { hookData } from "@react-aria/calendar/dist/utils.mjs";
-import { Event } from "../../types";
+import { Event, EventBlock } from "../../types";
 import dayjs from "dayjs";
 import { useIsOnClient } from "../../../../hooks/use-is-on-client";
+import { useReactAriaScrollGutterHack } from "../../../../hooks/useReactAriaScrollGutterHack";
+import { OverlayTriggerState, useOverlayTriggerState } from "react-stately";
+import { DOMProps } from "@react-types/shared";
 
 const CustomButton = forwardRef(
 	(
@@ -73,12 +82,21 @@ interface CustomCalendarCellProps extends CalendarCellProps {
 	events: Event[];
 	// It's a long story
 	monthDate: Date;
+	isSelected: boolean;
+	popupTriggerButtonProps: DOMProps;
 }
 
 // TODO: Custom fork of the CalendarCell component from react-aria-components to
 // 	overwrite functionality for `value` to enable multiple dates being selected
 export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
-	{ date, events, monthDate, ...otherProps }: CustomCalendarCellProps,
+	{
+		date,
+		events,
+		monthDate,
+		isSelected,
+		popupTriggerButtonProps,
+		...otherProps
+	}: CustomCalendarCellProps,
 	ref: ForwardedRef<HTMLTableCellElement>,
 ) {
 	const baseState: CalendarState = useContext(CalendarStateContext);
@@ -86,14 +104,7 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 		return {
 			...baseState,
 			isSelected(date: CalendarDate): boolean {
-				// Wow, this is slow. I don't know how to optimize this much more
-				return events.some((event) =>
-					event.blocks.some(
-						(block) =>
-							isSameDay(date, fromDate(block.starts_at, state.timeZone)) ||
-							isSameDay(date, fromDate(block.ends_at, state.timeZone)),
-					),
-				);
+				return isSelected;
 			},
 		};
 	}, [baseState]);
@@ -181,12 +192,87 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 					hoverProps,
 					dataAttrs,
 					renderProps,
+					isSelected ? popupTriggerButtonProps : {},
 				) as unknown as Record<string, never>)}
 				ref={buttonRef}
 			/>
 		</td>
 	);
 });
+
+interface CalendarDayPopupProps {
+	blocksForDate: EventBlock[];
+	triggerRef: MutableRef<HTMLElement | null>;
+	triggerState: OverlayTriggerState;
+	overlayProps: DOMProps;
+}
+
+function CalendarDayPopup({
+	blocksForDate,
+	triggerRef,
+	triggerState,
+	overlayProps,
+}: CalendarDayPopupProps) {
+	/* Setup popover */
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const { popoverProps, underlayProps, arrowProps, placement } = usePopover(
+		{
+			shouldFlip: true,
+			offset: 32 - 14 / 2,
+			popoverRef,
+			triggerRef,
+		},
+		triggerState,
+	);
+
+	/* Setup dialog */
+	const dialogRef = useRef(null);
+	const { dialogProps, titleProps } = useDialog(overlayProps, dialogRef);
+	const { isFocusVisible } = useFocusVisible();
+
+	// bandaid solution for layout shift
+	useReactAriaScrollGutterHack();
+
+	return (
+		<Overlay>
+			<div {...underlayProps} className={style.underlay} />
+
+			<div {...popoverProps} ref={popoverRef} className={style.popup}>
+				<svg
+					width="24"
+					height="14"
+					viewBox="0 0 24 14"
+					fill="none"
+					{...arrowProps}
+					className={style.arrow}
+					data-placement={placement}
+				>
+					<path
+						d="M9.6 12.8L0 0H24L14.4 12.8C13.2 14.4 10.8 14.4 9.6 12.8Z"
+						fill="var(--calendar-popup_background-color)"
+					/>
+					<path
+						d="M2.5 2.08616e-06L11.2 11.6C11.6 12.1333 12.4 12.1333 12.8 11.6L21.5 2.08616e-06L24 0L14.4 12.8C13.2 14.4 10.8 14.4 9.6 12.8L0 2.08616e-06H2.5Z"
+						fill="var(--calendar-popup_border-color)"
+					/>
+				</svg>
+				<DismissButton onDismiss={triggerState.close} />
+				<div
+					{...dialogProps}
+					ref={dialogRef}
+					class={style.popupDialog}
+					data-focus-visible={isFocusVisible}
+				>
+					<h1 {...titleProps} className="visually-hidden">
+						Events on this day
+					</h1>
+					<p>Testing</p>
+				</div>
+				<DismissButton onDismiss={triggerState.close} />
+			</div>
+		</Overlay>
+	);
+}
 
 interface CustomCalendarCellWrapperProps extends CalendarCellProps {
 	events: Event[];
@@ -196,16 +282,50 @@ interface CustomCalendarCellWrapperProps extends CalendarCellProps {
 function CustomCalendarCellWrapper({
 	events,
 	monthDate,
+	date,
 	...props
 }: CustomCalendarCellWrapperProps) {
+	const triggerRef = useRef(null);
+	const triggerState = useOverlayTriggerState({});
+	const { triggerProps, overlayProps } = useOverlayTrigger(
+		{ type: "dialog" },
+		triggerState,
+		triggerRef,
+	);
+
+	const { buttonProps } = useButton(triggerProps, triggerRef);
+
+	const state: CalendarState = useContext(CalendarStateContext);
+
+	const blocksForDate = useMemo(() => {
+		const blocks = [] as EventBlock[];
+		for (const event of events) {
+			for (const block of event.blocks) {
+				if (
+					isSameDay(date, fromDate(block.starts_at, state.timeZone)) ||
+					isSameDay(date, fromDate(block.ends_at, state.timeZone))
+				) {
+					blocks.push(block);
+				}
+			}
+		}
+		return blocks;
+	}, [events, state]);
+
+	const isSelected = blocksForDate.length > 0;
+
 	return (
 		<CustomCalendarCell
+			{...props}
+			date={date}
+			isSelected={isSelected}
+			popupTriggerButtonProps={buttonProps}
+			ref={triggerRef}
 			events={events}
 			monthDate={monthDate}
-			{...props}
 			className={style.calendarCell}
 		>
-			{({ formattedDate, isSelected }: CalendarCellRenderProps) => {
+			{({ formattedDate, isSelected, date }: CalendarCellRenderProps) => {
 				const classes = [style.innerCalendarCell];
 				if (isSelected) {
 					classes.push(`text-style-body-small-bold`);
@@ -213,7 +333,19 @@ function CustomCalendarCellWrapper({
 					classes.push(`text-style-body-small`);
 				}
 
-				return <span className={classes.join(" ")}>{formattedDate}</span>;
+				return (
+					<>
+						<span className={classes.join(" ")}>{formattedDate}</span>
+						{triggerState.isOpen && (
+							<CalendarDayPopup
+								triggerState={triggerState}
+								overlayProps={overlayProps}
+								blocksForDate={blocksForDate}
+								triggerRef={triggerRef}
+							/>
+						)}
+					</>
+				);
 			}}
 		</CustomCalendarCell>
 	);
@@ -235,10 +367,10 @@ function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 		<CalendarGrid {...props} className={style.grid}>
 			<CalendarGridHeader>
 				{(day: CalendarDate) => (
-					<CalendarHeaderCell
-						className={`text-style-body-small-bold ${style.calendarCell}`}
-					>
-						<span className={style.innerCalendarCell}>{day}</span>
+					<CalendarHeaderCell className={`text-style-body-small-bold`}>
+						<div className={`${style.calendarCell}`}>
+							<span className={style.innerCalendarCell}>{day}</span>
+						</div>
 					</CalendarHeaderCell>
 				)}
 			</CalendarGridHeader>
