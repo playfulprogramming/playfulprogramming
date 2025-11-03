@@ -15,6 +15,11 @@ import filter from "src/icons/filter.svg?raw";
 import style from "./events-page.module.scss";
 import { getHrefContainerProps } from "utils/href-container-script";
 import { Button } from "components/button/button";
+import date from "src/icons/date.svg?raw";
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+
+dayjs.extend(advancedFormat);
 
 type EventType = "all" | "online" | "in-person";
 
@@ -45,25 +50,44 @@ function RecurringEventsCard({
 			{...getHrefContainerProps(`/events/${event.slug}`)}
 			className={style.recurringEventCard}
 		>
-			<div>
-				<a
-					href={`/events/${event.slug}`}
-					className={style.recurringEventCardTitleLink}
-				>
-					<h2
-						className={`text-style-headline-4 ${style.recurringEventCardTitle}`}
+			<div className={style.cardInnerContainer}>
+				<div className={style.eventLeftContainer}>
+					<a
+						href={`/events/${event.slug}`}
+						className={style.recurringEventCardTitleLink}
 					>
-						{event.title}
-					</h2>
-				</a>
+						<h2
+							className={`text-style-headline-4 ${style.recurringEventCardTitle}`}
+						>
+							{event.title}
+						</h2>
+					</a>
+					{latestEventBlockWithMetadata ? (
+						<div className={`text-style-body-small-bold ${style.eventDate}`}>
+							<span
+								className={style.eventIcon}
+								dangerouslySetInnerHTML={{ __html: date }}
+							></span>
+							{dayjs(latestEventBlockWithMetadata.starts_at).format(
+								"MMMM Do • h:mmA ",
+							)}
+							• <span className={style.nextEventText}>Next Event</span>
+						</div>
+					) : null}
+					<p className={`text-style-body-small ${style.eventDescription}`}>
+						{event.description}
+					</p>
+				</div>
 				{latestEventBannerSrc ? (
-					<img
-						alt=""
-						height={100}
-						width={100}
-						crossOrigin="anonymous"
-						src={latestEventBannerSrc}
-					/>
+					<div>
+						<img
+							alt=""
+							height={100}
+							width={100}
+							crossOrigin="anonymous"
+							src={latestEventBannerSrc}
+						/>
+					</div>
 				) : null}
 			</div>
 			{event.location_url && event.location_description ? (
