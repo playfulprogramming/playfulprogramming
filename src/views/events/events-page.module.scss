@@ -130,15 +130,20 @@
 
 .cardInnerContainer {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	flex-wrap: nowrap;
 	gap: var(--spc-4x);
 }
 
 // If cardInnerContainer has two children, make both children flex-basis: 50%
-.cardInnerContainer:has(> :nth-child(2)) > * {
-	flex-basis: 50%;
-	width: 1px;
+@include from($tabletLarge) {
+	.cardInnerContainer {
+		flex-direction: row;
+	}
+	.cardInnerContainer:has(> :nth-child(2)) > * {
+		flex-basis: 50%;
+		width: 1px;
+	}
 }
 
 .eventLeftContainer {
