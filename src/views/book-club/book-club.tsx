@@ -23,7 +23,7 @@ function BookClubLargeCard({ eventBlock }: BookClubLargeCardProps) {
 
 	return (
 		<li className={style.largeCardContainer}>
-			<p className={`text-style-headline-5 ${style.eventBlockDate}`}>
+			<p className={`text-style-headline-5 ${style.largeEventBlockDate}`}>
 				{dayjs(eventBlock.starts_at).format("dddd, MMM D")}
 			</p>
 			<div
@@ -37,12 +37,52 @@ function BookClubLargeCard({ eventBlock }: BookClubLargeCardProps) {
 					alt=""
 					height={315}
 				/>
-				<div>
-					<p className={`text-style-headline-6 ${style.eventBlockName}`}>
+				<div className={style.largeTextContainer}>
+					<p className={`text-style-headline-6 ${style.largeEventBlockName}`}>
 						{eventBlock.location_description}
 					</p>
 					<a
-						className={`text-style-body-small-bold ${style.eventBlockLocation}`}
+						className={`text-style-body-small-bold ${style.largeEventBlockLocation}`}
+						href={eventBlock.location_url}
+					>
+						{eventBlock.location_url}
+					</a>
+				</div>
+			</div>
+		</li>
+	);
+}
+
+interface BookClubSmallCardProps {
+	eventBlock: EventBlockWithMetadata;
+}
+
+function BookClubSmallCard({ eventBlock }: BookClubSmallCardProps) {
+	if (!eventBlock.location_url) return null;
+
+	return (
+		<li className={style.smallCardContainer}>
+			<p className={`text-style-headline-5 ${style.smallEventBlockDate}`}>
+				{dayjs(eventBlock.starts_at).format("dddd, MMM D")}
+			</p>
+			<div
+				className={style.smallCard}
+				{...getHrefContainerProps(eventBlock.location_url)}
+			>
+				<img
+					className={style.smallCardImage}
+					crossOrigin={"anonymous"}
+					src={eventBlock.location_metadata.banner?.src ?? "/share-banner.png"}
+					alt=""
+					width={171}
+					height={96}
+				/>
+				<div className={style.smallTextContainer}>
+					<p className={`text-style-headline-6 ${style.smallEventBlockName}`}>
+						{eventBlock.location_description}
+					</p>
+					<a
+						className={`text-style-body-small-bold ${style.smallEventBlockLocation}`}
 						href={eventBlock.location_url}
 					>
 						{eventBlock.location_url}
@@ -138,25 +178,15 @@ export default function BookClub({ eventBlocksWithMetadata }: BookClubProps) {
 			</div>
 			<div className={style.listsContainer}>
 				<ul className={style.largeCardList}>
-					{currentEventBlock.map((block) => {
-						return <BookClubLargeCard eventBlock={block} key={block.slug} />;
-					})}
+					{currentEventBlock.map((block) => (
+						<BookClubLargeCard eventBlock={block} key={block.slug} />
+					))}
 				</ul>
 				<h2>Archived</h2>
-				<ul>
-					{pastEventBlocks.map((block) => {
-						return (
-							<li key={block.slug}>
-								{dayjs(block.starts_at).format("dddd, MMM D")}
-								<br />
-								{block.title}
-								<br />
-								{block.location_url}
-								<br />
-								<br />
-							</li>
-						);
-					})}
+				<ul className={style.smallCardList}>
+					{pastEventBlocks.map((block) => (
+						<BookClubSmallCard eventBlock={block} key={block.slug} />
+					))}
 				</ul>
 			</div>
 		</div>
