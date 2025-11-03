@@ -1,3 +1,5 @@
+@use "src/tokens/index" as *;
+
 .loopContainer {
 	position: relative;
 	width: 100%;
@@ -7,6 +9,10 @@
 
 .longWaveSpan {
 	display: contents;
+}
+
+.longWaveSpan path {
+	@include transition(fill);
 }
 
 .loopFade,

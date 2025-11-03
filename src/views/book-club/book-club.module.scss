@@ -33,6 +33,7 @@
 	justify-content: space-between;
 	width: 100%;
 	background: var(--background_primary);
+	@include transition(background);
 }
 
 .eventChipContainer {
