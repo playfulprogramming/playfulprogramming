@@ -2,7 +2,7 @@
 
 :root {
 	--article-header_padding-bottom: var(--spc-6x);
-	--article-header_details_icon_size: var(--icon-size_dense);
+	--article-header_details_icon_size: var(--icon-size_default);
 	--article-header_details_icon_margin-end: var(--spc-2x);
 
 	--article-header_details_padding-vertical: var(--spc-4x);
@@ -43,7 +43,6 @@
 		svg {
 			width: var(--article-header_details_icon_size);
 			height: var(--article-header_details_icon_size);
-			padding: var(--icon-size-dense-padding);
 			color: var(--article-header_details_icon_color);
 			margin-right: var(--article-header_details_icon_margin-end);
 			flex-shrink: 0;

@@ -102,7 +102,7 @@
 	--search-form-field_padding-right: var(--spc-6x);
 	--search-form-field_padding-vertical: var(--spc-4x);
 
-	--search-form_icon-size: var(--icon-size_regular);
+	--search-form_icon-size: var(--icon-size_default);
 	--search-form_icon-color: var(--foreground_emphasis-high);
 	--search-form_icon-color_disabled: var(--foreground_disabled);
 
@@ -111,7 +111,7 @@
 	.searchContainer.dense {
 		--search-form-field_padding-right: var(--spc-4x);
 		--search-form-field_padding-vertical: var(--spc-2x);
-		--search-form_icon-size: var(--icon-size_dense);
+		--search-form_icon-size: var(--icon-size_default);
 	}
 }
 
@@ -192,7 +192,7 @@
 .searchContainer:focus-within .searchInput {
 	padding-right: calc(
 		max(
-			var(--icon-size_regular),
+			var(--icon-size_default),
 			calc(
 				var(--p_medium_line-height) +
 					calc(var(--search-form-field_padding-vertical) * 2)
