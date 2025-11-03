@@ -190,10 +190,10 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 				{...(mergeProps(
 					DOMProps,
 					buttonProps,
-					focusProps,
 					hoverProps,
 					dataAttrs,
 					renderProps,
+					focusProps,
 					isSelected ? popupTriggerButtonProps : {},
 				) as unknown as Record<string, never>)}
 				ref={buttonRef}
