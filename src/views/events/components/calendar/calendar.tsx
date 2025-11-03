@@ -205,9 +205,16 @@ function CustomCalendarCellWrapper({
 			{...props}
 			className={style.calendarCell}
 		>
-			{({ formattedDate }: CalendarCellRenderProps) => (
-				<span className={style.innerCalendarCell}>{formattedDate}</span>
-			)}
+			{({ formattedDate, isSelected }: CalendarCellRenderProps) => {
+				const classes = [style.innerCalendarCell];
+				if (isSelected) {
+					classes.push(`text-style-body-small-bold`);
+				} else {
+					classes.push(`text-style-body-small`);
+				}
+
+				return <span className={classes.join(" ")}>{formattedDate}</span>;
+			}}
 		</CustomCalendarCell>
 	);
 }
@@ -228,7 +235,9 @@ function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 		<CalendarGrid {...props} className={style.grid}>
 			<CalendarGridHeader>
 				{(day: CalendarDate) => (
-					<CalendarHeaderCell className={style.calendarCell}>
+					<CalendarHeaderCell
+						className={`text-style-body-small-bold ${style.calendarCell}`}
+					>
 						<span className={style.innerCalendarCell}>{day}</span>
 					</CalendarHeaderCell>
 				)}
@@ -249,15 +258,23 @@ function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 function CustomHeading() {
 	const state: CalendarState = useContext(CalendarStateContext);
 
-	const firstMonthName = dayjs(
-		state.visibleRange.start.toDate(state.timeZone),
-	).format("MMMM");
-	const lastMonthName = dayjs(
-		state.visibleRange.end.toDate(state.timeZone),
-	).format("MMMM");
-	const lastYearName = dayjs(
-		state.visibleRange.end.toDate(state.timeZone),
-	).format("YYYY");
+	const firstMonthName = useMemo(
+		() => dayjs(state.visibleRange.start.toDate(state.timeZone)).format("MMMM"),
+		[state],
+	);
+	const lastMonthName = useMemo(
+		() => dayjs(state.visibleRange.end.toDate(state.timeZone)).format("MMMM"),
+		[state],
+	);
+	const lastYearName = useMemo(
+		() => dayjs(state.visibleRange.end.toDate(state.timeZone)).format("YYYY"),
+		[state],
+	);
+
+	const shouldShowSecondMonth = useMemo(
+		() => !isSameMonth(state.visibleRange.start, state.visibleRange.end),
+		[state],
+	);
 
 	return (
 		<h2
@@ -265,8 +282,12 @@ function CustomHeading() {
 			className={`_text-style-headline-6 ${style.calendarHeading}`}
 		>
 			{firstMonthName}{" "}
-			<span className={style.calendarHeadingDisabled}> to </span>{" "}
-			{lastMonthName}
+			{shouldShowSecondMonth ? (
+				<>
+					<span className={style.calendarHeadingDisabled}> to </span>{" "}
+					{lastMonthName}
+				</>
+			) : null}
 			<span className={style.calendarHeadingDisabled}> {lastYearName}</span>
 		</h2>
 	);
@@ -304,6 +325,7 @@ export function Calendar({ events }: CalendarProps) {
 			className={style.calendar}
 			aria-label="Events calendar"
 			visibleDuration={visibleDuration}
+			isReadOnly
 		>
 			<header className={style.calendarHeader}>
 				<CustomButton

@@ -37,6 +37,9 @@
 
 .grid {
 	flex-grow: 1;
+	background: var(--surface_primary_emphasis-none);
+	border-radius: var(--corner-radius_l);
+	padding: var(--spc-2x);
 }
 
 .arrowButton {
