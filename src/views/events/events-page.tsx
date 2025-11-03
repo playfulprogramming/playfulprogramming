@@ -68,10 +68,12 @@ function RecurringEventsCard({
 								className={style.eventIcon}
 								dangerouslySetInnerHTML={{ __html: date }}
 							></span>
-							{dayjs(latestEventBlockWithMetadata.starts_at).format(
-								"MMMM Do • h:mmA ",
-							)}
-							• <span className={style.nextEventText}>Next event</span>
+							<span>
+								{dayjs(latestEventBlockWithMetadata.starts_at).format(
+									"MMMM Do • h:mmA ",
+								)}
+								• <span className={style.nextEventText}>Next event</span>
+							</span>
 						</div>
 					) : null}
 					<p className={`text-style-body-small ${style.eventDescription}`}>
@@ -92,7 +94,7 @@ function RecurringEventsCard({
 								/>
 							) : null}
 							<div className={style.topicCardTextContainer}>
-								<p className={`text-style-body-small-bold`}>
+								<p className={`text-style-body-small-bold ${style.topicDesc}`}>
 									{latestEventBlockWithMetadata.location_description}
 								</p>
 								{latestEventBlockWithMetadata?.location_url ? (
