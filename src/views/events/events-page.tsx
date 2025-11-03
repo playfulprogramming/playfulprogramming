@@ -237,7 +237,6 @@ export default function EventsPage({
 						</ul>
 					</div>
 				) : null}
-				<div style={{ height: "200vh" }} />
 				{/*	TODO: Make empty state if neither is present */}
 			</div>
 		</div>

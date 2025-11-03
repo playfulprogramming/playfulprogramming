@@ -48,12 +48,14 @@ import { filterDOMProps } from "@react-aria/utils";
 // 	and access the hookData map. It only works when Vite aliases this, as otherwise the bundle
 // 	will differ from the lookup table of the server and cause runtime bugs due to the mismatch.
 import { hookData } from "@react-aria/calendar/dist/utils.mjs";
-import { Event, EventBlock } from "../../types";
+import { Event } from "../../types";
 import dayjs from "dayjs";
 import { useIsOnClient } from "../../../../hooks/use-is-on-client";
 import { useReactAriaScrollGutterHack } from "../../../../hooks/useReactAriaScrollGutterHack";
 import { OverlayTriggerState, useOverlayTriggerState } from "react-stately";
 import { DOMProps } from "@react-types/shared";
+import author from "src/icons/authors.svg?raw";
+import wifi from "src/icons/filter.svg?raw";
 
 const CustomButton = forwardRef(
 	(
@@ -86,7 +88,7 @@ interface CustomCalendarCellProps extends CalendarCellProps {
 	popupTriggerButtonProps: DOMProps;
 }
 
-// TODO: Custom fork of the CalendarCell component from react-aria-components to
+// Note: This is a custom fork of the CalendarCell component from react-aria-components to
 // 	overwrite functionality for `value` to enable multiple dates being selected
 export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 	{
@@ -201,6 +203,7 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 });
 
 interface CalendarDayPopupProps {
+	date: CalendarDate;
 	eventsForDate: Event[];
 	triggerRef: MutableRef<HTMLElement | null>;
 	triggerState: OverlayTriggerState;
@@ -212,7 +215,10 @@ function CalendarDayPopup({
 	triggerRef,
 	triggerState,
 	overlayProps,
+	date,
 }: CalendarDayPopupProps) {
+	const state: CalendarState = useContext(CalendarStateContext);
+
 	/* Setup popover */
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const { popoverProps, underlayProps, arrowProps, placement } = usePopover(
@@ -267,10 +273,36 @@ function CalendarDayPopup({
 						Events on this day
 					</h1>
 					<div className={style.popupContents}>
-						<ul>
-							{eventsForDate.map((event) => (
-								<li key={event.slug}>{event.title}</li>
-							))}
+						<ul role={"list"}>
+							{eventsForDate.map((event) => {
+								const firstBlockOfDay = event.blocks.find((block) => {
+									return dayjs(date.toDate(state.timeZone)).isSame(
+										block.starts_at,
+										"date",
+									);
+								});
+
+								// How?
+								if (!firstBlockOfDay) return null;
+
+								return (
+									<li key={event.slug}>
+										<span>
+											<span>
+												{dayjs(firstBlockOfDay.starts_at).format(
+													"hh:mm A",
+												)}{" "}
+											</span>
+											{event.title}
+										</span>
+										<span
+											dangerouslySetInnerHTML={{
+												__html: event.in_person ? author : wifi,
+											}}
+										/>
+									</li>
+								);
+							})}
 						</ul>
 					</div>
 				</div>
@@ -307,8 +339,8 @@ function CustomCalendarCellWrapper({
 		return events.filter((event) =>
 			event.blocks.some(
 				(block) =>
-					isSameDay(date, fromDate(block.starts_at, state.timeZone)) ||
-					isSameDay(date, fromDate(block.ends_at, state.timeZone)),
+					dayjs(date.toDate(state.timeZone)).isSame(block.starts_at, "date") ||
+					dayjs(date.toDate(state.timeZone)).isSame(block.ends_at, "date"),
 			),
 		);
 	}, [events, state]);
@@ -339,6 +371,7 @@ function CustomCalendarCellWrapper({
 						<span className={classes.join(" ")}>{formattedDate}</span>
 						{triggerState.isOpen && (
 							<CalendarDayPopup
+								date={date}
 								triggerState={triggerState}
 								overlayProps={overlayProps}
 								eventsForDate={eventsForDate}
