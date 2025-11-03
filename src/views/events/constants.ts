@@ -9,11 +9,11 @@ dayjs.extend(timezone);
 export const bookClubBlocks = [
 	{
 		slug: "book-club-11-06-2025",
-		starts_at: dayjs
-			.tz("11-06-2025 07:30 PM", "MM-DD-YYYY hh:mm A", "America/Los_Angeles")
+		starts_at: dayjs("11-06-2025 07:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
 			.toDate(),
-		ends_at: dayjs
-			.tz("11-06-2025 08:30 PM", "MM-DD-YYYY hh:mm A", "America/Los_Angeles")
+		ends_at: dayjs("11-06-2025 08:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
 			.toDate(),
 		location_description: "Dithering Part 1 — Introduction",
 		location_url: "https://visualrambling.space/dithering-part-1/",
