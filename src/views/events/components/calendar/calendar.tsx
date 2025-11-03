@@ -201,14 +201,14 @@ export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
 });
 
 interface CalendarDayPopupProps {
-	blocksForDate: EventBlock[];
+	eventsForDate: Event[];
 	triggerRef: MutableRef<HTMLElement | null>;
 	triggerState: OverlayTriggerState;
 	overlayProps: DOMProps;
 }
 
 function CalendarDayPopup({
-	blocksForDate,
+	eventsForDate,
 	triggerRef,
 	triggerState,
 	overlayProps,
@@ -266,7 +266,13 @@ function CalendarDayPopup({
 					<h1 {...titleProps} className="visually-hidden">
 						Events on this day
 					</h1>
-					<p>Testing</p>
+					<div className={style.popupContents}>
+						<ul>
+							{eventsForDate.map((event) => (
+								<li key={event.slug}>{event.title}</li>
+							))}
+						</ul>
+					</div>
 				</div>
 				<DismissButton onDismiss={triggerState.close} />
 			</div>
@@ -297,22 +303,17 @@ function CustomCalendarCellWrapper({
 
 	const state: CalendarState = useContext(CalendarStateContext);
 
-	const blocksForDate = useMemo(() => {
-		const blocks = [] as EventBlock[];
-		for (const event of events) {
-			for (const block of event.blocks) {
-				if (
+	const eventsForDate = useMemo(() => {
+		return events.filter((event) =>
+			event.blocks.some(
+				(block) =>
 					isSameDay(date, fromDate(block.starts_at, state.timeZone)) ||
-					isSameDay(date, fromDate(block.ends_at, state.timeZone))
-				) {
-					blocks.push(block);
-				}
-			}
-		}
-		return blocks;
+					isSameDay(date, fromDate(block.ends_at, state.timeZone)),
+			),
+		);
 	}, [events, state]);
 
-	const isSelected = blocksForDate.length > 0;
+	const isSelected = eventsForDate.length > 0;
 
 	return (
 		<CustomCalendarCell
@@ -340,7 +341,7 @@ function CustomCalendarCellWrapper({
 							<CalendarDayPopup
 								triggerState={triggerState}
 								overlayProps={overlayProps}
-								blocksForDate={blocksForDate}
+								eventsForDate={eventsForDate}
 								triggerRef={triggerRef}
 							/>
 						)}

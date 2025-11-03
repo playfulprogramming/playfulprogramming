@@ -105,6 +105,10 @@
 	border-radius: var(--calendar-popup_corner-radius);
 }
 
+.popupContents {
+  padding: var(--spc-2x);
+}
+
 .popupDialog {
 	outline: none;
 }
