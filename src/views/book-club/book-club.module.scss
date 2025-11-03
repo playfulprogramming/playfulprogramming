@@ -58,3 +58,62 @@
 	flex-direction: column;
 	gap: var(--site-spacing);
 }
+
+.largeCardList {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+
+	display: grid;
+	grid-template-columns: repeat(1, minmax(0, 1fr));
+	gap: var(--site-spacing);
+
+	@include from($tabletLarge) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.eventBlockDate {
+	padding-left: var(--spc-4x);
+	position: relative;
+}
+
+.eventBlockDate::before {
+	content: " ";
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 4px;
+	background: var(--primary_variant);
+}
+
+.largeCardImage {
+	width: 100%;
+	object-fit: cover;
+	border-radius: calc(var(--site-spacing) / 2);
+}
+
+.largeCard {
+	background: var(--surface_primary_emphasis-none);
+	border-radius: var(--site-spacing);
+	padding: calc(var(--site-spacing) / 2);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-4x);
+}
+
+.largeCardContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-6x);
+}
+
+.eventBlockName {
+  margin: 0;
+}
+
+.eventBlockLocation {
+  color: var(--primary_default);
+  text-decoration: none;
+}

@@ -4,22 +4,60 @@ import { useElementSize } from "../../hooks/use-element-size";
 import { LongWave } from "../events/components/long-wave/long-wave";
 import { EventBlock } from "../events/types";
 import { UrlMetadataResponse } from "utils/hoof";
-import style from "./book-club.module.scss";
 import { EventChip } from "../events/components/event-chip/event-chip";
 import { LargeButton } from "components/button/button";
 import dayjs from "dayjs";
+import { getHrefContainerProps } from "utils/href-container-script";
+import style from "./book-club.module.scss";
 
 interface EventBlockWithMetadata extends EventBlock {
 	location_metadata: UrlMetadataResponse;
 }
 
-interface EventsPageProps {
+interface BookClubLargeCardProps {
+	eventBlock: EventBlockWithMetadata;
+}
+
+function BookClubLargeCard({ eventBlock }: BookClubLargeCardProps) {
+	if (!eventBlock.location_url) return null;
+
+	return (
+		<li className={style.largeCardContainer}>
+			<p className={`text-style-headline-5 ${style.eventBlockDate}`}>
+				{dayjs(eventBlock.starts_at).format("dddd, MMM D")}
+			</p>
+			<div
+				className={style.largeCard}
+				{...getHrefContainerProps(eventBlock.location_url)}
+			>
+				<img
+					className={style.largeCardImage}
+					crossOrigin={"anonymous"}
+					src={eventBlock.location_metadata.banner?.src ?? "/share-banner.png"}
+					alt=""
+					height={315}
+				/>
+				<div>
+					<p className={`text-style-headline-6 ${style.eventBlockName}`}>
+						{eventBlock.location_description}
+					</p>
+					<a
+						className={`text-style-body-small-bold ${style.eventBlockLocation}`}
+						href={eventBlock.location_url}
+					>
+						{eventBlock.location_url}
+					</a>
+				</div>
+			</div>
+		</li>
+	);
+}
+
+interface BookClubProps {
 	eventBlocksWithMetadata: EventBlockWithMetadata[];
 }
 
-export default function EventsPage({
-	eventBlocksWithMetadata,
-}: EventsPageProps) {
+export default function BookClub({ eventBlocksWithMetadata }: BookClubProps) {
 	/**
 	 * Styles for header bar
 	 */
@@ -99,19 +137,9 @@ export default function EventsPage({
 				<LongWave />
 			</div>
 			<div className={style.listsContainer}>
-				<ul>
+				<ul className={style.largeCardList}>
 					{currentEventBlock.map((block) => {
-						return (
-							<li key={block.slug}>
-								{dayjs(block.starts_at).format("dddd, MMM D")}
-								<br />
-								{block.title}
-								<br />
-								{block.location_url}
-								<br />
-								<br />
-							</li>
-						);
+						return <BookClubLargeCard eventBlock={block} key={block.slug} />;
 					})}
 				</ul>
 				<h2>Archived</h2>
