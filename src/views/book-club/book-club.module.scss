@@ -103,6 +103,14 @@
 	gap: var(--spc-4x);
 }
 
+.largeCard:hover {
+	background: var(--surface_primary_emphasis-low);
+}
+
+.largeCard:active {
+	background: var(--surface_primary_emphasis-medium);
+}
+
 .largeCardContainer {
 	display: flex;
 	flex-direction: column;
@@ -110,10 +118,10 @@
 }
 
 .eventBlockName {
-  margin: 0;
+	margin: 0;
 }
 
 .eventBlockLocation {
-  color: var(--primary_default);
-  text-decoration: none;
+	color: var(--primary_default);
+	text-decoration: none;
 }
