@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "preact/hooks";
+import { useLayoutEffect, useMemo } from "preact/hooks";
 
 import { useElementSize } from "../../hooks/use-element-size";
 import { LongWave } from "../events/components/long-wave/long-wave";
@@ -6,7 +6,8 @@ import { EventBlock } from "../events/types";
 import { UrlMetadataResponse } from "utils/hoof";
 import style from "./book-club.module.scss";
 import { EventChip } from "../events/components/event-chip/event-chip";
-import { Button, LargeButton } from "components/button/button";
+import { LargeButton } from "components/button/button";
+import dayjs from "dayjs";
 
 interface EventBlockWithMetadata extends EventBlock {
 	location_metadata: UrlMetadataResponse;
@@ -30,6 +31,12 @@ export default function EventsPage({
 	}, []);
 
 	const headerHeight = size.height;
+
+	const sortedEventBlocks = useMemo(() => {
+		return [...eventBlocksWithMetadata].sort((a, b) => {
+			return a.starts_at.getTime() - b.starts_at.getTime();
+		});
+	}, [eventBlocksWithMetadata]);
 
 	return (
 		<div className={style.container}>
@@ -71,6 +78,19 @@ export default function EventsPage({
 			</div>
 			<div className={style.listsContainer}>
 				<p>Testing</p>
+				<ul>
+					{sortedEventBlocks.map((block) => {
+						return (
+							<li key={block.slug}>
+								{dayjs(block.starts_at).format("dddd, MMM D")}
+								<br />
+								{block.title}
+								<br />
+								{block.description}
+							</li>
+						);
+					})}
+				</ul>
 			</div>
 		</div>
 	);

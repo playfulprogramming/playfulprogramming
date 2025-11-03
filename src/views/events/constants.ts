@@ -8,6 +8,46 @@ dayjs.extend(timezone);
 
 export const bookClubBlocks = [
 	{
+		slug: "book-club-09-25-2025",
+		starts_at: dayjs("09-25-2025 02:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("09-25-2025 03:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "The Perils of Reactivity",
+		location_url:
+			"https://outbox.matthewphillips.info/archive/perils-of-reactivity",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
+		slug: "book-club-10-23-2025",
+		starts_at: dayjs("10-23-2025 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("10-23-2025 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "Build Your Own Database",
+		location_url: "https://www.nan.fyi/database",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
+		slug: "book-club-10-30-2025",
+		starts_at: dayjs("10-30-2025 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("10-30-2025 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "An Interactive Guide to TanStack DB",
+		location_url: "https://frontendatscale.com/blog/tanstack-db/",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
 		slug: "book-club-11-06-2025",
 		starts_at: dayjs("11-06-2025 07:30 PM", "MM-DD-YYYY hh:mm A")
 			.tz("America/Los_Angeles", true)
@@ -17,6 +57,48 @@ export const bookClubBlocks = [
 			.toDate(),
 		location_description: "Dithering Part 1 — Introduction",
 		location_url: "https://visualrambling.space/dithering-part-1/",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
+		slug: "book-club-11-20-2025",
+		starts_at: dayjs("11-20-2025 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("11-20-2025 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "A pragmatic guide to modern CSS colours - part one",
+		location_url:
+			"https://piccalil.li/blog/a-pragmatic-guide-to-modern-css-colours-part-one/",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
+		slug: "book-club-11-27-2025",
+		starts_at: dayjs("11-27-2025 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("11-27-2025 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description:
+			"Unpacking Cloudflare Workers CPU Performance Benchmarks",
+		location_url:
+			"https://blog.cloudflare.com/unpacking-cloudflare-workers-cpu-performance-benchmarks/",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
+		slug: "book-club-12-04-2025",
+		starts_at: dayjs("12-04-2025 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("12-04-2025 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "Your URL Is Your State",
+		location_url: "https://alfy.blog/2025/10/31/your-url-is-your-state.html",
 		presenters: [],
 		timezone: "America/Los_Angeles",
 	},
