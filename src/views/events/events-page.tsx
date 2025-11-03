@@ -13,6 +13,8 @@ import { EventBlock, Event } from "./types";
 import { UrlMetadataResponse } from "utils/hoof";
 import filter from "src/icons/filter.svg?raw";
 import style from "./events-page.module.scss";
+import { getHrefContainerProps } from "utils/href-container-script";
+import { Button } from "components/button/button";
 
 type EventType = "all" | "online" | "in-person";
 
@@ -28,29 +30,50 @@ interface EventsCardProps {
 	latestEventBlockLocationMetadata: LatestEventBlockLocationMetadataType;
 }
 
-function EventsCard({
+function RecurringEventsCard({
 	latestEventBlockLocationMetadata,
 	event,
 }: EventsCardProps) {
 	const latestEventBlockWithMetadata =
 		latestEventBlockLocationMetadata[event.slug];
 
-	if (!latestEventBlockWithMetadata) {
-		return null;
-	}
+	const latestEventBannerSrc =
+		latestEventBlockWithMetadata?.location_metadata.banner?.src;
 
 	return (
-		<div>
-			{latestEventBlockWithMetadata.location_metadata.banner ? (
-				<img
-					alt=""
-					height={100}
-					width={100}
-					crossOrigin="anonymous"
-					src={latestEventBlockWithMetadata.location_metadata.banner.src}
-				/>
+		<li
+			{...getHrefContainerProps(`/events/${event.slug}`)}
+			className={style.recurringEventCard}
+		>
+			<div>
+				<a
+					href={`/events/${event.slug}`}
+					className={style.recurringEventCardTitleLink}
+				>
+					<h2
+						className={`text-style-headline-4 ${style.recurringEventCardTitle}`}
+					>
+						{event.title}
+					</h2>
+				</a>
+				{latestEventBannerSrc ? (
+					<img
+						alt=""
+						height={100}
+						width={100}
+						crossOrigin="anonymous"
+						src={latestEventBannerSrc}
+					/>
+				) : null}
+			</div>
+			{event.location_url && event.location_description ? (
+				<div className={style.buttonContainer}>
+					<Button href={event.location_url} variant="primary">
+						{event.location_description}
+					</Button>
+				</div>
 			) : null}
-		</div>
+		</li>
 	);
 }
 
@@ -139,17 +162,15 @@ export default function EventsPage({
 						<h2 className={`text-style-headline-5 ${style.listHeading}`}>
 							Recurring events
 						</h2>
-						<ul className={style.list}>
+						<ul className={style.list} role={"list"}>
 							{recurringEvents.map((event) => (
-								<li key={event.slug}>
-									{event.title}
-									<EventsCard
-										event={event}
-										latestEventBlockLocationMetadata={
-											latestEventBlockLocationMetadata
-										}
-									/>
-								</li>
+								<RecurringEventsCard
+									key={event.slug}
+									event={event}
+									latestEventBlockLocationMetadata={
+										latestEventBlockLocationMetadata
+									}
+								/>
 							))}
 						</ul>
 					</div>
@@ -161,15 +182,13 @@ export default function EventsPage({
 						</h2>
 						<ul className={style.list}>
 							{nonRecurringEvents.map((event) => (
-								<li key={event.slug}>
-									{event.title}
-									<EventsCard
-										event={event}
-										latestEventBlockLocationMetadata={
-											latestEventBlockLocationMetadata
-										}
-									/>
-								</li>
+								<RecurringEventsCard
+									key={event.slug}
+									event={event}
+									latestEventBlockLocationMetadata={
+										latestEventBlockLocationMetadata
+									}
+								/>
 							))}
 						</ul>
 					</div>

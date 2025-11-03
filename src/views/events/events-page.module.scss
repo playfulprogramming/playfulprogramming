@@ -78,6 +78,7 @@
 .list {
 	margin: 0;
 	padding: 0;
+	list-style: none;
 }
 
 .listHeading {
@@ -156,4 +157,26 @@
 			color: var(--highlight-foreground);
 		}
 	}
+}
+
+.recurringEventCard {
+	background: var(--surface_primary_emphasis-none);
+	border-radius: var(--corner-radius_xl);
+	padding: var(--spc-4x);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-6x);
+}
+
+.recurringEventCardTitleLink {
+	text-decoration: none;
+	color: var(--foreground_emphasis-high);
+}
+
+.recurringEventCardTitle {
+	margin: 0;
+}
+
+.buttonContainer {
+	width: fit-content;
 }
