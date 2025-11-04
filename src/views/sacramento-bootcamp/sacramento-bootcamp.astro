@@ -1,5 +1,9 @@
 ---
 import style from "./sacramento-bootcamp.module.scss";
+import edit from "src/icons/edit.svg?raw";
+import authors from "src/icons/authors.svg?raw";
+import discussion from "src/icons/discussion.svg?raw";
+import notebook from "src/icons/notebook.svg?raw";
 ---
 
 <div class={style.contain}>
@@ -8,4 +12,34 @@ import style from "./sacramento-bootcamp.module.scss";
 	</p>
 
 	<h1 class={style.headerText}>Playful Sacramento</h1>
+</div>
+
+<div class={style.mainCardContainer}>
+	<h2>Welcome to Playful Programming’s first bootcamp!</h2>
+	<p>
+		We are excited to propose a free 12-week Web Development Bootcamp, beginning
+		in January 2026. Our mission is to empower adult learners with the
+		fundamentals of modern frontend web development, including HTML, CSS,
+		JavaScript, and React. The course is designed to provide both technical
+		knowledge and hands-on practice, ensuring participants can confidently apply
+		their skills beyond the classroom.
+	</p>
+	<h2>Outcomes</h2>
+	<ul>
+		<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
+			<span class={style.outcomeIcon} set:html={edit} /> Build front-end applications
+		</li>
+		<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
+			<span class={style.outcomeIcon} set:html={authors} />
+			Pursue entry-level roles such as Front-end Developer, Web Developer, or UI
+			Developer.
+		</li>
+		<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
+			<span class={style.outcomeIcon} set:html={discussion} /> Contribute to real-world
+			development teams
+		</li>
+		<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
+			<span class={style.outcomeIcon} set:html={notebook} /> Continue your education
+		</li>
+	</ul>
 </div>

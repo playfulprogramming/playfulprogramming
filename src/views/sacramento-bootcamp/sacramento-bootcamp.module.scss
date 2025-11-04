@@ -17,6 +17,7 @@
 	margin: 0;
 
 	margin-top: var(--site-spacing);
+	margin-bottom: calc(var(--site-spacing) * 3);
 
 	color: var(--primary_on-variant);
 	text-shadow:
@@ -41,4 +42,30 @@
 			0px 8px 0px var(--primary_variant),
 			0px -8px 0px #000;
 	}
+}
+
+.mainCardContainer {
+	border-radius: calc(var(--site-spacing) * 2) calc(var(--site-spacing) * 2) 0 0;
+	background: var(--background_primary-bright);
+	max-width: var(--max-width_l);
+	margin: 0 auto;
+	width: 100%;
+}
+
+.outcomeIcon {
+	height: 20px;
+	width: 20px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.outcomeList {
+
+}
+
+.outcomeListItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
