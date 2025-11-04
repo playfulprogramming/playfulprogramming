@@ -2,7 +2,7 @@
 {
     title: "Prepping Your Ecommerce Site for the Agentic Apocalypse",
     authors: ['zionemond'],
-    published: '2025-09-30',
+    published: '2025-11-03',
     tags: ['seo', 'webdev'],
     description: "A guide on how to prepare your e-commerce site for AI-driven search and shopping, covering on-site content, structured data, and off-site brand presence.",
     originalLink: "https://www.cqlcorp.com/insights/prepping-your-ecommerce-site-for-the-agentic-revolution/"
