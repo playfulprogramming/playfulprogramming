@@ -118,7 +118,7 @@ export const events = [
 		is_recurring: true,
 	},
 	{
-		slug: "playful-bootcamp",
+		slug: "sacramento-bootcamp",
 		title: "Playful Bootcamp",
 		description:
 			"We are excited to propose a free 12-week Web Development Bootcamp, beginning in January 2026. Our mission is to empower adult learners with the fundamentals of modern frontend web development, including HTML, CSS, JavaScript, and React. The course is designed to provide both technical knowledge and hands-on practice, ensuring participants can confidently apply their skills beyond the classroom.",
