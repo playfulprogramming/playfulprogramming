@@ -7,43 +7,6 @@
 	margin-top: calc(var(--site-spacing) * 2);
 }
 
-.headerText {
-	font-family: var(--pfp-font-family);
-	font-weight: 900;
-	font-size: 9rem;
-	line-height: 100%;
-	letter-spacing: 0;
-	text-align: center;
-	margin: 0;
-
-	margin-top: var(--site-spacing);
-	margin-bottom: calc(var(--site-spacing) * 3);
-
-	color: var(--primary_on-variant);
-	text-shadow:
-		0px 8px 0px var(--primary_variant),
-		0px -8px 0px #fff;
-
-	@include until($tabletLarge) {
-		font-size: 6rem;
-	}
-
-	@include until($tabletSmall) {
-		font-size: 4rem;
-	}
-
-	@include until($mobile) {
-		font-size: 3rem;
-	}
-
-	@include transition(text-shadow);
-	@include darkTheme {
-		text-shadow:
-			0px 8px 0px var(--primary_variant),
-			0px -8px 0px #000;
-	}
-}
-
 .mainCardContainer {
 	border-radius: calc(var(--site-spacing) * 2) calc(var(--site-spacing) * 2) 0 0;
 	background: var(--background_primary-bright);

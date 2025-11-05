@@ -1,0 +1,79 @@
+---
+import style from "./title.module.scss";
+---
+
+<h1 class={style.headerText} id="playful-sac-title">Playful Sacramento</h1>
+
+<script>
+	// Split text into individual characters and wrap each in a span
+	const titleElement = document.getElementById(
+		"playful-sac-title",
+	) as HTMLHeadingElement;
+
+	if (titleElement) {
+		const text = titleElement.textContent || "";
+		titleElement.textContent = "";
+
+		// Split into words and then characters
+		const chars: HTMLSpanElement[] = [];
+		const words = text.split(" ");
+
+		words.forEach((word, wordIndex) => {
+			// Create a wrapper span for each word
+			const wordSpan = document.createElement("span");
+			wordSpan.className = "word";
+
+			// Split word into characters
+			for (const char of word) {
+				const charSpan = document.createElement("span");
+				charSpan.className = "char";
+				charSpan.textContent = char;
+				wordSpan.appendChild(charSpan);
+				chars.push(charSpan);
+			}
+
+			titleElement.appendChild(wordSpan);
+
+			// Add space between words (except after the last word)
+			if (wordIndex < words.length - 1) {
+				const spaceSpan = document.createElement("span");
+				spaceSpan.className = "char space";
+				spaceSpan.textContent = "\u00A0";
+				titleElement.appendChild(spaceSpan);
+				chars.push(spaceSpan);
+			}
+		});
+
+		// Function to calculate font weight based on distance from hovered character
+		const calculateWeight = (distance: number): number => {
+			const baseWeight = 900;
+			const minWeight = 700;
+			const maxDistance = 3; // How many characters away the effect reaches
+
+			if (distance === 0) return minWeight;
+			if (distance > maxDistance) return baseWeight;
+
+			// Gradual falloff
+			const ratio = 1 - distance / (maxDistance + 1);
+			return baseWeight - (baseWeight - minWeight) * ratio;
+		};
+
+		// Add hover effect to each character
+		chars.forEach((char, index) => {
+			char.addEventListener("mouseenter", () => {
+				chars.forEach((c, i) => {
+					const distance = Math.abs(i - index);
+					const weight = calculateWeight(distance);
+					c.style.fontVariationSettings = `'wght' ${weight}`;
+				});
+			});
+		});
+
+		// Reset all weights when mouse leaves the title
+		titleElement.addEventListener("mouseleave", () => {
+			chars.forEach((c) => {
+				c.style.fontVariationSettings = `'wght' 900`;
+			});
+		});
+	}
+</script>
