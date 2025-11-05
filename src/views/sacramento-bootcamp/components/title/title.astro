@@ -2,7 +2,10 @@
 import style from "./title.module.scss";
 ---
 
-<h1 class={style.headerText} id="playful-sac-title">Playful Sacramento</h1>
+<h1 class={style.headerText}>
+	<span id="playful-sac-title" aria-hidden="true">Playful Sacramento</span>
+	<span class="visually-hidden">Playful Sacramento</span>
+</h1>
 
 <script>
 	// Split text into individual characters and wrap each in a span
