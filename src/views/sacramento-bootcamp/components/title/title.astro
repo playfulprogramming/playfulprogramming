@@ -61,9 +61,19 @@ import style from "./title.module.scss";
 			return baseWeight - (baseWeight - minWeight) * ratio;
 		};
 
+		const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+		const reducedMotion = { current: mediaQuery.matches };
+
+		// Add reduce effect listener
+		mediaQuery.addEventListener("change", () => {
+			reducedMotion.current = mediaQuery.matches;
+		});
+
 		// Add hover effect to each character
 		chars.forEach((char, index) => {
 			char.addEventListener("mouseenter", () => {
+				if (reducedMotion.current) return;
 				chars.forEach((c, i) => {
 					const distance = Math.abs(i - index);
 					const weight = calculateWeight(distance);
@@ -74,6 +84,7 @@ import style from "./title.module.scss";
 
 		// Reset all weights when mouse leaves the title
 		titleElement.addEventListener("mouseleave", () => {
+			if (reducedMotion.current) return;
 			chars.forEach((c) => {
 				c.style.fontVariationSettings = `'wght' 900`;
 			});
