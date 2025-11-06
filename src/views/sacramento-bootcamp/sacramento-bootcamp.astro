@@ -97,30 +97,90 @@ import location from "src/icons/location.svg?raw";
 		</div>
 	</div>
 	<h2 class="visually-hidden" id="pfp-boot-modules">Modules</h2>
-	<ol class={style.modulesContainer} aria-labelledby="pfp-boot-modules">
+	<ol
+		class={style.modulesContainer}
+		aria-labelledby="pfp-boot-modules"
+		role="list"
+	>
 		<li class={style.moduleListItem}>
 			<div class={style.headingContainer}>
 				<h3 class={`text-style-headline-4`}>Module 1: HTML</h3>
 				<span class={`text-style-headline-6 ${style.weekTitle}`}>1 week</span>
 			</div>
+			<ul class={style.moduleItemList} role="list">
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Course introduction & overview
+				</li>
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Introduction to HTML
+				</li>
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Key tags & attributes
+				</li>
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Build a simple webpage
+				</li>
+			</ul>
 		</li>
 		<li class={style.moduleListItem}>
 			<div class={style.headingContainer}>
 				<h3 class={`text-style-headline-4`}>Module 2: CSS</h3>
 				<span class={`text-style-headline-6 ${style.weekTitle}`}>1 week</span>
 			</div>
+			<ul class={style.moduleItemList} role="list">
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Introduction to CSS
+				</li>
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Colors, fonts and spacing
+				</li>
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Layout techniques with CSS
+				</li>
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Build a styled webpage
+				</li>
+			</ul>
 		</li>
 		<li class={style.moduleListItem}>
 			<div class={style.headingContainer}>
 				<h3 class={`text-style-headline-4`}>Module 3: JavaScript</h3>
-				<span class={`text-style-headline-6 ${style.weekTitle}`}>1 week</span>
+				<span class={`text-style-headline-6 ${style.weekTitle}`}>3 weeks</span>
 			</div>
+			<ul class={style.moduleItemList} role="list">
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Introduction to JavaScript
+				</li>
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Variables and data types
+				</li>
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Functions
+				</li>
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Working with the DOM and adding interactivity to web pages
+				</li>
+			</ul>
 		</li>
 		<li class={style.moduleListItem}>
 			<div class={style.headingContainer}>
 				<h3 class={`text-style-headline-4`}>Module 4: React</h3>
-				<span class={`text-style-headline-6 ${style.weekTitle}`}>1 week</span>
+				<span class={`text-style-headline-6 ${style.weekTitle}`}>7 weeks</span>
 			</div>
+			<ul class={style.moduleItemList} role="list">
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Introduction to JavaScript
+				</li>
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Variables and data types
+				</li>
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Functions
+				</li>
+				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+					Working with the DOM and adding interactivity to web pages
+				</li>
+			</ul>
 		</li>
 	</ol>
 </div>
