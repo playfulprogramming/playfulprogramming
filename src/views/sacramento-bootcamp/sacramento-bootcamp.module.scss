@@ -165,3 +165,33 @@
 	align-items: center;
 	justify-content: center;
 }
+
+.modulesContainer {
+	list-style-type: none;
+	margin: 0;
+	padding: var(--site-spacing);
+
+	display: grid;
+	grid-template-columns: repeat(1, minmax(0, 1fr));
+	gap: var(--site-spacing);
+
+	@include from($tabletLarge) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.moduleListItem {
+	display: flex;
+	flex-direction: column;
+}
+
+.headingContainer {
+	display: flex;
+	align-items: center;
+	gap: calc(var(--site-spacing) / 2);
+	padding: 0 1rem;
+}
+
+.weekTitle {
+	color: var(--primary_default);
+}
