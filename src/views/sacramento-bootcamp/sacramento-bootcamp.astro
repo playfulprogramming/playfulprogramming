@@ -6,6 +6,8 @@ import authors from "src/icons/authors.svg?raw";
 import discussion from "src/icons/discussion.svg?raw";
 import notebook from "src/icons/notebook.svg?raw";
 import warning from "src/icons/warning.svg?raw";
+import date from "src/icons/date.svg?raw";
+import location from "src/icons/location.svg?raw";
 ---
 
 <div class={style.contain}>
@@ -17,43 +19,81 @@ import warning from "src/icons/warning.svg?raw";
 </div>
 
 <div class={style.mainCardContainer}>
-	<div class={style.outcomesContainer}>
-		<div class={style.welcomeContainer}>
-			<h2 class={`text-style-headline-2 ${style.welcomeText}`}>
-				Welcome to Playful Programming’s first bootcamp!
-			</h2>
-			<p class={`text-style-body-large`}>
-				We are excited to propose a free 12-week Web Development Bootcamp,
-				beginning in January 2026. Our mission is to empower adult learners with
-				the fundamentals of modern frontend web development, including HTML,
-				CSS, JavaScript, and React. The course is designed to provide both
-				technical knowledge and hands-on practice, ensuring participants can
-				confidently apply their skills beyond the classroom.
-			</p>
+	<div class={style.outcomeAndWhatWhereContainer}>
+		<div class={style.outcomesContainer}>
+			<div class={style.welcomeContainer}>
+				<h2 class={`text-style-headline-2 ${style.welcomeText}`}>
+					Welcome to Playful Programming’s first bootcamp!
+				</h2>
+				<p class={`text-style-body-large`}>
+					We are excited to propose a free 12-week Web Development Bootcamp,
+					beginning in January 2026. Our mission is to empower adult learners
+					with the fundamentals of modern frontend web development, including
+					HTML, CSS, JavaScript, and React. The course is designed to provide
+					both technical knowledge and hands-on practice, ensuring participants
+					can confidently apply their skills beyond the classroom.
+				</p>
+			</div>
+			<div class={style.outcomesListContainer}>
+				<h2 class={`text-style-headline-4 ${style.outcomeTitle}`}>Outcomes</h2>
+				<ul class={style.outcomeList}>
+					<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
+						<span class={style.outcomeIcon} set:html={edit} /> Build front-end applications
+					</li>
+					<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
+						<span class={style.outcomeIcon} set:html={authors} />
+						Pursue entry-level roles such as Front-end Developer, Web Developer,
+						or UI Developer.
+					</li>
+					<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
+						<span class={style.outcomeIcon} set:html={discussion} /> Contribute to
+						real-world development teams
+					</li>
+					<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
+						<span class={style.outcomeIcon} set:html={notebook} /> Continue your
+						education
+					</li>
+				</ul>
+			</div>
+			<span class={style.eighteenWarningContainer}>
+				<span set:html={warning} class={style.warningIcon} />
+				You must be 18 or older to participate.</span
+			>
 		</div>
-		<div class={style.outcomesListContainer}>
-			<h2 class={`text-style-headline-4 ${style.outcomeTitle}`}>Outcomes</h2>
-			<ul class={style.outcomeList}>
-				<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
-					<span class={style.outcomeIcon} set:html={edit} /> Build front-end applications
-				</li>
-				<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
-					<span class={style.outcomeIcon} set:html={authors} />
-					Pursue entry-level roles such as Front-end Developer, Web Developer, or
-					UI Developer.
-				</li>
-				<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
-					<span class={style.outcomeIcon} set:html={discussion} /> Contribute to
-					real-world development teams
-				</li>
-				<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
-					<span class={style.outcomeIcon} set:html={notebook} /> Continue your education
-				</li>
-			</ul>
+		<div class={style.whenWhereContainer}>
+			<div class={style.whenContainer}>
+				<span class={style.whenTitleContainer}>
+					<span class={style.whenIcon} set:html={date} />
+					<h2>When?</h2>
+				</span>
+				<div class={style.whenDescriptionContainer}>
+					<p class="text-style-body-small">
+						Our bootcamp will be held January XX, 2026.
+						<br />
+						<br />
+						It’s a 12-week bootcamp, 2 days a week, tuesday / thursday. 1 hour each,
+						6-7 PM PST
+						<br />
+						<br />
+						This means you’ll have plenty of time to prepare.
+					</p>
+				</div>
+			</div>
+			<div class={style.whereContainer}>
+				<span class={style.whereTitleContainer}>
+					<span class={style.whereIcon} set:html={location} />
+					<h2>Where?</h2>
+				</span>
+				<div class={style.whereDescriptionContainer}>
+					<p class="text-style-body-small">
+						Our bootcamp will be both in-person and online.
+						<br />
+						<br />
+						Due to the limited slots, if you can’t make it physically, we’ll provide
+						livestreams for you to catch up on what we’re doing!
+					</p>
+				</div>
+			</div>
 		</div>
-		<span class={style.eighteenWarningContainer}>
-			<span set:html={warning} class={style.warningIcon} />
-			You must be 18 or older to participate.</span
-		>
 	</div>
 </div>

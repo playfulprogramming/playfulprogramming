@@ -15,6 +15,86 @@
 	width: 100%;
 }
 
+.outcomeAndWhatWhereContainer {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+
+	@include from($tabletLarge) {
+		flex-direction: row;
+	}
+}
+
+.whenWhereContainer {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: var(--site-spacing);
+	gap: var(--site-spacing);
+
+	@include from($tabletSmall) {
+		flex-direction: row;
+	}
+
+	@include from($tabletLarge) {
+		flex-direction: column;
+		max-width: 320px;
+	}
+
+	@include from($desktopSmall) {
+		max-width: 400px;
+	}
+}
+
+.whenContainer,
+.whereContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-4x);
+
+	@include from($tabletSmall) {
+		flex-basis: 50%;
+	}
+
+	@include from($tabletLarge) {
+		flex-basis: unset;
+	}
+}
+
+.whenTitleContainer,
+.whereTitleContainer {
+	display: flex;
+	align-items: center;
+	gap: var(--spc-3x);
+}
+
+.whenIcon,
+.whereIcon {
+	height: 44px;
+	width: 44px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: var(--corner-radius_circular);
+	background: var(--surface_primary_emphasis-low);
+}
+
+.whenIcon > svg,
+.whereIcon > svg {
+	height: 20px;
+	width: 20px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.whenDescriptionContainer,
+.whereDescriptionContainer {
+	padding: var(--spc-6x);
+	border-radius: var(--corner-radius_xl);
+	background: var(--surface_primary_emphasis-none);
+}
+
 .outcomesContainer {
 	padding: calc(var(--site-spacing) * 2);
 	display: flex;
