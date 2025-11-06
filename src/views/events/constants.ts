@@ -115,6 +115,7 @@ export const events = [
 		blocks: bookClubBlocks,
 		organizers: [],
 		in_person: false,
+		is_online: true,
 		is_recurring: true,
 	},
 	{
@@ -129,6 +130,7 @@ export const events = [
 		],
 		organizers: [],
 		in_person: true,
+		is_online: true,
 		is_recurring: false,
 	},
 ] satisfies Event[];

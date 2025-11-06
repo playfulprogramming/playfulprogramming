@@ -1,14 +1,15 @@
 import dayjs from "dayjs";
 import { Button } from "components/button/button";
-import { EventsCardProps } from "./types";
+import { RecurringEventsCardProps } from "./types";
 import { getHrefContainerProps } from "utils/href-container-script";
 import date from "src/icons/date.svg?raw";
 import style from "./recurring-event-card.module.scss";
+import { EventChip } from "../event-chip/event-chip";
 
 export function RecurringEventsCard({
 	latestEventBlockLocationMetadata,
 	event,
-}: EventsCardProps) {
+}: RecurringEventsCardProps) {
 	const latestEventBlockWithMetadata =
 		latestEventBlockLocationMetadata[event.slug];
 
@@ -46,6 +47,18 @@ export function RecurringEventsCard({
 							</span>
 						</div>
 					) : null}
+					<ul className={style.chipsContainer} aria-label="Event type">
+						{event.in_person && (
+							<li>
+								<EventChip variant={"in-person"} size={"compact"} />
+							</li>
+						)}
+						{event.is_online && (
+							<li>
+								<EventChip variant={"online"} size={"compact"} />
+							</li>
+						)}
+					</ul>
 					<p className={`text-style-body-small ${style.eventDescription}`}>
 						{event.description}
 					</p>

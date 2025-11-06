@@ -42,5 +42,6 @@ export interface Event {
 	organizers: EventOrganizer[];
 	// Added in on top of the DB schema outlined by @fennifith
 	in_person: boolean;
+	is_online: true;
 	is_recurring: boolean;
 }

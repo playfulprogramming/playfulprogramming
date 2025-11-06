@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { LatestEventBlockLocationMetadataType } from "./components/event-cards/types";
 import { RecurringEventsCard } from "./components/event-cards/recurring-event-card";
+import { NonRecurringEventsCard } from "./components/event-cards/non-recurring-event-card";
 
 dayjs.extend(advancedFormat);
 
@@ -125,13 +126,7 @@ export default function EventsPage({
 						</h2>
 						<ul className={style.list}>
 							{nonRecurringEvents.map((event) => (
-								<RecurringEventsCard
-									key={event.slug}
-									event={event}
-									latestEventBlockLocationMetadata={
-										latestEventBlockLocationMetadata
-									}
-								/>
+								<NonRecurringEventsCard key={event.slug} event={event} />
 							))}
 						</ul>
 					</div>

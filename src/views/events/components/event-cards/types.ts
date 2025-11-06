@@ -1,9 +1,13 @@
 import { Event, EventBlock } from "../../types";
 import { UrlMetadataResponse } from "utils/hoof";
 
-export interface EventsCardProps {
+export interface RecurringEventsCardProps {
 	event: Event;
 	latestEventBlockLocationMetadata: LatestEventBlockLocationMetadataType;
+}
+
+export interface NonRecurringEventsCardProps {
+	event: Event;
 }
 
 export type LatestEventBlockLocationMetadataType = Record<
