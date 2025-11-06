@@ -1,5 +1,5 @@
 ---
-import BookClub from "../../views/book-club/book-club";
+import BookClubPage from "../../views/book-club/book-club";
 import Document from "../../layouts/document.astro";
 import SEO from "../../components/seo/seo.astro";
 import { events } from "../../views/events/constants";
@@ -30,6 +30,6 @@ for (const block of event.blocks) {
 	<!-- TODO: Add description -->
 	<SEO title="Book Club" description="" slot="head" />
 	<main>
-		<BookClub eventBlocksWithMetadata={eventBlocksWithMetadata} />
+		<BookClubPage eventBlocksWithMetadata={eventBlocksWithMetadata} />
 	</main>
 </Document>

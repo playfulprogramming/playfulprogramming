@@ -42,6 +42,10 @@ for (const event of events) {
 		continue;
 	}
 
+	if (!nearestButNotPastEvent.location_url) {
+		continue;
+	}
+
 	const location_metadata = await getUrlMetadata(
 		nearestButNotPastEvent.location_url,
 	);
