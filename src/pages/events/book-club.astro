@@ -30,6 +30,6 @@ for (const block of event.blocks) {
 	<!-- TODO: Add description -->
 	<SEO title="Book Club" description="" slot="head" />
 	<main>
-		<BookClubPage eventBlocksWithMetadata={eventBlocksWithMetadata} />
+		<BookClubPage client:load eventBlocksWithMetadata={eventBlocksWithMetadata} />
 	</main>
 </Document>
