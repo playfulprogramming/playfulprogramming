@@ -26,7 +26,7 @@ export default defineConfig({
 		browser: {
 			enabled: true,
 			provider: playwright(),
-			instances: [{ browser: "chromium" }],
+			instances: [{ browser: "chromium", setupFiles: ["./__mocks__/chrome-setup.ts"] }],
 		},
 		include: ["**/*.browser.spec.ts", "**/*.browser.spec.tsx"],
 	},

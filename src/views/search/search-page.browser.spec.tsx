@@ -425,7 +425,7 @@ describe("Search page", () => {
 	});
 
 	test("Sort by date works on desktop radio group buttons", async () => {
-		(global as { innerWidth: number }).innerWidth = 2000;
+		(globalThis as { innerWidth: number }).innerWidth = 2000;
 
 		mockPeopleIndex([]);
 		const clients = mockClients(() => ({
@@ -515,7 +515,7 @@ describe("Search page", () => {
 	});
 
 	test("Sort by date works on mobile radio group buttons", async () => {
-		(global as { innerWidth: number }).innerWidth = 500;
+		(globalThis as { innerWidth: number }).innerWidth = 500;
 
 		mockPeopleIndex([]);
 		const clients = mockClients(() => ({
@@ -692,7 +692,7 @@ describe("Search page", () => {
 	});
 
 	test("Pagination - Filters impact pagination", async () => {
-		(global as { innerWidth: number }).innerWidth = 2000;
+		(globalThis as { innerWidth: number }).innerWidth = 2000;
 		// 6 posts per page
 		mockPeopleIndex([MockPerson, MockPersonTwo]);
 		const clients = mockClients(() => ({
@@ -1022,7 +1022,7 @@ describe("Search page", () => {
 	});
 
 	test("Make sure that complete re-renders preserve tags, authors, etc", async () => {
-		(global as { innerWidth: number }).innerWidth = 2000;
+		(globalThis as { innerWidth: number }).innerWidth = 2000;
 
 		mockPeopleIndex([MockPerson, MockPersonTwo]);
 		const clients = mockClients(() => ({
