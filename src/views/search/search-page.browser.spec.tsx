@@ -17,7 +17,7 @@ import {
 } from "@testing-library/preact";
 import { SearchPageBase } from "./search-page";
 import { http, HttpResponse } from "msw";
-import { setupServer } from "msw/node";
+import { setupWorker } from "msw/browser";
 import { MockCanonicalPost, MockPost } from "../../../__mocks__/data/mock-post";
 import userEvent from "@testing-library/user-event";
 import { MockCollection } from "../../../__mocks__/data/mock-collection";
@@ -33,19 +33,17 @@ import { MAX_COLLECTIONS_PER_PAGE, MAX_POSTS_PER_PAGE } from "./constants";
 
 const user = userEvent.setup();
 
-const server = setupServer();
+const worker = setupWorker();
 
-beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
+beforeAll(() => worker.start({ onUnhandledRequest: "error" }));
 
-afterEach(() => server.resetHandlers());
+afterEach(() => worker.resetHandlers());
 
 beforeEach(() => {
 	cleanup();
 	// Reset URL after each test
 	window.history.replaceState({}, "", window.location.pathname);
 });
-
-afterAll(() => server.close());
 
 interface FnReply {
 	posts: PostInfo[];
@@ -135,7 +133,7 @@ function mockClients(fn: (searchStr: string) => FnReply): SearchContext {
 }
 
 function mockPeopleIndex(people: PersonInfo[]) {
-	server.use(
+	worker.use(
 		http.get(`*/searchFilters.json`, async () => {
 			return HttpResponse.json({
 				people,

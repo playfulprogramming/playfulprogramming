@@ -1,8 +1,10 @@
 import { defineConfig } from "vitest/config";
 import tsconfigPaths from "vite-tsconfig-paths";
+import preact from "@preact/preset-vite";
+import { playwright } from "@vitest/browser-playwright";
 
 export default defineConfig({
-	plugins: [tsconfigPaths()],
+	plugins: [tsconfigPaths(), preact()],
 	test: {
 		globals: true,
 		exclude: [
@@ -12,9 +14,18 @@ export default defineConfig({
 			"**/cypress/**",
 			"**/.{idea,git,cache,output,temp}/**",
 			"**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build,eslint,prettier}.config.*",
-			"src/**/*.browser.spec.ts",
-			"src/**/*.browser.spec.tsx",
+			"**/!*.browser.spec.ts",
+			"**/!*.browser.spec.tsx",
 		],
+		browser: {
+			enabled: true,
+			provider: playwright(),
+			instances: [{ browser: "chromium" }],
+		},
+		include: [
+			"**/*.browser.spec.ts",
+			"**/*.browser.spec.tsx",
+		]
 	},
 	resolve: {
 		alias: {

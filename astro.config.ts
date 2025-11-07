@@ -34,7 +34,7 @@ export default defineConfig({
 	},
 	vite: {
 		optimizeDeps: {
-			exclude: ["msw", "msw/node", "sharp"],
+			exclude: ["msw", "msw/browser", "sharp"],
 		},
 		ssr: {
 			external: ["svgo"],
