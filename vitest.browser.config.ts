@@ -2,9 +2,15 @@ import { defineConfig } from "vitest/config";
 import tsconfigPaths from "vite-tsconfig-paths";
 import preact from "@preact/preset-vite";
 import { playwright } from "@vitest/browser-playwright";
+import path from "node:path";
 
 export default defineConfig({
-	plugins: [tsconfigPaths(), preact()],
+	plugins: [
+		tsconfigPaths({
+			projects: ["tsconfig.json"],
+		}),
+		preact(),
+	],
 	test: {
 		globals: true,
 		exclude: [
@@ -22,13 +28,12 @@ export default defineConfig({
 			provider: playwright(),
 			instances: [{ browser: "chromium" }],
 		},
-		include: [
-			"**/*.browser.spec.ts",
-			"**/*.browser.spec.tsx",
-		]
+		include: ["**/*.browser.spec.ts", "**/*.browser.spec.tsx"],
 	},
 	resolve: {
 		alias: {
+			// For SASS
+			src: path.resolve(import.meta.dirname, "src"),
 			react: "preact/compat",
 			"react-dom/test-utils": "preact/test-utils",
 			"react-dom": "preact/compat", // Must be below test-utils
