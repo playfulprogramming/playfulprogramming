@@ -192,9 +192,11 @@ The people on your teams are, first and foremost, people. It can be tricky to co
 
 ## Seek to Understand First 
 
-// TODO: Write — Always start by asking questions (even if you know the topic extremely well, asking questions helps you understand pain-points)
+When working with a new team (or team member) there's a strong temptation to leverage existing knowledge and experience to asset positive changes in favor of forward momentum.
 
+Before you do, however, I implore you: **Ask as many questions as you can before suggesting things yourself**.
 
+By asking questions first, you're able to understand pain points in a system. Often, someone may have tried what's intuitive to you before and it hit roadblocks for one reason or another. By being inquisitive, you're able to avoid many headaches by reintroducing old ideas once again.
 
 Even if you're a subject-matter expert on the topic in question, having the "ask first" mentality is a strong tool to have in one's toolbox. I've seen this play out to be immensely helpful in two different circumstances in particular:
 
@@ -207,10 +209,6 @@ Even if you're a subject-matter expert on the topic in question, having the "ask
    In cirtcumstances like these, asking questions helps you break through to the misunderstandings the other party might have. In some instances, they might be right; they happen to have spent time in a given area long enough to be sharper on a topic than you are. In other instances, you might find that you're more informed on the topic but the unwillingness to learn has stemmed from a misconception (or similar) on their end.
 
 Regardless, by asking questions first you're able to figure out where the other party aligns and help bring them towards your objectives.
-
-
-
-
 
 ## Systemically Adding Rationale
 
