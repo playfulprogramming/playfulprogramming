@@ -198,6 +198,10 @@ Before you do, however, I implore you: **Ask as many questions as you can before
 
 By asking questions first, you're able to understand pain points in a system. Often, someone may have tried what's intuitive to you before and it hit roadblocks for one reason or another. By being inquisitive, you're able to avoid many headaches by reintroducing old ideas once again.
 
+> **Ask, ask, ask again:**
+>
+> Even if a question feels silly to ask, you can often glean a lot of information through this process. If you're feeling uncomfortable asking too many questions, start by finding where previous decisions have been documented. If you find that there's little docs for what you're wanting to know, maybe start by producing those historically relevant documents first!
+
 Even if you're a subject-matter expert on the topic in question, having the "ask first" mentality is a strong tool to have in one's toolbox. I've seen this play out to be immensely helpful in two different circumstances in particular:
 
 1) When the other party is willing to learn but doesn't know the right questions to ask yet.
@@ -212,9 +216,17 @@ Regardless, by asking questions first you're able to figure out where the other 
 
 ## Systemically Adding Rationale
 
-- "Because I said so" (how to systemically add rationale in decision-making)
+I don't know about you, but when I was younger I used to loathe the response of "because I told you to" whenever there was an open-ended question about my parent's decisionmaking.
 
+What would usually start with genuine inquisitiveness would be shut down by a lack of willingness to explain one's thought process. This typically led to stubbornness and uncooperativeness on the child's end; feeling ignored and untaught.
 
+Now, as an adult and professional, I often see many managers making the same mistake. Maybe not so brazenly, but many in management don't follow up their engineering asks with rationale for how that decision was made.
+
+In both instances, you're removing the other party from being able to understand the problem that you're aiming to solve in any deeper capacity. Even when this doesn't breed discent, it means that you can only be so invested into the solution. And even when you find a reportee who's consistently engaged, they may not be able to ask questions that you may have missed during the discovery phase.
+
+> **Outline your reasonings:**
+>
+> Instead of assigning tickets without context, try to include the original ask and how you came to the conclusion of what you're asking to build. Even better, include some of your engineering staff in meetings that pertain to product planning. Having them in the room can consistently bring up good edgecases you may not have thought of otherwise.
 
 ## Practice Active Listening
 
