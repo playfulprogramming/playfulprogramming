@@ -286,5 +286,9 @@ On the flip side, though, if you're proud of someone's work — let the world kn
 
 # Conclusion
 
+Hopefully this has been a helpful look into how you can communicate more efficiently with your team. Whether you're an individual contributor (IC) or an Engineering Leader (EL), the same base principals apply. Especially as you scale to become more senior, these communication traits become more and more relevant.
+
+What are your favorite engineering communication tips? Let us know [in our Discord](https://discord.gg/FMcvc6T) and kickstart a new conversation on good team comms!
+
 
 
