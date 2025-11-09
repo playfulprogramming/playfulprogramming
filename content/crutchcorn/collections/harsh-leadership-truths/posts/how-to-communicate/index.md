@@ -72,6 +72,8 @@ See, if you had asked "How do I do _X_?" in your initial "Hey are you around?" m
 
 This problem grows exponentially when your team is in different timezones or work schedules as well, since the means of your communication inherently have to be asynchronous most of the time.
 
+![Before, you had to wait 6 hours for a reply when you waited for the first reply to "Hey". After, you only waited 3 hours after your first ask](./no_hello.png)
+
 This is why I suggest adding as much context as you can in your initial message. Use async comms the way they're intended.
 
 ## Bottom Line Up Front (BLUF)
@@ -81,6 +83,8 @@ This is why I suggest adding as much context as you can in your initial message.
 > For longer messages, you should include your ask and any short but immediate context up at the top of the message and include context later.
 
 While [the phrase "Bottom Line Up Front" (or "BLUF") has origins in the U.S. military](https://web.archive.org/web/20190126172241/https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/r25_50.pdf), the core principals can be highly useful in civilian contexts as well. The gist of it is simple: For longer messages, kickstart your conversation with your ultimate ask at the front of the conversation.
+
+![Instead of reading the whole message to get to the important bits, start your messages with the biggest stuff](./bluf.svg)
 
 This is helpful for all kinds of folks, but doubly so for those that are in high positions or are otherwise very busy. This allows the reader to reduce the amount of noise they need to ingest to make a decision and dictate where they can refocus that energy in further communications with you.
 
@@ -186,7 +190,7 @@ To help mitigate this, create smaller environments that are still publicly viewa
 
 This is also partly a sign of broader cultural change that might need to occur to help others (especially juniors) find their voices. Reward speaking publicly when it otherwise might feel silly, don't impune "dumb" questions, and encourage regular active Q&A sessions. 
 
-# Demonstrating Leadership
+# Leadership Through Communication
 
 The people on your teams are, first and foremost, people. It can be tricky to context switch between engineering work and soft skills at times. To help along that path, here are a few things that I like to keep in mind when chatting with my peers.
 
@@ -262,7 +266,7 @@ So, what's the solve? "Yes, and" them!
 
 This doesn't mean that you agree with diverting effort immediately, but it means that you can play off of others' excitement, even when redirecting it.
 
-> "That could be cool! We'll have to loop back on that in the future. For now, let's see how we can build a foundation to make it there."
+> "**Yes!** That's a great vision for where we need to be. **And** what's the one-day version of that we could build *right now* to prove the concept?"
 
 Is a much more powerful sentiment to keep momentum than:
 
@@ -280,13 +284,21 @@ This doesn't mean that you can't share negatives of another team member upwards 
 
 > **Important distinction:**
 >
-> The above doesn't mean that you "tattle" on every minor incident that occurs if it remains broadly unimportant to you in the broad scheme of things. However, if incidents (even "small ones") are left unchanged and need to be fixed, you're often encouraged to raise that kind of problem.
+> The above doesn't mean that you need to raise every minor incedent that occurs. The key difference is **patterns vs. incidents**. A single minor-incident (e.g., someone is terse in one message) is often best ignored. A *pattern* of small incidents (e.g., that person is terse in *every* message) is a problem that needs to be addressed, as it impacts the team. Raise patterns, not isolated incidents.
 
 On the flip side, though, if you're proud of someone's work — let the world know it! It's a great feeling to share that pride with the rest of your team, and especially with management above yourself. Our work as engineering leadership is broad meant to spread the good on a team, not to hog the praise ourselves.
 
 # Conclusion
 
-Hopefully this has been a helpful look into how you can communicate more efficiently with your team. Whether you're an individual contributor (IC) or an Engineering Leader (EL), the same base principals apply. Especially as you scale to become more senior, these communication traits become more and more relevant.
+Building out your communication skills isn't just a single skill you can point to directly; it's a series of stepping stones that builds on top of one another to form a rock-solid foundation for effective team skills.
+
+It starts with mastering your own messages; structuring them through clear, direct, and respectful communications that let your fellow engineers know that you value them and their time.
+
+Next, you graduate to helping engineer your team's environment, building systems that encourage clarity and documentation.
+
+Finally, you use communication to lead your team; building out trust, providing rationales, and guiding things with empathy.
+
+Those that learn to master all three don't just solve technical problems; they become the leaders who guide their organizations.
 
 What are your favorite engineering communication tips? Let us know [in our Discord](https://discord.gg/FMcvc6T) and kickstart a new conversation on good team comms!
 
