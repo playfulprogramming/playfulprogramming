@@ -270,5 +270,21 @@ Is a much more powerful sentiment to keep momentum than:
 
 ## Praise in Public, Correct in Private
 
-- Story from Linkd
+When you see behavior that's not up to your or your group's standards, you may want to call it out in the spot; regardless of if you're in a group environment or not. While this _may_ be appropriate in some extreme instances, it's broadly better guidance to follow the rule of "praise in public, correct in private."
+
+For example, let's say that you're in standup and someone brings up a pull request that you think has exceeded scope. The natural inclination might be to make a comment about how they can break up that work, doing so can lead to a damaged working relationship.
+
+After all, it's not a great time when you feel embarrassed in front of others. And I don't know about you, but I'm more likely to lash out and become defensive in group environments, even when I needed to hear that feedback.
+
+This doesn't mean that you can't share negatives of another team member upwards to higher levels of management, however. If you feel the need to comment on something, it might behoove you to acknowledge this feeling with those above you for transparency's sake, especially if they report to you and you need to justify corrective action in the future.
+
+> **Important distinction:**
+>
+> The above doesn't mean that you "tattle" on every minor incident that occurs if it remains broadly unimportant to you in the broad scheme of things. However, if incidents (even "small ones") are left unchanged and need to be fixed, you're often encouraged to raise that kind of problem.
+
+On the flip side, though, if you're proud of someone's work — let the world know it! It's a great feeling to share that pride with the rest of your team, and especially with management above yourself. Our work as engineering leadership is broad meant to spread the good on a team, not to hog the praise ourselves.
+
+# Conclusion
+
+
 
