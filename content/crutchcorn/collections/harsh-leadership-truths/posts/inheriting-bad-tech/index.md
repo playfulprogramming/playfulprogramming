@@ -93,7 +93,7 @@ It's easy to see how this could get out of hand rather quickly after adding even
         - `Card.tsx`
         - `App.tsx`
         - `...`
-        <!-- ::end:filetree -->
+<!-- ::end:filetree -->
 
 This layout is made even more complicated by the need to maintain multiple variations of publishable apps on the respective app stores:
 
@@ -133,7 +133,7 @@ This layout is made even more complicated by the need to maintain multiple varia
         - `Card.tsx`
         - `App.tsx`
         - `...`
-        <!-- ::end:filetree -->
+<!-- ::end:filetree -->
 
 Clearly, we needed a way to reuse code between mobile apps; bonus points if it enabled code reuse from the website also. We resolved ourselves on using web-technologies with the ability to compile down to mobile views.
 
@@ -182,7 +182,7 @@ While this decision to use web technologies did a lot to help reduce our learnin
         - `Card.tsx`
         - `App.tsx`
         - `...`
-        <!-- ::end:filetree -->
+<!-- ::end:filetree -->
 
 It did little to reduce the frequency of which we needed to copy+paste code between projects. Moreover, even if we could reasonably copy+paste code between projects to sync their states, it became challenging to know what was the most recent version of a given piece of code.
 
@@ -218,7 +218,7 @@ To solve _this_ problem, I borrowed a slightly different philosophy: Why use mul
             - `Card.tsx`
             - `App.tsx`
             - `...`
-            <!-- ::end:filetree -->
+<!-- ::end:filetree -->
 
 This practice is used widely in larger organizations and is called a "monorepo." This idea might sound obtuse, but comes with a number of benefits:
 
@@ -259,7 +259,7 @@ It's that last point that really stuck out to us: What if you could take that `C
         - `src/`
             - `App.tsx`
             - `...`
-            <!-- ::end:filetree -->
+<!-- ::end:filetree -->
 
 
 While this is technically possible with multiple distinct codebases, it's comparatively trivial with a monorepo!
