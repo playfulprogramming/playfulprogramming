@@ -230,9 +230,23 @@ In both instances, you're removing the other party from being able to understand
 
 ## Practice Active Listening
 
-- Summarize what you've heard
+When I schedule 1 on 1s with my team, it can be tempting to schedule that time over other things I have going on. Maybe I'm driving back home from a lunch and believe that I can pay attention to the conversation while maneuvering quiet roads.
 
+I urge you, however, to avoid this temptation. Instead, **give important meetings (especially one-on-ones) your utmost attention** by:
 
+- Not doing other things during your meetings.
+- Having your camera on, even when you might otherwise have it off.
+- Using open-ended questions to gather more information.
+- Acknowledging emotions that are brought up during calls.
+- Paraphrasing what you've been told to ensure that you're on the right track.  
+
+Remember, if you're leading a team those team members are often looking to you for not only technical guidance but psychological safety. By forcing yourself to be maximally attentive, you're reassuring that you're on their side and willing and able to help out.
+
+And paraphrasing might sound silly, but it helps! Not only does this form of active listening help the other party feel like they're being heard, but it can help lead to clarify mistakes in comprehension. I've had a number of instances where I misheard what was being said and summarizing what they said was able to help me catch mistakes in my comprehension.
+
+> **A reminder for yourself:**
+>
+> If you're having difficulties focusing on a conversation or realize that you'll be otherwise preoccupied during regularly scheduled calls, it's alright to reschedule! Rescheduling feels bad when you want to be present for the other party, but if it'll help you be more aligned with the other party, it will have been worth it.
 
 ## Build, Don't Block
 
