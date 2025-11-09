@@ -250,9 +250,23 @@ And paraphrasing might sound silly, but it helps! Not only does this form of act
 
 ## Build, Don't Block
 
-- "Yes, and" (play off of others' excitement, even if redirecting it) ["That could be cool! We'll have to loop back on that in the future. For now, let's see how we can build a foundation to make it there"]
+There's a certain kind of engineer that can be difficult to work around: They're excited to jump a number of steps ahead of where you believe you and your team can tackle. Maybe they're planning for the scale of millions of users when you have a couple thousand.
 
+> "Why is that kind of engineer challenging to work with? They usually bring good ideas to the table even if they're not given at the right time."
 
+Exactly; it's about that timing challenge. For many managers it's difficult to put their colleagues' ideas off to the side while retaining that developer's excitement.
+
+After all, it's not fun for _anyone_ to be told "No" on a consistent basis. This is true even in instances where someone is generally given a fair amount of leeway and is regularly given the freedom to do what they believe in. It only takes one incident where excitement to work is met with negative tonality that can shift the mindset on one's work.
+
+So, what's the solve? "Yes, and" them!
+
+This doesn't mean that you agree with diverting effort immediately, but it means that you can play off of others' excitement, even when redirecting it.
+
+> "That could be cool! We'll have to loop back on that in the future. For now, let's see how we can build a foundation to make it there."
+
+Is a much more powerful sentiment to keep momentum than:
+
+> "That feels too far out of scope."
 
 ## Praise in Public, Correct in Private
 
