@@ -112,6 +112,16 @@ You can do this by routing all traffic through both the new and old code systems
 
 ## Versioning
 
+For feature flags to work properly, however, you often need a system to categorize the changes being made in the codebase. However you choose to do so, this is called "versioning". 
+
+One of the most popular means of versioning is "semantic versioning" (aka "semver"). 
+
+[![TODO: Replace this](https://www.softwarecraftsperson.com/images/semver.png)](https://www.softwarecraftsperson.com/posts/2020-12-06-semantic-versioning-semver-introduction/)
+
+
+
+
+
 - Semver
 - Talk about how to expose this to users for debugging purposes
 
