@@ -2,7 +2,7 @@
 {
     title: "The Power of Showing Up",
     description: "How being active in your local developer community can open unexpected career doors.",
-    published: '2025-10-27T21:52:59.284Z',
+    published: '2025-11-10T21:52:59.284Z',
     tags: ['leadership', 'opinion'],
     license: 'cc-by-4',
     order: 2
