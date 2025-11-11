@@ -27,9 +27,16 @@ for (const block of event.blocks) {
 ---
 
 <Document lang={"en"} size="l" disableDiscord>
-	<!-- TODO: Add description -->
-	<SEO title="Book Club" description="" slot="head" />
+	<SEO
+		title="Book Club"
+		description="In our weekly book club, we hang out and chat about a topic or a specific article!"
+		slot="head"
+		shareImage={"/custom-content/views/book-club/book_club_social.png"}
+	/>
 	<main>
-		<BookClubPage client:load eventBlocksWithMetadata={eventBlocksWithMetadata} />
+		<BookClubPage
+			client:load
+			eventBlocksWithMetadata={eventBlocksWithMetadata}
+		/>
 	</main>
 </Document>
