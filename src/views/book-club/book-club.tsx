@@ -18,6 +18,8 @@ interface BookClubLargeCardProps {
 	eventBlock: EventBlockWithMetadata;
 }
 
+const defaultCoverImage = "/illustrations/illustration-webpage.svg";
+
 function BookClubLargeCard({ eventBlock }: BookClubLargeCardProps) {
 	if (!eventBlock.location_url) return null;
 
@@ -33,7 +35,7 @@ function BookClubLargeCard({ eventBlock }: BookClubLargeCardProps) {
 				<img
 					className={style.largeCardImage}
 					crossOrigin={"anonymous"}
-					src={eventBlock.location_metadata.banner?.src ?? "/share-banner.png"}
+					src={eventBlock.location_metadata.banner?.src ?? defaultCoverImage}
 					alt=""
 					height={315}
 				/>
@@ -72,7 +74,7 @@ function BookClubSmallCard({ eventBlock }: BookClubSmallCardProps) {
 				<img
 					className={style.smallCardImage}
 					crossOrigin={"anonymous"}
-					src={eventBlock.location_metadata.banner?.src ?? "/share-banner.png"}
+					src={eventBlock.location_metadata.banner?.src ?? defaultCoverImage}
 					alt=""
 					width={171}
 					height={96}
