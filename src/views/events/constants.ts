@@ -104,6 +104,21 @@ export const bookClubBlocks = [
 	},
 ] satisfies EventBlock[];
 
+export const SacramentoBootcampBlocks = [
+	{
+		slug: "sacramento-bootcamp-2026-01",
+		starts_at: dayjs("01-06-2026", "MM-DD-YYYY")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("03-24-2026", "MM-DD-YYYY")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "Sacramento, CA",
+		timezone: "America/Los_Angeles",
+		presenters: [],
+	},
+] satisfies EventBlock[];
+
 export const events = [
 	{
 		slug: "book-club",
@@ -126,9 +141,7 @@ export const events = [
 			"Beginning in January 2026. Our mission is to empower adult learners with the fundamentals of modern frontend web development. In this 12 week course, we’ll cover HTML, CSS, JavaScript, and React! Taking this course will provide you with both technical knowledge and hands-on practice and prepare you to contribute to real teams and projects!",
 		location_description: "",
 		location_url: "",
-		blocks: [
-			// TODO: Fill this out
-		],
+		blocks: SacramentoBootcampBlocks,
 		organizers: [],
 		in_person: true,
 		is_online: true,
