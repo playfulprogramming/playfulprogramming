@@ -8,6 +8,7 @@ import notebook from "src/icons/notebook.svg?raw";
 import warning from "src/icons/warning.svg?raw";
 import date from "src/icons/date.svg?raw";
 import location from "src/icons/location.svg?raw";
+import { LargeButton } from "components/index";
 ---
 
 <div class={style.contain}>
@@ -26,39 +27,59 @@ import location from "src/icons/location.svg?raw";
 					Welcome to Playful Programming’s first bootcamp!
 				</h2>
 				<p class={`text-style-body-large`}>
-					We are excited to propose a free 12-week Web Development Bootcamp,
-					beginning in January 2026. Our mission is to empower adult learners
-					with the fundamentals of modern frontend web development, including
-					HTML, CSS, JavaScript, and React. The course is designed to provide
-					both technical knowledge and hands-on practice, ensuring participants
-					can confidently apply their skills beyond the classroom.
+					We are excited to propose a free 12-week Web Development
+					Bootcamp, beginning in January 2026. Our mission is to
+					empower adult learners with the fundamentals of modern
+					frontend web development, including HTML, CSS, JavaScript,
+					and React. The course is designed to provide both technical
+					knowledge and hands-on practice, ensuring participants can
+					confidently apply their skills beyond the classroom.
 				</p>
 			</div>
 			<div class={style.outcomesListContainer}>
-				<h2 class={`text-style-headline-4 ${style.outcomeTitle}`}>Outcomes</h2>
+				<h2 class={`text-style-headline-4 ${style.outcomeTitle}`}>
+					Outcomes
+				</h2>
 				<ul class={style.outcomeList}>
-					<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
-						<span class={style.outcomeIcon} set:html={edit} /> Build front-end applications
+					<li
+						class={`text-style-body-small-bold ${style.outcomeListItem}`}
+					>
+						<span class={style.outcomeIcon} set:html={edit} /> Build
+						front-end applications
 					</li>
-					<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
+					<li
+						class={`text-style-body-small-bold ${style.outcomeListItem}`}
+					>
 						<span class={style.outcomeIcon} set:html={authors} />
-						Pursue entry-level roles such as Front-end Developer, Web Developer,
-						or UI Developer.
+						Pursue entry-level roles such as Front-end Developer, Web
+						Developer, or UI Developer.
 					</li>
-					<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
-						<span class={style.outcomeIcon} set:html={discussion} /> Contribute to
-						real-world development teams
+					<li
+						class={`text-style-body-small-bold ${style.outcomeListItem}`}
+					>
+						<span class={style.outcomeIcon} set:html={discussion} />
+						Contribute to real-world development teams
 					</li>
-					<li class={`text-style-body-small-bold ${style.outcomeListItem}`}>
-						<span class={style.outcomeIcon} set:html={notebook} /> Continue your
-						education
+					<li
+						class={`text-style-body-small-bold ${style.outcomeListItem}`}
+					>
+						<span class={style.outcomeIcon} set:html={notebook} /> Continue
+						your education
 					</li>
 				</ul>
 			</div>
-			<span class={style.eighteenWarningContainer}>
-				<span set:html={warning} class={style.warningIcon} />
-				You must be 18 or older to participate.</span
-			>
+			<div class={style.applyContainer}>
+				<LargeButton
+					tag="a"
+					href="https://forms.gle/bit3S6cya17S7JpFA"
+					variant="primary-emphasized"
+					class={style.applyBtn}>Apply to join</LargeButton
+				>
+				<span class={style.eighteenWarningContainer}>
+					<span set:html={warning} class={style.warningIcon} />
+					You must be 18 or older to participate.</span
+				>
+			</div>
 		</div>
 		<div class={style.whenWhereContainer}>
 			<div class={style.whenContainer}>
@@ -68,11 +89,11 @@ import location from "src/icons/location.svg?raw";
 				</span>
 				<div class={style.whenDescriptionContainer}>
 					<p class="text-style-body-small">
-						Our bootcamp will be held January XX, 2026.
+						Our bootcamp will be held in January 2026.
 						<br />
 						<br />
-						It’s a 12-week bootcamp, 2 days a week, tuesday / thursday. 1 hour each,
-						6-7 PM PST
+						It’s a 12-week bootcamp, 2 days a week, Tuesday / Thursday.
+						1 hour each, 6-7 PM PST
 						<br />
 						<br />
 						This means you’ll have plenty of time to prepare.
@@ -89,8 +110,9 @@ import location from "src/icons/location.svg?raw";
 						Our bootcamp will be both in-person and online.
 						<br />
 						<br />
-						Due to the limited slots, if you can’t make it physically, we’ll provide
-						livestreams for you to catch up on what we’re doing!
+						Due to the limited slots, if you can’t make it physically,
+						we’ll provide livestreams for you to catch up on what we’re
+						doing!
 					</p>
 				</div>
 			</div>
@@ -105,19 +127,29 @@ import location from "src/icons/location.svg?raw";
 		<li class={style.moduleListItem}>
 			<div class={style.headingContainer}>
 				<h3 class={`text-style-headline-4`}>Module 1: HTML</h3>
-				<span class={`text-style-headline-6 ${style.weekTitle}`}>1 week</span>
+				<span class={`text-style-headline-6 ${style.weekTitle}`}
+					>1 week</span
+				>
 			</div>
 			<ul class={style.moduleItemList} role="list">
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Course introduction & overview
 				</li>
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Introduction to HTML
 				</li>
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Key tags & attributes
 				</li>
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Build a simple webpage
 				</li>
 			</ul>
@@ -125,19 +157,29 @@ import location from "src/icons/location.svg?raw";
 		<li class={style.moduleListItem}>
 			<div class={style.headingContainer}>
 				<h3 class={`text-style-headline-4`}>Module 2: CSS</h3>
-				<span class={`text-style-headline-6 ${style.weekTitle}`}>1 week</span>
+				<span class={`text-style-headline-6 ${style.weekTitle}`}
+					>1 week</span
+				>
 			</div>
 			<ul class={style.moduleItemList} role="list">
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Introduction to CSS
 				</li>
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Colors, fonts and spacing
 				</li>
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Layout techniques with CSS
 				</li>
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Build a styled webpage
 				</li>
 			</ul>
@@ -145,19 +187,29 @@ import location from "src/icons/location.svg?raw";
 		<li class={style.moduleListItem}>
 			<div class={style.headingContainer}>
 				<h3 class={`text-style-headline-4`}>Module 3: JavaScript</h3>
-				<span class={`text-style-headline-6 ${style.weekTitle}`}>3 weeks</span>
+				<span class={`text-style-headline-6 ${style.weekTitle}`}
+					>3 weeks</span
+				>
 			</div>
 			<ul class={style.moduleItemList} role="list">
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Introduction to JavaScript
 				</li>
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Variables and data types
 				</li>
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Functions
 				</li>
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Working with the DOM and adding interactivity to web pages
 				</li>
 			</ul>
@@ -165,19 +217,29 @@ import location from "src/icons/location.svg?raw";
 		<li class={style.moduleListItem}>
 			<div class={style.headingContainer}>
 				<h3 class={`text-style-headline-4`}>Module 4: React</h3>
-				<span class={`text-style-headline-6 ${style.weekTitle}`}>7 weeks</span>
+				<span class={`text-style-headline-6 ${style.weekTitle}`}
+					>7 weeks</span
+				>
 			</div>
 			<ul class={style.moduleItemList} role="list">
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Introduction to Components
 				</li>
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Props and State
 				</li>
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Side Effects
 				</li>
-				<li class={`text-style-body-medium-bold ${style.moduleItemListItem}`}>
+				<li
+					class={`text-style-body-medium-bold ${style.moduleItemListItem}`}
+				>
 					Error Handling
 				</li>
 			</ul>

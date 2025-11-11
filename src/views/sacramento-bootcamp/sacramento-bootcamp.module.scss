@@ -147,15 +147,26 @@
 	margin: 0;
 }
 
+.applyContainer {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.applyBtn {
+	width: 100%;
+	
+	@include from($tabletSmall) {
+		width: fit-content;
+	}
+}
+
 .eighteenWarningContainer {
 	display: inline-flex;
 	align-items: center;
 	padding: var(--spc-3x) var(--spc-5x) var(--spc-3x) var(--spc-3x);
 	gap: var(--spc-3x);
-	background: var(--surface_secondary_emphasis-none);
-	color: var(--secondary_on-variant);
+	color: var(--foreground_emphasis-medium);
 	width: fit-content;
-	border-radius: var(--corner-radius_circular);
 }
 
 .warningIcon {
