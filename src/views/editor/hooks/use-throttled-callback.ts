@@ -1,17 +1,17 @@
-import throttle from "lodash.throttle"
+import throttle from "lodash.throttle";
 
-import { useUnmount } from "./use-unmount"
-import { useMemo } from "preact/hooks"
+import { useUnmount } from "./use-unmount";
+import { useMemo } from "preact/hooks";
 
 interface ThrottleSettings {
-  leading?: boolean | undefined
-  trailing?: boolean | undefined
+	leading?: boolean | undefined;
+	trailing?: boolean | undefined;
 }
 
 const defaultOptions: ThrottleSettings = {
-  leading: false,
-  trailing: true,
-}
+	leading: false,
+	trailing: true,
+};
 
 /**
  * A hook that returns a throttled callback function.
@@ -23,26 +23,26 @@ const defaultOptions: ThrottleSettings = {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useThrottledCallback<T extends (...args: any[]) => any>(
-  fn: T,
-  wait = 250,
-  dependencies: unknown[] = [],
-  options: ThrottleSettings = defaultOptions
+	fn: T,
+	wait = 250,
+	dependencies: unknown[] = [],
+	options: ThrottleSettings = defaultOptions,
 ): {
-  (this: ThisParameterType<T>, ...args: Parameters<T>): ReturnType<T>
-  cancel: () => void
-  flush: () => void
+	(this: ThisParameterType<T>, ...args: Parameters<T>): ReturnType<T>;
+	cancel: () => void;
+	flush: () => void;
 } {
-  const handler = useMemo(
-    () => throttle<T>(fn, wait, options),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    dependencies
-  )
+	const handler = useMemo(
+		() => throttle<T>(fn, wait, options),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		dependencies,
+	);
 
-  useUnmount(() => {
-    handler.cancel()
-  })
+	useUnmount(() => {
+		handler.cancel();
+	});
 
-  return handler
+	return handler;
 }
 
-export default useThrottledCallback
+export default useThrottledCallback;
