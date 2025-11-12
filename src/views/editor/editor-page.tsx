@@ -140,6 +140,8 @@ export function EditorPage() {
 	const isMobile = useIsBreakpoint();
 	const { height } = useWindowSize();
 	const [mobileView, setMobileView] = useState<"main" | "link">("main");
+	const [editorMode, setEditorMode] = useState<"rich" | "raw">("rich");
+	const [rawContent, setRawContent] = useState(content);
 	const toolbarRef = useRef<HTMLDivElement>(null);
 
 	const editor = useEditor({
@@ -194,37 +196,76 @@ export function EditorPage() {
 		}
 	}, [isMobile, mobileView]);
 
+	const toggleEditorMode = () => {
+		if (editorMode === "rich") {
+			// Switch to raw mode - get markdown from TipTap
+			const markdown = editor?.getMarkdown() || "";
+			setRawContent(markdown);
+			setEditorMode("raw");
+		} else {
+			// Switch to rich mode - update TipTap with raw content
+			editor?.commands.setContent(rawContent, { contentType: "markdown" });
+			setEditorMode("rich");
+		}
+	};
+
+	const handleRawContentChange = (e: Event) => {
+		const target = e.target as HTMLTextAreaElement;
+		setRawContent(target.value);
+	};
+
 	return (
 		<div>
 			<EditorContext.Provider value={{ editor }}>
-				<Toolbar
-					ref={toolbarRef}
-					style={{
-						...(isMobile
-							? {
-									bottom: `calc(100% - ${height - rect.y}px)`,
-								}
-							: {}),
-					}}
-				>
-					{mobileView === "main" ? (
-						<MainToolbarContent
-							onLinkClick={() => setMobileView("link")}
-							isMobile={isMobile}
-						/>
-					) : (
-						<MobileToolbarContent
-							type={"link"}
-							onBack={() => setMobileView("main")}
-						/>
-					)}
-				</Toolbar>
+				<div>
+					<Button onClick={toggleEditorMode}>
+						{editorMode === "rich" ? "Switch to Raw Markdown" : "Switch to Rich Editor"}
+					</Button>
+				</div>
 
-				<EditorContent
-					editor={editor}
-					role="presentation"
-					className="simple-editor-content"
-				/>
+				{editorMode === "rich" ? (
+					<>
+						<Toolbar
+							ref={toolbarRef}
+							style={{
+								...(isMobile
+									? {
+											bottom: `calc(100% - ${height - rect.y}px)`,
+										}
+									: {}),
+							}}
+						>
+							{mobileView === "main" ? (
+								<MainToolbarContent
+									onLinkClick={() => setMobileView("link")}
+									isMobile={isMobile}
+								/>
+							) : (
+								<MobileToolbarContent
+									type={"link"}
+									onBack={() => setMobileView("main")}
+								/>
+							)}
+						</Toolbar>
+
+						<EditorContent
+							editor={editor}
+							role="presentation"
+							className="simple-editor-content"
+						/>
+					</>
+				) : (
+					<textarea
+						value={rawContent}
+						onInput={handleRawContentChange}
+						style={{
+							width: "100%",
+							minHeight: "500px",
+							fontFamily: "monospace",
+							padding: "1rem",
+						}}
+					/>
+				)}
 			</EditorContext.Provider>
 		</div>
 	);
