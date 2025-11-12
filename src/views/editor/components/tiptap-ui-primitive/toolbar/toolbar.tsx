@@ -1,5 +1,4 @@
 import type { JSX } from "preact";
-import { Separator } from "../separator";
 import "./toolbar.scss";
 import { cn } from "../../../lib/tiptap-utils";
 import { forwardRef } from "preact/compat";
@@ -38,10 +37,3 @@ export const ToolbarGroup = forwardRef<HTMLDivElement, BaseProps>(
 	),
 );
 ToolbarGroup.displayName = "ToolbarGroup";
-
-export const ToolbarSeparator = forwardRef<HTMLDivElement, BaseProps>(
-	({ ...props }, ref) => (
-		<Separator ref={ref} orientation="vertical" decorative {...props} />
-	),
-);
-ToolbarSeparator.displayName = "ToolbarSeparator";
