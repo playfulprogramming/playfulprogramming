@@ -1,90 +1,18 @@
-import type { JSX, RefObject } from "preact";
-import { useCallback, useEffect, useRef, useState } from "preact/hooks";
+import type { JSX } from "preact";
 import { Separator } from "../separator";
 import "./toolbar.scss";
 import { cn } from "../../../lib/tiptap-utils";
-import { useMenuNavigation } from "../../../hooks/use-menu-navigation";
-import { useComposedRef } from "../../../hooks/use-composed-ref";
 import { forwardRef } from "preact/compat";
 
 type BaseProps = JSX.HTMLAttributes<HTMLDivElement>;
 
 type ToolbarProps = BaseProps;
 
-const useToolbarNavigation = (toolbarRef: RefObject<HTMLDivElement | null>) => {
-	const [items, setItems] = useState<HTMLElement[]>([]);
-
-	const collectItems = useCallback(() => {
-		if (!toolbarRef.current) return [];
-		return Array.from(
-			toolbarRef.current.querySelectorAll<HTMLElement>(
-				'button:not([disabled]), [role="button"]:not([disabled]), [tabindex="0"]:not([disabled])',
-			),
-		);
-	}, [toolbarRef]);
-
-	useEffect(() => {
-		const toolbar = toolbarRef.current;
-		if (!toolbar) return;
-
-		const updateItems = () => setItems(collectItems());
-
-		updateItems();
-		const observer = new MutationObserver(updateItems);
-		observer.observe(toolbar, { childList: true, subtree: true });
-
-		return () => observer.disconnect();
-	}, [collectItems, toolbarRef]);
-
-	const { selectedIndex } = useMenuNavigation<HTMLElement>({
-		containerRef: toolbarRef,
-		items,
-		orientation: "horizontal",
-		onSelect: (el) => el.click(),
-		autoSelectFirstItem: false,
-	});
-
-	useEffect(() => {
-		const toolbar = toolbarRef.current;
-		if (!toolbar) return;
-
-		const handleFocus = (e: FocusEvent) => {
-			const target = e.target as HTMLElement;
-			if (toolbar.contains(target))
-				target.setAttribute("data-focus-visible", "true");
-		};
-
-		const handleBlur = (e: FocusEvent) => {
-			const target = e.target as HTMLElement;
-			if (toolbar.contains(target))
-				target.removeAttribute("data-focus-visible");
-		};
-
-		toolbar.addEventListener("focus", handleFocus, true);
-		toolbar.addEventListener("blur", handleBlur, true);
-
-		return () => {
-			toolbar.removeEventListener("focus", handleFocus, true);
-			toolbar.removeEventListener("blur", handleBlur, true);
-		};
-	}, [toolbarRef]);
-
-	useEffect(() => {
-		if (selectedIndex !== undefined && items[selectedIndex]) {
-			items[selectedIndex].focus();
-		}
-	}, [selectedIndex, items]);
-};
-
 export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
 	({ children, className, ...props }, ref) => {
-		const toolbarRef = useRef<HTMLDivElement>(null);
-		const composedRef = useComposedRef(toolbarRef, ref);
-		useToolbarNavigation(toolbarRef);
-
 		return (
 			<div
-				ref={composedRef}
+				ref={ref}
 				role="toolbar"
 				aria-label="toolbar"
 				className={cn("tiptap-toolbar", className as string)}
