@@ -16,7 +16,7 @@ import { SubscriptIcon } from "../../tiptap-icons/subscript-icon";
 import { SuperscriptIcon } from "../../tiptap-icons/superscript-icon";
 import { UnderlineIcon } from "../../tiptap-icons/underline-icon";
 
-export type Mark =
+type Mark =
 	| "bold"
 	| "italic"
 	| "strike"
@@ -58,7 +58,7 @@ const markIcons = {
 	subscript: SubscriptIcon,
 };
 
-export const MARK_SHORTCUT_KEYS: Record<Mark, string> = {
+const MARK_SHORTCUT_KEYS: Record<Mark, string> = {
 	bold: "mod+b",
 	italic: "mod+i",
 	underline: "mod+u",

@@ -3,18 +3,14 @@ import { useCallback } from "preact/hooks";
 
 // --- Tiptap UI ---
 import type { UseBlockquoteConfig } from "./index";
-import { BLOCKQUOTE_SHORTCUT_KEY, useBlockquote } from "./index";
+import { useBlockquote } from "./index";
 
 // --- Hooks ---
 import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
 
-// --- Lib ---
-import { parseShortcutKeys } from "../../../lib/tiptap-utils";
-
 // --- UI Primitives ---
 import type { ButtonProps } from "../../tiptap-ui-primitive/button";
 import { Button } from "../../tiptap-ui-primitive/button";
-import { Badge } from "../../tiptap-ui-primitive/badge";
 import { forwardRef } from "preact/compat";
 
 interface BlockquoteButtonProps
@@ -24,14 +20,6 @@ interface BlockquoteButtonProps
 	 * Optional text to display alongside the icon.
 	 */
 	text?: string;
-}
-
-function BlockquoteShortcutBadge({
-	shortcutKeys = BLOCKQUOTE_SHORTCUT_KEY,
-}: {
-	shortcutKeys?: string;
-}) {
-	return <Badge>{parseShortcutKeys({ shortcutKeys })}</Badge>;
 }
 
 /**
@@ -56,19 +44,12 @@ export const BlockquoteButton = forwardRef<
 		ref,
 	) => {
 		const { editor } = useTiptapEditor(providedEditor);
-		const {
-			isVisible,
-			canToggle,
-			isActive,
-			handleToggle,
-			label,
-			shortcutKeys,
-			Icon,
-		} = useBlockquote({
-			editor,
-			hideWhenUnavailable,
-			onToggled,
-		});
+		const { isVisible, canToggle, isActive, handleToggle, label, Icon } =
+			useBlockquote({
+				editor,
+				hideWhenUnavailable,
+				onToggled,
+			});
 
 		const handleClick = useCallback(
 			(event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {

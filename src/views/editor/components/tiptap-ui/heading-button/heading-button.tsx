@@ -1,17 +1,13 @@
 import type { JSX } from "preact";
 import { useCallback } from "preact/hooks";
 
-// --- Lib ---
-import { parseShortcutKeys } from "../../../lib/tiptap-utils";
-
 // --- Tiptap UI ---
-import type { Level, UseHeadingConfig } from "./index";
-import { HEADING_SHORTCUT_KEYS, useHeading } from "./index";
+import type { UseHeadingConfig } from "./index";
+import { useHeading } from "./index";
 
 // --- UI Primitives ---
 import type { ButtonProps } from "../../tiptap-ui-primitive/button";
 import { Button } from "../../tiptap-ui-primitive/button";
-import { Badge } from "../../tiptap-ui-primitive/badge";
 import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
 import { forwardRef } from "preact/compat";
 
@@ -22,16 +18,6 @@ interface HeadingButtonProps
 	 * Optional text to display alongside the icon.
 	 */
 	text?: string;
-}
-
-function HeadingShortcutBadge({
-	level,
-	shortcutKeys = HEADING_SHORTCUT_KEYS[level],
-}: {
-	level: Level;
-	shortcutKeys?: string;
-}) {
-	return <Badge>{parseShortcutKeys({ shortcutKeys })}</Badge>;
 }
 
 /**
@@ -54,20 +40,13 @@ export const HeadingButton = forwardRef<HTMLButtonElement, HeadingButtonProps>(
 		ref,
 	) => {
 		const { editor } = useTiptapEditor(providedEditor);
-		const {
-			isVisible,
-			canToggle,
-			isActive,
-			handleToggle,
-			label,
-			Icon,
-			shortcutKeys,
-		} = useHeading({
-			editor,
-			level,
-			hideWhenUnavailable,
-			onToggled,
-		});
+		const { isVisible, canToggle, isActive, handleToggle, label, Icon } =
+			useHeading({
+				editor,
+				level,
+				hideWhenUnavailable,
+				onToggled,
+			});
 
 		const handleClick = useCallback(
 			(event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {

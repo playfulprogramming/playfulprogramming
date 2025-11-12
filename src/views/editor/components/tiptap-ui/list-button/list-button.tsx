@@ -1,20 +1,16 @@
 import type { JSX } from "preact";
 import { useCallback } from "preact/hooks";
 
-// --- Lib ---
-import { parseShortcutKeys } from "../../../lib/tiptap-utils";
-
 // --- Hooks ---
 import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
 
 // --- UI Primitives ---
 import type { ButtonProps } from "../../tiptap-ui-primitive/button";
 import { Button } from "../../tiptap-ui-primitive/button";
-import { Badge } from "../../tiptap-ui-primitive/badge";
 
 // --- Tiptap UI ---
-import type { ListType, UseListConfig } from "./index";
-import { LIST_SHORTCUT_KEYS, useList } from "./index";
+import type { UseListConfig } from "./index";
+import { useList } from "./index";
 import { forwardRef } from "preact/compat";
 
 interface ListButtonProps
@@ -24,16 +20,6 @@ interface ListButtonProps
 	 * Optional text to display alongside the icon.
 	 */
 	text?: string;
-}
-
-function ListShortcutBadge({
-	type,
-	shortcutKeys = LIST_SHORTCUT_KEYS[type],
-}: {
-	type: ListType;
-	shortcutKeys?: string;
-}) {
-	return <Badge>{parseShortcutKeys({ shortcutKeys })}</Badge>;
 }
 
 /**
@@ -56,20 +42,13 @@ export const ListButton = forwardRef<HTMLButtonElement, ListButtonProps>(
 		ref,
 	) => {
 		const { editor } = useTiptapEditor(providedEditor);
-		const {
-			isVisible,
-			canToggle,
-			isActive,
-			handleToggle,
-			label,
-			shortcutKeys,
-			Icon,
-		} = useList({
-			editor,
-			type,
-			hideWhenUnavailable,
-			onToggled,
-		});
+		const { isVisible, canToggle, isActive, handleToggle, label, Icon } =
+			useList({
+				editor,
+				type,
+				hideWhenUnavailable,
+				onToggled,
+			});
 
 		const handleClick = useCallback(
 			(event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {

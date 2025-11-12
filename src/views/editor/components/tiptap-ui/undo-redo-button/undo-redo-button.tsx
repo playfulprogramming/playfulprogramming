@@ -2,20 +2,16 @@ import type { JSX } from "preact";
 
 import { useCallback } from "preact/hooks";
 
-// --- Lib ---
-import { parseShortcutKeys } from "../../../lib/tiptap-utils";
-
 // --- Hooks ---
 import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
 
 // --- Tiptap UI ---
-import type { UndoRedoAction, UseUndoRedoConfig } from "./index";
-import { UNDO_REDO_SHORTCUT_KEYS, useUndoRedo } from "./index";
+import type { UseUndoRedoConfig } from "./index";
+import { useUndoRedo } from "./index";
 
 // --- UI Primitives ---
 import type { ButtonProps } from "../../tiptap-ui-primitive/button";
 import { Button } from "../../tiptap-ui-primitive/button";
-import { Badge } from "../../tiptap-ui-primitive/badge";
 import { forwardRef } from "preact/compat";
 
 interface UndoRedoButtonProps
@@ -25,16 +21,6 @@ interface UndoRedoButtonProps
 	 * Optional text to display alongside the icon.
 	 */
 	text?: string;
-}
-
-function HistoryShortcutBadge({
-	action,
-	shortcutKeys = UNDO_REDO_SHORTCUT_KEYS[action],
-}: {
-	action: UndoRedoAction;
-	shortcutKeys?: string;
-}) {
-	return <Badge>{parseShortcutKeys({ shortcutKeys })}</Badge>;
 }
 
 /**
@@ -60,13 +46,12 @@ export const UndoRedoButton = forwardRef<
 		ref,
 	) => {
 		const { editor } = useTiptapEditor(providedEditor);
-		const { isVisible, handleAction, label, canExecute, Icon, shortcutKeys } =
-			useUndoRedo({
-				editor,
-				action,
-				hideWhenUnavailable,
-				onExecuted,
-			});
+		const { isVisible, handleAction, label, canExecute, Icon } = useUndoRedo({
+			editor,
+			action,
+			hideWhenUnavailable,
+			onExecuted,
+		});
 
 		const handleClick = useCallback(
 			(event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {

@@ -48,7 +48,7 @@ interface ListOption {
 	icon: ComponentType;
 }
 
-export const listOptions: ListOption[] = [
+const listOptions: ListOption[] = [
 	{
 		label: "Bullet List",
 		type: "bulletList",

@@ -17,7 +17,7 @@ import {
 	selectionWithinConvertibleTypes,
 } from "../../../lib/tiptap-utils";
 
-export const BLOCKQUOTE_SHORTCUT_KEY = "mod+shift+b";
+const BLOCKQUOTE_SHORTCUT_KEY = "mod+shift+b";
 
 /**
  * Configuration for the blockquote functionality

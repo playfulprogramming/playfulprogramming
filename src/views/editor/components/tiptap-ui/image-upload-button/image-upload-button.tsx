@@ -1,20 +1,16 @@
 import type { JSX, FunctionComponent } from "preact";
 import { useCallback } from "preact/hooks";
 
-// --- Lib ---
-import { parseShortcutKeys } from "../../../lib/tiptap-utils";
-
 // --- Hooks ---
 import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
 
 // --- Tiptap UI ---
 import type { UseImageUploadConfig } from "./index";
-import { IMAGE_UPLOAD_SHORTCUT_KEY, useImageUpload } from "./index";
+import { useImageUpload } from "./index";
 
 // --- UI Primitives ---
 import type { ButtonProps } from "../../tiptap-ui-primitive/button";
 import { Button } from "../../tiptap-ui-primitive/button";
-import { Badge } from "../../tiptap-ui-primitive/badge";
 import { forwardRef } from "preact/compat";
 
 type IconProps = JSX.SVGAttributes<SVGSVGElement>;
@@ -31,14 +27,6 @@ interface ImageUploadButtonProps
 	 * Optional custom icon component to render instead of the default.
 	 */
 	icon?: IconComponent | FunctionComponent<IconProps>;
-}
-
-function ImageShortcutBadge({
-	shortcutKeys = IMAGE_UPLOAD_SHORTCUT_KEY,
-}: {
-	shortcutKeys?: string;
-}) {
-	return <Badge>{parseShortcutKeys({ shortcutKeys })}</Badge>;
 }
 
 /**
@@ -64,19 +52,12 @@ export const ImageUploadButton = forwardRef<
 		ref,
 	) => {
 		const { editor } = useTiptapEditor(providedEditor);
-		const {
-			isVisible,
-			canInsert,
-			handleImage,
-			label,
-			isActive,
-			shortcutKeys,
-			Icon,
-		} = useImageUpload({
-			editor,
-			hideWhenUnavailable,
-			onInserted,
-		});
+		const { isVisible, canInsert, handleImage, label, isActive, Icon } =
+			useImageUpload({
+				editor,
+				hideWhenUnavailable,
+				onInserted,
+			});
 
 		const handleClick = useCallback(
 			(event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
