@@ -1,5 +1,6 @@
+import type { RefObject } from "preact"
 import type { Editor } from "@tiptap/react"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "preact/hooks"
 
 type Orientation = "horizontal" | "vertical" | "both"
 
@@ -11,7 +12,7 @@ interface MenuNavigationOptions<T> {
   /**
    * Reference to the container element for handling keyboard events.
    */
-  containerRef?: React.RefObject<HTMLElement | null>
+  containerRef?: RefObject<HTMLElement | null>
   /**
    * Search query that affects the selected item.
    */

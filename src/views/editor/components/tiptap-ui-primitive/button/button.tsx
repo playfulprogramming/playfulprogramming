@@ -1,4 +1,4 @@
-import { forwardRef, Fragment, useMemo } from "react"
+import { forwardRef, Fragment, useMemo } from "preact/hooks"
 
 // --- Tiptap UI Primitive ---
 import {
@@ -18,11 +18,11 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
   showTooltip?: boolean
-  tooltip?: React.ReactNode
+  tooltip?: import("preact").ComponentChildren
   shortcutKeys?: string
 }
 
-export const ShortcutDisplay: React.FC<{ shortcuts: string[] }> = ({
+export const ShortcutDisplay: import("preact").FunctionComponent<{ shortcuts: string[] }> = ({
   shortcuts,
 }) => {
   if (shortcuts.length === 0) return null

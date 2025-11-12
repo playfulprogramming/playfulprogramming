@@ -1,6 +1,6 @@
-import { memo } from "react"
+import { memo } from "preact/compat"
 
-type SvgProps = React.ComponentPropsWithoutRef<"svg">
+type SvgProps = import("preact").JSX.HTMLAttributes<"svg">
 
 export const BanIcon = memo(({ className, ...props }: SvgProps) => {
   return (

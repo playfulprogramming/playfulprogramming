@@ -1,4 +1,4 @@
-import { forwardRef, useCallback } from "react"
+import { forwardRef, useCallback } from "preact/hooks"
 
 // --- Lib ---
 import { parseShortcutKeys } from "../../../lib/tiptap-utils"
@@ -76,7 +76,7 @@ export const ListButton = forwardRef<HTMLButtonElement, ListButtonProps>(
     })
 
     const handleClick = useCallback(
-      (event: React.MouseEvent<HTMLButtonElement>) => {
+      (event: import("preact").JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         onClick?.(event)
         if (event.defaultPrevented) return
         handleToggle()

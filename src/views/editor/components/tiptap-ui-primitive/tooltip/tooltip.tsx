@@ -9,7 +9,7 @@ import {
   useMemo,
   useState,
   version,
-} from "react"
+} from "preact/hooks"
 import {
   useFloating,
   autoUpdate,
@@ -31,7 +31,7 @@ import {
 import "./tooltip.scss"
 
 interface TooltipProviderProps {
-  children: React.ReactNode
+  children: import("preact").ComponentChildren
   initialOpen?: boolean
   placement?: Placement
   open?: boolean
@@ -45,12 +45,12 @@ interface TooltipProviderProps {
 interface TooltipTriggerProps
   extends Omit<React.HTMLProps<HTMLElement>, "ref"> {
   asChild?: boolean
-  children: React.ReactNode
+  children: import("preact").ComponentChildren
 }
 
 interface TooltipContentProps
   extends Omit<React.HTMLProps<HTMLDivElement>, "ref"> {
-  children?: React.ReactNode
+  children?: import("preact").ComponentChildren
   portal?: boolean
   portalProps?: Omit<React.ComponentProps<typeof FloatingPortal>, "children">
 }

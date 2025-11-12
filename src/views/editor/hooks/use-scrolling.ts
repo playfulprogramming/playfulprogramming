@@ -1,5 +1,5 @@
-import type { RefObject } from "react"
-import { useEffect, useState } from "react"
+import type { RefObject } from "preact"
+import { useEffect, useState } from "preact/hooks"
 
 type ScrollTarget = RefObject<HTMLElement> | Window | null | undefined
 type EventTargetWithScroll = Window | HTMLElement | Document

@@ -1,4 +1,4 @@
-import { forwardRef, useCallback } from "react"
+import { forwardRef, useCallback } from "preact/hooks"
 
 // --- Hooks ---
 import { useTiptapEditor } from "../../../hooks/use-tiptap-editor"
@@ -78,7 +78,7 @@ export const CodeBlockButton = forwardRef<
     })
 
     const handleClick = useCallback(
-      (event: React.MouseEvent<HTMLButtonElement>) => {
+      (event: import("preact").JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         onClick?.(event)
         if (event.defaultPrevented) return
         handleToggle()

@@ -2,7 +2,7 @@
 
 export type SpacerOrientation = "horizontal" | "vertical"
 
-export interface SpacerProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SpacerProps extends import("preact").JSX.HTMLAttributes<HTMLDivElement> {
   orientation?: SpacerOrientation
   size?: string | number
 }
