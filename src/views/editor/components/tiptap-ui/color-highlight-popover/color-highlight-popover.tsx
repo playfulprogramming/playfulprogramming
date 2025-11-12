@@ -1,4 +1,4 @@
-import { forwardRef, useMemo, useRef, useState } from "preact/hooks"
+import { useMemo, useRef, useState } from "preact/hooks"
 import { type Editor } from "@tiptap/react"
 
 // --- Hooks ---
@@ -35,6 +35,7 @@ import {
   pickHighlightColorsByValue,
   useColorHighlight,
 } from "../color-highlight-button"
+import { forwardRef } from "preact/compat"
 
 export interface ColorHighlightPopoverContentProps {
   /**

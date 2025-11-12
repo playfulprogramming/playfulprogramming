@@ -1,114 +1,112 @@
-import { forwardRef, Fragment, useMemo } from "preact/hooks"
+import type { FunctionComponent, ComponentChildren } from "preact";
+import { Fragment } from "preact";
+import { forwardRef } from "preact/compat";
+import { useMemo } from "preact/hooks";
 
 // --- Tiptap UI Primitive ---
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "../tooltip"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip";
 
 // --- Lib ---
-import { cn, parseShortcutKeys } from "../../../lib/tiptap-utils"
+import { cn, parseShortcutKeys } from "../../../lib/tiptap-utils";
 
-import "./button-colors.scss"
-import "./button-group.scss"
-import "./button.scss"
+import "./button-colors.scss";
+import "./button-group.scss";
+import "./button.scss";
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  className?: string
-  showTooltip?: boolean
-  tooltip?: import("preact").ComponentChildren
-  shortcutKeys?: string
+export interface ButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
+	className?: string;
+	showTooltip?: boolean;
+	tooltip?: ComponentChildren;
+	shortcutKeys?: string;
 }
 
-export const ShortcutDisplay: import("preact").FunctionComponent<{ shortcuts: string[] }> = ({
-  shortcuts,
+export const ShortcutDisplay: FunctionComponent<{ shortcuts: string[] }> = ({
+	shortcuts,
 }) => {
-  if (shortcuts.length === 0) return null
+	if (shortcuts.length === 0) return null;
 
-  return (
-    <div>
-      {shortcuts.map((key, index) => (
-        <Fragment key={index}>
-          {index > 0 && <kbd>+</kbd>}
-          <kbd>{key}</kbd>
-        </Fragment>
-      ))}
-    </div>
-  )
-}
+	return (
+		<div>
+			{shortcuts.map((key, index) => (
+				<Fragment key={index}>
+					{index > 0 && <kbd>+</kbd>}
+					<kbd>{key}</kbd>
+				</Fragment>
+			))}
+		</div>
+	);
+};
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      children,
-      tooltip,
-      showTooltip = true,
-      shortcutKeys,
-      "aria-label": ariaLabel,
-      ...props
-    },
-    ref
-  ) => {
-    const shortcuts = useMemo<string[]>(
-      () => parseShortcutKeys({ shortcutKeys }),
-      [shortcutKeys]
-    )
+	(
+		{
+			className,
+			children,
+			tooltip,
+			showTooltip = true,
+			shortcutKeys,
+			"aria-label": ariaLabel,
+			...props
+		},
+		ref,
+	) => {
+		const shortcuts = useMemo<string[]>(
+			() => parseShortcutKeys({ shortcutKeys }),
+			[shortcutKeys],
+		);
 
-    if (!tooltip || !showTooltip) {
-      return (
-        <button
-          className={cn("tiptap-button", className)}
-          ref={ref}
-          aria-label={ariaLabel}
-          {...props}
-        >
-          {children}
-        </button>
-      )
-    }
+		if (!tooltip || !showTooltip) {
+			return (
+				<button
+					className={cn("tiptap-button", className)}
+					ref={ref}
+					aria-label={ariaLabel}
+					{...props}
+				>
+					{children}
+				</button>
+			);
+		}
 
-    return (
-      <Tooltip delay={200}>
-        <TooltipTrigger
-          className={cn("tiptap-button", className)}
-          ref={ref}
-          aria-label={ariaLabel}
-          {...props}
-        >
-          {children}
-        </TooltipTrigger>
-        <TooltipContent>
-          {tooltip}
-          <ShortcutDisplay shortcuts={shortcuts} />
-        </TooltipContent>
-      </Tooltip>
-    )
-  }
-)
+		return (
+			<Tooltip delay={200}>
+				<TooltipTrigger
+					className={cn("tiptap-button", className)}
+					ref={ref}
+					aria-label={ariaLabel}
+					{...props}
+				>
+					{children}
+				</TooltipTrigger>
+				<TooltipContent>
+					{tooltip}
+					<ShortcutDisplay shortcuts={shortcuts} />
+				</TooltipContent>
+			</Tooltip>
+		);
+	},
+);
 
-Button.displayName = "Button"
+Button.displayName = "Button";
 
 export const ButtonGroup = forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<"div"> & {
-    orientation?: "horizontal" | "vertical"
-  }
+	HTMLDivElement,
+	JSX.HTMLAttributes<"div"> & {
+		orientation?: "horizontal" | "vertical";
+	}
 >(({ className, children, orientation = "vertical", ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      className={cn("tiptap-button-group", className)}
-      data-orientation={orientation}
-      role="group"
-      {...props}
-    >
-      {children}
-    </div>
-  )
-})
-ButtonGroup.displayName = "ButtonGroup"
+	return (
+		<div
+			ref={ref}
+			className={cn("tiptap-button-group", className)}
+			data-orientation={orientation}
+			role="group"
+			{...props}
+		>
+			{children}
+		</div>
+	);
+});
+ButtonGroup.displayName = "ButtonGroup";
 
-export default Button
+export default Button;

@@ -1,4 +1,5 @@
-import { forwardRef, useCallback } from "preact/hooks"
+import type { JSX } from "preact"
+import { useCallback } from "preact/hooks"
 
 // --- Lib ---
 import { parseShortcutKeys } from "../../../lib/tiptap-utils"
@@ -18,6 +19,7 @@ import type { ButtonProps } from "../../tiptap-ui-primitive/button"
 import { Button } from "../../tiptap-ui-primitive/button"
 import { Badge } from "../../tiptap-ui-primitive/badge"
 import { useTiptapEditor } from "../../../hooks/use-tiptap-editor"
+import { forwardRef } from "preact/compat";
 
 export interface HeadingButtonProps
   extends Omit<ButtonProps, "type">,
@@ -80,7 +82,7 @@ export const HeadingButton = forwardRef<HTMLButtonElement, HeadingButtonProps>(
     })
 
     const handleClick = useCallback(
-      (event: import("preact").JSX.TargetedMouseEvent<HTMLButtonElement>) => {
+      (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         onClick?.(event)
         if (event.defaultPrevented) return
         handleToggle()

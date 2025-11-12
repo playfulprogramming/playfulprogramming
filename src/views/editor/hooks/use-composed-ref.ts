@@ -1,4 +1,4 @@
-"use client"
+
 
 import type { RefObject } from "preact"
 import { useCallback, useRef } from "preact/hooks"

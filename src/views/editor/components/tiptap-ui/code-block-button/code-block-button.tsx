@@ -1,4 +1,5 @@
-import { forwardRef, useCallback } from "preact/hooks"
+import type { JSX } from "preact"
+import { useCallback } from "preact/hooks"
 
 // --- Hooks ---
 import { useTiptapEditor } from "../../../hooks/use-tiptap-editor"
@@ -17,6 +18,7 @@ import {
 import type { ButtonProps } from "../../tiptap-ui-primitive/button"
 import { Button } from "../../tiptap-ui-primitive/button"
 import { Badge } from "../../tiptap-ui-primitive/badge"
+import { forwardRef } from "preact/compat";
 
 export interface CodeBlockButtonProps
   extends Omit<ButtonProps, "type">,
@@ -78,7 +80,7 @@ export const CodeBlockButton = forwardRef<
     })
 
     const handleClick = useCallback(
-      (event: import("preact").JSX.TargetedMouseEvent<HTMLButtonElement>) => {
+      (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         onClick?.(event)
         if (event.defaultPrevented) return
         handleToggle()

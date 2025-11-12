@@ -1,4 +1,5 @@
-import { forwardRef, useCallback } from "preact/hooks"
+import type { JSX } from "preact"
+import { useCallback } from "preact/hooks"
 
 // --- Tiptap UI ---
 import type { UseBlockquoteConfig } from "./index"
@@ -17,6 +18,7 @@ import { parseShortcutKeys } from "../../../lib/tiptap-utils"
 import type { ButtonProps } from "../../tiptap-ui-primitive/button"
 import { Button } from "../../tiptap-ui-primitive/button"
 import { Badge } from "../../tiptap-ui-primitive/badge"
+import { forwardRef } from "preact/compat";
 
 export interface BlockquoteButtonProps
   extends Omit<ButtonProps, "type">,
@@ -78,7 +80,7 @@ export const BlockquoteButton = forwardRef<
     })
 
     const handleClick = useCallback(
-      (event: import("preact").JSX.TargetedMouseEvent<HTMLButtonElement>) => {
+      (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         onClick?.(event)
         if (event.defaultPrevented) return
         handleToggle()

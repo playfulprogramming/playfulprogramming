@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useState } from "preact/hooks"
+import { useCallback, useState } from "preact/hooks"
 
 // --- Icons ---
 import { ChevronDownIcon } from "../../tiptap-icons/chevron-down-icon"
@@ -21,6 +21,7 @@ import {
   DropdownMenuItem,
 } from "../../tiptap-ui-primitive/dropdown-menu"
 import { Card, CardBody } from "../../tiptap-ui-primitive/card"
+import { forwardRef } from "preact/compat";
 
 export interface HeadingDropdownMenuProps
   extends Omit<ButtonProps, "type">,

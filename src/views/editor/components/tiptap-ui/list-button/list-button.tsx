@@ -1,4 +1,5 @@
-import { forwardRef, useCallback } from "preact/hooks"
+import type { JSX } from "preact"
+import { useCallback } from "preact/hooks"
 
 // --- Lib ---
 import { parseShortcutKeys } from "../../../lib/tiptap-utils"
@@ -14,6 +15,7 @@ import { Badge } from "../../tiptap-ui-primitive/badge"
 // --- Tiptap UI ---
 import type { ListType, UseListConfig } from "./index"
 import { LIST_SHORTCUT_KEYS, useList } from "./index"
+import { forwardRef } from "preact/compat";
 
 export interface ListButtonProps
   extends Omit<ButtonProps, "type">,
@@ -76,7 +78,7 @@ export const ListButton = forwardRef<HTMLButtonElement, ListButtonProps>(
     })
 
     const handleClick = useCallback(
-      (event: import("preact").JSX.TargetedMouseEvent<HTMLButtonElement>) => {
+      (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         onClick?.(event)
         if (event.defaultPrevented) return
         handleToggle()

@@ -1,6 +1,7 @@
+import type { JSX } from "preact"
 import { memo } from "preact/compat"
 
-type SvgProps = import("preact").JSX.HTMLAttributes<"svg">
+type SvgProps = JSX.HTMLAttributes<"svg">
 
 export const Redo2Icon = memo(({ className, ...props }: SvgProps) => {
   return (

@@ -1,8 +1,9 @@
-"use client"
+
+import type { JSX } from "preact"
 
 export type SpacerOrientation = "horizontal" | "vertical"
 
-export interface SpacerProps extends import("preact").JSX.HTMLAttributes<HTMLDivElement> {
+export interface SpacerProps extends JSX.HTMLAttributes<HTMLDivElement> {
   orientation?: SpacerOrientation
   size?: string | number
 }
