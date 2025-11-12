@@ -1,4 +1,4 @@
-import type { FunctionComponent, ComponentChildren } from "preact";
+import { FunctionComponent, ComponentChildren, JSX } from "preact";
 import { Fragment } from "preact";
 import { forwardRef } from "preact/compat";
 import { useMemo } from "preact/hooks";
@@ -91,7 +91,7 @@ Button.displayName = "Button";
 
 export const ButtonGroup = forwardRef<
 	HTMLDivElement,
-	JSX.HTMLAttributes<"div"> & {
+	JSX.HTMLAttributes<HTMLDivElement> & {
 		orientation?: "horizontal" | "vertical";
 	}
 >(({ className, children, orientation = "vertical", ...props }, ref) => {
