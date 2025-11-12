@@ -12,7 +12,7 @@ import { isExtensionAvailable } from "../../../lib/tiptap-utils";
 // --- Icons ---
 import { ImagePlusIcon } from "../../tiptap-icons/image-plus-icon";
 
-export const IMAGE_UPLOAD_SHORTCUT_KEY = "mod+shift+i";
+const IMAGE_UPLOAD_SHORTCUT_KEY = "mod+shift+i";
 
 /**
  * Configuration for the image upload functionality

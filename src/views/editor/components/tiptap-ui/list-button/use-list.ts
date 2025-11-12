@@ -56,7 +56,7 @@ const listLabels: Record<ListType, string> = {
 	taskList: "Task List",
 };
 
-export const LIST_SHORTCUT_KEYS: Record<ListType, string> = {
+const LIST_SHORTCUT_KEYS: Record<ListType, string> = {
 	bulletList: "mod+shift+8",
 	orderedList: "mod+shift+7",
 	taskList: "mod+shift+9",

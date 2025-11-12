@@ -11,7 +11,7 @@ import { isNodeTypeSelected } from "../../../lib/tiptap-utils";
 import { Redo2Icon } from "../../tiptap-icons/redo2-icon";
 import { Undo2Icon } from "../../tiptap-icons/undo2-icon";
 
-export type UndoRedoAction = "undo" | "redo";
+type UndoRedoAction = "undo" | "redo";
 
 /**
  * Configuration for the history functionality
@@ -36,7 +36,7 @@ export interface UseUndoRedoConfig {
 	onExecuted?: () => void;
 }
 
-export const UNDO_REDO_SHORTCUT_KEYS: Record<UndoRedoAction, string> = {
+const UNDO_REDO_SHORTCUT_KEYS: Record<UndoRedoAction, string> = {
 	undo: "mod+z",
 	redo: "mod+shift+z",
 };

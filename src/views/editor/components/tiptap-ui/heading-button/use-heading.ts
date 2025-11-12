@@ -56,7 +56,7 @@ export const headingIcons = {
 	6: HeadingSixIcon,
 };
 
-export const HEADING_SHORTCUT_KEYS: Record<Level, string> = {
+const HEADING_SHORTCUT_KEYS: Record<Level, string> = {
 	1: "ctrl+alt+1",
 	2: "ctrl+alt+2",
 	3: "ctrl+alt+3",
