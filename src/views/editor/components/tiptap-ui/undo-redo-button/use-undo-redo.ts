@@ -41,12 +41,12 @@ export const UNDO_REDO_SHORTCUT_KEYS: Record<UndoRedoAction, string> = {
 	redo: "mod+shift+z",
 };
 
-export const historyActionLabels: Record<UndoRedoAction, string> = {
+const historyActionLabels: Record<UndoRedoAction, string> = {
 	undo: "Undo",
 	redo: "Redo",
 };
 
-export const historyIcons = {
+const historyIcons = {
 	undo: Undo2Icon,
 	redo: Redo2Icon,
 };
@@ -54,7 +54,7 @@ export const historyIcons = {
 /**
  * Checks if a history action can be executed
  */
-export function canExecuteUndoRedoAction(
+function canExecuteUndoRedoAction(
 	editor: Editor | null,
 	action: UndoRedoAction,
 ): boolean {
@@ -67,7 +67,7 @@ export function canExecuteUndoRedoAction(
 /**
  * Executes a history action on the editor
  */
-export function executeUndoRedoAction(
+function executeUndoRedoAction(
 	editor: Editor | null,
 	action: UndoRedoAction,
 ): boolean {
@@ -81,7 +81,7 @@ export function executeUndoRedoAction(
 /**
  * Determines if the history button should be shown
  */
-export function shouldShowButton(props: {
+function shouldShowButton(props: {
 	editor: Editor | null;
 	hideWhenUnavailable: boolean;
 	action: UndoRedoAction;

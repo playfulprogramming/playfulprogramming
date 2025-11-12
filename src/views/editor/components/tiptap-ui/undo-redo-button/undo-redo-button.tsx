@@ -18,21 +18,16 @@ import { Button } from "../../tiptap-ui-primitive/button";
 import { Badge } from "../../tiptap-ui-primitive/badge";
 import { forwardRef } from "preact/compat";
 
-export interface UndoRedoButtonProps
+interface UndoRedoButtonProps
 	extends Omit<ButtonProps, "type">,
 		UseUndoRedoConfig {
 	/**
 	 * Optional text to display alongside the icon.
 	 */
 	text?: string;
-	/**
-	 * Optional show shortcut keys in the button.
-	 * @default false
-	 */
-	showShortcut?: boolean;
 }
 
-export function HistoryShortcutBadge({
+function HistoryShortcutBadge({
 	action,
 	shortcutKeys = UNDO_REDO_SHORTCUT_KEYS[action],
 }: {
@@ -58,7 +53,6 @@ export const UndoRedoButton = forwardRef<
 			text,
 			hideWhenUnavailable = false,
 			onExecuted,
-			showShortcut = false,
 			onClick,
 			children,
 			...buttonProps
@@ -105,12 +99,6 @@ export const UndoRedoButton = forwardRef<
 					<>
 						<Icon className="tiptap-button-icon" />
 						{text && <span className="tiptap-button-text">{text}</span>}
-						{showShortcut && (
-							<HistoryShortcutBadge
-								action={action}
-								shortcutKeys={shortcutKeys}
-							/>
-						)}
 					</>
 				)}
 			</Button>

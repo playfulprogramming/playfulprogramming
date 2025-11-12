@@ -48,7 +48,7 @@ export interface UseMarkConfig {
 	onToggled?: () => void;
 }
 
-export const markIcons = {
+const markIcons = {
 	bold: BoldIcon,
 	italic: ItalicIcon,
 	underline: UnderlineIcon,
@@ -71,7 +71,7 @@ export const MARK_SHORTCUT_KEYS: Record<Mark, string> = {
 /**
  * Checks if a mark can be toggled in the current editor state
  */
-export function canToggleMark(editor: Editor | null, type: Mark): boolean {
+function canToggleMark(editor: Editor | null, type: Mark): boolean {
 	if (!editor || !editor.isEditable) return false;
 	if (!isMarkInSchema(type, editor) || isNodeTypeSelected(editor, ["image"]))
 		return false;
@@ -82,7 +82,7 @@ export function canToggleMark(editor: Editor | null, type: Mark): boolean {
 /**
  * Checks if a mark is currently active
  */
-export function isMarkActive(editor: Editor | null, type: Mark): boolean {
+function isMarkActive(editor: Editor | null, type: Mark): boolean {
 	if (!editor || !editor.isEditable) return false;
 	return editor.isActive(type);
 }
@@ -90,7 +90,7 @@ export function isMarkActive(editor: Editor | null, type: Mark): boolean {
 /**
  * Toggles a mark in the editor
  */
-export function toggleMark(editor: Editor | null, type: Mark): boolean {
+function toggleMark(editor: Editor | null, type: Mark): boolean {
 	if (!editor || !editor.isEditable) return false;
 	if (!canToggleMark(editor, type)) return false;
 
@@ -100,7 +100,7 @@ export function toggleMark(editor: Editor | null, type: Mark): boolean {
 /**
  * Determines if the mark button should be shown
  */
-export function shouldShowButton(props: {
+function shouldShowButton(props: {
 	editor: Editor | null;
 	type: Mark;
 	hideWhenUnavailable: boolean;
@@ -120,7 +120,7 @@ export function shouldShowButton(props: {
 /**
  * Gets the formatted mark name
  */
-export function getFormattedMarkName(type: Mark): string {
+function getFormattedMarkName(type: Mark): string {
 	return type.charAt(0).toUpperCase() + type.slice(1);
 }
 

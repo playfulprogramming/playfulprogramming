@@ -25,7 +25,7 @@ import {
 /**
  * Configuration for the list dropdown menu functionality
  */
-export interface UseListDropdownMenuConfig {
+interface UseListDropdownMenuConfig {
 	/**
 	 * The Tiptap editor instance.
 	 */
@@ -42,7 +42,7 @@ export interface UseListDropdownMenuConfig {
 	hideWhenUnavailable?: boolean;
 }
 
-export interface ListOption {
+interface ListOption {
 	label: string;
 	type: ListType;
 	icon: ComponentType;
@@ -66,7 +66,7 @@ export const listOptions: ListOption[] = [
 	},
 ];
 
-export function canToggleAnyList(
+function canToggleAnyList(
 	editor: Editor | null,
 	listTypes: ListType[],
 ): boolean {
@@ -74,7 +74,7 @@ export function canToggleAnyList(
 	return listTypes.some((type) => canToggleList(editor, type));
 }
 
-export function isAnyListActive(
+function isAnyListActive(
 	editor: Editor | null,
 	listTypes: ListType[],
 ): boolean {
@@ -82,7 +82,7 @@ export function isAnyListActive(
 	return listTypes.some((type) => isListActive(editor, type));
 }
 
-export function getFilteredListOptions(
+function getFilteredListOptions(
 	availableTypes: ListType[],
 ): typeof listOptions {
 	return listOptions.filter(
@@ -90,7 +90,7 @@ export function getFilteredListOptions(
 	);
 }
 
-export function shouldShowListDropdown(params: {
+function shouldShowListDropdown(params: {
 	editor: Editor | null;
 	listTypes: ListType[];
 	hideWhenUnavailable: boolean;
@@ -113,7 +113,7 @@ export function shouldShowListDropdown(params: {
 /**
  * Gets the currently active list type from the available types
  */
-export function getActiveListType(
+function getActiveListType(
 	editor: Editor | null,
 	availableTypes: ListType[],
 ): ListType | undefined {

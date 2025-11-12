@@ -10,7 +10,7 @@ import type { Editor, NodeWithPos } from "@tiptap/react";
 
 export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
-export const MAC_SYMBOLS: Record<string, string> = {
+const MAC_SYMBOLS: Record<string, string> = {
 	mod: "⌘",
 	command: "⌘",
 	meta: "⌘",
@@ -26,7 +26,7 @@ export const MAC_SYMBOLS: Record<string, string> = {
 	capslock: "⇪",
 } as const;
 
-export const SR_ONLY = {
+const SR_ONLY = {
 	position: "absolute",
 	width: "1px",
 	height: "1px",
@@ -48,7 +48,7 @@ export function cn(
  * Determines if the current platform is macOS
  * @returns boolean indicating if the current platform is Mac
  */
-export function isMac(): boolean {
+function isMac(): boolean {
 	return (
 		typeof navigator !== "undefined" &&
 		navigator.platform.toLowerCase().includes("mac")
@@ -62,7 +62,7 @@ export function isMac(): boolean {
  * @param capitalize - Whether to capitalize the key (default: true)
  * @returns Formatted shortcut key symbol
  */
-export const formatShortcutKey = (
+const formatShortcutKey = (
 	key: string,
 	isMac: boolean,
 	capitalize: boolean = true,
@@ -201,7 +201,7 @@ export function isExtensionAvailable(
  * @param position The position in the document to find the node
  * @returns The node at the specified position, or null if not found
  */
-export function findNodeAtPosition(editor: Editor, position: number) {
+function findNodeAtPosition(editor: Editor, position: number) {
 	try {
 		const node = editor.state.doc.nodeAt(position);
 		if (!node) {
@@ -407,7 +407,7 @@ const ATTR_WHITESPACE =
 	// eslint-disable-next-line no-control-regex
 	/[\u0000-\u0020\u00A0\u1680\u180E\u2000-\u2029\u205F\u3000]/g;
 
-export function isAllowedUri(
+function isAllowedUri(
 	uri: string | undefined,
 	protocols?: ProtocolConfig,
 ) {
@@ -474,7 +474,7 @@ export function sanitizeUrl(
  *               Pass `undefined` to remove the attribute.
  * @returns true if at least one node was updated, false otherwise
  */
-export function updateNodesAttr<A extends string = string, V = unknown>(
+function updateNodesAttr<A extends string = string, V = unknown>(
 	tr: Transaction,
 	targets: readonly NodeWithPos[],
 	attrName: A,
@@ -519,7 +519,7 @@ export function updateNodesAttr<A extends string = string, V = unknown>(
  * If the selection is not empty, it does nothing.
  * @param editor The Tiptap editor instance
  */
-export function selectCurrentBlockContent(editor: Editor) {
+function selectCurrentBlockContent(editor: Editor) {
 	const { selection, doc } = editor.state;
 
 	if (!selection.empty) return;

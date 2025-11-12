@@ -41,7 +41,7 @@ export interface UseCodeBlockConfig {
 /**
  * Checks if code block can be toggled in the current editor state
  */
-export function canToggle(
+function canToggle(
 	editor: Editor | null,
 	turnInto: boolean = true,
 ): boolean {
@@ -81,7 +81,7 @@ export function canToggle(
 /**
  * Toggles code block in the editor
  */
-export function toggleCodeBlock(editor: Editor | null): boolean {
+function toggleCodeBlock(editor: Editor | null): boolean {
 	if (!editor || !editor.isEditable) return false;
 	if (!canToggle(editor)) return false;
 
@@ -145,7 +145,7 @@ export function toggleCodeBlock(editor: Editor | null): boolean {
 /**
  * Determines if the code block button should be shown
  */
-export function shouldShowButton(props: {
+function shouldShowButton(props: {
 	editor: Editor | null;
 	hideWhenUnavailable: boolean;
 }): boolean {

@@ -17,21 +17,16 @@ import type { ListType, UseListConfig } from "./index";
 import { LIST_SHORTCUT_KEYS, useList } from "./index";
 import { forwardRef } from "preact/compat";
 
-export interface ListButtonProps
+interface ListButtonProps
 	extends Omit<ButtonProps, "type">,
 		UseListConfig {
 	/**
 	 * Optional text to display alongside the icon.
 	 */
 	text?: string;
-	/**
-	 * Optional show shortcut keys in the button.
-	 * @default false
-	 */
-	showShortcut?: boolean;
 }
 
-export function ListShortcutBadge({
+function ListShortcutBadge({
 	type,
 	shortcutKeys = LIST_SHORTCUT_KEYS[type],
 }: {
@@ -54,7 +49,6 @@ export const ListButton = forwardRef<HTMLButtonElement, ListButtonProps>(
 			text,
 			hideWhenUnavailable = false,
 			onToggled,
-			showShortcut = false,
 			onClick,
 			children,
 			...buttonProps
@@ -110,9 +104,6 @@ export const ListButton = forwardRef<HTMLButtonElement, ListButtonProps>(
 					<>
 						<Icon className="tiptap-button-icon" />
 						{text && <span className="tiptap-button-text">{text}</span>}
-						{showShortcut && (
-							<ListShortcutBadge type={type} shortcutKeys={shortcutKeys} />
-						)}
 					</>
 				)}
 			</Button>
