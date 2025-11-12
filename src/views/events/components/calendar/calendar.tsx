@@ -347,10 +347,8 @@ function CustomCalendarCellWrapper({
 
 	const eventsForDate = useMemo(() => {
 		return events.filter((event) =>
-			event.blocks.some(
-				(block) =>
-					dayjs(date.toDate(state.timeZone)).isSame(block.starts_at, "date") ||
-					dayjs(date.toDate(state.timeZone)).isSame(block.ends_at, "date"),
+			event.blocks.some((block) =>
+				dayjs(date.toDate(state.timeZone)).isSame(block.starts_at, "date"),
 			),
 		);
 	}, [events, state]);
