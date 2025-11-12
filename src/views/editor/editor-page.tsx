@@ -17,9 +17,6 @@ const EditorContext = _EditorContext as Context<EditorContextValue>;
 import { StarterKit } from "@tiptap/starter-kit";
 import { Image } from "@tiptap/extension-image";
 import { TaskItem, TaskList } from "@tiptap/extension-list";
-import { TextAlign } from "@tiptap/extension-text-align";
-import { Typography } from "@tiptap/extension-typography";
-import { Highlight } from "@tiptap/extension-highlight";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
 import { Selection } from "@tiptap/extensions";
@@ -51,22 +48,15 @@ import { ListDropdownMenu } from "./components/tiptap-ui/list-dropdown-menu";
 import { BlockquoteButton } from "./components/tiptap-ui/blockquote-button";
 import { CodeBlockButton } from "./components/tiptap-ui/code-block-button";
 import {
-	ColorHighlightPopover,
-	ColorHighlightPopoverContent,
-	ColorHighlightPopoverButton,
-} from "./components/tiptap-ui/color-highlight-popover";
-import {
 	LinkPopover,
 	LinkContent,
 	LinkButton,
 } from "./components/tiptap-ui/link-popover";
 import { MarkButton } from "./components/tiptap-ui/mark-button";
-import { TextAlignButton } from "./components/tiptap-ui/text-align-button";
 import { UndoRedoButton } from "./components/tiptap-ui/undo-redo-button";
 
 // --- Icons ---
 import { ArrowLeftIcon } from "./components/tiptap-icons/arrow-left-icon";
-import { HighlighterIcon } from "./components/tiptap-icons/highlighter-icon";
 import { LinkIcon } from "./components/tiptap-icons/link-icon";
 
 // --- Hooks ---
@@ -83,11 +73,9 @@ import "./editor-page.scss";
 import content from "./data/content.json";
 
 const MainToolbarContent = ({
-	onHighlighterClick,
 	onLinkClick,
 	isMobile,
 }: {
-	onHighlighterClick: () => void;
 	onLinkClick: () => void;
 	isMobile: boolean;
 }) => {
@@ -120,11 +108,6 @@ const MainToolbarContent = ({
 				<MarkButton type="strike" />
 				<MarkButton type="code" />
 				<MarkButton type="underline" />
-				{!isMobile ? (
-					<ColorHighlightPopover />
-				) : (
-					<ColorHighlightPopoverButton onClick={onHighlighterClick} />
-				)}
 				{!isMobile ? <LinkPopover /> : <LinkButton onClick={onLinkClick} />}
 			</ToolbarGroup>
 
@@ -133,15 +116,6 @@ const MainToolbarContent = ({
 			<ToolbarGroup>
 				<MarkButton type="superscript" />
 				<MarkButton type="subscript" />
-			</ToolbarGroup>
-
-			<ToolbarSeparator />
-
-			<ToolbarGroup>
-				<TextAlignButton align="left" />
-				<TextAlignButton align="center" />
-				<TextAlignButton align="right" />
-				<TextAlignButton align="justify" />
 			</ToolbarGroup>
 
 			<ToolbarSeparator />
@@ -161,37 +135,27 @@ const MobileToolbarContent = ({
 	type,
 	onBack,
 }: {
-	type: "highlighter" | "link";
+	type: "link";
 	onBack: () => void;
 }) => (
 	<>
 		<ToolbarGroup>
 			<Button data-style="ghost" onClick={onBack}>
 				<ArrowLeftIcon className="tiptap-button-icon" />
-				{type === "highlighter" ? (
-					<HighlighterIcon className="tiptap-button-icon" />
-				) : (
-					<LinkIcon className="tiptap-button-icon" />
-				)}
+				<LinkIcon className="tiptap-button-icon" />
 			</Button>
 		</ToolbarGroup>
 
 		<ToolbarSeparator />
 
-		{type === "highlighter" ? (
-			<ColorHighlightPopoverContent />
-		) : (
-			<LinkContent />
-		)}
+		<LinkContent />
 	</>
 );
 
 export function EditorPage() {
 	const isMobile = useIsBreakpoint();
 	const { height } = useWindowSize();
-	const [mobileView, setMobileView] = useState<"main" | "highlighter" | "link">(
-		"main",
-	);
+	const [mobileView, setMobileView] = useState<"main" | "link">("main");
 	const toolbarRef = useRef<HTMLDivElement>(null);
 
 	const editor = useEditor({
@@ -214,12 +178,9 @@ export function EditorPage() {
 				},
 			}),
 			HorizontalRule,
-			TextAlign.configure({ types: ["heading", "paragraph"] }),
 			TaskList,
 			TaskItem.configure({ nested: true }),
-			Highlight.configure({ multicolor: true }),
 			Image,
-			Typography,
 			Superscript,
 			Subscript,
 			Selection,
@@ -260,13 +221,12 @@ export function EditorPage() {
 				>
 					{mobileView === "main" ? (
 						<MainToolbarContent
-							onHighlighterClick={() => setMobileView("highlighter")}
 							onLinkClick={() => setMobileView("link")}
 							isMobile={isMobile}
 						/>
 					) : (
 						<MobileToolbarContent
-							type={mobileView === "highlighter" ? "highlighter" : "link"}
+							type={"link"}
 							onBack={() => setMobileView("main")}
 						/>
 					)}
