@@ -1,4 +1,4 @@
-import type { JSX } from "preact";
+import type { JSX, RefObject } from "preact";
 import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 import { Separator } from "../separator";
 import "./toolbar.scss";
@@ -90,7 +90,7 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
 				role="toolbar"
 				aria-label="toolbar"
 				data-variant={variant}
-				className={cn("tiptap-toolbar", className)}
+				className={cn("tiptap-toolbar", className as string)}
 				{...props}
 			>
 				{children}
@@ -105,7 +105,7 @@ export const ToolbarGroup = forwardRef<HTMLDivElement, BaseProps>(
 		<div
 			ref={ref}
 			role="group"
-			className={cn("tiptap-toolbar-group", className)}
+			className={cn("tiptap-toolbar-group", className as string)}
 			{...props}
 		>
 			{children}

@@ -1,5 +1,12 @@
 ---
 import { EditorPage } from "../views/editor/editor-page";
+import SEO from "components/seo/seo.astro";
+import Document from "../layouts/document.astro";
 ---
 
-<EditorPage client:only="preact" />
+<Document lang={"en"} size="l">
+	<SEO title="Blog Editor" description="" slot="head" noindex={true} />
+	<main>
+		<EditorPage client:only="preact" />
+	</main>
+</Document>
