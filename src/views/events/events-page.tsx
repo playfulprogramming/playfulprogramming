@@ -35,9 +35,11 @@ export default function EventsPage({
 			return events;
 		}
 
-		const inPerson = eventTypesToShow === "in-person";
+		if (eventTypesToShow === "online") {
+			return events.filter((event) => event.is_online);
+		}
 
-		return events.filter((event) => event.in_person === inPerson);
+		return events.filter((event) => event.in_person);
 	}, [eventTypesToShow]);
 
 	const recurringEvents = useMemo(() => {
