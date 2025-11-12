@@ -159,6 +159,7 @@
 		"@tiptap/extension-text-align": "^3.10.5",
 		"@tiptap/extension-typography": "^3.10.5",
 		"@tiptap/extensions": "^3.10.5",
+		"@tiptap/markdown": "^3.10.5",
 		"@tiptap/pm": "^3.10.5",
 		"@tiptap/react": "^3.10.5",
 		"@tiptap/starter-kit": "^3.10.5",

@@ -20,6 +20,7 @@ import { TaskItem, TaskList } from "@tiptap/extension-list";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
 import { Selection } from "@tiptap/extensions";
+import { Markdown } from "@tiptap/markdown";
 
 // --- UI Primitives ---
 import { Button } from "./components/tiptap-ui-primitive/button";
@@ -70,7 +71,7 @@ import { handleImageUpload, MAX_FILE_SIZE } from "./lib/tiptap-utils";
 // --- Styles ---
 import "./editor-page.scss";
 
-import content from "./data/content.json";
+import content from "../../../content/crutchcorn/posts/async-and-promises/index.md?raw";
 
 const MainToolbarContent = ({
 	onLinkClick,
@@ -191,8 +192,12 @@ export function EditorPage() {
 				upload: handleImageUpload,
 				onError: (error) => console.error("Upload failed:", error),
 			}),
+			Markdown.configure({
+				markedOptions: { gfm: true },
+			}),
 		],
 		content,
+		contentType: "markdown",
 	});
 
 	const rect = useCursorVisibility({

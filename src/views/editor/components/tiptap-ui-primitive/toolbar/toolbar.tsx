@@ -9,9 +9,7 @@ import { forwardRef } from "preact/compat";
 
 type BaseProps = JSX.HTMLAttributes<HTMLDivElement>;
 
-interface ToolbarProps extends BaseProps {
-	variant?: "floating" | "fixed";
-}
+type ToolbarProps = BaseProps;
 
 const useToolbarNavigation = (toolbarRef: RefObject<HTMLDivElement | null>) => {
 	const [items, setItems] = useState<HTMLElement[]>([]);
@@ -79,7 +77,7 @@ const useToolbarNavigation = (toolbarRef: RefObject<HTMLDivElement | null>) => {
 };
 
 export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
-	({ children, className, variant = "fixed", ...props }, ref) => {
+	({ children, className, ...props }, ref) => {
 		const toolbarRef = useRef<HTMLDivElement>(null);
 		const composedRef = useComposedRef(toolbarRef, ref);
 		useToolbarNavigation(toolbarRef);
@@ -89,7 +87,6 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
 				ref={composedRef}
 				role="toolbar"
 				aria-label="toolbar"
-				data-variant={variant}
 				className={cn("tiptap-toolbar", className as string)}
 				{...props}
 			>

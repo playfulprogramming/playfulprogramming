@@ -60,6 +60,9 @@ importers:
       '@tiptap/extensions':
         specifier: ^3.10.5
         version: 3.10.5(@tiptap/core@3.10.5(@tiptap/pm@3.10.5))(@tiptap/pm@3.10.5)
+      '@tiptap/markdown':
+        specifier: ^3.10.5
+        version: 3.10.5(@tiptap/core@3.10.5(@tiptap/pm@3.10.5))(@tiptap/pm@3.10.5)
       '@tiptap/pm':
         specifier: ^3.10.5
         version: 3.10.5
@@ -2738,6 +2741,12 @@ packages:
       '@tiptap/core': ^3.10.5
       '@tiptap/pm': ^3.10.5
 
+  '@tiptap/markdown@3.10.5':
+    resolution: {integrity: sha512-Jnd43wmdZHgCFhXop7RbAbwL6LZhGgi2O0FBoniIJNC5d+VMjMr40i6buuzYlKLi2wYpMTPL6C8wTnD1HbH9ag==}
+    peerDependencies:
+      '@tiptap/core': ^3.10.5
+      '@tiptap/pm': ^3.10.5
+
   '@tiptap/pm@3.10.5':
     resolution: {integrity: sha512-yILFuY8nyZbfbJQh1aZfwT/E4o5dHrKXnWsGDiljdr+6NryaU+hcmlwlbz6Q+0550Ik0B2oQoRxAnhzz7qH3Hg==}
 
@@ -4888,6 +4897,11 @@ packages:
 
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
+
+  marked@16.4.2:
+    resolution: {integrity: sha512-TI3V8YYWvkVf3KJe1dRkpnjs68JUPyEa5vjKrp1XEEJUAOaQc+Qj+L1qWbPd0SJuAdQkFU0h73sXXqwDYxsiDA==}
+    engines: {node: '>= 20'}
+    hasBin: true
 
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
@@ -9923,6 +9937,12 @@ snapshots:
       '@tiptap/core': 3.10.5(@tiptap/pm@3.10.5)
       '@tiptap/pm': 3.10.5
 
+  '@tiptap/markdown@3.10.5(@tiptap/core@3.10.5(@tiptap/pm@3.10.5))(@tiptap/pm@3.10.5)':
+    dependencies:
+      '@tiptap/core': 3.10.5(@tiptap/pm@3.10.5)
+      '@tiptap/pm': 3.10.5
+      marked: 16.4.2
+
   '@tiptap/pm@3.10.5':
     dependencies:
       prosemirror-changeset: 2.3.1
@@ -12429,6 +12449,8 @@ snapshots:
       uc.micro: 2.1.0
 
   markdown-table@3.0.4: {}
+
+  marked@16.4.2: {}
 
   math-intrinsics@1.1.0: {}
 
