@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "preact/hooks"
+import { useRef, useEffect } from "preact/hooks";
 
 /**
  * Hook that executes a callback when the component unmounts.
@@ -7,15 +7,15 @@ import { useRef, useEffect } from "preact/hooks"
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useUnmount = (callback: (...args: Array<any>) => any) => {
-  const ref = useRef(callback)
-  ref.current = callback
+	const ref = useRef(callback);
+	ref.current = callback;
 
-  useEffect(
-    () => () => {
-      ref.current()
-    },
-    []
-  )
-}
+	useEffect(
+		() => () => {
+			ref.current();
+		},
+		[],
+	);
+};
 
-export default useUnmount
+export default useUnmount;
