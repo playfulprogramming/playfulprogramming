@@ -18,21 +18,16 @@ import { Button } from "../../tiptap-ui-primitive/button";
 import { Badge } from "../../tiptap-ui-primitive/badge";
 import { forwardRef } from "preact/compat";
 
-export interface MarkButtonProps
+interface MarkButtonProps
 	extends Omit<ButtonProps, "type">,
 		UseMarkConfig {
 	/**
 	 * Optional text to display alongside the icon.
 	 */
 	text?: string;
-	/**
-	 * Optional show shortcut keys in the button.
-	 * @default false
-	 */
-	showShortcut?: boolean;
 }
 
-export function MarkShortcutBadge({
+function MarkShortcutBadge({
 	type,
 	shortcutKeys = MARK_SHORTCUT_KEYS[type],
 }: {
@@ -55,7 +50,6 @@ export const MarkButton = forwardRef<HTMLButtonElement, MarkButtonProps>(
 			text,
 			hideWhenUnavailable = false,
 			onToggled,
-			showShortcut = false,
 			onClick,
 			children,
 			...buttonProps
@@ -111,9 +105,6 @@ export const MarkButton = forwardRef<HTMLButtonElement, MarkButtonProps>(
 					<>
 						<Icon className="tiptap-button-icon" />
 						{text && <span className="tiptap-button-text">{text}</span>}
-						{showShortcut && (
-							<MarkShortcutBadge type={type} shortcutKeys={shortcutKeys} />
-						)}
 					</>
 				)}
 			</Button>

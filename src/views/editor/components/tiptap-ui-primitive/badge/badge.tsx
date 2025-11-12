@@ -4,7 +4,7 @@ import "./badge-group.scss";
 import "./badge.scss";
 import { forwardRef } from "preact/compat";
 
-export interface BadgeProps extends JSX.HTMLAttributes<HTMLDivElement> {
+interface BadgeProps extends JSX.HTMLAttributes<HTMLDivElement> {
 	variant?: "ghost" | "white" | "gray" | "green" | "default";
 	size?: "default" | "small";
 	appearance?: "default" | "subdued" | "emphasized";
@@ -42,4 +42,3 @@ export const Badge = forwardRef<HTMLDivElement, BadgeProps>(
 
 Badge.displayName = "Badge";
 
-export default Badge;

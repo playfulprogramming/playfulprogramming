@@ -20,7 +20,7 @@ export interface ButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
 	shortcutKeys?: string;
 }
 
-export const ShortcutDisplay: FunctionComponent<{ shortcuts: string[] }> = ({
+const ShortcutDisplay: FunctionComponent<{ shortcuts: string[] }> = ({
 	shortcuts,
 }) => {
 	if (shortcuts.length === 0) return null;
@@ -109,4 +109,3 @@ export const ButtonGroup = forwardRef<
 });
 ButtonGroup.displayName = "ButtonGroup";
 
-export default Button;

@@ -18,4 +18,3 @@ export const useUnmount = (callback: (...args: Array<any>) => any) => {
 	);
 };
 
-export default useUnmount;

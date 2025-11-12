@@ -20,7 +20,7 @@ import { forwardRef } from "preact/compat";
 type IconProps = JSX.SVGAttributes<SVGSVGElement>;
 type IconComponent = ({ className, ...props }: IconProps) => JSX.Element;
 
-export interface ImageUploadButtonProps
+interface ImageUploadButtonProps
 	extends Omit<ButtonProps, "type">,
 		UseImageUploadConfig {
 	/**
@@ -28,17 +28,12 @@ export interface ImageUploadButtonProps
 	 */
 	text?: string;
 	/**
-	 * Optional show shortcut keys in the button.
-	 * @default false
-	 */
-	showShortcut?: boolean;
-	/**
 	 * Optional custom icon component to render instead of the default.
 	 */
 	icon?: IconComponent | FunctionComponent<IconProps>;
 }
 
-export function ImageShortcutBadge({
+function ImageShortcutBadge({
 	shortcutKeys = IMAGE_UPLOAD_SHORTCUT_KEY,
 }: {
 	shortcutKeys?: string;
@@ -61,7 +56,6 @@ export const ImageUploadButton = forwardRef<
 			text,
 			hideWhenUnavailable = false,
 			onInserted,
-			showShortcut = false,
 			onClick,
 			icon: CustomIcon,
 			children,
@@ -119,7 +113,6 @@ export const ImageUploadButton = forwardRef<
 					<>
 						<RenderIcon className="tiptap-button-icon" />
 						{text && <span className="tiptap-button-text">{text}</span>}
-						{showShortcut && <ImageShortcutBadge shortcutKeys={shortcutKeys} />}
 					</>
 				)}
 			</Button>

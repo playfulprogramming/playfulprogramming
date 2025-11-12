@@ -3,7 +3,7 @@ import { useWindowSize } from "./use-window-size";
 import { useBodyRect } from "./use-element-rect";
 import { useEffect } from "preact/hooks";
 
-export interface CursorVisibilityOptions {
+interface CursorVisibilityOptions {
 	/**
 	 * The Tiptap editor instance
 	 */

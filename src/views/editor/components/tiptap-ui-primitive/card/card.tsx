@@ -73,9 +73,9 @@ CardFooter.displayName = "CardFooter";
 
 export {
 	Card,
-	CardHeader,
-	CardFooter,
+	
+	
 	CardBody,
 	CardItemGroup,
-	CardGroupLabel,
+	
 };

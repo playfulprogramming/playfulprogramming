@@ -41,7 +41,7 @@ export interface UseBlockquoteConfig {
 /**
  * Checks if blockquote can be toggled in the current editor state
  */
-export function canToggleBlockquote(
+function canToggleBlockquote(
 	editor: Editor | null,
 	turnInto: boolean = true,
 ): boolean {
@@ -78,7 +78,7 @@ export function canToggleBlockquote(
 /**
  * Toggles blockquote formatting for a specific node or the current selection
  */
-export function toggleBlockquote(editor: Editor | null): boolean {
+function toggleBlockquote(editor: Editor | null): boolean {
 	if (!editor || !editor.isEditable) return false;
 	if (!canToggleBlockquote(editor)) return false;
 
@@ -142,7 +142,7 @@ export function toggleBlockquote(editor: Editor | null): boolean {
 /**
  * Determines if the blockquote button should be shown
  */
-export function shouldShowButton(props: {
+function shouldShowButton(props: {
 	editor: Editor | null;
 	hideWhenUnavailable: boolean;
 }): boolean {

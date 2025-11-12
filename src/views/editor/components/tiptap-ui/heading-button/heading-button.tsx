@@ -15,21 +15,16 @@ import { Badge } from "../../tiptap-ui-primitive/badge";
 import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
 import { forwardRef } from "preact/compat";
 
-export interface HeadingButtonProps
+interface HeadingButtonProps
 	extends Omit<ButtonProps, "type">,
 		UseHeadingConfig {
 	/**
 	 * Optional text to display alongside the icon.
 	 */
 	text?: string;
-	/**
-	 * Optional show shortcut keys in the button.
-	 * @default false
-	 */
-	showShortcut?: boolean;
 }
 
-export function HeadingShortcutBadge({
+function HeadingShortcutBadge({
 	level,
 	shortcutKeys = HEADING_SHORTCUT_KEYS[level],
 }: {
@@ -52,7 +47,6 @@ export const HeadingButton = forwardRef<HTMLButtonElement, HeadingButtonProps>(
 			text,
 			hideWhenUnavailable = false,
 			onToggled,
-			showShortcut = false,
 			onClick,
 			children,
 			...buttonProps
@@ -108,9 +102,6 @@ export const HeadingButton = forwardRef<HTMLButtonElement, HeadingButtonProps>(
 					<>
 						<Icon className="tiptap-button-icon" />
 						{text && <span className="tiptap-button-text">{text}</span>}
-						{showShortcut && (
-							<HeadingShortcutBadge level={level} shortcutKeys={shortcutKeys} />
-						)}
 					</>
 				)}
 			</Button>

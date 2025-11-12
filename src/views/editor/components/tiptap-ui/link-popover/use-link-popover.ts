@@ -36,7 +36,7 @@ export interface UseLinkPopoverConfig {
 /**
  * Configuration for the link handler functionality
  */
-export interface LinkHandlerProps {
+interface LinkHandlerProps {
 	/**
 	 * The Tiptap editor instance.
 	 */
@@ -50,7 +50,7 @@ export interface LinkHandlerProps {
 /**
  * Checks if a link can be set in the current editor state
  */
-export function canSetLink(editor: Editor | null): boolean {
+function canSetLink(editor: Editor | null): boolean {
 	if (!editor || !editor.isEditable) return false;
 
 	// The third argument 'true' checks whether the current selection is inside an image caption, and prevents setting a link there
@@ -62,7 +62,7 @@ export function canSetLink(editor: Editor | null): boolean {
 /**
  * Checks if a link is currently active in the editor
  */
-export function isLinkActive(editor: Editor | null): boolean {
+function isLinkActive(editor: Editor | null): boolean {
 	if (!editor || !editor.isEditable) return false;
 	return editor.isActive("link");
 }
@@ -70,7 +70,7 @@ export function isLinkActive(editor: Editor | null): boolean {
 /**
  * Determines if the link button should be shown
  */
-export function shouldShowLinkButton(props: {
+function shouldShowLinkButton(props: {
 	editor: Editor | null;
 	hideWhenUnavailable: boolean;
 }): boolean {
@@ -92,7 +92,7 @@ export function shouldShowLinkButton(props: {
 /**
  * Custom hook for handling link operations in a Tiptap editor
  */
-export function useLinkHandler(props: LinkHandlerProps) {
+function useLinkHandler(props: LinkHandlerProps) {
 	const { editor, onSetLink } = props;
 	const [url, setUrl] = useState<string | null>(null);
 
@@ -178,7 +178,7 @@ export function useLinkHandler(props: LinkHandlerProps) {
 /**
  * Custom hook for link popover state management
  */
-export function useLinkState(props: {
+function useLinkState(props: {
 	editor: Editor | null;
 	hideWhenUnavailable: boolean;
 }) {

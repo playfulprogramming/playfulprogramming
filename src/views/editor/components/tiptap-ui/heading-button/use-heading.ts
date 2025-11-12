@@ -128,7 +128,7 @@ export function isHeadingActive(
 /**
  * Toggles heading in the editor
  */
-export function toggleHeading(
+function toggleHeading(
 	editor: Editor | null,
 	level: Level | Level[],
 ): boolean {

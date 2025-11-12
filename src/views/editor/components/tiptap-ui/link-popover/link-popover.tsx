@@ -30,7 +30,7 @@ import { Separator } from "../../tiptap-ui-primitive/separator";
 import { Card, CardBody, CardItemGroup } from "../../tiptap-ui-primitive/card";
 import { Input, InputGroup } from "../../tiptap-ui-primitive/input";
 
-export interface LinkMainProps {
+interface LinkMainProps {
 	/**
 	 * The URL to set for the link.
 	 */
@@ -57,7 +57,7 @@ export interface LinkMainProps {
 	isActive: boolean;
 }
 
-export interface LinkPopoverProps
+interface LinkPopoverProps
 	extends Omit<ButtonProps, "type">,
 		UseLinkPopoverConfig {
 	/**
@@ -301,4 +301,3 @@ export const LinkPopover = forwardRef<HTMLButtonElement, LinkPopoverProps>(
 
 LinkPopover.displayName = "LinkPopover";
 
-export default LinkPopover;

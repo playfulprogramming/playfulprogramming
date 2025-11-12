@@ -23,7 +23,7 @@ import {
 import { Card, CardBody } from "../../tiptap-ui-primitive/card";
 import { forwardRef } from "preact/compat";
 
-export interface HeadingDropdownMenuProps
+interface HeadingDropdownMenuProps
 	extends Omit<ButtonProps, "type">,
 		UseHeadingDropdownMenuConfig {
 	/**
@@ -125,4 +125,3 @@ export const HeadingDropdownMenu = forwardRef<
 
 HeadingDropdownMenu.displayName = "HeadingDropdownMenu";
 
-export default HeadingDropdownMenu;

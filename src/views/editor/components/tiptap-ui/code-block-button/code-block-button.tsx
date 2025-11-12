@@ -17,21 +17,16 @@ import { Button } from "../../tiptap-ui-primitive/button";
 import { Badge } from "../../tiptap-ui-primitive/badge";
 import { forwardRef } from "preact/compat";
 
-export interface CodeBlockButtonProps
+interface CodeBlockButtonProps
 	extends Omit<ButtonProps, "type">,
 		UseCodeBlockConfig {
 	/**
 	 * Optional text to display alongside the icon.
 	 */
 	text?: string;
-	/**
-	 * Optional show shortcut keys in the button.
-	 * @default false
-	 */
-	showShortcut?: boolean;
 }
 
-export function CodeBlockShortcutBadge({
+function CodeBlockShortcutBadge({
 	shortcutKeys = CODE_BLOCK_SHORTCUT_KEY,
 }: {
 	shortcutKeys?: string;
@@ -54,7 +49,6 @@ export const CodeBlockButton = forwardRef<
 			text,
 			hideWhenUnavailable = false,
 			onToggled,
-			showShortcut = false,
 			onClick,
 			children,
 			...buttonProps
@@ -109,9 +103,6 @@ export const CodeBlockButton = forwardRef<
 					<>
 						<Icon className="tiptap-button-icon" />
 						{text && <span className="tiptap-button-text">{text}</span>}
-						{showShortcut && (
-							<CodeBlockShortcutBadge shortcutKeys={shortcutKeys} />
-						)}
 					</>
 				)}
 			</Button>

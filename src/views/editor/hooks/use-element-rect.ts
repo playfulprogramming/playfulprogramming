@@ -2,9 +2,9 @@ import type { RefObject } from "preact";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import { useThrottledCallback } from "./use-throttled-callback";
 
-export type RectState = Omit<DOMRect, "toJSON">;
+type RectState = Omit<DOMRect, "toJSON">;
 
-export interface ElementRectOptions {
+interface ElementRectOptions {
 	/**
 	 * The element to track. Can be an Element, ref, or selector string.
 	 * Defaults to document.body if not provided.
@@ -49,7 +49,7 @@ const isClientSide = (): boolean => !isSSR;
  * @param options Configuration options for element rect tracking
  * @returns The current bounding rectangle of the element
  */
-export function useElementRect({
+function useElementRect({
 	element,
 	enabled = true,
 	throttleMs = 100,
@@ -157,7 +157,7 @@ export function useBodyRect(
 /**
  * Convenience hook for tracking a ref element's rect
  */
-export function useRefRect<T extends Element>(
+function useRefRect<T extends Element>(
 	ref: RefObject<T>,
 	options: Omit<ElementRectOptions, "element"> = {},
 ): RectState {
