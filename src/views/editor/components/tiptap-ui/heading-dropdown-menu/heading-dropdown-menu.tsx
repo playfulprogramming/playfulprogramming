@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useState } from "react"
+import { forwardRef, useCallback, useState } from "preact/hooks"
 
 // --- Icons ---
 import { ChevronDownIcon } from "../../tiptap-icons/chevron-down-icon"

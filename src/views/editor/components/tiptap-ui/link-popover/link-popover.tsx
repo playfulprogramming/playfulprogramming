@@ -1,6 +1,6 @@
 "use client"
 
-import { forwardRef, useCallback, useEffect, useState } from "react"
+import { forwardRef, useCallback, useEffect, useState } from "preact/hooks"
 import type { Editor } from "@tiptap/react"
 
 // --- Hooks ---
@@ -41,7 +41,7 @@ export interface LinkMainProps {
   /**
    * Function to update the URL state.
    */
-  setUrl: React.Dispatch<React.SetStateAction<string | null>>
+  setUrl: import("preact/hooks").StateUpdater<string | null>
   /**
    * Function to set the link in the editor.
    */
@@ -102,7 +102,7 @@ LinkButton.displayName = "LinkButton"
 /**
  * Main content component for the link popover
  */
-const LinkMain: React.FC<LinkMainProps> = ({
+const LinkMain: import("preact").FunctionComponent<LinkMainProps> = ({
   url,
   setUrl,
   setLink,
@@ -112,7 +112,7 @@ const LinkMain: React.FC<LinkMainProps> = ({
 }) => {
   const isMobile = useIsBreakpoint()
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (event: import("preact").JSX.TargetedKeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       event.preventDefault()
       setLink()
@@ -189,7 +189,7 @@ const LinkMain: React.FC<LinkMainProps> = ({
 /**
  * Link content component for standalone use
  */
-export const LinkContent: React.FC<{
+export const LinkContent: import("preact").FunctionComponent<{
   editor?: Editor | null
 }> = ({ editor }) => {
   const linkPopover = useLinkPopover({
@@ -252,7 +252,7 @@ export const LinkPopover = forwardRef<HTMLButtonElement, LinkPopoverProps>(
     }, [setLink])
 
     const handleClick = useCallback(
-      (event: React.MouseEvent<HTMLButtonElement>) => {
+      (event: import("preact").JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         onClick?.(event)
         if (event.defaultPrevented) return
         setIsOpen(!isOpen)

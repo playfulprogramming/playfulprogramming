@@ -1,7 +1,7 @@
 import throttle from "lodash.throttle"
 
 import { useUnmount } from "./use-unmount"
-import { useMemo } from "react"
+import { useMemo } from "preact/hooks"
 
 interface ThrottleSettings {
   leading?: boolean | undefined
@@ -25,7 +25,7 @@ const defaultOptions: ThrottleSettings = {
 export function useThrottledCallback<T extends (...args: any[]) => any>(
   fn: T,
   wait = 250,
-  dependencies: React.DependencyList = [],
+  dependencies: unknown[] = [],
   options: ThrottleSettings = defaultOptions
 ): {
   (this: ThisParameterType<T>, ...args: Parameters<T>): ReturnType<T>

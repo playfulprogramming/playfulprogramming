@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback, useState } from "preact/hooks"
 import { type Editor } from "@tiptap/react"
 
 // --- Hooks ---

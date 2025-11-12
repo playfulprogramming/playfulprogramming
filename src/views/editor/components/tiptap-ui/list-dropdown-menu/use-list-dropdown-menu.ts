@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "preact/hooks"
 import type { Editor } from "@tiptap/react"
 
 // --- Hooks ---
@@ -45,7 +45,7 @@ export interface UseListDropdownMenuConfig {
 export interface ListOption {
   label: string
   type: ListType
-  icon: React.ElementType
+  icon: import("preact").ComponentType
 }
 
 export const listOptions: ListOption[] = [

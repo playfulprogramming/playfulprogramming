@@ -1,11 +1,11 @@
-import { forwardRef, useCallback, useEffect, useRef, useState } from "react"
+import { forwardRef, useCallback, useEffect, useRef, useState } from "preact/hooks"
 import { Separator } from "../separator"
 import "./toolbar.scss"
 import { cn } from "../../../lib/tiptap-utils"
 import { useMenuNavigation } from "../../../hooks/use-menu-navigation"
 import { useComposedRef } from "../../../hooks/use-composed-ref"
 
-type BaseProps = React.HTMLAttributes<HTMLDivElement>
+type BaseProps = import("preact").JSX.HTMLAttributes<HTMLDivElement>
 
 interface ToolbarProps extends BaseProps {
   variant?: "floating" | "fixed"

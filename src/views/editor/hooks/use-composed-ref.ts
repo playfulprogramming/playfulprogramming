@@ -1,11 +1,12 @@
 "use client"
 
-import { useCallback, useRef } from "react"
+import type { RefObject } from "preact"
+import { useCallback, useRef } from "preact/hooks"
 
-// basically Exclude<React.ClassAttributes<T>["ref"], string>
+// basically Exclude<Preact.ClassAttributes<T>["ref"], string>
 type UserRef<T> =
   | ((instance: T | null) => void)
-  | React.RefObject<T | null>
+  | RefObject<T | null>
   | null
   | undefined
 
@@ -19,7 +20,7 @@ const updateRef = <T>(ref: NonNullable<UserRef<T>>, value: T | null) => {
 }
 
 export const useComposedRef = <T extends HTMLElement>(
-  libRef: React.RefObject<T | null>,
+  libRef: RefObject<T | null>,
   userRef: UserRef<T>
 ) => {
   const prevUserRef = useRef<UserRef<T>>(null)

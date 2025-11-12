@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "preact/hooks"
 import type { Editor } from "@tiptap/react"
 
 // --- Hooks ---

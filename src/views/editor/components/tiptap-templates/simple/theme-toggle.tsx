@@ -3,7 +3,7 @@ import { Button } from "../../tiptap-ui-primitive/button"
 // --- Icons ---
 import { MoonStarIcon } from "../../tiptap-icons/moon-star-icon"
 import { SunIcon } from "../../tiptap-icons/sun-icon"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "preact/hooks"
 
 export function ThemeToggle() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false)

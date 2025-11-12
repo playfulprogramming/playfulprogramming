@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "preact/hooks"
 import { useHotkeys } from "react-hotkeys-hook"
 import { type Editor } from "@tiptap/react"
 

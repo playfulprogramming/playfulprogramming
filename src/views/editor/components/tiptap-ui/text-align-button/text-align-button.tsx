@@ -1,6 +1,6 @@
 "use client"
 
-import { forwardRef, useCallback } from "react"
+import { forwardRef, useCallback } from "preact/hooks"
 
 // --- Lib ---
 import { parseShortcutKeys } from "../../../lib/tiptap-utils"
@@ -23,8 +23,8 @@ import type { ButtonProps } from "../../tiptap-ui-primitive/button"
 import { Button } from "../../tiptap-ui-primitive/button"
 import { Badge } from "../../tiptap-ui-primitive/badge"
 
-type IconProps = React.SVGProps<SVGSVGElement>
-type IconComponent = ({ className, ...props }: IconProps) => React.ReactElement
+type IconProps = import("preact").JSX.SVGAttributes<SVGSVGElement>
+type IconComponent = ({ className, ...props }: IconProps) => import("preact").JSX.Element
 
 export interface TextAlignButtonProps
   extends Omit<ButtonProps, "type">,
@@ -41,7 +41,7 @@ export interface TextAlignButtonProps
   /**
    * Optional custom icon component to render instead of the default.
    */
-  icon?: React.MemoExoticComponent<IconComponent> | React.FC<IconProps>
+  icon?: IconComponent | import("preact").FunctionComponent<IconProps>
 }
 
 export function TextAlignShortcutBadge({
@@ -95,7 +95,7 @@ export const TextAlignButton = forwardRef<
     })
 
     const handleClick = useCallback(
-      (event: React.MouseEvent<HTMLButtonElement>) => {
+      (event: import("preact").JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         onClick?.(event)
         if (event.defaultPrevented) return
         handleTextAlign()

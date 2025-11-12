@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState } from "preact/hooks"
 import type { NodeViewProps } from "@tiptap/react"
 import { NodeViewWrapper } from "@tiptap/react"
 import { Button } from "../../tiptap-ui-primitive/button"
@@ -212,7 +212,7 @@ function useFileUpload(options: UploadOptions) {
   }
 }
 
-const CloudUploadIcon: React.FC = () => (
+const CloudUploadIcon: import("preact").FunctionComponent = () => (
   <svg
     width="24"
     height="24"
@@ -232,7 +232,7 @@ const CloudUploadIcon: React.FC = () => (
   </svg>
 )
 
-const FileIcon: React.FC = () => (
+const FileIcon: import("preact").FunctionComponent = () => (
   <svg
     width="43"
     height="57"
@@ -251,7 +251,7 @@ const FileIcon: React.FC = () => (
   </svg>
 )
 
-const FileCornerIcon: React.FC = () => (
+const FileCornerIcon: import("preact").FunctionComponent = () => (
   <svg
     width="10"
     height="10"
@@ -278,26 +278,26 @@ interface ImageUploadDragAreaProps {
    * @optional
    * @default undefined
    */
-  children?: React.ReactNode
+  children?: import("preact").ComponentChildren
 }
 
 /**
  * A component that creates a drag-and-drop area for image uploads
  */
-const ImageUploadDragArea: React.FC<ImageUploadDragAreaProps> = ({
+const ImageUploadDragArea: import("preact").FunctionComponent<ImageUploadDragAreaProps> = ({
   onFile,
   children,
 }) => {
   const [isDragOver, setIsDragOver] = useState(false)
   const [isDragActive, setIsDragActive] = useState(false)
 
-  const handleDragEnter = (e: React.DragEvent) => {
+  const handleDragEnter = (e: import("preact").JSX.TargetedDragEvent) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragActive(true)
   }
 
-  const handleDragLeave = (e: React.DragEvent) => {
+  const handleDragLeave = (e: import("preact").JSX.TargetedDragEvent) => {
     e.preventDefault()
     e.stopPropagation()
     if (!e.currentTarget.contains(e.relatedTarget as Node)) {
@@ -306,13 +306,13 @@ const ImageUploadDragArea: React.FC<ImageUploadDragAreaProps> = ({
     }
   }
 
-  const handleDragOver = (e: React.DragEvent) => {
+  const handleDragOver = (e: import("preact").JSX.TargetedDragEvent) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragOver(true)
   }
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = (e: import("preact").JSX.TargetedDragEvent) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragActive(false)
@@ -351,7 +351,7 @@ interface ImageUploadPreviewProps {
 /**
  * Component that displays a preview of an uploading file with progress
  */
-const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
+const ImageUploadPreview: import("preact").FunctionComponent<ImageUploadPreviewProps> = ({
   fileItem,
   onRemove,
 }) => {
@@ -408,7 +408,7 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
   )
 }
 
-const DropZoneContent: React.FC<{ maxSize: number; limit: number }> = ({
+const DropZoneContent: import("preact").FunctionComponent<{ maxSize: number; limit: number }> = ({
   maxSize,
   limit,
 }) => (
@@ -433,7 +433,7 @@ const DropZoneContent: React.FC<{ maxSize: number; limit: number }> = ({
   </>
 )
 
-export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
+export const ImageUploadNode: import("preact").FunctionComponent<NodeViewProps> = (props) => {
   const { accept, limit, maxSize } = props.node.attrs
   const inputRef = useRef<HTMLInputElement>(null)
   const extension = props.extension
@@ -483,7 +483,7 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: import("preact").JSX.TargetedEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files || files.length === 0) {
       extension.options.onError?.(new Error("No file selected"))
@@ -547,7 +547,7 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
         type="file"
         multiple={limit > 1}
         onChange={handleChange}
-        onClick={(e: React.MouseEvent<HTMLInputElement>) => e.stopPropagation()}
+        onClick={(e: import("preact").JSX.TargetedMouseEvent<HTMLInputElement>) => e.stopPropagation()}
       />
     </NodeViewWrapper>
   )

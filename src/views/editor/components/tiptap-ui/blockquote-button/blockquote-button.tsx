@@ -1,4 +1,4 @@
-import { forwardRef, useCallback } from "react"
+import { forwardRef, useCallback } from "preact/hooks"
 
 // --- Tiptap UI ---
 import type { UseBlockquoteConfig } from "./index"
@@ -78,7 +78,7 @@ export const BlockquoteButton = forwardRef<
     })
 
     const handleClick = useCallback(
-      (event: React.MouseEvent<HTMLButtonElement>) => {
+      (event: import("preact").JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         onClick?.(event)
         if (event.defaultPrevented) return
         handleToggle()

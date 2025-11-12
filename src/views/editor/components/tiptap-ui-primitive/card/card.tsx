@@ -1,6 +1,6 @@
 "use client"
 
-import { forwardRef } from "react"
+import { forwardRef } from "preact/hooks"
 import { cn } from "../../../lib/tiptap-utils"
 import "./card.scss"
 
