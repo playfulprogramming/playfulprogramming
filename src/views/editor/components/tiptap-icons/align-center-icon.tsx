@@ -1,7 +1,7 @@
 import type { JSX } from "preact";
 import { memo } from "preact/compat";
 
-type SvgProps = JSX.HTMLAttributes<"svg">;
+type SvgProps = JSX.HTMLAttributes<SVGElement>;
 
 export const AlignCenterIcon = memo(({ className, ...props }: SvgProps) => {
 	return (

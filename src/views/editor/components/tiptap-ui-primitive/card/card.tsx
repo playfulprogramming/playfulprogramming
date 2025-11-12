@@ -2,7 +2,7 @@ import { cn } from "../../../lib/tiptap-utils";
 import "./card.scss";
 import { forwardRef } from "preact/compat";
 
-const Card = forwardRef<HTMLDivElement, JSX.HTMLAttributes<"div">>(
+const Card = forwardRef<HTMLDivElement, JSX.HTMLAttributes<HTMLDivElement>>(
 	({ className, ...props }, ref) => {
 		return (
 			<div ref={ref} className={cn("tiptap-card", className)} {...props} />
@@ -11,20 +11,17 @@ const Card = forwardRef<HTMLDivElement, JSX.HTMLAttributes<"div">>(
 );
 Card.displayName = "Card";
 
-const CardHeader = forwardRef<HTMLDivElement, JSX.HTMLAttributes<"div">>(
-	({ className, ...props }, ref) => {
-		return (
-			<div
-				ref={ref}
-				className={cn("tiptap-card-header", className)}
-				{...props}
-			/>
-		);
-	},
-);
+const CardHeader = forwardRef<
+	HTMLDivElement,
+	JSX.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+	return (
+		<div ref={ref} className={cn("tiptap-card-header", className)} {...props} />
+	);
+});
 CardHeader.displayName = "CardHeader";
 
-const CardBody = forwardRef<HTMLDivElement, JSX.HTMLAttributes<"div">>(
+const CardBody = forwardRef<HTMLDivElement, JSX.HTMLAttributes<HTMLDivElement>>(
 	({ className, ...props }, ref) => {
 		return (
 			<div ref={ref} className={cn("tiptap-card-body", className)} {...props} />
@@ -35,7 +32,7 @@ CardBody.displayName = "CardBody";
 
 const CardItemGroup = forwardRef<
 	HTMLDivElement,
-	JSX.HTMLAttributes<"div"> & {
+	JSX.HTMLAttributes<HTMLDivElement> & {
 		orientation?: "horizontal" | "vertical";
 	}
 >(({ className, orientation = "vertical", ...props }, ref) => {
@@ -50,30 +47,28 @@ const CardItemGroup = forwardRef<
 });
 CardItemGroup.displayName = "CardItemGroup";
 
-const CardGroupLabel = forwardRef<HTMLDivElement, JSX.HTMLAttributes<"div">>(
-	({ className, ...props }, ref) => {
-		return (
-			<div
-				ref={ref}
-				className={cn("tiptap-card-group-label", className)}
-				{...props}
-			/>
-		);
-	},
-);
+const CardGroupLabel = forwardRef<
+	HTMLDivElement,
+	JSX.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+	return (
+		<div
+			ref={ref}
+			className={cn("tiptap-card-group-label", className)}
+			{...props}
+		/>
+	);
+});
 CardGroupLabel.displayName = "CardGroupLabel";
 
-const CardFooter = forwardRef<HTMLDivElement, JSX.HTMLAttributes<"div">>(
-	({ className, ...props }, ref) => {
-		return (
-			<div
-				ref={ref}
-				className={cn("tiptap-card-footer", className)}
-				{...props}
-			/>
-		);
-	},
-);
+const CardFooter = forwardRef<
+	HTMLDivElement,
+	JSX.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+	return (
+		<div ref={ref} className={cn("tiptap-card-footer", className)} {...props} />
+	);
+});
 CardFooter.displayName = "CardFooter";
 
 export {
