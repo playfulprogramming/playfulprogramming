@@ -1,5 +1,17 @@
+import { Context, FunctionComponent } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
-import { EditorContent, EditorContext, useEditor } from "@tiptap/react";
+import {
+	EditorContent as _EditorContent,
+	EditorContentProps,
+	EditorContext as _EditorContext,
+	EditorContextValue,
+	useEditor,
+} from "@tiptap/react";
+
+const EditorContent =
+	_EditorContent as never as FunctionComponent<EditorContentProps>;
+
+const EditorContext = _EditorContext as Context<EditorContextValue>;
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
@@ -61,9 +73,6 @@ import { LinkIcon } from "../../tiptap-icons/link-icon";
 import { useIsBreakpoint } from "../../../hooks/use-is-breakpoint";
 import { useWindowSize } from "../../../hooks/use-window-size";
 import { useCursorVisibility } from "../../../hooks/use-cursor-visibility";
-
-// --- Components ---
-import { ThemeToggle } from "./theme-toggle";
 
 // --- Lib ---
 import { handleImageUpload, MAX_FILE_SIZE } from "../../../lib/tiptap-utils";
@@ -144,10 +153,6 @@ const MainToolbarContent = ({
 			<Spacer />
 
 			{isMobile && <ToolbarSeparator />}
-
-			<ToolbarGroup>
-				<ThemeToggle />
-			</ToolbarGroup>
 		</>
 	);
 };
