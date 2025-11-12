@@ -24,11 +24,9 @@ import { Markdown } from "@tiptap/markdown";
 
 // --- UI Primitives ---
 import { Button } from "./components/tiptap-ui-primitive/button";
-import { Spacer } from "./components/tiptap-ui-primitive/spacer";
 import {
 	Toolbar,
 	ToolbarGroup,
-	ToolbarSeparator,
 } from "./components/tiptap-ui-primitive/toolbar";
 
 // --- Tiptap Node ---
@@ -82,14 +80,11 @@ const MainToolbarContent = ({
 }) => {
 	return (
 		<>
-			<Spacer />
 
 			<ToolbarGroup>
 				<UndoRedoButton action="undo" />
 				<UndoRedoButton action="redo" />
 			</ToolbarGroup>
-
-			<ToolbarSeparator />
 
 			<ToolbarGroup>
 				<HeadingDropdownMenu levels={[1, 2, 3, 4]} portal={isMobile} />
@@ -101,8 +96,6 @@ const MainToolbarContent = ({
 				<CodeBlockButton />
 			</ToolbarGroup>
 
-			<ToolbarSeparator />
-
 			<ToolbarGroup>
 				<MarkButton type="bold" />
 				<MarkButton type="italic" />
@@ -112,22 +105,14 @@ const MainToolbarContent = ({
 				{!isMobile ? <LinkPopover /> : <LinkButton onClick={onLinkClick} />}
 			</ToolbarGroup>
 
-			<ToolbarSeparator />
-
 			<ToolbarGroup>
 				<MarkButton type="superscript" />
 				<MarkButton type="subscript" />
 			</ToolbarGroup>
 
-			<ToolbarSeparator />
-
 			<ToolbarGroup>
 				<ImageUploadButton text="Add" />
 			</ToolbarGroup>
-
-			<Spacer />
-
-			{isMobile && <ToolbarSeparator />}
 		</>
 	);
 };
@@ -146,8 +131,6 @@ const MobileToolbarContent = ({
 				<LinkIcon className="tiptap-button-icon" />
 			</Button>
 		</ToolbarGroup>
-
-		<ToolbarSeparator />
 
 		<LinkContent />
 	</>

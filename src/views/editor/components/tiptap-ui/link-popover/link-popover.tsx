@@ -156,8 +156,6 @@ const LinkMain: import("preact").FunctionComponent<LinkMainProps> = ({
 						</Button>
 					</ButtonGroup>
 
-					<Separator />
-
 					<ButtonGroup orientation="horizontal">
 						<Button
 							type="button"
