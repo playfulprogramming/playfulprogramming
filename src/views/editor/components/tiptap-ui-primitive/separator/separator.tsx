@@ -1,10 +1,11 @@
-import { forwardRef } from "preact/hooks"
+import type { JSX } from "preact"
 import "./separator.scss"
 import { cn } from "../../../lib/tiptap-utils"
+import { forwardRef } from "preact/compat";
 
 export type Orientation = "horizontal" | "vertical"
 
-export interface SeparatorProps extends import("preact").JSX.HTMLAttributes<HTMLDivElement> {
+export interface SeparatorProps extends JSX.HTMLAttributes<HTMLDivElement> {
   orientation?: Orientation
   decorative?: boolean
 }

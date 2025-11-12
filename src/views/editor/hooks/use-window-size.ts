@@ -1,4 +1,4 @@
-"use client"
+
 
 import { useEffect, useState } from "preact/hooks"
 import { useThrottledCallback } from "./use-throttled-callback"

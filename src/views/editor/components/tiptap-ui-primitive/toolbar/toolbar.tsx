@@ -1,18 +1,20 @@
-import { forwardRef, useCallback, useEffect, useRef, useState } from "preact/hooks"
+import type { JSX } from "preact"
+import { useCallback, useEffect, useRef, useState } from "preact/hooks"
 import { Separator } from "../separator"
 import "./toolbar.scss"
 import { cn } from "../../../lib/tiptap-utils"
 import { useMenuNavigation } from "../../../hooks/use-menu-navigation"
 import { useComposedRef } from "../../../hooks/use-composed-ref"
+import { forwardRef } from "preact/compat";
 
-type BaseProps = import("preact").JSX.HTMLAttributes<HTMLDivElement>
+type BaseProps = JSX.HTMLAttributes<HTMLDivElement>
 
 interface ToolbarProps extends BaseProps {
   variant?: "floating" | "fixed"
 }
 
 const useToolbarNavigation = (
-  toolbarRef: React.RefObject<HTMLDivElement | null>
+  toolbarRef: RefObject<HTMLDivElement | null>
 ) => {
   const [items, setItems] = useState<HTMLElement[]>([])
 

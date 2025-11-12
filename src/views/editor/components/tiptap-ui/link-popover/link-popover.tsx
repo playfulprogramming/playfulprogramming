@@ -1,6 +1,9 @@
-"use client"
 
-import { forwardRef, useCallback, useEffect, useState } from "preact/hooks"
+
+import type { JSX, FunctionComponent } from "preact"
+import { forwardRef } from "preact/compat"
+import type { Dispatch, StateUpdater } from "preact/hooks"
+import { useCallback, useEffect, useState } from "preact/hooks"
 import type { Editor } from "@tiptap/react"
 
 // --- Hooks ---
@@ -41,7 +44,7 @@ export interface LinkMainProps {
   /**
    * Function to update the URL state.
    */
-  setUrl: import("preact/hooks").StateUpdater<string | null>
+  setUrl: Dispatch<StateUpdater<string | null>>
   /**
    * Function to set the link in the editor.
    */

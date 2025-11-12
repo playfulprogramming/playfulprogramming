@@ -1,4 +1,5 @@
-import { forwardRef, useCallback, useMemo } from "preact/hooks"
+import type { JSX } from "preact"
+import { useCallback, useMemo } from "preact/hooks"
 
 // --- Lib ---
 import { parseShortcutKeys } from "../../../lib/tiptap-utils"
@@ -20,6 +21,7 @@ import { Badge } from "../../tiptap-ui-primitive/badge"
 
 // --- Styles ---
 import "./color-highlight-button.scss"
+import { forwardRef } from "preact/compat";
 
 export interface ColorHighlightButtonProps
   extends Omit<ButtonProps, "type">,
@@ -109,7 +111,7 @@ export const ColorHighlightButton = forwardRef<
     })
 
     const handleClick = useCallback(
-      (event: import("preact").JSX.TargetedMouseEvent<HTMLButtonElement>) => {
+      (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         onClick?.(event)
         if (event.defaultPrevented) return
         handleColorHighlight()
@@ -122,7 +124,7 @@ export const ColorHighlightButton = forwardRef<
         ({
           ...style,
           "--highlight-color": highlightColor,
-        }) as import("preact").JSX.CSSProperties,
+        }) as JSX.CSSProperties,
       [highlightColor, style]
     )
 
@@ -152,7 +154,7 @@ export const ColorHighlightButton = forwardRef<
             <span
               className="tiptap-button-highlight"
               style={
-                { "--highlight-color": highlightColor } as import("preact").JSX.CSSProperties
+                { "--highlight-color": highlightColor } as JSX.CSSProperties
               }
             />
             {text && <span className="tiptap-button-text">{text}</span>}

@@ -1,4 +1,5 @@
-import { forwardRef, useCallback } from "preact/hooks"
+import type { JSX, FunctionComponent } from "preact"
+import { useCallback } from "preact/hooks"
 
 // --- Lib ---
 import { parseShortcutKeys } from "../../../lib/tiptap-utils"
@@ -17,9 +18,10 @@ import {
 import type { ButtonProps } from "../../tiptap-ui-primitive/button"
 import { Button } from "../../tiptap-ui-primitive/button"
 import { Badge } from "../../tiptap-ui-primitive/badge"
+import { forwardRef } from "preact/compat";
 
-type IconProps = import("preact").JSX.SVGAttributes<SVGSVGElement>
-type IconComponent = ({ className, ...props }: IconProps) => import("preact").JSX.Element
+type IconProps = JSX.SVGAttributes<SVGSVGElement>
+type IconComponent = ({ className, ...props }: IconProps) => JSX.Element
 
 export interface ImageUploadButtonProps
   extends Omit<ButtonProps, "type">,
@@ -36,7 +38,7 @@ export interface ImageUploadButtonProps
   /**
    * Optional custom icon component to render instead of the default.
    */
-  icon?: IconComponent | import("preact").FunctionComponent<IconProps>
+  icon?: IconComponent | FunctionComponent<IconProps>
 }
 
 export function ImageShortcutBadge({
@@ -86,7 +88,7 @@ export const ImageUploadButton = forwardRef<
     })
 
     const handleClick = useCallback(
-      (event: import("preact").JSX.TargetedMouseEvent<HTMLButtonElement>) => {
+      (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         onClick?.(event)
         if (event.defaultPrevented) return
         handleImage()

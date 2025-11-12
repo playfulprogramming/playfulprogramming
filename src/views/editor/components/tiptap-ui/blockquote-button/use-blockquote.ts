@@ -1,4 +1,4 @@
-"use client"
+
 
 import { useCallback, useEffect, useState } from "preact/hooks"
 import type { Editor } from "@tiptap/react"

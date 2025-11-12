@@ -1,14 +1,11 @@
-"use client"
 
+import type { JSX, Ref, ComponentChildren, ComponentProps } from "preact"
+import { cloneElement, createContext, isValidElement } from "preact"
+import { forwardRef } from "preact/compat"
 import {
-  cloneElement,
-  createContext,
-  forwardRef,
-  isValidElement,
   useContext,
   useMemo,
   useState,
-  version,
 } from "preact/hooks"
 import {
   useFloating,
@@ -31,7 +28,7 @@ import {
 import "./tooltip.scss"
 
 interface TooltipProviderProps {
-  children: import("preact").ComponentChildren
+  children: ComponentChildren
   initialOpen?: boolean
   placement?: Placement
   open?: boolean
@@ -43,26 +40,26 @@ interface TooltipProviderProps {
 }
 
 interface TooltipTriggerProps
-  extends Omit<React.HTMLProps<HTMLElement>, "ref"> {
+  extends Omit<JSX.HTMLAttributes<HTMLElement>, "ref"> {
   asChild?: boolean
-  children: import("preact").ComponentChildren
+  children: ComponentChildren
 }
 
 interface TooltipContentProps
-  extends Omit<React.HTMLProps<HTMLDivElement>, "ref"> {
-  children?: import("preact").ComponentChildren
+  extends Omit<JSX.HTMLAttributes<HTMLDivElement>, "ref"> {
+  children?: ComponentChildren
   portal?: boolean
-  portalProps?: Omit<React.ComponentProps<typeof FloatingPortal>, "children">
+  portalProps?: Omit<ComponentProps<typeof FloatingPortal>, "children">
 }
 
 interface TooltipContextValue extends UseFloatingReturn<ReferenceType> {
   open: boolean
   setOpen: (open: boolean) => void
   getReferenceProps: (
-    userProps?: React.HTMLProps<HTMLElement>
+    userProps?: JSX.HTMLAttributes<HTMLElement>
   ) => Record<string, unknown>
   getFloatingProps: (
-    userProps?: React.HTMLProps<HTMLDivElement>
+    userProps?: JSX.HTMLAttributes<HTMLDivElement>
   ) => Record<string, unknown>
 }
 
@@ -164,9 +161,9 @@ export const TooltipTrigger = forwardRef<HTMLElement, TooltipTriggerProps>(
   function TooltipTrigger({ children, asChild = false, ...props }, propRef) {
     const context = useTooltipContext()
     const childrenRef = isValidElement(children)
-      ? parseInt(version, 10) >= 19
+      ? true // Preact always supports this
         ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (children as { props: { ref?: React.Ref<any> } }).props.ref
+          (children as { props: { ref?: Ref<any> } }).props.ref
         : // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (children as any).ref
       : undefined

@@ -1,44 +1,45 @@
-import { forwardRef } from "preact/hooks"
-import "./badge-colors.scss"
-import "./badge-group.scss"
-import "./badge.scss"
+import type { JSX } from "preact";
+import "./badge-colors.scss";
+import "./badge-group.scss";
+import "./badge.scss";
+import { forwardRef } from "preact/compat";
 
-export interface BadgeProps extends import("preact").JSX.HTMLAttributes<HTMLDivElement> {
-  variant?: "ghost" | "white" | "gray" | "green" | "default"
-  size?: "default" | "small"
-  appearance?: "default" | "subdued" | "emphasized"
-  trimText?: boolean
+export interface BadgeProps extends JSX.HTMLAttributes<HTMLDivElement> {
+	variant?: "ghost" | "white" | "gray" | "green" | "default";
+	size?: "default" | "small";
+	appearance?: "default" | "subdued" | "emphasized";
+	trimText?: boolean;
 }
 
 export const Badge = forwardRef<HTMLDivElement, BadgeProps>(
-  (
-    {
-      variant,
-      size = "default",
-      appearance = "default",
-      trimText = false,
-      className,
-      children,
-      ...props
-    },
-    ref
-  ) => {
-    return (
-      <div
-        ref={ref}
-        className={`tiptap-badge ${className || ""}`}
-        data-style={variant}
-        data-size={size}
-        data-appearance={appearance}
-        data-text-trim={trimText ? "on" : "off"}
-        {...props}
-      >
-        {children}
-      </div>
-    )
-  }
-)
+	(
+		{
+			variant,
+			size = "default",
+			appearance = "default",
+			trimText = false,
+			className,
+			children,
+			...props
+		},
+		ref,
+	) => {
+		return (
+			<div
+				ref={ref}
+				className={`tiptap-badge ${className || ""}`}
+				data-style={variant}
+				data-size={size}
+				data-appearance={appearance}
+				data-text-trim={trimText ? "on" : "off"}
+				{...props}
+			>
+				{children}
+			</div>
+		);
+	},
+);
 
-Badge.displayName = "Badge"
+Badge.displayName = "Badge";
 
-export default Badge
+export default Badge;
