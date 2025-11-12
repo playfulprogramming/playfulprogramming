@@ -246,7 +246,7 @@ export function EditorPage() {
 	}, [isMobile, mobileView]);
 
 	return (
-		<div className="simple-editor-wrapper">
+		<div>
 			<EditorContext.Provider value={{ editor }}>
 				<Toolbar
 					ref={toolbarRef}
