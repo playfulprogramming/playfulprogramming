@@ -14,6 +14,8 @@ const props = Astro.props as {
 ---
 
 <Barebones lang={lang}>
+	<!-- This must load before any CSS or there will be a flicker -->
+	<BlockingThemeChangerScript slot="first" />
 	<slot slot="head" name="head" />
 	<BlockingThemeChangerScript />
 	<Header size={props.size} disableDiscord={props.disableDiscord} />
