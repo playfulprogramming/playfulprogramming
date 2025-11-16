@@ -19,10 +19,9 @@ import {
  * Prevents the "flash" of light mode
  */
 /**
- * Trust me, I know that it looks like we're reading entries from an emoji
- * but what's really happening is that this function is being converted to a
- * string, then mutated by "MagicScriptTag" in order to add in dynamic code
- * into that string. This way, we're able to avoid duplicating
+ * This function is being converted to a string, then mutated by
+ * "MagicScriptTag" in order to add in dynamic code into that string. This way,
+ * we're able to avoid duplicating
  */
 function setColorsByTheme() {
 	const mql = window.matchMedia("(prefers-color-scheme: dark)");
