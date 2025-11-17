@@ -629,7 +629,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { findByTestId, getByText, getByTestId } = render(
+		const { findByTestId, findByText, getByTestId } = render(
 			<SearchPage mockClients={clients} />,
 		);
 
@@ -659,8 +659,8 @@ describe("Search page", () => {
 			expect.anything(),
 		);
 
-		expect(getByText("One blog post")).toBeInTheDocument();
-		expect(getByText("Six blog post")).toBeInTheDocument();
+		await findByText("One blog post");
+		await findByText("Six blog post");
 
 		const container = await findByTestId("pagination");
 
@@ -689,8 +689,8 @@ describe("Search page", () => {
 			},
 			expect.anything(),
 		);
-		expect(getByText("Eleven blog post")).toBeInTheDocument();
-		expect(getByText("Twelve blog post")).toBeInTheDocument();
+		await findByText("Eleven blog post");
+		await findByText("Twelve blog post");
 	});
 
 	test("Pagination - Filters impact pagination", async () => {
@@ -789,7 +789,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { findByTestId, getByText, getByTestId } = render(
+		const { findByTestId, findByText, getByTestId } = render(
 			<SearchPage mockClients={clients} />,
 		);
 
@@ -841,10 +841,8 @@ describe("Search page", () => {
 		});
 
 		// Verify filtered results
-		await waitFor(() => {
-			expect(getByText("One blog post")).toBeInTheDocument();
-			expect(getByText("Four blog post")).toBeInTheDocument();
-		});
+		await findByText("One blog post");
+		await findByText("Four blog post");
 	});
 
 	// Search page, sort order, etc
