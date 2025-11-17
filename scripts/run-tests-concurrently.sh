@@ -8,7 +8,7 @@ cd "$REPO_ROOT" || exit 1
 
 TOTAL_RUNS=${TOTAL_RUNS:-50}
 THREADS=${THREADS:-5}
-TMP_FAIL_FILE=$(mktemp -t run-search-tests.XXXXXX)
+TMP_FAIL_FILE=$(mktemp -t playful-concurrent-tests.XXXXXX)
 trap 'rm -f "$TMP_FAIL_FILE"' EXIT
 
 if (( THREADS < 1 )); then
@@ -25,7 +25,7 @@ run_command() {
   local run_index=$1
   shift
   local log_file
-  log_file=$(mktemp -t run-search-tests-log.XXXXXX)
+  log_file=$(mktemp -t playful-concurrent-tests-log.XXXXXX)
 
   echo "Run ${run_index}"
 
