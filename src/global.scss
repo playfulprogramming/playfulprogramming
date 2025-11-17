@@ -20,7 +20,7 @@
 :root {
 	scrollbar-gutter: stable;
 	scrollbar-color: var(--focus-outline_primary) transparent;
-	transition: scrollbar-color var(--animation_style) var(--animation_style);
+	@include transition(scrollbar-color);
 
 	box-sizing: border-box;
 }
@@ -75,9 +75,7 @@ body {
 	margin: 0;
 	padding: 0;
 	color: var(--foreground_emphasis-high);
-	transition:
-		color var(--animation_style) var(--animation_speed),
-		background-color var(--animation_style) var(--animation_speed);
+	@include transition(color background-color);
 }
 
 .medium-zoom-overlay,
