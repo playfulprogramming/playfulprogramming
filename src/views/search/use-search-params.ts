@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 import { debounce } from "utils/debounce";
 
+export type SetSearchParams<T> = (updater: (prev: T) => T) => void;
+
 export function useSearchParams<T>(
 	serialize: (params: T) => URLSearchParams,
 	deserialize: (params: URLSearchParams) => T,
 	getPageTitle?: (params: T) => string,
-): [T, (newState: T) => void] {
+): [T, SetSearchParams<T>] {
 	const [urlParams, setUrlParams] = useState<URLSearchParams>(
 		() => new URL(window.location.href).searchParams,
 	);
@@ -62,11 +64,16 @@ export function useSearchParams<T>(
 
 	const params = useMemo(() => deserialize(urlParams), [urlParams]);
 
-	const setParams = useCallback(
-		(params: T) => {
-			setUrlParams(serialize(params));
+	const setParams = useCallback<SetSearchParams<T>>(
+		(updater) => {
+			setUrlParams((prevParams) => {
+				const previous = deserialize(new URLSearchParams(prevParams));
+				const next = updater(previous);
+
+				return serialize(next);
+			});
 		},
-		[setUrlParams],
+		[deserialize, serialize],
 	);
 
 	return [params, setParams];
