@@ -39,6 +39,7 @@
 		"tsc": "astro check && tsc --noEmit",
 		"test": "vitest",
 		"test:debug": "set DEBUG_PRINT_LIMIT=9999999999 && pnpm vitest",
+		"test:stress": "./scripts/run-tests-concurrently.sh --run",
 		"prepare": "husky"
 	},
 	"devDependencies": {

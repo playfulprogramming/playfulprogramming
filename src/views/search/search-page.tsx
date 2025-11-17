@@ -85,33 +85,52 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	);
 
 	const setQuery = useCallback(
-		(newQuery: Partial<SearchQuery>) => {
-			const queryToSet = {
-				...query,
-				...newQuery,
-			};
+		(
+			updater: (prevQuery: SearchQuery) => Partial<SearchQuery> | SearchQuery,
+		) => {
+			setQueryState((prevQuery) => {
+				const queryUpdates = updater(prevQuery);
+				if (queryUpdates === prevQuery) {
+					return prevQuery;
+				}
 
-			if (queryToSet.searchQuery.length == 0) {
-				// Remove tags and authors when no value is present
-				queryToSet.filterTags = [];
-				queryToSet.filterAuthors = [];
-			}
+				const queryToSet: SearchQuery = {
+					...prevQuery,
+					...queryUpdates,
+				};
 
-			setQueryState(queryToSet);
+				if (queryToSet.searchQuery.length === 0) {
+					// Remove tags and authors when no value is present
+					queryToSet.filterTags = [];
+					queryToSet.filterAuthors = [];
+				}
+
+				return queryToSet;
+			});
 		},
-		[query, setQueryState],
+		[setQueryState],
 	);
 
 	const resultsHeading = useRef<HTMLDivElement | null>(null);
 
 	const setSearch = useCallback(
-		(str: string) => setQuery({ searchQuery: str, page: 1 }),
+		(str: string) =>
+			setQuery((prevQuery) => {
+				if (prevQuery.searchQuery === str) {
+					return prevQuery;
+				}
+
+				return {
+					searchQuery: str,
+					page: 1,
+				};
+			}),
 		[setQuery],
 	);
 
 	const onManualSubmit = useCallback(
 		(str: string) => {
-			setQuery({ searchQuery: str, page: 1 });
+			setQuery(() => ({ searchQuery: str, page: 1 }));
 			resultsHeading.current?.focus();
 		},
 		[setQuery],
@@ -233,29 +252,29 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 		authors: query.filterAuthors,
 		setTags: useCallback(
 			(tags: string[]) => {
-				setQuery({
+				setQuery(() => ({
 					filterTags: tags,
 					page: 1, // Reset both page counters when changing filters
-				});
+				}));
 			},
 			[setQuery],
 		),
 		setAuthors: useCallback(
 			(authors: string[]) => {
-				setQuery({
+				setQuery(() => ({
 					filterAuthors: authors,
 					page: 1, // Reset both page counters when changing filters
-				});
+				}));
 			},
 			[setQuery],
 		),
 		setFilters: useCallback(
 			(filters: Record<"tags" | "authors", string[]>) => {
-				setQuery({
+				setQuery(() => ({
 					filterTags: filters.tags,
 					filterAuthors: filters.authors,
 					page: 1, // Reset both page counters when changing filters
-				});
+				}));
 			},
 			[setQuery],
 		),
@@ -263,10 +282,10 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 
 	const setContentToDisplay = useCallback(
 		(display: DisplayContentType) => {
-			setQuery({
+			setQuery(() => ({
 				display: display,
 				page: 1, // Reset both page counters when changing filters
-			});
+			}));
 		},
 		[setQuery],
 	);
@@ -281,10 +300,10 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 
 	const setSort = useCallback(
 		(sort: SortType) => {
-			setQuery({
+			setQuery(() => ({
 				sort: sort,
 				page: 1, // Reset both page counters when changing filters
-			});
+			}));
 		},
 		[setQuery],
 	);
@@ -373,11 +392,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 				<section className={style.mainContentsInner}>
 					{/* aria-live cannot be on an element that is programmatically removed
 				or added via JSX, instead it has to listen to changes in DOM somehow */}
-					<div
-						aria-live={"polite"}
-						aria-atomic="true"
-						className={style.passThru}
-					>
+					<div aria-live="polite" aria-atomic="true" className={style.passThru}>
 						{!isContentLoading &&
 							showCollections &&
 							data.totalCollections > 0 && (
@@ -506,9 +521,9 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 								testId="pagination"
 								softNavigate={(_href, pageNum) => {
 									window.scrollTo(0, 0);
-									setQuery({
+									setQuery(() => ({
 										page: pageNum,
-									});
+									}));
 								}}
 								page={{
 									currentPage: query.page,
