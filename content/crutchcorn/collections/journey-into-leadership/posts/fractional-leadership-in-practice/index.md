@@ -2,7 +2,7 @@
 {
     title: "Fractional Leadership in Practice",
     description: "How taking on a short-term leadership contract can pave the way to long-term opportunities.",
-    published: '2025-11-03T21:52:59.284Z',
+    published: '2025-11-17T21:52:59.284Z',
     tags: ['leadership', 'opinion'],
     license: 'cc-by-4',
     order: 3
