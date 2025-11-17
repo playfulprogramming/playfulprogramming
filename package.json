@@ -146,6 +146,7 @@
 		"@nanostores/preact": "^1.0.0",
 		"@oramacloud/client": "^2.1.4",
 		"@preact/signals": "^2.3.1",
+		"@react-aria/calendar": "^3.9.2",
 		"@tanstack/react-query": "^5.87.1",
 		"@webcontainer/api": "^1.6.1",
 		"fflate": "^0.8.2",

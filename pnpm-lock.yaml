@@ -21,6 +21,9 @@ importers:
       '@preact/signals':
         specifier: ^2.3.1
         version: 2.3.1(preact@10.27.1)
+      '@react-aria/calendar':
+        specifier: ^3.9.2
+        version: 3.9.2(@preact/compat@18.3.1(preact@10.27.1))(@preact/compat@18.3.1(preact@10.27.1))
       '@tanstack/react-query':
         specifier: ^5.87.1
         version: 5.87.1(@preact/compat@18.3.1(preact@10.27.1))
