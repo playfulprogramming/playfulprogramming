@@ -150,11 +150,15 @@
 .applyContainer {
 	display: flex;
 	flex-wrap: wrap;
+
+	@include from($tabletSmall) {
+		flex-wrap: nowrap;
+	}
 }
 
 .applyBtn {
 	width: 100%;
-	
+
 	@include from($tabletSmall) {
 		width: fit-content;
 	}
@@ -175,6 +179,51 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.outcomesApplyAndSponsorsContainer {
+	display: flex;
+	gap: var(--site-spacing);
+	flex-direction: column;
+
+	@include from($tabletLarge) {
+		flex-direction: row;
+	}
+}
+
+.partnersTitle {
+	margin: 0;
+}
+
+.outcomesAndApplyContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--site-spacing);
+}
+
+.sponsorsContainer {
+	display: flex;
+	gap: var(--spc-4x);
+	flex-direction: column;
+	align-items: center;
+}
+
+.sponsorContainer {
+	background: var(--surface_primary_emphasis-none);
+	max-width: 100%;
+	padding: var(--spc-4x);
+	padding-left: var(--spc-6x);
+	padding-right: var(--spc-6x);
+	border-radius: var(--corner-radius_xl);
+	display: flex;
+	gap: var(--spc-4x);
+	flex-direction: column;
+	align-items: center;
+}
+
+.sponsor {
+	height: 80px;
+	border-radius: var(--corner-radius_m);
 }
 
 .modulesContainer {
