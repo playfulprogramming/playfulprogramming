@@ -5,23 +5,7 @@
   tags: ['leadership', 'opinion'],
   coverImg: "./cover.png",
   published: "2025-10-20T13:45:00.284Z",
-  buttons: [{ text: "Read now", url: "/posts/navigating-leadership-risks" }],
-  chapterList: [
-    {
-      post: "navigating-leadership-risks",
-    },
-    {
-      post: "the-power-of-showing-up",
-    },
-    {
-      post: "fractional-leadership-in-practice"
-    },
-    {
-      order: 4,
-      title: "Negotiating for a VP Role",
-      description: "Coming soon..."
-    }
-  ],
+  buttons: [{ text: "Read now", url: "/posts/navigating-leadership-risks" }]
 }
 ---
  
