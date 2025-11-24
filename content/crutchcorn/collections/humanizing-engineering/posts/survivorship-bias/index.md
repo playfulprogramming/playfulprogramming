@@ -2,7 +2,7 @@
 {
     title: "Confronting Survivorship Bias",
     description: "A cautionary tale about successes in my career and survivorship bias.",
-    published: "2025-12-15T13:45:00.284Z",
+    published: "2025-11-23T13:45:00.284Z",
     tags: ['leadership', 'opinion'],
     license: 'cc-by-4',
     order: 1
@@ -15,13 +15,13 @@ But while my story can provide a valuable data point, it's just that: a single d
 
 There's a story that starts during World War II; engineers were trying to figure out how to reinforce planes to make them more survivable from dogfights. They looked at the planes that returned from combat and saw where the bullet holes were — mostly over the outer edges of the wings and body of the plane. They thought, "Let's reinforce these areas."
 
-![A plane with red dots to indicate damage taken from bullet holes](./plane.svg)
+![A plane with red dots to indicate damage taken from bullet holes](./plane.png)
 
 To their surprise, however, despite reinforcing the planes, they were still being shot down at the same rates as before. The engineers were baffled; why wasn't it working?
 
 This is because they were missing a crucial piece of information from their original analysis: the planes that didn't return. The engineers realized that they had only sampled planes that had actually made it back. The planes that were shot in the areas _without_ bullet holes were the ones that didn't make it back. The bullet holes were actually indicators of survivability, not vulnerability.
 
-![The parts they thought they should reenforce were the opposite of the parts they needed to](./plane_compare.svg)
+![The parts they thought they should reenforce were the opposite of the parts they needed to](./plane_compare.png)
 
 ------
 
