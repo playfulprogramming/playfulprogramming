@@ -2,7 +2,7 @@
 {
     title: "Negotiating for a VP Role",
     description: "The story of how I negotiated my way into a VP role and the lessons learned along the way.",
-    published: '2025-11-10T21:52:59.284Z',
+    published: '2025-11-24T21:52:59.284Z',
     tags: ['leadership', 'opinion'],
     license: 'cc-by-4',
     order: 4
