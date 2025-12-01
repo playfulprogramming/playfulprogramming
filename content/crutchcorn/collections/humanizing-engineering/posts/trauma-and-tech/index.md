@@ -177,7 +177,7 @@ There are non-therapeutic activities, too; television to keep things somewhat en
 You're even given the same grippy socks that one might elsewhere in a hospital.
 
 > **Note:**
-
+>
 > While this experience occurred during my youth and experiences can vary wildly based on geography and age, I've spoken with many others who have been in similar facilities, and my experience often loosely mirrors theirs as well.
 >
 > This is to say — and I cannot stress this enough — if you need psychiatric help and have been afraid to seek it because of the fears of residential treatment; please seek help anyway. Care facilities like these have a single objective: To help you.
@@ -267,7 +267,7 @@ Luckily for me, by the time I had gotten my phone, the device had already had th
 
 It worked! I could finally install and use the app I was aiming for the whole time!
 
-But having made it this far, my mind began to wonder. See, CyanogenMod was not the only ROM around — there were a number of alternatives that had many more features than it. So I began to research the alternative ROMs, found one that I liked based on reviews, and wanted to try it. One small problem: Nobody had built that ROM for my phone.
+But having made it this far, my mind began to wander. See, CyanogenMod was not the only ROM around — there were a number of alternatives that had many more features than it. So I began to research the alternative ROMs, found one that I liked based on reviews, and wanted to try it. One small problem: Nobody had built that ROM for my phone.
 
 So after a **lot** of investigation, asking around on forums, and reading walkthroughs I realized I could port it myself.
 
@@ -375,7 +375,7 @@ Likewise, as an engineer, I've learned how a user experience is consistently mad
 
 And it's that kind of self-mandated empathy that has set me aside as an engineering voice on my teams.
 
-It's a cruel irony that the voices in my head started from such a "hyper-logical" place that I now rely more heavily on empathy as a guiding principle in my logically focused career. This isn't to say that this shift towards emotions over tech is a bad thing, however. It's enabled me to be better at paths in tech less walked down: Documentation, code review, API design, management style all benefit from this shift.
+It's a cruel irony that the voices in my head started from such a "hyper-logical" place that I now rely more heavily on empathy as a guiding principle in my logically focused career. This isn't to say that this shift towards emotions over tech is a bad thing, however. It's enabled me to be better at paths in tech less walked down: Documentation, code review, API design, and management style all benefit from this shift.
 
 I think our society over indexes on the concept of logical thinking. When I was young, I wanted to be a "renaissance man" — the kind of person who could do anything and succeed in it well. This, for me at the time, meant a fixation on logical thinking and problem-solving. But as I've grown, [not only do I realize now that specialization is as valuable (if not more) than generalization](/posts/tradeoffs-in-engineering-identities), but that emotional intelligence serves as a core ingredient to that success.
 
