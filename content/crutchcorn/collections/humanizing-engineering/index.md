@@ -4,7 +4,7 @@
   description: "Exploring the intersection of technology and humanity in engineering practices.",
   tags: ['leadership', 'opinion'],
   coverImg: "./cover.png",
-  published: "2025-11-23T13:45:00.284Z",
+  published: "2025-12-01T13:45:00.284Z",
   buttons: [{ text: "Read now", url: "/posts/survivorship-bias" }],
   chapterList: [
     {
