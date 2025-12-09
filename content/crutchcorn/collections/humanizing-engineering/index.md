@@ -11,9 +11,7 @@
       post: "survivorship-bias"
     },
     {
-      order: 2,
-      title: "Confronting Career Inequalities",
-      description: "Coming soon..."
+      post: "career-inequalities"
     },
     {
       order: 3,
