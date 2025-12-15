@@ -29,7 +29,7 @@
 >
 > However, it's important to keep a few things in mind:
 >
-> 4) I am not a medical professional. While any diagnosis I mention has been discussed ad nauseam with my doctors, any guidance I provide throughout is colloquial and should not be considered as serious medical guidance. Please seek help if you need it — there's never any shame in doing so.
+> 4) I am not a medical professional. While any diagnosis I mention has been discussed ad nauseam with my doctors, any guidance I provide throughout is colloquial and should not be considered as serious medical guidance. [Please seek help if you need it — there's never any shame in doing so.](https://meta.wikimedia.org/wiki/Mental_health_resources)
 > 5) My experiences are mine and mine alone. Everyone experiences mental health challenges (even those with the same diagnosis as myself) very differently from one another.
 
 I was so embarrassed when I graduated middle-school. Forgettable for most, the same could not be said for me. Something to know about my dad: He's the kind of father that would hoot and holler for his son's success at every turn. He managed to turn this short ceremony into an opportunity to do just that.
@@ -390,17 +390,15 @@ A better grasp on empathy is not the only way my lived experiences have improved
 
 As I wrap up this article, I can't help but wonder how it will be received. I've shared this with a number of friends to gather feedback, and it's spurred a lot of deeply introspective conversations. It reminds me of long-form conversations I used to have with others who struggled with mental health in my out-patient classes.
 
+As it turns out, my support network has a fair number of people who's struggled with mental health in one capacity or another themselves. This is unsurprising when you learn that [more than 1 in 5 Americans are estimated to live with a mental illness.](https://www.nimh.nih.gov/health/statistics/mental-illness) While that statistic is region specific, I would not be surprised to find out that other areas have a similar rate of challenges in their mental health. Remember, especially when it comes to mental health problems, they're frequently under-reported due to cultural stigmata.
+
 There's a shared sense of community amongst those of us that struggle with our mental health; between Depression, ADHD, Bipolar disorder, Schizophrenia, and beyond. This community can come together and help elevate one another's experiences in our shared reality.
 
 And you don't need to have an illness to be part of this change; neurotypical individuals are a huge part of how our stories are shared externally and how acceptance is adopted. Moreover, your challenges are valid and need to be addressed regardless of diagnosis. I'm a huge proponent that everyone could benefit from therapy from time-to-time. I myself see a therapist bi-weekly at least.
 
 I hope this article continues this trend with others as well; my only goals with this work are to demystify mental health challenges and spur healthier conversations around the topic.
 
-Just remember that you are important and valuable; please don't hesitate to get any help you need along your journey.
-
->  **References:**
->
-> If you or anyone you know is suffering with mental health and thoughts of self-harm, [your country likely has many resources you can reach out to for free help.](https://meta.wikimedia.org/wiki/Mental_health_resources)
+Just remember that you are important and valuable; please [don't hesitate to get any help you need along your journey](https://meta.wikimedia.org/wiki/Mental_health_resources).
 
 Be well,
 
