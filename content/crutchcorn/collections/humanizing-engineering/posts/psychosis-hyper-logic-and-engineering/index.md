@@ -397,7 +397,7 @@ Just remember that you are important and valuable; please don't hesitate to get 
 
 >  **References:**
 >
-> If you or anyone you know is suffering with mental health and thoughts of self-harm, [your country likely has many resources you can reach out to for free help.](https://en.wikipedia.org/wiki/List_of_suicide_crisis_lines)
+> If you or anyone you know is suffering with mental health and thoughts of self-harm, [your country likely has many resources you can reach out to for free help.](https://meta.wikimedia.org/wiki/Mental_health_resources)
 
 Be well,
 
