@@ -2,14 +2,14 @@
 {
     title: "Confronting Career Inequalities",
     description: "Reflecting on the disparities in pay and respect in the tech industry.",
-    published: "2025-12-22T13:45:00.284Z",
+    published: "2025-12-09T13:45:00.284Z",
     tags: ['leadership', 'opinion'],
     licensew: 'cc-by-4',
     order: 2
 }
 ---
 
-Early on into becoming a VP I had a friend who was a COO for a much more successful company being paid 30% less than I was. Why? He's a better engineer than I am. After all, why would he be a C-suite instead of my "lowly" VP role (my words) if he wasn't better than me?
+Early on in becoming a VP, I had a friend who was a COO for a much more successful company being paid 30% less than I was. Why? He's a better engineer than I am. After all, why would he be a C-suite instead of my "lowly" VP role (my words) if he wasn't better than me?
 
 From his perspective it was a "matter of timing" as to why he was C-suite and why I was a VP; he got in earlier to his respective company and as a result had more sway into which particular role he was placed within. This, in part, helped explain the gap in pay in my mind - he hadn't yet had his payment catch up to his success.
 
@@ -45,13 +45,13 @@ $$
 
 Is how you calculate "Revenue per employee" or "RPE" for short.
 
-Compare and contrast Apple's RPE of \$2.5M with [the average RPE of \$170K for other professional services](https://www.statista.com/statistics/934306/professional-services-worldwide-revenue-per-employee/) and you'll see why companies want to retain their talent within this highly lucrative space.
+Compare and contrast Apple's RPE of \$2.5M with [the average RPE of \$170K for other professional services,](https://www.statista.com/statistics/934306/professional-services-worldwide-revenue-per-employee/) and you'll see why companies want to retain their talent within this highly lucrative space.
 
 Whether you think this is right or wrong, the tech space is valued at a disproportionate rate than other industries.
 
 -----
 
-While it's not inherently our responsibilities to solve this constraint, it is our duty to acknowledge this gap in compensation amongst our teams. When in leadership, we'll find ourselves managing budget, delegating pay to our team, and balancing these factors to ensure that work is produced at a net-positive for our organization.
+While it's not inherently our responsibility to solve this constraint, it is our duty to acknowledge this gap in compensation amongst our teams. When in leadership, we'll find ourselves managing budget, delegating pay to our team, and balancing these factors to ensure that work is produced at a net-positive for our organization.
 
 To some, even acknowledging this fact can come off as egotistical. I find myself consistently questioning my worth on a team. I'm never the smartest person in the room and am seldomly even amongst the top percentile of folks when it comes to engineering capabilities.
 
