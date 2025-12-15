@@ -2,7 +2,7 @@
 {
     title: "Terraform: From Zero to Hero",
     description: "A guide to learning Terraform from scratch, including key concepts, setup, and workflow.",
-    published: "2025-12-03",
+    published: "2025-12-14",
     tags: ["terraform", "aws", "devops", "infrastructure-as-code"],
     license: "cc-by-4"
 }
