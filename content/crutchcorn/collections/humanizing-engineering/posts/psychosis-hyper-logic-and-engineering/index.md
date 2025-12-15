@@ -343,6 +343,9 @@ I'm extremely fortunate to have seen the success in my life that many others wou
 
 -----------------------
 
+> **Disclaimer:**
+>
+> This section deals with some very heavy modern-day psychosis episodes and some unfortunate and distressing statistics around those that share my mental health.
 
 And these statistics don't disappear simply because I've become successful. Success is not a permanent fixture in one's life; at any moment I could be laid off, fired, or anything in-between.
 
