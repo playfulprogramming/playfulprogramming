@@ -1,8 +1,8 @@
 ---
 {
-    title: "Trauma and Tech",
+    title: "Psychosis, Hyper-Logic, and Engineering",
     description: "A personal story about trauma, mental health, and how technology helped me survive long-term.",
-    published: "2026-01-05T13:45:00.284Z",
+    published: "2025-12-14T13:45:00.284Z",
     tags: [],
     license: 'cc-by-4',
     order: 3
