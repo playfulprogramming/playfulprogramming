@@ -31,7 +31,7 @@ function useScroll() {
 }
 
 export function usePosition() {
-  const position = useState(() => ({ current: null }));
+  const position = useState(() => ({ current: null }))[0];
 
   position.current = useScroll();
 

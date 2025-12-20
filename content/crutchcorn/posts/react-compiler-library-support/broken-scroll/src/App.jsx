@@ -5,7 +5,7 @@ function ShowScroll({ position }) {
   // doesn't follow the rules of React, it cannot know that `position` needs to be revalidated
   // on certain conditions. As such, it's perma-stuck on the first state (undefined) instead
   // of the updated state of the scroll position
-  const scrollY = position.current.scollY;
+  const scrollY = position.current.scrollY;
 
   return (
     <div>
