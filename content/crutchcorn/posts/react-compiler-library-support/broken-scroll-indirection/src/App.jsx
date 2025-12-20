@@ -2,7 +2,7 @@ import { usePosition } from './useScroll';
 
 function ShowScroll({ position }) {
   return (
-    <p >
+    <p>
       {position.current.scrollY}
     </p>
   );
