@@ -243,12 +243,56 @@ If you run the same ESLint rules over this code, you won't find any issues repor
 
 <iframe data-frame-title="Broken Scroll Indirection Demo - StackBlitz" src="pfp-code:./broken-scroll-indirection?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
+# How to detect _all_ Compiler errors
+
+What's worse than ESLint not catching things, React Compiler will not report these issues to you by default. Instead, in many instances it will choose to bypass optimizations of your components silently.
+
+Luckily, the React team has [a `panicThreshold` flag you can enable in your Compiler settings to have React report these issues more consistently](https://react.dev/reference/react-compiler/panicThreshold):
+
+```javascript
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          ['babel-plugin-react-compiler', { panicThreshold: 'all_errors' }],
+        ],
+      },
+    }),
+  ],
+});
+```
+
+![Vite showing an error to the browser about `position.current` being mutated](./compiler_error.jpg)
+
+This helps immensely in debugging library code that might have ESLint reporting problems in some capacity or another.
+
+Likewise, if you want to simulate Babel ignoring the transform of your installed library (as it would when it's in `node_modules`), you can simply add your library code to `{babel: {exclude: []}}` like so:
+
+```jsx
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          ['babel-plugin-react-compiler', { panicThreshold: 'all_errors' }],
+        ],
+        // Simulate `useScroll` being in a dependency, therefore not covered by Babel
+        exclude: ['src/useScroll.js'],
+      },
+    }),
+  ],
+});
+```
+
+# Fixing the bug
 
 
-------
 
-
-
-- Use `panicThreshold` in compiler to validate functionality and see where things are skipped
-- `exclude` files to simulate files being part of a library
 - The long-term fix is to allow for mutations to `position` when things are changing.

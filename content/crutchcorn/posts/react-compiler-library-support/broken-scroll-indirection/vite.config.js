@@ -5,9 +5,7 @@ export default defineConfig({
   plugins: [
     react({
       babel: {
-        plugins: [
-          ['babel-plugin-react-compiler', { panicThreshold: 'all_errors' }],
-        ],
+        plugins: ['babel-plugin-react-compiler'],
         // Simulate `useScroll` being in a dependency, therefore not covered by Babel
         exclude: ['src/useScroll.js'],
       },
