@@ -293,6 +293,27 @@ export default defineConfig({
 
 # Fixing the bug
 
+The long-term fix for these kinds of problems is to do what the compiler suggests and avoid mutating `position` here:
 
+```jsx
+export function usePosition() {
+  const basePosition = useState(() => ({ current: null }))[0];
 
-- The long-term fix is to allow for mutations to `position` when things are changing.
+  const scroll = useScroll();
+  
+  const position = useMemo(() => {
+    return {
+      ...basePosition,
+      current: scroll
+    }
+  }, [scroll, basePosition]);
+  
+  return position;
+}
+```
+
+This might seem bad for some performance edgecases until you realize that the React Compiler should handle almost all performance hiccups you might anticipate from creating a new `position` object on each scroll. In particular, it should handle:
+
+- Preventing re-renders of un-needed nodes
+- Memoizing usage of `position.current.scrollY` for you
+- And more
