@@ -14,7 +14,7 @@ While it required us to [rethink some strategies we were relying on for internal
 
 After all, we could test against our examples and didn't see any issues present. It wasn't until much later when [we got a report of an issue with turnaries and compiler issues](https://github.com/TanStack/form/issues/1832) that we took a second look at things to revalidate our Compiler support.
 
-# Foundation
+# Finding edgecases when React Compiler is enabled
 
 Without going too far into our codebase, this is the gist of what we were doing wrong, recontextualized as a scroll listener hook:
 
@@ -165,7 +165,7 @@ Here, we see that `position.current.scrollY` itself is being compared by referen
 
 This explains why our code broke in some edgecases but not others.
 
-## Why didn't ESLint catch this?
+# Why didn't ESLint catch this?
 
 While this particular instance is flagged by ESLint:
 
@@ -181,9 +181,23 @@ Modifying a value returned from 'useState()', which should not be modified direc
   39 | }  react-hooks/immutability
 ```
 
-The way our code was written did not seem to be covered by React's ESLint rules at the time.
+The way our code was written did not seem to be covered by React's ESLint rules at the time. See, TanStack Form utilizes classes that contain all of the library logic. These classes lives outside of the framework and are then glued back into a given framework via manual re-renders (ala [`useSyncExternalStore`](https://react.dev/reference/react/useSyncExternalStore)).
 
-```
+> **Why we use classes for library logic:**
+>
+> This enables us to write all core logic once while supporting many frameworks outside of React at once. As such, TanStack Form is able to currently support:
+>
+> - [React](https://tanstack.com/form/latest/docs/framework/react/quick-start)
+> - [Angular](https://tanstack.com/form/latest/docs/framework/angular/quick-start)
+> - [Vue](https://tanstack.com/form/latest/docs/framework/vue/quick-start)
+> - [Solid](https://tanstack.com/form/latest/docs/framework/solid/quick-start)
+> - [Lit](https://tanstack.com/form/latest/docs/framework/lit/quick-start)
+> - [Svelte](https://tanstack.com/form/latest/docs/framework/svelte/quick-start)
+> - And more in the near future.
+
+Here's a simplied view of how the scroll handler example above might be rewritten using this pattern:
+
+```jsx
 import { useLayoutEffect, useMemo, useReducer } from 'react';
 
 class ScrollHandler {
@@ -215,6 +229,7 @@ export function usePosition() {
   const [_, rerender] = useReducer(() => ({}), {});
   const scrollHandler = useMemo(() => ({current: new ScrollHandler(rerender)}), [rerender]);
 
+  // Using `useLayoutEffect` for simplicity
   useLayoutEffect(() => {
     const cleanup = scrollHandler.current.mount();
     return () => cleanup();
@@ -223,6 +238,10 @@ export function usePosition() {
   return scrollHandler;
 }
 ```
+
+If you run the same ESLint rules over this code, you won't find any issues reported.
+
+<iframe data-frame-title="Broken Scroll Indirection Demo - StackBlitz" src="pfp-code:./broken-scroll-indirection?template=node&embed=1&file=src%2FApp.jsx"></iframe>
 
 
 
