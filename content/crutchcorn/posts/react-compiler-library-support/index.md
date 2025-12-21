@@ -1,7 +1,7 @@
 ---
 {
-  title: "Nuances in React Compiler Library Support",
-  description: "",
+  title: "Adapting Library Logic for React Compiler",
+  description: "A deep dive into debugging React Compiler issues involving object mutation and referential stability.",
   published: "2026-07-07T05:12:03.284Z",
   tags: ["react", "javascript", "webdev"],
   license: "cc-by-nc-sa-4",
