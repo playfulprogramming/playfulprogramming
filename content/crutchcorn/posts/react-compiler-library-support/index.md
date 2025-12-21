@@ -12,7 +12,7 @@ Being the lead maintainer of TanStack Form, I wanted to make sure that we suppor
 
 While it required us to [rethink some strategies we were relying on for internal code authoring](https://github.com/TanStack/form/pull/1035), it seemed to me that we were successful in that endeavor after some testing and user feedback.
 
-After all, we could test against our examples and didn't see any issues present. It wasn't until much later when [we got a report of an issue with turnaries and compiler issues](https://github.com/TanStack/form/issues/1832) that we took a second look at things to revalidate our Compiler support.
+After all, we could test against our examples and didn't see any issues present. It wasn't until much later when [we got a report of an issue with ternaries and compiler issues](https://github.com/TanStack/form/issues/1832) that we took a second look at things to revalidate our Compiler support.
 
 # Finding edgecases when React Compiler is enabled
 
@@ -124,7 +124,7 @@ export default function ScrollPosition() {
 }
 ```
 
-We can see that `t0` is defined as a memoized `<ShowScroll>` element that is not updated until `position`'s [referencial stability](/posts/object-mutation#mutation) has changed.
+We can see that `t0` is defined as a memoized `<ShowScroll>` element that is not updated until `position`'s [referential stability](/posts/object-mutation#mutation) has changed.
 
 Compare and contrast to the code generated when we have:
 
@@ -195,7 +195,7 @@ The way our code was written did not seem to be covered by React's ESLint rules 
 > - [Svelte](https://tanstack.com/form/latest/docs/framework/svelte/quick-start)
 > - And more in the near future.
 
-Here's a simplied view of how the scroll handler example above might be rewritten using this pattern:
+Here's a simplified view of how the scroll handler example above might be rewritten using this pattern:
 
 ```jsx
 import { useLayoutEffect, useMemo, useReducer } from 'react';
