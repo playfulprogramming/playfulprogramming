@@ -20,7 +20,7 @@ Without going too far into our codebase, this is the gist of what we were doing 
 
 ```jsx
 export function usePosition() {
-  const position = useState(() => ({ current: null }));
+  const position = useState(() => ({ current: null }))[0];
 
   // `useScroll` is a hook that subscribes to scroll events
   // and gives the current scroll position
@@ -30,13 +30,140 @@ export function usePosition() {
 }
 ```
 
+When this hook is used in a parent component:
 
+```jsx
+export default function ScrollPosition() {
+  const position = usePosition();
 
+  return <div style={{ position: 'fixed', top: '1rem', left: '1rem' }}>
+    <p>
+      {position.current.scrollY}
+    </p>
+  </div>;
+}
+```
 
+Things seem to work fine, even with the React Compiler enabled.
 
+However, move the `position` to a child component:
 
+```jsx
+function ShowScroll({ position }) {
+  return (
+    <p>
+      {position.current.scrollY}
+    </p>
+  );
+}
+
+export default function ScrollPosition() {
+  const position = usePosition();
+
+  return <div style={{ position: 'fixed', top: '1rem', left: '1rem' }}>
+    <ShowScroll position={position} />
+  </div>;
+}
+
+```
+
+And suddenly the `position.current.scrollY` doesn't update anymore.
 
 <iframe data-frame-title="Broken Scroll Demo - StackBlitz" src="pfp-code:./broken-scroll?template=node&embed=1&file=src%2FApp.jsx"></iframe>
+
+If we look at a minimal version of this code [compiled through the React Compiler](https://playground.react.dev/), we get:
+
+```jsx
+import { c as _c } from "react/compiler-runtime";
+import { usePosition } from "./useScroll";
+
+function ShowScroll(t0) {
+  const $ = _c(2);
+  const { position } = t0;
+  let t1;
+  if ($[0] !== position.current.scrollY) {
+    t1 = <p>{position.current.scrollY}</p>;
+    $[0] = position.current.scrollY;
+    $[1] = t1;
+  } else {
+    t1 = $[1];
+  }
+  return t1;
+}
+
+export default function ScrollPosition() {
+  const $ = _c(2);
+  const position = usePosition();
+  let t0;
+  if ($[0] !== position) {
+    t0 = <ShowScroll position={position} />;
+    $[0] = position;
+    $[1] = t0;
+  } else {
+    t0 = $[1];
+  }
+  return t0;
+}
+```
+
+If we then focus on `ScrollPosition`:
+
+```jsx {5-7,10,12}
+export default function ScrollPosition() {
+  const $ = _c(2);
+  const position = usePosition();
+  let t0;
+  if ($[0] !== position) {
+    t0 = <ShowScroll position={position} />;
+    $[0] = position;
+    $[1] = t0;
+  } else {
+    t0 = $[1];
+  }
+  return t0;
+}
+```
+
+We can see that `t0` is defined as a memoized `<ShowScroll>` element that is not updated until `position`'s [referencial stability](/posts/object-mutation#mutation) has changed.
+
+Compare and contrast to the code generated when we have:
+
+```jsx
+import { usePosition } from './useScroll';
+
+export default function ScrollPosition() {
+  const position = usePosition();
+
+   return (
+    <p>
+      {position.current.scrollY}
+    </p>
+  );
+}
+```
+
+```jsx {8}
+import { c as _c } from "react/compiler-runtime";
+import { usePosition } from "./useScroll";
+
+export default function ScrollPosition() {
+  const $ = _c(2);
+  const position = usePosition();
+  let t0;
+  if ($[0] !== position.current.scrollY) {
+    t0 = <p>{position.current.scrollY}</p>;
+    $[0] = position.current.scrollY;
+    $[1] = t0;
+  } else {
+    t0 = $[1];
+  }
+  return t0;
+}
+```
+
+Here, we see that `position.current.scrollY` itself is being compared by reference rather than the `position` object.
+
+This explains why our code broke in some edgecases but not others.
 
 ## Why didn't ESLint catch this?
 
@@ -45,7 +172,7 @@ While this particular instance is flagged by ESLint:
 ```shell
 Modifying a value returned from 'useState()', which should not be modified directly. Use the setter function to update instead.
 
-  34 |   const position = useState(() => ({ current: null }));
+  34 |   const position = useState(() => ({ current: null }))[0];
   35 |
 > 36 |   position.current = useScroll();
      |   ^^^^^^^^ value cannot be modified
