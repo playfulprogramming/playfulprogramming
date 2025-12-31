@@ -11,7 +11,9 @@ import location from "src/icons/location.svg?raw";
 import { LargeButton } from "components/index";
 import * as data from "utils/data";
 import { Icon } from "astro-icon/components";
-let classIsFull = true;
+let submissionsClosed =
+	"Our class is full, and we’re grateful for the overwhelming response!";
+// on Jan 6 2025 change to: This class has already started.
 ---
 
 <div class={style.contain}>
@@ -67,7 +69,7 @@ let classIsFull = true;
 
 					<div class={style.applyContainer}>
 						{
-							!classIsFull ? (
+							!submissionsClosed ? (
 								<div class={style.applyContainer}>
 									<LargeButton
 										tag="a"
@@ -89,8 +91,7 @@ let classIsFull = true;
 											"text-style-headline-6" + " " + style.classIsFullText
 										}
 									>
-										Our class is full, and we’re grateful for the overwhelming
-										response!
+										{submissionsClosed}
 									</p>
 									<p class="text-style-headline-8">
 										Join our Discord to stay connected for future cohorts!
