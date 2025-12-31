@@ -11,7 +11,7 @@ import location from "src/icons/location.svg?raw";
 import { LargeButton } from "components/index";
 import * as data from "utils/data";
 import { Icon } from "astro-icon/components";
-let classIsFull = true;
+let classIsFull = false;
 ---
 
 <div class={style.contain}>
@@ -68,7 +68,7 @@ let classIsFull = true;
 					<div class={style.applyContainer}>
 						{
 							!classIsFull ? (
-								<div>
+								<div class={style.applyContainer}>
 									<LargeButton
 										tag="a"
 										href="https://forms.gle/bit3S6cya17S7JpFA"

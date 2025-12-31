@@ -150,7 +150,6 @@
 .applyContainer {
 	display: flex;
 	flex-wrap: wrap;
-    flex-direction: column;
 	@include from($tabletSmall) {
 		flex-wrap: nowrap;
 	}
