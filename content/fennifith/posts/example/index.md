@@ -232,6 +232,8 @@ Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\tim
 
 # Quiz Components
 
+Here are the rules—get the answer right or else 😈
+
 <!-- ::start:quiz-radio -->
 ## Based on what you’ve seen: Why does JS? {#why-does-js}
 - ( ) Option 1 {#1}
@@ -239,3 +241,37 @@ Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\tim
 - ( ) Option 3 {#3}
 - ( ) Option 4 {#4}
 <!-- ::end:quiz-radio -->
+
+Cool text between the section I love teaching yipee
+
+[link](#why-does-js)
+
+<!-- ::start:quiz-radio -->
+## Why did you do that
+- ( ) I'm sorry 
+- ( ) it was a continuous lapse of judgement
+- ( ) I didn't mean it
+- (x) I didn't do it
+- (x) You'll have to talk to my lawyer
+<!-- ::end:quiz-radio -->
+
+<!-- ::start:quiz-radio -->
+## don't touch me!
+- (x) *adds vertical padding so questions don't touch*
+- ( ) `code`
+- ( ) _bold_
+- ( ) rreally long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long eally long really long
+<!-- ::end:quiz-radio -->
+
+<!-- graceful failures
+- ( ) [link](#hi)
+- ( ) ![link](#hi)
+- ( ) - sub list
+- ( ) 1. sub list
+- ( ) # headings
+
+multiple lists in one radio
+
+non lists in the radio
+
+ -->
