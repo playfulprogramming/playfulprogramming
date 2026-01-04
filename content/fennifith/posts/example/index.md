@@ -230,3 +230,12 @@ Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\tim
 
 <a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>
 
+# Quiz Components
+
+<!-- ::start:quiz-radio -->
+## Based on what you’ve seen: Why does JS? {#why-does-js}
+- ( ) Option 1 {#1}
+- (x) Option 2 {#2}
+- ( ) Option 3 {#3}
+- ( ) Option 4 {#4}
+<!-- ::end:quiz-radio -->
