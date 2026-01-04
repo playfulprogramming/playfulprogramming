@@ -64,12 +64,14 @@ export const transformQuizRadio: RehypeFunctionComponent = ({ children }) => {
 		localChildren.push(child);
 	}
 
-	return QuizRadio({
-		id: questionId,
-		title,
-		options,
-		numberOfVotes: 23,
-		numberOfCorrectVotes: 13,
-		children: localChildren,
-	});
+	return [
+		QuizRadio({
+			id: questionId,
+			title,
+			options,
+			numberOfVotes: 23,
+			numberOfCorrectVotes: 13,
+			children: localChildren,
+		}),
+	];
 };
