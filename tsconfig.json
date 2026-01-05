@@ -30,6 +30,6 @@
 		},
 		"types": ["@testing-library/jest-dom"]
 	},
-	"include": [".astro/types.d.ts", ".astro/icon.d.ts", "**/*"],
+	"include": [".astro/types.d.ts", ".astro/icon.d.ts", "**/*", "e2e-tests/**/*.ts"],
 	"exclude": ["dist", "content"]
 }

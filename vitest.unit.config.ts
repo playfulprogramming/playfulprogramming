@@ -1,5 +1,6 @@
 import { defineConfig } from "vitest/config";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { BASE_EXCLUDES } from "./vitest-constants";
 
 export default defineConfig({
 	plugins: [tsconfigPaths()],
@@ -7,15 +8,7 @@ export default defineConfig({
 		setupFiles: ["__mocks__/setup.ts"],
 		globals: true,
 		environment: "jsdom",
-		exclude: [
-			"**/content/**",
-			"**/node_modules/**",
-			"**/dist/**",
-			"**/cypress/**",
-			"**/e2e-tests/**",
-			"**/.{idea,git,cache,output,temp}/**",
-			"**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build,eslint,prettier}.config.*",
-		],
+		exclude: ["**/e2e-tests/**", ...BASE_EXCLUDES],
 	},
 	resolve: {
 		alias: {
