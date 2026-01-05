@@ -1,4 +1,4 @@
-import { test, expect } from "vitest";
+import { expect, test } from "@test-utils";
 import { renderHook } from "@testing-library/preact";
 import { usePagination } from "./use-pagination";
 

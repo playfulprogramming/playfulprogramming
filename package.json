@@ -53,6 +53,7 @@
 		"@octokit/graphql": "^9.0.1",
 		"@orama/orama": "^3.1.13",
 		"@playwright/test": "^1.57.0",
+		"@preact/preset-vite": "^2.10.2",
 		"@react-types/shared": "^3.32.0",
 		"@remark-embedder/core": "^3.0.2",
 		"@remark-embedder/transformer-oembed": "^5.0.1",
@@ -73,6 +74,7 @@
 		"@typescript-eslint/eslint-plugin": "^8.42.0",
 		"@typescript-eslint/parser": "^8.42.0",
 		"@vercel/node": "^5.3.21",
+		"@vitest/browser-playwright": "^4.0.16",
 		"astro": "^5.13.5",
 		"astro-eslint-parser": "^1.2.2",
 		"astro-icon": "^1.1.5",
@@ -101,7 +103,7 @@
 		"katex": "^0.16.22",
 		"kleur": "^4.1.5",
 		"lint-staged": "^16.1.6",
-		"msw": "^2.11.1",
+		"msw": "^2.12.7",
 		"octokit": "^5.0.3",
 		"openapi-typescript": "^7.9.1",
 		"plausible-tracker": "^0.3.8",
@@ -140,7 +142,8 @@
 		"unist-util-visit": "^5.0.0",
 		"vfile": "^6.0.3",
 		"vite-tsconfig-paths": "^5.1.4",
-		"vitest": "^3.2.4"
+		"vitest": "^4.0.16",
+		"vitest-browser-preact": "^1.0.0"
 	},
 	"lint-staged": {
 		"*.{js,ts,astro}": "eslint --cache --fix",
@@ -170,5 +173,10 @@
 			"react": "npm:@preact/compat@18.3.1",
 			"react-dom": "npm:@preact/compat@18.3.1"
 		}
+	},
+	"msw": {
+		"workerDirectory": [
+			"public"
+		]
 	}
 }

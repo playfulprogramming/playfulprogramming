@@ -79,6 +79,19 @@ export default tseslint.config(
 		rules: pfpTypeScriptRules,
 	},
 
+	{
+		files: ["**/*.test.*", "**/*.spec.*", "__mocks__/**/*.ts"],
+		rules: {
+			"no-restricted-syntax": [
+				"error",
+				{
+					selector: "ImportDeclaration[source.value='vitest']",
+					message: "Import test helpers from '@test-utils' instead of importing from 'vitest'",
+				},
+			],
+		},
+	},
+
 	// Astro script configuration
 	{
 		files: ["**/*.astro/*.js", "*.astro/*.js"],

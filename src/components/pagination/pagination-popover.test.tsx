@@ -1,4 +1,4 @@
-import { test, vi, expect } from "vitest";
+import { vi, expect, test } from "@test-utils";
 import { render, waitFor } from "@testing-library/preact";
 import { PaginationMenuAndPopover } from "./pagination-popover";
 

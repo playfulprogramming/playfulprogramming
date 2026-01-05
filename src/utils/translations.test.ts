@@ -1,4 +1,4 @@
-import { describe, test, expect } from "vitest";
+import { describe, expect, test } from "@test-utils";
 import { Languages } from "types/index";
 import * as translations from "./translations";
 

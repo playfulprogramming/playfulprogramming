@@ -128,7 +128,8 @@ try {
 const i18n: Partial<Record<Languages, Map<string, string>>> =
 	Object.fromEntries(
 		Object.entries(i18nFiles).map(([file, content]) => [
-			basename(file).split(".")[0],
+			// Use a browser-safe basename implementation instead of Node's `path.basename`
+			(file.split("/").pop() || file).split(".")[0],
 			new Map(Object.entries(content.default)),
 		]),
 	);
