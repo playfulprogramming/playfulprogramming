@@ -212,7 +212,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 			const filteredTags = tags.filter(([_, count]) => count >= 3);
 
 			return Object.fromEntries(filteredTags.length > 5 ? filteredTags : tags);
-		}, [isWildcardSearch, data.tags]),
+		}, [isWildcardSearch, data.tags, people.tags]),
 	);
 	const authorCounts = usePersistedEmptyRef(
 		isWildcardSearch
