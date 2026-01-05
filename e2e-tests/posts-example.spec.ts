@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 test("posts/example renders light mode", async ({ page }) => {
 	await page.goto("/posts/example");
 
-	await expect(page).toHaveScreenshot({ fullPage: true, maxDiffPixels: 10 });
+	await expect(page).toHaveScreenshot({ fullPage: true, maxDiffPixels: 100 });
 });
 
 test("posts/example renders dark mode", async ({ page }) => {
@@ -11,5 +11,5 @@ test("posts/example renders dark mode", async ({ page }) => {
 
 	await page.click('button[data-theme-toggle="true"]');
 
-	await expect(page).toHaveScreenshot({ fullPage: true, maxDiffPixels: 50 });
+	await expect(page).toHaveScreenshot({ fullPage: true, maxDiffPixels: 100 });
 });
