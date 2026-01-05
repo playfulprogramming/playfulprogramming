@@ -1,4 +1,4 @@
-import { vi, expect, test } from "@test-utils";
+import { vi, expect, test } from "ui-test-utils";
 import { render } from "@testing-library/preact";
 import { userEvent } from "@testing-library/user-event";
 import { Pagination } from "./pagination";

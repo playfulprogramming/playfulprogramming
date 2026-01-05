@@ -1,5 +1,5 @@
 /* eslint-disable no-var */
-import { test, beforeEach, describe, expect, vi, worker } from "@test-utils";
+import { test, beforeEach, describe, expect, vi, worker } from "ui-test-utils";
 import {
 	findByText as findByTextFrom,
 	render,

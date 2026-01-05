@@ -80,13 +80,25 @@ export default tseslint.config(
 	},
 
 	{
-		files: ["**/*.test.*", "**/*.spec.*", "__mocks__/**/*.ts"],
+		files: ["**/*.ui.spec.{ts,tsx}"],
 		rules: {
 			"no-restricted-syntax": [
 				"error",
 				{
 					selector: "ImportDeclaration[source.value='vitest']",
-					message: "Import test helpers from '@test-utils' instead of importing from 'vitest'",
+					message: "Import test helpers from 'ui-test-utils' instead of importing from 'vitest'",
+				},
+			],
+		},
+	},
+	{
+		files: ["**/*.node.spec.ts"],
+		rules: {
+			"no-restricted-syntax": [
+				"error",
+				{
+					selector: "ImportDeclaration[source.value='ui-test-utils']",
+					message: "Import test helpers from 'vitest' instead",
 				},
 			],
 		},
