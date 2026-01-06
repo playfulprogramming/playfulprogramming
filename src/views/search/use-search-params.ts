@@ -17,7 +17,7 @@ export function useSearchParams<T>(
 			// Set the title from the initial params when the page is first loaded
 			document.title = getPageTitle(deserialize(urlParams));
 		}
-	}, []);
+	});
 
 	const pushHistoryState = useMemo(() => {
 		// Debounce any calls to pushState to avoid spamming the history API
@@ -25,7 +25,7 @@ export function useSearchParams<T>(
 			(urlParams: URLSearchParams) => {
 				const currentUrl = new URL(window.location.href).toString();
 				const newUrl = new URL(
-					"?" + urlParams.toString(),
+					`?${  urlParams.toString()}`,
 					window.location.href,
 				).toString();
 
