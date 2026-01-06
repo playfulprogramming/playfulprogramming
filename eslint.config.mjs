@@ -71,6 +71,7 @@ export default tseslint.config(
 			"no-unused-vars": "off",
 			"no-mixed-spaces-and-tabs": "off",
 			"no-useless-escape": "off",
+			"react/no-danger": "off",
 		},
 	},
 

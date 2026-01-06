@@ -110,7 +110,7 @@ export const CustomCalendarCell = forwardRef(
 					return isSelected;
 				},
 			};
-		}, [baseState]);
+		}, [baseState, isSelected]);
 
 		// Do our best to preserve the base state's hook data when it is requested
 		const proxy = new Proxy(
@@ -353,7 +353,7 @@ function CustomCalendarCellWrapper({
 				dayjs(date.toDate(state.timeZone)).isSame(block.starts_at, "date"),
 			),
 		);
-	}, [events, state]);
+	}, [events, state, date]);
 
 	const isSelected = eventsForDate.length > 0;
 

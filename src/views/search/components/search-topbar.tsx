@@ -49,7 +49,7 @@ export const SearchTopbar = ({
 	useEffect(() => {
 		setSearchInput(search);
 		cancelSetSearchDebounced();
-	}, [search]);
+	}, [search, cancelSetSearchDebounced]);
 
 	const handleBlur = useCallback(
 		(e: FocusEvent) => {

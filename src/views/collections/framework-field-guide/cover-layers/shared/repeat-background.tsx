@@ -28,14 +28,17 @@ export const RepeatBackground = ({
 
 	const elRef = useRef<HTMLDivElement>();
 
-	const checkEl = useCallback((el: HTMLDivElement | undefined) => {
-		if (hasSet || !el) return;
-		setHasSet(true);
-		const repeatLocal = Math.ceil(
-			window.innerWidth / el.getBoundingClientRect().width,
-		);
-		setRepeat(repeatLocal);
-	}, []);
+	const checkEl = useCallback(
+		(el: HTMLDivElement | undefined) => {
+			if (hasSet || !el) return;
+			setHasSet(true);
+			const repeatLocal = Math.ceil(
+				window.innerWidth / el.getBoundingClientRect().width,
+			);
+			setRepeat(repeatLocal);
+		},
+		[hasSet],
+	);
 
 	useLayoutEffect(() => {
 		const fn = () => checkEl(elRef.current);
@@ -64,8 +67,9 @@ export const RepeatBackground = ({
 					...javascriptEnabledStyle,
 				}}
 			>
-				{arraySizeOfRepeat.map((_) => (
+				{arraySizeOfRepeat.map((_, i) => (
 					<div
+						key={`${svg}-${i}`}
 						aria-hidden={true}
 						style={{ marginLeft: -1 }}
 						class="repeat-background-svg-container"

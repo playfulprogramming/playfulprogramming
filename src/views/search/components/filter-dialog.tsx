@@ -45,6 +45,7 @@ const FilterDialogMobile = ({
 				{tags.map((tag, i) => {
 					return (
 						<FilterSectionItem
+							key={tag.tag}
 							count={tag.numPosts}
 							icon={
 								tag.image ? (
@@ -76,6 +77,7 @@ const FilterDialogMobile = ({
 				{authors.map((author) => {
 					return (
 						<FilterSectionItem
+							key={author.id}
 							count={author.numPosts}
 							icon={
 								<UUPicture
@@ -153,6 +155,7 @@ const FilterDialogSmallTablet = ({
 						{tags.map((tag, i) => {
 							return (
 								<FilterSectionItem
+									key={tag.tag}
 									count={tag.numPosts}
 									icon={
 										tag.image ? (
@@ -185,6 +188,7 @@ const FilterDialogSmallTablet = ({
 						{authors.map((author) => {
 							return (
 								<FilterSectionItem
+									key={author.id}
 									count={author.numPosts}
 									icon={
 										<UUPicture
@@ -239,7 +243,7 @@ export const FilterDialog = ({
 			setSelectedTags(parentFilterState.tags);
 			setSelectedAuthorIds(parentFilterState.authors);
 		}
-	}, [isOpen]);
+	}, [isOpen, parentFilterState.tags, parentFilterState.authors]);
 
 	const onFormConfirm = useCallback(
 		(returnValue?: string) => {
@@ -260,6 +264,7 @@ export const FilterDialog = ({
 			});
 		},
 		[
+			onClose,
 			filterState.authors,
 			filterState.tags,
 			parentFilterState.authors,

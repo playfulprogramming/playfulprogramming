@@ -97,7 +97,8 @@ export function FilePicker(props: FilePickerProps) {
 
 	const listItems = useMemo(() => {
 		return buildFileItems({
-			...props,
+			entries: props.entries,
+			file: props.file,
 			onFileChange: handleFileChange,
 		});
 	}, [props.entries, props.file, handleFileChange]);
@@ -109,7 +110,7 @@ export function FilePicker(props: FilePickerProps) {
 		width: 0,
 		height: 0,
 	});
-	function handleResize() {
+	const handleResize = useCallback(() => {
 		const fileRect = fileRef.current?.parentElement?.getBoundingClientRect();
 		if (!fileRect) return;
 		const height = Math.min(400, window.innerHeight * 0.5);
@@ -122,17 +123,17 @@ export function FilePicker(props: FilePickerProps) {
 			width: fileRect.width,
 			height,
 		});
-	}
+	}, []);
 
 	const handleOpenDialog = useCallback(() => {
 		handleResize();
 		setOpen(true);
-	}, []);
+	}, [handleResize]);
 
 	useEffect(() => {
 		window.addEventListener("resize", handleResize);
 		return () => window.removeEventListener("resize", handleResize);
-	});
+	}, [handleResize]);
 
 	return (
 		<>

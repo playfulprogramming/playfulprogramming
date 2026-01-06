@@ -58,7 +58,7 @@ export default function EventsPage({
 	useLayoutEffect(() => {
 		const header = document.querySelector("#header-bar") as HTMLElement;
 		setEl(header);
-	}, []);
+	}, [setEl]);
 
 	const headerHeight = size.height;
 

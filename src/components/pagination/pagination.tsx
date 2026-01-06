@@ -70,10 +70,10 @@ export const Pagination = ({
 	softNavigate,
 	testId,
 }: PaginationProps) => {
+	const { isPreviousEnabled, isNextEnabled, pages } = usePagination(page);
+
 	// if there's only one page, don't render anything
 	if (page.currentPage === 1 && page.lastPage < 2) return <></>;
-
-	const { isPreviousEnabled, isNextEnabled, pages } = usePagination(page);
 
 	return (
 		<>

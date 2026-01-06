@@ -54,26 +54,31 @@ interface AddressBarProps {
 	onReload(): void;
 }
 
-export function AddressBar(props: AddressBarProps) {
+export function AddressBar({
+	value,
+	onChange,
+	onSubmit,
+	onReload,
+}: AddressBarProps) {
 	const id = useId();
 
 	const handleSubmit = useCallback(
 		(e: Event) => {
 			e.preventDefault();
-			props.onSubmit(props.value);
+			onSubmit(value);
 		},
-		[props.value, props.onSubmit],
+		[value, onSubmit],
 	);
 
 	const handleBlur = useCallback(() => {
-		props.onSubmit(props.value);
-	}, [props.value, props.onSubmit]);
+		onSubmit(value);
+	}, [value, onSubmit]);
 
 	const handleChange = useCallback(
 		(e: ChangeEvent<HTMLInputElement>) => {
-			props.onChange(e.currentTarget.value);
+			onChange(e.currentTarget.value);
 		},
-		[props.onChange],
+		[onChange],
 	);
 
 	return (
@@ -87,7 +92,7 @@ export function AddressBar(props: AddressBarProps) {
 					id={`code-embed-input-${id}`}
 					name="address"
 					type="text"
-					value={props.value}
+					value={value}
 					onChange={handleChange}
 					onBlur={handleBlur}
 				/>
@@ -96,7 +101,7 @@ export function AddressBar(props: AddressBarProps) {
 				tag="button"
 				variant="primary"
 				aria-label="Reload"
-				onClick={props.onReload}
+				onClick={onReload}
 			>
 				<RawSvg icon={RefreshIcon} />
 			</IconOnlyButton>
@@ -208,17 +213,18 @@ interface PreviewFrameProps {
 }
 
 export function PreviewFrame(props: PreviewFrameProps) {
+	const { src, onLoad } = props;
 	const handleLoad = useCallback(
 		(e: TargetedEvent<HTMLIFrameElement>) => {
 			const src = e.currentTarget.src;
-			if (src) props.onLoad(src);
+			if (src) onLoad(src);
 		},
-		[props.onLoad],
+		[onLoad],
 	);
 
 	return (
 		<div class={style.preview}>
-			<iframe src={props.src} onLoad={handleLoad} />
+			<iframe src={src} onLoad={handleLoad} />
 		</div>
 	);
 }

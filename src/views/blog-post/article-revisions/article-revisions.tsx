@@ -101,8 +101,8 @@ export function ArticleRevisionDropdown({
 						: { left: `${popOverXY.x}px`, top: `${popOverXY.y}px` }
 				}
 			>
-				{versions.map(({ href, publishedMeta, version }, i) => (
-					<Option key={i} isSelected={href.endsWith(slug)}>
+				{versions.map(({ href, publishedMeta, version }) => (
+					<Option key={href} isSelected={href.endsWith(slug)}>
 						<a
 							class={style.item}
 							aria-current={href.endsWith(slug) ? "page" : undefined}

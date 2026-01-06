@@ -168,8 +168,8 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 			queryKey: [string, SearchQuery];
 		}) => {
 			// Analytics go brr
-			if (plausible) {
-				plausible("search", { props: { searchVal: query.searchQuery } });
+			if (window.plausible) {
+				window.plausible("search", { props: { searchVal: query.searchQuery } });
 			}
 
 			return searchForTerm(query, signal);
@@ -329,7 +329,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	useLayoutEffect(() => {
 		const header = document.querySelector("#header-bar") as HTMLElement;
 		setEl(header);
-	}, []);
+	}, [setEl]);
 
 	const headerHeight = size.height;
 
@@ -479,6 +479,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 								>
 									{data.collections.map((collection) => (
 										<CollectionCard
+											key={collection.slug}
 											collection={collection}
 											authors={collection.authors
 												.map((id) => peopleMap.get(`${id}`))

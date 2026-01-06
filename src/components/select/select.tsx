@@ -19,6 +19,7 @@ import { Button } from "components/button/button";
 import styles from "./select.module.scss";
 import checkmark from "src/icons/checkmark.svg?raw";
 import { useRef } from "preact/hooks";
+import type { RefObject } from "preact";
 import { Node } from "@react-types/shared";
 import { useReactAriaScrollGutterHack } from "src/hooks/useReactAriaScrollGutterHack";
 
@@ -213,7 +214,7 @@ export function Select<T extends object>({
 }
 
 interface ListBoxProps extends AriaListBoxOptions<unknown> {
-	listBoxRef?: React.RefObject<HTMLUListElement>;
+	listBoxRef?: RefObject<HTMLUListElement>;
 	state: ListState<unknown>;
 }
 

@@ -40,11 +40,11 @@ export function useSearchParams<T>(
 			500,
 			false,
 		);
-	}, []);
+	}, [deserialize, getPageTitle]);
 
 	useEffect(() => {
 		pushHistoryState(urlParams);
-	}, [urlParams]);
+	}, [urlParams, pushHistoryState]);
 
 	useEffect(() => {
 		const onPopState = () => {
@@ -62,7 +62,10 @@ export function useSearchParams<T>(
 		};
 	}, [setUrlParams]);
 
-	const params = useMemo(() => deserialize(urlParams), [urlParams]);
+	const params = useMemo(
+		() => deserialize(urlParams),
+		[urlParams, deserialize],
+	);
 
 	const setParams = useCallback<SetSearchParams<T>>(
 		(updater) => {

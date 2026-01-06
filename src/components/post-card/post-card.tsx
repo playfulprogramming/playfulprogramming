@@ -30,7 +30,7 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 						aria-label="Post authors"
 					>
 						{authors.map((author, i, arr) => (
-							<li class="text-style-body-small-bold">
+							<li key={author.id} class="text-style-body-small-bold">
 								<a
 									className={`${style.authorName}`}
 									href={`/people/${author.id}`}
@@ -70,7 +70,7 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 			<div className={style.spacer} />
 			<ul className={style.cardList} aria-label={"Post tags"} role="list">
 				{post.tags.map((tag) => (
-					<li>
+					<li key={tag}>
 						<Chip
 							href={`/search?${buildSearchQuery({ searchQuery: "*", filterTags: [tag] })}`}
 						>

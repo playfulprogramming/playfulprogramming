@@ -7,8 +7,6 @@ export const worker = setupWorker();
 
 const test = base.extend({
 	worker: [
-		// eslint is silly and thinks this is destructuring
-
 		async ({}, use) => {
 			await worker.start({
 				serviceWorker: { url: "/mockServiceWorker.js" },
