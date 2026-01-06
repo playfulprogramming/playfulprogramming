@@ -66,8 +66,8 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 			<p
 				className={`text-style-body-medium ${style.description}`}
 				dangerouslySetInnerHTML={{ __html: post.description }}
-			></p>
-			<div className={style.spacer}></div>
+			/>
+			<div className={style.spacer} />
 			<ul className={style.cardList} aria-label={"Post tags"} role="list">
 				{post.tags.map((tag) => (
 					<li>

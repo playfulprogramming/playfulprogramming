@@ -84,7 +84,7 @@ export default function EventsPage({
 							<span
 								className={style.filterIconContainer}
 								dangerouslySetInnerHTML={{ __html: filter }}
-							></span>
+							/>
 							<span className={`text-style-button-regular`}>Show:</span>
 						</div>
 						<RadioButtonGroup

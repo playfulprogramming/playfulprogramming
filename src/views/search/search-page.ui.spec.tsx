@@ -23,8 +23,6 @@ import { MAX_COLLECTIONS_PER_PAGE, MAX_POSTS_PER_PAGE } from "./constants";
 
 const user = userEvent.setup();
 
-
-
 beforeEach(() => {
 	// Reset URL after each test
 	window.history.replaceState({}, "", window.location.pathname);

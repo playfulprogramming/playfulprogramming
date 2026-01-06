@@ -64,7 +64,7 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 
 	let url: URL;
 	try {
-		url = new URL(anchorNode.properties.href + "");
+		url = new URL(`${anchorNode.properties.href}`);
 	} catch (e) {
 		logError(vfile, anchorNode, "Malformatted URL");
 		return;

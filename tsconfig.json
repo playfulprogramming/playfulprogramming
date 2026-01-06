@@ -27,7 +27,7 @@
 			"utils/*": ["./src/utils/*"],
 			"pfp-utils": ["./src/utils"],
 			"assets/*": ["./src/assets/*"],
-			"ui-test-utils": ["./src/ui-test-utils"],
+			"ui-test-utils": ["./src/ui-test-utils"]
 		},
 		"types": ["@testing-library/jest-dom"]
 	},

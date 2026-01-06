@@ -158,9 +158,8 @@ function LoadingStepIcon(props: { index: number; current: number }) {
 		return <RawSvg class={style.loader__icon__pending} icon={DotIcon} />;
 	} else if (props.index == props.current) {
 		return <RawSvg class={style.loader__icon__loading} icon={LoadingIcon} />;
-	} else {
-		return <RawSvg class={style.loader__icon__done} icon={CheckmarkIcon} />;
 	}
+	return <RawSvg class={style.loader__icon__done} icon={CheckmarkIcon} />;
 }
 
 interface LoadingPlaceholderProps {
@@ -228,7 +227,7 @@ export function PreviewError() {
 	return (
 		<div class={style.error}>
 			<div class={style.error__grid}>
-				<div class={style.error__background}></div>
+				<div class={style.error__background} />
 				<p class={`${style.error__heading} text-style-headline-3`}>Oh, no!</p>
 				<p class={`${style.error__message} text-style-body-large`}>
 					This project failed to load. Try using the Edit button, or switch to{" "}

@@ -71,7 +71,7 @@ export function EventChip(props: EventChipProps) {
 				<span
 					className={style.icon}
 					dangerouslySetInnerHTML={{ __html: icon }}
-				></span>
+				/>
 			) : null}
 			<span
 				className={

@@ -53,9 +53,8 @@ function usePersistedEmptyRef<T extends object>(value: T) {
 		if (Object.entries(value).length) {
 			ref.current = value;
 			return value;
-		} else {
-			return ref.current ?? value;
 		}
+		return ref.current ?? value;
 	}, [value]);
 }
 
@@ -283,7 +282,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const setContentToDisplay = useCallback(
 		(display: DisplayContentType) => {
 			setQuery(() => ({
-				display: display,
+				display,
 				page: 1, // Reset both page counters when changing filters
 			}));
 		},
@@ -301,7 +300,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const setSort = useCallback(
 		(sort: SortType) => {
 			setQuery(() => ({
-				sort: sort,
+				sort,
 				page: 1, // Reset both page counters when changing filters
 			}));
 		},
@@ -482,7 +481,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 										<CollectionCard
 											collection={collection}
 											authors={collection.authors
-												.map((id) => peopleMap.get(id + ""))
+												.map((id) => peopleMap.get(`${id}`))
 												.filter(isDefined)}
 											headingTag="h3"
 										/>
@@ -527,7 +526,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 								}}
 								page={{
 									currentPage: query.page,
-									lastPage: lastPage,
+									lastPage,
 								}}
 								getPageHref={(pageNum) => {
 									const pageParams = new URLSearchParams(

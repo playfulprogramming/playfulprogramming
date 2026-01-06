@@ -25,7 +25,7 @@ export function useSearchParams<T>(
 			(urlParams: URLSearchParams) => {
 				const currentUrl = new URL(window.location.href).toString();
 				const newUrl = new URL(
-					`?${  urlParams.toString()}`,
+					`?${urlParams.toString()}`,
 					window.location.href,
 				).toString();
 

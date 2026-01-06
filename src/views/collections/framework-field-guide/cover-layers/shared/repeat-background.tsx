@@ -75,7 +75,7 @@ export const RepeatBackground = ({
 							elRef.current = el;
 						}}
 						dangerouslySetInnerHTML={{ __html: svg }}
-					></div>
+					/>
 				))}
 			</div>
 		);

@@ -23,14 +23,13 @@ export function CodeEmbedContent(props: CodeEmbedContentProps) {
 	const codeHtmlToDisplay = props.codeHtml ?? codeHtml;
 
 	if (codeHtmlToDisplay) {
-		return <div dangerouslySetInnerHTML={{ __html: codeHtmlToDisplay }}></div>;
-	} else {
-		return (
-			<div>
-				<pre class="shiki">
-					<code>{props.code}</code>
-				</pre>
-			</div>
-		);
+		return <div dangerouslySetInnerHTML={{ __html: codeHtmlToDisplay }} />;
 	}
+	return (
+		<div>
+			<pre class="shiki">
+				<code>{props.code}</code>
+			</pre>
+		</div>
+	);
 }

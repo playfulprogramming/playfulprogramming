@@ -28,7 +28,7 @@ function sortFileItems(files: Array<DirectoryProps | FileProps>) {
 	files.sort((a, b) => {
 		if (a.isDirectory != b.isDirectory)
 			return Number(b.isDirectory) - Number(a.isDirectory);
-		else return a.name.localeCompare(b.name);
+		return a.name.localeCompare(b.name);
 	});
 
 	for (const file of files) {
