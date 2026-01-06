@@ -5,7 +5,7 @@
   tags: ['react', 'javascript'],
   coverImg: "./cover.png",
   published: "2026-01-06T22:19:00.284Z",
-  buttons: [{ text: "Let's dive in", url: "/posts/what-poor-performance-looks-like" }]
+  buttons: [{ text: "Let's dive in", url: "/posts/where-react-performance-issues-start" }]
 }
 ---
 
