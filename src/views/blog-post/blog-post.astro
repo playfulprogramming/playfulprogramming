@@ -29,6 +29,7 @@ import styles from "./blog-post.module.scss";
 import { MarkdownHtml } from "utils/markdown";
 import Content from "utils/markdown/components/content.astro";
 import KatexCss from "./katex.astro";
+import { enableQuizRadios } from "../../utils/markdown/components/quiz-radio/quiz-radio-script";
 
 export interface Props {
 	post: PostInfo;
@@ -68,6 +69,10 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 <script>
 	import { enableSmoothScrollForAnchorsToCurrentPage } from "../../utils/smooth-scroll-for-anchors-to-current-page";
 	enableSmoothScrollForAnchorsToCurrentPage();
+</script>
+<script>
+	import { enableQuizRadios } from "../../utils/markdown/components/quiz-radio/quiz-radio-script";
+	enableQuizRadios();
 </script>
 <HeadingLinkScript />
 

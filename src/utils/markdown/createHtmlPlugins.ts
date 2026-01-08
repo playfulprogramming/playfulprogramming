@@ -45,6 +45,7 @@ import { rehypeRelativePaths } from "./rehype-relative-paths";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { setMathProperty } from "./katex-css";
+import { transformQuizRadio } from "utils/markdown/components/quiz-radio/rehype-transform";
 
 const remarkEmbedderDefault =
 	(remarkEmbedder as never as { default: typeof remarkEmbedder }).default ??
@@ -116,6 +117,7 @@ export function createHtmlPlugins(unified: Processor) {
 					"no-ebook": transformNoop,
 					"only-ebook": transformVoid,
 					tabs: transformTabs,
+					["quiz-radio"]: transformQuizRadio,
 				},
 			})
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
