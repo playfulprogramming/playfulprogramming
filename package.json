@@ -48,8 +48,8 @@
 		"prepare": "husky"
 	},
 	"devDependencies": {
-		"@astrojs/check": "^0.9.4",
-		"@astrojs/preact": "^4.1.0",
+		"@astrojs/check": "^0.9.6",
+		"@astrojs/preact": "^4.1.3",
 		"@eslint/eslintrc": "^3.3.1",
 		"@eslint/js": "^9.35.0",
 		"@lesjoursfr/html-to-epub": "^4.5.2",
@@ -78,7 +78,7 @@
 		"@typescript-eslint/parser": "^8.42.0",
 		"@vercel/node": "^5.3.21",
 		"@vitest/browser-playwright": "^4.0.16",
-		"astro": "^5.13.5",
+		"astro": "^5.16.8",
 		"astro-eslint-parser": "^1.2.2",
 		"astro-icon": "^1.1.5",
 		"autoprefixer": "^10.4.21",
