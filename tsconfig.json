@@ -16,7 +16,7 @@
 		"skipLibCheck": true,
 		"jsxImportSource": "preact",
 		"allowSyntheticDefaultImports": true,
-		"lib": ["DOM"],
+		"lib": ["DOM", "es2022"],
 		"baseUrl": ".",
 		"paths": {
 			"constants/*": ["./src/constants/*"],
