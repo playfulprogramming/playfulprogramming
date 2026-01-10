@@ -21,15 +21,15 @@ jobs:
       url: ${{ steps.deploy.outputs.url }}
     steps:
       - uses: actions/checkout@v6
-      - id: deploy
-        uses: superfly/fly-pr-review-apps@1.5.0
-        with:
-          build_secrets: |
-            FLY_API_TOKEN=${{ secrets.FLY_WEB_DEPLOY_TOKEN }}
-            GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
-            HOOF_AUTH_TOKEN=${{ secrets.HOOF_AUTH_TOKEN }}
-          # TODO proper site url
-          build_args: |
-            GIT_COMMIT_REF=${{ github.ref }}
-            ENABLE_DISCOVERABILITY='false'
-            SITE_URL='https://playfulprogramming.com'
+      # - id: deploy
+      #   uses: superfly/fly-pr-review-apps@1.5.0
+      #   with:
+      #     build_secrets: |
+      #       FLY_API_TOKEN=${{ secrets.FLY_WEB_DEPLOY_TOKEN }}
+      #       GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+      #       HOOF_AUTH_TOKEN=${{ secrets.HOOF_AUTH_TOKEN }}
+      #     # TODO proper site url
+      #     build_args: |
+      #       GIT_COMMIT_REF=${{ github.ref }}
+      #       ENABLE_DISCOVERABILITY='false'
+      #       SITE_URL='https://playfulprogramming.com'
