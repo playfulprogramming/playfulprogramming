@@ -23,9 +23,8 @@ function usePersistedRef<T>(value: T | undefined) {
 		if (value !== undefined) {
 			ref.current = value;
 			return value;
-		} else {
-			return ref.current ?? value;
 		}
+		return ref.current ?? value;
 	}, [value]);
 }
 

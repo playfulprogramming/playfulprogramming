@@ -5,6 +5,7 @@ import astroParser from "astro-eslint-parser";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import eslintPluginAstro from "eslint-plugin-astro";
+import preactConfig from "eslint-config-preact";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,6 +37,25 @@ export default tseslint.config(
 	// Astro config
 	...eslintPluginAstro.configs.recommended,
 
+	preactConfig.map((config) => ({
+		...config,
+		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+	})),
+
+	{
+		files: ["**/*.{ts,tsx}"],
+		languageOptions: {
+			parser: tseslint.parser,
+			parserOptions: {
+				tsconfigRootDir: __dirname,
+			},
+			globals: {
+				...globals.node,
+				...globals.browser,
+			},
+		},
+	},
+
 	// Global settings
 	{
 		languageOptions: {
@@ -51,6 +71,7 @@ export default tseslint.config(
 			"no-unused-vars": "off",
 			"no-mixed-spaces-and-tabs": "off",
 			"no-useless-escape": "off",
+			"react/no-danger": "off",
 		},
 	},
 
@@ -72,7 +93,6 @@ export default tseslint.config(
 		files: ["**/*.ts", "**/*.tsx"],
 		languageOptions: {
 			parserOptions: {
-				projectService: true,
 				tsconfigRootDir: __dirname,
 			},
 		},
@@ -86,7 +106,8 @@ export default tseslint.config(
 				"error",
 				{
 					selector: "ImportDeclaration[source.value='vitest']",
-					message: "Import test helpers from 'ui-test-utils' instead of importing from 'vitest'",
+					message:
+						"Import test helpers from 'ui-test-utils' instead of importing from 'vitest'",
 				},
 			],
 		},

@@ -21,9 +21,8 @@ function loadLocalStorage() {
 
 	if (tabs && typeof tabs === "object") {
 		return tabs as Record<string, string>;
-	} else {
-		return {};
 	}
+	return {};
 }
 
 const selectedTabs = signal<Record<string, string>>(loadLocalStorage());

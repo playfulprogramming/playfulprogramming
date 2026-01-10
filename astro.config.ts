@@ -28,8 +28,8 @@ export default defineConfig({
 	integrations: [icon(), preact({ compat: true })],
 	server: {
 		headers: {
-			["Cross-Origin-Embedder-Policy"]: "require-corp",
-			["Cross-Origin-Opener-Policy"]: "same-origin",
+			"Cross-Origin-Embedder-Policy": "require-corp",
+			"Cross-Origin-Opener-Policy": "same-origin",
 		},
 	},
 	vite: {

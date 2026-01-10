@@ -10,11 +10,11 @@ const noIndexCollection = getAllCollections().filter(
 );
 
 function buildPostUrl(post: PostInfo) {
-	return `${post.locale === "en" ? "" : "/" + post.locale}/posts/${post.slug}`;
+	return `${post.locale === "en" ? "" : `/${post.locale}`}/posts/${post.slug}`;
 }
 
 function buildCollectionUrl(collection: CollectionInfo) {
-	return `${collection.locale === "en" ? "" : "/" + collection.locale}/collections/${collection.slug}`;
+	return `${collection.locale === "en" ? "" : `/${collection.locale}`}/collections/${collection.slug}`;
 }
 
 export const GET = () => {

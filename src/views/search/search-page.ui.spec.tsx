@@ -1,4 +1,3 @@
-/* eslint-disable no-var */
 import { test, beforeEach, describe, expect, vi, worker } from "ui-test-utils";
 import {
 	findByText as findByTextFrom,
@@ -22,8 +21,6 @@ import { ClientSearchParams, OramaClient } from "@oramacloud/client";
 import { MAX_COLLECTIONS_PER_PAGE, MAX_POSTS_PER_PAGE } from "./constants";
 
 const user = userEvent.setup();
-
-
 
 beforeEach(() => {
 	// Reset URL after each test
@@ -1033,49 +1030,59 @@ describe("Search page", () => {
 			authors: { [MockPerson.id]: 1 },
 		}));
 
-		var { getByTestId, getByText } = render(
-			<SearchPage mockClients={clients} />,
-		);
+		{
+			const { getByTestId, getByText } = render(
+				<SearchPage mockClients={clients} />,
+			);
 
-		var searchInput = getByTestId("search-input");
-		await user.type(searchInput, "*");
-		await user.type(searchInput, "{enter}");
+			const searchInput = getByTestId("search-input");
+			await user.type(searchInput, "*");
+			await user.type(searchInput, "{enter}");
 
-		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
-		await waitFor(() => expect(getByText("Two blog post")).toBeInTheDocument());
+			await waitFor(() =>
+				expect(getByText("One blog post")).toBeInTheDocument(),
+			);
+			await waitFor(() =>
+				expect(getByText("Two blog post")).toBeInTheDocument(),
+			);
 
-		var tagContainer = getByTestId("tag-filter-section-sidebar");
+			const tagContainer = getByTestId("tag-filter-section-sidebar");
 
-		const tag = await findByTextFrom(tagContainer, "Angular");
+			const tag = await findByTextFrom(tagContainer, "Angular");
 
-		await user.click(tag);
+			await user.click(tag);
 
-		var authorContainer = getByTestId("author-filter-section-sidebar");
+			const authorContainer = getByTestId("author-filter-section-sidebar");
 
-		const author = await findByTextFrom(authorContainer, MockPerson.name);
+			const author = await findByTextFrom(authorContainer, MockPerson.name);
 
-		await user.click(author);
+			await user.click(author);
 
-		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+			await waitFor(() =>
+				expect(getByText("One blog post")).toBeInTheDocument(),
+			);
 
-		cleanup();
+			cleanup();
+		}
 
 		// Re-render
-		var { getByTestId, getByText } = render(
-			<SearchPage mockClients={clients} />,
-		);
+		{
+			const { getByTestId, getByText } = render(
+				<SearchPage mockClients={clients} />,
+			);
 
-		var searchInput = getByTestId("search-input");
-		await user.type(searchInput, "*");
-		await user.type(searchInput, "{enter}");
+			const searchInput = getByTestId("search-input");
+			await user.type(searchInput, "*");
+			await user.type(searchInput, "{enter}");
 
-		var tagContainer = getByTestId("tag-filter-section-sidebar");
-		var authorContainer = getByTestId("author-filter-section-sidebar");
+			const tagContainer = getByTestId("tag-filter-section-sidebar");
+			const authorContainer = getByTestId("author-filter-section-sidebar");
 
-		expect(await findByTextFrom(tagContainer, "Angular")).toBeInTheDocument();
-		expect(
-			await findByTextFrom(authorContainer, MockPerson.name),
-		).toBeInTheDocument();
+			expect(await findByTextFrom(tagContainer, "Angular")).toBeInTheDocument();
+			expect(
+				await findByTextFrom(authorContainer, MockPerson.name),
+			).toBeInTheDocument();
+		}
 	});
 
 	test("Make sure that re-searches reset page to 1 and preserve tags, authors, etc", async () => {

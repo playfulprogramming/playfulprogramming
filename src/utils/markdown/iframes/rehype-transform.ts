@@ -68,7 +68,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					logError(file, node, "Partial error fetching URL metadata.");
 				}
 
-				const [, heightPx] = /^([0-9]+)(px)?$/.exec(height + "") || [];
+				const [, heightPx] = /^([0-9]+)(px)?$/.exec(`${height}`) || [];
 				if (Number(heightPx) < EMBED_MIN_HEIGHT) height = EMBED_MIN_HEIGHT;
 
 				const index = parent.children.indexOf(node);

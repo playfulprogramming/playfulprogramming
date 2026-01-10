@@ -90,117 +90,119 @@ interface CustomCalendarCellProps extends CalendarCellProps {
 
 // Note: This is a custom fork of the CalendarCell component from react-aria-components to
 // 	overwrite functionality for `value` to enable multiple dates being selected
-export const CustomCalendarCell = forwardRef(function CustomCalendarCell(
-	{
-		date,
-		events,
-		monthDate,
-		isSelected,
-		popupTriggerButtonProps,
-		...otherProps
-	}: CustomCalendarCellProps,
-	ref: ForwardedRef<HTMLTableCellElement>,
-) {
-	const baseState: CalendarState = useContext(CalendarStateContext);
-	const state: CalendarState = useMemo(() => {
-		return {
-			...baseState,
-			isSelected(_date: CalendarDate): boolean {
-				return isSelected;
-			},
-		};
-	}, [baseState]);
-
-	// Do our best to preserve the base state's hook data when it is requested
-	const proxy = new Proxy(
-		{},
+export const CustomCalendarCell = forwardRef(
+	(
 		{
-			// When "get", mirror the base state
-			get: (target, prop) => {
-				const baseStateHookData = hookData.get(baseState) || {};
-				return baseStateHookData[prop as keyof typeof baseState];
-			},
-			// When "set", do nothing
-			set: () => false,
-		},
-	);
-
-	// This is required, since usually you're not supposed to mutate the base state
-	// as `hookData` is a WeakMap
-	hookData.set(state, proxy as never);
-
-	const isOutsideMonth = !isSameMonth(
-		date,
-		fromDate(monthDate, state.timeZone),
-	);
-	const istoday = isToday(date, state.timeZone);
-
-	const buttonRef = useRef<HTMLDivElement>(null);
-	const { cellProps, buttonProps, ...states } = useCalendarCell(
-		{ date, isOutsideMonth },
-		state,
-		buttonRef,
-	);
-
-	const { hoverProps, isHovered } = useHover({
-		...otherProps,
-		isDisabled: states.isDisabled,
-	});
-	// eslint-disable-next-line prefer-const
-	let { focusProps, isFocusVisible } = useFocusRing();
-	isFocusVisible &&= states.isFocused;
-
-	const renderProps = useRenderProps({
-		...otherProps,
-		defaultChildren: states.formattedDate,
-		defaultClassName: "react-aria-CalendarCell",
-		values: {
 			date,
-			isHovered,
-			isOutsideMonth,
-			isFocusVisible,
-			isSelectionStart: false,
-			isSelectionEnd: false,
-			isToday: istoday,
-			...states,
-		},
-	});
+			events,
+			monthDate,
+			isSelected,
+			popupTriggerButtonProps,
+			...otherProps
+		}: CustomCalendarCellProps,
+		ref: ForwardedRef<HTMLTableCellElement>,
+	) => {
+		const baseState: CalendarState = useContext(CalendarStateContext);
+		const state: CalendarState = useMemo(() => {
+			return {
+				...baseState,
+				isSelected(_date: CalendarDate): boolean {
+					return isSelected;
+				},
+			};
+		}, [baseState, isSelected]);
 
-	const dataAttrs = {
-		"data-focused": states.isFocused || undefined,
-		"data-hovered": isHovered || undefined,
-		"data-pressed": states.isPressed || undefined,
-		"data-unavailable": states.isUnavailable || undefined,
-		"data-disabled": states.isDisabled || undefined,
-		"data-focus-visible": isFocusVisible || undefined,
-		"data-outside-visible-range": states.isOutsideVisibleRange || undefined,
-		"data-outside-month": isOutsideMonth || undefined,
-		"data-selected": states.isSelected || undefined,
-		"data-selection-start": undefined,
-		"data-selection-end": undefined,
-		"data-invalid": states.isInvalid || undefined,
-		"data-today": istoday || undefined,
-	};
+		// Do our best to preserve the base state's hook data when it is requested
+		const proxy = new Proxy(
+			{},
+			{
+				// When "get", mirror the base state
+				get: (target, prop) => {
+					const baseStateHookData = hookData.get(baseState) || {};
+					return baseStateHookData[prop as keyof typeof baseState];
+				},
+				// When "set", do nothing
+				set: () => false,
+			},
+		);
 
-	const DOMProps = filterDOMProps(otherProps as never, { global: true });
+		// This is required, since usually you're not supposed to mutate the base state
+		// as `hookData` is a WeakMap
+		hookData.set(state, proxy as never);
 
-	return (
-		<td {...cellProps} ref={ref}>
-			<div
-				{...(mergeProps(
-					DOMProps,
-					buttonProps,
-					hoverProps,
-					dataAttrs,
-					renderProps,
-					focusProps,
-					isSelected ? popupTriggerButtonProps : {},
-				) as unknown as Record<string, never>)}
-				ref={buttonRef}
-			/>
-		</td>
-	);
-});
+		const isOutsideMonth = !isSameMonth(
+			date,
+			fromDate(monthDate, state.timeZone),
+		);
+		const istoday = isToday(date, state.timeZone);
+
+		const buttonRef = useRef<HTMLDivElement>(null);
+		const { cellProps, buttonProps, ...states } = useCalendarCell(
+			{ date, isOutsideMonth },
+			state,
+			buttonRef,
+		);
+
+		const { hoverProps, isHovered } = useHover({
+			...otherProps,
+			isDisabled: states.isDisabled,
+		});
+		// eslint-disable-next-line prefer-const
+		let { focusProps, isFocusVisible } = useFocusRing();
+		isFocusVisible &&= states.isFocused;
+
+		const renderProps = useRenderProps({
+			...otherProps,
+			defaultChildren: states.formattedDate,
+			defaultClassName: "react-aria-CalendarCell",
+			values: {
+				date,
+				isHovered,
+				isOutsideMonth,
+				isFocusVisible,
+				isSelectionStart: false,
+				isSelectionEnd: false,
+				isToday: istoday,
+				...states,
+			},
+		});
+
+		const dataAttrs = {
+			"data-focused": states.isFocused || undefined,
+			"data-hovered": isHovered || undefined,
+			"data-pressed": states.isPressed || undefined,
+			"data-unavailable": states.isUnavailable || undefined,
+			"data-disabled": states.isDisabled || undefined,
+			"data-focus-visible": isFocusVisible || undefined,
+			"data-outside-visible-range": states.isOutsideVisibleRange || undefined,
+			"data-outside-month": isOutsideMonth || undefined,
+			"data-selected": states.isSelected || undefined,
+			"data-selection-start": undefined,
+			"data-selection-end": undefined,
+			"data-invalid": states.isInvalid || undefined,
+			"data-today": istoday || undefined,
+		};
+
+		const DOMProps = filterDOMProps(otherProps as never, { global: true });
+
+		return (
+			<td {...cellProps} ref={ref}>
+				<div
+					{...(mergeProps(
+						DOMProps,
+						buttonProps,
+						hoverProps,
+						dataAttrs,
+						renderProps,
+						focusProps,
+						isSelected ? popupTriggerButtonProps : {},
+					) as unknown as Record<string, never>)}
+					ref={buttonRef}
+				/>
+			</td>
+		);
+	},
+);
 
 interface CalendarDayPopupProps {
 	date: CalendarDate;
@@ -351,7 +353,7 @@ function CustomCalendarCellWrapper({
 				dayjs(date.toDate(state.timeZone)).isSame(block.starts_at, "date"),
 			),
 		);
-	}, [events, state]);
+	}, [events, state, date]);
 
 	const isSelected = eventsForDate.length > 0;
 
