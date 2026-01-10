@@ -1,0 +1,234 @@
+---
+{
+title: "TanStack Router: Setup & Routing in React",
+published: "2024-02-26T19:21:50Z",
+tags: ["react", "tutorial", "typescript", "frontend"],
+description: "Welcome to the first article of a series where we will explore TanStack Router, a new router for...",
+originalLink: "https://leonardomontini.dev/tanstack-router-setup",
+coverImage: "cover-image.png",
+socialImage: "social-image.png",
+collection: "26578",
+order: 1
+}
+---
+
+Welcome to the first article of a series where we will explore TanStack Router, a new router for React (version 1.0 released in [December 2023](https://github.com/TanStack/router/releases/tag/v1.0.0)).
+
+Should you drop your current router and switch to TanStack Router? Not necessarily, but knowing what it offers and how it works can help you make an informed decision.
+
+The core feature that sparked my curiosity is the fact that with TanStack Router **your routes are typesafe**. Yes, Typescript will let you know if you're writing code that navigates to a route that doesn't exist, for example if you're just writing it wrong or if you changed the route name and forgot to update the code somewhere.
+
+Additionally, **TanStack Router can become an actual state manager** that you can share with anyone else through... the URL! Works great for search pages with a lot of filters or dashboards with many configurable widgets. Your app will work great if your users have the need to share a link or save it on their browser's bookmarks.
+
+If you want to learn more about TanStack Router, I can recommend you have a look at the [official documentation](https://tanstack.com/router/latest/docs/framework/react/overview) and if you're interested in some topics to be expanded, well, that's what this series is for!
+
+As I usually do for my content, you can watch a video showing in detail the entire process, or keep reading below for the highlights.
+
+Enjoy!
+
+{% youtube 4sslBg8LprE %}
+
+## Setup & Navigation
+
+In this chapter we'll create an empty React app (with Typescript, obviously) and we'll add TanStack Router to it with a couple of routes. We'll also see how to navigate between them.
+
+### Project setup
+
+If you already have an app you can skip this first command. If you want to follow along with a new project, let's create it with Vite and the React template. In this case `tanstack-router-demo` will be the name of the project, you can change it to whatever you want.
+
+```bash
+npm create vite@latest tanstack-router-demo -- --template react-ts
+```
+
+Now that you have your project, let's install TanStack Router.
+
+```bash
+npm install @tanstack/router
+npm install --save-dev @tanstack/router-vite-plugin
+```
+
+The vite plugin will automagically generate the routes file definition for you, so you don't have to worry about it. You can set it up by adding it in your `vite.config.ts`, which will look like this:
+
+```ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react(), TanStackRouterVite()],
+});
+```
+
+### Routes
+
+Now that we have our project and TanStack Router installed, let's create a couple of routes. We'll have a home page and a page to show a user's profile. Before creating the two pages though, we need to define the root of our routes. Routes must be in the `src/routes` folder so let's create the files:
+
+The tree will be like:
+
+```
+src
+├── routes
+│   ├── __root.tsx
+│   ├── index.tsx
+│   └── profile.tsx
+```
+
+If you have setup the plugin correctly, by running your app with `npm run dev` you will see:
+
+1. A new file `src/routeTree.get.ts` with the routes definition.
+2. Something inside `index.tsx` and `profile.tsx` that looks like this:
+
+```tsx
+import { createFileRoute } from '@tanstack/react-router';
+
+export const Route = createFileRoute('/profile')({
+  component: () => <div>Hello /profile!</div>,
+});
+```
+
+You will see that your `__root.tsx` file is still empty. This is the file where you will define the root of your routes by using the `<Outlet />` component. Let's do that now:
+
+```tsx
+import { Outlet, createRootRoute } from '@tanstack/react-router';
+
+export const Route = createRootRoute({
+  component: () => <Outlet />,
+});
+```
+
+### Provider
+
+We're almost there! We have our routes defined, but how can React know about them? Let's replace the `App.tsx` file with the following:
+
+```tsx
+import './App.css';
+import { RouterProvider, createRouter } from '@tanstack/react-router';
+import { routeTree } from './routeTree.gen';
+
+const router = createRouter({ routeTree });
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
+}
+
+function App() {
+  return <RouterProvider router={router} />;
+}
+
+export default App;
+```
+
+With that, we created our router with `createRouter` passing it the `routeTree` that is autogenerated, we expanded the Register interface to have our types and we also created a `RouterProvider` that will make the router available to the rest of the app.
+
+### Navigation
+
+If you run your app and navigate to `http://localhost:5173/profile` you will see the message "Hello /profile!".
+
+Routes are working! But how can you navigate to them in your app? Let's go back to `__root.tsx` and add a couple of links:
+
+```tsx
+import { Link, Outlet, createRootRoute } from '@tanstack/react-router';
+
+export const Route = createRootRoute({
+  component: () => (
+    <>
+      <h1>My App</h1>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/profile">Profile</Link>
+        </li>
+      </ul>
+      <Outlet />
+    </>
+  ),
+});
+```
+
+Now you can navigate between the two pages by clicking on the links. Notice while writing the `to` prop of the `Link` component, you have autocompletion and typesafety. If you write a route that doesn't exist, you will see an error in your editor.
+
+### Active Route
+
+A very basic yet useful feature is to know which route is currently active, for example by having its link styled differently... maybe bold?
+
+With TanStack Router the `Link` component has a prop `activeProps` that you can use to pass some props to the link when it's active, for example:
+
+```tsx
+<Link to="/" activeProps={{ style: { fontWeight: 'bold' } }}>
+  Home
+</Link>
+```
+
+Now the link will be bold when you're on the home page.
+
+#### Custom Active State
+
+You can even further customize the active state by passing a function to the Link component, as by default you will have an `isActive` parameter that you can use to check if the link is active. For example:
+
+```tsx
+<Link to="/profile">{({ isActive }) => <>Profile {isActive && '~'}</>}</Link>
+```
+
+In this case, only if the link is active you will see the `~` character.
+
+With a little refactor your `__root.tsx` file might look like this:
+
+```tsx
+import { Link, Outlet, createRootRoute } from '@tanstack/react-router';
+const activeProps = {
+  style: {
+    fontWeight: 'bold',
+  },
+};
+export const Route = createRootRoute({
+  component: () => (
+    <>
+      <h1>My App</h1>
+      <ul>
+        <li>
+          <Link to="/" activeProps={activeProps}>
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link to="/profile" activeProps={activeProps}>
+            {({ isActive }) => <>Profile {isActive && '~'}</>}
+          </Link>
+        </li>
+      </ul>
+      <Outlet />
+    </>
+  ),
+});
+```
+
+## Conclusion
+
+And that was it, we now have our first example of a React app with TanStack Router. In the next chapter we'll see how to handle parameters, as always, supported by typescript.
+
+You can find the full code on [this repository](https://github.com/Balastrong/tanstack-router-demo/) on the [01-routes-and-setup branch](https://github.com/Balastrong/tanstack-router-demo/tree/01-routes-and-setup). Leave a ⭐️ if you found the demo code useful!
+
+What do you think about TanStack Router so far? Let me know in the comments.
+
+Thanks for reading this article and see you in the next chapter of the series!
+
+
+---
+
+Thanks for reading this article, I hope you found it interesting!
+
+I recently launched a GitHub Community! We create Open Source projects with the goal of learning Web Development together!
+
+Join us: https://github.com/DevLeonardoCommunity
+
+Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
+You can find it here:
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+
+Feel free to follow me to get notified when new articles are out ;)
+{% embed https://dev.to/balastrong %}
