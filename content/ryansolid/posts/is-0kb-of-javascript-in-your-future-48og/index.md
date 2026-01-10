@@ -27,7 +27,7 @@ In the past week, I've seen not one but two demo's showing how HTML Forms do POS
 
 Unsurprisingly links (`<a>` anchor tags) work as well in this condition. This isn't groundbreaking and every server-rendered library can benefit from this if they design their APIs to handle form posts. But it definitely makes for the jaw-drop demo.
 
-*Spoiler Alert -* I especially enjoyed the Remix Run demo where they didn't tell the audience they were not sending any JavaScript to the browser for the first 30 minutes. We just assumed they were building a client app. 
+*Spoiler Alert -* I especially enjoyed the Remix Run demo where they didn't tell the audience they were not sending any JavaScript to the browser for the first 30 minutes. We just assumed they were building a client app.
 
 Rich Harris, creator of Svelte, gave a very [similar demo 4 days earlier](https://youtu.be/fnr9XWvjJHw?t=19103). I'm not terribly surprised as this is core web fundamentals, and [less popular frameworks](https://github.com/rill-js/rill) have been doing the exact same thing for years even with React in tow.
 
@@ -43,7 +43,7 @@ This announcement definitely was groundbreaking. Components that only render on 
 
 What does zero bundle-size actually mean? Well, it means that you aren't shipping these components with your bundle. Keep in mind, the rendered templates are making it to the browser eventually through a serialized format. You do save sending the React code to render it though.
 
-Server components are stateless. Even so, there are big savings in not bundling for libraries like React whose code scales with template size as it creates each VDOM node one by one regardless. A stateless template in a framework like [Lit](https://lit.dev/) or [Solid](https://github.com/solidui/solid), is just a one-line DOM template clone on top of the template itself which needs to be sent anyway. 
+Server components are stateless. Even so, there are big savings in not bundling for libraries like React whose code scales with template size as it creates each VDOM node one by one regardless. A stateless template in a framework like [Lit](https://lit.dev/) or [Solid](https://github.com/solidui/solid), is just a one-line DOM template clone on top of the template itself which needs to be sent anyway.
 
 A better perspective is to view this as a new type of integrated API. At minimum what you save here is the component-specific data-processing you do after you load some data. React Server components let you naturally create a per-component API that is perfectly tailored for that component's needs. That API just might contain some markup, so to speak.
 
@@ -79,7 +79,7 @@ A lesser known gem (released back in 2014!), [Marko](https://markojs.com/) is a 
 
 Beyond the benefits in terms of DX from maintaining a single application, this opens up potential coordination of components. One such application is progressive(streaming) rendering.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/918jn6corwytcekfhqv6.gif)
+![Alt Text](./918jn6corwytcekfhqv6.gif)
 
 A loading experience like this can be coordinated between the client and server without sending a JavaScript bundle to the browser. Just because your page has data incrementally loading doesn't mean it needs a JavaScript library. Marko's out-of-order streaming with fallback placeholders needs JavaScript on the page that gets inlined as it renders. However, with in-order progressive rendering, no JavaScript still works.
 

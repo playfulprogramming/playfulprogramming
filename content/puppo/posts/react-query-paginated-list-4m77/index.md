@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 Hey Folks,
 
 Today it's time to learn how you can paginate a list with ReactQuery.
@@ -101,21 +100,20 @@ export const useTodos = (): UseTodos => {
 };
 ```
 
-As you can notice, the process to build a pagination with ReactQuery is very simple.  
+As you can notice, the process to build a pagination with ReactQuery is very simple.\
 The fetch request has to contain the page and the limit (you can handle a pagination also with limit and offset if you want) and in your `useQuery` you have to handle some simple stuff. First, the key of your query must include the page and limit too, second you must pass page and limit to your fetch request.
 
 As you can see, building a paginated list with ReactQuery is really a piece of cake, but if want to dive into it don't miss my youtube video about it
 
 {% embed https://www.youtube.com/watch?v=Ma7-hdNMdWs %}
 
-
 I think thats all from this article; I hope you enjoyed this content!
 
-See you soon folks  
+See you soon folks\
 Bye Bye 👋
 
 p.s. you can find the code of the video [**here**](https://github.com/Puppo/learning-react-query/tree/11-paginate-result)
 
-_Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto&utm_medium=referral)_
+*Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto\&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto\&utm_medium=referral)*
 
 {% embed https://dev.to/puppo %}

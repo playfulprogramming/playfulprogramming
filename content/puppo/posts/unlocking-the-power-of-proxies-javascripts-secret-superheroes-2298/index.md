@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 JavaScript's Proxy object is a powerful feature that enables you to intercept and customize operations performed on objects. This versatile tool allows developers to create more efficient and flexible code while also improving code maintainability. In this article, we will dive into the world of JavaScript proxies, explore their use cases, and provide examples for expert developers.
 
 ## A Brief Introduction to Proxies in JavaScript
@@ -57,7 +56,7 @@ console.log(proxy.fullName); // Output: "Jane Smith"
 proxy.fullName = 'Tom Smith'; // Error: fullName is not writable
 ```
 
-In this example, we defined a `get` trap in the handler object, which intercepts the property lookup operation on the target object. When a property is accessed on the proxy object, the `get` trap is invoked, and it returns the property value in uppercase if the property exists or a custom message if it doesn't.  
+In this example, we defined a `get` trap in the handler object, which intercepts the property lookup operation on the target object. When a property is accessed on the proxy object, the `get` trap is invoked, and it returns the property value in uppercase if the property exists or a custom message if it doesn't.\
 Then, we defined a `set` trap, which intercepts a property's set. If the property name is `name` or `surname` calculates the `fullName` and sets the target object with the right value, but if you try to set the `fullName` property the code raises an error.
 
 ### Use Cases for Proxies in JavaScript
@@ -108,12 +107,12 @@ proxy.message = "Goodbye, World!"; // Logs: "Setting property "message" to "Good
 
 To learn more don't miss my YouTube video about JavaScript Proxy on my [YouTube channel](https://www.youtube.com/@Puppo_92)
 
-{% embed https://www.youtube.com/watch?v=e7_lxSrP_Ok %}
+{% embed https://www.youtube.com/watch?v=e7\_lxSrP\_Ok %}
 
 ## Conclusion
 
 JavaScript's Proxy object is a powerful and versatile feature that allows developers to create more efficient and flexible code. By understanding and utilizing proxies, you can unlock their full potential and become a true JavaScript superhero.
 
-_You can find the code of this article_ [_here_](https://github.com/Puppo/javascript-you-dont-know/tree/05-proxies)_._
+*You can find the code of this article* [*here*](https://github.com/Puppo/javascript-you-dont-know/tree/05-proxies)*.*
 
 {% embed https://dev.to/puppo %}

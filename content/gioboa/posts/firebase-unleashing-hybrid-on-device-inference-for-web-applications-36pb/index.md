@@ -10,7 +10,7 @@ socialImage: "social-image.png"
 }
 ---
 
-The realm of Artificial Intelligence (AI) is rapidly evolving, bringing with it exciting new possibilities for web application development. Firebase, Google's comprehensive platform for building web and mobile apps, is at the forefront of this revolution with its new experimental feature in the AI Logic client SDK for Web: `hybrid on-device inference`. 
+The realm of Artificial Intelligence (AI) is rapidly evolving, bringing with it exciting new possibilities for web application development. Firebase, Google's comprehensive platform for building web and mobile apps, is at the forefront of this revolution with its new experimental feature in the AI Logic client SDK for Web: `hybrid on-device inference`.
 
 This innovative approach marries the power of on-device AI models with the reliability of cloud-hosted models, ensuring AI-powered features are consistently available to users, **regardless of their internet connectivity or device capabilities**.
 
@@ -19,17 +19,20 @@ This innovative approach marries the power of on-device AI models with the relia
 This capability unlocks a myriad of opportunities for developers to build intelligent applications that operate seamlessly on the user's device.
 
 ### Enhanced Privacy
+
 On-device AI ensures sensitive data remains within the user's device, eliminating the need to transmit it to the cloud for processing. This is particularly crucial for applications handling personal or confidential information, such as healthcare apps or financial tools.
 
 ### Offline Availability
+
 With on-device models, AI-powered features can function even without an internet connection. This is a game-changer for applications used in areas with limited or unreliable connectivity, like travel apps, educational tools, or field service applications.
 
 ### Cost Savings
+
 On-device inference is available at no cost, reducing the application's operational expenses. This is especially beneficial for applications with high usage or those that require frequent AI processing.
 
 ## The Power of Hybrid Inference: Best of Both Worlds
 
-The true innovation lies in the hybrid approach, combining on-device inference with cloud-hosted models. The Firebase AI Logic client SDK for Web's hybrid extension intelligently assesses on-device model availability using the proposed W3C Prompt API. 
+The true innovation lies in the hybrid approach, combining on-device inference with cloud-hosted models. The Firebase AI Logic client SDK for Web's hybrid extension intelligently assesses on-device model availability using the proposed W3C Prompt API.
 
 > If an on-device model like Gemini Nano is available, the SDK utilizes it for inference. If not, it seamlessly falls back to using Gemini models on the server. This ensures a consistent user experience across a wide range of devices and browsers.
 
@@ -72,4 +75,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Until next time 👋
 
 {% embed https://dev.to/gioboa %}
-

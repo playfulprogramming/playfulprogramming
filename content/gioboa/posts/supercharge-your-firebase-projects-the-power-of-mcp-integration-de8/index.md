@@ -20,7 +20,7 @@ Acting as an MCP Host or Client, Firebase Studio can use this universal language
 
 ## Cool Things You Can Do with MCP
 
-MCP servers basically act like bridges between AI systems and other cool online services. 
+MCP servers basically act like bridges between AI systems and other cool online services.
 Want to grab weather data, translate some text, or see if your users are feeling happy or sad?
 Need to scan your code for problems, check for security holes, or see how fast it's running?
 Hook up those tools through MCP servers and use them directly in your project! No more switching between apps – everything's in one place.
@@ -64,4 +64,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Until next time 👋
 
 {% embed https://dev.to/gioboa %}
-

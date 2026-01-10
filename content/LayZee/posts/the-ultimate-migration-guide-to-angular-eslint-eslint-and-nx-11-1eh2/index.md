@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 *Cover photo by [Anastasia Taioglou](https://unsplash.com/photos/CTivHyiTbFw) on Unsplash.*
 
 *Updated to Nx version 11.0.18.*
@@ -23,191 +22,214 @@ Let's explore different workspace configurations and discuss a few caveats. This
 > Note that as of Nx 11, generation schematics are known as *generators*, builders are known as *executors*, and architect targets are known as *targets*.
 
 # Table of contents
-* [Prerequisites](#prerequisites)
-* [Setting up a new Nx Angular workspace with angular-eslint](#setting-up-a-new-nx-angular-workspace-with-angulareslint)
-  * [Option 1: Use the empty workspace preset](#option-1-use-the-empty-workspace-preset)
-  * [Option 2: Use the angular workspace preset](#option-2-use-the-angular-workspace-preset)
-* [Migrating an existing Nx 10 Angular workspace using ESLint](#migrating-an-existing-nx-10-angular-workspace-using-eslint)
-* [Migrating an existing Nx 10 Angular workspace using TSLint](#migrating-an-existing-nx-10-angular-workspace-using-tslint)
-* [Conclusion](#conclusion)
-  * [Acknowledgements](#acknowledgements)
+
+- [Prerequisites](#prerequisites)
+- [Setting up a new Nx Angular workspace with angular-eslint](#setting-up-a-new-nx-angular-workspace-with-angulareslint)
+  - [Option 1: Use the empty workspace preset](#option-1-use-the-empty-workspace-preset)
+  - [Option 2: Use the angular workspace preset](#option-2-use-the-angular-workspace-preset)
+- [Migrating an existing Nx 10 Angular workspace using ESLint](#migrating-an-existing-nx-10-angular-workspace-using-eslint)
+- [Migrating an existing Nx 10 Angular workspace using TSLint](#migrating-an-existing-nx-10-angular-workspace-using-tslint)
+- [Conclusion](#conclusion)
+  - [Acknowledgements](#acknowledgements)
 
 # Prerequisites
 
 1. It's recommended to use Node.js 12 for Nx 11.
-1. This guide assumes that Nx CLI version 11.x is installed globally.
-1. Install Angular CLI version 11.x globally just in case.
+2. This guide assumes that Nx CLI version 11.x is installed globally.
+3. Install Angular CLI version 11.x globally just in case.
 
 # Setting up a new Nx Angular workspace with angular-eslint
+
 In this use case, we create a new Nx workspace. We can either use the `empty` workspace preset or the `angular` workspace preset.
 
 ## Option 1: Use the empty workspace preset
+
 Using the `empty` workspace preset, we use `workspace.json` version 2 which is compatible with Nx plugins targeting Nx 11 or later.
 
 1. Generate an Nx workspace.
-    First, let's create a minimal Nx workspace.
+   First, let's create a minimal Nx workspace.
 
-    Using NPM CLI:
-    ```
-    npm init nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=empty --no-nx-cloud --package-manager=npm
-    ```
+   Using NPM CLI:
 
-    Using PNPM CLI:
-    ```
-    pnpm init nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=empty --no-nx-cloud --package-manager=pnpm
-    ```
+   ```
+   npm init nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=empty --no-nx-cloud --package-manager=npm
+   ```
 
-    Using Yarn CLI:
-    ```
-    yarn create nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=empty --no-nx-cloud --package-manager=yarn
-    ```
+   Using PNPM CLI:
 
-1. Set base branch for `affected` commands.
-    If you've been keeping up in 2020, the default branch of your Git repository is `main`. However, as of Nx version 11.0.18, the base branch for comparison is still set to `master`, regardless of your default Git settings.
+   ```
+   pnpm init nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=empty --no-nx-cloud --package-manager=pnpm
+   ```
 
-    Using `main` default branch:
-    ```
-    npx json -I -f nx.json -e "this.affected.defaultBase = 'main';"
-    ```
+   Using Yarn CLI:
 
-1. Delete TSLint.
-    Nx includes TSlint by default. Now that it's fully end-of-life, it's time to move on. Delete the `tslint` package.
+   ```
+   yarn create nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=empty --no-nx-cloud --package-manager=yarn
+   ```
 
-    Using NPM CLI:
-    ```
-    npm uninstall tslint
-    ```
+2. Set base branch for `affected` commands.
+   If you've been keeping up in 2020, the default branch of your Git repository is `main`. However, as of Nx version 11.0.18, the base branch for comparison is still set to `master`, regardless of your default Git settings.
 
-    Using Yarn CLI:
-    ```
-    yarn remove tslint
-    ```
+   Using `main` default branch:
 
-    Alternatively, use the following `preinstall` script to permanently remove Codelyzer and TSLint despite generators trying to add them back.
+   ```
+   npx json -I -f nx.json -e "this.affected.defaultBase = 'main';"
+   ```
 
-    Using NPM CLI:
-    ```
-    npx json -I -f package.json -e "this.scripts.preinstall = '(npm uninstall codelyzer || echo ✅ Codelyzer is already removed.) && (npm uninstall tslint || echo ✅ TSLint is already removed.)';"
-    npm install
-    ```
+3. Delete TSLint.
+   Nx includes TSlint by default. Now that it's fully end-of-life, it's time to move on. Delete the `tslint` package.
 
-    Using PNPM CLI:
-    ```
-    npx json -I -f package.json -e "this.scripts.preinstall = '(pnpm remove codelyzer || echo ✅ Codelyzer is already removed.) && (pnpm remove tslint || echo ✅ TSLint is already removed.)';"
-    pnpm install
-    ```
+   Using NPM CLI:
 
-    Using Yarn CLI:
-    ```
-    npx json -I -f package.json -e "this.scripts.preinstall = '(yarn remove codelyzer || echo ✅ Codelyzer is already removed.) && (yarn remove tslint || echo ✅ TSLint is already removed.)';"
-    yarn install
-    ```
+   ```
+   npm uninstall tslint
+   ```
 
-1. Install and initialize the `@nrwl/angular` package.
-    To be able to generate Angular projects, configurations, and classes, we need to install the `@nrwl/angular` package.
+   Using Yarn CLI:
 
-    Using NPM CLI:
-    ```
-    npm install @nrwl/angular
-    nx generate @nrwl/angular:init
-    ```
+   ```
+   yarn remove tslint
+   ```
 
-    Using PNPM CLI:
-    ```
-    pnpm add @nrwl/angular
-    nx generate @nrwl/angular:init
-    ```
+   Alternatively, use the following `preinstall` script to permanently remove Codelyzer and TSLint despite generators trying to add them back.
 
-    Using Yarn CLI:
-    ```
-    yarn add @nrwl/angular
-    nx generate @nrwl/angular:init
-    ```
+   Using NPM CLI:
 
-1. Enable Angular strict mode.
-    We prefer strict configurations for TypeScript and Angular. We enable strict mode for Angular application and library projects.
+   ```
+   npx json -I -f package.json -e "this.scripts.preinstall = '(npm uninstall codelyzer || echo ✅ Codelyzer is already removed.) && (npm uninstall tslint || echo ✅ TSLint is already removed.)';"
+   npm install
+   ```
 
-    ```
-    npx json -I -f workspace.json -e "this.generators['@nrwl/angular:application'].strict = true;"
-    npx json -I -f workspace.json -e "this.generators['@nrwl/angular:library'].strict = true;"
-    ```
+   Using PNPM CLI:
 
-1. Use ESLint as linter.
-    We configure ESLint as the default linter for all Angular application and library projects. This includes the angular-eslint plugins.
+   ```
+   npx json -I -f package.json -e "this.scripts.preinstall = '(pnpm remove codelyzer || echo ✅ Codelyzer is already removed.) && (pnpm remove tslint || echo ✅ TSLint is already removed.)';"
+   pnpm install
+   ```
 
-    ```
-    npx json -I -f workspace.json -e "this.generators['@nrwl/angular:application'].linter = 'eslint';"
-    npx json -I -f workspace.json -e "this.generators['@nrwl/angular:library'].linter = 'eslint';"
-    ```
+   Using Yarn CLI:
 
-1. Configure unit test runner.
-    Nx has built-in support for the Jest and Karma testing frameworks for Angular application and library projects.
+   ```
+   npx json -I -f package.json -e "this.scripts.preinstall = '(yarn remove codelyzer || echo ✅ Codelyzer is already removed.) && (yarn remove tslint || echo ✅ TSLint is already removed.)';"
+   yarn install
+   ```
 
-    Use Jest:
-    ```
-    npx json -I -f workspace.json -e "this.generators['@nrwl/angular:application'].unitTestRunner = 'jest';"
-    npx json -I -f workspace.json -e "this.generators['@nrwl/angular:library'].unitTestRunner = 'jest';"
-    ```
+4. Install and initialize the `@nrwl/angular` package.
+   To be able to generate Angular projects, configurations, and classes, we need to install the `@nrwl/angular` package.
 
-    Use Karma:
-    ```
-    npx json -I -f workspace.json -e "this.generators['@nrwl/angular:application'].unitTestRunner = 'karma';"
-    npx json -I -f workspace.json -e "this.generators['@nrwl/angular:library'].unitTestRunner = 'karma';"
-    ```
+   Using NPM CLI:
 
-1. Configure end-to-end test runner.
-    Nx has built-in support for the Cypress and Protractor end-to-end testing frameworks for Angular application projects.
+   ```
+   npm install @nrwl/angular
+   nx generate @nrwl/angular:init
+   ```
 
-    Use Cypress:
-    ```
-    npx json -I -f workspace.json -e "this.generators['@nrwl/angular:application'].e2eTestRunner = 'cypress';"
-    ```
+   Using PNPM CLI:
 
-    Use Protractor:
-    ```
-    npx json -I -f workspace.json -e "this.generators['@nrwl/angular:application'].e2eTestRunner = 'protractor';"
-    ```
+   ```
+   pnpm add @nrwl/angular
+   nx generate @nrwl/angular:init
+   ```
 
-1. Generate an Angular application project.
-    Because of our generators configuration, Angular application and library projects will be generated using ESLint and angular-eslint.
+   Using Yarn CLI:
 
-    ```
-    nx generate @nrwl/angular:application --name=booking-app --prefix=booking --tags="type:app,scope:booking" --no-interactive
-    ```
+   ```
+   yarn add @nrwl/angular
+   nx generate @nrwl/angular:init
+   ```
 
-    We should also add project tags to the generated end-to-end testing project.
+5. Enable Angular strict mode.
+   We prefer strict configurations for TypeScript and Angular. We enable strict mode for Angular application and library projects.
 
-    ```
-    npx json -I -f nx.json -e "this.projects['booking-app-e2e'].tags = ['type:e2e','scope:booking'];"
-    ```
+   ```
+   npx json -I -f workspace.json -e "this.generators['@nrwl/angular:application'].strict = true;"
+   npx json -I -f workspace.json -e "this.generators['@nrwl/angular:library'].strict = true;"
+   ```
 
-1. Use strict Angular build budgets.
+6. Use ESLint as linter.
+   We configure ESLint as the default linter for all Angular application and library projects. This includes the angular-eslint plugins.
+
+   ```
+   npx json -I -f workspace.json -e "this.generators['@nrwl/angular:application'].linter = 'eslint';"
+   npx json -I -f workspace.json -e "this.generators['@nrwl/angular:library'].linter = 'eslint';"
+   ```
+
+7. Configure unit test runner.
+   Nx has built-in support for the Jest and Karma testing frameworks for Angular application and library projects.
+
+   Use Jest:
+
+   ```
+   npx json -I -f workspace.json -e "this.generators['@nrwl/angular:application'].unitTestRunner = 'jest';"
+   npx json -I -f workspace.json -e "this.generators['@nrwl/angular:library'].unitTestRunner = 'jest';"
+   ```
+
+   Use Karma:
+
+   ```
+   npx json -I -f workspace.json -e "this.generators['@nrwl/angular:application'].unitTestRunner = 'karma';"
+   npx json -I -f workspace.json -e "this.generators['@nrwl/angular:library'].unitTestRunner = 'karma';"
+   ```
+
+8. Configure end-to-end test runner.
+   Nx has built-in support for the Cypress and Protractor end-to-end testing frameworks for Angular application projects.
+
+   Use Cypress:
+
+   ```
+   npx json -I -f workspace.json -e "this.generators['@nrwl/angular:application'].e2eTestRunner = 'cypress';"
+   ```
+
+   Use Protractor:
+
+   ```
+   npx json -I -f workspace.json -e "this.generators['@nrwl/angular:application'].e2eTestRunner = 'protractor';"
+   ```
+
+9. Generate an Angular application project.
+   Because of our generators configuration, Angular application and library projects will be generated using ESLint and angular-eslint.
+
+   ```
+   nx generate @nrwl/angular:application --name=booking-app --prefix=booking --tags="type:app,scope:booking" --no-interactive
+   ```
+
+   We should also add project tags to the generated end-to-end testing project.
+
+   ```
+   npx json -I -f nx.json -e "this.projects['booking-app-e2e'].tags = ['type:e2e','scope:booking'];"
+   ```
+
+10. Use strict Angular build budgets.
     As of Nx version 11.0.18, the Angular build budgets do not adjust according to Angular strict mode. Let's use the same limits as Angular CLI 11 strict mode.
 
     The main bundle is set to warn at 500 KB and fail at 1 MB. Component styles are set to warn at 2 KB and fail at 4 KB.
+
     ```
     npx json -I -f workspace.json -e "this.projects['booking-app'].targets.build.configurations.production.budgets = [{ type: 'initial', maximumWarning: '500kb', maximumError: '1mb' }, { type: 'anyComponentStyle', maximumWarning: '2kb', maximumError: '4kb' }];"
     ```
 
-1. Delete Codelyzer.
+11. Delete Codelyzer.
     Angular CLI version 11 includes Codelyzer by default when generating a workspace or an Angular application project. Now that TSlint is fully end-of-life, it's time to move on. Delete the `codelyzer` package.
 
     Using NPM CLI:
+
     ```
     npm uninstall codelyzer
     ```
 
     Using PNPM CLI:
+
     ```
     pnpm remove codelyzer
     ```
 
     Using Yarn CLI:
+
     ```
     yarn remove codelyzer
     ```
 
-1. Generate an Angular workspace library.
+12. Generate an Angular workspace library.
     To make sure that our configurations also work for Angular libraries, we create a workspace library.
 
     ```
@@ -216,7 +238,7 @@ Using the `empty` workspace preset, we use `workspace.json` version 2 which is c
 
     We make good use of Nx 11's enhanced incremental Angular build and serve with computation caching by making the workspace library buildable (but not publishable) and Ivy-compiled.
 
-1. Verify that linting works.
+13. Verify that linting works.
     Run the `lint` target on all projects to verify that ESLint with angular-eslint works.
 
     ```
@@ -230,7 +252,9 @@ In `workspace.json` we can verify that the `lint` targets use the `@nrwl/linter:
 The base `.eslintrc.json` configuration should mention the `@nrwl/nx/typescript` ESLint plugin. Open the `.eslintrc.json` files in the Angular application and library projects to verify that the `@nrwl/nx/angular`, `@nrwl/nx/angular-template`, and `@angular-eslint/template/process-inline-templates` ESLint plugins are enabled.
 
 ## Option 2: Use the angular workspace preset
+
 As of Nx version 11.0.18, the `angular` workspace preset generates the initial Angular application project with angular-eslint, but generates the initial application and end-to-end testing projects without taking these parameters into account:
+
 - `create-application`
 - `e2e-test-runner`
 - `no-interactive`
@@ -239,6 +263,7 @@ As of Nx version 11.0.18, the `angular` workspace preset generates the initial A
 - `unit-test-runner`
 
 and the `--linter` parameter is broken, always giving this error message:
+
 ```
 >  NX   ERROR  Invalid linter
 
@@ -247,160 +272,181 @@ and the `--linter` parameter is broken, always giving this error message:
   eslint
   tslint
 ```
+
 but ESLint with angular-eslint is the default linter.
 
 Because of this, we have to delete the initial projects if we don't want the defaults, configure schematics and regenerate the Angular application and end-to-end testing projects.
 
 1. Generate an Nx Angular workspace.
 
-    Using NPM CLI:
-    ```
-    npm init nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --linter=eslint --no-nx-cloud --style=css --package-manager=npm
-    ```
+   Using NPM CLI:
 
-    Using PNPM CLI:
-    ```
-    pnpm init nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --linter=eslint --no-nx-cloud --style=css --package-manager=pnpm
-    ```
+   ```
+   npm init nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --linter=eslint --no-nx-cloud --style=css --package-manager=npm
+   ```
 
-    Using Yarn CLI:
-    ```
-    yarn create nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --linter=eslint --no-nx-cloud --style=css --package-manager=yarn
-    ```
+   Using PNPM CLI:
 
-1. Set base branch for `affected` commands.
-    If you've been keeping up in 2020, the default branch of your Git repository is `main`. However, as of Nx version 11.0.18, the base branch for comparison is still set to `master`, regardless of your default Git settings.
+   ```
+   pnpm init nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --linter=eslint --no-nx-cloud --style=css --package-manager=pnpm
+   ```
 
-    Using `main` default branch:
-    ```
-    npx json -I -f nx.json -e "this.affected.defaultBase = 'main';"
-    ```
+   Using Yarn CLI:
 
-1. Delete Codelyzer and TSlint.
-    Nx version 11 includes Codelyzer by default when using the `angular` workspace preset. Now that TSlint is fully end-of-life, it's time to move on. Delete the `codelyzer` and `tslint` packages.
+   ```
+   yarn create nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --linter=eslint --no-nx-cloud --style=css --package-manager=yarn
+   ```
 
-    Using NPM CLI:
-    ```
-    npm uninstall codelyzer tslint
-    ```
+2. Set base branch for `affected` commands.
+   If you've been keeping up in 2020, the default branch of your Git repository is `main`. However, as of Nx version 11.0.18, the base branch for comparison is still set to `master`, regardless of your default Git settings.
 
-    Using PNPM CLI:
-    ```
-    pnpm remove codelyzer tslint
-    ```
+   Using `main` default branch:
 
-    Using Yarn CLI:
-    ```
-    yarn remove codelyzer tslint
-    ```
+   ```
+   npx json -I -f nx.json -e "this.affected.defaultBase = 'main';"
+   ```
 
-    Alternatively, use the following `preinstall` script to permanently remove Codelyzer and TSLint despite generators trying to add them back.
+3. Delete Codelyzer and TSlint.
+   Nx version 11 includes Codelyzer by default when using the `angular` workspace preset. Now that TSlint is fully end-of-life, it's time to move on. Delete the `codelyzer` and `tslint` packages.
 
-    Using NPM CLI:
-    ```
-    npx json -I -f package.json -e "this.scripts.preinstall = '(npm uninstall codelyzer || echo ✅ Codelyzer is already removed.) && (npm uninstall tslint || echo ✅ TSLint is already removed.)';"
-    npm install
-    ```
+   Using NPM CLI:
 
-    Using PNPM CLI:
-    ```
-    npx json -I -f package.json -e "this.scripts.preinstall = '(pnpm remove codelyzer || echo ✅ Codelyzer is already removed.) && (pnpm remove tslint || echo ✅ TSLint is already removed.)';"
-    pnpm install
-    ```
+   ```
+   npm uninstall codelyzer tslint
+   ```
 
-    Using Yarn CLI:
-    ```
-    npx json -I -f package.json -e "this.scripts.preinstall = '(yarn remove codelyzer || echo ✅ Codelyzer is already removed.) && (yarn remove tslint || echo ✅ TSLint is already removed.)';"
-    yarn install
-    ```
+   Using PNPM CLI:
 
-1. Enable Angular strict mode.
-    We prefer strict configurations for TypeScript and Angular. We enable strict mode for Angular application and library projects.
+   ```
+   pnpm remove codelyzer tslint
+   ```
 
-    ```
-    npx json -I -f angular.json -e "this.schematics['@nrwl/angular:application'].strict = true;"
-    npx json -I -f angular.json -e "this.schematics['@nrwl/angular:library'].strict = true;"
-    ```
+   Using Yarn CLI:
 
-1. Configure unit test runner.
-    Nx has built-in support for the Jest and Karma testing frameworks for Angular application and library projects.
+   ```
+   yarn remove codelyzer tslint
+   ```
 
-    Use Jest:
-    ```
-    npx json -I -f angular.json -e "this.schematics['@nrwl/angular:application'].unitTestRunner = 'jest';"
-    npx json -I -f angular.json -e "this.schematics['@nrwl/angular:library'].unitTestRunner = 'jest';"
-    ```
+   Alternatively, use the following `preinstall` script to permanently remove Codelyzer and TSLint despite generators trying to add them back.
 
-    Use Karma:
-    ```
-    npx json -I -f angular.json -e "this.schematics['@nrwl/angular:application'].unitTestRunner = 'karma';"
-    npx json -I -f angular.json -e "this.schematics['@nrwl/angular:library'].unitTestRunner = 'karma';"
-    ```
+   Using NPM CLI:
 
-1. Configure end-to-end test runner.
-    Nx has built-in support for the Cypress and Protractor end-to-end testing frameworks for Angular application projects.
+   ```
+   npx json -I -f package.json -e "this.scripts.preinstall = '(npm uninstall codelyzer || echo ✅ Codelyzer is already removed.) && (npm uninstall tslint || echo ✅ TSLint is already removed.)';"
+   npm install
+   ```
 
-    Use Cypress:
-    ```
-    npx json -I -f angular.json -e "this.schematics['@nrwl/angular'].application.e2eTestRunner = 'cypress';"
-    ```
+   Using PNPM CLI:
 
-    Use Protractor:
-    ```
-    npx json -I -f angular.json -e "this.schematics['@nrwl/angular'].application.e2eTestRunner = 'protractor';"
-    ```
+   ```
+   npx json -I -f package.json -e "this.scripts.preinstall = '(pnpm remove codelyzer || echo ✅ Codelyzer is already removed.) && (pnpm remove tslint || echo ✅ TSLint is already removed.)';"
+   pnpm install
+   ```
 
-1. Consolidate schematics configurations.
-    As of Nx version 11.0.18, passing `--preset=angular --linter=eslint` to create-nx-workspace creates duplicate entries for Angular application and library schematics defaults in `angular.json`. This will prevent the configuration from working. Let's fix this.
+   Using Yarn CLI:
 
-    Consolidate Angular application schematic configuration:
-    ```
-    npx json -I -f angular.json -e "this.schematics['@nrwl/angular:application'].linter = this.schematics['@nrwl/angular'].application.linter; delete this.schematics['@nrwl/angular'].application;"
-    ```
+   ```
+   npx json -I -f package.json -e "this.scripts.preinstall = '(yarn remove codelyzer || echo ✅ Codelyzer is already removed.) && (yarn remove tslint || echo ✅ TSLint is already removed.)';"
+   yarn install
+   ```
 
-    Consolidate Angular library schematic configuration:
-    ```
-    npx json -I -f angular.json -e "this.schematics['@nrwl/angular:library'].linter = this.schematics['@nrwl/angular'].library.linter; delete this.schematics['@nrwl/angular'].library;"
-    ```
+4. Enable Angular strict mode.
+   We prefer strict configurations for TypeScript and Angular. We enable strict mode for Angular application and library projects.
 
-1. Regenerate application and end-to-end testing projects if using non-default test runners.
-    If we configured Karma and Protractor instead of Jest and Cypress, we have to delete and regenerate the application and end-to-end testing projects.
+   ```
+   npx json -I -f angular.json -e "this.schematics['@nrwl/angular:application'].strict = true;"
+   npx json -I -f angular.json -e "this.schematics['@nrwl/angular:library'].strict = true;"
+   ```
 
-    Delete end-to-end testing and application projects:
-    ```
-    nx generate @nrwl/workspace:remove booking-app-e2e
-    nx generate @nrwl/workspace:remove booking-app
-    ```
+5. Configure unit test runner.
+   Nx has built-in support for the Jest and Karma testing frameworks for Angular application and library projects.
 
-    Generate application and end-to-end testing projects:
-    ```
-    nx generate @nrwl/angular:application --name=booking-app --prefix=booking --no-interactive
-    ```
+   Use Jest:
 
-    Delete root-level Jest configurations:
-    ```
-    rm jest.config.js
-    rm jest.preset.js
-    ```
+   ```
+   npx json -I -f angular.json -e "this.schematics['@nrwl/angular:application'].unitTestRunner = 'jest';"
+   npx json -I -f angular.json -e "this.schematics['@nrwl/angular:library'].unitTestRunner = 'jest';"
+   ```
 
-1. Tag projects.
+   Use Karma:
 
-    Let's add project tags to the generated application and end-to-end testing projects.
+   ```
+   npx json -I -f angular.json -e "this.schematics['@nrwl/angular:application'].unitTestRunner = 'karma';"
+   npx json -I -f angular.json -e "this.schematics['@nrwl/angular:library'].unitTestRunner = 'karma';"
+   ```
 
-    ```
-    npx json -I -f nx.json -e "this.projects['booking-app'].tags = ['type:app','scope:booking'];"
-    npx json -I -f nx.json -e "this.projects['booking-app-e2e'].tags = ['type:e2e','scope:booking'];"
-    ```
+6. Configure end-to-end test runner.
+   Nx has built-in support for the Cypress and Protractor end-to-end testing frameworks for Angular application projects.
 
-1. Use strict Angular build budgets.
+   Use Cypress:
+
+   ```
+   npx json -I -f angular.json -e "this.schematics['@nrwl/angular'].application.e2eTestRunner = 'cypress';"
+   ```
+
+   Use Protractor:
+
+   ```
+   npx json -I -f angular.json -e "this.schematics['@nrwl/angular'].application.e2eTestRunner = 'protractor';"
+   ```
+
+7. Consolidate schematics configurations.
+   As of Nx version 11.0.18, passing `--preset=angular --linter=eslint` to create-nx-workspace creates duplicate entries for Angular application and library schematics defaults in `angular.json`. This will prevent the configuration from working. Let's fix this.
+
+   Consolidate Angular application schematic configuration:
+
+   ```
+   npx json -I -f angular.json -e "this.schematics['@nrwl/angular:application'].linter = this.schematics['@nrwl/angular'].application.linter; delete this.schematics['@nrwl/angular'].application;"
+   ```
+
+   Consolidate Angular library schematic configuration:
+
+   ```
+   npx json -I -f angular.json -e "this.schematics['@nrwl/angular:library'].linter = this.schematics['@nrwl/angular'].library.linter; delete this.schematics['@nrwl/angular'].library;"
+   ```
+
+8. Regenerate application and end-to-end testing projects if using non-default test runners.
+   If we configured Karma and Protractor instead of Jest and Cypress, we have to delete and regenerate the application and end-to-end testing projects.
+
+   Delete end-to-end testing and application projects:
+
+   ```
+   nx generate @nrwl/workspace:remove booking-app-e2e
+   nx generate @nrwl/workspace:remove booking-app
+   ```
+
+   Generate application and end-to-end testing projects:
+
+   ```
+   nx generate @nrwl/angular:application --name=booking-app --prefix=booking --no-interactive
+   ```
+
+   Delete root-level Jest configurations:
+
+   ```
+   rm jest.config.js
+   rm jest.preset.js
+   ```
+
+9. Tag projects.
+
+   Let's add project tags to the generated application and end-to-end testing projects.
+
+   ```
+   npx json -I -f nx.json -e "this.projects['booking-app'].tags = ['type:app','scope:booking'];"
+   npx json -I -f nx.json -e "this.projects['booking-app-e2e'].tags = ['type:e2e','scope:booking'];"
+   ```
+
+10. Use strict Angular build budgets.
     As of Nx version 11.0.18, the Angular build budgets do not adjust according to Angular strict mode. Let's use the same limits as Angular CLI 11 strict mode.
 
     The main bundle is set to warn at 500 KB and fail at 1 MB. Component styles are set to warn at 2 KB and fail at 4 KB.
+
     ```
     npx json -I -f angular.json -e "this.projects['booking-app'].architect.build.configurations.production.budgets = [{ type: 'initial', maximumWarning: '500kb', maximumError: '1mb' }, { type: 'anyComponentStyle', maximumWarning: '2kb', maximumError: '4kb' }];"
     ```
 
-1. Generate an Angular workspace library.
+11. Generate an Angular workspace library.
     To make sure that our configurations work for Angular libraries, we create a workspace library.
 
     ```
@@ -409,24 +455,27 @@ Because of this, we have to delete the initial projects if we don't want the def
 
     We make good use of Nx 11's enhanced incremental Angular build and serve with computation caching by making the workspace library buildable (but not publishable) and Ivy-compiled.
 
-1. Delete Codelyzer.
+12. Delete Codelyzer.
     Angular CLI version 11 includes Codelyzer by default when generating a workspace or an Angular application project, so we have to delete it again.
     Using NPM CLI:
+
     ```
     npm uninstall codelyzer
     ```
 
     Using PNPM CLI:
+
     ```
     pnpm remove codelyzer
     ```
 
     Using Yarn CLI:
+
     ```
     yarn remove codelyzer
     ```
 
-1. Verify that linting works.
+13. Verify that linting works.
     Run the `lint` target on all projects to verify that ESLint with angular-eslint works.
 
     ```
@@ -440,164 +489,184 @@ In `angular.json` we can verify that the `lint` targets use the `@nrwl/linter:es
 The base `.eslintrc.json` configuration should mention the `@nrwl/nx/typescript` ESLint plugin. Open the `.eslintrc.json` files in the Angular application and library projects to verify that the `@nrwl/nx/angular`, `@nrwl/nx/angular-template`, and `@angular-eslint/template/process-inline-templates` ESLint plugins are enabled.
 
 # Migrating an existing Nx 10 Angular workspace using ESLint
+
 When migrating to Nx 11, existing projects using ESLint will be migrated to include angular-eslint.
 
 1. Create Nx 10 workspace with `angular` preset.
-    For demonstration purposes, we generate a new Nx Angular workspace with a single application.
+   For demonstration purposes, we generate a new Nx Angular workspace with a single application.
 
-    Using NPM CLI:
-    ```
-    npm init nx-workspace@10 nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --strict --no-nx-cloud --style=css --package-manager=npm --linter=eslint
-    ```
+   Using NPM CLI:
 
-    Using PNPM CLI:
-    ```
-    pnpm init nx-workspace@10 nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --strict --no-nx-cloud --style=css --package-manager=pnpm --linter=eslint
-    ```
+   ```
+   npm init nx-workspace@10 nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --strict --no-nx-cloud --style=css --package-manager=npm --linter=eslint
+   ```
 
-    >Note that PNPM is only supported from Nx version 11 forward.
+   Using PNPM CLI:
 
-    Using Yarn CLI:
-    ```
-    yarn global add create-nx-workspace@10
-    create-nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --strict --no-nx-cloud --style=css --package-manager=yarn --linter=eslint
-    ```
+   ```
+   pnpm init nx-workspace@10 nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --strict --no-nx-cloud --style=css --package-manager=pnpm --linter=eslint
+   ```
 
-1. Delete Codelyzer and TSLint.
+   > Note that PNPM is only supported from Nx version 11 forward.
+
+   Using Yarn CLI:
+
+   ```
+   yarn global add create-nx-workspace@10
+   create-nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --strict --no-nx-cloud --style=css --package-manager=yarn --linter=eslint
+   ```
+
+2. Delete Codelyzer and TSLint.
    Nx includes Codelyzer and TSlint by default. Now that TSLint's fully end-of-life, it's time to move on. Delete the `codelyzer` and `tslint` packages.
 
-    Using NPM CLI:
-    ```
-    npm uninstall codelyzer tslint
-    ```
+   Using NPM CLI:
 
-    Using Yarn CLI:
-    ```
-    yarn remove codelyzer tslint
-    ```
+   ```
+   npm uninstall codelyzer tslint
+   ```
 
-    Alternatively, use the following `preinstall` script to permanently remove Codelyzer and TSLint despite generators trying to add them back.
+   Using Yarn CLI:
 
-    Using NPM CLI:
-    ```
-    npx json -I -f package.json -e "this.scripts.preinstall = '(npm uninstall codelyzer || echo ✅ Codelyzer is already removed.) && (npm uninstall tslint || echo ✅ TSLint is already removed.)';"
-    npm install
-    ```
+   ```
+   yarn remove codelyzer tslint
+   ```
 
-    Using PNPM CLI:
-    ```
-    npx json -I -f package.json -e "this.scripts.preinstall = '(pnpm remove codelyzer || echo ✅ Codelyzer is already removed.) && (pnpm remove tslint || echo ✅ TSLint is already removed.)';"
-    pnpm install
-    ```
+   Alternatively, use the following `preinstall` script to permanently remove Codelyzer and TSLint despite generators trying to add them back.
 
-    Using Yarn CLI:
-    ```
-    npx json -I -f package.json -e "this.scripts.preinstall = '(yarn remove codelyzer || echo ✅ Codelyzer is already removed.) && (yarn remove tslint || echo ✅ TSLint is already removed.)';"
-    yarn install
-    ```
+   Using NPM CLI:
 
-1. Consolidate schematics configurations.
-    As of Nx version 11.0.18, passing `--preset=angular --linter=eslint` to create-nx-workspace creates duplicate entries for Angular application and library schematics defaults in `angular.json`. This will prevent the configuration from working. Let's fix this.
+   ```
+   npx json -I -f package.json -e "this.scripts.preinstall = '(npm uninstall codelyzer || echo ✅ Codelyzer is already removed.) && (npm uninstall tslint || echo ✅ TSLint is already removed.)';"
+   npm install
+   ```
 
-    Consolidate Angular application schematic configuration:
-    ```
-    npx json -I -f angular.json -e "this.schematics['@nrwl/angular:application'].linter = this.schematics['@nrwl/angular'].application.linter; delete this.schematics['@nrwl/angular'].application;"
-    ```
+   Using PNPM CLI:
 
-    Consolidate Angular library schematic configuration:
-    ```
-    npx json -I -f angular.json -e "this.schematics['@nrwl/angular:library'].linter = this.schematics['@nrwl/angular'].library.linter; delete this.schematics['@nrwl/angular'].library;"
-    ```
+   ```
+   npx json -I -f package.json -e "this.scripts.preinstall = '(pnpm remove codelyzer || echo ✅ Codelyzer is already removed.) && (pnpm remove tslint || echo ✅ TSLint is already removed.)';"
+   pnpm install
+   ```
 
-1. Generate an Angular workspace library.
-    To have a slightly more realistic example, we also generate an Angular workspace library project.
+   Using Yarn CLI:
 
-    ```
-    nx generate @nrwl/angular:library feature-flight-search --directory=booking --prefix=booking --tags="type:feature,scope:booking" --buildable --no-interactive
-    ```
+   ```
+   npx json -I -f package.json -e "this.scripts.preinstall = '(yarn remove codelyzer || echo ✅ Codelyzer is already removed.) && (yarn remove tslint || echo ✅ TSLint is already removed.)';"
+   yarn install
+   ```
 
-1. Delete Codelyzer.
-    Angular CLI version 11 includes Codelyzer by default when generating a workspace or an Angular application project, so we have to delete it again.
+3. Consolidate schematics configurations.
+   As of Nx version 11.0.18, passing `--preset=angular --linter=eslint` to create-nx-workspace creates duplicate entries for Angular application and library schematics defaults in `angular.json`. This will prevent the configuration from working. Let's fix this.
 
-    Using NPM CLI:
-    ```
-    npm uninstall codelyzer
-    ```
+   Consolidate Angular application schematic configuration:
 
-    Using Yarn CLI:
-    ```
-    yarn remove codelyzer
-    ```
+   ```
+   npx json -I -f angular.json -e "this.schematics['@nrwl/angular:application'].linter = this.schematics['@nrwl/angular'].application.linter; delete this.schematics['@nrwl/angular'].application;"
+   ```
 
-1. Migrate to Nx 11.
-    When updating to Nx 11, workspaces using ESLint will be migrated to also use angular-eslint.
+   Consolidate Angular library schematic configuration:
 
-    Using NPM CLI:
-    ```
-    nx migrate @nrwl/workspace
-    npm install
+   ```
+   npx json -I -f angular.json -e "this.schematics['@nrwl/angular:library'].linter = this.schematics['@nrwl/angular'].library.linter; delete this.schematics['@nrwl/angular'].library;"
+   ```
 
-    # Good point in time to review migrations.json and make a commit before applying selected migrations
-    nx migrate --run-migrations=migrations.json
-    npm install
-    rm migrations.json
-    ```
+4. Generate an Angular workspace library.
+   To have a slightly more realistic example, we also generate an Angular workspace library project.
 
-    Using PNPM CLI:
-    ```
-    nx migrate @nrwl/workspace
-    pnpm install
+   ```
+   nx generate @nrwl/angular:library feature-flight-search --directory=booking --prefix=booking --tags="type:feature,scope:booking" --buildable --no-interactive
+   ```
 
-    # Good point in time to review migrations.json and make a commit before applying selected migrations
-    nx migrate --run-migrations=migrations.json
-    pnpm install
-    rm migrations.json
-    ```
+5. Delete Codelyzer.
+   Angular CLI version 11 includes Codelyzer by default when generating a workspace or an Angular application project, so we have to delete it again.
 
-    Using Yarn CLI:
-    ```
-    nx migrate @nrwl/workspace
-    yarn install
+   Using NPM CLI:
 
-    # Good point in time to review migrations.json and make a commit before applying selected migrations
-    nx migrate --run-migrations=migrations.json
-    yarn install
-    rm migrations.json
-    ```
+   ```
+   npm uninstall codelyzer
+   ```
 
-1. Verify that linting works.
-    Run the `lint` target on all projects to verify that ESLint with angular-eslint works.
+   Using Yarn CLI:
 
-    ```
-    nx run-many --target=lint --all
-    ```
+   ```
+   yarn remove codelyzer
+   ```
 
-1. Update angular-eslint.
-    As of Nx version 11.0.18, angular-eslint version 0.8.0-beta.1 is installed. Let's update it to the latest version.
+6. Migrate to Nx 11.
+   When updating to Nx 11, workspaces using ESLint will be migrated to also use angular-eslint.
 
-    Using NPM CLI:
-    ```
-    npm install --save-dev @angular-eslint/eslint-plugin@latest @angular-eslint/eslint-plugin-template@latest @angular-eslint/template-parser@latest
-    ```
+   Using NPM CLI:
 
-    Using PNPM CLI:
-    ```
-    pnpm add --save-dev @angular-eslint/eslint-plugin@latest @angular-eslint/eslint-plugin-template@latest @angular-eslint/template-parser@latest
-    ```
+   ```
+   nx migrate @nrwl/workspace
+   npm install
 
-    Using Yarn CLI:
-    ```
-    yarn add @angular-eslint/eslint-plugin@latest @angular-eslint/eslint-plugin-template@latest @angular-eslint/template-parser@latest
-    ```
+   # Good point in time to review migrations.json and make a commit before applying selected migrations
+   nx migrate --run-migrations=migrations.json
+   npm install
+   rm migrations.json
+   ```
 
-1. Verify that linting works.
-    Run the `lint` target on all projects to verify that ESLint with angular-eslint works with the latest version.
+   Using PNPM CLI:
 
-    ```
-    nx run-many --target=lint --all
-    ```
+   ```
+   nx migrate @nrwl/workspace
+   pnpm install
+
+   # Good point in time to review migrations.json and make a commit before applying selected migrations
+   nx migrate --run-migrations=migrations.json
+   pnpm install
+   rm migrations.json
+   ```
+
+   Using Yarn CLI:
+
+   ```
+   nx migrate @nrwl/workspace
+   yarn install
+
+   # Good point in time to review migrations.json and make a commit before applying selected migrations
+   nx migrate --run-migrations=migrations.json
+   yarn install
+   rm migrations.json
+   ```
+
+7. Verify that linting works.
+   Run the `lint` target on all projects to verify that ESLint with angular-eslint works.
+
+   ```
+   nx run-many --target=lint --all
+   ```
+
+8. Update angular-eslint.
+   As of Nx version 11.0.18, angular-eslint version 0.8.0-beta.1 is installed. Let's update it to the latest version.
+
+   Using NPM CLI:
+
+   ```
+   npm install --save-dev @angular-eslint/eslint-plugin@latest @angular-eslint/eslint-plugin-template@latest @angular-eslint/template-parser@latest
+   ```
+
+   Using PNPM CLI:
+
+   ```
+   pnpm add --save-dev @angular-eslint/eslint-plugin@latest @angular-eslint/eslint-plugin-template@latest @angular-eslint/template-parser@latest
+   ```
+
+   Using Yarn CLI:
+
+   ```
+   yarn add @angular-eslint/eslint-plugin@latest @angular-eslint/eslint-plugin-template@latest @angular-eslint/template-parser@latest
+   ```
+
+9. Verify that linting works.
+   Run the `lint` target on all projects to verify that ESLint with angular-eslint works with the latest version.
+
+   ```
+   nx run-many --target=lint --all
+   ```
 
 # Migrating an existing Nx 10 Angular workspace using TSLint
+
 As of Nx version 11.0.18, Nx hasn't got schematics for Nx Angular workspaces using TSLint to migrate to ESLint with angular-eslint.
 
 Instead, we will use angular-eslint's TSLint to ESLint migration schematics and perform some manual configurations to match that of a fully migrated Nx Angular workspace using ESLint with angular-eslint.
@@ -607,352 +676,389 @@ For this example, we will use Nx' default test runners for the `angular` workspa
 > Note that the `angular` preset used in this guide uses `angular.json`. The angular-eslint migrations do not work for Nx workspaces using `workspace.json`.
 
 1. Create an Nx 10 workspace using the `angular` preset.
-    First we create a new Nx 10 workspace as an example. If you already have an existing workspace, adjust the following migration steps to your own workspace.
+   First we create a new Nx 10 workspace as an example. If you already have an existing workspace, adjust the following migration steps to your own workspace.
 
-    Using NPM CLI:
-    ```
-    npm init nx-workspace@10 nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --strict --no-nx-cloud --style=css --package-manager=npm --linter=tslint
-    ```
+   Using NPM CLI:
 
-    Using PNPM CLI:
-    ```
-    pnpx create-nx-workspace@10 nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --strict --no-nx-cloud --style=css --package-manager=pnpm --linter=tslint
-    ```
+   ```
+   npm init nx-workspace@10 nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --strict --no-nx-cloud --style=css --package-manager=npm --linter=tslint
+   ```
 
-    >Note that PNPM is only supported from Nx version 11 forward.
+   Using PNPM CLI:
 
-    Using Yarn CLI:
-    ```
-    yarn global add create-nx-workspace@10
-    create-nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --strict --no-nx-cloud --style=css --package-manager=yarn --linter=tslint
-    ```
+   ```
+   pnpx create-nx-workspace@10 nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --strict --no-nx-cloud --style=css --package-manager=pnpm --linter=tslint
+   ```
 
-1. Generate an Angular workspace library.
+   > Note that PNPM is only supported from Nx version 11 forward.
+
+   Using Yarn CLI:
+
+   ```
+   yarn global add create-nx-workspace@10
+   create-nx-workspace nrwl-airlines --npm-scope=nrwl-airlines --preset=angular --app-name=booking-app --strict --no-nx-cloud --style=css --package-manager=yarn --linter=tslint
+   ```
+
+2. Generate an Angular workspace library.
    This libary project is also for demonstration purposes. This step is not needed if you have an existing Nx workspace.
 
-    ```
-    nx generate @nrwl/angular:library --name=feature-flight-search --directory=booking --prefix=booking --tags="type:feature,scope:booking" --buildable --no-interactive
-    ```
-
-1. Migrate to Nx 11.
-    This is actually an optional step. All of the following steps work exactly the same for Nx 10.
-
-    Using NPM CLI:
-    ```
-    nx migrate @nrwl/workspace
-    npm install
-
-    # Good point in time to review migrations.json and make a commit before applying selected migrations
-    nx migrate --run-migrations=migrations.json
-    npm install
-    rm migrations.json
-    ```
-
-    Using PNPM CLI:
-    ```
-    nx migrate @nrwl/workspace
-    pnpm install
-
-    # Good point in time to review migrations.json and make a commit before applying selected migrations
-    nx migrate --run-migrations=migrations.json
-    pnpm install
-    rm migrations.json
-    ```
-
-    Using Yarn CLI:
-    ```
-    nx migrate @nrwl/workspace
-    yarn install
-
-    # Good point in time to review migrations.json and make a commit before applying selected migrations
-    nx migrate --run-migrations=migrations.json
-    yarn install
-    rm migrations.json
-    ```
-
-1. Migrate to angular-eslint.
-    First, we temporarily rename `tsconfig.base.json` to `tsconfig.json` because the angular-eslint migrations aren't configured for solution-style TypeScript configurations which Nx uses since version 10.0.
-    ```
-    mv tsconfig.base.json tsconfig.json
-    ```
-
-    Now we run angular-eslint schematics to install necessary development dependencies such as `eslint-plugin-*`, `@angular-eslint/*`, and `@typescript-eslint/*` packages.
-
-    Using NPM CLI:
-    ```
-    npm install --save-dev @angular-eslint/schematics
-    nx generate @angular-eslint/schematics:ng-add
-    ```
-
-    Using PNPM CLI:
-    ```
-    pnpm add --save-dev @angular-eslint/schematics
-    nx generate @angular-eslint/schematics:ng-add
-    ```
-
-    Using Yarn CLI:
-    ```
-    yarn add @angular-eslint/schematics
-    nx generate @angular-eslint/schematics:ng-add
-    ```
-
-    This might downgrade the version of `eslint` already installed by Nx. If this happens, make sure to keep the version installed by Nx. For example the following
-
-    Using NPM CLI:
-    ```
-    npm install --save-dev eslint@7.10.0
-    ```
-
-    Using PNPM CLI:
-    ```
-    pnpm add --save-dev eslint@7.10.0
-    ```
-
-    Using Yarn CLI:
-    ```
-    yarn add eslint@7.10.0
-    ```
-
-    Next, we run angular-eslint's TSLint to ESLint generator for each Angular application and library project in our workspace.
-
-    In this step, you might see warnings like the following, depending on your TSLint rules:
-    ```
-    WARNING: Within "tslint.json", the following 1 rule(s) did not have known converters in https://github.com/typescript-eslint/tslint-to-eslint-config
-    
-      - nx-enforce-module-boundaries
-    
-    You will need to decide on how to handle the above manually, but everything else has been handled for you automatically.
-    ```
-
-    In the case of the `nx-enforce-module-boundaries` rule which is the only rule giving us warnings when using the example workspace generated by these steps, don't worry about them as we'll keep our root TSLint configuration file until the very last step. These are the lint rules used by the `nx workspace-lint` command.
-
-    For ESLint, this rule is called `@nrwl/nx/enforce-module-boundaries` and we will add it to our root ESLint configuration in one of the following steps.
-
-    Either run the generator manually for each project:
-    ```
-    # Migrate booking-app rules to angular-eslint
-    nx generate @angular-eslint/schematics:convert-tslint-to-eslint booking-app
-
-    # Migrate booking-app-e2e rules to angular-eslint
-    nx generate @angular-eslint/schematics:convert-tslint-to-eslint booking-app-e2e
-
-    # Migrate booking-feature-flight-search rules to angular-eslint
-    nx generate @angular-eslint/schematics:convert-tslint-to-eslint booking-feature-flight-search
-    ```
-
-    or loop over the project names in `angular.json` and run the generator for each project in a script.
+   ```
+   nx generate @nrwl/angular:library --name=feature-flight-search --directory=booking --prefix=booking --tags="type:feature,scope:booking" --buildable --no-interactive
+   ```
 
-    Script using PowerShell:
-    ```powershell
-    foreach ($project in (Get-Content angular.json | ConvertFrom-Json -AsHashtable).projects.GetEnumerator()) { nx generate @angular-eslint/schematics:convert-tslint-to-eslint $project.Name }
-    ```
+3. Migrate to Nx 11.
+   This is actually an optional step. All of the following steps work exactly the same for Nx 10.
 
-    Script using Bash:
-    ```bash
-    for project in $(cat angular.json | npx json projects | npx json -M -a key); do nx generate @angular-eslint/schematics:convert-tslint-to-eslint $project; done
-    ```
-
-    Finally, we revert the temporary renaming of `tsconfig.base.json`.
-    ```
-    mv tsconfig.json tsconfig.base.json
-    ```
+   Using NPM CLI:
 
-1. Configure angular-eslint for Nx workspace.
+   ```
+   nx migrate @nrwl/workspace
+   npm install
 
-    First, we remove unnecessary development dependencies.
+   # Good point in time to review migrations.json and make a commit before applying selected migrations
+   nx migrate --run-migrations=migrations.json
+   npm install
+   rm migrations.json
+   ```
 
-    Using NPM CLI:
-    ```
-    npm uninstall @angular-eslint/builder @angular-eslint/schematics
-    ```
+   Using PNPM CLI:
 
-    Using PNPM CLI:
-    ```
-    pnpm remove @angular-eslint/builder @angular-eslint/schematics
-    ```
+   ```
+   nx migrate @nrwl/workspace
+   pnpm install
 
-    Using Yarn CLI:
-    ```
-    yarn remove @angular-eslint/builder @angular-eslint/schematics
-    ```
+   # Good point in time to review migrations.json and make a commit before applying selected migrations
+   nx migrate --run-migrations=migrations.json
+   pnpm install
+   rm migrations.json
+   ```
 
-    Then we add required development dependencies.
+   Using Yarn CLI:
 
-    Using NPM CLI:
-    ```
-    npm install --save-dev @nrwl/eslint-plugin-nx eslint-config-prettier eslint-plugin-cypress
-    ```
+   ```
+   nx migrate @nrwl/workspace
+   yarn install
 
-    Using PNPM CLI:
-    ```
-    pnpm add --save-dev @nrwl/eslint-plugin-nx eslint-config-prettier eslint-plugin-cypress
-    ```
+   # Good point in time to review migrations.json and make a commit before applying selected migrations
+   nx migrate --run-migrations=migrations.json
+   yarn install
+   rm migrations.json
+   ```
 
-    Using Yarn CLI:
-    ```
-    yarn add --dev @nrwl/eslint-plugin-nx eslint-config-prettier eslint-plugin-cypress
-    ```
+4. Migrate to angular-eslint.
+   First, we temporarily rename `tsconfig.base.json` to `tsconfig.json` because the angular-eslint migrations aren't configured for solution-style TypeScript configurations which Nx uses since version 10.0.
 
-    Next, we configure the root ESLint configuration.
-    ```
-    # Ignore all files not matched in overrides
-    npx json -I -f .eslintrc.json -e "this.ignorePatterns = ['**/*'];"
+   ```
+   mv tsconfig.base.json tsconfig.json
+   ```
 
-    # Support ESLint plugins from `@nrwl/eslint-plugin-nx`
-    npx json -I -f .eslintrc.json -e "this.plugins = ['@nrwl/nx'];"
+   Now we run angular-eslint schematics to install necessary development dependencies such as `eslint-plugin-*`, `@angular-eslint/*`, and `@typescript-eslint/*` packages.
 
-    # Include tsx files
-    # Can be left out from an Angular-only workspace
-    npx json -I -f .eslintrc.json -e "this.overrides[0].files = ['*.ts', '*.tsx'];"
+   Using NPM CLI:
 
-    # Match all TypeScript project configuration files
-    npx json -I -f .eslintrc.json -e "this.overrides[0].parserOptions.project = './tsconfig.*?.json';"
+   ```
+   npm install --save-dev @angular-eslint/schematics
+   nx generate @angular-eslint/schematics:ng-add
+   ```
 
-    # This setting is not used by the Nrwl Linter
-    npx json -I -f .eslintrc.json -e "delete this.overrides[0].parserOptions.createDefaultProgram;"
+   Using PNPM CLI:
 
-    # Replace angular-eslint plugins with the Nx TypeScript ESLint plugin as it uses them internally
-    npx json -I -f .eslintrc.json -e "this.overrides[0].extends = ['plugin:@nrwl/nx/typescript'];"
+   ```
+   pnpm add --save-dev @angular-eslint/schematics
+   nx generate @angular-eslint/schematics:ng-add
+   ```
 
-    # Remove component template rule as this is defined in project-specific ESLint configurations
-    npx json -I -f .eslintrc.json -e "this.overrides = this.overrides.slice(0, 1);"
+   Using Yarn CLI:
 
-    # Use Nx JavaScript ESLint plugin for js and jsx files
-    # Can be left out from an Angular-only workspace
-    npx json -I -f .eslintrc.json -e "this.overrides = [...this.overrides, { files: ['*.js', '*.jsx'], extends: ['plugin:@nrwl/nx/javascript'], rules: {} }];"
+   ```
+   yarn add @angular-eslint/schematics
+   nx generate @angular-eslint/schematics:ng-add
+   ```
 
-    # Remove angular-eslint rules that are added to project-specific ESLint configurations
-    npx json -I -f .eslintrc.json -e "delete this.overrides[0].rules['@angular-eslint/component-selector'];"
-    npx json -I -f .eslintrc.json -e "delete this.overrides[0].rules['@angular-eslint/directive-selector'];"
-    ```
+   This might downgrade the version of `eslint` already installed by Nx. If this happens, make sure to keep the version installed by Nx. For example the following
 
-    The final change for the root ESLint configuration is to apply our workspace lint rules (and any other rules angular-eslint warned you about).
-    ```
-    # This is where we configure the workspace lint rules
-    # Refer to the root TSLint configuration
-    npx json -I -f .eslintrc.json -e "this.overrides = [{ files: ['*.ts', '*.tsx', '*.js', '*.jsx'], rules: { '@nrwl/nx/enforce-module-boundaries': ['error', { enforceBuildableLibDependency: true, allow: [], depConstraints: [{ sourceTag: '*', onlyDependOnLibsWithTags: ['*'] }] }] } }, ...this.overrides];"
-    ```
+   Using NPM CLI:
 
-    Now it's time to configure the per-project ESLint configurations. Let's start with the `booking-app` project.
-    ```
-    # Add Nx Angular ESLint plugin and the ESLint inline component template processor
-    npx json -I -f apps/booking-app/.eslintrc.json -e "this.overrides[0].extends = ['plugin:@nrwl/nx/angular', 'plugin:@angular-eslint/template/process-inline-templates'];"
+   ```
+   npm install --save-dev eslint@7.10.0
+   ```
 
-    # Match all TypeScript project configuration files
-    npx json -I -f apps/booking-app/.eslintrc.json -e "this.overrides[0].parserOptions.project = [this.overrides[0].parserOptions.project[0].replace('/tsconfig.app.json', '/tsconfig.*?.json')];"
+   Using PNPM CLI:
 
-    # This setting is not used by the Nrwl Linter
-    npx json -I -f apps/booking-app/.eslintrc.json -e "delete this.overrides[0].parserOptions.createDefaultProgram;"
+   ```
+   pnpm add --save-dev eslint@7.10.0
+   ```
 
-    # Use the ESLint component template processor and recommended component template rules from angular-eslint
-    npx json -I -f apps/booking-app/.eslintrc.json -e "this.overrides[1].extends = ['plugin:@nrwl/nx/angular-template', 'plugin:@angular-eslint/template/recommended'];"
-    ```
+   Using Yarn CLI:
 
-    Next, we configure ESLint and angular-eslint for the `booking-feature-flight-search` project. We make the same changes as we did for the `booking-app` project, except we start by correcting the path to the root ESLint configuration because the project-specific configuration is three folders deep in the workspace.
-    ```
-    # Correct path to root ESLint configuration
-    npx json -I -f libs/booking/feature-flight-search/.eslintrc.json -e "this.extends = '../' + this.extends;"
+   ```
+   yarn add eslint@7.10.0
+   ```
 
-    # Add Nx Angular ESLint plugin and the ESLint inline component template processor
-    npx json -I -f libs/booking/feature-flight-search/.eslintrc.json -e "this.overrides[0].extends = ['plugin:@nrwl/nx/angular', 'plugin:@angular-eslint/template/process-inline-templates'];"
+   Next, we run angular-eslint's TSLint to ESLint generator for each Angular application and library project in our workspace.
 
-    # Match all TypeScript project configuration files
-    npx json -I -f libs/booking/feature-flight-search/.eslintrc.json -e "this.overrides[0].parserOptions.project = [this.overrides[0].parserOptions.project[0].replace('/tsconfig.lib.json', '/tsconfig.*?.json')];"
+   In this step, you might see warnings like the following, depending on your TSLint rules:
 
-    # This setting is not used by the Nrwl Linter
-    npx json -I -f libs/booking/feature-flight-search/.eslintrc.json -e "delete this.overrides[0].parserOptions.createDefaultProgram;"
+   ```
+   WARNING: Within "tslint.json", the following 1 rule(s) did not have known converters in https://github.com/typescript-eslint/tslint-to-eslint-config
 
-    # Use the ESLint component template processor and recommended component template rules from angular-eslint
-    npx json -I -f libs/booking/feature-flight-search/.eslintrc.json -e "this.overrides[1].extends = ['plugin:@nrwl/nx/angular-template', 'plugin:@angular-eslint/template/recommended'];"
-    ```
+     - nx-enforce-module-boundaries
 
-    Finally, we configure ESLint for the `booking-app-e2e` project.
-    ```
-    # Use rules recommended by Cypress
-    npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "this.extends = ['plugin:cypress/recommended', this.extends];"
+   You will need to decide on how to handle the above manually, but everything else has been handled for you automatically.
+   ```
 
-    # Delete rule for component templates
-    npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "this.overrides = this.overrides.slice(0, 1);"
+   In the case of the `nx-enforce-module-boundaries` rule which is the only rule giving us warnings when using the example workspace generated by these steps, don't worry about them as we'll keep our root TSLint configuration file until the very last step. These are the lint rules used by the `nx workspace-lint` command.
 
-    # Add rules specifically for the Cypress plugin loader
-    npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "this.overrides = [{ files: ['src/plugins/index.js'], rules: { '@typescript-eslint/no-var-requires': 'off', 'no-undef': 'off' } }, ...this.overrides];"
+   For ESLint, this rule is called `@nrwl/nx/enforce-module-boundaries` and we will add it to our root ESLint configuration in one of the following steps.
 
-    # Match all TypeScript project configuration files
-    npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "this.overrides[1].parserOptions.project = [this.overrides[1].parserOptions.project[0].replace('/tsconfig.app.json', '/tsconfig.*?.json')];"
+   Either run the generator manually for each project:
 
-    # This setting is not used by the Nrwl Linter
-    npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "delete this.overrides[1].parserOptions.createDefaultProgram;"
+   ```
+   # Migrate booking-app rules to angular-eslint
+   nx generate @angular-eslint/schematics:convert-tslint-to-eslint booking-app
 
-    # Remove Angular declarable rules
-    npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "delete this.overrides[1].rules['@angular-eslint/component-selector'];"
-    npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "delete this.overrides[1].rules['@angular-eslint/directive-selector'];"
-    ```
+   # Migrate booking-app-e2e rules to angular-eslint
+   nx generate @angular-eslint/schematics:convert-tslint-to-eslint booking-app-e2e
 
-    Open `apps/booking-app-e2e/src/support/commands.ts` and put the following comment before the line which says `declare namespace Cypress {`:
-    ```ts
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    ```
+   # Migrate booking-feature-flight-search rules to angular-eslint
+   nx generate @angular-eslint/schematics:convert-tslint-to-eslint booking-feature-flight-search
+   ```
 
-    In the same file, add this coment before the line which says `interface Chainabile<Subject> {`:
-    ```ts
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ```
+   or loop over the project names in `angular.json` and run the generator for each project in a script.
 
-1. Use Nrwl Linter builder.
+   Script using PowerShell:
+
+   ```powershell
+   foreach ($project in (Get-Content angular.json | ConvertFrom-Json -AsHashtable).projects.GetEnumerator()) { nx generate @angular-eslint/schematics:convert-tslint-to-eslint $project.Name }
+   ```
+
+   Script using Bash:
+
+   ```bash
+   for project in $(cat angular.json | npx json projects | npx json -M -a key); do nx generate @angular-eslint/schematics:convert-tslint-to-eslint $project; done
+   ```
+
+   Finally, we revert the temporary renaming of `tsconfig.base.json`.
+
+   ```
+   mv tsconfig.json tsconfig.base.json
+   ```
+
+5. Configure angular-eslint for Nx workspace.
+
+   First, we remove unnecessary development dependencies.
+
+   Using NPM CLI:
+
+   ```
+   npm uninstall @angular-eslint/builder @angular-eslint/schematics
+   ```
+
+   Using PNPM CLI:
+
+   ```
+   pnpm remove @angular-eslint/builder @angular-eslint/schematics
+   ```
+
+   Using Yarn CLI:
+
+   ```
+   yarn remove @angular-eslint/builder @angular-eslint/schematics
+   ```
+
+   Then we add required development dependencies.
+
+   Using NPM CLI:
+
+   ```
+   npm install --save-dev @nrwl/eslint-plugin-nx eslint-config-prettier eslint-plugin-cypress
+   ```
+
+   Using PNPM CLI:
+
+   ```
+   pnpm add --save-dev @nrwl/eslint-plugin-nx eslint-config-prettier eslint-plugin-cypress
+   ```
+
+   Using Yarn CLI:
+
+   ```
+   yarn add --dev @nrwl/eslint-plugin-nx eslint-config-prettier eslint-plugin-cypress
+   ```
+
+   Next, we configure the root ESLint configuration.
+
+   ```
+   # Ignore all files not matched in overrides
+   npx json -I -f .eslintrc.json -e "this.ignorePatterns = ['**/*'];"
+
+   # Support ESLint plugins from `@nrwl/eslint-plugin-nx`
+   npx json -I -f .eslintrc.json -e "this.plugins = ['@nrwl/nx'];"
+
+   # Include tsx files
+   # Can be left out from an Angular-only workspace
+   npx json -I -f .eslintrc.json -e "this.overrides[0].files = ['*.ts', '*.tsx'];"
+
+   # Match all TypeScript project configuration files
+   npx json -I -f .eslintrc.json -e "this.overrides[0].parserOptions.project = './tsconfig.*?.json';"
+
+   # This setting is not used by the Nrwl Linter
+   npx json -I -f .eslintrc.json -e "delete this.overrides[0].parserOptions.createDefaultProgram;"
+
+   # Replace angular-eslint plugins with the Nx TypeScript ESLint plugin as it uses them internally
+   npx json -I -f .eslintrc.json -e "this.overrides[0].extends = ['plugin:@nrwl/nx/typescript'];"
+
+   # Remove component template rule as this is defined in project-specific ESLint configurations
+   npx json -I -f .eslintrc.json -e "this.overrides = this.overrides.slice(0, 1);"
+
+   # Use Nx JavaScript ESLint plugin for js and jsx files
+   # Can be left out from an Angular-only workspace
+   npx json -I -f .eslintrc.json -e "this.overrides = [...this.overrides, { files: ['*.js', '*.jsx'], extends: ['plugin:@nrwl/nx/javascript'], rules: {} }];"
+
+   # Remove angular-eslint rules that are added to project-specific ESLint configurations
+   npx json -I -f .eslintrc.json -e "delete this.overrides[0].rules['@angular-eslint/component-selector'];"
+   npx json -I -f .eslintrc.json -e "delete this.overrides[0].rules['@angular-eslint/directive-selector'];"
+   ```
+
+   The final change for the root ESLint configuration is to apply our workspace lint rules (and any other rules angular-eslint warned you about).
+
+   ```
+   # This is where we configure the workspace lint rules
+   # Refer to the root TSLint configuration
+   npx json -I -f .eslintrc.json -e "this.overrides = [{ files: ['*.ts', '*.tsx', '*.js', '*.jsx'], rules: { '@nrwl/nx/enforce-module-boundaries': ['error', { enforceBuildableLibDependency: true, allow: [], depConstraints: [{ sourceTag: '*', onlyDependOnLibsWithTags: ['*'] }] }] } }, ...this.overrides];"
+   ```
+
+   Now it's time to configure the per-project ESLint configurations. Let's start with the `booking-app` project.
+
+   ```
+   # Add Nx Angular ESLint plugin and the ESLint inline component template processor
+   npx json -I -f apps/booking-app/.eslintrc.json -e "this.overrides[0].extends = ['plugin:@nrwl/nx/angular', 'plugin:@angular-eslint/template/process-inline-templates'];"
+
+   # Match all TypeScript project configuration files
+   npx json -I -f apps/booking-app/.eslintrc.json -e "this.overrides[0].parserOptions.project = [this.overrides[0].parserOptions.project[0].replace('/tsconfig.app.json', '/tsconfig.*?.json')];"
+
+   # This setting is not used by the Nrwl Linter
+   npx json -I -f apps/booking-app/.eslintrc.json -e "delete this.overrides[0].parserOptions.createDefaultProgram;"
+
+   # Use the ESLint component template processor and recommended component template rules from angular-eslint
+   npx json -I -f apps/booking-app/.eslintrc.json -e "this.overrides[1].extends = ['plugin:@nrwl/nx/angular-template', 'plugin:@angular-eslint/template/recommended'];"
+   ```
+
+   Next, we configure ESLint and angular-eslint for the `booking-feature-flight-search` project. We make the same changes as we did for the `booking-app` project, except we start by correcting the path to the root ESLint configuration because the project-specific configuration is three folders deep in the workspace.
+
+   ```
+   # Correct path to root ESLint configuration
+   npx json -I -f libs/booking/feature-flight-search/.eslintrc.json -e "this.extends = '../' + this.extends;"
+
+   # Add Nx Angular ESLint plugin and the ESLint inline component template processor
+   npx json -I -f libs/booking/feature-flight-search/.eslintrc.json -e "this.overrides[0].extends = ['plugin:@nrwl/nx/angular', 'plugin:@angular-eslint/template/process-inline-templates'];"
+
+   # Match all TypeScript project configuration files
+   npx json -I -f libs/booking/feature-flight-search/.eslintrc.json -e "this.overrides[0].parserOptions.project = [this.overrides[0].parserOptions.project[0].replace('/tsconfig.lib.json', '/tsconfig.*?.json')];"
+
+   # This setting is not used by the Nrwl Linter
+   npx json -I -f libs/booking/feature-flight-search/.eslintrc.json -e "delete this.overrides[0].parserOptions.createDefaultProgram;"
+
+   # Use the ESLint component template processor and recommended component template rules from angular-eslint
+   npx json -I -f libs/booking/feature-flight-search/.eslintrc.json -e "this.overrides[1].extends = ['plugin:@nrwl/nx/angular-template', 'plugin:@angular-eslint/template/recommended'];"
+   ```
+
+   Finally, we configure ESLint for the `booking-app-e2e` project.
+
+   ```
+   # Use rules recommended by Cypress
+   npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "this.extends = ['plugin:cypress/recommended', this.extends];"
+
+   # Delete rule for component templates
+   npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "this.overrides = this.overrides.slice(0, 1);"
+
+   # Add rules specifically for the Cypress plugin loader
+   npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "this.overrides = [{ files: ['src/plugins/index.js'], rules: { '@typescript-eslint/no-var-requires': 'off', 'no-undef': 'off' } }, ...this.overrides];"
+
+   # Match all TypeScript project configuration files
+   npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "this.overrides[1].parserOptions.project = [this.overrides[1].parserOptions.project[0].replace('/tsconfig.app.json', '/tsconfig.*?.json')];"
+
+   # This setting is not used by the Nrwl Linter
+   npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "delete this.overrides[1].parserOptions.createDefaultProgram;"
+
+   # Remove Angular declarable rules
+   npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "delete this.overrides[1].rules['@angular-eslint/component-selector'];"
+   npx json -I -f apps/booking-app-e2e/.eslintrc.json -e "delete this.overrides[1].rules['@angular-eslint/directive-selector'];"
+   ```
+
+   Open `apps/booking-app-e2e/src/support/commands.ts` and put the following comment before the line which says `declare namespace Cypress {`:
+
+   ```ts
+   // eslint-disable-next-line @typescript-eslint/no-namespace
+   ```
+
+   In the same file, add this coment before the line which says `interface Chainabile<Subject> {`:
+
+   ```ts
+   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   ```
+
+6. Use Nrwl Linter builder.
    The final step is to replace `@angular-eslint/builder:lint` with `@nrwl/linter:eslint` in our workspace configuration.
 
-    ```
-    # Use Nrwl Linter
-    npx json -I -f angular.json -e "this.projects['booking-app'].architect.lint.builder = '@nrwl/linter:eslint';"
-    npx json -I -f angular.json -e "this.projects['booking-feature-flight-search'].architect.lint.builder = '@nrwl/linter:eslint';"
-    npx json -I -f angular.json -e "this.projects['booking-app-e2e'].architect.lint.builder = '@nrwl/linter:eslint';"
+   ```
+   # Use Nrwl Linter
+   npx json -I -f angular.json -e "this.projects['booking-app'].architect.lint.builder = '@nrwl/linter:eslint';"
+   npx json -I -f angular.json -e "this.projects['booking-feature-flight-search'].architect.lint.builder = '@nrwl/linter:eslint';"
+   npx json -I -f angular.json -e "this.projects['booking-app-e2e'].architect.lint.builder = '@nrwl/linter:eslint';"
 
-    # Only lint js and ts files in the end-to-end test project
-    npx json -I -f angular.json -e "this.projects['booking-app-e2e'].architect.lint.options.lintFilePatterns = [this.projects['booking-app-e2e'].architect.lint.options.lintFilePatterns[0].replace('*.ts', '*.{js,ts}')];"
-    ```
+   # Only lint js and ts files in the end-to-end test project
+   npx json -I -f angular.json -e "this.projects['booking-app-e2e'].architect.lint.options.lintFilePatterns = [this.projects['booking-app-e2e'].architect.lint.options.lintFilePatterns[0].replace('*.ts', '*.{js,ts}')];"
+   ```
 
-1. Remove Codelyzer and TSLint.
+7. Remove Codelyzer and TSLint.
 
-    Using NPM CLI:
-    ```
-    npm uninstall codelyzer tslint
-    rm tslint.json
-    ```
+   Using NPM CLI:
 
-    Using Yarn CLI:
-    ```
-    yarn remove codelyzer tslint
-    rm tslint.json
-    ```
+   ```
+   npm uninstall codelyzer tslint
+   rm tslint.json
+   ```
 
-    Alternatively, use the following `preinstall` script to permanently remove Codelyzer and TSLint despite generators trying to add them back.
+   Using Yarn CLI:
 
-    Using NPM CLI:
-    ```
-    npx json -I -f package.json -e "this.scripts.preinstall = '(npm uninstall codelyzer || echo ✅ Codelyzer is already removed.) && (npm uninstall tslint || echo ✅ TSLint is already removed.)';"
-    npm install
-    ```
+   ```
+   yarn remove codelyzer tslint
+   rm tslint.json
+   ```
 
-    Using PNPM CLI:
-    ```
-    npx json -I -f package.json -e "this.scripts.preinstall = '(pnpm remove codelyzer || echo ✅ Codelyzer is already removed.) && (pnpm remove tslint || echo ✅ TSLint is already removed.)';"
-    pnpm install
-    ```
+   Alternatively, use the following `preinstall` script to permanently remove Codelyzer and TSLint despite generators trying to add them back.
 
-    Using Yarn CLI:
-    ```
-    npx json -I -f package.json -e "this.scripts.preinstall = '(yarn remove codelyzer || echo ✅ Codelyzer is already removed.) && (yarn remove tslint || echo ✅ TSLint is already removed.)';"
-    yarn install
-    ```
+   Using NPM CLI:
 
-1. Verify that linting works.
-    Run the `lint` target on all projects to verify that ESLint with angular-eslint works.
+   ```
+   npx json -I -f package.json -e "this.scripts.preinstall = '(npm uninstall codelyzer || echo ✅ Codelyzer is already removed.) && (npm uninstall tslint || echo ✅ TSLint is already removed.)';"
+   npm install
+   ```
 
-    ```
-    nx run-many --target=lint --all
-    ```
+   Using PNPM CLI:
+
+   ```
+   npx json -I -f package.json -e "this.scripts.preinstall = '(pnpm remove codelyzer || echo ✅ Codelyzer is already removed.) && (pnpm remove tslint || echo ✅ TSLint is already removed.)';"
+   pnpm install
+   ```
+
+   Using Yarn CLI:
+
+   ```
+   npx json -I -f package.json -e "this.scripts.preinstall = '(yarn remove codelyzer || echo ✅ Codelyzer is already removed.) && (yarn remove tslint || echo ✅ TSLint is already removed.)';"
+   yarn install
+   ```
+
+8. Verify that linting works.
+   Run the `lint` target on all projects to verify that ESLint with angular-eslint works.
+
+   ```
+   nx run-many --target=lint --all
+   ```
 
 # Conclusion
+
 The `empty` preset for an Nx workspace is great, because it uses the new `workspace.json` version 2 schema with executors, generators, and targets. We can configure it however we want and it supports angular-eslint well.
 
 A new Nx workspace can be created using the `angular` preset to keep using the `angular.json` workspace configuration.
@@ -968,6 +1074,7 @@ To configure angular-eslint manually for an Nx workspace, we carefully adjust ou
 No matter which combination of technologies we're using, it's possible to get rid of Codelyzer and TSLint today and start using angular-eslint instead.
 
 Some Angular-specific TSLint rules from Codelyzer do not have corresponding angular-eslint rules implemented yet. At the time of writing, the missing rules are:
+
 - `angular-whitespace`
 - `contextual-decorator`
 - `import-destructuring-spacing`
@@ -983,4 +1090,5 @@ Some Angular-specific TSLint rules from Codelyzer do not have corresponding angu
 Why should we migrate away from TSLint as fast as possible? On December 1st 2020, TSLint went fully end-of-life. No PRs or issues are accepted ever again. This means that any release of Angular, TypeScript, Node.js, or any of TSLint's dependencies can potentially break TSLint version 6.1.3, the last version to ever be published. TSLint was deprecated 2 years ago.
 
 ## Acknowledgements
+
 Thank you [James Henry](https://twitter.com/MrJamesHenry) for angular-eslint. Thank you Nrwl and [James Henry](https://twitter.com/MrJamesHenry) for angular-eslint support in Nx.

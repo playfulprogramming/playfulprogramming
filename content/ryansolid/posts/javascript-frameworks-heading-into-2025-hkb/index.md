@@ -25,11 +25,11 @@ It isn't just that the tools are complicated but the problems. It has taken hitt
 
 It is a sobering thought but it gives me hope in 2025 that we can take some time and re-evaluate. And that starts with reflecting on 2024.
 
-----------
+---
 
 ## The Promise of the Server
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/97utr47d5813aaopbm7g.png)
+![Image description](./97utr47d5813aaopbm7g.png)
 
 Making things "server-first" has been the narrative over the last 5 years in the front end. This is not a new concept, the web was born on the server, but after a decade of client-centric single-page apps, it was clear the pendulum had swung too far. Especially for page load-sensitive websites, which did not benefit as much from increased interactivity.
 
@@ -45,7 +45,6 @@ It has been incredibly difficult to measure success. We've seen benchmark fails:
 
 {% twitter 1828514851741933689 %}
 
-
 We've seen performance attributed to new technologies when the root cause was elsewhere:
 
 {% twitter 1818402060238565722 %}
@@ -56,11 +55,11 @@ We wouldn't be where we are if there wasn't a need to improve upon what came bef
 
 If 2021/22 was a reset to a simpler base, a return to our beginnings on the server, 2024 reminded us that simple doesn't always cut it.
 
----------------------
+---
 
 ## Compilation to the Rescue
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3zp0lv4t53me88fa1yi3.png)
+![Image description](./3zp0lv4t53me88fa1yi3.png)
 
 Compilation is an ever-present aspect of JavaScript development. Whenever we've hit an obstacle, whether it be browser feature support, clunky syntax, or the ability to address the language's shortcomings we build a compiler for that.
 
@@ -80,7 +79,7 @@ And interestingly both choices come at the expense of increased complexity in to
 
 The verdict is still out on whether these will ultimately be good moves for these projects. The common ground is the foundation we build upon continues to get more complicated as we attempt to create solutions to make development easier.
 
--------
+---
 
 ## AI and Dev Tools
 
@@ -98,7 +97,8 @@ While one might argue that re-renders aren't necessarily a sign of a problem or 
 
 If tasks are complicated and core tooling more complex it makes sense that supporting tools rise up to meet that. It is more than the [shift left in development](https://www.swyx.io/language-servers). The need is fully integrated across the whole spectrum. While Biome (and previously Rome) set out this goal newer players in the space like VoidZero (from Vue/Vite creator Evan You) show that this foundation is essential for where things go next.
 
-------------
+---
+
 ## Looking Forward
 
 ### Server-second
@@ -111,7 +111,7 @@ We've also seen an increase in local-first/sync engine technology. How that is t
 
 ### Slow & Steady Wins the Race
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bnedrxq35bplynvccpif.png)
+![Image description](./bnedrxq35bplynvccpif.png)
 
 One thing that caught me looking at the results of the JavaScript Survey this year is that in the sea of growing dissatisfaction with our tools some have shown more positivity growth than others. This differs slightly from say Retention(Satisfaction) which is focused on current users of the tool and caters to smaller players (SolidJS and Svelte have sat on the top of that list for years).
 
@@ -119,7 +119,7 @@ They aren't the tools I talk about as much, but when the economy is tight and ma
 
 ### Signal Growing Pains
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jj8fg2sgb8r2479hwh24.png)
+![Image description](./jj8fg2sgb8r2479hwh24.png)
 
 It is no secret that pretty much all non-React frameworks run off Signals now. But some time has passed and developers are starting to understand the depths of tradeoffs present. While it is this author's biased opinion these are minor issues, I do expect people to come to a new appreciation for React. It's an appreciation they should have probably always had and that doesn't excuse any of React's flaws. But everything is a series of tradeoffs and you can only appreciate the choice you've made once you understand both sides.
 
@@ -129,7 +129,7 @@ That being said Signals are still evolving. The collective experience in this ar
 
 ...[Just kidding](https://dev.to/ryansolid/web-components-are-not-the-future-48bh).
 
---------------
+---
 
 ## Conclusion
 
@@ -144,4 +144,3 @@ A single solution hasn't shown itself. HTMX is not going to take over the world,
 We live in a world full of complexity and that doesn't appear to be changing any time soon. So 2025 feels like a good time to hunker down and get stuff done.
 
 And, for those looking for the next great thing? Look around. There are plenty of interesting problems to solve. Between you and me, this is the type of environment I thrive in.
-

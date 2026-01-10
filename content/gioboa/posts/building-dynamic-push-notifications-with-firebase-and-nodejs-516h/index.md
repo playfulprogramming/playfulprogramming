@@ -13,7 +13,7 @@ socialImage: "social-image.png"
 
 In the [previous article](https://dev.to/this-is-learning/push-notifications-in-angular-19-with-firebase-cloud-messaging-3o3a) we saw how Firebase Cloud Messaging (FCM) is a versatile solution for delivering push notifications to various platforms.
 
-While basic notifications are useful, custom notifications allow you to tailor the user experience with specific data and actions. 
+While basic notifications are useful, custom notifications allow you to tailor the user experience with specific data and actions.
 
 Let's see how sending custom notifications using Node.js and integrating them with your [Angular](https://angular.dev/) application.
 
@@ -21,6 +21,7 @@ Let's see how sending custom notifications using Node.js and integrating them wi
 
 Completed the basic FCM setup as described in the [previous article](https://dev.to/this-is-learning/push-notifications-in-angular-19-with-firebase-cloud-messaging-3o3a).
 You should have:
+
 - A Firebase project.
 - The `@angular/fire` package installed in your Angular project.
 - Firebase initialized in your `app.config.ts`.
@@ -38,6 +39,7 @@ npm install firebase-admin
 ```
 
 Download your service account key JSON file from the Firebase Console:
+
 - Go to your Firebase project.
 - Click on the "Settings" icon (gear icon) next to "Project Overview".
 - Select "Service accounts".
@@ -180,16 +182,19 @@ self.addEventListener('notificationclick', (event) => {
 ### messaging.onBackgroundMessage
 
 Handles notifications received when the app is in the background.
+
 - `const link = payload.fcmOptions.link ?? payload.data?.link;`: Extract link from `fcmOptions.link` if available, otheriwse fallback to `data.link`
 - `notificationOptions.data`: The  `data`  property is used to pass custom data (in our case the URL) to the event listener.
 - `notificationOptions.body: payload.notification.body`: The value on notificationOptions.body was wrong in the last iteration.
 
 ### self.addEventListener("notificationclick")
+
 This event listener handles what happens when the user *clicks* on the notification.
 `event.notification.data.url`: Retrieves the URL we embedded in the notification's `data` property.
 The rest of the code ensures that if a tab with the specified URL is already open, it's brought to the front; otherwise, a new tab is opened.  This is a key element of providing a seamless user experience.
 
 ### includeUncontrolled: true
+
 This makes sure that even if the user has navigated directly to your page (without the service worker controlling it), the click event will still be handled.
 
 ## Testing Custom Notifications
@@ -208,4 +213,3 @@ By leveraging the flexibility of FCM and the power of Node.js, you can tailor yo
 
 Happy coding! 🎉
 Need help? Ask away in the comments!
-

@@ -33,13 +33,13 @@ At their core, Gists are just Git repositories. That means all the goodness of v
 Here are a few things many developers don’t realize:
 
 - **Public vs Secret Gists**
-    - Public Gists are searchable and indexable — great for sharing snippets with the world.
-    - Secret Gists are “unlisted,” not truly private. Anyone with the link can access them, so treat them like a hidden blog post, not a secure vault.
+  - Public Gists are searchable and indexable — great for sharing snippets with the world.
+  - Secret Gists are “unlisted,” not truly private. Anyone with the link can access them, so treat them like a hidden blog post, not a secure vault.
 - **When to use Gists instead of repos**
-    - **Use Gists for**: quick snippets, single scripts, throwaway demos, dotfile sharing.
-    - **Use repos for**: projects that need issues, CI/CD, or multiple contributors.
+  - **Use Gists for**: quick snippets, single scripts, throwaway demos, dotfile sharing.
+  - **Use repos for**: projects that need issues, CI/CD, or multiple contributors.
 - **They’re versioned**
-    - Every time you edit a Gist, GitHub keeps a full version history. You can roll back to earlier states, just like with a normal repo.
+  - Every time you edit a Gist, GitHub keeps a full version history. You can roll back to earlier states, just like with a normal repo.
 
 Think of Gists as **lightweight repos**: perfect for experiments, one-off utilities, or sharing knowledge without the overhead of a full project.
 
@@ -81,7 +81,6 @@ The description is often overlooked, but it’s the **first thing people see**. 
 Example:
 
 > “PowerShell script to clean up unused Azure resource groups. Run with ./azure-cleanup.ps1.”
-> 
 
 ### 4. Pseudo-Tags in Descriptions
 
@@ -142,11 +141,11 @@ This makes Gists a hidden gem for **lightweight collaboration** — no need to s
 
 🙋‍♂️ Hey, I'm Emanuele — you might know me online as **Kasuken**.
 
-👨‍💻 Senior Cloud Engineer | Microsoft MVP | GitHub Star  
-🛠️ I build things with **.NET**, **Azure**, **AI**, and **GitHub**  
+👨‍💻 Senior Cloud Engineer | Microsoft MVP | GitHub Star\
+🛠️ I build things with **.NET**, **Azure**, **AI**, and **GitHub**\
 🌈 Turning code into 🦖 and 🦄 — one commit at a time
 
-🚀 If you're into .NET, GitHub, DevOps, or just cool side projects,  
+🚀 If you're into .NET, GitHub, DevOps, or just cool side projects,\
 feel free to [connect with me on LinkedIn](https://www.linkedin.com/in/bartolesiemanuele)
 
 P.S. I break things so you don’t have to. 😉

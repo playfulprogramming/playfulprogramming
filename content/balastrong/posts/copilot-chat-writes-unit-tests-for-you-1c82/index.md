@@ -27,7 +27,7 @@ Still not having time to write tests?
 
 One of the coolest features of Copilot Chat, one of the tools in the Copilot X suite, is the ability to generate unit tests for you. You just need to select a block of code and ask Copilot to write the tests for you.
 
-![Copilot Chat](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gc6qe7d1ec171arjahj1.png)
+![Copilot Chat](./gc6qe7d1ec171arjahj1.png)
 
 Cool, it will make you and me save so much time!
 
@@ -39,7 +39,7 @@ Yeah sure, in a single click, you have a bunch of tests written for you. But you
 
 I'll further explore the following topics in the video:
 
-- **Copilot tries to guess the logic of your code** - 
+- **Copilot tries to guess the logic of your code** -
   If it's right, it will help you find bugs. Is it wrong? Well, you'll have a bunch of tests that don't make sense.
 - **Copilot doesn't know what you're testing** - It will generate tests for the code you selected, but it doesn't know what you're trying to test. In some cases might be more noise than signal.
 - **Copilot doesn't know your business logic** - If you wrote code that actually makes sense, Copilot will generate tests that make sense. But what if your business logic is not what the client asked? The generated tests will validate the wrong logic.
@@ -69,7 +69,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

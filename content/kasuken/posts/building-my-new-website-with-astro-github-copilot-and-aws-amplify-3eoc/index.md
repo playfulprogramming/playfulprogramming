@@ -26,7 +26,7 @@ And because I can’t resist automating things, I also set up an **AWS Lambda** 
 
 ---
 
-![My new website](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mkl3vin6s4t2fgg0tais.png)
+![My new website](./mkl3vin6s4t2fgg0tais.png)
 
 ## Starting from Zero: Learning Astro with GitHub Copilot
 
@@ -41,9 +41,9 @@ treat Copilot like a team of specialists instead of a single assistant.
 
 So, for example:
 
-* I’d ask **“Architect Copilot”** to explain how Astro handles layouts and partials.
-* Then I’d switch to **“Implementer Copilot”** to help me generate the first components.
-* And finally, **“Reviewer Copilot”** to check consistency and readability.
+- I’d ask **“Architect Copilot”** to explain how Astro handles layouts and partials.
+- Then I’d switch to **“Implementer Copilot”** to help me generate the first components.
+- And finally, **“Reviewer Copilot”** to check consistency and readability.
 
 In just a few hours, I had a working homepage, a blog section, and some reusable components.
 
@@ -154,7 +154,7 @@ No YAML setup, no manual build commands — it just picked up `npm run build` an
 I like the simplicity of the UI (even if I needed 2 days to be productive on the AWS console), especially compared to the Azure Portal.
 I used to use Azure since ages now, but actually the AWS console is not so bad.
 
-![AWS console homepage](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/01cw9c3m206pxo37z477.png)
+![AWS console homepage](./01cw9c3m206pxo37z477.png)
 
 But I soon realized Astro isn’t natively supported in Amplify…
 and that’s when I discovered the **AWS Amplify Adapter for Astro**.
@@ -209,10 +209,10 @@ Each branch can become its own environment — automatically.
 
 So, for example:
 
-* **`main` branch →** production (`emanuelebartolesi.com`)
-* **`dev` branch →** staging (`dev.emanuelebartolesi.com`)
+- **`main` branch →** production (`emanuelebartolesi.com`)
+- **`dev` branch →** staging (`dev.emanuelebartolesi.com`)
 
-![My amplify setup](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/e9epavou80uldn23nvtn.png)
+![My amplify setup](./e9epavou80uldn23nvtn.png)
 
 Every time I pushed a commit to either branch, Amplify rebuilt and deployed it without me touching a thing.
 
@@ -236,14 +236,11 @@ That kind of workflow used to take hours to configure manually — now it was a 
 In my website I have different components that need to load a lot of data from APIs.
 For instance, I have a component to render my commmits on GitHub, all the info about my GitHub account and below I have the statistics about my productivity during the day with RescueTime.
 
+![GitHub Activity](./xdrjt5j7h5fz13atmiyd.png)
 
-![GitHub Activity](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xdrjt5j7h5fz13atmiyd.png)
+![GitHub Stats](./0nobnjgk7yokrmmeemhz.png)
 
-
-![GitHub Stats](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0nobnjgk7yokrmmeemhz.png)
-
-
-![RescueTime Statistics](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/z0tze3hynehnpsi55gz9.png)
+![RescueTime Statistics](./z0tze3hynehnpsi55gz9.png)
 
 So, I created a couple of loader on Astro to load all this data, but I need to rebuild the website everytime I want to update the pages.
 
@@ -293,8 +290,8 @@ Once everything was running perfectly on Amplify, it was time for the final touc
 
 I wanted two environments with clean, memorable URLs:
 
-* `emanuelebartolesi.com` for production
-* `dev.emanuelebartolesi.com` for my staging environment
+- `emanuelebartolesi.com` for production
+- `dev.emanuelebartolesi.com` for my staging environment
 
 I decided to manage everything directly in **AWS Route 53**, mostly out of curiosity — but also because I’d heard good things about how seamlessly it integrates with Amplify.
 
@@ -357,11 +354,11 @@ I forgot to write that my website is open source (because why not) and you can u
 
 🙋‍♂️ Hey, I'm Emanuele — you might know me online as **Kasuken**.
 
-👨‍💻 Senior Cloud Engineer | Microsoft MVP (12x) | GitHub Star (4x)  
-🛠️ I build things with **.NET**, **Azure**, **AI**, and **GitHub**  
+👨‍💻 Senior Cloud Engineer | Microsoft MVP (12x) | GitHub Star (4x)\
+🛠️ I build things with **.NET**, **Azure**, **AI**, and **GitHub**\
 🌈 Turning code into 🦖 and 🦄 — one commit at a time
 
-🚀 If you're into .NET, GitHub, DevOps, or just cool side projects,  
+🚀 If you're into .NET, GitHub, DevOps, or just cool side projects,\
 feel free to [connect with me on LinkedIn](https://www.linkedin.com/in/bartolesiemanuele)
 
 P.S. I break things so you don’t have to. 😉

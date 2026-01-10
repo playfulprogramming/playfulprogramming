@@ -39,7 +39,7 @@ You already know this, but most often you use the Console or the Network tab, bu
 
 To access the debugger, you can click on the “Sources” tab and then on the left, you’ll see all the files that compose your application.
 
-![Files](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/k936k02tz1gv8alfmzv1.png)
+![Files](./k936k02tz1gv8alfmzv1.png)
 
 From here you can either navigate to the file you want to debug or you can use the search bar to find it. A smart way is with the command palette (Cmd + P on Mac, which should be Ctrl + P on Windows) and then type the name of the file you want to debug.
 
@@ -65,7 +65,7 @@ Last call, you can watch it [on video](https://youtu.be/t1aEXEvYzvM)!
 
 ### Conditional breakpoints
 
-![Conditional](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sb3ohyr2llk32b8n7zr4.png)
+![Conditional](./sb3ohyr2llk32b8n7zr4.png)
 
 The name is self-explanatory, but I'll explain it with an example.
 
@@ -86,7 +86,7 @@ As simple as that, but reeeally powerful!
 
 ### Logpoints
 
-![Logpoints](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0kc0u9dfn7rwwftwip8o.png)
+![Logpoints](./0kc0u9dfn7rwwftwip8o.png)
 
 But console logs? I can't live without them!
 
@@ -94,7 +94,7 @@ Ok ok, you can set special breakpoints that are actually logpoints, it's the opt
 
 This means that instead of pausing the execution of the code, the debugger will just log a message in the console.
 
-![Logs](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f5qnd1i1tcdnay2knd2x.png)
+![Logs](./f5qnd1i1tcdnay2knd2x.png)
 
 Advantages? You don't need to spread a ton of console.logs in the code that you would need to remove later, to begin with!
 
@@ -102,11 +102,11 @@ Removing a logpoint, as well as other breakpoints, really quick. How? Read the n
 
 ### Removing breakpoints
 
-You can remove a breakpoint by clicking on it. If you want to remove all breakpoints, you can click on the "Deactivate breakpoints" button on the top right. This doesn't actually _remove_ them, but it deactivates them so you can reactivate everything in a single click.
+You can remove a breakpoint by clicking on it. If you want to remove all breakpoints, you can click on the "Deactivate breakpoints" button on the top right. This doesn't actually *remove* them, but it deactivates them so you can reactivate everything in a single click.
 
 In any case, from the Breakpoints tab you can enable/disable and even remove breakpoints in a nice overview.
 
-![Breakpoints](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8exb1nu7ti2l0gyfjykb.png)
+![Breakpoints](./8exb1nu7ti2l0gyfjykb.png)
 
 ## Event listeners
 
@@ -114,7 +114,7 @@ If breakpoints, conditional breakpoints, logpoints and the `debugger` statement 
 
 Oh wait, it's in the title of this chapter: event listeners.
 
-![Event Listeners](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3g26kh9wdoeml0pfu3hy.png)
+![Event Listeners](./3g26kh9wdoeml0pfu3hy.png)
 
 You can add special breakpoints that are triggered only when a specific event is fired.
 
@@ -132,11 +132,11 @@ Now, cool, but what can you do once there? Let's see some cool tricks ;)
 
 The first thing you'll notice is that if you move your mouse over a variable, you'll see its value. This is already a huge improvement over console logs as you can see all of them without having to dig through a wall of text in the logs.
 
-![Values](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/p4zq06oz2twzgh64phcp.png)
+![Values](./p4zq06oz2twzgh64phcp.png)
 
 There's also the Scope tab that shows you all the variables in the current scope, grouped in Block, Local, Scope, Module and Global.
 
-![Scope](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/k8vi92lo7nst314fc8xc.png)
+![Scope](./k8vi92lo7nst314fc8xc.png)
 
 ### Watch
 
@@ -146,7 +146,7 @@ But this doesn't work only for variables, you can also add expressions. For exam
 
 Last example, you can write a boolean expression like `players[i].name === 'Leonardo'` and it will show you if the condition is true or false while you step through the code.
 
-![Watch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xrk8vt1pl0utq3431xnu.png)
+![Watch](./xrk8vt1pl0utq3431xnu.png)
 
 ### Call stack
 
@@ -156,7 +156,7 @@ For example, you have a function that is called from many different places and y
 
 On the call stack you can exactly see that, all the previous functions that led the execution to the current one.
 
-![Stack](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7qcpyxsjfsu8343bf0y0.png)
+![Stack](./7qcpyxsjfsu8343bf0y0.png)
 
 ## Moving through time and space
 
@@ -184,7 +184,7 @@ The Step out button is the opposite of the previous one. It will execute the cur
 
 ## Conclusion
 
-![Debugger](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/z6dsb4ityuh1dhctic2c.png)
+![Debugger](./z6dsb4ityuh1dhctic2c.png)
 
 And that's it! This was just the tip of the iceberg, there are many more things you can do with the debugger, but I think this is enough to get you started and to make you curious to learn more.
 
@@ -198,7 +198,6 @@ I tried to describe this tool and add some screenshots, but this was kind of a d
 
 Thanks for reading, and happy debugging! 🎉
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -207,7 +206,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

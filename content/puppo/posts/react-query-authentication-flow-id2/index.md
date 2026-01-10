@@ -13,14 +13,13 @@ order: 1
 }
 ---
 
-
 Every application should handle an authentication flow; in this article, you'll learn how to build an authentication flow in your React Application with React Query.
 
 ## Sign Up
 
 The first step to build an authentication flow is the sign-up action. As you have already learned in this series, you should build a mutation to do this action. A possible solution could be this
 
-```ts 
+```ts
 async function signUp(email: string, password: string): Promise<User> {
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
@@ -65,13 +64,13 @@ export function useSignUp(): IUseSignUp {
 }
 ```
 
-By creating a mutation like that, you build the signUp in a very simple and clear way.  
-Now using the `useSignUp` hook, you can get the mutation and call the signUp request to create a new user in your system. As you can notice, the code is pretty simple; the `signUp` method calls the API to post the new user's data and return the user data saved in the database. Then using the `useMutation` hook, you can build the mutation to handle the signUp action. If everything goes ok, the `onSuccess` hook calls the navigation to the home page; otherwise, the `onError` hook shows a toast with an error.  
+By creating a mutation like that, you build the signUp in a very simple and clear way.\
+Now using the `useSignUp` hook, you can get the mutation and call the signUp request to create a new user in your system. As you can notice, the code is pretty simple; the `signUp` method calls the API to post the new user's data and return the user data saved in the database. Then using the `useMutation` hook, you can build the mutation to handle the signUp action. If everything goes ok, the `onSuccess` hook calls the navigation to the home page; otherwise, the `onError` hook shows a toast with an error.\
 In the code, there is a TODO that indicates something missing; we'll get back to this line in the future of this post.
 
 ## Sign In
 
-The second step to build if you are building an authentication flow is SignIn. In this case, SignIn is pretty similar to SignUp; the only things that change are the endpoint and the scope of the hook.  
+The second step to build if you are building an authentication flow is SignIn. In this case, SignIn is pretty similar to SignUp; the only things that change are the endpoint and the scope of the hook.\
 So the code can be this
 
 ```ts
@@ -123,8 +122,8 @@ I don't want to spend much time describing this hook because it is very similar 
 
 ## The user
 
-The core part of an authentication flow is where you save the user in the state. To do that, in this case, the best way is to create a new hook called `useUser` which is the owner of the user data.  
-The `useUser` hook must have the user's data, and it has to save the user's data in the local storage and retrieve them when the user refreshes the page or gets back in the future.  
+The core part of an authentication flow is where you save the user in the state. To do that, in this case, the best way is to create a new hook called `useUser` which is the owner of the user data.\
+The `useUser` hook must have the user's data, and it has to save the user's data in the local storage and retrieve them when the user refreshes the page or gets back in the future.\
 Let's start with the code that handles the local storage. Typically, this code is created with small functions with a specific goal like the next.
 
 ```ts
@@ -148,7 +147,7 @@ export function removeUser(): void {
 
 In this way, you can create a small module that handles all the local storage functions for the user.
 
-Now it's time to see how you can build the `useUser` hook.  
+Now it's time to see how you can build the `useUser` hook.\
 Let's start with the code
 
 ```ts
@@ -210,8 +209,8 @@ The `useQuery` hook is similar to the others seen before, but there are two new 
 
 - **initialData** : this option is used to load the data from the local storage; the initialData accepts a function that returns the initial value; if the initial value is defined, react query uses this value to refresh the data.
 
-Now you have all the blocks of the authentication flow, but it's time to link `useSignUp` and `useSignIn` with the `useUser` hook.  
-Using the [QueryClient](https://tanstack.com/query/v4/docs/react/reference/QueryClient) you can set the data of a specific query by the [setQueryData](https://tanstack.com/query/v4/docs/react/reference/QueryClient#queryclientsetquerydata) function.  
+Now you have all the blocks of the authentication flow, but it's time to link `useSignUp` and `useSignIn` with the `useUser` hook.\
+Using the [QueryClient](https://tanstack.com/query/v4/docs/react/reference/QueryClient) you can set the data of a specific query by the [setQueryData](https://tanstack.com/query/v4/docs/react/reference/QueryClient#queryclientsetquerydata) function.\
 So the previous TODOs comments change in this way
 
 ```ts
@@ -265,7 +264,7 @@ export function useSignIn(): IUseSignIn {
 }
 ```
 
-With two simple lines of code, you can set the user in the `useUser` state because the key used to set the query data is the same as the `useUser`.  
+With two simple lines of code, you can set the user in the `useUser` state because the key used to set the query data is the same as the `useUser`.\
 Then, with an `useEffect` in the `useUser` hook, you can remove or set the user data in the local storage when the user changes
 
 ```ts
@@ -294,7 +293,7 @@ export function useUser(): IUseUser {
 }
 ```
 
-To complete the authentication flow, the only missing thing is the logout.  
+To complete the authentication flow, the only missing thing is the logout.\
 You can build it with a custom hook called `useSignOut`; its implementation is straightforward and could be done in this way
 
 ```ts
@@ -334,6 +333,6 @@ Bye Bye 👋
 
 p.s. you can find the code of the video [**here**](https://github.com/Puppo/learning-react-query/tree/05-auth)
 
-_Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto&utm_medium=referral)_
+*Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto\&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto\&utm_medium=referral)*
 
 {% embed https://dev.to/puppo %}

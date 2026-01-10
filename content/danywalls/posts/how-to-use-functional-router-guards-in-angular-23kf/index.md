@@ -98,7 +98,7 @@ If you never play with guards, I recommend the example in the [official Angular 
 
 The Guards are services implementing interfaces like `CanActivate`, and it continues working with Standalone components.
 
-Create the guard `DomainGuard`, implements the `canActivate` interface, and inject the `router` and the `domainService`, in the constructor. 
+Create the guard `DomainGuard`, implements the `canActivate` interface, and inject the `router` and the `domainService`, in the constructor.
 
 The `canActivate` use the method `isAvailable` from the service when the return is false, then use the router to navigate to the `no-available` route.
 
@@ -134,7 +134,8 @@ Our next step is to register the guard with the standalone component. Open the `
     loadComponent: () => import('./pages/domains/domains.component').then(m => m.DomainsComponent),
   },
 ```
-![one](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/c1y2r4dxec64llcxsut5.gif)
+
+![one](./c1y2r4dxec64llcxsut5.gif)
 
 ## Turn to Functional Guards
 
@@ -149,8 +150,7 @@ The `canActivate` array accepts functions so that we can write an arrow function
   },
 ```
 
-
-![two](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hfo89gbnvh2hz7j4yb7w.gif)
+![two](./hfo89gbnvh2hz7j4yb7w.gif)
 
 ### Using Inject()
 
@@ -187,11 +187,12 @@ Next, register in the router, as we did before with the class.
   },
 ```
 
-![three](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/h7fl8ol5rwlg59old4ol.gif)
+![three](./h7fl8ol5rwlg59old4ol.gif)
 Yeah!! We have our functional guards with standalone components.
 
 ## Conclusion
-We learn how to use Class Guard with Standalone and how to convert to functional guard. Also use inject to provide dependencies to the functional guard. 
+
+We learn how to use Class Guard with Standalone and how to convert to functional guard. Also use inject to provide dependencies to the functional guard.
 
 Do you like functional guards? Please leave a comment or share.
 

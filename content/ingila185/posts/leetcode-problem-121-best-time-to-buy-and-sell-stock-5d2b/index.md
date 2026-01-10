@@ -43,9 +43,9 @@ function calculateProfit(a, b) {
 }
 ```
 
-![BruteForce](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9mffrfjc3rt45phcr6o4.PNG)
+![BruteForce](./9mffrfjc3rt45phcr6o4.PNG)
 
-**Here's why:** We compare each element with n-1 other elements, resulting in n*(n-1)/2 comparisons. This translates roughly to O(n^2) time complexity, which becomes inefficient for large datasets. Unfortunately, this approach often leads to a "Time Limit Exceeded" error on LeetCode.
+**Here's why:** We compare each element with n-1 other elements, resulting in n\*(n-1)/2 comparisons. This translates roughly to O(n^2) time complexity, which becomes inefficient for large datasets. Unfortunately, this approach often leads to a "Time Limit Exceeded" error on LeetCode.
 
 ## Two Pointer Approach (Time Complexity: O(n))
 
@@ -83,8 +83,7 @@ var maxProfit = function (prices) {
 
 ```
 
-
-![TwoPointer](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/e2tzycp1jtujmspeolkv.PNG)
+![TwoPointer](./e2tzycp1jtujmspeolkv.PNG)
 
 ## Greedy Approach (Time Complexity: O(n)) with Python Example
 
@@ -104,10 +103,6 @@ class Solution:
         
 ```
 
-![Greedy](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/o47xobcok0v3pu2z59ve.PNG)
+![Greedy](./o47xobcok0v3pu2z59ve.PNG)
 
 You can always learn more about where else to find me on [my portfolio here](https://next-js-portfolio-two-ebon.vercel.app/en)
-
-
-
-

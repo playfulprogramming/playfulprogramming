@@ -15,12 +15,11 @@ When I started to play with templates and dynamic content in angular, I get surp
 
 I'll be showcasing various scenarios for ng-template, ng-container, and ng-content, complete with helpful examples to illustrate the appropriate use of each directive. But first, let's briefly explain each one:
 
-* `ng-template` help to define a template that can be reused multiple times within an Angular component.
-    
-* `ng-container` when we need to group elements without adding additional nodes to the DOM.
-    
-* `ng-content` is used to render content dynamically that is passed in from the parent component.
-    
+- `ng-template` help to define a template that can be reused multiple times within an Angular component.
+
+- `ng-container` when we need to group elements without adding additional nodes to the DOM.
+
+- `ng-content` is used to render content dynamically that is passed in from the parent component.
 
 ## **ng-template**
 
@@ -129,6 +128,5 @@ In this example, we use them `AlertComponent` to display success and error messa
 In conclusion, ng-template, ng-container, and ng-content are three commonly used directives in Angular templates. Although they may appear similar initially, each one has a unique purpose and function.
 
 I hope these examples and scenarios assist you in selecting and utilizing each one as needed.
-
 
 Photo by Kelly Sikkema on Unsplash

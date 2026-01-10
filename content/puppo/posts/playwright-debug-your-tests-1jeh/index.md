@@ -13,31 +13,30 @@ order: 1
 }
 ---
 
-
 # Debug your tests
 
-One of the most popular things done by developers is to debug the code using `console.log`.  
+One of the most popular things done by developers is to debug the code using `console.log`.\
 But today I want to show you how to debug your Playwright tests.
 
-Let's start with the Playwright Inspector.  
-Using the option `--debug` when you run the tests, Playwright opens two new windows in your display, a browser and the Playwright Inspector.  
+Let's start with the Playwright Inspector.\
+Using the option `--debug` when you run the tests, Playwright opens two new windows in your display, a browser and the Playwright Inspector.\
 To try this, you can type in your terminal this command `npx playwright test --debug`, the result seems like this
 
-![Playwright Inspector](https://cdn.hashnode.com/res/hashnode/image/upload/v1670410960054/mKShQ1M4a.gif)
+![Playwright Inspector](./mKShQ1M4a.gif)
 
 You can use the commands in the inspector to move forward in the test and check the stuff.
 
-Cool, but I prefer debugging the tests directly from my editor (VsCode). To do that, you have to install the official extension called [Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright). The extension permits you to install Playwright in your projects or add new browsers configuration, but today the goal is the debug feature.  
+Cool, but I prefer debugging the tests directly from my editor (VsCode). To do that, you have to install the official extension called [Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright). The extension permits you to install Playwright in your projects or add new browsers configuration, but today the goal is the debug feature.\
 Now, in VsCode if you open the Test Explorer, you can see all your tests in the projects and run them or debug them directly from your editor. Here is an example.
 
-![VsCode Test Explorer](https://cdn.hashnode.com/res/hashnode/image/upload/v1670413453990/Es3Xapjj_.png)
+![VsCode Test Explorer](./Es3Xapjj_.png)
 
-Ok, now it's time to see how you can run or debug your test directly from VsCode.  
+Ok, now it's time to see how you can run or debug your test directly from VsCode.\
 First of all, using the command in the top right of the Test Explorer panel, you can decide between running or debugging all the tests in your suite. Clicking on the arrow on the left of these buttons, you can also decide in which browser you want to run your tests. Here is a short demo!
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1670414310565/e0RQ7kmhL.gif)
+![](./e0RQ7kmhL.gif)
 
-In this example, you can see how the runner works, but now it's time to see how it's possible to debug tests.  
+In this example, you can see how the runner works, but now it's time to see how it's possible to debug tests.\
 Let's start adding a break-point in the code base. If you are not familiar with this in VsCode, it's elementary, click with the mouse on the left of the line where you want the debugger stops its execution.
 
 {% embed https://youtu.be/QIryVOtMXvM %}
@@ -62,7 +61,7 @@ As you can see, if you are playing with the Test Explorer, you can run or debug 
 
 Ok, I spent an entire article showing you how you can run or debug tests using VsCode because many times I see people that don't know how to debug, and they spend a lot of time finding the problem and fixing the test. Now you have all the tools to debug your tests with Playwright, so you can check and fix tests quickly.
 
-That's it for today; you have learnt how to run and debug tests with Playwright; before using the Playwright inspector and then directly from VsCode.  
+That's it for today; you have learnt how to run and debug tests with Playwright; before using the Playwright inspector and then directly from VsCode.\
 I hope you enjoy this content, and if you have any questions, don't hesitate to reach out to me.
 
 See you soon, folk

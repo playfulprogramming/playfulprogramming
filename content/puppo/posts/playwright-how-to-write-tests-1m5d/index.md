@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 ## What are you going to learn in this post?
 
 In this post, you will learn how to write tests with Playwright, using assertions, locators and something else.
@@ -33,8 +32,8 @@ test('the first player must be the "X" player', async ({ page }) => {
 
 ```
 
-In this example, I introduced two new stuff, `getByRole` and `toContainText`.  
-`getByRole` is part of the _locators_ and `toContainText` is part of the _assertions_, and now we will dive into these new things.
+In this example, I introduced two new stuff, `getByRole` and `toContainText`.\
+`getByRole` is part of the *locators* and `toContainText` is part of the *assertions*, and now we will dive into these new things.
 
 ### Locators
 
@@ -42,17 +41,17 @@ Locators are the central piece of Playwright's auto-waiting and retry-ability. L
 
 Using locators, you can retrieve elements in your dom by these commands:
 
-- **page.getByRole(role[, options])** to locate by explicit and implicit accessibility attributes.
+- **page.getByRole(role\[, options])** to locate by explicit and implicit accessibility attributes.
 
-- **page.getByText(text[, options])** to locate by text content.
+- **page.getByText(text\[, options])** to locate by text content.
 
-- **page.getByLabel(text[, options])** to locate a form control by associated label's text.
+- **page.getByLabel(text\[, options])** to locate a form control by associated label's text.
 
-- **page.getByPlaceholder(text[, options])** to locate an input by placeholder.
+- **page.getByPlaceholder(text\[, options])** to locate an input by placeholder.
 
-- **page.getByAltText(text[, options])** to locate an element, usually image, by its text alternative.
+- **page.getByAltText(text\[, options])** to locate an element, usually image, by its text alternative.
 
-- **page.getByTitle(text[, options])** to locate an element by its title attribute.
+- **page.getByTitle(text\[, options])** to locate an element by its title attribute.
 
 - **page.getByTestId(testId)** to locate an element based on its `data-testid` attribute (other attributes can be configured).
 
@@ -109,14 +108,14 @@ test.describe("On View", () => {
 
 The benefit of grouping is also visible in the report that now appears so.
 
-![Playwright Report](https://cdn.hashnode.com/res/hashnode/image/upload/v1670349578285/yrtmYSHW4.png)
+![Playwright Report](./yrtmYSHW4.png)
 
-As you can see, the label `On View` is present before each test.  
+As you can see, the label `On View` is present before each test.\
 So now, you can split your test file into different contexts if you have this need.
 
 ## Hooks
 
-Another critical feature if you love working with test frameworks is hooks.  
+Another critical feature if you love working with test frameworks is hooks.\
 Hooks allow you to run a piece of code before or after the test execution. Typically they are called: `beforeEach` `beforeAll` `afterEach` `afterAll` and you know what they are called in Playwright? Precisely in the same way 🚀
 
 So, to give an example, you can refactor the code in this way to navigate the home page before each test.
@@ -142,12 +141,12 @@ test.describe("On View", () => {
 
 ```
 
-The result is the same as before, but now you only have the navigation command inside the `beforeEach` hook.  
+The result is the same as before, but now you only have the navigation command inside the `beforeEach` hook.\
 These hooks are great if you have to mock API or if you have to do something before or after tests.
 
 ## Play with your DOM
 
-After all these things, it's time to write the last test of this post.  
+After all these things, it's time to write the last test of this post.\
 Now you will write a test that simulates the user's behaviours in the applications. The test simulates the click of the player "X" in the top left square and then checks if the next player is the "O".
 
 ```ts
@@ -176,22 +175,23 @@ test.describe("Users behaviours", () => {
 
 ```
 
-This example starts to become trickier. As you can notice, there are some new things. Let's start with the first one, the `first` method. In this case, the `getByRole` returns many elements, and only the first is required in the test. Using the `first` method, you can get the first element in the list.  
+This example starts to become trickier. As you can notice, there are some new things. Let's start with the first one, the `first` method. In this case, the `getByRole` returns many elements, and only the first is required in the test. Using the `first` method, you can get the first element in the list.\
 Then when you have the first square on the board, you can simulate the click of this element by the user. Using the `click` method, you can do that. Easy peasy lemon squeezy. But now things start to become "complex". As you can see, now you can use the `getByRole` from the square element, and the method tries to find an image child of this element. After that, using `toHaveAttribute` assertion, you check if this image has a title with the "X" value and if the source contains the value "x.png". The final step is the same as in the previous post, where you get the paragraph and check if the next player is now the "O" player. Ok, it's not rocket science but a bit more complicated than the previous example.
 
 ## Conclusion
 
-Ok, I think you have materials to study for now! 😃  
-So, what you have learned in this post:  
-- Locators  
-- Assertions  
-- How to isolate your test  
-- Hooks  
-I suggest you get your hand dirty with these topics because they will be the fundamentals of your test with Playwright.
+Ok, I think you have materials to study for now! 😃\
+So, what you have learned in this post:
 
-Ok, that's all folk, see you soon.  
+- Locators
+- Assertions
+- How to isolate your test
+- Hooks\
+  I suggest you get your hand dirty with these topics because they will be the fundamentals of your test with Playwright.
+
+Ok, that's all folk, see you soon.\
 Bye Bye 👋
 
-_P.s. you can find the result of this post at this_ [_link_](https://github.com/Puppo/playwright-series/tree/02-how-to-write-tests)
+*P.s. you can find the result of this post at this* [*link*](https://github.com/Puppo/playwright-series/tree/02-how-to-write-tests)
 
 {% embed https://dev.to/puppo %}

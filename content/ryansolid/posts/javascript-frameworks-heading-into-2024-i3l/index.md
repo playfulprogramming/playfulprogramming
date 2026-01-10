@@ -17,7 +17,7 @@ I won't be the first to say it, but I will say it nonetheless, 2023 was quite th
 
 I anticipate that 2024 will continue to see even larger changes across the board. This time it isn't about new technology, but refinement. Now that the base is present there is so much more to deliver on.
 
----------------------
+---
 
 ## Server First
 
@@ -27,11 +27,11 @@ If I were to pick a theme for the past couple of years this would be it. This ha
 
 Instead, we are subject to the sharp wit of HTMX explaining why JavaScript is just a mistake. And Astro unapologetically taking over content site development. Even the React Core team embraced the simplicity of server with React Server Components, expressed convincingly by Dan Abramov's talk that looked into what if React had always been Server first.
 
-{% youtube https://www.youtube.com/watch?v=zMf_xeGPn6s %}
+{% youtube https://www.youtube.com/watch?v=zMf\_xeGPn6s %}
 
 So what happened to our Single Page App darling in such a short time? Is it still alive or do we live in the age of Multi-Page Apps and server-rendered HTML only?
 
-------------------
+---
 
 ## Reflecting on 2023
 
@@ -61,7 +61,7 @@ Ending 2023 Signals are a major part of most front-end JavaScript frameworks.
 
 ### Hybrid Routing
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mdtlafe81eo4jchqx37w.png)
+![Image description](./mdtlafe81eo4jchqx37w.png)
 
 Server-based routing has stepped up and taken on a new role this past year. Again starting from the end of 2022, and coming into its own this year, we've seen people get used to this paradigm shift with things like React Server Components and [Astro's View Transition API integration](https://astro.build/blog/astro-3/).
 
@@ -71,7 +71,7 @@ It is important to note that not all solutions are equivalent and this is an are
 
 ### Edge Networks: The Final Frontier
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bss8a8hwf3qbozvvq9a6.jpg)
+![Image description](./bss8a8hwf3qbozvvq9a6.jpg)
 
 Edge functions seem like one of those obvious wins. Move your server closer to your end user and you drastically reduce latency. Use a lighter runtime and you drastically reduce cold start time. We finally can deliver the web experience we've always dreamed of. Dynamic at the speed of Static.
 
@@ -89,7 +89,7 @@ By the end of the year [Next 14 released the new experimental Partial Pre-render
 
 {% twitter 1722704383064842280 %}
 
----------------
+---
 
 ## Forward to 2024
 
@@ -117,7 +117,7 @@ Frameworks' role in this is to keep a consistent authoring experience and mental
 
 ### AI
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sma4crnqjxbx89hhh7r3.jpg)
+![Image description](./sma4crnqjxbx89hhh7r3.jpg)
 
 Last year was too early to talk about AI from a framework standpoint. And next year might be too. But it is on the horizon. Code migration and generation tools are all great ideas but they suffer the same issue we've had for years with visual No or Low Code editors. Human interface points are still essential. After all, code is a living thing. It grows and is maintained over time.
 
@@ -131,11 +131,11 @@ The impact on developer tooling is one thing. But we are also seeing increased p
 
 {% twitter 1722928972789408240 %}
 
---------------------------
+---
 
 ## Conclusion
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pf0pc8fhlor9xnou9r8b.jpg)
+![Image description](./pf0pc8fhlor9xnou9r8b.jpg)
 
 2024 is likely to continue on the maturing trend we've seen in the last couple of years. From 2020-22 we saw a lot of new JavaScript(and WASM) frameworks (Qwik, Million.js, Astro, Next 13, Remix, Hydrogen, SvelteKit, SolidStart, Leptos, Dioxus, HTMX), but that hasn't been the case the last year. We've found the approaches and now we need to take them to their full potential.
 

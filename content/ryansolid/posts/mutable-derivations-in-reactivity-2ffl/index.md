@@ -18,7 +18,7 @@ When I first saw Svelte 3, and later the React compiler, people challenged that 
 
 But there is a reason that Solid never needed a compiler to accomplish this. And why to this day it is still more optimal. It isn't an implementation detail. It's architectural. It is related to reactive independence from UI components but it's more than that.
 
-----------------------
+---
 
 ## Mutable vs Immutable
 
@@ -49,6 +49,7 @@ setLog("-end"); // effect logs "start-end"
 ```
 
 But something interesting happens when we put Signals in Signals and Effects in Effects.
+
 ```js
 function User(user) {
   // make "name" a Signal
@@ -74,6 +75,7 @@ setUser(new User({ id: 2, name: "Jack" }));
 // effect logs "Name Janet"
 user().setName("Janet");
 ```
+
 Now we cannot only change the user but also change a user's name. More importantly, we can skip doing unnecessary work when only the name changes. We don't re-run the outer Effect. This behavior isn't a consequence of where the state is declared but where it is used.
 
 This is incredibly powerful, but it is hard to say our system is Immutable. Yes the individual atom is, but by nesting them we have created a structure optimized for mutation. Only the exact part of the code that needs to execute runs when we change anything.
@@ -125,11 +127,13 @@ setUser({ id: 2, name: "Jack" });
 // effect logs "Name Janet"
 setUser(user => user.name = "Janet");
 ```
+
 Much better.
 
 The reason this works is that we still know that the name is updated when we `setUser(user => user.name = "Janet")`. The setter for the `name` property is hit. We achieve this granular update, without mapping over our data or diffing.
 
 Why does this matter? Picture if you had a list of users instead. Consider an immutable change:
+
 ```js
 function changeName(userId, name) {
   // immutable
@@ -139,9 +143,11 @@ function changeName(userId, name) {
   }));
 }
 ```
+
 We get a fresh array with all existing user objects except the new one with the updated name. All the framework knows at this point is the list has changed. It will need to iterate over the whole list to determine if any rows need to move, be added or removed, or if any row has changed.  If it has changed, it will re-run the map function and generate the output that will be replaced/diffed against what is currently in the DOM.
 
 Consider a mutable change:
+
 ```js
 function changeName(userId, name) {
   // mutable
@@ -150,11 +156,12 @@ function changeName(userId, name) {
   });
 }
 ```
+
 We don't return anything. Instead, the one signal that is the name for that user updates and runs the specific effect that updates the place we show the name. No list recreation. No list diffing. No row recreation. No DOM diffing.
 
 By treating mutable reactivity as a first-class citizen we get an authoring experience similar to immutable state but with capabilities that even the smartest compiler cannot achieve. But we aren't here today to talk about reactive Stores exactly. What does this have to do with derivations?
 
----------------------
+---
 
 ## Revisiting Derivations
 
@@ -172,11 +179,11 @@ Secondly, they act as convergence nodes. They are the "joins" in our graph. They
 
 It makes a lot of sense. With derived immutable data structures you only have "joins" not "forks". As complexity scales you are destined to merge. Interestingly reactive "Stores" don't have this property. Individual parts update independently. So how do we apply this thinking to derivation?
 
-----------------------
+---
 
 ## Following the Shape
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ykbj4lwlwzehlc20g444.png)
+![Image description](./ykbj4lwlwzehlc20g444.png)
 
 Andre Staltz published an [amazing article](https://staltz.com/javascript-getter-setter-pyramid) several years back where he linked together all types of reactive/iterable primitives into a single continuum. Push/pull all unified under a single model.
 
@@ -187,6 +194,7 @@ For example, I realized long ago that if we wanted to avoid synchronization for 
 ```js
 const [field, setField] = createWritable(() => props.field);
 ```
+
 The idea is that it is always resettable from its source, but one can apply shortlived updates on top until the next time the source changes. Why use this over an Effect?
 
 ```js
@@ -203,6 +211,7 @@ function createWritable(fn) {
   return [() => computed()[0](), (v) => computed()[1](v))]
 }
 ```
+
 It is just a higher-order Signal. A Signal of Signals or as Andre called it a "Getter-getter" and "Getter-setter" combination. When the passed in `fn` executes the outer derivation (`createMemo`) tracks it and creates a Signal. Whenever those dependencies change a new Signal is created. However, until replaced, that Signal is active and anything that listens to the returned getter function subscribes to both the derivation and the Signal keeping the dependency chain.
 
 We landed here because we followed the shape of the solution. And over time following that shape, I now believe as indicated at the end of the last article this mutable derived primitive is less a Writable  Derivation but a Derived Signal.
@@ -217,14 +226,16 @@ const [field, setField] = createSignal(() => props.field);
 
 But we are still looking at immutable primitives. Yes, this is a writable derivation but the value change and notification still occur wholesale.
 
----------------
+---
+
 ## The Problem with Diffing
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tr6sv5ygvix3odtt4p4n.png)
+![Image description](./tr6sv5ygvix3odtt4p4n.png)
 
 Intuitively we can see there is a gap. I could find examples of things I wanted to solve but couldn't ever land on a single primitive to handle that space. I realized part of the problem is the shape.
 
 On one hand, we could put derived values into Stores:
+
 ```js
 const [store, setStore] = createStore({
   value,
@@ -233,37 +244,41 @@ const [store, setStore] = createStore({
   }
 })
 ```
+
 But how can this change shape dynamically, ie generate different getters without writing to the Store?
 
 On the other hand, we could derive dynamic shapes from Stores but their output would not be a Store.
+
 ```js
 const value = createMemo(() => getNextValue(store.a, store.b));
 ```
+
 If all derived values are made from passing in a wrapper function that returns the next value, how can we ever isolate change? At best we could diff the new results with previous and apply granular updates outward. But that assumed we always wanted to diff.
 
 I read an article from Signia team about [incremental computeds](https://signia.tldraw.dev/docs/incremental) implementing something like Solid's `For` component in a generic way. However, beyond the logic being no simpler I noticed:
 
-* It is a single immutable Signal. Nested changes can't independently trigger.
+- It is a single immutable Signal. Nested changes can't independently trigger.
 
-* Every node in the chain needs to participate. Each needs to apply its source diff to realize updated values and, with the exception of the end node, produce its diff to pass down.
+- Every node in the chain needs to participate. Each needs to apply its source diff to realize updated values and, with the exception of the end node, produce its diff to pass down.
 
 When dealing with immutable data. References will be lost. Diffs help get this information back but then you pay the cost over the whole chain. And in some cases like with fresh data from the server, there are no stable references. Something needs to "key" the models and that isn't present in Immer which is used in the example. React has this ability.
 
 That's when it occurred to me this library was built for React. The assumptions were already baked in that there would be more diffing. Once you resign yourself to diffing, diffing begets more diffing. That is the unavoidable truth. They had created a system to avoid the heavy lifting by pushing out incremental costs across the whole system.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dg0mr3dvyqfegf491tdm.png)
+![Image description](./dg0mr3dvyqfegf491tdm.png)
 
 I felt I was trying to be too clever. The "bad" approach while unsustainable is undeniably the more performant.
 
-------------------------
+---
 
 ## The Grand Unifying Theory of (Fine-Grained) Reactivity
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dbhliwaxfcj0jg5vz7sj.jpg)
+![Image description](./dbhliwaxfcj0jg5vz7sj.jpg)
 
 There is nothing wrong with modeling stuff immutably. But there is a gap.
 
 So let's follow the shape:
+
 ```js
 // immutable atom
 const [todo, setTodo] = createSignal({ id: 1, done: false });
@@ -276,6 +291,7 @@ const todoWithPriority = createMemo(todo => (
   { ...todo, priority: priority() }
 ), initialTodo);
 ```
+
 What becomes apparent is the derived function is the same shape as the Signal setter function. In both cases, you pass in the previous value and return the new value.
 
 Why don't we do this with Stores?
@@ -294,6 +310,7 @@ const todoWithPriority = createProjection(todo => {
 ```
 
 We can even bring in the derived sources:
+
 ```js
 // immutable
 const [todo, setTodo] = createSignal(() => props.todo);
@@ -307,9 +324,9 @@ const [todo, setTodo] = createStore(todo => {
 
 There is a symmetry here. Immutable change always constructs the next state, and mutable change mutates the current state into the next state. Neither do diffing. If the `priority` changes on the immutable derivation (`Memo`) then the whole reference is replaced and all side effects run. If the `priority` changes on the mutable derivation (`Projection`) only things that listen to `priority` specifically update.
 
-------------------------
+---
 
-## Exploring Projections 
+## Exploring Projections
 
 Immutable change is consistent in its operations, as it only needs to build the next state regardless of what changes. Mutable may have different operations depending on the change. Immutable change always has the unmodified previous state to work with while mutable change does not. This impacts expectations.
 
@@ -323,9 +340,11 @@ const todoWithPriority = createProjection(todo => {
   todo.done = done();
 });
 ```
+
 But this becomes prohibitive fast as it only works shallowly. Reconciling (diffing) is always an option. But often what we want to do is only apply what we need to. This leads to more complicated code but can be much more efficient.
 
 Modifying an excerpt from [Solid's Trello clone](https://github.com/solidjs-community/strello/blob/main/src/components/Board.tsx) we can use a Projection to either individually apply each optimistic updates, or reconcile the board to the latest update from the server.
+
 ```js
 let timestamp;
 const board = createAsync(() => fetchBoard());
@@ -346,14 +365,17 @@ const realizedBoard = createProjection(notes => {
   );
 });
 ```
+
 This is powerful because not only does it retain references in the UI so only granular updates occur but it applies mutations (optimistic updates) incrementally without cloning and diffing. So not only do Components not need to re-run, but as you make each change it doesn't need to reconstruct the whole state of the board repeatedly to realize once again very little has changed. And finally, when it does need to diff, when the server finally returns our fresh data, it diffs against that updated projection. References are kept and nothing needs to re-render.
 
 While I believe this approach will be a huge win for real-time and local-first systems in the future, we already use Projections today perhaps without realizing it. Consider reactive map functions that include signals for the index:
+
 ```js
 <For each={rows()}>
   (row, index) => <div>{index() + 1} {row.text}</div>
 </For>
 ```
+
 The index is projected onto your list of rows that do not contain an index as a reactive property. Now this primitive is so baseline I probably won't be implementing it with `createProjection` but it is important to understand that it is one categorically.
 
 Another example is Solid's obscure `createSelector` API. It lets you project the selection state onto a list of rows in a performant way so that changing what is selected doesn't update every row. Thanks to a formalized Projection primitive we don't need a special primitive anymore:
@@ -371,6 +393,7 @@ const selected = createProjection(s => {
   (row) => <tr class={selected[row.id] ? "selected" : ""}></tr>
 </For>
 ```
+
 This creates a Map where you look up by id but only the selected row exists. Since it is a proxy for the life of the subscription we can track properties that don't exist and still notify them when they get updated. Changing the `selectionId` will at most update 2 rows: the one already selected, and the new one being selected. We turn a `O(n)` operation to `O(2)`.
 
 As I played with this primitive more I realized that it not only accomplished direct mutable derivation but could be used to pass through reactivity dynamically.
@@ -394,15 +417,16 @@ setStore(s => s.user = { id: 2, name: "Jack", privateValue: "Oh No"});
 // only runs the effect
 setStore(s => s.user.name = "Janet");
 ```
+
 This projection only exposes the user's `id` and `name` but keeps `privateValue` inaccessible. It does something interesting in that it applies a getter to the name. So while the projection re-runs when we replace the whole user, only updating the user's name can run the effect without the projection re-running.
 
 These use cases are only a few and I admit they take a bit more to wrap your head around. But I feel that Projections are the missing link in the Signals story.
 
---------------------
+---
 
 ## Conclusion
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/u1a83qzqyqounipgzsc1.jpg)
+![Image description](./u1a83qzqyqounipgzsc1.jpg)
 
 Throughout this exploration into Derivations in Reactivity over the past couple of years, I've learned a lot. My whole perspective on Reactivity has changed. Mutability instead of being seen as a necessary evil has grown on me to become a distinct pillar of reactivity. Something that isn't emulated by course-grained approaches or compilers.
 

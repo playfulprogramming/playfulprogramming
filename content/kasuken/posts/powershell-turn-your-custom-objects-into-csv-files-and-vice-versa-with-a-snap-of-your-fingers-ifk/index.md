@@ -113,4 +113,3 @@ $people | Select-Object Name, Occupation | Export-Csv -Path people.csv
 ## Conclusion
 
 In this blog post, I have shown you how to export and import a custom object array to a CSV file with PowerShell, using different code examples and exploring all the parameters during the exporting phase. I hope you have learned something useful and enjoyed reading this post.
-

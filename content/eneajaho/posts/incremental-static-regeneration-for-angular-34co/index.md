@@ -65,6 +65,7 @@ Then, we install the [ngx-isr](https://www.npmjs.com/package/ngx-isr) package, a
 After we install it, we need to do some small configurations.
 
 - Create an ISRHandler instance inside server.ts .
+
 ```ts
 import { ISRHandler } from 'ngx-isr';
 
@@ -78,6 +79,7 @@ const isr = new ISRHandler({
 - Replace Angular default server-side rendering with ISR rendering.
 
 Replace this:
+
 ```ts
 server.get('*',
   (req, res) => {
@@ -97,9 +99,10 @@ server.get('*',
 );
 ```
 
-> Note: ISRHandler provides APP_BASE_HREF by default. And if you want to pass providers into the methods of ISRHandler, you will also have to provide the APP_BASE_HREF token.
+> Note: ISRHandler provides APP\_BASE\_HREF by default. And if you want to pass providers into the methods of ISRHandler, you will also have to provide the APP\_BASE\_HREF token.
 
 - Add the invalidation URL handler
+
 ```ts
 server.get(
   "/api/invalidate", 
@@ -108,6 +111,7 @@ server.get(
 ```
 
 - Add NgxIsrModule in AppServerModule imports
+
 ```ts
 import { NgxIsrModule } from 'ngx-isr'; // <-- Import module
 
@@ -127,6 +131,7 @@ export class AppServerModule {}
 ## How to use it?
 
 Add the `revalidate` key in route data and that’s it.
+
 ```ts
 {
   path: "example",
@@ -138,6 +143,7 @@ Add the `revalidate` key in route data and that’s it.
 > NOTE: Routes that don’t have the revalidate key in data won’t be handled by ISR. They will fall back to Angular default server-side rendering pipeline.
 
 To regenerate a page we need to make a get request to /revalidate. Like this:
+
 ```
 GET /api/invalidate?secret=MY_TOKEN&urlToInvalidate=/example
 ```
@@ -148,11 +154,13 @@ By using the `revalidate` key in route data we define the time interval
 that the ISR Handler will use in order to know when to regenerate a specific route.
 
 Options:
+
 - **Don’t specify anything**: The route won’t be cached and will always be server-rendered. (Like SSR)
 - **0**: First serve will be server-rendered and all the other ones will be served from cache. (Like SSG).
 - **More than 0** (ex: 5): First serve will be server-rendered and the cache will be regenerated every 5 seconds (after the last request).
 
 **Advanced example**
+
 ```ts
 const routes: Routes = [
   {
@@ -179,14 +187,14 @@ const routes: Routes = [
 - Path `three`: The first request will be server-rendered and then will be cached. After the first request, all the other ones will be served from the cache. So, the cache will never be refreshed automatically. The only way to refresh the cache is to make a request to /invalidate API route.
 
 ## Results
+
 Serve the page: `npm run dev:ssr`.
 
 Open Inspect Element.
 
 And check the `Last updated` time and date change based on the revalidate key that you provided.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sreet8xlzpznqvz575xz.png)
- 
+![Image description](./sreet8xlzpznqvz575xz.png)
 
 **ISR issues?**
 Every time we change the source code, we have to do the build and deploy again. ISR helps only when data from the backend changes (and that’s okay).

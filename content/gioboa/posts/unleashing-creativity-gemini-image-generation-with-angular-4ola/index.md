@@ -86,7 +86,7 @@ The `send` function is triggered when the user enters a text prompt. It sets `pe
 
 ---
 
-Real-world use cases for Gemini-powered image generation are diverse and impactful. 
+Real-world use cases for Gemini-powered image generation are diverse and impactful.
 
 E-commerce platforms can use it to dynamically generate product images with customized backgrounds or personalized captions, enhancing the shopping experience. Educational websites can create illustrated guides and interactive learning materials, making complex concepts more accessible and engaging.
 
@@ -106,6 +106,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Until next time 👋
 
 {% embed https://dev.to/gioboa %}
-
-
-

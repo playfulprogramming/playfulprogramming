@@ -19,7 +19,7 @@ React famously popularized:
 
 > view = fn(state)
 
-Which is a very powerful mental model for thinking about UIs. But more so it represents an ideal. Something to strive for. 
+Which is a very powerful mental model for thinking about UIs. But more so it represents an ideal. Something to strive for.
 
 Reality is a lot messier. The underlying DOM is persistent and mutable. Not only would naive re-rendering be prohibitively costly, but it would also fundamentally break the experience. (Input's losing focus, animations, etc...)
 
@@ -27,11 +27,11 @@ There are ways to mitigate this. We build ever-better constructs in hopes of res
 
 So today we look at Signals as they are and what they have to offer.
 
------------------------
+---
 
 ## Decoupling Performance from Code Organization
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1no5b0s1afplgxr198kh.png)
+![Image description](./1no5b0s1afplgxr198kh.png)
 
 This is the moment when you first realize that something really different is going on. There is more to it, though. This is not an invitation to litter your app with global state, but rather a way to illustrate state is independent of components.
 
@@ -73,6 +73,7 @@ function MoreRealisticComponent(props) {
   );
 }
 ```
+
 Porting the example from Svelte Creator Rich Harris' [Virtual DOM is Pure Overhead](https://svelte.dev/blog/virtual-dom-is-pure-overhead) to SolidJS it is important to understand, with Signals, updating the selected state does not cause any execution other than changing the text in that `<p>`. There is no re-running the list or diffing it. That is even true if the name in one of the rows updates. With Signals, we can directly update the text of that one button.
 
 > Note: It is customary in Solid to use `<For>` component instead of `.map` when rendering a loop so as to not recreate every row when entries of the `items` are inserted, removed, or moved.
@@ -85,17 +86,17 @@ You can put your whole app in one component or many components and get the same 
 
 **This is not an insignificant benefit to developer experience.**
 
-------------------
+---
 
 ## Separating Dynamic from Static
 
 {% twitter 1629928626278858752 %}
 
-There have been some conversations to suggest this is a bad thing. If you want more perspective see @dan_abramov's [response to my previous article](https://dev.to/dan_abramov/comment/256g9).
+There have been some conversations to suggest this is a bad thing. If you want more perspective see @dan\_abramov's [response to my previous article](https://dev.to/dan_abramov/comment/256g9).
 
-I don't just want to talk about why this is a good thing, but how it is actually an amazing thing. Being able to optimize for each is beneficial. This is one of those places where aligning with the underlying platform pays off with dividends. 
+I don't just want to talk about why this is a good thing, but how it is actually an amazing thing. Being able to optimize for each is beneficial. This is one of those places where aligning with the underlying platform pays off with dividends.
 
-Classically speaking there is a tradeoff with using a distributed event system like Signals vs something that runs top-down. While updates will be quicker for the event system, at creation it has the additional overhead of setting up subscriptions. 
+Classically speaking there is a tradeoff with using a distributed event system like Signals vs something that runs top-down. While updates will be quicker for the event system, at creation it has the additional overhead of setting up subscriptions.
 
 This is even compounded by the fact that the web generally is a document-oriented interface. Even in Single Page Apps, you will be doing a lot of navigation which involves a lot of creation.
 
@@ -110,9 +111,9 @@ Steve from Builder.io (at 1:16) explains how this works in [Qwik](https://qwik.b
 
 Admittedly this is mostly a performance concern. It comes from the same motivation for [Islands architecture](https://jasonformat.com/islands-architecture/) and [React Server Components](https://nextjs.org/docs/advanced-features/react-18/server-components). It addresses a very [real pain point we are facing today](https://infrequently.org/2022/12/performance-baseline-2023/) with the trend towards ever-bigger JavaScript bundles and slow initial page loads.
 
-Overall, my position is this separation leads to a certain amount of transparency. It makes it easier to explain and reason about what is actually going on. While less simple than the ideal, it makes escape hatches, which are an important part of any system, more coherent. 
+Overall, my position is this separation leads to a certain amount of transparency. It makes it easier to explain and reason about what is actually going on. While less simple than the ideal, it makes escape hatches, which are an important part of any system, more coherent.
 
----------------------
+---
 
 ## Universalizing the Language of UI
 
@@ -147,12 +148,14 @@ const count = videos.length;
 const heading = count > 0 ? format(count) : emptyHeading;
 const somethingElse = count > 0 ? someOtherStuff : 42;
 ```
+
 It poses an interesting question about the purpose of code. Should we optimize it for making it easier to write or easier to read?
 
-------------------
+---
+
 ## Ok, But What About the Tradeoffs?
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7vxv4wtazruefv7mxzc7.jpeg)
+![Image description](./7vxv4wtazruefv7mxzc7.jpeg)
 
 There are definitely tradeoffs. The most obvious one is that they make the data special instead of the application of that data. We aren't dealing with plain objects anymore, but with primitives. This is very similar to Promises or Event Emitters. You are reasoning about the data flow rather than the control flow.
 
@@ -164,7 +167,7 @@ Another consideration is around disposal. Subscriptions link both ways so if one
 
 Finally, historically there were concerns about large uncontrollable graphs. Cycles and unpredictable propagation. These concerns largely are in past due to the work that has been done over the [past several years](https://dev.to/this-is-learning/the-evolution-of-signals-in-javascript-8ob). I'd go as far as these problems are what Signals solve and why you would use them over other message/event systems.
 
-----------------------
+---
 
 ## Conclusion
 
@@ -182,7 +185,8 @@ Compilers and language exploration become that much easier when you have efficie
 
 Whether Signals are best suited to be held by developers or to be low-level primitives for machines, they appear to be an important step in the ever-evolving world of web front-end.
 
----------------
+---
+
 Related Resources:
 
 [A Hands-on Introduction to Fine-grained Reactivity](https://dev.to/ryansolid/a-hands-on-introduction-to-fine-grained-reactivity-3ndf)

@@ -9,7 +9,7 @@ socialImage: "social-image.png"
 }
 ---
 
-**_This post was first posted in my newsletter [All Things Typescript](https://www.allthingstypescript.dev/) focused on teaching developers how to build better mental models around Typescript and its typing system. Please subscribe to start learning and mastering Typescript_**
+***This post was first posted in my newsletter [All Things Typescript](https://www.allthingstypescript.dev/) focused on teaching developers how to build better mental models around Typescript and its typing system. Please subscribe to start learning and mastering Typescript***
 
 Excess property checking is when Typescript checks your object to ensure that it doesn’t contain any extra properties on top of what is defined in the type annotation for the object.
 
@@ -36,11 +36,10 @@ const x: Person = {
 
 In this case, you are going to get the following error:
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F89577ee2-25bf-4b9d-9307-c78ab759fe58_915x272.png)
+![](./https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F89577ee2-25bf-4b9d-9307-c78ab759fe58_915x272.png)
 
 Type '{ firstName: string; lastName: string; age: number; }' is not assignable to type 'Person'. Object literal may only specify known properties, and 'age' does not exist in type 'Person'
 
-  
 And this makes sense and is expected because our type `Person` doesn’t contain the `age` property.
 
 But, there are some situations where Typescript will remain silent when excess properties are available in an object.

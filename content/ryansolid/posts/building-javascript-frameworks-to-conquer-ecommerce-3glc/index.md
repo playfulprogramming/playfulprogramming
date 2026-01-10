@@ -19,11 +19,11 @@ When I talk about this I find many JavaScript developers don't understand the di
 
 While SPA's bring a lot to the table, I'm going to talk today about where they are the less optimizable solution, and how that has been the motivation for a whole different sort of JavaScript framework.
 
--------------
+---
 
 ## The State of Frontend JavaScript in 2021
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/q1clxfov5freuwwforjp.png)
+![Alt Text](./q1clxfov5freuwwforjp.png)
 
 The vast majority of JavaScript Frameworks are designed to help you make what we call Single Page Apps(SPA). [React](https://reactjs.org/), [Vue](https://vuejs.org/), [Ember](https://emberjs.com/), [Preact](https://preactjs.com/), [Svelte](https://svelte.dev/), [Solid](https://solidjs.com/), you name it. A SPA is simple an app where the whole experience is served from a single page sent from the the server(or CDN). This characteristic carries on in Metaframeworks built on top of these like [Next](https://nextjs.org/), [Nuxt](https://nuxtjs.org/), [Gatsby](https://www.gatsbyjs.com/), [SvelteKit](https://kit.svelte.dev/), [Remix](https://remix.run/), [Blitz](https://blitzjs.com/), etc..
 
@@ -33,11 +33,11 @@ These frameworks are really amazing to use and their use case has grown from the
 
 However, for these sites where SEO is important as well as initial page load we face a problem. We need to have the pages rendered on the Server so that content is present when the page first appears.
 
-------------
+---
 
 ## Server Side Rendering to the Rescue?
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fw1irczg26qz0hhvqeys.jpeg)
+![Alt Text](./fw1irczg26qz0hhvqeys.jpeg)
 
 Yes and no. Server Rendering is not free. No one wants to maintain multiple conceptual applications all of sudden because things are on the server now. Projects have been working at creating a universal JavaScript environment where your single application code base seamlessly works on both server and browser.
 
@@ -55,7 +55,7 @@ It really does beg the question. Are we ok with this?
 
 {% twitter 1415067187446960129 %}
 
-------------
+---
 
 ## Return of Multi Page Applications
 
@@ -71,11 +71,11 @@ Very few frameworks optimize for this since they aren't setup to build this way.
 2. Do all data passing through dependency injection. Every part of your page is independent and ship as needed. ([Qwik](https://github.com/BuilderIO/qwik))
 3. Have a compiler smart enough to understand the statefulness of your application and output optimized bundles. ([Marko](https://markojs.com/))
 
-These all require special consideration. The first requires you to identify the islands and only scales as well as you are diligent. The second forces you to push state outside of your components which puts a lot of pressure on DX, like can you pass `props.children`? Are there limits to what can be serialized? The 3rd is immensely complicated and requires specialized language and years of R&D to pull off. 
+These all require special consideration. The first requires you to identify the islands and only scales as well as you are diligent. The second forces you to push state outside of your components which puts a lot of pressure on DX, like can you pass `props.children`? Are there limits to what can be serialized? The 3rd is immensely complicated and requires specialized language and years of R\&D to pull off.
 
 But the results are obvious. Here's a simple example of the impact the [Marko](https://markojs.com/) team saw when toggling this optimization off some eBay pages.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xg72pekb8evfjgw93l9q.png)
+![Alt Text](./xg72pekb8evfjgw93l9q.png)
 
 **The optimization has 60%-84% savings in JavaScript bundle size!**
 
@@ -83,7 +83,7 @@ Why so much? [Marko](https://markojs.com/) is not a huge library weighing in at 
 
 [Marko](https://markojs.com/) no-bundle Streaming also helps in this case since it can serve the page immediately without waiting for async calls. It can stream content into server rendered placeholders in real-time all without pulling that code into the bundle.
 
-----------
+---
 
 ## To the Point
 
@@ -91,13 +91,13 @@ If you need the cutthroat performance for that initial load like you do in eComm
 
 You might be thinking, what about things coming in React 18 like [Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) and Streaming SSR? These can help but they don't change the physics alone.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xox3r57ll2wtr8qz2l34.gif)
+![Alt Text](./xox3r57ll2wtr8qz2l34.gif)
 
 Streaming SSR is incredibly powerful as seen already in [Marko](https://markojs.com/) and [Solid](https://solidjs.com) as it removes the initial delay on async data. You can remove most of the overhead of on-demand server rendering over static site generation this way, but it alone doesn't reduce the amount of JavaScript sent.
 
 Server Components make it much easier to write customized APIs. This saves sending the Lodash and Moment to the browser, but you are still running client side diffs, the template is getting sent via API. You can view this as lazy loading/hydration of sorts, but it actually increases the core library size to handle it. If you think about it a different way, given Server Component rules these would just be the static parts an MPA would never be sending to the browser anyway!
 
-------------
+---
 
 ## Conclusion
 
@@ -108,5 +108,3 @@ It doesn't take a different language or platform. I'm not saying pull out Rails 
 Next time you come across a new solution for eCommerce that promotes its speed. Ask if it is optimized for MPAs, because most likely if not, it is more of the same. There is a reason eBay, Alibaba, and Builder have invested in building their own JavaScript frameworks.
 
 This isn't new but revisiting web foundations. But it's been a decade so maybe it's time. Don't get me wrong. I'm an author of one of those SPA frameworks. One that prides itself on being the [fastest of them all on client and server](https://dev.to/ryansolid/introducing-the-solidjs-ui-library-4mck). But architecture trumps raw speed almost every time when comes to delivering the best user experience. So depending on your use case [Maybe you don't need that SPA?](https://medium.com/@mlrawlings/maybe-you-dont-need-that-spa-f2c659bc7fec)
-
-

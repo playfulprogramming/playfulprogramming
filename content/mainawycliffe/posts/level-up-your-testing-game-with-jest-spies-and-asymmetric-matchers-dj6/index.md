@@ -39,7 +39,7 @@ On the other hand, writing unit tests for it might be tricky, as the test would 
 
 There are several ways to handle this, which I won’t go into in this article, but one of my favourites is mocking the Dynamodb SDK (Or any other SDK). The problem I generally find with mocks is that developers do not check whether the mocked function was called correctly.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F697b6ff6-a01e-46e8-83d0-021367cc462f_260x470.gif)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F697b6ff6-a01e-46e8-83d0-021367cc462f_260x470.gif)
 
 ### Jest Spies
 
@@ -79,7 +79,7 @@ expect(spyOnDB).toHaveBeenCalledTimes(1);
 
 If our SDK is called more than once or not called at all, the test will fail. Neat, right?
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff3adce78-0134-452d-8a76-237956b8d2d7_633x394.jpeg)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff3adce78-0134-452d-8a76-237956b8d2d7_633x394.jpeg)
 
 Next, we can check whether the SDK passed the correct parameters. For that, we will use the `toHaveBeenCalledWith` method to check whether the correct inputs were passed to our AWS SDK.
 

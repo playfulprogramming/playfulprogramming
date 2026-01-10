@@ -65,6 +65,7 @@ namespace BlazorContactForm.Shared
     }
 }
 ```
+
 The code above defines four properties for the form model class: Name, Email, Subject and Message. Each property has a Required attribute that indicates that it is mandatory to fill in. The Email property also has an EmailAddress attribute that validates that the input is a valid email address.
 
 ## Creating the contact form component
@@ -123,6 +124,7 @@ To create the contact form component, follow these steps:
     }
 }
 ```
+
 The code above defines an EditForm component that is bound to the contactFormModel object that is created in the code block. The EditForm component has an OnValidSubmit attribute that specifies a method to handle the form submission when the input is valid. The EditForm component also contains a DataAnnotationsValidator component that enables data annotations validation for the form model, and a ValidationSummary component that displays a list of validation errors if any.
 
 Inside the EditForm component, there are four div elements with the form-group class that represent the input fields for the contact form. Each input field uses a built-in input component, such as InputText or InputTextArea, that is bound to a property of the form model using the @bind-Value directive attribute. Each input field also has a label element with a for attribute that matches the id attribute of the input component, and a ValidationMessage component that displays an error message for the corresponding property if it is invalid.
@@ -171,7 +173,7 @@ namespace BlazorContactForm
 }
 ```
 
-The code above defines an interface (IEmailService) and a class (EmailService) that implement it. The EmailService class has a constructor that accepts an EmailClient object as a parameter and assigns it to a private field (emailClient). The EmailClient object is a class from the Azure Communication Services SDK that provides methods for sending emails using an Email Communication Service 
+The code above defines an interface (IEmailService) and a class (EmailService) that implement it. The EmailService class has a constructor that accepts an EmailClient object as a parameter and assigns it to a private field (emailClient). The EmailClient object is a class from the Azure Communication Services SDK that provides methods for sending emails using an Email Communication Service
 
 The EmailService class also has a method (SendEmailAsync) that takes four parameters: from, to, subject and message. These parameters represent the sender’s email address, the recipient’s email address, the email subject and the email message, respectively. The method uses the emailClient field to create an EmailAddress object for the sender and the recipient, an EmailContent object for the subject and the message, and then calls the SendEmailAsync method of the emailClient to send the email.
 
@@ -191,6 +193,7 @@ The next step is to register and configure the email service in the ASP.NET Core
   // Other settings
 }
 ```
+
 1. In Solution Explorer, open the **Startup.cs** file.
 2. In the ConfigureServices method, add the following code to register and configure the email service:
 
@@ -206,6 +209,7 @@ builder.Services.AddSingleton<EmailClient>(sp =>
 
 builder.Services.AddScoped<IEmailService, EmailService>();
 ```
+
 The code above uses the AddSingleton method to register an EmailClient object as a singleton service and pass it the connection string from the appsettings.json file. The code also uses the AddScoped method to register an IEmailService object as a scoped service and use the EmailService class as its implementation.
 
 ## Consuming the email service in the contact form component
@@ -219,6 +223,7 @@ The final step is to consume the email service in the contact form component and
 @using BlazorContactForm.Server.Services
 @inject IEmailService EmailService
 ```
+
 In the code block, add a private field for storing your email address that you want to receive the messages from:
 
 ```csharp
@@ -229,6 +234,7 @@ In the code block, add a private field for storing your email address that you w
     // Other code
 }
 ```
+
 In the HandleValidSubmit method, add a try-catch block that calls the SendEmailAsync method of the EmailService object and passes it the from address from the form model, the to address from the field, and the subject and message from the form model:
 
 ```csharp
@@ -245,6 +251,7 @@ private async Task HandleValidSubmit()
     }
 }
 ```
+
 The code above uses a try-catch block to handle any possible exceptions that may occur when sending an email. If no exception occurs, it means that the email was sent successfully. If an exception occurs, it means that there was an error while sending an email.
 
 1. To display a success or error message to the user, add a private field for storing a message string and a private method for clearing it after a few seconds:
@@ -265,6 +272,7 @@ The code above uses a try-catch block to handle any possible exceptions that may
     // Other code
 }
 ```
+
 The code above defines a message field that will hold either a success or error message depending on whether or not an exception occurs when sending an email. The code also defines a ClearMessage method that will wait for three seconds and then set the message field to null and call the StateHasChanged method to trigger a UI update.
 
 1. To display the message field in the UI, add a div element with the alert class and a conditional attribute that shows or hides it depending on whether or not the message field is null or empty. The div element should be placed after the EditForm component:
@@ -274,6 +282,7 @@ The code above defines a message field that will hold either a success or error 
     @message
 </div>
 ```
+
 The code above uses a conditional expression to set the alert class to either alert-danger or alert-success depending on whether or not the message field starts with “Error”. The code also uses a hidden attribute to show or hide the div element depending on whether or not the message field is null or empty.
 
 1. To assign a value to the message field and call the ClearMessage method in the HandleValidSubmit method, modify the try-catch block as follows:
@@ -294,6 +303,7 @@ private async Task HandleValidSubmit()
     }
 }
 ```
+
 The code above assigns a success message to the message field if no exception occurs, or an error message with the exception message if an exception occurs. The code also calls the ClearMessage method after assigning a value to the message field.
 
 ## Conclusion
@@ -314,6 +324,6 @@ I hope you enjoyed this tutorial and found it useful. If you have any questions 
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

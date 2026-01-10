@@ -15,12 +15,15 @@ order: 1
 
 There are times that we need to create some assertions to be sure an object respects some rules.
 A common case is to check if an object is defined; to do this you can create a simple assertion function like this
+
 ```ts
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 ```
+
 To leave you a simple case of use, I write this simple example
+
 ```ts
 type Person = {
   name: string;
@@ -40,8 +43,10 @@ function assert(condition: unknown, message: string): asserts condition {
 assert(person, "Person is not defined"); // Error: Person is not defined
 console.log(person.name);
 ```
+
 As you can see, in this example, the assert function detects if the person is defined and if the person isn't defined the assert function throws an error with the message that you pass in the parameters.
 To level up, and explain better the power of the assert function, here another example
+
 ```ts
 type Square = {
   kind: "square";
@@ -71,6 +76,7 @@ ensureSquare(rectangle); // throw new Error("Object isn't a Square type");
 console.log("shape", rectangle.kind);
 console.log("size", rectangle.size);
 ```
+
 In this case, you can see how the "ensureSquare" function creates an assertion to detect if the object passed as parameter is of type Square or not.
 If you see the part of the example where I created the square field, you can note that the type of the square field is `{ kind: string; size: number; }`. If you observe the type of the square field after the "ensureSquare(square);" you can see how typescript converts the type of the field from `{ kind: string; size: number; }` to Square.
 This conversion is done because if the code passes the "ensureSquare" function you are sure that the "square" field is of type Square. On the contrary, in the second part of the example, the "rectangle" field, on runtime, throws an error, and the code after the "ensureSquare" function will never be executed.

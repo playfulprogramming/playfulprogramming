@@ -24,7 +24,7 @@ Now that we understand the importance of cleaning up your cache and temp files, 
 
 **Step 2**: Navigate to the following folders and delete all files and folders within them:
 
-- %SYSTEMROOT%\Microsoft.NET\Framework[64]\<vernum>\Temporary ASP.NET Files
+- %SYSTEMROOT%\Microsoft.NET\Framework\[64]\<vernum>\Temporary ASP.NET Files
 - %USERPROFILE%\AppData\Local\Microsoft\WebsiteCache
 - %USERPROFILE%\AppData\Local\Microsoft\VisualStudio\BackupFiles
 - %USERPROFILE%\AppData\Local\Microsoft\VisualStudio\[version number]\ProjectAssemblies

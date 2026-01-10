@@ -10,14 +10,11 @@ socialImage: "social-image.png"
 }
 ---
 
-
 You know that old-style "X users online" counter on a website? I've recently seen it on [roe.dev](https://roe.dev/)'s blog and I though: it shouldn't be too difficult for a naive implementation, let's vibe code it!
 
 The stack: my blog is a static site built with Astro and hosted on Netlify, so I needed a way to track active visitors without a full backend. The goal was to create a simple counter that shows how many people are currently browsing the site, updating in real-time, without any annoying flickering.
 
-
-![Online users](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ir03evqignafpk2i85gd.png)
-
+![Online users](./ir03evqignafpk2i85gd.png)
 
 ## Netlify Server Functions
 
@@ -68,7 +65,7 @@ I'm sure there's a million better ways to build this tiny feature, but it's been
 
 Ah by the way, this wasn't a sponsored post (I wish it was!) but I think finding the right tools and services is relevant these days, in particular now that writing code goes much faster with AI.
 
-If you want to see the live result just head over [https://leonardomontini.dev/](https://leonardomontini.dev/) or have a look at the video where I walk through the whole process and code:
+If you want to see the live result just head over <https://leonardomontini.dev/> or have a look at the video where I walk through the whole process and code:
 
 {% youtube HAOMTH4uCkE %}
 
@@ -80,7 +77,7 @@ Let's connect more: https://leonardomontini.dev/newsletter
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

@@ -13,9 +13,9 @@ order: 1
 }
 ---
 
-_You can find a [video version](https://youtu.be/NEzYE1-37SA) of this article on my [YouTube channel](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA)._
+*You can find a [video version](https://youtu.be/NEzYE1-37SA) of this article on my [YouTube channel](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA).*
 
-[![YouTube Video](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vdxjuxw8e5qovuxnc5bw.png)](https://youtu.be/NEzYE1-37SA)
+[![YouTube Video](./vdxjuxw8e5qovuxnc5bw.png)](https://youtu.be/NEzYE1-37SA)
 
 ---
 
@@ -26,6 +26,7 @@ Let’s get rid of the misconception of Open Source being only writing code, bec
 Hi, I’m Leonardo and in this article I’m going to move the spotlight to give some more visibility to those core activities that make Open Source projects successful, without writing a single line of code.
 
 I’m going to split the activities into 6 categories and provide real examples for each of them:
+
 - [Documentation](#documentation)
 - [Management](#management)
 - [Awareness](#awareness)
@@ -48,6 +49,7 @@ Don’t forget that answering questions on StackOverflow can be considered docum
 Oh, right, you can also translate existing content into your language to spread the knowledge, why not?
 
 ## Management
+
 Open Source projects have some kind of project management as well, usually on the shoulders of the owners and maintainers, but if you’re an organized person, you can help them a lot!
 
 The main platform, in this case, is the GitHub issues tab. It’s quite common on large projects that dozen of issues spawn every day and they need some kind of validation and cleanup, that is a highly time-consuming activity.
@@ -62,16 +64,13 @@ Don’t forget that the more visibility a project gets, the more users and contr
 
 Do you know an easy way to raise awareness about open source? Hit like on this video and subscribe to my channel. I post regularly videos about Open Source and by helping me, you’re also helping the Open Source community! Thank you!
 
-
 ## Design
 
 This can be intended as a visual medium of documentation. Complex structures or flows often require a good visualization to be explained and understood properly. You can consider creating structured UML or simple flow chart diagrams to visualize and simplify.
 
 You can see some examples from the [vscode repo](https://github.com/microsoft/vscode/wiki/Source-Code-Organization), where they show in a simple diagram their core architecture or how they manage the multi-target environment.
 
-
-![vscode structure](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kpdp58ehxqrdyj3125r7.png)
-
+![vscode structure](./kpdp58ehxqrdyj3125r7.png)
 
 ## Code related
 
@@ -107,4 +106,4 @@ Thanks for reading this post, I hope you find it interesting!
 
 You can also follow me on your favourite platform!
 
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/Balastrong) [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA) [![TikTok](https://img.shields.io/badge/TikTok-000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://www.tiktok.com/@balastrong) [![Instagram](https://img.shields.io/badge/Instagram-FFF?style=for-the-badge&logo=instagram&logoColor=black)](https://www.instagram.com/devbalastrong/)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge\&logo=twitter\&logoColor=white)](https://twitter.com/Balastrong) [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA) [![TikTok](https://img.shields.io/badge/TikTok-000000?style=for-the-badge\&logo=tiktok\&logoColor=white)](https://www.tiktok.com/@balastrong) [![Instagram](https://img.shields.io/badge/Instagram-FFF?style=for-the-badge\&logo=instagram\&logoColor=black)](https://www.instagram.com/devbalastrong/)

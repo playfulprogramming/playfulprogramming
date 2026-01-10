@@ -15,7 +15,7 @@ For over a decade now (11 years right now), I’ve carried the title of **Micros
 
 The MVP program is a recognition granted by Microsoft to individuals who consistently **share their passion** and technical expertise with the world. We’re not Microsoft employees, but rather community contributors who help others navigate products, learn new skills, and solve tricky problems. In my case, this has meant juggling countless blog posts, meetups, and conferences.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bjs8aij5a7p44e0dl0r3.png)
+![Image description](./bjs8aij5a7p44e0dl0r3.png)
 
 Becoming and staying an MVP demands consistent effort: keeping pace with rapidly evolving technologies, finding time amid daily work and family life to create valuable content, and repeatedly testing the latest features so that I can share reliable insights. Yet, the reward is not just a shiny badge or a private invitation to Microsoft events. It’s the moment someone says, “Thank you, your blog helped me land my first tech job,” or "Thanks for your presentation, it was really interesting and inspirational".
 
@@ -30,7 +30,7 @@ When people hear I’m an MVP, they sometimes imagine a glamorous life filled wi
 
 As I move into my workday, I’m usually balancing multiple hats. I have a “day job” that keeps me busy with my products, client meetings, internal team meetings, and deadlines. Being an MVP doesn’t excuse me from that because it’s something I do in addition to my professional responsibilities. I’ll often find myself toggling between a client’s code review and a blog post or a video, switching from solving a tough architectural issue to answering a message on Discord or Slack. It can be a bit like mental gymnastics, but I’ve come to appreciate how these interactions keep me sharp.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/441ou7f1o55s0jzzxe59.jpg)
+![Image description](./441ou7f1o55s0jzzxe59.jpg)
 
 By the afternoon, I might set aside a bit of time to learn something new. The pace of technological change is relentless (especially now in the AI era), and as an MVP, I **need to stay ahead of the curve**. I’ll spin up a test environment in Azure or install a new preview release, trying out features well before they’re widely available. There’s a certain thrill in discovering what’s possible and imagining how I can explain it to my audience in a way that’s both accurate and accessible.
 Very often I use multiple virtual machines on Azure to test some products because I don't want to use my "daily" machine because I want to stay productive when I work and not waste time on something that doesn't work because it's a preview or something.
@@ -45,7 +45,7 @@ By the time I wrap up, I’m usually tired, but fulfilled. I know that every day
 
 I’ll be honest: being an MVP isn’t always smooth sailing. For every moment of excitement and discovery, there are challenges lurking behind the scenes. One of the hardest parts for me, personally, is keeping up with the relentless pace of technology. Microsoft’s ecosystem evolves at a dizzying speed—new features roll out, old ones get deprecated, product lines pivot in response to market changes, and entire development paradigms can shift in what feels like the blink of an eye. Remaining well-versed across multiple product lines is no small feat. I’ve had days where I wake up to an announcement that fundamentally alters how I think about a certain solution. In those moments, I know I have to invest time—often my own personal time—to learn, adapt, test, and figure out how to communicate these changes to my audience (and customers) clearly and accurately.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mc54qcz1tmsehpiwua10.jpg)
+![Image description](./mc54qcz1tmsehpiwua10.jpg)
 
 **Time management** itself can become a trial. This is one of the reason why I started to use a **Second Brain** system a few years ago. Finding a rhythm that allows me to keep my enthusiasm intact while ensuring I don’t burn out is a constant balancing act.
 
@@ -61,7 +61,7 @@ Despite all the challenges—balancing my schedule, staying current with technol
 
 One of the most exciting perks for me is getting early access to new tools and features. It’s hard to overstate how invigorating it feels to try out a service before it’s officially released, to tinker with preview builds, and to explore capabilities that many others won’t see for months. This early exposure equips me to share insights that truly matter. When I publish a blog post or give a talk about something fresh off the pipeline, I’m able to provide the community with a head start. Since the beginning, anyway, **I talk and write only about things I use daily basis at work**. I don't like to share opinions or advices about something that I don't really use. I prefer to talk about my experience. I’m not just saying, “Hey, here’s a feature that was released last year.” Instead, I’m guiding people through cutting-edge functionality that can shape their current and future projects.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/d097n8jmnx3xqp9lhn4t.JPG)
+![Image description](./d097n8jmnx3xqp9lhn4t.JPG)
 
 Then there’s the opportunity to influence product direction directly. To be honest I don't use too much this opportunity just because I don't have too much time to follow also this thing, but in the past happened that I shared some opinions or feedbacks about a product or a framework.
 
@@ -82,7 +82,7 @@ Over the years, I’ve come to realize that the MVP title is less about a one-ti
 
 This last sentence is written by my impostor syndrome that lives inside me.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/d9x3g7p777b0og5a71qf.JPG)
+![Image description](./d9x3g7p777b0og5a71qf.JPG)
 
 For those who aspire to become MVPs, or for those who’ve recently received the award and are wondering what to do next, my advice is simple: start by **asking yourself what you love** about technology, and channel that enthusiasm. Don’t try to mimic someone else’s style or focus on checkboxes to meet an imaginary quota. Instead, identify where you can make a difference. Maybe you’re a natural at speaking and want to run community events. Perhaps you shine at writing long-form, in-depth tutorials. Or maybe you excel at creating concise, practical code samples that solve real-world problems. Embrace what you do best, because that’s where you’ll have the most impact.
 
@@ -98,6 +98,4 @@ I got you. Head over to [copilotinstructions.xyz](https://www.copilotinstruction
 🤖 Turn Copilot from **helpful-ish** to **heck yeah, that's exactly what I meant.**
 
 Fork it, tweak it, make it yours.
-Because Copilot deserves good instructions too.  
-
-
+Because Copilot deserves good instructions too.

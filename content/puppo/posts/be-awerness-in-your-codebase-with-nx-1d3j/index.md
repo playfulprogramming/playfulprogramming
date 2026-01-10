@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 ## Preface
 
 Is your team aware of the relations between your modules? Is a team member able to understand what is affected by the changes in a new feature quickly? Probably your answer is: it depends. It depends on the team member and on the time that this team member is on the project. But today I want to show you how you can make your team more confident in your codebase regardless of the seniority or the time he or she is in the project.
@@ -20,7 +19,7 @@ Is your team aware of the relations between your modules? Is a team member able 
 
 Imagine a typical first onboarding day in your company. Probably after the introduction and some hours with the HR team the new colleague starts the onboarding stage with a technical team member. The first thing shown is a demo of the software so they start to understand the business value of the project. After that or its coffee break time or its time to see the codebase. After the project's checkout, your new colleague and you will open the project in your editor or IDE and the first impact with the codebase for your newbie could be like this:
 
-![Folder Structure](https://cdn.hashnode.com/res/hashnode/image/upload/v1668354281193/7vxbzNjKL.png)
+![Folder Structure](./7vxbzNjKL.png)
 
 And now you start to illustrate how the codebase is structured for each folder. Yes, if you are on the project for a while you know much of the code but for your new colleague understanding and remembering all this stuff quickly is not simple. They also want to see which modules are connected and how, but you dont have a tool to see this information quickly. So you will be forced to open many files to know where the imports are, but for your new colleague, these actions will result in tedious unintelligible steps and will not leave the correct information in their mind.
 
@@ -30,7 +29,7 @@ But is there a way to improve this situation and help the newbie and the boomer 
 
 Ok, your onboarding day could probably be better, and your new colleague could be more confident about the project after the first day. Do you know that a picture is better than thousand words for your mind? Do you know that your mind remembers images better than words? Therefore, what if the first impression of the project for your new colleague could be like this?
 
-![Nx Graph Picture](https://cdn.hashnode.com/res/hashnode/image/upload/v1668354412400/_PZrnslfp.png)
+![Nx Graph Picture](./_PZrnslfp.png)
 
 The newbies will be grateful because they have a big picture of the project and by themselves, they can understand the relations in the codebase. But the surprises are not finished; if you click with the mouse on the relation's arrows, it's possible to see which file creates the connection between the modules, is it not cool?
 
@@ -52,7 +51,7 @@ Nx under the hood uses this information to improve tasks like building and testi
 
 The benefits of using Nx are not only during the onboarding days. Using the Nx Graph, your team can see in less time how the project has changed over time or check how the project is growing up. Using Nx is also possible to create rules to prevent relations between modules or tagging modules to develop rules around these tags, but this is another story that we will discover in future.
 
-Okay, for today, that's all. I hope you understood this tool's power and that now you are curious about it. If so, visit the [Nx site](https://nx.dev/) and start to take your first steps. If you are curious about the Nx Graph, I suggest you to watch this [video](https://youtu.be/ZST_rmhzRXI) by [juri](https://twitter.com/juristr?s=21&t=yONfiWmu7Y0_OjWAXW13fw).
+Okay, for today, that's all. I hope you understood this tool's power and that now you are curious about it. If so, visit the [Nx site](https://nx.dev/) and start to take your first steps. If you are curious about the Nx Graph, I suggest you to watch this [video](https://youtu.be/ZST_rmhzRXI) by [juri](https://twitter.com/juristr?s=21\&t=yONfiWmu7Y0_OjWAXW13fw).
 
 See you soon with other posts about Nx.
 

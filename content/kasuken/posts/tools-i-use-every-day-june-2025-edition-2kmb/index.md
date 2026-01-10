@@ -38,11 +38,11 @@ When it comes to .NET development, Rider is my home base. Fast, stable, packed w
 
 VS Code is my Swiss Army knife. I use it for:
 
-* Writing Markdown (like this blog post)
-* Quick script edits
-* JSON/YAML configs
-* PowerShell scripting
-* Cloud automation like Bicep
+- Writing Markdown (like this blog post)
+- Quick script edits
+- JSON/YAML configs
+- PowerShell scripting
+- Cloud automation like Bicep
 
 Of course, the best implementation for GitHub Copilot is here, so, this is also why I use the most VS Code.
 
@@ -50,10 +50,10 @@ Of course, the best implementation for GitHub Copilot is here, so, this is also 
 
 I love visual Git. GitKraken helps me:
 
-* Manage branches without typing a single `git` command
-* Handle rebase and merge conflicts visually
-* Undo mistakes fast
-* Manage GitFlow very fast, even if I am a big fan of a terminal
+- Manage branches without typing a single `git` command
+- Handle rebase and merge conflicts visually
+- Undo mistakes fast
+- Manage GitFlow very fast, even if I am a big fan of a terminal
 
 It’s especially useful when working across multiple projects or mentoring teammates through Git chaos.
 
@@ -86,9 +86,9 @@ Staying productive isn’t just about writing code—it's about managing knowled
 
 My second brain. I use Notion to:
 
-* Plan blog posts and conference talks
-* Track projects, ideas, and side hustles
-* Store useful links, prompts, code snippets, and more
+- Plan blog posts and conference talks
+- Track projects, ideas, and side hustles
+- Store useful links, prompts, code snippets, and more
 
 It’s where half of my thinking happens. If Notion ever goes down, I go into digital withdrawal.
 I really cannot live without Notion anymore since few years now.
@@ -101,10 +101,10 @@ I’m a paid ChatGPT user—and I absolutely get my money’s worth. I use it ve
 
 My RSS reader of choice. It’s how I keep up with:
 
-* Dev blogs
-* AI research updates
-* .NET and cloud news
-* Design and UX posts (because I try to suck less at UI over time)
+- Dev blogs
+- AI research updates
+- .NET and cloud news
+- Design and UX posts (because I try to suck less at UI over time)
 
 Feedly helps me avoid doomscrolling and gives me high-signal, low-distraction updates.
 
@@ -112,7 +112,6 @@ I created a Curated RSS Feed Bundle for Web Developers — a hand-picked OPML fi
 💡 Just download, import into your favorite RSS reader (like Feedly), and enjoy fresh insights every day.
 
 👉 [Grab it on Gumroad](https://emanuelebartolesi.gumroad.com/l/rssfeeds) — stay sharp without the noise.
-
 
 ---
 
@@ -144,9 +143,9 @@ Honestly? I *love* Windows Terminal. It’s beautiful, customizable, and makes w
 
 Still one of the best tools for testing and documenting APIs. I use it to:
 
-* Test backend endpoints
-* Save and organize requests for later
-* Share collection configs with teammates or clients
+- Test backend endpoints
+- Save and organize requests for later
+- Share collection configs with teammates or clients
 
 Even with CLI tools or REST clients in code, Postman remains unmatched for exploring APIs fast.
 
@@ -184,31 +183,31 @@ Using the best tools often means mixing free, freemium, and paid options. Some t
 
 Here’s a breakdown of what my current stack could cost you, depending on your plan choices (approximate prices as of 2025):
 
-| Tool                      | Monthly    | Yearly      |
-| ------------------------- | ---------- | ----------- |
-| GitHub                    | \$0–\$4    | \$0–\$44    |
-| GitHub Copilot            | \$10       | \$100       |
-| JetBrains Rider           | \$17.90    | \$179       |
-| Visual Studio Code        | \$0        | \$0         |
-| ChatGPT (Pro)             | \$20       | \$240       |
-| Notion                    | \$0–\$10   | \$0–\$96    |
-| Feedly                    | \$8        | \$72        |
-| LM Studio                 | \$0        | \$0         |
-| Azure Local AI Foundry    | \$0+       | Usage-based |
-| Windows Terminal          | \$0        | \$0         |
-| MS Teams                  | \$0–\$4    | \$0–\$48    |
-| Slack                     | \$0–\$8.75 | \$0–\$105   |
-| Discord                   | \$0        | \$0         |
-| Microsoft Edge            | \$0        | \$0         |
-| Firefox Developer Edition | \$0        | \$0         |
-| GitKraken                 | \$0–\$8    | \$0–\$96    |
-| Postman                   | \$0–\$12   | \$0–\$120   |
-| NordPass                  | \$2.79     | \$33.48     |
-| NordVPN                   | \$4.99     | \$59.88     |
+| Tool                      | Monthly  | Yearly      |
+| ------------------------- | -------- | ----------- |
+| GitHub                    | $0–$4    | $0–$44      |
+| GitHub Copilot            | $10      | $100        |
+| JetBrains Rider           | $17.90   | $179        |
+| Visual Studio Code        | $0       | $0          |
+| ChatGPT (Pro)             | $20      | $240        |
+| Notion                    | $0–$10   | $0–$96      |
+| Feedly                    | $8       | $72         |
+| LM Studio                 | $0       | $0          |
+| Azure Local AI Foundry    | $0+      | Usage-based |
+| Windows Terminal          | $0       | $0          |
+| MS Teams                  | $0–$4    | $0–$48      |
+| Slack                     | $0–$8.75 | $0–$105     |
+| Discord                   | $0       | $0          |
+| Microsoft Edge            | $0       | $0          |
+| Firefox Developer Edition | $0       | $0          |
+| GitKraken                 | $0–$8    | $0–$96      |
+| Postman                   | $0–$12   | $0–$120     |
+| NordPass                  | $2.79    | $33.48      |
+| NordVPN                   | $4.99    | $59.88      |
 
 > Note: Some tools (like Azure Local AI Foundry) are usage-based and can vary significantly depending on your workload.
 
-All in all, this stack could cost anywhere from **\$50/month** to over **\$100/month**, depending on your usage and licensing tiers. For me, it’s a no-brainer—these tools are part of my workflow, my learning, and even my creative process.
+All in all, this stack could cost anywhere from **$50/month** to over **$100/month**, depending on your usage and licensing tiers. For me, it’s a no-brainer—these tools are part of my workflow, my learning, and even my creative process.
 It's also true that a lot of these tools are for free for me because of my awards (like Microsoft MVP and GitHub Star), but I will pay for them anyway.
 
 ---
@@ -216,6 +215,6 @@ It's also true that a lot of these tools are for free for me because of my award
 🧠 Tired of Copilot guessing your coding style?
 
 I got you. Head over to [copilotinstructions.xyz](https://www.copilotinstructions.xyz) and grab some battle-tested `copilot-instructions.md` files for PowerShell, C#, Blazor, and more.
-🤖 Turn Copilot from \"helpful-ish\" to \"heck yeah, that's exactly what I meant.\"
+🤖 Turn Copilot from "helpful-ish" to "heck yeah, that's exactly what I meant."
 
-Fork it, tweak it, make it yours. Because Copilot deserves good instructions too.  
+Fork it, tweak it, make it yours. Because Copilot deserves good instructions too.

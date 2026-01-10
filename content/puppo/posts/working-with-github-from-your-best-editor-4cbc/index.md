@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 In my daily work routine, many times I have to switch from [VsCode](https://code.visualstudio.com/) and [Github](https://github.com/) to create a PR, review a PR, check a GitHub Action, and more.
 
 Therefore I have decided to google if there is a solution to prevent all these switches. The result of my search terminated with 2 new VsCode Extensions:
@@ -45,13 +44,13 @@ So let's see better how this extension works.
 
 Obviously, to install this extension we have to pass by the VsCode MarketPlace. Click the extension button in VsCode menu and in the search bar type "GitHub Pull Requests and Issues". When the search is finished, click the install button on the right, wait some seconds, and voila the extension is installed.
 
-![Extension installation](https://cdn.hashnode.com/res/hashnode/image/upload/v1659106175800/kdi8976io.gif)
+![Extension installation](./kdi8976io.gif)
 
 ## Login
 
 It's going without saying that we have to sign in with our credentials to work with GitHub. To do that we have to open the extension and click the SignIn button that appears. After that VsCode asks you permission to open a new browser window to allow you to type your credentials, and at the end a popup browser asks you the permission to reopen VsCode with your credentials so you can begin to use our extensions. Now we are ready to use the extensions.
 
-![Sign In Button](https://cdn.hashnode.com/res/hashnode/image/upload/v1659106725876/LD5i3NsXh.png)
+![Sign In Button](./LD5i3NsXh.png)
 
 ## First Impression
 
@@ -62,7 +61,7 @@ When you are logged the extension shows you two sections:
 
 its obvious that each section handles its topic.
 
-![First impression extension](https://cdn.hashnode.com/res/hashnode/image/upload/v1659354191073/es3pZui9Q.png)
+![First impression extension](./es3pZui9Q.png)
 
 ### PR
 
@@ -75,17 +74,17 @@ After that, the extension opens a new window where you can input the data of you
 - Title
 - Description
 
-![PR creation](https://cdn.hashnode.com/res/hashnode/image/upload/v1659354776587/IO37dNXxD.png)
+![PR creation](./IO37dNXxD.png)
 
 Now, if you work using the review feature, you can add your review/s to your PR and if you want you can edit your PR too, or you can also add labels or milestones.
 
-![PR View](https://cdn.hashnode.com/res/hashnode/image/upload/v1659354977327/rGM98PyNT.png)
+![PR View](./rGM98PyNT.png)
 
 In the extension panel, under the PR section, you can find your PR and view or edit it if it is necessary.
 
 If you select your PR, you can see all the changed files by the PR, and if you want to add some comments you can do that in the file directly.
 
-![Review PR](https://cdn.hashnode.com/res/hashnode/image/upload/v1666534956627/IqkB0PfG0.gif)
+![Review PR](./IqkB0PfG0.gif)
 
 It is awesome, innit?
 

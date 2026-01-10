@@ -15,7 +15,7 @@ In this post, I will show you how to register HTTP routes and message consumers 
 
 This demonstration will start by uncovering some NestJS internals, particularly an undocumented feature: the `DiscoveryModule` 🧐.
 
-> _By dynamic routes, I mean routes unknown at the time of development but defined at runtime, late in the boot process._
+> *By dynamic routes, I mean routes unknown at the time of development but defined at runtime, late in the boot process.*
 
 If reading bores you, skip the talk and jump directly to the [repository](https://github.com/getlarge/nestjs-dynamic-routes-and-listeners).
 
@@ -43,7 +43,7 @@ In the routing case, the decorators used to declare HTTP routes and microservice
 
 Word to the wise: to declare dynamic routes and listeners, we must first understand how NestJS inspects modules and scans the metadata to register them.
 
-![Cat explorer](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHV5c3Z0dmFtd3FhanU5Y3p3NjFnNTc1NDdsMjRvOG5mejlrNGZweCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/THgmKzB0CQb4t5YGhM/giphy.gif)
+![Cat explorer](./giphy.gif)
 
 For both HTTP routes and microservices listeners, NestJS will scan the metadata and register the routes and listeners during the initialization phase when `NestApplication.init` and `NestMicroservice.init` are called.
 
@@ -51,17 +51,17 @@ However, each of them has its own registration process and components:
 
 ### HTTP routes
 
-![NestJS HTTP routes scanning and registration process](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ozoy7o8uzsxjevtamag6.png)
+![NestJS HTTP routes scanning and registration process](./ozoy7o8uzsxjevtamag6.png)
 
-![NestJS HTTP server init](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4aer6yp955yscrfket8f.png)
+![NestJS HTTP server init](./4aer6yp955yscrfket8f.png)
 
 ### Microservices listeners
 
-![NestJS microservices listeners scanning and registration](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/poobctdowqzidcz9scsr.png)
+![NestJS microservices listeners scanning and registration](./poobctdowqzidcz9scsr.png)
 
-![NestJS microservices consumers init](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vebru9vff9hcschlwsuc.png)
+![NestJS microservices consumers init](./vebru9vff9hcschlwsuc.png)
 
-> _When calling `NestApplication.listen` and `NestMicroservice.listen`, the `init` methods will be called if they were not before._
+> *When calling `NestApplication.listen` and `NestMicroservice.listen`, the `init` methods will be called if they were not before.*
 
 We have the following options to register dynamic routes and listeners:
 
@@ -82,13 +82,13 @@ The demonstration is a simple NestJS application with a **single HTTP route**, a
 
 Seems like a good plan, but how can we set up the placeholders and replace them with actual values?
 
-![Good question](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdzgwb29nZDg4dG53M3R4bHVnZHJ1YzRxYTRxOWJsdjhtcWc2enJ3OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/10yuZYb5YH6xUI/giphy.gif)
+![Good question](./giphy-1.gif)
 
 We could use the [reflect-metadata](https://github.com/rbuckton/reflect-metadata) library to store the metadata and then scan it **manually** to replace the placeholders with actual values, but there is a better way.
 
 During my NestJS codebase review, I started following the `MetadataScanner` thread and noticed it was also used by the `DiscoveryModule`. This module provides a powerful tool for **exploring and inspecting the providers, controllers, and modules** in your NestJS application, and it turns out to be the perfect tool for our use case.
 
-> _Funny enough, it has been in the NestJS core for several years but is not used internally. One could think it is part of the public API, but surprisingly, it is still undocumented. Do you also get this treasure hunt feeling? 🏴‍☠️_
+> *Funny enough, it has been in the NestJS core for several years but is not used internally. One could think it is part of the public API, but surprisingly, it is still undocumented. Do you also get this treasure hunt feeling? 🏴‍☠️*
 
 Since the approach is very similar for HTTP and microservices listeners, I only explain the registration process of HTTP routes. You can use the same approach to register the microservice listeners, as can be seen in this [internal library](https://github.com/getlarge/nestjs-dynamic-routes-and-listeners/tree/main/libs/custom-message-pattern).
 
@@ -103,10 +103,10 @@ The approch is based on the following steps:
 
 ### 1. Create a custom decorator
 
-For the HTTP routes, the starting point is the custom decorator: `CustomHttpMethod`, which takes a _method_ and a _path_ as arguments:
+For the HTTP routes, the starting point is the custom decorator: `CustomHttpMethod`, which takes a *method* and a *path* as arguments:
 
-- The _path_ is a template string (e.g. ,`$HTTP_ROUTE_PREFIX/:id`) containing placeholders that actual values will replace.
-- The _method_ is one of the HTTP methods (e.g., **GET**, **POST**, etc).
+- The *path* is a template string (e.g. ,`$HTTP_ROUTE_PREFIX/:id`) containing placeholders that actual values will replace.
+- The *method* is one of the HTTP methods (e.g., **GET**, **POST**, etc).
 
 This decorator is used above the controller methods to define the dynamic routes (e.g., `@CustomHttpMethod({ method: 'GET', path: '$HTTP_ROUTE_PREFIX/:id' })`).
 
@@ -128,7 +128,7 @@ export const CustomHttpMethod = DiscoveryService.createDecorator<{
 
 The scanner is exposed as a dynamic NestJS module—`CustomHttpMethodModule`—that can be imported into any module to enable dynamic HTTP routes.
 
-> _Dynamic module enhances reusability and allows for configuration from the outside._
+> *Dynamic module enhances reusability and allows for configuration from the outside.*
 
 The module is configurable with:
 
@@ -210,11 +210,11 @@ The `CustomHttpMethodExplorer` is a provider that will:
 4. substitute the placeholders with actual values from the `store`
 5. decorate the method with the NestJS HTTP method decorator (e.g., `@Get`, `@Post`, etc.)
 
-One of the benefits of using the [`DiscoveryService`](https://github.com/nestjs/nest/blob/master/packages/core/discovery/discovery-service.ts) is that it provides methods to explore the metadata of the controllers and methods [`getProviders`, `getControllers`, `getAllMethodNames` and `getMetadataByDecorator`], without having to use low-level APIs like `Reflect`.
+One of the benefits of using the [`DiscoveryService`](https://github.com/nestjs/nest/blob/master/packages/core/discovery/discovery-service.ts) is that it provides methods to explore the metadata of the controllers and methods \[`getProviders`, `getControllers`, `getAllMethodNames` and `getMetadataByDecorator`], without having to use low-level APIs like `Reflect`.
 
 **Bonus**: the `discoveryService.getMetadataByDecorator` infers the type of the metadata.
 
-> _The `CustomHttpMethodExplorer` service is instantiated when the module is imported and will scan the controllers and methods to replace the placeholders with actual values._ > _Alternatively, you can manually trigger the exploration in the `main.ts` file._
+> *The `CustomHttpMethodExplorer` service is instantiated when the module is imported and will scan the controllers and methods to replace the placeholders with actual values.* > *Alternatively, you can manually trigger the exploration in the `main.ts` file.*
 
 ```ts
 @Injectable()
@@ -411,7 +411,7 @@ npx nx run demo-1:serve
 nx run demo-1-e2e:e2e
 ```
 
-![End to end tests results](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/esfhyhnw11p5gp9092a9.png)
+![End to end tests results](./esfhyhnw11p5gp9092a9.png)
 
 ## Going further
 

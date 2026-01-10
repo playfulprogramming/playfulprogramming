@@ -27,8 +27,7 @@ When debugging, you frequently need to select a specific element for inspection 
 
 Select the element using the picker tool, and it will be stored in the global object $0.
 
-
-![1](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l7u3x7a18f9cha6l4qly.png)
+![1](./l7u3x7a18f9cha6l4qly.png)
 
 ## **Angular** [**ng.global**](http://ng.global)
 
@@ -49,8 +48,7 @@ const component = ng.getComponent($0);
 console.log(component);
 ```
 
-
-![2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/u73vcxhwdbdp8j3eoqmv.png)
+![2](./u73vcxhwdbdp8j3eoqmv.png)
 
 ### ng.applyChanges
 
@@ -70,8 +68,7 @@ const context = ng.getContext($0);
 console.log(context);
 ```
 
-
-![3](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4qokdtosauxgwf296hjn.png)
+![3](./4qokdtosauxgwf296hjn.png)
 
 ### ng.getDirectiveMetadata
 
@@ -84,7 +81,7 @@ console.log(metadata);
 
 Using these debugging functions effectively can expedite issue identification and resolution within your Angular applications, ensuring a smoother user experience and an efficient debugging process.
 
-> I recommend checking out the official Angular documentation to read more ng global [https://angular.io/api/core/global](https://angular.io/api/core/global)
+> I recommend checking out the official Angular documentation to read more ng global <https://angular.io/api/core/global>
 
 ## **Angular DevTools: A Powerful Debugging Extension**
 
@@ -92,22 +89,19 @@ Angular DevTools is a browser extension for Chrome and Firefox, designed to enha
 
 The DevTools extension is under the Angular tab in your browser DevTools with two additional tabs upon opening:
 
-* **Components:** This tab lets you delve into the components and directives of your application, allowing you to preview or tweak their states.
-    
-* **Profiler:** This tab enables you to profile your application, assisting you in detecting performance bottlenecks during change detection execution.
-    
+- **Components:** This tab lets you delve into the components and directives of your application, allowing you to preview or tweak their states.
+
+- **Profiler:** This tab enables you to profile your application, assisting you in detecting performance bottlenecks during change detection execution.
 
 Moreover, it show the Angular version and the latest commit hash for the extension.
 
-
-![4](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/89bzhirf4wuad1grj8ul.png)
+![4](./89bzhirf4wuad1grj8ul.png)
 
 ### **Debugging with Angular DevTools**
 
 Angular DevTools helps you look at your app's layout quickly, showing a tree of components and directives. You can check each part, its details, and information with your mouse or keyboard shortcuts.
 
-
-![5](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/iylnysegkv604c9cz8nn.png)
+![5](./iylnysegkv604c9cz8nn.png)
 
 You can update property values directly from the properties view and access selected components or directives.
 
@@ -115,8 +109,7 @@ You can update property values directly from the properties view and access sele
 
 The Profiler tab in Angular DevTools records how Angular detects changes and gives helpful event information. You can look at this data in a clear bar chart, showing each part and its activity during each step.
 
-
-![6](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fde9ayes25vgvp6u16au.png)
+![6](./fde9ayes25vgvp6u16au.png)
 
 The Profiler tab helps you see how Angular finds changes and gives useful event details. It shows a simple bar chart with each part's activity at every step. It also has a view like a flame graph, showing each item's place in the display tree and the time used for finding changes.
 
@@ -134,27 +127,23 @@ Beyond Angular's native debugging tools, Visual Studio Code (VS Code) also offer
 
 To start, let's set a breakpoint in our app.component.ts file. Simply click in the gutter to the left of the line numbers where you want the breakpoint to be set. You'll see a red circle appear; this is your breakpoint.
 
-
-![7](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ndmu8rj9r7quodkp6h4g.png)
+![7](./ndmu8rj9r7quodkp6h4g.png)
 
 ### **Configuring the Debugger**
 
 Now, it's time to configure the debugger. First, navigate to the Run and Debug view (`Ctrl+Shift+D`), and click on gear button, it create aa `launch.json` debugger configuration file.
 
-
-![8](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vp0loajhvtni9vw1oxt8.png)
+![8](./vp0loajhvtni9vw1oxt8.png)
 
 In the Select debugger dropdown list, choose `ng-serve`. This action creates a `launch.json` file in a new `.vscode` folder in your project, which includes a configuration to launch your website.
 
 To begin debugging and open a new browser, press F5 or click the green arrow. The breakpoint won't work until you refresh the webpage because the code runs before the debugger connects. After refreshing, the breakpoint should work.
 
-
-![22](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3althc8xcq63f5ugrynk.png)
+![22](./3althc8xcq63f5ugrynk.png)
 
 At this point, you can step through the code using (`F10`), inspect variables such as `AppComponent` or `` `ProductService` `` and observe the call stack of your client-side Angular application.
 
-
-![10](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/72cyt2hokg3t0opoaxov.png)
+![10](./72cyt2hokg3t0opoaxov.png)
 
 With these features in your toolkit, debugging Angular code in VS Code becomes much more simple and efficient.
 

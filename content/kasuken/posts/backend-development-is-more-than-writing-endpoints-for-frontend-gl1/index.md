@@ -205,7 +205,7 @@ a backend developer can create and maintain high-quality backend code that power
 
 Are you interested in learning GitHub but don't know where to start? Try my course on LinkedIn Learning: [Learning GitHub](https://bit.ly/learninggithub).
 
-![LinkedIn Learning](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sdc2bpiftpadibi4h51c.gif)
+![LinkedIn Learning](./sdc2bpiftpadibi4h51c.gif)
 
 ---
 

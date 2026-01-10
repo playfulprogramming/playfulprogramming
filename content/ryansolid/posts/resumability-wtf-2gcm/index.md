@@ -13,9 +13,9 @@ socialImage: "social-image.png"
 
 Maybe you've heard the term Resumability thrown around recently. Maybe someone gushing over Miško Hevery's new [Qwik](https://qwik.builder.io/) framework. Maybe you've heard me mention it in our work for the upcoming [Marko 6](https://dev.to/ryansolid/fluurt-re-inventing-marko-3o1o). Maybe you heard it has something to do with hydration. But you aren't even clear what hydration is.
 
-This article is for you. 
+This article is for you.
 
-----------------
+---
 
 ## Why are JavaScript developers so thirsty?
 
@@ -33,11 +33,11 @@ To regain the ability to server render, these frameworks also run on the server 
 
 Sound good so far? Well, there is a problem.
 
---------------
+---
 
 ## Enter the Uncanny Valley
 
-![A chart of the steps taken to load a web page: 1. Initial request 2.HTML arrives 3. View painted 4. JS arrives 5. JS parsed + eval’d. Between steps 3 and 5 is The Uncanny Valley.](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qxwl2r38uzpkwvcyye8x.jpeg)
+![A chart of the steps taken to load a web page: 1. Initial request 2.HTML arrives 3. View painted 4. JS arrives 5. JS parsed + eval’d. Between steps 3 and 5 is The Uncanny Valley.](./qxwl2r38uzpkwvcyye8x.jpeg)
 
 Re-rendering the entire application on page load can be costly as pages get larger, especially on slower networks and devices. It isn't actually recreating the DOM nodes, but the process does run through all the application code as if it were.
 
@@ -49,11 +49,11 @@ Second, execution can be expensive. It can block the main thread. A user trying 
 
 Not the best experience.
 
--------------
+---
 
 ## So what is Resumability?
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9o77xu5srth5hrgw6qi0.gif)
+![Image description](./9o77xu5srth5hrgw6qi0.gif)
 
 Like it sounds: do some work, pause, then resume. It is a process that allows frameworks to avoid extra work when the application starts in the browser, and instead leverage what happened during its execution on the server. Sort of like a computer that hibernates and then is right where you left it when it wakes. Except Resumability does this across the server/browser network boundary.
 
@@ -128,7 +128,7 @@ Moreso, we need to communicate the full state of our application from the server
 
 This is non-trivial to implement and it isn't without tradeoff.
 
----------------
+---
 
 ## Serialization
 
@@ -165,11 +165,11 @@ Picture a formatted date that didn't include time, but the UI lets the user chan
 
 Resumability does have a similar requirement to get the internal framework state as we server render, rather than only rely on the application data we typically serialize. At minimum, we'd need to serialize all the props coming into each component so that they could be woken up independently without running the whole component tree up front.
 
----------------
+---
 
 ## The Three Musketeers
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/98bpp71uv1bkituylfxi.jpeg)
+![Image description](./98bpp71uv1bkituylfxi.jpeg)
 
 Luckily, to make the code resumable requires a lot of knowledge of what could update in the browser, since you need to know what events can update what UI. And for that reason Resumabilty usually is combined with two other optimizations.
 
@@ -181,7 +181,7 @@ This is known as Partial Hydration; you may have seen a version of this techniqu
 
 It is important to recognize while these optimizations often come as trio they work independently. Resumability is not concerned with when code loads, or how much of it does load.
 
--------------------
+---
 
 ## Living in a Resumable World
 
@@ -193,6 +193,6 @@ But if it does, it will finally have unified the old Web of imperative jQuery wi
 
 And that is something worth striving for.
 
------------
+---
 
 Special thanks to @tigt & @t3dotgg for reviewing this article.

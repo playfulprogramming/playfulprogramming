@@ -13,7 +13,7 @@ order: 1
 }
 ---
 
-I get asked on every single video what is this autocomplete I’ve got on my terminal, and the answer is... _drum rolls..._ [fig.io](https://fig.io/)!
+I get asked on every single video what is this autocomplete I’ve got on my terminal, and the answer is... *drum rolls...* [fig.io](https://fig.io/)!
 
 Actually, it's much more than a simple autocomplete, even if to be honest it's what I use 90% of the time.
 
@@ -33,15 +33,13 @@ Fig does much much more! When you start typing a command (for example `git check
 
 Enough? Not yet! You can also see on the recommendations all the available branches you can pass as argument to the command!
 
-![Fig branch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/syw2i3ym9vznel7dd1wl.png)
-
+![Fig branch](./syw2i3ym9vznel7dd1wl.png)
 
 I mean, it's cool on an image, but you should really have a look at the video to see it in action!
 
 You will be surprised to notice that as soon as you start typing `git`, you will see in the autocomplete some weird commands, like `cma` or `lgo`. What are those? Well, they are the aliases I defined in my dotfiles, and fig is able to read them and suggest them to me!
 
-![Fig Alias](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/etbsaqiy957alc4vyyi4.png)
-
+![Fig Alias](./etbsaqiy957alc4vyyi4.png)
 
 ### Artificial Intelligence
 
@@ -111,7 +109,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

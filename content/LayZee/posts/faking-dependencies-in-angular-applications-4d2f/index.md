@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 *Experimental props. Cover photo by [rawpixel.com](https://www.pexels.com/photo/assorted-color-flowers-951233/) on Pexels.*
 
 *Original publication date: 2019-05-07.*
@@ -92,7 +91,7 @@ export class InternetExplorer11BannerComponent {
 }
 ```
 
-_Deprecation banner with primitive value dependency._
+*Deprecation banner with primitive value dependency.*
 
 Currently, the deprecation banner component has a direct dependency on the `isInternetExplorer11Token`. Replacing a dependency with another value dynamically would require us to intercept the injector chain with a conditionally inserted ancestor component or directive.
 
@@ -151,7 +150,7 @@ export class InternetExplorerService {
 }
 ```
 
-_Extracting the Internet Explorer 11 detection to a service._
+*Extracting the Internet Explorer 11 detection to a service.*
 
 First, we extract the Internet Explorer 11 detection from the dependency injection token to our newly created `InternetExplorerService` class. The Internet Explorer 11 detection token now delegates to the service when evaluating its value based on the user agent.
 
@@ -208,7 +207,7 @@ describe('Internet Explorer 11 detection', () => {
 });
 ```
 
-_Internet Explorer 11 detection test suite restructured to use the Internet Explorer service._
+*Internet Explorer 11 detection test suite restructured to use the Internet Explorer service.*
 
 As already mentioned, we won’t dynamically replace the user agent token declaratively in a template using an element injector. Instead, we’ll change the state imperatively.
 
@@ -281,7 +280,7 @@ export class BrowserService implements OnDestroy {
 }
 ```
 
-_Observable browser state in a class-based service._
+*Observable browser state in a class-based service.*
 
 We store the current user agent state in a `BehaviorSubject<string>` which is exposed in the observable `userAgent$` property of `BrowserService`. The whole application should depend on this observable when it needs the user agent.
 
@@ -341,7 +340,7 @@ export class InternetExplorer11BannerComponent {
 }
 ```
 
-_Deprecation banner component using observable state._
+*Deprecation banner component using observable state.*
 
 In the deprecation banner component, we replace the Boolean `isDismissed` property with a `BehaviorSubject<boolean>` which is initially cleared (set to `false`). We now have an observable `isBannerVisible$` property which is a combination of the observable state from `isDismissed` and `InternetExplorerService#isInternetExplorer11$`. The UI behaviour logic is similar to before, except it’s now expressed as part of the observable pipeline.
 
@@ -429,7 +428,7 @@ export class BrowserFakerComponent implements OnDestroy, OnInit {
 }
 ```
 
-_Browser faker component._
+*Browser faker component.*
 
 The browser faker component injects the browser service. It has a single form control that is bound to a native `<select>` control. When a browser is selected, we start faking its user agent through the browser service. When the default browser option is selected, we stop faking a user agent.
 
@@ -556,7 +555,7 @@ describe(DevelopmentOnlyDirective.name, () => {
 });
 ```
 
-_Development only structural directive._
+*Development only structural directive.*
 
 This structural directive simply renders the component or element it’s attached to if the application is running in development mode, as verified by its test suite.
 
@@ -581,17 +580,19 @@ import { Component } from '@angular/core';
 export class AppComponent {}
 ```
 
-_Angular application with Internet Explorer 11 deprecation banner and browser faker._
+*Angular application with Internet Explorer 11 deprecation banner and browser faker.*
 
 The application also includes [a URL component](https://stackblitz.com/edit/testing-and-faking-angular-dependencies-app?file=src%2Fapp%2Fbrowser%2Furl.component.ts) that demonstrates the [Location API](https://developer.mozilla.org/en-US/docs/Web/API/Location) as an Angular dependency.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3n5r1jkrmdm77i9lrp9q.png)
+![](./3n5r1jkrmdm77i9lrp9q.png)
+
 <figcaption>When Internet Explorer 11 is faked, the deprecation banner is rendered.</figcaption></figure>
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/284avb9ihdte1edibogr.png)
+![](./284avb9ihdte1edibogr.png)
+
 <figcaption>When another browser is faked, the deprecation banner is omitted.</figcaption></figure>
 
-Now, we can fake a browser environment to ease development and manual testing. Of course, we still need to test the deprecation banner in a real Internet Explorer 11 browser to make sure. Find help to do this in the __Resources__ section.
+Now, we can fake a browser environment to ease development and manual testing. Of course, we still need to test the deprecation banner in a real Internet Explorer 11 browser to make sure. Find help to do this in the **Resources** section.
 
 ## Summary
 
@@ -617,12 +618,12 @@ Learn how to provide tree-shakable dependencies and other complicated configurat
 
 These wonderful people from the Angular community helped review this article:
 
-* [Alex Okrushko](https://dev.to/alexokrushko)
-* [Andrew Grekov](https://dev.to/thekiba)
-* [Brad Taniguchi](https://github.com/bradtaniguchi)
-* [Christian Lüdemann](https://dev.to/chrislydemann)
-* [Mahmoud Abduljawad](https://twitter.com/mahmoud_ajawad)
-* [Max Koretskyi](https://twitter.com/maxkoretskyi)
-* [Nicholas Jamieson](https://dev.to/cartant)
-* [Shai Reznik](https://twitter.com/shai_reznik)
-* [Wassim Chegham](https://dev.to/wassimchegham)
+- [Alex Okrushko](https://dev.to/alexokrushko)
+- [Andrew Grekov](https://dev.to/thekiba)
+- [Brad Taniguchi](https://github.com/bradtaniguchi)
+- [Christian Lüdemann](https://dev.to/chrislydemann)
+- [Mahmoud Abduljawad](https://twitter.com/mahmoud_ajawad)
+- [Max Koretskyi](https://twitter.com/maxkoretskyi)
+- [Nicholas Jamieson](https://dev.to/cartant)
+- [Shai Reznik](https://twitter.com/shai_reznik)
+- [Wassim Chegham](https://dev.to/wassimchegham)

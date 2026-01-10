@@ -15,7 +15,7 @@ As of today, it has been 7 years since I open-sourced SolidJS. It wasn't for nob
 
 And thanks to that we have SolidJS today. Well, that and the next 7 years of mine and several other people's lives. But the story starts several years before that.
 
------------------
+---
 
 ## Journey into Open Source
 
@@ -25,7 +25,7 @@ Pretty early on, my very patient boss (and creator of [Knockback](https://github
 
 Still, I wasn't jumping to create PRs. I didn't feel any ownership until I was tasked with updating our application to use Web Components. And that is when I finally made open source work for me. I found libraries with the polyfills I needed. I made some of my own internally. And I used that experience to create my first libraries: `component-register` a way of authoring web components using functional composition instead of classes, and `webcomponent-router` a nested router that used light/shadow DOM projections.
 
---------------------
+---
 
 ## React's Monumental Rise
 
@@ -37,7 +37,7 @@ I saw the stock ticker demo and I kept thinking, "Who sends the whole page of da
 
 I had no idea how I was going to solve this with my beloved KnockoutJS. I knew it didn't matter but I couldn't let it go. I watched early React talks from Pete Hunt and the gang and I thought "How could this possibly be the best thing we can be doing?" And yet Knockout was a dead project and everywhere I looked people were flocking to React.
 
---------------------
+---
 
 ## Humble Beginnings
 
@@ -49,7 +49,7 @@ I sought out every benchmark I could find. In some it was fast but in others (in
 
 And sure enough, SolidJS's initial version jumped straight to the front of the JS Framework Benchmark. Of course, I was politely told by the maintainers that I had cheated. So it took a few more tries to solve common problems generically. It took almost a year until [my birthday in 2019 for SolidJS to legitimately reach the front of the pack](https://ryansolid.medium.com/how-i-wrote-the-fastest-javascript-ui-framework-37525b42d6c9).
 
--------------------
+---
 
 ## Taking things Seriously
 
@@ -63,7 +63,7 @@ And here Dan was on stage showing something that looked almost identical. Now I 
 
 So I implemented Suspense, Transitions, HMR, SSR, Hydration, and Streaming over the next 2 years. These problems were similar but required completely different solutions than those used for a VDOM. While we didn't invent any of these concepts no one had solved them in a Fine-Grained model.
 
--------------------------
+---
 
 ## Spreading the Word
 
@@ -83,21 +83,21 @@ To be fair, I didn't see what I was doing as self-promotion. I was building and 
 
 Signals and fine-grained rendering were capable of everything you could do with a VDOM with similar or even better DX. A problem you could solve by diffing could probably be solved better by not diffing. Everyone was so intent on carving their own space that they didn't stop to ask if the boundaries were something we artificially made.
 
-----------------------
+---
 
 ## Finding Allies
 
-I started SolidJS very much on my own. I added Spectrum and Gitter chats and found support by sharing my ideas, but it wasn't until David Di Biase reached out that I found someone willing to put time into making the project successful. We brought on others over time as they were available to work on projects. Alexandre, Milo, Ryan, Dan, Nikhil to begin with and so many others afterwards. 
+I started SolidJS very much on my own. I added Spectrum and Gitter chats and found support by sharing my ideas, but it wasn't until David Di Biase reached out that I found someone willing to put time into making the project successful. We brought on others over time as they were available to work on projects. Alexandre, Milo, Ryan, Dan, Nikhil to begin with and so many others afterwards.
 
 We used our OpenCollective to sponsor two hackathons(SolidHack) to bring in missing parts of the ecosystem like component libraries. We funneled our donations into the Solid Fellowship program to support important initiatives like Dev Tools and Documentation. We found friends in content creators who were open to newer ideas. People like Jason Lengstorf, Theo Browne, Jack Herrington. I started speaking at conferences and meeting people from around the world who would advocate for Solid like Daniel and Atila.
 
-{% youtube https://www.youtube.com/watch?v=O6xtMrDEhcE&list=PL16vUvov3c5D1_KlYevpriA9QMkVkY32l %}
+{% youtube https://www.youtube.com/watch?v=O6xtMrDEhcE\&list=PL16vUvov3c5D1\_KlYevpriA9QMkVkY32l %}
 
 But most of all we just kept doing what we were doing. We released 1.0 in the Summer of 2021. This would kick off a revolution that I never could have predicted when I first started.
 
 {% link https://dev.to/ryansolid/solidjs-official-release-the-long-road-to-1-0-4ldd %}
 
------------------------------
+---
 
 ## Signals Everywhere
 
@@ -107,13 +107,13 @@ In 2015, no one would be caught dead saying "Knockout always had it right." Hell
 
 It didn't happen overnight. My shouting out into the void caught the particular attention of one audience. Framework authors. It was my articles on SolidJS that got me hired by eBay, and it was those articles many published incidentally through a primarily Angular publication (thanks @layzee) that got my writing in front of the folks on the Angular team. This would start a multi-year conversation with Pawel Kozlowski that would ultimately lead to Angular Signals.
 
-I convinced Misko Hevery that Signals were what he was missing to achieve true Resumability in Qwik. We'd nerd sniped Jason Miller (Preact) and crew around some of the performance we were getting with Signals. After early pushback, convinced Evan You (Vue) and Rich Harris (Svelte) that Fine-Grained rendering was the future, as they'd go on to create Svelte Runes, and Vue Vapor. Vue on its way to giving up its Virtual DOM, and Svelte giving up its all-compiler approach to doing runtime reactivity. And now both are nearly indistinguishable in output from SolidJS. Hell, there is even a TC-39 proposal for Signals now for the browser. 
+I convinced Misko Hevery that Signals were what he was missing to achieve true Resumability in Qwik. We'd nerd sniped Jason Miller (Preact) and crew around some of the performance we were getting with Signals. After early pushback, convinced Evan You (Vue) and Rich Harris (Svelte) that Fine-Grained rendering was the future, as they'd go on to create Svelte Runes, and Vue Vapor. Vue on its way to giving up its Virtual DOM, and Svelte giving up its all-compiler approach to doing runtime reactivity. And now both are nearly indistinguishable in output from SolidJS. Hell, there is even a TC-39 proposal for Signals now for the browser.
 
 The only audience that wasn't convinced was React, but to be fair this solution was never for them. It was born out of not accepting all the conclusions they had made. I've learned an immeasurable amount from React over the years, but you don't evolve if you don't challenge baseline assumptions.
 
 {% link https://dev.to/this-is-learning/react-vs-signals-10-years-later-3k71 %}
 
----------------------
+---
 
 ## Another Decade of SolidJS
 
@@ -130,9 +130,3 @@ The difference in time between SolidJS being released and other solutions gettin
 That keeps me busy and gives the project direction. There are still ways to make Web Development better and that energizes me. If what we accomplished as a small force in a hostile environment is impressive, imagine what we can accomplish with that many more people living and working in this space. This is only the beginning of the journey.
 
 While it is true most developers that will pick up a frontend framework have no idea of what goes into building one. They might even think syntax is the most defining feature. At some point someone has to create the actual technology and that is an effort worth exploring and investing in.
-
-
-
-
-
-

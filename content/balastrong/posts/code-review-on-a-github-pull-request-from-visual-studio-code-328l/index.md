@@ -21,7 +21,7 @@ I will showcase in the video all the advantages of reviewing a Pull Request from
 
 Aaaand there's even more, as anticipated, this is part of a series of three videos so... there's one more coming out in the next few days!
 
-{% youtube DSl-L6B_Qb4 %}
+{% youtube DSl-L6B\_Qb4 %}
 
 Not a fan of video content? No problem, as usual I write down the concepts explained in the video in written form as well!
 
@@ -31,17 +31,17 @@ Not a fan of video content? No problem, as usual I write down the concepts expla
 
 ## Install the official GitHub Extension
 
-_(If you already installed the extension last week, you can skip this step!)_
+*(If you already installed the extension last week, you can skip this step!)*
 
 The first thing you need to do is to install the official **GitHub Pull Requests and Issues** extension for Visual Studio Code. You can find it in the marketplace by searching for "GitHub" or by clicking [here](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github).
 
-![GitHub Pull Requests and Issues](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/99jm3doommzs8v15uqtk.png)
+![GitHub Pull Requests and Issues](./99jm3doommzs8v15uqtk.png)
 
-_Note_: make sure to not get confused, the extension called "GitHub" is an old one and deprecated. The new one is called "GitHub Pull Requests and Issues".
+*Note*: make sure to not get confused, the extension called "GitHub" is an old one and deprecated. The new one is called "GitHub Pull Requests and Issues".
 
 As soon as the extension is installed, you'll see a new icon in the Activity Bar on the left side of Visual Studio Code:
 
-![GitHub Pull Requests and Issues Icon](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ctnqpzx04heteahuhnoi.png)
+![GitHub Pull Requests and Issues Icon](./ctnqpzx04heteahuhnoi.png)
 
 Opening it the first time will ask you to login to GitHub, just click on the button and a browser tab will open where you can login to your GitHub account.
 
@@ -49,7 +49,7 @@ Opening it the first time will ask you to login to GitHub, just click on the but
 
 The first thing you notice when selecting a Pull Request from the sidebar is the changed files.
 
-![Changed files](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zbcwks33q8kio1jbbott.png)
+![Changed files](./zbcwks33q8kio1jbbott.png)
 
 When clicking on one of them a Diff Editor will open so that you can see the changes made to the file by comparing them to the base branch.
 
@@ -57,7 +57,7 @@ When clicking on one of them a Diff Editor will open so that you can see the cha
 
 If you click on "Description" from the sidebar, you'll see the Pull Request overview:
 
-![Pull Request Overview](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jp7fbtc0w9bgg8ldqign.png)
+![Pull Request Overview](./jp7fbtc0w9bgg8ldqign.png)
 
 From here you can see all the relevant information you can also find on the web UI on GitHub. It's not readonly though, but you can fully interact with it from the editor.
 
@@ -79,7 +79,7 @@ In case you don't have a CI/CD pipeline in place (you should though, at least CI
 
 Speaking of CI/CD, you can also check the status of the GitHub Actions workflow directly from the editor!
 
-![GitHub Actions](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vv3aamk7e25csfc9nysw.png)
+![GitHub Actions](./vv3aamk7e25csfc9nysw.png)
 
 ## Edit tabs
 
@@ -143,7 +143,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

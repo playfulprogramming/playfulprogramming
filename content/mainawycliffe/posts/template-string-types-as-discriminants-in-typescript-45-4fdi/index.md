@@ -12,9 +12,9 @@ order: 1
 }
 ---
 
-Typescript 4.5 was just released and one of the features that stood out to me is the Template String Types as Discriminants. In this article, we are going to explore this new feature using rudimentary examples.  In my last [article](https://mainawycliffe.dev/blog/better-types-using-discriminated-types-in-typescript/), we covered using discriminated unions to write better types that are easy to narrow. 
+Typescript 4.5 was just released and one of the features that stood out to me is the Template String Types as Discriminants. In this article, we are going to explore this new feature using rudimentary examples.  In my last [article](https://mainawycliffe.dev/blog/better-types-using-discriminated-types-in-typescript/), we covered using discriminated unions to write better types that are easy to narrow.
 
-This is an extension of that but instead of having a concrete literal type, you can use a non-concrete literal type i.e. _string_, _number_, etc. instead as part of the template literal type, and Typescript will be able to use it as a discriminant.
+This is an extension of that but instead of having a concrete literal type, you can use a non-concrete literal type i.e. *string*, *number*, etc. instead as part of the template literal type, and Typescript will be able to use it as a discriminant.
 
 In order to understand this feature, we are going to start by creating two types: `SuccessType` and `ErrorType`. They are going to represent possible responses for different operations we can perform in a computer system i.e. HTTP Request, FTP Request, IO Request, etc. So, if an HTTP request succeeds we get a `SuccessType` data, if it fails we get an `ErrorType` data.
 
@@ -42,7 +42,7 @@ function processHTTPResponse(response: ResponseType) {
 }
 ```
 
-In previous versions, Typescript won't be able to narrow down the type of the `ResponseType` union based on the type field, as shown below. 
+In previous versions, Typescript won't be able to narrow down the type of the `ResponseType` union based on the type field, as shown below.
 
 ![Template String Types as Discriminants in Typescript 4.5](https://cms.mainawycliffe.dev/content/images/2021/11/image.png)
 
@@ -83,7 +83,7 @@ function processResponse(response: HttpOK | Http300 | Http500) {
 }
 ```
 
-Here is a link to [Typescript Playground](https://www.typescriptlang.org/play?ts=4.5.0-beta&ssl=28&ssc=2&pln=1&pc=1#code/C4TwDgpgBAEsxgPIGkoF4oG8CwAoKBUAzsAIbACuRAXFAAYBMAJJiQE4CWAdgOYC+dANx5CUACblStdtx7DcfPHlCRY8MAFYADFvRYRhEuSq06GllwoBbAEYQ2A+aKsQiRUjwjTgnXvMW4yuDQcAgAzDp6OPiGZJQ09GEsMryOBgRsEGIcmQDGwN6+coR4AXgAZhRc+RwA9lxQYGy1ua5EAEquYPVEEAAUmUTdXL20oUioAD5q4ZHT49paAJT6MQQc5QNdPRAAdEbx6GgYAEQMOicr0aKiuT21ADZ7D7U8W0M7uxJkS06EZWsoBt3sNevs4lQjqcIlpLqsboQ7iNHs9XiDPplsnlgL90lAAaJgYNQXsDpDjqdFnDrgioEiiCjdi83sTPi43B4ILjAQE+EA) for the above code.
+Here is a link to [Typescript Playground](https://www.typescriptlang.org/play?ts=4.5.0-beta\&ssl=28\&ssc=2\&pln=1\&pc=1#code/C4TwDgpgBAEsxgPIGkoF4oG8CwAoKBUAzsAIbACuRAXFAAYBMAJJiQE4CWAdgOYC+dANx5CUACblStdtx7DcfPHlCRY8MAFYADFvRYRhEuSq06GllwoBbAEYQ2A+aKsQiRUjwjTgnXvMW4yuDQcAgAzDp6OPiGZJQ09GEsMryOBgRsEGIcmQDGwN6+coR4AXgAZhRc+RwA9lxQYGy1ua5EAEquYPVEEAAUmUTdXL20oUioAD5q4ZHT49paAJT6MQQc5QNdPRAAdEbx6GgYAEQMOicr0aKiuT21ADZ7D7U8W0M7uxJkS06EZWsoBt3sNevs4lQjqcIlpLqsboQ7iNHs9XiDPplsnlgL90lAAaJgYNQXsDpDjqdFnDrgioEiiCjdi83sTPi43B4ILjAQE+EA) for the above code.
 
 ## Conclusion
 

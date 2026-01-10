@@ -52,7 +52,7 @@ But a main ingredient is missing; Nx project tags are crucial here. They act as 
 
 In the current example, we define a vertical slice or vertical layer based on the bounded context containing the library: The **booking** bounded context. Not only that, but we also define a horizontal layer based on the type of the library: The **feature** type.
 
-![A Rectangle containing a smaller square. The rectangle represents the bounded context, the square represents the library. The rectangle has a caption: Booking, and the square another: feature. Both captions make reference to the level of the tags.](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/p9wgu71c58ynjxc5gqe5.png)
+![A Rectangle containing a smaller square. The rectangle represents the bounded context, the square represents the library. The rectangle has a caption: Booking, and the square another: feature. Both captions make reference to the level of the tags.](./p9wgu71c58ynjxc5gqe5.png)
 
 Additionally, we can use grouping folders with Nx to further streamline the structure. I believe there should be a direct connection between tags and grouping folders. I've discussed these patterns extensively in my article ["Semantic Grouping Folders with Nx."](https://dev.to/this-is-learning/semantic-grouping-folders-with-nx-3467)
 
@@ -80,13 +80,12 @@ For example, if we want to restrict that, a library belonging to the **booking**
         ]
 ```
 
-
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/p334ajbd6sw940xgff1d.png)
+![Image description](./p334ajbd6sw940xgff1d.png)
 
 The same can be done for our horizontal layers. In the following example, we will enforce the following:
 
 - libraries with type **feature** can only import libraries with type **feature**, **domain**, **ui**
-- libraries with type **ui** can only depend on libraries with type **ui** and **domain** 
+- libraries with type **ui** can only depend on libraries with type **ui** and **domain**
 - libraries with type **domain** can only depend on libraries with type **domain**.
 
 ```json
@@ -115,8 +114,7 @@ The same can be done for our horizontal layers. In the following example, we wil
         ]
 ```
 
-
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3o0g9tbu6z6ljo11j2ga.png)
+![Image description](./3o0g9tbu6z6ljo11j2ga.png)
 
 With these restrictions in place, if you try to import a library that breaks one of these enforced boundaries, you will get an ESLint error. Here is a hypothetical situation:
 

@@ -22,7 +22,7 @@ There are many ways to validate your idea, such as:
 - Creating a landing page: You can use tools like Carrd, Launchaco, or Unbounce to create a simple landing page that explains your product’s value proposition, features, and benefits. You can also collect email addresses from potential customers who are interested in your product.
 - Building a minimum viable product (MVP): You can use tools like Bubble, Webflow, or Glide to build a prototype or a basic version of your product that demonstrates its core functionality. You can then test it with real users and get feedback on what works and what doesn’t.
 
-![Validate your idea](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1pchmx4hhohqk6y0ws53.png)
+![Validate your idea](./1pchmx4hhohqk6y0ws53.png)
 
 ## 2. Define your goals and metrics
 
@@ -37,7 +37,7 @@ Some examples of goals and metrics are:
 
 You can use tools like Google Analytics, Mixpanel, or Amplitude to track and analyze your metrics.
 
-![Define your goals and metrics](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lu5thld8e8766hryzv13.png)
+![Define your goals and metrics](./lu5thld8e8766hryzv13.png)
 
 ## 3. Plan your roadmap and milestones
 
@@ -47,8 +47,7 @@ A roadmap is a high-level overview of the features and improvements that you wan
 
 You can use tools like Trello, Asana, or Notion to create and manage your roadmap and milestones.
 
-![Plan your roadmap and milestones](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kz1ult7qve6llexta2cz.png)
-
+![Plan your roadmap and milestones](./kz1ult7qve6llexta2cz.png)
 
 ## 4. Build and launch your product
 
@@ -63,7 +62,7 @@ Some tips for building and launching your product are:
 
 You can use platforms like Product Hunt, Hacker News, or Reddit to launch and promote your product.
 
-![Build and launch your product](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mu6e5le2dyubwh4t2zg3.png)
+![Build and launch your product](./mu6e5le2dyubwh4t2zg3.png)
 
 ## Conclusion
 
@@ -71,6 +70,6 @@ Releasing a side project as a real product can be challenging but rewarding. It 
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

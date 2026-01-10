@@ -12,14 +12,14 @@ socialImage: "social-image.png"
 ---
 
 Photo by <a href="https://unsplash.com/@lucabravo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Luca Bravo</a> on <a href="https://unsplash.com/s/photos/code-migration?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
+
 **Note**: Due to NDA, we won't mention the client's name.
 
 We finished migrating to Nx from Angular CLI last year, and it was one of the biggest restructure we did. This post will cover why we decided to do it and what we did.
 
 ## Our challenges
 
-- **Code Sharing:** We had code shared across the applications. We had most of the reusables as part of our App, and we kept adding more reusable code as part of our main Application. 
+- **Code Sharing:** We had code shared across the applications. We had most of the reusables as part of our App, and we kept adding more reusable code as part of our main Application.
 
 - **Refactoring:** We had started perf optimization as mentioned. It was challenging to refactor the codebase in the existing state. It was challenging to determine which part of the code needed to touch. Or where to add a new feature.
 
@@ -31,18 +31,16 @@ We finished migrating to Nx from Angular CLI last year, and it was one of the bi
 
 The above pain points gave us a clear idea that NxDevTools is the best option for us, and we should go ahead with it.
 
-
 # Why we did it
 
 It was a big decision to move to Nx from Angular CLI. We had a single project for the main app created using Angular CLI and some smaller separate applications within the same workspace before migrating to Nx. It was like a massive piece of code sitting inside a single code base, so we had a lot of challenges migrating, and even more, if we never migrated to Nx.
 
 When I joined the team, there was a decision to tackle the performance issues in the App, so we had a lot of refactoring of code coming soon.
 
-
 ## What is Nx
 
-Nx is a DevTools for managing mono-repos. The advantage of using [mono-repos ](https://monorepo.tools/) is you can create and manage multiple applications inside a single workspace and maintain/[share ](https://monorepo.tools/#why-a-monorepo) libraries. 
-Nx does more than a mono-repo. It gives you access to the devkit to write your generators and builders/executors (custom command). 
+Nx is a DevTools for managing mono-repos. The advantage of using [mono-repos ](https://monorepo.tools/) is you can create and manage multiple applications inside a single workspace and maintain/[share ](https://monorepo.tools/#why-a-monorepo) libraries.
+Nx does more than a mono-repo. It gives you access to the devkit to write your generators and builders/executors (custom command).
 
 Nx also provides caching for your builds, so you don’t have to compile your unchanged code every time you run your build. And Nx Cloud is a fantastic product if you want to get the caching advantages on your CI pipeline.
 
@@ -60,15 +58,15 @@ We were on the drawing board again, and we decided to assemble and discuss.
 We had the below choices:
 
 - I had used secondary entrypoints in the past. My suggestion was to go with secondary entrypoints.
-    - This sounds like the best idea, and I will go with this option in most cases.
-    - The problem was we had extensive code to be moved to libraries.
-    - If we went with this option, it might have taken us more than a year considering the large codebase, as we had three people team and only me doing this full-time.
+  - This sounds like the best idea, and I will go with this option in most cases.
+  - The problem was we had extensive code to be moved to libraries.
+  - If we went with this option, it might have taken us more than a year considering the large codebase, as we had three people team and only me doing this full-time.
 
 - Considering the complexity of Solution one, we decided to go with another solution
-    - We decided to use wild card paths in `tsconfig.base.json` like below
+  - We decided to use wild card paths in `tsconfig.base.json` like below
     `"@domain/common-legacy/*": ["libs/common/legacy/src/lib/*"]`
-    - This was a good idea as we import only what we need.
-    - But it has its challenges
+  - This was a good idea as we import only what we need.
+  - But it has its challenges
 
 ### Little about the Solution
 
@@ -80,7 +78,7 @@ We decided to split the entire migration into 3 parts:
 
 #### Solution as part of the initial Solution
 
-- We dont need to create secondary entrypoints less work. We can just have folders for each `component/module/service/` etc. And use it as 
+- We dont need to create secondary entrypoints less work. We can just have folders for each `component/module/service/` etc. And use it as
 
 ```
 import { HomeModule } from '@domain-common-legacy/home.module'
@@ -97,11 +95,13 @@ import { HomeModule } from '@domain-common-legacy/home.module'
 Once we figured out how our initial Solution works, we decided to go through the codebase, identify all the features we have and split them into libs.
 
 We identified most of the features we have consist of 3 parts:
+
 - feature/common: Common components/directives used within the feature and other features.
 - Core: We lazy load our features, so we don't end up with a large bloated application. The core-libs consisted of components/services/directives/modules which are part of the lazy-loaded feature and not shared outside.
 - State: Every feature has a state, we use NgRx for global state and RxAngular for handling local state, the state library holds the NgRx code for feature and is sometimes shared with other features.
 
 We also decided the shared code will be part of a folder called core so we have
+
 - core/directive
 - core/shared-components
 - core/state
@@ -138,7 +138,7 @@ As we mentioned earlier, one of the issues with the approach as we can not build
 
 Our teammate decided to take this matter into his own hands and ended up writing a builder to build all the new libraries created with this approach.
 
-Matt also wrote a Library Generator so we create all the libraries using the same structure, so we don't end up with entire libs as part of the bundle. 
+Matt also wrote a Library Generator so we create all the libraries using the same structure, so we don't end up with entire libs as part of the bundle.
 
 # What we achieved
 
@@ -149,7 +149,6 @@ Code Owners: We decided to create a CODEOWNERS file to split the responsibility 
 - Custom eslint rules: As a part of our process, we have some checks for our code review process; moving to Nx allowed us to convert all those checks to custom eslint rules, saving more time for us.
 
 - Easy to refactor code: We fix/add a lot of code weekly, and having those libs made our life easier, as now it's easy to find out which part of the code needs to be touched.
-
 
 # Conclusion
 

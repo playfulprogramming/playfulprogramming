@@ -11,12 +11,11 @@ socialImage: "social-image.png"
 }
 ---
 
-
 *Cover photo by [Cassey Cambridge](https://pixy.org/190591/) on Pixy.*
 
 *Original publication date: 2020-03-28.*
 
-_Updated for Angular CDK and Angular Material version 9.2._
+*Updated for Angular CDK and Angular Material version 9.2.*
 
 A component harness is a testing API around an Angular directive or component. Component harnesses can be shared between unit tests, integration tests, and end-to-end tests. They result in less brittle tests as implementation details are hidden from test suites.
 
@@ -26,12 +25,12 @@ As a case study we'll explore the `MatButtonHarness` introduced in Angular Mater
 
 The component harness for the `MatButton` directive has these methods:
 
-* `blur(): Promise<void>`
-* `click(): Promise<void>`
-* `focus(): Promise<void>`
-* `getText(): Promise<string>`
-* `host(): Promise<TestElement>`
-* `isDisabled(): Promise<boolean>`
+- `blur(): Promise<void>`
+- `click(): Promise<void>`
+- `focus(): Promise<void>`
+- `getText(): Promise<string>`
+- `host(): Promise<TestElement>`
+- `isDisabled(): Promise<boolean>`
 
 This covers the most important user interactions and observable traits of a Material Button.
 
@@ -42,7 +41,6 @@ The only method here that is out of the ordinary is the `host` method. It resolv
 The button harness also has the conventional static `with` method which accepts an object with harness filters to select the directive in the DOM, we're interested in.
 
 As an example, we can select a button with the text label `Sign up` as seen in Listing 1.
-
 
 ```ts
 // sign-up-form.spec.ts
@@ -58,21 +56,21 @@ it('submits a form when the sign up button is clicked', async () => {
 
 <figcaption>Listing 1. Selecting a harness for a specific button by using a harness filter.</figcaption>
 
-
 ## How do I create a component harness?
 
-For our next case study, we will implement a component harness for a _favourite ocean creature_ component which uses Angular Material components to implement the favourite ocean creature picker component.
+For our next case study, we will implement a component harness for a *favourite ocean creature* component which uses Angular Material components to implement the favourite ocean creature picker component.
 
 The component's UI and interactions can be seen in Figures 1 and 2.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7lhlmw98p2kgzbhxvwq2.png)
+![](./7lhlmw98p2kgzbhxvwq2.png)
+
 <figcaption>Figure 1. Favourite ocean creature picked.</figcaption>
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/az60nx14jx86wcmb50f6.png)
+![](./az60nx14jx86wcmb50f6.png)
+
 <figcaption>Figure 2. Favourite ocean creature options.</figcaption>
 
 As we'll see when we implement and use the test harness for this component, the implementation details won't matter for the purpose of testing, using a test-as-a-user approach. That is, the shape of the component model, the data binding API, and the DOM structure of the component template are unimportant as we don't directly rely on them in our test cases.
-
 
 ```ts
 // favorite-ocean-creature.harness.ts
@@ -85,31 +83,30 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 
 <figcaption>Listing 2. Minimal component harness specifying a selector.</figcaption>
 
-
 In Listing 2, we create a minimal component harness which extends the `ComponentHarness` class from `@angular/cdk/testing` and specifies a CSS selector for a top-level DOM element of the component or it's template. In this case, we're targeting `<app-favorite-ocean-creature>` elements.
 
 This gives test cases access to the `host` property which is a promise that resolves to a `TestElement`.
 
 The `TestElement` interface holds these methods for interaction with a DOM element:
 
-* `blur(): Promise<void>`
-* `clear(): Promise<void>`
-* `click(relativeX?: number, relativeY?: number): Promise<void>`
-* `getAttribute(name: string): Promise<string | null>`
-* `getCssValue(property: string): Promise<string>`
-* `getDimensions(): Promise<ElementDimensions>`\*
-* `getProperty(name: string): Promise<any>`
-* `isFocused(): Promise<boolean>`
-* `focus(): Promise<void>`
-* `hasClass(name: string): Promise<string>`
-* `hover(): Promise<void>`
-* `matchesSelector(selector: string): Promise<boolean>`
-* `sendKeys(...keys: (string | TestKey)[]): Promise<void>`\**
-* `text(): Promise<string>`
+- `blur(): Promise<void>`
+- `clear(): Promise<void>`
+- `click(relativeX?: number, relativeY?: number): Promise<void>`
+- `getAttribute(name: string): Promise<string | null>`
+- `getCssValue(property: string): Promise<string>`
+- `getDimensions(): Promise<ElementDimensions>`\*
+- `getProperty(name: string): Promise<any>`
+- `isFocused(): Promise<boolean>`
+- `focus(): Promise<void>`
+- `hasClass(name: string): Promise<string>`
+- `hover(): Promise<void>`
+- `matchesSelector(selector: string): Promise<boolean>`
+- `sendKeys(...keys: (string | TestKey)[]): Promise<void>`\*\*
+- `text(): Promise<string>`
 
 \*  `ElementDimensions` is an `interface` with `number` properties `top`, `left`, `width`, and `height`.
 
-\** `TestKey` is an `enum` with keycodes for non-text keys such as `BACKSPACE`, `TAB`, `ENTER`, `LEFT_ARROW`, and `F10`.
+\*\* `TestKey` is an `enum` with keycodes for non-text keys such as `BACKSPACE`, `TAB`, `ENTER`, `LEFT_ARROW`, and `F10`.
 
 For every element in our component's DOM, we can query for a `TestElement`. However, we should only expose `TestElement`s to our consumers (test cases or library users) that interact with DOM elements that they are directly controlling such as a component's host element. In this case, that is the `<app-favorite-ocean-creature>` DOM element which is used and controlled by parent components' templates.
 
@@ -122,7 +119,6 @@ The reason for this is that we don't want consumers to depend on our DOM structu
 Let's make the test suite for the component drive the API design of our component harness.
 
 First we want to verify which ocean creature is picked initially. To do that, we need to configure the Angular testing module for a test host component which uses the favourite ocean create component.
-
 
 ```ts
 // favorite-ocean-creature.spec.ts
@@ -159,7 +155,6 @@ describe('Favorite ocean creature', () => {
 
 <figcaption>Listing 3. Staging a test suite that tests our component using its component harness.</figcaption>
 
-
 Listing 3 shows how we create the test hosting component, configure the Angular testing module by disabling animations, declaring the test host component and importing the declaring module of our component.
 
 After configuring the Angular testing module, we first set up a component fixture for the test host component. Then we create a `HarnesssLoader` by passing the component fixture to `TestbedHarnessEnvironment.loader`. Finally, we query the component harness that represents the favourite ocean creature component in the test host component's template by passing `FavoriteOceanCreatureHarness` to `HarnessLoader#getHarness` and resolving the promise it returns.
@@ -178,7 +173,6 @@ With the test staging in Listing 3, we've got everything we need to start adding
 
 As the breathtaking and wise manta ray is obviously the favourite ocean creature of many people, it is the initial pick of our component. We'll assert this in our first test case.
 
-
 ```ts
 // favorite-ocean-creature.spec.ts
 it('manta ray is initially picked', async () => {
@@ -192,9 +186,7 @@ it('manta ray is initially picked', async () => {
 
 <figcaption>Listing 4. Asserting the initially picked ocean creature.</figcaption>
 
-
 Listing 4 shows the API we want our component harness to support–a method called `getFavoriteOceanCreature` which returns a promise that resolves to a string holding the display name of an ocean creature that can be picked as our favourite.
-
 
 ```ts
 // favorite-ocean-creature.harness.ts
@@ -216,7 +208,6 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 ```
 
 <figcaption>Listing 5. Querying for a child harness to delegate a consumer query.</figcaption>
-
 
 In Listing 5, we add a protected method that returns a promise that resolves to a component harness. The `MatSelectHarness` represents a `MatSelect` directive. In our case, the select directive used by the favourite ocean picker component.
 
@@ -240,24 +231,24 @@ How do we get the display text of the selected option from the select harness? U
 
 We scan `MatSelectHarness`' API for what we need:
 
-* `blur(): Promise<void>`
-* `clickOptions(filter?: OptionHarnessFilters): Promise<void>`
-* `close(): Promise<void>`
-* `focus(): Promise<void>`
-* `getOptionGroups(filter?: Omit<OptionHarnessFilters, 'ancestor'>): Promise<MatOptgroupHarness[]>`\* **
-* `getOptions(filter?: Omit<OptionHarnessFilters, 'ancestor'>): Promise<MatOptionHarness[]>`\* **
-* `getValueText(): Promise<string>`
-* `isDisabled(): Promise<boolean>`
-* `isEmpty(): Promise<boolean>`
-* `isOpen(): Promise<boolean>`
-* `isRequired(): Promise<boolean>`
-* `isMultiple(): Promise<boolean>`
-* `isValid(): Promise<boolean>`
-* `open(): Promise<void>`
+- `blur(): Promise<void>`
+- `clickOptions(filter?: OptionHarnessFilters): Promise<void>`
+- `close(): Promise<void>`
+- `focus(): Promise<void>`
+- `getOptionGroups(filter?: Omit<OptionHarnessFilters, 'ancestor'>): Promise<MatOptgroupHarness[]>`\* \*\*
+- `getOptions(filter?: Omit<OptionHarnessFilters, 'ancestor'>): Promise<MatOptionHarness[]>`\* \*\*
+- `getValueText(): Promise<string>`
+- `isDisabled(): Promise<boolean>`
+- `isEmpty(): Promise<boolean>`
+- `isOpen(): Promise<boolean>`
+- `isRequired(): Promise<boolean>`
+- `isMultiple(): Promise<boolean>`
+- `isValid(): Promise<boolean>`
+- `open(): Promise<void>`
 
 \*`OptionHarnessFilters` is an interface that extends `BaseHarnessFilters` with the members  `isSelected?: boolean` and `text?: string | RegExp`. `BaseHarnessFilters` in the `@angular/cdk/testing` sub-package is an interface with the members `ancestor?: string` and  `selector?: string`.
 
-\**Note that `MatSelectHarness` itself allows us to query for its child harnesses.
+\*\*Note that `MatSelectHarness` itself allows us to query for its child harnesses.
 
 Did you spot a method we can use? Correct, it's `getValueText` as you might have noticed earlier, in Listing 5.
 
@@ -266,7 +257,6 @@ The `async-await` style used in `getFavoriteOceanCreature` is very common and ce
 ### No dependency on implementation details
 
 Circling back to Listing 4, we see that we managed to support a test case without the consumer (our first test case) knowing anything about our component's DOM structure or API.
-
 
 ```ts
 // favorite-ocean-creature.spec.ts
@@ -281,7 +271,6 @@ it('manta ray is initially picked', async () => {
 
 <figcaption>Listing 4 (repeated). Asserting the initially picked ocean creature.</figcaption>
 
-
 The test case knows nothing about us using Angular Material's select directive and it knows nothing about which elements need to be clicked to open the drop down or pick an option. In fact, we didn't even have to know any of that about `MatSelect` when implementing our component harness.
 
 The result is a test that is easy to follow and uses a language that's close to a user story.
@@ -289,7 +278,6 @@ The result is a test that is easy to follow and uses a language that's close to 
 ## Querying for multiple pieces of content
 
 Next up, we're going to verify that the component shows a list of ocean creatures that the user can pick from.
-
 
 ```ts
 // favorite-ocean-creature.spec.ts
@@ -304,7 +292,6 @@ it('show awesome ocean creatures', async () => {
 
 <figcaption>Listing 6. Asserting that multiple ocean creatures are presented to the user.</figcaption>
 
-
 When using a dropdown, we often allow the consumer to pass the options we want to display. However, this component only lists a fixed collection of awesome ocean creatures as seen in Figure 2.
 
 Because of this, our test asserts the presence of a blue whale which is a different ocean creature than the initially picked manta ray.
@@ -318,7 +305,6 @@ Instead, we'll simply resolve an array of text strings and pass them to our cons
 ### Interacting with a child harness
 
 To support this test case, we only need the `getDropDown` locator that we added to our component harness in the previous chapter.
-
 
 ```ts
 // favorite-ocean-creature.harness.ts
@@ -344,7 +330,6 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 
 <figcaption>Listing 7. Interacting with a child harness.</figcaption>
 
-
 In the `getOptions` method, we resolve a select harness like before. But instead of returning a value immediately, we interact with the child select harness.
 
 From the `MatSelectHarness` API, we first use the `open` method to open the dropdown list, then we query for `MatOptionHarness`es by using the `getOptions` method.
@@ -359,7 +344,8 @@ Notice how `async-await` makes the individual steps in our method easy to follow
 
 As you might have noticed in the previous chapter, component harnesses form a hierarchy that matches the DOM and the component tree closely.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/c10b7ve5n561fxn76j9a.png)
+![Alt Text](./c10b7ve5n561fxn76j9a.png)
+
 <figcaption>Figure 3. Our component harness hierarchy.</figcaption>
 
 This is illustrated in Figure 3. Our tests use `FavoriteOceanCreatureHarness` that internally uses `MatSelectHarness` which also gives access to its child harnesses, `MatOptionHarness`.
@@ -373,7 +359,6 @@ If we for some reason want our consumers to interact with the options in the dro
 ## Supporting user interactions with component harness filters
 
 Our third test case exercises the user's ability to pick a different favourite ocean creature and verify that it's display text is reflected in the content.
-
 
 ```ts
 // favorite-ocean-creature.spec.ts
@@ -389,13 +374,11 @@ it('pick your favorite ocean creature', async () => {
 
 <figcaption>Listing 8. Testing user interaction with a component harness.</figcaption>
 
-
 As seen in Listing 8, we allow our consumer to specify a text filter to match the display text of the option that they want to pick. In this case, our test case is picking the great white shark option. We consistently use `async-await` for our component harness interactions.
 
 Finally, we reuse the query method `getFavoriteOceanCreature` to assert that the content reflects our pick.
 
 To support this test case, we need to implement the `pickOption` method which takes a component harness filter as an argument.
-
 
 ```ts
 // favorite-ocean-creature.harness.ts
@@ -422,7 +405,6 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 
 <figcaption>Listing 9. Supporting a component harness filter</figcaption>
 
-
 Listing 9 shows the relevant methods and properties of the favourite ocean creature harness that supports the test case we wrote in Listing 8.
 
 `pickOption` is a new method. It accepts a `FavoriteOceanCreatureFilters` parameter that we will look at in a minute.
@@ -430,7 +412,6 @@ Listing 9 shows the relevant methods and properties of the favourite ocean creat
 In the method body, we access the child `MatSelectHarness` using the `getDropDown` locator which we have used before.
 
 We pass the text filter to the `MatSelectHarness#clickOptions` method which clicks the first matching option for single value dropdowns.
-
 
 ```ts
 // favorite-ocean-creature-filters.ts
@@ -443,19 +424,17 @@ export interface FavoriteOceanCreatureFilters extends BaseHarnessFilters {
 
 <figcaption>Listing 10. A custom component harness filter.</figcaption>
 
-
 Listing 10 shows a basic custom component harness filter. We create an interface that extends `BaseHarnessFilters` from `@angular/cdk/testing`. Previously we mentioned that the base harness filters has optional `ancestor` and a `selector` properties. We don't currently support them as we only pass our `text` filter to the child select harness as seen in Listing 9.
 
 It would make more sense not to extend the base harness filters until we implemented support for its properties or we could use `Omit` like `MatSelectHarness` does for option and option group harness filters.
 
 For demonstration purposes, we extend the full base harness filter here which means that our consumers are able to specify `selector` and `ancestor` filters, even though they are not being used. We could implement the base filters using harness locators, but let's skip that to keep this example simple.
 
-We have now implemented our first user interaction through a custom component harness with a custom component harness filter. Nice![](https://bit.ly/39cqbxa)
+We have now implemented our first user interaction through a custom component harness with a custom component harness filter. Nice![](./39cqbxa)
 
 ## Filtering exposed content
 
 In our final test case we assert that when we pick a favourite ocean creature, it is used in a sentence to spell out `My favorite ocean creature is <ocean creature display text>`.
-
 
 ```ts
 // favorite-ocean-creature.spec.ts
@@ -471,9 +450,7 @@ it('put your favorite ocean creature in a sentence', async () => {
 
 <figcaption>Listing 11. Verifying that our picked favorite ocean creature is used in a sentence.</figcaption>
 
-
 The test case in Listing 11 first uses the familiar `pickOption` to pick the octopus as our favourite ocean creature. When that is done, we query for the text content of the favourite ocean creature component and assert that it matches the expected format and includes `Octopus`.
-
 
 ```ts
 // favorite-ocean-creature.harness.ts
@@ -508,7 +485,6 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 
 <figcaption>Listing 12. Filtering queried content to make consumption easy.</figcaption>
 
-
 Listing 12 include the methods relevant to the sentence test case from Listing 11. We are already familiar with the `pickOption` interaction method, the `getDropDown` locator it uses and the filter it accepts.
 
 Let's consider the `getText` query method which takes no arguments. We start out by querying the host element's DOM for the current text content. First it accesses a `TestElement` representing the host element by using the inherited `ComponentHarness#host` method.
@@ -520,7 +496,6 @@ We also trim the text since HTML often includes additional whitespace around tex
 ## The full test suite
 
 Let's finish by taking a look at the full test suite.
-
 
 ```ts
 // favorite-ocean-creature.spec.ts
@@ -591,7 +566,6 @@ describe('Favorite ocean creature', () => {
 
 <figcaption>Listing 13. The favorite ocean creature test suite.</figcaption>
 
-
 For our unit and integration tests, we still configure an Angular testing module through the test bed, but only to be able to create a component fixture for a test host component. We pass the component fixture to the test bed harness environment to get a harness loader.
 
 For this test suite, we only need to load a single component harness that we store a reference to in the shared `harness` variable. We keep both the component fixture and the harness loader out of scope of the test cases.
@@ -611,7 +585,6 @@ In our test cases that use a component harness, we don't have to call any of tho
 Until now, we only showed unit tests consuming our component harness. One of the many benefits of using component harnesses is that they are reusable between unit tests, integration tests, and end-to-end tests.
 
 Let's convert one of our tests cases to an end-to-end test.
-
 
 ```ts
 import { ProtractorHarnessEnvironment } from '@angular/cdk/testing/protractor';
@@ -644,12 +617,11 @@ describe('Favorite ocean creature app', () => {
 
 <figcaption>Listing 14. End-to-end test suite using the favorite ocean creature component harness.</figcaption>
 
-
 The end-to-end test case in Listing 14 is an exact copy-paste from our unit test.
 
 The setup is slightly different. Since the test runs against the full application in the browser, we're not configuring the testing Angular module with `TestBed`.
 
-We're using Protractor to control the browser and navigate to the URL path where our component is rendered. We see that we use `ProtractorHarnessEnvironment` instead of `TestbedHarnessEnvironment` to get a `HarnessLoader`. 
+We're using Protractor to control the browser and navigate to the URL path where our component is rendered. We see that we use `ProtractorHarnessEnvironment` instead of `TestbedHarnessEnvironment` to get a `HarnessLoader`.
 
 Those are really the only differences. The component harness is consumed in exactly the same way, as soon as we have an instance of it which we get from the harness loader.
 
@@ -660,7 +632,6 @@ I told you that component harnesses can be used both in unit tests, integration 
 **Whitespace differences**
 
 The first one that unfortunately doesn't show up as a clear error in the test is that the text filter for the `pickOption` method doesn't seem to work. Apparently, there are some whitespace differences between unit tests and end-to-end tests in our case.
-
 
 ```ts
 // favorite-ocean-creatures.harness.ts
@@ -701,7 +672,6 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 
 <figcaption>Listing 15. Supporting whitespace differences.</figcaption>
 
-
 Remember that the text filter option supports either a `string` or a `RegExp`? This is because the `MatSelect#clickOptions` methods accepts both and now we're going to need the second option.
 
 Because of the whitespace differences, we're going to coerce a `string` text filter into a regular expression that allows whitespace before and after the text filter. This is done in the private `coerceRegExp` method seen in Listing 15 which always returns a regular expression.
@@ -719,7 +689,6 @@ In our end-to-end tests, the application uses real browser animations because ou
 I've seen the test case above fail approximately every other run because of animations. The animations didn't always complete after clicking an option in the dropdown which happens before the DOM element that displays the selected value is re-rendered.
 
 This is a case where we follow the instructions from the component harness guide mentioned above. After clicking an option, we call `ComponentHarness#forceStabilize` as shown in Listing 16.
-
 
 ```ts
 // favorite-ocean-creatures.harness.ts
@@ -753,7 +722,6 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 
 <figcaption>Listing 16. Forcing NgZone and change detection to stabilize after clicking a dropdown option.</figcaption>
 
-
 With those two additions to our component harness, this test case passes with exactly the test and component harness code in both unit tests and end-to-end tests.
 
 ### Protractor caveat
@@ -778,11 +746,11 @@ I tried to create a case study at an intermediate level that taught you about wr
 
 Of course, there are many more topics to learn about dealing with component harnesses. Here are some of them:
 
-* Writing custom locators
-* Implementing the static `with` method for loading specific harnesses
-* Querying and interacting with the DOM through `TestElement`s
-* Locating overlays that are outside the applications DOM such as dropdown menus and modal dialogs
-* Implementing a custom `HarnessEnvironment` and a matching `TestElement` for end-to-end testing frameworks other than Protractor
+- Writing custom locators
+- Implementing the static `with` method for loading specific harnesses
+- Querying and interacting with the DOM through `TestElement`s
+- Locating overlays that are outside the applications DOM such as dropdown menus and modal dialogs
+- Implementing a custom `HarnessEnvironment` and a matching `TestElement` for end-to-end testing frameworks other than Protractor
 
 We also didn't cover how to test component harnesses. Should we test our own testing APIs? Of course! That's a lesson for another article. Until then, [go explore the Angular Components source code to see component harness test suites in action](https://github.com/angular/components/blob/master/src/material/select/testing/shared.spec.ts).
 
@@ -798,5 +766,5 @@ We also didn't cover how to test component harnesses. Should we test our own tes
 
 Finally, a big thank you to my fellow writers whom helped review this article:
 
-* [Christian Janker](https://twitter.com/y_a_n_x)
-* [Eliran Eliassy](https://twitter.com/eliraneliassy)
+- [Christian Janker](https://twitter.com/y_a_n_x)
+- [Eliran Eliassy](https://twitter.com/eliraneliassy)

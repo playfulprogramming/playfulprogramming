@@ -12,7 +12,6 @@ socialImage: "social-image.png"
 ---
 
 Photo by <a href="https://unsplash.com/@nickmorrison?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nick Morrison</a> on <a href="https://unsplash.com/s/photos/course?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
 
 I had planned an Angular Course for the community for a very long time, last year I even decided to stream it. But all efforts were unsuccessful.
 
@@ -38,10 +37,9 @@ This is my small way to say think you for everything you all have done for me.
 
 ## Where to get this course
 
-You can access it on YouTube 
+You can access it on YouTube
 
 {% embed https://youtu.be/3qBXWUpoPHo %}
-
 
 ## What if you want to pay
 
@@ -51,13 +49,11 @@ https://github.com/sponsors/santoshyadavdev
 
 Finally thanks to some amazing folks for sponsoring me:
 
-* Chau Tran - https://twitter.com/Nartc1410
-* Anand Chowdhary - https://twitter.com/AnandChowdhary
-* Sunil - https://twitter.com/sunil_designer
-* Trung Vo - https://twitter.com/tuantrungvo
-* Umair Hafeez - https://twitter.com/_UmairHafeez_
-* Pavan Kumar Jadda - https://twitter.com/pavankjadda
-* Pabio - https://twitter.com/PabioHQ
-* Maarten Tibau - https://twitter.com/maartentibau
-
-
+- Chau Tran - https://twitter.com/Nartc1410
+- Anand Chowdhary - https://twitter.com/AnandChowdhary
+- Sunil - https://twitter.com/sunil\_designer
+- Trung Vo - https://twitter.com/tuantrungvo
+- Umair Hafeez - https://twitter.com/*UmairHafeez*
+- Pavan Kumar Jadda - https://twitter.com/pavankjadda
+- Pabio - https://twitter.com/PabioHQ
+- Maarten Tibau - https://twitter.com/maartentibau

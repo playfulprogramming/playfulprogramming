@@ -23,10 +23,9 @@ After months of experimenting, I found a better way: **stop treating Copilot as 
 
 Just like a real software team has product managers, architects, engineers, and reviewers, I’ve built a flow where Copilot plays these roles through **personas**. Combined with solid **repo guardrails** (instructions that act like Copilot’s onboarding docs), this transforms Copilot from a “wild card junior dev” into a reliable partner I can actually trust in production code.
 
-![The AI Dev Team](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fcg1udpnq3l2n4o7dhqb.png)
+![The AI Dev Team](./fcg1udpnq3l2n4o7dhqb.png)
 
-In this article, I’ll share my exact flow, from setting up repo instructions to defining personas, to switching between them in Visual Studio Code chat modes.
----
+## In this article, I’ll share my exact flow, from setting up repo instructions to defining personas, to switching between them in Visual Studio Code chat modes.
 
 ## 🛠️ Why Instructions Matter
 
@@ -35,7 +34,6 @@ Imagine onboarding a brand-new senior developer to your repo.
 Would you just say:
 
 > “Hey, here’s the codebase — good luck!”
-> 
 
 Of course not. You’d spend time explaining the project’s purpose, quirks, architecture patterns, and the “landmines” they should avoid. Without that context, even the best dev will fall into the repo’s worst habits.
 
@@ -129,9 +127,9 @@ Here’s how to set them up:
 1. Open the **Copilot Chat** panel in VS Code.
 2. Click on **Ask, Edit or Agent** drop-down.
 3. Click on **Configure Custom Agent**
-3. Give your mode a clear name (e.g., *Software Architect*).
-4. Paste your persona prompt into the configuration.
-5. Save it.
+4. Give your mode a clear name (e.g., *Software Architect*).
+5. Paste your persona prompt into the configuration.
+6. Save it.
 
 Now, whenever you want Copilot to act as your architect, product manager, or problem solver, you switch modes. No re-prompting. No forgetting context.
 
@@ -165,7 +163,7 @@ For each feature, the Product Manager creates a PRD file inside the docs folder 
 
 This step keeps me from rushing into implementation before I actually know what “done” looks like.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/605nw5qx8vbsnb7om5w7.png)
+![Image description](./605nw5qx8vbsnb7om5w7.png)
 
 ---
 
@@ -181,7 +179,7 @@ For each feature, the Software architect creates a techspec file inside the docs
 
 This is where Copilot stops guessing and starts working from a concrete plan.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/z3juqvdqz4t462yo2lbk.png)
+![Image description](./z3juqvdqz4t462yo2lbk.png)
 
 ---
 
@@ -195,7 +193,7 @@ Now I bring in the **Engineer persona**.
 
 This is where the productivity gains really show: Copilot writes the code, but it does so inside the framework I’ve already defined.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gkdjdyudqttic2mni3pw.png)
+![Image description](./gkdjdyudqttic2mni3pw.png)
 
 ---
 
@@ -204,18 +202,17 @@ This is where the productivity gains really show: Copilot writes the code, but i
 Inevitably, something doesn’t work as expected. That’s when I switch to the **special personas**:
 
 - **Mr. Wolf (Problem Solver)** → Like the fixer in *Pulp Fiction*, he jumps in when something breaks. Example prompt:
-    
-    > “The homepage isn’t updating the user’s status after login. It should show the profile photo in the header. Fix it.”
-    > 
+
+  > “The homepage isn’t updating the user’s status after login. It should show the profile photo in the header. Fix it.”
 - **Tech Spec Reviewer** → Double-checks the architecture before implementation.
-    - Looks for scalability issues, missing edge cases, or race conditions.
+  - Looks for scalability issues, missing edge cases, or race conditions.
 - **Implementation Reviewer** → Validates that the code matches the spec.
-    - Lists issues in order of severity.
-    - Suggests fixes without rewriting everything.
+  - Lists issues in order of severity.
+  - Suggests fixes without rewriting everything.
 
 These personas save me from the endless loop of “generate → test → sigh → tweak → repeat.” Instead, Copilot becomes my QA safety net.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fq3izi23pdabi0xcz3jg.png)
+![Image description](./fq3izi23pdabi0xcz3jg.png)
 
 ---
 
@@ -223,7 +220,7 @@ By moving through these stages, I’m not just “asking Copilot to code.” I�
 
 The result? More reliable code, fewer detours, and a workflow that feels like working with a real team, rather than fighting with autocomplete.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ycw6ypagz7el451mepiv.png)
+![Image description](./ycw6ypagz7el451mepiv.png)
 
 ---
 
@@ -234,11 +231,10 @@ To make this less abstract, let’s walk through how I applied this flow to a re
 The goal was simple on paper:
 
 > Create, edit, and delete reusable Teams status templates. Apply them on demand or schedule updates automatically.
-> 
 
 But as every developer knows, “simple on paper” often hides a lot of moving parts. Here’s how the persona-based approach + repo instructions played out.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/d90asa1caox5ajsnevw9.png)
+![Image description](./d90asa1caox5ajsnevw9.png)
 
 ---
 
@@ -263,11 +259,11 @@ Without this, Copilot would have happily mixed patterns, invented new folders, o
 ### 🧑‍💼 Step 2: Personas in Action
 
 - **Product Manager**: Turned “status templates with scheduling” into user stories with acceptance criteria. For example:
-    - *As a user, I can schedule a status change so that my Teams presence updates automatically during a meeting.*
+  - *As a user, I can schedule a status change so that my Teams presence updates automatically during a meeting.*
 - **Software Architect**: Designed the flow:
-    1. Store templates in SQL via EF Core entities.
-    2. Use Quartz.NET jobs for scheduling.
-    3. Trigger Microsoft Graph `Presence.ReadWrite` calls through an OBO flow.
+  1. Store templates in SQL via EF Core entities.
+  2. Use Quartz.NET jobs for scheduling.
+  3. Trigger Microsoft Graph `Presence.ReadWrite` calls through an OBO flow.
 - **Engineer**: Implemented the API endpoints and React hooks following that exact plan.
 - **Mr. Wolf**: Debugged a nasty bug where scheduled jobs weren’t firing after a server restart. Copilot eventually suggested a SQL-backed job store for Quartz.NET — which fixed it.
 - **Reviewers**: Double-checked the spec and code against the requirements, catching edge cases like: *what happens if two jobs overlap?*

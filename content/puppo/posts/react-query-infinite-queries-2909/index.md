@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 Hey Folks,
 
 Today it's time to learn how you can build an infinite query with React Query.
@@ -105,7 +104,7 @@ export const useTodos = (): UseTodos => {
 };
 ```
 
-As you can notice, the flow is very simple, the hook returns the current page or chunk, you have to handle the fetch request and then you can determine the result and if there is another chunk or not.  
+As you can notice, the flow is very simple, the hook returns the current page or chunk, you have to handle the fetch request and then you can determine the result and if there is another chunk or not.\
 Another important thing to keep in mind is that the result of the `useInfiniteQuery` is an array and each element of the array contains the data of each chunk.
 
 Ok, I suppose you have an idea of how Infinite Queries work in React Query, but if you want to deep into it don't miss my youtube about it.
@@ -116,11 +115,11 @@ I think thats all from this article.
 
 This is the last post of this series, I hope you enjoyed the content and now you are aware of using ReactQuery in your React application.
 
-See you soon folks  
+See you soon folks\
 Bye Bye 👋
 
 p.s. you can find the code of the video [**here**](https://github.com/Puppo/learning-react-query/tree/12-infinitive-scroll)
 
-_Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto&utm_medium=referral)_
+*Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto\&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto\&utm_medium=referral)*
 
 {% embed https://dev.to/puppo %}

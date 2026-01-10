@@ -19,7 +19,7 @@ Some fresh developers might already be confident in the languages they just stud
 
 A few weeks ago I shared an article with the basic git commands that are needed to contribute, it was focused on Hacktoberfest, but git remains the same all 12 months of the year ;)
 
-{% embed https://dev.to/this-is-learning/51-basic-git-commands-you-need-for-hacktoberfest-2022-glj %} 
+{% embed https://dev.to/this-is-learning/51-basic-git-commands-you-need-for-hacktoberfest-2022-glj %}
 
 Instead, today I want to repeat the same steps between forking a repository and creating a Pull Request, but this time by using a Graphical User Interface (GUI) to interact with git. No terminal, no CLI.
 
@@ -33,7 +33,7 @@ Thanks for reading this article, I hope you found it interesting!
 
 Do you like my content? You might consider subscribing to my YouTube channel!
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

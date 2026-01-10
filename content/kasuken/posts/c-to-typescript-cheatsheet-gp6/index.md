@@ -15,6 +15,7 @@ My main (and favorite) programming language is C# since forever but I am also a 
 It's very similar to C# but I use less often then C#, so, this is why I have created a cheat sheet in my Notion to make easier the transition between them.
 
 I splitted my commonplace book for this topic by two:
+
 - [Common Syntax](#common-syntax)
 - [Advanced Topics](#advanced-topics)
 
@@ -22,20 +23,20 @@ I splitted my commonplace book for this topic by two:
 
 **1️⃣ Basic Data Types**
 
-| **C#** | **TypeScript** |
-| --- | --- |
-| int | number |
-| double | number |
-| float | number |
-| decimal | number |
-| bool | boolean |
-| char | string (single character) |
-| string | string |
-| var | let or const |
-| object | any |
-| dynamic | any |
-| DateTime | Date |
-| Guid | string |
+| **C#**   | **TypeScript**            |
+| -------- | ------------------------- |
+| int      | number                    |
+| double   | number                    |
+| float    | number                    |
+| decimal  | number                    |
+| bool     | boolean                   |
+| char     | string (single character) |
+| string   | string                    |
+| var      | let or const              |
+| object   | any                       |
+| dynamic  | any                       |
+| DateTime | Date                      |
+| Guid     | string                    |
 
 **2️⃣ Variables & Constants**
 

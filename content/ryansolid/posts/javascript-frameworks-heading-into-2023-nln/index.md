@@ -17,13 +17,13 @@ The wonderful thing about glimpsing into the future is that the path is never co
 
 2022 had a ton of big releases that push web development forward. We saw the 1.0 releases of both Astro and Sveltekit. SolidStart, and Qwik entered Beta. React 18 was released adding streaming support that found its way into Next and Remix, as well as powering React Server Components and the Next 13 app directory. And I'd be remiss to skip the impact TypeScript has had on how we design framework solutions. From tRPC and Tanstack Router to the opinionated Next.js meta-framework create-t3-app.
 
---------------------
+---
 
 ## How We Got Here
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/35ux3kcq4zigvuyni6ft.jpg)
+![Image description](./35ux3kcq4zigvuyni6ft.jpg)
 
-"Focus on the Server", they said. "Solve the tradeoffs of Single Page Apps", they said. This isn't new, but what often isn't understood is how it isn't a panacea. 
+"Focus on the Server", they said. "Solve the tradeoffs of Single Page Apps", they said. This isn't new, but what often isn't understood is how it isn't a panacea.
 
 Server Side rendering allowed us to render pages sooner by fetching data sooner (and usually closer to our data source), but it wasn't without compromise. It slowed down our response times and didn't help with the ever-growing size of JavaScript bundle sizes. It often actually increased our bundle sizes as now we need the code not only to client render but to hydrate the page.
 
@@ -33,11 +33,11 @@ There are some partial solutions: We can cache more aggressively, stream our HTM
 
 I'm not convinced everyone is on the same page yet, but many leading minds in the space actually agree on a particular thing. This is not something to take lightly.
 
----------------------
+---
 
 ## Where We Are At
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/68jtli99wl7q1brczcj2.jpeg)
+![Image description](./68jtli99wl7q1brczcj2.jpeg)
 
 > Single Page Apps aren't the most suitable architecture for everything.
 
@@ -53,10 +53,11 @@ We're not suggesting we do away with client-side routing (although that is an op
 
 Whether you are looking at Marko, Astro, or Fresh and their Islands of interactivity, or Next and SolidStart's Server Components you see the server stepping up on routing duties. Rendering the next page in response to navigation after the initial load. Even Qwik, which could legitimately start as an optimized partially loaded application and scale up to full-blown SPA, prefers server routing(MPAs) in all their examples and demos.
 
--------------------
+---
+
 ## Reflecting on 2022
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/volwr65lppxtqx7m3v1k.jpeg)
+![Image description](./volwr65lppxtqx7m3v1k.jpeg)
 
 ### Conquering Hydration
 
@@ -88,14 +89,15 @@ Fine-grained reactivity has made a comeback in 2022. The Vue community would (co
 
 Having type-safe APIs across the client-server boundary isn't even a consideration anymore. tRPC was a game changer, but over the year we saw this being considered in JavaScript meta-frameworks. From SolidStart's compiled type-safe RPCs to improvements to Remix and Next's data loading mechanisms.
 
-Tanstack Router showed us what type-safe routing looks like and now there is no turning back. We are still seeing these technologies propagate outwards but the gains are so significant people will not accept developing the way they did before when these technologies exist. 
+Tanstack Router showed us what type-safe routing looks like and now there is no turning back. We are still seeing these technologies propagate outwards but the gains are so significant people will not accept developing the way they did before when these technologies exist.
 
--------------------
+---
+
 ## Forward to 2023
 
 ### Wrangling in Complexity
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yfd0kz3gbjujg848oyi8.jpeg)
+![Image description](./yfd0kz3gbjujg848oyi8.jpeg)
 
 This will continue to be a theme coming into the new year. You don't dump a bunch of innovation in a space in a short time and not expect something to give. Astro and Remix's return to "it is just PHP/Rails" for MPAs and SPAs, respectively, have been largely successful, even if they both lack important benefits of more sophisticated solutions.
 
@@ -131,10 +133,11 @@ Page load is still a prohibitive metric for many things, but you can still do pr
 
 No. But it might help you migrate your code from one framework to another.
 
--------------
+---
+
 ## Conclusion
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sro62hruvt60muglqoa0.png)
+![Image description](./sro62hruvt60muglqoa0.png)
 
 No one has a crystal ball but it doesn't take one to see we are at a time of change. New frameworks have been emerging in the last year or so after about 5 years of relative silence for good reason. It isn't that we stopped making them, but the time is right.
 
@@ -144,11 +147,12 @@ But there is no clear direction yet. Existing approaches are at their limit. Rad
 
 Developer experience expectations have never been so high while the demand on user experience isn't lessening. So whether you are waiting for the next revolution or living at the bleeding edge, buckle up because you are in for a ride whether you signed up or not.
 
-------------------
+---
 
 Banner credits: ©️ Original concept artwork (https://www.artstation.com/artwork/nqrYo) by Alex Feliksovich based on Ghost in the Shell.
 
-------------------
+---
+
 **Appendix**
 
 If you are unclear on any of the terminology and technology I refer to in this article I recommend:

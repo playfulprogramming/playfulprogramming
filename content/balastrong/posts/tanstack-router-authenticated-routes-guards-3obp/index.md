@@ -20,7 +20,7 @@ In this article, we'll learn how to protect some routes (pages) of your applicat
 
 If you're following the series you already know there's always a video version showing the full walkthrough. You can find here Chapter 4 or you can keep reading for a collection of the highlights.
 
-{% youtube O6dS0_IvvK0 %}
+{% youtube O6dS0\_IvvK0 %}
 
 ### Create a login page
 
@@ -227,7 +227,7 @@ You most likely do not want to see the parent route in the URL, which is reasona
 
 You can now navigate to `https://localhost:5173/dashboard` and if you're logged in, you can access the page!
 
-## Conclusion
+\## Conclusion
 
 We can now protect a single route or a tree of routes, and group some routes in folders that are not shown in the URL.
 
@@ -243,8 +243,6 @@ You can find the full code on [this repository](https://github.com/Balastrong/ta
 
 ---
 
-
-
 Thanks for reading this article, I hope you found it interesting!
 
 I recently launched a GitHub Community! We create Open Source projects with the goal of learning Web Development together!
@@ -253,7 +251,7 @@ Join us: https://github.com/DevLeonardoCommunity
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

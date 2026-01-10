@@ -16,7 +16,7 @@ There's a plethora of triggers you can use to run a GitHub Action. You can run i
 
 Today the spotlight is on `workflow_dispatch`, a trigger that allows you to manually trigger a GitHub Action, without having to push or create a pull request. **Bonus: you can also pass custom parameters!**
 
-## How to use workflow_dispatch
+## How to use workflow\_dispatch
 
 To use `workflow_dispatch`, you need to add it to the `on` section of your workflow file:
 
@@ -29,7 +29,7 @@ on:
 
 That's it! Now you can manually trigger your GitHub Action by going to the Actions tab of your repository and clicking on the "Run workflow" button:
 
-![Run workflow button](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/c4mvvilq4aiee4ikfj81.png)
+![Run workflow button](./c4mvvilq4aiee4ikfj81.png)
 
 ## Live Demo
 
@@ -54,7 +54,7 @@ on:
 
 You can now pass an input to your workflow by clicking on the "Run workflow" button and filling the input field:
 
-![Run workflow input](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f2q77ksva4oa1pgxl7pu.png)
+![Run workflow input](./f2q77ksva4oa1pgxl7pu.png)
 
 You can then access the input in your workflow file from the `github.event.inputs` object:
 
@@ -89,7 +89,7 @@ You can also specify the type of the input. There are many types, for example: `
 
 You can also specify if the field is `required` and add a default value.
 
-![Run workflow fields](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6zkrn7mmhk2d9i3n2dwh.png)
+![Run workflow fields](./6zkrn7mmhk2d9i3n2dwh.png)
 
 ## Lean more
 
@@ -105,7 +105,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

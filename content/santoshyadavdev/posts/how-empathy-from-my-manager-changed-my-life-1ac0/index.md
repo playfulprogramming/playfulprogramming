@@ -15,8 +15,7 @@ socialImage: "social-image.png"
 
 > "You should always try to be a better person than you were yesterday."
 
-
-I genuinely believe in the above quote and try my best to do it every day. But a few years back, I was not the same person. When I started my job, my dad was more concerned about my short-tempered behavior. Yes, I never used to tolerate if something wrong is happening or someone is rude to me. I always fought back, no matter who the person is. I had a simple thing: be nice to friendly people and arrogant/rude fight back. Some of you may think, nothing wrong here, but believe me; this started impacting my personal life once I was married and had a little angel in our life. 
+I genuinely believe in the above quote and try my best to do it every day. But a few years back, I was not the same person. When I started my job, my dad was more concerned about my short-tempered behavior. Yes, I never used to tolerate if something wrong is happening or someone is rude to me. I always fought back, no matter who the person is. I had a simple thing: be nice to friendly people and arrogant/rude fight back. Some of you may think, nothing wrong here, but believe me; this started impacting my personal life once I was married and had a little angel in our life.
 
 # How it Started
 
@@ -24,7 +23,7 @@ Here is a story, how I changed it or learned a lesson, which made me change this
 
 After three years in my career, I started working with a Startup. One good thing about startups is your work is more visible. If you perform better, you may find yourself rising the ladder quickly. That's what happened; within a year, I found myself leading Team. In 2 years more responsibility, before I move ahead, let me clear this, I always took care of my Team, fought for them when needed.
 
-So what was the issue? The issue was with other teams within the organizations. For example, if they did something that breaks something, the infra team had no idea why one Prod server goes down daily. Or the testing team, having no idea how a bug made to Prod. 
+So what was the issue? The issue was with other teams within the organizations. For example, if they did something that breaks something, the infra team had no idea why one Prod server goes down daily. Or the testing team, having no idea how a bug made to Prod.
 
 I always used to speak to them rudely as that's the job they have to do, or sending some strong email, keeping everyone in the mail from CEO to my manager.
 
@@ -52,8 +51,7 @@ We decided to stay in the office and did some optimization on DB, and catch some
 
 I was trying to avoid eye contact, but he came straight to me and asked, "santy did you ate anything?" I was shocked and was almost cried and said: "No," and he said, "I know a great place, they should be open now, let me order the best Shawarma for all of us." and called another team member to bring it while coming to the office.
 
-
-That was the exact moment I realized I was missing empathy from my life; fighting for what is right is ok, but getting angry is not. Wars are won together and not alone. 
+That was the exact moment I realized I was missing empathy from my life; fighting for what is right is ok, but getting angry is not. Wars are won together and not alone.
 
 > "If you want to go fast, go alone. If you want to go far, go together." —African Proverb.
 
@@ -61,12 +59,10 @@ I realized I was fighting with the people on my side, and I can make things bett
 
 As a father a husband, I changed as a person. I started controlling my anger, trying to be a better person than I was yesterday. It's been more than 5 yrs now, that incident happened. I am always thankful to my manager for teaching me empathy. I know other managers may have given me a warning or even fired me. Still, he decided to teach me a better lesson, which changed me professionally and personally.
 
-I remember in 2018, during the performance review, my manager at DB said 
- >"Santosh, I want to learn one thing from you. How are you always so calm while working with other team members when they don't understand and keep making mistakes?"
+I remember in 2018, during the performance review, my manager at DB said
 
-That was the proof. I learned a lesson and applied it in my life. 
+> "Santosh, I want to learn one thing from you. How are you always so calm while working with other team members when they don't understand and keep making mistakes?"
+
+That was the proof. I learned a lesson and applied it in my life.
 
 I don't want to conclude anything, but before you react to something wrong, give it a thought. Maybe you will hurt people who care about you or always had your back when you needed them most. Or your team member is struggling with something, rather than being rude, help them resolve the issue.
-
-
-

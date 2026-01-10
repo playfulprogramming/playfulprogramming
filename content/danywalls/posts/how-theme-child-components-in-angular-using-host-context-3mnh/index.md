@@ -19,11 +19,11 @@ We use the host-context pseudo-selector to create a relation between components 
 
 > you can read more https://angular.io/guide/component-styles#host-context
 
-For example,  we have a button component in the main app or the product component. The button needs to adapt the styles for both of them.  
+For example,  we have a button component in the main app or the product component. The button needs to adapt the styles for both of them.
 
 If the product or main app components change their colors, it needs to react to them. In short, something like:
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/u7nskj6j9ij0pmrlmlde.gif)
+![Alt Text](./u7nskj6j9ij0pmrlmlde.gif)
 
 Let's build something like this using the:host-context selector.
 
@@ -38,17 +38,18 @@ The:host-context pseudo-selector help us to create a relation between components
   color: white;
 }
 ```
+
 When the component my-app gets the dark class, the product component applies these styles because the css selector matches.
 
 Also, we can define multiple relations with our components like the following example.
- 
+
 ## Multiple relations
 
 We already know how to match one selector for the background, so let’s build multiple selectors with the new rules.
 
 - Set background to white smoke when the `app-product` gets the day class.
 - Set background to blue, when `app-product` get the .dark class.
-- Set background to pink when the `my-app` component gets the .dark class. 
+- Set background to pink when the `my-app` component gets the .dark class.
 
 Edit the button.component.css, and add the following lines to affect the `.btn` class selector.
 
@@ -78,10 +79,10 @@ Feel free to play with the demo if you want to see a small real demo and see how
 
 {% stackblitz host-context-angular-demo view=preview %}
 
-##  Done
+## Done
+
 That's it! Hopefully, give you a bit of help with link style relations between components using the host-context pseudo-selector.
 
 If you enjoyed this post, share it!
 
 Photo by <a href="https://unsplash.com/@anniespratt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Annie Spratt</a> on <a href="https://unsplash.com/s/photos/parent-with-childs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  

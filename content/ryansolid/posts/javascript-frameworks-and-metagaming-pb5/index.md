@@ -19,7 +19,7 @@ It's no secret it's been hard to push a new JavaScript framework in such an over
 
 ## Metagaming in Games
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qg8ko3ofi29xkey96xh9.png)
+![Alt Text](./qg8ko3ofi29xkey96xh9.png)
 
 I was an avid [Magic the Gathering](https://magic.wizards.com/en)(collectable card game) player for several years. I mostly was a deck designer and play-tester. I was not the best technical player but what I did well was understand how the the whole field of possible decks would play against each other and how to take a given strategy and have it invalidate another approach. You can view this as a huge game of Rock Paper Scissors, except there were more than just 3 options.
 
@@ -42,7 +42,7 @@ Time and time again when I get stuck I don't concede. I go back to the drawing b
 
 Now picture this from another perspective. There is a reason Solid has such an unorthodox combination of elements, between mixing reactivity + JSX, doing some compilation but leaving some to the runtime, adopting uni-directional flow and immutable patterns with mutable internals. These things together edge out existing solutions in all the places they are weakest. Where the common knowledge is that we're reaching the limits of that abstraction.
 
-I've had framework authors say things like, I'd love to do _blank_ but it's not worth focusing on incremental improvements. And they are right. But what if the actual base configuration of a framework was setup to live in that space.
+I've had framework authors say things like, I'd love to do *blank* but it's not worth focusing on incremental improvements. And they are right. But what if the actual base configuration of a framework was setup to live in that space.
 
 I'm not necessarily claiming Solid's tradeoffs are better. Obviously I have personal bias here and I think at least it provides a unique set of strengths. However, I'm finding that those decisions have bigger implications beyond the technical.
 
@@ -60,7 +60,7 @@ This video establishes axis to compare our projects on and clearly states how mo
 
 Now this is the kind of simple message that influencers can carry and amplify out to the masses. It is always an oversimplification, but it serves the purpose. But what if what is in contention are the axis that we make these comparisons on? What if something bends the rules of the established model?
 
-People are tired. The term JavaScript fatigue has been thrown around a lot. There is this perspective that JavaScript ecosystem as it matures should stabilize and look more like Ruby or Java on the backend. There should be established tools and practices that we make incremental improvements on. 
+People are tired. The term JavaScript fatigue has been thrown around a lot. There is this perspective that JavaScript ecosystem as it matures should stabilize and look more like Ruby or Java on the backend. There should be established tools and practices that we make incremental improvements on.
 
 The last thing any influencer wants is to push more uncertainty on their followers. People trust them because they bring clarity. Things fit into clear buckets. An idea that breaks down those walls has no place.
 
@@ -76,7 +76,7 @@ Simple. It reaffirms their values. They don't see Solid as a competitor. Maybe j
 
 From a cynic's perspective, Solid's existence gives them a gift. Here is the foil in those framework discussions. Touching on topics that compare with other frameworks on compilation, templates, reactivity, they can simply point at Solid as proof that one doesn't need to go through such lengths to get all the benefits.
 
-One could even argue, if anything Solid re-enforces why you should be using React. 
+One could even argue, if anything Solid re-enforces why you should be using React.
 
 ## Where to go from here
 

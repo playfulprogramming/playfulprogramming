@@ -34,7 +34,7 @@ As you can see, this can be a source of many bugs, since common errors which Typ
 
 ## Why `unknown`?
 
-The `unknown` type was introduced in version 3 of typescript as an accompanying type to `any`. The `unknown` type, when assigned to a variable, means that a variable type is not known. 
+The `unknown` type was introduced in version 3 of typescript as an accompanying type to `any`. The `unknown` type, when assigned to a variable, means that a variable type is not known.
 
 And typescript doesn't allow you to use a variable of `unknown` type unless you either cast the variable to a known type or narrow its type. Type narrowing is the process of moving a less precise type to a more precise type. You can learn more about Type narrowing in Typescript [here](https://mainawycliffe.dev/blog/type-guards-and-narrowing-in-typescript).
 
@@ -81,7 +81,7 @@ In this article, we learned about the `unknown` type and why we should use it to
 
 If you found this article informative and would like to keep learning, visit my new series on Typescript - [A Byte of Typescript](https://mainawycliffe.dev/blog/tags/a-byte-of-typescript). A Byte of Typescript is a new series that I will be publishing on a regular basis to help you demystify Typescript.
 
-* [Type Narrowing in TypeScript](https://mainawycliffe.dev/blog/type-guards-and-narrowing-in-typescript)
-* [Types and Mocking - Typescript](https://mainawycliffe.dev/blog/types-and-mocking-typescript)
-* [Template Literal Types in TypeScript](https://mainawycliffe.dev/blog/template-literal-types-in-typescript)
-* [Transforming Types in TypeScript with Utility Types](https://mainawycliffe.dev/blog/transforming-types-typescript-utility-types)
+- [Type Narrowing in TypeScript](https://mainawycliffe.dev/blog/type-guards-and-narrowing-in-typescript)
+- [Types and Mocking - Typescript](https://mainawycliffe.dev/blog/types-and-mocking-typescript)
+- [Template Literal Types in TypeScript](https://mainawycliffe.dev/blog/template-literal-types-in-typescript)
+- [Transforming Types in TypeScript with Utility Types](https://mainawycliffe.dev/blog/transforming-types-typescript-utility-types)

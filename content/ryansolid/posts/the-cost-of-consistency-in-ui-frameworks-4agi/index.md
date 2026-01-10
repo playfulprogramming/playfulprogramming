@@ -26,7 +26,7 @@ I first posted this a year and a half ago but it's been haunting me ever since. 
 
 So how can all these JavaScript frameworks all have different behavior? Well, there is a good argument for each. I had people reply to that tweet about how their framework did the only sensible thing. And they are all right, and perhaps all wrong.
 
-----------------------
+---
 
 ## Batched Consistency
 
@@ -39,6 +39,7 @@ Consistency in frameworks is important. It builds trust. You know when you inter
 This extends to development. If a developer can be sure everything they are dealing with is in sync they can trust their code will run as expected.
 
 However, what this means is the often painful:
+
 ```js
 // updating state in React
 count === 0; // true
@@ -52,7 +53,7 @@ Updating state does not update right away. If you are doing a sequence of change
 
 **React's batched update consistency model is always the safe bet. No one is thrilled about it, but it is a really good default.**
 
---------------
+---
 
 ## Reactive Consistency
 
@@ -67,13 +68,13 @@ setCount(count() + 1);
 console.log(count(), doubleCount(), el.textContent); // 1, 2, 2
 ```
 
-This is perfectly consistent and it fits expectations but as you can imagine there must be a tradeoff. 
+This is perfectly consistent and it fits expectations but as you can imagine there must be a tradeoff.
 
 If you make multiple changes you will trigger multiple re-renders and do a bunch of work. Even though this is a sensible default in a framework like Solid which doesn't re-render components and only updates what changes, sometimes this can still cause unnecessary work. However, independent changes have no performance overhead. But like React it might push you to apply all your changes once.
 
 **Solid's consistency model also prices you into being aware there is a batching mechanism, as it is important for optimization.**
 
--------------------
+---
 
 ## Reactive Batching
 
@@ -96,7 +97,7 @@ This is the first approach that isn't consistent we've talked about. You have pa
 
 **Vue's batched reactivity is probably the most effective at making this all a "non-thing", but it might be the least predictable.**
 
----------------------
+---
 
 ## Natural Execution
 
@@ -110,17 +111,18 @@ count++;
 
 console.log(count, doubleCount, el.textContent); // 1, 0, 0
 ```
+
 In Svelte everything looks like normal JavaScript. Why would you ever expect the derived `doubleCount` or the DOM to be updated on the next line when you set a variable? It makes no sense.
 
 Like Vue, people won't think about this much. However, they are much more likely to hit that inconsistency with derived data sooner. Initially, this requires no explanation to get up and running, making this model feel the most natural to those with no pre-conceptions. But is it what we are really looking for?
 
 **Svelte doesn't even try to be consistent. This might be a blessing and a curse.**
 
---------
+---
 
 ## Choosing the Best Model
 
-This is the point of the article where I'm supposed to say the right answer is "it depends" and leave you all with some profound thoughts. But that's not where I'm at. 
+This is the point of the article where I'm supposed to say the right answer is "it depends" and leave you all with some profound thoughts. But that's not where I'm at.
 
 There is a mutability vs immutability argument behind all of these. Like picture grabbing an item at a certain index in an array and putting it at the end of the array.
 
@@ -139,6 +141,7 @@ const newArray = [
 const [item] = array.splice(index, 1);
 array.push(item);
 ```
+
 In either case, one would expect to end up with `["a", "b", "c"]`.
 
 As you can see the immutable change can be applied as a single assignment to the newArray. However, with our mutable example, we change the actual array with 2 operations.
@@ -148,6 +151,7 @@ If the state did not update in between our operations like React (maybe picture 
 In addition, reality is a little bit more complicated than these examples. I intentionally chose an event handler because it is outside of the typical update/render flow but inside you will find different behavior.
 
 Using React's function setters gives up to date values:
+
 ```js
 // count === 0
 
@@ -158,6 +162,7 @@ console.log(count); // still 0
 ```
 
 Vue can mimic Svelte's behavior with Effects:
+
 ```js
 const count = ref(0);
 const doubleCount = ref(0);
@@ -168,9 +173,9 @@ watchEffect(() => doubleCount.value = count.value * 2);
 console.log(count.value, doubleCount.value, el.textContent) // 1, 0, 0
 ```
 
-Solid's updates work like Vue's default while propagating any internal change from the reactive system. This is necessary to prevent infinite loops. However, it's explicit batching and Transitions API leave things in the past like React. 
+Solid's updates work like Vue's default while propagating any internal change from the reactive system. This is necessary to prevent infinite loops. However, it's explicit batching and Transitions API leave things in the past like React.
 
---------------------------
+---
 
 ## So... ?
 
@@ -188,6 +193,6 @@ So coming into Solid 1.5 we are evaluating a new "natural" batching model to com
 
 The skeptic might point out that would Solid have all update models in it, and they'd be kind of right. I don't know. Can't beat them, join them?
 
----------------------
+---
 
 > If you have opinions on this and want to be part of the discussion come join the [SolidJS discord](https://discord.com/invite/solidjs) where this topic is being discussed currently.

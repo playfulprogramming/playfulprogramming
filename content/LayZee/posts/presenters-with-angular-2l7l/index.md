@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 Presenters are component level services that encapsulate complex presentational logic and user interaction. They can be platform- or framework-agnostic, enabling consistent UI behaviour across applications, platforms, and devices. We provide and use them in our presentational components and mixed components.
 
 Presenters are practically isolated from the rest of the application. They usually have no dependencies at all, except for other presenters in the case of composite presenters. This makes them easy to test in isolation without a DOM or UI, even without Angular, if we design them carefully.
@@ -26,7 +25,8 @@ After discussing different types of presenters and different approaches to combi
 
 We end up having the control flow illustrated in Figure 1.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jgpo1kihguoyarfy5jm0.png)
+![](./jgpo1kihguoyarfy5jm0.png)
+
 <figcaption>Figure 1. The control flow after extracting a presenter from the presentational heroes component.</figcaption>
 
 ## Stateful presenters
@@ -51,7 +51,7 @@ For use case-specific components, we often start out with a single presenter use
 
 As soon as a component's presentational logic starts becoming complex, we can choose to extract that logic into a presenter specific to that component as a first step. As the component grows, we can choose to split it into multiple components with 1:1 presenters.
 
-A _composite presenter_ uses other presenters under-the-hood, basically a facade for other presenters. It is either component-specific or behaviour-specific. In the behaviour-specific case, it combines reusable, specialised presenters into more complex UI behaviour. If it's tied to a specific component, we most often have a 1:1 component-to-presenter ratio.
+A *composite presenter* uses other presenters under-the-hood, basically a facade for other presenters. It is either component-specific or behaviour-specific. In the behaviour-specific case, it combines reusable, specialised presenters into more complex UI behaviour. If it's tied to a specific component, we most often have a 1:1 component-to-presenter ratio.
 
 ### Multiple presenters per component
 
@@ -65,7 +65,7 @@ Maybe our component has a specific part of its template that has complex operati
 
 It can also be the case that a single presenter distributes application state and orchestrates user interaction between multiple components. This has a n:1 component-to-presenter ratio.
 
-A stateless presenter could easily be shared between multiple components, especially multiple instances of the same component. If they had independent local UI state, they would need separate instances of a presenter which would mean a 1:1 or 1:n ratio. 
+A stateless presenter could easily be shared between multiple components, especially multiple instances of the same component. If they had independent local UI state, they would need separate instances of a presenter which would mean a 1:1 or 1:n ratio.
 
 Another example of a shared presenter would be for a complex data table UI which consisted of multiple components. A single container component supplies application state and translates user interactions to commands which are forwarded to services.
 
@@ -84,7 +84,6 @@ Another way to solve the rigid DOM structure issue is to use container directive
 In cases where we're okay with introducing additional DOM elements or we're able to apply a component to an existing DOM element, when would we use a component instead of a presenter to encapsulate presentational logic?
 
 Let's say we had a search presenter like the one in Listing 1.
-
 
 ```ts
 // search.presenter.ts
@@ -108,11 +107,9 @@ export class SearchPresenter implements OnDestroy {
 
 <figcaption>Listing 1. Search presenter.</figcaption>
 
-
 This is a reusable presenter that can be reused in multiple components which have a search box.
 
 A benefit of having a reusable presenter is that we can change search behaviour in a single place. Let's say we wanted to debounce search queries and dismiss consecutive duplicates since the user is going to be to be typing on a physical or soft keyboard. This change is easily made in a reusable presenter as seen in Listing 2.
-
 
 ```ts
 // search.presenter.ts
@@ -140,9 +137,7 @@ export class SearchPresenter implements OnDestroy {
 
 <figcaption>Listing 2. Search presenter with debounced, distinct search query.</figcaption>
 
-
 As an experiment, let's tie this presenter to a search box component as per Listing 3.
-
 
 ```ts
 // search-box.component.ts
@@ -181,7 +176,6 @@ export class SearchBoxComponent implements OnInit {
 
 <figcaption>Listing 3. Search box component using search presenter.</figcaption>
 
-
 We deliberately only have a dataflow going in one direction. The user enters search queries (1) which are intercepted by the component's event handler (2). The queries are then filtered through the presenter (3). Finally, the presenter's search query observable is connected to the component's output property (4), allowing parent components to use event binding to be notified of user searches.
 
 We've effectively tied the search presenter to a search box. If that's the only place where we're going to use this user interaction logic, we might as well reuse the search box component rather than the search presenter. In this way, our consumers–or parent components–only have to use the search box component and bind to its `search` event to add search functionality.
@@ -215,7 +209,6 @@ Finally, Angular pipes only encapsulate presentational logic. They can't be used
 ## Simple example
 
 In "[Presentational components with Angular](https://dev.to/this-is-angular/presentational-components-with-angular-3961)", we moved presentational logic from the heroes component template to the heroes component model to minimise logic in the template.
-
 
 ```ts
 // heroes.component.ts
@@ -258,13 +251,11 @@ export class HeroesComponent {
 
 <figcaption>Listing 4. Heroes: Presentational component model with form validation and UI behaviour.</figcaption>
 
-
 In Listing 4 we see that there's complex user interaction logic for form validation (1) and UI behaviour (2) in the `addHero` method.
 
 ### Extract complex presentational logic into a presenter
 
 Let's create a heroes presenter by extracting the complex presentational logic from the presentational component.
-
 
 ```ts
 // heroes.presenter.ts
@@ -288,7 +279,6 @@ export class HeroesPresenter {
 
 <figcaption>Listing 5. Heroes: Presenter with extracted form control and related method.</figcaption>
 
-
 We extract the `addHero` method (1) to a component-specific presenter called `HeroesPresenter`.
 
 We need to include the name form control in the presenter (2) since the `addHero` method controls UI behaviour by clearing the form control (3).
@@ -296,7 +286,6 @@ We need to include the name form control in the presenter (2) since the `addHero
 The final statement of the method was previously used to emit a value through a component output property (4). It's currently broken.
 
 We could add an Angular event emitter to this presenter, but we prefer to keep presenters framework-agnostic at least where it makes sense, so we decide to use an RxJS subject instead as seen in Listing 6. Additionally, an event emitter would be changed to an `Observable` type as soon as we added any operations on top of it.
-
 
 ```ts
 // heroes.presenter.ts
@@ -324,7 +313,6 @@ export class HeroesPresenter {
 
 <figcaption>Listing 6. Heroes: Presenter with subject exposed as observable.</figcaption>
 
-
 The presenter now has an exposed observable `add$` property which our presentational component can connect to.
 
 > API design tip: We shouldn't expose subjects or event emitters, except as component output properties.
@@ -332,7 +320,6 @@ The presenter now has an exposed observable `add$` property which our presentati
 ### Inject the presenter into the presentational component
 
 We want to inject the heroes presenter into the presentational component's constructor. To do this, we provide it as a component level service as seen in Listing 7.
-
 
 ```ts
 // heroes.component.ts
@@ -368,13 +355,11 @@ export class HeroesComponent {
 
 <figcaption>Listing 7. Heroes: Presentational component with presenter.</figcaption>
 
-
 The presenter is added to the `providers` component option which scopes it to the component level, meaning the presenter's lifecycle follows that of the component. It's instantiated right before the presentational component and it's destroyed just before the component is.
 
 ### Delegate UI properties and event handlers to the presenter
 
 Now that the presentational heroes component has access to the presenter, we can delegate UI properties and event handlers to it.
-
 
 ```ts
 // heroes.component.ts
@@ -417,13 +402,11 @@ export class HeroesComponent {
 
 <figcaption>Listing 8. Heroes: Presentational component delegating UI property and event handler to its presenter.</figcaption>
 
-
 As seen in Listing 8, the heroes component creates a `nameControl` getter that delegates to the presenter. It also forwards control from its `addHero` event handler to the presenter's `addHero` method.[](https://bit.ly/39cqbxa)
 
 ### Connect the presenter to the presentational component's data binding API
 
 We have a couple of things left to do to finish this refactoring. First, let's connect the presenter's observable property to the component's output property.
-
 
 ```ts
 // heroes.component.ts
@@ -470,9 +453,7 @@ export class HeroesComponent implements OnInit {
 
 <figcaption>Listing 9A. Heroes: Presentational component with its data binding API connected to its presenter.</figcaption>
 
-
 In Listing 9A, we subscribe to the presenters `add$` observable and forwards the emitted value to the heroes component's `add` output property.
-
 
 ```ts
 // heroes.component.ts
@@ -519,7 +500,6 @@ export class HeroesComponent implements OnInit {
 
 <figcaption>Listing 9B. Heroes: Presentational component with its data binding API connected to its presenter.</figcaption>
 
-
 Alternatively, we could connect the presenter to the output property by subscribing the output property to the observable `add$` property as seen in Listing 9B.
 
 Instead of using an event emitter, we could have delegated a component getter marked as an output property to the presenter's observable property . This would work fine since an output property only needs to have a `subscribe` method like an observable or a subject. However, let's stick to Angular's own building blocks in components.
@@ -533,7 +513,6 @@ Did we forget about something? How is the heroes component's connecting subscrip
 If we had used the presenter's observable as a component output property, Angular would have managed the subscription for us.
 
 We have three options to manage the subscription ourselves.
-
 
 ```ts
 // heroes.component.ts
@@ -571,9 +550,7 @@ export class HeroesComponent implements OnDestroy, OnInit {
 
 <figcaption>Listing 10A. Heroes: Component managing subscription using a lifecycle subject.</figcaption>
 
-
 Our first option is to add a private `destroy` subject to the component which is called at the `OnDestroy` lifecycle moment and combine it with the `takeUntil` operator as seen in Listing 10A. You've probably seen this technique before.
-
 
 ```ts
 // heroes.component.ts
@@ -608,11 +585,9 @@ export class HeroesComponent implements OnDestroy, OnInit {
 
 <figcaption>Listing 10B. Heroes: Component managing subscription using a subscription object.</figcaption>
 
-
 A second option is to store the resulting subscription in a private property and unsubscribe it in the component's `OnDestroy` lifecycle hook as seen in Listing 10B. This is the traditional RxJS technique.
 
 The final option is to make the presenter manage the subscriptions that depend on it by completing the `add` subject in the `OnDestroy` hook. Compared to the other options, this is less code.
-
 
 ```ts
 // heroes.presenter.ts
@@ -645,7 +620,6 @@ export class HeroesPresenter implements OnDestroy {
 
 <figcaption>Listing 10C. Heroes: Presenter managing subscribers.</figcaption>
 
-
 Listing 10C shows that we added an `ngOnDestroy` lifecycle hook in which we complete the private `add` subject. Completing a subject or any other observable causes all subscribers to trigger their `complete` hooks if they have one and finally unsubscribe.
 
 However, in the case of a shared stateful presenter we have to be careful. If the components have different lifecycles, that is they are activated and destroyed at different times, we could get subscriptions running for components that have already been destroyed.
@@ -669,7 +643,6 @@ With the UI behaviour and form validation extracted from the presentational comp
 We could rename it to `HeroForm` and it would still be a presenter. This would indicate that it was not a component-specific presenter, but rather a potentially reusable presenter as well as potentially one of multiple presenters with separate concerns.
 
 The very imperative code in the `addHero` code smells like something that could be represented using a more declarative and reactive approach.
-
 
 ```ts
 // heroes.presenter.ts
@@ -697,7 +670,6 @@ export class HeroesPresenter {
 
 <figcaption>Listing 11. Heroes: Presenter with input sanitising and validation in observable pipeline.</figcaption>
 
-
 Listing 11 shows how we can express the sanitising and validation logic using RxJS operators. Reactive Forms has an even less imperative way to create this dataflow, but that's an exercis for another time.
 
 ### Enforce strict dependency injection rules
@@ -714,7 +686,6 @@ Our simple example doesn't project content. If it did, we could choose to provid
 
 We can prevent accidental sharing of a presenter by only allowing injection of a service factory rather than the presenter itself.
 
-
 ```ts
 // heroes-presenter-factory.token.ts
 import { InjectionToken } from '@angular/core';
@@ -730,8 +701,6 @@ export const heroesPresenterFactoryToken = new InjectionToken(
 
 <figcaption>Listing 12A. Heroes: Dependency injection token for presenter service factory.</figcaption>
 
-
-
 ```ts
 // heroes.presenter.ts
 import { Injectable } from '@angular/core';
@@ -745,8 +714,6 @@ export class HeroesPresenter {}
 ```
 
 <figcaption>Listing 12B. Heroes: Presenter provider guarding direct injection.</figcaption>
-
-
 
 ```ts
 // heroes.component.ts
@@ -778,7 +745,6 @@ export class HeroesComponent implements OnDestroy {
 
 <figcaption>Listing 12C. Heroes: Presentational component using presenter service factory.</figcaption>
 
-
 Listings 12A, 12B, and 12C shows how to use a service factory to create the heroes presenter. The presenter service provider would throw an error to prevent other declarables from injecting the heroes presenter directly.
 
 Even if other declarables injected the service factory, they'd create a separate instance of the heroes presenter, making the presenter impossible to share by accident.
@@ -786,7 +752,6 @@ Even if other declarables injected the service factory, they'd create a separate
 We could reuse the provider used in Listing 12C, for example by exporting it from the module that has the dependency injection token.
 
 The last technique we can use to enforce strict dependency injection rules is to use the `Self` decorator factory when injecting the heroes presenter in the presentational component. Without a service factory, it would look like Listing 13.
-
 
 ```ts
 // heroes.component.ts
@@ -806,7 +771,6 @@ export class HeroesComponent {
 
 <figcaption>Listing 13. Heroes: Enforcing presenter injection from own node injector.</figcaption>
 
-
 When we use the `Self` decorator factory, we instruct Angular to only allow the injection of the heroes presenter through what is provided by the component's own node injector.
 
 > Presenter injection tip: Use the `Self` decorator factory where the presenter is injected unless it's a shared presenter. This prevents accidental injection of an ancestor component's presenter.
@@ -816,7 +780,6 @@ When we use the `Self` decorator factory, we instruct Angular to only allow the 
 Purists will want to exclusively use `EventEmitter`s as output properties. Technically, all an output property need to integrate with Angular is to have a `subscribe` method that accepts an observer.
 
 This means that we can use observables as output properties. Our presenters expose observables, so we can delegate to them from our component as seen in Listings 14A and 14B.
-
 
 ```ts
 // heroes.component.ts
@@ -848,8 +811,6 @@ export class HeroesComponent {
 
 <figcaption>Listing 14A. Heroes: Presentational component delegating an output property to its presenter using a getter.</figcaption>
 
-
-
 ```ts
 // heroes.component.ts
 import { Component, Output } from '@angular/core';
@@ -878,13 +839,11 @@ export class HeroesComponent {
 
 <figcaption>Listing 14B. Heroes: Presentational component delegating an output property to its presenter using a property reference.</figcaption>
 
-
 In both of the alternatives in Listings 13A and 13B we remove the need for managing a subscription ourselves to connect the presenter's observable to the component's event emitter so we have removed the `OnInit` lifecycle hook.
 
 ### Framework-agnostic presenters
 
 If we want to enable code-sharing between multiple frameworks and platforms or keep the option to do so, we should keep our presenters framework-agnostic.
-
 
 ```ts
 // heroes.presenter.ts
@@ -911,11 +870,9 @@ export class HeroesPresenter {
 
 <figcaption>Listing 15A. Framework-agnostic heroes presenter.</figcaption>
 
-
 Listing 15A shows a framework-agnostic heroes presenter. We removed the Angular-specific lifecycle hook, `ngOnDestroy` and replaced it with a method called simply `destroy` (1).
 
 We removed the `FormControl`. While Reactive Angular Forms could be used with other frameworks and is a pretty good library, we instead move input sanitising and validation logic to our observable pipeline (2).
-
 
 ```ts
 // app-heroes.presenter.ts
@@ -947,7 +904,6 @@ export class AppHeroesPresenter implements OnDestroy {
 ```
 
 <figcaption>Listing 15B. Angular-specific presenter wrapping the framework-agnostic heroes presenter.</figcaption>
-
 
 Listing 15B shows the Angular-specific presenter which wraps the framework-agnostic heroes presenter from Listing 15A. It injects the heroes presenter (1) and calls its `destroy` method in the `ngOnDestroy` lifecycle hook (2).
 
@@ -983,19 +939,19 @@ One of the benefits of using presenters is that they are extremely easy to isola
 
 To extract a presenter from a presentational component, we follow this recipe:
 
-1.  Extract complex presentational logic into a presenter.
-2.  Inject the presenter into the presentational component.
-3.  Connect the presenter to the presentational component's data binding API.
-4.  Manage observable subscriptions.
+1. Extract complex presentational logic into a presenter.
+2. Inject the presenter into the presentational component.
+3. Connect the presenter to the presentational component's data binding API.
+4. Manage observable subscriptions.
 
 When extracting a presenter, the presentational component's template and data binding API should have little reason to change. UI properties might change when we extract complex presentational logic.
 
 We end up with one or more presenters which cover these concerns:
 
-* Presenting/transforming application state (formatting)
-* UI behaviour (local UI state)
-* Form validation (local UI state)
-* Application-specific events
+- Presenting/transforming application state (formatting)
+- UI behaviour (local UI state)
+- Form validation (local UI state)
+- Application-specific events
 
 ## Related articles
 
@@ -1007,5 +963,5 @@ Read the introductory article “[Model-View-Presenter with Angular](https://dev
 
 Thank you for guiding and supporting me in this article, fellow professionals! It's my pleasure to have your keen eyes review this article.
 
-* [Nacho Vazquez](https://dev.to/nachovazquez)
-* [Nicholas Jamieson](https://ncjamieson.com/)
+- [Nacho Vazquez](https://dev.to/nachovazquez)
+- [Nicholas Jamieson](https://ncjamieson.com/)

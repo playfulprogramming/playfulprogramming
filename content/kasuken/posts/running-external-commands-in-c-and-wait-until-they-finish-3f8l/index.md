@@ -25,10 +25,10 @@ Running external commands from a C# application is more common than you might th
 
 Here are a few examples where this is useful:
 
-* 💪 **Automation & DevOps**: Running PowerShell scripts for provisioning resources, deploying software, or managing files.
-* 🐳 **Tool Integration**: Calling `docker`, `git`, `az`, or `ffmpeg` to leverage existing CLI workflows inside your app.
-* 📄 **Legacy Compatibility**: Executing older batch or shell scripts without rewriting them in C#.
-* 📦 **Hybrid Workflows**: Combining the power of .NET with external tools to create flexible automation pipelines.
+- 💪 **Automation & DevOps**: Running PowerShell scripts for provisioning resources, deploying software, or managing files.
+- 🐳 **Tool Integration**: Calling `docker`, `git`, `az`, or `ffmpeg` to leverage existing CLI workflows inside your app.
+- 📄 **Legacy Compatibility**: Executing older batch or shell scripts without rewriting them in C#.
+- 📦 **Hybrid Workflows**: Combining the power of .NET with external tools to create flexible automation pipelines.
 
 > Tip: While it's easy to start a process, doing it right — especially handling output and waiting for completion — requires some care. That’s exactly what I will cover next.
 
@@ -40,9 +40,9 @@ To follow along, you’ll need a basic .NET console application. Here's how to g
 
 ### 🛠️ Prerequisites
 
-* [.NET SDK](https://dotnet.microsoft.com/download) (I use .NET 9 but from .NET 6 is more or less the same)
-* PowerShell (included on Windows by default)
-* An IDE like Visual Studio, JetBrains Rider, or just your favorite code editor and terminal
+- [.NET SDK](https://dotnet.microsoft.com/download) (I use .NET 9 but from .NET 6 is more or less the same)
+- PowerShell (included on Windows by default)
+- An IDE like Visual Studio, JetBrains Rider, or just your favorite code editor and terminal
 
 ### 📦 Creating the Project
 
@@ -146,14 +146,14 @@ Write-Host 'Countdown complete!'
 
 ### 🔍 What’s Happening Here?
 
-* I defined a PowerShell script inline, using string interpolation to build the countdown logic dynamically.
-* `ProcessStartInfo` configures how the process will run:
+- I defined a PowerShell script inline, using string interpolation to build the countdown logic dynamically.
+- `ProcessStartInfo` configures how the process will run:
 
-  * `UseShellExecute = false`: needed to redirect output.
-  * `RedirectStandardOutput` and `RedirectStandardError`: lets us capture and log what the script prints.
-  * `CreateNoWindow = false`: allows you to see the script’s window, if one opens.
-* We hook into `OutputDataReceived` and `ErrorDataReceived` to print live output from PowerShell.
-* `WaitForExit()` makes sure our app waits for the script to finish before continuing.
+  - `UseShellExecute = false`: needed to redirect output.
+  - `RedirectStandardOutput` and `RedirectStandardError`: lets us capture and log what the script prints.
+  - `CreateNoWindow = false`: allows you to see the script’s window, if one opens.
+- We hook into `OutputDataReceived` and `ErrorDataReceived` to print live output from PowerShell.
+- `WaitForExit()` makes sure our app waits for the script to finish before continuing.
 
 > Note: This pattern works for any executable, not just PowerShell!
 
@@ -186,6 +186,7 @@ Use with care, especially in production.
 ## 📌 Real-World Use Cases
 
 ### 🐙 Git Automation
+
 For instance, this is my case. I have to wait a long operation, based on git.
 
 ```csharp
@@ -215,4 +216,3 @@ I created a Curated RSS Feed Bundle for Web Developers — a hand-picked OPML fi
 💡 Just download, import into your favorite RSS reader (like Feedly or NetNewsWire), and enjoy fresh insights every day.
 
 👉 [Grab it on Gumroad](https://emanuelebartolesi.gumroad.com/l/rssfeeds) — stay sharp without the noise.
-

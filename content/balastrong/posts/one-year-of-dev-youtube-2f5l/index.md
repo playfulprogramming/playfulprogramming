@@ -22,7 +22,7 @@ I recorded a short video, you can watch it here, or keep reading for the transcr
 
 The stats on YouTube are at 5.000 hours of watch time in the last 365 days. I cannot believe people watched me talking for 300.000 minutes, it’s insane!
 
-![YouTube Stats](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5wa3smzgk6x5cdhzcsh3.png)
+![YouTube Stats](./5wa3smzgk6x5cdhzcsh3.png)
 
 I really hope this is helping someone learn new skills and getting started with Open Source as that’s my primary goal, but one thing I can tell for sure is… how much I am learning throughout this journey!
 
@@ -34,8 +34,7 @@ And it’s not all! Being active online and in communities also got me in touch 
 
 I also met some of them in real life!
 
-![Friends](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j62lh6wxhid684y7u0mr.png)
-
+![Friends](./j62lh6wxhid684y7u0mr.png)
 
 Developers are not weird creatures doing their crafts alone, doing stuff together is cool!
 
@@ -53,7 +52,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

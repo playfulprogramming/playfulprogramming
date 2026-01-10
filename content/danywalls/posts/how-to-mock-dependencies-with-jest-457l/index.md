@@ -16,9 +16,11 @@ When we want to test our code, some things have dependencies inside, and you don
 Today we will add tests into our example weather app using Jest and Mock the dependencies.
 
 ## The app
+
 Our example app has two principal codes, the `weatherAPI.js` and `showWeather.js`; the `showWeather` uses weatherAPi.js code to display the data.
 
 The weatherAPI.js
+
 ```javascript
 const getWeather = (format) => {
     const min = format = 'C' ? 50 : 100;
@@ -27,7 +29,9 @@ const getWeather = (format) => {
 
 module.exports = { getWeather}
 ```
-The showWeather.js 
+
+The showWeather.js
+
 ```javascript
 const weatherAPI = require('./weatherAPI');
 
@@ -49,8 +53,6 @@ We use jest functions `test` to declare our test and the assertion functions `ex
 
 > The idea focuses on mocking; to read more about the assertion functions, feel free to read [the official documentation](https://jestjs.io/docs/expect).
 
-
-
 ```javascript
 const weatherAPI = require('./weatherAPI');
 const { messageWeather } = require('./showWeather');
@@ -62,6 +64,7 @@ test('should return weather message with celsius temperature', () => {
 })
 
 ```
+
 Run our test npx jest, and all test works using our mocks!
 
 ```bash
@@ -75,15 +78,16 @@ Tests:       2 passed, 2 total
 Snapshots:   0 total
 Time:        0.383 s, estimated 1 s
 ```
+
 Nice, but our test calls the getWeather using the actual code, and my test only needs to cover the showWeather code.
 
-## How to fake the weatherAPI methods? 
+## How to fake the weatherAPI methods?
 
-Jest provides a few ways to mock the weatherAPI methods. 
+Jest provides a few ways to mock the weatherAPI methods.
 
-- Override the methods with j [est.fn](https://jestjs.io/docs/mock-functions#using-a-mock-function) 
-- Use  [jest.spyOn](https://jestjs.io/docs/jest-object#jestspyonobject-methodname)  
-- Mock the module with  [jest.mock](https://jestjs.io/docs/es6-class-mocks#the-4-ways-to-create-an-es6-class-mock) 
+- Override the methods with j [est.fn](https://jestjs.io/docs/mock-functions#using-a-mock-function)
+- Use  [jest.spyOn](https://jestjs.io/docs/jest-object#jestspyonobject-methodname)
+- Mock the module with  [jest.mock](https://jestjs.io/docs/es6-class-mocks#the-4-ways-to-create-an-es6-class-mock)
 
 We will use the three options, with the same result but each, you can pick which is better for you.
 
@@ -91,7 +95,7 @@ We will use the three options, with the same result but each, you can pick which
 
 The easiest way is to reassign the getWeather method and assign a jest.fn mock function, we update the test with the following points.
 
-- assign jest.fn and return 20 by default. 
+- assign jest.fn and return 20 by default.
 - validate the getWeather method to get the C parameter.
 - validate the result and expect are equal.
 
@@ -112,7 +116,8 @@ test('should return weather message with celsius temperature', () => {
 
 > The function mockRestore assigns the original value to getWeather function.
 
-## Use jest.spyOn 
+## Use jest.spyOn
+
 The spyOn help us to assign a mock function to the object, in our case, the weatherAPI object.
 
 The spyOn override and the function getWeather mock have the mock implementation function to return the simulated value.
@@ -131,18 +136,18 @@ The spyOn override and the function getWeather mock have the mock implementation
 
 ```
 
-## Mock the module 
+## Mock the module
 
 Instead of mocking every function, jest helps us mimic the entire module using jest.mock.
 
-Create  __mocks__ directory into the same path of the file to mock, export the functions, and create the module's name in our case weatherAPI.
-
+Create  **mocks** directory into the same path of the file to mock, export the functions, and create the module's name in our case weatherAPI.
 
 ```javascript
 module.exports = {
     getWeather: jest.fn((format) => `20`)
 }
 ```
+
 In our test, the to jest uses the mock module with jest.mock.
 
 ```javascript
@@ -163,7 +168,7 @@ test('should return weather message with celsius temperature', () => {
 
 Async functions are very common in our code, lets add a new function promise into the weatherAPI and use it, in the showWeather.js.
 
-> Read more about  [async and await keyword](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)  
+> Read more about  [async and await keyword](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
 
 ```javascript
 const getMetaWeather = async () => {
@@ -187,7 +192,7 @@ const showWeatherStatus = async () => {
 module.exports = { messageWeather, showWeatherStatus }
 ```
 
-The next step is to update our test to cover the showWeatherStatus, editing the __mocks__/weatherAPI.js to return the mock version of the getMetaWeather function returns a promise with the mock data.
+The next step is to update our test to cover the showWeatherStatus, editing the **mocks**/weatherAPI.js to return the mock version of the getMetaWeather function returns a promise with the mock data.
 
 ```javascript
 getMetaWeather: jest.fn(() => new Promise((resolve) => resolve('Great day') ))
@@ -202,7 +207,6 @@ test('Should return async weather status', async () => {
     expect(result).toBe(expected);
 })
 ```
-
 
 Perfect, run your test `npx jest` and all cases works using mock data.
 
@@ -220,9 +224,8 @@ Time:        0.383 s, estimated 1 s
 
 ## Final
 
-Jest makes it easy to test our code and external dependencies. I recommend using the __mocks__ overriding the complete module because it makes it easy to update the mocks and read the tests because it only has assertions methods.
+Jest makes it easy to test our code and external dependencies. I recommend using the **mocks** overriding the complete module because it makes it easy to update the mocks and read the tests because it only has assertions methods.
 
-If you want to read more about mocking with jest, please read the  [official documentation.](https://jestjs.io/docs/mock-functions) 
+If you want to read more about mocking with jest, please read the  [official documentation.](https://jestjs.io/docs/mock-functions)
 
 Photo by <a href="https://unsplash.com/@kc_gertenbach?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Christian Gertenbach</a> on <a href="https://unsplash.com/s/photos/fake?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  

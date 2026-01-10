@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 ## Introduction to JavaScript Symbols
 
 JavaScript Symbols are a new primitive data type introduced in ECMAScript 6 (ES6). They are used as unique, non-string identifiers for object properties, useful in avoiding naming collisions and enabling more advanced programming techniques.
@@ -118,6 +117,6 @@ Symbols are not supported in older JavaScript environments, and their unique nat
 
 JavaScript Symbols provide a powerful, unique identifier for object properties, helping to avoid naming collisions and enabling advanced programming techniques. Understanding their use cases and limitations is essential for modern JavaScript developers.
 
-_You can find the source code_ [_here_](https://github.com/Puppo/javascript-you-dont-know/tree/01-symbols)
+*You can find the source code* [*here*](https://github.com/Puppo/javascript-you-dont-know/tree/01-symbols)
 
 {% embed https://dev.to/puppo %}

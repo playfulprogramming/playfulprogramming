@@ -38,6 +38,7 @@ The @let syntax, a personal favorite among many Angular developers, continues to
 }
 
 ```
+
 Now, achieve the same result with fewer lines and improved clarity
 
 ```
@@ -68,5 +69,3 @@ Angular 18.2 expands this toolkit with even more helpful tools:
 ## Conclusion and Looking Ahead
 
 Angular 18.2 may be a minor release, but it offers significant improvements for those who enjoy working with `@let` and appreciate streamlined migration processes. As we eagerly anticipate the major features planned for Angular 19 in November 2024, version 18.3, arriving in the next six weeks, promises to be another exciting stepping stone. So, keep calm, keep coding, and embrace the advancements in Angular!
-
-

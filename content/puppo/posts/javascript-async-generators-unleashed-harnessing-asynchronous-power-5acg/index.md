@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 In the dynamic realm of JavaScript, the ability to efficiently handle asynchronous operations is paramount for building responsive and robust applications. While Async Iterators have already proven their worth in managing asynchronous data streams, JavaScript takes another leap forward with Async Generators. Imagine a world where you can effortlessly produce a continuous stream of asynchronous data while dynamically controlling its flow. This is precisely where Async Generators excel, revolutionizing the way we handle and manipulate asynchronous sequences.
 
 In this blog post, we're diving deep into the captivating world of JavaScript Async Generators. We'll unveil how Async Generators empower developers to create elegant solutions for complex asynchronous scenarios. Whether you're grappling with real-time data synchronization, asynchronous data processing, or any scenario demanding fine-tuned control over data flow, join us on this journey as we unravel the capabilities, nuances, and transformative power of JavaScript Async Generators.
@@ -41,7 +40,7 @@ async function* getUsers(ids: number[]) {
 }
 ```
 
-Using a `for-of` loop, the function iterates over the IDs and fetches the data for every user on every iteration. However, using the yield, stop the execution and resume it only when the caller asks for the next value.  
+Using a `for-of` loop, the function iterates over the IDs and fetches the data for every user on every iteration. However, using the yield, stop the execution and resume it only when the caller asks for the next value.\
 Like Async Iterators, also Async Generators can be iterated using a `for-await-of` loop.
 
 ```ts
@@ -52,7 +51,7 @@ for await (const user of getUsers([1, 2, 3, 4, 5])) {
 
 Error handling and completion are crucial aspects of asynchronous programming. With async generators, we can catch errors using try-catch blocks within the generator function. Plus, we can signal the end of data using the 'return' statement, closing the loop on our data stream.
 
-```ts 
+```ts
 try {
   for await (const user of getUsers([1, 2, 3, 4, 5])) {
     console.log(user);

@@ -21,11 +21,11 @@ Make sure you’re running the latest version of Chrome (currently version 142).
 
 Enable the following flags by navigating to `chrome://flags` in your browser:
 
-- #prompt-api-for-gemini-nano
-- #optimization-guide-on-device-model
-- #prompt-api-for-gemini-nano-multimodal-input
+- \#prompt-api-for-gemini-nano
+- \#optimization-guide-on-device-model
+- \#prompt-api-for-gemini-nano-multimodal-input
 
-![](https://mainawycliffe-blog-ghost-content-d3f32fe5.storage.googleapis.com/images/2025/11/data-src-image-431fca5e-4fa7-429c-95ce-2364c7e0639f.png)
+![](./data-src-image-431fca5e-4fa7-429c-95ce-2364c7e0639f.png)
 
 Then, restart the browser, using the relaunch bar that will be displayed at the bottom of the page. You can learn more about Chrome Flags [here](https://developer.chrome.com/docs/web-platform/chrome-flags?ref=cms.mainawycliffe.dev).
 
@@ -49,7 +49,7 @@ We can do this by calling the `LanguageModel.availability()` method, as shown be
 
 The above model checks whether the user has downloaded the model and is ready for use. If it's not, the next step is to download the model.
 
-> If not yet downloaded, you’ll need to trigger the download (~1.5 GB). Note that user interaction is required before downloading. You can check this with:
+> If not yet downloaded, you’ll need to trigger the download (\~1.5 GB). Note that user interaction is required before downloading. You can check this with:
 
 ```typescript
 if (navigator.userActivation.isActive) {

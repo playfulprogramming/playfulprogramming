@@ -13,7 +13,7 @@ order: 1
 }
 ---
 
-_You can find a [video version](https://youtu.be/yfopPq4354o) of this article on my [YouTube Channel](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA)._
+*You can find a [video version](https://youtu.be/yfopPq4354o) of this article on my [YouTube Channel](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA).*
 
 - [Introduction](#introduction)
 - [Opensource Guide](#opensource-guide)
@@ -62,12 +62,13 @@ If you already have a project in mind, look carefully at issues with those lable
 In case you still need a project, there are some services that use lables on issues to collect repositories.
 
 Some of the most known are:
-* https://www.firsttimersonly.com/
-* https://goodfirstissue.dev/
-* https://goodfirstissues.com/
-* https://up-for-grabs.net/
-* https://www.libhunt.com/topic/good-first-issue
-* https://project-awesome.org/MunGell/awesome-for-beginners
+
+- https://www.firsttimersonly.com/
+- https://goodfirstissue.dev/
+- https://goodfirstissues.com/
+- https://up-for-grabs.net/
+- https://www.libhunt.com/topic/good-first-issue
+- https://project-awesome.org/MunGell/awesome-for-beginners
 
 Those services usually give you some extra insights such as the amount of open issues and also let you filter by language, for example Typescript or Python.
 
@@ -77,23 +78,20 @@ To be honest I’m not a fan of this approach as I think you need a deep knowled
 
 Once you found a project that feels right for you, there are still a few steps to take before being 100% able to contribute effectively, for example finding the right issue that addresses a specific change to apply in the code. I'm writing the script of a video specifically on this topic that I'll post on my [YouTube Channel](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA). Feel free to add a comment here if you have some extra advices and I'll include them!
 
-
 If you're still unsure on how the PR mechanism works and you want to see a quick guide on that, you can read my other article:
-
 
 {% embed https://dev.to/this-is-learning/how-to-create-your-first-pull-request-on-github-in-less-than-60-seconds--1ae6 %}
 
-
 Do you have some advices for other developers at the beginning of their Open Source journey? Write a comment here and let’s share some knowledge, thank you very much!
 
-
 ---
+
 Thanks for reading this post, I hope you find it interesting!
 
 {% embed https://dev.to/balastrong %}
 
 You can also follow me on your favourite platform!
 
-|Tweets|Videos|
-|:-:|:-:|
-|[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/Balastrong)|[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)|
+|                                                                    Tweets                                                                    |                                                                                           Videos                                                                                          |
+| :------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge\&logo=twitter\&logoColor=white)](https://twitter.com/Balastrong) | [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1) |

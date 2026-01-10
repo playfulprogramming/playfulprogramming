@@ -12,7 +12,7 @@ socialImage: "social-image.png"
 ---
 
 Photo by <a href="https://unsplash.com/@markusspiske?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Markus Spiske</a> on <a href="https://unsplash.com/s/photos/open-source?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
+
 Hello everyone, my name is Santosh Yadav and I want to share my Open Source journey with everyone.
 
 ## Introduction
@@ -25,28 +25,25 @@ It was during my time with the startup I heard Open Source for the first time, a
 
 Around 2015 one of my close friend decided to leave the job, he is the best developer I have worked with and learned a lot from him, he is even active in the Open Source community you can follow [Imran Momin](https://github.com/imranmomin) he mostly works on Hangfire and Azure and has few packages on NuGet as well. While leaving for Canada he also asked me to do open source contribution, but as usual, I was scared as I thought it's not my cup of tea.
 
-
 ### Moving to Pune
 
 After changing my job in 2016, I came to Pune and within a few months, I realized I have a lot of free time here, in my earlier job I used to work 12 hrs minimum, sometimes more than 80 hours a week. Working 9 hours a day and 45 hours per week was something I was doing after 5 years. I realized I wanted to write a blog post and even had a few lines written on CodeProject in 2015, I took this opportunity and wrote my first blog post on http://santoshyadavblog.com/.
 
 ### Teaching
 
-In early 2017 I got the opportunity to teach AngularJS in [LIPS India Pune](https://www.lipsindia.com/angular-7-training-pune-angular-7-course) institute, and I grabbed this opportunity and started teaching AngularJS in Jan 2017. After completing the first batch we moved onto Angular 4 and I still teach at the same institute till now. In 2017 I also had a short stint with Edureka as Online Trainer for Angular and NodeJS, I decide to stop than in Feb 2018, as was not getting enough time for self-improvement. 
+In early 2017 I got the opportunity to teach AngularJS in [LIPS India Pune](https://www.lipsindia.com/angular-7-training-pune-angular-7-course) institute, and I grabbed this opportunity and started teaching AngularJS in Jan 2017. After completing the first batch we moved onto Angular 4 and I still teach at the same institute till now. In 2017 I also had a short stint with Edureka as Online Trainer for Angular and NodeJS, I decide to stop than in Feb 2018, as was not getting enough time for self-improvement.
 
 ### A Bad Phase
 
-Life is not a smooth ride and you get a reality check sometime, 2018 was not that good for me, I worked on a course for Angular, Javascript and CSS for one of the guy who wanted to start his own setup for training and I did invest my 4 months, and finally he didn't bother to pay me as agreed and I got demotivated, We (me and my wife) got really bad news my daughter got diagnosed with TB. I was scared, but my doc said nothing to worry about she will be cured, and she is in perfect condition now, completed the medication in Jun this year. 
+Life is not a smooth ride and you get a reality check sometime, 2018 was not that good for me, I worked on a course for Angular, Javascript and CSS for one of the guy who wanted to start his own setup for training and I did invest my 4 months, and finally he didn't bother to pay me as agreed and I got demotivated, We (me and my wife) got really bad news my daughter got diagnosed with TB. I was scared, but my doc said nothing to worry about she will be cured, and she is in perfect condition now, completed the medication in Jun this year.
 
 ### ngIndia
 
 With almost a year doing nothing I came to know about #ngIndia, I had never attended or heard about any tech conferences in India before and wanted to work with the community in Angular space, I decided to book my tickets in November 2018, and was really excited to be there. At #ngIndia I got the opportunity to meet so many great speakers, I met Vikram You can follow him on [Twitter](@vikerman) from Angular Team, I asked him I want to contribute to Angular, but don't have any idea how to do it. He said you can write blog posts, create videos help people on StackOverflow or raise a PR to fix some issues, in Angular or related projects. I thought I am already doing teaching and had recorded a course which unfortunately didn't get released. So I decided to focus on contributing to Angular as another way to help the community. Thanks a lot to [Dhananjay Kumar](https://debugmode.net) for organizing it, and in the year 2020 it is happening again, and I am already excited to attend it.
 
-
 ### After ngIndia
 
 After coming back from #ngIndia, I started looking for issues in the Angular repository but my fear of contributing to Open Source came back to haunt me. I thought again and realized a few months ago one of my friend had informed me about #NgRx and [Jesse Sanders](https://www.briebug.com/briebug-development-team/jesse-sanders) spoke about it at #ngIndia.
-
 
 ### Journey with NgRx
 
@@ -70,13 +67,11 @@ I will be speaking at [ng-Srilanka](https://ng-srilanka.com/) which is happening
 
 ### DotNetTricks
 
-When I started my career, I had read a lot of blogs from [Shailendra Chauhan](https://www.dotnettricks.com/about-shailendra-chauhan) and I am a big fan of his work, as I have resolved many issues in .Net by going through his blogs. He gave me the opportunity to work with him on his new platform where I have already completed 2 courses [MEAN Stack Hands-On Project](https://www.dotnettricks.com/courses/nodejs/building-mean-stack-ecommerce-project) and [Angular Unit Testing](https://www.dotnettricks.com/courses/angular/angular-testing) 
-
+When I started my career, I had read a lot of blogs from [Shailendra Chauhan](https://www.dotnettricks.com/about-shailendra-chauhan) and I am a big fan of his work, as I have resolved many issues in .Net by going through his blogs. He gave me the opportunity to work with him on his new platform where I have already completed 2 courses [MEAN Stack Hands-On Project](https://www.dotnettricks.com/courses/nodejs/building-mean-stack-ecommerce-project) and [Angular Unit Testing](https://www.dotnettricks.com/courses/angular/angular-testing)
 
 ### Angular In Depth
 
 It was while working on one of the tasks in NgRx Tim, Wes and Brandon thought the implementation is good enough to be converted into a blog. And I had not written anything from last 3-4 months, so I went ahead wrote that article and published and got a good response. You can refer to the blog on [Angular Elements with NgRx](https://blog.angularindepth.com/using-angular-elements-with-ngrx-bc655e1eb212) and wrote another one on [Angular 8](https://blog.angularindepth.com/embrace-yourself-angular-8-is-coming-1bf187c8f0bf)
-
 
 ### My Open source Projects
 
@@ -84,10 +79,6 @@ Motivated by what I have already done, I decided to start a few Open Source Proj
 
 You can check out both the projects on [GitHub](https://github.com/ngx-builders)
 
-
 ## Final words
 
 If you are a scared guy like me and want to start your open source journey don't hesitate to connect with me on [Twitter](https://twitter.com/Santosh19742211). Also, don't be scare Open Source Community is very supportive, its like family.
-
-
-

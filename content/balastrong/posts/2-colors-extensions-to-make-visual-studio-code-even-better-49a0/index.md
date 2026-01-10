@@ -20,10 +20,7 @@ Today I show how I solved two problems I had, thanks to colors and 2 vscode exte
 
 ## 1. Identify different vscode instances
 
-
-![Peacock VSCode](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/b925aknrhz6ipjkwxmvy.png)
-
-
+![Peacock VSCode](./b925aknrhz6ipjkwxmvy.png)
 
 This is quite common, you may have a backend and a frontend repo, or simply you’re working on multiple projects and it happens that you have two or more vscode instances open.
 
@@ -35,10 +32,7 @@ It's quite a famous and widely used extension, but if you don’t know it yet, i
 
 ### Peacock Features
 
-
-![Peacock](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8g7x9n7j1fajs5r3sab1.png)
-
-
+![Peacock](./8g7x9n7j1fajs5r3sab1.png)
 
 Some features you may find useful:
 
@@ -50,10 +44,7 @@ You're also covered if you want some suggestions, with `Peacock: Change to a Fav
 
 ## 2. Identify files and folders in the same repo
 
-
-![Folder Path Color VScode](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ja7ep1i7k313ekvaqtg3.png)
-
-
+![Folder Path Color VScode](./ja7ep1i7k313ekvaqtg3.png)
 
 I was recently playing around with Module Federation, but this applies pretty much in all monorepo scenarios.
 
@@ -63,10 +54,7 @@ It has some limitations since colors on filenames are already used to track git 
 
 ### Folder Path Color Features
 
-
-![Folder Path Color](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/b01l1c8spemtam5ui1fn.png)
-
-
+![Folder Path Color](./b01l1c8spemtam5ui1fn.png)
 
 The core feature here is that you can customize the colors for your file based on their path. You can also assign a symbol.
 
@@ -106,8 +94,6 @@ This was a quick one, but I wanted to mention these two extensions I found to so
 
 If you want to see me testing the two extensions and their customization, here's the video: https://www.youtube.com/watch?v=bvaSo3tip2g
 
-
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -118,7 +104,7 @@ Join us: https://github.com/DevLeonardoCommunity
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

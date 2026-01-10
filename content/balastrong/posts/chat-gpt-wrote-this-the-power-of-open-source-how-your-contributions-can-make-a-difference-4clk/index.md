@@ -33,12 +33,12 @@ Yeah, why not? Actually I didn't even need to tell it the topic for the title, s
 I only asked ChatGPT to suggest a title, and these are the results:
 
 1. "The Benefits of Contributing to Open Source"
-1. "Why You Should Contribute to Open Source Projects"
-1. "Gain Skills and Experience by Contributing to Open Source"
-1. "The Power of Open Source: How Your Contributions Can Make a Difference"
-1. "Open Soruce Contributions: A Career Boosting Opportunity"
+2. "Why You Should Contribute to Open Source Projects"
+3. "Gain Skills and Experience by Contributing to Open Source"
+4. "The Power of Open Source: How Your Contributions Can Make a Difference"
+5. "Open Soruce Contributions: A Career Boosting Opportunity"
 
-![ChatGPT suggesting some titles for the video](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8kvtm0u8geunhi7qwwlq.png)
+![ChatGPT suggesting some titles for the video](./8kvtm0u8geunhi7qwwlq.png)
 
 ## Full potential
 
@@ -52,17 +52,17 @@ However, this opens up to countless possibilities on using ChatGPT as a personal
 
 If you're curious, here's the text it suggested:
 
-_Hi there! In this video, we're going to be talking about the advantages of contributing to open source projects._
+*Hi there! In this video, we're going to be talking about the advantages of contributing to open source projects.*
 
-_Open source software is everywhere. It powers some of the most popular websites and applications that we use every day, from web browsers to mobile apps and more. And while many people use open source software, not everyone understands the benefits of contributing to these projects._
+*Open source software is everywhere. It powers some of the most popular websites and applications that we use every day, from web browsers to mobile apps and more. And while many people use open source software, not everyone understands the benefits of contributing to these projects.*
 
-_One of the biggest advantages of contributing to open source is that it allows you to gain valuable experience and skills. Working on open source projects gives you the opportunity to learn from other experienced developers and to collaborate with them on real-world projects. This can be a great way to improve your coding skills and to build a portfolio of work that you can showcase to potential employers._
+*One of the biggest advantages of contributing to open source is that it allows you to gain valuable experience and skills. Working on open source projects gives you the opportunity to learn from other experienced developers and to collaborate with them on real-world projects. This can be a great way to improve your coding skills and to build a portfolio of work that you can showcase to potential employers.*
 
-_Another advantage of contributing to open source is that it allows you to give back to the community. Open source software is often developed and maintained by volunteers who are passionate about their projects. By contributing to these projects, you can help to improve the software and make it more useful for others. This can be a great way to make a positive impact on the world and to help others who are using the software._
+*Another advantage of contributing to open source is that it allows you to give back to the community. Open source software is often developed and maintained by volunteers who are passionate about their projects. By contributing to these projects, you can help to improve the software and make it more useful for others. This can be a great way to make a positive impact on the world and to help others who are using the software.*
 
-_In addition, contributing to open source can also help to boost your career. Many companies value employees who have experience working on open source projects, as it shows that they are passionate about their work and are willing to collaborate with others. This can make you a more attractive candidate for job opportunities and can even lead to career advancement._
+*In addition, contributing to open source can also help to boost your career. Many companies value employees who have experience working on open source projects, as it shows that they are passionate about their work and are willing to collaborate with others. This can make you a more attractive candidate for job opportunities and can even lead to career advancement.*
 
-_So, if you're a developer looking to gain experience, give back to the community, or boost your career, consider contributing to open source projects. You'll be helping to improve important software, and you'll be gaining valuable skills and experience along the way. Thanks for watching!_
+*So, if you're a developer looking to gain experience, give back to the community, or boost your career, consider contributing to open source projects. You'll be helping to improve important software, and you'll be gaining valuable skills and experience along the way. Thanks for watching!*
 
 ---
 
@@ -72,7 +72,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel!
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

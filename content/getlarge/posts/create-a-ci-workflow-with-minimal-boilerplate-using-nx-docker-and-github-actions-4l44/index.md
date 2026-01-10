@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 In this post, I share my blueprint for a hybrid CI workflow that neither forces you to adapt to a `cloud-only` nor `local-only` with **minimal** effort. Promising, right?
 
 I am sure you have encountered the following scenario: you work in a monorepo, with several applications depending on external services (such as database, email server, authentication API ...) and libraries, and you want to set up a CI pipeline to validate your changes **quickly** and **efficiently**.
@@ -73,7 +72,7 @@ Some notable technologies used in the project:
 
 GitHub Actions was introduced by GitHub in 2018, revolutionizing how developers automate their workflows. Before GitHub Actions, developers often relied on external CI services like Jenkins, Travis CI, or CircleCI. GitHub Actions brought CI/CD capabilities directly into the GitHub ecosystem, making it more **accessible** and tightly integrated with the code repository. With its YAML-based configuration and a vast marketplace of **reusable actions**, it simplified the setup of complex automation tasks and allowed for seamless integration with GitHub's other features, like pull requests and issues.
 
-![Example GitHub Actions workflow](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/miyu89ghr4ag8k9a283g.png)
+![Example GitHub Actions workflow](./miyu89ghr4ag8k9a283g.png)
 
 ### Nx Cloud
 
@@ -84,7 +83,7 @@ One of Nx Cloud's features is Nx Agents, which allows users to run tasks distrib
 Nx Agents automates the agent management process, making it easier to scale CI pipelines and distribute tasks efficiently.
 The great news is that Nx recently made Nx Agents available in their free tier, making it accessible to a broader audience.
 
-![Nx Agents in Hobby plan](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/advf23rzzo1a5634e4d0.png)
+![Nx Agents in Hobby plan](./advf23rzzo1a5634e4d0.png)
 
 GitHub Actions and Nx Cloud have democratized access to advanced CI/CD capabilities, making it easier for teams of all sizes to build, test, and deploy software.
 They also work great together. Nx Cloud enhances the GitHub Actions experience with real-time feedback, insights into CI performance, and better log readability.
@@ -206,7 +205,7 @@ services:
 > **Note**:
 >
 > - This Compose configuration could be further optimized by using an override file that would remove the services not needed for the **ci** profile such as `keto-postgres`, `kratos-postgres`, `keto-migrate`, and `kratos-migrate` since values will be stored in memory.
-> - DOCKER_API_TAG is an environment variable that will be set in the CI runner to pull the correct Docker image for the API service.
+> - DOCKER\_API\_TAG is an environment variable that will be set in the CI runner to pull the correct Docker image for the API service.
 
 For the `dev` profile, we will include the `kratos-selfservice-ui-node`, a self-service UI for Ory Kratos, which is unnecessary for the CI pipeline since the e2e tests will run headless.
 
@@ -263,26 +262,26 @@ The CI workflow is divided into 4 phases:
 
 The setup prepares the work environment by cloning the repository, setting up Node.js, and installing the dependencies.
 
-![Setup Phase](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rpamqfxfmj7d1rzy58gb.png)
+![Setup Phase](./rpamqfxfmj7d1rzy58gb.png)
 
 ### Run Tasks
 
 The Nx Agents phase starts the agents and distributes the tasks across the agents. The agents will run the tasks in parallel for changed projects, speeding up the pipeline execution.
 Only the tasks requiring no external services are running.
 
-![Nx Agents Phase](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xbp4229e8jgomoym2knv.png)
+![Nx Agents Phase](./xbp4229e8jgomoym2knv.png)
 
 ### Setup External Services
 
 This phase will build a custom Docker image for the API, pull existing images, and configure them using Docker Compose and DotenvX.
 
-![Prepare External Services Phase](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lrozg4hxe589dehsk28y.png)
+![Prepare External Services Phase](./lrozg4hxe589dehsk28y.png)
 
 ### Run E2E Tests
 
 The final phase runs the end-to-end tests for the projects that have changed.
 
-![Run E2E Tests Phas](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/eeuerf5nl9uhwz0tmqn0.png)
+![Run E2E Tests Phas](./eeuerf5nl9uhwz0tmqn0.png)
 
 ### Create GitHub Actions Workflow
 
@@ -481,9 +480,9 @@ jobs:
 
 ## Setup Nx App
 
-![Cat Fostering in Nx App](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/756j4bxx1z8qqx4emx0u.png)
+![Cat Fostering in Nx App](./756j4bxx1z8qqx4emx0u.png)
 
-The setup process for the Nx app is well-explained in this [video by the Nx team](https://youtu.be/4VI-q943J3o?si=wTqoRrfnp_8pgLIe&t=80) and includes the following steps:
+The setup process for the Nx app is well-explained in this [video by the Nx team](https://youtu.be/4VI-q943J3o?si=wTqoRrfnp_8pgLIe\&t=80) and includes the following steps:
 
 1. Connect your GitHub organization to Nx Cloud.
 2. Install the GitHub app.
@@ -494,7 +493,7 @@ For a detailed guide, refer to the [Nx documentation](https://nx.dev/ci/intro/tu
 
 ## Run CI Workflow Locally
 
-Debugging CI workflows is cumbersome and relatively slow, and there is a limit to _how many coffee cups you can drink in a day_ ☕️.
+Debugging CI workflows is cumbersome and relatively slow, and there is a limit to *how many coffee cups you can drink in a day* ☕️.
 Instead of the usual **commit-trigger-debug** loop, you can use [Act](https://github.com/nektos/act) to run your GitHub Actions workflows locally.
 
 When I discovered Act a few years ago, it was still in its infancy and supported only a few features. Since then, it has come a long way and now supports most of the GitHub Actions features, including secrets, environment variables, and Docker containers.
@@ -575,7 +574,7 @@ The **ciTargetName** option will create distinct targets for each E2E test file,
 
 The generated e2e tasks in the `cat-fostering-api-e2e`:
 
-![cat-fostering-api-e2e nx project](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qo3grm3hh3fk3xb98m5y.png)
+![cat-fostering-api-e2e nx project](./qo3grm3hh3fk3xb98m5y.png)
 
 > **Tips**:
 > This view is generated by the `nx show project cat-fostering-api-e2e` command.

@@ -22,7 +22,7 @@ To define a Tuple type, we use syntax similar to Javascript array syntax but ins
 type PersonNameAge = [string, number];
 ```
 
-In the example above, we are defining a Tuple type `PersonaNameAge`, as an array of length two, with the first element being a string for persons' name, and the next element being a number for persons' Age. 
+In the example above, we are defining a Tuple type `PersonaNameAge`, as an array of length two, with the first element being a string for persons' name, and the next element being a number for persons' Age.
 
 We can then go ahead and use the above tuple as follows:
 
@@ -133,7 +133,7 @@ const [count, setCount] = useState(0);
 const [name, setName] = useState("John Doe")
 ```
 
-There are other use cases but these are the most common ones I could come up with. 
+There are other use cases but these are the most common ones I could come up with.
 
 ## Conclusion
 

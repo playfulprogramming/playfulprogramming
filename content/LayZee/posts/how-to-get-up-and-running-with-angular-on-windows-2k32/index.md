@@ -26,7 +26,8 @@ The ngHeroes students had macOS, Linux, and Windows computers. We managed to get
 If you run into trouble, comment on this article.
 
 # 1. Node.js
-![Node.js](https://thepracticaldev.s3.amazonaws.com/i/dk1r7vxxwc4q2j5tyjx8.png)
+
+![Node.js](./dk1r7vxxwc4q2j5tyjx8.png)
 *We use Node.js as a JavaScript runtime for many web development tools.*
 
 The first thing you need to install is Node.js. It is a JavaScript runtime that can run web servers, scripts, and console applications. A lot of web development tools use Node.js.
@@ -51,7 +52,8 @@ If you are asked whether to include Boxstarter or Chocolatey in the installation
 To verify that Node.js is installed, open a terminal (command prompt) and run `node --version` which displays the installed version of Node.js.
 
 # 2. Windows Build Tools
-![PowerShell showing Windows Build Tools being installed](https://thepracticaldev.s3.amazonaws.com/i/lpn8f14rzudymx42h5mp.gif)
+
+![PowerShell showing Windows Build Tools being installed](./lpn8f14rzudymx42h5mp.gif)
 *Installing Windows Build Tools with NPM CLI.*
 
 We decided to use the newest version of Angular CLI, but before we can install it, we need to take care of more dependencies.
@@ -60,11 +62,11 @@ To be specific, some compilation tools are used by the package `node-gyp` for pr
 
 For Windows, we need Python 2.7, Visual Studio Build Tools, and C++ Build Tools. Luckily, we can install them all as a single package using the NPM CLI.
 
-___
+---
 
 If you previously installed Node.js with the Boxstarter or Chocolatey option included, you already have these dependencies. Skip to step 3.
 
-___
+---
 
 Run the following command to install all the Windows-specific dependencies for Angular CLI. It uses the NPM (Node Package Manager) CLI to install from the NPM Public Registry. You installed NPM CLI with Node.js.
 
@@ -78,14 +80,15 @@ npm install --global --production windows-build-tools
 
 Wait until the installation finishes. It will say “All done!”
 
-___
+---
 
 Installing the build tools *should* be the only step that differs from other operating systems than Windows. For example on Ubuntu and Debian you’ll run the command `sudo apt install gcc g++ make python2`.
 
-___
+---
 
 # 3. Angular CLI
-![The Angular CLI logo](https://thepracticaldev.s3.amazonaws.com/i/8st25hq7lofe1ddwbatg.png)
+
+![The Angular CLI logo](./8st25hq7lofe1ddwbatg.png)
 *Angular CLI is a development tool for Angular applications.*
 
 Now we are ready to install Angular CLI. As before, we use NPM CLI to install it.
@@ -97,7 +100,8 @@ npm install --global @angular/cli
 To verify that Angular CLI is installed, run the command `ng --version` which displays the installed version of Angular CLI and its dependencies.
 
 # 4. Git
-![The Git logo](https://thepracticaldev.s3.amazonaws.com/i/jcvo0yngdpldb0eak4ge.png)
+
+![The Git logo](./jcvo0yngdpldb0eak4ge.png)
 *Git is a popular distributed version control system*
 
 We are almost ready to create a new Angular application project. Before we can do that, we need a version control system to be able to back up our source code to a server. It will also enable us to create checkpoints in time that we can return to if we get stuck.
@@ -107,7 +111,8 @@ I suggest Git which has excellent support in the code editor we are going to use
 Go to [the Git website](https://git-scm.com/downloads). It will offer you an installation package based on your operating system.
 
 # 5. Visual Studio Code
-![IntelliSense in an Angular component template](https://thepracticaldev.s3.amazonaws.com/i/s7q0zh1paq11gllctjqd.gif)
+
+![IntelliSense in an Angular component template](./s7q0zh1paq11gllctjqd.gif)
 *The Angular Language Service extension for Visual Studio Code adds IntelliSense to Angular templates.*
 
 We need a code editor to develop our Angular application. Visual Studio Code is a free code editor offered by Microsoft. It has excellent Angular and TypeScript support through extensions. Visual Studio Code supports Linux, macOS, and Windows.
@@ -117,6 +122,7 @@ Install and run the Stable Build from [the Visual Studio Code website](https://c
 Make sure to [install the Angular Language Service extension](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template) afterwards. It will add IntelliSense to your Angular templates.
 
 # Scaffold an Angular application
+
 With all the tools installed, we can finally scaffold an Angular application. Open a command prompt and navigate to the directory that you want to create the project in.
 
 Use the following Angular CLI command to create the necessary directory and files for a new Angular application. Replace `my-app` with the name of the application which will also be the name of the directory that Angular CLI creates.
@@ -134,7 +140,8 @@ You will also be prompted to select a stylesheet format. CSS is the native brows
 The installation will take a few minutes since it installs a lot of tools and library dependencies that are used by Angular and Angular CLI.
 
 # Time to start coding
-![The Angular.io home page cover](https://thepracticaldev.s3.amazonaws.com/i/mdh9nb50ivlrye8gaxde.png)
+
+![The Angular.io home page cover](./mdh9nb50ivlrye8gaxde.png)
 *Time to start developing an Angular application. Try out [the “Getting started with Angular” tutorial on Angular.io](https://angular.io/start).*
 
 Now you have everything you need to start coding! Open the project directory with Visual Studio Code.
@@ -145,7 +152,7 @@ When developing your application, you will want to open a development web server
 npm start
 ```
 
-which is an NPM script shortcut for 
+which is an NPM script shortcut for
 
 ```bash
 ng serve
@@ -162,6 +169,7 @@ Angular CLI defined the `start` script in `package.json`. Try adding the `--open
 Now, all you have to do is develop your application. If you lack ideas or confidence in your development skills, [try the “Getting started with Angular” tutorial on Angular.io](https://angular.io/start).
 
 # Additional learning resources
+
 Read the guide “[Version Control in Visual Studio Code](https://code.visualstudio.com/docs/editor/versioncontrol#_git-support)” to learn about version control with Git in Visual Studio Code.
 
 [Angular.io](https://angular.io/docs) has development guides for most of the Angular framework.

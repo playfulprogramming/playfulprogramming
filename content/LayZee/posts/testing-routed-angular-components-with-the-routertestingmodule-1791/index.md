@@ -13,14 +13,13 @@ order: 1
 }
 ---
 
+*Original cover photo by [PublicDomainPictures](https://pixabay.com/photos/test-tube-lab-medical-research-214185/) on Pixabay.*
 
-_Original cover photo by [PublicDomainPictures](https://pixabay.com/photos/test-tube-lab-medical-research-214185/) on Pixabay._
-
-_Original publication date: 2020-06-02._
+*Original publication date: 2020-06-02.*
 
 Angular's `RouterTestingModule` can be used to test routed Angular components.
 
-A _routed component_ is a component which is the target of a navigation in that it's part of a configured route. They could be page components, shell components, layout components, dialogs, or nested components.
+A *routed component* is a component which is the target of a navigation in that it's part of a configured route. They could be page components, shell components, layout components, dialogs, or nested components.
 
 Some routed Angular components rely on dynamic route parameters such as our use case today, the hero detail component from the Tour of Heroes tutorial on Angular.io.
 
@@ -30,15 +29,15 @@ Today, we're first going to walk through well-structured example of a shallow ro
 
 Then we'll create an integrated routed component test using the router testing Angular module. To understand what the `RouterTestingModule` does, refer to "[Testing Angular routing components with the RouterTestingModule](https://indepth.dev/testing-angular-routing-components-with-the-routertestingmodule/#angular-s-routertestingmodule)".
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/qhhew78vwesmc24sddmg.png) _Figure 1. Navigation to the `HeroDetailComponent`._
+![](./qhhew78vwesmc24sddmg.png) *Figure 1. Navigation to the `HeroDetailComponent`.*
 
 Our case study is routed component test suites for the `HeroDetailComponent` from the Tour of Heroes tutorial on Angular.io. Figure 1 illustrated that when navigation to the dynamic `/detail/:id` route is triggered, the hero detail component is rendered with the name of the relevant hero in its title.
 
 What happens is this:
 
-1.  Navigation is triggered from some routing component. _Which_ routing component is out of scope for this test suite.
-2.  The hero detail component needs to load the hero data based on the specified `id` route parameter.
-3.  The hero name is displayed in the hero detail component's title element.
+1. Navigation is triggered from some routing component. *Which* routing component is out of scope for this test suite.
+2. The hero detail component needs to load the hero data based on the specified `id` route parameter.
+3. The hero name is displayed in the hero detail component's title element.
 
 Now, let's get started!
 
@@ -112,7 +111,7 @@ export class HeroDetailComponent implements OnInit {
 }
 ```
 
-_Listing 1B. The hero detail component model._
+*Listing 1B. The hero detail component model.*
 
 The hero detail component is a routed component as it has a configured route which can be seen in Listing 2.
 
@@ -126,7 +125,7 @@ const routes: Routes = [
 ];
 ```
 
-_Listing 2. The routes which are declared in the `AppRoutingModule` of the Tour of Heroes tutorial._
+*Listing 2. The routes which are declared in the `AppRoutingModule` of the Tour of Heroes tutorial.*
 
 Let's begin by creating an isolated component test. We'll create a shallow component test for the `HeroDetailComponent`. It's shallow because we intentionally don't render all or any child components.
 
@@ -179,7 +178,7 @@ describe('HeroDetailComponent (shallow)', () => {
 });
 ```
 
-_Listing 3A. Test utilities for the shallow routed component test._
+*Listing 3A. Test utilities for the shallow routed component test.*
 
 The `getTitle` function returns the text content of the heading in the hero detail component by querying its debug element and accessing the native element.
 
@@ -243,7 +242,7 @@ describe('HeroDetailComponent (shallow)', () => {
 });
 ```
 
-_Listing 3B. Test setup for the shallow routed component test._
+*Listing 3B. Test setup for the shallow routed component test.*
 
 First we create a fake `HeroService` (1) to load data for a specific hero based on an ID. We replace the `ActivatedRoute` service with a stub.
 
@@ -269,7 +268,7 @@ describe('HeroDetailComponent (shallow)', () => {
 });
 ```
 
-_Listing 3C. The test case for our shallow routed component test._
+*Listing 3C. The test case for our shallow routed component test.*
 
 First, we simulate navigation to a route with a valid hero ID (1). Then we trigger change detection (2) to let our component update the DOM. Remember that the `navigateByHeroId` test utility stubs a parameter in the activated route stub.
 
@@ -372,7 +371,7 @@ describe('HeroDetailComponent (shallow)', () => {
 });
 ```
 
-_Listing 4. The shallow routed component test suite for the `HeroDetailComponent`._
+*Listing 4. The shallow routed component test suite for the `HeroDetailComponent`.*
 
 [The full test suite is available in this Gist](https://gist.github.com/LayZeeDK/222eb704349c80d6d8d7885e934d9159).
 
@@ -417,7 +416,7 @@ describe('HeroDetailComponent (integrated)', () => {
 });
 ```
 
-_Listing 5A. Test utilities for the integrated routed component test._
+*Listing 5A. Test utilities for the integrated routed component test.*
 
 We will soon see that our integrated test is simulating a tiny application with a single route for our component. The test root component has a router outlet (1) which will render our component once it's configured in a test route. The `TestRootComponent` is simulating what's commonly named the `AppComponent`.
 
@@ -492,7 +491,7 @@ describe('HeroDetailComponent (integrated)', () => {
 });
 ```
 
-_Listing 5B. Test setup for our integrated routed component test._
+*Listing 5B. Test setup for our integrated routed component test.*
 
 We configure the Angular testing module by our component under test (2), the `HeroDetailComponent`.
 
@@ -536,7 +535,7 @@ describe('HeroDetailComponent (integrated)', () =>
 });
 ```
 
-_Listing 5C. The test case of our integrated routed component test._
+*Listing 5C. The test case of our integrated routed component test.*
 
 The integrated test case in Listing 5C looks very similar to our shallow routed component test case, except we have to use the `advance` test utility function (1).
 
@@ -625,7 +624,7 @@ describe('HeroDetailComponent (integrated)', () => {
 });
 ```
 
-_Listing 6. The integrated routed component test suite._
+*Listing 6. The integrated routed component test suite.*
 
 Notice again that we're using the real `Router` service to navigate to a `/detail/:id` route (1) and that this is done within the Angular zone.
 
@@ -643,7 +642,7 @@ We have test suites exercising what we would think is very simple runtime behavi
 
 What did we test in our routed component test suite?
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/qhhew78vwesmc24sddmg.png) _Figure 1 (repeated). Navigation to the `HeroDetailComponent`._
+![](./qhhew78vwesmc24sddmg-1.png) *Figure 1 (repeated). Navigation to the `HeroDetailComponent`.*
 
 We verified that the hero's name is displayed in the component title when we navigate to the hero detail route.
 

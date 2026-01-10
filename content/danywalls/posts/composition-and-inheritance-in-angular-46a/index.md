@@ -19,11 +19,11 @@ It appears as a solution (and it's) and works. But the problem comes when we fee
 
 ## The case
 
-We work for 'this_is_angular' and decided to build a page with a newsletter form. Looks easy, We create the `NewsLetterComponent`, inject form builder, and create two methods to show the errors and save.
+We work for 'this\_is\_angular' and decided to build a page with a newsletter form. Looks easy, We create the `NewsLetterComponent`, inject form builder, and create two methods to show the errors and save.
 
-> The final live example is [https://stackblitz.com/edit/angular-ivy-a4adjr](https://stackblitz.com/edit/angular-ivy-a4adjr).
+> The final live example is <https://stackblitz.com/edit/angular-ivy-a4adjr>.
 
-Our newsletter components looks like: 
+Our newsletter components looks like:
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -59,8 +59,10 @@ export class NewsletterComponent implements OnInit {
   }
 }
 
-``` 
-And the template like: 
+```
+
+And the template like:
+
 ```html
 <form [formGroup]="newsLetterForm" (ngSubmit)="save()">
   <h1>Newsletter</h1>
@@ -70,7 +72,7 @@ And the template like:
 </form>
 ```
 
-One week later, we require another form. The waiting list component is closely similar to the newsletter form, save the email, show errors, and send the data. 
+One week later, we require another form. The waiting list component is closely similar to the newsletter form, save the email, show errors, and send the data.
 
 We create another form with the same behavior one form, one validation, and a submit.
 
@@ -119,6 +121,7 @@ export class WaitingListComponent  {
 </form>
 
 ```
+
 In the afternoon, @bezael said, maybe we need the same form, for password recovery all these components are close similar looks duplicate code.
 
 My smart solution to avoid duplicate code and make it more predictable is creating BaseForm class with the methods and field declaration and my forms extend from my base form class.
@@ -212,11 +215,11 @@ export class RecoveryPasswordComponent extends BaseForm {
 </form>
 ```
 
-I feel powerful and unstoppable, and I can build any form fast :) 
+I feel powerful and unstoppable, and I can build any form fast :)
 
 ## The problem
 
-Like the normal life in developers, the changes came and new requirement appears, business wants for the recovery, and waiting-list component adds a tracking, using analytics. 
+Like the normal life in developers, the changes came and new requirement appears, business wants for the recovery, and waiting-list component adds a tracking, using analytics.
 Because the case is for two components my idea is to add these methods to the superclass and the dependency of the HTTP request.
 
 Update the constructor and create the sendToAnalytics method.
@@ -232,6 +235,7 @@ constructor(public fb: FormBuilder, public http: HttpClient) {}
       });
   }
 ```
+
 Because my base class changed, we need to update the recovery and waiting list to pass the new parameters required for the FormBase class.
 
 ```typescript
@@ -239,23 +243,25 @@ Because my base class changed, we need to update the recovery and waiting list t
     super(fb, http);
     this.sendToAnalytics();
   }
-``` 
-Also, news-letter needs to pass the new parameter because inherits from baseForm . 
+```
+
+Also, news-letter needs to pass the new parameter because inherits from baseForm .
 
 ```typescript
  constructor(public fb: FormBuilder, public http: HttpClient) {
     super(fb, http);
   }
 ```
+
 Something looks not nice...
 
-- Why does the newsletter component need to inject a dependency not related to him? 
+- Why does the newsletter component need to inject a dependency not related to him?
 
-- Why does every change in the base class impact my component? 
+- Why does every change in the base class impact my component?
 
 - Why do my components need too many parameters in the constructor, if he doesn't need them.
 
-- What happens if tomorrow the base class needs another stuff only for the waiting list, for example, call another service or show a new console log message? 
+- What happens if tomorrow the base class needs another stuff only for the waiting list, for example, call another service or show a new console log message?
 
 > Read more about  [Constructor Over-injection code smells](https://fullboarllc.com/reducing-dependency-injection-code-smell/)
 
@@ -272,15 +278,16 @@ Something looks not nice...
 ```
  super(fb, http, 'HELLO');
 ```
+
 All components extended from the base form need to provide all these parameters for the superclass, and we start to face these problems in the testing phase where we need or mock dependencies without an actual use in our component.
 
 > The Tests will expose bad design fast @[Michael Karén](@melcor76)
 
-## Why did it happen, and what can I do? 
+## Why did it happen, and what can I do?
 
 The original idea re-uses the business code using inheritance and extends my class, and it looks like easy maintenance is inheritance.
 
-## What is inheritance? 
+\## What is inheritance?
 
 Inheritance `is a` relationship between classes, the subclass from the superclass. The common example we found on the internet is `animal -> dog`.
 
@@ -290,8 +297,7 @@ It also impacts the test; when we change the base, it changes the component and 
 
 > Inheritance shouldn't be the first tool in our toolbox, it should be the last. @[Lars Gyrup Brink Nielsen](@LayZee)
 
-
-## What Composition? 
+## What Composition?
 
 The main difference between inheritance and composition is the object `has an a` relationship, using a reference to one field, but it doesn't know how it is built or required to be ready.
 
@@ -302,11 +308,11 @@ class Helper  {
 }
 ```
 
-An extra option is to use an interface to these fields and use dependency Inversion to separate from the concrete implementation. We can change in runtime and replace it with another object dynamically. 
+An extra option is to use an interface to these fields and use dependency Inversion to separate from the concrete implementation. We can change in runtime and replace it with another object dynamically.
 
 The creation is not visible in composition, only by methods or fields, and we change the implementation without breaking our code.
 
-## What can we do with the current problem? 
+## What can we do with the current problem?
 
 First, we need to detect what needs our forms.
 
@@ -369,18 +375,19 @@ export class WaitingListComponent {
 }
 ```
 
-What do we get? 
+What do we get?
 
 Our components have not a direct linked with baseForm re-use the business logic behind and also:
 
-- If tomorrow I need extra dependency into the _baseForm, my components don't care.
+- If tomorrow I need extra dependency into the \_baseForm, my components don't care.
 
 - I write the test for the waiting-list component. It expects a form group doesn't care which or who provides it.
+
 - We are only exposing the methods related to my case, not the whole business.
 
 We can re-use the same approach for all my components and clean the constructor only using the service.
 
-## Extra case 
+## Extra case
 
 My team talks about using the newsletter with Spanish errors and sending the data to another endpoint. :( what can we do? I can create a new method saving for the new provider and send a new parameter to Spanish errors.
 
@@ -398,6 +405,7 @@ export abstract class AbstractFormWrapper {
 }
 
 ```
+
 Because the default FormWrapperService already fits with our abstract class, change the signature.
 
 ```typescript
@@ -443,10 +451,11 @@ export class FormWrapperTrackingService implements AbstractFormWrapper {
   }
 }
 ```
+
 The FormWrapperTrackingService fits with the abstract class contract, so we need to change the signature in the constructor of our components to use the specific version.
 
 We register the provider with a component because we limit a service instance to a component.
- 
+
 ```typescript
 @Component({
   selector: 'app-waiting-list',
@@ -488,10 +497,9 @@ And update the remaining components to use the original version of our FormWrapp
 
 Sorry for the extended example; inheritance is not a wrong solution. May we still need to use it sometimes, but using composition to make our components flexible to future change may be a good solution.
 
-> Final code [Github Repo](https://github.com/danywalls/how_handle_constructor_dependecies_in_components/tree/master
-) 
+> Final code [Github Repo](https://github.com/danywalls/how_handle_constructor_dependecies_in_components/tree/master)
 
-Keep in mind the following points: 
+Keep in mind the following points:
 
 - Inheritance is good to re-use code and easy to read, but with tightly coupled code and every change impact all related to the superclass.
 
@@ -502,15 +510,15 @@ Keep in mind the following points:
 - Avoid linking your component to real implementation using an interface or abstract class.
 
 If you are in the same situation refactor is one of the ways to take,  I thoroughly recommend the following videos and articles.
- 
+
 - [The key points of Working Effectively with Legacy Code](https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/).
 
 - [How to build a reusable form component](https://dev.to/this-is-angular/lean-angular-components-1abl) by @[Michael Karén](@melcor76)
 
-- [Lean Angular Components](https://dev.to/this-is-angular/lean-angular-components-1abl ) @[Lars Gyrup Brink Nielsen](@LayZee)
+- [Lean Angular Components](https://dev.to/this-is-angular/lean-angular-components-1abl) @[Lars Gyrup Brink Nielsen](@LayZee)
 
 - [Composition over Inheritance video explain by mpj](https://www.youtube.com/watch?v=wfMtDGfHWpA)
 
-- [Composition vs. Inheritance: How to Choose?]( https://www.thoughtworks.com/en-es/insights/blog/composition-vs-inheritance-how-choose)
+- [Composition vs. Inheritance: How to Choose?](https://www.thoughtworks.com/en-es/insights/blog/composition-vs-inheritance-how-choose)
 
 - [Using composition over inheritance in building Angular Components with Kate Sky](https://www.youtube.com/watch?v=50ALR6JRNrk)

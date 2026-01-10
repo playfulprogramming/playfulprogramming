@@ -15,7 +15,7 @@ During my daily activities I develop a lot of Azure Functions. Every time I stru
 
 In this article, I will show you how to use the Core Tools to fetch and publish settings for Azure Functions. By using the Core Tools, you can ensure that your local and remote environments are consistent and avoid errors due to missing or outdated settings.
 
-Let’s get started! 
+Let’s get started!
 
 ## Fetching Settings from Azure
 
@@ -80,7 +80,7 @@ Some of the options that are relevant for publishing settings are:
 
 - `-publish-local-settings`: This option publishes all the settings in `local.settings.json` to your Azure Function App. This will overwrite any existing settings on the cloud with the same name. If you want to exclude some settings from being published, you can use the `-publish-settings-only` option instead and specify the settings you want to publish.
 - `-overwrite-settings`: This option forces the command to overwrite the settings on the cloud even if they have been modified since the last fetch. By default, the command will prompt you to confirm the overwrite if it detects any changes.
-- `-nozip`: This option disables the zip deployment method and uses the run-from-package method instead. This can improve the performance and reliability of your Azure Function App, but it requires that your project folder is accessible from the cloud. For more information, see [here].
+- `-nozip`: This option disables the zip deployment method and uses the run-from-package method instead. This can improve the performance and reliability of your Azure Function App, but it requires that your project folder is accessible from the cloud. For more information, see \[here].
 
 For example, if you want to publish your local project and settings to `my-function-app` using the run-from-package method and overwrite any existing settings, you can run the following command:
 

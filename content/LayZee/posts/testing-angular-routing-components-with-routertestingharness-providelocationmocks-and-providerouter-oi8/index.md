@@ -13,12 +13,11 @@ order: 1
 }
 ---
 
-
-_Cover art by DALL·E 2._
+*Cover art by DALL·E 2.*
 
 It's been three years since [Testing Angular routing components with the RouterTestingModule](https://dev.to/this-is-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0). This article revisits integrated routing component tests with modern Angular APIs, including standalone components, [`provideRouter`](https://angular.io/api/router/provideRouter), [`provideLocationMocks`](https://angular.io/api/common/testing/provideLocationMocks), and [`RouterTestingHarness`](https://next.angular.io/api/router/testing/RouterTestingHarness). Additionally, we use a [SIFERS](https://medium.com/@kolodny/testing-with-sifers-c9d6bb5b362) for managing our test setup and test utilities.
 
-![The show hero detail use case](https://dev-to-uploads.s3.amazonaws.com/i/2nmyzdvl6jlded36ix89.png)
+![The show hero detail use case](./2nmyzdvl6jlded36ix89.png)
 
 <figcaption>The <em>show hero detail</em> use case.</figcaption>
 

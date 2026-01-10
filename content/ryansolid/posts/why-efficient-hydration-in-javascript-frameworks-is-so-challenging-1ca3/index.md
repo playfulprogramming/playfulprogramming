@@ -17,11 +17,11 @@ In most frameworks this process carries a pretty heavy cost when our page is fir
 
 You'd think there would be a lot ways to address this. And there are. But none of them are foolproof. Library authors have been circling around this for years incrementally improving on techniques. So today, I thought we'd take a look at the topic of hydration specifically to best understand what we are dealing with.
 
--------------
+---
 
 ## Debunking Server Rendering as the Silver Bullet
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j56zwibudnuhfoxiyb1k.jpeg)
+![Image description](./j56zwibudnuhfoxiyb1k.jpeg)
 
 So you've taken your favorite client rendering JavaScript Framework and now have it rendering on the server. Better SEO. Better performance. Best of both worlds.
 
@@ -39,7 +39,7 @@ It's not all bad. Generally speaking your main content should be visible faster 
 
 > **Note**: This is highly dependent on consumer network and data latency. And there are many techniques to address this load performance timing like streaming. But I seek to illustrate this isn't a clear win and we have new tradeoffs and considerations.
 
--------------
+---
 
 ## The Fundamental Problem
 
@@ -57,11 +57,11 @@ With client rendering we just sent the template, and requested the data to rende
 
 So having the realized HTML from the server is where we get all the benefits of server rendering. It lets us not be at the mercy of JavaScript loading times to display our site. But how do we combat the inherent extra overhead that comes from server rendering?
 
----------------
+---
 
 ## Static Routes (No Hydration)
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/x3ss7jjfc6cp56km0msk.jpeg)
+![Image description](./x3ss7jjfc6cp56km0msk.jpeg)
 
 Examples: [Remix](https://remix.run/), [SvelteKit](https://kit.svelte.dev/), [SolidStart](https://github.com/solidjs/solid-start)
 
@@ -71,10 +71,11 @@ Well of course unless you need JavaScript. You could sneak in some vanilla JavaS
 
 This is the no nonsense way to approach this though. But realistically once you add dynamic stuff and you want to leverage the framework you are pulling everything in. This approach is something we've always been able to do with SSR with pretty much every solution out there but it also isn't particularly flexible. It's a cool trick but it isn't really a solve for most things.
 
------------------------
+---
 
 ## Lazy-loading the JavaScript (Progressive Hydration)
-[![Image please! comic strip by Crystallize](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3fdhcmqfau9f97rkaqcx.png)](https://crystallize.com/comics/image-please!)
+
+[![Image please! comic strip by Crystallize](./3fdhcmqfau9f97rkaqcx.png)](https://crystallize.com/comics/image-please!)
 
 Examples: [Astro](https://astro.build/)(*In combination w/ Islands*)
 
@@ -86,11 +87,11 @@ So maybe this might benefit apps that have wide and shallow trees but that isn't
 
 This approach alone also can't do anything to save us from serializing all the data that could be used. We don't know what will eventually load so it all needs to be available.
 
------------------
+---
 
 ## Extracting Data from the HTML
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ebkdm43s1tgajb7zqufs.jpeg)
+![Image description](./ebkdm43s1tgajb7zqufs.jpeg)
 
 Examples: [Prism Compiler](https://github.com/kaleidawave/prism)
 
@@ -98,13 +99,13 @@ The other thought that people usually have right away is maybe I can reverse eng
 
 If you have derived data trying to get back to the original to re-derive is in many cases impossible. For example if you show a formatted timestamp in your HTML you might have not encoded the seconds but what do you do if another UI option allows you to change to a format that does.
 
-Unfortunately this applies not only to state we initialize but data coming databases and APIs. And often it isn't as simple as not serializing the whole thing into the page. Remember most hydration runs the app again on initialization in the browser top-down. Isomorphic data fetching services will often try to refetch it again in the browser at this time if you don't send it and setup some sort of client side cache with the data. 
+Unfortunately this applies not only to state we initialize but data coming databases and APIs. And often it isn't as simple as not serializing the whole thing into the page. Remember most hydration runs the app again on initialization in the browser top-down. Isomorphic data fetching services will often try to refetch it again in the browser at this time if you don't send it and setup some sort of client side cache with the data.
 
----------------------
+---
 
 ## Islands (Partial Hydration)
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fdf88s3z57vtnn52eabu.jpeg)
+![Image description](./fdf88s3z57vtnn52eabu.jpeg)
 
 Examples: [Marko](https://markojs.com/), [Astro](https://astro.build/)
 
@@ -118,11 +119,11 @@ One solution is developing a compiler smart enough to determine state at a subco
 
 More importantly, islands means server rendering each page on navigation. This multi-page (MPA) approach is the way the web classically works. But it means no client side transitions and loss of client state on navigation. Effectively, Partial Hydration is an improved version of our Static Routes above. One where you only pay for the features you use.
 
-------
+---
 
 ## Out of Order Hydration
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/q1akmodo3iiqdlskj9uh.jpeg)
+![Image description](./q1akmodo3iiqdlskj9uh.jpeg)
 
 Examples: [Qwik](https://github.com/builderio/qwik)
 
@@ -136,11 +137,11 @@ But this also applies to children being passed into our components. They need to
 
 This makes this approach very different feeling to develop in as the rules of parent child interactions we are used to need to be orchestrated and restricted. And like lazy-loading this approach doesn't save us on data duplication since while it can hydrate fairly granularly it doesn't ever know which components actually need to be sent to the browser.
 
---------------
+---
 
 ## Server Components
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5mkh1mfyjptjtdz0qztk.jpeg)
+![Image description](./5mkh1mfyjptjtdz0qztk.jpeg)
 
 Examples: [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html)
 
@@ -150,15 +151,14 @@ The challenge is that to re-render the static parts on the server you need speci
 
 More so even if you've removed incremental overhead you need a larger runtime in the browser to make this work. So the complexity of this system probably doesn't offset the cost until you get to larger websites and apps. But when you have reached that threshold this feels like the sky is the limit. Maybe not the best approach for maximizing initial page loads but a unique way to preserve the benefits of SPAs without scaling your site to infinite JavaScript.
 
------------
+---
 
 ## Conclusion
 
-This is an area that is constantly being worked on so new techniques are constantly emerging. And the truth of the matter is the best solution might be a combination of different techniques. 
+This is an area that is constantly being worked on so new techniques are constantly emerging. And the truth of the matter is the best solution might be a combination of different techniques.
 
 What if we took a compiler that could automatically generate sub-component islands, could hydrate out of order, and supported server components? We'd have the best of all worlds, right?
 
 Or maybe the tradeoffs would be too extreme that it wouldn't jive with people's mental model. Maybe the complexity of solution too extreme.
 
 There are a lot of ways this can go. Hopefully now you have some more insight into the work that has been going on for the last few years to solve one of modern JavaScripts most challenging problems.
-

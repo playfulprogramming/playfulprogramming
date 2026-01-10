@@ -17,11 +17,11 @@ After I finished the first article I wasn't sure how long it would be before we'
 
 So let's get this started. Fight!
 
---------------
+---
 
 ## 1. Build vs No Build
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j2zshyzz8l65wojq16jp.png)
+![Alt Text](./j2zshyzz8l65wojq16jp.png)
 
 Several years ago I read a great article(which I can't seem to find anymore) that saw JavaScript being at a crossroads. That "the language" of JavaScript was at odds with what the author considered "the machine". I barely appreciated the nuance in the take but standing here now it all makes sense.
 
@@ -47,11 +47,11 @@ As the author of the original article concluded it's too late to stop the machin
 
 But what is great about the web is we can always just turn it off. `index.html` anyone? You won't find me in that lineup. But who knows with import maps and native ESM you might even feel like exposing your unminified source to inspire the next generation of JavaScript developers anew.
 
---------------
+---
 
 ## 2. Framework Specific vs Framework Agnostic
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ig2oj45hdjs4gfkfkobe.png)
+![Alt Text](./ig2oj45hdjs4gfkfkobe.png)
 
 Framework Agnostic. I mean that's the dream, right? We've been trying to achieve this for decades. So why aren't we here yet?
 
@@ -69,10 +69,11 @@ Even true when sufficiently complicated things are presented as standards or par
 
 There is nothing wrong with that and like any pendulum, we really need both parts, experimentation/growth, and consolidation/standardization. Just, I wouldn't be so sure that either side presents more stability over the long term. Ultimately all things need to be adopted to ensure survival.
 
------------------
+---
+
 ## 3. Language Primitive vs Composition
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rujaztklglx5aibup82o.jpeg)
+![Alt Text](./rujaztklglx5aibup82o.jpeg)
 
 Composition is King. Or was it "Never bet against ~~JavaScript~~ composition"? As a framework author this is something I hold near and dear. Composition lets you build simple and extendable things without adding complexity. Being adaptable is much better than being flexible.
 
@@ -83,13 +84,15 @@ Derivations - computeds, memos, selectors
 Reactions - effects, autorun
 
 Even if we don't name it like [Svelte](https://svelte.dev), we have the same 3:
+
 ```js
 let x = 0; // state
 $: y = x * 2; // derivation
 $: console.log(`${y} is double ${x}`) // reaction
-``` 
+```
 
 So are all of these the same? Well not quite. [Svelte](https://svelte.dev) went the way of language keyword versus [React](https://reactjs.org)'s use of functions. It isn't unlike the difference between:
+
 ```js
 for(let i = 0; i < list.length; i++) {
   doSomething(list[i])
@@ -98,11 +101,12 @@ for(let i = 0; i < list.length; i++) {
 // and
 list.forEach(item => doSomething(item));
 ```
-What's the difference? Well once you want to abstract our list iterator here you can no longer call it with the same `for` syntax. Instead we need to use functions like `forEach`. In fact you can make `myForEach` with the exact same signature. And do so ad nauseum. 
+
+What's the difference? Well once you want to abstract our list iterator here you can no longer call it with the same `for` syntax. Instead we need to use functions like `forEach`. In fact you can make `myForEach` with the exact same signature. And do so ad nauseum.
 
 Know what else is composable? Components. They weren't always part of the frontend framework landscape, but since their introduction have been ubiquitous. You might use `list.map` somewhere but `<VirtualList>`, `<PaginatedList>` also extend the pattern forward in a composable way.
 
-Like `for` loop, template helpers like [Svelte](https://svelte.dev)'s `#each` are language level instead of composable. This allows for a dedicated and clean syntax. But when you move to `<PaginatedList>` it requires a completely different syntax([Slot Props](https://svelte.dev/tutorial/slot-props)). And [Svelte](https://svelte.dev) isn't alone. Most template DSLs have gone this way with their control flow. 
+Like `for` loop, template helpers like [Svelte](https://svelte.dev)'s `#each` are language level instead of composable. This allows for a dedicated and clean syntax. But when you move to `<PaginatedList>` it requires a completely different syntax([Slot Props](https://svelte.dev/tutorial/slot-props)). And [Svelte](https://svelte.dev) isn't alone. Most template DSLs have gone this way with their control flow.
 
 So who cares? Well there is something incredibly powerful about the framework provided primitives and the end user creations being the same. It provides a simplicity in its consistency and makes extensions feel native. If you've used `useState` you know how to use `useLocalState`. If you've used `<For>` you know how to use `<PaginatedList>`. It isn't special.
 
@@ -110,10 +114,11 @@ The best part is if you don't like what is provided with composable APIs you can
 
 Language level primitives do have benefits. They are often easier to analyze which lends to compilers being able to optimize. So I look forward to seeing how developers look to incorporating the best of both worlds without too much compromise. So far that's things like [Vue](https://vuejs.org)'s [ref sugar](https://github.com/vuejs/rfcs/discussions/369) and [Marko](https://www.markojs.com)'s [Tags API](https://dev.to/ryansolid/introducing-the-marko-tags-api-preview-37o4). It's definitely something to keep an eye out for.
 
------------------
+---
+
 ## 4. Runtime vs Runtime-less Frameworks
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ra4xs5iu2c5eg4wkr3ed.jpeg)
+![Alt Text](./ra4xs5iu2c5eg4wkr3ed.jpeg)
 
 Ok, I admit it. This one is complete bait. It would be interesting to see a truly runtime-less JavaScript framework with a significant feature set. But these don't really exist and for good reason.
 
@@ -128,25 +133,25 @@ More often than not compiling away the library just moves the size from one plac
 
 30 TodoMVCs or 19 TodoMVCs is still a steep curve to reach size equivalency so obviously, this is net positive on size for the most part.
 
-And making this trade can have other benefits. More specific code can be more performant than generalized code and at each touchpoint be less code than the equivalent generic method. Obviously, these can add up, but these sorts of tradeoffs are often worth it. 
+And making this trade can have other benefits. More specific code can be more performant than generalized code and at each touchpoint be less code than the equivalent generic method. Obviously, these can add up, but these sorts of tradeoffs are often worth it.
 
-Alternatively, there are frameworks that are completely runtime that have even smaller base runtimes. [HyperApp](https://github.com/jorgebucaran/hyperapp) advertises a size of about ~1kb, which is even smaller than Svelte's ~1.6kb. So there is no hard and fast rule.
+Alternatively, there are frameworks that are completely runtime that have even smaller base runtimes. [HyperApp](https://github.com/jorgebucaran/hyperapp) advertises a size of about \~1kb, which is even smaller than Svelte's \~1.6kb. So there is no hard and fast rule.
 
 In fact, it's become a mostly pointless exercise even looking at [bundlephobia.com](https://bundlephobia.com/) sizes. Modern tree-shaking and dead code elimination can produce sizes noticeably smaller than advertised. But probably more important is that a pattern you find in many frameworks of using submodules like `preact/hooks`, `svelte/motion`, or `solid-js/store` don't count towards the advertised bundle size.
 
 So the takeaway is the only way to really know framework size is in examples of where it is being used. Marketing buzz like runtime-less is mostly irrelevant to the conversation on size. There are small libraries and there are smaller libraries.
 
------------------
+---
 
 ## 5. Progressive Enhancement vs Hydration
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ejmxea3pznxc03q5swnp.gif)
+![Alt Text](./ejmxea3pznxc03q5swnp.gif)
 
 I hear the term progressive enhancement thrown around a lot. Although the first place I really acknowledged it was the promise of Web Components. The idea is that you could define extra behavior and fallback to native behavior if say the browser didn't support certain features or JavaScript was enabled. Sadly, due to Apple blocking progress on native built-ins it's pretty hard to consider Web Components successful here.
 
 Nowadays, I hear this term to mean adding small amounts of JavaScript to enhance a server-rendered page. Things like [Stimulus](https://stimulus.hotwired.dev/), [Alpine.js](https://alpinejs.dev/), or [Petite Vue](https://github.com/vuejs/petite-vue). And admittedly these can be progressive enhancement but they can also not be. Simply adding JavaScript to add functionality to a page doesn't mean it works fine without it. There is no guarantee a button works as intended without the JavaScript.
 
-Conversely, anyone who watched [Svelte Summit](https://www.youtube.com/watch?v=fnr9XWvjJHw&t=19103s) this year or saw the [Remix Run beta preview video](https://www.youtube.com/watch?v=4dOAFJUOi-s), knows these frameworks were showing off fully functioning sites with all JavaScript turned off even though they are full-blown Single Page Apps. Sure it's Svelte or React but that's progressive enhancement in my book.
+Conversely, anyone who watched [Svelte Summit](https://www.youtube.com/watch?v=fnr9XWvjJHw\&t=19103s) this year or saw the [Remix Run beta preview video](https://www.youtube.com/watch?v=4dOAFJUOi-s), knows these frameworks were showing off fully functioning sites with all JavaScript turned off even though they are full-blown Single Page Apps. Sure it's Svelte or React but that's progressive enhancement in my book.
 
 [Alpine.js](https://alpinejs.dev/), [Stimulus](https://stimulus.hotwired.dev/), and company are ultra-small frameworks that are built for adding JavaScript functionality on top of server-rendered DOM nodes instead of more substantial client-side rendering. But all JavaScript frameworks that server render do this as well. They just call it "Hydration".
 
@@ -156,21 +161,21 @@ And that's it. Progressive enhancement is a consideration like Accessibility. A 
 
 This brings us to...
 
--------------
+---
 
 ## 6. Partial vs Progressive vs Resumable Hydration
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/k22661vsj12s9ka82rwq.png)
+![Alt Text](./k22661vsj12s9ka82rwq.png)
 
 So there are 3 things here. Or is this one thing. That's the whole problem. I'm sure some of you are just thinking this all makes you thirsty. Just how hydrated should our JavaScript be?
 
 All joking aside, this is an area with a huge amount of confusion and the reason is instead of naming a specific technique these are loosely-held descriptors. They describe a characteristic of the approach but not how it works. Regardless of the solution, we all need to do it to have interactive JavaScript on our server-rendered pages.
 
-Partial Hydration as the name implies is that not all of the page needs hydration. In practice, this means we don't need to send all of our component code to the browser. The term "Islands" gets used a lot and it makes sense as the most common approach involves breaking the app into a static page with only these "Islands" of components we need to send to the Browser. 
+Partial Hydration as the name implies is that not all of the page needs hydration. In practice, this means we don't need to send all of our component code to the browser. The term "Islands" gets used a lot and it makes sense as the most common approach involves breaking the app into a static page with only these "Islands" of components we need to send to the Browser.
 
 Progressive Hydration is the ability to hydrate the page as needed. Maybe when it comes into view or maybe on interaction. Even if you end up hydrating the whole page, by breaking up Hydration we can reduce the time spent during the initial load.
 
-Resumable Hydration is a technique to reduce the execution time during Hydration by serializing the data needed at a local component level to skip the need to do any calculations at hydration time. In so Hydration's only job at that point is to add event handlers. 
+Resumable Hydration is a technique to reduce the execution time during Hydration by serializing the data needed at a local component level to skip the need to do any calculations at hydration time. In so Hydration's only job at that point is to add event handlers.
 
 These techniques are all not mutually exclusive. [Astro](https://astro.build) leverages Partial and Progressive Hydration through its manual Islands approach to extend this capability on top of familiar frameworks. [Qwik](https://github.com/builderio/qwik) has been pioneering Resumable Hydration alongside its use of Component level Progressive Hydration to do a pretty good impression of Partial Hydration without explicit Islands. [Marko](https://www.markojs.com) has long used its compiler to automatically detect Islands but has been incorporating Resumable Hydration as a means to ship the least possible code to the browser.
 
@@ -178,6 +183,6 @@ But what this all means in a mechanical sense is a lot less clear. It comes down
 
 You might have noticed the lack of mention of the common solutions in this section like [React](https://reactjs.org), [Vue](https://vuejs.org), or [Svelte](https://svelte.dev). And part of that is Multi-Page App Frameworks are dominating innovation in this space given Single Page Apps are less optimizable in this way. But [VuePress](https://vuepress.vuejs.org/)' split bundles, and [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) are looking at ways to apply some of the savings there too.
 
--------------
+---
 
 And that does it for another installment of JavaScript vs JavaScript. I'm sure it won't be long before new topics present themselves in this ever-evolving ecosystem.

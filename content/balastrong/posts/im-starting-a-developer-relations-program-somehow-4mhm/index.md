@@ -13,14 +13,13 @@ order: 1
 }
 ---
 
-▶️ _Video version on YouTube: https://youtu.be/ERWzk5iOAiU_
+▶️ *Video version on YouTube: https://youtu.be/ERWzk5iOAiU*
 
-Hey everybody, look at that! I finally had a chance of using the [LinkedIn template with the airplanes](https://www.linkedin.com/posts/leonardo-montini_i-played-around-with-this-idea-for-a-few-activity-7340291979529879552-Gk9f?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB_ZOWoBOvhlbuFkrnqQEjGCAkyVBRwqKf8), and that's the announcement number one.
+Hey everybody, look at that! I finally had a chance of using the [LinkedIn template with the airplanes](https://www.linkedin.com/posts/leonardo-montini_i-played-around-with-this-idea-for-a-few-activity-7340291979529879552-Gk9f?utm_source=share\&utm_medium=member_desktop\&rcm=ACoAAB_ZOWoBOvhlbuFkrnqQEjGCAkyVBRwqKf8), and that's the announcement number one.
 
 But actually, the announcement number two is that I just added DevRel to my job title. So here's a story.
 
-![Airplanes](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/371cse8nafywzuiai4by.png)
-
+![Airplanes](./371cse8nafywzuiai4by.png)
 
 If you follow me, you know that I kind of have a passion for sharing content and sharing knowledge. The idea was to match this passion to the other passion that I have, that is: getting a salary from a company I work for. How can I make these two different worlds live next to each other, or at least have some kind of intersection between my work as a front-end developer and the passion of sharing content?
 
@@ -58,7 +57,7 @@ Let's connect more: https://leonardomontini.dev/newsletter
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

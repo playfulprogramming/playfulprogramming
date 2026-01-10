@@ -253,11 +253,11 @@ git push
 
 Once the code is pushed, we can go to the Actions tab and trigger the workflow manually.
 
-![Trigger action manually](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4sq0siwamg9r4cr15uqt.png)
+![Trigger action manually](./4sq0siwamg9r4cr15uqt.png)
 
 The workflow will start running and we'll see the logs of the action in the console.
 
-![Action running](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/e3c6ex7e3xy957kpa5fh.png)
+![Action running](./e3c6ex7e3xy957kpa5fh.png)
 
 Congratulations! You just created and ran your first GitHub Action!
 
@@ -331,7 +331,7 @@ By adding the `with` section, we're passing the `name` input to the action.
 
 We can now run the action again and see the input being passed to the action.
 
-![Input passed to the action](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ffzycizo4pen9aqvwl5n.png)
+![Input passed to the action](./ffzycizo4pen9aqvwl5n.png)
 
 If it doesn't work (`Error: Cannot find module '@actions/core'`) that's ok, we'll fix it in the next section when we inluce `@vercel/ncc` in the workflow.
 
@@ -427,7 +427,7 @@ In case you get an error that says "Resource not accessible by integration", you
 
 Setting it to "Read and write permissions" will be enough.
 
-![Workflow permissions](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/of9yx3ldkmw9ds804y2g.png)
+![Workflow permissions](./of9yx3ldkmw9ds804y2g.png)
 
 ### Run the action
 
@@ -444,7 +444,7 @@ git push
 
 Cool! We can now create a new branch, change a file and open a Pull Request. We'll see the action running and adding the label to the Pull Request, aaaand...
 
-![Build error](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qg1x580o1v36btzykza7.png)
+![Build error](./qg1x580o1v36btzykza7.png)
 
 ```
 Error: Cannot find module '@actions/core'
@@ -478,7 +478,7 @@ We can now run `npm run build` again, then commit and push the changes.
 
 Create a new branch, change a file and open a Pull Request. This time, you'll see the action running and adding the label to the Pull Request.
 
-![Label added to the Pull Request](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/au4cvf3m88rfjeyrnnif.png)
+![Label added to the Pull Request](./au4cvf3m88rfjeyrnnif.png)
 
 ## Testing the action
 
@@ -618,7 +618,7 @@ This will run jest with the configuration we just created. If you want to run th
 
 We can now run `npm test` to run the tests. You should see something like this:
 
-![Tests running](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/e879fykfn8u5jlb2f2m4.png)
+![Tests running](./e879fykfn8u5jlb2f2m4.png)
 
 Our action works as intended and we have some tests to prove it!
 
@@ -693,7 +693,7 @@ In our example it would be something like this:
 
 If you now hit `F5` to start the debugger, you'll see that the environment variables are available in your action and are properly read by `getInput`.
 
-![Debugging the Action](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sr4bwcg57n8jz8ze91sm.png)
+![Debugging the Action](./sr4bwcg57n8jz8ze91sm.png)
 
 ## Publishing the action
 
@@ -717,7 +717,7 @@ Ok, here we are!
 
 How do we publish our action? Just look at your GitHub repo. If you've properly set up an `action.yml` file, you should see a banner at the top of the page like this one:
 
-![Publishing the action](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8xmg11iy690cf5ttjuyj.png)
+![Publishing the action](./8xmg11iy690cf5ttjuyj.png)
 
 ### Going live on the GitHub Marketplace
 
@@ -727,7 +727,7 @@ You can decide if you only want to make the action available to everyone, or you
 
 The next step will be creating a tag and an official release for your action.
 
-![Releasing the action](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/g3aa1atp9iqisahwwl6a.png)
+![Releasing the action](./g3aa1atp9iqisahwwl6a.png)
 
 Almost there... click the `Publish release` green button and you're done!
 
@@ -878,7 +878,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

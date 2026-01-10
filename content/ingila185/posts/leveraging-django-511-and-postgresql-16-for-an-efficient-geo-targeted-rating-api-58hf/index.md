@@ -17,7 +17,7 @@ For the backend, I selected a powerful tech stack: Django 5.1.1 with Django REST
 
 ## Django 5.1.1: A Performance Leap
 
-It had been a while since I last utilized Django. My prior experience stemmed from the [Meta Backend Developer specialization](https://coursera.org/share/2641cc5ab130fcbb040873a6efcdc1ce), where I employed Django 4.1, the latest version at that time. 
+It had been a while since I last utilized Django. My prior experience stemmed from the [Meta Backend Developer specialization](https://coursera.org/share/2641cc5ab130fcbb040873a6efcdc1ce), where I employed Django 4.1, the latest version at that time.
 
 Stepping into Django 5.1.1, a distinct sense of improvement in performance was undeniable. This solidified my appreciation for Django's exceptional Object-Relational Mapper (ORM), which continues to streamline database interactions.
 
@@ -34,15 +34,3 @@ The combination of Django 5.1.1, DRF, Python 3.12, and PostgreSQL 16 within a Do
 In conclusion, this project served as a valuable exploration of the latest advancements in Django and PostgreSQL. The performance optimizations in Django 5.1.1, coupled with PostgreSQL 16's feature set, particularly Parallel Execution and Bulk Data Loading, make this tech stack a compelling choice for building robust and scalable REST APIs. The seamless integration within a Dockerized environment further enhances development efficiency. I highly recommend considering this combination for your next project that demands exceptional performance and a smooth developer experience.
 
 If you want to have a look at the API, you can simply visit [my github](https://github.com/Ingila185). You can also [learn more about me](https://next-js-portfolio-two-ebon.vercel.app/en)
-
-
-
-
-
-
-
-
-
-
-
-

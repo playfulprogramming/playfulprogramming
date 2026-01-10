@@ -11,12 +11,11 @@ socialImage: "social-image.png"
 }
 ---
 
-
 *Cover photo by [Pixabay](https://www.pexels.com/photo/abstract-alcohol-art-bar-274131/) on Pexels.*
 
 *Original publication date: 2019-12-26.*
 
-The Angular Ivy runtime introduces a new concept called _component features_. In the first release version of Ivy, component features are not publically available. However, component features are applied internally by Angular to all components.
+The Angular Ivy runtime introduces a new concept called *component features*. In the first release version of Ivy, component features are not publically available. However, component features are applied internally by Angular to all components.
 
 Component features are mixins for components. They add, remove or modify traits at runtime.
 
@@ -60,7 +59,7 @@ To get a better understanding about the reasoning behind Minko's concerns, we ne
 
 Component feature factories are functions that take parameters to customise the effect of adding the component feature. A component feature factory is a higher-order function in that it returns a function. The function returned by the factory is the actual component feature.
 
-> A _component feature_ is a function that takes a _component definition_ as a parameter and performs side effects.
+> A *component feature* is a function that takes a *component definition* as a parameter and performs side effects.
 
 Component features are applied to component definitions once by the Angular runtime.
 
@@ -68,7 +67,7 @@ We'll look at an example component features in a minute, but first let's discuss
 
 ## Component definitions
 
-_Component definitions_ are Angular component annotations that are available at runtime. In Ivy, they are implemented as static properties on component classes. In Angular version 8 they were assigned to the static property `ngComponentDef`. However, this changed in Angular version 9, where instead the component definition is assigned to the static property `ɵcmp`. Theta (ɵ) indicates an _experimental_ (unstable or not finalised) part of Angular's API while _cmp_ is simply short for _component_ or rather _component definition_.
+*Component definitions* are Angular component annotations that are available at runtime. In Ivy, they are implemented as static properties on component classes. In Angular version 8 they were assigned to the static property `ngComponentDef`. However, this changed in Angular version 9, where instead the component definition is assigned to the static property `ɵcmp`. Theta (ɵ) indicates an *experimental* (unstable or not finalised) part of Angular's API while *cmp* is simply short for *component* or rather *component definition*.
 
 A component definition has the shape of  `ComponentDef<T>` which is a data structure with many metadata properties used by the Ivy runtime. Examples of metadata properties in the component definition include metadata about the view encapsulation mode, whether the component uses the `OnPush` change detection strategy, directive definitions available to the component view, component selectors, and lifecycle hooks.
 
@@ -105,7 +104,7 @@ export function withUsername(componentDef: ComponentDef<unknown>): void {
 }
 ```
 
-_Listing 1. The username component feature._
+*Listing 1. The username component feature.*
 
 Note that the feature in Listing 1 is not the function creating component instances or injecting anything. The feature's concern is to assign a new component factory to the component definition.
 
@@ -136,7 +135,7 @@ export class ProfileComponent {
 }
 ```
 
-_Listing 2. Applying the username component feature, if component features were supported by the `Component` decorator factory._
+*Listing 2. Applying the username component feature, if component features were supported by the `Component` decorator factory.*
 
 The promise of mixins without inheritance is that we can easily mix in multiple traits to a single class of objects. Looking at Listing 2, I bet you are able to guess that we can add multiple component features by listing multiple of them in the `features` option array.
 
@@ -144,7 +143,7 @@ Imagine the possibilities if Angular exposed this feature to us (pun intended).
 
 > Can we use them today?
 
-You bet! Of course, we need to start out with the usual caveat that _here be dragons._ Since we are using parts of the Angular framework's API that are meant to be experimental and internal, our code could break with any Angular update. We already learned that the static property name used to store the component definition at runtime had its name changed between Angular versions 8 and 9.
+You bet! Of course, we need to start out with the usual caveat that *here be dragons.* Since we are using parts of the Angular framework's API that are meant to be experimental and internal, our code could break with any Angular update. We already learned that the static property name used to store the component definition at runtime had its name changed between Angular versions 8 and 9.
 
 Let's look at a relatively simple class decorator that allows us to use component features today, but with no guarantees of being stable between different versions of Angular.
 
@@ -176,7 +175,7 @@ export function componentFeatures(features: ComponentDefFeatures) {
 }
 ```
 
-_Listing 3. Component features class decorator._
+*Listing 3. Component features class decorator.*
 
 The component features decorator in Listing 3 supports Ivy in Angular versions 8 and 9. It relies on the interface and type in Listing 4 since Angular does not directly expose the `ComponentDefFeature` interface yet.
 
@@ -200,7 +199,7 @@ export interface ComponentDefFeature {
 export type ComponentDefFeatures = ReadonlyArray<ComponentDefFeature>;
 ```
 
-_Listing 4. Component feature interface and collection type._
+*Listing 4. Component feature interface and collection type.*
 
 Going back  to our profile component example, we can use our custom decorator like shown in Listing 5.
 
@@ -226,7 +225,7 @@ export class ProfileComponent {
 }
 ```
 
-_Listing 5. Applying a component feature using our custom component features decorator._
+*Listing 5. Applying a component feature using our custom component features decorator.*
 
 ## Adding options to component features
 
@@ -257,7 +256,7 @@ export function withUsername(inputName = 'username$'): ComponentDefFeature {
 }
 ```
 
-_Listing 6. Component feature factory._
+*Listing 6. Component feature factory.*
 
 For completeness, Listing 7 demonstrates how to pass an option to a component feature factory.
 
@@ -283,7 +282,7 @@ export class ProfileComponent {
 }
 ```
 
-_Listing 7. Passing an option to a component feature factory._
+*Listing 7. Passing an option to a component feature factory.*
 
 ## The host features paradox
 
@@ -304,7 +303,7 @@ renderComponent(AppComponent, {
 });
 ```
 
-_Bootstrapping a component that implements `OnInit`._
+*Bootstrapping a component that implements `OnInit`.*
 
 So either the Angular team will have to bake in support for lifecycle hooks to those components, expose component features in a public API, just don't expose `renderComponent` publicly (which would be an awful decision) or add yet another `Component` decorator factory option.
 
@@ -316,7 +315,7 @@ The Angular team could consider only passing the component factory to custom com
 
 ## Directive features
 
-For completeness sake, I'll mention that directive features are also introduced by Ivy. They work almost exactly like component features, except the directive definition is stored in the static property `ɵdir` instead of `ɵcmp`, with _dir_ being short for _directive_ or rather _directive definition_.
+For completeness sake, I'll mention that directive features are also introduced by Ivy. They work almost exactly like component features, except the directive definition is stored in the static property `ɵdir` instead of `ɵcmp`, with *dir* being short for *directive* or rather *directive definition*.
 
 I'm sure you can figure out how to create and apply directive features based on the examples we discussed.
 
@@ -332,10 +331,10 @@ Component decorators can be used to mix in common traits or near-boilerplate glu
 
 We learned that Angular itself uses component features to mix in common traits. To learn more, search for these features in the Angular source code:
 
-* `ɵɵNgOnChangesFeature`
-* `ɵɵProvidersFeature`
-* `ɵɵInheritDefinitionFeature`
-* `ɵɵCopyDefinitionFeature`
+- `ɵɵNgOnChangesFeature`
+- `ɵɵProvidersFeature`
+- `ɵɵInheritDefinitionFeature`
+- `ɵɵCopyDefinitionFeature`
 
 Component features have been the main topic of our discussion, but we also learned that directive features work in a very similar way and that host features for bootstrapped components are already part of what might just get exposed as part of the public Angular API.
 
@@ -347,13 +346,13 @@ I hope that the Angular team decides to expose component features to us. I belie
 
 For inspirational purposes, I'm listing the use cases I imagine component features can address:
 
-* Route parameters, route data, query parameters
-* Replace container components, for example by interacting with NgRx Store, WebStorage and other means of managing application state and persistence
-* Local store for local UI state
-* Observable lifecycle events
-* Convert observables to event emitters
-* Advanced (requires working with Ivy instructions): Observable UI events like `click` and `keypress`
-* Manage subscriptions and call `markDirty`
+- Route parameters, route data, query parameters
+- Replace container components, for example by interacting with NgRx Store, WebStorage and other means of managing application state and persistence
+- Local store for local UI state
+- Observable lifecycle events
+- Convert observables to event emitters
+- Advanced (requires working with Ivy instructions): Observable UI events like `click` and `keypress`
+- Manage subscriptions and call `markDirty`
 
 In fact, I already developed proof-of-concept component features for some of these use cases in [my GitHub repository called `ngx-ivy-features`](https://github.com/LayZeeDK/ngx-ivy-features).
 
@@ -377,7 +376,7 @@ In November 2019, I presented a talk called "Ivy's hidden features" at the ngPol
 
 {% youtube 8NQCgmAQEdE %}
 
-_Slides from my talk "Ivy's hidden features/Ivy's best kept secret" at ngPoland 2019/Angular Online Event #3 2020. [Open in new tab](https://speakerdeck.com/layzee/ivys-hidden-features)._
+*Slides from my talk "Ivy's hidden features/Ivy's best kept secret" at ngPoland 2019/Angular Online Event #3 2020. [Open in new tab](https://speakerdeck.com/layzee/ivys-hidden-features).*
 
 In the talk, I introduce and discuss component features. I walk the audience through a few simple use cases that can be solved using component features.
 
@@ -393,9 +392,9 @@ There are a few people I would like to thank for their involvement in this artic
 
 This article is brought to you with the help of these wonderful people:
 
-* [Craig Spence](https://dev.to/phenomnominal)
-* [Oleksandr Poshtaruk](https://dev.to/oleksandr)
-* [Vitalii Bobrov](https://dev.to/bobrov1989)
+- [Craig Spence](https://dev.to/phenomnominal)
+- [Oleksandr Poshtaruk](https://dev.to/oleksandr)
+- [Vitalii Bobrov](https://dev.to/bobrov1989)
 
 ### Special thanks
 

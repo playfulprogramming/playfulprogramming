@@ -23,8 +23,7 @@ Thanks to the project being Open Source, on vscode the are constantly new smart 
 
 Here a short video to see it in action!
 
-
-[![YouTube Video](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cesjqzj8qj5hbw5hd8df.png)
+[![YouTube Video](./cesjqzj8qj5hbw5hd8df.png)
 ](https://youtube.com/shorts/hbLq3sQshDY)
 
 ---
@@ -36,4 +35,4 @@ Feel free to follow me to get notified when new articles are out ;)
 
 Do you like my content? You might consider subscribing to my YouTube channel!
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)

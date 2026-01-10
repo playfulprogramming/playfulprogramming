@@ -14,6 +14,7 @@ socialImage: "social-image.png"
 ### Pass router info to routed component inputs
 
 #### Topics covered in this article:
+
 - How it works today
 - How it will work in Angular v16
 - How to use it
@@ -187,6 +188,7 @@ export class SearchComponent implements OnInit {
 ```
 
 ### How to use it
+
 In order to use this new feature, we need to enable it in the `RouterModule`:
 
 ```ts
@@ -255,6 +257,7 @@ export class SearchComponent implements OnInit {
 In order to test the new feature, we can use the `RouterTestingHarness` and let it handle the navigation for us.
 
 Here is an example of how to test the route info bound to component inputs with the `RouterTestingHarness`:
+
 ```ts
 @Component({})
 export class SearchComponent {
@@ -291,6 +294,7 @@ it('sets id and query inputs from matching query params and path params', async 
 It's as simple as that!
 
 ### Caveats
+
 - Sometimes we want the `id` or `queryParams` to be observables, so we can combine them with other observable to get some data.
 
 For example, let's say we have a component that is using the `id` and `queryParams` to get some data from the server:
@@ -355,12 +359,12 @@ export class SearchComponent implements OnInit {
 }
 ```
 
-As you can see, we are using the `BehaviorSubject` to make the `id` and `query` observables, and we are using the `combineLatest` operator to combine them with the `switchMap` operator to get the data from the server. 
+As you can see, we are using the `BehaviorSubject` to make the `id` and `query` observables, and we are using the `combineLatest` operator to combine them with the `switchMap` operator to get the data from the server.
 
 Personally, I think that this is a bit too much code for a simple example, so I would recommend to use the `ActivatedRoute` service instead of the new api in this case.
 
 - Priority of the route information when the route infos have the same name.
-For example, let's say we have a route with the following configuration:
+  For example, let's say we have a route with the following configuration:
 
 ```ts
 const routes: Routes = [
@@ -391,6 +395,7 @@ If there's no query params, the value input will be undefined!
 - We don't know where the input value will come from 😬
 
 In my opinion, for this "issue" what we can do is to rename the Input in imports and use it like this: 
+
 ```ts
 import { Input as RouteInput, Component } from "@angular/core";
 
@@ -411,6 +416,7 @@ export class TestComponent {
 Not the best way possible, but we can see that it's not a normal input and that it is connected with the router info.
 
 ### Conclusion
+
 I hope you enjoyed this article, and I hope that you will find this new feature useful.
 
 If you have any questions or suggestions, feel free to leave a comment below.
@@ -421,4 +427,4 @@ Thanks for reading!
 
 ---
 
-I tweet a lot about Angular (latest news, videos, podcasts, updates, RFCs, pull requests and so much more). If you’re interested about it, give me a follow at [@Enea_Jahollari](https://twitter.com/Enea_Jahollari). Give me a follow on [dev.to](https://dev.to/eneajaho) if you liked this article and want to see more like this!
+I tweet a lot about Angular (latest news, videos, podcasts, updates, RFCs, pull requests and so much more). If you’re interested about it, give me a follow at [@Enea\_Jahollari](https://twitter.com/Enea_Jahollari). Give me a follow on [dev.to](https://dev.to/eneajaho) if you liked this article and want to see more like this!

@@ -18,11 +18,13 @@ Don't get scared because Jest is more straightforward and compatible with your J
 This post aims to guide how to get rid of Jasmine and Karma and set up Jest and testing library.
 
 ## Why move to Jest and Testing library?
+
 I decided to move all my Angular projects to Jest and testing library for a few reasons.
 
 Jest is:
-- Faster than Karma. 
-- Easy to read test reports. 
+
+- Faster than Karma.
+- Easy to read test reports.
 - Code Coverage out of the box
 - Great command-line interface to interact with the tests.
 - Great community support.
@@ -47,6 +49,7 @@ To remove the package, delete them from the package.json and save it.
  "karma-jasmine": "~4.0.0",
  "karma-jasmine-html-reporter": "~1.7.0",
 ```
+
 And run the `npm install` command from the terminal again to npm remove not used packages.
 
 Next, delete karma.conf.js and src/test.ts files.
@@ -75,6 +78,7 @@ Remove the test area from angular.json.
 Next, install and configure Jest for our angular app.
 
 ## Install and configure Jest
+
 We will run the following command in our terminal to install jest library, Jest preset for angular, and jest types for typescript.
 
 ```bash
@@ -86,7 +90,9 @@ In your project root, create the setup-jest.ts file and import the angular prese
 ```typescript
 import 'jest-preset-angular/setup-jest';
 ```
+
 Into the  package.json file edit the script`test: "ng test"` to `test: "jest"`
+
 ```json
   "scripts": {
     "ng": "ng",
@@ -98,6 +104,7 @@ Into the  package.json file edit the script`test: "ng test"` to `test: "jest"`
 ```
 
 Add a Jest area to load `jest-preset-angular` and use the jest configuration file.
+
 ```json
   "jest": {
     "preset": "jest-preset-angular",
@@ -106,9 +113,11 @@ Add a Jest area to load `jest-preset-angular` and use the jest configuration fil
 ```
 
 Edit tsconfig.json into the compiler option :
+
 ```json
 "esModuleInterop": true,
 ```
+
 Edit tsconfig.spec.json, remove node and Jasmine to Jest, close similar to my example:
 
 ```json
@@ -121,6 +130,7 @@ Edit tsconfig.spec.json, remove node and Jasmine to Jest, close similar to my ex
   "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
 }
 ```
+
 Because jasmine tests are compatible, we run our existing test running the test script from the terminal.
 
 ```bash
@@ -170,7 +180,8 @@ describe('AppComponent', () => {
 });
 
 ```
-Run your test again 
+
+Run your test again
 
 ```bash
 npm run test
@@ -189,6 +200,7 @@ Ran all test suites.
 ```
 
 ## Summary
+
 Well, in short, we learned how to remove karma and Jasmine, install and configure Jest running our existing test, and add the testing library in our angular projects.
 
 Hopefully, that will give you a bit of help with the Jest and Testing library. If you enjoyed this post, share it!

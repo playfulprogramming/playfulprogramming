@@ -13,14 +13,13 @@ order: 1
 }
 ---
 
-
 Hey folks,
 
 Today it's time to speak about how to parametrize tests with Playwright.
 
 There are cases where we want to test the same behaviour but with different values, so in these cases, it's common to create a structure for the test and reuse it with different parameters.
 
-The easiest way to do that with Playwright is using vanilla javascript.  
+The easiest way to do that with Playwright is using vanilla javascript.\
 You can create an array with different cases, and using the `for` clause, you can call the test N times with different parameters.
 
 Coming back to the Tic Tac Toe application, a real example could be to simulate different rounds and, for each round, indicate the sequence of the moves and who must be the winner.
@@ -77,7 +76,7 @@ As you can notice, the result is quite simple:
 
 4. Run and check the test result
 
-Ok, this solution is good and can resolve many of our cases, but you can do more with Playwright!  
+Ok, this solution is good and can resolve many of our cases, but you can do more with Playwright!\
 It's possible to load a csv file and use it to map all the test cases. Playwright doesn't fully expose this solution, but the simplicity with which Playwright is built permits a simple solution to do this.
 
 Let me show you an example:
@@ -109,7 +108,7 @@ const cases = parse(
 );
 ```
 
-Now in the `records` variable, you have all the data that describe your test cases.  
+Now in the `records` variable, you have all the data that describe your test cases.\
 The last thing to do is to create the tests like in the previous example
 
 ```ts
@@ -138,10 +137,10 @@ I hope you enjoyed it and see you soon!
 
 test.afterAll(() => {
 
-  Bye bye 👋
+Bye bye 👋
 
 });
 
-_N.b. you can find the code of this article_ [_here_](https://github.com/Puppo/playwright-series/tree/11-parameterize-test)
+*N.b. you can find the code of this article* [*here*](https://github.com/Puppo/playwright-series/tree/11-parameterize-test)
 
 {% embed https://dev.to/puppo %}

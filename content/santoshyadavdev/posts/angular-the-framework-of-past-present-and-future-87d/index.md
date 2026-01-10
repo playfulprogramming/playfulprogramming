@@ -12,7 +12,6 @@ socialImage: "social-image.png"
 ---
 
 Photo by <a href="https://unsplash.com/ja/@dbeamer_jpg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Drew Beamer</a> on <a href="https://unsplash.com/photos/xU5Mqq0Chck?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
 
 I started using Angular in 2017 when version 4 was released. And I have seen this framework growing since then. In this blog, let's see why Angular is a framework of Past, Present, and Future.
 
@@ -42,7 +41,7 @@ There was a time the Angular team considered introducing **Bazel** as the buil
 
 Angular still uses **Webpack** and has experimental support for **esbuild**. The team realized its time to move on and chose other tools better than Webpack.
 
-**CLI** has improved over the years, enabling smooth migrations between Angular versions. Check out [https://update.angular.io/](https://update.angular.io/)
+**CLI** has improved over the years, enabling smooth migrations between Angular versions. Check out <https://update.angular.io/>
 
 ## Future
 
@@ -285,21 +284,21 @@ export default class CounterComponent {
 
 But Signals will bring more than just optional zone.js. you can read more on the RFC
 
-[https://github.com/angular/angular/discussions/49685](https://github.com/angular/angular/discussions/49685)
+<https://github.com/angular/angular/discussions/49685>
 
-[https://github.com/angular/angular/discussions/49684](https://github.com/angular/angular/discussions/49684)
+<https://github.com/angular/angular/discussions/49684>
 
-[https://github.com/angular/angular/discussions/49682](https://github.com/angular/angular/discussions/49682)
+<https://github.com/angular/angular/discussions/49682>
 
-[https://github.com/angular/angular/discussions/49683](https://github.com/angular/angular/discussions/49683)
+<https://github.com/angular/angular/discussions/49683>
 
-[https://github.com/angular/angular/discussions/49681](https://github.com/angular/angular/discussions/49681)
+<https://github.com/angular/angular/discussions/49681>
 
 ## SSR and hydration
 
 SSR in Angular has many issues today. SSR in Angular is less famous than other React or Vue-based SSR frameworks. The Angular team has started improving the SSR experience and released the first feature.
 
-{% twitter 1643324830761259008%} 
+{% twitter 1643324830761259008%}
 
 ## Typed Forms
 

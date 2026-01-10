@@ -12,12 +12,11 @@ order: 1
 }
 ---
 
-
 In the vast landscape of JavaScript, many powerful features often go unnoticed. One such hidden gem is the WeakSet, an unsung hero of the language that can help you optimize your code and manage memory more effectively. In this article, we'll dive deep into WeakSet, uncovering their potential and learning how to use them effectively in our JavaScript projects.
 
 ## A Brief Introduction to WeakSet
 
-WeakSet is a collection of objects similar to the more commonly used Set.  
+WeakSet is a collection of objects similar to the more commonly used Set.\
 However, there's a significant difference between the two: WeakSet holds only weak references to the objects stored within them. This means that if an object is only referenced by a WeakSet, it can still be garbage collected, freeing up valuable memory resources.
 
 This unique feature of WeakSet makes it an excellent choice for managing certain types of data relationships, mainly when memory management is a priority.

@@ -54,7 +54,6 @@ Thanks for watching myself ramble for a few minutes, if you enjoyed it, I promis
 
 I wish you a really happy and fulfilling 2025, take care and see you soon!
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -63,7 +62,7 @@ Let's learn Web Development together with Open Source: https://github.com/DevLeo
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

@@ -28,20 +28,19 @@ Let's start by listing the features, and later, we will look at some of them.
 
 The available API are:
 
-* [Translator API](https://developer.chrome.com/docs/ai/translator-api)
-    
-* [Language Detector](https://developer.chrome.com/docs/ai/language-detection)
-    
-* [Summarizer API](https://developer.chrome.com/docs/ai/summarizer-api)
-    
-* [Writer API](https://developer.chrome.com/docs/ai/writer-api)
-    
-* [Rewriter API](https://developer.chrome.com/docs/ai/rewriter-api)
-    
-* [Prompt API](https://developer.chrome.com/docs/ai/prompt-api)
-    
-* [Proofreader API](https://developer.chrome.com/docs/ai/built-in-apis#proofreader_api)
-    
+- [Translator API](https://developer.chrome.com/docs/ai/translator-api)
+
+- [Language Detector](https://developer.chrome.com/docs/ai/language-detection)
+
+- [Summarizer API](https://developer.chrome.com/docs/ai/summarizer-api)
+
+- [Writer API](https://developer.chrome.com/docs/ai/writer-api)
+
+- [Rewriter API](https://developer.chrome.com/docs/ai/rewriter-api)
+
+- [Prompt API](https://developer.chrome.com/docs/ai/prompt-api)
+
+- [Proofreader API](https://developer.chrome.com/docs/ai/built-in-apis#proofreader_api)
 
 Some are stable from Chrome 138, and some are available for local experiments; you can check out the status of the APIs [here](https://developer.chrome.com/docs/ai/built-in-apis#proofreader_api) so you can be sure about the current situation when you read this post.
 
@@ -79,14 +78,13 @@ const availability = await LanguageDetector.availability();
 
 This result can have four possible values:
 
-* `"unavailable"`: The requested options are unsupported, or the model cannot be prompted.
-    
-* `"downloadable"`: The request is supported, but you need to download additional files before creating a session. These downloads may include the language model or fine-tuning.
-    
-* `"downloading"`: The request is supported and a download is ongoing, which must be completed before creating a session..
-    
-* `"available"`: The request is supported, and you can create a session.
-    
+- `"unavailable"`: The requested options are unsupported, or the model cannot be prompted.
+
+- `"downloadable"`: The request is supported, but you need to download additional files before creating a session. These downloads may include the language model or fine-tuning.
+
+- `"downloading"`: The request is supported and a download is ongoing, which must be completed before creating a session..
+
+- `"available"`: The request is supported, and you can create a session.
 
 *This method is pretty much the same for all APIs. Following this flow, you can check if a specific API is available.*
 
@@ -102,14 +100,14 @@ const result = await instance.detect('Hello world!');
 // }];
 ```
 
-As you can see, this API is straightforward and pretty easy to learn.  
+As you can see, this API is straightforward and pretty easy to learn.\
 With that, you have completed your first learning about AI in Chrome with Gemini Nano, and it’s time to move on to another fantastic API!
 
 *N.B. If you are working with* [*TypeScript*](https://www.typescriptlang.org/) *and want to get the best DX possible, a types package that simplifies your work and enables IntelliSense for these APIs exists.* `@types/dom-chromium-ai` *This is the name of the package, and we have to thank you,* [*Christian Liebel*](https://github.com/christianliebel) *and* [*Thomas Steiner*](https://github.com/tomayac)*, for it.*
 
 ### Translator API
 
-Translator API is one of the most common features for an AI. It's pretty simple: you send a text, and you will receive the text translated. This API is available from Chrome 138.  
+Translator API is one of the most common features for an AI. It's pretty simple: you send a text, and you will receive the text translated. This API is available from Chrome 138.\
 But let’s see how it works.
 
 **How it works!**
@@ -122,7 +120,7 @@ if ('Translator' in self) {
 }
 ```
 
-If the API is enabled, you must check if the languages you need for source and target are available.  
+If the API is enabled, you must check if the languages you need for source and target are available.\
 To do that, you must use the `availability` method exposed by the `Translator` object.
 
 ```typescript
@@ -134,14 +132,13 @@ const translatorCapabilities = await Translator.availability({
 
 The result of this method can have four different values:
 
-* `"unavailable"`: The implementation does not support translation of the given languages.
-    
-* `"downloadable"`: The implementation supports translation of the given languages, but a download is required to proceed. The download may be the browser model.
-    
-* `"downloading"`: The implementation supports translation of the given languages. The browser is finishing an ongoing download, as part of creating the associated object.
-    
-* `"available"`: The implementation supports translation of the given languages, and any required downloads are already complete.
-    
+- `"unavailable"`: The implementation does not support translation of the given languages.
+
+- `"downloadable"`: The implementation supports translation of the given languages, but a download is required to proceed. The download may be the browser model.
+
+- `"downloading"`: The implementation supports translation of the given languages. The browser is finishing an ongoing download, as part of creating the associated object.
+
+- `"available"`: The implementation supports translation of the given languages, and any required downloads are already complete.
 
 Now, if you don’t receive `"unavailable"`, you can create the translator instance. This method will download the model for you if it hasn’t already been downloaded.
 
@@ -157,7 +154,7 @@ const translator = await Translator.create({
 });
 ```
 
-As you can see, using the `create` method, you can create your instance and pass your source and target languages. Then, using the `monitor` method, you can listen to the download progress and maybe create a loader for the user to provide feedback and create a better UX experience. Obviously, the promise will fail if something goes wrong during the download, and you must handle it.  
+As you can see, using the `create` method, you can create your instance and pass your source and target languages. Then, using the `monitor` method, you can listen to the download progress and maybe create a loader for the user to provide feedback and create a better UX experience. Obviously, the promise will fail if something goes wrong during the download, and you must handle it.\
 But if everything is okay, you can use the new `translator` instance to translate the text by using the `translate` method.
 
 ```typescript
@@ -173,7 +170,7 @@ As is evident, this API is also straightforward. There are some methods to learn
 
 ### Summarizer API
 
-The last API you will meet in this article is the Summarizer API.  
+The last API you will meet in this article is the Summarizer API.\
 This API enable you to summarise small or large text. Also, this API is available from Chrome 138 stable.
 
 **How it works!**
@@ -194,14 +191,13 @@ const summarizerCapabilities = await Summarizer.availability();
 
 Also, for this method, the possible results can be:
 
-* `"unavailable"` means that the implementation does not support the requested options.
-    
-* `"downloadable"` means that the implementation supports the requested options, but first, the browser has to download something, such as a model (in Chrome's case, Gemini Nano) or fine-tuning for the model.
-    
-* `"downloading"` means that the implementation supports the requested options, but it has to finish an ongoing download before it can proceed.
-    
-* `"available"` means that the implementation supports the requested options and the summarizer can proceed.
-    
+- `"unavailable"` means that the implementation does not support the requested options.
+
+- `"downloadable"` means that the implementation supports the requested options, but first, the browser has to download something, such as a model (in Chrome's case, Gemini Nano) or fine-tuning for the model.
+
+- `"downloading"` means that the implementation supports the requested options, but it has to finish an ongoing download before it can proceed.
+
+- `"available"` means that the implementation supports the requested options and the summarizer can proceed.
 
 Now, if everything is okay, it’s time to create an instance of the Summarizer API.
 
@@ -215,19 +211,18 @@ const summarizer = await Summarizer.create({
 });
 ```
 
-This `create` method exposes the `monitor` function to listen to the download progress and create a better experience for the user as well.  
+This `create` method exposes the `monitor` function to listen to the download progress and create a better experience for the user as well.\
 This `create` method has different parameters you can pass to get different types of summaries or drive the summary's length.
 
 These parameters are:
 
-* `sharedContext`: Additional shared context that can help the summarizer.
-    
-* `type`: The type of summarisation, with the allowed values `key-points` (***default***), `tldr`, `teaser`, and `headline`. To learn more about them, follow this [link](https://developer.chrome.com/docs/ai/summarizer-api).
-    
-* `format`: The format of the summarisation, with the allowed values `markdown` (default) and `plain-text`.
-    
-* `length`: The length of the summarisation, with the allowed values `short`, `medium` (default), and `long`. The meanings of these lengths vary depending on the requested `type`.
-    
+- `sharedContext`: Additional shared context that can help the summarizer.
+
+- `type`: The type of summarisation, with the allowed values `key-points` (***default***), `tldr`, `teaser`, and `headline`. To learn more about them, follow this [link](https://developer.chrome.com/docs/ai/summarizer-api).
+
+- `format`: The format of the summarisation, with the allowed values `markdown` (default) and `plain-text`.
+
+- `length`: The length of the summarisation, with the allowed values `short`, `medium` (default), and `long`. The meanings of these lengths vary depending on the requested `type`.
 
 It's important to know that parameters can’t be changed. So, once you create a new instance, if you need to modify the parameters, you must create a new instance.
 
@@ -240,7 +235,7 @@ const summary = await summarizer.summarize(longText, {
 });
 ```
 
-This API also exposes another method, just in case you want to stream the summary result and make it available “faster.”  
+This API also exposes another method, just in case you want to stream the summary result and make it available “faster.”\
 To do that, you need to use the `summarizeStreaming` method instead of the `summarize` one.
 
 ```typescript
@@ -256,13 +251,12 @@ Like the others, this API is straightforward too. There are just some methods to
 
 ## Recipe Radar with AI App
 
-I wrote a lot in this article, I know, but to let you know how these APIs work. I created a sample app with some recipes. On the detail page, you can see the Language Detector and Translator API in action. Therefore, on the search page, you can see the Summarizer API in action to summarise the recipe and return a summary of the recipe to the user.  
+I wrote a lot in this article, I know, but to let you know how these APIs work. I created a sample app with some recipes. On the detail page, you can see the Language Detector and Translator API in action. Therefore, on the search page, you can see the Summarizer API in action to summarise the recipe and return a summary of the recipe to the user.\
 If you are interested in it, here is the link to the repo and to the website:
 
-* *Github Repo*: [https://github.com/Puppo/recipe-radar-with-ai](https://github.com/Puppo/recipe-radar-with-ai)
-    
-* *GitHub Page Website:* [https://puppo.github.io/recipe-radar-with-ai/](https://puppo.github.io/recipe-radar-with-ai/)
-    
+- *Github Repo*: <https://github.com/Puppo/recipe-radar-with-ai>
+
+- *GitHub Page Website:* <https://puppo.github.io/recipe-radar-with-ai/>
 
 Please don’t take too much care of the code structure. I vibe-coded the application's structure to reduce the time it took to create, and I spent more time on the AI feature and its integration.
 
@@ -270,9 +264,9 @@ By the way, this application example implements and runs all these APIS on a web
 
 ## Conclusion
 
-Okay, it’s time to wrap up!  
-In this article, you learn how to integrate AI inside the Browser without relying on any services or cloud providers.  
-You learnt how to use Language Detector, Translator, and Summarizer API on the Web and what they look like.  
+Okay, it’s time to wrap up!\
+In this article, you learn how to integrate AI inside the Browser without relying on any services or cloud providers.\
+You learnt how to use Language Detector, Translator, and Summarizer API on the Web and what they look like.\
 Remember that these new features are not available in all browsers, so please be careful when using them in production.
 
 That’s it, folks. I hope you enjoyed the content. If so, please leave a comment or a reaction!

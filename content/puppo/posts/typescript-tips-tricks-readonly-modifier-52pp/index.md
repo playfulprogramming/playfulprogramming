@@ -14,12 +14,13 @@ order: 1
 ---
 
 How many times we expect an object property to have a value but it isn't?
-![Magic gif](https://media.giphy.com/media/3o7TKP9ln2Dr6ze6f6/source.gif)
+![Magic gif](./source.gif)
 In these cases, unfortunately, we spend a lot of time searching for who changes the value of this property.
 Today I want to show you a special modifier that helps you to prevent this problem and preserve your time.
 This modifier is the [readonly](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#readonly-and-const).
 The readonly modifier helps you to prevent someone can change your property, so, the object's property can set only in the object initialization.
 A simple example
+
 ```ts
 type Point = {
   x: number;
@@ -43,10 +44,12 @@ const readOnlyPoint: ReadOnlyPoint = {
 readOnlyPoint.x = 20; // Cannot assign to 'x' because it is a read-only property
 readOnlyPoint.y = 20; // Cannot assign to 'y' because it is a read-only property
 ```
+
 In this example you can see how in the first case you can change the value of the properties 'x' and 'y'; on the contrary, in the second case, you can't change the properties because they are marked as readonly.
 As you can see, the readonly modifier can prevent the change of the values of the properties and save your code from annoying bugs.
-Typescript also exposes a special type to convert your types to full readonly types; this type is called _ReadOnly_.
+Typescript also exposes a special type to convert your types to full readonly types; this type is called *ReadOnly*.
 So we can review the previous example in this way
+
 ```ts
 type Point = {
   x: number;

@@ -20,7 +20,7 @@ Normally, Angular builds time are decent. But due to a number of factors, Angula
 
 First, we are going to need a place to store our Angular build artifacts. GitHub [releases](https://docs.github.com/en/github/administering-a-repository/about-releases) are a nice way, as it allows you to have a long-term storage of your artifacts that you can use anytime you want. This combined with `npm version` means ones you have your features ready; you can cut a release that will be used by subsequent builds as you continue to work on other features and/or improvements.
 
-So, we are going to build our workflow to have two jobs, the first job will take care of building our Angular app, and creating a release and uploading our build artifacts to the release. While the second job will take care of Scully builds using the latest artifacts stored in GitHub releases and publishing our website to our hosting platform. 
+So, we are going to build our workflow to have two jobs, the first job will take care of building our Angular app, and creating a release and uploading our build artifacts to the release. While the second job will take care of Scully builds using the latest artifacts stored in GitHub releases and publishing our website to our hosting platform.
 
 Whenever a new tag is added to the repository, we will create a release with the version no. of the tag and upload our angular builds to that release.
 
@@ -39,7 +39,7 @@ on:
 
 > **NB:** In the publish our blog section, we will modify this section to listen to `repository_dispatch`, which we will use with webhooks to trigger the workflow when events outside our repository like blog post published occur, you can learn more [here](https://mainawycliffe.dev/blog/github-actions-trigger-via-webhooks).
 
-We will limit this job to only run when a new tag is created using `startsWith(github.ref, 'refs/tags/')`. This will allow us to utilize the same workflow file for building and publishing, with them being two separate jobs. 
+We will limit this job to only run when a new tag is created using `startsWith(github.ref, 'refs/tags/')`. This will allow us to utilize the same workflow file for building and publishing, with them being two separate jobs.
 
 ```
 jobs:
@@ -310,16 +310,16 @@ jobs:
 
 ## Conclusion
 
-In this article, we have looked at how we can optimize our Scully build time by splitting Angular builds and Scully builds, where we store our Angular builds and re-use the artifacts in future Scully builds. 
+In this article, we have looked at how we can optimize our Scully build time by splitting Angular builds and Scully builds, where we store our Angular builds and re-use the artifacts in future Scully builds.
 
-This may not be necessary for your application if you are not using tools like purge CSS to remove unused CSS, since Angular builds are usually fast for small to medium size applications. 
+This may not be necessary for your application if you are not using tools like purge CSS to remove unused CSS, since Angular builds are usually fast for small to medium size applications.
 
 There are few things I skipped like caching NPM dependencies, which can shave off a few more seconds from your build time and I highly recommend you implement following instructions [here](https://github.com/marketplace/actions/cache).
 
 ### Links
 
-* Use Webhooks to Trigger GitHub Actions - [Link](https://mainawycliffe.dev/blog/github-actions-trigger-via-webhooks).
-* Getting Started with Scully - [Link](https://scully.io/docs/learn/getting-started/overview/).
-* Getting Started with GitHub Actions - [Link](https://docs.github.com/en/actions/quickstart).
-* About GitHub Releases - [Link](https://docs.github.com/en/github/administering-a-repository/about-releases).
-* Angular CDK - Platform Module - [Link](https://mainawycliffe.dev/blog/angular-cdk-platform-module).
+- Use Webhooks to Trigger GitHub Actions - [Link](https://mainawycliffe.dev/blog/github-actions-trigger-via-webhooks).
+- Getting Started with Scully - [Link](https://scully.io/docs/learn/getting-started/overview/).
+- Getting Started with GitHub Actions - [Link](https://docs.github.com/en/actions/quickstart).
+- About GitHub Releases - [Link](https://docs.github.com/en/github/administering-a-repository/about-releases).
+- Angular CDK - Platform Module - [Link](https://mainawycliffe.dev/blog/angular-cdk-platform-module).

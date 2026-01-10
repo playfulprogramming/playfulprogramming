@@ -16,8 +16,7 @@ Determined to make a change, I embarked on a mini-revamp using two powerful tool
 
 ## From Static List to Interactive Charts
 
-
-![Before](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ax212auobozseezygjqk.PNG)
+![Before](./ax212auobozseezygjqk.PNG)
 
 Previously, my skills section was a simple list of icons representing my skillset. It was informative, but it lacked personality and didn't effectively communicate the depth of my knowledge.
 
@@ -25,8 +24,7 @@ Previously, my skills section was a simple list of icons representing my skillse
 
 My skills section looks like this now.
 
-![After integrating Recharts](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/06xi63lqt09vhzutjob0.PNG)
-
+![After integrating Recharts](./06xi63lqt09vhzutjob0.PNG)
 
 Here's a glimpse into the transformation process:
 
@@ -37,74 +35,65 @@ Installation: I started by installing Recharts using npm:
 
 Next, I created a JSON containing my skills categorized by 4 main areas of my expertise i.e. Frontend, Backend, DevOps, and Languages.
 
-    `export const techSkills = {
-    "frontend" : 
-    [
-        {
-        name: "Angular",
-        years: "7"
-        },
-    //Rest of the Frontend skills
-    ],
+```
+`export const techSkills = {
+"frontend" : 
+[
+    {
+    name: "Angular",
+    years: "7"
+    },
+//Rest of the Frontend skills
+],
 
-    "backend":
-     [
-        {
-            name: "Node.js",
-            years: "7.5"
+"backend":
+ [
+    {
+        name: "Node.js",
+        years: "7.5"
+    },
+    {
+        name: "Django",
+        years: "4"
         },
-        {
-            name: "Django",
-            years: "4"
-            },
-      //Rest of the Backend Skills
-     ],
-    "languages":
-    [
-       {
-        name: "JavaScript",
-        years: 8
-      }
-    //Rest of the Languages
-    ],
-    "misc":
-     [
-     {
-        name: "DevOps",
-        years: 5
-     },
-     {
-        name: "AWS",
-        years: 3
-     },
-    //Rest of the skills  
-     ]
-     }`
-
+  //Rest of the Backend Skills
+ ],
+"languages":
+[
+   {
+    name: "JavaScript",
+    years: 8
+  }
+//Rest of the Languages
+],
+"misc":
+ [
+ {
+    name: "DevOps",
+    years: 5
+ },
+ {
+    name: "AWS",
+    years: 3
+ },
+//Rest of the skills  
+ ]
+ }`
+```
 
 Once the library is integrated and configured, I just have to hook it into my component.
 
-
-
-
-``    'use client';
-    import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, 
-    Tooltip, XAxis, YAxis } from "recharts";
-    import { techSkills } from '../api/skills';
-    export default function Backendskills() {
-    const data = techSkills.backend;
-    return (
-        <ResponsiveContainer width="90%" height={300}>
-            <BarChart data={data}>
-                <XAxis type="category" dataKey="name" padding={{ left: 
-    20, right: 20 }} />
-                <YAxis dataKey="years" type="number" />
-                <Tooltip labelStyle={{ color: '#110F50' }} />
-                <Legend verticalAlign="top" />
-                <Bar dataKey="years" fill="#C605FA" barSize={40} 
-    activeBar={false} name="Backend Frameworks (Years)" />
-            </BarChart>
-        </ResponsiveContainer>`
+\`\`    'use client';
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer,
+Tooltip, XAxis, YAxis } from "recharts";
+import { techSkills } from '../api/skills';
+export default function Backendskills() {
+const data = techSkills.backend;
+return ( <ResponsiveContainer width="90%" height={300}> <BarChart data={data}>
+\<XAxis type="category" dataKey="name" padding={{ left:
+20, right: 20 }} /> <YAxis dataKey="years" type="number" />
+\<Tooltip labelStyle={{ color: '#110F50' }} /> <Legend verticalAlign="top" /> <Bar dataKey="years" fill="#C605FA" barSize={40} 
+ activeBar={false} name="Backend Frameworks (Years)" /> </BarChart> </ResponsiveContainer>`
 `
 **Integration**: With Recharts in my toolkit, I seamlessly integrated it into my Next.js 14 project.
 

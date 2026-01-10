@@ -14,11 +14,11 @@ Different browsers come with a different set of dev tools to help developers. Wh
 
 Before we dive deeper into what we can do with these tools, let me show you where you can find them. Chrome has the animation inspector option under the more tools submenu option.
 
-![Chrome's Animation Inspector](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gird7yhwe7si60nojkb9.png)
+![Chrome's Animation Inspector](./gird7yhwe7si60nojkb9.png)
 
 Firefox, on the other hand, has the animation inspector under the "Inspector" option, under a tab called "Animations"
 
-![Firefox's Animation Inspector](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tap1hd9fuigw6owdekmu.png)
+![Firefox's Animation Inspector](./tap1hd9fuigw6owdekmu.png)
 
 > At the time this post is written, Chrome only supports CSS animations, CSS transitions, and web animations. You wouldn’t be able to use this if you are using requestAnimationFrame for your animation.
 
@@ -26,9 +26,9 @@ Firefox, on the other hand, has the animation inspector under the "Inspector" op
 
 If you have the animations tab open on your dev tools, you should be seeing blocks of animation groups added to the top as your animation gets triggered on your application. Clicking on the block will open up a more detailed view of the actual animations that are being executed as shown in the images below (Chrome's followed by Firefox's).
 
-![Chrome's Animation Inspector](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/di9j7a6fhc32r2bwqym0.png)
+![Chrome's Animation Inspector](./di9j7a6fhc32r2bwqym0.png)
 
-![Firefox's Animation Inspector](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6kdnl8aab1wy840cwh4s.png)
+![Firefox's Animation Inspector](./6kdnl8aab1wy840cwh4s.png)
 
 Let’s break down the animations tab view further and discuss some of the key features:
 
@@ -48,9 +48,9 @@ If you are using CSS keyframes in your animation, both Chrome and Firefox's dev 
 
 This ability to modify the curves dynamically straight in the browser is extremely helpful as you no longer have to go back and forth between your editor and your browser to tweak the bezier curves to get the right timing. After modifying the bezier curve, you can then use the replay button on the animations tab to replay the animation with the updated bezier curve. Access this feature by clicking on the squiggly line icon on the animation property of your element. Below is an image of how to access the bezier curve from your animation (Chrome's followed by Firefox's).
 
-![Chrome's Bezier Curve Editor](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nn4cjcuifhfu53338w3g.png)
+![Chrome's Bezier Curve Editor](./nn4cjcuifhfu53338w3g.png)
 
-![Firefox's Bezier Curve Editor](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wsetsgaehcncga0l8pdt.png)
+![Firefox's Bezier Curve Editor](./wsetsgaehcncga0l8pdt.png)
 
 The purple circles attached to the purple lines on the bezier curve editor are draggable vertically and horizontally to edit the curve of the line which in turn will update the cubic-bezier function. You can see a quick visualization of what the timing function looks like from the purple circle towards the top of the popup, showing how the animation will accelerate/decelerate over time.
 

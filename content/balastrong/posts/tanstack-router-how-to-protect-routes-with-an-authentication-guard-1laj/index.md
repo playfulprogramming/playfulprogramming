@@ -94,7 +94,7 @@ This was just a short extract with the core concepts, you can find an extensive 
 
 The video includes how to integrate with a real authentication service and how to use hooks through Router's context to access the authentication state in your routes and components.
 
-{% youtube O6dS0_IvvK0 %}
+{% youtube O6dS0\_IvvK0 %}
 
 ---
 
@@ -104,7 +104,7 @@ Let's connect more: https://leonardomontini.dev/newsletter
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

@@ -11,7 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
-Since version 14, we can play with Standalone Components as an easy way to build module-less applications. One benefit of Standalone components is to make Angular easy for new joins to learn and play with Angular without requiring an understanding `ngModule` concept. 
+Since version 14, we can play with Standalone Components as an easy way to build module-less applications. One benefit of Standalone components is to make Angular easy for new joins to learn and play with Angular without requiring an understanding `ngModule` concept.
 
 > Note: Standalone Components are under the [developer preview](https://angular.io/guide/releases#developer-preview) label, so don't use them in production (yet).
 
@@ -60,7 +60,7 @@ src
 
 ## Create Your First Standalone Components
 
-The Angular/cli support generates standalone components using a special flag `--standalone`. 
+The Angular/cli support generates standalone components using a special flag `--standalone`.
 
 For example, we will generate the container layout by running the following command.
 
@@ -104,9 +104,9 @@ Add the following html to provide a layout for the app.
 
 ## Register and Use Standalone Components
 
-The `container-layout` component is not part of the app.module; to use in the app.component to open the app.module and include it in the imports section. 
+The `container-layout` component is not part of the app.module; to use in the app.component to open the app.module and include it in the imports section.
 
->  Similar as we work with modules.
+> Similar as we work with modules.
 
 ```typescript
 import { NgModule } from '@angular/core';
@@ -138,7 +138,7 @@ Open the `app.component.html` and use the component.
 
 Save the app is ready to use container-layout standalone components. The next step is to use a standalone child component.
 
-## Use Standalone Child Components 
+## Use Standalone Child Components
 
 Similarly, as we did with `container-layout`,  generate a new standalone component  `logo ` component with the cli using the flag `--standalone`.
 
@@ -216,7 +216,7 @@ CREATE src/app/register/register.component.ts (378 bytes)
 CREATE src/app/register/register.component.css (0 bytes)   
 ```
 
-Next, import the `ReactiveFormsModule`  in the imports section to create the form. Using the `FormGroup` ,`FormControl` declare with fields name and email. 
+Next, import the `ReactiveFormsModule`  in the imports section to create the form. Using the `FormGroup` ,`FormControl` declare with fields name and email.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -258,11 +258,12 @@ Finally, add the `sendForm` method to show the form values in the html. Add the 
 
 ```
 
->  Read more about [Reactive forms. ](https://angular.io/guide/reactive-forms)
+> Read more about [Reactive forms. ](https://angular.io/guide/reactive-forms)
 
 Perfect! We are using ReactiveForms Module in the standalone components; our next stop is routing with standalone components.
 
 ## The Navigation and Routing To Standalone Components
+
 The Navigation and the Routing makes we use external modules like `RouterModule`, we going start with the navigation.
 
 First, Create a standalone navigation component using Angular CLI.
@@ -341,7 +342,7 @@ export class ContainerLayoutComponent  { }
 
 The navigation is ready, so we need to create the navigation pages and routes.
 
-Next, create the component's home and domains, and using the Angular CLI, these components work as pages for the routing. 
+Next, create the component's home and domains, and using the Angular CLI, these components work as pages for the routing.
 
 ```bash
 
@@ -463,6 +464,7 @@ In the `app.module`, import the `RouterModule` passing the routes.
  })
 export class AppModule { }
 ```
+
 Edit the app.component.html and add the router outlet to show the  components.
 
 ```
@@ -471,6 +473,7 @@ Edit the app.component.html and add the router outlet to show the  components.
 </app-container-layout>
 
 ```
+
 Perfect, we Open the app and navigate to the pages using the navigation.
 
 ## Add Lazy loading Standalone Components.
@@ -503,12 +506,11 @@ export const routes: Routes = [
 ]
 ```
 
-Save the changes, reload and navigate to each section and the chunked return for each component. 
+Save the changes, reload and navigate to each section and the chunked return for each component.
 
+![Final Result](./49fgu0rvpfm4lkwcykvj.gif)
 
-![Final Result](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/49fgu0rvpfm4lkwcykvj.gif)
-
-## Convert Module-Less Application 
+## Convert Module-Less Application
 
 We are in the final step with standalone components. To convert the to module-less, we need to make some changes.
 
@@ -540,6 +542,7 @@ First remove the platformBrowserDynamic, ti make reference to AppModule.
 ```typescript
 platformBrowserDynamic().bootstrapModule(AppModule)
 ```
+
 Use the bootstrapApplication function, it expect two parameters, the main or root component in our case `AppComponent` and as second parameter  configuration object with for example the providers.
 
 The providers we use the funcion `importProvidersFrom` to use the for example the RouterModule. The RouterModule need the routes declared before.
@@ -578,6 +581,6 @@ We learn how to create standalone components, load modules, use standalone compo
 
 Read more about Standalone Components:
 
-- [https://angular.io/guide/standalone-components](https://angular.io/guide/standalone-components)
+- <https://angular.io/guide/standalone-components>
 - [Learn Standalone Components](https://www.youtube.com/watch?v=x5PZwb4XurU)
-- [Angular Standalone Components and their Impact on Modularity](https://www.youtube.com/watch?v=rproG1_TCek&t=1s)
+- [Angular Standalone Components and their Impact on Modularity](https://www.youtube.com/watch?v=rproG1_TCek\&t=1s)

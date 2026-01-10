@@ -10,7 +10,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 *Cover photo by [Michael Burrows](https://www.pexels.com/photo/faceless-barista-pouring-water-in-dripper-7125769/) on Pexels.*
 
 End-to-end tests are relatively slow and with a large test suite, it is very valuable to be able to run only certain tests at a time.

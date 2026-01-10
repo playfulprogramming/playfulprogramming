@@ -13,16 +13,14 @@ order: 1
 }
 ---
 
-
 Cover photo by [Jessica Ruscello](https://unsplash.com/photos/-GUyf8ZCTHM) on Unsplash.
 
 *Original publication date: 2020-03-31.*
 
-
 Presentational components are literally the user interface of our Angular application. They serve two purposes:
 
-* Present application state to the user
-* Change application state triggered by user interaction
+- Present application state to the user
+- Change application state triggered by user interaction
 
 To communicate with the rest of the application, presentational components have input properties for supplying them with data which will be formatted for display. They use output properties to notify application state changes initiated by user interactions. This is their data binding API.
 
@@ -64,16 +62,16 @@ When following the Model-View-Presenter pattern, we keep our presentational comp
 
 Component templates should do not much more than set up expression bindings for presentation and event bindings for user interaction.
 
-Behaviour should be delegated to _presenters_ which are component level dependencies that are completely isolated from the rest of the application. This ensures that the component model is only coordinating the configuration and binding of input properties, output properties, UI properties, and presenters.
+Behaviour should be delegated to *presenters* which are component level dependencies that are completely isolated from the rest of the application. This ensures that the component model is only coordinating the configuration and binding of input properties, output properties, UI properties, and presenters.
 
 The component model of a Model-View-Presenter-style presentational component contains no business logic except for glue code between the data binding API, UI properties, event handlers, and presenters.
 
 ## Presentational components
 
-We call them presentational components because they represent the presentational layers of our application such as _presentation_ and _user interaction_ as seen in Table 1.
+We call them presentational components because they represent the presentational layers of our application such as *presentation* and *user interaction* as seen in Table 1.
 
 {% gist https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c %}
-_Table 1. Horizontal layers of a web application. [Open in new tab](https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c)._
+*Table 1. Horizontal layers of a web application. [Open in new tab](https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c).*
 
 Preferably, we extract user interaction to component level services such as presenters as described in the "[Lean presentational components](#lean-presentational-components)" section.
 
@@ -91,17 +89,20 @@ Presentational components are pure in the sense that they are free from side eff
 
 Because they are pure, they are deterministic in the way they render their DOM and emit events through their output properties.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tbko7onib7ostf3b4720.png)
+![](./tbko7onib7ostf3b4720.png)
+
 <figcaption>Figure 1. DOM rendered based on 2 input values.</figcaption>
 
 Figure 1 illustrates that when passed the input values `valueX` and `valueY`, this presentational component's DOM will always be rendered in the composition `AxBy`.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tx99uzhvg48yr02bwsxb.png)
+![](./tx99uzhvg48yr02bwsxb.png)
+
 <figcaption>Figure 2. DOM rendered based on an input value and a user interaction.</figcaption>
 
 In Figure 2, `valueX` is input followed by a user interaction which is intercepted as `Event Y`. This combination of input value and event series leads to the DOM composition `AxEy`. This will always be the case when `Event Y` happens while `valueX` is input.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/h9g8p9tirhlp20jt00be.png)
+![](./h9g8p9tirhlp20jt00be.png)
+
 <figcaption>Figure 3. DOM rendered based on an input value. Event emitted based on input value and user interaction.</figcaption>
 
 The presentational component in Figure 3 has the DOM composition `Ax` based on `valueX` being passed as an input. The user interaction intercepted as `Event Z` leads to the value `eventZ` being emitted through an output property.
@@ -110,17 +111,16 @@ This is always the case when `Event Z` happens while `valueX` is the input value
 
 We must be able to demonstrate the examples in Figures 1, 2, and 3 in tests. Otherwise our components are impure in that they depend on external state. If that's the case, we need to create another input property and pass in that external state to turn the component into a presentational component with deterministic behaviour and rendering.
 
-Presentational components become _dirty_ as in _needs to be dirty checked_ for one of two reasons:
+Presentational components become *dirty* as in *needs to be dirty checked* for one of two reasons:
 
-* An external event such as a user interaction occurred and was picked up by an event binding in the component template
-* New data was passed to one or more input properties
+- An external event such as a user interaction occurred and was picked up by an event binding in the component template
+- New data was passed to one or more input properties
 
 Because of this, we can optimise performance in our change detection cycles by using the `OnPush` change detection strategy.
 
 ## Simple example
 
 We continue where we left off in an early section of "[Container components with Angular](https://dev.to/this-is-angular/container-components-with-angular-4o05)". Let's see where we're at with the mixed dashboard component from the Tour of Heroes tutorial– or what's left of it after we extracted a container component as seen in Listing 1.
-
 
 ```ts
 // dashboard.component.ts
@@ -140,13 +140,11 @@ export class DashboardComponent {
 
 <figcaption>Listing 1. Dashboard: Mixed component model after extracting a container component.</figcaption>
 
-
 As a small preparation, we'll change the selector to `'app-dashboard-ui'` as seen in Listing 3 to match the HTML element in our dashboard container component's template (Listing 1). You can use whatever naming, file, folder, and selector convention you think is appropriate for the use case or for your team.
 
 ### Declare the component's data binding API
 
 As seen in Listing 2, the dashboard container component expects two input properties on the presentational dashboard component, `heroes` and `title`.
-
 
 ```html
 <!-- dashboard.container.html -->
@@ -157,11 +155,9 @@ As seen in Listing 2, the dashboard container component expects two input proper
 
 <figcaption>Listing 2. Dashboard: Container component template.</figcaption>
 
-
 Why would we want to extract the heading text from the presentational component? If it's a one-off component in our application, we might leave it in the presentational component. However, by extracing the title we have made it reusable. This dashboard component displays an overview of the top heroes. Maybe we need to add a dashboard for female Marvel heroes or British villains. We're now able to do so by using the presentational component in multiple container components which supply different heroes data sets with relevant titles.
 
 We might also have an application that supports runtime language switching. In this case, we could have a title observable that supplied the title in the active language. Alternatively, we could have a translation pipe that communicates with localisation and internationalisation services. Even in this case, we should extract the title source to the container component to keep our presentational component pure and free from side effects.
-
 
 ```ts
 // dashboard.component.ts
@@ -184,7 +180,6 @@ export class DashboardComponent {
 
 <figcaption>Listing 3. Dashboard: Presentational component model after declaring its data binding API.</figcaption>
 
-
 We add an `Input` decorator to the existing `heroes` property. We add the missing input property, `title`.
 
 Now our presentational dashboard component has a data binding API.
@@ -192,7 +187,6 @@ Now our presentational dashboard component has a data binding API.
 ### Use minimal presentational logic in the component template
 
 We want our presentational components to be lean. Our templates should have minimal logic. Any complex presentational logic is delegated to the component model or better yet a presenter.
-
 
 ```html
 <!-- dashboard.component.html -->
@@ -213,7 +207,6 @@ We want our presentational components to be lean. Our templates should have mini
 
 <figcaption>Listing 4. Dashboard: Presentational component template with minimal presentational logic.</figcaption>
 
-
 In Listing 4 we see that we have bound a template expression to the `title` property and that we iterate over the `heroes` property to create a master listing with a link for each hero.
 
 The presentational logic in this template has minimal complexity. It uses template expression bindings to display content. It displays a child component which would be a container component if properly refactored. Finally, it loops through the heroes and adds a link to each one.
@@ -227,7 +220,6 @@ Because we're working from an existing tutorial application, we will not split a
 ### Apply the `OnPush` change detection strategy
 
 Now that we have replaced the mixed dashboard component with a pure, presentational component, we can apply the `OnPush` change detection strategy to optimise dirty checking and rendering as seen in Listing 5.
-
 
 ```ts
 // dashboard.component.ts
@@ -249,7 +241,6 @@ export class DashboardComponent {
 
 <figcaption>Listing 5. Dashboard: Presentational component after the `OnPush` change detection strategy is applied.</figcaption>
 
-
 When Angular visits this component, it checks whether the values passed to the component's input properties have changed since the last change detection cycle. If the input values haven't changed, dirty checking of the bindings of this component and all its descendant components in the component tree are skipped.
 
 If an event binding in this component's template is triggered or an `AsyncPipe` in a descendant container component receives a new value, this component and all of its ancestors in the component tree is marked as dirty and will be fully dirty checked in the next change detection cycle.
@@ -259,7 +250,6 @@ If an event binding in this component's template is triggered or an `AsyncPipe` 
 In "Container components with Angular", we left extracted a lot of logic from the mixed heroes component related to state management and persistence.
 
 Let's review what the mixed heroes component looks like after extracting a container component. Take a look at Listing 6.
-
 
 ```ts
 // heroes.component.ts
@@ -289,18 +279,16 @@ export class HeroesComponent {
 
 <figcaption>Listing 6. Heroes: Mixed component model after extracting a container component.</figcaption>
 
-
 ### Declare the component's data binding API
 
 The container component expects the following data binding API from the presentational component we want to refactor this mixed component into:
 
-* Input property: `heroes: Hero[]`
-* Input property: `title: string`
-* Output property: `add: EventEmitter<string>`
-* Output property: `remove: EventEmitter<Hero>`
+- Input property: `heroes: Hero[]`
+- Input property: `title: string`
+- Output property: `add: EventEmitter<string>`
+- Output property: `remove: EventEmitter<Hero>`
 
 How do we know? From the hero container component's template which can be seen in Listing 7.
-
 
 ```html
 <!-- heroes.container.html -->
@@ -313,11 +301,9 @@ How do we know? From the hero container component's template which can be seen i
 
 <figcaption>Listing 7. Heroes: Container component template.</figcaption>
 
-
 As a first step in refactoring a mixed component into a presentational component, let's declare its data binding API.
 
 We also change the element selector from `app-heroes` to `app-heroes-ui` as the container component will use `app-heroes`.
-
 
 ```ts
 // heroes.component.ts
@@ -355,7 +341,6 @@ export class HeroesComponent {
 
 <figcaption>Listing 8. Heroes: Mixed component after declaring its data binding API.</figcaption>
 
-
 There was a small problem. An output property was called `add`, but so was one of the component's event handlers.
 
 I usually prefix an event handler method's name with `on`, for example `onAdd`. In this case, we stay consistent with the rest of the codebase and instead rename the event handler to `addHero` as seen in Listing 8.
@@ -363,7 +348,6 @@ I usually prefix an event handler method's name with `on`, for example `onAdd`. 
 How weird, the `delete` event handler has no method body. There's absolutely no logic left, so what's its purpose? It used to contain important logic for state management and persistence, but that has all been extracted to the heroes container component.
 
 The `delete` event handler is bound to a user interaction by the component template as seen in Listing 9.
-
 
 ```html
 <!-- heroes.component.html -->
@@ -396,11 +380,9 @@ The `delete` event handler is bound to a user interaction by the component templ
 
 <figcaption>Listing 9. Heroes: Initial mixed component template.</figcaption>
 
-
 ### Connect the component template to the data binding API
 
 Let's continue by connecting the component template to the component's data binding API.
-
 
 ```html
 <!-- heroes.component.html -->
@@ -433,7 +415,6 @@ Let's continue by connecting the component template to the component's data bind
 
 <figcaption>Listing 10. Heroes: Presentational component template after connecting it to the component's data binding API.</figcaption>
 
-
 First, we replace the hardcoded heading with a template expression bound to the `title` input property. This makes the component more reusable as we discussed previously.
 
 Then we remember to reflect the changed name of the `addHero` event handler. This is shown in Listing 10, as is the title template expression binding.
@@ -443,7 +424,6 @@ Finally, we decide to use an inline event handler to emit the current hero throu
 We could have done this in the `delete` event handler. A purist might want to do just that, but we'll use this very basic business logic in the template for now. We'll revisit this decision in the following section.
 
 As seen in the template, the name of the hero we want to add is passed to the `addHero` event handler. However, we haven't connected it to the `add` output property, we just created.
-
 
 ```ts
 // heroes.component.ts
@@ -481,10 +461,9 @@ export class HeroesComponent {
 
 <figcaption>Listing 11. Heroes: Presentational component model after connecting the component template to the data binding API.</figcaption>
 
-
 We deleted the `delete` event handler after circumventing it with an inline event handler connected to an output property.
 
-Finishing off, we completed connecting the _add hero_ control flow by emitting the hero name through the `add` output property after validating it. This can be seen in Listing 11.
+Finishing off, we completed connecting the *add hero* control flow by emitting the hero name through the `add` output property after validating it. This can be seen in Listing 11.
 
 ### Use minimal presentational logic in the component template
 
@@ -494,10 +473,9 @@ Graphical user interfaces are notoriously hard and slow to test and Angular comp
 
 Extracting logic to parts of our application that are easier and faster to test increases the testability of that logic. At the same time, we separate concerns to increase maintainability, scalability, and stability.
 
-Wow, those 4 _-ilities_ are all traits worth maximising!
+Wow, those 4 *-ilities* are all traits worth maximising!
 
 Let's revisit the heroes component template and see whether there's any non-trivial or complex presentational logic left. Look at Listing 12.
-
 
 ```html
 <!-- heroes.component.html -->
@@ -531,7 +509,6 @@ Let's revisit the heroes component template and see whether there's any non-triv
 
 <figcaption>Listing 12. Heroes: Presentational component template.</figcaption>
 
-
 First of all, this component still serves many different use cases. It has a creation form, it iterates over heroes,  list their names, links to them and displays their delete buttons.
 
 Normally, we would split it into smaller, more focused presentational components, but in this article series we'll only split components to extract container components.
@@ -548,7 +525,8 @@ The benefit is that we remove a very basic event handler that would do nothing m
 
 The `remove.emit(hero)` business logic is so simple that we don't even have to test it in isolation. If we break it, it will show up in integration tests or end-to-end tests.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4dlcg43of3bpn8b8e7xy.png)
+![](./4dlcg43of3bpn8b8e7xy.png)
+
 <figcaption>Figure 4. The remove hero control flow with a presentational component.</figcaption>
 
 Our delete hero control flow now looks like Figure 4.
@@ -566,7 +544,6 @@ It's interesting to note that as soon as we start to add more than basic form va
 **Extract form validation and UI behaviour to component model**
 
 Let's use reactive forms to extract form validation and UI behaviour logic from the presentational heroes component's template to its component model.
-
 
 ```html
 <!-- heroes.component.html -->
@@ -598,8 +575,6 @@ Let's use reactive forms to extract form validation and UI behaviour logic from 
 ```
 
 <figcaption>Listing 13.1. Heroes: Presentational component template after extracting form validation and UI behaviour.</figcaption>
-
-
 
 ```ts
 // heroes.component.ts
@@ -642,7 +617,6 @@ export class HeroesComponent {
 
 <figcaption>Listing 13.2. Heroes: Presentational component model with form validation and UI behaviour.</figcaption>
 
-
 As seen in Listing 13.2, we introduce the UI property `nameControl` which is a form control holding a text string value.
 
 In the template shown in Listing 13.1, we bind the `<input>` element's value by using a `FormControlDirective`. To use this directive, we have to remember to import `ReactiveFormsModule` from `@angular/forms` to our component's declaring Angular module.
@@ -653,7 +627,8 @@ We take a snapshot value from the name form control and then clear the value of 
 
 As before, we trim wrapping whitespace away from the entered hero name which both to sanitize it and to verify that it contains non-whitespace characters. If it does, we emit it through the `add` output property.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bpieumu3prt5yo0z8sfl.png)
+![](./bpieumu3prt5yo0z8sfl.png)
+
 <figcaption>Figure 5. The add hero control flow with a presentational component.</figcaption>
 
 The add hero control flow is illustrated in Figure 5.
@@ -677,7 +652,6 @@ For now, we'll leave form validation in the component model.
 Only one thing left to do. Now that we've converted the mixed component to a pure presentational component, we'll apply the `OnPush` change detection strategy to optimize change detection performance.
 
 This minor but important change is made in Listing 14.
-
 
 ```ts
 // heroes.component.ts
@@ -727,7 +701,6 @@ export class HeroesComponent {
 
 <figcaption>Listing 14. Heroes: Presentational component model using the `OnPush` change detection strategy.</figcaption>
 
-
 The template bindings of the presentational heroes component will only need to be dirty checked whenever the value of one of its input properties has changed since the last change detection cycle.
 
 This is one part of what's known as the unidirectional dataflow in Angular projects. Data flows down from the component tree. It starts in a data service, goes through the heroes container component and ends up being passed to one of the input properties of the presentational heroes component.
@@ -740,7 +713,7 @@ The component-specific events are observed by a container component which makes 
 
 In our examples, we have been dealing with use case-specific components. We left out an important category of reusable presentational components.
 
-The data binding API of _dynamic presentational components_ don't focus primarily on application state. Rather, their most important traits are content projection or dynamic rendering in the form of component outlets, template outlets or Angular CDK portals.
+The data binding API of *dynamic presentational components* don't focus primarily on application state. Rather, their most important traits are content projection or dynamic rendering in the form of component outlets, template outlets or Angular CDK portals.
 
 Consumers pass templates or component types to dynamic presentational components, or maybe we pass content to be projected to the main content outlet. We could also be passing content matching specific selectors. Alternatively, we could use presentational component wrappers or attribute directives.
 
@@ -780,17 +753,17 @@ Some presentational components are made for the purpose of being reusable rather
 
 To convert a mixed component to a presentational component, we follow this recipe:
 
-1.  Extract a container component which manages non-presentational concerns.
-2.  Declare the presentational component's data binding API–its input and output properties.
-3.  Use minimal presentational logic in the presentational component model and template. Complex user interaction and presentation logic is delegated to one or more presenters–component level services that encapsulate UI behaviour, form validation, or formatting.
-4.  Apply the `OnPush` change detection strategy to optimise change detection.
+1. Extract a container component which manages non-presentational concerns.
+2. Declare the presentational component's data binding API–its input and output properties.
+3. Use minimal presentational logic in the presentational component model and template. Complex user interaction and presentation logic is delegated to one or more presenters–component level services that encapsulate UI behaviour, form validation, or formatting.
+4. Apply the `OnPush` change detection strategy to optimise change detection.
 
 When extracting a container component, the template of a mixed component should have little reason to change.
 
 We end up with a presentational component that serves two main purposes:
 
-* Present application state to the user
-* Change application state triggered by user interaction
+- Present application state to the user
+- Change application state triggered by user interaction
 
 [Continue your journey in "Presenters with Angular"](https://dev.to/this-is-angular/presenters-with-angular-2l7l).
 
@@ -804,5 +777,5 @@ Read the introductory article “[Model-View-Presenter with Angular](https://dev
 
 ## Peer reviewers
 
-* [Nacho Vazquez](https://dev.to/nachovazquez)
-* [Tim Deschryver](https://dev.to/timdeschryver)
+- [Nacho Vazquez](https://dev.to/nachovazquez)
+- [Tim Deschryver](https://dev.to/timdeschryver)

@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 *Cover art by Microsoft Designer.*
 
 [Since 2017](https://github.com/angular/angular/issues/15779), Angular documentation has offered little advice on testing routing components, routed components, routes, and route guards other than to create partial and brittle [`ActivatedRoute`](https://angular.dev/api/router/ActivatedRoute) and [`Router`](https://angular.dev/api/router/Router) test doubles.
@@ -22,7 +21,7 @@ While [`RouterTestingModule`](https://angular.dev/api/router/testing/RouterTesti
 
 In February 2023, Angular version 15.2 introduced [`RouterTestingHarness`](https://angular.dev/api/router/testing/RouterTestingHarness), the out-of-the-box experience for solving this 6 year old testing pain. The [`RouterTestingHarness`](https://angular.dev/api/router/testing/RouterTestingHarness) sets up a testing root component with a [`RouterOutlet`](https://angular.dev/api/router/RouterOutlet) and uses the actual Angular Router API in our component tests.
 
-![Tour of Heroes router tutorial: DashboardComponent](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jcz5frqfs1ei7y9x5f1t.png)
+![Tour of Heroes router tutorial: DashboardComponent](./jcz5frqfs1ei7y9x5f1t.png)
 
 In this article, we test and use parts of Angular.io's [Tour of Heroes router tutorial](https://angular.io/guide/router-tutorial-toh).
 
@@ -69,7 +68,7 @@ As suggested by the previous code snippet, the activated component instance is r
 
 I recommend that we make test assertions via the DOM to also exercise the component template. Additionally, this avoid relying on implementation details like whether the loaded hero is represented as a raw data structure, an RxJS [`Observable`](https://rxjs.dev/api/index/class/Observable), or an Angular [`Signal`](https://angular.dev/api/core/Signal). This decreases the brittleness of the test to support refactoring the component and its collaborators without breaking our component test.
 
-![Tour of Heroes router tutorial: HeroDetailComponent](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/81q8n2t9c5o19ro12apa.png)
+![Tour of Heroes router tutorial: HeroDetailComponent](./81q8n2t9c5o19ro12apa.png)
 
 To make assertions via the DOM, we use either of the [`RouterTestingHarness#routeDebugElement`](https://angular.dev/api/router/testing/RouterTestingHarness) or the [`RouterTestingHarness#routeNativeElement`](https://angular.dev/api/router/testing/RouterTestingHarness) properties.
 

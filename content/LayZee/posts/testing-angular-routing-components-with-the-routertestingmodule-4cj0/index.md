@@ -13,10 +13,9 @@ order: 1
 }
 ---
 
+*Original cover photo by [Dele Oke](https://unsplash.com/photos/Kg_B2LMPTLs) on Unsplash.*
 
-_Original cover photo by [Dele Oke](https://unsplash.com/photos/Kg_B2LMPTLs) on Unsplash._
-
-_Original publication date: 2020-05-25._
+*Original publication date: 2020-05-25.*
 
 One of the use cases for Angular's `RouterTestingModule` is to test Angular routing components.
 
@@ -24,14 +23,14 @@ An Angular routing component is a component that is used to trigger application 
 
 In this article, we're going to explore what the `RouterTestingModule` does and how we can use it to test routing components.
 
-![The show hero detail use case](https://dev-to-uploads.s3.amazonaws.com/i/2nmyzdvl6jlded36ix89.png)
+![The show hero detail use case](./2nmyzdvl6jlded36ix89.png)
 
 <figcaption>Figure 1. The <em>show hero detail</em> use case.</figcaption>
 
-As a case study, we write routing component tests for the `DashboardComponent` from the Tour of Heroes tutorial on Angular.io. This routing is part of the _show hero detail_ use case as shown in Figure 1:
+As a case study, we write routing component tests for the `DashboardComponent` from the Tour of Heroes tutorial on Angular.io. This routing is part of the *show hero detail* use case as shown in Figure 1:
 
 1. The user clicks a top hero in the dashboard.
-1. The application navigates to the hero detail.
+2. The application navigates to the hero detail.
 
 # Angular's RouterTestingModule
 
@@ -41,7 +40,7 @@ To learn what Angular's `RouterTestingModule` does, we first have to learn about
 
 Figure 2 illustrates the flow of dependencies from the `Router` service through the `Location` service and all of its dependencies all the way down to the browser APIs.
 
-![The dependency hierarchy from the Router service through the Location service and to the browser APIs](https://dev-to-uploads.s3.amazonaws.com/i/05oelti9zhasm2fvzdes.png)
+![The dependency hierarchy from the Router service through the Location service and to the browser APIs](./05oelti9zhasm2fvzdes.png)
 
 <figcaption>Figure 2. The dependency hierarchy from the <code>Router</code> service through the <code>Location</code> service and to the browser APIs.</figcaption>
 
@@ -70,7 +69,7 @@ From Figure 2 we can tell that the `Location` service itself delegates work to o
 
 Now that we know the basics of how the `Router` is related to the `Location` service and in turn the browser APIs, we can explore what the `RouterTestingModule` does in terms of dependency injection.
 
-![The dependency hierarchy from the `Router` service to SpyLocation when using the `RouterTestingModule`](https://dev-to-uploads.s3.amazonaws.com/i/e5ub6iedve2yzfrged14.png)
+![The dependency hierarchy from the Router service to SpyLocation when using the RouterTestingModule](./e5ub6iedve2yzfrged14.png)
 
 <figcaption>Figure 3. The dependency hierarchy from the <code>Router</code> service to <code>SpyLocation</code> when using the <code>RouterTestingModule</code>.</figcaption>
 
@@ -84,7 +83,7 @@ You would think that this shouldn't be necessary seeing that `SpyLocation` doesn
 
 However, `RouterLink` depends on `LocationStrategy` as illustrated in Figure 4.
 
-![The dependency hierarchy from the RouterLink directive to the SpyLocation and MockLocationStrategy services when using RouterTestingModule](https://dev-to-uploads.s3.amazonaws.com/i/sug38ceybds5m0o0utca.png)
+![The dependency hierarchy from the RouterLink directive to the SpyLocation and MockLocationStrategy services when using RouterTestingModule](./sug38ceybds5m0o0utca.png)
 
 <figcaption>Figure 4. The dependency hierarchy from the <code>RouterLink</code> directive to the <code>SpyLocation</code> and <code>MockLocationStrategy</code> services when using <code>RouterTestingModule</code>.</figcaption>
 
@@ -694,8 +693,8 @@ describe('DashboardComponent (integrated)', () => {
 
 The integrated test case in Listing 5C looks surprisingly similar to the shallow test case in Listing 3C with a few exceptions:
 
-1.  As the component fixture wraps the `TestRootComponent`, we use the `getActiveComponent` to access the `DashboardComponent`.
-2.  This time we don't have a `Router` service spy object to ask for arguments to `Router#navigateByUrl`. Instead, we call `Location#path` to see the URL path as it would appear in a browser at runtime.
+1. As the component fixture wraps the `TestRootComponent`, we use the `getActiveComponent` to access the `DashboardComponent`.
+2. This time we don't have a `Router` service spy object to ask for arguments to `Router#navigateByUrl`. Instead, we call `Location#path` to see the URL path as it would appear in a browser at runtime.
 
 ## Integrated routing component test suite
 
@@ -830,8 +829,8 @@ describe('DashboardComponent (integrated)', () => {
 
 Like in the shallow routing component test, we see magic strings in use, representing the hero detail route, but this time in two places:
 
-1.  Our fake target route has to match the route URL specified in the dashboard component template.
-2.  As in the shallow routing component test, the expected path in our test case also has to match the one specified in the dashboard component template.
+1. Our fake target route has to match the route URL specified in the dashboard component template.
+2. As in the shallow routing component test, the expected path in our test case also has to match the one specified in the dashboard component template.
 
 [The full test suite is available in this Gist](https://gist.github.com/LayZeeDK/e64005b9ce11d864cf084fae5f2b7837#file-dashboard-component-integration-spec-ts).
 
@@ -843,11 +842,11 @@ We discussed how to test a routing component both by using a shallow component t
 
 What did we test in our routing component test suite?
 
-![The show hero detail use case (repeated)](https://dev-to-uploads.s3.amazonaws.com/i/2nmyzdvl6jlded36ix89.png)
+![The show hero detail use case (repeated)](./2nmyzdvl6jlded36ix89-1.png)
 
 <figcaption>Figure 1 (repeated). The <em>show hero detail</em> use case.</figcaption>
 
-We tested the _show hero detail_ use case from the dashboard: When the user clicks a top hero in the dashboard, the application navigates to the hero detail.
+We tested the *show hero detail* use case from the dashboard: When the user clicks a top hero in the dashboard, the application navigates to the hero detail.
 
 Let's finish by summing up what we learned about all of these topics.
 
@@ -877,7 +876,7 @@ After waiting for navigation to finish, we use `Location#path` to query for the 
 
 We learned how Angular's `Location` service and its dependencies abstract away the Location and History APIs as well as native `popstate` and `hashchange` events.
 
-![The dependency hierarchy from the Router service to SpyLocation when using the RouterTestingModule](https://dev-to-uploads.s3.amazonaws.com/i/e5ub6iedve2yzfrged14.png)
+![The dependency hierarchy from the Router service to SpyLocation when using the RouterTestingModule](./e5ub6iedve2yzfrged14-1.png)
 
 <figcaption>Figure 3 (repeated). The dependency hierarchy from the <code>Router</code> service to <code>SpyLocation</code> when using the <code>RouterTestingModule</code>.</figcaption>
 
@@ -887,7 +886,7 @@ For the purpose of routing component tests, we don't need the extra properties a
 
 The additional `SpyLocation` API should only be required for the `Router`'s own test suite.
 
-![The dependency hierarchy from the RouterLink directive to the SpyLocation and MockLocationStrategy services when using RouterTestingModule](https://dev-to-uploads.s3.amazonaws.com/i/sug38ceybds5m0o0utca.png)
+![The dependency hierarchy from the RouterLink directive to the SpyLocation and MockLocationStrategy services when using RouterTestingModule](./sug38ceybds5m0o0utca-1.png)
 
 <figcaption>Figure 4 (repeated). The dependency hierarchy from the <code>RouterLink</code> directive to the <code>SpyLocation</code> and <code>MockLocationStrategy</code> services when using <code>RouterTestingModule</code>.</figcaption>
 

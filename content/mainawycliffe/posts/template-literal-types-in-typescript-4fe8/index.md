@@ -10,13 +10,13 @@ socialImage: "social-image.png"
 }
 ---
 
-In this article, we will take a closer look at template literal types and how you can take advantage of them in your day-to-day activities as a developer. 
+In this article, we will take a closer look at template literal types and how you can take advantage of them in your day-to-day activities as a developer.
 
 So, what are template literal types?
 
 ## Literal Types
 
-In order to understand what template literal types are, we first need to have a brief look at literal types. Literal types allow us to define types that are more specific, instead of something that is generalized like string or number. 
+In order to understand what template literal types are, we first need to have a brief look at literal types. Literal types allow us to define types that are more specific, instead of something that is generalized like string or number.
 
 Let's say you have a switch; it can have the value of either on or off. One way of defining the types of this, is to use literal types, giving it the type of either `On` or `Off`:
 
@@ -37,7 +37,7 @@ If you tried to assign any other values other than `On` or `Off`, typescript wil
 
 ## Template Literal Types
 
-Template Literal Types build on this, allowing you to build new types using a template and can expand to many different string using [Unions](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types). This works just like [template literal/strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals), but instead of concatenating to form strings, it concatenates to form types. 
+Template Literal Types build on this, allowing you to build new types using a template and can expand to many different string using [Unions](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types). This works just like [template literal/strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals), but instead of concatenating to form strings, it concatenates to form types.
 
 ```typescript
 const variable = "string";
@@ -75,7 +75,7 @@ And this in return gives us the types: `Switch is On` and `Switch is Off`:
 
 Let's say we are working with a grid system, and wanted to perform a task on various boxes in our grid, like placing something on a specific box given its coordinates. It would be nice if we could strongly type it and ensure we don't specify values outside the grid.
 
-For instance, if we had a grid whose length was 3 smaller boxes on either side of the box. This makes it that we have 9 smaller box fitting on our big box. We can use literal types to create a type for each of our boxes, with the type being its position in the grid. So, the first gets `L1-H1` and the last gets `L3-H3` types, as shown below. 
+For instance, if we had a grid whose length was 3 smaller boxes on either side of the box. This makes it that we have 9 smaller box fitting on our big box. We can use literal types to create a type for each of our boxes, with the type being its position in the grid. So, the first gets `L1-H1` and the last gets `L3-H3` types, as shown below.
 
 ```typescript
 type SquareBoxes = "L1-H1" | "L1-H2" | "L1-H3" | "L2-H1" | "L2-H2" | "L2-H3" | "L3-H1" | "L3-H2" | "L3-H3";
@@ -108,7 +108,7 @@ type length = "1" | "2";
 
 ## Combining With Generics
 
-We can combine template literal types with generics to some amazing effect. Let's take with a Type of `Person`, which has two properties - `name` and `age`. 
+We can combine template literal types with generics to some amazing effect. Let's take with a Type of `Person`, which has two properties - `name` and `age`.
 
 ```typescript
 type Person = {
@@ -149,10 +149,10 @@ We have learned about Template Literal Types in Typescript and how they build on
 
 ### Resources
 
-* Creating Types from Types - [Link](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html).
-* Template Literal Types Documentation - [Link](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html).
-* Template literals (Template strings) - [Link](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
-* Types and Mocking - Typescript - [Link](https://mainawycliffe.dev/blog/types-and-mocking-typescript).
-* Transforming Types in TypeScript with Utility Types - [Link](https://mainawycliffe.dev/blog/transforming-types-typescript-utility-types).
+- Creating Types from Types - [Link](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html).
+- Template Literal Types Documentation - [Link](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html).
+- Template literals (Template strings) - [Link](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
+- Types and Mocking - Typescript - [Link](https://mainawycliffe.dev/blog/types-and-mocking-typescript).
+- Transforming Types in TypeScript with Utility Types - [Link](https://mainawycliffe.dev/blog/transforming-types-typescript-utility-types).
 
 [ Discuss this Article](https://github.com/mainawycliffe/discussion/discussions/13)

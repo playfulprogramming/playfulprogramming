@@ -29,9 +29,11 @@ So let's give this another shot.
 # Take Two
 
 So if we aren't going to focus on the mechanism, the events, what makes programming reactive? I found my answer a bit further down that Wikipedia entry. How about the ability to describe a system like:
+
 ```js
 a = b + c
 ```
+
 And have that relationship represent a rule rather than an assignment. To ensure `a` always equals the sum of `b` and `c` were `b` or `c` to ever change. And that relationship never changes.
 
 That is the core of every reactive system whether we are applying operators to transform streams or doing some sort of auto-tracking signal. We are dealing with a declarative expression of the relationship between values that change over time.
@@ -58,5 +60,6 @@ It isn't about push vs pull, signals(behaviors) vs streams, async vs sync. When 
 
 What are modern browser UIs but a form of real-time programs?
 
-----------------
+---
+
 > EDIT: Like most things, apparently someone already wrote this article in 2010. https://paulstovell.com/reactive-programming/. Thanks to Pawel Kozlowski for sharing. I wish I had found articles like that years ago. Would have saved a lot of time.

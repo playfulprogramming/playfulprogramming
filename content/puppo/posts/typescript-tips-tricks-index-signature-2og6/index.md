@@ -13,10 +13,11 @@ order: 1
 }
 ---
 
-Welcome back guys, today I'll speak about the _"Index Signature"_.
+Welcome back guys, today I'll speak about the *"Index Signature"*.
 In some cases, we need to create some special types like dictionaries.
 These special types have some keys that identifies the elements and the datas.
 A simple example:
+
 ```ts
 export type User = {
     name: string,
@@ -44,10 +45,12 @@ console.log(userDictionary["myusername1"]); // { email: 'myemail1@email.it', nam
 delete userDictionary.myusername;
 
 ```
-In this case, the _UserDictionary_ is a special type where the usernames are the keys of the objects and the user data are the values.
+
+In this case, the *UserDictionary* is a special type where the usernames are the keys of the objects and the user data are the values.
 This type is powerful because it permits the consumer to access directly to the data if it knows the keys and it permits to store a unique value of a specific key.
 With the index signature, we can create special types where the keys can be string or number.
 An important thing that you must remember is that the keys of these objects can be iterated with the for-in loop or with the Object.keys method.
+
 ```ts
 console.log(Object.keys(userDictionary)); // [ 'myusername', 'myusername1' ]
 for (const key in userDictionary) {
@@ -59,5 +62,5 @@ for (const key in userDictionary) {
 */
 ```
 
-It's all from the _Index Signature_ for today.
+It's all from the *Index Signature* for today.
 Bye-bye guys!

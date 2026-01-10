@@ -21,11 +21,11 @@ And Hydration is more significant than the amount of JavaScript we ship or execu
 
 Now that more solutions have shipped I think it is time to revisit the 3 most promising approaches to this space.
 
-----------------
+---
 
 ## When does a Site become Interactive?
 
-![INP Graphic](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/oru6oigox10kssmlf4d4.jpeg)
+![INP Graphic](./oru6oigox10kssmlf4d4.jpeg)
 
 But first I think we need to start here. For such a seemingly simple question the answer isn't so straightforward. There is a reason performance experts in the browser, like the Chrome team, have gone through several iterations on how to best capture this. TTI (Time to Interactive), FID (First Input Delay), and now INP (Input to Next Paint) can also serve as a way to understand how responsive our websites are.
 
@@ -35,13 +35,13 @@ How about if events are captured and then replayed during hydration or even used
 
 The fact that these sorts of techniques are everywhere at this point is why at least to me being interactive can't only include the ability to catch the cause, but also the time it takes to witness the expected effect. How to measure that reasonably I will leave it to the browser teams, but that should give us goalposts for our exploration.
 
-----------------
+---
 
 ## Islands
 
-![Islands](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4lteo95ma15ugimwn9pj.jpg)
+![Islands](./4lteo95ma15ugimwn9pj.jpg)
 
-The thing to love about Islands is they start so simple. If you have too much JavaScript, divide and conquer. The earliest days of client-side rendering involved embedding interactive widgets in server-rendered applications. Even things like Web Components have made this pretty easy to do over the years. 
+The thing to love about Islands is they start so simple. If you have too much JavaScript, divide and conquer. The earliest days of client-side rendering involved embedding interactive widgets in server-rendered applications. Even things like Web Components have made this pretty easy to do over the years.
 
 Well, except for one problem. These widgets were client-rendered so they came from the server blank. This could cause layout shifts and a delay in primary content showing. Islands in the basic form is just server rendering these pieces as well.
 
@@ -49,24 +49,23 @@ Simple, but it meant JavaScript on the server to render which is why outside of 
 
 There are some significant differences between Islands and its SPA counterparts (like Next, Nuxt, SvelteKit, and Remix). These Islands frameworks skip sending JavaScript for the root of the application. It isn't until you hit an interactive component that JavaScript is needed. This can drastically shrink bundle sizes.
 
-
-| Page | Full Page | Islands | Reduction |
-|---|---|---|---|
-| Home | 439kb | 72kb | 84% |
-| Search | 504kb | 110kb | 72% |
-| View Item | 532kb | 211kb | 60% |
+| Page      | Full Page | Islands | Reduction |
+| --------- | --------- | ------- | --------- |
+| Home      | 439kb     | 72kb    | 84%       |
+| Search    | 504kb     | 110kb   | 72%       |
+| View Item | 532kb     | 211kb   | 60%       |
 
 > Comparison done by Marko team on eBay.com
 
 Islands can also shrink HTML document size as they only need to serialize the data passed as Island props instead of all the data. That blob of JSON in a script tag we are accustomed to seeing at the bottom of the server-rendered HTML can disappear when we use Islands! On data-heavy pages, I've seen it cut the page size in half.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zyjkr8xcdh3fdelh9c1b.png)
+![Image description](./zyjkr8xcdh3fdelh9c1b.png)
 
 > Hackernews story page done in SolidStart with SPA SSR and Islands
 
 How is that possible? Server-rendered children can be passed through the Islands without being hydrated themselves.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wa0407e1o39f85jbpabf.png)
+![Image description](./wa0407e1o39f85jbpabf.png)
 
 In the case above, where no state is passed to our ToggleVisibleIsland, those comments never need to be sent to the client.
 
@@ -74,11 +73,11 @@ It does mean though that any content passed through will be rendered eagerly eve
 
 The most important difference is Island architected applications are MPAs(Multi-Page Apps). The optimization is based on knowing that the code for non-interactive parts is never needed in the browser. Never rendered in the client. This is something a SPA router could never guarantee.
 
-------------------
+---
 
 ## Server Components
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ydl3k8yveg99avf1n06j.png)
+![Image description](./ydl3k8yveg99avf1n06j.png)
 
 But what if we do want client routing? How much does that change the picture?
 
@@ -90,7 +89,7 @@ The first thing you might do is mark elements as being persistent. And then when
 
 Another consideration is global state in the client. Pretend you have a global counter that impacts how certain Islands render. If you load one page and increment it to 10. Then on navigation render the next page on the server, it will not know that the counter is 10 and render it as if it were 0. This could lead to hydration mismatches and break the application.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/io9fucz2at6eivue0149.png)
+![Image description](./io9fucz2at6eivue0149.png)
 
 Unless you desire to send back all the global state back and forth between requests(and you really really don't), we can't ever render Islands on the server after the first-page load if we want to ensure things won't break when global state is involved.
 
@@ -100,11 +99,11 @@ Instead of wrestling with that, React Server Components invented their own seria
 
 So Server Component architecture can be seen as Islands + Client Routing, but it involves more than tagging a client router or even View Transitions on an MPA. And in so deserves its own category when looking at how we build partially hydrated solutions.
 
---------------
+---
 
 ## Resumability
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/n5e5rfc9dgrmti8h9yhg.gif)
+![Image description](./n5e5rfc9dgrmti8h9yhg.gif)
 
 I love resumability because it does come out of left field compared to a lot of the other research that has been going on over the past decade. Instead of looking at how to reduce the amount of code/hydration, it looks at changing what code executes.
 
@@ -123,21 +122,21 @@ Done well that seems pretty good. Once you enter this zone, it is easier to auto
 
 Resumability's knowledge is still based on knowing what will always be on the server from an MPA standpoint. Unlike Islands that are explicit, with an automatic system any descendant of stateful conditional in the rendering has the potential to end up in the browser.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ocs5l99pizu0ontfct4v.png)
+![Image description](./ocs5l99pizu0ontfct4v.png)
 
 If one added client-side routing (a stateful decision high in the tree) a resumable solution on its own would load the same code on navigation as an SPA and require all the serialized data client side to render it.
 
------------
+---
 
 ## Conclusion
 
-![All of the Above Minion](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/papk4dk0h5cr0p3x51av.png)
+![All of the Above Minion](./papk4dk0h5cr0p3x51av.png)
 
 So I guess high level:
 
-* Islands are an architecture that aims to reduce JavaScript footprint by up to ~90% by explicitly denoting what goes to the client.
-* Server Components architecture extends Islands with client-side routing and proper state preservation.
-* Resumability instead of focusing on how to reduce the amount that is hydrated, looks to instead remove the execution cost of hydration itself.
+- Islands are an architecture that aims to reduce JavaScript footprint by up to \~90% by explicitly denoting what goes to the client.
+- Server Components architecture extends Islands with client-side routing and proper state preservation.
+- Resumability instead of focusing on how to reduce the amount that is hydrated, looks to instead remove the execution cost of hydration itself.
 
 So while seen as competitive these are actually complementary. They don't all solve the same issue completely but focus on a certain part of the problem.
 

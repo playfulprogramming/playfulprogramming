@@ -37,7 +37,7 @@ const upperCaseOddLengthWords = words
   .map(word => word.toUpperCase());
 ```
 
-The second part is "data-centric event emitter". We've all worked in systems with events. DOM has events for when the user interacts with Elements. Operating systems work off event queues. They serve as a way to decouple the handling of changes in our system from the actors that trigger them. 
+The second part is "data-centric event emitter". We've all worked in systems with events. DOM has events for when the user interacts with Elements. Operating systems work off event queues. They serve as a way to decouple the handling of changes in our system from the actors that trigger them.
 
 The key to a reactive system is the actors are the data. Each piece of data is responsible for emitting its own events to notify its subscribers when its value has changed. There are many different ways to implement this from streams and operators to signals and computations, but at the core, there is always this data-centric event emitter.
 
@@ -61,11 +61,12 @@ const listener = merge(
     console.log('Were you dragging?', isDragging);
   });
 ```
+
 You can see this stream build in front of you. You can describe some incredibly complex behavior with minimal code.
 
 ### 2. Fine-Grained Signals
 
-This is the one often associated with spreadsheets or digital circuits. It was developed to solve synchronization problems. It has little sense of time but ensures glitchless data propagation so that everything is in sync. 
+This is the one often associated with spreadsheets or digital circuits. It was developed to solve synchronization problems. It has little sense of time but ensures glitchless data propagation so that everything is in sync.
 
 It is built on signals and auto-tracking computations instead of streams and operators. Signals represent a single data point whose changes propagate through a web of derivations and ultimately result in side effects.
 
@@ -84,6 +85,7 @@ autorun(() => {
 cityName.set("Amsterdam")
 // Prints: 'Amsterdam'
 ```
+
 If you look, `cityName`'s value looks like it is actually being pulled instead of pushed. And it is on initial execution. These systems use a hybrid push/pull system, but not for the reason you might think. It is to stay in sync.
 
 Regardless of how we attack it, computations need to run in some order, so it is possible to read from a derived value before it has been updated. Given the highly dynamic nature of the expressions in computations topological sort is not always possible when chasing optimal execution. So sometimes we pull instead of push to ensure consistency when we hit a signal read.
@@ -116,9 +118,11 @@ When you update a value in Svelte in an event handler and happen to read a deriv
   console.log(count, doubleCount);  // 2, 2
 }}>Click Me</button>
 ```
+
 In fact, updates are scheduled batched and scheduled similarly to React. Maybe not interruptable like time-slicing but still scheduled. In fact, most frameworks do this sort of batching. Vue as well when talking about DOM updates. Set count twice synchronously and sequentially doesn't result in Svelte updating the component more than once.
 
 Taking it a step further, have you seen the compiled output of this? The important parts look like this:
+
 ```js
 let doubleCount;
 let count = 1;
@@ -134,7 +138,8 @@ $$self.$$.update = () => {
   }
 };
 ```
-Unsurprisingly `$$invalidate` is a lot like `setState`. Guess what it does? Tell the component to call its `update` function. Basically exactly what React does. 
+
+Unsurprisingly `$$invalidate` is a lot like `setState`. Guess what it does? Tell the component to call its `update` function. Basically exactly what React does.
 
 There are differences in execution after this point due to differences in memoization patterns and VDOM vs no VDOM. But for all purposes, Svelte has a `setState` function that re-evaluates its components. And like React it is component granular, performing a simple flag-based diff instead of one based on referential value check.
 

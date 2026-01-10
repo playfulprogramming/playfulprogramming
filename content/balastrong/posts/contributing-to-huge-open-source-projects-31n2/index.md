@@ -21,7 +21,7 @@ But then, how do you even get started? If you feel overwhelmed and don’t know 
 
 {% youtube mt92NrUEJiU %}
 
-_here below you can find the script of the video_
+*here below you can find the script of the video*
 
 ## Pick a project
 
@@ -84,7 +84,6 @@ You will need to fork the repo, clone it locally, do your changes in a separate 
 
 And with that said, thanks for reading this article and see you next time!
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -93,7 +92,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

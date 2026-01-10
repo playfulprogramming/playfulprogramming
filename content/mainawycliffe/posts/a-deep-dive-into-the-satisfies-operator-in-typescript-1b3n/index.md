@@ -14,13 +14,12 @@ socialImage: "social-image.png"
 In Typescript [version 4.9](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html), Typescript introduced the satisfies operator. Over the last few months, I have seen examples of it being used out in the world more often, and even I have found myself getting comfortable using it. In this issue, I want to do a deep dive and try and answer the following questions:
 
 - Why it exists
-    
+
 - Why not annotations
-    
+
 - Why not assertions
-    
+
 - When to use it
-    
 
 ### What is the `satisfies` Typescript operator
 
@@ -34,11 +33,11 @@ const str: string = "hello"
 
 In the case above, despite us using const, and having all the information at hand to narrow the above type to the `hello` literal type, Typescript doesn’t do that and instead takes our annotation as the type of the variable.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbdbc50f0-df55-478a-aa0b-2b3f5b8b85ea_337x97.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbdbc50f0-df55-478a-aa0b-2b3f5b8b85ea_337x97.png)
 
 This is in contrast to when we allow type inference to work for us, instead of explicitly providing Type annotations, as shown below:
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa3ebadb3-c18b-49ca-86bf-3dc167106eda_334x80.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa3ebadb3-c18b-49ca-86bf-3dc167106eda_334x80.png)
 
 As you can see from the above example, when we use explicit type annotations, we lose the narrower type that we would have gotten if we had let Typescript infer the type for us.
 
@@ -58,7 +57,7 @@ The first function accepts a string and the second accepts a literal type - `hel
 
 But in the second function, despite the first variable value being hello, Typescript will make you jump through to accept the variable, simply because it expects a narrower type than the type of string we provided.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff3f3dc42-eaf0-4fef-9e3b-6fe89307e4a0_725x141.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff3f3dc42-eaf0-4fef-9e3b-6fe89307e4a0_725x141.png)
 
 In the second function, you would need to narrow the variable for it to work, as shown below:
 
@@ -72,7 +71,7 @@ if(str === "hello")  b(str);
 
 If you are wondering what this has to do with the satisfies operator, I am getting to the point in a moment.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd7e2df56-0d01-4c28-8808-c65538f3196c_500x574.jpeg)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd7e2df56-0d01-4c28-8808-c65538f3196c_500x574.jpeg)
 
 What if you wanted to ensure that `str` is a string, without losing the narrowness of the inferred type? If you remember at the beginning, we said that the satisfies operator allows you to validate (think type-check) a variable type without changing the resulting type of that expression. The **resulting type** being the Type inferred by Typescript in the absence of explicit type annotation.
 
@@ -84,7 +83,7 @@ const str = "hello" satisfies string;
 
 Our variable wouldn’t carry the type of string as it did previously when we used type annotations, but the resulting inferred type is retained.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7a78b34e-3b93-4bfe-bd3b-f30f703fb755_381x84.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7a78b34e-3b93-4bfe-bd3b-f30f703fb755_381x84.png)
 
 And this means, we can now pass the variable to the second function without needing to narrow the type.
 
@@ -114,9 +113,8 @@ const user = {
 With the above object, we might want to have Typescript type-check the content of the object. In such a situation we have two options:
 
 - providing explicit type annotations
-    
+
 - or the `satisfies` operator.
-    
 
 If we use type annotations and try accessing one of the properties, Typescript doesn’t know the properties that are inside the object or their types, this is despite us explicitly adding them and adding them upfront.
 
@@ -131,7 +129,7 @@ const user: Record<string, string | number | boolean> = {
 
 In this case, Typescript goes with the type from our Type annotation for the property values.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff021f734-836d-49d1-8f8c-9174434a759e_525x178.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff021f734-836d-49d1-8f8c-9174434a759e_525x178.png)
 
 This isn’t great, for one, we can include properties that don’t exist inside our user object or typos and which may introduce bugs within our codebase. However, if we went with the `satisfies` operator, then things work out quite differently and for the better.
 
@@ -145,26 +143,25 @@ const user = {
 
 If we try and access the property firstName, we get both auto-completion 👌🏾 and it has the correct type, as shown below:
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb400cea4-2aef-4e8d-8e49-b1a9d7650f11_499x186.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb400cea4-2aef-4e8d-8e49-b1a9d7650f11_499x186.png)
 
 We also can’t access properties we didn’t explicitly add to the user object.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F319929b7-e7c2-4620-a392-e5c8f0127b16_1001x182.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F319929b7-e7c2-4620-a392-e5c8f0127b16_1001x182.png)
 
 And we also get the excess property checking we got when we provided explicit type annotations.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd3c66d63-1983-4855-8809-f0ddd88c4f93_633x179.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd3c66d63-1983-4855-8809-f0ddd88c4f93_633x179.png)
 
 This has a few benefits:
 
 - Improved type safety as demonstrated in the last example. This is twofold:
-    
-    - validating the object properties and values are of certain types, and
-        
-    - avoiding changing the objects’ inferred type, which means the property value types are narrow instead of wide.
-        
+
+  - validating the object properties and values are of certain types, and
+
+  - avoiding changing the objects’ inferred type, which means the property value types are narrow instead of wide.
+
 - Reduced the amount of code we write - we don’t need to engage in type narrowing to use our properties above, they already have a narrow type.
-    
 
 #### Use Cases
 
@@ -196,7 +193,7 @@ const circle = {
 } satisfies Circle;
 ```
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F315da09e-0c76-4c4e-a44a-718b0ce3381a_840x194.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F315da09e-0c76-4c4e-a44a-718b0ce3381a_840x194.png)
 
 ##### Constraining the values of Properties, the opposite of the above
 
@@ -234,4 +231,4 @@ The inferred type is usually narrower, meaning it can be used without the need f
 
 ---
 
-**If you loved today’s content and would be interested in supporting my work, please consider supporting me (**_**you can buy me a double latte, the juice that powers my creativity ☕️**_**) through [Github Sponsors](https://github.com/sponsors/mainawycliffe/).**
+**If you loved today’s content and would be interested in supporting my work, please consider supporting me (*****you can buy me a double latte, the juice that powers my creativity ☕️*****) through [Github Sponsors](https://github.com/sponsors/mainawycliffe/).**

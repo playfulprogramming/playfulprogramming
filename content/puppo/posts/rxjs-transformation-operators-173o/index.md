@@ -12,12 +12,11 @@ order: 1
 }
 ---
 
-
 Welcome back,
 Today I'll speak about the Transformation Operators. These operators are used to modify the value received.
 But cut the chatter, and let's start.
 
-* **[map](https://rxjs.dev/api/operators/map)**
+- **[map](https://rxjs.dev/api/operators/map)**
 
 > Applies a given project function to each value emitted by the source Observable, and emits the resulting values as an Observable.
 
@@ -40,6 +39,7 @@ source$.pipe(
     complete: () => console.log(`${new Date().toLocaleTimeString()}: map: complete`),
 })
 ```
+
 ```console
 16:58:51: Generated 0
 16:58:51: map 0
@@ -53,10 +53,11 @@ source$.pipe(
 16:58:55: map 16
 16:58:55: map: complete
 ```
+
 The map operator is like the map function of the arrays.
 It transforms the value using the function passed as an argument.
 
-* **[mapTo](https://rxjs.dev/api/operators/mapTo)**
+- **[mapTo](https://rxjs.dev/api/operators/mapTo)**
 
 > Emits the given constant value on the output Observable every time the source Observable emits a value.
 
@@ -80,6 +81,7 @@ source1$.pipe(
     complete: () => console.log(`${new Date().toLocaleTimeString()}: mapTo: complete`),
 })
 ```
+
 ```console
 17:03:01: mapTo: start
 17:03:02: Source1 Generated 0
@@ -94,13 +96,13 @@ source1$.pipe(
 17:03:06: mapTo 1000
 17:03:06: mapTo: complete
 ```
-The operator is similar to the map operator, but it returns a fixed value that does not depend on the source.
 
+The operator is similar to the map operator, but it returns a fixed value that does not depend on the source.
 
 Now I start to talk about the operators: concat, exhaust, merge and switch.
 These operators are similar to the others but they have some minimum differences that change their behaviour, and if you choose the wrong implementations you may not have the aspected result.
 
-* **[concatMap](https://rxjs.dev/api/operators/concatMap)**
+- **[concatMap](https://rxjs.dev/api/operators/concatMap)**
 
 > Projects each source value to an Observable which is merged in the output Observable, in a serialized fashion waiting for each one to complete before merging the next.
 
@@ -125,6 +127,7 @@ source$.pipe(
     complete: () => console.log(`${new Date().toLocaleTimeString()}: concatMap: complete`),
 })
 ```
+
 ```console
 17:54:07: Generated 0
 17:54:08: Generated 1
@@ -138,14 +141,15 @@ source$.pipe(
 17:54:17: concatMap 16
 17:54:17: concatMap: complete
 ```
+
 This operator is used to concatenate different observables.
 The first source starts to emit the values, and the concatMap operator runs another observable for every value. The result values of the last observables are emitted as results of the operator concat.
 You should remember that the concatMap operator runs only one value at a time. You can notice from the previous examples that the values 0,1 and 2 are emitted before the result of the first concatMap (0), and after that, you can notice the emission of the values 3 and 4 before the result of the second emitted value. The particular behaviour of the concatMap operator is better visible after the last generated value from the first source (4) because we can see all the concatMap results emitted every 2 seconds from each other.
 
 Here's the marble diagram to explain better the behaviour:
-![ConcatMap Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7wmkcr2jyuj0rk4x1hsl.jpg)
+![ConcatMap Marble Diagram](./7wmkcr2jyuj0rk4x1hsl.jpg)
 
-* **[concatMapTo](https://rxjs.dev/api/operators/concatMapTo)**
+- **[concatMapTo](https://rxjs.dev/api/operators/concatMapTo)**
 
 > Projects each source value to the same Observable which is merged multiple times in a serialized fashion on the output Observable.
 
@@ -177,6 +181,7 @@ source1$.pipe(
     complete: () => console.log(`${new Date().toLocaleTimeString()}: concatMapTo: complete`),
 })
 ```
+
 ```console
 18:12:28: concatMapTo: start
 18:12:31: Source1 Generated 2
@@ -191,11 +196,12 @@ source1$.pipe(
 18:12:39: concatMapTo 1
 18:12:39: concatMapTo: complete
 ```
+
 This operator is like the concatMap apart from the fact that it returns another observable that does not depend on the value received.
 It can be used when an observable emit a value and we need to run another observable.
 For example, we have a source that is a timer, and on every tick, we need to call an API. If we use the concatMapTo we can implement this solution easier.
 
-* **[exhaustMap](https://rxjs.dev/api/operators/exhaustMap)**
+- **[exhaustMap](https://rxjs.dev/api/operators/exhaustMap)**
 
 > Projects each source value to an Observable which is merged in the output Observable only if the previous projected Observable has completed.
 
@@ -220,6 +226,7 @@ source$.pipe(
     complete: () => console.log(`${new Date().toLocaleTimeString()}: exhaustMap: complete`),
 })
 ```
+
 ```console
 18:17:47: Generated 0
 18:17:48: Generated 1
@@ -234,9 +241,9 @@ source$.pipe(
 The exhaustMap operator syntactically is equal to the concat operator, but it has a different behavior: this operator during the execution of a projection ignores all other values received until the execution is not ended. If you see the result in the console of the before example, you can notice that the power of the values 1, 2, and 4 has never been shown.
 
 The marble diagram of the exhaustMap operator in the previous example:
-![ExhaustMap Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/o5heddkiwdmbj3uyehot.jpg)
+![ExhaustMap Marble Diagram](./o5heddkiwdmbj3uyehot.jpg)
 
-* **[mergeMap](https://rxjs.dev/api/operators/mergeMap)**
+- **[mergeMap](https://rxjs.dev/api/operators/mergeMap)**
 
 > Projects each source value to an Observable which is merged in the output Observable.
 
@@ -261,6 +268,7 @@ source$.pipe(
     complete: () => console.log(`${new Date().toLocaleTimeString()}: mergeMap: complete`),
 })
 ```
+
 ```console
 18:18:16: Generated 0
 18:18:17: Generated 1
@@ -274,15 +282,15 @@ source$.pipe(
 18:18:22: mergeMap 16
 18:18:22: mergeMap: complete
 ```
+
 The mergeMap operator is syntactically like concat and exhaust but it executes the projection as soon as a value arrives. This behaviour can open some strange cases, for example, it's not guaranteed the order of the result values with the order of the source values.
 Let me give an example: we have a source that emits some values every 500ms, in the mergeMap operator we call an http API; the first value calls the API and the response arrives after 1.5seconds, the second value calls the same api but the response arrives after 200ms. The mergeMap operator in this case emits the result of the second value primarily and the result of the first one secondly.
 As you can imagine, in some cases this behaviour can be wrong or unexpected, so, if you need to use the mergeMap operator, remember what I said before and ask yourself if it can produce some side effects or if it is the right solution of your problems.
 
 Here is the MergeMap marble Diagram of the previous example:
-![MergeMap Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/z72t3ufmngyub6m1okpn.jpg)
+![MergeMap Marble Diagram](./z72t3ufmngyub6m1okpn.jpg)
 
-
-* **[mergeMapTo](https://rxjs.dev/api/operators/mergeMapTo)**
+- **[mergeMapTo](https://rxjs.dev/api/operators/mergeMapTo)**
 
 > Projects each source value to the same Observable which is merged multiple times in the output Observable.
 
@@ -314,6 +322,7 @@ source1$.pipe(
     complete: () => console.log(`${new Date().toLocaleTimeString()}: mergeMap: complete`),
 })
 ```
+
 ```console
 18:18:53: mergeMap: start
 18:18:56: Source1 Generated 2
@@ -328,11 +337,12 @@ source1$.pipe(
 18:19:01: mergeMap 1
 18:19:01: mergeMap: complete
 ```
+
 This operator is like the mergeMap apart from the fact that it returns another observable that does not depend on the value received.
 It can be used when an observable emits a value and we need to run another observable.
 In simple words, it's like the concatMapTo with the behaviour of the mergeMap operator behind the scene.
 
-* **[switchMap](https://rxjs.dev/api/operators/switchMap)**
+- **[switchMap](https://rxjs.dev/api/operators/switchMap)**
 
 > Projects each source value to an Observable which is merged in the output Observable, emitting values only from the most recently projected Observable.
 
@@ -357,6 +367,7 @@ source$.pipe(
     complete: () => console.log(`${new Date().toLocaleTimeString()}: switchMap: complete`),
 })
 ```
+
 ```console
 18:19:16: Generated 0
 18:19:17: Generated 1
@@ -366,13 +377,14 @@ source$.pipe(
 18:19:22: switchMap 16
 18:19:22: switchMap: complete
 ```
+
 The switchMap operator is syntactically like concat, exhaust and merge. It executes the projection as soon as a value arrives, but when a new value arrives, if the projection of the previous value is in execution, it kills it and starts the execution of the projection for the new value.
 It can be used for example for searching the data of an autocomplete input. When the user types a new letter and emits a new value, with this operator we can stop the previous search if it's on execution and start the new one.
 
 Here is the SwitchMap marble Diagram of the previous example:
-![SwitchMap Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/homky2m86l0gfq0ssrar.jpg)
+![SwitchMap Marble Diagram](./homky2m86l0gfq0ssrar.jpg)
 
-* **[switchMapTo](https://rxjs.dev/api/operators/switchMapTo)**
+- **[switchMapTo](https://rxjs.dev/api/operators/switchMapTo)**
 
 > Projects each source value to the same Observable which is flattened multiple times with switchMap in the output Observable.
 
@@ -404,6 +416,7 @@ source1$.pipe(
     complete: () => console.log(`${new Date().toLocaleTimeString()}: switchMap: complete`),
 })
 ```
+
 ```console
 18:19:38: switchMap: start
 18:19:41: Source1 Generated 2
@@ -414,16 +427,15 @@ source1$.pipe(
 18:19:46: switchMap 1
 18:19:46: switchMap: complete
 ```
+
 This operator is like the switchMap apart from the fact that it returns another observable that does not depend on the value received.
 It can be used when an observable emits a value and we need to run another observable.
 In simple words, it's like the concatMapTo or the mergeMapTo with the behaviour of the switchMap operator behind the scene.
 
+*with this operator, we have finish the explanation of the 4 "special" operators (concat, exhaust, merge and switch). As you can see they are similar to each other but if you choose the wrong one it can produces some unexpected side effects.
+I hope these examples can help you in future to choose the right operator for you*
 
-_with this operator, we have finish the explanation of the 4 "special" operators (concat, exhaust, merge and switch). As you can see they are similar to each other but if you choose the wrong one it can produces some unexpected side effects.
-I hope these examples can help you in future to choose the right operator for you_
-
-
-* **[pairwise](https://rxjs.dev/api/operators/pairwise)**
+- **[pairwise](https://rxjs.dev/api/operators/pairwise)**
 
 > Groups pairs of consecutive emissions together and emits them as an array of two values.
 
@@ -440,16 +452,17 @@ source$.pipe(
     next: value => console.log(`${new Date().toLocaleTimeString()}: pairwise`, value),
 })
 ```
+
 ```console
 18:20:02: pairwise [ 1, 2 ]
 18:20:02: pairwise [ 2, 3 ]
 18:20:02: pairwise [ 3, 4 ]
 18:20:02: pairwise [ 4, 5 ]
 ```
+
 This operator is used to get as result a tuple where in the first index there is the previous value and in the second index there is the current value. As you can imagine, if your source emits only one value the pairwise operator will never emit a value.
 
-
-* **[scan](https://rxjs.dev/api/operators/scan)**
+- **[scan](https://rxjs.dev/api/operators/scan)**
 
 > Useful for encapsulating and managing state. Applies an accumulator (or "reducer function") to each value from the source after an initial state is established -- either via a seed value (second argument), or from the first value from the source.
 
@@ -466,6 +479,7 @@ source$.pipe(
     next: value => console.log(`${new Date().toLocaleTimeString()}: scan`, value),
 })
 ```
+
 ```console
 18:20:26: scan 1
 18:20:26: scan 3
@@ -473,6 +487,7 @@ source$.pipe(
 18:20:26: scan 10
 18:20:26: scan 15
 ```
+
 This operator is similar to the [reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) method of the array. We can create an accumulator and every time a new value is emitted from the source we can update this accumulator and return it as result.
 
 Ok, that's all from the Transformation Operators, I hope this examples can help you in future and I hope you have achieved a clear idea of how and when to use these operators.
@@ -481,4 +496,3 @@ Ok, that's all from the Transformation Operators, I hope this examples can help 
 
 See you soon Guys
 Bye Bye!
-

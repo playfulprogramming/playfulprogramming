@@ -29,8 +29,7 @@ Run the following command in your terminal:
 
 This creates a folder named environments within the src directory, containing an initial environment.ts file. By default, this file serves as your development environment configuration.
 
-
-![environment.ts](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/im0gfzyl4oyziem18dub.PNG)
+![environment.ts](./im0gfzyl4oyziem18dub.PNG)
 
 **Defining Environment Variables:**
 
@@ -84,6 +83,7 @@ export class MyService {
   apiUrl = environment.apiUrl;
 }
 ```
+
 **Configuring `angular.json` for Environment-Specific Builds:**
 
 **Target Configurations:**
@@ -117,6 +117,7 @@ Open `angular.json` and locate the "configurations" section under "build". This 
 "defaultConfiguration": "production"
 
 ```
+
 This instructs the Angular CLI to replace the default `environment.ts` with `environment.prod.ts `during production builds and `environment.test.ts` for UAT builds.
 
 For serving the applications on multiple environments, you can add serve configurations inside `angular.json` as:
@@ -161,7 +162,6 @@ To serve your application for UAT, use:
 
 ## Conclusion
 
-Employing environment-specific configurations significantly enhances the developer experience. It offers a clean and maintainable approach, streamlining application deployment across diverse environments and ultimately reducing the mean time to production (MTTP). 
+Employing environment-specific configurations significantly enhances the developer experience. It offers a clean and maintainable approach, streamlining application deployment across diverse environments and ultimately reducing the mean time to production (MTTP).
 
-Also, if you enjoyed reading this article, you can [learn more about me here.](https://next-js-portfolio-two-ebon.vercel.app/en
-)
+Also, if you enjoyed reading this article, you can [learn more about me here.](https://next-js-portfolio-two-ebon.vercel.app/en)

@@ -10,7 +10,7 @@ socialImage: "social-image.png"
 }
 ---
 
-We’re used to lazy loading modules or components in Angular. But what about lazy loading services? _Wait, what? Yes, we can._ In this article, we will learn how to lazy load a service in Angular and it’s gotchas.
+We’re used to lazy loading modules or components in Angular. But what about lazy loading services? *Wait, what? Yes, we can.* In this article, we will learn how to lazy load a service in Angular and it’s gotchas.
 
 ## What is Lazy Loading?
 
@@ -38,6 +38,7 @@ import("./my-service").then((file) => {
   // do something with the service
 });
 ```
+
 This is great, but doesn’t give us a good **DX (developer experience)**. We have to use the injector to get the service instance. So, we can create a **helper function** that will lazy load the service and return the service instance. Here’s a helper function that can help with that.
 
 ```typescript
@@ -105,18 +106,15 @@ export class AppComponent {
 }
 ```
 
-
 And now, let’s take a look at the network tab!
 
-
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0x3bksv91q4x85giccm5.png)
+![Image description](./0x3bksv91q4x85giccm5.png)
 
 Yeah, the service will be in it’s own bundle 🎉!
 
 ---
 
-
-But what if we want to use the service in another component, we have to **lazy load it again**. Otherwise, it will be bundled in **main bundle** (_if used in not lazy loaded component_), or **common bundle** (_if used in another lazy loaded component_), and break the code splitting.
+But what if we want to use the service in another component, we have to **lazy load it again**. Otherwise, it will be bundled in **main bundle** (*if used in not lazy loaded component*), or **common bundle** (*if used in another lazy loaded component*), and break the code splitting.
 
 > NOTE: The javascript bundle will be downloaded only once, no matter of how many times we lazy load it, because after the first download, webpack (the bundler) will just reuse the downloaded bundled.
 
@@ -128,15 +126,9 @@ Take a look at this tweet by [Younes](https://twitter.com/yjaaidi), where he exp
 
 - Tweet 2: https://twitter.com/yjaaidi/status/1552570805715861504
 
-![Lazy service decorator](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7wlrcbbw2o7ct5zlwmfz.png)
+![Lazy service decorator](./7wlrcbbw2o7ct5zlwmfz.png)
 
-
-
-![Lazy load service not provided in root](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/stvyv7y61j9ge80dr8l2.png)
-
-
-
-
+![Lazy load service not provided in root](./stvyv7y61j9ge80dr8l2.png)
 
 ## What’s the usecase for lazy loading a service?
 
@@ -158,6 +150,4 @@ Thanks for reading!
 
 ---
 
-I tweet a lot about Angular (latest news, videos, podcasts, updates, RFCs, pull requests and so much more). If you’re interested about it, give me a follow at [@Enea_Jahollari](https://twitter.com/Enea_Jahollari). Give me a follow on [dev.to](https://dev.to/eneajaho) if you liked this article and want to see more like this!
-
-
+I tweet a lot about Angular (latest news, videos, podcasts, updates, RFCs, pull requests and so much more). If you’re interested about it, give me a follow at [@Enea\_Jahollari](https://twitter.com/Enea_Jahollari). Give me a follow on [dev.to](https://dev.to/eneajaho) if you liked this article and want to see more like this!

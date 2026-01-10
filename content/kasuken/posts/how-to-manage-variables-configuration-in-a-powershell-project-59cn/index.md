@@ -136,6 +136,7 @@ However, using parameters also has some drawbacks:
 - It may require you to write additional code to handle parameter binding, parsing, error handling, etc.
 
 ## My favorite approach
+
 For my project I would like to use a typical config file with a key-value-pair for each line.
 Something like this:
 
@@ -166,18 +167,18 @@ Using the variables is very easy, you just need to add the dollar symbol on a va
 From the previous example you can have:
 $tenantID, $clientID and so on.
 
-You can call the function Load-Config at the beginning of your script. In this case you can be sure that all the script and functions have access to the variables. 
+You can call the function Load-Config at the beginning of your script. In this case you can be sure that all the script and functions have access to the variables.
 
 ## Conclusion
 
 In this article, we have discussed three ways to manage variables configuration in a PowerShell project: using a configuration file, using environment variables, and using parameters. Each method has its own pros and cons, and you may need to use a combination of them depending on your needs and preferences. The following table summarizes some of the main differences between the methods:
 
-| Method | Security | Portability | Flexibility | Complexity |
-| --- | --- | --- | --- | --- |
-| Configuration file | Low | Medium | High | Low |
-| Environment variable | High | Low | Medium | Medium |
-| Parameter | Medium | High | High | High |
-| Config File | High| High | High | High |
+| Method               | Security | Portability | Flexibility | Complexity |
+| -------------------- | -------- | ----------- | ----------- | ---------- |
+| Configuration file   | Low      | Medium      | High        | Low        |
+| Environment variable | High     | Low         | Medium      | Medium     |
+| Parameter            | Medium   | High        | High        | High       |
+| Config File          | High     | High        | High        | High       |
 
 As a general guideline, you should follow these best practices when managing variables configuration in a PowerShell project:
 
@@ -189,6 +190,6 @@ As a general guideline, you should follow these best practices when managing var
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

@@ -41,6 +41,7 @@ const observable = new Observable<string>((subscriber: Subscriber<string>) => {
 
 As you can see the Observable is a class that accept a subscriber (a callback function).
 This subscriber has 3 main possible action:
+
 1. **next**: The next method emits the value passing as parameter to all the subscriptions, so the system can react accordingly.
 2. **error**: The error method emits an error during the execution of the observable.
 3. **complete**: The complete method sets the observable closed. When this happens, all the future methods (next and error) emitted for the closed observable will be ignored.
@@ -72,12 +73,14 @@ const observable = new Observable<string>((subscriber: Subscriber<string>) => {
 
 observable.subscribe(observer);
 ```
+
 ```sh
 next Hello
 next World
 complete!
 ```
-_p.s. don't pay attention to the observer in this moment, to simplify it think that when the subscriber calls the next method, the next function in the observer will be called and the same goes for the error and complete methods_
+
+*p.s. don't pay attention to the observer in this moment, to simplify it think that when the subscriber calls the next method, the next function in the observer will be called and the same goes for the error and complete methods*
 
 You can notice how the subscriber calls the next method twice: first with "Hello" and after with "World" and the result is logged into the console. Next, the subscriber calls the complete method and it is registered in the console too. After that, the subscriber calls the error method and the next method twice, but in the console nothing happens. This behaviour is due to the fact that the observable is ended by the complete method so the observable no longer emits any events.
 When we complete the observable, it's important to remember that all the next methods called (next, error or complete) are ignored.
@@ -86,4 +89,3 @@ That's all for now.
 You can find the example at this [link](https://github.com/Puppo/rxjs-getting-started/tree/01-observable)
 
 See you soon guys!
-

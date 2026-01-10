@@ -28,17 +28,17 @@ If you don't like learning through videos, don't worry! The article below covers
 
 ## Install the official GitHub Extension
 
-_(If you already installed the extension last week, you can skip this step!)_
+*(If you already installed the extension last week, you can skip this step!)*
 
 The first thing you need to do is to install the official **GitHub Pull Requests and Issues** extension for Visual Studio Code. You can find it in the marketplace by searching for "GitHub" or by clicking [here](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github).
 
-![GitHub Pull Requests and Issues](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qwzjskl9fd5awhaxmc4k.png)
+![GitHub Pull Requests and Issues](./qwzjskl9fd5awhaxmc4k.png)
 
-_Note_: make sure to not get confused, the extension called "GitHub" is an old one and deprecated. The new one is called "GitHub Pull Requests and Issues".
+*Note*: make sure to not get confused, the extension called "GitHub" is an old one and deprecated. The new one is called "GitHub Pull Requests and Issues".
 
 As soon as the extension is installed, you'll see a new icon in the Activity Bar on the left side of Visual Studio Code:
 
-![GitHub Pull Requests and Issues Icon](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0txj8qzwx74c96p2sphq.png)
+![GitHub Pull Requests and Issues Icon](./0txj8qzwx74c96p2sphq.png)
 
 Opening it the first time will ask you to login to GitHub, just click on the button and a browser tab will open where you can login to your GitHub account.
 
@@ -46,7 +46,7 @@ Opening it the first time will ask you to login to GitHub, just click on the but
 
 The extension tab actually has two sections: **Pull Requests** and **Issues**. If you expand the **Issues** section, you'll see the + button to create a new issue.
 
-![Create a new issue](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hjrb4qc1bz0kgfzhjxrk.png)
+![Create a new issue](./hjrb4qc1bz0kgfzhjxrk.png)
 
 By clicking on it, a new temporary file called `NewIssue.md` will be created in the editor. The content will be:
 
@@ -63,7 +63,7 @@ From there, you can replace `Issue Title` with the title of your issue, add the 
 
 Assigning labels is made even easier as you get a list of all the labels in the repository, and you can select the ones you want to assign to the issue.
 
-![Assign labels](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sh4ccboocdnnub2y73po.png)
+![Assign labels](./sh4ccboocdnnub2y73po.png)
 
 Once you're done, save the file and click on the ✓ button in the top right corner of the editor to create the issue.
 
@@ -73,7 +73,7 @@ A native vscode notification will inform you that the issue has been created suc
 
 If you want to work on an existing issue, first of all you can read its content by hovering the mouse on top of it. This will show you a preview of the issue and two buttons: `Start working on issue and checkout topic branch` and `Open Issue`.
 
-![Open an existing issue](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7x2xmj8osgzaijo27pll.png)
+![Open an existing issue](./7x2xmj8osgzaijo27pll.png)
 
 Not so much to say about the latter, it will open the issue in the browser, but the first one is very interesting.
 
@@ -119,7 +119,7 @@ You can add as many tabs as you want, and you can customize the label and the qu
 
 Some features might be missing from the extension. There could also be some bugs (actually I [fixed two](https://github.com/microsoft/vscode-pull-request-github/pulls?q=is%3Apr+is%3Aclosed+author%3ABalastrong+label) while writing the articles of this series). So what?
 
-Well, the extension is open source, so you can contribute to it! You can find the repository at [https://github.com/microsoft/vscode-pull-request-github](https://github.com/microsoft/vscode-pull-request-github).
+Well, the extension is open source, so you can contribute to it! You can find the repository at <https://github.com/microsoft/vscode-pull-request-github>.
 
 In case you find a bug or you want to suggest a new feature, you can open an issue on the repository.
 
@@ -153,7 +153,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

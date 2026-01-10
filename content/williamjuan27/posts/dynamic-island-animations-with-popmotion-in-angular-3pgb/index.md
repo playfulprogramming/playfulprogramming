@@ -23,13 +23,13 @@ The introduction of dynamic islands in iPhone 14 piqued the interest of many des
 
 Most of the iOS implementations you see online use a morphing technique called [**metaballs**](https://ikyle.me/blog/2022/creating-cool-ui-shape-morphing). With metaballs, an element will start to stretch towards each other as the objects get closer to each other. The image below shows the difference between the default behavior and when using the metaballs morphing technique when two elements are close to each other.
 
-![Default behavior vs metaballs comparison](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3siewby3rwntsd5u1r79.png)
+![Default behavior vs metaballs comparison](./3siewby3rwntsd5u1r79.png)
 
 We will not be implementing this technique in this tutorial. We'll stick to the basics of transforming the element from the default dynamic island to a bigger container with additional contents. Let me know in the comments if you are interested in a more advanced tutorial covering how to create this animation using metaballs.
 
 This blog post will walk you through creating a dynamic island-style animations in your Angular applications. We'll be creating the following animation in an Angular application with the help of Popmotion and Angular Animations.
 
-![Demo of dynamic island animations in an Angular application](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/h48ldeg6qr6gv7xsnplx.gif)
+![Demo of dynamic island animations in an Angular application](./h48ldeg6qr6gv7xsnplx.gif)
 
 ## Prerequisite
 
@@ -114,8 +114,7 @@ ion-content {
 
 **Checkpoint:** Run `ng serve` and open `http://localhost:4200` in your browser. You should see a dynamic island at the top of your page like this:
 
-
-![Checkpoint 1 - dynamic island default state](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ntbfe1ma8363w79jx7tm.png)
+![Checkpoint 1 - dynamic island default state](./ntbfe1ma8363w79jx7tm.png)
 
 ## Dynamic Island Animation
 
@@ -167,7 +166,6 @@ export class DynamicIslandPopmotionPage {
 ```
 
 Use the `styler` function from `stylefire` to access the default dimensions of the dynamic island in the component's `AfterViewInit` hook. We'll assign this to a variable so we can use it in our open and close animations later.
-
 
 ```typescript
 // src/app/app.component.ts
@@ -318,7 +316,7 @@ export class DynamicIslandPopmotionPage {
 
 **Checkpoint:** Run `ng serve` and open `http://localhost:4200` in your browser. Click on the dynamic island and you should see it expand. Clicking it again should animate the dynamic island back to its original state.
 
-![Checkpoint 2 - dynamic island animation between default and expanded state](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ud5r8i1fmw70snrx3vsu.gif)
+![Checkpoint 2 - dynamic island animation between default and expanded state](./ud5r8i1fmw70snrx3vsu.gif)
 
 ## Dynamic Island Expanded Contents
 
@@ -451,7 +449,7 @@ ion-content {
 
 **Checkpoint:** Run `ng serve` and open `http://localhost:4200` in your browser. Click on the dynamic island and you should see it expand, displaying additional content. Clicking it again should animate the dynamic island back to its original state.
 
-![Checkpoint 3 - dynamic island expanded state's contents](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/belckp4l7yxsiudrwe25.gif)
+![Checkpoint 3 - dynamic island expanded state's contents](./belckp4l7yxsiudrwe25.gif)
 
 ## Dynamic Island Content Animation
 
@@ -620,8 +618,7 @@ Finally, add the animation trigger (`fadeSlideInOut`) to the target element and 
 
 **Checkpoint:** Run `ng serve` and open `http://localhost:4200` in your browser. Click on the dynamic island and you should see it expand, animating the additional content as they enter the DOM. Clicking it again should hide the additional content and animate the dynamic island back to its original state.
 
-
-![Checkpoint 4 - dynamic island final demo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/e5bruvov1vc5xuy52m2f.gif)
+![Checkpoint 4 - dynamic island final demo](./e5bruvov1vc5xuy52m2f.gif)
 
 ## Wrapping up
 

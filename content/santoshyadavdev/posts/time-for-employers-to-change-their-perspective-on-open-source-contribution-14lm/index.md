@@ -26,21 +26,21 @@ I was working for a big Financial Institution, and all Financial Institutions ha
 # How it can be changed
 
 Time is changing if you see the [Octoverse](https://octoverse.github.com/) data from 2019, the number of developers is increasing so do developers contributing to open source. See the below stats from 2019.
-![](https://dev-to-uploads.s3.amazonaws.com/i/ezwpwtq8so78zep9h8wf.PNG)
+![](./ezwpwtq8so78zep9h8wf.PNG)
 
 And all tech companies including Financial Institutions are using and trying to be part of this change. Many financial institutions have Open Source projects, including where I used to work and many startups have there owned Open Source products.
 
 These are few things which Organization especially Financial Institutions should do, to adopt the change to support developers contributing or speaking at conferences:
 
-* Training Sessions: If disclosing some confidential information is a problem, provide the training to developers, who are going to speak at the conference. They should be given training, what they can talk about, how they should present themselves.
+- Training Sessions: If disclosing some confidential information is a problem, provide the training to developers, who are going to speak at the conference. They should be given training, what they can talk about, how they should present themselves.
 
-* Better Expectations: If an organization is ready to pay 15–20k (per day rate in India), for acquiring the services from outside, to train their employees, than you should not expect your employees to do it for free.
+- Better Expectations: If an organization is ready to pay 15–20k (per day rate in India), for acquiring the services from outside, to train their employees, than you should not expect your employees to do it for free.
 
-* Support OSS: Only making some projects open source is not enough to support the community. There are organizations with billion $ in profit, using open source projects. But when it comes to supporting those projects they don’t even invest a single dollar.
+- Support OSS: Only making some projects open source is not enough to support the community. There are organizations with billion $ in profit, using open source projects. But when it comes to supporting those projects they don’t even invest a single dollar.
 
-* Motivate Developers: If you are a Tech lead, rather than asking them “what you get by doing OSS, or writing blog post, you even don’t get paid”, please motivate them to do it, and I have heard from many developers, their tech leads, did used these words, once they came to know about there OSS or blog posts. And the change in this culture should come from management.
+- Motivate Developers: If you are a Tech lead, rather than asking them “what you get by doing OSS, or writing blog post, you even don’t get paid”, please motivate them to do it, and I have heard from many developers, their tech leads, did used these words, once they came to know about there OSS or blog posts. And the change in this culture should come from management.
 
-* Support Community Driven Conferences: There are many conferences which happen across the world, support them my becoming sponsor, motivate your employees to attend those conferences.
+- Support Community Driven Conferences: There are many conferences which happen across the world, support them my becoming sponsor, motivate your employees to attend those conferences.
 
 When it comes to the biggest IT companies in the world, Microsoft and Google is Sponsor for almost every other conference around the globe. But the same is not true for others. You can search for any community-driven conference and try to find any other Organization from Top 10, you will see the reality.
 

@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 ## Intro
 
 During my daily work, sometimes I have to switch between different projects: backend frontend, nodejs, react, angular etc. etc.
@@ -29,24 +28,23 @@ To work with profiles, you have to make your focus on the bottom-left of your ed
 
 Its not rocket science, but its very helpful, in my opinion.
 
-![Profile](https://cdn.hashnode.com/res/hashnode/image/upload/v1673357886590/c257a31b-d507-4035-b65f-81c0e141f101.gif)
+![Profile](./c257a31b-d507-4035-b65f-81c0e141f101.gif)
 
 ### Create a new Profile
 
 You must click the Profile section and select Create New Profile to create a new one. Now you can choose between two options: an empty configuration or starting from another profile. Now the decision is in your hands. Add, remove, and change your configuration as you want in base on your needs. For instance, I created different setups based on the context: AWS, Azure, Node, Angular, and React. You can find your best solution to improve your productivity.
 
-![Creation](https://cdn.hashnode.com/res/hashnode/image/upload/v1673357886590/c257a31b-d507-4035-b65f-81c0e141f101.gif)
-
+![Creation](./c257a31b-d507-4035-b65f-81c0e141f101-1.gif)
 
 ### Delete Profile
 
 Delete profile is easy peasy; click on the Profile section and select "Delete Profile", then you have to choose the Profile that you want to delete (one or many) and click the Ok button. Now the game is done, the profile will be removed.
 
-![Delete](https://cdn.hashnode.com/res/hashnode/image/upload/v1673357733889/2541f2a2-0df6-4c05-a2a9-0ebcee9205a2.gif)
+![Delete](./2541f2a2-0df6-4c05-a2a9-0ebcee9205a2.gif)
 
 ## Conclusion
 
-In my opinion, this feature is essential. I created my setups, and now VsCode works quickly and without performance problems. I hope it will be the same for you too.  
+In my opinion, this feature is essential. I created my setups, and now VsCode works quickly and without performance problems. I hope it will be the same for you too.\
 Creating different Profiles allows me to create my best experience during my daily routine with VsCode and reduce the possibility of wasting time with performance problems created by extension that are useless at that moment.
 
 I hope this content could be helpful for you too. Let me know in the comment if you already know it or if you will be surprised like me when I discovered it.

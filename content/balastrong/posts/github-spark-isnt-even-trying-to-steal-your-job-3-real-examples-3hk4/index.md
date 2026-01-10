@@ -26,8 +26,7 @@ I had a look at three different sparks and recorded a video, you can watch it he
 
 ### Mermaid Diagram Designer
 
-
-![Mermaid Diagram Designer](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/n3xrjynvc0050kxnm70e.png)
+![Mermaid Diagram Designer](./n3xrjynvc0050kxnm70e.png)
 
 This micro-app allows users to generate and modify Mermaid diagrams with Natural Language prompts, having the markdown and a preview side by side.
 
@@ -39,7 +38,7 @@ The generated Mermaid code can be easily copied into GitHub, which renders the d
 
 ### Data Generator
 
-![Data Generator](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ipeob5bggxe0ciw62icu.png)
+![Data Generator](./ipeob5bggxe0ciw62icu.png)
 
 This application generates fake data for accounts, useful for developers or QA testers needing placeholder data.
 
@@ -49,8 +48,7 @@ This spark didn't have a handy copy button for the JSON output, I tried to add i
 
 ### Hexagonal Minesweeper
 
-![Hexagonal Minesweeper](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/niv1bk1tl3e2za6g1lyd.png)
-
+![Hexagonal Minesweeper](./niv1bk1tl3e2za6g1lyd.png)
 
 A fun example of using GitHub Spark to create a small game, specifically a hexagonal version of Minesweeper.
 
@@ -72,7 +70,7 @@ Let's learn Web Development together with Open Source: https://github.com/DevLeo
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

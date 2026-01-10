@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 Three things you do **NOT** want in your repository:
 
 1. Unformatted code
@@ -39,10 +38,7 @@ Looks like we're still falling into the same trap, people have to remember to do
 
 Fear not! You can kindly ask a Husky to help you with that.
 
-
-![Husky](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zg1v38vsi23ol1cuw4kw.jpg)
-
-
+![Husky](./zg1v38vsi23ol1cuw4kw.jpg)
 
 I mean, not the dog, but a really cool node package called [Husky](https://github.com/typicode/husky).
 
@@ -164,7 +160,7 @@ You can learn more about husky in the [official docs](https://typicode.github.io
 
 ---
 
-_Husky - Photo by <a href="https://unsplash.com/@nkvitovska?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nataliia Kvitovska</a> on <a href="https://unsplash.com/wallpapers/animals/husky?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>_
+*Husky - Photo by <a href="https://unsplash.com/@nkvitovska?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nataliia Kvitovska</a> on <a href="https://unsplash.com/wallpapers/animals/husky?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>*
 
 ---
 
@@ -174,7 +170,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

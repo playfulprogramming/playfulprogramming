@@ -26,7 +26,7 @@ Since Firebase apps often involve more client-side logic and direct database acc
 
 > By default, new databases start in "locked mode" (`.read: false, .write: false`) or "test mode" (allowing access for a limited time) to prevent accidental exposure.
 
-![default rules](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0wsm0roluvk9quxlzvf0.png)
+![default rules](./0wsm0roluvk9quxlzvf0.png)
 
 Every single read and write operation attempted against your RTDB is evaluated against your security rules before any data access occurs. These rules live and are enforced on Firebase servers, ensuring that even a compromised or malicious client cannot bypass them. If the rules `allow the operation` for the specific path requested, `the operation proceeds`. If not, it's `rejected`, and the client receives a `"permission denied" error`.
 
@@ -35,7 +35,7 @@ Every single read and write operation attempted against your RTDB is evaluated a
 You can view and edit your rules directly in the Firebase Console.
 Go to your Firebase project and navigate to "Realtime Database" in the left-hand menu. Select the "Rules" tab.
 
-![Rules tab](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ol8ueb3mbhxlpcudjtze.png)
+![Rules tab](./ol8ueb3mbhxlpcudjtze.png)
 
 ## Security Rules Syntax
 
@@ -60,13 +60,16 @@ Security rules are defined within a single JSON object, where the `keys represen
 The following keys define behavior at a specific path:
 
 ### .read
+
 A boolean expression (evaluating to `true` or `false`). If `true`, read operations (like `get`, `onValue`) are allowed at this path and potentially deeper paths.
 
 ### .write
+
 A boolean expression. If `true`, write operations (like `set`, `update`, `remove`) are allowed at this path and potentially deeper paths.
 
 ### .validate
-A boolean expression used to enforce data structure and format before a write occurs. It uses the `newData` variable to inspect the data being written. 
+
+A boolean expression used to enforce data structure and format before a write occurs. It uses the `newData` variable to inspect the data being written.
 
 > A write must pass validation at the specific path being written and all parent paths that have .validate rules.
 
@@ -265,7 +268,7 @@ When you run a query like orderByChild, Firebase can use indexes to quickly find
 ```
 
 Remember to index the fields you frequently use for filtering (equalTo, startAt, endAt) or sorting (orderByChild). You can also specify multiple fields to index using an array:
-.indexOn: ["category", "name"].
+.indexOn: \["category", "name"].
 
 ## Test Firebase Rules With Simulator
 
@@ -287,7 +290,7 @@ Separate public and private user data. Ensure only authorized users (usually the
 
 Use `.indexOn` to ensure your queries remain performant as your dataset grows. Define indexes early.
 
-Add comments (`//` for single line, though not officially supported everywhere, often works in editors; consider structuring rules clearly). 
+Add comments (`//` for single line, though not officially supported everywhere, often works in editors; consider structuring rules clearly).
 
 ---
 

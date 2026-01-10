@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 *Cover photo by [Goh Rhy Yan](https://unsplash.com/photos/C9PMQlg3HaQ) on Unsplash.*
 
 *Original publication date: 2020-01-20.*
@@ -24,12 +23,12 @@ Because of this, Ivy comes with the option to compile libraries ahead-of-time an
 
 However, this is not yet recommended by the Angular team at Google. There are two reasons for this:
 
-1.  The Ivy Instruction Set which is the compilation output in directive and component rendering functions will not be finalised before Angular version 10.
-2.  Angular versions 9 and 10 applications will have an option to opt-out of Ivy and instead fall back to View Engine compilation and rendering.
+1. The Ivy Instruction Set which is the compilation output in directive and component rendering functions will not be finalised before Angular version 10.
+2. Angular versions 9 and 10 applications will have an option to opt-out of Ivy and instead fall back to View Engine compilation and rendering.
 
 {% gist https://gist.github.com/LayZeeDK/61caba93df1ec1a0788c94a973c8dfac %}
 
-_Table 1. The View Engine-to-Ivy transition plan. [Open in new tab](https://gist.github.com/LayZeeDK/61caba93df1ec1a0788c94a973c8dfac)._
+*Table 1. The View Engine-to-Ivy transition plan. [Open in new tab](https://gist.github.com/LayZeeDK/61caba93df1ec1a0788c94a973c8dfac).*
 
 Table 1 lists the Angular team's recommendations for the different stages of the transition plan.
 
@@ -39,8 +38,8 @@ Angular version 9 includes the Angular compatibility compiler (`ngcc`) which upg
 
 The Angular team's recommendation for library authors is this:
 
-* [Continue to publish View Engine AOT-compiled Angular libraries for Angular version 9.](https://angular.io/guide/ivy#maintaining-library-compatibility)
-* Publish AOT-compiled Ivy libraries for Angular version 10.
+- [Continue to publish View Engine AOT-compiled Angular libraries for Angular version 9.](https://angular.io/guide/ivy#maintaining-library-compatibility)
+- Publish AOT-compiled Ivy libraries for Angular version 10.
 
 ## Angular Ivy compatibility validation
 
@@ -88,7 +87,7 @@ function isIvyPipe(pipeType: Type<any>): boolean {
 }
 ```
 
-_Listing 1. Angular Ivy detection logic._
+*Listing 1. Angular Ivy detection logic.*
 
 ## Migrations now affect libraries
 
@@ -100,9 +99,9 @@ Angular version 9 is compatible with TypeScript versions 3.6 and 3.7. We should 
 
 {% gist https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3 %}
 
-_Table 2. Angular CLI, Angular, Node.js and TypeScript compatibility table. [Open in new tab](https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3).*
+\_Table 2. Angular CLI, Angular, Node.js and TypeScript compatibility table. [Open in new tab](https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3).\*
 
-This is where it gets difficult. TypeScript doesn't follow semantic versioning. Every _minor_ release could have breaking changes. In fact, this is the case for TypeScript version 3.6, especially for library authors.
+This is where it gets difficult. TypeScript doesn't follow semantic versioning. Every *minor* release could have breaking changes. In fact, this is the case for TypeScript version 3.6, especially for library authors.
 
 The type declaration (`*.d.ts`) files that are output will contain class getters and setters as of TypeScript version 3.6. This breaks compatibility with earlier veresion of TypeScript. Since Angular applications are almost locked in to the one or few versions that the specific version of Angular CLI and Angular supports as seen in Table 2, if we want to support multiple versions of Angular, we will have to downlevel our output type declarations. This can be done using [`downlevel-dts` by Nathan Shively-Sanders](https://github.com/sandersn/downlevel-dts).
 
@@ -156,21 +155,21 @@ Besides the points made in this article, we can create libraries for Angular Ivy
 
 Here are my recommended resources:
 
-* [The official Angular guide on authoring libraries](https://angular.io/guide/creating-libraries)
-* [Making your Angular 2 library statically analyzable for AoT](https://medium.com/angular-in-depth/making-your-angular-2-library-statically-analyzable-for-aot-e1c6f3ebedd5)
-* [The ultimate guide to set up your Angular library project](https://medium.com/angular-in-depth/the-ultimate-guide-to-set-up-your-angular-library-project-399d95b63500)
-* [How to Build a Component Library with Angular and Storybook](https://medium.com/angular-in-depth/how-to-build-a-component-library-with-angular-and-storybook-718278ab976)
-* [How to compile your Angular components library into Web Components](https://medium.com/angular-in-depth/how-to-compile-your-angular-components-library-into-web-components-47ff0ac73bd7)
+- [The official Angular guide on authoring libraries](https://angular.io/guide/creating-libraries)
+- [Making your Angular 2 library statically analyzable for AoT](https://medium.com/angular-in-depth/making-your-angular-2-library-statically-analyzable-for-aot-e1c6f3ebedd5)
+- [The ultimate guide to set up your Angular library project](https://medium.com/angular-in-depth/the-ultimate-guide-to-set-up-your-angular-library-project-399d95b63500)
+- [How to Build a Component Library with Angular and Storybook](https://medium.com/angular-in-depth/how-to-build-a-component-library-with-angular-and-storybook-718278ab976)
+- [How to compile your Angular components library into Web Components](https://medium.com/angular-in-depth/how-to-compile-your-angular-components-library-into-web-components-47ff0ac73bd7)
 
 ## Conclusion
 
 If you maintain or want to help maintain an Angular library, you now know how to respond to Angular Ivy:
 
-1.  Keep publishing a View Engine AOT-compiled bundle for Angular version 9.
-2.  Publish an Ivy AOT-compiled bundle for Angular version 10.
-3.  Add your library to [the Angular Ivy library compatibility validation project](https://github.com/angular/ngcc-validation).
-4.  Resolve Ivy compatiblity issues.
-5.  Support differences between View Engine and Ivy by using Ivy detection logic.
-6.  Make sure to at the very least support and use TypeScript version 3.6.
+1. Keep publishing a View Engine AOT-compiled bundle for Angular version 9.
+2. Publish an Ivy AOT-compiled bundle for Angular version 10.
+3. Add your library to [the Angular Ivy library compatibility validation project](https://github.com/angular/ngcc-validation).
+4. Resolve Ivy compatiblity issues.
+5. Support differences between View Engine and Ivy by using Ivy detection logic.
+6. Make sure to at the very least support and use TypeScript version 3.6.
 
 Points 3-6 are all actions we can do today. We don't have to wait for Angular version 10 to ensure Ivy compatibility.

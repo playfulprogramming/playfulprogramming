@@ -13,12 +13,11 @@ order: 1
 }
 ---
 
+*Original cover photo by [Edgar Chaparro](https://unsplash.com/photos/r6mBXuHnxBk) on Unsplash.*
 
-_Original cover photo by [Edgar Chaparro](https://unsplash.com/photos/r6mBXuHnxBk) on Unsplash._
+*Original publication date: 2020-05-10.*
 
-_Original publication date: 2020-05-10._
-
-The Nx toolchain by Nrwl helps us work in a so-called _workspace_ which is a monorepo that can manage multiple applications, workspace libraries, and package libraries.
+The Nx toolchain by Nrwl helps us work in a so-called *workspace* which is a monorepo that can manage multiple applications, workspace libraries, and package libraries.
 
 You might not be able to convince your team or manager to buy in to the Nx toolchain. If that's the case, you're in luck. In this tutorial, we'll walk through how to set up an Nx-style workspace using the Angular CLI rather than the Nx CLI. We'll use a custom Node.js tool to generate application and workspace library projects.
 
@@ -882,7 +881,7 @@ ng run booking-feature-shell:test --watch=false
 
 Now run `ng run booking-desktop:serve` and navigate to `http://localhost:4200` in your browser to see our application. It should look like the following screenshot.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9locs8rizerbfkiunm8k.png)
+![](./9locs8rizerbfkiunm8k.png)
 
 <figcaption>The booking desktop application with the booking shell feature.</figcaption>
 

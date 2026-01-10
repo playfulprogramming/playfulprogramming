@@ -11,10 +11,9 @@ socialImage: "social-image.png"
 }
 ---
 
-
 Yes, that’s normal! Why? Because of how Angular does change detection under the hood!
 
-_To better understand how the [async pipe](https://github.com/angular/angular/blob/main/packages/common/src/pipes/async_pipe.ts) works, let’s create our own from scratch!_
+*To better understand how the [async pipe](https://github.com/angular/angular/blob/main/packages/common/src/pipes/async_pipe.ts) works, let’s create our own from scratch!*
 
 Let’s call it **SubscribePipe** in order for to differ it from the [original one](https://github.com/angular/angular/blob/main/packages/common/src/pipes/async_pipe.ts).
 
@@ -118,7 +117,7 @@ This won’t work! Why?
 
 Because when change detection runs, the pipe will check the parameters in the transform method and if they haven’t changed, it will return the last value that it had cached before.
 
-_I’ve explained it more deeply in my previous post: [It’s ok to use function calls in Angular templates!](https://dev.to/this-is-angular/its-ok-to-use-function-calls-in-angular-templates-4029) , where I explain how pipes memoization works and how we can do the same thing too when using normal functions._
+*I’ve explained it more deeply in my previous post: [It’s ok to use function calls in Angular templates!](https://dev.to/this-is-angular/its-ok-to-use-function-calls-in-angular-templates-4029) , where I explain how pipes memoization works and how we can do the same thing too when using normal functions.*
 
 This is the moment where we **opt-out** of pipe memoization by using the **pure: false** flag.
 
@@ -134,7 +133,7 @@ The moment we set the **pure** option to be **false**, we tell Angular that we w
 
 If we run the code we will see something like this:
 
-![Not working solution](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hnahq61fqses5kbwkn5v.gif)
+![Not working solution](./hnahq61fqses5kbwkn5v.gif)
 
 The reason why it does that is because every time change detection runs, the pipe will subscribe to our observable and let the other subscription in memory, and of course **create a memory leak**!
 
@@ -166,8 +165,7 @@ transform(obs: Subscribable<T> | null): T | null {
 
 If we check the app now, we will see that it works fine! But it’s not finished!
 
-![Working solution](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mj2txielegad62nehhh8.gif)
-
+![Working solution](./mj2txielegad62nehhh8.gif)
 
 Because we still cause a memory leak, because we never unsubscribe from the observable! Let’s do it!
 
@@ -271,7 +269,7 @@ transform(obs: Subscribable<T> | null): T | null {
 
 If we see the app, it will still work without any issue! And now without memory leaks 🎉 yay!
 
-_Are we done?_ Not yet, because our pipe doesn’t work with **OnPush ChangeDetection**!
+*Are we done?* Not yet, because our pipe doesn’t work with **OnPush ChangeDetection**!
 
 On, your editor, try to enable the changeDetection OnPush on your component and see the app! It won’t show anything!
 
@@ -338,14 +336,15 @@ ngOnDestroy() {
 ```
 
 ## Recap
+
 Find the whole source code [here](https://stackblitz.com/edit/angular-ivy-prasrm?file=src%2Fapp%2Fapp.component.ts).
 
 We have handled almost all the cases that Angular’s async pipe handles except the promises (but also that can be done easily)! And understood why Angular **async pipe is not pure**, and why that is not an issue at all!
 
 I hope you liked this post and learned something from it!
 
--- 
+\--
 
-I tweet a lot about Angular (**latest news**, **videos**, **podcasts**, **updates**, **RFCs**, **pull requests** and so much more). If you’re interested about it, give me a follow at [@Enea_Jahollari](https://twitter.com/Enea_Jahollari). Give me a follow on [Dev.to](https://dev.to/eneajaho) if you liked this article and want to see more like this!
+I tweet a lot about Angular (**latest news**, **videos**, **podcasts**, **updates**, **RFCs**, **pull requests** and so much more). If you’re interested about it, give me a follow at [@Enea\_Jahollari](https://twitter.com/Enea_Jahollari). Give me a follow on [Dev.to](https://dev.to/eneajaho) if you liked this article and want to see more like this!
 
 **Thank you for reading!**

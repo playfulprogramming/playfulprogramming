@@ -11,7 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
-Firebase Authentication provides a robust and easy-to-implement backend service for user authentication in your Angular applications. 
+Firebase Authentication provides a robust and easy-to-implement backend service for user authentication in your Angular applications.
 
 It supports various authentication methods, including email/password, social logins (Google, Facebook, etc.), and phone authentication.
 
@@ -24,7 +24,7 @@ This guide will walk you through setting up Firebase Authentication, integrating
 - If you don't already have one, create a Firebase project in the Firebase console (console.firebase.google.com).
 
 - In the Firebase console, navigate to your project, click "Add app," and select "Web." Follow the instructions to register your Angular app.
-You'll receive a configuration object containing API keys and other necessary information.
+  You'll receive a configuration object containing API keys and other necessary information.
 
 - In your Angular project, install the Firebase dependency using npm:
 
@@ -129,7 +129,6 @@ export class AuthService {
   }
 }
 ```
-
 
 - Inject the `AuthService` into your components
 

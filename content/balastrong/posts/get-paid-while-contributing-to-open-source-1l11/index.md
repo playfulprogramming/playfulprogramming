@@ -23,19 +23,19 @@ But. Once you get in the loop, this activity can become significantly time-consu
 
 Having a way to receive money, also gives the possibility to contribute for talented people that wouldn’t be able to spend their time for free.
 
-[![Click here for the YouTube video!](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dr0v5zfg19y606k7qqx4.png)](https://youtu.be/EQQgMnzsURk)
-_Ok, the YouTube Thumbnail is weird, doesn't make you want to click and watch the video?_  😅
+[![Click here for the YouTube video!](./dr0v5zfg19y606k7qqx4.png)](https://youtu.be/EQQgMnzsURk)
+*Ok, the YouTube Thumbnail is weird, doesn't make you want to click and watch the video?*  😅
 
 ---
 
 - [From a regular employer](#from-a-regular-employer)
-  * [Contribute during your work day](#contribute-during-your-work-day)
-  * [Open your project](#open-your-project)
-  * [Success stories](#success-stories)
+  - [Contribute during your work day](#contribute-during-your-work-day)
+  - [Open your project](#open-your-project)
+  - [Success stories](#success-stories)
 - [Enterprise relations](#enterprise-relations)
 - [Sponsors and fundings](#sponsors-and-fundings)
-  * [GitHub Sponsors](#github-sponsors)
-  * [Open Collective](#open-collective)
+  - [GitHub Sponsors](#github-sponsors)
+  - [Open Collective](#open-collective)
 - [Indirect sources](#indirect-sources)
 - [Not for everyone](#not-for-everyone)
 - [One last thing...](#one-last-thing)
@@ -66,11 +66,11 @@ People all over the world will be able to contribute to the project, bringing a 
 
 If you need examples, there are already some successful companies giving some paid time to their employees, to work on Open Source. Some examples are Netflix, PayPal or Zalando.
 
-If you want to know more, here you can find three links where they describe how it works. 
+If you want to know more, here you can find three links where they describe how it works.
 
-- [https://netflix.github.io/](https://netflix.github.io/)
-- [https://paypal.github.io/](https://paypal.github.io/)
-- [https://opensource.zalando.com/](https://opensource.zalando.com/) - [https://opensource.zalando.com/docs/using/contributing/](https://opensource.zalando.com/docs/using/contributing/)
+- <https://netflix.github.io/>
+- <https://paypal.github.io/>
+- <https://opensource.zalando.com/> - <https://opensource.zalando.com/docs/using/contributing/>
 
 # Enterprise relations
 
@@ -83,7 +83,6 @@ A more code-oriented solution can be using the Open-Core model. The core version
 # Sponsors and fundings
 
 It’s now time to expand on what I mentioned in the beginning, getting a sponsor.
-
 
 ## GitHub Sponsors
 
@@ -117,13 +116,13 @@ Having someone give you money for working on an Open Source project is indeed gr
 
 There’s still a problem though, getting paid is cool but you also need a project to get started, right? Then you better check out [this other article](https://dev.to/this-is-learning/how-to-find-an-open-source-project-to-contribute-to-3093) ([or video](https://youtu.be/yfopPq4354o)) where I tell you some smart ways how to find the best project for you. Finding a project can be hard, at least, it was for me and I know also for some other friends… that’s why I shared some suggestions based on my own experience.
 
-
 ---
+
 Thanks for reading this post, I hope you find it interesting!
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}
 You can also follow me on your favourite platform!
 
-|Tweets|Videos|
-|:-:|:-:|
-|[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/Balastrong)|[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)|
+|                                                                    Tweets                                                                    |                                                                                           Videos                                                                                          |
+| :------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge\&logo=twitter\&logoColor=white)](https://twitter.com/Balastrong) | [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1) |

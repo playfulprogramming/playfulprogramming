@@ -23,8 +23,7 @@ It can also accept a parameter that is the path, so with `code your/path` it wil
 
 Last but for sure not least, I made a short video as usual about the topic, you can find it here:
 
-[![Watch the video](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/959tma6x31fj1a4nv1l8.png)](https://youtube.com/shorts/oUHlR_ouEAA
-)
+[![Watch the video](./959tma6x31fj1a4nv1l8.png)](https://youtube.com/shorts/oUHlR_ouEAA)
 
 ---
 
@@ -36,7 +35,7 @@ Thanks for reading this post, I hope you found it interesting!
 
 Do you like my content? You might consider subscribing to my YouTube channel!
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

@@ -14,7 +14,7 @@ socialImage: "social-image.png"
 APIs are the backbone of modern applications, but even the cleanest code can drag if performance isn’t top of mind.
 Very often, I receive this question after a session at an event or work from my colleagues: How can I improve or ensure that my APIs are fast?
 
-These aren’t theoretical tips, they’re battle-tested improvements I’ve used (and seen developers forget all too often). 
+These aren’t theoretical tips, they’re battle-tested improvements I’ve used (and seen developers forget all too often).
 
 Oh, and yes, we’ll even let GitHub Copilot take a shot at refactoring for speed. 🚀
 
@@ -110,7 +110,7 @@ var productList = await _dbContext.Products
     .ToListAsync();
 ```
 
-[UPDATE]: some of you commented about the fact that with projections, .AsNoTracking is implicit, so, in this case, you don't need the code above.
+\[UPDATE]: some of you commented about the fact that with projections, .AsNoTracking is implicit, so, in this case, you don't need the code above.
 
 ---
 

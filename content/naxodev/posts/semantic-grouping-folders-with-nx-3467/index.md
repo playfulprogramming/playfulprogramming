@@ -16,12 +16,11 @@ order: 1
 <figcaption>Photo by <a href="https://unsplash.com/@barnimages?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Barn Images</a> on <a href="https://unsplash.com/s/photos/organization?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   </figcaption>
 
-***
+---
 
 > This article is part of the Angular Architectural Patterns series.
 
-
-Grouping Folders in an __Nx__ and Monorepo context are folders that only contain other Grouping Folders and projects (applications, libraries, testing projects).
+Grouping Folders in an **Nx** and Monorepo context are folders that only contain other Grouping Folders and projects (applications, libraries, testing projects).
 
 In this article, we will focus on Grouping Folders containing other Grouping Folders and libraries.
 
@@ -29,7 +28,7 @@ They help us enforce our architectural decisions and act as a guideline for our 
 
 This article will discuss the most common types of Grouping Folders and their impact on our architecture.
 
-We will also discover how to use __Nx__ schematics to give additional semantic value to our Grouping Folders.
+We will also discover how to use **Nx** schematics to give additional semantic value to our Grouping Folders.
 
 ## A world without Grouping Folders
 
@@ -41,14 +40,15 @@ It would be better if I show you.
 
 The following folder structure is a snapshot of a fictitious airline software project taken from the free Nrwl e-book.
 
-![Listing 1. Ungrouped libraries workspace](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zevmoj822g36bas1dqb6.png)
+![Listing 1. Ungrouped libraries workspace](./zevmoj822g36bas1dqb6.png)
+
 <figcaption>Listing 1. Ungrouped libraries workspace</figcaption>
 
-***
+---
 
-__Listing 1.__ is a contrived example; production apps could have hundreds of libraries and dozens of applications.
+**Listing 1.** is a contrived example; production apps could have hundreds of libraries and dozens of applications.
 
-It follows the __Nx__ suggested type libraries; it uses _shell_ libraries to coordinate configuration and navigation.
+It follows the **Nx** suggested type libraries; it uses *shell* libraries to coordinate configuration and navigation.
 
 However, it is hard to grasp by just looking at this structure, which files you are supposed to work on when dealing with a new use case or making amendments to an existing one.
 
@@ -92,9 +92,9 @@ Having our libraries restricted to a single application is a simple and effectiv
 
 It focuses on how libraries collaborate at a higher level, increasing cohesion and readability.
 
-![Listing 2. Grouping folders by scope Application group workspace libraries based on the application where they are used](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rduxs3ferb4dlpbwh3wn.png)<figcaption>Listing 2. Grouping folders by scope Application group workspace libraries based on the application where they are used.</figcaption>
+![Listing 2. Grouping folders by scope Application group workspace libraries based on the application where they are used](./rduxs3ferb4dlpbwh3wn.png)<figcaption>Listing 2. Grouping folders by scope Application group workspace libraries based on the application where they are used.</figcaption>
 
-***
+---
 
 **Listing 2.** shows us a typical example of application-scoped Grouping Folders.
 
@@ -106,9 +106,9 @@ As a consistency recommendation, we should have one Grouping Folder per workspac
 
 Each application imports and orchestrates its specific libraries by using a single `feature-shell` library.
 
-The third Grouping Folder in **Listing 2.** is an _application-level Shared Grouping Folder_.
+The third Grouping Folder in **Listing 2.** is an *application-level Shared Grouping Folder*.
 
-_Application-level Shared Grouping Folders_ contains the libraries used between the different workspace applications, extracting common logic and other sharable code.
+*Application-level Shared Grouping Folders* contains the libraries used between the different workspace applications, extracting common logic and other sharable code.
 
 Application Grouping folders can be created at the root scope level (as a child of the libs folder), as a child of a root-level Platform grouping folder, or as a child of a *root-level Technology grouping folder*.
 
@@ -116,7 +116,7 @@ Application Grouping folders can be created at the root scope level (as a child 
 
 *Bounded Context Grouping folders* cluster sub-domain-specific libraries that change at the same pace or for the same reasons.
 
-This way of organizing our libraries produces a higher cohesion than only using *Application Grouping Folders.* 
+This way of organizing our libraries produces a higher cohesion than only using *Application Grouping Folders.*
 
 We cluster our libraries in more tight groups following the **Common Closure Principle** and the domain experts' descriptions of the model.
 
@@ -126,11 +126,11 @@ Vertical Slice is a more general concept compatible with Bounded Contexts when t
 
 Nonetheless, both concepts are used interchangeably in the current article.
 
-![Listing 3. Grouping folders by scope Bounded Context group workspace libraries based on the Bounded Context where they are used.](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/p0crcid1q5arizj64yxz.png)
+![Listing 3. Grouping folders by scope Bounded Context group workspace libraries based on the Bounded Context where they are used.](./p0crcid1q5arizj64yxz.png)
 
 <figcaption>Listing 3. Grouping folders by scope Bounded Context group workspace libraries based on the Bounded Context where they are used.</figcaption>
 
-***
+---
 
 **Listing 3.** is a representation of a **Bounded Context** organized workspace.
 
@@ -158,23 +158,23 @@ The third Grouping Folder in **Listing 3**. is a *bounded-context-level Shared G
 
 The **platform tag** refers to the deployment platform, like web, mobile, or desktop.
 
-It organizes features that are only included in the platform build of an application or Bounded-Context/Vertical-Slice. 
+It organizes features that are only included in the platform build of an application or Bounded-Context/Vertical-Slice.
 
 It may only make sense when the same application or bounded context is used differently for different platforms.
 
-![Listing 4.Grouping folders by Platform group workspace libraries that are specific to a deployment platform.](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8tuk6fudc89ghy6v901p.png)
+![Listing 4.Grouping folders by Platform group workspace libraries that are specific to a deployment platform.](./8tuk6fudc89ghy6v901p.png)
 
 <figcaption>Listing 4.Grouping folders by Platform group workspace libraries that are specific to a deployment platform.</figcaption>
 
-***
+---
 
-__Listing 4.__ shows how inside the same sub-domain, we can split logic based on the platform where it is meant to be used.
+**Listing 4.** shows how inside the same sub-domain, we can split logic based on the platform where it is meant to be used.
 
-This example shows that two `feature-seat-listing` libraries are present, one for each platform. 
+This example shows that two `feature-seat-listing` libraries are present, one for each platform.
 
 These libraries are not the same, they provide the same or a similar feature, but they are implemented differently for each platform.
 
-Creating the *Platform Grouping Folder*, adds semantic value to each library, and therefore there is no need for extra differentiation like prefixing or suffixing the library name with the platform type. 
+Creating the *Platform Grouping Folder*, adds semantic value to each library, and therefore there is no need for extra differentiation like prefixing or suffixing the library name with the platform type.
 
 *Platform-level Shared Grouping Folders* contain libraries that are being used by different platforms at the same scope level.
 
@@ -184,31 +184,31 @@ The Platform Grouping Folders can be created at any scope level.
 
 ## Technology
 
-The technology classifier includes all those libraries that can only be used in a particular technology context. 
+The technology classifier includes all those libraries that can only be used in a particular technology context.
 
-It could be a high-level division like `api` and `client` or, more specific like react and angular. 
+It could be a high-level division like `api` and `client` or, more specific like react and angular.
 
-It could also separate libraries from different languages or frameworks like **Go** and **C#**. 
+It could also separate libraries from different languages or frameworks like **Go** and **C#**.
 
 Do not confuse with *Platform Grouping Folders* which only refer to the change of features based on the deployed platform.
 
-![Listing 5. Grouping folders by Technology group workspace libraries that are specific to a development technology.](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/y8e4r3h0rcl5bt2z2jfz.png)
+![Listing 5. Grouping folders by Technology group workspace libraries that are specific to a development technology.](./y8e4r3h0rcl5bt2z2jfz.png)
 
 <figcaption>Listing 5. Grouping folders by Technology group workspace libraries that are specific to a development technology.</figcaption>
 
-*** 
+---
 
-__Listing 5.__ shows how server-side libraries are grouped independently of client-side libraries.
+**Listing 5.** shows how server-side libraries are grouped independently of client-side libraries.
 
-*Technology-level shared Grouping Folders* contain those libraries that can be used between different technologies. 
+*Technology-level shared Grouping Folders* contain those libraries that can be used between different technologies.
 
-A good candidate for the shared Grouping Folder is the DTO library. However, this is only possible when the technologies are dealing with the same programming language. 
+A good candidate for the shared Grouping Folder is the DTO library. However, this is only possible when the technologies are dealing with the same programming language.
 
 The Technology Grouping Folders should only exist as a direct child of the libs folder.
 
 ## Type
 
-The **type** classifiers identify to which horizontal layer of functionality our library belongs. 
+The **type** classifiers identify to which horizontal layer of functionality our library belongs.
 
 It could be **data-access**, agnostic **ui**, business specific **feature**, **utils** and others.
 
@@ -216,13 +216,13 @@ Most of the time, you would not create Grouping Folders for this type of classif
 
 Nonetheless, if the number of libraries inside a Grouping folder increases, adding type-based Grouping Folders can lighten the burden.
 
-![Listing 6. Type grouping folders organize libraries with the same type classifier](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0ueir4jdxw146xmqeouq.png)
+![Listing 6. Type grouping folders organize libraries with the same type classifier](./0ueir4jdxw146xmqeouq.png)
 
 <figcaption>Listing 6. Type grouping folders organize libraries with the same type classifier</figcaption>
 
-***
+---
 
-__Listing 6.__ shows how we can organize our libraries by their type.
+**Listing 6.** shows how we can organize our libraries by their type.
 
 The Type Grouping Folders can be created at any scope level.
 
@@ -230,7 +230,7 @@ The Type Grouping Folders can be created at any scope level.
 
 Shared Grouping folders can be created by Scope, Platform, and sometimes by Technology.
 
-Shared Grouping folders semantic level is determined by the classifier of its siblings' Grouping Folders.  
+Shared Grouping folders semantic level is determined by the classifier of its siblings' Grouping Folders.
 
 For example, if a Shared Grouping Folder is the sibling of one or more Bounded Context Grouping Folders, it is a Bounded Context-level Shared Grouping Folder.
 
@@ -251,29 +251,29 @@ Library tags are declared in the `nx.json` configuration file. In contrast, rest
 
 It is often recommended to create companion tags for our Grouping Folders and vice-versa.
 
-Nrwl, in its Architecture Free E-books, articles and documentation usually mention two tag and restriction dimensions; _scope_ and _type_.
+Nrwl, in its Architecture Free E-books, articles and documentation usually mention two tag and restriction dimensions; *scope* and *type*.
 
-In this article, we have added the technology and platform dimensions. Also, we have expanded the scope dimension in two, application and bounded context (bc). 
+In this article, we have added the technology and platform dimensions. Also, we have expanded the scope dimension in two, application and bounded context (bc).
 
-Using _type, technology, application, platform, and bc_ as our tags dimension instead of _scope_ and _type_, allow us to achieve fined grain restrictions. 
+Using *type, technology, application, platform, and bc* as our tags dimension instead of *scope* and *type*, allow us to achieve fined grain restrictions.
 
 Otherwise, we could not distinguish a Technology-level Shared Grouping folder from other Shared Grouping Folders from a restriction perspective.
 
 When creating a new library, this library should inherit all the tags related to its ancestors Grouping Folders.
 
-## Composing 
-   
+## Composing
+
 In previous sections, we have briefly mentioned some limitations about where to place our Grouping Folders. Now, we will see some real examples of Grouping Folder composition.
 
 Going back to the Nrwl Airlines example, let's see how we can fix the flat folder structure mess seen at this article's start.
 
-![Listing 7. Refactored Nrwl Airlines example using all existing Grouping Folders](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/oy1p7jxzfeqmm1dej560.png)
+![Listing 7. Refactored Nrwl Airlines example using all existing Grouping Folders](./oy1p7jxzfeqmm1dej560.png)
 
 <figcaption>Listing 7. Refactored Nrwl Airlines example using all existing Grouping Folders</figcaption>
 
-***
+---
 
-__Listing 7.__ shows how we could refactor the Listing 1. example by using all the discussed Grouping Folder types.
+**Listing 7.** shows how we could refactor the Listing 1. example by using all the discussed Grouping Folder types.
 
 This is an extreme, demonstration-only usage of our Grouping Folders. It serves as educational material.
 
@@ -283,9 +283,9 @@ However, **Listing 7** can be a valid use case as it is.
 
 ### Technology Grouping Folders
 
-We use `api` and `client` as our top Technology Grouping folders. Those split our libraries between Backend and Frontend libraries. 
+We use `api` and `client` as our top Technology Grouping folders. Those split our libraries between Backend and Frontend libraries.
 
-Now we can add __"technology:api"__ and __"technology:client"__ as tags for every library place in one of these folders. Then we can add restrictions to enforce the boundaries.
+Now we can add **"technology:api"** and **"technology:client"** as tags for every library place in one of these folders. Then we can add restrictions to enforce the boundaries.
 
 ```javascript
 {
@@ -312,17 +312,15 @@ Now we can add __"technology:api"__ and __"technology:client"__ as tags for ever
 
 At the same level, we added a Technology-level shared Grouping Folder where we placed the DTO's library.
 
-The DTO's library and any other library in the Technology-level shared Grouping Folder receives the tag __"technology:shared"__.
+The DTO's library and any other library in the Technology-level shared Grouping Folder receives the tag **"technology:shared"**.
 
 ### Application Grouping Folders
 
-
 One level below Technology, we placed our Application Grouping Folders, where we can isolate and group everything unique to each Application.
 
-Every library grouped into an Application Grouping Folder should have a tag identifying the application to where they belong. 
+Every library grouped into an Application Grouping Folder should have a tag identifying the application to where they belong.
 
-For example, every library descendent of the airline-admin Application Grouping Folder should at least have the tags __"application:airline-admin"__ and __"technology:client"__.
-
+For example, every library descendent of the airline-admin Application Grouping Folder should at least have the tags **"application:airline-admin"** and **"technology:client"**.
 
 We could add the following restrictions for the current example.
 
@@ -340,20 +338,19 @@ We could add the following restrictions for the current example.
        "application:shared"
     ]
 },
-``` 
+```
 
-A sibling Application-level Grouping Folder is present. This contains the `ui-button` and `utils-date-pipe` libraries shared between all our applications. 
+A sibling Application-level Grouping Folder is present. This contains the `ui-button` and `utils-date-pipe` libraries shared between all our applications.
 
-These shared Grouping Folders will receive the __application:shared__ tag.
+These shared Grouping Folders will receive the **application:shared** tag.
 
 ### Bounded Context Grouping Folders
 
-Our application *airline-admin* contains two Bounded Contexts, _booking_, and _check-in_. 
+Our application *airline-admin* contains two Bounded Contexts, *booking*, and *check-in*.
 
 One Grouping Folders of the same name is created for each of our Bounded Contexts plus a *Bounded-Context-level Shared Grouping Folder*.
 
-The resulting tags can be __"bc:booking"__, __"bc:check-in"__ and "bc:shared" and the following restrictions can be applied.
-
+The resulting tags can be **"bc:booking"**, **"bc:check-in"** and "bc:shared" and the following restrictions can be applied.
 
 ```ts
 {
@@ -376,15 +373,15 @@ The resulting tags can be __"bc:booking"__, __"bc:check-in"__ and "bc:shared" an
        "bc:shared"
     ]
 },
-``` 
+```
 
 ### Platform Grouping Folders
 
-_web_ and _mobile_ are our Platform Grouping Folders. They also shared common logic using a Platform-level Shared Grouping Folder.
+*web* and *mobile* are our Platform Grouping Folders. They also shared common logic using a Platform-level Shared Grouping Folder.
 
 Within our Platforms Grouping Folders, we placed platform-specific libraries, no matter the libraries' depth.
 
-The resulting tags are __"platform:mobile"__, __"platform:web"__ and __"platform:shared"__.
+The resulting tags are **"platform:mobile"**, **"platform:web"** and **"platform:shared"**.
 
 Adding the restrictions.
 
@@ -409,7 +406,7 @@ Adding the restrictions.
        "platform:shared"
     ]
 },
-``` 
+```
 
 ### Type Grouping Folders
 
@@ -417,7 +414,7 @@ Finally, we created a "feature" Type Grouping folder where we placed the multipl
 
 Type Grouping Folders don't have sibling shared Grouping Folders.
 
-The related tag, in this case, would be __"type:feature"__, but it is independent of the existence of the Grouping Folder library.
+The related tag, in this case, would be **"type:feature"**, but it is independent of the existence of the Grouping Folder library.
 
 Different decisions could have been made for the current example, but it is clear that Grouping Folders play a major role in our system architecture.
 
@@ -431,9 +428,9 @@ Thanks to Nacho Vazquez Sr, my dear father, for helping me to find the right wor
 
 Maintaining large multi-application monorepos involves discipline, good practices, and clear guidelines.
 
-Grouping Folders can help your team to create boundaries and enforce organization and architectural decisions. 
+Grouping Folders can help your team to create boundaries and enforce organization and architectural decisions.
 
-In this article, we have covered some of the most common Grouping Folders. 
+In this article, we have covered some of the most common Grouping Folders.
 
 We saw how Nx tags and restrictions can provide additional semantic value to our folders, and together enforce the architectural boundaries defined beforehand.
 

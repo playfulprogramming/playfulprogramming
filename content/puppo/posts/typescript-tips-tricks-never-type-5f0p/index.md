@@ -16,6 +16,7 @@ order: 1
 Today I want to talk about the [never type](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#the-never-type).
 As you can understand, this type identifies a piece of code that will never be executed or represents a state that shouldn’t exist.
 Here an example
+
 ```ts
 const throwException: () => never = () => {
     throw new Error();
@@ -23,8 +24,10 @@ const throwException: () => never = () => {
 throwException()
 console.log('never called');
 ```
-In this simple example, you can see how the "throwException" method never permits the code execution of the console.log. In this case, the "throwException" method returns the _never_ type because the method doesn't return any value but throws an error.
+
+In this simple example, you can see how the "throwException" method never permits the code execution of the console.log. In this case, the "throwException" method returns the *never* type because the method doesn't return any value but throws an error.
 To better understand the never type I show you another simple example
+
 ```ts
 type Square = {
     kind: "square";
@@ -53,10 +56,12 @@ const area = (shape: Shape): number => {
     return _exhaustiveCheck;
 };
 ```
+
 In this example, you can see how the "area" method detects the kind of the shape and it calculates the relative area.
 I leave the circle type comment voluntarily, so I can show you the power of the never type.
-At the end of the area method, you can see how the code assigns the shape to the field "_exhaustiveCheck" of type _never_. In this case, the typescript language detects that if you pass a circle shape at the area method, the line "const _exhaustiveCheck: never = shape;" will be executed, so it notifies you raising an error. The typescript language detects that the never type could be executed at runtime so it tries to prevent this problem.
+At the end of the area method, you can see how the code assigns the shape to the field "\_exhaustiveCheck" of type *never*. In this case, the typescript language detects that if you pass a circle shape at the area method, the line "const \_exhaustiveCheck: never = shape;" will be executed, so it notifies you raising an error. The typescript language detects that the never type could be executed at runtime so it tries to prevent this problem.
 To fix this problem the previous method can be reviewed in this way
+
 ```ts
 type Square = {
     kind: "square";
@@ -85,6 +90,7 @@ const area = (shape: Shape): number => {
     return _exhaustiveCheck;
 };
 ```
+
 Now the code is compiled successfully and the never type is assigned correctly.
 
 From the never type it's all.

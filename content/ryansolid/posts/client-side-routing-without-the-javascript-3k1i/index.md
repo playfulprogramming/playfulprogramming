@@ -11,17 +11,17 @@ socialImage: "social-image.png"
 }
 ---
 
-It's been a while since I wrote a piece about a [SolidJS](https://www.solidjs.com) technology innovation. It's been two years now since we added Suspense on the server with Streaming SSR. And even longer to go back to when we first introduced Suspense for data fetching and concurrent rendering back in 2019. 
+It's been a while since I wrote a piece about a [SolidJS](https://www.solidjs.com) technology innovation. It's been two years now since we added Suspense on the server with Streaming SSR. And even longer to go back to when we first introduced Suspense for data fetching and concurrent rendering back in 2019.
 
 While React had introduced these concepts, implementing them for a fine-grained reactive system was a whole other sort of beast. Requiring a little imagination and completely different solutions that avoided diffing.
 
 And that is a similar feeling to the exploration we've been doing recently. Inspired equal parts from [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) and Island solutions like [Marko](https://markojs.com/) and [Astro](https://astro.build/), Solid has made it's first steps into [Partial Hydration](https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3). (*comparison at the bottom*)
 
-------------------
+---
 
 ## SolidStart
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yp4mgz83hkkst75m5be6.jpeg)
+![Image description](./yp4mgz83hkkst75m5be6.jpeg)
 
 Since releasing Solid 1.0 I've been kinda swamped. Between keeping open issues down and trying to check off more boxes for adoption I definitely have felt spread thin. Everything pointed to the need for a SSR meta-framework, an effort I started even before the 1.0 release.
 
@@ -29,11 +29,11 @@ The community stepped up to help. But ultimately, for getting the beta out the d
 
 Wanting to keep things focused on a release, I agreed but told him to time-box it as I'd need his help the next day. The next day he showed me a demo where he did not only add Islands, recreating the Fresh experience, but he had added client-side routing.
 
-----------------------
+---
 
 ## Accidental Islands
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3xc5lnbxuu1qnwg6xvu9.jpeg)
+![Image description](./3xc5lnbxuu1qnwg6xvu9.jpeg)
 
 Now the demo was rough, but it was impressive. He'd taken one of my Hackernews demos and re-implemented the recursive Islands. What are recursive Islands.. that's when you project Islands in Islands:
 
@@ -46,6 +46,7 @@ function MyServerComponent(props) {
   }</>
 }
 ```
+
 Why would you want this? It would be nice to wrap server rendered content with interactivity without completely losing our low JavaScript for the whole subtree.
 
 However, there is a rule with Islands that you cannot import and use Server only components in them. The reason is you don't want the client to be able to pass state to them. Why? Well if the client could pass state to them then they'd need to be able to update and since the idea is to not send this JavaScript to the browser this wouldn't work. Luckily `props.children` enforces this boundary pretty well. (Assuming you disallow passing render functions/render props across Island boundaries).
@@ -87,11 +88,11 @@ And also unrelated, working on the Solid integration with Astro, I had added a m
 
 It just never occurred to me that we could feed our own IDs in as the prefix. And since it would just append on the end we could hydrate a Server rendered Solid page starting at any point on the page. With `<NoHydration>` we could stop hydrating at any point to isolate the children as server-only.
 
-----------------------
+---
 
 ## Hybrid Routing
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xl6otfhzrza38udsto3k.png)
+![Image description](./xl6otfhzrza38udsto3k.png)
 
 For all the benefits of Islands and Partial Hydration, to not ship all the JavaScript, you need to not require that code in the browser. The moment you need to client render pages you need all the code to render the next page.
 
@@ -101,7 +102,7 @@ But we had an idea a while back that we could take our nested routing and only r
 
 The trick was that through event delegation of click events we could trigger a client router without hydrating the page. From there we could use AJAX to request the next page and pass along the previous page and the server would know from the route definition exactly what nested parts of the page it needed to render. With the returned HTML the client-side router could swap in the content.
 
------------------
+---
 
 ## Completing the Picture
 
@@ -124,20 +125,20 @@ And on [Github](https://github.com/solidjs/solid-start/tree/movies/examples/movi
 
 Just to give you an idea of how absurdly small this is. This is the total JavaScript navigating between two movie listings pages, then navigating into a movie in various frameworks with client-side routing from https://tastejs.com/movies/.
 
-| Framework | Demo        | Size        |
-|-----------|-------------|-------------|
-| Next      | https://next-movies-zeta.vercel.app/ | 190kb |
-| Nuxt      | https://movies.nuxt.space/ | 90.8kb |
-| Angular   | https://angular-movies-a12d3.web.app/ | 121kb |
-| SvelteKit | https://sveltekit-movies.netlify.app/ | 34.8kb |
-| Lit       | https://lit-movies.netlify.app/ | 108kb |
-| SolidStart (experimental) | https://solid-movies.app | 13.2kb |
+| Framework                 | Demo                                  | Size   |
+| ------------------------- | ------------------------------------- | ------ |
+| Next                      | https://next-movies-zeta.vercel.app/  | 190kb  |
+| Nuxt                      | https://movies.nuxt.space/            | 90.8kb |
+| Angular                   | https://angular-movies-a12d3.web.app/ | 121kb  |
+| SvelteKit                 | https://sveltekit-movies.netlify.app/ | 34.8kb |
+| Lit                       | https://lit-movies.netlify.app/       | 108kb  |
+| SolidStart (experimental) | https://solid-movies.app              | 13.2kb |
 
 > **Note**: Only the Solid demo is using server rendered partials so it is a bit of an unequal comparison. But the point is to emphasize the difference in size. Other frameworks are working on similar solutions, things like RSCs in [Next](https://nextjs.org/) and Containers in [Qwik](https://qwik.builder.io/), but these are the demos that are available today.
 
 > [Qwik demo](https://qwik-city-movies-wm.netlify.app/) was originally part of this but they changed from client navigation(SPA) to server(MPA) which makes it unsuitable for this comparison.
 
------------------
+---
 
 ## Conclusion
 

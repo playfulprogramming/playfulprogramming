@@ -27,7 +27,7 @@ This significantly reduces the development burden, eliminating the need for deep
 
 ## Embed your ML model for critical scenarios
 
-In scenarios requiring offline functionality, minimal latency, or enhanced privacy, on-device machine learning becomes crucial. Firebase ML addresses this with its support for deploying TensorFlow Lite models directly to the app. 
+In scenarios requiring offline functionality, minimal latency, or enhanced privacy, on-device machine learning becomes crucial. Firebase ML addresses this with its support for deploying TensorFlow Lite models directly to the app.
 
 > This allows developers to embed pre-trained models or custom-trained models within their app's code, enabling real-time predictions without an internet connection, all processed directly on the user's device.
 
@@ -35,10 +35,9 @@ In scenarios requiring offline functionality, minimal latency, or enhanced priva
 
 [Vertex AI](https://cloud.google.com/vertex-ai/docs/beginner/beginners-guide), integrated within the Firebase console, empowers developers to train custom image classification models using their own datasets. Imagine building an app that **identifies different types of houses** based on user-submitted photos, or an e-commerce application that automatically **categorizes product images**.
 
-![showcase](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xxpl2c60w0tvhjux62nq.png)
+![showcase](./xxpl2c60w0tvhjux62nq.png)
 
-
-It makes this possible by providing a user-friendly interface for uploading data, training models, and evaluating their performance. It handles the complexities of model architecture selection, hyperparameter tuning, and optimization, allowing developers to focus on the data that matters most. 
+It makes this possible by providing a user-friendly interface for uploading data, training models, and evaluating their performance. It handles the complexities of model architecture selection, hyperparameter tuning, and optimization, allowing developers to focus on the data that matters most.
 
 > The resulting model can then be deployed on-device via [TensorFlow Lite](https://www.tensorflow.org/), extending the app's intelligence even further.
 

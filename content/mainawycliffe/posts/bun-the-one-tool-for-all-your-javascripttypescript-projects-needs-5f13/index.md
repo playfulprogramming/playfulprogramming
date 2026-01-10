@@ -21,7 +21,7 @@ These newer alternatives focus on providing much better runtime performance, muc
 
 Compared to Deno, what I think makes Bun special, is that it’s a drop-in replacement for node (you don’t have to change much if anything at all). Unlike Deno which required you to make significant changes to your application at launch to adopt it, Bun doesn’t require you to make any changes to your codebase.
 
-With Bun, you can go into any node-js-based project, like let’s a Next JS or React Application, and just run `bun install` (y_es, but install you read that correctly not npm install_) and then run the `bun run dev` (_or whatever [npm script](https://docs.npmjs.com/cli/v9/using-npm/scripts) you use to launch your project_) and it should run your application, just like Node JS.
+With Bun, you can go into any node-js-based project, like let’s a Next JS or React Application, and just run `bun install` (y\_es, but install you read that correctly not npm install\_) and then run the `bun run dev` (*or whatever [npm script](https://docs.npmjs.com/cli/v9/using-npm/scripts) you use to launch your project*) and it should run your application, just like Node JS.
 
 From my experience, this ran flawlessly all the time I tried it.
 
@@ -31,7 +31,7 @@ So, now that I have briefly introduced you to Bun and why it’s a very interest
 
 #### Speed, it’s Fast, Really Fast
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F13d50cd4-e8cc-4cbe-9cc2-3fb651bf4cbd_631x396.jpeg)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F13d50cd4-e8cc-4cbe-9cc2-3fb651bf4cbd_631x396.jpeg)
 
 NodeJS is by no means a slow runtime, it wouldn’t be so popular if it was. But compared to Bun, it’s slow. Bun was built from the ground up with speed in mind, using both [JavascriptCore](https://developer.apple.com/documentation/javascriptcore) and [Zig](https://ziglang.org/). The Bun team spent an enormous amount of time and energy trying to make Bun fast, including lots of profiling, benchmarking, and optimizations.
 
@@ -51,15 +51,15 @@ for (let i = 0; i < 10000; i++) {
 
 And then I used [hyperfine](https://github.com/sharkdp/hyperfine) to run the benchmarks on my MacBook Pro 14 M2 Max, and here are the results:
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3aae920c-34d1-40ee-9c42-a17157cce109_2048x544.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3aae920c-34d1-40ee-9c42-a17157cce109_2048x544.png)
 
 As you can see, Bun is 2.20 faster than Deno and 2.88 faster than NodeJS. I also ran the same benchmarks on Windows 11 using WSL and Bun managed an even more impressive feat, being 3.06 times faster than node and 3.26 times faster than Deno, as shown below:
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffa257aeb-7442-43a9-a346-c2f66c061aba_1414x597.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffa257aeb-7442-43a9-a346-c2f66c061aba_1414x597.png)
 
 This benchmark was run on an Intel Core i9 11900H process and 40 GB of RAM
 
-> 🤔 _**Interestingly**, the Gap between NodeJS and Deno **seems** to be closing, let me know in the comment section below if you want me to do a deep in dive comparing the three on different workloads and different OSs._
+> 🤔 ***Interestingly**, the Gap between NodeJS and Deno **seems** to be closing, let me know in the comment section below if you want me to do a deep in dive comparing the three on different workloads and different OSs.*
 
 If you want to dig into the performance comparison and a very good explanation of the internal workings (in relationship to Javascript Engines) of NodeJS, check out this amazing video by [Chris Hay](https://www.youtube.com/watch?v=8wTulvlllGQ).
 
@@ -73,7 +73,7 @@ For more information on NodeJS APIs implemented by Bun [here](https://bun.sh/doc
 
 And if all you just need is a much faster package manager, you can use Bun to replace NPM and use NodeJS for your server, no fuzz.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a40787a-aa87-40c8-921d-0d2fef789bb8_1122x445.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2a40787a-aa87-40c8-921d-0d2fef789bb8_1122x445.png)
 
 #### Built-in Tooling
 
@@ -83,7 +83,7 @@ We, as web development veterans, sometimes forget how intimidating this can be f
 
 With Bun, you only need Bun. It’s a drop-in replacement for all of the above tools above. Want to install packages, bun has got you, with Bun package manager, it’s a runtime and bundler and will transpile and run typescript code, without you having to install a host of tools to achieve the same.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4c569d67-cb93-4fad-87e5-c1ccac631b24_500x572.jpeg)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4c569d67-cb93-4fad-87e5-c1ccac631b24_500x572.jpeg)
 
 What about testing? Yeah, Bun still got you with an inbuilt test-runner, goodbye Jest?🤷🏾. Bun is fully compatible with jest syntax and you can use it as a drop-in replacement for jest, and you get all the benefits of Bun discussed in this article.
 
@@ -124,13 +124,12 @@ On top of that, you can embed files and even databases such as SQS Lite, if you 
 Let’s say you are interested in learning more about Bun and probably give it a try. Bun has a website, where you can learn more about Bun and its features (including all the benchmark data captured in this issue), and here is the [link](https://bun.sh/).
 
 1. [Bun Documentation](https://bun.sh/docs)
-    
+
 2. [Installation Instructions](https://bun.sh/docs/installation)
-    
+
 3. [Getting started with Bun and React](https://blog.logrocket.com/getting-started-bun-react/)
-    
+
 4. [Learn Bun, a faster Node.js alternative](https://www.freecodecamp.org/news/learn-bun-a-faster-node-js-alternative/)
-    
 
 ### Conclusion
 

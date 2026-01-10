@@ -43,7 +43,7 @@ function someFunc(input: string | number) {
 
 In the above example, we used Javascripts type guards to narrow the type of `input` to either number or string. Type guards are used to check if a variable is of a certain type, i.e. `number`, `string`, `object`, etc. When a type guard is used, Typescript expects that variable to be of that type. It will automatically type check its usage based on that information.
 
-Here is a list of Javascripts type guards available: 
+Here is a list of Javascripts type guards available:
 
 ### string
 
@@ -111,7 +111,7 @@ if(typeof param === "function") {
 
 ## Truthiness Narrowing
 
-In this type of narrowing, we check whether a variable is **truthy** before using it. When a variable is truthy, typescript will automatically remove the possibility of that variable being **falsy** i.e. `undefined` or `null`, etc, within the conditional check. 
+In this type of narrowing, we check whether a variable is **truthy** before using it. When a variable is truthy, typescript will automatically remove the possibility of that variable being **falsy** i.e. `undefined` or `null`, etc, within the conditional check.
 
 Take for instance the following example, where a function **someFunction** below takes an `input`, whose type is either a string or undefined (i.e. optional).
 
@@ -123,7 +123,7 @@ function someFunction(x?: string) {
 }
 ```
 
-By checking whether `input` ****is truthy, the type of **x** becomes a string otherwise it's **undefined**.
+By checking whether `input` \*\*\*\*is truthy, the type of **x** becomes a string otherwise it's **undefined**.
 
 ## Equality Narrowing
 
@@ -217,7 +217,7 @@ function calculateArea(shape: Circle | Reactangle) {
 
 ## Using Assignment Narrowing
 
-In this type of narrowing, typescript will narrow the type of a variable once it's assigned a value. Take a variable x of union type of either `number` or `string`, if we assign it a `number`, the type becomes a `number` and if we assign it a `string`, the type changes to a string instead. 
+In this type of narrowing, typescript will narrow the type of a variable once it's assigned a value. Take a variable x of union type of either `number` or `string`, if we assign it a `number`, the type becomes a `number` and if we assign it a `string`, the type changes to a string instead.
 
 ```ts
 let x : number | string = 1;
@@ -235,7 +235,7 @@ Here is a detailed example at Code Sandbox:
 
 ## Using instanceof for Narrowing
 
-Javascripts' `instanceof` operator is used to check if a value is an instance of a certain class. It's used in the format of `value instanceof value2` and returns a boolean. When you check if a value is an `instanceof` a class, Typescript will assign that type to the variable, thereby narrowing the type. 
+Javascripts' `instanceof` operator is used to check if a value is an instance of a certain class. It's used in the format of `value instanceof value2` and returns a boolean. When you check if a value is an `instanceof` a class, Typescript will assign that type to the variable, thereby narrowing the type.
 
 Take the following example, where a function takes in a date, which can be either a string or a Date. If it's a Date, we want to convert it to a string and if it's a string, we will return it as is. We can use instanceof to check if it's an instance of a Date and convert it to string, as shown below.
 

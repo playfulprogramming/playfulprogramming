@@ -28,10 +28,7 @@ I feel bad I didn’t take a picture of the lightning talks board and I only rem
 
 Thank you Grusp for having me on stage, Claranet Italia for supporting my DevRel journey and everyone who attended the event, such a magical one!
 
-
-![Me talking](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/2cv34rqulfdww4s7yiht.jpeg)
-
-
+![Me talking](./2cv34rqulfdww4s7yiht.jpeg)
 
 ---
 
@@ -41,7 +38,7 @@ Let's connect more: https://leonardomontini.dev/newsletter
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

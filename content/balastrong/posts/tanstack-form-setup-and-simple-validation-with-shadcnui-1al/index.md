@@ -25,10 +25,7 @@ Worth mentioning it’s probably not production-ready yet, but if you’re curio
 
 ## About This tutorial
 
-
-![Demo Form](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/iebaf94tx0q5aoflfnr5.png)
-
-
+![Demo Form](./iebaf94tx0q5aoflfnr5.png)
 
 My idea is to cover this library in 3 steps. The first one (this article) is about setting up the library and adding some simple validation rules. The second one will be about more complex validation rules and the third one about handling arrays and dynamic fields.
 
@@ -133,7 +130,7 @@ And to reset the form, we can call `form.reset` on click.
 </button>
 ```
 
-_note_: in the video it's slightly different because the buttons are outside the form in a `CardFooter` component, but the idea remains the same:
+*note*: in the video it's slightly different because the buttons are outside the form in a `CardFooter` component, but the idea remains the same:
 
 ```tsx
 <CardFooter className="flex justify-between">
@@ -226,7 +223,7 @@ Join us: https://github.com/DevLeonardoCommunity
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

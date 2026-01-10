@@ -102,7 +102,6 @@ During the video I'll slowly explain each step and show you the outcome on the G
 
 This video tutorial is meant to be a light introduction to GitHub Actions. You can learn more on the official [GitHub Actions](https://docs.github.com/en/actions) documentation.
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -111,7 +110,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel!
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

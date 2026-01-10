@@ -13,15 +13,14 @@ order: 1
 }
 ---
 
-
 *Liquid samples in a laboratory. Cover photo by [Louis Reed](https://unsplash.com/photos/pwcKF7L4-no) on Unsplash.*
 
 *Original publication date: 2018-11-19.*
 
 To test a container component, we will go through tactics for testing RxJS observables and application state commands since these are used to implement the two main purposes of container components:
 
-* Container components supply a data flow for presentation.
-* Container components translate component-specific events to application state commands — or _actions_ to put it in Redux/NgRx Store terms.
+- Container components supply a data flow for presentation.
+- Container components translate component-specific events to application state commands — or *actions* to put it in Redux/NgRx Store terms.
 
 Container component templates are hardly worth testing, since they only contain data bindings. Because of this, we can opt out of Angular testing modules for faster unit tests.
 
@@ -39,13 +38,13 @@ In the article “[Container components with Angular](https://dev.to/this-is-ang
 
 To bind to the presentational heroes component, `HeroesContainerComponent` needs:
 
-* An observable property that emits all heroes
-* A method that adds a hero
-* A method that deletes a hero
+- An observable property that emits all heroes
+- A method that adds a hero
+- A method that deletes a hero
 
 ### Setting up test doubles
 
-Our container component delegates to a `HeroService` for commands and queries against the application state and persistence layers. In TypeScript, a type of `HeroService` does not mean that it has to be an instance of the `HeroService` class. We only need to pass an object that has the same _interface_, meaning methods and properties of the same signature as the hero service class.
+Our container component delegates to a `HeroService` for commands and queries against the application state and persistence layers. In TypeScript, a type of `HeroService` does not mean that it has to be an instance of the `HeroService` class. We only need to pass an object that has the same *interface*, meaning methods and properties of the same signature as the hero service class.
 
 ---
 
@@ -55,7 +54,7 @@ Read an example of how types in TypeScript can be sneaky, especially for develop
 
 ---
 
-The hero service has quite a large interface with 7 public methods. Since it is very unlikely that a single component will need all of the service methods, it is in violation of the [Interface Segregation Principle](http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgOTViYjJhYzMtMzYxMC00MzFjLWJjMzYtOGJiMDc5N2JkYmJi&hl=en) — part of [the SOLID principles](http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod) by Robert “Uncle Bob” Martin. There are ways to address this issue but we will leave that for another time.
+The hero service has quite a large interface with 7 public methods. Since it is very unlikely that a single component will need all of the service methods, it is in violation of the [Interface Segregation Principle](http://docs.google.com/a/cleancoder.com/viewer?a=v\&pid=explorer\&chrome=true\&srcid=0BwhCYaYDn8EgOTViYjJhYzMtMzYxMC00MzFjLWJjMzYtOGJiMDc5N2JkYmJi\&hl=en) — part of [the SOLID principles](http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod) by Robert “Uncle Bob” Martin. There are ways to address this issue but we will leave that for another time.
 
 ```ts
 // heroes.container.spec.ts
@@ -121,7 +120,7 @@ When testing a container component, we can leave out the Angular Compiler from t
 
 We will treat the component as a regular class and create instances by passing dependencies to its constructor ourselves. Getting rid of compilation, dependency injection and the component lifecycle means that our unit tests will execute blazingly fast.
 
-The main reason for the increased testing speed is that Angular compiles components for every _test case_, that is a compilation cycle for every single `it` call in a test suite. When the component-under-test has styles and template in separate files as opposed to inline in the `Component` decorator, it will add even more to the test execution time. This is because the compiler has to read, parse, and compile multiple files before being able to run the next test case.
+The main reason for the increased testing speed is that Angular compiles components for every *test case*, that is a compilation cycle for every single `it` call in a test suite. When the component-under-test has styles and template in separate files as opposed to inline in the `Component` decorator, it will add even more to the test execution time. This is because the compiler has to read, parse, and compile multiple files before being able to run the next test case.
 
 ### Testing RxJS observables
 
@@ -191,9 +190,9 @@ The second test case is not really necessary from a testing perspective. We do n
 
 ### Testing microtasks
 
-The hero service stub emits the value asynchronously. We use the Angular testing utilities `fakeAsync` and `tick` to test in a synchronous style by flushing [the JavaScript _event loop queue_](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/) on demand.
+The hero service stub emits the value asynchronously. We use the Angular testing utilities `fakeAsync` and `tick` to test in a synchronous style by flushing [the JavaScript *event loop queue*](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/) on demand.
 
-[Angular uses Zone.js to do this neat trick](https://blog.nrwl.io/controlling-time-with-zone-js-and-fakeasync-f0002dfbf48c). When calling `tick`, _microtasks_ like promises as well as observables that use the `asapScheduler` are flushed first. Afterwards, _macrotasks_ are flushed, such as `setTimeout` and `setInterval` operations as well as observables that use `asyncScheduler`.
+[Angular uses Zone.js to do this neat trick](https://blog.nrwl.io/controlling-time-with-zone-js-and-fakeasync-f0002dfbf48c). When calling `tick`, *microtasks* like promises as well as observables that use the `asapScheduler` are flushed first. Afterwards, *macrotasks* are flushed, such as `setTimeout` and `setInterval` operations as well as observables that use `asyncScheduler`.
 
 ---
 
@@ -254,7 +253,7 @@ This is enough to verify the integration to the persistence layer. It is the her
 
 ---
 
-I use _The Unit Testing Minimalist_ testing strategy by [Sandi Metz](https://twitter.com/sandimetz) to decide which behaviours to test. To learn more, watch “[Magic Tricks of Testing](http://youtu.be/qPfQM4w4I04)” from Ancient City Ruby 2013.
+I use *The Unit Testing Minimalist* testing strategy by [Sandi Metz](https://twitter.com/sandimetz) to decide which behaviours to test. To learn more, watch “[Magic Tricks of Testing](http://youtu.be/qPfQM4w4I04)” from Ancient City Ruby 2013.
 
 {% youtube qPfQM4w4I04 %}
 
@@ -384,12 +383,12 @@ I want to thank you, [Max Koretskyi](https://indepth.dev/author/maxkoretskyi/), 
 
 Thank you, dear reviewers, for helping me realize this article. Your feedback has been invaluable!
 
-* [Alex Rickabaugh](https://twitter.com/synalx)
-* [Brian Melgaard Hansen](https://www.linkedin.com/in/brian-melgaard-hansen-8b7176153/)
-* [Craig Spence](https://dev.to/phenomnominal)
-* [Denise Mauldin](https://www.linkedin.com/in/denisemauldin/)
-* [Kay Khan](https://github.com/KayHS)
-* [Mahmoud Abduljawad](https://twitter.com/mahmoud_ajawad)
-* [Martin Kayser](https://www.linkedin.com/in/mdkayser/)
-* [Sandra Willford](https://www.linkedin.com/in/sandra-willford/)
-* [Stephen E. Mouritsen Chiang](https://twitter.com/chiangse)
+- [Alex Rickabaugh](https://twitter.com/synalx)
+- [Brian Melgaard Hansen](https://www.linkedin.com/in/brian-melgaard-hansen-8b7176153/)
+- [Craig Spence](https://dev.to/phenomnominal)
+- [Denise Mauldin](https://www.linkedin.com/in/denisemauldin/)
+- [Kay Khan](https://github.com/KayHS)
+- [Mahmoud Abduljawad](https://twitter.com/mahmoud_ajawad)
+- [Martin Kayser](https://www.linkedin.com/in/mdkayser/)
+- [Sandra Willford](https://www.linkedin.com/in/sandra-willford/)
+- [Stephen E. Mouritsen Chiang](https://twitter.com/chiangse)

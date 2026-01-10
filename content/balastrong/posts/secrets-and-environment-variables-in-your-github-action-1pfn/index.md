@@ -18,7 +18,7 @@ With GitHub Action you also have a way to store and use secrets in your workflow
 
 That's what I'm going to show you today!
 
-![Repository Variables](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/og5krcfo0skh7qi08p2b.png)
+![Repository Variables](./og5krcfo0skh7qi08p2b.png)
 
 ## Secrets vs Variables vs Environments
 
@@ -97,7 +97,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

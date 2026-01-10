@@ -13,8 +13,7 @@ order: 1
 }
 ---
 
-
-Hi there,  
+Hi there,\
 Today I'll speak about a beta feature in Playwright: Components.
 
 The team is building a new feature to write component tests with Playwright, so it's time to see how it works.
@@ -30,12 +29,12 @@ npm init playwright@latest -- --ct
 The command asks you two questions:
 
 - **Which framework do you use? (experimental)**
-choose to _react_ to this tutorial
+  choose to *react* to this tutorial
 
 - Install Playwright browsers
-choose to _true_
+  choose to *true*
 
-When the installation ends, there will be a new file in your project called: `playwright-ct.config.ts`. This file contains the configuration for the components' testing.  
+When the installation ends, there will be a new file in your project called: `playwright-ct.config.ts`. This file contains the configuration for the components' testing.\
 For this tutorial, you have to change only one configuration, `testDir` property from `./` to `./src`. Playwright uses this configuration to understand where the files used for the components' tests are located. In this example, you'll put the test file in the same folder as the component.
 
 ## First Test
@@ -63,16 +62,16 @@ test('should work', async ({ mount }) => {
 
 ```
 
-As you can see, the structure is similar to other Testing Frameworks.  
-You have to import the methods relative to react components from the path `@playwright/experimental-ct-react` and import your component.  
-Then you can set up the viewport for your test; it's important to understand that the tests run in different browsers, so you can also test your components in different viewports. And at the end, it's time to check your component.  
-The test structure is straightforward; using the `mount` method, you can render the component in the DOM, and then you can check the result using the Playwright APIs.  
-For instance, in this case, the test checks if the `src` and `title` attributes have the correct value.  
+As you can see, the structure is similar to other Testing Frameworks.\
+You have to import the methods relative to react components from the path `@playwright/experimental-ct-react` and import your component.\
+Then you can set up the viewport for your test; it's important to understand that the tests run in different browsers, so you can also test your components in different viewports. And at the end, it's time to check your component.\
+The test structure is straightforward; using the `mount` method, you can render the component in the DOM, and then you can check the result using the Playwright APIs.\
+For instance, in this case, the test checks if the `src` and `title` attributes have the correct value.\
 Using these tests, you can check the proper logic or the right representation of your components and guarantee the right render in different browsers.
 
 ## Run the test
 
-Cool, you set up Playwright, and you wrote the tests. Now it's time to run it.  
+Cool, you set up Playwright, and you wrote the tests. Now it's time to run it.\
 Easy peasy lemon squeezy, type in your terminal the following command
 
 ```sh
@@ -87,18 +86,18 @@ npx playwright show-report
 
 the result is like this.
 
-![Playwright result](https://cdn.hashnode.com/res/hashnode/image/upload/v1672655574436/4792472c-0aec-4b1a-8dc6-a64ce583ef18.png)
+![Playwright result](./4792472c-0aec-4b1a-8dc6-a64ce583ef18.png)
 
 As you can notice, Playwright runs the test in three different browsers by default. You can decide where to run the tests, adding or removing the browsers from the configuration file.
 
-Perfect! I think you have a good introduction to component testing with Playwright. The feature is in experimental mode, so use it carefully, please.  
+Perfect! I think you have a good introduction to component testing with Playwright. The feature is in experimental mode, so use it carefully, please.\
 You can find out more info in the official [documentation](https://playwright.dev/docs/test-components) if you want to dive into it.
 
-I hope you enjoyed this content.  
+I hope you enjoyed this content.\
 See you soon folk.
 
 Bye Bye 👋
 
-_You can find the code of this post_ [_here_](https://github.com/Puppo/playwright-series/tree/06-components)
+*You can find the code of this post* [*here*](https://github.com/Puppo/playwright-series/tree/06-components)
 
 {% embed https://dev.to/puppo %}

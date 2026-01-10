@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 In the ever-evolving world of web development, mastering asynchronous operations is a crucial skill for any JavaScript developer. Asynchronous programming allows web applications to handle tasks like API requests, file operations, or any activities that require waiting for results without blocking the main thread. Traditionally, this was managed through callback functions, leading to the infamous "callback hell," where code becomes tangled and difficult to maintain. Enter JavaScript Promises - a powerful and elegant solution to simplify asynchronous code management.
 
 Promises in JavaScript represent the eventual completion or failure of an asynchronous operation and its resulting value. They not only provide a cleaner and more manageable way to handle asynchronous tasks but also offer improved error handling and readability. This makes them an indispensable tool in the modern JavaScript developer's toolkit.
@@ -299,7 +298,7 @@ In this example, `promisifyLegacyApi` wraps the old callback-style function in a
 
 If you want to dive deep into Promise, don't leave my YouTube video about it.
 
-{% embed https://www.youtube.com/watch?v=ROwJX3i_m2Q %}
+{% embed https://www.youtube.com/watch?v=ROwJX3i\_m2Q %}
 
 ## **Conclusion**
 
@@ -313,6 +312,6 @@ As you incorporate these concepts into your daily coding practices, remember tha
 
 Happy coding!
 
-_You can find the code of this article_ [_here_](https://github.com/Puppo/JavaScript-Examples/tree/01-promises)_._
+*You can find the code of this article* [*here*](https://github.com/Puppo/JavaScript-Examples/tree/01-promises)*.*
 
 {% embed https://dev.to/puppo %}

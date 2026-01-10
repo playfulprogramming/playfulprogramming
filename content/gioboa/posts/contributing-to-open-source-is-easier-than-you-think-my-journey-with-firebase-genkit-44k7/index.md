@@ -12,12 +12,12 @@ socialImage: "social-image.png"
 
 I work full time as a software engineer and don't do open source to pay the bills, but I recently contributed to [Firebase Genkit](https://firebase.google.com/docs/genkit) because I wanted to help the project solve a problem that was bugging me.
 
-It's a story many developers can relate to – that nagging feeling when a tool you rely on consistently trips you up. But instead of grumbling and moving on, I decided to take the leap and do something about it. 
+It's a story many developers can relate to – that nagging feeling when a tool you rely on consistently trips you up. But instead of grumbling and moving on, I decided to take the leap and do something about it.
 
 > Contrary to what you might think, contribute to open source is really easy.
 
 Open source is a collaborative ecosystem where users are not just consumers, but potential contributors, creators, and problem solvers.
- 
+
 The beauty of open source is that it empowers people to take ownership and shape the tools they use every day. Instead of resigning myself to the annoyance, I remembered the core principle of open source: **if you can fix it, fix it!**
 
 ## How to start
@@ -47,7 +47,7 @@ This process, while challenging, is also incredibly rewarding.
 
 ## Prepare the pull request
 
-After identifying and implementing a fix, you have to prepare a pull request (PR). A pull request is essentially a proposal to merge your changes into the main codebase. 
+After identifying and implementing a fix, you have to prepare a pull request (PR). A pull request is essentially a proposal to merge your changes into the main codebase.
 
 It's a crucial step in the open source contribution process, as it allows project maintainers to review your code, provide feedback, and ensure that your changes align with the project's goals and standards.
 
@@ -85,4 +85,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Bye 👋
 
 {% embed https://dev.to/gioboa %}
-

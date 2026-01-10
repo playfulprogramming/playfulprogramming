@@ -11,10 +11,9 @@ socialImage: "social-image.png"
 }
 ---
 
-
 [DotenvX](https://dotenvx.com) is a library that simplifies managing and sharing environment variables. With features like partial or complete public key encryption and easy grouping by stage name, safely sharing environment variables has never been easier!
 
-![Dotenvx is feature-complete](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/udhtpds7awkaqaahm7vb.jpeg)
+![Dotenvx is feature-complete](./udhtpds7awkaqaahm7vb.jpeg)
 
 ## Benefits of DotenvX
 
@@ -106,5 +105,5 @@ npx @dotenvx/dotenvx run -- docker-compose up
 > **Note**:
 >
 > - The `DOTENV_PRIVATE_KEY_DEVELOPMENT` environment variable is extracted from the `.env.keys` file.
-> - `@dotenvx/dotenvx run` will use the DOTENV_PRIVATE_KEY_DEVELOPMENT, decrypt the environment variables in `.env.development` and inject them into the process.
+> - `@dotenvx/dotenvx run` will use the DOTENV\_PRIVATE\_KEY\_DEVELOPMENT, decrypt the environment variables in `.env.development` and inject them into the process.
 > - Docker Compose will use the decrypted environment variables to start the services.

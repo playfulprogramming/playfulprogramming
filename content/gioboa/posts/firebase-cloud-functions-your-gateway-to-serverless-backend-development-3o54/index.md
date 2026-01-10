@@ -60,14 +60,13 @@ The pay-as-you-go pricing model is also advantageous. You only pay for the compu
 
 By abstracting away infrastructure concerns and providing a comprehensive set of triggers, Cloud Functions significantly accelerate the development process. The ease of deployment and scalability of Cloud Functions allows you to quickly adapt to changing requirements and market demands.
 
-
 ## Best Practices
 
 Design your Cloud Functions to be idempotent, meaning that they can be executed multiple times without causing unintended side effects. This is especially important for functions that are triggered by database changes.
 
 Implement robust error handling mechanisms to gracefully handle exceptions and prevent function failures. Use the Firebase Functions logging capabilities to track the execution of your functions and identify potential issues.
 
-Be mindful of the size of your Cloud Functions and the number of dependencies they use. Larger functions and more dependencies can increase cold start times and deployment times. 
+Be mindful of the size of your Cloud Functions and the number of dependencies they use. Larger functions and more dependencies can increase cold start times and deployment times.
 
 Choose the appropriate region for your Cloud Functions to minimize latency and ensure compliance with data residency requirements. Select a region that is geographically close to your users.
 

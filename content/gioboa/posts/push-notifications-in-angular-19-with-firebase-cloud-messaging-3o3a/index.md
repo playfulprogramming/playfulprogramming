@@ -16,6 +16,7 @@ Push notifications are a powerful way to re-engage users, deliver timely updates
 This article will guide you through integrating FCM into a brand new Angular 19 project.
 
 > **Prerequisites:**
+
 - Node.js and npm installed
 - Angular CLI installed (`npm install -g @angular/cli`)
 - A Google account
@@ -151,8 +152,9 @@ Add this line in assets:
 ```
 
 > **Important Considerations for Service Workers:**
-*   Service workers *must* be served over HTTPS (except for `localhost` during development).
-*   This JavaScript file won't be transpiled, so it needs to be valid plain JavaScript.
+
+- Service workers *must* be served over HTTPS (except for `localhost` during development).
+- This JavaScript file won't be transpiled, so it needs to be valid plain JavaScript.
 
 ## Configure @angular/fire
 
@@ -160,10 +162,11 @@ Now, let's use @angular/fire to handle the token and notifications.
 Here is my minimal example in `app.component.ts`.
 
 > To improve security, FCM requires a VAPID key for web push.
+
 - In the Firebase Console, go to "Project settings" > "Cloud Messaging".
 - Scroll down to "Web push certificates".
 - If you don't have a key pair, click "Generate Key Pair".
-Firebase will create and display your VAPID key.
+  Firebase will create and display your VAPID key.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -239,8 +242,8 @@ You should receive a push notification in your browser!
 
 ## Troubleshooting
 
-* **Permissions:** Ensure that the user has granted permission for notifications.
-* **Clear Cache:** Clear your browser's cache and cookies to ensure you're using the latest version of your service worker.
+- **Permissions:** Ensure that the user has granted permission for notifications.
+- **Clear Cache:** Clear your browser's cache and cookies to ensure you're using the latest version of your service worker.
 
 ## Conclusion
 

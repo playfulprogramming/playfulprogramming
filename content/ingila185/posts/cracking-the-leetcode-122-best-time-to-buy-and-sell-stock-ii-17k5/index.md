@@ -11,16 +11,14 @@ socialImage: "social-image.png"
 }
 ---
 
-In my ongoing quest to sharpen my LeetCode skills, I tackled the "Best Time to Buy and Sell Stock II" problem. This challenge is a follow-up to the classic "Best Time to Buy and Sell Stock II" problem ([LeetCode 121](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/)) but with a crucial difference: **you can execute multiple transactions to maximize profit.
-**
-
+In my ongoing quest to sharpen my LeetCode skills, I tackled the "Best Time to Buy and Sell Stock II" problem. This challenge is a follow-up to the classic "Best Time to Buy and Sell Stock II" problem ([LeetCode 121](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/)) but with a crucial difference: \*\*you can execute multiple transactions to maximize profit.
+\*\*
 
 ## A Visual Approach
 
 Before diving into code, I found it incredibly helpful to visualize the problem on a whiteboard. This allowed me to break down the problem into smaller, more manageable steps.
 
-
-![Rough graph indicating buying and selling](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rcp2btvh5akg0u4jcojx.PNG)
+![Rough graph indicating buying and selling](./rcp2btvh5akg0u4jcojx.PNG)
 
 ## The Greedy Approach
 
@@ -29,7 +27,6 @@ Given the flexibility to make unlimited transactions, a greedy approach seemed p
 ## Python Implementation
 
 Here's the Python code that implements this greedy strategy:
-
 
 ```
 class Solution:
@@ -43,7 +40,6 @@ class Solution:
         return profit
 
 ```
-
 
 ## JavaScript Implementation
 

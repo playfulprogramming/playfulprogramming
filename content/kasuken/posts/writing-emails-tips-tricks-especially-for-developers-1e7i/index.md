@@ -26,9 +26,9 @@ Just like you wouldn’t start coding without knowing what the function is suppo
 
 Before you hit `Compose`, ask yourself:
 
-* **Am I informing?** – Sharing updates, status reports, or decisions.
-* **Am I requesting?** – Asking someone to do something, review something, or provide information.
-* **Am I persuading?** – Convincing stakeholders, proposing solutions, or asking for resources.
+- **Am I informing?** – Sharing updates, status reports, or decisions.
+- **Am I requesting?** – Asking someone to do something, review something, or provide information.
+- **Am I persuading?** – Convincing stakeholders, proposing solutions, or asking for resources.
 
 If your goal isn’t clear, your reader won’t know how to respond — or might not respond at all.
 
@@ -60,16 +60,16 @@ If it’s vague or misleading, your email might get ignored, opened too late, or
 
 Aim for 5–8 words that capture the essence of your email:
 
-* **Good:** `API v2 Deployment – Testing Blocker`
-* **Bad:** `Question`
+- **Good:** `API v2 Deployment – Testing Blocker`
+- **Bad:** `Question`
 
 ### Add Context with Prefixes
 
 Prefixes can save time and set expectations:
 
-* `[Action Required]` — Something the recipient must do
-* `[FYI]` — No action needed, just information
-* `[Bug Report]` — Problem that needs attention
+- `[Action Required]` — Something the recipient must do
+- `[FYI]` — No action needed, just information
+- `[Bug Report]` — Problem that needs attention
 
 ### Bad vs. Good Subject Lines
 
@@ -107,8 +107,8 @@ Think of your email in **three parts**:
 > Hi team,
 > The API changes are ready, but we have two issues to resolve before deployment:
 >
-> * **Authentication:** Need confirmation on the new header format.
-> * **Timeouts:** Tests failed in staging; likely related to recent timeout changes.
+> - **Authentication:** Need confirmation on the new header format.
+> - **Timeouts:** Tests failed in staging; likely related to recent timeout changes.
 >
 > **Action:** Please review and confirm by Thursday EOD so we can stay on schedule.
 
@@ -124,19 +124,19 @@ The way you phrase something can make the difference between collaboration and c
 
 ### Keep It Professional
 
-* Avoid slang unless you know the recipient well.
-* Skip sarcasm — it’s easy to misinterpret in text.
-* Stay respectful, even when reporting problems.
+- Avoid slang unless you know the recipient well.
+- Skip sarcasm — it’s easy to misinterpret in text.
+- Stay respectful, even when reporting problems.
 
 ### Be Clear
 
-* Use plain language over jargon when the audience is mixed (dev + non-dev).
-* If you must use technical terms, make sure the recipient understands them.
+- Use plain language over jargon when the audience is mixed (dev + non-dev).
+- If you must use technical terms, make sure the recipient understands them.
 
 ### Be Human
 
-* Acknowledge effort (“Thanks for reviewing this so quickly”).
-* Show empathy when reporting issues (“I know this is last minute, but…”).
+- Acknowledge effort (“Thanks for reviewing this so quickly”).
+- Show empathy when reporting issues (“I know this is last minute, but…”).
 
 #### Example – Tone Fix
 
@@ -160,10 +160,10 @@ If they can’t quickly understand your message, they’ll delay reading it — 
 
 ### Make It Easy to Scan
 
-* **Short paragraphs:** 2–3 sentences max.
-* **Bullet points:** Great for lists or multiple updates.
-* **Bold important info:** Deadlines, key numbers, names.
-* **Headings or separators:** Break up longer emails.
+- **Short paragraphs:** 2–3 sentences max.
+- **Bullet points:** Great for lists or multiple updates.
+- **Bold important info:** Deadlines, key numbers, names.
+- **Headings or separators:** Break up longer emails.
 
 ### Include a TL;DR for Long Messages
 
@@ -175,9 +175,9 @@ If your email is over 5–6 sentences, add a quick summary at the top.
 >
 > **Details:**
 >
-> * Staging environment failed on timeout-related tests.
-> * Auth header changes need confirmation from the API team.
-> * New deployment target: **Friday 10:00 AM UTC**.
+> - Staging environment failed on timeout-related tests.
+> - Auth header changes need confirmation from the API team.
+> - New deployment target: **Friday 10:00 AM UTC**.
 
 > **Pro tip:** Format your email like a README — clear, structured, and easy to follow.
 
@@ -192,14 +192,14 @@ If you want a response, **make the action obvious**.
 
 ### Place the Ask Where It’s Seen
 
-* End the email with a **clear, direct request**.
-* If the action is urgent, highlight it in bold.
+- End the email with a **clear, direct request**.
+- If the action is urgent, highlight it in bold.
 
 ### Be Specific
 
-* Say *what* you need.
-* Say *who* needs to do it.
-* Say *when* it’s due.
+- Say *what* you need.
+- Say *who* needs to do it.
+- Say *when* it’s due.
 
 #### Example – Action Request
 
@@ -222,18 +222,18 @@ A quick check can save you from confusion, typos, or missing context that forces
 
 ### Quick Proofreading Checklist
 
-* **Typos & grammar:** Run a spell check or re-read slowly.
-* **Context:** Would this make sense to someone not in today’s standup?
-* **Attachments:** Make sure they’re actually attached (we’ve all forgotten).
-* **Links:** Click them to confirm they work and point to the right place.
+- **Typos & grammar:** Run a spell check or re-read slowly.
+- **Context:** Would this make sense to someone not in today’s standup?
+- **Attachments:** Make sure they’re actually attached (we’ve all forgotten).
+- **Links:** Click them to confirm they work and point to the right place.
 
 ### The 5-Second Re-Read Habit
 
 Before hitting **Send**, scan your email from the recipient’s perspective:
 
-* Is it clear why you’re sending it?
-* Is the action request obvious?
-* Is the tone appropriate?
+- Is it clear why you’re sending it?
+- Is the action request obvious?
+- Is the tone appropriate?
 
 #### Example – Small Fixes, Big Difference
 
@@ -256,9 +256,9 @@ Just like we don’t over-engineer simple scripts, we shouldn’t use email when
 
 ### When to Skip Email
 
-* **Quick clarifications:** Use chat (Slack, Teams) if you need an answer in minutes.
-* **Complex, sensitive issues:** Discuss live to avoid misunderstandings.
-* **Time-sensitive blockers:** A quick call can prevent hours of waiting.
+- **Quick clarifications:** Use chat (Slack, Teams) if you need an answer in minutes.
+- **Complex, sensitive issues:** Discuss live to avoid misunderstandings.
+- **Time-sensitive blockers:** A quick call can prevent hours of waiting.
 
 ### Why It Matters
 
@@ -284,22 +284,22 @@ Small habits and tools can make email writing faster, cleaner, and less painful 
 
 ### Use Templates for Recurring Emails
 
-* Status updates, bug reports, meeting follow-ups — have a ready-made format so you don’t start from scratch every time.
+- Status updates, bug reports, meeting follow-ups — have a ready-made format so you don’t start from scratch every time.
 
 ### Keep a “Snippets” File
 
-* Store common phrases or explanations you use often (e.g., deployment steps, API request formats).
-* Many editors and email clients support **text expansion tools** — type `;status` and get your whole status update template.
+- Store common phrases or explanations you use often (e.g., deployment steps, API request formats).
+- Many editors and email clients support **text expansion tools** — type `;status` and get your whole status update template.
 
 ### Format Like a Dev
 
-* When discussing code, wrap it in backticks (`likeThis`) or paste a small code block.
-* Use Markdown-friendly formatting if your email client supports it.
+- When discussing code, wrap it in backticks (`likeThis`) or paste a small code block.
+- Use Markdown-friendly formatting if your email client supports it.
 
 ### Automate Routine Notifications
 
-* For build success/failures or log reports, automate them instead of sending manual updates.
-* Just don’t spam your teammates — keep automation meaningful.
+- For build success/failures or log reports, automate them instead of sending manual updates.
+- Just don’t spam your teammates — keep automation meaningful.
 
 > **Pro tip:** Think of your email workflow as part of your dev toolkit. The less friction, the more consistent and clear your communication will be.
 
@@ -310,7 +310,7 @@ So next time you hit `Compose`, think of it as a pull request for someone’s at
 ---
 
 I also created a GPTs for ChatGPT that can help you for writing emails quickly!
-You can find the GPT here: [https://chatgpt.com/g/g-68a42b73ad7c81919e4c3fdceb49680a-email-coach-for-developers](https://chatgpt.com/g/g-68a42b73ad7c81919e4c3fdceb49680a-email-coach-for-developers)
+You can find the GPT here: <https://chatgpt.com/g/g-68a42b73ad7c81919e4c3fdceb49680a-email-coach-for-developers>
 
 ---
 
@@ -319,4 +319,3 @@ I created a Curated RSS Feed Bundle for Web Developers — a hand-picked OPML fi
 💡 Just download, import into your favorite RSS reader (like Feedly or NetNewsWire), and enjoy fresh insights every day.
 
 👉 [Grab it on Gumroad](https://emanuelebartolesi.gumroad.com/l/rssfeeds) — stay sharp without the noise.
-

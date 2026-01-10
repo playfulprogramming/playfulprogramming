@@ -23,9 +23,9 @@ The other thing to be aware of is the state of internet connectivity. It's prett
 
 ## Performance
 
-![](https://media.tenor.com/images/1b95f145c3612aaf728193bbdc702ba6/tenor.gif)
+![](./tenor.gif)
 
-So, why am I telling you this? When it comes to performance, you need to approach it in two folds: First, the number of KBs the user has to download and the device's capability the user has. The internet speed is impacted by the device in question capabilities, not just the internet coverage. Users with low-end devices tend to also live in areas with poor internet coverage and connectivity. 
+So, why am I telling you this? When it comes to performance, you need to approach it in two folds: First, the number of KBs the user has to download and the device's capability the user has. The internet speed is impacted by the device in question capabilities, not just the internet coverage. Users with low-end devices tend to also live in areas with poor internet coverage and connectivity.
 
 The more the KBs your JS script is, the longer it will take to download the script before we can get to parsing, which will also be slower due to device capability limitations. As you can imagine, both of these can take a frustrating longer time on a low-end device on a slow network. When we develop poor-performing websites, i.e., takes longer to load, huge scrips that take a toll on the processor and battery life, we negatively impact our users, especially the already disadvantaged.
 
@@ -33,30 +33,30 @@ When I am using my iPhone 13 Pro Max (or whatever the latest model is as you are
 
 ### SPAs
 
-One of the most popular ways of developing websites is using Single Page Applications (SPAs) frameworks popularized by React and Angular. These SPA frameworks have become a go-to for developers due to their excellent developer experience and ease of building websites, but this comes at a performance cost. SPA applications need to be bootstrapped, which means you ship your site in JavaScript for the browser to download, parse and render your website in what is known as Client-Side Rendering (CSR). 
+One of the most popular ways of developing websites is using Single Page Applications (SPAs) frameworks popularized by React and Angular. These SPA frameworks have become a go-to for developers due to their excellent developer experience and ease of building websites, but this comes at a performance cost. SPA applications need to be bootstrapped, which means you ship your site in JavaScript for the browser to download, parse and render your website in what is known as Client-Side Rendering (CSR).
 
-So, to recap, the user not only needs to download the Framework Code + your Application code, but they also need the browser to parse it before they can see content on your site. Depending on the size of the Framework and other libraries' sizes, this can quickly balloon to MBs of data. 
+So, to recap, the user not only needs to download the Framework Code + your Application code, but they also need the browser to parse it before they can see content on your site. Depending on the size of the Framework and other libraries' sizes, this can quickly balloon to MBs of data.
 
 Due to the above issues, we have come up with techniques to try and show the content as soon as possible such as Server-Side Rendering (SSR) and Static Site Generation (SSG). But these are not perfect solutions. They both need to put the Framework back into the rendered HTML after the initial content has been displayed for any interactivity, in a process called hydration.
 
-This is okay (ish) if you are building a web app such as Facebook or YouTube (guess who is behind two of the most used SPA frameworks), where once the site loads, you can access a bazillion of content without having to load the site again. The examples I mentioned above behave more like apps than traditional websites. 
+This is okay (ish) if you are building a web app such as Facebook or YouTube (guess who is behind two of the most used SPA frameworks), where once the site loads, you can access a bazillion of content without having to load the site again. The examples I mentioned above behave more like apps than traditional websites.
 
 In such instances, I may be okay paying the upfront tax, but subsequent navigations are faster, and requests and data exchange between the server and the client is more efficient. This, of course, is computationally expensive as the Framework in question has to update the DOM to create and removes nodes so that views can change.
 
-But what if all I wanted to access was information on a single page? Think of a blog post or some instruction on applying for a government grant or social benefits. Do I have to download and run a whole web app to access this information? 
+But what if all I wanted to access was information on a single page? Think of a blog post or some instruction on applying for a government grant or social benefits. Do I have to download and run a whole web app to access this information?
 
 As you can imagine, this can be very painful, especially for government sites, NGOs, and business services whose customer base has users with poor internet coverage and low-end devices or a combination of both.
 
 To be honest, this should extend to everyone, no matter the internet connection speed or kind of device I have; I shouldn't have to download tons of JS code just to read your blog post.
 
-![](https://media.tenor.com/images/7d94d3aaba0a3c06a31e1f6e79b3ea3a/tenor.gif)
+![](./tenor-1.gif)
 
 ## In Conclusion
 
 So, where am I going with this? The title of this article is "The Right Tool for the Right Job." I mean that as developers, we need to think about our users and the purpose of what we are building before choosing the tools to use. Whatever tools and frameworks we use, we need to emphasize more on the user experience we are providing. This means that we need to learn to have more than one tool in our toolkit and be open to learning more. Lately, we have seen an uptick in frameworks and libraries geared towards 0KB Javascript without sacrificing developer experience. I believe every front-end developer should know at least one.
 
-We have a lot of tools at our disposal from SPAs frameworks such as Angular, React, Vue, etc., which have their use cases but should not be used for everything. On the other hand, we have frameworks and tools for building Multi-Page Applications (MPAs) and Static Sites, such as Astro, Hugo, Jekyll, etc., that are designed for shipping as little Javascript as possible while providing incredible speeds most SPAs frameworks can only dream off. 
+We have a lot of tools at our disposal from SPAs frameworks such as Angular, React, Vue, etc., which have their use cases but should not be used for everything. On the other hand, we have frameworks and tools for building Multi-Page Applications (MPAs) and Static Sites, such as Astro, Hugo, Jekyll, etc., that are designed for shipping as little Javascript as possible while providing incredible speeds most SPAs frameworks can only dream off.
 
-![](https://media.tenor.com/images/6132aa64077ae2c457d12d7244438a20/tenor.gif)
+![](./tenor-2.gif)
 
 My point is as a developer; you should make sure you have a few of these tools in your tool kit; this will ensure that whenever you are choosing, you choose the right tool for the job.

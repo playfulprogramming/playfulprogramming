@@ -15,11 +15,11 @@ As the creator of SolidJS, I was very influenced by React when designing the lib
 
 Instead, it is things like unidirectional flow, composition, and explicit mutation, that continue to influence how we build user interfaces. As I watch the wave of adoption of Solid's core reactive technology, Signals, by libraries across the whole ecosystem it is vitally important we don't forget the lessons learned from React.
 
----------------------
+---
 
 ## Locality of Thinking
 
-![Locally grown produce](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jcdmw39jezuetw3dyiui.png)
+![Locally grown produce](./jcdmw39jezuetw3dyiui.png)
 
 The real magic of React is that when you combine all its design principles, the result is that you can reason about how a given component behaves without seeing the rest of the code.
 
@@ -27,11 +27,11 @@ This allows new people to be productive without knowing the whole code base. It 
 
 These are incredible powers to have for building software. Thankfully aren't limited to the technology choices made by React.
 
-----------
+---
 
 ## Passing Values Down
 
-![Component Graph from React Docs](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/flynnwnbily1n4hl6fep.png)
+![Component Graph from React Docs](./flynnwnbily1n4hl6fep.png)
 
 Unidirectional Flow is probably the most important part of achieving locality of thinking. Generally, this starts with immutability as with passing something mutable you can never trust it after that call.
 
@@ -74,11 +74,11 @@ let title = $state("title")
 
 This mechanically is essentially the same Solid example when it gets compiled. In both cases, the Signal doesn't leave the component and the only way to mutate it is defined alongside its definition.
 
-----------------
+---
 
 ## Receiving Values from Above
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jv3e22agjixdbqduvt90.jpg)
+![Image description](./jv3e22agjixdbqduvt90.jpg)
 
 This pass-by-value approach is also beneficial for things coming into your component as well. Picture if you could pass Signals or values.
 
@@ -92,6 +92,7 @@ function SomeComponent(props) {
 ```
 
 We could always check:
+
 ```js
 document.title = isSignal(props.title) ? props.title() : props.title
 ```
@@ -146,11 +147,11 @@ props.title = "new value";
 console.log(props.title === "new value"); //false
 ```
 
--------------
+---
 
 ## Limits to Locality of Thinking
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ygcu9jhcy4t8scf328hr.png)
+![Image description](./ygcu9jhcy4t8scf328hr.png)
 
 While it might be the most valuable result of modern UI practices, locality of thinking isn't perfectly achieved in the tools we use today. UI components aren't all pure. They have state. While not necessarily having external side effects the fact that we preserve references in closures that can impact future executions means those executions do matter.
 
@@ -158,7 +159,7 @@ Even with following these principles, the one thing we can't control is how ofte
 
 Paired with a model that doesn't encourage the parent to re-call us that often does go a long way. This is one of several contributing motivations to why frameworks are choosing Signals over VDOM re-renders. It isn't that Signals can completely avoid over-notification from parents, but that the impact is generally much smaller and it happens less often as the guards are much finer-grained and built into the model.
 
--------------------
+---
 
 ## Wrapping Up
 
@@ -170,7 +171,7 @@ It is much more like an evolution of the move to break things down into more con
 
 But only if we stay to the same principles that were laid out in the first place in React. There is a reason why Solid doesn't have `isSignal` or Svelte Runes don't allow you to assign a Signal to a variable. We don't want you to worry about the data graph outside of your view.
 
-Inside your local scope, there is no way to avoid it. JavaScript doesn't do automated granular updates, so even if we try to hide it with the best compiler imaginable with automated reactivity or memoization you need to have the language to make sense of what you are seeing. 
+Inside your local scope, there is no way to avoid it. JavaScript doesn't do automated granular updates, so even if we try to hide it with the best compiler imaginable with automated reactivity or memoization you need to have the language to make sense of what you are seeing.
 
 The common ground is, that if you treat everything as reactive that could be, the burden of the decision of what is reactive is pushed up to the consumer, regardless of whether you dealing with simple Signals, nested Stores, primitives passed from props or coming from global singletons. Regardless of how heavily you rely on compilation for the solution.
 

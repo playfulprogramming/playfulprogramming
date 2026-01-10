@@ -15,8 +15,7 @@ When navigating through GitHub you may land on awesome profiles with "live" cont
 
 Let's start from the beginning!
 
-![Chess.com game history](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nrx071tp7xkc8yx4rwoa.png)
- 
+![Chess.com game history](./nrx071tp7xkc8yx4rwoa.png)
 
 ## Setup a personal profile
 
@@ -26,9 +25,9 @@ All you have to do is create a new repository with your username and put a READM
 
 In my case, my username is Balastrong so the repo will be Balastrong/Balastrong.
 
-![GitHub README.md badge](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/okb6nvce3jr6ntna0zxr.png)
+![GitHub README.md badge](./okb6nvce3jr6ntna0zxr.png)
 
-GitHub already notices that by adding this little badge in the home of your repo. 
+GitHub already notices that by adding this little badge in the home of your repo.
 
 ## Bring it to life with GitHub Actions!
 
@@ -38,17 +37,17 @@ Now, the file you're going to edit is README.md and it will fetch some content f
 
 ## Chess.com games!
 
-![Chess.com logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mo03yovyakedtby5vezk.png)
- 
+![Chess.com logo](./mo03yovyakedtby5vezk.png)
 
 Now that we have the combination profile + actions, we can make the magic!
 
-All you need is to use this action: Chess.com Games & Stats [[Marketplace](https://github.com/marketplace/actions/chess-com-games-stats)], [[Repository](https://github.com/Balastrong/chess-stats-action)].
+All you need is to use this action: Chess.com Games & Stats \[[Marketplace](https://github.com/marketplace/actions/chess-com-games-stats)], \[[Repository](https://github.com/Balastrong/chess-stats-action)].
 
 You can find the instruction there!
 In short, you just need to two two basic steps:
 
 ### 1. Setup a placeholder in your README.md
+
 You can control where the data will appear by putting this inside your file:
 
 ```html
@@ -62,6 +61,7 @@ You can control where the data will appear by putting this inside your file:
 GitHub helps you setting up a new action, but anyway it's just adding a new file in `.github/workflows` in your repository and that's it.
 
 The content is as simple as:
+
 ```yaml
 name: Chess Stats Action
 
@@ -94,12 +94,15 @@ Here some additional context on the APIs, you might be curious about it!
 Chess.com has some APIs but not exactly a complete game list. An official source of info is their [Developer Community](https://www.chess.com/club/chess-com-developer-community).
 
 For some reason, you can only get the games already grouped by year/month, in the format:
+
 ```
 https://api.chess.com/pub/player/{username}/games/{YYYY}/{MM}
 ```
-They call this "_archive_".
+
+They call this "*archive*".
 
 You can also get a list of available archives for a player:
+
 ```
 https://api.chess.com/pub/player/{username}/games/archives
 ```
@@ -108,8 +111,8 @@ Since my goal was to get the last N games and I cannot know how many games an ar
 
 Aaand... it kind of works :)
 
-
 ---
+
 Thanks for reading my post, I hope you find it interesting!
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

@@ -21,7 +21,7 @@ We're migrating our CI/CD pipelines to AWS Amplify and I will show you how we ca
 
 The example is based on a [Next.js](https://nextjs.org/) application hosted on GitHub.<br>
 
-![GitHub](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ztpqaq2x8wf2iozb0ix0.png)<br>
+![GitHub](./ztpqaq2x8wf2iozb0ix0.png)<br>
 
 To initialize the application we can use the command:
 `npx create-next-app@latest --typescript`<br>
@@ -29,12 +29,12 @@ Once the starter is created, we edit the file
 `pages/index.tsx`
 replacing the boilerplate with this code:<br>
 
-![pages index](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/q4u9k0lk1mum9kh7q6dd.png)<br>
+![pages index](./q4u9k0lk1mum9kh7q6dd.png)<br>
 
 An environment variable is used here. We have to configure it in the Next.js configuration file
 `next.config.js`
 
-```json
+````json
 const nextConfig = {
   [...]
   env: { PROJECT_NAME: process.env.PROJECT_NAME, },
@@ -89,3 +89,4 @@ This is the first article on AWS Amplify, if you find the topic interesting give
 You can [follow me on Twitter](https://twitter.com/giorgio_boa), where I'm posting or retweeting interesting articles.
 
 {% embed https://dev.to/gioboa %}
+````

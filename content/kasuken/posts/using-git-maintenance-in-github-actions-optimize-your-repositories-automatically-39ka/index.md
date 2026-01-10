@@ -21,6 +21,7 @@ You can read more about it, in my previous post:
 ### When Does `git maintenance` in GitHub Actions Make Sense?
 
 Adding `git maintenance` to a GitHub Actions workflow can be beneficial in scenarios like:
+
 - **Self-hosted Runners**: If your CI/CD runners manage large repositories, automated maintenance can reduce performance degradation over time.
 - **Monorepos**: Large repositories with many objects or extensive commit histories benefit from regular optimization.
 - **Custom CI Pipelines**: Automating maintenance ensures the repository is optimized before performing tasks like deployment or analysis.
@@ -70,6 +71,7 @@ You can customize the maintenance tasks performed during the workflow. Add these
 ```
 
 This setup ensures:
+
 - **Repacking Objects**: Consolidates loose objects into efficient packfiles.
 - **Garbage Collection**: Cleans up unnecessary data like unreachable objects.
 - **Commit Graph Updates**: Speeds up history-related operations.
@@ -86,6 +88,7 @@ After running `git maintenance`, it’s good practice to check repository statis
 ```
 
 This provides a breakdown of:
+
 - Loose objects.
 - Packfiles.
 - Disk space used.
@@ -94,16 +97,16 @@ This provides a breakdown of:
 
 ### Best Practices for Git Maintenance in CI/CD
 
-1. **Run Maintenance Periodically**  
+1. **Run Maintenance Periodically**\
    Use scheduled workflows to avoid unnecessary overhead during critical tasks.
 
-2. **Focus on Self-hosted Runners**  
+2. **Focus on Self-hosted Runners**\
    For GitHub-hosted repositories, GitHub performs background maintenance, so adding `git maintenance` to workflows is usually redundant.
 
-3. **Monitor Performance Gains**  
+3. **Monitor Performance Gains**\
    Use diagnostic commands like `git count-objects -v` before and after maintenance to measure effectiveness.
 
-4. **Avoid Overuse**  
+4. **Avoid Overuse**\
    Running `git maintenance` too frequently in CI pipelines can slow down workflows. Schedule it only when necessary.
 
 ---

@@ -17,8 +17,9 @@ Hi guys and welcome back,
 Today I'll talk about the optional modifier.
 Sometimes we have objects that have some optional properties.
 In these cases, we need to identify the optional and the required properties, so the consumers can know what is required and what not.
-To do this in typescript we have a special modifier named "optional" and it is identified by a question mark (_?_).
+To do this in typescript we have a special modifier named "optional" and it is identified by a question mark (*?*).
 Let's see an example:
+
 ```ts
 export type Person = {
   name: string;
@@ -40,9 +41,11 @@ const person2: Person = {
   phone: "123",
 };
 ```
+
 In this example we can see the optional modifier in action, the "phone" property is marked as optional so in the "person1" object we can avoid setting the "phone" property.
 This modifier, also, could be used in the functions' parameters if we have one or more optional parameters.
 A simple example.
+
 ```ts
 function printPerson(name: string, email: string, phone?: string): void {
   console.log(`Name: ${name}`);
@@ -62,6 +65,7 @@ printPerson("name2", "email2@email1.it", "123");
   Phone: 123
 */
 ```
+
 We can see how in the first example we can avoid setting the phone parameter because it's optional.
 
 From the optional modifier, it's all.

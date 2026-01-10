@@ -141,6 +141,6 @@ HTTP files are a useful feature in Visual Studio 2022 that allow you to test and
 
 Are you ready to take your productivity to the next level? Check out the Digital Garden for Notion template, inspired by the book "Building a Second Brain" by Tiago Forte. This template will help you implement the Second Brain methodology, which will expand your memory and intellect by saving and systematically reminding you of all your ideas, inspirations, insights, and connections. With this powerful productivity system, you'll be able to organize your thoughts, increase your creativity, and make the most of your experience. Don't wait any longer to build your own Second Brain - download the Digital Garden for Notion template for free today!
 
-![Digital Garden for Notion](https://public-files.gumroad.com/rmqz9s0snux3l3fdfx75eyp7avks)
+![Digital Garden for Notion](./rmqz9s0snux3l3fdfx75eyp7avks)
 
 Link: https://emanuelebartolesi.gumroad.com/l/digitalgardenv1/devto

@@ -40,7 +40,7 @@ Here's a breakdown of the factors contributing to AI hallucinations:
 
 [Genkit-AI](https://firebase.google.com/docs/genkit) takes a proactive approach to addressing AI hallucinations by emphasizing the importance of structured outputs. Instead of allowing LLMs to generate free-form text, Genkit-AI encourages developers to define specific schemas for the desired output format. These schemas act as constraints, guiding the LLM to generate outputs that adhere to a predefined structure and data types.
 
-By specifying the data types (e.g., string, number, boolean) and formats (e.g., date, email address, JSON) of the output fields, Genkit-AI ensures that the generated data conforms to the expected structure. 
+By specifying the data types (e.g., string, number, boolean) and formats (e.g., date, email address, JSON) of the output fields, Genkit-AI ensures that the generated data conforms to the expected structure.
 
 This constraint reduces the likelihood of the model generating invalid data and helps the LLM focus on extracting the relevant information and avoids generating irrelevant or speculative content.
 
@@ -88,4 +88,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Bye 👋
 
 {% embed https://dev.to/gioboa %}
-

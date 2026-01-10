@@ -30,7 +30,7 @@ npm install --save motion
 
 ## Basic Animation using Motion One
 
-![motion one default animation](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ogkptixim7hoc8oahjz3.gif)
+![motion one default animation](./ogkptixim7hoc8oahjz3.gif)
 
 To animate an element from your template, you will need to give it an id so you can access them from your Typescript file.
 
@@ -81,7 +81,7 @@ export class MotionOneDemoComponent {
 
 ## Spring and Glide Animation
 
-![motion one spring animation](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/t72d8h4pnf5dvboewi4x.gif)
+![motion one spring animation](./t72d8h4pnf5dvboewi4x.gif)
 
 Motion One also comes with prebuilt easing such as `spring` and `glide` which, you can use by passing in their respective functions with any additional configurations. The snippet below is how you create a basic spring animation using Motion One:
 
@@ -112,7 +112,7 @@ export class MotionOneDemoComponent {
 
 ## Timeline Animations
 
-![motion one timeline animation](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6zbog89q4cif8xuhmrdk.gif)
+![motion one timeline animation](./6zbog89q4cif8xuhmrdk.gif)
 
 Another cool feature from Motion One is its out-of-the-box support of timeline. You can chain your animations and animate different elements all at once by creating an animations array and passing it to the `timeline` function.
 

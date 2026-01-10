@@ -15,14 +15,15 @@ There has been some buzz recently in the frontend world around the term "Signals
 
 But they are not a new thing. Not even remotely if you consider you can trace roots back to research in the late 1960s. At its foundation is the same modeling that enabled the first [electronic spreadsheets](https://www.historyofinformation.com/detail.php?id=5478) and hardware description languages (like Verilog and VHDL).
 
-Even in JavaScript, we've had them since the dawn of declarative JavaScript Frameworks. They've carried various names over time and come in and out of popularity over the years. But here we are again, and it is a good time to give a bit more context on how and why. 
+Even in JavaScript, we've had them since the dawn of declarative JavaScript Frameworks. They've carried various names over time and come in and out of popularity over the years. But here we are again, and it is a good time to give a bit more context on how and why.
 
 > **Disclaimer**: I am the author of [SolidJS](https://solidjs.com). This article reflects the evolution from the perspective of my influences. [Elm Signals](https://csmith111.gitbooks.io/functional-reactive-programming-with-elm/content/section5/Signals.html), [Ember's computed properties](https://emberjs.com/), and [Meteor](https://www.meteor.com/) all deserve shoutouts although not covered in the article.
 
 > Unsure what Signals are or how they work? Check out this Introduction to Fine-Grained Reactivity:
 > {% link https://dev.to/ryansolid/a-hands-on-introduction-to-fine-grained-reactivity-3ndf %}
 
----------------------
+---
+
 ## In the Beginning...
 
 It is sometimes surprising to find that multiple parties arrive at similar solutions around exactly the same time. The starting of declarative JavaScript frameworks had 3 takes on it all released within 3 months of each other: [Knockout.js](https://knockoutjs.com/) (July 2010), [Backbone.js](https://backbonejs.org/) (October 2010), [Angular.js](https://angularjs.org/) (October 2010).
@@ -40,25 +41,27 @@ const doubleCount = ko.pureComputed(() => count() * 2);
 ko.computed(() => console.log(doubleCount()))
 ```
 
----------------
+---
+
 ## The Wild West
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/q46u3yzw1zt3r6ng4myn.jpeg)
+![Image description](./q46u3yzw1zt3r6ng4myn.jpeg)
 
 Patterns were a mix of patterns learned from developing MVC on the server and the past few years of jQuery. One particular common one was called Data Binding which was shared both by Angular.js and Knockout.js although in slightly different ways.
 
 Data Binding is the idea that a piece of state should be attached to a specific part of the view tree. One of the powerful things that could be done was making this bi-directional. So one could have state update the DOM and in turn, DOM events automatically update state all in an easy declarative way.
 
-However, abusing this power ended up being a foot gun. But not knowing better we built our applications this way. In Angular without knowledge of what changes it would dirty check the whole tree and the upward propagation could cause it to happen multiple times. In Knockout it made it difficult to follow the path of change as you'd be going up and down the tree and cycles were common. 
+However, abusing this power ended up being a foot gun. But not knowing better we built our applications this way. In Angular without knowledge of what changes it would dirty check the whole tree and the upward propagation could cause it to happen multiple times. In Knockout it made it difficult to follow the path of change as you'd be going up and down the tree and cycles were common.
 
 By the time [React](https://reactjs.org) showed up with a solution, and for me personally, it was the talk by Jing Chen that cemented it, we were more than ready to jump ship.
 
 {% youtube nYkdrAPrdcw %}
 
-------------------
+---
+
 ## Glitch Free
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9banjejc73udcaopizoa.gif)
+![Image description](./9banjejc73udcaopizoa.gif)
 
 What was to follow was the mass adoption of React. Some people still preferred reactive models and since React was not very opinionated about state management, it was very possible to mix both.
 
@@ -66,16 +69,17 @@ What was to follow was the mass adoption of React. Some people still preferred r
 
 It did this by trading the typical push-based reactivity found in its predecessors with a push-pull hybrid system. Notification of changes are pushed out but the execution of the derived state was deferred to where it was read.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/m7trkoa1kf01qtzaknft.png)
+![Image description](./m7trkoa1kf01qtzaknft.png)
 
 > For a better understanding of Mobservable's original approach check out: [Becoming Fully Reactive: An in Depth Explanation of Mobservable](https://hackernoon.com/becoming-fully-reactive-an-in-depth-explanation-of-mobservable-55995262a254) by Michel Westrate.
 
 While this detail was largely overshadowed by the fact that React would just re-render the components that read changes anyway, this was a monumental step forward in making these systems debuggable and consistent. Over the next several years as algorithms became more refined we'd see a trend towards [more pull based semantics](https://dev.to/modderme123/super-charging-fine-grained-reactive-performance-47ph).
 
------------------
+---
+
 ## Conquering Leaky Observers
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nya5z6xqz9r9vt3wirh5.png)
+![Image description](./nya5z6xqz9r9vt3wirh5.png)
 
 Fine-grained reactivity is a variation of the [Gang of Four's Observer Pattern](https://en.wikipedia.org/wiki/Observer_pattern). While a powerful pattern for synchronization it also has a classic problem. A Signal keeps a strong reference to its subscribers, so a long-lived Signal will retain all subscriptions unless manually disposed.
 
@@ -85,10 +89,11 @@ A lesser-known library, [S.js](https://github.com/adamhaile/S) (2013), would pre
 
 More importantly, it introduced the concept of reactive ownership. An owner would collect all child reactive scopes and manage their disposal on the owner's own disposal or were it ever to re-execute. The reactive graph would start wrapped in a root owner, and then each node would serve as an owner for its descendants. This owner pattern is not only useful for disposal but as a mechanism to build Provider/Consumer context into the reactive graph.
 
------------------
+---
+
 ## Scheduling
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fzyi9451sxos09cu4z79.png)
+![Image description](./fzyi9451sxos09cu4z79.png)
 
 [Vue](https://vuejs.org/) (2014) also has also made huge contributions to where we are today. Besides being in lockstep with MobX with advances in optimizing for consistency, Vue has had fine-grained reactivity as its core since the beginning.
 
@@ -98,7 +103,8 @@ Vue took the push/pull mechanism one step forward by scheduling when the work wo
 
 However, this scheduling could also be used to do things like `keep-alive`(preserving offscreen graphs without computational cost), and `Suspense`. Even things like [concurrent rendering](https://github.com/ryansolid/solid-sierpinski-triangle-demo) are possible with this approach, really showing how one could get the best of both worlds of pull and push-based approaches.
 
----------------------
+---
+
 ## Compilation
 
 In 2019, [Svelte 3](https://svelte.dev/blog/svelte-3-rethinking-reactivity) showed everyone just how much we could do with a compiler. In fact, they compile away the reactivity completely. This is not without tradeoffs, but more interesting is Svelte has shown us how a compiler can smooth out ergonomic shortcomings. And this will continue to be a trend here.
@@ -109,7 +115,8 @@ The language of reactivity: state, derived state, and effect; not only gives us 
 
 If we know that at compile time we can ship less JavaScript. We can be more liberal with our code loading. This is the foundation of resumability in [Qwik](https://www.builder.io/blog/hydration-is-pure-overhead) and [Marko](https://dev.to/ryansolid/what-has-the-marko-team-been-doing-all-these-years-1cf6).
 
--------------
+---
+
 ## Signals into the Future
 
 {% twitter 1573774557995044864 %}

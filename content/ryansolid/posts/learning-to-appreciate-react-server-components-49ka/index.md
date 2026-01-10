@@ -57,6 +57,7 @@ function HomePageData(props) {
   return <HomePage data={data}  />
 }
 ```
+
 I used this approach relentlessly in my Solid demos to have the quickest loading times. At some point last summer I decided that this was mostly boilerplate. If I was going to make a file-based routing system for our new starter similar to Next.js I wanted this solved. The solution was to build a data component route into the router.
 
 One simply writes their components in pairs. `homepage.js` and `homepage.data.js` and if the second is present the library will automatically wire this up and handle all the code splitting and parallel fetching for you even on nested routes. Instead of wrapping the child, the data component would return the data.
@@ -78,21 +79,22 @@ Adam Rackis was lamenting React's handling of communication around Concurrent Mo
 Eventually, Dan Abramov, the gentleman he is, decided to respond (on the weekend no less) in a less volatile forum in a [Github issue](https://github.com/facebook/react/issues/13206#issuecomment-808902135) addressing where things are at.
 
 This stood out to me:
+
 > For example, we didn't plan Suspense at all in the beginning. Suspense came out of a streaming server renderer exploration.
 
-Suspense was the first of the modern features announced back in early 2018, as the technique for lazy loading components. What?! This wasn't even its original intention. 
+Suspense was the first of the modern features announced back in early 2018, as the technique for lazy loading components. What?! This wasn't even its original intention.
 
 Suspense for Streaming SSR makes a ton of sense if you think about it. Server-side Suspense sounds a whole lot like Patrick's take on Out-of-Order progressive rendering in Marko.
 
 As consumers of a product we tend to take in each new piece of information in the context of the order we receive it. But have we been deceived? Has React actually been working on the features backwards?
 
-I can tell you as a framework author establishing stateful primitives seems like it should be the first step, but Hooks didn't show up until late 2018. It seems Hooks were not the starting point but the result of starting at the goal and walking back to the possible solution. 
+I can tell you as a framework author establishing stateful primitives seems like it should be the first step, but Hooks didn't show up until late 2018. It seems Hooks were not the starting point but the result of starting at the goal and walking back to the possible solution.
 
 It is pretty clear when you put this all in the context of the Facebook rewrite, the team had decided that the future was hybrid and that something like Server Components was the end game way back as far 2017 or possibly earlier.
 
 # New Eyes
 
-Understanding that all the other pieces started falling into place. What I had seen as a progression was actually like watching segments of a movie playing in reverse. 
+Understanding that all the other pieces started falling into place. What I had seen as a progression was actually like watching segments of a movie playing in reverse.
 
 Admittedly I had suspected as much but it suggested that they had worked through a lot of these render-as-you-fetch on the server scenarios much earlier. One has to assume they had gotten to a similar place to my data components at some point.
 
@@ -109,7 +111,3 @@ It really doesn't take much more to put together what would happen if the data w
 So the evolution of the idea is actually a pretty natural one. The fact that many platforms are API-based and don't need "the monolith" is beside the point. Server Components are really the extension of the ideas around parallelized data loading and code splitting we've already seen in Facebook's Relay.
 
 Am going out now looking at how to implement them everywhere? Probably not. Marko has shown there are other paths to Partial Hydration and aggressive code elimination. I'm going to continue to explore data components before looking at the rendering aspect. But at least I feel I better understand how we got here.
-
-
-
-

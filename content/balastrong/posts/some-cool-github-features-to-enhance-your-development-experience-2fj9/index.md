@@ -24,41 +24,46 @@ As usual, before diving into the article, let me share the video version you can
 These are some of the features shown in the video:
 
 ### Code suggestions
+
 With a special syntax, you can suggest code changes when commenting a Pull Request.
 
 Everyone with write access to the repo will see a "commit" button to immediately commit the suggested change.
-![Code suggestions](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kgldtjmc4ycpgqdckxg0.png)
+![Code suggestions](./kgldtjmc4ycpgqdckxg0.png)
 
 ---
 
 ### Render labels
+
 Yes, labels can be nicely rendered as well, here's an example:
-![Rendered labels](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rg7iqzr90dxolrbtgzwi.png)
+![Rendered labels](./rg7iqzr90dxolrbtgzwi.png)
 
 ---
 
 ### Show details of linked issues
+
 When you link an issue with `#` followed by the issue number, a link is rendered. However, if you do so in a list, the issue (or PR) is expanded and the name and the status are displayed as well.
 
 By the way, you can mention issues with `GH-[IssueNumber]` as well!
 
-![Details of linked issues](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/w2mz0t6cpmxoslwncfw4.png)
+![Details of linked issues](./w2mz0t6cpmxoslwncfw4.png)
 
 ---
 
 ### Close issues automatically when PR is merged
+
 Mentioning an issue in a PR, with some special keywords (for example `closes #3` or `fixes #3`), will enable this cool feature. As soon as the PR is merged, the issue will be marked as closed.
 
 If this is activated, you can see it in the bottom right corner of the Pull Request.
 
-![Closing issue](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8o4mlbn56pspreqlw9fx.png)
+![Closing issue](./8o4mlbn56pspreqlw9fx.png)
 
 ---
 
 ### Marking an issue as duplicate
+
 If you type `Duplicate of` and mention an issue, that one will be marked as duplicate and it is shown right below your comment.
 
-![Duplicate](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qcvf1pvzteio6v3smq6p.png)
+![Duplicate](./qcvf1pvzteio6v3smq6p.png)
 
 ---
 
@@ -78,7 +83,7 @@ Thanks for reading this article, I hope you found it interesting!
 
 Do you like my content? You might consider subscribing to my YouTube channel!
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

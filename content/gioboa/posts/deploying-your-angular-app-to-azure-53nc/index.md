@@ -19,7 +19,7 @@ Imagine your [Angular](https://angular.dev/) application, currently confined to 
 
 Azure empowers your Angular application to `scale effortlessly`, allowing it to `handle growing user traffic` without a hitch.
 
-This enhanced performance directly contributes to an improved customer experience and, consequently, `better customer retention`. 
+This enhanced performance directly contributes to an improved customer experience and, consequently, `better customer retention`.
 
 Beyond just reliability, Azure bolsters your business with robust security measures, safeguarding both your critical business data and sensitive customer information.
 
@@ -27,15 +27,15 @@ To fully appreciate the deployment process, it’s also important to understand 
 
 > Angular leverages HTML templates, TypeScript, and a robust component-based architecture to deliver scalable and maintainable solutions in web development.
 
-Key characteristics of Angular applications include their component-based structure, which allows for reusable and self-contained building blocks, simplifying project management. Two-way data binding ensures that user interface changes are instantly reflected in application data and vice-versa, offering a fluid user experience. 
+Key characteristics of Angular applications include their component-based structure, which allows for reusable and self-contained building blocks, simplifying project management. Two-way data binding ensures that user interface changes are instantly reflected in application data and vice-versa, offering a fluid user experience.
 
 ## Prerequisites: Azure, GitHub, Node, and Angular CLI
 
-First and foremost, you'll need an `Azure Account`. This is your gateway to Azure's extensive services, from virtual machines to managed app hosting. If you don't already have one, a quick visit to the Azure website and clicking [Start free](https://go.microsoft.com/fwlink/?linkid=2227353&clcid=0x809&l=en-gb) will get you set up. A free Azure account provides ample resources to deploy and thoroughly test your Angular application before scaling up.
+First and foremost, you'll need an `Azure Account`. This is your gateway to Azure's extensive services, from virtual machines to managed app hosting. If you don't already have one, a quick visit to the Azure website and clicking [Start free](https://go.microsoft.com/fwlink/?linkid=2227353\&clcid=0x809\&l=en-gb) will get you set up. A free Azure account provides ample resources to deploy and thoroughly test your Angular application before scaling up.
 
 Next, a **GitHub Account Setup** is essential. GitHub serves as the primary repository for your Angular app's code, facilitating an easy and automated deployment to Azure. If you don't have a GitHub account, creating one is straightforward. Azure integrates seamlessly with GitHub, allowing you to automate your deployment pipeline directly from your code repository. Once your account is ready, you'll create a new repository specifically for your Angular app to house all your project files.
 
-For development, **Node.js and npm Installation** are indispensable. Node.js enables you to execute JavaScript code outside a web browser, while npm (Node Package Manager) is crucial for managing your project's packages and dependencies. You can download the latest stable version of Node.js from its official website. npm is included with Node.js, and you can verify both installations by checking their versions in your terminal. 
+For development, **Node.js and npm Installation** are indispensable. Node.js enables you to execute JavaScript code outside a web browser, while npm (Node Package Manager) is crucial for managing your project's packages and dependencies. You can download the latest stable version of Node.js from its official website. npm is included with Node.js, and you can verify both installations by checking their versions in your terminal.
 
 > Ensuring you have the latest stable versions will help prevent compatibility issues.
 
@@ -45,30 +45,30 @@ Finally, the [Angular CLI Installation](https://angular.dev/tools/cli) is critic
 
 The first crucial step is:
 
- - **Create a Repository** on GitHub: When naming your repository, choose a clear and descriptive name that helps you quickly identify the project later. This repository will be your central hub for your Angular project.
+- **Create a Repository** on GitHub: When naming your repository, choose a clear and descriptive name that helps you quickly identify the project later. This repository will be your central hub for your Angular project.
 
- - **Set Up Your Angular Application**: Create a new Angular project using the Angular CLI `ng new my-app`, this process generates the basic structure, including all necessary files and configurations. 
+- **Set Up Your Angular Application**: Create a new Angular project using the Angular CLI `ng new my-app`, this process generates the basic structure, including all necessary files and configurations.
 
 > Before deploying, it's always wise to test your app locally by starting a local server `ng serve --open`. This allows you to interact with the app, verify its functionality, and ensure everything looks as intended.
 
- - **Push the Angular App to GitHub**: Committing these changes essentially saves your project at that specific point in time, complete with a descriptive message to maintain a clear history.
+- **Push the Angular App to GitHub**: Committing these changes essentially saves your project at that specific point in time, complete with a descriptive message to maintain a clear history.
 
- - **Create a Static Web App on Azure**: Azure's Static Web App service is perfectly suited for hosting web applications like Angular projects, offering straightforward integration with GitHub.
+- **Create a Static Web App on Azure**: Azure's Static Web App service is perfectly suited for hosting web applications like Angular projects, offering straightforward integration with GitHub.
 
 ## Azure portal
 
- - Select "Create a Resource".
- - In the search bar, type "Static Web App" and proceed.
- - In the "Basics" section provide essential details such as your Azure subscription, a resource group (a container for all your app's resources), a unique name for your Static Web App, and the plan type (Azure offers a generous free tier).
- - Select "GitHub" as the source of your code. This leads to authorizing Azure to access your GitHub account, after which you'll specify your GitHub organization, the repository for your Angular app, and the branch you wish to deploy (typically the "main" branch). 
- - Configure **Build Details**: Within the build settings, you'll select "Angular" from the "Build Presets" dropdown menu. This informs Azure that your project is an Angular application, prompting it to apply the correct build commands automatically. 
- - Confirm and create your Static Web App.
+- Select "Create a Resource".
+- In the search bar, type "Static Web App" and proceed.
+- In the "Basics" section provide essential details such as your Azure subscription, a resource group (a container for all your app's resources), a unique name for your Static Web App, and the plan type (Azure offers a generous free tier).
+- Select "GitHub" as the source of your code. This leads to authorizing Azure to access your GitHub account, after which you'll specify your GitHub organization, the repository for your Angular app, and the branch you wish to deploy (typically the "main" branch).
+- Configure **Build Details**: Within the build settings, you'll select "Angular" from the "Build Presets" dropdown menu. This informs Azure that your project is an Angular application, prompting it to apply the correct build commands automatically.
+- Confirm and create your Static Web App.
 
 ## Launch Your Angular App on Azure
 
-Once the deployment is triggered, Azure will begin building your Angular app in the background. This process, which can take a few minutes, involves `compiling your app` and preparing it for `live hosting`. 
+Once the deployment is triggered, Azure will begin building your Angular app in the background. This process, which can take a few minutes, involves `compiling your app` and preparing it for `live hosting`.
 
-> You can monitor the progress through the "Actions" tab in your GitHub repository, where GitHub automatically manages the deployment pipeline. 
+> You can monitor the progress through the "Actions" tab in your GitHub repository, where GitHub automatically manages the deployment pipeline.
 
 Upon successful deployment, Azure will provide a unique URL where your Angular app is live. This link can be found in the Azure portal, specifically within the "Overview" section of your Static Web App resource.
 

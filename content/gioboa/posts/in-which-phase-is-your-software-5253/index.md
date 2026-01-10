@@ -25,7 +25,7 @@ To describe the life cycle of a software, I took Kent Back's [3X Model](https://
 
 Here is Kent Beck's chart
 
-![3xModel](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/slsbef9v6dwkjmls9zmf.jpeg)
+![3xModel](./slsbef9v6dwkjmls9zmf.jpeg)
 
 Let's analyse the 3 phases in the graph.
 
@@ -63,4 +63,4 @@ Bye 👋
 
 {% embed https://dev.to/gioboa %}
 
-_Special thanks to [Strazz](https://twitter.com/thestrazz86), he inspired me with his book: [Decision-making for Software Development Teams](https://leanpub.com/decision-making-for-software-development-teams/)_
+*Special thanks to [Strazz](https://twitter.com/thestrazz86), he inspired me with his book: [Decision-making for Software Development Teams](https://leanpub.com/decision-making-for-software-development-teams/)*

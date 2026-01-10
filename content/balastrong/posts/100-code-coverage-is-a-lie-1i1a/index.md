@@ -36,8 +36,7 @@ If you're curious to hear more about my opinion on Code Coverage, I recorded a v
 
 As a bonus content, to further explain the concept, there's a joke on this tweet that makes it really easy to understand:
 
-![Tweet](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/uqxis2kvcg9lle0z4chp.png)
-
+![Tweet](./uqxis2kvcg9lle0z4chp.png)
 
 Code coverage is not enough and edge cases are not enough still. You need to test the business logic, not the code. Coverage will come naturally.
 
@@ -47,14 +46,13 @@ What do you think about code coverage? Do you like having coverage thresholds in
 
 ---
 
-
 Thanks for reading this article, I hope you found it interesting!
 
 I recently launched my Discord server to talk about Open Source and Web Development, feel free to join: https://discord.gg/bqwyEa6We6
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

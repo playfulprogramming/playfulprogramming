@@ -97,7 +97,7 @@ If you have any questions or feedback, feel free to leave a comment below.
 
 Are you interested in learning GitHub but don't know where to start? Try my course on LinkedIn Learning: [Learning GitHub](https://bit.ly/learninggithub).
 
-![LinkedIn Learning](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sdc2bpiftpadibi4h51c.gif)
+![LinkedIn Learning](./sdc2bpiftpadibi4h51c.gif)
 
 ---
 

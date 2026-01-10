@@ -10,7 +10,7 @@ socialImage: "social-image.png"
 }
 ---
 
-Firebase Data Connect is simplifying the interaction between your applications and your databases. It presents a GraphQL interface directly on top of [Cloud SQL](https://cloud.google.com/sql), promising rapid development, enhanced security, and a streamlined data management experience. 
+Firebase Data Connect is simplifying the interaction between your applications and your databases. It presents a GraphQL interface directly on top of [Cloud SQL](https://cloud.google.com/sql), promising rapid development, enhanced security, and a streamlined data management experience.
 
 It's crucial to understand its underlying concepts, benefits, limitations, and potential tradeoffs before fully committing to it.
 
@@ -58,15 +58,16 @@ firebase init
 This command launches a guided setup process, allowing you to configure various Firebase features.
 Select "Data Connect: Set up a Firebase Data Connect service" option, this will prompt you to associate your project with an existing Firebase project or create a new one. Choose the appropriate option and proceed.
 
-![select-option](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sev0l851no949qv7bfnh.png)
+![select-option](./sev0l851no949qv7bfnh.png)
 
 Now you have few different files on you folder:
 
-![files](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/31raai2o9yr0cozst4v9.png)
+![files](./31raai2o9yr0cozst4v9.png)
 
 > Here I created for you a basic setup to start immediately with the service.
 
 FILE: dataconnect/schema/schema.gql
+
 ```
 type User @table(key: "id") {
   id: String!
@@ -77,6 +78,7 @@ type User @table(key: "id") {
 ```
 
 FILE: dataconnect/connector/connector.yaml
+
 ```
 connectorId: "default-connector"
 authMode: "PUBLIC" 
@@ -90,6 +92,7 @@ generate:
 ```
 
 FILE: dataconnect/connector/mutations.gql
+
 ```
 mutation CreateUser($id: String, $firstName: String, $lastName: String, $email: String) @auth(level: PUBLIC) {
   user_insert(data: {
@@ -102,6 +105,7 @@ mutation CreateUser($id: String, $firstName: String, $lastName: String, $email: 
 ```
 
 FILE: dataconnect/connector/queries.gql
+
 ```
 query ListUsers @auth(level: PUBLIC) {
   users { id, firstName, lastName, email }
@@ -123,6 +127,7 @@ With `firebase init emulators` and `firebase emulators:start` you can start the 
 Now you can use it straight away like this.
 
 FILE: `data-connect-client/package.json`
+
 ```
 {
   "name": "data-connect-client",
@@ -136,6 +141,7 @@ FILE: `data-connect-client/package.json`
 > You should install the npm dependencies before run the code below.
 
 FILE: `data-connect-client/index.ts`
+
 ```
 import { initializeApp } from 'firebase/app';
 import { connectorConfig, createUser, listUsers } from '@dataconnectdemo/sdk';
@@ -167,11 +173,11 @@ You can run the client with this simple command `npx tsx index.ts` and you will 
 
 > TypeScript is helping with intellisense too so this is so great
 
-![ts-type](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5vtw4r02pn9y5r3hh8ry.png)
+![ts-type](./5vtw4r02pn9y5r3hh8ry.png)
 
 ---
 
-Firebase Data Connect offers a compelling vision for simplifying database interactions through a GraphQL interface, empowering developers with rapid prototyping, granular security controls, and streamlined data management. 
+Firebase Data Connect offers a compelling vision for simplifying database interactions through a GraphQL interface, empowering developers with rapid prototyping, granular security controls, and streamlined data management.
 
 Now it's your turn, you can start playing with it, everything is up and running.
 
@@ -183,4 +189,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Bye 👋
 
 {% embed https://dev.to/gioboa %}
-

@@ -14,9 +14,11 @@ socialImage: "social-image.png"
 Change detection is a fundamental aspect of Angular, responsible for identifying and updating parts of the DOM that have changed in response to data modifications or user interactions. This process ensures that the UI remains consistent with the underlying data, enhancing user experience and application performance.
 
 ## The Role of Zone.js
+
 Historically, Angular has relied on Zone.js for its change detection mechanism. Zone.js is a JavaScript library that intercepts asynchronous operations, allowing Angular to monitor changes and trigger updates accordingly. However, the inclusion of Zone.js can add overhead to the application, particularly in scenarios with frequent asynchronous activities.
 
 ## Change Detection Strategies
+
 Angular provides two primary change detection strategies:
 
 - **Default:** Change detection is triggered after every lifecycle hook, such as `ngOnInit` or `ngAfterViewInit`. This strategy is straightforward but can lead to unnecessary DOM updates, especially in large applications.
@@ -33,8 +35,9 @@ export class MyComponent {
 }
 
 ```
-This strategy is easier to implement, as Angular handles most of the change detection logic automatically. 
-The biggest challenge with this change detection strategy was that it led to unnecessary DOM updates which gets critical for large applications. 
+
+This strategy is easier to implement, as Angular handles most of the change detection logic automatically.
+The biggest challenge with this change detection strategy was that it led to unnecessary DOM updates which gets critical for large applications.
 
 - **OnPush:** Change detection is triggered only when input properties or asynchronous observables change. This strategy is more performant for complex components with frequent data updates but requires more manual management.
 
@@ -69,6 +72,7 @@ bootstrapApplication(RootCmp,
 );
 
 ```
+
 This will trigger change detection in the following scenarios:
 
 - A signal is updated.
@@ -84,6 +88,7 @@ Once Hybrid Change Detection is enabled, you can safely remove Zone.js from your
               "zone.js" //remove this line
             ],
 ```
+
 ## Benefits of Hybrid Change Detection
 
 - **Improved performance:** Eliminating Zone.js reduces overhead, leading to better performance, especially in applications with numerous asynchronous operations.

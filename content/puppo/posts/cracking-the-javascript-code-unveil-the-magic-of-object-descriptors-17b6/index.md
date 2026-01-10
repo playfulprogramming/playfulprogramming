@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 👋 Hey, JavaScript developers!
 
 Ever wondered what makes your objects tick? Or how to go all "Inception" on your JavaScript code by manipulating object properties at a deeper, more granular level? Well, you're in luck! Today, we're diving into the magical world of Object Property Descriptors in JavaScript—a realm where you become the puppet master of your objects. 🎭

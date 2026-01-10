@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 I recently got access to the new Copilot CLI, which basically gives you the full power of GitHub Copilot but in your favourite terminal so... time to give it a try!
 
 As of today, the tool is in the **waitlist** stage. If you don't have access yet, you can request it on the [Copilot for CLI](https://githubnext.com/projects/copilot-cli) page on GitHub Next. An active Copilot subscription is required.
@@ -54,19 +53,19 @@ Let's warm up with an easy one, the good old getting rid of the `node_modules` f
 
 After about a second the tool suggested the expected `rm -rf node_modules`, and you can see below the explanation was still pending.
 
-![Delete node modules 1](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jhn92k24h0h5r03sdrtk.png)
+![Delete node modules 1](./jhn92k24h0h5r03sdrtk.png)
 
 One more second later and also the explanation arrived.
 
 It's time to select with the up/down arrows if you want to run the command, revise the query or cancel and get back to the prompt.
 
-![Delete node modules 2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/n85cdedcvcpedwg06hpa.png)
+![Delete node modules 2](./n85cdedcvcpedwg06hpa.png)
 
 It's worth noting that after selecting the first option it's still not immediately executed and you get the known (y/N) question with capital N.
 
 At first, this made me think "No" was automatically selected when pressing Enter but looks like it's not the case.
 
-![Delete node modules 3](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bp8p7w34j6fgx3dt2ntb.png)
+![Delete node modules 3](./bp8p7w34j6fgx3dt2ntb.png)
 
 I pressed `y` and the command was executed. You can see the output here: https://app.warp.dev/block/Yy5mEuxoMJAoq6VScNqTJa
 
@@ -74,21 +73,21 @@ I pressed `y` and the command was executed. You can see the output here: https:/
 
 The `??` counterpart in Warp is `#`, so let's use it to ask Warp the same question! The first difference I see is that as soon as you type `#` the AI panel appears.
 
-![Delete node modules with Warp 1](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3u371b0ik0l2nws7fdy6.png)
+![Delete node modules with Warp 1](./3u371b0ik0l2nws7fdy6.png)
 
 Press Enter and after about a second the command appears under "Suggested command".
 
-![Delete node modules with Warp 2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/thihlqhpff97i5spu6cq.png)
+![Delete node modules with Warp 2](./thihlqhpff97i5spu6cq.png)
 
 With `Cmd+Enter` the command is not executed but actually put into the terminal, so you can still edit it before running it.
 
 Speaking of the explanation, you can request it by clicking on the "Explain how this works" button.
 
-![Warp AI Explain](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ixnclw7uv1pn4rywh495.png)
+![Warp AI Explain](./ixnclw7uv1pn4rywh495.png)
 
 A side panel will appear and by pressing Enter again you will see the in-depth explanation.
 
-![Warp AI Explain](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/72gkta3gt53qazc7mcfa.png)
+![Warp AI Explain](./72gkta3gt53qazc7mcfa.png)
 
 ## Refining the suggestion
 
@@ -110,7 +109,7 @@ The explanation isn't at the same depth though! Copilot arrives faster but with 
 
 This time I don't have a strong feeling about either approach so I'm once more asking for your opinion.
 
-![Write a comment](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/73224eumnmeixw8dmyy5.png)
+![Write a comment](./73224eumnmeixw8dmyy5.png)
 
 ## A short command
 
@@ -154,9 +153,7 @@ find content/blog -name "*.png" | xargs zip blogImages
 
 Again, the explanation is really really short but isn't missing anything in particular.
 
-
-![Zip Copilot](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4iq8nfxzpkxl7eqgql1x.png)
-
+![Zip Copilot](./4iq8nfxzpkxl7eqgql1x.png)
 
 ### Warp
 
@@ -172,7 +169,7 @@ The explanation here as usual is longer and with more "natural language", as if 
 >
 > In other words, this command creates a zip file named "blogImages.zip" containing all the ".jpg" and ".png" files in the "content/blog" directory.
 
-![Zip Warp](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7n4a6w97hn8dafndelr2.png)
+![Zip Warp](./7n4a6w97hn8dafndelr2.png)
 
 ## Dealing with a husky error
 
@@ -429,7 +426,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

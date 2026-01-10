@@ -12,12 +12,11 @@ order: 1
 }
 ---
 
-
-Hey folks,  
+Hey folks,\
 Do you know that you can enable or disable a query in react query? Noooo! Ok, it's time to learn it!
 
-Some specific hooks must be enabled only if there are some data in the application; for instance, some queries must run only if the users are logged in.  
-To solve this problem, the `useQuery` hooks accept an option called `enabled` that accepts a boolean to determine if a condition is true or false.  
+Some specific hooks must be enabled only if there are some data in the application; for instance, some queries must run only if the users are logged in.\
+To solve this problem, the `useQuery` hooks accept an option called `enabled` that accepts a boolean to determine if a condition is true or false.\
 Let's take a look at this example
 
 ```ts
@@ -71,14 +70,14 @@ export const useMyTodos = (): UseMyTodos => {
 };
 ```
 
-As you can notice, in this case, a custom hook calls the API and gets all the todos assigned to the current users.  
-The key point of this example stands in the enabled option. As you can see, this `useQuery` is called only if there is a user; else, the query is stopped.  
-This feature permits developers to be sure to call a specific API only if a condition is satisfied, preventing a bad API request.  
+As you can notice, in this case, a custom hook calls the API and gets all the todos assigned to the current users.\
+The key point of this example stands in the enabled option. As you can see, this `useQuery` is called only if there is a user; else, the query is stopped.\
+This feature permits developers to be sure to call a specific API only if a condition is satisfied, preventing a bad API request.\
 This feature is pretty simple but very powerful, as you can imagine!
 
 To find out more about the `enabled` option take a look at my youtube video about it
 
-{% embed https://www.youtube.com/watch?v=5JSD_b2slJs %}
+{% embed https://www.youtube.com/watch?v=5JSD\_b2slJs %}
 
 Ok, that's all from the enabled option.
 
@@ -90,6 +89,6 @@ Bye Bye 👋
 
 p.s. you can find the code of the video [**here**](https://github.com/Puppo/learning-react-query/tree/07-enable-query)
 
-_Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto&utm_medium=referral)_
+*Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto\&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto\&utm_medium=referral)*
 
 {% embed https://dev.to/puppo %}

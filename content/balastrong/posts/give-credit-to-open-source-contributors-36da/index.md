@@ -16,7 +16,7 @@ Tables like this one are in a lot of repositories, giving well deserved credit t
 
 And you know, developers are lazy so there has to be an automation to manage this.
 
-![All contributors](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/561mmudrgoixbn2z390m.png)
+![All contributors](./561mmudrgoixbn2z390m.png)
 
 Today’s topic is the all-contributors tool and I will show you how you can integrate it in your project and why you should!
 
@@ -50,7 +50,7 @@ npx all-contributors add balastrong code
 ```
 
 Pros: you can control when/how you want to add contributors as it just edits the files locally.
-Cons: as it's less _automagic_, you will need to manually commit and push the changes.
+Cons: as it's less *automagic*, you will need to manually commit and push the changes.
 
 ## Hacktoberfest
 
@@ -74,7 +74,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

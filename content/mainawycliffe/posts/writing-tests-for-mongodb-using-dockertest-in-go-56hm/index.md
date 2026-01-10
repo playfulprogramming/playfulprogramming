@@ -12,11 +12,11 @@ socialImage: "social-image.png"
 
 Dockertest enables us to use Docker to create containers to run our tests against. With dockertest, we can use it to create a Docker container for our tests, which we can then connect to and run our tests against. And then remove the container afterward. This means that every time we run the tests, we get a sanitized environment that is not contaminated by the test data from previous tests.
 
-## Prerequisites 
+## Prerequisites
 
-* Prior knowledge in MongoDB, Go, and Docker.
-* Docker: You can find installation instructions can be found [here](https://docs.docker.com/engine/install/).
-* Golang: You can find installation instructions can be found [here](https://go.dev/doc/install).
+- Prior knowledge in MongoDB, Go, and Docker.
+- Docker: You can find installation instructions can be found [here](https://docs.docker.com/engine/install/).
+- Golang: You can find installation instructions can be found [here](https://go.dev/doc/install).
 
 ## Getting Started
 
@@ -85,13 +85,13 @@ go get -u github.com/ory/dockertest/v3
 
 ## Setup and Teardown using TestMain
 
-We are going to be using `TestMain` to set up our MongoDB container using dockertest for testing and remove the container after we are done running the tests. 
+We are going to be using `TestMain` to set up our MongoDB container using dockertest for testing and remove the container after we are done running the tests.
 
 `TestMain` in Go provides us with more control on how our tests are run, in our case, allowing us to use dockertest to set up a MongoDB container and connect to it and after the tests have run, remove it. This ensures that for every test we run, we have a fresh database to run tests against that is not contaminated by test data from the previous tests.
 
 ### Setup MongoDB Docker Container
 
-We are going to start by defining a database client variable to store the MongoDB connection to the test database that will be spun up. We will pass this client to the `Todo` struct that we will create when running the tests. 
+We are going to start by defining a database client variable to store the MongoDB connection to the test database that will be spun up. We will pass this client to the `Todo` struct that we will create when running the tests.
 
 ```go
 var db *mongo.Client
@@ -101,7 +101,7 @@ func TestMain(m *testing.M) {
 }
 ```
 
-Next, inside the `TestMain` function, we are going to create a new `Pool`. A `Pool` is a dockertest struct that represents a connection to the Docker API and is used to create and remove the docker container when running tests. 
+Next, inside the `TestMain` function, we are going to create a new `Pool`. A `Pool` is a dockertest struct that represents a connection to the Docker API and is used to create and remove the docker container when running tests.
 
 ```go
 pool, err := dockertest.NewPool("")

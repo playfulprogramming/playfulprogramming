@@ -24,7 +24,7 @@ You can watch the full video where I go into details here:
 
 {% youtube R0hPCgPvFuc %}
 
-_I know not everyone likes to watch videos, so let me write down some of the main concepts I talk about._
+*I know not everyone likes to watch videos, so let me write down some of the main concepts I talk about.*
 
 ## Disclaimer
 
@@ -40,7 +40,7 @@ In the video I go through 4 of them I noticed in my previous company and, unsurp
 
 > People don't leave companies, they leave managers
 
-For example, the management did not want the dev team to study and learn things, because _they have to work_. Other departments were totally fine in doing courses paid by the company though.
+For example, the management did not want the dev team to study and learn things, because *they have to work*. Other departments were totally fine in doing courses paid by the company though.
 
 One more that played a huge role but is not entirely related to the management was how feedback and blaming were handled. People tended to hide their mistakes hoping no one would notice and eventually something would break in another step of the chain.
 
@@ -102,7 +102,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

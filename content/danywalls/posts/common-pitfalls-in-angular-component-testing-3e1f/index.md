@@ -21,10 +21,9 @@ This article focuses on the typical problems or issues to face when we start add
 
 We have an application showing a list of NBA Players from API using `PlayerService`; the app works with two main components.
 
-* Player: The dumb component to show the single-player info.
-    
-* PlayerListComponent: Uses the list of players from the \`PlayerService\` to render in the view using the player component.
-    
+- Player: The dumb component to show the single-player info.
+
+- PlayerListComponent: Uses the list of players from the \`PlayerService\` to render in the view using the player component.
 
 We are going to test the `playerlist.component.ts` handling dependencies of services and the child component.
 
@@ -68,15 +67,14 @@ Let's try to test the component!
 Before starting, remember that Angular relies on Jasmine and Karma as test runners and our tests. If you never write a test, it is short and intro.
 
 1. `describe` : Group-related tests together. It takes a string and a function as arguments.
-    
-2. `beforeEach` : Runs before each test case for setup operations.
-    
-3. `it` : Defines a test case; it takes a string and a function as arguments.
-    
-4. `expect` : used to assert the behavior of the code being tested.
-    
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1673889605585/34a90ed3-3607-4e1b-82b5-0bdee9e5778c.png align="center")
+2. `beforeEach` : Runs before each test case for setup operations.
+
+3. `it` : Defines a test case; it takes a string and a function as arguments.
+
+4. `expect` : used to assert the behavior of the code being tested.
+
+!\[]\(https://cdn.hashnode.com/res/hashnode/image/upload/v1673889605585/34a90ed3-3607-4e1b-82b5-0bdee9e5778c.png align="center")
 
 Learn more about [Jasmine](https://jasmine.github.io/) and [Karma](https://karma-runner.github.io/latest/index.html)
 
@@ -188,14 +186,13 @@ Everything is green! So we can start to write our test.
 
 We have the testing module ready; we are ready for the following tasks to test the component by doing the following tasks.
 
-* \[x\] Fake the response data
-    
-* \[x\] Create a test for the component get players from the service
-    
-* \[x\] Trigger the component `change-detection`.
-    
-* \[x\] Validate the property `players` has a value from the fake response.
-    
+- \[x] Fake the response data
+
+- \[x] Create a test for the component get players from the service
+
+- \[x] Trigger the component `change-detection`.
+
+- \[x] Validate the property `players` has a value from the fake response.
 
 Let's **Create a test to get players** from services. We create a variable with structure from the backend to use as a fake data response:
 
@@ -264,11 +261,10 @@ Save, and ... Yeahhh, **Green again**. Let's continue validating the property's 
 How are we sure the property player has value? The fixture exposes some ways to access the component:
 
 1. `componentInstance`: Returns an instance of the tested component. We can use this property to access the properties and methods of the component and check their values.
-    
+
 2. `debugElement`: Returns an instance of `DebugElement` the tested component. The `DebugElement` is a wrapper around the native element and allows you to interact with the component's DOM in a way that is agnostic to the underlying platform.
-    
+
 3. `debugElement.nativeElement`: Returns the native element of the tested component, the actual element in the DOM. We can use this property to interact with the component's DOM indirectly d check its attributes, styles, and content.
-    
 
 Let's use the `componentInstance` to access the players property, using `expect` to assert the values, the `FAKE_API_REPONSE`, return a single item, and check the length of players is equal to 1.
 
@@ -282,7 +278,7 @@ Let's use the `componentInstance` to access the players property, using `expect`
 
 Save and the results:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1673889447633/cae0091b-1245-4c6f-8aab-5317d11670d9.png align="center")
+!\[]\(https://cdn.hashnode.com/res/hashnode/image/upload/v1673889447633/cae0091b-1245-4c6f-8aab-5317d11670d9.png align="center")
 
 ## Working with Child Components
 
@@ -320,7 +316,7 @@ Next, register the `MockPlayer` in the declarations section:
 
 **What we did?**
 
-We provide a Mock component with the same selector and register in the testing module. When the component requests the &lt;app-data&gt;, the testing module provides our mock.
+We provide a Mock component with the same selector and register in the testing module. When the component requests the \<app-data>, the testing module provides our mock.
 
 ## Test Render Child Components
 
@@ -351,7 +347,7 @@ const totalPlayers =      fixture.debugElement.queryAll(By.css('div.player')
 
 Save, and our tests pass using a mock service and template.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1673889416095/22868825-6e4e-4aa6-b426-9c73320600bd.png align="center")
+!\[]\(https://cdn.hashnode.com/res/hashnode/image/upload/v1673889416095/22868825-6e4e-4aa6-b426-9c73320600bd.png align="center")
 
 **Note:** Another alternative is with `By.directive` using the component class name.
 
@@ -361,14 +357,13 @@ expect(fixture.debugElement.queryAll(By.directive(MockPlayer)).length).toBe(1);
 
 Done! We have already tested our component:
 
-* \[x\] We validate the component to get the data.
-    
-* \[x\] We validate the date is in the DOM.
-    
-* \[x\] We learn to Mock Services and Components
-    
-* \[x\] We learn to Query elements in the DOM using By
-    
+- \[x] We validate the component to get the data.
+
+- \[x] We validate the date is in the DOM.
+
+- \[x] We learn to Mock Services and Components
+
+- \[x] We learn to Query elements in the DOM using By
 
 ## Conclusion
 

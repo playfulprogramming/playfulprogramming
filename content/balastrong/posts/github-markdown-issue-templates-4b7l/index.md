@@ -15,7 +15,7 @@ order: 1
 
 When you, as a contributor, want to create a new issue on GitHub, you're presented with a blank page and a text area to write your issue description.
 
-![Empty issue](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ajzasmw1hk7pw0pq4t50.png)
+![Empty issue](./ajzasmw1hk7pw0pq4t50.png)
 
 If it's a feature request, you'd like to add all the relevant details and reasons why you think it's a good idea, to increase the chances of it being approved.
 
@@ -27,7 +27,7 @@ In this 2 chapters series, we'll see how to use GitHub Issue Templates to help c
 
 You can find the full content in this video, or you can keep reading for Chapter 1.
 
-{% youtube hNs5Gg_fEEs %}
+{% youtube hNs5Gg\_fEEs %}
 
 ## Markdown template
 
@@ -99,18 +99,17 @@ From the Settings of your repository, scroll down a little bit to the Features b
 
 This will bring you to this page: `https://github.com/Balastrong/[YOUR-REPO-NAME]/issues/templates/edit`.
 
-![Issue editor](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5n937ctbqeqzh8mfh4hl.png)
+![Issue editor](./5n937ctbqeqzh8mfh4hl.png)
 
 From there, you can easily handle the existing templates or create a new one. Actually, GitHub already suggests you one for bug reports and one for feature requests.
 
 Select one and you'll see a new row added, with a "Preview and edit" button. Click on it to see the preview and click on the pencil icon to edit the template.
 
-![Feature request template](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lmel4kwqegu2s1eqhjun.png)
-
+![Feature request template](./lmel4kwqegu2s1eqhjun.png)
 
 When you're done, since the definition of the template still is a markdown file in your repo, from the "Propose changes" green button on the top right corner you'll be prompted to either commit the changes on the main branch or to create a new branch and open a Pull Request.
 
-![Commit your changes](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/2i3dehea83aulyqmub0u.png)
+![Commit your changes](./2i3dehea83aulyqmub0u.png)
 
 And that's it! The output is the same in a markdown file, but you now have a visual editor to help you create and edit the template.
 
@@ -120,7 +119,6 @@ Sure! The markdown template is a lightweight solution, easy to set up and use, b
 
 In the next chapter we'll see how to use a form schema to create a more structured template. You can see a spoiler in [the video](https://youtu.be/hNs5Gg_fEEs), or wait for the next chapter to be published.
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -129,7 +127,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

@@ -13,8 +13,7 @@ order: 1
 }
 ---
 
-
-_Cover photo by [Paul Green](https://unsplash.com/photos/fhOGkxwQz0s) on Unsplash._
+*Cover photo by [Paul Green](https://unsplash.com/photos/fhOGkxwQz0s) on Unsplash.*
 
 *Original publication date: 2019-01-22.*
 
@@ -74,7 +73,7 @@ import { PreSixModule } from './pre-six.module.ts';
 export class CoreModule {}
 ```
 
-_Pre-Angular 6 singleton service._
+*Pre-Angular 6 singleton service.*
 
 If we imported the providing Angular module in a lazy-loaded feature module, we would get a different instance of the service.
 
@@ -105,7 +104,7 @@ export class PreSixMixedModule {
 }
 ```
 
-_The `forRoot` pattern for singleton services._
+*The `forRoot` pattern for singleton services.*
 
 The static `forRoot` method is intended for our `CoreModule` which becomes part of the root module injector.
 
@@ -126,7 +125,7 @@ export class ModernSingletonService {
 }
 ```
 
-_Modern singleton service._
+*Modern singleton service.*
 
 A singleton service is created the first time any component that depends on it is constructed.
 
@@ -174,12 +173,12 @@ import { MyComponent } from './my.component';
 export class ModernMixedModule {}
 ```
 
-_Modern `forRoot` alternative for singleton services._
+*Modern `forRoot` alternative for singleton services.*
 
 There are 2 differences when using this approach compared to the `'root'` option value:
 
-1.  The singleton service cannot be injected unless the providing Angular module has been imported.
-2.  Lazy-loaded Angular modules and the `AppModule` create their own instances because of separate module injectors.
+1. The singleton service cannot be injected unless the providing Angular module has been imported.
+2. Lazy-loaded Angular modules and the `AppModule` create their own instances because of separate module injectors.
 
 ## Guarding against multiple injectors
 
@@ -215,7 +214,7 @@ import { MyComponent } from './my.component';
 export class ModernMixedModule {}
 ```
 
-_Modern singleton service guarded against multiple injectors._
+*Modern singleton service guarded against multiple injectors.*
 
 This is the pattern [used by Angular Material](https://github.com/angular/components/blob/7.2.0/src/lib/icon/icon-registry.ts#L592-L611) for its singleton services such as `MatIconRegistry`.
 
@@ -259,7 +258,7 @@ import { isInternetExplorer11Token } from './is-internet-explorer-11.token';
 export class InternetExplorerModule {}
 ```
 
-_Angular 4–5 dependency injection token with factory provider._
+*Angular 4–5 dependency injection token with factory provider.*
 
 In Angular version 2, we could use an `OpaqueToken` similar to an `InjectionToken` but without the type argument.
 
@@ -275,7 +274,7 @@ export const isInternetExplorer11Token: InjectionToken<boolean> = new InjectionT
 });
 ```
 
-_Modern dependency injection token with value factory._
+*Modern dependency injection token with value factory.*
 
 When using a factory provider, `providedIn` defaults to `'root'`, but let’s be explicit by keeping it. It’s also more consistent with how providers are declared using the `Injectable` decorator factory.
 
@@ -319,7 +318,7 @@ import { userAgentToken } from './user-agent.token';
 export class InternetExplorerModule {}
 ```
 
-_Angular 4–5 dependency injection token with value factory provider that declares dependencies._
+*Angular 4–5 dependency injection token with value factory provider that declares dependencies.*
 
 Unfortunately, the dependency injection token constructor doesn’t currently allow us to declare factory provider dependencies. Instead, we have to use the `inject` function from `@angular/core`.
 
@@ -345,7 +344,7 @@ export const isInternetExplorer11Token: InjectionToken<boolean> = new InjectionT
 });
 ```
 
-_Modern dependency injection token with value factory that has dependencies._
+*Modern dependency injection token with value factory that has dependencies.*
 
 The `inject` function injects dependencies from the module injector in which it’s provided—in this example the root module injector. It can be used by factories in tree-shakable providers. Tree-shakable class-based services can also use it in their constructor and property initialisers.
 
@@ -386,7 +385,7 @@ import { locationToken } from './location.token';
 export class BrowserModule {}
 ```
 
-_Angular 4–5 dependency injection token with factory provider._
+*Angular 4–5 dependency injection token with factory provider.*
 
 Like with a primitive value, we can create an injection token with a factory to get rid of the Angular module.
 
@@ -400,7 +399,7 @@ export const locationToken: InjectionToken<Location> = new InjectionToken('Locat
 });
 ```
 
-_Modern dependency injection token with API factory._
+*Modern dependency injection token with API factory.*
 
 In the API factory, we use the global variable `document`. This is a dependency for resolving the Location API in the factory. We could create another dependency injection token, but it turns out that Angular already exposes one for this platform-specific API — the `DOCUMENT` dependency injection token exported by the `@angular/common` package.
 
@@ -432,7 +431,7 @@ import { locationToken } from './location.token';
 export class BrowserModule {}
 ```
 
-_Angular 4–5 dependency injection token with API factory provider that declares dependencies._
+*Angular 4–5 dependency injection token with API factory provider that declares dependencies.*
 
 As before, we can get rid of the Angular module by passing the factory to the dependency injection token constructor. Remember that we have to convert the factory dependency to a call to `inject`.
 
@@ -447,7 +446,7 @@ export const locationToken: InjectionToken<Location> = new InjectionToken('Locat
 });
 ```
 
-_Modern dependency injection token with API factory that has dependencies._
+*Modern dependency injection token with API factory that has dependencies.*
 
 Now we have a way of creating a common accessor for a platform-specific API. This will prove useful when testing declarables and services that rely on them.
 

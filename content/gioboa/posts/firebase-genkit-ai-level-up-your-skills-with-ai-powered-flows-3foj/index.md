@@ -16,7 +16,7 @@ Genkit-AI, a cutting-edge framework, stands at the forefront of this revolution,
 
 ## Understanding Genkit-AI
 
-Genkit-AI is a comprehensive framework designed to simplify the integration of AI capabilities into application development. It provides a structured approach to building AI-powered applications by abstracting away the complexities of directly interacting with AI models. 
+Genkit-AI is a comprehensive framework designed to simplify the integration of AI capabilities into application development. It provides a structured approach to building AI-powered applications by abstracting away the complexities of directly interacting with AI models.
 
 > Genkit-AI introduces the concepts of "flows" and "prompts," allowing developers to orchestrate AI interactions in a modular and intuitive manner.
 

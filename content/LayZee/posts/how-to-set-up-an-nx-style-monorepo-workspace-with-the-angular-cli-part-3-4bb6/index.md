@@ -13,10 +13,9 @@ order: 1
 }
 ---
 
+*Original cover photo by [Edgar Chaparro](https://unsplash.com/photos/r6mBXuHnxBk) on Unsplash.*
 
-_Original cover photo by [Edgar Chaparro](https://unsplash.com/photos/r6mBXuHnxBk) on Unsplash._
-
-_Original publication date: 2020-05-15._
+*Original publication date: 2020-05-15.*
 
 > This tutorial is part of the Angular Architectural Patterns series.
 
@@ -370,7 +369,7 @@ nrwl-airlines
 
 Start the mobile booking application by running the `ng run booking-mobile:serve` command.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mjqtfopal89dmv14eo5z.png)
+![](./mjqtfopal89dmv14eo5z.png)
 
 <figcaption>The mobile booking application with the mobile version of the flight search feature.</figcaption>
 

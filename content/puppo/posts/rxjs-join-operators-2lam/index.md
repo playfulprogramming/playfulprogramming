@@ -15,7 +15,7 @@ order: 1
 Hi Guys and Welcome Back,
 Today I'll speak about the Join Operators. Some of these operators are similar to other operators shown in the [Creation Operators](https://dev.to/this-is-learning/rxjs-creation-operators-6bh) but they are used in different contexts, ok let's start!
 
-* **[combineLatestAll](https://rxjs.dev/api/operators/combineLatestAll)**
+- **[combineLatestAll](https://rxjs.dev/api/operators/combineLatestAll)**
 
 > Flattens an Observable-of-Observables by applying combineLatest when the Observable-of-Observables completes.
 
@@ -41,6 +41,7 @@ source$.pipe(
     next: val => console.log(`${new Date().toLocaleTimeString()}: combineLatestAll`, val)
 });
 ```
+
 ```console
 16:22:07: combineLatestAll start
 16:22:12: combineLatestAll [ 'AB', 'BA', 'CA' ]
@@ -50,13 +51,14 @@ source$.pipe(
 16:22:15: combineLatestAll [ 'AC', 'BC', 'CB' ]
 16:22:18: combineLatestAll [ 'AC', 'BC', 'CC' ]
 ```
-![CombineLatestAll Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lv89hgb4oy8qmn6v2sid.jpg)
+
+![CombineLatestAll Marble Diagram](./lv89hgb4oy8qmn6v2sid.jpg)
 As you can see, this operator is the brother of the combineLatest operator discussed in a previous article [RxJS - Creation Operators](https://dev.to/this-is-learning/rxjs-creation-operators-6bh).
 Its job is to convert an Observable of Observables to an array of values, where each item of this array is a value of an observable.
 When we use this operator we need to remember that the first value emitted by the operator is when all the observables have emitted at least one value.
-This operator is used when in the pipe chain we have an operator that emits a list of observables; using this operator we can flat the values in a single array including all the values emitted by these observables. 
+This operator is used when in the pipe chain we have an operator that emits a list of observables; using this operator we can flat the values in a single array including all the values emitted by these observables.
 
-* **[concatAll](https://rxjs.dev/api/operators/concatAll)**
+- **[concatAll](https://rxjs.dev/api/operators/concatAll)**
 
 > Converts a higher-order Observable into a first-order Observable by concatenating the inner Observables in order.
 
@@ -80,6 +82,7 @@ source$.pipe(
     next: val => console.log(`${new Date().toLocaleTimeString()}: concatAll`, val)
 });
 ```
+
 ```console
 15:38:29: concatAll start
 15:38:30: concatAll 1-1
@@ -92,12 +95,13 @@ source$.pipe(
 15:38:44: concatAll 3-2
 15:38:47: concatAll 3-3
 ```
-![ConcatAll Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/v4dt0rys57q6ek219o8b.jpg)
+
+![ConcatAll Marble Diagram](./v4dt0rys57q6ek219o8b.jpg)
 The concatAll operator concatenates an Observable of Observables and emits all the observables in sequence.
 It's important to remember that when we use this operator, the observables are running one after the other, so the operator executes the first observable until it isn't completed, then it passes to the second observable, and so on.
 This operator is used when we have in a pipe chain an operator that returns a list of observables and we need to execute them in sequence.
 
-* **[exhaustAll](https://rxjs.dev/api/operators/exhaustAll)**
+- **[exhaustAll](https://rxjs.dev/api/operators/exhaustAll)**
 
 > Converts a higher-order Observable into a first-order Observable by dropping inner Observables while the previous inner Observable has not yet completed.
 
@@ -121,6 +125,7 @@ source$.pipe(
     next: val => console.log(`${new Date().toLocaleTimeString()}: exhaustAll`, val)
 });
 ```
+
 ```console
 16:27:05: exhaustAll start
 16:27:07: exhaustAll 1-1
@@ -131,9 +136,9 @@ source$.pipe(
 16:27:20: exhaustAll 3-3
 ```
 
-![ExhaustAll Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/66slkqzo681v4c1uiqey.jpg)
+![ExhaustAll Marble Diagram](./66slkqzo681v4c1uiqey.jpg)
 
-* **[mergeAll](https://rxjs.dev/api/operators/mergeAll)**
+- **[mergeAll](https://rxjs.dev/api/operators/mergeAll)**
 
 > Converts a higher-order Observable into a first-order Observable which concurrently delivers all values that are emitted on the inner Observables.
 
@@ -157,6 +162,7 @@ source$.pipe(
     next: val => console.log(`${new Date().toLocaleTimeString()}: mergeAll`, val)
 });
 ```
+
 ```console
 15:41:46: mergeAll start
 15:41:47: mergeAll 1-1
@@ -170,9 +176,9 @@ source$.pipe(
 15:41:57: mergeAll 3-3
 ```
 
-![MergeAll Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4q65kbrb8rsedypkjszo.jpg)
+![MergeAll Marble Diagram](./4q65kbrb8rsedypkjszo.jpg)
 
-* **[switchAll](https://rxjs.dev/api/operators/switchAll)**
+- **[switchAll](https://rxjs.dev/api/operators/switchAll)**
 
 > Converts a higher-order Observable into a first-order Observable producing values only from the most recent observable sequence
 
@@ -196,6 +202,7 @@ source$.pipe(
     next: val => console.log(`${new Date().toLocaleTimeString()}: switchAll`, val)
 });
 ```
+
 ```console
 15:42:48: switchAll start
 15:42:49: switchAll 1-1
@@ -204,9 +211,9 @@ source$.pipe(
 15:42:59: switchAll 3-3
 ```
 
-![SwitchAll Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/phayj8tj7dsg3xzjc9c8.jpg)
+![SwitchAll Marble Diagram](./phayj8tj7dsg3xzjc9c8.jpg)
 
-* **[startWith](https://rxjs.dev/api/operators/startWith)**
+- **[startWith](https://rxjs.dev/api/operators/startWith)**
 
 > Returns an observable that, at the moment of subscription, will synchronously emit all values provided to this operator, then subscribe to the source and mirror all of its emissions to subscribers.
 
@@ -222,6 +229,7 @@ source1$.subscribe({
     next: val => console.log(`${new Date().toLocaleTimeString()}: startWith`, val)
 });
 ```
+
 ```console
 15:43:47: startWith 1000
 15:43:47: startWith 1
@@ -229,7 +237,7 @@ source1$.subscribe({
 15:43:47: startWith 3
 ```
 
-* **[withLatestFrom](https://rxjs.dev/api/operators/withLatestFrom)**
+- **[withLatestFrom](https://rxjs.dev/api/operators/withLatestFrom)**
 
 > Combines the source Observable with other Observables to create an Observable whose values are calculated from the latest values of each, only when the source emits.
 
@@ -252,6 +260,7 @@ source1$.pipe(
     next: val => console.log(`${new Date().toLocaleTimeString()}: withLatestFrom`, val)
 });
 ```
+
 ```console
 15:44:11: withLatestFrom start
 15:44:14: withLatestFrom [ 2, 0 ]

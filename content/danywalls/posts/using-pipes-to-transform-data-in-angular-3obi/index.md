@@ -19,9 +19,10 @@ The pipes work in our components templates using the pipe | operator getting dat
 
 Angular has a list of pipes [available](https://angular.io/api/common#pipes) for us, and we can also create a custom pipe to return ours expect data.
 
-> You can see the final [example in stackbliz](https://angular-ivy-opaevp.stackblitz.io) 
+> You can see the final [example in stackbliz](https://angular-ivy-opaevp.stackblitz.io)
 
 ## Using currency Pipe.
+
 For example, we have a list of job positions with salaries.
 
 ```typescript
@@ -40,6 +41,7 @@ salaryRanges = [
     },
   ];
 ```
+
 ```html
 <ul>
   <li *ngFor="let profesional of salaryRanges">
@@ -48,6 +50,7 @@ salaryRanges = [
   </li>
 </ul>
 ```
+
 We want to show the currency symbol, for example, $, and decimals, using the pipe currency. Angular, by default, uses USD format.
 
 ```html
@@ -58,17 +61,21 @@ We want to show the currency symbol, for example, $, and decimals, using the pip
   </li>
 </ul>
 ```
-The output looks like 
+
+The output looks like
+
 ```html
 developer $90,000.00
 nbaPlayer $139,883.00
 doctor $72,000.00
 ```
-Very nice! What happens if we want to convert those amounts to dollars or euros. For example, to another like dollar or euros? Angular doesn't have any to do? 
+
+Very nice! What happens if we want to convert those amounts to dollars or euros. For example, to another like dollar or euros? Angular doesn't have any to do?
 
 Let's build a custom pipe!
 
 ## Create a Custom Pipe
+
 The Pipe is a single class implementing the PipeTransform interface.
 
 Our pipe convertExchange gets the value and return division of the salary by 55.
@@ -86,18 +93,22 @@ export class ConvertToExchange implements PipeTransform {
 }
 
 ```
+
 > Keep in mind register the Pipe in your module.
 
 We can use nested pipes, for example, currency and convertExchange, so our Pipe performs the calculation, and the currency shows the format.
-```html    {{ professional.salary | convertToExchange | currency }}
+
+```html {{ professional.salary | convertToExchange | currency }}
 ```
+
 Done the money shows with the format and the conversion rate.
 
 ```html
 developer $1,636.36
 nbaPlayer $2,543.33
 doctor $1,309.09
-``` 
+```
+
 Our Pipe is powerful because it performs actions with the data, but what happens if I want to make a little flexible for the future change the currency like USD or EURO.
 
 First, create an object with currency with values.
@@ -107,7 +118,8 @@ const currencyValues = {
   USD: 55,
   EURO: 75,
 };
-``` 
+```
+
 Next, add a new parameter in the transform method to get the currency name and create a method to return the value related to the currency.
 
 The code will look like this:
@@ -132,6 +144,7 @@ export class ConvertToExchange implements PipeTransform {
   }
 }
 ```
+
 Perfect! So, we use the Pipe with the parameter in the component template to pass the parameter use `:` and the value, in our case, USD or EURO.
 
 Our convertToExchange perform calculations related to USD and the currency format, the output from convertToExchange.
@@ -149,7 +162,9 @@ doctor $1,309.09
 ```
 
 ## Make It Dynamic
+
 We create a select with the list of currencies and the use can pick the conversion.
+
 ```html
 <select (change)="changeTo($any($event.target).value)">
   <option value="USD">USD</option>
@@ -157,6 +172,7 @@ We create a select with the list of currencies and the use can pick the conversi
   <option selected>DOP</option>
 </select>
 ```
+
 In our component, create a new property currentCurrency with default value DOP, the property we update when we change the selection.
 
 ```typescript
@@ -165,6 +181,7 @@ changeTo(currency) {
     this.currentCurrency = currency;
   }
 ```
+
 Next, use the currentCurrency in the template as a parameter for the Pipe.
 
 ```html
@@ -173,9 +190,10 @@ Next, use the currentCurrency in the template as a parameter for the Pipe.
     {{ profesional.salary | convertToExchange: currentCurrency | currency }}
   </li>
 ```
+
 Perfect, if you select a currency in the dropdown, the calculation performs again!
 
-![Final version](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0mslvxcprr8lkmtk36e2.png)
+![Final version](./0mslvxcprr8lkmtk36e2.png)
 
 ## Conclusion
 
@@ -184,9 +202,6 @@ In short, Pipes are so powerful that you can read more about them in the officia
 > Learn more about Pipes: https://angular.io/guide/pipes
 
 You can play with the final version demo.
-[https://stackblitz.com/edit/angular-ivy-opaevp?file=src%2Fapp%2Fapp.component.html](https://stackblitz.com/edit/angular-ivy-opaevp?file=src%2Fapp%2Fapp.component.html)
+<https://stackblitz.com/edit/angular-ivy-opaevp?file=src%2Fapp%2Fapp.component.html>
 
 Photo by <a href="https://unsplash.com/@realaxer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">T K</a> on <a href="https://unsplash.com/s/photos/pipes?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
-
-

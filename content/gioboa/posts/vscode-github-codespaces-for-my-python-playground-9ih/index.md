@@ -19,48 +19,51 @@ Today I did some experiments with Python, I decided to do this activity with Git
 
 I started by creating my repository on GitHub and I named it **python-playground**.<br>
 
-![GitHubRepo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yjj7lfgzt0p6v7yuka9x.png)
+![GitHubRepo](./yjj7lfgzt0p6v7yuka9x.png)
 
 ### Clone repository
 
-I cloned the local repository by typing the command: 
-`git clone git@github.com:gioboa/python-playground.git` 
+I cloned the local repository by typing the command:
+`git clone git@github.com:gioboa/python-playground.git`
 in the terminal.
 I took the URL of the repository from GitHub, you can find it by pressing the Code button. <br>
 
-![GitHubCode](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hdlyan3y7w8pt847azu6.png)<br>
+![GitHubCode](./hdlyan3y7w8pt847azu6.png)<br>
 
 ### VSCode: Add Dev Container
 
 Once the repository was cloned locally, via VSCode, I used the command:
+
 #### Dev Containers: Add Dev Container Configuration Files...<br>
 
-![AddCommand](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gbzlk86l8klb7art5frv.png)<br>
+![AddCommand](./gbzlk86l8klb7art5frv.png)<br>
 
 > To use this command you have to install the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) and you need to have [Docker](https://www.docker.com/) up and running in your local machine.
+
 ### Run locally
+
 With this approach (docker installed locally) you can use VSCode Dev Container feature as I described in this article 😊
 [Tidy up your machine with Visual Studio Code Dev Containers](https://dev.to/this-is-learning/tidy-up-your-machine-with-visual-studio-code-dev-containers-256n)
 
 #### Then I selected "Show All definitions"<br>
 
-![ShowAll](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/q0d39wp7afq19ug605uo.png)<br>
+![ShowAll](./q0d39wp7afq19ug605uo.png)<br>
 
 #### I selected "Python 3"<br>
 
-![Python](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4o4poj8uzi1qrhfm8p0k.png)<br>
+![Python](./4o4poj8uzi1qrhfm8p0k.png)<br>
 
 #### Then I selected version 3.11<br>
 
-![PyVersion](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6rvppxtc0ajsllphqtr8.png)<br>
+![PyVersion](./6rvppxtc0ajsllphqtr8.png)<br>
 
 #### In this step I selected the Dev Container Features<br>
 
-![Features](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0erj7p04rw5tdgerosyi.png)<br>
+![Features](./0erj7p04rw5tdgerosyi.png)<br>
 
 VSCode will create for you this configuration file `.devcontainer/devcontainer.json`<br>
 
-```json
+````json
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
@@ -143,3 +146,4 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Bye 👋
 
 {% embed https://dev.to/gioboa %}
+````

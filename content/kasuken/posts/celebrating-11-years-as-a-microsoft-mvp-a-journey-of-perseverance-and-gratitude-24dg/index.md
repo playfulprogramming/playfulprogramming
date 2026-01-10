@@ -25,7 +25,7 @@ A few weeks ago I was incredibly happy that I have been recognized as a Microsof
 
 When I first received the MVP award 11 years ago, I was filled with immense pride and excitement. 🎉 It was a validation of my hard work and passion for technology. Over the years, this recognition has motivated me to continually push the boundaries, learn new things, and share my knowledge with others. 💻📚
 
-![11 years](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/b379rsmynkncn8u6rdb7.jpeg)
+![11 years](./b379rsmynkncn8u6rdb7.jpeg)
 
 #### Gratitude to the Community
 
@@ -47,7 +47,7 @@ To everyone out there chasing their dreams and striving for excellence, remember
 
 Challenges and obstacles are part of the journey, but they should not deter you from pursuing your goals. Embrace the difficulties, learn from them, and continue to move forward. Your day under the sun will come, and when it does, it will be worth every bit of effort. 🌞🌈
 
-![a developer in wonderland](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ci32s1xxahpdvd9yy86p.png)
+![a developer in wonderland](./ci32s1xxahpdvd9yy86p.png)
 
 #### Looking Ahead
 
@@ -61,6 +61,6 @@ Thank you for being part of this incredible journey! 🙏
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

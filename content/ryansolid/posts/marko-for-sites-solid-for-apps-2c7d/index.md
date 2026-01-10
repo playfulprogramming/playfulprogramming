@@ -21,13 +21,13 @@ Evan You, creator of Vue gave a great talk on tradeoffs of frameworks where he p
 
 So the task was simple: Don't change the world, change the perspective. And instead of being focused on the middle and being everything to everyone focus on the more achievable task at being the best version in the places that are divisive. Nothing wrong with backing multiple horses.
 
-------------
+---
 
 ## So Sites Vs Apps?
 
 Well, this has been the dichotomy of the web for a long time. It even predates Single Page Apps, although that is why it has come into focus so much the past decade. We have seemingly two very different use cases trying to leverage the same technology. So it does make sense that maybe there is a way to make this unified even when it hasn't been feasible. And the frameworks/libraries I'm talking about today represent both sides to a tee.
 
----------
+---
 
 ### Marko for Sites
 
@@ -41,13 +41,13 @@ Marko is a Superset of HTML where the whole world lives in Single File Component
 
 And it sends the least JavaScript without thinking. Its "Islands" are automatic, and its streaming as easy as adding an `<await>` tag with a promise. Its Multi-Page forward approach isn't worried about persistent client state or client routing and just works like a website the way you'd expect. It has the tersest syntax that lets you [write the least code of all JavaScript Frameworks](https://dev.to/ryansolid/marko-designing-a-ui-language-2hni). It's an effortless way to get unmatched page load performance without getting away from the simplicity, that in the end we are just making pages in a website.
 
---------
+---
 
 ### Solid for Apps
 
 {% youtube J70HXl1KhWE %}
 
-[Solid](https://www.solidjs.com) came from a very different home. First created as a side project in 2016 when I was at a startup creating private Social Media. It was a long lived project that needed to keep on changing and pivoting to find its customer. While we could never rewrite what we had we would quickly rip out and replace parts. Solid was modular from the start, built to work with Web Components as a component-agnostic solution. It evolved to shedding that weight as it came into its own.  
+[Solid](https://www.solidjs.com) came from a very different home. First created as a side project in 2016 when I was at a startup creating private Social Media. It was a long lived project that needed to keep on changing and pivoting to find its customer. While we could never rewrite what we had we would quickly rip out and replace parts. Solid was modular from the start, built to work with Web Components as a component-agnostic solution. It evolved to shedding that weight as it came into its own.
 
 Solid's power is that everything is a primitive, right down to the JSX. Components are just functions, `<div>` are just HTMLElements, and state is just reactivity. It scales down to a jQuery replacement and up to concurrent time-slicing, with the portability to run on non-web platforms using the same techniques. There is no VDOM or required abstractions. It is a chameleon that is exactly what it needs to be when it needs to be.
 
@@ -55,27 +55,27 @@ While it leverages compilation, only the JSX is compiled. It is very much a "Jus
 
 This adaptability has made it easy to port libraries, and for people to opt into compiling down to Solid from their preferred DSLs. And it has been championing this composable primitive approach well before modern trends like Hooks. It gives "Just JavaScript" a new life in a world looking like it is heading deep into custom DSLs and compiled languages and returns to developers all the control they need to execute on the most demanding of applications.
 
--------------
+---
 
 ## False Dichotomy?
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/e18bycg1my2240es4raq.jpg)
+![Image description](./e18bycg1my2240es4raq.jpg)
 
 I admit I lured you here under a false pretense. If anything we've seen JavaScript centric web technologies collapsing on themselves. At first there was a clear difference between Static(SSG) and Dynamic(SSR) experiences but that has disappeared, and soon the difference between Sites(MPA) and Apps(SPA) will as well.
 
 When we are seeing [Solid acing page load metrics in impossibly expensive pages when used with Astro](https://youtu.be/2ZEMb_H-LYE?t=8163), something historically only Marko could pull off:
 
-[![SvelteKit vs Astro/Solid](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f4f1xqbvsmi2yk0kg1ne.gif)](https://www.webpagetest.org/video/compare.php?tests=220425_AiDc5B_ED8%2C220425_BiDcN6_DAM&thumbSize=200&ival=500&end=doc)
+[![SvelteKit vs Astro/Solid](./f4f1xqbvsmi2yk0kg1ne.gif)](https://www.webpagetest.org/video/compare.php?tests=220425_AiDc5B_ED8%2C220425_BiDcN6_DAM\&thumbSize=200\&ival=500\&end=doc)
 
 Or Marko bringing incredible client side rendering performance and composability with its [new compiled reactivity](https://dev.to/ryansolid/marko-compiling-fine-grained-reactivity-4lk4) that rivals even Solid, you start realizing we are just seeing a path to finally unify the opposite sides of the spectrum.
 
-![JS Framework Results Initial Marko 6 Run](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hbfi6f4aj6mtpskp7wpb.png)
+![JS Framework Results Initial Marko 6 Run](./hbfi6f4aj6mtpskp7wpb.png)
 
 And this makes me hopeful, because these frameworks philosophically couldn't be more different. Language vs Library, HTML vs JavaScript first, Mutability vs Immutability, Implicit vs Explicit state updates, 2-way data-binding vs Unidirectional flow. And despite these differences we are here.
 
 It would even not be unfair to claim that Marko is more svelte than Svelte, or Solid is more reactive than React. These frameworks sit at the the opposite edges with different values and philosophy but they both have unmatched performance, the smallest bundle sizes, and can serve use cases that span the whole spectrum. If these frameworks can do this any framework in between could as well.
 
--------------
+---
 
 ## Conclusion
 
@@ -83,10 +83,11 @@ Isn't it great that soon we could live in a world where Site vs App won't impact
 
 It took me giving [Marko](https://markojs.com) a chance to see this. To challenge my preferences and view of the world. As with [Solid](https://www.solidjs.com) I looked at an approach that seemed to do all the right things years ahead of its time and leveraged that experience to explore what the best version of that looks like. Now, I see that potential to varying degrees in other frameworks. There really is an answer here for everyone. And that is exciting. The web is truly an amazing place.
 
-------------
+---
+
 Notes:
 
-*Acing scores refers to getting mid 90s lighthouse scores for [this brutal page](https://astro-solid-hn.netlify.app/stories/30186326). This doesn't count the idle time. For the loading image I decided it was better to show the full time even if it was non-blocking, because otherwise it would look like [Astro + Solid hydrated immediately](https://www.webpagetest.org/video/view.php?end=all&tests=220425_AiDc5B_ED8%2C220425_BiDcN6_DAM&bg=ffffff&text=222222&loc=Virginia+USA+-+EC2++-+Chrome+-+Emulated+Motorola+G+%28gen+4%29+-+4G).*
+*Acing scores refers to getting mid 90s lighthouse scores for [this brutal page](https://astro-solid-hn.netlify.app/stories/30186326). This doesn't count the idle time. For the loading image I decided it was better to show the full time even if it was non-blocking, because otherwise it would look like [Astro + Solid hydrated immediately](https://www.webpagetest.org/video/view.php?end=all\&tests=220425_AiDc5B_ED8%2C220425_BiDcN6_DAM\&bg=ffffff\&text=222222\&loc=Virginia+USA+-+EC2++-+Chrome+-+Emulated+Motorola+G+%28gen+4%29+-+4G).*
 
 *Svelte + Astro can do the same trick. And SvelteKit performs no worse than SolidStart, Remix, Next, Nuxt, etc. This is just showing Partial Hydration coming to other frameworks. Marko and Qwik still are more optimal here.*
 

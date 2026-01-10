@@ -11,7 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
-Firebase, Google's comprehensive platform for building mobile and web applications, has continually evolved to meet the demands of modern developers. The recent introduction of Firebase Studio, leveraging the power of Google Cloud's Gemini models, marks a significant leap forward, promising to democratize AI-powered app development and streamline the entire creation process. 
+Firebase, Google's comprehensive platform for building mobile and web applications, has continually evolved to meet the demands of modern developers. The recent introduction of Firebase Studio, leveraging the power of Google Cloud's Gemini models, marks a significant leap forward, promising to democratize AI-powered app development and streamline the entire creation process.
 
 > [Firebase Studio](https://firebase.studio/) is more than just a development platform; it's a direct competitor to agent-driven development companies like [Bolt](https://bolt.new/), [Cursor](https://www.cursor.com/) and [Lovable](https://lovable.dev/), with a significant advantage: its tight integration with the robust Firebase ecosystem.
 
@@ -46,37 +46,37 @@ To truly master Firebase Studio and build apps like a pro, here are six amazing 
 Firebase Studio kicks things off with a brilliant feature called the *App Blueprint*. Before generating the entire application, it presents a detailed plan outlining the core components it's about to create. This allows you to review and ensure the AI is headed in the right direction.
 You can request an update to the color scheme, specifying the primary color and ensuring the application is built for dark mode.  The AI then updates the style guide, showcasing the colors for different task difficulties.
 
-![tips-1](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/s1fumd1n3qsih25ikert.png)
+![tips-1](./s1fumd1n3qsih25ikert.png)
 
 ## 2 - Point, Click, and Edit!
 
 Once the initial application is generated, the *Select Editor* feature allows you to precisely target and modify specific components.  Simply click the "Select" button, then click the component you want to edit. You can then provide feedback to the AI, such as instructing it to change the color of all buttons to the primary blue. This makes it incredibly easy to fine-tune the application's appearance and behavior.
 
-![tips-2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/a88ncl08jx0sotmyvyqc.png)
+![tips-2](./a88ncl08jx0sotmyvyqc.png)
 
 ## 3 - Rollback, The Undo Button for Vibe Coding
 
 [Vibe coding](https://en.wikipedia.org/wiki/Vibe_coding) can sometimes lead to unexpected results. The *Rollback* feature is a lifesaver in such situations. If you make a change you don't like or that breaks the application, you can easily restore it to its previous state with a single click. This provides a safety net, allowing you to experiment and explore without fear of irreversible damage.
 
-![tips-3](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/2f0nzh0vqyntp28a5vx3.png)
+![tips-3](./2f0nzh0vqyntp28a5vx3.png)
 
 ## 4 - Visual Feedback
 
 The *Annotate* button transforms Firebase Studio into a collaborative canvas. It brings up a drawing framework, similar to Excalidraw, allowing you to draw directly on the application interface and provide visual feedback. This is extremely useful for communicating design ideas or highlighting areas that need improvement.
 
-![tips-4](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1aj2w530c7nj4h63317e.png)
+![tips-4](./1aj2w530c7nj4h63317e.png)
 
 ## 5 - Phone Preview: See Your App on Mobile
 
 Ensure your application looks great on mobile devices with the *Phone Preview* feature. Click the link button, scan the QR code with your phone, and you'll see a live preview of the website on your mobile device in real-time. This allows you to quickly assess the responsiveness and usability of your application on different screen sizes.
 
-![tips-5](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/w57srrx54x7eevsj0c40.png)
+![tips-5](./w57srrx54x7eevsj0c40.png)
 
 ## 6 - Code Editor with AI Assistant
 
 Now it's time to dive into the code. Switching to the code editor view spins up a web view of your app alongside the Gemini coder window. This provides a powerful all-in-one environment where you can access the website, interact with the AI, and code manually – all at the same time.
 
-![tips-6](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l095mmlghb321nzsctnx.png)
+![tips-6](./l095mmlghb321nzsctnx.png)
 
 ## The Future of Firebase Studio
 

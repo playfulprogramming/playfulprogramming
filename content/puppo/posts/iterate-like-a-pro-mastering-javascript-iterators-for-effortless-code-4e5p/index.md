@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 Welcome to this blog post, where we're about to unravel the power and versatility of JavaScript iterators. If you've ever found yourself working with data collections and wondered if there's a more efficient and elegant way to navigate them, you're in the right place.
 
 In the realm of modern web development, efficiently managing and manipulating data is a crucial skill. This is where JavaScript iterators come into play, offering a systematic approach to traversing various data structures such as arrays, maps, and sets. Whether you're a beginner eager to understand the basics or an experienced developer looking to fine-tune your code, grasping the concept of iterators can significantly enhance your programming journey.
@@ -154,7 +153,7 @@ for (const num of mapRange) {
 }
 ```
 
-Ok folks, that's all!  
+Ok folks, that's all!\
 If you want to dive deep with Iterators, don't waste my video on my [Youtube Channel](https://www.youtube.com/@Puppo_92/).
 
 {% embed https://www.youtube.com/watch?v=BSctSkMGtiM %}

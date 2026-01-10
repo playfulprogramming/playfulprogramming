@@ -16,7 +16,7 @@ A few weeks ago Vercel released [Edge Config](https://vercel.com/blog/edge-confi
 
 I developed an app with [Qwik](https://qwik.builder.io/) the new framework that has been catching my attention for months.
 
-## Getting started 
+## Getting started
 
 To spin up a Qwik application you can use the Qwik CLI.
 You can type `npm create qwik@latest` in your terminal and the CLI will guide you through an interactive menu to set the project name and select one of the starters.
@@ -82,9 +82,9 @@ The next step illustrates the integration:
 
 #### Server-side code
 
-I exposed a GET endpoint _/api/give-me-the-goat_ to create a communication server to server. I installed the npm library _@vercel/edge-config_  then I created the Edge Config client with the _VITE_EDGE_CONFIG_ env variable as a param and finally I retrieved the value for the key GOAT.
+I exposed a GET endpoint */api/give-me-the-goat* to create a communication server to server. I installed the npm library *@vercel/edge-config*  then I created the Edge Config client with the *VITE\_EDGE\_CONFIG* env variable as a param and finally I retrieved the value for the key GOAT.
 
-![api](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/d2mh4tppk7xykiwwq2xk.png)
+![api](./d2mh4tppk7xykiwwq2xk.png)
 
 ```typescript
 import type { RequestHandler } from '@builder.io/qwik-city';
@@ -100,7 +100,7 @@ export const onGet: RequestHandler<{ name: string }> = async () => {
 
 #### Client-side code
 
-![UI](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9fjmhnvpym61tufykqdj.png)
+![UI](./9fjmhnvpym61tufykqdj.png)
 
 ```typescript
 import { $, component$, useSignal } from '@builder.io/qwik';
@@ -135,35 +135,35 @@ Every time we press the button our API will be invoked. It will read data from V
 
 I host my project on GitHub but you can use also other [git providers](https://vercel.com/docs/concepts/git)
 
-![project](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/m89ruiswjz0qiyegstoy.png)
+![project](./m89ruiswjz0qiyegstoy.png)
 
 You can configure the project
 
-![Configure](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l1w3wymp9wlrws0zz4rf.png)
+![Configure](./l1w3wymp9wlrws0zz4rf.png)
 
 and then you are ready to rock! 🎸
 
-![Deploy](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xva6x04c14rguy94cvjk.png)
+![Deploy](./xva6x04c14rguy94cvjk.png)
 
 ### Vercel Edge Config
 
 In the Vercel dashboard you can create an Edge Config
 
-![EdgeConfig](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/onr75903azcl9uulcgeb.png)
+![EdgeConfig](./onr75903azcl9uulcgeb.png)
 
-![EdgeCreated](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cga1jji30wssozwks2ki.png)
+![EdgeCreated](./cga1jji30wssozwks2ki.png)
 
 Then you can define the key/value configs
 
-![KeyValue](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mprhf3wb7x9i05n4jhrd.png)
+![KeyValue](./mprhf3wb7x9i05n4jhrd.png)
 
 Inside the token section, you can copy the connection string needed to communicate with the service Edge Config
 
 ### Vercel env variables
 
-You need to define _VITE_EDGE_CONFIG_ env variable to allow communication with Vercel Services
+You need to define *VITE\_EDGE\_CONFIG* env variable to allow communication with Vercel Services
 
-![envvar](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7k993chp9xmorz943jwh.png)
+![envvar](./7k993chp9xmorz943jwh.png)
 
 And that's all! Now we are ready to see who is the GOAT!
 
@@ -171,13 +171,13 @@ And that's all! Now we are ready to see who is the GOAT!
 
 As mentioned before, every time I click on the button, the application is reading the configuration from Vercel and as you can see I can change my frontend application at runtime.
 
-![Messi](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jw3dukxjlk5l5hf9etoc.png)
+![Messi](./jw3dukxjlk5l5hf9etoc.png)
 
-![messi_final](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hn03z3huzy541rh8q8on.gif)
+![messi\_final](./hn03z3huzy541rh8q8on.gif)
 
-![Ronaldo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tzn8nkuz32reb0hq4euw.png)
+![Ronaldo](./tzn8nkuz32reb0hq4euw.png)
 
-![ronaldo_final](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vjyr7uobmbzowin52mas.gif)
+![ronaldo\_final](./vjyr7uobmbzowin52mas.gif)
 
 ---
 

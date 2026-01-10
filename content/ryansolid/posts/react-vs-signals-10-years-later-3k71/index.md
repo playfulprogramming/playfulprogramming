@@ -30,7 +30,7 @@ The truth is Signals never went away. They lived several years in obscurity as t
 
 But there is more to it than a 10 year old debate. So I want to talk about how things have changed over the years and offer [SolidJS](https://solidjs.com) as a foil.
 
-------------------
+---
 
 ## "Fixing" Front-end
 
@@ -44,7 +44,8 @@ React has a very powerful set of principles that guide it that are more importan
 
 But hypothetically, what if they didn't? What if there were other ways to address the problems of the day that didn't involve such drastic re-alignment?
 
--------------------------
+---
+
 ## A Solid Alternative
 
 The concept behind Solid is equally simple. It even shares ideas like composition, unidirectional data flow, and explicit mutation that made React feel like a simple answer to UI development. Where it differs is outside the world of reactivity everything is an Effect. It's almost the antithesis of React which treats everything you do as being pure (as in having no side effects).
@@ -66,6 +67,7 @@ function MyCounter() {
   return myButton;
 }
 ```
+
 I'd call my function and get a button back. If I need another button I'd do it again. This is very much set and forget. I created a DOM element and set up some event listeners. Like the DOM itself, I don't need to call anything for my button to update. It is independent. If I want a more ergonomic way of writing I use JSX.
 
 ```js
@@ -78,9 +80,10 @@ function MyCounter() {
 }
 ```
 
-Signals are not the same Signals as yesteryear. Their execution is glitch-free. They are push/pull hybrids that can model scheduled workflows like Suspense or Concurrent Rendering. And mitigate the leaky observer pattern with automated disposal. They have been [leading benchmarks for several years](https://krausest.github.io/js-framework-benchmark/index.html) not only for updates but for creation. 
+Signals are not the same Signals as yesteryear. Their execution is glitch-free. They are push/pull hybrids that can model scheduled workflows like Suspense or Concurrent Rendering. And mitigate the leaky observer pattern with automated disposal. They have been [leading benchmarks for several years](https://krausest.github.io/js-framework-benchmark/index.html) not only for updates but for creation.
 
-----------------
+---
+
 ## Immutability
 
 So far so good? Well maybe not:
@@ -100,13 +103,14 @@ list().push("Doesn't trigger");
 
 setList(() => [...list(), "Does trigger"]);
 ```
+
 Even with variants from Vue, Preact, or Qwik that use `.value` you are replacing the value not mutating it by assignment. So what does it mean that Signals are "mutable state"?
 
 The benefit of having a granular event-driven architecture is to do isolated updates. In other words, mutate. In contrast, React's pure render model abstracts away the underlying mutable world re-creating its virtual representation with each run.
 
 How important is this distinction when looking at two declarative libraries that drive updates off state if the data interfaces are explicit, side effects managed, and the execution well-defined?
 
-------------------------
+---
 
 ## Unidirectional Flow
 
@@ -132,11 +136,11 @@ Greeting({ get name() {  return name() })
 Greeting({ name: "John" })
 ```
 
-How does it know? A simple heuristic. If the expression contains a function call or property access, it wraps it. Reactive values in JavaScript have to be function calls so that we can track the reads. So any function call or property access, which could be a getter or proxy, could be reactive so we wrap it. 
+How does it know? A simple heuristic. If the expression contains a function call or property access, it wraps it. Reactive values in JavaScript have to be function calls so that we can track the reads. So any function call or property access, which could be a getter or proxy, could be reactive so we wrap it.
 
 The positive is that for `Greeting` regardless of how you are consumed you access the property the same way: `props.name`. There is no `isSignal` check or overwrapping unnecessarily to make things into Signals. `props.name` is always a `string`. And being a value there is no expectation of mutation. Props are read-only and data flows one way.
 
----------------------------
+---
 
 ## Opt-In vs Opt-Out
 
@@ -151,13 +155,14 @@ It isn't generally a singular decision. You have things you opt into and things 
 
 A frameworks ideals can be beyond reproach but the reality is not so clear cut.
 
-This brings me to this example: 
+This brings me to this example:
 
 {% twitter 1629545561635389440 %}
 
 These are 2 very different functions from Solid's perspective, because of Solid's JSX handling and the fact they only run once. This is not ambiguous and easily avoided once you are aware. And there is even a lint rule for that.
 
 It's like expecting these to be the same:
+
 ```js
 const value = Date.now();
 function getTime1() {
@@ -168,13 +173,15 @@ function getTime2() {
   return Date.now();
 }
 ```
+
 Moving the expression doesn't change what `Date.now()` does but hoisting changes the function's behavior.
 
 Maybe it is less than ideal, but it isn't like this mental model isn't without its own benefits:
 
 {% twitter 1629221580344532992 %}
 
----------------------
+---
+
 ## Can this be "Fixed" for real?
 
 That's the logical follow-up. This is very much a language problem. What does fixed even look like? The challenge with compilers is that it is harder to account for edge cases and understand what happens when things go wrong. It is largely the reason historically React or Solid has been pretty careful about keeping clear boundaries.
@@ -195,11 +202,11 @@ Solid is already optimized without the need for the compiler or extra wrappers l
 
 The end result is almost the same.
 
----------------------
+---
 
 ## Final Thoughts
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/a59u9jeant6nu5y20yd9.png)
+![Image description](./a59u9jeant6nu5y20yd9.png)
 
 The oddest part of all of this is that the React team when looking at Reactivity doesn't feel like they are looking in the mirror. By adding Hooks they sacrificed part of their re-render purity for a model approaching that of Signals. And that by adding a compiler to remove the hooks concerned with memoization they complete that story.
 
@@ -215,7 +222,7 @@ React changed the front-end world by teaching us the important principles that s
 
 Times have changed. It is almost fitting that the paradigm that was "fixed" away would resurface. It closes the loop. Completes the story. And when all the noise and tribalism fade what remains is a tale of healthy competition driving the web forward.
 
-----------------------------
+---
 
 *It is arguably never polite to construct a narrative by sewing together quotes out of context. Time moves on, and perspectives change. But this is a long and strongly held sentiment from React's thought leadership. One they've been vocal about since the beginning. I was able to grab all these quotes over conversations from just the last couple of days with very little effort.*
 

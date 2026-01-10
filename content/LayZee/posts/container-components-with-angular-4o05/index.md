@@ -13,8 +13,7 @@ order: 1
 }
 ---
 
-
-_Standardised shipping containers. Photo by [chuttersnap](https://unsplash.com/photos/kyCNGGKCvyw) on Unsplash._
+*Standardised shipping containers. Photo by [chuttersnap](https://unsplash.com/photos/kyCNGGKCvyw) on Unsplash.*
 
 *Original publication date: 2018-11-06.*
 
@@ -22,8 +21,8 @@ With [the Model-View-Presenter design pattern](https://dev.to/this-is-angular/mo
 
 Container components sit at the boundary of the presentational layer and integrate our UI with the application state. They serve two main purposes:
 
-* Container components supply a data flow for presentation.
-* Container components translate component-specific events to application state commands or *actions* to put it in Redux/NgRx Store terms.
+- Container components supply a data flow for presentation.
+- Container components translate component-specific events to application state commands or *actions* to put it in Redux/NgRx Store terms.
 
 Container components can also integrate UI to other non-presentational layers like I/O or messaging.
 
@@ -46,7 +45,6 @@ Container components address the issue of bucket brigading events and properties
 # Simple example
 
 We start out with the `DashboardComponent` from the Tour of Heroes tutorial.
-
 
 ```ts
 // dashboard.component.ts
@@ -78,19 +76,15 @@ export class DashboardComponent implements OnInit {
 
 <figcaption>Dashboard: Mixed component model</figcaption>
 
-
 ## Identify mixed concerns
 
 We see that this component has mixed concerns that span multiple horizontal layers in our app as described in the introductory article.
 
-
-
 {% gist https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768 %}
 
-_Horizontal layers of a web application. [Open in new tab](https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c#file-web-application-horizontal-layers-csv)._
+*Horizontal layers of a web application. [Open in new tab](https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c#file-web-application-horizontal-layers-csv).*
 
 First of all, it is concerned with presentation. It has an array of heroes which are displayed in its template.
-
 
 ```html
 <!-- dashboard.component.html -->
@@ -108,7 +102,6 @@ First of all, it is concerned with presentation. It has an array of heroes which
 ```
 
 <figcaption>Dashboard: Mixed component template.</figcaption>
-
 
 While presentation is a valid concern of a UI component, this mixed component is also tightly coupled to state management. In an NgRx application, this component could have injected a `Store` and queried for a piece of the application state with a state selector. In Tour of Heroes, it injects a `HeroService` and queries the heroes state through an observable, then slices a subset of the array and stores a reference in its `heroes` property.
 
@@ -131,7 +124,6 @@ To separate the multilayer concerns of the mixed component, we split it into two
 The container component is responsible for integrating the UI with the non-presentational layers of our application such as the *application state management* and *persistence* layers.
 
 Once we have identified the non-presentational logic in the mixed component, we create the container component by isolating and extracting this logic almost entirely by cutting source code from the mixed component model and pasting it into the container component model.
-
 
 ```ts
 // dashboard.component.ts
@@ -163,8 +155,6 @@ export class DashboardComponent implements OnInit {
 
 <figcaption>Dashboard: Initial mixed component model.</figcaption>
 
-
-
 ```ts
 // dashboard.component.ts
 import { Component } from '@angular/core';
@@ -183,11 +173,9 @@ export class DashboardComponent {
 
 <figcaption>Dashboard: Mixed component model after extracting a container component.</figcaption>
 
-
 After moving the logic to the container component, a few steps remain to turn the mixed component into a presentational component. These steps are explained in detail in an upcoming article and include renaming the tag name and matching the data binding API to the one we expect to use in the container component template.
 
 ## Isolate and extract layer integrations
-
 
 ```ts
 // dashboard.container.ts
@@ -214,7 +202,6 @@ export class DashboardContainerComponent {
 
 <figcaption>Dashboard: Container component model.</figcaption>
 
-
 We extract the `HeroService` dependency and create a stream of data that matches the data flow in the mixed dashboard component. This is the `topHeroes$` observable property which adds a pipeline of operations on top of the observable returned by `HeroService#getHeroes`.
 
 Our top heroes stream emits a value after the observable from the hero service does so, but only when it is observed — when a subscription has been created. We map over the emitted array of heroes to get the subset of heroes that we present to our users.
@@ -225,7 +212,6 @@ After extracting the application state integration logic, we can — for now —
 
 The final step in extracting a container component is to connect it to the resulting presentational component through *data bindings*, that is property bindings and event bindings in the container component template.
 
-
 ```html
 <!-- dashboard.container.html -->
 <app-dashboard-ui
@@ -234,7 +220,6 @@ The final step in extracting a container component is to connect it to the resul
 ```
 
 <figcaption>Dashboard: Container component template.</figcaption>
-
 
 `app-dashboard-ui` is the tag name of our dashboard component once it has been turned into a presentational component. We connect our `topHeroes$` observable to its `heroes` input property by using the `async` pipe.
 
@@ -254,13 +239,9 @@ We are happy to get rid of manual subscription management since it is tedious an
 
 ## Data flows down from the container component
 
+![](./noin4gspike41ymlhvmm.gif)
 
-
-![](https://dev-to-uploads.s3.amazonaws.com/i/noin4gspike41ymlhvmm.gif)
-
-
-
-_Figure 1. Data flow starting at a service and ending in the DOM. [Open in new tab](https://giphy.com/gifs/model-view-presenter-9XXV2l09EXNx354y7f/fullscreen)._
+*Figure 1. Data flow starting at a service and ending in the DOM. [Open in new tab](https://giphy.com/gifs/model-view-presenter-9XXV2l09EXNx354y7f/fullscreen).*
 
 Fitting the dashboard feature into the flow diagram of Figure 1, we see how the container component is notified of heroes that it requested from the hero service through an observable.
 
@@ -269,7 +250,6 @@ The container component computes the top heroes which it passes to the presentat
 # Advanced example
 
 Let us move on to the `HeroesComponent` from Tour of Heroes for a more advanced example.
-
 
 ```ts
 // heroes.component.ts
@@ -315,16 +295,13 @@ export class HeroesComponent implements OnInit {
 
 <figcaption>Heroes: Mixed component model.</figcaption>
 
-
 ## Isolate layer integrations
 
 At first glance, this component might look small, simple and innocent. At closer inspection, it looks like this component has a lot of concerns (pun intended). Like the previous example, the `ngOnInit` lifefycle hook and the `getHeroes` method are concerned with querying for a piece of the application state.
 
-
-
 {% gist https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c %}
 
-_Horizontal layers—or system concerns—of a web application. [Open in new tab](https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c#file-web-application-horizontal-layers-csv)._
+*Horizontal layers—or system concerns—of a web application. [Open in new tab](https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c#file-web-application-horizontal-layers-csv).*
 
 The `delete` method deals with persistent state as it replaces the `heroes` property with an array where the deleted hero is filtered out. This method is also concerned with persistence as it deletes a hero from the server state through the hero service.
 
@@ -333,7 +310,6 @@ Finally, the `add` method deals with user interaction as it validates the hero n
 ## Extract layer integrations
 
 Have we got our work cut out for us! Let us get rid of those multilayer system concerns by extracting them into a container component.
-
 
 ```ts
 // heroes.component.ts
@@ -376,7 +352,6 @@ export class HeroesContainerComponent implements OnInit {
 
 <figcaption>Heroes: Container component with mutable state.</figcaption>
 
-
 Like in the simple example, we extract the `HeroService` dependency into a container component. We maintain the heroes state in the mutable `heroes` property.
 
 This will work with the default change detection strategy, but we want to improve performance by using the `OnPush` change detection strategy. We need an observable to manage the heroes state.
@@ -392,7 +367,6 @@ Additionally, we have to reduce the heroes state when adding or removing a hero.
 To keep track of application state in a reactive way, I created [a microlibrary called rxjs-multi-scan](https://github.com/LayZeeDK/rxjs-multi-scan). The `multiScan` combination operator merges multiple observables through a single scan operation to calculate the current state but with a—usually small—reducer function per observable source. The operator is passed the initial state as its last parameter.
 
 Every odd parameter—except the initial state parameter—is a source observable and its following, even parameter is its reducer function for the scanned state.
-
 
 ```ts
 // heroes.container.ts
@@ -443,7 +417,6 @@ export class HeroesContainerComponent {
 
 <figcaption>Heroes: Container component model with observable state.</figcaption>
 
-
 In our use case, the initial state is an empty array. When the observable returned by `HeroService#getHeroes` emits an array of heroes, it concatenates them to the current state.
 
 I created an RxJS `Subject` per user interaction — one for adding a hero and one for removing a hero. Whenever a hero is emitted through the private `heroAdd` property, the corresponding reducer function in the `multiScan` operation appends it to the current state.
@@ -462,13 +435,9 @@ This is an improvement over the initial implementation which did not handle serv
 
 ## Events flow up to the container component
 
+![](./amrgg3f418hb8as8dbie.gif)
 
-
-![](https://dev-to-uploads.s3.amazonaws.com/i/amrgg3f418hb8as8dbie.gif)
-
-
-
-_Figure 2. Event flow starting with a user interaction and ending in a service. [Open in new tab](https://giphy.com/gifs/model-view-presenter-3vuam15RAFMHzM7rVS/fullscreen)._
+*Figure 2. Event flow starting with a user interaction and ending in a service. [Open in new tab](https://giphy.com/gifs/model-view-presenter-3vuam15RAFMHzM7rVS/fullscreen).*
 
 Let us mentally fit the heroes feature into the flow diagram of Figure 2. Visualise how the user enters the hero name and then clicks the *Add* button.
 
@@ -498,7 +467,6 @@ For this strategy to work, we need to emit a fresh array reference whenever a he
 
 If you follow along in your editor, you might have noticed that we left the validation logic in the mixed heroes component. This is intentional as it is neither concerned with application state nor persistence.
 
-
 ```ts
 // heroes.component.ts
 import { Component } from '@angular/core';
@@ -524,11 +492,9 @@ export class HeroesComponent {
 
 <figcaption>Heroes: Mixed component model after extracting a container component.</figcaption>
 
-
 ## Connect the presentational component using its data binding API
 
 The final step is to connect the container component to the presentational component’s data binding API in the container component template.
-
 
 ```html
 <!-- heroes.container.html -->
@@ -540,7 +506,6 @@ The final step is to connect the container component to the presentational compo
 ```
 
 <figcaption>Heroes: Container component template.</figcaption>
-
 
 As in the simple example, we connect the `heroes` input property to our observable property by piping it through `async`. This will pass a fresh array reference to the presentational component, every time the heroes state changes.
 
@@ -564,12 +529,10 @@ This enables us to use the `OnPush` change detection strategy in the container c
 
 We started out with the `HeroesComponent` which had 4 related files:
 
-* The component-specific stylesheet
-* The component template
-* The component test suite
-* The component model
-
-
+- The component-specific stylesheet
+- The component template
+- The component test suite
+- The component model
 
 ```
 heroes
@@ -582,9 +545,7 @@ heroes
 └── heroes.container.ts
 ```
 
-
-
-_Heroes: Container component file structure._
+*Heroes: Container component file structure.*
 
 We added the `HeroesContainerComponent` and its test suite. A container component rarely has styles, so only 3 additional files are needed.
 
@@ -598,15 +559,15 @@ You like inline templates and stylesheets? or maybe separate directories for the
 
 To extract a container component from a mixed component, we go through these steps:
 
-1.  Isolate and extract integration with non-presentational layers into a container component.
-2.  Let the container component stream application state through observables.
-3.  Connect the container component to the presentational component with data bindings.
-4.  Apply the `OnPush` change detection strategy.
+1. Isolate and extract integration with non-presentational layers into a container component.
+2. Let the container component stream application state through observables.
+3. Connect the container component to the presentational component with data bindings.
+4. Apply the `OnPush` change detection strategy.
 
 Remember that container components serve two main purposes:
 
-* Container components supply a data flow for presentation.
-* Container components translate component-specific events to application state commands—or *actions* to put it in Redux/NgRx Store terms.
+- Container components supply a data flow for presentation.
+- Container components translate component-specific events to application state commands—or *actions* to put it in Redux/NgRx Store terms.
 
 One of the big advantages of using container components is increased testability. Continue your study in “[Testing Angular container components](https://dev.to/this-is-angular/testing-angular-container-components-33io)”.
 
@@ -628,7 +589,7 @@ The very first mention of container components is in the talk “[Making Your Ap
 
 {% youtube KYzlpRvWZ6c %}
 
-_Making Your App Fast with High-Performance Components, React Conf 2015. [Open in new tab](https://youtu.be/KYzlpRvWZ6c?t=1351)._
+*Making Your App Fast with High-Performance Components, React Conf 2015. [Open in new tab](https://youtu.be/KYzlpRvWZ6c?t=1351).*
 
 [Michael “chantastic” Chan](https://medium.com/@learnreact) elaborates a bit and demonstrates a sample component in his 2015 article “[Container Components](https://medium.com/@learnreact/container-components-c0e67432e005)”.
 
@@ -642,12 +603,12 @@ I want to thank you, [Max Koretskyi](https://twitter.com/maxkoretskyi), for help
 
 Thank you, dear reviewers, for helping me realise this article. Your feedback has been invaluable!
 
-* [Alex Rickabaugh](https://twitter.com/synalx)
-* [Brian Melgaard Hansen](https://www.linkedin.com/in/brian-melgaard-hansen-8b7176153/)
-* [Craig Spence](https://twitter.com/phenomnominal)
-* [Denise Mauldin](https://www.linkedin.com/in/denisemauldin/)
-* [Kay Khan](https://github.com/KayHS)
-* [Mahmoud Abduljawad](https://twitter.com/ajawadmahmoud)
-* [Martin Kayser](https://www.linkedin.com/in/mdkayser/)
-* [Sandra Willford](https://www.linkedin.com/in/sandra-willford/)
-* [Stephen E. Mouritsen Chiang](https://twitter.com/chiangse)
+- [Alex Rickabaugh](https://twitter.com/synalx)
+- [Brian Melgaard Hansen](https://www.linkedin.com/in/brian-melgaard-hansen-8b7176153/)
+- [Craig Spence](https://twitter.com/phenomnominal)
+- [Denise Mauldin](https://www.linkedin.com/in/denisemauldin/)
+- [Kay Khan](https://github.com/KayHS)
+- [Mahmoud Abduljawad](https://twitter.com/ajawadmahmoud)
+- [Martin Kayser](https://www.linkedin.com/in/mdkayser/)
+- [Sandra Willford](https://www.linkedin.com/in/sandra-willford/)
+- [Stephen E. Mouritsen Chiang](https://twitter.com/chiangse)

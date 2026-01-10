@@ -33,7 +33,7 @@ type Type2 = Partial<Type>;
 
 <figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/05/partial_type.png)</figure>
 
-> **NB:** This only runs one level, meaning keys below one level will not be affected. If you want to mark all keys as optional, regardless the level they are in, check out PartialDeep below. 
+> **NB:** This only runs one level, meaning keys below one level will not be affected. If you want to mark all keys as optional, regardless the level they are in, check out PartialDeep below.
 
 ### Required
 
@@ -121,7 +121,7 @@ Above are a few built-in utility types that I find very useful, you can find out
 
 ## Extending Built-in Utility Types
 
-While the above built-in utility types are amazing, they don't cover all use cases, and this is where libraries that provide more utilities fill in the gap. A good example of such a library is [type-fest](https://github.com/sindresorhus/type-fest), which provides even more utilities. 
+While the above built-in utility types are amazing, they don't cover all use cases, and this is where libraries that provide more utilities fill in the gap. A good example of such a library is [type-fest](https://github.com/sindresorhus/type-fest), which provides even more utilities.
 
 While I won't look in to all utilities provided by type-fest, I will highlight a few that are quite help and build on the built-in types utilities.
 
@@ -237,11 +237,11 @@ type Y = Mutable<X>;
 
 ## Conclusion
 
-In this article, I looked into typescript utility types and how they can help you automatically create types from existing ones without resulting to duplicating eliminating the need to keep related types in sync. 
+In this article, I looked into typescript utility types and how they can help you automatically create types from existing ones without resulting to duplicating eliminating the need to keep related types in sync.
 
 I highlighted a few built-in utility types that I find particularly useful on my day to day job as a developer. On top of that, we looked into type-fest, a library with a lot of utility types that extends the built-in types, and highlighted just a few.
 
 ### Resources
 
-* [Utility Types - Typescript Docs](https://www.typescriptlang.org/docs/handbook/utility-types.html)
-* [type-fest](https://github.com/sindresorhus/type-fest)
+- [Utility Types - Typescript Docs](https://www.typescriptlang.org/docs/handbook/utility-types.html)
+- [type-fest](https://github.com/sindresorhus/type-fest)

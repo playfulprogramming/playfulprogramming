@@ -22,8 +22,7 @@ Tech debt, also known as technical debt, is a concept that's as old as the punch
 
 The term "tech debt" was coined by Ward Cunningham, one of the pioneers in software engineering. He used it to describe the trade-offs between shipping code quickly and accumulating potential problems for future development. Essentially, taking on tech debt allows you to make progress now but might cost you more time and effort down the line.
 
-
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mw8rsvy2ze59qpsyh8ir.png)
+![Image description](./mw8rsvy2ze59qpsyh8ir.png)
 
 ## The Pros of Tech Debt
 
@@ -57,8 +56,7 @@ Navigating tech debt isn't a binary decision. It's about finding the sweet spot 
 
 4. **Leverage Modern Tools**: Utilize tools and frameworks designed to manage and minimize tech debt. Automated testing, code analysis tools, and CI/CD pipelines can make a significant difference.
 
-
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/khxbk7r0fco7ifolpsls.png)
+![Image description](./khxbk7r0fco7ifolpsls.png)
 
 ## Real-World Examples
 
@@ -71,7 +69,7 @@ I started the products every time by adding a lot of tech debts because I wanted
 Then, when I acquired the firsts customers, I invested a lot of efforts in refactoring and for having a more stable application.
 One of this example is [Brandplane](https://www.brandplane.co).
 
-![Brandplane](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ghl4tz4pldrfctp5qsxv.png)
+![Brandplane](./ghl4tz4pldrfctp5qsxv.png)
 
 ## Conclusion
 
@@ -83,6 +81,6 @@ Remember, in the thrilling rollercoaster ride of the startup world, it's not jus
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

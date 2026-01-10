@@ -137,7 +137,7 @@ Write-Verbose "Ending the script"
 
 ### Script Modules
 
-A script module is a file with the .psm1 extension that contains PowerShell code that can be imported and reused by other scripts or modules. 
+A script module is a file with the .psm1 extension that contains PowerShell code that can be imported and reused by other scripts or modules.
 
 A script module can contain any PowerShell code, such as variables, functions, classes, commands, expressions, etc. However, it is recommended to follow some conventions when writing a script module:
 
@@ -249,7 +249,7 @@ One of the most important aspects of writing a PowerShell script is how to defin
 
 ### Parameter Attributes
 
-To define parameters for your scripts, you need to use the param keyword followed by a list of parameter names and optional attributes. Parameter attributes are enclosed in square brackets ([ ]) and provide additional information and validation for your parameters.
+To define parameters for your scripts, you need to use the param keyword followed by a list of parameter names and optional attributes. Parameter attributes are enclosed in square brackets (\[ ]) and provide additional information and validation for your parameters.
 
 Some of the most common parameter attributes are:
 
@@ -511,11 +511,11 @@ $Error[0] # accesses the most recent error information from the $Error variable
 ```
 
 - Error Action: this option allows you to control how PowerShell responds to non-terminating errors. You can use this option by using the -ErrorAction parameter of some cmdlets or by setting the $ErrorActionPreference variable. The possible values for this option are:
-    - Continue: the default value, which displays the error message and continues with the next statement.
-    - Stop: which converts the non-terminating error into a terminating error and stops the execution of the script or function.
-    - SilentlyContinue: which suppresses the error message and continues with the next statement.
-    - Inquire: which displays the error message and prompts the user to choose whether to continue or stop.
-    - Ignore: which ignores the error and does not display any message or store any information.
+  - Continue: the default value, which displays the error message and continues with the next statement.
+  - Stop: which converts the non-terminating error into a terminating error and stops the execution of the script or function.
+  - SilentlyContinue: which suppresses the error message and continues with the next statement.
+  - Inquire: which displays the error message and prompts the user to choose whether to continue or stop.
+  - Ignore: which ignores the error and does not display any message or store any information.
 
 For example:
 

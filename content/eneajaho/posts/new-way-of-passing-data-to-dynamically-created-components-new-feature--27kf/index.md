@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 ### Topics covered in this article:
 
 - How it works today
@@ -30,6 +29,7 @@ Example:
 Let's say we need to show a component based on the type we choose in a dropdown.
 
 In order to pass data to dynamic components rendered by NgComponentOutlet directive, we have to:
+
 - Create an injection token
 - Create a new injector
 - Pass the data in the injector using the injection token.
@@ -37,6 +37,7 @@ In order to pass data to dynamic components rendered by NgComponentOutlet direct
 - Use the injection token to get the data in the dynamic component.
 
 So, first we need to create an injection token.
+
 ```typescript
 export interface DynamicData {
   url: string;
@@ -73,6 +74,7 @@ export class VideoComponent {
 Pretty "complex" usecase I know, but this is just for demonstration purposes.
 
 Now, let's take a look at how we can use the `NgComponentOutlet` directive to render the dynamic components.
+
 ```typescript
 @Component({
   template: `
@@ -128,7 +130,7 @@ export class ParentComponent {
 }
 ```
 
-As you can see, we have to create a new injector for each dynamic component, register the data we want to pass to the injection token and then and pass it to the `NgComponentOutlet` directive using the `selectedItem`. We also pass an `updated` callback to the value. This callback is used to update the data in the parent component (in our case it just logs). So, it will work like an event emitter (output). 
+As you can see, we have to create a new injector for each dynamic component, register the data we want to pass to the injection token and then and pass it to the `NgComponentOutlet` directive using the `selectedItem`. We also pass an `updated` callback to the value. This callback is used to update the data in the parent component (in our case it just logs). So, it will work like an event emitter (output).
 
 Yeah! This is a lot of boilerplate code 😬.
 
@@ -164,7 +166,7 @@ export class VideoComponent {
 }
 ```
 
-It's pretty simple, right? 
+It's pretty simple, right?
 
 Now, let's take a look at how we can use the `inputs` property to pass data to dynamically created components.
 
@@ -219,6 +221,7 @@ If you are using the old approach, you can migrate to the new approach by doing 
 1. Convert your dynamic components to use the `@Input()` decorator instead of the `inject()` function.
 
 Before:
+
 ```typescript
 @Component({})
 export class ImageComponent {
@@ -227,6 +230,7 @@ export class ImageComponent {
 ```
 
 After:
+
 ```typescript
 @Component({})
 export class ImageComponent {
@@ -237,6 +241,7 @@ export class ImageComponent {
 2. Pass the data directly to the `inputs` property of the `NgComponentOutlet` directive.
 
 Before:
+
 ```typescript
 @Component({
     template: `
@@ -265,6 +270,7 @@ export class ParentComponent {
 ```
 
 After:
+
 ```typescript
 @Component({
     template: `
@@ -288,8 +294,8 @@ export class ParentComponent {
 
 3. Remove the injected `Injector` from the parent component but also the InjectionToken created to pass the data to the dynamic component.
 
-
 ### How to test it
+
 To test the new approach, we will use the `TestBed` to create a test module and then create a test component that uses the `NgComponentOutlet` directive.
 
 ```typescript
@@ -368,14 +374,14 @@ describe('ParentComponent', () => {
 });
 ```
 
-_If our testing approach is just testing only what we see on the screen, then the tests should not change at all. We are still testing the same thing. We are just using a different approach to create the dynamic components._
+*If our testing approach is just testing only what we see on the screen, then the tests should not change at all. We are still testing the same thing. We are just using a different approach to create the dynamic components.*
 
 ### Caveats
+
 We are used to use the @Output() decorator to tell Angular that we want to listen to an event from the child component. But the `NgComponentOutlet` directive won't support the `@Output()` decorator or add an outputs field. So, we are left with the callback approach to notify the parent component about the changes in the child component.
 
-
-
 ### Conclusion
+
 I hope you enjoyed this article, and I hope that you will find this new feature useful.
 
 If you have any questions or suggestions, feel free to leave a comment below.
@@ -388,6 +394,6 @@ Thanks for reading!
 
 ---
 
-{% embed https://twitter.com/Enea_Jahollari/status/1648702729634586624 %}
+{% embed https://twitter.com/Enea\_Jahollari/status/1648702729634586624 %}
 
-I tweet a lot about Angular (latest news, videos, podcasts, updates, RFCs, pull requests and so much more). If you’re interested about it, give me a follow at [@Enea_Jahollari](https://twitter.com/Enea_Jahollari). Give me a follow on [dev.to](https://dev.to/eneajaho) if you liked this article and want to see more like this!
+I tweet a lot about Angular (latest news, videos, podcasts, updates, RFCs, pull requests and so much more). If you’re interested about it, give me a follow at [@Enea\_Jahollari](https://twitter.com/Enea_Jahollari). Give me a follow on [dev.to](https://dev.to/eneajaho) if you liked this article and want to see more like this!

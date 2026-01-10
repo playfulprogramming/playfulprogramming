@@ -32,42 +32,47 @@ You can manage these anti-spam features in the Microsoft 365 Defender portal or 
 While Microsoft 365 provides a robust anti-spam solution for your organization, there are still some steps that you can take to ensure that your email messages are not mistakenly blocked or diverted by the recipients’ email providers. Here are some tips and best practices that you can follow:
 
 - **Verify your domain**: This is the first and most important step to establish your identity and reputation as a legitimate sender. Verifying your domain means proving that you own it and that you have authorized Microsoft 365 to send email on your behalf. To verify your domain, you need to add some DNS records to your domain registrar’s website. These records include:
-    - A TXT record for SPF (Sender Policy Framework), which specifies which servers are allowed to send email from your domain.
-    - A CNAME record for DKIM (DomainKeys Identified Mail), which enables Microsoft 365 to digitally sign your outgoing messages with your domain name.
-    - A TXT record for DMARC (Domain-based Message Authentication, Reporting, and Conformance), which tells other email providers how to handle messages from your domain that fail SPF or DKIM checks.
-    
-    These records help prevent spoofing and phishing attacks that use your domain name and improve your deliverability and trustworthiness as a sender. For more information, see [Set up SPF in Office 365], [Use DKIM to validate outbound email sent from your custom domain in Office 365], and [Use DMARC to validate email in Office 365].
-    
+
+  - A TXT record for SPF (Sender Policy Framework), which specifies which servers are allowed to send email from your domain.
+  - A CNAME record for DKIM (DomainKeys Identified Mail), which enables Microsoft 365 to digitally sign your outgoing messages with your domain name.
+  - A TXT record for DMARC (Domain-based Message Authentication, Reporting, and Conformance), which tells other email providers how to handle messages from your domain that fail SPF or DKIM checks.
+
+  These records help prevent spoofing and phishing attacks that use your domain name and improve your deliverability and trustworthiness as a sender. For more information, see \[Set up SPF in Office 365], \[Use DKIM to validate outbound email sent from your custom domain in Office 365], and \[Use DMARC to validate email in Office 365].
+
 - **Avoid sending spam-like content**: Even if you verify your domain, your messages can still be flagged as spam if they contain content that resembles typical spam messages. Some examples of spam-like content are:
-    - Misleading or deceptive subject lines or sender names.
-    - Excessive use of punctuation, capitalization, or formatting.
-    - Unsolicited or irrelevant offers, promotions, or requests.
-    - Links or attachments that are not related to the message or that lead to suspicious websites or applications.
-    - Requests for personal or financial information, such as passwords, bank account numbers, or credit card details.
-    
-    To avoid sending spam-like content, you should follow some basic guidelines for writing effective and professional email messages. For example, you should:
-    
-    - Use clear and concise subject lines that summarize the purpose of the message.
-    - Use a recognizable and consistent sender name that matches your domain name.
-    - Use appropriate tone, language, and style for your audience and context.
-    - Provide relevant and useful information that meets the recipients’ needs and expectations.
-    - Include only links or attachments that are necessary and trustworthy and that support the message content.
-    - Respect the recipients’ privacy and security and never ask for sensitive information via email.
+
+  - Misleading or deceptive subject lines or sender names.
+  - Excessive use of punctuation, capitalization, or formatting.
+  - Unsolicited or irrelevant offers, promotions, or requests.
+  - Links or attachments that are not related to the message or that lead to suspicious websites or applications.
+  - Requests for personal or financial information, such as passwords, bank account numbers, or credit card details.
+
+  To avoid sending spam-like content, you should follow some basic guidelines for writing effective and professional email messages. For example, you should:
+
+  - Use clear and concise subject lines that summarize the purpose of the message.
+  - Use a recognizable and consistent sender name that matches your domain name.
+  - Use appropriate tone, language, and style for your audience and context.
+  - Provide relevant and useful information that meets the recipients’ needs and expectations.
+  - Include only links or attachments that are necessary and trustworthy and that support the message content.
+  - Respect the recipients’ privacy and security and never ask for sensitive information via email.
+
 - **Maintain a good sender reputation**: Your sender reputation is a score that reflects how trustworthy you are as a sender based on various factors, such as your domain verification, your email volume and frequency, your bounce rate, your spam complaint rate, and your engagement rate. Your sender reputation affects how other email providers treat your messages and whether they deliver them to the inbox, the junk folder, or reject them altogether. To maintain a good sender reputation, you should:
-    - Send email only to recipients who have opted in or given consent to receive email from you.
-    - Segment your recipients based on their interests, preferences, and behaviors and send them relevant and personalized content.
-    - Avoid sending too many or too few messages and find the optimal frequency and timing for your email campaigns.
-    - Monitor your delivery reports and analytics and identify and fix any issues that affect your deliverability, such as bounces, blocks, or spam complaints.
-    - Remove inactive or unresponsive recipients from your mailing list and keep it clean and up-to-date.
+  - Send email only to recipients who have opted in or given consent to receive email from you.
+  - Segment your recipients based on their interests, preferences, and behaviors and send them relevant and personalized content.
+  - Avoid sending too many or too few messages and find the optimal frequency and timing for your email campaigns.
+  - Monitor your delivery reports and analytics and identify and fix any issues that affect your deliverability, such as bounces, blocks, or spam complaints.
+  - Remove inactive or unresponsive recipients from your mailing list and keep it clean and up-to-date.
+
 - **Test your email before sending**: Before you send your email to your recipients, you should test it to make sure that it looks good and works well across different devices, platforms, and email clients. You should also check if your email passes the spam filters of the most popular email providers, such as Gmail, Yahoo, Outlook.com, etc. You can use various tools and services to test your email, such as:
-    - [Litmus], which allows you to preview your email in over 90 email clients and devices, check your spam score, validate your links and images, and track your email performance.
-    - [Mail Tester], which allows you to send a test email to a temporary address and get a detailed report on how likely it is to be marked as spam by different email providers.
-    - [GlockApps], which allows you to test your email deliverability, spam score, authentication, reputation, and engagement across multiple email providers.
+  - \[Litmus], which allows you to preview your email in over 90 email clients and devices, check your spam score, validate your links and images, and track your email performance.
+  - \[Mail Tester], which allows you to send a test email to a temporary address and get a detailed report on how likely it is to be marked as spam by different email providers.
+  - \[GlockApps], which allows you to test your email deliverability, spam score, authentication, reputation, and engagement across multiple email providers.
 
 ## Tips and examples of SPF records
+
 - The record always starts with `v=spf1`, which indicates the version of SPF.
 - The record can include one or more mechanisms, which are keywords or expressions that match a set of IP addresses or hostnames. For example, `a` matches the IP address of the domain, `mx` matches the IP addresses of the mail exchange servers for the domain, `ip4` and `ip6` match specific IPv4 and IPv6 addresses or ranges, and `include` references another SPF record from another domain.
-- Each mechanism can be prefixed with a qualifier, which indicates the result of the SPF check if the mechanism matches. The qualifiers are `+` for pass, `` for fail, `~` for soft fail, and `?` for neutral. The default qualifier is `+`.
+- Each mechanism can be prefixed with a qualifier, which indicates the result of the SPF check if the mechanism matches. The qualifiers are `+` for pass, \`\` for fail, `~` for soft fail, and `?` for neutral. The default qualifier is `+`.
 - The record usually ends with an `all` mechanism, which matches all IP addresses and specifies the default result if none of the previous mechanisms match. For example, `all` means that all other IP addresses are not authorized to send email from the domain, while `~all` means that they are not authorized but the result is only a soft fail.
 - The record can also include modifiers, which are keywords that modify the behavior or output of the SPF check. For example, `redirect` replaces the current record with another one from another domain, and `exp` provides a URL for an explanation message in case of a fail result.
 
@@ -88,6 +93,6 @@ Spam is a serious threat to email communication and collaboration. Microsoft 365
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

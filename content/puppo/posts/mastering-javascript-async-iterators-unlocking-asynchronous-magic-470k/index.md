@@ -12,14 +12,13 @@ order: 1
 }
 ---
 
-
 In the ever-evolving landscape of JavaScript, staying up-to-date with its latest features is crucial for writing efficient and modern code. One such feature that has garnered significant attention is the Async Iterator. While iterators have long been an integral part of JavaScript for sequential data processing, the introduction of asynchronous programming patterns brought about the need for asynchronous iteration.
 
 Imagine effortlessly traversing through data streams that might involve fetching data from APIs, reading from files, or any other asynchronous data source. This is precisely where Async Iterators shine, providing a seamless and elegant solution to handle such scenarios. In this blog post, we'll delve into the world of JavaScript Async Iterators, exploring their fundamentals, understanding their benefits, and uncovering how they can be a game-changer in writing robust asynchronous code. Whether you're a seasoned developer looking to expand your skill set or a newcomer curious about advanced JavaScript techniques, this blog post is for you. We will unravel the power of Async Iterators and take your asynchronous programming skills to new heights.
 
 Before we jump into the code, let's understand what async iterators are. In JavaScript, iterators are objects that allow us to loop over collections. Async iterators take this concept a step further by allowing us to handle asynchronous operations, like fetching data from APIs or reading from streams.
 
-Creating an async iterable is simple. We use the `Symbol.asyncIterator` to define the async iterator method inside an object. This method will return an object with the `next` method that resolves a promise containing the `next` value in the asynchronous sequence.  
+Creating an async iterable is simple. We use the `Symbol.asyncIterator` to define the async iterator method inside an object. This method will return an object with the `next` method that resolves a promise containing the `next` value in the asynchronous sequence.\
 Let's take a look at an example.
 
 ```ts
@@ -126,7 +125,7 @@ And there you have it a deep dive into the world of asynchronous iterators in Ja
 
 I also created a video on my [Youtube channel](https://www.youtube.com/@Puppo_92/), that you can find below.
 
-{% embed https://youtube.com/watch?v=0_mzZ9QOebg %}
+{% embed https://youtube.com/watch?v=0\_mzZ9QOebg %}
 
 If you found this content helpful, like and share it. And if you have any questions, feedback, or doubts, let me know in the comments 😀
 

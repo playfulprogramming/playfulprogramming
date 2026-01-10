@@ -31,12 +31,15 @@ Your platform has a goldmine of data. You should extract those information from 
 Then you can use Genkit AI, here is a good starting point to create a great recommendation system.
 
 ### FILE: .env
+
 ```javascript
 GEMINI_API_KEY="your-api-key-here"
 ```
 
-### FILE: dataset.csv 
+### FILE: dataset.csv
+
 (this is an example, you should extract more data)
+
 ```csv
 
 user_id,age,gender,location,date,product_id,product_category,product_name,brand,price,quantity,rating,payment_method,shipping_country,marketing_channel,returned,purchase_value,conversion
@@ -47,6 +50,7 @@ user_id,age,gender,location,date,product_id,product_category,product_name,brand,
 ```
 
 ### FILE: index.ts
+
 ```typescript
 import { gemini20Flash, googleAI } from '@genkit-ai/googleai';
 import 'dotenv/config';
@@ -133,6 +137,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Bye 👋
 
 {% embed https://dev.to/gioboa %}
-
-
-

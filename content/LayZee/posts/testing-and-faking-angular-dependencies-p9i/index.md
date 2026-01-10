@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 *Let’s prepare our experimental gear. Cover photo by [deepakrit](https://pixabay.com/photos/chemistry-lab-experiment-chemist-3533039/) on Pixabay.*
 
 *Original publication date: 2019-04-29.*
@@ -45,7 +44,6 @@ export const userAgentToken: InjectionToken<string> =
   });
 ```
 
-
 ```ts
 // is-internet-explorer-11.token.ts
 import { inject, InjectionToken } from '@angular/core';
@@ -61,7 +59,6 @@ export const isInternetExplorer11Token: InjectionToken<boolean> =
 ```
 
 <figcaption>_The user agent token factory provider reads directly from the global navigator object._</figcaption>
-
 
 To test the Internet Explorer 11 flag provider in isolation, we can replace the `userAgentToken` with a fake value. We’ll practice that technique later in this article.
 
@@ -82,7 +79,6 @@ export const userAgentToken: InjectionToken<string> =
   });
 ```
 
-
 ```ts
 // navigator.token.ts
 import { InjectionToken } from '@angular/core';
@@ -96,15 +92,13 @@ export const navigatorToken: InjectionToken<Navigator> =
 
 <figcaption>_The global navigator object is abstracted into a Navigator API token._</figcaption>
 
-
-__What__ we test and __how__ we test it should be part of our testing strategy. In more integrated component tests, we should be able to rely on most of the providers created as part of our dependency injection tokens. We’ll explore this later when testing the Internet Explorer 11 banner component.
+**What** we test and **how** we test it should be part of our testing strategy. In more integrated component tests, we should be able to rely on most of the providers created as part of our dependency injection tokens. We’ll explore this later when testing the Internet Explorer 11 banner component.
 
 > WHAT we test and HOW we test it should be part of our testing strategy.
 
 For our first test, we’re going to provide a fake value for the Navigator API token which is used as a dependency in the factory provider for the user agent string token.
 
 To replace a token provider for testing purposes, we add an overriding provider in the Angular testing module similar to how an Angular module’s own providers override those of an imported Angular module.
-
 
 ```ts
 // navigator-api.spec.ts
@@ -140,7 +134,6 @@ describe('Navigator API', () => {
 ```
 
 <figcaption>_Replacing a token dependency in a factory provider for the user agent string._</figcaption>
-
 
 Note that while it’s the user agent token and its provider we’re testing, it’s the navigator token dependency we’re replacing with a fake value.
 
@@ -178,7 +171,6 @@ export const locationToken: InjectionToken<Location> =
   });
 ```
 
-
 ```ts
 // location-api.spec.ts
 import { DOCUMENT } from '@angular/common';
@@ -212,7 +204,6 @@ describe('Location API', () => {
 
 <figcaption>_Replacing a token dependency in a factory provider for the Location API._</figcaption>
 
-
 The factory in the token’s provider is extracted from the `DOCUMENT` token which is available from the `@angular/common` package and abstracts the global `document` object.
 
 In this test suite, we configure the Angular testing module inside the test case. I think it better illustrates the token dependency that we want to exercise in this test.
@@ -235,7 +226,6 @@ In the first section of this article, we introduced a token with a value factory
 
 To test the browser detection in the value factory, we gather a few user agent strings from real browsers and put them in an enum.
 
-
 ```ts
 // fake-user-agent.ts
 export enum FakeUserAgent {
@@ -248,11 +238,9 @@ export enum FakeUserAgent {
 
 <figcaption>_User agent strings of common browsers._</figcaption>
 
-
 In the Internet Explorer 11 detection test suite, we’ll test the `isInternetExplorer11Token` almost in isolation. But the real business logic value lies in its factory provider which depends on the user agent token.
 
 The user agent token extracts its value from the Navigator API token, but that dependency has already been covered by the Navigator API test suite. We’ll pick the user agent token as the adequate place in the dependency chain to start faking dependencies.
-
 
 ```ts
 // internet-explorer-11-detection.spec.ts
@@ -307,7 +295,6 @@ describe('Internet Explorer 11 detection', () => {
 
 <figcaption>_Internet Explorer 11 detection test suite._</figcaption>
 
-
 Before specifying the test cases, we create a test setup function and reduce an array of the non-Internet Explorer user agent strings from our fake user agent strings.
 
 The test setup function takes a user agent and uses it to fake the user agent token provider. We then return an object with a property `isInternetExplorer11` having a value that is evaluated from the `isInternetExplorer11Token` through the `TestBed.get` method.
@@ -335,7 +322,6 @@ Now that we are satisfied with our Internet Explorer 11 browser detection, creat
   </button>
 </aside>
 ```
-
 
 ```ts
 // internet-explorer-11-banner.component.ts
@@ -366,12 +352,11 @@ export class InternetExplorer11BannerComponent {
 
 <figcaption>_Internet Explorer 11 deprecation banner._</figcaption>
 
-
 We enable the user to dismiss the banner. It’s displayed if the user agent (the browser) is Internet Explorer 11 and the user hasn’t yet dismissed the banner by clicking the banner button.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/v0ze5bd16nxj1kb9h8sr.png)
+![](./v0ze5bd16nxj1kb9h8sr.png)
 
-_Dismissable Internet Explorer 11 deprecation banner._
+*Dismissable Internet Explorer 11 deprecation banner.*
 
 The dismissed state is simply stored as local UI state in a private component property which is used by the computed property `isBannerVisible`.
 
@@ -385,18 +370,17 @@ Instead, we will fake the `userAgentToken` by providing a value from the `FakeUs
 
 There are 3 features we’d like to exercise in our tests:
 
-* When the user agent is Internet Explorer 11, the banner is displayed
-* When the user clicks the banner button, the banner is dismissed
-* When any other browser than Internet Explorer 11 is used, the banner is hidden
+- When the user agent is Internet Explorer 11, the banner is displayed
+- When the user clicks the banner button, the banner is dismissed
+- When any other browser than Internet Explorer 11 is used, the banner is hidden
 
 To have concise tests, we’ll create a test harness that enables us to:
 
-* Fake the user agent
-* Check the banner visibility
-* Click the dismiss button
+- Fake the user agent
+- Check the banner visibility
+- Click the dismiss button
 
 This is how we want the test cases to look:
-
 
 ```ts
 // internet-explorer-11-banner.component.spec.ts
@@ -434,13 +418,11 @@ describe('Other browsers', () => {
 
 <figcaption>_Test cases for the Internet Explorer 11 deprecation banner component._</figcaption>
 
-
 The test harness is returned by our custom `setup` function. We’ll look at the implementation in a few seconds.
 
 First, I want you to notice, that we only test Internet Explorer 11 and one other browser. We already covered browser detection of all our supported browsers in the test suite demonstrated by the section “Testing value factories with dependencies”.
 
 Okay, let’s explore how the test harness is created.
-
 
 ```ts
 // internet-explorer-11-banner.component.spec.ts
@@ -472,7 +454,6 @@ function setup({ userAgent }: { userAgent: string }) {
 ```
 
 <figcaption>_Test harness for the Internet Explorer 11 deprecation banner component._</figcaption>
-
 
 If you are familiar with the Angular testing utilities, this should be pretty straightforward.
 
@@ -506,7 +487,6 @@ export const isInternetExplorer11Token: InjectionToken<boolean> =
     providedIn: 'root',
   });
 ```
-
 
 ```ts
 // internet-explorer-11-banner.component.ts
@@ -590,7 +570,6 @@ describe(InternetExplorer11BannerComponent.name, () => {
 
 <figcaption>_Test suite for the Internet Explorer 11 deprecation banner component._</figcaption>
 
-
 Putting it all together, we end up with simple test cases with very explicitly defined setup, exercise, and verification phases.
 
 At this point, we should ask ourselves whether we feel confident enough that the deprecation banner is displayed, without testing it in an actual Internet Explorer 11 browser.
@@ -623,12 +602,12 @@ Learn how to provide tree-shakable dependencies and other complicated configurat
 
 These wonderful people from the Angular community helped review this article:
 
-* [Alex Okrushko](https://dev.to/alexokrushko)
-* [Andrew Grekov](https://dev.to/thekiba)
-* [Brad Taniguchi](https://github.com/bradtaniguchi)
-* [Christian Lüdemann](https://dev.to/chrislydemann)
-* [Mahmoud Abduljawad](https://twitter.com/mahmoud_ajawad)
-* [Max Koretskyi](https://twitter.com/maxkoretskyi)
-* [Nicholas Jamieson](https://dev.to/cartant)
-* [Shai Reznik](https://twitter.com/shai_reznik)
-* [Wassim Chegham](https://dev.to/wassimchegham)
+- [Alex Okrushko](https://dev.to/alexokrushko)
+- [Andrew Grekov](https://dev.to/thekiba)
+- [Brad Taniguchi](https://github.com/bradtaniguchi)
+- [Christian Lüdemann](https://dev.to/chrislydemann)
+- [Mahmoud Abduljawad](https://twitter.com/mahmoud_ajawad)
+- [Max Koretskyi](https://twitter.com/maxkoretskyi)
+- [Nicholas Jamieson](https://dev.to/cartant)
+- [Shai Reznik](https://twitter.com/shai_reznik)
+- [Wassim Chegham](https://dev.to/wassimchegham)

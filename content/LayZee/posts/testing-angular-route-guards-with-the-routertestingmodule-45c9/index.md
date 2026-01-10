@@ -13,16 +13,15 @@ order: 1
 }
 ---
 
+*Original cover photo by [Liam Tucker](https://unsplash.com/photos/cVMaxt672ss) on Unsplash.*
 
-_Original cover photo by [Liam Tucker](https://unsplash.com/photos/cVMaxt672ss) on Unsplash._
-
-_Original publication date: 2020-09-19._
+*Original publication date: 2020-09-19.*
 
 Route guards can prevent activating or deactivating specific routes in our applications. A very common category of route guards is authentication and authorisation guards. The most simple of them verify that the user is authenticated (logged in). If that's not the case, they're redirected to a login form.
 
 In this article, we're going to explore how we can use the `RouterTestingModule` to test router guards. As a case study, we write route guard tests for the `AuthGuard` from the extended Tour of Heroes application from [the official Angular routing guide](https://angular.io/guide/router-tutorial-toh).
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/04i98wf4a5pkosxsqedz.png) _The control flow of the `AuthGuard` route guard._
+![](./04i98wf4a5pkosxsqedz.png) *The control flow of the `AuthGuard` route guard.*
 
 First, we're going to test it using isolated unit tests. Then we're going to create an integrated test suite using Angular's `RouterTestingModule` and finally compare the two approaches.
 
@@ -84,7 +83,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 }
 ```
 
-_Listing 1. Auth route guard._
+*Listing 1. Auth route guard.*
 
 The route guard in Listing 1 implements three of the route guard interfaces:
 
@@ -96,9 +95,9 @@ The route guard in Listing 1 implements three of the route guard interfaces:
 
 The related methods `canActivate`, `canActivateChild`, and `canLoad` all forward control to the `checkLogin` method. This method returns a Boolean value but also includes some side effects in case the user is not authenticated:
 
-1.  It adds a session ID query parameter.
-2.  It simulates the auth token that is usually passed to external login forms.
-3.  It navigates to the login route with the aforementioned details added.
+1. It adds a session ID query parameter.
+2. It simulates the auth token that is usually passed to external login forms.
+3. It navigates to the login route with the aforementioned details added.
 
 For the `CanActivate` and `CanActivateChild` hooks, we've been able to return a promise or an observable resolving a Boolean **or** a `UrlTree` for a long time, but `CanLoad` has been unable to do so until Angular version 10.
 
@@ -116,7 +115,7 @@ const appRoutes: Routes = [
 ];
 ```
 
-_Listing 2A. Excerpt of root level routes._
+*Listing 2A. Excerpt of root level routes.*
 
 ```ts
 const adminRoutes: Routes = [
@@ -139,15 +138,15 @@ const adminRoutes: Routes = [
 ];
 ```
 
-_Listing 2B. Admin feature routes._
+*Listing 2B. Admin feature routes.*
 
 The route guard is added to the relevant routing hooks which are matched by their respective interfaces.
 
 We have three different use cases to test based on Listings 2A and 2B, when the user is logged out:
 
-1.  When `AuthGuard` guards a `CanLoad` hook, access to route is rejected and its feature Angular module is not loaded.
-2.  When `AuthGuard` guards a `CanActivate` hook, access to the route is rejected.
-3.  When `AuthGuard` guards a `CanActivateChild` hook, access to the child routes is rejected.
+1. When `AuthGuard` guards a `CanLoad` hook, access to route is rejected and its feature Angular module is not loaded.
+2. When `AuthGuard` guards a `CanActivate` hook, access to the route is rejected.
+3. When `AuthGuard` guards a `CanActivateChild` hook, access to the child routes is rejected.
 
 We also need to verify that when the user is logged in, access is granted in all three use cases.
 
@@ -183,7 +182,7 @@ function fakeRouterState(url: string): RouterStateSnapshot {
 }
 ```
 
-_Listing 3A. Isolated route guard test utility._
+*Listing 3A. Isolated route guard test utility.*
 
 As you can see, we just need a fake object with a `url` property which is accessed by `AuthGuard#canActivate`.
 
@@ -225,7 +224,7 @@ describe('AuthGuard (isolated)', () => {
 });
 ```
 
-_Listing 3B. Isolated route guard test setup and shared variables._
+*Listing 3B. Isolated route guard test setup and shared variables.*
 
 In the test case setup hook (the `beforeEach` callback), we're first creating a spy object that is a partial implementation of the `Router` service which only exposes the `navigate` method (1). The method is replaced with a jasmine spy which will accept any arguments. In our assertions, we will be able to verify the calls made to the spy object's `navigate` method. The spy object is stored in the shared `routerSpy` variable.
 
@@ -287,7 +286,7 @@ describe('AuthGuard (isolated)', () => {
 });
 ```
 
-_Listing 3C. Isolated route guard test cases covering when access is granted._
+*Listing 3C. Isolated route guard test cases covering when access is granted.*
 
 Notice that we iterate over all the URLs stored in the shared variable `fakeUrls` (1) in Listing 3C. The `fakeUrl` iteration variable represents the URL currently being tested. This means that each test case is run as many times as the number of URLs stored in `fakeUrls`.
 
@@ -366,7 +365,7 @@ describe('AuthGuard (isolated)', () => {
 });
 ```
 
-_Listing 3D. Isolated route guard test cases covering redirect to the login page when access is rejected_
+*Listing 3D. Isolated route guard test cases covering redirect to the login page when access is rejected*
 
 All side effects caused by the authorisation guard rejecting access are verified one by one in separate test cases. From these tests, we see that some metadata is store in the URL state and the authorisation service. After that, navigation is triggered through the router service.
 
@@ -416,7 +415,7 @@ describe('AuthGuard (isolated)', () => {
 });
 ```
 
-_Listing 3E. Isolated route guard test cases covering redirect to the login page when access is rejected_
+*Listing 3E. Isolated route guard test cases covering redirect to the login page when access is rejected*
 
 We're also running these tests one time per fake URL (1). Additionally, we're running the test that exercises `AuthGuard#canLoad` one time per URL part contained in the `paths` array (2).
 
@@ -580,7 +579,7 @@ describe('AuthGuard (isolated)', () => {
 });
 ```
 
-_Listing 4. Isolated route guard test suite._
+*Listing 4. Isolated route guard test suite.*
 
 The test setup creates a router spy, an authorisation service stub and an instance of the authorisation route guard before each test case.
 
@@ -688,7 +687,7 @@ class FakeAuthService implements AuthService {
 }
 ```
 
-_Listing 5A. Test utilities for the integrated route guard test._
+*Listing 5A. Test utilities for the integrated route guard test.*
 
 We will use the `parseUrl` utility (1) to split the URL returned by `Location#path` into three parts:
 
@@ -755,7 +754,7 @@ testRouteGuard({
 });
 ```
 
-_Listing 5B. Test configurations for the integrated route guard test._
+*Listing 5B. Test configurations for the integrated route guard test.*
 
 In the first test configuration, we apply the `AuthGuard` using the `canLoad` route property (1). The `TestFeatureModule` is eagerly loaded, but still uses the `loadChildren` route property (2).
 
@@ -863,7 +862,7 @@ function testRouteGuard({ routes, testUrl }: { routes: Routes; testUrl: string }
 }
 ```
 
-_Listing 5C. Test setup for the integrated route guard test._
+*Listing 5C. Test setup for the integrated route guard test.*
 
 What we want to exercise is navigating to a target URL given the specified routes. The consumer of the test suite factory configures the target route which may possibly use the `TestTargetComponent`, so we declare it in our Angular testing module (1).
 
@@ -935,7 +934,7 @@ function testRouteGuard({ routes, testUrl }: { routes: Routes; testUrl: string }
 }
 ```
 
-_Listing 5D. Test cases for the integrated route guard test._
+*Listing 5D. Test cases for the integrated route guard test.*
 
 The first test case asserts that Router#navigateByUrl resolved to true when called with the testUrl while the user is logged in (1).
 
@@ -1171,7 +1170,7 @@ testRouteGuard({
 });
 ```
 
-_Listing 6. Integrated route guard test suite._
+*Listing 6. Integrated route guard test suite.*
 
 The test setup sets up a test root component and configures the specified routes in addition to a fake login route. The test setup navigates to the specified route URL to be able to verify whether `Router#navigateByUrl` is allowed.
 
@@ -1197,19 +1196,19 @@ The `AuthGuard` sticks to returning a Boolean value and triggers navigation itse
 
 The authorisation guard performs several side effects when the user is logged out:
 
-1.  It adds a session ID query parameter.
-2.  It simulates the auth token that is usually passed to external login forms.
-3.  It navigates to the login route with the aforementioned details added.
+1. It adds a session ID query parameter.
+2. It simulates the auth token that is usually passed to external login forms.
+3. It navigates to the login route with the aforementioned details added.
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/04i98wf4a5pkosxsqedz.png) _The control flow of the `AuthGuard` route guard._
+![](./04i98wf4a5pkosxsqedz-1.png) *The control flow of the `AuthGuard` route guard.*
 
 When testing a route guard, we:
 
-1.  Set up any precondition that the guard checks for.
-2.  Trigger navigation.
-3.  Verify whether navigation is successful.
-4.  Assert that we end up at the expected URL.
-5.  Verify any side effects that we expect the route guard to perform.
+1. Set up any precondition that the guard checks for.
+2. Trigger navigation.
+3. Verify whether navigation is successful.
+4. Assert that we end up at the expected URL.
+5. Verify any side effects that we expect the route guard to perform.
 
 ## Isolated route guard test
 
@@ -1219,7 +1218,7 @@ In our example, we provided a Jasmine spy object with a spy `navigate` method si
 
 We emulate navigation by calling the methods implementing route guard interfaces directly, passing them dummy URLs. In the case of the `AuthGuard`, the route URL doesn't matter for the business logic it encapsulates, but we're passing different fake and real routes anyways to document and verify its behavior across the application.
 
-The route guard hooks return a Boolean value in our case study. Our isolated test suite asserts on the returned result, given a precondition that is either _when the user is logged in_ or _when the user is logged out_ through stubbed dependencies, in our case a stubbed version of the `AuthService`.
+The route guard hooks return a Boolean value in our case study. Our isolated test suite asserts on the returned result, given a precondition that is either *when the user is logged in* or *when the user is logged out* through stubbed dependencies, in our case a stubbed version of the `AuthService`.
 
 Route guard hooks expect complex objects:
 
@@ -1246,7 +1245,7 @@ For our integrated route guard test cases, we trigger navigation through `Router
 
 The router navigation methods return a Boolean value indicating whether the navigation was allowed, taking all route guards applied to the fake route into account.
 
-Similar to the isolated route guard tests, we set up our _when the user is logged out/in_ preconditions through a stubbed dependency, in our case an instance of the `FakeAuthService`.
+Similar to the isolated route guard tests, we set up our *when the user is logged out/in* preconditions through a stubbed dependency, in our case an instance of the `FakeAuthService`.
 
 We assert that the navigation was either successful or rejected as expected. We use the provided `Location` service to verify the route URL that we end up in after navigation completes.
 

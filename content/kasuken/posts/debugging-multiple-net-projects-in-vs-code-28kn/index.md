@@ -16,6 +16,7 @@ The simplest example is a frontend and its services within the same .NET solutio
 But is it so difficult to launch multiple .NET projects simultaneously from Visual Studio Code?
 
 ## First Steps
+
 Create a folder in your local drive and then create two projects in your favorite terminal with the following instructions:
 
 ```
@@ -36,16 +37,19 @@ dotnet sln add Backend
 
 Now we have at least two projects to launch.
 
-##  Launch Configurations
+## Launch Configurations
+
 Open Visual Studio Code directly from the command line with the instruction:
+
 ```
 code.
 ```
+
 This instruction open Visual Studio Code in the current folder.
 After a few seconds the editor understands that you are in a .NET project and asks you to enter some files to debug or launch the application.
 Accept it and let it create some necessary files.
 
-![.NET Assets](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wdwp75yl7kd1uabwy2ca.png)
+![.NET Assets](./wdwp75yl7kd1uabwy2ca.png)
 
 Now you can open the file "**tasks.json**" and you can replace the task called "**build**" with the following code:
 
@@ -75,10 +79,12 @@ Now you can open the file "**tasks.json**" and you can replace the task called "
             "problemMatcher": "$msCompile"
         },
 ```
+
 The first task is related to the Backend application and the second one to the Frontend.
 As you can see, they build the project in the right folder and project. Nothing complicated but VS Code, by default, creates only one task even in your project you have more than one.
 
 ## Compounds Configuration
+
 Now that you have the two tasks related to the two individual projects, you can replace the current contents of the "**launch.json**" file with the following json.
 I'm going to explain it shortly.
 
@@ -130,6 +136,7 @@ I'm going to explain it shortly.
 }
 
 ```
+
 As you can see, we created two different configuration with two different name to launch a project one by one.
 In the "prelaunchtask" property, it's important to use the same name used in the previous tasks file.
 
@@ -154,11 +161,12 @@ Specify a name that you want and in the configurations it's important to specify
 
 This is the result in the "Run & Debug" panel.
 
-![Run & Debug Panel](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xvr1elxgciqz8lgkkssp.png)
+![Run & Debug Panel](./xvr1elxgciqz8lgkkssp.png)
 
 Press "F5" or on the Play button to launch the new launch configuration with multiple projects.
 
 ## Conclusion
+
 As you can see it's very easy to configure Visual Studio Code to launch multiple project.
 Now that you have the basic setup, you can use this approach all the time, even referring to this easy example with only two projects.
 You'll just have to add all your projects that you want to launch, but with the same configuration workflow we've used now.
@@ -167,7 +175,7 @@ You'll just have to add all your projects that you want to launch, but with the 
 
 Are you interested in learning GitHub but don't know where to start? Try my course on LinkedIn Learning: [Learning GitHub](https://bit.ly/learninggithub).
 
-![LinkedIn Learning](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sdc2bpiftpadibi4h51c.gif)
+![LinkedIn Learning](./sdc2bpiftpadibi4h51c.gif)
 
 ---
 

@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 In this episode of Nx After Dark, we're creating an Nx workspace for an Angular 12 app called Energy Insights. We're also setting up a GitHub Actions workflow and connecting it to Nx Cloud.
 
 {% youtube g5AoLY3jqD4 %}
@@ -20,12 +19,14 @@ In this episode of Nx After Dark, we're creating an Nx workspace for an Angular 
 Follow the instructions below to set up a similar workspace or browse the end result at [github/LayZeeDK/energy-insights](https://github.com/LayZeeDK/energy-insights).
 
 # Prerequisites
+
 - Node.js 14.x
 - PNPM
 
 > Note that there's currently an issue with using Cypress with PNPM. Let me know if you figure out how to fix it. Until then, remove Cypress from the workspace or use either Yarn or NPM.
 
 # Create Nx workspace
+
 ```powershell
 # Install the Nx workspace generator
 pnpm install --global create-nx-workspace
@@ -34,6 +35,7 @@ pnpm init nx-workspace my-workspace --preset=empty --pm=pnpm --npm-scope=my-work
 ```
 
 # Configure Nx workspace
+
 ```powershell
 # Install the "json" utility
 npm install --global json
@@ -42,6 +44,7 @@ json -I -f nx.json -e "this.affected.defaultBase = 'main';"
 ```
 
 # Add Angular capability
+
 ```powershell
 # Add Angular capability
 pnpm add --save-dev @nrwl/angular
@@ -50,12 +53,14 @@ nx generate @nrwl/angular:init
 ```
 
 # Generate Angular app project
+
 ```powershell
 # Generate Angular app project
 nx generate app my-app
 ```
 
 See the video for examples of:
+
 - Setting up generator defaults
 - Creating a GitHub Actions CI workflow
 - Setting up GitHub workflow triggers

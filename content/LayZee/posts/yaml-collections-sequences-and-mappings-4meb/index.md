@@ -13,16 +13,16 @@ order: 1
 }
 ---
 
-
-
-
 *Cover photo by [Karen Vardazaryan](https://unsplash.com/@bright) on Unsplash.*
 
 ## Sequences
+
 A sequence is a YAML node that contains an ordered list of zero to *n* YAML *nodes* (mappings, sequences, or scalars). Sequences are commonly known as arrays or lists in other languages.
 
 ### Block collection style
+
 A block sequence is a series of YAML nodes lead by a dash (`-`) indicator and white space.
+
 ```yaml
 integers:
   - 1
@@ -76,6 +76,7 @@ In JSON, this is
 ```
 
 ### Flow collection style
+
 A flow sequence is a series of YAML nodes contained in square brackets (`[` and `]`). Flow sequence entries are separated by a comma (`,`) with a trailing comma allowed but empty node entries disallowed.
 
 ```yaml
@@ -128,9 +129,11 @@ In JSON, this is
 ```
 
 ## Mappings
+
 A mapping is a YAML node that contains an unordered set of zero to *n* key-value pairs. A key and its value are separated by a colon (`:`). Keys must be unique. Both keys and values may be any kind of YAML node. Mappings are commonly known as hash maps or associative arrays in other languages.
 
 ### Block collection style
+
 A block mapping is a series of key-value pairs on separate lines.
 
 ```yaml
@@ -148,6 +151,7 @@ In JSON, this is
 ```
 
 ### Flow collection style
+
 A flow mapping is a series of key-value pairs contained in curly braces (`{` and `}`). Flow mapping entries are separated by a comma (`,`) with a trailing comma allowed but empty node entries disallowed.
 
 ```yaml
@@ -174,6 +178,7 @@ In JSON, this is
 ```
 
 ### Explicit mapping entries
+
 A mapping key and value pair is optionally put on separate lines where the key is lead by a question mark (`?`) and the value is lead by a colon (`:`). This allows for special keys such as the empty node or complex non-scalar nodes.
 
 ```yaml

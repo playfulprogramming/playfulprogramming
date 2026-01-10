@@ -26,7 +26,7 @@ This morning I woke up with the idea of forcing myself to slow down and add an e
 I set up a notion database where I want to write a short summary of each content I consume, along with some tags to categorize it.
 The idea here is to force myself to think about what I'm reading and be much more intentional about it.
 
-![Notion page](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/05qxtbunncdpg1wdepdq.png)
+![Notion page](./05qxtbunncdpg1wdepdq.png)
 
 This means that the amount of content I consume will decrease, with the goal of increasing the quantity (and quality) of information that sticks to my mind on that specific content.
 
@@ -44,7 +44,7 @@ Join us: https://github.com/DevLeonardoCommunity
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

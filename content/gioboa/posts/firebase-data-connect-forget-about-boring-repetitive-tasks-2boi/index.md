@@ -13,7 +13,7 @@ socialImage: "social-image.png"
 
 For years, the [Firebase](https://firebase.google.com/) platform has been synonymous with rapid, scalable application development, largely built upon the foundations of its [NoSQL databases](https://en.wikipedia.org/wiki/NoSQL), Firestore and the Realtime Database.
 
-This ecosystem empowered developers to build real-time, collaborative experiences with remarkable speed, abstracting away complex backend infrastructure. 
+This ecosystem empowered developers to build real-time, collaborative experiences with remarkable speed, abstracting away complex backend infrastructure.
 
 ## Manage the application complexity
 
@@ -21,12 +21,13 @@ However, as applications grow in complexity, so do their data requirements. The 
 
 ---
 
-Enter [Firebase Data Connect](https://firebase.google.com/docs/data-connect), a transformative service designed to elegantly resolve this dilemma. At its core, as the official documentation states, Data Connect is an "infrastructure to connect your Firebase app to a production-grade, fully-managed PostgreSQL database powered by Cloud SQL." 
+Enter [Firebase Data Connect](https://firebase.google.com/docs/data-connect), a transformative service designed to elegantly resolve this dilemma. At its core, as the official documentation states, Data Connect is an "infrastructure to connect your Firebase app to a production-grade, fully-managed PostgreSQL database powered by Cloud SQL."
 
 It is not merely a database offering; it is a comprehensive bridge that brings the structured, relational power of SQL directly into the heart of the Firebase developer experience.
 
 This service fundamentally reimagines how developers can build data-intensive applications, offering the best of both worlds:
-- the robust, time-tested reliability of PostgreSQL 
+
+- the robust, time-tested reliability of PostgreSQL
 - the serverless, developer-friendly environment that defines Firebase.
 
 ## Database schemas
@@ -37,7 +38,7 @@ The magic of Data Connect lies in its "schema-first" approach. Instead of manual
 
 From this definition, Data Connect **automatically** generates a cascade of critical components. It provisions the underlying PostgreSQL database, creates the corresponding tables, and, most impressively, **generates type-safe SDKs for web and native clients**, along with the necessary backend code to handle data operations.
 
-> This automated generation radically accelerates development. 
+> This automated generation radically accelerates development.
 
 Developers are freed from writing repetitive boilerplate code for Create, Read, Update, and Delete (CRUD) operations, and the generated type-safe SDKs ensure that frontend code interacts with the backend in a predictable and error-resistant way.
 

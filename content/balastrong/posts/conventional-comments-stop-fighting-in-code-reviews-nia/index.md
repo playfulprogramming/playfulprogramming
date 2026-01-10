@@ -23,7 +23,7 @@ It is so easy to get misunderstood and start pointless discussions, often overlo
 
 I recently discovered a tool, that is in fact a set of rules, to help focus on what really matters and avoid arguments and wasting of time.
 
-![PR Comment](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/thkn8ghvnjnutxe4d3ci.png)
+![PR Comment](./thkn8ghvnjnutxe4d3ci.png)
 
 ## Conventional Comments
 
@@ -39,11 +39,11 @@ Something like this:
 
 ### Labels
 
-This is relly similar to conventional commits, a label to define the type of the comment. It can be a _suggestion_, a _praise_, a _nitpick_ or a proper _issue_.
+This is relly similar to conventional commits, a label to define the type of the comment. It can be a *suggestion*, a *praise*, a *nitpick* or a proper *issue*.
 
 ### Decorations
 
-Here you can make a more defined scope, for example if the comment is an _issue_ and it is about the performance, your comment might look like this:
+Here you can make a more defined scope, for example if the comment is an *issue* and it is about the performance, your comment might look like this:
 
 ```
 issue(performance)
@@ -75,8 +75,7 @@ This was a brief introduction to the concept, but there is a full specification 
 
 You can find all the details on that page and I also recorded myself while scrolling through it and commenting it live, you can watch it in the video below:
 
-{% youtube jT_L9udCGp0 %}
-
+{% youtube jT\_L9udCGp0 %}
 
 ---
 
@@ -88,7 +87,7 @@ Join us: https://github.com/DevLeonardoCommunity
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

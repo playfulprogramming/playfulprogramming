@@ -45,10 +45,9 @@ This code snippet activates the 'Page Transitions' feature. [Angular’s officia
 
 The magic of transitions is defined by two special selectors: `::view-transition-old(root)` and `::view-transition-new(root)`.
 
-* `::view-transition-old`: This applies to the current page before navigating to the next.
-    
-* `::view-transition-new`: This applies to the new page that's about to be displayed.
-    
+- `::view-transition-old`: This applies to the current page before navigating to the next.
+
+- `::view-transition-new`: This applies to the new page that's about to be displayed.
 
 If you’re new to CSS animations, [this CSS animation tutorial](https://www.w3schools.com/css/css3_animations.asp) will be useful.
 
@@ -96,8 +95,7 @@ Assign these animations to the respective selectors:
 
 After saving these changes, your website will now have smooth and visually appealing transitions between pages!
 
-
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kul9s1l2b4ra5l3uj1ea.gif)
+![Image description](./kul9s1l2b4ra5l3uj1ea.gif)
 
 ### **Conclusion**
 

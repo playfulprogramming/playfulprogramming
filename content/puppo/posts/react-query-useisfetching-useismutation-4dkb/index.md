@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 Hey folks,
 
 Today it is time to talk about two hooks exposed by react query: useIsFetching and useIsMutation.
@@ -65,6 +64,6 @@ Bye Bye 👋
 
 p.s. you can find the code of the video [here](https://github.com/Puppo/learning-react-query/tree/03-isfetching-and-mutating)
 
-_Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto&utm_medium=referral)_
+*Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto\&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto\&utm_medium=referral)*
 
 {% embed https://dev.to/puppo %}

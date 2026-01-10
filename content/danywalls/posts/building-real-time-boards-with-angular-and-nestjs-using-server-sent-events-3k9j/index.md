@@ -25,17 +25,15 @@ For example, we can use SSE to send notifications from the server to the client 
 
 We want to create a scoreboard to show a game streamed by the server, with an option to stop receiving updates, something like this:
 
-
-![Dashboard](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6gekergsr15ff10zz2j2.png)
+![Dashboard](./6gekergsr15ff10zz2j2.png)
 
 The easy way is to combine Angular and NestJS, using Nx.
 
-* Angular: the client app to show the dasboard and connect to realtime API.
-    
-* NestJS: allows us to create an SSE endpoint easily by using the `@sse` decorator.
-    
-* Nx: allows us to configure Angular and NestJS in a single monorepo.
-    
+- Angular: the client app to show the dasboard and connect to realtime API.
+
+- NestJS: allows us to create an SSE endpoint easily by using the `@sse` decorator.
+
+- Nx: allows us to configure Angular and NestJS in a single monorepo.
 
 Ready! Let's go!
 
@@ -45,8 +43,7 @@ First, use nx to create an empty workspace **thescore** by running the command `
 
 Why choose none? Well, because we are using nx, I prefer to install the schematics and generators manually for NestJS and Angular.
 
-
-![d](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pmlrcx2ad2s6c3mw8f9v.png)
+![d](./pmlrcx2ad2s6c3mw8f9v.png)
 
 We are ready with the workspace, let's move to create the API.
 
@@ -125,12 +122,10 @@ To stop the emission, create the method `stopCounter` with the `@Post` decorator
 
 From the terminal run the Nestjs API with the command `nx run score-api:serve`
 
-
-![s](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/e5fhea7x0ngrnvzi4ps7.png)
+![s](./e5fhea7x0ngrnvzi4ps7.png)
 Open the browser and go to `http://localhost:300/api`.
 
-
-![f](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ffzag5cbfic9rjatmugu.gif)
+![f](./ffzag5cbfic9rjatmugu.gif)
 
 Okay, we have the server-sent event API ready, but now it's time to use it in our Angular app! Let's get started!
 
@@ -176,16 +171,15 @@ export type GameScore = {
 
 Next, add the following properties to the ScoreService class:
 
-* **API**: the URL for the `API`.
-    
-* **ssSource**: `EventSource` to receive server updates.
-    
-* **http**: inject the `httpClient` to make requests to the API.
-    
-* **scoreSubject**: `Subject` to emit values.
-    
-* **scores$**: Observable with the `GameScore` value, using the `startWith` operator to set the default value.
-    
+- **API**: the URL for the `API`.
+
+- **ssSource**: `EventSource` to receive server updates.
+
+- **http**: inject the `httpClient` to make requests to the API.
+
+- **scoreSubject**: `Subject` to emit values.
+
+- **scores$**: Observable with the `GameScore` value, using the `startWith` operator to set the default value.
 
 The code looks like this:
 
@@ -279,24 +273,20 @@ In the HTML, subscribe to the `gameScore$` using the `async` directive and bind 
 
 Save the changes, reload, and voilà! We now have our scoreboard with real-time data! 🎉
 
-
-![s](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l53xx0m1eqgnnfmd1fxn.gif)
+![s](./l53xx0m1eqgnnfmd1fxn.gif)
 
 If you open the network tab, you can see the socket sending data to the client!!!
 
-
-![f](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/x7jf1fqfex493tltbdgg.gif)
+![f](./x7jf1fqfex493tltbdgg.gif)
 
 ## Conclusion
 
 We've covered a basic overview of SSE and its straightforward implementation with NestJS, along with how to consume the event using Angular. Compared to SignalR, SSE does not support two-way binding, but we can find methods to instruct the server to stop the emission.
 
-* Source code: [https://github.com/danywalls/sse-with-angular-nestjs](https://github.com/danywalls/sse-with-angular-nestjs)
-    
-* Server Sent Events: [https://developer.mozilla.org/en-US/docs/Web/API/Server-sent\_events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)
-    
-* NestJS: [https://docs.nestjs.com/techniques/server-sent-events](https://docs.nestjs.com/techniques/server-sent-events)
+- Source code: <https://github.com/danywalls/sse-with-angular-nestjs>
 
+- Server Sent Events: <https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events>
+
+- NestJS: <https://docs.nestjs.com/techniques/server-sent-events>
 
 Photo by <a href="https://unsplash.com/@jcgellidon?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">JC Gellidon</a> on <a href="https://unsplash.com/photos/people-inside-the-basketball-court-XmYSlYrupL8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
-  

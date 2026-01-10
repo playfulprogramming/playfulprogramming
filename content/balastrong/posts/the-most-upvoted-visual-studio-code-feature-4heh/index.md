@@ -16,8 +16,7 @@ Up until yesterday (technically, a few days ago), tabs were bound to the same vs
 
 What happens if I release a tab outside the window... here’s the magic!
 
-![Floating window](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lbz0divld57x8bvv9zv0.gif)
-
+![Floating window](./lbz0divld57x8bvv9zv0.gif)
 
 The thing is, if you’re not amazed by this new feature, well, you should know that this is the most upvoted issue ever on vscode.
 
@@ -59,7 +58,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

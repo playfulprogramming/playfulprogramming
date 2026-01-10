@@ -11,16 +11,15 @@ socialImage: "social-image.png"
 }
 ---
 
+When building web application, from time to time we have to protect routes from unauthorized access. In Angular, we can do this by using router guards.
 
-When building web application, from time to time we have to protect routes from unauthorized access. In Angular, we can do this by using router guards. 
-
-_This is not an intro to Angular guards, so if you are not familiar with them, you can read more about them in the [official documentation](https://angular.io/guide/router#preventing-unauthorized-access)._
+*This is not an intro to Angular guards, so if you are not familiar with them, you can read more about them in the [official documentation](https://angular.io/guide/router#preventing-unauthorized-access).*
 
 In this article, we will see how we can create configurable Angular guards. We will create a guard that will check if the logged in user has a specific role, and if not, it will redirect the user to an unauthorized page.
 
 We will use a fake **AuthService** that will have a method to check if the logged in user has a specific role.
 
-```ts 
+```ts
 // auth.service.ts
 export const ROLES = {
   ADMIN: 'ADMIN',
@@ -37,15 +36,15 @@ export class AuthService {
 }
 ```
 
-Before Angular 14 we had class based guards, and a basic solution for our problem would be to create a class based guard for each role and apply it to the routes that we want to protect. 
+Before Angular 14 we had class based guards, and a basic solution for our problem would be to create a class based guard for each role and apply it to the routes that we want to protect.
 
-But, this solution is not very flexible, because we have to create a new guard for each role, and if we want to add a new role, we have to create a new guard and apply it to the routes that we want to protect. 
+But, this solution is not very flexible, because we have to create a new guard for each role, and if we want to add a new role, we have to create a new guard and apply it to the routes that we want to protect.
 
 This is not very convenient, and it can lead to code duplication.
 
 It would look something like this:
 
-```ts 
+```ts
 // admin.guard.ts
 @Injectable({ providedIn: 'root' })
 export class AdminGuard implements CanActivate {
@@ -59,7 +58,7 @@ export class AdminGuard implements CanActivate {
 }
 ```
 
-```ts 
+```ts
 // manager.guard.ts
 @Injectable({ providedIn: 'root' })
 export class ManagerGuard implements CanActivate {
@@ -75,7 +74,7 @@ export class ManagerGuard implements CanActivate {
 
 And then we would apply the guards to the routes that we want to protect:
 
-```ts 
+```ts
 // routes.ts
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -88,9 +87,10 @@ export const routes: Routes = [
 As we can see, we have a lot of duplicated code! Let's improve this by creating a configurable guard.
 
 ## Configurable class-based guard
+
 Angular Router provides a **data** field in the route that we can use to pass data to the guard. We can use this **data** field to pass the role that we want to check. This way, we can create a single guard that will check the role that we pass in the data field.
 
-```ts 
+```ts
 // role.guard.ts
 @Injectable({ providedIn: 'root' })
 export class RoleGuard implements CanActivate {
@@ -108,7 +108,7 @@ export class RoleGuard implements CanActivate {
 
 And then we would apply the guard to the routes that we want to protect:
 
-```ts 
+```ts
 // routes.ts
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -130,7 +130,7 @@ export const routes: Routes = [
 
 The code is much cleaner now, and we don't have any duplicated code. But, the only issue with this approach is that is not typechecked. We can pass any string in the data field, and the guard will not complain. We can improve this creating an interface for the data field, and then we can use this interface to type the data field.
 
-```ts 
+```ts
 interface RoleGuardData {
   role: 'ADMIN' | 'MANAGER'; // We can add more roles here or infer them from the AuthService
 }
@@ -148,9 +148,10 @@ export const routes: Routes = [
 Now, if we try to pass a string that is not a valid role, we will get a type error.
 
 ## Configurable function-based guard
+
 In Angular 14, we got function-based guards. This means that we can create a function that will return a guard. This is very useful because we can create a function that will return a guard for a specific role, and then we can apply this function to the routes that we want to protect.
 
-```ts 
+```ts
 // role.guard.ts
 export const roleGuard = (role: 'MANAGER' | 'ADMIN'): CanActivateFn => {
   const guard: CanActivateFn = () => {
@@ -167,7 +168,7 @@ export const roleGuard = (role: 'MANAGER' | 'ADMIN'): CanActivateFn => {
 
 And then we would apply the function to the routes that we want to protect:
 
-```ts 
+```ts
 // routes.ts
 export const routes: Routes = [
   { 
@@ -186,9 +187,10 @@ export const routes: Routes = [
 When using function-based guards, we don't have to worry about typechecking, because we can infer the role from the function parameter and pass it to the AuthService.
 
 ## How to test the guards
-We can test the guards by creating a mock AuthService, but in our case we can use the real AuthService because it's already a fake service. 
 
-```ts 
+We can test the guards by creating a mock AuthService, but in our case we can use the real AuthService because it's already a fake service.
+
+```ts
 // role.guard.spec.ts
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -233,7 +235,7 @@ describe('RoleGuard', () => {
 
 And here's the test for the function-based guard:
 
-```ts 
+```ts
 // role.guard.spec.ts
 describe('RoleGuard', () => {
   it('allows user to navigate to route if he has access', async () => {
@@ -276,10 +278,10 @@ describe('RoleGuard', () => {
 
 I changed the testing way for the functional based guard to use the **RouterTestingHarness** because it's easier to think about the test this way (at least for me).
 
-That's it! 
+That's it!
 
 Thanks for reading!
 
 ---
 
-I tweet a lot about Angular (latest news, videos, podcasts, updates, RFCs, pull requests and so much more). If you’re interested about it, give me a follow at [@Enea_Jahollari](https://twitter.com/Enea_Jahollari). Give me a follow on [dev.to](https://dev.to/eneajaho) if you liked this article and want to see more like this!
+I tweet a lot about Angular (latest news, videos, podcasts, updates, RFCs, pull requests and so much more). If you’re interested about it, give me a follow at [@Enea\_Jahollari](https://twitter.com/Enea_Jahollari). Give me a follow on [dev.to](https://dev.to/eneajaho) if you liked this article and want to see more like this!

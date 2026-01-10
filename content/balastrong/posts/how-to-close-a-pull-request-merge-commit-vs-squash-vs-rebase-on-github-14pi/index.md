@@ -15,13 +15,13 @@ order: 1
 
 When Merging a Pull Request on GitHub, you mainly have three options, with a merge commit, squash or rebase.
 
-![Pull Request Options: Merge, Squash and Rebase](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wrfvv6i3x1g2cqoncjjs.png)
+![Pull Request Options: Merge, Squash and Rebase](./wrfvv6i3x1g2cqoncjjs.png)
 
 Is there anything wrong in always doing a merge commit? Well, there isn’t right or wrong here, but considering the other strategies might will likely bring you some benefits. Let me tell you why.
 
 {% youtube rFRtsiQEJZw %}
 
-_In the video I will go in detail about the three strategies, and I will also do a "live demo" with GitHub stickers and JS pins, if you're curious I'd recommend you to watch the video, otherwise you can find the full text content here below._
+*In the video I will go in detail about the three strategies, and I will also do a "live demo" with GitHub stickers and JS pins, if you're curious I'd recommend you to watch the video, otherwise you can find the full text content here below.*
 
 ---
 
@@ -35,8 +35,7 @@ The biggest advantage is that you can easily track down the exact commit where a
 
 The downside is that when multiple commits are on multiple branches, the history quickly become really tangled and following the path of a change can be quite a challenge.
 
-![Merge Demo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9lmnvyx55b3wxjmn29jy.png)
-
+![Merge Demo](./9lmnvyx55b3wxjmn29jy.png)
 
 ### Squash merge
 
@@ -48,8 +47,7 @@ As a result, the history is much cleaner and while working on a branch you can d
 
 Who doesn’t like squash merge, usually brings the fact that you’re losing a lot of commit history, but it’s up to you if you think commits on a branch are valuable when reviewing old activity or rather is just noise.
 
-![Squash Demo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xtkk8rbuvlcsd5bfz591.png)
-
+![Squash Demo](./xtkk8rbuvlcsd5bfz591.png)
 
 ### Rebase
 
@@ -61,8 +59,7 @@ Does this make Rebase the best strategy ever? Well... actually not necessarily, 
 
 If you get a merge conflict during a rebase, it’s fairly easy to unintentionally lose parts of your code code and if you need to catch up multiple commits you might end up resolving a merge conflict for each single commit, rather than just one in the other merge strategies.
 
-![Rebase Demo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/a9ducwn749olt2tci5ex.png)
-
+![Rebase Demo](./a9ducwn749olt2tci5ex.png)
 
 ### My two cents
 
@@ -82,7 +79,7 @@ If you want to enforce only some merge strategies on GitHub, head over the setti
 
 Here you will find three sections to allow merge commit, squash or rebase in your pull requests.
 
-![Merge Settings](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qyhegamlznp03kyy7anw.png)
+![Merge Settings](./qyhegamlznp03kyy7anw.png)
 
 If you keep only one selected, all PRs in your repo will be merged with that specific strategy.
 
@@ -92,8 +89,7 @@ As you can see rebase doesn’t have this option and the reason is simple. As we
 
 Since you’re already in this page, if you scroll down a little bit more you might also want to check this flag to automatically delete branches after a PR is merged.
 
-![Option to delete a branch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ahv95m9swzsnhi28rras.png)
-
+![Option to delete a branch](./ahv95m9swzsnhi28rras.png)
 
 ### Closing
 
@@ -101,7 +97,7 @@ If you have any preference or you want to share your experience, please leave a 
 
 But didn’t we just forget about something important? Like… what happens if the two branches have a conflict? Let me show you how Visual Studio Code can help you resolve the conflict, so that you can merge with your desired strategy.
 
-Hit like ❤️ if you liked this article and have a look here: 
+Hit like ❤️ if you liked this article and have a look here:
 
 {% embed https://dev.to/this-is-learning/resolving-merge-conflicts-with-visual-studio-code-1mn1 %}
 
@@ -113,7 +109,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel!
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

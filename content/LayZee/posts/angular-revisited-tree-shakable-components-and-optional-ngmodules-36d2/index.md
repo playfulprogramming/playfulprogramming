@@ -13,10 +13,9 @@ order: 1
 }
 ---
 
+*It’s time to revisit our Angular engine room. Cover photo by [Gregory Butler](https://pixabay.com/da/slagskib-maskinrummet-historisk-389274/) on [Pixabay](https://pixabay.com/)*
 
-_It’s time to revisit our Angular engine room. Cover photo by [Gregory Butler](https://pixabay.com/da/slagskib-maskinrummet-historisk-389274/) on [Pixabay](https://pixabay.com/)_
-
-_Original publication date: 2019-02-11._
+*Original publication date: 2019-02-11.*
 
 `NgModule` is arguably one of the most confusing Angular concepts.
 
@@ -104,12 +103,12 @@ import { HeroListComponent } from './hero-list.component';
 export class HeroModule {}
 ```
 
-_The hero and hero list components declared by the same Angular module._
+*The hero and hero list components declared by the same Angular module.*
 
 The `HeroModule` declares two components. They both share a transitive compilation scope.
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/d331jal9hsyms231ot1k.png)
-_Figure 1. The transitive compilation scope of the hero module._
+![](./d331jal9hsyms231ot1k.png)
+*Figure 1. The transitive compilation scope of the hero module.*
 
 Figure 1 illustrates the transitive compilation scope of `HeroModule`. The scope—highlighted in red—includes `HeroComponent`, `HeroListComponent` and all the declarables that are exported by `CommonModule`.
 
@@ -127,8 +126,8 @@ Angular previously had local component scope for declarables. The latest version
 
 [Angular Pull Request #27841](https://github.com/angular/angular/pull/27481) and [Angular Ivy Proof of Concept Demo](https://github.com/mgechev/angular-ivy-demo) by Angular team member [Minko Gechev](https://twitter.com/mgechev) suggests that the `Component` decorator factory could get an option called `deps` which takes an array or a nested array of declarables used in the component template. The final implementation and API may differ.
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/600jdp544i5ui1y7nfw4.png)
-_Figure 2. The local component scopes of the hero list component and the hero component._
+![](./600jdp544i5ui1y7nfw4.png)
+*Figure 2. The local component scopes of the hero list component and the hero component.*
 
 Figure 2 illustrates the local component scopes of the hero list component and the hero component if they were converted to standalone components with the syntax of Pull Request #27841. A hero Angular module wouldn’t be necessary. Neither would the `CommonModule`.
 
@@ -178,7 +177,7 @@ import { CartButtonComponent } from './cart-button.component';
 export class CartButtonModule {}
 ```
 
-_A SCAM (single component Angular module)._
+*A SCAM (single component Angular module).*
 
 Sure, it is a bit more work but I actually started doing this in most places anyways. It makes it easier to maintain a current list of declarable dependencies to keep a small bundle size.
 
@@ -217,7 +216,7 @@ export class CartButtonComponent {
 }
 ```
 
-_A standalone component._
+*A standalone component.*
 
 For example `MatButtonModule` is converted to `MatButton`. Currently, the Angular Material components have not been compiled with Angular Ivy and published as standalone components. This will probably be the case for many libraries for a while.
 
@@ -284,7 +283,7 @@ if (environment.production) {
 platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
-_Bootstrapping a pre-Ivy Angular application._
+*Bootstrapping a pre-Ivy Angular application.*
 
 With the Angular Ivy renderer, this approach could become a thing of the past.
 
@@ -336,7 +335,7 @@ renderComponent(AppComponent, {
 });
 ```
 
-_Bootstrapping an Angular Ivy component._
+*Bootstrapping an Angular Ivy component.*
 
 We simply pass our root component to `renderComponent` in the main file. By default, `renderComponent` assumes the browser platform by using a DOM renderer.
 
@@ -385,7 +384,7 @@ import { renderComponent } from '@angular/core';
 import('./my-ivy.component').then(({ MyIvyComponent }) => renderComponent(MyIvyComponent, rootInjector));
 ```
 
-_Lazy-loading standalone components with Angular Ivy._
+*Lazy-loading standalone components with Angular Ivy.*
 
 # Tree-shakable dependencies
 
@@ -417,12 +416,12 @@ One final concern that Angular modules currently solve is compilation schemas. E
 
 When asked at AngularConnect 2018 what he would like to rip out or do differently in Angular, [Igor Minar replied](https://youtu.be/ybhy2Skb8XI?t=185) that at the top of his list of things to remove are Angular modules and that the Angular team is working towards making them optional.
 
-> I think `NgModule` is something that if we didn’t have to, we wouldn’t introduce. Back in the day, there was a real need for it. With Ivy and other changes to Angular over the years, we are working towards making those optional.  
+> I think `NgModule` is something that if we didn’t have to, we wouldn’t introduce. Back in the day, there was a real need for it. With Ivy and other changes to Angular over the years, we are working towards making those optional.\
 > — [Igor Minar at AngularConnect 2018](https://youtu.be/ybhy2Skb8XI?t=185)
 
 Alex Rickabaugh agrees and adds that it’s often confusing to new Angular developers.
 
-> The way `NgModule` works tends to be confusing to new Angular developers. Even if we weren’t to rip it out completely, we would change how it works and simplify things.  
+> The way `NgModule` works tends to be confusing to new Angular developers. Even if we weren’t to rip it out completely, we would change how it works and simplify things.\
 > — [Alex Rickabaugh at AngularConnect 2018](https://youtu.be/ybhy2Skb8XI?t=219)
 
 In his ng-conf 2019 talk, “Not Every App is a SPA”, [Rob Wormald discusses the proposal for a `deps` metadata option](https://youtu.be/JX5GGu_7JKc?t=714) for the component and element decorator factories. Rob asks the community for feedback on this idea so please experiment and get in touch with him to share your findings.

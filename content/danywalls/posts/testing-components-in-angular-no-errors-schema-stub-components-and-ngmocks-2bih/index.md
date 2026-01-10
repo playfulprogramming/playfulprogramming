@@ -22,14 +22,13 @@ We have an Angular application working with modules (yes, we have many companies
 
 The `ProductComponent` uses `ProductsListComponent` to show the list of products and its `kendo-viewlist` inside working but without tests. 🤪
 
-![website](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kwwo9rpe7427n6df206m.png)
+![website](./kwwo9rpe7427n6df206m.png)
 
 Your goal is to add test coverage to the `ProductsComponent`, but keep in mind its dependencies:
 
-* Use the `products.service` to get the total number of products on offer.
-    
-* The `product-list.component` which uses `kendo-listview`.
-    
+- Use the `products.service` to get the total number of products on offer.
+
+- The `product-list.component` which uses `kendo-listview`.
 
 Sounds not hard to do, so let's run the test.
 
@@ -101,7 +100,7 @@ and... tada!!! 😭 I started to get weird errors:
  NullInjectorError: R3InjectorError(DynamicTestModule)[ProductsService -> HttpClient -> HttpClient]:
 ```
 
-![Null Injector](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rqkroqzgq6artqj8hu0v.png)
+![Null Injector](./rqkroqzgq6artqj8hu0v.png)
 
 ### Why NullInjectorError ?
 
@@ -143,9 +142,7 @@ Save the changes, everything should work, let's see 😭
         2. If 'app-products-list' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
 ```
 
-
 We got another error! Why does the `products-component` complain about `app-products-list`? Well, we are making a reference to it, and Angular wants to resolve it. Or we can try to focus on our test and ignore that point 😈 by using `NO_ERRORS_SCHEMA`.
-
 
 ## NO\_ERRORS\_SCHEMA
 
@@ -181,8 +178,7 @@ fdescribe('ProductsComponent', () => {
 
 Save changes. Great! Everything is green!
 
-
-![5](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/w9gilj2migen40jxc9nd.png)
+![5](./w9gilj2migen40jxc9nd.png)
 
 ### 👀 Why I don't recommend NO\_ERRORS\_SCHEMA
 
@@ -358,7 +354,7 @@ We are going to change our test using two key utilities: `MockBuilder` and `Mock
 
 Instead of using `TestBed`, I switch to MockBuilder, passing the component to test and the required module, in my case `HttpClientTestingModule`, and finally call `.mock` to specify which component I want to mock, `ProductList`.
 
-> The .mock method supports an array like .mock(\[ProductsListComponent, AnotherComponent, ...\]);
+> The .mock method supports an array like .mock(\[ProductsListComponent, AnotherComponent, ...]);
 
 The final code looks like:
 
@@ -392,6 +388,6 @@ When we use `NO_ERRORS_SCHEMA`, it initially masks issues. Creating stub compone
 
 I hope this article help
 
-* [Angular Testing Default Tests](https://www.telerik.com/blogs/testing-angular)
-    
-* [Ng-Mocks Library](https://ng-mocks.sudo.eu/)
+- [Angular Testing Default Tests](https://www.telerik.com/blogs/testing-angular)
+
+- [Ng-Mocks Library](https://ng-mocks.sudo.eu/)

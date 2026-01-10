@@ -43,13 +43,13 @@ ai.defineTool(
 ```
 
 > **Please Note:**
-> 
+>
 > The `ai` instance is created by calling genkit function, passing in a number of configurations such as plugins for the AI Model you want to use, and the default model. For more information, checkout the Genkit documentation, [here](https://genkit.dev/).
-> 
+>
 > ```ts
 > import { gemini20Flash, googleAI } from '@genkit-ai/googleai';
 > import { genkit } from 'genkit';
-> 
+>
 > const ai = genkit({
 >   plugins: [googleAI()],
 >   model: gemini20Flash,
@@ -147,11 +147,11 @@ However, running the above can be very difficult, as you need to pass in the inp
 Genkit provides a developer UI where you can view, invoke and test your flows, prompts, tools, among others, in a very user-friendly UI, which enhances the developer experience.
 
 > To launch the Genkit Developer UI, you can do so by running the following command:
-> 
+>
 > ```bash
 > npx genkit start -- npx tsx --watch index.ts
 > ```
-> 
+>
 > In the above command, genkit is the genkit cli, and [tsx](https://tsx.is/getting-started) is an NPM package for executing TypeScript files, without needing to transpile to Javascript first. `index.ts` is the file which contains our code, and the entry file of our project.
 
 Since we have already defined our tool, running the above command, we should be able to see it in the UI and even interact with it, as shown below:

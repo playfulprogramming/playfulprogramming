@@ -13,21 +13,18 @@ socialImage: "social-image.png"
 
 Have you wondered what these numbers in the DevTools are?
 
-
 ![Core Web Vitals (CWV) introduced in Chrome
-](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/in4r78y6ns4jknc1jxt1.PNG)
+](./in4r78y6ns4jknc1jxt1.PNG)
 
 Earlier this year, Google introduced an in-browser preview of Core Web Vitals in the DevTools. This article dives deep into what Core Web Vitals (CWV) are, why they matter and how can we improve them.
 
 Core Web Vitals (CWV) are a new addition to the [performance](https://developer.chrome.com/docs/devtools/performance/overview) tab of Google Chrome. CWV are a set of metrics that Google uses to assess the overall user experience of a web page. They focus on three key aspects of performance:
 
-
 ## [Largest Contentful Paint (LCP)](https://web.dev/articles/lcp)
 
 LCP is the measure of how quickly the web page loads. A fast LCP indicates that the user can quickly start interacting with the most important content on the page.
 
-
-![Good LCP Values](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/z9kj15qkzeo3fc5h4wc0.png)
+![Good LCP Values](./z9kj15qkzeo3fc5h4wc0.png)
 
 According to the [docs](https://web.dev/articles/optimize-lcp):
 
@@ -46,8 +43,7 @@ According to the [docs](https://web.dev/articles/optimize-lcp):
 
 INP is the measure of the responsiveness of the page during interactions like clicking buttons or typing in forms. A fast INP indicates that the page is responsive and doesn’t feel sluggish or unresponsive.
 
-
-![Good INP Values](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/d1qcxqh706yho0qmuumm.png)
+![Good INP Values](./d1qcxqh706yho0qmuumm.png)
 
 According to the [docs](https://web.dev/articles/optimize-inp):
 
@@ -65,8 +61,7 @@ According to the [docs](https://web.dev/articles/optimize-inp):
 
 CLS is the measure of the visual stability of the page, assessing how often elements shift unexpectedly after the page has loaded. An example of unexpected layouts can be found [here](https://web.dev/static/articles/cls/video/web-dev-assets/layout-instability-api/layout-instability2.webm).
 
-
-![Good CLS Values](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j074bkkg2of05j1ufddd.png)
+![Good CLS Values](./j074bkkg2of05j1ufddd.png)
 
 A low CLS indicates that the page is visually stable and doesn’t suffer from unexpected layout shifts that can disrupt the user experience. According to the [docs](https://web.dev/articles/cls):
 
@@ -91,5 +86,3 @@ A low CLS indicates that the page is visually stable and doesn’t suffer from u
 ## Conclusion:
 
 By focusing on improving Core Web Vitals, you can create a better user experience, improve your website’s search engine ranking, and increase your website’s conversion rates.
-
-

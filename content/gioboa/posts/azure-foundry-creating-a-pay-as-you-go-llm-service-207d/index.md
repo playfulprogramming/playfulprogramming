@@ -54,7 +54,6 @@ By analysing the LLM's response, specifically the `usage` section of the respons
 
 You could charge based on the `total_tokens` used, or create more granular pricing based on the type of tokens (e.g., charging differently for `completion_tokens` vs. `prompt_tokens`).
 
-
 ## Custom Pricing Plans
 
 With the token usage data, you can create various pricing plans to cater to different customer needs. For example, you might offer a basic plan with a lower price per token but limited access to specific models, and a premium plan with higher per-token cost but access to more powerful LLMs.
@@ -71,4 +70,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Until next time 👋
 
 {% embed https://dev.to/gioboa %}
-

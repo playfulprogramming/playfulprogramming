@@ -13,10 +13,9 @@ order: 1
 }
 ---
 
+*Organising your stuff feels good! Cover photo by [Bynder](https://unsplash.com/@bynder) on Unsplash.*
 
-_Organising your stuff feels good! Cover photo by [Bynder](https://unsplash.com/@bynder) on Unsplash._
-
-_Original publication date: 2019-06-21._
+*Original publication date: 2019-06-21.*
 
 [SCAMs (single component Angular modules)](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2) can emulate standalone components by having an Angular module only be concerned about declaring and exporting a single component. A SCAM instructs the Angular compiler to link **declarable dependencies** (components, directives, and pipes used in a component template) to its component template by importing other SCAMs and fine-grained third-party Angular modules.
 
@@ -51,7 +50,7 @@ import { CapitalizePipe } from './capitalize.pipe';
 export class AppModule {}
 ```
 
-_View Engine: Everything declared in `AppModule`._
+*View Engine: Everything declared in `AppModule`.*
 
 Components, directives, and pipes can only be declared in a single Angular module. So let’s start by removing all declarations except the root component.
 
@@ -70,7 +69,7 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-_SCAMs: All declarations except the root component are removed._
+*SCAMs: All declarations except the root component are removed.*
 
 If we had widget module imports used by the child components such as Angular Material modules, we would also remove them.
 
@@ -120,21 +119,21 @@ export class ZippyComponent {
 export class ZippyModule {}
 ```
 
-_Figure 1. The zippy component and its SCAM._
+*Figure 1. The zippy component and its SCAM.*
 
 The zippy SCAM declares and exports the zippy component.
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/q36z0al6c0q2y86gcgqp.png) _The transitive compilation scope of the zippy SCAM._
+![](./q36z0al6c0q2y86gcgqp.png) *The transitive compilation scope of the zippy SCAM.*
 
 SCAMs for routed components and bootstrapped components do not export their component.
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/rzop9etdqnronxbujhc8.png) _The SCAM for a routed component doesn’t export its component. It also doesn’t configure routes._
+![](./rzop9etdqnronxbujhc8.png) *The SCAM for a routed component doesn’t export its component. It also doesn’t configure routes.*
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/75kjvn762m0xug9z2ost.png) _The SCAM for a bootstrapped component doesn’t export its component. It also doesn’t add bootstrapping instructions. That is a job for a root Angular module._
+![](./75kjvn762m0xug9z2ost.png) *The SCAM for a bootstrapped component doesn’t export its component. It also doesn’t add bootstrapping instructions. That is a job for a root Angular module.*
 
 SCAMs for dynamic components lists their component as an entry component instead of an exported component (only required in View Engine).
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/azlpr1o1aadszjoptx3w.png) _The SCAM for a dynamic component doesn’t export its component but it lists it as an entry component (only required in View Engine). This instructs the compiler to always include it in an application bundle._
+![](./azlpr1o1aadszjoptx3w.png) *The SCAM for a dynamic component doesn’t export its component but it lists it as an entry component (only required in View Engine). This instructs the compiler to always include it in an application bundle.*
 
 ## Creating a SCAM for the button directive
 
@@ -167,7 +166,7 @@ export class ButtonDirective {
 export class ButtonModule {}
 ```
 
-_The button directive and its SCAM._
+*The button directive and its SCAM.*
 
 Yes, we can create SCAMs for directives and pipes as well. I know the full name (single **component** Angular module) doesn’t make as much sense but let’s stick to a single concept and a single name.
 
@@ -193,7 +192,7 @@ import { ZippyModule } from './zippy.component';
 export class AppModule {}
 ```
 
-_The root module now imports the zippy SCAM._
+*The root module now imports the zippy SCAM.*
 
 We’ve added the zippy SCAM to the root module’s imports. Let’s look at the component template to see if we have other declarable dependencies.
 
@@ -214,7 +213,7 @@ export class AppComponent {
 }
 ```
 
-_The root component model and template._
+*The root component model and template.*
 
 The only component used by the root component template is the zippy component. In the projected content, we interpolate the `title` property and pipe it through the `capitalize` pipe.
 
@@ -245,7 +244,7 @@ export class CapitalizePipe implements PipeTransform {
 export class CapitalizeModule {}
 ```
 
-_The capitalize pipe and its SCAM._
+*The capitalize pipe and its SCAM.*
 
 Similar to a directive’s SCAM, a pipe’s SCAM only declares and exports a pipe. The `CapitalizeModule` declares and exports the `CapitalizePipe`. A component that uses this pipe must import its SCAM.
 
@@ -268,11 +267,11 @@ import { ZippyModule } from './zippy.component';
 export class AppModule {}
 ```
 
-_The root module now imports the capitalize SCAM._
+*The root module now imports the capitalize SCAM.*
 
 Great, the application is now refactored from having all declarations in the root module to having a single Angular module per declarable.
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/we0mb1rpod6ru6rtkl2f.png) _The transitive compilation scope of the root Angular module._
+![](./we0mb1rpod6ru6rtkl2f.png) *The transitive compilation scope of the root Angular module.*
 
 The GitHub repository [ngx-zippy-scams](https://github.com/LayZeeDK/ngx-zippy-scams) contains the resulting application. You can also see a live version in [this StackBlitz workspace](https://stackblitz.com/github/LayZeeDK/ngx-zippy-scams).
 
@@ -298,7 +297,7 @@ A SCAM’s [transitive exported scope](https://dev.to/this-is-angular/angular-re
 
 ## Standalone components
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/rk7jf56n4ubg6ov4z7xp.jpeg) _Photo by [Providence Doucet](https://unsplash.com/@providence) on Unsplash._
+![](./rk7jf56n4ubg6ov4z7xp.jpeg) *Photo by [Providence Doucet](https://unsplash.com/@providence) on Unsplash.*
 
 One of the main reasons for using SCAMs is to end up with [standalone components](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#tree-shakable-components) having [local component scopes](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#local-component-scope). With the Ivy rewrite, every component is treated as an entry component, meaning that it can be dynamically rendered, it can be routed and it can be bootstrapped.
 
@@ -310,13 +309,13 @@ For the longest time, the [Angular Devkit Build Optimizer](https://www.npmjs.com
 
 ## Testing components is easier with SCAMs
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/0c2lkrtmkjy5t3x914q9.jpeg) _Photo by [Louis Reed](https://unsplash.com/@_louisreed) on Unsplash._
+![](./0c2lkrtmkjy5t3x914q9.jpeg) *Photo by [Louis Reed](https://unsplash.com/@_louisreed) on Unsplash.*
 
 SCAMs import exactly the declarables needed to render a single component template. This makes them useful for component testing, since we won’t have to configure as many options in the testing module or use shallow rendering.
 
 ## Identifying unused imports is easier with SCAMs
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/iqgtylzfucg6mct49sql.jpeg) _Photo by [Alexander Csontala](https://unsplash.com/@csontala) on Unsplash._
+![](./iqgtylzfucg6mct49sql.jpeg) *Photo by [Alexander Csontala](https://unsplash.com/@csontala) on Unsplash.*
 
 In an Angular module with many declarations, how will we identify imports that are unused? We would have to go through the component template of every component declared by the Angular module.
 
@@ -326,17 +325,17 @@ Using SCAMs, we only have to consider a single component template to check wheth
 
 ## Code-splitting on the component level
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/1cpw9i3tttlyekptkm3g.jpeg) _Photo by [Tim Krauss](https://unsplash.com/@carsbytim) on Unsplash._
+![](./1cpw9i3tttlyekptkm3g.jpeg) *Photo by [Tim Krauss](https://unsplash.com/@carsbytim) on Unsplash.*
 
 When we scope an Angular module to a single component, we can split our code on the component level. We can do so using lazy loaded routes, the `"lazyModule"` option in `angular.json` and dynamic `import()`s. Alternatively, we can compile a component as a separate library and lazy load it, again by using a dynamic `import()`.
 
 ## The elephant in the room
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/bitdchlvv82rxe7eytsz.jpeg) _Photo by [Daniel Brubaker](https://unsplash.com/@dpmb87) on Unsplash._
+![](./bitdchlvv82rxe7eytsz.jpeg) *Photo by [Daniel Brubaker](https://unsplash.com/@dpmb87) on Unsplash.*
 
 As mentioned in the previous section, SCAMs bring some benefits to the table but not everything is golden. SCAMs mean more Angular modules since we will have one for every component, directive, and pipe in our application.
 
-You might be aware that [I’m on a mission to get rid of all Angular modules](https://youtu.be/DA3efofhpq4). SCAMs are a means to an end. They are a safe, View Engine-compatible migration path towards standalone components. While I can give you no promise that [the proposed component API](https://www.youtube.com/watch?v=JX5GGu_7JKc&feature=youtu.be&t=714) will become part of Angular, we should all give our feedback to the Angular team about whether this is useful to our applications and use cases.
+You might be aware that [I’m on a mission to get rid of all Angular modules](https://youtu.be/DA3efofhpq4). SCAMs are a means to an end. They are a safe, View Engine-compatible migration path towards standalone components. While I can give you no promise that [the proposed component API](https://www.youtube.com/watch?v=JX5GGu_7JKc\&feature=youtu.be\&t=714) will become part of Angular, we should all give our feedback to the Angular team about whether this is useful to our applications and use cases.
 
 ## Summary
 

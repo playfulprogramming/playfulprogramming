@@ -13,14 +13,15 @@ order: 1
 ---
 
 Hi guy,
-before continuing with the operators, today I want to explain the _Marble Diagrams_.
+before continuing with the operators, today I want to explain the *Marble Diagrams*.
 The Marble Diagrams is a timeline where you can illustrate the state of your observable during its execution.
 The actors in this diagram are timeline and values(circle).
 The timeline is used to represent the time during the execution of the observable though the circles indicate the values emitted.
 But let me show you an example:
-![map marble diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kcktws04ceojvqfmwp24.jpg)
+![map marble diagram](./kcktws04ceojvqfmwp24.jpg)
 
 This example is based on this code
+
 ```ts
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
@@ -41,6 +42,7 @@ source$.pipe(map(value => value * 2)).subscribe({
   next: console.log,
 });
 ```
+
 As you can notice, in the diagram there are two timelines, one for the source and the other for the map operator.
 In the first timeline you can see when the source emits the value, in the second timeline you can see the result of the transformation after the execution of the map operator.
 
@@ -78,7 +80,8 @@ source$
     next: console.log,
   });
 ```
-![Marble Diagram Map+Delay](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6t41ih83gfqy7w8x3fmt.jpg)
+
+![Marble Diagram Map+Delay](./6t41ih83gfqy7w8x3fmt.jpg)
 
 In this example you can see how the observable in the first operator doubles the value and then it waits 1.5 seconds before emitting the result.
 To represent this case the marble diagram has 3 timelines, one with the source, one with the map operator and one with the delay operator. Every timeline indicates the value during the execution of its operator so you can see the behaviour of this implementation.

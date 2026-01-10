@@ -11,8 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
-
-> _"Can we upgrade to the latest Node.js version?"_
+> *"Can we upgrade to the latest Node.js version?"*
 
 A few months ago, I did not imagine that this seemingly innocent question from a client would bring me so **deep** into the world of single executable applications, a.k.a. SEA, a.k.a. executable binaries.
 
@@ -79,7 +78,7 @@ As a longtime Node.js developer, I was curious about how this feature was implem
 
 ### The Anatomy of a SEA
 
-![SEA Composition](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8uxdc8pfznc8zmjcfoas.png)
+![SEA Composition](./8uxdc8pfznc8zmjcfoas.png)
 
 A Single Executable Application builds in three distinct stages:
 
@@ -217,7 +216,7 @@ std::string_view FindSingleExecutableBlob() {
 One important security feature is read-only asset access.
 The implementation ensures assets remain read-only through careful API design:
 
-1. Assets are stored as immutable string_views
+1. Assets are stored as immutable string\_views
 2. The ArrayBuffer is created with a no-op deleter
 3. No API exists for modifying assets once bundled
 
@@ -275,7 +274,7 @@ MaybeLocal<Value> LoadSingleExecutableApplication(
 
 ## Practical Implementation
 
-![Practice](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzJzenR1ODdlbGo3azFnc3VuM2kzdzhwaTFmZXRneTZmM3ozMWNlcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8vkEKXvnXkyCZx8w6b/giphy.gif)
+![Practice](./giphy.gif)
 
 I built a file management service using Fastify to demonstrate SEA capabilities in the real world. The complete source code is available in the [Node-SEA Demo repository](https://github.com/getlarge/node-sea-demo).
 
@@ -365,7 +364,7 @@ const safePathResolve = (userPath: string, baseDir: string): string | null => {
 
 ### Build Process
 
-![Build process](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pe3ks4tqxixdqrbcmi3v.png)
+![Build process](./pe3ks4tqxixdqrbcmi3v.png)
 
 The first step in creating an SEA is properly bundling your JavaScript. I explored several bundlers and found ESBuild offers the best balance of speed and ease of use.
 
@@ -529,11 +528,11 @@ npx postject dist/app/node.exe NODE_SEA_BLOB dist/app/demo.blob ^
 
 As someone who's built countless Docker images for Node.js apps, I couldn't wait to see how SEA could optimize container size.
 
-![Size Matters](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWs2YzE1YWk3bjljZDQ0MmNkbWw2YzFsZmhpYnJqdmc2ajMxajJjZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d69q0iELHwwcqR2o2t/giphy.gif)
+![Size Matters](./giphy-1.gif)
 
 I experimented with three different approaches:
 
-![Docker images comparison chart](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/2atjvj6moz1aotls41kv.png)
+![Docker images comparison chart](./2atjvj6moz1aotls41kv.png)
 
 1. **Full Image (235MB)**
 
@@ -654,12 +653,12 @@ I ran some benchmarks to see how the application performs when:
 
 Here's what I found:
 
-![SEA performance benchmark chart](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/slm4p0oifv4dcur69rs4.png)
+![SEA performance benchmark chart](./slm4p0oifv4dcur69rs4.png)
 
 The results surprised me:
 
-- Code cache improved startup time by ~7%
-- Blob size increased by only ~7% with code cache enabled
+- Code cache improved startup time by \~7%
+- Blob size increased by only \~7% with code cache enabled
 - Cold starts showed significant variance (typical for any Node.js app)
 - Hot starts were consistently faster with code cache
 
@@ -679,9 +678,9 @@ The performance improvement is most noticeable for:
 
 One question that frequently comes up when discussing SEA is:
 
-> _"Are our source code and proprietary algorithms safe inside the executable?"_
+> *"Are our source code and proprietary algorithms safe inside the executable?"*
 
-![You have my attention](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHF4ODB1a2VqNjExOXl6anUybmYxZ3hmaHdoZmY3eGNjN3BwaGptbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bxqhC4krjPN04/giphy.gif)
+![You have my attention](./giphy-2.gif)
 
 While SEA bundles your code inside the Node.js binary, it's important to understand that **this is not true obfuscation**. Let me demonstrate why.
 
@@ -730,7 +729,7 @@ strings extracted.blob | grep -A 10 "function" | less
 strings extracted.blob | grep -A 10 "assets" | less
 ```
 
-![Code extraction screenshot](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5upowf3scvel7f0ow5sy.png)
+![Code extraction screenshot](./5upowf3scvel7f0ow5sy.png)
 
 > Amazing, right?
 

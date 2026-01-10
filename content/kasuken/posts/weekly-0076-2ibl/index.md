@@ -27,7 +27,7 @@ The post, titled "Navigating Tech Debt in Early-Stage Startups: The Double-Edged
 
 I'm excited to share these insights with the tech community and hope it sparks meaningful discussions about sustainable development practices in the startup ecosystem.
 
-![](https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fpqf980l1se7wb0pkevzn.png)
+![](./https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fpqf980l1se7wb0pkevzn.png)
 
 I've been grappling with a complex issue regarding our participation in the Microsoft for Startups program. Despite meeting all the necessary criteria for inclusion, we find ourselves inexplicably excluded from the program. This situation is particularly perplexing given our confidence in our eligibility.
 
@@ -51,7 +51,7 @@ Dedicated the morning to developing a comprehensive SEO strategy for the Brandpl
 
 In the afternoon, I took some time to reflect on my professional journey and share my experiences with the tech community. This resulted in the publication of a detailed and personal blog post chronicling my 11-year tenure as a Microsoft MVP. The article not only highlights the milestones of this significant achievement but also delves into the challenges faced, lessons learned, and the immense gratitude I feel for the opportunities this role has provided. This piece serves as both a celebration of my career and an inspiration for aspiring tech professionals.
 
-![](https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fgsaejne4fbl2c3o27jxg.png)
+![](./https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fgsaejne4fbl2c3o27jxg.png)
 
 https://dev.to/this-is-learning/celebrating-11-years-as-a-microsoft-mvp-a-journey-of-perseverance-and-gratitude-24dg
 
@@ -59,7 +59,7 @@ For our new secret side project, we made significant progress in establishing th
 
 Additionally, we defined the nomenclature for our various environments, including those designated for our initial customers and our future production setup. This strategic planning allows for a smooth transition between development stages and provides a clear roadmap for scaling our infrastructure as we grow.
 
-Before diving into these crucial decisions, I took a pivotal step by activating our Azure subscription benefit. This valuable resource became available to us through our participation in the Microsoft Startups Founders Hub program. Leveraging this benefit not only provides us with powerful cloud computing capabilities but also signifies a milestone in our journey as a startup recognized by Microsoft. This activation sets the stage for robust and scalable development of our project moving forward. 
+Before diving into these crucial decisions, I took a pivotal step by activating our Azure subscription benefit. This valuable resource became available to us through our participation in the Microsoft Startups Founders Hub program. Leveraging this benefit not only provides us with powerful cloud computing capabilities but also signifies a milestone in our journey as a startup recognized by Microsoft. This activation sets the stage for robust and scalable development of our project moving forward.
 
 ### Friday
 
@@ -71,6 +71,6 @@ Later in the day, I shifted gears to focus on Brandplane, participating in our S
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

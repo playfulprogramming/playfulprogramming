@@ -15,7 +15,7 @@ A couple of years ago in the [The Real Cost of UI Components](https://betterprog
 
 And the answer was: it depends. The Virtual DOM library I tested, [ivi](https://github.com/localvoid/ivi), had no issues handling more components. But [Lit](https://lit.dev/) and [Svelte](https://svelte.dev/) were dramatically worse. They scaled back to almost [React](https://reactjs.org) levels of performance as I broke them down to more components. All their non-VDOM performance benefits basically disappeared.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tse1znblcj62smmhyroe.png)
+![Alt Text](./tse1znblcj62smmhyroe.png)
 
 > The versions scale from "0" having the least number of components, through "1" which has a component per row, to "2" where each `<td>` is wrapped in a component.
 
@@ -29,7 +29,7 @@ In their defense, 50,000 components on a page is a bit much. But this still illu
 
 But I've come to realize there is much more to this than performance.
 
-------------------
+---
 
 # Your Framework is Pure Overhead
 
@@ -40,6 +40,7 @@ When one says the [Virtual DOM is pure overhead](https://svelte.dev/blog/virtual
 Of course, as shown above, there are Virtual DOM libraries faster than Svelte, so what gives?
 
 Consider this example from the article:
+
 ```js
 function MoreRealisticComponent(props) {
   const [selected, setSelected] = useState(null);
@@ -61,6 +62,7 @@ function MoreRealisticComponent(props) {
   );
 }
 ```
+
 The criticism is that on any state update a VDOM is forced to re-render everything. Only change your selection, but you still recreate the whole list again. However, most performant VDOM libraries can recognize that most of these VDOM nodes never change and cache them rather than recreate them each render.
 
 But more importantly, there is a solution to isolate updates that every React developer knows. No, it's not `useMemo`. Create a child component.
@@ -69,15 +71,15 @@ For the cost of almost nothing, a VDOM library can stop update propagation by wr
 
 Speaking of `useMemo` some recent attention brought to the fact that [it probably shouldn't the be the first thing you reach for](https://overreacted.io/before-you-memo/). However, reactive libraries tend to memoize by default.
 
-In React or any other VDOM library when you want to break out of the update cycle structurally, you split out components and lift state. To improve initial render performance with a library like Svelte, you do the opposite and remove as many intermediate components as possible. 
+In React or any other VDOM library when you want to break out of the update cycle structurally, you split out components and lift state. To improve initial render performance with a library like Svelte, you do the opposite and remove as many intermediate components as possible.
 
 Why? Because each component is a separate reactive scope. Often this means more than just creating the reactive scope. There is overhead to synchronizing updates between them. This is all corroborated by the benchmark at the beginning of the article.
 
-While we were busy focusing on how VDOM libraries do all this potentially unnecessary work, we weren't paying attention to our reactive libraries doing all this unnecessary memoization. 
+While we were busy focusing on how VDOM libraries do all this potentially unnecessary work, we weren't paying attention to our reactive libraries doing all this unnecessary memoization.
 
 *So yes, your Reactive library is pure overhead too.*
 
-----------------
+---
 
 # Component DX > Performance
 
@@ -104,6 +106,7 @@ export function Chart({ data, enabled, headerText }) {
   );
 }
 ```
+
 > How many different places are we doing additional checks due to `props.enabled`? Can you find all 4? This isn't React specific. Equivalent code in Svelte(and most frameworks) touches 3 locations.
 
 Conversely breaking things up into too many components leads to heavy coupling. Too many props to pass. This is often referred to as [prop drilling](https://kentcdodds.com/blog/prop-drilling). The indirection can make changing the shape of that state surprisingly complicated. There is potential to continue to pass down props no longer used, to pass down too few that get swallowed by default props, and for tracing to be further obscured by renaming.
@@ -130,17 +133,17 @@ function SwitchButton({onToggle}) {
 }
 ```
 
-------------
+---
 
 # Vanishing Components
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jpb41pm3auokrqf8fdq0.jpg)
+![Alt Text](./jpb41pm3auokrqf8fdq0.jpg)
 
 The future is in primitives. Primitives that are smaller than Components. Things like you find today in reactive systems. Things that might look like what you see in React Hooks and Svelte. With one exception. They are not tied to the component that creates them.
 
 The power of fine-grained reactivity and the reason for [Solid](https://github.com/solidui/solid)'s unmatched performance are not fine-grained updates.  Too expensive at creation time. The real potential is that our updates are not tied to our components. And that goes beyond one implementation of the idea.
 
-Between reactive models and these hooks, we have converged a language for change: 
+Between reactive models and these hooks, we have converged a language for change:
 
 `State` -> `Memo` -> `Effect`
 
@@ -150,7 +153,7 @@ And typical Single File Components(SFCs) are just the opposite extreme where we 
 
 Every time we write a component there is this mental overhead on how we should structure our code. The choice doesn't feel our own. But it doesn't have to be that way.
 
-------------
+---
 
 # The Future is Component-less
 
@@ -161,7 +164,3 @@ We don't need separation to accomplish this either. It is unnecessary to hoist a
 Ultimately, if a compiler could look beyond the current file it was processing to use language to understand your whole app, think of the doors that would open. Our logic and control flows could solely define the boundaries. That's not just unlocking levels of performance, but freeing ourselves of the mental burden of ever worrying about this again.
 
 Wouldn't it be amazing to recapture the pure declarative nature of something like HTML in authoring our sites and applications? The unadulterated cut and paste bliss? I'm not certain where this goes, but it starts here.
-
-
-
-

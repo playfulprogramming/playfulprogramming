@@ -23,11 +23,11 @@ Regardless of how we optimize for server rendering, hydration hangs over us. Tha
 
 Many have worked on the problem, contributing to various projects, all hitting different tradeoffs. Through them, we've seen the pieces of the puzzle come together. To that end, we are nearing a point where we can consider Hydration a solved problem.
 
--------------
+---
 
 ## Finding Resumability
 
-It was March 2021. We'd been staring at how to solve async data fetching for the next version of [Marko](https://www.markojs.com) for months but had decided to move on. We had already implemented most of our cross template analysis, a mechanism to generate metadata for each module, that any parent could use to understand exactly how what is passed to it would be used. Our handcrafted benchmarks showed the approach was very performant. It was time to just build the compilation. 
+It was March 2021. We'd been staring at how to solve async data fetching for the next version of [Marko](https://www.markojs.com) for months but had decided to move on. We had already implemented most of our cross template analysis, a mechanism to generate metadata for each module, that any parent could use to understand exactly how what is passed to it would be used. Our handcrafted benchmarks showed the approach was very performant. It was time to just build the compilation.
 
 But Michael Rawlings(@mlrawlings) couldn't get past this sinking doubt that we were doing the wrong thing. Not wanting to rely on caches to prevent unnecessary data fetching during hydration he proposed we just not. Not re-run any components. Not execute any reactive expressions we already ran on the server. But doing that was *not* simple.
 
@@ -39,19 +39,19 @@ As long as this scope is globally available, then we can break apart our compone
 
 > I wrote about this journey in more detail in {% link https://dev.to/ryansolid/what-has-the-marko-team-been-doing-all-these-years-1cf6 %}
 
-As it turns out we weren't the only ones to arrive at a similar conclusion. Within a couple of months, Misko Hevery(@mhevery), creator of Angular, revealed this approach to the world in his framework [Qwik](https://github.com/BuilderIO/qwik). And he'd done something better than us. He'd given the idea a name. 
+As it turns out we weren't the only ones to arrive at a similar conclusion. Within a couple of months, Misko Hevery(@mhevery), creator of Angular, revealed this approach to the world in his framework [Qwik](https://github.com/BuilderIO/qwik). And he'd done something better than us. He'd given the idea a name.
 
 Resumability.
 
--------------------
+---
 
 ## Eliminating Hydration?
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wdwhz081yjl17mtszscm.png)
+![Image description](./wdwhz081yjl17mtszscm.png)
 
 Fast forward to March 6th, 2022. Both projects have been working in this direction for about a year now. I was tasked that week with adding the `<effect>` tag to Marko 6. Yes, everyone's favorite hook.
 
-Effects are fun as they live in userland and they have this quirky behavior in that they only run in the browser, as they are your opportunity to interact with the DOM. And you tend to want them to run after everything else which means inevitably some secondary queue that needs to run. 
+Effects are fun as they live in userland and they have this quirky behavior in that they only run in the browser, as they are your opportunity to interact with the DOM. And you tend to want them to run after everything else which means inevitably some secondary queue that needs to run.
 
 > You could use JSDOM on the server but I'd recommend against that. Severely slows down server rendering speed to be working with an emulated DOM when you could just be using strings ([How We Wrote the Fastest JavaScript UI Framework, Again](https://levelup.gitconnected.com/how-we-wrote-the-fastest-javascript-ui-framework-again-db097ddd99b6)).
 
@@ -64,17 +64,17 @@ We have event registration but it didn't do much as the events are all delegated
 While he and Michael continued working through the trade-offs of what it would mean for the compilation, I moved on to doing some performance benchmarks for various reactive queuing mechanisms where we'd noticed a bottleneck.
 
 Misko sends me this message:
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pk0il8wd15yugq17b0pc.png)
+![Image description](./pk0il8wd15yugq17b0pc.png)
 
 The timing was impeccable.
 
 And he's completely right. Some people might want to argue the details. And it is justified. But it is more or less splitting hairs on definitions. We'd all been staring at these problems for a year now and somehow had completely missed the headline:
 
--------------------
+---
 
 ## Hydration is a Solved Problem
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tx6b2ctbw6viu0ds0lqt.jpg)
+![Image description](./tx6b2ctbw6viu0ds0lqt.jpg)
 
 There are details here that need some ironing out. But it has gotten to a point where there is a clear path to only running browser-only code in the browser at hydration time. Nothing beyond a simple bootstrap to load global event handlers needs to run. No re-running of components. No component-specific code is required to be executed otherwise. Just "resuming" where the server left off.
 
@@ -84,13 +84,12 @@ Resumability is also independent of when we load the code in the browser. Qwik h
 
 So there are going to be differences between different solutions. And details to reconcile. But the bottom line is we've seen 2 approaches to this now, and there will be more in the future.
 
-This is just the starting line. With hydration potentially a thing of the past, the next generation of web development starts now. 
+This is just the starting line. With hydration potentially a thing of the past, the next generation of web development starts now.
 
------------------
+---
 
 If you want to see what it's about today check out [Qwik](https://github.com/BuilderIO/qwik). It uses JSX and reactive primitives to make developing performant apps easy. Here is my recent interview with Misko:
 {% youtube lY6e7Hw4uVo %}
 
 If you want to see what I've been working on, you will need to wait a bit longer. We are looking forward to releasing our first version this summer when [Marko](https://www.markojs.com) 6 goes into beta.
 {% youtube Y22xf8EjioE %}
-

@@ -21,7 +21,7 @@ Well, the answer is pretty simple, you are ready.
 
 Let me show you how your struggles in approaching an Open Source project can actually be converted into pull requests.
 
-_This article is extracted from the script of this [video on YouTube](https://youtu.be/kIsBsFPAZQk)._
+*This article is extracted from the script of this [video on YouTube](https://youtu.be/kIsBsFPAZQk).*
 
 ### Being helpful
 
@@ -75,7 +75,7 @@ Thanks for reading this post, I hope you found it interesting!
 
 Do you like my content? You might consider subscribing to my YouTube channel!
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

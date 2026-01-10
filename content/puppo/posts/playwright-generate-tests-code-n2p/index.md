@@ -13,13 +13,12 @@ order: 1
 }
 ---
 
-
-Hi there,  
+Hi there,\
 today you will learn how to generate the code for your tests.
 
-First of all, you have to run the application, so type in your terminal `npm run dev` , and you will have your application up and running at the address `http://localhost:5173`.  
-Now you have to run the Playwright code generator. To do that, you have to open another tab in your terminal and type `npx playwright codegen`.  
-This command opens in your display a new browser and the Playwright inspector.  
+First of all, you have to run the application, so type in your terminal `npm run dev` , and you will have your application up and running at the address `http://localhost:5173`.\
+Now you have to run the Playwright code generator. To do that, you have to open another tab in your terminal and type `npx playwright codegen`.\
+This command opens in your display a new browser and the Playwright inspector.\
 Now, the browser shows an empty tab, and the Playwright inspector is on a new page, ready to listen to what you will do in the browser. If you go into the browser's address bar and type `http://localhost:5173,` you can notice that something has changed in the Playwright Inspector. The inspector noted the page change and added this step to the test body. Now, you can click on one square and simulate a game between two players, you can notice that the inspector records all these steps and creates the body of the test for you. The result of these actions is this
 
 ```ts
@@ -46,7 +45,7 @@ await expect(winnerParagraph).toContainText("X");
 
 ```
 
-So the code tries to get the paragraph with the winner text and checks if the value contains the `X` value.  
+So the code tries to get the paragraph with the winner text and checks if the value contains the `X` value.\
 The final result is this
 
 ```ts
@@ -68,7 +67,7 @@ test('should win the player "X"', async ({ page }) => {
 
 Now, you can run the test and check the result which should be green.
 
-Ok, I think that's all from the code generation.  
+Ok, I think that's all from the code generation.\
 In this article, you learnt how to record your steps and convert them to code for your tests. Please, as I said before, use this tool responsibly and check the generated code every time.
 
 That's it, folk.

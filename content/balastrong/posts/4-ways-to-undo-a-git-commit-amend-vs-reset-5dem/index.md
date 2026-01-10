@@ -97,7 +97,7 @@ The full command we need this time is `git reset --hard HEAD~1` and it will dele
 
 If you run `git reset --hard HEAD~1` and you're not happy with the result, you can still restore the changes.
 
-As we've just seen, `git reset` is our time travel machine, but we need to tell it _where_ to go. In this case we entirely removed a commit and there's no trace in the git history, so we cannot say `HEAD~number` anymore.
+As we've just seen, `git reset` is our time travel machine, but we need to tell it *where* to go. In this case we entirely removed a commit and there's no trace in the git history, so we cannot say `HEAD~number` anymore.
 
 Luckily, git keeps a log of all the commits that have been removed. You can see this log by running `git reflog`.
 
@@ -133,7 +133,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

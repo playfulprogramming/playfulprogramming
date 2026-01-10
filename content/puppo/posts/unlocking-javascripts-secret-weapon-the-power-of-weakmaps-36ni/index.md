@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 ## Introduction
 
 JavaScript is a powerful and versatile programming language that has evolved over the years, introducing new features and improvements to enhance its performance and capabilities. One such feature is the WeakMap, a collection of key-value pairs that offers unique benefits regarding memory management and data privacy. This article will delve into the world of WeakMap in JavaScript, exploring their creation, usage, limitations, and real-world applications.
@@ -76,7 +75,7 @@ WeakMap can be utilized in various real-world scenarios:
 
 3. Large Applications: WeakMap can optimize memory usage in large applications by automatically releasing unreferenced data, improving performance and reducing memory leaks.
 
-_To find out more about WeakMap don't miss out on my Youtube video on my_ [_Youtube channel_](https://www.youtube.com/@puppo_92)_._
+*To find out more about WeakMap don't miss out on my Youtube video on my* [*Youtube channel*](https://www.youtube.com/@puppo_92)*.*
 
 {% embed https://youtu.be/8Z4ZYDSxN3A %}
 
@@ -84,6 +83,6 @@ _To find out more about WeakMap don't miss out on my Youtube video on my_ [_Yout
 
 In conclusion, WeakMap offers powerful features and applications for efficient memory management and data privacy in JavaScript. While they have some limitations, their benefits often outweigh these drawbacks, making them a valuable addition to a JavaScript developer's toolkit. As the language continues to evolve, future developments will likely address these limitations and further improve the usefulness of WeakMap in JavaScript applications.
 
-_The code of this article is available_ [_here_](https://github.com/Puppo/javascript-you-dont-know/tree/02-weakmaps)
+*The code of this article is available* [*here*](https://github.com/Puppo/javascript-you-dont-know/tree/02-weakmaps)
 
 {% embed https://dev.to/puppo %}

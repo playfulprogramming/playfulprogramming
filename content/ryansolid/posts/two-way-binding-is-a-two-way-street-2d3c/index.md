@@ -16,7 +16,7 @@ In some circles, two-way binding is seen as the scourge of modern frontends, whi
 
 Today, I want to look at this topic so we can better understand the implications of it, and why some (including myself) feel so strongly about it.
 
-----------------
+---
 
 ## What is Two-way Binding
 
@@ -29,7 +29,9 @@ let searchTerm = createState("")
 
 <input type="text" value={searchTerm} >
 ```
+
 Effectively the above would be equivalent to:
+
 ```js
 let searchTerm = createState("")
 
@@ -39,10 +41,11 @@ let searchTerm = createState("")
 
 As you can see it reduces a bunch of boilerplate for a reasonably common thing. So isn't that a good thing?
 
---------------
+---
+
 ## Appreciating the Problem
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ftxeboiqixclum7trknp.png)
+![Image description](./ftxeboiqixclum7trknp.png)
 
 Data binding goes back before it made its way into JavaScript frameworks, which is why it showed up in the first declarative frameworks. Angular.js and Knockout.js had it right from 2010. This was a super powerful tool to have updates flow through your application and keep everything in sync.
 
@@ -60,12 +63,13 @@ One can always opt out of two-way binding if they need to intercept the change e
 
 Ultimately, the thing most put into question is ownership. Who is responsible for updating this state? This problem is rarely an issue when applied locally. When we are binding to a native element in our component we can very clearly see the data relationship. But what about when `<input>` becomes `<Input>`, and when that `<Input>` becomes part of `<FeedbackForm>` which is part of `<SupportPanel>`?
 
-----------------
+---
+
 ## Are there Solutions?
 
 As it turns out there are a few ways to address the concerns. While no one would likely have an issue if all two-way binding was local, even solutions that offer it [warn you of the dangers of "over-using" it](https://learn.svelte.dev/tutorial/component-bindings). Two-way binding can turn your code into an unpredictable mess, and that is not something you want to experience firsthand.
 
----------
+---
 
 ### 1. Explicit Opt-In
 
@@ -96,9 +100,9 @@ export let value = '';
 <input bind:value={value} />
 <!-- direct -->
 <input value={value} on:input={e => value = e.target.value} />
-``` 
+```
 
---------------
+---
 
 ### 2. Internal Read/Write Segregation
 
@@ -129,9 +133,9 @@ const emit = defineEmits(['update:modelValue'])
     @input="emit('update:modelValue', $event.target.value)"
   />
 </template>
-``` 
+```
 
---------------
+---
 
 ### 3. Read/Write Segregation Everywhere
 
@@ -159,10 +163,11 @@ Albeit, this is a bigger buy-in because if your base primitives do not have expl
 
 {%link https://dev.to/this-is-learning/thinking-locally-with-signals-3b7h %}
 
-----------------------------
+---
+
 ## Yes or No?
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5sbmvha3462ysajxuwev.png)
+![Image description](./5sbmvha3462ysajxuwev.png)
 
 It is always a question of whether we feel confident it is safe enough and whether it is worth the effort to support. An ergonomics consideration around explicit vs implicit relationships. Do we force that boilerplate on those who know what they are doing or do we design in a way that trims it out of the reasonable options?
 
@@ -170,9 +175,9 @@ For me, and with Solid, I'm very much on the "no" side. But I've also worked on 
 
 There are a few things to look out for from a design standpoint as potential red flags for two-way binding solutions.
 
-* Is two-way binding implicit?
-* Are the primitives mutable and encourage passing the ability to read/write even when not data-binding?
-* Does it encourage writing to props in a system with deep reactivity?
+- Is two-way binding implicit?
+- Are the primitives mutable and encourage passing the ability to read/write even when not data-binding?
+- Does it encourage writing to props in a system with deep reactivity?
 
 But then again when was anyone ever able to stop a developer from doing what they want?
 

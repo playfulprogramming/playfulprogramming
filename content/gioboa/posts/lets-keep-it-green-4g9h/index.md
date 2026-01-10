@@ -11,7 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
-Working as a consultant I often carry out refactoring activities. I want to talk about that in this article. 
+Working as a consultant I often carry out refactoring activities. I want to talk about that in this article.
 
 ## Refactoring
 
@@ -29,7 +29,7 @@ If the code base we are going to refactor does not contain tests, the first thin
 I take as an example a case that recently happened to me. The project I was working on had bundle size problems and among other things, I decided to replace the [Moment.js](https://github.com/moment/moment/#project-status) library because is legacy and not very suitable for tree shaking.
 
 > In computing, tree shaking is a dead code elimination technique that is applied when optimizing code.
-[wikipedia](https://en.wikipedia.org/wiki/Tree_shaking)
+> [wikipedia](https://en.wikipedia.org/wiki/Tree_shaking)
 
 Here are the refactoring steps:
 
@@ -38,12 +38,12 @@ Here are the refactoring steps:
 I centralized all the calls to the library in a single file to have everything under control and avoid having to touch too many parts of the application.
 
 > 💡 Collect third-party libraries into specific files is always a good practice
- 
-#### Step 2 
+
+#### Step 2
 
 I went to cover the methods that communicate with the external library with the tests, this allowed me to guarantee, even after my refactoring, the same behavior.
 
-#### Step 3 
+#### Step 3
 
 With a working test suite I replaced Moment.js with [Day.js](https://day.js.org/), a very similar library, but with the advantage of being modular and therefore suitable for the tree shaking operation.
 
@@ -53,11 +53,11 @@ I analysed the bundle with [rollup-plugin-visualizer](https://www.npmjs.com/pack
 
 Before (Moment.js)
 
-![Moment.js](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yiilmzbdpydzjjkth50h.png)
+![Moment.js](./yiilmzbdpydzjjkth50h.png)
 
 After (Day.js)
 
-![Day.js](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8rlontfziz6axtar8e96.png)
+![Day.js](./8rlontfziz6axtar8e96.png)
 
 ---
 

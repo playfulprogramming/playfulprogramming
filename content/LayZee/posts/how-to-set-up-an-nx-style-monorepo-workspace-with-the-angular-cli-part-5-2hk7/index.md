@@ -13,10 +13,9 @@ order: 1
 }
 ---
 
+*Original cover photo by [Edgar Chaparro](https://unsplash.com/photos/r6mBXuHnxBk) on Unsplash.*
 
-_Original cover photo by [Edgar Chaparro](https://unsplash.com/photos/r6mBXuHnxBk) on Unsplash._
-
-_Original publication date: 2020-05-22._
+*Original publication date: 2020-05-22.*
 
 > This tutorial is part of the Angular Architectural Patterns series.
 
@@ -522,7 +521,7 @@ libs/shared/util-formatting
 
 Start the desktop check-in application by running the `ng run check-in-desktop:serve` command. It should look like the following screenshot.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1zhjq45n1px7ohb6spo7.png)
+![](./1zhjq45n1px7ohb6spo7.png)
 
 <figcaption>The check-in desktop application with the NgRx Store DevTools open.</figcaption>
 

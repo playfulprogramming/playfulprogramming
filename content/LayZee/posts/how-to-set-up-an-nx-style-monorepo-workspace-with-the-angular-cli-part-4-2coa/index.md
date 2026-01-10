@@ -13,10 +13,9 @@ order: 1
 }
 ---
 
+*Original cover photo by [Edgar Chaparro](https://unsplash.com/photos/r6mBXuHnxBk) on Unsplash.*
 
-_Original cover photo by [Edgar Chaparro](https://unsplash.com/photos/r6mBXuHnxBk) on Unsplash._
-
-_Original publication date: 2020-05-19._
+*Original publication date: 2020-05-19.*
 
 > This tutorial is part of the Angular Architectural Patterns series.
 
@@ -437,7 +436,7 @@ nrwl-airlines
 
 Start the mobile check-in application by running the `ng run check-in-mobile:serve` command.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8moerutajsyc3plfyvmp.png)
+![](./8moerutajsyc3plfyvmp.png)
 
 <figcaption>The mobile check-in application with the NgRx Store Devtools open.</figcaption>
 

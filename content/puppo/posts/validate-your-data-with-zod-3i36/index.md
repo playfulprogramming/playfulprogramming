@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 ## Preface
 
 Many developers don't know very well which is the line between Javascript and Typescript. Probably, many of them waste much time understanding that if they write an interface like that:
@@ -72,11 +71,11 @@ const user = await fetch("http://localhost:3001/users/1")
 
 if you look at this code probably you won't notice anything strange but if you take a look at this screen
 
-![Code Screenshot with Result Type](https://cdn.hashnode.com/res/hashnode/image/upload/v1658843007602/tIadJYVXj.png)
+![Code Screenshot with Result Type](./tIadJYVXj.png)
 
 you can see how typescript is able to detect the user's type, and this is possible thanks to Zod. And to leave you another proof, if I add the type to the user variable, typescript doesn't give errors because the type is the same.
 
-![Code Screenshot with Result Type](https://cdn.hashnode.com/res/hashnode/image/upload/v1658851910809/v6oUqV9gJ.png)
+![Code Screenshot with Result Type](./v6oUqV9gJ.png)
 
 Zod exposes to us two different ways to validate our objects:
 
@@ -112,7 +111,7 @@ export function get<Schema extends ZodType>(
 
 and it can be used like this
 
-![get method in action](https://cdn.hashnode.com/res/hashnode/image/upload/v1659102474417/uL_NEOGLd.png)
+![get method in action](./uL_NEOGLd.png)
 
 As you can see, now using the get method we can do an HTTP get and check if the result is as expected. This is very important in our applications because by doing that we protect our application from strange mistakes and we are confident that our codebase after this layer receives the data exactly as we expected at build time. It goes without saying that if there is a bug after this layer, this is a problem of our code base and not a bug due to incongruous data.
 
@@ -120,4 +119,4 @@ Now using this pattern we can keep alive our typescript definitions at runtime t
 
 I know this layer can be considered too much sometimes, but I think every important application must have it. I want to leave you with this simple consideration, a time ago, a backend developer said to me: "Don't trust the Frontend" but now, as a Frontend developer I say to you "Don't trust the Backend either".
 
-_The code of that article can be found [here](https://github.com/Puppo/zod-getting-started)_
+*The code of that article can be found [here](https://github.com/Puppo/zod-getting-started)*

@@ -24,7 +24,7 @@ Each of these fonts has three variable axes: weight, width, and slant. This mean
 
 But the best part of Monaspace is that you can use different fonts for different parts of your code, to create more meaning and hierarchy. For example, you can use NeNeon for keywords, ArArgon for variables, XeXenon for comments, RnRadon for strings, and KrKrypton for numbers. You can also use different weights, widths, and slants to emphasize or de-emphasize certain elements. The possibilities are endless!
 
-![A cat writing code](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jqgzlbc9vjlijbuma77s.jpg)
+![A cat writing code](./jqgzlbc9vjlijbuma77s.jpg)
 
 Monaspace makes the code more colorful, diverse, and interesting, without sacrificing clarity or consistency. It also supports programming ligatures, which are special glyphs that combine characters to create new symbols. For example, the arrow function `=>` becomes `⇒`, the not equal operator `!=` becomes `≠`, and the logical and operator `&&` becomes `∧`. This helps to reduce visual clutter and improve readability.
 
@@ -40,6 +40,6 @@ Stay curious, stay humble, and keep learning, my friends! 🌟
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

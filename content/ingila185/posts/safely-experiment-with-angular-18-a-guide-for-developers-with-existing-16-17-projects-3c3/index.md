@@ -14,9 +14,9 @@ socialImage: "social-image.png"
 
 I was recently working on an Angular 17 project and felt the itch to explore the exciting new features of Angular 18. However, I wanted to do this in a way that wouldn't affect my existing projects that were already in production or QA phases. This presented a bit of a challenge:
 
-* **Global Angular 17:** I had Angular CLI version 17 installed globally.
-* **Angular 18 Requirement:** Node.js version 18.19 or above was a prerequisite for Angular 18.
-* **Preserving Existing Projects:** I needed to keep my existing Angular 17 projects untouched.
+- **Global Angular 17:** I had Angular CLI version 17 installed globally.
+- **Angular 18 Requirement:** Node.js version 18.19 or above was a prerequisite for Angular 18.
+- **Preserving Existing Projects:** I needed to keep my existing Angular 17 projects untouched.
 
 **Leveraging Node Version Manager (NVM):**
 
@@ -24,12 +24,13 @@ To tackle this, I decided to leverage a Node Version Manager (NVM). NVM allows y
 
 1. **Install NVM:** You can follow the instructions on the official NVM website to download and install it [here](https://github.com/nvm-sh/nvm/blob/master/README.md).
 
-2. **Install Node.js 18+:** Once NVM is installed, I used the command 
+2. **Install Node.js 18+:** Once NVM is installed, I used the command
 
 ```
 nvm install latest 
 
 ```
+
 This installed the most recent Node.js version (which at the time was 22.4.1).
 
 **Creating a Separate Development Environment:**
@@ -48,7 +49,7 @@ Notice the absence of -g. This installs the latest Angular CLI version (which wa
 
 **Surprise! Not Quite There Yet:**
 
-![Angular 17 (Global installation)](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cwtiydm4qu2js68bqwk8.PNG)
+![Angular 17 (Global installation)](./cwtiydm4qu2js68bqwk8.PNG)
 
 When I attempted to create a new project using `ng new practice-project`, it defaulted to using the globally installed Angular CLI version (17). This is where the magic of `npx` comes in.
 
@@ -62,10 +63,8 @@ npx @angular/cli@18 new my-angular-18-project
 
 I verify the project by executing `ng version`
 
-
-![Angular 18 (Local configured)](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fthxrbcvh1ivxhecdnli.PNG)
+![Angular 18 (Local configured)](./fthxrbcvh1ivxhecdnli.PNG)
 
 **Success! Exploring Angular 18:**
 
 After waiting for the necessary dependencies to install, I had a brand new Angular 18 project (`my-angular-18-project`) ready to go! This allowed me to explore all the new features of Angular 18, including the exciting `@let` syntax, without interfering with my existing Angular 17 projects.
-

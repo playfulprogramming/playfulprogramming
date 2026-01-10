@@ -21,6 +21,7 @@ What are the differences though?
 The first one is used when we need to create a sequence of pages and get their datas according to the page. The second one, instead, is used when we want the items after a specific record, to continue the list after that element.
 
 But let's see an example of both, starting with the first one `skip` and `take`
+
 ```ts
 {
   const pageOnePosts = await prisma.post.findMany({
@@ -41,7 +42,9 @@ But let's see an example of both, starting with the first one `skip` and `take`
   console.log(`Page 2: `, JSON.stringify(pageTwoPosts, undefined, 2));
 }
 ```
+
 The result of this example is this
+
 ```json
 [
   {
@@ -97,9 +100,11 @@ The result of this example is this
   }
 ]
 ```
+
 As you can see, the first `findMany` has the orderBy and the take options. The orderBy is used to give a sort to our results and the take option is used to get the first 3 elements of the results. In this case the skip option isn't indicated so its value is 0 (default value). Instead, in the second `findMany` method there is also the skip option, and it's indicated with the value 3. In this case, the findMany method returns 3 elements (take: 3) after the third element (skip: 3), so we can see the results of the second page.
 I think it's not so difficult to understand it, so let's go on to the cursor implementation.
 Let's start from the code
+
 ```ts
 const pageOnePosts = await prisma.post.findMany({
   take: 3,
@@ -121,7 +126,9 @@ const pageTwoPosts = await prisma.post.findMany({
 });
 console.log(`Page 2: `, JSON.stringify(pageTwoPosts, undefined, 2));
 ```
+
 The results
+
 ```json
 [
   {
@@ -177,11 +184,12 @@ The results
   }
 ]
 ```
+
 As you may notice, the results are the same of the previous example but the implementation is a little bit different in the second part.
 In this case, the second findMany has the same orderBy and take options as in the first example, but it has a different skip and uses the cursor option. First let's focus on the cursor option. This option allows us to indicate the last item returns by the previous search, so we can restart our pagination from this element and combining it with the `skip: 1`, we'll get the results after this element.
 *It's important to indicate the skip option with the one value, otherwise the element indicates in the cursor is part of the results.*
 
-As you can tell, both implementations are correct but each of them resolve a different type of pagination. Now it's your job to take the right one. 
+As you can tell, both implementations are correct but each of them resolve a different type of pagination. Now it's your job to take the right one.
 
 Ok guys that's all!
 I hope now you have an idea of how you can paginate your datas using prisma.
@@ -190,4 +198,4 @@ In the next article, we are going to see how to aggregate and group the datas.
 See you soon!
 Bye Bye 👋
 
-_[Here](https://github.com/Puppo/it-s-prisma-time/tree/10-pagination) you can find the code of this article._
+*[Here](https://github.com/Puppo/it-s-prisma-time/tree/10-pagination) you can find the code of this article.*

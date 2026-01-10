@@ -11,7 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
-As a developer, my workdays are filled with coding, designing, and collaborating with colleagues both in-person and remotely. Over time, I've curated a selection of essential items that help me stay productive, comfortable, and connected throughout the day. 
+As a developer, my workdays are filled with coding, designing, and collaborating with colleagues both in-person and remotely. Over time, I've curated a selection of essential items that help me stay productive, comfortable, and connected throughout the day.
 
 **What's in My Bag When I Go to the Office:**
 
@@ -29,7 +29,7 @@ As a developer, my workdays are filled with coding, designing, and collaborating
 
 7. **iPhone Pro Headphones**: With a similar set of features to the iPhone Max Headphones, these provide flexibility for different tasks and preferences. For instance, if I have to take a call from the phone, I use the Pro and not the Max.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/416jqjvax7hh641h9d2d.JPEG)
+![Image description](./416jqjvax7hh641h9d2d.JPEG)
 
 **Conclusion:**
 

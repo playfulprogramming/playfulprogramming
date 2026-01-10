@@ -18,28 +18,30 @@ Let’s see why we should and how we can use in-memory-db, you can access the so
 # Why
 
 Below are two scenarios where you may need in-memory-db.
-* POC (Proof of Concept): When you need to create a quick POC for an upcoming project and you want to create an API with NestJS, for integration with a UI.
-* Mock: You need to write the test cases and you want to mock the DB operations. This is the perfect use case for using in-memory-db.
 
-# How 
+- POC (Proof of Concept): When you need to create a quick POC for an upcoming project and you want to create an API with NestJS, for integration with a UI.
+- Mock: You need to write the test cases and you want to mock the DB operations. This is the perfect use case for using in-memory-db.
+
+# How
 
 Follow the below steps to create an API with in-memory-db.
 
-* Run the below command to create a NestJS project.
+- Run the below command to create a NestJS project.
+
 ```shell
 nest new in-memory-demo
 ```
 
-* We will create a `ProductController` with CRUD operations, so we will add a module and controller for the same.
+- We will create a `ProductController` with CRUD operations, so we will add a module and controller for the same.
 
 ```shell
 nest generate module product
 nest generate controller product
 ```
 
-* Next, we need an entity. Create a new folder `entities` inside the `product` folder.
+- Next, we need an entity. Create a new folder `entities` inside the `product` folder.
 
-* Create a new file `product.entity.ts` and add the below code.
+- Create a new file `product.entity.ts` and add the below code.
 
 ```javascript
 import { InMemoryDBEntity } from '@nestjs-addons/in-memory-db';
@@ -52,13 +54,13 @@ export interface ProductEntity extends InMemoryDBEntity {
 }
 ```
 
-* In the above code, `InMemoryDBEntity` adds an `id` property to any interface that extends this interface.
+- In the above code, `InMemoryDBEntity` adds an `id` property to any interface that extends this interface.
 
-* Next, we need to add some code to the controller and the module. There are two ways in which you can perform CRUD operations, by providing your own implementation or using the built-in `InMemoryDBEntityAsyncController` or `InMemoryDBEntityController`.
+- Next, we need to add some code to the controller and the module. There are two ways in which you can perform CRUD operations, by providing your own implementation or using the built-in `InMemoryDBEntityAsyncController` or `InMemoryDBEntityController`.
 
 We will see both approaches, let’s see how to implement our own.
 
-* Open `app.controller.ts` and add the below code, this file already exists.
+- Open `app.controller.ts` and add the below code, this file already exists.
 
 ```javascript
 import { Controller, Get, Post, Body } from '@nestjs/common';
@@ -89,9 +91,9 @@ AddProduct(@Body() product: ProductEntity): ProductEntity
 }
 ```
 
-* The `ProductService` is instantiated from `InMemoryDBService`. It comes with many built-in methods to perform CRUD operations, without writing a single line of code. The service contains two types of methods, `sync` and `async` which return an `observable`.
+- The `ProductService` is instantiated from `InMemoryDBService`. It comes with many built-in methods to perform CRUD operations, without writing a single line of code. The service contains two types of methods, `sync` and `async` which return an `observable`.
 
-* In the above code, the below-highlighted code is needed to create an instance of service which takes the entity `ProductEntity` and provides all methods.
+- In the above code, the below-highlighted code is needed to create an instance of service which takes the entity `ProductEntity` and provides all methods.
 
 ```javascript
 constructor(private readonly appService: AppService,
@@ -100,11 +102,11 @@ private productService: InMemoryDBService<ProductEntity>) {}
 
 The methods that we are going to implement are:
 
-* `getAll()`: Retrieve all records.
-* `create()`: Insert new records. Use `createMany` to insert multiple records.
-* `update()`: Update the record for the provided `id` in the request body.
-* `delete()`: Delete the record for the provided `id`.
-* `query()`: Query the data from the records added.
+- `getAll()`: Retrieve all records.
+- `create()`: Insert new records. Use `createMany` to insert multiple records.
+- `update()`: Update the record for the provided `id` in the request body.
+- `delete()`: Delete the record for the provided `id`.
+- `query()`: Query the data from the records added.
 
 Below is the complete code:
 
@@ -152,7 +154,7 @@ Now, in most cases, you just want to provide CRUD operations and if we keep addi
 
 It has `InMemoryDBEntityAsyncController` or `InMemoryDBEntityController` to achieve the same.
 
-* To implement CRUD operations using the above interface, you can just add the below lines of code.
+- To implement CRUD operations using the above interface, you can just add the below lines of code.
 
 ```javascript
 import { Controller } from '@nestjs/common';
@@ -170,13 +172,13 @@ export class ProductController extends InMemoryDBEntityAsyncController<ProductEn
 
 The `InMemoryDBEntityAsyncController` provides the implementation for the below methods by default.
 
-* `create`
-* `update`
-* `updateMany`
-* `delete`
-* `deleteMany`
-* `get`
-* `getMany`
+- `create`
+- `update`
+- `updateMany`
+- `delete`
+- `deleteMany`
+- `get`
+- `getMany`
 
 # For Feature Modules
 
@@ -203,16 +205,17 @@ constructor(@InjectInMemoryDBService('product') private productService: InMemory
 ```
 
 ## Seeding Test Data
+
 For testing, you may need to create some dummy data and we don’t expect you to create all records manually, this is where you can use seed method to create dummy data.
 
-* Create a new Module, Controller, and Entity by using the below command.
+- Create a new Module, Controller, and Entity by using the below command.
 
 ```shell
 nest generate module employee
 nest generate controller employee
 ```
 
-* Next, add a new `entities` folder in the employee folder and add a new file `employee.ts` and add the below code.
+- Next, add a new `entities` folder in the employee folder and add a new file `employee.ts` and add the below code.
 
 ```javascript
 import { InMemoryDBEntity } from '@nestjs-addons/in-memory-db';
@@ -225,7 +228,7 @@ export interface EmployeeEntity extends InMemoryDBEntity {
 }
 ```
 
-* Next, register the `InMemoryDBModule` for employee Module, add the below code in `employee.module.ts`
+- Next, register the `InMemoryDBModule` for employee Module, add the below code in `employee.module.ts`
 
 ```javascript
 import { Module } from '@nestjs/common';
@@ -241,7 +244,7 @@ export class EmployeeModule {
 }
 ```
 
-* Final Step is to use `seed` method to create 10 dummy records.
+- Final Step is to use `seed` method to create 10 dummy records.
 
 ```javascript
 import { Controller, Get, Param } from '@nestjs/common';
@@ -283,6 +286,7 @@ this.employeeService.seed(recordFactory, 10);
 You can use `postman` to test out the APIs. In the next article, we will see how we can add swagger capabilities to create a test page for testing.
 
 You can refer to the code for this demo at:
+
 > https://github.com/santoshyadav198613/nest-in-memory-demo
 
 # Conclusion
@@ -292,5 +296,3 @@ You can refer to the code for this demo at:
 This package brings the same capability to the NestJS ecosystem and you can easily plugin the same with existing NestJS projects to create POCs.
 
 Thanks to [Wes Grimes](https://dev.to/wesgrimes) and the team for creating this package.
-
-

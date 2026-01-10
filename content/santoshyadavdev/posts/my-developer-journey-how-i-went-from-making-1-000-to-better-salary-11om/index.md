@@ -12,7 +12,7 @@ socialImage: "social-image.png"
 
 Cover photo by [Ian Schneider](https://unsplash.com/photos/TamMbr4okv4) on Unsplash.
 
-Hey everyone, my name is Santosh. In this article, I will tell you how I ramped up my career and ended up making Better Salary a year as a developer. 
+Hey everyone, my name is Santosh. In this article, I will tell you how I ramped up my career and ended up making Better Salary a year as a developer.
 
 I'll share what I learned from each job along the way, how you can stand out, tips for negotiating salary, and how I got to where I am today.
 
@@ -52,8 +52,9 @@ For the first three months, I had a lot of work to do. I was working on a Window
 
 After a few months, I became part of a larger team after some organization-level changes. I started getting some work on ASP.NET, but I decided to move on in November 2010.
 
-Something I learned from this job: 
-* Use your spare time well: You won't always have enough work to do to keep you busy all the time. Use your spare time to read blogs, watch some courses, read, and create some proof of concepts with whatever you've learned.
+Something I learned from this job:
+
+- Use your spare time well: You won't always have enough work to do to keep you busy all the time. Use your spare time to read blogs, watch some courses, read, and create some proof of concepts with whatever you've learned.
 
 The time I invested in learning paid off. I got an offer with a 100% raise. My manager provided a lot of motivation which is why I got that raise. As I had no computer at home, I read a lot, which was the best chance to improve myself.
 
@@ -72,12 +73,15 @@ Fortunately, I invested time in learning some new packages introduced in .NET, a
 Here are some tips for negotiating your salary:
 
 ### Always Know Your Worth
+
 In the tech industry, you will find different devs doing the same job but not getting paid equally. Some organizations take advantage of you and pay you less. Always study the market if you are looking for a job. Ask for the salary range if possible.
 
 ### Never Negotiate Salary Based on Your Last Pay
+
 Always ask your recruiter for a salary range. If you hear it will be 30% above your last salary, you might skip them. Always keep the figure you want in your mind, and negotiate based on that. I have even received a 100% raise from my last salary.
 
 ### Know the Job Description
+
 Before joining any organization, know about the job description; money should not be your only focus. I declined a job offer with more salary once because the job was more of support, and I was about to get a work opportunity at the startup.
 
 ## Joining the Startup
@@ -95,11 +99,13 @@ Also, the growth was tremendous. I was able to get a raise of more than 30% ever
 Here are some things I learned from working at the startup:
 
 ### Don't Fall in Love with Your Organization
+
 Even if you are the best employee at work, you are replaceable. I had worked extra hours for the startup, even though no one asked me to do it.
 
 Because I loved the organization, I learned the hard way not to make that mistake again. Family time is more critical than an organization where you are just another employee.
 
 ### Keep Your Skills Up to Date
+
 Keep learning! Sometimes we get stuck into the same tech stack over the years. Then when you go back into the job market, it has already moved on, and there is a new stack everyone's using.
 
 A lot of organizations have a Pluralsight or other learning platform subscription, so use that if you can. If your company doesn't have one, there are plenty of free learning resources out there you can use instead or in addition.
@@ -143,9 +149,11 @@ I gained a lot working here. The critical thing I learned was how to stand out, 
 And here are some more tips to help you improve:
 
 ### Learn in Public
+
 At work, as a developer, we get to face so many issues, but often we just solve the problems and move on. You know you can share that experience with other developers. Start writing blogs, and create content. You will learn more by sharing your knowledge.
 
 ### Contribute to Open Source
+
 I have learned more by contributing to Open Source than from almost anything else. It lets me promote myself, too. It might even help you get your next job. I got better opportunities because of my Open Source Contributions and the connections I made in those communities.
 
 ## Starting Remote Job
@@ -178,7 +186,6 @@ The experience at every job has been different. I suggest that you start learnin
 
 And don't forget that salary negotiation is an important skill. Never underestimate yourself when negotiating. You can always make more money than you think.
 
-You can read my life story. 
+You can read my life story.
 
 {% link https://dev.to/this-is-learning/my-journey-into-tech-1l6d %}
-

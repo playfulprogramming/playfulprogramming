@@ -11,18 +11,17 @@ socialImage: "social-image.png"
 }
 ---
 
-
 *Cover photo by [Science in HD](https://unsplash.com/@scienceinhd) on Unsplash.*
 
 *Original publication date: 2020-01-27.*
 
 The Angular Ivy version 9 release comes with major testing additions and improvements. If you love testing, you can rest assured that Angular version 9 sparks joy:
 
-* AOT compilation in tests
-* Faster builds
-* Faster tests
-* Stronger typing
-* A new concept called _component harnesses_
+- AOT compilation in tests
+- Faster builds
+- Faster tests
+- Stronger typing
+- A new concept called *component harnesses*
 
 ## AOT compilation everywhere
 
@@ -46,8 +45,8 @@ In Angular version 8, `TestBed.get` was deprecated. In Angular version 9, we see
 
 There are two differences between `TestBed.get` and `TestBed.inject<T>`:
 
-1.  `TestBed.get` returns `any`. `TestBed.inject<T>` returns a value of type `T`.
-2.  `TestBed.get` accepts a token of type `any`. `TestBed.inject<T>` accepts a token of type `Type<T> | InjectionToken<T> | AbstractType<T>`.
+1. `TestBed.get` returns `any`. `TestBed.inject<T>` returns a value of type `T`.
+2. `TestBed.get` accepts a token of type `any`. `TestBed.inject<T>` accepts a token of type `Type<T> | InjectionToken<T> | AbstractType<T>`.
 
 The type `T` in (1) is either a concrete class type, an abstract class type or the value returned by a dependency injection token, as defined by the passed token argument.
 
@@ -65,7 +64,7 @@ it('infers dependency types', () => {
 });
 ```
 
-_Listing 1. The types of resolved dependencies are now inferred._
+*Listing 1. The types of resolved dependencies are now inferred.*
 
 ## Angular CDK introduces component harnesses
 
@@ -75,8 +74,8 @@ A component harness hides implementation details of a component and exposes an A
 
 Component harnesses can be used both in unit tests, integration tests, and end-to-end tests. Angular CDK comes with two harness environments out-of-the-box:
 
-* `TestbedHarnessEnvironment` which is used for unit tests and integration tests
-* `ProtractorHarnessEnvironment` which is used for end-to-end tests driven by Protractor
+- `TestbedHarnessEnvironment` which is used for unit tests and integration tests
+- `ProtractorHarnessEnvironment` which is used for end-to-end tests driven by Protractor
 
 The `TestbedHarnessEnvironment` is first and foremost meant to be used with Jasmine and Karma, the defacto Angular unit testing stack, but should work with other test runners and test frameworks as well. I successfully used it with Jest.
 
@@ -94,14 +93,14 @@ By providing us with component harnesses, the Angular Components team can justif
 
 ## Component harness benefits
 
-* Test as a user
-* Hide implementation details from tests
-* Use the same harness for all types of tests (unit, integration, end-to-end)
-* Publish component harnesses with our Angular libraries
-* Use the published component harnesses for internal Angular library tests
-* Use 3rd party component harnesses to exercise 3rd party Angular components without depending on their implementation details
-* Automatically trigger change detection between component interactions
-* We don't _have_ to add separate attributes or classes for test selectors since all tests share the single selector defined by the component harness
+- Test as a user
+- Hide implementation details from tests
+- Use the same harness for all types of tests (unit, integration, end-to-end)
+- Publish component harnesses with our Angular libraries
+- Use the published component harnesses for internal Angular library tests
+- Use 3rd party component harnesses to exercise 3rd party Angular components without depending on their implementation details
+- Automatically trigger change detection between component interactions
+- We don't *have* to add separate attributes or classes for test selectors since all tests share the single selector defined by the component harness
 
 ## Conclusion
 
@@ -109,7 +108,7 @@ Angular version 9 is an amazing release for testing!
 
 Thanks to Ivy, we now have AOT compilation everywhere, faster builds and rebuilds, faster tests and stronger typing for dependency injection.
 
-Component harnesses are an interesting approach to testing components. They provide _test-as-a-user_ APIs which can be used across unit tests, integration tests, and end-to-end tests.
+Component harnesses are an interesting approach to testing components. They provide *test-as-a-user* APIs which can be used across unit tests, integration tests, and end-to-end tests.
 
 Angular Material is the first Angular library to expose component harnesses for their components.
 
@@ -121,4 +120,4 @@ Angular Material is the first Angular library to expose component harnesses for 
 
 ## Peer reviewers
 
-* [Michael Hoffmann](https://dev.to/mokkapps)
+- [Michael Hoffmann](https://dev.to/mokkapps)

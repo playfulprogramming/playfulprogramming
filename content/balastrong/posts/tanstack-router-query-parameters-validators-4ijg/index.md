@@ -115,7 +115,7 @@ Now if you noticed, there should be an error on `___root.tsx` exactly at the Lin
 
 The error is gone! It's time to go on your browser and click the link. You can now see a page with your params rendered as JSON.
 
-## Validation with a validating library
+\## Validation with a validating library
 
 That kind of validator function we defined works, but we can do something better by using an existing validating library such as zod or valibot. Let's see the latter in an example.
 
@@ -213,7 +213,6 @@ Watch the full playlist on YouTube: [TanStack Router](https://www.youtube.com/pl
 
 ---
 
-
 Thanks for reading this article, I hope you found it interesting!
 
 I recently launched a GitHub Community! We create Open Source projects with the goal of learning Web Development together!
@@ -222,7 +221,7 @@ Join us: https://github.com/DevLeonardoCommunity
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

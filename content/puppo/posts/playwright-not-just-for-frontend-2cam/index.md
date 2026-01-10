@@ -13,14 +13,13 @@ order: 1
 }
 ---
 
-
 In this path with Playwright we spent a lot of time speaking about e2e tests and component testing in the frontend world. But now its time to spill the beans and tell you a secret. Playwright can be used on the backend side too.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1676058978940/d5057d18-bfd2-4122-be9f-a34480bc702e.gif)
+![](./d5057d18-bfd2-4122-be9f-a34480bc702e.gif)
 
 ## API Testing
 
-Playwright can test REST API too. In some scenarios, you don't have a UI, but you have an API integration and have to test your integration in some way.  
+Playwright can test REST API too. In some scenarios, you don't have a UI, but you have an API integration and have to test your integration in some way.\
 Using API testing with Playwright, you can call your APIs without a user interface and check their correct execution.
 
 The key volta for doing that on Playwright is the `request` object. Using this object, you can call your APIs and check their result.
@@ -29,7 +28,7 @@ But let's take a look at it.
 
 First, I didn't create a backend API for this example, but I used a fake API to test. I created it with json-server and json-server-auth. They are two npm packages that use a JSON file as a database and expose the database in an API. You can find more about json-server in its [documentation](https://github.com/typicode/json-server) and about json-server-auth [here](https://www.npmjs.com/package/json-server-auth).
 
-It's time to understand how API testing works.  
+It's time to understand how API testing works.\
 A straightforward example could be this
 
 ```ts
@@ -49,8 +48,8 @@ test("should call a winner", async ({ request }) => {
 });
 ```
 
-This example is to understand the structure of an API test, then you'll see a more complex example.  
-The `request` object is exposed by Playwright in each test, like the page object in a standard e2e test in the browser. With this object, you can call one or more HTTP requests. Then, when you have the result of the requests, you can check if the result is ok or if the response respects a specific schema.  
+This example is to understand the structure of an API test, then you'll see a more complex example.\
+The `request` object is exposed by Playwright in each test, like the page object in a standard e2e test in the browser. With this object, you can call one or more HTTP requests. Then, when you have the result of the requests, you can check if the result is ok or if the response respects a specific schema.\
 As you can notice, it's elementary
 
 - create a request
@@ -225,7 +224,7 @@ test.afterAll(async () => {
 });
 ```
 
-Then I created the first test that checks if the result of the get method returns an array of winners.  
+Then I created the first test that checks if the result of the get method returns an array of winners.\
 This is easy peasy
 
 ```ts
@@ -243,9 +242,9 @@ test("should return an array of winner", async ({ request }) => {
 });
 ```
 
-I can call the API and get the result using the request object, and then I can check if the result is ok and if the response is like expected.  
-This example is pretty simple, so I don't want to spend too much time on it; I guess it is comprehensible.  
-But now it's time to move to another example that is a bit more complex.  
+I can call the API and get the result using the request object, and then I can check if the result is ok and if the response is like expected.\
+This example is pretty simple, so I don't want to spend too much time on it; I guess it is comprehensible.\
+But now it's time to move to another example that is a bit more complex.\
 The test has to test the insert in the winners' collection. To do this action, the user must be logged in, so before doing the post, we have to login into the API. The result is something like this.
 
 ```ts
@@ -281,11 +280,11 @@ As you can see, in this example, I created a flow of authentication, and then th
 
 So far so good; in this article, you discovered API testing with Playwright and a medium example of how you can create a flow of API testing with Playwright.
 
-That's all folks!  
+That's all folks!\
 I hope you enjoyed it and see you soon!
 
 Bye bye 👋
 
-_N.B. you can find the code of this article_ [_here_](https://github.com/Puppo/playwright-series/tree/10-api-testing)
+*N.B. you can find the code of this article* [*here*](https://github.com/Puppo/playwright-series/tree/10-api-testing)
 
 {% embed https://dev.to/puppo %}

@@ -77,7 +77,7 @@ Just click on the left side of a line in the code and the red dot will appear, t
 
 If the application flow now passes into that line, the execution will stop there and you'll be able to inspect the state of the application at that point.
 
-![Breakpoint](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qywk1kvon15ke2553gss.png)
+![Breakpoint](./qywk1kvon15ke2553gss.png)
 
 ## Variables
 
@@ -85,8 +85,7 @@ The first panel in the Run and Debug tab is the Variables panel, which shows all
 
 Variables are grouped by scope, you can easily inspect them, expand objects and arrays to see the content and... you can even change their value!
 
-![Variables](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/h28qoq8r8vwxrldg91u6.png)
-
+![Variables](./h28qoq8r8vwxrldg91u6.png)
 
 However, if for example you change something which should be visible in the UI, you won't see it changing. Most likely the reason will be that since you're currently paused on a line, the component is not re-rendered. Just keep going with the debugger and you'll see the UI updating.
 
@@ -98,8 +97,7 @@ For example, if in your application you have an array of squares and you want to
 
 Similarly, if you want to keep track of the squares having a specific value, for example not null, you can add an expression like `squares.filter(s => s !== null).length` and again you'll see the value updated as you go through the application, real time!
 
-![Watch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/2q787o26ck69q645633b.png)
-
+![Watch](./2q787o26ck69q645633b.png)
 
 ## Call Stack
 
@@ -107,13 +105,13 @@ The Call Stack panel shows the current stack of function calls, which is useful 
 
 Let's say you're in a function, who called that function? And who called the caller? You can find the entire stack here.
 
-![Call stack](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nq0c47z3usw98rq3qs2s.png)
+![Call stack](./nq0c47z3usw98rq3qs2s.png)
 
 ## Breakpoints
 
 The last panel is the Breakpoints one, which shows all the breakpoints you set in the code. You can activate/deactivate breakpoint there, or also disable them without losing them.
 
-![Breakpoints](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ciapq0e38pwlul934o4a.png)
+![Breakpoints](./ciapq0e38pwlul934o4a.png)
 
 ### Conditional breakpoints
 
@@ -121,7 +119,7 @@ By hovering on a breakpoint you can see a little pencil icon, which allows you t
 
 The most common usecase is if you're setting a debugger inside a loop, but you want to stop only when a specific condition is met and not at each iteration. There you have it, set the condition and you're good to go!
 
-![Conditional](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dc6ak1nn955pxujbb75u.png)
+![Conditional](./dc6ak1nn955pxujbb75u.png)
 
 ## Chrome DevTools
 
@@ -131,7 +129,6 @@ Anyway, in case you’re using Chrome, you actually have two debuggers ready to 
 
 Thanks for reading, happy debugging!
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -140,7 +137,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

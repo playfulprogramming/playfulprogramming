@@ -17,7 +17,7 @@ So what's a good place to start. Well, I looked at Marko's TodoMVC example and d
 
 In this article, we will build a TodoMVC application using Marko's Tags API. So let's get started.
 
-------------
+---
 
 # Setting up our project
 
@@ -26,25 +26,27 @@ It's easy to get set up with a new Marko project using the Tags API.
 ```sh
 > npm init marko --template tags-api
 ```
+
 It prompts us to name the project and gives instructions to get started.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1gew8qebtpah1lskulai.png)
+![Alt Text](./1gew8qebtpah1lskulai.png)
 
 Next, let's open our project in our code editor. I am using VSCode. And we see a simple folder structure.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/35u6kl5a0izy45greorl.png)
+![Alt Text](./35u6kl5a0izy45greorl.png)
 
 We are going to keep this folder structure for our TodoMVC app but we will be replacing all the code. Before that, if you want to run `npm run dev` to see this example open in your browser.
 
 Remove all the files under the `src/pages` and `src/components` folders and then we are good to get started with a clean slate.
 
-----------------------
+---
 
 # Building our Page
 
 Marko is a Multi-Page Framework but TodoMVC is a simple single-page example. We won't worry too much about that since our starter project here will take care of all the details. So we start the same as any application and our index page. Create a `index.marko` file under your `src/pages` folder.
 
 Let's add some markup to it. `.marko` files are basically HTML documents so to start we just add the following:
+
 ```html
 <!doctype HTML>
 <html lang="en">
@@ -58,15 +60,17 @@ Let's add some markup to it. `.marko` files are basically HTML documents so to s
   </body>
 </html>
 ```
+
 And there we have a working app. Just run `npm run dev` and you should see a blank page with a title. You could add as much markup you want to this page. But let's add our first components.
 
----------------
+---
 
 # Creating a Store
 
 TodoMVC is driven off a central store very much in line with Model View Controller from which it gets its name. In our case, Marko isn't an MVC framework but it still makes it easiest to abstract our logic into a template that we will use as a data store.
 
 Create `TodoStore.marko` under components folder and copy in this code:
+
 ```html
 <let/nextId=1/>
 <let/todos=[]/>
@@ -107,21 +111,23 @@ Create `TodoStore.marko` under components folder and copy in this code:
   }
 }/>
 ```
+
 There is a lot going on in this file but really we are just seeing 4 tags being used in the template. The first 3 define state in our Marko Templates using Marko's `<let>` tag. The `<let>` tag allows us to define variables in our template. In this case, an id counter, the list of todos, and a variable to hold are filter state.
 
-This leverages Marko's tag variable syntax where we can define a variable by putting it after a slash after the tag name, and Marko's default attribute syntax that lets us pass a value without an attribute name by assigning it to the tag directly. 
+This leverages Marko's tag variable syntax where we can define a variable by putting it after a slash after the tag name, and Marko's default attribute syntax that lets us pass a value without an attribute name by assigning it to the tag directly.
 
 The `<return>` tag is how we expose tag variables to a parent template. We are assigning an object that contains our state and some methods to mutate that state.
 
 This template does not render any DOM elements itself but serves as a convenient way to encapsulate the behavior we'd like to use in other templates. We will be using this to drive the rest of our application.
 
---------------
+---
 
 # Creating the App
 
 So let's start wiring this together. We're going to create a new `<TodoApp>` tag because I want to keep my top-level page document clean but this is completely unnecessary. So create `TodoApp.marko` under the components folder. Also, create a `TodoHeader.marko` file under the components folder as well since we will need that in a minute.
 
 Let's start by dropping the following into `TodoApp.marko`:
+
 ```html
 <TodoStore/{
   todos,
@@ -143,6 +149,7 @@ Let's start by dropping the following into `TodoApp.marko`:
   @import url("https://unpkg.com/todomvc-app-css@2.2.0/index.css");
 </style>
 ```
+
 We will be coming back to this file a few times in the course of this tutorial but this is the skeleton of our app. The first tag is our `<TodoStore>` we created in the previous section. We can access the values returned as a tag variable we are destructuring. So far it is just the todos and `addNewTodo`.
 
 This is the bulk of our template. We are including the `<TodoHeader>` component we are yet to implement. One of the great things about Marko is it can find tags in your local project automatically saving the need to import them.
@@ -170,13 +177,14 @@ We can add our `<TodoApp>` to the body of our `index.marko` page and we should n
 </html>
 ```
 
-------------
+---
 
 # Adding Todos
 
 Right now our app doesn't do very much so let's start working on the `<TodoHeader>`. This is where we will enter our new Todos.
 
 Copy this into your `TodoHeader.marko` file:
+
 ```html
 <attrs/{ addNewTodo } />
 <header.header>
@@ -199,7 +207,8 @@ Copy this into your `TodoHeader.marko` file:
   }
 </style>
 ```
-The first thing you will notice is the `<attr>` tag. This is how we define the input that comes into our template. We passed `addNewTodo` in from the `<TodoApp>` template and now we can use destructuring to get it here. 
+
+The first thing you will notice is the `<attr>` tag. This is how we define the input that comes into our template. We passed `addNewTodo` in from the `<TodoApp>` template and now we can use destructuring to get it here.
 
 You can see Marko's shorthand class syntax on `<header.header>` which applies the `header` class to the `<header>` element. From there we create a `<form>` with an `<input>`.
 
@@ -209,9 +218,9 @@ Marko supports a shorthand for functions that we are using here that is very sim
 
 Try it in the browser. You should see a large input field, and you should be able to enter some text and click enter and see it added to our page. Right now they all just get appended in a long line of text but we will add more functionality to our Todos in the next section.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j9ms9tatf3cxknkqg3fl.png)
+![Alt Text](./j9ms9tatf3cxknkqg3fl.png)
 
-----------
+---
 
 # Making our Todos Functional
 
@@ -269,11 +278,13 @@ Well, it works but it ain't pretty. Let's now add our `<TodoItem>` component. So
     }/>
 </li>
 ```
+
 This is our biggest code snippet by far and it's because the Todos do a lot of stuff. You can check them, uncheck them, and double click to edit.
 
-We are seeing the `<const>` tag for the first time here. It is useful for defining things in our template that do not get reassigned. In this case a function we use in multiple places. We also see nice usage of Marko's support of object syntax for applying classes. 
+We are seeing the `<const>` tag for the first time here. It is useful for defining things in our template that do not get reassigned. In this case a function we use in multiple places. We also see nice usage of Marko's support of object syntax for applying classes.
 
 If you add the necessary methods to the store and replace the contents of `<for>` in `TodoApp.marko` you should now have a basic working Todo application.
+
 ```html
 <TodoStore/{
   todos,
@@ -294,9 +305,10 @@ If you add the necessary methods to the store and replace the contents of `<for>
   </if>
 </section>
 ```
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rmikggtgtimittz71chz.png)
 
------------
+![Alt Text](./rmikggtgtimittz71chz.png)
+
+---
 
 # Filtering and Other Features
 
@@ -315,6 +327,7 @@ We aren't quite done yet. The rest of our features are going to be focused on `T
     }>
   <label for=toggleId />
 ```
+
 We introduce another new tag here `<id>`. This one gives us a unique identifier that is stable across server and browser execution and a perfect way to create an id to link our input to its label. And now we can toggle on and off all our todos.
 
 The last feature we need to add is filtering the list by whether they are completed or not. Instead of trying to explain I'm going to just post the final `TodoApp.marko`:
@@ -402,11 +415,12 @@ The last feature we need to add is filtering the list by whether they are comple
   @import url("https://unpkg.com/todomvc-app-css@2.2.0/index.css");
 </style>
 ```
+
 No new functionality. Just builds on what we have been doing this whole time.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cmunsdccx5jsw41q04wo.png)
+![Alt Text](./cmunsdccx5jsw41q04wo.png)
 
------------
+---
 
 # Conclusion
 
@@ -414,4 +428,4 @@ And that is it. We have our TodoMVC app with Marko. There are a few more things 
 
 Hopefully, through this tutorial, you gained an appreciation for how Marko and the new Tags API allows us to easily make stateful templates with some simple extensions over HTML to produce isomorphic apps.
 
-That's right. The app we just made is fully server-rendered and dynamic in the browser. It doesn't get much easier than that. 
+That's right. The app we just made is fully server-rendered and dynamic in the browser. It doesn't get much easier than that.

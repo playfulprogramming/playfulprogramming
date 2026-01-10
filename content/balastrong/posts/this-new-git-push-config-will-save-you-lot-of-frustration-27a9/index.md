@@ -15,8 +15,7 @@ order: 1
 
 If you have 59 seconds and in particular you're also on mobile, you might enjoy watching the YouTube #Shorts video.
 
-[![YouTube Video](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/oorxbnl87cb86fw5jr9p.png)](https://youtube.com/shorts/KrgNpJA0sX4)
- 
+[![YouTube Video](./oorxbnl87cb86fw5jr9p.png)](https://youtube.com/shorts/KrgNpJA0sX4)
 
 ---
 
@@ -49,6 +48,7 @@ brew install git
 ```
 
 Now that you're all set, just run this command:
+
 ```sh
 git config --global push.autoSetupRemote true
 ```
@@ -58,11 +58,12 @@ It will set in your global git configuration file the value `true` to `push.auto
 With that set, all first-time push on new branches will automatically set the default upstream.
 
 To see it live, you can have a look at this short YouTube video.
-[![YouTube Video](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/oorxbnl87cb86fw5jr9p.png)](https://youtube.com/shorts/KrgNpJA0sX4)
+[![YouTube Video](./oorxbnl87cb86fw5jr9p-1.png)](https://youtube.com/shorts/KrgNpJA0sX4)
 
 ---
+
 Thanks for reading this post, I hope you find it interesting!
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}
 You can also follow me on [Twitter](https://twitter.com/Balastrong) and [YouTube](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA)!
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/Balastrong) [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge\&logo=twitter\&logoColor=white)](https://twitter.com/Balastrong) [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA)

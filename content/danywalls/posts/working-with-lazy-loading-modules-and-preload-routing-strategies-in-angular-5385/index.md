@@ -75,21 +75,19 @@ The app is ready to use. Let's see the final output.
 
 > Learn more about [Routing in Angular](https://angular.io/guide/router)
 
+![The Scenario](./nbisuipkqmimklzqu16q.png)
 
-![The Scenario](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nbisuipkqmimklzqu16q.png)
+### What is Angular doing?
 
-### What is Angular doing? 
-Every module is compiled,  merged,  packaged, and bundled in the `main.js` file. We are loading all modules in a single file, it hits the application load time, and the user needs to wait for all modules to interact with the application. 
+Every module is compiled,  merged,  packaged, and bundled in the `main.js` file. We are loading all modules in a single file, it hits the application load time, and the user needs to wait for all modules to interact with the application.
 
 Some questions come to my head.
 
-- We are loading `36.0kB` in the `Dashboard` area. 
-- Why load all modules? 
-- Why do we need to wait to load other modules that are not working? 
-  
+- We are loading `36.0kB` in the `Dashboard` area.
+- Why load all modules?
+- Why do we need to wait to load other modules that are not working?
 
 We are going to improve the situation using Angular Lazy Loading Modules.
-
 
 ## Lazy Loading
 
@@ -136,9 +134,10 @@ const routes: Routes = [
 })
 export class AppRoutingModule {}
 ```
+
 Next, we need to configure the modules to expose a RouterModule configuration to load the component using the `RouterModule.forChild()` method.
 
-> The process is the same for every module, we show the example with the ActivityModule 
+> The process is the same for every module, we show the example with the ActivityModule
 
 The `ActivityRouterModule` imports the  `RouterModule` and configures the `RouterModule.forChild()` with the routes object with the path and the component to load.
 
@@ -157,6 +156,7 @@ const routes = [  { path: 'activity', component: ActivityComponent }]
 })
 export class ActivityRouterModule { }
 ```
+
 The 'ActivityModule' imports the `ActivityRouterModule` to provide the routing configuration.
 
 We remove all module references from the app.modules and only need to register the app.routing.module.
@@ -179,30 +179,29 @@ import {AppRoutingModule} from "./app-routing.module";
 export class AppModule {}
 
 ```
+
 Perfect! We improve the load, only getting the minimum files and every module load when the user navigates the path.
 
+![Lazy Loading](./j2ghyzlz513hpwhgejip.png)
 
+### What do we get?
 
-![Lazy Loading](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j2ghyzlz513hpwhgejip.png)
-
-
-### What do we get? 
-
-- The size of main.js is decreased from 32KB to 12.8 KB 
+- The size of main.js is decreased from 32KB to 12.8 KB
 - The modules are loaded on demand.
 
-### Side effects 
+### Side effects
 
 One of the advantages is our new pain, "the loading on demand"; when the user clicks on the module, it takes time to request and load the module, getting delayed.
 
-![Side effects ](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5w86af960aibtjm0aq6u.png)
+![Side effects ](./5w86af960aibtjm0aq6u.png)
 
 ## PreLoad Modules
-Angular help us to one once the app is loaded, fetch all the remaining module chunks, and have faster navigation between different modules using `preloadingStrategy`. 
 
-The preloadingStrategy helps us to download the modules asynchronously once you add the configuration in the root module routing. 
+Angular help us to one once the app is loaded, fetch all the remaining module chunks, and have faster navigation between different modules using `preloadingStrategy`.
 
-The router in the `forRoot` method passes an object with the option `preloadingStrategy: PreloadAllModules`. 
+The preloadingStrategy helps us to download the modules asynchronously once you add the configuration in the root module routing.
+
+The router in the `forRoot` method passes an object with the option `preloadingStrategy: PreloadAllModules`.
 
 > The PreloadAllModules come from the angular router
 
@@ -218,10 +217,10 @@ The router in the `forRoot` method passes an object with the option `preloadingS
 export class AppRoutingModule {}
 
 ```
+
 Now, we have the lazy loading and downloading of the remaining modules asynchrono
 
-
-![PreloadAllModules](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gtk5hdmfmogerhja1iyu.png)
+![PreloadAllModules](./gtk5hdmfmogerhja1iyu.png)
 
 > Read more about PreLoadStrategy https://angular.io/api/router/PreloadingStrategy
 
@@ -231,7 +230,7 @@ The `PreloadAllModules` loads all modules. Maybe we want to control which module
 
 We can customize the `preloadingStrategy` to create a class that implements the built-in `PreloadingStrategy` interface.
 
-The class must implement the method `preload()`. In this method, we determine whether to preload the module or not in the route. 
+The class must implement the method `preload()`. In this method, we determine whether to preload the module or not in the route.
 
 We need to activate some flags in the route to know if the route will load or not. The easy way is to use the `route.data` property to set up the flag.
 
@@ -269,6 +268,7 @@ import {ModuleLoadingStrategyService} from "./config/module.loading.strategy";
   exports: [RouterModule],
 })
 ```
+
 Finally, set the `preload` property in the `router.data` for the module to use the custom preload strategy, for example, wallet.
 
 ```typescript
@@ -280,8 +280,7 @@ Finally, set the `preload` property in the `router.data` for the module to use t
   },
 ```
 
-
-![Custom Loading Strategy](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/el6dbep3nq52bnl1b09u.png)
+![Custom Loading Strategy](./el6dbep3nq52bnl1b09u.png)
 
 Perfect! We have lazy loading with a custom preload strategy to load specific modules in the app!
 
@@ -290,11 +289,8 @@ Perfect! We have lazy loading with a custom preload strategy to load specific mo
 We learn how to implement lazy loading, preload the modules, and create a custom strategy to have a particular module for loading and speeding the application.
 
 Photo by <a href="https://unsplash.com/@cinusek?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Marcin Simonides</a> on <a href="https://unsplash.com/s/photos/load?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
 
 My recommendation use lazy loading with a custom preload strategy. Pick the modules necessary for the application or high demand by the users, and maybe add some delay in the loading time. I hope it helps to speed up the performance of your Angular Apps.
 
 - [Github Repo](https://github.com/danywalls/routing-strategies)
 - Feel free to play in [StackBlitz](https://stackblitz.com/github/danywalls/routing-strategies)
-
-

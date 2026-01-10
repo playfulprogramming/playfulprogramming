@@ -16,8 +16,8 @@ socialImage: "social-image.png"
 Once upon a time you had to struggle with a thousand configurations and setups to create a React application, but now you can do everything with a few simple commands. One of **the easiest ways** to create a React project is by using [Vite](https://vitejs.dev/).
 
 [Vite](https://vitejs.dev/) is a **modern build tool** created by Evan You, the same developer behind Vue.js.
- It is designed to provide a **faster and leaner development experience** for modern web projects.
- You can use Vite to create front-end projects in seconds: [React](https://react.dev/), [Svelte](https://svelte.dev/), [Lit](https://lit.dev/), [Qwik](https://qwik.dev/) and many others modern frameworks are supported.
+It is designed to provide a **faster and leaner development experience** for modern web projects.
+You can use Vite to create front-end projects in seconds: [React](https://react.dev/), [Svelte](https://svelte.dev/), [Lit](https://lit.dev/), [Qwik](https://qwik.dev/) and many others modern frameworks are supported.
 
 > You need to install [NodeJS](https://nodejs.org/) to use Vite.
 
@@ -25,10 +25,10 @@ Once upon a time you had to struggle with a thousand configurations and setups t
 npm create vite@latest
 ```
 
-* Assign a project name, i.e. `my-app`
-* Select React -> TypeScript
-* Go to the `my-app` folder and run `npm install` (alias: `npm i`)
-* Build your application with `npm run build` to verify it 
+- Assign a project name, i.e. `my-app`
+- Select React -> TypeScript
+- Go to the `my-app` folder and run `npm install` (alias: `npm i`)
+- Build your application with `npm run build` to verify it
 
 ## What is Google Firebase hosting?
 
@@ -50,11 +50,11 @@ Once the installation is finished you must execute this command to **authenticat
 firebase login
 ```
 
-![Login](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4wgw0ji3tktl5vrgy8jt.png)
+![Login](./4wgw0ji3tktl5vrgy8jt.png)
 
 once logged in you can create your project within the [Firebase console](https://console.firebase.google.com)
 
-![firebase-app](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1kny8u2f169klanw05v1.gif)
+![firebase-app](./1kny8u2f169klanw05v1.gif)
 
 and then, once the project is **successfully created**, you can run this command in your terminal
 
@@ -124,9 +124,10 @@ Hosting URL: https://learn-by-doing-react-app.web.app
 
 Here is the result 👏
 
-![final-app](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/549v3aljrs1ms3a1ofj6.png)
+![final-app](./549v3aljrs1ms3a1ofj6.png)
 
 ## Conclusion
+
 This article showcased a streamlined workflow for **building and deploying React applications**, leveraging the power of **modern tools** like Vite and Firebase Hosting.
 By following **these simple steps**, you can drastically **reduce the complexities** associated with setting up your development environment and **deploying your application**.
 Vite's lightning-fast development server and efficient build process ensure a smooth and **enjoyable coding experience**, while Firebase Hosting provides a **robust and secure platform** for publishing your applications globally. With Firebase's **free tier**, developers can easily **get started and scale their projects** as needed.

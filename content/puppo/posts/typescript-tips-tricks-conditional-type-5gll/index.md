@@ -15,6 +15,7 @@ order: 1
 
 In some cases, we need to detect if an object/type has specific properties or characteristics.
 Let me show you a simple case
+
 ```ts
 type TypeName<T> =
     T extends string ? "string" :
@@ -42,9 +43,11 @@ const functionType = typeName(() => 'result'); // "function"
 const nullType = typeName(null); // "null"
 const objectType = typeName({ name: 'name'}); // "object"
 ```
+
 In this example, we return the type of the parameter as a string, but I want to focus on the TypeName type. This type as you can see, returns the values based on some conditions. In this case, the conditions are based on the parameter's type, but my goal is to show you that you could check if a type respects some conditions or not and act accordingly.
 This feature is called Conditional Types.
 To show you the power of this feature here a funny example found in the net :)
+
 ```ts
 type SnackBars = {
   name: "Short Chocolate Bars";
@@ -103,6 +106,7 @@ type Candies = AllCandies<HalloweenTricksAndSweets>; // SnackBars | Gumballs | A
 type Tricks = AllTricks<HalloweenTricksAndSweets>; // Toothpaste | Pencil
 type CandiesWithoutPeanuts = AllCandiesWithoutPeanuts<HalloweenTricksAndSweets>; // SnackBars | Gumballs | Apples
 ```
+
 In this example, you can see how the AllCandies type creates a new type (Candies) composed of all the HalloweenTricksAndSweets that contain the candy property with the true value. The AllTricks type creates a new type (Tricks) composed of all the HalloweenTricksAndSweets that contain the trick property with the true value. The last case AllCandiesWithoutPeanuts is interesting: we get all the candies that don't contain the peanuts property with the true value.
 I think this funny example can express best the potential of the Conditional Type, and it can help you to understand better all the benefits it can lead to.
 

@@ -57,7 +57,7 @@ A lot of the motivation for compiled frameworks has come from the desire to opti
 
 Most template-generated code is creation logic, whether it is a bunch of VDOM nodes or real DOM nodes. When looking at a template you can almost immediately identify which parts will never change like literal values in attributes, or fixed groupings of elements. This is low hanging fruit for any templating approach.
 
-A VDOM library like [Inferno](https://infernojs.org/) uses this information to compile its JSX directly into [pre-optimized node](https://github.com/infernojs/babel-plugin-inferno#infernojs-babel-plugin) structures. [Marko](https://markojs.com/) hoist their static VDOM nodes outside of their components so that they don't incur the overhead of recreating them on every render. [Vue](https://vuejs.org/) ups the ante collecting dynamic nodes reducing subsequent updates to just those nodes. 
+A VDOM library like [Inferno](https://infernojs.org/) uses this information to compile its JSX directly into [pre-optimized node](https://github.com/infernojs/babel-plugin-inferno#infernojs-babel-plugin) structures. [Marko](https://markojs.com/) hoist their static VDOM nodes outside of their components so that they don't incur the overhead of recreating them on every render. [Vue](https://vuejs.org/) ups the ante collecting dynamic nodes reducing subsequent updates to just those nodes.
 
 [Svelte](https://svelte.dev/) separates its code between create and update lifecycles. [Solid](https://github.com/solidjs/solid) takes that one step further hoisting the DOM creation into clone-able Template elements that create whole portions of the DOM in a single call, incidentally a runtime technique used by Tagged Template Literal libraries like @webreflection's [uhtml](https://github.com/WebReflection/uhtml) and [Lit](https://lit.dev/).
 
@@ -118,7 +118,7 @@ Both of these approaches use specific syntax to denote understanding the nature 
 
 # Beyond Modules?
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/o9tubvj0k4stkeu4oyht.jpg)
+![Alt Text](./o9tubvj0k4stkeu4oyht.jpg)
 
 The biggest limitation to compilation is the scope of what it can reasonably analyze. While we can do tricks to inform the compiler, like [Svelte](https://svelte.dev/)'s `$`, we tend to not see beyond `import` statements. This means we have to assume the worst when looking at what inputs come into our components (is it dynamic?). We don't know if children components use our stateful data in dynamic manner.
 
@@ -137,4 +137,3 @@ The approach(HTML-first vs JS-first) each Framework takes to templating is mostl
 Where compilation excels is abstracting the complexity. From simpler syntax to interact with data and updates, to specialized output for server versus browser. This is a DX tool much like Hot Module Replacement on your bundler's Dev Server. It feeds into better IDE support since the program better understands your intent. And it also can bring performance gains.
 
 Today, the biggest limitation to compiled approaches is that they are module scoped. If compiled approaches want to scale like runtime approaches this is a hurdle we will have to overcome. For now hybrid approaches might be the best solution. But even today, compilers are capable of so much it's hard to picture a future without them being a significant part.
-

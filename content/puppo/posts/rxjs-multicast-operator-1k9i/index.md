@@ -16,7 +16,7 @@ Hi Folk 👋,
 in the previous articles we've seen that when we subscribe to an observable, the observable restarts every time and do not remember the last value emitted.
 In some cases, this behaviour can not be the right solution, so today I'll show you how to share the values using the Multicast Operators.
 
-* **[share](https://rxjs.dev/api/operators/share)**
+- **[share](https://rxjs.dev/api/operators/share)**
 
 > Returns a new Observable that multicasts (shares) the original Observable. As long as there is at least one Subscriber this Observable will be subscribed and emitting data. When all subscribers have unsubscribed it will unsubscribe from the source Observable. Because the Observable is multicasting it makes the stream hot.
 
@@ -61,6 +61,7 @@ setTimeout(() => {
     });
 }, 7000);
 ```
+
 ```console
 Processing:  0
 subscription 1:  0
@@ -89,7 +90,8 @@ Processing:  4
 subscription 3:  4
 subscription 3 complete
 ```
-![share Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7kq3wgsd7p6daltyihrd.jpg)
+
+![share Marble Diagram](./7kq3wgsd7p6daltyihrd.jpg)
 This operator can help us when we need to share the value of an observable during its execution. But what does it mean? It means that the first subscription starts the observable and all the next subscriptions that subscribe to this observable do not run a new instance of the observable but they receive the same values of the first subscription, thus losing all the previous values emitted before their subscription.
 It's important to remember that when the observable is completed, and another observer subscribes itself to the observable, the shared operator resets the observable and restarts its execution from the beginning.
 Anyway, sometimes our code needs to prevent the restarting of our observables, but what can we do in these cases?
@@ -112,6 +114,7 @@ setTimeout(() => source.subscribe(x => console.log('subscription 2: ', x)), 1700
 
 setTimeout(() => source.subscribe(x => console.log('subscription 3: ', x)), 5000);
 ```
+
 ```console
 subscription 1:  0
 subscription 2:  1
@@ -120,9 +123,10 @@ subscription 3:  0
 subscription 3:  1
 subscription 3:  2
 ```
-![shared with resetOnRefCountZero option Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/q6ebecgs8rcymrtwz8is.jpg)
 
-* **[shareReplay](https://rxjs.dev/api/operators/shareReplay)**
+![shared with resetOnRefCountZero option Marble Diagram](./q6ebecgs8rcymrtwz8is.jpg)
+
+- **[shareReplay](https://rxjs.dev/api/operators/shareReplay)**
 
 > Share source and replay specified number of emissions on subscription.
 
@@ -142,6 +146,7 @@ setTimeout(() => {
   shared$.subscribe(y => console.log('sub B: ', y));
 }, 3500);
 ```
+
 ```console
 0
 sub A:  0
@@ -156,7 +161,8 @@ sub B:  2
 sub A:  3
 sub B:  3
 ```
-![shareReplay Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kud1ghis4m39geeqsuvf.jpg)
+
+![shareReplay Marble Diagram](./kud1ghis4m39geeqsuvf.jpg)
 In some cases, when we share the values between multiple observers, if an observer subscribes to an already started observable, we also need to replay all the previous already emitted values. To resolve this problem we can use the shareReplay operator.
 This operator shares the emitted values and if another observer subscribes to the observable it replays the previous values.
 The number of values replayed can be configured: by default all the values already emitted are emitted again, but we can also indicate or a maximum number of elements to remember or a maximum time length.

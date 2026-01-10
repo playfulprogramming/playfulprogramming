@@ -15,7 +15,7 @@ order: 1
 
 September is almost over and **Hacktoberfest** is to begin soon!
 
-But what is [Hacktoberfest](https://hacktoberfest.com/)? It is not an Anonymous hacking anniversary, but a global event with the main goal to _raise awareness about Open Source and encourage as many developers as possible to participate_ regularly, not just in October.
+But what is [Hacktoberfest](https://hacktoberfest.com/)? It is not an Anonymous hacking anniversary, but a global event with the main goal to *raise awareness about Open Source and encourage as many developers as possible to participate* regularly, not just in October.
 
 Hacktoberfest also comes with a challenge and the first 40.000 participants to complete it, will be eligible to decide between two prizes: the official Hacktoberfest 2022 t-shirt, or a tree planted in their name.
 
@@ -33,9 +33,7 @@ Rewards are not only for contributors, but also for maintainers are they're the 
 
 You can find in this video here below my take on how to participate and what to take from this year's edition:
 
-
-[![Youtube Video!](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lac8ezvdr4spt3ln22u7.png)](https://youtu.be/P_YJ4CbuUs0)
-
+[![Youtube Video!](./lac8ezvdr4spt3ln22u7.png)](https://youtu.be/P_YJ4CbuUs0)
 
 ---
 
@@ -45,4 +43,4 @@ Feel free to follow me to get notified when new articles are out ;)
 
 Do you like my content? You might consider subscribing to my YouTube channel! You can find it here:
 
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)

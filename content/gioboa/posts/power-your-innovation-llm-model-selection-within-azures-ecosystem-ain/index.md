@@ -35,9 +35,7 @@ An e-commerce company, for instance, can automatically scale up its LLM-powered 
 
 Azure Foundry provides access to a growing catalog of pre-trained LLMs, including models from Microsoft, OpenAI, and other partners. The platform also allows for customisation and fine-tuning of pre-trained LLMs on your own data, improving their performance on specific tasks.
 
-
-![azure-models](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kdvmuomum1h9r89vhcrh.png)
-
+![azure-models](./kdvmuomum1h9r89vhcrh.png)
 
 ## Example
 
@@ -47,21 +45,16 @@ Azure Foundry provides access to a growing catalog of pre-trained LLMs, includin
 
 Sign in to the [Azure AI Foundry portal](https://ai.azure.com/?cid=learnDocs). On the home page, search and then select the model. eg. gpt-4.1
 
-
-![gpt-models](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sep157ingx61hfh7qbqw.png)
-
+![gpt-models](./sep157ingx61hfh7qbqw.png)
 
 On the model details page, select Use this model.
 Fill in a name to use for your project and select Create.
 
-![use-model-button](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4a2spouid7c2cy7t1hjj.png)
+![use-model-button](./4a2spouid7c2cy7t1hjj.png)
 
 Once your resources are created, you can copy your `API key` and `Project endpoint` variables.
 
-
-![env-variables](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/iommqc9k5xwczq5q66fw.png)
-
-
+![env-variables](./iommqc9k5xwczq5q66fw.png)
 
 ### Step 2: TypeScript code
 
@@ -75,6 +68,7 @@ npm install openai
 ```
 
 FILE: index.ts
+
 ```
 import { AzureOpenAI } from 'openai';
 

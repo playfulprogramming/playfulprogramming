@@ -29,7 +29,7 @@ However, during development, your Angular application often runs on `localhost:4
 
 ## Angular's `proxyConfig`: Your Development Gateway
 
-Angular's `proxyConfig` provides a convenient and efficient workaround for the CORS issue during development. It essentially acts as a reverse proxy, intercepting requests from your Angular application and forwarding them to the backend server. 
+Angular's `proxyConfig` provides a convenient and efficient workaround for the CORS issue during development. It essentially acts as a reverse proxy, intercepting requests from your Angular application and forwarding them to the backend server.
 
 > The key benefit is that the browser sees all requests originating from the same origin (your Angular application's development server), thus bypassing the CORS restrictions.
 
@@ -58,11 +58,11 @@ The `proxyConfig` is typically a JavaScript or JSON file that resides in the roo
 }
 ```
 
-- `/api` (Context): This is the URL prefix that triggers the proxy. Any request from your Angular application starting with `/api` will be intercepted and proxied. This is a crucial configuration point as it allows you to specify which requests should be proxied and which should be handled directly by your Angular application. 
-You can define multiple contexts to proxy different parts of your application to different backend servers.
+- `/api` (Context): This is the URL prefix that triggers the proxy. Any request from your Angular application starting with `/api` will be intercepted and proxied. This is a crucial configuration point as it allows you to specify which requests should be proxied and which should be handled directly by your Angular application.
+  You can define multiple contexts to proxy different parts of your application to different backend servers.
 
-- `target`: This is the URL of the backend server to which the requests will be forwarded. In this example, it's pointing to a server running on `http://localhost:8080`. 
-This is the most important setting as it defines where the proxy will send the intercepted requests.
+- `target`: This is the URL of the backend server to which the requests will be forwarded. In this example, it's pointing to a server running on `http://localhost:8080`.
+  This is the most important setting as it defines where the proxy will send the intercepted requests.
 
 - `secure`: This property determines whether to use HTTPS when proxying the request. Setting it to `false` disables SSL verification, which is often necessary during development with self-signed certificates. **Important Note:** Never set `secure` to `false` in production, as it compromises security.
 
@@ -169,6 +169,7 @@ export default {
 
 The key part here is the bypass function, it adds custom logic and lets you conditionally skip the proxy based on the request.
 It receives three arguments:
+
 - `req`: The incoming request object (Node.js http.IncomingMessage). You can inspect headers, cookies, the URL, etc.
 - `res`: The outgoing response object (Node.js http.ServerResponse). You can modify the response, but be careful, as you might interfere with Angular's rendering if you use it inappropriately.
 - `proxyOptions`: The proxy options that are configured for this route. You usually don't need to directly interact with these.
@@ -181,7 +182,7 @@ In production, you should configure your web server (e.g., Nginx, Apache, IIS) t
 
 ## Conclusion
 
-Angular's `proxyConfig` is an indispensable tool for streamlining development workflows when your application needs to interact with backend APIs. By acting as a reverse proxy, it effectively bypasses CORS restrictions, allowing you to focus on building your application without being hindered by cross-origin issues. 
+Angular's `proxyConfig` is an indispensable tool for streamlining development workflows when your application needs to interact with backend APIs. By acting as a reverse proxy, it effectively bypasses CORS restrictions, allowing you to focus on building your application without being hindered by cross-origin issues.
 
 Understanding its configuration options and advanced features empowers you to handle complex development scenarios with ease. Remember to always configure a proper reverse proxy on your production web server and never rely on `proxyConfig` in a live environment.
 
@@ -195,4 +196,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Bye 👋
 
 {% embed https://dev.to/gioboa %}
-

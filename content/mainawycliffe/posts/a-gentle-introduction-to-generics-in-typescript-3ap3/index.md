@@ -47,7 +47,7 @@ function sort(num: any[]): any[] {
 
 #### Is there a better solution?
 
-Before I can answer that, let’s recap. _So, we want a solution that allows us to write a single sort function, without compromising type-safety and losing type precision_. Back to the question, yes, there is a better solution.
+Before I can answer that, let’s recap. *So, we want a solution that allows us to write a single sort function, without compromising type-safety and losing type precision*. Back to the question, yes, there is a better solution.
 
 What if, instead of writing a sort function with static types for arguments and return values as we did previously, we could write a function whose types can be specified when the function is being called?
 
@@ -63,7 +63,7 @@ To break the above down in relationship to our sort function requirement, we wan
 
 In Typescript, we use generics by providing the type variable inside angle brackets (`<Type>`). A type variable is a special kind of variable that works on types rather than values. You have free reign in naming the type variables, just like the naming of other variables.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb49dec4e-5984-427e-8865-a486c9355f5b_600x453.jpeg)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb49dec4e-5984-427e-8865-a486c9355f5b_600x453.jpeg)
 
 For instance, in functions, we provide the type variable, in angle brackets (`<Type>`), in between the function name and brackets used to specify the arguments. We will see about generic classes, types, and interfaces later on. The type specified here can then be used within the function, or for arguments and return types, as shown below.
 
@@ -82,7 +82,7 @@ const x = sort<string>(["1", "2", "3"]);
 
 We are providing the string type, as the type variable and now Typescript can use the information to type-check the function arguments and outputs.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa73fe8cc-8372-46a8-a4cd-e29e50f65ebc_357x54.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa73fe8cc-8372-46a8-a4cd-e29e50f65ebc_357x54.png)
 
 This works for a variety of types:
 
@@ -100,9 +100,9 @@ const both = sort<string | number>([1, 2, "str"])
 
 If we try a different type other than the one provided in our generic type variable, Typescript is going to throw an error, as shown below:
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2559d0ee-b6c7-40e3-9233-f44b9efa8225_778x85.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2559d0ee-b6c7-40e3-9233-f44b9efa8225_778x85.png)
 
-_**Typescript will type-check the function arguments against the Type variable we provided.**_
+***Typescript will type-check the function arguments against the Type variable we provided.***
 
 And just like functions arguments, you can have multiple type variables:
 
@@ -112,13 +112,13 @@ function manyGenerics<A, B, C, D>(a: A, b: B, c: C, d: D): [A, B, C, D] {
 }
 ```
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd3752623-8362-4023-ab7a-b319ccb6fd54_500x500.jpeg)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd3752623-8362-4023-ab7a-b319ccb6fd54_500x500.jpeg)
 
 #### Do I have to provide the type variable every time?
 
 The answer is no, and this is because Typescript can use Type [inference](https://www.allthingstypescript.dev/p/all-things-typescript-newsletter-issue-13-type-inference-in-typescript-1211063) so you don’t have to provide the functions generic type with every call.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F39aaa4e2-bc8c-4fd1-a321-9eb9ad0b065c_564x61.png)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F39aaa4e2-bc8c-4fd1-a321-9eb9ad0b065c_564x61.png)
 
 Typescript will use the type inferred for our generic input, as the type for our variable type, which can save you from having to always specify the type variable.
 
@@ -199,7 +199,7 @@ See you next week and [subscribe](https://www.allthingstypescript.dev/) to not m
 
 ---
 
-**If you like my content and want to support my work, please consider supporting me (**_**you can buy me a double latte, the juice that powers my creativity and determination ☕️**_**) through [Github Sponsors](https://github.com/sponsors/mainawycliffe/).**
+**If you like my content and want to support my work, please consider supporting me (*****you can buy me a double latte, the juice that powers my creativity and determination ☕️*****) through [Github Sponsors](https://github.com/sponsors/mainawycliffe/).**
 
 [☕️ Consider buying me a cup of coffee](https://github.com/sponsors/mainawycliffe/)
 

@@ -13,7 +13,7 @@ socialImage: "social-image.png"
 
 I love VS Code. It is fast, flexible, and works for almost any stack. But the default layout is not great if you want a clean space to think. The editor area is smaller than it should be, and the UI is packed with elements that pull attention away from the code. With the new Copilot Chat panel taking even more space, the problem becomes obvious. Too much noise, not enough room to work.
 
-![VS Code Default Layout](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/a5r5wccr9kd6xos8y0l1.png)
+![VS Code Default Layout](./a5r5wccr9kd6xos8y0l1.png)
 
 In the picture above, the default layout, with Copilot opened on the right, the space for code is really limited.
 
@@ -39,7 +39,7 @@ Creating the new profile takes a minute:
 
 You can also click on the **Gear** icon on the bottom left and select "Profiles" from the menu.
 
-![Create a new profile](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bjlckxu0kf9gwem00ny2.png)
+![Create a new profile](./bjlckxu0kf9gwem00ny2.png)
 
 ---
 
@@ -56,7 +56,7 @@ Moving the sidebar to the right reduces this tension. It keeps the editor center
 
 You can also click with the right button on the sidebar and select "Move Primary Sidebar Right".
 
-![Move Primary Sidebar Right](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rd8dwljxzizkerijyrk5.png)
+![Move Primary Sidebar Right](./rd8dwljxzizkerijyrk5.png)
 
 This simple switch makes the layout feel more balanced and less cluttered.
 
@@ -72,7 +72,7 @@ The Activity Bar is highly visible. Keeping it on the left (or right, if the pri
 
 It's possible to change the same settings, even by clicking on the top of the sidebar and choose **Top** from the **Activity Bar Position** menu.
 
-![Activity Bar Position](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ov7dptqftxgdsl1bzxhq.png)
+![Activity Bar Position](./ov7dptqftxgdsl1bzxhq.png)
 
 This change pairs well with the right-aligned sidebar and creates a cleaner overall layout.
 
@@ -112,7 +112,7 @@ How often do you use the Menu? I think not so much, so, you can use that space f
 
 If you want to use the UI to change this settings, click on the **Customize Layout** on the top right corner of VS Code window and change the Visibility of the Menu Bar.
 
-![Menu Bar](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ukui96lv23b2mmlgk0xy.png)
+![Menu Bar](./ukui96lv23b2mmlgk0xy.png)
 
 One more row is saved but first of all you are not distracted by the menu items on the top.
 
@@ -150,7 +150,7 @@ A small tweak, but surprisingly helpful.
 
 A cozy environment should be enjoyable, not just efficient. The **VS Code Pets** extension adds a small animated pet to your workspace. It keeps you company during long sessions and adds a bit of charm without affecting focus.
 
-![VS Code Pets](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8q65fseydgmjk0ug12gk.png)
+![VS Code Pets](./8q65fseydgmjk0ug12gk.png)
 
 It is optional, but it makes the environment feel more human.
 
@@ -162,20 +162,20 @@ A cozy development environment is not about adding more tools. It is about remov
 
 In the screenshot below, you can see the final result after all these easy changes.
 
-![Final Result](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kjny7tun8120fq5lx4ya.png)
+![Final Result](./kjny7tun8120fq5lx4ya.png)
 
 If you want to spend time changing all the settings manually, you can find all my settings in the following repo:
 
-{% embed https://github.com/kasuken/Windows11-Setup/ %} 
+{% embed https://github.com/kasuken/Windows11-Setup/ %}
 
 This layout turned VS Code into a cleaner and more intentional workspace for me. If you try it or customize it, share your version. Every developer ends up with their own definition of cozy.
 
 ---
 
-📘 **Get the Book with 50% Off!**  
+📘 **Get the Book with 50% Off!**
 
-I turned my beginner programming mistakes into a guide so you don’t have to repeat them.  
-Grab **The Mistakes I Made as a Beginner Programmer** today with a special discount.  
+I turned my beginner programming mistakes into a guide so you don’t have to repeat them.\
+Grab **The Mistakes I Made as a Beginner Programmer** today with a special discount.
 
-👉 [Get it on Gumroad](https://emanuelebartolesi.gumroad.com/l/mistakesasdeveloper/MISTAKESDEVTO50)  
+👉 [Get it on Gumroad](https://emanuelebartolesi.gumroad.com/l/mistakesasdeveloper/MISTAKESDEVTO50)\
 💸 Use code **MISTAKESDEVTO50** at checkout for **50% off**.

@@ -50,7 +50,7 @@ The same could be done entirely in the template using class binding in Angular. 
 <div class="animate__animated" [class.animate__bounce]="shouldBounce"></div>
 ```
 
-![Bounce and wobble animations](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cvurh4xj1nrn4xqiav48.gif)
+![Bounce and wobble animations](./cvurh4xj1nrn4xqiav48.gif)
 
 > To customize your animations (timing, delays, iterations, etc.), you can either add these classes directly to the `class` property of the element if they are static or bind them like the code snippet above if they are dynamic and depend on an external factor.
 
@@ -118,7 +118,7 @@ We can also animate entrances and exits by simply attaching the class conditiona
 ></div>
 ```
 
-![Enter and exit animations](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0rzuygoa99kn9sb528tz.gif)
+![Enter and exit animations](./0rzuygoa99kn9sb528tz.gif)
 
 However, the above approach just animates the element in and out of the view, not necessarily removing the element from the DOM like what an `*ngIf` does.
 
@@ -135,7 +135,7 @@ Let me give you an example of what it looks like if we use an `*ngIf` and class 
 
 The above code results in the following behavior.
 
-![Enter only animations](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/w2f2s1v1j3rdtlyv23z6.gif)
+![Enter only animations](./w2f2s1v1j3rdtlyv23z6.gif)
 
 Notice that the element only animates in and completely ignores the exit animation. This is expected as the `*ngIf` directive immediately removes the element once the condition is false without waiting for any animation to complete.
 
@@ -226,7 +226,7 @@ export class AnimateStyleDemoComponent {
 }
 ```
 
-![Enter and exit animations](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0rzuygoa99kn9sb528tz.gif)
+![Enter and exit animations](./0rzuygoa99kn9sb528tz-1.gif)
 
 ## Wrapping Up
 

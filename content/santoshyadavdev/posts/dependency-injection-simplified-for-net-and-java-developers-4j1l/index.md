@@ -11,7 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
-Recently one of the .Net developer asked me the question "why we use class rather than interfaces while using Dependency Injection" the question was valid because as a .Net developer that was what we learned, Do not use or create a class instance directly. 
+Recently one of the .Net developer asked me the question "why we use class rather than interfaces while using Dependency Injection" the question was valid because as a .Net developer that was what we learned, Do not use or create a class instance directly.
 
 # Introduction
 
@@ -34,7 +34,8 @@ public class IndexModel : PageModel
 
 The correct way to do this in .Net is
 
-* Define an interface 
+- Define an interface
+
 ```ts
 public interface IMyDependency
 {
@@ -42,7 +43,8 @@ public interface IMyDependency
 }
 ```
 
-* Use the interface to create a new service
+- Use the interface to create a new service
+
 ```ts
 public class MyDependency : IMyDependency
 {
@@ -64,12 +66,14 @@ public class MyDependency : IMyDependency
 }
 ```
 
-* Register the interface and service
+- Register the interface and service
+
 ```ts
 services.AddScoped<IMyDependency, MyDependency>();
 ```
 
-* Using the DI in another class
+- Using the DI in another class
+
 ```ts
 public class IndexModel : PageModel
 {
@@ -93,13 +97,13 @@ The advantage of using the above approach is we can easily replace MyDependency 
 
 Angular has it's on DI framework, so there is no complication of registering an interface and related service as we saw in .Net implementation
 
-We will be looking at Class providers for this article, to create a new service we can run 
+We will be looking at Class providers for this article, to create a new service we can run
 
 ```bash
 ng g service <service-name>
 ```
 
-* The service code looks like below
+- The service code looks like below
 
 ```ts
 import { Injectable } from '@angular/core';
@@ -119,7 +123,7 @@ export class LoginService {
 
 I have left the login method blank just for visibility purpose, the service may have some HTTP calls as well.
 
-* Using it in component
+- Using it in component
 
 ```ts
 import { Component }   from '@angular/core';
@@ -148,33 +152,38 @@ The above component has loginService injected, but wait we are using the class n
 
 The first question which comes to developers mind, who comes from .Net background is if interfaces exist why not to use interface rather than the class to achieve Dependency Injection. Let's see it programmatically why it is not possible.
 
-* Install typescript using 
+- Install typescript using
+
 ```bash
 npm i typescript -g
 ```
 
-* Create a Folder `InterfaceDemo` where we will create few files
+- Create a Folder `InterfaceDemo` where we will create few files
 
-* Open the folder with VS Code and run below command to create tsconfig.json
+- Open the folder with VS Code and run below command to create tsconfig.json
+
 ```bash
 tsc -init
 ```
 
-* Open the `tsconfig.json` file and change `target` to `ES2015`.
+- Open the `tsconfig.json` file and change `target` to `ES2015`.
 
-* Create a new file name ILogin.ts and copy the below code.
+- Create a new file name ILogin.ts and copy the below code.
+
 ```ts
 interface ILogin {
     login(user:any): any;
 }
 ```
 
-* From terminal run below command.
+- From terminal run below command.
+
 ```bash
 tsc
 ```
 
-* Now you will get ILogin.js file open the file and see the code it's 
+- Now you will get ILogin.js file open the file and see the code it's
+
 ```js
 "use strict";
 ```
@@ -182,22 +191,22 @@ tsc
 What just happened, do we mean whatever code we write inside interfaces does not exist once we get `.js` files?
 Yes, this is what happens, typescript is used mostly for type safety they do not exist once our code is compiled to JavaScript. Now we know, why we cannot use Interfaces for DI here.
 
-
 # How it is Dependency Injection if We are dependent on Class Instance
 
 Now let's explore how we are not directly dependent on LoginService even though it is injected into the component.
 
-* If you see the code we are not creating an instance of LoginService, we are injecting it, in the same way as we do with interface in .Net, Angular knows how to resolve the dependency, we don't need to create the instance even though injected service is dependent on another service like `HttpClient` in the mentioned example.
+- If you see the code we are not creating an instance of LoginService, we are injecting it, in the same way as we do with interface in .Net, Angular knows how to resolve the dependency, we don't need to create the instance even though injected service is dependent on another service like `HttpClient` in the mentioned example.
 
 Ok agreed that we are not creating the instance, but what if I want to replace LoginService with another service let's call it as NewLoginService, we have to change the code again isn't it?
 The answer is No, we don't need to let's see how we can achieve this.
 
-* Create NewLoginService using CLI
+- Create NewLoginService using CLI
+
 ```ts
 ng g service NewLogin
 ```
 
-* Add the below code into your service.
+- Add the below code into your service.
 
 ```ts
 import { Injectable } from '@angular/core';
@@ -216,16 +225,15 @@ export class NewLoginService extends LoginService {
 }
 ```
 
-* Before you make next change run the app with LoginComponent and click on the Login button and see the console we should see `login service called` 
+- Before you make next change run the app with LoginComponent and click on the Login button and see the console we should see `login service called`
 
-* Now move to `app.module.ts` and you will notice providers property replace it with the below code.
+- Now move to `app.module.ts` and you will notice providers property replace it with the below code.
 
 ```ts
 providers: [{ provide : LoginService , useClass : NewLoginService }]
 ```
 
-* Run the application and check the console again, and click on the Login button and see the console we should see `new login service called`.
-
+- Run the application and check the console again, and click on the Login button and see the console we should see `new login service called`.
 
 This is how we can change the old service with a new service without changing even a single line of code, and this is how we can control which service should be available to the application.
 
@@ -233,5 +241,6 @@ Another advantage we get here if older service has 10 methods and we only want t
 
 # Conclusion
 
-The biggest mistake the developers who move to Angular make is they really get comfortable using typescript and feel home, though most of the concepts from C# is available, I always suggest developers read about Javascript as well it is really important, play with typescript try to see the output `js` files whenever you get time. There is really a good post form @layzee 
+The biggest mistake the developers who move to Angular make is they really get comfortable using typescript and feel home, though most of the concepts from C# is available, I always suggest developers read about Javascript as well it is really important, play with typescript try to see the output `js` files whenever you get time. There is really a good post form @layzee
+
 > https://dev.to/layzee/sorry-c-and-java-developers-this-is-not-how-typescript-works-401

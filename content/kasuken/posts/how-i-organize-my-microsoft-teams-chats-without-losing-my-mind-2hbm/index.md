@@ -24,7 +24,6 @@ You’ve probably already pinned your favorite contacts. But you can take it fur
 - **Rename chats** with the pencil icon so you can scan them at a glance
 
 > 💡 Pro Tip: Limit yourself to around 8–10 pinned chats to avoid clutter.
-> 
 
 Here’s how I categorize mine:
 
@@ -32,7 +31,7 @@ Here’s how I categorize mine:
 - 👨‍💻 **Manager / Reports**
 - 💬 **1:1s** (mentoring, coaching, etc.)
 - 🚧 **Ongoing Projects**
-- 🧠 **Brainstorm or R&D**
+- 🧠 **Brainstorm or R\&D**
 - 🆘 **Support / Helpdesk**
 - 🎉 **Fun / Social**
 
@@ -51,7 +50,6 @@ Try these:
 - Search by **keywords**, **dates**, or **file names** to dig up past conversations
 
 > 💡 Tip: Save your favorite search patterns in Notion or OneNote for quick reuse.
-> 
 
 Example:
 
@@ -75,7 +73,6 @@ Make it a habit to **unpin or hide** chats that are:
 Right-click the chat > **Hide**. That’s it.
 
 > ✨ Bonus: You’ll still get notified if someone messages you, hiding doesn’t mute the chat.
-> 
 
 ---
 
@@ -90,7 +87,6 @@ Here’s how:
 - Drop questions, links, or async updates *before* the call
 
 > 🧠 Think of it as your meeting’s shared notebook — searchable, collaborative, and always there when you need to follow up.
-> 
 
 It turns every recurring meeting into an async-friendly thread. Win-win.
 
@@ -129,7 +125,6 @@ Microsoft Teams doesn't have to be a mess.
 It’s not about adding more tools — it’s about using what you already have, better.
 
 > Got your own Teams hacks? Drop them in the comments — I’d love to learn how you stay organized.
->
 
 ---
 

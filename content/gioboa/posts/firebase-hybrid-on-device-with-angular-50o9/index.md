@@ -25,7 +25,6 @@ The core idea is to leverage the power of both cloud-based AI models and on-devi
 
 - **Cost Savings**: Offloading processing to the device can reduce cloud costs associated with AI inference.
 
-
 ## Let's jump to the code
 
 This is an example of an Angular service that will allow us to use the Firebase API.
@@ -137,4 +136,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Until next time 👋
 
 {% embed https://dev.to/gioboa %}
-

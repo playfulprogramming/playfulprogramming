@@ -16,9 +16,7 @@ GitHub just announced [Copilot Workspace](https://github.blog/2024-04-29-github-
 
 It works in 4 steps:
 
-
-![Copilot Workspace steps](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/x3ui8f5hmf4a41a8agqo.png)
-
+![Copilot Workspace steps](./x3ui8f5hmf4a41a8agqo.png)
 
 I recorded a short demo to see it in action, enjoy:
 
@@ -26,41 +24,35 @@ I recorded a short demo to see it in action, enjoy:
 
 ## 1. Issue/Task
 
-_Everything begins with an open issue (or even a simple prompt)_
+*Everything begins with an open issue (or even a simple prompt)*
 
 Copilot can read the selected issue and all the comments, getting knowledge and context of the user's needs.
 
-![Issue](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/2i4urlqc9c92oljf3na6.png)
+![Issue](./2i4urlqc9c92oljf3na6.png)
 
 ## 2. Specification
 
-_A summary of the proposed changes, and how they relate to the current behavior_
+*A summary of the proposed changes, and how they relate to the current behavior*
 
 The AI identifies the exact scope and tries to compare the current state (as is) with the desired outcome (to be).
 
 A list with bullet points is generated to even further define the scope and you, the developer, can edit and improve to fix misunderstandings or cover edge cases.
 
-
-![Specification](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/m6p23guuqzajii8fy3b9.png)
-
-
+![Specification](./m6p23guuqzajii8fy3b9.png)
 
 ## 3. Plan
 
-_A summary of the file changes that are needed to complete the current task_
+*A summary of the file changes that are needed to complete the current task*
 
 The plan is made of a list of files that can be created, modified, deleted or renamed. For each file Copilot describes the actions it’s going to take.
 
 Once again you can revise and touch up the plan before moving on to the next part, the actual coding.
 
-
-![Plan](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ppxaeuaiphcv7k2ryyvd.png)
-
-
+![Plan](./ppxaeuaiphcv7k2ryyvd.png)
 
 ## 4. Implementation
 
-_A list of files that have changed, and the tools needed to validate them_
+*A list of files that have changed, and the tools needed to validate them*
 
 For each file listed in the Plan, Copilot writes the proposed changes and shows them in a handy diff editor, which as the name suggests, is editable!
 
@@ -68,13 +60,9 @@ From here you can do the final touches to the code hit the Create pull request b
 
 There’s a button to spin a Codespaces container where you can run your app, validate the changes and eventually create the pull request.
 
+![File Diff](./9ksivsptqf8u96eh8rxe.png)
 
-![File Diff](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9ksivsptqf8u96eh8rxe.png)
-
-
-![Implementation](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8vp0877bx6kzh0ro0sb2.png)
-
-
+![Implementation](./8vp0877bx6kzh0ro0sb2.png)
 
 ## That's it!
 
@@ -86,8 +74,7 @@ The innovation coming from the [GitHub Next](https://githubnext.com/) team is un
 
 ---
 
-Do you want to see it in action? You can watch a demo I recorded on YouTube: [https://youtu.be/FARf9emEPjI](https://youtu.be/FARf9emEPjI)
-
+Do you want to see it in action? You can watch a demo I recorded on YouTube: <https://youtu.be/FARf9emEPjI>
 
 ---
 
@@ -99,7 +86,7 @@ Join us: https://github.com/DevLeonardoCommunity
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

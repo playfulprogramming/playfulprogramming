@@ -18,7 +18,7 @@ Scully provides 9 types of plugins which are called at during different stages o
 
 ## Prerequisites
 
-* Setup Scully for Your Angular Project - [Link](https://scully.io/docs/learn/getting-started/overview/).
+- Setup Scully for Your Angular Project - [Link](https://scully.io/docs/learn/getting-started/overview/).
 
 ## Building the Plugin
 
@@ -26,7 +26,7 @@ Scully provides 9 types of plugins which are called at during different stages o
 
 If you used schematics to setup your Scully for your Angular project, you should be able to spot a Scully directory at the root of the workspace. This directory contains a `tsconfig` file for Scully plugins and a plugins directory, which is where our plugin will live.
 
-Inside the plugins directory - `scully/plugins` - we will create a new file named `rss.ts`, which is going to contain the source code for our plugin. 
+Inside the plugins directory - `scully/plugins` - we will create a new file named `rss.ts`, which is going to contain the source code for our plugin.
 
 ### Plugin Code
 
@@ -34,23 +34,23 @@ To create our RSS feed, we will use the NPM package [Feed](https://github.com/jp
 
 Our RSS plugin will be called when Scully discovers all routes and it will receive a list of routes and route data associated with each route discovered.
 
-```typescript 
+```typescript
 const createRSSFeed = async (routes: HandledRoute[]) => {
   // code here
 }
 ```
 
-We will start by creating a new instance of `Feed`. 
+We will start by creating a new instance of `Feed`.
 
 First, we need to import `Feed`.
 
-```typescript 
+```typescript
 import { Feed } from 'feed';
 ```
 
 Then instantiate `Feed`.
 
-```typescript 
+```typescript
 const feed = new Feed({
   title: 'John Doe Blog',
   language: 'en-us',
@@ -70,7 +70,7 @@ const feed = new Feed({
 
 Next, we will loop over the routes, and add an RSS Feed item for each.
 
-```typescript 
+```typescript
 routes.forEach((route) => {
 	// add each item to an RSS Feed Article  
 })
@@ -78,7 +78,7 @@ routes.forEach((route) => {
 
 Then, for each route, we want to add an RSS item, and use the route data - `route.data.*` to fill in the different properties like `title`, `date`, `content`, etc.
 
-```typescript 
+```typescript
 routes.forEach((route) => {
   feed.addItem({
     title: route.data.title,
@@ -121,13 +121,13 @@ npm i -D fs-extra
 
 Then, we will import `outputFileSync` from `fs-extra`.
 
-```typescript 
+```typescript
 import { outputFileSync } from 'fs-extra';
 ```
 
 Finally, we will save the RSS feed.
 
-```typescript 
+```typescript
 // the output directory of your scully builds artefacts
 const outDir = './dist/static';
 
@@ -136,14 +136,14 @@ outputFileSync(join(outDir, 'blog', `feed.xml`), feed.rss2());
 
 On top of that, we can also generate both JSON and Atom files:
 
-```typescript 
+```typescript
 outputFileSync(join(outDir, 'blog', `feed.atom`), feed.atom1());
 outputFileSync(join(outDir, 'blog', `feed.json`), feed.json1());
 ```
 
 That's it for the plugin, here is what the plugin function looks like.
 
-```typescript 
+```typescript
 const createRSSFeed = async (routes: HandledRoute[]) => {
   log(`Generating RSS Feed for Blog`);
 
@@ -203,9 +203,9 @@ const createRSSFeed = async (routes: HandledRoute[]) => {
 
 ### Registering the Plugin
 
-Next, we will give our plugin a name. First, we will declare and export a variable for the name of the plugin. 
+Next, we will give our plugin a name. First, we will declare and export a variable for the name of the plugin.
 
-```typescript 
+```typescript
 export const BlogRSSFeed = Symbol('BlogRSSFeed');
 ```
 
@@ -213,7 +213,7 @@ export const BlogRSSFeed = Symbol('BlogRSSFeed');
 
 Then, we will register our Scully plugin as a `routeDiscoveryDone` plugin.
 
-```typescript 
+```typescript
 registerPlugin('routeDiscoveryDone', BlogRSSFeed, createRSSFeed);
 ```
 
@@ -221,7 +221,7 @@ registerPlugin('routeDiscoveryDone', BlogRSSFeed, createRSSFeed);
 
 Finally, we can use the RSS plugin by adding to the array of `postRederrers`. This can be achieved using two approaches. The first one will be for all routes within our our application:
 
-```typescript 
+```typescript
 export const config: ScullyConfig = {
   projectRoot: './src',
   projectName: 'project-name',
@@ -237,7 +237,7 @@ export const config: ScullyConfig = {
 
 While the second one can be specified for a specific route i.e. blog. This is useful when you only want to generate an RSS feed for a single section of your site like the blog section.
 
-```typescript 
+```typescript
 export const config: ScullyConfig = {
   // ...
   routes: {
@@ -255,6 +255,6 @@ In this article, we learnt how to create a Scully plugin to generate RSS feeds f
 
 ### Resources
 
-* Speeding Up Angular Scully Builds in GitHub Actions - [Link](https://mainawycliffe.dev/blog/speeding-angular-scully-builds-github-actions).
-* Angular CDK - Platform Module - [Link](https://mainawycliffe.dev/blog/angular-cdk-platform-module).
-* Scully Documents - [Link](https://scully.io/docs/learn/getting-started/overview/).
+- Speeding Up Angular Scully Builds in GitHub Actions - [Link](https://mainawycliffe.dev/blog/speeding-angular-scully-builds-github-actions).
+- Angular CDK - Platform Module - [Link](https://mainawycliffe.dev/blog/angular-cdk-platform-module).
+- Scully Documents - [Link](https://scully.io/docs/learn/getting-started/overview/).

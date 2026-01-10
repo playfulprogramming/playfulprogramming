@@ -25,14 +25,13 @@ DevHome is a new feature that will be integrated into Windows 11. It is an open-
 
 DevHome will make it easier for developers to get started, stay productive, and collaborate with others on Windows 11. DevHome will start to become available in preview for Windows 11 in June.
 
-
-![DevHome](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jkbr2u0qidzdlmcqm3ck.png)
+![DevHome](./jkbr2u0qidzdlmcqm3ck.png)
 
 ## 2. Windows Copilot: A new AI-powered assistant for Windows 11
 
 Windows Copilot is another new feature that will be integrated into Windows 11. It is an AI-powered assistant that can help users with various tasks, such as searching the web, creating documents, managing files, and more. Users can access Windows Copilot by clicking a button on the taskbar, or by using voice commands. Windows Copilot will use natural language understanding and machine learning to provide relevant and personalized suggestions and actions. Windows Copilot will also leverage ChatGPT, a conversational AI system that can generate natural and engaging responses to any query.
 
-![Windows Copilot](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pwie7irr29terfip4bi7.png)
+![Windows Copilot](./pwie7irr29terfip4bi7.png)
 
 ## 3. Bing to ChatGPT: A smarter way to get answers
 
@@ -42,13 +41,13 @@ Bing is partnering with OpenAI to bring ChatGPT answers to its users. ChatGPT is
 
 Bing is also introducing a new feature called Bing Chat Plugins, which will allow users to integrate third-party apps with Bing and ChatGPT. Users will be able to use other apps to provide data to Bing and ChatGPT in order to improve the quality of answers, or to access additional tools and services from third-party apps. For example, users can use a medical plugin to get information from reputable sources like Mayo Clinic or WebMD, or use a law plugin to get legal advice from experts like LexisNexis or LegalZoom. Users can also use plugins for entertainment, education, travel, and more. Bing Chat Plugins are based on an open plugin standard that Microsoft adopted from OpenAI, which will enable interoperability across ChatGPT and Microsoft's copilot offerings.
 
-![Bing Chat Plugins](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bix1kg5cgxd0m6d0jjd5.png)
+![Bing Chat Plugins](./bix1kg5cgxd0m6d0jjd5.png)
 
 ## 5. Microsoft Fabric: A unified platform for data professionals
 
 Microsoft Fabric is a new platform that aims to simplify and streamline the work of data professionals. It is a one-stop shop for data integration, data engineering, data warehousing, data science, real-time analytics, applied observability and business intelligence. Microsoft Fabric leverages the power of Azure Synapse Analytics, Azure Machine Learning, Azure Purview, Azure Data Factory, Azure Databricks, Azure Stream Analytics, Azure Monitor, Power BI, and more. It also provides a unified user interface, a common metadata layer, and a shared security model across all these services. Microsoft Fabric will enable data professionals to increase their productivity, collaboration, and innovation like never before¹. Power BI customers can get access to Fabric today by turning on the Fabric tenant setting in the Power BI admin portal.
 
-![Microsoft Fabric](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xisa8u5dmxl78enge1pz.png)
+![Microsoft Fabric](./xisa8u5dmxl78enge1pz.png)
 
 ## Conclusion
 
@@ -58,7 +57,7 @@ In conclusion, Microsoft Build 2023 continued Microsoft's speedy developments in
 
 Are you interested in learning GitHub but don't know where to start? Try my course on LinkedIn Learning: [Learning GitHub](https://bit.ly/learninggithub).
 
-![LinkedIn Learning](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sdc2bpiftpadibi4h51c.gif)
+![LinkedIn Learning](./sdc2bpiftpadibi4h51c.gif)
 
 ---
 

@@ -16,7 +16,7 @@ That's why I decided to try Endel app for one month and see if it could help me 
 
 I was curious and skeptical at the same time, so I downloaded the app and gave it a shot. Here are the results of my experiment and how Endel app boosted my productivity as a developer and CTO.
 
-![Endel homepage](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kwiq43269floqbolt9mh.png)
+![Endel homepage](./kwiq43269floqbolt9mh.png)
 
 ## Focus Mode
 
@@ -50,6 +50,6 @@ I highly recommend Endel app to anyone who wants to enhance their productivity a
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

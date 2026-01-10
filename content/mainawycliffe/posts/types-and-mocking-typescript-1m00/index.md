@@ -44,13 +44,13 @@ const person = {
 console.log(getPersonsFullName(person as any));
 ```
 
-This works, but you are losing the benefits of typescript typing system by casting as any, since the compiler won't type check the object `person` being passed to the function. 
+This works, but you are losing the benefits of typescript typing system by casting as any, since the compiler won't type check the object `person` being passed to the function.
 
 A good reason as to why this is not a good idea, is that if the function changes and starts using other properties or the shape of the input object changes, TypeScript will not help you. I am guilty of casting as `any`, especially when writing mocks for tests.
 
-But, is there a better way? Yes, we can improve the function above, so that it is easier to mock the input without resulting to the above technique. One approach, which I really recommend, is to create a new type which only has the fields the function needs to run successfully, in this case the `name` property. This can easily be achieved in Typescript using Utility Types, which you can learn more about [here](https://mainawycliffe.dev/blog/transforming-types-typescript-utility-types). 
+But, is there a better way? Yes, we can improve the function above, so that it is easier to mock the input without resulting to the above technique. One approach, which I really recommend, is to create a new type which only has the fields the function needs to run successfully, in this case the `name` property. This can easily be achieved in Typescript using Utility Types, which you can learn more about [here](https://mainawycliffe.dev/blog/transforming-types-typescript-utility-types).
 
-We can use the `Pick<T>` utility type, to create a new type from Person, with only the name field i.e. picking the `name` field from the `Person` type. 
+We can use the `Pick<T>` utility type, to create a new type from Person, with only the name field i.e. picking the `name` field from the `Person` type.
 
 ```ts
 function getPersonsFullName(person: Pick<Person, "name">) {

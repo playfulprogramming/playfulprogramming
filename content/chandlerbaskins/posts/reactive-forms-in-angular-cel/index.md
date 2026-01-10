@@ -12,7 +12,6 @@ socialImage: "social-image.png"
 ---
 
 *Photo by <a href="https://unsplash.com/@simonppt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">SIMON LEE</a> on Unsplash*
-  
 
 ## Forms can be complicated
 
@@ -20,11 +19,11 @@ Seriously. I feel like the days of wysiwig forms are over. Long gone are the day
 
 ## Reactive Forms
 
-Per the wonderful documentation 
+Per the wonderful documentation
 
 > Reactive forms provide a model-driven approach to handling form inputs whose values change over time. Reactive forms are built around observable streams, where form inputs and values are provided as streams of input values, which can be accessed synchronously.
 
-I love these model driven approaches and I love RxJS so I usually feel right at home here. One question I asked was how do I represent that model in my code and how does that translate to the HTML that renders the controls (inputs,radios,selects) on the screen? Well as a basic building block Angular, provides us with Abstract Control [https://angular.io/api/forms/AbstractControl](https://angular.io/api/forms/AbstractControl). This is the Base class that  the Reactive Forms API builds on top of. This  class contains properties and methods for handling the value of your form control as well as validation and form state (dirty, pristine, valid, invalid). A building block built on top of this is the Form Control [https://angular.io/api/forms/FormControl#formcontrol](https://angular.io/api/forms/FormControl#formcontrol). This is our basic building block to create a single form control. For example 
+I love these model driven approaches and I love RxJS so I usually feel right at home here. One question I asked was how do I represent that model in my code and how does that translate to the HTML that renders the controls (inputs,radios,selects) on the screen? Well as a basic building block Angular, provides us with Abstract Control <https://angular.io/api/forms/AbstractControl>. This is the Base class that  the Reactive Forms API builds on top of. This  class contains properties and methods for handling the value of your form control as well as validation and form state (dirty, pristine, valid, invalid). A building block built on top of this is the Form Control <https://angular.io/api/forms/FormControl#formcontrol>. This is our basic building block to create a single form control. For example
 
 ```tsx
 // in your component
@@ -38,11 +37,11 @@ Now instantiating this class takes three arguments. The first is a seed value wh
 <input id="name" type="text" [formControl]="firstNameControl">
 ```
 
-Now usually we don't just don't have single controls. Usually forms are made up of multiple inputs for a user to fill out. Thankfully Angular provides us a way to group controls with FormGroup. From the docs 
+Now usually we don't just don't have single controls. Usually forms are made up of multiple inputs for a user to fill out. Thankfully Angular provides us a way to group controls with FormGroup. From the docs
 
 > A form group defines a form with a fixed set of controls that you can manage together. Form group basics are discussed in this section. You can also nest form groups to create more complex forms.
 
-An example of a FormGroup would be  
+An example of a FormGroup would be
 
 ```tsx
 profileForm = new FormGroup({
@@ -57,9 +56,9 @@ Here we instantiate the FormGroup class and give it an object whos keys are the 
 const firstNameControl = this.profileForm.get('firstName');
 ```
 
-Honestly AbstractControl could have a whole article written on it, Definitely helps having a good understanding on it and the API Reference is a great place to start. 
+Honestly AbstractControl could have a whole article written on it, Definitely helps having a good understanding on it and the API Reference is a great place to start.
 
-Now to bind to this form group in our template we will use the formGroup directive. 
+Now to bind to this form group in our template we will use the formGroup directive.
 
 ```html
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -72,13 +71,13 @@ Now to bind to this form group in our template we will use the formGroup directi
    </form>
 ```
 
-Now here you may notice for our individual controls we are using `formControlName` Because our controls are linked to a FormGroup and are not class members `formControl` would not be able to find them. Remember  the [] in Angular is for property bindings. formControlName is smart enough to know that it's in a formGroup and will attempt to find the control from that group.  There are  directives that will sync nested Form Types (Array,Control,Group). You can find the API Summary here [https://angular.io/guide/reactive-forms#reactive-forms-api-summary](https://angular.io/guide/reactive-forms#reactive-forms-api-summary).
+Now here you may notice for our individual controls we are using `formControlName` Because our controls are linked to a FormGroup and are not class members `formControl` would not be able to find them. Remember  the \[] in Angular is for property bindings. formControlName is smart enough to know that it's in a formGroup and will attempt to find the control from that group.  There are  directives that will sync nested Form Types (Array,Control,Group). You can find the API Summary here <https://angular.io/guide/reactive-forms#reactive-forms-api-summary>.
 
 ## Dynamic Forms and Form Array
 
-Dynamic forms are one of the coolest user experiences you can have on the web. Selecting this option populates more form fields while selecting this option takes you to the end of the form. It makes things feel like a living  interaction. Angular provides us with FormArray [https://angular.io/api/forms/FormArray](https://angular.io/api/forms/FormArray). You can also use  FormGroup and add controls to it dynamically but the benefit that FormArray provides is that the controls are unnamed. This is also useful for pushing in FormGroups and allows for complicated nesting to be easier for us because FormArray comes with methods like push, insert, removeAt etc... that are similar APIs that we are already familar with when working with Javascript Arrays.
+Dynamic forms are one of the coolest user experiences you can have on the web. Selecting this option populates more form fields while selecting this option takes you to the end of the form. It makes things feel like a living  interaction. Angular provides us with FormArray <https://angular.io/api/forms/FormArray>. You can also use  FormGroup and add controls to it dynamically but the benefit that FormArray provides is that the controls are unnamed. This is also useful for pushing in FormGroups and allows for complicated nesting to be easier for us because FormArray comes with methods like push, insert, removeAt etc... that are similar APIs that we are already familar with when working with Javascript Arrays.
 
-If we take a registration form for example we may have setup our form model to look something like this 
+If we take a registration form for example we may have setup our form model to look something like this
 
 ```tsx
 registrationForm = new FormGroup({
@@ -128,7 +127,7 @@ Here we have our mark up and directives for rendering the form and connecting it
 
 This one gets kinda fun because your listening for user input and then doing something with. Fundamentally it's similar to reacting to button clicks to add more controls or remove them. Instead of listening to click events we listen to user inputs and we can do that using the `valueChanges`  property from the Abstract Control class. ` valueChanges` is a multicasting observable that emits an event every time the value of the control changes, in the UI or programmatically. This means calling set or patch value will cause an emission unless you pass `{emitEvent:false}`
 
-So the recipe here would be listening for input and then using that input to add or remove controls based on that input. 
+So the recipe here would be listening for input and then using that input to add or remove controls based on that input.
 
 ```tsx
 control.valueChanges.subscribe(value => {

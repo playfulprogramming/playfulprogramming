@@ -27,10 +27,7 @@ In this case I needed an Autocomplete which:
 
 As usual, I talk about that in a [YouTube video](https://youtu.be/1hfd9CKbv7E) on my channel. Interested in reading the summary? Let's dive in!
 
-
-![Search](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wsuelbbotfzh47tr38p9.png)
-
-
+![Search](./wsuelbbotfzh47tr38p9.png)
 
 ## Looking for inspiration
 
@@ -46,9 +43,7 @@ I noticed people have been asking for a full Autocomplete component in [many](ht
 
 ## Building the component
 
-
-![Output](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tt77ypppyh3ccryvemxm.png)
-
+![Output](./tt77ypppyh3ccryvemxm.png)
 
 With that in mind, I started working on my custom component and this is pretty much how you can use it:
 
@@ -96,7 +91,6 @@ As mentioned in the beginning I'm sure there is room for improvement, actually o
 
 Suggestions are always welcome, feel free to open an issue or a PR in the [GitHub repository](https://github.com/Balastrong/shadcn-autocomplete-demo) and if you leave a star ⭐️ you make me happy.
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -107,7 +101,7 @@ Join us: https://github.com/DevLeonardoCommunity
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

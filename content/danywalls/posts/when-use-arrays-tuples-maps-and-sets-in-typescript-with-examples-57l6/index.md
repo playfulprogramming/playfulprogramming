@@ -23,7 +23,7 @@ Arrays are like a team roster, containing a list of players. It can change over 
 
 > Read the more about [Arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
 
-**Example:**  
+**Example:**\
 A list of players drafted for the upcoming season.
 
 ```typescript
@@ -32,25 +32,21 @@ let teamRoster: string[] = ["LeBron James", "Stephen Curry", "Kevin Durant"];
 
 **Advantages:**
 
-* Dynamically sized.
-    
-* Players (elements) can be accessed directly using their position (index).
-    
+- Dynamically sized.
+
+- Players (elements) can be accessed directly using their position (index).
 
 **Disadvantages:**
 
-* Lacks strict type checks across positions.
-    
+- Lacks strict type checks across positions.
 
 **When to Use:**
 
-* When you have a list of similar items, like all point guards or all rookies.
-    
+- When you have a list of similar items, like all point guards or all rookies.
 
 **When to Avoid:**
 
-* Fixed-size collections or varied data types.
-    
+- Fixed-size collections or varied data types.
 
 ### **Tuples**
 
@@ -66,25 +62,21 @@ let startingLineup: [string, string, string, string, string] = ["Point Guard", "
 
 **Advantages:**
 
-* Strict structure for fixed-size data.
-    
-* Each position (index) has a specific type.
-    
+- Strict structure for fixed-size data.
+
+- Each position (index) has a specific type.
 
 **Disadvantages:**
 
-* Not flexible; can't easily change the lineup size.
-    
+- Not flexible; can't easily change the lineup size.
 
 **When to Use:**
 
-* When positions and players are fixed, such as a specific game's starting five.
-    
+- When positions and players are fixed, such as a specific game's starting five.
 
 **When to Avoid:**
 
-* Variable roster sizes or changing lineups.
-    
+- Variable roster sizes or changing lineups.
 
 ### **Maps**
 
@@ -102,25 +94,21 @@ jerseyNumbers.set("Stephen Curry", 30);
 
 **Advantages:**
 
-* We can have any key and Value
-    
-* Keeps the insertion order.
-    
+- We can have any key and Value
+
+- Keeps the insertion order.
 
 **Disadvantages:**
 
-* It might be overkill for simple key-value associations.
-    
+- It might be overkill for simple key-value associations.
 
 **When to Use:**
 
-* When associating players with stats, awards, or any specific data.
-    
+- When associating players with stats, awards, or any specific data.
 
 **When to Avoid:**
 
-* Simple lists or when an object might suffice.
-    
+- Simple lists or when an object might suffice.
 
 ### **Sets**
 
@@ -138,25 +126,21 @@ allStars.add("LeBron James");  // He's already an All-Star!
 
 **Advantages:**
 
-* Ensures uniqueness.
-    
-* Quick membership checks.
-    
+- Ensures uniqueness.
+
+- Quick membership checks.
 
 **Disadvantages:**
 
-* No key-value associations.
-    
+- No key-value associations.
 
 **When to Use:**
 
-* Unique collections like Hall of Fame inductees or MVP winners.
-    
+- Unique collections like Hall of Fame inductees or MVP winners.
 
 **When to Avoid:**
 
-* When duplicates are acceptable or key-value pairings are needed.
-    
+- When duplicates are acceptable or key-value pairings are needed.
 
 ### **Conclusion**
 

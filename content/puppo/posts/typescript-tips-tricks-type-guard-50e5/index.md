@@ -15,6 +15,7 @@ order: 1
 
 There are some cases, where we need to detect the type of the object to get the correct implementation of our method.
 Let me show you a case
+
 ```ts
 type Square = {
   size: number;
@@ -37,10 +38,12 @@ const area = (shape: Shape) => {
   if ("radius" in shape) return shape.radius * 2 * Math.PI;
 };
 ```
+
 In this case, in the area method, we need to detect the type of the shape to return the correct result.
 Here we detect the type of the shape in the if condition but typescript permits us to create a special function that identifies if a type is of a specific type or not.
 These functions are created to have Type Guards that help the compiler, the intellisense, and us to understand the correct type of the object.
 To show you this function in action, the previous example can be rewritten in this way.
+
 ```ts
 Square = {
   size: number;
@@ -75,6 +78,7 @@ const area = (shape: Shape) => {
   if (isCircle(shape)) return shape.radius * 2 * Math.PI;
 };
 ```
+
 As you can see, the methods: isSquare, isRectangle, and isCircle get a shape as parameter and return a boolean value. If the result is true the shape parameter corresponds to the type indicated to the right of the is keyword, otherwise, it corresponds to another type.
 
 I hope this feature will help you in the future and improve the reading of your code.

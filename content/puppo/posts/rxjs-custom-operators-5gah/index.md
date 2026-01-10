@@ -18,6 +18,7 @@ after many articles in which I have illustrated the different types of operators
 You can create a new operator in two ways: mixing the different operators illustrated in the previous articles or from scratch.
 In common cases, when we need to create a new operator, all the behaviours that we need already exist in the operators exposed by the RxJS library. In these cases, we can use the "pipe" function to combine together the operators. With the "pipe" function you can create a new function that will be the new operator, and inside this function you can create the logic of your operator.
 Here's an example
+
 ```ts
 import { delay, interval, Observable, pipe, take, tap, UnaryFunction } from 'rxjs';
 
@@ -33,6 +34,7 @@ interval(1000).pipe(
     takeLogAndDelay(10, 'Source', 2000)
 ).subscribe();
 ```
+
 ```console
 Source 0
 Source 1
@@ -48,12 +50,14 @@ Source 9
 
 As you can see, in the last example I created a new operator called "takeLogAndDelay". This operator combines together three operators: tap, take and delay.
 As you can see, it's easy to create a new operator of this type and you just need to flow these rules:
+
 - create a new function with the name of the new operator
 - return the pipe function
 - combine the operators in the pipe function
 
 In 95% of your cases, you can resolve your problem and create a new operator using this method, while in the 5% of the cases not managed by this method you can create a new operator from scratch.
 Below an example of the delay operator created from scratch.
+
 ```ts
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -98,6 +102,7 @@ of(1, 2, 3).pipe(
     next: (value) => console.log(new Date().toLocaleTimeString(), "after", value),
 });
 ```
+
 ```console
 22:11:01 before 1
 22:11:01 before 2
@@ -106,9 +111,10 @@ of(1, 2, 3).pipe(
 22:11:04 after 2
 22:11:04 after 3
 ```
+
 As you can see, we can create a new operator and manage all the behaviours needed for our logic using the Observable constructor. It's rare to use this approach but if you find yourself in front of a case not yet solved by the existing operators, you can rely on it.
 
 Ok guys, that's all for today.
 
 See you soon
-Bye bye 👋 
+Bye bye 👋

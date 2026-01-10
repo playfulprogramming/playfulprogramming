@@ -17,7 +17,7 @@ Congratulations on making it through the series thus far. But this is where thin
 
 Async changes everything. There is little prior art in the JavaScript space where we go next. Instead of pulling from the ecosystem, let's explore how we could approach this using what we've learned so far.
 
------------
+---
 
 ## Why Async Reactivity?
 
@@ -80,6 +80,7 @@ What if that `<ShowUnrelatedUI />` had other async dependencies? You still have 
 All these reasons make async functions a poor choice for interactive components. It is a mismatch with the expectation of independently interactive parts.
 
 What you want to do is not `await` and pass the promise down to where it is used:
+
 ```ts
 function ShowSomeUI() {
   const user1 = fetchUser(1);
@@ -92,6 +93,7 @@ function ShowSomeUI() {
   </SharedLayout>
 }
 ```
+
 But this is awkward for 2 reasons.
 
 First, your components expect a Promise as their props. `props.user` is a `Promise<User>` rather than a `User`. So we have a new type of coloration as every downstream prop needs to handle the potential of this being a Promise. This includes derived values:
@@ -103,7 +105,8 @@ function User(props: {user: Promise<User>}) {
     <Address address={props.user.then(u => u.address)} />
   <>
 }
-``` 
+```
+
 We could `await` here. It does need to be resolved at some level but are we doing so because it's the right location or because we need to escape from Promise hell? Is it because we don't want to write 2 versions of every component or update existing components to handle Promises that didn't before?
 
 The second concern is that we aren't only dealing with Promises, but Promise factories. You don't just fetch a user, you fetch a user based on a prop. This prop can change and so must the Promise as it can only resolve once. But you also don't want to fetch when unrelated state changes.
@@ -124,11 +127,11 @@ They easily derive data. They can generate new promises when props change. They 
 
 When combined with fine-grained rendering components don't re-run so you don't need to worry about having stable references or refetching. You can put them at the top of your component and they won't be impacted by unrelated state changes.
 
--------------------------
+---
 
 ## Colorless Async
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/t82ykj7mdjxz1ozi8o3l.jpg)
+![Image description](./t82ykj7mdjxz1ozi8o3l.jpg)
 
 One could almost argue today, async with Signals is colorless. There is a difference between a Signal that holds a synchronous value and one that holds an async one.
 
@@ -149,7 +152,7 @@ They've solved the opposite part of the problem. Downstream of async resolution,
 
 How do you get the best of both worlds? Create a Signals library that throws on unresolved async values.
 
------------------------------
+---
 
 ## Deriving Async
 
@@ -166,22 +169,28 @@ const firstName = createMemo(() => user().firstName)
 // use it in an effect (split like in the last article)
 createEffect(firstName, (name) => console.log(name));
 ```
-The way this would work is that when this code initially runs: 
+
+The way this would work is that when this code initially runs:
 
 > 1. The fetch for the user with `props.id` is executed
+
 2. The firstName memo is created but not run
 3. The effect is scheduled
 4. The front half of the effect runs, and reads `firstName`.
-  - `firstName` hasn't been evaluated so it runs. It reads `user`.
-  - It sees that `user` is in flight and throws.
-  - `firstName` catches the node and adds it as a dependency, then throws itself.
-  - The front half of the effect catches the node and adds it as a dependency and bails out of running the side effect.
+
+- `firstName` hasn't been evaluated so it runs. It reads `user`.
+- It sees that `user` is in flight and throws.
+- `firstName` catches the node and adds it as a dependency, then throws itself.
+- The front half of the effect catches the node and adds it as a dependency and bails out of running the side effect.
+
 5. `user` resolves, notifying down to the effect.
 6. The front half of the effect runs, and reads `firstName`.
-  - `firstName` has been marked as potentially dirty so it runs. It reads `user`.
-  - `user` returns the resolved value
-  - `firstName` returns its resolved value
-  - The front half of the effect stores the updated value
+
+- `firstName` has been marked as potentially dirty so it runs. It reads `user`.
+- `user` returns the resolved value
+- `firstName` returns its resolved value
+- The front half of the effect stores the updated value
+
 7. The side effect runs `console.log`ing the user's name.
 
 On update, it would run mostly the same except it would start from the `id` updating and then run steps 4 - 7.
@@ -205,18 +214,20 @@ function User(props: {user: User}) {
   </Suspense>
 }
 ```
+
 We can already see that this cleans things up considerably. Our user is a Signal that automatically updates. Our user prop is of type `User` now without being possibly `undefined` and we push async blocking down to where it is used. Of course, having a broken UI where part of it is missing and others appear isn't acceptable so we still need something like Suspense to manage the display of placeholders.
 
 But the point is:
-* Address component doesn't need to be aware of async.
-* Derived state like `firstName` or `address` can be accessed without null checks
-* There is no cost to hoisting up fetching.. if `user` was passed to other components from `ShowSomeUI` or not we don't need to block anything. 
-* We can eagerly render everything except the textNodes that show name and address (although we might not show them yet).
-* Suspense can be put anywhere above the first read to manage placeholders as we see fit. 
+
+- Address component doesn't need to be aware of async.
+- Derived state like `firstName` or `address` can be accessed without null checks
+- There is no cost to hoisting up fetching.. if `user` was passed to other components from `ShowSomeUI` or not we don't need to block anything.
+- We can eagerly render everything except the textNodes that show name and address (although we might not show them yet).
+- Suspense can be put anywhere above the first read to manage placeholders as we see fit.
 
 Suspense in this case would be something triggered by the `renderEffect` hierarchy but async would flow through the Pure part of the calculations uninhibited.
 
-------------------------
+---
 
 ## Everything is Potentially Reactive with Colorless Async
 
@@ -232,29 +243,33 @@ While I disagree that this has anything to do with [locality of thinking](https:
 
 ### Deriving Signals from `props`
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tf1rewk5dy8ppoplcny4.png)
+![Image description](./tf1rewk5dy8ppoplcny4.png)
 
 I have an example I'm sure every developer has done at some point. Have you ever had state you initialize from a prop?
 
 Let's consider the difference between:
+
 ```ts
 const [count, setCount] = createSignal(props.count);
 
 const doubleCount = createMemo(() => props.count * 2);
 ```
+
 The Signal(state) has the initial value and the memo updates with the `props.count`. This example works similarly in Solid and React but for different reasons. React needs to retain the state so it only grabs the value initially. This is oddly inconsistent for React given it is probably the only time it will ignore a prop change that is accessed top-level. In Solid, this is the impact of the implicit `untrack`. In both cases you end up with `useEffect` or equivalent to synchronize state.
 
-Now consider the difference between: 
+Now consider the difference between:
+
 ```ts
 const [count, setCount] = createSignal(props.count);
 
 const doubleCount = createMemo(() => untrack(() => props.count) * 2);
 ```
+
 Yes, this is for illustrative purposes only. A memo that `untrack` its only source is useless. Both of these only rely on the initial value. Updating `props.count` won't change either of them.
 
 So what happens if `props.count` becomes an async value in the future?
 
-Then it becomes a reactive value you care to listen to. You wouldn't want the count to initialize as `undefined` if you expect it to be `number` from the prop types. 
+Then it becomes a reactive value you care to listen to. You wouldn't want the count to initialize as `undefined` if you expect it to be `number` from the prop types.
 
 In fact with `createSignal`, we would throw here if the async resource underlying `props.count` had never resolved. And throw up to the nearest decision point. Maybe 3 ancestors up was a ternary expression. Upon async resolution, it would re-render the whole branch from that decision. But not a cheap VDOM re-render, a full DOM render, and if there were more of these downstream it'd keep doing it until everything was resolved.
 
@@ -283,23 +298,26 @@ const doubleCount = createMemo(
   () => latest(() => props.count) * multiplier()
 );
 ```
+
 You can't multiply `undefined` by a number. Even if you added the necessary null checks in scope here where you know there is a `latest` wrapper, this doesn't help you with an arbitrary reactive expression. You would need to ensure null checks for every potentially async value within the `latest` bounds without having the Type information to support that as each would believe they were of type `T` and not `T | undefined`.
 
 At best you could make this opt-out at the source of the async:
+
 ```ts
 const count = createAsync(() => fetchCount());
 
 <Multiplier count={count.latest || 0} />
 ```
+
 Where the `.latest` field is `number | undefined`. Since Multiplier is expecting a number we provide a default value. But this is not composable behavior.
 
 We can't change code semantics at runtime and expect things not to break. So not only is everything potentially reactive with Colorless Async. It is inescapably so.
 
------------------------
+---
 
 ## Finding a Consistent Model
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/oyyy78qd02obllf8xb2m.png)
+![Image description](./oyyy78qd02obllf8xb2m.png)
 
 So is Colorless Async a lie?
 

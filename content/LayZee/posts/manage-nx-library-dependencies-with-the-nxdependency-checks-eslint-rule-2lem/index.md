@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 *Cover art by DALL-E.*
 
 Nx 16.4 introduces the `@nx/dependency-checks` ESLint rule to the `@nx/linter` package for verifying, adding, removing, and updating `peerDependencies` in the `package.json` source configuration file of buildable or publishable Nx library projects.

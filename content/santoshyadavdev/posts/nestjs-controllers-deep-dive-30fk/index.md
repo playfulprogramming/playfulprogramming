@@ -16,15 +16,16 @@ order: 1
 In this blog post, we will explore the controller which is the most important part of NestJS.
 
 ## Why We need Controllers
+
 Controllers are responsible for handling requests sent to the server, controllers expose multiple endpoints on which clients can send the request. Each endpoint is identified by an Http method also known as Http Verb.
 
 ## Http Verbs
 
-* Get: Get method is to get the data from the server, it can be a single record or multiple records. We can also pass some params which can be used for filtering the records.
-* Post: Post method is used when we want to create some records in the database, We can also use post requests in cases where we want to filter some records based on some information sent to the server, for example, providing Advanced Filter.
-* Put: Put method is used to update the records on the database, in Put the method we expect whatever data we are sending will be updated.
-* Patch: Patch method is used when we only want to modify not replace all the values in the database.
-* Delete: Delete method is used when we want to delete some records from the server.
+- Get: Get method is to get the data from the server, it can be a single record or multiple records. We can also pass some params which can be used for filtering the records.
+- Post: Post method is used when we want to create some records in the database, We can also use post requests in cases where we want to filter some records based on some information sent to the server, for example, providing Advanced Filter.
+- Put: Put method is used to update the records on the database, in Put the method we expect whatever data we are sending will be updated.
+- Patch: Patch method is used when we only want to modify not replace all the values in the database.
+- Delete: Delete method is used when we want to delete some records from the server.
 
 ## Http Status Code
 
@@ -32,7 +33,7 @@ Another thing which you have to be aware of is Http Status codes, you can refer 
 
 ## Creating Our First Controller
 
-![](https://thepracticaldev.s3.amazonaws.com/i/clnp3wvi0tfwn5b464ae.JPG)
+![](./clnp3wvi0tfwn5b464ae.JPG)
 
 The above image shows an `ProductController` which will take requests from client and request is handled by one of the endpoint/method defined. An Http method can receive an Http request and return Http Response in the form of JSON, XML, files or text.
 To create a controller we can use Nest CLI, in our app we already have one controller available, we will create a new one called product, run the below command to create.
@@ -43,8 +44,8 @@ nest generate controller product -p default
 
 `-p` flag will make sure the controller is created in the default app, otherwise, you can pass the name of the product where you want to create the controller.
 Once the command is executed you will notice 2 new files.
-*product.controller.ts
-*product.controller.spec.ts (for Unit Testing)
+\*product.controller.ts
+\*product.controller.spec.ts (for Unit Testing)
 
 We need to write our code in `product.controller.ts` if you open this file as of now you will find below code.
 
@@ -54,7 +55,7 @@ import { Controller } from '@nestjs/common';
 export class ProductController {}
 ```
 
-* @Controller: Controller decorator is appended over the ProductController class if you are coming from .Net or Java background than you have used one while creating Web APIs. It takes one parameter where you can pass the endpoint on which request can be sent.
+- @Controller: Controller decorator is appended over the ProductController class if you are coming from .Net or Java background than you have used one while creating Web APIs. It takes one parameter where you can pass the endpoint on which request can be sent.
 
 ## Adding Our First Method
 
@@ -79,7 +80,7 @@ export class ProductController {
 
 The highlighted code is what we have added to create our `Get` method.
 
-* @Get: Get decorator here specifies that when a client sends a request at https://endpoint/product with `Get` HTTP method `GetProducts` will be called.
+- @Get: Get decorator here specifies that when a client sends a request at https://endpoint/product with `Get` HTTP method `GetProducts` will be called.
 
 Go ahead and test it start the server using the `npm run start:dev` command which will run our server in watch mode and will detect changes whenever we make any in our code, and enter `http://localhost:3000/product` in your browser, get calls can be triggered via the browser.
 
@@ -110,10 +111,10 @@ export class ProductController {
 }
 ```
 
-* @Post: Post decorator is to define the method AddProductwill be initiated by a client when a request is made to https://endpoint/product with Post method, Post methods cannot be initiated by using the browser we need some client I use Postman for testing. 
-&* @Req: We can get access to Http Request object you can get access to body, headers and other request parameters.
+- @Post: Post decorator is to define the method AddProductwill be initiated by a client when a request is made to https://endpoint/product with Post method, Post methods cannot be initiated by using the browser we need some client I use Postman for testing. 
+  &\* @Req: We can get access to Http Request object you can get access to body, headers and other request parameters.
 
-![](https://thepracticaldev.s3.amazonaws.com/i/1hn1om8zipycm01vd748.gif)
+![](./1hn1om8zipycm01vd748.gif)
 You can see how we provide the endpoint, the method was `Post` and we sent some data in body and we received the `id` value as a response.
 
 ## Other Decorators
@@ -211,6 +212,7 @@ async getProducts(): Observable<any[]> {
 We will see some more example of async actions in upcoming posts.
 
 ## Registering Controllers
+
 Controllers need to be registered with NestJS Modules, If you are using NextJS CLI this will be managed by CLI, you don't need to do it manually.
 
 If you open `app.module.ts` you will see the below code.
@@ -232,5 +234,3 @@ export class AppModule { }
 # Conclusion
 
 In this post, we learned about Controllers and why and how to use it and learned about different decorators.
-
-

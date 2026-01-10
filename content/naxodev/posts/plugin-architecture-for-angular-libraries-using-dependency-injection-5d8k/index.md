@@ -9,25 +9,25 @@ socialImage: "social-image.jpg"
 }
 ---
 
-The plugin architecture is a well-known software design pattern used for its flexibility, extensibility, and isolation. It consists of a core system and several separate plugin modules. 
+The plugin architecture is a well-known software design pattern used for its flexibility, extensibility, and isolation. It consists of a core system and several separate plugin modules.
 
-We will cover how to create a plugin-based architecture in Angular using its __Dependency Injection__ system and why this is an excellent tool to have in our Engineers belt.
+We will cover how to create a plugin-based architecture in Angular using its **Dependency Injection** system and why this is an excellent tool to have in our Engineers belt.
 
 ## Plugin Architecture
 
-The Plugin Architecture concept is simple: the __Core System__ manages the essential functionalities and orchestrates the __Plugins__, but it is agnostic in its behavior. The __Plugins__ implement the use-case-specific functionalities, and they are agnostic of other plugins and the system behavior. 
+The Plugin Architecture concept is simple: the **Core System** manages the essential functionalities and orchestrates the **Plugins**, but it is agnostic in its behavior. The **Plugins** implement the use-case-specific functionalities, and they are agnostic of other plugins and the system behavior.
 
-The __Core System__ is responsible for defining the contract used by itself and the __Plugins__ to communicate.
+The **Core System** is responsible for defining the contract used by itself and the **Plugins** to communicate.
 
 ![Plugin Architecture -- Dependency flow](//images.ctfassets.net/zojzzdop0fzx/4YV1LsLI1qZByb39tKTcFF/bd35ad12b61cf188bed022f11c7b29c2/plugin-dependency-flow.png)
 
-__Plugins__ aren't necessarily designed for a particular __Core System__, but in those cases, an adapter is required to make the __Plugins__ follow the contract. 
+**Plugins** aren't necessarily designed for a particular **Core System**, but in those cases, an adapter is required to make the **Plugins** follow the contract. 
 
-The main principles related to this kind of Architecture are the __Inversion of Control (IoC) Principle__ and the __Dependency Inversion Principle__ (__DIP__, the D from the SOLID principles)
+The main principles related to this kind of Architecture are the **Inversion of Control (IoC) Principle** and the **Dependency Inversion Principle** (**DIP**, the D from the SOLID principles)
 
-While the __Plugins__ follow the __IoC__ by extracting behavior and control from the main flow or __Core System__, the __DIP__ is necessary for avoiding coupling and establishing the contract.
+While the **Plugins** follow the **IoC** by extracting behavior and control from the main flow or **Core System**, the **DIP** is necessary for avoiding coupling and establishing the contract.
 
-__Dependency Injection__ is not the only design pattern that allows building a Plugin Architecture or follows the __IoC__ Principle; callbacks, schedulers, event loops, and message queues are also valid options.
+**Dependency Injection** is not the only design pattern that allows building a Plugin Architecture or follows the **IoC** Principle; callbacks, schedulers, event loops, and message queues are also valid options.
 
 If you are interested in learning more about Plugin Architecture, check the following links.
 
@@ -36,20 +36,20 @@ If you are interested in learning more about Plugin Architecture, check the foll
 
 ## Plugin-based Angular Libraries
 
-The Angular community is big and healthy, every day, new packages get published, and our favorite tools get renewed. 
+The Angular community is big and healthy, every day, new packages get published, and our favorite tools get renewed.
 
-In this constellation, not all libraries are built using a Plugin Architecture, and with a good reason. This pattern is __NOT__ a silver bullet, and you should not try to design all your libraries using Plugins.
+In this constellation, not all libraries are built using a Plugin Architecture, and with a good reason. This pattern is **NOT** a silver bullet, and you should not try to design all your libraries using Plugins.
 
-But there are some scenarios where the Plugin Architecture provides outstanding flexibility and relief maintainers from creating all possible features for a given domain. 
-For example, in Components libraries, using content projection is a great way to achieve __IoC__. From there, it is pretty easy to build plugins that extend your core Component functionality or customize the UI.
+But there are some scenarios where the Plugin Architecture provides outstanding flexibility and relief maintainers from creating all possible features for a given domain.
+For example, in Components libraries, using content projection is a great way to achieve **IoC**. From there, it is pretty easy to build plugins that extend your core Component functionality or customize the UI.
 
-This article will focus on another of the design patterns implemented in Angular, the __Dependency Injection (DI) pattern__.
+This article will focus on another of the design patterns implemented in Angular, the **Dependency Injection (DI) pattern**.
 
 ## Implementing a Plugin Architecture with Dependency Injection
 
-As described previously, the Plugin Architecture has two components. The __Core System__ and the __Plugins__.
+As described previously, the Plugin Architecture has two components. The **Core System** and the **Plugins**.
 
-The __Plugins__ depend on the __Core System__, but not the other way around. Therefore, we should start designing the __Core System__ first.
+The **Plugins** depend on the **Core System**, but not the other way around. Therefore, we should start designing the **Core System** first.
 
 The minimum elements we are going to need are 
 
@@ -62,7 +62,7 @@ We will also have some configuration elements, optional for small and straightfo
 
 - **PluginConfiguration** contains information about the integration of the Plugin with the Core system.  **The OrchestrationService** uses it to identify if it should execute a Plugin and how. The Plugin can extend it to configure internal Plugin behavior. The core system can provide a default configuration for the Plugins.
 - **PluginConfigurationToken**, injection token for the PluginConfiguration
-- **CoreConfiguration** provides configuration at a Core level, makes the overall system execute in a certain way. 
+- **CoreConfiguration** provides configuration at a Core level, makes the overall system execute in a certain way.
 - **CoreConfigurationToken**, injection token for the CoreConfiguration
 
 The dependency flow would look like Fig.2.
@@ -89,9 +89,9 @@ export interface SystemPlugin {
 }
 ```
 
-This contract could have any signature; it is up to the library that you are building. The only remarkable element is the config. We are forcing the **Plugin** to have it since the __Core System__ needs it to handle the **Plugin**  correctly.
+This contract could have any signature; it is up to the library that you are building. The only remarkable element is the config. We are forcing the **Plugin** to have it since the **Core System** needs it to handle the **Plugin**  correctly.
 
-The config itself is very basic and generic for our demonstrational purpose. Still, the idea is to define in the `PluginConfig` everything that we want to make adjustable in our __Plugin__ behavior. This config can serve both the **Plugin** and the **Core System**.
+The config itself is very basic and generic for our demonstrational purpose. Still, the idea is to define in the `PluginConfig` everything that we want to make adjustable in our **Plugin** behavior. This config can serve both the **Plugin** and the **Core System**.
 
 ```ts
 export interface PluginConfig {

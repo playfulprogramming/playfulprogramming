@@ -13,8 +13,7 @@ order: 1
 }
 ---
 
-
-Hey there,  
+Hey there,\
 Today I want to speak about Fixtures, a vital friend if you're going to work with Playwright and you want to share data between your tests or create custom executions.
 
 Let's start with a simple example.
@@ -36,7 +35,7 @@ test('should win the player "X"', async ({ page }) => {
 
 ```
 
-Imagine you want to extract all the indexes of the buttons in an array to replicate this test and reduce all these click commands to have a shorter test.  
+Imagine you want to extract all the indexes of the buttons in an array to replicate this test and reduce all these click commands to have a shorter test.\
 So, the first refactor before introducing the fixture feature could be this.
 
 ```ts
@@ -59,7 +58,7 @@ Before carrying on, let me spend some words describing what fixtures are.
 
 ## What fixtures are
 
-Test fixtures are used to establish an environment for each test, giving the test everything it needs and nothing else. Test fixtures are isolated between tests. With fixtures, you can group tests based on their meaning instead of their standard setup.  
+Test fixtures are used to establish an environment for each test, giving the test everything it needs and nothing else. Test fixtures are isolated between tests. With fixtures, you can group tests based on their meaning instead of their standard setup.\
 After this definition, you can think fixtures could be replaced by before/after hooks, but fixtures have several advantages over these hooks:
 
 - Fixtures **encapsulate** setup and teardown in the same place, making it easier to write.
@@ -74,7 +73,7 @@ After this definition, you can think fixtures could be replaced by before/after 
 
 - Fixtures simplify **grouping**. You no longer need to wrap tests in `describe`s that set up an environment and are free to group your tests by their meaning instead.
 
-Perfect, after this boring theoric part, it's time to get your hands dirty with fixtures in Playwright.  
+Perfect, after this boring theoric part, it's time to get your hands dirty with fixtures in Playwright.\
 To start the explanation, I want to begin with the final result.
 
 ```ts
@@ -101,10 +100,10 @@ test('should win the player "X"', async ({ page, playerXWinMoves }) => {
 
 ```
 
-As you can see, to build our fixture, you have to extend the test object exposed by Playwright. Inside this function, you can create an object that represents your fixtures. In this case, I added the `playerXWinMoves` property to share the steps to reproduce the Player X win. In addition, just because I love working with Typescript, I added the `TestFixtures` type to describe my fixtures. It's essential to notice that inside the fixture, you must use the `use` method to set the value for your fixtures.  
-Ok, carry on and let's take a look at the test now. You can notice that you can get the `playerXWinMoves` fixture directly from the object passed to your test. And now, if you remove the previous variable and use the new one from the params, you will create your first test with Playwright using fixture.  
-Great, I hope you can understand the incredible power of this feature and how it can help you to make your test more readable or to bring together some data useful in many tests.  
-But before closing, let me leave you another bit. With fixtures, you can also override an object exposed directly by Playwright. For instance, you can override the page object, and instead of creating a `beforeEach` hook to navigate to the home page, you can override the page and add this step in a fixture, so every test, before its execution, runs the steps to navigate to the home page.  
+As you can see, to build our fixture, you have to extend the test object exposed by Playwright. Inside this function, you can create an object that represents your fixtures. In this case, I added the `playerXWinMoves` property to share the steps to reproduce the Player X win. In addition, just because I love working with Typescript, I added the `TestFixtures` type to describe my fixtures. It's essential to notice that inside the fixture, you must use the `use` method to set the value for your fixtures.\
+Ok, carry on and let's take a look at the test now. You can notice that you can get the `playerXWinMoves` fixture directly from the object passed to your test. And now, if you remove the previous variable and use the new one from the params, you will create your first test with Playwright using fixture.\
+Great, I hope you can understand the incredible power of this feature and how it can help you to make your test more readable or to bring together some data useful in many tests.\
+But before closing, let me leave you another bit. With fixtures, you can also override an object exposed directly by Playwright. For instance, you can override the page object, and instead of creating a `beforeEach` hook to navigate to the home page, you can override the page and add this step in a fixture, so every test, before its execution, runs the steps to navigate to the home page.\
 And how can we do that? Simply in this way.
 
 ```ts
@@ -119,13 +118,13 @@ const test = base.extend<TestFixtures>({
 
 Doing that, now each test, when it starts its execution, goes to the baseURL and then runs all the code. Incredible no? Now, you can remove the `beforeEach` hook in the test file and rerun your tests to check the result.
 
-Ok, that's all folk!  
-Today you have learned how Playwright fixtures work and how to build one.  
+Ok, that's all folk!\
+Today you have learned how Playwright fixtures work and how to build one.\
 I hope you enjoyed this post, and if you have any doubts, don't hesitate to reach out to me; I will be happy to help you.
 
-See you soon  
+See you soon\
 Bye Bye 👋
 
-_p.s. you can check out the code of this article_ [here](https://github.com/Puppo/playwright-series/tree/05-fixture)
+*p.s. you can check out the code of this article* [here](https://github.com/Puppo/playwright-series/tree/05-fixture)
 
 {% embed https://dev.to/puppo %}

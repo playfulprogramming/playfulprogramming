@@ -187,6 +187,6 @@ Codebases make it easy for organizations to be able to decide how to organize Fi
 
 - [Supercharge your Firebase App Development using NX](https://mainawycliffe.dev/blog/supercharge-your-firebase-app-development-using-nx/?ref=content.mainawycliffe.dev)
 - [The typeof and keyof operators - referencing variable types in Typescript](https://www.allthingstypescript.dev/p/the-typeof-and-keyof-operators-referencing?ref=content.mainawycliffe.dev)
-- [Organize multiple functions](https://firebase.google.com/docs/functions/organize-functions?gen=2nd&ref=content.mainawycliffe.dev)
+- [Organize multiple functions](https://firebase.google.com/docs/functions/organize-functions?gen=2nd\&ref=content.mainawycliffe.dev)
 - [Using Zod Schemas as a Source of Truth for Typescript Types](https://www.allthingstypescript.dev/p/using-zod-schemas-as-source-of-truth?ref=content.mainawycliffe.dev)
 - [My Blog is Overengineered](https://mainawycliffe.dev/blog/my-blog-is-over-engineered/?ref=content.mainawycliffe.dev)

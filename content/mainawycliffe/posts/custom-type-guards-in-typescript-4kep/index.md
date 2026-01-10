@@ -13,7 +13,7 @@ order: 1
 }
 ---
 
-Previously, we covered various approaches that you can take to narrowing types in Typescript. Type narrowing is the process of moving the type of a variable from a less precise to a more precise type i.e. from a union of string and number to string only. You can learn more about type narrowing [here](https://mainawycliffe.dev/blog/type-guards-and-narrowing-in-typescript). 
+Previously, we covered various approaches that you can take to narrowing types in Typescript. Type narrowing is the process of moving the type of a variable from a less precise to a more precise type i.e. from a union of string and number to string only. You can learn more about type narrowing [here](https://mainawycliffe.dev/blog/type-guards-and-narrowing-in-typescript).
 
 In this article, we are going to look at how we can create our own custom type guards. Custom type guards will help you to check if a variable is of a certain type before usage, which helps in Type narrowing.
 
@@ -37,7 +37,7 @@ if(isRectangle(shape)) {
 
 ## What is a Type Predicate?
 
-A type predicate is a function return type that tells typescript a parameter is of a specific type. A predicate takes the following format: `parameterName is Type`, where `parameterName` must be the name of a parameter in the function parameter signature. 
+A type predicate is a function return type that tells typescript a parameter is of a specific type. A predicate takes the following format: `parameterName is Type`, where `parameterName` must be the name of a parameter in the function parameter signature.
 
 For instance, if we wanted to build the custom type guard `isRectangle` above, our type predicate would be `shape is Rectangle`, where `shape` is the parameter name, as shown below.
 
@@ -115,8 +115,8 @@ We will continue covering similar topics in Typescript in this series - [A Byte 
 
 If you are looking to learn more about Typescript, here are the previous articles I have published. Thank you 😄.
 
-* [Typescript: why you should use unknown instead of any](https://mainawycliffe.dev/blog/typescript-use-unknown-instead-of-any)
-* [Type Narrowing in TypeScript](https://mainawycliffe.dev/blog/type-guards-and-narrowing-in-typescript)
-* [Types and Mocking - Typescript](https://mainawycliffe.dev/blog/types-and-mocking-typescript)
-* [Template Literal Types in TypeScript](https://mainawycliffe.dev/blog/template-literal-types-in-typescript)
-* [Transforming Types in TypeScript with Utility Types](https://mainawycliffe.dev/blog/transforming-types-typescript-utility-types)
+- [Typescript: why you should use unknown instead of any](https://mainawycliffe.dev/blog/typescript-use-unknown-instead-of-any)
+- [Type Narrowing in TypeScript](https://mainawycliffe.dev/blog/type-guards-and-narrowing-in-typescript)
+- [Types and Mocking - Typescript](https://mainawycliffe.dev/blog/types-and-mocking-typescript)
+- [Template Literal Types in TypeScript](https://mainawycliffe.dev/blog/template-literal-types-in-typescript)
+- [Transforming Types in TypeScript with Utility Types](https://mainawycliffe.dev/blog/transforming-types-typescript-utility-types)

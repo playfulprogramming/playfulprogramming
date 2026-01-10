@@ -22,13 +22,14 @@ effect(() => {
   console.log("Hi" + name);
 })
 ```
+
 > *We will be using pseudocode not to cater to the syntax of a specific library or framework.*
 
 It doesn't take much to understand that when I update this state an event happens that calls my side effect. It also isn't too difficult to implement this behavior yourself. But this is far from the full story.
 
 Whether you are trying to forget React, explore runes with Svelte or are angling for Angular; whether you build Solid apps, construct views in Vue, or live in QwikCity this topic is relevant. It transcends the Virtual DOM or Signals. Before you decide that `useEffect` was created to be the bane of everyone's existence let's take a look at the most important part of reactivity: Derivations.
 
------------------
+---
 
 ## Derivation vs Synchronization
 
@@ -46,6 +47,7 @@ effect(() => console.log(c));
 They may have told you that a derived value should be pure--that is it should not write to any other state--but that rule applies to it internally too.
 
 You may apply this as your mental model for derived state at first:
+
 ```js
 function memo(fn) {
   let internal = state();
@@ -53,18 +55,20 @@ function memo(fn) {
   return internal;
 }
 ```
+
 But this would never work properly.
 
 Most UI frameworks are concerned with providing interactivity. That is taking the input of a user's action, applying it to some state, and then updating the UI. We see that formalized as `ui = fn(state)` but it is a cycle that repeats.
 
 In terms of reactivity, it looks like:
+
 > update state ->
 > run pure calculations ->
 > run side effects (like updating the DOM)
 
 The reason is an end user interacting with UI needs consistency. What they see (and can't see) should all be in sync. You can't be interacting with part of the page this out of date as it sets false expectations. UI libraries schedule their side effects to run all together synchronously to ensure the end user can trust the experience.
 
-This means there are definite stages to when code runs. Libraries need to ensure that any dependent calculations are resolved before rendering. 
+This means there are definite stages to when code runs. Libraries need to ensure that any dependent calculations are resolved before rendering.
 
 Which leads to what exactly the difference is between:
 
@@ -87,7 +91,7 @@ The first example is derivation where the derived state is a function of the sta
 
 In the second example, depending on your reactivity model different things could happen than simply showing everything immediately as expected. Depending on when the effect is scheduled versus UI rendering, when you update `name` you might briefly see an updated `name` and the previous value of `upperName` together. In a course-grain rendered framework like React your component might run twice. Because updating the state in an effect starts the loop over again.
 
----------------
+---
 
 ## Glitch-less Consistency
 
@@ -96,6 +100,7 @@ Even if you can always synchronize before you render, you still have the potenti
 Many reactive systems now guarantee that for any state update, each node only runs up to one time and when it runs it is glitch-free. By glitch-free, the code the developer provides to the library can never observe an intermediate or out-of-date state.
 
 Consider:
+
 ```js
 let a = state(1);
 const b = memo(() => a + 1);
@@ -105,30 +110,31 @@ const e = memo(() => b + d);
 
 effect(() => console.log(e));
 ```
+
 Or as a graph
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kg9w4yehyeqhgry1wkvk.png)
+![Image description](./kg9w4yehyeqhgry1wkvk.png)
 
 Different systems run differently, but in all cases, we expect the initial run to produce `e` with a value of 5.
 
 It is also clear that certain state depends on other state. When we update `a = 2`, regardless of mechanism we know `c` must resolve before `d` and `d` before `e` if we want to execute each node only once.
 
----------------
+---
 
 ## Push vs Pull
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1004yrongpx1usdsxe0x.jpg)
+![Image description](./1004yrongpx1usdsxe0x.jpg)
 
 So how do we approach this? It usually starts following one of 2 ideas. Scheduling(pull), and events(push). Let's look at each using the example from the previous section.
 
 ### Pull (Scheduling)
 
-The idea is to start from the side effect (goal) and then ask for the values as it comes across them. React is generally regarded as having "pull" based reactivity. In this system when state is updated, it schedules a check to see if it has to do any work. 
+The idea is to start from the side effect (goal) and then ask for the values as it comes across them. React is generally regarded as having "pull" based reactivity. In this system when state is updated, it schedules a check to see if it has to do any work.
 
 But what does it check? Naively, perhaps everything, as it doesn't know what has changed. However, many UI libraries deal in components. If state is owned by a component, then that can be the starting point. When the component state is updated, schedule that component to run.
 
 Pull-based systems are coarse-grained. That is they rely on replaying everything top-down because they have no idea of what has changed. If we were to imagine a more granular "pull" system it could not know anything has changed until it is traced up to the source of that change which may or may not exist in its dependencies. That extra traversal is just extra work when ultimately it needs to run downwards anyway.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kg9w4yehyeqhgry1wkvk.png)
+![Image description](./kg9w4yehyeqhgry1wkvk-1.png)
 
 In our example, picture we run the effect that asks for `e` first. We have no idea if `e` has changed without running `b` or `d` before it. Explicit dependencies (like React's dependency arrays) can give a path upward without executing nodes. So we could trace back `e`, `b`, `a` and then run `b`, and then trace back `d`, `c`, `a`, and run `c`, `d`, `e` before finally running our effect. But given we are running the whole scope (component) anyway, even if part of it hasn't changed, this is all unnecessary.
 
@@ -140,7 +146,7 @@ The idea is that the update propagates outward from the source state that has ch
 
 Consider a depth-first propagation as that mirrors how execution occurs when initially created.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kg9w4yehyeqhgry1wkvk.png)
+![Image description](./kg9w4yehyeqhgry1wkvk-2.png)
 
 `a` updates, notifying `b` and `c`. Then `b` runs and notifies `e`. Then `e` runs and sees the updated value of `b` but then it comes across `d` which hasn't run yet and has the old value...
 
@@ -159,11 +165,11 @@ It knows what changed and the impact of those changes, ensuring we only do the r
 If you are interested in more details on how push-pull algorithms work in various Signals libraries check out:
 {% link https://dev.to/milomg/super-charging-fine-grained-reactive-performance-47ph %}
 
-----------------
+---
 
 ## What Can Be Derived Should Be Derived
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kxmqpzohmk1az3k92anp.png)
+![Image description](./kxmqpzohmk1az3k92anp.png)
 
 I am not 100% sure where this first came from, but I first heard this quote from Michel Westrate, creator of MobX. These are words to live by.
 
@@ -171,5 +177,6 @@ It should go without saying at this point the consistency we have come to expect
 
 This is a deep topic. So much so I've only touched the surface. There are other implications of "push" vs "pull" and there are a lot of details even when looking at systems that fall into the same category. Next time, we will look at lazy vs eager derivations and the potential for handling async.
 
---------------
+---
+
 Special thanks to Atila Fassina, Fabio Spampinato, and Daniel Afonso for reviewing.

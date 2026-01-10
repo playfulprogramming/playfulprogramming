@@ -18,15 +18,15 @@ Today I launched my Discord server to talk about Open Source and Web Development
 ---
 
 Merge conflicts can be scary, but if you know how to use your tools, there's no need to worry!
-_(Unless you're merging two branches 3 months old and there are 57 files with multiple conflicts. In that case, panic is understandable!)_
+*(Unless you're merging two branches 3 months old and there are 57 files with multiple conflicts. In that case, panic is understandable!)*
 
 Visual Studio Code recently introduced the [three-way merge editor](https://code.visualstudio.com/updates/v1_69#_3-way-merge-editor).
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yamh51rh5jo9r1h53xd0.png)
+![Image description](./yamh51rh5jo9r1h53xd0.png)
 
 This was supposed to replace the old inline editor.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/n858wrw2sgd723di76iw.png)
+![Image description](./n858wrw2sgd723di76iw.png)
 
 However, as soon as the new editor has been set as default, the community loudly asked to get their old UI back. Have a look at [Issue#160806](https://github.com/microsoft/vscode/issues/160806)
 
@@ -61,7 +61,7 @@ I just launched my Discord server to talk about Open Source and Web Development,
 
 Do you like my content? You might consider subscribing to my YouTube channel!
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

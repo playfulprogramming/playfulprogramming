@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 *Cover photo generated with Microsoft Designer.*
 
 Traditionally, we had to import mixed Angular modules from Angular Material at the root level to provide services required for the following components.
@@ -46,6 +45,7 @@ export const appConfig: ApplicationConfig = {
   ],
 };
 ```
+
 <figcaption><code>app.config.ts</code> example with Angular Material 14.0.</figcaption>
 
 ## Classic Angular application
@@ -80,6 +80,7 @@ import { appDateFormats } from './app-date-formats';
 })
 export class AppModule {}
 ```
+
 <figcaption><code>app.module.ts</code> example with Angular Material 13.3.</figcaption>
 
 ## Standalone Angular Material providers
@@ -106,6 +107,7 @@ export const appConfig: ApplicationConfig = {
   ],
 };
 ```
+
 <figcaption><code>app.config.ts</code> example with Angular Material 17.1.</figcaption>
 
 Much cleaner, right?
@@ -121,7 +123,6 @@ Other than simpler application configuration code that is easier to reason about
 ## Storybook component stories
 
 In component stories, we use the [`applicationConfig`](https://storybook.js.org/tutorials/intro-to-storybook/angular/en/screen/) Storybook decorator to add root-level providers.
-
 
 ```typescript
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -180,19 +181,20 @@ it('MyMaterialComponent', () => {
   expect(fixture.componentInstance).toBeDefined();
 });
 ```
+
 <figcaption><code>my-material.component.spec.ts</code> example with Angular Material 17.1.</figcaption>
 
 ## Conclusion
 
 Modern Angular Material versions are easier to use, in part because of the standalone providers used for component dependencies since version 17.1. The following table shows the exact versions when each Angular Material component was converted to standalone providers.
 
-| Component | First version with standalone providers |
-| --- | --- |
-| Datepicker | `17.1.0` |
-| Dialog | `17.0.0` |
-| Snackbar | `17.0.0` |
-| Timepicker | `19.0.0` |
-| Tooltip | `15.0.4` |
+| Component  | First version with standalone providers |
+| ---------- | --------------------------------------- |
+| Datepicker | `17.1.0`                                |
+| Dialog     | `17.0.0`                                |
+| Snackbar   | `17.0.0`                                |
+| Timepicker | `19.0.0`                                |
+| Tooltip    | `15.0.4`                                |
 
 Root-level provider configuration for Angular Material components is easier to set up and reason about both in Angular applications, Storybook component stories, and Angular component tests.
 
@@ -203,5 +205,5 @@ Except for Date picker and Timepicker components, we don't have to remember to a
 Historically, Angular and Angular Material progressed in the following way.
 
 1. Add Angular modules to `NgModule.imports` for `AppModule`
-1. Pass Angular modules to `importProvidersFrom` in `ApplicationConfig.providers`
-1. No Angular modules but a provider function for the [Datepicker](https://material.angular.io/components/datepicker) and [Timerpicker](https://material.angular.io/components/timepicker) dependencies
+2. Pass Angular modules to `importProvidersFrom` in `ApplicationConfig.providers`
+3. No Angular modules but a provider function for the [Datepicker](https://material.angular.io/components/datepicker) and [Timerpicker](https://material.angular.io/components/timepicker) dependencies

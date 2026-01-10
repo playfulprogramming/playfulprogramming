@@ -13,7 +13,7 @@ socialImage: "social-image.png"
 
 It's been some time since I started my extra-work FREE mentoring path through the Mentorcruise platform. I decided to follow the willing students who aspire to master web development and give them the right way.
 
-![profile](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/x26fe8ikbn8jmzjq23ku.png)
+![profile](./x26fe8ikbn8jmzjq23ku.png)
 
 I must say that it is a big commitment, but what drives me to continue my tutoring path with passion?
 
@@ -49,4 +49,3 @@ You can [follow me on Twitter](https://twitter.com/giorgio_boa), where I'm post
 I hope this article inspires you, don't forget to give ❤️ if you like it. Bye 👋
 
 {% embed https://dev.to/gioboa %}
- 

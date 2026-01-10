@@ -52,7 +52,7 @@ Here's a description of all currently supported commands. In case something chan
 
 #### `ni` - Install dependencies
 
-_Same as `npm install`._
+*Same as `npm install`.*
 
 You can run it with no arguments to get the full dependencies, or with a package name to install it.
 
@@ -69,7 +69,7 @@ ni -D prettier
 
 #### `nr` - Run scripts
 
-_Same as `npm run`._
+*Same as `npm run`.*
 
 You can run commands in your package.json scripts.
 
@@ -80,7 +80,7 @@ nr build
 
 ### `nlx` - Download and execute a package
 
-_Same as `npx`._
+*Same as `npx`.*
 
 ```bash
 nlx gitignore node
@@ -90,7 +90,7 @@ Fun fact, it was originally called `nx` but then it was renamed to `nix`... and 
 
 #### `nu` - Upgrade dependencies
 
-_Same as `npm upgrade`._
+*Same as `npm upgrade`.*
 
 Upgrades all your packages to the latest version.
 
@@ -100,7 +100,7 @@ nu
 
 #### `nun` - Uninstall dependencies
 
-_Same as `npm uninstall`._
+*Same as `npm uninstall`.*
 
 ```bash
 nun husky
@@ -110,7 +110,7 @@ This will remove your package from `package.json` and uninstall it from `node_mo
 
 #### `nci` - Clean install dependencies
 
-_Same as `npm ci`._
+*Same as `npm ci`.*
 
 This will remove your `node_modules` folder and install all your dependencies again.
 
@@ -120,7 +120,7 @@ nci
 
 #### `na` - Alias for the current manager
 
-_Same as `npm`... when you don't know you're using npm!_
+*Same as `npm`... when you don't know you're using npm!*
 
 ```bash
 na run test
@@ -144,7 +144,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

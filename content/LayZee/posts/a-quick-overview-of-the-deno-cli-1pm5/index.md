@@ -11,10 +11,9 @@ socialImage: "social-image.png"
 }
 ---
 
+*Original cover photo by [falconp4](https://pixabay.com/photos/tool-tester-screwdriver-2766836/) on Pixabay.*
 
-_Original cover photo by [falconp4](https://pixabay.com/photos/tool-tester-screwdriver-2766836/) on Pixabay._
-
-_Original publication date: 2020-05-21._
+*Original publication date: 2020-05-21.*
 
 The Deno CLI is a batteries included executable with everything you need to develop, lint, test, and run Deno code.
 
@@ -78,7 +77,7 @@ deno_hello_world
 └── tsconfig.json
 ```
 
-_Workspace structure._
+*Workspace structure.*
 
 ```json
 {
@@ -89,7 +88,7 @@ _Workspace structure._
 }
 ```
 
-_Import map._
+*Import map.*
 
 ```json
 {
@@ -104,7 +103,7 @@ _Import map._
 }
 ```
 
-_TypeScript configuration._
+*TypeScript configuration.*
 
 ```ts
 // hello_world.ts
@@ -122,7 +121,7 @@ async function main() {
 main();
 ```
 
-_Hello World HTTP server._
+*Hello World HTTP server.*
 
 With the files above, use this command to bundle the Hello World HTTP server into a single module:
 
@@ -132,7 +131,7 @@ Bundle file:///C:/projects/sandbox/deno-cli-app/src/hello_world.ts
 Emit "dist/hello_world.js" (68.99KB)
 ```
 
-_Bundle the Hello World HTTP server._
+*Bundle the Hello World HTTP server.*
 
 We're now left with a single JavaScript bundle that uses a `Map` to keep track of sub-modules and dependencies.
 
@@ -167,7 +166,7 @@ deno cache src/hello_world.ts --lock deno-lock.json --lock-write --reload
 deno cache src/hello_world.ts --lock deno-lock.json
 ```
 
-_Cache and lock remote dependencies of a local module._
+*Cache and lock remote dependencies of a local module.*
 
 Example output of `deno cache`:
 
@@ -258,7 +257,7 @@ Here's the generated lockfile:
 }
 ```
 
-_Example lockfile._
+*Example lockfile.*
 
 The lockfile is a map over each dependent module and the hash of its source code.
 
@@ -286,7 +285,7 @@ Use this command to put the completions in your PowerShell profile:
 deno completions powershell >> $profile
 ```
 
-_Add Deno completions to PowerShell._
+*Add Deno completions to PowerShell.*
 
 or if you use Bash:
 
@@ -296,13 +295,13 @@ deno completions bash >> /usr/local/etc/bash_completion.d/deno.bash
 deno completions bash >> ~/.bash_profile
 ```
 
-_Add Deno completions to Bash._
+*Add Deno completions to Bash.*
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/7znc0xd4fm2o3e07i126.gif) _Deno CLI completions in PowerShell._
+![](./7znc0xd4fm2o3e07i126.gif) *Deno CLI completions in PowerShell.*
 
 Now we can write `deno` then `Tab` through CLI commands.
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/qk41wf6rppwxjxrvxbzr.png) _Deno CLI completions in Bash._
+![](./qk41wf6rppwxjxrvxbzr.png) *Deno CLI completions in Bash.*
 
 # Inline/online Deno module documentation
 
@@ -334,11 +333,11 @@ deno doc https://deno.land/std/http/server.ts
 
 Output of `deno doc https://deno.land/std/http/server.ts`:
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/culuvjkntipklvz7uvog.png) _Inline docs for `std/http/server.ts`._
+![](./culuvjkntipklvz7uvog.png) *Inline docs for `std/http/server.ts`.*
 
 Running `deno doc` without any arguments lists global variables and types as seen in the following excerpt.
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/3nu1lb4yo8kdkuhmnd4p.png) _Excerpt of global variables and types shown when running `deno doc` without any arguments._
+![](./3nu1lb4yo8kdkuhmnd4p.png) *Excerpt of global variables and types shown when running `deno doc` without any arguments.*
 
 Let's try to display the documentation for a couple of global symbols:
 
@@ -355,7 +354,7 @@ Defined in lib.deno.d.ts:2849:8
 function atob(s: string): string
 ```
 
-_Documentation of global symbols displayed by using the `deno doc --builtin <symbol-path>` command._
+*Documentation of global symbols displayed by using the `deno doc --builtin <symbol-path>` command.*
 
 # Evaluate JavaScript/TypeScript code
 
@@ -385,7 +384,7 @@ deno eval "const a = 2, b = '2'; const result = a + b; console.log(result);"
 // 22
 ```
 
-_JavaScript evaluation with `deno eval`._
+*JavaScript evaluation with `deno eval`.*
 
 2 + 2 is 22? Let's try that in TypeScript with the `--ts` option.
 
@@ -399,7 +398,7 @@ deno eval --ts "const a = 2, b = '2'; const result: number = a + b; console.log(
 //     at file:///C:/projects/sandbox/deno-cli-app/$deno$eval.ts:1:29
 ```
 
-_TypeScript evaluation with `deno eval --ts`._
+*TypeScript evaluation with `deno eval --ts`.*
 
 This time we get a static analysis error which prevents our code from being evaluated.
 
@@ -415,7 +414,7 @@ deno eval --print "2 + '2'"
 // 22
 ```
 
-_JavaScript evaluation with `deno eval --print`._
+*JavaScript evaluation with `deno eval --print`.*
 
 This is not enough for more complex calculations though. Instead, let's rewrite the previous example by wrapping it in an IIFE (Immediately Invoked Function Expression) like so:
 
@@ -425,7 +424,7 @@ deno eval --print "(() => { const a = 2, b = '2'; const result = a + b; return r
 // 22
 ```
 
-_JavaScript evaluation with `deno eval --print` and an IIFE._
+*JavaScript evaluation with `deno eval --print` and an IIFE.*
 
 # Format Deno modules
 
@@ -454,7 +453,7 @@ deno fmt ./src/hello_world.ts ./src/hello_deno.ts
 Checked 2 files
 ```
 
-_Format files and folders with `deno fmt`._
+*Format files and folders with `deno fmt`.*
 
 ## Example with --check
 
@@ -471,7 +470,7 @@ from \\?\C:\projects\sandbox\deno-cli-app\src\hello_world.ts:
 error: Found 1 not formatted file in 4 files
 ```
 
-_Check source module formatting with `deno fmt --check`._
+*Check source module formatting with `deno fmt --check`.*
 
 Display command usage and examples
 
@@ -494,7 +493,7 @@ deno help run
 deno help help
 ```
 
-_Example uses of the `deno help` command._
+*Example uses of the `deno help` command.*
 
 The related `--help` option allows us to add help instructions to modules. To see an example, look at [the standard library's HTTP file server](https://deno.land/std/http/file_server.ts).
 
@@ -526,7 +525,7 @@ local: C:\projects\sandbox\deno-cli-app\src\hello_world.ts
 type: TypeScript
 ```
 
-_Metadata for the `hello_world.ts` module._
+*Metadata for the `hello_world.ts` module.*
 
 Then the dependency tree is displayed. Every dependency, its dependency, and so on are listed, including remote dependencies.
 
@@ -562,7 +561,7 @@ file:///C:/projects/sandbox/deno-cli-app/src/hello_world.ts (263B)
     └── https://deno.land/std@0.73.0/http/http_status.ts (5.93KB)
 ```
 
-_Dependency tree for the `hello_world.ts` module._
+*Dependency tree for the `hello_world.ts` module.*
 
 ## Example without source module
 
@@ -583,7 +582,7 @@ Remote modules cache: "/home/lars/.cache/deno/deps"
 TypeScript compiler cache: "/home/lars/.cache/deno/gen"
 ```
 
-_Display metadata for Deno with the `deno info` command._
+*Display metadata for Deno with the `deno info` command.*
 
 ## Example with --json option
 
@@ -691,7 +690,7 @@ PS C:\projects\sandbox\deno-cli-app> deno info --unstable --json ./src/hello_wor
 }
 ```
 
-_JSON dependency report for the `hello_world.ts` module._
+*JSON dependency report for the `hello_world.ts` module.*
 
 # Install Deno module as executable
 
@@ -718,7 +717,7 @@ We can install the Deno `xeval` line parsing utility, using this command:
 deno install --name xeval https://deno.land/std/examples/xeval.ts
 ```
 
-_Install the Deno `xeval` utility._
+*Install the Deno `xeval` utility.*
 
 If the `<user-home-directory>/.deno/bin` directory is in your PATH variable, you will now be able to use it as the `xeval` command, for example:
 
@@ -727,7 +726,7 @@ If the `<user-home-directory>/.deno/bin` directory is in your PATH variable, you
 git branch | xeval "if ($.startsWith('*')) console.log($.slice(2))"
 ```
 
-_Example command using the Deno `xeval` utility._
+*Example command using the Deno `xeval` utility.*
 
 The generated executable is just a shell script with a `deno run` command, for example on Windows:
 
@@ -736,7 +735,7 @@ The generated executable is just a shell script with a `deno run` command, for e
 @deno.exe "run" "https://deno.land/std/examples/xeval.ts" %*
 ```
 
-_ `xeval` executable on Windows. _
+\_ `xeval` executable on Windows. \_
 
 or on Linux:
 
@@ -746,7 +745,7 @@ or on Linux:
 deno "run" "https://deno.land/std/examples/xeval.ts" "$@"
 ```
 
-_ `xeval` executable on Linux. _
+\_ `xeval` executable on Linux. \_
 
 As Deno caches remote modules, it will be available without internet access. Alternatively, we can produce a standalone executable by using the `deno bundle` command and creating a shell script ourselves.
 
@@ -780,7 +779,7 @@ PS C:\projects\sandbox\deno-cli-app\src> deno lint --unstable
 Checked 2 files
 ```
 
-_Lint your code for potential errors with the `deno lint` command._
+*Lint your code for potential errors with the `deno lint` command.*
 
 Let's introduce a questionable change to our code:
 
@@ -800,7 +799,7 @@ async function main() {
 main();
 ```
 
-_Introducing a potential error in our code._
+*Introducing a potential error in our code.*
 
 Now we run the linter again.
 
@@ -815,7 +814,7 @@ Found 1 problem
 Checked 2 files
 ```
 
-_Human-readable lint report with 1 issue detected._
+*Human-readable lint report with 1 issue detected.*
 
 ## Example with --json
 
@@ -846,7 +845,7 @@ PS C:\projects\sandbox\deno-cli-app\src> deno lint --unstable --json
 }
 ```
 
-_JSON lint report listing 1 issue._
+*JSON lint report listing 1 issue.*
 
 ## Example with --rules
 
@@ -864,7 +863,7 @@ Available rules:
 (...)
 ```
 
-_A list of active lint rules._
+*A list of active lint rules.*
 
 # Deno REPL (Read-eval-print loop)
 
@@ -906,7 +905,7 @@ undefined
 > close();
 ```
 
-_Start a Deno REPL with the `deno repl` command._
+*Start a Deno REPL with the `deno repl` command.*
 
 # Run Deno module
 
@@ -955,7 +954,7 @@ msg:1 { code: 1001, reason: "" }
 msg:2 { code: 1001, reason: "" }
 ```
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/vqa79v70h26i705v4hyp.png) _Local Deno chat server._
+![](./vqa79v70h26i705v4hyp.png) *Local Deno chat server.*
 
 # Deno test runner
 
@@ -1006,7 +1005,7 @@ Deno.test('hello throws', () => {
 });
 ```
 
-_Example test suite._
+*Example test suite.*
 
 When we run `deno test`, we get the following output:
 
@@ -1020,7 +1019,7 @@ test hello throws ... ok (1ms)
 test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out (27ms)
 ```
 
-_Example test run._
+*Example test run.*
 
 Let's target the `hello assert` test case with the `--filter assert` option:
 
@@ -1059,7 +1058,7 @@ export function subtract(left: number, right: number): number {
 }
 ```
 
-_Deno module with math operators._
+*Deno module with math operators.*
 
 When we have the following `math_test.ts` test suite:
 
@@ -1093,7 +1092,7 @@ Deno.test('subtract', () => {
 });
 ```
 
-_Deno test suite for the module with math operators._
+*Deno test suite for the module with math operators.*
 
 We get this output:
 
@@ -1115,7 +1114,7 @@ cover file:///C:/projects/sandbox/deno-cli-app/src/math.ts ... 68.750% (11/16)
   12 | }
 ```
 
-_Test report for the math module with code coverage._
+*Test report for the math module with code coverage.*
 
 Deno type declarations
 
@@ -1168,7 +1167,7 @@ v8 8.7.75
 typescript 4.0.3
 ```
 
-_Example upgrade process from Deno version 1.2.0 to 1.4.4 using `deno upgrade`._
+*Example upgrade process from Deno version 1.2.0 to 1.4.4 using `deno upgrade`.*
 
 Use `deno upgrade --dry-run --version 1.5.0` to check whether version 1.5.0 is available.
 
@@ -1178,7 +1177,7 @@ downloading https://github.com/denoland/deno/releases/download/v1.5.0/deno-x86_6
 Version has not been found, aborting
 ```
 
-_Check for a specific Deno version by using the `--dry-run` and `--version` options for the `deno upgrade` command._
+*Check for a specific Deno version by using the `--dry-run` and `--version` options for the `deno upgrade` command.*
 
 # Deno environment variables
 

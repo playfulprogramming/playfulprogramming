@@ -13,7 +13,7 @@ Since I discovered Oh My Zsh a few years ago, it has been a god-sent gift to me.
 
 > PS: If you are looking to get started with Oh My Zsh, you can find the installation instructions [here](https://github.com/ohmyzsh/ohmyzsh/wiki).
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff0a61540-ad8d-4a95-94a2-15e17af0bb37_531x470.jpeg)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff0a61540-ad8d-4a95-94a2-15e17af0bb37_531x470.jpeg)
 
 I guess this is the one plugin I can probably not survive with, my flailing memory would suffer greatly to have to remember all my previous commands, even the ones I worked out myself. A close second plugin for my workflow and I believe vital for most developers is the git plugin. It’s just genius.
 
@@ -25,7 +25,7 @@ For a long time, I and the git plugin, have become very close buddies. Want to r
 
 I even adapted my naming of git branches, starting with the issue number, followed by the title slug so that I can get even faster autocomplete. Don’t even ask what I was naming them before.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5bc3c4b7-caca-4a82-8770-70f977a97c78_888x499.jpeg)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5bc3c4b7-caca-4a82-8770-70f977a97c78_888x499.jpeg)
 
 I digress
 
@@ -33,7 +33,7 @@ I digress
 
 A few months ago, I came across Oh My Zsh git aliases, and well this has transformed my workflow. I can type into my terminal a combination of letters (3 to 5 characters, sometimes 6) and accomplish the same thing I did with a whole sentence.
 
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F62c5322d-585f-4b55-b040-f56c426bc81f_500x528.jpeg)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F62c5322d-585f-4b55-b040-f56c426bc81f_500x528.jpeg)
 
 I know, we as developers have been accused of being overpaid 🤷🏾 and lazy and I am playing up to my character incredibly well here. I will take any shortcut I can to do more, by doing less. On the other hand, I am a huge fan of a good developer experience and I will put anything in my toolbox that improves it, including Github Copilot - I guess I owe another article here as well.
 
@@ -53,7 +53,7 @@ If you have Oh My Zsh and the Git Plugin, you will probably use it to autocomple
 ggf
 ```
 
-Yeah, it’s that simple and will force-push your current branch without you having to worry whether you got the correct branch name or not (_god forbid you are not force-pushing on the main branch_ 🙈). Magic. Now imagine this, you have a few branches that are behind that you want to rebase and force push remotely. This does make your life a little bit easier, doesn’t it?
+Yeah, it’s that simple and will force-push your current branch without you having to worry whether you got the correct branch name or not (*god forbid you are not force-pushing on the main branch* 🙈). Magic. Now imagine this, you have a few branches that are behind that you want to rebase and force push remotely. This does make your life a little bit easier, doesn’t it?
 
 And did I mention, that it even makes rebasing way easier? So, let’s say, you notice that your branch is behind the origin main branch, instead of checking out the main branch and pulling the changes, you can simply fetch the remote main and merge your branch against it, as shown below:
 
@@ -70,8 +70,7 @@ gfo && grbom
 
 The above two aliases will fetch the origin branches and rebase the current branch against the origin main branch. And now you can simply run `ggf` to force push remotely.
 
-
-![](https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Febac7059-582d-4a47-94f7-25f50a5aa431_360x238.gif)
+![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Febac7059-582d-4a47-94f7-25f50a5aa431_360x238.gif)
 
 Impressed?
 
@@ -82,11 +81,10 @@ Another thing I want to emphasize is that as you go on your way to memorizing an
 So, if you hear me and want to start using Git Aliases with Oh My Zsh, where do I start? Here are some of the most useful links to installing Oh My Zsh and a cheat sheet for the Aliases to help you memorize them.
 
 - [Installing Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh/wiki)
-    
+
 - [Oh-My-Zsh Git Cheat Sheet - Kapeli](https://kapeli.com/cheat_sheets/Oh-My-Zsh_Git.docset/Contents/Resources/Documents/index)
-    
+
 - [Plugins Wiki](https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins)
-    
 
 ### Conclusion
 

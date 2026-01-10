@@ -9,7 +9,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 > **IMPORTANT**: All the things in this article are highly opinionated, and they are not a standard. I'm just sharing my experience and what I think is the best way to do it.
 > If you have a better way to do it, please let me know in the comments. Examples are in PostgreSQL, but you can use the same approach for MySQL, SQLite, etc.
 >
@@ -96,6 +95,7 @@ func (s *Store) GetUser(ctx context.Context, id string) (*User, error) {
     return &user, nil
 }
 ```
+
 As you see, we are using `fmt.Sprintf` to build our query. This is a very bad practice because we are exposing ourself to SQL Injection.
 
 SQL Injection is a code injection technique that might destroy your database. It is one of the most common web hacking techniques.
@@ -215,14 +215,14 @@ Also, you can use all the features of the DB, like JSONB filtering, etc.
 
 So I have made this table to compare the different approaches:
 
-| Feature | SQL-first | ORM | Query Builders |
-| --- | --- | --- | --- |
-| Type-safe | ✅ | ✅ | ❌ |
-| All DB features | ✅ | ❌ | ✅ |
-| Protect you from SQL Injection | ✅ | ✅ | ❌ |
-| Clean API | ✅ | ❌ (in GO) | ❌ |
-| Code generation | ✅ | ❌ | ❌ |
-| I like it | ✅✅✅✅ | ❌ | ❌ |
+| Feature                        | SQL-first | ORM       | Query Builders |
+| ------------------------------ | --------- | --------- | -------------- |
+| Type-safe                      | ✅         | ✅         | ❌              |
+| All DB features                | ✅         | ❌         | ✅              |
+| Protect you from SQL Injection | ✅         | ✅         | ❌              |
+| Clean API                      | ✅         | ❌ (in GO) | ❌              |
+| Code generation                | ✅         | ❌         | ❌              |
+| I like it                      | ✅✅✅✅      | ❌         | ❌              |
 
 ### Use a mixed approach
 
@@ -267,8 +267,8 @@ They can be executed in 2 ways:
 
 - Manually: You can run the migration manually with a CLI
 - Automatically: You can run the migration automatically when the application starts
-    - By running the migration inside the code
-    - By running the migration through a Job or a CronJob
+  - By running the migration inside the code
+  - By running the migration through a Job or a CronJob
 
 ### Evolutionary Database Design
 

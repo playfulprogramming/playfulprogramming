@@ -10,8 +10,7 @@ socialImage: "social-image.png"
 }
 ---
 
-
-![Theme toggle PrimeNG](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zf4lve2setlxkpdr2llc.gif)
+![Theme toggle PrimeNG](./zf4lve2setlxkpdr2llc.gif)
 
 As I delved into PrimeNG and PrimeFlex for my recent Angular 17 standalone app with SSR, one aspect truly stood out: built-in themes. Unlike Material UI, PrimeNG offers a delightful selection of pre-built themes that you can easily configure within your application.
 
@@ -27,8 +26,7 @@ Installation: Get started by installing PrimeNG using npm or yarn.
 
 Ensure your angular.json file includes the necessary styles. Below is my folder structure and its inclusion in `angular.json`.
 
-
-![Folder Structure](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/p07iw6qy321p8ih2e8x9.PNG)
+![Folder Structure](./p07iw6qy321p8ih2e8x9.PNG)
 
 In each stylesheet, I imported built-in PrimeNG Themes from resources.
 
@@ -136,6 +134,7 @@ Template with p-toggle: Utilize the p-toggle component from PrimeNG to render th
 
 </p-toolbar>
 ```
+
 **Separation of Concerns:** The service concentrates on theme management, keeping your component clean and focused.
 
 **Enhanced Readability:** The code is well-structured and easy to comprehend for developers of all levels.

@@ -21,6 +21,7 @@ const upperName = memo(() => name.toUpperCase());
 
 effect(() => console.log(upperName));
 ```
+
 > *We will be using pseudocode not to cater to the syntax of a specific library or framework.*
 
 But this is an oversimplification. As we learned in the previous article though there are multiple ways this change can propagate through the system, "Push", "Pull", or even "Push-Pull":
@@ -29,12 +30,13 @@ But this is an oversimplification. As we learned in the previous article though 
 
 While we tend to keep a simpler "Push" model in our heads as we talk about Reactivity, almost no modern framework uses a purely "Push" system. It is incapable of providing the guarantees we've come to expect.
 
-Once you leave purely "Push" events, scheduling becomes a necessary part of the solution. If work isn't going to happen immediately it will need to happen later. What gets scheduled and when it runs has consequences. 
+Once you leave purely "Push" events, scheduling becomes a necessary part of the solution. If work isn't going to happen immediately it will need to happen later. What gets scheduled and when it runs has consequences.
 
-----------------------
+---
+
 ## Immediate vs Lazy vs Scheduled
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yatsw7hz6jl1bf6cdl7m.jpg)
+![Image description](./yatsw7hz6jl1bf6cdl7m.jpg)
 
 On the creation of something reactive, we have 3 choices when we evaluate it.
 
@@ -48,11 +50,11 @@ Upon an update, we have similar options. We don't run things immediately outside
 
 At first glance, it might appear obvious that we should lazily defer what we can and schedule what we need to. Otherwise, we could schedule unnecessary work. Derived state is a prime candidate for lazy evaluations because it must be read to be used. But are there any other considerations when determining what to schedule?
 
-------------------
+---
 
 ## Reactive Ownership
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ngfj9q9ka302k9vt51tx.png)
+![Image description](./ngfj9q9ka302k9vt51tx.png)
 
 It is useful to understand another benefit of lazy evaluation other than reducing the risk of unnecessary work. Lazy derivations can be automatically garbage collected.
 
@@ -74,11 +76,11 @@ This is a secondary graph to the reactive dependency graph, but it links our Eff
 
 Still in either case, scheduling dictates what can live comfortably within and outside of the tree given its impact on how nodes can be disposed of.
 
--------------------
+---
 
 ## A Phased Approach
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gzsuk26tkn962y0lyioa.png)
+![Image description](./gzsuk26tkn962y0lyioa.png)
 
 Should code run at a predictable time? With reactivity, we have the means to model all sorts of systems and aren't limited to the normal sense of time and progression. One line doesn't need to run after the other. But developers are only human, and when things occur can be of consequence.
 
@@ -86,7 +88,7 @@ You can't take back side effects. Once you are committed to displaying something
 
 {% link https://dev.to/this-is-learning/why-all-the-suspense-understanding-async-consistency-in-javascript-frameworks-3kdp %}
 
-------------
+---
 
 ### React's Three Phases
 
@@ -100,13 +102,13 @@ React has popularized a model with 3 phases of execution.
 
 As a developer, all your code is executed during the Pure phase except the effects, which are executed Post-Render.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3dphgoxg01zrcj4wr5b7.png)
+![Image description](./3dphgoxg01zrcj4wr5b7.png)
 
 That includes dependency arrays. React's model is aware of all dependencies for the updates before it runs any internal or external side effects. This ability to bail out of an update cycle until ready to commit is what powers things like concurrency. Some code can always throw a Promise without impacting what is currently on the screen.
 
 This model works well in React's "Pull" reactivity where Components are re-run repeatedly. Every time they run you can expect the same behavior as the code executes on whole to completion.
 
-------------
+---
 
 ### Phases with Granular Rendering
 
@@ -114,15 +116,15 @@ With "Push-Pull" one can also use a system like above, but then you wouldn't ful
 
 But first, we should recognize that left alone, lazily-evaluated derived values will execute when the earliest type of effect that reads them runs. If you were to introduce a `renderEffect` that runs before user defined `effect`s that is when the corresponding derived values would run.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l0uveljqxz5gw25hp9hc.png)
+![Image description](./l0uveljqxz5gw25hp9hc.png)
 
 Changing where the reactive expression or derived value is read can change the timing between being run before or after render. Incidentally adding it to a new phase by dependency could change the current behavior of otherwise unrelated code.
 
 When I first created SolidJS 8 years ago I wasn't too concerned with this lazy behavior. We scheduled all computed nodes, both Derived and Effects. While it was true extra work could happen, a lot of state in Components is hierarchical so if things are unused they tend to be unmounted. But scheduling meant we could get this behavior:
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dkuzs7tqalbzd0py6lyo.png)
+![Image description](./dkuzs7tqalbzd0py6lyo.png)
 
-Subtle difference from above, but it meant all our Pure calculations happened before our Effects. 
+Subtle difference from above, but it meant all our Pure calculations happened before our Effects.
 
 But there is one difference. `getFirstLetter` runs during Post-Render. Any dependency that occurs for the first time during an effect that isn't scheduled happens too late to be discovered before any effects run. Since our Async primitives are also scheduled nodes this has very little consequence but it is a small but understandable discrepancy.
 
@@ -130,13 +132,13 @@ Solid like React has 3 defined phases. This is probably why Solid is the only Si
 
 But giving up the benefits of the Phased approach isn't an acceptable tradeoff. So let's explore an alternative.
 
--------------------
+---
 
 ### Rethinking Dependencies
 
 Well, what works for "Pull" works for "Push-Pull".
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ts01fl72p5qdvsa79ww8.png)
+![Image description](./ts01fl72p5qdvsa79ww8.png)
 
 Probably the last thing anyone wants to see is the return of "Dependency Arrays". But if effects were split between the pure tracking part and the effectful part, all user code except the effect itself could happen during the Pure phase before any rendering.
 
@@ -148,7 +150,7 @@ Similar to above:
 
 This still differs from dependency arrays in that components don't re-run and they can be dynamic, reading different dependencies on every run. No Hook rules. But if one wants to have Lazy Derived values and still ensure the Phases are followed to enable consistent scheduling this is how you could do it.
 
--------------------------
+---
 
 ## Deriving Async
 
@@ -177,11 +179,12 @@ const user = asyncMemo(() => fetchUser(userId));
 
 const upperName = memo(() => user.firstName.toUpperCase());
 ```
+
 `upperName` depends on `user` which depends on `userId` and it could possibly be async.
 
 This is useful information if you want to implement systems like Suspense. We need to be able to trigger Suspense when `userId` is updated. So we need to know that it is a dependency of async operation. Also, it is better to suspend closest to where the data is ultimately used rather than immediately where the first node derives from it. We want to suspend when reading `upperName` not where `upperName` is defined. You want to be free to fetch your data higher in the tree to use in more places below than block rendering of the whole tree below that point.
 
--------------
+---
 
 ### Should Async Be Lazy or Scheduled?
 
@@ -203,23 +206,25 @@ You can null check everywhere. This is fine. But it does mean a lot of code for 
 Or you can throw a special error and re-run it when the value resolves. React has pioneered the approach of throwing Promises in this scenario. It's nice as you don't need to null check or provide a default value and you can trust that everything will be there when it finally commits.
 
 But an old problem resurfaces:
+
 ```js
 const A = asyncState(() => fetchA(depA));
 const B = asyncState(() => fetchB(depB));
 
 const C = memo(() => A + B)
 ```
+
 If you go with throwing or some other type of conditional short-circuiting, and derived values are lazy, you, my friend, have accidentally created a waterfall. When we read `C` it will begin by evaluating `A`. It can start fetching `A` but it will throw as it hasn't resolved. `B` won't be read until it re-runs again after `A` has resolved. Only at that point will it start fetching `B`.
 
 However, if scheduled `A` and `B` will start fetching regardless of whether `C` is read. This means even if `A` throws, `B` may be finished fetching by the time `A` resolves as everything is fetched in parallel.
 
-In general Async values probably should be scheduled. While I could see it being powerful to lazily resolve Async by using the path through the code to determine what gets fetched it doesn't take much to cause performance issues. Waterfalls are very easy to create in systems that use throwing to manage unresolved async, so using scheduling and our knowledge of the reactive graph is one way to avoid that. 
+In general Async values probably should be scheduled. While I could see it being powerful to lazily resolve Async by using the path through the code to determine what gets fetched it doesn't take much to cause performance issues. Waterfalls are very easy to create in systems that use throwing to manage unresolved async, so using scheduling and our knowledge of the reactive graph is one way to avoid that.
 
----------------------
+---
 
 ## Conclusion
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hrn12pg79yu315jynjdz.jpg)
+![Image description](./hrn12pg79yu315jynjdz.jpg)
 
 I hope through this exploration you can see that scheduling plays a big part in Reactive systems. And that "Push-Pull" is a "Pull" system built inside a "Push" one. Lazily Derived State has many consequences that you don't find in systems that schedule everything or ones that are purely "Pull". Even when trying to optimize for laziness there are still several things that should be scheduled.
 

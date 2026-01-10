@@ -26,10 +26,7 @@ I recorded a video where I play all 4 of them and I try to explain how they work
 
 ## Game 1: Single-player Tic-Tac-Toe
 
-
-![Game 1](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vrs4kwb5nwitwewdtrqc.png)
-
-
+![Game 1](./vrs4kwb5nwitwewdtrqc.png)
 
 Play the game: https://github.com/kylepls
 
@@ -41,10 +38,7 @@ Can you win against the computer? Unfortunately in this game with no errors it's
 
 ## Game 2: Multiplayer Tic-Tac-Toe
 
-
-![Game 2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1i17y5e04luh7mx9jsq4.png)
-
-
+![Game 2](./1i17y5e04luh7mx9jsq4.png)
 
 Play the game: https://github.com/DoubleGremlin181
 
@@ -58,10 +52,7 @@ The profile is updated with a GitHub Action having a cron as a trigger.
 
 ## Game 3: Multiplayer Chess
 
-
-![Game 3](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sd85xqniyyxnxw0mtf6h.png)
-
-
+![Game 3](./sd85xqniyyxnxw0mtf6h.png)
 
 Play the game: https://github.com/marcizhu
 
@@ -75,10 +66,7 @@ Side note, I think the original is on [timburgan](https://github.com/timburgan)'
 
 ## Game 4: Multiplayer Connect4
 
-
-![Game 4](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7e5551ubg2qqw4dryaht.png)
-
-
+![Game 4](./7e5551ubg2qqw4dryaht.png)
 
 Play the game: https://github.com/JonathanGin52
 
@@ -102,7 +90,7 @@ Join us: https://github.com/DevLeonardoCommunity
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

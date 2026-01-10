@@ -12,19 +12,18 @@ order: 1
 }
 ---
 
-
-Hey Folks,  
+Hey Folks,\
 It's time to take a journey on [react query](https://tanstack.com/query/latest). Don't you know it? Perfect, you are in the right place 😁
 
 ## Introduction
 
-What is React Query? React query is an npm library created by [@TannerLinsley](https://twitter.com/tannerlinsley).  
-It's a state manager for react that simplifies many tasks like handling the HTTP request state, saving data in the client to prevent many requests, sharing data in your application using hooks and so on.  
+What is React Query? React query is an npm library created by [@TannerLinsley](https://twitter.com/tannerlinsley).\
+It's a state manager for react that simplifies many tasks like handling the HTTP request state, saving data in the client to prevent many requests, sharing data in your application using hooks and so on.\
 You'll discover more in this series about it, learn how to use it, and appreciate its simplicity in your react applications.
 
 ## useQuery
 
-The first core concept is useQuery. Through it, you can retrieve data from a source and handle all the states of this request in a very simple way.  
+The first core concept is useQuery. Through it, you can retrieve data from a source and handle all the states of this request in a very simple way.\
 Let's see an example
 
 ```ts
@@ -52,7 +51,7 @@ export const useTodos = (): UseTodos => {
 };
 ```
 
-In this example, you can see the essentials of useQuery.  
+In this example, you can see the essentials of useQuery.\
 UseQuery is a react hook; it takes 3 params:
 
 - The query key
@@ -87,6 +86,6 @@ Bye Bye 👋
 
 p.s. you can find the code of the video [here](https://github.com/Puppo/learning-react-query/tree/01-queries)
 
-_Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto&utm_medium=referral)_
+*Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto\&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto\&utm_medium=referral)*
 
 {% embed https://dev.to/puppo %}

@@ -10,7 +10,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 In this article I am going to share the plugin I created for [Angular Material Blocks](https://ui.angular-material.dev/blocks) to preview code contents from files!
 
 ## TL;DR
@@ -39,7 +38,7 @@ When I started working on [Angular Material Blocks](https://ui.angular-material.
 
 For example, take a look at below screenshot of [Badge 1 block](https://ui.angular-material.dev/blocks/application/elements/badges#badge-1) where I show raw contents from components files (HTML templates, TS class contents and CSS/SCSS style contents) along with preview.
 
-![Screenshot of a code editor showing HTML code for a badge component. The code uses Angular directives to create a chip set that dynamically displays badges with icons based on their trend. The editor tabs for HTML, TypeScript, and SCSS files are visible.](https://cdn.hashnode.com/res/hashnode/image/upload/v1751366159616/0df6ea3a-0ef1-43c5-9a26-5914580351a6.png)
+![Screenshot of a code editor showing HTML code for a badge component. The code uses Angular directives to create a chip set that dynamically displays badges with icons based on their trend. The editor tabs for HTML, TypeScript, and SCSS files are visible.](./0df6ea3a-0ef1-43c5-9a26-5914580351a6.png)
 
 But, NX does not have a built-in mechanism to import raw contents, so I had to create a custom plugin so that I can easily import raw contents from any files (mainly HTML, TS, CSS/SCSS).
 
@@ -215,10 +214,10 @@ TypeScript currently lacks support for type definitions derived from import attr
 
 You can read more about it on [angular.dev](https://angular.dev/tools/cli/build-system-migration#import-attribute-loader-customization).
 
-* * *
+---
 
 ## Angular Material Blocks
 
 I am running a limited time 20% discount on Personal & Teams licenses for lifetime access on [Angular Material Blocks](https://ui.angular-material.dev/home)! Do not forget to check it out and grab this deal!
 
-[![](https://pbs.twimg.com/media/GrqA5u4WgAALuc1?format=jpg&name=medium)](https://ui.angular-material.dev/home#pricing)
+[![](./GrqA5u4WgAALuc1?format=jpg\&name=medium)](https://ui.angular-material.dev/home#pricing)

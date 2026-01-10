@@ -21,7 +21,7 @@ But once your masterpiece is coded, the next crucial step is making it accessibl
 
 Angular applications, being SPAs, primarily consist of static assets: HTML, CSS, JavaScript bundles, and images. Firebase Hosting is meticulously designed to serve precisely these types of assets with exceptional efficiency.
 
-Firebase Hosting utilizes a global CDN (Content Delivery Network). This means your Angular app's assets are cached at multiple edge locations around the world. 
+Firebase Hosting utilizes a global CDN (Content Delivery Network). This means your Angular app's assets are cached at multiple edge locations around the world.
 When a user requests your site, the content is served from the nearest server, drastically reducing latency and providing an incredibly fast loading experience for your users, regardless of their geographical location.
 
 > All traffic to your Angular application is encrypted via HTTPS. This not only protects user data but also boosts your site's SEO ranking.
@@ -108,7 +108,7 @@ The CLI will upload the assets to Firebase Hosting, and provide you with a live 
 
 ### Continuous Deployment for Angular Apps
 
-For a truly modern workflow, consider integrating continuous deployment. Services like GitHub Actions, GitLab CI/CD, or even Firebase's own GitHub integration can automatically trigger a `firebase deploy` command every time you push changes to your main branch. 
+For a truly modern workflow, consider integrating continuous deployment. Services like GitHub Actions, GitLab CI/CD, or even Firebase's own GitHub integration can automatically trigger a `firebase deploy` command every time you push changes to your main branch.
 
 > This means your live Angular application is always up-to-date with your latest code, minimizing manual intervention and accelerating your development cycle.
 
@@ -124,4 +124,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Until next time 👋
 
 {% embed https://dev.to/gioboa %}
-

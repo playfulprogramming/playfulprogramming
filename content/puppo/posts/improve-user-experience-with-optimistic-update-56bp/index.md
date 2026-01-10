@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 Hey Folks,
 
 Sometimes to improve the user experience you can decide to bet on the success of your code, so you can assume that the code will go in the right way to make your application faster in the eyes of your users. This approach is called Optimistic Update and can be handled in some lines of code using react query with the `useMutation` hook. Yes, this approach is like a bet with the code but it's also important to keep in mind to handle the errors in case of failure.
@@ -112,11 +111,11 @@ Ok, I think now you have an idea of how the optimistic update works in react que
 
 I think thats all from this article; I hope you enjoyed this content!
 
-See you soon folks  
+See you soon folks\
 Bye Bye 👋
 
 p.s. you can find the code of the video [**here**](https://github.com/Puppo/learning-react-query/tree/09-optimistic-update)
 
-_Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto&utm_medium=referral)_
+*Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto\&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto\&utm_medium=referral)*
 
 {% embed https://dev.to/puppo %}

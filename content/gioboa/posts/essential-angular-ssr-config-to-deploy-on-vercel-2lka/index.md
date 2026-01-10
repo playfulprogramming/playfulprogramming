@@ -17,6 +17,7 @@ However, integrating Angular SSR with platforms like [Vercel](https://vercel.com
 The creation of a new Angular application, is really straight forward, leveraging the `--ssr` flag to enable server-side rendering from the outset.
 
 The command `ng new your-project-name-here --ssr` initiates this process. During setup, several key choices were made to optimize the application:
+
 - Stylesheet System: CSS, Tailwind CSS, Sass (SCSS) etc. etc.
 - Zoneless Application: Opting for a 'zoneless' application without zone.js is a significant step towards improving performance. Zone.js, while simplifying change detection, can sometimes introduce overhead. A zoneless approach offers more granular control and can lead to smaller bundle sizes and faster execution.
 - AI Tools Configuration: While the specific AI tools weren't detailed in the provided context, integrating them with Angular best practices suggests a forward-thinking approach to leveraging intelligent functionalities within the application.
@@ -29,11 +30,11 @@ With the foundational Angular SSR application in place, the next step involved c
 app.get('/api/ping', (req, res) => { 
   res.json({ message: 'pong' })
 });
-``` 
+```
 
 This basic API, designed to return a JSON object with a "pong" message, serves as a crucial test for backend communication.
 
-Initially, deploying this setup to Vercel using the standard process yielded unexpected results. 
+Initially, deploying this setup to Vercel using the standard process yielded unexpected results.
 
 > While the application and its API functioned perfectly in a local development environment, the API route failed to work correctly once deployed on Vercel. This common hurdle often arises from how serverless platforms handle routing and server-side code execution.
 

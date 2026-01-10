@@ -32,7 +32,7 @@ Using `Out-GridView` is straightforward. Let's walk through some examples to ill
 Get-Process | Out-GridView
 ```
 
-![powershell](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ge6pafzmf20j23ogp0lw.png)
+![powershell](./ge6pafzmf20j23ogp0lw.png)
 
 In this example, we're retrieving information about running processes using `Get-Process` and piping the output to `Out-GridView`. This command opens a grid view window displaying details about each running process, including Name, ID, CPU usage, and more.
 
@@ -50,7 +50,7 @@ Here, we're fetching a list of services using `Get-Service`, filtering only thos
 Get-WmiObject Win32_LogicalDisk | Select-Object DeviceID, VolumeName, Size, FreeSpace | Out-GridView
 ```
 
-![powershell](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3d5d26iqgjsjg8eky4ux.png)
+![powershell](./3d5d26iqgjsjg8eky4ux.png)
 
 In this example, we're retrieving information about logical disks using `Get-WmiObject`, selecting specific properties (DeviceID, VolumeName, Size, FreeSpace) using `Select-Object`, and then displaying the results in a grid view window using `Out-GridView`. This enables us to focus on the essential information and analyze disk usage efficiently.
 
@@ -60,6 +60,6 @@ In this example, we're retrieving information about logical disks using `Get-Wmi
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

@@ -68,7 +68,7 @@ For that reason, you can get a 5 dollars discount on the book if you buy it from
 
 Anyway, next up we have the expert.
 
-_Oh I heard a guy on YouTube talking about this new technology, hence it must be the best choice for our project._
+*Oh I heard a guy on YouTube talking about this new technology, hence it must be the best choice for our project.*
 
 This is clearly not a valid reason, but let's make it a little more tricky: what if the expert is an actual skilled professional in the field? They can work on a consultancy company or they can even be your colleague from another department.
 
@@ -84,7 +84,7 @@ The last anti-pattern for today, is rage-driven decisions, which are those ones 
 
 Doesn't it sound familiar? It's the exact opposite of the usual path anti-pattern, it didn't work last time, it for sure won't work this time too.
 
-_But wait, are you saying that relying on previous experiences, be them good or bad, is a bad idea? Not at all!_
+*But wait, are you saying that relying on previous experiences, be them good or bad, is a bad idea? Not at all!*
 
 The key here is to make sure that a **feeling** of the previous experience is not the main driver of your decision. Either the previous experience was good or bad, you should always try to understand the reasons behind it, and then evaluate if they apply to the current project.
 
@@ -106,7 +106,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

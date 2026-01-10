@@ -13,19 +13,21 @@ socialImage: "social-image.png"
 Visual Studio Code (VS Code) is a popular and versatile code editor that supports many languages and platforms. In this blog post, I will show you how to set up VS Code for C# development, using the C# Dev Kit extension and the .NET SDK.
 
 ## Prerequisites
+
 - A computer running Windows, Linux, or macOS.
 - VS Code installed on your computer. You can download it from [here](https://code.visualstudio.com).
 - The .NET SDK installed on your computer. You can download it from [here](htp://dot.net). The .NET SDK is a set of libraries and tools that allow you to create and run .NET applications. It includes the .NET CLI, the .NET runtime and libraries, and the dotnet driver.
 
 # Install the DevKit C# Extension
+
 To install the C# Dev Kit extension for Visual Studio Code, you can follow these steps:
 
 - Open Visual Studio Code and click on the Extensions icon in the Activity Bar on the left side of the editor. Alternatively, you can use the keyboard shortcut Ctrl+Shift+X (Cmd+Shift+X on macOS) to open the Extensions view.
 - In the search box, type 'C# Dev Kit' and press Enter. You should see the C# Dev Kit extension by Microsoft in the results list.
 - Click on the Install button to install the extension. You may need to reload VS Code to activate the extension.
-- Once the extension is installed, you can start using it for C# development. You can also check out the [C# documentation] for more information and tips on how to use the extension.
+- Once the extension is installed, you can start using it for C# development. You can also check out the \[C# documentation] for more information and tips on how to use the extension.
 
-![](https://github.com/microsoft/vscode-dotnettools/blob/main/docs/media/07-add.existing.project.gif?raw=true)
+![](./07-add.existing.project.gif?raw=true)
 
 ## Creating a simple C# application
 
@@ -126,8 +128,6 @@ If you have any questions or feedback, please leave a comment below. Happy codin
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!
-
-

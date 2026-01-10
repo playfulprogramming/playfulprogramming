@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 In the last period, in the frontend ecosystem, a new e2e tool has come up and it has started to become famous; its name is Playwright. In this short series, I want to leave you with some information on this and tips on how to get started.
 
 ## What is it?
@@ -38,7 +37,7 @@ In my opinion, the tool reflects all of these characteristics.
 
 I want to use a TicTacToe application built with vite + react in this series. And you can find it [here](https://github.com/Puppo/playwright-series/tree/00-the-app).
 
-![Tic Tac Toe App](https://cdn.hashnode.com/res/hashnode/image/upload/v1670327417970/XSyzIlhd2.gif)
+![Tic Tac Toe App](./XSyzIlhd2.gif)
 
 As you can see, the application is straightforward, but with it, we can start to move to the first steps with Playwright.
 
@@ -74,7 +73,7 @@ And now, the first one, the most important. Playwright uses the `playwright.conf
 
 It's time to see Playwright in action, so open your terminal again and run the following command `npx playwright test`. The result is something like this
 
-![Playwright Result](https://cdn.hashnode.com/res/hashnode/image/upload/v1670322747775/m88LhTkFj.png)
+![Playwright Result](./m88LhTkFj.png)
 
 Playwright in this report shows you the result of its execution, and you can check if everything has gone ok. The report shows the result for each browser indicated in the configuration, in this case: Chromium, Firefox and Webkit.
 
@@ -94,7 +93,7 @@ const config: PlaywrightTestConfig = {
 
 ```
 
-_N.B. check your port running the command_ `npm run dev` you have to use the same port exposed by vite.
+*N.B. check your port running the command* `npm run dev` you have to use the same port exposed by vite.
 
 And now it's time for your first test. Open the file `e2e/example.spec.ts` and rename it to `e2e/tit-tac-toe.spec.ts`. Then clean everything in the file and leave only the import line `import { expect, test } from "@playwright/test";`.
 
@@ -138,7 +137,7 @@ Adding another script in your package.json, you can open the report result in yo
 
 And now, if you run the command `npm run e2e:report` in your browser, you can see the result of your first test.
 
-![Playwright Result first test](https://cdn.hashnode.com/res/hashnode/image/upload/v1670326776785/mfjxqkmWg.png)
+![Playwright Result first test](./mfjxqkmWg.png)
 
 Ok, I think that's all for now. In this post, you learnt:
 
@@ -152,6 +151,6 @@ In the next post, we will continue our journey in the Playwright world, but for 
 
 Bye Bye
 
-_p.s. You can find the result of this post at this_ [_link_](https://github.com/Puppo/playwright-series/tree/01-install-and-run)
+*p.s. You can find the result of this post at this* [*link*](https://github.com/Puppo/playwright-series/tree/01-install-and-run)
 
 {% embed https://dev.to/puppo %}

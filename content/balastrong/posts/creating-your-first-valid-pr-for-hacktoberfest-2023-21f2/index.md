@@ -34,17 +34,18 @@ The only requirement is to have a GitHub account, if you already created one to 
 These are the basic steps, I will also link other resources I already made in case you need more details on a specific step.
 
 1. Find a repository you want to contribute to
-  - _[How to find a beginner-friendly repositories](https://youtu.be/yfopPq4354o)_
-  - _[How to find a repository (Hacktoberfest 2022 edition)](https://youtu.be/YcOVmk-PSAI)_
+
+- *[How to find a beginner-friendly repositories](https://youtu.be/yfopPq4354o)*
+- *[How to find a repository (Hacktoberfest 2022 edition)](https://youtu.be/YcOVmk-PSAI)*
 - Fork the repository
-  - _[Why do we fork?](https://youtu.be/VbfvQzCoiQc)_
+  - *[Why do we fork?](https://youtu.be/VbfvQzCoiQc)*
 - Clone the forked repository on your computer
-  - _[Your First Pull Request with GitHub Desktop](https://youtu.be/8x6V5IOuXog)_
+  - *[Your First Pull Request with GitHub Desktop](https://youtu.be/8x6V5IOuXog)*
 - Create a new branch
 - Do the changes, commit and push
-  - _[Git commands for Hacktoberfest](https://youtu.be/hTeHtkpTvqI)_
+  - *[Git commands for Hacktoberfest](https://youtu.be/hTeHtkpTvqI)*
 - Head over the original repository and create a Pull Request (there will be a yellow banner on top of the page)
-  - _[Create a PR from Visual Studio Code](https://youtu.be/Ma67EbIHi64)_
+  - *[Create a PR from Visual Studio Code](https://youtu.be/Ma67EbIHi64)*
 
 ## What makes a PR valid for Hacktoberfest?
 
@@ -76,9 +77,7 @@ Just as a reminder, this year there will not be any physical rewards (like tshir
 
 I talk about that in this video here:
 
-{% youtube 4HSk0ny_7Sc %}
-
-
+{% youtube 4HSk0ny\_7Sc %}
 
 ---
 
@@ -88,7 +87,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

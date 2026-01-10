@@ -11,7 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
-_You can find a [video version](https://youtu.be/jNBw9_qNgmo) of this article on my [YouTube Channel](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA)._
+*You can find a [video version](https://youtu.be/jNBw9_qNgmo) of this article on my [YouTube Channel](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA).*
 
 ## Intro
 
@@ -22,15 +22,15 @@ In short, what it does is extract a random object considering its weight. An obj
 As a side quest, we're going to keep code coverage at 100% ✅
 
 - [Intro](#intro)
-  * [Output](#output)
+  - [Output](#output)
 - [Development](#development)
-  * [Typing](#typing)
-  * [Core class](#core-class)
-  * [Validation](#validation)
-  * [Standalone](#standalone)
-  * [Going further](#going-further)
+  - [Typing](#typing)
+  - [Core class](#core-class)
+  - [Validation](#validation)
+  - [Standalone](#standalone)
+  - [Going further](#going-further)
 
-{% embed https://youtu.be/jNBw9_qNgmo %}
+{% embed https://youtu.be/jNBw9\_qNgmo %}
 
 ### Output
 
@@ -48,9 +48,11 @@ const results = picker.pickMany(3);
 ```
 
 ## Development
+
 As seen in the preview, we're going to build a generator (with a class) that takes an array of objects in the constructor and will spit out randomly picked items with two methods: `pick` and `pickMany`.
 
 ### Typing
+
 As we're in Typescript, let's start by giving a type definition to our input.
 
 {% embed https://gist.github.com/Balastrong/6784d2d12cf887c026a03bbaeec9011b %}
@@ -59,6 +61,7 @@ Our type will have two fields, one to keep the original items we passed in, and 
 A heavier weight means more likely to be picked up.
 
 ### Core class
+
 To add some more informative content, we'll build this up with a little bit of Test Driven Development (TDD).
 
 We can create a new file, randomGenerator.ts with the skeleton of the final product.
@@ -70,14 +73,15 @@ Before writing the implementation, we have to write the tests! This approach hel
 In this case, I'm using Jest, so `npm i jest` to have it running.
 
 In my tests, I want to make sure that:
+
 1. The class is instantiated properly.
-1. A random item is picked and comes from my list.
-1. N random items are picked, exactly the amount I requested and all of them are in the list.
-1. Works not only with strings but also with objects.
+2. A random item is picked and comes from my list.
+3. N random items are picked, exactly the amount I requested and all of them are in the list.
+4. Works not only with strings but also with objects.
 
 {% embed https://gist.github.com/Balastrong/f8cf757a5b8e39d9cca16a6cdc75a695 %}
 
-_Note: To improve the tests even more, there's an [open issue](https://github.com/Balastrong/wrand/issues/5) about passing a custom random generator. This could allow to set a generator with a specific seed (Math.random can't do that) and make the tests predictable, rather than entirely random._
+*Note: To improve the tests even more, there's an [open issue](https://github.com/Balastrong/wrand/issues/5) about passing a custom random generator. This could allow to set a generator with a specific seed (Math.random can't do that) and make the tests predictable, rather than entirely random.*
 
 Now that the tests are written, we can proceed with the implementation.
 
@@ -90,9 +94,10 @@ If we run the test now, they're all green and 100% code coverage ✅
 Let's add some validation to our input. As usual, tests first!
 
 This time we want to check that:
+
 1. The list is not empty
-1. There are no duplicates
-1. There are no negative weights
+2. There are no duplicates
+3. There are no negative weights
 
 {% embed https://gist.github.com/Balastrong/336a7aed5a951c30ad8832b001215769  %}
 
@@ -102,7 +107,7 @@ Tests are looking good, we can implement the validation method.
 
 `npm run test` and it's all green and 100% again! ✅
 
-![Coverage](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nnnbsrhd1vamkm91jkl9.png) 
+![Coverage](./nnnbsrhd1vamkm91jkl9.png)
 
 ### Standalone
 
@@ -122,12 +127,13 @@ In the meantime, the library has been extended with more utility methods (`getIt
 
 Feel free to jump on GitHub and extend it, even more, I'm waiting for your Pull Requests! :)
 
-[![Video Thumbnail](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/s90hctbvtsr24dbprb4u.png)](https://youtu.be/jNBw9_qNgmo)
+[![Video Thumbnail](./s90hctbvtsr24dbprb4u.png)](https://youtu.be/jNBw9_qNgmo)
 
 ---
+
 Thanks for reading this post, I hope you find it interesting!
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}
 You can also follow me on your favourite platform!
 
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/Balastrong) [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA) [![TikTok](https://img.shields.io/badge/TikTok-000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://www.tiktok.com/@balastrong) [![Instagram](https://img.shields.io/badge/Instagram-FFF?style=for-the-badge&logo=instagram&logoColor=black)](https://www.instagram.com/devbalastrong/)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge\&logo=twitter\&logoColor=white)](https://twitter.com/Balastrong) [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA) [![TikTok](https://img.shields.io/badge/TikTok-000000?style=for-the-badge\&logo=tiktok\&logoColor=white)](https://www.tiktok.com/@balastrong) [![Instagram](https://img.shields.io/badge/Instagram-FFF?style=for-the-badge\&logo=instagram\&logoColor=black)](https://www.instagram.com/devbalastrong/)

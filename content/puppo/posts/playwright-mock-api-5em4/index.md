@@ -13,8 +13,7 @@ order: 1
 }
 ---
 
-
-Hi there,  
+Hi there,\
 Today I want to talk about how to mock API with Playwright.
 
 To do that, I add a new feature to the usual example. When one of the players wins, the system sends a POST request to the URL `http://localhost:3001/api/winners` to save the history of the results of the games.
@@ -37,7 +36,7 @@ Any request that a page does, including XHRs and fetch requests, can be tracked,
 
 ## Mock API in action
 
-In this article, I want to show you how to start to use this API.  
+In this article, I want to show you how to start to use this API.\
 Let's start with the test. The test is straightforward; it reproduces a game where the Player `X` wins and, in the end, checks if the application fetches the POST request to save the winner.
 
 The test's base is composed in this way
@@ -158,13 +157,13 @@ test("should register the winner calling the winner API[POST]", async ({
 });
 ```
 
-Ok, I think that's all from Mocking API. Now you have all the notions to start mocking API with Playwright, and if you have any doubt, you can reach out to me without problems or check the official [documentation](https://playwright.dev/docs/mock).  
+Ok, I think that's all from Mocking API. Now you have all the notions to start mocking API with Playwright, and if you have any doubt, you can reach out to me without problems or check the official [documentation](https://playwright.dev/docs/mock).\
 I hope you enjoyed this content.
 
 See you soon folk!
 
 Bye bye 👋
 
-_You can find the code of this article_ [_here_](https://github.com/Puppo/playwright-series/tree/08-mockapi)
+*You can find the code of this article* [*here*](https://github.com/Puppo/playwright-series/tree/08-mockapi)
 
 {% embed https://dev.to/puppo %}

@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 Ever wished for a magical toolkit that gives you superhero-like control over JavaScript objects? Say hello to the `Reflect` API, the Swiss Army knife every modern JavaScript developer needs! From peeping into objects to conjuring custom behaviors `Reflect`is your one-stop spellbook! 📜
 
 Strap in as we teleport through this arcane realm of JavaScript, where we'll not only decode `Reflect`, but also empower you with hands-on examples and practical tips! 🚀
@@ -196,6 +195,6 @@ Ready to cast your own spells? Grab your keyboard wand, and let's make the JavaS
 
 Remember, the magic isn't just in the code; it's in you, the coding sorcerer who brings it to life. Until our next spellbinding adventure, code on, wizards! 🚀
 
-_You can find the code of this article_ [_here_](https://github.com/Puppo/javascript-you-dont-know/tree/08-reflect-api)
+*You can find the code of this article* [*here*](https://github.com/Puppo/javascript-you-dont-know/tree/08-reflect-api)
 
 {% embed https://dev.to/puppo %}

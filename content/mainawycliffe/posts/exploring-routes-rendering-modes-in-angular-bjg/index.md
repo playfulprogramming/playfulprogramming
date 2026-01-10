@@ -18,7 +18,7 @@ However, there are applications where there are some pages that are behind a log
 
 If you enable SSR on such a route behind a login wall, and someone visits the page, Angular will render the login page (or wherever the Auth Guards redirect them). When the page is loaded, Angular will determine the user is logged in and redirect them back to the actual page, as shown below:
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6qzt44i5bxbq17hvys5v.gif)
+![Image description](./6qzt44i5bxbq17hvys5v.gif)
 
 This means the user will see a flash on the login page before seeing the actual page. This happens because, in our case, the authentication context is only available on the browser, not the server, and hence, on the server, the user is not logged in, but on the browser, the user is.
 
@@ -93,7 +93,7 @@ export const appConfig: ApplicationConfig = {
 
 And that’s it. If we circle back to our example, you can see that the login page flash is completely gone.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dzvbv2cup3841qvgdnmb.gif)
+![Image description](./dzvbv2cup3841qvgdnmb.gif)
 
 You can find the code for the above application [here](https://github.com/unstacked-labs/angular-router-render-modes-demo).
 

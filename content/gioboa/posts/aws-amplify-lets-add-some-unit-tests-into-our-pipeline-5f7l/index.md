@@ -27,9 +27,10 @@ Let's complicate the pipeline, we will see how it is possible to customise the b
 
 Reading the AWS documentation, we can find how to add the test steps in the deployment process and it seems easy.<br>
 
-In the _amplify.yml_ file is possible to add the tests section 🎉
+In the *amplify.yml* file is possible to add the tests section 🎉
 
-e.g _amplify.yml_ with test phases
+e.g *amplify.yml* with test phases
+
 ```yml
 version: 1
 frontend:
@@ -56,18 +57,18 @@ test:
 
 ...but if we read in the detail, however, there is a small annotation 🥲
 
-> You can run end-to-end (E2E) tests in the test phase of your Amplify app to catch regressions before pushing code to production. The test phase can be configured in the build specification YML. 
-👉 Currently, you can run only the Cypress testing framework during a build. 👈
+> You can run end-to-end (E2E) tests in the test phase of your Amplify app to catch regressions before pushing code to production. The test phase can be configured in the build specification YML.
+> 👉 Currently, you can run only the Cypress testing framework during a build. 👈
 
 [AWS docs](https://docs.aws.amazon.com/amplify/latest/userguide/running-tests.html)
 
 But the goal was to run unit tests and so my reaction was…
 
-![meme](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cg39yzm4114k4xrx55tc.png)
+![meme](./cg39yzm4114k4xrx55tc.png)
 
 ## Workaround
 
-I searched a lot for a possible solution and through various tests, I found a way to get to my goal. 
+I searched a lot for a possible solution and through various tests, I found a way to get to my goal.
 Here is the solution: before running the build let's run the test script, this is a simple and effective way. 🚀
 
 ```yml
@@ -93,17 +94,17 @@ I simulated both the situation with passing tests and failing tests.
 
 ### Test failed
 
-![fail1](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dabz2gifsns55yd1jxtg.png)
+![fail1](./dabz2gifsns55yd1jxtg.png)
 
-![fail2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bop9juzhf8ufqo56zdpv.png)
+![fail2](./bop9juzhf8ufqo56zdpv.png)
 
 ### Test passed
 
-![ok1](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ewzd2byfbvdv3a8q8kib.png)
+![ok1](./ewzd2byfbvdv3a8q8kib.png)
 
-![Ok2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9q5yo8virppulgjomtfe.jpeg)
+![Ok2](./9q5yo8virppulgjomtfe.jpeg)
 
-## Final thought 
+## Final thought
 
 🎉 I'd say the build configuration is pretty straightforward, good job AWS Amplify team 😄
 

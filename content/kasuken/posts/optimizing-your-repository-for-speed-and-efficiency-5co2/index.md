@@ -26,6 +26,7 @@ The `git maintenance` command is designed to optimize Git repositories by runnin
 ### Why is Repository Maintenance Important?
 
 Over time, Git repositories can slow down due to:
+
 - **Large numbers of loose objects**: Frequent commits, merges, and rebases can create many small objects that are inefficient to store and retrieve.
 - **Bloated history**: As the commit history grows, Git operations like `log` and `blame` can become slower.
 - **Unreachable objects**: Orphaned objects left after rebases or branch deletions can waste disk space.
@@ -34,28 +35,36 @@ Over time, Git repositories can slow down due to:
 
 ### The Key Subcommands of `git maintenance`
 
-The `git maintenance` has various subcommands to address these issues. 
+The `git maintenance` has various subcommands to address these issues.
 
 #### **`run`**
+
 Runs all enabled maintenance tasks for the current repository. It's the main entry point for performing maintenance manually.
+
 ```bash
 git maintenance run
 ```
 
 #### **`start`**
+
 Enables background maintenance for the repository. This uses `cron` (Linux/macOS) or `Task Scheduler` (Windows) to automate maintenance tasks at regular intervals.
+
 ```bash
 git maintenance start
 ```
 
 #### **`stop`**
+
 Disables background maintenance.
+
 ```bash
 git maintenance stop
 ```
 
 #### **`register` and `unregister`**
+
 Registers or unregisters the repository for global background maintenance tasks.
+
 ```bash
 git maintenance register
 git maintenance unregister
@@ -66,12 +75,14 @@ git maintenance unregister
 You can customize how and when maintenance tasks are run using Git's configuration system. Here are some common settings:
 
 #### Enable repack and garbage collection:
+
 ```bash
 git config maintenance.repack.enabled true
 git config maintenance.gc.enabled true
 ```
 
 #### Automate maintenance with background tasks:
+
 ```bash
 git maintenance start
 ```
@@ -80,14 +91,14 @@ git maintenance start
 
 ### Best Practices for Git Maintenance
 
-1. **Automate It**  
-Use `git maintenance start` to schedule background tasks, especially for large repositories. This ensures consistent optimization without manual intervention.
+1. **Automate It**\
+   Use `git maintenance start` to schedule background tasks, especially for large repositories. This ensures consistent optimization without manual intervention.
 
-2. **Run Manually After Major Changes**  
-Perform a manual `git maintenance run` after significant repository changes, like branch pruning or large merges.
+2. **Run Manually After Major Changes**\
+   Perform a manual `git maintenance run` after significant repository changes, like branch pruning or large merges.
 
-3. **Monitor Repository Performance**  
-Keep an eye on repository size and operation speed. If you notice lag, check your maintenance configuration.
+3. **Monitor Repository Performance**\
+   Keep an eye on repository size and operation speed. If you notice lag, check your maintenance configuration.
 
 ---
 
@@ -99,6 +110,6 @@ In the next article I will show you how to automate this command with a **GitHub
 
 ---
 
-**Exciting News!** 🌟  
-We're thrilled to introduce **[cloudGlow](https://www.cloudglow.io)** — a powerful governance tool designed to streamline the management of **Entra ID resources** on **Microsoft Azure**.  
+**Exciting News!** 🌟\
+We're thrilled to introduce **[cloudGlow](https://www.cloudglow.io)** — a powerful governance tool designed to streamline the management of **Entra ID resources** on **Microsoft Azure**.\
 **Visit [www.cloudglow.io](https://www.cloudglow.io)** to learn more, get early access, and **subscribe** to our preview! Stay ahead of your cloud management game with **cloudGlow**. 🚀

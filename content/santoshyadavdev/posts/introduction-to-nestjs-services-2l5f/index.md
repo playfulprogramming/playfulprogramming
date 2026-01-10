@@ -27,8 +27,8 @@ To avoid this issue, you use services, which will be responsible for providing s
 
 There are two types of services that can be created in [NestJS](https://docs.nestjs.com/):
 
-* Class-based Provider
-* Non-class-based Provider
+- Class-based Provider
+- Non-class-based Provider
 
 Note: If you are coming from Angular, there are high chances you already know these concepts.
 
@@ -42,8 +42,8 @@ nest generate service product
 
 In the product folder, you will find two files:
 
-* `product.service.ts` (For logic.)
-* `product.service.spec.ts` (For unit testing.)
+- `product.service.ts` (For logic.)
+- `product.service.spec.ts` (For unit testing.)
 
 You may end up using multiple services for a feature or even multiple types of providers.
 
@@ -111,8 +111,8 @@ There is more about class-based services which we will cover in upcoming article
 
 We can also create a service that is not a class-based service. There are two types:
 
-* Tokens: We can use string value as the token.
-* Factory: Useful when we have a service that needs some data from another service.
+- Tokens: We can use string value as the token.
+- Factory: Useful when we have a service that needs some data from another service.
 
 ## Creating tokens
 
@@ -200,7 +200,6 @@ export class DbproviderService {
 }
 ```
 
-
 In `dbprovider.service.ts`, here we are using a string property, if you try to run this application, you will get the error as this is not allowed.
 
 We want to create the instance of `DbproviderService` at runtime, so we need to make one more change. Open `app.module.ts` and remove `DbproviderService` from the `providers` property.
@@ -222,7 +221,6 @@ export const dbConnectionFactory  = {
 
 Here we are creating a new instance of `DbproviderService` by getting `db` from `ClientService`. You can use multiple services here, you just need to pass them comma-separated in `useFactory` and the same services need to be added in the `inject` property.
 
-
 Now we are done with the factory, let’s register and use it. Open `app.module.ts` and add `dbConnectionFactory` in the `providers` property.
 
 Next, open `product.service.ts` and add the below code.
@@ -240,4 +238,3 @@ constructor(@Inject(PRODUCT) product: Product,
 We learned about how to create and use different types of providers in NestJS, we used the dependency injection design pattern to use services, which lets you achieve single responsibility as well.
 
 The services are singleton, but we can also control the scope of Services, which we will see in the next article.
-

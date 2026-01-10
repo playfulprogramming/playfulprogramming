@@ -12,7 +12,7 @@ order: 1
 }
 ---
 
-How we define our types in Typescript impacts how effective typescript is at warning us when we make mistakes. If we take a broad approach i.e. to cover many types in a single type, we end up handicapping typescript and it becomes less effective. 
+How we define our types in Typescript impacts how effective typescript is at warning us when we make mistakes. If we take a broad approach i.e. to cover many types in a single type, we end up handicapping typescript and it becomes less effective.
 
 The more specific we are, the more effective typescript can be at catching possible errors. In this article, we are going to look at how we can use discriminative unions to write better and more specific types and help typescript to be more helpful to us.
 
@@ -30,9 +30,10 @@ type Shape = {
   side?: Number; // Square side Length
 }
 ```
-> For the purpose of this above example, I am assuming that the Square can't take height and width. 
 
-As you can see, the type alias above is not very useful, since if you had a circle, you could easily leave out all fields or add all of them to `Shape` and typescript will not be able to help you at all. 
+> For the purpose of this above example, I am assuming that the Square can't take height and width.
+
+As you can see, the type alias above is not very useful, since if you had a circle, you could easily leave out all fields or add all of them to `Shape` and typescript will not be able to help you at all.
 
 This is especially not a good practice for third-party SDKs, where you have to keep referring to the documentation just to get an idea of the shape of the data you are dealing with. Types help us avoid making silly and avoidable mistakes, which we all make as it's in our nature as human beings.
 
@@ -72,7 +73,7 @@ type Shape = Square | Rectangle | Circle;
 
 > The `Shape` type alias can only be Square, Rectangle or Circle.
 
-So, what is the advantage of the above you may ask? 
+So, what is the advantage of the above you may ask?
 
 ### Strongly Typed Shapes
 
@@ -86,7 +87,7 @@ const x: Shape = {
 }
 ```
 
-As you can see above, once you specify the shape property to be `Circle`, then you are restricted to only specifying properties available in the `Circle` type alias. 
+As you can see above, once you specify the shape property to be `Circle`, then you are restricted to only specifying properties available in the `Circle` type alias.
 
 Trying to add fields that do not exist will result in the following error: `// Error ---> Object literal may only specify known properties, and 'width' does not exist in type 'Circle'.`
 
@@ -104,6 +105,6 @@ Learn more about Type Narrowing in typescript [here](https://mainawycliffe.dev/b
 
 ## Conclusion
 
-In this article, we learned how we can use discriminated unions to write more specific types in Typescript, and thus better types overall and have an improved developer experience. This allows us in turn to write more type-safe code, which can help typescript eliminate a lot of bugs from our code that would otherwise slip through. 
+In this article, we learned how we can use discriminated unions to write more specific types in Typescript, and thus better types overall and have an improved developer experience. This allows us in turn to write more type-safe code, which can help typescript eliminate a lot of bugs from our code that would otherwise slip through.
 
 If you found this article informative and would like to keep learning about typescript, visit my series on Typescript - [A Byte of Typescript](https://mainawycliffe.dev/blog/tags/a-byte-of-typescript). A Byte of Typescript is a new series that I will be publishing on a regular basis to help you demystify Typescript.

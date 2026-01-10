@@ -19,7 +19,7 @@ Think of it as your trusty, slightly cynical, but ultimately invaluable companio
 
 We’re not talking about a magic wand that spits out perfect solutions, though. It's more like a super-powered brainstorming partner that can help you unearth hidden complexities, explore alternative approaches, and ultimately, build something truly remarkable.
 
-> It pushes you to think deeper, challenge your assumptions, and see your ideas from different angles. 
+> It pushes you to think deeper, challenge your assumptions, and see your ideas from different angles.
 
 Think about the times you've been heads-down coding, so focused on the immediate task that you've lost sight of the bigger picture. Or maybe you've been in a brainstorming session where everyone's nodding along, influenced by the [anchoring effect](https://en.wikipedia.org/wiki/Anchoring_effect). Firebase Studio can cut through that noise and help you get real with your ideas.
 
@@ -38,7 +38,7 @@ Seems straightforward, right?
 But then you fire up Firebase Studio and ask it to generate the schema and the backend logic for this authentication flow.
 Suddenly, things get interesting. The generated schema forces you to consider edge cases you might have glossed over.
 
-What happens if the user's email is misspelled? What if they click the link multiple times? What if the link expires before they click it? What if someone tries to brute-force the link generation? 
+What happens if the user's email is misspelled? What if they click the link multiple times? What if the link expires before they click it? What if someone tries to brute-force the link generation?
 
 It doesn’t blindly accept your ideas; it challenges them, forces you to justify your choices, and uncovers potential weaknesses. This early validation can save you countless hours of debugging and refactoring down the line.
 

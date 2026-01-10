@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 *Cover photo by [Pixabay](https://www.pexels.com/photo/light-new-year-s-eve-fireworks-sylvester-40663/) on Pexels.*
 
 *Original publication date: 2020-02-06.*
@@ -22,10 +21,9 @@ socialImage: "social-image.png"
 
 In previous versions of Angular, we had to opt-in to Ivy. In version 9, we instead have to opt-out of Ivy if we want to fall back to View Engine. This is possible in both versions 9 and 10 to ensure a smoother transition from View Engine to Ivy.
 
-Libraries _can_ be AOT-compiled directly to Ivy instructions and metadata, but this is not recommended. The Angular team has a View Engine-to-Ivy migration plan which recommends only publishing AOT-compiled View Engine-compatible libraries for Angular version 9. The Angular compatibility compiler will upgrade View Engine-compatible libraries to Ivy when installed in an Angular Ivy application project.
+Libraries *can* be AOT-compiled directly to Ivy instructions and metadata, but this is not recommended. The Angular team has a View Engine-to-Ivy migration plan which recommends only publishing AOT-compiled View Engine-compatible libraries for Angular version 9. The Angular compatibility compiler will upgrade View Engine-compatible libraries to Ivy when installed in an Angular Ivy application project.
 
 [Learn about library compatibility and the View Engine-to-Ivy transition plan in “The Angular Ivy guide for library authors”](https://dev.to/this-is-angular/the-angular-ivy-guide-for-library-authors-9md).
-
 
 ```json
 {
@@ -38,8 +36,6 @@ Libraries _can_ be AOT-compiled directly to Ivy instructions and metadata, but t
 
 <figcaption>Listing 1A. TypeScript configuration: Opting out of Ivy to fall back to View Engine.</figcaption>
 
-
-
 ```ts
 // polyfills.ts
 // Only used in multilingual Ivy applications
@@ -47,7 +43,6 @@ Libraries _can_ be AOT-compiled directly to Ivy instructions and metadata, but t
 ```
 
 <figcaption>Listing 1B. Polyfills: Opting out of Ivy to fall back to View Engine.</figcaption>
-
 
 If you experience problems with Ivy in your application or any of the libraries you depend on, you can opt out of Ivy and fall back to View Engine by clearing the `enableIvy` Angular compiler option and disabling `@angular/localize` as seen in Listings 1A and 1B.
 
@@ -89,15 +84,14 @@ This is great for use cases such as microfrontends, Angular Elements and web app
 
 However, the difference in our bundle sizes between View Engine and Ivy will vary based on the size of our application and the 3rd party libraries we use. In general:
 
-* Small and simple applications will see a considerable bundle size decrease.
-* Complex applications will see an increase in the main bundle, but a decrease in lazy loaded bundle sizes.
+- Small and simple applications will see a considerable bundle size decrease.
+- Complex applications will see an increase in the main bundle, but a decrease in lazy loaded bundle sizes.
 
 This means a considerable combined bundle size decrease for big applications, but could mean an overall increase in bundle size for medium-sized applications. In both cases, the main bundle’s size will probably increase which is bad for the initial page load time.
 
 ## Globalisation
 
 Locales (number formatting, date formatting, and other regional settings) can be dynamically loaded at runtime instead of having to be registered at compile time.
-
 
 ```ts
 // main.ts
@@ -111,7 +105,6 @@ loadTranslations({
 ```
 
 <figcaption>Listing 2. Dynamically loading translations.</figcaption>
-
 
 As seen in Listing 2, translated texts can also be dynamically loaded at runtime instead of being part of our bundles.
 
@@ -133,7 +126,6 @@ If we don’t use localised templates, the `i18n*` Ivy instructions are tree sha
 
 ### Localisable texts in component models and services
 
-
 ```ts
 // app.component.ts
 @Component({
@@ -145,7 +137,6 @@ export class AppComponent {
 ```
 
 <figcaption>Listing 3. A translation text placeholder in a component model.</figcaption>
-
 
 A new internationalisation feature is that we can also include placeholders for translated texts in our component models as seen in Listing 3. Previously, this was only possible in templates.
 
@@ -183,7 +174,6 @@ ng new my-app --strict
 
 When enabled, this parameter adds a few strict TypeScript compiler checks as seen in Listing 4.
 
-
 ```json
 {
   "//": "tsconfig.json",
@@ -199,26 +189,25 @@ When enabled, this parameter adds a few strict TypeScript compiler checks as see
 
 <figcaption>Listing 4. TypeScript compiler options enabled in a strict Angular workspace.</figcaption>
 
-
 Curiously enough, this doesn’t add the same options as if we would simply set `"strict": true` in the `compilerOptions` object. Let’s compare the Angular workspace strict option to the TypeScript compiler strict option.
 
 Both have these options in common:
 
-* `noImplicitAny`
-* `noImplicitThis`
-* `strictNullChecks`
+- `noImplicitAny`
+- `noImplicitThis`
+- `strictNullChecks`
 
 The strict Angular workspace option additionally sets these options:
 
-* `noImplicitReturns`
-* `noFallthroughCasesInSwitch`
+- `noImplicitReturns`
+- `noFallthroughCasesInSwitch`
 
 while the strict TypeScript compiler option additionally sets these options:
 
-* `alwaysStrict`
-* `strictBindCallApply`
-* `strictFunctionTypes`
-* `strictPropertyInitialization`
+- `alwaysStrict`
+- `strictBindCallApply`
+- `strictFunctionTypes`
+- `strictPropertyInitialization`
 
 What’s more, the strict Angular workspace option doesn’t set template type checking to the new strict mode, only the previous full mode.
 
@@ -227,7 +216,6 @@ What’s more, the strict Angular workspace option doesn’t set template type c
 We have had the option to enable template type checking since Angular version 5 by setting `"fullTemplateTypeCheck": true` in the `angularCompilerOptions` object.
 
 Ivy introduces strict template type checking as seen in Listing 5. When this new Angular compiler option is set, the value of`fullTemplateTypeCheck` is ignored.
-
 
 ```json
 {
@@ -239,7 +227,6 @@ Ivy introduces strict template type checking as seen in Listing 5. When this new
 ```
 
 <figcaption>Listing 5. Enable strict template type checking.</figcaption>
-
 
 The strict template type checking verifies the types of property bindings and respects the `strictNullChecks` option. It also checks the types of template references to directives and components, including generic types. Template context variables’ types are also checked which is great for `NgFor` loops. The `$event` type is checked for event bindings and animations. Even the type of native DOM elements is verified with strict template type checking.
 
@@ -255,22 +242,22 @@ TypeScript versions 3.6 and 3.7 are supported in Angular version 9. Previous Typ
 
 {% gist https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3 %}
 
-_Table 1. Angular CLI, Angular, Node.js and TypeScript compatibility table. [Open in new tab](https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3)._
+*Table 1. Angular CLI, Angular, Node.js and TypeScript compatibility table. [Open in new tab](https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3).*
 
 TypeScript version 3.6 introduces these and other features:
 
-* Unicode support for identifiers in modern targets
-* Improved developer experience for promises
-* Stricter type checking of generators
+- Unicode support for identifiers in modern targets
+- Improved developer experience for promises
+- Stricter type checking of generators
 
 TypeScript version 3.7 introduces these and other features that we can use with Angular version 9:
 
-* Optional chaining operator (`?.`) similar to the safe navigation operator for Angular templates
-* Nullish coalescing operator (`??`)
-* Assertion functions (`assert parameterName is typeName` and `asserts parameterName`)
-* Top-level `await`
-* Improved recursive type aliases
-* Improved developer experience for functions such as function truthy checks
+- Optional chaining operator (`?.`) similar to the safe navigation operator for Angular templates
+- Nullish coalescing operator (`??`)
+- Assertion functions (`assert parameterName is typeName` and `asserts parameterName`)
+- Top-level `await`
+- Improved recursive type aliases
+- Improved developer experience for functions such as function truthy checks
 
 ## Improved server-side rendering with Angular Universal
 
@@ -366,8 +353,8 @@ Learn about the `'any'` and `'platform'` provider scopes in [“Improved Depende
 
 These two articles goes into the details of Angular Universal version 9:
 
-* [“Angular Universal v9: What’s New ?” by Mark Pieszak](https://trilon.io/blog/angular-universal-v9-whats-new)
-* [“Angular v9 & Universal: SSR and prerendering out of the box!” by Sam Vloeberghs](https://dev.to/angular/angular-v9-universal-ssr-and-prerendering-out-of-the-box-33b1)
+- [“Angular Universal v9: What’s New ?” by Mark Pieszak](https://trilon.io/blog/angular-universal-v9-whats-new)
+- [“Angular v9 & Universal: SSR and prerendering out of the box!” by Sam Vloeberghs](https://dev.to/angular/angular-v9-universal-ssr-and-prerendering-out-of-the-box-33b1)
 
 Learn about `angular-prerender`, the library that inspired these new Angular Universal features in [“Prerender Angular Apps with a single Command” by Christoph Guttandin](https://media-codings.com/articles/prerender-angular-apps-with-a-single-command).
 
@@ -379,6 +366,6 @@ Learn about `angular-prerender`, the library that inspired these new Angular Uni
 
 It’s always helpful to have a second opinion on our work or even just catch silly errors. For this article I had the pleasure of being reviewed by:
 
-* [Christoph Guttandin](https://twitter.com/chrisguttandin)
-* [Evgeny Fedorenko](https://twitter.com/e_fedorenko)
-* [Santosh Yadav](https://dev.to/santoshyadav198613)
+- [Christoph Guttandin](https://twitter.com/chrisguttandin)
+- [Evgeny Fedorenko](https://twitter.com/e_fedorenko)
+- [Santosh Yadav](https://dev.to/santoshyadav198613)

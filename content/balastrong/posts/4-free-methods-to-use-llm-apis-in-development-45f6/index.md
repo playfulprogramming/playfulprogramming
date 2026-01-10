@@ -83,7 +83,7 @@ The first service I tried was GitHub Models. It basically offers some of the mos
 
 You can also use them in your app and you just need a single API key: a GitHub Personal Access Token (PAT).
 
-You can generate one from your developer settings, but on the Models marketplace you'll find a direct link to make it literally one click. It should also work from here: [https://github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new?description=Used+to+call+GitHub+Models+APIs+to+easily+run+LLMs%3A+https%3A%2F%2Fdocs.github.com%2Fgithub-models%2Fquickstart%23step-2-make-an-api-call&name=GitHub+Models+token&user_models=read)
+You can generate one from your developer settings, but on the Models marketplace you'll find a direct link to make it literally one click. It should also work from here: [https://github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new?description=Used+to+call+GitHub+Models+APIs+to+easily+run+LLMs%3A+https%3A%2F%2Fdocs.github.com%2Fgithub-models%2Fquickstart%23step-2-make-an-api-call\&name=GitHub+Models+token\&user_models=read)
 
 Once you have the token, set it in your environment variables and again you're good to go!
 
@@ -141,7 +141,6 @@ When it's time to go to production... well, that's another story.
 
 What are you using for development? And what are you using in production? Let's discuss in the comments!
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -150,7 +149,7 @@ Let's connect more: https://leonardomontini.dev/newsletter
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

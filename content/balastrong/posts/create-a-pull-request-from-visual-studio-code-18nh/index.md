@@ -13,7 +13,7 @@ order: 1
 }
 ---
 
-Did anyone say the word _Productivity_? We're all used to the GitHub User Interface so we usually navigate to GitHub, then search for our repository and then click the button to create a Pull Request.
+Did anyone say the word *Productivity*? We're all used to the GitHub User Interface so we usually navigate to GitHub, then search for our repository and then click the button to create a Pull Request.
 
 But did you know that you can do all of this from Visual Studio Code? In this article, we'll see how to create a Pull Request from Visual Studio Code in literally two clicks.
 
@@ -31,14 +31,13 @@ In any case, if you don't really like watching videos, I'll do my best to explai
 
 The first thing you need to do is to install the official **GitHub Pull Requests and Issues** extension for Visual Studio Code. You can find it in the marketplace by searching for "GitHub" or by clicking [here](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github).
 
-![GitHub Pull Requests and Issues](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j2xgoj0exiy99elox7w8.png)
+![GitHub Pull Requests and Issues](./j2xgoj0exiy99elox7w8.png)
 
-
-_Note_: make sure to not get confused, the extension called "GitHub" is and old one and deprecated. The new one is called "GitHub Pull Requests and Issues".
+*Note*: make sure to not get confused, the extension called "GitHub" is and old one and deprecated. The new one is called "GitHub Pull Requests and Issues".
 
 As soon as the extension is installed, you'll see a new icon in the Activity Bar on the left side of Visual Studio Code:
 
-![GitHub Pull Requests and Issues Icon](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ijm6tjm7n181r3d0wgjy.png)
+![GitHub Pull Requests and Issues Icon](./ijm6tjm7n181r3d0wgjy.png)
 
 Opening it the first time will ask you to login to GitHub, just click on the button and a browser tab will open where you can login to your GitHub account.
 
@@ -46,11 +45,11 @@ Opening it the first time will ask you to login to GitHub, just click on the but
 
 Now that you're logged in, you can create a Pull Request from Visual Studio Code by clicking the icon on the top bar:
 
-![GitHub Pull Requests and Issues Header](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7z75mtos507snscnkyw1.png)
+![GitHub Pull Requests and Issues Header](./7z75mtos507snscnkyw1.png)
 
 If you're already on a pushed branch, this is the panel that will open:
 
-![GitHub Pull Requests and Issues Preview](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/umi7ze6g2fq21yf49bq8.png)
+![GitHub Pull Requests and Issues Preview](./umi7ze6g2fq21yf49bq8.png)
 
 ### Merge Changes From
 
@@ -86,7 +85,7 @@ Waaaait a moment, before clicking the Create button, you can also open the Compa
 
 From this panel you can see all changes that will be included in the Pull Request in the diff format you're used to see on vscode, so green files are added, red are deleted and yellow are modified.
 
-![Compare panel](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qtdwhejzryqfy27iqs61.png)
+![Compare panel](./qtdwhejzryqfy27iqs61.png)
 
 ### Add labels
 
@@ -96,7 +95,7 @@ To be honest I'm not sure this is a feature or a bug, I might open an issue on t
 
 Anyway, if you click that button, the quick pick menu will open on vscode letting you select the labels you want to add to the PR from the list of labels available in the repository.
 
-![Add labels](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/g44pdr0zd4xluy3z8bfh.png)
+![Add labels](./g44pdr0zd4xluy3z8bfh.png)
 
 And as I [mention in the video](https://youtu.be/Ma67EbIHi64), this is exactly where I found the bug!
 
@@ -128,7 +127,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

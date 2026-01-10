@@ -47,8 +47,8 @@ Angular 19 is expected to introduce several overloads of `linkedSignal`, includi
 ## 5. Resource and rxResource APIs: Streamlining Data Retrieval
 
 Managing asynchronous data retrieval can be cumbersome. Angular 19 introduces experimental APIs – `resource` and `rxResource` – designed to simplify this process. These APIs provide a unified approach for data retrieval using both `promises` (resource) and `Observables` (rxResource). Here's what you can expect:
-	
-**Resource API:** This API offers three key properties: 
+
+**Resource API:** This API offers three key properties:
 
 - **status**: Indicates the current state of the resource (loading, success, error).
 - **value**: Holds the retrieved data upon successful completion.
@@ -62,4 +62,3 @@ Both resource and `rxResource` APIs aim to improve the way developers interact w
 These are just a few of the exciting features expected in Angular 19. With its focus on DX and performance, Angular 19 promises to streamline development workflows and create faster, more responsive web applications. Stay tuned for the official release to experience these advancements firsthand!
 
 If you liked this article, feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/ingila-ejaz/), [GitHub](https://github.com/Ingila185), and maybe see my [portfolio here](https://next-js-portfolio-two-ebon.vercel.app/en/) :) I'd love to connect!
-

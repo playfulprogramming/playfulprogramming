@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 In this episode of Nx After Dark, we're creating an Nx workspace for .NET project by using [nx-dotnet](https://github.com/nx-dotnet/nx-dotnet). We're also setting up a GitHub Actions workflow.
 
 {% youtube uS9RSoqTwVw %}
@@ -21,6 +20,7 @@ In this episode of Nx After Dark, we're creating an Nx workspace for .NET projec
 Follow the instructions below to set up a similar workspace or browse the end result at [github/LayZeeDK/nx-dotnet-workspace](https://github.com/LayZeeDK/nx-dotnet-workspace).
 
 # Prerequisites
+
 - .NET CLI
 - Node.js
 - PNPM
@@ -84,8 +84,8 @@ dotnet new workflow
 
 # Use Nx for Build job
 
-1. Remove the _Restore_ step from `.github/workflows/nx-dotnet-workspace.yaml`.
-1. Add _Setup Node.js_ step after _Setup .NET Core SDK_ step:
+1. Remove the *Restore* step from `.github/workflows/nx-dotnet-workspace.yaml`.
+2. Add *Setup Node.js* step after *Setup .NET Core SDK* step:
    ```yml
    - name: Setup Node.js
      uses: actions/setup-node@v1
@@ -96,36 +96,42 @@ dotnet new workflow
    - name: Install Nx dependencies
      run: pnpm install
    ```
-1. Change the `run` command of the _Build_ step to:
+3. Change the `run` command of the *Build* step to:
    ```
    pnpm build
    ```
-1. Change the `run` command of the _Test_ step to:
+4. Change the `run` command of the *Test* step to:
    ```
    pnpm test
    ```
 
 # Adjust NPM scripts
+
 1. Change the `build` script in `package.json` to:
-    ```
-    nx build --configuration=production
-    ```
-1. Change the `test` script in `package.json` to:
-    ```
-    nx test weather-api-test
-    ```
+   ```
+   nx build --configuration=production
+   ```
+2. Change the `test` script in `package.json` to:
+   ```
+   nx test weather-api-test
+   ```
 
 # Dependency graph
+
 No we can explore the dependency graph by running:
+
 ```powershell
 pnpm dep-graph
 ```
+
 or the affected depdency graph by running:
+
 ```powershell
 pnpm affected:dep-graph
 ```
 
 # CI workflow
+
 The *Build* workflow is run on every push to the `main` branch.
 
 Remove the condition (`if:`) from the *Build* job to enable the manual workflow trigger. We are then able to use the *Run workflow* button from the *Actions* tab in our GitHub repository.

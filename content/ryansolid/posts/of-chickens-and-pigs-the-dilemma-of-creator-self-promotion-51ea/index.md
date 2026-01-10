@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 Have you ever created a new library? You saw a gap when creating a project at work. So you worked on it for months, and are pretty excited about the result. You think it is at a pretty good place and you go and share it. You put something up on github but no one is really checking it out.
 
 So you go out of your comfort zone and you write an article. But where to post it? You look at the usual channel's you consume information like Twitter, Facebook, Medium, Reddit, Hackernews, and dev.to.
@@ -32,7 +31,7 @@ For better or worse this is probably what is going to happen to you. I could say
 
 # Creation
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/u0fa1ybeqiv1z3a9x50c.jpeg)
+![Alt Text](./u0fa1ybeqiv1z3a9x50c.jpeg)
 
 Anyone who creates something and tries to share it with the wider world is going to hit this at some point. As some of you know I was in a punk rock band for years. At the risk of revealing my age, because I'm probably older than you might expect, I got my start in post-Green Day success punk scene.
 
@@ -44,7 +43,7 @@ Thankfully this never happened again. Not to say there weren't some trolls in th
 
 # Pigs and Chickens
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5tvlkkot082km0thduhv.jpeg)
+![Alt Text](./5tvlkkot082km0thduhv.jpeg)
 
 It was several years later I came across this analogy when learning about Agile principles. The idea spawns from this fable-like story where a Chicken suggests to a Pig that they should start a business together. He suggested "Eggs & Ham". And the Pig responds that this wasn't an equal arrangement. Where the "Eggs" provide immense value the Pig would be committed, as he *is* the "Ham".
 
@@ -66,13 +65,13 @@ Well, maybe nothing because maybe they can maintain still being Chicken's so to 
 
 I was watching this video from Maksim Ivanov with @swyx on this idea of content creation. It spoke about combating the urge to do low-brow content to get a few more likes.
 
-{% youtube sL_uefhT51g %}
+{% youtube sL\_uefhT51g %}
 
 A super interesting topic because Meta Creation is something I've never understood that well. If you aren't familiar with the term, it is the idea of creating content to help others succeed rather than being responsible for creating the original thing that is being promoted. "10 ways to save time each week", "Be successful with these 3 steps", etc.. although it isn't limited to this sort of content.
 
 Occasionally I write articles and then people paraphrase the high-level ideas and republish them as their own. I've never thought very much of it either way.
 
-That is just is what it is. But generally, I am a Pig. I look for projects where I can be committed. The thing I am creating is what I am contributing. But we aren't all good at everything. It was mentioned that some maintainers have difficulties writing beginner tutorials (I feel I am the same). 
+That is just is what it is. But generally, I am a Pig. I look for projects where I can be committed. The thing I am creating is what I am contributing. But we aren't all good at everything. It was mentioned that some maintainers have difficulties writing beginner tutorials (I feel I am the same).
 
 Meta Creators have the ability to provide incredible value in terms of propagating ideas and making things more accessible to all. It is recommended, that it should be done with care and consideration though, otherwise you cheapen your brand.
 
@@ -82,7 +81,7 @@ But if you are starting from the Creator side you need a different set of guidel
 
 # Self Promotion as a Creator
 
-If you watched that video towards the end around the [40-minute mark](https://www.youtube.com/watch?v=sL_uefhT51g&t=2433s) I was used as an example on the topic of self-promotion. Particularly this idea around finding balance with "give give give, take".
+If you watched that video towards the end around the [40-minute mark](https://www.youtube.com/watch?v=sL_uefhT51g\&t=2433s) I was used as an example on the topic of self-promotion. Particularly this idea around finding balance with "give give give, take".
 
 Now I don't think it was meant to be anything other than constructive but I'm not sure it gives any real path forward. What I mean by that is, if what you are giving is the thing that the other party might be predisposed to not accept, how do they gauge the degree to which you give. It potentially undercuts the value you bring before you even get started.
 
@@ -90,7 +89,7 @@ If the biggest value you give is bringing new information, technology, and metho
 
 {% twitter 1380812939440095232 %}
 
-To be clear I don't hate self-promotion. But I've always struggled with doing it in good conscience. My bandmates made fun of me for weeks when I made a poster for a show we knew was going to be full capacity and sold out, and I wrote "Come early, this show *may* sell out." They could not understand why I said *may* instead of *will* and made sure to tell me all the things they *may* do for the next couple of weeks. They weren't wrong. We had a lineup down the street and we hit capacity before the openers even started playing. 
+To be clear I don't hate self-promotion. But I've always struggled with doing it in good conscience. My bandmates made fun of me for weeks when I made a poster for a show we knew was going to be full capacity and sold out, and I wrote "Come early, this show *may* sell out." They could not understand why I said *may* instead of *will* and made sure to tell me all the things they *may* do for the next couple of weeks. They weren't wrong. We had a lineup down the street and we hit capacity before the openers even started playing.
 
 And yet the perspective does exist.
 
@@ -108,7 +107,7 @@ So more than anything that is why I want to address this line of thought, becaus
 
 I stopped at some point and asked myself, "What am I doing differently than other creators?" I concluded I wasn't doing much differently. The only difference was they already had an established audience. I was coming in as a relative newcomer and laying down disruptive (even if well-founded ideas) that honestly many people don't want to hear.
 
-If I had maintained a popular React library for the same amount of time it would have been different. It's easier for someone to dismiss an idea as self-promotion than acknowledge that it could change their thinking. And let's face it. They don't owe you anything. Nada. In that sense, that Reddit/Hackernews comments section follows you no matter where we go. 
+If I had maintained a popular React library for the same amount of time it would have been different. It's easier for someone to dismiss an idea as self-promotion than acknowledge that it could change their thinking. And let's face it. They don't owe you anything. Nada. In that sense, that Reddit/Hackernews comments section follows you no matter where we go.
 
 Instead, it takes time and it is all about making those relationships. The exact thing Shawn(@swyx) was promoting in the video. This was cemented for me when @richharris (creator of Svelte) helped me a while back get unblocked by another creator, and he told me (paraphrasing):
 
@@ -117,11 +116,3 @@ Instead, it takes time and it is all about making those relationships. The exact
 An obvious point when you consider how on a platform like Twitter you are just another person behind a screen. But it was the lack of relationship in the first place that brought the situation about, and only through the connections made that it was resolved in the end.
 
 So I don't have the answers here. I'm still figuring this out. My only advice is never to let the technology override the people involved. There are many people and projects that I work with and am involved in from the communities around Reactivity, and Benchmarking, people making great tools that integrate with frameworks like [Vite](https://vitejs.dev/) or [Astro](https://astro.build/), to cool new products like [JSX-Lite](https://github.com/BuilderIO/jsx-lite). And that makes these things ultimately fulfilling, and with a little luck successful.
-
-
-
-
-
-
-
-

@@ -15,7 +15,7 @@ order: 1
 One of the best practice in our work is handle the errors, so today I'll show you some operators in RxJS to handle the errors.
 Let's start :)
 
-* **[catchError](https://rxjs.dev/api/operators/catchError)**
+- **[catchError](https://rxjs.dev/api/operators/catchError)**
 
 > Catches errors on the observable to be handled by returning a new observable or throwing an error.
 
@@ -32,6 +32,7 @@ of('a', 'b', 'c', 'd', 1, 3).pipe(
   )
   .subscribe(x => console.log(x));
 ```
+
 ```console
 A
 B
@@ -43,10 +44,11 @@ B
 C
 D
 ```
+
 This operator is used to catch the errors during the execution of the observables.
 This operator helps us to handle the errors and prevent a bad flow of our users.
 
-* **[retry](https://rxjs.dev/api/operators/retry)**
+- **[retry](https://rxjs.dev/api/operators/retry)**
 
 ```ts
 import { of } from 'rxjs';
@@ -70,6 +72,7 @@ of(1, 2, 3, 4, 5, 6, 7, 8, 9, 0).pipe(
       error: error => console.error(error.message),
   });
 ```
+
 ```console
 toString of 1
 toString of 1 failed
@@ -83,9 +86,10 @@ toString of 1
 toString of 1 failed
 toString failed
 ```
+
 This operator is used to retry the execution of an observable if it raises an error. We can indicate the max number of retries. If during the execution an observable raises a number of errors greater than the indicated value, the retry operator doesn't try anymore but goes out and raise the error.
 
-* **[retryWhen](https://rxjs.dev/api/operators/retryWhen)**
+- **[retryWhen](https://rxjs.dev/api/operators/retryWhen)**
 
 > Returns an Observable that mirrors the source Observable with the exception of an error. If the source Observable calls error, this method will emit the Throwable that caused the error to the Observable returned from notifier. If that Observable calls complete or error then this method will call complete or error on the child subscription. Otherwise this method will resubscribe to the source Observable.
 
@@ -112,6 +116,7 @@ interval(1000).pipe(
     error: error => console.error(error.message),
 });
 ```
+
 ```console
 0
 1
@@ -142,6 +147,7 @@ Value 6 was too high!
 5
 Value 6 was too high!
 ```
+
 This operator is used to retry the execution of an observable and it allows us to indicate the strategy of the retry.
 
 I hope you have all the means now to better handle errors in your code.
@@ -149,4 +155,4 @@ It's all for today.
 You can find all the code of this article [here]()
 
 See you soon,
-Bye Bye! 
+Bye Bye!

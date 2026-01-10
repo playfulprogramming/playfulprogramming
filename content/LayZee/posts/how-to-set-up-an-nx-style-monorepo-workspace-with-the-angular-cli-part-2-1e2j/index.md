@@ -13,10 +13,9 @@ order: 1
 }
 ---
 
+*Original cover photo by [Edgar Chaparro](https://unsplash.com/photos/r6mBXuHnxBk) on Unsplash.*
 
-_Original cover photo by [Edgar Chaparro](https://unsplash.com/photos/r6mBXuHnxBk) on Unsplash._
-
-_Original publication date: 2020-05-12._
+*Original publication date: 2020-05-12.*
 
 > This tutorial is part of the Angular Architectural Patterns series.
 

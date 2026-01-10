@@ -14,7 +14,7 @@ One of the challenges of web development is to keep the screen awake when an app
 
 The Screen Wake Lock API provides a way to prevent devices from dimming or locking the screen when an application needs to keep running. It is a simple and platform-independent solution that works on any modern browser that supports Web APIs.
 
-In this article, I will show you how to use the Screen Wake Lock API in a Blazor application using the JavaScript interop feature. 
+In this article, I will show you how to use the Screen Wake Lock API in a Blazor application using the JavaScript interop feature.
 
 ## Prerequisites
 

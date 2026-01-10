@@ -13,7 +13,7 @@ socialImage: "social-image.png"
 
 I had no idea how much would have happened in 365 days 🤯
 
-One year ago, on February 20th, 2024, I published my first tutorial on TanStack Router. Today, TanStack videos are ~35% of my YouTube views.
+One year ago, on February 20th, 2024, I published my first tutorial on TanStack Router. Today, TanStack videos are \~35% of my YouTube views.
 
 A bit of context for who's outside the Frontend Web scene: TanStack is a family of famous and successful open source libraries for building web applications, usually supporting most of the popular frameworks, strongly typed, and with a focus on developer experience.
 
@@ -43,7 +43,6 @@ You'll keep finding me around the Form project and on YouTube talking about TanS
 
 What a fantastic year, I can't wait to see what's next! 🚀
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -52,7 +51,7 @@ Let's connect more: https://leonardomontini.dev/newsletter
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

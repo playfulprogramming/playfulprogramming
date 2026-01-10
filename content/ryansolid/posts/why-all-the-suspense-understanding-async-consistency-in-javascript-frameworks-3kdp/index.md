@@ -19,7 +19,8 @@ When I look at the topic as explained in most articles it talks about the sympto
 
 Consistent display of information is a fundamental expectation of a good user interface. If you show users inconsistent information within the same page(without indicating it) it erodes trust.
 
-![Inconsistent Avatar](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lxd9x6okpctcrs8j04kh.png)
+![Inconsistent Avatar](./lxd9x6okpctcrs8j04kh.png)
+
 > From Michel Westrate's [Becoming Fully Reactive: An in-depth explanation of MobX](https://medium.com/hackernoon/becoming-fully-reactive-an-in-depth-explanation-of-mobservable-55995262a254)
 
 If your avatar is updated in one place and not another can you trust that what you are reading is up to date? You might be tempted to reload the browser page just in case. If the count of comments doesn't match the number of comments you see, even if the number is smaller you might assume you are missing something. But there are more consequential glitches, what about prices on products not matching?
@@ -30,7 +31,7 @@ Sure on the web, we are accustomed to the fact that what we see might not be the
 
 Luckily, we have tools built for this. Generally, modern UI libraries and frameworks are all built with consistency in mind.
 
-----------
+---
 
 ## Consistency in Frameworks
 
@@ -40,6 +41,7 @@ The simplest form of consistency is ensuring that derived state stays in sync wi
 const [count, setCount] = useState(1);
 const doubleCount = useMemo(() => count * 2, [count]);
 ```
+
 Different frameworks have different ways to ensure this relationship holds. In [React](https://reactjs.org) state updates aren't applied immediately in so you continue to see the previous state until a time that [React](https://reactjs.org) applies all the state at the same time. Reactive libraries like Vue or [Solid](https://solidjs.com) tend to more aggressively update so that on the next line after an update not only is the source data updated but all derived data.
 
 ```js
@@ -54,7 +56,7 @@ console.log(count, doubleCount); // 20, 40
 
 In this scenario, the difference is inconsequential as in both cases they are consistent. In the end, it has a similar result. Looking from the outside state updates are atomic, applying in all places at the same time.
 
----------
+---
 
 ## Async Consistency
 
@@ -82,6 +84,7 @@ Now our `count` would start at 1 and `doubleCount` would initially be undefined 
 20, 1
 20, 40
 ```
+
 That isn't unexpected but it isn't consistent. And here lies the problem. There are only 3 possible outcomes to prevent our users from seeing this inconsistent state:
 
 ### 1. Bail out
@@ -96,12 +99,13 @@ Don't apply any of the changes and continue to show things as they were until th
 
 Apply the changes immediately and show the future value while the asynchronous state is updating, and then when it is done replace it (but it should already be the same thing).
 
--------
+---
+
 Well, the first one is relatively easy compared to the others as a general solution. We do it all the time. We might apply the source changes right away and then show a loading indicator until we are ready to show updated content. And many people and libraries saw Suspense and stopped there.
 
 But what if we wanted to do more. Removing content and replacing it after some time can be a rather jarring user experience. I think all of us would love to live in the future but there is a certain unpracticality in this unless the user is performing a mutation. These "optimistic updates" are a great tool but they aren't perfect and aren't always applicable. If you are just trying to fetch the latest data, well you don't have what you haven't received yet.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/t438cxofqb58i1zrf2bi.jpg)
+![Image description](./t438cxofqb58i1zrf2bi.jpg)
 
 So let's stay in the past. The tricky part is how do we trigger the upcoming async requests if we don't apply any data changes?
 
@@ -111,7 +115,8 @@ And that's what is being done more or less with [Transitions](https://github.com
 
 Why concurrency though? Well, you are still displaying UI to the end-user so you don't want it to just stop working completely. Things like animations and other non-destructive interactions. It means more work reconciling the changes in the end but ultimately this is an end-user experience feature.
 
-------------
+---
+
 ## Putting it all Together
 
 Suddenly [React](https://reactjs.org)'s decision for `setState` to stay in the past doesn't look so unusual. You don't know what might cause asynchronous derived state downstream so you would need to hedge on the side of not updating until you know. That being said these frameworks still have explicit opt-in to concurrent rendering for the same reason.

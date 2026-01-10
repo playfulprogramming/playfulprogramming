@@ -11,7 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
-In today's web development world, building dynamic and real-time applications is more important than ever. [Angular](https://angular.dev/), coupled with [Firebase](https://console.firebase.google.com/) Database, offers a robust and efficient way to create such applications. 
+In today's web development world, building dynamic and real-time applications is more important than ever. [Angular](https://angular.dev/), coupled with [Firebase](https://console.firebase.google.com/) Database, offers a robust and efficient way to create such applications.
 
 This article will guide you through using a simple Angular 19 with Firebase Database, explaining the key components and demonstrating how to leverage the power of this combination.
 
@@ -168,7 +168,7 @@ This component is the heart of our application and imports necessary modules fro
 
 - `getDatabase`, `objectVal`, `ref`, and `set` are the key Firebase Database functions we'll be using.
 - `Post Type` defines the structure of a post object, with `caption` and `imageUrl` properties.
-- DATABASE_TABLE_NAME is a constant defining the name of the database table where posts are stored (set to 'posts').
+- DATABASE\_TABLE\_NAME is a constant defining the name of the database table where posts are stored (set to 'posts').
 - `database` is the instance of the Firebase Database, obtained using - `getDatabase(inject(FirebaseApp))`.
 - `posts$` is an `Observable` that streams data from the Firebase Database.
 - `objectVal(ref(this.database, this.DATABASE_TABLE_NAME))` creates a reference to the 'posts' table and uses `objectVal` to convert the data into an Observable. `objectVal` returns an observable of the entire object stored at that location.

@@ -15,9 +15,9 @@ In Rxjs, when we work with observables handling the errors is a bit confusing fo
 
 Let's move to each step with code, the example is using angular httpClient, but it applies to any data stream.
 
-## The scenario 
+## The scenario
 
-Our app uses a service to get the list of beers and show the first one as the title. 
+Our app uses a service to get the list of beers and show the first one as the title.
 
 ```typescript
 import { HttpClient } from '@angular/common/http';
@@ -65,6 +65,7 @@ export class AppComponent implements OnInit {
 }
 
 ```
+
 What happens if the API fails? , We change the URL to a failed URL, to catch the error with some strategies.
 
 ## Using try-cath
@@ -92,6 +93,7 @@ export class AppComponent implements OnInit {
   }
 }
 ```
+
 > Read more about [try-cath](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)
 
 ## So who to catch the error in the subscription?
@@ -114,11 +116,12 @@ To understand why is not working, first, remember when we subscribe to an observ
         complete: () => console.log('done'),
       });
 ```
+
 - `next` or success function is called each time the stream emits a value.
 - `error`: is a function called when an error occurs and gets the error.
 - `complete`: is a function that gets called only if the stream completes
 
-So the error is in the subscribe function scope, so how we can manage the case? 
+So the error is in the subscribe function scope, so how we can manage the case?
 
 ## Using Rxjs Operators
 
@@ -130,11 +133,12 @@ We going to play with cathError,throwError and EMPTY.
 
 It catches the error but emits the value. In short, it takes the error and returns another observable.
 
-I removed the previous strategy about three callback functions and used the pipe to work with the `catchError` operator. 
+I removed the previous strategy about three callback functions and used the pipe to work with the `catchError` operator.
 
 When the API fails, I return an array with the default beer Observable object.
 
 > Learn more about [pipe](https://rxjs.dev/guide/operators#piping)
+
 ```typescript
 this.beerService
       .getBeers()
@@ -145,9 +149,11 @@ this.beerService
         this.title = beers[0].name;
       });
 ```
+
 The `catchError` is perfect for emitting a default value if something happens in our code, and the subscribe can take the default value as an emission.
 
 ### throwError
+
 Sometimes we don't want to emit the error but want to notify the error; for those scenarios, the throwError helps us.
 
 throwError does not emit the data to the next, it uses the error on the subscriber callbacks. If we want to catch a custom error or notify the backend, we can use the error callback in the subscriber.
@@ -173,6 +179,7 @@ throwError does not emit the data to the next, it uses the error on the subscrib
       });
   }
 ```
+
 > Read more about [throwError](https://rxjs.dev/api/index/function/throwError)
 
 ### EMPTY
@@ -196,13 +203,14 @@ this.beerService
       });
 
 ```
+
 > Read more about [EMPTY](https://rxjs.dev/api/index/const/EMPTY)
 
 ## Conclusion
 
 In short, we learn how to pipe the data and catch the errors using  `catchError`, to modify the return observable or use `EMPTY` to not trigger the error to the component.
 
-Feel free to play with the code in [stackbliz](https://stackblitz.com/edit/angular-ivy-rq2rzy?
+Feel free to play with the code in \[stackbliz]\(https://stackblitz.com/edit/angular-ivy-rq2rzy?
 file=src%2Fapp%2Fapp.component.ts)
 
 Photo by John Torcasio on Unsplash

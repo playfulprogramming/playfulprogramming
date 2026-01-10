@@ -19,10 +19,9 @@ Learning new stuff is amazing and courses and tutorials are a great help, until,
 
 So, are some tutorials wrong? Or all tutorials? And what is this Tutorial Hell?
 
-_Do you like watching videos over reading? You can find a video version here:_
+*Do you like watching videos over reading? You can find a video version here:*
 
-
-[![Click here for the YouTube video!](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xqnmfh0925otv9idru7i.png)](https://youtu.be/U6oWq2RPP_4)
+[![Click here for the YouTube video!](./xqnmfh0925otv9idru7i.png)](https://youtu.be/U6oWq2RPP_4)
 
 ---
 
@@ -30,11 +29,11 @@ Tutorial Hell is that situation where you get the habit of using tutorials to do
 
 Well redacted tutorials, will make it easy to get to the final and polished solution as smooth as possible, and that’s fine, but you must not forget to analyze all the steps in between.
 
-> _Give a man a fish and you feed him for a day_
--> You’ve built your thing
+> *Give a man a fish and you feed him for a day*
+> -> You’ve built your thing
 
-> _Teach a man how to fish and you feed him for a lifetime_
--> You know HOW to build many things by yourself
+> *Teach a man how to fish and you feed him for a lifetime*
+> -> You know HOW to build many things by yourself
 
 Do you get the analogy with tutorials?
 
@@ -70,4 +69,4 @@ Feel free to follow me to get notified when new articles are out ;)
 
 Do you like my content? You might consider subscribing to my YouTube channel! You can find it here:
 
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)

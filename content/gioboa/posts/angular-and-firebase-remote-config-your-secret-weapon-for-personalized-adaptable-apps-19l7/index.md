@@ -30,18 +30,19 @@ This enables a range of functionalities, including:
 - A/B Testing: Experiment with different versions of your app and track user behavior to optimize performance and engagement.
 
 > The core concept revolves around defining default values within your Angular application and then overriding them with values stored in the Firebase Console.
-When your application starts or at specified intervals, it fetches the latest values from Remote Config, allowing you to dynamically adjust its behavior.
+> When your application starts or at specified intervals, it fetches the latest values from Remote Config, allowing you to dynamically adjust its behavior.
 
 ## Integrating Firebase Remote Config with Angular
 
 Now, let's walk through the process of integrating Firebase Remote Config into your Angular 19 application.
 
 Setting up your Firebase Project:
+
 - If you haven't already, create a new project in the [Firebase Console](https://console.firebase.google.com/).
 - Add your Angular application to your Firebase project by following the instructions provided in the Firebase Console.
 - Enable the Remote Config service in the Firebase Console.
 - Create parameters with default values in the Firebase Remote Config section of the Firebase Console.
-For example: `feature_new_checkout` (Boolean, Default: false)
+  For example: `feature_new_checkout` (Boolean, Default: false)
 
 ## Installing AngularFire
 
@@ -156,11 +157,11 @@ export class RemoteConfigService {
 
 > It's crucial to have default values in your app so that it functions correctly even if it cannot reach the Remote Config service.
 
-- minimumFetchIntervalMillis = 3600000: This sets the minimum interval (in milliseconds) between Remote Config fetches. A value of 3600000 (1 hour) is a good starting point for most applications.  
+- minimumFetchIntervalMillis = 3600000: This sets the minimum interval (in milliseconds) between Remote Config fetches. A value of 3600000 (1 hour) is a good starting point for most applications.
 
 > Setting this too low can lead to excessive network requests and potential throttling.
-   
-- initializeConfig: This asynchronous function fetches the latest Remote Config values from the Firebase server and activates them. 
+
+- initializeConfig: This asynchronous function fetches the latest Remote Config values from the Firebase server and activates them.
 
 - fetchAndActivate: fetches and applies the new configuration.
 
@@ -190,7 +191,7 @@ export class AppComponent {
 }
 ```
 
-`RemoteConfigService` is injected into the component and in the `ngOnInit` lifecycle hook you can call `initializeConfig()` to fetch and activate the latest Remote Config values.     
+`RemoteConfigService` is injected into the component and in the `ngOnInit` lifecycle hook you can call `initializeConfig()` to fetch and activate the latest Remote Config values.
 
 ## Running Your Application
 
@@ -210,7 +211,7 @@ Open your browser and navigate to `http://localhost:4200/`. You should see the f
 
 ## Observing the Changes
 
-Refresh your Angular application in the browser. After a short delay (up to the `minimumFetchIntervalMillis`), you should see the holiday sale section appear with the updated values from the Firebase Console. 
+Refresh your Angular application in the browser. After a short delay (up to the `minimumFetchIntervalMillis`), you should see the holiday sale section appear with the updated values from the Firebase Console.
 
 > If you don't see the changes immediately, wait for the fetch interval to expire.
 

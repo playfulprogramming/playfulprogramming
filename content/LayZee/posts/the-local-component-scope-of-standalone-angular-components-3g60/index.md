@@ -13,8 +13,7 @@ order: 1
 }
 ---
 
-
-_Cover photo by [Clay Banks](https://unsplash.com/photos/E4bn9ScilAA) on Unsplash._
+*Cover photo by [Clay Banks](https://unsplash.com/photos/E4bn9ScilAA) on Unsplash.*
 
 A standalone component is independent from an Angular module. It directly references the declarables (components, directives, and pipes) used in its template.
 
@@ -98,11 +97,11 @@ Finally, the `Hero#name` property is bound to a form control using two-way data 
 
 In the dependency graph of the standalone hero detail component's local component scope, we see the relationship between our component and its declarable dependencies:
 
-![The local component scope of the standalone hero detail component](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/x0vyfq24xnr6vzvqxx3j.png)
+![The local component scope of the standalone hero detail component](./x0vyfq24xnr6vzvqxx3j.png)
 
 With the exception of the `FormsModule`, this closely matches the component template's indirect dependencies on declarables it uses:
 
-![The declarables used in the hero detail component's template](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/doe4ib9f7qkzxzl05xas.png)
+![The declarables used in the hero detail component's template](./doe4ib9f7qkzxzl05xas.png)
 
 *Indirect dependencies* meaning that the component template uses the element selectors, attribute selectors, and pipe names specified in the [`Component.selector`](https://angular.io/api/core/Component#inherited-from-directive-decorator), [`Directive.selector`](https://angular.io/api/core/Directive#selector), and [`Pipe.name`](https://angular.io/api/core/Pipe#name) metadata options of the component's declarable dependencies.
 
@@ -110,7 +109,7 @@ With the exception of the `FormsModule`, this closely matches the component temp
 
 When we compare this to the [transitive compilation scope](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-compilation-scope) of the declaring module of a classic Angular component, we notice an increased mental overhead in the classic Angular component style:
 
-![The transitive compilation scope of the classic hero detail module (simplified)](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bou443zhcmnpat7k55h7.png)
+![The transitive compilation scope of the classic hero detail module (simplified)](./bou443zhcmnpat7k55h7.png)
 
 The `HeroDetailModule` and `CommonModule` introduce layers of indirection to the dependency graph. Instead of a direct dependency from the `HeroDetailComponent` to `NgIf` and `UppercasePipe`, there is no direct flow of dependencies between the `HeroDetailComponent` class and any of its declarable dependencies. This is caused by the `HeroDetailModule` referencing the `HeroDetailComponent`, not the other way around. Another indirection is the unnecessary `CommonModule` encapsulating the Angular declarables of which we only use 2 in the component template.
 
@@ -120,7 +119,7 @@ Imagine the logic needed by the Angular compiler to determine dependencies betwe
 
 What's worse, the previous classic dependency graph is simplified. The full transitive compilation scope of the hero detail module is seen in this expanded classic dependency graph:
 
-![The transitive compilation scope of the classic hero detail module (expanded)](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rus5k8e6dyrvnf8pt664.png)
+![The transitive compilation scope of the classic hero detail module (expanded)](./rus5k8e6dyrvnf8pt664.png)
 
 That's 52 declarables imported to the transitive compilation scope of which the component template uses only 3. Fifty-two.
 

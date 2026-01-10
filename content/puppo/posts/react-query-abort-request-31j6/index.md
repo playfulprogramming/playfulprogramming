@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 Hey Folks,
 
 Today it's time to learn how you can abort an ongoing request with ReactQuery.
@@ -122,15 +121,15 @@ Ok, I think now you have all the notions to abort an HTTP request in javascript 
 
 If you want to go dive into the Abort Request with React query don't miss my Youtube channel 🚀
 
-{% embed https://www.youtube.com/watch?v=BL_E7SrymWI %}
+{% embed https://www.youtube.com/watch?v=BL\_E7SrymWI %}
 
 I think thats all from this article; I hope you enjoyed this content!
 
-See you soon folks  
+See you soon folks\
 Bye Bye 👋
 
 p.s. you can find the code of the video [**here**](https://github.com/Puppo/learning-react-query/tree/10-abort-request)
 
-_Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto&utm_medium=referral)_
+*Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto\&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto\&utm_medium=referral)*
 
 {% embed https://dev.to/puppo %}

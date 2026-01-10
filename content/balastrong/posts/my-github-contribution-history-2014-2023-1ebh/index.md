@@ -25,9 +25,7 @@ Funnily enough, this tool isn't new but it's been there since 2018 and you can f
 
 So... why not, I decided to give it a try and I generated my contribution chart, from 2014 when I created my GitHub account to today, 2023.
 
-
-![My GitHub Contribution History](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rotncwpnrorra513i0uz.png)
-
+![My GitHub Contribution History](./rotncwpnrorra513i0uz.png)
 
 Even if I don’t have a long and intense career (yet) I immediately realized that those green squares, how they’re grouped and positioned, meant a lot to me. They were depicting my career so far in an image.
 
@@ -47,7 +45,6 @@ If you're curious, the outcome is as uploaded on my YouTube channel where I usua
 
 Let me also invite you to try out the tool and take a moment to look at your own chart. I’m sure it will tell a lot about you, so many great memories lie among those green squares. Feel free to write in a comment what a particular square or cluster means to you.
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -56,7 +53,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel!
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

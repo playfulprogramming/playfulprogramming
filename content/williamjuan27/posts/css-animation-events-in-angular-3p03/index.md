@@ -14,6 +14,7 @@ order: 1
 ---
 
 CSS animations emit events that we can listen to using Javascript. There are slight differences in how we attach event listeners between a vanilla project and an Angular project. Let's start with the list of available events.
+
 - `animationstart` - Emitted when the animation starts
 - `animationend` - Emitted when the animation completes
 - `animationiteration` - Emitted when an iteration of animation ends and another one begins. This event only fires for the `n - 1` iteration - the last iteration of animation will fire the `animationend` event instead.
@@ -97,7 +98,6 @@ export class AppComponent {
 ```
 
 With this approach, we would also need to make sure that we are cleaning up the event listeners after the component is destroyed to avoid memory leaks (See `ngOnDestroy` in the code above).
-
 
 ## Approach 2: Using Angular's event listener
 

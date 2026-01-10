@@ -34,7 +34,7 @@ The Azure portal provides a web-based interface for managing your Azure resource
 
 ## Configure the Storage Account
 
-![Configure the Storage Account](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rukjjy575y4bwdchyxgu.png)
+![Configure the Storage Account](./rukjjy575y4bwdchyxgu.png)
 
 - **Subscription:** Select the Azure subscription you want to use.
 
@@ -49,13 +49,13 @@ The Azure portal provides a web-based interface for managing your Azure resource
 - **Redundancy:** Select the redundancy option that best suits your needs. For testing purposes, LRS is usually fine.
 
   - Locally-redundant storage (LRS):
-Lowest-cost option with basic protection against server rack and drive failures. Recommended for non-critical scenarios.
+    Lowest-cost option with basic protection against server rack and drive failures. Recommended for non-critical scenarios.
   - Geo-redundant storage (GRS):
-Intermediate option with failover capabilities in a secondary region. Recommended for backup scenarios.
+    Intermediate option with failover capabilities in a secondary region. Recommended for backup scenarios.
   - Zone-redundant storage (ZRS):
-Intermediate option with protection against datacenter-level failures. Recommended for high availability scenarios.
+    Intermediate option with protection against datacenter-level failures. Recommended for high availability scenarios.
   - Geo-zone-redundant storage (GZRS):
-Optimal data protection solution that includes the offerings of both GRS and ZRS. Recommended for critical data scenarios.
+    Optimal data protection solution that includes the offerings of both GRS and ZRS. Recommended for critical data scenarios.
 
 > Leave the remaining settings at their default values for this tutorial.
 
@@ -65,7 +65,7 @@ Optimal data protection solution that includes the offerings of both GRS and ZRS
 - Review the configuration details and click "Create".
 - Azure will begin provisioning your storage account.  This may take a few minutes.
 
-![Review and Create](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rr1k7anpnqo2lbn0j2fb.png)
+![Review and Create](./rr1k7anpnqo2lbn0j2fb.png)
 
 Once the deployment is complete, click "Go to resource" to navigate to your newly created storage account.
 
@@ -167,7 +167,6 @@ You can comment on this code piece by piece and see the changes in your Azure da
 - Asynchronous Operations: Use `async/await` consistently for asynchronous operations to improve code readability and maintainability.
 - Clean Up Resources: Always delete the resources you create (containers and blobs) when you are finished with them to avoid unnecessary storage costs. The provided code already does this, but it's a good practice to keep in mind.
 - Logging: Add logging to your application to track its activity and diagnose problems.
-
 
 We covered the essential steps from setting up a storage account in the Azure Portal, securing the connection string, to implementing basic operations like container creation, blob uploading, listing, downloading, and deletion within a Node.js application. By following these steps and incorporating the best practices outlined, you can efficiently integrate Azure Blob Storage into your projects, benefiting from its scalability, cost-effectiveness, and robust features for managing unstructured data. This foundation allows you to build more complex applications that rely on reliable and secure cloud storage solutions.
 

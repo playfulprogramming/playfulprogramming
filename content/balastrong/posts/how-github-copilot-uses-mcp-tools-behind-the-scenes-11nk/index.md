@@ -14,7 +14,7 @@ order: 1
 
 Before we dive into the details, here is the video version of this article if you prefer to watch it first and then come back here for a slower, written walkthrough. If you prefer to read, you can safely skip it and continue with the examples below.
 
-{% youtube U_ahtUrubuQ %}
+{% youtube U\_ahtUrubuQ %}
 
 Let's begin with an easy example to make things concrete.
 
@@ -22,8 +22,7 @@ You open a new chat and ask Copilot a simple but very practical question: "is th
 
 After a brief pause and some behind-the-scenes magic, Copilot replies with the exact list of pull requests that need your attention. No manual search, no switching tabs. In the rest of this article, we'll unpack what actually happened behind the scenes.
 
-![Copilot Chat](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4xlirfwysjl2wcjh4reo.png)
-
+![Copilot Chat](./4xlirfwysjl2wcjh4reo.png)
 
 In this article, we'll look at how that "magic" of MCP Tools really works, using the GitHub MCP server as an example.
 
@@ -142,7 +141,6 @@ Thanks for reading. I hope this answered some of your questions about how Copilo
 
 See you in the next one!
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -151,7 +149,7 @@ Let's connect more: https://leonardomontini.dev/newsletter
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

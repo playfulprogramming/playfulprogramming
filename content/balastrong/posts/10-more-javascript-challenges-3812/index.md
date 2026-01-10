@@ -33,7 +33,6 @@ console.log(++value);
 
 You can use `_` and the letter `e` in numbers and they're still valid!
 
-
 ```js
 const THE_ANSWER = 1_2 + 3e1;
 
@@ -43,7 +42,6 @@ console.log(THE_ANSWER);
 ---
 
 Isn't the output here supposed to be `7` on both cases? Actually, none of them is `7`!
-
 
 ```js
 const x = "5";
@@ -71,7 +69,7 @@ console.log(luca);
 
 If you're curious about the answers, you can find them in the video below. I hope you enjoy it!
 
-{% youtube 79R_ys7a8Aw %}
+{% youtube 79R\_ys7a8Aw %}
 
 In the video above, I go through all challenges and show the answer, but I also recorded a slower version where I actually explain them in more detail. If you're curious and want to learn more, you can find it here:
 
@@ -87,7 +85,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

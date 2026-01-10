@@ -13,7 +13,7 @@ socialImage: "social-image.png"
 
 In the [previous article](https://dev.to/this-is-learning/firebase-data-connect-rapid-development-and-granular-control-with-graphql-32g5), you saw how to create a project from scratch with Firebase Data Connect.
 
-Today, I want to talk to you about a brand new feature: 
+Today, I want to talk to you about a brand new feature:
 
 **full-text search**
 
@@ -21,7 +21,7 @@ This feature allows you to implement powerful search functionality directly with
 
 Full-text search goes beyond simple keyword matching. It lets you quickly and efficiently locate information within large datasets by searching for keywords and phrases across multiple columns at once.
 
-Implementing full-text search with Data Connect is straightforward. It begins with annotating the desired string fields in your GraphQL schema with the `@searchable` directive. 
+Implementing full-text search with Data Connect is straightforward. It begins with annotating the desired string fields in your GraphQL schema with the `@searchable` directive.
 
 ```gql
 type User @table(key: "id") {
@@ -62,11 +62,11 @@ type User @table(key: "id") {
 
 Choosing the correct language significantly improves search accuracy, particularly when dealing with languages with complex grammatical structures.
 
-Finally, Data Connect allows you to set a `relevanceThreshold`. This allows you to filter out less relevant results, ensuring that only the most pertinent information is displayed to the user. 
+Finally, Data Connect allows you to set a `relevanceThreshold`. This allows you to filter out less relevant results, ensuring that only the most pertinent information is displayed to the user.
 
 > Determining the appropriate threshold often requires experimentation and analysis of your data, but it can significantly improve the perceived quality of the search results.
 
-To figure out an appropriate value for relevance threshold, you should perform a few test searches and look at the _metadata.relevance.
+To figure out an appropriate value for relevance threshold, you should perform a few test searches and look at the \_metadata.relevance.
 
 ```gql
 query SearchUsers($searchTerm: String) @auth(level: PUBLIC) {
@@ -94,4 +94,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Until next time 👋
 
 {% embed https://dev.to/gioboa %}
-

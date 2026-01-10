@@ -18,7 +18,7 @@ This has been announced in the official website along with the reasons behind th
 
 I talk about that in this video, but if you prefer reading, you can find the transcript below.
 
-{% youtube 4HSk0ny_7Sc %}
+{% youtube 4HSk0ny\_7Sc %}
 
 ## What is Hacktoberfest?
 
@@ -46,7 +46,7 @@ This also caused a lot of spammy and low quality Pull Requests, which is not exa
 
 Besides, t-shirts and any other physical reward have to be shipped, which is not free. Financially and environmentally.
 
-To slightly mitigate it, last year each winner could _choose_ between a tshirt or a tree planted in their name, which not only avoided sending some tshirts, but also helped the environment.
+To slightly mitigate it, last year each winner could *choose* between a tshirt or a tree planted in their name, which not only avoided sending some tshirts, but also helped the environment.
 
 ## Why no more swag?
 
@@ -76,7 +76,6 @@ If you want to know more about Hacktoberfest, last year I made a video explainig
 
 Thanks for watching, don't forget to subscribe if you're interested in Open Source as I am and see you in the next video!
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -85,7 +84,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

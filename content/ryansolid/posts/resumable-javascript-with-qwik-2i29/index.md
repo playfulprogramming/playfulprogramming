@@ -15,12 +15,11 @@ When Misko Hevery (creator of AngularJS) approaches you to look at his new frame
 
 [Qwik](https://github.com/BuilderIO/qwik) is a unique JavaScript framework in that it is the only one that exists today that can hydrate out of order at a component level. It goes beyond that though Qwik introduces a new concept to the vernacular of JavaScript: The Resumable Framework.
 
-----------
+---
 
 ## Resumable Framework?
 
-
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9o77xu5srth5hrgw6qi0.gif)
+![Image description](./9o77xu5srth5hrgw6qi0.gif)
 
 These days it is common for our JavaScript Frameworks to be isomorphic. That is to be able to render on the server and in the browser. But for most frameworks this ability was tacked on afterwards. A natural extension to their client side paradigms. But what if the framework was built on SSR in the first place?
 
@@ -32,11 +31,11 @@ The most powerful one might be not redo any of the work in the browser that was 
 
 > Hydration is the process of adding interactivity to server rendered HTML. It involves attaching event handlers, and initializing application state. For most JavaScript libraries this is a top-down process very similar to re-rendering the whole app again in the browser, even if it doesn't actually create any new DOM nodes. For a more complete guide on Hydration see [Why Efficient Hydration in JavaScript Frameworks is so Challenging](https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3).
 
---------------
+---
 
 ## The Journey to Resumability
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/06noq8xc6aivn81k0jht.png)
+![Image description](./06noq8xc6aivn81k0jht.png)
 
 Creating a hydration approach that does not redo work in the browser is not an easy path. You don't simply pick up your existing Single Page App framework of choice and get here. We've been working on the same problem in [Marko](https://markojs.com/) the last couple years and although the approach different it does really come down to a few key things.
 
@@ -48,15 +47,15 @@ Creating a hydration approach that does not redo work in the browser is not an e
 
 Some frameworks do maybe one of these but almost no frameworks do all three. Qwik accomplishes this through following rules on Component authoring, reactive primitives(similar to React Hooks), and the use of a compiler leverages markers in the JSX to indicate how code should be broken apart.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/04wzs2w1gzrrcoqjnxhz.png)
+![Image description](./04wzs2w1gzrrcoqjnxhz.png)
 
 > Notice the `$` indicators to separate component code from view and from event handler in this header section of TodoMVC.
 
-------------------
+---
 
 ## What about Lazy-loading?
 
-Beyond being resumable one the most standout features of Qwik is its progressive hydration. It progressively loads the JavaScript as needed. It can start with 0kb of bundled JavaScript component code and scale up to what needs to be on the page no matter how interactive it is. 
+Beyond being resumable one the most standout features of Qwik is its progressive hydration. It progressively loads the JavaScript as needed. It can start with 0kb of bundled JavaScript component code and scale up to what needs to be on the page no matter how interactive it is.
 
 Qwik does this very differently. Others that seek to solve this problem have used knowledge of what is server versus client to make choices. Those solutions rely on [islands](https://astro.build/), [special file extensions](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html), or even [advanced compiler analysis](https://markojs.com/). From where I'm sitting this is the 80% of the problem to solve. Most pages are mostly static once you remove async data loading and routing considerations. But what if the page is incredibly interactive? What if most of the page could and would be loaded in the browser?
 
@@ -64,11 +63,11 @@ Well, in that case progressive hydration may be the only way to get a responsive
 
 Yes. That button half way down the page can load the necessary code to add an item to your cart before any JavaScript higher up in the hierarchy is loaded. This isn't how typical frameworks work. If you have components that contain other components and pass props throughout things need to run top down.
 
-------------
+---
 
 ## So Problem Solved?
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/62265memmbip1n3hhj16.jpeg)
+![Image description](./62265memmbip1n3hhj16.jpeg)
 
 Well, maybe. But probably not in the way you are picturing. Understanding what I explained above I thought it would be fun to come up with a demo really showcase these unique features of Qwik. I mean picture it:
 
@@ -80,11 +79,11 @@ For a framework that optimizes everything to reduce JavaScript in the browser wh
 
 Well, you wouldn't. And that's when everything starts to really make sense. Evaluating Qwik on the merits of existing frameworks is pointless. It seems like Qwik is the panacea for React's bundle size, but really it is entirely something else.
 
-----------------
+---
 
 ## It's a Brave New World
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/59jyvd6f8cmhbqq0d5tn.jpeg)
+![Image description](./59jyvd6f8cmhbqq0d5tn.jpeg)
 
 So what is Qwik? It's everything I've mentioned in this article. It's a framework that is optimized to do the least initial work in the browser regardless of app composition. More importantly it suggests the potential of a new paradigm in how we build apps in the frontend. Not one that just transitions from SPA but is built entirely with getting the most from the server in mind.
 
@@ -96,7 +95,7 @@ Progressive Hydration is still a tricky problem to solve because it does have a 
 
 Data loading and serialization is still a consideration. Some other partial hydration solutions use the fact they know what is server only to only serialize the required data. Leveraging the fact they'd need to be passed in as props to top-level browser components can significantly reduce the double data problem (representing it both as JSON and the rendered HTML). Qwik doesn't innately have this knowledge but its approach to hydration isn't a limitation here. So it will be interesting to see what approach they take.
 
------------------
+---
 
 ## Conclusion
 
@@ -104,9 +103,8 @@ Having had the pleasure of making a couple demos now ([Hackernews](https://githu
 
 In the meanwhile [Qwik](https://github.com/BuilderIO/qwik) provides one of the most unique takes on how to solve the problem of too much JavaScript. Handling 100% Lighthouse scores without breaking a sweat. If you are in the market for minimizing your Time to Interactive and wanting to try something new, you could hardly make a better a choice.
 
----------------
+---
 
 Interest more in how Qwik works? Misko Hevery has written a great article series on the topic:
 
 {% link https://dev.to/builderio/a-first-look-at-qwik-the-html-first-framework-af %}
-

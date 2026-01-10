@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 Hi there,
 
 Today I want to speak about **Visual comparisons** with Playwright.
@@ -26,7 +25,7 @@ But don't waste time, and let's see how it works.
 
 I want to use the Square component for this example, but you have to refactor it before moving to the test. First, you have to move the X and O png images from the public folder to the Square component folder. After that, you have to refactor the component so that it imports these images and uses them to render the icon.The result is something like this:
 
-_Folder Structure_
+*Folder Structure*
 
 ```sh
  Square
@@ -36,7 +35,7 @@ _Folder Structure_
     X.png
 ```
 
-_Square Component_
+*Square Component*
 
 ```ts
 import { TicTacToeValue } from '../../models/TicTacToeValue';
@@ -92,7 +91,7 @@ As you can notice, this article shows the visual comparisons in the testing of t
 Error: A snapshot doesn't exist at playwright-series/snapshots/components/Square/Square.spec.tsx-snapshots/Square-should-show-the-X-icon-without-regression-1-chromium-darwin.png, writing actual.
 ```
 
-As you can imagine, Playwright tries to run your tests but doesn't find a snapshot to compare with your result, so it raises an error for each platform (Chrome, Firefox and WebKit). However, you can notice that three new files came up in your project. These files are the snapshot of your test. You can find them at the root of your project in the folder ` __snapshots__ ` **.** From here, Playwright can run your test and check if the result is like on these snapshots. To check that, you can rerun the previous command and notice that the result will be better and your tests will be passed.
+As you can imagine, Playwright tries to run your tests but doesn't find a snapshot to compare with your result, so it raises an error for each platform (Chrome, Firefox and WebKit). However, you can notice that three new files came up in your project. These files are the snapshot of your test. You can find them at the root of your project in the folder `__snapshots__` **.** From here, Playwright can run your test and check if the result is like on these snapshots. To check that, you can rerun the previous command and notice that the result will be better and your tests will be passed.
 
 To double-check if the visual comparison works, you can change the icon sizes in the `Square.module.scss` file. For instance, from 100x100 pixels to 101x101 pixels.
 
@@ -153,6 +152,6 @@ See you soon folk
 
 Bye bye
 
-_You can find the source code of this article_ [_here_](https://github.com/Puppo/playwright-series/tree/09-visual-comparisons)_._
+*You can find the source code of this article* [*here*](https://github.com/Puppo/playwright-series/tree/09-visual-comparisons)*.*
 
 {% embed https://dev.to/puppo %}

@@ -18,18 +18,19 @@ I recently discovered the Visual Studio Code - Dev Containers feature and I thou
 I'm collaborating on an open source project in Rust and as soon as I approached the repo I thought:
 "No, I don't want to install all the dependencies and mess up my environment with a thousand things..."
 
-### Developer Experience 
+### Developer Experience
 
 Fortunately, the project maintainers were smart enough to configure the project to be able to contribute without much fuss.
 
 ### Visual Studio Code Dev Containers
 
-> 
+>
+
 The Visual Studio Code Dev Containers extension lets you use a Docker container as a full-featured development environment. It allows you to open any folder or repository inside a container and take advantage of Visual Studio Code's full feature set.
 
 ### Configuration
 
-![folders](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0s3rgoibwld0xcdioj9e.png)
+![folders](./0s3rgoibwld0xcdioj9e.png)
 
 #### devcontainer.json
 
@@ -90,16 +91,16 @@ Obviously, you need to have Docker up and running on your machine.
 
 ### VsCode Extension
 
-![DevContainerExtension](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/x5a5min3khzug460az31.png)
+![DevContainerExtension](./x5a5min3khzug460az31.png)
 
-![Command](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/avhumm2qg58mzauzzx0i.png)
+![Command](./avhumm2qg58mzauzzx0i.png)
 
-To spin up the container and work inside it, you need to install the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension and then you can run 
+To spin up the container and work inside it, you need to install the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension and then you can run
 `Dev Containers: Open Folder in Container` command.
 
 ### Ready to go
 
-![Starting](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5tlcfv1bm95pfb91we37.png)
+![Starting](./5tlcfv1bm95pfb91we37.png)
 
 So far so good, after the startup, you're ready to develop inside the docker container with a fully configured environment.
 
@@ -111,8 +112,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Bye 👋
 
 {% embed https://dev.to/gioboa %}
-
-
-
-
-

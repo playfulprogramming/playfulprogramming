@@ -10,7 +10,7 @@ socialImage: "social-image.png"
 }
 ---
 
-In 2025, building a scalable and efficient tech stack is more critical than ever for startups aiming to stay competitive. With the fast-paced evolution of technology, startups need solutions that are cost-effective, developer-friendly, and highly scalable. 
+In 2025, building a scalable and efficient tech stack is more critical than ever for startups aiming to stay competitive. With the fast-paced evolution of technology, startups need solutions that are cost-effective, developer-friendly, and highly scalable.
 
 Microsoft’s ecosystem of tools and technologies checks all these boxes, offering a seamless and powerful framework for startups to grow and innovate. Whether it’s deploying robust cloud infrastructure with Azure, building cutting-edge web applications with Blazor, or managing global databases with CosmosDB, Microsoft’s tools are designed to meet the demands of modern startups.
 
@@ -33,7 +33,7 @@ Microsoft’s ecosystem has earned a reputation for reliability, security, and c
 
 ### Azure for Cloud
 
-Azure provides a robust and scalable cloud platform that powers startups with tools and services designed for innovation and growth. 
+Azure provides a robust and scalable cloud platform that powers startups with tools and services designed for innovation and growth.
 
 - **Pros**:
   - **Scalability**: Azure’s global network of data centers allows startups to scale operations effortlessly.
@@ -56,7 +56,7 @@ Blazor is transforming the way developers build web applications by allowing the
 - **Why It Matters**: Startups can reduce development time and costs while maintaining high performance and scalability. Blazor also simplifies hiring and training by allowing teams to focus on one programming language.
 - **Real-World Use Case**: Blazor is perfect for building dashboards, internal tools, and customer-facing apps with rich, interactive interfaces.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3lz0rbwdp9aaqx53yb1v.png)
+![Image description](./3lz0rbwdp9aaqx53yb1v.png)
 
 ---
 
@@ -96,7 +96,7 @@ public record User(string Name);
 
 ### CosmosDB as a Database
 
-CosmosDB is a globally distributed NoSQL database service that offers unmatched flexibility and scalability. 
+CosmosDB is a globally distributed NoSQL database service that offers unmatched flexibility and scalability.
 
 - **Pros**:
   - **Multi-Model Support**: Use APIs for MongoDB, Cassandra, SQL, and more.
@@ -166,19 +166,19 @@ Building a startup from the ground up is challenging, especially when it comes t
 
 ### Key Benefits
 
-1. **Azure Credits**  
+1. **Azure Credits**\
    Startups can receive up to **$150,000 in Azure credits**, enabling them to build and scale their cloud infrastructure without upfront costs.
 
-2. **Free Tools and Services**  
+2. **Free Tools and Services**\
    Gain access to essential development and collaboration tools, including **Microsoft 365**, **GitHub Enterprise**, and **Power Platform**.
 
-3. **Technical Mentorship**  
+3. **Technical Mentorship**\
    Work directly with Microsoft experts to solve technical challenges, optimize your tech stack, and prepare for scaling.
 
-4. **Co-Sell Opportunities**  
+4. **Co-Sell Opportunities**\
    Microsoft connects startups with enterprise customers by featuring their solutions in the **Microsoft commercial marketplace**, providing exposure to a global audience.
 
-5. **Community and Networking**  
+5. **Community and Networking**\
    Join a vibrant community of startups and innovators, participate in events, and access learning resources tailored to your growth stage.
 
 ---
@@ -186,6 +186,7 @@ Building a startup from the ground up is challenging, especially when it comes t
 ### How to Join
 
 Eligibility for the program is straightforward:
+
 - **Who Can Apply**: Startups with innovative solutions that meet Microsoft’s criteria for participation.
 - **How to Apply**: Visit the [Microsoft for Startups website](https://startups.microsoft.com/) and complete a simple application process. Once accepted, you can immediately start benefiting from the resources and support.
 
@@ -197,10 +198,10 @@ For startups aiming to maximize efficiency and minimize costs, the Microsoft for
 
 ## Opinions?
 
-_What does your tech stack for 2025 look like? Share your thoughts and ideas in the comments below!_
+*What does your tech stack for 2025 look like? Share your thoughts and ideas in the comments below!*
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

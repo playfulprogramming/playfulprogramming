@@ -21,16 +21,15 @@ But like all things, there is potential for too much of a good thing. JavaScript
 
 And it is something that those who see themselves as stewards of the web are very concerned with. On both sides of the discussion. By this point, it should be clear that it may be difficult to achieve a one size fits all solution, but there are definite improvements to be made.
 
-The common thread is to send less JavaScript to the browser seen most recently championed by [0kb of JS frameworks](https://dev.to/this-is-learning/is-0kb-of-javascript-in-your-future-48og). But I want to expand on this as the repercussions are about more than progressive enhancement or lazy hydration. Everything is converging on architectural change that we have not seen the likes of since when SPAs came on the scenes over a decade ago. 
+The common thread is to send less JavaScript to the browser seen most recently championed by [0kb of JS frameworks](https://dev.to/this-is-learning/is-0kb-of-javascript-in-your-future-48og). But I want to expand on this as the repercussions are about more than progressive enhancement or lazy hydration. Everything is converging on architectural change that we have not seen the likes of since when SPAs came on the scenes over a decade ago.
 
 We're putting routing back on the server.
 
--------------------------
+---
 
 # Multi-Page Apps (MPA)
 
-
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7ghks1yqteok6bvj3oov.jpeg)
+![Image description](./7ghks1yqteok6bvj3oov.jpeg)
 
 So we're back to PHP and Rails? No. I hope that doesn't disappoint anyone. Every time around we aren't the same as we were the last time. But it isn't a terrible starting point. The majority of the web never needed to be more than just a site that renders some HTML. And most JavaScript frameworks let you generate a static site, or maybe at least some static pages within your Single Page App to keep low interaction pages quick and light.
 
@@ -42,7 +41,7 @@ But regardless of how it's done when you navigate on the server, you can know ce
 
 Still, this isn't the end of the story because while full server reloads work well for many sites, we've become accustomed to the benefits of being able to preserve client state in SPAs and to do smoother transitions.
 
----------------------------
+---
 
 # HTML Frames
 
@@ -54,11 +53,11 @@ However, now we need JavaScript to orchestrate this sort of transition. Not a lo
 
 While less heavy this approach still isn't SPA smooth. Loading HTML from the server and replacing what was there might persist app state but nothing in the DOM. No focus, animations, player position on a video tag, etc... This brings us to the next thing.
 
----------------------
+---
 
 # Server Components
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/75lw1sjfgp9mvtg842va.png)
+![Image description](./75lw1sjfgp9mvtg842va.png)
 
 Is the answer coming from [React](https://reactjs.org/) of all places? [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) are very restrictive in a way that is almost identical to how islands work. You can't nest Server Components(the "static part") in Client Components(the "islands") except through passing as children.
 
@@ -68,7 +67,7 @@ When you click a link it is intercepted and the server component endpoint handle
 
 The tradeoff. Well, that's a lot of data to send along the wire every server re-render but in comparison to an MPA, it isn't really. This also needs much more orchestration than the other methods. You need a framework in the browser. So this approach won't necessarily get you the fastest page loads. But it has the same capacity to eliminate huge percentages of component code sent to the browser unnecessarily.
 
-----------------------
+---
 
 # Analysis
 
@@ -82,11 +81,11 @@ In essence, instead of trying to bring a bunch of expensive caching logic to the
 
 This progression all points to the same thing. We're heading back to routing on the server.
 
-------------------
+---
 
 # Conclusion
 
-Given this, I have some thoughts for the future. The way I think this plays out is that MPAs as a technology stay as they are and continue to improve their ability to do better partial hydration, smarter lazy loading, more dynamic delivery (streaming). 
+Given this, I have some thoughts for the future. The way I think this plays out is that MPAs as a technology stay as they are and continue to improve their ability to do better partial hydration, smarter lazy loading, more dynamic delivery (streaming).
 
 I think pure HTML Frames are an intermediate step. As new approaches come out for Server Components, especially non-VDOM ones, we will see them get absorbed. The ideal approach is to have Server Components be able to both provide the ability for fine-grained updates and be able to send HTML for newly rendered things. HTML rendering is going to be faster for initial page load or any large navigation. Supporting hybrid/partial formats may be a thing.
 

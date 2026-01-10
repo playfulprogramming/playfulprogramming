@@ -11,9 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
- 
-
-Sometimes we have a long  list of imports, with files that come from the same place, it makes our code noisy and a bit longer, something like: 
+Sometimes we have a long  list of imports, with files that come from the same place, it makes our code noisy and a bit longer, something like:
 
 ```
 import { BeersService } from './services/beers.service';
@@ -30,9 +28,10 @@ export * from './beers.service';
 export * from './whiski.service';
 export * from './wine.service';
 ```
+
 Now we can update our files, to the new path.
 
-```typescript 
+```typescript
 import { BeersService, WhiskyService, WineService } from './services/drinks';
 ```
 
@@ -45,4 +44,3 @@ import { BeersService, WhiskyService, WineService } from './services';
 The code looks clean and easy to ready because all of them comes from the same place.
 
 Photo by <a href="https://unsplash.com/@marcinjozwiak?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Marcin Jozwiak</a> on <a href="https://unsplash.com/s/photos/imports?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  

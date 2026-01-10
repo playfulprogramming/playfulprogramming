@@ -31,7 +31,7 @@ For example, we need to show the list of the country in one case, the company fl
 </ng-container>
 ```
 
-**Option B:** Create a version for each case and provide a unique experience for each scenario like: 
+**Option B:** Create a version for each case and provide a unique experience for each scenario like:
 
 ```html
 <country></country>
@@ -41,9 +41,9 @@ For example, we need to show the list of the country in one case, the company fl
 
 Alternatively, use the *Compound Component Pattern*, one component to control the state and interaction between the user and the state, and other components for rendering and reacting to changes.
 
-## What is Compound Component? 
+## What is Compound Component?
 
-It is a group of components or child components working together to help us to create a complex component; some frameworks like Kendo UI play with components connected with other components in their context. 
+It is a group of components or child components working together to help us to create a complex component; some frameworks like Kendo UI play with components connected with other components in their context.
 
 For example, The Kendo Charts kendo-chart, kendo-chart-title, and kendo-chart-series work together to share data, state, and context to create a fantastic chart.
 
@@ -60,14 +60,15 @@ Also, it is a clear and semantic code for others when working with our component
 
 Creating the component is easy, but creating a powerful, flexible component needs checkpoints before starting.
 
-- How does the component syntax look like? 
+- How does the component syntax look like?
 - Will the component emit or interact with other components?
 - Will the component share State?
-- Will it have one or more child components? 
+- Will it have one or more child components?
 
 To learn about and create compound components, we will leverage some Angular features like NgContent, ContentChild Decorator, and Component Dependency Injection.
 
 ## The List Of Countries
+
 To have an isolated scope for our components, we provide the list of countries with CountryService to use in the component.
 
 ```typescript
@@ -128,7 +129,7 @@ Using the async pipe, we subscribe to countries$ observable and the *ngFor* to i
 </select>
 ```
 
-Read more about [*ngFor](https://angular.io/api/common/NgForOf)  and [async](https://angular.io/api/common/AsyncPipe).
+Read more about [\*ngFor](https://angular.io/api/common/NgForOf)  and [async](https://angular.io/api/common/AsyncPipe).
 
 ## Content Projection
 
@@ -175,7 +176,7 @@ export class CountryFlagComponent  {
 }
 ```
 
-The CountryFlag renders the image using countryflagapi.com when getting the selected value. 
+The CountryFlag renders the image using countryflagapi.com when getting the selected value.
 
 ```html
 <div *ngIf="selected">
@@ -215,7 +216,7 @@ Using the @ContentChild decorator to get a reference for these components.
 @ContentChild(CountryFlagComponent) countryFlag!: CountryFlagComponent;
 ```
 
-Create selectedCountry method and the change event for selection to get the country selected. 
+Create selectedCountry method and the change event for selection to get the country selected.
 
 ```html
 <select #country (change)="selectedCountry(country.value)">
@@ -255,13 +256,13 @@ The country component uses ContentChild for each component. However, what happen
 </app-country>
 ```
 
-The official Angular documentation says: 
+The official Angular documentation says:
 
 @ContentChild Use to get the first element or the directive matching the selector from the content DOM. If the content DOM changes and a new child matches the selector, the property will be updated.
 
 The components react to changes, and the new component app-banner needs to add a reference in the CountryComponent. It does not scale for future changes.
 
-## Refactor 
+## Refactor
 
 Remove ContentChild references to static components, create a subject to use as a communication bus, and use the `next` method to emit subscription value. The final code looks like this:
 
@@ -276,7 +277,7 @@ export class CountryComponent  {
 }
 ```
 
-Inject into the constructor for child components to use the selected$ observable and subscribe in the template using the async pipe to store the value in the countryName variable. 
+Inject into the constructor for child components to use the selected$ observable and subscribe in the template using the async pipe to store the value in the countryName variable.
 
 The code looks like this:
 
@@ -289,7 +290,9 @@ export class CountryFlagComponent  {
 
 }
 ```
+
 Use the country component state in the template:
+
 ```html
 *ngIf="country.selected$ |async as countryName"
 ```
@@ -297,6 +300,7 @@ Use the country component state in the template:
 Perfect! All components react to changes in the country's context, and other components use the selected value from CountryComponent injecting him into the constructor.
 
 ## Recap
+
 In this post, we have implemented the Compound Component Pattern in Angular using [dependency injection](https://angular.io/guide/dependency-injection), how to use Content Projection, and created an excellent API for our components.
 
 Read the complete code: https://github.com/danywalls/compound-components-angular.

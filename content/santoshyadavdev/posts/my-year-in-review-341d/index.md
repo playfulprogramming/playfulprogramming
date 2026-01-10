@@ -11,9 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
-
 Photo by <a href="https://unsplash.com/@mantashesthaven?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mantas Hesthaven</a> on <a href="https://unsplash.com/s/photos/journey?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-
 
 This is going to be challenging to write. This year felt like my last 10 years combined. If you follow me on Twitter, you already know this was not the best year I had. I was expecting things to go right. We (my partner and me) gave it a lot of thought, and we decided to move to a new country. I could get a DevRel job in the future, and we will have a better life for our daughter. End of 2021 was doing all the documentation to move to Germany, which was very stressful.
 
@@ -33,13 +31,13 @@ I got COVID in March 2022, which made me feel more homesick, it was a tough time
 
 Also, I started struggling financially because of multiple reasons:
 
-* I had savings of around 14k USD for the next few months, but I forgot I needed to pay taxes. I paid 9k USD in taxes after I moved.
+- I had savings of around 14k USD for the next few months, but I forgot I needed to pay taxes. I paid 9k USD in taxes after I moved.
 
-* I took a pay cut to move to Germany, expecting once my family joins me, I will have to manage my expenses in Germany.
+- I took a pay cut to move to Germany, expecting once my family joins me, I will have to manage my expenses in Germany.
 
-* Due to a delay in my family visa, I had to pay for rent in 2 countries and groceries and utilities.
+- Due to a delay in my family visa, I had to pay for rent in 2 countries and groceries and utilities.
 
-* I tried to reach out to some of my friends for financial help but decided not to take that path. I took some help from Vijay. He was generous to help whenever needed.
+- I tried to reach out to some of my friends for financial help but decided not to take that path. I took some help from Vijay. He was generous to help whenever needed.
 
 Glad I had some shares, which I sold to support my family for the next few months and sent some money from Germany.
 
@@ -57,7 +55,7 @@ I asked my employer if I could travel to India to see my family, but it was neve
 
 I worked hard over the years to reach a point where my family and I could have a stable life.
 
-I wrote about my life journey 
+I wrote about my life journey
 
 {% embed https://twitter.com/SantoshYadavDev/status/1479562904835747841 %}
 
@@ -65,27 +63,27 @@ My family’s Visa was delayed every month, and the relocation agency had no ide
 
 Many things went wrong:
 
-* With my job not working out, I wanted to quit but was scared of what in case I needed to go back to India.
+- With my job not working out, I wanted to quit but was scared of what in case I needed to go back to India.
 
-* My wife and daughter also had difficulty managing everything alone in India.
+- My wife and daughter also had difficulty managing everything alone in India.
 
-* I was scared to write code, and I started hating code.
+- I was scared to write code, and I started hating code.
 
 There were 2 options I could see:
 
-* Leave the job and go back to India and start from ZERO again.
+- Leave the job and go back to India and start from ZERO again.
 
-* Work at the Job for the next 2 years, which I was not enjoying.
+- Work at the Job for the next 2 years, which I was not enjoying.
 
 But I learned some valuable lessons:
 
-* I was trying to force myself to enjoy the work, which I was not.
+- I was trying to force myself to enjoy the work, which I was not.
 
-* I realized it’s good to quit sometime rather than suffer.
+- I realized it’s good to quit sometime rather than suffer.
 
-* I realized that staying at this job won’t do any good for my employer and myself.
+- I realized that staying at this job won’t do any good for my employer and myself.
 
-* I thought quitting this job would make me a loser, and I should fight to make it work. I was wrong. Quit if you are not enjoying it.
+- I thought quitting this job would make me a loser, and I should fight to make it work. I was wrong. Quit if you are not enjoying it.
 
 ## Help from friends
 
@@ -99,9 +97,9 @@ Tanay is from India, so he guided me with the rules and regulations related to t
 
 I met Lars at his house in Denmark in May and was so happy to see him and his family, especially his daughters. While leaving his home, his daughter hugged me, and I cried a lot after Lars dropped me at the station. It was close to 5 months by that time, not seen my daughter and partner.
 
-![With lars in Denmark](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f4r5a4totifebs8337u4.jpg)
+![With lars in Denmark](./f4r5a4totifebs8337u4.jpg)
 
-![With Tanay](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rndts6mv21d3j2fzt3lh.jpg)
+![With Tanay](./rndts6mv21d3j2fzt3lh.jpg)
 
 ## Moving to the new house
 
@@ -117,20 +115,17 @@ They invited me to their house to have dinner, and I could finally spend time wi
 
 Anuj even helped me financially, as I had to pay some money back to my employer when I left the job and was very short on cash to pay my rent the next month.
 
-
-
-
 ## Things changing for Good
 
 Sometimes it’s God’s plan to send you to the right place. Moving to this new city made a few things simpler for me:
 
-* As this a village unlike other cities where you have to wait for months to get City registration done, I got it done in a day. I dont even need an appointment.
+- As this a village unlike other cities where you have to wait for months to get City registration done, I got it done in a day. I dont even need an appointment.
 
-* Got my resident permit appointment in less than 10 days.
+- Got my resident permit appointment in less than 10 days.
 
-* My family’s Visa process moved ahead and looked positive after 7 months.
+- My family’s Visa process moved ahead and looked positive after 7 months.
 
-* For my daughter’s school, I quickly got admission to a German Public school as there are fewer kids here in the village.
+- For my daughter’s school, I quickly got admission to a German Public school as there are fewer kids here in the village.
 
 ## New Job
 
@@ -156,11 +151,11 @@ After not so good start to 2022, till August, I had no plan to speak at conferen
 
 After joining Celonis, things started getting better.
 
-* I got my resident permit, so I could travel outside Germany.
+- I got my resident permit, so I could travel outside Germany.
 
-* My manager at Celonis was okay with me returning to India for a few weeks to see my family.
+- My manager at Celonis was okay with me returning to India for a few weeks to see my family.
 
-* We got a more solid response from the Embassy on the approval of Visas for my family.
+- We got a more solid response from the Embassy on the approval of Visas for my family.
 
 ## Nx Conf
 
@@ -172,43 +167,42 @@ Now I am doing some DevRel stuff for Celonis. Even though we dont really have a 
 
 After Joining Celonis, I traveled to the below conferences between Oct and Dec:
 
-* Ng-DE as an attendee
+- Ng-DE as an attendee
 
-* Nx Conf — Presented my talk on “Nx at Celonis”
+- Nx Conf — Presented my talk on “Nx at Celonis”
 
-* Firebase Summit as an attendee
+- Firebase Summit as an attendee
 
-* JSPolandConf — Presented my talk “Be Smart choose Nx”
+- JSPolandConf — Presented my talk “Be Smart choose Nx”
 
-* Madrid Celonis Office — Presented my talk “Be Smart choose Nx”
+- Madrid Celonis Office — Presented my talk “Be Smart choose Nx”
 
-* NgRome — Presented my talk “Angular Router MasterClass”
+- NgRome — Presented my talk “Angular Router MasterClass”
 
-* DevFest Hamburg — Presented my talk “Be Smart choose Nx”
+- DevFest Hamburg — Presented my talk “Be Smart choose Nx”
 
-* Angular London — Presented my talk “Be Smart choose Nx”
+- Angular London — Presented my talk “Be Smart choose Nx”
 
 I took many photos with friends and met many of them for the first time. The first talk I gave at Nx Conf in Phoenix was my 14 years into Tech, my first visit to the USA, and my first in-person talk after Feb 2020.
 
 I was honored to share the stage with many amazing folks from the community.
 
-![with friends(https://pbs.twimg.com/media/FeUWMKhXEAA2r6-?format=jpg&name=small)](https://pbs.twimg.com/media/FeUWMKhXEAA2r6-?format=jpg&name=small)
-![with friends(https://pbs.twimg.com/media/FeX12zQXwAEFO6g?format=jpg&name=small)](https://pbs.twimg.com/media/FeX12zQXwAEFO6g?format=jpg&name=small)
+![](./FeUWMKhXEAA2r6-.jpg)
+![](./FeX12zQXwAEFO6g.jpg)
 
-![with friends(https://pbs.twimg.com/media/FeYcta3XkAEhnaX?format=jpg&name=small)](https://pbs.twimg.com/media/FeYcta3XkAEhnaX?format=jpg&name=small)
+![](./FeYcta3XkAEhnaX.jpg)
 
-![with friends(https://pbs.twimg.com/media/Fed2B0HXwAMuuDe?format=jpg&name=small)](https://pbs.twimg.com/media/Fed2B0HXwAMuuDe?format=jpg&name=small)
+![](./Fed2B0HXwAMuuDe.jpg)
 
-![with friends(https://pbs.twimg.com/media/FeYcT3KX0AIkFb_?format=jpg&name=small)](https://pbs.twimg.com/media/FeYcT3KX0AIkFb_?format=jpg&name=small)
+![](./FeYcT3KX0AIkFb_.jpg)
 
-![with friends(https://pbs.twimg.com/media/FeY2IqGXkAE8GoJ?format=jpg&name=small)](https://pbs.twimg.com/media/FeY2IqGXkAE8GoJ?format=jpg&name=small)
+![](./FeY2IqGXkAE8GoJ.jpg)
 
-![with friends(https://pbs.twimg.com/media/FfSQaZeUAAUjlXB?format=jpg&name=small)](https://pbs.twimg.com/media/FfSQaZeUAAUjlXB?format=jpg&name=small)
+![](./FfSQaZeUAAUjlXB.jpg)
 
-![with friends(https://pbs.twimg.com/media/Ff-fwPRWQAAC-nv?format=jpg&name=small)](https://pbs.twimg.com/media/Ff-fwPRWQAAC-nv?format=jpg&name=small)
+![](./Ff-fwPRWQAAC-nv.jpg)
 
-![with friends(https://pbs.twimg.com/media/Fegy0nuWIAIymZg?format=jpg&name=small)](https://pbs.twimg.com/media/Fegy0nuWIAIymZg?format=jpg&name=small)
-
+![](./Fegy0nuWIAIymZg.jpg)
 
 and many more....
 
@@ -218,9 +212,7 @@ I planned to release my Angular Course but kept delaying it due to burnout. Fina
 
 In September, my course was published on FreeCodeCamp, and I got great feedback from the community. This was my gift to the community for helping me during my burnout.
 
-
 {% embed https://youtu.be/3qBXWUpoPHo %}
-
 
 ## Reunion
 
@@ -230,7 +222,7 @@ I was very excited to see my family after 10 months. We were happy that we were 
 
 I decided to take them for a short vacation to Berlin and Poland. I had a talk in Poland next week after they arrived.
 
-![with famliy(https://pbs.twimg.com/media/Fj8NB8BWAAE4CAL?format=jpg&name=large)](https://pbs.twimg.com/media/Fj8NB8BWAAE4CAL?format=jpg&name=large)
+![](./Fj8NB8BWAAE4CAL.jpg)
 
 ## What’s Next
 
@@ -241,5 +233,3 @@ I am looking forward to 2023. I want to contribute more to the community. I will
 My main focus would be ensuring my family settles down well in Germany. We are still buying and setting up our new house, which was almost empty before they arrived.
 
 And as I said before, **To quit is not an option.**
-
-

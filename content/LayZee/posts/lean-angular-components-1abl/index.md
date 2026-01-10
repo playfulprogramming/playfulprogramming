@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 *We want our components to be lean, mean Angular-powered machines. Cover photo by [Alessandro Ranica](https://unsplash.com/photos/3-D6RXgaZnI) on Unsplash.*
 
 *Original publication date: 2019-09-23.*
@@ -24,7 +23,7 @@ Wrong!
 
 > Where did I go so wrong?
 
-I’m glad you asked, grasshopper. Let’s discuss a robust component architecture. Let’s define _lean Angular components_.
+I’m glad you asked, grasshopper. Let’s discuss a robust component architecture. Let’s define *lean Angular components*.
 
 ## Tutorials teach the basics
 
@@ -46,7 +45,7 @@ Components are part of the presentational layers of our applications: User inter
 
 {% gist https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c %}
 
-_Figure 1. Horizontal layers of a web application. [Open in new tab](https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c#file-web-application-horizontal-layers-csv)._
+*Figure 1. Horizontal layers of a web application. [Open in new tab](https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c#file-web-application-horizontal-layers-csv).*
 
 Considering the horizontal layers of a web application in Figure 1, components often end up addressing concerns from multiple layers directly. This is a mistake.
 
@@ -57,7 +56,6 @@ I’ve previously collected common techniques and described them in the article 
 Follow my Model-View-Presenter variation for Angular and you will almost certainly have an application that is maintainable, testable, scalable, and performant.
 
 Not convinced yet? That’s fine. Let’s take a look at an example from the official Getting Started guide.
-
 
 ```ts
 // cart.component.ts
@@ -99,7 +97,6 @@ export class CartComponent {
 
 <figcaption>Listing 1. Forms: Cart component.</figcaption>
 
-
 What’s going on in the cart component in Listing 1? In its UI properties, we see a list of items and a checkout form. The items are initialised from the cart service while the checkout form is initialised using the form builder.
 
 When the user submits the form, the checkout form value is logged to the console (since this is a simple example), the item list cleared using the cart service, and the checkout form is reset.
@@ -120,7 +117,7 @@ Why is this important? [The official architecture guide](https://angular.io/guid
 
 > Angular distinguishes components from services to increase modularity and reusability. By separating a component’s view-related functionality from other kinds of processing, you can make your component classes lean and efficient.
 
-This is exactly what I’m trying to convince you about. We should strive to have components that are only concerned about presentation. The architecture guide mentions __view-related functionality__. We can always argue what is meant by that term. My take is presentation and user interaction.
+This is exactly what I’m trying to convince you about. We should strive to have components that are only concerned about presentation. The architecture guide mentions **view-related functionality**. We can always argue what is meant by that term. My take is presentation and user interaction.
 
 I would take it one step further and say that not even presentation or user interaction concerns should be part of the component model. Anything more than simple logic should be extracted to services and other dependencies.
 
@@ -134,7 +131,7 @@ The architecture guide describes this in its very next paragraph:
 
 # Managing control flow
 
-Another responsibility of a [presentational component](https://dev.to/this-is-angular/presentational-components-with-angular-3961) is to be a method of passing control flows initiated by user interaction to behaviour-encapsulating services—what I call __[presenters](https://dev.to/this-is-angular/presenters-with-angular-2l7l)__. Side effects of the presenters are mapped to output properties as needed. In simple use cases, a user interaction is mapped directly to an output property.
+Another responsibility of a [presentational component](https://dev.to/this-is-angular/presentational-components-with-angular-3961) is to be a method of passing control flows initiated by user interaction to behaviour-encapsulating services—what I call **[presenters](https://dev.to/this-is-angular/presenters-with-angular-2l7l)**. Side effects of the presenters are mapped to output properties as needed. In simple use cases, a user interaction is mapped directly to an output property.
 
 This is another principle that is mentioned in the architecture guide:
 
@@ -163,7 +160,6 @@ With concerns separated into very specific software artifacts, each one is easy 
 ## Case study: Lean cart component
 
 So what happened to that cart component from the Getting Started guide?
-
 
 ```html
 <!-- cart.component.html -->
@@ -198,8 +194,6 @@ So what happened to that cart component from the Getting Started guide?
 ```
 
 <figcaption>Listing 2.1. Cart: Initial mixed component template.</figcaption>
-
-
 
 ```ts
 // cart.component.ts
@@ -241,13 +235,11 @@ export class CartComponent {
 
 <figcaption>Listing 2.2. Cart: Initial mixed component model.</figcaption>
 
-
 Listings 2.1 and 2.2 are our starting point—a mixed component with concerns spanning many horizontal layers. It also features logic at different abstraction levels.
 
 The mixed cart component has logic for presentation, presentation implementation details, high level presentation logic, low level presentation logic, and low level user interaction logic. These categories of logic might be alright to add to a [presentational component](https://dev.to/this-is-angular/presentational-components-with-angular-3961), but it’s definitely at a point where we should consider refactoring it.
 
 It also contains non-presentational logic in the categories of state management implementation details, and low level business logic. State management is the first concern that we should extract. Local UI state is the exception which is categorised as a user interaction concern—part of UI behaviour.
-
 
 ```html
 <!-- cart.container.html -->
@@ -258,8 +250,6 @@ It also contains non-presentational logic in the categories of state management 
 ```
 
 <figcaption>Listing 3.1. Cart: Container component template.</figcaption>
-
-
 
 ```ts
 // cart.container.ts
@@ -292,9 +282,7 @@ export class CartContainerComponent {
 
 <figcaption>Listing 3.2. Cart: Container component model.</figcaption>
 
-
 In Listings 3.1 and 3.2, we’ve extracted a container component from the mixed cart component. All state management integration logic is now in this component.
-
 
 ```ts
 // root-routes.ts
@@ -309,7 +297,6 @@ export const routes = {
 
 <figcaption>Listing 3.3 Root routes after extracting from cart component.</figcaption>
 
-
 In the initial cart component, the shipping route was hard-coded in the template. Now, we’ve extracted the route path to a separate module as seen in Listing 3.3, making it reusable and easy to change.
 
 ---
@@ -323,7 +310,6 @@ We’re better off storing route paths and URLs in a separate module that we can
 ---
 
 The container component creates a full route URL and passes it to the presentational cart component which we’ll examine next.
-
 
 ```html
 <!-- cart.component.html -->
@@ -340,8 +326,6 @@ The container component creates a full route URL and passes it to the presentati
 ```
 
 <figcaption>Listing 4.1. Cart: Presentational component template.</figcaption>
-
-
 
 ```ts
 // cart.component.ts
@@ -367,7 +351,6 @@ export class CartComponent {
 
 <figcaption>Listing 4.2. Cart: Presentational component model.</figcaption>
 
-
 In Listings 4.1 and 4.2, we see that there is now minimal logic left in the presentational cart component. The shipping route URL is passed as an input property. This component doesn’t care what the full route URL is or how to access it.
 
 In the same way, this component is happy to iterate over products, passing each one to a separate instance of another [presentational component](https://dev.to/this-is-angular/presentational-components-with-angular-3961) we extracted, the cart item component.
@@ -375,7 +358,6 @@ In the same way, this component is happy to iterate over products, passing each 
 I won’t go through the implementation details of the even more simple cart item component, but the full solution is available in [a StackBlitz workspace](https://stackblitz.com/edit/angular-lean-cart-component).
 
 We’ve extracted yet another [presentational component](https://dev.to/this-is-angular/presentational-components-with-angular-3961), the checkout component.
-
 
 ```html
 <!-- checkout.component.html -->
@@ -399,8 +381,6 @@ We’ve extracted yet another [presentational component](https://dev.to/this-is-
 ```
 
 <figcaption>Listing 5.1. Cart: Checkout component template.</figcaption>
-
-
 
 ```ts
 // checkout.component.ts
@@ -436,13 +416,11 @@ export class CheckoutComponent {
 
 <figcaption>Listing 5.2. Cart: Checkout component model.</figcaption>
 
-
 The checkout component template in Listing 5.1 binds native form controls to reactive Angular form groups and controls.
 
 The component model in Listing 5.2 exposes the form group from the checkout presenter, a component level service that encapsulates user interaction logic.
 
 This presentational component converts a form submission to an output property event emission by delegating logic to the checkout presenter.
-
 
 ```ts
 // checkout.presenter.ts
@@ -473,7 +451,6 @@ export class CheckoutPresenter {
 
 <figcaption>Listing 6. Cart: Checkout presenter.</figcaption>
 
-
 The low-level logic of building the reactive checkout form group has been encapsulated in the checkout presenter in Listing 6. The form is exposed through a public property
 
 Checkout is a matter of collecting entries from the reactive form controls, resetting the form group and returning the collected form entries from the `checkout` method.
@@ -494,7 +471,7 @@ After separating concerns and extracting interfaces, we went from the files in F
    └── cart.service.ts
 ```
 
-_Figure 2. Cart component: Initial file tree._
+*Figure 2. Cart component: Initial file tree.*
 
 to the files and directories in Figure 3.
 
@@ -518,18 +495,20 @@ to the files and directories in Figure 3.
 └── root-routes.ts
 ```
 
-_Figure 3. Cart: Final file tree._
+*Figure 3. Cart: Final file tree.*
 
 The full refactored solution is available as [a StackBlitz workspace](https://stackblitz.com/edit/angular-lean-cart-component).
 
 ### Separated concerns
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ki86s3jgpqwpf1ynk0h8.png)
+![](./ki86s3jgpqwpf1ynk0h8.png)
+
 <figcaption>Figure 4. Cart: Initial concerns.</figcaption>
 
 Initially, many different concerns were located in a single mixed component as seen in Figure 4. The concerns in the lower section are definitely not supposed to be in a [presentational component](https://dev.to/this-is-angular/presentational-components-with-angular-3961), that is state management implementation details, high level business logic and low level business logic.
 
-![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7i4ho4jo1wnahevwsokt.png)
+![](./7i4ho4jo1wnahevwsokt.png)
+
 <figcaption>Figure 5. Cart: Refactored concerns.</figcaption>
 
 After refactoring the cart feature into multiple components and a [presenter](https://dev.to/this-is-angular/presenters-with-angular-2l7l), concerns are reasonably separated, as seen in Figure 5.
@@ -590,7 +569,7 @@ On the positive side, the guideline mentions that a template element can have mu
 
 [Style 07–02: Single responsibility](https://angular.io/guide/styleguide#style-07-02)
 
-This guideline immediately makes us think about [the Single Responsibility Principle](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html). Whether it relates to that depends on how we define __responsibility__. I won’t go into that discussion now, even though it’s very important.
+This guideline immediately makes us think about [the Single Responsibility Principle](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html). Whether it relates to that depends on how we define **responsibility**. I won’t go into that discussion now, even though it’s very important.
 
 What I take away from this style recommendation is that we should create services that encapsulate logic from a single horizontal layer at a single abstraction level.
 
@@ -676,8 +655,8 @@ I would like to thank [Ward Bell](https://twitter.com/wardbell) for sharing his 
 
 Thank you to all my fellow Angular experts for helping make this article better:
 
-* [Alex Okrushko](https://dev.to/alexokrushko)
-* [Christian Janker](https://twitter.com/y_a_n_x)
-* [Nacho Vazquez](https://dev.to/nachovazquez)
-* [Oleksandr Poshtaruk](https://dev.to/oleksandr)
-* [Tim Deschryver](https://dev.to/timdeschryver)
+- [Alex Okrushko](https://dev.to/alexokrushko)
+- [Christian Janker](https://twitter.com/y_a_n_x)
+- [Nacho Vazquez](https://dev.to/nachovazquez)
+- [Oleksandr Poshtaruk](https://dev.to/oleksandr)
+- [Tim Deschryver](https://dev.to/timdeschryver)

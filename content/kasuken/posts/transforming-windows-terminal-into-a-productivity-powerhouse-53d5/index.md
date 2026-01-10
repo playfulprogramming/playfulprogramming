@@ -11,9 +11,9 @@ socialImage: "social-image.png"
 ---
 
 Everything is started from this post on bluesky, by Thomas -
- https://bsky.app/profile/thomasvochten.com/post/3ldsjjmz6dk22
+https://bsky.app/profile/thomasvochten.com/post/3ldsjjmz6dk22
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ve0fdzyx2jzh8ecbc33u.png)
+![Image description](./ve0fdzyx2jzh8ecbc33u.png)
 
 So, I decided to write this blog post. 😱
 
@@ -70,7 +70,7 @@ oh-my-posh init pwsh --config https://raw.githubusercontent.com/JanDeDobbeleer/o
 
 ---
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jysasokkh1zvukjiwb44.png)
+![Image description](./jysasokkh1zvukjiwb44.png)
 
 ---
 
@@ -89,6 +89,7 @@ One of the coolest features in Windows Terminal is **Quake Mode**. Inspired by g
 wt -w _quake
 
 ```
+
 Quake Mode use your default profile by default and you can have only a window at time with this particular mode.
 
 When the Quake Mode windows is enabled, you can toggle it by using the keyboard shortcut.
@@ -127,8 +128,7 @@ Create profiles for tutorials, debugging, or specific shells for easier manageme
 
 My default color scheme is **One Half Dark**, because it's good for mixing readability but at the same time is the right mix of cool colors. 🙂
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qpdsjk5ml6v52woncq6r.png)
-
+![Image description](./qpdsjk5ml6v52woncq6r.png)
 
 ## **Specific Profiles**
 
@@ -137,7 +137,7 @@ Aside of that, when I have to share my screen or deliver webinar or courses, my 
 So, I duplicated the PowerShell profile and I called it "PowerShell (tutorial)".
 In the appearance settings of this specific profile, I change the font size from 12 to 26.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/k0zl9pem9e3ml3h984mp.png)
+![Image description](./k0zl9pem9e3ml3h984mp.png)
 
 So, when I have to share my screen or record a video, I use this particular profile.
 
@@ -146,7 +146,7 @@ So, when I have to share my screen or record a video, I use this particular prof
 To obtain the transparency effect of the main window of Windows Terminal, from the Profiles menu, Defaults, you can set a value that you like the most.
 For me it's 70% but everyone has different preference.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qp02yvmrs0sg743slq0y.png)
+![Image description](./qp02yvmrs0sg743slq0y.png)
 
 The effect with 70% and a blue wallpaper is something like in the picture above.
 

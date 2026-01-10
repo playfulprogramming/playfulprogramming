@@ -13,7 +13,7 @@ order: 1
 }
 ---
 
-A while back, I had a look at why you should avoid using the `any` type and instead use the `unknown` type, which you can read [here](https://mainawycliffe.dev/blog/typescript-use-unknown-instead-of-any/). In this article, I want to focus on Type assertion and why you should avoid them. 
+A while back, I had a look at why you should avoid using the `any` type and instead use the `unknown` type, which you can read [here](https://mainawycliffe.dev/blog/typescript-use-unknown-instead-of-any/). In this article, I want to focus on Type assertion and why you should avoid them.
 
 So, what are Type Assertions? Types assertion is a way of telling Typescript what the type of a variable is. This can be done either of two ways: using the `as` syntax or the angle bracket `<Type>` syntax, as shown below:
 
@@ -34,7 +34,7 @@ const firstname = (<Person>x).firstname;
 
 ```
 
-When we use type assertion we are basically telling the Typescript compiler that we know what the type is and it should trust us, i.e. we know what we are doing. The problem with this is that we prevent Typescript from helping us where it should and take on that responsibility ourselves. 
+When we use type assertion we are basically telling the Typescript compiler that we know what the type is and it should trust us, i.e. we know what we are doing. The problem with this is that we prevent Typescript from helping us where it should and take on that responsibility ourselves.
 
 In the above example, Typescript does not type check whether the variable `x` has the property `firstname` we are accessing because we are asserting the type, which will definitely introduce a bug into our system.
 
@@ -101,7 +101,7 @@ You can learn more about the narrowing of types in Typescript in my previous art
 
 ### Providing Default Values
 
-This mostly works with null and undefined values, but instead of asserting to a string to remove the possibility of it being undefined, you can provide a default value that automatically becomes a string. You can achieve this by using either null coalescing operator (`??`) or the or ( `||`) operator. 
+This mostly works with null and undefined values, but instead of asserting to a string to remove the possibility of it being undefined, you can provide a default value that automatically becomes a string. You can achieve this by using either null coalescing operator (`??`) or the or ( `||`) operator.
 
 ```typescript
 // using the nullish coalescing operator

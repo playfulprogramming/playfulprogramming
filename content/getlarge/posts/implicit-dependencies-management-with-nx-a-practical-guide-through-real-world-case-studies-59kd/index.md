@@ -110,11 +110,11 @@ This case occurred in an [integrated repository](https://nx.dev/getting-started/
 
 You can see the current relation between the projects in the project graph:
 
-![Projects graph before](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/32x22qkn4vm2y9c0qkp9.png)
+![Projects graph before](./32x22qkn4vm2y9c0qkp9.png)
 
 And the tasks graph for the three projects:
 
-![Tasks graph before](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9ww3cdcesc1y30nzxqyo.png)
+![Tasks graph before](./9ww3cdcesc1y30nzxqyo.png)
 
 What is wrong with these graphs?
 
@@ -254,11 +254,11 @@ The drawback is that Nx can't detect the dependency between `schemas` and `ts-in
 
 After applying these changes, the project graph contains the expected relationship between the `schemas` and `ts-interfaces` libraries.
 
-![Projects graph after](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/s3ug3qp4g2jtlivqcdoc.png)
+![Projects graph after](./s3ug3qp4g2jtlivqcdoc.png)
 
 And the tasks graph shows that the `schemas:bundle` task is now part of the `coffee-dealer:build` pipeline.
 
-![Tasks graph after](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fprxrxgl2fxbhew3jldb.png)
+![Tasks graph after](./fprxrxgl2fxbhew3jldb.png)
 
 ### Enable cache for the bundle tasks
 
@@ -310,7 +310,7 @@ In this case, the developers would like to ensure that when they work locally on
 
 You can see the current relation between the projects in the project graph:
 
-![Projects graph before](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/e11rbaltb7roa77dq4wb.png)
+![Projects graph before](./e11rbaltb7roa77dq4wb.png)
 
 What can we deduct from this graph?
 
@@ -435,7 +435,7 @@ Finally, ensure that `coffee-dealer-e2e:e2e` and `coffee-dealer:serve` will use 
 
 We can now check that the task pipeline is correct :
 
-![Tasks graph after](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/87f7r698xsdrxztkvxvl.png)
+![Tasks graph after](./87f7r698xsdrxztkvxvl.png)
 
 > **Note**
 >

@@ -12,8 +12,7 @@ order: 1
 }
 ---
 
-
-▶️ _This article is extracted from a video transcript, slightly tweaked for better readability. Watch the original: https://youtu.be/OabGHQ133zg_
+▶️ *This article is extracted from a video transcript, slightly tweaked for better readability. Watch the original: https://youtu.be/OabGHQ133zg*
 
 Welcome to the second update of me trying to launch a DevRel program in the company I work for. Today’s topic is going to be: metrics.
 
@@ -57,7 +56,7 @@ Let's connect more: https://leonardomontini.dev/newsletter
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

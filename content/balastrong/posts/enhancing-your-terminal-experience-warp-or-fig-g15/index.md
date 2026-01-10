@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 After using [Warp](https://www.warp.dev/) for over a couple of months (and collecting feedback from colleagues already using it), the time has come. Is it better than [Fig](https://fig.io/)?
 
 What you will find here is a quite long article where I try to compare the two tools. If you don't know what Warp or Fig are, this will be a nice introduction. If you already know the tools and can't decide which one to use, I hope this will help you make a decision.
@@ -30,18 +29,18 @@ What you're going to find in this article:
 - [Artificial Intelligence](#artificial-intelligence)
 - [Features](#features)
   - [Available on both](#available-on-both)
-      - [Autocomplete](#autocomplete)
-      - [AI](#ai)
-      - [Themes](#themes)
+    - [Autocomplete](#autocomplete)
+    - [AI](#ai)
+    - [Themes](#themes)
   - [Fig Only](#fig-only)
-      - [Custom scripts](#custom-scripts)
-      - [Full IDEs integration](#full-ides-integration)
-      - [Dotfiles](#dotfiles)
+    - [Custom scripts](#custom-scripts)
+    - [Full IDEs integration](#full-ides-integration)
+    - [Dotfiles](#dotfiles)
   - [Warp Only](#warp-only)
-      - [Command Palette](#command-palette)
-      - [Blocks](#blocks)
-      - [Multi tabs](#multi-tabs)
-      - [User-friendly Input](#user-friendly-input)
+    - [Command Palette](#command-palette)
+    - [Blocks](#blocks)
+    - [Multi tabs](#multi-tabs)
+    - [User-friendly Input](#user-friendly-input)
 - [Technologies](#technologies)
 - [Open Source](#open-source)
   - [Warp](#warp)
@@ -96,13 +95,13 @@ Activating the AI works exactly the same on both tools, just start a sentence in
 
 Here is how it would look like on Warp:
 
-![Warp AI](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rah5ibt2c7qzb8jwdxrj.png)
+![Warp AI](./rah5ibt2c7qzb8jwdxrj.png)
 
 Leveraging the fact that Warp is a standalone app, there's more flexibility in how the UI is handled. Here you can input the command with Cmd+Enter but you can also click on buttons to get an explanation, see examples or related commands, directly in the UI.
 
 Asking for an explanation will the Warp AI side panel. Here you can get a more powerful interaction with the AI, for example you can ask for an explanation of the command or even get more insights when a command you launched resulted in an error.
 
-![Warp AI Panel](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7647fd2oo5d5nlowu7ni.png)
+![Warp AI Panel](./7647fd2oo5d5nlowu7ni.png)
 
 It's worth noting that despite the command generation being free and having no limits, the more powerful AI side panel is limited to 100 requests per day on the free plan.
 
@@ -110,7 +109,7 @@ It's worth noting that despite the command generation being free and having no l
 
 And here is how it would look like in Fig:
 
-![Fig AI](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ln4l9h6tamxbahuetwm6.png)
+![Fig AI](./ln4l9h6tamxbahuetwm6.png)
 
 The generated command is exactly the same, but the UI is more terminal-like (really similar to Copilot CLI) and you can select the next action with the arrows.
 
@@ -134,7 +133,7 @@ A little difference I noticed is that Warp does not only show the suggestions in
 
 Let me add an example here, you can either select a git command (with a letter `c` in it, as that's what I already written) and continue by yourself, or directly click the right arrow to accept `git cb develop` in one go.
 
-![Warp Autocomplete](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/p6ykd36qxang1h1f6yqa.png)
+![Warp Autocomplete](./p6ykd36qxang1h1f6yqa.png)
 
 Speaking of the interaction, both tools allow you to customize it, whether you want to use the arrows, tab, enter or whatever you like the most to navigate and select the suggestions.
 
@@ -152,11 +151,11 @@ On Warp you can create your own or choose one from the community. There's a [pub
 
 You can quickly select a different theme with `^ + Cmd + T` or if you don't remember the shortcut, you can always use the command palette and type "theme". A sidebar will open on the left and you can select the theme you want to use.
 
-![Warp Themes](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pr0ytv4fofa0i5d5f1td.png)
+![Warp Themes](./pr0ytv4fofa0i5d5f1td.png)
 
 Pretty much the same happens on Fig, you can find the themes on the settings and there's also a [public repo on GitHub](https://github.com/withfig/themes).
 
-![Fig Themes](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bnialedrscu6z9d37sjs.png)
+![Fig Themes](./bnialedrscu6z9d37sjs.png)
 
 ### Fig Only
 
@@ -166,7 +165,7 @@ Through the Fig settings app you can define some custom scripts. You can see the
 
 There's also a Scripts Store where public scripts can be distributed and installed.
 
-![Fig Script Store](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ptxv9j4euc8jkepq462v.png)
+![Fig Script Store](./ptxv9j4euc8jkepq462v.png)
 
 To run one of those scripts you can start with `fig run` and the autocomplete dropdown will show you the available ones.
 
@@ -196,7 +195,7 @@ This is the feature I didn't know I needed until I tried it. Blocks are a way to
 
 On this session I ran three commands: `pnpm install` first, which has a long log, then a `git status` and one of my aliases to print commits. There are three blocks on the screen and even if the first has a reeally long log, I can still see on top which command I executed in case I want to debug it. Right below, a new block with the `git status` output which fits entirely into the terminal and last, one more long log with my git alias. I scrolled up a little bit so that I can see all of them at once, with the commands on top of each block.
 
-![Warp Blocks](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/d77k3z49bjfzgrzpxz4n.png)
+![Warp Blocks](./d77k3z49bjfzgrzpxz4n.png)
 
 Blocks and also be shared with permalinks (even in the free plan) so that instead of having to scroll through a long output to show someone a specific part, you can just send them the link to the entire block and they can see it in their browser.
 
@@ -212,7 +211,7 @@ To be fair, having multiple tabs is the responsibility of the terminal, clearly,
 
 One thing that really "grinds my gears" is moving my cursor in the input text and having to select/cut/paste parts of it.
 
-![Grind my gears](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/uzn2bvwh5frl45ln5xgr.png)
+![Grind my gears](./uzn2bvwh5frl45ln5xgr.png)
 
 I think I'm not the only one though, as Warp thought about that. The input box where you type your command is a proper input field, you can use the mouse to click anywhere you want in your input, and all your expected text-editor keyboard shortcuts should work as well (for example, Option + left to move to the previous word).
 
@@ -230,7 +229,7 @@ Both projects have an eye on the open source community, even if the core code is
 
 ### Warp
 
-_Organization page - [warpdotdev](https://github.com/warpdotdev)_
+*Organization page - [warpdotdev](https://github.com/warpdotdev)*
 
 Right after the main repo with about 13k stars, you can find the [themes](https://github.com/warpdotdev/themes) repository. This is where Warp official themes are and indeed you can jump in and contribute. The programming language used here is Python.
 
@@ -240,7 +239,7 @@ The [workflows](https://github.com/warpdotdev/workflows) repo is also interestin
 
 ### Fig
 
-_Fig organization page - [withfig](https://github.com/withfig)_
+*Fig organization page - [withfig](https://github.com/withfig)*
 
 Fig's coolest repo is for sure the [autocomplete](https://github.com/withfig/autocomplete) with almost 22k stars. This is where all the autocomplete content comes from and if a command is missing or outdated, you're more than welcome in opening a Pull Request.
 
@@ -268,7 +267,7 @@ One of the keys to success for a project is the community around it. Let's take 
 | GitHub followers    | 918  | 477  |
 | Twitter followers   | 14k  | 16k  |
 | Discord members     | 10k  | 1k   |
-| dev.to user posts   | ~60  | ~50  |
+| dev.to user posts   | \~60 | \~50 |
 | YouTube subscribers | 2k   | 24   |
 | TikTok followers    | 6.5k | 4.3k |
 
@@ -280,7 +279,7 @@ Warp also has some swags like t-shirts, hoodies and even a jacket ([tweet with t
 
 ## Conclusion
 
-Now that we're in the closing chapter, let's get back to the initial statement: we're looking at two _different_ tools.
+Now that we're in the closing chapter, let's get back to the initial statement: we're looking at two *different* tools.
 
 Warp is bringing a whole new experience in interacting with a terminal thanks to features like blocks, command palette and the proper input field. However, this comes with the requirement of moving to a new terminal. Is this a problem? Probably not, it depends on your habits.
 
@@ -303,7 +302,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

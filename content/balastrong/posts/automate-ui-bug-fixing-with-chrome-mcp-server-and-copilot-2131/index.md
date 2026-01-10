@@ -42,21 +42,15 @@ In any case, full instructions are in the [Chrome MCP server documentation](http
 
 If you want to make sure it is installed, you can open your user configuration (`F1` => `MCP: Open User Configuration`) and find the server there. Also, as soon as you open a new chat, you can click the tools icon and find "Chrome tools" listed.
 
-
-![Tools](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/r7ci8juk4vhpvsruwrzu.png)
-
-
+![Tools](./r7ci8juk4vhpvsruwrzu.png)
 
 ## Demo Run
 
 I have an application running on localhost, but there's a small UI issue. If you hover over a specific card, the text of some badges becomes unreadable. That's the bug we're going to validate and fix through the Chrome MCP server tools.
 
+![Bug](./wbqx7pa6nwmjmh4eh37h.png)
 
-![Bug](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wbqx7pa6nwmjmh4eh37h.png)
-
-
-
-_^ this screen has been taken by the MCP server itself!_
+*^ this screen has been taken by the MCP server itself!*
 
 Back to our project, I can ask the AI to navigate to the page with the bug and take action. This was my prompt:
 
@@ -90,10 +84,7 @@ It then identifies the correct element, in this case, the "React Conference 2026
 
 This is what the chat log looks like at this point, after the agent ran the tools provided by the MCP server:
 
-
-![Chat](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nw2r2fyaavhue885076n.png)
-
-
+![Chat](./nw2r2fyaavhue885076n.png)
 
 After confirming the issue, the agent searches for the relevant component. it identifies the mistake, (in this case by checking the badge component) and applies a fix.
 
@@ -101,12 +92,9 @@ After confirming the issue, the agent searches for the relevant component. it id
 
 To ensure the fix works, the agent goes back to the page. Since the project has Hot Module Reload the changes should be immediate, but to be safe, it refreshes the page. It then attempts to hover again over the card.
 
+![Fix](./v4j8lny0fxpql5behso6.png)
 
-![Fix](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/v4j8lny0fxpql5behso6.png)
-
-
-
-_^ yes, this screen has been taken by the MCP server too, to validate the fix!_
+*^ yes, this screen has been taken by the MCP server too, to validate the fix!*
 
 The bug is now be fixed! The text is readable 👀
 
@@ -120,7 +108,6 @@ That was just a quick showcase of one feature I recently tested on the Chrome De
 
 Thanks for reading!
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -129,7 +116,7 @@ Let's connect more: https://leonardomontini.dev/newsletter
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

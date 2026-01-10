@@ -80,7 +80,7 @@ function getSystemTheme(): AppTheme {
 }
 ```
 
-With that alone if the user changes preference (for example in the OS settings) while your page is loaded, the app won't reflect that change until a full reload occurs. The cool thing is that you can _subscribe_ to that.
+With that alone if the user changes preference (for example in the OS settings) while your page is loaded, the app won't reflect that change until a full reload occurs. The cool thing is that you can *subscribe* to that.
 
 ```ts
 function setupPreferredListener() {
@@ -195,7 +195,7 @@ const themeScript: string = (function () {
 })();
 ```
 
-With this tiny bit of logic, that is converted to a string, you make sure _as soon as possible_ to add the correct css class.
+With this tiny bit of logic, that is converted to a string, you make sure *as soon as possible* to add the correct css class.
 
 What happens without this? You'll get a flash: the page loads in the default style, then flips after React mounts. The inline script prevents that by writing the class during the initial HTML paint.
 
@@ -255,7 +255,7 @@ export const ThemeToggle = () => {
 };
 ```
 
-You can `userTheme` the theme coming from the hook at any _other_ time, for example to cycle between themes on user click, but on the _initial render_ you can't. CSS will drive your button.
+You can `userTheme` the theme coming from the hook at any *other* time, for example to cycle between themes on user click, but on the *initial render* you can't. CSS will drive your button.
 
 ## TanStack Start primitives: clientOnly and createIsomorphicFn
 
@@ -349,7 +349,7 @@ Let's connect more: https://leonardomontini.dev/newsletter
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

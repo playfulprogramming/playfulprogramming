@@ -14,7 +14,7 @@ order: 1
 
 When you, as a contributor, want to create a new issue on GitHub, you're presented with a blank page and a text area to write your issue description.
 
-![Empty issue](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/91etaqlj12573n9nxdu3.png)
+![Empty issue](./91etaqlj12573n9nxdu3.png)
 
 If it's a feature request, you'd like to add all the relevant details and reasons why you think it's a good idea, to increase the chances of it being approved.
 
@@ -26,7 +26,7 @@ In this 2 chapters series, we'll see how to use GitHub Issue Templates to help c
 
 You can find the full content in this video, or you can keep reading for Chapter 2.
 
-{% youtube hNs5Gg_fEEs %}
+{% youtube hNs5Gg\_fEEs %}
 
 ## Form Schema
 
@@ -36,7 +36,7 @@ The form what?
 
 Yes, instead of letting the user create an issue on a blank page, or in the best case scenario, on a large text area prefilled with some text and comments, you can create an actual form like this one:
 
-![Form Template](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nuaivn3at0w0qnxjis5e.png)
+![Form Template](./nuaivn3at0w0qnxjis5e.png)
 
 What can we see here? There are many types of fields, like text, dropdowns and checkboxes, and each of them can have a label and description.
 
@@ -95,7 +95,7 @@ Sometimes when a user is going to create an issue, you actually want them first 
 
 The external links feature lets you do exactly that, by adding a list of links to the template.
 
-![External links](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/m7y9k9twxsknys1ytl3d.png)
+![External links](./m7y9k9twxsknys1ytl3d.png)
 
 In this case, right below Bug Report and New Feature I linked Discord for generic questions and the CONTRIBUTING.md file on my repository where there's a specific section addressing the most common issue that is setting up the login on local development.
 
@@ -118,7 +118,7 @@ contact_links:
 
 As you can see here, all links are an array under the `contact_links` key, and each link has a name, url and about field.
 
-You can also notice that I set `blank_issues_enabled` to true, which means that the user can still create a blank issue, without using any template. This isn't a security block but only enables a text right below the templates block saying _"Don’t see your issue here? Open a blank issue."_
+You can also notice that I set `blank_issues_enabled` to true, which means that the user can still create a blank issue, without using any template. This isn't a security block but only enables a text right below the templates block saying *"Don’t see your issue here? Open a blank issue."*
 
 In any case, nothing stops the user from creating a blank issue by manually going on `https://github.com/[Account]/[Repo]/issues/new` even if there are templates.
 
@@ -126,7 +126,7 @@ In any case, nothing stops the user from creating a blank issue by manually goin
 
 In this article we've seen how to use GitHub Issue Form Templates to help contributors write better issues and this closes this short two-chapter series about on GitHub Issues.
 
-Did you know that you can also create issues directly from Visual Studio Code? I talk about that in this article: 
+Did you know that you can also create issues directly from Visual Studio Code? I talk about that in this article:
 
 {% embed https://dev.to/this-is-learning/manage-github-issues-from-visual-studio-code-3pop %}
 
@@ -138,7 +138,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

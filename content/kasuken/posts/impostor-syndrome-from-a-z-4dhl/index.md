@@ -177,6 +177,6 @@ When you feel overwhelmed by doubt, take a moment to list your accomplishments. 
 
 ---
 
-**Exciting News!** 🌟  
-We're thrilled to introduce **[cloudGlow](https://www.cloudglow.io)** — a powerful governance tool designed to streamline the management of **Entra ID resources** on **Microsoft Azure**.  
+**Exciting News!** 🌟\
+We're thrilled to introduce **[cloudGlow](https://www.cloudglow.io)** — a powerful governance tool designed to streamline the management of **Entra ID resources** on **Microsoft Azure**.\
 **Visit [www.cloudglow.io](https://www.cloudglow.io)** to learn more, get early access, and **subscribe** to our preview! Stay ahead of your cloud management game with **cloudGlow**. 🚀

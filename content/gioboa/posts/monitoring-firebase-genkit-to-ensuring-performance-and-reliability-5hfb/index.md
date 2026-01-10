@@ -18,7 +18,7 @@ LLMs introduce a layer of non-deterministic complexity that requires robust moni
 
 ## Traditional approach
 
-The traditional approach to software monitoring focuses on deterministic code, where inputs directly correlate to outputs. However, LLMs introduce a probabilistic element. 
+The traditional approach to software monitoring focuses on deterministic code, where inputs directly correlate to outputs. However, LLMs introduce a probabilistic element.
 
 While prompts can be carefully crafted, the generated responses can vary significantly, potentially leading to unexpected behavior or degraded performance.
 
@@ -49,7 +49,7 @@ Some key metrics include:
 
 ## Monitoring
 
-You can add custom logic within your flows to track specific events or variables. This provides valuable context for debugging and analyzing flow behavior, but it requires a lot of effort and you will have more code to maintain for a non-trivial functionality. 
+You can add custom logic within your flows to track specific events or variables. This provides valuable context for debugging and analyzing flow behavior, but it requires a lot of effort and you will have more code to maintain for a non-trivial functionality.
 
 > If you miscalculate the cost of execution in your custom code, you will suffer a huge loss.
 
@@ -57,12 +57,11 @@ You can add custom logic within your flows to track specific events or variables
 
 Genkit offers a dedicated AI Monitoring dashboard that provides a high-level overview of Genkit flow health, including token usage, core stability metrics, and flow-level insights. This dashboard allows you to drill down into individual flow executions, inspect traces, and analyze intermediate inputs and outputs.
 
-[Here is the getting-started](https://genkit.dev/docs/observability/getting-started/) to add it to your flows. 
+[Here is the getting-started](https://genkit.dev/docs/observability/getting-started/) to add it to your flows.
 
 > The setup is really simple, just call a specific library method and enable permissions inside your Google Cloud dashboard. Behind the scenes, resources will be created to collect the data to monitor and you will have a complete tool to avoid unpleasant surprises.
 
-
-![firebase-dashboard](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/v5u8wk5wdl0urmy28bgd.png)
+![firebase-dashboard](./v5u8wk5wdl0urmy28bgd.png)
 
 ---
 

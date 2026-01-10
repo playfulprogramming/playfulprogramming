@@ -22,78 +22,73 @@ A resource offers several signals to keep you informed about its state:
 - **Value**: Provides the current data of the resource, representing the result of a query.
 - **Status**: Reflects the resource's current state. Here's a breakdown of the various status types:
 
-
-![ResourceStatus in Angular 19](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/b0iu5xam4nimamoqxhbt.PNG)
+![ResourceStatus in Angular 19](./b0iu5xam4nimamoqxhbt.PNG)
 
 - Error: Provides details on errors encountered during data retrieval.
 
 ## Creating a Resource
+
 Instantiating a resource is simple:
 
-![Creating a resource Angular 19](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jpqbrrgk4fckqq9hgb10.png)
+![Creating a resource Angular 19](./jpqbrrgk4fckqq9hgb10.png)
 
 This will result the following output. Notice how initially the status is "Loading" (2) and eventually it becomes "Resolved" (4).
 
-![Resource simple output](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nforghh3xbwbc4xlewin.png)
+![Resource simple output](./nforghh3xbwbc4xlewin.png)
 
 ## Updating Resource Data Locally
 
 To update a resource's data locally, leverage the `update()` method of the `value` signal. See the following template and component for reference:
 
-![Update resource data locally](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dxby2poiu0maww1lts3t.png)
+![Update resource data locally](./dxby2poiu0maww1lts3t.png)
 
 The `updateResource()` function will update the value of resource locally with a different string.
 
-![Update Resource Data locally](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ffwz1w3be6e3ogedatbd.png)
+![Update Resource Data locally](./ffwz1w3be6e3ogedatbd.png)
 
 This will produce the following output. Notice the status being "Local" (5) as it's value has been updated locally.
 
-![Update resource data locally output](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7gbzzt9ff6glznoqje7t.png)
+![Update resource data locally output](./7gbzzt9ff6glznoqje7t.png)
 
 ## Refreshing a Resource
 
 Let's create a Refresh button in our template and refresh a resource when the user clicks it.
 
-![Refreshing a resource](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hdurirb1cxm7e9cjwvbw.png)
+![Refreshing a resource](./hdurirb1cxm7e9cjwvbw.png)
 
-The `reload` function in the code below triggers the `resource` loader to execute again. If user clicks Refresh button multiple times, the loader will be triggered only once until the previous request is finished. It is similar to `exhaustMap` in `Rxjs`. 
+The `reload` function in the code below triggers the `resource` loader to execute again. If user clicks Refresh button multiple times, the loader will be triggered only once until the previous request is finished. It is similar to `exhaustMap` in `Rxjs`.
 
-
-![Refresh Resource in Angular 19](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qj4vaki3l7qgzx3t55s9.png)
+![Refresh Resource in Angular 19](./qj4vaki3l7qgzx3t55s9.png)
 
 Notice the status transitioning from "Reloading" (3) to "Resolved" (4) in the output below.
 
-![Refresh Resource Output in Angular 19](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qgnjtyg3lk4pm2l2cmp2.png)
+![Refresh Resource Output in Angular 19](./qgnjtyg3lk4pm2l2cmp2.png)
 
 ## Data Based on Signals: Dynamic Resource Loading
 
 Suppose you want to fetch posts based on an `postId` signal. You can achieve this by passing the signal as a request parameter to your endpoint:
 
+![Load data with signals template](./xbr4fot3p8fzibohl1zd.png)
 
-![Load data with signals template](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xbr4fot3p8fzibohl1zd.png)
+By passing the signal `postId` as a request parameter, you can achieve dynamic data retrieval based on the `postId` value. Here's an example:
 
-By passing the signal `postId` as a request parameter, you can achieve dynamic data retrieval based on the `postId` value. Here's an example: 
-
-
-![Load data with signals component](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/liuawe7abq66t798c1vs.png)
+![Load data with signals component](./liuawe7abq66t798c1vs.png)
 
 This will result in the following output:
 
+![Load data with Signals output](./f0rvndju34poitux8nol.png)
 
-![Load data with Signals output](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f0rvndju34poitux8nol.png)
-
-While this approach works for initial data fetching, it lacks reactivity. **Loaders in Angular's resource API are inherently untracked.** This means that if a signal like `postId` changes after the initial resource creation, the loader won't automatically re-execute. 
+While this approach works for initial data fetching, it lacks reactivity. **Loaders in Angular's resource API are inherently untracked.** This means that if a signal like `postId` changes after the initial resource creation, the loader won't automatically re-execute.
 
 To overcome this limitation and ensure reactive behavior, we need to explicitly bind the signal to the resource's `request` parameter. This establishes a dependency between the `resource` and the `signal`, ensuring that the loader is triggered whenever the signal's value changes.
 
-Let's create a button to update the signal `postId` to a random number. 
+Let's create a button to update the signal `postId` to a random number.
 
-![Signal change template](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3l28md53sudsjkgp98rl.png)
+![Signal change template](./3l28md53sudsjkgp98rl.png)
 
 Now, in the component, we add a method to update the signal postId to a random number. We also bind `postId` to the `request` parameter of our resource to ensure reactivity.
 
-
-![Signal Change Component](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/83kmhtz6s0zymwl655bv.png)
+![Signal Change Component](./83kmhtz6s0zymwl655bv.png)
 
 ## Handling Local Data Changes During Active Requests
 
@@ -111,8 +106,7 @@ Here's a breakdown of the process:
 
 Here's an example which will fetch data based on new value of signal and cancel the previous request in progress in case of multiple triggers.
 
-
-![Abort Signal Component](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qovj992up6dpwroolbda.png)
+![Abort Signal Component](./qovj992up6dpwroolbda.png)
 
 ## Multiple Signal Dependencies: Reactive Resource Loading
 
@@ -120,8 +114,7 @@ A resource can be made reactive to changes in multiple signals, allowing for com
 
 Here's an example demonstrating this behavior where both `postId` and `userId` are being set by a random number and the resource is made reactive to changes in both the signals:
 
-
-![Multiple Dependenies in resources Angular 19](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/e9lbkh7lqra6p2mrav7l.png)
+![Multiple Dependenies in resources Angular 19](./e9lbkh7lqra6p2mrav7l.png)
 
 In the above example, the loader will be re-executed whenever either the `userId` or `postId` signal changes. This ensures that the resource always reflects the latest data based on the current values of its dependent signals.
 
@@ -131,7 +124,7 @@ To enhance code maintainability and promote a modular approach, consider creatin
 
 Here's an example of a reusable resource function:
 
-![Reusable resources in Angular 19](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ruq0qve8j1p1bnqvksh1.png)
+![Reusable resources in Angular 19](./ruq0qve8j1p1bnqvksh1.png)
 
 In the example above, `myResource` can be used across different areas of your application, ensuring clean code and reusability.
 
@@ -148,7 +141,7 @@ When working with Observables in your Angular application, the rxResource API pr
 
 Here's an example of a resource created using rxResource:
 
-![rxResource - Observables based resource API in Angular 19](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pb8aqz4f5okr9o7hnbd7.png)
+![rxResource - Observables based resource API in Angular 19](./pb8aqz4f5okr9o7hnbd7.png)
 
 In this example, the loader will emit the posts as an `Observable`. You can subscribe to this Observable to react to data changes and perform necessary actions.
 
@@ -163,10 +156,3 @@ Code repository: https://github.com/Ingila185/angular-resource-demo
 Stackblitz Playground: https://stackblitz.com/edit/stackblitz-starters-hamcfa?file=src%2Fmain.ts
 
 Credits to Enea Jahollari for writing such a detailed [article](https://push-based.io/article/everything-you-need-to-know-about-the-resource-api) about resource and rxResource on Push Based.
-
-
-
-
-
-
-

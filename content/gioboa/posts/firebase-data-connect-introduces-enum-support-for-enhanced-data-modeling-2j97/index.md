@@ -11,7 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
-Enums allow you to quickly define a list of static, predefined values with a specific order, which can significantly improve data integrity and code readability within your applications. 
+Enums allow you to quickly define a list of static, predefined values with a specific order, which can significantly improve data integrity and code readability within your applications.
 Now with Firebase, you can use Enum to improve your database models.
 
 ## Defining and Using Enums
@@ -57,9 +57,9 @@ This means you can use them directly in your generated types and operations, pro
 
 ## Enum features
 
-Data Connect's enum feature lets you use enums directly in GraphQL queries to `filter data` based on specific `enum values`. There's a `wide range of filtering options` available, like equals, not equals, greater than, less than, and more. 
+Data Connect's enum feature lets you use enums directly in GraphQL queries to `filter data` based on specific `enum values`. There's a `wide range of filtering options` available, like equals, not equals, greater than, less than, and more.
 
-You can even `count` how many times each enum value appears using the _count function. Feel free to add new values to your enums, but be careful with the order, as it affects how filtering works.
+You can even `count` how many times each enum value appears using the \_count function. Feel free to add new values to your enums, but be careful with the order, as it affects how filtering works.
 
 You can also test your enums locally using the [VS Code emulator](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.firebase-dataconnect-vscode) to make sure everything is working smoothly before you go live.
 
@@ -75,4 +75,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Until next time 👋
 
 {% embed https://dev.to/gioboa %}
-

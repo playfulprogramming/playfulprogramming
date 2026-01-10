@@ -11,7 +11,7 @@ socialImage: "social-image.png"
 }
 ---
 
-Photo by [Christin Hume](https://unsplash.com/@christinhumephoto?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/career?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+Photo by [Christin Hume](https://unsplash.com/@christinhumephoto?utm_source=unsplash\&utm_medium=referral\&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/career?utm_source=unsplash\&utm_medium=referral\&utm_content=creditCopyText)
 
 My friend [Vinit Shahdeo](https://twitter.com/Vinit_Shahdeo) asked me to share my experience as Software Engineer, [here](https://vinitshahdeo.dev/10-lessons-learned-as-software-engineer-at-postman) is the article from Vinit sharing his learnings.
 
@@ -23,7 +23,7 @@ You get paid to work for 8hrs a day, and before the pandemic, we had to travel f
 
 ## Stay away from Bonds.
 
-My journey started at an office inside 2 BHK flat, where there was no AC 😂 it was worst in summer to be sitting there for 8hrs, but leave it aside. I joined as a trainee, and I had a Bond for a year. I quickly came to know this job is very toxic, and I have nothing to learn here. I wanted to leave but could not, as I had a Bond for a year. 
+My journey started at an office inside 2 BHK flat, where there was no AC 😂 it was worst in summer to be sitting there for 8hrs, but leave it aside. I joined as a trainee, and I had a Bond for a year. I quickly came to know this job is very toxic, and I have nothing to learn here. I wanted to leave but could not, as I had a Bond for a year.
 
 ## Start Taking Extra Responsibility Once you are Ready.
 
@@ -31,16 +31,15 @@ As we say, "If you want to become a Senior Software Engineer, Start acting like 
 
 ## Don't waste your free time
 
-You may not have some work to do every week 8hrs*5 days. You will also have free time; it's ok to enjoy it, but make sure you also utilize that free time to learn something new. Most of the organizations I worked with had Pluralsight subscriptions; also, YouTube has excellent content. Remember, you are not going to get that time back.
+You may not have some work to do every week 8hrs\*5 days. You will also have free time; it's ok to enjoy it, but make sure you also utilize that free time to learn something new. Most of the organizations I worked with had Pluralsight subscriptions; also, YouTube has excellent content. Remember, you are not going to get that time back.
 
 ## Stay Away from Politics at work.
 
-I have been into situations where we had some people playing dirty politics. My suggestion even if it benefits you, it will not be for a long time. Please stay away from it; focus on your work. 
+I have been into situations where we had some people playing dirty politics. My suggestion even if it benefits you, it will not be for a long time. Please stay away from it; focus on your work.
 
 ## Think out of the Box
 
-Whenever I got the opportunity to build something, I always used to think like a user. In my earlier days, I was the designer, coder, PM, and BA. I used to think of end-to-end flow, how I could make it easier to use. For example, I had to make some changes to our Inventory management application to change some taxes values. I added an extra module to add new taxes and change the existing Tax values. 
-
+Whenever I got the opportunity to build something, I always used to think like a user. In my earlier days, I was the designer, coder, PM, and BA. I used to think of end-to-end flow, how I could make it easier to use. For example, I had to make some changes to our Inventory management application to change some taxes values. I added an extra module to add new taxes and change the existing Tax values.
 
 ## Share what you learned.
 
@@ -54,10 +53,9 @@ Getting involved in the community helps you learn new technologies, take differe
 
 The last learning from my Career so far, start contributing to Open Source. I have learned a lot by contributing to Open Source, and it made me a better developer at work. As going through the code base of projects, Angular made me learn the internals of the framework. Also, I got recognition like GDE and GitHub Star, which made my work more visible in the community.
 
-
-You can also read my journey below 
+You can also read my journey below
 {% link https://dev.to/this-is-learning/my-journey-into-tech-1l6d %}
 
-Also I shared How I went from $1000 to better salary 
+Also I shared How I went from $1000 to better salary
 
 {% link https://dev.to/this-is-learning/my-developer-journey-how-i-went-from-making-1-000-to-better-salary-11om %}

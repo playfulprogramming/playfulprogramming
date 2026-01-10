@@ -12,12 +12,11 @@ order: 1
 }
 ---
 
-
 Welcome back Guys,
 Today I'll show you some utility operators.
 Let's start :)
- 
-* **[tap](https://rxjs.dev/api/operators/tap)**
+
+- **[tap](https://rxjs.dev/api/operators/tap)**
 
 > Used to perform side-effects for notifications from the source observable
 
@@ -36,16 +35,18 @@ of('a', 'b', 'c')
   )
   .subscribe()
 ```
+
 ```console
 tap: a
 tap: b
 tap: c
 tap: complete
 ```
+
 This operator helps us to get some info about the observable during its execution. This operator is equal to the subscriber and it uses three methods to get info: next, complete, and error.
 What could happen in these three methods? Exactly what you want :) You can run a side-effect or log the values. Usually I prefer logging info in this operator and not run side effects because at times side effects are difficult to test.
 
-* **[delay](https://rxjs.dev/api/operators/delay)**
+- **[delay](https://rxjs.dev/api/operators/delay)**
 
 > Delays the emission of items from the source Observable by a given timeout or until a given Date.
 
@@ -62,6 +63,7 @@ of('a', 'b', 'c')
   )
   .subscribe()
 ```
+
 ```console
 17:08:26 tap before delay: a
 17:08:26 tap before delay: b
@@ -70,10 +72,11 @@ of('a', 'b', 'c')
 17:08:27 tap after delay: b
 17:08:27 tap after delay: c
 ```
-![delay Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3a3bbb7mnlaunt47ke9o.jpg)
+
+![delay Marble Diagram](./3a3bbb7mnlaunt47ke9o.jpg)
 This operator is used to wait some specific time before emitting the value.
 
-* **[timestamp](https://rxjs.dev/api/operators/timestamp)**
+- **[timestamp](https://rxjs.dev/api/operators/timestamp)**
 
 > Attaches a timestamp to each item emitted by an observable indicating when it was emitted
 
@@ -87,15 +90,17 @@ of('a', 'b', 'c')
   )
   .subscribe(console.log)
 ```
+
 ```console
 { value: 'a', timestamp: 1629385746523 }
 { value: 'b', timestamp: 1629385746528 }
 { value: 'c', timestamp: 1629385746528 }
 ```
+
 This operator is used to attach a timestamp to each emitted item. The timestamp indicates the time when the value was emitted.
 This operator can be helpful during debugging or if we need to have info about the time emission of the value.
 
-* **[timeout](https://rxjs.dev/api/operators/timeout)**
+- **[timeout](https://rxjs.dev/api/operators/timeout)**
 
 > Errors if Observable does not emit a value in given time span.
 
@@ -136,6 +141,7 @@ source$
       }
   })
 ```
+
 ```console
 0
 1
@@ -149,9 +155,10 @@ source$
 Something Wrong!
 Timeout 1500ms: info: {"meta":null,"lastValue":null,"seen":9}
 ```
+
 This operator checks the time of the execution of the observable, if the value is not emitted within the timeout time the operator throws an error.
 
-* **[toArray](https://rxjs.dev/api/operators/toArray)**
+- **[toArray](https://rxjs.dev/api/operators/toArray)**
 
 > Collects all source emissions and emits them as an array when the source completes.
 
@@ -166,6 +173,7 @@ of('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
   )
   .subscribe(console.log)
 ```
+
 ```console
 [
   'a', 'b', 'c',
@@ -173,11 +181,12 @@ of('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
   'g', 'h'
 ]
 ```
-![toArray Marble Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/btr18a4jnjfusx3dke3a.jpg)
+
+![toArray Marble Diagram](./btr18a4jnjfusx3dke3a.jpg)
 This operator converts a sequence of values in one array, where all the array's items are the emitted values in sequence.
 
 Ok Guys, from the Utilities Operators is all.
 [Here](https://github.com/Puppo/rxjs-getting-started/tree/09-utility-operators) you can find all the code of this article.
 
 See you soon,
-Bye Bye! 
+Bye Bye!

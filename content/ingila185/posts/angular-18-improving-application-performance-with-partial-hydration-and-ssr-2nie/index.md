@@ -46,6 +46,7 @@ Utilizing partial hydration is going to be straightforward as mentioned in [the 
   }
 }
 ```
+
 In this example:
 
 - `my-deferrable-component` is rendered on the server.
@@ -55,7 +56,3 @@ In this example:
 ## Conclusion
 
 Partial hydration is one of the most requested features of Angular that empowers Angular developers to create performant and user-friendly applications. By strategically deferring component hydration based on user interaction or visibility,  Angular 18 ensures a smooth and responsive user experience, especially for complex and data-heavy applications.
-
-
-
-

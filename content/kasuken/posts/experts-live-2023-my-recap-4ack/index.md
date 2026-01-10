@@ -14,11 +14,11 @@ I’m excited to share with you my experience at **Experts Live Europe 2023**, a
 
 I arrived in Prague on Sunday, the day before the pre-conference day and in the afternoon I met some new friends from the communities who I never met in person.
 
-![Me in Prague](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wzl10s5iq19j05ig5agh.png)
+![Me in Prague](./wzl10s5iq19j05ig5agh.png)
 
 We hanged around in the city for a few hours and then I came back to the hotel for finalizing my sessions.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wq9bdqzqzw9wcv6hfejr.png)
+![Image description](./wq9bdqzqzw9wcv6hfejr.png)
 
 ## Day One
 
@@ -35,7 +35,7 @@ It means that a lot of people are interested on staying up-to-date with the late
 
 In the meantime I worked from the speakers room and time to time I started to meet and greet the other speakers that started to arrive to the venue after the travel and a short break in the hotel room.
 
-![Me and Jonah](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/p50pyb65u97but93jne9.png)
+![Me and Jonah](./p50pyb65u97but93jne9.png)
 
 After dinner I went to my hotel room to a short refresh of my session about Git and GitFlow for PowerShell. I never delivered this session at an event (but only at internal event in the company) and I was so nervous about the results.
 
@@ -44,17 +44,17 @@ After dinner I went to my hotel room to a short refresh of my session about Git 
 I went to the venue very early because I would like to meet attendees and other speakers just before the keynote.
 A lot of speakers were in the speaker rooms as well.
 
-![My Slides Selfie](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/d4iz7myc9ah8vc6qg3us.png)
+![My Slides Selfie](./d4iz7myc9ah8vc6qg3us.png)
 
 At 09:00 o’clock the event started with a great keynote introduction delivered by **Isidora** and **Holly**. It was really fun and at the same time they told a lot of useful about the venue and the event in general.
 
-![Stormtroopers](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ipqfhlx4hd86l2bgwfus.png)
+![Stormtroopers](./ipqfhlx4hd86l2bgwfus.png)
 
 After them, the real star, **Troy Hunt**, started with his keynote about **“Lessons From Billions of Breached Records”.**
 One the best keynote that I saw in my life at event. It was a mix about fun stories, lesson learned and some technical tips and lessons from the fields.
 I didn’t have any doubts about the quality but the keynotes, in my opinions, are one of the most difficult sessions to prepare for an event.
 
-![Troy Hunt](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dags7kauwju7yytp5c9c.png)
+![Troy Hunt](./dags7kauwju7yytp5c9c.png)
 
 After the 30 minutes coffee break, it was my turn!
 My first session of the day, it was my new one: **GIT and Gitflow for PowerShell.**
@@ -65,7 +65,7 @@ This is the abstract of my session:
 
 In this session, I will show you the fundamental concepts of GIT in a hands-on manner, so bring your laptop along. By the end of the session, you'll be able to effectively utilize GIT for your PowerShell scripts, for backup and version control purposes.”
 
-![First Slide](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zcp2v2fcc8qnhgl211h9.png)
+![First Slide](./zcp2v2fcc8qnhgl211h9.png)
 
 Before I started, I asked to the attendees (more than 100+) if someone have some experience about Git and GitFlow. For the first topics someone raised their hands, for GitFlow, actually no one.
 
@@ -73,7 +73,7 @@ I decided to make a short introduction to common git commands to understand bett
 
 I started the talk, showing a real folder shared by my colleagues without using Git or GitFlow and people appreciated this story because it’s a very common approach in the people who work with PowerShell or scripting languages in general.
 
-![My Session](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yz0nawwv4maq3qstlt4i.png)
+![My Session](./yz0nawwv4maq3qstlt4i.png)
 
 During the sessions I saw some MVPs and other speakers in the crowd and it made me happy and more nervous at the same time. 🙂
 
@@ -91,7 +91,7 @@ The session is: ****Automate your tenant with PowerShell and Azure Functions.***
 This is the abstract of the session:
 ”This talk will introduce you to the capabilities of Azure PowerShell Function Apps for Azure administration, interactions with Microsoft 365 and much more. We'll explore the possibilities of these apps through real-world examples, and then guide you through the process of creating and deploying your own Azure Function Apps using PowerShell. With hands-on demonstrations, you'll be equipped to utilize Azure Function Apps to their full potential.”
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/w0n2uwtwmj2b7pgjyyj9.jpg)
+![Image description](./w0n2uwtwmj2b7pgjyyj9.jpg)
 
 I delivered the session in a different room from the morning. It was smallest but I had people standing up at the end of the room!
 I had the same experience at Experts Live Netherland.
@@ -108,7 +108,7 @@ Day two means **Party Time**!
 After all sessions and a short break to give time to people to recover a little bit, get a quick shower and change the clothes, the party started in the Expo Area.
 We had a super awesome dinner all together in the biggest room and we had some fun with a girl power rockband!
 
-![Rock Band](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/a0dznni8v3ryr79dh21k.jpg)
+![Rock Band](./a0dznni8v3ryr79dh21k.jpg)
 
 At the same time people had fun with a photo booth with a lot of geek gadgets and hanging around with speakers and attendees.
 It was great to spend time all together. This is the real spirit of these kind of events.
@@ -128,7 +128,7 @@ The other panelists were:
 - **Samuel Erskine**
 - **Femke Cornelissen**
 
-![Panel](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/t24atmsqjhl7g8wlmso6.jpg)
+![Panel](./t24atmsqjhl7g8wlmso6.jpg)
 
 Every one have different experiences, someone long, someone short but with different point of views. For instance, Kasia and Ela changed the path for their careers with different areas and roles.
 There are a good number of people interested in this panel and we received a lot of questions from the attendees, after few questions from our host.
@@ -138,7 +138,7 @@ For the first time I talked about my Asperger Syndrome in public. It was a surpr
 I think now I processed this “diagnosis” very well, even if sometimes I think about it as a kind of “problem” that I would like to know about it when I was young and not almost at 40 years old.
 I will write another blog post in the future about this topic.
 
-![Me at the panel](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bl6utboml8cwx9zj86fu.jpg)
+![Me at the panel](./bl6utboml8cwx9zj86fu.jpg)
 
 Unfortunately the event was almost at the end in the afternoon, but there was one of the best important activity for a conference: the raffle! 😀
 
@@ -149,7 +149,7 @@ After a short introduction and “thanks” by Isidora on stage, all the attende
 In the previous weeks/months Isidora and me (Isidora more than me) started to prepare a little surprise for everyone at the event.
 Since a while I started to play the guitar again at home, after 20 years. I share very often my progress and some song to my Instagram stories and other socials.
 
-![me in the speaker room with the guitar](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gyhaekwkj9fsoks4vxgc.png)
+![me in the speaker room with the guitar](./gyhaekwkj9fsoks4vxgc.png)
 
 The first idea would be to sing a song during the party, taking the stage together with the rock band.
 Then Isidora changed her mind and asked me to play something on the last night, during the final aperitif.
@@ -162,16 +162,16 @@ Then I decided.
 - I don't know a thing about love by White Buffalo
 - In the name of love by U2 (acoustic version)
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/uzgbqu4aw2eosctnzrsm.jpg)
+![Image description](./uzgbqu4aw2eosctnzrsm.jpg)
 
 Before I was called on stage I was very nervous, very much so I would say.
 Even though I'm quite used to getting on a stage to speak, which has become a bit of a comfort zone of mine, I haven't sung in front of so many people in a very long time.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pe7y1gwss3928ngfquqp.jpg)
+![Image description](./pe7y1gwss3928ngfquqp.jpg)
 
 When I started with the first song, I was very nervous and I think people heard it in my voice as soon as I sang the first notes.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fneqantbkigv1qlgim7u.jpg)
+![Image description](./fneqantbkigv1qlgim7u.jpg)
 
 After the three song I was quite happy. I did a big error at the end but it should happen. I am not a professional singer or guitar player.
 I had mixed feelings after the show.
@@ -186,6 +186,7 @@ I can say, however, that it was perhaps **the best event I have ever attended as
 Until next time, happy coding! 😊
 
 ---
+
 Some additional info about Experts Live Europe
 
 Website: https://www.expertslive.eu/
@@ -195,6 +196,6 @@ In the Facebook page you can find all the photos taken by Petra Katanic, one of 
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

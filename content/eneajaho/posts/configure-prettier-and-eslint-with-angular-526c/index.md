@@ -18,19 +18,19 @@ Everyone wants to write code in a fast bug-free way without thinking about its s
 By statically analyzing our code, ESLint can find problems and also suggest us fixes for them. And it can do better than that, it can fix our code automatically (who doesn’t want that?).
 
 ## Install and configure ESLint
+
 In this section, I will explain how to install ESLint in an Angular project and also configure it to better align with the Angular style guide and community standards.
 
 Open the terminal and install ESLint schematics using this command:
 
 `ng add @angular-eslint/schematics`
 
-_That was it._ Now we have ESLint installed and also configured thanks to `**ng add**` command provided by the [Angular-ESLint](https://github.com/angular-eslint/angular-eslint) team.
+*That was it.* Now we have ESLint installed and also configured thanks to `**ng add**` command provided by the [Angular-ESLint](https://github.com/angular-eslint/angular-eslint) team.
 Example error and how ESLint helps to fix it:
 
-![ESLint error about Angular input binding alias](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7oh2q1xzbk86t3tlkzri.png)
- 
-![ESLint quick fix for Angular Input aliasing](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/byr95yw546cd0splg5wi.png)
- 
+![ESLint error about Angular input binding alias](./7oh2q1xzbk86t3tlkzri.png)
+
+![ESLint quick fix for Angular Input aliasing](./byr95yw546cd0splg5wi.png)
 
 We can also run this command in terminal:
 `ng lint --fix`
@@ -76,7 +76,6 @@ That’s it about Prettier. But we are not finished.
 
 > There are times where ESLint and Prettier have different opinions about code formatting and style. That’s why we need to tweak this part. [More info here](https://prettier.io/docs/en/integrating-with-linters.html).
 
-
 ## Configure Prettier to be used as an ESLint plugin
 
 For ESLint and Prettier to play well together, we need to run Prettier as an ESLint plugin. This way we can just call `ng lint --fix` and ESLint will fix bugs but also format the code.
@@ -87,7 +86,8 @@ Open terminal and type:
 npm install prettier-eslint eslint-config-prettier eslint-plugin-prettier — save-dev
 ```
 
-or if you're using yarn: 
+or if you're using yarn:
+
 ```bash
 yarn add prettier-eslint eslint-config-prettier eslint-plugin-prettier -D
 ```
@@ -126,6 +126,7 @@ Now we need to edit the **.eslintrc.json** file to include the prettier plugin.
 ```
 
 ## VSCode and Webstorm shortucts
+
 That was it. We’re done with the configuration part.
 
 After we edit a file, we want to format it and then save. That’s what we will configure now for both [VS Code](https://code.visualstudio.com/) and [Webstorm](https://www.jetbrains.com/webstorm/).
@@ -155,8 +156,8 @@ For VS Code we need to add this lines to **settings.json**:
 
 For Webstorm:
 We need to check: **Run eslint --fix** on **Actions On Save** settings page:
-![Webstorm Fix File on save](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/2zxixylmdqzfush1gjfv.png)
- 
+![Webstorm Fix File on save](./2zxixylmdqzfush1gjfv.png)
+
 > Here you can find the steps summed up: [Angular ESLint & Prettier Configuration](https://gist.github.com/eneajaho/17bbcf71c44eabf56d404b028572b97b)
 
 ## How to automate all these configurations?
@@ -165,9 +166,8 @@ As you saw, there are a lot of packages that you should install and configure. A
 
 **What is NX?**
 NX is the next generation **build system** with **first-class monorepo support** and powerful integrations.
-If we _migrate our Angular app_ to an Nx monorepo (there is a [straightforward migration path](https://nx.dev/migration/migration-angular)) we get all those configurations for free out-of-the-box.
+If we *migrate our Angular app* to an Nx monorepo (there is a [straightforward migration path](https://nx.dev/migration/migration-angular)) we get all those configurations for free out-of-the-box.
 But what makes NX special are some crazy features like **computation caching**, **smart rebuilds**, **distributed task execution**, **remote build caching**, **powerful code generators**, **editor plugins**, etc.
 
-**That was it. Thank you for reading! See you on the next one.
-**
-
+\*\*That was it. Thank you for reading! See you on the next one.
+\*\*

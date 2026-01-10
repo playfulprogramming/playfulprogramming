@@ -213,6 +213,7 @@ However, Web Workers also have some limitations that you should be aware of, suc
 - Workers may not be supported by older browsers or environments.
 
 ## Conclusion
+
 In this post we learned how to create a simple Web Workers but you can use the same approach for your business logic as well.
 Web Workers are also one of the fundamental feature for creating Progressive Web Applications. We will see this topic in the next series on my blog.
 
@@ -220,7 +221,7 @@ Web Workers are also one of the fundamental feature for creating Progressive Web
 
 Are you interested in learning GitHub but don't know where to start? Try my course on LinkedIn Learning: [Learning GitHub](https://bit.ly/learninggithub).
 
-![LinkedIn Learning](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sdc2bpiftpadibi4h51c.gif)
+![LinkedIn Learning](./sdc2bpiftpadibi4h51c.gif)
 
 ---
 

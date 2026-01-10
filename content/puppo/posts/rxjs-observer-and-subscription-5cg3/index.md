@@ -17,8 +17,10 @@ Welcome back guys,
 today the topics of the article are **Observers** and **Subscriptions**.
 
 ## Observer
-An observer is a consumer of values. An observer is something that is interested to the emitted values by the observable. In RxJS an Observer is simply a set of callbacks (next, error, complete). 
+
+An observer is a consumer of values. An observer is something that is interested to the emitted values by the observable. In RxJS an Observer is simply a set of callbacks (next, error, complete).
 Here's a simple example of an observer
+
 ```ts
 import { Observer } from "rxjs";
 
@@ -31,6 +33,7 @@ const observer: Observer<string> = {
     console.log(`[observer] complete!`),
 };
 ```
+
 As you can see an observer has three callbacks, one for each type of notification that an Observable may emit. Every callback can react in the base of the observable event notification.
 An observer could have not all the three callbacks defined because maybe it doesn't want to react to all the notifications. In these cases, you can create an observer with the only callbacks you need.
 
@@ -56,17 +59,20 @@ const completeObserver: CompletionObserver<string> = {
     console.log(`[completeObserver] complete!`),
 };
 ```
+
 It's possible to define a NextObserver without the next property but indicating only the body of the next method, in this case, the observer by default is of the type NextObserver.
+
 ```
 const defaultNextObserver: (value: string) => void = (value: string) =>
     console.log(`${new Date().toISOString()} - [defaultNextObserver] next`, value)
 ```
 
 ## Subscription
+
 A Subscription is an actor that decides when an Observable must be listened and when we can stop listening to it.
 Until an observable is not subscribed in your code nothing happens, but as soon as you create a subscription, the magic starts.
 A Subscription in RxJS is an object created using the method "subscribe" and it has one main method: "unsubscribe"; this method allows you to stop listening the observable event.
-_In your code is **important** to call the "unsubscribe" when you no longer need the subscription, this prevent problems as the memory leaks._
+*In your code is **important** to call the "unsubscribe" when you no longer need the subscription, this prevent problems as the memory leaks.*
 An example of a Subscription
 
 ```ts
@@ -77,7 +83,9 @@ const observer = (value: string) => console.log(`[unsubscribe method] next`, val
 const subscription: Subscription = observable.subscribe(observer);
 subscription.unsubscribe();
 ```
+
 Another pretty feature in RxJS Subscription is the "add" method; this method allows you to collect more subscriptions inside of one Subscription instance and after that, you can unsubscribe all the subscriptions at once time.
+
 ```ts
 import { Subscription } from "rxjs";
 
@@ -98,6 +106,7 @@ subscription.add(
 
 subscription.unsubscribe();
 ```
+
 In some cases when you call the unsubscribe method you need to run some special code in your observable: RxJS let us do this using a special syntax inside of the observable declaration. When you create the observable you can return a function that the library invokes in the future during the unsubscription. Below a simple example to understand better the problem and the solution:
 
 ```ts
@@ -143,6 +152,7 @@ setTimeout(() => {
 [observableWithCallback] Next: Count: 9
 On UnSubscription
 ```
+
 Ok, guys, that's all for today.
 In the next article we'll see the last fundamental of RxJS: the *Operator* and later, we can move to see the features of this Library.
 

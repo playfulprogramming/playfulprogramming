@@ -15,9 +15,10 @@ VS Code tasks are powerful, but most developers barely use them. The problem is 
 
 I built **TaskDeck** to remove that tax. I wanted a simple way to see all tasks in one place, launch them with one click, and stop jumping between JSON files, menus, and shortcuts. No magic, no reinvention. Just a faster way to work inside VS Code.
 
-![TaskDesk Demo](https://github.com/kasuken/vscode-taskdeck/raw/HEAD/img/demo.gif)
+![TaskDesk Demo](./demo.gif)
 
 ### Links
+
 - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=emanuelebartolesi.taskdeck)
 - [Repository](https://github.com/kasuken/vscode-taskdeck)
 
@@ -51,7 +52,7 @@ TaskDeck started as a selfish idea: reduce my friction.
 
 ## Introducing TaskDeck
 
-![TaskDesk Logo](https://github.com/kasuken/vscode-taskdeck/raw/HEAD/img/biglogo.png)
+![TaskDesk Logo](./biglogo.png)
 
 TaskDeck is a VS Code extension that gives tasks the visibility they deserve. It adds a dedicated side panel that lists every task from your workspace, ready to run with a single click.
 
@@ -110,7 +111,7 @@ Example workspace task definition:
 
 How TaskDeck shows it:
 
-![TaskDesk Demo](https://github.com/kasuken/vscode-taskdeck/raw/HEAD/img/demo.gif)
+![TaskDesk Demo](./demo-1.gif)
 
 You see everything immediately. No guessing and no hunting through JSON.
 
@@ -121,12 +122,12 @@ You click it and VS Code runs the task right away.
 
 This is especially useful for actions you repeat daily:
 
-* build the solution
-* run the backend
-* run the frontend
-* run tests
-* run code generation
-* run a watcher
+- build the solution
+- run the backend
+- run the frontend
+- run tests
+- run code generation
+- run a watcher
 
 No palette. No typing. No remembering.
 
@@ -134,9 +135,9 @@ No palette. No typing. No remembering.
 
 TaskDeck loads tasks from:
 
-* `.vscode/tasks.json`
-* the root of the workspace
-* multi-root workspaces
+- `.vscode/tasks.json`
+- the root of the workspace
+- multi-root workspaces
 
 If tasks are defined, they show up automatically.
 If you add a new task, the panel updates without reloading the extension.
@@ -159,10 +160,10 @@ VS Code exposes an API that returns all tasks defined in the workspace. The exte
 
 Key points I focused on:
 
-* load tasks once on activation
-* listen for changes in workspace files
-* refresh the tree when tasks.json is updated
-* stay lightweight so activation time stays near-zero
+- load tasks once on activation
+- listen for changes in workspace files
+- refresh the tree when tasks.json is updated
+- stay lightweight so activation time stays near-zero
 
 No custom parsing. No extra config. Just using the official tasks provider.
 
@@ -185,10 +186,10 @@ Workspace Folder
 
 Tree nodes expose:
 
-* a label
-* an optional icon
-* a tooltip
-* a command to run the task
+- a label
+- an optional icon
+- a tooltip
+- a command to run the task
 
 This keeps the implementation small and makes the UI responsive.
 
@@ -215,11 +216,11 @@ This avoids the common problem where tasks from different services get mixed tog
 
 A few things became clear while building TaskDeck:
 
-* Tasks are powerful but under-exposed in the UI.
-* Most developers never open `tasks.json` unless they have to.
-* A simple UI change can unlock the value of an existing feature.
-* VS Code’s APIs make this kind of extension surprisingly easy once you understand tree views.
-* Good defaults matter more than new features.
+- Tasks are powerful but under-exposed in the UI.
+- Most developers never open `tasks.json` unless they have to.
+- A simple UI change can unlock the value of an existing feature.
+- VS Code’s APIs make this kind of extension surprisingly easy once you understand tree views.
+- Good defaults matter more than new features.
 
 TaskDeck was built with a “minimum friction” mindset.
 Do less, but do it well.
@@ -244,9 +245,9 @@ Just a lightweight way to jump directly to the task definition or toggle simple 
 
 Multi-root workspaces work well today, but a few enhancements could improve clarity:
 
-* collapsible sections
-* root-level summaries
-* optional grouping modes
+- collapsible sections
+- root-level summaries
+- optional grouping modes
 
 ### Telemetry-Free Insights
 
@@ -265,6 +266,7 @@ If you have ideas or requests, open an issue on GitHub or leave feedback on the 
 Try it, use it in your projects, and share your feedback.
 
 ### Links
+
 - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=emanuelebartolesi.taskdeck)
 - [Repository](https://github.com/kasuken/vscode-taskdeck)
 
@@ -272,11 +274,11 @@ Try it, use it in your projects, and share your feedback.
 
 🙋‍♂️ Hey, I'm Emanuele — you might know me online as **Kasuken**.
 
-👨‍💻 GitHub Technical Lead | Microsoft MVP (12x) | GitHub Star (4x)  
-🛠️ I build things with **.NET**, **Azure**, **AI**, and **GitHub**  
+👨‍💻 GitHub Technical Lead | Microsoft MVP (12x) | GitHub Star (4x)\
+🛠️ I build things with **.NET**, **Azure**, **AI**, and **GitHub**\
 🌈 Turning code into 🦖 and 🦄 — one commit at a time
 
-🚀 If you're into .NET, GitHub, DevOps, or just cool side projects,  
+🚀 If you're into .NET, GitHub, DevOps, or just cool side projects,\
 feel free to [connect with me on LinkedIn](https://www.linkedin.com/in/bartolesiemanuele)
 
 P.S. I break things so you don’t have to. 😉

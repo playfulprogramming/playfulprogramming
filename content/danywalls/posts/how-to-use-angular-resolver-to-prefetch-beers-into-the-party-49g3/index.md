@@ -22,7 +22,8 @@ The Resolvers help us to prefetch data, before the router finish start the trans
 The resolvers are helpful to avoid show an empty component, and  have our data ready, before move to the component.
 
 ## The Angular Party
-Let's put the resolver to test, building an app to show a list of beers from 
+
+Let's put the resolver to test, building an app to show a list of beers from
 https://api.punkapi.com/v2/beers API, using a service.
 
 The app have 2 routes ComponentRoom and ResolverRoom, each one have a different user experience.
@@ -30,7 +31,7 @@ The app have 2 routes ComponentRoom and ResolverRoom, each one have a different 
 - The Component Room, use the pipe async to get the data from the service.
 - The Resolver Room, use a resolver to get the data and the component access to it using the route.snapshot.data.
 
-## What we need to do ? 
+## What we need to do ?
 
 We will be going step by step.
 
@@ -40,9 +41,9 @@ We will be going step by step.
 4- Create the resolver.
 5- Register it and define the app routes.
 
-Also, we include another actors as Router, ActivateRoute, Observable etc… But let to works! 
+Also, we include another actors as Router, ActivateRoute, Observable etc… But let to works!
 
-> The source code is in 
+> The source code is in
 
 ## The beer service
 
@@ -50,7 +51,7 @@ We create an interface Beer and a service BeerService to provide the data from t
 
 The Beer interface have some properties of the beer API response.
 
-```typescript       
+```typescript
 export  interface  Beer {
    id: number;
    name: string;
@@ -64,8 +65,8 @@ export  interface  Beer {
 The BeerService require  inject the httpClient, to make request to the API, also using Rxjs to return  an  observable array of Beer.
 
 We import httpClient and Injectable decorator, and create the getBeers method to return the result of the request to https://api.punkapi.com/v2/beers, also using the delay operator it makes the response slow for 5 seconds.
- 
- ```typescript
+
+```typescript
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -74,20 +75,20 @@ import { Beer } from './models/beer';
 
 @Injectable()
 export class BeerService {
-  public beers$: Observable<Beer[]>;
-  constructor(private http: HttpClient) {
-    this.getBeers();
-  }
-  private getBeers(): void {
-    this.beers$ = this.http
-      .get<Beer[]>('https://api.punkapi.com/v2/beers')
-      .pipe(delay(4000));
-  }
+ public beers$: Observable<Beer[]>;
+ constructor(private http: HttpClient) {
+   this.getBeers();
+ }
+ private getBeers(): void {
+   this.beers$ = this.http
+     .get<Beer[]>('https://api.punkapi.com/v2/beers')
+     .pipe(delay(4000));
+ }
 }
 
 ```
 
-> Read more about operators and services 
+> Read more about operators and services
 > Delay Operator https://www.learnrxjs.io/learn-rxjs/operators/utility/delay
 > Services https://angular.io/tutorial/toh-pt4
 
@@ -107,6 +108,7 @@ It is the home page with 2 links to get access to routes beer-room and resolver-
     >
   </div>
 ```
+
 > More about router link https://angular.io/api/router/RouterLink
 
 ## The BeerRoom Component
@@ -184,6 +186,7 @@ Similar like the BeerComponent we iterate over the beer array using ngFor direct
       {{ beer.name }}
     </div>
 ```
+
 Done, next steps are creating the resolver and configure it with the route configuration.
 
 ## The Resolver
@@ -191,7 +194,7 @@ Done, next steps are creating the resolver and configure it with the route confi
 The key player in the article, *the resolver*, The BeerResolverService it implements the Resolve interface, the resolver works a data provider used by the router to resolve
 during the navigation process and the router, wait for it to complete before it get activated.
 
-It implements the resolve methods, same like the component we inject the beerService and return the observable beers$, also update the type return to match with Observable<Beer[]>.
+It implements the resolve methods, same like the component we inject the beerService and return the observable beers$, also update the type return to match with Observable\<Beer\[]>.
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -221,11 +224,11 @@ export class BeerResolverService implements Resolve<Observable<Beer[]>> {
 
 We don't  go deep how works router in angular, you can read more in details into the official documentation, but here  define 2 routes for our app.
 
-- The path home, load the HomeComponent. 
+- The path home, load the HomeComponent.
 - The path beer-room, load the BeerRoomComponent.
-- The path resolve-room load the component but with a special case, 
-it uses the resolve to find the data provided by resolver and store into the beer variable beers and store into the into 
-the route.snapshot.data with the key beers and the value returned by the subscription. 
+- The path resolve-room load the component but with a special case,
+  it uses the resolve to find the data provided by resolver and store into the beer variable beers and store into the into
+  the route.snapshot.data with the key beers and the value returned by the subscription.
 - The final path: ''' redirect any request to the home component.
 
 ```typescript
@@ -247,7 +250,7 @@ const routes: Routes = [
 ];
 ```
 
-## Get the experience!!! 
+## Get the experience!!!
 
 Ready, we have the 2 experiences:
 
@@ -267,4 +270,3 @@ What you think is better for our user, play with it and get your feeling!
 Hopefully, that will give you a bit of help with how and when to use resolver. If you enjoyed this post, share it!
 
 Photo by <a href="https://unsplash.com/@merittthomas?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Meritt Thomas</a> on <a href="https://unsplash.com/s/photos/beers?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  

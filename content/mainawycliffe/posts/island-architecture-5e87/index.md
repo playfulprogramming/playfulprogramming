@@ -23,15 +23,15 @@ When using a framework such as Angular or React and SPAs in general, the server 
 
 This has a few downsides, the notable ones being it's slow to show something on the screen, the impact of this is worse on low-end devices and slower internet connection and Search Engine Optimization - bots and crawlers are usually unable to render these pages and can't parse the content to show results.
 
-We have two standard solutions to solve the above problems: Server-Side Rendering (SSR) and Rendering during build time - SSG. SSG is similar to SSR but at build time, removing the need to render on every request at the server. SSG is common for sites whose content isn't that dynamic. The problem with these two solutions is that they don't solve the problem with SPAs but rather postpone it. 
+We have two standard solutions to solve the above problems: Server-Side Rendering (SSR) and Rendering during build time - SSG. SSG is similar to SSR but at build time, removing the need to render on every request at the server. SSG is common for sites whose content isn't that dynamic. The problem with these two solutions is that they don't solve the problem with SPAs but rather postpone it.
 
-If you want any sort of interactivity, say opening and closing the navbar on your web app, you will need to hydrate your rendered app from either SSG or SSR. This is the process of bootstrapping the framework you are using, transferring the state from the server so that the framework can take over. This usually happens after the first content is painted (after rendering the server-side rendered HTML from the server) but before the interactivity in your web app. 
+If you want any sort of interactivity, say opening and closing the navbar on your web app, you will need to hydrate your rendered app from either SSG or SSR. This is the process of bootstrapping the framework you are using, transferring the state from the server so that the framework can take over. This usually happens after the first content is painted (after rendering the server-side rendered HTML from the server) but before the interactivity in your web app.
 
 This means the JS needed by your framework has to be downloaded and parsed, and the user has to wait for all that to happen to interact with your web app. This would mean even on pages where you don't need interactivity, i.e., About Us Page, Terms and Conditions, etc., you still need to do all that, which is a bit unnecessary.
 
 ## Islands
 
-And this is where Islands Architecture comes in. Imagine this; what if you could create your web app with pure HTML and CSS for all the static content but then add in regions of dynamic content or interactivities - islands - that can use a framework to add interactivity. These regions would use any framework, and the framework runtime would only be downloaded only when on a page that uses it rather than on the initial load of the website. 
+And this is where Islands Architecture comes in. Imagine this; what if you could create your web app with pure HTML and CSS for all the static content but then add in regions of dynamic content or interactivities - islands - that can use a framework to add interactivity. These regions would use any framework, and the framework runtime would only be downloaded only when on a page that uses it rather than on the initial load of the website.
 
 Web frameworks such as Astro ([My website](https://mainawycliffe.dev/) is built with Astro), Marko, and most recently Qwik, among others, are implementing this architecture method. In the case of Astro, you have Astro components that use some variation of JSX but do not have a client-side state, so there is no runtime.
 
@@ -78,15 +78,15 @@ import ReactComponent from "./ReactComponent"
 
 ### Marko and Qwik
 
-While I am not an expert at either Marko.js or Qwik (the new kid in the block), I will link additional resources below if you are interested in learning more. Marko and Qwik take the concept of islands a little further when compared to Astro. 
+While I am not an expert at either Marko.js or Qwik (the new kid in the block), I will link additional resources below if you are interested in learning more. Marko and Qwik take the concept of islands a little further when compared to Astro.
 
-Marko is an MPA framework, and its Island architecture is a bit smarter in that it automatically decides to load JS needed for an Island, delaying it as far as possible, allowing for far more efficient islands. This is unlike the current Astro approach, which relies on the developer to tell Astro when to do hydration. Astro is still in the pre-release stage, and maybe this will change in the future. 
+Marko is an MPA framework, and its Island architecture is a bit smarter in that it automatically decides to load JS needed for an Island, delaying it as far as possible, allowing for far more efficient islands. This is unlike the current Astro approach, which relies on the developer to tell Astro when to do hydration. Astro is still in the pre-release stage, and maybe this will change in the future.
 
 Another key advantage Marko has over Astro is that Marko decides what is inside the Islands and what's not in it. This means components such as footers, headers, etc., that only display static content don't become islands, while forms and other rich components with dynamic content become islands that can be hydrated.
 
-Qwik, on the other hand, takes this to a component level, breaking down how hydration is done so that it is done only when needed. This is achieved by aggressively breaking apart your website's JavaScript into multiple chunks, setting up global event listeners, and serializing points of interest directly into the HTML. For each distinct user interaction, Qwik has all it needs to load only the code required to perform the action and nothing more. 
+Qwik, on the other hand, takes this to a component level, breaking down how hydration is done so that it is done only when needed. This is achieved by aggressively breaking apart your website's JavaScript into multiple chunks, setting up global event listeners, and serializing points of interest directly into the HTML. For each distinct user interaction, Qwik has all it needs to load only the code required to perform the action and nothing more.
 
-{% embed https://twitter.com/Steve8708/status/1516137857038966786?s=20&t=RGsgp0Iq1oE_OumJNuW5Ow %}
+{% embed https://twitter.com/Steve8708/status/1516137857038966786?s=20\&t=RGsgp0Iq1oE\_OumJNuW5Ow %}
 
 In return, this leads to smaller chunks, which are faster to load, parse and load only what the user needs. This is known as [progressive hydration](https://www.builder.io/blog/why-progressive-hydration-is-harder-than-you-think?utm_source=twitter), which is out of scope for this article, and hopefully, I will write about it soon.
 
@@ -96,11 +96,11 @@ This article looked at Islands Architecture, why they exist, and the frameworks 
 
 ## Resources
 
-1.  [Why Progressive Hydration is Harder than You Think](https://www.builder.io/blog/why-progressive-hydration-is-harder-than-you-think?utm_source=twitter)
-2.  [From Static to Interactive: Why Resumability is the Best Alternative to Hydration](https://www.builder.io/blog/from-static-to-interactive-why-resumability-is-the-best-alternative-to-hydration)
-3.  [JavaScript vs. JavaScript. Fight!](https://dev.to/this-is-learning/javascript-vs-javascript-fight-53fa)
-4.  [Why Efficient Hydration in JavaScript Frameworks is so Challenging](https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3)
-5.  [Resumable JavaScript with Qwik](https://dev.to/this-is-learning/resumable-javascript-with-qwik-2i29)
-6.  [Conquering JavaScript Hydration Event delegation is the key to not running over the component... Apr 15](https://dev.to/ryansolid/comment/1ni8p)
-7.  [State of JavaScript 2021: Framework Reflections](https://dev.to/ryansolid/state-of-javascript-2021-framework-reflections-2i77)
-8.  [A first look at Qwik - the HTML first framework WRITTEN BYMIŠKO HEVERY JULY 2, 2021](https://www.builder.io/blog/introducing-qwik-framework)
+1. [Why Progressive Hydration is Harder than You Think](https://www.builder.io/blog/why-progressive-hydration-is-harder-than-you-think?utm_source=twitter)
+2. [From Static to Interactive: Why Resumability is the Best Alternative to Hydration](https://www.builder.io/blog/from-static-to-interactive-why-resumability-is-the-best-alternative-to-hydration)
+3. [JavaScript vs. JavaScript. Fight!](https://dev.to/this-is-learning/javascript-vs-javascript-fight-53fa)
+4. [Why Efficient Hydration in JavaScript Frameworks is so Challenging](https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3)
+5. [Resumable JavaScript with Qwik](https://dev.to/this-is-learning/resumable-javascript-with-qwik-2i29)
+6. [Conquering JavaScript Hydration Event delegation is the key to not running over the component... Apr 15](https://dev.to/ryansolid/comment/1ni8p)
+7. [State of JavaScript 2021: Framework Reflections](https://dev.to/ryansolid/state-of-javascript-2021-framework-reflections-2i77)
+8. [A first look at Qwik - the HTML first framework WRITTEN BYMIŠKO HEVERY JULY 2, 2021](https://www.builder.io/blog/introducing-qwik-framework)

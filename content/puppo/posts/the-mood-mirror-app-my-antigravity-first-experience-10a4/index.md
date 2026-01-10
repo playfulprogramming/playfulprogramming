@@ -31,7 +31,7 @@ For more info about Google Antigravity, you can check its website [here](https:/
 
 To test the tool's full power, I decided to build the application almost entirely in "Vibe Coding". To that end, I began by setting up the project and wrote a prompt outlining my intention and what I hoped to achieve.
 
-![Antigravity Screen](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yg8obm27dltd6ty6bshh.png)
+![Antigravity Screen](./yg8obm27dltd6ty6bshh.png)
 
 In this picture, you can see what Antigravity looks like, and as you can imagine, in the chat, you can prompt our intention.
 
@@ -46,41 +46,38 @@ For my application, I entered this prompt.
 **Core Functionality:**
 
 1. **Input:** Create a clean, minimalist text area where the user enters how they feel (e.g., "I am anxious about my deadline").
-    
+
 2. **The "Director" Logic (Gemini 3):** When the user submits, send the text to Gemini 3.
 
 - Analyse the **Sentiment Score** (0 to +1.0).
-        
+
 - Extract an **Emotional Colour Palette** (e.g., "Stormy Grey and Electric Blue").
-        
+
 - Generate a **Creative Prompt** for an abstract art piece based on that emotion.
-        
+
 3. **The "Artist" Execution (Nano Banana):**
 
 - Pass the *Creative Prompt* to the Nano Banana Pro API.
-        
+
 - **Conditional Logic:** If the Sentiment Score is extreme (above 0.8 or below -0.8), request a **5-second looping Video (MP4)**. Otherwise, request a **High-Res Image (PNG)**.
-        
+
 4. **Dynamic UI:** Update the app's background gradient instantly to match the *Emotional Colour Palette* returned by Gemini while the image generates.
-    
 
 **Execution Plan:**
 
-* Scaffold the project.
-    
-* Write the SentimentService using the Gemini 3 logic.
-    
-* Implement the Nano Banana API hook.
-    
-* Deploy to preview.
-    
+- Scaffold the project.
+
+- Write the SentimentService using the Gemini 3 logic.
+
+- Implement the Nano Banana API hook.
+
+- Deploy to preview.
 
 The result of this prompt was a plan of action for Antigravity to implement my request. I got this result because I selected "planning" in the bottom-left drop-down. If you decide to go with the fast option, Antigravity doesn't show the plan and immediately develops it.
 
 Btw, I chose the planning options so that I can check and comment on this plan directly in the IDE.
 
-
-![Execution Plan](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sj7xr24a7xq3wu9e5cqh.png)
+![Execution Plan](./sj7xr24a7xq3wu9e5cqh.png)
 
 In the image above, you can see an example of the plan I received. As you can see, you can either accept it or review it, and then ask Antigravity to check your comments and review the plan.
 
@@ -88,13 +85,13 @@ The prompt and its plan are the result of this [commit](https://github.com/Puppo
 
 **What went wrong? 😑**
 
-The setup has gone smoothly and pretty well, but I ran into an issue: Antigravity generated a JavaScript application rather than a TypeScript one. Not a big deal. Later, I asked it to review the project in JavaScript and TypeScript, and it converted it without any issues. [Here](https://github.com/Puppo/the-mood-mirror/commit/66ba677e104cca6c1c09de4d339e1e6e9cae4c77) you can see the result.  
-And lastly, it generated two files, one for the Sentiment discovery and the other for the image generation, but it created a sort of mock service without.  
+The setup has gone smoothly and pretty well, but I ran into an issue: Antigravity generated a JavaScript application rather than a TypeScript one. Not a big deal. Later, I asked it to review the project in JavaScript and TypeScript, and it converted it without any issues. [Here](https://github.com/Puppo/the-mood-mirror/commit/66ba677e104cca6c1c09de4d339e1e6e9cae4c77) you can see the result.\
+And lastly, it generated two files, one for the Sentiment discovery and the other for the image generation, but it created a sort of mock service without.\
 I didn’t iterate again to fix them, but I’ve worked on them later.
 
 ## Commit linting into the project
 
-The second test I did was about setting up a development tool to verify the commit messages. I like to use commitlint and conventional commits for my project, so my second test was adding the setup for these tools.  
+The second test I did was about setting up a development tool to verify the commit messages. I like to use commitlint and conventional commits for my project, so my second test was adding the setup for these tools.\
 I opened a new chat, and I entered this prompt.
 
 *I want to add commitlint and conventional-commit to this project. Can you set it up?*
@@ -109,22 +106,21 @@ As you can see, our code review when using these tools is crucial to avoid trash
 
 ## The Gemini 3.0 integration
 
-The next test was the Gemini integration to build the Sentiment analysis service.  
-As I did in the previous tests, I started from a new chat.  
+The next test was the Gemini integration to build the Sentiment analysis service.\
+As I did in the previous tests, I started from a new chat.\
 The prompt in this case was a bit more articulated. I asked to generate a service that accepts a text and, through Gemini, returns a structured result with these fields:
 
-* *moodScore*: a value between 0 and 1 to determine the mood score
-    
-* *promptType*: This is the value that determines if the mirror will show an image or a video
-    
-* *promptText*: This is the text to pass later to generate the video or the image
-    
+- *moodScore*: a value between 0 and 1 to determine the mood score
+
+- *promptType*: This is the value that determines if the mirror will show an image or a video
+
+- *promptText*: This is the text to pass later to generate the video or the image
 
 This result must later be used to generate an image or a video using NanoBanana Pro or Veo 3.
 
 This iteration has been a bit convoluted. The first version used the old npm package `@google/generative-ai` and not the new one `@google/genai`. So I kept reiterating to get the code updated to the new version of the SDK. Another issue I had was that Antigravity created a single file to handle both images and videos. So, for that, I reiterated the need to split the logic for image and video generation into two separate files, and I also fixed the video generation to use the video model instead of the image model.
 
-After that, I got a working application that met my first requirements, and you can see a demo in the video below. *\[and* [*here*](https://github.com/Puppo/the-mood-mirror/commit/9dc0d5f74ee505ecf3f04f7baa53248eeea0e331#diff-053150b640a7ce75eff69d1a22cae7f0f94ad64ce9a855db544dda0929316519) *you can check the commit\]*
+After that, I got a working application that met my first requirements, and you can see a demo in the video below. *\[and* [*here*](https://github.com/Puppo/the-mood-mirror/commit/9dc0d5f74ee505ecf3f04f7baa53248eeea0e331#diff-053150b640a7ce75eff69d1a22cae7f0f94ad64ce9a855db544dda0929316519) *you can check the commit]*
 
 {% embed https://www.youtube.com/watch?v=098qvXvpVZQ %}
 

@@ -30,14 +30,14 @@ Azure Functions is a service that allows you to run code in the cloud without ha
 
 The following table summarizes some of the key differences between Azure Automation and Azure Functions:
 
-| Feature | Azure Automation | Azure Functions |
-| --- | --- | --- |
-| Purpose | Scripting and automating specific tasks | Event-driven, serverless computing |
-| Programming languages | PowerShell and Python | C#, Java, JavaScript, Python, PowerShell, and more |
-| User interface | Graphical and textual | Textual only |
-| Triggers | Schedules, webhooks, watchers | HTTP requests, timers, queues, blobs, events |
-| Integration | Azure Monitor, Azure Logic Apps, Azure DevOps | Azure Cosmos DB, Azure Event Grid, Azure SignalR Service |
-| Pricing model | Per job execution minute and per node hour | Per execution count and per GB-second |
+| Feature               | Azure Automation                              | Azure Functions                                          |
+| --------------------- | --------------------------------------------- | -------------------------------------------------------- |
+| Purpose               | Scripting and automating specific tasks       | Event-driven, serverless computing                       |
+| Programming languages | PowerShell and Python                         | C#, Java, JavaScript, Python, PowerShell, and more       |
+| User interface        | Graphical and textual                         | Textual only                                             |
+| Triggers              | Schedules, webhooks, watchers                 | HTTP requests, timers, queues, blobs, events             |
+| Integration           | Azure Monitor, Azure Logic Apps, Azure DevOps | Azure Cosmos DB, Azure Event Grid, Azure SignalR Service |
+| Pricing model         | Per job execution minute and per node hour    | Per execution count and per GB-second                    |
 
 As you can see from the table above, both Azure Automation and Azure Functions can be used for automating tasks and executing code in the cloud. However, they have different use cases and scenarios. For example:
 
@@ -57,6 +57,6 @@ In conclusion, both Azure Automation and Azure Functions are powerful cloud auto
 
 ---
 
-![Dev Dispatch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9x5aklqdjlp32k4xhu06.png)
+![Dev Dispatch](./9x5aklqdjlp32k4xhu06.png)
 
 If you enjoyed this blog post and want to learn more about C# development, you might be interested in subscribing to my bi-weekly newsletter called Dev Dispatch. By subscribing, you will get access to exclusive content, tips, and tricks, as well as updates on the latest news and trends in the development world. You will also be able to interact with me, and share your feedback and suggestions. To subscribe, simply navigate to https://buttondown.email/kasuken?tag=devto, enter your email address and click on the Subscribe button. You can unsubscribe at any time. Thank you for your support!

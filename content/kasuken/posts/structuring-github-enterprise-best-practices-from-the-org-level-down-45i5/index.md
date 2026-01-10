@@ -24,7 +24,7 @@ This post is based on my experience, mixed with the best practices provided dire
 
 ## 🏢 Understanding the Enterprise Hierarchy
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/55igauol3nf31f2i9o8q.png)
+![Image description](./55igauol3nf31f2i9o8q.png)
 
 Before you can optimize your GitHub setup, it’s important to understand the **three key layers** in a GitHub Enterprise environment:
 
@@ -32,10 +32,10 @@ Before you can optimize your GitHub setup, it’s important to understand the **
 
 This is the umbrella account that holds everything. It includes:
 
-* **Billing and licensing**
-* **Audit logs** across all organizations
-* **Enterprise-wide policies** (like 2FA, repository rules)
-* **SSO & SCIM integration** with your identity provider (e.g., Azure AD, Okta)
+- **Billing and licensing**
+- **Audit logs** across all organizations
+- **Enterprise-wide policies** (like 2FA, repository rules)
+- **SSO & SCIM integration** with your identity provider (e.g., Azure AD, Okta)
 
 You usually won’t push code here — this is where governance and control happen.
 
@@ -43,13 +43,13 @@ You usually won’t push code here — this is where governance and control happ
 
 Organizations are logical groupings under the Enterprise account. Each one has:
 
-* Its own **members, teams, and repositories**
-* Its own **settings and policies**
-* Use cases like:
+- Its own **members, teams, and repositories**
+- Its own **settings and policies**
+- Use cases like:
 
-  * Different **business units** (`mycompany-core`, `mycompany-research`)
-  * **External collaboration** zones (`mycompany-partners`)
-  * Open-source/public initiatives (`mycompany-oss`)
+  - Different **business units** (`mycompany-core`, `mycompany-research`)
+  - **External collaboration** zones (`mycompany-partners`)
+  - Open-source/public initiatives (`mycompany-oss`)
 
 > Tip: If different departments need different visibility, access policies, or collaboration models, it might be time to split into multiple orgs.
 
@@ -57,9 +57,9 @@ Organizations are logical groupings under the Enterprise account. Each one has:
 
 Inside each org, you define:
 
-* **Teams** to group developers (more on this later)
-* **Repos** that are owned and maintained by those teams
-* **Access control** via team-based permissions
+- **Teams** to group developers (more on this later)
+- **Repos** that are owned and maintained by those teams
+- **Access control** via team-based permissions
 
 This is where day-to-day developer activity happens — cloning, coding, PRs, reviews.
 
@@ -67,7 +67,7 @@ This is where day-to-day developer activity happens — cloning, coding, PRs, re
 
 ## 🧭 Define Clear Org Boundaries
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/km5b4mem3uqgp5yyayzk.png)
+![Image description](./km5b4mem3uqgp5yyayzk.png)
 
 As I mentioned at the beginning of the article, one of the first big decisions in GitHub Enterprise is:
 ***How many organizations should I have?***
@@ -78,40 +78,40 @@ There’s no one-size-fits-all answer, but here’s a rule of thumb:
 
 ### 🚦 When to Create a New Organization
 
-* **By Business Unit**
+- **By Business Unit**
   Example: `mycompany-core`, `mycompany-research`, `mycompany-ml`
   Useful when teams operate independently or have different release cadences.
 
-* **By Business Context**
+- **By Business Context**
   Example: `mycompany-support`, `mycompany-frauddetection`, `mycompany-underwriting`
   Useful when teams operate on a specific context.
 
-* **For External Collaboration**
+- **For External Collaboration**
   Create a separate org (e.g. `mycompany-partners`) with stricter boundaries and fewer permissions.
 
-* **By Region or Legal Entity**
+- **By Region or Legal Entity**
   Helpful in global companies with compliance or legal isolation requirements.
 
-* **For Open Source Projects**
+- **For Open Source Projects**
   Public repos often go into a clean, separate org (e.g. `mycompany-open`) to avoid leaking internals.
 
 ### ❌ When *Not* to Create a New Org
 
-* If the **same teams** need access to most repos
-* If your **SSO policies** are identical across groups
-* If managing multiple orgs introduces unnecessary complexity
+- If the **same teams** need access to most repos
+- If your **SSO policies** are identical across groups
+- If managing multiple orgs introduces unnecessary complexity
 
 ### ✅ Pro Tips
 
-* Give each org a **clear owner** (individual or team)
-* Use **naming conventions** (e.g. `mycompany-[scope]`) to keep things consistent
-* Regularly audit orgs — many enterprises discover ghost orgs with no activity or unclear purpose
+- Give each org a **clear owner** (individual or team)
+- Use **naming conventions** (e.g. `mycompany-[scope]`) to keep things consistent
+- Regularly audit orgs — many enterprises discover ghost orgs with no activity or unclear purpose
 
 ---
 
 ## ⚙️ Standardize Org Settings Across the Enterprise
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lyyf5rzxooig1o04vhwe.png)
+![Image description](./lyyf5rzxooig1o04vhwe.png)
 
 Once you have your organizations defined, the next step is making sure they **follow consistent rules**. GitHub Enterprise lets you apply **policies and settings** across all orgs — don’t let that power go unused.
 
@@ -119,26 +119,26 @@ Once you have your organizations defined, the next step is making sure they **fo
 
 At the enterprise level, you can enforce critical standards like:
 
-* **Two-Factor Authentication (2FA)**
-* **SSO Enforcement**
-* **Repository Visibility Rules**
-* **Disabling Forks** for private code
+- **Two-Factor Authentication (2FA)**
+- **SSO Enforcement**
+- **Repository Visibility Rules**
+- **Disabling Forks** for private code
 
 > Tip: These policies apply uniformly across all orgs, reducing the risk of “accidental exposure.”
 
 ### 🧰 Use Tools to Keep Things Aligned
 
-* **GitHub CLI (`gh`)**
-* **GitHub REST API**
+- **GitHub CLI (`gh`)**
+- **GitHub REST API**
 
 > Tip: I am working on a governance tool for it, but I cannot spoil anything yet 😄
 
 ### 📋 Common Settings to Standardize Across Orgs
 
-* Default branch name (`main`)
-* Repo creation permissions
-* Issue and PR templates
-* Required review rules (branch protections)
+- Default branch name (`main`)
+- Repo creation permissions
+- Issue and PR templates
+- Required review rules (branch protections)
 
 > Pro tip: Create a **“blueprint” org** with ideal settings, then replicate them when spinning up new orgs. Usually it's also a good idea to have scripts to replicate everything in just "one click"
 
@@ -146,20 +146,19 @@ At the enterprise level, you can enforce critical standards like:
 
 ## 👥 Use Teams to Model Collaboration
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ppcm0ut25rxcmb79g1o6.png)
-
+![Image description](./ppcm0ut25rxcmb79g1o6.png)
 
 ### 🧩 Functional vs. Project-Based Teams
 
-* **Functional Teams**: `frontend-devs`, `platform-engineering`, `qa-automation`
-* **Project-Based Teams**: `checkout-service`, `billing-revamp`, `ml-platform-v2`
-* Combine both with **nested teams**: `platform-engineering/api-core`
+- **Functional Teams**: `frontend-devs`, `platform-engineering`, `qa-automation`
+- **Project-Based Teams**: `checkout-service`, `billing-revamp`, `ml-platform-v2`
+- Combine both with **nested teams**: `platform-engineering/api-core`
 
 ### 📐 Naming Conventions That Scale
 
-* Use kebab-case: `team-name-subgroup`
-* Prefixes: `eng-data`, `design-system`, `ops-infra`
-* Avoid names like `devs` or `testers`
+- Use kebab-case: `team-name-subgroup`
+- Prefixes: `eng-data`, `design-system`, `ops-infra`
+- Avoid names like `devs` or `testers`
 
 ### 🔐 Use Teams for Permissions — Never Individuals
 
@@ -175,18 +174,17 @@ gh team add-repo eng-api my-org/api-service --role write
 
 ## 📦 Repositories: Naming, Templates, and Tagging
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bs8sifsld2i38e1o1jcg.png)
-
+![Image description](./bs8sifsld2i38e1o1jcg.png)
 
 ### 🏷️ Use Human-Friendly Naming Conventions
 
-* `web-auth-service`, `data-ingestion`, `infra-terraform-modules`
-* Avoid: `test123`, `stuff`, `backend-copy-2`
+- `web-auth-service`, `data-ingestion`, `infra-terraform-modules`
+- Avoid: `test123`, `stuff`, `backend-copy-2`
 
 ### 📄 Standardize with Templates
 
-* `README.md`, `LICENSE`, `SECURITY.md`, issue/PR templates
-* Create new repos from templates:
+- `README.md`, `LICENSE`, `SECURITY.md`, issue/PR templates
+- Create new repos from templates:
 
 ```bash
 gh repo create my-org/new-service --template my-org/service-template
@@ -202,7 +200,7 @@ Examples: `backend`, `terraform`, `internal-tool`, `demo`
 
 ## 🔐 Permissions and Security — Without Pain (or at least, less pain)
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9kyo9ui649r3xtf28sj3.png)
+![Image description](./9kyo9ui649r3xtf28sj3.png)
 
 ### 🎯 Follow the Principle of Least Privilege
 
@@ -217,9 +215,9 @@ Always assign roles to **teams**, not users.
 
 ### 🛡️ Protect Main Branches
 
-* Require PR reviews
-* Require CI checks
-* Restrict force-pushes and deletions
+- Require PR reviews
+- Require CI checks
+- Restrict force-pushes and deletions
 
 ### 👥 Use CODEOWNERS
 
@@ -229,16 +227,15 @@ Always assign roles to **teams**, not users.
 
 ### 🔍 Enable Security Features
 
-* Dependabot alerts and updates
-* Code scanning (CodeQL)
-* Secret scanning
+- Dependabot alerts and updates
+- Code scanning (CodeQL)
+- Secret scanning
 
 ---
 
 ## 🤖 Automation and Observability
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vau4gxobzv5k75ntrpst.png)
-
+![Image description](./vau4gxobzv5k75ntrpst.png)
 
 ### 🔁 Automate the Repetitive Stuff
 
@@ -258,21 +255,21 @@ jobs:
 
 ### 🛠 Tools to Keep GitHub Clean
 
-* **GitHub Insights**
-* **Audit Logs**
-* **Dashboards** via OctoGraph, Power BI, or custom scripts (or the tool I am developing 🚀)
+- **GitHub Insights**
+- **Audit Logs**
+- **Dashboards** via OctoGraph, Power BI, or custom scripts (or the tool I am developing 🚀)
 
 ---
 
 ## 😬 Common Pitfalls (and How to Avoid Them)
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bxptzm1gtjmfnq5n3tci.png)
+![Image description](./bxptzm1gtjmfnq5n3tci.png)
 
-* **Org Sprawl**: too many orgs, unclear ownership
-* **Permission Spaghetti**: direct user access = hard to manage
-* **Ghost Teams/Repos**: cleanup abandoned projects
-* **No Ownership**: missing `CODEOWNERS` or `MAINTAINERS.md`
-* **Security Alerts Ignored**: monitor and act on them
+- **Org Sprawl**: too many orgs, unclear ownership
+- **Permission Spaghetti**: direct user access = hard to manage
+- **Ghost Teams/Repos**: cleanup abandoned projects
+- **No Ownership**: missing `CODEOWNERS` or `MAINTAINERS.md`
+- **Security Alerts Ignored**: monitor and act on them
 
 ---
 
@@ -287,4 +284,4 @@ GitHub Enterprise is powerful, but only if you treat it like production infrastr
 I got you. Head over to [copilotinstructions.xyz](https://www.copilotinstructions.xyz) and grab some battle-tested `copilot-instructions.md` files for PowerShell, C#, Blazor, and more.
 🤖 Turn Copilot from **helpful-ish** to **heck yeah, that's exactly what I meant.**
 
-Fork it, tweak it, make it yours. Because Copilot deserves good instructions too.  
+Fork it, tweak it, make it yours. Because Copilot deserves good instructions too.

@@ -18,7 +18,7 @@ What does that mean? The goal is to create a safe space where everyone can contr
 
 There are currently two projects in the organization, one in React.js and the other in Qwik. If you have ideas for more projects, feel free to write it down in an issue on the [community repository](https://github.com/DevLeonardoCommunity/community/issues/new). There are already quite some good-first-issue labels on the projects, so you can start contributing right away!
 
-Everyone is welcome to contribute and if you want to feel even more involved you can request to get added to the organization by creating an issue [here](https://github.com/DevLeonardoCommunity/community/issues/new?assignees=&labels=invite-request&projects=&template=invite-request.yml&title=Invite+Request+for+%3Cusername%3E).
+Everyone is welcome to contribute and if you want to feel even more involved you can request to get added to the organization by creating an issue [here](https://github.com/DevLeonardoCommunity/community/issues/new?assignees=\&labels=invite-request\&projects=\&template=invite-request.yml\&title=Invite+Request+for+%3Cusername%3E).
 
 You can find everything here: https://github.com/DevLeonardoCommunity
 
@@ -38,7 +38,7 @@ Join us: https://github.com/DevLeonardoCommunity
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

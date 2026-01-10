@@ -32,10 +32,10 @@ While I was not selected for the System Design round, this experience proved inv
 The following key takeaways will be beneficial for anyone preparing for FAANG/MAANG/GAMAM interviews:
 
 **- Coding platforms are a stepping stone, not a silver bullet:**
- While coding platforms are great for building problem-solving logic, real-world problems might require different approaches. Time management is also crucial!
+While coding platforms are great for building problem-solving logic, real-world problems might require different approaches. Time management is also crucial!
 
 **- Clarify, discuss, but don’t stall:**
- While asking questions is encouraged, striking a balance is key. Aim to reach a brute force solution, optimize it, and calculate time/space complexity within the allotted time.
+While asking questions is encouraged, striking a balance is key. Aim to reach a brute force solution, optimize it, and calculate time/space complexity within the allotted time.
 
 **- Learn from others, but find your own path:** Don’t get stuck on coding problems. Utilize resources like YouTube videos to learn different approaches and broaden your problem-solving horizons. Google seeks your unique approach, not a memorized solution.
 
@@ -48,5 +48,3 @@ I’m especially grateful to fellow Googlers who provided invaluable support, in
 This experience has been incredibly rewarding and most importantly, it has given me the exact picture of where I lag as a developer and I can’t wait to apply at Google with better preparation this time.
 
 Here’s my [portfolio](https://next-js-portfolio-two-ebon.vercel.app/en), [Github](https://github.com/Ingila185) and [LinkedIn](https://www.linkedin.com/in/ingila-ejaz/) for anyone who would like to stay in touch and say Hi!
-
-

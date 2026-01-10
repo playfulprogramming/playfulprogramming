@@ -57,7 +57,6 @@ To sum up, was this experiment worth it? Absolutely! I learned a lot of things a
 
 Anyway, if you're also interested in Qwik, you should check out [this other video](https://youtu.be/m5PX9XF1in8) I made about it. Subscribe to the channel if you want to see more videos like this one and I'll see you in the next one. Bye!
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -68,7 +67,7 @@ Join us: https://github.com/DevLeonardoCommunity
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

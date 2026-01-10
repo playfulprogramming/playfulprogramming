@@ -41,7 +41,7 @@ import { signal, linkedSignal } from '@angular/core';
 
 In this example, `linkedSignal` will always be twice the value of `sourceSignal`. Whenever sourceSignal changes, `linkedSignal` will automatically recompute its value. Here’s a more real-world example of linkedSignal:
 
-![Angular 19 linkedSignal Primitive](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/txs8jzhyrq47nvj3m1c0.png)
+![Angular 19 linkedSignal Primitive](./txs8jzhyrq47nvj3m1c0.png)
 
 The `CourseDetailComponent` component accepts a `courseId` as input and displays the number of enrolled students. We aim to reset the student count whenever the selected `courseId` changes. This necessitates a mechanism to synchronize two signals: the `courseId` and the studentCount.
 
@@ -49,13 +49,13 @@ While the usage of `computed()` can be effective in deriving values from other s
 
 - **`linkedSignal` Shorthand**
 
-
 For simpler scenarios, you can use a shorthand syntax to create `linkedSignal`:
 
 ```
 const sourceSignal = signal(10);
 const linkedSignal = linkedSignal(() => sourceSignal() * 2);
 ```
+
 This shorthand syntax is equivalent to the first overload, but it’s more concise and easier to read.
 
 ## Key Benefits of LinkedSignals
@@ -69,4 +69,4 @@ This shorthand syntax is equivalent to the first overload, but it’s more conci
 
 `linkedSignal` is a powerful new tool in Angular's reactive toolkit. By understanding its core concepts and usage patterns, you can create more robust, responsive, and user-friendly Angular applications. With its ability to combine the best aspects of `computed()` and writable signals, `linkedSignal` is poised to become an indispensable tool for Angular developers. You can learn more about `linkedSignals` [from this stackblitz](https://stackblitz.com/edit/stackblitz-starters-ejsbos?file=src%2Fmain.ts).
 
-Github PR: [https://github.com/angular/angular/pull/58189](https://github.com/angular/angular/pull/58189)
+Github PR: <https://github.com/angular/angular/pull/58189>

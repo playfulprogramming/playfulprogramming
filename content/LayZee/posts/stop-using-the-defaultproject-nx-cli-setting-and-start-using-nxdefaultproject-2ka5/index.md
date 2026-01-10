@@ -11,7 +11,6 @@ socialImage: "social-image.png"
 }
 ---
 
-
 *Cover image by DALL-E.*
 
 The `defaultProject` setting for the Nx CLI was originally inherited from the Angular CLI. In integrated and standalone Nx workspaces, the `defaultProject` setting is located in `nx.json`. In package-based Nx workspaces, `defaultProject` is located in `package.json#nx`. While it was removed from Angular CLI version 16, it is still present but unofficially deprecated in Nx version 16.x as evident by [the `nx.json` reference](https://nx.dev/reference/nx-json) which doesn't list it.

@@ -13,11 +13,11 @@ socialImage: "social-image.png"
 
 Live reloading changes to our codebase is one of the core tenants of a great developer experience. When we make changes to our codebase, we want to be able to get feedback on the results as soon as possible. Live reloading is the process of watching codebase changes and automatically rebuilding the application with the changes integrated. It can be very frustrating if you have to do this manually: save changes, stop the server, rebuild and then start the server on every change you make.
 
-Having worked with NodeJS based frameworks and frontend frameworks such as Angular and React, most (if not all) come with live reloading built-in. Some frameworks such as Flutter take this a little further with stateful [hot reloading](https://www.youtube.com/watch?v=sgPQklGe2K8&vl=en), which I won't go into details about.
+Having worked with NodeJS based frameworks and frontend frameworks such as Angular and React, most (if not all) come with live reloading built-in. Some frameworks such as Flutter take this a little further with stateful [hot reloading](https://www.youtube.com/watch?v=sgPQklGe2K8\&vl=en), which I won't go into details about.
 
 Having switched to using Golang recently, I realized I needed to solve this problem. Lucky for me, there are a few great options out there to enable this behavior. One of them is the [Air (github.com/cosmtrek/air)](https://github.com/cosmtrek/air) - a live reloading tool for Golang apps.
 
-{% embed https://twitter.com/mwycliffe_dev/status/1510881501344419840 %}
+{% embed https://twitter.com/mwycliffe\_dev/status/1510881501344419840 %}
 
 ## Installing Air
 
@@ -78,7 +78,7 @@ tmp_dir = "tmp"
   clear_on_rebuild = false
 ```
 
-Next, let me highlight a few notable configurations you might care about and might want to update for your project. 
+Next, let me highlight a few notable configurations you might care about and might want to update for your project.
 
 Under `build` in the `air.toml`; you might want to change the `cmd` property. If the entry of your golang application is in a different directory, say `server`, you can change the property to something like this:
 

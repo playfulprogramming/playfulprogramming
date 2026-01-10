@@ -13,7 +13,6 @@ order: 1
 }
 ---
 
-
 *An engineering process. Cover photo by [energepic.com](https://www.pexels.com/photo/architect-composition-data-demonstration-313691/) on Pexels.*
 
 *Original publication date: 2018-10-17.*
@@ -26,18 +25,18 @@ Design patterns to the rescue!
 
 # Complex applications
 
-A _complex application_ is characterised by at least one of these traits:
+A *complex application* is characterised by at least one of these traits:
 
-* Multiple components in the component tree that display the same piece of the application state
-* Several sources of updates for the application state such as:
-  * Multiple users interacting at the same time
-  * Back-end systems that push updated state to the browser in real-time
-  * Scheduled background tasks
-  * Proximity sensors or other device sensors
-* Very frequent updating of the application state
-* A large amount of components
-* Components built with many lines of code, reminiscent of the [Big Ball of Mud](http://www.laputan.org/mud/) AngularJS controllers of the past
-* A high level of cyclomatic complexity in components — a high concentration of logical branches or async control flows
+- Multiple components in the component tree that display the same piece of the application state
+- Several sources of updates for the application state such as:
+  - Multiple users interacting at the same time
+  - Back-end systems that push updated state to the browser in real-time
+  - Scheduled background tasks
+  - Proximity sensors or other device sensors
+- Very frequent updating of the application state
+- A large amount of components
+- Components built with many lines of code, reminiscent of the [Big Ball of Mud](http://www.laputan.org/mud/) AngularJS controllers of the past
+- A high level of cyclomatic complexity in components — a high concentration of logical branches or async control flows
 
 At the same time, we want an application that is maintainable, testable, scalable and performant.
 
@@ -47,36 +46,39 @@ Complex applications rarely have all of the valuable traits. We cannot avoid all
 
 We can think of *separation of concerns* (SoC) as compartmentalisation of our application. We group logic by system concern to be able to focus on a single concern at a time. At the topmost level, separation of concerns is an architectural discipline. In day to day development, it is knowing almost by heart exactly what goes where.
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/874g9vnjpi05y7bg1dyy.png)
+![](./874g9vnjpi05y7bg1dyy.png)
+
 <figcaption>Example of horizontal layers in a modern web application.</figcaption>
 
-We can slice our applications vertically, horizontally or both. When slicing vertically, we group software artifacts by _feature_. When slicing horizontally, we group by software _layer_. In our applications, we can categorise the software artifacts into these horizontal layers, or system concerns:
+We can slice our applications vertically, horizontally or both. When slicing vertically, we group software artifacts by *feature*. When slicing horizontally, we group by software *layer*. In our applications, we can categorise the software artifacts into these horizontal layers, or system concerns:
 
 {% gist https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c %}
+
 <figcaption>Horizontal layers of a web application.</figcaption>
 
-The same rule can be applied to our Angular components. They should only be concerned with the _presentation_ and _user interaction_ layers. The result is that we loosen the coupling between the moving parts of our systems.
+The same rule can be applied to our Angular components. They should only be concerned with the *presentation* and *user interaction* layers. The result is that we loosen the coupling between the moving parts of our systems.
 
 Sure, this process requires a lot of discipline as we are adding additional layers of abstraction, but the end result’s valuable traits make up for this. Keep in mind that we are only creating abstractions that should have been there in the first place.​
 
 # The Model-View-Presenter pattern
 
-_Model-View-Presenter_ (often abbreviated MVP) is an architectural software design pattern for implementing the user interface (UI) of an application. We use it to minimise complex logic in classes, function, and modules (_software artifacts_) that are hard to test. In particular, we avoid complexity in UI-specific software artifacts such as Angular components.
+*Model-View-Presenter* (often abbreviated MVP) is an architectural software design pattern for implementing the user interface (UI) of an application. We use it to minimise complex logic in classes, function, and modules (*software artifacts*) that are hard to test. In particular, we avoid complexity in UI-specific software artifacts such as Angular components.
 
-Like Model-View-Controller — the pattern it is derived from — Model-View-Presenter separates presentation from the domain _model_. The presentation layer reacts to changes in the domain by applying the Observer Pattern as described by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides (also known as “The Gang of Four”) in their classical book “[Design Patterns: Elements of Reusable Object-Oriented Software](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)”.
+Like Model-View-Controller — the pattern it is derived from — Model-View-Presenter separates presentation from the domain *model*. The presentation layer reacts to changes in the domain by applying the Observer Pattern as described by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides (also known as “The Gang of Four”) in their classical book “[Design Patterns: Elements of Reusable Object-Oriented Software](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612)”.
 
-In _the Observer Pattern_, a _subject_ maintains a list of _observers_ which it notifies when a state change occurs. Does this sound familiar? You guessed it, RxJS is based on the Observer Pattern.
+In *the Observer Pattern*, a *subject* maintains a list of *observers* which it notifies when a state change occurs. Does this sound familiar? You guessed it, RxJS is based on the Observer Pattern.
 
-The _view_ does not contain any logic or behaviour except in the form of data bindings and widget composition. It delegates control to a presenter when user interactions occur.
+The *view* does not contain any logic or behaviour except in the form of data bindings and widget composition. It delegates control to a presenter when user interactions occur.
 
-The _presenter_ batches state changes so that the user filling a form results in one big state change as opposed to many small changes, e.g. update the application state once per form instead of once per field. This makes it easy to undo or redo state changes. The presenter updates the state by issuing a command to the model. The state change is reflected in the view thanks to [Observer Synchronization](https://www.martinfowler.com/eaaDev/MediatedSynchronization.html).
+The *presenter* batches state changes so that the user filling a form results in one big state change as opposed to many small changes, e.g. update the application state once per form instead of once per field. This makes it easy to undo or redo state changes. The presenter updates the state by issuing a command to the model. The state change is reflected in the view thanks to [Observer Synchronization](https://www.martinfowler.com/eaaDev/MediatedSynchronization.html).
 
 ## The Angular variation
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/r58x5gccw5ptb0v67ccw.png)
+![](./r58x5gccw5ptb0v67ccw.png)
+
 <figcaption>Model-View-Presenter can be combined with Angular.</figcaption>
 
-Inspired by the original Model-View-Presenter patterns and variations, we will create software artifacts that are well-fitted for the Angular platform and its key UI building block, _the component_.
+Inspired by the original Model-View-Presenter patterns and variations, we will create software artifacts that are well-fitted for the Angular platform and its key UI building block, *the component*.
 
 Ideally, an Angular component focuses only on presentation and user interaction. In reality, we have to keep a strict discipline to make sure that our components are only concerned with presenting a piece of the application state to the user and enabling them to affect that state.
 
@@ -94,15 +96,15 @@ Our view binds onto the properties of the presenter to simply project the state 
 
 To apply the Model-View-Presenter pattern to an Angular application, we will introduce concepts that are heavily inspired by the React community. Our components will—for the purpose of these articles—belong in one of these three categories:
 
-* [Presentational components](https://dev.to/this-is-angular/presentational-components-with-angular-3961)
-* [Container components](https://dev.to/this-is-angular/container-components-with-angular-4o05)
-* Mixed components
+- [Presentational components](https://dev.to/this-is-angular/presentational-components-with-angular-3961)
+- [Container components](https://dev.to/this-is-angular/container-components-with-angular-4o05)
+- Mixed components
 
 React developers have been extracting presentational components and container components from mixed components for several years. We can use the same concepts in our Angular applications. Additionally, we will introduce the concept of presenters.
 
 ## Presentational components
 
-_Presentational components_ are purely presentational and interactive views. They present a piece of the application state to the user and enable them to affect its state.
+*Presentational components* are purely presentational and interactive views. They present a piece of the application state to the user and enable them to affect its state.
 
 With the exception of presenters, presentational components are not at all aware of any other parts of the application. They have a data binding API which describes the user interactions that they handle and the data that they need.
 
@@ -110,13 +112,13 @@ To remove most of the reasons for unit testing the UI, we keep the complexity of
 
 # Container components
 
-_Container components_ expose pieces of application state to presentational components. They integrate the presentational layer with the rest of our application by translating component-specific events to commands and queries for non-presentational layers.
+*Container components* expose pieces of application state to presentational components. They integrate the presentational layer with the rest of our application by translating component-specific events to commands and queries for non-presentational layers.
 
 Usually, we have a 1-to-1 relationship between a container component and a presentational component. The container component has class properties that match the input properties of its presentational component and methods that respond to the events that are emitted through the presentational component’s output properties.
 
 # Mixed components
 
-If a component is not a container component or a presentational component, it is a _mixed component_. Given an existing application, there is a pretty good chance that it consists of mixed components. We call them mixed components because they have mixed system concerns—they contain logic that belongs in multiple horizontal layers.
+If a component is not a container component or a presentational component, it is a *mixed component*. Given an existing application, there is a pretty good chance that it consists of mixed components. We call them mixed components because they have mixed system concerns—they contain logic that belongs in multiple horizontal layers.
 
 Do not be surprised if you stumble upon a component that—in addition to containing an array of domain objects for presentation—directly accesses the device camera, sends HTTP requests and caches application state using WebStorage.
 
@@ -124,20 +126,21 @@ While this logic is expected in an application, grouping it all in a single plac
 
 # Presenters
 
-Behavioural logic and complex presentational logic is extracted into a _[presenter](https://dev.to/this-is-angular/presenters-with-angular-2l7l)_ to get a simple presentational component. The presenter has no UI and often no or only a few injected dependencies, making it easy to test and reason about.
+Behavioural logic and complex presentational logic is extracted into a *[presenter](https://dev.to/this-is-angular/presenters-with-angular-2l7l)* to get a simple presentational component. The presenter has no UI and often no or only a few injected dependencies, making it easy to test and reason about.
 
 The presenter is rarely aware of the rest of the application. Usually, only a single presentational component references a presenter.
 
 # The Model-View-Presenter triad
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/gcwxp1i8k82svjgfafwd.png)
+![Alt Text](./gcwxp1i8k82svjgfafwd.png)
+
 <figcaption>The Model-View-Presenter triad for an Angular application.</figcaption>
 
-These three software artifacts are combined to what we call a Model-View-Presenter _triad_. The _model_—represented by container components—is the application state that is displayed to the user for them to browse and alter.
+These three software artifacts are combined to what we call a Model-View-Presenter *triad*. The *model*—represented by container components—is the application state that is displayed to the user for them to browse and alter.
 
-The _view_, represented by presentational components, is a thin user interface that presents the application state and translates user interactions to component-specific events, often redirecting the control flow to the presenter.
+The *view*, represented by presentational components, is a thin user interface that presents the application state and translates user interactions to component-specific events, often redirecting the control flow to the presenter.
 
-The _presenter_ is usually just an instance of a class that is completely unaware of the rest of the application.
+The *presenter* is usually just an instance of a class that is completely unaware of the rest of the application.
 
 ## Data flow
 
@@ -145,9 +148,9 @@ Let us visualise how data and events flow through a Model-View-Presenter triad.
 
 **Data flows down the component tree**
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/hskavxh9k098dy5lgu2i.gif)
-<figcaption>Figure 2. Data flow starting at a service and ending in the DOM.</figcaption>
+![](./hskavxh9k098dy5lgu2i.gif)
 
+<figcaption>Figure 2. Data flow starting at a service and ending in the DOM.</figcaption>
 
 In Figure 2, an application state change has occured in a service. The container component is notified since it has subscribed to an observable property on the service.
 
@@ -159,7 +162,8 @@ The data has now finished flowing down the component tree and Angular renders th
 
 **Events flow up the component tree**
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/53h4q4ym28cqpyys5v43.gif)
+![](./53h4q4ym28cqpyys5v43.gif)
+
 <figcaption>Figure 3. Event flow starting with a user interaction and ending in a service.</figcaption>
 
 In Figure 3 the user clicks a button. Angular directs control to an event handler in the presentational component model because of an event binding in its template.
@@ -174,7 +178,7 @@ Following a command to change the application state, a service often emits the s
 
 # An improved Angular application
 
-Some will consider our new UI architecture an overly complex result of over-engineering, while in reality what we are left with are many simple, modular pieces of software. A modular software architecture is what enables us to be _agile_. Not agile in the sense of agile processes and ceremony but agile in regard to the _cost of change_. Instead of an increasing pile of technical debt, we are proactive as opposed to reactive when handling changes in customer requirements. It is very difficult to achieve this level of agility with a system that is tightly coupled and hardly testable, taking months to refactor.
+Some will consider our new UI architecture an overly complex result of over-engineering, while in reality what we are left with are many simple, modular pieces of software. A modular software architecture is what enables us to be *agile*. Not agile in the sense of agile processes and ceremony but agile in regard to the *cost of change*. Instead of an increasing pile of technical debt, we are proactive as opposed to reactive when handling changes in customer requirements. It is very difficult to achieve this level of agility with a system that is tightly coupled and hardly testable, taking months to refactor.
 
 > A modular software architecture enables us to be agile.
 
@@ -194,7 +198,7 @@ UI is particularly difficult and slow to test and Angular is no exception. Using
 
 Features can be developed in isolation from each other. Even the software artifacts in separate horizontal layers can be developed and tested in isolation. We are aware of exactly where each piece of logic belongs.
 
-Now that we can develop the layers in isolation, we can distinguish between _technical_ and _visual_ front-end development. While one developer is great at implementing behaviour using RxJS and another ones loves back-end integration, yet another developer enjoys to perfect the design and address accessibility issues with CSS and HTML.
+Now that we can develop the layers in isolation, we can distinguish between *technical* and *visual* front-end development. While one developer is great at implementing behaviour using RxJS and another ones loves back-end integration, yet another developer enjoys to perfect the design and address accessibility issues with CSS and HTML.
 
 As we can develop features in isolation, tasks can be separated between teams. One team is concerned with the product catalogue, while another team addresses issues and new features for the shopping cart in an e-commerce system.
 
@@ -206,7 +210,8 @@ With the `OnPush` change detection strategy, we minimise the impact that the Ang
 
 # Case study: Tour of Heroes
 
-![](https://dev-to-uploads.s3.amazonaws.com/i/m6vja19a8nd8m30l1u1r.gif)
+![](./m6vja19a8nd8m30l1u1r.gif)
+
 <figcaption>The “Tour of Heroes” tutorial application.</figcaption>
 
 We begin where the Angular.io [“Tour of Heroes” tutorial](https://angular.io/tutorial) ends. It is used as our starting point because it is a tutorial commonly known by Angular developers.
@@ -229,7 +234,7 @@ Aside from the concepts introduced in this article, I expect you to be familiar 
 
 I expect you to have a good understanding of Angular components, i.e. [data binding syntax](https://angular.io/guide/template-syntax#binding-syntax-an-overview) as well as [input and output properties](https://angular.io/guide/template-syntax#input-and-output-properties). I also assume that you have basic [RxJS](https://rxjs-dev.firebaseapp.com/) knowledge—that you are somewhat familiar with observables, subjects, operators and subscriptions.
 
-We will build isolated unit tests in which we stub service dependencies using Jasmine spies. Stubs and other test doubles are not key to understanding the tests. Keep your focus on the test cases and try to understand _why_ we test the behaviour that is exercised by the tests.
+We will build isolated unit tests in which we stub service dependencies using Jasmine spies. Stubs and other test doubles are not key to understanding the tests. Keep your focus on the test cases and try to understand *why* we test the behaviour that is exercised by the tests.
 
 # Resources
 
@@ -279,12 +284,12 @@ I want to thank you, [Max Koretskyi](https://indepth.dev/author/maxkoretskyi/), 
 
 Thank you, dear reviewers, for helping me realise this article. Your feedback has been invaluable!
 
-* [Alex Rickabaugh](https://twitter.com/synalx)
-* [Brian Melgaard Hansen](https://www.linkedin.com/in/brian-melgaard-hansen-8b7176153/)
-* [Craig Spence](https://twitter.com/phenomnominal)
-* [Denise Mauldin](https://www.linkedin.com/in/denisemauldin/)
-* [Kay Khan](https://github.com/KayHS)
-* [Mahmoud Abduljawad](https://twitter.com/mahmoud_ajawad)
-* [Martin Kayser](https://www.linkedin.com/in/mdkayser/)
-* [Sandra Willford](https://www.linkedin.com/in/sandra-willford/)
-* [Stephen E. Mouritsen Chiang](https://twitter.com/chiangse)
+- [Alex Rickabaugh](https://twitter.com/synalx)
+- [Brian Melgaard Hansen](https://www.linkedin.com/in/brian-melgaard-hansen-8b7176153/)
+- [Craig Spence](https://twitter.com/phenomnominal)
+- [Denise Mauldin](https://www.linkedin.com/in/denisemauldin/)
+- [Kay Khan](https://github.com/KayHS)
+- [Mahmoud Abduljawad](https://twitter.com/mahmoud_ajawad)
+- [Martin Kayser](https://www.linkedin.com/in/mdkayser/)
+- [Sandra Willford](https://www.linkedin.com/in/sandra-willford/)
+- [Stephen E. Mouritsen Chiang](https://twitter.com/chiangse)

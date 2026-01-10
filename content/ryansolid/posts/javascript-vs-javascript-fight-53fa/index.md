@@ -17,13 +17,13 @@ With software development, we are often presented with alternative choices for l
 
 Sometimes, the differentiators have less to do with what we are accomplishing and everything with how we accomplish it. In those cases, it isn't always as clear what the tradeoffs are. Are these things that even matter?
 
-There isn't a rule here. Finding myself in the middle of these discussions regularly I thought I'd share a few around JavaScript web development. 
+There isn't a rule here. Finding myself in the middle of these discussions regularly I thought I'd share a few around JavaScript web development.
 
----------------
+---
 
 ## 1. MPA vs SPA
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/g3lnd7vfb7wrtlmolmd9.png)
+![Alt Text](./g3lnd7vfb7wrtlmolmd9.png)
 
 Single Page Apps vs Multi-Page Apps is by far one of the biggest sources of confusion I've seen for the web. There are so many different patterns that exist for building websites and applications it is far from clear what people even mean by these terms.
 
@@ -43,11 +43,11 @@ It's worth mentioning, MPAs are each pages themselves so they could always host 
 
 The key takeaway is that SPA vs MPA isn't about how many pages you are serving. It is a decision you make depending on how important initial load performance(MPA) is versus future navigation experience(SPA). Either approach has tools to improve their weaknesses but each is fundamentally tailored to optimize for their primary usage.
 
----------------
+---
 
 ## 2. React vs Reactivity
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f7y9uu6vhpnua0tiqrl5.jpeg)
+![Alt Text](./f7y9uu6vhpnua0tiqrl5.jpeg)
 
 You've probably heard somewhere [React](https://reactjs.org/) is not reactive. Maybe someone thought it was a funny joke. You know, [React](https://reactjs.org/) is in the word Reactive. Maybe you read a blog post that got into the fundamentals of push-based observables versus scheduling. Maybe you saw a framework advertise itself as "Truly Reactive" or "Purely Reactive" as a differentiator from React.
 
@@ -67,13 +67,14 @@ So React might not be formalized reactive programming but for all effective purp
 
 ## 3. VDOM vs No VDOM
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/g5qedfh0zkbx8uufucz3.png)
+![Alt Text](./g5qedfh0zkbx8uufucz3.png)
 
 Does old become the new new? Well, sort of. All rendering in JavaScript frameworks comes down to knowing what has changed and updating the DOM accordingly. The update part can be done pretty effectively with familiarity with DOM APIs. All frameworks have access to these tools. But what about knowing what has changed?
 
 Believe it or not, this process is similar in the majority of frameworks. The reason is reading values from the DOM does not come without consequence. In the worst case, it can even cause premature layout calculations/reflows. So what do we do? We store values outside of the DOM and compare those. Has it changed yes? Apply updates. Otherwise no. This is true of all libraries VDOM or not.
 
 But how we go about this is where the differences lie. There is 2 axis along which solutions differ:
+
 1. Granularity of change - How much do we re-run in response to the user changes
 2. What are we diffing - data, VDOM abstraction
 
@@ -87,13 +88,13 @@ Other frameworks like Tagged Template Literal [uhtml](https://github.com/WebRefl
 
 These traversals don't need to be expensive. You can apply similar optimizations to VDOM libraries as we've seen with [Inferno](https://infernojs.org/) and [Vue](https://vuejs.org/) using compilation. In so they prevent recreating VNodes similar to how a non-VDOM library avoids unnecessary creation of DOM nodes. It is all about memoization, whether of VDOM nodes, data objects, or through reactive computations.
 
-So what is the meaningful difference? Not very much. Diffing isn't that expensive. The only thing left we have to play with is the granularity of change, if ideal diffing and updates are about the same cost all we can do is do less diffing. But granularity generally brings heavier creation costs. Thankfully there is a lot more optimization to be done with compilers to address those creation costs. 
+So what is the meaningful difference? Not very much. Diffing isn't that expensive. The only thing left we have to play with is the granularity of change, if ideal diffing and updates are about the same cost all we can do is do less diffing. But granularity generally brings heavier creation costs. Thankfully there is a lot more optimization to be done with compilers to address those creation costs.
 
----------------
+---
 
 ## 4. JSX vs Template DSLs
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bv3hy73yudx51cps06ep.jpeg)
+![Alt Text](./bv3hy73yudx51cps06ep.jpeg)
 
 This probably seems similar to the last comparison and it is related for sure. Some people view JSX as HTML in JavaScript, and Template DSLs or Single File Components(SFCs) as JS in HTML. But the truth is these are all just JavaScript. The output, in the end, is JavaScript with maybe some string HTML in there somewhere.
 
@@ -107,11 +108,11 @@ The biggest benefit of Template DSLs is the explicit syntax for control flow can
 
 But outside of these sort of scenarios there really isn't any differences fundamentally. Sure most Template DSLs don't have equivalent to React's Render Props, but they could. [Marko](https://markojs.com/) does.
 
----------------
+---
 
 ## 5. Runtime vs Compiled Reactivity
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/g9m3njzkiompbrnw5uzo.png)
+![Alt Text](./g9m3njzkiompbrnw5uzo.png)
 
 This one might be a bit more niche but it's still a question I get often. What's the difference?
 
@@ -119,7 +120,7 @@ It comes down to dependency tracking. Runtime reactive systems like [Solid](http
 
 The key thing is that since the dependency graph is built on the fly they are dynamic. They can change run to run, and in so you are managing a set of dependencies. Every run means potentially new subscriptions and releasing others.
 
-Compile-time figures out the dependencies ahead of time. In so, there is no need to manage subscriptions as the relationship is fixed. The code runs whenever the dependency changes. This has far less overhead at runtime. And even means that computations don't need to run to know their dependencies. 
+Compile-time figures out the dependencies ahead of time. In so, there is no need to manage subscriptions as the relationship is fixed. The code runs whenever the dependency changes. This has far less overhead at runtime. And even means that computations don't need to run to know their dependencies.
 
 However, these dependencies aren't dynamic so there is always a chance of oversubscribing and over executing. Situations, where runtime can pull reactivity from a deep call stack, become harder because you can't know if something is reactive without tracing its bindings.
 
@@ -127,11 +128,11 @@ This works both ways though. If you were to put a setTimeout in an effect, with 
 
 There is a lot to be done with the compiler and it is easier to do some things than others. In the end, for the most part in terms of raw performance, this is mostly a wash. But a compiler can bring a lot of other benefits when you can leverage specific syntax to better convey intent. This is the next logical step over template DSLs and I think we are just scratching the surface here.
 
----------------
+---
 
 ## 6. Components vs Web Components
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/onkrc0386upzdffc4yny.png)
+![Alt Text](./onkrc0386upzdffc4yny.png)
 
 I want to open this by saying if there is one takeaway here, don't assume the word component means the same thing to everyone.
 
@@ -151,6 +152,6 @@ When people talk about re-inventing the wheel, they aren't wrong but how much do
 
 This isn't a "use the platform" or "don't use the platform" argument. Web Components have a role to play as long as we clearly understand the difference. Every framework uses the platform. Some are just better than others. And some better than Web Components can. After all Web Components are just Custom Elements. And sometimes more DOM nodes are not the solution to the problem.
 
----------------
+---
 
 It was fun to dive into a few topics that I've gathered opinions on over the years. If you have any ideas of similar comparisons let me know in the comments.

@@ -46,13 +46,13 @@ Let me share it here:
 > - We respect all our peers as valued equals with infinite capacity, and we seek to inspire and build off their enthusiasm to expand our own.
 > - We spread this inclusive and proactive I'MPOSTOR message, inviting everyone we encounter to collaborate in that better future.
 
-I really LOVED this manifesto, in particular the fourth point "_We don't wait to get involved until we've gathered expertise or garnered accolades_". I feel I'm not doing this at all, I'm often scared of jumping into something new just because I feel like I don't know enough about it... hence, I never start.
+I really LOVED this manifesto, in particular the fourth point "*We don't wait to get involved until we've gathered expertise or garnered accolades*". I feel I'm not doing this at all, I'm often scared of jumping into something new just because I feel like I don't know enough about it... hence, I never start.
 
 I highly recommend you to listen carefully to the talk, it's really inspiring and it's a great way to rethink the impostor syndrome.
 
 However, if you don't have 46 minutes available now (you better find them at some point) you can listen to me talking about the manifesto for 8 minutes in the video below.
 
-{% youtube xo3DZ_lkW20 %}
+{% youtube xo3DZ\_lkW20 %}
 
 ---
 
@@ -62,7 +62,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

@@ -19,7 +19,7 @@ At first, I started with the default terminal to make the transition smoother. A
 
 Today I'd like to share with you my experience with [Warp](https://warp.dev/).
 
-## Warp
+\## Warp
 
 Warp claims to be "The terminal for the 21st century" and the subtitle on the homepage says:
 
@@ -31,9 +31,7 @@ I'm honestly curious about what Rust can do and also `to work like a modern app`
 
 When I ran Warp the first time, after logging in I noticed the menu on the right side. It shows the changelog and a quick tutorial which I really appreciated.
 
-![Warp intro](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lfc5msql7c9v3djt05ab.png)
-
-
+![Warp intro](./lfc5msql7c9v3djt05ab.png)
 
 What I would expect from tools like this is to have some cool features that make the terminal better than the default one, but I understand that there can't be buttons everywhere as it's a terminal after all.
 
@@ -41,7 +39,7 @@ I could read the features from the docs (and I'm doing it!) but having some of t
 
 This also gives me the hook to introduce you to the next chapter: the features.
 
-## Features
+\## Features
 
 Like I said in the beginning, a valid reason to make me switch from the default terminal is that the new one must have cool features making my life easier. Here are the ones I'm already using the most.
 
@@ -55,8 +53,7 @@ Ok wait, before a holy war begins, they already thought about it and you can act
 - Start at the top (Classic mode)
 - Pin to the top (Reverse mode)
 
-![Input Position](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f0nuks7jdi62qr0ddtd0.png)
-
+![Input Position](./f0nuks7jdi62qr0ddtd0.png)
 
 Basically, the Classic mode is the behaviour all terminals have, but you can also decide if you want to pin the input at the bottom (default for Warp) or at the top.
 
@@ -74,10 +71,9 @@ Not impressed yet? You can go multiline! As a regular text editor, with Shift+En
 
 Now that you're writing this multiline script, you can copy-paste some parts and since we're talking about a modern app... you can have multiple cursors!
 
-![Multiple cursors](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/eqinhw1ik40fwe99g5xy.png)
+![Multiple cursors](./eqinhw1ik40fwe99g5xy.png)
 
-
-### Tabs
+\### Tabs
 
 Not a lot to say about that, lot of terminals have tabs, but I just wanted to mention that Warp has them too.
 
@@ -91,8 +87,7 @@ With blocks, this is waaaaay easier!
 
 Outputs are contained in blocks, you can scroll to read the output but you have the prompt and the input at the top of the block. Besides, if you click on it, the border will become visible so it's clear to see where a command ends and another one begins.
 
-![Blocks](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/so5wvticlkpjrbvhriyh.png)
-
+![Blocks](./so5wvticlkpjrbvhriyh.png)
 
 But blocks are not just a visual thing, you can also interact with them! You can do so many things I could probably write an entire article about it. And I think I will :D
 
@@ -110,8 +105,7 @@ We're in 2023, basically every single app has some sort of AI, so why not a term
 
 In Warp you can summon the AI by typing `#` in the input area, followed by your command written in natural language. In this example I just asked how I can remove `node_modules` from my project.
 
-![Warp AI](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zv3zh95qcb8mi6cpa0nb.png)
-
+![Warp AI](./zv3zh95qcb8mi6cpa0nb.png)
 
 In a moment I got the suggested command and with Cmd+Enter I can run it.
 
@@ -135,8 +129,7 @@ Cool scenario: you type `git` and then press Tab. You won't only get the known g
 
 It's worth mentioning that it also shows what your custom alias stands for!
 
-![Commands Lookup](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ymmofv85krfmhgras37g.png)
-
+![Commands Lookup](./ymmofv85krfmhgras37g.png)
 
 You can see in the screenshot it picked up `lg` and `lgo` which are aliases I use every time I want to have a quick glimpse at the commit history, but what about `log` and `reflog`? I mean, they don't start with `lg` which was my initial prompt.
 
@@ -158,7 +151,7 @@ I recently launched my Discord server to talk about Open Source and Web Developm
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

@@ -21,7 +21,7 @@ This enables you to identify the platform where your app is running on and modif
 - Is Safari - Whether the browser is Safari
 - Is Blink - Whether the rendering engine is Blink
 - Is Webkit - Whether the rendering engine is WebKit
-- Is Trident - Whether the rendering engine is [Trident](https://wikivisually.com/wiki/Trident_(software))
+- Is Trident - Whether the rendering engine is [Trident](https://wikivisually.com/wiki/Trident_\(software\))
 - Supported Input Types - A list of input form field types supported by the browser i.e. number, password, radio, range, reset, search, submit, tel, text, time, url, etc.
 - Whether the browsers supports [Scroll Behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior) -
 - And Whether the browser supports [passive event listeners](https://web.dev/uses-passive-event-listeners/).

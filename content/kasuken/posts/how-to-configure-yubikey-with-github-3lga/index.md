@@ -24,12 +24,12 @@ YubiKey is a small physical device that lets you log in securely with a single t
 
 Before we get started, make sure you have everything you need:
 
-- 🔐 A **YubiKey**  
+- 🔐 A **YubiKey**\
   Any model that supports FIDO2/WebAuthn will work. Popular ones include:
   - YubiKey 5 Series
   - Security Key by Yubico
 
-- 🌐 A **compatible browser**  
+- 🌐 A **compatible browser**\
   You’ll need a browser that supports security keys, such as:
   - **Google Chrome**
   - **Mozilla Firefox**
@@ -97,4 +97,3 @@ Thanks for reading this post, I hope you found it interesting!
 Feel free to follow me to get notified when new articles are out 🙂
 
 {% embed https://dev.to/kasuken %}
-

@@ -32,10 +32,7 @@ Unlike the other UI libraries we’re used to deal with where bugs are fixed wit
 
 Look ad this dropdown, I copy paste from the docs and it doesn’t work, and you know what, I have to fix it manually on my project. We’ll get on that later.
 
-
-![Combobox](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jua67glprpxsifjop8uq.png)
-
-
+![Combobox](./jua67glprpxsifjop8uq.png)
 
 ---
 
@@ -47,10 +44,7 @@ The first issue i’ve got with radix is… not a big one, but I want to mention
 
 [(See at 02:48)](https://youtu.be/RPQBTG8-qB8?t=168)
 
-
-![Radix](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/duixywp790j1o8rwoawi.png)
-
-
+![Radix](./duixywp790j1o8rwoawi.png)
 
 But maybe this can be easily solved with some settings on vscode. Let me know!
 
@@ -68,10 +62,7 @@ Besides, some components are seen as disabled some other are directly throwing a
 
 [(See at 04:10)](https://youtu.be/RPQBTG8-qB8?t=250)
 
-
-![Error](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ukh8qarjhmbihqmij6qy.png)
-
-
+![Error](./ukh8qarjhmbihqmij6qy.png)
 
 In this case it seems that the fix fix is to:
 
@@ -96,7 +87,6 @@ Thanks for watching, bye!
 
 {% youtube KwlJnW9Femo %}
 
-
 ---
 
 Thanks for reading this article, I hope you found it interesting!
@@ -107,7 +97,7 @@ Join us: https://github.com/DevLeonardoCommunity
 
 Do you like my content? You might consider subscribing to my YouTube channel! It means a lot to me ❤️
 You can find it here:
-[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
+[![YouTube](https://img.shields.io/badge/YouTube:%20Dev%20Leonardo-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/c/@DevLeonardo?sub_confirmation=1)
 
 Feel free to follow me to get notified when new articles are out ;)
 {% embed https://dev.to/balastrong %}

@@ -12,7 +12,6 @@ order: 1
 }
 ---
 
-
 ## Introduction
 
 JavaScript's memory management can be tricky, especially when it comes to handling objects that are no longer needed. As developers, we often need to deal with memory leaks and other issues that arise from improper garbage collection. Fortunately, JavaScript has introduced a new feature called the FinalizationRegistry to help us manage memory more efficiently. In this blog post, we'll dive deep into the world of FinalizationRegistry, exploring its purpose, how to use it, and real-world scenarios where it can come in handy.
@@ -88,6 +87,6 @@ To find out more don't waste my YouTube video on my [YouTube channel](https://ww
 
 The JavaScript FinalizationRegistry is a valuable addition to the language that can help developers manage memory more efficiently and prevent memory leaks. By understanding how it works and knowing when to use it, you can create more performant and memory-efficient applications. Keep in mind the considerations mentioned above, and happy coding!
 
-_You can find the code of this article_ [_here_](https://github.com/Puppo/javascript-you-dont-know/tree/06-finalizationregistry)_._
+*You can find the code of this article* [*here*](https://github.com/Puppo/javascript-you-dont-know/tree/06-finalizationregistry)*.*
 
 {% embed https://dev.to/puppo %}
