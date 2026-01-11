@@ -8,7 +8,7 @@ env:
   APP_NAME: pr-${{ github.event.pull_request.number }}-${{ github.repository_owner }}-${{ github.event.repository.name }}
   EVENT_ACTION: ${{ github.event.action }}
   FLY_API_TOKEN: ${{ secrets.FLY_WEB_PR_REVIEW_TOKEN }}
-  DOCKER_TAG: ${{ github.repository_owner }}/${{ github.event.repository.name }}-pr-${{ github.event.pull_request.number }}:${{ github.sha }}
+  DOCKER_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:pr-${{ github.event.pull_request.number }}
 
 jobs:
   review_app:
@@ -22,9 +22,19 @@ jobs:
       name: review
       url: ${{ steps.deploy.outputs.url }}
 
+    permissions:
+      packages: write
+
     steps:
       - uses: actions/checkout@v6
-      - uses: superfly/flyctl-actions/setup-flyctl@1.5
+
+      - name: Login to GitHub Container Registry
+        if: ${{ github.event.action != 'closed' }}
+        uses: docker/login-action@v3
+        with:
+          registry: https://ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Docker Buildx
         if: ${{ github.event.action != 'closed' }}
@@ -35,18 +45,20 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: false
+          push: true
           tags: ${{ env.DOCKER_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
             "ENABLE_DISCOVERABILITY=false"
-            "GIT_COMMIT_REF=${{ github.ref_name }}"
+            "GIT_COMMIT_REF=${{ github.head_ref || github.ref_name }}"
             "PUBLIC_CLOUDINARY_CLOUD_NAME=dssjarn7f"
             "SITE_URL=https://playfulprogramming.com"
           secrets: |
             "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
             "HOOF_AUTH_TOKEN=${{ secrets.HOOF_AUTH_TOKEN }}"
+
+      - uses: superfly/flyctl-actions/setup-flyctl@1.5
 
       - id: status
         name: Retrieve app status
