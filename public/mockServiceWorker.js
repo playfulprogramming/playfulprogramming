@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* tslint:disable */
 
 /**
@@ -11,15 +12,15 @@ const INTEGRITY_CHECKSUM = "4db4a41e972cec1b64cc569c66952d82";
 const IS_MOCKED_RESPONSE = Symbol("isMockedResponse");
 const activeClientIds = new Set();
 
-addEventListener("install", () => {
+addEventListener("install", function () {
 	self.skipWaiting();
 });
 
-addEventListener("activate", (event) => {
+addEventListener("activate", function (event) {
 	event.waitUntil(self.clients.claim());
 });
 
-addEventListener("message", async (event) => {
+addEventListener("message", async function (event) {
 	const clientId = Reflect.get(event.source || {}, "id");
 
 	if (!clientId || !self.clients) {
@@ -87,7 +88,7 @@ addEventListener("message", async (event) => {
 	}
 });
 
-addEventListener("fetch", (event) => {
+addEventListener("fetch", function (event) {
 	const requestInterceptedAt = Date.now();
 
 	// Bypass navigation requests.
