@@ -39,7 +39,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            "ENABLE_DISCOVERABILITY=false"
+            "ENABLE_DISCOVERABILITY=${{ github.ref == 'refs/heads/main' && 'true' || 'false' }}"
             "GIT_COMMIT_REF=${{ github.head_ref || github.ref_name }}"
             "PUBLIC_CLOUDINARY_CLOUD_NAME=dssjarn7f"
             "SITE_URL=https://playfulprogramming.com"
