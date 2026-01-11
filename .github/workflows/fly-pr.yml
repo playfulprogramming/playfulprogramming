@@ -49,7 +49,7 @@ jobs:
         name: Deploy app
         if: ${{ github.event.action != 'closed' }}
         run: |
-          fly deploy --config "fly.review.toml" --app "$APP_NAME" --remote-only --build-secret "GITHUB_TOKEN=$GITHUB_TOKEN" --build-secret "HOOF_AUTH_TOKEN=$HOOF_AUTH_TOKEN"
+          flyctl deploy --config "fly.review.toml" --app "$APP_NAME" --remote-only --build-secret "GITHUB_TOKEN=$GITHUB_TOKEN" --build-secret "HOOF_AUTH_TOKEN=$HOOF_AUTH_TOKEN"
 
           # Make the deployment URL available to the GitHub workflow.
           flyctl status --app "$APP_NAME" --json >status.json
