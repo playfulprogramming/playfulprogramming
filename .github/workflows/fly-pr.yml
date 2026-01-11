@@ -5,9 +5,10 @@ on:
     types: [opened, reopened, synchronize, closed]
 
 env:
-  APP_NAME: pr-${{ github.event.pull_request.number }}-${{ github.event.repository.name }}
+  APP_NAME: pr-${{ github.event.pull_request.number }}-${{ github.repository_owner }}-${{ github.event.repository.name }}
   EVENT_ACTION: ${{ github.event.action }}
   FLY_API_TOKEN: ${{ secrets.FLY_WEB_PR_REVIEW_TOKEN }}
+  DOCKER_TAG: ${{ github.repository_owner }}/${{ github.event.repository.name }}-pr-${{ github.event.pull_request.number }}:${{ github.sha }}
 
 jobs:
   review_app:
@@ -24,6 +25,28 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: superfly/flyctl-actions/setup-flyctl@1.5
+
+      - name: Set up Docker Buildx
+        if: ${{ github.event.action != 'closed' }}
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        if: ${{ github.event.action != 'closed' }}
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          tags: ${{ env.DOCKER_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            "ENABLE_DISCOVERABILITY=false"
+            "GIT_COMMIT_REF=${{ github.ref_name }}"
+            "PUBLIC_CLOUDINARY_CLOUD_NAME=dssjarn7f"
+            "SITE_URL=https://playfulprogramming.com"
+          secrets: |
+            "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
+            "HOOF_AUTH_TOKEN=${{ secrets.HOOF_AUTH_TOKEN }}"
 
       - id: status
         name: Retrieve app status
@@ -49,12 +72,9 @@ jobs:
         name: Deploy app
         if: ${{ github.event.action != 'closed' }}
         run: |
-          flyctl deploy --config "fly.review.toml" --app "$APP_NAME" --ha=false --remote-only --build-secret "GITHUB_TOKEN=$GITHUB_TOKEN" --build-secret "HOOF_AUTH_TOKEN=$HOOF_AUTH_TOKEN"
+          flyctl deploy --config "fly.review.toml" --app "$APP_NAME" --image "$DOCKER_TAG" --ha=false
 
           # Make the deployment URL available to the GitHub workflow.
           flyctl status --app "$APP_NAME" --json >status.json
           hostname=$(jq -r .Hostname status.json)
           echo "url=https://$hostname" >> $GITHUB_OUTPUT
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HOOF_AUTH_TOKEN: ${{ secrets.HOOF_AUTH_TOKEN }}
