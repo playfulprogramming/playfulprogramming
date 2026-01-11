@@ -7,7 +7,6 @@ services:
       context: .
       args:
         SITE_URL: http://localhost:8080
-        ENABLE_DISCOVERABILITY: false
         GIT_COMMIT_REF: main
         PUBLIC_CLOUDINARY_CLOUD_NAME: $PUBLIC_CLOUDINARY_CLOUD_NAME
       secrets:
