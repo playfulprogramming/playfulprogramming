@@ -7,7 +7,7 @@ on:
 env:
   APP_NAME: pr-${{ github.event.pull_request.number }}-${{ github.event.repository.name }}
   EVENT_ACTION: ${{ github.event.action }}
-  FLY_API_TOKEN: ${{ secrets.FLY_WEB_DEPLOY_TOKEN }}
+  FLY_API_TOKEN: ${{ secrets.FLY_WEB_PR_REVIEW_TOKEN }}
 
 jobs:
   review_app:
@@ -20,6 +20,7 @@ jobs:
     environment:
       name: review
       url: ${{ steps.deploy.outputs.url }}
+
     steps:
       - uses: actions/checkout@v6
       - uses: superfly/flyctl-actions/setup-flyctl@1.5
