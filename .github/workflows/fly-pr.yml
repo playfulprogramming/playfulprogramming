@@ -45,9 +45,16 @@ jobs:
           # Restore the original config file
           cp fly.toml.bak fly.toml
 
-      - name: Deploy app
+      - id: deploy
+        name: Deploy app
         if: ${{ github.event.action != 'closed' }}
-        run: fly deploy --config "fly.review.toml" --app "$APP_NAME" --remote-only --build-secret "GITHUB_TOKEN=$GITHUB_TOKEN" --build-secret "HOOF_AUTH_TOKEN=$HOOF_AUTH_TOKEN"
+        run: |
+          fly deploy --config "fly.review.toml" --app "$APP_NAME" --remote-only --build-secret "GITHUB_TOKEN=$GITHUB_TOKEN" --build-secret "HOOF_AUTH_TOKEN=$HOOF_AUTH_TOKEN"
+
+          # Make the deployment URL available to the GitHub workflow.
+          flyctl status --app "$APP_NAME" --json >status.json
+          hostname=$(jq -r .Hostname status.json)
+          echo "url=https://$hostname" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HOOF_AUTH_TOKEN: ${{ secrets.HOOF_AUTH_TOKEN }}
