@@ -49,7 +49,7 @@ jobs:
 
   deploy_for_review:
     name: Deploy for review
-    if: ${{ github.event_name == 'pull_request' }}
+    if: ${{ always() && github.event_name == 'pull_request' }}
     needs: [build]
     runs-on: ubuntu-latest
     outputs:
@@ -100,7 +100,7 @@ jobs:
 
   deploy_for_prod:
     name: Deploy for prod
-    if: ${{ success() && github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     needs: [build]
     runs-on: ubuntu-latest
     concurrency:
