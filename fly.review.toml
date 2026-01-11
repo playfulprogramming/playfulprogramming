@@ -1,0 +1,36 @@
+# fly.toml app configuration file generated for playful-web on 2025-09-27T10:47:33-04:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'playful-web'
+primary_region = 'sjc'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+  [build.args]
+    ENABLE_DISCOVERABILITY = 'false'
+    GIT_COMMIT_REF = 'main'
+    PUBLIC_CLOUDINARY_CLOUD_NAME = 'dssjarn7f'
+    SITE_URL = 'https://playfulprogramming.com'
+
+[deploy]
+  strategy = 'immediate'
+
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    interval = '30s'
+    timeout = '5s'
+    grace_period = '10s'
+    method = 'GET'
+    path = '/'
+
+[[vm]]
+  size = 'shared-cpu-1x'
