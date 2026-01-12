@@ -5,8 +5,7 @@ published: "2022-11-12T15:17:33Z",
 edited: "2022-11-23T11:16:26Z",
 tags: ["beginners", "codenewbie", "learning", "productivity"],
 description: "I'll share the link later, but let me spend a few words on how I got to this point first!  This isn't...",
-originalLink: "https://leonardomontini.dev/leonardo-goes-live-on-youtube/",
-socialImage: "social-image.png"
+originalLink: "https://leonardomontini.dev/leonardo-goes-live-on-youtube/"
 }
 ---
 

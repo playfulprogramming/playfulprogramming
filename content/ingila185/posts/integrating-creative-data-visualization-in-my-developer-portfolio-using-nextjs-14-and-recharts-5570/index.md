@@ -5,8 +5,7 @@ published: "2024-07-14T15:30:52Z",
 edited: "2024-07-24T13:10:41Z",
 tags: ["nextjs", "react", "javascript", "tailwindcss"],
 description: "As a full-stack developer, my portfolio is my digital handshake to potential employers. It showcases...",
-originalLink: "https://dev.to/this-is-learning/integrating-creative-data-visualization-in-my-developer-portfolio-using-nextjs-14-and-recharts-5570",
-socialImage: "social-image.png"
+originalLink: "https://dev.to/this-is-learning/integrating-creative-data-visualization-in-my-developer-portfolio-using-nextjs-14-and-recharts-5570"
 }
 ---
 

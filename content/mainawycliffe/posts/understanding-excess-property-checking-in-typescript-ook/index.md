@@ -4,8 +4,7 @@ title: "Understanding Excess Property Checking in Typescript",
 published: "2022-08-17T09:06:00Z",
 tags: ["typescript", "webdev", "javascript", "node"],
 description: "This post was first posted in my newsletter All Things Typescript focused on teaching developers how...",
-originalLink: "https://www.allthingstypescript.dev/p/mid-week-scoop-understanding-excess/comments",
-socialImage: "social-image.png"
+originalLink: "https://www.allthingstypescript.dev/p/mid-week-scoop-understanding-excess/comments"
 }
 ---
 
@@ -36,7 +35,7 @@ const x: Person = {
 
 In this case, you are going to get the following error:
 
-![](./https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F89577ee2-25bf-4b9d-9307-c78ab759fe58_915x272.png)
+![](./89577ee2-25bf-4b9d-9307-c78ab759fe58_915x272.png)
 
 Type '{ firstName: string; lastName: string; age: number; }' is not assignable to type 'Person'. Object literal may only specify known properties, and 'age' does not exist in type 'Person'
 

@@ -6,7 +6,6 @@ edited: "2022-09-24T11:01:19Z",
 tags: [],
 description: "TL;DR: The video was originally posted on YouTube, for a higher-quality version you can watch it...",
 originalLink: "https://dev.to/this-is-learning/show-trello-numbers-on-cards-25bc",
-socialImage: "social-image.png",
 collection: "Shorts",
 order: 1
 }

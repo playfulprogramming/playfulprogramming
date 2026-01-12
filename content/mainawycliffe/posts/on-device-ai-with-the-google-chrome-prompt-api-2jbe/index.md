@@ -4,8 +4,7 @@ title: "On-Device AI with the Google Chrome Prompt API",
 published: "2025-11-17T18:50:02Z",
 tags: ["webdev", "ai", "typescript", "javascript"],
 description: "Unless you’ve been living under a rock, it’s hard to miss the rise of Generative AI. At the centre of...",
-originalLink: "https://mainawycliffe.dev/blog/on-device-ai-with-the-google-chrome-prompt-api/",
-socialImage: "social-image.png"
+originalLink: "https://mainawycliffe.dev/blog/on-device-ai-with-the-google-chrome-prompt-api/"
 }
 ---
 

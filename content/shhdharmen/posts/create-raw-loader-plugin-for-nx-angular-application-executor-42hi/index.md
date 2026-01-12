@@ -5,8 +5,7 @@ published: "2025-07-06T09:09:52Z",
 edited: "2025-07-09T14:47:30Z",
 tags: ["angular", "nx", "typescript", "javascript"],
 description: "In this article I am going to share the plugin I created for Angular Material Blocks to preview code...",
-originalLink: "https://blog.shhdharmen.me/create-raw-loader-for-nx-angular-application-executor",
-socialImage: "social-image.png"
+originalLink: "https://blog.shhdharmen.me/create-raw-loader-for-nx-angular-application-executor"
 }
 ---
 

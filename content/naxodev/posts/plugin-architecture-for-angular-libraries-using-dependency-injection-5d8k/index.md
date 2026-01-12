@@ -4,8 +4,7 @@ title: "Plugin Architecture for Angular Libraries using Dependency Injection",
 published: "2021-04-06T19:43:00Z",
 tags: ["angular", "architecture"],
 description: "The plugin architecture is a well-known software design pattern used for its flexibility, extensibili...",
-originalLink: "https://labs.thisdot.co/blog/plugin-architecture-for-angular-libraries-using-dependency-injection",
-socialImage: "social-image.jpg"
+originalLink: "https://labs.thisdot.co/blog/plugin-architecture-for-angular-libraries-using-dependency-injection"
 }
 ---
 

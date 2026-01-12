@@ -5,8 +5,7 @@ published: "2019-08-20T19:18:21Z",
 edited: "2021-04-06T11:09:06Z",
 tags: [],
 description: "Why You Should Invest In Yourself?   If you like stories, then this is for you, and more...",
-originalLink: "https://dev.to/this-is-learning/why-you-should-invest-in-yourself-1epi",
-socialImage: "social-image.png"
+originalLink: "https://dev.to/this-is-learning/why-you-should-invest-in-yourself-1epi"
 }
 ---
 

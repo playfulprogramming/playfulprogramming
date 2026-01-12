@@ -4,8 +4,7 @@ title: "Looking Up React Components Props Types",
 published: "2023-06-14T11:43:55Z",
 tags: ["typescript", "javascript", "react", "reactnative"],
 description: "In an earlier post, in my All Things Typescript newsletter, we covered how we can look up types for...",
-originalLink: "https://mainawycliffe.dev/blog/looking-up-react-components-props-types",
-socialImage: "social-image.png"
+originalLink: "https://mainawycliffe.dev/blog/looking-up-react-components-props-types"
 }
 ---
 

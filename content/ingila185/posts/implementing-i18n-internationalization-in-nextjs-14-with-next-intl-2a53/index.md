@@ -5,8 +5,7 @@ published: "2024-07-15T04:05:34Z",
 edited: "2024-07-24T13:10:20Z",
 tags: ["nextjs", "vercel", "react", "javascript"],
 description: "As a full-stack developer, I strive to create applications that cater to a global audience. This...",
-originalLink: "https://dev.to/this-is-learning/implementing-i18n-internationalization-in-nextjs-14-with-next-intl-2a53",
-socialImage: "social-image.png"
+originalLink: "https://dev.to/this-is-learning/implementing-i18n-internationalization-in-nextjs-14-with-next-intl-2a53"
 }
 ---
 

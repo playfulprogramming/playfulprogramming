@@ -5,8 +5,7 @@ published: "2022-02-14T07:30:28Z",
 edited: "2022-11-04T13:58:39Z",
 tags: ["angular", "typescript", "javascript", "webdev"],
 description: "When we build components in an application, we maybe need to share or send data from parent to child...",
-originalLink: "https://www.danywalls.com/how-to-share-data-between-components-in-angular",
-socialImage: "social-image.png"
+originalLink: "https://www.danywalls.com/how-to-share-data-between-components-in-angular"
 }
 ---
 

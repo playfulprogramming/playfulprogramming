@@ -6,7 +6,6 @@ edited: "2022-02-27T12:15:19Z",
 tags: ["typescript", "javascript", "webdev", "node"],
 description: "In Typescript 4.3, typescript introduced the const assertions. const assertions are used to tell the...",
 originalLink: "https://mainawycliffe.dev/blog/const-assertion-in-typescript",
-socialImage: "social-image.png",
 collection: "a-byte-of-typescript",
 order: 8
 }
