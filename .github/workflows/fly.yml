@@ -44,7 +44,7 @@ jobs:
             "SITE_URL=https://playfulprogramming.com"
           secrets: |
             "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
-            "HOOF_AUTH_TOKEN=${{ secrets.HOOF_AUTH_TOKEN }}"
+            "HOOF_AUTH_TOKEN=${{ secrets.HOOF_AUTH_TOKEN || "fallback" }}"
 
   deploy_for_review:
     name: Deploy for review
