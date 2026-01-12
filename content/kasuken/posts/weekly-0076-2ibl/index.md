@@ -25,7 +25,7 @@ The post, titled "Navigating Tech Debt in Early-Stage Startups: The Double-Edged
 
 I'm excited to share these insights with the tech community and hope it sparks meaningful discussions about sustainable development practices in the startup ecosystem.
 
-![](./https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fpqf980l1se7wb0pkevzn.png)
+![](./pqf980l1se7wb0pkevzn.png)
 
 I've been grappling with a complex issue regarding our participation in the Microsoft for Startups program. Despite meeting all the necessary criteria for inclusion, we find ourselves inexplicably excluded from the program. This situation is particularly perplexing given our confidence in our eligibility.
 
@@ -48,8 +48,6 @@ Made a pivotal decision regarding the visual direction of our next project and p
 Dedicated the morning to developing a comprehensive SEO strategy for the Brandplane website. This involved an in-depth consultation with our CMO and a specialized supplier who provided expert insights on current SEO best practices. Following this productive call, we collaboratively worked on reimagining and restructuring the website to optimize its search engine performance. Our focus was on improving site architecture, content relevance, and user experience to enhance our online visibility and attract more potential clients.
 
 In the afternoon, I took some time to reflect on my professional journey and share my experiences with the tech community. This resulted in the publication of a detailed and personal blog post chronicling my 11-year tenure as a Microsoft MVP. The article not only highlights the milestones of this significant achievement but also delves into the challenges faced, lessons learned, and the immense gratitude I feel for the opportunities this role has provided. This piece serves as both a celebration of my career and an inspiration for aspiring tech professionals.
-
-![](./https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fgsaejne4fbl2c3o27jxg.png)
 
 https://dev.to/this-is-learning/celebrating-11-years-as-a-microsoft-mvp-a-journey-of-perseverance-and-gratitude-24dg
 

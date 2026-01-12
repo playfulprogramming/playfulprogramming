@@ -27,7 +27,7 @@ In the above example, the function `input` parameter is required. In some cases,
 
 For functions, the syntax to achieve this is the one shown below:
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F939489a9-8a8a-4514-802b-2419af6862a2_2840x1164.png)
+![](./939489a9-8a8a-4514-802b-2419af6862a2_2840x1164.png)
 
 In the above example, we are simply telling Javascript that if the `input` parameter isn’t provided or undefined, use `default-value` as the value for the variable. This makes the input string optional, and not required.
 
@@ -57,7 +57,7 @@ Our utility type will take two types (*that are key-value objects*) and merge th
 
 Here is an example of what our implementation looks like:
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F893d2250-2efe-4a95-aca0-7b4d4dbeafa0_3596x940.png)
+![](./893d2250-2efe-4a95-aca0-7b4d4dbeafa0_3596x940.png)
 
 We will go into the details of the above example, in a future issue (hopefully next week), as we explore Mapped Types and other Types in Typescript.
 
@@ -67,21 +67,21 @@ You can find the above code [here](https://www.typescriptlang.org/play?#code/C4T
 
 Our example above doesn’t do much, but let’s say that in the future the requirements of our project change and we want to expand it so that we can merge two or three types.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5af7113a-6d2a-4e7b-ae72-8dae60f2c909_4852x1024.png)
+![](./5af7113a-6d2a-4e7b-ae72-8dae60f2c909_4852x1024.png)
 
 The problem is that this would work with merging 3 Types, but to work with merging two Types, we would need to provide an empty object Type, as shown below:
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0575db5a-f9b3-4e01-bc09-6ae299cd7e60_2272x520.png)
+![](./0575db5a-f9b3-4e01-bc09-6ae299cd7e60_2272x520.png)
 
 Wouldn’t be nice if we could skip that part, and just provide our two types? And this is where Generic type variable defaults come to the rescue.
 
 Just like function parameters, we can provide a default Type for our Type variable and essence making them optional, as shown below:
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbbae77c1-a24a-4c93-852e-0b54b240f738_5032x1024.png)
+![](./bbae77c1-a24a-4c93-852e-0b54b240f738_5032x1024.png)
 
 And now, our `MergeObjectTypes` utility type can accept either two or three Types and merge their properties into a single Type.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4eb96c1a-04d3-40ef-b5bb-4b3b4493e094_3204x772.png)
+![](./4eb96c1a-04d3-40ef-b5bb-4b3b4493e094_3204x772.png)
 
 And we can go crazy now and add more type variables to merge 4, 5, or 10 even object properties while ensuring our utility types work with 2 to 10 types, and anywhere in between.
 
@@ -103,11 +103,11 @@ Just like function parameters, there are a few rules to keep in mind for generic
 
 - If you are using a generics constraint, the default type must satisfy that constraint.
 
-  ![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd1be2623-e3b1-4231-8fcd-1875642e8711_1556x604.png)
+  ![](./d1be2623-e3b1-4231-8fcd-1875642e8711_1556x604.png)
 
 - For classes and interfaces, when extending either a class or an interface, you can introduce a default for an existing Type parameter and you may also introduce a new Typer variable, as long as it’s optional (has a type variable).
 
-  ![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb6b594b9-9118-4778-82f5-6a85a296acfb_2164x940.png)
+  ![](./b6b594b9-9118-4778-82f5-6a85a296acfb_2164x940.png)
 
 ### Conclusion
 

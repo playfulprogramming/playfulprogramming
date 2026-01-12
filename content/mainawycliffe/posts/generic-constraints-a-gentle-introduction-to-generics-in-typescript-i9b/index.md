@@ -19,11 +19,11 @@ But to quickly recap the last issue, Generics allows us to write our code in a w
 
 Here is an example of a `sortArray` function, that can sort any array, accepting a `SortType` type variable, for the function input and output.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7c8e4015-fa0b-483c-895a-2475e8bb09a9_2652x652.png)
+![](./F7c8e4015-fa0b-483c-895a-2475e8bb09a9_2652x652.png)
 
 In the above functions sort generic functions, we need to specify the type of array we are sorting by providing the `SortType` type variable, just before we provide the arguments for functions, as shown below.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F66aa33fd-0147-4436-bfc1-c27634476a1e_2040x484.png)
+![](./F66aa33fd-0147-4436-bfc1-c27634476a1e_2040x484.png)
 
 And this can be done for classes and when defining other types using either interface or type, to learn more, check out the previous issue [here](https://www.allthingstypescript.dev/p/a-gentle-introduction-to-generics).
 
@@ -37,7 +37,7 @@ Back to Typescript and Generics, if we looked at the previous example we had, ou
 
 However, our function will accept array types as well as non-array types, and this is not the desired behavior. This isn’t type-safe, as the function will probably throw a runtime error if we attempt to sort a string data type when we wrote it to sort arrays.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3db215ce-9871-4579-933c-394ecb34bb29_2544x820.png)
+![](./F3db215ce-9871-4579-933c-394ecb34bb29_2544x820.png)
 
 Typescript was meant to eliminate these kinds of errors, but we just made it even simpler to make them, and no way to know ahead of time.
 
@@ -45,21 +45,21 @@ And this is where generics constraints come in. They enable us to limit (restric
 
 For instance, in our `sortArray` function, we can restrict our type variable to be only an array of `string`, `number`, or `boolean`, as shown below.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F139f2138-5671-4641-bbdf-f9ad6e16b7fd_3476x736.png)
+![](./F139f2138-5671-4641-bbdf-f9ad6e16b7fd_3476x736.png)
 
 And now, when we try to pass in a string, as we previously did, Typescript catches the type error for us, as shown below:
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7b1e7ae2-8582-45a2-bce3-a26f5b4dd57d_827x75.png)
+![](./F7b1e7ae2-8582-45a2-bce3-a26f5b4dd57d_827x75.png)
 
 Typescript now catches and warns us that we can not pass a `string` type as the Type variable as it doesn’t satisfy the type constraint we provided. This works with Type inference too, as discussed in the previous issue.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8d024c7b-e614-4fda-8d8b-48e0492ad255_981x85.png)
+![](./F8d024c7b-e614-4fda-8d8b-48e0492ad255_981x85.png)
 
 As you can see generic constraints allow us to achieve type safety by restricting the Types for our application. By using Typescript generics constraints, we can now write our generics code knowing that we are dealing with a known pool of types rather than all types available. In our case, we are only dealing with arrays and not non-array types.
 
 In the previous example. we looked at constraining it to be an array, but we can constrain it to any type, as shown below:
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fce5ad5a7-7b61-4f58-b16b-8809fd1bc648_2868x1660.png)
+![](./Fce5ad5a7-7b61-4f58-b16b-8809fd1bc648_2868x1660.png)
 
 In the first case, we are constraining to only accept strings (and their subtypes), and in the second case, we want it to be a key-value object and in the last case, we are providing our type, to just demo the different ways you can constraint a Generic.
 
@@ -69,17 +69,17 @@ So far, we have dealt with simple but useful cases. I don’t want to go into so
 
 For instance, let’s say we want to create a function that returns a property from a key-value object, given its key, as shown below:
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F80d96bca-17ab-4f04-a197-5cb158136513_3692x652.png)
+![](./F80d96bca-17ab-4f04-a197-5cb158136513_3692x652.png)
 
 As you can see, we are using a Generic constraint to ensure that the first argument is always a key-value object, but we have a slight problem. We would like the second function argument - `key` - to be only a key that exists inside the object we pass in. At the moment, we can pass anything and this could lead to undesired characteristics from our application.
 
 We can fix this issue by adding a second type variable that we can call `Key` and whose type will be constrained to the keys of the object, for this we can use the `keyof` operator to get the keys of the first type variable, as shown below.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7a5a606b-4623-4527-8e9f-8722660dc4ca_4444x736.png)
+![](./F7a5a606b-4623-4527-8e9f-8722660dc4ca_4444x736.png)
 
 And now, if you try to provide keys that aren’t present in the object in the first argument, Typescript will warn you.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffca32e60-fca2-46c6-8170-bdba5e7643ed_1000x370.png)
+![](./Ffca32e60-fca2-46c6-8170-bdba5e7643ed_1000x370.png)
 
 As you can see, we get a warning when we provide a key that doesn’t exist and Typescript provides suggestions for keys you can use.
 
@@ -87,11 +87,11 @@ As you can see, we get a warning when we provide a key that doesn’t exist and 
 
 There is one final thing we can do to make the function more complete and type-safe. As you can see, our function return type is unknown, which doesn’t tell us much and we would need to narrow it before using it. But we can use our type variables - the object and the key passed in, to look up the type of that property in the object.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6adb19f3-5b9d-4522-aa83-0df7d74c37a1_4516x652.png)
+![](./F6adb19f3-5b9d-4522-aa83-0df7d74c37a1_4516x652.png)
 
 So, we are combining the type variables provided for the `getProperty` function, where we are annotating the return type of the function to be the type of the property for the key provided.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8c841ad7-3f2a-4fd8-8ab9-46fa41241e45_900x201.png)
+![](./F8c841ad7-3f2a-4fd8-8ab9-46fa41241e45_900x201.png)
 
 In Typescript, this is known as indexed access types. Indexed access types allow us to look up specific properties of other types. You can learn more about this in a previous issue [here](https://www.allthingstypescript.dev/p/indexed-access-types-in-typescript).
 

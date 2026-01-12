@@ -24,19 +24,19 @@ First, let’s compare the new syntax with the old syntax.
 
 Let’s say we want to show a section of our template if the conditions are true. With the old syntax, we would do it like this:
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3a1d9cea-32c8-474a-885f-a607a1169e2d_964x308.png)
+![](./3a1d9cea-32c8-474a-885f-a607a1169e2d_964x308.png)
 
 Old if….else conditional syntax in Angular
 
 But now, with the all-new syntax, this would look like this:
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb0cfc9a4-2cd2-4bae-a62d-5b353c0a4702_554x308.png)
+![](./b0cfc9a4-2cd2-4bae-a62d-5b353c0a4702_554x308.png)
 
 New Angular if…else conditional syntax
 
 Or can be further simplified to:
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc64f00f8-7da9-4d6e-ae25-64d9053bbe92_432x352.png)
+![](./c64f00f8-7da9-4d6e-ae25-64d9053bbe92_432x352.png)
 
 #### For Loop
 
@@ -44,13 +44,13 @@ What about for loops:
 
 **Old**
 
-![Angular Old For Loop Syntax](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F71395fc2-04cc-41e6-9921-f2eb8c8fba32_538x308.png "Angular Old For Loop Syntax")
+![Angular Old For Loop Syntax](./71395fc2-04cc-41e6-9921-f2eb8c8fba32_538x308.png "Angular Old For Loop Syntax")
 
 For Loop before V17
 
 **New**
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9801c481-76fa-47d8-bad2-39eaf976e7c5_561x308.png)
+![](./9801c481-76fa-47d8-bad2-39eaf976e7c5_561x308.png)
 
 New Angular For Loop Syntax
 
@@ -60,15 +60,15 @@ As you can see, we are also passing a tracking expression that yields a unique k
 
 Here is an example of the old syntax
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F804ffe54-2da4-433d-9b84-b0b54472837e_913x308.png)
+![](./804ffe54-2da4-433d-9b84-b0b54472837e_913x308.png)
 
 And here is what that looks like now, with the new syntax
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F33caea68-983e-46d0-aecd-5769caa79566_690x379.png)
+![](./33caea68-983e-46d0-aecd-5769caa79566_690x379.png)
 
 Notice something? The new syntax is more readable (I know, it’s subjective, but I think we can both subjectively agree) and familiar, it looks like the very familiar syntax you would come across while writing Typescript or Javascript (or most languages for that matter). If you are new to Angular, good luck understanding the old syntax without a few head scratches and squinting your eyes.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F51cabae2-ba9a-4795-91dd-f690fad6bcb7_577x433.jpeg)
+![](./51cabae2-ba9a-4795-91dd-f690fad6bcb7_577x433.jpeg)
 
 And then there is another huge benefit, **syntax highlighting and formatting**. In the old syntax, we didn’t have much in the syntax highlighting corner, as the structural directive we part of the HTML attribute. Since now the control flow isn’t part of the HTML tags, syntax highlighting is already available. On top of that, the prettier npm package (update to the latest version) now supports formatting of the new Angular syntax and it’s just glorious.
 
@@ -76,7 +76,7 @@ Combine these two, and you can now easily tell where one block ends and the othe
 
 And did I mention there is no more unnecessary `ng-container` and `ng-template` for conditional HTML blocks? This leads to much cleaner code with less boilerplate.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F479c685f-4841-4711-bfe5-ee85b737d077_620x455.jpeg)
+![](./479c685f-4841-4711-bfe5-ee85b737d077_620x455.jpeg)
 
 I wish things were that simple
 
@@ -100,13 +100,13 @@ On top of that, Angular is using a new optimized algorithm for the for loop so t
 
 On top of that, we now have an `@empty` keyword that we can use to handle situations where the list is empty, which is kind of neat.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F470caf3e-ce74-4684-8c9e-248d5f8134eb_1053x406.png)
+![](./470caf3e-ce74-4684-8c9e-248d5f8134eb_1053x406.png)
 
 ### → readable else
 
 As we saw earlier, doing else in the old control flow syntax in Angular was not really readable and required a lot of boilerplate code, however with the new control flow, it’s much more readable and more familiar, especially for developers just starting out in Angular.
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb0cfc9a4-2cd2-4bae-a62d-5b353c0a4702_554x308-1.png)
+![](./b0cfc9a4-2cd2-4bae-a62d-5b353c0a4702_554x308-1.png)
 
 ### What about the Async Pipe?
 
@@ -114,11 +114,11 @@ Just like before, we can still the async pipe to subscribe to observables just l
 
 Within for loops, this is how we can achieve this:
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F17df9409-02a2-40da-a2ee-f7308c80cd64_1815x649.png)
+![](./17df9409-02a2-40da-a2ee-f7308c80cd64_1815x649.png)
 
 The same can be done for the if blocks:
 
-![](./https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F75b11243-a7f6-48c5-97d2-504388f7a6bd_1194x433.png)
+![](./75b11243-a7f6-48c5-97d2-504388f7a6bd_1194x433.png)
 
 ### I am sold, how do I switch?
 
