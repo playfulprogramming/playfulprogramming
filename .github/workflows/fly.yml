@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-  pull_request:
+  pull_request_target:
     types: [opened, reopened, synchronize, closed]
 
 env:
-  DOCKER_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'latest' }}
+  DOCKER_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.event_name == 'pull_request_target' && format('pr-{0}', github.event.pull_request.number) || 'latest' }}
 
 jobs:
   build:
@@ -48,7 +48,7 @@ jobs:
 
   deploy_for_review:
     name: Deploy for review
-    if: ${{ always() && github.event_name == 'pull_request' }}
+    if: ${{ always() && github.event_name == 'pull_request_target' }}
     needs: [build]
     runs-on: ubuntu-latest
     outputs:
