@@ -8,7 +8,7 @@ description: "In my daily work routine, many times I have to switch from VsCode 
 originalLink: "https://blog.delpuppo.net/working-with-github-from-your-best-editor",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "VsCode - Tips & Tricks6773",
+collection: "VsCode - Tips & Tricks",
 order: 3
 }
 ---

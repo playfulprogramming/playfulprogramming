@@ -9,7 +9,7 @@ originalLink: "https://leonardomontini.dev/large-open-source-projects",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "Open Source",
-order: 11
+order: 10
 }
 ---
 

@@ -8,7 +8,7 @@ description: "I admit I wasn't sure I'd be writing this article this year. It's 
 originalLink: "https://dev.to/this-is-learning/javascript-frameworks-heading-into-2025-hkb",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "JavaScript Frameworks - Heading Into XXXX (4 Part ",
+collection: "JavaScript Frameworks - Heading Into XXXX",
 order: 3
 }
 ---

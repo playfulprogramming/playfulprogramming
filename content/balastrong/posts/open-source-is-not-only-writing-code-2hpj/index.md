@@ -9,7 +9,7 @@ originalLink: "https://leonardomontini.dev/open-source-without-code/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "Open Source",
-order: 3
+order: 2
 }
 ---
 

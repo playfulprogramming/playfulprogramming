@@ -9,7 +9,7 @@ originalLink: "https://medium.com/better-programming/using-in-memory-db-with-nes
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "20daysofNestJS",
-order: 6
+order: 5
 }
 ---
 

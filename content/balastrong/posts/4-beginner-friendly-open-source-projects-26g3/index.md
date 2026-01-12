@@ -9,7 +9,7 @@ originalLink: "https://leonardomontini.dev/beginner-friendly-open-source-project
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "Open Source",
-order: 7
+order: 6
 }
 ---
 

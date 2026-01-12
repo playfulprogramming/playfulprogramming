@@ -9,7 +9,7 @@ originalLink: "https://leonardomontini.dev/how-to-find-an-open-source-project/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "Open Source",
-order: 2
+order: 1
 }
 ---
 

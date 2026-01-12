@@ -8,7 +8,7 @@ originalLink: "https://leonardomontini.dev/technical-content-vs-doom-scrolling/"
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "My Dev Journey",
-order: 9
+order: 8
 }
 ---
 

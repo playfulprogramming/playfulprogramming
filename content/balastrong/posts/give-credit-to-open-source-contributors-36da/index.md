@@ -8,7 +8,7 @@ originalLink: "https://leonardomontini.dev/credit-all-contributors",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "Open Source",
-order: 10
+order: 9
 }
 ---
 

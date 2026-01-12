@@ -9,7 +9,7 @@ originalLink: "https://leonardomontini.dev/close-pr-strategy-merge-commit-squash
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "Open Source",
-order: 9
+order: 8
 }
 ---
 

@@ -8,7 +8,7 @@ originalLink: "https://leonardomontini.dev/react-js-day-2025/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "My Dev Journey",
-order: 10
+order: 9
 }
 ---
 

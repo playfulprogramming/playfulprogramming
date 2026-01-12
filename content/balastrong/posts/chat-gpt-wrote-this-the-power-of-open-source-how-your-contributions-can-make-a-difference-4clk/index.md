@@ -8,7 +8,7 @@ originalLink: "https://leonardomontini.dev/chat-gpt-about-open-source/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "Open Source",
-order: 8
+order: 7
 }
 ---
 

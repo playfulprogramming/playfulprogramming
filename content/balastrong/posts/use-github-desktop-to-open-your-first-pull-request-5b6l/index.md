@@ -9,7 +9,7 @@ originalLink: "https://leonardomontini.dev/open-pull-request-github-desktop/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "Open Source",
-order: 6
+order: 5
 }
 ---
 

@@ -9,7 +9,7 @@ originalLink: "https://leonardomontini.dev/feeling-ready-for-open-source/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "Open Source",
-order: 5
+order: 4
 }
 ---
 

@@ -9,7 +9,7 @@ originalLink: "https://medium.com/better-programming/a-deep-dive-into-nestjs-inj
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "20daysofNestJS",
-order: 5
+order: 4
 }
 ---
 

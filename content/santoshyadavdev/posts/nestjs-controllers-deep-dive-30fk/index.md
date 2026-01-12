@@ -9,7 +9,7 @@ originalLink: "https://medium.com/better-programming/nestjs-controllers-deep-div
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "20daysofNestJS",
-order: 3
+order: 2
 }
 ---
 

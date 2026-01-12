@@ -9,7 +9,7 @@ originalLink: "https://leonardomontini.dev/make-money-from-open-source/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
 collection: "Open Source",
-order: 4
+order: 3
 }
 ---
 
